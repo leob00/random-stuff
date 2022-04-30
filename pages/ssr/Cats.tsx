@@ -2,10 +2,11 @@ import React from 'react'
 import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next'
 import RandomAnimal from 'components/RandomAnimalLayout'
-import { getRandomDog } from 'lib/yieldCurveRepo'
+import { getRandomCat, getRandomDog } from 'lib/yieldCurveRepo'
+import CatsLayout from 'components/CatsLayout'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  var data = await getRandomDog()
+  var data = await getRandomCat()
   return {
     props: {
       data,
@@ -13,8 +14,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
-const Dogs: NextPage<{ data: string }> = ({ data }) => {
-  return <RandomAnimal data={data} title='Dogs' />
+const Cats: NextPage<{ data: string }> = ({ data }) => {
+  return <RandomAnimal data={data} title='Cats' />
 }
 
-export default Dogs
+export default Cats

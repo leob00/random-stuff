@@ -38,12 +38,20 @@ const data: YieldCurveData = {
 export async function getYieldCurveData() {
   return data
 }
-interface DogData {
+interface RandomDog {
   message: string
 }
+interface RandomCat {
+  url: string
+}
 export async function getRandomDog() {
-  debugger
   let resp = await fetch(`https://dog.ceo/api/breeds/image/random`)
-  let data = (await resp.json()) as DogData
+  let data = (await resp.json()) as RandomDog
   return data.message
+}
+
+export async function getRandomCat() {
+  let resp = await fetch(`https://api.thecatapi.com/v1/images/search`)
+  let data = (await resp.json()) as RandomCat[]
+  return data[0].url
 }
