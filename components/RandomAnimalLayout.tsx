@@ -3,6 +3,7 @@ import Layout from './Layout'
 import { Box, Button, Container, Typography } from '@mui/material'
 import { getRandomCat, getRandomDog } from 'lib/yieldCurveRepo'
 import router from 'next/router'
+import Image from 'next/image'
 
 const RandomAnimalLayout = ({ data, title }: { data: string; title: string }) => {
   const [item, setItem] = useState(data)
@@ -40,7 +41,8 @@ const RandomAnimalLayout = ({ data, title }: { data: string; title: string }) =>
 
         <hr></hr>
         <Box sx={{ textAlign: 'center' }}>
-          <img src={item} alt='Happy Dog' height={400} width={400} style={{ borderRadius: '.8rem' }} />
+          {/* <Image src={item} alt='Happy Dog' height={400} width={400} style={{ borderRadius: '.8rem' }} placeholder='blur' blurDataURL={item} /> */}
+          <img src={item} alt='Happy Dog' height={360} width={360} style={{ borderRadius: '.8rem' }} />
         </Box>
         <Typography sx={{ textAlign: 'center', padding: '10px' }}>
           <Button variant='outlined' onClick={handleNextClick}>
