@@ -1,13 +1,7 @@
 import type { NextPage } from 'next'
 import NLink from 'next/link'
-// import router from 'next/router'
-// import { isLoggedIn } from 'lib/auth'
-// import Head from 'next/head'
-// import Image from 'next/image'
-// import styles from '/styles/Home.module.css'
 import Layout from 'components/Layout'
-import { Box, Button, Card, CardContent, Container, Link, Paper, Stack, Typography } from '@mui/material'
-import Image from 'next/image'
+import { Box, Container, Link, Paper, Typography } from '@mui/material'
 
 const Home: NextPage = () => {
   return (
