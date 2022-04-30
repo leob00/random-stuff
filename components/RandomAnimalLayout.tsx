@@ -42,7 +42,7 @@ const RandomAnimalLayout = ({ data, title }: { data: string; title: string }) =>
         <hr></hr>
         <Box sx={{ textAlign: 'center' }}>
           {/* <Image src={item} alt='Happy Dog' height={400} width={400} style={{ borderRadius: '.8rem' }} placeholder='blur' blurDataURL={item} /> */}
-          <img src={item} alt='Happy Dog' height={360} width={360} style={{ borderRadius: '.8rem' }} />
+          <img src={item} alt='Happy Dog' height={320} width={320} style={{ borderRadius: '.8rem' }} />
         </Box>
         <Typography sx={{ textAlign: 'center', padding: '10px' }}>
           <Button variant='outlined' onClick={handleNextClick}>
