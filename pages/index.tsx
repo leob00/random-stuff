@@ -16,7 +16,7 @@ const Home: NextPage = () => {
           }}>
           <Container maxWidth='lg'>
             <Container>
-              <Paper sx={{}}>
+              <Paper sx={{ paddingTop: '40px' }}>
                 <Box sx={{ align: 'center', mx: 2 }}>
                   <Typography variant='h5' align='center' gutterBottom>
                     Welcome to random stuff
