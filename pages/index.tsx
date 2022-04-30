@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import NLink from 'next/link'
 import Layout from 'components/Layout'
-import { Box, Container, Link, Paper, Typography } from '@mui/material'
+import { Box, Card, CardContent, Container, Link, List, ListItem, Paper, Typography } from '@mui/material'
 
 const Home: NextPage = () => {
   return (
@@ -9,10 +9,10 @@ const Home: NextPage = () => {
       <main>
         <Box
           sx={{
-            mt: 10,
+            mt: 8,
             borderTopWidth: 3,
-            pt: 5,
-            pb: 5,
+            pt: 3,
+            pb: 3,
           }}>
           <Container maxWidth='lg'>
             <Container>
@@ -25,18 +25,22 @@ const Home: NextPage = () => {
                     You came to the right place to view random things to pass the time. Enjoy!
                   </Typography>
                   <Box>
-                    <ul style={{ listStyle: 'none' }}>
-                      <li>
+                    <List sx={{ listStyle: 'none' }}>
+                      <ListItem>
                         <NLink href='/ssr/Dogs' passHref>
-                          <Link href='/'>random dogs</Link>
+                          <Link sx={{ paddingTop: '10px' }} href='/'>
+                            random dogs
+                          </Link>
                         </NLink>
-                      </li>
-                      <li>
+                      </ListItem>
+                      <ListItem>
                         <NLink href='/ssr/Cats' passHref>
-                          <Link href='/'>random cats</Link>
+                          <Link sx={{ paddingTop: '10px' }} href='/'>
+                            random cats
+                          </Link>
                         </NLink>
-                      </li>
-                    </ul>
+                      </ListItem>
+                    </List>
                   </Box>
                   <br />
                   <br />
