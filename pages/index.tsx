@@ -21,7 +21,9 @@ const Home: NextPage = () => {
                   <Typography variant='h5' align='center' gutterBottom>
                     Welcome to random stuff
                   </Typography>
-                  <Typography variant='body2'>You came to the right place to view random things to pass the time. Enjoy!</Typography>
+                  <Typography variant='body2' align='center'>
+                    You came to the right place to view random things to pass the time. Enjoy!
+                  </Typography>
                   <Box>
                     <ul style={{ listStyle: 'none' }}>
                       <li>
@@ -30,7 +32,7 @@ const Home: NextPage = () => {
                         </NLink>
                       </li>
                       <li>
-                        <NLink href='/ssr/Dogs' passHref>
+                        <NLink href='/ssr/Cats' passHref>
                           <Link href='/'>random cats</Link>
                         </NLink>
                       </li>
