@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Layout from './Layout'
-import { Box, Button, Container, Grid, Paper, Typography } from '@mui/material'
-import Image from 'next/image'
+import { Box, Button, Container, Typography } from '@mui/material'
 import { getRandomCat, getRandomDog } from 'lib/yieldCurveRepo'
-import { width } from '@mui/system'
 import router from 'next/router'
 
 const RandomAnimalLayout = ({ data, title }: { data: string; title: string }) => {
