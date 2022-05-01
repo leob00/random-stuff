@@ -98,7 +98,7 @@ const Header = ({ home }: { home?: boolean }) => {
                   }}>
                   <Button
                     onClick={() => {
-                      router.push('/')
+                      router.push('/ssg/About')
                     }}
                     sx={{ color: 'whitesmoke' }}
                     variant='text'>

@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import NLink from 'next/link'
 import Layout from 'components/Layout'
-import { Box, Card, CardContent, Container, Link, List, ListItem, Paper, Typography } from '@mui/material'
+import { Box, Card, CardContent, Container, Grid, Link, List, ListItem, Paper, Typography } from '@mui/material'
 import Image from 'next/image'
 
 const Home: NextPage = () => {
@@ -29,22 +29,35 @@ const Home: NextPage = () => {
                   You came to the right place to view random things. Enjoy!
                 </Typography>
                 <Box>
-                  <List sx={{ listStyle: 'none' }}>
-                    <ListItem>
-                      <NLink href='/csr/RandomDog' passHref>
-                        <Link sx={{ paddingTop: '10px' }} href='/'>
-                          random dogs
-                        </Link>
-                      </NLink>
-                    </ListItem>
-                    <ListItem>
-                      <NLink href='/csr/RandomCat' passHref>
-                        <Link sx={{ paddingTop: '10px' }} href='/'>
-                          random cats
-                        </Link>
-                      </NLink>
-                    </ListItem>
-                  </List>
+                  <Grid container>
+                    <Grid item>
+                      <List sx={{ listStyle: 'none' }}>
+                        <ListItem>
+                          <NLink href='/csr/RandomDog' passHref>
+                            <Link sx={{}} href='/'>
+                              random dogs
+                            </Link>
+                          </NLink>
+                        </ListItem>
+                        <ListItem>
+                          <NLink href='/csr/RandomCat' passHref>
+                            <Link sx={{}} href='/'>
+                              random cats
+                            </Link>
+                          </NLink>
+                        </ListItem>
+                      </List>
+                    </Grid>
+                    <Grid item>
+                      <List sx={{ listStyle: 'none' }}>
+                        <ListItem>
+                          <NLink href='/csr/DailySilliness' passHref>
+                            <Link href='/'>daily silliness</Link>
+                          </NLink>
+                        </ListItem>
+                      </List>
+                    </Grid>
+                  </Grid>
                 </Box>
                 <br />
                 <br />

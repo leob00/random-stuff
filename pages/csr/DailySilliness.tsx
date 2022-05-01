@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import RandomAnimalLayout from 'components/RandomAnimalLayout'
-import { getRandomDog } from 'lib/repo'
 import Layout from 'components/Layout'
 import { BasicArticle } from 'lib/model'
-import { Box, Container } from '@mui/material'
+import { Container } from '@mui/material'
 
-const RandomDog: NextPage = () => {
+const DailySilliness: NextPage = () => {
   const [item, setItem] = useState<BasicArticle | null>(null)
 
   const loadApiData = () => {
-    fetch('/api/dogs', {
+    fetch('/api/xkcd', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -27,6 +26,7 @@ const RandomDog: NextPage = () => {
     loadApiData()
   }, [])
 
-  return <Layout home>{item && <RandomAnimalLayout data={item} />}</Layout>
+  return <Layout home>{item && <RandomAnimalLayout data={item} showNext={false} />}</Layout>
 }
-export default RandomDog
+
+export default DailySilliness

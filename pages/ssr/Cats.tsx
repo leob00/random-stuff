@@ -1,7 +1,7 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next'
-import { getRandomCat } from 'lib/yieldCurveRepo'
+import { getRandomCat } from 'lib/repo'
 import RandomAnimalLayout from 'components/RandomAnimalLayout'
 import { BasicArticle } from 'lib/model'
 
