@@ -16,7 +16,7 @@ const Home: NextPage = () => {
             //pb: 3,
           }}>
           <Container sx={{ minHeight: '640px' }}>
-            <h4>Home</h4>
+            <Typography variant='h6'>Home</Typography>
             <Paper sx={{ paddingTop: '10px' }}>
               <Box sx={{ align: 'center', mx: 2 }}>
                 {/* <Typography sx={{ textAlign: 'center' }}>
