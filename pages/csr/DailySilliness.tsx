@@ -3,7 +3,7 @@ import type { NextPage } from 'next'
 import RandomAnimalLayout from 'components/RandomAnimalLayout'
 import Layout from 'components/Layout'
 import { BasicArticle } from 'lib/model'
-import { Container } from '@mui/material'
+import { Container, Typography } from '@mui/material'
 
 const DailySilliness: NextPage = () => {
   const [item, setItem] = useState<BasicArticle | null>(null)
@@ -26,7 +26,14 @@ const DailySilliness: NextPage = () => {
     loadApiData()
   }, [])
 
-  return <Layout home>{item && <RandomAnimalLayout data={item} showNext={false} />}</Layout>
+  return (
+    <Layout home>
+      {item && <RandomAnimalLayout data={item} showNext={false} />}
+      <Typography align='center' variant='body2' sx={{ padding: '20px' }}>
+        This content gets updated periodically depeneding on the Cloud...
+      </Typography>
+    </Layout>
+  )
 }
 
 export default DailySilliness
