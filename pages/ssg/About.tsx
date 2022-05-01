@@ -60,7 +60,7 @@ const About: NextPage<{ data: any }> = ({ data }) => {
                     onClick={() => {
                       router.push('/csr/RandomDog')
                     }}>
-                    random dog dogs
+                    random dogs
                   </Button>
                 </Grid>
               </Grid>
