@@ -30,7 +30,7 @@ const DailySilliness: NextPage = () => {
     <Layout home>
       {item && <RandomAnimalLayout data={item} showNext={false} />}
       <Typography align='center' variant='body2' sx={{ padding: '20px' }}>
-        This content gets updated periodically depeneding on the Cloud...
+        This content gets updated periodically depending on the Cloud...
       </Typography>
     </Layout>
   )
