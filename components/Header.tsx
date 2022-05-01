@@ -59,7 +59,7 @@ const Header = ({ home }: { home?: boolean }) => {
                   }}>
                   <Link href='/'>
                     <a>
-                      <Image priority src='/images/logo.png' width={151} height={60} alt='random things' style={{ borderRadius: '.6rem' }} />
+                      <Image priority src='/images/logo-with-text.png' width={151} height={60} alt='random things' style={{ borderRadius: '.6rem' }} />
                     </a>
                   </Link>
                 </Grid>
