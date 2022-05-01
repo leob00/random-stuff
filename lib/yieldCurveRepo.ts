@@ -1,4 +1,4 @@
-import type { YieldCurveData } from 'lib/model'
+import type { BasicArticle, YieldCurveData } from 'lib/model'
 
 const data: YieldCurveData = {
   rows: [
@@ -38,20 +38,35 @@ const data: YieldCurveData = {
 export async function getYieldCurveData() {
   return data
 }
-interface RandomDog {
+export interface DogResponse {
   message: string
 }
-interface RandomCat {
+export interface CatResponse {
   url: string
 }
 export async function getRandomDog() {
   let resp = await fetch(`https://dog.ceo/api/breeds/image/random`)
-  let data = (await resp.json()) as RandomDog
-  return data.message
+  let data = (await resp.json()) as DogResponse
+  let result: BasicArticle = {
+    type: 'Dogs',
+    title: 'Dogs',
+    imagePath: data.message,
+  }
+
+  return result
 }
 
 export async function getRandomCat() {
   let resp = await fetch(`https://api.thecatapi.com/v1/images/search`)
-  let data = (await resp.json()) as RandomCat[]
-  return data[0].url
+  let data = (await resp.json()) as CatResponse[]
+
+  let result: BasicArticle = {
+    type: 'Cats',
+    title: 'Cats',
+  }
+  if (data.length > 0) {
+    result.imagePath = data[0].url
+  }
+
+  return result
 }

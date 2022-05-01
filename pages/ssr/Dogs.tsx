@@ -3,6 +3,7 @@ import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next'
 import RandomAnimal from 'components/RandomAnimalLayout'
 import { getRandomDog } from 'lib/yieldCurveRepo'
+import { BasicArticle } from 'lib/model'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   var data = await getRandomDog()
@@ -13,8 +14,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 }
 
-const Dogs: NextPage<{ data: string }> = ({ data }) => {
-  return <RandomAnimal data={data} title='Dogs' />
+const Dogs: NextPage<{ data: BasicArticle }> = ({ data }) => {
+  return <RandomAnimal data={data} />
 }
 
 export default Dogs
