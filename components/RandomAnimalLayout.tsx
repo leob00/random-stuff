@@ -47,7 +47,7 @@ const RandomAnimalLayout = ({ data, showNext = true }: { data: BasicArticle; sho
               &laquo; back
             </Button>
           </Typography>
-          <Typography variant='h6' sx={{ paddingLeft: '20px', paddingBottom: '10px' }}>
+          <Typography variant='h6' sx={{ paddingLeft: '10px', paddingBottom: '10px' }}>
             {item.title}
             <hr></hr>
           </Typography>
