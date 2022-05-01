@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Layout from './Layout'
-import { Box, Button, Container, Typography } from '@mui/material'
+import { Box, Button, Container, Paper, Typography } from '@mui/material'
 import { getRandomCat, getRandomDog, getXkCd } from 'lib/repo'
 import router from 'next/router'
-import Image from 'next/image'
 import { BasicArticle } from 'lib/model'
 
 const RandomAnimalLayout = ({ data, showNext = true }: { data: BasicArticle; showNext?: boolean }) => {
@@ -39,25 +37,35 @@ const RandomAnimalLayout = ({ data, showNext = true }: { data: BasicArticle; sho
     <Container sx={{ minHeight: '640px' }}>
       {item && (
         <>
-          <h4>{item.title}</h4>
-          <Typography variant='body1'>
+          <Typography>
             <Button
               variant='text'
+              sx={{ paddingLeft: '0px' }}
               onClick={() => {
                 router.push('/')
               }}>
               &laquo; back
             </Button>
           </Typography>
-          <hr></hr>
-          <Box sx={{ textAlign: 'center' }}>{item && item.imagePath && item.imagePath.length > 0 && <img src={item.imagePath} alt='Happy' height={320} width={320} style={{ borderRadius: '.8rem' }} />}</Box>
-          {showNext && (
-            <Typography sx={{ textAlign: 'center', padding: '10px' }}>
-              <Button variant='outlined' onClick={handleNextClick}>
-                Next
-              </Button>
-            </Typography>
-          )}
+          <Typography variant='h6' sx={{ paddingLeft: '20px', paddingBottom: '10px' }}>
+            {item.title}
+            <hr></hr>
+          </Typography>
+
+          <Box sx={{ textAlign: 'center', marginTop: '10px' }}>
+            {item && item.imagePath && item.imagePath.length > 0 && (
+              <>
+                <img src={item.imagePath} alt='Happy' height={320} width={320} style={{ borderRadius: '.8rem' }} />
+                {showNext && (
+                  <Typography sx={{ textAlign: 'center', padding: '10px' }}>
+                    <Button variant='outlined' onClick={handleNextClick}>
+                      Next
+                    </Button>
+                  </Typography>
+                )}
+              </>
+            )}
+          </Box>
         </>
       )}
     </Container>
