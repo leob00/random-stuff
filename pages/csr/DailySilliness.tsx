@@ -3,7 +3,7 @@ import type { NextPage } from 'next'
 import RandomAnimalLayout from 'components/RandomAnimalLayout'
 import Layout from 'components/Layout'
 import { BasicArticle } from 'lib/model'
-import { Container, Typography } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 
 const DailySilliness: NextPage = () => {
   const [item, setItem] = useState<BasicArticle | null>(null)
@@ -28,7 +28,7 @@ const DailySilliness: NextPage = () => {
 
   return (
     <Layout home>
-      {item && <RandomAnimalLayout data={item} showNext={false} />}
+      <Box sx={{ minHeight: '640px' }}>{item && <RandomAnimalLayout data={item} showNext={false} />}</Box>
       <Typography align='center' variant='body2' sx={{ padding: '20px' }}>
         This content gets updated periodically depending on the Cloud...
       </Typography>
