@@ -2,7 +2,7 @@ import React from 'react'
 import type { NextPage } from 'next'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import type { YieldCurveData } from 'lib/model'
-import { getYieldCurveData } from 'lib/yieldCurveRepo'
+import { getYieldCurveData } from 'lib/repo'
 import YieldCurveLayout from 'components/YieldCurveLayout'
 
 export const getStaticProps: GetStaticProps = async (context) => {

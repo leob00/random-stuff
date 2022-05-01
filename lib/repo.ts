@@ -43,6 +43,20 @@ export interface DogResponse {
 }
 export interface CatResponse {
   url: string
+  description?: string
+}
+export interface XkCdResponse {
+  month: string
+  num: number
+  link: string
+  year: string
+  news: string
+  safe_title: string
+  transcript: string
+  alt: string
+  img: string
+  title: string
+  day: string
 }
 export async function getRandomDog() {
   let resp = await fetch(`https://dog.ceo/api/breeds/image/random`)
@@ -66,6 +80,18 @@ export async function getRandomCat() {
   }
   if (data.length > 0) {
     result.imagePath = data[0].url
+  }
+
+  return result
+}
+export async function getXkCd() {
+  let resp = await fetch(`https://xkcd.com/info.0.json`)
+  let data = (await resp.json()) as XkCdResponse
+
+  let result: BasicArticle = {
+    type: 'DailySilliness',
+    title: data.title,
+    imagePath: data.img,
   }
 
   return result
