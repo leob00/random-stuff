@@ -5,6 +5,7 @@ import { getRandomDog } from 'lib/repo'
 import Layout from 'components/Layout'
 import { BasicArticle } from 'lib/model'
 import { Box, Container } from '@mui/material'
+import Loader from 'components/Loader'
 
 const RandomDog: NextPage = () => {
   const [item, setItem] = useState<BasicArticle | null>(null)
@@ -27,6 +28,16 @@ const RandomDog: NextPage = () => {
     loadApiData()
   }, [])
 
-  return <Layout home>{item && <RandomAnimalLayout data={item} />}</Layout>
+  return (
+    <>
+      {item ? (
+        <RandomAnimalLayout data={item} />
+      ) : (
+        <Container sx={{ minHeight: '640px' }}>
+          <Loader />
+        </Container>
+      )}
+    </>
+  )
 }
 export default RandomDog
