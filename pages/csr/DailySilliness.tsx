@@ -27,12 +27,12 @@ const DailySilliness: NextPage = () => {
   }, [])
 
   return (
-    <Layout home>
+    <>
       <Box sx={{ minHeight: '640px' }}>{item && <RandomAnimalLayout data={item} showNext={false} />}</Box>
       <Typography align='center' variant='body2' sx={{ padding: '20px' }}>
         This content gets updated periodically depending on the Cloud...
       </Typography>
-    </Layout>
+    </>
   )
 }
 

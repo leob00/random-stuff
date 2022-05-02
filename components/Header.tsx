@@ -1,11 +1,8 @@
 import * as React from 'react'
-import { AppBar, Box, Button, Container, Grid, IconButton, InputAdornment, Menu, MenuItem, TextField, Toolbar, useScrollTrigger } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search'
-import MenuIcon from '@mui/icons-material/Menu'
-import { isLoggedIn } from 'lib/auth'
+import { AppBar, Button, Container, Grid, Toolbar, useScrollTrigger, Link } from '@mui/material'
 import useRouter from 'next/router'
 import Image from 'next/image'
-import Link from 'next/link'
+import NLink from 'next/link'
 
 // This is used to make the header stick to the top
 function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
@@ -57,11 +54,11 @@ const Header = ({ home }: { home?: boolean }) => {
                       xl: 'block',
                     },
                   }}>
-                  <Link href='/'>
-                    <a>
-                      <Image priority src='/images/logo-with-text.png' width={151} height={60} alt='random things' style={{ borderRadius: '.6rem' }} />
-                    </a>
-                  </Link>
+                  <NLink href='/' passHref>
+                    <Link sx={{}} href='/'>
+                      <Image priority src='/images/logo-with-text.png' width={151} height={60} alt='random things' style={{ borderRadius: '.6rem' }} placeholder='empty' />
+                    </Link>
+                  </NLink>
                 </Grid>
                 <Grid
                   item
