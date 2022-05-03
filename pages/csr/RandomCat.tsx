@@ -29,17 +29,7 @@ const RandomCat: NextPage = () => {
     loadApiData()
   }, [])
 
-  return (
-    <>
-      {item ? (
-        <RandomAnimalLayout data={item} />
-      ) : (
-        <Container sx={{ minHeight: '640px' }}>
-          <Loader />
-        </Container>
-      )}
-    </>
-  )
+  return <>{item && <RandomAnimalLayout data={item} />}</>
 }
 
 export default RandomCat

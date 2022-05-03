@@ -1,12 +1,16 @@
 import React from 'react'
 import Image from 'next/image'
-import { Box } from '@mui/material'
-import puff from '../public/images/loaders/puff.svg'
+import { Box, Paper, Typography } from '@mui/material'
+import Bars from '../public/images/loaders/bars.svg'
+import spinner from '../public/images/loaders/green-spinner.gif'
+import { maxWidth } from '@mui/system'
 
 const Loader = () => {
   return (
-    <Box sx={{ textAlign: 'center' }}>
-      <Image src='/images/loaders/green-spinner.gif' alt='loading' width={50} height={50} />
+    <Box alignItems='center' sx={{ textAlign: 'center' }}>
+      <Box sx={{ textAlign: 'center', textSize: 'smaller', backgroundColor: 'gray', borderRadius: '.8rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Bars />
+      </Box>
     </Box>
   )
 }

@@ -5,9 +5,9 @@ import { Container } from '@mui/material'
 
 const AboutLayout = ({ data }: { data: YieldCurveData }) => {
   return (
-    <Layout>
+    <>
       <Container>about</Container>
-    </Layout>
+    </>
   )
 }
 
