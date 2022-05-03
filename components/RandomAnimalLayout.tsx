@@ -5,6 +5,7 @@ import router from 'next/router'
 import { BasicArticle } from 'lib/model'
 import Loader from './Loader'
 import Image from 'next/image'
+import ImageLoader from './ImageLoader'
 
 const RandomAnimalLayout = ({ data, showNext = true }: { data: BasicArticle; showNext?: boolean }) => {
   const [item, setItem] = useState<BasicArticle | null>(data)
@@ -73,10 +74,7 @@ const RandomAnimalLayout = ({ data, showNext = true }: { data: BasicArticle; sho
               )}
             </>
           ) : (
-            <>
-              {<Loader />}
-              {/* <Image src='/images/logo-grass.png' alt='Happy' height={320} width={320} style={{ borderRadius: '.8rem' }} /> */}
-            </>
+            <>{/* <Loader /> */}</>
           )}
         </Box>
       </>

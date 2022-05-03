@@ -55,6 +55,11 @@ const Home: NextPage = () => {
                           <Link href='/'>daily silliness</Link>
                         </NLink>
                       </ListItem>
+                      <ListItem>
+                        <NLink href='/ssg/MSRBRules' passHref>
+                          <Link href='/'>rules</Link>
+                        </NLink>
+                      </ListItem>
                     </List>
                   </Grid>
                 </Grid>
