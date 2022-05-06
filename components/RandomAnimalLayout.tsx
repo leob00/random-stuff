@@ -1,77 +1,50 @@
-import React, { useEffect, useState } from 'react'
-import { Box, Button, Container, Typography } from '@mui/material'
-import { getRandomCat, getRandomDog, getXkCd } from 'lib/repo'
-import router from 'next/router'
+import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material'
 import { BasicArticle } from 'lib/model'
-import Loader from './Loader'
+import React from 'react'
+import Layout from './Layout'
+import router from 'next/router'
 
-const RandomAnimalLayout = ({ data, showNext = true }: { data: BasicArticle; showNext?: boolean }) => {
-  const [loading, setLoading] = useState(true)
-  const [item, setItem] = useState<BasicArticle | null>(data)
-  const handleNextClick = async () => {
-    setLoading(true)
-    setItem(null)
-    let result: BasicArticle = {
-      type: '',
-      title: '',
+const RandomAnimalLayout = ({ data, onRefresh, showNext = true }: { data: BasicArticle; onRefresh?: () => void; showNext?: boolean }) => {
+  const handleNextClick = () => {
+    if (onRefresh) {
+      onRefresh()
     }
-    if (!data) {
-      return
-    }
-
-    switch (data.type) {
-      case 'Dogs':
-        result = await getRandomDog()
-        break
-      case 'Cats':
-        result = await getRandomCat()
-        break
-      case 'DailySilliness':
-        result = await getXkCd()
-        break
-    }
-    setItem(result)
-    setLoading(false)
   }
-  useEffect(() => {
-    setItem(data)
-    setLoading(false)
-  }, [])
-
   return (
-    <Container sx={{ minHeight: '640px' }}>
-      <Typography>
+    <Layout>
+      <Box>
+        <Typography variant='h5'>{data.title}</Typography>
+        <Divider />
         <Button
           variant='text'
-          sx={{ paddingLeft: '0px' }}
           onClick={() => {
-            router.push('/')
+            router.back()
           }}>
-          &laquo; back
+          &#8592; back
         </Button>
-      </Typography>
-      {item && (
-        <Typography variant='h6' sx={{ paddingLeft: '10px', paddingBottom: '10px' }}>
-          {item.title}
-          <hr></hr>
-        </Typography>
-      )}
-      <Box sx={{ textAlign: 'center', marginTop: '10px' }}>
-        {loading && <Loader />}
-        {item && item.imagePath && item.imagePath.length > 0 && (
-          <>
-            <img src={item.imagePath} alt='Happy' height={320} width={320} style={{ borderRadius: '.8rem' }} />
-            {showNext && (
-              <Typography sx={{ textAlign: 'center', padding: '10px' }}>
-                <Button variant='outlined' onClick={handleNextClick}>
-                  Next
-                </Button>
-              </Typography>
-            )}
-          </>
-        )}
       </Box>
-    </Container>
+      <Grid container spacing={2}>
+        <Grid item xs={4}>
+          <Grid item></Grid>
+        </Grid>
+        <Grid item xs={4}>
+          <Grid item>
+            <Box>
+              <Stack direction='row' justifyContent='center' my={3}>
+                <img src={data.imagePath} alt='random dog' height={320} style={{ borderRadius: '.8rem' }} />
+              </Stack>
+              {showNext && (
+                <Box sx={{ textAlign: 'center' }}>
+                  <Button variant='outlined' onClick={handleNextClick}>
+                    Next
+                  </Button>
+                </Box>
+              )}
+            </Box>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Layout>
   )
 }
 
