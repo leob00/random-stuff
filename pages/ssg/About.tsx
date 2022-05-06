@@ -20,6 +20,7 @@ const About: NextPage<{ data: any }> = ({ data }) => {
   return (
     <Container sx={{ minHeight: '640px' }}>
       <h4>About Us</h4>
+      <hr></hr>
       <Paper sx={{ paddingTop: '10px' }}>
         <Box sx={{ align: 'center', mx: 2 }}>
           <Typography sx={{ textAlign: 'center' }}>
