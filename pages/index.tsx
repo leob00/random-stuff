@@ -17,11 +17,8 @@ const Home: NextPage = () => {
         }}>
         <Container sx={{ minHeight: '640px' }}>
           <Typography variant='h6'>Home</Typography>
-          <Paper sx={{ paddingTop: '10px' }}>
-            <Box sx={{ align: 'center', mx: 2 }}>
-              {/* <Typography sx={{ textAlign: 'center' }}>
-                  <Image priority src='/images/logo-with-text.png' width={340} height={250} alt='random things' style={{ borderRadius: '.6rem' }} />
-                </Typography> */}
+          <Paper sx={{ paddingTop: '10px', marginTop: 2 }}>
+            <Box sx={{ align: 'center', mx: 2, paddingBottom: 4 }}>
               <Typography variant='h5' align='center' gutterBottom>
                 Welcome to random stuff
               </Typography>
@@ -56,7 +53,7 @@ const Home: NextPage = () => {
                         </NLink>
                       </ListItem>
                       <ListItem>
-                        <NLink href='/ssg/MSRBRules' passHref>
+                        <NLink href='/ssg/rules' passHref>
                           <Link href='/'>rules</Link>
                         </NLink>
                       </ListItem>
@@ -64,8 +61,6 @@ const Home: NextPage = () => {
                   </Grid>
                 </Grid>
               </Box>
-              <br />
-              <br />
             </Box>
           </Paper>
         </Container>
