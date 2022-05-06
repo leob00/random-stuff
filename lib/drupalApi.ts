@@ -15,7 +15,9 @@ export async function getAllArticles() {
 export async function getRules() {
   // to return all fields: remove ?fields= queries at the end of the url
 
-  var resp = await fetch(`${process.env.DUPAL_SITE}node/article/?filter[rules-filter][condition][path]=title&filter[rules-filter][condition][operator]=STARTS_WITH&filter[rules-filter][condition][value]=Rule%20G-&fields[node--article]=id,title,summary`, {
+  //let respose = await fetch()
+
+  var resp = await fetch(`${process.env.DUPAL_SITE}node/article/?filter[rules-filter][condition][path]=title&filter[rules-filter][condition][operator]=STARTS_WITH&filter[rules-filter][condition][value]=Rule%20G-&fields[node--article]=id,title`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
