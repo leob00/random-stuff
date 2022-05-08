@@ -1,18 +1,14 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
-import { getYieldCurveData } from 'lib/repo'
 import { Container, Paper, Box, Typography, Grid, Button } from '@mui/material'
 import Image from 'next/image'
-import Layout from 'components/Layout'
 import router from 'next/router'
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  var data = await getYieldCurveData()
+  //var data = await getYieldCurveData()
   return {
-    props: {
-      data,
-    },
+    props: {},
   }
 }
 
