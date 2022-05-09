@@ -6,10 +6,23 @@ import { getRandomDog } from 'lib/repo'
 import { BasicArticle } from 'lib/model'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  var data = await getRandomDog()
+  let article: BasicArticle = {
+    title: 'Dogs',
+    type: 'Dogs',
+  }
+  fetch('/api/dogs', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((resp) => {
+    resp.json().then((data) => {
+      article = data as BasicArticle
+    })
+  })
   return {
     props: {
-      data,
+      data: article,
     },
   }
 }

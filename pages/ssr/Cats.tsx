@@ -6,10 +6,23 @@ import RandomAnimalLayout from 'components/RandomAnimalLayout'
 import { BasicArticle } from 'lib/model'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  var data = (await getRandomCat()) as BasicArticle
+  let article: BasicArticle = {
+    title: 'Cats',
+    type: 'Cats',
+  }
+  fetch('/api/cats', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((resp) => {
+    resp.json().then((data) => {
+      article = data as BasicArticle
+    })
+  })
   return {
     props: {
-      data,
+      data: article,
     },
   }
 }
