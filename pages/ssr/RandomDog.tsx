@@ -8,10 +8,10 @@ import RandomAnimalLayout from 'components/RandomAnimalLayout'
 import { useRouter } from 'next/router'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  var data = await getRandomDog()
+  let article = await getRandomDog()
   return {
     props: {
-      data,
+      data: article,
     },
   }
 }
