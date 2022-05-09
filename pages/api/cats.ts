@@ -5,6 +5,6 @@ import RandomCat from 'pages/csr/RandomCat'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<BasicArticle>) {
   var data = (await getRandomCat()) as BasicArticle
-  console.log('loaded api data for cats')
+  //console.log('loaded api data for cats')
   res.status(200).json(data)
 }
