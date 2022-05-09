@@ -5,6 +5,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import router from 'next/router'
 import Layout from 'components/Layout'
 import { getArticle, getRules } from 'lib/drupalApi'
+import { TrendingUpOutlined } from '@mui/icons-material'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   let allArticles = await getRules()
@@ -18,11 +19,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   let id = context.params?.id as string
+  console.log('regenerating rule')
   let article = await getArticle(id)
   return {
     props: {
       article,
     },
+    revalidate: 10,
   }
 }
 
@@ -37,7 +40,7 @@ const MsrbRule: NextPage<{ article: DrupalNode }> = ({ article }) => {
             onClick={() => {
               router.push('/ssg/rules')
             }}>
-            &laquo; back
+            &#8592; back
           </Button>
         </Typography>
         <Typography variant='h5'>{article.attributes.title}</Typography>

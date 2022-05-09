@@ -1,10 +1,11 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
-import { Container, Table, TableBody, TableRow, TableCell, Link, Typography } from '@mui/material'
+import { Container, Table, TableBody, TableRow, TableCell, Link, Typography, Button, Divider } from '@mui/material'
 import { getRules } from 'lib/drupalApi'
 import { DrupalNode } from 'next-drupal'
 import NLink from 'next/link'
+import router from 'next/router'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   var articles = await getRules()
@@ -19,8 +20,16 @@ export const getStaticProps: GetStaticProps = async (context) => {
 const MSRBRules: NextPage<{ articles: DrupalNode[] }> = ({ articles }) => {
   return (
     <Container>
-      <h4>Rules</h4>
-      <hr></hr>
+      <Button
+        variant='text'
+        onClick={() => {
+          router.back()
+        }}>
+        &#8592; back
+      </Button>
+      <Typography variant='h5'>Rules</Typography>
+      <Divider />
+
       <Table>
         <TableBody>
           {articles.map((article) => (
