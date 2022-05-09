@@ -10,24 +10,27 @@ import Loader from 'components/Loader'
 const RandomDog: NextPage = () => {
   const [item, setItem] = useState<BasicArticle | null>(null)
 
-  const loadApiData = () => {
-    fetch('/api/dogs', {
+  const loadApiData = async () => {
+    let resp = await fetch('/api/dogs', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then((resp) => {
-      resp.json().then((data) => {
-        let article = data as BasicArticle
-        setItem(article)
-      })
     })
-  }
 
+    let article = (await resp.json()) as BasicArticle
+    setItem(article)
+  }
+  const handleNext = async () => {
+    await loadApiData()
+  }
   useEffect(() => {
-    loadApiData()
+    const fn = async () => {
+      loadApiData()
+    }
+    fn()
   }, [])
 
-  return <>{item && <RandomAnimalLayout data={item} />}</>
+  return <>{item && <RandomAnimalLayout data={item} onRefresh={handleNext} />}</>
 }
 export default RandomDog

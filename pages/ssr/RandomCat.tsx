@@ -6,10 +6,10 @@ import { useRouter } from 'next/router'
 import { getRandomCat, getRandomDog } from 'lib/repo'
 import { BasicArticle } from 'lib/model'
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  var data = await getRandomCat()
+  let article = await getRandomCat()
   return {
     props: {
-      data,
+      data: article,
     },
   }
 }
@@ -19,6 +19,7 @@ const RandomCat: NextPage<{ data: BasicArticle }> = ({ data }) => {
   const refreshData = () => {
     router.replace(router.asPath)
   }
+
   return <RandomAnimalLayout data={data} onRefresh={refreshData} />
 }
 

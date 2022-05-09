@@ -40,7 +40,7 @@ const RandomAnimalLayout = ({ data, onRefresh, showNext = true }: { data: BasicA
         </Button>
       </Box>
       <Stack direction='row' justifyContent='center' my={3}>
-        <img src={data.imagePath} alt='random dog' height={320} style={{ borderRadius: '.8rem' }} />
+        <img src={data.imagePath} alt={data.title} height={320} style={{ borderRadius: '.8rem' }} />
       </Stack>
       {showNext && (
         <Box sx={{ textAlign: 'center' }}>
