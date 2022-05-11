@@ -31,13 +31,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       article,
-      fallback: {
+      /* fallback: {
         // unstable_serialize() array style key
         [unstable_serialize(['api', 'article', article.id])]: article,
-      },
+      }, */
     },
 
-    //revalidate: 180,
+    revalidate: 180,
   }
 }
 
@@ -46,13 +46,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return data as DrupalNode
 } */
 
-const Article: React.FunctionComponent<{ id: string }> = ({ id }) => {
-  const { data } = useSWR(['/api/article', id], (url, id) => fetcher(url, id))
+const Article: React.FunctionComponent<{ article: DrupalNode }> = ({ article }) => {
+  /* const { data } = useSWR(['/api/article', id], (url, id) => fetcher(url, id), { fallbackData: fallbackData, refreshInterval: 10000 })
   let article = data as DrupalNode
   if (!article) {
     return <div>loading</div>
-  }
-  console.log(article)
+  } */
+
   return (
     <Container>
       <Typography>
@@ -73,14 +73,17 @@ const Article: React.FunctionComponent<{ id: string }> = ({ id }) => {
   )
 }
 
-const MsrbRule: NextPage<{ article: DrupalNode; fallback: any }> = ({ article, fallback }) => {
-  //const { data } = useSWR(['/api/article', article.id], (url, id) => fetcher(url, id))
-  //console.log(data)
-  return (
-    <SWRConfig value={fallback}>
-      <Article id={article.id} />
-    </SWRConfig>
-  )
+const MsrbRule: NextPage<{ article: DrupalNode }> = ({ article }) => {
+  const { data, error } = useSWR(['/api/article', article.id], (url, id) => fetcher(url, id), { fallbackData: article, refreshInterval: 30000 })
+  if (error) {
+    return <div>unable to load article</div>
+  }
+  let result = data as DrupalNode
+  if (!article) {
+    return <div>loading</div>
+  }
+  console.log(`refreshed article: ${result.attributes.title}`)
+  return <Article article={result} />
 }
 
 export default MsrbRule
