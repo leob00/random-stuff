@@ -2,12 +2,12 @@ import type { GetStaticProps, NextPage } from 'next'
 import NLink from 'next/link'
 import { Box, Container, Grid, Link, List, ListItem, Paper, Typography } from '@mui/material'
 
-/* export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   //var data = await getYieldCurveData()
   return {
     props: {},
   }
-} */
+}
 const Home: NextPage = () => {
   return (
     <main>
@@ -57,7 +57,7 @@ const Home: NextPage = () => {
                       </ListItem>
                       <ListItem>
                         <NLink href='/ssg/rules' passHref>
-                          <Link href='/'>rules</Link>
+                          <Link href='/'>municipal rules</Link>
                         </NLink>
                       </ListItem>
                     </List>
