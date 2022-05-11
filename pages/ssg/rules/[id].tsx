@@ -30,7 +30,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      id: article.id,
+      article,
       fallback: {
         // unstable_serialize() array style key
         [unstable_serialize(['api', 'article', article.id])]: article,
@@ -47,7 +47,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 } */
 
 const Article: React.FunctionComponent<{ id: string }> = ({ id }) => {
-  const { data } = useSWR(['/api/article', id], (url, id) => fetcher(url, id), { refreshInterval: 4000 })
+  const { data } = useSWR(['/api/article', id], (url, id) => fetcher(url, id))
   let article = data as DrupalNode
   if (!article) {
     return <div>loading</div>
@@ -73,12 +73,12 @@ const Article: React.FunctionComponent<{ id: string }> = ({ id }) => {
   )
 }
 
-const MsrbRule: NextPage<{ id: string; fallback: any }> = ({ id, fallback }) => {
+const MsrbRule: NextPage<{ article: DrupalNode; fallback: any }> = ({ article, fallback }) => {
   //const { data } = useSWR(['/api/article', article.id], (url, id) => fetcher(url, id))
   //console.log(data)
   return (
     <SWRConfig value={fallback}>
-      <Article id={id} />
+      <Article id={article.id} />
     </SWRConfig>
   )
 }
