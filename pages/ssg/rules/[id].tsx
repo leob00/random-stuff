@@ -6,6 +6,8 @@ import Layout from 'components/Layout'
 import { getArticle, getRules } from 'lib/drupalApi'
 import useSWR, { SWRConfig, unstable_serialize } from 'swr'
 import { isBrowser } from 'lib/auth'
+import { useCmsSwr } from 'hooks/useCmsSwr'
+import axios, { AxiosRequestConfig } from 'axios'
 
 const cmsRefreshInterval = 30000
 
@@ -19,6 +21,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 const fetcher = (url: string, id: string) => fetch(`${url}?id=${id}`).then((resp) => resp.json())
+
+const fetcherFn = async (url: string, id: string) => {
+  let config: AxiosRequestConfig = {
+    params: {
+      id: id,
+    },
+  }
+  let resp = await axios.get(url, config)
+  return resp.data
+}
 
 export const getStaticProps: GetStaticProps = async (context) => {
   let id = context.params?.id as string
@@ -36,7 +48,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 const Article = ({ fallbackData }: { fallbackData: DrupalNode }) => {
-  const { data, error } = useSWR(['/api/article', fallbackData.id], (url: string, id: string) => fetcher(url, id), { fallbackData: fallbackData, refreshInterval: cmsRefreshInterval })
+  /* const { data, error } = useSWR(['/api/article', fallbackData.id], (url: string, id: string) => fetcher(url, id), {
+    fallbackData: fallbackData,
+    refreshInterval: cmsRefreshInterval,
+  })  */
+  const { data, error } = useCmsSwr('/api/article', fallbackData.id, (url: string, id: string) => fetcherFn(url, id), fallbackData, 30)
+
   if (error) {
     return <Container>unable to load article</Container>
   }
