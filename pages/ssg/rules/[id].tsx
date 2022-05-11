@@ -47,12 +47,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 } */
 
 const Article: React.FunctionComponent<{ article: DrupalNode }> = ({ article }) => {
-  /* const { data } = useSWR(['/api/article', id], (url, id) => fetcher(url, id), { fallbackData: fallbackData, refreshInterval: 10000 })
-  let article = data as DrupalNode
-  if (!article) {
-    return <div>loading</div>
-  } */
-
   return (
     <Container>
       <Typography>
