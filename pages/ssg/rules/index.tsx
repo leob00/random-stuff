@@ -35,7 +35,7 @@ const MSRBRules: NextPage<{ articles: DrupalNode[] }> = ({ articles }) => {
           {articles.map((article) => (
             <TableRow key={article.id}>
               <TableCell>
-                <NLink href={`/ssg/rules/${article.id}`}>
+                <NLink href={`/ssg/rules/${article.id}`} passHref>
                   <Link>{`${article.attributes.title}`}</Link>
                 </NLink>
               </TableCell>

@@ -1,4 +1,5 @@
 import { DrupalNode } from 'next-drupal'
+import { DrupalJsonApiParams } from 'drupal-jsonapi-params'
 
 export async function getAllArticles() {
   var resp = await fetch('https://dev-devtest00.pantheonsite.io/jsonapi/node/article/', {
@@ -14,10 +15,12 @@ export async function getAllArticles() {
 
 export async function getRules() {
   // to return all fields: remove ?fields= queries at the end of the url
-
-  //let respose = await fetch()
-
-  var resp = await fetch(`${process.env.DUPAL_SITE}node/article/?filter[rules-filter][condition][path]=title&filter[rules-filter][condition][operator]=STARTS_WITH&filter[rules-filter][condition][value]=Rule%20G-&fields[node--article]=id,title`, {
+  const apiParams = new DrupalJsonApiParams()
+  apiParams.addFilter('title', 'Rule%20G', 'STARTS_WITH')
+  apiParams.addFields('node--article', ['id', 'title'])
+  let drupalSite = process.env.DUPAL_SITE
+  let url = `${drupalSite}node/article/?${apiParams.getQueryString({ encode: false })}`
+  var resp = await fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -29,7 +32,6 @@ export async function getRules() {
 }
 
 export async function getArticle(id: string) {
-  //?filter[id]=45bf5891-ddcf-4ac0-be1c-caaba2718621
   var resp = await fetch(`${process.env.DUPAL_SITE}node/article/${id}`, {
     method: 'GET',
     headers: {
