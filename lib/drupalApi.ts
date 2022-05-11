@@ -17,7 +17,7 @@ export async function getRules() {
   // to return all fields: remove ?fields= queries at the end of the url
   const apiParams = new DrupalJsonApiParams()
   apiParams.addFilter('title', 'Rule%20G', 'STARTS_WITH')
-  apiParams.addFields('node--article', ['id', 'title'])
+  apiParams.addFields('node--article', ['id', 'title']).addSort('title')
   let drupalSite = process.env.DUPAL_SITE
   let url = `${drupalSite}node/article/?${apiParams.getQueryString({ encode: false })}`
   var resp = await fetch(url, {
