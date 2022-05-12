@@ -38,8 +38,6 @@ const RandomAnimalLayout = ({ data, onRefresh, showNext = true }: { data: BasicA
   return (
     <>
       <Box>
-        <Typography variant='h5'>{data.title}</Typography>
-        <Divider />
         <Button
           variant='text'
           onClick={() => {
@@ -47,6 +45,8 @@ const RandomAnimalLayout = ({ data, onRefresh, showNext = true }: { data: BasicA
           }}>
           &#8592; back
         </Button>
+        <Typography variant='h5'>{data.title}</Typography>
+        <Divider />
       </Box>
       <Stack direction='row' justifyContent='center' my={3}>
         <img src={data.imagePath} alt={data.title} height={320} style={{ borderRadius: '.8rem' }} />
