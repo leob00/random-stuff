@@ -31,6 +31,24 @@ export async function getRules() {
   return allArticles
 }
 
+export async function getRecipes() {
+  // to return all fields: remove ?fields= queries at the end of the url
+  const apiParams = new DrupalJsonApiParams()
+  apiParams.addFilter('title', 'Recipe', 'STARTS_WITH')
+  apiParams.addFields('node--article', ['id', 'title']).addSort('title')
+  let drupalSite = process.env.DUPAL_SITE
+  let url = `${drupalSite}node/article/?${apiParams.getQueryString({ encode: false })}`
+  var resp = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  let json = await resp.json()
+  let allArticles = json.data as DrupalNode[]
+  return allArticles
+}
+
 export async function getArticle(id: string) {
   var resp = await fetch(`${process.env.DUPAL_SITE}node/article/${id}`, {
     method: 'GET',

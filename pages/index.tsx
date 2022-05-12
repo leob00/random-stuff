@@ -56,8 +56,8 @@ const Home: NextPage = () => {
                         </NLink>
                       </ListItem>
                       <ListItem>
-                        <NLink href='/ssg/rules' passHref>
-                          <Link href='/'>municipal rules</Link>
+                        <NLink href='/ssg/recipes' passHref>
+                          <Link href='/'>recipes</Link>
                         </NLink>
                       </ListItem>
                     </List>

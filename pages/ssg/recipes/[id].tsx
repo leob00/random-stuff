@@ -3,17 +3,18 @@ import { DrupalNode } from 'next-drupal'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import router from 'next/router'
 import Layout from 'components/Layout'
-import { getArticle, getRules } from 'lib/drupalApi'
-import useSWR, { SWRConfig, unstable_serialize } from 'swr'
 import { isBrowser } from 'lib/auth'
+
+import { getArticle, getRecipes, getRules } from 'lib/drupalApi'
+import useSWR, { SWRConfig, unstable_serialize } from 'swr'
 import { useCmsSwr } from 'hooks/useCmsSwr'
 import axios, { AxiosRequestConfig } from 'axios'
 
-const cmsRefreshInterval = 30000
+const cmsRefreshInterval = 90
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  let allArticles = await getRules()
-  let paths = allArticles.map((article) => `/ssg/rules/${article.id}`)
+  let allArticles = await getRecipes()
+  let paths = allArticles.map((article) => `/ssg/recipes/${article.id}`)
 
   return {
     paths: paths,
@@ -33,7 +34,7 @@ const fetcherFn = async (url: string, id: string) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   let id = context.params?.id as string
-  console.log(`regenerating rule ${id}`)
+  console.log(`regenerating article ${id}`)
   let article = await getArticle(id)
 
   return {
@@ -51,7 +52,7 @@ const Article = ({ fallbackData }: { fallbackData: DrupalNode }) => {
     fallbackData: fallbackData,
     refreshInterval: cmsRefreshInterval,
   })  */
-  const { data, error } = useCmsSwr('/api/article', fallbackData.id, (url: string, id: string) => fetcherFn(url, id), fallbackData, 30)
+  const { data, error } = useCmsSwr('/api/article', fallbackData.id, (url: string, id: string) => fetcherFn(url, id), fallbackData, cmsRefreshInterval)
 
   if (error) {
     return <Container>unable to load article</Container>
@@ -70,7 +71,7 @@ const Article = ({ fallbackData }: { fallbackData: DrupalNode }) => {
           variant='text'
           sx={{ paddingLeft: '0px' }}
           onClick={() => {
-            router.push('/ssg/rules')
+            router.push('/ssg/recipes')
           }}>
           &#8592; back
         </Button>
@@ -83,7 +84,7 @@ const Article = ({ fallbackData }: { fallbackData: DrupalNode }) => {
   )
 }
 
-const MSRBRule: NextPage<{ fallback: any; article: DrupalNode }> = ({ fallback, article }) => {
+const Recipe: NextPage<{ fallback: any; article: DrupalNode }> = ({ fallback, article }) => {
   /* const { data, error } = useSWR(['/api/article', article.id], (url: string, id: string) => fetcher(url, id), { fallbackData: article, refreshInterval: cmsRefreshInterval })
   if (error) {
     return (
@@ -114,4 +115,4 @@ const MSRBRule: NextPage<{ fallback: any; article: DrupalNode }> = ({ fallback, 
   )
 }
 
-export default MSRBRule
+export default Recipe
