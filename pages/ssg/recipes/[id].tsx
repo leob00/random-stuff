@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography } from '@mui/material'
+import { Box, Button, Container, Divider, Typography } from '@mui/material'
 import { DrupalNode } from 'next-drupal'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import router from 'next/router'
@@ -9,6 +9,7 @@ import { getArticle, getRecipes, getRules } from 'lib/drupalApi'
 import useSWR, { SWRConfig, unstable_serialize } from 'swr'
 import { useCmsSwr } from 'hooks/useCmsSwr'
 import axios, { AxiosRequestConfig } from 'axios'
+import ArticleLayout from 'components/ArticleLayout'
 
 const cmsRefreshInterval = 90
 
@@ -48,14 +49,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 const Article = ({ fallbackData }: { fallbackData: DrupalNode }) => {
-  /* const { data, error } = useSWR(['/api/article', fallbackData.id], (url: string, id: string) => fetcher(url, id), {
-    fallbackData: fallbackData,
-    refreshInterval: cmsRefreshInterval,
-  })  */
   const { data, error } = useCmsSwr('/api/article', fallbackData.id, (url: string, id: string) => fetcherFn(url, id), fallbackData, cmsRefreshInterval)
-
   if (error) {
-    return <Container>unable to load article</Container>
+    return <ArticleLayout article={fallbackData} baseUrl='/ssg/recipes' />
   }
   let article = data as DrupalNode
   if (!article) {
@@ -64,46 +60,10 @@ const Article = ({ fallbackData }: { fallbackData: DrupalNode }) => {
   if (isBrowser()) {
     console.log(`loaded article: ${article.attributes.title}`)
   }
-  return (
-    <Container>
-      <Typography>
-        <Button
-          variant='text'
-          sx={{ paddingLeft: '0px' }}
-          onClick={() => {
-            router.push('/ssg/recipes')
-          }}>
-          &#8592; back
-        </Button>
-      </Typography>
-      <Typography variant='h5'>{article.attributes.title}</Typography>
-      <hr></hr>
-      <Typography variant='body1'>{article.attributes.body.summary}</Typography>
-      <Box dangerouslySetInnerHTML={{ __html: article.attributes.body.processed }}></Box>
-    </Container>
-  )
+  return <ArticleLayout article={article} baseUrl='/ssg/recipes' />
 }
 
 const Recipe: NextPage<{ fallback: any; article: DrupalNode }> = ({ fallback, article }) => {
-  /* const { data, error } = useSWR(['/api/article', article.id], (url: string, id: string) => fetcher(url, id), { fallbackData: article, refreshInterval: cmsRefreshInterval })
-  if (error) {
-    return (
-      <Layout>
-        <Container>unable to load article</Container>
-      </Layout>
-    )
-  }
-  let result = data as DrupalNode
-  if (!article) {
-    return (
-      <Layout>
-        <Container>loading</Container>
-      </Layout>
-    )
-  }
-  if (isBrowser()) {
-    console.log(`loaded article: ${result.attributes.title}`)
-  } */
   return (
     <Layout>
       <Container>
