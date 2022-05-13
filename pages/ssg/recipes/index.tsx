@@ -8,6 +8,7 @@ import NLink from 'next/link'
 import router from 'next/router'
 import useSWR, { SWRConfig, unstable_serialize } from 'swr'
 import axios, { AxiosRequestConfig } from 'axios'
+import ArticleTableLayout from 'components/ArticleTableLayout'
 
 const cmsRefreshInterval = 90000
 const fetcherFn = async (url: string) => {
@@ -34,37 +35,18 @@ const Articles = ({ fallbackData }: { fallbackData: DrupalNode[] }) => {
     refreshInterval: cmsRefreshInterval,
   })
   if (error) {
-    return <Container>unable to load content</Container>
+    return <ArticleTableLayout articles={fallbackData} baseUrl='/ssg/recipes/' />
   }
   let articles = data as DrupalNode[]
   if (!articles) {
     return <Container>loading...</Container>
   }
-  return (
-    <>
-      <Table>
-        <TableBody>
-          {articles.map((article) => (
-            <TableRow key={article.id}>
-              <TableCell>
-                <NLink href={`/ssg/recipes/${article.id}`} passHref>
-                  <Link>{`${article.attributes.title.replace('Recipe:', '').trim()}`}</Link>
-                </NLink>
-              </TableCell>
-              <TableCell>
-                <Typography>{article.attributes.summary}</Typography>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </>
-  )
+  return <ArticleTableLayout articles={articles} baseUrl='/ssg/recipes/' />
 }
 
 const Recipes: NextPage<{ articles: DrupalNode[]; fallback: any }> = ({ articles, fallback }) => {
   return (
-    <Container>
+    <>
       <Button
         variant='text'
         onClick={() => {
@@ -72,11 +54,11 @@ const Recipes: NextPage<{ articles: DrupalNode[]; fallback: any }> = ({ articles
         }}>
         &#8592; back
       </Button>
-      <Typography variant='h5'>Recipes</Typography>
+      <Typography variant='h6'>Recipes</Typography>
       <SWRConfig value={{ fallback }}>
         <Articles fallbackData={articles} />
       </SWRConfig>
-    </Container>
+    </>
   )
 }
 
