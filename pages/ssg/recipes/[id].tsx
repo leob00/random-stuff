@@ -10,6 +10,7 @@ import useSWR, { SWRConfig, unstable_serialize } from 'swr'
 import { useCmsSwr } from 'hooks/useCmsSwr'
 import axios, { AxiosRequestConfig } from 'axios'
 import ArticleLayout from 'components/ArticleLayout'
+import { DrupalArticle } from 'lib/model'
 
 const cmsRefreshInterval = 90
 
@@ -48,12 +49,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-const Article = ({ fallbackData }: { fallbackData: DrupalNode }) => {
+const Article = ({ fallbackData }: { fallbackData: DrupalArticle }) => {
   const { data, error } = useCmsSwr('/api/article', fallbackData.id, (url: string, id: string) => fetcherFn(url, id), fallbackData, cmsRefreshInterval)
   if (error) {
     return <ArticleLayout article={fallbackData} baseUrl='/ssg/recipes' />
   }
-  let article = data as DrupalNode
+  let article = data as DrupalArticle
   if (!article) {
     return <Container>loading</Container>
   }
@@ -63,7 +64,7 @@ const Article = ({ fallbackData }: { fallbackData: DrupalNode }) => {
   return <ArticleLayout article={article} baseUrl='/ssg/recipes' />
 }
 
-const Recipe: NextPage<{ fallback: any; article: DrupalNode }> = ({ fallback, article }) => {
+const Recipe: NextPage<{ fallback: any; article: DrupalArticle }> = ({ fallback, article }) => {
   return (
     <Layout>
       <Container>

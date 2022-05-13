@@ -1,5 +1,6 @@
-import { DrupalNode } from 'next-drupal'
+import { DrupalFile, DrupalNode, JsonApiResponse } from 'next-drupal'
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params'
+import { DrupalArticle } from './model'
 
 export async function getAllArticles() {
   var resp = await fetch('https://dev-devtest00.pantheonsite.io/jsonapi/node/article/', {
@@ -14,7 +15,6 @@ export async function getAllArticles() {
 }
 
 export async function getRules() {
-  // to return all fields: remove ?fields= queries at the end of the url
   const apiParams = new DrupalJsonApiParams()
   apiParams.addFilter('title', 'Rule%20G', 'STARTS_WITH')
   apiParams.addFields('node--article', ['id', 'title']).addSort('title')
@@ -32,12 +32,13 @@ export async function getRules() {
 }
 
 export async function getRecipes() {
-  // to return all fields: remove ?fields= queries at the end of the url
   const apiParams = new DrupalJsonApiParams()
   apiParams.addFilter('title', 'Recipe', 'STARTS_WITH')
   apiParams.addFields('node--article', ['id', 'title']).addSort('title')
   let drupalSite = process.env.DUPAL_SITE
-  let url = `${drupalSite}node/article/?${apiParams.getQueryString({ encode: false })}`
+  let queryString = apiParams.getQueryString({ encode: false })
+  let url = `${drupalSite}node/article/?${queryString}`
+  //console.log(url)
   var resp = await fetch(url, {
     method: 'GET',
     headers: {
@@ -50,14 +51,50 @@ export async function getRecipes() {
 }
 
 export async function getArticle(id: string) {
-  var resp = await fetch(`${process.env.DUPAL_SITE}node/article/${id}`, {
+  const apiParams = new DrupalJsonApiParams()
+  apiParams.addInclude(['field_image'])
+  apiParams.addFields('file--file', ['uri', 'url'])
+  let queryString = apiParams.getQueryString()
+  const drupalSite = process.env.DUPAL_SITE
+  let url = `${drupalSite}node/article/${id}?${queryString}`
+
+  var resp = await fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   })
   let json = await resp.json()
-
   let result = json.data as DrupalNode
+  return result
+}
+
+export async function getDrupalArticle(id: string) {
+  const apiParams = new DrupalJsonApiParams()
+  apiParams.addInclude(['field_image'])
+  apiParams.addFields('file--file', ['uri', 'url'])
+  let queryString = apiParams.getQueryString()
+  const drupalSite = process.env.DUPAL_SITE
+  let url = `${drupalSite}node/article/${id}?${queryString}`
+
+  var resp = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  let json = await resp.json()
+  let drupalResp = json as JsonApiResponse
+  let result = json.data as DrupalArticle
+  if (drupalResp.included) {
+    let arr = drupalResp.included
+    if (arr.length > 0) {
+      result.file = arr[0] as DrupalNode
+      console.log(JSON.stringify(result.file.attributes.uri))
+      result.imageUrl = `${process.env.DUPAL_BASE_URL}${result.file.attributes.uri.url}`
+    }
+  }
+
+  //let result = json.data as DrupalArticle
   return result
 }
