@@ -1,4 +1,4 @@
-import { DrupalFile, DrupalNode } from 'next-drupal'
+import { DrupalFile, DrupalFileMeta, DrupalNode } from 'next-drupal'
 
 export interface YieldCurveData {
   rows: { yearsToMaturity: number; yield: number }[]
@@ -14,4 +14,5 @@ export interface BasicArticle {
 export interface DrupalArticle extends DrupalNode {
   file?: DrupalNode
   imageUrl?: string
+  fileMeta?: DrupalFileMeta
 }

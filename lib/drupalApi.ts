@@ -1,4 +1,4 @@
-import { DrupalFile, DrupalNode, JsonApiResponse } from 'next-drupal'
+import { DrupalFile, DrupalFileMeta, DrupalNode, JsonApiResponse } from 'next-drupal'
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params'
 import { DrupalArticle } from './model'
 
@@ -87,11 +87,16 @@ export async function getDrupalArticle(id: string) {
   let drupalResp = json as JsonApiResponse
   let result = json.data as DrupalArticle
   if (drupalResp.included) {
-    let arr = drupalResp.included
+    let arr = drupalResp.included as DrupalNode[]
     if (arr.length > 0) {
-      result.file = arr[0] as DrupalNode
-      console.log(JSON.stringify(result.file.attributes.uri))
-      result.imageUrl = `${process.env.DUPAL_BASE_URL}${result.file.attributes.uri.url}`
+      let included = arr[0]
+      if (result.relationships) {
+        let fileMeta = result.relationships.field_image.data.meta as DrupalFileMeta
+        result.fileMeta = fileMeta
+      }
+
+      console.log(JSON.stringify(included.attributes.uri))
+      result.imageUrl = `${process.env.DUPAL_BASE_URL}${included.attributes.uri.url}`
     }
   }
 
