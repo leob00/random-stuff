@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       },
       article,
     },
-    revalidate: 90,
+    revalidate: 90, // does not work in amplify
   }
 }
 
