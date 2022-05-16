@@ -65,7 +65,7 @@ export async function getArticle(id: string) {
     },
   })
   let json = await resp.json()
-  let result = json.data as DrupalNode
+  let result = (await json.data) as DrupalNode
   return result
 }
 

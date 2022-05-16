@@ -2,7 +2,7 @@ import { Container } from '@mui/material'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Layout from 'components/Layout'
 import { isBrowser } from 'lib/auth'
-import { getArticle, getRecipes } from 'lib/drupalApi'
+import { getArticle, getDrupalArticle, getRecipes } from 'lib/drupalApi'
 import { SWRConfig, unstable_serialize } from 'swr'
 import { useCmsSwr } from 'hooks/useCmsSwr'
 import axios, { AxiosRequestConfig } from 'axios'
@@ -28,13 +28,13 @@ const fetcherFn = async (url: string, id: string) => {
     },
   }
   let resp = await axios.get(url, config)
-  return resp.data
+  return await resp.data
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
   let id = context.params?.id as string
   console.log(`regenerating article ${id}`)
-  let article = await getArticle(id)
+  let article = await getDrupalArticle(id)
 
   return {
     props: {
