@@ -1,11 +1,11 @@
-import { Table, TableBody, TableRow, TableCell, Typography, Link, Container } from '@mui/material'
+import { Table, TableBody, TableRow, TableCell, Typography, Link, Container, Box } from '@mui/material'
 import { DrupalNode } from 'next-drupal'
 import React from 'react'
 import NLink from 'next/link'
 
 const ArticleTableLayout = ({ articles, baseUrl }: { articles: DrupalNode[]; baseUrl: string }) => {
   return (
-    <Container>
+    <Box>
       <Table>
         <TableBody>
           {articles.map((article) => (
@@ -22,7 +22,7 @@ const ArticleTableLayout = ({ articles, baseUrl }: { articles: DrupalNode[]; bas
           ))}
         </TableBody>
       </Table>
-    </Container>
+    </Box>
   )
 }
 
