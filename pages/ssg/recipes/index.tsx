@@ -1,13 +1,12 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
-import { Container, Table, TableBody, TableRow, TableCell, Link, Typography, Button, Divider } from '@mui/material'
+import { Container, Typography, Button } from '@mui/material'
 import { getRecipes } from 'lib/drupalApi'
 import { DrupalNode } from 'next-drupal'
-import NLink from 'next/link'
 import router from 'next/router'
-import useSWR, { SWRConfig, unstable_serialize } from 'swr'
-import axios, { AxiosRequestConfig } from 'axios'
+import useSWR, { SWRConfig } from 'swr'
+import axios from 'axios'
 import ArticleTableLayout from 'components/ArticleTableLayout'
 
 const cmsRefreshInterval = 90000

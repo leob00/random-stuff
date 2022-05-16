@@ -1,4 +1,4 @@
-import { DrupalFile, DrupalFileMeta, DrupalNode, JsonApiResponse } from 'next-drupal'
+import { DrupalFileMeta, DrupalNode, JsonApiResponse } from 'next-drupal'
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params'
 import { DrupalArticle } from './model'
 
@@ -95,11 +95,10 @@ export async function getDrupalArticle(id: string) {
         result.fileMeta = fileMeta
       }
 
-      console.log(JSON.stringify(included.attributes.uri))
+      //sconsole.log(JSON.stringify(included.attributes.uri))
       result.imageUrl = `${process.env.DUPAL_BASE_URL}${included.attributes.uri.url}`
     }
   }
 
-  //let result = json.data as DrupalArticle
   return result
 }
