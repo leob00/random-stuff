@@ -25,6 +25,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         '/api/recipes': articles,
       },
     },
+    revalidate: 90,
   }
 }
 
