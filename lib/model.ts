@@ -16,3 +16,8 @@ export interface DrupalArticle extends DrupalNode {
   imageUrl?: string
   fileMeta?: DrupalFileMeta
 }
+
+export interface ArticlesModel {
+  featured?: DrupalArticle
+  allArticles: DrupalNode[]
+}

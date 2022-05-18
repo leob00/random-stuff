@@ -1,46 +1,21 @@
-import {
-  Table,
-  TableBody,
-  TableRow,
-  TableCell,
-  Typography,
-  Link,
-  Box,
-  Autocomplete,
-  TextField,
-  AutocompleteChangeReason,
-  AutocompleteChangeDetails,
-  TableFooter,
-  TableContainer,
-  Paper,
-  Container,
-  Toolbar,
-  Stack,
-  Card,
-  CardHeader,
-  CardContent,
-  CardMedia,
-} from '@mui/material'
-import { DrupalNode } from 'next-drupal'
+import { Typography, Link, Box, Autocomplete, TextField, AutocompleteChangeReason, AutocompleteChangeDetails, TableContainer, Paper, Stack, Card, CardContent, CardMedia, CardActions, Button, CardHeader } from '@mui/material'
 import React from 'react'
 import NLink from 'next/link'
 import { Option } from 'lib/AutoCompleteOptions'
 import router from 'next/router'
-import { DataGrid, GridColDef, GridColumnHeaderParams, GridRenderCellParams, GridRowParams, GridValueGetterParams } from '@mui/x-data-grid'
-import { DrupalArticle } from 'lib/model'
-import { Article, Label } from '@mui/icons-material'
-import ArticleLayout from './ArticleLayout'
+import { DataGrid, GridColDef, GridColumnHeaderParams, GridRenderCellParams, GridRowParams } from '@mui/x-data-grid'
+import { ArticlesModel, DrupalArticle } from 'lib/model'
 import Image from 'next/image'
 
-const ArticleTableLayout = ({ articles, baseUrl, featuredArticle }: { articles: DrupalNode[]; baseUrl: string; featuredArticle?: DrupalArticle }) => {
+const ArticleTableLayout = ({ articles, baseUrl, featuredArticle }: { articles: ArticlesModel; baseUrl: string; featuredArticle?: DrupalArticle }) => {
   let options: Array<Option> = []
-  articles.forEach((a) => {
+  articles.allArticles.forEach((a) => {
     options.push({ label: a.attributes.title.replace('Recipe:', '').trim(), id: a.id })
   })
 
   const handleSelect = (event: React.SyntheticEvent<Element, Event>, value: Option | null, reason: AutocompleteChangeReason, details?: AutocompleteChangeDetails<Option> | undefined) => {
     let sel = value as Option
-    console.log(sel.id)
+    //console.log(sel.id)
     router.push(`${baseUrl}${sel.id}`)
   }
 
@@ -49,6 +24,7 @@ const ArticleTableLayout = ({ articles, baseUrl, featuredArticle }: { articles: 
       field: 'label',
       headerName: '',
       width: 360,
+      align: 'left',
       renderHeader: (params: GridColumnHeaderParams<any, any, any>) => {
         return <></>
       },
@@ -77,63 +53,37 @@ const ArticleTableLayout = ({ articles, baseUrl, featuredArticle }: { articles: 
 
   return (
     <Box>
-      <Box sx={{ my: 2 }}>
+      <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
         <Autocomplete size='small' onChange={handleSelect} disablePortal options={options} sx={{ width: 360 }} renderInput={(params) => <TextField {...params} placeholder='search' />} />
-      </Box>
+      </Stack>
       {featuredArticle && (
-        <>
-          <Box sx={{ textAlign: 'center', my: 2 }}>
-            <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
-              <Card sx={{ maxWidth: 350, padding: 2 }}>
-                <CardContent>
-                  <Typography sx={{ fontSize: 14 }} color='text.secondary' gutterBottom>
-                    Featured Recipe
-                  </Typography>
-                  <Typography variant='body2'>
-                    <NLink href={`${baseUrl}${featuredArticle.id}`} passHref>
-                      <Link> {featuredArticle.attributes.title.replace('Recipe:', '').trim()}</Link>
-                    </NLink>
-                  </Typography>
-                </CardContent>
-                <CardMedia>
-                  {featuredArticle.imageUrl && featuredArticle.fileMeta && (
-                    <NLink href={`${baseUrl}${featuredArticle.id}`} passHref>
-                      <Link>
-                        <Image style={{ borderRadius: '.8rem' }} src={featuredArticle.imageUrl} placeholder='blur' height={featuredArticle.fileMeta.height / 4} width={featuredArticle.fileMeta.width / 4} blurDataURL={featuredArticle.imageUrl} />
-                      </Link>
-                    </NLink>
-                  )}
-                </CardMedia>
-              </Card>
-            </Stack>
-          </Box>
-        </>
+        <Box sx={{ textAlign: 'center', my: 2 }}>
+          <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
+            <Typography variant='h6'>Featured Recipe</Typography>
+          </Stack>
+          <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
+            <Typography variant='body2'>
+              <NLink href={`${baseUrl}${featuredArticle.id}`} passHref>
+                <Button size='small'>{featuredArticle.attributes.title.replace('Recipe:', '').trim()}</Button>
+              </NLink>
+              {/* <NLink href={`${baseUrl}${featuredArticle.id}`} passHref>
+                    <Link>{featuredArticle.attributes.title.replace('Recipe:', '').trim()}</Link>
+                  </NLink> */}
+            </Typography>
+          </Stack>
+          <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
+            {featuredArticle.imageUrl && featuredArticle.fileMeta && (
+              <NLink href={`${baseUrl}${featuredArticle.id}`} passHref>
+                <Link>
+                  <Image style={{ borderRadius: '.8rem' }} src={featuredArticle.imageUrl} placeholder='blur' height={featuredArticle.fileMeta.height / 3} width={featuredArticle.fileMeta.width / 3} blurDataURL={featuredArticle.imageUrl} />
+                </Link>
+              </NLink>
+            )}
+          </Stack>
+        </Box>
       )}
-
-      <TableContainer component={Paper} sx={{ my: 2 }}>
-        <DataGrid autoHeight={true} headerHeight={0} rows={options} columns={columns} pageSize={10} rowsPerPageOptions={[10]} onRowClick={handleRowClick} />
-
-        {/* <Table>
-          <TableBody>
-            {articles.map((article) => (
-              <TableRow key={article.id}>
-                <TableCell>
-                  <NLink href={`${baseUrl}${article.id}`} passHref>
-                    <Link>{`${article.attributes.title.replace('Recipe:', '').trim()}`}</Link>
-                  </NLink>
-                </TableCell>
-                <TableCell>
-                  <Typography>{article.attributes.summary}</Typography>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TableCell>{`showing ${articles.length} articles`}</TableCell>
-            </TableRow>
-          </TableFooter>
-        </Table> */}
+      <TableContainer sx={{ my: 2 }}>
+        <DataGrid sx={{ border: 'none' }} autoHeight={true} headerHeight={0} rows={options} columns={columns} pageSize={10} rowsPerPageOptions={[10]} onRowClick={handleRowClick} />
       </TableContainer>
     </Box>
   )
