@@ -2,14 +2,14 @@ import { Container } from '@mui/material'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Layout from 'components/Layout'
 import { isBrowser } from 'lib/auth'
-import { getArticle, getDrupalArticle, getRecipes } from 'lib/drupalApi'
+import { getDrupalArticle, getRecipes } from 'lib/drupalApi'
 import { SWRConfig, unstable_serialize } from 'swr'
 import { useCmsSwr } from 'hooks/useCmsSwr'
 import axios, { AxiosRequestConfig } from 'axios'
 import ArticleLayout from 'components/ArticleLayout'
 import { DrupalArticle } from 'lib/model'
 
-const cmsRefreshInterval = 90
+const cmsRefreshIntervalSeconds = 3600
 
 export const getStaticPaths: GetStaticPaths = async () => {
   let allArticles = await getRecipes()
@@ -43,12 +43,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
       },
       article,
     },
-    revalidate: 90, // does not work in amplify
+    revalidate: cmsRefreshIntervalSeconds,
   }
 }
 
 const Article = ({ fallbackData }: { fallbackData: DrupalArticle }) => {
-  const { data, error } = useCmsSwr('/api/article', fallbackData.id, (url: string, id: string) => fetcherFn(url, id), fallbackData, cmsRefreshInterval)
+  const { data, error } = useCmsSwr('/api/article', fallbackData.id, (url: string, id: string) => fetcherFn(url, id), fallbackData, cmsRefreshIntervalSeconds)
   if (error) {
     return <ArticleLayout article={fallbackData} baseUrl='/ssg/recipes' />
   }

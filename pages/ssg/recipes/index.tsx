@@ -9,7 +9,8 @@ import useSWR, { SWRConfig } from 'swr'
 import axios from 'axios'
 import ArticleTableLayout from 'components/ArticleTableLayout'
 
-const cmsRefreshInterval = 90000
+const cmsRefreshIntervalSeconds = 3600
+const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
 const fetcherFn = async (url: string) => {
   let resp = await axios.get(url)
   return resp.data
@@ -25,14 +26,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
         '/api/recipes': articles,
       },
     },
-    revalidate: 90, // does not work in amplify
+    revalidate: cmsRefreshIntervalSeconds,
   }
 }
 
 const Articles = ({ fallbackData }: { fallbackData: DrupalNode[] }) => {
   const { data, error } = useSWR(['/api/recipes'], (url: string) => fetcherFn(url), {
     fallbackData: fallbackData,
-    refreshInterval: cmsRefreshInterval,
+    refreshInterval: cmsRefreshIntervalMs,
   })
   if (error) {
     return <ArticleTableLayout articles={fallbackData} baseUrl='/ssg/recipes/' />
