@@ -1,6 +1,6 @@
 import { DrupalFileMeta, DrupalNode, JsonApiResponse } from 'next-drupal'
 import { DrupalJsonApiParams } from 'drupal-jsonapi-params'
-import { DrupalArticle } from './model'
+import { ArticlesModel, DrupalArticle } from './model'
 
 export async function getAllArticles() {
   var resp = await fetch('https://dev-devtest00.pantheonsite.io/jsonapi/node/article/', {
@@ -47,7 +47,10 @@ export async function getRecipes() {
   })
   let json = await resp.json()
   let allArticles = json.data as DrupalNode[]
-  return allArticles
+  let result: ArticlesModel = {
+    allArticles,
+  }
+  return result
 }
 
 export async function getArticle(id: string) {

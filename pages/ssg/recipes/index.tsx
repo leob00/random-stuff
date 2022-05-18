@@ -8,7 +8,7 @@ import router from 'next/router'
 import useSWR, { SWRConfig } from 'swr'
 import axios from 'axios'
 import ArticleTableLayout from 'components/ArticleTableLayout'
-import { DrupalArticle } from 'lib/model'
+import { ArticlesModel, DrupalArticle } from 'lib/model'
 
 const cmsRefreshIntervalSeconds = 3600
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
@@ -18,16 +18,17 @@ const fetcherFn = async (url: string) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  let articles = await getRecipes()
-  let random = articles[Math.floor(Math.random() * (articles.length - 1))]
+  let model = await getRecipes()
+  let random = model.allArticles[Math.floor(Math.random() * (model.allArticles.length - 1))]
   //console.log('featured: ', JSON.stringify(featured))
   let featured = await getDrupalArticle(random.id)
+  model.featured = featured
 
   return {
     props: {
-      articles,
+      model: model,
       fallback: {
-        '/api/recipes': articles,
+        '/api/recipes': model,
       },
       featured,
     },
@@ -35,7 +36,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-const Articles = ({ fallbackData, featuredArticle }: { fallbackData: DrupalNode[]; featuredArticle: DrupalArticle }) => {
+const Articles = ({ fallbackData, featuredArticle }: { fallbackData: ArticlesModel; featuredArticle: DrupalArticle | undefined }) => {
   const { data, error } = useSWR(['/api/recipes'], (url: string) => fetcherFn(url), {
     fallbackData: fallbackData,
     refreshInterval: cmsRefreshIntervalMs,
@@ -43,14 +44,14 @@ const Articles = ({ fallbackData, featuredArticle }: { fallbackData: DrupalNode[
   if (error) {
     return <ArticleTableLayout articles={fallbackData} baseUrl='/ssg/recipes/' />
   }
-  let articles = data as DrupalNode[]
-  if (!articles) {
+  let model = data as ArticlesModel
+  if (!model) {
     return <Container>loading...</Container>
   }
-  return <ArticleTableLayout articles={articles} baseUrl='/ssg/recipes/' featuredArticle={featuredArticle} />
+  return <ArticleTableLayout articles={model} baseUrl='/ssg/recipes/' featuredArticle={featuredArticle} />
 }
 
-const Recipes: NextPage<{ articles: DrupalNode[]; fallback: any; featured: DrupalArticle }> = ({ articles, fallback, featured }) => {
+const Recipes: NextPage<{ model: ArticlesModel; fallback: any }> = ({ model, fallback }) => {
   return (
     <>
       <Button
@@ -63,7 +64,7 @@ const Recipes: NextPage<{ articles: DrupalNode[]; fallback: any; featured: Drupa
       <Typography variant='h6'>Recipes</Typography>
       <Divider />
       <SWRConfig value={{ fallback }}>
-        <Articles fallbackData={articles} featuredArticle={featured} />
+        <Articles fallbackData={model} featuredArticle={model.featured} />
       </SWRConfig>
     </>
   )

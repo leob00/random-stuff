@@ -12,8 +12,9 @@ import { DrupalArticle } from 'lib/model'
 const cmsRefreshIntervalSeconds = 3600
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  let allArticles = await getRecipes()
-  let paths = allArticles.map((article) => `/ssg/recipes/${article.id}`)
+  let model = await getRecipes()
+
+  let paths = model.allArticles.map((article) => `/ssg/recipes/${article.id}`)
 
   return {
     paths: paths,
