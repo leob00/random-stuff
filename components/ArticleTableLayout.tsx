@@ -1,12 +1,38 @@
-import { Table, TableBody, TableRow, TableCell, Typography, Link, Box, Autocomplete, TextField, AutocompleteChangeReason, AutocompleteChangeDetails, TableFooter, TableContainer, Paper, Container, Toolbar } from '@mui/material'
+import {
+  Table,
+  TableBody,
+  TableRow,
+  TableCell,
+  Typography,
+  Link,
+  Box,
+  Autocomplete,
+  TextField,
+  AutocompleteChangeReason,
+  AutocompleteChangeDetails,
+  TableFooter,
+  TableContainer,
+  Paper,
+  Container,
+  Toolbar,
+  Stack,
+  Card,
+  CardHeader,
+  CardContent,
+  CardMedia,
+} from '@mui/material'
 import { DrupalNode } from 'next-drupal'
 import React from 'react'
 import NLink from 'next/link'
 import { Option } from 'lib/AutoCompleteOptions'
 import router from 'next/router'
 import { DataGrid, GridColDef, GridColumnHeaderParams, GridRenderCellParams, GridRowParams, GridValueGetterParams } from '@mui/x-data-grid'
+import { DrupalArticle } from 'lib/model'
+import { Article, Label } from '@mui/icons-material'
+import ArticleLayout from './ArticleLayout'
+import Image from 'next/image'
 
-const ArticleTableLayout = ({ articles, baseUrl }: { articles: DrupalNode[]; baseUrl: string }) => {
+const ArticleTableLayout = ({ articles, baseUrl, featuredArticle }: { articles: DrupalNode[]; baseUrl: string; featuredArticle?: DrupalArticle }) => {
   let options: Array<Option> = []
   articles.forEach((a) => {
     options.push({ label: a.attributes.title.replace('Recipe:', '').trim(), id: a.id })
@@ -51,9 +77,39 @@ const ArticleTableLayout = ({ articles, baseUrl }: { articles: DrupalNode[]; bas
 
   return (
     <Box>
-      <Box>
+      <Box sx={{ my: 2 }}>
         <Autocomplete size='small' onChange={handleSelect} disablePortal options={options} sx={{ width: 360 }} renderInput={(params) => <TextField {...params} placeholder='search' />} />
       </Box>
+      {featuredArticle && (
+        <>
+          <Box sx={{ textAlign: 'center', my: 2 }}>
+            <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
+              <Card sx={{ maxWidth: 350, padding: 2 }}>
+                <CardContent>
+                  <Typography sx={{ fontSize: 14 }} color='text.secondary' gutterBottom>
+                    Featured Recipe
+                  </Typography>
+                  <Typography variant='body2'>
+                    <NLink href={`${baseUrl}${featuredArticle.id}`} passHref>
+                      <Link> {featuredArticle.attributes.title.replace('Recipe:', '').trim()}</Link>
+                    </NLink>
+                  </Typography>
+                </CardContent>
+                <CardMedia>
+                  {featuredArticle.imageUrl && featuredArticle.fileMeta && (
+                    <NLink href={`${baseUrl}${featuredArticle.id}`} passHref>
+                      <Link>
+                        <Image style={{ borderRadius: '.8rem' }} src={featuredArticle.imageUrl} placeholder='blur' height={featuredArticle.fileMeta.height / 4} width={featuredArticle.fileMeta.width / 4} blurDataURL={featuredArticle.imageUrl} />
+                      </Link>
+                    </NLink>
+                  )}
+                </CardMedia>
+              </Card>
+            </Stack>
+          </Box>
+        </>
+      )}
+
       <TableContainer component={Paper} sx={{ my: 2 }}>
         <DataGrid autoHeight={true} headerHeight={0} rows={options} columns={columns} pageSize={10} rowsPerPageOptions={[10]} onRowClick={handleRowClick} />
 
