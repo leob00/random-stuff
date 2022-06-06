@@ -46,8 +46,14 @@ const Home: NextPage = () => {
                           </Link>
                         </NLink>
                       </ListItem>
+                      <ListItem>
+                        <NLink href='/ssg/articles' passHref>
+                          <Link href='/'>random articles</Link>
+                        </NLink>
+                      </ListItem>
                     </List>
                   </Grid>
+
                   <Grid item>
                     <List sx={{ listStyle: 'none' }}>
                       <ListItem>
