@@ -74,27 +74,6 @@ const Header = ({ home }: { home?: boolean }) => {
                   }}>
                   <Button
                     onClick={() => {
-                      router.push('/')
-                    }}
-                    sx={{ color: 'whitesmoke' }}
-                    variant='text'>
-                    Home
-                  </Button>
-                </Grid>
-                <Grid
-                  item
-                  sx={{
-                    flexGrow: 0.1,
-                    display: {
-                      xs: 'block',
-                      sm: 'block',
-                      md: 'block',
-                      lg: 'block',
-                      xl: 'block',
-                    },
-                  }}>
-                  <Button
-                    onClick={() => {
                       router.push('/ssg/About')
                     }}
                     sx={{ color: 'whitesmoke' }}
