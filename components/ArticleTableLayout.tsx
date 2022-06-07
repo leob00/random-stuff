@@ -75,7 +75,15 @@ const ArticleTableLayout = ({ articles, baseUrl, featuredArticle }: { articles: 
             {featuredArticle.imageUrl && featuredArticle.fileMeta && (
               <NLink href={`${baseUrl}${featuredArticle.id}`} passHref>
                 <Link>
-                  <Image style={{ borderRadius: '.8rem' }} src={featuredArticle.imageUrl} placeholder='blur' height={featuredArticle.fileMeta.height / 3} width={featuredArticle.fileMeta.width / 3} blurDataURL={featuredArticle.imageUrl} />
+                  <Image
+                    alt={featuredArticle.attributes.title}
+                    style={{ borderRadius: '.8rem' }}
+                    src={featuredArticle.imageUrl}
+                    placeholder='blur'
+                    height={featuredArticle.fileMeta.height / 3}
+                    width={featuredArticle.fileMeta.width / 3}
+                    blurDataURL={featuredArticle.imageUrl}
+                  />
                 </Link>
               </NLink>
             )}

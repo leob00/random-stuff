@@ -57,6 +57,15 @@ const About: NextPage<{ data: any }> = ({ data }) => {
                   random dogs
                 </Button>
               </Grid>
+              <Grid item>
+                <Button
+                  variant='text'
+                  onClick={() => {
+                    router.push('/ssg/recipes')
+                  }}>
+                  recipes
+                </Button>
+              </Grid>
             </Grid>
           </Box>
           <Typography align='center' sx={{ padding: '10px' }}></Typography>
