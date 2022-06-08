@@ -17,23 +17,7 @@ function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
 }
 
 const Header = ({ home }: { home?: boolean }) => {
-  const [anchorEl, setAnchorEl] = React.useState<(EventTarget & HTMLButtonElement) | null>(null)
   const router = useRouter
-  const open = Boolean(anchorEl)
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-  /**
-   * TODO: When the below is uncommented, it enters an infinite loop
-   * @param {} location
-   */
-  const handleMenuClick = (location: string) => {
-    setAnchorEl(null)
-    router.push(location)
-  }
 
   return (
     <ElevationScroll>

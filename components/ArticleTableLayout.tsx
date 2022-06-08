@@ -66,9 +66,6 @@ const ArticleTableLayout = ({ articles, baseUrl, featuredArticle }: { articles: 
               <NLink href={`${baseUrl}${featuredArticle.id}`} passHref>
                 <Button size='small'>{featuredArticle.attributes.title.replace('Recipe:', '').trim()}</Button>
               </NLink>
-              {/* <NLink href={`${baseUrl}${featuredArticle.id}`} passHref>
-                    <Link>{featuredArticle.attributes.title.replace('Recipe:', '').trim()}</Link>
-                  </NLink> */}
             </Typography>
           </Stack>
           <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
