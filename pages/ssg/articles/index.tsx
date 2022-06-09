@@ -1,15 +1,13 @@
 import React from 'react'
 import type { NextPage } from 'next'
+import NLink from 'next/link'
 import { GetStaticProps } from 'next'
-import { Container, Typography, Button, Divider, List, ListItem } from '@mui/material'
-import { getDrupalArticle, getRecipes } from 'lib/drupalApi'
+import { Typography, Button, Divider, Box, Link } from '@mui/material'
 import router from 'next/router'
 import useSWR, { SWRConfig } from 'swr'
 import axios from 'axios'
-import ArticleTableLayout from 'components/ArticleTableLayout'
-import { ArticlesModel, DrupalArticle } from 'lib/model'
 import { getAllBlogs } from 'lib/contenfulApi'
-import { BlogCollection, BlogResponse } from 'lib/models/cms/contentful/blog'
+import { BlogCollection } from 'lib/models/cms/contentful/blog'
 
 const cmsRefreshIntervalSeconds = 3600
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
@@ -37,9 +35,30 @@ const Articles = ({ fallbackData }: { fallbackData: BlogCollection }) => {
     fallbackData: fallbackData,
     refreshInterval: cmsRefreshIntervalMs,
   })
+  let model = data as BlogCollection
+  return (
+    <Box sx={{ my: 2 }}>
+      {model.items.map((item) => (
+        <Box key={item.title} sx={{ paddingBottom: 4 }}>
+          <Typography variant='h6'>{item.title}</Typography>
+          <Typography variant='body2' sx={{ paddingTop: 2 }}>
+            {item.summary}
+          </Typography>
+          <Typography variant='body2' sx={{ paddingTop: 2 }}>
+            {item.body}
+          </Typography>
+          <Typography variant='body2' sx={{ paddingTop: 2 }}>
+            <NLink href={item.externalUrl} passHref>
+              <Link target='_blank'>Read More</Link>
+            </NLink>
+          </Typography>
+        </Box>
+      ))}
+    </Box>
+  )
 }
 
-const Recipes: NextPage<{ model: BlogCollection; fallback: any }> = ({ model, fallback }) => {
+const Blogs: NextPage<{ model: BlogCollection; fallback: any }> = ({ model, fallback }) => {
   return (
     <>
       <Button
@@ -52,14 +71,10 @@ const Recipes: NextPage<{ model: BlogCollection; fallback: any }> = ({ model, fa
       <Typography variant='h6'>Articles</Typography>
       <Divider />
       <SWRConfig value={{ fallback }}>
-        <List>
-          {model.items.map((item) => (
-            <ListItem key={item.title}>{item.title}</ListItem>
-          ))}
-        </List>
+        <Articles fallbackData={model} />
       </SWRConfig>
     </>
   )
 }
 
-export default Recipes
+export default Blogs
