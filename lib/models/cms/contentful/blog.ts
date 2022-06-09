@@ -1,5 +1,8 @@
 export interface Item {
   title: string
+  summary: string
+  body: string
+  externalUrl: string
 }
 
 export interface BlogCollection {
@@ -13,3 +16,4 @@ export interface Data {
 export interface BlogResponse {
   data: Data
 }
+export type BlogTypes = 'blog' | 'news'

@@ -18,13 +18,12 @@ function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
 
 const Header = ({ home }: { home?: boolean }) => {
   const router = useRouter
-
   return (
-    <ElevationScroll>
-      <Container>
-        <AppBar sx={{ backgroundColor: '#141a20' }}>
+    <Container>
+      <ElevationScroll>
+        <AppBar sx={{ backgroundColor: 'transparent' }}>
           <Toolbar>
-            <Container sx={{ paddingTop: '10px' }}>
+            <Container sx={{ paddingTop: '10px' }} className='blue-gradient'>
               <Grid container alignItems='center' columns={{ xs: 3, sm: 3, md: 3, lg: 3, xl: 3 }} spacing={{ xs: 1, sm: 1, md: 1, lg: 1, xl: 1 }}>
                 <Grid
                   item
@@ -69,8 +68,8 @@ const Header = ({ home }: { home?: boolean }) => {
             </Container>
           </Toolbar>
         </AppBar>
-      </Container>
-    </ElevationScroll>
+      </ElevationScroll>
+    </Container>
   )
 }
 
