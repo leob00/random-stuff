@@ -84,33 +84,12 @@ const Article = ({ fallbackData }: { fallbackData: DrupalNode }) => {
 }
 
 const MSRBRule: NextPage<{ fallback: any; article: DrupalNode }> = ({ fallback, article }) => {
-  /* const { data, error } = useSWR(['/api/article', article.id], (url: string, id: string) => fetcher(url, id), { fallbackData: article, refreshInterval: cmsRefreshInterval })
-  if (error) {
-    return (
-      <Layout>
-        <Container>unable to load article</Container>
-      </Layout>
-    )
-  }
-  let result = data as DrupalNode
-  if (!article) {
-    return (
-      <Layout>
-        <Container>loading</Container>
-      </Layout>
-    )
-  }
-  if (isBrowser()) {
-    console.log(`loaded article: ${result.attributes.title}`)
-  } */
   return (
-    <Layout>
-      <Container>
-        <SWRConfig value={{ fallback }}>
-          <Article fallbackData={article} />
-        </SWRConfig>
-      </Container>
-    </Layout>
+    <Container>
+      <SWRConfig value={{ fallback }}>
+        <Article fallbackData={article} />
+      </SWRConfig>
+    </Container>
   )
 }
 

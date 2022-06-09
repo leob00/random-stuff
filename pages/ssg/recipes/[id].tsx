@@ -65,13 +65,11 @@ const Article = ({ fallbackData }: { fallbackData: DrupalArticle }) => {
 
 const Recipe: NextPage<{ fallback: any; article: DrupalArticle }> = ({ fallback, article }) => {
   return (
-    <Layout>
-      <Container>
-        <SWRConfig value={{ fallback }}>
-          <Article fallbackData={article} />
-        </SWRConfig>
-      </Container>
-    </Layout>
+    <Container>
+      <SWRConfig value={{ fallback }}>
+        <Article fallbackData={article} />
+      </SWRConfig>
+    </Container>
   )
 }
 

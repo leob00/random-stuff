@@ -18,7 +18,7 @@ const Home: NextPage = () => {
           //pt: 3,
           //pb: 3,
         }}>
-        <Container sx={{ minHeight: '780px' }}>
+        <Container>
           <Paper sx={{ paddingTop: '10px', marginTop: 2 }}>
             <Box sx={{ align: 'center', mx: 2, paddingBottom: 4 }}>
               <Typography variant='h5' align='center' gutterBottom>
