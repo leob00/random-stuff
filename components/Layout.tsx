@@ -13,7 +13,7 @@ const Layout = ({ children, home }: { children: ReactNode; home?: boolean }) => 
       <ThemeProvider theme={theme}>
         <Container>
           <Header home={home} />
-          <Box sx={{ marginTop: 2, minHeight: '640px' }}>{children}</Box>{' '}
+          <Container sx={{ marginTop: 2, minHeight: '740px' }}>{children}</Container>{' '}
         </Container>
         <Footer />
       </ThemeProvider>

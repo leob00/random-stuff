@@ -6,6 +6,7 @@ const url = `${process.env.CONTENTFUL_GRAPH_BASE_URL}${process.env.CONTENTFUL_SP
 const allBlogsQuery = `{
   blogCollection {
     items {
+      id
       title
       summary
       body

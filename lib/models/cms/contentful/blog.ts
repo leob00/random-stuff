@@ -3,6 +3,7 @@ export interface Item {
   summary: string
   body: string
   externalUrl: string
+  id: number
 }
 
 export interface BlogCollection {
