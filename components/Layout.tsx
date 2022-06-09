@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import { ThemeProvider } from '@mui/material/styles'
-import { Container, CssBaseline } from '@mui/material'
+import { Container, CssBaseline, Paper } from '@mui/material'
 import { Box } from '@mui/material'
 import Header from './Header'
 import Footer from './Footer'
@@ -13,7 +13,7 @@ const Layout = ({ children, home }: { children: ReactNode; home?: boolean }) => 
       <ThemeProvider theme={theme}>
         <Container>
           <Header home={home} />
-          <Box sx={{ marginTop: 13, minHeight: '780px' }}>{children}</Box>
+          <Box sx={{ marginTop: 2, minHeight: '640px' }}>{children}</Box>{' '}
         </Container>
         <Footer />
       </ThemeProvider>
