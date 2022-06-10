@@ -2,7 +2,7 @@ import React from 'react'
 import type { NextPage } from 'next'
 import NLink from 'next/link'
 import { GetStaticProps } from 'next'
-import { Typography, Button, Divider, Box, Link } from '@mui/material'
+import { Typography, Button, Divider, Box, Link, Container } from '@mui/material'
 import useSWR, { SWRConfig } from 'swr'
 import axios from 'axios'
 import { getAllBlogs } from 'lib/contenfulApi'
@@ -36,7 +36,13 @@ const Articles = ({ fallbackData }: { fallbackData: BlogCollection }) => {
     fallbackData: fallbackData,
     refreshInterval: cmsRefreshIntervalMs,
   })
+  if (error) {
+    return <BlogsLayout model={fallbackData} />
+  }
   let model = data as BlogCollection
+  if (!model) {
+    return <Container>loading...</Container>
+  }
   return <BlogsLayout model={model} />
 }
 
