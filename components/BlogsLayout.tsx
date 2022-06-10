@@ -27,7 +27,7 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
 
   return (
     <>
-      <Box sx={{ my: 2, height: '600px', overFlowY: 'auto' }}>
+      <Box sx={{ my: 2 }}>
         {displayItems.map((item) => (
           <Box key={item.id} sx={{ paddingBottom: 4 }}>
             <Typography variant='h6'>{item.title}</Typography>
