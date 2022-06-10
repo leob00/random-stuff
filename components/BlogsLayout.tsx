@@ -3,7 +3,7 @@ import { Box, Button, Link, Typography } from '@mui/material'
 import { BlogCollection, Item } from 'lib/models/cms/contentful/blog'
 import { pageItems } from 'lib/util/collections'
 import NLink from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const BlogsLayout = ({ model }: { model: BlogCollection }) => {
   const paged = pageItems(model.items, 2) as unknown as Item[]
@@ -24,6 +24,10 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
     let pagedItems = allChunks[idx] as unknown as Item[]
     setDisplayItems(pagedItems)
   }
+  useEffect(() => {
+    const displayed = paged[pageIndex] as unknown as Item[]
+    setDisplayItems(displayed)
+  }, [model.items.length, displayed[0].title, displayed[0].summary, displayed[0].body])
 
   return (
     <>
