@@ -10,7 +10,7 @@ import { BlogCollection } from 'lib/models/cms/contentful/blog'
 import BlogsLayout from 'components/BlogsLayout'
 import router from 'next/router'
 
-const cmsRefreshIntervalSeconds = 120
+const cmsRefreshIntervalSeconds = 600
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
 const fetcherFn = async (url: string) => {
   let resp = await axios.get(url)
