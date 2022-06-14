@@ -19,5 +19,5 @@ export function pageItems(items: Array<any>, pageSize: number) {
       items: chunk,
     })
   })
-  return chunks
+  return result
 }

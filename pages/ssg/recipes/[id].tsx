@@ -34,7 +34,7 @@ const fetcherFn = async (url: string, id: string) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   let id = context.params?.id as string
-  console.log(`regenerating article ${id}`)
+  //console.log(`regenerating article ${id}`)
   let article = await getDrupalArticle(id)
 
   return {
