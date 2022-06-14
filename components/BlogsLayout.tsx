@@ -1,55 +1,59 @@
 import { ArrowBack, ArrowBackIos, ArrowForwardIos, SwipeLeftAltRounded } from '@mui/icons-material'
-import { Box, Button, Link, Typography } from '@mui/material'
+import { Box, Button, Divider, Link, Typography } from '@mui/material'
 import { BlogCollection, Item } from 'lib/models/cms/contentful/blog'
-import { pageItems } from 'lib/util/collections'
+import { Page, pageItems } from 'lib/util/collections'
 import NLink from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 const BlogsLayout = ({ model }: { model: BlogCollection }) => {
-  const paged = pageItems(model.items, 2) as unknown as Item[]
-  const displayed = paged[0] as unknown as Item[]
+  const pageCol = pageItems(model.items, 2)
+  const displayed = pageCol.pages[0].items as Item[]
   const [pageIndex, setPageIndex] = useState(0)
   const [displayItems, setDisplayItems] = useState<Item[]>(displayed)
-  const [allChunks] = useState<Item[]>(paged)
+  const [allChunks] = useState<Page[]>(pageCol.pages)
+  let rawJson = JSON.stringify(pageCol)
 
   const handleNextClick = () => {
     let idx = pageIndex + 1
     setPageIndex(idx)
-    let pagedItems = allChunks[idx] as unknown as Item[]
+    let pagedItems = allChunks[idx].items as Item[]
     setDisplayItems(pagedItems)
   }
   const handlePreviousClick = () => {
     let idx = pageIndex - 1
     setPageIndex(idx)
-    let pagedItems = allChunks[idx] as unknown as Item[]
+    let pagedItems = allChunks[idx].items as Item[]
     setDisplayItems(pagedItems)
   }
   useEffect(() => {
-    const displayed = paged[pageIndex] as unknown as Item[]
+    const displayed = pageCol.pages[pageIndex].items as Item[]
     setDisplayItems(displayed)
-  }, [model.items.length, displayed[0].title, displayed[0].summary, displayed[0].body])
+  }, [model.items.length, rawJson])
 
   return (
     <>
-      <Box sx={{ my: 2 }}>
-        {displayItems.map((item) => (
-          <Box key={item.id} sx={{ paddingBottom: 4 }}>
-            <Typography variant='h6'>{item.title}</Typography>
-            <Typography variant='body2' sx={{ paddingTop: 2 }}>
-              {item.summary}
-            </Typography>
-            <Typography variant='body2' sx={{ paddingTop: 2 }}>
-              {item.body}
-            </Typography>
-            <Typography variant='body2' sx={{ paddingTop: 2 }}>
-              <NLink href={item.externalUrl} passHref>
-                <Link target='_blank'>Read More</Link>
-              </NLink>
-            </Typography>
-          </Box>
-        ))}
+      <Box sx={{ height: '550px', overflowY: 'auto' }}>
+        <Box sx={{ my: 2 }}>
+          {displayItems.map((item) => (
+            <Box key={item.id} sx={{ paddingBottom: 4 }}>
+              <Typography variant='h6'>{item.title}</Typography>
+              <Typography variant='body2' sx={{ paddingTop: 2 }}>
+                {item.summary}
+              </Typography>
+              <Typography variant='body2' sx={{ paddingTop: 2 }}>
+                {item.body}
+              </Typography>
+              <Typography variant='body2' sx={{ paddingTop: 2 }}>
+                <NLink href={item.externalUrl} passHref>
+                  <Link target='_blank'>Read More</Link>
+                </NLink>
+              </Typography>
+            </Box>
+          ))}
+        </Box>
       </Box>
-      <Box sx={{ textAlign: 'center' }}>
+      <Divider />
+      <Box sx={{ textAlign: 'center', paddingTop: 2 }}>
         <Button variant='text' disabled={pageIndex == 0} onClick={handlePreviousClick}>
           <ArrowBackIos />
         </Button>

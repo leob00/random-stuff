@@ -38,18 +38,27 @@ export async function getRecipes() {
   let drupalSite = process.env.DUPAL_SITE
   let queryString = apiParams.getQueryString({ encode: false })
   let url = `${drupalSite}node/article/?${queryString}`
-  //console.log(url)
+
+  let result: ArticlesModel = {
+    allArticles,
+  }
+  if (json.links) {
+    let nextUrl = json.links.nextUrl
+  }
+  return result
+}
+
+export async function getDrupalData(url: string): Promise<DrupalNode[]> {
+  let result: DrupalNode[] = []
+  console.log('drupal url: ' + url)
   var resp = await fetch(url, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   })
-  let json = await resp.json()
+  let json = (await resp.json()) as JsonApiResponse
   let allArticles = json.data as DrupalNode[]
-  let result: ArticlesModel = {
-    allArticles,
-  }
   return result
 }
 
