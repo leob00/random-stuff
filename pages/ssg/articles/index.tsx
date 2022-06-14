@@ -19,7 +19,7 @@ const fetcherFn = async (url: string) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   let model = await getAllBlogs()
-  console.log(`regenerating ${model.items.length} blogs`)
+  //console.log(`regenerating ${model.items.length} blogs`)
   return {
     props: {
       model: model,

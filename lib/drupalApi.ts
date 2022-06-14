@@ -38,19 +38,17 @@ export async function getRecipes() {
   let drupalSite = process.env.DUPAL_SITE
   let queryString = apiParams.getQueryString({ encode: false })
   let url = `${drupalSite}node/article/?${queryString}`
-
+  let list: DrupalNode[] = []
+  await getDrupalData(url, list)
   let result: ArticlesModel = {
-    allArticles,
+    allArticles: list,
   }
-  if (json.links) {
-    let nextUrl = json.links.nextUrl
-  }
+  console.log(`retrieved ${result.allArticles.length} recipes`)
   return result
 }
 
-export async function getDrupalData(url: string): Promise<DrupalNode[]> {
-  let result: DrupalNode[] = []
-  console.log('drupal url: ' + url)
+export async function getDrupalData(url: string, list: DrupalNode[]) {
+  console.log(url)
   var resp = await fetch(url, {
     method: 'GET',
     headers: {
@@ -59,7 +57,14 @@ export async function getDrupalData(url: string): Promise<DrupalNode[]> {
   })
   let json = (await resp.json()) as JsonApiResponse
   let allArticles = json.data as DrupalNode[]
-  return result
+  allArticles.forEach((item) => {
+    list.push(item)
+  })
+  if (json.links && json.links.next) {
+    let nextUrl = json.links['next'] as Record<string, string>
+    console.log('fetching next page data from url: ' + nextUrl['href'])
+    await getDrupalData(nextUrl['href'], list)
+  }
 }
 
 export async function getArticle(id: string) {
