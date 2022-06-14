@@ -35,14 +35,6 @@ const ArticleTableLayout = ({ articles, baseUrl, featuredArticle }: { articles: 
           </NLink>
         )
       },
-      // valueGetter: (params: GridValueGetterParams) => {
-      //   /* return (
-      //     <NLink href={`${baseUrl}${params.row.id}`} passHref>
-      //       <Link>{`${params.row.label}`}</Link>
-      //     </NLink>
-      //   ) */
-      //   return `${params.row.label}`
-      // },
     },
   ]
 
@@ -87,9 +79,9 @@ const ArticleTableLayout = ({ articles, baseUrl, featuredArticle }: { articles: 
           </Stack>
         </Box>
       )}
-      <TableContainer sx={{ my: 2 }}>
+      {/*  <TableContainer sx={{ my: 2 }}>
         <DataGrid sx={{ border: 'none' }} autoHeight={true} headerHeight={0} rows={options} columns={columns} pageSize={10} rowsPerPageOptions={[10]} onRowClick={handleRowClick} />
-      </TableContainer>
+      </TableContainer> */}
     </Box>
   )
 }
