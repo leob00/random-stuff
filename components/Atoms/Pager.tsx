@@ -24,6 +24,9 @@ const Pager = ({ pageCount, itemCount, itemsPerPage, onPaged }: { pageCount: num
   return (
     <>
       <Divider />
+      <Typography sx={{ my: 2, textAlign: 'left' }} variant='body2'>
+        {displayMessage}
+      </Typography>
       <Box sx={{ textAlign: 'center', my: 2 }}>
         <Button variant='text' disabled={pageIndex <= 1} onClick={handlePreviousClick}>
           <ArrowBackIos />
@@ -32,9 +35,6 @@ const Pager = ({ pageCount, itemCount, itemsPerPage, onPaged }: { pageCount: num
           <ArrowForwardIos />
         </Button>
       </Box>
-      <Typography sx={{ my: 2, textAlign: 'right' }} variant='body2'>
-        {displayMessage}
-      </Typography>
     </>
   )
 }
