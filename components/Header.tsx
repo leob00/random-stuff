@@ -53,11 +53,11 @@ const Header = ({ home }: { home?: boolean }) => {
                 }}>
                 <NLink href='/' passHref>
                   <Link sx={{}} href='/'>
-                    <Image priority src='/images/logo-with-text.png' width={151} height={60} alt='random things' style={{ borderRadius: '.6rem' }} placeholder='empty' />
+                    <Image priority src='/images/logo-with-text.png' width={161} height={70} alt='random things' style={{ borderRadius: '.6rem' }} placeholder='empty' />
                   </Link>
                 </NLink>
               </Grid>
-              <Grid
+              {/*  <Grid
                 item
                 sx={{
                   flexGrow: 0.1,
@@ -77,7 +77,7 @@ const Header = ({ home }: { home?: boolean }) => {
                   variant='text'>
                   About
                 </Button>
-              </Grid>
+              </Grid> */}
             </Grid>
           </Container>
         </Toolbar>

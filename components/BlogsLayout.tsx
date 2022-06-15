@@ -1,31 +1,23 @@
-import { ArrowBack, ArrowBackIos, ArrowForwardIos, SwipeLeftAltRounded } from '@mui/icons-material'
-import { Box, Button, Link, Paper, TableContainer, Typography } from '@mui/material'
+import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, Box, Link, Stack, TextField, Typography } from '@mui/material'
 import { BlogCollection, Item } from 'lib/models/cms/contentful/blog'
 import { PagedCollection, pageItems } from 'lib/util/collections'
 import NLink from 'next/link'
 import React, { useEffect, useState } from 'react'
 import Pager from './Atoms/Pager'
-import { DataGrid, GridColDef, GridColumnHeaderParams, GridRenderCellParams, GridRowParams } from '@mui/x-data-grid'
+import { Option } from 'lib/AutoCompleteOptions'
+import { findLast } from 'lodash'
 
 const BlogsLayout = ({ model }: { model: BlogCollection }) => {
   const itemsPerPage = 1
   const paged = pageItems(model.items, itemsPerPage) as PagedCollection
+  let searchItems: Array<Option> = []
+  model.items.forEach((a) => {
+    searchItems.push({ label: a.title, id: a.id })
+  })
   const displayed = paged.pages[0].items as Item[]
-  const [currentPageIndex, setCurrentPageIndex] = useState(0)
+  const [currentPageIndex, setCurrentPageIndex] = useState(1)
   const [displayItems, setDisplayItems] = useState<Item[]>(displayed)
 
-  const handleNextClick = () => {
-    let idx = currentPageIndex + 1
-    setCurrentPageIndex(idx)
-    let pagedItems = paged.pages[idx].items as Item[]
-    setDisplayItems(pagedItems)
-  }
-  const handlePreviousClick = () => {
-    let idx = currentPageIndex - 1
-    setCurrentPageIndex(idx)
-    let pagedItems = paged.pages[idx].items as Item[]
-    setDisplayItems(pagedItems)
-  }
   let title = displayed[0].title
   let summary = displayed[0].summary
   let body = displayed[0].body
@@ -33,17 +25,56 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
 
   const handlePaged = (pageNum: number) => {
     setCurrentPageIndex(pageNum)
-    let pagedItems = paged.pages[pageNum].items as Item[]
-    setDisplayItems(pagedItems)
+    let page = findLast(paged.pages, function (p) {
+      return p.index === pageNum
+    })
+    if (page) {
+      let pagedItems = page.items as Item[]
+      setDisplayItems(pagedItems)
+    }
+  }
+  const handleSearched = (event: React.SyntheticEvent<Element, Event>, value: Option | null, reason: AutocompleteChangeReason, details?: AutocompleteChangeDetails<Option> | undefined) => {
+    let sel = value as Option
+
+    if (!sel) {
+      //setCurrentPageIndex(1)
+      return
+    }
+    let id = sel.id as number
+    let foundPage = findLast(paged.pages, function (p) {
+      return (
+        findLast(p.items, function (i) {
+          return i.id === id
+        }) !== undefined
+      )
+    })
+    //console.log(JSON.stringify(foundPage))
+    if (foundPage) {
+      setCurrentPageIndex(foundPage.index)
+      setDisplayItems(foundPage.items)
+    }
   }
 
   useEffect(() => {
-    const displayed = paged.pages[currentPageIndex].items as Item[]
+    const displayed = paged.pages[currentPageIndex - 1].items as Item[]
     setDisplayItems(displayed)
-  }, [count, title, summary, body])
+  }, [currentPageIndex, count, title, summary, body])
 
   return (
     <>
+      <Box>
+        <Stack direction='row' justifyContent='left' sx={{ my: 2 }}>
+          <Autocomplete
+            isOptionEqualToValue={(option, value) => option.label === value.label}
+            size='small'
+            onChange={handleSearched}
+            disablePortal
+            options={searchItems}
+            sx={{ width: 360 }}
+            renderInput={(params) => <TextField {...params} placeholder='search' />}
+          />
+        </Stack>
+      </Box>
       <Box sx={{ my: 2, minHeight: 360 }}>
         {displayItems.map((item) => (
           <Box key={item.id} sx={{ paddingBottom: 4 }}>
@@ -62,7 +93,7 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
           </Box>
         ))}
       </Box>
-      <Pager pageCount={paged.pages.length} itemCount={model.items.length} itemsPerPage={itemsPerPage} onPaged={(pageNum: number) => handlePaged(pageNum)}></Pager>
+      <Pager pageCount={paged.pages.length} itemCount={model.items.length} itemsPerPage={itemsPerPage} onPaged={(pageNum: number) => handlePaged(pageNum)} defaultPageIndex={currentPageIndex}></Pager>
     </>
   )
 }

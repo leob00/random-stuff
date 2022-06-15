@@ -48,7 +48,7 @@ export async function getRecipes() {
 }
 
 export async function getDrupalData(url: string, list: DrupalNode[]) {
-  console.log(url)
+  //console.log(url)
   var resp = await fetch(url, {
     method: 'GET',
     headers: {
@@ -62,7 +62,7 @@ export async function getDrupalData(url: string, list: DrupalNode[]) {
   })
   if (json.links && json.links.next) {
     let nextUrl = json.links['next'] as Record<string, string>
-    console.log('fetching next page data from url: ' + nextUrl['href'])
+    //console.log('fetching next page data from url: ' + nextUrl['href'])
     await getDrupalData(nextUrl['href'], list)
   }
 }
