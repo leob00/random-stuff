@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios'
+import { orderBy } from 'lodash'
 import { BlogCollection, BlogResponse, BlogTypes } from './models/cms/contentful/blog'
 
 const url = `${process.env.CONTENTFUL_GRAPH_BASE_URL}${process.env.CONTENTFUL_SPACE_ID}?access_token=${process.env.CONTENTFUL_ACCESS_TOKEN}`
@@ -11,6 +12,11 @@ const allBlogsQuery = `{
       summary
       body
       externalUrl
+      sys {
+        id
+        firstPublishedAt
+        publishedAt
+      }
     }
   }
 }
@@ -34,6 +40,7 @@ export async function getAllBlogs() {
   let data = resp.data as BlogResponse
   //console.log(data)
   let blogCollection = data.data.blogCollection
+  blogCollection.items = orderBy(blogCollection.items, ['sys.firstPublishedAt'], ['desc'])
   console.log(`retrieved ${blogCollection.items.length} blogs`)
   return blogCollection
 

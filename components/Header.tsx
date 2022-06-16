@@ -37,7 +37,7 @@ const Header = ({ home }: { home?: boolean }) => {
     <>
       <AppBar sx={{ backgroundColor: 'transparent' }} position='sticky' elevation={elevationEffect ? 4 : 0} className='blue-gradient'>
         <Toolbar>
-          <Container sx={{ paddingTop: '10px', width: '100%' }}>
+          <Container sx={{ width: '100%', my: 1 }}>
             <Grid container alignItems='center' columns={{ xs: 3, sm: 3, md: 3, lg: 3, xl: 3 }} spacing={{ xs: 1, sm: 1, md: 1, lg: 1, xl: 1 }}>
               <Grid
                 item
