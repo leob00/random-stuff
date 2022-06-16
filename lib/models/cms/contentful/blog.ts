@@ -4,6 +4,7 @@ export interface Item {
   body: string
   externalUrl: string
   id: number
+  sys: System
 }
 
 export interface BlogCollection {
@@ -16,5 +17,10 @@ export interface Data {
 
 export interface BlogResponse {
   data: Data
+}
+export interface System {
+  id: string
+  firstPublishedAt: string
+  publishedAt: string
 }
 export type BlogTypes = 'blog' | 'news'
