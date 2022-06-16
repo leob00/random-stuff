@@ -33,7 +33,9 @@ export async function getAllBlogs() {
   let resp = await axios.post(url, body, config)
   let data = resp.data as BlogResponse
   //console.log(data)
-  return data.data.blogCollection
+  let blogCollection = data.data.blogCollection
+  console.log(`retrieved ${blogCollection.items.length} blogs`)
+  return blogCollection
 
   //return response
 }

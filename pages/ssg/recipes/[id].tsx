@@ -1,13 +1,12 @@
 import { Container } from '@mui/material'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import Layout from 'components/Layout'
-import { isBrowser } from 'lib/auth'
 import { getDrupalArticle, getRecipes } from 'lib/drupalApi'
 import { SWRConfig, unstable_serialize } from 'swr'
 import { useCmsSwr } from 'hooks/useCmsSwr'
 import axios, { AxiosRequestConfig } from 'axios'
 import ArticleLayout from 'components/ArticleLayout'
 import { DrupalArticle } from 'lib/model'
+import { isBrowser } from 'lib/util/system'
 
 const cmsRefreshIntervalSeconds = 3600
 
