@@ -1,16 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import type { NextPage } from 'next'
-import NLink from 'next/link'
 import { GetStaticProps } from 'next'
-import { Typography, Button, Divider, Box, Link, Container, Stack, IconButton, Grid, Autocomplete, TextField, AutocompleteChangeDetails, AutocompleteChangeReason } from '@mui/material'
+import { Typography, Button, Divider, Box, Container } from '@mui/material'
 import useSWR, { SWRConfig } from 'swr'
 import axios from 'axios'
 import { getAllBlogs } from 'lib/contenfulApi'
 import { BlogCollection } from 'lib/models/cms/contentful/blog'
 import router from 'next/router'
-import { Search, SearchSharp } from '@mui/icons-material'
 import BlogsLayout from 'components/BlogsLayout'
-import { Option } from 'lib/AutoCompleteOptions'
 
 const cmsRefreshIntervalSeconds = 600
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
@@ -21,7 +18,6 @@ const fetcherFn = async (url: string) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   let model = await getAllBlogs()
-  console.log(`retrieved ${model.items.length} blogs`)
 
   return {
     props: {

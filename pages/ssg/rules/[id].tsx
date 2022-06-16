@@ -2,12 +2,11 @@ import { Box, Button, Container, Typography } from '@mui/material'
 import { DrupalNode } from 'next-drupal'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import router from 'next/router'
-import Layout from 'components/Layout'
 import { getArticle, getRules } from 'lib/drupalApi'
-import useSWR, { SWRConfig, unstable_serialize } from 'swr'
-import { isBrowser } from 'lib/auth'
+import { SWRConfig, unstable_serialize } from 'swr'
 import { useCmsSwr } from 'hooks/useCmsSwr'
 import axios, { AxiosRequestConfig } from 'axios'
+import { isBrowser } from 'lib/util/system'
 
 const cmsRefreshInterval = 30000
 

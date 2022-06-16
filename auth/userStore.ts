@@ -1,4 +1,5 @@
-export const isBrowser = () => typeof window !== 'undefined'
+import { isBrowser } from 'lib/util/system'
+
 export interface User {
   userId: string
 }
