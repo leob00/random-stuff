@@ -34,7 +34,7 @@ export async function getRules() {
 export async function getRecipes() {
   const apiParams = new DrupalJsonApiParams()
   apiParams.addFilter('title', 'Recipe', 'STARTS_WITH')
-  apiParams.addFields('node--article', ['id', 'title']).addSort('title')
+  apiParams.addFields('node--article', ['id', 'title', 'summary']).addSort('title')
   let drupalSite = process.env.DUPAL_SITE
   let queryString = apiParams.getQueryString({ encode: false })
   let url = `${drupalSite}node/article/?${queryString}`

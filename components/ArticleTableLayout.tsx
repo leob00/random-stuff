@@ -13,6 +13,33 @@ const ArticleTableLayout = ({ articles, baseUrl, featuredArticle }: { articles: 
     options.push({ label: a.attributes.title.replace('Recipe:', '').trim(), id: a.id })
   })
 
+  function getWindowDimensions() {
+    const hasWindow = typeof window !== 'undefined'
+    if (hasWindow) {
+      const { innerWidth: width, innerHeight: height } = window
+      return {
+        width,
+        height,
+      }
+    }
+    return {
+      width: 500,
+      height: 500,
+    }
+  }
+  let dimension = getWindowDimensions()
+  console.log(`window width: ${dimension.width} image width: ${featuredArticle?.fileMeta?.width}`)
+  let imageWidth = 500
+  let imageHeight = 500
+  if (featuredArticle && featuredArticle.fileMeta) {
+    let w = featuredArticle.fileMeta.width
+    let h = featuredArticle.fileMeta.height
+    if (dimension.width < w) {
+      imageWidth = w / 3
+      imageHeight = h / 3
+    }
+  }
+
   const handleSelect = (event: React.SyntheticEvent<Element, Event>, value: Option | null, reason: AutocompleteChangeReason, details?: AutocompleteChangeDetails<Option> | undefined) => {
     let sel = value as Option
     //console.log(sel.id)
@@ -62,19 +89,28 @@ const ArticleTableLayout = ({ articles, baseUrl, featuredArticle }: { articles: 
           </Stack>
           <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
             {featuredArticle.imageUrl && featuredArticle.fileMeta && (
-              <NLink href={`${baseUrl}${featuredArticle.id}`} passHref>
-                <Link>
-                  <Image
-                    alt={featuredArticle.attributes.title}
-                    style={{ borderRadius: '.8rem' }}
-                    src={featuredArticle.imageUrl}
-                    placeholder='blur'
-                    height={featuredArticle.fileMeta.height / 3}
-                    width={featuredArticle.fileMeta.width / 3}
-                    blurDataURL={featuredArticle.imageUrl}
-                  />
-                </Link>
-              </NLink>
+              <>
+                <NLink href={`${baseUrl}${featuredArticle.id}`} passHref>
+                  <Link>
+                    <Image
+                      alt={featuredArticle.attributes.title}
+                      style={{ borderRadius: '.8rem' }}
+                      src={featuredArticle.imageUrl}
+                      placeholder='blur'
+                      height={featuredArticle.fileMeta.height / 3}
+                      width={featuredArticle.fileMeta.height / 3}
+                      blurDataURL={featuredArticle.imageUrl}
+                      //layout='intrinsic'
+                      //objectFit='contain'
+                      //layout='fill'
+                      //objectFit='cover'
+                    />
+                  </Link>
+                </NLink>
+                <Typography variant='body1' sx={{ my: 2 }}>
+                  {featuredArticle.attributes.body.summary}
+                </Typography>
+              </>
             )}
           </Stack>
         </Box>

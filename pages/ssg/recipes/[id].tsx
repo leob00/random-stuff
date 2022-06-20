@@ -1,19 +1,19 @@
 import { Container } from '@mui/material'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import { getDrupalArticle, getRecipes } from 'lib/drupalApi'
 import { SWRConfig, unstable_serialize } from 'swr'
 import { useCmsSwr } from 'hooks/useCmsSwr'
 import axios, { AxiosRequestConfig } from 'axios'
-import ArticleLayout from 'components/ArticleLayout'
-import { DrupalArticle } from 'lib/model'
-import { isBrowser } from 'lib/util/system'
+import { getAllRecipes, getRecipe } from 'lib/contenfulApi'
+import { Recipe } from 'lib/models/cms/contentful/recipe'
+import RecipeLayout from 'components/RecipeLayout'
 
 const cmsRefreshIntervalSeconds = 3600
+const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  let model = await getRecipes()
+  let model = await getAllRecipes()
 
-  let paths = model.allArticles.map((article) => `/ssg/recipes/${article.id}`)
+  let paths = model.items.map((article) => `/ssg/recipes/${article.sys.id}`)
 
   return {
     paths: paths,
@@ -33,13 +33,13 @@ const fetcherFn = async (url: string, id: string) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   let id = context.params?.id as string
-  //console.log(`regenerating article ${id}`)
-  let article = await getDrupalArticle(id)
+  console.log(id)
+  let article = await getRecipe(id)
 
   return {
     props: {
       fallback: {
-        [unstable_serialize(['api', 'article', id])]: article,
+        [unstable_serialize(['api', 'recipe', id])]: article,
       },
       article,
     },
@@ -47,29 +47,27 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-const Article = ({ fallbackData }: { fallbackData: DrupalArticle }) => {
-  const { data, error } = useCmsSwr('/api/article', fallbackData.id, (url: string, id: string) => fetcherFn(url, id), fallbackData, cmsRefreshIntervalSeconds)
+const RecipeDetails = ({ fallbackData }: { fallbackData: Recipe }) => {
+  //console.log(JSON.stringify(fallbackData))
+  const { data, error } = useCmsSwr('/api/recipe', fallbackData.sys.id, (url: string, id: string) => fetcherFn(url, id), fallbackData, cmsRefreshIntervalMs)
   if (error) {
-    return <ArticleLayout article={fallbackData} baseUrl='/ssg/recipes' />
+    return <RecipeLayout article={fallbackData} baseUrl='/ssg/recipes' />
   }
-  let article = data as DrupalArticle
+  let article = data as Recipe
   if (!article) {
     return <Container>loading</Container>
   }
-  if (isBrowser()) {
-    console.log(`loaded article: ${article.attributes.title}`)
-  }
-  return <ArticleLayout article={article} baseUrl='/ssg/recipes' />
+  return <RecipeLayout article={article} baseUrl='/ssg/recipes' />
 }
 
-const Recipe: NextPage<{ fallback: any; article: DrupalArticle }> = ({ fallback, article }) => {
+const FoodRecipe: NextPage<{ fallback: any; article: Recipe }> = ({ fallback, article }) => {
   return (
     <Container>
       <SWRConfig value={{ fallback }}>
-        <Article fallbackData={article} />
+        <RecipeDetails fallbackData={article} />
       </SWRConfig>
     </Container>
   )
 }
 
-export default Recipe
+export default FoodRecipe

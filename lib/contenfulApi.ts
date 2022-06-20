@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios'
-import { orderBy } from 'lodash'
-import { BlogCollection, BlogResponse, BlogTypes } from './models/cms/contentful/blog'
+import { cloneDeep, orderBy } from 'lodash'
+import { BlogResponse, BlogTypes } from './models/cms/contentful/blog'
+import { RecipesResponse } from './models/cms/contentful/recipe'
 
 const url = `${process.env.CONTENTFUL_GRAPH_BASE_URL}${process.env.CONTENTFUL_SPACE_ID}?access_token=${process.env.CONTENTFUL_ACCESS_TOKEN}`
 
@@ -9,8 +10,7 @@ const allBlogsQuery = `{
     items {
       id
       title
-      summary
-      body
+      summary      
       externalUrl
       sys {
         id
@@ -21,6 +21,29 @@ const allBlogsQuery = `{
   }
 }
 `
+const allRecipesQuery = `{
+  recipeCollection {
+    items {
+      sys {
+        id
+        firstPublishedAt
+        publishedAt
+      }      
+      title
+      summary
+      richBody {
+        json
+      }
+      heroImage {
+        url
+        size
+        height
+        width
+      }
+    
+    }
+  }
+}`
 
 const config: AxiosRequestConfig = {
   headers: {
@@ -29,7 +52,6 @@ const config: AxiosRequestConfig = {
 }
 
 export async function getAllBlogs() {
-  //let response = await client.getEntries()
   let body = JSON.stringify({ query: allBlogsQuery })
   let config: AxiosRequestConfig = {
     headers: {
@@ -38,13 +60,60 @@ export async function getAllBlogs() {
   }
   let resp = await axios.post(url, body, config)
   let data = resp.data as BlogResponse
-  //console.log(data)
   let blogCollection = data.data.blogCollection
   blogCollection.items = orderBy(blogCollection.items, ['sys.firstPublishedAt'], ['desc'])
   console.log(`retrieved ${blogCollection.items.length} blogs`)
   return blogCollection
+}
 
-  //return response
+export async function getAllRecipes() {
+  let body = JSON.stringify({ query: allRecipesQuery })
+  let config: AxiosRequestConfig = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+  let resp = await axios.post(url, body, config)
+  let data = resp.data as RecipesResponse
+  let collection = data.data.recipeCollection
+  collection.items = orderBy(collection.items, ['sys.firstPublishedAt'], ['desc'])
+  console.log(`retrieved ${collection.items.length} recipes`)
+
+  return collection
+}
+
+export async function getRecipe(id: string) {
+  const query = `{
+  recipe(id: "${id}") {    
+      sys {
+        id
+        firstPublishedAt
+        publishedAt
+      }      
+      title
+      summary
+      richBody {
+        json
+      }
+      heroImage {
+        url
+        size
+        height
+        width
+      }
+  }
+}`
+  let body = JSON.stringify({ query: query })
+  let config: AxiosRequestConfig = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+  let resp = await axios.post(url, body, config)
+  let data = resp.data as RecipesResponse
+  let result = data.data.recipe
+  console.log(`retrieved ${result.title} recipe: ${result.sys.id}`)
+  return result
 }
 
 export async function getBlogsByType(type: BlogTypes) {
