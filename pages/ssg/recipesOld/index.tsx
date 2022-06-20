@@ -2,13 +2,13 @@ import React from 'react'
 import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
 import { Container, Typography, Button, Divider } from '@mui/material'
+import { getDrupalArticle, getRecipes } from 'lib/drupalApi'
+import { DrupalNode } from 'next-drupal'
 import router from 'next/router'
 import useSWR, { SWRConfig } from 'swr'
 import axios from 'axios'
-import { getAllRecipes, getRecipe } from 'lib/contenfulApi'
-import { cloneDeep } from 'lodash'
-import { Recipe, RecipeCollection } from 'lib/models/cms/contentful/recipe'
-import RecipesLayout from 'components/RecipesLayout'
+import ArticleTableLayout from 'components/ArticleTableLayout'
+import { ArticlesModel, DrupalArticle } from 'lib/model'
 
 const cmsRefreshIntervalSeconds = 3600
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
@@ -18,10 +18,12 @@ const fetcherFn = async (url: string) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  let model = await getAllRecipes()
-  let random = model.items[Math.floor(Math.random() * (model.items.length - 1))]
-  let featured = await getRecipe(random.sys.id)
+  let model = await getRecipes()
+  let random = model.allArticles[Math.floor(Math.random() * (model.allArticles.length - 1))]
+  //console.log('featured: ', JSON.stringify(featured))
+  let featured = await getDrupalArticle(random.id)
   model.featured = featured
+
   return {
     props: {
       model: model,
@@ -34,23 +36,22 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-const CachedRecipes = ({ fallbackData, featured }: { fallbackData: RecipeCollection; featured: Recipe }) => {
-  const { data, error } = useSWR(['/api/recipes'], (url: string) => fetcherFn(url), {
+const Articles = ({ fallbackData, featuredArticle }: { fallbackData: ArticlesModel; featuredArticle: DrupalArticle | undefined }) => {
+  const { data, error } = useSWR(['/api/recipe'], (url: string) => fetcherFn(url), {
     fallbackData: fallbackData,
     refreshInterval: cmsRefreshIntervalMs,
   })
   if (error) {
-    return <RecipesLayout recipeCollection={fallbackData} baseUrl='/ssg/recipes/' />
+    return <ArticleTableLayout articles={fallbackData} baseUrl='/ssg/recipesOld/' />
   }
-  let model = data as RecipeCollection
-
+  let model = data as ArticlesModel
   if (!model) {
     return <Container>loading...</Container>
   }
-  return <RecipesLayout recipeCollection={model} baseUrl='/ssg/recipes/' featured={featured} />
+  return <ArticleTableLayout articles={model} baseUrl='/ssg/recipesOld/' featuredArticle={featuredArticle} />
 }
 
-const Recipes: NextPage<{ model: RecipeCollection; fallback: any }> = ({ model, fallback }) => {
+const Recipes: NextPage<{ model: ArticlesModel; fallback: any }> = ({ model, fallback }) => {
   return (
     <>
       <Button
@@ -63,7 +64,7 @@ const Recipes: NextPage<{ model: RecipeCollection; fallback: any }> = ({ model, 
       <Typography variant='h6'>Recipes</Typography>
       <Divider />
       <SWRConfig value={{ fallback }}>
-        <CachedRecipes fallbackData={model} featured={model.featured} />
+        <Articles fallbackData={model} featuredArticle={model.featured} />
       </SWRConfig>
     </>
   )

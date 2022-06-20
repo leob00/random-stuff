@@ -37,7 +37,7 @@ const Pager = ({ pageCount, itemCount, itemsPerPage, onPaged, defaultPageIndex =
   useEffect(() => {
     setPageIndex(defaultPageIndex)
     setDisplayMessage(getDisplayMessage(defaultPageIndex, pageCount))
-  }, [defaultPageIndex, displayMessage])
+  }, [pageCount, defaultPageIndex, displayMessage])
   return (
     <>
       <Divider />
