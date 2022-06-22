@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { Recipe, RecipeCollection } from 'lib/models/cms/contentful/recipe'
 import ReactMarkdown from 'react-markdown'
 import { orderBy } from 'lodash'
+import RemoteImage from './Atoms/RemoteImage'
 
 const RecipesLayout = ({ recipeCollection, baseUrl, featured }: { recipeCollection: RecipeCollection; baseUrl: string; featured?: Recipe }) => {
   let options: Array<Option> = []
@@ -70,15 +71,16 @@ const RecipesLayout = ({ recipeCollection, baseUrl, featured }: { recipeCollecti
                 <NLink href={`${baseUrl}${featured.sys.id}`} passHref>
                   <Link>
                     <Box sx={{ borderRadius: '.9rem', backgroundColor: 'transparent', padding: 0.2 }}>
-                      <Image alt={featured.title} style={{ borderRadius: '.8rem' }} src={featured.heroImage.url} placeholder='blur' height={featured.heroImage.height / 2} width={featured.heroImage.width / 2} blurDataURL={featured.heroImage.url} />
+                      {/* <Image alt={featured.title} style={{ borderRadius: '.8rem' }} src={featured.heroImage.url} placeholder='blur' height={featured.heroImage.height / 2} width={featured.heroImage.width / 2} blurDataURL={featured.heroImage.url} /> */}
+                      <RemoteImage url={featured.heroImage.url} title={featured.title} />
                     </Box>
                   </Link>
                 </NLink>
               </>
             )}
           </Stack>
-          <Container sx={{ textAlign: 'center', my: 2 }}>
-            <Typography variant='body1' sx={{ paddingBottom: 2, paddingLeft: 20, paddingRight: 20 }}>
+          <Container sx={{ my: 2 }}>
+            <Typography variant='body1' sx={{ paddingBottom: 2, textAlign: 'center' }}>
               {featured.summary}
             </Typography>
           </Container>

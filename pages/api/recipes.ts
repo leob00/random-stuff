@@ -1,7 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { DrupalNode } from 'next-drupal'
-import { getRecipes } from 'lib/drupalApi'
-import { ArticlesModel } from 'lib/model'
 import { getAllRecipes } from 'lib/contenfulApi'
 import { RecipeCollection } from 'lib/models/cms/contentful/recipe'
 

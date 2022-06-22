@@ -24,3 +24,16 @@ a:hover {
 .blue-gradient {
   background-image: linear-gradient(90deg, hsl(219deg 84% 15%) 0%, hsl(221deg 52% 32%) 18%, hsl(220deg 46% 50%) 38%, hsl(220deg 46% 50%) 61%, hsl(221deg 52% 32%) 82%, hsl(219deg 84% 15%) 100%);
 }
+/* https://neumorphism.io/#bdbcbc */
+.coolBox {
+  border-radius: 23px;
+  background: linear-gradient(225deg, #c3bebe, #e8e2e2);
+  box-shadow: -15px 15px 20px #cec8c8, 35px -35px 70px #e4dede;
+}
+
+.boxWithShadow {
+  border-radius: 0.02em;
+  background-color: transparent;
+  -webkit-box-shadow: -5px 12px 11px 3px #000000;
+  box-shadow: -5px 12px 11px 3px #000000;
+}
