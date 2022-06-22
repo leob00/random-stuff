@@ -8,7 +8,6 @@ import { Recipe } from 'lib/models/cms/contentful/recipe'
 import RecipeLayout from 'components/RecipeLayout'
 
 const cmsRefreshIntervalSeconds = 3600
-const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
 
 export const getStaticPaths: GetStaticPaths = async () => {
   let model = await getAllRecipes()
@@ -33,7 +32,7 @@ const fetcherFn = async (url: string, id: string) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   let id = context.params?.id as string
-  console.log(id)
+  //console.log(id)
   let article = await getRecipe(id)
 
   return {
@@ -49,7 +48,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 const RecipeDetails = ({ fallbackData }: { fallbackData: Recipe }) => {
   //console.log(JSON.stringify(fallbackData))
-  const { data, error } = useCmsSwr('/api/recipe', fallbackData.sys.id, (url: string, id: string) => fetcherFn(url, id), fallbackData, cmsRefreshIntervalMs)
+  const { data, error } = useCmsSwr('/api/recipe', fallbackData.sys.id, (url: string, id: string) => fetcherFn(url, id), fallbackData, cmsRefreshIntervalSeconds)
   if (error) {
     return <RecipeLayout article={fallbackData} baseUrl='/ssg/recipes' />
   }

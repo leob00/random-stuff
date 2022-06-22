@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import Pager from './Atoms/Pager'
 import { Option } from 'lib/AutoCompleteOptions'
 import { findLast } from 'lodash'
+import RemoteImage from './Atoms/RemoteImage'
 
 const BlogsLayout = ({ model }: { model: BlogCollection }) => {
   const itemsPerPage = 1
@@ -21,8 +22,8 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
   let title = displayed[0].title
   let summary = displayed[0].summary
   let body = displayed[0].body
-  let count = model.items.length
-
+  let count = model.items.length //HEY LEO!!!
+  //HELLO!!!
   const handlePaged = (pageNum: number) => {
     setCurrentPageIndex(pageNum)
     let page = findLast(paged.pages, function (p) {
@@ -62,8 +63,8 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
 
   return (
     <>
-      <Box>
-        <Stack direction='row' justifyContent='left' sx={{ my: 2 }}>
+      <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
+        <Box>
           <Autocomplete
             isOptionEqualToValue={(option, value) => option.label === value.label}
             size='small'
@@ -73,18 +74,29 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
             sx={{ width: 360 }}
             renderInput={(params) => <TextField {...params} placeholder='search' />}
           />
-        </Stack>
-      </Box>
+        </Box>
+      </Stack>
       <Box sx={{ my: 2, minHeight: 360 }}>
         {displayItems.map((item) => (
           <Box key={item.id} sx={{ paddingBottom: 4 }}>
-            <Typography variant='h6'>{item.title}</Typography>
+            <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
+              <Typography variant='h6' sx={{ paddingBottom: 2 }}>
+                {item.title}
+              </Typography>
+            </Stack>
+            {item.heroImage && (
+              <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
+                <RemoteImage url={item.heroImage.url} title={item.title} />
+              </Stack>
+            )}
             <Typography variant='body2' sx={{ paddingTop: 2 }}>
               {item.summary}
             </Typography>
-            <Typography variant='body2' sx={{ paddingTop: 2 }}>
-              {item.body}
-            </Typography>
+            {item.body && item.body.length > 0 && (
+              <Typography variant='body2' sx={{ paddingTop: 2 }}>
+                {item.body}
+              </Typography>
+            )}
             <Typography variant='body2' sx={{ paddingTop: 2 }}>
               <NLink href={item.externalUrl} passHref>
                 <Link target='_blank'>Read More</Link>
@@ -93,6 +105,7 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
           </Box>
         ))}
       </Box>
+
       <Pager pageCount={paged.pages.length} itemCount={model.items.length} itemsPerPage={itemsPerPage} onPaged={(pageNum: number) => handlePaged(pageNum)} defaultPageIndex={currentPageIndex}></Pager>
     </>
   )

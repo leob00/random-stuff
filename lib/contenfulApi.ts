@@ -17,6 +17,12 @@ const allBlogsQuery = `{
         firstPublishedAt
         publishedAt
       }
+      heroImage {
+        url
+        size
+        height
+        width
+      }
     }
   }
 }

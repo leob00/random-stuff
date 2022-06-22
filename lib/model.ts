@@ -6,7 +6,7 @@ export interface YieldCurveData {
 
 export interface BasicArticle {
   type: string
-  imagePath?: string
+  imagePath: string
   title: string
   summary?: string
 }

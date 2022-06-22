@@ -5,6 +5,7 @@ import RandomAnimalLayout from 'components/RandomAnimalLayout'
 import { useRouter } from 'next/router'
 import { getRandomCat, getRandomDog } from 'lib/repo'
 import { BasicArticle } from 'lib/model'
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
   let article = await getRandomCat()
   return {

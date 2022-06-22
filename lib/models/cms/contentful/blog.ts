@@ -1,3 +1,5 @@
+import { HeroImage } from './recipe'
+
 export interface Item {
   title: string
   summary: string
@@ -5,6 +7,7 @@ export interface Item {
   externalUrl: string
   id: number
   sys: System
+  heroImage: HeroImage
 }
 
 export interface BlogCollection {

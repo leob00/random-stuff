@@ -60,6 +60,7 @@ export interface XkCdResponse {
 }
 export async function getRandomDog() {
   let result: BasicArticle = {
+    imagePath: '',
     type: 'Dogs',
     title: 'Dogs',
   }
@@ -75,6 +76,7 @@ export async function getRandomDog() {
 
 export async function getRandomCat() {
   let result: BasicArticle = {
+    imagePath: '',
     type: 'Cats',
     title: 'Cats',
   }

@@ -56,9 +56,9 @@ const Article = ({ fallbackData }: { fallbackData: DrupalArticle }) => {
   if (!article) {
     return <Container>loading</Container>
   }
-  if (isBrowser()) {
+  /* if (isBrowser()) {
     console.log(`loaded article: ${article.attributes.title}`)
-  }
+  } */
   return <ArticleLayout article={article} baseUrl='/ssg/recipesOld' />
 }
 
