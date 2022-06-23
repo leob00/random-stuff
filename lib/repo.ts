@@ -71,6 +71,7 @@ export async function getRandomDog() {
     return result
   } catch (error) {
     console.error(`api error ocurred: ${error}`)
+    return result
   }
 }
 
@@ -89,6 +90,7 @@ export async function getRandomCat() {
     }
   } catch (error) {
     console.error(`api error ocurred: ${error}`)
+    return result
   }
 
   return result
