@@ -1,9 +1,7 @@
 import { Box, Button, Typography, Divider, Stack } from '@mui/material'
-import RandomAnimalLayout from 'components/RandomAnimalLayout'
 import { BasicArticle } from 'lib/model'
-import { getRandomCat } from 'lib/repo'
 import { GetServerSideProps, NextPage } from 'next'
-import router, { useRouter } from 'next/router'
+import router from 'next/router'
 import React from 'react'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

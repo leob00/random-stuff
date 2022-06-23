@@ -7,7 +7,7 @@ const RemoteImage = ({ url, title, width = 350, height = 400 }: { url: string; t
   const wdth = width ? `${width}px` : '350px'
   return (
     <>
-      <Box sx={{ position: 'relative', height: hght, width: wdth, padding: '5px', my: 1 }} className='boxWithShadow'>
+      <Box sx={{ position: 'relative', height: hght, width: wdth, padding: '5px', my: 1 }} className=''>
         <Image style={{}} src={url} alt={title} placeholder='blur' layout='fill' objectFit='cover' loading='lazy' blurDataURL={url} />
       </Box>
     </>
