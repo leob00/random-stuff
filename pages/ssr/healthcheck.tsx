@@ -21,11 +21,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const healthcheck: NextPage<{ data: BasicArticle }> = ({ data }) => {
-  const router = useRouter()
-  const refreshData = () => {
-    router.replace(router.asPath)
-  }
-
   return (
     <>
       <Box>
