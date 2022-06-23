@@ -32,6 +32,7 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
     if (page) {
       let pagedItems = page.items as Item[]
       setDisplayItems(pagedItems)
+      window.scrollTo(0, 0)
     }
   }
   const handleSearched = (event: React.SyntheticEvent<Element, Event>, value: Option | null, reason: AutocompleteChangeReason, details?: AutocompleteChangeDetails<Option> | undefined) => {
