@@ -1,4 +1,5 @@
 import { Box, Button, Typography, Divider, Stack } from '@mui/material'
+import RemoteImage from 'components/Atoms/RemoteImage'
 import { BasicArticle } from 'lib/model'
 import { GetServerSideProps, NextPage } from 'next'
 import router from 'next/router'
@@ -37,6 +38,9 @@ const healthcheck: NextPage<{ data: BasicArticle }> = ({ data }) => {
       </Stack>
       <Stack direction='row' justifyContent='center' my={2}>
         <Typography variant='body1'>{data.summary}</Typography>
+      </Stack>
+      <Stack direction='row' justifyContent='center' my={2}>
+        <RemoteImage url='/images/logo-with-text.png' title={'logo'} height={220} width={320} />
       </Stack>
     </>
   )
