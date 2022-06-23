@@ -32,14 +32,14 @@ const Home: NextPage = () => {
                   <Grid item>
                     <List sx={{ listStyle: 'none' }}>
                       <ListItem>
-                        <NLink href='/ssr/RandomDog' passHref>
+                        <NLink href='/ssg/RandomDog' passHref>
                           <Link sx={{}} href='/'>
                             random dogs
                           </Link>
                         </NLink>
                       </ListItem>
                       <ListItem>
-                        <NLink href='/ssr/RandomCat' passHref>
+                        <NLink href='/ssg/RandomCat' passHref>
                           <Link sx={{}} href='/'>
                             random cats
                           </Link>

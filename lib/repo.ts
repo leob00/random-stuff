@@ -68,6 +68,7 @@ export async function getRandomDog() {
     let resp = await fetch(`https://dog.ceo/api/breeds/image/random`)
     let data = (await resp.json()) as DogResponse
     result.imagePath = data.message
+    console.log('retrieved random dog')
     return result
   } catch (error) {
     console.error(`api error ocurred: ${error}`)
@@ -87,6 +88,7 @@ export async function getRandomCat() {
 
     if (data.length > 0) {
       result.imagePath = data[0].url
+      console.log('retrieved random cat')
     }
   } catch (error) {
     console.error(`api error ocurred: ${error}`)
