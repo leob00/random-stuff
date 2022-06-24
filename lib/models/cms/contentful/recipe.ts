@@ -24,6 +24,7 @@ export interface RichText {
 }
 export interface RecipeCollection {
   featured: Recipe
+  topFeatured: Recipe[]
   items: Recipe[]
 }
 

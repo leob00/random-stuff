@@ -6,7 +6,7 @@ import router from 'next/router'
 import useSWR, { SWRConfig } from 'swr'
 import axios from 'axios'
 import { getAllRecipes, getRecipe } from 'lib/contenfulApi'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, take } from 'lodash'
 import { Recipe, RecipeCollection } from 'lib/models/cms/contentful/recipe'
 import RecipesLayout from 'components/RecipesLayout'
 
@@ -22,6 +22,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   let random = model.items[Math.floor(Math.random() * (model.items.length - 1))]
   let featured = await getRecipe(random.sys.id)
   model.featured = featured
+
   return {
     props: {
       model: model,
