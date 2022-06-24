@@ -63,36 +63,6 @@ const RecipesLayout = ({ recipeCollection, baseUrl, featured }: { recipeCollecti
             </Box>
           ))}
       </Box>
-
-      {featured && (
-        <Box sx={{ my: 2 }}>
-          <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
-            <Typography variant='h6'>Featured Recipe</Typography>
-          </Stack>
-          <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
-            <Typography variant='body1'>
-              <NLink href={`${baseUrl}${featured.sys.id}`} passHref>
-                <Button size='small'>{featured.title}</Button>
-              </NLink>
-            </Typography>
-          </Stack>
-
-          <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
-            {featured.heroImage && (
-              <>
-                <NLink href={`${baseUrl}${featured.sys.id}`} passHref>
-                  <Link>
-                    <Box sx={{ borderRadius: '.9rem', backgroundColor: 'transparent', padding: 0.2 }}>
-                      {/* <Image alt={featured.title} style={{ borderRadius: '.8rem' }} src={featured.heroImage.url} placeholder='blur' height={featured.heroImage.height / 2} width={featured.heroImage.width / 2} blurDataURL={featured.heroImage.url} /> */}
-                      <RemoteImage url={featured.heroImage.url} title={featured.title} />
-                    </Box>
-                  </Link>
-                </NLink>
-              </>
-            )}
-          </Stack>
-        </Box>
-      )}
     </Box>
   )
 }
