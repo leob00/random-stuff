@@ -23,8 +23,6 @@ export interface RichText {
   json: Document
 }
 export interface RecipeCollection {
-  featured: Recipe
-  topFeatured: Recipe[]
   items: Recipe[]
 }
 

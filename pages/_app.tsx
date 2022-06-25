@@ -5,7 +5,9 @@ import { Container, CssBaseline } from '@mui/material'
 import theme from 'components/emmaTheme'
 import Layout from 'components/Layout'
 
+//Amplify.configure(awsconfig)
 function MyApp({ Component, pageProps }: AppProps) {
+  //
   return (
     <>
       <CssBaseline />

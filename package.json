@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-amplify/ui-react": "^3.0.2",
     "@contentful/rich-text-react-renderer": "^15.12.1",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -16,6 +17,7 @@
     "@mui/icons-material": "^5.6.1",
     "@mui/material": "^5.6.1",
     "@mui/x-data-grid": "^5.11.0",
+    "aws-amplify": "^4.3.26",
     "axios": "^0.27.2",
     "contentful": "^9.1.31",
     "drupal-jsonapi-params": "^2.0.0",

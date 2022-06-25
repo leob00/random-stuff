@@ -1,16 +1,13 @@
-import { Typography, Link, Box, Autocomplete, TextField, AutocompleteChangeReason, AutocompleteChangeDetails, Stack, Button, Container } from '@mui/material'
+import { Typography, Link, Box, Autocomplete, TextField, AutocompleteChangeReason, AutocompleteChangeDetails, Stack, Button } from '@mui/material'
 import React from 'react'
 import NLink from 'next/link'
 import { Option } from 'lib/AutoCompleteOptions'
 import router from 'next/router'
-import Image from 'next/image'
 import { Recipe, RecipeCollection } from 'lib/models/cms/contentful/recipe'
-import ReactMarkdown from 'react-markdown'
 import { orderBy } from 'lodash'
 import RemoteImage from './Atoms/RemoteImage'
-import { ModelTrainingTwoTone } from '@mui/icons-material'
 
-const RecipesLayout = ({ recipeCollection, baseUrl, featured }: { recipeCollection: RecipeCollection; baseUrl: string; featured?: Recipe }) => {
+const RecipesLayout = ({ recipeCollection, baseUrl, featured }: { recipeCollection: RecipeCollection; baseUrl: string; featured: Recipe[] }) => {
   let options: Array<Option> = []
   orderBy(recipeCollection.items, ['title'], ['asc']).forEach((a) => {
     options.push({ label: a.title, id: a.sys.id })
@@ -31,8 +28,8 @@ const RecipesLayout = ({ recipeCollection, baseUrl, featured }: { recipeCollecti
         <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
           <Typography variant='h6'>Featured Recipes</Typography>
         </Stack>
-        {recipeCollection.topFeatured &&
-          recipeCollection.topFeatured.map((item, ix) => (
+        {featured.length > 0 &&
+          featured.map((item, ix) => (
             <Box sx={{ my: 2 }} key={item.title}>
               <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
                 <Typography variant='body1'>

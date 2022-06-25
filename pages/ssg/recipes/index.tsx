@@ -6,22 +6,21 @@ import router from 'next/router'
 import useSWR, { SWRConfig } from 'swr'
 import axios from 'axios'
 import { getAllRecipes, getRecipe } from 'lib/contenfulApi'
-import { cloneDeep, take } from 'lodash'
+import { cloneDeep, shuffle, take } from 'lodash'
 import { Recipe, RecipeCollection } from 'lib/models/cms/contentful/recipe'
 import RecipesLayout from 'components/RecipesLayout'
 
 const cmsRefreshIntervalSeconds = 3600
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
+
 const fetcherFn = async (url: string) => {
   let resp = await axios.get(url)
-  return resp.data
+  return resp.data as RecipeCollection
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
   let model = await getAllRecipes()
-  let random = model.items[Math.floor(Math.random() * (model.items.length - 1))]
-  let featured = await getRecipe(random.sys.id)
-  model.featured = featured
+  const featured = take(shuffle(model.items), 10)
 
   return {
     props: {
@@ -29,29 +28,30 @@ export const getStaticProps: GetStaticProps = async (context) => {
       fallback: {
         '/api/recipes': model,
       },
-      featured,
+      featured: featured,
     },
     revalidate: cmsRefreshIntervalSeconds,
   }
 }
 
-const CachedRecipes = ({ fallbackData, featured }: { fallbackData: RecipeCollection; featured: Recipe }) => {
+const CachedRecipes = ({ fallbackData, featured }: { fallbackData: RecipeCollection; featured: Recipe[] }) => {
   const { data, error } = useSWR(['/api/recipes'], (url: string) => fetcherFn(url), {
     fallbackData: fallbackData,
     refreshInterval: cmsRefreshIntervalMs,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
   })
   if (error) {
-    return <RecipesLayout recipeCollection={fallbackData} baseUrl='/ssg/recipes/' />
+    return <RecipesLayout recipeCollection={fallbackData} baseUrl='/ssg/recipes/' featured={featured} />
   }
-  let model = data as RecipeCollection
-
-  if (!model) {
+  if (!data) {
     return <Container>loading...</Container>
   }
+  let model = data as RecipeCollection
   return <RecipesLayout recipeCollection={model} baseUrl='/ssg/recipes/' featured={featured} />
 }
 
-const Recipes: NextPage<{ model: RecipeCollection; fallback: any }> = ({ model, fallback }) => {
+const Recipes: NextPage<{ model: RecipeCollection; fallback: any; featured: Recipe[] }> = ({ model, fallback, featured }) => {
   return (
     <>
       <Button
@@ -64,7 +64,7 @@ const Recipes: NextPage<{ model: RecipeCollection; fallback: any }> = ({ model, 
       <Typography variant='h6'>Recipes</Typography>
       <Divider />
       <SWRConfig value={{ fallback }}>
-        <CachedRecipes fallbackData={model} featured={model.featured} />
+        <CachedRecipes fallbackData={model} featured={featured} />
       </SWRConfig>
     </>
   )
