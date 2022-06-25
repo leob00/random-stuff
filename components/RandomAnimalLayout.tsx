@@ -38,7 +38,7 @@ const RandomAnimalLayout = ({ data, onRefresh, showNext = true }: { data: BasicA
       <Stack direction='row' justifyContent='center' my={2}>
         <RemoteImage url={data.imagePath} title={data.title} />
       </Stack>
-      {showNext && (
+      {showNext && isMounted && (
         <Box sx={{ textAlign: 'center' }}>
           <Button variant='outlined' onClick={handleNextClick}>
             Next

@@ -4,6 +4,9 @@ import useRouter from 'next/router'
 import Image from 'next/image'
 import NLink from 'next/link'
 import { useEffect, useState } from 'react'
+import { withAuthenticator, Button as LoginButton, Heading } from '@aws-amplify/ui-react'
+import '@aws-amplify/ui-react/styles.css'
+import { Auth } from 'aws-amplify'
 
 // This is used to make the header stick to the top
 function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
@@ -17,7 +20,7 @@ function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
   })
 }
 
-const Header = ({ home }: { home?: boolean }) => {
+const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState<(EventTarget & HTMLButtonElement) | null>(null)
   const [isSignedIn, setIsSignedIn] = useState<boolean | null>(null)
   const [elevationEffect, setElevationEffect] = useState(false)
@@ -28,6 +31,10 @@ const Header = ({ home }: { home?: boolean }) => {
     disableHysteresis: true,
     threshold: 0,
   })
+
+  const signOut = () => {
+    Auth.signOut()
+  }
 
   useEffect(() => {
     setElevationEffect(bodyScrolled)
@@ -57,6 +64,12 @@ const Header = ({ home }: { home?: boolean }) => {
                   </Link>
                 </NLink>
               </Grid>
+              {/* <Grid>
+                <Grid item>
+                  <Heading level={1}>Hello {Auth.userSession.name}</Heading>
+                  <LoginButton onClick={signOut}>Sign out</LoginButton>
+                </Grid>
+              </Grid> */}
               {/*  <Grid
                 item
                 sx={{
