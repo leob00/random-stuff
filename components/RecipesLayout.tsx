@@ -1,4 +1,4 @@
-import { Typography, Link, Box, Autocomplete, TextField, AutocompleteChangeReason, AutocompleteChangeDetails, Stack, Button } from '@mui/material'
+import { Typography, Link, Box, Autocomplete, TextField, AutocompleteChangeReason, AutocompleteChangeDetails, Stack, Button, Divider } from '@mui/material'
 import React from 'react'
 import NLink from 'next/link'
 import { Option } from 'lib/AutoCompleteOptions'
@@ -30,26 +30,34 @@ const RecipesLayout = ({ recipeCollection, baseUrl, featured }: { recipeCollecti
         </Stack>
         {featured.length > 0 &&
           featured.map((item, ix) => (
-            <Box sx={{ my: 2 }} key={item.title}>
-              <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
-                <Typography variant='body1'>
-                  <NLink href={`${baseUrl}${item.sys.id}`} passHref>
-                    <Button size='small'>{item.title}</Button>
-                  </NLink>
-                </Typography>
+            <Box sx={{ marginTop: 2 }} key={item.title}>
+              <Stack direction='row' justifyContent='center'>
+                <NLink href={`${baseUrl}${item.sys.id}`} passHref>
+                  <Link>
+                    <Typography variant='h6' sx={{ paddingTop: '5px', textAlign: 'center' }}>
+                      {item.title}
+                    </Typography>
+                  </Link>
+                  {/* <Button size='large'>{item.title}</Button> */}
+                  {/*  <Typography variant='h6' sx={{ paddingTop: '5px', textAlign: 'center' }}>
+                    {item.title}
+                  </Typography> */}
+                </NLink>
               </Stack>
-              <Box sx={{ my: 2 }}>
-                <Typography variant='body1' sx={{ paddingBottom: 2, textAlign: 'center' }}>
-                  {item.summary}
-                </Typography>
-              </Box>
-              <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
+              {item.summary && item.summary.length > 0 && (
+                <Box sx={{ my: 1 }}>
+                  <Typography variant='body1' sx={{ paddingBottom: 1, textAlign: 'center' }}>
+                    {item.summary}
+                  </Typography>
+                </Box>
+              )}
+
+              <Stack direction='row' justifyContent='center' sx={{ marginBottom: 2 }}>
                 {item.heroImage && (
                   <>
                     <NLink href={`${baseUrl}${item.sys.id}`} passHref>
                       <Link>
                         <Box sx={{ borderRadius: '.9rem', backgroundColor: 'transparent', padding: 0.2 }}>
-                          {/* <Image alt={featured.title} style={{ borderRadius: '.8rem' }} src={featured.heroImage.url} placeholder='blur' height={featured.heroImage.height / 2} width={featured.heroImage.width / 2} blurDataURL={featured.heroImage.url} /> */}
                           <RemoteImage url={item.heroImage.url} title={item.title} />
                         </Box>
                       </Link>
@@ -57,6 +65,7 @@ const RecipesLayout = ({ recipeCollection, baseUrl, featured }: { recipeCollecti
                   </>
                 )}
               </Stack>
+              <Divider />
             </Box>
           ))}
       </Box>
