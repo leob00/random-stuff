@@ -5,12 +5,7 @@ import { Box } from '@mui/material'
 import Header from './Header'
 import Footer from './Footer'
 import theme from './emmaTheme'
-import { Amplify, Auth } from 'aws-amplify'
-import awsconfig from 'aws-exports'
-import { CognitoUser } from '@aws-amplify/auth'
-import { CognitoUserSession } from 'amazon-cognito-identity-js'
 
-Amplify.configure(awsconfig)
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <>
