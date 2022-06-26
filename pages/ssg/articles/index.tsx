@@ -34,6 +34,7 @@ const Articles = ({ fallbackData }: { fallbackData: BlogCollection }) => {
   const { data, error } = useSWR(['/api/articles'], (url: string) => fetcherFn(url), {
     fallbackData: fallbackData,
     refreshInterval: cmsRefreshIntervalMs,
+    revalidateOnFocus: false,
   })
   if (error) {
     return <BlogsLayout model={fallbackData} />
