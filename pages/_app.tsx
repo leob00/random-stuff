@@ -4,8 +4,10 @@ import { ThemeProvider } from '@emotion/react'
 import { Container, CssBaseline } from '@mui/material'
 import theme from 'components/emmaTheme'
 import Layout from 'components/Layout'
+import awsconfig from '../src/aws-exports'
+import { Amplify } from 'aws-amplify'
 
-//Amplify.configure(awsconfig)
+Amplify.configure(awsconfig)
 function MyApp({ Component, pageProps }: AppProps) {
   //
   return (
