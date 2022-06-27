@@ -8,8 +8,8 @@ const RemoteImage = ({ url, title, width = 350, height = 400 }: { url: string; t
 
   return (
     <>
-      <Box sx={{ position: 'relative', height: hght, width: wdth, padding: '5px', my: 1, borderRadius: '10px' }} className='blue-gradient'>
-        <Image style={{ borderRadius: '10px' }} src={url} alt={title} placeholder='blur' layout='fill' objectFit='cover' loading='lazy' blurDataURL={url} />
+      <Box sx={{ position: 'relative', height: hght, width: wdth, padding: '5px', my: 1, borderRadius: '16px' }} className='blue-gradient hoverBox'>
+        <Image style={{ borderRadius: '16px' }} src={url} alt={title} placeholder='blur' layout='fill' objectFit='cover' loading='lazy' blurDataURL={url} className='' />
       </Box>
     </>
   )
