@@ -100,10 +100,6 @@ const ArticleTableLayout = ({ articles, baseUrl, featuredArticle }: { articles: 
                       height={featuredArticle.fileMeta.height / 3}
                       width={featuredArticle.fileMeta.height / 3}
                       blurDataURL={featuredArticle.imageUrl}
-                      //layout='intrinsic'
-                      //objectFit='contain'
-                      //layout='fill'
-                      //objectFit='cover'
                     />
                   </Link>
                 </NLink>

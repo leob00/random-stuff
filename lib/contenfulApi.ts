@@ -10,7 +10,8 @@ const allBlogsQuery = `{
     items {
       id
       title
-      summary      
+      summary 
+      body     
       externalUrl
       sys {
         id
