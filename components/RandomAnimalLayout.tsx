@@ -2,7 +2,7 @@ import { Box, Button, Divider, Stack, Typography, Link } from '@mui/material'
 import { BasicArticle } from 'lib/model'
 import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Download } from '@mui/icons-material'
+import { Download, ZoomIn } from '@mui/icons-material'
 import RemoteImage from './Atoms/RemoteImage'
 
 const RandomAnimalLayout = ({ data, onRefresh, showNext = true }: { data: BasicArticle; onRefresh?: () => void; showNext?: boolean }) => {
