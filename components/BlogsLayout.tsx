@@ -81,7 +81,7 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
         {displayItems.map((item) => (
           <Box key={item.id} sx={{ paddingBottom: 4 }}>
             <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
-              <Typography variant='h6' sx={{ paddingBottom: 2 }}>
+              <Typography variant='h6' sx={{ paddingBottom: 2, paddingLeft: 1 }}>
                 {item.title}
               </Typography>
             </Stack>
@@ -90,15 +90,15 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
                 <RemoteImage url={item.heroImage.url} title={item.title} />
               </Stack>
             )}
-            <Typography variant='body2' sx={{ paddingTop: 2 }}>
+            <Typography variant='body1' sx={{ paddingTop: 2, paddingLeft: 1 }}>
               {item.summary}
             </Typography>
-            {item.body && item.body.length > 0 && (
-              <Typography variant='body2' sx={{ paddingTop: 2 }}>
+            {item.body && (
+              <Typography variant='body2' sx={{ paddingTop: 2, paddingLeft: 1 }}>
                 {item.body}
               </Typography>
             )}
-            <Typography variant='body2' sx={{ paddingTop: 2 }}>
+            <Typography variant='body2' sx={{ paddingTop: 2, paddingLeft: 1 }}>
               <NLink href={item.externalUrl} passHref>
                 <Link target='_blank'>Read More</Link>
               </NLink>
