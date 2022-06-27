@@ -2,14 +2,15 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { ThemeProvider } from '@emotion/react'
 import { Container, CssBaseline } from '@mui/material'
-import theme from 'components/emmaTheme'
+import theme from 'components/mainTheme'
 import Layout from 'components/Layout'
 import awsconfig from '../src/aws-exports'
 import { Amplify } from 'aws-amplify'
-
 Amplify.configure(awsconfig)
+
 function MyApp({ Component, pageProps }: AppProps) {
   //
+
   return (
     <>
       <CssBaseline />

@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     let rules = await getRules()
     const ruleInv = async (id: string) => {
-      await res.unstable_revalidate(`/ssg/rules/${id}`)
+      await res.revalidate(`/ssg/rules/${id}`)
     }
     rules.forEach((rule) => {
       ruleInv(rule.id)
