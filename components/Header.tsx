@@ -1,12 +1,16 @@
-import * as React from 'react'
-import { AppBar, Button, Container, Grid, Toolbar, useScrollTrigger, Link, Box } from '@mui/material'
-import useRouter from 'next/router'
+import { AppBar, Button, Container, Grid, Toolbar, useScrollTrigger, Link, Box, Stack } from '@mui/material'
+import { useRouter } from 'next/router'
 import Image from 'next/image'
 import NLink from 'next/link'
 import { useEffect, useState } from 'react'
 import { withAuthenticator, Button as LoginButton, Heading } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
-import { Auth } from 'aws-amplify'
+import { Auth, Hub } from 'aws-amplify'
+import { Person } from '@mui/icons-material'
+import { CognitoUserSession } from 'amazon-cognito-identity-js'
+import { HubPayload } from '@aws-amplify/core'
+import React from 'react'
+import UserLogin from './UserLogin'
 
 // This is used to make the header stick to the top
 function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
@@ -22,24 +26,20 @@ function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState<(EventTarget & HTMLButtonElement) | null>(null)
-  const [isSignedIn, setIsSignedIn] = useState<boolean | null>(null)
   const [elevationEffect, setElevationEffect] = useState(false)
-  //const router = useRouter
-  const open = Boolean(anchorEl)
 
   const bodyScrolled = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
   })
 
-  const signOut = () => {
+  const signOut = async () => {
     Auth.signOut()
   }
 
   useEffect(() => {
     setElevationEffect(bodyScrolled)
   }, [bodyScrolled])
-  const router = useRouter
   return (
     <>
       <AppBar sx={{ backgroundColor: 'transparent' }} position='sticky' elevation={elevationEffect ? 4 : 0} className='blue-gradient'>
@@ -95,6 +95,7 @@ const Header = () => {
           </Container>
         </Toolbar>
       </AppBar>
+      <UserLogin />
     </>
   )
 }

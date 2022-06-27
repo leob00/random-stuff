@@ -52,6 +52,3 @@ const theme = createTheme({
   },
 })
 export default theme
-function rgb(arg0: number, arg1: number, arg2: number) {
-  throw new Error('Function not implemented.')
-}

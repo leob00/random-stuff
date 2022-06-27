@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const blogInv = async () => {
-      await res.unstable_revalidate('/ssg/articles')
+      await res.revalidate('/ssg/articles')
       console.log('revalidated all blogs')
       return res.json({ revalidated: true })
     }
