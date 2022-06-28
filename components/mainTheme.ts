@@ -10,6 +10,11 @@ const theme = createTheme({
       main: 'rgb(0,131,218)',
       dark: blueGrey[900],
     },
+    secondary: {
+      light: 'whitesmoke',
+      main: 'rgb(0,131,218)',
+      dark: 'gray',
+    },
     //     main: common.white,
     // },
     // secondary: {

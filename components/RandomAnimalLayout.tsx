@@ -7,11 +7,16 @@ import RemoteImage from './Atoms/RemoteImage'
 
 const RandomAnimalLayout = ({ data, onRefresh, showNext = true }: { data: BasicArticle; onRefresh?: () => void; showNext?: boolean }) => {
   const [isMounted, setIsMounted] = useState(false)
+  const [isImageLoading, setIsImageLoading] = useState(true)
   let router = useRouter()
   const handleNextClick = () => {
     if (onRefresh) {
+      setIsImageLoading(true)
       onRefresh()
     }
+  }
+  const handleImageLoaded = () => {
+    setIsImageLoading(false)
   }
 
   useEffect(() => {
@@ -36,11 +41,11 @@ const RandomAnimalLayout = ({ data, onRefresh, showNext = true }: { data: BasicA
         <Divider />
       </Box>
       <Stack direction='row' justifyContent='center' my={2}>
-        <RemoteImage url={data.imagePath} title={data.title} />
+        <RemoteImage url={data.imagePath} title={data.title} onLoaded={handleImageLoaded} />
       </Stack>
       {showNext && isMounted && (
         <Box sx={{ textAlign: 'center' }}>
-          <Button variant='outlined' onClick={handleNextClick}>
+          <Button variant='outlined' onClick={handleNextClick} disabled={isImageLoading}>
             Next
           </Button>
         </Box>
