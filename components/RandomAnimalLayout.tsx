@@ -4,6 +4,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Download, ZoomIn } from '@mui/icons-material'
 import RemoteImage from './Atoms/RemoteImage'
+import Loader from './Loader'
+import Bars from '../public/images/loaders/bars.svg'
+import NImage from 'next/image'
 
 const RandomAnimalLayout = ({ data, onRefresh, showNext = true }: { data: BasicArticle; onRefresh?: () => void; showNext?: boolean }) => {
   const [isMounted, setIsMounted] = useState(false)
@@ -45,9 +48,17 @@ const RandomAnimalLayout = ({ data, onRefresh, showNext = true }: { data: BasicA
       </Stack>
       {showNext && isMounted && (
         <Box sx={{ textAlign: 'center' }}>
-          <Button variant='outlined' onClick={handleNextClick} disabled={isImageLoading}>
-            Next
-          </Button>
+          {!isImageLoading ? (
+            <Button variant='outlined' onClick={handleNextClick}>
+              Next
+            </Button>
+          ) : (
+            <Button variant='outlined' onClick={handleNextClick} disabled={true}>
+              <>
+                <NImage src='/../public/images/loaders/black-white-spinner.gif' alt='loading' height={25} width={25} />
+              </>
+            </Button>
+          )}
         </Box>
       )}
       <Stack direction='row' justifyContent='center' my={3}>
