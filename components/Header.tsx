@@ -10,7 +10,7 @@ import { Person } from '@mui/icons-material'
 import { CognitoUserSession } from 'amazon-cognito-identity-js'
 import { HubPayload } from '@aws-amplify/core'
 import React from 'react'
-import UserLogin from './UserLogin'
+import UserLogin from './UserLoginPanel'
 
 // This is used to make the header stick to the top
 function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
