@@ -25,7 +25,7 @@ const UserLogin = () => {
     fn()
   }
 
-  const updateUser = async (payload: HubPayload) => {
+  const updateUser = (payload: HubPayload) => {
     //console.log(JSON.stringify(payload))
     switch (payload.event) {
       case 'signOut':
