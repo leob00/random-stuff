@@ -1,11 +1,10 @@
 import { Box, Button, Divider, Stack, Typography, Link } from '@mui/material'
 import { BasicArticle } from 'lib/model'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Download, ZoomIn } from '@mui/icons-material'
+import { Download } from '@mui/icons-material'
 import RemoteImage from './Atoms/RemoteImage'
-import Loader from './Loader'
-import Bars from '../public/images/loaders/bars.svg'
+import loader from '../public/images/loaders/black-white-spinner.gif'
 import NImage from 'next/image'
 
 const RandomAnimalLayout = ({ data, onRefresh, showNext = true }: { data: BasicArticle; onRefresh?: () => void; showNext?: boolean }) => {
@@ -55,7 +54,7 @@ const RandomAnimalLayout = ({ data, onRefresh, showNext = true }: { data: BasicA
           ) : (
             <Button variant='outlined' onClick={handleNextClick} disabled={true}>
               <>
-                <NImage src='/../public/images/loaders/black-white-spinner.gif' alt='loading' height={25} width={25} />
+                <NImage src={loader} alt='loading' height={25} width={25} />
               </>
             </Button>
           )}

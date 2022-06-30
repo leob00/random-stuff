@@ -6,7 +6,8 @@ import theme from 'components/mainTheme'
 import Layout from 'components/Layout'
 import awsconfig from '../src/aws-exports'
 import { Amplify } from 'aws-amplify'
-Amplify.configure(awsconfig)
+Amplify.configure({ ...awsconfig, ssr: true })
+//Amplify.configure(awsconfig)
 
 function MyApp({ Component, pageProps }: AppProps) {
   //
