@@ -21,10 +21,8 @@ const LoggedInUserMenu = ({ onLogOut }: { onLogOut: () => void }) => {
   }
 
   return (
-    <div>
-      <Button id='basic-button' aria-controls={open ? 'basic-menu' : undefined} aria-haspopup='true' aria-expanded={open ? 'true' : undefined} onClick={handleClick}>
-        <Person />
-      </Button>
+    <>
+      <Button id='basic-button' variant='text' aria-controls={open ? 'basic-menu' : undefined} aria-haspopup='true' aria-expanded={open ? 'true' : undefined} onClick={handleClick}></Button>
       <Menu
         id='basic-menu'
         anchorEl={anchorEl}
@@ -42,7 +40,7 @@ const LoggedInUserMenu = ({ onLogOut }: { onLogOut: () => void }) => {
         </MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
-    </div>
+    </>
   )
 }
 export default LoggedInUserMenu
