@@ -47,7 +47,7 @@ const UserLogin = () => {
       } catch (error) {
         setIsLoggedIn(false)
       } finally {
-        router.push('/')
+        //router.push('/')
       }
     }
     fn()

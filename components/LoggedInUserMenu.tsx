@@ -22,7 +22,9 @@ const LoggedInUserMenu = ({ onLogOut }: { onLogOut: () => void }) => {
 
   return (
     <>
-      <Button id='basic-button' variant='text' aria-controls={open ? 'basic-menu' : undefined} aria-haspopup='true' aria-expanded={open ? 'true' : undefined} onClick={handleClick}></Button>
+      <Button id='basic-button' variant='text' aria-controls={open ? 'basic-menu' : undefined} aria-haspopup='true' aria-expanded={open ? 'true' : undefined} onClick={handleClick}>
+        <Person />
+      </Button>
       <Menu
         id='basic-menu'
         anchorEl={anchorEl}
