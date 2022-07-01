@@ -1,5 +1,5 @@
 import { AppBar, Button, Container, Grid, Toolbar, useScrollTrigger, Link, Box, Stack } from '@mui/material'
-import { useRouter } from 'next/router'
+import router from 'next/router'
 import Image from 'next/image'
 import NLink from 'next/link'
 import { useEffect, useState } from 'react'
@@ -11,6 +11,7 @@ import { CognitoUserSession } from 'amazon-cognito-identity-js'
 import { HubPayload } from '@aws-amplify/core'
 import React from 'react'
 import UserLoginPanel from './UserLoginPanel'
+import { DarkMode } from './themes/DarkMode'
 
 // This is used to make the header stick to the top
 function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
@@ -45,7 +46,7 @@ const Header = () => {
       <AppBar sx={{ backgroundColor: 'transparent' }} position='sticky' elevation={elevationEffect ? 4 : 0} className='blue-gradient'>
         <Toolbar>
           <Container sx={{ width: '100%', my: 1 }}>
-            <Grid container alignItems='center' columns={{ xs: 3, sm: 3, md: 6, lg: 8, xl: 12 }} spacing={{ xs: 10, sm: 12, md: 24, lg: 30, xl: 30 }}>
+            <Grid container alignItems='center' columns={{ xs: 3, sm: 3, md: 6, lg: 8, xl: 12 }} spacing={{ xs: 2, sm: 10, md: 12, lg: 14, xl: 16 }}>
               <Grid item>
                 <NLink href='/' passHref>
                   <Link sx={{}} href='/'>
@@ -53,7 +54,27 @@ const Header = () => {
                   </Link>
                 </NLink>
               </Grid>
-              <Grid item>
+              <Grid item display={{ xs: 'none', sm: 'block', md: 'block', lg: 'block', xl: 'block' }}>
+                <DarkMode>
+                  <Button
+                    onClick={() => {
+                      router.push('/')
+                    }}>
+                    Home
+                  </Button>
+                </DarkMode>
+              </Grid>
+              <Grid item display={{ xs: 'none', sm: 'block', md: 'block', lg: 'block', xl: 'block' }}>
+                <DarkMode>
+                  <Button
+                    onClick={() => {
+                      router.push('/ssg/About')
+                    }}>
+                    About
+                  </Button>
+                </DarkMode>
+              </Grid>
+              <Grid item xs={1}>
                 <UserLoginPanel />
               </Grid>
             </Grid>
