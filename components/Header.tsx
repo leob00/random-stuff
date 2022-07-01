@@ -10,7 +10,7 @@ import { Person } from '@mui/icons-material'
 import { CognitoUserSession } from 'amazon-cognito-identity-js'
 import { HubPayload } from '@aws-amplify/core'
 import React from 'react'
-import UserLogin from './UserLoginPanel'
+import UserLoginPanel from './UserLoginPanel'
 
 // This is used to make the header stick to the top
 function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
@@ -45,57 +45,21 @@ const Header = () => {
       <AppBar sx={{ backgroundColor: 'transparent' }} position='sticky' elevation={elevationEffect ? 4 : 0} className='blue-gradient'>
         <Toolbar>
           <Container sx={{ width: '100%', my: 1 }}>
-            <Grid container alignItems='center' columns={{ xs: 3, sm: 3, md: 3, lg: 3, xl: 3 }} spacing={{ xs: 1, sm: 1, md: 1, lg: 1, xl: 1 }}>
-              <Grid
-                item
-                sx={{
-                  flexGrow: 0.1,
-                  display: {
-                    xs: 'block',
-                    sm: 'block',
-                    md: 'block',
-                    lg: 'block',
-                    xl: 'block',
-                  },
-                }}>
+            <Grid container alignItems='center' columns={{ xs: 3, sm: 3, md: 6, lg: 8, xl: 12 }} spacing={{ xs: 10, sm: 12, md: 24, lg: 30, xl: 30 }}>
+              <Grid item>
                 <NLink href='/' passHref>
                   <Link sx={{}} href='/'>
                     <Image priority src='/images/logo-with-text.png' width={161} height={70} alt='random things' style={{ borderRadius: '.6rem' }} placeholder='empty' />
                   </Link>
                 </NLink>
               </Grid>
-              {/* <Grid>
-                <Grid item>
-                  <Heading level={1}>Hello {Auth.userSession.name}</Heading>
-                  <LoginButton onClick={signOut}>Sign out</LoginButton>
-                </Grid>
-              </Grid> */}
-              {/*  <Grid
-                item
-                sx={{
-                  flexGrow: 0.1,
-                  display: {
-                    xs: 'block',
-                    sm: 'block',
-                    md: 'block',
-                    lg: 'block',
-                    xl: 'block',
-                  },
-                }}>
-                <Button
-                  onClick={() => {
-                    router.push('/ssg/About')
-                  }}
-                  sx={{ color: 'whitesmoke' }}
-                  variant='text'>
-                  About
-                </Button>
-              </Grid> */}
+              <Grid item>
+                <UserLoginPanel />
+              </Grid>
             </Grid>
           </Container>
         </Toolbar>
       </AppBar>
-      <UserLogin />
     </>
   )
 }

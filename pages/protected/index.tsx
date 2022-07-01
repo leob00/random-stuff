@@ -5,7 +5,7 @@ import { GetServerSideProps, NextPage } from 'next'
 const Protected: NextPage<{ authenticated: boolean; username: string | undefined }> = ({ authenticated, username }) => {
   return (
     <>
-      <Container>{!authenticated ? <Typography variant='h6'>not logged in</Typography> : <Typography variant='body1'>Welcome, {username}</Typography>}</Container>
+      <Container>{!authenticated ? <Typography variant='h6'>not logged in</Typography> : <Typography variant='body1'>{username}</Typography>}</Container>
     </>
   )
 }

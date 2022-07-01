@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import NLink from 'next/link'
 import { withAuthenticator, Button as LoginButton, Heading } from '@aws-amplify/ui-react'
 import LoggedInUserMenu from './LoggedInUserMenu'
+import { DarkMode } from './themes/DarkMode'
 
 export type HubPayload = {
   event: string
@@ -65,33 +66,27 @@ const UserLogin = () => {
   }, [])
 
   return (
-    <Box>
-      <Container>
-        <Grid container alignItems='right' sx={{ paddingRight: 3 }} columns={{ xs: 3, sm: 3, md: 3, lg: 3, xl: 3 }} spacing={{ xs: 1, sm: 1, md: 1, lg: 1, xl: 1 }}>
-          <Grid item xs={6}></Grid>
-          <Grid item xs={3}>
-            <Stack direction='row' justifyContent='right'>
-              {isLoggedIn === true ? (
-                <>
-                  <LoggedInUserMenu onLogOut={signOut} />
-                </>
-              ) : (
-                <>
-                  <Button
-                    onClick={() => {
-                      router.push('/login')
-                    }}>
-                    <Person />
-                    sign in
-                  </Button>
-                </>
-              )}
-            </Stack>
-          </Grid>
-          <Grid item xs={3}></Grid>
-        </Grid>
-      </Container>
-    </Box>
+    <>
+      <DarkMode>
+        <Stack direction='row' justifyContent='right' textAlign='right'>
+          {isLoggedIn === true ? (
+            <>
+              <LoggedInUserMenu onLogOut={signOut} />
+            </>
+          ) : (
+            <>
+              <Button
+                onClick={() => {
+                  router.push('/login')
+                }}>
+                <Person />
+                sign in
+              </Button>
+            </>
+          )}
+        </Stack>
+      </DarkMode>
+    </>
   )
 }
 
