@@ -4,7 +4,7 @@ import { Container, CssBaseline, Paper } from '@mui/material'
 import { Box } from '@mui/material'
 import Header from './Header'
 import Footer from './Footer'
-import theme from './mainTheme'
+import theme from './themes/mainTheme'
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (

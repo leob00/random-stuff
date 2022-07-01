@@ -4,6 +4,7 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { Person } from '@mui/icons-material'
 import router from 'next/router'
+import { Stack, Typography } from '@mui/material'
 
 const LoggedInUserMenu = ({ onLogOut }: { onLogOut: () => void }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -22,6 +23,7 @@ const LoggedInUserMenu = ({ onLogOut }: { onLogOut: () => void }) => {
 
   return (
     <>
+      <Typography variant='body2' sx={{ paddingTop: 1 }}></Typography>
       <Button id='basic-button' variant='text' aria-controls={open ? 'basic-menu' : undefined} aria-haspopup='true' aria-expanded={open ? 'true' : undefined} onClick={handleClick}>
         <Person />
       </Button>
