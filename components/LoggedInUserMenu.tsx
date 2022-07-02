@@ -42,7 +42,7 @@ const LoggedInUserMenu = ({ onLogOut }: { onLogOut: () => void }) => {
           }}>
           Profile
         </MenuItem>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>sign out</MenuItem>
       </Menu>
     </>
   )

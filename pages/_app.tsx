@@ -6,11 +6,16 @@ import theme from 'components/themes/mainTheme'
 import Layout from 'components/Layout'
 import awsconfig from '../src/aws-exports'
 import { Amplify } from 'aws-amplify'
+import { useEffect } from 'react'
 Amplify.configure({ ...awsconfig, ssr: true })
+import router from 'next/router'
 //Amplify.configure(awsconfig)
 
 function MyApp({ Component, pageProps }: AppProps) {
   //
+  useEffect(() => {
+    router.push('/ssg/warmup')
+  }, [])
 
   return (
     <>

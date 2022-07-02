@@ -46,7 +46,7 @@ const Header = () => {
       <AppBar sx={{ backgroundColor: 'transparent' }} position='sticky' elevation={elevationEffect ? 4 : 0} className='blue-gradient'>
         <Toolbar>
           <Container sx={{ width: '100%', my: 1 }}>
-            <Grid container alignItems='center' columns={{ xs: 3, sm: 3, md: 6, lg: 8, xl: 12 }} spacing={{ xs: 1, sm: 1, md: 6, lg: 6, xl: 8 }}>
+            <Grid container alignItems='center' columns={{ xs: 2, sm: 4, md: 8, lg: 12, xl: 12 }} spacing={{ xs: 1, sm: 1, md: 3, lg: 4, xl: 4 }}>
               <Grid item>
                 <NLink href='/' passHref>
                   <Link sx={{}} href='/'>
@@ -74,7 +74,7 @@ const Header = () => {
                   </Button>
                 </DarkMode>
               </Grid>
-              <Grid item xs={1}>
+              <Grid item>
                 <UserLoginPanel />
               </Grid>
             </Grid>

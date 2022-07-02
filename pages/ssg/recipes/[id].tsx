@@ -48,7 +48,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 const RecipeDetails = ({ fallbackData }: { fallbackData: Recipe }) => {
   //console.log(JSON.stringify(fallbackData))
-  const { data, error } = useCmsSwr('/api/recipe', fallbackData.sys.id, (url: string, id: string) => fetcherFn(url, id), fallbackData, cmsRefreshIntervalSeconds)
+  const { data, error } = useCmsSwr('recipe', fallbackData.sys.id, (url: string, id: string) => fetcherFn(url, id), fallbackData, cmsRefreshIntervalSeconds)
   if (error) {
     return <RecipeLayout article={fallbackData} baseUrl='/ssg/recipes' />
   }
