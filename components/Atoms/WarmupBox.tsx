@@ -8,10 +8,10 @@ const WarmupBox = () => {
   return (
     <Container>
       <Stack direction='row' justifyContent='center' sx={{ my: 8 }}>
-        <NImage src={loader} alt='loading' height={50} width={50} />
+        <Typography variant='h6'>{getRandomLoadertext()}</Typography>
       </Stack>
       <Stack direction='row' justifyContent='center' sx={{ my: 8 }}>
-        <Typography variant='body1'>{getRandomLoadertext()}</Typography>
+        <NImage src={loader} alt='loading' height={50} width={50} />
       </Stack>
     </Container>
   )
