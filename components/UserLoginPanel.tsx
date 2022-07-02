@@ -7,6 +7,7 @@ import NLink from 'next/link'
 import { withAuthenticator, Button as LoginButton, Heading } from '@aws-amplify/ui-react'
 import LoggedInUserMenu from './LoggedInUserMenu'
 import { DarkMode } from './themes/DarkMode'
+import axios, { AxiosRequestConfig } from 'axios'
 
 export type HubPayload = {
   event: string
@@ -54,6 +55,10 @@ const UserLogin = () => {
     fn()
   }, [isLoggedIn])
 
+  const handleLoginClick = async () => {
+    router.push('/login')
+  }
+
   useEffect(() => {
     let fn = async () => {
       Hub.listen('auth', (data) => {
@@ -75,10 +80,7 @@ const UserLogin = () => {
             </>
           ) : (
             <>
-              <Button
-                onClick={() => {
-                  router.push('/login')
-                }}>
+              <Button onClick={handleLoginClick}>
                 <Person />
                 sign in
               </Button>
