@@ -3,6 +3,7 @@ import type { GetServerSideProps, NextPage } from 'next'
 import router from 'next/router'
 import { withSSRContext } from 'aws-amplify'
 import WarmupBox from 'components/Atoms/WarmupBox'
+import HomeMenu from 'components/Organizms/HomeMenu'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { Auth } = withSSRContext(context)
@@ -32,6 +33,7 @@ const WarmUp: NextPage<{ authenticated: boolean; username: string | undefined }>
 
   return (
     <>
+      <HomeMenu />
       <WarmupBox />
     </>
   )
