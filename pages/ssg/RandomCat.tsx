@@ -6,11 +6,14 @@ import { getRandomCat } from 'lib/repo'
 import { BasicArticle } from 'lib/model'
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  const cmsRefreshIntervalSeconds = 3600
+
   let article = await getRandomCat()
   return {
     props: {
       data: article,
     },
+    revalidate: cmsRefreshIntervalSeconds,
   }
 }
 

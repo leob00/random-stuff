@@ -1,5 +1,5 @@
 import { Container, Stack, Typography } from '@mui/material'
-import { getRandomLoadertext } from 'lib/randomLoderText'
+import { getRandomLoadertext } from 'lib/randomLoaderText'
 import React from 'react'
 import loader from '../../public/images/loaders/black-white-spinner.gif'
 import NImage from 'next/image'

@@ -6,11 +6,13 @@ import RandomAnimalLayout from 'components/RandomAnimalLayout'
 import { useRouter } from 'next/router'
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  const cmsRefreshIntervalSeconds = 3600
   let article = await getRandomDog()
   return {
     props: {
       data: article,
     },
+    revalidate: cmsRefreshIntervalSeconds,
   }
 }
 
