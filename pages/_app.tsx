@@ -14,6 +14,7 @@ import router from 'next/router'
 function MyApp({ Component, pageProps }: AppProps) {
   //
   useEffect(() => {
+    router.prefetch('/protected')
     router.push('/ssg/warmup')
   }, [])
 
