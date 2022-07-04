@@ -6,12 +6,15 @@ import router from 'next/router'
 import { Recipe, RecipeCollection } from 'lib/models/cms/contentful/recipe'
 import { orderBy } from 'lodash'
 import RemoteImage from './Atoms/RemoteImage'
+import { navItem } from 'aws-amplify'
 
 const RecipesLayout = ({ recipeCollection, baseUrl, featured }: { recipeCollection: RecipeCollection; baseUrl: string; featured: Recipe[] }) => {
-  let options: Array<Option> = []
-  orderBy(recipeCollection.items, ['title'], ['asc']).forEach((a) => {
+  //let options: Array<Option> = []
+  let ordered = orderBy(recipeCollection.items, ['title'], ['asc'])
+  let options = ordered.map((item) => ({ id: item.sys.id, label: item.title })) as Option[]
+  /* orderBy(recipeCollection.items, ['title'], ['asc']).forEach((a) => {
     options.push({ label: a.title, id: a.sys.id })
-  })
+  }) */
 
   const handleSelect = (event: React.SyntheticEvent<Element, Event>, value: Option | null, reason: AutocompleteChangeReason, details?: AutocompleteChangeDetails<Option> | undefined) => {
     let sel = value as Option
@@ -22,7 +25,7 @@ const RecipesLayout = ({ recipeCollection, baseUrl, featured }: { recipeCollecti
   return (
     <Box>
       <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
-        <Autocomplete size='small' onChange={handleSelect} disablePortal options={options} sx={{ width: 360 }} renderInput={(params) => <TextField {...params} placeholder={`search over ${options.length} recipes`} />} />
+        <Autocomplete size='small' onChange={handleSelect} disablePortal options={options} sx={{ width: 360 }} renderInput={(params) => <TextField {...params} placeholder={`search ${options.length} recipes`} />} />
       </Stack>
       <Box sx={{ my: 2 }}>
         <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
@@ -38,10 +41,6 @@ const RecipesLayout = ({ recipeCollection, baseUrl, featured }: { recipeCollecti
                       {item.title}
                     </Typography>
                   </Link>
-                  {/* <Button size='large'>{item.title}</Button> */}
-                  {/*  <Typography variant='h6' sx={{ paddingTop: '5px', textAlign: 'center' }}>
-                    {item.title}
-                  </Typography> */}
                 </NLink>
               </Stack>
               {item.summary && item.summary.length > 0 && (
