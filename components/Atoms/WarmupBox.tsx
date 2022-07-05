@@ -6,12 +6,12 @@ import NImage from 'next/image'
 
 const WarmupBox = () => {
   return (
-    <Container>
-      <Stack direction='row' justifyContent='center' sx={{ my: 8 }}>
-        <Typography variant='h6'>{getRandomLoadertext()}</Typography>
-      </Stack>
-      <Stack direction='row' justifyContent='center' sx={{ my: 8 }}>
-        <NImage src={loader} alt='loading' height={50} width={50} />
+    <Container sx={{}}>
+      <Stack direction='row' justifyContent='center' sx={{ my: 4, position: 'relative', marginTop: 16 }}>
+        <Typography variant='body2' sx={{ paddingRight: 2 }}>
+          {getRandomLoadertext()}
+        </Typography>
+        <NImage src={loader} alt='loading' height={20} width={20} />
       </Stack>
     </Container>
   )
