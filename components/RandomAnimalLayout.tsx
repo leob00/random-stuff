@@ -54,7 +54,7 @@ const RandomAnimalLayout = ({ data, onRefresh, showNext = true }: { data: BasicA
           ) : (
             <Button variant='outlined' onClick={handleNextClick} disabled={true}>
               <>
-                <NImage src={loader} alt='loading' height={25} width={25} />
+                <NImage src={loader} alt='loading' height={30} width={30} style={{ padding: 2 }} />
               </>
             </Button>
           )}
