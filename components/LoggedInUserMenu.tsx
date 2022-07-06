@@ -40,7 +40,7 @@ const LoggedInUserMenu = ({ onLogOut }: { onLogOut: () => void }) => {
             handleClose()
             router.push('/protected')
           }}>
-          Profile
+          profile
         </MenuItem>
         <MenuItem onClick={handleLogout}>sign out</MenuItem>
       </Menu>

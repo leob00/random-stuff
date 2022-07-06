@@ -1,9 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import { Box, Paper, Typography } from '@mui/material'
-import Bars from '../public/images/loaders/bars.svg'
-import spinner from '../public/images/loaders/green-spinner.gif'
-import { maxWidth } from '@mui/system'
+import { Box } from '@mui/material'
 
 const Loader = () => {
   return (
