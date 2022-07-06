@@ -1,14 +1,13 @@
-import { Button, Typography, Divider, Box, Container, Paper, Stack } from '@mui/material'
+import { Button, Typography, Divider, Container, Stack } from '@mui/material'
 import router from 'next/router'
-import Image from 'next/image'
 import React from 'react'
-import { DrupalArticle } from 'lib/model'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
-import ReactMarkdown from 'react-markdown'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import RemoteImage from './Atoms/RemoteImage'
 
 const RecipeLayout = ({ article, baseUrl }: { article: Recipe; baseUrl: string }) => {
+  //console.log(JSON.stringify(article))
+
   return (
     <>
       <Button
@@ -28,8 +27,7 @@ const RecipeLayout = ({ article, baseUrl }: { article: Recipe; baseUrl: string }
         </Container>
         {article.heroImage && (
           <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
-            {/* <Image style={{ borderRadius: '.8rem' }} src={article.heroImage.url} alt={article.title} placeholder='blur' height={article.heroImage.height / 2} width={article.heroImage.width / 2} blurDataURL={article.heroImage.url} /> */}
-            <RemoteImage url={article.heroImage.url} title={article.title} />
+            <RemoteImage url={article.heroImage.url} title={article.title ? article.title : ''} />
           </Stack>
         )}
         <Container>
