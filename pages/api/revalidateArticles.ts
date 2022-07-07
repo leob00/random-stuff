@@ -1,5 +1,3 @@
-import { getAllBlogs } from 'lib/contenfulApi'
-import { getRules } from 'lib/drupalApi'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
