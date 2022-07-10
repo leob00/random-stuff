@@ -12,11 +12,11 @@ const WarmupBox = () => {
   }, [])
   return (
     <Container>
-      <Stack direction='row' justifyContent='left' sx={{ my: 4, position: 'relative', marginTop: 22 }}>
-        <Typography variant='body2' sx={{ paddingRight: 2, fontSize: 10 }}>
+      <Stack direction='row' justifyContent='center' sx={{ my: 4 }}>
+        <Typography variant='body2' sx={{ paddingRight: 2 }}>
           {message}
         </Typography>
-        <NImage src={loader} alt='loading' height={14} width={14} />
+        <NImage src={loader} alt='loading' height={24} width={28} />
       </Stack>
     </Container>
   )

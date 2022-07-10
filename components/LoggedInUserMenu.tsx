@@ -38,7 +38,7 @@ const LoggedInUserMenu = ({ onLogOut }: { onLogOut: () => void }) => {
         <MenuItem
           onClick={() => {
             handleClose()
-            router.push('/protected')
+            router.push('/ssg/waitandredirect?id=protected')
           }}>
           profile
         </MenuItem>
