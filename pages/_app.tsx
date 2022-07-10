@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   //
   useEffect(() => {
     //router.prefetch('/protected')
-    router.push('/ssg/warmup')
+    //router.push('/csr/waitandredirect/home')
   }, [])
 
   return (
