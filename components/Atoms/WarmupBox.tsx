@@ -6,10 +6,10 @@ import NImage from 'next/image'
 import { ActionType, Model, warmupReducer } from 'lib/reducers/warmupReducer'
 
 const WarmupBox = () => {
-  const rModel: Model = {
+  const defaultModel: Model = {
     message: getRandomLoadertext(),
   }
-  const [model, dispatch] = useReducer(warmupReducer, rModel)
+  const [model, dispatch] = useReducer(warmupReducer, defaultModel)
   const [message, setMessage] = useState('')
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const WarmupBox = () => {
     const interval = setInterval(() => {
       console.log('dispatched')
       dispatch({ type: 'generate' })
-    }, 20000)
+    }, 2000)
     return clearInterval(interval)
   }, [])
   return (
