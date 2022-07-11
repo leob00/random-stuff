@@ -10,24 +10,23 @@ const WarmupBox = () => {
     message: getRandomLoadertext(),
   }
   const [model, dispatch] = useReducer(warmupReducer, defaultModel)
-  const [message, setMessage] = useState('')
 
   useEffect(() => {
     //setMessage(getRandomLoadertext())
-    dispatch({ type: 'init' })
+    //dispatch({ type: 'init' })
     const interval = setInterval(() => {
       console.log('dispatched')
       dispatch({ type: 'generate' })
     }, 2000)
     return clearInterval(interval)
-  }, [])
+  }, [model.message])
   return (
     <Container>
       <Stack direction='row' justifyContent='center' sx={{ my: 4 }}>
         <Typography variant='body2' sx={{ paddingRight: 2 }}>
-          {model.message}
+          {`${model.message}...`}
         </Typography>
-        <NImage src={loader} alt='loading' height={24} width={28} />
+        <NImage src={loader} alt='loading' height={24} width={26} />
       </Stack>
     </Container>
   )
