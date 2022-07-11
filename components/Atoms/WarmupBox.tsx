@@ -21,11 +21,13 @@ const WarmupBox = () => {
     return clearInterval(interval)
   }, [model.message])
   return (
-    <Container>
-      <Stack direction='row' justifyContent='center' sx={{ my: 4 }}>
-        <Typography variant='body2' sx={{ paddingRight: 2 }}>
+    <Container sx={{}}>
+      <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
+        <Typography variant='body2' sx={{}}>
           {`${model.message}...`}
         </Typography>
+      </Stack>
+      <Stack direction='row' justifyContent='center' sx={{ my: 1 }}>
         <NImage src={loader} alt='loading' height={24} width={26} />
       </Stack>
     </Container>
