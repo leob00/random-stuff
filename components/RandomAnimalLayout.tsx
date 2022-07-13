@@ -61,7 +61,7 @@ const RandomAnimalLayout = ({ data, onRefresh, showNext = true }: { data: BasicA
         </Box>
       )}
       <Stack direction='row' justifyContent='center' my={3}>
-        <Link href={data.imagePath} target='_blank' download>
+        <Link href={data.imagePath} target='_blank' download={data.title}>
           <Download />
         </Link>
       </Stack>
