@@ -4,10 +4,15 @@ import { getRandomDog } from 'lib/repo'
 import { BasicArticle } from 'lib/model'
 import RandomAnimalLayout from 'components/RandomAnimalLayout'
 import { useRouter } from 'next/router'
+import { isBrowser } from 'lib/util/system'
+import { downloadRandomDogImage } from 'lib/backend/fileUtil'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const cmsRefreshIntervalSeconds = 3600
   let article = await getRandomDog()
+  /* if (!isBrowser()) {
+    await downloadRandomDogImage()
+  } */
   return {
     props: {
       data: article,
