@@ -37,7 +37,7 @@ const UserLogin = () => {
       case 'signIn':
         setIsLoggedIn(true)
         //api/login()
-        router.push('/protected')
+        router.push('/ssg/waitandredirect?id=protected')
         break
     }
   }

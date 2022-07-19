@@ -18,6 +18,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       type: 'dogs',
       imagePath: `/images/randomDogs/${file}`,
     })
+    console.log(`mapped dog: ${file}`)
   })
   let articles = shuffle(mappedArticles)
   return {
