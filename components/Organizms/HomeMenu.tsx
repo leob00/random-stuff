@@ -26,14 +26,14 @@ const HomeMenu = () => {
                   <Grid item>
                     <List sx={{ listStyle: 'none' }}>
                       <ListItem>
-                        <NLink href='/ssg/RandomDog' passHref>
+                        <NLink href='/ssg/randomdog' passHref>
                           <Link sx={{}} href='/'>
                             random dogs
                           </Link>
                         </NLink>
                       </ListItem>
                       <ListItem>
-                        <NLink href='/ssg/RandomCat' passHref>
+                        <NLink href='/ssg/randomcat' passHref>
                           <Link sx={{}} href='/'>
                             random cats
                           </Link>
