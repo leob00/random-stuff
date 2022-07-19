@@ -7,7 +7,7 @@ import RemoteImage from './Atoms/RemoteImage'
 import loader from '../public/images/loaders/black-white-spinner.gif'
 import NImage from 'next/image'
 
-const RandomAnimalLayout = ({ data, onRefresh, showNext = true }: { data: BasicArticle; onRefresh?: () => void; showNext?: boolean }) => {
+const RandomAnimalLayout = ({ data, onRefresh, showNext = true, articles }: { data: BasicArticle; onRefresh?: () => void; showNext?: boolean; articles?: BasicArticle[] }) => {
   const [isMounted, setIsMounted] = useState(false)
   const [isImageLoading, setIsImageLoading] = useState(true)
   let router = useRouter()
@@ -31,6 +31,26 @@ const RandomAnimalLayout = ({ data, onRefresh, showNext = true }: { data: BasicA
 
   return (
     <>
+      {articles && (
+        <>
+          <Box>
+            <Button
+              variant='text'
+              onClick={() => {
+                router.push('/')
+              }}>
+              &#8592; back
+            </Button>
+            <Typography variant='h5'>{articles[0].title}</Typography>
+            <Divider />
+          </Box>
+          {articles.map((item) => (
+            <Stack direction='row' justifyContent='center' my={2} key={item.imagePath}>
+              <RemoteImage url={item.imagePath} title={item.title} />
+            </Stack>
+          ))}
+        </>
+      )}
       <Box>
         <Button
           variant='text'

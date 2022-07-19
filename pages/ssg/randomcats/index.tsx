@@ -1,29 +1,41 @@
 import React from 'react'
 import type { GetStaticProps, NextPage } from 'next'
-import RandomAnimalLayout from 'components/RandomAnimalLayout'
 import { useRouter } from 'next/router'
-import { getRandomCat } from 'lib/repo'
 import { BasicArticle } from 'lib/model'
+import fs from 'fs'
+import ArticlesLayout from 'components/Organizms/ArticlesLayout'
+import { shuffle } from 'lodash'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const cmsRefreshIntervalSeconds = 3600
-
-  let article = await getRandomCat()
+  const basePath = './public/images/randomCats'
+  let files = await fs.promises.readdir(basePath)
+  console.log(`found ${files.length} cat files`)
+  let mappedArticles: BasicArticle[] = []
+  files.forEach((file) => {
+    mappedArticles.push({
+      title: 'Cats',
+      type: 'cats',
+      imagePath: `/images/randomCats/${file}`,
+    })
+  })
+  let articles = shuffle(mappedArticles)
   return {
     props: {
-      data: article,
+      //data: article,
+      articles: articles,
     },
     revalidate: cmsRefreshIntervalSeconds,
   }
 }
 
-const RandomCats: NextPage<{ data: BasicArticle }> = ({ data }) => {
+const RandomCats: NextPage<{ articles: BasicArticle[] }> = ({ articles }) => {
   const router = useRouter()
   const refreshData = () => {
     router.push('/ssr/RandomCat')
   }
 
-  return <RandomAnimalLayout data={data} onRefresh={refreshData} />
+  return <ArticlesLayout articles={articles} />
 }
 
 export default RandomCats
