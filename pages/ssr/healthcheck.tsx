@@ -10,7 +10,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     title: 'Status: OK',
     imagePath: '',
     summary: 'System is operational',
-    type: '',
+    type: 'DailySilliness',
   }
   return {
     props: {

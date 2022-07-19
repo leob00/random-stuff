@@ -22,6 +22,7 @@ const ArticlesLayout = ({ articles }: { articles: BasicArticle[] }) => {
       setDisplayedItems(page.items as BasicArticle[])
     }
   }
+  const handleImageLoaded = () => {}
 
   return (
     <>
@@ -46,7 +47,7 @@ const ArticlesLayout = ({ articles }: { articles: BasicArticle[] }) => {
             </Stack>
           ))} */}
           <Stack direction='row' justifyContent='center' my={2} key={articles[0].imagePath}>
-            <RemoteImage url={displayedItems[0].imagePath} title={displayedItems[0].title} />
+            <RemoteImage url={displayedItems[0].imagePath} title={displayedItems[0].title} onLoaded={handleImageLoaded} />
           </Stack>
           <Pager pageCount={paged.pages.length} itemCount={articles.length} itemsPerPage={itemsPerPage} onPaged={(pageNum: number) => handlePaged(pageNum)} defaultPageIndex={currentPageIndex}></Pager>
         </>
