@@ -1,8 +1,9 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
-import { Container, Paper, Box, Typography } from '@mui/material'
+import { Container, Paper, Box, Typography, Stack } from '@mui/material'
 import Image from 'next/image'
+import RemoteImage from 'components/Atoms/RemoteImage'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   //var data = await getYieldCurveData()
@@ -18,9 +19,10 @@ const About: NextPage<{ data: any }> = ({ data }) => {
       <Box sx={{ my: 2, paddingBottom: 3 }}>
         <Paper>
           <Box sx={{ align: 'center', my: 1 }}>
-            <Typography sx={{ textAlign: 'center' }}>
-              <Image priority src='/images/logo-with-text.png' width={340} height={250} alt='random things' style={{ borderRadius: '.6rem' }} />
-            </Typography>
+            <Stack direction='row' justifyContent='center' my={2}>
+              <RemoteImage title='about us' url='/images/logo-with-text.png' height={220} width={340} />
+              {/* <Image priority src='/images/logo-with-text.png' width={340} height={250} alt='random things' style={{ borderRadius: '.6rem' }} /> */}
+            </Stack>
           </Box>
           <Box sx={{ align: 'center', my: 2 }}>
             <Typography variant='body2' align='center' gutterBottom>
