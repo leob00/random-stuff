@@ -1,10 +1,10 @@
 import React from 'react'
-import Image from 'next/image'
-import { Stack, Box } from '@mui/material'
+import NImage from 'next/image'
+import { Box } from '@mui/material'
 
-const RemoteImage = ({ url, title, width = 350, height = 400, onLoaded }: { url: string; title: string; width?: number; height?: number; onLoaded?: () => void }) => {
-  const hght = height ? `${height}px` : '400px'
-  const wdth = width ? `${width}px` : '350px'
+const RemoteImage = ({ url, title, width = 350, height = 400, style, onLoaded }: { url: string; title: string; width?: number; height?: number; style?: React.CSSProperties; onLoaded?: () => void }) => {
+  //const hght = height ? `${height}px` : '400px'
+  //const wdth = width ? `${width}px` : '350px'
 
   const handleLoaded = () => {
     if (onLoaded) {
@@ -14,8 +14,8 @@ const RemoteImage = ({ url, title, width = 350, height = 400, onLoaded }: { url:
 
   return (
     <>
-      <Box sx={{ position: 'relative', height: hght, width: wdth, padding: '5px', my: 1, borderRadius: '16px' }} className='blue-gradient hoverBox'>
-        <Image style={{ borderRadius: '16px' }} src={url} alt={title} placeholder='blur' layout='fill' objectFit='cover' loading='lazy' blurDataURL={url} className='' onLoad={handleLoaded} />
+      <Box sx={{ position: 'relative', height: { height }, width: { width }, padding: '5px', my: 1, borderRadius: '16px' }} className='blue-gradient hoverBox'>
+        <NImage style={style ? style : { borderRadius: '16px' }} src={url} alt={title} placeholder='blur' layout='fill' objectFit='cover' blurDataURL={url} className='' onLoad={handleLoaded} />
       </Box>
     </>
   )

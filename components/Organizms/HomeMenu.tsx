@@ -1,6 +1,8 @@
 import { Box, Container, Paper, Typography, Grid, List, ListItem, Link } from '@mui/material'
+import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import NLink from 'next/link'
 import React from 'react'
+import router from 'next/router'
 
 const HomeMenu = () => {
   return (
@@ -26,23 +28,28 @@ const HomeMenu = () => {
                   <Grid item>
                     <List sx={{ listStyle: 'none' }}>
                       <ListItem>
-                        <NLink href='/ssg/randomdogs/' passHref>
-                          <Link sx={{}} href='/'>
-                            random dogs
-                          </Link>
-                        </NLink>
+                        <LinkButton
+                          onClick={() => {
+                            router.push('/ssg/randomdogs')
+                          }}>
+                          random dogs
+                        </LinkButton>
                       </ListItem>
                       <ListItem>
-                        <NLink href='/ssg/randomcats/' passHref>
-                          <Link sx={{}} href='/'>
-                            random cats
-                          </Link>
-                        </NLink>
+                        <LinkButton
+                          onClick={() => {
+                            router.push('/ssg/randomcats')
+                          }}>
+                          random cats
+                        </LinkButton>
                       </ListItem>
                       <ListItem>
-                        <NLink href='/ssg/articles' passHref>
-                          <Link href='/'>random articles</Link>
-                        </NLink>
+                        <LinkButton
+                          onClick={() => {
+                            router.push('/ssg/articles')
+                          }}>
+                          random articles
+                        </LinkButton>
                       </ListItem>
                     </List>
                   </Grid>
@@ -50,14 +57,20 @@ const HomeMenu = () => {
                   <Grid item>
                     <List sx={{ listStyle: 'none' }}>
                       <ListItem>
-                        <NLink href='/csr/DailySilliness' passHref>
-                          <Link href='/'>daily silliness</Link>
-                        </NLink>
+                        <LinkButton
+                          onClick={() => {
+                            router.push('/csr/DailySilliness')
+                          }}>
+                          daily silliness
+                        </LinkButton>
                       </ListItem>
                       <ListItem>
-                        <NLink href='/ssg/recipes' passHref>
-                          <Link href='/'>recipes</Link>
-                        </NLink>
+                        <LinkButton
+                          onClick={() => {
+                            router.push('/ssg/recipes')
+                          }}>
+                          recipes
+                        </LinkButton>
                       </ListItem>
                     </List>
                   </Grid>

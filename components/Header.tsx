@@ -12,6 +12,7 @@ import { HubPayload } from '@aws-amplify/core'
 import React from 'react'
 import UserLoginPanel from './UserLoginPanel'
 import { DarkMode } from './themes/DarkMode'
+import RemoteImage from './Atoms/RemoteImage'
 
 // This is used to make the header stick to the top
 function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
@@ -49,8 +50,9 @@ const Header = () => {
             <Grid container alignItems='center' columns={{ xs: 2, sm: 4, md: 8, lg: 12, xl: 12 }} spacing={{ xs: 1, sm: 1, md: 3, lg: 4, xl: 4 }}>
               <Grid item>
                 <NLink href='/' passHref>
-                  <Link sx={{}} href='/'>
-                    <Image priority src='/images/logo-with-text.png' width={161} height={70} alt='random things' style={{ borderRadius: '.6rem' }} placeholder='empty' />
+                  <Link href='/'>
+                    <RemoteImage url='/images/logo-with-text-blue.png' title='random things' width={210} height={100} />
+                    {/* <Image priority src='/images/logo-with-text.png' width={161} height={70} alt='random things' style={{ borderRadius: '.6rem' }} placeholder='empty' /> */}
                   </Link>
                 </NLink>
               </Grid>

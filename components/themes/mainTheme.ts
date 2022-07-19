@@ -1,7 +1,7 @@
 import { createTheme, PaletteOptions, responsiveFontSizes, ThemeOptions } from '@mui/material/styles'
 import { ResponsiveFontSizesOptions } from '@mui/material/styles/responsiveFontSizes'
 
-export const EmmaBlue800: string = '#00263A'
+export const Blue800: string = '#436ab6'
 export const EmmaWhite20Perc = 'rgba(255, 255, 255, 0.2)'
 
 const lightPalette: PaletteOptions = {
