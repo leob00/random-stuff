@@ -19,7 +19,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-const RandomDog: NextPage<{ data: BasicArticle }> = ({ data }) => {
+const RandomDogs: NextPage<{ data: BasicArticle }> = ({ data }) => {
   const router = useRouter()
   const refreshData = () => {
     router.push('/ssr/RandomDog')
@@ -27,4 +27,4 @@ const RandomDog: NextPage<{ data: BasicArticle }> = ({ data }) => {
   return <RandomAnimalLayout data={data} onRefresh={refreshData} />
 }
 
-export default RandomDog
+export default RandomDogs
