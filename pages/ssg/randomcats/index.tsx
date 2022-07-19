@@ -1,16 +1,14 @@
 import React from 'react'
 import type { GetStaticProps, NextPage } from 'next'
-import { getRandomDog } from 'lib/repo'
-import { BasicArticle } from 'lib/model'
 import RandomAnimalLayout from 'components/RandomAnimalLayout'
 import { useRouter } from 'next/router'
+import { getRandomCat } from 'lib/repo'
+import { BasicArticle } from 'lib/model'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const cmsRefreshIntervalSeconds = 3600
-  let article = await getRandomDog()
-  /* if (!isBrowser()) {
-    await downloadRandomDogImage()
-  } */
+
+  let article = await getRandomCat()
   return {
     props: {
       data: article,
@@ -19,12 +17,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-const RandomDog: NextPage<{ data: BasicArticle }> = ({ data }) => {
+const RandomCats: NextPage<{ data: BasicArticle }> = ({ data }) => {
   const router = useRouter()
   const refreshData = () => {
-    router.push('/ssr/RandomDog')
+    router.push('/ssr/RandomCat')
   }
+
   return <RandomAnimalLayout data={data} onRefresh={refreshData} />
 }
 
-export default RandomDog
+export default RandomCats
