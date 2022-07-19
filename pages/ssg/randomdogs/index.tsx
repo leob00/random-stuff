@@ -1,30 +1,41 @@
 import React from 'react'
 import type { GetStaticProps, NextPage } from 'next'
-import { getRandomDog } from 'lib/repo'
-import { BasicArticle } from 'lib/model'
-import RandomAnimalLayout from 'components/RandomAnimalLayout'
 import { useRouter } from 'next/router'
+import { BasicArticle } from 'lib/model'
+import fs from 'fs'
+import ArticlesLayout from 'components/Organizms/ArticlesLayout'
+import { shuffle } from 'lodash'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const cmsRefreshIntervalSeconds = 3600
-  let article = await getRandomDog()
-  /* if (!isBrowser()) {
-    await downloadRandomDogImage()
-  } */
+  const basePath = './public/images/randomDogs'
+  let files = await fs.promises.readdir(basePath)
+  console.log(`found ${files.length} dog files`)
+  let mappedArticles: BasicArticle[] = []
+  files.forEach((file) => {
+    mappedArticles.push({
+      title: 'Dogs',
+      type: 'dogs',
+      imagePath: `/images/randomDogs/${file}`,
+    })
+  })
+  let articles = shuffle(mappedArticles)
   return {
     props: {
-      data: article,
+      //data: article,
+      articles: articles,
     },
     revalidate: cmsRefreshIntervalSeconds,
   }
 }
 
-const RandomDogs: NextPage<{ data: BasicArticle }> = ({ data }) => {
+const RandomDogs: NextPage<{ articles: BasicArticle[] }> = ({ articles }) => {
   const router = useRouter()
   const refreshData = () => {
     router.push('/ssr/RandomDog')
   }
-  return <RandomAnimalLayout data={data} onRefresh={refreshData} />
+
+  return <ArticlesLayout articles={articles} />
 }
 
 export default RandomDogs
