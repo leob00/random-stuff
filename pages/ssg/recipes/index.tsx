@@ -6,9 +6,10 @@ import router from 'next/router'
 import useSWR, { SWRConfig } from 'swr'
 import axios from 'axios'
 import { getAllRecipes, getRecipe } from 'lib/contenfulApi'
-import { cloneDeep, shuffle, take } from 'lodash'
+import { cloneDeep, orderBy, shuffle, take } from 'lodash'
 import { Recipe, RecipeCollection } from 'lib/models/cms/contentful/recipe'
 import RecipesLayout from 'components/RecipesLayout'
+import { Option } from 'lib/AutoCompleteOptions'
 
 const cmsRefreshIntervalSeconds = 3600
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
@@ -41,14 +42,17 @@ const CachedRecipes = ({ fallbackData, featured }: { fallbackData: RecipeCollect
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   })
+  let search: Option[] = []
   if (error) {
-    return <RecipesLayout recipeCollection={fallbackData} baseUrl='/ssg/recipes/' featured={featured} />
+    return <RecipesLayout autoComplete={search} baseUrl='/ssg/recipes/' featured={featured} />
   }
   if (!data) {
     return <Container>loading...</Container>
   }
   let model = data as RecipeCollection
-  return <RecipesLayout recipeCollection={model} baseUrl='/ssg/recipes/' featured={featured} />
+  let ordered = orderBy(model.items, ['title'], ['asc'])
+  let options = ordered.map((item) => ({ id: item.sys.id, label: item.title })) as Option[]
+  return <RecipesLayout autoComplete={options} baseUrl='/ssg/recipes/' featured={featured} />
 }
 
 const Recipes: NextPage<{ model: RecipeCollection; fallback: any; featured: Recipe[] }> = ({ model, fallback, featured }) => {

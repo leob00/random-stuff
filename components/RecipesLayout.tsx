@@ -3,15 +3,12 @@ import React from 'react'
 import NLink from 'next/link'
 import { Option } from 'lib/AutoCompleteOptions'
 import router from 'next/router'
-import { Recipe, RecipeCollection } from 'lib/models/cms/contentful/recipe'
-import { orderBy } from 'lodash'
+import { Recipe } from 'lib/models/cms/contentful/recipe'
 import RemoteImage from './Atoms/RemoteImage'
-import { navItem } from 'aws-amplify'
 
-const RecipesLayout = ({ recipeCollection, baseUrl, featured }: { recipeCollection: RecipeCollection; baseUrl: string; featured: Recipe[] }) => {
+const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Option[]; baseUrl: string; featured: Recipe[] }) => {
   //let options: Array<Option> = []
-  let ordered = orderBy(recipeCollection.items, ['title'], ['asc'])
-  let options = ordered.map((item) => ({ id: item.sys.id, label: item.title })) as Option[]
+
   /* orderBy(recipeCollection.items, ['title'], ['asc']).forEach((a) => {
     options.push({ label: a.title, id: a.sys.id })
   }) */
@@ -25,7 +22,7 @@ const RecipesLayout = ({ recipeCollection, baseUrl, featured }: { recipeCollecti
   return (
     <Box>
       <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
-        <Autocomplete size='small' onChange={handleSelect} disablePortal options={options} sx={{ width: 360 }} renderInput={(params) => <TextField {...params} placeholder={`search ${options.length} recipes`} />} />
+        <Autocomplete size='small' onChange={handleSelect} disablePortal options={autoComplete} sx={{ width: 360 }} renderInput={(params) => <TextField {...params} placeholder={`search ${autoComplete.length} recipes`} />} />
       </Stack>
       <Box sx={{ my: 2 }}>
         <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
