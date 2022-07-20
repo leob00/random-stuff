@@ -1,4 +1,4 @@
-import { Box, Container, Paper, Typography, Grid, List, ListItem, Link } from '@mui/material'
+import { Box, Container, Paper, Typography, Grid, List, ListItem, Link, Stack } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import NLink from 'next/link'
 import React from 'react'
@@ -24,57 +24,43 @@ const HomeMenu = () => {
                 You came to the right place to view random things. Enjoy!
               </Typography>
               <Box>
-                <Grid container>
-                  <Grid item>
-                    <List sx={{ listStyle: 'none' }}>
-                      <ListItem>
-                        <LinkButton
-                          onClick={() => {
-                            router.push('/ssg/randomdogs')
-                          }}>
-                          random dogs
-                        </LinkButton>
-                      </ListItem>
-                      <ListItem>
-                        <LinkButton
-                          onClick={() => {
-                            router.push('/ssg/randomcats')
-                          }}>
-                          random cats
-                        </LinkButton>
-                      </ListItem>
-                      <ListItem>
-                        <LinkButton
-                          onClick={() => {
-                            router.push('/ssg/articles')
-                          }}>
-                          random articles
-                        </LinkButton>
-                      </ListItem>
-                    </List>
-                  </Grid>
-
-                  <Grid item>
-                    <List sx={{ listStyle: 'none' }}>
-                      <ListItem>
-                        <LinkButton
-                          onClick={() => {
-                            router.push('/csr/DailySilliness')
-                          }}>
-                          daily silliness
-                        </LinkButton>
-                      </ListItem>
-                      <ListItem>
-                        <LinkButton
-                          onClick={() => {
-                            router.push('/ssg/recipes')
-                          }}>
-                          recipes
-                        </LinkButton>
-                      </ListItem>
-                    </List>
-                  </Grid>
-                </Grid>
+                <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
+                  <LinkButton
+                    onClick={() => {
+                      router.push('/ssg/randomdogs')
+                    }}>
+                    random dogs
+                  </LinkButton>
+                  <LinkButton
+                    onClick={() => {
+                      router.push('/ssg/randomcats')
+                    }}>
+                    random cats
+                  </LinkButton>
+                </Stack>
+                <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
+                  <LinkButton
+                    onClick={() => {
+                      router.push('/ssg/articles')
+                    }}>
+                    random articles
+                  </LinkButton>
+                  <LinkButton
+                    onClick={() => {
+                      router.push('/csr/DailySilliness')
+                    }}>
+                    daily silliness
+                  </LinkButton>
+                </Stack>
+                <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
+                  <LinkButton
+                    onClick={() => {
+                      router.push('/ssg/recipes')
+                    }}>
+                    recipes
+                  </LinkButton>
+                </Stack>
+                <Stack direction='row' justifyContent='center' sx={{ my: 2 }}></Stack>
               </Box>
             </Box>
           </Paper>
