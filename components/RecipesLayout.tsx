@@ -5,6 +5,8 @@ import { Option } from 'lib/AutoCompleteOptions'
 import router from 'next/router'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import RemoteImage from './Atoms/RemoteImage'
+import CenteredTitle from './Atoms/Containers/CenteredTitle'
+import InternalLinkButton from './Atoms/Buttons/InternalLinkButton'
 
 const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Option[]; baseUrl: string; featured: Recipe[] }) => {
   //let options: Array<Option> = []
@@ -25,20 +27,11 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Opti
         <Autocomplete size='small' onChange={handleSelect} disablePortal options={autoComplete} sx={{ width: 360 }} renderInput={(params) => <TextField {...params} placeholder={`search ${autoComplete.length} recipes`} />} />
       </Stack>
       <Box sx={{ my: 2 }}>
-        <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
-          <Typography variant='h6'>Featured Recipes</Typography>
-        </Stack>
         {featured.length > 0 &&
           featured.map((item, ix) => (
-            <Box sx={{ marginTop: 2 }} key={item.title}>
+            <Box sx={{ marginTop: 2, paddingBottom: 8 }} key={item.title}>
               <Stack direction='row' justifyContent='center'>
-                <NLink href={`${baseUrl}${item.sys.id}`} passHref>
-                  <Link>
-                    <Typography variant='h6' sx={{ paddingTop: '5px', textAlign: 'center' }}>
-                      {item.title}
-                    </Typography>
-                  </Link>
-                </NLink>
+                <InternalLinkButton text={item.title} route={`${baseUrl}${item.sys.id}`} />
               </Stack>
               {item.summary && item.summary.length > 0 && (
                 <Box sx={{ my: 1 }}>
@@ -47,7 +40,6 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Opti
                   </Typography>
                 </Box>
               )}
-
               <Stack direction='row' justifyContent='center' sx={{ marginBottom: 2 }}>
                 {item.heroImage && (
                   <>
@@ -61,7 +53,6 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Opti
                   </>
                 )}
               </Stack>
-              <Divider />
             </Box>
           ))}
       </Box>

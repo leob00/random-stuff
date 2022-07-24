@@ -41,7 +41,9 @@ const RandomAnimalLayout = ({ data, onRefresh, showNext = true, articles }: { da
               }}>
               &#8592; back
             </Button>
-            <Typography variant='h5'>{articles[0].title}</Typography>
+            <Typography variant='h5' sx={{ my: 2 }}>
+              {articles[0].title}
+            </Typography>
             <Divider />
           </Box>
           {articles.map((item) => (

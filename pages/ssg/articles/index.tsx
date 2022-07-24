@@ -8,6 +8,7 @@ import { getAllBlogs } from 'lib/contenfulApi'
 import { BlogCollection } from 'lib/models/cms/contentful/blog'
 import router from 'next/router'
 import BlogsLayout from 'components/BlogsLayout'
+import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
 
 const cmsRefreshIntervalSeconds = 3600
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
@@ -56,9 +57,7 @@ const Blogs: NextPage<{ model: BlogCollection; fallback: any }> = ({ model, fall
         }}>
         &#8592; back
       </Button>
-      <Box width={{ xs: 100, md: 140, lg: 'unset' }}>
-        <Typography variant='h6'>Articles</Typography>
-      </Box>
+      <CenteredTitle title='Articles' />
       <Divider />
       <SWRConfig value={{ fallback }}>
         <Articles fallbackData={model} />

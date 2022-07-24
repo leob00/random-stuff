@@ -1,10 +1,10 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import { GetServerSideProps } from 'next'
-import { getRandomDog } from 'lib/repo'
 import { BasicArticle } from 'lib/model'
 import RandomAnimalLayout from 'components/RandomAnimalLayout'
 import { useRouter } from 'next/router'
+import { getRandomDog } from 'lib/backend/api/randomAnimalsApi'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   let article = await getRandomDog()

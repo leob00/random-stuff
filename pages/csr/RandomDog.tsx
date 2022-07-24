@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import RandomAnimalLayout from 'components/RandomAnimalLayout'
-import { getRandomDog } from 'lib/repo'
-import Layout from 'components/Layout'
 import { BasicArticle } from 'lib/model'
-import { Box, Container } from '@mui/material'
-import Loader from 'components/Loader'
 
 const RandomDog: NextPage = () => {
   const [item, setItem] = useState<BasicArticle | null>(null)

@@ -1,9 +1,9 @@
 import React from 'react'
 import type { GetStaticProps, NextPage } from 'next'
-import { getRandomDog } from 'lib/repo'
 import { BasicArticle } from 'lib/model'
 import RandomAnimalLayout from 'components/RandomAnimalLayout'
 import { useRouter } from 'next/router'
+import { getRandomDog } from 'lib/backend/api/randomAnimalsApi'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const cmsRefreshIntervalSeconds = 3600

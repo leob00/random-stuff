@@ -1,4 +1,5 @@
 import { Box, Button, Typography, Divider, Stack } from '@mui/material'
+import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
 import Pager from 'components/Atoms/Pager'
 import RemoteImage from 'components/Atoms/RemoteImage'
 import { BasicArticle } from 'lib/model'
@@ -36,9 +37,7 @@ const ArticlesLayout = ({ articles }: { articles: BasicArticle[] }) => {
               }}>
               &#8592; back
             </Button>
-            <Typography variant='h5' sx={{ textAlign: 'center' }}>
-              {articles[0].title}
-            </Typography>
+            <CenteredTitle title={articles[0].title} />
             <Divider />
           </Box>
           {/* {articles.map((item) => (

@@ -58,45 +58,7 @@ export interface XkCdResponse {
   title: string
   day: string
 }
-export async function getRandomDog() {
-  let result: BasicArticle = {
-    imagePath: '',
-    type: 'dogs',
-    title: 'Dogs',
-  }
-  try {
-    let resp = await fetch(`https://dog.ceo/api/breeds/image/random`)
-    let data = (await resp.json()) as DogResponse
-    result.imagePath = data.message
-    console.log('retrieved random dog')
-    return result
-  } catch (error) {
-    console.error(`api error ocurred: ${error}`)
-    return result
-  }
-}
 
-export async function getRandomCat() {
-  let result: BasicArticle = {
-    imagePath: '',
-    type: 'cats',
-    title: 'Cats',
-  }
-  try {
-    let resp = await fetch(`https://api.thecatapi.com/v1/images/search`)
-    let data = (await resp.json()) as CatResponse[]
-
-    if (data.length > 0) {
-      result.imagePath = data[0].url
-      console.log('retrieved random cat')
-    }
-  } catch (error) {
-    console.error(`api error ocurred: ${error}`)
-    return result
-  }
-
-  return result
-}
 export async function getXkCd() {
   let resp = await fetch(`https://xkcd.com/info.0.json`)
   let data = (await resp.json()) as XkCdResponse

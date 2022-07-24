@@ -1,5 +1,6 @@
+import { getRandomCat } from 'lib/backend/api/randomAnimalsApi'
 import { BasicArticle } from 'lib/model'
-import { CatResponse, getRandomCat } from 'lib/repo'
+import { CatResponse } from 'lib/repo'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import RandomCat from 'pages/csr/RandomCat'
 

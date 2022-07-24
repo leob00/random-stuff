@@ -10,6 +10,7 @@ import { cloneDeep, orderBy, shuffle, take } from 'lodash'
 import { Recipe, RecipeCollection } from 'lib/models/cms/contentful/recipe'
 import RecipesLayout from 'components/RecipesLayout'
 import { Option } from 'lib/AutoCompleteOptions'
+import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
 
 const cmsRefreshIntervalSeconds = 3600
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
@@ -65,8 +66,7 @@ const Recipes: NextPage<{ model: RecipeCollection; fallback: any; featured: Reci
         }}>
         &#8592; back
       </Button>
-      <Typography variant='h6'>Recipes</Typography>
-      <Divider />
+      <CenteredTitle title='Recipes' />
       <SWRConfig value={{ fallback }}>
         <CachedRecipes fallbackData={model} featured={featured} />
       </SWRConfig>
