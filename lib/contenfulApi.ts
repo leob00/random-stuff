@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { cloneDeep, orderBy } from 'lodash'
 import { BlogResponse, BlogTypes } from './models/cms/contentful/blog'
-import { RecipesResponse } from './models/cms/contentful/recipe'
+import { RecipeCollection, RecipesResponse } from './models/cms/contentful/recipe'
 
 const url = `${process.env.CONTENTFUL_GRAPH_BASE_URL}${process.env.CONTENTFUL_SPACE_ID}?access_token=${process.env.CONTENTFUL_ACCESS_TOKEN}`
 
@@ -74,7 +74,66 @@ export async function getAllBlogs() {
 }
 
 export async function getAllRecipes() {
-  let body = JSON.stringify({ query: allRecipesQuery })
+  let firstQuery = `{
+  recipeCollection {
+    items {
+      sys {
+        id
+        firstPublishedAt
+        publishedAt
+      }      
+      title
+      summary
+      richBody {
+        json
+      }
+      heroImage {
+        url
+        size
+        height
+        width
+      }
+    
+    }
+  }
+}`
+  let secondQuery = `{
+  recipeCollection (skip: 100) {
+    items {
+      sys {
+        id
+        firstPublishedAt
+        publishedAt
+      }      
+      title
+      summary
+      richBody {
+        json
+      }
+      heroImage {
+        url
+        size
+        height
+        width
+      }
+    
+    }
+  }
+}`
+
+  let collection1 = await getRecipes(firstQuery)
+  let collection2 = await getRecipes(secondQuery)
+  let collection = collection1.items
+  collection.push(...collection2.items)
+  const result = orderBy(collection, ['sys.firstPublishedAt'], ['desc'])
+  let coll: RecipeCollection = {
+    items: result,
+  }
+  return coll
+}
+
+const getRecipes = async (query: string) => {
+  let body = JSON.stringify({ query: query })
   let config: AxiosRequestConfig = {
     headers: {
       'Content-Type': 'application/json',
@@ -83,9 +142,8 @@ export async function getAllRecipes() {
   let resp = await axios.post(url, body, config)
   let data = resp.data as RecipesResponse
   let collection = data.data.recipeCollection
-  collection.items = orderBy(collection.items, ['sys.firstPublishedAt'], ['desc'])
-  console.log(`retrieved ${collection.items.length} recipes`)
 
+  console.log(`retrieved ${collection.items.length} recipes`)
   return collection
 }
 
