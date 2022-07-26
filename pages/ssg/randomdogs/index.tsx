@@ -6,16 +6,19 @@ import { cloneDeep, shuffle } from 'lodash'
 import { RandomStuffData } from 'lib/models/randomStuffModels'
 import { buildRandomAnimals, getRandomAnimalsFromLocalFiles } from 'lib/backend/api/randomAnimalsApi'
 import jsonData from '../../../public/data/randomStuff.json'
+import { isBrowser } from 'lib/util/system'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const cmsRefreshIntervalSeconds = 360
-  await buildRandomAnimals('dogs')
+  if (!isBrowser()) {
+    await buildRandomAnimals('dogs')
+  }
   let data = cloneDeep(jsonData) as RandomStuffData
-  //console.log(JSON.stringify(articles))
+  let result = shuffle(data.dogs)
   return {
     props: {
       //data: article,
-      articles: shuffle(data.dogs),
+      articles: result,
     },
     revalidate: cmsRefreshIntervalSeconds,
   }

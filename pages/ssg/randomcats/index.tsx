@@ -7,16 +7,20 @@ import { buildRandomAnimals, getRandomAnimalsFromLocalFiles, writeToFile } from 
 import axios from 'axios'
 import { RandomStuffData } from 'lib/models/randomStuffModels'
 import jsonData from '../../../public/data/randomStuff.json'
+import { isBrowser } from 'lib/util/system'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const cmsRefreshIntervalSeconds = 360
-  await buildRandomAnimals('cats')
+  if (!isBrowser()) {
+    await buildRandomAnimals('cats')
+  }
   let data = cloneDeep(jsonData) as RandomStuffData
+  let result = shuffle(data.cats)
 
   return {
     props: {
       //data: article,
-      articles: shuffle(data.cats),
+      articles: result,
     },
     revalidate: cmsRefreshIntervalSeconds,
   }
