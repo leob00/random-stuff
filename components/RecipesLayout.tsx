@@ -28,7 +28,7 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Opti
       <Box sx={{ my: 2 }}>
         {featured.length > 0 &&
           featured.map((item, ix) => (
-            <Box sx={{ marginTop: 2, paddingBottom: 8 }} key={item.title}>
+            <Box sx={{ marginTop: 2, paddingBottom: 2 }} key={item.title}>
               <Stack direction='row' justifyContent='center'>
                 <InternalLinkButton text={item.title} route={`${baseUrl}${item.sys.id}`} />
               </Stack>
