@@ -5,7 +5,6 @@ import { Option } from 'lib/AutoCompleteOptions'
 import router from 'next/router'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import RemoteImage from './Atoms/RemoteImage'
-import CenteredTitle from './Atoms/Containers/CenteredTitle'
 import InternalLinkButton from './Atoms/Buttons/InternalLinkButton'
 
 const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Option[]; baseUrl: string; featured: Recipe[] }) => {
@@ -40,7 +39,7 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Opti
                   </Typography>
                 </Box>
               )}
-              <Stack direction='row' justifyContent='center' sx={{ marginBottom: 2 }}>
+              <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>
                 {item.heroImage && (
                   <>
                     <NLink href={`${baseUrl}${item.sys.id}`} passHref>

@@ -1,6 +1,6 @@
 import { HeroImage } from './recipe'
 
-export interface Item {
+export interface BlogItem {
   title: string
   summary: string
   body: string
@@ -11,7 +11,7 @@ export interface Item {
 }
 
 export interface BlogCollection {
-  items: Item[]
+  items: BlogItem[]
 }
 
 export interface Data {

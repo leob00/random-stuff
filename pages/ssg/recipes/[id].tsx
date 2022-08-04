@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { SWRConfig, unstable_serialize } from 'swr'
 import { useCmsSwr } from 'hooks/useCmsSwr'
 import axios, { AxiosRequestConfig } from 'axios'
-import { getAllRecipes, getRecipe } from 'lib/contenfulApi'
+import { getAllRecipes, getRecipe } from 'lib/backend/api/contenfulApi'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import RecipeLayout from 'components/RecipeLayout'
 

@@ -1,4 +1,5 @@
-import { ArrowBackIos, ArrowBackIosNewTwoTone, ArrowForwardIos } from '@mui/icons-material'
+import ArrowBackIos from '@mui/icons-material/ArrowBackIos'
+import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos'
 import { Box, Button, Divider, Tooltip, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 

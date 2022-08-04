@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { cloneDeep, orderBy } from 'lodash'
-import { BlogResponse, BlogTypes } from './models/cms/contentful/blog'
-import { RecipeCollection, RecipesResponse } from './models/cms/contentful/recipe'
+import { BlogResponse, BlogTypes } from '../../models/cms/contentful/blog'
+import { RecipeCollection, RecipesResponse } from '../../models/cms/contentful/recipe'
 
 const url = `${process.env.CONTENTFUL_GRAPH_BASE_URL}${process.env.CONTENTFUL_SPACE_ID}?access_token=${process.env.CONTENTFUL_ACCESS_TOKEN}`
 
@@ -73,53 +73,35 @@ export async function getAllBlogs() {
   return blogCollection
 }
 
+const getRecipeQuery = (skip: number) => {
+  return `{
+  recipeCollection (skip: ${skip}) {
+    items {
+      sys {
+        id
+        firstPublishedAt
+        publishedAt
+      }      
+      title
+      summary
+      richBody {
+        json
+      }
+      heroImage {
+        url
+        size
+        height
+        width
+      }
+    
+    }
+  }
+}`
+}
+
 export async function getAllRecipes() {
-  let firstQuery = `{
-  recipeCollection {
-    items {
-      sys {
-        id
-        firstPublishedAt
-        publishedAt
-      }      
-      title
-      summary
-      richBody {
-        json
-      }
-      heroImage {
-        url
-        size
-        height
-        width
-      }
-    
-    }
-  }
-}`
-  let secondQuery = `{
-  recipeCollection (skip: 100) {
-    items {
-      sys {
-        id
-        firstPublishedAt
-        publishedAt
-      }      
-      title
-      summary
-      richBody {
-        json
-      }
-      heroImage {
-        url
-        size
-        height
-        width
-      }
-    
-    }
-  }
-}`
+  let firstQuery = getRecipeQuery(0)
+  let secondQuery = getRecipeQuery(100)
 
   let collection1 = await getRecipes(firstQuery)
   let collection2 = await getRecipes(secondQuery)

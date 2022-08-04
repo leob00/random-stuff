@@ -1,6 +1,6 @@
 import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, Box, Link, Stack, TextField, Typography } from '@mui/material'
-import { BlogCollection, Item } from 'lib/models/cms/contentful/blog'
-import { PagedCollection, pageItems } from 'lib/util/collections'
+import { BlogCollection, BlogItem } from 'lib/models/cms/contentful/blog'
+import { getPagedItems, PagedCollection, pageItems } from 'lib/util/collections'
 import NLink from 'next/link'
 import React, { useEffect, useState } from 'react'
 import Pager from './Atoms/Pager'
@@ -10,14 +10,14 @@ import RemoteImage from './Atoms/RemoteImage'
 
 const BlogsLayout = ({ model }: { model: BlogCollection }) => {
   const itemsPerPage = 1
-  const paged = pageItems(model.items, itemsPerPage) as PagedCollection
+  const paged = getPagedItems<BlogItem>(model.items, itemsPerPage) as PagedCollection
   let searchItems: Array<Option> = []
   model.items.forEach((a) => {
     searchItems.push({ label: a.title, id: a.id })
   })
-  const displayed = paged.pages[0].items as Item[]
+  const displayed = paged.pages[0].items as BlogItem[]
   const [currentPageIndex, setCurrentPageIndex] = useState(1)
-  const [displayItems, setDisplayItems] = useState<Item[]>(displayed)
+  const [displayItems, setDisplayItems] = useState<BlogItem[]>(displayed)
 
   let title = displayed[0].title
   let summary = displayed[0].summary
@@ -30,7 +30,7 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
       return p.index === pageNum
     })
     if (page) {
-      let pagedItems = page.items as Item[]
+      let pagedItems = page.items as BlogItem[]
       setDisplayItems(pagedItems)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
@@ -58,7 +58,7 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
   }
 
   useEffect(() => {
-    const displayed = paged.pages[currentPageIndex - 1].items as Item[]
+    const displayed = paged.pages[currentPageIndex - 1].items as BlogItem[]
     setDisplayItems(displayed)
   }, [currentPageIndex, count, title, summary, body])
 
