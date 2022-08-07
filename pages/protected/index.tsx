@@ -1,5 +1,6 @@
 import { Container, Typography } from '@mui/material'
 import { withSSRContext } from 'aws-amplify'
+import { hello } from 'lib/backend/api/apiGateway'
 import { GetServerSideProps, NextPage } from 'next'
 
 const Protected: NextPage<{ authenticated: boolean; username: string | undefined }> = ({ authenticated, username }) => {
@@ -17,6 +18,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { Auth } = withSSRContext(context)
   try {
     const user = await Auth.currentAuthenticatedUser()
+    const resp = await hello(user.email)
     //console.log('user: ' + user)
     return {
       props: {

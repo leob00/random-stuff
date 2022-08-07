@@ -40,7 +40,7 @@ const healthcheck: NextPage<{ data: BasicArticle }> = ({ data }) => {
         <Typography variant='body1'>{data.summary}</Typography>
       </Stack>
       <Stack direction='row' justifyContent='center' my={2}>
-        <RemoteImage url='/images/logo-with-text.png' title={'logo'} height={220} width={320} />
+        <RemoteImage url='/images/logo-with-text-blue.png' title={'logo'} height={220} width={320} />
       </Stack>
     </>
   )
