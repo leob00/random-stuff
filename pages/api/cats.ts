@@ -1,11 +1,9 @@
-import { getRandomCat } from 'lib/backend/api/randomAnimalsApi'
+import { getAnimals } from 'lib/backend/api/apiGateway'
 import { BasicArticle } from 'lib/model'
-import { CatResponse } from 'lib/repo'
+import { shuffle } from 'lodash'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import RandomCat from 'pages/csr/RandomCat'
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<BasicArticle>) {
-  var data = (await getRandomCat()) as BasicArticle
-  //console.log('loaded api data for cats')
-  res.status(200).json(data)
+export default async function handler(req: NextApiRequest, res: NextApiResponse<BasicArticle[]>) {
+  var result = await getAnimals('cats')
+  res.status(200).json(shuffle(result))
 }
