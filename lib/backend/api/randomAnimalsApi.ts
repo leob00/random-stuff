@@ -4,6 +4,7 @@ import fs from 'fs'
 import { RandomStuffData } from 'lib/models/randomStuffModels'
 import jsonData from '../../../public/data/randomStuff.json'
 import { cloneDeep } from 'lodash'
+import { putAnimals } from './apiGateway'
 
 export async function getRandomDog() {
   let result: BasicArticle = {
@@ -28,9 +29,9 @@ export async function buildRandomAnimals(type: BasicArticleTypes) {
 }
 
 export async function getRandomAnimalsFromLocalFiles(type: BasicArticleTypes) {
-  let basePath = './public/images/randomDogs'
-  let title = 'Dogs'
-  let targetPath = '/images/randomDogs/'
+  let basePath = ''
+  let title = ''
+  let targetPath = ''
   let data = cloneDeep(jsonData) as RandomStuffData
   //console.log(JSON.stringify(data))
   switch (type) {
@@ -38,6 +39,11 @@ export async function getRandomAnimalsFromLocalFiles(type: BasicArticleTypes) {
       basePath = './public/images/randomCats'
       title = 'Cats'
       targetPath = '/images/randomCats/'
+      break
+    case 'dogs':
+      basePath = './public/images/randomDogs'
+      title = 'Cats'
+      targetPath = '/images/randomDogs/'
       break
   }
 
@@ -49,22 +55,16 @@ export async function getRandomAnimalsFromLocalFiles(type: BasicArticleTypes) {
   switch (type) {
     case 'cats':
       data.cats = mappedArticles
+      await putAnimals('cats', mappedArticles)
+
       break
     case 'dogs':
       data.dogs = mappedArticles
+      await putAnimals('dogs', mappedArticles)
+
       break
   }
   await writeToFile(data)
-
-  /* files.forEach((file) => {
-    mappedArticles.push({
-      title: title,
-      type: type,
-      imagePath: `${targetPath}/${file}`,
-    })
-    // console.log(`mapped file: `${targetPath}/${file}`)
-  }) */
-  //console.log(jsonData)
 
   return mappedArticles
 }

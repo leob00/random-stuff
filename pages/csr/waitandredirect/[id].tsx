@@ -8,22 +8,6 @@ const Waitandredirect = () => {
   const [redirectPath, setRedirectPath] = useState('')
   //let id = query
 
-  useEffect(() => {
-    //setRedirectPath(id)
-    /* let redirect = id as string
-    if (redirect) {
-      switch (redirect.toLowerCase()) {
-        case 'home':
-          router.push('/')
-          break
-        default:
-          router.push(`/${redirect}`)
-          break
-      }
-    } */
-    console.log(`id: ${id}`)
-  }, [])
-
   return (
     <>
       <WarmupBox />

@@ -14,13 +14,16 @@ export async function hello(name: string) {
   return data as LambdaResponse
 }
 
-export async function putAnimals(data: BasicArticle[]) {
+export async function putAnimals(type: BasicArticleTypes, data: BasicArticle[]) {
   if (data.length === 0) {
     return
   }
   const url = `${baseUrl}/animals`
-  await axiosPut(url, JSON.stringify(data))
-  console.log(`put ${data.length} ${data[0].type} to Dynamo`)
+  let postData = {
+    body: data,
+  }
+  await axiosPut(url, postData)
+  console.log(`put ${postData.body.length} ${type} to Dynamo`)
 }
 
 export async function getAnimals(type: BasicArticleTypes) {

@@ -24,10 +24,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
   let data = cloneDeep(jsonData) as RandomStuffData
   let result = shuffle(data.dogs)
-  if (!isBrowser()) {
-    // todo: write to dynamo db
-    await putAnimals(data.dogs)
-  }
+
   return {
     props: {
       articles: result,

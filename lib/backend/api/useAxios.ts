@@ -19,15 +19,10 @@ export const axiosGet = async (url: string, params?: any) => {
   const response = await axios.get(url, config)
   return response.data
 }
-export const axiosPut = async (url: string, data?: any) => {
+export const axiosPut = async (url: string, postData: any) => {
   config.url = url
   config.method = 'POST'
-  let body = {
-    data: data,
-  }
-  if (data) {
-    //config.params = body
-  }
-  const response = await axios.post(url, body, config)
+  const response = await axios.post(url, postData, config)
+  console.log(`axiosPut status: ${response.status}`)
   return response.data
 }
