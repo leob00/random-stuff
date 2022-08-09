@@ -42,7 +42,7 @@ export async function getRandomAnimalsFromLocalFiles(type: BasicArticleTypes) {
       break
     case 'dogs':
       basePath = './public/images/randomDogs'
-      title = 'Cats'
+      title = 'Dogs'
       targetPath = '/images/randomDogs/'
       break
   }
@@ -52,16 +52,15 @@ export async function getRandomAnimalsFromLocalFiles(type: BasicArticleTypes) {
   let mappedArticles: BasicArticle[] = files.map((item) => {
     return { type: type, title: title, imagePath: `${targetPath}${item}` }
   })
+  await putAnimals(type, mappedArticles)
+
   switch (type) {
     case 'cats':
       data.cats = mappedArticles
-      await putAnimals('cats', mappedArticles)
 
       break
     case 'dogs':
       data.dogs = mappedArticles
-      await putAnimals('dogs', mappedArticles)
-
       break
   }
   await writeToFile(data)

@@ -40,7 +40,7 @@ const Cached = ({ fallbackData }: { fallbackData: BasicArticle[] }) => {
   const { data, error } = useSWR(['/api/dogs'], (url: string) => fetcherFn(url), {
     fallbackData: fallbackData,
     refreshInterval: cmsRefreshIntervalSeconds * 1000,
-    revalidateOnFocus: false,
+    revalidateOnFocus: true,
     revalidateOnReconnect: false,
   })
   if (error) {
@@ -52,7 +52,7 @@ const Cached = ({ fallbackData }: { fallbackData: BasicArticle[] }) => {
   return <ArticlesLayout articles={data} />
 }
 
-const RandomDogs: NextPage<{ articles: BasicArticle[]; fallback: BasicArticle[] }> = ({ articles, fallback }) => {
+const RandomDogs: NextPage<{ articles: BasicArticle[]; fallback: any }> = ({ articles, fallback }) => {
   return (
     <SWRConfig value={{ fallback }}>
       <Cached fallbackData={articles} />

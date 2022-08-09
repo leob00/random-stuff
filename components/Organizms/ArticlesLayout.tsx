@@ -6,7 +6,7 @@ import RemoteImage from 'components/Atoms/RemoteImage'
 import { BasicArticle } from 'lib/model'
 import { getPagedItems } from 'lib/util/collections'
 import { cloneDeep, findLast } from 'lodash'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 const ArticlesLayout = ({ articles }: { articles: BasicArticle[] }) => {
   const shuffled = cloneDeep(articles)
@@ -26,8 +26,6 @@ const ArticlesLayout = ({ articles }: { articles: BasicArticle[] }) => {
     }
   }
   const handleImageLoaded = () => {}
-
-  useEffect(() => {}, [])
 
   return (
     <>

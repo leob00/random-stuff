@@ -31,8 +31,6 @@ export async function getAnimals(type: BasicArticleTypes) {
   let response = await axiosGet(url)
   //console.log(response.body.data)
   let data = JSON.parse(response.body.data) as BasicArticle[]
-  if (data.length > 0) {
-    console.log(`returned ${data.length} ${data[0].type} from api`)
-  }
-  return []
+  console.log(`returned ${data.length} ${type} from api`)
+  return data
 }
