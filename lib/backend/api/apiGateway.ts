@@ -5,7 +5,13 @@ const baseUrl = process.env.AWS_API_GATEWAY_URL
 
 export interface LambdaResponse {
   statusCode: number
-  body: string
+  body: LambdaBody
+}
+export interface LambdaBody {
+  count?: number
+  key?: string
+  data: string
+  last_modified?: string
 }
 
 export async function hello(name: string) {
@@ -28,9 +34,7 @@ export async function putAnimals(type: BasicArticleTypes, data: BasicArticle[]) 
 
 export async function getAnimals(type: BasicArticleTypes) {
   const url = `${baseUrl}/animals?key=${type}`
-  let response = await axiosGet(url)
-  //console.log(response.body.data)
+  let response = (await axiosGet(url)) as LambdaResponse
   let data = JSON.parse(response.body.data) as BasicArticle[]
-  console.log(`returned ${data.length} ${type} from api`)
   return data
 }

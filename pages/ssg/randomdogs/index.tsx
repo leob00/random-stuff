@@ -2,12 +2,10 @@ import React from 'react'
 import type { GetStaticProps, NextPage } from 'next'
 import { BasicArticle } from 'lib/model'
 import ArticlesLayout from 'components/Organizms/ArticlesLayout'
-import { cloneDeep, shuffle } from 'lodash'
-import { RandomStuffData } from 'lib/models/randomStuffModels'
+import { shuffle } from 'lodash'
 import { buildRandomAnimals } from 'lib/backend/api/randomAnimalsApi'
-import jsonData from '../../../public/data/randomStuff.json'
 import { isBrowser } from 'lib/util/system'
-import { getAnimals, putAnimals } from 'lib/backend/api/apiGateway'
+import { getAnimals } from 'lib/backend/api/apiGateway'
 import useSWR, { SWRConfig } from 'swr'
 import { Container } from '@mui/material'
 import { axiosGet } from 'lib/backend/api/useAxios'
@@ -22,8 +20,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (!isBrowser()) {
     await buildRandomAnimals('dogs')
   }
-  let data = cloneDeep(jsonData) as RandomStuffData
-  let result = shuffle(data.dogs)
+  let data = await getAnimals('dogs')
+  let result = shuffle(data)
 
   return {
     props: {
@@ -40,8 +38,8 @@ const Cached = ({ fallbackData }: { fallbackData: BasicArticle[] }) => {
   const { data, error } = useSWR(['/api/dogs'], (url: string) => fetcherFn(url), {
     fallbackData: fallbackData,
     refreshInterval: cmsRefreshIntervalSeconds * 1000,
-    revalidateOnFocus: true,
-    revalidateOnReconnect: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: true,
   })
   if (error) {
     return <ArticlesLayout articles={fallbackData} />

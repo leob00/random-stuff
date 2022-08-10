@@ -5,5 +5,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<BasicArticle[]>) {
   var result = await getAnimals('dogs')
-  res.status(200).json(shuffle(result))
+  const shuffled = shuffle(result)
+  //console.log(`reshuffled dogs. first dog: ${shuffled[0].imagePath}`)
+  res.status(200).json(shuffled)
 }
