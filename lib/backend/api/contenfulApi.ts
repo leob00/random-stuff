@@ -159,7 +159,7 @@ export async function getRecipe(id: string) {
   let resp = await axios.post(url, body, config)
   let data = resp.data as RecipesResponse
   let result = data.data.recipe
-  console.log(`retrieved ${result.title} recipe: ${result.sys.id}`)
+  //console.log(`retrieved ${result.title} recipe: ${result.sys.id}`)
   return result
 }
 

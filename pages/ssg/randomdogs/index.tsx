@@ -13,7 +13,10 @@ const cmsRefreshIntervalSeconds = 360
 
 const fetcherFn = async (url: string) => {
   let response = await axiosGet(url)
-  return response.data
+  let data = response as BasicArticle[]
+  //console.log(JSON.stringify(data))
+  console.log(`returned ${data.length} dogs from api`)
+  return data
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -42,6 +45,7 @@ const Cached = ({ fallbackData }: { fallbackData: BasicArticle[] }) => {
     revalidateOnReconnect: true,
   })
   if (error) {
+    console.log('error occured', error)
     return <ArticlesLayout articles={fallbackData} />
   }
   if (!data) {

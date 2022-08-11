@@ -13,7 +13,9 @@ const cmsRefreshIntervalSeconds = 360
 
 const fetcherFn = async (url: string) => {
   let response = await axiosGet(url)
-  return response.data
+  let data = response as BasicArticle[]
+  console.log(`returned ${data.length} cats from api`)
+  return data
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {

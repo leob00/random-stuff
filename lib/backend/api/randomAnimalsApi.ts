@@ -16,7 +16,7 @@ export async function getRandomDog() {
     let resp = await fetch(`https://dog.ceo/api/breeds/image/random`)
     let data = (await resp.json()) as DogResponse
     result.imagePath = data.message
-    console.log('retrieved random dog')
+    //console.log('retrieved random dog')
     return result
   } catch (error) {
     console.error(`api error ocurred: ${error}`)
@@ -70,7 +70,6 @@ export async function getRandomAnimalsFromLocalFiles(type: BasicArticleTypes) {
 
 export async function writeToFile(data: RandomStuffData) {
   //const jsonData = require('../../../public/data/randomStuff.json')
-
   /* const data = jsonData as RandomStuffData
 
   switch (type) {
@@ -81,8 +80,8 @@ export async function writeToFile(data: RandomStuffData) {
       data.dogs = shuffle(articles)
       break
   } */
-  await fs.promises.writeFile('./public/data/randomStuff.json', JSON.stringify(data))
-  console.log(`randomStuff.json updated`)
+  /* await fs.promises.writeFile('./public/data/randomStuff.json', JSON.stringify(data))
+  console.log(`randomStuff.json updated`) */
 }
 
 export async function getRandomCat() {
@@ -97,7 +96,7 @@ export async function getRandomCat() {
 
     if (data.length > 0) {
       result.imagePath = data[0].url
-      console.log('retrieved random cat')
+      //console.log('retrieved random cat')
     }
   } catch (error) {
     console.error(`api error ocurred: ${error}`)
