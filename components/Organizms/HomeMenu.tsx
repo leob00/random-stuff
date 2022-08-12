@@ -47,7 +47,7 @@ const HomeMenu = () => {
                   </LinkButton>
                   <LinkButton
                     onClick={() => {
-                      router.push('/csr/DailySilliness')
+                      router.push('/ssg/waitandredirect?id=csr/DailySilliness')
                     }}>
                     daily silliness
                   </LinkButton>

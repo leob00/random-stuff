@@ -14,7 +14,6 @@ const cmsRefreshIntervalSeconds = 360
 const fetcherFn = async (url: string) => {
   let response = await axiosGet(url)
   let data = response as BasicArticle[]
-  console.log(`returned ${data.length} cats from api`)
   return data
 }
 
@@ -23,12 +22,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
     await buildRandomAnimals('cats')
   }
   let data = await getAnimals('cats')
-  let result = shuffle(data)
   return {
     props: {
-      articles: result,
+      articles: data,
       fallback: {
-        '/api/cats': result,
+        '/api/cats': data,
       },
     },
     revalidate: cmsRefreshIntervalSeconds,

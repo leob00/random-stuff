@@ -42,19 +42,19 @@ const Pager = ({ pageCount, itemCount, itemsPerPage, onPaged, defaultPageIndex =
   return (
     <>
       <Divider />
-      <Typography sx={{ my: 2, textAlign: 'left' }} variant='body2'>
+      <Typography sx={{ my: 2, textAlign: 'center' }} variant='body2'>
         {displayMessage}
       </Typography>
       <Box sx={{ textAlign: 'center', my: 2 }}>
         {pageIndex > 1 ? (
           <>
-            <Tooltip title='1st page' placement='top'>
+            <Tooltip title='1st page' placement='bottom'>
               <Button variant='text' disabled={pageIndex <= 1} onClick={handleFirstPageClick}>
                 <ArrowBackIos sx={{ fontSize: 'smaller' }} />
                 <ArrowBackIos sx={{ fontSize: 'smaller' }} />
               </Button>
             </Tooltip>
-            <Tooltip title='previous' placement='top'>
+            <Tooltip title='previous' placement='bottom'>
               <Button variant='text' disabled={pageIndex <= 1} onClick={handlePreviousClick}>
                 <ArrowBackIos />
               </Button>
@@ -73,12 +73,12 @@ const Pager = ({ pageCount, itemCount, itemsPerPage, onPaged, defaultPageIndex =
         )}
         {pageIndex < pageCount ? (
           <>
-            <Tooltip title='next' placement='top'>
+            <Tooltip title='next' placement='bottom'>
               <Button variant='text' onClick={handleNextClick} disabled={pageIndex === pageCount}>
                 <ArrowForwardIos />
               </Button>
             </Tooltip>
-            <Tooltip title='last page' placement='top'>
+            <Tooltip title='last page' placement='bottom'>
               <Button variant='text' disabled={pageIndex === pageCount} onClick={handleLastPageClick}>
                 <ArrowForwardIos sx={{ fontSize: 'smaller' }} />
                 <ArrowForwardIos sx={{ fontSize: 'smaller' }} />

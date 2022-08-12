@@ -1,14 +1,9 @@
-import { AppBar, Button, Container, Grid, Toolbar, useScrollTrigger, Link, Box, Stack } from '@mui/material'
+import { AppBar, Button, Container, Grid, Toolbar, useScrollTrigger, Link, Box } from '@mui/material'
 import router from 'next/router'
-import Image from 'next/image'
 import NLink from 'next/link'
 import { useEffect, useState } from 'react'
-import { withAuthenticator, Button as LoginButton, Heading } from '@aws-amplify/ui-react'
 import '@aws-amplify/ui-react/styles.css'
-import { Auth, Hub } from 'aws-amplify'
-import { Person } from '@mui/icons-material'
-import { CognitoUserSession } from 'amazon-cognito-identity-js'
-import { HubPayload } from '@aws-amplify/core'
+import { Auth } from 'aws-amplify'
 import React from 'react'
 import UserLoginPanel from './UserLoginPanel'
 import { DarkMode } from './themes/DarkMode'
@@ -76,10 +71,10 @@ const Header = () => {
                   </Button>
                 </DarkMode>
               </Grid>
-              <Grid item>
-                <UserLoginPanel />
-              </Grid>
             </Grid>
+            <Box display='flex' alignItems='justify-start' justifyContent='flex-end' sx={{ marginTop: -4 }}>
+              <UserLoginPanel />
+            </Box>
           </Container>
         </Toolbar>
       </AppBar>

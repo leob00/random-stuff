@@ -73,7 +73,7 @@ const UserLogin = () => {
   return (
     <>
       <DarkMode>
-        <Stack direction='row' justifyContent='right' textAlign='right'>
+        <Stack>
           {isLoggedIn === true ? (
             <>
               <LoggedInUserMenu onLogOut={signOut} />
