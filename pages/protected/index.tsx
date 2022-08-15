@@ -1,6 +1,6 @@
 import { Container, Typography } from '@mui/material'
 import { withSSRContext } from 'aws-amplify'
-import { hello, LambdaResponse } from 'lib/backend/api/apiGateway'
+import { hello, LambdaResponse } from 'lib/backend/api/aws/apiGateway'
 import { GetServerSideProps, NextPage } from 'next'
 
 const Protected: NextPage<{ authenticated: boolean; username: string | undefined }> = ({ authenticated, username }) => {

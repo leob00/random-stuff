@@ -5,10 +5,12 @@ import ArticlesLayout from 'components/Organizms/ArticlesLayout'
 import { shuffle } from 'lodash'
 import { buildRandomAnimals } from 'lib/backend/api/randomAnimalsApi'
 import { isBrowser } from 'lib/util/system'
-import { getAnimals } from 'lib/backend/api/apiGateway'
+import { getAnimals } from 'lib/backend/api/aws/apiGateway'
 import useSWR, { SWRConfig } from 'swr'
 import { Container } from '@mui/material'
-import { axiosGet } from 'lib/backend/api/useAxios'
+import { axiosGet } from 'lib/backend/api/aws/useAxios'
+import Header from 'next/head'
+
 const cmsRefreshIntervalSeconds = 360
 
 const fetcherFn = async (url: string) => {
@@ -24,7 +26,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   let data = await getAnimals('cats')
   return {
     props: {
-      articles: data,
+      articles: shuffle(data),
       fallback: {
         '/api/cats': data,
       },
@@ -51,9 +53,15 @@ const Cached = ({ fallbackData }: { fallbackData: BasicArticle[] }) => {
 
 const RandomCats: NextPage<{ articles: BasicArticle[]; fallback: any }> = ({ articles, fallback }) => {
   return (
-    <SWRConfig value={{ fallback }}>
-      <Cached fallbackData={articles} />
-    </SWRConfig>
+    <>
+      <Header>
+        <title>Random Stuff - Cats</title>
+        <meta property='og:title' content='Random Stuff - Cats' key='catsTitle' />
+      </Header>
+      <SWRConfig value={{ fallback }}>
+        <Cached fallbackData={articles} />
+      </SWRConfig>
+    </>
   )
 }
 

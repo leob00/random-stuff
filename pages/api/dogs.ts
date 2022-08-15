@@ -1,4 +1,4 @@
-import { getAnimals } from 'lib/backend/api/apiGateway'
+import { getAnimals } from 'lib/backend/api/aws/apiGateway'
 import { BasicArticle } from 'lib/model'
 import { shuffle } from 'lodash'
 import type { NextApiRequest, NextApiResponse } from 'next'

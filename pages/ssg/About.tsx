@@ -2,7 +2,6 @@ import React from 'react'
 import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
 import { Container, Paper, Box, Typography, Stack } from '@mui/material'
-import Image from 'next/image'
 import RemoteImage from 'components/Atoms/RemoteImage'
 
 export const getStaticProps: GetStaticProps = async (context) => {

@@ -4,7 +4,7 @@ import fs from 'fs'
 import { RandomStuffData } from 'lib/models/randomStuffModels'
 import jsonData from '../../../public/data/randomStuff.json'
 import { cloneDeep } from 'lodash'
-import { putAnimals } from './apiGateway'
+import { putAnimals } from './aws/apiGateway'
 
 export async function getRandomDog() {
   let result: BasicArticle = {

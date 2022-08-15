@@ -1,13 +1,10 @@
 import { Person } from '@mui/icons-material'
-import { Container, Grid, Stack, Link, Button, Box } from '@mui/material'
+import { Stack, Button } from '@mui/material'
 import { Auth, Hub } from 'aws-amplify'
 import router from 'next/router'
 import React, { useEffect, useState } from 'react'
-import NLink from 'next/link'
-import { withAuthenticator, Button as LoginButton, Heading } from '@aws-amplify/ui-react'
 import LoggedInUserMenu from './LoggedInUserMenu'
 import { DarkMode } from './themes/DarkMode'
-import axios, { AxiosRequestConfig } from 'axios'
 
 export type HubPayload = {
   event: string
