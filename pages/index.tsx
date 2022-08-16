@@ -50,7 +50,7 @@ const Home: NextPage = () => {
     <>
       <Header>
         <title>Random Stuff - Home</title>
-        <meta property='og:title' content='Random Stuff - Home' key='homeTitle' />
+        <meta property='og:title' content='Random Stuff' key='homeTitle' />
         <meta property='og:description' content='Random Stuff: this site is dedicated to random foolishness and inconsequential musings.' key='homeDescription' />
         <meta property='og:image' content='/images/logo-with-text-blue-small.png' key='homeLogo' />
       </Header>

@@ -11,7 +11,6 @@ const RemoteImage = ({ url, title, width = 350, height = 400, style, onLoaded }:
       onLoaded()
     }
   }
-
   return (
     <>
       <Box sx={{ position: 'relative', height: { height }, width: { width }, padding: '5px', my: 1, borderRadius: '16px' }} className='blue-gradient hoverBox'>

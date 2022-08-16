@@ -62,6 +62,14 @@ const HomeMenu = () => {
                 </Stack>
                 <Stack direction='row' justifyContent='center' sx={{ my: 2 }}></Stack>
               </Box>
+              <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
+                <LinkButton
+                  onClick={() => {
+                    router.push('/ssg/coinflip')
+                  }}>
+                  flip a coin
+                </LinkButton>
+              </Stack>
             </Box>
           </Paper>
         </Container>
