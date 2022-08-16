@@ -2,19 +2,21 @@ import { createTheme, PaletteOptions, responsiveFontSizes, ThemeOptions } from '
 import { ResponsiveFontSizesOptions } from '@mui/material/styles/responsiveFontSizes'
 
 export const Blue800: string = '#436ab6'
-export const EmmaWhite20Perc = 'rgba(255, 255, 255, 0.2)'
+export const LightBlue = '#446ab7'
+export const FadedWhite = 'rgba(255, 255, 255, 0.2)'
+export const LightGrey = '#ecf2f1'
 
 const lightPalette: PaletteOptions = {
   mode: 'light',
   primary: {
-    main: '#00263a',
+    main: LightBlue,
   },
 }
 
 const darkPalette: PaletteOptions = {
   mode: 'dark',
   primary: {
-    main: '#fff',
+    main: LightGrey,
     contrastText: '#00263a',
   },
 }
