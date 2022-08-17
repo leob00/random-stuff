@@ -4,6 +4,7 @@ import CenterStack from 'components/Atoms/CenterStack'
 import RemoteImageFlat from 'components/Atoms/RemoteImageFlat'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import SimpleBarChart from 'components/Molecules/Charts/SimpleBarChart'
+import CoinFlipChart from 'components/Molecules/CoinFlipChart'
 import { DarkGreen, LightBlue } from 'components/themes/mainTheme'
 import { cloneDeep, shuffle } from 'lodash'
 import { GetStaticProps, NextPage } from 'next'
@@ -53,7 +54,6 @@ export function reducer(state: Model, action: ActionType): Model {
       }
       let currentState = { ...state }
       if (currentState.runningChart) {
-        debugger
         switch (action.payload.flippedCoin?.face) {
           case 'heads':
             currentState.runningChart.numbers[0] = currentState.runningChart.numbers[0] + 1
@@ -128,9 +128,6 @@ const CoinFlip: NextPage = () => {
       })
     }, 3000)
   }
-  const labels = ['heads', 'tails']
-  const numbers = [10, 15]
-  const colors: string[] = [DarkGreen, LightBlue]
   return (
     <>
       <Header>
@@ -172,16 +169,11 @@ const CoinFlip: NextPage = () => {
           </Box>
         </CenterStack>
         <CenterStack sx={{ paddingTop: 2 }}>
-          <Button variant='contained' color='primary' onClick={handleFlipClick}>
+          <Button variant='contained' color='primary' onClick={handleFlipClick} disabled={model.isLoading}>
             Flip
           </Button>
         </CenterStack>
-        {model.runningChart && (
-          <CenterStack sx={{ paddingTop: 2 }}>
-            <Typography>{`total filps: ${model.runningChart.numbers[0] + model.runningChart.numbers[1]}`}</Typography>
-          </CenterStack>
-        )}
-        <CenterStack sx={{ paddingTop: 6 }}>{model.runningChart && <SimpleBarChart labels={model.runningChart.labels} numbers={model.runningChart.numbers} colors={model.runningChart.colors} />}</CenterStack>
+        {model.runningChart && <CoinFlipChart totalFlips={model.runningChart.numbers[0] + model.runningChart.numbers[1]} chart={model.runningChart} />}
       </Container>
     </>
   )
