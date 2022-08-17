@@ -2,6 +2,9 @@ import { Box, Button, Container, Typography } from '@mui/material'
 import { actionRow } from 'aws-amplify'
 import CenterStack from 'components/Atoms/CenterStack'
 import RemoteImageFlat from 'components/Atoms/RemoteImageFlat'
+import { BarChart } from 'components/Molecules/Charts/barChartOptions'
+import SimpleBarChart from 'components/Molecules/Charts/SimpleBarChart'
+import { DarkGreen, LightBlue } from 'components/themes/mainTheme'
 import { cloneDeep, shuffle } from 'lodash'
 import { GetStaticProps, NextPage } from 'next'
 import Header from 'next/head'
@@ -28,6 +31,7 @@ export interface Model {
   currentCoinState?: Coin
   flippedCoin?: Coin
   allCoins: Coin[]
+  runningChart?: BarChart
 }
 
 export type ActionTypes = 'toss' | 'flipped'
@@ -40,9 +44,28 @@ export interface ActionType {
 export function reducer(state: Model, action: ActionType): Model {
   switch (action.type) {
     case 'toss':
-      return { ...state, allCoins: state.allCoins, isLoading: true, flippedCoin: undefined, defaultState: false }
+      return { ...state, allCoins: action.payload.allCoins, isLoading: true, flippedCoin: undefined, defaultState: false }
     case 'flipped':
-      return { ...state, allCoins: state.allCoins, isLoading: false, flippedCoin: action.payload.flippedCoin }
+      let chart: BarChart = {
+        labels: ['heads', 'tails'],
+        numbers: state.runningChart ? state.runningChart.numbers : [0, 0],
+        colors: [DarkGreen, LightBlue],
+      }
+      let currentState = { ...state }
+      if (currentState.runningChart) {
+        debugger
+        switch (action.payload.flippedCoin?.face) {
+          case 'heads':
+            currentState.runningChart.numbers[0] = currentState.runningChart.numbers[0] + 1
+            break
+          case 'tails':
+            currentState.runningChart.numbers[1] = currentState.runningChart.numbers[1] + 1
+            break
+          default:
+            break
+        }
+      }
+      return { ...state, allCoins: action.payload.allCoins, isLoading: false, flippedCoin: action.payload.flippedCoin, runningChart: currentState.runningChart }
     default:
       return action.payload
   }
@@ -55,10 +78,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 const CoinFlip: NextPage = () => {
-  let coin: Coin = {
-    face: 'tails',
-    imageUrl: getImage('tails'),
-  }
   const coins: Coin[] = [
     {
       face: 'heads',
@@ -69,34 +88,32 @@ const CoinFlip: NextPage = () => {
       imageUrl: getImage('tails'),
     },
   ]
-  /* const [flippedCoin, setFlippedCoin] = React.useState<Coin | null>(null)
-  const [coinStates, setCoinStates] = React.useState<Coin[]>(coins)
-  const [isLoading, setIsLoading] = React.useState(false)
-  const [defaultState, setDefaultState] = React.useState(true) */
 
   const initialState: Model = {
     isLoading: false,
     defaultState: true,
     currentCoinState: shuffle(coins)[0],
     allCoins: coins,
+    runningChart: {
+      labels: ['heads', 'tails'],
+      numbers: [0, 0],
+      colors: [DarkGreen, LightBlue],
+    },
   }
 
   const [model, dispatch] = React.useReducer(reducer, initialState)
 
   const handleFlipClick = () => {
+    let allCoins = cloneDeep(model.allCoins)
+    let shuffled = shuffle(allCoins)
     dispatch({
       type: 'toss',
       payload: {
-        currentCoinState: model.allCoins[0],
-        allCoins: model.allCoins,
+        currentCoinState: shuffled[0],
+        allCoins: shuffled,
       },
     })
-    //setFlippedCoin(null)
-    //setIsLoading(true)
-    //setDefaultState(false)
-    /* let shuffled = shuffle(model.coinStates)[0] */
-    let allCoins = cloneDeep(model.allCoins)
-    let shuffled = shuffle(allCoins)
+
     for (let i = 0; i < 100; i++) {
       shuffled = shuffle(shuffled)
     }
@@ -105,16 +122,15 @@ const CoinFlip: NextPage = () => {
       dispatch({
         type: 'flipped',
         payload: {
-          allCoins: model.allCoins,
+          allCoins: allCoins,
           flippedCoin: shuffled[0],
         },
       })
-      /*   setIsLoading(false)
-      setCoinStates(shuffle(coinStates))
-      setFlippedCoin(shuffled) */
     }, 3000)
   }
-
+  const labels = ['heads', 'tails']
+  const numbers = [10, 15]
+  const colors: string[] = [DarkGreen, LightBlue]
   return (
     <>
       <Header>
@@ -160,6 +176,12 @@ const CoinFlip: NextPage = () => {
             Flip
           </Button>
         </CenterStack>
+        {model.runningChart && (
+          <CenterStack sx={{ paddingTop: 2 }}>
+            <Typography>{`total filps: ${model.runningChart.numbers[0] + model.runningChart.numbers[1]}`}</Typography>
+          </CenterStack>
+        )}
+        <CenterStack sx={{ paddingTop: 6 }}>{model.runningChart && <SimpleBarChart labels={model.runningChart.labels} numbers={model.runningChart.numbers} colors={model.runningChart.colors} />}</CenterStack>
       </Container>
     </>
   )

@@ -1,9 +1,13 @@
 import { ChartData, ChartOptions } from 'chart.js'
-import { uniq } from 'lodash'
+import { DarkBlue } from 'components/themes/mainTheme'
 
-export const getBarChartData = (labels: string[], numbers: number[], colors: string[]): ChartData<'bar', number[], unknown> | ((canvas: HTMLCanvasElement) => ChartData<'bar', number[], unknown>) => {
-  //console.log('numbers: ' + numbers)
-  //console.log('labels: ' + labels)
+export interface BarChart {
+  labels: string[]
+  numbers: number[]
+  colors: string[]
+}
+
+export const getBarChartData = (labels: string[], numbers: number[], colors: string[]): ChartData<'bar', number[], unknown> => {
   return {
     labels: labels,
     datasets: [
@@ -11,7 +15,7 @@ export const getBarChartData = (labels: string[], numbers: number[], colors: str
         borderColor: 'black',
         borderWidth: 0,
         data: numbers,
-        backgroundColor: uniq(colors),
+        backgroundColor: colors,
         type: 'bar',
         indexAxis: 'x',
       },
@@ -19,7 +23,7 @@ export const getBarChartData = (labels: string[], numbers: number[], colors: str
   }
 }
 
-export const getBarChartOptions = (): ChartOptions<'bar'> => {
+export const getBarChartOptions = (title?: string): ChartOptions<'bar'> => {
   return {
     responsive: true,
     hover: {
@@ -37,20 +41,24 @@ export const getBarChartOptions = (): ChartOptions<'bar'> => {
           color: 'rgba(203, 241, 247, 0.932)',
         },
       },
-      /* decimation: {
-        enabled: true
-      }   */
+      title: {
+        display: true,
+        text: title,
+      },
     },
     scales: {
       y: {
         ticks: {
-          color: 'rgba(203, 241, 247, 0.932)',
+          color: DarkBlue,
+          //sautoSkip: true,
+          stepSize: 1,
+          precision: 1,
         },
       },
       x: {
         display: true,
         ticks: {
-          color: 'rgba(203, 241, 247, 0.932)',
+          color: DarkBlue,
         },
         grid: {
           //color: "red"

@@ -3,8 +3,11 @@ import { ResponsiveFontSizesOptions } from '@mui/material/styles/responsiveFontS
 
 export const Blue800: string = '#436ab6'
 export const LightBlue = '#446ab7'
+export const DarkBlue = '#0b224e'
 export const FadedWhite = 'rgba(255, 255, 255, 0.2)'
 export const LightGrey = '#ecf2f1'
+export const BrightGreen = '#29aa29'
+export const DarkGreen = '#0d740d'
 
 const lightPalette: PaletteOptions = {
   mode: 'light',
