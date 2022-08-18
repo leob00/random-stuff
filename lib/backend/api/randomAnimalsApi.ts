@@ -4,7 +4,7 @@ import fs from 'fs'
 import { RandomStuffData } from 'lib/models/randomStuffModels'
 import jsonData from '../../../public/data/randomStuff.json'
 import { cloneDeep } from 'lodash'
-import { putAnimals } from './aws/apiGateway'
+import { DynamoKeys, putAnimals, RandomStuffPut } from './aws/apiGateway'
 
 export async function getRandomDog() {
   let result: BasicArticle = {
@@ -24,11 +24,11 @@ export async function getRandomDog() {
   }
 }
 
-export async function buildRandomAnimals(type: BasicArticleTypes) {
+export async function buildRandomAnimals(type: DynamoKeys) {
   await getRandomAnimalsFromLocalFiles(type)
 }
 
-export async function getRandomAnimalsFromLocalFiles(type: BasicArticleTypes) {
+export async function getRandomAnimalsFromLocalFiles(type: DynamoKeys) {
   let basePath = ''
   let title = ''
   let targetPath = ''
@@ -52,6 +52,7 @@ export async function getRandomAnimalsFromLocalFiles(type: BasicArticleTypes) {
   let mappedArticles: BasicArticle[] = files.map((item) => {
     return { type: type, title: title, imagePath: `${targetPath}${item}` }
   })
+
   await putAnimals(type, mappedArticles)
 
   switch (type) {
