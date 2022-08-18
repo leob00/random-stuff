@@ -10,12 +10,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       coinflipStats: result,
-      apiUrl: process.env.AWS_API_GATEWAY_URL,
     },
   }
 }
 
-const CoinFlip: NextPage<{ coinflipStats: CoinFlipStats; apiUrl: string }> = ({ coinflipStats, apiUrl }) => {
+const CoinFlip: NextPage<{ coinflipStats: CoinFlipStats }> = ({ coinflipStats }) => {
   return (
     <>
       <Header>
@@ -23,7 +22,7 @@ const CoinFlip: NextPage<{ coinflipStats: CoinFlipStats; apiUrl: string }> = ({ 
         <meta property='og:title' content='Random Stuff' key='coinFlipTitle' />
         <meta property='og:description' content='Random Stuff: this site is dedicated to random foolishness and inconsequential musings.' key='coinFlipDescription' />
       </Header>
-      <CoinFlipLayout coinflipStats={coinflipStats} awsApiUrl={apiUrl} />
+      <CoinFlipLayout coinflipStats={coinflipStats} />
     </>
   )
 }

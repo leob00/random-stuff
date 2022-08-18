@@ -1,15 +1,17 @@
-import { Box, Button, cardActionAreaClasses, Container, Typography } from '@mui/material'
+import { Box, Button, Container, Typography } from '@mui/material'
 import axios from 'axios'
 import CenterStack from 'components/Atoms/CenterStack'
 import RemoteImageFlat from 'components/Atoms/RemoteImageFlat'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import CoinFlipChart from 'components/Molecules/CoinFlipChart'
 import { DarkGreen, LightBlue } from 'components/themes/mainTheme'
-import { CoinFlipStats, putCoinflipStats } from 'lib/backend/api/aws/apiGateway'
+import { CoinFlipStats } from 'lib/backend/api/aws/apiGateway'
 import { cloneDeep, shuffle } from 'lodash'
 import React from 'react'
 
-export type headsTails = 'heads' | 'tails'
+type headsTails = 'heads' | 'tails'
+const barChartColors = [DarkGreen, LightBlue]
+const barChartLabels = ['heads', 'tails']
 
 export interface Coin {
   face: headsTails
@@ -68,7 +70,7 @@ export function reducer(state: Model, action: ActionType): Model {
       let chart: BarChart = {
         labels: ['heads', 'tails'],
         numbers: [action.payload.coinflipStats?.heads as number, action.payload.coinflipStats?.tails as number],
-        colors: [DarkGreen, LightBlue],
+        colors: barChartColors,
       }
       return { ...state, coinflipStats: action.payload.coinflipStats, communityChart: chart }
     }
@@ -76,7 +78,7 @@ export function reducer(state: Model, action: ActionType): Model {
       return action.payload
   }
 }
-const CoinFlipLayout = ({ coinflipStats, awsApiUrl }: { coinflipStats: CoinFlipStats; awsApiUrl: string }) => {
+const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => {
   const coins: Coin[] = [
     {
       face: 'heads',
@@ -94,25 +96,21 @@ const CoinFlipLayout = ({ coinflipStats, awsApiUrl }: { coinflipStats: CoinFlipS
     currentCoinState: shuffle(coins)[0],
     allCoins: coins,
     runningChart: {
-      labels: ['heads', 'tails'],
+      labels: barChartLabels,
       numbers: [0, 0],
-      colors: [DarkGreen, LightBlue],
+      colors: barChartColors,
     },
     coinflipStats: coinflipStats,
     communityChart: {
-      labels: ['heads', 'tails'],
+      labels: barChartLabels,
       numbers: [coinflipStats.heads, coinflipStats.tails],
-      colors: [DarkGreen, LightBlue],
+      colors: barChartColors,
     },
   }
 
   const [model, dispatch] = React.useReducer(reducer, initialState)
-  const [apiUrl, setApiUrl] = React.useState<string | null>(null)
 
   const handleFlipClick = async () => {
-    //console.log(`api url: ${process.env.AWS_API_GATEWAY_URL}`)
-    //let url = `${process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL}`
-    //console.log(`url: ${url}`)
     let allCoins = cloneDeep(model.allCoins)
     let shuffled = shuffle(allCoins)
     dispatch({
@@ -134,8 +132,6 @@ const CoinFlipLayout = ({ coinflipStats, awsApiUrl }: { coinflipStats: CoinFlipS
     if (flipped.face === 'tails') {
       coinStats.tails += 1
     }
-    //await axios.put('/api/putRandomStuff', coinStats)
-    //await putCoinflipStats(coinStats)
 
     const postFn = async () => {
       let result = (await (await axios.put('/api/incrementCoinFlip', flipped)).data) as CoinFlipStats
@@ -160,7 +156,7 @@ const CoinFlipLayout = ({ coinflipStats, awsApiUrl }: { coinflipStats: CoinFlipS
       postFn()
     }, 3000)
   }
-  React.useEffect(() => {}, [])
+
   return (
     <Container>
       <CenterStack sx={{ minHeight: 100 }}>
