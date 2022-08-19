@@ -1,10 +1,12 @@
 import { Box, Button, Container, Typography } from '@mui/material'
+import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ImageSpinner from 'components/Atoms/ImageSpinner'
 import { CoinFlipStats } from 'lib/backend/api/aws/apiGateway'
 import { getWheel, RouletteNumber, RouletteWheel } from 'lib/backend/roulette/wheel'
 import { getRandomNumber } from 'lib/util/numberUtil'
-import { cloneDeep, shuffle } from 'lodash'
+import { cloneDeep, reverse, shuffle } from 'lodash'
 import React from 'react'
 
 //type headsTails = 'heads' | 'tails'
@@ -16,9 +18,10 @@ export interface Model {
   wheel?: RouletteWheel
   result?: RouletteNumber
   isSpinning?: boolean
+  playerResults?: RouletteNumber[]
 }
 
-export type ActionTypes = 'spin' | 'spinned'
+export type ActionTypes = 'spin' | 'spin-finished'
 export interface ActionType {
   type: ActionTypes
   payload: Model
@@ -28,8 +31,8 @@ export function reducer(state: Model, action: ActionType): Model {
   switch (action.type) {
     case 'spin':
       return { ...state, spinSpeed: action.payload.spinSpeed, result: undefined, isSpinning: true }
-    case 'spinned':
-      return { ...state, spinSpeed: action.payload.spinSpeed, result: action.payload.result, isSpinning: false }
+    case 'spin-finished':
+      return { ...state, spinSpeed: action.payload.spinSpeed, result: action.payload.result, isSpinning: false, playerResults: action.payload.playerResults }
     default:
       return action.payload
   }
@@ -43,23 +46,13 @@ const RouletteLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
   }
 
   const [model, dispatch] = React.useReducer(reducer, initialState)
-  /* React.useEffect(() => {
-    dispatch({
-      type: 'spin',
-      payload: {
-        spinSpeed: 18,
-      },
-    })
-  }, []) */
-  const handleSpinClick = async () => {
-    //const wheel = getWheel()
-    //console.log(JSON.stringify(wheel))
 
+  const handleSpinClick = async () => {
     dispatch({
       type: 'spin',
       payload: { spinSpeed: 0.4 },
     })
-    const finish = () => {
+    const spin = async () => {
       setTimeout(() => {
         let wheel = cloneDeep(model.wheel!)
         const iterations = getRandomNumber(100, 150)
@@ -69,83 +62,31 @@ const RouletteLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
         const random = getRandomNumber(0, 38)
         let pickedNum = wheel.numbers[random]
         console.log(`spin result: ${pickedNum.value} - ${pickedNum.color}`)
+        let playerResults = model.playerResults ? cloneDeep(model.playerResults) : []
+        playerResults.unshift(pickedNum)
         dispatch({
-          type: 'spinned',
-          payload: { spinSpeed: defaultSpinSpeed, result: pickedNum },
+          type: 'spin-finished',
+          payload: { spinSpeed: defaultSpinSpeed, result: pickedNum, playerResults: playerResults },
         })
       }, 3000)
     }
-    finish()
-
-    /* let allCoins = cloneDeep(model.allCoins)
-    let shuffled = shuffle(allCoins)
-    dispatch({
-      type: 'toss',
-      payload: {
-        currentCoinState: shuffled[0],
-        allCoins: shuffled,
-      },
-    })
-
-    for (let i = 0; i < 100; i++) {
-      shuffled = shuffle(shuffled)
-    }
-    const flipped = shuffled[0]
-    let coinStats = cloneDeep(model.coinflipStats) as CoinFlipStats
-    if (flipped.face === 'heads') {
-      coinStats.heads += 1
-    }
-    if (flipped.face === 'tails') {
-      coinStats.tails += 1
-    } */
-
-    const postFn = async () => {
-      // let result = (await (await axios.put('/api/incrementCoinFlip', flipped)).data) as CoinFlipStats
-      // console.log(JSON.stringify(result))
-      /* dispatch({
-        type: 'update-community-stats',
-        payload: {
-          allCoins: allCoins,
-          coinflipStats: result,
-        },
-      }) */
-    }
-
-    /* setTimeout(() => {
-      dispatch({
-        type: 'flipped',
-        payload: {
-          allCoins: allCoins,
-          flippedCoin: flipped,
-        },
-      })
-      postFn()
-    }, 3000) */
+    await spin()
   }
 
   return (
-    <Container>
-      <CenterStack sx={{ minHeight: 100 }}>
+    <Container sx={{ minHeight: 900 }}>
+      <CenterStack sx={{}}>
+        <CenteredHeader title={'This is your chance to spin the wheel!'} description={''} />
+      </CenterStack>
+      <CenterStack sx={{}}>
         <Box>
-          <Typography variant='body1' sx={{ textAlign: 'center' }}>
-            This is your chance to spin the wheel if you do not have one at home.
-          </Typography>
-          <Typography variant='body2' sx={{ textAlign: 'center', paddingTop: 2 }}>
-            Call out your prediction and click the Spin button.
-          </Typography>
+          <ImageSpinner imageUrl={'/images/american-roulette-wheel.png'} speed={model.spinSpeed} width={320} height={320} />
         </Box>
       </CenterStack>
-      <CenterStack sx={{ minHeight: 120 }}>
-        <Box>
-          <ImageSpinner imageUrl={'/images/american-roullete-wheel.png'} speed={model.spinSpeed} />
-        </Box>
+      <CenterStack sx={{ paddingTop: 1 }}>
+        <PrimaryButton text={'Spin'} onClicked={handleSpinClick} isDisabled={model.isSpinning} />
       </CenterStack>
-      <CenterStack sx={{ paddingTop: 2 }}>
-        <Button variant='contained' color='primary' onClick={handleSpinClick} disabled={model.isSpinning}>
-          Spin
-        </Button>
-      </CenterStack>
-      <CenterStack sx={{ minHeight: 50, my: 2 }}>
+      <CenterStack sx={{ minHeight: 110, my: 1 }}>
         {model.result && (
           <Box sx={{ border: 1, borderStyle: 'solid', p: 2, borderRadius: '.8em', minHeight: 110, minWidth: 120 }}>
             <CenterStack>
@@ -157,6 +98,24 @@ const RouletteLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
           </Box>
         )}
       </CenterStack>
+      <Box sx={{ minHeight: 200 }}>
+        {model.playerResults && (
+          <Box>
+            <CenterStack>
+              <Typography>player results</Typography>
+            </CenterStack>
+            <Box>
+              {model.playerResults.map((item, index) => (
+                <CenterStack key={index}>
+                  <Typography variant='h5' sx={{ color: item.color }}>
+                    {item.value}
+                  </Typography>
+                </CenterStack>
+              ))}
+            </Box>
+          </Box>
+        )}
+      </Box>
     </Container>
   )
 }
