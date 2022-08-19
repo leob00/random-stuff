@@ -75,22 +75,20 @@ const RouletteLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
   }
 
   return (
-    <Container sx={{ minHeight: 900 }}>
+    <Box sx={{}}>
       <CenterStack sx={{}}>
         <CenteredHeader title={'This is your chance to spin the wheel!'} description={''} />
       </CenterStack>
-      <CenterStack sx={{}}>
-        <Box>
-          <ImageSpinner imageUrl={'/images/american-roulette-wheel.png'} speed={model.spinSpeed} width={320} height={320} />
-        </Box>
+      <CenterStack sx={{ minHeight: 360 }}>
+        <ImageSpinner imageUrl={'/images/american-roulette-wheel.png'} speed={model.spinSpeed} width={280} height={280} />
       </CenterStack>
-      <CenterStack sx={{ paddingTop: 1 }}>
+      <CenterStack sx={{ paddingTop: 1, marginTop: -6 }}>
         <PrimaryButton text={'Spin'} onClicked={handleSpinClick} isDisabled={model.isSpinning} />
       </CenterStack>
       <Box sx={{ my: 1 }}>
         {model.playerResults && (
           <>
-            <CenterStack>
+            <CenterStack sx={{ my: 1 }}>
               <Typography variant='body1' sx={{}}>{`player results`}</Typography>
             </CenterStack>
             {model.playerResults.map((item, index) =>
@@ -115,7 +113,7 @@ const RouletteLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
           </>
         )}
       </Box>
-    </Container>
+    </Box>
   )
 }
 
