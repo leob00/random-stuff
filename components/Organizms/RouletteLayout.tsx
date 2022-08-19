@@ -3,6 +3,7 @@ import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ImageSpinner from 'components/Atoms/ImageSpinner'
+import { DarkMode } from 'components/themes/DarkMode'
 import { CoinFlipStats } from 'lib/backend/api/aws/apiGateway'
 import { getWheel, RouletteNumber, RouletteWheel } from 'lib/backend/roulette/wheel'
 import { getRandomNumber } from 'lib/util/numberUtil'
@@ -86,34 +87,32 @@ const RouletteLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
       <CenterStack sx={{ paddingTop: 1 }}>
         <PrimaryButton text={'Spin'} onClicked={handleSpinClick} isDisabled={model.isSpinning} />
       </CenterStack>
-      <CenterStack sx={{ minHeight: 110, my: 1 }}>
-        {model.result && (
-          <Box sx={{ border: 1, borderStyle: 'solid', p: 2, borderRadius: '.8em', minHeight: 110, minWidth: 120 }}>
-            <CenterStack>
-              <Typography variant='body1' sx={{}}>{`spin result`}</Typography>
-            </CenterStack>
-            <CenterStack>
-              <Typography variant='h3' sx={{ fontWeight: 'bolder', color: model.result.color }}>{`${model.result.value}`}</Typography>
-            </CenterStack>
-          </Box>
-        )}
-      </CenterStack>
-      <Box sx={{ minHeight: 200 }}>
+      <Box sx={{ my: 1 }}>
         {model.playerResults && (
-          <Box>
+          <>
             <CenterStack>
-              <Typography>player results</Typography>
+              <Typography variant='body1' sx={{}}>{`player results`}</Typography>
             </CenterStack>
-            <Box>
-              {model.playerResults.map((item, index) => (
-                <CenterStack key={index}>
-                  <Typography variant='h5' sx={{ color: item.color }}>
-                    {item.value}
-                  </Typography>
+            {model.playerResults.map((item, index) =>
+              index === 0 ? (
+                <CenterStack>
+                  <Box key={index} sx={{ border: 1, borderStyle: 'solid', p: 2, borderRadius: '.8em', minHeight: 60, minWidth: 80 }}>
+                    <CenterStack>
+                      <Typography variant='h4' sx={{ fontWeight: 'bolder', color: item.color }}>{`${item.value}`}</Typography>
+                    </CenterStack>
+                  </Box>
                 </CenterStack>
-              ))}
-            </Box>
-          </Box>
+              ) : (
+                <Box>
+                  <CenterStack key={index}>
+                    <Typography variant='h5' sx={{ color: item.color }}>
+                      {item.value}
+                    </Typography>
+                  </CenterStack>
+                </Box>
+              ),
+            )}
+          </>
         )}
       </Box>
     </Container>
