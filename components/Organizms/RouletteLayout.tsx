@@ -75,12 +75,11 @@ const RouletteLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
   }
 
   return (
-    <Box sx={{}}>
-      <CenterStack sx={{}}>
-        <CenteredHeader title={'This is your chance to spin the wheel!'} description={''} />
-      </CenterStack>
+    <Box>
+      <CenteredHeader title={'This is your chance to spin the wheel!'} description={''} />
+
       <CenterStack sx={{ minHeight: 360 }}>
-        <ImageSpinner imageUrl={'/images/american-roulette-wheel.png'} speed={model.spinSpeed} width={280} height={280} />
+        <ImageSpinner imageUrl={'/images/american-roulette-wheel.png'} speed={model.spinSpeed} width={240} height={240} />
       </CenterStack>
       <CenterStack sx={{ paddingTop: 1, marginTop: -6 }}>
         <PrimaryButton text={'Spin'} onClicked={handleSpinClick} isDisabled={model.isSpinning} />
@@ -88,18 +87,20 @@ const RouletteLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
       <Box sx={{ my: 1 }}>
         {model.playerResults && (
           <>
-            <CenterStack sx={{ my: 1 }}>
+            <CenterStack sx={{ paddingTop: 1 }}>
               <Typography variant='body1' sx={{}}>{`player results`}</Typography>
             </CenterStack>
             {model.playerResults.map((item, index) =>
               index === 0 ? (
-                <CenterStack>
-                  <Box key={index} sx={{ border: 1, borderStyle: 'solid', p: 2, borderRadius: '.8em', minHeight: 60, minWidth: 80 }}>
-                    <CenterStack>
-                      <Typography variant='h4' sx={{ fontWeight: 'bolder', color: item.color }}>{`${item.value}`}</Typography>
-                    </CenterStack>
-                  </Box>
-                </CenterStack>
+                <Box>
+                  <CenterStack>
+                    <Box key={index}>
+                      <CenterStack sx={{ border: 1, borderStyle: 'solid', p: 2, borderRadius: '.8em', minHeight: 60, minWidth: 80 }}>
+                        <Typography variant='h4' sx={{ fontWeight: 'bolder', color: item.color }}>{`${item.value}`}</Typography>
+                      </CenterStack>
+                    </Box>
+                  </CenterStack>
+                </Box>
               ) : (
                 <Box>
                   <CenterStack key={index}>
