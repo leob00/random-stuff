@@ -69,6 +69,12 @@ const HomeMenu = () => {
                   }}>
                   flip a coin
                 </LinkButton>
+                <LinkButton
+                  onClick={() => {
+                    router.push('/ssg/roulette')
+                  }}>
+                  spin a wheel
+                </LinkButton>
               </Stack>
             </Box>
           </Paper>

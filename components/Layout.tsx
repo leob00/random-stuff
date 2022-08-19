@@ -12,7 +12,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <CssBaseline />
       <ThemeProvider theme={theme}>
         <Header />
-        <Container sx={{ marginTop: 2, minHeight: '430px' }}>{children}</Container> <Footer />
+        <Container sx={{ marginTop: 2, minHeight: 660 }}>{children}</Container> <Footer />
       </ThemeProvider>
     </>
   )

@@ -8,6 +8,8 @@ export const FadedWhite = 'rgba(255, 255, 255, 0.2)'
 export const LightGrey = '#ecf2f1'
 export const BrightGreen = '#29aa29'
 export const DarkGreen = '#0d740d'
+export const TransparentGreen = '#0d740dad'
+export const TransparentBlue = '#446ab793'
 
 const lightPalette: PaletteOptions = {
   mode: 'light',

@@ -4,13 +4,14 @@ import CenterStack from 'components/Atoms/CenterStack'
 import RemoteImageFlat from 'components/Atoms/RemoteImageFlat'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import CoinFlipChart from 'components/Molecules/CoinFlipChart'
-import { DarkGreen, LightBlue } from 'components/themes/mainTheme'
+import { DarkGreen, TransparentGreen, LightBlue, TransparentBlue } from 'components/themes/mainTheme'
 import { CoinFlipStats } from 'lib/backend/api/aws/apiGateway'
+import { getRandomNumber } from 'lib/util/numberUtil'
 import { cloneDeep, shuffle } from 'lodash'
 import React from 'react'
 
 type headsTails = 'heads' | 'tails'
-const barChartColors = [DarkGreen, LightBlue]
+const barChartColors = [TransparentGreen, TransparentBlue]
 const barChartLabels = ['heads', 'tails']
 
 export interface Coin {
@@ -120,8 +121,8 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
         allCoins: shuffled,
       },
     })
-
-    for (let i = 0; i < 100; i++) {
+    const iterations = getRandomNumber(100, 150)
+    for (let i = 0; i <= iterations; i++) {
       shuffled = shuffle(shuffled)
     }
     const flipped = shuffled[0]

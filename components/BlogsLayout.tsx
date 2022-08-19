@@ -60,7 +60,7 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
   useEffect(() => {
     const displayed = paged.pages[currentPageIndex - 1].items as BlogItem[]
     setDisplayItems(displayed)
-  }, [currentPageIndex, count, title, summary, body])
+  }, [currentPageIndex, count, title, summary, body]) /* eslint-disable-line react-hooks/exhaustive-deps */ /* this is needed for some reason */
 
   return (
     <>
