@@ -10,6 +10,7 @@ export const BrightGreen = '#29aa29'
 export const DarkGreen = '#0d740d'
 export const TransparentGreen = '#0d740dad'
 export const TransparentBlue = '#446ab793'
+export const CasinoGreen = '#0a1f01f6'
 
 const lightPalette: PaletteOptions = {
   mode: 'light',

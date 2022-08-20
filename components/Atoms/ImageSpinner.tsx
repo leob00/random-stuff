@@ -15,12 +15,15 @@ const StyledSpinner = styled.div`
   }
 `
 
-const ImageSpinner = ({ imageUrl, speed, width, height }: { imageUrl: string; speed?: number; width?: number; height?: number }) => {
+const ImageSpinner = ({ imageUrl, speed, width, height, clickable, onClicked }: { imageUrl: string; speed?: number; width?: number; height?: number; clickable?: boolean; onClicked?: () => void }) => {
+  const handleClick = () => {
+    onClicked?.()
+  }
   return (
     <>
-      <CenterStack>
+      <CenterStack sx={{ cursor: clickable ? 'pointer' : 'default' }}>
         <StyledSpinner className={`${speed}`}>
-          <RemoteImageFlat title='roulette' url={imageUrl} width={width} height={height} />
+          <RemoteImageFlat title='roulette' url={imageUrl} width={width} height={height} onClicked={handleClick} />
         </StyledSpinner>
       </CenterStack>
     </>

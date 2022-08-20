@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react'
 
 const CenterStack = ({ children, sx }: { children?: ReactNode; sx?: SxProps<Theme> }) => {
   return (
-    <Box sx={{}}>
+    <Box>
       <Stack direction='row' justifyContent='center' sx={sx}>
         {children}
       </Stack>

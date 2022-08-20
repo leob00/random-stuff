@@ -4,6 +4,7 @@ import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ImageSpinner from 'components/Atoms/ImageSpinner'
 import { DarkMode } from 'components/themes/DarkMode'
+import { CasinoGreen } from 'components/themes/mainTheme'
 import { CoinFlipStats } from 'lib/backend/api/aws/apiGateway'
 import { getWheel, RouletteNumber, RouletteWheel } from 'lib/backend/roulette/wheel'
 import { getRandomNumber } from 'lib/util/numberUtil'
@@ -47,47 +48,49 @@ const RouletteLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
   }
 
   const [model, dispatch] = React.useReducer(reducer, initialState)
-
   const handleSpinClick = async () => {
+    if (model.isSpinning) {
+      return
+    }
+    await handleSpin()
+  }
+
+  const handleSpin = async () => {
     dispatch({
       type: 'spin',
       payload: { spinSpeed: 0.4 },
     })
+    let wheel = cloneDeep(model.wheel!)
+    const iterations = getRandomNumber(100, 150)
+    for (let i = 0; i <= iterations; i++) {
+      wheel.numbers = shuffle(wheel.numbers)
+    }
+    const random = getRandomNumber(0, 38)
+    let pickedNum = wheel.numbers[random]
+    console.log(`spin result: ${pickedNum.value} - ${pickedNum.color}`)
+    let playerResults = model.playerResults ? cloneDeep(model.playerResults) : []
+    playerResults.unshift(pickedNum)
     const spin = async () => {
       setTimeout(() => {
-        let wheel = cloneDeep(model.wheel!)
-        const iterations = getRandomNumber(100, 150)
-        for (let i = 0; i <= iterations; i++) {
-          wheel.numbers = shuffle(wheel.numbers)
-        }
-        const random = getRandomNumber(0, 38)
-        let pickedNum = wheel.numbers[random]
-        console.log(`spin result: ${pickedNum.value} - ${pickedNum.color}`)
-        let playerResults = model.playerResults ? cloneDeep(model.playerResults) : []
-        playerResults.unshift(pickedNum)
         dispatch({
           type: 'spin-finished',
           payload: { spinSpeed: defaultSpinSpeed, result: pickedNum, playerResults: playerResults },
         })
-      }, 3000)
+      }, getRandomNumber(2500, 6000))
     }
     await spin()
   }
 
   return (
     <Box>
-      <CenteredHeader title={'This is your chance to spin the wheel!'} description={''} />
-
-      <CenterStack sx={{ minHeight: 360 }}>
-        <ImageSpinner imageUrl={'/images/american-roulette-wheel.png'} speed={model.spinSpeed} width={240} height={240} />
-      </CenterStack>
-      <CenterStack sx={{ paddingTop: 1, marginTop: -6 }}>
-        <PrimaryButton text={'Spin'} onClicked={handleSpinClick} isDisabled={model.isSpinning} />
+      <CenteredHeader title={'This is your chance to spin the wheel!'} description={'press the wheel to spin'} />
+      <CenterStack sx={{ minHeight: 280, backgroundColor: CasinoGreen }}>
+        <ImageSpinner imageUrl={'/images/american-roulette-wheel.png'} speed={model.spinSpeed} width={240} height={240} onClicked={handleSpinClick} clickable={true} />
       </CenterStack>
       <Box sx={{ my: 1 }}>
         {model.playerResults && (
           <>
-            <CenterStack sx={{ paddingTop: 1 }}>
+            <CenterStack sx={{ my: 1 }}>
               <Typography variant='body1' sx={{}}>{`player results`}</Typography>
             </CenterStack>
             {model.playerResults.map((item, index) =>
