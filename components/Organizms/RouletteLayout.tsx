@@ -1,4 +1,6 @@
-import { Box, Button, Container, Typography } from '@mui/material'
+import { Avatar, Box, Button, Container, Typography } from '@mui/material'
+import zIndex from '@mui/material/styles/zIndex'
+import { textAlign } from '@mui/system'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
@@ -8,7 +10,7 @@ import { CasinoGreen } from 'components/themes/mainTheme'
 import { CoinFlipStats } from 'lib/backend/api/aws/apiGateway'
 import { getWheel, RouletteNumber, RouletteWheel } from 'lib/backend/roulette/wheel'
 import { getRandomNumber } from 'lib/util/numberUtil'
-import { cloneDeep, reverse, shuffle } from 'lodash'
+import { cloneDeep, result, reverse, shuffle } from 'lodash'
 import React from 'react'
 
 //type headsTails = 'heads' | 'tails'
@@ -76,7 +78,7 @@ const RouletteLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
           type: 'spin-finished',
           payload: { spinSpeed: defaultSpinSpeed, result: pickedNum, playerResults: playerResults },
         })
-      }, getRandomNumber(2500, 6000))
+      }, getRandomNumber(2000, 4000))
     }
     await spin()
   }
@@ -84,9 +86,53 @@ const RouletteLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
   return (
     <Box>
       <CenteredHeader title={'This is your chance to spin the wheel!'} description={'press the wheel to spin'} />
-      <CenterStack sx={{ minHeight: 280, backgroundColor: CasinoGreen }}>
+
+      <CenterStack sx={{ minHeight: 280 }}>
         <ImageSpinner imageUrl={'/images/american-roulette-wheel.png'} speed={model.spinSpeed} width={240} height={240} onClicked={handleSpinClick} clickable={true} />
       </CenterStack>
+      {model.result && (
+        <CenterStack sx={{}}>
+          <Typography
+            sx={{
+              cursor: 'pointer',
+              marginTop: '-100px',
+              marginLeft: '2px',
+              zIndex: 100,
+              position: 'relative',
+              height: '100px',
+              width: '100px',
+              backgroundColor: 'black',
+              borderRadius: '50%',
+              textAlign: 'center',
+              paddingTop: 7,
+              fontSize: 60,
+              fontWeight: 'bolder',
+            }}
+            onClick={handleSpinClick}>
+            <Typography sx={{ color: model.result.color === 'black' ? 'white' : model.result.color, marginTop: -5, fontSize: 40, fontWeight: 'bolder' }}>{model.result.value}</Typography>
+          </Typography>
+          {/* <Typography
+            sx={{
+              cursor: 'pointer',
+              marginTop: '-240px',
+              marginLeft: '2px',
+              zIndex: 100,
+              position: 'relative',
+              height: '100px',
+              width: '100px',
+              backgroundColor: 'transparent',
+              color: model.result.color,
+              borderRadius: '50%',
+              textAlign: 'center',
+              paddingTop: 7,
+              fontSize: 60,
+              fontWeight: 'bolder',
+            }}
+            onClick={handleSpinClick}>
+            {model.result.value}
+          </Typography> */}
+        </CenterStack>
+      )}
       <Box sx={{ my: 1 }}>
         {model.playerResults && (
           <>

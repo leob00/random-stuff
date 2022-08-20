@@ -15,8 +15,8 @@ const RemoteImageFlat = ({ url, title, width = 360, height = 360, className, onL
     onClicked?.()
   }
   return (
-    <Box sx={{ p: 2 }}>
-      <NImage src={url} alt={title} placeholder='blur' blurDataURL={url} className={className ?? ''} width={width} height={height} onLoad={handleLoaded} onClick={handleClick} />
+    <Box sx={{ p: 2, zIndex: -1 }}>
+      <NImage src={url} alt={title} placeholder='blur' blurDataURL={url} className={className ?? ''} width={width} height={height} onLoad={handleLoaded} onClick={handleClick} style={{ zIndex: 1 }} />
     </Box>
   )
 }
