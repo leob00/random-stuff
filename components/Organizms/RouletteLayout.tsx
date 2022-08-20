@@ -101,15 +101,18 @@ const RouletteLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
               position: 'relative',
               height: '100px',
               width: '100px',
-              backgroundColor: 'black',
+              backgroundColor: CasinoGreen,
               borderRadius: '50%',
               textAlign: 'center',
               paddingTop: 7,
               fontSize: 60,
               fontWeight: 'bolder',
-            }}
-            onClick={handleSpinClick}>
-            <Typography sx={{ color: model.result.color === 'black' ? 'white' : model.result.color, marginTop: -5, fontSize: 40, fontWeight: 'bolder' }}>{model.result.value}</Typography>
+            }}>
+            <Typography sx={{ color: model.result.color === 'black' ? 'white' : model.result.color, marginTop: -5, fontSize: 40, fontWeight: 'bolder' }}>
+              {model.result.value}
+
+              {/* <Avatar sx={{ bgcolor: model.result.color }}>{model.result.value}</Avatar> */}
+            </Typography>
           </Typography>
           {/* <Typography
             sx={{
@@ -139,27 +142,29 @@ const RouletteLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
             <CenterStack sx={{ my: 1 }}>
               <Typography variant='body1' sx={{}}>{`player results`}</Typography>
             </CenterStack>
-            {model.playerResults.map((item, index) =>
-              index === 0 ? (
-                <Box>
-                  <CenterStack>
-                    <Box key={index}>
-                      <CenterStack sx={{ border: 1, borderStyle: 'solid', p: 2, borderRadius: '.8em', minHeight: 60, minWidth: 80 }}>
-                        <Typography variant='h4' sx={{ fontWeight: 'bolder', color: item.color }}>{`${item.value}`}</Typography>
-                      </CenterStack>
-                    </Box>
-                  </CenterStack>
-                </Box>
-              ) : (
-                <Box>
-                  <CenterStack key={index}>
-                    <Typography variant='h5' sx={{ color: item.color }}>
-                      {item.value}
-                    </Typography>
-                  </CenterStack>
-                </Box>
-              ),
-            )}
+            <Box sx={{ maxHeight: 204, overflowY: 'auto' }}>
+              {model.playerResults.map((item, index) =>
+                index === 0 ? (
+                  <Box>
+                    <CenterStack>
+                      <Box key={index}>
+                        <CenterStack sx={{ border: 1, borderStyle: 'solid', p: 2, borderRadius: '.8em', minHeight: 60, minWidth: 80 }}>
+                          <Typography variant='h4' sx={{ fontWeight: 'bolder', color: item.color }}>{`${item.value}`}</Typography>
+                        </CenterStack>
+                      </Box>
+                    </CenterStack>
+                  </Box>
+                ) : (
+                  <Box>
+                    <CenterStack key={index}>
+                      <Typography variant='h5' sx={{ color: item.color }}>
+                        {item.value}
+                      </Typography>
+                    </CenterStack>
+                  </Box>
+                ),
+              )}
+            </Box>
           </>
         )}
       </Box>
