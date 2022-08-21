@@ -64,6 +64,24 @@ a:hover {
 .test111 {
   color: #449cb793;
 }
+.casinoGreenTransparent {
+  color: #123104de;
+}
 .casinoGreen {
-  color: #0a1f01f6;
+  color: #2d5c17;
+}
+.casinoRedTransparent {
+  color: #830707de;
+}
+.casinoBlackTransparent {
+  color: #131212de;
+}
+.casinoRed {
+  color: #830707;
+}
+.casinoWhiteTransparent {
+  color: #c9c1c1de;
+}
+.casinoGrayTransparent {
+  color: #9e9797de;
 }

@@ -1,9 +1,10 @@
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
-import { filter, uniq, map, sortBy } from 'lodash'
-import { RouletteNumber } from '../roulette/wheel'
+import { CasinoBlackTransparent, CasinoGreen, CasinoRed } from 'components/themes/mainTheme'
+import { filter, uniq, map, sortBy, cloneDeep } from 'lodash'
+import { RouletteNumber, RouletteNumberColor } from '../roulette/wheel'
 
 export function mapRouletteChart(numbers: RouletteNumber[]) {
-  let ordered = sortBy(numbers, ['color'])
+  let ordered = cloneDeep(numbers)
   let reds = filter(ordered, function (e) {
     return e.color === 'red'
   })
@@ -13,26 +14,25 @@ export function mapRouletteChart(numbers: RouletteNumber[]) {
   let greens = filter(ordered, function (e) {
     return e.color === 'green'
   })
-  let colors: string[] = []
-
-  let nums: number[] = []
-  if (reds.length > 0) {
-    nums.push(reds.length)
-    colors.push('red')
-  }
-  if (blacks.length > 0) {
-    nums.push(blacks.length)
-    colors.push('black')
-  }
-  if (greens.length > 0) {
-    nums.push(greens.length)
-    colors.push('green')
-  }
+  let colors = [translateCasinoColor('red'), translateCasinoColor('black'), translateCasinoColor('green')]
 
   let result: BarChart = {
-    labels: colors,
-    numbers: nums,
+    labels: ['red', 'black', 'green'],
+    numbers: [reds.length, blacks.length, greens.length],
     colors: colors,
   }
   return result
+}
+
+export function translateCasinoColor(color: RouletteNumberColor) {
+  switch (color) {
+    case 'red':
+      return CasinoRed
+    case 'black':
+      return CasinoBlackTransparent
+    case 'green':
+      return CasinoGreen
+    default:
+      return color
+  }
 }
