@@ -1,13 +1,18 @@
 import { Avatar, Box, Button, Container, Typography } from '@mui/material'
 import zIndex from '@mui/material/styles/zIndex'
 import { textAlign } from '@mui/system'
+import axios from 'axios'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ImageSpinner from 'components/Atoms/ImageSpinner'
+import { BarChart } from 'components/Molecules/Charts/barChartOptions'
+import SimpleBarChart from 'components/Molecules/Charts/SimpleBarChart'
+import SimpleBarChart2 from 'components/Molecules/Charts/SimpleBarChart2'
 import { DarkMode } from 'components/themes/DarkMode'
 import { CasinoGreen } from 'components/themes/mainTheme'
-import { CoinFlipStats } from 'lib/backend/api/aws/apiGateway'
+import { CoinFlipStats, WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
+import { mapRouletteChart } from 'lib/backend/charts/barChartMapper'
 import { getWheel, RouletteNumber, RouletteWheel } from 'lib/backend/roulette/wheel'
 import { getRandomNumber } from 'lib/util/numberUtil'
 import { cloneDeep, result, reverse, shuffle } from 'lodash'
@@ -23,6 +28,8 @@ export interface Model {
   result?: RouletteNumber
   isSpinning?: boolean
   playerResults?: RouletteNumber[]
+  playerChart?: BarChart
+  communityChart?: BarChart
 }
 
 export type ActionTypes = 'spin' | 'spin-finished'
@@ -36,17 +43,23 @@ export function reducer(state: Model, action: ActionType): Model {
     case 'spin':
       return { ...state, spinSpeed: action.payload.spinSpeed, result: undefined, isSpinning: true }
     case 'spin-finished':
-      return { ...state, spinSpeed: action.payload.spinSpeed, result: action.payload.result, isSpinning: false, playerResults: action.payload.playerResults }
+      return { ...state, spinSpeed: action.payload.spinSpeed, result: action.payload.result, isSpinning: false, playerResults: action.payload.playerResults, playerChart: action.payload.playerChart, communityChart: action.payload.communityChart }
     default:
       return action.payload
   }
 }
-const RouletteLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => {
+const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
   const defaultSpinSpeed = 40
+  let communityChart: BarChart = {
+    colors: ['red', 'black', 'green'],
+    labels: ['red', 'black', 'green'],
+    numbers: [spinStats.red, spinStats.black, spinStats.green],
+  }
   const initialState: Model = {
     spinSpeed: defaultSpinSpeed,
     wheel: getWheel(),
     isSpinning: false,
+    communityChart: communityChart,
   }
 
   const [model, dispatch] = React.useReducer(reducer, initialState)
@@ -72,11 +85,19 @@ const RouletteLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
     console.log(`spin result: ${pickedNum.value} - ${pickedNum.color}`)
     let playerResults = model.playerResults ? cloneDeep(model.playerResults) : []
     playerResults.unshift(pickedNum)
+    let playerChart: BarChart = mapRouletteChart(playerResults)
+    let resp = (await (await axios.post('/api/incrementWheelSpin', pickedNum)).data) as WheelSpinStats
+    let communityChart: BarChart = {
+      colors: ['red', 'black', 'green'],
+      labels: ['red', 'black', 'green'],
+      numbers: [resp.red, resp.black, resp.green],
+    }
+    //console.log(JSON.stringify(resp))
     const spin = async () => {
       setTimeout(() => {
         dispatch({
           type: 'spin-finished',
-          payload: { spinSpeed: defaultSpinSpeed, result: pickedNum, playerResults: playerResults },
+          payload: { spinSpeed: defaultSpinSpeed, result: pickedNum, playerResults: playerResults, playerChart: playerChart, communityChart: communityChart },
         })
       }, getRandomNumber(2000, 4000))
     }
@@ -145,9 +166,9 @@ const RouletteLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
             <Box sx={{ maxHeight: 204, overflowY: 'auto' }}>
               {model.playerResults.map((item, index) =>
                 index === 0 ? (
-                  <Box>
+                  <Box key={index}>
                     <CenterStack>
-                      <Box key={index}>
+                      <Box>
                         <CenterStack sx={{ border: 1, borderStyle: 'solid', p: 2, borderRadius: '.8em', minHeight: 60, minWidth: 80 }}>
                           <Typography variant='h4' sx={{ fontWeight: 'bolder', color: item.color }}>{`${item.value}`}</Typography>
                         </CenterStack>
@@ -165,9 +186,19 @@ const RouletteLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
                 ),
               )}
             </Box>
+            {model.playerChart && (
+              <Box>
+                <SimpleBarChart2 title={'Player spin stats'} barChart={model.playerChart} />
+              </Box>
+            )}
           </>
         )}
       </Box>
+      {model.communityChart && (
+        <Box>
+          <SimpleBarChart2 title='Community Spins' barChart={model.communityChart} />
+        </Box>
+      )}
     </Box>
   )
 }

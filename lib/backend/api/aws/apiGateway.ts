@@ -1,7 +1,8 @@
+import { RouletteNumberColor } from 'lib/backend/roulette/wheel'
 import { BasicArticle, BasicArticleTypes } from 'lib/model'
 import { axiosGet, axiosPut } from './useAxios'
 
-export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community'
+export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community'
 let baseUrl = process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL
 
 export interface RandomStuffPut {
@@ -23,6 +24,11 @@ export interface LambdaBody {
 export interface CoinFlipStats {
   heads: number
   tails: number
+}
+export interface WheelSpinStats {
+  red: number
+  black: number
+  green: number
 }
 
 export async function hello(name: string) {
@@ -85,7 +91,17 @@ export async function getCoinflipStats() {
   }
   return null
 }
+export async function getWheelSpinStats() {
+  let result = await getRandomStuff('wheelspin-community')
+  if (result) {
+    return result as WheelSpinStats
+  }
+  return null
+}
 
 export async function putCoinflipStats(data: CoinFlipStats) {
   await putRandomStuff('coinflip-community', data)
+}
+export async function putWheelSpinStats(data: WheelSpinStats) {
+  await putRandomStuff('wheelspin-community', data)
 }

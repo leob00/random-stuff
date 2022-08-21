@@ -1,21 +1,21 @@
 import CoinFlipLayout from 'components/Organizms/CoinFlipLayout'
 import RouletteLayout from 'components/Organizms/RouletteLayout'
-import { CoinFlipStats, getCoinflipStats } from 'lib/backend/api/aws/apiGateway'
+import { CoinFlipStats, getCoinflipStats, getWheelSpinStats, WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
 import { GetStaticProps, NextPage } from 'next'
 import Header from 'next/head'
 import React from 'react'
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const result = await getCoinflipStats()
+  const result = await getWheelSpinStats()
 
   return {
     props: {
-      coinflipStats: result,
+      spinStats: result,
     },
   }
 }
 
-const Roulette: NextPage<{ coinflipStats: CoinFlipStats }> = ({ coinflipStats }) => {
+const Roulette: NextPage<{ spinStats: WheelSpinStats }> = ({ spinStats }) => {
   return (
     <>
       <Header>
@@ -23,7 +23,7 @@ const Roulette: NextPage<{ coinflipStats: CoinFlipStats }> = ({ coinflipStats })
         <meta property='og:title' content='Random Stuff' key='rouletteTitle' />
         <meta property='og:description' content='Random Stuff: this site is dedicated to random foolishness and inconsequential musings.' key='rouletteDescription' />
       </Header>
-      <RouletteLayout coinflipStats={coinflipStats} />
+      <RouletteLayout spinStats={spinStats} />
     </>
   )
 }

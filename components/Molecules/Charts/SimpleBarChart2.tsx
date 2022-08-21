@@ -1,14 +1,14 @@
 import React from 'react'
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
-import { getBarChartData, getBarChartOptions } from './barChartOptions'
+import { BarChart, getBarChartData, getBarChartOptions } from './barChartOptions'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
-const SimpleBarChart = ({ title, labels: xValues, numbers: yValues, colors }: { title: string; labels: string[]; numbers: number[]; colors: string[] }) => {
+const SimpleBarChart2 = ({ title, barChart }: { title: string; barChart: BarChart }) => {
   const options = getBarChartOptions(title)
 
-  const data = getBarChartData(xValues, yValues, colors)
+  const data = getBarChartData(barChart.labels, barChart.numbers, barChart.colors)
   return (
     <>
       <Bar data={data} options={options} />
@@ -16,4 +16,4 @@ const SimpleBarChart = ({ title, labels: xValues, numbers: yValues, colors }: { 
   )
 }
 
-export default SimpleBarChart
+export default SimpleBarChart2
