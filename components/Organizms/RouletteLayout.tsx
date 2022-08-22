@@ -132,7 +132,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
               position: 'relative',
               height: '100px',
               width: '100px',
-              backgroundColor: CasinoGrayTransparent,
+              backgroundColor: CasinoWhiteTransparent,
               borderRadius: '50%',
               textAlign: 'center',
               paddingTop: 7,
