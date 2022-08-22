@@ -53,10 +53,14 @@ export function reducer(state: Model, action: ActionType): Model {
       return action.payload
   }
 }
+
 const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
   const defaultSpinSpeed = 40
-  const getStats = async () => {
-    let cs = await getWheelSpinStats()
+
+  //getStats()
+  const loadCommunityStats = async () => {
+    let cs = (await (await axios.get('/api/wheelSpin')).data) as WheelSpinStats
+    //console.log(JSON.stringify(cs))
     if (cs) {
       const communityChart = mapCommunityStats(cs.red, cs.black, cs.green)
       let m = cloneDeep(model)
@@ -67,7 +71,6 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       })
     }
   }
-  getStats()
 
   const initialState: Model = {
     spinSpeed: defaultSpinSpeed,
@@ -96,7 +99,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     }
     const random = getRandomNumber(0, 38)
     let pickedNum = wheel.numbers[random]
-    console.log(`spin result: ${pickedNum.value} - ${pickedNum.color}`)
+    //console.log(`spin result: ${pickedNum.value} - ${pickedNum.color}`)
     let playerResults = model.playerResults ? cloneDeep(model.playerResults) : []
     playerResults.unshift(pickedNum)
     let playerChart: BarChart = mapRouletteChart(playerResults)
@@ -113,6 +116,13 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     }
     await spin()
   }
+
+  React.useEffect(() => {
+    const fn = async () => {
+      await loadCommunityStats()
+    }
+    fn()
+  }, [])
 
   return (
     <Box>
