@@ -87,34 +87,47 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     await handleSpin()
   }
 
+  const incrementCommunityStats = (pickedNum: RouletteNumber) => {}
+
   const handleSpin = async () => {
     dispatch({
       type: 'spin',
       payload: { spinSpeed: 0.4 },
     })
     let wheel = cloneDeep(model.wheel!)
-    const iterations = getRandomNumber(100, 120)
+    const iterations = getRandomNumber(101, 123)
     for (let i = 0; i <= iterations; i++) {
       wheel.numbers = shuffle(wheel.numbers)
       //console.log(`shuffled itertaion: ${i} -  ${wheel.numbers.length} numbers`)
     }
-    const random = getRandomNumber(0, 38)
     let pickedNum = wheel.numbers[0]
     //console.log(`spin result: ${pickedNum.value} - ${pickedNum.color}`)
     let playerResults = model.playerResults ? cloneDeep(model.playerResults) : []
     playerResults.unshift(pickedNum)
     let playerChart = mapRouletteChart(playerResults)
-    let resp = await axios.post('/api/incrementWheelSpin', pickedNum)
-    let data = resp.data as WheelSpinStats
-    let communityChart = mapCommunityStats(data.red, data.black, data.green)
+
     //console.log(JSON.stringify(resp))
     let spinTimeout = getRandomNumber(2000, 4000)
+
+    const updateCommunity = async () => {
+      let resp = await axios.post('/api/incrementWheelSpin', pickedNum)
+      let data = resp.data as WheelSpinStats
+      let communityChart = mapCommunityStats(data.red, data.black, data.green)
+      let m = cloneDeep(model)
+      m.communityChart = communityChart
+      dispatch({
+        type: 'reload-community-stats',
+        payload: m,
+      })
+    }
+
     const spin = async () => {
       setTimeout(() => {
         dispatch({
           type: 'spin-finished',
-          payload: { spinSpeed: defaultSpinSpeed, result: pickedNum, playerResults: playerResults, playerChart: playerChart, communityChart: communityChart },
+          payload: { spinSpeed: defaultSpinSpeed, result: pickedNum, playerResults: playerResults, playerChart: playerChart, communityChart: model.communityChart },
         })
+        updateCommunity()
       }, spinTimeout)
     }
     await spin()
@@ -124,7 +137,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     const fn = async () => {
       await loadCommunityStats()
     }
-    fn()
+    //fn()
   }, [])
 
   return (
