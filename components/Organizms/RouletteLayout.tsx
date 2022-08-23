@@ -93,26 +93,29 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       payload: { spinSpeed: 0.4 },
     })
     let wheel = cloneDeep(model.wheel!)
-    const iterations = getRandomNumber(100, 150)
+    const iterations = getRandomNumber(100, 120)
     for (let i = 0; i <= iterations; i++) {
       wheel.numbers = shuffle(wheel.numbers)
+      //console.log(`shuffled itertaion: ${i} -  ${wheel.numbers.length} numbers`)
     }
     const random = getRandomNumber(0, 38)
-    let pickedNum = wheel.numbers[random]
+    let pickedNum = wheel.numbers[0]
     //console.log(`spin result: ${pickedNum.value} - ${pickedNum.color}`)
     let playerResults = model.playerResults ? cloneDeep(model.playerResults) : []
     playerResults.unshift(pickedNum)
-    let playerChart: BarChart = mapRouletteChart(playerResults)
-    let resp = (await (await axios.post('/api/incrementWheelSpin', pickedNum)).data) as WheelSpinStats
-    let communityChart = mapCommunityStats(resp.red, resp.black, resp.green)
+    let playerChart = mapRouletteChart(playerResults)
+    let resp = await axios.post('/api/incrementWheelSpin', pickedNum)
+    let data = resp.data as WheelSpinStats
+    let communityChart = mapCommunityStats(data.red, data.black, data.green)
     //console.log(JSON.stringify(resp))
+    let spinTimeout = getRandomNumber(2000, 4000)
     const spin = async () => {
       setTimeout(() => {
         dispatch({
           type: 'spin-finished',
           payload: { spinSpeed: defaultSpinSpeed, result: pickedNum, playerResults: playerResults, playerChart: playerChart, communityChart: communityChart },
         })
-      }, getRandomNumber(2000, 4000))
+      }, spinTimeout)
     }
     await spin()
   }
@@ -127,13 +130,12 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
   return (
     <Box>
       <CenteredHeader title={'This is your chance to spin the wheel!'} description={'press the wheel to spin'} />
-
       <CenterStack sx={{ minHeight: 280 }}>
         <ImageSpinner imageUrl={'/images/american-roulette-wheel.png'} speed={model.spinSpeed} width={240} height={240} onClicked={handleSpinClick} clickable={true} />
       </CenterStack>
       {model.result && (
         <CenterStack sx={{}}>
-          <Typography
+          <Box
             sx={{
               cursor: 'pointer',
               marginTop: '-100px',
@@ -149,12 +151,8 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
               fontSize: 60,
               fontWeight: 'bolder',
             }}>
-            <Typography sx={{ color: model.result.color === 'black' ? 'black' : translateCasinoColor(model.result.color), marginTop: -5, fontSize: 40, fontWeight: 'bolder' }}>
-              {model.result.value}
-
-              {/* <Avatar sx={{ bgcolor: model.result.color }}>{model.result.value}</Avatar> */}
-            </Typography>
-          </Typography>
+            <Typography sx={{ color: model.result.color === 'black' ? 'black' : translateCasinoColor(model.result.color), marginTop: -5, fontSize: 40, fontWeight: 'bolder' }}>{model.result.value}</Typography>
+          </Box>
         </CenterStack>
       )}
       <Box sx={{ my: 1 }}>
