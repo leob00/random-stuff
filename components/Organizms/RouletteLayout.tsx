@@ -140,10 +140,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
   }
 
   React.useEffect(() => {
-    const fn = async () => {
-      await loadCommunityStats()
-    }
-    //fn()
+    loadCommunityStats()
   }, [])
 
   return (
