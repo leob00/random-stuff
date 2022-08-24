@@ -6,7 +6,7 @@ import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import CoinFlipChart from 'components/Molecules/CoinFlipChart'
 import { DarkGreen, TransparentGreen, LightBlue, TransparentBlue } from 'components/themes/mainTheme'
 import { CoinFlipStats } from 'lib/backend/api/aws/apiGateway'
-import { getRandomNumber } from 'lib/util/numberUtil'
+import { getRandomInteger } from 'lib/util/numberUtil'
 import { cloneDeep, shuffle } from 'lodash'
 import React from 'react'
 
@@ -121,7 +121,7 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
         allCoins: shuffled,
       },
     })
-    const iterations = getRandomNumber(100, 150)
+    const iterations = getRandomInteger(100, 150)
     for (let i = 0; i <= iterations; i++) {
       shuffled = shuffle(shuffled)
     }

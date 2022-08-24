@@ -9,7 +9,7 @@ import { CasinoBlackTransparent, CasinoGrayTransparent, CasinoGreen, CasinoGreen
 import { getWheelSpinStats, WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
 import { mapRouletteChart, translateCasinoColor } from 'lib/backend/charts/barChartMapper'
 import { getWheel, RouletteNumber, RouletteNumberColor, RouletteWheel } from 'lib/backend/roulette/wheel'
-import { getRandomNumber } from 'lib/util/numberUtil'
+import { getRandomInteger } from 'lib/util/numberUtil'
 import { cloneDeep, shuffle } from 'lodash'
 import React from 'react'
 
@@ -94,20 +94,20 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       type: 'spin',
       payload: { spinSpeed: 0.4 },
     })
-    let wheel = cloneDeep(model.wheel!)
-    const iterations = getRandomNumber(101, 123)
+    let numbers = cloneDeep(model.wheel?.numbers)!
+    const iterations = getRandomInteger(300, 401)
     for (let i = 0; i <= iterations; i++) {
-      wheel.numbers = shuffle(wheel.numbers)
+      numbers = shuffle(cloneDeep(numbers))
       //console.log(`shuffled itertaion: ${i} -  ${wheel.numbers.length} numbers`)
     }
-    let pickedNum = wheel.numbers[0]
+    let pickedNum = numbers[getRandomInteger(0, 37)]
     //console.log(`spin result: ${pickedNum.value} - ${pickedNum.color}`)
     let playerResults = model.playerResults ? cloneDeep(model.playerResults) : []
     playerResults.unshift(pickedNum)
     let playerChart = mapRouletteChart(playerResults)
 
     //console.log(JSON.stringify(resp))
-    let spinTimeout = getRandomNumber(2000, 4000)
+    let spinTimeout = getRandomInteger(2000, 4000)
 
     const updateCommunity = async () => {
       let resp = await axios.post('/api/incrementWheelSpin', pickedNum)
@@ -187,8 +187,8 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
                     </CenterStack>
                   </Box>
                 ) : (
-                  <Box>
-                    <CenterStack key={index}>
+                  <Box key={index}>
+                    <CenterStack>
                       <Typography variant='h5' sx={{ color: translateCasinoColor(item.color) }}>
                         {item.value}
                       </Typography>
