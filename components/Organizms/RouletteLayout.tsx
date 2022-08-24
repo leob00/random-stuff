@@ -87,19 +87,26 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     await handleSpin()
   }
 
-  const incrementCommunityStats = (pickedNum: RouletteNumber) => {}
+  const shuffleNumbers = async (numbers: RouletteNumber[]) => {
+    let result: RouletteNumber[] = []
+    let dt = new Date()
+    const iterations = getRandomInteger(300, 401) + dt.getSeconds()
+    console.log(`shuffle itertaions: ${iterations}`)
+    for (let i = 0; i <= iterations; i++) {
+      result = shuffle(cloneDeep(numbers))
+    }
+    return result
+  }
 
   const handleSpin = async () => {
     dispatch({
       type: 'spin',
       payload: { spinSpeed: 0.4 },
     })
-    let numbers = cloneDeep(model.wheel?.numbers)!
-    const iterations = getRandomInteger(300, 401)
-    for (let i = 0; i <= iterations; i++) {
-      numbers = shuffle(cloneDeep(numbers))
-      //console.log(`shuffled itertaion: ${i} -  ${wheel.numbers.length} numbers`)
-    }
+    //let numbers = )
+    let nums = shuffle(cloneDeep(model.wheel?.numbers)!)
+    let numbers = await shuffleNumbers(nums)
+
     let pickedNum = numbers[getRandomInteger(0, 37)]
     //console.log(`spin result: ${pickedNum.value} - ${pickedNum.color}`)
     let playerResults = model.playerResults ? cloneDeep(model.playerResults) : []
@@ -107,7 +114,6 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     let playerChart = mapRouletteChart(playerResults)
 
     //console.log(JSON.stringify(resp))
-    let spinTimeout = getRandomInteger(2000, 4000)
 
     const updateCommunity = async () => {
       let resp = await axios.post('/api/incrementWheelSpin', pickedNum)
@@ -120,7 +126,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
         payload: m,
       })
     }
-
+    let spinTimeout = getRandomInteger(2601, 3999)
     const spin = async () => {
       setTimeout(() => {
         dispatch({
