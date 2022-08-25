@@ -184,24 +184,21 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
         </CenterStack>
       )}
       <Box sx={{ my: 1 }}>
-        {model.playerResults && model.playerResults.length > 0 && (
+        {model.playerResults && (
           <>
             <CenterStack sx={{ my: 1 }}>
               <Typography variant='body1' sx={{}}>{`player results`}</Typography>
             </CenterStack>
             <Box sx={{ maxHeight: 204, minHeight: 150, overflowY: 'auto' }}>
-              {model.playerResults.map(
-                (item, index) =>
-                  index > 0 && (
-                    <Box key={index}>
-                      <CenterStack>
-                        <Typography variant='h5' sx={{ color: translateCasinoColor(item.color) }}>
-                          {item.value}
-                        </Typography>
-                      </CenterStack>
-                    </Box>
-                  ),
-              )}
+              {model.playerResults.map((item, index) => (
+                <Box key={index}>
+                  <CenterStack>
+                    <Typography variant='h5' sx={{ color: translateCasinoColor(item.color) }}>
+                      {item.value}
+                    </Typography>
+                  </CenterStack>
+                </Box>
+              ))}
             </Box>
             {model.playerChart && (
               <Box>
