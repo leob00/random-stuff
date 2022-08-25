@@ -121,7 +121,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       return e.color === 'zero'
     }).length
     let doubleZeroTotal = filter(playerResults, (e) => {
-      return e.color === 'zero'
+      return e.color === 'doubleZero'
     }).length
     let playerChart = mapRouletteStatsChart(redTotal, blackTotal, zeroTotal, doubleZeroTotal)
 
