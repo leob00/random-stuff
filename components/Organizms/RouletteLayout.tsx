@@ -34,7 +34,7 @@ export interface ActionType {
 }
 const mapRouletteStatsChart = (red: number, black: number, zero: number, doubleZero: number) => {
   let communityChart: BarChart = {
-    colors: [CasinoRedTransparent, CasinoBlackTransparent, CasinoGreenTransparent],
+    colors: [CasinoRedTransparent, CasinoBlackTransparent, CasinoGreenTransparent, CasinoGreenTransparent],
     labels: ['red', 'black', '0', '00'],
     numbers: [red, black, zero, doubleZero],
   }
