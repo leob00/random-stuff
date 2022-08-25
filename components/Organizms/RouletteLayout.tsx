@@ -6,11 +6,11 @@ import ImageSpinner from 'components/Atoms/ImageSpinner'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import SimpleBarChart2 from 'components/Molecules/Charts/SimpleBarChart2'
 import { CasinoBlackTransparent, CasinoGrayTransparent, CasinoGreen, CasinoGreenTransparent, CasinoRed, CasinoRedTransparent, CasinoWhiteTransparent } from 'components/themes/mainTheme'
-import { getWheelSpinStats, WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
-import { mapRouletteChart, translateCasinoColor } from 'lib/backend/charts/barChartMapper'
+import { WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
+import { translateCasinoColor } from 'lib/backend/charts/barChartMapper'
 import { getWheel, RouletteNumber, RouletteNumberColor, RouletteWheel } from 'lib/backend/roulette/wheel'
 import { getRandomInteger } from 'lib/util/numberUtil'
-import { cloneDeep, shuffle } from 'lodash'
+import { cloneDeep, filter, shuffle } from 'lodash'
 import React from 'react'
 
 //type headsTails = 'heads' | 'tails'
@@ -32,11 +32,11 @@ export interface ActionType {
   type: ActionTypes
   payload: Model
 }
-const mapCommunityStats = (red: number, black: number, green: number) => {
+const mapRouletteStatsChart = (red: number, black: number, zero: number, doubleZero: number) => {
   let communityChart: BarChart = {
-    colors: [CasinoRedTransparent, CasinoBlackTransparent, CasinoGreen],
-    labels: ['red', 'black', 'green'],
-    numbers: [red, black, green],
+    colors: [CasinoRedTransparent, CasinoBlackTransparent, CasinoGreenTransparent],
+    labels: ['red', 'black', '0', '00'],
+    numbers: [red, black, zero, doubleZero],
   }
   return communityChart
 }
@@ -62,7 +62,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     let cs = (await (await axios.get('/api/wheelSpin')).data) as WheelSpinStats
     //console.log(JSON.stringify(cs))
     if (cs) {
-      const communityChart = mapCommunityStats(cs.red, cs.black, cs.green)
+      const communityChart = mapRouletteStatsChart(cs.red, cs.black, cs.zero, cs.doubleZero)
       let m = cloneDeep(model)
       m.communityChart = communityChart
       dispatch({
@@ -76,7 +76,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     spinSpeed: defaultSpinSpeed,
     wheel: getWheel(),
     isSpinning: false,
-    communityChart: mapCommunityStats(spinStats.red, spinStats.black, spinStats.green),
+    communityChart: mapRouletteStatsChart(spinStats.red, spinStats.black, spinStats.zero, spinStats.doubleZero),
   }
 
   const [model, dispatch] = React.useReducer(reducer, initialState)
@@ -91,7 +91,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     let result: RouletteNumber[] = []
     let dt = new Date()
     const iterations = getRandomInteger(300, 401) + dt.getSeconds()
-    console.log(`shuffle itertaions: ${iterations}`)
+    //console.log(`shuffle itertaions: ${iterations}`)
     for (let i = 0; i <= iterations; i++) {
       result = shuffle(cloneDeep(numbers))
     }
@@ -101,7 +101,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
   const handleSpin = async () => {
     dispatch({
       type: 'spin',
-      payload: { spinSpeed: 0.4 },
+      payload: { spinSpeed: 5.25 },
     })
     //let numbers = )
     let nums = shuffle(cloneDeep(model.wheel?.numbers)!)
@@ -111,14 +111,26 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     //console.log(`spin result: ${pickedNum.value} - ${pickedNum.color}`)
     let playerResults = model.playerResults ? cloneDeep(model.playerResults) : []
     playerResults.unshift(pickedNum)
-    let playerChart = mapRouletteChart(playerResults)
+    let redTotal = filter(playerResults, (e) => {
+      return e.color === 'red'
+    }).length
+    let blackTotal = filter(playerResults, (e) => {
+      return e.color === 'black'
+    }).length
+    let zeroTotal = filter(playerResults, (e) => {
+      return e.color === 'zero'
+    }).length
+    let doubleZeroTotal = filter(playerResults, (e) => {
+      return e.color === 'zero'
+    }).length
+    let playerChart = mapRouletteStatsChart(redTotal, blackTotal, zeroTotal, doubleZeroTotal)
 
     //console.log(JSON.stringify(resp))
 
     const updateCommunity = async () => {
       let resp = await axios.post('/api/incrementWheelSpin', pickedNum)
       let data = resp.data as WheelSpinStats
-      let communityChart = mapCommunityStats(data.red, data.black, data.green)
+      let communityChart = mapRouletteStatsChart(data.red, data.black, data.zero, data.doubleZero)
       let m = cloneDeep(model)
       m.communityChart = communityChart
       dispatch({
@@ -202,7 +214,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
             </Box>
             {model.playerChart && (
               <Box>
-                <SimpleBarChart2 title={'Player spin stats'} barChart={model.playerChart} />
+                <SimpleBarChart2 title={'Player spins'} barChart={model.playerChart} />
               </Box>
             )}
           </>
@@ -210,7 +222,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       </Box>
       {model.communityChart && (
         <Box>
-          <SimpleBarChart2 title='Community Spins' barChart={model.communityChart} />
+          <SimpleBarChart2 title='Community spins' barChart={model.communityChart} />
         </Box>
       )}
     </Box>

@@ -13,8 +13,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       case 'red':
         dbResult.red += 1
         break
-      case 'green':
-        dbResult.green += 1
+      case 'zero':
+        dbResult.zero += 1
+        break
+      case 'doubleZero':
+        dbResult.doubleZero += 1
         break
     }
     await putWheelSpinStats(dbResult)
@@ -22,7 +25,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     await putWheelSpinStats({
       black: 0,
       red: 0,
-      green: 0,
+      zero: 0,
+      doubleZero: 0,
     })
   }
 

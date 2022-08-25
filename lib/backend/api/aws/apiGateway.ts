@@ -28,7 +28,8 @@ export interface CoinFlipStats {
 export interface WheelSpinStats {
   red: number
   black: number
-  green: number
+  zero: number
+  doubleZero: number
 }
 
 export async function hello(name: string) {
