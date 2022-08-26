@@ -1,5 +1,5 @@
 import { ChartData, ChartOptions } from 'chart.js'
-import { DarkBlue } from 'components/themes/mainTheme'
+import { CasinoBlackTransparent, CasinoGrayTransparent, CasinoWhiteTransparent, DarkBlue } from 'components/themes/mainTheme'
 
 export interface BarChart {
   labels: string[]
@@ -31,6 +31,10 @@ export const getBarChartOptions = (title?: string): ChartOptions<'bar'> => {
       intersect: true,
     },
     plugins: {
+      title: {
+        display: true,
+        text: title,
+      },
       legend: {
         display: false,
         labels: {
@@ -41,16 +45,48 @@ export const getBarChartOptions = (title?: string): ChartOptions<'bar'> => {
           color: 'rgba(203, 241, 247, 0.932)',
         },
       },
-      title: {
-        display: true,
-        text: title,
+      tooltip: {
+        padding: 16,
+        backgroundColor: CasinoBlackTransparent,
+        titleColor: CasinoWhiteTransparent,
+        footerAlign: 'center',
+        footerSpacing: 2,
+        footerMarginTop: 10,
+        footerFont: {
+          weight: '',
+          size: 15,
+        },
+        bodyFont: {
+          size: 16,
+          weight: 'bold',
+        },
+        usePointStyle: true,
+        footerColor: 'white',
+        callbacks: {
+          title: (tooltipItems) => {
+            return ''
+          },
+          label: (tooltipItems) => {
+            return ` ${[tooltipItems.label]}: ${tooltipItems.formattedValue}`
+          },
+          labelPointStyle: (tooltiipItems) => {
+            return {
+              pointStyle: 'circle',
+              rotation: 0,
+            }
+          },
+          footer: (tooltipItems) => {
+            return ''
+            //return tooltipItems[0].formattedValue
+          },
+        },
       },
     },
     scales: {
       y: {
         ticks: {
           color: DarkBlue,
-          //sautoSkip: true,
+          //autoSkip: true,
           stepSize: 1,
           precision: 1,
         },

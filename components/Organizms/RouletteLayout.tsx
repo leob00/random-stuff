@@ -189,7 +189,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
             <CenterStack sx={{ my: 1 }}>
               <Typography variant='body1' sx={{}}>{`player results`}</Typography>
             </CenterStack>
-            <Box sx={{ maxHeight: 204, minHeight: 150, overflowY: 'auto' }}>
+            <Box sx={{ maxHeight: 204, overflowY: 'auto' }}>
               {model.playerResults.map((item, index) => (
                 <Box key={index}>
                   <CenterStack>

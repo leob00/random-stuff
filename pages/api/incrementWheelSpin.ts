@@ -4,23 +4,23 @@ import { RouletteNumber } from 'lib/backend/roulette/wheel'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<WheelSpinStats | null>) {
   let body = req.body as RouletteNumber
-  let dbResult = await getWheelSpinStats()
-  if (dbResult) {
+  let spinStats = await getWheelSpinStats()
+  if (spinStats) {
     switch (body.color) {
       case 'black':
-        dbResult.black += 1
+        spinStats.black += 1
         break
       case 'red':
-        dbResult.red += 1
+        spinStats.red += 1
         break
       case 'zero':
-        dbResult.zero += 1
+        spinStats.zero += 1
         break
       case 'doubleZero':
-        dbResult.doubleZero += 1
+        spinStats.doubleZero += 1
         break
     }
-    await putWheelSpinStats(dbResult)
+    await putWheelSpinStats(spinStats)
   } else {
     await putWheelSpinStats({
       black: 0,
@@ -30,5 +30,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     })
   }
 
-  res.status(200).json(dbResult)
+  res.status(200).json(spinStats)
 }
