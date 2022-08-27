@@ -1,10 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getWheelSpinStats, putWheelSpinStats, WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
 import { RouletteNumber } from 'lib/backend/roulette/wheel'
+import { isEven, isOdd } from 'lib/util/numberUtil'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<WheelSpinStats | null>) {
   let body = req.body as RouletteNumber
   let spinStats = await getWheelSpinStats()
+
   if (spinStats) {
     switch (body.color) {
       case 'black':
@@ -20,6 +22,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         spinStats.doubleZero += 1
         break
     }
+    if (body.color !== 'zero' && body.color !== 'doubleZero') {
+      console.log(`${body.value} is even: ${isEven(parseInt(body.value))}`)
+      if (isEven(parseInt(body.value))) {
+        spinStats.even += 1
+      }
+      if (isOdd(parseInt(body.value))) {
+        spinStats.odd += 1
+      }
+    }
     await putWheelSpinStats(spinStats)
   } else {
     await putWheelSpinStats({
@@ -27,6 +38,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       red: 0,
       zero: 0,
       doubleZero: 0,
+      odd: 0,
+      even: 0,
     })
   }
 

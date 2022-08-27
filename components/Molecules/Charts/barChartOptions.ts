@@ -1,5 +1,5 @@
 import { ChartData, ChartOptions } from 'chart.js'
-import { CasinoBlackTransparent, CasinoGrayTransparent, CasinoWhiteTransparent, DarkBlue } from 'components/themes/mainTheme'
+import { CasinoBlackTransparent, CasinoGrayTransparent, CasinoMoreBlackTransparent, CasinoWhiteTransparent, DarkBlue } from 'components/themes/mainTheme'
 
 export interface BarChart {
   labels: string[]
@@ -47,7 +47,7 @@ export const getBarChartOptions = (title?: string): ChartOptions<'bar'> => {
       },
       tooltip: {
         padding: 16,
-        backgroundColor: CasinoBlackTransparent,
+        backgroundColor: CasinoMoreBlackTransparent,
         titleColor: CasinoWhiteTransparent,
         footerAlign: 'center',
         footerSpacing: 2,
@@ -73,6 +73,7 @@ export const getBarChartOptions = (title?: string): ChartOptions<'bar'> => {
             return {
               pointStyle: 'circle',
               rotation: 0,
+              border: 0,
             }
           },
           footer: (tooltipItems) => {

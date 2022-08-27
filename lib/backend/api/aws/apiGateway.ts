@@ -30,6 +30,8 @@ export interface WheelSpinStats {
   black: number
   zero: number
   doubleZero: number
+  odd: number
+  even: number
 }
 
 export async function hello(name: string) {
@@ -78,6 +80,7 @@ export async function putRandomStuff(type: DynamoKeys, data: any) {
     body: model,
   }
   try {
+    console.log(JSON.stringify(postData))
     await axiosPut(url, postData)
     // console.log(`put ${type} to Dynamo`)
   } catch (error) {

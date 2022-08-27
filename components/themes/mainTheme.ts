@@ -15,8 +15,11 @@ export const CasinoRedTransparent = '#830707bb'
 export const CasinoRed = '#830707'
 export const CasinoGreen = '#2d5c17'
 export const CasinoBlackTransparent = '#131212bb'
+export const CasinoMoreBlackTransparent = '#131212e0'
 export const CasinoWhiteTransparent = '#c9c1c1de'
 export const CasinoGrayTransparent = '#9e9797de'
+export const CasinoOrangeTransparent = '#d45309bb'
+export const CasinoBlueTransparent = '#0979d4bb'
 
 const lightPalette: PaletteOptions = {
   mode: 'light',
