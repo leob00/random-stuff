@@ -15,7 +15,6 @@ const WarmupBox = () => {
     //setMessage(getRandomLoadertext())
     //dispatch({ type: 'init' })
     const interval = setInterval(() => {
-      console.log('dispatched')
       dispatch({ type: 'generate' })
     }, 2000)
     return clearInterval(interval)

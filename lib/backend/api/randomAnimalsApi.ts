@@ -16,7 +16,6 @@ export async function getRandomDog() {
     let resp = await fetch(`https://dog.ceo/api/breeds/image/random`)
     let data = (await resp.json()) as DogResponse
     result.imagePath = data.message
-    //console.log('retrieved random dog')
     return result
   } catch (error) {
     console.error(`api error ocurred: ${error}`)
@@ -33,7 +32,6 @@ export async function getRandomAnimalsFromLocalFiles(type: DynamoKeys) {
   let title = ''
   let targetPath = ''
   let data = cloneDeep(jsonData) as RandomStuffData
-  //console.log(JSON.stringify(data))
   switch (type) {
     case 'cats':
       basePath = './public/images/randomCats'

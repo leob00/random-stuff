@@ -136,7 +136,6 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
 
     const postFn = async () => {
       let result = (await (await axios.put('/api/incrementCoinFlip', flipped)).data) as CoinFlipStats
-      console.log(JSON.stringify(result))
       dispatch({
         type: 'update-community-stats',
         payload: {

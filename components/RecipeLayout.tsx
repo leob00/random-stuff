@@ -6,8 +6,6 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import RemoteImage from './Atoms/RemoteImage'
 
 const RecipeLayout = ({ article, baseUrl }: { article: Recipe; baseUrl: string }) => {
-  //console.log(JSON.stringify(article))
-
   return (
     <>
       <Button

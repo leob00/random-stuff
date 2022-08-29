@@ -8,15 +8,8 @@ import RemoteImage from './Atoms/RemoteImage'
 import InternalLinkButton from './Atoms/Buttons/InternalLinkButton'
 
 const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Option[]; baseUrl: string; featured: Recipe[] }) => {
-  //let options: Array<Option> = []
-
-  /* orderBy(recipeCollection.items, ['title'], ['asc']).forEach((a) => {
-    options.push({ label: a.title, id: a.sys.id })
-  }) */
-
   const handleSelect = (event: React.SyntheticEvent<Element, Event>, value: Option | null, reason: AutocompleteChangeReason, details?: AutocompleteChangeDetails<Option> | undefined) => {
     let sel = value as Option
-    //console.log(sel.id)
     router.push(`${baseUrl}${sel.id}`)
   }
 

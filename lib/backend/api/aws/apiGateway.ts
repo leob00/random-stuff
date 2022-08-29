@@ -80,7 +80,6 @@ export async function putRandomStuff(type: DynamoKeys, data: any) {
     body: model,
   }
   try {
-    console.log(JSON.stringify(postData))
     await axiosPut(url, postData)
     // console.log(`put ${type} to Dynamo`)
   } catch (error) {

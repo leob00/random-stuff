@@ -17,7 +17,6 @@ const getSiteHtml = async (url: string) => {
       res.on('end', () => {
         try {
           //let result = JSON.parse(body)
-          console.log(body)
         } catch (error: any) {
           console.error(error.message)
         }
@@ -29,18 +28,6 @@ const getSiteHtml = async (url: string) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  //var data = await getYieldCurveData()
-  //const resp = await axios.get('/api/prefetchUrl?id=/')
-
-  //console.log(resp)
-  /* let config: AxiosRequestConfig = {
-    headers: {
-      'Content-Type': 'text/html',
-    },
-  }
-  const resp = await axios.post('https://random-stuff-seven.vercel.app/ssg/About', config)
-  console.log(resp.data) */
-  //await getSiteHtml('https://random-stuff-seven.vercel.app/ssg/About')
   return {
     props: {},
   }

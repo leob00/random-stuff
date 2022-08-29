@@ -5,9 +5,6 @@ import { CoinFlipStats, getCoinflipStats, getRandomStuff, putCoinflipStats, putR
 import { Coin } from 'components/Organizms/CoinFlipLayout'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<CoinFlipStats | null>) {
-  //var data = await getBogCollection()
-  //console.log(`api result: ${JSON.stringify(data)}`)
-  //console.log(JSON.stringify(req.body))
   let body = req.body as Coin
   let dbResult = await getCoinflipStats()
   if (dbResult) {
@@ -22,7 +19,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     await putCoinflipStats(dbResult)
   }
 
-  //await putRandomStuff('coinflip-community', body)
-  //console.log(`api result: ${JSON.stringify(result)}`)
   res.status(200).json(dbResult)
 }

@@ -1,22 +1,19 @@
 import { Box, Typography } from '@mui/material'
+import { display } from '@mui/system'
 import axios from 'axios'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ImageSpinner from 'components/Atoms/ImageSpinner'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
-import MultiDatasetBarchart from 'components/Molecules/Charts/MultiDatasetBarchart'
 import SimpleBarChart2 from 'components/Molecules/Charts/SimpleBarChart2'
-import { CasinoBlackTransparent, CasinoBlueTransparent, CasinoGrayTransparent, CasinoGreen, CasinoGreenTransparent, CasinoOrangeTransparent, CasinoRed, CasinoRedTransparent, CasinoWhiteTransparent } from 'components/themes/mainTheme'
+import { CasinoBlackTransparent, CasinoBlueTransparent, CasinoGreenTransparent, CasinoOrangeTransparent, CasinoRedTransparent, CasinoWhiteTransparent } from 'components/themes/mainTheme'
 import { WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
 import { translateCasinoColor } from 'lib/backend/charts/barChartMapper'
-import { getWheel, RouletteNumber, RouletteNumberColor, RouletteWheel } from 'lib/backend/roulette/wheel'
+import { getWheel, RouletteNumber, RouletteWheel } from 'lib/backend/roulette/wheel'
 import { getRandomInteger, isEven, isOdd } from 'lib/util/numberUtil'
-import { cloneDeep, filter, shuffle } from 'lodash'
+import { cloneDeep, filter, range, shuffle } from 'lodash'
 import React from 'react'
-
-//type headsTails = 'heads' | 'tails'
-//const barChartColors = [TransparentGreen, TransparentBlue]
-//const barChartLabels = ['heads', 'tails']
 
 export interface Model {
   spinSpeed?: number
@@ -26,13 +23,16 @@ export interface Model {
   playerResults?: RouletteNumber[]
   playerChart?: BarChart
   communityChart?: BarChart
+  isSimulationRunning?: boolean
 }
 
-export type ActionTypes = 'spin' | 'spin-finished' | 'reload-community-stats'
+export type ActionTypes = 'spin' | 'spin-finished' | 'reload-community-stats' | 'start-simulation' | 'stop-simulation' | 'reset'
 export interface ActionType {
   type: ActionTypes
   payload: Model
 }
+let simulationCounter = 0
+let simulationPlayerResults: RouletteNumber[] = []
 const mapRouletteStatsChart = (red: number, black: number, zero: number, doubleZero: number, odd: number, even: number) => {
   let communityChart: BarChart = {
     colors: [CasinoRedTransparent, CasinoBlackTransparent, CasinoOrangeTransparent, CasinoBlueTransparent, CasinoGreenTransparent, CasinoGreenTransparent],
@@ -45,11 +45,17 @@ const mapRouletteStatsChart = (red: number, black: number, zero: number, doubleZ
 export function reducer(state: Model, action: ActionType): Model {
   switch (action.type) {
     case 'spin':
-      return { ...state, spinSpeed: action.payload.spinSpeed, result: undefined, isSpinning: true }
+      return { ...state, spinSpeed: action.payload.spinSpeed, result: undefined, isSpinning: true, isSimulationRunning: false }
     case 'spin-finished':
       return { ...state, spinSpeed: action.payload.spinSpeed, result: action.payload.result, isSpinning: false, playerResults: action.payload.playerResults, playerChart: action.payload.playerChart, communityChart: action.payload.communityChart }
     case 'reload-community-stats':
       return { ...state, communityChart: action.payload.communityChart }
+    case 'start-simulation':
+      return { ...state, spinSpeed: action.payload.spinSpeed, result: undefined, isSpinning: true, isSimulationRunning: true, playerResults: [] }
+    case 'stop-simulation':
+      return { ...state, spinSpeed: 40, isSpinning: false, isSimulationRunning: false, playerResults: action.payload.playerResults }
+    case 'reset':
+      return { ...state, spinSpeed: 40, isSpinning: false, isSimulationRunning: false, playerResults: [], result: undefined }
     default:
       return action.payload
   }
@@ -57,11 +63,8 @@ export function reducer(state: Model, action: ActionType): Model {
 
 const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
   const defaultSpinSpeed = 40
-
-  //getStats()
   const loadCommunityStats = async () => {
     let cs = (await (await axios.get('/api/wheelSpin')).data) as WheelSpinStats
-    //console.log(JSON.stringify(cs))
     if (cs) {
       const communityChart = mapRouletteStatsChart(cs.red, cs.black, cs.zero, cs.doubleZero, cs.odd, cs.even)
       let m = cloneDeep(model)
@@ -77,6 +80,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     spinSpeed: defaultSpinSpeed,
     wheel: getWheel(),
     isSpinning: false,
+    isSimulationRunning: false,
     communityChart: mapRouletteStatsChart(spinStats.red, spinStats.black, spinStats.zero, spinStats.doubleZero, spinStats.odd, spinStats.even),
   }
 
@@ -92,27 +96,52 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     let result: RouletteNumber[] = []
     let dt = new Date()
     const iterations = getRandomInteger(300, 401) + dt.getSeconds()
-    //console.log(`shuffle itertaions: ${iterations}`)
     for (let i = 0; i <= iterations; i++) {
       result = shuffle(cloneDeep(numbers))
     }
     return result
   }
 
-  const handleSpin = async () => {
+  const runSimulation = () => {
+    if (simulationCounter >= 100) {
+      return
+    }
+    const spinFn = async () => {
+      simulationCounter += 1
+      let nums = shuffle(cloneDeep(model.wheel?.numbers)!)
+      let numbers = await shuffleNumbers(nums)
+      let pickedNum = numbers[getRandomInteger(0, 37)]
+      simulationPlayerResults.unshift(pickedNum)
+      let playerChart = mapPlayerChart(simulationPlayerResults)
+      dispatch({
+        type: 'spin-finished',
+        payload: { spinSpeed: 5.25, result: pickedNum, playerResults: simulationPlayerResults, playerChart: playerChart, communityChart: model.communityChart },
+      })
+    }
+
+    setTimeout(() => {
+      spinFn()
+      if (simulationCounter > 0 && simulationCounter < 100) {
+        runSimulation()
+      } else {
+        dispatch({ type: 'stop-simulation', payload: { playerResults: simulationPlayerResults, spinSpeed: defaultSpinSpeed } })
+      }
+    }, 100)
+  }
+
+  const handleRunSimulation = async () => {
     dispatch({
-      type: 'spin',
+      type: 'start-simulation',
       payload: { spinSpeed: 5.25 },
     })
-    //let numbers = )
-    let nums = shuffle(cloneDeep(model.wheel?.numbers)!)
-    let numbers = await shuffleNumbers(nums)
+    setTimeout(() => {
+      simulationPlayerResults = []
+      simulationCounter = 0
+      runSimulation()
+    }, 100)
+  }
 
-    let pickedNum = numbers[getRandomInteger(0, 37)]
-
-    //console.log(`spin result: ${pickedNum.value} - ${pickedNum.color}`)
-    let playerResults = model.playerResults ? cloneDeep(model.playerResults) : []
-    playerResults.unshift(pickedNum)
+  const mapPlayerChart = (playerResults: RouletteNumber[]) => {
     let redTotal = filter(playerResults, (e) => {
       return e.color === 'red'
     }).length
@@ -133,8 +162,25 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     }).length
 
     let playerChart = mapRouletteStatsChart(redTotal, blackTotal, zeroTotal, doubleZeroTotal, oddTotal, evenTotal)
+    return playerChart
+  }
 
-    //console.log(JSON.stringify(resp))
+  const handleSpin = async () => {
+    simulationCounter = 0
+    simulationPlayerResults = []
+    if (model.isSimulationRunning) {
+      return
+    }
+    dispatch({
+      type: 'spin',
+      payload: { spinSpeed: 5.25 },
+    })
+    let nums = shuffle(cloneDeep(model.wheel?.numbers)!)
+    let numbers = await shuffleNumbers(nums)
+    let pickedNum = numbers[getRandomInteger(0, 37)]
+    let playerResults = model.playerResults ? cloneDeep(model.playerResults) : []
+    playerResults.unshift(pickedNum)
+    let playerChart = mapPlayerChart(playerResults)
 
     const updateCommunity = async () => {
       let resp = await axios.post('/api/incrementWheelSpin', pickedNum)
@@ -164,12 +210,49 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     loadCommunityStats()
   }, [])
 
+  // React.useEffect(() => {
+  //   console.log(`useEffect simulation: ${model.isSimulationRunning}`)
+  //   if (!model.isSimulationRunning) {
+  //     //dispatch({ type: 'stop-simulation', payload: { playerResults: simulationPlayerResults } })
+  //     return
+  //   }
+  //   const spinFn = async () => {
+  //     simulationCounter += 1
+  //     let nums = shuffle(cloneDeep(model.wheel?.numbers)!)
+  //     let numbers = await shuffleNumbers(nums)
+  //     let pickedNum = numbers[getRandomInteger(0, 37)]
+  //     simulationPlayerResults.unshift(pickedNum)
+  //     //console.log(`player results: ${simulationPlayerResults.length}`)
+  //     let playerChart = mapPlayerChart(simulationPlayerResults)
+  //     dispatch({
+  //       type: 'spin-finished',
+  //       payload: { spinSpeed: defaultSpinSpeed, result: pickedNum, playerResults: simulationPlayerResults, playerChart: playerChart, communityChart: model.communityChart },
+  //     })
+  //   }
+
+  //   let interval = setInterval(() => {
+  //     if (simulationCounter < 100) {
+  //       spinFn()
+  //     } else {
+  //       dispatch({ type: 'stop-simulation', payload: { playerResults: simulationPlayerResults } })
+  //     }
+  //   }, 120)
+
+  //   if (!model.isSimulationRunning) {
+  //     return clearInterval(interval)
+  //   }
+  // }, [model.isSimulationRunning])
+
   return (
     <Box>
-      <CenteredHeader title={'This is your chance to spin the wheel!'} description={'press the wheel to spin'} />
+      <CenteredHeader title={'This is your chance to spin the wheel!'} description={'press the wheel to spin or...'} />
+      <CenterStack>
+        <PrimaryButton text={'run simultaion'} isDisabled={false} onClicked={handleRunSimulation} disabled={model.isSimulationRunning} />
+      </CenterStack>
       <CenterStack sx={{ minHeight: 280 }}>
         <ImageSpinner imageUrl={'/images/american-roulette-wheel.png'} speed={model.spinSpeed} width={240} height={240} onClicked={handleSpinClick} clickable={true} />
       </CenterStack>
+
       {model.result && (
         <CenterStack sx={{}}>
           <Box

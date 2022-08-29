@@ -50,7 +50,6 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
         }) !== undefined
       )
     })
-    //console.log(JSON.stringify(foundPage))
     if (foundPage) {
       setCurrentPageIndex(foundPage.index)
       setDisplayItems(foundPage.items)

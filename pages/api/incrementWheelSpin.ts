@@ -23,7 +23,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         break
     }
     if (body.color !== 'zero' && body.color !== 'doubleZero') {
-      console.log(`${body.value} is even: ${isEven(parseInt(body.value))}`)
       if (isEven(parseInt(body.value))) {
         spinStats.even += 1
       }

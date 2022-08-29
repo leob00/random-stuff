@@ -18,14 +18,11 @@ const UserLogin = () => {
   const signOut = () => {
     const fn = async () => {
       await Auth.signOut()
-      //setIsLoggedIn(false)
-      //router.push('/')
     }
     fn()
   }
 
   const updateUser = (payload: HubPayload) => {
-    //console.log(JSON.stringify(payload))
     switch (payload.event) {
       case 'signOut':
         setIsLoggedIn(false)
