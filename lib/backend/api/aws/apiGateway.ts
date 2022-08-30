@@ -26,6 +26,7 @@ export interface CoinFlipStats {
   tails: number
 }
 export interface WheelSpinStats {
+  total: number
   red: number
   black: number
   zero: number

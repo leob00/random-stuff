@@ -30,6 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         spinStats.odd += 1
       }
     }
+    spinStats.total = spinStats.red + spinStats.black + spinStats.zero + spinStats.doubleZero
     await putWheelSpinStats(spinStats)
   } else {
     await putWheelSpinStats({
@@ -39,6 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       doubleZero: 0,
       odd: 0,
       even: 0,
+      total: 0,
     })
   }
 
