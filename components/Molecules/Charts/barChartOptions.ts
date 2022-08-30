@@ -1,5 +1,6 @@
 import { ChartData, ChartOptions } from 'chart.js'
 import { CasinoBlackTransparent, CasinoGrayTransparent, CasinoMoreBlackTransparent, CasinoWhiteTransparent, DarkBlue } from 'components/themes/mainTheme'
+import { max } from 'lodash'
 
 export interface BarChart {
   labels: string[]
@@ -23,7 +24,7 @@ export const getBarChartData = (labels: string[], numbers: number[], colors: str
   }
 }
 
-export const getBarChartOptions = (title?: string): ChartOptions<'bar'> => {
+export const getBarChartOptions = (title: string, data: BarChart): ChartOptions<'bar'> => {
   return {
     responsive: true,
     hover: {
@@ -87,9 +88,10 @@ export const getBarChartOptions = (title?: string): ChartOptions<'bar'> => {
       y: {
         ticks: {
           color: DarkBlue,
-          //autoSkip: true,
-          stepSize: 1,
+          autoSkip: true,
+          //stepSize: 1,
           precision: 1,
+          maxTicksLimit: max(data?.numbers),
         },
       },
       x: {

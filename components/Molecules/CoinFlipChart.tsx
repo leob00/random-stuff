@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import React from 'react'
 import { BarChart } from './Charts/barChartOptions'
-import SimpleBarChart from './Charts/SimpleBarChart'
+import SimpleBarChart2 from './Charts/SimpleBarChart2'
 
 const CoinFlipChart = ({ totalFlips, chart }: { totalFlips: number; chart: BarChart }) => {
   return (
@@ -11,7 +11,7 @@ const CoinFlipChart = ({ totalFlips, chart }: { totalFlips: number; chart: BarCh
         <Typography>{`total filps: ${totalFlips}`}</Typography>
       </CenterStack>
       <CenterStack sx={{ paddingTop: 6 }}>
-        <SimpleBarChart title='Coin Flip Stats' labels={chart.labels} numbers={chart.numbers} colors={chart.colors} />
+        <SimpleBarChart2 title='Coin Flip Stats' barChart={chart} />
       </CenterStack>
     </>
   )

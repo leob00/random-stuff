@@ -26,7 +26,7 @@ export interface Model {
   isSimulationRunning?: boolean
 }
 
-export type ActionTypes = 'spin' | 'spin-finished' | 'reload-community-stats' | 'start-simulation' | 'stop-simulation' | 'reset'
+export type ActionTypes = 'spin' | 'spin-finished' | 'reload-community-stats' | 'start-simulation' | 'stop-simulation' | 'reset' | 'update-simulation'
 export interface ActionType {
   type: ActionTypes
   payload: Model
@@ -52,8 +52,10 @@ export function reducer(state: Model, action: ActionType): Model {
       return { ...state, communityChart: action.payload.communityChart }
     case 'start-simulation':
       return { ...state, spinSpeed: action.payload.spinSpeed, result: undefined, isSpinning: true, isSimulationRunning: true, playerResults: [] }
+    case 'update-simulation':
+      return { ...state, result: action.payload.result, playerResults: action.payload.playerResults, playerChart: action.payload.playerChart, communityChart: action.payload.communityChart, isSimulationRunning: true }
     case 'stop-simulation':
-      return { ...state, spinSpeed: action.payload.spinSpeed, isSpinning: false, isSimulationRunning: false, playerResults: action.payload.playerResults }
+      return { ...state, spinSpeed: 40, isSpinning: false, isSimulationRunning: false, playerResults: action.payload.playerResults }
     case 'reset':
       return { ...state, spinSpeed: 40, isSpinning: false, isSimulationRunning: false, playerResults: [], result: undefined }
     default:
@@ -108,6 +110,10 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       return
     }
     const spinFn = async () => {
+      dispatch({
+        type: 'spin',
+        payload: { spinSpeed: 5.25 },
+      })
       simulationCounter += 1
       let nums = shuffle(cloneDeep(model.wheel?.numbers)!)
       let numbers = await shuffleNumbers(nums)
@@ -115,19 +121,22 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       simulationPlayerResults.unshift(pickedNum)
       let playerChart = mapPlayerChart(simulationPlayerResults)
       dispatch({
-        type: 'spin-finished',
-        payload: { spinSpeed: 5.25, result: pickedNum, playerResults: simulationPlayerResults, playerChart: playerChart, communityChart: model.communityChart },
+        type: 'update-simulation',
+        payload: { result: pickedNum, playerResults: simulationPlayerResults, playerChart: playerChart, communityChart: model.communityChart },
       })
     }
 
     setTimeout(() => {
-      spinFn()
-      if (simulationCounter > 0 && simulationCounter < 100) {
-        runSimulation()
-      } else {
-        dispatch({ type: 'stop-simulation', payload: { playerResults: simulationPlayerResults, spinSpeed: defaultSpinSpeed } })
+      const fn = async () => {
+        await spinFn()
+        if (simulationCounter > 0 && simulationCounter < 100) {
+          runSimulation()
+        } else {
+          dispatch({ type: 'stop-simulation', payload: { playerResults: simulationPlayerResults, spinSpeed: defaultSpinSpeed } })
+        }
       }
-    }, 100)
+      fn()
+    }, 50)
   }
 
   const handleRunSimulation = () => {
@@ -218,8 +227,8 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
   return (
     <Box>
       <CenteredHeader title={'This is your chance to spin the wheel!'} description={'press the wheel to spin or...'} />
-      <CenterStack>
-        <PrimaryButton text={'run simultaion'} isDisabled={false} onClicked={handleRunSimulation} disabled={model.isSimulationRunning} />
+      <CenterStack sx={{ my: 2 }}>
+        <PrimaryButton text={model.isSimulationRunning ? 'running...' : 'run simultaion'} isDisabled={false} onClicked={handleRunSimulation} disabled={model.isSimulationRunning} />
       </CenterStack>
       <CenterStack sx={{ minHeight: 280 }}>
         {model.isSpinning ? (
@@ -252,12 +261,12 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
         </CenterStack>
       )}
       <Box sx={{ my: 1 }}>
-        {model.playerResults && (
+        {model.playerResults && !model.isSimulationRunning && (
           <>
             <CenterStack sx={{ my: 1 }}>
               <Typography variant='body1' sx={{}}>{`player results`}</Typography>
             </CenterStack>
-            <Box sx={{ maxHeight: 204, overflowY: 'auto' }}>
+            <Box sx={{ maxHeight: 200, overflowY: 'auto' }}>
               {model.playerResults.map((item, index) => (
                 <Box key={index}>
                   <CenterStack>
@@ -268,12 +277,12 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
                 </Box>
               ))}
             </Box>
-            {model.playerChart && (
-              <Box>
-                <SimpleBarChart2 title={'Player spins'} barChart={model.playerChart} />
-              </Box>
-            )}
           </>
+        )}
+        {model.playerChart && (
+          <Box>
+            <SimpleBarChart2 title={'Player spins'} barChart={model.playerChart} />
+          </Box>
         )}
       </Box>
       {model.communityChart && (
