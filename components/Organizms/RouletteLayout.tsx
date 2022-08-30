@@ -228,7 +228,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     <Box>
       <CenteredHeader title={'This is your chance to spin the wheel!'} description={'press the wheel to spin or...'} />
       <CenterStack sx={{ my: 2 }}>
-        <PrimaryButton text={model.isSimulationRunning ? 'running...' : 'run simultaion'} isDisabled={false} onClicked={handleRunSimulation} disabled={model.isSimulationRunning} />
+        <PrimaryButton text={model.isSimulationRunning ? 'running...' : 'run simultaion'} isDisabled={false} onClicked={handleRunSimulation} disabled={model.isSpinning} />
       </CenterStack>
       <CenterStack sx={{ minHeight: 280 }}>
         {model.isSpinning ? (
