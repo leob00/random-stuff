@@ -136,7 +136,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
         }
       }
       fn()
-    }, 50)
+    }, 25)
   }
 
   const handleRunSimulation = () => {
@@ -261,6 +261,11 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
         </CenterStack>
       )}
       <Box sx={{ my: 1 }}>
+        {model.playerChart && (
+          <Box>
+            <SimpleBarChart2 title={'Player spins'} barChart={model.playerChart} />
+          </Box>
+        )}
         {model.playerResults && !model.isSimulationRunning && (
           <>
             <CenterStack sx={{ my: 1 }}>
@@ -278,11 +283,6 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
               ))}
             </Box>
           </>
-        )}
-        {model.playerChart && (
-          <Box>
-            <SimpleBarChart2 title={'Player spins'} barChart={model.playerChart} />
-          </Box>
         )}
       </Box>
       {model.communityChart && (
