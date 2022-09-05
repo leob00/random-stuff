@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, LinearProgress, Typography } from '@mui/material'
 import { display } from '@mui/system'
 import axios from 'axios'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
@@ -227,15 +227,16 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
   return (
     <Box>
       <CenteredHeader title={'This is your chance to spin the wheel!'} description={'press the wheel to spin or...'} />
-      <CenterStack sx={{ my: 2 }}>
-        <PrimaryButton text={model.isSimulationRunning ? 'running...' : 'run simultaion'} isDisabled={false} onClicked={handleRunSimulation} disabled={model.isSpinning} />
-      </CenterStack>
+      <Box sx={{ minHeight: 80 }}>
+        <CenterStack sx={{ my: 2 }}>
+          <PrimaryButton text={model.isSimulationRunning ? 'running...' : 'run simultaion'} isDisabled={false} onClicked={handleRunSimulation} disabled={model.isSpinning} />
+        </CenterStack>
+        <CenterStack>
+          <Box sx={{ width: '80%', textAlign: 'center' }}>{model.isSimulationRunning && <LinearProgress variant='determinate' value={simulationCounter} />}</Box>
+        </CenterStack>
+      </Box>
       <CenterStack sx={{ minHeight: 280 }}>
-        {model.isSpinning ? (
-          <ImageSpinner imageUrl={'/images/american-roulette-wheel.png'} speed={model.spinSpeed} width={240} height={240} onClicked={handleSpinClick} clickable={true} />
-        ) : (
-          <ImageSpinner imageUrl={'/images/american-roulette-wheel.png'} speed={defaultSpinSpeed} width={240} height={240} onClicked={handleSpinClick} clickable={true} />
-        )}
+        <ImageSpinner imageUrl={'/images/american-roulette-wheel.png'} speed={model.isSpinning ? model.spinSpeed : defaultSpinSpeed} width={240} height={240} onClicked={handleSpinClick} clickable={true} />
       </CenterStack>
 
       {model.result && (
