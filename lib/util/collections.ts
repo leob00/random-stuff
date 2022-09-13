@@ -9,7 +9,7 @@ export interface PagedCollection {
   pages: Page[]
 }
 
-export function pageItems(items: Array<any>, pageSize: number) {
+export function pageItems(items: any[], pageSize: number) {
   let result: PagedCollection = {
     pages: [],
   }
