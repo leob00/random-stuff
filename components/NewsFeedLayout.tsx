@@ -1,8 +1,8 @@
-import { Box, Typography, Container, Link, Divider } from '@mui/material'
+import { Box, Typography, Container, Link, Divider, Grid } from '@mui/material'
 import { NewsItem } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import NLink from 'next/link'
-import { CasinoBlackTransparent, CasinoGrayTransparent } from './themes/mainTheme'
+import { CasinoBlackTransparent, CasinoBlueTransparent, CasinoGrayTransparent } from './themes/mainTheme'
 import { getPagedItems } from 'lib/util/collections'
 import { findLast } from 'lodash'
 import Pager from './Atoms/Pager'
@@ -30,14 +30,21 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
         <Divider />
         {displayedItems.length > 0 &&
           displayedItems.map((item) => (
-            <Box key={item.HeadlineRecordHash} sx={{ my: 4, minHeight: 120 }}>
-              <Typography variant={'h6'} sx={{ textAlign: 'center' }}>
-                <NLink passHref href={item.Link!}>
-                  <Link sx={{ textDecoration: 'none', color: CasinoBlackTransparent }} target={'_blanks'}>
-                    {item.Headline}
-                  </Link>
-                </NLink>
-              </Typography>
+            <Box key={item.HeadlineRecordHash} sx={{ my: 4, minHeight: 120, paddingTop: 1 }}>
+              <Grid container spacing={1}>
+                <Grid item xs={0} md={2}></Grid>
+                <Grid item xs={12} md={8}>
+                  <Typography variant={'h5'} sx={{ textAlign: 'center' }}>
+                    <NLink passHref href={item.Link!}>
+                      <Link sx={{ textDecoration: 'none', color: CasinoBlackTransparent }} target={'_blanks'}>
+                        {item.Headline}
+                      </Link>
+                    </NLink>
+                  </Typography>
+                </Grid>
+                <Grid item xs={0} md={2}></Grid>
+              </Grid>
+
               {/* <Typography variant='body2'>{item.Source}</Typography> */}
             </Box>
           ))}
