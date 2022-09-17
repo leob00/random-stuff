@@ -1,54 +1,136 @@
-import { Box, Typography, Container, Link, Divider, Grid } from '@mui/material'
+import { Box, Typography, Container, Link, Divider, Grid, FormControlLabel, FormGroup, Switch, LinearProgress } from '@mui/material'
 import { NewsItem } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import NLink from 'next/link'
-import { CasinoBlackTransparent, CasinoBlueTransparent, CasinoGrayTransparent } from './themes/mainTheme'
-import { getPagedItems } from 'lib/util/collections'
-import { findLast } from 'lodash'
+import { CasinoBlackTransparent, CasinoBlueTransparent, CasinoGrayTransparent, CasinoMoreBlackTransparent, CasinoOrangeTransparent, CasinoYellowTransparent } from './themes/mainTheme'
+import { getPagedItems, Page } from 'lib/util/collections'
+import { findLast, map, uniq } from 'lodash'
 import Pager from './Atoms/Pager'
 import CenterStack from './Atoms/CenterStack'
+
+type sourceTypes = 'Google Business' | 'BBC World' | undefined
+type categoryTypes = 'Financial' | 'World'
+
+export interface Model {
+  sourceTypes: sourceTypes[]
+  categoryTypes: categoryTypes[]
+  allItems: NewsItem[]
+  pagedItems: NewsItem[]
+  currentPageNum: number
+  allPages: Page[]
+  isAutoPlayRunning: boolean
+}
+
+type ActionTypes = { type: 'reset' } | { type: 'set-page-index'; payload: { num: number; displayedItems: NewsItem[] } } | { type: 'start-stop-autoplay'; payload: { isRunning: boolean } }
+
+function reducer(state: Model, action: ActionTypes) {
+  switch (action.type) {
+    case 'reset':
+      return { ...state }
+    case 'set-page-index':
+      return { ...state, currentPageNum: action.payload.num, pagedItems: action.payload.displayedItems }
+    case 'start-stop-autoplay':
+      return { ...state, isAutoPlayRunning: action.payload.isRunning }
+  }
+}
 
 const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
   const itemsPerPage = 1
   const paged = getPagedItems<NewsItem>(articles, itemsPerPage)
 
-  const [currentPageIndex, setCurrentPageIndex] = React.useState(1)
-  const [displayedItems, setDisplayedItems] = React.useState<NewsItem[]>(paged.pages[0].items as NewsItem[])
+  //const [currentPageIndex, setCurrentPageIndex] = React.useState(1)
+  const pagedItems = paged.pages[0].items as NewsItem[]
+
+  //const [displayedItems, setDisplayedItems] = React.useState(pagedItems)
+  const initialState: Model = {
+    sourceTypes: uniq(
+      map(articles, (e) => {
+        return e.Source as sourceTypes
+      }),
+    ),
+    categoryTypes: [],
+    allItems: articles,
+    pagedItems: pagedItems,
+    currentPageNum: 1,
+    allPages: paged.pages,
+    isAutoPlayRunning: false,
+  }
+  const [model, dispatch] = React.useReducer(reducer, initialState)
 
   const handlePaged = (pageNum: number) => {
-    setCurrentPageIndex(pageNum)
-    let page = findLast(paged.pages, (p) => {
+    let page = findLast(model.allPages, (p) => {
       return p.index === pageNum
     })
+    if (model.isAutoPlayRunning) {
+    }
+
     if (page) {
-      setDisplayedItems(page.items as NewsItem[])
+      dispatch({ type: 'set-page-index', payload: { num: pageNum, displayedItems: page.items as NewsItem[] } })
+    } else {
+      dispatch({ type: 'set-page-index', payload: { num: 1, displayedItems: model.allPages[0].items as NewsItem[] } })
     }
   }
+  const handleStartStopAutoPlay = (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+    dispatch({ type: 'start-stop-autoplay', payload: { isRunning: checked } })
+    if (checked === true) {
+      handlePaged(model.currentPageNum + 1)
+    } else {
+      handlePaged(model.currentPageNum)
+    }
+    //console.log(checked)
+  }
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      if (model.isAutoPlayRunning) {
+        let pageNum = model.currentPageNum + 1
+        handlePaged(pageNum)
+      }
+    }, 5000)
+  }, [model.currentPageNum, model.isAutoPlayRunning])
+
   return (
     <>
       <Container>
+        <Box sx={{ textAlign: 'right', my: 2 }} justifyContent='end'>
+          <FormControlLabel control={<Switch size='small' onChange={handleStartStopAutoPlay} />} label='auto play' />
+        </Box>
+
         <Divider />
-        {displayedItems.length > 0 &&
-          displayedItems.map((item) => (
-            <Box key={item.HeadlineRecordHash} sx={{ my: 4, minHeight: 120, paddingTop: 1 }}>
-              <Grid container spacing={1}>
-                <Grid item xs={0} md={2}></Grid>
-                <Grid item xs={12} md={8}>
-                  <Typography variant={'h5'} sx={{ textAlign: 'center' }}>
-                    <NLink passHref href={item.Link!}>
-                      <Link sx={{ textDecoration: 'none', color: CasinoBlackTransparent }} target={'_blanks'}>
-                        {item.Headline}
-                      </Link>
-                    </NLink>
-                  </Typography>
+        {model.pagedItems.length > 0 &&
+          model.pagedItems.map((item) => (
+            <Box key={item.HeadlineRecordHash} sx={{ minHeight: 300, backgroundColor: CasinoMoreBlackTransparent, borderRadius: 4 }}>
+              <Box>
+                <Grid container spacing={1}>
+                  <Grid item xs={0} md={1}></Grid>
+                  <Grid item xs={12} md={10}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', padding: 3, margin: 2 }}>
+                      <Typography variant='h4' sx={{}}>
+                        <NLink passHref href={item.Link!}>
+                          <Link sx={{ textDecoration: 'none', color: CasinoYellowTransparent }} target={'_blanks'}>
+                            {item.Headline}
+                          </Link>
+                        </NLink>
+                      </Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={0} md={1}></Grid>
                 </Grid>
-                <Grid item xs={0} md={2}></Grid>
-              </Grid>
+              </Box>
 
               {/* <Typography variant='body2'>{item.Source}</Typography> */}
             </Box>
           ))}
-        <Pager pageCount={paged.pages.length} itemCount={articles.length} itemsPerPage={itemsPerPage} onPaged={(pageNum: number) => handlePaged(pageNum)} defaultPageIndex={currentPageIndex}></Pager>
+        {model.isAutoPlayRunning && (
+          <Box sx={{ my: 4 }}>
+            <LinearProgress variant='determinate' value={Math.floor((model.currentPageNum * 100) / model.allPages.length)} />
+          </Box>
+        )}
+        {!model.isAutoPlayRunning && (
+          <Box sx={{ my: 4 }}>
+            <Pager pageCount={paged.pages.length} itemCount={articles.length} itemsPerPage={itemsPerPage} onPaged={(pageNum: number) => handlePaged(pageNum)} defaultPageIndex={model.currentPageNum}></Pager>
+          </Box>
+        )}
       </Container>
     </>
   )
