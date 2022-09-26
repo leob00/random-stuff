@@ -7,6 +7,7 @@ import { getPagedItems, Page } from 'lib/util/collections'
 import { findLast, map, uniq } from 'lodash'
 import Pager from './Atoms/Pager'
 import CenterStack from './Atoms/CenterStack'
+import { DarkMode } from './themes/DarkMode'
 
 type sourceTypes = 'Google Business' | 'BBC World' | undefined
 type categoryTypes = 'Financial' | 'World'
@@ -77,7 +78,6 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
     } else {
       handlePaged(model.currentPageNum)
     }
-    //console.log(checked)
   }
 
   React.useEffect(() => {
@@ -85,9 +85,11 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
       if (model.isAutoPlayRunning) {
         let pageNum = model.currentPageNum + 1
         handlePaged(pageNum)
+      } else {
+        handlePaged(model.currentPageNum)
       }
-    }, 5000)
-  }, [model.currentPageNum, model.isAutoPlayRunning])
+    }, 6000)
+  }, [model.isAutoPlayRunning]) /* eslint-disable-line react-hooks/exhaustive-deps */ /* this is needed for some reason */
 
   return (
     <>
@@ -95,7 +97,6 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
         <Box sx={{ textAlign: 'right', my: 2 }} justifyContent='end'>
           <FormControlLabel control={<Switch size='small' onChange={handleStartStopAutoPlay} />} label='auto play' />
         </Box>
-
         <Divider />
         {model.pagedItems.length > 0 &&
           model.pagedItems.map((item) => (
@@ -104,15 +105,17 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
                 <Grid container spacing={1}>
                   <Grid item xs={0} md={1}></Grid>
                   <Grid item xs={12} md={10}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', padding: 3, margin: 2 }}>
-                      <Typography variant='h4' sx={{}}>
-                        <NLink passHref href={item.Link!}>
-                          <Link sx={{ textDecoration: 'none', color: CasinoYellowTransparent }} target={'_blanks'}>
-                            {item.Headline}
-                          </Link>
-                        </NLink>
-                      </Typography>
-                    </Box>
+                    <DarkMode>
+                      <Box sx={{ display: 'flex', alignItems: 'center', padding: 3, margin: 2 }}>
+                        <Typography variant='h4' sx={{}}>
+                          <NLink passHref href={item.Link!}>
+                            <Link sx={{ textDecoration: 'none', color: CasinoYellowTransparent, ':hover': 'white' }} target={'_blanks'}>
+                              {item.Headline}
+                            </Link>
+                          </NLink>
+                        </Typography>
+                      </Box>
+                    </DarkMode>
                   </Grid>
                   <Grid item xs={0} md={1}></Grid>
                 </Grid>
