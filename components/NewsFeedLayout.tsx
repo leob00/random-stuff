@@ -62,8 +62,6 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
     let page = findLast(model.allPages, (p) => {
       return p.index === pageNum
     })
-    if (model.isAutoPlayRunning) {
-    }
 
     if (page) {
       dispatch({ type: 'set-page-index', payload: { num: pageNum, displayedItems: page.items as NewsItem[] } })
@@ -75,21 +73,31 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
     dispatch({ type: 'start-stop-autoplay', payload: { isRunning: checked } })
     if (checked === true) {
       handlePaged(model.currentPageNum + 1)
+    }
+  }
+  const handleAutoPlay = (pageNum: number) => {
+    if (!model.isAutoPlayRunning) {
+      dispatch({ type: 'start-stop-autoplay', payload: { isRunning: false } })
+    }
+    let page = findLast(model.allPages, (p) => {
+      return p.index === pageNum
+    })
+
+    if (page) {
+      dispatch({ type: 'set-page-index', payload: { num: pageNum, displayedItems: page.items as NewsItem[] } })
     } else {
-      handlePaged(model.currentPageNum)
+      dispatch({ type: 'set-page-index', payload: { num: 1, displayedItems: model.allPages[0].items as NewsItem[] } })
     }
   }
 
   React.useEffect(() => {
     setTimeout(() => {
       if (model.isAutoPlayRunning) {
-        let pageNum = model.currentPageNum + 1
-        handlePaged(pageNum)
-      } else {
-        handlePaged(model.currentPageNum)
+        //let pageNum = model.currentPageNum + 1
+        handleAutoPlay(model.currentPageNum + 1)
       }
     }, 6000)
-  }, [model.isAutoPlayRunning]) /* eslint-disable-line react-hooks/exhaustive-deps */ /* this is needed for some reason */
+  }, [model.isAutoPlayRunning, model.currentPageNum]) /* eslint-disable-line react-hooks/exhaustive-deps */ /* this is needed for some reason */
 
   return (
     <>
@@ -100,13 +108,13 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
         <Divider />
         {model.pagedItems.length > 0 &&
           model.pagedItems.map((item) => (
-            <Box key={item.HeadlineRecordHash} sx={{ minHeight: 300, backgroundColor: CasinoMoreBlackTransparent, borderRadius: 4 }}>
+            <Box key={item.HeadlineRecordHash} sx={{ minHeight: 280, backgroundColor: CasinoMoreBlackTransparent, borderRadius: 4 }}>
               <Box>
                 <Grid container spacing={1}>
                   <Grid item xs={0} md={1}></Grid>
                   <Grid item xs={12} md={10}>
                     <DarkMode>
-                      <Box sx={{ display: 'flex', alignItems: 'center', padding: 3, margin: 2 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', padding: 3, marginTop: 5 }}>
                         <Typography variant='h4' sx={{}}>
                           <NLink passHref href={item.Link!}>
                             <Link sx={{ textDecoration: 'none', color: CasinoYellowTransparent, ':hover': 'white' }} target={'_blanks'}>
@@ -127,6 +135,7 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
         {model.isAutoPlayRunning && (
           <Box sx={{ my: 4 }}>
             <LinearProgress variant='determinate' value={Math.floor((model.currentPageNum * 100) / model.allPages.length)} />
+            <Typography variant='body2' sx={{ textAlign: 'center', my: 2 }}>{`${model.currentPageNum} of ${model.allItems.length}`}</Typography>
           </Box>
         )}
         {!model.isAutoPlayRunning && (
