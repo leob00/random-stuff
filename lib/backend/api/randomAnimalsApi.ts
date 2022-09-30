@@ -1,10 +1,10 @@
-import { BasicArticle, BasicArticleTypes } from 'lib/model'
+import { BasicArticle } from 'lib/model'
 import { CatResponse, DogResponse } from 'lib/repo'
 import fs from 'fs'
 import { RandomStuffData } from 'lib/models/randomStuffModels'
 import jsonData from '../../../public/data/randomStuff.json'
 import { cloneDeep } from 'lodash'
-import { DynamoKeys, putAnimals, RandomStuffPut } from './aws/apiGateway'
+import { DynamoKeys, putAnimals } from './aws/apiGateway'
 
 export async function getRandomDog() {
   let result: BasicArticle = {
@@ -45,26 +45,31 @@ export async function getRandomAnimalsFromLocalFiles(type: DynamoKeys) {
       break
   }
 
-  let files = await fs.promises.readdir(basePath)
-  console.log(`found ${files.length} ${title} files`)
-  let mappedArticles: BasicArticle[] = files.map((item) => {
-    return { type: type, title: title, imagePath: `${targetPath}${item}` }
-  })
+  try {
+    let files = await fs.promises.readdir(basePath)
+    console.log(`found ${files.length} ${title} files`)
+    let mappedArticles: BasicArticle[] = files.map((item) => {
+      return { type: type, title: title, imagePath: `${targetPath}${item}` }
+    })
 
-  await putAnimals(type, mappedArticles)
+    await putAnimals(type, mappedArticles)
 
-  switch (type) {
-    case 'cats':
-      data.cats = mappedArticles
+    switch (type) {
+      case 'cats':
+        data.cats = mappedArticles
+        break
+      case 'dogs':
+        data.dogs = mappedArticles
+        break
+    }
+    await writeToFile(data)
 
-      break
-    case 'dogs':
-      data.dogs = mappedArticles
-      break
+    return mappedArticles
+  } catch (err) {
+    console.log(err)
+    let r: BasicArticle[] = []
+    return r
   }
-  await writeToFile(data)
-
-  return mappedArticles
 }
 
 export async function writeToFile(data: RandomStuffData) {
