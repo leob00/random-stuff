@@ -1,13 +1,12 @@
-import { Box, Typography, Container, Link, Divider, Grid, FormControlLabel, FormGroup, Switch, LinearProgress } from '@mui/material'
+import { Box, Typography, Container, Link, Divider, Grid, FormControlLabel, Switch, LinearProgress } from '@mui/material'
 import { NewsItem } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import NLink from 'next/link'
-import { CasinoBlackTransparent, CasinoBlueTransparent, CasinoGrayTransparent, CasinoMoreBlackTransparent, CasinoOrangeTransparent, CasinoYellowTransparent } from './themes/mainTheme'
 import { getPagedItems, Page } from 'lib/util/collections'
 import { findLast, map, uniq } from 'lodash'
 import Pager from './Atoms/Pager'
-import CenterStack from './Atoms/CenterStack'
 import { DarkMode } from './themes/DarkMode'
+import { DarkBlue, DarkBlueTransparent, LightBlue, VeryLightBlue } from './themes/mainTheme'
 
 type sourceTypes = 'Google Business' | 'BBC World' | undefined
 type categoryTypes = 'Financial' | 'World'
@@ -108,7 +107,7 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
         <Divider />
         {model.pagedItems.length > 0 &&
           model.pagedItems.map((item) => (
-            <Box key={item.HeadlineRecordHash} sx={{ minHeight: 280, backgroundColor: CasinoMoreBlackTransparent, borderRadius: 4 }}>
+            <Box key={item.HeadlineRecordHash} sx={{ minHeight: 280, backgroundColor: DarkBlue, borderRadius: 4 }}>
               <Box>
                 <Grid container spacing={1}>
                   <Grid item xs={0} md={1}></Grid>
@@ -117,7 +116,7 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
                       <Box sx={{ display: 'flex', alignItems: 'center', padding: 3, marginTop: 5 }}>
                         <Typography variant='h4' sx={{}}>
                           <NLink passHref href={item.Link!}>
-                            <Link sx={{ textDecoration: 'none', color: CasinoYellowTransparent, ':hover': 'white' }} target={'_blanks'}>
+                            <Link sx={{ textDecoration: 'none', color: VeryLightBlue, ':hover': 'white' }} target={'_blanks'}>
                               {item.Headline}
                             </Link>
                           </NLink>
@@ -128,8 +127,6 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
                   <Grid item xs={0} md={1}></Grid>
                 </Grid>
               </Box>
-
-              {/* <Typography variant='body2'>{item.Source}</Typography> */}
             </Box>
           ))}
         {model.isAutoPlayRunning && (

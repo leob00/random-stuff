@@ -47,7 +47,15 @@ export function reducer(state: Model, action: ActionType): Model {
     case 'spin':
       return { ...state, spinSpeed: action.payload.spinSpeed, result: undefined, isSpinning: true, isSimulationRunning: false }
     case 'spin-finished':
-      return { ...state, spinSpeed: action.payload.spinSpeed, result: action.payload.result, isSpinning: false, playerResults: action.payload.playerResults, playerChart: action.payload.playerChart, communityChart: action.payload.communityChart }
+      return {
+        ...state,
+        spinSpeed: action.payload.spinSpeed,
+        result: action.payload.result,
+        isSpinning: false,
+        playerResults: action.payload.playerResults,
+        playerChart: action.payload.playerChart,
+        communityChart: action.payload.communityChart,
+      }
     case 'reload-community-stats':
       return { ...state, communityChart: action.payload.communityChart }
     case 'start-simulation':
@@ -222,7 +230,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       await loadCommunityStats()
     }
     communityFn()
-  }, [])
+  }, []) /* eslint-disable-line react-hooks/exhaustive-deps */
 
   return (
     <Box>

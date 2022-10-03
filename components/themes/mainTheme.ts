@@ -3,7 +3,9 @@ import { ResponsiveFontSizesOptions } from '@mui/material/styles/responsiveFontS
 
 export const Blue800: string = '#436ab6'
 export const LightBlue = '#446ab7'
+export const VeryLightBlue = '#d6e7f8'
 export const DarkBlue = '#0b224e'
+export const DarkBlueTransparent = '#0b224ebb'
 export const FadedWhite = 'rgba(255, 255, 255, 0.2)'
 export const LightGrey = '#ecf2f1'
 export const BrightGreen = '#29aa29'
@@ -25,14 +27,14 @@ export const CasinoYellowTransparent = '#fae62ebb'
 const lightPalette: PaletteOptions = {
   mode: 'light',
   primary: {
-    main: LightBlue,
+    main: DarkBlueTransparent,
   },
 }
 
 const darkPalette: PaletteOptions = {
   mode: 'dark',
   primary: {
-    main: LightGrey,
+    main: VeryLightBlue,
     contrastText: '#00263a',
   },
 }
