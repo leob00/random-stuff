@@ -4,8 +4,8 @@ import React from 'react'
 
 const CenteredTitle = ({ title }: { title: string }) => {
   return (
-    <Box sx={{ my: 2 }}>
-      <Typography variant='h5' sx={{ textAlign: 'center', color: DarkBlue }}>
+    <Box sx={{ padding: 4 }}>
+      <Typography variant='h4' sx={{ textAlign: 'center', color: DarkBlueTransparent }}>
         {title}
       </Typography>
     </Box>

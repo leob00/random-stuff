@@ -100,6 +100,9 @@ a:hover {
 .veryLightBlue {
   color: #d6e7f8;
 }
+.veryLightBlueTransparent {
+  color: #d6e7f8bb;
+}
 .casinoYellowTransparent {
   color: #fae62ebb;
 }

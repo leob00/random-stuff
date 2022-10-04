@@ -49,7 +49,7 @@ const CachedNews = ({ fallbackData }: { fallbackData: NewsItem[] }) => {
   return <NewsFeedLayout articles={model} />
 }
 
-const Page: NextPage<{ model: NewsItem[]; fallback: any }> = ({ model, fallback }) => {
+const Page: NextPage<{ model: NewsItem[]; fallback: NewsItem[] }> = ({ model, fallback }) => {
   return (
     <>
       <Button
@@ -59,7 +59,7 @@ const Page: NextPage<{ model: NewsItem[]; fallback: any }> = ({ model, fallback 
         }}>
         &#8592; back
       </Button>
-      <CenteredTitle title='News' />
+
       <SWRConfig value={{ fallback }}>
         <CachedNews fallbackData={model} />
       </SWRConfig>
