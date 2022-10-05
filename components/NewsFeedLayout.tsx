@@ -137,13 +137,13 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
         </Box>
         {model.pagedItems.length > 0 &&
           model.pagedItems.map((item) => (
-            <Box key={item.HeadlineRecordHash} sx={{ minHeight: 320, backgroundColor: VeryLightBlueTransparent, borderRadius: 4 }}>
+            <Box key={item.HeadlineRecordHash} sx={{ minHeight: 260, backgroundColor: VeryLightBlueTransparent, borderRadius: 4 }}>
               <Box>
                 <Grid container spacing={1}>
                   <Grid item xs={0} md={1}></Grid>
                   <Grid item xs={12} md={10}>
                     <DarkMode>
-                      <Box sx={{ display: 'flex', alignItems: 'center', padding: 5, marginTop: 5 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', padding: item.Headline!.length > 60 ? 3 : 5, marginTop: item.Headline!.length > 80 ? 1 : 2 }}>
                         <Fade in={model.fadeIn} timeout={{ appear: 1000, enter: 3000, exit: 6000 }}>
                           <Typography variant='h4' sx={{ textAlign: 'center' }}>
                             <NLink passHref href={item.Link!}>
