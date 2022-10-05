@@ -34,13 +34,13 @@ function reducer(state: Model, action: ActionTypes) {
     case 'reset':
       return { ...state }
     case 'set-page-index':
-      return { ...state, currentPageNum: action.payload.num, pagedItems: action.payload.displayedItems }
+      return { ...state, currentPageNum: action.payload.num, pagedItems: action.payload.displayedItems, fadeIn: true }
     case 'start-stop-autoplay':
       return { ...state, isAutoPlayRunning: action.payload.isRunning, fadeIn: action.payload.fadeIn }
     case 'fade':
       return { ...state, fadeIn: action.payload.fadeIn }
     default: {
-      throw 'invalis type'
+      throw 'invalid type'
     }
   }
 }
@@ -88,28 +88,44 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
       handlePaged(model.currentPageNum + 1)
     }
   }
-  const handleAutoPlay = (pageNum: number) => {
+  const handleAutoPlay = () => {
     if (!model.isAutoPlayRunning) {
       dispatch({ type: 'start-stop-autoplay', payload: { isRunning: false, fadeIn: true } })
     }
-    let page = findLast(model.allPages, (p) => {
-      return p.index === pageNum
-    })
+    const pageNum = model.currentPageNum + 1
+    setTimeout(() => {
+      if (!model.isAutoPlayRunning) {
+        dispatch({ type: 'start-stop-autoplay', payload: { isRunning: false, fadeIn: true } })
+        return
+      }
+      dispatch({ type: 'fade', payload: { fadeIn: false } })
+    }, 3800)
 
-    if (page) {
-      dispatch({ type: 'set-page-index', payload: { num: pageNum, displayedItems: page.items as NewsItem[] } })
-    } else {
-      dispatch({ type: 'set-page-index', payload: { num: 1, displayedItems: model.allPages[0].items as NewsItem[] } })
+    const fn = () => {
+      if (!model.isAutoPlayRunning) {
+        dispatch({ type: 'start-stop-autoplay', payload: { isRunning: false, fadeIn: true } })
+        return
+      }
+      let page = findLast(model.allPages, (p) => {
+        return p.index === pageNum
+      })
+
+      if (page) {
+        dispatch({ type: 'set-page-index', payload: { num: pageNum, displayedItems: page.items as NewsItem[] } })
+      } else {
+        dispatch({ type: 'set-page-index', payload: { num: 1, displayedItems: model.allPages[0].items as NewsItem[] } })
+      }
     }
+    setTimeout(fn, 9000)
   }
 
   React.useEffect(() => {
-    setTimeout(() => {
-      if (model.isAutoPlayRunning) {
-        //let pageNum = model.currentPageNum + 1
-        handleAutoPlay(model.currentPageNum + 1)
-      }
-    }, 6400)
+    if (model.isAutoPlayRunning) {
+      //let pageNum = model.currentPageNum + 1
+      handleAutoPlay()
+    } else {
+      dispatch({ type: 'start-stop-autoplay', payload: { isRunning: false, fadeIn: true } })
+    }
   }, [model.isAutoPlayRunning, model.currentPageNum]) /* eslint-disable-line react-hooks/exhaustive-deps */ /* this is needed for some reason */
 
   return (
@@ -121,14 +137,14 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
         </Box>
         {model.pagedItems.length > 0 &&
           model.pagedItems.map((item) => (
-            <Box key={item.HeadlineRecordHash} sx={{ minHeight: 280, backgroundColor: VeryLightBlueTransparent, borderRadius: 4 }}>
+            <Box key={item.HeadlineRecordHash} sx={{ minHeight: 320, backgroundColor: VeryLightBlueTransparent, borderRadius: 4 }}>
               <Box>
                 <Grid container spacing={1}>
                   <Grid item xs={0} md={1}></Grid>
                   <Grid item xs={12} md={10}>
                     <DarkMode>
-                      <Box sx={{ display: 'flex', alignItems: 'center', padding: 3, marginTop: 5 }}>
-                        <Fade in={model.fadeIn} timeout={{ appear: 1000, enter: 2600, exit: 1000 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', padding: 5, marginTop: 5 }}>
+                        <Fade in={model.fadeIn} timeout={{ appear: 1000, enter: 3000, exit: 6000 }}>
                           <Typography variant='h4' sx={{ textAlign: 'center' }}>
                             <NLink passHref href={item.Link!}>
                               <Link sx={{ textDecoration: 'none', color: DarkBlueTransparent, ':hover': 'white' }} target={'_blank'}>
