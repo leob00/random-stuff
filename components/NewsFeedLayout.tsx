@@ -49,6 +49,9 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
   const itemsPerPage = 1
   const paged = getPagedItems<NewsItem>(articles, itemsPerPage)
   const pagedItems = paged.pages[0].items as NewsItem[]
+  const autoPlayTimerRef = React.useRef<NodeJS.Timeout | null>(null)
+  const fadeInTimerRef = React.useRef<NodeJS.Timeout | null>(null)
+  const fadeOutTimerRef = React.useRef<NodeJS.Timeout | null>(null)
 
   const initialState: Model = {
     sourceTypes: uniq(
@@ -61,7 +64,7 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
     pagedItems: pagedItems,
     currentPageNum: 1,
     allPages: paged.pages,
-    isAutoPlayRunning: false,
+    isAutoPlayRunning: true,
     fadeIn: true,
   }
   const [model, dispatch] = React.useReducer(reducer, initialState)
@@ -82,26 +85,46 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
       dispatch({ type: 'set-page-index', payload: { num: 1, displayedItems: model.allPages[0].items as NewsItem[] } })
     }
   }
+  const clearAllTimers = () => {
+    if (autoPlayTimerRef.current) {
+      clearTimeout(autoPlayTimerRef.current)
+    }
+    if (fadeInTimerRef.current) {
+      clearTimeout(fadeInTimerRef.current)
+    }
+    if (fadeOutTimerRef.current) {
+      clearTimeout(fadeOutTimerRef.current)
+    }
+  }
   const handleStartStopAutoPlay = (e: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
     dispatch({ type: 'start-stop-autoplay', payload: { isRunning: checked, fadeIn: true } })
     if (checked === true) {
+      fadeOut()
+
       handlePaged(model.currentPageNum + 1)
+    } else {
+      clearAllTimers()
     }
   }
-  const handleAutoPlay = () => {
-    if (!model.isAutoPlayRunning) {
-      dispatch({ type: 'start-stop-autoplay', payload: { isRunning: false, fadeIn: true } })
-    }
-    const pageNum = model.currentPageNum + 1
-    setTimeout(() => {
-      if (!model.isAutoPlayRunning) {
-        dispatch({ type: 'start-stop-autoplay', payload: { isRunning: false, fadeIn: true } })
-        return
-      }
+
+  const fadeOut = () => {
+    fadeOutTimerRef.current = setTimeout(() => {
+      dispatch({ type: 'fade', payload: { fadeIn: false } })
+    }, 4800)
+  }
+  const fadeIn = () => {
+    fadeInTimerRef.current = setTimeout(() => {
       dispatch({ type: 'fade', payload: { fadeIn: false } })
     }, 3800)
+  }
 
-    const fn = () => {
+  const handleAutoPlay = () => {
+    clearAllTimers()
+    const pageNum = model.currentPageNum + 1
+    fadeOut()
+
+    const playFn = (pageNum: number) => {
+      fadeIn()
       if (!model.isAutoPlayRunning) {
         dispatch({ type: 'start-stop-autoplay', payload: { isRunning: false, fadeIn: true } })
         return
@@ -116,12 +139,14 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
         dispatch({ type: 'set-page-index', payload: { num: 1, displayedItems: model.allPages[0].items as NewsItem[] } })
       }
     }
-    setTimeout(fn, 9000)
+
+    autoPlayTimerRef.current = setTimeout(() => {
+      playFn(pageNum)
+    }, 9500)
   }
 
   React.useEffect(() => {
     if (model.isAutoPlayRunning) {
-      //let pageNum = model.currentPageNum + 1
       handleAutoPlay()
     } else {
       dispatch({ type: 'start-stop-autoplay', payload: { isRunning: false, fadeIn: true } })
@@ -133,7 +158,7 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
       <CenteredTitle title='News' />
       <Container>
         <Box sx={{ textAlign: 'right', my: 2 }} justifyContent='end'>
-          <FormControlLabel control={<Switch size='small' onChange={handleStartStopAutoPlay} />} label='auto play' />
+          <FormControlLabel control={<Switch size='small' onChange={handleStartStopAutoPlay} />} label='auto play' checked={model.isAutoPlayRunning} />
         </Box>
         {model.pagedItems.length > 0 &&
           model.pagedItems.map((item) => (
@@ -144,7 +169,7 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
                   <Grid item xs={12} md={10}>
                     <DarkMode>
                       <Box sx={{ display: 'flex', alignItems: 'center', padding: item.Headline!.length > 60 ? 3 : 5, marginTop: item.Headline!.length > 80 ? 1 : 2 }}>
-                        <Fade in={model.fadeIn} timeout={{ appear: 1000, enter: 3000, exit: 6000 }}>
+                        <Fade in={model.fadeIn} timeout={{ appear: 500, enter: 3000, exit: 6000 }}>
                           <Typography variant='h4' sx={{ textAlign: 'center' }}>
                             <NLink passHref href={item.Link!}>
                               <Link sx={{ textDecoration: 'none', color: DarkBlueTransparent, ':hover': 'white' }} target={'_blank'}>
