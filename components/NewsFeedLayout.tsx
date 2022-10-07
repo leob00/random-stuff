@@ -162,24 +162,22 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
         </Box>
         {model.pagedItems.length > 0 &&
           model.pagedItems.map((item) => (
-            <Box key={item.HeadlineRecordHash} sx={{ minHeight: 260, backgroundColor: VeryLightBlueTransparent, borderRadius: 4 }}>
+            <Box key={item.HeadlineRecordHash} sx={{ minHeight: 280, backgroundColor: VeryLightBlueTransparent, borderRadius: 4 }}>
               <Box>
                 <Grid container spacing={1}>
                   <Grid item xs={0} md={1}></Grid>
                   <Grid item xs={12} md={10}>
-                    <DarkMode>
-                      <Box sx={{ display: 'flex', alignItems: 'center', padding: item.Headline!.length > 60 ? 3 : 5, marginTop: item.Headline!.length > 80 ? 1 : 2 }}>
-                        <Fade in={model.fadeIn} timeout={{ appear: 500, enter: 3000, exit: 6000 }}>
-                          <Typography variant='h4' sx={{ textAlign: 'center' }}>
-                            <NLink passHref href={item.Link!}>
-                              <Link sx={{ textDecoration: 'none', color: DarkBlueTransparent, ':hover': 'white' }} target={'_blank'}>
-                                {item.Headline}
-                              </Link>
-                            </NLink>
-                          </Typography>
-                        </Fade>
-                      </Box>
-                    </DarkMode>
+                    <Box sx={{ display: 'flex', alignItems: 'center', padding: item.Headline!.length > 60 ? 3 : 5, marginTop: item.Headline!.length > 90 ? 1 : 4 }}>
+                      <Fade in={model.fadeIn} timeout={{ appear: 500, enter: 3000, exit: 6000 }}>
+                        <Typography variant='h4' sx={{ textAlign: 'center' }}>
+                          <NLink passHref href={item.Link!}>
+                            <Link sx={{ textDecoration: 'none', color: DarkBlueTransparent, ':hover': 'white' }} target={'_blank'}>
+                              {item.Headline}
+                            </Link>
+                          </NLink>
+                        </Typography>
+                      </Fade>
+                    </Box>
                   </Grid>
                   <Grid item xs={0} md={1}></Grid>
                 </Grid>
