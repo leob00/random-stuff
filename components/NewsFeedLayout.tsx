@@ -185,15 +185,13 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
         <Grid container spacing={1}>
           <Grid item xs={0} md={2}></Grid>
           <Grid item xs={12} md={8}>
-            {model.isAutoPlayRunning && (
-              <Box sx={{ my: 4 }}>
-                <LinearProgress variant='determinate' value={Math.floor((model.currentPageNum * 100) / model.allPages.length)} />
-                <Typography variant='body2' sx={{ textAlign: 'center', my: 2 }}>{`${model.currentPageNum} of ${model.allItems.length}`}</Typography>
-              </Box>
-            )}
+            <Box sx={{ my: 4 }}>
+              <LinearProgress variant='determinate' value={Math.floor((model.currentPageNum * 100) / model.allPages.length)} />
+              <Typography variant='body2' sx={{ textAlign: 'center', my: 2 }}>{`${model.currentPageNum} of ${model.allItems.length}`}</Typography>
+            </Box>
             {!model.isAutoPlayRunning && (
               <Box sx={{ my: 4 }}>
-                <Pager pageCount={paged.pages.length} itemCount={articles.length} itemsPerPage={itemsPerPage} onPaged={(pageNum: number) => handlePaged(pageNum)} defaultPageIndex={model.currentPageNum}></Pager>
+                <Pager pageCount={paged.pages.length} itemCount={articles.length} itemsPerPage={itemsPerPage} onPaged={(pageNum: number) => handlePaged(pageNum)} defaultPageIndex={model.currentPageNum} showPageText={false}></Pager>
               </Box>
             )}
           </Grid>

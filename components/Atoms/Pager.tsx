@@ -3,7 +3,21 @@ import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos'
 import { Box, Button, Divider, Tooltip, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 
-const Pager = ({ pageCount, itemCount, itemsPerPage, onPaged, defaultPageIndex = 1 }: { pageCount: number; itemCount: number; itemsPerPage: number; onPaged: (pageNum: number) => void; defaultPageIndex?: number }) => {
+const Pager = ({
+  pageCount,
+  itemCount,
+  itemsPerPage,
+  onPaged,
+  defaultPageIndex = 1,
+  showPageText = true,
+}: {
+  pageCount: number
+  itemCount: number
+  itemsPerPage: number
+  onPaged: (pageNum: number) => void
+  defaultPageIndex?: number
+  showPageText?: boolean
+}) => {
   const [pageIndex, setPageIndex] = useState(defaultPageIndex)
   const [displayMessage, setDisplayMessage] = useState('')
 
@@ -42,9 +56,11 @@ const Pager = ({ pageCount, itemCount, itemsPerPage, onPaged, defaultPageIndex =
   return (
     <>
       <Divider />
-      <Typography sx={{ my: 2, textAlign: 'center' }} variant='body2'>
-        {displayMessage}
-      </Typography>
+      {showPageText && (
+        <Typography sx={{ my: 2, textAlign: 'center' }} variant='body2'>
+          {displayMessage}
+        </Typography>
+      )}
       <Box sx={{ textAlign: 'center', my: 2 }}>
         {pageIndex > 1 ? (
           <>
