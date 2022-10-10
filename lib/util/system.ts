@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 export const isBrowser = () => typeof window !== 'undefined'
 
 export interface WindowDimension {
@@ -17,4 +19,8 @@ export const getWindowDimensions = () => {
     dimension.height = window.screen.height
   }
   return dimension
+}
+
+export const logger = (text: string) => {
+  console.log(`${dayjs(new Date()).format('MM/DD/YYYY hh:mm a')} - ${text}`)
 }

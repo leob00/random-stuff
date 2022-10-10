@@ -14,11 +14,7 @@ const RemoteImage = ({ url, title, width = 350, height = 400, style, onLoaded, p
   return (
     <>
       <Box sx={{ position: 'relative', height: { height }, width: { width }, padding: '5px', my: 1, borderRadius: '16px' }} className='blue-gradient hoverBox'>
-        {priority ? (
-          <NImage style={style ? style : { borderRadius: '16px' }} src={url} alt={title} placeholder='blur' layout='fill' objectFit='cover' blurDataURL={url} className='' onLoad={handleLoaded} />
-        ) : (
-          <NImage style={style ? style : { borderRadius: '16px' }} src={url} alt={title} placeholder='blur' layout='fill' objectFit='cover' blurDataURL={url} className='' onLoad={handleLoaded} priority />
-        )}
+        <NImage style={style ? style : { borderRadius: '16px' }} src={url} alt={title} placeholder='blur' layout='fill' objectFit='cover' blurDataURL={url} className='' onLoad={handleLoaded} priority={priority} />
       </Box>
     </>
   )

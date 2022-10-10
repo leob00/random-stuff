@@ -1,3 +1,4 @@
+import { logger } from 'lib/util/system'
 import { axiosGet } from './useAxios'
 
 let baseUrl = process.env.NEXT_QLN_API_URL
@@ -23,7 +24,8 @@ export async function getNewsFeed() {
     loadLatestNews: true,
   }
   let response = (await axiosGet(url, params)).Body.LatestNews as NewsItem[]
-  console.log(`newsfeed: retrieved ${response.length} news articles.`)
+  //console.log(`newsfeed: retrieved ${response.length} news articles.`)
+  logger(`newsfeed: retrieved ${response.length} news articles.`)
   //console.log(JSON.stringify(response))
 
   return response
