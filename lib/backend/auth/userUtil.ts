@@ -1,12 +1,12 @@
 import { Auth } from 'aws-amplify'
 
-export interface User {
+export interface AmplifyUser {
   email: string
 }
 export async function getLoggedinUser() {
   try {
     let user = await Auth.currentAuthenticatedUser()
-    let result: User = {
+    let result: AmplifyUser = {
       email: user.attributes.email as string,
     }
     return result

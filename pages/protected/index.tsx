@@ -1,35 +1,25 @@
 import { Box, Container, Typography } from '@mui/material'
-import { withSSRContext } from 'aws-amplify'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
-import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
-import { hello, LambdaResponse } from 'lib/backend/api/aws/apiGateway'
-import { getLoggedinUser } from 'lib/backend/auth/userUtil'
+import { getUserSSR } from 'lib/backend/server-side/serverSideAuth'
 import { GetServerSideProps, NextPage } from 'next'
 import router from 'next/router'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { Auth } = withSSRContext(context)
-  try {
-    const user = await Auth.currentAuthenticatedUser()
-    let email = user.attributes.email as string
-    //const resp = await hello(email.substring(0, email.lastIndexOf('@')))
-    //console.log('user: ' + JSON.stringify(user))
-    //console.log(JSON.stringify(resp.body))
+  const user = await getUserSSR(context)
+  if (user) {
     return {
       props: {
         authenticated: true,
-        username: email,
+        username: user.email,
       },
     }
-  } catch (error) {
-    console.log(error)
-    return {
-      props: {
-        authenticated: false,
-      },
-    }
+  }
+
+  return {
+    props: {
+      authenticated: false,
+    },
   }
 }
 const Protected: NextPage<{ authenticated: boolean; username: string | undefined }> = ({ authenticated, username }) => {

@@ -5,9 +5,12 @@ import { axiosGet, axiosPut } from './useAxios'
 export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community'
 let baseUrl = process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL
 
+type CategoryType = 'animals' | 'random'
+
 export interface RandomStuffPut {
   key: DynamoKeys
   data: BasicArticle[] | CoinFlipStats
+  category: CategoryType
 }
 
 export interface LambdaResponse {
@@ -46,6 +49,7 @@ export async function putAnimals(type: DynamoKeys, data: BasicArticle[]) {
   let model: RandomStuffPut = {
     key: type,
     data: data,
+    category: 'animals',
   }
   let postData = {
     body: model,
@@ -73,16 +77,23 @@ export async function getRandomStuff(type: DynamoKeys) {
 }
 export async function putRandomStuff(type: DynamoKeys, data: any) {
   const url = `${baseUrl}/randomstuff`
+  let category: CategoryType = 'random'
+  switch (type) {
+    case 'cats':
+    case 'dogs':
+      category = 'animals'
+      break
+  }
   let model: RandomStuffPut = {
     key: type,
     data: data,
+    category: category,
   }
   let postData = {
     body: model,
   }
   try {
     await axiosPut(url, postData)
-    // console.log(`put ${type} to Dynamo`)
   } catch (error) {
     console.log(error)
   }
