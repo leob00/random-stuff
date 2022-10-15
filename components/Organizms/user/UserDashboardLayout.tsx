@@ -3,7 +3,7 @@ import InternalLinkButton from 'components/Atoms/Buttons/InternalLinkButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import { getRandomStuff, LambdaResponse, UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { getRandomStuff, LambdaDynamoRequest, LambdaResponse, UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { axiosGet } from 'lib/backend/api/aws/useAxios'
 import { axiosPut } from 'lib/backend/api/qln/useAxios'
 import React from 'react'
@@ -17,22 +17,29 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
   const [currTime, setCurrTime] = React.useState('')
   dayjs.extend(utc)
 
-  const loadData = async () => {
-    if (username) {
-      const key = constructUserProfileKey(username)
+  const loadData = async (userId: string | undefined) => {
+    if (userId) {
+      const key = constructUserProfileKey(userId)
+      const user: UserProfile = {
+        id: key,
+        noteCount: 0,
+      }
       let response = await axiosGet(`/api/randomStuff?id=${key}`)
       if (response === null) {
-        let profile: UserProfile = {
-          id: key,
-          noteCount: 0,
-        }
         console.log('adding user profile')
-        await axiosPut(`/api/putRandomStuff`, profile)
+        let req: LambdaDynamoRequest = {
+          id: user.id,
+          category: 'userProfile',
+          data: user,
+        }
+        await axiosPut(`/api/putRandomStuff`, req)
+      } else {
+        const userProfile = response as UserProfile
+        user.noteCount = userProfile.noteCount
+        const arr = userProfile.id.split('#')
       }
-
-      const userProfile = response as UserProfile
       setIsLoading(false)
-      setUserProfile(userProfile)
+      setUserProfile(user)
     }
   }
 
@@ -40,7 +47,7 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
     const fn = async () => {
       const time = dayjs().utc().local().format('MM/DD/YYYY hh:mm a')
       setCurrTime(time)
-      await loadData()
+      await loadData(username)
     }
     fn()
   }, [])

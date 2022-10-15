@@ -5,7 +5,7 @@ import { axiosGet, axiosPut } from './useAxios'
 export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | string
 let baseUrl = process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL
 
-type CategoryType = 'animals' | 'random' | 'userProfile'
+type CategoryType = 'animals' | 'random' | 'userProfile' | string
 
 export interface RandomStuffPut {
   key: DynamoKeys
@@ -13,9 +13,19 @@ export interface RandomStuffPut {
   category: CategoryType
 }
 
+export interface LambdaDynamoRequest {
+  id: string
+  category: CategoryType | string
+  data: any
+}
+
 export interface LambdaResponse {
   statusCode: number
   body: LambdaBody
+}
+export interface LambdaListResponse {
+  statusCode: number
+  body: LambdaBody[]
 }
 export interface LambdaBody {
   count?: number
@@ -73,41 +83,50 @@ export async function getAnimals(type: DynamoKeys) {
 
 export async function getRandomStuff(type: DynamoKeys) {
   const url = `${baseUrl}/randomstuff?key=${type}`
+  let result: LambdaResponse | null = null
   try {
-    let response = (await axiosGet(url)) as LambdaResponse
-    if (response.body && response.body.data) {
-      let data = JSON.parse(response.body.data)
+    result = (await axiosGet(url)) as LambdaResponse
+    if (result.body && result.body.data) {
+      let data = JSON.parse(result.body.data)
       return data
     }
   } catch (err) {
-    console.log(err)
+    console.log('error in getRandomStuff')
   }
 
   return null
 }
 export async function searchRandomStuffBySecIndex(search: CategoryType | string) {
-  const url = `${baseUrl}/searchrandomstuff?key=${search}`
-  let response = (await axiosGet(url)) as LambdaResponse
-  if (response.body) {
-    return response.body
+  const url = `${baseUrl}/searchrandomstuff/`
+  //console.log(url)
+  let result: LambdaBody[] = []
+  try {
+    let raw = await axiosGet(url, { key: search })
+    //console.log(raw)
+    let response = raw as LambdaListResponse
+    //console.log(response)
+
+    result = response.body
+    return result
+  } catch (err) {
+    console.log('error occurred in searchRandomStuffBySecIndex')
   }
-  return null
+  return result
 }
-export async function putRandomStuff(type: DynamoKeys, data: any) {
+export async function putRandomStuff(type: DynamoKeys, category: CategoryType, data: any) {
   const url = `${baseUrl}/randomstuff`
-  let category: CategoryType = 'random'
+  /* let category: CategoryType = type
   switch (type) {
     case 'cats':
     case 'dogs':
       category = 'animals'
       break
-
     default:
       if (type.includes('user-profile')) {
         category = 'userProfile'
       }
       break
-  }
+  } */
   let model: RandomStuffPut = {
     key: type,
     data: data,
@@ -119,7 +138,7 @@ export async function putRandomStuff(type: DynamoKeys, data: any) {
   try {
     await axiosPut(url, postData)
   } catch (error) {
-    console.log(error)
+    console.log('error in putRandomStuff')
   }
 }
 
@@ -139,8 +158,8 @@ export async function getWheelSpinStats() {
 }
 
 export async function putCoinflipStats(data: CoinFlipStats) {
-  await putRandomStuff('coinflip-community', data)
+  await putRandomStuff('coinflip-community', 'random', data)
 }
 export async function putWheelSpinStats(data: WheelSpinStats) {
-  await putRandomStuff('wheelspin-community', data)
+  await putRandomStuff('wheelspin-community', 'random', data)
 }
