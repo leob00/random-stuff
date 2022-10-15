@@ -3,7 +3,7 @@ import { Auth } from 'aws-amplify'
 export interface AmplifyUser {
   email: string
 }
-export async function getLoggedinUser() {
+export async function getLoggedinUserCSR() {
   try {
     let user = await Auth.currentAuthenticatedUser()
     let result: AmplifyUser = {

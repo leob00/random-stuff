@@ -30,6 +30,9 @@ const lightPalette: PaletteOptions = {
   primary: {
     main: DarkBlueTransparent,
   },
+  secondary: {
+    main: CasinoBlueTransparent,
+  },
 }
 
 const darkPalette: PaletteOptions = {

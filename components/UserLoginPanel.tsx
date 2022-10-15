@@ -14,6 +14,7 @@ export type HubPayload = {
 
 const UserLogin = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [username, setUsername] = useState('')
 
   const signOut = () => {
     const fn = async () => {
@@ -23,15 +24,19 @@ const UserLogin = () => {
   }
 
   const updateUser = (payload: HubPayload) => {
+    const user = { email: payload.data?.attributes.email }
+    console.log(JSON.stringify(user))
     switch (payload.event) {
       case 'signOut':
         setIsLoggedIn(false)
         router.push('/')
+        setUsername('')
         break
       case 'signIn':
         setIsLoggedIn(true)
         //api/login()
         router.push('/ssg/waitandredirect?id=protected')
+        setUsername(user.email)
         break
     }
   }
@@ -39,7 +44,10 @@ const UserLogin = () => {
     let fn = async () => {
       try {
         let user = await Auth.currentAuthenticatedUser()
-        setIsLoggedIn(user !== undefined)
+        if (user) {
+          setIsLoggedIn(true)
+          setUsername(user.attributes.email)
+        }
       } catch (error) {
         setIsLoggedIn(false)
       } finally {
@@ -70,7 +78,7 @@ const UserLogin = () => {
         <Stack>
           {isLoggedIn === true ? (
             <>
-              <LoggedInUserMenu onLogOut={signOut} />
+              <LoggedInUserMenu onLogOut={signOut} username={username} />
             </>
           ) : (
             <>

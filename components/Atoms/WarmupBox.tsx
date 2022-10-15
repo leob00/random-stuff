@@ -1,4 +1,4 @@
-import { Container, Stack, Typography } from '@mui/material'
+import { CircularProgress, Container, Stack, Typography } from '@mui/material'
 import { getRandomLoadertext } from 'lib/randomLoaderText'
 import React, { useEffect, useReducer, useState } from 'react'
 import loader from '../../public/images/loaders/black-white-spinner.gif'
@@ -27,7 +27,7 @@ const WarmupBox = () => {
         </Typography>
       </Stack>
       <Stack direction='row' justifyContent='center' sx={{ my: 1 }}>
-        <NImage src={loader} alt='loading' height={24} width={26} />
+        <CircularProgress color='secondary' />
       </Stack>
     </Container>
   )

@@ -2,10 +2,10 @@ import { RouletteNumberColor } from 'lib/backend/roulette/wheel'
 import { BasicArticle, BasicArticleTypes } from 'lib/model'
 import { axiosGet, axiosPut } from './useAxios'
 
-export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community'
+export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | string
 let baseUrl = process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL
 
-type CategoryType = 'animals' | 'random'
+type CategoryType = 'animals' | 'random' | 'userProfile'
 
 export interface RandomStuffPut {
   key: DynamoKeys
@@ -38,6 +38,11 @@ export interface WheelSpinStats {
   even: number
 }
 
+export interface UserProfile {
+  id: string
+  noteCount: number
+}
+
 export async function hello(name: string) {
   const url = `${baseUrl}/hello?name=${name}`
   let data = await axiosGet(url)
@@ -68,10 +73,23 @@ export async function getAnimals(type: DynamoKeys) {
 
 export async function getRandomStuff(type: DynamoKeys) {
   const url = `${baseUrl}/randomstuff?key=${type}`
+  try {
+    let response = (await axiosGet(url)) as LambdaResponse
+    if (response.body && response.body.data) {
+      let data = JSON.parse(response.body.data)
+      return data
+    }
+  } catch (err) {
+    console.log(err)
+  }
+
+  return null
+}
+export async function searchRandomStuffBySecIndex(search: CategoryType) {
+  const url = `${baseUrl}/searchrandomstuff?key=${search}`
   let response = (await axiosGet(url)) as LambdaResponse
-  if (response.body && response.body.data) {
-    let data = JSON.parse(response.body.data)
-    return data
+  if (response.body) {
+    return response.body
   }
   return null
 }
@@ -82,6 +100,12 @@ export async function putRandomStuff(type: DynamoKeys, data: any) {
     case 'cats':
     case 'dogs':
       category = 'animals'
+      break
+
+    default:
+      if (type.includes('user-profile')) {
+        category = 'userProfile'
+      }
       break
   }
   let model: RandomStuffPut = {
