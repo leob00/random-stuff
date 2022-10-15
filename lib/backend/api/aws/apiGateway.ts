@@ -85,7 +85,7 @@ export async function getRandomStuff(type: DynamoKeys) {
 
   return null
 }
-export async function searchRandomStuffBySecIndex(search: CategoryType) {
+export async function searchRandomStuffBySecIndex(search: CategoryType | string) {
   const url = `${baseUrl}/searchrandomstuff?key=${search}`
   let response = (await axiosGet(url)) as LambdaResponse
   if (response.body) {
