@@ -8,8 +8,11 @@ import { axiosGet } from 'lib/backend/api/aws/useAxios'
 import { axiosPut } from 'lib/backend/api/qln/useAxios'
 import React from 'react'
 import router from 'next/router'
-import { constructUserProfileKey } from 'lib/backend/api/aws/util'
+import { constructUserNotePrimaryKey, constructUserProfileKey } from 'lib/backend/api/aws/util'
 import LargeSpinner from 'components/Atoms/Loaders/LargeSpinner'
+import { putUserNote, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
+import { UserNote } from 'lib/models/randomStuffModels'
+import { getUtcNow } from 'lib/util/dateUtil'
 
 const UserDashboardLayout = ({ username }: { username: string | undefined }) => {
   const [isLoading, setIsLoading] = React.useState(true)
@@ -26,17 +29,10 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
       }
       let response = await axiosGet(`/api/randomStuff?id=${key}`)
       if (response === null) {
-        console.log('adding user profile')
-        let req: LambdaDynamoRequest = {
-          id: user.id,
-          category: 'userProfile',
-          data: user,
-        }
-        await axiosPut(`/api/putRandomStuff`, req)
+        await putUserProfile(user, user.id)
       } else {
         const userProfile = response as UserProfile
         user.noteCount = userProfile.noteCount
-        const arr = userProfile.id.split('#')
       }
       setIsLoading(false)
       setUserProfile(user)
@@ -65,7 +61,7 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
               color='secondary'
               variant='contained'
               onClick={() => {
-                router.push('/protected/notes')
+                router.push('/protected/csr/notes')
               }}
             >{`Notes: ${userProfile.noteCount}`}</Button>
           </CenterStack>

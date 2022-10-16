@@ -150,11 +150,24 @@ export async function getCoinflipStats() {
   return null
 }
 export async function getWheelSpinStats() {
-  let result = await getRandomStuff('wheelspin-community')
-  if (result) {
-    return result as WheelSpinStats
+  let item: WheelSpinStats = {
+    total: 0,
+    red: 0,
+    black: 0,
+    zero: 0,
+    doubleZero: 0,
+    odd: 0,
+    even: 0,
   }
-  return null
+  try {
+    let result = await getRandomStuff('wheelspin-community')
+    if (result) {
+      return result as WheelSpinStats
+    }
+  } catch (err) {
+    await putRandomStuff('wheelspin-community', 'random', item)
+  }
+  return item
 }
 
 export async function putCoinflipStats(data: CoinFlipStats) {

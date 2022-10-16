@@ -27,7 +27,15 @@ const LoggedInUserMenu = ({ username, onLogOut }: { username: string; onLogOut: 
     <>
       <Stack sx={{ display: 'flex' }} flexDirection='row'>
         {/* <Typography variant='body2' sx={{ paddingTop: 1 }}>{`${username.substring(0, username.lastIndexOf('@'))}`}</Typography> */}
-        <Button sx={{ display: 'flex' }} id='basic-button' variant='text' aria-controls={open ? 'basic-menu' : undefined} aria-haspopup='true' aria-expanded={open ? 'true' : undefined} onClick={handleClick}>
+        <Button
+          sx={{ display: 'flex' }}
+          id='basic-button'
+          variant='text'
+          aria-controls={open ? 'basic-menu' : undefined}
+          aria-haspopup='true'
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+        >
           <Person />
         </Button>
       </Stack>
@@ -43,13 +51,15 @@ const LoggedInUserMenu = ({ username, onLogOut }: { username: string; onLogOut: 
         }}
         MenuListProps={{
           'aria-labelledby': 'basic-button',
-        }}>
+        }}
+      >
         <MenuItem
           sx={{ color: VeryLightBlue }}
           onClick={() => {
             handleClose()
-            router.push('/ssg/waitandredirect?id=protected')
-          }}>
+            router.push('/ssg/waitandredirect?id=protected/csr')
+          }}
+        >
           profile
         </MenuItem>
         <Divider />
