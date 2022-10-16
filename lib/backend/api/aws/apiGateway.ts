@@ -1,5 +1,6 @@
 import { RouletteNumberColor } from 'lib/backend/roulette/wheel'
 import { BasicArticle, BasicArticleTypes } from 'lib/model'
+import { UserNote } from 'lib/models/randomStuffModels'
 import { axiosGet, axiosPut } from './useAxios'
 
 export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | string
@@ -50,7 +51,7 @@ export interface WheelSpinStats {
 
 export interface UserProfile {
   id: string
-  noteCount: number
+  noteTitles: UserNote[]
 }
 
 export async function hello(name: string) {

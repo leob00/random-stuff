@@ -1,18 +1,13 @@
-import { Box, Button, CircularProgress, Container, Typography } from '@mui/material'
-import InternalLinkButton from 'components/Atoms/Buttons/InternalLinkButton'
+import { Box, Button, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import { getRandomStuff, LambdaDynamoRequest, LambdaResponse, UserProfile } from 'lib/backend/api/aws/apiGateway'
-import { axiosGet } from 'lib/backend/api/aws/useAxios'
-import { axiosPut } from 'lib/backend/api/qln/useAxios'
+import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import React from 'react'
 import router from 'next/router'
-import { constructUserNotePrimaryKey, constructUserProfileKey } from 'lib/backend/api/aws/util'
+import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import LargeSpinner from 'components/Atoms/Loaders/LargeSpinner'
-import { putUserNote, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
-import { UserNote } from 'lib/models/randomStuffModels'
-import { getUtcNow } from 'lib/util/dateUtil'
+import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 
 const UserDashboardLayout = ({ username }: { username: string | undefined }) => {
   const [isLoading, setIsLoading] = React.useState(true)
@@ -23,19 +18,20 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
   const loadData = async (userId: string | undefined) => {
     if (userId) {
       const key = constructUserProfileKey(userId)
-      const user: UserProfile = {
+      const userProfile: UserProfile = {
         id: key,
-        noteCount: 0,
+        noteTitles: [],
       }
-      let response = await axiosGet(`/api/randomStuff?id=${key}`)
-      if (response === null) {
-        await putUserProfile(user, user.id)
+      let profile = await getUserProfile(userId)
+      //console.log('profile', profile)
+      if (profile === null) {
+        await putUserProfile(userProfile)
       } else {
-        const userProfile = response as UserProfile
-        user.noteCount = userProfile.noteCount
+        userProfile.noteTitles = userProfile.noteTitles ?? []
       }
+      console.log(userProfile)
       setIsLoading(false)
-      setUserProfile(user)
+      setUserProfile(userProfile)
     }
   }
 
@@ -63,7 +59,7 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
               onClick={() => {
                 router.push('/protected/csr/notes')
               }}
-            >{`Notes: ${userProfile.noteCount}`}</Button>
+            >{`Notes: ${userProfile.noteTitles.length}`}</Button>
           </CenterStack>
         </>
       )}

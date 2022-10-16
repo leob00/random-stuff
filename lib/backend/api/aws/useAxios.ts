@@ -16,6 +16,8 @@ export const axiosGet = async (url: string, params?: any) => {
     config.data = params
   }
   const response = await axios.get(url, config)
+  //console.log(response.data)
+
   return response.data
 }
 export const axiosPut = async (url: string, postData: any) => {
