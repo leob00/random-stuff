@@ -23,7 +23,7 @@ const Protected = () => {
     <>
       <Container>
         {!authUser ? (
-          firstLoad ? (
+          !firstLoad ? (
             <PleaseLogin />
           ) : (
             <></>

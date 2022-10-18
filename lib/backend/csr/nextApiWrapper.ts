@@ -5,7 +5,7 @@ import { constructUserNoteCategoryKey, constructUserProfileKey } from '../api/aw
 
 export async function putUserNote(item: UserNote, secondaryKey: string) {
   let req: LambdaDynamoRequest = {
-    id: item.id,
+    id: item.id!,
     category: secondaryKey,
     data: item,
   }

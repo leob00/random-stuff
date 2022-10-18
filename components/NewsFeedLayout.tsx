@@ -1,18 +1,17 @@
-import { Box, Typography, Container, Link, Divider, Grid, FormControlLabel, Switch, LinearProgress, Fade } from '@mui/material'
+import { Box, Typography, Container, Link, Grid, FormControlLabel, Switch, LinearProgress, Fade } from '@mui/material'
 import { NewsItem } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import NLink from 'next/link'
 import { getPagedItems, Page } from 'lib/util/collections'
 import { findLast, map, uniq } from 'lodash'
 import Pager from './Atoms/Pager'
-import { DarkMode } from './themes/DarkMode'
-import { CasinoBlueTransparent, DarkBlue, DarkBlueTransparent, LightBlue, VeryLightBlue, VeryLightBlueTransparent } from './themes/mainTheme'
+import { DarkBlueTransparent, VeryLightBlueTransparent } from './themes/mainTheme'
 import CenteredTitle from './Atoms/Containers/CenteredTitle'
 
 type sourceTypes = 'Google Business' | 'BBC World' | undefined
 type categoryTypes = 'Financial' | 'World'
 
-export interface Model {
+interface Model {
   sourceTypes: sourceTypes[]
   categoryTypes: categoryTypes[]
   allItems: NewsItem[]
@@ -164,7 +163,11 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
                 <Grid item xs={0} md={2}></Grid>
                 <Grid item xs={12} md={8}>
                   <Box sx={{ textAlign: 'right', my: 2 }} justifyContent='end'>
-                    <FormControlLabel control={<Switch size='small' onChange={handleStartStopAutoPlay} />} label='auto play' checked={model.isAutoPlayRunning} />
+                    <FormControlLabel
+                      control={<Switch size='small' onChange={handleStartStopAutoPlay} />}
+                      label='auto play'
+                      checked={model.isAutoPlayRunning}
+                    />
                   </Box>
                   <Box sx={{ minHeight: 300, backgroundColor: VeryLightBlueTransparent, borderRadius: 4, display: 'flex', alignItems: 'center' }}>
                     <Fade in={model.fadeIn} timeout={{ appear: 500, enter: 3000, exit: 6000 }}>
@@ -191,7 +194,14 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
             </Box>
             {!model.isAutoPlayRunning && (
               <Box sx={{ my: 4 }}>
-                <Pager pageCount={paged.pages.length} itemCount={articles.length} itemsPerPage={itemsPerPage} onPaged={(pageNum: number) => handlePaged(pageNum)} defaultPageIndex={model.currentPageNum} showPageText={false}></Pager>
+                <Pager
+                  pageCount={paged.pages.length}
+                  itemCount={articles.length}
+                  itemsPerPage={itemsPerPage}
+                  onPaged={(pageNum: number) => handlePaged(pageNum)}
+                  defaultPageIndex={model.currentPageNum}
+                  showPageText={false}
+                ></Pager>
               </Box>
             )}
           </Grid>

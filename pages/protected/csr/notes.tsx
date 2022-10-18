@@ -1,39 +1,47 @@
-import { Divider } from '@aws-amplify/ui-react'
-import { Box, Button, Container, Typography } from '@mui/material'
-import { Auth } from 'aws-amplify'
-import InternalLinkButton from 'components/Atoms/Buttons/InternalLinkButton'
-import CenterStack from 'components/Atoms/CenterStack'
-import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
+import { Container } from '@mui/material'
 import LargeSpinner from 'components/Atoms/Loaders/LargeSpinner'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
-import UserNotesLayout from 'components/Organizms/user/UserNotesLayout'
-import dayjs from 'dayjs'
-import { LambdaBody, LambdaDynamoRequest, LambdaListResponse, searchRandomStuffBySecIndex } from 'lib/backend/api/aws/apiGateway'
-import { axiosGet } from 'lib/backend/api/aws/useAxios'
-import { constructUserNoteCategoryKey, constructUserNotePrimaryKey } from 'lib/backend/api/aws/util'
-import { axiosPut } from 'lib/backend/api/qln/useAxios'
+import UserNotesLayout, { UserNotesModel } from 'components/Organizms/user/UserNotesLayout'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
-import { getUserNotes, putUserNote } from 'lib/backend/csr/nextApiWrapper'
+import { getUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { UserNote } from 'lib/models/randomStuffModels'
 import React from 'react'
 
 const Notes = () => {
+  // const [state, dispatch] = React.useReducer(reducer, defaultState)
+
   const [loggedIn, setIsLoggedIn] = React.useState(true)
-  const [isLoading, setIsLoading] = React.useState(true)
+  //const [isLoading, setIsLoading] = React.useState(true)
   const [reload, setReload] = React.useState(true)
   const [allNotes, setAllNotes] = React.useState<UserNote[]>([])
+  const [model, setModel] = React.useState<UserNotesModel | undefined>(undefined)
 
   const loadData = async () => {
+    const model: UserNotesModel = {
+      noteTitles: [],
+      isLoading: false,
+      username: '',
+      editMode: false,
+      selectedNote: null,
+    }
     let user = await getUserCSR()
     if (user !== null) {
-      let notes = await getUserNotes(user.email)
-      setAllNotes(notes)
+      const profile = await getUserProfile(user.email)
+      if (profile) {
+        model.noteTitles = profile.noteTitles
+        model.username = user.email
+        model.isLoading = false
+
+        //dispatch({ type: 'reload'}, {payload: {}} )
+        //setAllNotes(profile.noteTitles)
+        setModel(model)
+      }
     } else {
       console.log('not logged in')
     }
-    setIsLoading(false)
+    //setIsLoading(false)
     setIsLoggedIn(user !== null)
-    setReload(false)
+    //setReload(false)
   }
 
   React.useEffect(() => {
@@ -44,7 +52,7 @@ const Notes = () => {
       fn()
     }
   }, [reload])
-  return <Container>{!loggedIn ? <PleaseLogin /> : <UserNotesLayout data={allNotes} isLoading={isLoading} />}</Container>
+  return <Container> {model ? <UserNotesLayout data={model} /> : <LargeSpinner />}</Container>
 }
 
 export default Notes

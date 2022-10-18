@@ -8,6 +8,7 @@ import router from 'next/router'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import LargeSpinner from 'components/Atoms/Loaders/LargeSpinner'
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
+import { Divider } from '@aws-amplify/ui-react'
 
 const UserDashboardLayout = ({ username }: { username: string | undefined }) => {
   const [isLoading, setIsLoading] = React.useState(true)
@@ -63,9 +64,10 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
           </CenterStack>
         </>
       )}
-      <CenterStack sx={{ pt: 4 }}>
+      {/*  <CenterStack sx={{ pt: 4 }}>
         <Typography variant='body2'>{currTime}</Typography>
-      </CenterStack>
+      </CenterStack> */}
+      <Divider />
     </Box>
   )
 }

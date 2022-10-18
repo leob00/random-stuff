@@ -6,7 +6,7 @@ export interface RandomStuffData {
 }
 
 export interface UserNote {
-  id: string
+  id?: string
   title: string
   body: string
   dateCreated: string
