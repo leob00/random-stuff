@@ -11,6 +11,12 @@ export async function putUserNote(item: UserNote, secondaryKey: string) {
   }
   await axiosPut(`/api/putRandomStuff`, req)
 }
+export async function deleteUserNote(item: UserNote) {
+  let req = {
+    key: item.id,
+  }
+  await axiosPut(`/api/deleteRandomStuff`, req)
+}
 
 export async function putUserProfile(item: UserProfile) {
   let req: LambdaDynamoRequest = {

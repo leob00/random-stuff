@@ -5,7 +5,7 @@ import loader from '../../public/images/loaders/black-white-spinner.gif'
 import NImage from 'next/image'
 import { ActionType, Model, warmupReducer } from 'lib/reducers/warmupReducer'
 
-const WarmupBox = () => {
+const WarmupBox = ({ text }: { text?: string }) => {
   const defaultModel: Model = {
     message: getRandomLoadertext(),
   }
@@ -23,7 +23,7 @@ const WarmupBox = () => {
     <Container sx={{}}>
       <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
         <Typography variant='body2' sx={{}}>
-          {`${model.message}...`}
+          {text ? text : `${model.message}...`}
         </Typography>
       </Stack>
       <Stack direction='row' justifyContent='center' sx={{ my: 1 }}>

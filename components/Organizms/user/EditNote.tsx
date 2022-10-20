@@ -42,7 +42,6 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
         <CenterStack>
           <TextField inputRef={title} defaultValue={item.title} size='small' label={'title'} placeholder='title' sx={{ width: '50%' }} required />
         </CenterStack>
-
         <CenterStack sx={{ py: 2 }}>
           <TextField inputRef={body} defaultValue={item.body} label={''} placeholder='text' sx={{ width: '50%' }} multiline rows={10} />
         </CenterStack>

@@ -1,16 +1,46 @@
 import { Delete } from '@mui/icons-material'
-import { Box, Stack, Button, Divider } from '@mui/material'
+import { Box, Stack, Button, Divider, Dialog, DialogTitle, DialogContent } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import { UserNote } from 'lib/models/randomStuffModels'
 import React from 'react'
 
-const NoteList = ({ data, onClicked }: { data: UserNote[]; onClicked: (item: UserNote) => void }) => {
+const NoteList = ({ data, onClicked, onDelete }: { data: UserNote[]; onClicked: (item: UserNote) => void; onDelete: (item: UserNote) => void }) => {
+  const [selectedNote, setSelectedNote] = React.useState<UserNote | null>(null)
+  const [showConfirm, setShowConfirm] = React.useState(false)
   const handleNoteTitleClick = (item: UserNote) => {
     onClicked(item)
   }
+  const handleDeleteClick = (note: UserNote) => {
+    setSelectedNote(note)
+    setShowConfirm(true)
+  }
+  const handleYesDelete = () => {
+    setShowConfirm(false)
+    if (selectedNote) {
+      onDelete(selectedNote)
+    }
+  }
   return (
     <CenterStack sx={{ py: 2 }}>
+      <Dialog open={showConfirm}>
+        <DialogTitle>Delete Note?</DialogTitle>
+        <DialogContent>
+          <Button variant='outlined' color='error' onClick={handleYesDelete}>
+            yes
+          </Button>
+          <Button
+            sx={{ ml: 2 }}
+            color='secondary'
+            variant='outlined'
+            onClick={() => {
+              setShowConfirm(false)
+            }}
+          >
+            no
+          </Button>
+        </DialogContent>
+      </Dialog>
       <Box sx={{ width: '80%' }}>
         {data.map((item, i) => (
           <Box key={i}>
@@ -23,7 +53,12 @@ const NoteList = ({ data, onClicked }: { data: UserNote[]; onClicked: (item: Use
                 {item.title}
               </LinkButton>
               <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end'>
-                <Button size='small'>
+                <Button
+                  size='small'
+                  onClick={() => {
+                    handleDeleteClick(item)
+                  }}
+                >
                   <Delete color='error' />
                 </Button>
               </Stack>

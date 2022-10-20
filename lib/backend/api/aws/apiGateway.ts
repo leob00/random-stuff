@@ -116,18 +116,6 @@ export async function searchRandomStuffBySecIndex(search: CategoryType | string)
 }
 export async function putRandomStuff(type: DynamoKeys, category: CategoryType, data: any) {
   const url = `${baseUrl}/randomstuff`
-  /* let category: CategoryType = type
-  switch (type) {
-    case 'cats':
-    case 'dogs':
-      category = 'animals'
-      break
-    default:
-      if (type.includes('user-profile')) {
-        category = 'userProfile'
-      }
-      break
-  } */
   let model: RandomStuffPut = {
     key: type,
     data: data,
@@ -140,6 +128,21 @@ export async function putRandomStuff(type: DynamoKeys, category: CategoryType, d
     await axiosPut(url, postData)
   } catch (error) {
     console.log('error in putRandomStuff')
+  }
+}
+
+export async function deleteRandomStuff(key: string) {
+  const url = `${baseUrl}/deleterandomstuff?key=${key}`
+
+  console.log('deleteting item: ', key)
+  let params = {
+    key: key,
+  }
+  try {
+    let resp = await axiosPut(url, params)
+    console.log(resp)
+  } catch (error) {
+    console.log('error in deleteRandomStuff', error)
   }
 }
 
