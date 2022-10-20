@@ -1,5 +1,6 @@
 import { Box, Typography, Divider, Button } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
@@ -18,10 +19,8 @@ const ViewNote = ({ selectedNote, onEdit, onCancel }: { selectedNote: UserNote; 
         <Typography variant='body1' dangerouslySetInnerHTML={{ __html: selectedNote.body }}></Typography>
       </CenterStack>
       <Divider sx={{ pb: 4 }} />
-      <CenterStack sx={{ py: 2 }}>
-        <Button color='secondary' variant='outlined' onClick={onCancel}>
-          close
-        </Button>
+      <CenterStack sx={{ py: 2, gap: 2 }}>
+        <SecondaryButton onClick={onCancel} text='close' />
         <PrimaryButton
           text='edit'
           onClick={() => {

@@ -2,7 +2,7 @@ import { Button, ButtonProps } from '@mui/material'
 import React, { ReactNode } from 'react'
 
 type ButtonAttributes = ButtonProps & {
-  text?: string
+  text: string
   onClicked?: () => void
   isDisabled?: boolean
 }
@@ -11,7 +11,7 @@ const SecondaryButton: React.FC<ButtonAttributes> = ({ text, isDisabled, onClick
     onClicked?.()
   }
   return (
-    <Button variant='contained' color='secondary' onClick={handleClick} disabled={isDisabled} {...props}>
+    <Button variant='contained' color='secondary' onClick={handleClick} disabled={isDisabled} {...props} sx={{ width: 100 }}>
       {`${text}`}
     </Button>
   )

@@ -28,12 +28,15 @@ const Notes = () => {
       selectedNote: null,
       userProfile: { id: '', noteTitles: [] },
       viewMode: false,
+      filteredTitles: [],
+      search: '',
     }
     let user = await getUserCSR()
     if (user !== null) {
       const profile = (await getUserProfile(user.email)) as UserProfile
       if (profile) {
         model.noteTitles = profile.noteTitles
+        model.filteredTitles = profile.noteTitles
         model.username = user.email
         model.isLoading = false
         model.userProfile = profile

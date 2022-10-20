@@ -1,6 +1,7 @@
 import { TextField } from '@aws-amplify/ui-react'
 import { Box, Button, Divider, Stack, Typography } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
@@ -25,6 +26,8 @@ export interface UserNotesModel {
   editMode: boolean
   viewMode: boolean
   userProfile: UserProfile
+  filteredTitles: UserNote[]
+  search: string
 }
 type ActionTypes =
   | { type: 'reload'; payload: { noteTitles: UserNote[] } }
@@ -33,11 +36,25 @@ type ActionTypes =
   | { type: 'cancel-edit' }
   | { type: 'set-loading'; payload: { isLoading: boolean } }
   | { type: 'save-note'; payload: { noteTitles: UserNote[] } }
+  | { type: 'search'; payload: { search: string } }
+
+function applyFilter(list: UserNote[], search: string) {
+  return filter(list, (e) => {
+    return e.title.toLocaleLowerCase().includes(search.toLowerCase())
+  })
+}
 
 function reducer(state: UserNotesModel, action: ActionTypes) {
   switch (action.type) {
     case 'reload':
-      return { ...state, editMode: false, noteTitles: orderBy(action.payload.noteTitles, ['dateModified'], ['desc']), isLoading: false, viewMode: false }
+      return {
+        ...state,
+        editMode: false,
+        noteTitles: orderBy(action.payload.noteTitles, ['dateModified'], ['desc']),
+        isLoading: false,
+        viewMode: false,
+        filteredTitles: applyFilter(state.noteTitles, state.search),
+      }
     case 'edit-note':
       return { ...state, editMode: true, selectedNote: action.payload.selectedNote, viewMode: false, isLoading: false }
     case 'view-note':
@@ -48,6 +65,8 @@ function reducer(state: UserNotesModel, action: ActionTypes) {
       return { ...state, editMode: false, selectedNote: null, viewMode: false }
     case 'set-loading':
       return { ...state, isLoading: action.payload.isLoading }
+    case 'search':
+      return { ...state, filteredTitles: applyFilter(state.noteTitles, action.payload.search) }
     default: {
       throw 'invalid type'
     }
@@ -140,7 +159,7 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
   }
 
   const handleSearch = async (text: string) => {
-    console.log(text)
+    dispatch({ type: 'search', payload: { search: text } })
   }
 
   return (
@@ -148,21 +167,23 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
       <CenterStack>
         <CenteredTitle title={'My Notes'}></CenteredTitle>
       </CenterStack>
-      <Box display='flex' flexDirection='row' sx={{ py: 2 }}>
-        <Stack flexDirection='row' gap={4}>
-          <Button color='secondary' size='small' variant='contained' onClick={handleAddNote} disabled={model.isLoading || model.editMode}>
-            {'add note'}
-          </Button>
+      <Box sx={{ py: 2 }}>
+        <CenterStack>
           <SearchWithinList onChanged={handleSearch} disabled={model.isLoading || model.editMode} text='search notes' />
           {/* <TextField size='small' label={''} placeholder='search notes' disabled={model.isLoading || model.editMode}></TextField> */}
-        </Stack>
+        </CenterStack>
       </Box>
       <Divider />
+      {!model.editMode && !model.viewMode && (
+        <Box py={2}>
+          <SecondaryButton text='new' onClick={handleAddNote} disabled={model.isLoading || model.editMode} />
+        </Box>
+      )}
       {model.isLoading ? (
         <WarmupBox text={'loading...'} />
       ) : !model.editMode ? (
         model.selectedNote === null ? (
-          <NoteList data={model.noteTitles} onClicked={handleNoteTitleClick} onDelete={handleDelete} />
+          <NoteList data={model.filteredTitles} onClicked={handleNoteTitleClick} onDelete={handleDelete} />
         ) : (
           model.viewMode && model.selectedNote && <ViewNote selectedNote={model.selectedNote} onEdit={handleEditNote} onCancel={handleCancelClick} />
         )

@@ -1,5 +1,6 @@
 import { Box, TextField, Button, FormControl, useTheme, createTheme, TextareaAutosize } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import theme, { CasinoGrayTransparent } from 'components/themes/mainTheme'
 import { UserNote } from 'lib/models/randomStuffModels'
@@ -54,10 +55,8 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
           <HtmlEditor value={bodyText} onChanged={handleBodyChange} />
         </CenterStack>
 
-        <CenterStack sx={{ py: 2 }}>
-          <Button color='secondary' variant='outlined' onClick={handleCancelClick}>
-            cancel
-          </Button>
+        <CenterStack sx={{ py: 2, gap: 2 }}>
+          <SecondaryButton text={'cancel'} onClick={handleCancelClick} />
           <PrimaryButton onClick={handleSave} text='save' sx={{ ml: 3 }}></PrimaryButton>
         </CenterStack>
       </Box>
