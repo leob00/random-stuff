@@ -1,4 +1,5 @@
 import { UserNote } from 'lib/models/randomStuffModels'
+import { ApiError } from 'next/dist/server/api-utils'
 import { LambdaBody, LambdaDynamoRequest, LambdaResponse, UserProfile } from '../api/aws/apiGateway'
 import { axiosGet, axiosPut } from '../api/aws/useAxios'
 import { constructUserNoteCategoryKey, constructUserProfileKey } from '../api/aws/util'
@@ -39,12 +40,26 @@ export async function getUserProfile(username: string) {
   try {
     let data = await axiosGet(`/api/randomStuff?id=${key}`)
     if (data) {
-      result = data
-      // console.log(result)
-      return result
+      let parsed = data as UserProfile
+      if (parsed) {
+        return parsed
+      } else {
+        const err: ApiError = {
+          statusCode: 500,
+          name: 'failed to parse user profile',
+          message: `${JSON.stringify(data)}`,
+        }
+        return err
+      }
     }
   } catch (err) {
     console.log(err)
+    const error: ApiError = {
+      statusCode: 500,
+      name: 'failed to get user profile',
+      message: `${JSON.stringify(err)}`,
+    }
+    return error
   }
   return result
 }

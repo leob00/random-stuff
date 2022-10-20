@@ -2,7 +2,7 @@ import { Button } from '@mui/material'
 import router from 'next/router'
 import React from 'react'
 
-const BackButton = ({ onClicked }: { onClicked?: () => void }) => {
+const BackButton = ({ onClicked }: { onClicked: () => void }) => {
   const handleClick = () => {
     onClicked?.()
   }

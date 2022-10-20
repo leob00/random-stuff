@@ -3,6 +3,7 @@ import { Box, Button, Divider, Stack, Typography } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
+import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { CasinoBlueTransparent, CasinoGrayTransparent } from 'components/themes/mainTheme'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
@@ -31,7 +32,7 @@ type ActionTypes =
   | { type: 'view-note'; payload: { selectedNote: UserNote | null } }
   | { type: 'cancel-edit' }
   | { type: 'set-loading'; payload: { isLoading: boolean } }
-  | { type: 'save-note'; payload: { noteList: UserNote[] } }
+  | { type: 'save-note'; payload: { noteTitles: UserNote[] } }
 
 function reducer(state: UserNotesModel, action: ActionTypes) {
   switch (action.type) {
@@ -42,7 +43,7 @@ function reducer(state: UserNotesModel, action: ActionTypes) {
     case 'view-note':
       return { ...state, editMode: false, selectedNote: action.payload.selectedNote, viewMode: true, isLoading: false }
     case 'save-note':
-      return { ...state, editMode: false, noteTitles: action.payload.noteList, isLoading: false, viewMode: true }
+      return { ...state, editMode: false, noteTitles: action.payload.noteTitles, isLoading: false, viewMode: true }
     case 'cancel-edit':
       return { ...state, editMode: false, selectedNote: null, viewMode: false }
     case 'set-loading':
@@ -111,7 +112,7 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
     await putUserProfile(model.userProfile)
     await putUserNote(item, constructUserNoteCategoryKey(model.username))
     //console.log('date mod: ', item.dateModified)
-    dispatch({ type: 'save-note', payload: { noteList: notes } })
+    dispatch({ type: 'save-note', payload: { noteTitles: notes } })
   }
   const handleCancelClick = async () => {
     if (model.selectedNote && model.selectedNote.id && !model.viewMode) {
@@ -138,6 +139,10 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
     dispatch({ type: 'reload', payload: { noteTitles: noteTitles } })
   }
 
+  const handleSearch = async (text: string) => {
+    console.log(text)
+  }
+
   return (
     <>
       <CenterStack>
@@ -148,7 +153,8 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
           <Button color='secondary' size='small' variant='contained' onClick={handleAddNote} disabled={model.isLoading || model.editMode}>
             {'add note'}
           </Button>
-          <TextField size='small' label={''} placeholder='search notes' disabled={model.isLoading || model.editMode}></TextField>
+          <SearchWithinList onChanged={handleSearch} disabled={model.isLoading || model.editMode} text='search notes' />
+          {/* <TextField size='small' label={''} placeholder='search notes' disabled={model.isLoading || model.editMode}></TextField> */}
         </Stack>
       </Box>
       <Divider />

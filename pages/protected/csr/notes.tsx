@@ -1,11 +1,14 @@
 import { Container } from '@mui/material'
+import BackButton from 'components/Atoms/Buttons/BackButton'
 import LargeSpinner from 'components/Atoms/Loaders/LargeSpinner'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import UserNotesLayout, { UserNotesModel } from 'components/Organizms/user/UserNotesLayout'
+import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
 import { getUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { UserNote } from 'lib/models/randomStuffModels'
 import React from 'react'
+import router from 'next/router'
 
 const Notes = () => {
   // const [state, dispatch] = React.useReducer(reducer, defaultState)
@@ -28,7 +31,7 @@ const Notes = () => {
     }
     let user = await getUserCSR()
     if (user !== null) {
-      const profile = await getUserProfile(user.email)
+      const profile = (await getUserProfile(user.email)) as UserProfile
       if (profile) {
         model.noteTitles = profile.noteTitles
         model.username = user.email
@@ -50,7 +53,16 @@ const Notes = () => {
       fn()
     }
   }, [reload])
-  return <Container> {model ? <UserNotesLayout data={model} /> : <LargeSpinner />}</Container>
+  return (
+    <Container>
+      <BackButton
+        onClicked={() => {
+          router.push('/protected/csr')
+        }}
+      />{' '}
+      {model ? <UserNotesLayout data={model} /> : <LargeSpinner />}
+    </Container>
+  )
 }
 
 export default Notes

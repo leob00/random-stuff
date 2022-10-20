@@ -10,6 +10,7 @@ import LargeSpinner from 'components/Atoms/Loaders/LargeSpinner'
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { Divider } from '@aws-amplify/ui-react'
 import WarmupBox from 'components/Atoms/WarmupBox'
+import { ApiError } from 'next/dist/server/api-utils'
 
 const UserDashboardLayout = ({ username }: { username: string | undefined }) => {
   const [isLoading, setIsLoading] = React.useState(true)
@@ -25,7 +26,12 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
         noteTitles: [],
       }
       let profile = await getUserProfile(userId)
-      //console.log('profile', profile)
+      if (profile instanceof ApiError) {
+        setIsLoading(false)
+        setUserProfile(null)
+        return
+      }
+
       if (profile === null) {
         await putUserProfile(userProfile)
       } else {
