@@ -42,3 +42,18 @@ export async function getUserProfile(username: string) {
   }
   return result
 }
+export async function getUserNote(id?: string) {
+  let result: UserNote | null = null
+
+  try {
+    let data = await axiosGet(`/api/randomStuff?id=${id}`)
+    if (data) {
+      result = data
+      // console.log(result)
+      return result
+    }
+  } catch (err) {
+    console.log(err)
+  }
+  return result
+}

@@ -1,19 +1,19 @@
 import { TextField } from '@aws-amplify/ui-react'
-import { Delete } from '@mui/icons-material'
-import { Box, Button, Divider, Stack } from '@mui/material'
-import InternalLinkButton from 'components/Atoms/Buttons/InternalLinkButton'
-import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import { Box, Button, Divider, Stack, Typography } from '@mui/material'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
 import WarmupBox from 'components/Atoms/WarmupBox'
+import { CasinoBlueTransparent, CasinoGrayTransparent } from 'components/themes/mainTheme'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
-import { constructUserNotePrimaryKey } from 'lib/backend/api/aws/util'
-import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
+import { constructUserNoteCategoryKey, constructUserNotePrimaryKey } from 'lib/backend/api/aws/util'
+import { getUserNote, putUserNote, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { getUtcNow } from 'lib/util/dateUtil'
-import { cloneDeep, findIndex, findLast, orderBy } from 'lodash'
+import { cloneDeep, findIndex, orderBy } from 'lodash'
 import React from 'react'
 import EditNote from './EditNote'
+import NoteList from './NoteList'
 
 export interface UserNotesModel {
   noteTitles: UserNote[]
@@ -26,6 +26,7 @@ export interface UserNotesModel {
 type ActionTypes =
   | { type: 'reload'; payload: { noteTitles: UserNote[] } }
   | { type: 'edit-note'; payload: { selectedNote: UserNote | null } }
+  | { type: 'view-note'; payload: { selectedNote: UserNote } }
   | { type: 'cancel-edit' }
   | { type: 'set-loading'; payload: { isLoading: boolean } }
   | { type: 'save-note'; payload: { noteList: UserNote[] } }
@@ -36,10 +37,12 @@ function reducer(state: UserNotesModel, action: ActionTypes) {
       return { ...state, editMode: false, noteTitles: orderBy(action.payload.noteTitles, ['dateModified'], ['desc']), isLoading: false }
     case 'edit-note':
       return { ...state, editMode: true, selectedNote: action.payload.selectedNote }
+    case 'view-note':
+      return { ...state, editMode: false, selectedNote: action.payload.selectedNote }
     case 'save-note':
       return { ...state, editMode: false, noteTitles: action.payload.noteList, isLoading: false }
     case 'cancel-edit':
-      return { ...state, editMode: false }
+      return { ...state, editMode: false, selectedNote: null }
     case 'set-loading':
       return { ...state, isLoading: action.payload.isLoading }
 
@@ -66,6 +69,14 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
     })
     //router.push(`/protected/csr/note`)
   }
+  const handleEditNote = async (item: UserNote) => {
+    dispatch({
+      type: 'edit-note',
+      payload: {
+        selectedNote: item,
+      },
+    })
+  }
 
   const handleSaveNote = async (item: UserNote) => {
     //console.log(item)
@@ -75,7 +86,7 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
       notes.push({
         id: item.id,
         title: item.title,
-        body: item.body,
+        body: '',
         dateCreated: getUtcNow().format(),
         dateModified: getUtcNow().format(),
       })
@@ -84,15 +95,22 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
         return e.id === item.id
       })
       if (existingIx) {
-        notes.splice(existingIx, 1)
         item.dateModified = getUtcNow().format()
-        notes.push(item)
+        notes.splice(existingIx, 1)
+        notes.push({
+          id: item.id,
+          title: item.title,
+          body: '',
+          dateCreated: item.dateCreated,
+          dateModified: item.dateModified,
+        })
       }
     }
     notes = orderBy(notes, ['dateModified'], ['desc'])
     model.userProfile.noteTitles = notes
     dispatch({ type: 'set-loading', payload: { isLoading: true } })
     await putUserProfile(model.userProfile)
+    await putUserNote(item, constructUserNoteCategoryKey(model.username))
     dispatch({ type: 'save-note', payload: { noteList: notes } })
 
     //dispatch({ type: 'cancel-edit' })
@@ -100,9 +118,11 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
   const handleCancelClick = async () => {
     dispatch({ type: 'cancel-edit' })
   }
-  const handleNoteTitleClick = (item: UserNote) => {
-    console.log(item)
-    dispatch({ type: 'edit-note', payload: { selectedNote: item } })
+  const handleNoteTitleClick = async (item: UserNote) => {
+    //console.log(item)
+    let note = await getUserNote(item.id)
+    console.log('view note: ', note)
+    dispatch({ type: 'view-note', payload: { selectedNote: item } })
   }
 
   return (
@@ -123,30 +143,31 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
       {model.isLoading ? (
         <WarmupBox />
       ) : !model.editMode ? (
-        <CenterStack sx={{ py: 2 }}>
-          <Box sx={{ width: '80%' }}>
-            {model.noteTitles.map((item, i) => (
-              <Box key={i}>
-                <Stack direction='row' flexGrow={1} gap={2} py={3} pl={2}>
-                  <LinkButton
-                    onClick={() => {
-                      handleNoteTitleClick(item)
-                    }}
-                  >
-                    {item.title}
-                  </LinkButton>
-                  <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end'>
-                    <Button size='small'>
-                      <Delete color='error' />
-                    </Button>
-                  </Stack>
-                </Stack>
-
-                <Divider />
-              </Box>
-            ))}
+        model.selectedNote === null ? (
+          <NoteList data={model.noteTitles} onClicked={handleNoteTitleClick} />
+        ) : (
+          <Box sx={{ py: 2 }}>
+            <CenterStack sx={{ py: 2 }}>
+              <Typography variant='subtitle1'>{model.selectedNote.title}</Typography>
+            </CenterStack>
+            <CenterStack sx={{ py: 2 }}>
+              <Typography variant='body1' dangerouslySetInnerHTML={{ __html: model.selectedNote.body }}></Typography>
+            </CenterStack>
+            <Divider sx={{ pb: 4 }} />
+            <CenterStack sx={{ py: 2 }}>
+              <Button color='secondary' variant='outlined' onClick={handleCancelClick}>
+                close
+              </Button>
+              <PrimaryButton
+                text='edit'
+                onClick={() => {
+                  handleEditNote(model.selectedNote!)
+                }}
+                sx={{ ml: 2 }}
+              ></PrimaryButton>
+            </CenterStack>
           </Box>
-        </CenterStack>
+        )
       ) : (
         model.selectedNote && <EditNote item={model.selectedNote} onCanceled={handleCancelClick} onSubmitted={handleSaveNote} />
       )}
