@@ -1,6 +1,7 @@
 import { Box, Typography, Divider, Button } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
+import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
 import React from 'react'
 
@@ -8,7 +9,10 @@ const ViewNote = ({ selectedNote, onEdit, onCancel }: { selectedNote: UserNote; 
   return (
     <Box sx={{ py: 2 }}>
       <CenterStack sx={{ py: 2 }}>
-        <Typography variant='subtitle1'>{selectedNote.title}</Typography>
+        <Typography variant='h5'>{`${selectedNote.title}`}</Typography>
+      </CenterStack>
+      <CenterStack sx={{}}>
+        <Typography variant='body2'>{`updated: ${dayjs(selectedNote.dateModified).format('MM/DD/YYYY hh:mm a')}`}</Typography>
       </CenterStack>
       <CenterStack sx={{ py: 2 }}>
         <Typography variant='body1' dangerouslySetInnerHTML={{ __html: selectedNote.body }}></Typography>

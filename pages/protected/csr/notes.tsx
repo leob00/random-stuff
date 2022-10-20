@@ -34,17 +34,12 @@ const Notes = () => {
         model.username = user.email
         model.isLoading = false
         model.userProfile = profile
-
-        //dispatch({ type: 'reload'}, {payload: {}} )
-        //setAllNotes(profile.noteTitles)
         setModel(model)
       }
     } else {
       console.log('not logged in')
     }
-    //setIsLoading(false)
     setIsLoggedIn(user !== null)
-    //setReload(false)
   }
 
   React.useEffect(() => {

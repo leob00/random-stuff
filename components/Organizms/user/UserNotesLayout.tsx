@@ -94,22 +94,23 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
         return e.id === item.id
       })
       if (existingIx) {
-        item.dateModified = getUtcNow().format()
         notes.splice(existingIx, 1)
         notes.push({
           id: item.id,
           title: item.title,
           body: '',
           dateCreated: item.dateCreated,
-          dateModified: item.dateModified,
+          dateModified: getUtcNow().format(),
         })
       }
     }
+    item.dateModified = getUtcNow().format()
     notes = orderBy(notes, ['dateModified'], ['desc'])
     model.userProfile.noteTitles = notes
     dispatch({ type: 'set-loading', payload: { isLoading: true } })
     await putUserProfile(model.userProfile)
     await putUserNote(item, constructUserNoteCategoryKey(model.username))
+    //console.log('date mod: ', item.dateModified)
     dispatch({ type: 'save-note', payload: { noteList: notes } })
   }
   const handleCancelClick = async () => {
