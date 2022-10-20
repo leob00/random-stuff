@@ -31,7 +31,7 @@ const Protected = () => {
         ) : (
           authUser.email && (
             <Box sx={{ py: 2 }}>
-              <CenteredHeader title={`Welcome back, ${authUser.email.substring(0, authUser.email.indexOf('@'))}!`} description={'what would you like to do?'} />
+              <CenteredHeader title={`Welcome back, ${authUser.email.substring(0, authUser.email.indexOf('@'))}!`} description={''} />
               <UserDashboardLayout username={authUser.email} />
             </Box>
           )

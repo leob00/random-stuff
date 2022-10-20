@@ -9,6 +9,7 @@ import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import LargeSpinner from 'components/Atoms/Loaders/LargeSpinner'
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { Divider } from '@aws-amplify/ui-react'
+import WarmupBox from 'components/Atoms/WarmupBox'
 
 const UserDashboardLayout = ({ username }: { username: string | undefined }) => {
   const [isLoading, setIsLoading] = React.useState(true)
@@ -28,9 +29,9 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
       if (profile === null) {
         await putUserProfile(userProfile)
       } else {
-        userProfile.noteTitles = userProfile.noteTitles ?? []
+        userProfile.noteTitles = profile.noteTitles
       }
-      console.log(userProfile)
+      //console.log(userProfile)
       setIsLoading(false)
       setUserProfile(userProfile)
     }
@@ -46,7 +47,7 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
   }, [])
   return (
     <Box sx={{ my: 2 }}>
-      {isLoading && <LargeSpinner />}
+      {isLoading && <WarmupBox />}
       {userProfile && (
         <>
           <CenterStack sx={{ py: 1 }}>

@@ -34,6 +34,7 @@ export async function getUserProfile(username: string) {
     let data = await axiosGet(`/api/randomStuff?id=${key}`)
     if (data) {
       result = data
+      // console.log(result)
       return result
     }
   } catch (err) {

@@ -35,7 +35,7 @@ const UserLogin = () => {
       case 'signIn':
         setIsLoggedIn(true)
         //api/login()
-        router.push('/ssg/waitandredirect?id=protected/csr')
+        router.push('/protected/csr')
         setUsername(user.email)
         break
     }

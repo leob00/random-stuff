@@ -23,6 +23,7 @@ const Notes = () => {
       username: '',
       editMode: false,
       selectedNote: null,
+      userProfile: { id: '', noteTitles: [] },
     }
     let user = await getUserCSR()
     if (user !== null) {
@@ -31,6 +32,7 @@ const Notes = () => {
         model.noteTitles = profile.noteTitles
         model.username = user.email
         model.isLoading = false
+        model.userProfile = profile
 
         //dispatch({ type: 'reload'}, {payload: {}} )
         //setAllNotes(profile.noteTitles)

@@ -40,7 +40,7 @@ const Protected: NextPage<PageProps> = ({ authenticated, username }) => {
           renderNotLoggedIn()
         ) : (
           <Box sx={{ py: 2 }}>
-            <CenteredHeader title={`Welcome back, ${username?.substring(0, username.indexOf('@'))}!`} description={'what would you like to do?'} />
+            <CenteredHeader title={`Welcome back, ${username?.substring(0, username.indexOf('@'))}!`} description={''} />
             <UserDashboardLayout username={username} />
           </Box>
         )}
