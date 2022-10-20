@@ -24,6 +24,7 @@ const Notes = () => {
       editMode: false,
       selectedNote: null,
       userProfile: { id: '', noteTitles: [] },
+      viewMode: false,
     }
     let user = await getUserCSR()
     if (user !== null) {
