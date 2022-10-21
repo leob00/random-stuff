@@ -122,7 +122,7 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
       const existingIx = findIndex(notes, (e) => {
         return e.id === item.id
       })
-      if (existingIx) {
+      if (existingIx > -1) {
         notes.splice(existingIx, 1)
         notes.push({
           id: item.id,

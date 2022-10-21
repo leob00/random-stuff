@@ -57,7 +57,7 @@ const LoggedInUserMenu = ({ username, onLogOut }: { username: string; onLogOut: 
           sx={{ color: VeryLightBlue }}
           onClick={() => {
             handleClose()
-            router.push('/ssg/waitandredirect?id=protected/csr')
+            router.push('/protected/csr')
           }}
         >
           profile
