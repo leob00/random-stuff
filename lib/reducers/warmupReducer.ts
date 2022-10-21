@@ -4,18 +4,14 @@ export interface Model {
   message: string
 }
 
-export interface ActionType {
-  type: ActionTypes
-}
+export type ActionTypes = { type: 'refresh'; payload: { message: string } } | { type: 'init' }
 
-export type ActionTypes = 'generate' | 'init'
-
-export function warmupReducer(state: Model, action: ActionType): Model {
+export function warmupReducer(state: Model, action: ActionTypes): Model {
   switch (action.type) {
     case 'init':
       return { ...state }
-    case 'generate':
-      return { ...state, message: getRandomLoadertext() }
+    case 'refresh':
+      return { ...state, message: action.payload.message }
 
     default:
       throw new Error()

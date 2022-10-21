@@ -2,13 +2,17 @@ import { Container } from '@mui/material'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import LargeSpinner from 'components/Atoms/Loaders/LargeSpinner'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
-import UserNotesLayout, { UserNotesModel } from 'components/Organizms/user/UserNotesLayout'
+import UserNotesLayout from 'components/Organizms/user/UserNotesLayout'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
 import { getUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { UserNote } from 'lib/models/randomStuffModels'
 import React from 'react'
 import router from 'next/router'
+import { UserNotesModel } from 'components/reducers/notesReducer'
+import CenterStack from 'components/Atoms/CenterStack'
+import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
+import WarmupBox from 'components/Atoms/WarmupBox'
 
 const Notes = () => {
   // const [state, dispatch] = React.useReducer(reducer, defaultState)
@@ -62,7 +66,10 @@ const Notes = () => {
         onClicked={() => {
           router.push('/protected/csr')
         }}
-      />{' '}
+      />
+      <CenterStack>
+        <CenteredTitle title={'My Notes'}></CenteredTitle>
+      </CenterStack>
       {model ? <UserNotesLayout data={model} /> : <LargeSpinner />}
     </Container>
   )

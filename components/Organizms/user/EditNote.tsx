@@ -40,38 +40,29 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
     //console.log(text)
   }
   return item ? (
-    <form
-      onSubmit={(e) => {
-        handleSubmit(e)
-      }}
-    >
-      <Box sx={{ py: 2 }} component='form'>
-        <CenterStack>
-          <TextField
-            inputRef={title}
-            defaultValue={item.title}
-            size='small'
-            label={'title'}
-            placeholder='title'
-            sx={{ width: '50%' }}
-            onChange={handleTitleChange}
-            required
-            error={titleError}
-          />
-        </CenterStack>
-        {/* <CenterStack sx={{ py: 2 }}>
-          <TextField inputRef={body} defaultValue={item.body} label={''} placeholder='text' sx={{ width: '50%' }} multiline rows={10} />
-        </CenterStack> */}
-        <CenterStack sx={{ py: 2, minHeight: 280 }}>
-          <HtmlEditor value={bodyText} onChanged={handleBodyChange} />
-        </CenterStack>
+    <Box sx={{ py: 2 }} component='form'>
+      <CenterStack>
+        <TextField
+          inputRef={title}
+          defaultValue={item.title}
+          size='small'
+          label={'title'}
+          placeholder='title'
+          sx={{ width: '50%' }}
+          onChange={handleTitleChange}
+          required
+          error={titleError}
+        />
+      </CenterStack>
+      <CenterStack sx={{ py: 2, minHeight: 280 }}>
+        <HtmlEditor value={bodyText} onChanged={handleBodyChange} />
+      </CenterStack>
 
-        <CenterStack sx={{ py: 2, gap: 2 }}>
-          <SecondaryButton text={'cancel'} onClick={handleCancelClick} />
-          <PrimaryButton onClick={handleSave} text='save' sx={{ ml: 3 }}></PrimaryButton>
-        </CenterStack>
-      </Box>
-    </form>
+      <CenterStack sx={{ py: 2, gap: 2 }}>
+        <SecondaryButton text={'cancel'} onClick={handleCancelClick} />
+        <PrimaryButton onClick={handleSave} text='save' sx={{ ml: 3 }}></PrimaryButton>
+      </CenterStack>
+    </Box>
   ) : (
     <></>
   )
