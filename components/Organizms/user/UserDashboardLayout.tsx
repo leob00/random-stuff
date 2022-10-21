@@ -49,8 +49,10 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
       setCurrTime(time)
       await loadData(username)
     }
-    fn()
-  }, [])
+    if (username) {
+      fn()
+    }
+  }, [username])
   return (
     <Box sx={{ my: 2 }}>
       {isLoading && <WarmupBox />}

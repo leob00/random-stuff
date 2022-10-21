@@ -176,17 +176,18 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
       <CenterStack>
         <CenteredTitle title={'My Notes'}></CenteredTitle>
       </CenterStack>
-      <Box sx={{ py: 2 }}>
-        <CenterStack>
-          <SearchWithinList onChanged={handleSearch} disabled={model.isLoading || model.editMode} text='search notes' defaultValue={model.search} />
-          {/* <TextField size='small' label={''} placeholder='search notes' disabled={model.isLoading || model.editMode}></TextField> */}
-        </CenterStack>
-      </Box>
+      {!model.editMode && !model.viewMode && (
+        <Box sx={{ py: 2 }}>
+          <CenterStack>
+            <SearchWithinList onChanged={handleSearch} disabled={model.isLoading || model.editMode} text='search notes' defaultValue={model.search} />
+          </CenterStack>
+        </Box>
+      )}
       <Divider />
       {!model.editMode && !model.viewMode && (
-        <Box py={2}>
-          <SecondaryButton text='new' onClick={handleAddNote} disabled={model.isLoading || model.editMode} />
-        </Box>
+        <CenterStack sx={{ py: 2 }}>
+          <SecondaryButton text='add note' onClick={handleAddNote} disabled={model.isLoading || model.editMode} />
+        </CenterStack>
       )}
       {model.isLoading ? (
         <WarmupBox text={'loading...'} />

@@ -11,7 +11,7 @@ const PrimaryButton: React.FC<ButtonAttributes> = ({ text, isDisabled, onClicked
     onClicked?.()
   }
   return (
-    <Button variant='contained' color='primary' onClick={handleClick} disabled={isDisabled} {...props} sx={{ width: 100 }}>
+    <Button variant='contained' color='primary' onClick={handleClick} disabled={isDisabled} {...props} sx={{ minWidth: 100 }}>
       {`${text}`}
     </Button>
   )

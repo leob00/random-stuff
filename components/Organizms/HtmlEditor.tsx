@@ -1,9 +1,11 @@
 import React from 'react'
 import 'react-quill/dist/quill.snow.css'
 import dynamic from 'next/dynamic'
+import WarmupBox from 'components/Atoms/WarmupBox'
+
 const QuillNoSSRWrapper = dynamic(import('react-quill'), {
   ssr: false,
-  loading: () => <p>Loading ...</p>,
+  loading: () => <WarmupBox />,
 })
 
 const HtmlEditor = ({ value, onChanged }: { value: string; onChanged: (text: string) => void }) => {
