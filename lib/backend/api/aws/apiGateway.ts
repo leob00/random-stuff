@@ -134,13 +134,13 @@ export async function putRandomStuff(type: DynamoKeys, category: CategoryType, d
 export async function deleteRandomStuff(key: string) {
   const url = `${baseUrl}/deleterandomstuff?key=${key}`
 
-  console.log('deleteting item: ', key)
+  //console.log('deleteing item: ', key)
   let params = {
     key: key,
   }
   try {
     let resp = await axiosPut(url, params)
-    console.log(resp)
+    //console.log(resp)
   } catch (error) {
     console.log('error in deleteRandomStuff', error)
   }

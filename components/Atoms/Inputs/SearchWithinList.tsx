@@ -7,15 +7,17 @@ const SearchWithinList = ({
   width = 220,
   disabled = false,
   text = 'search in results',
+  defaultValue = '',
 }: {
   onChanged?: (text: string) => void
   width?: number
   disabled?: boolean
   text?: string
+  defaultValue?: string
 }) => {
   const textRef = React.useRef<HTMLInputElement | null>(null)
 
-  const [search, setSearch] = React.useState('')
+  const [search, setSearch] = React.useState(defaultValue ?? '')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.currentTarget.value)

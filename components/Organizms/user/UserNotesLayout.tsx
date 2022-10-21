@@ -53,14 +53,23 @@ function reducer(state: UserNotesModel, action: ActionTypes) {
         noteTitles: orderBy(action.payload.noteTitles, ['dateModified'], ['desc']),
         isLoading: false,
         viewMode: false,
-        filteredTitles: applyFilter(state.noteTitles, state.search),
+        filteredTitles: orderBy(action.payload.noteTitles, ['dateModified'], ['desc']),
+        search: '',
       }
     case 'edit-note':
       return { ...state, editMode: true, selectedNote: action.payload.selectedNote, viewMode: false, isLoading: false }
     case 'view-note':
       return { ...state, editMode: false, selectedNote: action.payload.selectedNote, viewMode: true, isLoading: false }
     case 'save-note':
-      return { ...state, editMode: false, noteTitles: action.payload.noteTitles, isLoading: false, viewMode: true }
+      return {
+        ...state,
+        editMode: false,
+        noteTitles: action.payload.noteTitles,
+        isLoading: false,
+        viewMode: true,
+        search: '',
+        filteredTitles: action.payload.noteTitles,
+      }
     case 'cancel-edit':
       return { ...state, editMode: false, selectedNote: null, viewMode: false }
     case 'set-loading':
@@ -169,7 +178,7 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
       </CenterStack>
       <Box sx={{ py: 2 }}>
         <CenterStack>
-          <SearchWithinList onChanged={handleSearch} disabled={model.isLoading || model.editMode} text='search notes' />
+          <SearchWithinList onChanged={handleSearch} disabled={model.isLoading || model.editMode} text='search notes' defaultValue={model.search} />
           {/* <TextField size='small' label={''} placeholder='search notes' disabled={model.isLoading || model.editMode}></TextField> */}
         </CenterStack>
       </Box>
