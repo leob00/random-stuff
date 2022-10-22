@@ -39,11 +39,6 @@ const UserLogin = () => {
         const user = { email: payload.data?.attributes.email }
         setIsLoggedIn(true)
         setUsername(user.email)
-        let profile = await getUserProfile(user.email)
-        if (profile instanceof ApiError) {
-          console.log('error in getting user profile: ', JSON.stringify(profile))
-          return
-        }
         router.push('/ssg/waitandredirect?id=protected/csr')
         break
       case 'signUp':
@@ -102,9 +97,9 @@ const UserLogin = () => {
             </>
           ) : (
             <>
-              <Button onClick={handleLoginClick}>
-                <Person />
-                sign in
+              <Button onClick={handleLoginClick} size='small' sx={{}}>
+                <Person fontSize='small' />
+                login
               </Button>
             </>
           )}

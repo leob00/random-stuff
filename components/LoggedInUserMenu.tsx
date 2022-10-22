@@ -28,7 +28,8 @@ const LoggedInUserMenu = ({ username, onLogOut }: { username: string; onLogOut: 
       <Stack sx={{ display: 'flex' }} flexDirection='row'>
         {/* <Typography variant='body2' sx={{ paddingTop: 1 }}>{`${username.substring(0, username.lastIndexOf('@'))}`}</Typography> */}
         <Button
-          sx={{ display: 'flex' }}
+          size='small'
+          //sx={{ display: 'flex' }}
           id='basic-button'
           variant='text'
           aria-controls={open ? 'basic-menu' : undefined}
@@ -36,7 +37,7 @@ const LoggedInUserMenu = ({ username, onLogOut }: { username: string; onLogOut: 
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
         >
-          <Person />
+          <Person fontSize='small' />
         </Button>
       </Stack>
 

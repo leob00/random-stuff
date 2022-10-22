@@ -50,7 +50,7 @@ const Header = () => {
                   </Link>
                 </NLink>
               </Grid>
-              <Grid item display={{ xs: 'none', sm: 'block', md: 'block', lg: 'block', xl: 'block' }}>
+              <Grid item display={{ xs: 'block', sm: 'block' }}>
                 <DarkMode>
                   <Button
                     onClick={() => {
