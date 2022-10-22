@@ -1,5 +1,5 @@
 import { Delete } from '@mui/icons-material'
-import { Box, Stack, Button, Divider, Dialog, DialogTitle, DialogContent } from '@mui/material'
+import { Box, Stack, Button, Divider, Dialog, DialogTitle, DialogContent, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
@@ -23,7 +23,7 @@ const NoteList = ({ data, onClicked, onDelete }: { data: UserNote[]; onClicked: 
     }
   }
   return (
-    <CenterStack sx={{ py: 2 }}>
+    <Box sx={{ py: 2 }}>
       <ConfirmDeleteDialog
         show={showConfirm}
         title={'confirm delete'}
@@ -33,16 +33,19 @@ const NoteList = ({ data, onClicked, onDelete }: { data: UserNote[]; onClicked: 
           setShowConfirm(false)
         }}
       />
-      <Box sx={{ width: '80%' }}>
+      <Box>
         {data.map((item, i) => (
-          <Box key={i}>
-            <Stack direction='row' flexGrow={1} gap={2} py={3} pl={2}>
+          <Box key={i} textAlign='left'>
+            <Stack direction='row' flexGrow={1} gap={2} py={3}>
               <LinkButton
+                sx={{}}
                 onClick={() => {
                   handleNoteTitleClick(item)
                 }}
               >
-                {item.title}
+                <Typography textAlign={'left'} variant='subtitle1'>
+                  {item.title}
+                </Typography>
               </LinkButton>
               <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end'>
                 <Button
@@ -59,7 +62,7 @@ const NoteList = ({ data, onClicked, onDelete }: { data: UserNote[]; onClicked: 
           </Box>
         ))}
       </Box>
-    </CenterStack>
+    </Box>
   )
 }
 
