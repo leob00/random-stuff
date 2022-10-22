@@ -32,12 +32,10 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
         return
       }
 
-      if (profile === null) {
-        await putUserProfile(userProfile)
-      } else {
+      if (profile !== null) {
         userProfile.noteTitles = profile.noteTitles
       }
-      //console.log(userProfile)
+
       setIsLoading(false)
       setUserProfile(userProfile)
     }

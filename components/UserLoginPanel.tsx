@@ -1,6 +1,10 @@
 import { Person } from '@mui/icons-material'
 import { Stack, Button } from '@mui/material'
 import { Auth, Hub } from 'aws-amplify'
+import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { constructUserProfileKey } from 'lib/backend/api/aws/util'
+import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
+import { ApiError } from 'next/dist/server/api-utils'
 import router from 'next/router'
 import React, { useEffect, useState } from 'react'
 import LoggedInUserMenu from './LoggedInUserMenu'
@@ -23,9 +27,8 @@ const UserLogin = () => {
     fn()
   }
 
-  const updateUser = (payload: HubPayload) => {
-    const user = { email: payload.data?.attributes.email }
-    console.log(JSON.stringify(user))
+  const updateUser = async (payload: HubPayload) => {
+    //console.log(JSON.stringify(user))
     switch (payload.event) {
       case 'signOut':
         setIsLoggedIn(false)
@@ -33,10 +36,28 @@ const UserLogin = () => {
         setUsername('')
         break
       case 'signIn':
+        const user = { email: payload.data?.attributes.email }
         setIsLoggedIn(true)
-        //api/login()
-        router.push('/protected/csr')
         setUsername(user.email)
+        let profile = await getUserProfile(user.email)
+        if (profile instanceof ApiError) {
+          console.log('error in getting user profile: ', JSON.stringify(profile))
+          return
+        }
+        router.push('/protected/csr')
+        break
+      case 'signUp':
+        console.log('creating profile')
+        const newUser = { email: payload.data?.attributes.email }
+        const newProfile: UserProfile = {
+          id: constructUserProfileKey(newUser.email),
+          noteTitles: [],
+        }
+        console.log('profile created')
+
+        await putUserProfile(newProfile)
+        break
+      case 'signIn_failure':
         break
     }
   }

@@ -1,7 +1,6 @@
 import { Container } from '@mui/material'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import LargeSpinner from 'components/Atoms/Loaders/LargeSpinner'
-import PleaseLogin from 'components/Molecules/PleaseLogin'
 import UserNotesLayout from 'components/Organizms/user/UserNotesLayout'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
@@ -12,15 +11,13 @@ import router from 'next/router'
 import { UserNotesModel } from 'components/reducers/notesReducer'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
-import WarmupBox from 'components/Atoms/WarmupBox'
 
 const Notes = () => {
   // const [state, dispatch] = React.useReducer(reducer, defaultState)
 
-  const [loggedIn, setIsLoggedIn] = React.useState(true)
+  const [, setIsLoggedIn] = React.useState(true)
   //const [isLoading, setIsLoading] = React.useState(true)
   const [reload, setReload] = React.useState(true)
-  const [allNotes, setAllNotes] = React.useState<UserNote[]>([])
   const [model, setModel] = React.useState<UserNotesModel | undefined>(undefined)
 
   const loadData = async () => {
