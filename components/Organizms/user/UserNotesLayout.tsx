@@ -159,22 +159,6 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
       ) : (
         model.selectedNote && (
           <>
-            <Stack display='flex' flexDirection='row' gap={1} justifyContent='flex-end'>
-              <Stack>
-                <Button
-                  onClick={() => {
-                    handleSaveNote(model.selectedNote!)
-                  }}
-                >
-                  <SaveSharp />
-                </Button>
-              </Stack>
-              <Stack>
-                <Button onClick={handleCancelClick}>
-                  <Cancel />
-                </Button>
-              </Stack>
-            </Stack>
             <EditNote item={model.selectedNote} onCanceled={handleCancelClick} onSubmitted={handleSaveNote} />
           </>
         )

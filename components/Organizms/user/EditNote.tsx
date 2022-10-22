@@ -1,4 +1,5 @@
-import { Box, TextField } from '@mui/material'
+import { SaveSharp, Cancel } from '@mui/icons-material'
+import { Box, Button, Stack, TextField } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
@@ -41,32 +42,46 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
     //console.log(text)
   }
   return item ? (
-    <Box sx={{ py: 2 }} component='form'>
-      <CenterStack>
-        <TextField
-          inputRef={title}
-          defaultValue={item.title}
-          size='small'
-          label={'title'}
-          placeholder='title'
-          sx={{ width: '50%' }}
-          onChange={handleTitleChange}
-          required
-          error={titleError}
-        />
-      </CenterStack>
-      {/* <CenterStack sx={{ py: 2, minHeight: 280 }}>
+    <>
+      <Stack display='flex' flexDirection='row' gap={1} justifyContent='flex-end'>
+        <Stack>
+          <Button onClick={handleSave}>
+            <SaveSharp />
+          </Button>
+        </Stack>
+        <Stack>
+          <Button onClick={handleCancelClick}>
+            <Cancel />
+          </Button>
+        </Stack>
+      </Stack>
+      <Box sx={{ py: 2 }} component='form'>
+        <CenterStack>
+          <TextField
+            inputRef={title}
+            defaultValue={item.title}
+            size='small'
+            label={'title'}
+            placeholder='title'
+            sx={{ width: '50%' }}
+            onChange={handleTitleChange}
+            required
+            error={titleError}
+          />
+        </CenterStack>
+        {/* <CenterStack sx={{ py: 2, minHeight: 280 }}>
         <HtmlEditor value={bodyText} onChanged={handleBodyChange} />
       </CenterStack> */}
-      <CenterStack sx={{ py: 2, minHeight: 280 }}>
-        <HtmlEditorQuill value={bodyText} onChanged={handleBodyChange} />
-      </CenterStack>
+        <CenterStack sx={{ py: 2, minHeight: 280 }}>
+          <HtmlEditorQuill value={bodyText} onChanged={handleBodyChange} />
+        </CenterStack>
 
-      <CenterStack sx={{ py: 2, gap: 2 }}>
-        <SecondaryButton text={'cancel'} onClick={handleCancelClick} />
-        <PrimaryButton onClick={handleSave} text='save' sx={{ ml: 3 }}></PrimaryButton>
-      </CenterStack>
-    </Box>
+        <CenterStack sx={{ py: 2, gap: 2 }}>
+          <SecondaryButton text={'cancel'} onClick={handleCancelClick} />
+          <PrimaryButton onClick={handleSave} text='save' sx={{ ml: 3 }}></PrimaryButton>
+        </CenterStack>
+      </Box>
+    </>
   ) : (
     <></>
   )
