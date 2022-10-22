@@ -1,5 +1,6 @@
 import { SaveSharp, Cancel } from '@mui/icons-material'
 import { Box, Button, Stack, TextField } from '@mui/material'
+import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
@@ -56,28 +57,26 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
         </Stack>
       </Stack>
       <Box sx={{ py: 2 }} component='form'>
-        <CenterStack>
+        <CenterStack sx={{ width: { xs: '100%' } }}>
           <TextField
+            fullWidth
             inputRef={title}
             defaultValue={item.title}
             size='small'
             label={'title'}
             placeholder='title'
-            sx={{ width: '50%' }}
+            //sx={{ width: '50%' }}
             onChange={handleTitleChange}
             required
             error={titleError}
           />
         </CenterStack>
-        {/* <CenterStack sx={{ py: 2, minHeight: 280 }}>
-        <HtmlEditor value={bodyText} onChanged={handleBodyChange} />
-      </CenterStack> */}
-        <CenterStack sx={{ py: 2, minHeight: 280 }}>
+        <CenterStack sx={{ py: 2, minHeight: 280, width: { xs: '100%' } }}>
           <HtmlEditorQuill value={bodyText} onChanged={handleBodyChange} />
         </CenterStack>
 
         <CenterStack sx={{ py: 2, gap: 2 }}>
-          <SecondaryButton text={'cancel'} onClick={handleCancelClick} />
+          <PassiveButton text={'cancel'} onClick={handleCancelClick} />
           <PrimaryButton onClick={handleSave} text='save' sx={{ ml: 3 }}></PrimaryButton>
         </CenterStack>
       </Box>

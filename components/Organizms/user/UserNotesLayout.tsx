@@ -143,12 +143,12 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
                       handleEditNote(model.selectedNote!)
                     }}
                   >
-                    <Create />
+                    <Create color='primary' />
                   </Button>
                 </Stack>
                 <Stack>
                   <Button onClick={handleCancelClick}>
-                    <Cancel />
+                    <Cancel color='primary' />
                   </Button>
                 </Stack>
               </Stack>

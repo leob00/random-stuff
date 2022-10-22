@@ -36,6 +36,9 @@ const lightPalette: PaletteOptions = {
   error: {
     main: CasinoRedTransparent,
   },
+  info: {
+    main: CasinoGrayTransparent,
+  },
 }
 
 const darkPalette: PaletteOptions = {

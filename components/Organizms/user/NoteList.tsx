@@ -2,6 +2,7 @@ import { Delete } from '@mui/icons-material'
 import { Box, Stack, Button, Divider, Dialog, DialogTitle, DialogContent } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import CenterStack from 'components/Atoms/CenterStack'
+import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import { UserNote } from 'lib/models/randomStuffModels'
 import React from 'react'
 
@@ -23,24 +24,15 @@ const NoteList = ({ data, onClicked, onDelete }: { data: UserNote[]; onClicked: 
   }
   return (
     <CenterStack sx={{ py: 2 }}>
-      <Dialog open={showConfirm}>
-        <DialogTitle>Delete Note?</DialogTitle>
-        <DialogContent>
-          <Button variant='outlined' color='error' onClick={handleYesDelete}>
-            yes
-          </Button>
-          <Button
-            sx={{ ml: 2 }}
-            color='secondary'
-            variant='outlined'
-            onClick={() => {
-              setShowConfirm(false)
-            }}
-          >
-            no
-          </Button>
-        </DialogContent>
-      </Dialog>
+      <ConfirmDeleteDialog
+        show={showConfirm}
+        title={'confirm delete'}
+        text={'Are you sure you want to delete this note?'}
+        onConfirm={handleYesDelete}
+        onCancel={() => {
+          setShowConfirm(false)
+        }}
+      />
       <Box sx={{ width: '80%' }}>
         {data.map((item, i) => (
           <Box key={i}>
