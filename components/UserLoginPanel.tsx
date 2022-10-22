@@ -32,7 +32,7 @@ const UserLogin = () => {
     switch (payload.event) {
       case 'signOut':
         setIsLoggedIn(false)
-        router.push('/')
+        router.push('/login')
         setUsername('')
         break
       case 'signIn':
@@ -44,7 +44,7 @@ const UserLogin = () => {
           console.log('error in getting user profile: ', JSON.stringify(profile))
           return
         }
-        router.push('/protected/csr')
+        router.push('/ssg/waitandredirect?id=protected/csr')
         break
       case 'signUp':
         console.log('creating profile')

@@ -22,7 +22,6 @@ function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
 }
 
 const Header = () => {
-  const [anchorEl, setAnchorEl] = React.useState<(EventTarget & HTMLButtonElement) | null>(null)
   const [elevationEffect, setElevationEffect] = useState(false)
 
   const bodyScrolled = useScrollTrigger({
@@ -46,7 +45,7 @@ const Header = () => {
               <Grid item>
                 <NLink href='/' passHref>
                   <Link href='/'>
-                    <RemoteImage url='/images/logo-with-text-blue-small.png' title='random things' width={210} height={100} priority={true} />
+                    <RemoteImage url='/images/logo-with-text-blue-small.png' title='random things' width={170} height={80} priority={true} />
                     {/* <Image priority src='/images/logo-with-text.png' width={161} height={70} alt='random things' style={{ borderRadius: '.6rem' }} placeholder='empty' /> */}
                   </Link>
                 </NLink>
@@ -56,7 +55,8 @@ const Header = () => {
                   <Button
                     onClick={() => {
                       router.push('/')
-                    }}>
+                    }}
+                  >
                     Home
                   </Button>
                 </DarkMode>
@@ -66,7 +66,8 @@ const Header = () => {
                   <Button
                     onClick={() => {
                       router.push('/ssg/About')
-                    }}>
+                    }}
+                  >
                     About
                   </Button>
                 </DarkMode>

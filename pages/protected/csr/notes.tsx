@@ -45,6 +45,7 @@ const Notes = () => {
         setModel(model)
       }
     } else {
+      router.push('/login')
       console.log('not logged in')
     }
     setIsLoggedIn(user !== null)
