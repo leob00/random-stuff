@@ -11,6 +11,7 @@ import router from 'next/router'
 import { UserNotesModel } from 'components/reducers/notesReducer'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
+import WarmupBox from 'components/Atoms/WarmupBox'
 
 const Notes = () => {
   // const [state, dispatch] = React.useReducer(reducer, defaultState)
@@ -59,11 +60,6 @@ const Notes = () => {
   }, [reload])
   return (
     <Container>
-      <BackButton
-        onClicked={() => {
-          router.push('/protected/csr')
-        }}
-      />
       <CenterStack>
         <CenteredTitle title={'My Notes'}></CenteredTitle>
       </CenterStack>

@@ -53,9 +53,8 @@ const UserLogin = () => {
           id: constructUserProfileKey(newUser.email),
           noteTitles: [],
         }
-        console.log('profile created')
-
         await putUserProfile(newProfile)
+        console.log('profile created')
         break
       case 'signIn_failure':
         break

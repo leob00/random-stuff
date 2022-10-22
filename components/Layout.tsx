@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect } from 'react'
-import { ThemeProvider } from '@mui/material/styles'
+import { ThemeProvider } from '@mui/styles'
 import { Container, CssBaseline, Paper } from '@mui/material'
 import { Box } from '@mui/material'
 import Header from './Header'

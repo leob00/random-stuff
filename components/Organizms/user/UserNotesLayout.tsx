@@ -1,4 +1,5 @@
-import { Box, Divider } from '@mui/material'
+import { Box, Button, Divider, Stack } from '@mui/material'
+import BackButton from 'components/Atoms/Buttons/BackButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
@@ -14,7 +15,8 @@ import React from 'react'
 import EditNote from './EditNote'
 import NoteList from './NoteList'
 import ViewNote from './ViewNote'
-
+import router from 'next/router'
+import { ArrowBack, Cancel, Close, CloseOutlined, Create, Edit, EditSharp, Save, SaveSharp } from '@mui/icons-material'
 const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
   const [model, dispatch] = React.useReducer(notesReducer, data)
 
@@ -106,11 +108,18 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
   return (
     <>
       {!model.editMode && !model.viewMode && (
-        <Box sx={{ py: 2 }}>
-          <CenterStack>
-            <SearchWithinList onChanged={handleSearch} disabled={model.isLoading || model.editMode} text='search notes' defaultValue={model.search} />
-          </CenterStack>
-        </Box>
+        <>
+          <BackButton
+            onClicked={() => {
+              router.push('/protected/csr')
+            }}
+          />
+          <Box sx={{ py: 2 }}>
+            <CenterStack>
+              <SearchWithinList onChanged={handleSearch} disabled={model.isLoading || model.editMode} text='search notes' defaultValue={model.search} />
+            </CenterStack>
+          </Box>
+        </>
       )}
       <Divider />
       {!model.editMode && !model.viewMode && (
@@ -124,10 +133,51 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
         model.selectedNote === null ? (
           <NoteList data={model.filteredTitles} onClicked={handleNoteTitleClick} onDelete={handleDelete} />
         ) : (
-          model.viewMode && model.selectedNote && <ViewNote selectedNote={model.selectedNote} onEdit={handleEditNote} onCancel={handleCancelClick} />
+          model.viewMode &&
+          model.selectedNote !== null && (
+            <>
+              <Stack display='flex' flexDirection='row' gap={1} justifyContent='flex-end'>
+                <Stack>
+                  <Button
+                    onClick={() => {
+                      handleEditNote(model.selectedNote!)
+                    }}
+                  >
+                    <Create />
+                  </Button>
+                </Stack>
+                <Stack>
+                  <Button onClick={handleCancelClick}>
+                    <Cancel />
+                  </Button>
+                </Stack>
+              </Stack>
+              <ViewNote selectedNote={model.selectedNote} onEdit={handleEditNote} onCancel={handleCancelClick} />
+            </>
+          )
         )
       ) : (
-        model.selectedNote && <EditNote item={model.selectedNote} onCanceled={handleCancelClick} onSubmitted={handleSaveNote} />
+        model.selectedNote && (
+          <>
+            <Stack display='flex' flexDirection='row' gap={1} justifyContent='flex-end'>
+              <Stack>
+                <Button
+                  onClick={() => {
+                    handleSaveNote(model.selectedNote!)
+                  }}
+                >
+                  <SaveSharp />
+                </Button>
+              </Stack>
+              <Stack>
+                <Button onClick={handleCancelClick}>
+                  <Cancel />
+                </Button>
+              </Stack>
+            </Stack>
+            <EditNote item={model.selectedNote} onCanceled={handleCancelClick} onSubmitted={handleSaveNote} />
+          </>
+        )
       )}
     </>
   )

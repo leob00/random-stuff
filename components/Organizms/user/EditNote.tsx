@@ -2,9 +2,10 @@ import { Box, TextField } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
+import HtmlEditor from 'components/Atoms/Inputs/HtmlEditor'
 import { UserNote } from 'lib/models/randomStuffModels'
 import React from 'react'
-import HtmlEditor from '../HtmlEditor'
+import HtmlEditorQuill from '../../Atoms/Inputs/HtmlEditorQuill'
 
 const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCanceled?: () => void; onSubmitted?: (note: UserNote) => void }) => {
   const title = React.useRef<HTMLInputElement | null>(null)
@@ -54,8 +55,11 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
           error={titleError}
         />
       </CenterStack>
-      <CenterStack sx={{ py: 2, minHeight: 280 }}>
+      {/* <CenterStack sx={{ py: 2, minHeight: 280 }}>
         <HtmlEditor value={bodyText} onChanged={handleBodyChange} />
+      </CenterStack> */}
+      <CenterStack sx={{ py: 2, minHeight: 280 }}>
+        <HtmlEditorQuill value={bodyText} onChanged={handleBodyChange} />
       </CenterStack>
 
       <CenterStack sx={{ py: 2, gap: 2 }}>
