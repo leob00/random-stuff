@@ -1,4 +1,4 @@
-import { Container } from '@mui/material'
+import { Box, Container, Skeleton } from '@mui/material'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import LargeSpinner from 'components/Atoms/Loaders/LargeSpinner'
 import UserNotesLayout from 'components/Organizms/user/UserNotesLayout'
@@ -12,11 +12,14 @@ import { UserNotesModel } from 'components/reducers/notesReducer'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
 import WarmupBox from 'components/Atoms/WarmupBox'
+import { CasinoBlueTransparent, DarkBlueTransparent, VeryLightBlueTransparent } from 'components/themes/mainTheme'
+import PleaseLogin from 'components/Molecules/PleaseLogin'
+import TopPageSkeleton from 'components/Atoms/Skeletons/TopPageSkeleton'
 
 const Notes = () => {
   // const [state, dispatch] = React.useReducer(reducer, defaultState)
 
-  const [, setIsLoggedIn] = React.useState(true)
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true)
   //const [isLoading, setIsLoading] = React.useState(true)
   const [reload, setReload] = React.useState(true)
   const [model, setModel] = React.useState<UserNotesModel | undefined>(undefined)
@@ -61,10 +64,21 @@ const Notes = () => {
   }, [reload])
   return (
     <Container>
-      <CenterStack>
-        <CenteredTitle title={'My Notes'}></CenteredTitle>
-      </CenterStack>
-      {model ? <UserNotesLayout data={model} /> : <LargeSpinner />}
+      {/* <TopPageSkeleton /> */}
+      {!isLoggedIn ? (
+        <PleaseLogin />
+      ) : (
+        <>
+          {!model ? (
+            <TopPageSkeleton />
+          ) : (
+            <CenterStack>
+              <CenteredTitle title={'My Notes'}></CenteredTitle>
+            </CenterStack>
+          )}
+          {model ? <UserNotesLayout data={model} /> : <LargeSpinner />}{' '}
+        </>
+      )}
     </Container>
   )
 }
