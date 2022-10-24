@@ -11,12 +11,15 @@ const WarmupBox = ({ text }: { text?: string }) => {
   const intervalRef = React.useRef<NodeJS.Timer | null>(null)
 
   useEffect(() => {
+    if (text) {
+      return
+    }
     intervalRef.current = setInterval(() => {
       dispatch({ type: 'refresh', payload: { message: getRandomLoadertext() } })
       if (intervalRef.current) {
         clearInterval(intervalRef.current)
       }
-    }, 3000)
+    }, 2500)
 
     //const interval = setInterval(() => {}, 2000)
 

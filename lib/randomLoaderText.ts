@@ -12,7 +12,9 @@ const loaders = [
   'counting random bytes',
   'catching up on chores',
   'performing quick maintenace',
-  'this is taking longer than normal',
+  'counting beans',
+  'turning on the stove',
+  'setting up connections',
 ]
 
 export function getRandomLoadertext() {
