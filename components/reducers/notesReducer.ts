@@ -55,7 +55,7 @@ export function notesReducer(state: UserNotesModel, action: ActionTypes) {
         filteredTitles: action.payload.noteTitles,
       }
     case 'cancel-edit':
-      return { ...state, editMode: false, selectedNote: null, viewMode: false }
+      return { ...state, editMode: false, selectedNote: null, viewMode: false, filteredTitles: applyFilter(state.noteTitles, state.search) }
     case 'set-loading':
       return { ...state, isLoading: action.payload.isLoading }
     case 'search':

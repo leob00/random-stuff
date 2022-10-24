@@ -12,7 +12,8 @@ const RecipeLayout = ({ article, baseUrl }: { article: Recipe; baseUrl: string }
         variant='text'
         onClick={() => {
           router.push(baseUrl)
-        }}>
+        }}
+      >
         &#8592; back
       </Button>
       <>
@@ -28,10 +29,7 @@ const RecipeLayout = ({ article, baseUrl }: { article: Recipe; baseUrl: string }
             <RemoteImage url={article.heroImage.url} title={article.title ? article.title : ''} />
           </Stack>
         )}
-        <Container>
-          {/* <ReactMarkdown>{article.body}</ReactMarkdown> */}
-          {documentToReactComponents(article.richBody.json)}
-        </Container>
+        <Container>{documentToReactComponents(article.richBody.json)}</Container>
       </>
     </>
   )

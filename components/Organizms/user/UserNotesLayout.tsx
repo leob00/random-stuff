@@ -136,22 +136,6 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
           model.viewMode &&
           model.selectedNote !== null && (
             <>
-              <Stack display='flex' flexDirection='row' gap={1} justifyContent='flex-end'>
-                <Stack>
-                  <Button
-                    onClick={() => {
-                      handleEditNote(model.selectedNote!)
-                    }}
-                  >
-                    <Create color='primary' />
-                  </Button>
-                </Stack>
-                <Stack>
-                  <Button onClick={handleCancelClick}>
-                    <Cancel color='primary' />
-                  </Button>
-                </Stack>
-              </Stack>
               <ViewNote selectedNote={model.selectedNote} onEdit={handleEditNote} onCancel={handleCancelClick} />
             </>
           )

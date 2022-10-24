@@ -1,7 +1,6 @@
 import { Delete } from '@mui/icons-material'
-import { Box, Stack, Button, Divider, Dialog, DialogTitle, DialogContent, Typography } from '@mui/material'
+import { Box, Stack, Button, Divider, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
-import CenterStack from 'components/Atoms/CenterStack'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import { UserNote } from 'lib/models/randomStuffModels'
 import React from 'react'

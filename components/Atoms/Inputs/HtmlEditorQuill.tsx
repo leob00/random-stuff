@@ -9,7 +9,7 @@ const QuillNoSSRWrapper = dynamic(import('react-quill'), {
 })
 
 const HtmlEditorQuill = ({ value, onChanged }: { value: string; onChanged: (text: string) => void }) => {
-  return <QuillNoSSRWrapper style={{ height: 200, width: '100%' }} defaultValue={value} value={value} onChange={(e) => onChanged(e)} />
+  return <QuillNoSSRWrapper style={{ height: 400, width: '100%' }} defaultValue={value} value={value} onChange={(e) => onChanged(e)} />
 }
 
 export default HtmlEditorQuill

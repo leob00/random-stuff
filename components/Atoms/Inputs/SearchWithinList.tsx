@@ -33,6 +33,7 @@ const SearchWithinList = ({
   }
   return (
     <TextField
+      defaultValue={defaultValue}
       disabled={disabled}
       id='searchWithinList'
       sx={{ width: width }}

@@ -76,7 +76,7 @@ const Notes = () => {
               <CenteredTitle title={'My Notes'}></CenteredTitle>
             </CenterStack>
           )}
-          {model ? <UserNotesLayout data={model} /> : <LargeSpinner />}{' '}
+          {model ? <UserNotesLayout data={model} /> : <WarmupBox text='loading notes...' />}{' '}
         </>
       )}
     </Container>
