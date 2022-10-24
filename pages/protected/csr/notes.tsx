@@ -69,13 +69,9 @@ const Notes = () => {
         <PleaseLogin />
       ) : (
         <>
-          {!model ? (
-            <TopPageSkeleton />
-          ) : (
-            <CenterStack>
-              <CenteredTitle title={'My Notes'}></CenteredTitle>
-            </CenterStack>
-          )}
+          <CenterStack>
+            <CenteredTitle title={'My Notes'}></CenteredTitle>
+          </CenterStack>
           {model ? <UserNotesLayout data={model} /> : <WarmupBox text='loading notes...' />}{' '}
         </>
       )}

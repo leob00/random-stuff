@@ -39,7 +39,7 @@ const UserLogin = () => {
         const user = { email: payload.data?.attributes.email }
         setIsLoggedIn(true)
         setUsername(user.email)
-        router.push('/ssg/waitandredirect?id=protected/csr')
+        router.push('/ssg/waitandredirect?id=protected/csr/userdashboard')
         break
       case 'signUp':
         console.log('creating profile')

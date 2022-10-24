@@ -17,6 +17,7 @@ import NoteList from './NoteList'
 import ViewNote from './ViewNote'
 import router from 'next/router'
 import { ArrowBack, Cancel, Close, CloseOutlined, Create, Edit, EditSharp, Save, SaveSharp } from '@mui/icons-material'
+import ButtonSkeleton from 'components/Atoms/Skeletons/CenteredButtonSeleton'
 const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
   const [model, dispatch] = React.useReducer(notesReducer, data)
 
@@ -111,7 +112,7 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
         <>
           <BackButton
             onClicked={() => {
-              router.push('/protected/csr')
+              router.push('/protected/csr/userdashboard')
             }}
           />
           <Box sx={{ py: 2 }}>
@@ -124,7 +125,7 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
       <Divider />
       {!model.editMode && !model.viewMode && (
         <CenterStack sx={{ py: 2 }}>
-          <SecondaryButton text='add note' onClick={handleAddNote} disabled={model.isLoading || model.editMode} />
+          {model.isLoading || model.editMode ? <ButtonSkeleton buttonText='add note' /> : <SecondaryButton text='add note' onClick={handleAddNote} />}
         </CenterStack>
       )}
       {model.isLoading ? (

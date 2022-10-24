@@ -5,7 +5,7 @@ import UserDashboardLayout from 'components/Organizms/user/UserDashboardLayout'
 import { AmplifyUser, getUserCSR } from 'lib/backend/auth/userUtil'
 import React from 'react'
 
-const Protected = () => {
+const Page = () => {
   const [authUser, setAuthUser] = React.useState<AmplifyUser | null>(null)
   const [firstLoad, setFirstLoad] = React.useState(true)
   React.useEffect(() => {
@@ -41,4 +41,4 @@ const Protected = () => {
   )
 }
 
-export default Protected
+export default Page

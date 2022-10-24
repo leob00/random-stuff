@@ -58,6 +58,17 @@ const LoggedInUserMenu = ({ username, onLogOut }: { username: string; onLogOut: 
           sx={{ color: VeryLightBlue }}
           onClick={() => {
             handleClose()
+            router.push('/protected/csr/userdashboard')
+          }}
+        >
+          dashboard
+        </MenuItem>
+        <MenuItem disabled></MenuItem>
+        <Divider />
+        <MenuItem
+          sx={{ color: VeryLightBlue }}
+          onClick={() => {
+            handleClose()
             router.push('/protected/csr')
           }}
         >
@@ -65,7 +76,7 @@ const LoggedInUserMenu = ({ username, onLogOut }: { username: string; onLogOut: 
         </MenuItem>
         <Divider />
         <MenuItem sx={{ color: VeryLightBlue }} onClick={handleLogout}>
-          sign out
+          log off
         </MenuItem>
       </Menu>
     </>

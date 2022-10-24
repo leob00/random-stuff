@@ -1,7 +1,8 @@
-import { CircularProgress, Container, Stack, Typography } from '@mui/material'
+import { Box, CircularProgress, Container, Stack, Typography } from '@mui/material'
 import { getRandomLoadertext } from 'lib/randomLoaderText'
 import React, { useEffect, useReducer } from 'react'
 import { Model, warmupReducer } from 'lib/reducers/warmupReducer'
+import CenterStack from './CenterStack'
 
 const WarmupBox = ({ text }: { text?: string }) => {
   const defaultModel: Model = {
@@ -27,14 +28,18 @@ const WarmupBox = ({ text }: { text?: string }) => {
   }, [])
   return (
     <Container sx={{}}>
-      <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
-        <Typography variant='body2' sx={{}}>
-          {text ? text : `${model.message}...`}
-        </Typography>
-      </Stack>
-      <Stack direction='row' justifyContent='center' sx={{ my: 1 }}>
-        <CircularProgress color='secondary' />
-      </Stack>
+      <Box sx={{ py: 2 }}>
+        <CenterStack>
+          <Typography variant='body2' sx={{}}>
+            {text ? text : `${model.message}...`}
+          </Typography>
+        </CenterStack>
+      </Box>
+      <Box sx={{ py: 2 }}>
+        <Stack direction='row' justifyContent='center' sx={{ my: 1 }}>
+          <CircularProgress color='secondary' />
+        </Stack>
+      </Box>
     </Container>
   )
 }

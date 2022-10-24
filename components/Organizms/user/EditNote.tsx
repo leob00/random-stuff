@@ -1,4 +1,4 @@
-import { SaveSharp, Cancel, Close } from '@mui/icons-material'
+import { SaveSharp, Cancel, Close, Save } from '@mui/icons-material'
 import { Box, Button, Stack, TextField } from '@mui/material'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
@@ -46,8 +46,8 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
     <>
       <Stack display='flex' flexDirection='row' gap={0} justifyContent='flex-end'>
         <Stack>
-          <Button onClick={handleSave} sx={{ width: 20 }}>
-            <SaveSharp />
+          <Button onClick={handleSave}>
+            <Save />
           </Button>
         </Stack>
         <Stack>
@@ -71,7 +71,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
             error={titleError}
           />
         </CenterStack>
-        <CenterStack sx={{ py: 2, minHeight: 500, width: { xs: '100%' } }}>
+        <CenterStack sx={{ py: 2, minHeight: 480, width: { xs: '100%' } }}>
           <HtmlEditorQuill value={bodyText} onChanged={handleBodyChange} />
         </CenterStack>
         <Box>
