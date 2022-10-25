@@ -25,7 +25,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
       return
     }
     note.title = title.current ? title.current.value : ''
-    note.body = bodyText
+    note.body = bodyText.replace('<br>', '')
     onSubmitted?.(note)
   }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

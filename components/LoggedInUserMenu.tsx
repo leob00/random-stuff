@@ -63,7 +63,7 @@ const LoggedInUserMenu = ({ username, onLogOut }: { username: string; onLogOut: 
         >
           dashboard
         </MenuItem>
-        <MenuItem disabled></MenuItem>
+
         <Divider />
         <MenuItem
           sx={{ color: VeryLightBlue }}
