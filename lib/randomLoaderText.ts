@@ -11,7 +11,7 @@ const loaders = [
   'firing up the lambdas',
   'counting random bytes',
   'catching up on chores',
-  'performing quick maintenace',
+  'performing quick maintenance',
   'counting beans',
   'turning on the stove',
   'setting up connections',

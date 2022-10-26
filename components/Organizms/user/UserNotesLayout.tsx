@@ -1,8 +1,7 @@
-import { Box, Button, Divider, Stack } from '@mui/material'
+import { Box, Divider } from '@mui/material'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
-import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { notesReducer, UserNotesModel } from 'components/reducers/notesReducer'
@@ -16,8 +15,8 @@ import EditNote from './EditNote'
 import NoteList from './NoteList'
 import ViewNote from './ViewNote'
 import router from 'next/router'
-import { ArrowBack, Cancel, Close, CloseOutlined, Create, Edit, EditSharp, Save, SaveSharp } from '@mui/icons-material'
 import ButtonSkeleton from 'components/Atoms/Skeletons/CenteredButtonSeleton'
+import { buildSaveModel } from 'lib/controllers/notes/notesController'
 const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
   const [model, dispatch] = React.useReducer(notesReducer, data)
 
@@ -44,38 +43,11 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
   }
 
   const handleSaveNote = async (item: UserNote) => {
-    let notes = cloneDeep(model.noteTitles)
-    if (!item.id) {
-      item.id = constructUserNotePrimaryKey(model.username)
-      notes.push({
-        id: item.id,
-        title: item.title,
-        body: '',
-        dateCreated: getUtcNow().format(),
-        dateModified: getUtcNow().format(),
-      })
-    } else {
-      const existingIx = findIndex(notes, (e) => {
-        return e.id === item.id
-      })
-      if (existingIx > -1) {
-        notes.splice(existingIx, 1)
-        notes.push({
-          id: item.id,
-          title: item.title,
-          body: '',
-          dateCreated: item.dateCreated,
-          dateModified: getUtcNow().format(),
-        })
-      }
-    }
-    item.dateModified = getUtcNow().format()
-    notes = orderBy(notes, ['dateModified'], ['desc'])
-    model.userProfile.noteTitles = notes
+    const saveModel = buildSaveModel(model, item)
     dispatch({ type: 'set-loading', payload: { isLoading: true } })
     await putUserProfile(model.userProfile)
     await putUserNote(item, constructUserNoteCategoryKey(model.username))
-    dispatch({ type: 'save-note', payload: { noteTitles: notes } })
+    dispatch({ type: 'save-note', payload: { noteTitles: saveModel.noteTitles } })
   }
   const handleCancelClick = async () => {
     if (model.selectedNote && model.selectedNote.id && !model.viewMode) {

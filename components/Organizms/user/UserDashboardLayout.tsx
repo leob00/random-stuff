@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
@@ -6,22 +6,21 @@ import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import React from 'react'
 import router from 'next/router'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
-import LargeSpinner from 'components/Atoms/Loaders/LargeSpinner'
-import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
+import { getUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { Divider } from '@aws-amplify/ui-react'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { ApiError } from 'next/dist/server/api-utils'
-import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
 import BackButton from 'components/Atoms/Buttons/BackButton'
-import TopPageSkeleton from 'components/Atoms/Skeletons/TopPageSkeleton'
 import ButtonSkeleton from 'components/Atoms/Skeletons/CenteredButtonSeleton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
+import { useAuthStore } from 'lib/backend/auth/useAuthStore'
+import shallow from 'zustand/shallow'
 
 const UserDashboardLayout = ({ username }: { username: string | undefined }) => {
   const [isLoading, setIsLoading] = React.useState(true)
-  const [userProfile, setUserProfile] = React.useState<UserProfile | null>(null)
   const [currTime, setCurrTime] = React.useState('')
+  const { authProfile, setAuthProfile } = useAuthStore((state) => ({ authProfile: state.profile, setAuthProfile: state.setProfile }), shallow)
   dayjs.extend(utc)
 
   const loadData = async (userId: string | undefined) => {
@@ -31,19 +30,19 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
         id: key,
         noteTitles: [],
       }
-      let profile = await getUserProfile(userId)
+
+      let profile = authProfile == null ? await getUserProfile(userId) : authProfile
       if (profile instanceof ApiError) {
         setIsLoading(false)
-        setUserProfile(null)
+        setAuthProfile(null)
         return
       }
 
       if (profile !== null) {
         userProfile.noteTitles = profile.noteTitles
+        setAuthProfile(userProfile)
       }
-
       setIsLoading(false)
-      setUserProfile(userProfile)
     }
   }
 
@@ -53,10 +52,12 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
       setCurrTime(time)
       await loadData(username)
     }
+
     if (username) {
       fn()
     }
   }, [username])
+
   return (
     <>
       <Box sx={{ py: 2 }}>
@@ -69,28 +70,29 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
           }}
         />
       </Box>
-
       <Box sx={{ my: 2 }}>
         {isLoading && (
           <CenterStack>
             <ButtonSkeleton buttonText='Notes: 00' />
           </CenterStack>
         )}
-        {userProfile && (
+        {authProfile && (
           <>
             <CenterStack sx={{ py: 2 }}>
               <SecondaryButton
                 onClick={() => {
                   router.push('/protected/csr/notes')
                 }}
-                text={`Notes: ${userProfile.noteTitles.length}`}
+                text={`Notes: ${authProfile.noteTitles.length}`}
               ></SecondaryButton>
             </CenterStack>
           </>
         )}
         {/*  <CenterStack sx={{ pt: 4 }}>
-        <Typography variant='body2'>{currTime}</Typography>
-      </CenterStack> */}
+
+          <Typography variant='body2'>{`${numeral(getUtcNow().valueOf() / 1000).format()}`}</Typography>
+
+        </CenterStack> */}
       </Box>
       <Divider />
       {isLoading && <WarmupBox />}
