@@ -6,10 +6,10 @@ import { cloneDeep, findIndex, orderBy } from 'lodash'
 
 export function buildSaveModel(model: UserNotesModel, item: UserNote) {
   const result = cloneDeep(model)
-
+  const now = getUtcNow().format()
   if (!item.id) {
     item.id = constructUserNotePrimaryKey(model.username)
-    const now = getUtcNow().format()
+
     result.noteTitles.push({
       id: item.id,
       title: item.title,
@@ -28,13 +28,12 @@ export function buildSaveModel(model: UserNotesModel, item: UserNote) {
         title: item.title,
         body: '',
         dateCreated: item.dateCreated,
-        dateModified: getUtcNow().format(),
+        dateModified: now,
       })
     }
   }
-  item.dateModified = getUtcNow().format()
   result.noteTitles = orderBy(result.noteTitles, ['dateModified'], ['desc'])
   model.userProfile.noteTitles = result.noteTitles
 
-  return model
+  return result
 }
