@@ -6,7 +6,7 @@ import CenterStack from './CenterStack'
 
 const WarmupBox = ({ text }: { text?: string }) => {
   const defaultModel: Model = {
-    message: getRandomLoadertext(),
+    message: text ?? getRandomLoadertext(),
   }
   const [model, dispatch] = useReducer(warmupReducer, defaultModel)
   const intervalRef = React.useRef<NodeJS.Timer | null>(null)
@@ -21,11 +21,7 @@ const WarmupBox = ({ text }: { text?: string }) => {
         clearInterval(intervalRef.current)
       }
     }, 2500)
-
-    //const interval = setInterval(() => {}, 2000)
-
-    //return clearInterval(interval)
-  }, [])
+  }, [model.message])
   return (
     <Container sx={{}}>
       <Box sx={{ py: 2 }}>
