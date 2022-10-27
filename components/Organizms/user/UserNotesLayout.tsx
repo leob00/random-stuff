@@ -5,11 +5,10 @@ import CenterStack from 'components/Atoms/CenterStack'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { notesReducer, UserNotesModel } from 'components/reducers/notesReducer'
-import { constructUserNoteCategoryKey, constructUserNotePrimaryKey } from 'lib/backend/api/aws/util'
-import { deleteUserNote, getUserNote, putUserNote, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
+import { constructUserNoteCategoryKey } from 'lib/backend/api/aws/util'
+import { deleteUserNote, expireUserNote, getUserNote, putUserNote, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { UserNote } from 'lib/models/randomStuffModels'
-import { getUtcNow } from 'lib/util/dateUtil'
-import { cloneDeep, filter, findIndex, orderBy } from 'lodash'
+import { filter } from 'lodash'
 import React from 'react'
 import EditNote from './EditNote'
 import NoteList from './NoteList'
@@ -69,7 +68,7 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
     })
     let profile = model.userProfile
     profile.noteTitles = noteTitles
-    await deleteUserNote(item)
+    await expireUserNote(item)
     await putUserProfile(profile)
     dispatch({ type: 'reload', payload: { noteTitles: noteTitles } })
   }

@@ -7,8 +7,10 @@ import { cloneDeep, findIndex, orderBy } from 'lodash'
 export function buildSaveModel(model: UserNotesModel, item: UserNote) {
   const result = cloneDeep(model)
   const now = getUtcNow().format()
+  item.dateModified = now
   if (!item.id) {
     item.id = constructUserNotePrimaryKey(model.username)
+    item.dateCreated = now
 
     result.noteTitles.push({
       id: item.id,

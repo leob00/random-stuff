@@ -12,12 +12,14 @@ export interface RandomStuffPut {
   key: DynamoKeys
   data: BasicArticle[] | CoinFlipStats
   category: CategoryType
+  expiration?: number
 }
 
 export interface LambdaDynamoRequest {
   id: string
   category: CategoryType | string
   data: any
+  expiration: number
 }
 
 export interface LambdaResponse {
@@ -114,12 +116,16 @@ export async function searchRandomStuffBySecIndex(search: CategoryType | string)
   }
   return result
 }
-export async function putRandomStuff(type: DynamoKeys, category: CategoryType, data: any) {
+export async function putRandomStuff(type: DynamoKeys, category: CategoryType, data: any, expiration?: number) {
   const url = `${baseUrl}/randomstuff`
+  /* if (expiration) {
+    console.log('expiration set: ', expiration)
+  } */
   let model: RandomStuffPut = {
     key: type,
     data: data,
     category: category,
+    expiration: expiration ?? 0,
   }
   let postData = {
     body: model,

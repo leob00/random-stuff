@@ -1,6 +1,7 @@
 import { UserNote } from 'lib/models/randomStuffModels'
+import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
-import { LambdaBody, LambdaDynamoRequest, LambdaResponse, UserProfile } from '../api/aws/apiGateway'
+import { LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
 import { axiosGet, axiosPut } from '../api/aws/useAxios'
 import { constructUserNoteCategoryKey, constructUserProfileKey } from '../api/aws/util'
 
@@ -9,6 +10,17 @@ export async function putUserNote(item: UserNote, secondaryKey: string) {
     id: item.id!,
     category: secondaryKey,
     data: item,
+    expiration: 0,
+  }
+  await axiosPut(`/api/putRandomStuff`, req)
+}
+export async function expireUserNote(item: UserNote) {
+  const unixNowSeconds = getUtcNow().valueOf() / 1000
+  let req: LambdaDynamoRequest = {
+    id: item.id!,
+    category: 'expired',
+    data: item,
+    expiration: Math.floor(unixNowSeconds),
   }
   await axiosPut(`/api/putRandomStuff`, req)
 }
@@ -24,6 +36,7 @@ export async function putUserProfile(item: UserProfile) {
     id: item.id,
     category: 'userProfile',
     data: item,
+    expiration: 0,
   }
   await axiosPut(`/api/putRandomStuff`, req)
 }

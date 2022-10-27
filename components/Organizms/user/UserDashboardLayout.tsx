@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
@@ -16,6 +16,7 @@ import ButtonSkeleton from 'components/Atoms/Skeletons/CenteredButtonSeleton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import { useAuthStore } from 'lib/backend/auth/useAuthStore'
 import shallow from 'zustand/shallow'
+import { getUtcNow } from 'lib/util/dateUtil'
 
 const UserDashboardLayout = ({ username }: { username: string | undefined }) => {
   const [isLoading, setIsLoading] = React.useState(true)
@@ -88,10 +89,8 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
             </CenterStack>
           </>
         )}
-        {/*  <CenterStack sx={{ pt: 4 }}>
-
-          <Typography variant='body2'>{`${numeral(getUtcNow().valueOf() / 1000).format()}`}</Typography>
-
+        {/*  <CenterStack sx={{ pt: 8 }}>
+          <Typography variant='body2'>{`${Math.floor(getUtcNow().valueOf() / 1000)}`}</Typography>
         </CenterStack> */}
       </Box>
       <Divider />
