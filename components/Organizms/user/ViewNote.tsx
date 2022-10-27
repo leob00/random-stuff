@@ -31,7 +31,6 @@ const ViewNote = ({ selectedNote, onEdit, onCancel }: { selectedNote: UserNote; 
         </CenterStack>
         <Divider sx={{ pb: 4 }} />
         <CenterStack sx={{ py: 2, gap: 2 }}>
-          <PassiveButton onClick={onCancel} text='close' />
           <PrimaryButton
             text='edit'
             onClick={() => {
@@ -39,6 +38,7 @@ const ViewNote = ({ selectedNote, onEdit, onCancel }: { selectedNote: UserNote; 
             }}
             sx={{ ml: 2 }}
           ></PrimaryButton>
+          <PassiveButton onClick={onCancel} text='close' />
         </CenterStack>
       </Box>
     </>

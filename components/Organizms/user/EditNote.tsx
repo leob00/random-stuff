@@ -68,8 +68,8 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
         </CenterStack>
         <Box>
           <CenterStack sx={{ py: 2, gap: 2 }}>
-            <PassiveButton text={'cancel'} onClick={handleCancel} />
             <PrimaryButton onClick={handleSave} text='save' sx={{ ml: 3 }}></PrimaryButton>
+            <PassiveButton text={'cancel'} onClick={handleCancel} />
           </CenterStack>
         </Box>
       </Box>
