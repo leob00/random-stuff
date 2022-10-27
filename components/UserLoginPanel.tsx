@@ -32,6 +32,7 @@ const UserLogin = () => {
         authStore.setIsLoggedIn(false)
         authStore.setUsername(null)
         authStore.setProfile(null)
+        authStore.setLastProfileFetchDate('')
         router.push('/login')
         break
       case 'signIn':
