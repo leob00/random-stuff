@@ -4,6 +4,7 @@ import React from 'react'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import RemoteImage from './Atoms/RemoteImage'
+import CenteredHeader from './Atoms/Boxes/CenteredHeader'
 
 const RecipeLayout = ({ article, baseUrl }: { article: Recipe; baseUrl: string }) => {
   return (
@@ -17,7 +18,7 @@ const RecipeLayout = ({ article, baseUrl }: { article: Recipe; baseUrl: string }
         &#8592; back
       </Button>
       <>
-        <Typography variant='h6'>{article.title}</Typography>
+        <CenteredHeader title={article.title} description={''} />
         <Divider></Divider>
         <Container sx={{ my: 2 }}>
           <Typography variant='body1' sx={{ paddingBottom: 2, textAlign: 'center' }}>
