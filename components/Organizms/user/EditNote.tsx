@@ -1,10 +1,12 @@
+import { Divider } from '@aws-amplify/ui-react'
 import { SaveSharp, Cancel, Close, Save } from '@mui/icons-material'
-import { Box, Button, Stack, TextField } from '@mui/material'
+import { Box, Button, IconButton, Stack, TextField } from '@mui/material'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import HtmlEditor from 'components/Atoms/Inputs/HtmlEditor'
+import EditItemToolbar from 'components/Molecules/EditItemToolbar'
 import { UserNote } from 'lib/models/randomStuffModels'
 import React from 'react'
 import HtmlEditorQuill from '../../Atoms/Inputs/HtmlEditorQuill'
@@ -15,7 +17,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
   const [bodyText, setBodyText] = React.useState(item.body)
   const [titleError, setTitleError] = React.useState(false)
 
-  const handleCancelClick = () => {
+  const handleCancel = () => {
     onCanceled?.()
   }
   const handleSave = async () => {
@@ -42,21 +44,11 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
     setBodyText(text)
     //console.log(text)
   }
+
   return item ? (
     <>
-      <Stack display='flex' flexDirection='row' gap={0} justifyContent='flex-end'>
-        <Stack>
-          <Button onClick={handleSave}>
-            <Save />
-          </Button>
-        </Stack>
-        <Stack>
-          <Button onClick={handleCancelClick}>
-            <Close />
-          </Button>
-        </Stack>
-      </Stack>
-      <Box sx={{ py: 2 }} component='form'>
+      <EditItemToolbar onSave={handleSave} onCancel={handleCancel} />
+      <Box sx={{ pt: 2 }} component='form'>
         <CenterStack sx={{ width: { xs: '100%' } }}>
           <TextField
             fullWidth
@@ -76,7 +68,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
         </CenterStack>
         <Box>
           <CenterStack sx={{ py: 2, gap: 2 }}>
-            <PassiveButton text={'cancel'} onClick={handleCancelClick} />
+            <PassiveButton text={'cancel'} onClick={handleCancel} />
             <PrimaryButton onClick={handleSave} text='save' sx={{ ml: 3 }}></PrimaryButton>
           </CenterStack>
         </Box>

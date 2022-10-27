@@ -17,7 +17,7 @@ const HtmlEditor = ({ value, onChanged }: { value: string; onChanged: (text: str
   //const editorRef = React.useRef<TMUIRichTextEditorRef | null>(null)
   const save = (data: string) => {
     console.log(data)
-    onChanged(data)
+    //onChanged(data)
   }
   const myTheme = createTheme({
     // Set up your custom MUI theme here

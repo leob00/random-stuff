@@ -1,9 +1,10 @@
 import { Create, Close } from '@mui/icons-material'
-import { Box, Typography, Divider, Button, Stack } from '@mui/material'
+import { Box, Typography, Divider, Button, Stack, IconButton } from '@mui/material'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
+import EditItemToolbar from 'components/Molecules/EditItemToolbar'
 import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
 import React from 'react'
@@ -11,23 +12,13 @@ import React from 'react'
 const ViewNote = ({ selectedNote, onEdit, onCancel }: { selectedNote: UserNote; onEdit: (item: UserNote) => void; onCancel: () => void }) => {
   return (
     <>
-      <Stack display='flex' flexDirection='row' gap={0} justifyContent='flex-end'>
-        <Stack>
-          <Button
-            color='primary'
-            onClick={() => {
-              onEdit(selectedNote!)
-            }}
-          >
-            <Create color='primary' />
-          </Button>
-        </Stack>
-        <Stack>
-          <Button onClick={onCancel} color='primary'>
-            <Close color='primary' />
-          </Button>
-        </Stack>
-      </Stack>
+      <EditItemToolbar
+        onCancel={onCancel}
+        onEdit={() => {
+          onEdit(selectedNote)
+        }}
+      />
+
       <Box sx={{ py: 2 }}>
         <CenterStack sx={{ py: 2 }}>
           <Typography variant='h5'>{`${selectedNote.title}`}</Typography>
