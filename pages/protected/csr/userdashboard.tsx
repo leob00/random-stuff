@@ -1,5 +1,6 @@
 import { Box, Container } from '@mui/material'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
+import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import UserDashboardLayout from 'components/Organizms/user/UserDashboardLayout'
 import { useUserController } from 'hooks/userController'
@@ -17,13 +18,13 @@ const Page = () => {
   React.useEffect(() => {
     const fn = async () => {
       if (firstLoad) {
-        const profile = await userController.refetchProfile(300)
+        let profile = await userController.refetchProfile(300)
         setUserProfile(profile)
       }
       setFirstLoad(false)
     }
     fn()
-  }, [firstLoad])
+  }, [firstLoad, userProfile?.id])
 
   return (
     <>
@@ -32,7 +33,7 @@ const Page = () => {
           !firstLoad ? (
             <PleaseLogin />
           ) : (
-            <></>
+            <WarmupBox />
           )
         ) : (
           <>
