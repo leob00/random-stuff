@@ -1,11 +1,17 @@
 import { UserNotesModel } from 'components/reducers/notesReducer'
+import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructUserNotePrimaryKey } from 'lib/backend/api/aws/util'
+import { getUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { cloneDeep, findIndex, orderBy } from 'lodash'
 
-export function buildSaveModel(model: UserNotesModel, item: UserNote) {
+export async function buildSaveModel(model: UserNotesModel, item: UserNote) {
   const result = cloneDeep(model)
+  const profile = model.userProfile
+  if (profile) {
+    result.userProfile = profile
+  }
   const now = getUtcNow().format()
   item.dateModified = now
   if (!item.id) {
@@ -35,7 +41,7 @@ export function buildSaveModel(model: UserNotesModel, item: UserNote) {
     }
   }
   result.noteTitles = orderBy(result.noteTitles, ['dateModified'], ['desc'])
-  model.userProfile.noteTitles = result.noteTitles
+  result.userProfile.noteTitles = result.noteTitles
 
   return result
 }

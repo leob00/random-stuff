@@ -31,6 +31,7 @@ const UserLogin = () => {
       case 'signOut':
         authStore.setIsLoggedIn(false)
         authStore.setUsername(null)
+        authStore.setProfile(null)
         router.push('/login')
         break
       case 'signIn':

@@ -6,7 +6,7 @@ import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { notesReducer, UserNotesModel } from 'components/reducers/notesReducer'
 import { constructUserNoteCategoryKey } from 'lib/backend/api/aws/util'
-import { deleteUserNote, expireUserNote, getUserNote, putUserNote, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
+import { expireUserNote, getUserNote, putUserNote, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { filter } from 'lodash'
 import React from 'react'
@@ -42,10 +42,10 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
   }
 
   const handleSaveNote = async (item: UserNote) => {
-    const saveModel = buildSaveModel(model, item)
     dispatch({ type: 'set-loading', payload: { isLoading: true } })
-    await putUserProfile(model.userProfile)
-    await putUserNote(item, constructUserNoteCategoryKey(model.username))
+    const saveModel = await buildSaveModel(model, item)
+    await putUserProfile(saveModel.userProfile)
+    await putUserNote(item, constructUserNoteCategoryKey(saveModel.username))
     dispatch({ type: 'save-note', payload: { noteTitles: saveModel.noteTitles } })
   }
   const handleCancelClick = async () => {
@@ -63,10 +63,12 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
 
   const handleDelete = async (item: UserNote) => {
     dispatch({ type: 'set-loading', payload: { isLoading: true } })
-    let noteTitles = filter(model.noteTitles, (e) => {
+
+    let profile = model.userProfile
+
+    let noteTitles = filter(profile.noteTitles, (e) => {
       return e.id !== item.id
     })
-    let profile = model.userProfile
     profile.noteTitles = noteTitles
     await expireUserNote(item)
     await putUserProfile(profile)
