@@ -16,8 +16,11 @@ import ViewNote from './ViewNote'
 import router from 'next/router'
 import ButtonSkeleton from 'components/Atoms/Skeletons/CenteredButtonSeleton'
 import { buildSaveModel } from 'lib/controllers/notes/notesController'
+import { useUserController } from 'hooks/userController'
 const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
   const [model, dispatch] = React.useReducer(notesReducer, data)
+
+  const userController = useUserController()
 
   const handleAddNote = () => {
     dispatch({
@@ -44,6 +47,7 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
   const handleSaveNote = async (item: UserNote) => {
     dispatch({ type: 'set-loading', payload: { isLoading: true } })
     const saveModel = await buildSaveModel(model, item)
+    userController.setProfile(saveModel.userProfile)
     await putUserProfile(saveModel.userProfile)
     await putUserNote(item, constructUserNoteCategoryKey(saveModel.username))
     dispatch({ type: 'save-note', payload: { noteTitles: saveModel.noteTitles } })
@@ -63,13 +67,12 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
 
   const handleDelete = async (item: UserNote) => {
     dispatch({ type: 'set-loading', payload: { isLoading: true } })
-
     let profile = model.userProfile
-
     let noteTitles = filter(profile.noteTitles, (e) => {
       return e.id !== item.id
     })
     profile.noteTitles = noteTitles
+    userController.setProfile(profile)
     await expireUserNote(item)
     await putUserProfile(profile)
     dispatch({ type: 'reload', payload: { noteTitles: noteTitles } })

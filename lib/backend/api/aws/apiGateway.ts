@@ -53,6 +53,7 @@ export interface WheelSpinStats {
 
 export interface UserProfile {
   id: string
+  username: string
   noteTitles: UserNote[]
 }
 

@@ -14,12 +14,14 @@ import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import { useAuthStore } from 'lib/backend/auth/useAuthStore'
 import shallow from 'zustand/shallow'
+import { useUserController } from 'hooks/userController'
 
 const Notes = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true)
   const [reload, setReload] = React.useState(true)
   const [model, setModel] = React.useState<UserNotesModel | undefined>(undefined)
-  const { authProfile, setAuthProfile } = useAuthStore((state) => ({ authProfile: state.profile, setAuthProfile: state.setProfile }), shallow)
+
+  const userController = useUserController()
 
   const loadData = async () => {
     const model: UserNotesModel = {
@@ -28,31 +30,29 @@ const Notes = () => {
       username: '',
       editMode: false,
       selectedNote: null,
-      userProfile: { id: '', noteTitles: [] },
+      userProfile: { id: '', noteTitles: [], username: '' },
       viewMode: false,
       filteredTitles: [],
       search: '',
     }
-    let user = await getUserCSR()
-    if (user !== null) {
-      const profile = authProfile === null ? ((await getUserProfile(user.email)) as UserProfile) : authProfile
-      if (profile) {
-        model.noteTitles = profile.noteTitles
-        model.filteredTitles = profile.noteTitles
-        model.username = user.email
-        model.isLoading = false
-        model.userProfile = profile
-        setModel(model)
-      }
-    } else {
+    const profile = await userController.refetchProfile(300)
+    if (profile === null) {
       router.push('/login')
       console.log('not logged in')
+    } else {
+      model.noteTitles = profile.noteTitles
+      model.filteredTitles = profile.noteTitles
+      model.username = profile.username
+      model.isLoading = false
+      model.userProfile = profile
+      setModel(model)
     }
-    setIsLoggedIn(user !== null)
+    setIsLoggedIn(profile !== null)
   }
 
   React.useEffect(() => {
     let fn = async () => {
+      setReload(false)
       await loadData()
     }
     if (reload) {

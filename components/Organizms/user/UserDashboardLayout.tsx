@@ -1,48 +1,42 @@
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import dayjs from 'dayjs'
-import utc from 'dayjs/plugin/utc'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import React from 'react'
 import router from 'next/router'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
-import { getUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { Divider } from '@aws-amplify/ui-react'
 import WarmupBox from 'components/Atoms/WarmupBox'
-import { ApiError } from 'next/dist/server/api-utils'
 import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import ButtonSkeleton from 'components/Atoms/Skeletons/CenteredButtonSeleton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import { useAuthStore } from 'lib/backend/auth/useAuthStore'
 import shallow from 'zustand/shallow'
-import { getUtcNow } from 'lib/util/dateUtil'
+import { useUserController } from 'hooks/userController'
 
 const UserDashboardLayout = ({ username }: { username: string | undefined }) => {
   const [isLoading, setIsLoading] = React.useState(true)
   const [currTime, setCurrTime] = React.useState('')
-  const { authProfile, setAuthProfile } = useAuthStore((state) => ({ authProfile: state.profile, setAuthProfile: state.setProfile }), shallow)
-  dayjs.extend(utc)
+  const { authProfile } = useAuthStore((state) => ({ authProfile: state.profile }), shallow)
+
+  const userController = useUserController()
 
   const loadData = async (userId: string | undefined) => {
     if (userId) {
       const key = constructUserProfileKey(userId)
       const userProfile: UserProfile = {
         id: key,
+        username: userId,
         noteTitles: [],
       }
 
-      let profile = authProfile == null ? await getUserProfile(userId) : authProfile
-      if (profile instanceof ApiError) {
+      let profile = await userController.getProfile()
+      if (profile === null) {
         setIsLoading(false)
-        setAuthProfile(null)
         return
       }
-
-      if (profile !== null) {
-        userProfile.noteTitles = profile.noteTitles
-        setAuthProfile(userProfile)
-      }
+      userProfile.noteTitles = profile.noteTitles
       setIsLoading(false)
     }
   }

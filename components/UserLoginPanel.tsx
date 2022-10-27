@@ -46,6 +46,7 @@ const UserLogin = () => {
         const newProfile: UserProfile = {
           id: constructUserProfileKey(newUser.email),
           noteTitles: [],
+          username: newUser.email,
         }
         await putUserProfile(newProfile)
         //console.log('profile created')
