@@ -1,3 +1,4 @@
+import { profile } from 'console'
 import dayjs from 'dayjs'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { useAuthStore } from 'lib/backend/auth/useAuthStore'
@@ -7,8 +8,9 @@ import { getUtcNow } from 'lib/util/dateUtil'
 import shallow from 'zustand/shallow'
 
 export const useUserController = () => {
-  const { authProfile, setAuthProfile, lastProfileFetchDate, setLastProfileFetchDate } = useAuthStore(
+  const { username, authProfile, setAuthProfile, lastProfileFetchDate, setLastProfileFetchDate } = useAuthStore(
     (state) => ({
+      username: state.username,
       authProfile: state.profile,
       setAuthProfile: state.setProfile,
       lastProfileFetchDate: state.lastProfileFetchDate,
@@ -37,6 +39,8 @@ export const useUserController = () => {
     return null
   }
   return {
+    username: username,
+    authProfile: authProfile,
     setProfile: async (profile: UserProfile | null) => {
       setAuthProfile(profile)
     },

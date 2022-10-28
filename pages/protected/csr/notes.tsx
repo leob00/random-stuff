@@ -15,6 +15,7 @@ import PleaseLogin from 'components/Molecules/PleaseLogin'
 import { useAuthStore } from 'lib/backend/auth/useAuthStore'
 import shallow from 'zustand/shallow'
 import { useUserController } from 'hooks/userController'
+import NonSSRWrapper from 'components/Organizms/NonSSRWrapper'
 
 const Notes = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true)
@@ -69,7 +70,7 @@ const Notes = () => {
           <CenterStack>
             <CenteredTitle title={'My Notes'}></CenteredTitle>
           </CenterStack>
-          {model ? <UserNotesLayout data={model} /> : <WarmupBox text='loading notes...' />}{' '}
+          <NonSSRWrapper>{model ? <UserNotesLayout data={model} /> : <WarmupBox />}</NonSSRWrapper>
         </>
       )}
     </Container>

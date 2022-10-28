@@ -2,6 +2,7 @@ import { Box, Container } from '@mui/material'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
+import NonSSRWrapper from 'components/Organizms/NonSSRWrapper'
 import UserDashboardLayout from 'components/Organizms/user/UserDashboardLayout'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
@@ -28,20 +29,22 @@ const Page = () => {
 
   return (
     <>
-      <Container>
-        {!userProfile ? (
-          !firstLoad ? (
-            <PleaseLogin />
+      <NonSSRWrapper>
+        <Container>
+          {!userProfile ? (
+            !firstLoad ? (
+              <PleaseLogin />
+            ) : (
+              <WarmupBox />
+            )
           ) : (
-            <WarmupBox />
-          )
-        ) : (
-          <>
-            <CenteredHeader title={`Welcome back, ${userProfile.username.substring(0, userProfile.username.indexOf('@'))}!`} description={''} />
-            <UserDashboardLayout username={userProfile.username} />
-          </>
-        )}
-      </Container>
+            <>
+              <CenteredHeader title={`Welcome back, ${userProfile.username.substring(0, userProfile.username.indexOf('@'))}!`} description={''} />
+              <UserDashboardLayout username={userProfile.username} />
+            </>
+          )}
+        </Container>
+      </NonSSRWrapper>
     </>
   )
 }

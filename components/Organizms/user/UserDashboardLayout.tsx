@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Skeleton, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import dayjs from 'dayjs'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
@@ -11,14 +11,12 @@ import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import ButtonSkeleton from 'components/Atoms/Skeletons/CenteredButtonSeleton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
-import { useAuthStore } from 'lib/backend/auth/useAuthStore'
-import shallow from 'zustand/shallow'
 import { useUserController } from 'hooks/userController'
+import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 
 const UserDashboardLayout = ({ username }: { username: string | undefined }) => {
   const [isLoading, setIsLoading] = React.useState(true)
   const [currTime, setCurrTime] = React.useState('')
-  const { authProfile } = useAuthStore((state) => ({ authProfile: state.profile }), shallow)
 
   const userController = useUserController()
 
@@ -67,18 +65,28 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
       </Box>
       <Box sx={{ my: 2 }}>
         {isLoading && (
-          <CenterStack>
-            <ButtonSkeleton buttonText='Notes: 00' />
-          </CenterStack>
-        )}
-        {authProfile && (
           <>
+            <CenterStack>
+              <Skeleton variant='text' sx={{ bgcolor: VeryLightBlueTransparent }}>
+                <Typography variant='subtitle1'>Take Notes</Typography>
+              </Skeleton>
+            </CenterStack>
+            <CenterStack>
+              <ButtonSkeleton buttonText='Notes: 00' />
+            </CenterStack>
+          </>
+        )}
+        {userController.username && userController.authProfile && (
+          <>
+            <CenterStack>
+              <Typography variant='subtitle1'>Take Notes</Typography>
+            </CenterStack>
             <CenterStack sx={{ py: 2 }}>
               <SecondaryButton
                 onClick={() => {
                   router.push('/protected/csr/notes')
                 }}
-                text={`Notes: ${authProfile.noteTitles.length}`}
+                text={`Notes: ${userController.authProfile.noteTitles.length}`}
               ></SecondaryButton>
             </CenterStack>
           </>

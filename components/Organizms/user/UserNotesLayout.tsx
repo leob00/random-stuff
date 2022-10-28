@@ -19,7 +19,6 @@ import { buildSaveModel } from 'lib/controllers/notes/notesController'
 import { useUserController } from 'hooks/userController'
 const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
   const [model, dispatch] = React.useReducer(notesReducer, data)
-
   const userController = useUserController()
 
   const handleAddNote = () => {
