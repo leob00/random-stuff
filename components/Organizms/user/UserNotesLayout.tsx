@@ -87,7 +87,7 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
         <>
           <BackButton
             onClicked={() => {
-              router.push('/protected/csr/userdashboard')
+              router.push('/protected/csr/dashboard')
             }}
           />
           <Box sx={{ py: 2 }}>

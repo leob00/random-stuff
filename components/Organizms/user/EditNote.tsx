@@ -51,6 +51,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
       <Box sx={{ pt: 2 }} component='form'>
         <CenterStack sx={{ width: { xs: '100%' } }}>
           <TextField
+            inputProps={{ maxLength: 150 }}
             fullWidth
             inputRef={title}
             defaultValue={item.title}
@@ -63,6 +64,9 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
             error={titleError}
           />
         </CenterStack>
+        {/*  <CenterStack sx={{ py: 2, minHeight: 480, width: { xs: '100%' } }}>
+          <HtmlEditor value={bodyText} onChanged={handleBodyChange} />
+        </CenterStack> */}
         <CenterStack sx={{ py: 2, minHeight: 480, width: { xs: '100%' } }}>
           <HtmlEditorQuill value={bodyText} onChanged={handleBodyChange} />
         </CenterStack>

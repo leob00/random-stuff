@@ -1,6 +1,7 @@
 import { Person } from '@mui/icons-material'
 import { Stack, Button } from '@mui/material'
 import { Auth, Hub } from 'aws-amplify'
+import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import { useAuthStore } from 'lib/backend/auth/useAuthStore'
@@ -18,6 +19,7 @@ export type HubPayload = {
 
 const UserLogin = () => {
   const authStore = useAuthStore()
+  const userController = useUserController()
   const signOut = () => {
     const fn = async () => {
       await Auth.signOut()
@@ -39,7 +41,8 @@ const UserLogin = () => {
         const user = { email: payload.data?.attributes.email }
         authStore.setIsLoggedIn(true)
         authStore.setUsername(user.email)
-        router.push('/ssg/waitandredirect?id=protected/csr/userdashboard')
+        authStore.setLastProfileFetchDate('')
+        router.push('/ssg/waitandredirect?id=protected/csr/dashboard')
         break
       case 'signUp':
         //console.log('creating profile')

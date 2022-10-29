@@ -14,13 +14,13 @@ import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import { useUserController } from 'hooks/userController'
 import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 
-const UserDashboardLayout = ({ username }: { username: string | undefined }) => {
+const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const [isLoading, setIsLoading] = React.useState(true)
   const [currTime, setCurrTime] = React.useState('')
 
-  const userController = useUserController()
+  //const userController = useUserController()
 
-  const loadData = async (userId: string | undefined) => {
+  /* const loadData = async () => {
     if (userId) {
       const key = constructUserProfileKey(userId)
       const userProfile: UserProfile = {
@@ -37,19 +37,11 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
       userProfile.noteTitles = profile.noteTitles
       setIsLoading(false)
     }
-  }
+  } */
 
   React.useEffect(() => {
-    const fn = async () => {
-      const time = dayjs().utc().local().format('MM/DD/YYYY hh:mm a')
-      setCurrTime(time)
-      await loadData(username)
-    }
-
-    if (username) {
-      fn()
-    }
-  }, [username])
+    setIsLoading(false)
+  }, [isLoading])
 
   return (
     <>
@@ -76,21 +68,20 @@ const UserDashboardLayout = ({ username }: { username: string | undefined }) => 
             </CenterStack>
           </>
         )}
-        {userController.username && userController.authProfile && (
-          <>
-            <CenterStack>
-              <Typography variant='subtitle1'>Take Notes</Typography>
-            </CenterStack>
-            <CenterStack sx={{ py: 2 }}>
-              <SecondaryButton
-                onClick={() => {
-                  router.push('/protected/csr/notes')
-                }}
-                text={`Notes: ${userController.authProfile.noteTitles.length}`}
-              ></SecondaryButton>
-            </CenterStack>
-          </>
-        )}
+        <>
+          <CenterStack>
+            <Typography variant='subtitle1'>Take Notes</Typography>
+          </CenterStack>
+          <CenterStack sx={{ py: 2 }}>
+            <SecondaryButton
+              onClick={() => {
+                router.push('/protected/csr/notes')
+              }}
+              text={`Notes: ${userProfile.noteTitles.length}`}
+            ></SecondaryButton>
+          </CenterStack>
+        </>
+
         {/*  <CenterStack sx={{ pt: 8 }}>
           <Typography variant='body2'>{`${Math.floor(getUtcNow().valueOf() / 1000)}`}</Typography>
         </CenterStack> */}

@@ -8,13 +8,15 @@ import { getUtcNow } from 'lib/util/dateUtil'
 import shallow from 'zustand/shallow'
 
 export const useUserController = () => {
-  const { username, authProfile, setAuthProfile, lastProfileFetchDate, setLastProfileFetchDate } = useAuthStore(
+  const { username, authProfile, setAuthProfile, lastProfileFetchDate, setLastProfileFetchDate, setIsLoggedin } = useAuthStore(
     (state) => ({
+      isLoggedIn: state.isLoggedIn,
       username: state.username,
       authProfile: state.profile,
       setAuthProfile: state.setProfile,
       lastProfileFetchDate: state.lastProfileFetchDate,
       setLastProfileFetchDate: state.setLastProfileFetchDate,
+      setIsLoggedin: state.setIsLoggedIn,
     }),
     shallow,
   )
@@ -41,6 +43,9 @@ export const useUserController = () => {
   return {
     username: username,
     authProfile: authProfile,
+    setIsLoggedIn: async (loggedIn: boolean) => {
+      setIsLoggedin(loggedIn)
+    },
     setProfile: async (profile: UserProfile | null) => {
       setAuthProfile(profile)
     },
@@ -59,12 +64,9 @@ export const useUserController = () => {
       const last = dayjs(lastDt)
       const nextFetch = last.add(seconds, 'second')
 
-      //console.log(`last fetch: ${last.format('MM/DD/YYYY hh:mm a')}`)
-      //console.log(`next fetch: ${nextFetch.format('MM/DD/YYYY hh:mm a')}`)
-
       if (now.isAfter(last)) {
         if (nextFetch.isBefore(now)) {
-          console.log('refetching profile...')
+          //console.log('refetching profile...')
           return await fetchProfile()
         }
       }

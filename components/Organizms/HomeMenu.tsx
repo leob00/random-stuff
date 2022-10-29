@@ -118,6 +118,13 @@ const HomeMenu = () => {
                 <CenterStack>
                   <LinkButton
                     onClick={() => {
+                      router.push('/protected/csr/dashboard')
+                    }}
+                  >
+                    dashboard
+                  </LinkButton>
+                  <LinkButton
+                    onClick={() => {
                       router.push('/protected/csr/notes')
                     }}
                   >
