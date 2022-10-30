@@ -57,7 +57,7 @@ const HomeMenu = () => {
                 cats
               </LinkButton>
             </CenterStack>
-            <CenterStack>
+            {/* <CenterStack>
               <LinkButton
                 onClick={() => {
                   router.push('/ssg/articles')
@@ -72,7 +72,7 @@ const HomeMenu = () => {
               >
                 daily silliness
               </LinkButton>
-            </CenterStack>
+            </CenterStack> */}
             <CenterStack>
               <LinkButton
                 onClick={() => {
@@ -106,6 +106,13 @@ const HomeMenu = () => {
               }}
             >
               news
+            </LinkButton>
+            <LinkButton
+              onClick={() => {
+                router.push('/ssg/newsfeed')
+              }}
+            >
+              news feed
             </LinkButton>
           </CenterStack>
           {isLoggedIn && (

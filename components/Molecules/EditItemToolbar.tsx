@@ -17,21 +17,21 @@ const EditItemToolbar = ({ onSave, onCancel, onEdit }: { onSave?: () => void; on
       <Stack display='flex' flexDirection='row' gap={0} justifyContent='center' py={2}>
         {onSave && (
           <Stack>
-            <IconButton onClick={handleSaveClick} color='primary'>
+            <IconButton onClick={handleSaveClick} color='secondary'>
               <Save />
             </IconButton>
           </Stack>
         )}
         {onEdit && (
           <Stack>
-            <IconButton onClick={handleEditClick} color='primary'>
+            <IconButton onClick={handleEditClick} color='secondary'>
               <Create />
             </IconButton>
           </Stack>
         )}
         {onCancel && (
           <Stack>
-            <IconButton onClick={handleCancelClick} color='primary'>
+            <IconButton onClick={handleCancelClick} color='secondary'>
               <Close />
             </IconButton>
           </Stack>
