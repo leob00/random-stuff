@@ -50,7 +50,7 @@ const NewsLayout = () => {
               {newsItems.map((item, i) => (
                 <Box key={i} pb={2}>
                   <Typography>
-                    <Link href={item.ApiUrl} target='_blank' color='primary' sx={{ fontWeight: 700 }}>
+                    <Link href={item.Link} target='_blank' color='primary' sx={{ fontWeight: 700 }}>
                       {item.Headline}
                     </Link>
                   </Typography>
