@@ -74,33 +74,6 @@ const themeOptions: ThemeOptions = {
       styleOverrides: { maxWidthLg: '100%' },
     },
   },
-  //components: {
-  // maxWidth: 1200,
-
-  // MuiContainer-maxWidthLg css-1oqqzyl-MuiContainer-root
-  // MuiButtonBase: {
-  //   defaultProps: {
-  //     disableRipple: false
-  //   },
-  // },
-  // MuiButton: {
-  //   variants: [
-  //     {
-  //       props: { variant: 'outlined' },
-  //       style: {
-  //         textTransform: 'none',
-  //         //border: `2px dashed #2196F3`,
-  //       },
-  //     },
-  //     {
-  //       props: { variant: 'outlined', color: 'secondary' },
-  //       style: {
-  //         //border: `4px dashed red`,
-  //       },
-  //     },
-  //   ],
-  // },
-  //},
 }
 const rfsOptions: ResponsiveFontSizesOptions = { breakpoints: ['xs', 'sm', 'md', 'lg', 'xl'] }
 const theme = responsiveFontSizes(createTheme({ ...themeOptions, palette: lightPalette }), rfsOptions)

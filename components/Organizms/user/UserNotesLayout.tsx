@@ -14,7 +14,7 @@ import EditNote from './EditNote'
 import NoteList from './NoteList'
 import ViewNote from './ViewNote'
 import router from 'next/router'
-import ButtonSkeleton from 'components/Atoms/Skeletons/CenteredButtonSeleton'
+import ButtonSkeleton from 'components/Atoms/Skeletons/ButtonSkeleton'
 import { buildSaveModel } from 'lib/controllers/notes/notesController'
 import { useUserController } from 'hooks/userController'
 const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {

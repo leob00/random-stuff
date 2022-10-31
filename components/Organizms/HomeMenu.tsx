@@ -102,14 +102,14 @@ const HomeMenu = () => {
           <CenterStack>
             <LinkButton
               onClick={() => {
-                router.push('/ssg/news')
+                router.push('/csr/news')
               }}
             >
               news
             </LinkButton>
             <LinkButton
               onClick={() => {
-                router.push('/ssg/newsfeed')
+                router.push('/csr/newsfeed')
               }}
             >
               news feed
