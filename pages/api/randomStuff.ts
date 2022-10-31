@@ -1,15 +1,12 @@
-import { getAnimals, getRandomStuff } from 'lib/backend/api/aws/apiGateway'
-import { BasicArticle } from 'lib/model'
-import { findLast, shuffle } from 'lodash'
+import { getRandomStuff } from 'lib/backend/api/aws/apiGateway'
+import { authorizeRequest } from 'lib/backend/server-side/requestProcessor'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
   let id = req.query['id'] as string
   if (id.includes('user-profile')) {
-    let r = findLast(Object.keys(req.cookies), (e) => {
-      return e.includes('CognitoIdentityServiceProvider')
-    })
-    if (!r) {
+    const isAuthorized = await authorizeRequest(req)
+    if (!isAuthorized) {
       res.status(403).send('unuathorized call')
       console.log('unauthorized call')
       return
