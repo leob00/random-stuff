@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
   let id = req.query['id'] as string
-  if (id.includes('user-profile')) {
+  if (id.startsWith('user')) {
     const isAuthorized = await authorizeRequest(req)
     if (!isAuthorized) {
       res.status(403).send('unuathorized call')

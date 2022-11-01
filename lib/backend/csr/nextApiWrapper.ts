@@ -4,6 +4,7 @@ import { ApiError } from 'next/dist/server/api-utils'
 import { LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
 import { axiosGet, axiosPut } from '../api/aws/useAxios'
 import { constructUserNoteCategoryKey, constructUserProfileKey } from '../api/aws/util'
+import { signLambdaDynamoPut } from '../encryption/useEncryptor'
 
 export async function putUserNote(item: UserNote, secondaryKey: string) {
   let req: LambdaDynamoRequest = {
@@ -11,6 +12,7 @@ export async function putUserNote(item: UserNote, secondaryKey: string) {
     category: secondaryKey,
     data: item,
     expiration: 0,
+    token: signLambdaDynamoPut(item.id!, secondaryKey, item.id!),
   }
   await axiosPut(`/api/putRandomStuff`, req)
 }
@@ -21,6 +23,7 @@ export async function expireUserNote(item: UserNote) {
     category: 'expired',
     data: item,
     expiration: Math.floor(unixNowSeconds),
+    token: signLambdaDynamoPut(item.id!, 'expired', item.id!),
   }
   await axiosPut(`/api/putRandomStuff`, req)
 }
@@ -32,14 +35,17 @@ export async function deleteUserNote(item: UserNote) {
 }
 
 export async function putUserProfile(item: UserProfile) {
+  const cat = 'userProfile'
   let req: LambdaDynamoRequest = {
     id: item.id,
-    category: 'userProfile',
+    category: cat,
     data: item,
     expiration: 0,
+    token: signLambdaDynamoPut(item.id, cat, item.id),
   }
   await axiosPut(`/api/putRandomStuff`, req)
 }
+// todo: this neeeds to be secured
 export async function getUserNotes(username: string) {
   let categoryKey = constructUserNoteCategoryKey(username)
   let response = (await axiosGet(`/api/searchRandomStuff?id=${categoryKey}`)) as LambdaBody[]

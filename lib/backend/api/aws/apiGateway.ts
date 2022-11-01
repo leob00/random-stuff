@@ -1,5 +1,4 @@
-import { RouletteNumberColor } from 'lib/backend/roulette/wheel'
-import { BasicArticle, BasicArticleTypes } from 'lib/model'
+import { BasicArticle } from 'lib/model'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { axiosGet, axiosPut } from './useAxios'
 
@@ -20,6 +19,7 @@ export interface LambdaDynamoRequest {
   category: CategoryType | string
   data: any
   expiration: number
+  token: string
 }
 
 export interface LambdaResponse {

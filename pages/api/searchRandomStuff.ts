@@ -4,7 +4,9 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 export default async function handler(req: NextApiRequest, res: NextApiResponse<LambdaBody[]>) {
   let id = req.query['id'] as string
   //console.log('searching: ', id)
-  var result = await searchRandomStuffBySecIndex(id)
+  //var result = await searchRandomStuffBySecIndex(id)
   //console.log(result)
+  const result: LambdaBody[] = []
+
   res.status(200).json(result)
 }
