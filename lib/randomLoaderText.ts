@@ -18,6 +18,6 @@ const loaders = [
   'mixing ingredients',
 ]
 
-export function getRandomLoadertext() {
+export function getRandomLoaderText() {
   return shuffle(loaders)[0]
 }

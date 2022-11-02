@@ -1,12 +1,12 @@
 import { Box, CircularProgress, Container, Stack, Typography } from '@mui/material'
-import { getRandomLoadertext } from 'lib/randomLoaderText'
+import { getRandomLoaderText } from 'lib/randomLoaderText'
 import React, { useEffect, useReducer } from 'react'
 import { Model, warmupReducer } from 'lib/reducers/warmupReducer'
 import CenterStack from './CenterStack'
 
 const WarmupBox = ({ text }: { text?: string }) => {
   const defaultModel: Model = {
-    message: text ?? getRandomLoadertext(),
+    message: text ?? getRandomLoaderText(),
   }
   const [model, dispatch] = useReducer(warmupReducer, defaultModel)
   const intervalRef = React.useRef<NodeJS.Timer | null>(null)
@@ -16,7 +16,7 @@ const WarmupBox = ({ text }: { text?: string }) => {
       return
     }
     intervalRef.current = setInterval(() => {
-      dispatch({ type: 'refresh', payload: { message: getRandomLoadertext() } })
+      dispatch({ type: 'refresh', payload: { message: getRandomLoaderText() } })
       if (intervalRef.current) {
         clearInterval(intervalRef.current)
       }

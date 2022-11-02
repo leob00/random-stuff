@@ -1,4 +1,4 @@
-import { getRandomLoadertext } from 'lib/randomLoaderText'
+import { getRandomLoaderText } from 'lib/randomLoaderText'
 
 export interface Model {
   message: string

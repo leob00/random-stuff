@@ -56,8 +56,14 @@ export async function getUserNotes(username: string) {
 export async function getUserProfile(username: string) {
   let result: UserProfile | null = null
   const key = constructUserProfileKey(username)
+
   try {
-    let data = await axiosGet(`/api/randomStuff?id=${key}`)
+    const token = process.env.NEXT_PUBLIC_API_TOKEN as string
+    const params = {
+      id: key,
+      token: token,
+    }
+    const data = await axiosGet(`/api/randomStuff`, params)
     if (data) {
       let parsed = data as UserProfile
       if (parsed) {
@@ -86,7 +92,12 @@ export async function getUserNote(id?: string) {
   let result: UserNote | null = null
 
   try {
-    let data = await axiosGet(`/api/randomStuff?id=${id}`)
+    const token = process.env.NEXT_PUBLIC_API_TOKEN as string
+    const params = {
+      id: id,
+      token: token,
+    }
+    const data = await axiosGet(`/api/randomStuff`, params)
     if (data) {
       result = data
       // console.log(result)
