@@ -21,7 +21,7 @@ const WarmupBox = ({ text }: { text?: string }) => {
         clearInterval(intervalRef.current)
       }
     }, 2500)
-  }, [model.message])
+  }, [model.message, text])
   return (
     <Container sx={{}}>
       <Box sx={{ py: 2 }}>

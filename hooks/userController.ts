@@ -8,7 +8,7 @@ import { getUtcNow } from 'lib/util/dateUtil'
 import shallow from 'zustand/shallow'
 
 export const useUserController = () => {
-  const { username, authProfile, setAuthProfile, lastProfileFetchDate, setLastProfileFetchDate, setIsLoggedin } = useAuthStore(
+  const { username, authProfile, setAuthProfile, lastProfileFetchDate, setLastProfileFetchDate, setIsLoggedin, setUsername } = useAuthStore(
     (state) => ({
       isLoggedIn: state.isLoggedIn,
       username: state.username,
@@ -17,6 +17,7 @@ export const useUserController = () => {
       lastProfileFetchDate: state.lastProfileFetchDate,
       setLastProfileFetchDate: state.setLastProfileFetchDate,
       setIsLoggedin: state.setIsLoggedIn,
+      setUsername: state.setUsername,
     }),
     shallow,
   )
@@ -48,6 +49,9 @@ export const useUserController = () => {
     },
     setProfile: async (profile: UserProfile | null) => {
       setAuthProfile(profile)
+      if (profile === null) {
+        setLastProfileFetchDate('')
+      }
     },
     getProfile: async () => {
       if (authProfile === null) {
@@ -71,6 +75,9 @@ export const useUserController = () => {
         }
       }
       return authProfile
+    },
+    setUsername: async (username: string | null) => {
+      setUsername(username)
     },
   }
 }

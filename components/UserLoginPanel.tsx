@@ -18,7 +18,7 @@ export type HubPayload = {
 }
 
 const UserLogin = () => {
-  const authStore = useAuthStore()
+  //const authStore = useAuthStore()
   const userController = useUserController()
   const signOut = () => {
     const fn = async () => {
@@ -31,17 +31,17 @@ const UserLogin = () => {
   const updateUser = async (payload: HubPayload) => {
     switch (payload.event) {
       case 'signOut':
-        authStore.setIsLoggedIn(false)
-        authStore.setUsername(null)
-        authStore.setProfile(null)
-        authStore.setLastProfileFetchDate('')
+        await userController.setIsLoggedIn(false)
+        await userController.setUsername(null)
+        await userController.setProfile(null)
+        //await userController.setLastProfileFetchDate('')
         router.push('/login')
         break
       case 'signIn':
         const user = { email: payload.data?.attributes.email }
-        authStore.setIsLoggedIn(true)
-        authStore.setUsername(user.email)
-        authStore.setLastProfileFetchDate('')
+        await userController.setIsLoggedIn(true)
+        await userController.setUsername(user.email)
+        //await userController.setLastProfileFetchDate('')
         router.push('/ssg/waitandredirect?id=protected/csr/dashboard')
         break
       case 'signUp':
@@ -63,23 +63,25 @@ const UserLogin = () => {
 
   useEffect(() => {
     let fn = async () => {
-      if (authStore.isLoggedIn && authStore.username) {
+      if (userController.username) {
         return
       }
 
       try {
         let user = await Auth.currentAuthenticatedUser()
         if (user) {
-          authStore.setIsLoggedIn(true)
-          authStore.setUsername(user.attributes.email)
+          await userController.setIsLoggedIn(true)
+          await userController.setUsername(user.attributes.email)
         }
       } catch (error) {
-        authStore.setIsLoggedIn(false)
+        await userController.setIsLoggedIn(false)
+        await userController.setUsername(null)
+        await userController.setProfile(null)
       }
     }
 
     fn()
-  }, [authStore.isLoggedIn])
+  }, [userController.username])
 
   const handleLoginClick = async () => {
     router.push('/login')
@@ -89,7 +91,6 @@ const UserLogin = () => {
     let fn = async () => {
       Hub.listen('auth', (data) => {
         const { payload } = data
-
         updateUser(payload)
 
         //console.log('A new auth event has happened: ', data.payload.data.username + ' has ' + data.payload.event)
@@ -103,9 +104,9 @@ const UserLogin = () => {
     <>
       <DarkMode>
         <Stack>
-          {authStore.isLoggedIn === true && authStore.username ? (
+          {userController.username ? (
             <>
-              <LoggedInUserMenu onLogOut={signOut} username={authStore.username} />
+              <LoggedInUserMenu onLogOut={signOut} username={userController.username} />
             </>
           ) : (
             <>
