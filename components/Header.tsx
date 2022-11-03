@@ -44,7 +44,7 @@ const Header = () => {
             <Grid container alignItems='center' columns={{ xs: 1, sm: 4, md: 8, lg: 12, xl: 12 }} spacing={{ xs: 0.02, sm: 1, md: 3, lg: 4, xl: 4 }}>
               <Grid item>
                 <NLink href='/' passHref>
-                  <RemoteImage url='/images/logo-with-text-blue-small.png' title='random things' width={170} height={80} priority={true} />
+                  <RemoteImage url='/images/logo-with-text-blue-small.png' title='random things' width={150} height={76} priority={true} />
                 </NLink>
               </Grid>
               <Grid item>
