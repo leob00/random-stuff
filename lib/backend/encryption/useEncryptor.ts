@@ -24,10 +24,7 @@ export function myDecrypt(passPhrase: string, data: string) {
   return decryptedData
 }
 
-export function signLambdaDynamoPut(string1: string, string2: string, data: string) {
-  return myEncrypt(`${string1}${string2}`, data)
-}
-export function verifyLambdaDynamoPut(seed: string, encrypted: string) {
+/* export function verifyLambdaDynamoPut(seed: string, encrypted: string) {
   const decrypted = myDecrypt(`${seed}`, encrypted)
   return decrypted
-}
+} */

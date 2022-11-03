@@ -4,7 +4,7 @@ import { ApiError } from 'next/dist/server/api-utils'
 import { LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
 import { axiosGet, axiosPut } from '../api/aws/useAxios'
 import { constructUserNoteCategoryKey, constructUserProfileKey } from '../api/aws/util'
-import { signLambdaDynamoPut } from '../encryption/useEncryptor'
+import { myEncrypt } from '../encryption/useEncryptor'
 
 export async function putUserNote(item: UserNote, secondaryKey: string) {
   let req: LambdaDynamoRequest = {
@@ -12,8 +12,10 @@ export async function putUserNote(item: UserNote, secondaryKey: string) {
     category: secondaryKey,
     data: item,
     expiration: 0,
-    token: signLambdaDynamoPut(item.id!, secondaryKey, item.id!),
+    token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${item.id}`),
+    //token: signLambdaDynamoPut(item.id!, secondaryKey, String(process.env.NEXT_PUBLIC_API_TOKEN)),
   }
+  //console.log('encrypted token: ', req.token)
   await axiosPut(`/api/putRandomStuff`, req)
 }
 export async function expireUserNote(item: UserNote) {
@@ -23,7 +25,7 @@ export async function expireUserNote(item: UserNote) {
     category: 'expired',
     data: item,
     expiration: Math.floor(unixNowSeconds),
-    token: signLambdaDynamoPut(item.id!, 'expired', item.id!),
+    token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${item.id}`),
   }
   await axiosPut(`/api/putRandomStuff`, req)
 }
@@ -41,7 +43,7 @@ export async function putUserProfile(item: UserProfile) {
     category: cat,
     data: item,
     expiration: 0,
-    token: signLambdaDynamoPut(item.id, cat, item.id),
+    token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${item.id}`),
   }
   await axiosPut(`/api/putRandomStuff`, req)
 }

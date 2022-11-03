@@ -1,13 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { LambdaDynamoRequest, putRandomStuff } from 'lib/backend/api/aws/apiGateway'
-import { verifyLambdaDynamoPut } from 'lib/backend/encryption/useEncryptor'
+import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
   let body = req.body as LambdaDynamoRequest
-  const encrypted = body.token
-  const seed = `${body.id}${body.category}`
-  const decrypted = verifyLambdaDynamoPut(seed, encrypted)
-  if (body.id !== decrypted) {
+  const id = myDecrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), body.token)
+  if (body.id !== id) {
     console.log('token validation failed')
     res.status(403).send('token validation failed')
     return
