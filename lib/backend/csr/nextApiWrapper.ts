@@ -6,6 +6,10 @@ import { axiosGet, axiosPut } from '../api/aws/useAxios'
 import { constructUserNoteCategoryKey, constructUserProfileKey } from '../api/aws/util'
 import { myEncrypt } from '../encryption/useEncryptor'
 
+export interface EncPutRequest {
+  data: string
+}
+
 export async function putUserNote(item: UserNote, secondaryKey: string) {
   let req: LambdaDynamoRequest = {
     id: item.id!,
@@ -15,8 +19,10 @@ export async function putUserNote(item: UserNote, secondaryKey: string) {
     token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${item.id}`),
     //token: signLambdaDynamoPut(item.id!, secondaryKey, String(process.env.NEXT_PUBLIC_API_TOKEN)),
   }
-  //console.log('encrypted token: ', req.token)
-  await axiosPut(`/api/putRandomStuff`, req)
+  const putRequest: EncPutRequest = {
+    data: encryptBody(req),
+  }
+  await axiosPut(`/api/putRandomStuff`, putRequest)
 }
 export async function expireUserNote(item: UserNote) {
   const unixNowSeconds = getUtcNow().valueOf() / 1000
@@ -27,7 +33,10 @@ export async function expireUserNote(item: UserNote) {
     expiration: Math.floor(unixNowSeconds),
     token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${item.id}`),
   }
-  await axiosPut(`/api/putRandomStuff`, req)
+  const putRequest: EncPutRequest = {
+    data: encryptBody(req),
+  }
+  await axiosPut(`/api/putRandomStuff`, putRequest)
 }
 export async function deleteUserNote(item: UserNote) {
   let req = {
@@ -45,7 +54,10 @@ export async function putUserProfile(item: UserProfile) {
     expiration: 0,
     token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${item.id}`),
   }
-  await axiosPut(`/api/putRandomStuff`, req)
+  const putRequest: EncPutRequest = {
+    data: encryptBody(req),
+  }
+  await axiosPut(`/api/putRandomStuff`, putRequest)
 }
 // todo: this neeeds to be secured
 export async function getUserNotes(username: string) {
@@ -60,10 +72,11 @@ export async function getUserProfile(username: string) {
   const key = constructUserProfileKey(username)
 
   try {
-    const token = process.env.NEXT_PUBLIC_API_TOKEN as string
+    const token = String(process.env.NEXT_PUBLIC_API_TOKEN)
     const params = {
-      id: key,
-      token: token,
+      /* id: key,
+      token: token, */
+      enc: myEncrypt(token, key),
     }
     const data = await axiosGet(`/api/randomStuff`, params)
     if (data) {
@@ -94,10 +107,11 @@ export async function getUserNote(id?: string) {
   let result: UserNote | null = null
 
   try {
-    const token = process.env.NEXT_PUBLIC_API_TOKEN as string
+    const token = String(process.env.NEXT_PUBLIC_API_TOKEN)
     const params = {
-      id: id,
-      token: token,
+      enc: myEncrypt(token, id!),
+      /*  id: id,
+      token: token, */
     }
     const data = await axiosGet(`/api/randomStuff`, params)
     if (data) {
@@ -109,4 +123,8 @@ export async function getUserNote(id?: string) {
     console.log(err)
   }
   return result
+}
+
+function encryptBody(req: LambdaDynamoRequest) {
+  return myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), JSON.stringify(req))
 }

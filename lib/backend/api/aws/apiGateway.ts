@@ -1,3 +1,6 @@
+import { BoySharp } from '@mui/icons-material'
+import { EncPutRequest } from 'lib/backend/csr/nextApiWrapper'
+import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { BasicArticle } from 'lib/model'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { axiosGet, axiosPut } from './useAxios'
@@ -119,16 +122,14 @@ export async function searchRandomStuffBySecIndex(search: CategoryType | string)
 }
 export async function putRandomStuff(type: DynamoKeys, category: CategoryType, data: any, expiration?: number) {
   const url = `${baseUrl}/randomstuff`
-  /* if (expiration) {
-    console.log('expiration set: ', expiration)
-  } */
-  let model: RandomStuffPut = {
+
+  const model: RandomStuffPut = {
     key: type,
     data: data,
     category: category,
     expiration: expiration ?? 0,
   }
-  let postData = {
+  const postData = {
     body: model,
   }
   try {
@@ -137,11 +138,41 @@ export async function putRandomStuff(type: DynamoKeys, category: CategoryType, d
     console.log('error in putRandomStuff')
   }
 }
+export async function putRandomStuffEnc(req: EncPutRequest) {
+  const json = myDecrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), req.data)
+  const body = JSON.parse(json) as LambdaDynamoRequest
+  if (!body) {
+    console.log('putRandomStuff: body validation failed')
+    return null
+  }
+  const id = myDecrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), body.token)
+  if (body.id !== id) {
+    console.log('token validation failed')
+    return null
+  }
+
+  const url = `${baseUrl}/randomstuff`
+
+  const model: RandomStuffPut = {
+    key: body.id,
+    data: body.data,
+    category: body.category,
+    expiration: body.expiration ?? 0,
+  }
+  const postData = {
+    body: model,
+  }
+  try {
+    await axiosPut(url, postData)
+    return body
+  } catch (error) {
+    console.log('error in putRandomStuff')
+    return null
+  }
+}
 
 export async function deleteRandomStuff(key: string) {
   const url = `${baseUrl}/deleterandomstuff?key=${key}`
-
-  //console.log('deleteing item: ', key)
   let params = {
     key: key,
   }
