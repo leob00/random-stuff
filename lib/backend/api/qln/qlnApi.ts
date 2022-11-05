@@ -5,7 +5,7 @@ import { axiosGet } from './useAxios'
 let baseUrl = process.env.NEXT_QLN_API_URL
 
 export interface NewsItem {
-  Source?: string
+  Source?: NewsTypeIds | string
   Symbol?: string
   Headline?: string
   Link?: string
@@ -30,6 +30,7 @@ export type NewsTypeIds =
   | 'GoogleSports'
   | 'YahooWorld'
   | 'YahooScience'
+  | 'HackerNews'
 
 export const newsTypes: DropdownItem[] = [
   {

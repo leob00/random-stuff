@@ -19,7 +19,7 @@ const NewsLayout = () => {
     const sorted = orderBy(result, ['PublishDate'], ['desc'])
     setNewsItems(sorted)
     setIsLoading(false)
-    //console.log(JSON.stringify(result))
+    console.log(JSON.stringify(result))
   }
   const handleNewsSourceSelected = async (id: string) => {
     setIsLoading(true)
@@ -54,7 +54,9 @@ const NewsLayout = () => {
                       {item.Headline}
                     </Link>
                   </Typography>
-                  {item.Description && <Typography variant='body1' color='primary' dangerouslySetInnerHTML={{ __html: item.Description }}></Typography>}
+                  {item.Description && item.Source && item.Source !== 'HackerNews' && (
+                    <Typography variant='body1' color='primary' dangerouslySetInnerHTML={{ __html: item.Description }}></Typography>
+                  )}
                   {item.TeaserImageUrl && item.TeaserImageUrl.length > 0 && (
                     <Box pt={1}>
                       <img src={item.TeaserImageUrl} title='' width={200} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
