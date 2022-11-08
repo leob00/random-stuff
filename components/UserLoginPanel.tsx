@@ -38,9 +38,13 @@ const UserLogin = () => {
         router.push('/login')
         break
       case 'signIn':
-        const user = { email: payload.data?.attributes.email }
+        const user = { email: payload.data?.attributes.email, roles: payload.data?.attributes['custom:roles'] }
         await userController.setIsLoggedIn(true)
         await userController.setUsername(user.email)
+        console.log('user roles: ', user.roles)
+        if (user.roles) {
+        }
+        //console.log(payload.data?.attributes['custom:roles'])
         //await userController.setLastProfileFetchDate('')
         router.push('/ssg/waitandredirect?id=protected/csr/dashboard')
         break

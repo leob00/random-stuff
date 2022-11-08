@@ -38,7 +38,7 @@ const RemoteImage = ({
           layout='fill'
           objectFit='cover'
           blurDataURL={url}
-          className=''
+          //className=''
           onLoad={handleLoaded}
           priority={priority}
         />

@@ -8,19 +8,22 @@ import { getUtcNow } from 'lib/util/dateUtil'
 import shallow from 'zustand/shallow'
 
 export const useUserController = () => {
-  const { username, authProfile, setAuthProfile, lastProfileFetchDate, setLastProfileFetchDate, setIsLoggedin, setUsername } = useAuthStore(
-    (state) => ({
-      isLoggedIn: state.isLoggedIn,
-      username: state.username,
-      authProfile: state.profile,
-      setAuthProfile: state.setProfile,
-      lastProfileFetchDate: state.lastProfileFetchDate,
-      setLastProfileFetchDate: state.setLastProfileFetchDate,
-      setIsLoggedin: state.setIsLoggedIn,
-      setUsername: state.setUsername,
-    }),
-    shallow,
-  )
+  const { isLoggedIn, username, authProfile, setAuthProfile, lastProfileFetchDate, setLastProfileFetchDate, setIsLoggedin, setUsername, roles, setRoles } =
+    useAuthStore(
+      (state) => ({
+        isLoggedIn: state.isLoggedIn,
+        username: state.username,
+        authProfile: state.profile,
+        roles: state.roles,
+        setRoles: state.setRoles,
+        setAuthProfile: state.setProfile,
+        lastProfileFetchDate: state.lastProfileFetchDate,
+        setLastProfileFetchDate: state.setLastProfileFetchDate,
+        setIsLoggedin: state.setIsLoggedIn,
+        setUsername: state.setUsername,
+      }),
+      shallow,
+    )
   const fetchProfile = async () => {
     const user = await getUserCSR()
     if (user !== null) {
@@ -42,6 +45,7 @@ export const useUserController = () => {
     return null
   }
   return {
+    isLoggedIn: isLoggedIn,
     username: username,
     authProfile: authProfile,
     setIsLoggedIn: async (loggedIn: boolean) => {

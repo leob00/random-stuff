@@ -19,7 +19,7 @@ const NewsLayout = () => {
     const sorted = orderBy(result, ['PublishDate'], ['desc'])
     setNewsItems(sorted)
     setIsLoading(false)
-    console.log(JSON.stringify(result))
+    //console.log(JSON.stringify(result))
   }
   const handleNewsSourceSelected = async (id: string) => {
     setIsLoading(true)

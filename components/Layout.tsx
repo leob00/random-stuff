@@ -5,6 +5,11 @@ import { Box } from '@mui/material'
 import Header from './Header'
 import Footer from './Footer'
 import theme from './themes/mainTheme'
+import axios from 'axios'
+import { axiosGet } from 'lib/backend/api/aws/useAxios'
+import { ApiStatus } from 'pages/api/status'
+import { isBrowser } from 'lib/util/system'
+import dayjs from 'dayjs'
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
@@ -12,7 +17,9 @@ const Layout = ({ children }: { children: ReactNode }) => {
       <CssBaseline />
       <ThemeProvider theme={theme}>
         <Header />
-        <Container sx={{ marginTop: 2, minHeight: 660 }}>{children}</Container> <Footer />
+        <Container sx={{ marginTop: 2, minHeight: 660 }}>{children}</Container>
+
+        <Footer />
       </ThemeProvider>
     </>
   )
