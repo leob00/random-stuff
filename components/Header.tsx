@@ -42,13 +42,14 @@ const Header = () => {
         <Toolbar>
           <Container sx={{ width: '100%', py: 1 }}>
             <Box>
-              <Stack direction='row' spacing={1}>
+              <Stack direction='row' spacing={{ xs: 1, sm: 2 }}>
                 <DarkMode>
                   <NLink href='/' passHref>
-                    <RemoteImage url='/images/logo-with-text-blue-small.png' title='random things' width={150} height={76} priority={true} />
+                    <RemoteImage url='/images/logo-with-text-blue-small.png' title='random things' width={120} height={50} priority={true} />
                   </NLink>
-                  <Box display={'flex'} pt={7}>
-                    <Stack direction='row' spacing={1}>
+
+                  <Box display={'flex'} pt={4}>
+                    <Stack direction='row' spacing={{ xs: 1, sm: 2 }}>
                       <Stack display={'flex'}>
                         <Button
                           size={'small'}
@@ -69,7 +70,7 @@ const Header = () => {
                           About
                         </Button>
                       </Stack>
-                      <Stack display={'flex'}>
+                      <Stack>
                         <UserLoginPanel />
                       </Stack>
                     </Stack>
