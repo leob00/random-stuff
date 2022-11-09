@@ -17,7 +17,7 @@ export type HubPayload = {
   message?: string
 }
 
-const UserLogin = () => {
+const UserLoginPanel = () => {
   //const authStore = useAuthStore()
   const userController = useUserController()
   const signOut = () => {
@@ -106,24 +106,20 @@ const UserLogin = () => {
 
   return (
     <>
-      <DarkMode>
-        <Stack>
-          {userController.username ? (
-            <>
-              <LoggedInUserMenu onLogOut={signOut} username={userController.username} />
-            </>
-          ) : (
-            <>
-              <Button onClick={handleLoginClick} size='small' sx={{}}>
-                <Person fontSize='small' />
-                login
-              </Button>
-            </>
-          )}
-        </Stack>
-      </DarkMode>
+      {userController.username ? (
+        <>
+          <LoggedInUserMenu onLogOut={signOut} username={userController.username} />
+        </>
+      ) : (
+        <>
+          <Button onClick={handleLoginClick} size='small' sx={{}}>
+            <Person fontSize='small' />
+            login
+          </Button>
+        </>
+      )}
     </>
   )
 }
 
-export default UserLogin
+export default UserLoginPanel

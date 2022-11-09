@@ -25,21 +25,18 @@ const LoggedInUserMenu = ({ username, onLogOut }: { username: string; onLogOut: 
 
   return (
     <>
-      <Stack sx={{ display: 'flex' }} flexDirection='row'>
-        {/* <Typography variant='body2' sx={{ paddingTop: 1 }}>{`${username.substring(0, username.lastIndexOf('@'))}`}</Typography> */}
-        <Button
-          size='small'
-          //sx={{ display: 'flex' }}
-          id='basic-button'
-          variant='text'
-          aria-controls={open ? 'basic-menu' : undefined}
-          aria-haspopup='true'
-          aria-expanded={open ? 'true' : undefined}
-          onClick={handleClick}
-        >
-          <Person fontSize='small' />
-        </Button>
-      </Stack>
+      <Button
+        size='small'
+        //sx={{ display: 'flex' }}
+        id='basic-button'
+        variant='text'
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup='true'
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      >
+        <Person fontSize='small' />
+      </Button>
 
       <Menu
         id='basic-menu'

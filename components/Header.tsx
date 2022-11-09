@@ -1,4 +1,4 @@
-import { AppBar, Button, Container, Grid, Toolbar, useScrollTrigger, Link, Box } from '@mui/material'
+import { AppBar, Button, Container, Grid, Toolbar, useScrollTrigger, Link, Box, Divider, Stack } from '@mui/material'
 import router from 'next/router'
 import NLink from 'next/link'
 import { useEffect, useState } from 'react'
@@ -40,42 +40,42 @@ const Header = () => {
     <>
       <AppBar sx={{ backgroundColor: 'transparent' }} position='sticky' elevation={elevationEffect ? 4 : 0} className='blue-gradient'>
         <Toolbar>
-          <Container sx={{ width: '100%', my: 1 }}>
-            <Grid container alignItems='center' columns={{ xs: 1, sm: 4, md: 8, lg: 12, xl: 12 }} spacing={{ xs: '1px', sm: 1, md: 3, lg: 4, xl: 4 }}>
-              <Grid item>
-                <NLink href='/' passHref>
-                  <RemoteImage url='/images/logo-with-text-blue-small.png' title='random things' width={150} height={76} priority={true} />
-                </NLink>
-              </Grid>
-              <Grid item>
+          <Container sx={{ width: '100%', py: 1 }}>
+            <Box>
+              <Stack direction='row' spacing={1}>
                 <DarkMode>
-                  <Button
-                    // sx={{ fontStyle: 'italic' }}
-                    size={'small'}
-                    onClick={() => {
-                      router.push('/')
-                    }}
-                  >
-                    Home
-                  </Button>
+                  <NLink href='/' passHref>
+                    <RemoteImage url='/images/logo-with-text-blue-small.png' title='random things' width={150} height={76} priority={true} />
+                  </NLink>
+                  <Box display={'flex'} pt={7}>
+                    <Stack direction='row' spacing={1}>
+                      <Stack display={'flex'}>
+                        <Button
+                          size={'small'}
+                          onClick={() => {
+                            router.push('/')
+                          }}
+                        >
+                          Home
+                        </Button>
+                      </Stack>
+                      <Stack display={{ xs: 'none', sm: 'flex' }}>
+                        <Button
+                          size='small'
+                          onClick={() => {
+                            router.push('/ssg/About')
+                          }}
+                        >
+                          About
+                        </Button>
+                      </Stack>
+                      <Stack display={'flex'}>
+                        <UserLoginPanel />
+                      </Stack>
+                    </Stack>
+                  </Box>
                 </DarkMode>
-              </Grid>
-              <Grid item display={{ xs: 'block', sm: 'block' }}>
-                <DarkMode>
-                  <Button
-                    // sx={{ fontStyle: 'italic' }}
-                    size='small'
-                    onClick={() => {
-                      router.push('/ssg/About')
-                    }}
-                  >
-                    About
-                  </Button>
-                </DarkMode>
-              </Grid>
-            </Grid>
-            <Box display='flex' alignItems='justify-start' justifyContent='flex-end' sx={{ marginTop: -4.5 }}>
-              <UserLoginPanel />
+              </Stack>
             </Box>
           </Container>
         </Toolbar>
