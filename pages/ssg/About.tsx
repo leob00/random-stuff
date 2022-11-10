@@ -2,7 +2,8 @@ import React from 'react'
 import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
 import { Container, Paper, Box, Typography, Stack } from '@mui/material'
-import RemoteImage from 'components/Atoms/RemoteImage'
+import logo from '/public/images/logo-with-text-blue-small.png'
+import StaticImage from 'components/Atoms/StaticImage'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   //var data = await getYieldCurveData()
@@ -19,14 +20,14 @@ const About: NextPage<{ data: any }> = ({ data }) => {
         <Paper>
           <Box sx={{ align: 'center', my: 1 }}>
             <Stack direction='row' justifyContent='center' my={2}>
-              <RemoteImage title='about us' url='/images/logo-with-text-blue-small.png' height={220} width={340} />
+              <StaticImage image={logo} title='about us' height={220} width={340} />
               {/* <Image priority src='/images/logo-with-text.png' width={340} height={250} alt='random things' style={{ borderRadius: '.6rem' }} /> */}
             </Stack>
           </Box>
           <Box sx={{ align: 'center', my: 2 }}>
             <Typography variant='body2' align='center' gutterBottom>
-              This site is dedicated to random foolishness and inconsequential musings. If you made it this far, it means there is no turning back any time soon. Sit back and relax and watch the grass grow, paint dry, or whatever else
-              you find interesting.
+              This site is dedicated to random foolishness and inconsequential musings. If you made it this far, it means there is no turning back any time
+              soon. Sit back and relax and watch the grass grow, paint dry, or whatever else you find interesting.
               <br />
               Maybe consider embracing the Oxford comma...
             </Typography>

@@ -8,6 +8,8 @@ import React from 'react'
 import UserLoginPanel from './UserLoginPanel'
 import { DarkMode } from './themes/DarkMode'
 import RemoteImage from './Atoms/RemoteImage'
+import logo from '/public/images/logo-with-text-blue-small.png'
+import StaticImage from './Atoms/StaticImage'
 
 // This is used to make the header stick to the top
 function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
@@ -45,7 +47,7 @@ const Header = () => {
               <Stack direction='row' spacing={{ xs: 1, sm: 2 }}>
                 <DarkMode>
                   <NLink href='/' passHref>
-                    <RemoteImage url='/images/logo-with-text-blue-small.png' title='random things' width={120} height={50} priority={true} />
+                    <StaticImage image={logo} title='random things' width={120} height={50} priority={true} />
                   </NLink>
 
                   <Box display={'flex'} pt={4}>
