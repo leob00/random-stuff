@@ -1,15 +1,13 @@
 import { Person } from '@mui/icons-material'
-import { Stack, Button, Divider } from '@mui/material'
+import { Stack, Button, Divider, Typography } from '@mui/material'
 import { Auth, Hub } from 'aws-amplify'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
-import { useAuthStore } from 'lib/backend/auth/useAuthStore'
 import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import router from 'next/router'
 import React, { useEffect } from 'react'
 import LoggedInUserMenu from './LoggedInUserMenu'
-import { DarkMode } from './themes/DarkMode'
 
 export type HubPayload = {
   event: string
@@ -96,8 +94,6 @@ const UserLoginPanel = () => {
       Hub.listen('auth', (data) => {
         const { payload } = data
         updateUser(payload)
-
-        //console.log('A new auth event has happened: ', data.payload.data.username + ' has ' + data.payload.event)
       })
     }
 
@@ -115,10 +111,14 @@ const UserLoginPanel = () => {
         <>
           <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
             <Stack flexGrow={1}></Stack>
-            <Button onClick={handleLoginClick} size='small' sx={{}}>
-              <Person fontSize='small' />
-              login
-            </Button>
+            <Stack justifyContent={'center'} alignItems={'center'}>
+              <Button onClick={handleLoginClick} size='small' sx={{}}>
+                <Person fontSize='small' />
+                <Typography variant='body2' sx={{}}>
+                  login
+                </Typography>
+              </Button>
+            </Stack>
           </Stack>
         </>
       )}

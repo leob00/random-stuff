@@ -1,20 +1,25 @@
-import { Box, Container, Paper, Typography, Grid, List, ListItem, Link, Stack } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
-import NLink from 'next/link'
 import React from 'react'
 import router from 'next/router'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
 import { Divider } from '@aws-amplify/ui-react'
-import { getUserCSR } from 'lib/backend/auth/userUtil'
+import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 
 const HomeMenu = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false)
+  const [isAdmin, setIsAdmin] = React.useState(false)
 
   React.useEffect(() => {
     const fn = async () => {
       const user = await getUserCSR()
       setIsLoggedIn(user !== null)
+      if (user && user.roles) {
+        //console.log(JSON.stringify(user.roles))
+        //console.log('isAdmin: ', userHasRole(user.roles, 'Admin'))
+        setIsAdmin(userHasRole(user.roles, 'Admin'))
+      }
     }
     fn()
   }, [isLoggedIn])
@@ -139,6 +144,19 @@ const HomeMenu = () => {
                   </LinkButton>
                 </CenterStack>
               </Box>
+              {isAdmin && (
+                <Box>
+                  <CenterStack>
+                    <LinkButton
+                      onClick={() => {
+                        router.push('/protected/csr/admin')
+                      }}
+                    >
+                      admin
+                    </LinkButton>
+                  </CenterStack>
+                </Box>
+              )}
             </Box>
           )}
         </Container>

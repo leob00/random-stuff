@@ -1,13 +1,11 @@
-import { AppBar, Button, Container, Grid, Toolbar, useScrollTrigger, Link, Box, Divider, Stack } from '@mui/material'
+import { AppBar, Button, Container, Toolbar, useScrollTrigger, Box, Stack } from '@mui/material'
 import router from 'next/router'
 import NLink from 'next/link'
 import { useEffect, useState } from 'react'
 import '@aws-amplify/ui-react/styles.css'
-import { Auth } from 'aws-amplify'
 import React from 'react'
 import UserLoginPanel from './UserLoginPanel'
 import { DarkMode } from './themes/DarkMode'
-import RemoteImage from './Atoms/RemoteImage'
 import logo from '/public/images/logo-with-text-blue-small.png'
 import StaticImage from './Atoms/StaticImage'
 
@@ -24,16 +22,12 @@ function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
 }
 
 const Header = () => {
-  const [elevationEffect, setElevationEffect] = useState(false)
+  const [elevationEffect, setElevationEffect] = useState(true)
 
   const bodyScrolled = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
   })
-
-  const signOut = async () => {
-    Auth.signOut()
-  }
 
   useEffect(() => {
     setElevationEffect(bodyScrolled)
@@ -47,7 +41,7 @@ const Header = () => {
               <Stack direction='row' spacing={{ xs: 1, sm: 2 }}>
                 <DarkMode>
                   <NLink href='/' passHref>
-                    <StaticImage image={logo} title='random things' width={120} height={50} priority={true} />
+                    <StaticImage image={logo} title='random things' width={120} height={58} priority={true} />
                   </NLink>
 
                   <Box display={'flex'} pt={4}>

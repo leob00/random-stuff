@@ -57,11 +57,11 @@ const darkPalette: PaletteOptions = {
 const themeOptions: ThemeOptions = {
   typography: {
     //fontSize: 16, fontFace: Roboto
-    h1: { fontSize: '3.5rem', fontWeight: 600 }, // hero section title
-    h2: { fontSize: '2.8125rem', fontWeight: 600 }, // other section title
-    h3: { fontSize: '2.25rem', fontWeight: 600 },
-    h4: { fontSize: '1.75rem', fontWeight: 500 },
-    h5: { fontSize: '1.375rem', fontWeight: 500 },
+    h1: { fontSize: '3.5rem', fontWeight: 600, color: DarkBlueTransparent }, // hero section title
+    h2: { fontSize: '2.8125rem', fontWeight: 600, color: DarkBlueTransparent }, // other section title
+    h3: { fontSize: '2.25rem', fontWeight: 600, color: DarkBlueTransparent },
+    h4: { fontSize: '1.75rem', fontWeight: 500, color: DarkBlueTransparent },
+    h5: { fontSize: '1.375rem', fontWeight: 500, color: DarkBlueTransparent },
     h6: { fontSize: '1.2rem', fontWeight: 500 },
     subtitle1: { fontSize: '1.0rem', fontWeight: 600 },
     subtitle2: { fontSize: '0.875rem', fontWeight: 500 },

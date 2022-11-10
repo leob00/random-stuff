@@ -11,11 +11,15 @@ export interface Role {
   Name: RoleTypes
 }
 
+export function userHasRole(roles: Role[], role: RoleTypes) {
+  return roles.map((item) => item.Name).includes(role)
+}
+
 function getRolesFromAmplifyUser(user: any) {
   const roleAttr = user.attributes['custom:roles'] as string | undefined
   let roles: Role[] = []
   if (roleAttr) {
-    const arr = roleAttr.split(', ')
+    const arr = roleAttr.split(',')
     roles = arr.map((item) => {
       return {
         Name: item as RoleTypes,
@@ -28,16 +32,6 @@ function getRolesFromAmplifyUser(user: any) {
 export async function getUserCSR() {
   try {
     const user = await Auth.currentAuthenticatedUser()
-    /* const roleAttr = user.attributes['custom:roles'] as string | undefined
-    let roles: Role[] = []
-    if (roleAttr) {
-      const arr = roleAttr.split(', ')
-      roles = arr.map((item) => {
-        return {
-          Name: item as RoleTypes,
-        }
-      })
-    } */
     const result: AmplifyUser = {
       email: user.attributes.email as string,
       roles: getRolesFromAmplifyUser(user),
