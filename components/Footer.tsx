@@ -4,6 +4,8 @@ import dayjs from 'dayjs'
 import AppHeartbeat from './Organizms/AppHeartbeat'
 import { axiosGet } from 'lib/backend/api/qln/useAxios'
 import { ApiStatus } from 'pages/api/status'
+import { Circle } from '@mui/icons-material'
+import { CasinoGreen } from './themes/mainTheme'
 
 const Footer = () => {
   const intervalRef = React.useRef<NodeJS.Timer | null>(null)
@@ -31,7 +33,7 @@ const Footer = () => {
     }
     intervalRef.current = setInterval(() => {
       fn()
-    }, 60000)
+    }, 240000)
   }, [counter])
   return (
     <Container>
@@ -39,16 +41,18 @@ const Footer = () => {
       <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} py={4}>
         <Typography sx={{ fontSize: 'small' }}>©{dayjs().format('YYYY')} Random Stuff</Typography>
         {isLoading ? (
-          <Box minWidth={100} alignContent='center' justifyContent={'center'} pt={1}>
+          <Stack minWidth={110} alignContent='center' justifyContent={'center'} pt={1}>
             <LinearProgress color='secondary' />
-          </Box>
+          </Stack>
         ) : (
-          <Box minWidth={100} alignContent='center' justifyContent={'center'}>
-            <Typography sx={{ fontSize: 'small' }}>status: online</Typography>
-          </Box>
+          <Stack>
+            <Stack fontSize={'small'} justifyContent={'center'} flexDirection={'row'}>
+              <Circle color={'success'} fontSize='small' sx={{ mr: 1, ml: 1 }} />
+              online
+            </Stack>
+          </Stack>
         )}
       </Stack>
-      <Stack direction='row' spacing={2}></Stack>
     </Container>
   )
 }

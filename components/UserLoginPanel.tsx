@@ -1,5 +1,5 @@
 import { Person } from '@mui/icons-material'
-import { Stack, Button } from '@mui/material'
+import { Stack, Button, Divider } from '@mui/material'
 import { Auth, Hub } from 'aws-amplify'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
@@ -107,15 +107,19 @@ const UserLoginPanel = () => {
   return (
     <>
       {userController.username ? (
-        <>
+        <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
+          <Stack flexGrow={1}></Stack>
           <LoggedInUserMenu onLogOut={signOut} username={userController.username} />
-        </>
+        </Stack>
       ) : (
         <>
-          <Button onClick={handleLoginClick} size='small' sx={{}}>
-            <Person fontSize='small' />
-            login
-          </Button>
+          <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
+            <Stack flexGrow={1}></Stack>
+            <Button onClick={handleLoginClick} size='small' sx={{}}>
+              <Person fontSize='small' />
+              login
+            </Button>
+          </Stack>
         </>
       )}
     </>
