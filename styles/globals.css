@@ -129,8 +129,30 @@ a:hover {
 
 /* Amplify auth */
 :root {
-  --amplify-primary-color: #1150a2;
+  --amplify-primary-color: #1150a2 !important;
   --amplify-primary-tint: #3f4c60;
   --amplify-primary-shade: #2d92ba;
   --amplify-background-color: #e0ebfa;
+}
+div [role='tablist'] {
+  background-color: #0b224ebb !important;
+}
+div [role='tablist'] button {
+  color: #0b224ebb !important;
+  font-weight: 600 !important;
+}
+div [role='tablist'] [aria-selected='true'] {
+  color: #d6e7f8 !important;
+}
+div [role='tablist'] .amplify-tabs {
+  border: none !important;
+}
+.amplify-button--primary {
+  color: #d6e7f8 !important;
+  font-weight: 600 !important;
+  background-color: #0b224ebb !important;
+}
+.amplify-button--link {
+  color: #0b224ebb !important;
+  font-weight: 700 !important;
 }
