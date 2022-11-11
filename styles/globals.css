@@ -126,3 +126,11 @@ a:hover {
 .darkBlue {
   color: #0b224ebb;
 }
+
+/* Amplify auth */
+:root {
+  --amplify-primary-color: #1150a2;
+  --amplify-primary-tint: #3f4c60;
+  --amplify-primary-shade: #2d92ba;
+  --amplify-background-color: #e0ebfa;
+}
