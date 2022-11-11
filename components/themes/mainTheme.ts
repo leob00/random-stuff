@@ -64,7 +64,7 @@ const darkPalette: PaletteOptions = {
 const themeOptions: ThemeOptions = {
   typography: {
     //fontSize: 16, fontFace: Roboto,
-    fontFamily: [
+    /* fontFamily: [
       '-apple-system',
       'BlinkMacSystemFont',
       '"Segoe UI"',
@@ -75,15 +75,15 @@ const themeOptions: ThemeOptions = {
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
-    ].join(','),
+    ].join(','), */
     h1: { fontSize: '3.5rem', fontWeight: 600, color: DarkBlueTransparent }, // hero section title
     h2: { fontSize: '2.8125rem', fontWeight: 600, color: DarkBlueTransparent }, // other section title
     h3: { fontSize: '2.25rem', fontWeight: 600, color: DarkBlueTransparent },
     h4: { fontSize: '1.75rem', fontWeight: 500, color: DarkBlueTransparent },
     h5: { fontSize: '1.375rem', fontWeight: 500, color: DarkBlueTransparent },
     h6: { fontSize: '1.2rem', fontWeight: 500, color: DarkBlueTransparent },
-    subtitle1: { fontSize: '1.0rem', fontWeight: 600, color: DarkBlue },
-    subtitle2: { fontSize: '0.875rem', fontWeight: 500, color: DarkBlue },
+    subtitle1: { fontSize: '1.0rem', fontWeight: 600, color: DarkBlueTransparent },
+    subtitle2: { fontSize: '0.875rem', fontWeight: 500, color: DarkBlueTransparent },
     body1: { fontSize: '1.0rem', fontWeight: 400, color: DarkBlueTransparent }, // normal body text
     body2: { fontSize: '0.875rem', fontWeight: 400, color: DarkBlueTransparent }, // less important text
     caption: { fontSize: '0.75rem', fontWeight: 400, color: DarkBlueTransparent },

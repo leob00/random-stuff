@@ -6,7 +6,7 @@ import { Blue800 } from 'components/themes/mainTheme'
 
 const LinkButton: React.FC<ButtonProps> = ({ children, ...props }) => {
   return (
-    <Button {...props} color='primary' sx={{}} variant='text'>
+    <Button {...props} color='secondary' sx={{}} variant='text'>
       {children}
     </Button>
   )

@@ -13,6 +13,7 @@ import ButtonSkeleton from 'components/Atoms/Skeletons/ButtonSkeleton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import { useUserController } from 'hooks/userController'
 import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const [isLoading, setIsLoading] = React.useState(true)
@@ -54,6 +55,7 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
             router.push('/')
           }}
         />
+        <HorizontalDivider />
       </Box>
       <Box sx={{ my: 2 }}>
         {isLoading && (
@@ -86,7 +88,7 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           <Typography variant='body2'>{`${Math.floor(getUtcNow().valueOf() / 1000)}`}</Typography>
         </CenterStack> */}
       </Box>
-      <Divider />
+
       {isLoading && <WarmupBox />}
     </>
   )

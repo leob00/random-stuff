@@ -64,9 +64,7 @@ const Notes = () => {
         <PleaseLogin />
       ) : (
         <>
-          <CenterStack>
-            <CenteredTitle title={'My Notes'}></CenteredTitle>
-          </CenterStack>
+          <CenteredTitle title={'My Notes'}></CenteredTitle>
           <NonSSRWrapper>
             {model ? (
               <UserNotesLayout data={model} />
