@@ -5,18 +5,16 @@ import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import RemoteImage from './Atoms/RemoteImage'
 import CenteredHeader from './Atoms/Boxes/CenteredHeader'
+import BackButton from './Atoms/Buttons/BackButton'
 
 const RecipeLayout = ({ article, baseUrl }: { article: Recipe; baseUrl: string }) => {
   return (
     <>
-      <Button
-        variant='text'
-        onClick={() => {
+      <BackButton
+        onClicked={() => {
           router.push(baseUrl)
         }}
-      >
-        &#8592; back
-      </Button>
+      />
       <>
         <CenteredHeader title={article.title} description={''} />
         <Divider></Divider>

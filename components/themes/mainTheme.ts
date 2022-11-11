@@ -1,3 +1,4 @@
+import { blue, deepOrange } from '@mui/material/colors'
 import { createTheme, PaletteOptions, responsiveFontSizes, ThemeOptions } from '@mui/material/styles'
 import { ResponsiveFontSizesOptions } from '@mui/material/styles/responsiveFontSizes'
 
@@ -25,7 +26,9 @@ export const CasinoGrayTransparent = '#9e9797de'
 export const CasinoLightGrayTransparent = '#ddd4d4de'
 export const CasinoOrangeTransparent = '#d45309bb'
 export const CasinoBlueTransparent = '#0979d4bb'
+export const CasinoBlue = '#0979d4'
 export const CasinoYellowTransparent = '#fae62ebb'
+export const DarkMododeBlue = '#444469'
 
 const lightPalette: PaletteOptions = {
   mode: 'light',
@@ -50,25 +53,41 @@ const darkPalette: PaletteOptions = {
   mode: 'dark',
   primary: {
     main: VeryLightBlue,
-    contrastText: '#00263a',
+    contrastText: VeryLightBlue,
+  },
+  background: {
+    default: DarkBlue,
+    paper: DarkBlue,
   },
 }
 
 const themeOptions: ThemeOptions = {
   typography: {
-    //fontSize: 16, fontFace: Roboto
+    //fontSize: 16, fontFace: Roboto,
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
     h1: { fontSize: '3.5rem', fontWeight: 600, color: DarkBlueTransparent }, // hero section title
     h2: { fontSize: '2.8125rem', fontWeight: 600, color: DarkBlueTransparent }, // other section title
     h3: { fontSize: '2.25rem', fontWeight: 600, color: DarkBlueTransparent },
     h4: { fontSize: '1.75rem', fontWeight: 500, color: DarkBlueTransparent },
     h5: { fontSize: '1.375rem', fontWeight: 500, color: DarkBlueTransparent },
-    h6: { fontSize: '1.2rem', fontWeight: 500 },
-    subtitle1: { fontSize: '1.0rem', fontWeight: 600 },
-    subtitle2: { fontSize: '0.875rem', fontWeight: 500 },
-    body1: { fontSize: '1.0rem', fontWeight: 400 }, // normal body text
-    body2: { fontSize: '0.875rem', fontWeight: 400 }, // less important text
-    caption: { fontSize: '0.75rem', fontWeight: 400 },
-    overline: { fontSize: '0.625rem', fontWeight: 400 },
+    h6: { fontSize: '1.2rem', fontWeight: 500, color: DarkBlueTransparent },
+    subtitle1: { fontSize: '1.0rem', fontWeight: 600, color: DarkBlue },
+    subtitle2: { fontSize: '0.875rem', fontWeight: 500, color: DarkBlue },
+    body1: { fontSize: '1.0rem', fontWeight: 400, color: DarkBlueTransparent }, // normal body text
+    body2: { fontSize: '0.875rem', fontWeight: 400, color: DarkBlueTransparent }, // less important text
+    caption: { fontSize: '0.75rem', fontWeight: 400, color: DarkBlueTransparent },
+    overline: { fontSize: '0.625rem', fontWeight: 400, color: DarkBlueTransparent },
     button: { fontSize: '1.0rem', fontWeight: 'bold', textTransform: 'none' },
   },
 

@@ -5,10 +5,10 @@ import React from 'react'
 const CenteredHeader = ({ title, description }: { title: string; description: string }) => {
   return (
     <Box>
-      <Typography variant='h5' sx={{ textAlign: 'center', p: 1 }} color={DarkBlueTransparent}>
+      <Typography variant='h5' sx={{ textAlign: 'center', p: 1 }} color={'primary'}>
         {`${title}`}
       </Typography>
-      <Typography variant='body2' sx={{ textAlign: 'center', paddingBottom: 2 }} color={DarkBlueTransparent}>
+      <Typography variant='body1' sx={{ textAlign: 'center', paddingBottom: 2 }} color={'primary'}>
         {`${description}`}
       </Typography>
     </Box>

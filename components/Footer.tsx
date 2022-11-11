@@ -6,6 +6,7 @@ import { axiosGet } from 'lib/backend/api/qln/useAxios'
 import { ApiStatus } from 'pages/api/status'
 import { Circle } from '@mui/icons-material'
 import { CasinoGreen } from './themes/mainTheme'
+import HorizontalDivider from './Atoms/Dividers/HorizontalDivider'
 
 const Footer = () => {
   const intervalRef = React.useRef<NodeJS.Timer | null>(null)
@@ -37,22 +38,25 @@ const Footer = () => {
   }, [counter])
   return (
     <Container>
-      <Divider />
-      <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} py={4}>
-        <Typography sx={{ fontSize: 'small' }}>©{dayjs().format('YYYY')} Random Stuff</Typography>
-        {isLoading ? (
-          <Stack minWidth={110} alignContent='center' justifyContent={'center'} pt={1}>
-            <LinearProgress color='secondary' />
-          </Stack>
-        ) : (
-          <Stack>
-            <Stack fontSize={'small'} justifyContent={'center'} flexDirection={'row'}>
-              <Circle color={'success'} fontSize='small' sx={{ mr: 1, ml: 1 }} />
-              online
+      <Container>
+        <HorizontalDivider />
+
+        <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} py={4}>
+          <Typography sx={{ fontSize: 'small' }}>©{dayjs().format('YYYY')} Random Stuff</Typography>
+          {isLoading ? (
+            <Stack minWidth={110} alignContent='center' justifyContent={'center'} pt={1}>
+              <LinearProgress color='secondary' />
             </Stack>
-          </Stack>
-        )}
-      </Stack>
+          ) : (
+            <Stack>
+              <Stack fontSize={'small'} justifyContent={'center'} flexDirection={'row'}>
+                <Circle color={'secondary'} fontSize='small' sx={{ mr: 1, ml: 1 }} />
+                online
+              </Stack>
+            </Stack>
+          )}
+        </Stack>
+      </Container>
     </Container>
   )
 }

@@ -5,10 +5,12 @@ import React from 'react'
 const BackToHomeButton = () => {
   return (
     <Button
+      color='secondary'
       variant='text'
       onClick={() => {
         router.push('/')
-      }}>
+      }}
+    >
       &#8592; back
     </Button>
   )

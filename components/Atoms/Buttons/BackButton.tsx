@@ -7,7 +7,7 @@ const BackButton = ({ onClicked }: { onClicked: () => void }) => {
     onClicked?.()
   }
   return (
-    <Button variant='text' onClick={handleClick}>
+    <Button variant='text' onClick={handleClick} color='secondary'>
       &#8592; back
     </Button>
   )

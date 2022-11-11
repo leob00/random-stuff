@@ -1,5 +1,5 @@
 import { Person } from '@mui/icons-material'
-import { Stack, Button, Divider, Typography } from '@mui/material'
+import { Stack, Button, Divider, Typography, Box } from '@mui/material'
 import { Auth, Hub } from 'aws-amplify'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
@@ -102,26 +102,30 @@ const UserLoginPanel = () => {
 
   return (
     <>
-      {userController.username ? (
-        <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
-          <Stack flexGrow={1}></Stack>
-          <LoggedInUserMenu onLogOut={signOut} username={userController.username} />
-        </Stack>
-      ) : (
-        <>
-          <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
-            <Stack flexGrow={1}></Stack>
-            <Stack justifyContent={'center'} alignItems={'center'}>
-              <Button onClick={handleLoginClick} size='small' sx={{}}>
-                <Person fontSize='small' />
-                <Typography variant='body2' sx={{}}>
-                  login
-                </Typography>
-              </Button>
+      <Box justifyContent={'space-evenly'} display='flex'>
+        {userController.username ? (
+          <>
+            <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
+              <Stack flexGrow={1}></Stack>
+              <LoggedInUserMenu onLogOut={signOut} username={userController.username} />
             </Stack>
-          </Stack>
-        </>
-      )}
+          </>
+        ) : (
+          <>
+            <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
+              <Stack flexGrow={1}></Stack>
+              <Stack justifyContent={'center'} alignItems={'center'}>
+                <Button onClick={handleLoginClick} size='small' sx={{}}>
+                  <Person fontSize='small' />
+                  <Typography variant='body2' sx={{}}>
+                    Sign In
+                  </Typography>
+                </Button>
+              </Stack>
+            </Stack>
+          </>
+        )}
+      </Box>
     </>
   )
 }

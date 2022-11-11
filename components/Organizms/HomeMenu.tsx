@@ -6,6 +6,9 @@ import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
 import { Divider } from '@aws-amplify/ui-react'
 import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
+import { DarkBlueTransparent } from 'components/themes/mainTheme'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 
 const HomeMenu = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false)
@@ -35,16 +38,8 @@ const HomeMenu = () => {
         }}
       >
         <Container>
-          <CenterStack sx={{ my: 2 }}>
-            <Typography variant='h5' align='center' gutterBottom>
-              Welcome to random stuff
-            </Typography>
-          </CenterStack>
-          <CenterStack sx={{ my: 2 }}>
-            <Typography variant='body2' align='center'>
-              You came to the right place to view random things. Enjoy!
-            </Typography>
-          </CenterStack>
+          <CenteredHeader title={'Welcome to random stuff'} description={'You came to the right place to view random things. Enjoy!'} />
+
           <Box>
             <CenterStack>
               <LinkButton
@@ -122,10 +117,8 @@ const HomeMenu = () => {
           </CenterStack>
           {isLoggedIn && (
             <Box py={2}>
-              <Divider />
-              <CenterStack sx={{ py: 2 }}>
-                <CenteredTitle title='My Stuff' />
-              </CenterStack>
+              <HorizontalDivider />
+              <CenteredTitle title='My Stuff' />
               <Box>
                 <CenterStack>
                   <LinkButton
