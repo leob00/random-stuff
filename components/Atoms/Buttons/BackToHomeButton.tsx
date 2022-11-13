@@ -5,7 +5,7 @@ import React from 'react'
 const BackToHomeButton = () => {
   return (
     <Button
-      color='secondary'
+      color='primary'
       variant='text'
       onClick={() => {
         router.push('/')

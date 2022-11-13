@@ -3,11 +3,20 @@ import { display } from '@mui/system'
 import axios from 'axios'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ImageSpinner from 'components/Atoms/ImageSpinner'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import SimpleBarChart2 from 'components/Molecules/Charts/SimpleBarChart2'
-import { CasinoBlackTransparent, CasinoBlueTransparent, CasinoGrayTransparent, CasinoGreenTransparent, CasinoOrangeTransparent, CasinoRedTransparent, CasinoWhiteTransparent } from 'components/themes/mainTheme'
+import {
+  CasinoBlackTransparent,
+  CasinoBlueTransparent,
+  CasinoGrayTransparent,
+  CasinoGreenTransparent,
+  CasinoOrangeTransparent,
+  CasinoRedTransparent,
+  CasinoWhiteTransparent,
+} from 'components/themes/mainTheme'
 import { WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
 import { translateCasinoColor } from 'lib/backend/charts/barChartMapper'
 import { getWheel, RouletteNumber, RouletteWheel } from 'lib/backend/roulette/wheel'
@@ -35,7 +44,15 @@ let simulationCounter = 0
 let simulationPlayerResults: RouletteNumber[] = []
 const mapRouletteStatsChart = (red: number, black: number, zero: number, doubleZero: number, odd: number, even: number, total: number) => {
   let communityChart: BarChart = {
-    colors: [CasinoRedTransparent, CasinoBlackTransparent, CasinoOrangeTransparent, CasinoBlueTransparent, CasinoGreenTransparent, CasinoGreenTransparent, CasinoGrayTransparent],
+    colors: [
+      CasinoRedTransparent,
+      CasinoBlackTransparent,
+      CasinoOrangeTransparent,
+      CasinoBlueTransparent,
+      CasinoGreenTransparent,
+      CasinoGreenTransparent,
+      CasinoGrayTransparent,
+    ],
     labels: ['red', 'black', 'odd', 'even', '0', '00', 'total'],
     numbers: [red, black, odd, even, zero, doubleZero, total],
   }
@@ -61,7 +78,14 @@ export function reducer(state: Model, action: ActionType): Model {
     case 'start-simulation':
       return { ...state, spinSpeed: action.payload.spinSpeed, result: undefined, isSpinning: true, isSimulationRunning: true, playerResults: [] }
     case 'update-simulation':
-      return { ...state, result: action.payload.result, playerResults: action.payload.playerResults, playerChart: action.payload.playerChart, communityChart: action.payload.communityChart, isSimulationRunning: true }
+      return {
+        ...state,
+        result: action.payload.result,
+        playerResults: action.payload.playerResults,
+        playerChart: action.payload.playerChart,
+        communityChart: action.payload.communityChart,
+        isSimulationRunning: true,
+      }
     case 'stop-simulation':
       return { ...state, spinSpeed: 40, isSpinning: false, isSimulationRunning: false, playerResults: action.payload.playerResults }
     case 'reset':
@@ -217,7 +241,13 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       setTimeout(() => {
         dispatch({
           type: 'spin-finished',
-          payload: { spinSpeed: defaultSpinSpeed, result: pickedNum, playerResults: playerResults, playerChart: playerChart, communityChart: model.communityChart },
+          payload: {
+            spinSpeed: defaultSpinSpeed,
+            result: pickedNum,
+            playerResults: playerResults,
+            playerChart: playerChart,
+            communityChart: model.communityChart,
+          },
         })
         updateCommunity()
       }, spinTimeout)
@@ -234,17 +264,31 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
 
   return (
     <Box>
-      <CenteredHeader title={'This is your chance to spin the wheel!'} description={'press the wheel to spin or...'} />
+      <CenteredHeader title={'This is your chance to spin the wheel!'} description={'press the wheel to spin or run simulation of 100 turns.'} />
       <Box sx={{ minHeight: 80 }}>
         <CenterStack sx={{ my: 2 }}>
-          <PrimaryButton text={model.isSimulationRunning ? 'running...' : 'run simultaion'} isDisabled={false} onClicked={handleRunSimulation} disabled={model.isSpinning} />
+          <SecondaryButton
+            text={model.isSimulationRunning ? 'running...' : 'run simultaion'}
+            isDisabled={false}
+            onClicked={handleRunSimulation}
+            disabled={model.isSpinning}
+          />
         </CenterStack>
         <CenterStack>
-          <Box sx={{ width: '80%', textAlign: 'center' }}>{model.isSimulationRunning && <LinearProgress variant='determinate' value={simulationCounter} />}</Box>
+          <Box sx={{ width: '80%', textAlign: 'center' }}>
+            {model.isSimulationRunning && <LinearProgress variant='determinate' value={simulationCounter} />}
+          </Box>
         </CenterStack>
       </Box>
       <CenterStack sx={{ minHeight: 280 }}>
-        <ImageSpinner imageUrl={'/images/american-roulette-wheel.png'} speed={model.isSpinning ? model.spinSpeed : defaultSpinSpeed} width={240} height={240} onClicked={handleSpinClick} clickable={true} />
+        <ImageSpinner
+          imageUrl={'/images/american-roulette-wheel.png'}
+          speed={model.isSpinning ? model.spinSpeed : defaultSpinSpeed}
+          width={240}
+          height={240}
+          onClicked={handleSpinClick}
+          clickable={true}
+        />
       </CenterStack>
 
       {model.result && (
@@ -264,8 +308,18 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
               paddingTop: 7,
               fontSize: 60,
               fontWeight: 'bolder',
-            }}>
-            <Typography sx={{ color: model.result.color === 'black' ? 'black' : translateCasinoColor(model.result.color), marginTop: -5, fontSize: 40, fontWeight: 'bolder' }}>{model.result.value}</Typography>
+            }}
+          >
+            <Typography
+              sx={{
+                color: model.result.color === 'black' ? 'black' : translateCasinoColor(model.result.color),
+                marginTop: -5,
+                fontSize: 40,
+                fontWeight: 'bolder',
+              }}
+            >
+              {model.result.value}
+            </Typography>
           </Box>
         </CenterStack>
       )}
