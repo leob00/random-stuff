@@ -66,7 +66,7 @@ const LoggedInUserMenu = ({ username, onLogOut }: { username: string; onLogOut: 
           sx={{ color: VeryLightBlue }}
           onClick={() => {
             handleClose()
-            router.push('/protected/csr/dashboard')
+            router.push('/protected/csr/profile')
           }}
         >
           profile

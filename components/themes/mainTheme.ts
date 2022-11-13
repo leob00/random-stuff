@@ -59,6 +59,10 @@ const darkPalette: PaletteOptions = {
     default: DarkBlue,
     paper: DarkBlue,
   },
+  text: {
+    primary: VeryLightBlue,
+    secondary: VeryLightBlue,
+  },
 }
 
 const themeOptions: ThemeOptions = {

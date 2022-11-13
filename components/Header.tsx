@@ -1,4 +1,4 @@
-import { AppBar, Button, Container, Toolbar, useScrollTrigger, Box, Stack } from '@mui/material'
+import { AppBar, Button, Container, Toolbar, useScrollTrigger, Box, Stack, Typography } from '@mui/material'
 import router from 'next/router'
 import NLink from 'next/link'
 import { useEffect, useState } from 'react'
@@ -8,6 +8,7 @@ import UserLoginPanel from './UserLoginPanel'
 import { DarkMode } from './themes/DarkMode'
 import logo from '/public/images/logo-with-text-blue-small.png'
 import StaticImage from './Atoms/StaticImage'
+import MenuLinkButton from './Atoms/Buttons/MenuLinkButton'
 
 // This is used to make the header stick to the top
 function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
@@ -41,30 +42,25 @@ const Header = () => {
               <Stack direction='row' spacing={{ xs: 1, sm: 2 }}>
                 <DarkMode>
                   <NLink href='/' passHref>
-                    <StaticImage image={logo} title='random things' width={120} height={58} priority={true} />
+                    <StaticImage image={logo} title='random things' width={120} height={60} priority={true} />
                   </NLink>
-
                   <Box display={'flex'} pt={4}>
                     <Stack direction='row' spacing={{ xs: 1, sm: 2 }}>
                       <Stack display={'flex'}>
-                        <Button
-                          size={'small'}
-                          onClick={() => {
+                        <MenuLinkButton
+                          text={'Home'}
+                          onClicked={() => {
                             router.push('/')
                           }}
-                        >
-                          Home
-                        </Button>
+                        />
                       </Stack>
                       <Stack display={{ xs: 'none', sm: 'flex' }}>
-                        <Button
-                          size='small'
-                          onClick={() => {
+                        <MenuLinkButton
+                          text={'About'}
+                          onClicked={() => {
                             router.push('/ssg/About')
                           }}
-                        >
-                          About
-                        </Button>
+                        />
                       </Stack>
                       <Stack>
                         <UserLoginPanel />

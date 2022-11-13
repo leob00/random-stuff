@@ -1,16 +1,17 @@
 import { Box, Typography } from '@mui/material'
 import { DarkBlueTransparent } from 'components/themes/mainTheme'
 import React from 'react'
+import CenteredTitle from '../Containers/CenteredTitle'
 
-const CenteredHeader = ({ title, description }: { title: string; description: string }) => {
+const CenteredHeader = ({ title, description }: { title: string; description?: string }) => {
   return (
     <Box>
-      <Typography variant='h5' sx={{ textAlign: 'center', p: 1 }}>
-        {`${title}`}
-      </Typography>
-      <Typography variant='body1' sx={{ textAlign: 'center', paddingBottom: 2 }}>
-        {`${description}`}
-      </Typography>
+      <CenteredTitle title={title} />
+      {description && (
+        <Typography variant='body1' sx={{ textAlign: 'center', paddingBottom: 2 }}>
+          {`${description}`}
+        </Typography>
+      )}
     </Box>
   )
 }

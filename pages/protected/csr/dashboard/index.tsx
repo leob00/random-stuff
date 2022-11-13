@@ -30,7 +30,7 @@ const Page = () => {
           <WarmupBox />
         ) : userProfile ? (
           <>
-            <CenteredHeader title={`Welcome back, ${userProfile.username.substring(0, userProfile.username.indexOf('@'))}!`} description={''} />
+            <CenteredHeader title={`Welcome back, ${userProfile.username.substring(0, userProfile.username.indexOf('@'))}!`} description='Dashboard' />
             <UserDashboardLayout userProfile={userProfile} />
           </>
         ) : (

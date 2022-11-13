@@ -47,9 +47,6 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   return (
     <>
       <Box sx={{ py: 2 }}>
-        <CenterStack>
-          <CenteredTitle title={'My Dashboard'} />
-        </CenterStack>
         <BackButton
           onClicked={() => {
             router.push('/')

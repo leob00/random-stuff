@@ -11,7 +11,7 @@ const PleaseLogin = () => {
         <CenteredHeader title={''} description={'Sorry! Looks like you are not signed in.'}></CenteredHeader>
         <Box sx={{ my: 4, textAlign: 'center' }}>
           <PrimaryButton
-            text='sign in'
+            text='Sign In'
             onClicked={() => {
               router.push('/login')
             }}

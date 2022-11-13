@@ -8,6 +8,8 @@ import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import router from 'next/router'
 import React, { useEffect } from 'react'
 import LoggedInUserMenu from './LoggedInUserMenu'
+import { DarkMode } from './themes/DarkMode'
+import { VeryLightBlue } from './themes/mainTheme'
 
 export type HubPayload = {
   event: string
@@ -117,7 +119,7 @@ const UserLoginPanel = () => {
               <Stack justifyContent={'center'} alignItems={'center'}>
                 <Button onClick={handleLoginClick} size='small' sx={{}}>
                   <Person fontSize='small' />
-                  <Typography variant='body2' sx={{}}>
+                  <Typography variant='body2' sx={{ color: VeryLightBlue }}>
                     Sign In
                   </Typography>
                 </Button>
