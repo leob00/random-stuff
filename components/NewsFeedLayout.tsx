@@ -5,8 +5,8 @@ import NLink from 'next/link'
 import { getPagedItems, Page } from 'lib/util/collections'
 import { findLast, map, uniq } from 'lodash'
 import Pager from './Atoms/Pager'
-import { DarkBlueTransparent, VeryLightBlueTransparent } from './themes/mainTheme'
 import CenteredTitle from './Atoms/Containers/CenteredTitle'
+import { DarkModeBlueTransparent, VeryLightBlueTransparent } from './themes/mainTheme'
 
 type sourceTypes = 'Google Business' | 'BBC World' | undefined
 type categoryTypes = 'Financial' | 'World'
@@ -174,7 +174,7 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
                     <Fade in={model.fadeIn} timeout={{ appear: 500, enter: 3000, exit: 6000 }}>
                       <Typography variant='h4' sx={{ textAlign: 'center', padding: 2, margin: 3 }}>
                         <NLink passHref href={item.Link!}>
-                          <Link sx={{ textDecoration: 'none', color: DarkBlueTransparent, ':hover': 'white' }} target={'_blank'}>
+                          <Link sx={{ textDecoration: 'none', color: DarkModeBlueTransparent, ':hover': 'white' }} target={'_blank'}>
                             {item.Headline}
                           </Link>
                         </NLink>

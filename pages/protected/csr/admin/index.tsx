@@ -1,6 +1,8 @@
 import { Box, Container, Typography } from '@mui/material'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
+import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
 import CenterStack from 'components/Atoms/CenterStack'
+import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
@@ -32,8 +34,9 @@ const Page = () => {
           <WarmupBox />
         ) : userProfile ? (
           <>
-            <CenteredHeader title={`Welcome back, ${userProfile.username.substring(0, userProfile.username.indexOf('@'))}!`} description='Admin' />
-            <HorizontalDivider />
+            <BackToHomeButton />
+            <CenteredTitle title='Admin' />
+
             <CenterStack>
               <Typography variant='body1'>coming soon</Typography>
             </CenterStack>

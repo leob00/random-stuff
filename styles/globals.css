@@ -135,14 +135,17 @@ a:hover {
   --amplify-background-color: #e0ebfa;
 }
 div [role='tablist'] {
-  background-color: #0b224ebb !important;
+  background-color: #456cba !important;
 }
 div [role='tablist'] button {
-  color: #0b224ebb !important;
+  color: #456cba !important;
   font-weight: 600 !important;
 }
 div [role='tablist'] [aria-selected='true'] {
   color: #d6e7f8 !important;
+}
+div [role='tablist'] [aria-selected='false'] {
+  color: #456cba !important;
 }
 div [role='tablist'] .amplify-tabs {
   border: none !important;
@@ -150,9 +153,26 @@ div [role='tablist'] .amplify-tabs {
 .amplify-button--primary {
   color: #d6e7f8 !important;
   font-weight: 600 !important;
-  background-color: #0b224ebb !important;
+  background-color: #456cba !important;
 }
 .amplify-button--link {
-  color: #0b224ebb !important;
+  color: #456cba !important;
   font-weight: 700 !important;
+}
+div[data-amplify-container].amplify-heading {
+  font-size: '2.25rem' !important;
+  font-weight: 300 !important;
+}
+
+.amplify-heading {
+  font-size: '2.25rem' !important;
+  font-weight: 600 !important;
+}
+
+/* end Amplify auth */
+.DarkModeBlue {
+  color: #2f4e8d;
+}
+.DarkModeBlueTransparent {
+  color: #2f4e8dee;
 }

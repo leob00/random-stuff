@@ -28,12 +28,13 @@ export const CasinoOrangeTransparent = '#d45309bb'
 export const CasinoBlueTransparent = '#0979d4bb'
 export const CasinoBlue = '#0979d4'
 export const CasinoYellowTransparent = '#fae62ebb'
-export const DarkMododeBlue = '#444469'
+export const DarkModeBlue = '#2f4e8d'
+export const DarkModeBlueTransparent = '#2f4e8dee'
 
 const lightPalette: PaletteOptions = {
   mode: 'light',
   primary: {
-    main: DarkBlueTransparent,
+    main: DarkModeBlueTransparent,
   },
   secondary: {
     main: CasinoBlueTransparent,
@@ -56,8 +57,8 @@ const darkPalette: PaletteOptions = {
     contrastText: VeryLightBlue,
   },
   background: {
-    default: DarkBlue,
-    paper: DarkBlue,
+    default: DarkModeBlue,
+    paper: DarkModeBlue,
   },
   text: {
     primary: VeryLightBlue,
@@ -80,18 +81,18 @@ const themeOptions: ThemeOptions = {
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
     ].join(','), */
-    h1: { fontSize: '3.5rem', fontWeight: 600, color: DarkBlueTransparent }, // hero section title
-    h2: { fontSize: '2.8125rem', fontWeight: 600, color: DarkBlueTransparent }, // other section title
-    h3: { fontSize: '2.25rem', fontWeight: 600, color: DarkBlueTransparent },
-    h4: { fontSize: '1.75rem', fontWeight: 500, color: DarkBlueTransparent },
-    h5: { fontSize: '1.375rem', fontWeight: 500, color: DarkBlueTransparent },
-    h6: { fontSize: '1.2rem', fontWeight: 500, color: DarkBlueTransparent },
-    subtitle1: { fontSize: '1.0rem', fontWeight: 600, color: DarkBlueTransparent },
-    subtitle2: { fontSize: '0.875rem', fontWeight: 500, color: DarkBlueTransparent },
-    body1: { fontSize: '1.0rem', fontWeight: 400, color: DarkBlueTransparent }, // normal body text
-    body2: { fontSize: '0.875rem', fontWeight: 400, color: DarkBlueTransparent }, // less important text
-    caption: { fontSize: '0.75rem', fontWeight: 400, color: DarkBlueTransparent },
-    overline: { fontSize: '0.625rem', fontWeight: 400, color: DarkBlueTransparent },
+    h1: { fontSize: '3.5rem', fontWeight: 600, color: DarkModeBlueTransparent }, // hero section title
+    h2: { fontSize: '2.8125rem', fontWeight: 600, color: DarkModeBlueTransparent }, // other section title
+    h3: { fontSize: '2.25rem', fontWeight: 600, color: DarkModeBlueTransparent },
+    h4: { fontSize: '1.75rem', fontWeight: 500, color: DarkModeBlueTransparent },
+    h5: { fontSize: '1.375rem', fontWeight: 500, color: DarkModeBlueTransparent },
+    h6: { fontSize: '1.2rem', fontWeight: 500, color: DarkModeBlueTransparent },
+    subtitle1: { fontSize: '1.0rem', fontWeight: 600, color: DarkModeBlueTransparent },
+    subtitle2: { fontSize: '0.875rem', fontWeight: 500, color: DarkModeBlueTransparent },
+    body1: { fontSize: '1.0rem', fontWeight: 400, color: DarkModeBlueTransparent }, // normal body text
+    body2: { fontSize: '0.875rem', fontWeight: 400, color: DarkModeBlueTransparent }, // less important text
+    caption: { fontSize: '0.75rem', fontWeight: 400, color: DarkModeBlueTransparent },
+    overline: { fontSize: '0.625rem', fontWeight: 400, color: DarkModeBlueTransparent },
     button: { fontSize: '1.0rem', fontWeight: 'bold', textTransform: 'none' },
   },
 

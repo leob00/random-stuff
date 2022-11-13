@@ -7,6 +7,7 @@ import router from 'next/router'
 import { Box, Stack, Typography } from '@mui/material'
 import { VeryLightBlue } from './themes/mainTheme'
 import { Divider } from '@aws-amplify/ui-react'
+import HorizontalDivider from './Atoms/Dividers/HorizontalDivider'
 
 const LoggedInUserMenu = ({ username, onLogOut }: { username: string; onLogOut: () => void }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -61,7 +62,7 @@ const LoggedInUserMenu = ({ username, onLogOut }: { username: string; onLogOut: 
           dashboard
         </MenuItem>
 
-        <Divider />
+        <HorizontalDivider />
         <MenuItem
           sx={{ color: VeryLightBlue }}
           onClick={() => {
@@ -71,7 +72,7 @@ const LoggedInUserMenu = ({ username, onLogOut }: { username: string; onLogOut: 
         >
           profile
         </MenuItem>
-        <Divider />
+        <HorizontalDivider />
         <MenuItem sx={{ color: VeryLightBlue }} onClick={handleLogout}>
           log off
         </MenuItem>

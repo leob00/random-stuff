@@ -1,5 +1,7 @@
 import { Box, Container } from '@mui/material'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
+import CenteredParagraph from 'components/Atoms/Containers/CenteredParagraph'
+import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import NonSSRWrapper from 'components/Organizms/NonSSRWrapper'
@@ -30,7 +32,7 @@ const Page = () => {
           <WarmupBox />
         ) : userProfile ? (
           <>
-            <CenteredHeader title={`Welcome back, ${userProfile.username.substring(0, userProfile.username.indexOf('@'))}!`} description='Dashboard' />
+            <CenteredTitle title='Dashboard' />
             <UserDashboardLayout userProfile={userProfile} />
           </>
         ) : (

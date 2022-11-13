@@ -1,5 +1,4 @@
 import { Box, Typography } from '@mui/material'
-import { DarkBlueTransparent } from 'components/themes/mainTheme'
 import React from 'react'
 import CenteredTitle from '../Containers/CenteredTitle'
 
