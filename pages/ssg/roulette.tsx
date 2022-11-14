@@ -1,3 +1,4 @@
+import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
 import CoinFlipLayout from 'components/Organizms/CoinFlipLayout'
 import RouletteLayout from 'components/Organizms/RouletteLayout'
 import { CoinFlipStats, getCoinflipStats, getWheelSpinStats, WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
@@ -21,8 +22,13 @@ const Roulette: NextPage<{ spinStats: WheelSpinStats }> = ({ spinStats }) => {
       <Header>
         <title>Random Stuff - Roulette</title>
         <meta property='og:title' content='Random Stuff' key='rouletteTitle' />
-        <meta property='og:description' content='Random Stuff: this site is dedicated to random foolishness and inconsequential musings.' key='rouletteDescription' />
+        <meta
+          property='og:description'
+          content='Random Stuff: this site is dedicated to random foolishness and inconsequential musings.'
+          key='rouletteDescription'
+        />
       </Header>
+      <BackToHomeButton />
       <RouletteLayout spinStats={spinStats} />
     </>
   )

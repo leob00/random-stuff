@@ -1,6 +1,6 @@
 import { Box, TextField } from '@mui/material'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
-import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import EditItemToolbar from 'components/Molecules/EditItemToolbar'
 import { UserNote } from 'lib/models/randomStuffModels'
@@ -38,7 +38,6 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
   }
   const handleBodyChange = (text: string) => {
     setBodyText(text)
-    //console.log(text)
   }
 
   return item ? (
@@ -47,6 +46,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
       <Box sx={{ pt: 2 }} component='form'>
         <CenterStack sx={{ width: { xs: '100%' } }}>
           <TextField
+            color='secondary'
             inputProps={{ maxLength: 150 }}
             fullWidth
             inputRef={title}
@@ -54,21 +54,18 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
             size='small'
             label={'title'}
             placeholder='title'
-            //sx={{ width: '50%' }}
             onChange={handleTitleChange}
             required
             error={titleError}
+            sx={{ color: 'secondary' }}
           />
         </CenterStack>
-        {/*  <CenterStack sx={{ py: 2, minHeight: 480, width: { xs: '100%' } }}>
-          <HtmlEditor value={bodyText} onChanged={handleBodyChange} />
-        </CenterStack> */}
         <CenterStack sx={{ py: 2, minHeight: 480, width: { xs: '100%' } }}>
           <HtmlEditorQuill value={bodyText} onChanged={handleBodyChange} />
         </CenterStack>
         <Box>
           <CenterStack sx={{ py: 2, gap: 2 }}>
-            <PrimaryButton onClick={handleSave} text='save' sx={{ ml: 3 }}></PrimaryButton>
+            <SecondaryButton onClick={handleSave} text='save' sx={{ ml: 3 }} />
             <PassiveButton text={'cancel'} onClick={handleCancel} />
           </CenterStack>
         </Box>

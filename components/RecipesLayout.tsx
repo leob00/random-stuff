@@ -37,7 +37,7 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Opti
         <CenteredParagraph text='Top 10 Featured Recipes' />
         {featured.length > 0 &&
           featured.map((item, ix) => (
-            <Box sx={{ marginTop: 2, paddingBottom: 2 }} key={item.title}>
+            <Box sx={{ paddingBottom: 2 }} key={item.title}>
               <CenterStack>
                 <InternalLinkButton text={item.title} route={`${baseUrl}${item.sys.id}`} />
               </CenterStack>

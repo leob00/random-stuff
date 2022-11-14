@@ -17,6 +17,7 @@ export interface NewsItem {
   ApiUrl?: string
   HeadlineRecordHash?: string
   Read?: boolean
+  Saved?: boolean
 }
 
 export type NewsTypeIds =

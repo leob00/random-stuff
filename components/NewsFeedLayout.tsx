@@ -166,7 +166,7 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
                 <Grid item xs={12} md={8}>
                   <Box sx={{ textAlign: 'right', my: 2 }} justifyContent='end'>
                     <FormControlLabel
-                      control={<Switch size='small' onChange={handleStartStopAutoPlay} />}
+                      control={<Switch size='small' onChange={handleStartStopAutoPlay} color='secondary' />}
                       label='auto play'
                       checked={model.isAutoPlayRunning}
                     />

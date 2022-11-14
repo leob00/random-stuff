@@ -66,7 +66,14 @@ export function reducer(state: Model, action: ActionType): Model {
             break
         }
       }
-      return { ...state, allCoins: action.payload.allCoins, isLoading: false, flippedCoin: action.payload.flippedCoin, runningChart: currentState.runningChart, coinflipStats: currentState.coinflipStats }
+      return {
+        ...state,
+        allCoins: action.payload.allCoins,
+        isLoading: false,
+        flippedCoin: action.payload.flippedCoin,
+        runningChart: currentState.runningChart,
+        coinflipStats: currentState.coinflipStats,
+      }
     case 'update-community-stats': {
       let chart: BarChart = {
         labels: ['heads', 'tails'],
@@ -165,21 +172,21 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
             This is your chance to flip a coin if you do not have one.
           </Typography>
           <Typography variant='body2' sx={{ textAlign: 'center', paddingTop: 2 }}>
-            Call out your prediction and click the Flip button.
+            Call out your prediction and press the coin to flip.
           </Typography>
         </Box>
       </CenterStack>
       <CenterStack sx={{ minHeight: 120 }}>
         <Box>
           {model.defaultState && (
-            <Box>
-              <RemoteImageFlat title={model.allCoins[0].face} url={model.allCoins[0].imageUrl} height={100} width={100} />
+            <Box sx={{ cursor: 'pointer' }}>
+              <RemoteImageFlat title={model.allCoins[0].face} url={model.allCoins[0].imageUrl} height={100} width={100} onClicked={handleFlipClick} />
             </Box>
           )}
           {model.isLoading && <RemoteImageFlat title={model.allCoins[0].face} url={model.allCoins[0].imageUrl} height={100} width={100} className='rotate' />}
           {model.flippedCoin && (
-            <Box>
-              <RemoteImageFlat title={model.flippedCoin.face} url={model.flippedCoin.imageUrl} height={100} width={100} />
+            <Box sx={{ cursor: 'pointer' }}>
+              <RemoteImageFlat title={model.flippedCoin.face} url={model.flippedCoin.imageUrl} height={100} width={100} onClicked={handleFlipClick} />
             </Box>
           )}
           <CenterStack sx={{ minHeight: 36 }}>
@@ -190,11 +197,6 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
             )}
           </CenterStack>
         </Box>
-      </CenterStack>
-      <CenterStack sx={{ paddingTop: 2 }}>
-        <Button variant='contained' color='primary' onClick={handleFlipClick} disabled={model.isLoading}>
-          Flip
-        </Button>
       </CenterStack>
       {model.runningChart && <CoinFlipChart totalFlips={model.runningChart.numbers[0] + model.runningChart.numbers[1]} chart={model.runningChart} />}
       <CenterStack sx={{ paddingTop: 2 }}>

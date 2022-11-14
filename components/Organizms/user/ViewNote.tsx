@@ -31,13 +31,13 @@ const ViewNote = ({ selectedNote, onEdit, onCancel }: { selectedNote: UserNote; 
         </CenterStack>
         <HorizontalDivider />
         <CenterStack sx={{ py: 2, gap: 2 }}>
-          <PrimaryButton
+          <SecondaryButton
             text='edit'
             onClick={() => {
               onEdit(selectedNote)
             }}
             sx={{ ml: 2 }}
-          ></PrimaryButton>
+          ></SecondaryButton>
           <PassiveButton onClick={onCancel} text='close' />
         </CenterStack>
       </Box>
