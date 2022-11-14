@@ -9,6 +9,7 @@ import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 import { DarkBlueTransparent } from 'components/themes/mainTheme'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
+import InternalLink from 'components/Atoms/Buttons/InternalLink'
 
 const HomeMenu = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false)
@@ -42,20 +43,8 @@ const HomeMenu = () => {
 
           <Box>
             <CenterStack>
-              <LinkButton
-                onClick={() => {
-                  router.push('/ssg/randomdogs')
-                }}
-              >
-                dogs
-              </LinkButton>
-              <LinkButton
-                onClick={() => {
-                  router.push('/ssg/randomcats')
-                }}
-              >
-                cats
-              </LinkButton>
+              <InternalLink route={'/ssg/randomdogs'} text={'dogs'} />
+              <InternalLink route={'/ssg/randomcats'} text={'cats'} />
             </CenterStack>
             {/* <CenterStack>
               <LinkButton
@@ -74,46 +63,16 @@ const HomeMenu = () => {
               </LinkButton>
             </CenterStack> */}
             <CenterStack>
-              <LinkButton
-                onClick={() => {
-                  router.push('/ssg/recipes')
-                }}
-              >
-                recipes
-              </LinkButton>
+              <InternalLink route={'/ssg/recipes'} text={'recipes'} />
             </CenterStack>
           </Box>
           <CenterStack>
-            <LinkButton
-              onClick={() => {
-                router.push('/ssg/coinflip')
-              }}
-            >
-              flip coin
-            </LinkButton>
-            <LinkButton
-              onClick={() => {
-                router.push('/ssg/roulette')
-              }}
-            >
-              spin wheel
-            </LinkButton>
+            <InternalLink route={'/ssg/coinflip'} text={'flip coin'} />
+            <InternalLink route={'/ssg/roulette'} text={'spin wheel'} />
           </CenterStack>
           <CenterStack>
-            <LinkButton
-              onClick={() => {
-                router.push('/csr/news')
-              }}
-            >
-              news
-            </LinkButton>
-            <LinkButton
-              onClick={() => {
-                router.push('/csr/newsfeed')
-              }}
-            >
-              news feed
-            </LinkButton>
+            <InternalLink route={'/csr/news'} text={'news'} />
+            <InternalLink route={'/csr/newsfeed'} text={'news feed'} />
           </CenterStack>
           {isLoggedIn && (
             <Box py={2}>
@@ -121,32 +80,14 @@ const HomeMenu = () => {
               <CenteredTitle title='My Stuff' />
               <Box>
                 <CenterStack>
-                  <LinkButton
-                    onClick={() => {
-                      router.push('/protected/csr/dashboard')
-                    }}
-                  >
-                    dashboard
-                  </LinkButton>
-                  <LinkButton
-                    onClick={() => {
-                      router.push('/protected/csr/notes')
-                    }}
-                  >
-                    notes
-                  </LinkButton>
+                  <InternalLink route={'/protected/csr/dashboard'} text={'dashboard'} />
+                  <InternalLink route={'/protected/csr/notes'} text={'notes'} />
                 </CenterStack>
               </Box>
               {isAdmin && (
                 <Box>
                   <CenterStack>
-                    <LinkButton
-                      onClick={() => {
-                        router.push('/protected/csr/admin')
-                      }}
-                    >
-                      admin
-                    </LinkButton>
+                    <InternalLink route={'/protected/csr/admin'} text={'admin'} />
                   </CenterStack>
                 </Box>
               )}

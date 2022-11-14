@@ -174,7 +174,7 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
                   <Box sx={{ minHeight: 300, backgroundColor: VeryLightBlueTransparent, borderRadius: 4, display: 'flex', alignItems: 'center' }}>
                     <Fade in={model.fadeIn} timeout={{ appear: 500, enter: 3000, exit: 6000 }}>
                       <Typography variant='h4' sx={{ textAlign: 'center', padding: 2, margin: 3 }}>
-                        <NLink passHref href={item.Link!}>
+                        <NLink passHref href={item.Link!} legacyBehavior>
                           <Link sx={{ textDecoration: 'none', color: DarkModeBlueTransparent, ':hover': 'white' }} target={'_blank'}>
                             {item.Headline}
                           </Link>
