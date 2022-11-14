@@ -6,6 +6,7 @@ import { newsTypes } from 'lib/backend/api/qln/qlnApi'
 import { Divider } from '@aws-amplify/ui-react'
 import DropDownList from 'components/Atoms/Inputs/DropdownList'
 import NewsLayout from './NewsLayout'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 const Page = () => {
   return (
@@ -19,7 +20,7 @@ const Page = () => {
         &#8592; back
       </Button>
       <CenteredTitle title={'Latest News'} />
-      <Divider />
+      <HorizontalDivider />
       <NewsLayout />
     </>
   )

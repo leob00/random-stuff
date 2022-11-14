@@ -5,8 +5,9 @@ import { ButtonProps } from '@mui/material'
 import { Blue800 } from 'components/themes/mainTheme'
 
 const LinkButton: React.FC<ButtonProps> = ({ children, ...props }) => {
+  const color = props.color
   return (
-    <Button {...props} color='secondary' sx={{}} variant='text'>
+    <Button {...props} color={color ? color : 'secondary'} sx={{}} variant='text'>
       {children}
     </Button>
   )

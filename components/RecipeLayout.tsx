@@ -6,6 +6,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import RemoteImage from './Atoms/RemoteImage'
 import CenteredHeader from './Atoms/Boxes/CenteredHeader'
 import BackButton from './Atoms/Buttons/BackButton'
+import HorizontalDivider from './Atoms/Dividers/HorizontalDivider'
 
 const RecipeLayout = ({ article, baseUrl }: { article: Recipe; baseUrl: string }) => {
   return (
@@ -17,7 +18,7 @@ const RecipeLayout = ({ article, baseUrl }: { article: Recipe; baseUrl: string }
       />
       <>
         <CenteredHeader title={article.title} description={''} />
-        <Divider></Divider>
+        <HorizontalDivider />
         <Container sx={{ my: 2 }}>
           <Typography variant='body1' sx={{ paddingBottom: 2, textAlign: 'center' }}>
             {article.summary}

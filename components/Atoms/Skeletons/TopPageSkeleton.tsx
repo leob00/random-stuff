@@ -31,7 +31,6 @@ const TopPageSkeleton = () => {
           ></Skeleton>
         </CenterStack>
       </Box>
-      {/* <Divider /> */}
     </>
   )
 }

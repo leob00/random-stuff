@@ -1,4 +1,5 @@
 import { Box, Button, Typography, Divider, Stack } from '@mui/material'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import RemoteImage from 'components/Atoms/RemoteImage'
 import { BasicArticle } from 'lib/model'
 import { GetServerSideProps, NextPage } from 'next'
@@ -27,11 +28,12 @@ const healthcheck: NextPage<{ data: BasicArticle }> = ({ data }) => {
           variant='text'
           onClick={() => {
             router.push('/')
-          }}>
+          }}
+        >
           &#8592; back
         </Button>
         <Typography variant='h6'>Health check: SSR</Typography>
-        <Divider />
+        <HorizontalDivider />
       </Box>
       <Stack direction='row' justifyContent='center' my={2}>
         <Typography variant='h6'>{data.title}</Typography>

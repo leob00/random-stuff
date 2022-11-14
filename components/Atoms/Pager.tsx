@@ -2,6 +2,7 @@ import ArrowBackIos from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos'
 import { Box, Button, Divider, Tooltip, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
+import HorizontalDivider from './Dividers/HorizontalDivider'
 
 const Pager = ({
   pageCount,
@@ -55,7 +56,7 @@ const Pager = ({
   }, [pageCount, defaultPageIndex, displayMessage])
   return (
     <>
-      <Divider />
+      <HorizontalDivider />
       {showPageText && (
         <Typography sx={{ my: 2, textAlign: 'center' }} variant='body2'>
           {displayMessage}

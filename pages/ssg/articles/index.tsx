@@ -9,6 +9,7 @@ import { BlogCollection } from 'lib/models/cms/contentful/blog'
 import router from 'next/router'
 import BlogsLayout from 'components/BlogsLayout'
 import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 const cmsRefreshIntervalSeconds = 3600
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
@@ -54,11 +55,12 @@ const Blogs: NextPage<{ model: BlogCollection; fallback: any }> = ({ model, fall
         variant='text'
         onClick={() => {
           router.push('/')
-        }}>
+        }}
+      >
         &#8592; back
       </Button>
       <CenteredTitle title='Articles' />
-      <Divider />
+      <HorizontalDivider />
       <SWRConfig value={{ fallback }}>
         <Articles fallbackData={model} />
       </SWRConfig>

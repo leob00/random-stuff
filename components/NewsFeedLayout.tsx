@@ -7,6 +7,7 @@ import { findLast, map, uniq } from 'lodash'
 import Pager from './Atoms/Pager'
 import CenteredTitle from './Atoms/Containers/CenteredTitle'
 import { DarkModeBlueTransparent, VeryLightBlueTransparent } from './themes/mainTheme'
+import HorizontalDivider from './Atoms/Dividers/HorizontalDivider'
 
 type sourceTypes = 'Google Business' | 'BBC World' | undefined
 type categoryTypes = 'Financial' | 'World'
@@ -156,7 +157,7 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
     <>
       <Container>
         <CenteredTitle title='News' />
-        <Divider />
+        <HorizontalDivider />
         {model.pagedItems.length > 0 &&
           model.pagedItems.map((item, i) => (
             <Box key={i} sx={{}}>

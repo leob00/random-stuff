@@ -6,8 +6,19 @@ import { Download } from '@mui/icons-material'
 import RemoteImage from './Atoms/RemoteImage'
 import loader from '../public/images/loaders/black-white-spinner.gif'
 import NImage from 'next/image'
+import HorizontalDivider from './Atoms/Dividers/HorizontalDivider'
 
-const RandomAnimalLayout = ({ data, onRefresh, showNext = true, articles }: { data: BasicArticle; onRefresh?: () => void; showNext?: boolean; articles?: BasicArticle[] }) => {
+const RandomAnimalLayout = ({
+  data,
+  onRefresh,
+  showNext = true,
+  articles,
+}: {
+  data: BasicArticle
+  onRefresh?: () => void
+  showNext?: boolean
+  articles?: BasicArticle[]
+}) => {
   const [isMounted, setIsMounted] = useState(false)
   const [isImageLoading, setIsImageLoading] = useState(true)
   let router = useRouter()
@@ -38,13 +49,14 @@ const RandomAnimalLayout = ({ data, onRefresh, showNext = true, articles }: { da
               variant='text'
               onClick={() => {
                 router.push('/')
-              }}>
+              }}
+            >
               &#8592; back
             </Button>
             <Typography variant='h5' sx={{ my: 2 }}>
               {articles[0].title}
             </Typography>
-            <Divider />
+            <HorizontalDivider />
           </Box>
           {articles.map((item) => (
             <Stack direction='row' justifyContent='center' my={2} key={item.imagePath}>
@@ -58,7 +70,8 @@ const RandomAnimalLayout = ({ data, onRefresh, showNext = true, articles }: { da
           variant='text'
           onClick={() => {
             router.push('/')
-          }}>
+          }}
+        >
           &#8592; back
         </Button>
         <Typography variant='h5'>{data.title}</Typography>

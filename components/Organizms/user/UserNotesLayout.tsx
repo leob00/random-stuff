@@ -17,6 +17,7 @@ import router from 'next/router'
 import ButtonSkeleton from 'components/Atoms/Skeletons/ButtonSkeleton'
 import { buildSaveModel } from 'lib/controllers/notes/notesController'
 import { useUserController } from 'hooks/userController'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
   const [model, dispatch] = React.useReducer(notesReducer, data)
   const userController = useUserController()
@@ -97,7 +98,7 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
           </Box>
         </>
       )}
-      <Divider />
+      <HorizontalDivider />
       {!model.editMode && !model.viewMode && (
         <CenterStack sx={{ py: 2 }}>
           {model.isLoading || model.editMode ? <ButtonSkeleton buttonText='add note' /> : <SecondaryButton text='add note' onClick={handleAddNote} />}

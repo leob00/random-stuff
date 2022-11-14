@@ -1,6 +1,7 @@
 import { Box, Divider, Stack } from '@mui/material'
 import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
 import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import Pager from 'components/Atoms/Pager'
 import RemoteImage from 'components/Atoms/RemoteImage'
 import { BasicArticle } from 'lib/model'
@@ -34,14 +35,20 @@ const ArticlesLayout = ({ articles }: { articles: BasicArticle[] }) => {
           <Box>
             <BackToHomeButton />
             <CenteredTitle title={articles[0].title} />
-            <Divider />
+            <HorizontalDivider />
           </Box>
           {displayedItems.length > 0 && (
             <Stack direction='row' justifyContent='center' my={2}>
               <RemoteImage url={displayedItems[0].imagePath} title={displayedItems[0].title} onLoaded={handleImageLoaded} />
             </Stack>
           )}
-          <Pager pageCount={paged.pages.length} itemCount={articles.length} itemsPerPage={itemsPerPage} onPaged={(pageNum: number) => handlePaged(pageNum)} defaultPageIndex={currentPageIndex}></Pager>
+          <Pager
+            pageCount={paged.pages.length}
+            itemCount={articles.length}
+            itemsPerPage={itemsPerPage}
+            onPaged={(pageNum: number) => handlePaged(pageNum)}
+            defaultPageIndex={currentPageIndex}
+          ></Pager>
         </>
       )}
     </>

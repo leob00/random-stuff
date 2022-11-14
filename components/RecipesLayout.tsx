@@ -6,9 +6,17 @@ import router from 'next/router'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import RemoteImage from './Atoms/RemoteImage'
 import InternalLinkButton from './Atoms/Buttons/InternalLinkButton'
+import CenteredParagraph from './Atoms/Containers/CenteredParagraph'
+import CenterStack from './Atoms/CenterStack'
+import CenteredTitle from './Atoms/Containers/CenteredTitle'
 
 const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Option[]; baseUrl: string; featured: Recipe[] }) => {
-  const handleSelect = (event: React.SyntheticEvent<Element, Event>, value: Option | null, reason: AutocompleteChangeReason, details?: AutocompleteChangeDetails<Option> | undefined) => {
+  const handleSelect = (
+    event: React.SyntheticEvent<Element, Event>,
+    value: Option | null,
+    reason: AutocompleteChangeReason,
+    details?: AutocompleteChangeDetails<Option> | undefined,
+  ) => {
     let sel = value as Option
     router.push(`${baseUrl}${sel.id}`)
   }
@@ -16,27 +24,29 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Opti
   return (
     <Box>
       <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
-        <Autocomplete size='small' onChange={handleSelect} disablePortal options={autoComplete} sx={{ width: 360 }} renderInput={(params) => <TextField {...params} placeholder={`search ${autoComplete.length} recipes`} />} />
+        <Autocomplete
+          size='small'
+          onChange={handleSelect}
+          disablePortal
+          options={autoComplete}
+          sx={{ width: 360 }}
+          renderInput={(params) => <TextField {...params} placeholder={`search ${autoComplete.length} recipes`} />}
+        />
       </Stack>
       <Box sx={{ my: 2 }}>
+        <CenteredParagraph text='Top 10 Featured Recipes' />
         {featured.length > 0 &&
           featured.map((item, ix) => (
             <Box sx={{ marginTop: 2, paddingBottom: 2 }} key={item.title}>
-              <Stack direction='row' justifyContent='center'>
+              <CenterStack>
                 <InternalLinkButton text={item.title} route={`${baseUrl}${item.sys.id}`} />
-              </Stack>
-              {item.summary && item.summary.length > 0 && (
-                <Box sx={{ my: 1 }}>
-                  <Typography variant='body1' sx={{ paddingBottom: 1, textAlign: 'center' }}>
-                    {item.summary}
-                  </Typography>
-                </Box>
-              )}
+              </CenterStack>
+              {item.summary && item.summary.length > 0 && <CenteredParagraph text={item.summary} />}
               <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>
                 {item.heroImage && (
                   <>
-                    <NLink href={`${baseUrl}${item.sys.id}`} passHref>
-                      <Link>
+                    <NLink href={`${baseUrl}${item.sys.id}`} passHref legacyBehavior as={`${baseUrl}${item.sys.id}`}>
+                      <Link href={`${baseUrl}${item.sys.id}`}>
                         <Box sx={{ borderRadius: '.9rem', backgroundColor: 'transparent', padding: 0.2 }}>
                           <RemoteImage url={item.heroImage.url} title={item.title} />
                         </Box>

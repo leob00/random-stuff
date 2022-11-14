@@ -6,6 +6,7 @@ import React from 'react'
 import DangerButton from '../Buttons/DangerButton'
 import PassiveButton from '../Buttons/PassiveButton'
 import SecondaryButton from '../Buttons/SecondaryButton'
+import HorizontalDivider from '../Dividers/HorizontalDivider'
 
 const ConfirmDeleteDialog = ({
   show,
@@ -47,7 +48,7 @@ const ConfirmDeleteDialog = ({
             {text}
           </DialogContentText>
         </DialogContent>
-        <Divider />
+        <HorizontalDivider />
         <DialogActions sx={{ pt: 1, pb: 2 }}>
           <PassiveButton onClick={handleClose} text={'no'} />
           <DangerButton onClick={handleOnConfirm} autoFocus text={'yes'} />

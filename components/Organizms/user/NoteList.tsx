@@ -2,6 +2,7 @@ import { Delete } from '@mui/icons-material'
 import { Box, Stack, Button, Divider, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { UserNote } from 'lib/models/randomStuffModels'
 import React from 'react'
 
@@ -57,7 +58,7 @@ const NoteList = ({ data, onClicked, onDelete }: { data: UserNote[]; onClicked: 
                 </Button>
               </Stack>
             </Stack>
-            <Divider />
+            <HorizontalDivider />
           </Box>
         ))}
       </Box>

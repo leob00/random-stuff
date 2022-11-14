@@ -1,5 +1,6 @@
 import { Save, Close, Create } from '@mui/icons-material'
 import { Box, Stack, IconButton, Divider } from '@mui/material'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 const EditItemToolbar = ({ onSave, onCancel, onEdit }: { onSave?: () => void; onCancel?: () => void; onEdit?: (item: any) => void }) => {
   const handleSaveClick = () => {
@@ -37,7 +38,7 @@ const EditItemToolbar = ({ onSave, onCancel, onEdit }: { onSave?: () => void; on
           </Stack>
         )}
       </Stack>
-      <Divider />
+      <HorizontalDivider />
     </Box>
   )
 }
