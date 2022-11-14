@@ -101,6 +101,18 @@ const themeOptions: ThemeOptions = {
     MuiContainer: {
       styleOverrides: { maxWidthLg: '100%' },
     },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          borderRadius: '.4em',
+          backgroundColor: CasinoBlueTransparent,
+          fontSize: '1.2rem',
+        },
+        arrow: {
+          color: CasinoBlueTransparent,
+        },
+      },
+    },
   },
 }
 const rfsOptions: ResponsiveFontSizesOptions = { breakpoints: ['xs', 'sm', 'md', 'lg', 'xl'] }

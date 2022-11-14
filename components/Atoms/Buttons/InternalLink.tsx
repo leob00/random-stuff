@@ -1,16 +1,15 @@
 import React from 'react'
 import NLink from 'next/link'
 import Link from '@mui/material/Link'
-import { Box, LinearProgress, Stack } from '@mui/material'
+import { Stack } from '@mui/material'
+import RollingLinearProgress from '../Loaders/RollingLinearProgress'
 
 const InternalLink = ({ route, text }: { route: string; text: string }) => {
   const [isLoading, setIsLoading] = React.useState(false)
   return (
     <>
       {isLoading ? (
-        <Stack minWidth={48} alignContent='center' justifyContent={'center'} minHeight={32}>
-          <LinearProgress color='secondary' />
-        </Stack>
+        <RollingLinearProgress width={48} height={32} />
       ) : (
         <NLink href={route} passHref legacyBehavior>
           <Link

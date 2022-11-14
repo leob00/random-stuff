@@ -7,6 +7,7 @@ import { ApiStatus } from 'pages/api/status'
 import { Circle } from '@mui/icons-material'
 import { CasinoGreen } from './themes/mainTheme'
 import HorizontalDivider from './Atoms/Dividers/HorizontalDivider'
+import RollingLinearProgress from './Atoms/Loaders/RollingLinearProgress'
 
 const Footer = () => {
   const intervalRef = React.useRef<NodeJS.Timer | null>(null)
@@ -44,9 +45,7 @@ const Footer = () => {
         <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} py={4}>
           <Typography sx={{ fontSize: 'small' }}>©{dayjs().format('YYYY')} Random Stuff</Typography>
           {isLoading ? (
-            <Stack minWidth={110} alignContent='center' justifyContent={'center'} pt={1}>
-              <LinearProgress color='secondary' />
-            </Stack>
+            <RollingLinearProgress height={20} />
           ) : (
             <Stack>
               <Stack fontSize={'small'} justifyContent={'center'} flexDirection={'row'}>

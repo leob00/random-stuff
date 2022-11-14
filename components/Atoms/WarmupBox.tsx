@@ -3,6 +3,7 @@ import { getRandomLoaderText } from 'lib/randomLoaderText'
 import React, { useEffect, useReducer } from 'react'
 import { Model, warmupReducer } from 'lib/reducers/warmupReducer'
 import CenterStack from './CenterStack'
+import RollingLinearProgress from './Loaders/RollingLinearProgress'
 
 const WarmupBox = ({ text }: { text?: string }) => {
   const defaultModel: Model = {
@@ -24,20 +25,17 @@ const WarmupBox = ({ text }: { text?: string }) => {
   }, [model.message, text])
   return (
     <Container sx={{}}>
-      <Box sx={{ py: 2 }}>
+      <Box sx={{ py: 1 }}>
         <CenterStack>
           <Typography variant='body2' sx={{}}>
             {text ? text : `${model.message}...`}
           </Typography>
         </CenterStack>
       </Box>
-      <Box sx={{ py: 2 }}>
-        <Stack direction='row' justifyContent='center' sx={{ my: 1 }}>
-          {/* <CircularProgress color='secondary' /> */}
-          <Stack minWidth={110} alignContent='center' justifyContent={'center'}>
-            <LinearProgress color='secondary' />
-          </Stack>
-        </Stack>
+      <Box sx={{ py: 1 }}>
+        <CenterStack>
+          <RollingLinearProgress width={100} height={25} />
+        </CenterStack>
       </Box>
     </Container>
   )

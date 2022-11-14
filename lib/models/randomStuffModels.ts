@@ -11,4 +11,5 @@ export interface UserNote {
   body: string
   dateCreated: string
   dateModified: string
+  expirationDate?: string
 }

@@ -1,4 +1,4 @@
-import { Check } from '@mui/icons-material'
+import { Check, QuestionAnswer, QuestionMarkOutlined } from '@mui/icons-material'
 import { Box, Button, Stack } from '@mui/material'
 import InternalLink from 'components/Atoms/Buttons/InternalLink'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
@@ -11,6 +11,9 @@ import { orderBy } from 'lodash'
 import React from 'react'
 import router from 'next/router'
 import SavedNoteButtonLink from './SavedNoteButtonLink'
+import { getUtcNow } from 'lib/util/dateUtil'
+import ExprationWarningTooltip from 'components/Atoms/Tooltips/ExprationWarningTooltip'
+import RollingLinearProgress from 'components/Atoms/Loaders/RollingLinearProgress'
 
 const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note: UserNote; onSaved: (note: UserNote) => void }) => {
   const [saving, setSaving] = React.useState(false)
@@ -23,7 +26,11 @@ const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note
       profile.noteTitles.push(item)
       profile.noteTitles = orderBy(profile.noteTitles, ['dateModified'], ['desc'])
       await putUserProfile(profile)
-      await putUserNote(item, constructUserNoteCategoryKey(username))
+      const now = getUtcNow()
+      const expireDt = now.add(3, 'day')
+      const expireSeconds = Math.floor(expireDt.valueOf() / 1000)
+
+      await putUserNote(item, constructUserNoteCategoryKey(username), expireSeconds)
       await userController.setProfile(profile)
       setIsSaved(true)
       onSaved(item)
@@ -31,20 +38,16 @@ const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note
   }
 
   return !saved ? (
-    <SecondaryButton text={saving ? 'saving...' : 'read later'} size='small' onClick={() => handleClick(note)} disabled={saving} />
+    <Stack justifyContent={'center'} direction='row' spacing={2}>
+      {saving ? (
+        <RollingLinearProgress height={30} width={100} />
+      ) : (
+        <SecondaryButton text={saving ? 'saving...' : 'read later'} size='small' onClick={() => handleClick(note)} disabled={saving} />
+      )}
+    </Stack>
   ) : (
     <Stack fontSize={'small'} justifyContent={'center'} flexDirection={'row'}>
       <SavedNoteButtonLink />
-      {/* <Button
-        variant='contained'
-        color='success'
-        size='small'
-        onClick={() => {
-          router.push('/protected/csr/notes')
-        }}
-      >
-        read now
-      </Button> */}
     </Stack>
   )
 }

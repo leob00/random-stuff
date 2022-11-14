@@ -10,12 +10,12 @@ export interface EncPutRequest {
   data: string
 }
 
-export async function putUserNote(item: UserNote, secondaryKey: string) {
+export async function putUserNote(item: UserNote, secondaryKey: string, expiration: number = 0) {
   let req: LambdaDynamoRequest = {
     id: item.id!,
     category: secondaryKey,
     data: item,
-    expiration: 0,
+    expiration: expiration,
     token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${item.id}`),
     //token: signLambdaDynamoPut(item.id!, secondaryKey, String(process.env.NEXT_PUBLIC_API_TOKEN)),
   }
@@ -25,12 +25,12 @@ export async function putUserNote(item: UserNote, secondaryKey: string) {
   await axiosPut(`/api/putRandomStuff`, putRequest)
 }
 export async function expireUserNote(item: UserNote) {
-  const unixNowSeconds = getUtcNow().valueOf() / 1000
+  const unixNowSeconds = Math.floor(getUtcNow().valueOf() / 1000)
   let req: LambdaDynamoRequest = {
     id: item.id!,
     category: 'expired',
     data: item,
-    expiration: Math.floor(unixNowSeconds),
+    expiration: unixNowSeconds,
     token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${item.id}`),
   }
   const putRequest: EncPutRequest = {
