@@ -38,6 +38,7 @@ export interface LambdaBody {
   key?: string
   data: string
   last_modified?: string
+  expiration?: number
 }
 
 export interface CoinFlipStats {

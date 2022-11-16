@@ -19,7 +19,7 @@ export type ActionTypes =
   | { type: 'view-note'; payload: { selectedNote: UserNote | null } }
   | { type: 'cancel-edit' }
   | { type: 'set-loading'; payload: { isLoading: boolean } }
-  | { type: 'save-note'; payload: { noteTitles: UserNote[] } }
+  | { type: 'save-note'; payload: { noteTitles: UserNote[]; selectedNote: UserNote } }
   | { type: 'search'; payload: { search: string } }
 
 function applyFilter(list: UserNote[], search: string) {
@@ -34,6 +34,7 @@ export function notesReducer(state: UserNotesModel, action: ActionTypes) {
       return {
         ...state,
         editMode: false,
+        selectedNote: null,
         noteTitles: orderBy(action.payload.noteTitles, ['dateModified'], ['desc']),
         isLoading: false,
         viewMode: false,
@@ -53,6 +54,7 @@ export function notesReducer(state: UserNotesModel, action: ActionTypes) {
         viewMode: true,
         search: '',
         filteredTitles: action.payload.noteTitles,
+        selectedNote: action.payload.selectedNote,
       }
     case 'cancel-edit':
       return { ...state, editMode: false, selectedNote: null, viewMode: false, filteredTitles: applyFilter(state.noteTitles, state.search) }

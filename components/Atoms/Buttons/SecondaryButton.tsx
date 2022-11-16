@@ -4,14 +4,15 @@ import React, { ReactNode } from 'react'
 type ButtonAttributes = ButtonProps & {
   text: string
   onClicked?: () => void
+  width?: number
   isDisabled?: boolean
 }
-const SecondaryButton: React.FC<ButtonAttributes> = ({ text, isDisabled, onClicked, ...props }) => {
+const SecondaryButton: React.FC<ButtonAttributes> = ({ text, isDisabled, onClicked, width = 110, ...props }) => {
   const handleClick = () => {
     onClicked?.()
   }
   return (
-    <Button variant='contained' color='secondary' onClick={handleClick} disabled={isDisabled} {...props} sx={{ minWidth: 100 }}>
+    <Button variant='contained' color='secondary' onClick={handleClick} disabled={isDisabled} {...props} sx={{ width: width }}>
       {`${text}`}
     </Button>
   )

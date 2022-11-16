@@ -24,6 +24,7 @@ export async function buildSaveModel(model: UserNotesModel, item: UserNote) {
       body: '',
       dateCreated: now,
       dateModified: now,
+      expirationDate: item.expirationDate,
     })
   } else {
     const existingIx = findIndex(result.noteTitles, (e) => {
@@ -37,6 +38,7 @@ export async function buildSaveModel(model: UserNotesModel, item: UserNote) {
         body: '',
         dateCreated: item.dateCreated,
         dateModified: now,
+        expirationDate: item.expirationDate,
       })
     }
   }

@@ -1,5 +1,7 @@
+import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { getUtcNow } from 'lib/util/dateUtil'
+import { filter } from 'lodash'
 import { ApiError } from 'next/dist/server/api-utils'
 import { LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
 import { axiosGet, axiosPut } from '../api/aws/useAxios'
@@ -82,6 +84,9 @@ export async function getUserProfile(username: string) {
     if (data) {
       let parsed = data as UserProfile
       if (parsed) {
+        parsed.noteTitles = filter(parsed.noteTitles, (e) => {
+          return !e.expirationDate || dayjs(e.expirationDate).isAfter(getUtcNow())
+        })
         return parsed
       } else {
         const err: ApiError = {
@@ -116,7 +121,7 @@ export async function getUserNote(id?: string) {
     const data = await axiosGet(`/api/randomStuff`, params)
     if (data) {
       result = data
-      // console.log(result)
+
       return result
     }
   } catch (err) {

@@ -1,12 +1,17 @@
 import { Box, Tooltip } from '@mui/material'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
+import dayjs from 'dayjs'
 import React from 'react'
 
-const ExprationWarningTooltip = ({ children }: { children: any }) => {
+const ExprationWarningTooltip = ({ children, expirationDt }: { children: any; expirationDt?: string }) => {
   return (
     <Tooltip
       arrow
-      title='This record will expire after about 3 days. If you want to save it forever, please edit it in your notes and re-save it.'
+      title={
+        !expirationDt
+          ? 'This record is set to expire expire about 3 days after it was created. If you want to save it forever, please edit it in your notes and re-save it.'
+          : `This record is set to expire expire on ${dayjs(expirationDt).format('MM/DD/YYYY')}`
+      }
       placement='top'
       color='secondary'
       //sx={{ backgroundColor: CasinoBlueTransparent }}

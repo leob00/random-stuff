@@ -1,31 +1,6 @@
 import type { GetStaticProps, NextPage } from 'next'
 import HomeMenu from 'components/Organizms/HomeMenu'
 import Header from 'next/head'
-import axios, { AxiosRequestConfig } from 'axios'
-import https from 'https'
-
-const getSiteHtml = async (url: string) => {
-  //var url = 'https://dog.ceo/api/breeds/image/random'
-  let body = ''
-
-  https
-    .get(url, (res: any) => {
-      res.on('data', (chunk: string) => {
-        body += chunk
-      })
-
-      res.on('end', () => {
-        try {
-          //let result = JSON.parse(body)
-        } catch (error: any) {
-          console.error(error.message)
-        }
-      })
-    })
-    .on('error', (error: any) => {
-      console.error(error.message)
-    })
-}
 
 export const getStaticProps: GetStaticProps = async (context) => {
   return {
@@ -37,8 +12,8 @@ const Home: NextPage = () => {
     <>
       <Header>
         <title>Random Stuff - Home</title>
-        <meta property='og:title' content='Random Stuff' key='homeTitle' />
-        <meta property='og:description' content='Random Stuff: this site is dedicated to random foolishness and inconsequential musings.' key='homeDescription' />
+        <meta property='og:title' content='Random Stuff: this site is dedicated to random foolishness and inconsequential musings.' key='homeTitle' />
+        <meta property='og:description' content='Find recipes, create notes, and view random pictures.' key='homeDescription' />
         <meta property='og:image' content='/images/logo-with-text-blue-small.png' key='homeLogo' />
       </Header>
       <HomeMenu />

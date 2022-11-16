@@ -17,6 +17,7 @@ export const TransparentBlue = '#446ab793'
 export const CasinoGreenTransparent = '#123104bb'
 export const CasinoRedTransparent = '#830707bb'
 export const CasinoPinkTransparent = '#830707b2'
+export const CasinoLightPinkTransparent = '#dd4e4391'
 export const CasinoRed = '#830707'
 export const CasinoGreen = '#2d5c17'
 export const CasinoBlackTransparent = '#131212bb'
@@ -44,7 +45,7 @@ const lightPalette: PaletteOptions = {
     main: CasinoPinkTransparent,
   },
   info: {
-    main: CasinoLightGrayTransparent,
+    main: CasinoGrayTransparent,
   },
   success: {
     main: CasinoGreen,
@@ -71,17 +72,18 @@ const themeOptions: ThemeOptions = {
   typography: {
     //fontSize: 16, fontFace: Roboto,
     /* fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
       '"Segoe UI"',
+      '"Segoe UI Symbol"',
+      '"Segoe UI Emoji"',
+      '-apple-system',
       'Roboto',
+      'BlinkMacSystemFont',
       '"Helvetica Neue"',
       'Arial',
       'sans-serif',
       '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
     ].join(','), */
+    fontSize: 16,
     h1: { fontSize: '3.5rem', fontWeight: 600 }, // hero section title
     h2: { fontSize: '2.8125rem', fontWeight: 600 }, // other section title
     h3: { fontSize: '2.25rem', fontWeight: 600 },
@@ -94,7 +96,7 @@ const themeOptions: ThemeOptions = {
     body2: { fontSize: '0.875rem', fontWeight: 400 }, // less important text
     caption: { fontSize: '0.75rem', fontWeight: 400 },
     overline: { fontSize: '0.625rem', fontWeight: 400 },
-    button: { fontSize: '1.0rem', fontWeight: 'bold', textTransform: 'none' },
+    button: { fontSize: '1.0rem', fontWeight: 600, textTransform: 'none' },
   },
 
   components: {
@@ -105,11 +107,15 @@ const themeOptions: ThemeOptions = {
       styleOverrides: {
         tooltip: {
           borderRadius: '.4em',
-          backgroundColor: CasinoBlueTransparent,
-          fontSize: '1.2rem',
+          borderStyle: 'solid',
+          borderWidth: 1,
+          borderColor: DarkBlueTransparent,
+          backgroundColor: DarkModeBlue,
+          fontSize: '1.0rem',
+          textAlign: 'center',
         },
         arrow: {
-          color: CasinoBlueTransparent,
+          color: DarkModeBlue,
         },
       },
     },

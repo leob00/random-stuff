@@ -1,15 +1,19 @@
-import { Box, TextField } from '@mui/material'
+import { Warning } from '@mui/icons-material'
+import { Box, Stack, TextField, Typography } from '@mui/material'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
+import OnOffSwitch from 'components/Atoms/Inputs/OnOffSwitch'
 import EditItemToolbar from 'components/Molecules/EditItemToolbar'
+import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
+import { getUtcNow } from 'lib/util/dateUtil'
 import React from 'react'
 import HtmlEditorQuill from '../../Atoms/Inputs/HtmlEditorQuill'
 
 const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCanceled?: () => void; onSubmitted?: (note: UserNote) => void }) => {
   const title = React.useRef<HTMLInputElement | null>(null)
-  const [note] = React.useState(item)
+  const [note, setNote] = React.useState(item)
   const [bodyText, setBodyText] = React.useState(item.body)
   const [titleError, setTitleError] = React.useState(false)
 
@@ -40,10 +44,31 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
     setBodyText(text)
   }
 
+  const handleExpirationChange = (checked: boolean) => {
+    if (!checked) {
+      setNote({ ...note, expirationDate: undefined })
+    } else {
+      setNote({ ...note, expirationDate: getUtcNow().add(3, 'day').format() })
+    }
+  }
+
   return item ? (
     <>
       <EditItemToolbar onSave={handleSave} onCancel={handleCancel} />
       <Box sx={{ pt: 2 }} component='form'>
+        <CenterStack sx={{ py: 2, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
+          {note.expirationDate && (
+            <>
+              <Typography pr={1}>
+                <Warning fontSize='small' color='warning' />
+              </Typography>
+              <Typography pr={1} variant='body2'>{`this note is set to expire on ${dayjs(note.expirationDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
+            </>
+          )}
+          <Typography pl={2}>
+            <OnOffSwitch isChecked={note.expirationDate !== undefined} label={'expiration'} onChanged={handleExpirationChange} />
+          </Typography>
+        </CenterStack>
         <CenterStack sx={{ width: { xs: '100%' } }}>
           <TextField
             color='secondary'
@@ -65,8 +90,8 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
         </CenterStack>
         <Box>
           <CenterStack sx={{ py: 2, gap: 2 }}>
-            <SecondaryButton onClick={handleSave} text='save' sx={{ ml: 3 }} />
-            <PassiveButton text={'cancel'} onClick={handleCancel} />
+            <SecondaryButton onClick={handleSave} text='save' sx={{ ml: 3 }} size='small' width={70} />
+            <PassiveButton text={'cancel'} onClick={handleCancel} size='small' width={70} />
           </CenterStack>
         </Box>
       </Box>

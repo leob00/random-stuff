@@ -23,13 +23,13 @@ const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note
     setSaving(true)
     const profile = (await getUserProfile(username)) as UserProfile | null
     if (profile) {
-      profile.noteTitles.push(item)
+      profile.noteTitles.push({ ...item, body: '' })
       profile.noteTitles = orderBy(profile.noteTitles, ['dateModified'], ['desc'])
       await putUserProfile(profile)
       const now = getUtcNow()
       const expireDt = now.add(3, 'day')
       const expireSeconds = Math.floor(expireDt.valueOf() / 1000)
-
+      item.expirationDate = expireDt.format()
       await putUserNote(item, constructUserNoteCategoryKey(username), expireSeconds)
       await userController.setProfile(profile)
       setIsSaved(true)
@@ -39,11 +39,7 @@ const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note
 
   return !saved ? (
     <Stack justifyContent={'center'} direction='row' spacing={2}>
-      {saving ? (
-        <RollingLinearProgress height={30} width={100} />
-      ) : (
-        <SecondaryButton text={saving ? 'saving...' : 'read later'} size='small' onClick={() => handleClick(note)} disabled={saving} />
-      )}
+      {saving ? <RollingLinearProgress height={30} width={100} /> : <SecondaryButton text={saving ? 'saving...' : 'read later'} size='small' onClick={() => handleClick(note)} disabled={saving} />}
     </Stack>
   ) : (
     <Stack fontSize={'small'} justifyContent={'center'} flexDirection={'row'}>

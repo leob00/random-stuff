@@ -18,6 +18,7 @@ import ButtonSkeleton from 'components/Atoms/Skeletons/ButtonSkeleton'
 import { buildSaveModel } from 'lib/controllers/notes/notesController'
 import { useUserController } from 'hooks/userController'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import dayjs from 'dayjs'
 const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
   const [model, dispatch] = React.useReducer(notesReducer, data)
   const userController = useUserController()
@@ -49,8 +50,14 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
     const saveModel = await buildSaveModel(model, item)
     userController.setProfile(saveModel.userProfile)
     await putUserProfile(saveModel.userProfile)
-    await putUserNote(item, constructUserNoteCategoryKey(saveModel.username))
-    dispatch({ type: 'save-note', payload: { noteTitles: saveModel.noteTitles } })
+    //console.log('expire: ', item.expirationDate)
+    if (item.expirationDate) {
+      const expireSeconds = Math.floor(dayjs(item.expirationDate).valueOf() / 1000)
+      await putUserNote(item, constructUserNoteCategoryKey(saveModel.username), expireSeconds)
+    } else {
+      await putUserNote(item, constructUserNoteCategoryKey(saveModel.username))
+    }
+    dispatch({ type: 'save-note', payload: { noteTitles: saveModel.noteTitles, selectedNote: item } })
   }
   const handleCancelClick = async () => {
     if (model.selectedNote && model.selectedNote.id && !model.viewMode) {
@@ -101,7 +108,11 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
       <HorizontalDivider />
       {!model.editMode && !model.viewMode && (
         <CenterStack sx={{ py: 2 }}>
-          {model.isLoading || model.editMode ? <ButtonSkeleton buttonText='add note' /> : <SecondaryButton text='add note' onClick={handleAddNote} />}
+          {model.isLoading || model.editMode ? (
+            <ButtonSkeleton buttonText='add note' />
+          ) : (
+            <SecondaryButton text='add note' size='small' onClick={handleAddNote} width={100} />
+          )}
         </CenterStack>
       )}
       {model.isLoading ? (
@@ -113,7 +124,7 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
           model.viewMode &&
           model.selectedNote !== null && (
             <>
-              <ViewNote selectedNote={model.selectedNote} onEdit={handleEditNote} onCancel={handleCancelClick} />
+              <ViewNote selectedNote={model.selectedNote} onEdit={handleEditNote} onCancel={handleCancelClick} onDelete={handleDelete} />
             </>
           )
         )
