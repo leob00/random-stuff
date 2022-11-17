@@ -85,12 +85,21 @@ export async function getNewsFeed() {
   let params = {
     loadLatestNews: true,
   }
-  let response = (await axiosGet(url, params)).Body.LatestNews as NewsItem[]
-  //console.log(`newsfeed: retrieved ${response.length} news articles.`)
-  //logger(`newsfeed: retrieved ${response.length} news articles.`)
-  //console.log(JSON.stringify(response))
-
-  return response
+  try {
+    let response = await axiosGet(url, params)
+    if (response) {
+      return response.Body.LatestNews as NewsItem[]
+    }
+    return [] as NewsItem[]
+  } catch (err) {
+    const result: NewsItem[] = [
+      {
+        Headline: 'An error has occurred. News feed currently unavailable. Please try again later',
+        HeadlineRecordHash: 'x',
+      },
+    ]
+    return result
+  }
 }
 
 export async function getNewsBySource(id: NewsTypeIds) {
