@@ -10,7 +10,7 @@ const ExprationWarningTooltip = ({ children, expirationDt }: { children: any; ex
       title={
         !expirationDt
           ? 'This record is set to expire expire about 3 days after it was created. If you want to save it forever, please edit it in your notes and re-save it.'
-          : `This record is set to expire expire on ${dayjs(expirationDt).format('MM/DD/YYYY')}`
+          : `This record is set to expire expire on ${dayjs(expirationDt).format('MM/DD/YYYY hh:mm a')}`
       }
       placement='top'
       color='secondary'

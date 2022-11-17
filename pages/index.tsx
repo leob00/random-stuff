@@ -13,8 +13,8 @@ const Home: NextPage = () => {
       <Header>
         <title>Random Stuff - Home</title>
         <meta property='og:title' content='Random Stuff: this site is dedicated to random foolishness and inconsequential musings.' key='homeTitle' />
-        <meta property='og:description' content='Find recipes, create notes, and view random pictures.' key='homeDescription' />
-        <meta property='og:image' content='/images/logo-with-text-blue-small.png' key='homeLogo' />
+        <meta property='og:description' content='Find recipes, create notes, and view random pictures. Happy browsing!' key='homeDescription' />
+        <meta property='og:image' content='/public/images/logo-with-text-blue-small.png' key='homeLogo' />
       </Header>
       <HomeMenu />
     </>

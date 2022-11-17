@@ -17,6 +17,7 @@ export const axiosGet = async (url: string, params?: any) => {
   }
   try {
     const response = await axios.get(url, config)
+
     return response.data
   } catch (err) {
     throw 'error in get'

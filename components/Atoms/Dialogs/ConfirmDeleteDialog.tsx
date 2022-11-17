@@ -50,8 +50,8 @@ const ConfirmDeleteDialog = ({
         </DialogContent>
         <HorizontalDivider />
         <DialogActions sx={{ pt: 1, pb: 2 }}>
-          <PassiveButton onClick={handleClose} text={'no'} />
           <DangerButton onClick={handleOnConfirm} autoFocus text={'yes'} />
+          <PassiveButton onClick={handleClose} text={'no'} />
         </DialogActions>
       </Dialog>
     </Box>

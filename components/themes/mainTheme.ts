@@ -111,7 +111,7 @@ const themeOptions: ThemeOptions = {
           borderWidth: 1,
           borderColor: DarkBlueTransparent,
           backgroundColor: DarkModeBlue,
-          fontSize: '1.0rem',
+          fontSize: '0.875rem',
           textAlign: 'center',
         },
         arrow: {
