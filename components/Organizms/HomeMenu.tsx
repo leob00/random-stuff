@@ -72,7 +72,7 @@ const HomeMenu = () => {
           </CenterStack>
           <CenterStack>
             <InternalLink route={'/csr/news'} text={'news'} />
-            <InternalLink route={'/csr/newsfeed'} text={'news feed'} />
+            {/* <InternalLink route={'/csr/newsfeed'} text={'news feed'} /> */}
           </CenterStack>
           {isLoggedIn && (
             <Box py={2}>
