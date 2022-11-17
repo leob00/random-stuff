@@ -1,6 +1,7 @@
 import type { GetStaticProps, NextPage } from 'next'
 import HomeMenu from 'components/Organizms/HomeMenu'
 import Header from 'next/head'
+import logo from '/public/images/logo-with-text-blue-small.png'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   return {
@@ -14,7 +15,7 @@ const Home: NextPage = () => {
         <title>Random Stuff - Home</title>
         <meta property='og:title' content='Random Stuff: this site is dedicated to random foolishness and inconsequential musings.' key='homeTitle' />
         <meta property='og:description' content='Find recipes, create notes, and view random pictures. Happy browsing!' key='homeDescription' />
-        <meta property='og:image' content='/public/images/logo-with-text-blue-small.png' key='homeLogo' />
+        <meta property='og:image' content={logo.src} key='homeLogo' />
       </Header>
       <HomeMenu />
     </>

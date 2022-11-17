@@ -61,7 +61,7 @@ export function notesReducer(state: UserNotesModel, action: ActionTypes) {
     case 'set-loading':
       return { ...state, isLoading: action.payload.isLoading }
     case 'search':
-      return { ...state, filteredTitles: applyFilter(state.noteTitles, action.payload.search) }
+      return { ...state, search: action.payload.search, filteredTitles: applyFilter(state.noteTitles, action.payload.search) }
     default: {
       throw 'invalid type'
     }

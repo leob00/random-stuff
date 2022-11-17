@@ -1,4 +1,4 @@
-import { Box, Divider } from '@mui/material'
+import { Box, Divider, Typography } from '@mui/material'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
@@ -86,6 +86,8 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
   }
 
   const handleSearch = async (text: string) => {
+    console.log('searching ', text)
+
     dispatch({ type: 'search', payload: { search: text } })
   }
 
@@ -105,21 +107,19 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
           </Box>
         </>
       )}
-      <HorizontalDivider />
-      {!model.editMode && !model.viewMode && (
-        <CenterStack sx={{ py: 2 }}>
-          {model.isLoading || model.editMode ? (
-            <ButtonSkeleton buttonText='add note' />
-          ) : (
-            <SecondaryButton text='add note' size='small' onClick={handleAddNote} width={100} />
-          )}
-        </CenterStack>
-      )}
       {model.isLoading ? (
         <WarmupBox />
       ) : !model.editMode ? (
         model.selectedNote === null ? (
-          <NoteList data={model.filteredTitles} onClicked={handleNoteTitleClick} onDelete={handleDelete} />
+          <>
+            <NoteList
+              data={model.filteredTitles}
+              onClicked={handleNoteTitleClick}
+              onDelete={handleDelete}
+              onAddNote={handleAddNote}
+              isFiltered={model.filteredTitles.length < model.noteTitles.length}
+            />
+          </>
         ) : (
           model.viewMode &&
           model.selectedNote !== null && (

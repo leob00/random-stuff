@@ -1,26 +1,37 @@
-import { Box, Container, Typography } from '@mui/material'
-import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
+import { Box, Typography } from '@mui/material'
 import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import NonSSRWrapper from 'components/Organizms/NonSSRWrapper'
-import RequireUserProfile from 'components/Organizms/RequireUserProfile'
-import UserDashboardLayout from 'components/Organizms/user/UserDashboardLayout'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
+import { useRouter } from 'next/router'
 import React from 'react'
 
 const Page = () => {
   const userController = useUserController()
   const [loading, setLoading] = React.useState(true)
   const [userProfile, setUserProfile] = React.useState<UserProfile | null>(userController.authProfile)
+  const router = useRouter()
 
   React.useEffect(() => {
     const fn = async () => {
+      const loggedInUser = await getUserCSR()
+      if (!loggedInUser) {
+        router.push('/login')
+        return
+      }
+
       const p = await userController.refetchProfile(300)
+      if (p && loggedInUser.roles) {
+        if (!userHasRole(loggedInUser.roles, 'Admin')) {
+          router.push('/login')
+          return
+        }
+      }
       setUserProfile(p)
       setLoading(false)
     }
@@ -38,7 +49,11 @@ const Page = () => {
             <CenteredTitle title='Admin' />
 
             <CenterStack>
-              <Typography variant='body1'>coming soon</Typography>
+              <Box maxHeight={300} sx={{ overflowY: 'auto' }}>
+                <Typography variant='body1'>
+                  <code>{JSON.stringify(userProfile.noteTitles)}</code>
+                </Typography>
+              </Box>
             </CenterStack>
           </>
         ) : (

@@ -1,6 +1,5 @@
 import create from 'zustand'
 import { UserProfile } from '../api/aws/apiGateway'
-import { devtools, persist } from 'zustand/middleware'
 import { Role } from './userUtil'
 
 interface UserAuthState {

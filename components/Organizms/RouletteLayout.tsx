@@ -272,6 +272,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
             isDisabled={false}
             onClicked={handleRunSimulation}
             disabled={model.isSpinning}
+            width={170}
           />
         </CenterStack>
         <CenterStack>

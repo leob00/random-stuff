@@ -3,7 +3,7 @@ import { CasinoBlueTransparent, CasinoGrayTransparent, DarkBlueTransparent, Ligh
 import React from 'react'
 
 const HorizontalDivider = () => {
-  return <Box mb={1} mt={1} sx={{ borderTopWidth: 1, borderTopStyle: 'solid', borderTopColor: VeryLightBlueTransparent }}></Box>
+  return <Box mb={'6px'} mt={'6px'} sx={{ borderTopWidth: 1, borderTopStyle: 'solid', borderTopColor: VeryLightBlueTransparent }}></Box>
 }
 
 export default HorizontalDivider

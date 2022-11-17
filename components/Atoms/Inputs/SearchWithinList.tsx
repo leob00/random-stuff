@@ -1,5 +1,6 @@
 import { Close } from '@mui/icons-material'
 import { TextField, InputAdornment, IconButton } from '@mui/material'
+import { debounce } from 'lodash'
 import React from 'react'
 
 const SearchWithinList = ({
@@ -8,20 +9,27 @@ const SearchWithinList = ({
   disabled = false,
   text = 'search in results',
   defaultValue = '',
+  debounceWaitMilliseconds = 250,
 }: {
   onChanged?: (text: string) => void
   width?: number
   disabled?: boolean
   text?: string
   defaultValue?: string
+  debounceWaitMilliseconds?: number
 }) => {
   const textRef = React.useRef<HTMLInputElement | null>(null)
 
   const [search, setSearch] = React.useState(defaultValue ?? '')
 
+  const raiseChangeEvent = (term: string) => {
+    setSearch(term)
+    onChanged?.(term)
+  }
+  const debouncedFn = debounce(raiseChangeEvent, debounceWaitMilliseconds)
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.currentTarget.value)
-    onChanged?.(e.currentTarget.value)
+    debouncedFn(e.currentTarget.value)
   }
 
   const handleClear = () => {

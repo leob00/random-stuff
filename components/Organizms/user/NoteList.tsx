@@ -1,6 +1,7 @@
 import { Delete, Warning } from '@mui/icons-material'
 import { Box, Stack, Button, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
@@ -10,11 +11,23 @@ import { UserNote } from 'lib/models/randomStuffModels'
 import { take } from 'lodash'
 import React from 'react'
 
-const NoteList = ({ data, onClicked, onDelete }: { data: UserNote[]; onClicked: (item: UserNote) => void; onDelete: (item: UserNote) => void }) => {
+const NoteList = ({
+  data,
+  onClicked,
+  onAddNote,
+  onDelete,
+  isFiltered,
+}: {
+  data: UserNote[]
+  onClicked: (item: UserNote) => void
+  onAddNote: () => void
+  onDelete: (item: UserNote) => void
+  isFiltered: boolean
+}) => {
   const [selectedNote, setSelectedNote] = React.useState<UserNote | null>(null)
   const [showConfirm, setShowConfirm] = React.useState(false)
-  const [allData, setAllData] = React.useState(data)
-  const [displayedData, setDisplayedData] = React.useState(take(data, 5))
+  //const [displayedData, setDisplayedData] = React.useState(take(data, 5))
+  const displayedData = take(data, 5)
   const handleNoteTitleClick = (item: UserNote) => {
     onClicked(item)
   }
@@ -30,7 +43,10 @@ const NoteList = ({ data, onClicked, onDelete }: { data: UserNote[]; onClicked: 
   }
 
   const handleShowMore = () => {
-    setDisplayedData(allData)
+    // setDisplayedData(data)
+  }
+  const handleShowLess = () => {
+    //setDisplayedData(take(data, 5))
   }
 
   return (
@@ -44,10 +60,18 @@ const NoteList = ({ data, onClicked, onDelete }: { data: UserNote[]; onClicked: 
           setShowConfirm(false)
         }}
       />
+      {!isFiltered && (
+        <Box>
+          <Box sx={{ pb: 2 }}>
+            <SecondaryButton text='add note' size='small' onClick={onAddNote} width={100} />
+          </Box>
+          <HorizontalDivider />
+        </Box>
+      )}
       <Box>
-        {displayedData.map((item, i) => (
+        {data.map((item, i) => (
           <Box key={i} textAlign='left'>
-            <Stack direction='row' flexGrow={1} gap={2} py={3} justifyContent='center' alignItems='center'>
+            <Stack direction='row' py={'3px'} justifyContent='center' alignItems='center'>
               <LinkButton
                 sx={{}}
                 onClick={() => {
@@ -58,7 +82,8 @@ const NoteList = ({ data, onClicked, onDelete }: { data: UserNote[]; onClicked: 
                   {item.title}
                 </Typography>
               </LinkButton>
-              <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'center'} alignItems={'center'}>
+
+              <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
                 {item.expirationDate && (
                   <Stack pt={1}>
                     <ExprationWarningTooltip expirationDt={item.expirationDate}>
@@ -76,15 +101,17 @@ const NoteList = ({ data, onClicked, onDelete }: { data: UserNote[]; onClicked: 
                 </Button>
               </Stack>
             </Stack>
-            {i < displayedData.length - 1 && <HorizontalDivider />}
+            {i < data.length - 1 && <HorizontalDivider />}
           </Box>
         ))}
       </Box>
-      {displayedData.length < allData.length && (
-        <CenterStack sx={{ pt: 2 }}>
+      {/* <CenterStack sx={{ pt: 2 }}>
+        {displayedData.length < data.length ? (
           <LinkButton onClick={handleShowMore}>show more...</LinkButton>
-        </CenterStack>
-      )}
+        ) : (
+          data.length > displayedData.length && <LinkButton onClick={handleShowLess}>show less...</LinkButton>
+        )}
+      </CenterStack> */}
     </Box>
   )
 }
