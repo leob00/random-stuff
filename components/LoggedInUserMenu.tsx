@@ -8,9 +8,11 @@ import { Box, Stack, Typography } from '@mui/material'
 import { VeryLightBlue } from './themes/mainTheme'
 import { Divider } from '@aws-amplify/ui-react'
 import HorizontalDivider from './Atoms/Dividers/HorizontalDivider'
+import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 
 const LoggedInUserMenu = ({ username, onLogOut }: { username: string; onLogOut: () => void }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const [isAdmin, setIsAdmin] = React.useState(false)
   const open = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
@@ -23,6 +25,15 @@ const LoggedInUserMenu = ({ username, onLogOut }: { username: string; onLogOut: 
     handleClose()
     onLogOut()
   }
+  React.useEffect(() => {
+    const fn = async () => {
+      const user = await getUserCSR()
+      if (user) {
+        setIsAdmin(userHasRole('Admin', user.roles))
+      }
+    }
+    fn()
+  }, [])
 
   return (
     <>
@@ -73,6 +84,21 @@ const LoggedInUserMenu = ({ username, onLogOut }: { username: string; onLogOut: 
           profile
         </MenuItem>
         <HorizontalDivider />
+        {isAdmin && (
+          <Box>
+            <MenuItem
+              sx={{ color: VeryLightBlue }}
+              onClick={() => {
+                handleClose()
+                router.push('/protected/csr/admin')
+              }}
+            >
+              admin
+            </MenuItem>
+            <HorizontalDivider />
+          </Box>
+        )}
+
         <MenuItem sx={{ color: VeryLightBlue }} onClick={handleLogout}>
           log off
         </MenuItem>

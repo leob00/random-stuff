@@ -2,7 +2,7 @@ import { MenuItem, TextField } from '@mui/material'
 import { DropdownItem } from 'lib/models/dropdown'
 import React from 'react'
 
-const DropDownList = ({
+const DropdownList = ({
   options,
   selectedOption,
   onOptionSelected,
@@ -30,4 +30,4 @@ const DropDownList = ({
   )
 }
 
-export default DropDownList
+export default DropdownList

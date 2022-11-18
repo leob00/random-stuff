@@ -105,13 +105,6 @@ const NoteList = ({
           </Box>
         ))}
       </Box>
-      {/* <CenterStack sx={{ pt: 2 }}>
-        {displayedData.length < data.length ? (
-          <LinkButton onClick={handleShowMore}>show more...</LinkButton>
-        ) : (
-          data.length > displayedData.length && <LinkButton onClick={handleShowLess}>show less...</LinkButton>
-        )}
-      </CenterStack> */}
     </Box>
   )
 }

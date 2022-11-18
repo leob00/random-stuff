@@ -19,17 +19,17 @@ const HomeMenu = () => {
     const fn = async () => {
       const user = await getUserCSR()
       setIsLoggedIn(user !== null)
-      if (user && user.roles) {
+      if (user) {
         //console.log(JSON.stringify(user.roles))
         //console.log('isAdmin: ', userHasRole(user.roles, 'Admin'))
-        setIsAdmin(userHasRole(user.roles, 'Admin'))
+        setIsAdmin(userHasRole('Admin', user.roles))
       }
     }
     fn()
   }, [isLoggedIn])
 
   return (
-    <>
+    <Box>
       <Box
         sx={{
           mt: 4,
@@ -72,7 +72,6 @@ const HomeMenu = () => {
           </CenterStack>
           <CenterStack>
             <InternalLink route={'/csr/news'} text={'news'} />
-            {/* <InternalLink route={'/csr/newsfeed'} text={'news feed'} /> */}
           </CenterStack>
           {isLoggedIn && (
             <Box py={2}>
@@ -95,7 +94,7 @@ const HomeMenu = () => {
           )}
         </Container>
       </Box>
-    </>
+    </Box>
   )
 }
 

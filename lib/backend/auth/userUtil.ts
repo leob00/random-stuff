@@ -11,7 +11,10 @@ export interface Role {
   Name: RoleTypes
 }
 
-export function userHasRole(roles: Role[], role: RoleTypes) {
+export function userHasRole(role: RoleTypes, roles?: Role[]) {
+  if (!roles) {
+    return false
+  }
   return roles.map((item) => item.Name).includes(role)
 }
 

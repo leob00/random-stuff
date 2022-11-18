@@ -1,20 +1,26 @@
 import { Box, Typography } from '@mui/material'
+import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
+import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import NonSSRWrapper from 'components/Organizms/NonSSRWrapper'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { axiosGet } from 'lib/backend/api/qln/useAxios'
 import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
+import { DropdownItem } from 'lib/models/dropdown'
 import { useRouter } from 'next/router'
 import React from 'react'
 
 const Page = () => {
   const userController = useUserController()
   const [loading, setLoading] = React.useState(true)
+  const [loadingResult, setLoadingResult] = React.useState(true)
   const [userProfile, setUserProfile] = React.useState<UserProfile | null>(userController.authProfile)
+  const [jsonResult, setJsonResult] = React.useState('')
   const router = useRouter()
 
   React.useEffect(() => {
@@ -26,17 +32,50 @@ const Page = () => {
       }
 
       const p = await userController.refetchProfile(300)
-      if (p && loggedInUser.roles) {
-        if (!userHasRole(loggedInUser.roles, 'Admin')) {
+      if (p) {
+        if (!userHasRole('Admin', loggedInUser.roles)) {
           router.push('/login')
           return
         }
       }
+
       setUserProfile(p)
+      await handleApiSelected('/api/status')
       setLoading(false)
     }
     fn()
   }, [userController.username])
+
+  const apiOptions: DropdownItem[] = [
+    {
+      text: 'status',
+      value: '/api/status',
+    },
+    {
+      text: 'dogs',
+      value: '/api/dogs',
+    },
+    {
+      text: 'cats',
+      value: '/api/cats',
+    },
+    {
+      text: 'news',
+      value: '/api/news?id=GoogleTopStories',
+    },
+    {
+      text: 'recipes',
+      value: '/api/recipes',
+    },
+  ]
+
+  const handleApiSelected = async (url: string) => {
+    setLoadingResult(true)
+    const result = await axiosGet(url)
+    setJsonResult(JSON.stringify(result))
+    //console.log(url)
+    setLoadingResult(false)
+  }
 
   return (
     <>
@@ -47,13 +86,19 @@ const Page = () => {
           <>
             <BackToHomeButton />
             <CenteredTitle title='Admin' />
-
+            <CenteredHeader title={`Test Api's`} />
             <CenterStack>
-              <Box maxHeight={300} sx={{ overflowY: 'auto' }}>
-                <Typography variant='body1'>
-                  <code>{JSON.stringify(userProfile.noteTitles)}</code>
-                </Typography>
-              </Box>
+              <DropdownList options={apiOptions} selectedOption={'/api/status'} onOptionSelected={handleApiSelected} />
+            </CenterStack>
+
+            <CenterStack sx={{ py: 4 }}>
+              {loadingResult ? (
+                <WarmupBox />
+              ) : (
+                <Box maxHeight={300} sx={{ overflowY: 'auto' }}>
+                  <Typography variant='body1'>{jsonResult}</Typography>
+                </Box>
+              )}
             </CenterStack>
           </>
         ) : (
