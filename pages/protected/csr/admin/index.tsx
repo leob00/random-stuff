@@ -96,7 +96,9 @@ const Page = () => {
                 <WarmupBox />
               ) : (
                 <Box maxHeight={300} sx={{ overflowY: 'auto' }}>
-                  <Typography variant='body1'>{jsonResult}</Typography>
+                  <Typography textAlign={'center'} variant='body1'>
+                    {jsonResult}
+                  </Typography>
                 </Box>
               )}
             </CenterStack>
