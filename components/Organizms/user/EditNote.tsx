@@ -1,14 +1,17 @@
 import { Warning } from '@mui/icons-material'
-import { Box, Stack, TextField, Typography } from '@mui/material'
+import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
+import FormDialog from 'components/Atoms/Dialogs/FormDialog'
+import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import OnOffSwitch from 'components/Atoms/Inputs/OnOffSwitch'
+import RecordExpirationWarning from 'components/Atoms/Text/RecordExpirationWarning'
 import EditItemToolbar from 'components/Molecules/EditItemToolbar'
 import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { getUtcNow } from 'lib/util/dateUtil'
-import React from 'react'
+import React, { MutableRefObject } from 'react'
 import HtmlEditorQuill from '../../Atoms/Inputs/HtmlEditorQuill'
 
 const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCanceled?: () => void; onSubmitted?: (note: UserNote) => void }) => {
@@ -16,6 +19,8 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
   const [note, setNote] = React.useState(item)
   const [bodyText, setBodyText] = React.useState(item.body)
   const [titleError, setTitleError] = React.useState(false)
+  const [showExpForm, setShowExpForm] = React.useState(false)
+  const [editedExpDate, setEditedExpDate] = React.useState<string | undefined>(item.expirationDate)
 
   const handleCancel = () => {
     onCanceled?.()
@@ -48,22 +53,85 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
     if (!checked) {
       setNote({ ...note, expirationDate: undefined })
     } else {
-      setNote({ ...note, expirationDate: getUtcNow().add(3, 'day').format() })
+      setEditedExpDate(getUtcNow().add(3, 'day').format())
+      setShowExpForm(true)
+
+      //setNote({ ...note, expirationDate: getUtcNow().add(3, 'day').format() })
     }
+  }
+  const handleCancelExp = () => {
+    setShowExpForm(false)
+  }
+  const handleChangeExp = (val: string) => {
+    const dt = dayjs().add(Number(val), 'day').format()
+    console.log('new exp date', dt)
+    setEditedExpDate(dt)
+  }
+  const handleSaveExp = () => {
+    setNote({ ...note, expirationDate: editedExpDate })
+    setShowExpForm(false)
+    //const dt = dayjs(note.expirationDate).add(Number(val), 'day')
+    //console.log('new exp date')
+    //console.log('exp: ', exp)
+    //const exp
+  }
+
+  const handleEditExp = () => {
+    const dt = note.expirationDate
+    if (!dt) {
+      setNote({ ...note, expirationDate: getUtcNow().add(3, 'day').format() })
+    } else {
+      setEditedExpDate(note.expirationDate)
+    }
+    setShowExpForm(true)
   }
 
   return item ? (
     <>
       <EditItemToolbar onSave={handleSave} onCancel={handleCancel} />
+      <FormDialog show={showExpForm} onCancel={handleCancelExp} title='Set expiration' onSave={handleSaveExp}>
+        <>
+          <DropdownList
+            options={[
+              {
+                text: '1 day',
+                value: '1',
+              },
+              {
+                text: '2 days',
+                value: '2',
+              },
+              {
+                text: '3 days',
+                value: '3',
+              },
+              {
+                text: '5 days',
+                value: '5',
+              },
+              {
+                text: '10 days',
+                value: '10',
+              },
+              {
+                text: '1 month',
+                value: '30',
+              },
+            ]}
+            selectedOption={'3'}
+            onOptionSelected={handleChangeExp}
+          />
+          <CenterStack sx={{ py: 4, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
+            <RecordExpirationWarning expirationDate={editedExpDate} />
+          </CenterStack>
+        </>
+      </FormDialog>
       <Box sx={{ pt: 2 }} component='form'>
         <CenterStack sx={{ py: 2, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
           {note.expirationDate && (
-            <>
-              <Typography pr={1}>
-                <Warning fontSize='small' color='warning' />
-              </Typography>
-              <Typography pr={1} variant='body2'>{`this note is set to expire on ${dayjs(note.expirationDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
-            </>
+            <Button onClick={handleEditExp}>
+              <RecordExpirationWarning expirationDate={note.expirationDate} />
+            </Button>
           )}
           <Typography pl={2}>
             <OnOffSwitch isChecked={note.expirationDate !== undefined} label={'expiration'} onChanged={handleExpirationChange} />

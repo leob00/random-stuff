@@ -7,6 +7,7 @@ import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import RecordExpirationWarning from 'components/Atoms/Text/RecordExpirationWarning'
 import EditItemToolbar from 'components/Molecules/EditItemToolbar'
 import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
@@ -59,8 +60,7 @@ const ViewNote = ({
         </CenterStack>
         {selectedNote.expirationDate && (
           <CenterStack sx={{ py: 2 }}>
-            <Warning fontSize='small' color='warning' />
-            <Typography pl={1} variant='body2'>{`this note is set to expire on ${dayjs(selectedNote.expirationDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
+            <RecordExpirationWarning expirationDate={selectedNote.expirationDate} />
           </CenterStack>
         )}
         <HorizontalDivider />

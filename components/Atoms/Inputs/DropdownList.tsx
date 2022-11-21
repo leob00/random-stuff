@@ -1,6 +1,6 @@
 import { MenuItem, TextField } from '@mui/material'
 import { DropdownItem } from 'lib/models/dropdown'
-import React from 'react'
+import React, { MutableRefObject, RefObject } from 'react'
 
 const DropdownList = ({
   options,
@@ -22,7 +22,7 @@ const DropdownList = ({
   return (
     <TextField select value={opt} onChange={handleOptionSelect} size='small' label={label}>
       {options.map((item) => (
-        <MenuItem key={item.value} value={item.value}>
+        <MenuItem key={item.value} value={item.value} selected={selectedOption === opt}>
           {item.text}
         </MenuItem>
       ))}
