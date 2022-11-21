@@ -11,7 +11,9 @@ import EditItemToolbar from 'components/Molecules/EditItemToolbar'
 import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { getUtcNow } from 'lib/util/dateUtil'
+import { cloneDeep } from 'lodash'
 import React, { MutableRefObject } from 'react'
+import { log } from 'util'
 import HtmlEditorQuill from '../../Atoms/Inputs/HtmlEditorQuill'
 
 const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCanceled?: () => void; onSubmitted?: (note: UserNote) => void }) => {
@@ -31,9 +33,12 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
       setTitleError(true)
       return
     }
-    note.title = title.current ? title.current.value : ''
-    note.body = bodyText.replace('<br>', '')
-    onSubmitted?.(note)
+    let noteCopy = cloneDeep(note)
+    noteCopy.title = title.current ? title.current.value : ''
+    noteCopy.body = bodyText.replace('<br>', '')
+    noteCopy.body = noteCopy.body.replace('<p class="ql-align-justify"></p>', '<p>')
+    //console.log(noteCopy.body)
+    onSubmitted?.(noteCopy)
   }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -52,6 +57,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
   const handleExpirationChange = (checked: boolean) => {
     if (!checked) {
       setNote({ ...note, expirationDate: undefined })
+      setEditedExpDate(undefined)
     } else {
       setEditedExpDate(getUtcNow().add(3, 'day').format())
       setShowExpForm(true)
@@ -68,20 +74,19 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
     setEditedExpDate(dt)
   }
   const handleSaveExp = () => {
-    setNote({ ...note, expirationDate: editedExpDate })
+    const dt = editedExpDate ? editedExpDate : getUtcNow().add(3, 'day').format()
+    setNote({ ...note, expirationDate: dt })
     setShowExpForm(false)
-    //const dt = dayjs(note.expirationDate).add(Number(val), 'day')
-    //console.log('new exp date')
-    //console.log('exp: ', exp)
-    //const exp
   }
 
   const handleEditExp = () => {
     const dt = note.expirationDate
+    const newDt = getUtcNow().add(3, 'day').format()
     if (!dt) {
-      setNote({ ...note, expirationDate: getUtcNow().add(3, 'day').format() })
+      setNote({ ...note, expirationDate: newDt })
+      setEditedExpDate(newDt)
     } else {
-      setEditedExpDate(note.expirationDate)
+      setEditedExpDate(newDt)
     }
     setShowExpForm(true)
   }
