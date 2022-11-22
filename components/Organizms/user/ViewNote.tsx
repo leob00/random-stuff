@@ -1,5 +1,5 @@
 import { Warning } from '@mui/icons-material'
-import { Box, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import DangerButton from 'components/Atoms/Buttons/DangerButton'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
@@ -59,8 +59,10 @@ const ViewNote = ({
           <Typography variant='body1'>{`updated: ${dayjs(selectedNote.dateModified).format('MM/DD/YYYY hh:mm a')}`}</Typography>
         </CenterStack>
         {selectedNote.expirationDate && (
-          <CenterStack sx={{ py: 2 }}>
-            <RecordExpirationWarning expirationDate={selectedNote.expirationDate} />
+          <CenterStack>
+            <Stack sx={{ py: 4 }} display={'flex'} direction={'row'} justifyItems={'center'}>
+              <RecordExpirationWarning expirationDate={selectedNote.expirationDate} />
+            </Stack>
           </CenterStack>
         )}
         <HorizontalDivider />

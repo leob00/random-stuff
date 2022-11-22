@@ -1,19 +1,20 @@
 import { Warning } from '@mui/icons-material'
 import { Box, Typography } from '@mui/material'
 import dayjs from 'dayjs'
+import { getExpirationText, getUtcNow } from 'lib/util/dateUtil'
 import React from 'react'
 
-const RecordExpirationWarning = ({ expirationDate }: { expirationDate?: string }) => {
+const RecordExpirationWarning = ({ expirationDate, precise = false }: { expirationDate: string; precise?: boolean }) => {
+  let message = getExpirationText(expirationDate, precise)
+
   return (
     <>
-      {expirationDate && (
-        <>
-          <Typography pr={1}>
-            <Warning fontSize='small' color='warning' />
-          </Typography>
-          <Typography pr={1} variant='body2'>{`this record will expire on ${dayjs(expirationDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
-        </>
-      )}
+      <Typography pr={1}>
+        <Warning fontSize='small' color='warning' />
+      </Typography>
+      <Typography pr={1} variant='body2'>
+        {message}
+      </Typography>
     </>
   )
 }

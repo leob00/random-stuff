@@ -1,5 +1,5 @@
 import { Delete, Warning } from '@mui/icons-material'
-import { Box, Stack, Button, Typography } from '@mui/material'
+import { Box, Stack, Button, Typography, Tooltip } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
@@ -7,7 +7,9 @@ import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ExprationWarningTooltip from 'components/Atoms/Tooltips/ExprationWarningTooltip'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
+import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
+import { getExpirationText, getUtcNow } from 'lib/util/dateUtil'
 import { take } from 'lodash'
 import React from 'react'
 
@@ -84,11 +86,11 @@ const NoteList = ({
               </LinkButton>
 
               <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
-                {item.expirationDate && (
+                {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
                   <Stack pt={1}>
-                    <ExprationWarningTooltip expirationDt={item.expirationDate}>
+                    <Tooltip title={getExpirationText(item.expirationDate)} arrow placement='top' color='secondary'>
                       <Warning fontSize='small' color='warning' />
-                    </ExprationWarningTooltip>
+                    </Tooltip>
                   </Stack>
                 )}
                 <Button

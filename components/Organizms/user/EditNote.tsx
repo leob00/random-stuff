@@ -59,7 +59,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
       setNote({ ...note, expirationDate: undefined })
       setEditedExpDate(undefined)
     } else {
-      setEditedExpDate(getUtcNow().add(3, 'day').format())
+      setEditedExpDate(getUtcNow().add(3, 'day').add(1, 'minute').format())
       setShowExpForm(true)
 
       //setNote({ ...note, expirationDate: getUtcNow().add(3, 'day').format() })
@@ -69,19 +69,19 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
     setShowExpForm(false)
   }
   const handleChangeExp = (val: string) => {
-    const dt = dayjs().add(Number(val), 'day').format()
-    console.log('new exp date', dt)
+    const dt = dayjs().add(Number(val), 'day').add(1, 'minute').format()
+    //console.log('new exp date', dt)
     setEditedExpDate(dt)
   }
   const handleSaveExp = () => {
-    const dt = editedExpDate ? editedExpDate : getUtcNow().add(3, 'day').format()
+    const dt = editedExpDate ? editedExpDate : getUtcNow().add(3, 'day').add(1, 'minute').format()
     setNote({ ...note, expirationDate: dt })
     setShowExpForm(false)
   }
 
   const handleEditExp = () => {
     const dt = note.expirationDate
-    const newDt = getUtcNow().add(3, 'day').format()
+    const newDt = getUtcNow().add(3, 'day').add(1, 'minute').format()
     if (!dt) {
       setNote({ ...note, expirationDate: newDt })
       setEditedExpDate(newDt)
@@ -127,20 +127,26 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
             onOptionSelected={handleChangeExp}
           />
           <CenterStack sx={{ py: 4, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
-            <RecordExpirationWarning expirationDate={editedExpDate} />
+            {editedExpDate && <RecordExpirationWarning expirationDate={editedExpDate} precise={true} />}
           </CenterStack>
         </>
       </FormDialog>
       <Box sx={{ pt: 2 }} component='form'>
-        <CenterStack sx={{ py: 2, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
+        <CenterStack sx={{ py: 1, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
           {note.expirationDate && (
-            <Button onClick={handleEditExp}>
-              <RecordExpirationWarning expirationDate={note.expirationDate} />
-            </Button>
+            <CenterStack>
+              <Stack sx={{ py: 4 }} display={'flex'} direction={'row'} justifyItems={'center'}>
+                <Button onClick={handleEditExp}>
+                  <RecordExpirationWarning expirationDate={note.expirationDate} />
+                </Button>
+              </Stack>
+            </CenterStack>
           )}
-          <Typography pl={2}>
-            <OnOffSwitch isChecked={note.expirationDate !== undefined} label={'expiration'} onChanged={handleExpirationChange} />
-          </Typography>
+          <Stack display={'flex'} direction={'row'} justifyItems={'center'} alignItems={'center'}>
+            <Typography pl={2}>
+              <OnOffSwitch isChecked={note.expirationDate !== undefined} label={'expiration'} onChanged={handleExpirationChange} />
+            </Typography>
+          </Stack>
         </CenterStack>
         <CenterStack sx={{ width: { xs: '100%' } }}>
           <TextField
