@@ -3,6 +3,7 @@ import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos'
 import { Box, Button, Divider, Tooltip, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import HorizontalDivider from './Dividers/HorizontalDivider'
+import DefaultTooltip from './Tooltips/DefaultTooltip'
 
 const Pager = ({
   pageCount,
@@ -65,17 +66,17 @@ const Pager = ({
       <Box sx={{ textAlign: 'center', my: 2 }}>
         {pageIndex > 1 ? (
           <>
-            <Tooltip title='1st page' placement='bottom'>
+            <DefaultTooltip text='1st page' placement='bottom'>
               <Button variant='text' disabled={pageIndex <= 1} onClick={handleFirstPageClick}>
                 <ArrowBackIos sx={{ fontSize: 'smaller' }} />
                 <ArrowBackIos sx={{ fontSize: 'smaller' }} />
               </Button>
-            </Tooltip>
-            <Tooltip title='previous' placement='bottom'>
+            </DefaultTooltip>
+            <DefaultTooltip text='previous' placement='bottom'>
               <Button variant='text' disabled={pageIndex <= 1} onClick={handlePreviousClick}>
                 <ArrowBackIos />
               </Button>
-            </Tooltip>
+            </DefaultTooltip>
           </>
         ) : (
           <>
@@ -90,17 +91,17 @@ const Pager = ({
         )}
         {pageIndex < pageCount ? (
           <>
-            <Tooltip title='next' placement='bottom'>
+            <DefaultTooltip text='next' placement='bottom'>
               <Button variant='text' onClick={handleNextClick} disabled={pageIndex === pageCount}>
                 <ArrowForwardIos />
               </Button>
-            </Tooltip>
-            <Tooltip title='last page' placement='bottom'>
+            </DefaultTooltip>
+            <DefaultTooltip text='last page' placement='bottom'>
               <Button variant='text' disabled={pageIndex === pageCount} onClick={handleLastPageClick}>
                 <ArrowForwardIos sx={{ fontSize: 'smaller' }} />
                 <ArrowForwardIos sx={{ fontSize: 'smaller' }} />
               </Button>
-            </Tooltip>
+            </DefaultTooltip>
           </>
         ) : (
           <>

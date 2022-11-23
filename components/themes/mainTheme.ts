@@ -106,16 +106,18 @@ const themeOptions: ThemeOptions = {
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
-          borderRadius: '.4em',
+          padding: 12,
+          borderRadius: '.8rem',
           borderStyle: 'solid',
           borderWidth: 1,
-          borderColor: DarkBlueTransparent,
-          backgroundColor: DarkModeBlue,
+          borderColor: CasinoBlueTransparent,
+          backgroundColor: CasinoBlue,
           fontSize: '0.875rem',
           textAlign: 'center',
+          color: VeryLightBlue,
         },
         arrow: {
-          color: DarkModeBlue,
+          color: CasinoBlue,
         },
       },
     },

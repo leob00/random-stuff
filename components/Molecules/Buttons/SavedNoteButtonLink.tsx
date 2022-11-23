@@ -1,6 +1,6 @@
 import { Check, QuestionAnswerOutlined, QuestionMarkOutlined, QuestionMarkRounded, Warning } from '@mui/icons-material'
 import { Button, Stack, Tooltip, Typography } from '@mui/material'
-import ExprationWarningTooltip from 'components/Atoms/Tooltips/ExprationWarningTooltip'
+import ExpirationWarningTooltip from 'components/Atoms/Tooltips/ExprationWarningTooltip'
 import router from 'next/router'
 import React from 'react'
 
@@ -13,15 +13,16 @@ const SavedNoteButtonLink = () => {
         size='small'
         onClick={() => {
           router.push('/protected/csr/notes')
-        }}>
+        }}
+      >
         <Check fontSize='small' sx={{ mr: 1 }} />
         <Typography color='success' fontSize={'small'}>
           saved
         </Typography>
       </Button>
-      <ExprationWarningTooltip>
+      <ExpirationWarningTooltip>
         <Warning fontSize='small' />
-      </ExprationWarningTooltip>
+      </ExpirationWarningTooltip>
     </Stack>
   )
 }

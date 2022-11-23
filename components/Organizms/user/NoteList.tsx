@@ -5,7 +5,8 @@ import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import ExprationWarningTooltip from 'components/Atoms/Tooltips/ExprationWarningTooltip'
+import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
+import ExpirationWarningTooltip from 'components/Atoms/Tooltips/ExprationWarningTooltip'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
@@ -88,9 +89,9 @@ const NoteList = ({
               <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
                 {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
                   <Button size='small'>
-                    <Tooltip title={getExpirationText(item.expirationDate)} arrow placement='top' color='secondary'>
+                    <DefaultTooltip text={getExpirationText(item.expirationDate)}>
                       <Warning fontSize='small' color='warning' />
-                    </Tooltip>
+                    </DefaultTooltip>
                   </Button>
                 )}
                 <Button

@@ -12,7 +12,7 @@ import React from 'react'
 import router from 'next/router'
 import SavedNoteButtonLink from './SavedNoteButtonLink'
 import { getUtcNow } from 'lib/util/dateUtil'
-import ExprationWarningTooltip from 'components/Atoms/Tooltips/ExprationWarningTooltip'
+import ExpirationWarningTooltip from 'components/Atoms/Tooltips/ExprationWarningTooltip'
 import RollingLinearProgress from 'components/Atoms/Loaders/RollingLinearProgress'
 
 const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note: UserNote; onSaved: (note: UserNote) => void }) => {
@@ -39,7 +39,11 @@ const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note
 
   return !saved ? (
     <Stack justifyContent={'center'} direction='row' spacing={2}>
-      {saving ? <RollingLinearProgress height={30} width={100} /> : <SecondaryButton text={saving ? 'saving...' : 'read later'} size='small' onClick={() => handleClick(note)} disabled={saving} />}
+      {saving ? (
+        <RollingLinearProgress height={30} width={100} />
+      ) : (
+        <SecondaryButton text={saving ? 'saving...' : 'read later'} size='small' onClick={() => handleClick(note)} disabled={saving} />
+      )}
     </Stack>
   ) : (
     <Stack fontSize={'small'} justifyContent={'center'} flexDirection={'row'}>
