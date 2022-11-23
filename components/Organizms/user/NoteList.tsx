@@ -87,11 +87,11 @@ const NoteList = ({
 
               <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
                 {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
-                  <Stack pt={1}>
+                  <Button size='small'>
                     <Tooltip title={getExpirationText(item.expirationDate)} arrow placement='top' color='secondary'>
                       <Warning fontSize='small' color='warning' />
                     </Tooltip>
-                  </Stack>
+                  </Button>
                 )}
                 <Button
                   size='small'
