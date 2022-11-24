@@ -1,4 +1,4 @@
-import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
+import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import NonSSRWrapper from 'components/Organizms/NonSSRWrapper'

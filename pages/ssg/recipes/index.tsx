@@ -1,8 +1,7 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
-import { Container, Button } from '@mui/material'
-import router from 'next/router'
+import { Container } from '@mui/material'
 import useSWR, { SWRConfig } from 'swr'
 import axios from 'axios'
 import { getAllRecipes } from 'lib/backend/api/contenfulApi'
@@ -10,7 +9,7 @@ import { orderBy, shuffle, take } from 'lodash'
 import { Recipe, RecipeCollection } from 'lib/models/cms/contentful/recipe'
 import RecipesLayout from 'components/RecipesLayout'
 import { Option } from 'lib/AutoCompleteOptions'
-import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
+import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
 
 const cmsRefreshIntervalSeconds = 3600

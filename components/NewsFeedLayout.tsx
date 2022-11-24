@@ -5,7 +5,7 @@ import NLink from 'next/link'
 import { getPagedItems, Page } from 'lib/util/collections'
 import { findLast, map, uniq } from 'lodash'
 import Pager from './Atoms/Pager'
-import CenteredTitle from './Atoms/Containers/CenteredTitle'
+import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import { DarkModeBlueTransparent, VeryLightBlueTransparent } from './themes/mainTheme'
 import HorizontalDivider from './Atoms/Dividers/HorizontalDivider'
 

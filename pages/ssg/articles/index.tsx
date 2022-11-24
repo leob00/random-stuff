@@ -1,14 +1,14 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
-import { Typography, Button, Divider, Box, Container } from '@mui/material'
+import { Button, Container } from '@mui/material'
 import useSWR, { SWRConfig } from 'swr'
 import axios from 'axios'
 import { getAllBlogs } from 'lib/backend/api/contenfulApi'
 import { BlogCollection } from 'lib/models/cms/contentful/blog'
 import router from 'next/router'
 import BlogsLayout from 'components/BlogsLayout'
-import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
+import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 const cmsRefreshIntervalSeconds = 3600

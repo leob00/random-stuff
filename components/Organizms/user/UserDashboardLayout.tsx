@@ -7,38 +7,16 @@ import router from 'next/router'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import { Divider } from '@aws-amplify/ui-react'
 import WarmupBox from 'components/Atoms/WarmupBox'
-import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import ButtonSkeleton from 'components/Atoms/Skeletons/ButtonSkeleton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import { useUserController } from 'hooks/userController'
 import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 
 const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const [isLoading, setIsLoading] = React.useState(true)
-  const [currTime, setCurrTime] = React.useState('')
-
-  //const userController = useUserController()
-
-  /* const loadData = async () => {
-    if (userId) {
-      const key = constructUserProfileKey(userId)
-      const userProfile: UserProfile = {
-        id: key,
-        username: userId,
-        noteTitles: [],
-      }
-
-      let profile = await userController.getProfile()
-      if (profile === null) {
-        setIsLoading(false)
-        return
-      }
-      userProfile.noteTitles = profile.noteTitles
-      setIsLoading(false)
-    }
-  } */
 
   React.useEffect(() => {
     setIsLoading(false)
@@ -70,6 +48,7 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
         <>
           <CenterStack>
             <Typography variant='subtitle1'>Take Notes</Typography>
+            <CenteredTitle title={'Take Notes'} />
           </CenterStack>
           <CenterStack sx={{ py: 2 }}>
             <SecondaryButton
@@ -79,11 +58,19 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
               text={`Notes: ${userProfile.noteTitles.length}`}
             ></SecondaryButton>
           </CenterStack>
+          <HorizontalDivider />
+          <CenterStack>
+            <Typography variant='subtitle1'>Finish Tasks</Typography>
+          </CenterStack>
+          <CenterStack sx={{ py: 2 }}>
+            <SecondaryButton
+              onClick={() => {
+                router.push('/protected/csr/tasks')
+              }}
+              text={'Tasks'}
+            ></SecondaryButton>
+          </CenterStack>
         </>
-
-        {/*  <CenterStack sx={{ pt: 8 }}>
-          <Typography variant='body2'>{`${Math.floor(getUtcNow().valueOf() / 1000)}`}</Typography>
-        </CenterStack> */}
       </Box>
 
       {isLoading && <WarmupBox />}

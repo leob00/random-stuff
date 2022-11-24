@@ -1,10 +1,7 @@
 import React from 'react'
-import { Button, Box, Stack } from '@mui/material'
+import { Button } from '@mui/material'
 import router from 'next/router'
-import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
-import { newsTypes } from 'lib/backend/api/qln/qlnApi'
-import { Divider } from '@aws-amplify/ui-react'
-import DropDownList from 'components/Atoms/Inputs/DropdownList'
+import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import NewsLayout from './NewsLayout'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 

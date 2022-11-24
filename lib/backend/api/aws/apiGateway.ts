@@ -110,12 +110,8 @@ export async function searchRandomStuffBySecIndex(search: CategoryType | string)
   let result: LambdaBody[] = []
   try {
     let raw = await axiosGet(url, { key: search })
-    //console.log(raw)
     let response = raw as LambdaListResponse
-    //console.log(response)
-
-    result = response.body
-    return result
+    return response.body
   } catch (err) {
     console.log('error occurred in searchRandomStuffBySecIndex')
   }

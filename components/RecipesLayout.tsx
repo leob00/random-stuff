@@ -1,4 +1,4 @@
-import { Typography, Link, Box, Autocomplete, TextField, AutocompleteChangeReason, AutocompleteChangeDetails, Stack, Button, Divider } from '@mui/material'
+import { Link, Box, Autocomplete, TextField, AutocompleteChangeReason, AutocompleteChangeDetails, Stack } from '@mui/material'
 import React from 'react'
 import NLink from 'next/link'
 import { Option } from 'lib/AutoCompleteOptions'
@@ -6,9 +6,8 @@ import router from 'next/router'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import RemoteImage from './Atoms/RemoteImage'
 import InternalLinkButton from './Atoms/Buttons/InternalLinkButton'
-import CenteredParagraph from './Atoms/Containers/CenteredParagraph'
+import CenteredParagraph from './Atoms/Text/CenteredParagraph'
 import CenterStack from './Atoms/CenterStack'
-import CenteredTitle from './Atoms/Containers/CenteredTitle'
 
 const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Option[]; baseUrl: string; featured: Recipe[] }) => {
   const handleSelect = (

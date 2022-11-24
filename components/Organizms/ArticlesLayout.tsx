@@ -1,6 +1,6 @@
-import { Box, Divider, Stack } from '@mui/material'
+import { Box, Stack } from '@mui/material'
 import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
-import CenteredTitle from 'components/Atoms/Containers/CenteredTitle'
+import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import Pager from 'components/Atoms/Pager'
 import RemoteImage from 'components/Atoms/RemoteImage'
