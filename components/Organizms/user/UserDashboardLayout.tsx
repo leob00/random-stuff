@@ -14,6 +14,10 @@ import { useUserController } from 'hooks/userController'
 import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
+import CenteredSubtitle from 'components/Atoms/Text/CenteredSubtitle'
+import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
+import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import CenteredParagraph from 'components/Atoms/Text/CenteredParagraph'
 
 const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const [isLoading, setIsLoading] = React.useState(true)
@@ -46,20 +50,17 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           </>
         )}
         <>
-          <CenterStack>
-            <Typography variant='subtitle1'>Take Notes</Typography>
-            <CenteredTitle title={'Take Notes'} />
-          </CenterStack>
           <CenterStack sx={{ py: 2 }}>
-            <SecondaryButton
+            <LinkButton
               onClick={() => {
                 router.push('/protected/csr/notes')
               }}
-              text={`Notes: ${userProfile.noteTitles.length}`}
-            ></SecondaryButton>
+            >
+              {`notes: (${userProfile.noteTitles.length})`}
+            </LinkButton>
           </CenterStack>
           <HorizontalDivider />
-          <CenterStack>
+          {/* <CenterStack>
             <Typography variant='subtitle1'>Finish Tasks</Typography>
           </CenterStack>
           <CenterStack sx={{ py: 2 }}>
@@ -69,7 +70,7 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
               }}
               text={'Tasks'}
             ></SecondaryButton>
-          </CenterStack>
+          </CenterStack> */}
         </>
       </Box>
 
