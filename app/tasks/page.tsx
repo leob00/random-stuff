@@ -2,11 +2,12 @@
 import { Box, Typography } from '@mui/material'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import React from 'react'
-import navigation from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 const Page = () => {
+  const router = useRouter()
   const handleBackClick = () => {
-    navigation.redirect('/protected/csr/dashboard')
+    router.push('/protected/csr/dashboard')
   }
   return (
     <Box>

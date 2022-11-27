@@ -18,7 +18,7 @@ export function userHasRole(role: RoleTypes, roles?: Role[]) {
   return roles.map((item) => item.Name).includes(role)
 }
 
-function getRolesFromAmplifyUser(user: any) {
+export function getRolesFromAmplifyUser(user: any) {
   const roleAttr = user.attributes['custom:roles'] as string | undefined
   let roles: Role[] = []
   if (roleAttr) {

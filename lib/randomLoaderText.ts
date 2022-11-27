@@ -16,6 +16,10 @@ const loaders = [
   'turning on the stove',
   'setting up connections',
   'mixing ingredients',
+  'contacting server',
+  'waiting for response',
+  'adding up numbers',
+  'performing basic multiplication',
 ]
 
 export function getRandomLoaderText() {

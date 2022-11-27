@@ -60,6 +60,16 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
             </LinkButton>
           </CenterStack>
           <HorizontalDivider />
+          <CenterStack sx={{ py: 2 }}>
+            <LinkButton
+              onClick={() => {
+                router.push('/ssg/waitandredirect?id=protected/ssr/tasks')
+              }}
+            >
+              {`tasks`}
+            </LinkButton>
+          </CenterStack>
+          <HorizontalDivider />
           {/* <CenterStack>
             <SecondaryButton
               onClick={() => {

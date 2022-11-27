@@ -12,10 +12,7 @@ Amplify.configure({ ...awsconfig, ssr: true })
 
 function MyApp({ Component, pageProps }: AppProps) {
   //
-  useEffect(() => {
-    //router.prefetch('/protected')
-    //router.push('/csr/waitandredirect/home')
-  }, [])
+  useEffect(() => {}, [])
 
   return (
     <>

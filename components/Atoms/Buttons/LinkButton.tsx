@@ -1,8 +1,6 @@
 import React, { ReactNode } from 'react'
 import { Button } from '@mui/material'
 
-import { ButtonProps } from '@mui/material'
-
 const LinkButton = ({ children, onClick }: { children: ReactNode; onClick: () => void }) => {
   //const color = props.color
   return (
@@ -11,7 +9,5 @@ const LinkButton = ({ children, onClick }: { children: ReactNode; onClick: () =>
     </Button>
   )
 }
-
-LinkButton.defaultProps = {}
 
 export default LinkButton

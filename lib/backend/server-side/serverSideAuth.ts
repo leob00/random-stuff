@@ -1,7 +1,7 @@
 import { withSSRContext } from 'aws-amplify'
 import { GetServerSidePropsContext, PreviewData } from 'next'
 import { ParsedUrlQuery } from 'querystring'
-import { AmplifyUser } from '../auth/userUtil'
+import { AmplifyUser, getRolesFromAmplifyUser } from '../auth/userUtil'
 
 export async function getUserSSR(context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>) {
   const { Auth } = withSSRContext(context)
@@ -10,6 +10,7 @@ export async function getUserSSR(context: GetServerSidePropsContext<ParsedUrlQue
     let email = user.attributes.email as string
     const result: AmplifyUser = {
       email: email,
+      roles: getRolesFromAmplifyUser(user),
     }
     return result
   } catch (error) {

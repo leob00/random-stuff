@@ -73,7 +73,6 @@ const Page = () => {
     setLoadingResult(true)
     const result = await axiosGet(url)
     setJsonResult(JSON.stringify(result))
-    //console.log(url)
     setLoadingResult(false)
   }
 
@@ -86,7 +85,7 @@ const Page = () => {
           <>
             <BackToHomeButton />
             <CenteredTitle title='Admin' />
-            <CenteredHeader title={`Test Api's`} />
+            <CenteredTitle title={`Test Api's`} />
             <CenterStack>
               <DropdownList options={apiOptions} selectedOption={'/api/status'} onOptionSelected={handleApiSelected} />
             </CenterStack>
