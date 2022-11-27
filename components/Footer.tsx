@@ -1,3 +1,4 @@
+'use client'
 import * as React from 'react'
 import { Box, Container, Divider, LinearProgress, Stack, Typography } from '@mui/material'
 import dayjs from 'dayjs'

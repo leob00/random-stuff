@@ -1,3 +1,4 @@
+'use client'
 import { AppBar, Button, Container, Toolbar, useScrollTrigger, Box, Stack, Typography } from '@mui/material'
 import router from 'next/router'
 import NLink from 'next/link'

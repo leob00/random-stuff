@@ -2,12 +2,11 @@ import React, { ReactNode } from 'react'
 import { Button } from '@mui/material'
 
 import { ButtonProps } from '@mui/material'
-import { Blue800 } from 'components/themes/mainTheme'
 
-const LinkButton: React.FC<ButtonProps> = ({ children, ...props }) => {
-  const color = props.color
+const LinkButton = ({ children, onClick }: { children: ReactNode; onClick: () => void }) => {
+  //const color = props.color
   return (
-    <Button {...props} color={color ? color : 'secondary'} variant='text'>
+    <Button color={'secondary'} variant='text' onClick={onClick}>
       {children}
     </Button>
   )

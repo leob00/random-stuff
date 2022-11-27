@@ -76,7 +76,6 @@ const NoteList = ({
           <Box key={i} textAlign='left'>
             <Stack direction='row' py={'3px'} justifyContent='center' alignItems='center'>
               <LinkButton
-                sx={{}}
                 onClick={() => {
                   handleNoteTitleClick(item)
                 }}

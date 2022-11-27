@@ -61,6 +61,14 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           </CenterStack>
           <HorizontalDivider />
           {/* <CenterStack>
+            <SecondaryButton
+              onClick={() => {
+                router.push('/tasks')
+              }}
+              text={'Tasks'}
+            ></SecondaryButton>
+          </CenterStack> */}
+          {/* <CenterStack>
             <Typography variant='subtitle1'>Finish Tasks</Typography>
           </CenterStack>
           <CenterStack sx={{ py: 2 }}>

@@ -41,7 +41,7 @@ const UserLoginPanel = () => {
         const user = { email: payload.data?.attributes.email, roles: payload.data?.attributes['custom:roles'] }
         await userController.setIsLoggedIn(true)
         await userController.setUsername(user.email)
-        console.log('user roles: ', user.roles)
+        //console.log('user roles: ', user.roles)
         if (user.roles) {
         }
         //console.log(payload.data?.attributes['custom:roles'])
