@@ -63,7 +63,7 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           <CenterStack sx={{ py: 2 }}>
             <LinkButton
               onClick={() => {
-                router.push('/ssg/waitandredirect?id=protected/ssr/tasks')
+                router.push('/protected/csr/tasks')
               }}
             >
               {`tasks`}

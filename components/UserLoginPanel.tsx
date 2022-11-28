@@ -5,7 +5,7 @@ import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
-import router from 'next/router'
+import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 import LoggedInUserMenu from './LoggedInUserMenu'
 import { DarkMode } from './themes/DarkMode'
@@ -19,6 +19,7 @@ export type HubPayload = {
 
 const UserLoginPanel = () => {
   //const authStore = useAuthStore()
+  const router = useRouter()
   const userController = useUserController()
   const signOut = () => {
     const fn = async () => {

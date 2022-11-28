@@ -1,6 +1,6 @@
 'use client'
 import { AppBar, Button, Container, Toolbar, useScrollTrigger, Box, Stack, Typography } from '@mui/material'
-import router from 'next/router'
+import { useRouter } from 'next/navigation'
 import NLink from 'next/link'
 import { useEffect, useState } from 'react'
 import '@aws-amplify/ui-react/styles.css'
@@ -25,6 +25,7 @@ function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
 
 const Header = () => {
   const [elevationEffect, setElevationEffect] = useState(true)
+  const router = useRouter()
 
   const bodyScrolled = useScrollTrigger({
     disableHysteresis: true,

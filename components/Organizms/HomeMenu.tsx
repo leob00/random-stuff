@@ -77,7 +77,7 @@ const HomeMenu = () => {
                 <CenterStack>
                   <InternalLink route={'/protected/csr/dashboard'} text={'dashboard'} />
                   <InternalLink route={'/protected/csr/notes'} text={'notes'} />
-                  <InternalLink route={'/ssg/waitandredirect?id=protected/ssr/tasks'} text={'tasks'} />
+                  <InternalLink route={'/protected/csr/tasks'} text={'tasks'} />
                 </CenterStack>
               </Box>
               {isAdmin && (

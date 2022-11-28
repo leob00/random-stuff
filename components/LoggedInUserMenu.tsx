@@ -3,7 +3,7 @@ import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { Person } from '@mui/icons-material'
-import router from 'next/router'
+import { useRouter } from 'next/navigation'
 import { Box, Stack, Typography } from '@mui/material'
 import { VeryLightBlue } from './themes/mainTheme'
 import { Divider } from '@aws-amplify/ui-react'
@@ -14,6 +14,7 @@ const LoggedInUserMenu = ({ username, onLogOut }: { username: string; onLogOut: 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [isAdmin, setIsAdmin] = React.useState(false)
   const open = Boolean(anchorEl)
+  const router = useRouter()
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
