@@ -12,3 +12,6 @@ export function constructUserNotePrimaryKey(username: string) {
 export function constructUserNoteCategoryKey(username: string) {
   return `user-note[${username}]`
 }
+export function constructUserGoalsKey(username: string) {
+  return `user-goals[${username}]`
+}
