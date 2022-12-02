@@ -153,15 +153,16 @@ export async function getUserGoals(id?: string) {
   return result
 }
 export async function getUserGoalTasks(goalId: string) {
-  const id = `user-goal-tasks${goalId}`
+  //const id = `user-goal-tasks${goalId}`
   let result: UserTask[] = []
 
   try {
     const token = String(process.env.NEXT_PUBLIC_API_TOKEN)
     const params = {
-      enc: myEncrypt(token, id),
+      enc: myEncrypt(token, goalId),
     }
     const data = await axiosGet(`/api/randomStuff`, params)
+    //console.log('api random stuff: ', data)
     if (data) {
       result = data
 
@@ -180,6 +181,20 @@ export async function putUserGoals(id: string, data: UserGoal[], expiration: num
     data: data,
     expiration: expiration,
     token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${id}`),
+    //token: signLambdaDynamoPut(item.id!, secondaryKey, String(process.env.NEXT_PUBLIC_API_TOKEN)),
+  }
+  const putRequest: EncPutRequest = {
+    data: encryptBody(req),
+  }
+  await axiosPut(`/api/putRandomStuff`, putRequest)
+}
+export async function putUserGoalTasks(goalId: string, data: UserTask[], expiration: number = 0) {
+  let req: LambdaDynamoRequest = {
+    id: goalId,
+    category: 'user-goals-tasks',
+    data: data,
+    expiration: expiration,
+    token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${goalId}`),
     //token: signLambdaDynamoPut(item.id!, secondaryKey, String(process.env.NEXT_PUBLIC_API_TOKEN)),
   }
   const putRequest: EncPutRequest = {

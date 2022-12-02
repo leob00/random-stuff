@@ -23,3 +23,6 @@ export function constructDymamoPrimaryKey(arg1: string, arg2: string, arg3: stri
 export function constructUserGoalPk(username: string) {
   return `user-goal[${username}][${getSecondsFromEpoch()}]`
 }
+export function constructUserTaskPk(username: string) {
+  return `user-task[${username}][${getSecondsFromEpoch()}]`
+}

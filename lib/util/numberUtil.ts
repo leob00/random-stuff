@@ -7,3 +7,11 @@ export function isOdd(num: number) {
 export function isEven(num: number) {
   return num % 2 === 0
 }
+
+export function calculatePercentInt(variable: number, total: number) {
+  if (variable === 0 || total === 0) {
+    return 0
+  }
+  let result = Math.floor((variable * 100) / total)
+  return result
+}

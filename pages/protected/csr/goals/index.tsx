@@ -4,6 +4,7 @@ import BackButton from 'components/Atoms/Buttons/BackButton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import WarmupBox from 'components/Atoms/WarmupBox'
+import Loader from 'components/Loader'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import UserGoalsLayout from 'components/Organizms/user/goals/UserGoalsLayout'
 import { constructUserGoalsKey } from 'lib/backend/api/aws/util'
@@ -26,12 +27,7 @@ const Page = () => {
       const userResult = await getUserCSR()
       setIsLoggenIn(userResult !== null)
       setUser(userResult)
-      if (userResult) {
-        // const data = await getUserGoals(constructUserGoalsKey(userResult.email))
-        // console.log('retrieved data: ', data)
-        //setGoals(data)
-        setIsLoading(false)
-      }
+      setIsLoading(false)
     }
     fn()
   }, [])
@@ -39,7 +35,7 @@ const Page = () => {
   return (
     <Container>
       {isLoggedIn ? (
-        <Box>
+        <>
           <BackButton
             onClicked={() => {
               router.push('/protected/csr/dashboard')
@@ -48,7 +44,7 @@ const Page = () => {
           <CenteredTitle title='Goals' />
           <HorizontalDivider />
           {isLoading ? <WarmupBox text='loading' /> : <>{user && <UserGoalsLayout username={user.email} />}</>}
-        </Box>
+        </>
       ) : (
         <PleaseLogin />
       )}

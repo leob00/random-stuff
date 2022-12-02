@@ -20,7 +20,7 @@ const DateAndTimePicker = ({
   const handleChange = (val?: string | null, keyboardInputValue?: string | undefined) => {
     const dt = val ?? keyboardInputValue
     if (!dt) {
-      console.log('sending date: ', dt)
+      //console.log('sending date: ', dt)
       setValue(undefined)
       onChanged(undefined)
       return
@@ -39,7 +39,7 @@ const DateAndTimePicker = ({
       <DateTimePicker
         //disabled={disabled}
         key={label}
-        renderInput={(props) => <TextField autoComplete={'false'} size='small' {...props} />}
+        renderInput={(props) => <TextField autoComplete={'off'} size='small' {...props} />}
         label={label}
         value={value ?? null}
         onChange={handleChange}

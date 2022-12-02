@@ -1,37 +1,131 @@
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Checkbox, Stack, Typography } from '@mui/material'
+import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import CenteredSubtitle from 'components/Atoms/Text/CenteredSubtitle'
+import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
+import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import AddTaskForm from 'components/Molecules/Forms/AddTaskForm'
+import EditTaskForm from 'components/Molecules/Forms/EditTaskForm'
+import { constructUserTaskPk } from 'lib/backend/api/aws/util'
 import { UserTask } from 'lib/models/userTasks'
+import { getUtcNow } from 'lib/util/dateUtil'
+import { cloneDeep, filter } from 'lodash'
 import React from 'react'
 
-const TaskList = ({ tasks }: { tasks: UserTask[] }) => {
-  const [isLoading, setIsLoading] = React.useState(true)
+interface TaskModel {
+  isLoading: boolean
+  tasks: UserTask[]
+  selectedTask?: UserTask
+}
 
+const TaskList = ({
+  username,
+  goalId,
+  tasks,
+  onAddTask,
+  onModifyTask,
+}: {
+  username: string
+  goalId: string
+  tasks: UserTask[]
+  onAddTask: (item: UserTask) => void
+  onModifyTask: (item: UserTask) => void
+}) => {
+  //const [isLoading, setIsLoading] = React.useState(true)
+  const [model, setModel] = React.useReducer((state: TaskModel, newState: TaskModel) => ({ ...state, ...newState }), { isLoading: true, tasks: [] })
+
+  const handleAddTask = (item: UserTask) => {
+    item.goalId = goalId
+    item.id = constructUserTaskPk(username)
+
+    onAddTask(item)
+  }
+  const handleTaskClick = (item: UserTask) => {
+    setModel({ ...model, selectedTask: item })
+  }
+  const handleSaveTask = (item: UserTask) => {
+    setModel({ ...model, isLoading: true })
+    //console.log('saving: ', JSON.stringify(item))
+    item.dateModified = getUtcNow().format()
+    const tasks = filter(cloneDeep(model.tasks), (e) => e.id !== item.id)
+    tasks.push(item)
+
+    onModifyTask(item)
+    setModel({ ...model, isLoading: false, tasks: tasks, selectedTask: undefined })
+  }
+
+  const handleCheckCompleteTask = (checked: boolean, item: UserTask) => {
+    item.status = checked ? 'completed' : 'in progress'
+    setModel({ ...model, selectedTask: undefined })
+    onModifyTask(item)
+  }
   React.useEffect(() => {
-    setIsLoading(false)
+    setModel({ ...model, isLoading: false })
   }, [])
   return (
     <>
       <Box py={2}>
-        <Typography variant='subtitle1'>Tasks</Typography>
+        <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
+          <Typography variant='subtitle1'>Tasks</Typography>
+          <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
+            <Typography>complete</Typography>
+          </Stack>
+        </Stack>
+        <HorizontalDivider />
       </Box>
-      {isLoading ? (
+      {model.isLoading ? (
         <WarmupBox />
       ) : (
         <>
-          <Box my={1}>
-            <AddTaskForm task={{}} onSubmit={function (data: UserTask): void {}} />
-          </Box>
+          {tasks.length === 0 && (
+            <Box py={1}>
+              <AddTaskForm task={{}} onSubmit={handleAddTask} />
+            </Box>
+          )}
           {tasks.map((item, i) => (
-            <Box key={i} textAlign='left'>
-              <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
-                <Typography>{item.body}</Typography>
-              </Stack>
-              {i < tasks.length - 1 && <HorizontalDivider />}
+            <Box key={i}>
+              {model.selectedTask !== undefined && model.selectedTask.id === item.id ? (
+                <Box>
+                  <EditTaskForm
+                    task={model.selectedTask}
+                    onSubmit={handleSaveTask}
+                    onCancel={() => {
+                      setModel({ ...model, selectedTask: undefined })
+                    }}
+                  />
+                </Box>
+              ) : (
+                <Box>
+                  <Stack key={i} direction='row' justifyContent='left' alignItems='left'>
+                    <LinkButton
+                      onClick={() => {
+                        handleTaskClick(item)
+                      }}
+                    >
+                      <Typography textAlign={'left'} variant='subtitle1'>
+                        {item.body}
+                      </Typography>
+                    </LinkButton>
+                    <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
+                      <Checkbox
+                        defaultChecked={item.status === 'completed'}
+                        onChange={(e, checked: boolean) => {
+                          handleCheckCompleteTask(checked, item)
+                        }}
+                      />
+                    </Stack>
+                  </Stack>
+                  {i < tasks.length - 1 && <HorizontalDivider />}
+                </Box>
+              )}
             </Box>
           ))}
+          {tasks.length > 0 && !model.selectedTask && (
+            <Box pt={2} pb={2}>
+              <AddTaskForm task={{}} onSubmit={handleAddTask} />
+            </Box>
+          )}
         </>
       )}
     </>

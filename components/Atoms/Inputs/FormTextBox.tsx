@@ -9,6 +9,7 @@ const FormTextBox = ({
   onChanged,
   onBlurred,
   disabled = false,
+  width = 250,
 }: {
   defaultValue: string
   label: string
@@ -17,6 +18,7 @@ const FormTextBox = ({
   onChanged: (text: string) => void
   onBlurred?: () => void
   disabled?: boolean
+  width?: number | string
 }) => {
   const [textError, setTextError] = React.useState(error)
   const [val, setVal] = React.useState(defaultValue)
@@ -46,10 +48,10 @@ const FormTextBox = ({
       onChange={handleTextChange}
       required={required}
       error={textError}
-      sx={{ color: 'secondary' }}
+      sx={{ color: 'secondary', width: width }}
       onBlur={onBlurred}
       disabled={disabled}
-      autoComplete={'false'}
+      autoComplete={'off'}
       //variant={'standard'}
     />
   )

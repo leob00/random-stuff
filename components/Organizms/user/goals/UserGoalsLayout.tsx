@@ -1,8 +1,8 @@
-import { Box, Container, Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import ButtonSkeleton from 'components/Atoms/Skeletons/ButtonSkeleton'
+import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import AddGoalForm from 'components/Molecules/Forms/AddGoalForm'
@@ -34,14 +34,11 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
     showConfirmDeleteGoal: false,
   }
   const [model, setModel] = React.useReducer((state: UserGoalsModel, newState: UserGoalsModel) => ({ ...state, ...newState }), defaultModel)
-  // const [showConfirmDeleteGoal, setShowConfirmDeleteGoal] = React.useState(false)
-  //const [isLoading, setIsLoading] = React.useState(true)
-  //const [isSaving, setIsSaving] = React.useState(false)
 
   const loadGoals = async () => {
     const result = await getUserGoals(constructUserGoalsKey(username))
     result.forEach((g) => {
-      g.tasks = undefined
+      if (!g.completePercent) g.completePercent = 0
     })
     return orderBy(result, ['dateModified'], ['desc'])
   }
@@ -120,7 +117,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   }, [])
 
   return (
-    <Container>
+    <Box>
       <ConfirmDeleteDialog
         show={model.showConfirmDeleteGoal}
         title={'confirm delete'}
@@ -138,7 +135,6 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
             <Stack direction={'row'} spacing={1}>
               <TextSkeleton />
               <TextSkeleton />
-              <ButtonSkeleton buttonText={'add'} />
             </Stack>
           </>
         )}
@@ -150,7 +146,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
         ) : (
           <>
             {model.goals.map((item, i) => (
-              <Box key={i} textAlign='left'>
+              <Box key={i}>
                 <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
                   <LinkButton
                     onClick={() => {
@@ -161,7 +157,13 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
                       {item.body}
                     </Typography>
                   </LinkButton>
+                  {item.completePercent !== undefined && item.completePercent > 0 && (
+                    <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
+                      <ProgressBar value={item.completePercent ?? 0} />
+                    </Stack>
+                  )}
                 </Stack>
+
                 {model.selectedGoal && model.selectedGoal.id === item.id && (
                   <GoalDetails
                     model={model}
@@ -172,6 +174,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
                     handleDueDateChange={handleDueDateChange}
                     handleSubmitGoalChanges={handleSubmitGoalChanges}
                     handleSetGoalEditMode={handleSetGoalEditMode}
+                    handleModifyGoal={saveGoal}
                   />
                 )}
                 {i < model.goals.length - 1 && <HorizontalDivider />}
@@ -180,7 +183,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
           </>
         )}
       </Box>
-    </Container>
+    </Box>
   )
 }
 

@@ -77,7 +77,7 @@ const HomeMenu = () => {
                 <CenterStack>
                   <InternalLink route={'/protected/csr/dashboard'} text={'dashboard'} />
                   <InternalLink route={'/protected/csr/notes'} text={'notes'} />
-                  <InternalLink route={'/protected/csr/tasks'} text={'tasks'} />
+                  <InternalLink route={'/protected/csr/goals'} text={'tasks'} />
                 </CenterStack>
               </Box>
               {isAdmin && (

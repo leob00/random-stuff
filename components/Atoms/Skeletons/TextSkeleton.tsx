@@ -7,9 +7,7 @@ import SearchWithinList from '../Inputs/SearchWithinList'
 const TextSkeleton = () => {
   return (
     <>
-      <Skeleton variant='text' sx={{ bgcolor: VeryLightBlueTransparent }}>
-        <SearchWithinList text={''} disabled />
-      </Skeleton>
+      <Skeleton variant='text' sx={{ bgcolor: VeryLightBlueTransparent, width: 100 }}></Skeleton>
     </>
   )
 }
