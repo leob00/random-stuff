@@ -10,7 +10,7 @@ import EditTaskForm from 'components/Molecules/Forms/EditTaskForm'
 import { constructUserTaskPk } from 'lib/backend/api/aws/util'
 import { UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
-import { cloneDeep, filter } from 'lodash'
+import { cloneDeep, filter, orderBy } from 'lodash'
 import React from 'react'
 
 interface TaskModel {
@@ -52,7 +52,7 @@ const TaskList = ({
     tasks.push(item)
 
     onModifyTask(item)
-    setModel({ ...model, isLoading: false, tasks: tasks, selectedTask: undefined })
+    setModel({ ...model, isLoading: false, tasks: orderBy(tasks, ['dueDate', 'status'], ['asc', 'desc']), selectedTask: undefined })
   }
 
   const handleCheckCompleteTask = (checked: boolean, item: UserTask) => {

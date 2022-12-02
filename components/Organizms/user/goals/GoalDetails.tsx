@@ -9,7 +9,7 @@ import WarmupBox from 'components/Atoms/WarmupBox'
 import { getUserGoalTasks, putUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { calculatePercentInt } from 'lib/util/numberUtil'
-import { cloneDeep, filter } from 'lodash'
+import { cloneDeep, filter, orderBy } from 'lodash'
 import React from 'react'
 import GoalDetailsMeta from './GoalDetailsMeta'
 import TaskList from './TaskList'
@@ -54,7 +54,6 @@ const GoalDetails = ({
   const handleModifyTask = async (item: UserTask) => {
     setTaskModel({ ...taskModel, isLoading: true })
     let tasks = filter(cloneDeep(taskModel.tasks), (e) => e.id !== item.id)
-
     tasks.push(item)
     const completed = filter(tasks, (e) => e.status === 'completed')
     if (model.selectedGoal) {
@@ -64,7 +63,7 @@ const GoalDetails = ({
     }
     await putUserGoalTasks(goalId, tasks)
 
-    setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
+    setTaskModel({ ...taskModel, tasks: orderBy(tasks, ['dueDate', 'status'], ['asc', 'desc']), isLoading: false })
   }
 
   React.useEffect(() => {
