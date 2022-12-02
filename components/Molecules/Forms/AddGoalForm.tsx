@@ -5,9 +5,11 @@ import DebouncedTextBox from 'components/Atoms/Inputs/DebouncedTextBox'
 import DateAndTimePicker from 'components/Atoms/Inputs/DateAndTimePicker'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
+import { cloneDeep } from 'lodash'
 
 const EditGoalForm = ({ goal, onSubmit }: { goal: UserGoal; onSubmit: (data: UserGoal) => void }) => {
   const [formInput, setFormInput] = React.useReducer((state: UserGoal, newState: UserGoal) => ({ ...state, ...newState }), goal)
+  const [valid, setValid] = React.useState(true)
 
   const handleDueDateChange = (dt?: string) => {
     setFormInput({ ...formInput, dueDate: dt })
@@ -18,19 +20,23 @@ const EditGoalForm = ({ goal, onSubmit }: { goal: UserGoal; onSubmit: (data: Use
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     //console.log(formInput)
     e.preventDefault()
-
-    if (formInput.body && formInput.body.trim().length > 0) {
-      onSubmit(formInput)
-    } else {
+    const isValid = formInput.body !== undefined && formInput.body.trim().length > 0 && !formInput.body.includes('  ')
+    //console.log('isValid: ', isValid)
+    //console.log('body: ', formInput.body)
+    setValid(isValid)
+    if (isValid) {
+      const goal = cloneDeep(formInput)
+      setFormInput({ ...formInput, id: undefined, body: undefined })
+      onSubmit(goal)
     }
   }
   return (
     <form onSubmit={handleFormSubmit}>
       <Stack direction={'row'} spacing={1}>
-        <FormTextBox defaultValue={''} label={'new goal'} onChanged={handleTitleChanged} />
+        <FormTextBox defaultValue={formInput.body ?? ''} label={'new goal'} onChanged={handleTitleChanged} error={!valid} />
         <DateAndTimePicker onChanged={handleDueDateChange} label={'due date'} />
         {/* {goalsDDL.length > 0 && <DropdownList options={goalsDDL} selectedOption={goalsDDL[0].value!} />} */}
-        <SecondaryButton text='add' type='submit' size='small' width={80} />
+        <SecondaryButton text='add' type='submit' size='small' width={90} />
       </Stack>
     </form>
   )

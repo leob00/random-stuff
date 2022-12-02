@@ -34,3 +34,8 @@ export function getExpirationText(expirationDate: string, precise: boolean = fal
   }
   return message
 }
+
+export function getSecondsFromEpoch() {
+  const seconds = Math.ceil(dayjs(new Date()).valueOf() / 1000)
+  return seconds
+}

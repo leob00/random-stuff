@@ -63,10 +63,10 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           <CenterStack sx={{ py: 2 }}>
             <LinkButton
               onClick={() => {
-                router.push('/protected/csr/tasks')
+                router.push('/protected/csr/goals')
               }}
             >
-              {`tasks`}
+              {`goals`}
             </LinkButton>
           </CenterStack>
           <HorizontalDivider />

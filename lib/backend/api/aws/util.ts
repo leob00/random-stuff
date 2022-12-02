@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import { getUtcNow } from 'lib/util/dateUtil'
+import { getSecondsFromEpoch, getUtcNow } from 'lib/util/dateUtil'
 dayjs.extend(utc)
 export function constructUserProfileKey(username: string) {
   return `user-profile[${username}]`
@@ -14,4 +14,12 @@ export function constructUserNoteCategoryKey(username: string) {
 }
 export function constructUserGoalsKey(username: string) {
   return `user-goals[${username}]`
+}
+
+export function constructDymamoPrimaryKey(arg1: string, arg2: string, arg3: string) {
+  return `${arg1}[${arg2}][${arg3}]`
+}
+
+export function constructUserGoalPk(username: string) {
+  return `user-goal[${username}][${getSecondsFromEpoch()}]`
 }

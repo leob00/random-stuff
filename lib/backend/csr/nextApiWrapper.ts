@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
+import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { filter } from 'lodash'
 import { ApiError } from 'next/dist/server/api-utils'
@@ -128,6 +129,63 @@ export async function getUserNote(id?: string) {
     console.log(err)
   }
   return result
+}
+
+export async function getUserGoals(id?: string) {
+  let result: UserGoal[] = []
+
+  try {
+    const token = String(process.env.NEXT_PUBLIC_API_TOKEN)
+    const params = {
+      enc: myEncrypt(token, id!),
+      /*  id: id,
+      token: token, */
+    }
+    const data = await axiosGet(`/api/randomStuff`, params)
+    if (data) {
+      result = data
+
+      return result
+    }
+  } catch (err) {
+    console.log(err)
+  }
+  return result
+}
+export async function getUserGoalTasks(goalId: string) {
+  const id = `user-goal-tasks${goalId}`
+  let result: UserTask[] = []
+
+  try {
+    const token = String(process.env.NEXT_PUBLIC_API_TOKEN)
+    const params = {
+      enc: myEncrypt(token, id),
+    }
+    const data = await axiosGet(`/api/randomStuff`, params)
+    if (data) {
+      result = data
+
+      return result
+    }
+  } catch (err) {
+    console.log(err)
+  }
+  return result
+}
+
+export async function putUserGoals(id: string, data: UserGoal[], expiration: number = 0) {
+  let req: LambdaDynamoRequest = {
+    id: id,
+    category: 'user-goals',
+    data: data,
+    expiration: expiration,
+    token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${id}`),
+    //token: signLambdaDynamoPut(item.id!, secondaryKey, String(process.env.NEXT_PUBLIC_API_TOKEN)),
+  }
+  const putRequest: EncPutRequest = {
+    data: encryptBody(req),
+  }
+  await axiosPut(`/api/putRandomStuff`, putRequest)
 }
 
 function encryptBody(req: LambdaDynamoRequest) {

@@ -1,5 +1,5 @@
 export interface UserGoal extends UserTask {
-  tasks: UserTask[]
+  tasks?: UserTask[]
 }
 export interface UserTask {
   id?: string
