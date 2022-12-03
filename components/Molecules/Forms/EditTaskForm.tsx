@@ -1,4 +1,4 @@
-import { Box, Checkbox, Stack, Typography } from '@mui/material'
+import { Box, Button, Checkbox, Stack, Typography } from '@mui/material'
 import { UserTask } from 'lib/models/userTasks'
 import React from 'react'
 import DateAndTimePicker from 'components/Atoms/Inputs/DateAndTimePicker'
@@ -9,10 +9,23 @@ import CenterStack from 'components/Atoms/CenterStack'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import dayjs from 'dayjs'
 import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
+import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
+import { Delete } from '@mui/icons-material'
 
-const EditTaskForm = ({ task, onSubmit, onCancel }: { task: UserTask; onSubmit: (data: UserTask) => void; onCancel: () => void }) => {
+const EditTaskForm = ({
+  task,
+  onSubmit,
+  onCancel,
+  onDelete,
+}: {
+  task: UserTask
+  onSubmit: (data: UserTask) => void
+  onCancel: () => void
+  onDelete: (data: UserTask) => void
+}) => {
   const [formInput, setFormInput] = React.useReducer((state: UserTask, newState: UserTask) => ({ ...state, ...newState }), task)
   const [valid, setValid] = React.useState(true)
+  const [showConfirmDelete, setShowConfirmDelete] = React.useState(false)
 
   const handleDueDateChange = (dt?: string) => {
     setFormInput({ ...formInput, dueDate: dt })
@@ -43,8 +56,19 @@ const EditTaskForm = ({ task, onSubmit, onCancel }: { task: UserTask; onSubmit: 
   }
   return (
     <form onSubmit={handleFormSubmit}>
-      <Box py={2}>
-        <FormTextBox width={360} defaultValue={formInput.body ?? ''} label={'new task'} onChanged={handleTitleChanged} error={!valid} />
+      <ConfirmDeleteDialog
+        show={showConfirmDelete}
+        title={'confirm delete'}
+        text={'Are you sure you want to delete this task?'}
+        onConfirm={() => {
+          onDelete(formInput)
+        }}
+        onCancel={() => {
+          setShowConfirmDelete(false)
+        }}
+      />
+      <Box py={2} maxWidth={{ xs: 280, md: 500 }}>
+        <FormTextBox width={'100%'} defaultValue={formInput.body ?? ''} label={'new task'} onChanged={handleTitleChanged} error={!valid} />
       </Box>
       <Box py={2}>
         <DateAndTimePicker
@@ -66,6 +90,14 @@ const EditTaskForm = ({ task, onSubmit, onCancel }: { task: UserTask; onSubmit: 
       </Box>
       <Box py={2}>
         <Stack direction='row' justifyContent='center' alignItems='center' spacing={1}>
+          <Button
+            size='small'
+            onClick={() => {
+              setShowConfirmDelete(true)
+            }}
+          >
+            <Delete color='error' />
+          </Button>
           <PassiveButton text='cancel' size='small' onClick={handleCancelClick} />
           <SecondaryButton text='save' type='submit' size='small' />
         </Stack>

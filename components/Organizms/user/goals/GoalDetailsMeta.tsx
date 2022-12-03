@@ -23,12 +23,12 @@ const GoalDetailsMeta = ({ goal }: { goal: UserGoal }) => {
       <Typography variant='body2' fontWeight={600}>
         {dayjs(goal.dateModified).format('MM/DD/YYYY hh:mm A')}
       </Typography>
-      <Typography variant='body2' py={1}>
+      {/* <Typography variant='body2' py={1}>
         progress:
       </Typography>
       <Stack py={1}>
         <ProgressBar value={goal.completePercent ?? 0} />
-      </Stack>
+      </Stack> */}
     </Stack>
   )
 }

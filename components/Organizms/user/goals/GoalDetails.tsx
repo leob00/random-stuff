@@ -65,6 +65,18 @@ const GoalDetails = ({
 
     setTaskModel({ ...taskModel, tasks: orderBy(tasks, ['dueDate', 'status'], ['asc', 'desc']), isLoading: false })
   }
+  const handleDeleteTask = async (item: UserTask) => {
+    setTaskModel({ ...taskModel, isLoading: true })
+    let tasks = filter(cloneDeep(taskModel.tasks), (e) => e.id !== item.id)
+    const completed = filter(tasks, (e) => e.status === 'completed')
+    if (model.selectedGoal) {
+      const goal = cloneDeep(model.selectedGoal)
+      goal.completePercent = calculatePercentInt(completed.length, tasks.length)
+      handleModifyGoal(goal)
+    }
+    await putUserGoalTasks(goalId, tasks)
+    setTaskModel({ ...taskModel, tasks: orderBy(tasks, ['dueDate', 'status'], ['asc', 'desc']), isLoading: false })
+  }
 
   React.useEffect(() => {
     const fn = async () => {
@@ -134,7 +146,14 @@ const GoalDetails = ({
               <WarmupBox />
             ) : (
               <>
-                <TaskList username={model.username} goalId={goalId} tasks={taskModel.tasks} onAddTask={handleAddTask} onModifyTask={handleModifyTask} />
+                <TaskList
+                  username={model.username}
+                  goalId={goalId}
+                  tasks={taskModel.tasks}
+                  onAddTask={handleAddTask}
+                  onModifyTask={handleModifyTask}
+                  onDeleteTask={handleDeleteTask}
+                />
               </>
             )}
           </Box>

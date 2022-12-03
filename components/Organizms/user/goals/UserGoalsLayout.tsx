@@ -1,5 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ProgressBar from 'components/Atoms/Progress/ProgressBar'
@@ -7,9 +8,9 @@ import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import AddGoalForm from 'components/Molecules/Forms/AddGoalForm'
 import { constructUserGoalPk, constructUserGoalsKey } from 'lib/backend/api/aws/util'
-import { getUserGoals, putUserGoals } from 'lib/backend/csr/nextApiWrapper'
+import { getUserGoals, putUserGoals, putUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
 import { UserGoal } from 'lib/models/userTasks'
-import { getUtcNow } from 'lib/util/dateUtil'
+import { getSecondsFromEpoch, getUtcNow } from 'lib/util/dateUtil'
 import { cloneDeep, filter, orderBy } from 'lodash'
 import React from 'react'
 import GoalDetails from './GoalDetails'
@@ -71,6 +72,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
     setModel({ ...model, isLoading: true, showConfirmDeleteGoal: false })
     const goalList = filter(model.goals, (e) => e.id !== model.selectedGoal?.id)
     await putUserGoals(constructUserGoalsKey(username), goalList)
+    await putUserGoalTasks(model.selectedGoal?.id!, [], getSecondsFromEpoch())
     setModel({ ...model, goals: goalList, selectedGoal: undefined, isLoading: false, showConfirmDeleteGoal: false })
   }
 
@@ -148,7 +150,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
             {model.goals.map((item, i) => (
               <Box key={i}>
                 <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
-                  <LinkButton
+                  <LinkButton2
                     onClick={() => {
                       handleGoalClick(item)
                     }}
@@ -156,7 +158,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
                     <Typography textAlign={'left'} variant='subtitle1'>
                       {item.body}
                     </Typography>
-                  </LinkButton>
+                  </LinkButton2>
                   {item.completePercent !== undefined && item.completePercent > 0 && (
                     <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
                       <ProgressBar value={item.completePercent ?? 0} />

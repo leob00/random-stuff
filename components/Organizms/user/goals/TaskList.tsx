@@ -1,5 +1,6 @@
 import { Box, Checkbox, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
@@ -25,12 +26,14 @@ const TaskList = ({
   tasks,
   onAddTask,
   onModifyTask,
+  onDeleteTask,
 }: {
   username: string
   goalId: string
   tasks: UserTask[]
   onAddTask: (item: UserTask) => void
   onModifyTask: (item: UserTask) => void
+  onDeleteTask: (item: UserTask) => void
 }) => {
   //const [isLoading, setIsLoading] = React.useState(true)
   const [model, setModel] = React.useReducer((state: TaskModel, newState: TaskModel) => ({ ...state, ...newState }), { isLoading: true, tasks: [] })
@@ -93,12 +96,13 @@ const TaskList = ({
                     onCancel={() => {
                       setModel({ ...model, selectedTask: undefined })
                     }}
+                    onDelete={onDeleteTask}
                   />
                 </Box>
               ) : (
                 <Box>
                   <Stack key={i} direction='row' justifyContent='left' alignItems='left'>
-                    <LinkButton
+                    <LinkButton2
                       onClick={() => {
                         handleTaskClick(item)
                       }}
@@ -106,7 +110,7 @@ const TaskList = ({
                       <Typography textAlign={'left'} variant='subtitle1'>
                         {item.body}
                       </Typography>
-                    </LinkButton>
+                    </LinkButton2>
                     <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
                       <Checkbox
                         defaultChecked={item.status === 'completed'}
