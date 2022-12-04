@@ -5,6 +5,7 @@ import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
+import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import AddGoalForm from 'components/Molecules/Forms/AddGoalForm'
 import { constructUserGoalPk, constructUserGoalsKey } from 'lib/backend/api/aws/util'
@@ -142,11 +143,22 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
         )}
       </Box>
       <Box>
-        <HorizontalDivider />
         {model.isLoading ? (
           <WarmupBox />
         ) : (
           <>
+            {model.goals.length > 0 && (
+              <Stack direction='row' pt={2} pb={1} justifyContent='left' alignItems='left'>
+                <Typography textAlign={'left'} variant='body2'>
+                  Name
+                </Typography>
+                <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
+                  <Typography variant='body2'>Progress</Typography>
+                </Stack>
+              </Stack>
+            )}
+            <HorizontalDivider />
+
             {model.goals.map((item, i) => (
               <Box key={i}>
                 <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
@@ -159,9 +171,9 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
                       {item.body}
                     </Typography>
                   </LinkButton2>
-                  {item.completePercent !== undefined && item.completePercent > 0 && (
+                  {item.completePercent !== undefined && (
                     <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-                      <ProgressBar value={item.completePercent ?? 0} />
+                      <ProgressBar value={item.completePercent} toolTipText={`${item.completePercent}% complete`} width={80} />
                     </Stack>
                   )}
                 </Stack>

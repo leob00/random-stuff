@@ -1,18 +1,14 @@
-import { Check, QuestionAnswer, QuestionMarkOutlined } from '@mui/icons-material'
-import { Box, Button, Stack } from '@mui/material'
-import InternalLink from 'components/Atoms/Buttons/InternalLink'
+import { Stack } from '@mui/material'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
-import { constructUserNoteCategoryKey } from 'lib/backend/api/aws/util'
+import { constructUserNoteCategoryKey, constructUserNotePrimaryKey } from 'lib/backend/api/aws/util'
 import { getUserProfile, putUserNote, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { orderBy } from 'lodash'
 import React from 'react'
-import router from 'next/router'
 import SavedNoteButtonLink from './SavedNoteButtonLink'
 import { getUtcNow } from 'lib/util/dateUtil'
-import ExpirationWarningTooltip from 'components/Atoms/Tooltips/ExprationWarningTooltip'
 import RollingLinearProgress from 'components/Atoms/Loaders/RollingLinearProgress'
 
 const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note: UserNote; onSaved: (note: UserNote) => void }) => {
@@ -23,6 +19,7 @@ const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note
     setSaving(true)
     const profile = (await getUserProfile(username)) as UserProfile | null
     if (profile) {
+      item.id = constructUserNotePrimaryKey(username)
       profile.noteTitles.push({ ...item, body: '' })
       profile.noteTitles = orderBy(profile.noteTitles, ['dateModified'], ['desc'])
       await putUserProfile(profile)

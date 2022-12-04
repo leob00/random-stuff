@@ -98,7 +98,6 @@ const NewsLayout = () => {
                               body: item.Description ?? '',
                               dateCreated: getUtcNow().format(),
                               dateModified: getUtcNow().format(),
-                              id: constructUserNotePrimaryKey(userController.username),
                               expirationDate: getUtcNow().add(3, 'day').format(),
                             }}
                             onSaved={handleSaved}
