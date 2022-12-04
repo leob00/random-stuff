@@ -65,7 +65,7 @@ const TaskList = ({
     item.dateModified = getUtcNow().format()
     const tasks = filter(cloneDeep(model.tasks), (e) => e.id !== item.id)
     tasks.push(item)
-    setModel({ ...model, isLoading: false, tasks: orderBy(tasks, ['dueDate', 'status'], ['asc', 'desc']), editTask: undefined, selectTask2: undefined })
+    setModel({ ...model, isLoading: false, tasks: orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc']), editTask: undefined, selectTask2: undefined })
 
     onModifyTask(item)
   }

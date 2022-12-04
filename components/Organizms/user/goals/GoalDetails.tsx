@@ -56,7 +56,7 @@ const GoalDetails = ({
     let tasks = filter(cloneDeep(taskModel.tasks), (e) => e.id !== item.id)
     tasks.push(item)
     const completed = filter(tasks, (e) => e.status === 'completed')
-    tasks = orderBy(tasks, ['dueDate', 'status'], ['asc', 'desc'])
+    tasks = orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc'])
     if (model.selectedGoal) {
       const goal = cloneDeep(model.selectedGoal)
       goal.completePercent = calculatePercentInt(completed.length, tasks.length)
@@ -76,14 +76,19 @@ const GoalDetails = ({
       handleModifyGoal(goal)
     }
     await putUserGoalTasks(goalId, tasks)
-    setTaskModel({ ...taskModel, tasks: orderBy(tasks, ['dueDate', 'status'], ['asc', 'desc']), isLoading: false })
+    setTaskModel({ ...taskModel, tasks: orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc']), isLoading: false })
   }
 
   React.useEffect(() => {
     const fn = async () => {
-      console.log('loading tasks for goal: ', goalId)
+      //console.log('loading tasks for goal: ', goalId)
       const result = await getUserGoalTasks(goalId)
-      const tasks = orderBy(result, ['dueDate', 'status'], ['asc', 'desc'])
+      result.forEach((task) => {
+        if (!task.status) {
+          task.status = 'in progress'
+        }
+      })
+      const tasks = orderBy(result, ['status', 'dueDate'], ['desc', 'asc'])
       //console.log(result)
       setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
     }
