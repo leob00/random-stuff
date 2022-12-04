@@ -6,8 +6,8 @@ export function constructUserProfileKey(username: string) {
   return `user-profile[${username}]`
 }
 export function constructUserNotePrimaryKey(username: string) {
-  const utcNow = getUtcNow().format()
-  return `user-note[${utcNow}][${username}]`
+  //const utcNow = getUtcNow().format()
+  return `user-note[${getSecondsFromEpoch()}][${username}]`
 }
 export function constructUserNoteCategoryKey(username: string) {
   return `user-note[${username}]`
