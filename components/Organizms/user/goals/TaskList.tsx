@@ -8,6 +8,7 @@ import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import AddTaskForm from 'components/Molecules/Forms/AddTaskForm'
 import EditTaskForm from 'components/Molecules/Forms/EditTaskForm'
+import dayjs from 'dayjs'
 import { constructUserTaskPk } from 'lib/backend/api/aws/util'
 import { UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
@@ -49,17 +50,26 @@ const TaskList = ({
   }
   const handleSaveTask = (item: UserTask) => {
     setModel({ ...model, isLoading: true })
-    //console.log('saving: ', JSON.stringify(item))
+    if (item.status && item.status === 'completed') {
+      item.dateCompleted = getUtcNow().format()
+    } else {
+      item.dateCompleted = undefined
+    }
     item.dateModified = getUtcNow().format()
     const tasks = filter(cloneDeep(model.tasks), (e) => e.id !== item.id)
     tasks.push(item)
+    setModel({ ...model, isLoading: false, tasks: orderBy(tasks, ['dueDate', 'status'], ['asc', 'desc']), selectedTask: undefined })
 
     onModifyTask(item)
-    setModel({ ...model, isLoading: false, tasks: orderBy(tasks, ['dueDate', 'status'], ['asc', 'desc']), selectedTask: undefined })
   }
 
   const handleCheckCompleteTask = (checked: boolean, item: UserTask) => {
     item.status = checked ? 'completed' : 'in progress'
+    if (checked) {
+      item.dateCompleted = getUtcNow().format()
+    } else {
+      item.dateCompleted = undefined
+    }
     setModel({ ...model, selectedTask: undefined })
     onModifyTask(item)
   }
@@ -113,13 +123,14 @@ const TaskList = ({
                     </LinkButton2>
                     <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
                       <Checkbox
-                        defaultChecked={item.status === 'completed'}
+                        checked={item.status === 'completed'}
                         onChange={(e, checked: boolean) => {
                           handleCheckCompleteTask(checked, item)
                         }}
                       />
                     </Stack>
                   </Stack>
+                  {item.dueDate && <Typography variant='body2'>{`due: ${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
                   {i < tasks.length - 1 && <HorizontalDivider />}
                 </Box>
               )}

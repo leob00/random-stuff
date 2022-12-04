@@ -11,6 +11,7 @@ import dayjs from 'dayjs'
 import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import { Delete } from '@mui/icons-material'
+import { getUtcNow } from 'lib/util/dateUtil'
 
 const EditTaskForm = ({
   task,
@@ -33,6 +34,14 @@ const EditTaskForm = ({
   const handleTitleChanged = (title: string) => {
     setFormInput({ ...formInput, body: title })
   }
+
+  const handleCompletedChecked = (checked: boolean) => {
+    const status = checked ? 'completed' : 'in progress'
+    const dateCompleted = checked ? getUtcNow().format() : undefined
+
+    setFormInput({ ...formInput, status: status, dateCompleted: dateCompleted })
+  }
+
   const handleCancelClick = () => {
     onCancel()
   }
@@ -80,12 +89,17 @@ const EditTaskForm = ({
       <Box py={2}>
         <Stack direction={'row'} display={'flex'} justifyContent={'left'} spacing={1} alignItems={'center'}>
           <Checkbox
-            defaultChecked={formInput.status != undefined && formInput.status === 'completed'}
+            checked={formInput.status != undefined && formInput.status === 'completed'}
             onChange={(e, checked) => {
-              setFormInput({ ...formInput, status: checked ? 'completed' : 'in progress' })
+              handleCompletedChecked(checked)
             }}
           />
-          <Typography>complete</Typography>
+
+          {formInput.dateCompleted ? (
+            <Typography variant='body2'>{`completed: ${dayjs(formInput.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography>
+          ) : (
+            <Typography variant='body2'>complete</Typography>
+          )}
         </Stack>
       </Box>
       <Box py={2}>
