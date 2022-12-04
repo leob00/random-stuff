@@ -1,6 +1,7 @@
 import { Delete, Warning } from '@mui/icons-material'
 import { Box, Stack, Button, Typography, Tooltip } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
@@ -75,7 +76,7 @@ const NoteList = ({
         {data.map((item, i) => (
           <Box key={i} textAlign='left'>
             <Stack direction='row' py={'3px'} justifyContent='center' alignItems='center'>
-              <LinkButton
+              <LinkButton2
                 onClick={() => {
                   handleNoteTitleClick(item)
                 }}
@@ -83,7 +84,7 @@ const NoteList = ({
                 <Typography textAlign={'left'} variant='subtitle1'>
                   {item.title}
                 </Typography>
-              </LinkButton>
+              </LinkButton2>
 
               <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
                 {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
