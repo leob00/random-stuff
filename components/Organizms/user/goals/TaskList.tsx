@@ -2,6 +2,7 @@ import { Box, Checkbox, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
+import ConfirmDialog from 'components/Atoms/Dialogs/ConfirmDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
 import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
@@ -18,7 +19,9 @@ import React from 'react'
 interface TaskModel {
   isLoading: boolean
   tasks: UserTask[]
-  selectedTask?: UserTask
+  editTask?: UserTask
+  selectTask2?: UserTask
+  confirmCompleteTask: boolean
 }
 
 const TaskList = ({
@@ -37,7 +40,11 @@ const TaskList = ({
   onDeleteTask: (item: UserTask) => void
 }) => {
   //const [isLoading, setIsLoading] = React.useState(true)
-  const [model, setModel] = React.useReducer((state: TaskModel, newState: TaskModel) => ({ ...state, ...newState }), { isLoading: true, tasks: [] })
+  const [model, setModel] = React.useReducer((state: TaskModel, newState: TaskModel) => ({ ...state, ...newState }), {
+    isLoading: true,
+    tasks: [],
+    confirmCompleteTask: false,
+  })
 
   const handleAddTask = (item: UserTask) => {
     item.goalId = goalId
@@ -46,10 +53,10 @@ const TaskList = ({
     onAddTask(item)
   }
   const handleTaskClick = (item: UserTask) => {
-    setModel({ ...model, selectedTask: item })
+    setModel({ ...model, editTask: item })
   }
   const handleSaveTask = (item: UserTask) => {
-    setModel({ ...model, isLoading: true })
+    setModel({ ...model, isLoading: true, confirmCompleteTask: false })
     if (item.status && item.status === 'completed') {
       item.dateCompleted = getUtcNow().format()
     } else {
@@ -58,26 +65,46 @@ const TaskList = ({
     item.dateModified = getUtcNow().format()
     const tasks = filter(cloneDeep(model.tasks), (e) => e.id !== item.id)
     tasks.push(item)
-    setModel({ ...model, isLoading: false, tasks: orderBy(tasks, ['dueDate', 'status'], ['asc', 'desc']), selectedTask: undefined })
+    setModel({ ...model, isLoading: false, tasks: orderBy(tasks, ['dueDate', 'status'], ['asc', 'desc']), editTask: undefined, selectTask2: undefined })
 
     onModifyTask(item)
   }
 
-  const handleCheckCompleteTask = (checked: boolean, item: UserTask) => {
-    item.status = checked ? 'completed' : 'in progress'
-    if (checked) {
-      item.dateCompleted = getUtcNow().format()
-    } else {
-      item.dateCompleted = undefined
+  const handleYesChangeTaskStatus = () => {}
+  const handleNoChangeTaskStatus = () => {
+    const tasks = cloneDeep(model.tasks)
+    if (model.selectTask2 !== undefined) {
+      tasks.forEach((task) => {
+        if (task.id === model.selectTask2!.id) {
+          task.status = model.selectTask2!.status == 'in progress' ? 'completed' : 'in progress'
+        }
+      })
     }
-    setModel({ ...model, selectedTask: undefined })
-    onModifyTask(item)
+    setModel({ ...model, confirmCompleteTask: false, selectTask2: undefined, editTask: undefined, tasks: tasks })
   }
+
+  const handleCompleteTaskClick = (checked: boolean, item: UserTask) => {
+    item.status = checked ? 'completed' : 'in progress'
+    /* if (checked) {
+      setModel({ ...model, confirmCompleteTask: true, selectTask2: item })
+      return
+    } */
+
+    handleSaveTask(item)
+  }
+
   React.useEffect(() => {
     setModel({ ...model, isLoading: false })
   }, [])
   return (
     <>
+      <ConfirmDialog
+        onCancel={handleNoChangeTaskStatus}
+        show={model.confirmCompleteTask}
+        text={'complete task?'}
+        title={'confirm'}
+        onConfirm={handleYesChangeTaskStatus}
+      />
       <Box py={2}>
         <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
           <Typography variant='subtitle1'>Tasks</Typography>
@@ -98,13 +125,13 @@ const TaskList = ({
           )}
           {tasks.map((item, i) => (
             <Box key={i}>
-              {model.selectedTask !== undefined && model.selectedTask.id === item.id ? (
+              {model.editTask !== undefined && model.editTask.id === item.id ? (
                 <Box>
                   <EditTaskForm
-                    task={model.selectedTask}
+                    task={model.editTask}
                     onSubmit={handleSaveTask}
                     onCancel={() => {
-                      setModel({ ...model, selectedTask: undefined })
+                      setModel({ ...model, editTask: undefined, selectTask2: undefined })
                     }}
                     onDelete={onDeleteTask}
                   />
@@ -125,7 +152,7 @@ const TaskList = ({
                       <Checkbox
                         checked={item.status === 'completed'}
                         onChange={(e, checked: boolean) => {
-                          handleCheckCompleteTask(checked, item)
+                          handleCompleteTaskClick(checked, item)
                         }}
                       />
                     </Stack>
@@ -136,8 +163,8 @@ const TaskList = ({
               )}
             </Box>
           ))}
-          {tasks.length > 0 && !model.selectedTask && (
-            <Box pt={2} pb={2}>
+          {tasks.length > 0 && !model.editTask && (
+            <Box pt={8} pb={2}>
               <AddTaskForm task={{}} onSubmit={handleAddTask} />
             </Box>
           )}

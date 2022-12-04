@@ -77,7 +77,7 @@ const EditTaskForm = ({
         }}
       />
       <Box py={2} maxWidth={{ xs: 280, md: 500 }}>
-        <FormTextBox width={'100%'} defaultValue={formInput.body ?? ''} label={'new task'} onChanged={handleTitleChanged} error={!valid} />
+        <FormTextBox width={'100%'} defaultValue={formInput.body ?? ''} label={'task'} onChanged={handleTitleChanged} error={!valid} />
       </Box>
       <Box py={2}>
         <DateAndTimePicker

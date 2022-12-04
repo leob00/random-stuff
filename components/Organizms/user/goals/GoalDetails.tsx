@@ -111,7 +111,6 @@ const GoalDetails = ({
             </Box>
           )}
           <Box py={2}>
-            <HorizontalDivider />
             <Stack direction={'row'} display={'flex'} justifyContent={'center'} spacing={1} alignItems={'center'} pt={2}>
               <DangerButton
                 size='small'
@@ -143,6 +142,8 @@ const GoalDetails = ({
               <PassiveButton text='close' onClick={handleCloseSelectedGoal} disabled={model.isSaving} size='small' />
             </Stack>
           </Box>
+          <HorizontalDivider />
+
           <Box py={2} pl={2}>
             {taskModel.isLoading ? (
               <WarmupBox />
