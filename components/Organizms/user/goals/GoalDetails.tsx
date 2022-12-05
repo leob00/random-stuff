@@ -87,7 +87,6 @@ const GoalDetails = ({
 
   React.useEffect(() => {
     const fn = async () => {
-      //console.log('loading tasks for goal: ', goalId)
       const result = await getUserGoalTasks(goalId)
       result.forEach((task) => {
         if (!task.status) {
@@ -95,7 +94,6 @@ const GoalDetails = ({
         }
       })
       const tasks = orderBy(result, ['status', 'dueDate'], ['desc', 'asc'])
-      //console.log(result)
       setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
     }
     fn()
@@ -105,10 +103,7 @@ const GoalDetails = ({
     <>
       {model.selectedGoal && (
         <Box pb={1} pl={2}>
-          <Grid container columns={{ xs: 10, md: 8 }} justifyContent={'left'} spacing={2}>
-            {/* <Grid item>
-              <GoalDetailsMeta goal={model.selectedGoal} />
-            </Grid> */}
+          <Grid container columns={{ xs: 10, md: 8 }} justifyContent={'center'} spacing={2}>
             <Grid item>
               <Stack direction={'row'} spacing={1}>
                 <IconButton
@@ -138,7 +133,6 @@ const GoalDetails = ({
             </Grid>
           </Grid>
           {/*  <GoalDetailsMeta goal={model.selectedGoal} /> */}
-
           {model.goalEditMode && (
             <Box py={2}>
               <Stack direction={'row'} display={'flex'} spacing={1} alignItems={'center'}>
@@ -153,40 +147,7 @@ const GoalDetails = ({
               </Stack>
             </Box>
           )}
-          {/* <Box py={2}>
-            <Stack direction={'row'} display={'flex'} justifyContent={'center'} spacing={1} alignItems={'center'} pt={2}>
-              <DangerButton
-                size='small'
-                disabled={model.isSaving}
-                text='delete'
-                onClick={() => {
-                  handleDeleteGoal(model.selectedGoal!)
-                }}
-              />
-              {!model.goalEditMode ? (
-                <SecondaryButton
-                  size='small'
-                  disabled={model.isSaving}
-                  text={'edit'}
-                  onClick={() => {
-                    handleSetGoalEditMode(true)
-                  }}
-                />
-              ) : (
-                <SecondaryButton
-                  size='small'
-                  disabled={model.isSaving}
-                  text={'cancel'}
-                  onClick={() => {
-                    handleSetGoalEditMode(false)
-                  }}
-                />
-              )}
-              <PassiveButton text='close' onClick={handleCloseSelectedGoal} disabled={model.isSaving} size='small' />
-            </Stack>
-          </Box> */}
           <HorizontalDivider />
-
           <Box py={2} pl={2}>
             {taskModel.isLoading ? (
               <WarmupBox />

@@ -41,7 +41,7 @@ const TaskList = ({
 }) => {
   //const [isLoading, setIsLoading] = React.useState(true)
   const [model, setModel] = React.useReducer((state: TaskModel, newState: TaskModel) => ({ ...state, ...newState }), {
-    isLoading: true,
+    isLoading: false,
     tasks: [],
     confirmCompleteTask: false,
   })
@@ -54,8 +54,8 @@ const TaskList = ({
   const handleTaskClick = (item: UserTask) => {
     setModel({ ...model, editTask: item })
   }
-  const handleSaveTask = (item: UserTask) => {
-    setModel({ ...model, isLoading: true, confirmCompleteTask: false })
+  const handleSaveTask = async (item: UserTask) => {
+    //setModel({ ...model, isLoading: true, confirmCompleteTask: false, editTask: undefined, selectTask2: undefined })
     if (item.status && item.status === 'completed') {
       item.dateCompleted = getUtcNow().format()
     } else {
@@ -64,8 +64,7 @@ const TaskList = ({
     item.dateModified = getUtcNow().format()
     const tasks = filter(cloneDeep(model.tasks), (e) => e.id !== item.id)
     tasks.push(item)
-    setModel({ ...model, isLoading: false, tasks: orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc']), editTask: undefined, selectTask2: undefined })
-
+    //setModel({ ...model, isLoading: false, tasks: orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc']) })
     onModifyTask(item)
   }
 
@@ -82,19 +81,11 @@ const TaskList = ({
     setModel({ ...model, confirmCompleteTask: false, selectTask2: undefined, editTask: undefined, tasks: tasks })
   }
 
-  const handleCompleteTaskClick = (checked: boolean, item: UserTask) => {
+  const handleCompleteTaskClick = async (checked: boolean, item: UserTask) => {
     item.status = checked ? 'completed' : 'in progress'
-    /* if (checked) {
-      setModel({ ...model, confirmCompleteTask: true, selectTask2: item })
-      return
-    } */
-
-    handleSaveTask(item)
+    await handleSaveTask(item)
   }
 
-  React.useEffect(() => {
-    setModel({ ...model, isLoading: false })
-  }, [])
   return (
     <>
       <ConfirmDialog

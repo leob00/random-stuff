@@ -1,5 +1,4 @@
 import { DropdownItem } from 'lib/models/dropdown'
-import { logger } from 'lib/util/system'
 import { axiosGet } from './useAxios'
 
 let baseUrl = process.env.NEXT_QLN_API_URL
