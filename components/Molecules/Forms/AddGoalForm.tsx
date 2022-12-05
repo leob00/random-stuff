@@ -18,11 +18,8 @@ const EditGoalForm = ({ goal, onSubmit }: { goal: UserGoal; onSubmit: (data: Use
     setFormInput({ ...formInput, body: title })
   }
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //console.log(formInput)
     e.preventDefault()
     const isValid = formInput.body !== undefined && formInput.body.trim().length > 0 && !formInput.body.includes('  ')
-    //console.log('isValid: ', isValid)
-    //console.log('body: ', formInput.body)
     setValid(isValid)
     if (isValid) {
       const goal = cloneDeep(formInput)

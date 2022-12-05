@@ -8,6 +8,7 @@ import DateAndTimePicker from 'components/Atoms/Inputs/DateAndTimePicker'
 import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { getUserGoalTasks, putUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
+import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { calculatePercentInt } from 'lib/util/numberUtil'
 import { cloneDeep, filter, orderBy } from 'lodash'
@@ -63,8 +64,10 @@ const GoalDetails = ({
     tasks.push(item)
     const completed = filter(tasks, (e) => e.status === 'completed')
     tasks = orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc'])
+
     if (model.selectedGoal) {
       const goal = cloneDeep(model.selectedGoal)
+      goal.stats = getGoalStats(tasks)
       goal.completePercent = calculatePercentInt(completed.length, tasks.length)
       handleModifyGoal(goal)
     }
@@ -78,6 +81,7 @@ const GoalDetails = ({
     if (model.selectedGoal) {
       const goal = cloneDeep(model.selectedGoal)
       goal.completePercent = calculatePercentInt(completed.length, tasks.length)
+      goal.stats = getGoalStats(tasks)
       handleModifyGoal(goal)
     }
     await putUserGoalTasks(goalId, tasks)

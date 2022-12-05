@@ -8,6 +8,7 @@ import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
 import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import AddGoalForm from 'components/Molecules/Forms/AddGoalForm'
+import { CasinoRedTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { constructUserGoalPk, constructUserGoalsKey } from 'lib/backend/api/aws/util'
 import { getUserGoals, putUserGoals, putUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
@@ -89,8 +90,9 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   }
 
   const saveGoal = async (goal: UserGoal) => {
-    setModel({ ...model, isSaving: true, isLoading: true })
+    setModel({ ...model, isSaving: true })
     goal.dateModified = getUtcNow().format()
+    //goal.stats = getGoalStats(goal)
     let goals = filter(cloneDeep(model.goals), (e) => e.id !== goal!.id)
     goals.push(goal)
     goals = orderBy(goals, ['dateModified'], ['desc'])
@@ -114,7 +116,9 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
 
   React.useEffect(() => {
     const fn = async () => {
-      setModel({ ...model, goals: await loadGoals(), isLoading: false })
+      const goals = await loadGoals()
+      //setGoalStats(goals)
+      setModel({ ...model, goals: goals, isLoading: false })
     }
     fn()
   }, [])
@@ -178,6 +182,13 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
                   )}
                 </Stack>
                 {item.dueDate && <Typography variant='body2'>{`due: ${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
+
+                {item.stats && <Typography variant='body2'>{`completed: ${item.stats.completed}`}</Typography>}
+                {item.stats && <Typography variant='body2'>{`in progress: ${item.stats.inProgress}`}</Typography>}
+
+                {item.stats && item.stats.pastDue > 0 && (
+                  <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
+                )}
 
                 {model.selectedGoal && model.selectedGoal.id === item.id && (
                   <GoalDetails

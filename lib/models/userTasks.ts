@@ -1,5 +1,5 @@
 export interface UserGoal extends UserTask {
-  tasks?: UserTask[]
+  stats?: UserGoalStats
 }
 export interface UserTask {
   goalId?: string
@@ -11,4 +11,10 @@ export interface UserTask {
   dateModified?: string
   status?: 'completed' | 'in progress' | 'deferred'
   completePercent?: number
+}
+
+export interface UserGoalStats {
+  inProgress: number
+  completed: number
+  pastDue: number
 }
