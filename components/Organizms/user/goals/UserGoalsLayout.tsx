@@ -182,12 +182,16 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
                   )}
                 </Stack>
                 {item.dueDate && <Typography variant='body2'>{`due: ${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
-
                 {item.stats && <Typography variant='body2'>{`completed: ${item.stats.completed}`}</Typography>}
                 {item.stats && <Typography variant='body2'>{`in progress: ${item.stats.inProgress}`}</Typography>}
-
                 {item.stats && item.stats.pastDue > 0 && (
-                  <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
+                  <LinkButton2
+                    onClick={() => {
+                      handleGoalClick(item)
+                    }}
+                  >
+                    <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
+                  </LinkButton2>
                 )}
 
                 {model.selectedGoal && model.selectedGoal.id === item.id && (
