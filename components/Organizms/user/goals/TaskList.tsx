@@ -9,6 +9,7 @@ import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import AddTaskForm from 'components/Molecules/Forms/AddTaskForm'
 import EditTaskForm from 'components/Molecules/Forms/EditTaskForm'
+import { CasinoRedTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { constructUserTaskPk } from 'lib/backend/api/aws/util'
 import { UserTask } from 'lib/models/userTasks'
@@ -147,7 +148,12 @@ const TaskList = ({
                       />
                     </Stack>
                   </Stack>
-                  {item.dueDate && <Typography variant='body2'>{`due: ${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
+                  {item.dueDate && (
+                    <Typography
+                      variant='body2'
+                      color={item.status === 'in progress' && dayjs().isAfter(item.dueDate) ? CasinoRedTransparent : 'unset'}
+                    >{`due: ${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>
+                  )}
                   {i < tasks.length - 1 && <HorizontalDivider />}
                 </Box>
               )}
