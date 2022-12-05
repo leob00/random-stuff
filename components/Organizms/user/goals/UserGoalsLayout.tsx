@@ -8,6 +8,7 @@ import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
 import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import AddGoalForm from 'components/Molecules/Forms/AddGoalForm'
+import dayjs from 'dayjs'
 import { constructUserGoalPk, constructUserGoalsKey } from 'lib/backend/api/aws/util'
 import { getUserGoals, putUserGoals, putUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
 import { UserGoal } from 'lib/models/userTasks'
@@ -46,7 +47,6 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   }
 
   const handleEditGoalSubmit = async (item: UserGoal) => {
-    console.log('due date: ', item.dueDate)
     setModel({ ...model, isLoading: true })
     let goals = cloneDeep(model).goals
     if (!item.id) {
@@ -89,13 +89,13 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   }
 
   const saveGoal = async (goal: UserGoal) => {
-    setModel({ ...model, isSaving: true })
+    setModel({ ...model, isSaving: true, isLoading: true })
     goal.dateModified = getUtcNow().format()
     let goals = filter(cloneDeep(model.goals), (e) => e.id !== goal!.id)
     goals.push(goal)
     goals = orderBy(goals, ['dateModified'], ['desc'])
     await putUserGoals(constructUserGoalsKey(model.username), goals)
-    setModel({ ...model, goals: goals, selectedGoal: goal, isSaving: false })
+    setModel({ ...model, goals: goals, isSaving: false, isLoading: false, goalEditMode: false, selectedGoal: goal })
   }
 
   const handleSubmitGoalChanges = async () => {
@@ -108,7 +108,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
     if (model.selectedGoal) {
       const goal = cloneDeep(model.selectedGoal)
       goal.dueDate = text
-      await saveGoal(goal)
+      setModel({ ...model, selectedGoal: goal })
     }
   }
 
@@ -177,6 +177,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
                     </Stack>
                   )}
                 </Stack>
+                {item.dueDate && <Typography variant='body2'>{`due: ${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
 
                 {model.selectedGoal && model.selectedGoal.id === item.id && (
                   <GoalDetails

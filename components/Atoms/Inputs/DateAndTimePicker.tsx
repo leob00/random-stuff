@@ -37,7 +37,7 @@ const DateAndTimePicker = ({
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateTimePicker
-        //disabled={disabled}
+        disabled={disabled}
         key={label}
         renderInput={(props) => <TextField autoComplete={'off'} size='small' {...props} />}
         label={label}

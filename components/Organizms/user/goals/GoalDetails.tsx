@@ -69,7 +69,6 @@ const GoalDetails = ({
       handleModifyGoal(goal)
     }
     await putUserGoalTasks(goalId, tasks)
-
     setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
   }
   const handleDeleteTask = async (item: UserTask) => {
@@ -134,18 +133,24 @@ const GoalDetails = ({
           </Grid>
           {/*  <GoalDetailsMeta goal={model.selectedGoal} /> */}
           {model.goalEditMode && (
-            <Box py={2}>
-              <Stack direction={'row'} display={'flex'} spacing={1} alignItems={'center'}>
+            <>
+              <Box py={2} maxWidth={{ xs: 280, md: 500 }}>
                 <FormTextBox
+                  width={'100%'}
                   defaultValue={model.selectedGoal.body ?? ''}
                   label={'name'}
                   onChanged={handleGoalBodyChange}
-                  onBlurred={handleSubmitGoalChanges}
+                  //onBlurred={handleSubmitGoalChanges}
                   disabled={model.isSaving}
                 />
+              </Box>
+              <Box py={2} maxWidth={{ xs: 280, md: 500 }}>
                 <DateAndTimePicker disabled={model.isSaving} onChanged={handleDueDateChange} label={'due date'} defaultValue={model.selectedGoal.dueDate} />
-              </Stack>
-            </Box>
+              </Box>
+              <Box py={2} maxWidth={{ xs: 280, md: 500 }}>
+                <SecondaryButton text={'save'} onClick={handleSubmitGoalChanges} disabled={model.isSaving} />
+              </Box>
+            </>
           )}
           <HorizontalDivider />
           <Box py={2} pl={2}>
