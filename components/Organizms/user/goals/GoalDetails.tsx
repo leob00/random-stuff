@@ -46,16 +46,8 @@ const GoalDetails = ({
   const [taskModel, setTaskModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), { isLoading: true, tasks: [] })
 
   const handleAddTask = async (item: UserTask) => {
-    setTaskModel({ ...taskModel, isLoading: true })
-    if (!item.status) {
-      item.status = 'in progress'
-    }
-    setTaskModel({ ...taskModel, isLoading: true })
-    let tasks = cloneDeep(taskModel.tasks)
-    tasks.push(item)
-    tasks = orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc'])
-    await putUserGoalTasks(goalId, tasks)
-    setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
+    item.status = 'in progress'
+    await handleModifyTask(item)
   }
 
   const handleModifyTask = async (item: UserTask) => {
