@@ -6,7 +6,7 @@ import React from 'react'
 
 const GoalDetailsMeta = ({ goal }: { goal: UserGoal }) => {
   return (
-    <Stack direction={{ sx: 'column', md: 'row' }} display={'flex'} spacing={1} alignItems={'center'}>
+    <Stack>
       {goal.dueDate && (
         <>
           <Typography variant='body2'>due date:</Typography>

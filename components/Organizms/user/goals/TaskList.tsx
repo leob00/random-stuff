@@ -49,7 +49,6 @@ const TaskList = ({
   const handleAddTask = (item: UserTask) => {
     item.goalId = goalId
     item.id = constructUserTaskPk(username)
-
     onAddTask(item)
   }
   const handleTaskClick = (item: UserTask) => {

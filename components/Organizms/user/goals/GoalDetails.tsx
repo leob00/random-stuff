@@ -1,4 +1,5 @@
-import { Box, Stack } from '@mui/material'
+import { Close, Create, Delete } from '@mui/icons-material'
+import { Box, Grid, Stack, IconButton } from '@mui/material'
 import DangerButton from 'components/Atoms/Buttons/DangerButton'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
@@ -45,8 +46,13 @@ const GoalDetails = ({
 
   const handleAddTask = async (item: UserTask) => {
     setTaskModel({ ...taskModel, isLoading: true })
+    if (!item.status) {
+      item.status = 'in progress'
+    }
+    setTaskModel({ ...taskModel, isLoading: true })
     let tasks = cloneDeep(taskModel.tasks)
     tasks.push(item)
+    tasks = orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc'])
     await putUserGoalTasks(goalId, tasks)
     setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
   }
@@ -99,7 +105,39 @@ const GoalDetails = ({
     <>
       {model.selectedGoal && (
         <Box pb={1} pl={2}>
-          <GoalDetailsMeta goal={model.selectedGoal} />
+          <Grid container columns={{ xs: 10, md: 8 }} justifyContent={'left'} spacing={2}>
+            {/* <Grid item>
+              <GoalDetailsMeta goal={model.selectedGoal} />
+            </Grid> */}
+            <Grid item>
+              <Stack direction={'row'} spacing={1}>
+                <IconButton
+                  onClick={() => {
+                    handleSetGoalEditMode(!model.goalEditMode)
+                  }}
+                  color='secondary'
+                >
+                  <Create />
+                </IconButton>
+                <Stack>
+                  <IconButton
+                    onClick={() => {
+                      handleDeleteGoal(model.selectedGoal!)
+                    }}
+                    color='secondary'
+                  >
+                    <Delete color='error' />
+                  </IconButton>
+                </Stack>
+                <Stack>
+                  <IconButton onClick={handleCloseSelectedGoal} color='secondary'>
+                    <Close />
+                  </IconButton>
+                </Stack>
+              </Stack>
+            </Grid>
+          </Grid>
+          {/*  <GoalDetailsMeta goal={model.selectedGoal} /> */}
 
           {model.goalEditMode && (
             <Box py={2}>
@@ -115,7 +153,7 @@ const GoalDetails = ({
               </Stack>
             </Box>
           )}
-          <Box py={2}>
+          {/* <Box py={2}>
             <Stack direction={'row'} display={'flex'} justifyContent={'center'} spacing={1} alignItems={'center'} pt={2}>
               <DangerButton
                 size='small'
@@ -146,7 +184,7 @@ const GoalDetails = ({
               )}
               <PassiveButton text='close' onClick={handleCloseSelectedGoal} disabled={model.isSaving} size='small' />
             </Stack>
-          </Box>
+          </Box> */}
           <HorizontalDivider />
 
           <Box py={2} pl={2}>
