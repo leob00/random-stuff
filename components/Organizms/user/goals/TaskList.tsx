@@ -21,7 +21,7 @@ interface TaskModel {
   isLoading: boolean
   tasks: UserTask[]
   editTask?: UserTask
-  selectTask2?: UserTask
+  selectedTask?: UserTask
   confirmCompleteTask: boolean
 }
 
@@ -72,14 +72,14 @@ const TaskList = ({
   const handleYesChangeTaskStatus = () => {}
   const handleNoChangeTaskStatus = () => {
     const tasks = cloneDeep(model.tasks)
-    if (model.selectTask2 !== undefined) {
+    if (model.selectedTask !== undefined) {
       tasks.forEach((task) => {
-        if (task.id === model.selectTask2!.id) {
-          task.status = model.selectTask2!.status == 'in progress' ? 'completed' : 'in progress'
+        if (task.id === model.selectedTask!.id) {
+          task.status = model.selectedTask!.status == 'in progress' ? 'completed' : 'in progress'
         }
       })
     }
-    setModel({ ...model, confirmCompleteTask: false, selectTask2: undefined, editTask: undefined, tasks: tasks })
+    setModel({ ...model, confirmCompleteTask: false, selectedTask: undefined, editTask: undefined, tasks: tasks })
   }
 
   const handleCompleteTaskClick = async (checked: boolean, item: UserTask) => {
@@ -122,7 +122,7 @@ const TaskList = ({
                     task={model.editTask}
                     onSubmit={handleSaveTask}
                     onCancel={() => {
-                      setModel({ ...model, editTask: undefined, selectTask2: undefined })
+                      setModel({ ...model, editTask: undefined, selectedTask: undefined })
                     }}
                     onDelete={onDeleteTask}
                   />

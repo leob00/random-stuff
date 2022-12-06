@@ -1,19 +1,16 @@
 import { Close, Create, Delete } from '@mui/icons-material'
 import { Box, Grid, Stack, IconButton } from '@mui/material'
-import DangerButton from 'components/Atoms/Buttons/DangerButton'
-import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import DateAndTimePicker from 'components/Atoms/Inputs/DateAndTimePicker'
 import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
-import WarmupBox from 'components/Atoms/WarmupBox'
+import WarmupDialog from 'components/Atoms/Loaders/WarmupDialog'
 import { getUserGoalTasks, putUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
 import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { calculatePercentInt } from 'lib/util/numberUtil'
 import { cloneDeep, filter, orderBy } from 'lodash'
 import React from 'react'
-import GoalDetailsMeta from './GoalDetailsMeta'
 import TaskList from './TaskList'
 import { UserGoalsModel } from './UserGoalsLayout'
 
@@ -150,8 +147,9 @@ const GoalDetails = ({
           )}
           <HorizontalDivider />
           <Box py={2} pl={2}>
+            <WarmupDialog show={model.isLoading} />
             {taskModel.isLoading ? (
-              <WarmupBox />
+              <></>
             ) : (
               <>
                 <TaskList

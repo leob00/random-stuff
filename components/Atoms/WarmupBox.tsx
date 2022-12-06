@@ -24,7 +24,7 @@ const WarmupBox = ({ text }: { text?: string }) => {
     }, 2500)
   }, [model.message, text])
   return (
-    <Container sx={{}}>
+    <Box sx={{}}>
       <Box sx={{ py: 1 }}>
         <CenterStack>
           <Typography variant='body2' sx={{}}>
@@ -37,7 +37,7 @@ const WarmupBox = ({ text }: { text?: string }) => {
           <RollingLinearProgress width={100} height={25} />
         </CenterStack>
       </Box>
-    </Container>
+    </Box>
   )
 }
 

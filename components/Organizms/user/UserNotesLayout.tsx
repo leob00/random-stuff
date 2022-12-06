@@ -1,6 +1,5 @@
-import { Box, Divider, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import BackButton from 'components/Atoms/Buttons/BackButton'
-import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import WarmupBox from 'components/Atoms/WarmupBox'
@@ -14,10 +13,8 @@ import EditNote from './EditNote'
 import NoteList from './NoteList'
 import ViewNote from './ViewNote'
 import router from 'next/router'
-import ButtonSkeleton from 'components/Atoms/Skeletons/ButtonSkeleton'
 import { buildSaveModel } from 'lib/controllers/notes/notesController'
 import { useUserController } from 'hooks/userController'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import dayjs from 'dayjs'
 const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
   const [model, dispatch] = React.useReducer(notesReducer, data)
