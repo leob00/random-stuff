@@ -5,6 +5,7 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import DateAndTimePicker from 'components/Atoms/Inputs/DateAndTimePicker'
 import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
 import WarmupDialog from 'components/Atoms/Loaders/WarmupDialog'
+import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { getUserGoalTasks, putUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
 import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
@@ -149,7 +150,21 @@ const GoalDetails = ({
           <HorizontalDivider />
           <Box py={2} pl={2}>
             {taskModel.isLoading ? (
-              <WarmupBox />
+              <>
+                <WarmupBox />
+                <Box py={2}>
+                  <TextSkeleton />
+                </Box>
+                <Box py={2}>
+                  <TextSkeleton />
+                </Box>
+                <Box py={2}>
+                  <TextSkeleton />
+                </Box>
+                <Box py={2}>
+                  <TextSkeleton />
+                </Box>
+              </>
             ) : (
               <>
                 <TaskList

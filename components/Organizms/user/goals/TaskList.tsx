@@ -6,6 +6,7 @@ import ConfirmDialog from 'components/Atoms/Dialogs/ConfirmDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
 import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
+import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import AddTaskForm from 'components/Molecules/Forms/AddTaskForm'
 import EditTaskForm from 'components/Molecules/Forms/EditTaskForm'
@@ -106,7 +107,27 @@ const TaskList = ({
         <HorizontalDivider />
       </Box>
       {model.isLoading ? (
-        <WarmupBox />
+        <>
+          <WarmupBox />
+          <Box py={2}>
+            <TextSkeleton />
+          </Box>
+          <Box py={2}>
+            <TextSkeleton />
+          </Box>
+          <Box py={2}>
+            <TextSkeleton />
+          </Box>
+          <Box py={2}>
+            <TextSkeleton />
+          </Box>
+          <Box py={2}>
+            <TextSkeleton />
+          </Box>
+          <Box py={2}>
+            <TextSkeleton />
+          </Box>
+        </>
       ) : (
         <>
           {tasks.length === 0 && (
