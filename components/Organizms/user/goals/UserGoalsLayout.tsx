@@ -3,10 +3,10 @@ import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import WarmupDialog from 'components/Atoms/Loaders/WarmupDialog'
 import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
 import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
+import WarmupBox from 'components/Atoms/WarmupBox'
 import AddGoalForm from 'components/Molecules/Forms/AddGoalForm'
 import { CasinoRedTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
@@ -148,7 +148,24 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
       </Box>
       <Box>
         {model.isLoading ? (
-          <WarmupDialog show={model.isLoading} />
+          <>
+            <WarmupBox />
+            <Box py={2}>
+              <TextSkeleton />
+            </Box>
+            <Box py={2}>
+              <TextSkeleton />
+            </Box>
+            <Box py={2}>
+              <TextSkeleton />
+            </Box>
+            <Box py={2}>
+              <TextSkeleton />
+            </Box>
+            <Box py={2}>
+              <TextSkeleton />
+            </Box>
+          </>
         ) : (
           <>
             {model.goals.length > 0 && (
