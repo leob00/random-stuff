@@ -12,7 +12,8 @@ import { CasinoRedTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { constructUserGoalPk, constructUserGoalsKey } from 'lib/backend/api/aws/util'
 import { getUserGoals, putUserGoals, putUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
-import { UserGoal } from 'lib/models/userTasks'
+import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
+import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getSecondsFromEpoch, getUtcNow } from 'lib/util/dateUtil'
 import { cloneDeep, filter, orderBy } from 'lodash'
 import React from 'react'
@@ -26,6 +27,7 @@ export interface UserGoalsModel {
   username: string
   goalEditMode: boolean
   showConfirmDeleteGoal: boolean
+  selectedGoalTasks?: UserTask[]
 }
 
 const UserGoalsLayout = ({ username }: { username: string }) => {
@@ -61,7 +63,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
     setModel({ ...model, goals: goals, selectedGoal: undefined, isLoading: false })
   }
 
-  const handleGoalClick = (item: UserGoal) => {
+  const handleGoalClick = async (item: UserGoal) => {
     setModel({ ...model, selectedGoal: item })
   }
   const handleCloseSelectedGoal = () => {
@@ -74,7 +76,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
     setModel({ ...model, isLoading: true, showConfirmDeleteGoal: false })
     const goalList = filter(model.goals, (e) => e.id !== model.selectedGoal?.id)
     await putUserGoals(constructUserGoalsKey(username), goalList)
-    await putUserGoalTasks(model.selectedGoal?.id!, [], getSecondsFromEpoch())
+    await putUserGoalTasks(model.username, model.selectedGoal?.id!, [], getSecondsFromEpoch())
     setModel({ ...model, goals: goalList, selectedGoal: undefined, isLoading: false, showConfirmDeleteGoal: false })
   }
 
@@ -112,6 +114,11 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
       goal.dueDate = text
       setModel({ ...model, selectedGoal: goal })
     }
+  }
+  const handelGoalDetailsLoaded = (goal: UserGoal, tasks: UserTask[]) => {
+    goal.stats = getGoalStats(tasks)
+    setModel({ ...model, selectedGoal: goal })
+    //console.log(`loaded goal:  ${goal.id} task count:  ${tasks.length}`)
   }
 
   React.useEffect(() => {
@@ -222,6 +229,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
                     handleSubmitGoalChanges={handleSubmitGoalChanges}
                     handleSetGoalEditMode={handleSetGoalEditMode}
                     handleModifyGoal={saveGoal}
+                    onLoaded={handelGoalDetailsLoaded}
                   />
                 )}
                 {i < model.goals.length - 1 && <HorizontalDivider />}

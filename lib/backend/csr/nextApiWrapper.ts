@@ -188,10 +188,10 @@ export async function putUserGoals(id: string, data: UserGoal[], expiration: num
   }
   await axiosPut(`/api/putRandomStuff`, putRequest)
 }
-export async function putUserGoalTasks(goalId: string, data: UserTask[], expiration: number = 0) {
+export async function putUserGoalTasks(username: string, goalId: string, data: UserTask[], expiration: number = 0) {
   let req: LambdaDynamoRequest = {
     id: goalId,
-    category: 'user-goals-tasks',
+    category: `user-goal-tasks[${username}]`,
     data: data,
     expiration: expiration,
     token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${goalId}`),

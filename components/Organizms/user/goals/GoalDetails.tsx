@@ -31,6 +31,7 @@ const GoalDetails = ({
   handleCloseSelectedGoal,
   handleSetGoalEditMode,
   handleModifyGoal,
+  onLoaded,
 }: {
   model: UserGoalsModel
   goalId: string
@@ -41,6 +42,7 @@ const GoalDetails = ({
   handleCloseSelectedGoal: () => void
   handleSetGoalEditMode: (isEdit: boolean) => void
   handleModifyGoal: (item: UserGoal) => void
+  onLoaded?: (goal: UserGoal, tasks: UserTask[]) => void
 }) => {
   const [taskModel, setTaskModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), { isLoading: true, tasks: [] })
 
@@ -62,7 +64,7 @@ const GoalDetails = ({
       goal.completePercent = calculatePercentInt(completed.length, tasks.length)
       handleModifyGoal(goal)
     }
-    await putUserGoalTasks(goalId, tasks)
+    await putUserGoalTasks(model.username, goalId, tasks)
     setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
   }
   const handleDeleteTask = async (item: UserTask) => {
@@ -75,7 +77,7 @@ const GoalDetails = ({
       goal.stats = getGoalStats(tasks)
       handleModifyGoal(goal)
     }
-    await putUserGoalTasks(goalId, tasks)
+    await putUserGoalTasks(goalId, model.username, tasks)
     setTaskModel({ ...taskModel, tasks: orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc']), isLoading: false })
   }
 
@@ -89,6 +91,7 @@ const GoalDetails = ({
       })
       const tasks = orderBy(result, ['status', 'dueDate'], ['desc', 'asc'])
       setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
+      onLoaded?.(model.selectedGoal!, tasks)
     }
     fn()
   }, [goalId])
