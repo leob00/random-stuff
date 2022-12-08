@@ -1,11 +1,9 @@
 import { Box, Button, Stack, Typography } from '@mui/material'
-import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
-import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import AddGoalForm from 'components/Molecules/Forms/AddGoalForm'
 import { CasinoRedTransparent } from 'components/themes/mainTheme'
@@ -96,7 +94,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   }
 
   const saveGoal = async (goal: UserGoal) => {
-    setModel({ ...model, isSaving: true })
+    setModel({ ...model, isSaving: true, isLoading: true })
     goal.dateModified = getUtcNow().format()
     let goals = filter(cloneDeep(model.goals), (e) => e.id !== goal!.id)
     goals.push(goal)
@@ -145,7 +143,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
       <ConfirmDeleteDialog
         show={model.showConfirmDeleteGoal}
         title={'confirm delete'}
-        text={'Are you sure you want to delete this goal?'}
+        text={`Are you sure you want to delete goal: ${model.selectedGoal?.body}?`}
         onConfirm={handleYesDeleteGoal}
         onCancel={() => {
           setModel({ ...model, showConfirmDeleteGoal: false })
@@ -180,7 +178,6 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
         ) : (
           <>
             <Stack direction={'row'} spacing={1}>
-              <TextSkeleton />
               <TextSkeleton />
             </Stack>
           </>

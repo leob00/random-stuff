@@ -55,13 +55,18 @@ const GoalDetails = ({
     setTaskModel({ ...taskModel, isLoading: true })
     let tasks = filter(cloneDeep(taskModel.tasks), (e) => e.id !== item.id)
     tasks.push(item)
-    const completed = filter(tasks, (e) => e.status === 'completed')
     tasks = orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc'])
 
     if (model.selectedGoal) {
       const goal = cloneDeep(model.selectedGoal)
       goal.stats = getGoalStats(tasks)
-      goal.completePercent = calculatePercentInt(completed.length, tasks.length)
+      if (tasks.length > 0) {
+        const completed = filter(tasks, (e) => e.status === 'completed')
+
+        goal.completePercent = calculatePercentInt(completed.length, tasks.length)
+      } else {
+        goal.completePercent = 0
+      }
       handleModifyGoal(goal)
     }
     await putUserGoalTasks(model.username, goalId, tasks)
@@ -75,6 +80,13 @@ const GoalDetails = ({
       goal.stats = getGoalStats(tasks)
       await putUserGoalTasks(model.username, goal.id!, tasks)
       setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
+      if (tasks.length > 0) {
+        const completed = filter(tasks, (e) => e.status === 'completed')
+
+        goal.completePercent = calculatePercentInt(completed.length, tasks.length)
+      } else {
+        goal.completePercent = 0
+      }
       handleModifyGoal(goal)
     }
   }
