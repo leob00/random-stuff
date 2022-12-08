@@ -1,9 +1,9 @@
 import { Link } from '@mui/material'
 import React, { ReactNode } from 'react'
 
-const LinkButton2 = ({ children, onClick }: { children: ReactNode; onClick: () => void }) => {
+const LinkButton2 = ({ children, id, onClick }: { children: ReactNode; id?: string; onClick: () => void }) => {
   return (
-    <Link component='button' variant='body2' color={'secondary'} onClick={onClick}>
+    <Link component='button' id={id} variant='body2' color={'secondary'} onClick={onClick}>
       {children}
     </Link>
   )

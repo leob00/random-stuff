@@ -18,6 +18,7 @@ import { getSecondsFromEpoch, getUtcNow } from 'lib/util/dateUtil'
 import { cloneDeep, filter, orderBy } from 'lodash'
 import React from 'react'
 import GoalDetails from './GoalDetails'
+import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined'
 
 export interface UserGoalsModel {
   isLoading: boolean
@@ -120,11 +121,15 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   const handelGoalDetailsLoaded = (goal: UserGoal, tasks: UserTask[]) => {
     goal.stats = getGoalStats(tasks)
     setModel({ ...model, selectedGoal: goal })
-    const div = document.getElementById('goalDetails')
+    const div = document.getElementById('goalDetailsLink')
     if (div) {
       div.scrollIntoView({ behavior: 'smooth' })
     }
-    //console.log(`loaded goal:  ${goal.id} task count:  ${tasks.length}`)
+  }
+  const handleRefrehGoals = async () => {
+    setModel({ ...model, isLoading: true })
+    let goals = await loadGoals()
+    setModel({ ...model, goals: goals, goalEditMode: false, selectedGoal: undefined })
   }
 
   React.useEffect(() => {
@@ -149,15 +154,23 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
       <Box py={2}>
         {!model.isLoading ? (
           <>
-            <Box pb={1}>
-              <LinkButton2
-                onClick={() => {
-                  setModel({ ...model, showAddGoalForm: !model.showAddGoalForm })
-                }}
-              >
-                add goal
-              </LinkButton2>
-            </Box>
+            <Stack display={'flex'} direction={'row'} justifyContent={'left'} alignItems={'left'}>
+              <Box>
+                <LinkButton2
+                  onClick={() => {
+                    setModel({ ...model, showAddGoalForm: !model.showAddGoalForm })
+                  }}
+                >
+                  add goal
+                </LinkButton2>
+              </Box>
+              <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
+                <Button size='small' onClick={handleRefrehGoals}>
+                  <RefreshOutlinedIcon color='secondary' fontSize='small' />
+                </Button>
+              </Stack>
+            </Stack>
+
             {model.showAddGoalForm && (
               <Box pt={1}>
                 <AddGoalForm goal={{}} onSubmit={handleEditGoalSubmit} />
@@ -208,55 +221,58 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
             <HorizontalDivider />
 
             {model.goals.map((item, i) => (
-              <Box key={i}>
-                <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
-                  <LinkButton2
-                    onClick={() => {
-                      handleGoalClick(item)
-                    }}
-                  >
-                    <Typography textAlign={'left'} variant='subtitle1'>
-                      {item.body}
-                    </Typography>
-                  </LinkButton2>
-                  {item.completePercent !== undefined && (
-                    <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-                      <ProgressBar value={item.completePercent} toolTipText={`${item.completePercent}% complete`} width={80} />
-                    </Stack>
+              <>
+                <Box key={i}>
+                  <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
+                    <LinkButton2
+                      id={model.selectedGoal && model.selectedGoal.id === item.id ? 'goalDetailsLink' : undefined}
+                      onClick={() => {
+                        handleGoalClick(item)
+                      }}
+                    >
+                      <Typography textAlign={'left'} variant='subtitle1'>
+                        {item.body}
+                      </Typography>
+                    </LinkButton2>
+                    {item.completePercent !== undefined && (
+                      <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
+                        <ProgressBar value={item.completePercent} toolTipText={`${item.completePercent}% complete`} width={80} />
+                      </Stack>
+                    )}
+                  </Stack>
+                  {item.dueDate && <Typography variant='body2'>{`due: ${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
+                  {item.stats && <Typography variant='body2'>{`completed: ${item.stats.completed}`}</Typography>}
+                  {item.stats && <Typography variant='body2'>{`in progress: ${item.stats.inProgress}`}</Typography>}
+                  {item.stats && item.stats.pastDue > 0 && (
+                    <LinkButton2
+                      onClick={() => {
+                        handleGoalClick(item)
+                      }}
+                    >
+                      <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
+                    </LinkButton2>
                   )}
-                </Stack>
-                {item.dueDate && <Typography variant='body2'>{`due: ${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
-                {item.stats && <Typography variant='body2'>{`completed: ${item.stats.completed}`}</Typography>}
-                {item.stats && <Typography variant='body2'>{`in progress: ${item.stats.inProgress}`}</Typography>}
-                {item.stats && item.stats.pastDue > 0 && (
-                  <LinkButton2
-                    onClick={() => {
-                      handleGoalClick(item)
-                    }}
-                  >
-                    <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
-                  </LinkButton2>
-                )}
 
-                {model.selectedGoal && model.selectedGoal.id === item.id && (
-                  <>
-                    <Button id='goalDetailsStart' sx={{ display: 'none' }}></Button>
-                    <GoalDetails
-                      model={model}
-                      goalId={item.id!}
-                      handleGoalBodyChange={handleGoalBodyChange}
-                      handleCloseSelectedGoal={handleCloseSelectedGoal}
-                      handleDeleteGoal={handleDeleteGoal}
-                      handleDueDateChange={handleDueDateChange}
-                      handleSubmitGoalChanges={handleSubmitGoalChanges}
-                      handleSetGoalEditMode={handleSetGoalEditMode}
-                      handleModifyGoal={saveGoal}
-                      onLoaded={handelGoalDetailsLoaded}
-                    />
-                  </>
-                )}
-                {i < model.goals.length - 1 && <HorizontalDivider />}
-              </Box>
+                  {model.selectedGoal && model.selectedGoal.id === item.id && (
+                    <>
+                      <Button id='goalDetailsStart' sx={{ display: 'none' }}></Button>
+                      <GoalDetails
+                        model={model}
+                        goalId={item.id!}
+                        handleGoalBodyChange={handleGoalBodyChange}
+                        handleCloseSelectedGoal={handleCloseSelectedGoal}
+                        handleDeleteGoal={handleDeleteGoal}
+                        handleDueDateChange={handleDueDateChange}
+                        handleSubmitGoalChanges={handleSubmitGoalChanges}
+                        handleSetGoalEditMode={handleSetGoalEditMode}
+                        handleModifyGoal={saveGoal}
+                        onLoaded={handelGoalDetailsLoaded}
+                      />
+                    </>
+                  )}
+                  {i < model.goals.length - 1 && <HorizontalDivider />}
+                </Box>
+              </>
             ))}
           </>
         )}
