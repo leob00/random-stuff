@@ -1,3 +1,4 @@
+import { Check, CheckCircle, CheckCircleOutlined, CheckOutlined, TaskAltOutlined, TaskAltRounded, TaskAltSharp } from '@mui/icons-material'
 import { Box, Checkbox, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
@@ -161,12 +162,13 @@ const TaskList = ({
                       </Typography>
                     </LinkButton2>
                     <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-                      <Checkbox
+                      {item.status === 'completed' && <CheckCircle color='secondary' />}
+                      {/*    <Checkbox
                         checked={item.status === 'completed'}
                         onChange={(e, checked: boolean) => {
                           handleCompleteTaskClick(checked, item)
                         }}
-                      />
+                      /> */}
                     </Stack>
                   </Stack>
                   {item.dueDate && (

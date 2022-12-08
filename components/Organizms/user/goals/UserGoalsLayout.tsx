@@ -27,7 +27,7 @@ export interface UserGoalsModel {
   username: string
   goalEditMode: boolean
   showConfirmDeleteGoal: boolean
-  selectedGoalTasks?: UserTask[]
+  showAddGoalForm: boolean
 }
 
 const UserGoalsLayout = ({ username }: { username: string }) => {
@@ -38,6 +38,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
     goalEditMode: false,
     isSaving: false,
     showConfirmDeleteGoal: false,
+    showAddGoalForm: false,
   }
   const [model, setModel] = React.useReducer((state: UserGoalsModel, newState: UserGoalsModel) => ({ ...state, ...newState }), defaultModel)
 
@@ -63,7 +64,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
     goals.push(item)
     goals = orderBy(goals, ['dateModified'], ['desc'])
     await putUserGoals(constructUserGoalsKey(model.username), goals)
-    setModel({ ...model, goals: goals, selectedGoal: undefined, isLoading: false })
+    setModel({ ...model, goals: goals, selectedGoal: undefined, isLoading: false, showAddGoalForm: false })
   }
 
   const handleGoalClick = async (item: UserGoal) => {
@@ -145,7 +146,22 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
       />
       <Box py={2}>
         {!model.isLoading ? (
-          <AddGoalForm goal={{}} onSubmit={handleEditGoalSubmit} />
+          <>
+            <Box pb={1}>
+              <LinkButton2
+                onClick={() => {
+                  setModel({ ...model, showAddGoalForm: !model.showAddGoalForm })
+                }}
+              >
+                add goal
+              </LinkButton2>
+            </Box>
+            {model.showAddGoalForm && (
+              <Box pt={1}>
+                <AddGoalForm goal={{}} onSubmit={handleEditGoalSubmit} />
+              </Box>
+            )}
+          </>
         ) : (
           <>
             <Stack direction={'row'} spacing={1}>
