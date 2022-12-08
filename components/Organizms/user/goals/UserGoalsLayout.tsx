@@ -44,8 +44,11 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   const loadGoals = async () => {
     const result = await getUserGoals(constructUserGoalsKey(username))
     result.forEach((g) => {
-      if (!g.completePercent) g.completePercent = 0
+      if (!g.completePercent) {
+        g.completePercent = 0
+      }
     })
+    //console.log(JSON.stringify(result))
     return orderBy(result, ['dateModified'], ['desc'])
   }
 
@@ -94,7 +97,6 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   const saveGoal = async (goal: UserGoal) => {
     setModel({ ...model, isSaving: true })
     goal.dateModified = getUtcNow().format()
-    //goal.stats = getGoalStats(goal)
     let goals = filter(cloneDeep(model.goals), (e) => e.id !== goal!.id)
     goals.push(goal)
     goals = orderBy(goals, ['dateModified'], ['desc'])

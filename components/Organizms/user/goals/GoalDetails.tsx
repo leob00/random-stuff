@@ -31,6 +31,7 @@ const GoalDetails = ({
   handleCloseSelectedGoal,
   handleSetGoalEditMode,
   handleModifyGoal,
+
   onLoaded,
 }: {
   model: UserGoalsModel
@@ -42,6 +43,7 @@ const GoalDetails = ({
   handleCloseSelectedGoal: () => void
   handleSetGoalEditMode: (isEdit: boolean) => void
   handleModifyGoal: (item: UserGoal) => void
+
   onLoaded?: (goal: UserGoal, tasks: UserTask[]) => void
 }) => {
   const [taskModel, setTaskModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), { isLoading: true, tasks: [] })
@@ -69,16 +71,14 @@ const GoalDetails = ({
   }
   const handleDeleteTask = async (item: UserTask) => {
     setTaskModel({ ...taskModel, isLoading: true })
-    let tasks = filter(cloneDeep(taskModel.tasks), (e) => e.id !== item.id)
-    const completed = filter(tasks, (e) => e.status === 'completed')
     if (model.selectedGoal) {
-      const goal = cloneDeep(model.selectedGoal)
-      goal.completePercent = calculatePercentInt(completed.length, tasks.length)
+      let goal = cloneDeep(model.selectedGoal)
+      let tasks = filter(cloneDeep(taskModel.tasks), (e) => e.id !== item.id)
       goal.stats = getGoalStats(tasks)
+      await putUserGoalTasks(model.username, goal.id!, tasks)
+      setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
       handleModifyGoal(goal)
     }
-    await putUserGoalTasks(goalId, model.username, tasks)
-    setTaskModel({ ...taskModel, tasks: orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc']), isLoading: false })
   }
 
   React.useEffect(() => {

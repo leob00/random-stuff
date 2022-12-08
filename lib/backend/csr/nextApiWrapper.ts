@@ -189,6 +189,7 @@ export async function putUserGoals(id: string, data: UserGoal[], expiration: num
   await axiosPut(`/api/putRandomStuff`, putRequest)
 }
 export async function putUserGoalTasks(username: string, goalId: string, data: UserTask[], expiration: number = 0) {
+  //console.log('goal id ', goalId)
   let req: LambdaDynamoRequest = {
     id: goalId,
     category: `user-goal-tasks[${username}]`,
@@ -200,6 +201,7 @@ export async function putUserGoalTasks(username: string, goalId: string, data: U
   const putRequest: EncPutRequest = {
     data: encryptBody(req),
   }
+  //console.log(putRequest)
   await axiosPut(`/api/putRandomStuff`, putRequest)
 }
 
