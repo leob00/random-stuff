@@ -31,7 +31,6 @@ const GoalDetails = ({
   handleCloseSelectedGoal,
   handleSetGoalEditMode,
   handleModifyGoal,
-
   onLoaded,
 }: {
   model: UserGoalsModel
@@ -43,7 +42,6 @@ const GoalDetails = ({
   handleCloseSelectedGoal: () => void
   handleSetGoalEditMode: (isEdit: boolean) => void
   handleModifyGoal: (item: UserGoal) => void
-
   onLoaded?: (goal: UserGoal, tasks: UserTask[]) => void
 }) => {
   const [taskModel, setTaskModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), { isLoading: true, tasks: [] })
@@ -104,6 +102,7 @@ const GoalDetails = ({
             <Grid item>
               <Stack direction={'row'} spacing={1}>
                 <IconButton
+                  id='goalDetails'
                   onClick={() => {
                     handleSetGoalEditMode(!model.goalEditMode)
                   }}

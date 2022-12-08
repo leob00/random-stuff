@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Button, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
@@ -49,7 +49,6 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
         g.completePercent = 0
       }
     })
-    //console.log(JSON.stringify(result))
     return orderBy(result, ['dateModified'], ['desc'])
   }
 
@@ -121,13 +120,16 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   const handelGoalDetailsLoaded = (goal: UserGoal, tasks: UserTask[]) => {
     goal.stats = getGoalStats(tasks)
     setModel({ ...model, selectedGoal: goal })
+    const div = document.getElementById('goalDetails')
+    if (div) {
+      div.scrollIntoView({ behavior: 'smooth' })
+    }
     //console.log(`loaded goal:  ${goal.id} task count:  ${tasks.length}`)
   }
 
   React.useEffect(() => {
     const fn = async () => {
       const goals = await loadGoals()
-      //setGoalStats(goals)
       setModel({ ...model, goals: goals, isLoading: false })
     }
     fn()
@@ -237,18 +239,21 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
                 )}
 
                 {model.selectedGoal && model.selectedGoal.id === item.id && (
-                  <GoalDetails
-                    model={model}
-                    goalId={item.id!}
-                    handleGoalBodyChange={handleGoalBodyChange}
-                    handleCloseSelectedGoal={handleCloseSelectedGoal}
-                    handleDeleteGoal={handleDeleteGoal}
-                    handleDueDateChange={handleDueDateChange}
-                    handleSubmitGoalChanges={handleSubmitGoalChanges}
-                    handleSetGoalEditMode={handleSetGoalEditMode}
-                    handleModifyGoal={saveGoal}
-                    onLoaded={handelGoalDetailsLoaded}
-                  />
+                  <>
+                    <Button id='goalDetailsStart' sx={{ display: 'none' }}></Button>
+                    <GoalDetails
+                      model={model}
+                      goalId={item.id!}
+                      handleGoalBodyChange={handleGoalBodyChange}
+                      handleCloseSelectedGoal={handleCloseSelectedGoal}
+                      handleDeleteGoal={handleDeleteGoal}
+                      handleDueDateChange={handleDueDateChange}
+                      handleSubmitGoalChanges={handleSubmitGoalChanges}
+                      handleSetGoalEditMode={handleSetGoalEditMode}
+                      handleModifyGoal={saveGoal}
+                      onLoaded={handelGoalDetailsLoaded}
+                    />
+                  </>
                 )}
                 {i < model.goals.length - 1 && <HorizontalDivider />}
               </Box>
