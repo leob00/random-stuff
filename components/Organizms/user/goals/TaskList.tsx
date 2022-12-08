@@ -1,5 +1,5 @@
-import { Check, CheckCircle, CheckCircleOutlined, CheckOutlined, TaskAltOutlined, TaskAltRounded, TaskAltSharp } from '@mui/icons-material'
-import { Box, Checkbox, Stack, Typography } from '@mui/material'
+import { Check, CheckBoxOutlined, CheckCircle, CheckCircleOutlined, CheckOutlined, TaskAltOutlined, TaskAltRounded, TaskAltSharp } from '@mui/icons-material'
+import { Box, Button, Checkbox, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
@@ -18,6 +18,8 @@ import { UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { cloneDeep, filter, orderBy } from 'lodash'
 import React from 'react'
+import CheckBoxOutlineBlankRoundedIcon from '@mui/icons-material/CheckBoxOutlineBlankRounded'
+import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined'
 
 interface TaskModel {
   isLoading: boolean
@@ -162,7 +164,13 @@ const TaskList = ({
                       </Typography>
                     </LinkButton2>
                     <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-                      {item.status === 'completed' && <CheckCircle color='secondary' />}
+                      <Button
+                        onClick={() => {
+                          handleCompleteTaskClick(item.status !== 'completed', item)
+                        }}
+                      >
+                        {item.status === 'completed' ? <CheckBoxOutlinedIcon color='secondary' /> : <CheckBoxOutlineBlankRoundedIcon color='secondary' />}
+                      </Button>
                       {/*    <Checkbox
                         checked={item.status === 'completed'}
                         onChange={(e, checked: boolean) => {
