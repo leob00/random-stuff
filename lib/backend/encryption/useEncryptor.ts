@@ -14,7 +14,7 @@ export const useEncryptor = () => {
 }
 
 export function myEncrypt(passPhrase: string, data: string) {
-  const result = CryptoJS.AES.encrypt(data, passPhrase, CryptoJS.enc.Utf8).toString()
+  const result = CryptoJS.AES.encrypt(data, passPhrase).toString()
   return result
 }
 
