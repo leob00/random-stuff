@@ -83,9 +83,15 @@ export async function putAnimals(type: DynamoKeys, data: BasicArticle[]) {
 
 export async function getAnimals(type: DynamoKeys) {
   const url = `${baseUrl}/animals?key=${type}`
-  let response = (await axiosGet(url)) as LambdaResponse
-  let data = JSON.parse(response.body.data) as BasicArticle[]
-  return data
+  let response: LambdaResponse | null = null
+  try {
+    response = (await axiosGet(url)) as LambdaResponse
+    let data = JSON.parse(response.body.data) as BasicArticle[]
+    return data
+  } catch (err) {
+    console.log(`error in getAnimals: ${type} `, JSON.stringify(response))
+    return []
+  }
 }
 
 export async function getRandomStuff(type: DynamoKeys) {
