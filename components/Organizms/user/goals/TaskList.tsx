@@ -47,20 +47,24 @@ const TaskList = ({
   //const [isLoading, setIsLoading] = React.useState(true)
   const [model, setModel] = React.useReducer((state: TaskModel, newState: TaskModel) => ({ ...state, ...newState }), {
     isLoading: false,
-    tasks: [],
+    tasks: tasks,
     confirmCompleteTask: false,
   })
 
   const handleAddTask = (item: UserTask) => {
+    setModel({ ...model, isLoading: true })
     item.goalId = goalId
     item.id = constructUserTaskPk(username)
+    const tasks = cloneDeep(model.tasks)
+    tasks.push(item)
+    setModel({ ...model, isLoading: false, tasks: orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc']) })
     onAddTask(item)
   }
   const handleTaskClick = (item: UserTask) => {
     setModel({ ...model, editTask: item })
   }
   const handleSaveTask = async (item: UserTask) => {
-    //setModel({ ...model, isLoading: true, confirmCompleteTask: false, editTask: undefined, selectTask2: undefined })
+    setModel({ ...model, isLoading: true })
     if (item.status && item.status === 'completed') {
       item.dateCompleted = getUtcNow().format()
     } else {
@@ -69,7 +73,7 @@ const TaskList = ({
     item.dateModified = getUtcNow().format()
     const tasks = filter(cloneDeep(model.tasks), (e) => e.id !== item.id)
     tasks.push(item)
-    //setModel({ ...model, isLoading: false, tasks: orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc']) })
+    setModel({ ...model, isLoading: false, tasks: orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc']) })
     onModifyTask(item)
   }
 

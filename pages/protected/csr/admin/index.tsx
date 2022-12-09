@@ -14,6 +14,9 @@ import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 import { DropdownItem } from 'lib/models/dropdown'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { myEncrypt, myEncryptBase64 } from 'lib/backend/encryption/useEncryptor'
+import { axiosPut } from 'lib/backend/api/aws/useAxios'
+import { EncPutRequest } from 'lib/backend/csr/nextApiWrapper'
 
 const Page = () => {
   const userController = useUserController()
@@ -46,6 +49,8 @@ const Page = () => {
     fn()
   }, [userController.username])
 
+  const searchTasksUrl = `/api/searchRandomStuff?id=user-goal-tasks[leo_bel@hotmail.com]`
+
   const apiOptions: DropdownItem[] = [
     {
       text: 'status',
@@ -67,11 +72,27 @@ const Page = () => {
       text: 'recipes',
       value: '/api/recipes',
     },
+    {
+      text: 'user tasks',
+      value: '/api/searchRandomStuff',
+    },
   ]
 
   const handleApiSelected = async (url: string) => {
     setLoadingResult(true)
-    const result = await axiosGet(url)
+    let req = url
+    if (req.includes('searchRandomStuff')) {
+      const enc = myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), 'user-goal-tasks[leo_bel@hotmail.com]')
+      //req = `/api/searchRandomStuff?id=user-goal-tasks[leo_bel@hotmail.com]&enc=${enc}`
+      const body: EncPutRequest = {
+        data: enc,
+      }
+      const result = await axiosPut(req, body)
+      setJsonResult(JSON.stringify(result))
+      setLoadingResult(false)
+      return
+    }
+    const result = await axiosGet(req)
     setJsonResult(JSON.stringify(result))
     setLoadingResult(false)
   }
@@ -89,7 +110,6 @@ const Page = () => {
             <CenterStack>
               <DropdownList options={apiOptions} selectedOption={'/api/status'} onOptionSelected={handleApiSelected} />
             </CenterStack>
-
             <CenterStack sx={{ py: 4 }}>
               {loadingResult ? (
                 <WarmupBox />

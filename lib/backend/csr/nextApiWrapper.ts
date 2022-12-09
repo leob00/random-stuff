@@ -6,7 +6,7 @@ import { filter } from 'lodash'
 import { ApiError } from 'next/dist/server/api-utils'
 import { LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
 import { axiosGet, axiosPut } from '../api/aws/useAxios'
-import { constructUserNoteCategoryKey, constructUserProfileKey } from '../api/aws/util'
+import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserProfileKey } from '../api/aws/util'
 import { myEncrypt } from '../encryption/useEncryptor'
 
 export interface EncPutRequest {
@@ -192,7 +192,7 @@ export async function putUserGoalTasks(username: string, goalId: string, data: U
   //console.log('goal id ', goalId)
   let req: LambdaDynamoRequest = {
     id: goalId,
-    category: `user-goal-tasks[${username}]`,
+    category: constructUserGoalTaksSecondaryKey(username),
     data: data,
     expiration: expiration,
     token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${goalId}`),

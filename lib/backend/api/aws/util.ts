@@ -26,3 +26,7 @@ export function constructUserGoalPk(username: string) {
 export function constructUserTaskPk(username: string) {
   return `user-task[${username}][${getSecondsFromEpoch()}]`
 }
+
+export function constructUserGoalTaksSecondaryKey(username: string) {
+  return `user-goal-tasks[${username}]`
+}

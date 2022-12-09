@@ -117,6 +117,7 @@ export async function searchRandomStuffBySecIndex(search: CategoryType | string)
   }
   return result
 }
+
 export async function putRandomStuff(type: DynamoKeys, category: CategoryType, data: any, expiration?: number) {
   const url = `${baseUrl}/randomstuff`
 
