@@ -218,58 +218,56 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
             <HorizontalDivider />
 
             {model.goals.map((item, i) => (
-              <>
-                <Box key={i}>
-                  <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
-                    <LinkButton2
-                      id={model.selectedGoal && model.selectedGoal.id === item.id ? 'goalDetailsLink' : undefined}
-                      onClick={() => {
-                        handleGoalClick(item)
-                      }}
-                    >
-                      <Typography textAlign={'left'} variant='subtitle1'>
-                        {item.body}
-                      </Typography>
-                    </LinkButton2>
-                    {item.completePercent !== undefined && (
-                      <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-                        <ProgressBar value={item.completePercent} toolTipText={`${item.completePercent}% complete`} width={80} />
-                      </Stack>
-                    )}
-                  </Stack>
-                  {item.dueDate && <Typography variant='body2'>{`due: ${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
-                  {item.stats && <Typography variant='body2'>{`completed: ${item.stats.completed}`}</Typography>}
-                  {item.stats && <Typography variant='body2'>{`in progress: ${item.stats.inProgress}`}</Typography>}
-                  {item.stats && item.stats.pastDue > 0 && (
-                    <LinkButton2
-                      onClick={() => {
-                        handleGoalClick(item)
-                      }}
-                    >
-                      <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
-                    </LinkButton2>
+              <Box key={i}>
+                <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
+                  <LinkButton2
+                    id={model.selectedGoal && model.selectedGoal.id === item.id ? 'goalDetailsLink' : undefined}
+                    onClick={() => {
+                      handleGoalClick(item)
+                    }}
+                  >
+                    <Typography textAlign={'left'} variant='subtitle1'>
+                      {item.body}
+                    </Typography>
+                  </LinkButton2>
+                  {item.completePercent !== undefined && (
+                    <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
+                      <ProgressBar value={item.completePercent} toolTipText={`${item.completePercent}% complete`} width={80} />
+                    </Stack>
                   )}
+                </Stack>
+                {item.dueDate && <Typography variant='body2'>{`due: ${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
+                {item.stats && <Typography variant='body2'>{`completed: ${item.stats.completed}`}</Typography>}
+                {item.stats && <Typography variant='body2'>{`in progress: ${item.stats.inProgress}`}</Typography>}
+                {item.stats && item.stats.pastDue > 0 && (
+                  <LinkButton2
+                    onClick={() => {
+                      handleGoalClick(item)
+                    }}
+                  >
+                    <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
+                  </LinkButton2>
+                )}
 
-                  {model.selectedGoal && model.selectedGoal.id === item.id && (
-                    <>
-                      <Button id='goalDetailsStart' sx={{ display: 'none' }}></Button>
-                      <GoalDetails
-                        model={model}
-                        goalId={item.id!}
-                        handleGoalBodyChange={handleGoalBodyChange}
-                        handleCloseSelectedGoal={handleCloseSelectedGoal}
-                        handleDeleteGoal={handleDeleteGoal}
-                        handleDueDateChange={handleDueDateChange}
-                        handleSubmitGoalChanges={handleSubmitGoalChanges}
-                        handleSetGoalEditMode={handleSetGoalEditMode}
-                        handleModifyGoal={saveGoal}
-                        onLoaded={handelGoalDetailsLoaded}
-                      />
-                    </>
-                  )}
-                  {i < model.goals.length - 1 && <HorizontalDivider />}
-                </Box>
-              </>
+                {model.selectedGoal && model.selectedGoal.id === item.id && (
+                  <>
+                    <Button id='goalDetailsStart' sx={{ display: 'none' }}></Button>
+                    <GoalDetails
+                      model={model}
+                      goalId={item.id!}
+                      handleGoalBodyChange={handleGoalBodyChange}
+                      handleCloseSelectedGoal={handleCloseSelectedGoal}
+                      handleDeleteGoal={handleDeleteGoal}
+                      handleDueDateChange={handleDueDateChange}
+                      handleSubmitGoalChanges={handleSubmitGoalChanges}
+                      handleSetGoalEditMode={handleSetGoalEditMode}
+                      handleModifyGoal={saveGoal}
+                      onLoaded={handelGoalDetailsLoaded}
+                    />
+                  </>
+                )}
+                {i < model.goals.length - 1 && <HorizontalDivider />}
+              </Box>
             ))}
           </>
         )}

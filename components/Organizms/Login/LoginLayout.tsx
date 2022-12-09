@@ -1,9 +1,8 @@
-import { Authenticator, ThemeProvider, useTheme } from '@aws-amplify/ui-react'
+import { Authenticator } from '@aws-amplify/ui-react'
 import { Container } from '@mui/material'
-import React, { ReactChild, ReactNode } from 'react'
+import React from 'react'
 
 import styled from '@emotion/styled'
-import { ClassNames } from '@emotion/react'
 
 const LoginLayout = () => {
   const StyledDiv = styled.div`

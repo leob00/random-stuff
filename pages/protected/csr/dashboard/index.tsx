@@ -15,6 +15,9 @@ const Page = () => {
   React.useEffect(() => {
     const fn = async () => {
       const p = await userController.refetchProfile(300)
+      if (!p) {
+        console.log('unable to load profile')
+      }
       setUserProfile(p)
       setLoading(false)
     }
