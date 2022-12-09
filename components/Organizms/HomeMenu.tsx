@@ -16,8 +16,6 @@ const HomeMenu = () => {
       const user = await getUserCSR()
       setIsLoggedIn(user !== null)
       if (user) {
-        //console.log(JSON.stringify(user.roles))
-        //console.log('isAdmin: ', userHasRole(user.roles, 'Admin'))
         setIsAdmin(userHasRole('Admin', user.roles))
       }
     }
@@ -30,8 +28,6 @@ const HomeMenu = () => {
         sx={{
           mt: 4,
           borderTopWidth: 3,
-          //pt: 3,
-          //pb: 3,
         }}
       >
         <Container>
@@ -42,22 +38,6 @@ const HomeMenu = () => {
               <InternalLink route={'/ssg/randomdogs'} text={'dogs'} />
               <InternalLink route={'/ssg/randomcats'} text={'cats'} />
             </CenterStack>
-            {/* <CenterStack>
-              <LinkButton
-                onClick={() => {
-                  router.push('/ssg/articles')
-                }}
-              >
-                blogs
-              </LinkButton>
-              <LinkButton
-                onClick={() => {
-                  router.push('/ssg/waitandredirect?id=csr/DailySilliness')
-                }}
-              >
-                daily silliness
-              </LinkButton>
-            </CenterStack> */}
             <CenterStack>
               <InternalLink route={'/ssg/recipes'} text={'recipes'} />
             </CenterStack>

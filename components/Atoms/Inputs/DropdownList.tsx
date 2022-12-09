@@ -1,6 +1,6 @@
 import { MenuItem, TextField } from '@mui/material'
 import { DropdownItem } from 'lib/models/dropdown'
-import React, { MutableRefObject, RefObject } from 'react'
+import React from 'react'
 
 const DropdownList = ({
   options,

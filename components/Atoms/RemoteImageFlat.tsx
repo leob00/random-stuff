@@ -19,9 +19,6 @@ const RemoteImageFlat = ({
   onLoaded?: () => void
   onClicked?: () => void
 }) => {
-  //const hght = height ? `${height}px` : '400px'
-  //const wdth = width ? `${width}px` : '350px'
-
   const handleLoaded = () => {
     if (onLoaded) {
       onLoaded()

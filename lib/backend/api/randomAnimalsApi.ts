@@ -6,8 +6,6 @@ import jsonData from '../../../public/data/randomStuff.json'
 import { cloneDeep } from 'lodash'
 import { DynamoKeys, putAnimals } from './aws/apiGateway'
 
-import path from 'path'
-
 export async function getRandomDog() {
   let result: BasicArticle = {
     imagePath: '',
@@ -36,7 +34,6 @@ export async function getRandomAnimalsFromLocalFiles(type: DynamoKeys) {
   let data = cloneDeep(jsonData) as RandomStuffData
   switch (type) {
     case 'cats':
-      //path.resolve('./public', dirRelativeToPublicFolder)
       basePath = './public/images/randomCats'
       title = 'Cats'
       targetPath = '/images/randomCats/'

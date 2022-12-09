@@ -1,7 +1,6 @@
 import { Warning } from '@mui/icons-material'
-import { Box, Typography } from '@mui/material'
-import dayjs from 'dayjs'
-import { getExpirationText, getUtcNow } from 'lib/util/dateUtil'
+import { Typography } from '@mui/material'
+import { getExpirationText } from 'lib/util/dateUtil'
 import React from 'react'
 
 const RecordExpirationWarning = ({ expirationDate, precise = false }: { expirationDate: string; precise?: boolean }) => {

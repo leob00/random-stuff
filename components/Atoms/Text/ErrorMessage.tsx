@@ -1,5 +1,5 @@
 import { Grid, Typography } from '@mui/material'
-import { CasinoLightPinkTransparent, CasinoPinkTransparent } from 'components/themes/mainTheme'
+import { CasinoLightPinkTransparent } from 'components/themes/mainTheme'
 import React from 'react'
 import CenterStack from '../CenterStack'
 

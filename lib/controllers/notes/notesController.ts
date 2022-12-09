@@ -1,7 +1,5 @@
 import { UserNotesModel } from 'components/reducers/notesReducer'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructUserNotePrimaryKey } from 'lib/backend/api/aws/util'
-import { getUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { cloneDeep, findIndex, orderBy } from 'lodash'

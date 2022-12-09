@@ -2,9 +2,8 @@ import React from 'react'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { IconButton, InputAdornment, TextField } from '@mui/material'
+import { TextField } from '@mui/material'
 import dayjs from 'dayjs'
-import { Close } from '@mui/icons-material'
 const DateAndTimePicker = ({
   defaultValue,
   label,
@@ -17,11 +16,9 @@ const DateAndTimePicker = ({
   disabled?: boolean
 }) => {
   const [value, setValue] = React.useState<dayjs.Dayjs | undefined | null>(defaultValue !== undefined ? dayjs(defaultValue) : null)
-  //const textRef = React.useRef<HTMLInputElement | null>(null)
   const handleChange = (val?: string | null, keyboardInputValue?: string | undefined) => {
     const dt = val ?? keyboardInputValue
     if (!dt) {
-      //console.log('sending date: ', dt)
       setValue(null)
       onChanged(undefined)
       return
@@ -32,10 +29,6 @@ const DateAndTimePicker = ({
   }
   const handleClear = () => {
     setValue(null)
-    /* if (textRef.current) {
-      textRef.current.value = ''
-      onChanged(undefined)
-    } */
   }
 
   React.useEffect(() => {
@@ -47,25 +40,7 @@ const DateAndTimePicker = ({
       <DateTimePicker
         disabled={disabled}
         key={label}
-        renderInput={(props) => (
-          <TextField
-            //inputRef={textRef}
-            autoComplete={'off'}
-            size='small'
-            {...props}
-            /*  InputProps={{
-              endAdornment: value ? (
-                <InputAdornment position='end'>
-                  <IconButton edge='end' onClick={handleClear}>
-                    <Close />
-                  </IconButton>
-                </InputAdornment>
-              ) : (
-                <></>
-              ),
-            }} */
-          />
-        )}
+        renderInput={(props) => <TextField autoComplete={'off'} size='small' {...props} />}
         label={label}
         value={value ?? null}
         onChange={handleChange}

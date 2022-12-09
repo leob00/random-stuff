@@ -1,5 +1,5 @@
 import { ChartData, ChartOptions } from 'chart.js'
-import { CasinoBlackTransparent, CasinoGrayTransparent, CasinoMoreBlackTransparent, CasinoWhiteTransparent, DarkBlue } from 'components/themes/mainTheme'
+import { CasinoMoreBlackTransparent, CasinoWhiteTransparent, DarkBlue } from 'components/themes/mainTheme'
 import { max } from 'lodash'
 
 export interface BarChart {

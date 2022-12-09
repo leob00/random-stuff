@@ -17,11 +17,8 @@ const AddTaskForm = ({ task, onSubmit }: { task: UserTask; onSubmit: (data: User
     setFormInput({ ...formInput, body: title })
   }
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    //console.log(formInput)
     e.preventDefault()
     const isValid = formInput.body !== undefined && formInput.body.trim().length > 0 && !formInput.body.includes('  ')
-    //console.log('isValid: ', isValid)
-    //console.log('body: ', formInput.body)
     setValid(isValid)
     if (isValid) {
       const data = cloneDeep(formInput)
@@ -34,7 +31,6 @@ const AddTaskForm = ({ task, onSubmit }: { task: UserTask; onSubmit: (data: User
       <Stack direction={'row'} spacing={1}>
         <FormTextBox defaultValue={formInput.body ?? ''} label={'new task'} onChanged={handleTitleChanged} error={!valid} />
         <DateAndTimePicker onChanged={handleDueDateChange} label={'due date'} />
-        {/* {goalsDDL.length > 0 && <DropdownList options={goalsDDL} selectedOption={goalsDDL[0].value!} />} */}
         <SecondaryButton text='add' type='submit' size='small' width={80} />
       </Stack>
     </form>

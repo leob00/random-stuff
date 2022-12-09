@@ -1,5 +1,3 @@
-import { getRandomLoaderText } from 'lib/randomLoaderText'
-
 export interface Model {
   message: string
 }

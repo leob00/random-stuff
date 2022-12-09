@@ -1,9 +1,7 @@
-import { Divider } from '@aws-amplify/ui-react'
 import { Close } from '@mui/icons-material'
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack, Typography } from '@mui/material'
-import { CasinoBlueTransparent, CasinoGrayTransparent, CasinoPinkTransparent, CasinoRedTransparent } from 'components/themes/mainTheme'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack } from '@mui/material'
+import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import React from 'react'
-import DangerButton from '../Buttons/DangerButton'
 import PassiveButton from '../Buttons/PassiveButton'
 import SecondaryButton from '../Buttons/SecondaryButton'
 import HorizontalDivider from '../Dividers/HorizontalDivider'
@@ -21,13 +19,10 @@ const ConfirmDialog = ({
   onConfirm: () => void
   onCancel: () => void
 }) => {
-  //const [open, setOpen] = React.useState(show)
   const handleClose = () => {
-    // setOpen(false)
     onCancel()
   }
   const handleOnConfirm = () => {
-    //setOpen(false)
     onConfirm()
   }
   return (

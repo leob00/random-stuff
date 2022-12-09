@@ -1,9 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { Box } from '@mui/material'
-import Puff from '../public/images/loaders/puff.svg'
 import Bars from '../public/images/loaders/bars.svg'
-import zIndex from '@mui/material/styles/zIndex'
 
 const ImageLoader = () => {
   return (

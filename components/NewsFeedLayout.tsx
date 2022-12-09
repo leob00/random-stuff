@@ -1,4 +1,4 @@
-import { Box, Typography, Container, Link, Grid, FormControlLabel, Switch, LinearProgress, Fade, Divider } from '@mui/material'
+import { Box, Typography, Container, Link, Grid, FormControlLabel, Switch, LinearProgress, Fade } from '@mui/material'
 import { NewsItem } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import NLink from 'next/link'

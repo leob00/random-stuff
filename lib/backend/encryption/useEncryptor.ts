@@ -1,5 +1,4 @@
 import CryptoJS from 'crypto-js'
-import { LambdaDynamoRequest } from '../api/aws/apiGateway'
 export const useEncryptor = () => {
   return {
     encrypt: (passPhrase: string, data: string) => {

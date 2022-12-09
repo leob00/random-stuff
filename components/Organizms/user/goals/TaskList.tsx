@@ -1,11 +1,7 @@
-import { Check, CheckBoxOutlined, CheckCircle, CheckCircleOutlined, CheckOutlined, TaskAltOutlined, TaskAltRounded, TaskAltSharp } from '@mui/icons-material'
-import { Box, Button, Checkbox, Stack, Typography } from '@mui/material'
-import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import { Box, Stack, Typography } from '@mui/material'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
-import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import ConfirmDialog from 'components/Atoms/Dialogs/ConfirmDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
 import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
 import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
@@ -18,8 +14,6 @@ import { UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { cloneDeep, filter, orderBy } from 'lodash'
 import React from 'react'
-import CheckBoxOutlineBlankRoundedIcon from '@mui/icons-material/CheckBoxOutlineBlankRounded'
-import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined'
 
 interface TaskModel {
   isLoading: boolean
@@ -44,7 +38,6 @@ const TaskList = ({
   onModifyTask: (item: UserTask) => void
   onDeleteTask: (item: UserTask) => void
 }) => {
-  //const [isLoading, setIsLoading] = React.useState(true)
   const [model, setModel] = React.useReducer((state: TaskModel, newState: TaskModel) => ({ ...state, ...newState }), {
     isLoading: false,
     tasks: tasks,
@@ -174,19 +167,6 @@ const TaskList = ({
                           handleCompleteTaskClick(checked, item)
                         }}
                       />
-                      {/* <Button
-                        onClick={() => {
-                          handleCompleteTaskClick(item.status !== 'completed', item)
-                        }}
-                      >
-                        {item.status === 'completed' ? <CheckBoxOutlinedIcon color='secondary' /> : <CheckBoxOutlineBlankRoundedIcon color='secondary' />}
-                      </Button> */}
-                      {/*    <Checkbox
-                        checked={item.status === 'completed'}
-                        onChange={(e, checked: boolean) => {
-                          handleCompleteTaskClick(checked, item)
-                        }}
-                      /> */}
                     </Stack>
                   </Stack>
                   {item.dueDate && (

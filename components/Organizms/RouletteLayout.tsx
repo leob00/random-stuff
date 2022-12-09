@@ -1,8 +1,6 @@
 import { Box, LinearProgress, Typography } from '@mui/material'
-import { display } from '@mui/system'
 import axios from 'axios'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
-import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ImageSpinner from 'components/Atoms/ImageSpinner'
@@ -21,7 +19,7 @@ import { WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
 import { translateCasinoColor } from 'lib/backend/charts/barChartMapper'
 import { getWheel, RouletteNumber, RouletteWheel } from 'lib/backend/roulette/wheel'
 import { getRandomInteger, isEven, isOdd } from 'lib/util/numberUtil'
-import { cloneDeep, filter, range, shuffle } from 'lodash'
+import { cloneDeep, filter, shuffle } from 'lodash'
 import React from 'react'
 
 export interface Model {

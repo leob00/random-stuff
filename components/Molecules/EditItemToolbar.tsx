@@ -1,8 +1,18 @@
 import { Save, Close, Create, Delete } from '@mui/icons-material'
-import { Box, Stack, IconButton, Divider } from '@mui/material'
+import { Box, Stack, IconButton } from '@mui/material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
-const EditItemToolbar = ({ onSave, onCancel, onEdit, onDelete }: { onSave?: () => void; onCancel?: () => void; onEdit?: (item: any) => void; onDelete?: () => void }) => {
+const EditItemToolbar = ({
+  onSave,
+  onCancel,
+  onEdit,
+  onDelete,
+}: {
+  onSave?: () => void
+  onCancel?: () => void
+  onEdit?: (item: any) => void
+  onDelete?: () => void
+}) => {
   const handleSaveClick = () => {
     onSave?.()
   }

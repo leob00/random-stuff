@@ -1,4 +1,3 @@
-import { BoySharp } from '@mui/icons-material'
 import { EncPutRequest } from 'lib/backend/csr/nextApiWrapper'
 import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { BasicArticle } from 'lib/model'

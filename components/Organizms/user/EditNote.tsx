@@ -1,4 +1,3 @@
-import { Warning } from '@mui/icons-material'
 import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
@@ -12,8 +11,7 @@ import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { cloneDeep } from 'lodash'
-import React, { MutableRefObject } from 'react'
-import { log } from 'util'
+import React from 'react'
 import HtmlEditorQuill from '../../Atoms/Inputs/HtmlEditorQuill'
 
 const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCanceled?: () => void; onSubmitted?: (note: UserNote) => void }) => {
@@ -39,10 +37,6 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
     noteCopy.body = noteCopy.body.replace('<p class="ql-align-justify"></p>', '<p>')
     //console.log(noteCopy.body)
     onSubmitted?.(noteCopy)
-  }
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    await handleSave()
   }
 
   const handleTitleChange = () => {

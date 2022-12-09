@@ -1,6 +1,6 @@
 import ArrowBackIos from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos'
-import { Box, Button, Divider, Tooltip, Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import HorizontalDivider from './Dividers/HorizontalDivider'
 import DefaultTooltip from './Tooltips/DefaultTooltip'

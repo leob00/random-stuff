@@ -1,5 +1,4 @@
-import { LinearProgress, Stack, Typography } from '@mui/material'
-import ProgressBar from 'components/Atoms/Progress/ProgressBar'
+import { Stack, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import { UserGoal } from 'lib/models/userTasks'
 import React from 'react'

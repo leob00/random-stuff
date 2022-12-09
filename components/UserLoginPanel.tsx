@@ -8,7 +8,6 @@ import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 import LoggedInUserMenu from './LoggedInUserMenu'
-import { DarkMode } from './themes/DarkMode'
 import { VeryLightBlue } from './themes/mainTheme'
 
 export type HubPayload = {

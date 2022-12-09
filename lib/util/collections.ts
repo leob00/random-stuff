@@ -1,5 +1,3 @@
-import { Pages } from '@mui/icons-material'
-import { TypeInfo } from 'graphql'
 import { chunk } from 'lodash'
 export interface Page {
   index: number

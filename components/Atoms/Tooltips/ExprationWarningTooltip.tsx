@@ -1,5 +1,4 @@
-import { Box, Tooltip } from '@mui/material'
-import { CasinoBlueTransparent } from 'components/themes/mainTheme'
+import { Box } from '@mui/material'
 import dayjs from 'dayjs'
 import React from 'react'
 import DefaultTooltip from './DefaultTooltip'

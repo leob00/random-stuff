@@ -1,4 +1,4 @@
-import { Box, Stack } from '@mui/material'
+import { Box } from '@mui/material'
 import React from 'react'
 import loader from '../../public/images/loaders/black-white-spinner.gif'
 import NImage from 'next/image'

@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { CasinoBlueTransparent, CasinoGrayTransparent, DarkBlueTransparent, LightBlue, VeryLightBlueTransparent } from 'components/themes/mainTheme'
+import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import React from 'react'
 
 const HorizontalDivider = () => {

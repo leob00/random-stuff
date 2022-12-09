@@ -1,12 +1,10 @@
 'use client'
 import * as React from 'react'
-import { Box, Container, Divider, LinearProgress, Stack, Typography } from '@mui/material'
+import { Container, Divider, Stack, Typography } from '@mui/material'
 import dayjs from 'dayjs'
-import AppHeartbeat from './Organizms/AppHeartbeat'
 import { axiosGet } from 'lib/backend/api/qln/useAxios'
 import { ApiStatus } from 'pages/api/status'
 import { Circle } from '@mui/icons-material'
-import { CasinoGreen } from './themes/mainTheme'
 import HorizontalDivider from './Atoms/Dividers/HorizontalDivider'
 import RollingLinearProgress from './Atoms/Loaders/RollingLinearProgress'
 
@@ -32,7 +30,6 @@ const Footer = () => {
         console.log('initializing heart beat...')
         fn().then(() => console.log('heart beat started'))
       }, 1000)
-      //clearTimeout(timeOut)
     }
     intervalRef.current = setInterval(() => {
       fn()

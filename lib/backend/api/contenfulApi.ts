@@ -1,56 +1,58 @@
 import axios, { AxiosRequestConfig } from 'axios'
-import { cloneDeep, orderBy } from 'lodash'
+import { orderBy } from 'lodash'
 import { BlogResponse, BlogTypes } from '../../models/cms/contentful/blog'
 import { RecipeCollection, RecipesResponse } from '../../models/cms/contentful/recipe'
 
 const url = `${process.env.CONTENTFUL_GRAPH_BASE_URL}${process.env.CONTENTFUL_SPACE_ID}?access_token=${process.env.CONTENTFUL_ACCESS_TOKEN}`
 
-const allBlogsQuery = `{
-  blogCollection {
-    items {
-      id
-      title
-      summary 
-      body     
-      externalUrl
-      sys {
+const allBlogsQuery = /* GraphQL */ `
+  {
+    blogCollection {
+      items {
         id
-        firstPublishedAt
-        publishedAt
-      }
-      heroImage {
-        url
-        size
-        height
-        width
+        title
+        summary
+        body
+        externalUrl
+        sys {
+          id
+          firstPublishedAt
+          publishedAt
+        }
+        heroImage {
+          url
+          size
+          height
+          width
+        }
       }
     }
   }
-}
 `
-const allRecipesQuery = `{
-  recipeCollection {
-    items {
-      sys {
-        id
-        firstPublishedAt
-        publishedAt
-      }      
-      title
-      summary
-      richBody {
-        json
+const allRecipesQuery = /* GraphQL */ `
+  {
+    recipeCollection {
+      items {
+        sys {
+          id
+          firstPublishedAt
+          publishedAt
+        }
+        title
+        summary
+        richBody {
+          json
+        }
+        heroImage {
+          url
+          size
+          height
+          width
+        }
       }
-      heroImage {
-        url
-        size
-        height
-        width
-      }
-    
     }
   }
-}`
+`
 
 const config: AxiosRequestConfig = {
   headers: {
@@ -74,7 +76,7 @@ export async function getAllBlogs() {
 }
 
 const getRecipeQuery = (skip: number) => {
-  return `{
+  return /* GraphQL */ `{
   recipeCollection (skip: ${skip}) {
     items {
       sys {
@@ -130,7 +132,7 @@ const getRecipes = async (query: string) => {
 }
 
 export async function getRecipe(id: string) {
-  const query = `{
+  const query = /* GraphQL */ `{
   recipe(id: "${id}") {    
       sys {
         id
@@ -164,7 +166,7 @@ export async function getRecipe(id: string) {
 }
 
 export async function getBlogsByType(type: BlogTypes) {
-  const query = `query {
+  const query = /* GraphQL */ `query {
     yieldCurveCollection(where: {
         id: "${type}"
     }) {

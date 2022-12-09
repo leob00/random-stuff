@@ -1,4 +1,3 @@
-import { Router } from '@aws-amplify/ui-react/dist/types/components/Authenticator/Router'
 import React from 'react'
 import LinkButton from './LinkButton'
 import router from 'next/router'

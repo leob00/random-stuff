@@ -25,8 +25,6 @@ const FormTextBox = ({
   const textRef = React.useRef<HTMLInputElement | null>(null)
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.currentTarget.value
-    //console.log('val: ', val)
-
     if (required) {
       const isValid = val.length > 0 && !val.includes('  ')
       setTextError(!isValid)
@@ -52,7 +50,6 @@ const FormTextBox = ({
       onBlur={onBlurred}
       disabled={disabled}
       autoComplete={'off'}
-      //variant={'standard'}
     />
   )
 }

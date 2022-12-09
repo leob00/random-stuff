@@ -1,6 +1,5 @@
-import GoalDetails from 'components/Organizms/user/goals/GoalDetails'
 import dayjs from 'dayjs'
-import { UserGoal, UserGoalStats, UserTask } from 'lib/models/userTasks'
+import { UserGoalStats, UserTask } from 'lib/models/userTasks'
 import { filter } from 'lodash'
 
 export function getGoalStats(tasks: UserTask[]) {

@@ -1,4 +1,4 @@
-import { Box, LinearProgress } from '@mui/material'
+import { LinearProgress } from '@mui/material'
 import React from 'react'
 import DefaultTooltip from '../Tooltips/DefaultTooltip'
 
