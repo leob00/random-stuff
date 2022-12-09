@@ -168,13 +168,19 @@ const TaskList = ({
                       </Typography>
                     </LinkButton2>
                     <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-                      <Button
+                      <SecondaryCheckbox
+                        checked={item.status === 'completed'}
+                        onChanged={(checked: boolean) => {
+                          handleCompleteTaskClick(checked, item)
+                        }}
+                      />
+                      {/* <Button
                         onClick={() => {
                           handleCompleteTaskClick(item.status !== 'completed', item)
                         }}
                       >
                         {item.status === 'completed' ? <CheckBoxOutlinedIcon color='secondary' /> : <CheckBoxOutlineBlankRoundedIcon color='secondary' />}
-                      </Button>
+                      </Button> */}
                       {/*    <Checkbox
                         checked={item.status === 'completed'}
                         onChange={(e, checked: boolean) => {

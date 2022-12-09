@@ -88,13 +88,7 @@ const EditTaskForm = ({
       </Box>
       <Box py={2}>
         <Stack direction={'row'} display={'flex'} justifyContent={'left'} spacing={1} alignItems={'center'}>
-          <Checkbox
-            checked={formInput.status != undefined && formInput.status === 'completed'}
-            onChange={(e, checked) => {
-              handleCompletedChecked(checked)
-            }}
-          />
-
+          <SecondaryCheckbox checked={formInput.status != undefined && formInput.status === 'completed'} onChanged={handleCompletedChecked} />
           {formInput.dateCompleted ? (
             <Typography variant='body2'>{`completed: ${dayjs(formInput.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography>
           ) : (
