@@ -65,7 +65,7 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
   }
   const handleNoteTitleClick = async (item: UserNote) => {
     dispatch({ type: 'set-loading', payload: { isLoading: true } })
-    const note = await getUserNote(item.id)
+    const note = await getUserNote(item.id!)
     dispatch({ type: 'view-note', payload: { selectedNote: note } })
   }
 

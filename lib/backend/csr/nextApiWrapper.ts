@@ -75,13 +75,9 @@ export async function getUserProfile(username: string) {
   const key = constructUserProfileKey(username)
 
   try {
-    const token = String(process.env.NEXT_PUBLIC_API_TOKEN)
-    const params = {
-      /* id: key,
-      token: token, */
-      enc: myEncrypt(token, key),
-    }
-    const data = await axiosGet(`/api/randomStuff`, params)
+    const body = encryptKey(key)
+    const data = await axiosPut(`/api/getRandomStuffEnc`, body)
+
     if (data) {
       let parsed = data as UserProfile
       if (parsed) {
@@ -109,17 +105,12 @@ export async function getUserProfile(username: string) {
   }
   return result
 }
-export async function getUserNote(id?: string) {
+export async function getUserNote(id: string) {
   let result: UserNote | null = null
 
   try {
-    const token = String(process.env.NEXT_PUBLIC_API_TOKEN)
-    const params = {
-      enc: myEncrypt(token, id!),
-      /*  id: id,
-      token: token, */
-    }
-    const data = await axiosGet(`/api/randomStuff`, params)
+    const body = encryptKey(id)
+    const data = await axiosPut(`/api/getRandomStuffEnc`, body)
     if (data) {
       result = data
 
@@ -131,20 +122,22 @@ export async function getUserNote(id?: string) {
   return result
 }
 
-export async function getUserGoals(id?: string) {
+function encryptKey(key: string) {
+  const enc = myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), key)
+  const body: EncPutRequest = {
+    data: enc,
+  }
+  return body
+}
+
+export async function getUserGoals(id: string) {
   let result: UserGoal[] = []
 
   try {
-    const token = String(process.env.NEXT_PUBLIC_API_TOKEN)
-    const params = {
-      enc: myEncrypt(token, id!),
-      /*  id: id,
-      token: token, */
-    }
-    const data = await axiosGet(`/api/randomStuff`, params)
+    const body = encryptKey(id)
+    const data = await axiosPut(`/api/getRandomStuffEnc`, body)
     if (data) {
       result = data
-
       return result
     }
   } catch (err) {
@@ -157,11 +150,8 @@ export async function getUserGoalTasks(goalId: string) {
   let result: UserTask[] = []
 
   try {
-    const token = String(process.env.NEXT_PUBLIC_API_TOKEN)
-    const params = {
-      enc: myEncrypt(token, goalId),
-    }
-    const data = await axiosGet(`/api/randomStuff`, params)
+    const body = encryptKey(goalId)
+    const data = await axiosPut(`/api/getRandomStuffEnc`, body)
     //console.log('api random stuff: ', data)
     if (data) {
       result = data
