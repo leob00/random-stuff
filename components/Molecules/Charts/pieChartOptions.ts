@@ -1,46 +1,57 @@
 import { ChartData, ChartOptions } from 'chart.js'
-import { CasinoMoreBlackTransparent, CasinoWhiteTransparent, DarkBlue } from 'components/themes/mainTheme'
+import {
+  CasinoBlue,
+  CasinoBlueTransparent,
+  CasinoGreen,
+  CasinoMoreBlackTransparent,
+  CasinoWhiteTransparent,
+  CasinoYellowTransparent,
+  DarkBlue,
+  DarkBlueTransparent,
+} from 'components/themes/mainTheme'
 import { max } from 'lodash'
 
 export interface BarChart {
   labels: string[]
   numbers: number[]
   colors: string[]
-  borderColors?: string[]
 }
 
-export const getBarChartData = (labels: string[], numbers: number[], colors: string[]): ChartData<'bar', number[], unknown> => {
+export const getPieChartData = (labels: string[], numbers: number[], colors: string[], borderColors?: string[]): ChartData<'doughnut', number[], unknown> => {
   return {
     labels: labels,
     datasets: [
       {
-        borderColor: 'black',
-        borderWidth: 0,
+        borderColor: borderColors,
+        borderWidth: 1,
         data: numbers,
         backgroundColor: colors,
-        type: 'bar',
+        type: 'doughnut',
         indexAxis: 'x',
       },
     ],
   }
 }
 
-export const getBarChartOptions = (title: string, data: BarChart): ChartOptions<'bar'> => {
+export const getPieChartOptions = (title: string, data: BarChart): ChartOptions<'doughnut'> => {
   return {
     responsive: true,
+    rotation: 180,
+
     hover: {
       mode: 'nearest',
       intersect: true,
     },
+
     plugins: {
       title: {
         display: true,
         text: title,
       },
       legend: {
-        display: false,
+        display: true,
         labels: {
-          color: 'rgba(203, 241, 247, 0.932)',
+          color: DarkBlue,
         },
         title: {
           display: true,
@@ -85,7 +96,8 @@ export const getBarChartOptions = (title: string, data: BarChart): ChartOptions<
         },
       },
     },
-    scales: {
+
+    /* scales: {
       y: {
         ticks: {
           color: DarkBlue,
@@ -104,6 +116,6 @@ export const getBarChartOptions = (title: string, data: BarChart): ChartOptions<
           //color: "red"
         },
       },
-    },
+    }, */
   }
 }

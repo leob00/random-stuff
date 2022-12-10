@@ -2,6 +2,7 @@ import { Box, Stack, Typography } from '@mui/material'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import ConfirmDialog from 'components/Atoms/Dialogs/ConfirmDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
 import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
@@ -18,6 +19,7 @@ import React from 'react'
 interface TaskModel {
   isLoading: boolean
   tasks: UserTask[]
+  filteredTasks: UserTask[]
   editTask?: UserTask
   selectedTask?: UserTask
   confirmCompleteTask: boolean
@@ -42,6 +44,7 @@ const TaskList = ({
     isLoading: false,
     tasks: tasks,
     confirmCompleteTask: false,
+    filteredTasks: tasks,
   })
 
   const handleAddTask = (item: UserTask) => {
@@ -50,7 +53,8 @@ const TaskList = ({
     item.id = constructUserTaskPk(username)
     const tasks = cloneDeep(model.tasks)
     tasks.push(item)
-    setModel({ ...model, isLoading: false, tasks: orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc']) })
+    const reordered = orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc'])
+    setModel({ ...model, isLoading: false, tasks: reordered, filteredTasks: reordered })
     onAddTask(item)
   }
   const handleTaskClick = (item: UserTask) => {
@@ -66,7 +70,8 @@ const TaskList = ({
     item.dateModified = getUtcNow().format()
     const tasks = filter(cloneDeep(model.tasks), (e) => e.id !== item.id)
     tasks.push(item)
-    setModel({ ...model, isLoading: false, tasks: orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc']) })
+    const reordered = orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc'])
+    setModel({ ...model, isLoading: false, tasks: reordered, filteredTasks: reordered })
     onModifyTask(item)
   }
 
@@ -86,6 +91,17 @@ const TaskList = ({
   const handleCompleteTaskClick = async (checked: boolean, item: UserTask) => {
     item.status = checked ? 'completed' : 'in progress'
     await handleSaveTask(item)
+  }
+
+  const handleSearched = (text: string) => {
+    if (text.length === 0) {
+      setModel({ ...model, filteredTasks: model.tasks })
+      return
+    }
+    const filtered: UserTask[] = model.tasks.filter((e) => {
+      return e.body?.toLocaleLowerCase().includes(text.toLocaleLowerCase())
+    })
+    setModel({ ...model, filteredTasks: filtered })
   }
 
   return (
@@ -130,12 +146,22 @@ const TaskList = ({
         </>
       ) : (
         <>
-          {tasks.length === 0 && (
+          {model.tasks.length === 0 && (
             <Box py={1}>
               <AddTaskForm task={{}} onSubmit={handleAddTask} />
             </Box>
           )}
-          {tasks.map((item, i) => (
+          {model.tasks.length > 3 && (
+            <Stack direction={'row'} justifyContent={'center'} alignItems={'center'} pb={2}>
+              <SearchWithinList text={'search tasks'} onChanged={handleSearched} />
+            </Stack>
+          )}
+          {model.filteredTasks.length === 0 && model.tasks.length > 0 && (
+            <Stack direction={'row'} justifyContent={'center'} alignItems={'center'}>
+              <Typography textAlign={'center'}>0 tasks found</Typography>
+            </Stack>
+          )}
+          {model.filteredTasks.map((item, i) => (
             <Box key={i}>
               {model.editTask !== undefined && model.editTask.id === item.id ? (
                 <Box>
@@ -181,7 +207,7 @@ const TaskList = ({
             </Box>
           ))}
           {tasks.length > 0 && !model.editTask && (
-            <Box pt={8} pb={2}>
+            <Box pt={4} pb={2}>
               <AddTaskForm task={{}} onSubmit={handleAddTask} />
             </Box>
           )}

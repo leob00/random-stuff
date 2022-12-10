@@ -3,6 +3,7 @@ import axios from 'axios'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
+import BasicBarChart from 'components/Atoms/Charts/BasicBarChart'
 import ImageSpinner from 'components/Atoms/ImageSpinner'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import SimpleBarChart2 from 'components/Molecules/Charts/SimpleBarChart2'
@@ -325,7 +326,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       <Box sx={{ my: 1 }}>
         {model.playerChart && (
           <Box>
-            <SimpleBarChart2 title={'Player spins'} barChart={model.playerChart} />
+            <BasicBarChart title={'Player spins'} barChart={model.playerChart} />
           </Box>
         )}
         {model.playerResults && !model.isSimulationRunning && (
@@ -349,7 +350,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       </Box>
       {model.communityChart && (
         <Box>
-          <SimpleBarChart2 title='Community spins' barChart={model.communityChart} />
+          <BasicBarChart title='Community spins' barChart={model.communityChart} />
         </Box>
       )}
     </Box>

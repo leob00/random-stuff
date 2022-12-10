@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography } from '@mui/material'
+import { Box, Button, Divider, Grid, ListItemIcon, ListItemText, Menu, MenuItem, MenuList, Paper, Stack, Typography } from '@mui/material'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
@@ -6,10 +6,18 @@ import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import AddGoalForm from 'components/Molecules/Forms/AddGoalForm'
-import { CasinoRedTransparent } from 'components/themes/mainTheme'
+import {
+  CasinoBlue,
+  CasinoBlueTransparent,
+  CasinoGrayTransparent,
+  CasinoGreen,
+  CasinoGreenTransparent,
+  CasinoMoreBlackTransparent,
+  CasinoRedTransparent,
+} from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { constructUserGoalPk, constructUserGoalsKey } from 'lib/backend/api/aws/util'
-import { getUserGoals, putUserGoals, putUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
+import { getUserGoals, getUserTasks, putUserGoals, putUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
 import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getSecondsFromEpoch, getUtcNow } from 'lib/util/dateUtil'
@@ -17,6 +25,16 @@ import { cloneDeep, filter, orderBy } from 'lodash'
 import React from 'react'
 import GoalDetails from './GoalDetails'
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined'
+import WidgetsIcon from '@mui/icons-material/Widgets'
+import MenuIcon from '@mui/icons-material/Menu'
+import { ContentCut, ContentCopy, ContentPaste, Cloud, Close } from '@mui/icons-material'
+import CachedIcon from '@mui/icons-material/Cached'
+import BarChartIcon from '@mui/icons-material/BarChart'
+import { BarChart } from 'components/Molecules/Charts/barChartOptions'
+import { myEncrypt } from 'lib/backend/encryption/useEncryptor'
+import BasicBarChart from 'components/Atoms/Charts/BasicBarChart'
+import BasicPieChart from 'components/Atoms/Charts/BasicPieChart'
+import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 
 export interface UserGoalsModel {
   isLoading: boolean
@@ -27,6 +45,7 @@ export interface UserGoalsModel {
   goalEditMode: boolean
   showConfirmDeleteGoal: boolean
   showAddGoalForm: boolean
+  barChart?: BarChart
 }
 
 const UserGoalsLayout = ({ username }: { username: string }) => {
@@ -40,6 +59,15 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
     showAddGoalForm: false,
   }
   const [model, setModel] = React.useReducer((state: UserGoalsModel, newState: UserGoalsModel) => ({ ...state, ...newState }), defaultModel)
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const open = Boolean(anchorEl)
+  const handleShowMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleCloseMenu = () => {
+    setAnchorEl(null)
+  }
 
   const loadGoals = async () => {
     const result = await getUserGoals(constructUserGoalsKey(username))
@@ -127,7 +155,30 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   const handleRefrehGoals = async () => {
     setModel({ ...model, isLoading: true })
     let goals = await loadGoals()
-    setModel({ ...model, goals: goals, goalEditMode: false, selectedGoal: undefined })
+    setModel({ ...model, goals: goals, goalEditMode: false, selectedGoal: undefined, barChart: undefined })
+  }
+
+  const handleShowCharts = async () => {
+    setModel({ ...model, isLoading: true })
+    const result = await getUserTasks(model.username)
+    //console.log(result.length)
+
+    const tasks: UserTask[] = []
+    result.forEach((g) => {
+      const m = JSON.parse(g.data) as unknown as UserTask[]
+      //console.log(m)
+      tasks.push(...m)
+    })
+    //console.log(tasks.length)
+    const inProg = filter(tasks, (e) => e.status !== 'completed').length
+    const comp = filter(tasks, (e) => e.status === 'completed').length
+    const barChart: BarChart = {
+      colors: [CasinoBlueTransparent, CasinoGreenTransparent],
+      labels: ['in progress', 'completed'],
+      numbers: [inProg, comp],
+      borderColors: ['black'],
+    }
+    setModel({ ...model, isLoading: false, barChart: barChart })
   }
 
   React.useEffect(() => {
@@ -150,25 +201,107 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
         }}
       />
       <Box py={2}>
-        {!model.isLoading ? (
-          <>
-            <Stack display={'flex'} direction={'row'} justifyContent={'left'} alignItems={'left'}>
-              <Box>
-                <LinkButton2
+        <Stack display={'flex'} direction={'row'} justifyContent={'left'} alignItems={'left'}>
+          <Box>
+            <LinkButton2
+              onClick={() => {
+                setModel({ ...model, showAddGoalForm: !model.showAddGoalForm })
+              }}
+            >
+              add goal
+            </LinkButton2>
+          </Box>
+          <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
+            <Button
+              size='small'
+              id='basic-button'
+              aria-controls={open ? 'basic-menu' : undefined}
+              aria-haspopup='true'
+              aria-expanded={open ? 'true' : undefined}
+              onClick={handleShowMenu}
+            >
+              {/* <RefreshOutlinedIcon color='secondary' fontSize='small' /> */}
+
+              <MenuIcon color='secondary' fontSize='small' />
+            </Button>
+            <Menu
+              id='basic-menu'
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleCloseMenu}
+              MenuListProps={{
+                'aria-labelledby': 'basic-button',
+              }}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+            >
+              <MenuList>
+                <MenuItem
                   onClick={() => {
-                    setModel({ ...model, showAddGoalForm: !model.showAddGoalForm })
+                    handleCloseMenu()
+                    handleRefrehGoals()
                   }}
                 >
-                  add goal
-                </LinkButton2>
-              </Box>
-              <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-                <Button size='small' onClick={handleRefrehGoals}>
-                  <RefreshOutlinedIcon color='secondary' fontSize='small' />
-                </Button>
-              </Stack>
-            </Stack>
+                  <ListItemIcon>
+                    <CachedIcon color='secondary' fontSize='small' />
+                  </ListItemIcon>
+                  <ListItemText>refresh</ListItemText>
+                </MenuItem>
+                <Divider />
+                <MenuItem
+                  onClick={() => {
+                    handleCloseMenu()
+                    handleShowCharts()
+                  }}
+                >
+                  <ListItemIcon>
+                    <BarChartIcon color='secondary' fontSize='small' />
+                  </ListItemIcon>
+                  <ListItemText>view charts</ListItemText>
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </Stack>
+        </Stack>
+        {!model.isLoading ? (
+          <>
+            {model.barChart && (
+              <Box py={2}>
+                <HorizontalDivider />
 
+                <Stack display={'flex'} direction={'row'} justifyContent={'flex-end'}>
+                  <Button
+                    onClick={() => {
+                      setModel({ ...model, barChart: undefined })
+                    }}
+                    sx={{}}
+                  >
+                    <Close />
+                  </Button>
+                </Stack>
+                <CenteredTitle title='All Tasks By Status' />
+                <Box>
+                  <Grid container spacing={1} justifyContent={'center'} alignItems={'flex-end'}>
+                    <Grid item xs={12} md={4}>
+                      <Box>
+                        <BasicPieChart barChart={model.barChart} title={''} />
+                      </Box>
+                    </Grid>
+                    <Grid item xs={12} md={7}>
+                      <Box>
+                        <BasicBarChart barChart={model.barChart} title={''} />
+                      </Box>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Box>
+            )}
             {model.showAddGoalForm && (
               <Box pt={1}>
                 <AddGoalForm goal={{}} onSubmit={handleEditGoalSubmit} />

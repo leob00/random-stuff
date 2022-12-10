@@ -145,6 +145,15 @@ export async function getUserGoals(id: string) {
   }
   return result
 }
+export async function getUserTasks(username: string) {
+  const enc = myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `user-goal-tasks[${username}]`)
+  //req = `/api/searchRandomStuff?id=user-goal-tasks[leo_bel@hotmail.com]&enc=${enc}`
+  const body: EncPutRequest = {
+    data: enc,
+  }
+  const result = (await axiosPut('/api/searchRandomStuff', body)) as LambdaBody[]
+  return result
+}
 export async function getUserGoalTasks(goalId: string) {
   //const id = `user-goal-tasks${goalId}`
   let result: UserTask[] = []

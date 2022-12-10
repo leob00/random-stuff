@@ -108,7 +108,7 @@ const GoalDetails = ({
   return (
     <>
       {model.selectedGoal && (
-        <Box pb={1} pl={2}>
+        <Box pb={1}>
           <Grid container columns={{ xs: 10, md: 8 }} justifyContent={'center'} spacing={2}>
             <Grid item>
               <Stack direction={'row'} spacing={1}>
@@ -161,7 +161,7 @@ const GoalDetails = ({
             </>
           )}
           <HorizontalDivider />
-          <Box py={2} pl={2}>
+          <Box py={2} pl={1}>
             {taskModel.isLoading ? (
               <>
                 <WarmupBox />
