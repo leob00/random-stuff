@@ -9,7 +9,7 @@ ChartJS.register(ArcElement, Tooltip, Legend)
 const BasicPieChart = ({ title, barChart }: { title: string; barChart: BarChart }) => {
   const options = getPieChartOptions(title, barChart)
 
-  const data = getPieChartData(barChart.labels, barChart.numbers, barChart.colors)
+  const data = getPieChartData(barChart.labels, barChart.numbers, barChart.colors, barChart.borderColors)
   return (
     <>
       <Doughnut data={data} options={options} />

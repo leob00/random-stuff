@@ -13,7 +13,11 @@ import {
   CasinoGreen,
   CasinoGreenTransparent,
   CasinoMoreBlackTransparent,
+  CasinoRed,
   CasinoRedTransparent,
+  DarkBlue,
+  DarkBlueTransparent,
+  VeryLightBlue,
 } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { constructUserGoalPk, constructUserGoalsKey } from 'lib/backend/api/aws/util'
@@ -171,13 +175,14 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
       tasks.push(...m)
     })
     //console.log(tasks.length)
-    const inProg = filter(tasks, (e) => e.status !== 'completed').length
+    const inProg = filter(tasks, (e) => e.status !== 'completed')
     const comp = filter(tasks, (e) => e.status === 'completed').length
+    const pastDue = filter(inProg, (e) => e.dueDate !== undefined && dayjs(e.dueDate).isBefore(dayjs())).length
     const barChart: BarChart = {
-      colors: [CasinoBlueTransparent, CasinoGreenTransparent],
-      labels: ['in progress', 'completed'],
-      numbers: [inProg, comp],
-      borderColors: ['black'],
+      colors: [CasinoRedTransparent, CasinoBlueTransparent, CasinoGreenTransparent],
+      labels: ['past due', 'in progress', 'completed'],
+      numbers: [pastDue, inProg.length, comp],
+      //borderColors: [CasinoRed, CasinoBlue, CasinoGreen],
     }
     setModel({ ...model, isLoading: false, barChart: barChart, selectedGoal: undefined })
   }

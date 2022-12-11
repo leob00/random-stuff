@@ -23,7 +23,7 @@ export const getPieChartData = (labels: string[], numbers: number[], colors: str
     datasets: [
       {
         borderColor: borderColors,
-        borderWidth: 1,
+        borderWidth: borderColors && borderColors.length > 0 ? 1 : 0,
         data: numbers,
         backgroundColor: colors,
         type: 'doughnut',
