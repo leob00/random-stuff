@@ -122,7 +122,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   }
 
   const saveGoal = async (goal: UserGoal) => {
-    setModel({ ...model, isSaving: true, isLoading: true })
+    setModel({ ...model, isSaving: true, isLoading: true, selectedGoal: undefined })
     goal.dateModified = getUtcNow().format()
     let goals = filter(cloneDeep(model.goals), (e) => e.id !== goal!.id)
     goals.push(goal)
@@ -145,6 +145,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
     }
   }
   const handelGoalDetailsLoaded = (goal: UserGoal, tasks: UserTask[]) => {
+    //console.log('goal detail loaded')
     goal.stats = getGoalStats(tasks)
     setModel({ ...model, selectedGoal: goal })
     const div = document.getElementById('goalDetailsLink')
@@ -178,7 +179,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
       numbers: [inProg, comp],
       borderColors: ['black'],
     }
-    setModel({ ...model, isLoading: false, barChart: barChart })
+    setModel({ ...model, isLoading: false, barChart: barChart, selectedGoal: undefined })
   }
 
   React.useEffect(() => {
