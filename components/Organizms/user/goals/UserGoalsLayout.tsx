@@ -387,7 +387,6 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
                     <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
                   </LinkButton2>
                 )}
-
                 {model.selectedGoal && model.selectedGoal.id === item.id && (
                   <>
                     <Button id='goalDetailsStart' sx={{ display: 'none' }}></Button>
