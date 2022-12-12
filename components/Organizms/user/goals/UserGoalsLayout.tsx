@@ -39,6 +39,8 @@ import { myEncrypt } from 'lib/backend/encryption/useEncryptor'
 import BasicBarChart from 'components/Atoms/Charts/BasicBarChart'
 import BasicPieChart from 'components/Atoms/Charts/BasicPieChart'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
+import { areObjectsEqual } from 'lib/util/objects'
+import { replaceItemInArray } from 'lib/util/collections'
 
 export interface UserGoalsModel {
   isLoading: boolean
@@ -98,7 +100,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   }
 
   const handleGoalClick = async (item: UserGoal) => {
-    setModel({ ...model, selectedGoal: item })
+    setModel({ ...model, selectedGoal: item, barChart: undefined })
   }
   const handleCloseSelectedGoal = () => {
     setModel({ ...model, selectedGoal: undefined, goalEditMode: false })
@@ -148,9 +150,17 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
       setModel({ ...model, selectedGoal: goal })
     }
   }
-  const handelGoalDetailsLoaded = (goal: UserGoal, tasks: UserTask[]) => {
-    //console.log('goal detail loaded')
-    goal.stats = getGoalStats(tasks)
+  const handelGoalDetailsLoaded = async (goal: UserGoal, tasks: UserTask[]) => {
+    const newStats = getGoalStats(tasks)
+    const areEqual = areObjectsEqual(goal.stats, newStats)
+    goal.stats = newStats
+    if (!areEqual) {
+      let goals = cloneDeep(model.goals)
+      replaceItemInArray<UserGoal>(goal, goals, 'id', goal.id!)
+      putUserGoals(constructUserGoalsKey(model.username), goals)
+      console.log('replaced goal: ', goal.body)
+    }
+
     setModel({ ...model, selectedGoal: goal })
     const div = document.getElementById('goalDetailsLink')
     if (div) {

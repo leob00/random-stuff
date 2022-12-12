@@ -1,4 +1,4 @@
-import { chunk } from 'lodash'
+import { chunk, findIndex } from 'lodash'
 export interface Page {
   index: number
   items: any[]
@@ -33,4 +33,13 @@ export function getPagedItems<T>(items: T[], pageSize: number) {
     })
   })
   return result
+}
+
+export function replaceItemInArray<T>(T: any, array: T[], key: keyof T, keyVal: string | number) {
+  const existingIx = findIndex(array, (e) => {
+    return e[key] === keyVal
+  })
+  if (existingIx > -1) {
+    array[existingIx] = T
+  }
 }
