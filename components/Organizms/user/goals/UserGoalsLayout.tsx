@@ -42,6 +42,11 @@ import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import { areObjectsEqual } from 'lib/util/objects'
 import { replaceItemInArray } from 'lib/util/collections'
 
+export interface UserGoalAndTask {
+  goal: UserGoal
+  tasks: UserTask[]
+}
+
 export interface UserGoalsModel {
   isLoading: boolean
   isSaving: boolean
@@ -52,6 +57,7 @@ export interface UserGoalsModel {
   showConfirmDeleteGoal: boolean
   showAddGoalForm: boolean
   barChart?: BarChart
+  goalsAndTasks: UserGoalAndTask[]
 }
 
 const UserGoalsLayout = ({ username }: { username: string }) => {
@@ -63,6 +69,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
     isSaving: false,
     showConfirmDeleteGoal: false,
     showAddGoalForm: false,
+    goalsAndTasks: [],
   }
   const [model, setModel] = React.useReducer((state: UserGoalsModel, newState: UserGoalsModel) => ({ ...state, ...newState }), defaultModel)
 
@@ -76,13 +83,27 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   }
 
   const loadGoals = async () => {
-    const result = await getUserGoals(constructUserGoalsKey(username))
-    result.forEach((g) => {
-      if (!g.completePercent) {
-        g.completePercent = 0
+    const goals = orderBy(await getUserGoals(constructUserGoalsKey(username)), ['dateModified'], ['desc'])
+    const tasks = await getUserTasks(username)
+
+    const goalsAndTasks: UserGoalAndTask[] = []
+
+    goals.forEach((goal) => {
+      const goalTasks = filter(tasks, (e) => e.goalId === goal.id)
+      goal.stats = getGoalStats(goalTasks)
+      if (!goal.completePercent) {
+        goal.completePercent = 0
       }
+      goalsAndTasks.push({
+        goal: goal,
+        tasks: goalTasks,
+      })
     })
-    return orderBy(result, ['dateModified'], ['desc'])
+    //console.log('first goal: ', goalsAndTasks[0])
+    //console.log('first goal tasks: ', goalsAndTasks[0].tasks)
+
+    return goalsAndTasks
+    // return orderBy(goals, ['dateModified'], ['desc'])
   }
 
   const handleEditGoalSubmit = async (item: UserGoal) => {
@@ -169,21 +190,15 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   }
   const handleRefrehGoals = async () => {
     setModel({ ...model, isLoading: true })
-    let goals = await loadGoals()
-    setModel({ ...model, goals: goals, goalEditMode: false, selectedGoal: undefined, barChart: undefined })
+    const goalsAndTasks = await loadGoals()
+    const goals: UserGoal[] = goalsAndTasks.map((e) => e.goal)
+    setModel({ ...model, goals: goals, goalEditMode: false, selectedGoal: undefined, barChart: undefined, goalsAndTasks: goalsAndTasks })
   }
 
   const handleShowCharts = async () => {
     setModel({ ...model, isLoading: true })
-    const result = await getUserTasks(model.username)
+    const tasks = await getUserTasks(model.username)
     //console.log(result.length)
-
-    const tasks: UserTask[] = []
-    result.forEach((g) => {
-      const m = JSON.parse(g.data) as unknown as UserTask[]
-      //console.log(m)
-      tasks.push(...m)
-    })
     //console.log(tasks.length)
     const inProg = filter(tasks, (e) => e.status !== 'completed')
     const comp = filter(tasks, (e) => e.status === 'completed').length
@@ -199,8 +214,9 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
 
   React.useEffect(() => {
     const fn = async () => {
-      const goals = await loadGoals()
-      setModel({ ...model, goals: goals, isLoading: false })
+      const goalsAndTasks = await loadGoals()
+      const goals: UserGoal[] = goalsAndTasks.map((e) => e.goal)
+      setModel({ ...model, goals: goals, isLoading: false, goalsAndTasks: goalsAndTasks })
     }
     fn()
   }, [])

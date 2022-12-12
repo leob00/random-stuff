@@ -145,14 +145,28 @@ export async function getUserGoals(id: string) {
   }
   return result
 }
-export async function getUserTasks(username: string) {
+export async function getUserTasksLambaBody(username: string) {
   const enc = myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `user-goal-tasks[${username}]`)
-  //req = `/api/searchRandomStuff?id=user-goal-tasks[leo_bel@hotmail.com]&enc=${enc}`
   const body: EncPutRequest = {
     data: enc,
   }
   const result = (await axiosPut('/api/searchRandomStuff', body)) as LambdaBody[]
   return result
+}
+
+export async function getUserTasks(username: string) {
+  const enc = myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `user-goal-tasks[${username}]`)
+  const body: EncPutRequest = {
+    data: enc,
+  }
+  const result = (await axiosPut('/api/searchRandomStuff', body)) as LambdaBody[]
+  const tasks: UserTask[] = []
+  result.forEach((g) => {
+    const m = JSON.parse(g.data) as unknown as UserTask[]
+    //console.log(m)
+    tasks.push(...m)
+  })
+  return tasks
 }
 export async function getUserGoalTasks(goalId: string) {
   //const id = `user-goal-tasks${goalId}`
