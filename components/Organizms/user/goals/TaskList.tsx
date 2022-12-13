@@ -47,13 +47,31 @@ const TaskList = ({
     filteredTasks: tasks,
   })
 
+  const reorderList = (list: UserTask[]) => {
+    const inProg = orderBy(
+      filter(tasks, (e) => e.status === 'in progress'),
+      ['status', 'dueDate'],
+      ['desc', 'asc'],
+    )
+    const completed = orderBy(
+      filter(tasks, (e) => e.status === 'completed'),
+      ['dateCompleted'],
+      ['asc'],
+    )
+    const result: UserTask[] = []
+    result.push(...inProg)
+    result.push(...completed)
+    return result
+  }
+
   const handleAddTask = (item: UserTask) => {
     setModel({ ...model, isLoading: true })
+    item.status = 'in progress'
     item.goalId = goalId
     item.id = constructUserTaskPk(username)
     const tasks = cloneDeep(model.tasks)
     tasks.push(item)
-    const reordered = orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc'])
+    const reordered = reorderList(tasks)
     setModel({ ...model, isLoading: false, tasks: reordered, filteredTasks: reordered })
     onAddTask(item)
   }
@@ -64,13 +82,15 @@ const TaskList = ({
     setModel({ ...model, isLoading: true })
     if (item.status && item.status === 'completed') {
       item.dateCompleted = getUtcNow().format()
+      item.status = 'completed'
     } else {
       item.dateCompleted = undefined
+      item.status = 'in progress'
     }
     item.dateModified = getUtcNow().format()
     const tasks = filter(cloneDeep(model.tasks), (e) => e.id !== item.id)
     tasks.push(item)
-    const reordered = orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc'])
+    const reordered = reorderList(tasks)
     setModel({ ...model, isLoading: false, tasks: reordered, filteredTasks: reordered })
     onModifyTask(item)
   }
