@@ -3,7 +3,7 @@ import React from 'react'
 
 const CenteredParagraph = ({ text }: { text: string }) => {
   return (
-    <Box sx={{ padding: 2 }}>
+    <Box sx={{ padding: 1 }}>
       <Typography variant='body1' color='primary' sx={{ textAlign: 'center' }}>
         {text}
       </Typography>

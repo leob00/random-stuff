@@ -25,6 +25,7 @@ import { replaceItemInArray } from 'lib/util/collections'
 import GoalCharts from './GoalCharts'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import GoalsMenu from 'components/Molecules/Menus/GoalsMenu'
+import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
 
 export interface UserGoalAndTask {
   goal: UserGoal
@@ -256,24 +257,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
       </Box>
       <Box>
         {model.isLoading ? (
-          <>
-            <WarmupBox />
-            <Box py={2}>
-              <TextSkeleton />
-            </Box>
-            <Box py={2}>
-              <TextSkeleton />
-            </Box>
-            <Box py={2}>
-              <TextSkeleton />
-            </Box>
-            <Box py={2}>
-              <TextSkeleton />
-            </Box>
-            <Box py={2}>
-              <TextSkeleton />
-            </Box>
-          </>
+          <PageWithGridSkeleton />
         ) : (
           !model.barChart && (
             <>

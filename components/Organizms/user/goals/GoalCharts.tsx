@@ -5,6 +5,8 @@ import BasicPieChart from 'components/Atoms/Charts/BasicPieChart'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
+import { sum } from 'lodash'
+import numeral from 'numeral'
 import React from 'react'
 
 const GoalCharts = ({ barChart, handleCloseCharts }: { barChart: BarChart; handleCloseCharts: () => void }) => {
@@ -17,7 +19,7 @@ const GoalCharts = ({ barChart, handleCloseCharts }: { barChart: BarChart; handl
             <Close />
           </Button>
         </Stack>
-        <CenteredTitle title='All Tasks By Status' />
+        <CenteredTitle title={`All ${numeral(sum(barChart.numbers)).format('###,###')} Tasks By Status`} />
         <Box>
           <Grid container spacing={1} justifyContent={'center'} alignItems={'flex-end'}>
             <Grid item xs={12} md={4}>
