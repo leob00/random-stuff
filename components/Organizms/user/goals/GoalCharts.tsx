@@ -14,10 +14,8 @@ import { UserGoalAndTask } from './UserGoalsLayout'
 
 const GoalCharts = ({ barChart, goalTasks, handleCloseCharts }: { barChart: BarChart; goalTasks: UserGoalAndTask[]; handleCloseCharts: () => void }) => {
   let data: ApexBarChartData[] = []
-  const gt = filter(
-    orderBy(goalTasks, (e) => e.goal.completePercent, ['desc']),
-    (m) => m.goal.completePercent !== 0,
-  )
+  const gt = orderBy(goalTasks, (e) => e.goal.completePercent, ['desc'])
+
   const getFillColor = (num?: number) => {
     if (!num) {
       return CasinoBlueTransparent
@@ -38,9 +36,7 @@ const GoalCharts = ({ barChart, goalTasks, handleCloseCharts }: { barChart: BarC
       fillColor: getFillColor(e.goal.completePercent),
     }
   })
-  const labels = gt.map((e) => {
-    return `${e.goal.completePercent}%`
-  })
+
   return (
     <>
       <Box py={2}>
@@ -50,7 +46,7 @@ const GoalCharts = ({ barChart, goalTasks, handleCloseCharts }: { barChart: BarC
             <Close />
           </Button>
         </Stack>
-        <CenteredTitle title={`Completed Goals`} />
+        <CenteredTitle title={`Goals by Progress`} />
         <Box pb={2}>
           <Grid container spacing={1} justifyContent={'center'} alignItems={'flex-end'}>
             <Grid item xs={12} md={10}>
