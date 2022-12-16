@@ -7,14 +7,17 @@ import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import ApexBarChart, { ApexBarChartData } from 'components/Molecules/Charts/apex/ApexBarChart'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import { CasinoRedTransparent, CasinoBlueTransparent, CasinoGreenTransparent, CasinoGreen } from 'components/themes/mainTheme'
-import { orderBy, sum } from 'lodash'
+import { filter, orderBy, sum } from 'lodash'
 import numeral from 'numeral'
 import React from 'react'
 import { UserGoalAndTask } from './UserGoalsLayout'
 
 const GoalCharts = ({ barChart, goalTasks, handleCloseCharts }: { barChart: BarChart; goalTasks: UserGoalAndTask[]; handleCloseCharts: () => void }) => {
   let data: ApexBarChartData[] = []
-  const gt = orderBy(goalTasks, (e) => e.goal.completePercent, ['desc'])
+  const gt = filter(
+    orderBy(goalTasks, (e) => e.goal.completePercent, ['desc']),
+    (m) => m.goal.completePercent !== 0,
+  )
   const getFillColor = (num?: number) => {
     if (!num) {
       return CasinoBlueTransparent
