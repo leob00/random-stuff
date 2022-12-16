@@ -4,12 +4,27 @@ import BasicBarChart from 'components/Atoms/Charts/BasicBarChart'
 import BasicPieChart from 'components/Atoms/Charts/BasicPieChart'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
+import ApexBarChart, { ApexBarChartData } from 'components/Molecules/Charts/apex/ApexBarChart'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
-import { sum } from 'lodash'
+import { CasinoRedTransparent, CasinoBlueTransparent, CasinoGreenTransparent, CasinoGreen } from 'components/themes/mainTheme'
+import { orderBy, sum } from 'lodash'
 import numeral from 'numeral'
 import React from 'react'
+import { UserGoalAndTask } from './UserGoalsLayout'
 
-const GoalCharts = ({ barChart, handleCloseCharts }: { barChart: BarChart; handleCloseCharts: () => void }) => {
+const GoalCharts = ({ barChart, goalTasks, handleCloseCharts }: { barChart: BarChart; goalTasks: UserGoalAndTask[]; handleCloseCharts: () => void }) => {
+  let data: ApexBarChartData[] = []
+  const gt = orderBy(goalTasks, (e) => e.goal.completePercent, ['desc'])
+  data = gt.map((e) => {
+    return {
+      x: e.goal.body!,
+      y: e.goal.completePercent!,
+      fillColor: e.goal.completePercent === 100 ? CasinoGreen : CasinoBlueTransparent,
+    }
+  })
+  const labels = gt.map((e) => {
+    return `${e.goal.completePercent}%`
+  })
   return (
     <>
       <Box py={2}>
@@ -19,6 +34,16 @@ const GoalCharts = ({ barChart, handleCloseCharts }: { barChart: BarChart; handl
             <Close />
           </Button>
         </Stack>
+        <CenteredTitle title={`Completed Goals`} />
+        <Box pb={2}>
+          <Grid container spacing={1} justifyContent={'center'} alignItems={'flex-end'}>
+            <Grid item xs={12} md={7}>
+              <Box>
+                <ApexBarChart data={data} horizontal seriesName='completed' yAxisDecorator='%' />
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
         <CenteredTitle title={`All ${numeral(sum(barChart.numbers)).format('###,###')} Tasks By Status`} />
         <Box>
           <Grid container spacing={1} justifyContent={'center'} alignItems={'flex-end'}>

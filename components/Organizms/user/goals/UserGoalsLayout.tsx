@@ -70,7 +70,10 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   const loadGoals = async () => {
     const goals = orderBy(await getUserGoals(constructUserGoalsKey(username)), ['dateModified'], ['desc'])
     const tasks = await getUserTasks(username)
+    return mapGoalTasks(goals, tasks)
+  }
 
+  const mapGoalTasks = (goals: UserGoal[], tasks: UserTask[]) => {
     const goalsAndTasks: UserGoalAndTask[] = []
 
     goals.forEach((goal) => {
@@ -84,11 +87,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
         tasks: goalTasks,
       })
     })
-    //console.log('first goal: ', goalsAndTasks[0])
-    //console.log('first goal tasks: ', goalsAndTasks[0].tasks)
-
     return goalsAndTasks
-    // return orderBy(goals, ['dateModified'], ['desc'])
   }
 
   const handleEditGoalSubmit = async (item: UserGoal) => {
@@ -183,8 +182,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   const handleShowCharts = async () => {
     setModel({ ...model, isLoading: true })
     const tasks = await getUserTasks(model.username)
-    //console.log(result.length)
-    //console.log(tasks.length)
+    const goalsAndTasks = mapGoalTasks(model.goals, tasks)
     const inProg = filter(tasks, (e) => e.status !== 'completed')
     const comp = filter(tasks, (e) => e.status === 'completed').length
     const pastDue = filter(inProg, (e) => e.dueDate !== undefined && dayjs(e.dueDate).isBefore(dayjs())).length
@@ -194,7 +192,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
       numbers: [pastDue, inProg.length, comp],
       //borderColors: [CasinoRed, CasinoBlue, CasinoGreen],
     }
-    setModel({ ...model, isLoading: false, barChart: barChart, selectedGoal: undefined })
+    setModel({ ...model, isLoading: false, barChart: barChart, selectedGoal: undefined, goalsAndTasks: goalsAndTasks })
   }
 
   const handleCloseCharts = () => {
@@ -223,7 +221,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
       />
       <Box py={2}>
         {model.barChart ? (
-          <GoalCharts barChart={model.barChart} handleCloseCharts={handleCloseCharts} />
+          <GoalCharts barChart={model.barChart} handleCloseCharts={handleCloseCharts} goalTasks={model.goalsAndTasks} />
         ) : (
           <Stack display={'flex'} direction={'row'} justifyContent={'left'} alignItems={'left'}>
             <Box>
