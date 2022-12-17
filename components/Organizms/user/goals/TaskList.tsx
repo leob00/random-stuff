@@ -15,6 +15,7 @@ import { UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { cloneDeep, filter, orderBy } from 'lodash'
 import React from 'react'
+import { reorderTasks } from './UserGoalsLayout'
 
 interface TaskModel {
   isLoading: boolean
@@ -47,23 +48,6 @@ const TaskList = ({
     filteredTasks: tasks,
   })
 
-  const reorderList = (list: UserTask[]) => {
-    const inProg = orderBy(
-      filter(tasks, (e) => e.status === 'in progress'),
-      ['status', 'dueDate'],
-      ['desc', 'asc'],
-    )
-    const completed = orderBy(
-      filter(tasks, (e) => e.status === 'completed'),
-      ['dateCompleted'],
-      ['asc'],
-    )
-    const result: UserTask[] = []
-    result.push(...inProg)
-    result.push(...completed)
-    return result
-  }
-
   const handleAddTask = (item: UserTask) => {
     setModel({ ...model, isLoading: true })
     item.status = 'in progress'
@@ -71,7 +55,7 @@ const TaskList = ({
     item.id = constructUserTaskPk(username)
     const tasks = cloneDeep(model.tasks)
     tasks.push(item)
-    const reordered = reorderList(tasks)
+    const reordered = reorderTasks(tasks)
     setModel({ ...model, isLoading: false, tasks: reordered, filteredTasks: reordered })
     onAddTask(item)
   }
@@ -90,7 +74,7 @@ const TaskList = ({
     item.dateModified = getUtcNow().format()
     const tasks = filter(cloneDeep(model.tasks), (e) => e.id !== item.id)
     tasks.push(item)
-    const reordered = reorderList(tasks)
+    const reordered = reorderTasks(tasks)
     setModel({ ...model, isLoading: false, tasks: reordered, filteredTasks: reordered })
     onModifyTask(item)
   }
@@ -109,6 +93,7 @@ const TaskList = ({
   }
 
   const handleCompleteTaskClick = async (checked: boolean, item: UserTask) => {
+    setModel({ ...model, isLoading: true })
     item.status = checked ? 'completed' : 'in progress'
     await handleSaveTask(item)
   }
@@ -221,6 +206,7 @@ const TaskList = ({
                       color={item.status === 'in progress' && dayjs().isAfter(item.dueDate) ? CasinoRedTransparent : 'unset'}
                     >{`due: ${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>
                   )}
+                  {item.dateCompleted && <Typography variant='body2'>{`completed: ${dayjs(item.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
                   {i < tasks.length - 1 && <HorizontalDivider />}
                 </Box>
               )}

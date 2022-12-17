@@ -13,7 +13,7 @@ import { calculatePercentInt } from 'lib/util/numberUtil'
 import { cloneDeep, filter, orderBy } from 'lodash'
 import React from 'react'
 import TaskList from './TaskList'
-import { UserGoalsModel } from './UserGoalsLayout'
+import { reorderTasks, UserGoalsModel } from './UserGoalsLayout'
 
 interface Model {
   isLoading: boolean
@@ -75,7 +75,7 @@ const GoalDetails = ({
     setTaskModel({ ...taskModel, isLoading: true })
     if (model.selectedGoal) {
       let goal = cloneDeep(model.selectedGoal)
-      let tasks = filter(cloneDeep(taskModel.tasks), (e) => e.id !== item.id)
+      let tasks = reorderTasks(filter(cloneDeep(taskModel.tasks), (e) => e.id !== item.id))
       goal.stats = getGoalStats(tasks)
       await putUserGoalTasks(model.username, goal.id!, tasks)
       setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
@@ -98,7 +98,7 @@ const GoalDetails = ({
           task.status = 'in progress'
         }
       })
-      const tasks = orderBy(result, ['status', 'dueDate'], ['desc', 'asc'])
+      const tasks = reorderTasks(result)
       setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
       onLoaded?.(model.selectedGoal!, tasks)
     }

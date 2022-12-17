@@ -44,6 +44,22 @@ export interface UserGoalsModel {
   barChart?: BarChart
   goalsAndTasks: UserGoalAndTask[]
 }
+export function reorderTasks(list: UserTask[]) {
+  const inProg = orderBy(
+    filter(list, (e) => e.status === 'in progress'),
+    ['status', 'dueDate'],
+    ['desc', 'asc'],
+  )
+  const completed = orderBy(
+    filter(list, (e) => e.status === 'completed'),
+    ['dateCompleted'],
+    ['desc'],
+  )
+  const result: UserTask[] = []
+  result.push(...inProg)
+  result.push(...completed)
+  return result
+}
 
 const UserGoalsLayout = ({ username }: { username: string }) => {
   const defaultModel: UserGoalsModel = {
@@ -69,7 +85,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
 
   const loadGoals = async () => {
     const goals = orderBy(await getUserGoals(constructUserGoalsKey(username)), ['dateModified'], ['desc'])
-    const tasks = await getUserTasks(username)
+    const tasks = reorderTasks(await getUserTasks(username))
     return mapGoalTasks(goals, tasks)
   }
 
