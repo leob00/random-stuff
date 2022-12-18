@@ -46,6 +46,7 @@ const GoalDetails = ({
   const [taskModel, setTaskModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), { isLoading: true, tasks: [] })
 
   const handleAddTask = async (item: UserTask) => {
+    setTaskModel({ ...taskModel, isLoading: true })
     item.status = 'in progress'
     await handleModifyTask(item)
   }

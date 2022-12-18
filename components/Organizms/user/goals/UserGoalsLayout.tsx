@@ -305,17 +305,22 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
                       </Stack>
                     )}
                   </Stack>
-                  {item.dueDate && <Typography variant='body2'>{`due: ${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
-                  {item.stats && <Typography variant='body2'>{`completed: ${item.stats.completed}`}</Typography>}
-                  {item.stats && <Typography variant='body2'>{`in progress: ${item.stats.inProgress}`}</Typography>}
-                  {item.stats && item.stats.pastDue > 0 && (
-                    <LinkButton2
-                      onClick={() => {
-                        handleGoalClick(item)
-                      }}
-                    >
-                      <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
-                    </LinkButton2>
+                  {/* {item.dueDate && <Typography variant='body2'>{`due: ${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>} */}
+                  {item.stats && (
+                    <Box pl={1}>
+                      {item.stats && <Typography variant='body2'>{`tasks: ${Number(item.stats.completed) + Number(item.stats.inProgress)}`}</Typography>}
+                      {item.stats && <Typography variant='body2'>{`completed: ${item.stats.completed}`}</Typography>}
+                      {item.stats && <Typography variant='body2'>{`in progress: ${item.stats.inProgress}`}</Typography>}
+                      {item.stats && item.stats.pastDue > 0 && (
+                        <LinkButton2
+                          onClick={() => {
+                            handleGoalClick(item)
+                          }}
+                        >
+                          <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
+                        </LinkButton2>
+                      )}
+                    </Box>
                   )}
                   {model.selectedGoal && model.selectedGoal.id === item.id && (
                     <>
