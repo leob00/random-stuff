@@ -61,9 +61,8 @@ const GoalDetails = ({
     setTaskModel({ ...taskModel, isLoading: true })
     let tasks = filter(cloneDeep(taskModel.tasks), (e) => e.id !== item.id)
     tasks.push(item)
-    tasks = orderBy(tasks, ['status', 'dueDate'], ['desc', 'asc'])
-    await putUserGoalTasks(model.username, goalId, tasks)
-    setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
+    tasks = reorderTasks(tasks)
+    await putUserGoalTasks(model.username, model.selectedGoal!.id!, tasks)
 
     if (taskModel.selectedGoal) {
       const goal = cloneDeep(taskModel.selectedGoal)
@@ -78,6 +77,7 @@ const GoalDetails = ({
       setTaskModel({ ...taskModel, selectedGoal: goal })
       handleModifyGoal(goal)
     }
+    setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
   }
   const handleDeleteTask = async (item: UserTask) => {
     setTaskModel({ ...taskModel, isLoading: true })
