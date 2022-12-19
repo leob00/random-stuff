@@ -26,6 +26,7 @@ import GoalCharts from './GoalCharts'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import GoalsMenu from 'components/Molecules/Menus/GoalsMenu'
 import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
+import { calculatePercentInt } from 'lib/util/numberUtil'
 
 export interface UserGoalAndTask {
   goal: UserGoal
@@ -149,11 +150,12 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   }
 
   const saveGoal = async (goal: UserGoal) => {
-    setModel({ ...model, isSaving: true, isLoading: true, selectedGoal: undefined })
+    setModel({ ...model, isSaving: false, isLoading: false })
     goal.dateModified = getUtcNow().format()
     let goals = filter(cloneDeep(model.goals), (e) => e.id !== goal!.id)
     goals.push(goal)
     goals = orderBy(goals, ['dateModified'], ['desc'])
+
     await putUserGoals(constructUserGoalsKey(model.username), goals)
     setModel({ ...model, goals: goals, isSaving: false, isLoading: false, goalEditMode: false, selectedGoal: goal })
   }
@@ -184,11 +186,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
     }
 
     setModel({ ...model, selectedGoal: goal })
-    window.scrollTo({ top: 0 })
-    /* const div = document.getElementById('goalDetailsLink')
-    if (div) {
-      div.scrollIntoView({ behavior: 'smooth' })
-    } */
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
   const handleRefrehGoals = async () => {
     setModel({ ...model, isLoading: true })

@@ -19,6 +19,7 @@ import { reorderTasks, UserGoalsModel } from './UserGoalsLayout'
 interface Model {
   isLoading: boolean
   tasks: UserTask[]
+  selectedGoal: UserGoal
 }
 
 const GoalDetails = ({
@@ -44,7 +45,11 @@ const GoalDetails = ({
   handleModifyGoal: (item: UserGoal) => void
   onLoaded?: (goal: UserGoal, tasks: UserTask[]) => void
 }) => {
-  const [taskModel, setTaskModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), { isLoading: true, tasks: [] })
+  const [taskModel, setTaskModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), {
+    isLoading: true,
+    tasks: [],
+    selectedGoal: model.selectedGoal!,
+  })
 
   const handleAddTask = async (item: UserTask) => {
     setTaskModel({ ...taskModel, isLoading: true })
@@ -60,8 +65,8 @@ const GoalDetails = ({
     await putUserGoalTasks(model.username, goalId, tasks)
     setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
 
-    if (model.selectedGoal) {
-      const goal = cloneDeep(model.selectedGoal)
+    if (taskModel.selectedGoal) {
+      const goal = cloneDeep(taskModel.selectedGoal)
       goal.stats = getGoalStats(tasks)
       if (tasks.length > 0) {
         const completed = filter(tasks, (e) => e.status === 'completed')
@@ -70,6 +75,7 @@ const GoalDetails = ({
       } else {
         goal.completePercent = 0
       }
+      setTaskModel({ ...taskModel, selectedGoal: goal })
       handleModifyGoal(goal)
     }
   }
@@ -103,7 +109,7 @@ const GoalDetails = ({
       const tasks = reorderTasks(result)
       setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
 
-      onLoaded?.(model.selectedGoal!, tasks)
+      onLoaded?.(taskModel.selectedGoal, tasks)
     }
     fn()
   }, [goalId])
@@ -170,20 +176,24 @@ const GoalDetails = ({
               <Stack direction='column' justifyContent='left' alignItems='left'>
                 <Typography variant={'subtitle1'}>{`${model.selectedGoal.body}`}</Typography>
 
-                {model.selectedGoal.stats && (
+                {taskModel.selectedGoal.stats && (
                   <Typography variant='body2'>{`tasks: ${
-                    Number(model.selectedGoal.stats.completed) + Number(model.selectedGoal.stats.inProgress)
+                    Number(taskModel.selectedGoal.stats.completed) + Number(taskModel.selectedGoal.stats.inProgress)
                   }`}</Typography>
                 )}
-                {model.selectedGoal.stats && <Typography variant='body2'>{`completed: ${model.selectedGoal.stats.completed}`}</Typography>}
-                {model.selectedGoal.stats && <Typography variant='body2'>{`in progress: ${model.selectedGoal.stats.inProgress}`}</Typography>}
+                {taskModel.selectedGoal.stats && <Typography variant='body2'>{`completed: ${taskModel.selectedGoal.stats.completed}`}</Typography>}
+                {taskModel.selectedGoal.stats && <Typography variant='body2'>{`in progress: ${taskModel.selectedGoal.stats.inProgress}`}</Typography>}
               </Stack>
 
               <>
-                {model.selectedGoal.completePercent !== undefined && (
+                {taskModel.selectedGoal.completePercent !== undefined && (
                   <>
                     <Stack flexDirection='row' py={1} flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-start'}>
-                      <ProgressBar value={model.selectedGoal.completePercent} toolTipText={`${model.selectedGoal.completePercent}% complete`} width={80} />
+                      <ProgressBar
+                        value={taskModel.selectedGoal.completePercent}
+                        toolTipText={`${taskModel.selectedGoal.completePercent}% complete`}
+                        width={80}
+                      />
                     </Stack>
                   </>
                 )}
@@ -191,8 +201,7 @@ const GoalDetails = ({
             </Stack>
           )}
 
-          <HorizontalDivider />
-          <Box py={2} pl={1}>
+          <Box py={1}>
             {taskModel.isLoading ? (
               <>
                 <WarmupBox />
@@ -213,7 +222,7 @@ const GoalDetails = ({
               <>
                 <TaskList
                   username={model.username}
-                  goalId={goalId}
+                  selectedGoal={taskModel.selectedGoal}
                   tasks={taskModel.tasks}
                   onAddTask={handleAddTask}
                   onModifyTask={handleModifyTask}

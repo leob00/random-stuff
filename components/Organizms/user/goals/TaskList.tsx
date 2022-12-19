@@ -11,7 +11,7 @@ import EditTaskForm from 'components/Molecules/Forms/EditTaskForm'
 import { CasinoRedTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { constructUserTaskPk } from 'lib/backend/api/aws/util'
-import { UserTask } from 'lib/models/userTasks'
+import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { cloneDeep, filter, orderBy } from 'lodash'
 import React from 'react'
@@ -28,14 +28,14 @@ interface TaskModel {
 
 const TaskList = ({
   username,
-  goalId,
+  selectedGoal,
   tasks,
   onAddTask,
   onModifyTask,
   onDeleteTask,
 }: {
   username: string
-  goalId: string
+  selectedGoal: UserGoal
   tasks: UserTask[]
   onAddTask: (item: UserTask) => void
   onModifyTask: (item: UserTask) => void
@@ -51,7 +51,7 @@ const TaskList = ({
   const handleAddTask = (item: UserTask) => {
     setModel({ ...model, isLoading: true })
     item.status = 'in progress'
-    item.goalId = goalId
+    item.goalId = selectedGoal.id
     item.id = constructUserTaskPk(username)
     const tasks = cloneDeep(model.tasks)
     tasks.push(item)
