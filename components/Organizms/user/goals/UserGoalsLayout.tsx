@@ -241,15 +241,17 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
           <GoalCharts barChart={model.barChart} handleCloseCharts={handleCloseCharts} goalTasks={model.goalsAndTasks} />
         ) : (
           <Stack display={'flex'} direction={'row'} justifyContent={'left'} alignItems={'left'}>
-            <Box>
-              <LinkButton
-                onClick={() => {
-                  setModel({ ...model, showAddGoalForm: !model.showAddGoalForm })
-                }}
-              >
-                <Typography>{`${model.showAddGoalForm ? 'cancel' : 'create goal'}`}</Typography>
-              </LinkButton>
-            </Box>
+            {!model.selectedGoal && (
+              <Box>
+                <LinkButton
+                  onClick={() => {
+                    setModel({ ...model, showAddGoalForm: !model.showAddGoalForm })
+                  }}
+                >
+                  <Typography>{`${model.showAddGoalForm ? 'cancel' : 'create goal'}`}</Typography>
+                </LinkButton>
+              </Box>
+            )}
             <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
               <GoalsMenu
                 onRefresh={() => {

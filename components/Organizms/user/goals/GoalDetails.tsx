@@ -7,9 +7,11 @@ import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
 import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
+import { CasinoRedTransparent } from 'components/themes/mainTheme'
 import { getUserGoalTasks, putUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
 import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
+import { replaceItemInArray } from 'lib/util/collections'
 import { calculatePercentInt } from 'lib/util/numberUtil'
 import { cloneDeep, filter, orderBy } from 'lodash'
 import React from 'react'
@@ -52,15 +54,32 @@ const GoalDetails = ({
   })
 
   const handleAddTask = async (item: UserTask) => {
+    //console.log(item)
     setTaskModel({ ...taskModel, isLoading: true })
     item.status = 'in progress'
-    await handleModifyTask(item)
+    let tasks = cloneDeep(taskModel.tasks)
+    tasks.push(item)
+    tasks = reorderTasks(tasks)
+    const goal = cloneDeep(taskModel.selectedGoal!)
+    goal.stats = getGoalStats(tasks)
+    if (tasks.length > 0) {
+      const completed = filter(tasks, (e) => e.status === 'completed')
+      goal.completePercent = calculatePercentInt(completed.length, tasks.length)
+    } else {
+      goal.completePercent = 0
+    }
+    await putUserGoalTasks(model.username, goal.id!, tasks)
+    setTaskModel({ ...taskModel, selectedGoal: goal, tasks: tasks, isLoading: false })
+
+    handleModifyGoal(goal)
+
+    //await handleModifyTask(item)
   }
 
   const handleModifyTask = async (item: UserTask) => {
     setTaskModel({ ...taskModel, isLoading: true })
-    let tasks = filter(cloneDeep(taskModel.tasks), (e) => e.id !== item.id)
-    tasks.push(item)
+    let tasks = cloneDeep(taskModel.tasks)
+    replaceItemInArray<UserTask>(item, tasks, 'id', item.id!)
     tasks = reorderTasks(tasks)
     await putUserGoalTasks(model.username, model.selectedGoal!.id!, tasks)
 
@@ -69,15 +88,14 @@ const GoalDetails = ({
       goal.stats = getGoalStats(tasks)
       if (tasks.length > 0) {
         const completed = filter(tasks, (e) => e.status === 'completed')
-
         goal.completePercent = calculatePercentInt(completed.length, tasks.length)
       } else {
         goal.completePercent = 0
       }
-      setTaskModel({ ...taskModel, selectedGoal: goal })
+      setTaskModel({ ...taskModel, selectedGoal: goal, tasks: tasks, isLoading: false })
       handleModifyGoal(goal)
     }
-    setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
+    //setTaskModel({ ...taskModel, tasks: tasks, selectedGoal:  isLoading: false })
   }
   const handleDeleteTask = async (item: UserTask) => {
     setTaskModel({ ...taskModel, isLoading: true })
@@ -86,14 +104,14 @@ const GoalDetails = ({
       let tasks = reorderTasks(filter(cloneDeep(taskModel.tasks), (e) => e.id !== item.id))
       goal.stats = getGoalStats(tasks)
       await putUserGoalTasks(model.username, goal.id!, tasks)
-      setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
       if (tasks.length > 0) {
         const completed = filter(tasks, (e) => e.status === 'completed')
-
         goal.completePercent = calculatePercentInt(completed.length, tasks.length)
       } else {
         goal.completePercent = 0
       }
+      setTaskModel({ ...taskModel, tasks: tasks, isLoading: false, selectedGoal: goal })
+
       handleModifyGoal(goal)
     }
   }
@@ -175,25 +193,38 @@ const GoalDetails = ({
             <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
               <Stack direction='column' justifyContent='left' alignItems='left'>
                 <Typography variant={'subtitle1'}>{`${model.selectedGoal.body}`}</Typography>
-
                 {taskModel.selectedGoal.stats && (
-                  <Typography variant='body2'>{`tasks: ${
-                    Number(taskModel.selectedGoal.stats.completed) + Number(taskModel.selectedGoal.stats.inProgress)
-                  }`}</Typography>
+                  <>
+                    <Typography variant='body2'>{`tasks: ${
+                      Number(taskModel.selectedGoal.stats.completed) + Number(taskModel.selectedGoal.stats.inProgress)
+                    }`}</Typography>
+                    <Typography variant='body2'>{`completed: ${taskModel.selectedGoal.stats.completed}`}</Typography>
+                    <Typography variant='body2'>{`in progress: ${taskModel.selectedGoal.stats.inProgress}`}</Typography>
+                    {taskModel.selectedGoal.stats.pastDue > 0 && (
+                      <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${taskModel.selectedGoal.stats.pastDue}`}</Typography>
+                    )}
+                  </>
                 )}
-                {taskModel.selectedGoal.stats && <Typography variant='body2'>{`completed: ${taskModel.selectedGoal.stats.completed}`}</Typography>}
-                {taskModel.selectedGoal.stats && <Typography variant='body2'>{`in progress: ${taskModel.selectedGoal.stats.inProgress}`}</Typography>}
               </Stack>
-
               <>
                 {taskModel.selectedGoal.completePercent !== undefined && (
                   <>
                     <Stack flexDirection='row' py={1} flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-start'}>
-                      <ProgressBar
-                        value={taskModel.selectedGoal.completePercent}
-                        toolTipText={`${taskModel.selectedGoal.completePercent}% complete`}
-                        width={80}
-                      />
+                      {!taskModel.isLoading ? (
+                        <ProgressBar
+                          value={taskModel.selectedGoal.completePercent}
+                          toolTipText={`${taskModel.selectedGoal.completePercent}% complete`}
+                          width={80}
+                        />
+                      ) : (
+                        <TextSkeleton>
+                          <ProgressBar
+                            value={taskModel.selectedGoal.completePercent}
+                            toolTipText={`${taskModel.selectedGoal.completePercent}% complete`}
+                            width={80}
+                          />
+                        </TextSkeleton>
+                      )}
                     </Stack>
                   </>
                 )}
