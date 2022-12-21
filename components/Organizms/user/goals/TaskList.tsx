@@ -148,7 +148,6 @@ const TaskList = ({
       </Box>
       {model.isLoading ? (
         <>
-          <WarmupBox />
           <PageWithGridSkeleton />
         </>
       ) : (

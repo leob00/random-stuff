@@ -6,7 +6,6 @@ import TextSkeleton from './TextSkeleton'
 const PageWithGridSkeleton = () => {
   return (
     <>
-      <WarmupBox />
       <Box py={2}>
         <TextSkeleton />
       </Box>

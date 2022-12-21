@@ -5,6 +5,7 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import DateAndTimePicker from 'components/Atoms/Inputs/DateAndTimePicker'
 import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
 import ProgressBar from 'components/Atoms/Progress/ProgressBar'
+import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
 import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { CasinoRedTransparent } from 'components/themes/mainTheme'
@@ -237,18 +238,7 @@ const GoalDetails = ({
             {taskModel.isLoading ? (
               <>
                 <WarmupBox />
-                <Box py={2}>
-                  <TextSkeleton />
-                </Box>
-                <Box py={2}>
-                  <TextSkeleton />
-                </Box>
-                <Box py={2}>
-                  <TextSkeleton />
-                </Box>
-                <Box py={2}>
-                  <TextSkeleton />
-                </Box>
+                <PageWithGridSkeleton />
               </>
             ) : (
               <>
