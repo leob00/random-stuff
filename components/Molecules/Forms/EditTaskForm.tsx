@@ -67,7 +67,7 @@ const EditTaskForm = ({
       <ConfirmDeleteDialog
         show={showConfirmDelete}
         title={'confirm delete'}
-        text={'Are you sure you want to delete this task?'}
+        text={`Are you sure you want to delete ${formInput.body}?`}
         onConfirm={() => {
           onDelete(formInput)
         }}

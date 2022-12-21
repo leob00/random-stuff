@@ -92,8 +92,9 @@ const GoalDetails = ({
       } else {
         goal.completePercent = 0
       }
-      setTaskModel({ ...taskModel, selectedGoal: goal, tasks: tasks, isLoading: false })
+
       handleModifyGoal(goal)
+      setTaskModel({ ...taskModel, selectedGoal: goal, tasks: tasks, isLoading: false })
     }
     //setTaskModel({ ...taskModel, tasks: tasks, selectedGoal:  isLoading: false })
   }

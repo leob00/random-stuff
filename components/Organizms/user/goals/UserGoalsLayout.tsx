@@ -1,10 +1,8 @@
-import { Box, Button, Divider, ListItemIcon, ListItemText, Menu, MenuItem, MenuList, Stack, Typography } from '@mui/material'
+import { Box, Button, Stack, Typography } from '@mui/material'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ProgressBar from 'components/Atoms/Progress/ProgressBar'
-import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
-import WarmupBox from 'components/Atoms/WarmupBox'
 import AddGoalForm from 'components/Molecules/Forms/AddGoalForm'
 import { CasinoBlueTransparent, CasinoGreenTransparent, CasinoRedTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
@@ -16,9 +14,6 @@ import { getSecondsFromEpoch, getUtcNow } from 'lib/util/dateUtil'
 import { cloneDeep, filter, orderBy } from 'lodash'
 import React from 'react'
 import GoalDetails from './GoalDetails'
-import MenuIcon from '@mui/icons-material/Menu'
-import CachedIcon from '@mui/icons-material/Cached'
-import BarChartIcon from '@mui/icons-material/BarChart'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import { areObjectsEqual } from 'lib/util/objects'
 import { replaceItemInArray } from 'lib/util/collections'
@@ -26,7 +21,6 @@ import GoalCharts from './GoalCharts'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import GoalsMenu from 'components/Molecules/Menus/GoalsMenu'
 import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
-import { calculatePercentInt } from 'lib/util/numberUtil'
 
 export interface UserGoalAndTask {
   goal: UserGoal
@@ -110,6 +104,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   const handleEditGoalSubmit = async (item: UserGoal) => {
     setModel({ ...model, isLoading: true })
     let goals = cloneDeep(model).goals
+    const newGoal = !item.id
     if (!item.id) {
       item.id = constructUserGoalPk(username)
       item.dateCreated = getUtcNow().format()
@@ -118,7 +113,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
     goals.push(item)
     goals = orderBy(goals, ['dateModified'], ['desc'])
     await putUserGoals(constructUserGoalsKey(model.username), goals)
-    setModel({ ...model, goals: goals, selectedGoal: undefined, isLoading: false, showAddGoalForm: false })
+    setModel({ ...model, goals: goals, selectedGoal: newGoal ? item : undefined, isLoading: false, showAddGoalForm: false })
   }
 
   const handleGoalClick = async (item: UserGoal) => {
@@ -230,7 +225,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
       <ConfirmDeleteDialog
         show={model.showConfirmDeleteGoal}
         title={'confirm delete'}
-        text={`Are you sure you want to delete goal: ${model.selectedGoal?.body}?`}
+        text={`Are you sure you want to delete ${model.selectedGoal?.body}?`}
         onConfirm={handleYesDeleteGoal}
         onCancel={() => {
           setModel({ ...model, showConfirmDeleteGoal: false })

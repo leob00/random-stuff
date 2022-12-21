@@ -1,9 +1,11 @@
-import { Box, Stack, Typography } from '@mui/material'
+import { Search, SearchOff } from '@mui/icons-material'
+import { Box, IconButton, Stack, Typography } from '@mui/material'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import ConfirmDialog from 'components/Atoms/Dialogs/ConfirmDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
+import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
 import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import AddTaskForm from 'components/Molecules/Forms/AddTaskForm'
@@ -12,6 +14,7 @@ import { CasinoRedTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { constructUserTaskPk } from 'lib/backend/api/aws/util'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
+import { replaceItemInArray } from 'lib/util/collections'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { cloneDeep, filter, orderBy } from 'lodash'
 import React from 'react'
@@ -24,6 +27,7 @@ interface TaskModel {
   editTask?: UserTask
   selectedTask?: UserTask
   confirmCompleteTask: boolean
+  showSearch: boolean
 }
 
 const TaskList = ({
@@ -46,6 +50,7 @@ const TaskList = ({
     tasks: tasks,
     confirmCompleteTask: false,
     filteredTasks: tasks,
+    showSearch: false,
   })
 
   const handleAddTask = (item: UserTask) => {
@@ -95,6 +100,10 @@ const TaskList = ({
   const handleCompleteTaskClick = async (checked: boolean, item: UserTask) => {
     setModel({ ...model, isLoading: true })
     item.status = checked ? 'completed' : 'in progress'
+    let tasks = cloneDeep(model.tasks)
+    replaceItemInArray(item, tasks, 'id', item.id!)
+    tasks = reorderTasks(tasks)
+    setModel({ ...model, tasks: tasks })
     await handleSaveTask(item)
   }
 
@@ -109,6 +118,10 @@ const TaskList = ({
     setModel({ ...model, filteredTasks: filtered })
   }
 
+  const handleToggleSearch = () => {
+    setModel({ ...model, showSearch: !model.showSearch })
+  }
+
   return (
     <>
       <ConfirmDialog
@@ -121,45 +134,33 @@ const TaskList = ({
       <Box py={2}>
         <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
           <Typography variant='subtitle1'>Tasks</Typography>
+
           <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
             <Typography>complete</Typography>
           </Stack>
         </Stack>
         <HorizontalDivider />
+        <Box pl={2}>
+          <IconButton size='small' color='secondary' onClick={handleToggleSearch}>
+            {model.showSearch ? <SearchOff fontSize='small' /> : <Search fontSize='small' />}
+          </IconButton>
+        </Box>
       </Box>
       {model.isLoading ? (
         <>
           <WarmupBox />
-          <Box py={2}>
-            <TextSkeleton />
-          </Box>
-          <Box py={2}>
-            <TextSkeleton />
-          </Box>
-          <Box py={2}>
-            <TextSkeleton />
-          </Box>
-          <Box py={2}>
-            <TextSkeleton />
-          </Box>
-          <Box py={2}>
-            <TextSkeleton />
-          </Box>
-          <Box py={2}>
-            <TextSkeleton />
-          </Box>
+          <PageWithGridSkeleton />
         </>
       ) : (
         <>
-          {model.tasks.length === 0 && (
-            <Box py={1}>
-              <AddTaskForm task={{}} onSubmit={handleAddTask} />
-            </Box>
-          )}
-          {model.tasks.length > 3 && (
+          {model.showSearch ? (
             <Stack direction={'row'} justifyContent={'center'} alignItems={'center'} pb={2}>
               <SearchWithinList text={'search tasks'} onChanged={handleSearched} />
             </Stack>
+          ) : (
+            <Box pt={1} pb={3}>
+              <AddTaskForm task={{}} onSubmit={handleAddTask} />
+            </Box>
           )}
           {model.filteredTasks.length === 0 && model.tasks.length > 0 && (
             <Stack direction={'row'} justifyContent={'center'} alignItems={'center'}>
@@ -193,6 +194,7 @@ const TaskList = ({
                     </LinkButton2>
                     <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
                       <SecondaryCheckbox
+                        loading={model.isLoading}
                         checked={item.status === 'completed'}
                         onChanged={(checked: boolean) => {
                           handleCompleteTaskClick(checked, item)
@@ -212,11 +214,6 @@ const TaskList = ({
               )}
             </Box>
           ))}
-          {tasks.length > 0 && !model.editTask && (
-            <Box pt={4} pb={2}>
-              <AddTaskForm task={{}} onSubmit={handleAddTask} />
-            </Box>
-          )}
         </>
       )}
     </>

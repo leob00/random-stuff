@@ -1,4 +1,4 @@
-import { LinearProgress } from '@mui/material'
+import { LinearProgress, LinearProgressProps } from '@mui/material'
 import React from 'react'
 import DefaultTooltip from '../Tooltips/DefaultTooltip'
 
@@ -7,10 +7,20 @@ const ProgressBar = ({ value, height = 10, width = 100, toolTipText }: { value: 
     <>
       {toolTipText ? (
         <DefaultTooltip text={toolTipText}>
-          <LinearProgress variant='determinate' value={value} color='secondary' sx={{ width: width, height: height, borderRadius: '4rem' }} />
+          <LinearProgress
+            variant='determinate'
+            value={value}
+            color={value === 100 ? 'success' : 'secondary'}
+            sx={{ width: width, height: height, borderRadius: '4rem' }}
+          />
         </DefaultTooltip>
       ) : (
-        <LinearProgress variant='determinate' value={value} color='secondary' sx={{ width: width, height: height, borderRadius: '4rem' }} />
+        <LinearProgress
+          variant='determinate'
+          value={value}
+          color={value === 100 ? 'success' : 'secondary'}
+          sx={{ width: width, height: height, borderRadius: '4rem' }}
+        />
       )}
     </>
   )

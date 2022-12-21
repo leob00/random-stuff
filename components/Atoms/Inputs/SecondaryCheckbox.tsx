@@ -1,19 +1,48 @@
-import { Button } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import React from 'react'
 import CheckBoxOutlineBlankRoundedIcon from '@mui/icons-material/CheckBoxOutlineBlankRounded'
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined'
-const SecondaryCheckbox = ({ checked, onChanged }: { checked?: boolean; onChanged: (checked: boolean) => void }) => {
+import TextSkeleton from '../Skeletons/TextSkeleton'
+const SecondaryCheckbox = ({ checked, loading = false, onChanged }: { checked?: boolean; loading?: boolean; onChanged: (checked: boolean) => void }) => {
   const [isChecked, setIsChecked] = React.useState(checked)
-  const handleCheckClick = () => {
-    let chk = !isChecked
-    setIsChecked(chk)
-    onChanged(chk)
+  const [isLoading, setIsLoading] = React.useState(loading)
+
+  const handleCheckClick = (val: boolean) => {
+    setIsChecked(val)
+    onChanged(val)
   }
+
+  React.useEffect(() => {
+    setIsLoading(false)
+  }, [])
+
   return (
     <>
-      <Button onClick={handleCheckClick} sx={{ padding: 0 }}>
-        {isChecked ? <CheckBoxOutlinedIcon color='secondary' /> : <CheckBoxOutlineBlankRoundedIcon color='secondary' />}
-      </Button>
+      {isLoading ? (
+        <TextSkeleton width={30} />
+      ) : (
+        <Box>
+          {isChecked ? (
+            <Button
+              sx={{ padding: 0 }}
+              onClick={() => {
+                handleCheckClick(false)
+              }}
+            >
+              <CheckBoxOutlinedIcon color='secondary' />
+            </Button>
+          ) : (
+            <Button
+              sx={{ padding: 0 }}
+              onClick={() => {
+                handleCheckClick(true)
+              }}
+            >
+              <CheckBoxOutlineBlankRoundedIcon color='secondary' />
+            </Button>
+          )}
+        </Box>
+      )}
     </>
   )
 }
