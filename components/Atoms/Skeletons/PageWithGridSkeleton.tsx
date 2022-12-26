@@ -1,26 +1,18 @@
 import { Box } from '@mui/material'
+import { range } from 'lodash'
 import React from 'react'
 import WarmupBox from '../WarmupBox'
 import TextSkeleton from './TextSkeleton'
 
-const PageWithGridSkeleton = () => {
+const PageWithGridSkeleton = ({ rowCount = 6 }: { rowCount?: number }) => {
+  const r = range(0, rowCount ?? 5)
   return (
     <>
-      <Box py={2}>
-        <TextSkeleton />
-      </Box>
-      <Box py={2}>
-        <TextSkeleton />
-      </Box>
-      <Box py={2}>
-        <TextSkeleton />
-      </Box>
-      <Box py={2}>
-        <TextSkeleton />
-      </Box>
-      <Box py={2}>
-        <TextSkeleton />
-      </Box>
+      {r.map((item, i) => (
+        <Box py={2} key={i}>
+          <TextSkeleton />
+        </Box>
+      ))}
     </>
   )
 }

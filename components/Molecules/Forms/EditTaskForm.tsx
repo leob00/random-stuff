@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, Stack, Typography } from '@mui/material'
+import { Box, Button, Checkbox, Stack, TextareaAutosize, TextField, Typography } from '@mui/material'
 import { UserTask } from 'lib/models/userTasks'
 import React from 'react'
 import DateAndTimePicker from 'components/Atoms/Inputs/DateAndTimePicker'
@@ -62,6 +62,11 @@ const EditTaskForm = ({
     e.preventDefault()
     trySubmit()
   }
+
+  const handleNoteChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormInput({ ...formInput, notes: event.target.value })
+  }
+
   return (
     <form onSubmit={handleFormSubmit}>
       <ConfirmDeleteDialog
@@ -83,6 +88,17 @@ const EditTaskForm = ({
           defaultValue={formInput.dueDate ? dayjs(formInput.dueDate).format() : undefined}
           onChanged={handleDueDateChange}
           label={'due date'}
+        />
+      </Box>
+      <Box py={2}>
+        <TextField
+          label='notes'
+          placeholder='notes...'
+          multiline
+          sx={{ width: '100%' }}
+          defaultValue={formInput.notes}
+          onChange={handleNoteChange}
+          inputProps={{ maxLength: 500 }}
         />
       </Box>
       <Box py={2}>

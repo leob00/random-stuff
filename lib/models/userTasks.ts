@@ -11,6 +11,7 @@ export interface UserTask {
   dateModified?: string
   status?: 'completed' | 'in progress' | 'deferred'
   completePercent?: number
+  notes?: string
 }
 
 export interface UserGoalStats {

@@ -56,6 +56,7 @@ const GoalCharts = ({ barChart, goalTasks, handleCloseCharts }: { barChart: BarC
             </Grid>
           </Grid>
         </Box>
+        <HorizontalDivider />
         <CenteredTitle title={`All ${numeral(sum(barChart.numbers)).format('###,###')} Tasks By Status`} />
         <Box>
           <Grid container spacing={1} justifyContent={'center'} alignItems={'flex-end'}>

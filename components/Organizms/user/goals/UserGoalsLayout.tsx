@@ -233,7 +233,10 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
       />
       <Box py={2}>
         {model.barChart ? (
-          <GoalCharts barChart={model.barChart} handleCloseCharts={handleCloseCharts} goalTasks={model.goalsAndTasks} />
+          <>
+            {model.isLoading && <PageWithGridSkeleton />}
+            <GoalCharts barChart={model.barChart} handleCloseCharts={handleCloseCharts} goalTasks={model.goalsAndTasks} />
+          </>
         ) : (
           <Stack display={'flex'} direction={'row'} justifyContent={'left'} alignItems={'left'}>
             {!model.selectedGoal && (
