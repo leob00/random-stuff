@@ -191,7 +191,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   }
 
   const handleShowCharts = async () => {
-    setModel({ ...model, isLoading: true })
+    setModel({ ...model, isLoading: true, selectedGoal: undefined, barChart: undefined })
     const tasks = await getUserTasks(model.username)
     const goalsAndTasks = mapGoalTasks(model.goals, tasks)
     const inProg = filter(tasks, (e) => e.status !== 'completed')
@@ -232,14 +232,14 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
         }}
       />
       <Box py={2}>
+        {model.isLoading && <PageWithGridSkeleton rowCount={10} />}
         {model.barChart ? (
           <>
-            {model.isLoading && <PageWithGridSkeleton />}
             <GoalCharts barChart={model.barChart} handleCloseCharts={handleCloseCharts} goalTasks={model.goalsAndTasks} />
           </>
         ) : (
           <Stack display={'flex'} direction={'row'} justifyContent={'left'} alignItems={'left'}>
-            {!model.selectedGoal && (
+            {!model.selectedGoal && !model.isLoading && (
               <Box>
                 <LinkButton
                   onClick={() => {
@@ -250,18 +250,20 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
                 </LinkButton>
               </Box>
             )}
-            <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
-              <GoalsMenu
-                onRefresh={() => {
-                  handleCloseMenu()
-                  handleRefrehGoals()
-                }}
-                onShowCharts={() => {
-                  handleCloseMenu()
-                  handleShowCharts()
-                }}
-              />
-            </Stack>
+            {!model.isLoading && (
+              <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
+                <GoalsMenu
+                  onRefresh={() => {
+                    handleCloseMenu()
+                    handleRefrehGoals()
+                  }}
+                  onShowCharts={() => {
+                    handleCloseMenu()
+                    handleShowCharts()
+                  }}
+                />
+              </Stack>
+            )}
           </Stack>
         )}
         {model.showAddGoalForm && (
@@ -272,7 +274,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
       </Box>
       <Box>
         {model.isLoading ? (
-          <PageWithGridSkeleton />
+          <></>
         ) : (
           <>
             {!model.barChart && (
