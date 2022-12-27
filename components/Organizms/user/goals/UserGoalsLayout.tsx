@@ -21,6 +21,7 @@ import GoalCharts from './GoalCharts'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import GoalsMenu from 'components/Molecules/Menus/GoalsMenu'
 import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
+import WarmupBox from 'components/Atoms/WarmupBox'
 
 export interface UserGoalAndTask {
   goal: UserGoal
@@ -232,7 +233,12 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
         }}
       />
       <Box py={2}>
-        {model.isLoading && <PageWithGridSkeleton rowCount={10} />}
+        {model.isLoading && (
+          <>
+            <WarmupBox />
+            <PageWithGridSkeleton rowCount={10} />
+          </>
+        )}
         {model.barChart ? (
           <>
             <GoalCharts barChart={model.barChart} handleCloseCharts={handleCloseCharts} goalTasks={model.goalsAndTasks} />
