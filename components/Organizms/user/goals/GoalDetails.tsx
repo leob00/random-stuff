@@ -1,9 +1,5 @@
 import { Close, Create, Delete } from '@mui/icons-material'
-import { Box, Grid, Stack, IconButton, Typography, Button } from '@mui/material'
-import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import DateAndTimePicker from 'components/Atoms/Inputs/DateAndTimePicker'
-import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
+import { Box, Grid, Stack, IconButton, Typography } from '@mui/material'
 import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
 import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
@@ -14,8 +10,9 @@ import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { replaceItemInArray } from 'lib/util/collections'
 import { calculatePercentInt } from 'lib/util/numberUtil'
-import { cloneDeep, filter, orderBy } from 'lodash'
+import { cloneDeep, filter } from 'lodash'
 import React from 'react'
+import EditGoal from './EditGoal'
 import TaskList from './TaskList'
 import { reorderTasks, UserGoalsModel } from './UserGoalsLayout'
 
@@ -28,9 +25,6 @@ interface Model {
 const GoalDetails = ({
   model,
   goalId,
-  handleGoalBodyChange,
-  handleSubmitGoalChanges,
-  handleDueDateChange,
   handleDeleteGoal,
   handleCloseSelectedGoal,
   handleSetGoalEditMode,
@@ -39,16 +33,13 @@ const GoalDetails = ({
 }: {
   model: UserGoalsModel
   goalId: string
-  handleGoalBodyChange: (text: string) => void
-  handleSubmitGoalChanges: () => void
-  handleDueDateChange: (text?: string) => void
   handleDeleteGoal: (item: UserGoal) => void
   handleCloseSelectedGoal: () => void
   handleSetGoalEditMode: (isEdit: boolean) => void
   handleModifyGoal: (item: UserGoal) => void
   onLoaded?: (goal: UserGoal, tasks: UserTask[]) => void
 }) => {
-  const [taskModel, setTaskModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), {
+  const [goalDetailModel, setGoalDetailModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), {
     isLoading: true,
     tasks: [],
     selectedGoal: model.selectedGoal!,
@@ -56,12 +47,12 @@ const GoalDetails = ({
 
   const handleAddTask = async (item: UserTask) => {
     //console.log(item)
-    setTaskModel({ ...taskModel, isLoading: true })
+    setGoalDetailModel({ ...goalDetailModel, isLoading: true })
     item.status = 'in progress'
-    let tasks = cloneDeep(taskModel.tasks)
+    let tasks = cloneDeep(goalDetailModel.tasks)
     tasks.push(item)
     tasks = reorderTasks(tasks)
-    const goal = cloneDeep(taskModel.selectedGoal!)
+    const goal = cloneDeep(goalDetailModel.selectedGoal!)
     goal.stats = getGoalStats(tasks)
     if (tasks.length > 0) {
       const completed = filter(tasks, (e) => e.status === 'completed')
@@ -70,7 +61,7 @@ const GoalDetails = ({
       goal.completePercent = 0
     }
     await putUserGoalTasks(model.username, goal.id!, tasks)
-    setTaskModel({ ...taskModel, selectedGoal: goal, tasks: tasks, isLoading: false })
+    setGoalDetailModel({ ...goalDetailModel, selectedGoal: goal, tasks: tasks, isLoading: false })
 
     handleModifyGoal(goal)
 
@@ -78,14 +69,14 @@ const GoalDetails = ({
   }
 
   const handleModifyTask = async (item: UserTask) => {
-    setTaskModel({ ...taskModel, isLoading: true })
-    let tasks = cloneDeep(taskModel.tasks)
+    setGoalDetailModel({ ...goalDetailModel, isLoading: true })
+    let tasks = cloneDeep(goalDetailModel.tasks)
     replaceItemInArray<UserTask>(item, tasks, 'id', item.id!)
     tasks = reorderTasks(tasks)
     await putUserGoalTasks(model.username, model.selectedGoal!.id!, tasks)
 
-    if (taskModel.selectedGoal) {
-      const goal = cloneDeep(taskModel.selectedGoal)
+    if (goalDetailModel.selectedGoal) {
+      const goal = cloneDeep(goalDetailModel.selectedGoal)
       goal.stats = getGoalStats(tasks)
       if (tasks.length > 0) {
         const completed = filter(tasks, (e) => e.status === 'completed')
@@ -95,15 +86,15 @@ const GoalDetails = ({
       }
 
       handleModifyGoal(goal)
-      setTaskModel({ ...taskModel, selectedGoal: goal, tasks: tasks, isLoading: false })
+      setGoalDetailModel({ ...goalDetailModel, selectedGoal: goal, tasks: tasks, isLoading: false })
     }
     //setTaskModel({ ...taskModel, tasks: tasks, selectedGoal:  isLoading: false })
   }
   const handleDeleteTask = async (item: UserTask) => {
-    setTaskModel({ ...taskModel, isLoading: true })
+    setGoalDetailModel({ ...goalDetailModel, isLoading: true })
     if (model.selectedGoal) {
       let goal = cloneDeep(model.selectedGoal)
-      let tasks = reorderTasks(filter(cloneDeep(taskModel.tasks), (e) => e.id !== item.id))
+      let tasks = reorderTasks(filter(cloneDeep(goalDetailModel.tasks), (e) => e.id !== item.id))
       goal.stats = getGoalStats(tasks)
       await putUserGoalTasks(model.username, goal.id!, tasks)
       if (tasks.length > 0) {
@@ -112,7 +103,7 @@ const GoalDetails = ({
       } else {
         goal.completePercent = 0
       }
-      setTaskModel({ ...taskModel, tasks: tasks, isLoading: false, selectedGoal: goal })
+      setGoalDetailModel({ ...goalDetailModel, tasks: tasks, isLoading: false, selectedGoal: goal })
 
       handleModifyGoal(goal)
     }
@@ -127,9 +118,9 @@ const GoalDetails = ({
         }
       })
       const tasks = reorderTasks(result)
-      setTaskModel({ ...taskModel, tasks: tasks, isLoading: false })
+      setGoalDetailModel({ ...goalDetailModel, tasks: tasks, isLoading: false })
 
-      onLoaded?.(taskModel.selectedGoal, tasks)
+      onLoaded?.(goalDetailModel.selectedGoal, tasks)
     }
     fn()
   }, [goalId])
@@ -138,7 +129,7 @@ const GoalDetails = ({
     <>
       {model.selectedGoal && (
         <Box pb={1}>
-          <Grid container columns={{ xs: 10, md: 8 }} justifyContent={'left'} spacing={2}>
+          <Grid container columns={{ xs: 10, md: 8 }} justifyContent={'left'} spacing={2} sx={{ paddingLeft: 2, paddingTop: 1, paddingBottom: 1 }}>
             <Grid item>
               <Stack direction={'row'} spacing={1}>
                 <IconButton
@@ -170,59 +161,42 @@ const GoalDetails = ({
               </Stack>
             </Grid>
           </Grid>
-
-          {/*  <GoalDetailsMeta goal={model.selectedGoal} /> */}
           {model.goalEditMode ? (
-            <>
-              <Box py={2} maxWidth={{ xs: 280, md: 500 }}>
-                <FormTextBox
-                  width={'100%'}
-                  defaultValue={model.selectedGoal.body ?? ''}
-                  label={'name'}
-                  onChanged={handleGoalBodyChange}
-                  //onBlurred={handleSubmitGoalChanges}
-                  disabled={model.isSaving}
-                />
-              </Box>
-              <Box py={2} maxWidth={{ xs: 280, md: 500 }}>
-                <DateAndTimePicker disabled={model.isSaving} onChanged={handleDueDateChange} label={'due date'} defaultValue={model.selectedGoal.dueDate} />
-              </Box>
-              <Box py={2} maxWidth={{ xs: 280, md: 500 }}>
-                <SecondaryButton text={'save'} onClick={handleSubmitGoalChanges} disabled={model.isSaving} />
-              </Box>
-            </>
+            <Box pt={2}>
+              <EditGoal goal={model.selectedGoal} onSaveGoal={handleModifyGoal} />
+            </Box>
           ) : (
             <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
               <Stack direction='column' justifyContent='left' alignItems='left'>
                 <Typography variant={'subtitle1'}>{`${model.selectedGoal.body}`}</Typography>
-                {taskModel.selectedGoal.stats && (
+                {goalDetailModel.selectedGoal.stats && (
                   <>
                     <Typography variant='body2'>{`tasks: ${
-                      Number(taskModel.selectedGoal.stats.completed) + Number(taskModel.selectedGoal.stats.inProgress)
+                      Number(goalDetailModel.selectedGoal.stats.completed) + Number(goalDetailModel.selectedGoal.stats.inProgress)
                     }`}</Typography>
-                    <Typography variant='body2'>{`completed: ${taskModel.selectedGoal.stats.completed}`}</Typography>
-                    <Typography variant='body2'>{`in progress: ${taskModel.selectedGoal.stats.inProgress}`}</Typography>
-                    {taskModel.selectedGoal.stats.pastDue > 0 && (
-                      <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${taskModel.selectedGoal.stats.pastDue}`}</Typography>
+                    <Typography variant='body2'>{`completed: ${goalDetailModel.selectedGoal.stats.completed}`}</Typography>
+                    <Typography variant='body2'>{`in progress: ${goalDetailModel.selectedGoal.stats.inProgress}`}</Typography>
+                    {goalDetailModel.selectedGoal.stats.pastDue > 0 && (
+                      <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${goalDetailModel.selectedGoal.stats.pastDue}`}</Typography>
                     )}
                   </>
                 )}
               </Stack>
               <>
-                {taskModel.selectedGoal.completePercent !== undefined && (
+                {goalDetailModel.selectedGoal.completePercent !== undefined && (
                   <>
                     <Stack flexDirection='row' py={1} flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-start'}>
-                      {!taskModel.isLoading ? (
+                      {!goalDetailModel.isLoading ? (
                         <ProgressBar
-                          value={taskModel.selectedGoal.completePercent}
-                          toolTipText={`${taskModel.selectedGoal.completePercent}% complete`}
+                          value={goalDetailModel.selectedGoal.completePercent}
+                          toolTipText={`${goalDetailModel.selectedGoal.completePercent}% complete`}
                           width={80}
                         />
                       ) : (
                         <TextSkeleton>
                           <ProgressBar
-                            value={taskModel.selectedGoal.completePercent}
-                            toolTipText={`${taskModel.selectedGoal.completePercent}% complete`}
+                            value={goalDetailModel.selectedGoal.completePercent}
+                            toolTipText={`${goalDetailModel.selectedGoal.completePercent}% complete`}
                             width={80}
                           />
                         </TextSkeleton>
@@ -235,7 +209,7 @@ const GoalDetails = ({
           )}
 
           <Box py={1}>
-            {taskModel.isLoading ? (
+            {goalDetailModel.isLoading ? (
               <>
                 <WarmupBox />
                 <PageWithGridSkeleton />
@@ -244,8 +218,8 @@ const GoalDetails = ({
               <>
                 <TaskList
                   username={model.username}
-                  selectedGoal={taskModel.selectedGoal}
-                  tasks={taskModel.tasks}
+                  selectedGoal={goalDetailModel.selectedGoal}
+                  tasks={goalDetailModel.tasks}
                   onAddTask={handleAddTask}
                   onModifyTask={handleModifyTask}
                   onDeleteTask={handleDeleteTask}

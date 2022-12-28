@@ -134,13 +134,6 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
     setModel({ ...model, goals: goalList, selectedGoal: undefined, isLoading: false, showConfirmDeleteGoal: false })
   }
 
-  const handleGoalBodyChange = (text: string) => {
-    if (model.selectedGoal) {
-      const goal = model.selectedGoal
-      goal.body = text
-      setModel({ ...model, selectedGoal: goal })
-    }
-  }
   const handleSetGoalEditMode = (isEdit: boolean) => {
     setModel({ ...model, goalEditMode: isEdit })
   }
@@ -156,19 +149,6 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
     setModel({ ...model, goals: goals, isSaving: false, isLoading: false, goalEditMode: false, selectedGoal: goal })
   }
 
-  const handleSubmitGoalChanges = async () => {
-    let goal = cloneDeep(model.selectedGoal)
-    if (goal) {
-      await saveGoal(goal)
-    }
-  }
-  const handleDueDateChange = async (text?: string) => {
-    if (model.selectedGoal) {
-      const goal = cloneDeep(model.selectedGoal)
-      goal.dueDate = text
-      setModel({ ...model, selectedGoal: goal })
-    }
-  }
   const handelGoalDetailsLoaded = async (goal: UserGoal, tasks: UserTask[]) => {
     //console.log('details loaded')
     const newStats = getGoalStats(tasks)
@@ -301,11 +281,8 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
                     <GoalDetails
                       model={model}
                       goalId={model.selectedGoal!.id!}
-                      handleGoalBodyChange={handleGoalBodyChange}
                       handleCloseSelectedGoal={handleCloseSelectedGoal}
                       handleDeleteGoal={handleDeleteGoal}
-                      handleDueDateChange={handleDueDateChange}
-                      handleSubmitGoalChanges={handleSubmitGoalChanges}
                       handleSetGoalEditMode={handleSetGoalEditMode}
                       handleModifyGoal={saveGoal}
                       onLoaded={handelGoalDetailsLoaded}

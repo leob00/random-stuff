@@ -10,6 +10,7 @@ const FormTextBox = ({
   onBlurred,
   disabled = false,
   width = 250,
+  maxLength = 2500,
 }: {
   defaultValue: string
   label: string
@@ -19,6 +20,7 @@ const FormTextBox = ({
   onBlurred?: () => void
   disabled?: boolean
   width?: number | string
+  maxLength?: number
 }) => {
   const [textError, setTextError] = React.useState(error)
   const [val, setVal] = React.useState(defaultValue)
@@ -36,7 +38,7 @@ const FormTextBox = ({
   return (
     <TextField
       color='secondary'
-      inputProps={{ maxLength: 150 }}
+      inputProps={{ maxLength: maxLength }}
       fullWidth={false}
       inputRef={textRef}
       defaultValue={val}
