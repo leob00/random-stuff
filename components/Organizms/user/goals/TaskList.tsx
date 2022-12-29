@@ -180,36 +180,38 @@ const TaskList = ({
                   />
                 </Box>
               ) : (
-                <Box>
-                  <Stack key={i} direction='row' justifyContent='left' alignItems='left'>
-                    <LinkButton2
-                      onClick={() => {
-                        handleTaskClick(item)
-                      }}
-                    >
-                      <Typography textAlign={'left'} variant='subtitle1'>
-                        {item.body}
-                      </Typography>
-                    </LinkButton2>
-                    <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-                      <SecondaryCheckbox
-                        loading={model.isLoading}
-                        checked={item.status === 'completed'}
-                        onChanged={(checked: boolean) => {
-                          handleCompleteTaskClick(checked, item)
+                <>
+                  <Box>
+                    <Stack key={i} direction='row' justifyContent='left' alignItems='left'>
+                      <LinkButton2
+                        onClick={() => {
+                          handleTaskClick(item)
                         }}
-                      />
+                      >
+                        <Typography textAlign={'left'} variant='subtitle1'>
+                          {item.body}
+                        </Typography>
+                      </LinkButton2>
+                      <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
+                        <SecondaryCheckbox
+                          loading={model.isLoading}
+                          checked={item.status === 'completed'}
+                          onChanged={(checked: boolean) => {
+                            handleCompleteTaskClick(checked, item)
+                          }}
+                        />
+                      </Stack>
                     </Stack>
-                  </Stack>
-                  {item.dueDate && (
-                    <Typography
-                      variant='body2'
-                      color={item.status === 'in progress' && dayjs().isAfter(item.dueDate) ? CasinoRedTransparent : 'unset'}
-                    >{`due: ${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>
-                  )}
-                  {item.dateCompleted && <Typography variant='body2'>{`completed: ${dayjs(item.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
-                  {i < tasks.length - 1 && <HorizontalDivider />}
-                </Box>
+                    {item.dueDate && (
+                      <Typography
+                        variant='body2'
+                        color={item.status === 'in progress' && dayjs().isAfter(item.dueDate) ? CasinoRedTransparent : 'unset'}
+                      >{`due: ${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>
+                    )}
+                    {item.dateCompleted && <Typography variant='body2'>{`completed: ${dayjs(item.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
+                    {i < tasks.length - 1 && <HorizontalDivider />}
+                  </Box>
+                </>
               )}
             </Box>
           ))}

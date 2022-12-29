@@ -19,6 +19,7 @@ import { reorderTasks, UserGoalsModel } from './UserGoalsLayout'
 interface Model {
   isLoading: boolean
   tasks: UserTask[]
+  filteredTasks: UserTask[]
   selectedGoal: UserGoal
 }
 
@@ -39,14 +40,17 @@ const GoalDetails = ({
   handleModifyGoal: (item: UserGoal) => void
   onLoaded?: (goal: UserGoal, tasks: UserTask[]) => void
 }) => {
+  if (!model.selectedGoal?.settings) {
+    model.selectedGoal!.settings = { showCompletedTasks: true }
+  }
   const [goalDetailModel, setGoalDetailModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), {
     isLoading: true,
     tasks: [],
+    filteredTasks: [],
     selectedGoal: model.selectedGoal!,
   })
 
   const handleAddTask = async (item: UserTask) => {
-    //console.log(item)
     setGoalDetailModel({ ...goalDetailModel, isLoading: true })
     item.status = 'in progress'
     let tasks = cloneDeep(goalDetailModel.tasks)
@@ -62,10 +66,7 @@ const GoalDetails = ({
     }
     await putUserGoalTasks(model.username, goal.id!, tasks)
     setGoalDetailModel({ ...goalDetailModel, selectedGoal: goal, tasks: tasks, isLoading: false })
-
     handleModifyGoal(goal)
-
-    //await handleModifyTask(item)
   }
 
   const handleModifyTask = async (item: UserTask) => {
@@ -84,11 +85,9 @@ const GoalDetails = ({
       } else {
         goal.completePercent = 0
       }
-
       handleModifyGoal(goal)
       setGoalDetailModel({ ...goalDetailModel, selectedGoal: goal, tasks: tasks, isLoading: false })
     }
-    //setTaskModel({ ...taskModel, tasks: tasks, selectedGoal:  isLoading: false })
   }
   const handleDeleteTask = async (item: UserTask) => {
     setGoalDetailModel({ ...goalDetailModel, isLoading: true })
@@ -104,9 +103,38 @@ const GoalDetails = ({
         goal.completePercent = 0
       }
       setGoalDetailModel({ ...goalDetailModel, tasks: tasks, isLoading: false, selectedGoal: goal })
-
       handleModifyGoal(goal)
     }
+  }
+
+  const filterTasks = (show: boolean) => {
+    const g = cloneDeep(goalDetailModel.selectedGoal)
+    if (!g.settings) {
+      g.settings = { showCompletedTasks: show }
+    } else {
+      g.settings.showCompletedTasks = show
+    }
+
+    let displayTasks = cloneDeep(goalDetailModel.tasks)
+    if (!show) {
+      displayTasks = filter(displayTasks, (e) => e.status !== 'completed')
+    }
+    return displayTasks
+  }
+
+  const handleShowCompletedTasks = (show: boolean) => {
+    //console.log('show: ', show)
+    //setGoalDetailModel({ ...goalDetailModel, isLoading: true, filteredTasks: [] })
+    /* setGoalDetailModel({ ...goalDetailModel, filteredTasks: [], isLoading: true })
+    const g = cloneDeep(goalDetailModel.selectedGoal)
+    if (!g.settings) {
+      g.settings = { showCompletedTasks: show }
+    } else {
+      g.settings.showCompletedTasks = show
+    }
+    let displayTasks = filterTasks(show)
+    console.log('displayed tasks: ', displayTasks.length)
+    setGoalDetailModel({ ...goalDetailModel, selectedGoal: g, filteredTasks: displayTasks, isLoading: false }) */
   }
 
   React.useEffect(() => {
@@ -117,9 +145,15 @@ const GoalDetails = ({
           task.status = 'in progress'
         }
       })
-      const tasks = reorderTasks(result)
-      setGoalDetailModel({ ...goalDetailModel, tasks: tasks, isLoading: false })
-
+      const hideComp = goalDetailModel.selectedGoal.settings && !goalDetailModel.selectedGoal.settings.showCompletedTasks
+      console.log('hide completed: ', hideComp)
+      let tasks = reorderTasks(result)
+      let filteredTasks = tasks
+      /*  if (hideComp === true) {
+        filteredTasks = filter(tasks, (e) => e.status !== 'completed')
+      } */
+      console.log('filtered tasks: ', filterTasks.length)
+      setGoalDetailModel({ ...goalDetailModel, tasks: tasks, filteredTasks: filteredTasks, isLoading: false })
       onLoaded?.(goalDetailModel.selectedGoal, tasks)
     }
     fn()
@@ -163,7 +197,7 @@ const GoalDetails = ({
           </Grid>
           {model.goalEditMode ? (
             <Box pt={2}>
-              <EditGoal goal={model.selectedGoal} onSaveGoal={handleModifyGoal} />
+              <EditGoal goal={model.selectedGoal} onSaveGoal={handleModifyGoal} onShowCompletedTasks={handleShowCompletedTasks} />
             </Box>
           ) : (
             <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>

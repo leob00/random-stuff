@@ -41,6 +41,7 @@ const ApexBarChart = ({
       labels: {
         show: false,
       },
+      axisTicks: { show: false },
     },
     yaxis: {
       forceNiceScale: true,

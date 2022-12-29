@@ -70,11 +70,8 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   }
   const [model, setModel] = React.useReducer((state: UserGoalsModel, newState: UserGoalsModel) => ({ ...state, ...newState }), defaultModel)
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const open = Boolean(anchorEl)
-  const handleShowMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
+  const [, setAnchorEl] = React.useState<null | HTMLElement>(null)
+
   const handleCloseMenu = () => {
     setAnchorEl(null)
   }
@@ -150,7 +147,6 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   }
 
   const handelGoalDetailsLoaded = async (goal: UserGoal, tasks: UserTask[]) => {
-    //console.log('details loaded')
     const newStats = getGoalStats(tasks)
     const areEqual = areObjectsEqual(goal.stats, newStats)
     goal.stats = newStats
@@ -158,9 +154,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
       let goals = cloneDeep(model.goals)
       replaceItemInArray<UserGoal>(goal, goals, 'id', goal.id!)
       putUserGoals(constructUserGoalsKey(model.username), goals)
-      //console.log('replaced goal: ', goal.body)
     }
-
     setModel({ ...model, selectedGoal: goal })
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -182,7 +176,6 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
       colors: [CasinoRedTransparent, CasinoBlueTransparent, CasinoGreenTransparent],
       labels: ['past due', 'in progress', 'completed'],
       numbers: [pastDue, inProg.length, comp],
-      //borderColors: [CasinoRed, CasinoBlue, CasinoGreen],
     }
     setModel({ ...model, isLoading: false, barChart: barChart, selectedGoal: undefined, goalsAndTasks: goalsAndTasks })
   }
@@ -309,7 +302,6 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
                             </Stack>
                           )}
                         </Stack>
-                        {/* {item.dueDate && <Typography variant='body2'>{`due: ${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>} */}
                         {item.stats && (
                           <Box pl={1}>
                             {item.stats && <Typography variant='body2'>{`tasks: ${Number(item.stats.completed) + Number(item.stats.inProgress)}`}</Typography>}
@@ -326,7 +318,6 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
                             )}
                           </Box>
                         )}
-
                         {i < model.goals.length - 1 && <HorizontalDivider />}
                       </Box>
                     ))}
