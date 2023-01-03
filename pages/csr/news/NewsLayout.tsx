@@ -3,6 +3,7 @@ import CenterStack from 'components/Atoms/CenterStack'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import DropDownList from 'components/Atoms/Inputs/DropdownList'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
+import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import SavedNoteButtonLink from 'components/Molecules/Buttons/SavedNoteButtonLink'
 import SaveToNotesButton from 'components/Molecules/Buttons/SaveToNotesButton'
@@ -69,45 +70,49 @@ const NewsLayout = () => {
           ) : (
             <Box sx={{ maxHeight: 580, overflowY: 'auto' }}>
               {showError && <ErrorMessage text='There is an error that occurred. We have been made aware of it. Please try again in a few minutes.' />}
-              {newsItems.map((item, i) => (
-                <Box key={i} pb={2}>
-                  <Typography>
-                    <Link href={item.Link} target='_blank' color='primary' sx={{ fontWeight: 700 }}>
-                      {item.Headline}
-                    </Link>
-                  </Typography>
-                  {item.Description && item.Source && item.Source !== 'HackerNews' && (
-                    <Typography variant='body1' color='primary' dangerouslySetInnerHTML={{ __html: item.Description }}></Typography>
-                  )}
-                  {item.TeaserImageUrl && item.TeaserImageUrl.length > 0 && (
-                    <Box pt={1}>
-                      <img src={item.TeaserImageUrl} title='' width={200} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
-                    </Box>
-                  )}
-                  {userController.username && (
-                    <Box width={'75%'}>
-                      <Stack pl={6} py={2} direction='row-reverse'>
-                        {!item.Saved ? (
-                          <SaveToNotesButton
-                            username={userController.username}
-                            note={{
-                              title: item.Headline!,
-                              body: item.Description ?? '',
-                              dateCreated: getUtcNow().format(),
-                              dateModified: getUtcNow().format(),
-                              expirationDate: getUtcNow().add(3, 'day').format(),
-                            }}
-                            onSaved={handleSaved}
-                          />
-                        ) : (
-                          <SavedNoteButtonLink />
-                        )}
-                      </Stack>
-                      <HorizontalDivider />
-                    </Box>
-                  )}
-                </Box>
-              ))}
+              {newsItems.length > 0 ? (
+                newsItems.map((item, i) => (
+                  <Box key={i} pb={2}>
+                    <Typography>
+                      <Link href={item.Link} target='_blank' color='primary' sx={{ fontWeight: 700 }}>
+                        {item.Headline}
+                      </Link>
+                    </Typography>
+                    {item.Description && item.Source && item.Source !== 'HackerNews' && (
+                      <Typography variant='body1' color='primary' dangerouslySetInnerHTML={{ __html: item.Description }}></Typography>
+                    )}
+                    {item.TeaserImageUrl && item.TeaserImageUrl.length > 0 && (
+                      <Box pt={1}>
+                        <img src={item.TeaserImageUrl} title='' width={200} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
+                      </Box>
+                    )}
+                    {userController.username && (
+                      <Box width={'75%'}>
+                        <Stack pl={6} py={2} direction='row-reverse'>
+                          {!item.Saved ? (
+                            <SaveToNotesButton
+                              username={userController.username}
+                              note={{
+                                title: item.Headline!,
+                                body: item.Description ?? '',
+                                dateCreated: getUtcNow().format(),
+                                dateModified: getUtcNow().format(),
+                                expirationDate: getUtcNow().add(3, 'day').format(),
+                              }}
+                              onSaved={handleSaved}
+                            />
+                          ) : (
+                            <SavedNoteButtonLink />
+                          )}
+                        </Stack>
+                        <HorizontalDivider />
+                      </Box>
+                    )}
+                  </Box>
+                ))
+              ) : (
+                <NoDataFound message={'Unable to load articles from this source at this time. Please try again later.'} />
+              )}
             </Box>
           )}
         </Box>
