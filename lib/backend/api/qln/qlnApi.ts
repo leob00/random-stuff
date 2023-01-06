@@ -116,5 +116,6 @@ export async function getNewsBySource(id: NewsTypeIds) {
     type: id,
   }
   let resp = (await axiosGet(`${baseUrl}/NewsBySource`, params)).Body as NewsItem[]
+  //console.log(`${baseUrl}/NewsBySource?type=${id}`)
   return resp
 }

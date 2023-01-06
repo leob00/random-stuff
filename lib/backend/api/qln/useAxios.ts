@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios'
-const apiKey = process.env.NEXT_QLN_API_PUBLIC_KEY as string
+const apiKey = process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY as string
 const config: AxiosRequestConfig = {
   headers: {
     'Content-Type': 'application/json',

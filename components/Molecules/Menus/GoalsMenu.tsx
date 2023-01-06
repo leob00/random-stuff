@@ -62,7 +62,7 @@ const GoalsMenu = ({ onRefresh, onShowCharts }: { onRefresh: () => void; onShowC
             <ListItemIcon>
               <BarChartIcon color='secondary' fontSize='small' />
             </ListItemIcon>
-            <ListItemText>view charts</ListItemText>
+            <ListItemText>summary</ListItemText>
           </MenuItem>
         </MenuList>
       </Menu>
