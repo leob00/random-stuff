@@ -2,7 +2,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import { Box } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
-import { CasinoBlue, CasinoBlueTransparent, CasinoRedTransparent, DarkBlue, DarkBlueTransparent } from 'components/themes/mainTheme'
+import { CasinoBlack, CasinoBlue, CasinoBlueTransparent, CasinoRedTransparent, DarkBlue, DarkBlueTransparent } from 'components/themes/mainTheme'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 export interface ApexBarChartData {
@@ -47,7 +47,7 @@ const ApexBarChart = ({
       forceNiceScale: true,
       labels: {
         style: {
-          colors: [CasinoBlue],
+          colors: [CasinoBlack],
           //fontWeight: 600,
         },
       },
