@@ -9,8 +9,10 @@ import {
   CasinoBlue,
   CasinoBlueTransparent,
   CasinoRedTransparent,
+  CasinoWhiteTransparent,
   DarkBlue,
   DarkBlueTransparent,
+  White,
 } from 'components/themes/mainTheme'
 import { ApexBarChartData } from './ApexBarChart'
 import { BarChart } from '../barChartOptions'
@@ -48,7 +50,7 @@ const ApexPieChart = ({ x, y, colors, yAxisDecorator = '' }: { x: string[]; y: n
         enabled: false,
       },
       style: {
-        colors: [CasinoBlack],
+        colors: [White],
       },
     },
 
