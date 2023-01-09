@@ -1,4 +1,4 @@
-import { Box, Container, Link, Stack, Typography } from '@mui/material'
+import { Box, Container, Link, Stack, Typography, useMediaQuery } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import DropDownList from 'components/Atoms/Inputs/DropdownList'
@@ -15,6 +15,15 @@ import { UserNote } from 'lib/models/randomStuffModels'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { orderBy } from 'lodash'
 import React from 'react'
+import styled from '@emotion/styled'
+import theme from 'components/themes/mainTheme'
+
+const StyledNewsHtml = styled(Typography)(() => ({
+  //const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
+  img: {
+    width: useMediaQuery(theme.breakpoints.down('sm')) ? 340 : 'unset',
+  },
+}))
 
 const NewsLayout = () => {
   const [isLoading, setIsLoading] = React.useState(true)
@@ -79,10 +88,17 @@ const NewsLayout = () => {
                       </Link>
                     </Typography>
                     {item.Description && item.Source && item.Source !== 'HackerNews' && (
-                      <Typography variant='body1' color='primary' dangerouslySetInnerHTML={{ __html: item.Description }}></Typography>
+                      <Box>
+                        <StyledNewsHtml
+                          sx={{ width: { xs: 375, md: 'unset' } }}
+                          variant='body1'
+                          color='primary'
+                          dangerouslySetInnerHTML={{ __html: item.Description }}
+                        ></StyledNewsHtml>
+                      </Box>
                     )}
                     {item.TeaserImageUrl && item.TeaserImageUrl.length > 0 && (
-                      <Box pt={1}>
+                      <Box pt={1} maxWidth={375}>
                         <img src={item.TeaserImageUrl} title='' width={200} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
                       </Box>
                     )}
