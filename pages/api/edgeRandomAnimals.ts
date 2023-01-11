@@ -1,6 +1,5 @@
 import { DynamoKeys, getAnimals, LambdaBody, LambdaResponse } from 'lib/backend/api/aws/apiGateway'
 import { BasicArticle } from 'lib/model'
-import { shuffle } from 'lodash'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const config = {
@@ -23,7 +22,6 @@ export default async (req: NextRequest) => {
   const body = await resp.json()
   const data = body as LambdaResponse
   const result = JSON.parse(data.body.data) as BasicArticle[]
-  const shuffled = shuffle(result)
 
   // console.log(result)
   //console.log('response: ', await resp.json())
@@ -32,6 +30,6 @@ export default async (req: NextRequest) => {
   //var d = await getAnimals('dogs')
 
   // const shuffled = shuffle(result)
-  return NextResponse.json(shuffled)
+  return NextResponse.json(result)
   //res.status(200).json(shuffled)
 }
