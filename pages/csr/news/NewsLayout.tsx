@@ -18,18 +18,22 @@ import React from 'react'
 import styled from '@emotion/styled'
 import theme from 'components/themes/mainTheme'
 
-const StyledNewsHtml = styled(Typography)(() => ({
-  //const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
-  img: {
-    width: useMediaQuery(theme.breakpoints.down('sm')) ? 340 : 'unset',
-  },
-}))
-
 const NewsLayout = () => {
   const [isLoading, setIsLoading] = React.useState(true)
   const [newsItems, setNewsItems] = React.useState<NewsItem[]>([])
   const [showError, setShowError] = React.useState(false)
   const userController = useUserController()
+  const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
+
+  const StyledNewsHtml = styled(Typography)(() => ({
+    //const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
+    img: {
+      width: isXSmall ? 280 : 'unset',
+      borderRadius: '16px',
+      marginTop: 1,
+    },
+    p: { width: isXSmall ? 280 : 'unset' },
+  }))
 
   const loadData = async (id: NewsTypeIds) => {
     try {
@@ -82,15 +86,15 @@ const NewsLayout = () => {
               {newsItems.length > 0 ? (
                 newsItems.map((item, i) => (
                   <Box key={i} pb={2}>
-                    <Typography>
+                    <Box width={{ xs: 300, md: 'unset' }}>
                       <Link href={item.Link} target='_blank' color='primary' sx={{ fontWeight: 700 }}>
                         {item.Headline}
                       </Link>
-                    </Typography>
+                    </Box>
                     {item.Description && item.Source && item.Source !== 'HackerNews' && (
-                      <Box>
+                      <Box width={{ xs: 280, md: 'unset' }}>
                         <StyledNewsHtml
-                          sx={{ width: { xs: 375, md: 'unset' } }}
+                          sx={{ width: { xs: 280, md: 'unset' } }}
                           variant='body1'
                           color='primary'
                           dangerouslySetInnerHTML={{ __html: item.Description }}
@@ -98,12 +102,12 @@ const NewsLayout = () => {
                       </Box>
                     )}
                     {item.TeaserImageUrl && item.TeaserImageUrl.length > 0 && (
-                      <Box pt={1} maxWidth={375}>
+                      <Box pt={1} maxWidth={350}>
                         <img src={item.TeaserImageUrl} title='' width={200} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
                       </Box>
                     )}
                     {userController.username && (
-                      <Box width={'75%'}>
+                      <Box pr={4}>
                         <Stack pl={6} py={2} direction='row-reverse'>
                           {!item.Saved ? (
                             <SaveToNotesButton

@@ -29,7 +29,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       articles: shuffle(data),
       fallback: {
-        '/api/dogs': data,
+        '/api/edgeRandomAnimals?id=dogs': data,
       },
     },
     revalidate: cmsRefreshIntervalSeconds,
@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 const Cached = ({ fallbackData }: { fallbackData: BasicArticle[] }) => {
-  const { data, error } = useSWR(['/api/dogs'], (url: string) => fetcherFn(url), {
+  const { data, error } = useSWR([`/api/edgeRandomAnimals?id=dogs`], (url: string) => fetcherFn(url), {
     fallbackData: fallbackData,
     refreshInterval: cmsRefreshIntervalSeconds * 1000,
     revalidateOnFocus: false,
@@ -47,13 +47,15 @@ const Cached = ({ fallbackData }: { fallbackData: BasicArticle[] }) => {
     console.log('error occured', error)
     return <ArticlesLayout articles={fallbackData} />
   }
-  if (!data) {
+  if (!data || data.length === 0) {
     return <Container>loading...</Container>
   }
-  return <ArticlesLayout articles={data} />
+  const apiData = shuffle(data)
+  //console.log(`got ${apiData.length} dogs`)
+  return <ArticlesLayout articles={apiData} />
 }
 
-const RandomDogs: NextPage<{ articles: BasicArticle[]; fallback: any }> = ({ articles, fallback }) => {
+const RandomDogs: NextPage<{ articles: BasicArticle[]; fallback: BasicArticle[] }> = ({ articles, fallback }) => {
   return (
     <>
       <Header>

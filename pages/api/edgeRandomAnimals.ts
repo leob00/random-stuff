@@ -1,4 +1,6 @@
-import { DynamoKeys, getAnimals, LambdaBody, LambdaResponse } from 'lib/backend/api/aws/apiGateway'
+import { DynamoKeys, LambdaResponse } from 'lib/backend/api/aws/apiGateway'
+import { get } from 'lib/backend/api/fetchFunctions'
+import { getEnvVariable } from 'lib/backend/envVariables'
 import { BasicArticle } from 'lib/model'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -8,28 +10,12 @@ export const config = {
 
 export default async (req: NextRequest) => {
   const { searchParams } = new URL(req.url)
-
   const arg: DynamoKeys | null = searchParams.get('id') ?? 'dogs'
-
-  const url = `${process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL}/animals?key=${arg}`
-  const resp = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_PUBLIC_KEY),
-    },
-  })
-  const body = await resp.json()
+  const url = `${getEnvVariable('awsApiGatewayUrl')}/animals?key=${arg}`
+  //const url = `${urlVar}/animals?key=${arg}`
+  const body = await get(url)
   const data = body as LambdaResponse
   const result = JSON.parse(data.body.data) as BasicArticle[]
-
-  // console.log(result)
-  //console.log('response: ', await resp.json())
-  //const result = (await resp.json()) as BasicArticle
-  //console.log(result)
-  //var d = await getAnimals('dogs')
-
-  // const shuffled = shuffle(result)
+  console.log(`api @edge: edgeRandomAnimals - id: ${arg}`)
   return NextResponse.json(result)
-  //res.status(200).json(shuffled)
 }

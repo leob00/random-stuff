@@ -51,8 +51,9 @@ const CachedRecipes = ({ fallbackData, featured }: { fallbackData: RecipeCollect
     return <Container>loading...</Container>
   }
   let model = data as RecipeCollection
-  let ordered = orderBy(model.items, ['title'], ['asc'])
-  let options = ordered.map((item) => ({ id: item.sys.id, label: item.title })) as Option[]
+  //let ordered = orderBy(model.items, ['title'], ['asc'])
+  let options = model.items.map((item) => ({ id: item.sys.id, label: item.title })) as Option[]
+  //options = orderBy(options, ['label'], ['asc'])
   return <RecipesLayout autoComplete={options} baseUrl='/ssg/recipes/' featured={featured} />
 }
 
