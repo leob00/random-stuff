@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from '@mui/material'
 import { useRouter } from 'next/router'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
-import NewsLayout from './NewsLayout'
+import NewsLayout from '../../../components/Organizms/news/NewsLayout'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 const Page = () => {

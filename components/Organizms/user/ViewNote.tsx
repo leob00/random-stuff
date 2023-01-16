@@ -11,6 +11,7 @@ import EditItemToolbar from 'components/Molecules/EditItemToolbar'
 import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
 import React from 'react'
+import HtmlView from 'components/Atoms/Boxes/HtmlView'
 
 const ViewNote = ({
   selectedNote,
@@ -52,7 +53,7 @@ const ViewNote = ({
       <Box sx={{ py: 1 }}>
         <CenteredTitle title={`${selectedNote.title}`} />
         <CenterStack>
-          <Typography variant='body1' dangerouslySetInnerHTML={{ __html: selectedNote.body }}></Typography>
+          <HtmlView html={selectedNote.body} />
         </CenterStack>
         <CenterStack>
           <Typography variant='body1'>{`updated: ${dayjs(selectedNote.dateModified).format('MM/DD/YYYY hh:mm a')}`}</Typography>

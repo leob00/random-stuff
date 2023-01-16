@@ -15,25 +15,13 @@ import { UserNote } from 'lib/models/randomStuffModels'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { orderBy } from 'lodash'
 import React from 'react'
-import styled from '@emotion/styled'
-import theme from 'components/themes/mainTheme'
+import HtmlView from 'components/Atoms/Boxes/HtmlView'
 
 const NewsLayout = () => {
   const [isLoading, setIsLoading] = React.useState(true)
   const [newsItems, setNewsItems] = React.useState<NewsItem[]>([])
   const [showError, setShowError] = React.useState(false)
   const userController = useUserController()
-  const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
-
-  const StyledNewsHtml = styled(Typography)(() => ({
-    //const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
-    img: {
-      width: isXSmall ? 280 : 'unset',
-      borderRadius: '16px',
-      marginTop: 1,
-    },
-    p: { width: isXSmall ? 280 : 'unset' },
-  }))
 
   const loadData = async (id: NewsTypeIds) => {
     try {
@@ -93,12 +81,7 @@ const NewsLayout = () => {
                     </Box>
                     {item.Description && item.Source && item.Source !== 'HackerNews' && (
                       <Box width={{ xs: 280, md: 'unset' }}>
-                        <StyledNewsHtml
-                          sx={{ width: { xs: 280, md: 'unset' } }}
-                          variant='body1'
-                          color='primary'
-                          dangerouslySetInnerHTML={{ __html: item.Description }}
-                        ></StyledNewsHtml>
+                        <HtmlView html={item.Description}></HtmlView>
                       </Box>
                     )}
                     {item.TeaserImageUrl && item.TeaserImageUrl.length > 0 && (
