@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 
-export const isBrowser = () => typeof window !== undefined
+export const isBrowser = () => typeof window !== 'undefined'
 
 export interface WindowDimension {
   width: number
@@ -8,7 +8,7 @@ export interface WindowDimension {
 }
 
 export const getWindowDimensions = () => {
-  const hasWindow = typeof window !== undefined
+  const hasWindow = typeof window !== 'undefined'
   let dimension: WindowDimension = {
     width: 320,
     height: 320,
