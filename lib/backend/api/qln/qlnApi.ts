@@ -1,7 +1,7 @@
 import { DropdownItem } from 'lib/models/dropdown'
 import { axiosGet } from './useAxios'
 
-let baseUrl = process.env.NEXT_QLN_API_URL
+let baseUrl = process.env.NEXT_PUBLIC_QLN_API_URL
 
 export interface NewsItem {
   Source?: NewsTypeIds | string
@@ -30,6 +30,8 @@ export type NewsTypeIds =
   | 'GoogleSports'
   | 'YahooWorld'
   | 'YahooScience'
+  | 'CNN'
+  | 'Reuters'
   | 'HackerNews'
   | 'TheDaily'
   | 'LifeHacker'
@@ -42,6 +44,10 @@ export const newsTypes: DropdownItem[] = [
   {
     text: 'BBC Business',
     value: 'BbcBusiness',
+  },
+  {
+    text: 'CNN',
+    value: 'CNN',
   },
   {
     text: 'Google Business',
@@ -71,6 +77,10 @@ export const newsTypes: DropdownItem[] = [
     text: 'Hacker News',
     value: 'HackerNews',
   },
+  /* {
+    text: 'Reuters',
+    value: 'Reuters',
+  }, */
   {
     text: 'Yahoo World',
     value: 'YahooWorld',
@@ -88,6 +98,14 @@ export const newsTypes: DropdownItem[] = [
     value: 'TheDaily',
   },
 ]
+
+export interface StockQuote {
+  Symbol: string
+  Company: string
+  Price: number
+  ChangePercent: number
+  TradeDate: string
+}
 
 export async function getNewsFeed() {
   const url = `${baseUrl}/MarketHandshake`
@@ -118,4 +136,15 @@ export async function getNewsBySource(id: NewsTypeIds) {
   let resp = (await axiosGet(`${baseUrl}/NewsBySource`, params)).Body as NewsItem[]
   //console.log(`${baseUrl}/NewsBySource?type=${id}`)
   return resp
+}
+
+export async function getStockQuotes(search?: string) {
+  const url = search ? `${baseUrl}/StocksAutoComplete` : `${baseUrl}/Stocks`
+  const params = {
+    searchString: search ?? '',
+  }
+  const response = await axiosGet(url, params)
+  const result = response.Body as StockQuote[]
+  //console.log(`fetched ${result.length} stock quotes`)
+  return result
 }

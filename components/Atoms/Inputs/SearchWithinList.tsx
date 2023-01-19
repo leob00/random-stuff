@@ -41,6 +41,7 @@ const SearchWithinList = ({
   }
   return (
     <TextField
+      autoComplete='off'
       defaultValue={defaultValue}
       disabled={disabled}
       id='searchWithinList'
@@ -50,6 +51,7 @@ const SearchWithinList = ({
       placeholder={text}
       inputRef={textRef}
       InputProps={{
+        autoComplete: 'off',
         endAdornment:
           search.length > 0 ? (
             <InputAdornment position='end'>

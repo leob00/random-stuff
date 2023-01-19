@@ -49,6 +49,9 @@ const HomeMenu = () => {
           <CenterStack>
             <InternalLink route={'/csr/news'} text={'news'} />
           </CenterStack>
+          {/* <CenterStack>
+            <InternalLink route={'/csr/stocks'} text={'stocks'} />
+          </CenterStack> */}
           {isLoggedIn && (
             <Box py={2}>
               <HorizontalDivider />

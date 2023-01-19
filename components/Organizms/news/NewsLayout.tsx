@@ -86,7 +86,7 @@ const NewsLayout = () => {
                     )}
                     {item.TeaserImageUrl && item.TeaserImageUrl.length > 0 && (
                       <Box pt={1} maxWidth={350}>
-                        <img src={item.TeaserImageUrl} title='' width={200} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
+                        <img src={item.TeaserImageUrl} title='' width={300} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
                       </Box>
                     )}
                     {userController.username && (
