@@ -1,4 +1,5 @@
 import { DropdownItem } from 'lib/models/dropdown'
+import { quoteArraySchema, StockQuote } from '../models/zModels'
 import { axiosGet } from './useAxios'
 
 let baseUrl = process.env.NEXT_PUBLIC_QLN_API_URL
@@ -99,13 +100,13 @@ export const newsTypes: DropdownItem[] = [
   },
 ]
 
-export interface StockQuote {
+/* export interface StockQuote {
   Symbol: string
   Company: string
   Price: number
   ChangePercent: number
   TradeDate: string
-}
+} */
 
 export async function getNewsFeed() {
   const url = `${baseUrl}/MarketHandshake`
@@ -138,13 +139,21 @@ export async function getNewsBySource(id: NewsTypeIds) {
   return resp
 }
 
-export async function getStockQuotes(search?: string) {
+export async function searchStockQuotes(search?: string) {
   const url = search ? `${baseUrl}/StocksAutoComplete` : `${baseUrl}/Stocks`
   const params = {
     searchString: search ?? '',
   }
   const response = await axiosGet(url, params)
-  const result = response.Body as StockQuote[]
-  //console.log(`fetched ${result.length} stock quotes`)
+  const result = quoteArraySchema.parse(response.Body)
+  return result
+}
+export async function getStockQuotes(symbols: string[]) {
+  const url = `${baseUrl}/Stocks`
+  const params = {
+    symbols: symbols.join(),
+  }
+  const response = await axiosGet(url, params)
+  const result = quoteArraySchema.parse(response.Body)
   return result
 }

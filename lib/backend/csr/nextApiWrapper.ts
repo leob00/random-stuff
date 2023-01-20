@@ -7,6 +7,7 @@ import { ApiError } from 'next/dist/server/api-utils'
 import { LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
 import { axiosGet, axiosPut } from '../api/aws/useAxios'
 import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserProfileKey } from '../api/aws/util'
+import { quoteArraySchema, StockQuote } from '../api/models/zModels'
 import { myEncrypt } from '../encryption/useEncryptor'
 
 export interface EncPutRequest {
@@ -216,6 +217,40 @@ export async function putUserGoalTasks(username: string, goalId: string, data: U
   }
   //console.log(putRequest)
   await axiosPut(`/api/putRandomStuff`, putRequest)
+}
+
+export async function putUserStockList(username: string, data: StockQuote[]) {
+  const id = `user-stock_list[${username}]`
+  let req: LambdaDynamoRequest = {
+    id: `user-stock_list[${username}]`,
+    category: 'user-stock_list',
+    data: data,
+    expiration: 0,
+    token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${id}`),
+    //token: signLambdaDynamoPut(item.id!, secondaryKey, String(process.env.NEXT_PUBLIC_API_TOKEN)),
+  }
+  const putRequest: EncPutRequest = {
+    data: encryptBody(req),
+  }
+  await axiosPut(`/api/putRandomStuff`, putRequest)
+}
+
+export async function getUserStockList(username: string) {
+  //const id = `user-goal-tasks${goalId}`
+  //let result: UserTask[] = []
+
+  try {
+    const body = encryptKey(`user-stock_list[${username}]`)
+    const data = await axiosPut(`/api/getRandomStuffEnc`, body)
+    //console.log('api random stuff: ', data)
+    if (data) {
+      const result = quoteArraySchema.parse(data)
+      return result
+    }
+  } catch (err) {
+    console.log(err)
+  }
+  return []
 }
 
 function encryptBody(req: LambdaDynamoRequest) {

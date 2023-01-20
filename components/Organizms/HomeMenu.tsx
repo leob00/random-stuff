@@ -6,10 +6,13 @@ import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import InternalLink from 'components/Atoms/Buttons/InternalLink'
+import { useUserController } from 'hooks/userController'
 
 const HomeMenu = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false)
   const [isAdmin, setIsAdmin] = React.useState(false)
+
+  const userController = useUserController()
 
   React.useEffect(() => {
     const fn = async () => {
@@ -49,9 +52,9 @@ const HomeMenu = () => {
           <CenterStack>
             <InternalLink route={'/csr/news'} text={'news'} />
           </CenterStack>
-          {/* <CenterStack>
+          <CenterStack>
             <InternalLink route={'/csr/stocks'} text={'stocks'} />
-          </CenterStack> */}
+          </CenterStack>
           {isLoggedIn && (
             <Box py={2}>
               <HorizontalDivider />
