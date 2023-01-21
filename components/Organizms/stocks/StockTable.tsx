@@ -1,4 +1,5 @@
-import { Table, TableBody, TableRow, TableCell, Typography } from '@mui/material'
+import { Table, TableBody, TableRow, TableCell, Typography, Box, Stack, TableContainer, Grid } from '@mui/material'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { CasinoBlack, CasinoGreen, CasinoRed } from 'components/themes/mainTheme'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
@@ -18,20 +19,41 @@ const StockTable = ({ stockList }: { stockList: StockQuote[] }) => {
     )
   }
   return (
-    <Table sx={{ width: '80%' }}>
-      <TableBody>
+    <>
+      <Box paddingLeft={{ xs: 0, sm: 6, md: 16, lg: 36 }} maxWidth={{ xs: '100%', md: '80%' }}>
         {stockList.map((item, index) => (
-          <TableRow key={index}>
-            <TableCell valign='middle'>
+          <Box key={index} pb={2}>
+            <Box py={1}>
               <Typography>{`${item.Symbol}: ${item.Company}`}</Typography>
-            </TableCell>
-            <TableCell>{renderPositiveNegative(item.Change, `${item.Price.toFixed(2)}`)}</TableCell>
-            <TableCell>{renderPositiveNegative(item.Change, `${item.Change.toFixed(2)}`)}</TableCell>
-            <TableCell>{renderPositiveNegative(item.ChangePercent, `${item.ChangePercent.toFixed(2)}%`)}</TableCell>
-          </TableRow>
+              <Stack direction={'row'} spacing={2}>
+                <Stack>{renderPositiveNegative(item.Change, `${item.Price.toFixed(2)}`)}</Stack>
+                <Stack>{renderPositiveNegative(item.Change, `${item.Change.toFixed(2)}`)}</Stack>
+                <Stack>{renderPositiveNegative(item.Change, `${item.ChangePercent.toFixed(2)}%`)}</Stack>
+              </Stack>
+            </Box>
+            {index < stockList.length - 1 && <HorizontalDivider />}
+          </Box>
         ))}
-      </TableBody>
-    </Table>
+      </Box>
+      <Box>
+        {/*  <TableContainer>
+          <Table>
+            <TableBody>
+              {stockList.map((item, index) => (
+                <TableRow key={index}>
+                  <TableCell valign='middle'>
+                    <Typography>{`${item.Symbol}: ${item.Company}`}</Typography>
+                  </TableCell>
+                  <TableCell>{renderPositiveNegative(item.Change, `${item.Price.toFixed(2)}`)}</TableCell>
+                  <TableCell>{renderPositiveNegative(item.Change, `${item.Change.toFixed(2)}`)}</TableCell>
+                  <TableCell>{renderPositiveNegative(item.ChangePercent, `${item.ChangePercent.toFixed(2)}%`)}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer> */}
+      </Box>
+    </>
   )
 }
 

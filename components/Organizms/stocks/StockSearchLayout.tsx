@@ -5,6 +5,7 @@ import WarmupBox from 'components/Atoms/WarmupBox'
 import { useUserController } from 'hooks/userController'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockQuotes, searchStockQuotes } from 'lib/backend/api/qln/qlnApi'
+import { getUserCSR } from 'lib/backend/auth/userUtil'
 import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
 import { cloneDeep } from 'lodash'
@@ -12,6 +13,7 @@ import React from 'react'
 import StockTable from './StockTable'
 
 interface Model {
+  username: string | null
   isLoading: boolean
   autoCompleteResults: DropdownItem[]
   searchedStocksMap: Map<string, StockQuote>
@@ -25,10 +27,9 @@ const StockSearchLayout = () => {
   const [stockListMap, setStockListMap] = React.useState(new Map<string, StockQuote>([]))
   const [stockList, setStockList] = React.useState<StockQuote[]>([])
  */
-
-  const userController = useUserController()
-
+  //const username = useUserController().username
   const defaultModel: Model = {
+    username: null,
     isLoading: true,
     autoCompleteResults: [],
     searchedStocksMap: new Map<string, StockQuote>([]),
@@ -71,28 +72,31 @@ const StockSearchLayout = () => {
       stockListMap.forEach((val) => {
         list.push(val)
       })
-      if (userController.username) {
-        putUserStockList(userController.username, list)
+      if (model.username) {
+        putUserStockList(model.username, list)
       }
       setModel({ ...model, stockListMap: stockListMap, stockList: list })
     }
   }
   const reloadData = async () => {
-    setModel({ ...model, isLoading: true })
-    if (userController.username) {
-      const result = await getUserStockList(userController.username)
-      const map = getStockSearchMap(result)
-      let quotes: StockQuote[] = []
-      if (result.length > 0) {
-        setModel({ ...model, isLoading: true })
-        quotes = await getStockQuotes(result.map((o) => o.Symbol))
+    const user = await getUserCSR()
+    const username = user ? user.email : null
+    setModel({ ...model, isLoading: true, username: username })
+    let stockList = model.stockList
+    let map = model.stockListMap
+    let quotes: StockQuote[] = []
 
-        putUserStockList(userController.username, quotes)
+    if (username) {
+      stockList = await getUserStockList(username)
+      map = getStockSearchMap(stockList)
+      if (stockList.length > 0) {
+        quotes = await getStockQuotes(stockList.map((o) => o.Symbol))
+        putUserStockList(username, quotes)
       }
-      setModel({ ...model, stockListMap: map, searchedStocksMap: map, stockList: quotes.length > 0 ? quotes : result, isLoading: false })
     } else {
-      setModel({ ...model, isLoading: false })
     }
+    setModel({ ...model, stockListMap: map, searchedStocksMap: map, stockList: quotes.length > 0 ? quotes : stockList, isLoading: false })
+    console.log('loaded stock list: ', stockList.length)
   }
 
   React.useEffect(() => {
@@ -117,11 +121,11 @@ const StockSearchLayout = () => {
       </Box>
       <Box py={2}>
         {model.isLoading ? (
-          <WarmupBox />
+          <WarmupBox text='loading stock list...' />
         ) : (
-          <CenterStack>
+          <Box>
             <StockTable stockList={model.stockList} />
-          </CenterStack>
+          </Box>
         )}
       </Box>
     </>
