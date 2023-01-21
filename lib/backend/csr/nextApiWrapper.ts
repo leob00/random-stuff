@@ -233,6 +233,7 @@ export async function putUserStockList(username: string, data: StockQuote[]) {
     data: encryptBody(req),
   }
   await axiosPut(`/api/putRandomStuff`, putRequest)
+  //console.log('put stock list: ', data.length)
 }
 
 export async function getUserStockList(username: string) {

@@ -81,7 +81,7 @@ const StockSearchLayout = () => {
   const reloadData = async () => {
     const user = await getUserCSR()
     const username = user ? user.email : null
-    setModel({ ...model, isLoading: true, username: username })
+    //setModel({ ...model, isLoading: true, username: username })
     let stockList = model.stockList
     let map = model.stockListMap
     let quotes: StockQuote[] = []
@@ -95,8 +95,23 @@ const StockSearchLayout = () => {
       }
     } else {
     }
-    setModel({ ...model, stockListMap: map, searchedStocksMap: map, stockList: quotes.length > 0 ? quotes : stockList, isLoading: false })
-    console.log('loaded stock list: ', stockList.length)
+    setModel({ ...model, username: username, stockListMap: map, searchedStocksMap: map, stockList: quotes.length > 0 ? quotes : stockList, isLoading: false })
+    //console.log('loaded stock list: ', stockList.length)
+  }
+
+  const handleRemoveStock = (symbol: string) => {
+    const stockListMap = cloneDeep(model.stockListMap)
+    stockListMap.delete(symbol)
+    let list: StockQuote[] = []
+    stockListMap.forEach((val) => {
+      list.push(val)
+    })
+    //console.log('user: ', model.username)
+    if (model.username) {
+      //console.log('saving list')
+      putUserStockList(model.username, list)
+    }
+    setModel({ ...model, stockListMap: stockListMap, stockList: list })
   }
 
   React.useEffect(() => {
@@ -124,7 +139,7 @@ const StockSearchLayout = () => {
           <WarmupBox text='loading stock list...' />
         ) : (
           <Box>
-            <StockTable stockList={model.stockList} />
+            <StockTable stockList={model.stockList} onRemoveItem={handleRemoveStock} />
           </Box>
         )}
       </Box>
