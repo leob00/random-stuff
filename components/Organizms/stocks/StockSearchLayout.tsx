@@ -2,6 +2,7 @@ import { Box, List, ListItem, Stack, Table, TableBody, TableCell, TableRow } fro
 import CenterStack from 'components/Atoms/CenterStack'
 import SearchAutoComplete from 'components/Atoms/Inputs/SearchAutoComplete'
 import WarmupBox from 'components/Atoms/WarmupBox'
+import DraggableList from 'components/Molecules/Lists/DraggableList'
 import { useUserController } from 'hooks/userController'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockQuotes, searchStockQuotes } from 'lib/backend/api/qln/qlnApi'
@@ -10,6 +11,7 @@ import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapp
 import { DropdownItem } from 'lib/models/dropdown'
 import { cloneDeep } from 'lodash'
 import React from 'react'
+import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
 import StockTable from './StockTable'
 
 interface Model {
@@ -114,6 +116,32 @@ const StockSearchLayout = () => {
     }
     setModel({ ...model, stockListMap: stockListMap, stockList: list })
   }
+  /* const reorder = <T>(
+  list: T[],
+  startIndex: number,
+  endIndex: number
+): T[] => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+}; */
+
+  const onDragEnd = ({ destination, source }: DropResult) => {
+    // dropped outside the list
+    if (!destination) return
+    const items = model.stockList
+    const [removed] = items.splice(source.index, 1)
+    items.splice(destination.index, 0, removed)
+    setModel({ ...model, stockList: items })
+    if (model.username) {
+      putUserStockList(model.username, items)
+    }
+    //const newItems = reorder(items, source.index, destination.index)
+
+    //setItems(newItems)
+  }
 
   React.useEffect(() => {
     const fn = async () => {
@@ -140,6 +168,11 @@ const StockSearchLayout = () => {
           <WarmupBox text='loading stock list...' />
         ) : (
           <Box>
+            {/* {model.stockList.length > 0 && (
+              <Box paddingLeft={{ xs: 0, sm: 4, md: 20, lg: 28, xl: 34 }} maxWidth={{ xs: '100%', md: '80%' }}>
+                <DraggableList items={model.stockList} onDragEnd={onDragEnd} />
+              </Box>
+            )} */}
             <StockTable stockList={model.stockList} onRemoveItem={handleRemoveStock} />
           </Box>
         )}

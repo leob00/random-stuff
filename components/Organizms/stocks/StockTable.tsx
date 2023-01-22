@@ -1,9 +1,11 @@
 import { Table, TableBody, TableRow, TableCell, Typography, Box, Stack, TableContainer, Grid } from '@mui/material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import DraggableList from 'components/Molecules/Lists/DraggableList'
 import StockListMenu from 'components/Molecules/Menus/StockListMenu'
 import { CasinoBlack, CasinoBlackTransparent, CasinoGreen, CasinoRed } from 'components/themes/mainTheme'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
+import { DropResult } from 'react-beautiful-dnd'
 
 const StockTable = ({ stockList, onRemoveItem }: { stockList: StockQuote[]; onRemoveItem: (id: string) => void }) => {
   const renderPositiveNegative = (val: number, formattedValue: string) => {
