@@ -8,7 +8,7 @@ export type DraggableListProps = {
   onDragEnd: OnDragEndResponder
 }
 
-const DraggableList = React.memo(({ items, onDragEnd }: DraggableListProps) => {
+const DraggableList = ({ items, onDragEnd }: DraggableListProps) => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId='droppable-list'>
@@ -23,6 +23,6 @@ const DraggableList = React.memo(({ items, onDragEnd }: DraggableListProps) => {
       </Droppable>
     </DragDropContext>
   )
-})
+}
 
 export default DraggableList
