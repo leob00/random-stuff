@@ -46,6 +46,13 @@ const StockSearchLayout = () => {
     })
     return map
   }
+  const getStockListMap = (list: StockQuote[]) => {
+    const map = cloneDeep(model.stockListMap)
+    list.forEach((item) => {
+      map.set(item.Symbol, item)
+    })
+    return map
+  }
 
   const handleSearched = async (text: string) => {
     if (text.length > 0) {
@@ -61,27 +68,23 @@ const StockSearchLayout = () => {
     }
   }
 
-  const handleSearchSelected = (text: string) => {
+  const handleAddQuote = (text: string) => {
     const symbol = text.split(':')[0]
     const quote = model.searchedStocksMap.get(symbol)
-    const stockListMap = cloneDeep(model.stockListMap)
+    const stockList = model.stockList
+    let stockListMap = getStockListMap(stockList)
     if (quote) {
-      //console.log(`found quote in ${searchedStocks.size} stocks : ${JSON.stringify(quote)}`)
+      stockList.unshift(quote)
       stockListMap.set(quote.Symbol, quote)
-      let list: StockQuote[] = []
-      stockListMap.forEach((val) => {
-        list.push(val)
-      })
       if (model.username) {
-        putUserStockList(model.username, list)
+        putUserStockList(model.username, stockList)
       }
-      setModel({ ...model, stockListMap: stockListMap, stockList: list })
+      setModel({ ...model, stockListMap: stockListMap, stockList: stockList, autoCompleteResults: [] })
     }
   }
   const reloadData = async () => {
     const user = await getUserCSR()
     const username = user ? user.email : null
-    //setModel({ ...model, isLoading: true, username: username })
     let stockList = model.stockList
     let map = model.stockListMap
     let quotes: StockQuote[] = []
@@ -106,9 +109,7 @@ const StockSearchLayout = () => {
     stockListMap.forEach((val) => {
       list.push(val)
     })
-    //console.log('user: ', model.username)
     if (model.username) {
-      //console.log('saving list')
       putUserStockList(model.username, list)
     }
     setModel({ ...model, stockListMap: stockListMap, stockList: list })
@@ -130,7 +131,7 @@ const StockSearchLayout = () => {
             onChanged={handleSearched}
             searchResults={model.autoCompleteResults}
             debounceWaitMilliseconds={500}
-            onSelected={handleSearchSelected}
+            onSelected={handleAddQuote}
           />
         </CenterStack>
       </Box>

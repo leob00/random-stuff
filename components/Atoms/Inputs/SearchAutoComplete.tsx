@@ -11,6 +11,7 @@ const SearchAutoComplete = ({
   debounceWaitMilliseconds = 500,
   searchResults,
   onSelected,
+  clearOnSelect = true,
 }: {
   onChanged?: (text: string) => void
   width?: number
@@ -18,8 +19,10 @@ const SearchAutoComplete = ({
   debounceWaitMilliseconds?: number
   searchResults: DropdownItem[]
   onSelected: (text: string) => void
+  clearOnSelect?: boolean
 }) => {
   const textRef = React.useRef<HTMLInputElement | null>(null)
+  const [defaultValue, setDefaultValue] = React.useState('')
 
   //console.log('search results: ', searchResults.length)
 
@@ -30,29 +33,34 @@ const SearchAutoComplete = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     debouncedFn(e.currentTarget.value)
+    setDefaultValue(e.currentTarget.value)
   }
-  const handleSelected = (value: string | null) => {
+  const handleSelected = (e: React.SyntheticEvent<Element, Event>, value: string | null) => {
     if (value) {
       onSelected(value)
     }
-  }
-
-  const handleClear = () => {
-    if (textRef.current) {
-      textRef.current.value = ''
-      onChanged?.('')
+    if (clearOnSelect) {
+      if (textRef.current) {
+        textRef.current.blur()
+      }
+      setDefaultValue('')
     }
   }
+
   return (
     <Autocomplete
+      value={defaultValue}
       size='small'
       id='searchAutoComplete'
       freeSolo
       sx={{ width: width }}
       options={searchResults.map((e) => e.text)}
       autoHighlight
+      /* onInputChange={(e, value) => {
+        handleSelected(e, value)
+      }} */
       onChange={(e, value) => {
-        handleSelected(value)
+        handleSelected(e, value)
       }}
       //getOptionLabel={(option) => option.text}
       /*  renderOption={(props, option) => (
@@ -64,6 +72,7 @@ const SearchAutoComplete = ({
         <TextField
           {...params}
           label={placeholder}
+          inputRef={textRef}
           inputProps={{
             ...params.inputProps,
             autoComplete: 'new-password', // disable autocomplete and autofill

@@ -1,7 +1,7 @@
 import { Table, TableBody, TableRow, TableCell, Typography, Box, Stack, TableContainer, Grid } from '@mui/material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import StockListMenu from 'components/Molecules/Menus/StockListMenu'
-import { CasinoBlack, CasinoGreen, CasinoRed } from 'components/themes/mainTheme'
+import { CasinoBlack, CasinoBlackTransparent, CasinoGreen, CasinoRed } from 'components/themes/mainTheme'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 
@@ -14,7 +14,7 @@ const StockTable = ({ stockList, onRemoveItem }: { stockList: StockQuote[]; onRe
       color = CasinoGreen
     }
     return (
-      <Typography variant='body2' sx={{ color: color, fontWeight: 600 }}>
+      <Typography variant='body1' sx={{ color: color, fontWeight: 600 }}>
         {formattedValue}
       </Typography>
     )
@@ -22,12 +22,12 @@ const StockTable = ({ stockList, onRemoveItem }: { stockList: StockQuote[]; onRe
 
   return (
     <>
-      <Box paddingLeft={{ xs: 0, sm: 6, md: 16, lg: 36 }} maxWidth={{ xs: '100%', md: '80%' }}>
+      <Box paddingLeft={{ xs: 0, sm: 4, md: 20, lg: 28, xl: 34 }} maxWidth={{ xs: '100%', md: '80%' }}>
         {stockList.map((item, index) => (
-          <Box key={index} pb={2}>
+          <Box key={index} pb={2} pl={1}>
             <Box py={1}>
               <Stack direction='row'>
-                <Typography maxWidth={'75%'}>{`${item.Symbol}: ${item.Company}`}</Typography>
+                <Typography maxWidth={'75%'} fontWeight={600}>{`${item.Symbol}: ${item.Company}`}</Typography>
                 <Stack alignItems={'flex-end'} flexGrow={1} pr={2}>
                   <StockListMenu id={item.Symbol} onRemoveItem={onRemoveItem} />
                 </Stack>
