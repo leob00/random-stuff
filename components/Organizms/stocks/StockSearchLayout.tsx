@@ -1,4 +1,8 @@
 import { Box, List, ListItem, Stack, Table, TableBody, TableCell, TableRow } from '@mui/material'
+import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import InternalLinkButton from 'components/Atoms/Buttons/InternalLinkButton'
+import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import CenterStack from 'components/Atoms/CenterStack'
 import SearchAutoComplete from 'components/Atoms/Inputs/SearchAutoComplete'
 import WarmupBox from 'components/Atoms/WarmupBox'
@@ -21,6 +25,7 @@ interface Model {
   searchedStocksMap: Map<string, StockQuote>
   stockListMap: Map<string, StockQuote>
   stockList: StockQuote[]
+  editList: boolean
 }
 
 const StockSearchLayout = () => {
@@ -37,6 +42,7 @@ const StockSearchLayout = () => {
     searchedStocksMap: new Map<string, StockQuote>([]),
     stockListMap: new Map<string, StockQuote>([]),
     stockList: [],
+    editList: false,
   }
 
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
@@ -116,17 +122,6 @@ const StockSearchLayout = () => {
     }
     setModel({ ...model, stockListMap: stockListMap, stockList: list })
   }
-  /* const reorder = <T>(
-  list: T[],
-  startIndex: number,
-  endIndex: number
-): T[] => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-}; */
 
   const onDragEnd = ({ destination, source }: DropResult) => {
     // dropped outside the list
@@ -138,9 +133,6 @@ const StockSearchLayout = () => {
     if (model.username) {
       putUserStockList(model.username, items)
     }
-    //const newItems = reorder(items, source.index, destination.index)
-
-    //setItems(newItems)
   }
 
   React.useEffect(() => {
@@ -168,12 +160,35 @@ const StockSearchLayout = () => {
           <WarmupBox text='loading stock list...' />
         ) : (
           <Box>
-            {/* {model.stockList.length > 0 && (
-              <Box paddingLeft={{ xs: 0, sm: 4, md: 20, lg: 28, xl: 34 }} maxWidth={{ xs: '100%', md: '80%' }}>
+            {model.editList ? (
+              <ResponsiveContainer>
+                <Stack py={2} alignItems={'flex-end'} pr={2}>
+                  <LinkButton
+                    onClick={() => {
+                      setModel({ ...model, editList: false })
+                    }}
+                  >
+                    done
+                  </LinkButton>
+                </Stack>
                 <DraggableList items={model.stockList} onDragEnd={onDragEnd} />
-              </Box>
-            )} */}
-            <StockTable stockList={model.stockList} onRemoveItem={handleRemoveStock} />
+              </ResponsiveContainer>
+            ) : (
+              <>
+                <ResponsiveContainer>
+                  <Stack py={2} alignItems={'flex-end'} pr={2}>
+                    <LinkButton
+                      onClick={() => {
+                        setModel({ ...model, editList: true })
+                      }}
+                    >
+                      reorder
+                    </LinkButton>
+                  </Stack>
+                  <StockTable stockList={model.stockList} onRemoveItem={handleRemoveStock} />
+                </ResponsiveContainer>
+              </>
+            )}
           </Box>
         )}
       </Box>

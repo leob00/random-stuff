@@ -56,18 +56,9 @@ const SearchAutoComplete = ({
       sx={{ width: width }}
       options={searchResults.map((e) => e.text)}
       autoHighlight
-      /* onInputChange={(e, value) => {
-        handleSelected(e, value)
-      }} */
       onChange={(e, value) => {
         handleSelected(e, value)
       }}
-      //getOptionLabel={(option) => option.text}
-      /*  renderOption={(props, option) => (
-        <Box component='li' sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-          {option.text}
-        </Box>
-      )} */
       renderInput={(params) => (
         <TextField
           {...params}

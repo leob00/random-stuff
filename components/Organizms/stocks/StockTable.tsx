@@ -1,4 +1,5 @@
 import { Table, TableBody, TableRow, TableCell, Typography, Box, Stack, TableContainer, Grid } from '@mui/material'
+import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import DraggableList from 'components/Molecules/Lists/DraggableList'
 import StockListMenu from 'components/Molecules/Menus/StockListMenu'
@@ -24,7 +25,7 @@ const StockTable = ({ stockList, onRemoveItem }: { stockList: StockQuote[]; onRe
 
   return (
     <>
-      <Box paddingLeft={{ xs: 0, sm: 4, md: 20, lg: 28, xl: 34 }} maxWidth={{ xs: '100%', md: '80%' }}>
+      <Box>
         {stockList.map((item, index) => (
           <Box key={index} pb={2} pl={1}>
             <Box py={1}>
@@ -44,24 +45,6 @@ const StockTable = ({ stockList, onRemoveItem }: { stockList: StockQuote[]; onRe
             {index < stockList.length - 1 && <HorizontalDivider />}
           </Box>
         ))}
-      </Box>
-      <Box>
-        {/*  <TableContainer>
-          <Table>
-            <TableBody>
-              {stockList.map((item, index) => (
-                <TableRow key={index}>
-                  <TableCell valign='middle'>
-                    <Typography>{`${item.Symbol}: ${item.Company}`}</Typography>
-                  </TableCell>
-                  <TableCell>{renderPositiveNegative(item.Change, `${item.Price.toFixed(2)}`)}</TableCell>
-                  <TableCell>{renderPositiveNegative(item.Change, `${item.Change.toFixed(2)}`)}</TableCell>
-                  <TableCell>{renderPositiveNegative(item.ChangePercent, `${item.ChangePercent.toFixed(2)}%`)}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer> */}
       </Box>
     </>
   )
