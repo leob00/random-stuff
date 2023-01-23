@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import StockListMenu from 'components/Molecules/Menus/StockListMenu'
+import StockListItemMenu from 'components/Molecules/Menus/StockListItemMenu'
 import { CasinoBlack, CasinoRed, CasinoGreen } from 'components/themes/mainTheme'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
@@ -34,14 +34,14 @@ const StockListItem = ({
       <Box py={1}>
         <Stack direction='row'>
           <Typography maxWidth={'75%'} fontWeight={600}>{`${item.Symbol}: ${item.Company}`}</Typography>
-          <Stack alignItems={'flex-end'} flexGrow={1} pr={2}>
-            <StockListMenu
+          {/* <Stack alignItems={'flex-end'} flexGrow={1} pr={2}>
+            <StockListItemMenu
               id={item.Symbol}
               onRemoveItem={() => {
                 onRemoveItem(item.Symbol)
               }}
             />
-          </Stack>
+          </Stack> */}
         </Stack>
         <Stack direction={'row'} spacing={2}>
           <Stack>{renderPositiveNegative(item.Change, `${item.Price.toFixed(2)}`)}</Stack>

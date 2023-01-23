@@ -1,14 +1,13 @@
-import { Box, List, ListItem, Stack, Table, TableBody, TableCell, TableRow } from '@mui/material'
+import { Close } from '@mui/icons-material'
+import { Box, Button, Stack } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
-import InternalLinkButton from 'components/Atoms/Buttons/InternalLinkButton'
-import LinkButton from 'components/Atoms/Buttons/LinkButton'
-import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import CenterStack from 'components/Atoms/CenterStack'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchAutoComplete from 'components/Atoms/Inputs/SearchAutoComplete'
 import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
+import StockListMenu from 'components/Molecules/Menus/StockListMenu'
 import DraggableList from 'components/Organizms/stocks/DraggableList'
-import { useUserController } from 'hooks/userController'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockQuotes, searchStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
@@ -16,7 +15,7 @@ import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapp
 import { DropdownItem } from 'lib/models/dropdown'
 import { cloneDeep } from 'lodash'
 import React from 'react'
-import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
+import { DropResult } from 'react-beautiful-dnd'
 import StockTable from './StockTable'
 
 interface Model {
@@ -93,6 +92,9 @@ const StockSearchLayout = () => {
   }
   const reloadData = async () => {
     const user = await getUserCSR()
+    if (user) {
+      setModel({ ...model, isLoading: true })
+    }
     const username = user ? user.email : null
     let stockList = model.stockList
     let map = model.stockListMap
@@ -168,30 +170,35 @@ const StockSearchLayout = () => {
           <Box>
             {model.editList ? (
               <ResponsiveContainer>
-                <Stack py={2} alignItems={'flex-end'} pr={1}>
-                  <LinkButton
+                <Stack py={2} alignItems={'flex-end'} pr={2}>
+                  <Button
+                    size='small'
+                    color='secondary'
                     onClick={() => {
                       setModel({ ...model, editList: false })
                     }}
                   >
-                    finish editing
-                  </LinkButton>
+                    <Close fontSize='small' />
+                  </Button>
                 </Stack>
+                <HorizontalDivider />
                 <DraggableList items={model.stockList} onDragEnd={onDragEnd} onRemoveItem={handleRemoveStock} />
               </ResponsiveContainer>
             ) : (
               <>
                 <ResponsiveContainer>
                   {model.stockList.length > 0 && (
-                    <Stack py={2} alignItems={'flex-end'} pr={1}>
-                      <LinkButton
-                        onClick={() => {
-                          setModel({ ...model, editList: true })
-                        }}
-                      >
-                        edit
-                      </LinkButton>
-                    </Stack>
+                    <>
+                      <Stack py={2} alignItems={'flex-end'} pr={2}>
+                        <StockListMenu
+                          onEdit={() => {
+                            setModel({ ...model, editList: true })
+                          }}
+                          onRefresh={reloadData}
+                        />
+                      </Stack>
+                      <HorizontalDivider />
+                    </>
                   )}
                   <StockTable stockList={model.stockList} onRemoveItem={handleRemoveStock} />
                 </ResponsiveContainer>

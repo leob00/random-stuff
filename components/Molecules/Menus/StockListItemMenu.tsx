@@ -1,10 +1,12 @@
 import React from 'react'
-import { Menu, MenuList, MenuItem, ListItemIcon, ListItemText, Button, ListItemAvatar, ListItem, Divider } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu'
-import { Edit } from '@mui/icons-material'
+import { Menu, MenuList, MenuItem, ListItemIcon, ListItemText, Divider, Button } from '@mui/material'
 import CachedIcon from '@mui/icons-material/Cached'
+import BarChartIcon from '@mui/icons-material/BarChart'
+import MenuIcon from '@mui/icons-material/Menu'
+import { Delete } from '@mui/icons-material'
+import { CasinoRedTransparent } from 'components/themes/mainTheme'
 
-const StockListMenu = ({ onEdit, onRefresh }: { onEdit: () => void; onRefresh: () => void }) => {
+const StockListItemMenu = ({ id, onRemoveItem }: { id: string; onRemoveItem: (id: string) => void }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const handleShowMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -13,15 +15,14 @@ const StockListMenu = ({ onEdit, onRefresh }: { onEdit: () => void; onRefresh: (
   const handleCloseMenu = () => {
     setAnchorEl(null)
   }
-  const handleEdit = () => {
+  const handleRemove = () => {
     handleCloseMenu()
-    onEdit()
+    onRemoveItem(id)
   }
-  const handleRefresh = () => {
+  const handleShowCharts = () => {
     handleCloseMenu()
-    onRefresh()
+    //onShowCharts()
   }
-
   return (
     <>
       <Button
@@ -52,23 +53,17 @@ const StockListMenu = ({ onEdit, onRefresh }: { onEdit: () => void; onRefresh: (
         }}
       >
         <MenuList>
-          <MenuItem onClick={handleEdit}>
+          <MenuItem onClick={handleRemove}>
             <ListItemIcon>
-              <Edit color='secondary' fontSize='small' />
+              <Delete color='error' fontSize='small' />
             </ListItemIcon>
-            <ListItemText primary='edit'></ListItemText>
+            <ListItemText primary='remove' color={CasinoRedTransparent}></ListItemText>
           </MenuItem>
-          <Divider />
-          <MenuItem onClick={handleRefresh}>
-            <ListItemIcon>
-              <CachedIcon color='secondary' fontSize='small' />
-            </ListItemIcon>
-            <ListItemText primary='refresh'></ListItemText>
-          </MenuItem>
+          {/* <Divider /> */}
         </MenuList>
       </Menu>
     </>
   )
 }
 
-export default StockListMenu
+export default StockListItemMenu
