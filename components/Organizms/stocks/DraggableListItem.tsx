@@ -1,17 +1,21 @@
-import { Avatar, ListItem, ListItemAvatar, ListItemText, makeStyles } from '@mui/material'
+import { Avatar, ListItem, ListItemAvatar, ListItemText, Stack } from '@mui/material'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import * as React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import { DragIndicator } from '@mui/icons-material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import StockListMenu from 'components/Molecules/Menus/StockListMenu'
 
 export type DraggableListItemProps = {
   item: StockQuote
   index: number
+  onRemoveItem: (id: string) => void
 }
 
-const DraggableListItem = ({ item, index }: DraggableListItemProps) => {
-  //const classes = useStyles()
+const DraggableListItem = ({ item, index, onRemoveItem }: DraggableListItemProps) => {
+  const handleRemoveItem = (id: string) => {
+    onRemoveItem(id)
+  }
   return (
     <Draggable draggableId={item.Symbol} index={index} key={item.Symbol}>
       {(provided, snapshot) => (
@@ -27,7 +31,11 @@ const DraggableListItem = ({ item, index }: DraggableListItemProps) => {
               <DragIndicator />
             </ListItemAvatar>
             <ListItemText primary={item.Symbol} secondary={item.Company} />
+            <Stack alignItems={'flex-end'} flexGrow={1} pr={2}>
+              <StockListMenu id={item.Symbol} onRemoveItem={handleRemoveItem} />
+            </Stack>
           </ListItem>
+
           <HorizontalDivider />
         </>
       )}

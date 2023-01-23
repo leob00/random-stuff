@@ -66,7 +66,7 @@ const SearchAutoComplete = ({
           inputRef={textRef}
           inputProps={{
             ...params.inputProps,
-            autoComplete: 'new-password', // disable autocomplete and autofill
+            autoComplete: 'off', // disable autocomplete and autofill
           }}
           onChange={handleChange}
         />

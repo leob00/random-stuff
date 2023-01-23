@@ -5,6 +5,7 @@ import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import CenterStack from 'components/Atoms/CenterStack'
 import SearchAutoComplete from 'components/Atoms/Inputs/SearchAutoComplete'
+import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import DraggableList from 'components/Organizms/stocks/DraggableList'
 import { useUserController } from 'hooks/userController'
@@ -157,34 +158,41 @@ const StockSearchLayout = () => {
       </Box>
       <Box py={2}>
         {model.isLoading ? (
-          <WarmupBox text='loading stock list...' />
+          <>
+            <ResponsiveContainer>
+              <WarmupBox text='loading stock list...' />
+              <PageWithGridSkeleton />
+            </ResponsiveContainer>
+          </>
         ) : (
           <Box>
             {model.editList ? (
               <ResponsiveContainer>
-                <Stack py={2} alignItems={'flex-end'} pr={2}>
+                <Stack py={2} alignItems={'flex-end'} pr={1}>
                   <LinkButton
                     onClick={() => {
                       setModel({ ...model, editList: false })
                     }}
                   >
-                    done
+                    finish editing
                   </LinkButton>
                 </Stack>
-                <DraggableList items={model.stockList} onDragEnd={onDragEnd} />
+                <DraggableList items={model.stockList} onDragEnd={onDragEnd} onRemoveItem={handleRemoveStock} />
               </ResponsiveContainer>
             ) : (
               <>
                 <ResponsiveContainer>
-                  <Stack py={2} alignItems={'flex-end'} pr={2}>
-                    <LinkButton
-                      onClick={() => {
-                        setModel({ ...model, editList: true })
-                      }}
-                    >
-                      reorder
-                    </LinkButton>
-                  </Stack>
+                  {model.stockList.length > 0 && (
+                    <Stack py={2} alignItems={'flex-end'} pr={1}>
+                      <LinkButton
+                        onClick={() => {
+                          setModel({ ...model, editList: true })
+                        }}
+                      >
+                        edit
+                      </LinkButton>
+                    </Stack>
+                  )}
                   <StockTable stockList={model.stockList} onRemoveItem={handleRemoveStock} />
                 </ResponsiveContainer>
               </>
