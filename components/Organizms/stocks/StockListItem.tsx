@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material'
+import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import StockListItemMenu from 'components/Molecules/Menus/StockListItemMenu'
 import { CasinoBlack, CasinoRed, CasinoGreen } from 'components/themes/mainTheme'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
@@ -16,6 +16,8 @@ const StockListItem = ({
   totalCount: number
   onRemoveItem: (id: string) => void
 }) => {
+  //const [stockItem, setStockItem] = React.useState(item)
+
   const renderPositiveNegative = (val: number, formattedValue: string) => {
     let color = CasinoBlack
     if (val < 0) {
@@ -33,15 +35,11 @@ const StockListItem = ({
     <Box key={index} pb={2}>
       <Box py={1}>
         <Stack direction='row'>
-          <Typography maxWidth={'75%'} fontWeight={600}>{`${item.Symbol}: ${item.Company}`}</Typography>
-          {/* <Stack alignItems={'flex-end'} flexGrow={1} pr={2}>
-            <StockListItemMenu
-              id={item.Symbol}
-              onRemoveItem={() => {
-                onRemoveItem(item.Symbol)
-              }}
-            />
-          </Stack> */}
+          <Box maxWidth={'75%'} pb={1} pt={1}>
+            <LinkButton2 onClick={() => {}}>
+              <Typography fontWeight={600}>{renderPositiveNegative(item.Change, `${item.Symbol}: ${item.Company}`)}</Typography>
+            </LinkButton2>
+          </Box>
         </Stack>
         <Stack direction={'row'} spacing={2}>
           <Stack>{renderPositiveNegative(item.Change, `${item.Price.toFixed(2)}`)}</Stack>
