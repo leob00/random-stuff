@@ -197,7 +197,6 @@ const StockSearchLayout = () => {
                           onRefresh={reloadData}
                         />
                       </Stack>
-                      <HorizontalDivider />
                     </>
                   )}
                   <StockTable stockList={model.stockList} onRemoveItem={handleRemoveStock} />

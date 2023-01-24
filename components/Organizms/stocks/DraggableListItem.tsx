@@ -39,7 +39,6 @@ const DraggableListItem = ({ item, index, onRemoveItem }: DraggableListItemProps
               >
                 <Delete color='error' fontSize='small' />
               </IconButton>
-              {/* <StockListMenu id={item.Symbol} onRemoveItem={handleRemoveItem} /> */}
             </Stack>
           </ListItem>
 
