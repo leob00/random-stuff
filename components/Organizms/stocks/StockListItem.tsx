@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardHeader, ListItem, ListItemAvatar, Paper, Stack, Typography } from '@mui/material'
+import { Box, Card, CardContent, CardHeader, ListItem, ListItemAvatar, ListItemText, Paper, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
@@ -68,20 +68,36 @@ const StockListItem = ({
       </Card> */}
       <Paper sx={{ py: 1 }}>
         <Box>
-          <Stack direction='row'>
-            <Box sx={{ width: '100%', borderTopLeftRadius: '5px', borderTopRightRadius: '5px', backgroundColor: DarkBlueTransparent }} pl={1}>
-              <LinkButton onClick={() => {}}>
-                <Typography textAlign={'left'} variant='h6' color={VeryLightBlue}>
-                  {`${item.Symbol}: ${item.Company}`}
-                </Typography>
-              </LinkButton>
+          <Box sx={{ borderTopLeftRadius: '5px', borderTopRightRadius: '5px', backgroundColor: 'unset' }}>
+            <Box maxWidth={'75%'}>
+              <ListItem sx={{ paddingTop: 0, paddingBottom: 0 }}>
+                <ListItemText primary={`${item.Symbol}: ${item.Company}`}></ListItemText>
+              </ListItem>
             </Box>
-          </Stack>
-          <Stack direction={'row'} spacing={3} p={1} sx={{ backgroundColor: 'unset' }} pl={2}>
+            <Stack direction={'row'} spacing={1} sx={{ backgroundColor: 'unset', minWidth: '25%' }} pt={1} pl={1} alignItems={'center'}>
+              {/* <LinkButton onClick={() => {}}>
+                <Typography textAlign={'left'} variant='h6'>
+                  {`${item.Symbol}:`}
+                </Typography>
+              </LinkButton> */}
+              <Stack direction={'row'} spacing={2} p={1} sx={{ backgroundColor: 'unset' }} pt={1}>
+                <Typography variant='h6' color={getPositiveNegativeColor(item.Change)}>{`${item.Price.toFixed(2)}`}</Typography>
+                <Typography variant='h6' color={getPositiveNegativeColor(item.Change)}>{`${item.Change.toFixed(2)}`}</Typography>
+                <Typography variant='h6' color={getPositiveNegativeColor(item.Change)}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
+              </Stack>
+            </Stack>
+          </Box>
+
+          {/* <Box pl={1}>
+            <LinkButton onClick={() => {}}>
+              <Typography textAlign={'left'}>{`${item.Company}`}</Typography>
+            </LinkButton>
+          </Box>
+          <Stack direction={'row'} spacing={3} p={1} sx={{ backgroundColor: 'unset' }} pl={2} my={1}>
             <Stack>{renderPositiveNegative(item.Change, `$${item.Price.toFixed(2)}`)}</Stack>
             <Stack>{renderPositiveNegative(item.Change, `$${item.Change.toFixed(2)}`)}</Stack>
             <Stack>{renderPositiveNegative(item.Change, `${item.ChangePercent.toFixed(2)}%`)}</Stack>
-          </Stack>
+          </Stack> */}
         </Box>
       </Paper>
       {/* {index < totalCount - 1 && <HorizontalDivider />} */}
