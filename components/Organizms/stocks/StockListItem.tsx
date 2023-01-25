@@ -1,6 +1,7 @@
 import { TableBody, TableCell, TableRow } from '@aws-amplify/ui-react'
 import { Box, ListItem, Paper, Stack, Table, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ApexLineChart from 'components/Molecules/Charts/apex/ApexLineChart'
 import { SimpleChartData, XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import { CasinoBlack, CasinoBlackTransparent, CasinoGreen, DarkBlueTransparent } from 'components/themes/mainTheme'
@@ -40,8 +41,6 @@ const StockListItem = ({ index, item }: { index: number; item: StockQuote }) => 
   }
 
   const handleCompanyClick = async (stockQuote: StockQuote) => {
-    setShowMore(!showMore)
-
     if (!chartData && !showMore) {
       const history = await getStockChart(stockQuote.Symbol, 365)
       setQuote({ ...quote, History: history })
@@ -50,8 +49,12 @@ const StockListItem = ({ index, item }: { index: number; item: StockQuote }) => 
         y: history.map((o) => o.Price),
       }
       setChartData(chart)
+      setShowMore(!showMore)
+
       //console.log(chart)
       //console.log(JSON.stringify(chartData))
+    } else {
+      setShowMore(!showMore)
     }
   }
 
@@ -82,13 +85,18 @@ const StockListItem = ({ index, item }: { index: number; item: StockQuote }) => 
               </Stack>
             </Stack>
           </Box>
-        </Box>
+        </Box>{' '}
         {showMore && (
-          <Box py={2} pl={3}>
-            {renderDetail('Sector', quote.Sector)}
-            {renderDetail('Cap', quote.MarketCapShort)}
-            {renderDetail('P/E', quote.PeRatio)}
-            <Box>{chartData && <ApexLineChart data={chartData} seriesName={''} yAxisDecorator='$' />}</Box>
+          <>
+            <Box py={2} pl={3}>
+              <Box>{chartData ? <ApexLineChart data={chartData} seriesName={''} yAxisDecorator='$' /> : <Box>loading chart...</Box>}</Box>
+            </Box>
+            <HorizontalDivider />
+            <Box>
+              {renderDetail('Sector', quote.Sector)}
+              {renderDetail('Cap', quote.MarketCapShort)}
+              {renderDetail('P/E', quote.PeRatio)}
+            </Box>
             <Stack direction={'row'} spacing={1} py={1}>
               <Stack>
                 <Typography fontSize={12} color={CasinoBlackTransparent}>
@@ -96,7 +104,7 @@ const StockListItem = ({ index, item }: { index: number; item: StockQuote }) => 
                 </Typography>
               </Stack>
             </Stack>
-          </Box>
+          </>
         )}
       </Paper>
     </Box>
