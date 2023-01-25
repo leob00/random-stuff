@@ -1,5 +1,5 @@
 import { DropdownItem } from 'lib/models/dropdown'
-import { quoteArraySchema, StockQuote } from '../models/zModels'
+import { quoteArraySchema, quoteHistorySchema, StockQuote } from '../models/zModels'
 import { axiosGet } from './useAxios'
 
 let baseUrl = process.env.NEXT_PUBLIC_QLN_API_URL
@@ -155,5 +155,16 @@ export async function getStockQuotes(symbols: string[]) {
   }
   const response = await axiosGet(url, params)
   const result = quoteArraySchema.parse(response.Body)
+  return result
+}
+export async function getStockChart(symbol: string, days?: number) {
+  const url = `${baseUrl}/StockHistoryChart`
+  const params = {
+    symbol: symbol,
+    days: days ?? 90,
+  }
+  const response = await axiosGet(url, params)
+  //console.log(response)
+  const result = quoteHistorySchema.parse(response.Body)
   return result
 }

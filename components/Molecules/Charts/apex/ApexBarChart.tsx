@@ -3,13 +3,8 @@ import dynamic from 'next/dynamic'
 import { Box } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
 import { CasinoBlack, CasinoBlue, CasinoBlueTransparent, CasinoRedTransparent, DarkBlue, DarkBlueTransparent } from 'components/themes/mainTheme'
+import { ApexBarChartData } from './models/chartModes'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
-
-export interface ApexBarChartData {
-  x: string
-  y: number
-  fillColor: string
-}
 
 const ApexBarChart = ({
   data,

@@ -9,7 +9,7 @@ const StockTable = ({ stockList, onRemoveItem }: { stockList: StockQuote[]; onRe
     <>
       <Box pl={1}>
         {stockList.map((item, index) => (
-          <StockListItem key={index} index={index} item={item} totalCount={stockList.length} onRemoveItem={onRemoveItem} />
+          <StockListItem key={index} index={index} item={item} />
         ))}
         {stockList.length > 0 && (
           <Typography fontSize={10}>{`All quote prices are as of: ${dayjs(stockList[0].TradeDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
