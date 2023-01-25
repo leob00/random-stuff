@@ -8,6 +8,9 @@ export const quoteArraySchema = z
     Change: z.number(),
     ChangePercent: z.number(),
     TradeDate: z.string(),
+    MarketCapShort: z.string().optional(),
+    PeRatio: z.number().optional(),
+    Sector: z.string().optional(),
   })
   .array()
 

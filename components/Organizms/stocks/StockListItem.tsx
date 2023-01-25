@@ -1,21 +1,8 @@
-import { Box, Card, CardContent, CardHeader, ListItem, ListItemAvatar, ListItemText, Paper, Stack, Typography } from '@mui/material'
+import { TableBody, TableCell, TableRow } from '@aws-amplify/ui-react'
+import { Box, ListItem, Paper, Stack, Table, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
-import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import {
-  CasinoBlack,
-  CasinoRed,
-  CasinoGreen,
-  CasinoBlackTransparent,
-  CasinoBlue,
-  CasinoGrayTransparent,
-  CasinoLightGrayTransparent,
-  CasinoLightPinkTransparent,
-  VeryLightBlue,
-  DarkBlue,
-  DarkModeBlue,
-  DarkBlueTransparent,
-} from 'components/themes/mainTheme'
+import { CasinoBlack, CasinoBlackTransparent, CasinoGreen, DarkBlueTransparent } from 'components/themes/mainTheme'
+import dayjs from 'dayjs'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 
@@ -31,6 +18,7 @@ const StockListItem = ({
   onRemoveItem: (id: string) => void
 }) => {
   //const [stockItem, setStockItem] = React.useState(item)
+  const [showMore, setShowMore] = React.useState(false)
 
   const getPositiveNegativeColor = (val: number) => {
     let color = CasinoBlack
@@ -42,65 +30,68 @@ const StockListItem = ({
     return color
   }
 
-  const renderPositiveNegative = (val: number, formattedValue: string) => {
-    const color = getPositiveNegativeColor(val)
+  const renderDetail = (label: string, val?: string | number) => {
     return (
-      <Typography variant='h5' sx={{ color: color, fontWeight: 600 }}>
-        {formattedValue}
-      </Typography>
+      <Stack direction={'row'} spacing={1} py={1}>
+        <Stack>
+          <Typography variant={'body2'}>{`${label}:`}</Typography>
+        </Stack>
+        <Stack>
+          <Typography variant={'body2'} fontWeight={600} color={DarkBlueTransparent}>
+            {val}
+          </Typography>
+        </Stack>
+      </Stack>
     )
   }
+
+  const handleCompanyClick = (stockQuote: StockQuote) => {
+    setShowMore(!showMore)
+  }
+
   return (
     <Box key={index} py={2}>
-      {/* <Card>
-        <CardContent>
-          <LinkButton onClick={() => {}}>
-            <Typography textAlign={'left'} fontWeight={600}>
-              {`${item.Company} (${item.Symbol})`}
-            </Typography>
-          </LinkButton>
-          <Stack direction={'row'} spacing={2} sx={{ backgroundColor: 'unset' }} pl={1}>
-            <Stack>{renderPositiveNegative(item.Change, `${item.Price.toFixed(2)}`)}</Stack>
-            <Stack>{renderPositiveNegative(item.Change, `${item.Change.toFixed(2)}`)}</Stack>
-            <Stack>{renderPositiveNegative(item.Change, `${item.ChangePercent.toFixed(2)}%`)}</Stack>
-          </Stack>
-        </CardContent>
-      </Card> */}
       <Paper sx={{ py: 1 }}>
         <Box>
           <Box sx={{ borderTopLeftRadius: '5px', borderTopRightRadius: '5px', backgroundColor: 'unset' }}>
-            <Box maxWidth={'75%'}>
+            <Box>
               <ListItem sx={{ paddingTop: 0, paddingBottom: 0 }}>
-                <ListItemText primary={`${item.Symbol}: ${item.Company}`}></ListItemText>
+                <LinkButton
+                  onClick={() => {
+                    handleCompanyClick(item)
+                  }}
+                >
+                  <Typography textAlign={'left'} variant='h6'>
+                    {`${item.Symbol}: ${item.Company}`}
+                  </Typography>
+                </LinkButton>
+                {/*   <ListItemText primary={`${item.Symbol}: ${item.Company}`}></ListItemText>*/}
               </ListItem>
             </Box>
             <Stack direction={'row'} spacing={1} sx={{ backgroundColor: 'unset', minWidth: '25%' }} pt={1} pl={1} alignItems={'center'}>
-              {/* <LinkButton onClick={() => {}}>
-                <Typography textAlign={'left'} variant='h6'>
-                  {`${item.Symbol}:`}
-                </Typography>
-              </LinkButton> */}
-              <Stack direction={'row'} spacing={2} p={1} sx={{ backgroundColor: 'unset' }} pt={1}>
-                <Typography variant='h6' color={getPositiveNegativeColor(item.Change)}>{`${item.Price.toFixed(2)}`}</Typography>
-                <Typography variant='h6' color={getPositiveNegativeColor(item.Change)}>{`${item.Change.toFixed(2)}`}</Typography>
-                <Typography variant='h6' color={getPositiveNegativeColor(item.Change)}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
+              <Stack direction={'row'} spacing={2} pl={2} sx={{ backgroundColor: 'unset' }}>
+                <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.Price.toFixed(2)}`}</Typography>
+                <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.Change.toFixed(2)}`}</Typography>
+                <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
               </Stack>
             </Stack>
           </Box>
-
-          {/* <Box pl={1}>
-            <LinkButton onClick={() => {}}>
-              <Typography textAlign={'left'}>{`${item.Company}`}</Typography>
-            </LinkButton>
-          </Box>
-          <Stack direction={'row'} spacing={3} p={1} sx={{ backgroundColor: 'unset' }} pl={2} my={1}>
-            <Stack>{renderPositiveNegative(item.Change, `$${item.Price.toFixed(2)}`)}</Stack>
-            <Stack>{renderPositiveNegative(item.Change, `$${item.Change.toFixed(2)}`)}</Stack>
-            <Stack>{renderPositiveNegative(item.Change, `${item.ChangePercent.toFixed(2)}%`)}</Stack>
-          </Stack> */}
         </Box>
+        {showMore && (
+          <Box py={2} pl={3}>
+            {renderDetail('Sector', item.Sector)}
+            {renderDetail('Cap', item.MarketCapShort)}
+            {renderDetail('P/E', item.PeRatio)}
+            <Stack direction={'row'} spacing={1} py={1}>
+              <Stack>
+                <Typography fontSize={12} color={CasinoBlackTransparent}>
+                  {dayjs(item.TradeDate).format('MM/DD/YYYY hh:mm a')}
+                </Typography>
+              </Stack>
+            </Stack>
+          </Box>
+        )}
       </Paper>
-      {/* {index < totalCount - 1 && <HorizontalDivider />} */}
     </Box>
   )
 }
