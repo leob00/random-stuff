@@ -2,8 +2,8 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import { Box } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
-import { CasinoBlack, CasinoBlue, CasinoBlueTransparent, CasinoRedTransparent, DarkBlue, DarkBlueTransparent } from 'components/themes/mainTheme'
-import { SimpleChartData, XyValues } from './models/chartModes'
+import { CasinoBlue } from 'components/themes/mainTheme'
+import { XyValues } from './models/chartModes'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const ApexLineChart = ({ data, seriesName, yAxisDecorator = '' }: { data: XyValues; seriesName: string; yAxisDecorator?: string }) => {
@@ -12,6 +12,7 @@ const ApexLineChart = ({ data, seriesName, yAxisDecorator = '' }: { data: XyValu
       {
         name: seriesName,
         data: data.y,
+        color: CasinoBlue,
       },
     ],
     chart: {
@@ -20,6 +21,7 @@ const ApexLineChart = ({ data, seriesName, yAxisDecorator = '' }: { data: XyValu
         show: false,
       },
     },
+
     grid: {
       show: false,
     },

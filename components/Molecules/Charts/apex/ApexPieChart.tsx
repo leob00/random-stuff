@@ -2,20 +2,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import { Box } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
-import {
-  Blue800,
-  CasinoBlack,
-  CasinoBlackTransparent,
-  CasinoBlue,
-  CasinoBlueTransparent,
-  CasinoRedTransparent,
-  CasinoWhiteTransparent,
-  DarkBlue,
-  DarkBlueTransparent,
-  White,
-} from 'components/themes/mainTheme'
-import { ApexBarChartData } from './ApexBarChart'
-import { BarChart } from '../barChartOptions'
+import { White } from 'components/themes/mainTheme'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const ApexPieChart = ({ x, y, colors, yAxisDecorator = '' }: { x: string[]; y: number[]; colors: string[]; yAxisDecorator?: string }) => {

@@ -1,4 +1,5 @@
-import ApexBarChart, { ApexBarChartData } from 'components/Molecules/Charts/apex/ApexBarChart'
+import ApexBarChart from 'components/Molecules/Charts/apex/ApexBarChart'
+import { ApexBarChartData } from 'components/Molecules/Charts/apex/models/chartModes'
 import { CasinoBlueTransparent, CasinoGreenTransparent, CasinoRedTransparent } from 'components/themes/mainTheme'
 import { orderBy } from 'lodash'
 import React from 'react'
