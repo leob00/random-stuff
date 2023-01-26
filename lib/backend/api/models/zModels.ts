@@ -16,8 +16,8 @@ export const quoteArraySchema = z
     ChangePercent: z.number(),
     TradeDate: z.string(),
     MarketCapShort: z.string().optional(),
-    PeRatio: z.number().optional(),
-    Sector: z.string().optional(),
+    PeRatio: z.number().nullable().optional(),
+    Sector: z.string().nullable().optional(),
     History: quoteHistorySchema.optional(),
   })
   .array()
