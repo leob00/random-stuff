@@ -1,16 +1,16 @@
-import React from 'react'
-import dynamic from 'next/dynamic'
 import { Box } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
-import { CasinoBlue, DarkBlue, DarkBlueTransparent } from 'components/themes/mainTheme'
-import { XyValues } from './models/chartModes'
+import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
+import { DarkBlueTransparent, DarkBlue, VeryLightBlueTransparent, CasinoBlueTransparent, CasinoBlue } from 'components/themes/mainTheme'
+import dynamic from 'next/dynamic'
+import React from 'react'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
-const ApexLineChart = ({ data, seriesName, yAxisDecorator = '' }: { data: XyValues; seriesName: string; yAxisDecorator?: string }) => {
+const StockChart = ({ data }: { data: XyValues }) => {
   const options: ApexOptions = {
     series: [
       {
-        name: seriesName,
+        name: '',
         data: data.y,
         color: DarkBlueTransparent,
       },
@@ -25,12 +25,15 @@ const ApexLineChart = ({ data, seriesName, yAxisDecorator = '' }: { data: XyValu
         show: false,
       },
     },
-
     grid: {
-      show: false,
+      show: true,
+      borderColor: VeryLightBlueTransparent,
     },
     yaxis: {
       labels: {
+        style: {
+          colors: [CasinoBlue],
+        },
         formatter: (val: number) => {
           return `$${val.toFixed(2)}`
         },
@@ -40,22 +43,22 @@ const ApexLineChart = ({ data, seriesName, yAxisDecorator = '' }: { data: XyValu
       //max: yAxisDecorator === '%' ? 100 : undefined,
       labels: {
         show: false,
-        /* formatter: (val) => {
+        formatter: (val) => {
           return val
-        }, */
+        },
       },
+      tickAmount: Math.floor(data.x.length / (data.x.length / 12)),
       categories: data.x,
       axisTicks: { show: false },
     },
     tooltip: {
       y: {
         formatter: (val: number) => {
-          return `${yAxisDecorator}${val.toFixed(2)}`
+          return `$${val.toFixed(2)}`
         },
       },
     },
   }
-
   return (
     <Box>
       <ReactApexChart series={options.series} options={options} type='line' />
@@ -63,4 +66,4 @@ const ApexLineChart = ({ data, seriesName, yAxisDecorator = '' }: { data: XyValu
   )
 }
 
-export default ApexLineChart
+export default StockChart

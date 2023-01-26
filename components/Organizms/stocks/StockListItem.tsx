@@ -1,14 +1,12 @@
-import { TableBody, TableCell, TableRow } from '@aws-amplify/ui-react'
-import { Box, ListItem, Paper, Stack, Table, Typography } from '@mui/material'
+import { Box, ListItem, Paper, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import ApexLineChart from 'components/Molecules/Charts/apex/ApexLineChart'
-import { SimpleChartData, XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
+import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import { CasinoBlack, CasinoBlackTransparent, CasinoGreen, DarkBlueTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockChart } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
+import StockChart from './StockChart'
 
 const StockListItem = ({ index, item }: { index: number; item: StockQuote }) => {
   //const [quote, setQuote] = React.useState(item)
@@ -88,16 +86,15 @@ const StockListItem = ({ index, item }: { index: number; item: StockQuote }) => 
         </Box>{' '}
         {showMore && (
           <>
-            <Box py={2} pl={3}>
-              <Box>{chartData ? <ApexLineChart data={chartData} seriesName={''} yAxisDecorator='$' /> : <Box>loading chart...</Box>}</Box>
+            <Box py={1} pl={1} sx={{ backgroundColor: 'unset' }}>
+              <Box>{chartData ? <StockChart data={chartData} /> : <Box minHeight={200}>loading chart...</Box>}</Box>
             </Box>
-            <HorizontalDivider />
-            <Box>
+            <Box pl={3}>
               {renderDetail('Sector', item.Sector)}
               {renderDetail('Cap', item.MarketCapShort)}
               {renderDetail('P/E', item.PeRatio)}
             </Box>
-            <Stack direction={'row'} spacing={1} py={1}>
+            <Stack direction={'row'} spacing={1} py={1} pl={3}>
               <Stack>
                 <Typography fontSize={12} color={CasinoBlackTransparent}>
                   {dayjs(item.TradeDate).format('MM/DD/YYYY hh:mm a')}
