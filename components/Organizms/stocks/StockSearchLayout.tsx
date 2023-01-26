@@ -78,8 +78,8 @@ const StockSearchLayout = () => {
 
   const handleAddQuote = (text: string) => {
     const symbol = text.split(':')[0]
-    const quote = model.searchedStocksMap.get(symbol)
-    const stockList = model.stockList
+    const quote = cloneDeep(model.searchedStocksMap.get(symbol))
+    const stockList = cloneDeep(model.stockList)
     let stockListMap = getStockListMap(stockList)
     if (quote) {
       stockList.unshift(quote)
