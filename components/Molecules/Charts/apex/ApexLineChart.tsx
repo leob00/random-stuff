@@ -29,10 +29,20 @@ const ApexLineChart = ({ data, seriesName, yAxisDecorator = '' }: { data: XyValu
     grid: {
       show: false,
     },
+    yaxis: {
+      labels: {
+        formatter: (val: number) => {
+          return `$${val.toFixed(2)}`
+        },
+      },
+    },
     xaxis: {
       //max: yAxisDecorator === '%' ? 100 : undefined,
       labels: {
         show: false,
+        /* formatter: (val) => {
+          return val
+        }, */
       },
       categories: data.x,
       axisTicks: { show: false },
@@ -40,7 +50,7 @@ const ApexLineChart = ({ data, seriesName, yAxisDecorator = '' }: { data: XyValu
     tooltip: {
       y: {
         formatter: (val: number) => {
-          return `${yAxisDecorator}${val}`
+          return `${yAxisDecorator}${val.toFixed(2)}`
         },
       },
     },
