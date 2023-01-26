@@ -47,13 +47,17 @@ const StockSearchLayout = () => {
 
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
 
-  const getStockSearchMap = (list: StockQuote[]) => {
+  /* const reRender = React.useMemo(() => {
+    console.log('memo: stock list count changed: ', model.stockList.length)
+  }, [model.stockList.length])
+ */
+  /* const getStockSearchMap = (list: StockQuote[]) => {
     const map = cloneDeep(model.searchedStocksMap)
     list.forEach((item, index) => {
       map.set(item.Symbol, item)
     })
     return map
-  }
+  } */
   const getStockListMap = (list: StockQuote[]) => {
     const map = cloneDeep(model.stockListMap)
     list.forEach((item) => {
@@ -71,8 +75,11 @@ const StockSearchLayout = () => {
           value: e.Symbol,
         }
       })
-      const map = getStockSearchMap(result)
-      setModel({ ...model, searchedStocksMap: map, autoCompleteResults: autoComp })
+      const searchedStocksMap = new Map<string, StockQuote>([])
+      result.forEach((item, index) => {
+        searchedStocksMap.set(item.Symbol, item)
+      })
+      setModel({ ...model, searchedStocksMap: searchedStocksMap, autoCompleteResults: autoComp })
     }
   }
 
@@ -81,6 +88,8 @@ const StockSearchLayout = () => {
     const quote = cloneDeep(model.searchedStocksMap.get(symbol))
     const stockList = cloneDeep(model.stockList)
     let stockListMap = getStockListMap(stockList)
+    setModel({ ...model, isLoading: true })
+
     if (quote) {
       stockList.unshift(quote)
       stockListMap.set(quote.Symbol, quote)
@@ -88,6 +97,8 @@ const StockSearchLayout = () => {
         putUserStockList(model.username, stockList)
       }
       setModel({ ...model, stockListMap: stockListMap, stockList: stockList, autoCompleteResults: [] })
+    } else {
+      setModel({ ...model, isLoading: false })
     }
   }
   const reloadData = async () => {
@@ -102,21 +113,21 @@ const StockSearchLayout = () => {
 
     if (username) {
       stockList = await getUserStockList(username)
-      map = getStockSearchMap(stockList)
+      //map = getStockSearchMap(stockList)
       if (stockList.length > 0) {
         quotes = await getStockQuotes(stockList.map((o) => o.Symbol))
         putUserStockList(username, quotes)
       }
     } else {
     }
-    setModel({ ...model, username: username, stockListMap: map, searchedStocksMap: map, stockList: quotes.length > 0 ? quotes : stockList, isLoading: false })
+    setModel({ ...model, username: username, stockListMap: map, stockList: quotes.length > 0 ? quotes : stockList, isLoading: false })
     //console.log('loaded stock list: ', stockList.length)
   }
 
-  const handleRemoveStock = (symbol: string) => {
-    const stockListMap = cloneDeep(model.stockListMap)
+  const handleRemoveQuote = (symbol: string) => {
+    let stockListMap = cloneDeep(model.stockListMap)
     stockListMap.delete(symbol)
-    let list: StockQuote[] = []
+    const list: StockQuote[] = []
     stockListMap.forEach((val) => {
       list.push(val)
     })
@@ -182,7 +193,7 @@ const StockSearchLayout = () => {
                   </Button>
                 </Stack>
                 <HorizontalDivider />
-                <DraggableList items={model.stockList} onDragEnd={onDragEnd} onRemoveItem={handleRemoveStock} />
+                <DraggableList items={model.stockList} onDragEnd={onDragEnd} onRemoveItem={handleRemoveQuote} />
               </ResponsiveContainer>
             ) : (
               <>
@@ -199,7 +210,7 @@ const StockSearchLayout = () => {
                       </Stack>
                     </>
                   )}
-                  <StockTable stockList={model.stockList} onRemoveItem={handleRemoveStock} />
+                  <StockTable stockList={model.stockList} onRemoveItem={handleRemoveQuote} />
                 </ResponsiveContainer>
               </>
             )}

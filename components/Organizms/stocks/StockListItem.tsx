@@ -38,8 +38,8 @@ const StockListItem = ({ index, item }: { index: number; item: StockQuote }) => 
     )
   }
 
-  const handleCompanyClick = async (stockQuote: StockQuote) => {
-    if (!chartData && !showMore) {
+  const handleCompanyClick = async (stockQuote: StockQuote, show: boolean) => {
+    if (show) {
       const history = await getStockChart(stockQuote.Symbol, 365)
       //setQuote({ ...quote, History: history })
       const chart: XyValues = {
@@ -47,13 +47,11 @@ const StockListItem = ({ index, item }: { index: number; item: StockQuote }) => 
         y: history.map((o) => o.Price),
       }
       setChartData(chart)
-      setShowMore(!showMore)
 
       //console.log(chart)
       //console.log(JSON.stringify(chartData))
-    } else {
-      setShowMore(!showMore)
     }
+    setShowMore(show)
   }
 
   return (
@@ -65,7 +63,7 @@ const StockListItem = ({ index, item }: { index: number; item: StockQuote }) => 
               <ListItem sx={{ paddingTop: 0, paddingBottom: 0 }}>
                 <LinkButton
                   onClick={() => {
-                    handleCompanyClick(item)
+                    handleCompanyClick(item, !showMore)
                   }}
                 >
                   <Typography textAlign={'left'} variant='h6'>
