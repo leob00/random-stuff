@@ -26,6 +26,7 @@ const NewsLayout = () => {
   const loadData = async (id: NewsTypeIds) => {
     try {
       const result = (await axiosGet(`/api/news?id=${id}`)) as NewsItem[]
+      //console.log(result[0])
       const sorted = orderBy(result, ['PublishDate'], ['desc'])
       if (userController.authProfile) {
         userController.authProfile.noteTitles.forEach((note) => {
@@ -36,6 +37,7 @@ const NewsLayout = () => {
           })
         })
       }
+      //console.log(sorted[0])
       setNewsItems(sorted)
     } catch (err) {
       console.log('error in news api.')
@@ -97,7 +99,7 @@ const NewsLayout = () => {
                               username={userController.username}
                               note={{
                                 title: item.Headline!,
-                                body: item.Description ?? '',
+                                body: `${item.Description} <p><a href='${item.Link}' target='_blank'>link<a/></p>`,
                                 dateCreated: getUtcNow().format(),
                                 dateModified: getUtcNow().format(),
                                 expirationDate: getUtcNow().add(3, 'day').format(),
