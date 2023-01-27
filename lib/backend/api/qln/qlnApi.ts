@@ -36,6 +36,7 @@ export type NewsTypeIds =
   | 'HackerNews'
   | 'TheDaily'
   | 'LifeHacker'
+  | 'Pluralistic'
 
 export const newsTypes: DropdownItem[] = [
   {
@@ -97,6 +98,10 @@ export const newsTypes: DropdownItem[] = [
   {
     text: 'Podcast: The Daily',
     value: 'TheDaily',
+  },
+  {
+    text: 'Pluralistic',
+    value: 'Pluralistic',
   },
 ]
 
