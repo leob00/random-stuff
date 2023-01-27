@@ -3,7 +3,7 @@ import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import { CasinoBlack, CasinoBlackTransparent, CasinoGreen, DarkBlueTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
-import { StockQuote } from 'lib/backend/api/models/zModels'
+import { StockHistoryItem, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockChart } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import StockChart from './StockChart'
@@ -11,7 +11,7 @@ import StockChart from './StockChart'
 const StockListItem = ({ index, item }: { index: number; item: StockQuote }) => {
   //const [quote, setQuote] = React.useState(item)
   const [showMore, setShowMore] = React.useState(false)
-  const [chartData, setChartData] = React.useState<XyValues | null>(null)
+  const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
 
   const getPositiveNegativeColor = (val: number) => {
     let color = CasinoBlack
@@ -42,11 +42,8 @@ const StockListItem = ({ index, item }: { index: number; item: StockQuote }) => 
     if (show) {
       const history = await getStockChart(stockQuote.Symbol, 365)
       //setQuote({ ...quote, History: history })
-      const chart: XyValues = {
-        x: history.map((o) => dayjs(o.TradeDate).format('MM/DD/YYYY')),
-        y: history.map((o) => o.Price),
-      }
-      setChartData(chart)
+
+      setStockHistory(history)
 
       //console.log(chart)
       //console.log(JSON.stringify(chartData))
@@ -85,7 +82,7 @@ const StockListItem = ({ index, item }: { index: number; item: StockQuote }) => 
         {showMore && (
           <>
             <Box py={1} pl={1} sx={{ backgroundColor: 'unset' }}>
-              <Box>{chartData ? <StockChart data={chartData} /> : <Box minHeight={200}>loading chart...</Box>}</Box>
+              <Box>{stockHistory.length > 0 ? <StockChart symbol={item.Symbol} history={stockHistory} /> : <Box minHeight={200}>loading chart...</Box>}</Box>
             </Box>
             <Box pl={3}>
               {renderDetail('Sector', item.Sector)}

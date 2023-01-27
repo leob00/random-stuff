@@ -23,4 +23,4 @@ export const quoteArraySchema = z
   .array()
 
 export type StockQuote = z.infer<typeof quoteArraySchema.element>
-export type StockHistory = z.infer<typeof quoteHistorySchema.element>
+export type StockHistoryItem = z.infer<typeof quoteHistorySchema.element>
