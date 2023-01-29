@@ -93,10 +93,9 @@ const StockSearchLayout = () => {
   }
   const reloadData = async () => {
     const user = await getUserCSR()
-    if (user) {
-      setModel({ ...model, isLoading: true })
-    }
     const username = user ? user.email : null
+    setModel({ ...model, isLoading: true })
+
     let stockList = model.stockList
     let map = model.stockListMap
     let quotes: StockQuote[] = []
@@ -108,9 +107,13 @@ const StockSearchLayout = () => {
         quotes = cloneDeep(stockList)
         putUserStockList(username, stockList)
       }
+      setModel({ ...model, username: username, stockListMap: map, stockList: quotes.length > 0 ? quotes : stockList, isLoading: false })
     } else {
+      setTimeout(() => {
+        setModel({ ...model, username: username, stockListMap: map, stockList: quotes.length > 0 ? quotes : stockList, isLoading: false })
+      }, 1000)
     }
-    setModel({ ...model, username: username, stockListMap: map, stockList: quotes.length > 0 ? quotes : stockList, isLoading: false })
+    //setModel({ ...model, username: username, stockListMap: map, stockList: quotes.length > 0 ? quotes : stockList, isLoading: false })
     //console.log('loaded stock list: ', stockList.length)
   }
 

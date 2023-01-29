@@ -8,7 +8,7 @@ import { getStockChart } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import StockChart from './StockChart'
 
-const StockListItem = ({ index, item }: { index: number; item: StockQuote }) => {
+const StockListItem = ({ item }: { item: StockQuote }) => {
   //const [quote, setQuote] = React.useState(item)
   const [showMore, setShowMore] = React.useState(false)
   const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
