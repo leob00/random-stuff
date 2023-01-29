@@ -3,6 +3,7 @@ const apiKey = process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY as string
 const config: AxiosRequestConfig = {
   headers: {
     'Content-Type': 'application/json',
+    'x-api-key': String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_PUBLIC_KEY),
     ApiKey: apiKey,
   },
 }

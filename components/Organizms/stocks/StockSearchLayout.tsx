@@ -5,11 +5,12 @@ import CenterStack from 'components/Atoms/CenterStack'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchAutoComplete from 'components/Atoms/Inputs/SearchAutoComplete'
 import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
+import PaperListSkeleton from 'components/Atoms/Skeletons/PaperListSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import StockListMenu from 'components/Molecules/Menus/StockListMenu'
 import DraggableList from 'components/Organizms/stocks/DraggableList'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { getStockQuotes, searchStockQuotes } from 'lib/backend/api/qln/qlnApi'
+import { getStockQuotes, getUserStockListLatest, searchStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
 import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
@@ -47,17 +48,6 @@ const StockSearchLayout = () => {
 
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
 
-  /* const reRender = React.useMemo(() => {
-    console.log('memo: stock list count changed: ', model.stockList.length)
-  }, [model.stockList.length])
- */
-  /* const getStockSearchMap = (list: StockQuote[]) => {
-    const map = cloneDeep(model.searchedStocksMap)
-    list.forEach((item, index) => {
-      map.set(item.Symbol, item)
-    })
-    return map
-  } */
   const getStockListMap = (list: StockQuote[]) => {
     const map = cloneDeep(model.stockListMap)
     list.forEach((item) => {
@@ -112,11 +102,11 @@ const StockSearchLayout = () => {
     let quotes: StockQuote[] = []
 
     if (username) {
-      stockList = await getUserStockList(username)
+      stockList = await getUserStockListLatest(username)
       //map = getStockSearchMap(stockList)
       if (stockList.length > 0) {
-        quotes = await getStockQuotes(stockList.map((o) => o.Symbol))
-        putUserStockList(username, quotes)
+        quotes = cloneDeep(stockList)
+        putUserStockList(username, stockList)
       }
     } else {
     }
@@ -174,7 +164,7 @@ const StockSearchLayout = () => {
           <>
             <ResponsiveContainer>
               <WarmupBox text='loading stock list...' />
-              <PageWithGridSkeleton />
+              <PaperListSkeleton rowCount={5} />
             </ResponsiveContainer>
           </>
         ) : (

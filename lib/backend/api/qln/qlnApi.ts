@@ -1,6 +1,8 @@
+import { getUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
 import { quoteArraySchema, quoteHistorySchema, StockQuote } from '../models/zModels'
 import { axiosGet } from './useAxios'
+import { map } from 'lodash'
 
 let baseUrl = process.env.NEXT_PUBLIC_QLN_API_URL
 
@@ -172,4 +174,25 @@ export async function getStockChart(symbol: string, days?: number) {
   //console.log(response)
   const result = quoteHistorySchema.parse(response.Body)
   return result
+}
+
+export async function getUserStockListLatest(username: string) {
+  const stockList = await getUserStockList(username)
+  const latestQuotes = await getLatestQuotes(stockList.map((o) => o.Symbol))
+  const slMap = new Map<string, StockQuote>()
+  stockList.map((o) => slMap.set(o.Symbol, o))
+  latestQuotes.forEach((latest) => {
+    slMap.set(latest.Symbol, latest)
+  })
+  const result: StockQuote[] = []
+  slMap.forEach((sl) => {
+    result.push(sl)
+  })
+  return result
+}
+export async function getLatestQuotes(symbols: string[]) {
+  if (symbols.length === 0) {
+    return []
+  }
+  return await getStockQuotes(symbols)
 }

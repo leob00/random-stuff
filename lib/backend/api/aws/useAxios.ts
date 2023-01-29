@@ -5,6 +5,7 @@ export const axiosGet = async (url: string, params?: any) => {
     headers: {
       'Content-Type': 'application/json',
       'x-api-key': String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_PUBLIC_KEY),
+      ApiKey: String(process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY),
     },
   }
   config.url = url

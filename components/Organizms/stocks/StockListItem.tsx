@@ -52,7 +52,7 @@ const StockListItem = ({ index, item }: { index: number; item: StockQuote }) => 
   }
 
   return (
-    <Box key={index} py={2}>
+    <Box key={item.Symbol} py={2}>
       <Paper sx={{ py: 1 }}>
         <Box>
           <Box sx={{ borderTopLeftRadius: '5px', borderTopRightRadius: '5px', backgroundColor: 'unset' }}>
