@@ -1,6 +1,8 @@
 import { Close } from '@mui/icons-material'
 import { Box, Button, Stack } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
+import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchAutoComplete from 'components/Atoms/Inputs/SearchAutoComplete'
@@ -17,6 +19,7 @@ import { DropdownItem } from 'lib/models/dropdown'
 import { cloneDeep } from 'lodash'
 import React from 'react'
 import { DropResult } from 'react-beautiful-dnd'
+import StockListItem from './StockListItem'
 import StockTable from './StockTable'
 
 interface Model {
@@ -27,15 +30,10 @@ interface Model {
   stockListMap: Map<string, StockQuote>
   stockList: StockQuote[]
   editList: boolean
+  quoteToAdd?: StockQuote
 }
 
 const StockSearchLayout = () => {
-  /*  const [searchResults, setSearchResults] = React.useState<DropdownItem[]>([])
-  const [searchedStocks, setSearchedStocks] = React.useState(new Map<string, StockQuote>([]))
-  const [stockListMap, setStockListMap] = React.useState(new Map<string, StockQuote>([]))
-  const [stockList, setStockList] = React.useState<StockQuote[]>([])
- */
-  //const username = useUserController().username
   const defaultModel: Model = {
     username: null,
     isLoading: true,
@@ -69,17 +67,20 @@ const StockSearchLayout = () => {
       result.forEach((item, index) => {
         searchedStocksMap.set(item.Symbol, item)
       })
-      setModel({ ...model, searchedStocksMap: searchedStocksMap, autoCompleteResults: autoComp })
+      setModel({ ...model, searchedStocksMap: searchedStocksMap, autoCompleteResults: autoComp, quoteToAdd: undefined })
     }
   }
 
-  const handleAddQuote = (text: string) => {
+  const handleSelectQuote = (text: string) => {
     const symbol = text.split(':')[0]
     const quote = cloneDeep(model.searchedStocksMap.get(symbol))
     const stockList = cloneDeep(model.stockList)
     let stockListMap = getStockListMap(stockList)
     setModel({ ...model, isLoading: true })
-
+    if (quote) {
+      setModel({ ...model, quoteToAdd: quote, autoCompleteResults: [] })
+    }
+    /* 
     if (quote) {
       stockList.unshift(quote)
       stockListMap.set(quote.Symbol, quote)
@@ -89,7 +90,7 @@ const StockSearchLayout = () => {
       setModel({ ...model, stockListMap: stockListMap, stockList: stockList, autoCompleteResults: [] })
     } else {
       setModel({ ...model, isLoading: false })
-    }
+    } */
   }
   const reloadData = async () => {
     const user = await getUserCSR()
@@ -141,6 +142,21 @@ const StockSearchLayout = () => {
       putUserStockList(model.username, items)
     }
   }
+  const handleAddToList = async () => {
+    const quote = cloneDeep(model.quoteToAdd!)
+    const stockList = cloneDeep(model.stockList)
+    let stockListMap = getStockListMap(stockList)
+    stockList.unshift(quote)
+    stockListMap.set(quote.Symbol, quote)
+    if (model.username) {
+      putUserStockList(model.username, stockList)
+    }
+
+    setModel({ ...model, stockListMap: stockListMap, stockList: stockList, autoCompleteResults: [], quoteToAdd: undefined, isLoading: false })
+  }
+  const handleCloseAddQuote = () => {
+    setModel({ ...model, quoteToAdd: undefined, isLoading: false })
+  }
 
   React.useEffect(() => {
     const fn = async () => {
@@ -158,58 +174,80 @@ const StockSearchLayout = () => {
             onChanged={handleSearched}
             searchResults={model.autoCompleteResults}
             debounceWaitMilliseconds={500}
-            onSelected={handleAddQuote}
+            onSelected={handleSelectQuote}
           />
         </CenterStack>
       </Box>
-      <Box py={2}>
-        {model.isLoading ? (
-          <>
-            <ResponsiveContainer>
-              <WarmupBox text='loading stock list...' />
-              <PaperListSkeleton rowCount={5} />
-            </ResponsiveContainer>
-          </>
-        ) : (
-          <Box>
-            {model.editList ? (
-              <ResponsiveContainer>
-                <Stack py={2} alignItems={'flex-end'} pr={2}>
-                  <Button
-                    size='small'
-                    color='secondary'
-                    onClick={() => {
-                      setModel({ ...model, editList: false })
-                    }}
-                  >
-                    <Close fontSize='small' />
+      <>
+        {model.quoteToAdd ? (
+          <ResponsiveContainer>
+            <StockListItem item={model.quoteToAdd} expand={true} />
+            <Stack py={1} direction={'row'} spacing={1}>
+              <Stack flexGrow={1}>
+                <Box textAlign={'right'}>
+                  <Button variant='contained' color='success' size='small' onClick={handleAddToList}>
+                    Add to list
                   </Button>
-                </Stack>
-                <HorizontalDivider />
-                <DraggableList items={model.stockList} onDragEnd={onDragEnd} onRemoveItem={handleRemoveQuote} />
-              </ResponsiveContainer>
-            ) : (
-              <>
-                <ResponsiveContainer>
-                  {model.stockList.length > 0 && (
-                    <>
+                </Box>
+              </Stack>
+              <Stack>
+                <PassiveButton text={'close'} onClick={handleCloseAddQuote} size='small' />
+              </Stack>
+            </Stack>
+          </ResponsiveContainer>
+        ) : (
+          <>
+            <Box py={2}>
+              {model.isLoading ? (
+                <>
+                  <ResponsiveContainer>
+                    <WarmupBox text='loading stock list...' />
+                    <PaperListSkeleton rowCount={5} />
+                  </ResponsiveContainer>
+                </>
+              ) : (
+                <Box>
+                  {model.editList ? (
+                    <ResponsiveContainer>
                       <Stack py={2} alignItems={'flex-end'} pr={2}>
-                        <StockListMenu
-                          onEdit={() => {
-                            setModel({ ...model, editList: true })
+                        <Button
+                          size='small'
+                          color='secondary'
+                          onClick={() => {
+                            setModel({ ...model, editList: false })
                           }}
-                          onRefresh={reloadData}
-                        />
+                        >
+                          <Close fontSize='small' />
+                        </Button>
                       </Stack>
+                      <HorizontalDivider />
+                      <DraggableList items={model.stockList} onDragEnd={onDragEnd} onRemoveItem={handleRemoveQuote} />
+                    </ResponsiveContainer>
+                  ) : (
+                    <>
+                      <ResponsiveContainer>
+                        {model.stockList.length > 0 && (
+                          <>
+                            <Stack py={2} alignItems={'flex-end'} pr={2}>
+                              <StockListMenu
+                                onEdit={() => {
+                                  setModel({ ...model, editList: true })
+                                }}
+                                onRefresh={reloadData}
+                              />
+                            </Stack>
+                          </>
+                        )}
+                        <StockTable stockList={model.stockList} onRemoveItem={handleRemoveQuote} />
+                      </ResponsiveContainer>
                     </>
                   )}
-                  <StockTable stockList={model.stockList} onRemoveItem={handleRemoveQuote} />
-                </ResponsiveContainer>
-              </>
-            )}
-          </Box>
+                </Box>
+              )}
+            </Box>
+          </>
         )}
-      </Box>
+      </>
     </>
   )
 }

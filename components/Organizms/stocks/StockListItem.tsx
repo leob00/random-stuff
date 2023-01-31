@@ -1,5 +1,7 @@
 import { Box, ListItem, Paper, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
+import WarmupBox from 'components/Atoms/WarmupBox'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import { CasinoBlack, CasinoBlackTransparent, CasinoGreen, DarkBlueTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
@@ -8,9 +10,9 @@ import { getStockChart } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import StockChart from './StockChart'
 
-const StockListItem = ({ item }: { item: StockQuote }) => {
+const StockListItem = ({ item, expand = false }: { item: StockQuote; expand?: boolean }) => {
   //const [quote, setQuote] = React.useState(item)
-  const [showMore, setShowMore] = React.useState(false)
+  const [showMore, setShowMore] = React.useState(expand)
   const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
 
   const getPositiveNegativeColor = (val: number) => {
@@ -22,6 +24,17 @@ const StockListItem = ({ item }: { item: StockQuote }) => {
     }
     return color
   }
+  React.useEffect(() => {
+    const fn = async () => {
+      if (showMore) {
+        const history = await getStockChart(item.Symbol, 365)
+        setStockHistory(history)
+      }
+    }
+    if (showMore) {
+      fn()
+    }
+  }, [showMore])
 
   const renderDetail = (label: string, val?: string | number | null) => {
     return (
@@ -39,15 +52,10 @@ const StockListItem = ({ item }: { item: StockQuote }) => {
   }
 
   const handleCompanyClick = async (stockQuote: StockQuote, show: boolean) => {
-    if (show) {
+    /*  if (show) {
       const history = await getStockChart(stockQuote.Symbol, 365)
-      //setQuote({ ...quote, History: history })
-
       setStockHistory(history)
-
-      //console.log(chart)
-      //console.log(JSON.stringify(chartData))
-    }
+    } */
     setShowMore(show)
   }
 
@@ -82,7 +90,15 @@ const StockListItem = ({ item }: { item: StockQuote }) => {
         {showMore && (
           <>
             <Box py={1} pl={1} sx={{ backgroundColor: 'unset' }}>
-              <Box>{stockHistory.length > 0 ? <StockChart symbol={item.Symbol} history={stockHistory} /> : <Box minHeight={200}>loading chart...</Box>}</Box>
+              <Box minHeight={400}>
+                {stockHistory.length > 0 ? (
+                  <StockChart symbol={item.Symbol} history={stockHistory} />
+                ) : (
+                  <>
+                    <PageWithGridSkeleton />
+                  </>
+                )}
+              </Box>
             </Box>
             <Box pl={3}>
               {renderDetail('Sector', item.Sector)}
