@@ -1,6 +1,7 @@
 import { Box } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
+import WarmupBox from 'components/Atoms/WarmupBox'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import { DarkBlueTransparent, DarkBlue, VeryLightBlueTransparent, CasinoBlueTransparent, CasinoBlue } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
@@ -38,6 +39,7 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
     //console.log(val)
   }
   const [chartOptions, setChartOptions] = React.useState<ApexOptions | null>(null)
+  const [isLoading, setIsLoading] = React.useState(true)
 
   const mapOptions = (items: XyValues) => {
     const options: ApexOptions = {
@@ -98,14 +100,23 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
   React.useEffect(() => {
     const map = mapHistory(history)
     setChartOptions(mapOptions(map))
+    setIsLoading(false)
   }, [])
 
   return (
     <Box>
-      <Box textAlign={'right'} pr={1}>
-        <DropdownList options={daySelect} selectedOption={'365'} onOptionSelected={handleDaysSelected} />
-      </Box>
-      {chartOptions && <ReactApexChart series={chartOptions.series} options={chartOptions} type='line' />}
+      <>
+        <Box textAlign={'right'} pr={1}>
+          <DropdownList options={daySelect} selectedOption={'365'} onOptionSelected={handleDaysSelected} />
+        </Box>
+        {isLoading ? (
+          <Box>
+            <WarmupBox text='loading chart...' />
+          </Box>
+        ) : (
+          <>{chartOptions && <ReactApexChart series={chartOptions.series} options={chartOptions} type='line' />}</>
+        )}
+      </>
     </Box>
   )
 }

@@ -13,6 +13,7 @@ import StockChart from './StockChart'
 const StockListItem = ({ item, expand = false }: { item: StockQuote; expand?: boolean }) => {
   //const [quote, setQuote] = React.useState(item)
   const [showMore, setShowMore] = React.useState(expand)
+  const [isLoading, setIsLoading] = React.useState(false)
   const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
 
   const getPositiveNegativeColor = (val: number) => {
@@ -26,10 +27,10 @@ const StockListItem = ({ item, expand = false }: { item: StockQuote; expand?: bo
   }
   React.useEffect(() => {
     const fn = async () => {
-      if (showMore) {
-        const history = await getStockChart(item.Symbol, 365)
-        setStockHistory(history)
-      }
+      setIsLoading(true)
+      const history = await getStockChart(item.Symbol, 365)
+      setStockHistory(history)
+      setIsLoading(false)
     }
     if (showMore) {
       fn()
@@ -90,15 +91,15 @@ const StockListItem = ({ item, expand = false }: { item: StockQuote; expand?: bo
         {showMore && (
           <>
             <Box py={1} pl={1} sx={{ backgroundColor: 'unset' }}>
-              <Box minHeight={400}>
-                {stockHistory.length > 0 ? (
-                  <StockChart symbol={item.Symbol} history={stockHistory} />
-                ) : (
-                  <>
+              {stockHistory.length > 0 ? (
+                <StockChart symbol={item.Symbol} history={stockHistory} />
+              ) : (
+                <>
+                  <Box height={400}>
                     <PageWithGridSkeleton />
-                  </>
-                )}
-              </Box>
+                  </Box>
+                </>
+              )}
             </Box>
             <Box pl={3}>
               {renderDetail('Sector', item.Sector)}
