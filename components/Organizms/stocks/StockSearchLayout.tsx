@@ -74,23 +74,10 @@ const StockSearchLayout = () => {
   const handleSelectQuote = (text: string) => {
     const symbol = text.split(':')[0]
     const quote = cloneDeep(model.searchedStocksMap.get(symbol))
-    const stockList = cloneDeep(model.stockList)
-    let stockListMap = getStockListMap(stockList)
     setModel({ ...model, isLoading: true })
     if (quote) {
       setModel({ ...model, quoteToAdd: quote, autoCompleteResults: [] })
     }
-    /* 
-    if (quote) {
-      stockList.unshift(quote)
-      stockListMap.set(quote.Symbol, quote)
-      if (model.username) {
-        putUserStockList(model.username, stockList)
-      }
-      setModel({ ...model, stockListMap: stockListMap, stockList: stockList, autoCompleteResults: [] })
-    } else {
-      setModel({ ...model, isLoading: false })
-    } */
   }
   const reloadData = async () => {
     const user = await getUserCSR()
@@ -108,14 +95,15 @@ const StockSearchLayout = () => {
         quotes = cloneDeep(stockList)
         putUserStockList(username, stockList)
       }
+      quotes.forEach((q) => {
+        map.set(q.Symbol, q)
+      })
       setModel({ ...model, username: username, stockListMap: map, stockList: quotes.length > 0 ? quotes : stockList, isLoading: false })
     } else {
       setTimeout(() => {
         setModel({ ...model, username: username, stockListMap: map, stockList: quotes.length > 0 ? quotes : stockList, isLoading: false })
       }, 1000)
     }
-    //setModel({ ...model, username: username, stockListMap: map, stockList: quotes.length > 0 ? quotes : stockList, isLoading: false })
-    //console.log('loaded stock list: ', stockList.length)
   }
 
   const handleRemoveQuote = (symbol: string) => {
@@ -133,7 +121,9 @@ const StockSearchLayout = () => {
 
   const onDragEnd = ({ destination, source }: DropResult) => {
     // dropped outside the list
-    if (!destination) return
+    if (!destination) {
+      return
+    }
     const items = model.stockList
     const [removed] = items.splice(source.index, 1)
     items.splice(destination.index, 0, removed)
@@ -144,15 +134,21 @@ const StockSearchLayout = () => {
   }
   const handleAddToList = async () => {
     const quote = cloneDeep(model.quoteToAdd!)
-    const stockList = cloneDeep(model.stockList)
+    let stockList = cloneDeep(model.stockList)
     let stockListMap = getStockListMap(stockList)
-    stockList.unshift(quote)
     stockListMap.set(quote.Symbol, quote)
+    const newList: StockQuote[] = []
+    stockListMap.forEach((val) => {
+      if (val.Symbol !== quote.Symbol) {
+        newList.push(val)
+      }
+    })
+    newList.unshift(quote)
     if (model.username) {
-      putUserStockList(model.username, stockList)
+      putUserStockList(model.username, newList)
     }
 
-    setModel({ ...model, stockListMap: stockListMap, stockList: stockList, autoCompleteResults: [], quoteToAdd: undefined, isLoading: false })
+    setModel({ ...model, stockListMap: stockListMap, stockList: newList, autoCompleteResults: [], quoteToAdd: undefined, isLoading: false })
   }
   const handleCloseAddQuote = () => {
     setModel({ ...model, quoteToAdd: undefined, isLoading: false })
