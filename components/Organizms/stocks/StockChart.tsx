@@ -21,14 +21,12 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
     return data
   }
 
-  //const data = mapHistory(history)
-  //const [chartData, setChartData] = React.useState(data)
   const daySelect: DropdownItem[] = [
-    { text: '1y', value: '365' },
-    { text: '6m', value: '180' },
-    { text: '3m', value: '90' },
-    { text: '1m', value: '30' },
-    { text: '1w', value: '7' },
+    { text: '1 year', value: '365' },
+    { text: '6 months', value: '180' },
+    { text: '3 months', value: '90' },
+    { text: '1 month', value: '30' },
+    { text: '1 week', value: '7' },
   ]
 
   const handleDaysSelected = async (val: string) => {
@@ -110,7 +108,7 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
           <DropdownList options={daySelect} selectedOption={'365'} onOptionSelected={handleDaysSelected} />
         </Box>
         {isLoading ? (
-          <Box>
+          <Box minHeight={300}>
             <WarmupBox text='loading chart...' />
           </Box>
         ) : (
