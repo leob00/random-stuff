@@ -8,11 +8,11 @@ const PaperListSkeleton = ({ rowCount = 6 }: { rowCount?: number }) => {
   return (
     <>
       {r.map((item, i) => (
-        <Box py={1} key={i} pl={1}>
+        <Box py={2} key={i} pl={1}>
           <Paper>
-            <Box pl={4} pb={2}>
-              <Typography textAlign={'left'} variant='h6' pt={1}>
-                <TextSkeleton width={300} />
+            <Box pl={4} pb={1}>
+              <Typography textAlign={'left'} variant='h6'>
+                <TextSkeleton width={200} animation='wave' />
               </Typography>
               <Box pt={1} pb={1}>
                 <Typography textAlign={'left'} variant='h6'>

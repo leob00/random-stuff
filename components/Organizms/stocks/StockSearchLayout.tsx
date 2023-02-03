@@ -16,6 +16,7 @@ import { getStockQuotes, getUserStockListLatest, searchStockQuotes } from 'lib/b
 import { getUserCSR } from 'lib/backend/auth/userUtil'
 import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
+import { getListFromMap } from 'lib/util/collections'
 import { cloneDeep } from 'lodash'
 import React from 'react'
 import { DropResult } from 'react-beautiful-dnd'
@@ -93,11 +94,12 @@ const StockSearchLayout = () => {
       //map = getStockSearchMap(stockList)
       if (stockList.length > 0) {
         quotes = cloneDeep(stockList)
-        putUserStockList(username, stockList)
+        //putUserStockList(username, stockList)
       }
       quotes.forEach((q) => {
         map.set(q.Symbol, q)
       })
+      quotes = getListFromMap<StockQuote>(map)
       setModel({ ...model, username: username, stockListMap: map, stockList: quotes.length > 0 ? quotes : stockList, isLoading: false })
     } else {
       setTimeout(() => {
@@ -203,7 +205,7 @@ const StockSearchLayout = () => {
                 </>
               ) : (
                 <Box>
-                  {model.editList ? (
+                  {model.editList && model.stockList.length > 0 ? (
                     <ResponsiveContainer>
                       <Stack py={2} alignItems={'flex-end'} pr={2}>
                         <Button

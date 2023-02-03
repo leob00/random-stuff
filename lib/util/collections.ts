@@ -43,3 +43,11 @@ export function replaceItemInArray<T>(T: any, array: T[], key: keyof T, keyVal: 
     array[existingIx] = T
   }
 }
+
+export function getListFromMap<T>(map: Map<string | number, T>): T[] {
+  const result: T[] = []
+  map.forEach((value) => {
+    result.push(value)
+  })
+  return result
+}

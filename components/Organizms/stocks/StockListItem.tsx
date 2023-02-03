@@ -1,5 +1,6 @@
 import { Box, ListItem, Paper, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import LinesSkeleton from 'components/Atoms/Skeletons/LinesSkeleton'
 import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
@@ -96,7 +97,7 @@ const StockListItem = ({ item, expand = false }: { item: StockQuote; expand?: bo
               ) : (
                 <>
                   <Box height={400}>
-                    <PageWithGridSkeleton />
+                    <LinesSkeleton />
                   </Box>
                 </>
               )}
