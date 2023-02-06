@@ -3,17 +3,15 @@ import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import { range } from 'lodash'
 import React from 'react'
 
-const LinesSkeleton = ({ lines = 4 }: { lines?: number }) => {
+const LinesSkeleton = ({ lines = 3 }: { lines?: number }) => {
   const r = range(0, lines)
   return (
-    <Box>
+    <Box px={1} py={1}>
       {r.map((item, index) => (
         <Box key={index}>
-          <Box py={1} px={2} width={'80%'} textAlign={'center'}>
-            <Typography variant='h6'>
-              <Skeleton sx={{ bgcolor: VeryLightBlueTransparent }} animation={index < r.length - 1 ? 'pulse' : 'wave'} />
-            </Typography>
-          </Box>
+          <Typography variant='h6' width={'100%'}>
+            <Skeleton variant='text' sx={{ bgcolor: VeryLightBlueTransparent }} animation={index < r.length - 1 ? 'pulse' : 'wave'} width={'100%'}></Skeleton>
+          </Typography>
         </Box>
       ))}
     </Box>

@@ -1,5 +1,6 @@
 import { Box, ListItem, Paper, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
 import LinesSkeleton from 'components/Atoms/Skeletons/LinesSkeleton'
 import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
@@ -93,11 +94,14 @@ const StockListItem = ({ item, expand = false }: { item: StockQuote; expand?: bo
           <>
             <Box py={1} pl={1} sx={{ backgroundColor: 'unset' }}>
               {stockHistory.length > 0 ? (
-                <StockChart symbol={item.Symbol} history={stockHistory} />
+                <>
+                  <StockChart symbol={item.Symbol} history={stockHistory} />
+                </>
               ) : (
                 <>
                   <Box height={400}>
-                    <LinesSkeleton />
+                    <LinesSkeleton lines={1} />
+                    <BoxSkeleton />
                   </Box>
                 </>
               )}
