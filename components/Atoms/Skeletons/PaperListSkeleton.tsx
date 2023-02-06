@@ -8,9 +8,9 @@ const PaperListSkeleton = ({ rowCount = 6 }: { rowCount?: number }) => {
   return (
     <>
       {r.map((item, i) => (
-        <Box py={2} key={i} pl={1}>
+        <Box my={2} key={i}>
           <Paper>
-            <Box pl={4} pb={1}>
+            <Box pl={3} pb={1} mt={1}>
               <Typography textAlign={'left'} variant='h6'>
                 <TextSkeleton width={200} animation='wave' />
               </Typography>
