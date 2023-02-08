@@ -1,11 +1,23 @@
 import { Box, ListItem, Paper, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
 import LinesSkeleton from 'components/Atoms/Skeletons/LinesSkeleton'
 import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import { CasinoBlack, CasinoBlackTransparent, CasinoGreen, DarkBlueTransparent } from 'components/themes/mainTheme'
+import {
+  CasinoBlack,
+  CasinoBlackTransparent,
+  CasinoDarkGreenTransparent,
+  CasinoDarkRedTransparent,
+  CasinoGreen,
+  CasinoGreenTransparent,
+  CasinoRed,
+  CasinoRedTransparent,
+  DarkBlueTransparent,
+  SoftWhite,
+} from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockChart } from 'lib/backend/api/qln/qlnApi'
@@ -13,26 +25,22 @@ import React from 'react'
 import StockChart from './StockChart'
 
 const StockListItem = ({ item, expand = false }: { item: StockQuote; expand?: boolean }) => {
-  //const [quote, setQuote] = React.useState(item)
   const [showMore, setShowMore] = React.useState(expand)
-  const [isLoading, setIsLoading] = React.useState(false)
   const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
 
   const getPositiveNegativeColor = (val: number) => {
-    let color = CasinoBlack
+    let color = CasinoBlackTransparent
     if (val < 0) {
-      color = '#980036'
+      color = CasinoDarkRedTransparent
     } else if (val > 0) {
-      color = CasinoGreen
+      color = CasinoDarkGreenTransparent
     }
     return color
   }
   React.useEffect(() => {
     const fn = async () => {
-      setIsLoading(true)
       const history = await getStockChart(item.Symbol, 365)
       setStockHistory(history)
-      setIsLoading(false)
     }
     if (showMore) {
       fn()
@@ -55,41 +63,52 @@ const StockListItem = ({ item, expand = false }: { item: StockQuote; expand?: bo
   }
 
   const handleCompanyClick = async (stockQuote: StockQuote, show: boolean) => {
-    /*  if (show) {
-      const history = await getStockChart(stockQuote.Symbol, 365)
-      setStockHistory(history)
-    } */
     setShowMore(show)
   }
 
   return (
-    <Box key={item.Symbol} py={2}>
-      <Paper sx={{ py: 1 }}>
+    <Box key={item.Symbol} py={1}>
+      <Box sx={{ py: 0 }}>
         <Box>
-          <Box sx={{ borderTopLeftRadius: '5px', borderTopRightRadius: '5px', backgroundColor: 'unset' }}>
-            <Box>
-              <ListItem sx={{ paddingTop: 0, paddingBottom: 0 }}>
-                <LinkButton
-                  onClick={() => {
-                    handleCompanyClick(item, !showMore)
-                  }}
-                >
-                  <Typography textAlign={'left'} variant='h6'>
-                    {`${item.Symbol}: ${item.Company}`}
-                  </Typography>
-                </LinkButton>
-                {/*   <ListItemText primary={`${item.Symbol}: ${item.Company}`}></ListItemText>*/}
-              </ListItem>
+          <Box sx={{}}>
+            <Box
+              pl={2}
+              sx={{
+                backgroundColor: getPositiveNegativeColor(item.Change),
+                borderTopLeftRadius: '5px',
+                borderTopRightRadius: '5px',
+              }}
+            >
+              <LinkButton
+                onClick={() => {
+                  handleCompanyClick(item, !showMore)
+                }}
+              >
+                <Stack direction={'row'} alignItems={'center'} display={'flex'} spacing={1} pt={1}>
+                  <Stack>
+                    <Typography textAlign={'left'} variant='h6' fontWeight={500} color={SoftWhite}>
+                      {`${item.Symbol} - ${item.Company}`}
+                    </Typography>
+                  </Stack>
+                </Stack>
+              </LinkButton>
             </Box>
-            <Stack direction={'row'} spacing={1} sx={{ backgroundColor: 'unset', minWidth: '25%' }} pt={1} pl={1} alignItems={'center'}>
-              <Stack direction={'row'} spacing={2} pl={2} sx={{ backgroundColor: 'unset' }}>
-                <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.Price.toFixed(2)}`}</Typography>
-                <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.Change.toFixed(2)}`}</Typography>
-                <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
+            <Stack
+              direction={'row'}
+              spacing={1}
+              sx={{ backgroundColor: getPositiveNegativeColor(item.Change), minWidth: '25%', borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px' }}
+              pb={1}
+              pl={1}
+              alignItems={'center'}
+            >
+              <Stack direction={'row'} spacing={2} pl={2} sx={{ backgroundColor: 'unset' }} pt={1}>
+                <Typography variant='h6' fontWeight={600} color={SoftWhite}>{`${item.Price.toFixed(2)}`}</Typography>
+                <Typography variant='h6' fontWeight={600} color={SoftWhite}>{`${item.Change.toFixed(2)}`}</Typography>
+                <Typography variant='h6' fontWeight={600} color={SoftWhite}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
               </Stack>
             </Stack>
           </Box>
-        </Box>{' '}
+        </Box>
         {showMore && (
           <>
             <Box py={1} pl={1} sx={{ backgroundColor: 'unset' }}>
@@ -120,7 +139,7 @@ const StockListItem = ({ item, expand = false }: { item: StockQuote; expand?: bo
             </Stack>
           </>
         )}
-      </Paper>
+      </Box>
     </Box>
   )
 }

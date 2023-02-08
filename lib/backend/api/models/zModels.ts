@@ -18,6 +18,7 @@ export const quoteArraySchema = z
     MarketCapShort: z.string().optional(),
     PeRatio: z.number().nullable().optional(),
     Sector: z.string().nullable().optional(),
+    SectorId: z.string().nullable().optional(),
     History: quoteHistorySchema.optional(),
   })
   .array()

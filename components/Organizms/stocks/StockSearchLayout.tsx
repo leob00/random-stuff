@@ -151,6 +151,7 @@ const StockSearchLayout = () => {
     }
 
     setModel({ ...model, stockListMap: stockListMap, stockList: newList, autoCompleteResults: [], quoteToAdd: undefined, isLoading: false })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
   const handleCloseAddQuote = () => {
     setModel({ ...model, quoteToAdd: undefined, isLoading: false })

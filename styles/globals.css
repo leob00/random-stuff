@@ -75,11 +75,17 @@ a:hover {
 .casinoGreenTransparent {
   color: #008000bb;
 }
+.casinoDarkGreenTransparent {
+  color: #063b06e8;
+}
 .casinoGreen {
   color: #2d5c17;
 }
 .casinoRedTransparent {
   color: #830707bb;
+}
+.casinoDarkRedTransparent {
+  color: #4d0808bb;
 }
 .casinoPinkTransparent {
   color: #830707b2;
@@ -131,6 +137,9 @@ a:hover {
 }
 .darkBlue {
   color: #0b224ebb;
+}
+.softWhite {
+  color: #e8e8ecd2;
 }
 
 /* Amplify auth */
