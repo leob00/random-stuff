@@ -74,9 +74,10 @@ const StockListItem = ({ item, expand = false }: { item: StockQuote; expand?: bo
             <Box
               pl={2}
               sx={{
-                backgroundColor: getPositiveNegativeColor(item.Change),
-                borderTopLeftRadius: '5px',
-                borderTopRightRadius: '5px',
+                //backgroundColor: SoftWhite,
+                borderRadius: '10px',
+                //borderTopRightRadius: '5px',
+                border: `solid 1px ${getPositiveNegativeColor(item.Change)}`,
               }}
             >
               <LinkButton
@@ -86,27 +87,20 @@ const StockListItem = ({ item, expand = false }: { item: StockQuote; expand?: bo
               >
                 <Stack direction={'row'} alignItems={'center'} display={'flex'} spacing={1} pt={1}>
                   <Stack>
-                    <Typography textAlign={'left'} variant='h6' fontWeight={500} color={SoftWhite}>
+                    <Typography textAlign={'left'} variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)} sx={{ textDecoration: 'unset' }}>
                       {`${item.Symbol} - ${item.Company}`}
                     </Typography>
                   </Stack>
                 </Stack>
               </LinkButton>
-            </Box>
-            <Stack
-              direction={'row'}
-              spacing={1}
-              sx={{ backgroundColor: getPositiveNegativeColor(item.Change), minWidth: '25%', borderBottomLeftRadius: '5px', borderBottomRightRadius: '5px' }}
-              pb={1}
-              pl={1}
-              alignItems={'center'}
-            >
-              <Stack direction={'row'} spacing={2} pl={2} sx={{ backgroundColor: 'unset' }} pt={1}>
-                <Typography variant='h6' fontWeight={600} color={SoftWhite}>{`${item.Price.toFixed(2)}`}</Typography>
-                <Typography variant='h6' fontWeight={600} color={SoftWhite}>{`${item.Change.toFixed(2)}`}</Typography>
-                <Typography variant='h6' fontWeight={600} color={SoftWhite}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
+              <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
+                <Stack direction={'row'} spacing={2} pl={1} sx={{ backgroundColor: 'unset' }} pt={1}>
+                  <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.Price.toFixed(2)}`}</Typography>
+                  <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.Change.toFixed(2)}`}</Typography>
+                  <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
+                </Stack>
               </Stack>
-            </Stack>
+            </Box>
           </Box>
         </Box>
         {showMore && (
