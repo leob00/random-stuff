@@ -220,13 +220,16 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
           <Stack display={'flex'} direction={'row'} justifyContent={'left'} alignItems={'left'}>
             {!model.selectedGoal && !model.isLoading && (
               <Box>
-                <LinkButton
+                <Button
+                  variant='contained'
+                  size='small'
+                  color='secondary'
                   onClick={() => {
                     setModel({ ...model, showAddGoalForm: !model.showAddGoalForm })
                   }}
                 >
-                  <Typography>{`${model.showAddGoalForm ? 'cancel' : 'create goal'}`}</Typography>
-                </LinkButton>
+                  {`${model.showAddGoalForm ? 'cancel' : 'create goal'}`}
+                </Button>
               </Box>
             )}
             {!model.isLoading && (

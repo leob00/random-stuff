@@ -85,25 +85,28 @@ const StockSearchLayout = () => {
     const username = user ? user.email : null
     setModel({ ...model, isLoading: true })
 
-    let stockList = model.stockList
+    let stockList = [...model.stockList]
     let map = model.stockListMap
-    let quotes: StockQuote[] = []
+    // let quotes: StockQuote[] = []
 
     if (username) {
       stockList = await getUserStockListLatest(username)
       //map = getStockSearchMap(stockList)
-      if (stockList.length > 0) {
+      /* if (stockList.length > 0) {
         quotes = cloneDeep(stockList)
         //putUserStockList(username, stockList)
       }
       quotes.forEach((q) => {
         map.set(q.Symbol, q)
+      }) */
+      //quotes = getListFromMap<StockQuote>(map)
+      stockList.forEach((q) => {
+        map.set(q.Symbol, q)
       })
-      quotes = getListFromMap<StockQuote>(map)
-      setModel({ ...model, username: username, stockListMap: map, stockList: quotes.length > 0 ? quotes : stockList, isLoading: false })
+      setModel({ ...model, username: username, stockListMap: map, stockList: stockList, isLoading: false })
     } else {
       setTimeout(() => {
-        setModel({ ...model, username: username, stockListMap: map, stockList: quotes.length > 0 ? quotes : stockList, isLoading: false })
+        setModel({ ...model, username: username, stockListMap: map, stockList: stockList, isLoading: false })
       }, 1000)
     }
   }
