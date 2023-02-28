@@ -1,6 +1,7 @@
 import { Auth } from 'aws-amplify'
 
 export interface AmplifyUser {
+  id: string
   email: string
   roles?: Role[]
 }
@@ -35,8 +36,10 @@ export function getRolesFromAmplifyUser(user: any) {
 export async function getUserCSR() {
   try {
     const user = await Auth.currentAuthenticatedUser()
+    //console.log(user)
     const result: AmplifyUser = {
-      email: user.attributes.email as string,
+      id: String(user.username),
+      email: String(user.attributes.email),
       roles: getRolesFromAmplifyUser(user),
     }
     return result

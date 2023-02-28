@@ -3,6 +3,7 @@ import BackButton from 'components/Atoms/Buttons/BackButton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import UserGoalsLayout from 'components/Organizms/user/goals/UserGoalsLayout'
+import UserSecretsLayout from 'components/Organizms/user/secrets/UserSecretsLayout'
 import { AmplifyUser, getUserCSR } from 'lib/backend/auth/userUtil'
 import router from 'next/router'
 import React from 'react'
@@ -31,7 +32,7 @@ const Page = () => {
               router.push('/protected/csr/dashboard')
             }}
           />
-          {isLoading ? <WarmupBox text='loading' /> : <>{user && <UserGoalsLayout username={user.email} />}</>}
+          {isLoading ? <WarmupBox text='loading' /> : <>{user && <UserSecretsLayout username={user.email} />}</>}
         </>
       ) : (
         <PleaseLogin />

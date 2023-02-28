@@ -9,6 +9,7 @@ export async function getUserSSR(context: GetServerSidePropsContext<ParsedUrlQue
     const user = await Auth.currentAuthenticatedUser()
     let email = user.attributes.email as string
     const result: AmplifyUser = {
+      id: user.username,
       email: email,
       roles: getRolesFromAmplifyUser(user),
     }

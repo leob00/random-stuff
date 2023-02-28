@@ -47,7 +47,7 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                 router.push('/protected/csr/notes')
               }}
             >
-              {`notes: (${userProfile.noteTitles.length})`}
+              {`notes: ${userProfile.noteTitles.length}`}
             </LinkButton>
           </CenterStack>
           <HorizontalDivider />
@@ -58,6 +58,16 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
               }}
             >
               {`goals`}
+            </LinkButton>
+          </CenterStack>
+          <HorizontalDivider />
+          <CenterStack sx={{ py: 2 }}>
+            <LinkButton
+              onClick={() => {
+                router.push('/protected/csr/secrets')
+              }}
+            >
+              {`secrets`}
             </LinkButton>
           </CenterStack>
           <HorizontalDivider />

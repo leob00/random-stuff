@@ -3,7 +3,8 @@ import dayjs from 'dayjs'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { useAuthStore } from 'lib/backend/auth/useAuthStore'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
-import { getUserProfile } from 'lib/backend/csr/nextApiWrapper'
+import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
+import { myEncrypt, myEncryptBase64 } from 'lib/backend/encryption/useEncryptor'
 import { getUtcNow } from 'lib/util/dateUtil'
 import shallow from 'zustand/shallow'
 
@@ -31,6 +32,10 @@ export const useUserController = () => {
 
       if (profile !== null) {
         profile.username = user.email
+        if (!profile.secKey) {
+          profile.secKey = myEncryptBase64(`${user.id}-${profile.username}`, `${profile.username}${user.id}`)
+          putUserProfile(profile)
+        }
         setLastProfileFetchDate(getUtcNow().format())
         setAuthProfile(profile)
         return profile
@@ -63,18 +68,18 @@ export const useUserController = () => {
       }
       return authProfile
     },
-    refetchProfile: async (seconds: number) => {
+    refetchProfile: async (seconds: number = 300) => {
       const lastDt = lastProfileFetchDate
       if (lastDt.length === 0) {
         return await fetchProfile()
       }
-      const now = getUtcNow()
+      const now = dayjs()
       const last = dayjs(lastDt)
       const nextFetch = last.add(seconds, 'second')
 
       if (now.isAfter(last)) {
         if (nextFetch.isBefore(now)) {
-          //console.log('refetching profile...')
+          console.log('refetching profile...')
           return await fetchProfile()
         }
       }

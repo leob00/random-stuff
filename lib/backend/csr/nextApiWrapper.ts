@@ -6,7 +6,7 @@ import { filter } from 'lodash'
 import { ApiError } from 'next/dist/server/api-utils'
 import { LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
 import { axiosGet, axiosPut } from '../api/aws/useAxios'
-import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserProfileKey } from '../api/aws/util'
+import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
 import { quoteArraySchema, StockQuote } from '../api/models/zModels'
 import { myEncrypt } from '../encryption/useEncryptor'
 
@@ -252,6 +252,15 @@ export async function getUserStockList(username: string) {
     console.log(err)
   }
   return []
+}
+
+export async function getUserSecrets(username: string) {
+  const enc = myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), constructUserSecretSecondaryKey(username))
+  const body: EncPutRequest = {
+    data: enc,
+  }
+  const result = (await axiosPut('/api/searchRandomStuff', body)) as LambdaBody[]
+  return result
 }
 
 function encryptBody(req: LambdaDynamoRequest) {

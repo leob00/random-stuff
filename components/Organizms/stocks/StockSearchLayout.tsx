@@ -82,24 +82,15 @@ const StockSearchLayout = () => {
   }
   const reloadData = async () => {
     const user = await getUserCSR()
+    console.log(user)
     const username = user ? user.email : null
     setModel({ ...model, isLoading: true })
 
     let stockList = [...model.stockList]
     let map = model.stockListMap
-    // let quotes: StockQuote[] = []
 
     if (username) {
       stockList = await getUserStockListLatest(username)
-      //map = getStockSearchMap(stockList)
-      /* if (stockList.length > 0) {
-        quotes = cloneDeep(stockList)
-        //putUserStockList(username, stockList)
-      }
-      quotes.forEach((q) => {
-        map.set(q.Symbol, q)
-      }) */
-      //quotes = getListFromMap<StockQuote>(map)
       stockList.forEach((q) => {
         map.set(q.Symbol, q)
       })

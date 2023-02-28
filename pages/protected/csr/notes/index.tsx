@@ -16,7 +16,7 @@ const Notes = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true)
   const [reload, setReload] = React.useState(true)
   const [model, setModel] = React.useState<UserNotesModel | undefined>(undefined)
-  const [isLoading, setIsLoading] = React.useState(true)
+  const [, setIsLoading] = React.useState(true)
 
   const userController = useUserController()
 

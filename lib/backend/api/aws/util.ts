@@ -30,3 +30,6 @@ export function constructUserTaskPk(username: string) {
 export function constructUserGoalTaksSecondaryKey(username: string) {
   return `user-goal-tasks[${username}]`
 }
+export function constructUserSecretSecondaryKey(username: string) {
+  return `user-secrets[${username}]`
+}

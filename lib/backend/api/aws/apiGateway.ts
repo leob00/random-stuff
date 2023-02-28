@@ -58,6 +58,7 @@ export interface UserProfile {
   id: string
   username: string
   noteTitles: UserNote[]
+  secKey?: string
 }
 
 export async function hello(name: string) {

@@ -19,7 +19,7 @@ export function myEncrypt(passPhrase: string, data: string) {
 }
 
 export function myEncryptBase64(passPhrase: string, data: string) {
-  const result = CryptoJS.AES.encrypt(data, passPhrase, CryptoJS.enc.Base64url).toString()
+  const result = CryptoJS.AES.encrypt(data, passPhrase, CryptoJS.enc.Base64).toString()
   return result
 }
 
