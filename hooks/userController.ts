@@ -1,4 +1,3 @@
-import { profile } from 'console'
 import dayjs from 'dayjs'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { useAuthStore } from 'lib/backend/auth/useAuthStore'

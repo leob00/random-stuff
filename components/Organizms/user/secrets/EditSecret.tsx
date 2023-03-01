@@ -40,7 +40,6 @@ const EditSecret = ({
     const obj = userSecretArraySchema.element.safeParse(model)
     if (obj.success) {
       const item = { ...model }
-      //console.log('submitted: ', item)
       if (!item.id) {
         item.id = constructUserSecretPrimaryKey(username)
       }

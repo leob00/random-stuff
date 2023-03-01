@@ -36,7 +36,6 @@ export function getRolesFromAmplifyUser(user: any) {
 export async function getUserCSR() {
   try {
     const user = await Auth.currentAuthenticatedUser()
-    //console.log(user)
     const result: AmplifyUser = {
       id: String(user.username),
       email: String(user.attributes.email),
