@@ -7,7 +7,7 @@ import { ApiError } from 'next/dist/server/api-utils'
 import { LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
 import { axiosGet, axiosPut } from '../api/aws/useAxios'
 import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
-import { quoteArraySchema, StockQuote } from '../api/models/zModels'
+import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { myEncrypt } from '../encryption/useEncryptor'
 
 export interface EncPutRequest {
@@ -265,4 +265,26 @@ export async function getUserSecrets(username: string) {
 
 function encryptBody(req: LambdaDynamoRequest) {
   return myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), JSON.stringify(req))
+}
+
+export async function putUserSecret(item: UserSecret, username: string, expiration: number = 0) {
+  let req: LambdaDynamoRequest = {
+    id: item.id!,
+    category: constructUserSecretSecondaryKey(username),
+    data: item,
+    expiration: expiration,
+    token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${item.id}`),
+    //token: signLambdaDynamoPut(item.id!, secondaryKey, String(process.env.NEXT_PUBLIC_API_TOKEN)),
+  }
+  const putRequest: EncPutRequest = {
+    data: encryptBody(req),
+  }
+  await axiosPut(`/api/putRandomStuff`, putRequest)
+}
+
+export async function deleteRecord(id: string) {
+  let req = {
+    key: id,
+  }
+  await axiosPut(`/api/deleteRandomStuff`, req)
 }

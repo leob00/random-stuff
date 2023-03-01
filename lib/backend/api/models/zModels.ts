@@ -23,15 +23,14 @@ export const quoteArraySchema = z
   })
   .array()
 
-export const secretsArraySchema = z
+export const userSecretArraySchema = z
   .object({
-    id: z.string(),
-    title: z.string(),
-    secret: z.string(),
-    notes: z.string(),
+    id: z.string().optional(),
+    title: z.string().trim().min(1),
+    secret: z.string().trim().min(1),
   })
   .array()
 
 export type StockQuote = z.infer<typeof quoteArraySchema.element>
 export type StockHistoryItem = z.infer<typeof quoteHistorySchema.element>
-export type UserSecret = z.infer<typeof secretsArraySchema.element>
+export type UserSecret = z.infer<typeof userSecretArraySchema.element>

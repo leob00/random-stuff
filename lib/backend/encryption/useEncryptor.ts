@@ -19,7 +19,7 @@ export function myEncrypt(passPhrase: string, data: string) {
 }
 
 export function myEncryptBase64(passPhrase: string, data: string) {
-  const result = CryptoJS.AES.encrypt(data, passPhrase, CryptoJS.enc.Base64).toString()
+  const result = CryptoJS.AES.encrypt(data, passPhrase, CryptoJS.enc.Base64url).toString()
   return result
 }
 
@@ -37,6 +37,9 @@ export function myDecryptBase64(passPhrase: string, data: string) {
   const bytes = CryptoJS.AES.decrypt(data, passPhrase)
   const decryptedData = bytes.toString(CryptoJS.enc.Base64url)
   return decryptedData
+}
+export function getGuid() {
+  return crypto.randomUUID()
 }
 
 /* export function verifyLambdaDynamoPut(seed: string, encrypted: string) {

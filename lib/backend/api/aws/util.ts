@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
+import { getGuid, myEncrypt } from 'lib/backend/encryption/useEncryptor'
 import { getSecondsFromEpoch, getUtcNow } from 'lib/util/dateUtil'
 dayjs.extend(utc)
 export function constructUserProfileKey(username: string) {
@@ -30,6 +31,11 @@ export function constructUserTaskPk(username: string) {
 export function constructUserGoalTaksSecondaryKey(username: string) {
   return `user-goal-tasks[${username}]`
 }
+
 export function constructUserSecretSecondaryKey(username: string) {
-  return `user-secrets[${username}]`
+  return `user-sec[${username}]`
+}
+export function constructUserSecretPrimaryKey(username: string) {
+  const guid = getGuid()
+  return `user-sec[${username}][${guid}]`
 }
