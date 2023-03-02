@@ -8,7 +8,7 @@ const config: AxiosRequestConfig = {
   },
 }
 
-export const axiosGet = async (url: string, params?: any) => {
+/* export const axiosGet = async (url: string, params?: any) => {
   config.url = url
   config.method = 'GET'
 
@@ -29,4 +29,4 @@ export const axiosPut = async (url: string, postData: any) => {
   config.method = 'POST'
   const response = await axios.post(url, postData, config)
   return response.data
-}
+} */

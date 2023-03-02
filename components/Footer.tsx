@@ -2,11 +2,11 @@
 import * as React from 'react'
 import { Container, Divider, Stack, Typography } from '@mui/material'
 import dayjs from 'dayjs'
-import { axiosGet } from 'lib/backend/api/qln/useAxios'
 import { ApiStatus } from 'pages/api/status'
 import { Circle } from '@mui/icons-material'
 import HorizontalDivider from './Atoms/Dividers/HorizontalDivider'
 import RollingLinearProgress from './Atoms/Loaders/RollingLinearProgress'
+import { get } from 'lib/backend/api/fetchFunctions'
 
 const Footer = () => {
   const intervalRef = React.useRef<NodeJS.Timer | null>(null)
@@ -16,7 +16,7 @@ const Footer = () => {
   React.useEffect(() => {
     const fn = async () => {
       setIsLoading(true)
-      const result = (await axiosGet('/api/status')) as ApiStatus
+      const result = (await get('/api/status')) as ApiStatus
       console.log(`status: ${result.status} - date: ${dayjs(result.date).format('MM/DD/YYYY hh:mm:ss a')}`)
       setCounter(counter + 1)
 

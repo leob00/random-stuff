@@ -8,14 +8,13 @@ import PleaseLogin from 'components/Molecules/PleaseLogin'
 import NonSSRWrapper from 'components/Organizms/NonSSRWrapper'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
-import { axiosGet } from 'lib/backend/api/qln/useAxios'
 import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 import { DropdownItem } from 'lib/models/dropdown'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { myEncrypt } from 'lib/backend/encryption/useEncryptor'
 import { EncPutRequest } from 'lib/backend/csr/nextApiWrapper'
-import { post } from 'lib/backend/api/fetchFunctions'
+import { get, post } from 'lib/backend/api/fetchFunctions'
 
 const Page = () => {
   const userController = useUserController()
@@ -92,7 +91,7 @@ const Page = () => {
       setLoadingResult(false)
       return
     }
-    const result = await axiosGet(req)
+    const result = await get(req)
     setJsonResult(JSON.stringify(result))
     setLoadingResult(false)
   }

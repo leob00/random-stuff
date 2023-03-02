@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { axiosGet } from 'lib/backend/api/qln/useAxios'
+import { get } from 'lib/backend/api/fetchFunctions'
 import { ApiStatus } from 'pages/api/status'
 import React, { ReactNode } from 'react'
 import NonSSRWrapper from './NonSSRWrapper'
@@ -10,7 +10,7 @@ const AppHeartbeat = ({ children }: { children: ReactNode }) => {
 
   React.useEffect(() => {
     const fn = async () => {
-      const result = (await axiosGet('/api/edgeStatus')) as ApiStatus
+      const result = (await get('/api/edgeStatus')) as ApiStatus
       console.log(`status: ${result.status} - date: ${dayjs(result.date).format('MM/DD/YYYY hh:mm:ss a')}`)
       setCounter(counter + 1)
       if (intervalRef.current) {
