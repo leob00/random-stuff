@@ -82,7 +82,7 @@ const Page = () => {
     if (req.includes('searchRandomStuff')) {
       const enc = myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), 'user-goal-tasks[leo_bel@hotmail.com]')
       //req = `/api/searchRandomStuff?id=user-goal-tasks[leo_bel@hotmail.com]&enc=${enc}`
-      console.log('enc: ', enc)
+      //console.log('enc: ', enc)
       const body: EncPutRequest = {
         data: enc,
       }

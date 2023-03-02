@@ -70,7 +70,7 @@ const SecretsLayout = ({ profile, user }: { profile: UserProfile; user: AmplifyU
               onDeleted={handleDeleteItem}
             />
           ) : (
-            <Box pb={2}>
+            <Box pb={3}>
               <SecondaryButton text={'add'} size='small' onClick={() => setModel({ ...model, createNew: true })} />
             </Box>
           )}

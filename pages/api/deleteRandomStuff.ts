@@ -1,10 +1,17 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { deleteRandomStuff } from 'lib/backend/api/aws/apiGateway'
+import { NextRequest, NextResponse } from 'next/server'
 interface Request {
   key: string
 }
-export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
-  let body = req.body as Request
-  await deleteRandomStuff(body.key)
-  res.status(200).json(body)
+export const config = {
+  runtime: 'edge',
+}
+export default async function handler(req: NextRequest) {
+  const json = await req.json()
+  //console.log(json)
+  const body = json as Request
+
+  const result = await deleteRandomStuff(body.key)
+  //console.log('api result: ', result)
+  return NextResponse.json(result)
 }

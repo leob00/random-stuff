@@ -42,10 +42,10 @@ const SecretListItem = ({ encKey, viewModel, onEdit }: { encKey: string; viewMod
 
   return (
     <>
-      <Box pb={2}>
+      <Box py={1}>
         <Typography>{model.title}</Typography>
       </Box>
-      <Stack direction={'row'} alignItems={'center'}>
+      <Stack direction={'row'} alignItems={'center'} pb={3}>
         <Stack flexGrow={1}>
           <TextField
             variant='standard'

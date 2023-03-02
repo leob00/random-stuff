@@ -28,6 +28,7 @@ export async function get(url: string, params?: any) {
 }
 
 export async function post(url: string, body: any) {
+  //console.log('body: ', body)
   const resp = await fetch(url, {
     method: 'POST',
     body: JSON.stringify(body),
@@ -38,6 +39,5 @@ export async function post(url: string, body: any) {
     },
   })
   const data = await resp.json()
-  //console.log(data)
   return data
 }

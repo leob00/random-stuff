@@ -179,16 +179,18 @@ export async function putRandomStuffEnc(req: EncPutRequest) {
 }
 
 export async function deleteRandomStuff(key: string) {
-  const url = `${baseUrl}/deleterandomstuff?key=${key}`
+  const url = `${baseUrl}/deleterandomstuff`
   let params = {
     key: key,
   }
   try {
     let resp = await post(url, params)
-    //console.log(resp)
+    return resp
+    //console.log('response: ', resp)
   } catch (error) {
     console.log('error in deleteRandomStuff', error)
   }
+  return { status: 'success' }
 }
 
 export async function getCoinflipStats() {
