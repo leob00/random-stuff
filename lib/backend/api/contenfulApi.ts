@@ -1,4 +1,3 @@
-import { orderBy } from 'lodash'
 import { BlogResponse, BlogTypes } from '../../models/cms/contentful/blog'
 import { RecipeCollection, RecipesResponse } from '../../models/cms/contentful/recipe'
 import { post } from './fetchFunctions'
@@ -55,12 +54,12 @@ const allRecipesQuery = /* GraphQL */ `
 `
 
 export async function getAllBlogs() {
-  let body = JSON.stringify({ query: allBlogsQuery })
+  let body = { query: allBlogsQuery }
 
   let resp = await post(url, body)
-  let data = resp.data as BlogResponse
+  let data = resp as BlogResponse
   let blogCollection = data.data.blogCollection
-  blogCollection.items = orderBy(blogCollection.items, ['sys.firstPublishedAt'], ['desc'])
+  //blogCollection.items = orderBy(blogCollection.items, ['sys.firstPublishedAt'], ['desc'])
   console.log(`retrieved ${blogCollection.items.length} blogs`)
   return blogCollection
 }
@@ -99,9 +98,9 @@ export async function getAllRecipes() {
   let collection2 = await getRecipes(secondQuery)
   let collection = collection1.items
   collection.push(...collection2.items)
-  const result = orderBy(collection, ['sys.firstPublishedAt'], ['desc'])
+  //const result = orderBy(collection, ['sys.firstPublishedAt'], ['desc'])
   let coll: RecipeCollection = {
-    items: result,
+    items: collection,
   }
   return coll
 }
