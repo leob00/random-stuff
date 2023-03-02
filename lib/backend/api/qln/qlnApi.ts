@@ -1,7 +1,6 @@
 import { getUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
 import { quoteArraySchema, quoteHistorySchema, StockQuote } from '../models/zModels'
-import { map } from 'lodash'
 import { get } from '../fetchFunctions'
 
 let baseUrl = process.env.NEXT_PUBLIC_QLN_API_URL

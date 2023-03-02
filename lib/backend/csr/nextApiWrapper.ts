@@ -2,7 +2,6 @@ import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
-import { filter } from 'lodash'
 import { ApiError } from 'next/dist/server/api-utils'
 import { LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
 import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
@@ -82,7 +81,7 @@ export async function getUserProfile(username: string) {
     if (data) {
       let parsed = data as UserProfile
       if (parsed) {
-        parsed.noteTitles = filter(parsed.noteTitles, (e) => {
+        parsed.noteTitles = parsed.noteTitles.filter((e) => {
           return !e.expirationDate || dayjs(e.expirationDate).isAfter(getUtcNow())
         })
         return parsed
