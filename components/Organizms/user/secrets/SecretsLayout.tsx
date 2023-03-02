@@ -1,14 +1,14 @@
 import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
+import CenterStack from 'components/Atoms/CenterStack'
+import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import CenteredParagraph from 'components/Atoms/Text/CenteredParagraph'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
-import { constructUserSecretSecondaryKey } from 'lib/backend/api/aws/util'
 import { UserSecret, userSecretArraySchema } from 'lib/backend/api/models/zModels'
 import { AmplifyUser } from 'lib/backend/auth/userUtil'
 import { getUserSecrets } from 'lib/backend/csr/nextApiWrapper'
-import { myEncrypt } from 'lib/backend/encryption/useEncryptor'
 import { orderBy } from 'lodash'
 import React from 'react'
 import EditSecret from './EditSecret'
@@ -16,6 +16,8 @@ import SecretLayout from './SecretLayout'
 
 interface Model {
   originalSecrets: UserSecret[]
+  filteredSecrets: UserSecret[]
+  filter: string
   isLoading: boolean
   createNew: boolean
 }
@@ -25,19 +27,23 @@ const SecretsLayout = ({ profile, user }: { profile: UserProfile; user: AmplifyU
   const defaultModel: Model = {
     isLoading: true,
     originalSecrets: [],
+    filteredSecrets: [],
+    filter: '',
     createNew: false,
   }
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
-
-  const handleAddItem = async (item: UserSecret) => {
-    setModel({ ...model, isLoading: true, createNew: false })
-    const result = await loadData()
-    setModel({ ...model, isLoading: false, originalSecrets: result, createNew: false })
+  const applyFilter = (list: UserSecret[], filter: string) => {
+    return list.filter((o) => o.title.toLowerCase().includes(filter.toLowerCase()))
   }
-  const handleDeleteItem = async (id: string) => {
+  const handleItemAdded = async (item: UserSecret) => {
     setModel({ ...model, isLoading: true, createNew: false })
     const result = await loadData()
-    setModel({ ...model, isLoading: false, originalSecrets: result, createNew: false })
+    setModel({ ...model, isLoading: false, originalSecrets: result, filteredSecrets: applyFilter(result, model.filter), createNew: false })
+  }
+  const handleItemDeleted = async (id: string) => {
+    setModel({ ...model, isLoading: true, createNew: false })
+    const result = await loadData()
+    setModel({ ...model, isLoading: false, originalSecrets: result, filteredSecrets: result, filter: '', createNew: false })
   }
 
   const loadData = async () => {
@@ -45,11 +51,14 @@ const SecretsLayout = ({ profile, user }: { profile: UserProfile; user: AmplifyU
     const secrets = userSecretArraySchema.parse(dbresult.map((item) => JSON.parse(item.data)))
     return orderBy(secrets, ['title'], ['asc'])
   }
+  const handleFilterChanged = async (text: string) => {
+    setModel({ ...model, filteredSecrets: applyFilter(model.originalSecrets, text), filter: text })
+  }
 
   React.useEffect(() => {
     const fn = async () => {
       const result = await loadData()
-      setModel({ ...model, isLoading: false, originalSecrets: result, createNew: false })
+      setModel({ ...model, isLoading: false, originalSecrets: result, filteredSecrets: applyFilter(result, model.filter), createNew: false })
     }
     fn()
   }, [])
@@ -66,20 +75,27 @@ const SecretsLayout = ({ profile, user }: { profile: UserProfile; user: AmplifyU
               encKey={encKey}
               userSecret={{ title: '', secret: '' }}
               onCancel={() => setModel({ ...model, createNew: false })}
-              onSaved={handleAddItem}
-              onDeleted={handleDeleteItem}
+              onSaved={handleItemAdded}
+              onDeleted={handleItemDeleted}
             />
           ) : (
             <Box pb={3}>
               <SecondaryButton text={'add'} size='small' onClick={() => setModel({ ...model, createNew: true })} />
             </Box>
           )}
-          {model.originalSecrets.map((item, i) => (
-            <Box key={i}>
-              <SecretLayout username={profile.username} encKey={encKey} userSecret={item} onDeleted={handleDeleteItem} />
+
+          <Box py={2}>
+            <CenterStack>
+              <SearchWithinList onChanged={handleFilterChanged} defaultValue={model.filter} />
+            </CenterStack>
+          </Box>
+
+          {model.filteredSecrets.map((item, i) => (
+            <Box key={item.id}>
+              <SecretLayout username={profile.username} encKey={encKey} userSecret={item} onDeleted={handleItemDeleted} />
             </Box>
           ))}
-          {model.originalSecrets.length === 0 && <CenteredParagraph text={'You do not have anything saved yet.'} />}
+          {model.filteredSecrets.length === 0 && <CenteredParagraph text={'No secrets found.'} />}
         </>
       )}
     </ResponsiveContainer>
