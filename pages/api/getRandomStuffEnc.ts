@@ -3,7 +3,7 @@ import { EncPutRequest } from 'lib/backend/csr/nextApiWrapper'
 import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { NextRequest, NextResponse } from 'next/server'
 export const config = {
-  runtime: 'experimental-edge', // this is a pre-requisite
+  runtime: 'edge', // this is a pre-requisite
 }
 
 export default async function handler(req: NextRequest) {

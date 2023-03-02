@@ -12,7 +12,7 @@ export async function get(url: string, params?: any) {
     })
   }
   const postUrl = `${url}${args}`
-  console.log('calling url: ', postUrl)
+  //console.log('calling url: ', postUrl)
   const resp = await fetch(postUrl, {
     method: 'GET',
     headers: {

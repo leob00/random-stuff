@@ -10,12 +10,12 @@ import SaveToNotesButton from 'components/Molecules/Buttons/SaveToNotesButton'
 import NonSSRWrapper from 'components/Organizms/NonSSRWrapper'
 import { useUserController } from 'hooks/userController'
 import { NewsItem, NewsTypeIds, newsTypes } from 'lib/backend/api/qln/qlnApi'
-import { axiosGet } from 'lib/backend/api/qln/useAxios'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { orderBy } from 'lodash'
 import React from 'react'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
+import { get } from 'lib/backend/api/fetchFunctions'
 
 const NewsLayout = () => {
   const [isLoading, setIsLoading] = React.useState(true)
@@ -25,7 +25,7 @@ const NewsLayout = () => {
 
   const loadData = async (id: NewsTypeIds) => {
     try {
-      const result = (await axiosGet(`/api/news?id=${id}`)) as NewsItem[]
+      const result = (await get(`/api/news?id=${id}`)) as NewsItem[]
       //console.log(result[0])
       const sorted = orderBy(result, ['PublishDate'], ['desc'])
       if (userController.authProfile) {
@@ -40,7 +40,7 @@ const NewsLayout = () => {
       //console.log(sorted[0])
       setNewsItems(sorted)
     } catch (err) {
-      console.log('error in news api.')
+      console.log('error in news api: ', err)
       setShowError(true)
     }
     setIsLoading(false)
