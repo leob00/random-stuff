@@ -42,7 +42,6 @@ const SecretsLayout = ({ profile, user }: { profile: UserProfile; user: AmplifyU
 
   const loadData = async () => {
     const dbresult = await getUserSecrets(profile.username)
-    console.log(dbresult)
     const secrets = userSecretArraySchema.parse(dbresult.map((item) => JSON.parse(item.data)))
     return orderBy(secrets, ['title'], ['asc'])
   }
