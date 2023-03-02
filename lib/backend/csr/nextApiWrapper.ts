@@ -5,8 +5,8 @@ import { getUtcNow } from 'lib/util/dateUtil'
 import { filter } from 'lodash'
 import { ApiError } from 'next/dist/server/api-utils'
 import { LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
-import { axiosGet, axiosPut } from '../api/aws/useAxios'
 import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
+import { get, post } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { myEncrypt } from '../encryption/useEncryptor'
 
@@ -26,7 +26,7 @@ export async function putUserNote(item: UserNote, secondaryKey: string, expirati
   const putRequest: EncPutRequest = {
     data: encryptBody(req),
   }
-  await axiosPut(`/api/putRandomStuff`, putRequest)
+  await post(`/api/putRandomStuff`, putRequest)
 }
 export async function expireUserNote(item: UserNote) {
   const unixNowSeconds = Math.floor(getUtcNow().valueOf() / 1000)
@@ -40,13 +40,13 @@ export async function expireUserNote(item: UserNote) {
   const putRequest: EncPutRequest = {
     data: encryptBody(req),
   }
-  await axiosPut(`/api/putRandomStuff`, putRequest)
+  await post(`/api/putRandomStuff`, putRequest)
 }
 export async function deleteUserNote(item: UserNote) {
   let req = {
     key: item.id,
   }
-  await axiosPut(`/api/deleteRandomStuff`, req)
+  await post(`/api/deleteRandomStuff`, req)
 }
 
 export async function putUserProfile(item: UserProfile) {
@@ -61,12 +61,12 @@ export async function putUserProfile(item: UserProfile) {
   const putRequest: EncPutRequest = {
     data: encryptBody(req),
   }
-  await axiosPut(`/api/putRandomStuff`, putRequest)
+  await post(`/api/putRandomStuff`, putRequest)
 }
 // todo: this neeeds to be secured
 export async function getUserNotes(username: string) {
   let categoryKey = constructUserNoteCategoryKey(username)
-  let response = (await axiosGet(`/api/searchRandomStuff?id=${categoryKey}`)) as LambdaBody[]
+  let response = (await get(`/api/searchRandomStuff?id=${categoryKey}`)) as LambdaBody[]
   let notes: UserNote[] = response.map((item) => JSON.parse(item.data))
   return notes
 }
@@ -77,7 +77,7 @@ export async function getUserProfile(username: string) {
 
   try {
     const body = encryptKey(key)
-    const data = await axiosPut(`/api/getRandomStuffEnc`, body)
+    const data = await post(`/api/getRandomStuffEnc`, body)
 
     if (data) {
       let parsed = data as UserProfile
@@ -111,7 +111,7 @@ export async function getUserNote(id: string) {
 
   try {
     const body = encryptKey(id)
-    const data = await axiosPut(`/api/getRandomStuffEnc`, body)
+    const data = await post(`/api/getRandomStuffEnc`, body)
     if (data) {
       result = data
 
@@ -136,7 +136,7 @@ export async function getUserGoals(id: string) {
 
   try {
     const body = encryptKey(id)
-    const data = await axiosPut(`/api/getRandomStuffEnc`, body)
+    const data = await post(`/api/getRandomStuffEnc`, body)
     if (data) {
       result = data
       return result
@@ -151,7 +151,7 @@ export async function getUserTasksLambaBody(username: string) {
   const body: EncPutRequest = {
     data: enc,
   }
-  const result = (await axiosPut('/api/searchRandomStuff', body)) as LambdaBody[]
+  const result = (await post('/api/searchRandomStuff', body)) as LambdaBody[]
   return result
 }
 
@@ -160,7 +160,7 @@ export async function getUserTasks(username: string) {
   const body: EncPutRequest = {
     data: enc,
   }
-  const result = (await axiosPut('/api/searchRandomStuff', body)) as LambdaBody[]
+  const result = (await post('/api/searchRandomStuff', body)) as LambdaBody[]
   const tasks: UserTask[] = []
   result.forEach((g) => {
     const m = JSON.parse(g.data) as unknown as UserTask[]
@@ -175,7 +175,7 @@ export async function getUserGoalTasks(goalId: string) {
 
   try {
     const body = encryptKey(goalId)
-    const data = await axiosPut(`/api/getRandomStuffEnc`, body)
+    const data = await post(`/api/getRandomStuffEnc`, body)
     //console.log('api random stuff: ', data)
     if (data) {
       result = data
@@ -200,7 +200,7 @@ export async function putUserGoals(id: string, data: UserGoal[], expiration: num
   const putRequest: EncPutRequest = {
     data: encryptBody(req),
   }
-  await axiosPut(`/api/putRandomStuff`, putRequest)
+  await post(`/api/putRandomStuff`, putRequest)
 }
 export async function putUserGoalTasks(username: string, goalId: string, data: UserTask[], expiration: number = 0) {
   //console.log('goal id ', goalId)
@@ -216,7 +216,7 @@ export async function putUserGoalTasks(username: string, goalId: string, data: U
     data: encryptBody(req),
   }
   //console.log(putRequest)
-  await axiosPut(`/api/putRandomStuff`, putRequest)
+  await post(`/api/putRandomStuff`, putRequest)
 }
 
 export async function putUserStockList(username: string, data: StockQuote[]) {
@@ -232,7 +232,7 @@ export async function putUserStockList(username: string, data: StockQuote[]) {
   const putRequest: EncPutRequest = {
     data: encryptBody(req),
   }
-  await axiosPut(`/api/putRandomStuff`, putRequest)
+  await post(`/api/putRandomStuff`, putRequest)
   //console.log('put stock list: ', data.length)
 }
 
@@ -242,7 +242,7 @@ export async function getUserStockList(username: string) {
 
   try {
     const body = encryptKey(`user-stock_list[${username}]`)
-    const data = await axiosPut(`/api/getRandomStuffEnc`, body)
+    const data = await post(`/api/getRandomStuffEnc`, body)
     //console.log('api random stuff: ', data)
     if (data) {
       const result = quoteArraySchema.parse(data)
@@ -259,7 +259,7 @@ export async function getUserSecrets(username: string) {
   const body: EncPutRequest = {
     data: enc,
   }
-  const result = (await axiosPut('/api/searchRandomStuff', body)) as LambdaBody[]
+  const result = (await post('/api/searchRandomStuff', body)) as LambdaBody[]
   return result
 }
 
@@ -279,12 +279,12 @@ export async function putUserSecret(item: UserSecret, username: string, expirati
   const putRequest: EncPutRequest = {
     data: encryptBody(req),
   }
-  await axiosPut(`/api/putRandomStuff`, putRequest)
+  await post(`/api/putRandomStuff`, putRequest)
 }
 
 export async function deleteRecord(id: string) {
   let req = {
     key: id,
   }
-  await axiosPut(`/api/deleteRandomStuff`, req)
+  await post(`/api/deleteRandomStuff`, req)
 }

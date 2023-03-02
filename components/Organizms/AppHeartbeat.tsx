@@ -10,7 +10,7 @@ const AppHeartbeat = ({ children }: { children: ReactNode }) => {
 
   React.useEffect(() => {
     const fn = async () => {
-      const result = (await axiosGet('/api/status')) as ApiStatus
+      const result = (await axiosGet('/api/edgeStatus')) as ApiStatus
       console.log(`status: ${result.status} - date: ${dayjs(result.date).format('MM/DD/YYYY hh:mm:ss a')}`)
       setCounter(counter + 1)
       if (intervalRef.current) {

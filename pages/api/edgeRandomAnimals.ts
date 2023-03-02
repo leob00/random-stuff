@@ -5,7 +5,7 @@ import { BasicArticle } from 'lib/model'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const config = {
-  runtime: 'experimental-edge', // this is a pre-requisite
+  runtime: 'edge', // this is a pre-requisite
 }
 
 export default async (req: NextRequest) => {

@@ -1,8 +1,8 @@
 import { getUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
 import { quoteArraySchema, quoteHistorySchema, StockQuote } from '../models/zModels'
-import { axiosGet } from './useAxios'
 import { map } from 'lodash'
+import { get } from '../fetchFunctions'
 
 let baseUrl = process.env.NEXT_PUBLIC_QLN_API_URL
 
@@ -121,7 +121,7 @@ export async function getNewsFeed() {
     loadLatestNews: true,
   }
   try {
-    let response = await axiosGet(url, params)
+    let response = await get(url, params)
     if (response) {
       return response.Body.LatestNews as NewsItem[]
     }
@@ -141,7 +141,7 @@ export async function getNewsBySource(id: NewsTypeIds) {
   let params = {
     type: id,
   }
-  let resp = (await axiosGet(`${baseUrl}/NewsBySource`, params)).Body as NewsItem[]
+  let resp = (await get(`${baseUrl}/NewsBySource`, params)).Body as NewsItem[]
   //console.log(`${baseUrl}/NewsBySource?type=${id}`)
   return resp
 }
@@ -151,7 +151,7 @@ export async function searchStockQuotes(search?: string) {
   const params = {
     searchString: search ?? '',
   }
-  const response = await axiosGet(url, params)
+  const response = await get(url, params)
   const result = quoteArraySchema.parse(response.Body)
   return result
 }
@@ -160,7 +160,7 @@ export async function getStockQuotes(symbols: string[]) {
   const params = {
     symbols: symbols.join(),
   }
-  const response = await axiosGet(url, params)
+  const response = await get(url, params)
   const result = quoteArraySchema.parse(response.Body)
   return result
 }
@@ -170,7 +170,7 @@ export async function getStockChart(symbol: string, days?: number) {
     symbol: symbol,
     days: days ?? 90,
   }
-  const response = await axiosGet(url, params)
+  const response = await get(url, params)
   //console.log(response)
   const result = quoteHistorySchema.parse(response.Body)
   return result

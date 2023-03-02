@@ -2,7 +2,7 @@ import { EncPutRequest } from 'lib/backend/csr/nextApiWrapper'
 import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { BasicArticle } from 'lib/model'
 import { UserNote } from 'lib/models/randomStuffModels'
-import { axiosGet, axiosPut } from './useAxios'
+import { get, post } from '../fetchFunctions'
 
 export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | string
 let baseUrl = process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL
@@ -63,7 +63,7 @@ export interface UserProfile {
 
 export async function hello(name: string) {
   const url = `${baseUrl}/hello?name=${name}`
-  let data = await axiosGet(url)
+  let data = await get(url)
   return data as LambdaResponse
 }
 
@@ -78,7 +78,7 @@ export async function putAnimals(type: DynamoKeys, data: BasicArticle[]) {
     body: model,
   }
   let articles = postData.body.data as BasicArticle[]
-  await axiosPut(url, postData)
+  await post(url, postData)
   console.log(`put ${articles.length} ${type} to Dynamo`)
 }
 
@@ -86,7 +86,7 @@ export async function getAnimals(type: DynamoKeys) {
   const url = `${baseUrl}/animals?key=${type}`
   let response: LambdaResponse | null = null
   try {
-    response = (await axiosGet(url)) as LambdaResponse
+    response = (await get(url)) as LambdaResponse
     let data = JSON.parse(response.body.data) as BasicArticle[]
     return data
   } catch (err) {
@@ -99,29 +99,31 @@ export async function getRandomStuff(type: DynamoKeys) {
   const url = `${baseUrl}/randomstuff?key=${type}`
   let result: LambdaResponse | null = null
   try {
-    result = (await axiosGet(url)) as LambdaResponse
+    result = (await get(url)) as LambdaResponse
     if (result.body && result.body.data) {
       let data = JSON.parse(result.body.data)
       return data
     }
   } catch (err) {
-    console.log('error in getRandomStuff')
+    console.log('error in getRandomStuff: ', err)
   }
 
   return null
 }
 export async function searchRandomStuffBySecIndex(search: CategoryType | string) {
-  const url = `${baseUrl}/searchrandomstuff/`
+  const url = `${baseUrl}/searchrandomstuff`
   //console.log(url)
-  let result: LambdaBody[] = []
+  //let result: LambdaBody[] = []
   try {
-    let raw = await axiosGet(url, { key: search })
-    let response = raw as LambdaListResponse
-    return response.body
+    let result = await post(url, { key: search })
+    //console.log('raw: ', raw)
+    //let response = (await raw.json())
+    //console.log(result)
+    return result.body
   } catch (err) {
-    console.log('error occurred in searchRandomStuffBySecIndex')
+    console.log('error occurred in searchRandomStuffBySecIndex: ', err)
   }
-  return result
+  return []
 }
 
 export async function putRandomStuff(type: DynamoKeys, category: CategoryType, data: any, expiration?: number) {
@@ -137,7 +139,7 @@ export async function putRandomStuff(type: DynamoKeys, category: CategoryType, d
     body: model,
   }
   try {
-    await axiosPut(url, postData)
+    await post(url, postData)
   } catch (error) {
     console.log('error in putRandomStuff')
   }
@@ -168,7 +170,7 @@ export async function putRandomStuffEnc(req: EncPutRequest) {
     body: model,
   }
   try {
-    await axiosPut(url, postData)
+    await post(url, postData)
     return body
   } catch (error) {
     console.log('error in putRandomStuff')
@@ -182,7 +184,7 @@ export async function deleteRandomStuff(key: string) {
     key: key,
   }
   try {
-    let resp = await axiosPut(url, params)
+    let resp = await post(url, params)
     //console.log(resp)
   } catch (error) {
     console.log('error in deleteRandomStuff', error)

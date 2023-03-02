@@ -8,13 +8,13 @@ import { isBrowser } from 'lib/util/system'
 import { getAnimals } from 'lib/backend/api/aws/apiGateway'
 import useSWR, { SWRConfig } from 'swr'
 import { Container } from '@mui/material'
-import { axiosGet } from 'lib/backend/api/aws/useAxios'
 import Header from 'next/head'
+import { get } from 'lib/backend/api/fetchFunctions'
 
 const cmsRefreshIntervalSeconds = 360
 
 const fetcherFn = async (url: string) => {
-  let response = await axiosGet(url)
+  let response = await get(url)
   let data = response as BasicArticle[]
   return data
 }

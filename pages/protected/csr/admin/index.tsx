@@ -14,8 +14,8 @@ import { DropdownItem } from 'lib/models/dropdown'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { myEncrypt } from 'lib/backend/encryption/useEncryptor'
-import { axiosPut } from 'lib/backend/api/aws/useAxios'
 import { EncPutRequest } from 'lib/backend/csr/nextApiWrapper'
+import { post } from 'lib/backend/api/fetchFunctions'
 
 const Page = () => {
   const userController = useUserController()
@@ -42,7 +42,7 @@ const Page = () => {
       }
 
       setUserProfile(p)
-      await handleApiSelected('/api/status')
+      await handleApiSelected('/api/edgeStatus')
       setLoading(false)
     }
     fn()
@@ -53,7 +53,7 @@ const Page = () => {
   const apiOptions: DropdownItem[] = [
     {
       text: 'status',
-      value: '/api/status',
+      value: '/api/edgeStatus',
     },
     {
       text: 'dogs',
@@ -87,7 +87,7 @@ const Page = () => {
       const body: EncPutRequest = {
         data: enc,
       }
-      const result = await axiosPut(req, body)
+      const result = await post(req, body)
       setJsonResult(JSON.stringify(result))
       setLoadingResult(false)
       return
@@ -108,7 +108,7 @@ const Page = () => {
             <CenteredTitle title='Admin' />
             <CenteredTitle title={`Test Api's`} />
             <CenterStack>
-              <DropdownList options={apiOptions} selectedOption={'/api/status'} onOptionSelected={handleApiSelected} />
+              <DropdownList options={apiOptions} selectedOption={'/api/edgeStatus'} onOptionSelected={handleApiSelected} />
             </CenterStack>
             <CenterStack sx={{ py: 4 }}>
               {loadingResult ? (
