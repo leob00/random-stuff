@@ -16,7 +16,7 @@ import { getStockQuotes, getUserStockListLatest, searchStockQuotes } from 'lib/b
 import { getUserCSR } from 'lib/backend/auth/userUtil'
 import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
-import { getListFromMap } from 'lib/util/collections'
+import { getListFromMap, getMapFromArray } from 'lib/util/collections'
 import { cloneDeep } from 'lodash'
 import React from 'react'
 import { DropResult } from 'react-beautiful-dnd'
@@ -82,7 +82,6 @@ const StockSearchLayout = () => {
   }
   const reloadData = async () => {
     const user = await getUserCSR()
-    console.log(user)
     const username = user ? user.email : null
     setModel({ ...model, isLoading: true })
 
@@ -95,6 +94,8 @@ const StockSearchLayout = () => {
         map.set(q.Symbol, q)
       })
       setModel({ ...model, username: username, stockListMap: map, stockList: stockList, isLoading: false })
+      const testMap = getMapFromArray<StockQuote>(stockList, 'Symbol')
+      console.log(testMap)
     } else {
       setTimeout(() => {
         setModel({ ...model, username: username, stockListMap: map, stockList: stockList, isLoading: false })

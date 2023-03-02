@@ -47,3 +47,11 @@ export async function getUserCSR() {
     return null
   }
 }
+
+export async function validateUserCSR(password: string) {
+  const user = await getUserCSR()
+  if (user != null) {
+    return await Auth.signIn(user.email, password)
+  }
+  return null
+}

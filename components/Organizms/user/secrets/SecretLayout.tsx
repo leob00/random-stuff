@@ -1,14 +1,8 @@
-import { Box, IconButton, InputAdornment, Stack, TextField, Tooltip, Typography } from '@mui/material'
-import theme from 'components/themes/mainTheme'
+import { Box, IconButton } from '@mui/material'
 import { UserSecret } from 'lib/backend/api/models/zModels'
 import React from 'react'
-import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-import { myDecrypt, myEncrypt } from 'lib/backend/encryption/useEncryptor'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import EditSecret from './EditSecret'
-import EditItemToolbar from 'components/Molecules/EditItemToolbar'
-import { Save, Close, Create, Delete } from '@mui/icons-material'
+import { Close } from '@mui/icons-material'
 import SecretListItem from './SecretListItem'
 
 export interface SecretViewModel {
@@ -42,7 +36,6 @@ const SecretLayout = ({
   const [model, setModel] = React.useReducer((state: SecretViewModel, newState: SecretViewModel) => ({ ...state, ...newState }), defaultModel)
 
   const handleSaved = (item: UserSecret) => {
-    // TODO: save
     setModel({ ...model, editMode: false, isEncrypted: true, secret: item.secret, title: item.title, id: item.id })
   }
   const handleDeleted = (id: string) => {
@@ -62,7 +55,7 @@ const SecretLayout = ({
             <EditSecret
               username={username}
               encKey={encKey}
-              userSecret={userSecret}
+              userSecret={{ ...model, id: model.id, title: model.title, secret: model.secret }}
               onCancel={() => setModel({ ...model, editMode: false })}
               onSaved={handleSaved}
               onDeleted={handleDeleted}
