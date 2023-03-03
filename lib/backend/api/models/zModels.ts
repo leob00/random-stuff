@@ -28,6 +28,7 @@ export const userSecretArraySchema = z
     id: z.string().optional(),
     title: z.string().trim().min(1),
     secret: z.string().trim().min(1),
+    salt: z.string().optional(),
   })
   .array()
 

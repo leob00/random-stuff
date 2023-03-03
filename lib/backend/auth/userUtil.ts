@@ -48,10 +48,15 @@ export async function getUserCSR() {
   }
 }
 
-export async function validateUserCSR(password: string) {
-  const user = await getUserCSR()
-  if (user != null) {
-    return await Auth.signIn(user.email, password)
+export async function validateUserCSR(username: string, password: string) {
+  //const session = await Auth.userSession()
+  try {
+    const result = await Auth.signIn(username, password, {
+      reason: 're-enter-password',
+    })
+    return result
+  } catch (err) {
+    console.log('error password validation: ', err)
+    return null
   }
-  return null
 }

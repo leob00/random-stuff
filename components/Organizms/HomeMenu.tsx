@@ -6,13 +6,12 @@ import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import InternalLink from 'components/Atoms/Buttons/InternalLink'
-import { useUserController } from 'hooks/userController'
+import WarmupBox from 'components/Atoms/WarmupBox'
 
 const HomeMenu = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false)
   const [isAdmin, setIsAdmin] = React.useState(false)
-
-  const userController = useUserController()
+  const [isLoading, setIsloading] = React.useState(true)
 
   React.useEffect(() => {
     const fn = async () => {
@@ -21,6 +20,7 @@ const HomeMenu = () => {
       if (user) {
         setIsAdmin(userHasRole('Admin', user.roles))
       }
+      setIsloading(false)
     }
     fn()
   }, [isLoggedIn])
@@ -55,6 +55,7 @@ const HomeMenu = () => {
           <CenterStack>
             <InternalLink route={'/csr/stocks'} text={'stocks'} />
           </CenterStack>
+          {isLoading && <WarmupBox text='loading user menu...' />}
           {isLoggedIn && (
             <Box py={2}>
               <HorizontalDivider />
@@ -64,6 +65,11 @@ const HomeMenu = () => {
                   <InternalLink route={'/protected/csr/dashboard'} text={'dashboard'} />
                   <InternalLink route={'/protected/csr/notes'} text={'notes'} />
                   <InternalLink route={'/protected/csr/goals'} text={'goals'} />
+                </CenterStack>
+              </Box>
+              <Box>
+                <CenterStack>
+                  <InternalLink route={'/protected/csr/secrets'} text={'secrets'} />
                 </CenterStack>
               </Box>
               {isAdmin && (

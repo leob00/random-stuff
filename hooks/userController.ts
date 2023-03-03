@@ -78,7 +78,7 @@ export const useUserController = () => {
 
       if (now.isAfter(last)) {
         if (nextFetch.isBefore(now)) {
-          console.log('refetching profile...')
+          //console.log('refetching profile...')
           return await fetchProfile()
         }
       }

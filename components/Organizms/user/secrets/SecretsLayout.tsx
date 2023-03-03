@@ -9,6 +9,7 @@ import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { UserSecret, userSecretArraySchema } from 'lib/backend/api/models/zModels'
 import { AmplifyUser } from 'lib/backend/auth/userUtil'
 import { getUserSecrets } from 'lib/backend/csr/nextApiWrapper'
+import { getGuid, myEncrypt } from 'lib/backend/encryption/useEncryptor'
 import { orderBy } from 'lodash'
 import React from 'react'
 import EditSecret from './EditSecret'
@@ -46,9 +47,18 @@ const SecretsLayout = ({ profile, user }: { profile: UserProfile; user: AmplifyU
     setModel({ ...model, isLoading: false, originalSecrets: result, filteredSecrets: result, filter: '', createNew: false })
   }
 
+  const getRandomSalt = () => {
+    return myEncrypt(getGuid().split('').reverse().join(''), getGuid().split('').reverse().join('')).split('').reverse().join('')
+  }
+
   const loadData = async () => {
     const dbresult = await getUserSecrets(profile.username)
     const secrets = userSecretArraySchema.parse(dbresult.map((item) => JSON.parse(item.data)))
+    secrets.forEach((item) => {
+      if (!item.salt) {
+        item.salt = getRandomSalt()
+      }
+    })
     return orderBy(secrets, ['title'], ['asc'])
   }
   const handleFilterChanged = async (text: string) => {
@@ -73,7 +83,7 @@ const SecretsLayout = ({ profile, user }: { profile: UserProfile; user: AmplifyU
             <EditSecret
               username={user.email}
               encKey={encKey}
-              userSecret={{ title: '', secret: '' }}
+              userSecret={{ title: '', secret: '', salt: getRandomSalt() }}
               onCancel={() => setModel({ ...model, createNew: false })}
               onSaved={handleItemAdded}
               onDeleted={handleItemDeleted}

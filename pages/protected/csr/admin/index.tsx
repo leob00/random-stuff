@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, TextField, Typography } from '@mui/material'
 import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
@@ -8,13 +8,15 @@ import PleaseLogin from 'components/Molecules/PleaseLogin'
 import NonSSRWrapper from 'components/Organizms/NonSSRWrapper'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
-import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
+import { getUserCSR, userHasRole, validateUserCSR } from 'lib/backend/auth/userUtil'
 import { DropdownItem } from 'lib/models/dropdown'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { myEncrypt } from 'lib/backend/encryption/useEncryptor'
 import { EncPutRequest } from 'lib/backend/csr/nextApiWrapper'
 import { get, post } from 'lib/backend/api/fetchFunctions'
+import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
+import ReEnterPasswordDialog from 'components/Organizms/Login/ReEnterPasswordDialog'
 
 const Page = () => {
   const userController = useUserController()
@@ -22,6 +24,7 @@ const Page = () => {
   const [loadingResult, setLoadingResult] = React.useState(true)
   const [userProfile, setUserProfile] = React.useState<UserProfile | null>(userController.authProfile)
   const [jsonResult, setJsonResult] = React.useState('')
+  const [showPasswordPrompt, setShowPasswordPrompt] = React.useState(true)
   const router = useRouter()
 
   React.useEffect(() => {
@@ -47,8 +50,6 @@ const Page = () => {
     fn()
   }, [userController.username])
 
-  const searchTasksUrl = `/api/searchRandomStuff?id=user-goal-tasks[leo_bel@hotmail.com]`
-
   const apiOptions: DropdownItem[] = [
     {
       text: 'status',
@@ -56,11 +57,11 @@ const Page = () => {
     },
     {
       text: 'dogs',
-      value: '/api/dogs',
+      value: '/api/edgeRandomAnimals?id=dogs',
     },
     {
       text: 'cats',
-      value: '/api/cats',
+      value: '/api/edgeRandomAnimals?id=cats',
     },
     {
       text: 'news',
@@ -96,6 +97,11 @@ const Page = () => {
     setLoadingResult(false)
   }
 
+  const handleConfirmLogin = async () => {
+    console.log('login confirmed')
+    setShowPasswordPrompt(false)
+  }
+
   return (
     <>
       <NonSSRWrapper>
@@ -120,6 +126,16 @@ const Page = () => {
                 </Box>
               )}
             </CenterStack>
+
+            <CenteredTitle title='Login Test' />
+            <ReEnterPasswordDialog
+              userProfile={userProfile}
+              show={showPasswordPrompt}
+              title={'authentication request'}
+              text={'please re-enter your password to proceed'}
+              onConfirm={handleConfirmLogin}
+              onCancel={() => {}}
+            />
           </>
         ) : (
           <PleaseLogin />

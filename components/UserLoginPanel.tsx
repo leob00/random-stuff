@@ -22,13 +22,13 @@ const UserLoginPanel = () => {
   const userController = useUserController()
   const signOut = () => {
     const fn = async () => {
-      await Auth.signOut()
+      await Auth.signOut({ global: true })
     }
 
     fn()
   }
 
-  const updateUser = async (payload: HubPayload) => {
+  const handleAuthEvent = async (payload: HubPayload) => {
     switch (payload.event) {
       case 'signOut':
         await userController.setIsLoggedIn(false)
@@ -41,12 +41,10 @@ const UserLoginPanel = () => {
         const user = { email: payload.data?.attributes.email, roles: payload.data?.attributes['custom:roles'] }
         await userController.setIsLoggedIn(true)
         await userController.setUsername(user.email)
-        //console.log('user roles: ', user.roles)
-        if (user.roles) {
+        if (window.location.pathname.includes('login')) {
+          router.push('/ssg/waitandredirect?id=protected/csr/dashboard')
+        } else {
         }
-        //console.log(payload.data?.attributes['custom:roles'])
-        //await userController.setLastProfileFetchDate('')
-        router.push('/ssg/waitandredirect?id=protected/csr/dashboard')
         break
       case 'signUp':
         //console.log('creating profile')
@@ -95,7 +93,7 @@ const UserLoginPanel = () => {
     let fn = async () => {
       Hub.listen('auth', (data) => {
         const { payload } = data
-        updateUser(payload)
+        handleAuthEvent(payload)
       })
     }
 

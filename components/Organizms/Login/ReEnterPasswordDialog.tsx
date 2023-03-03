@@ -1,21 +1,25 @@
 import { Close } from '@mui/icons-material'
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack } from '@mui/material'
+import { Box, Dialog, DialogTitle, Stack, Button, DialogContent, DialogContentText, DialogActions } from '@mui/material'
+import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
+import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
+import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import React from 'react'
-import PassiveButton from '../Buttons/PassiveButton'
-import SecondaryButton from '../Buttons/SecondaryButton'
-import HorizontalDivider from '../Dividers/HorizontalDivider'
+import ReEnterPassword from './ReEnterPassword'
 
-const ConfirmDialog = ({
+const ReEnterPasswordDialog = ({
   show,
   title,
   text,
+  userProfile,
   onConfirm,
   onCancel,
 }: {
   show: boolean
   title: string
   text: string
+  userProfile: UserProfile
   onConfirm: () => void
   onCancel: () => void
 }) => {
@@ -25,6 +29,7 @@ const ConfirmDialog = ({
   const handleOnConfirm = () => {
     onConfirm()
   }
+
   return (
     <Box>
       <Dialog open={show} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
@@ -42,10 +47,13 @@ const ConfirmDialog = ({
           <DialogContentText id='alert-dialog-description' sx={{ pt: 3 }} color='primary' variant='subtitle1'>
             {text}
           </DialogContentText>
+          <Box py={2}>
+            <ReEnterPassword userProfile={userProfile} onSuccess={handleOnConfirm} />
+          </Box>
         </DialogContent>
       </Dialog>
     </Box>
   )
 }
 
-export default ConfirmDialog
+export default ReEnterPasswordDialog
