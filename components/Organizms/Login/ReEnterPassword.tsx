@@ -1,4 +1,4 @@
-import { TextField, Box, Typography } from '@mui/material'
+import { TextField, Box, Typography, Alert } from '@mui/material'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
@@ -42,7 +42,7 @@ const ReEnterPassword = ({ userProfile, onSuccess }: { userProfile: UserProfile;
       {error.length > 0 && (
         <Box py={2}>
           <CenterStack>
-            <Typography>failed to authenticate.</Typography>
+            <Alert severity='error'>authentication failed</Alert>
           </CenterStack>
         </Box>
       )}

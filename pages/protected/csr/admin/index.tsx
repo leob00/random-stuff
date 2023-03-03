@@ -1,4 +1,4 @@
-import { Box, TextField, Typography } from '@mui/material'
+import { Alert, Box, Snackbar, TextField, Typography } from '@mui/material'
 import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
@@ -24,7 +24,8 @@ const Page = () => {
   const [loadingResult, setLoadingResult] = React.useState(true)
   const [userProfile, setUserProfile] = React.useState<UserProfile | null>(userController.authProfile)
   const [jsonResult, setJsonResult] = React.useState('')
-  const [showPasswordPrompt, setShowPasswordPrompt] = React.useState(true)
+  const [showPasswordPrompt, setShowPasswordPrompt] = React.useState(false)
+  const [showLoginSuccess, setShowLoginSuccess] = React.useState(false)
   const router = useRouter()
 
   React.useEffect(() => {
@@ -98,8 +99,11 @@ const Page = () => {
   }
 
   const handleConfirmLogin = async () => {
-    console.log('login confirmed')
     setShowPasswordPrompt(false)
+    setShowLoginSuccess(true)
+  }
+  const handleCloseLoginSuccess = async () => {
+    setShowLoginSuccess(false)
   }
 
   return (
@@ -128,14 +132,27 @@ const Page = () => {
             </CenterStack>
 
             <CenteredTitle title='Login Test' />
+            <CenterStack>
+              <SecondaryButton text='show' onClick={() => setShowPasswordPrompt(true)} />
+            </CenterStack>
             <ReEnterPasswordDialog
               userProfile={userProfile}
               show={showPasswordPrompt}
               title={'authentication request'}
               text={'please re-enter your password to proceed'}
               onConfirm={handleConfirmLogin}
-              onCancel={() => {}}
+              onCancel={() => setShowPasswordPrompt(false)}
             />
+            <Snackbar
+              open={showLoginSuccess}
+              autoHideDuration={3000}
+              onClose={handleCloseLoginSuccess}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            >
+              <Alert onClose={handleCloseLoginSuccess} severity='success' sx={{ width: '100%' }}>
+                Login succeeded. Thank you!
+              </Alert>
+            </Snackbar>
           </>
         ) : (
           <PleaseLogin />
