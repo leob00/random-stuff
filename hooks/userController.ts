@@ -35,7 +35,7 @@ export const useUserController = () => {
           profile.secKey = myEncryptBase64(`${user.id}-${profile.username}`, `${profile.username}${user.id}`)
           putUserProfile(profile)
         }
-        setLastProfileFetchDate(getUtcNow().format())
+        setLastProfileFetchDate(dayjs().format())
         setAuthProfile(profile)
         return profile
       } else {

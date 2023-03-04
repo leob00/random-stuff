@@ -5,6 +5,7 @@ import CenterStack from 'components/Atoms/CenterStack'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import CenteredParagraph from 'components/Atoms/Text/CenteredParagraph'
 import WarmupBox from 'components/Atoms/WarmupBox'
+import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { UserSecret, userSecretArraySchema } from 'lib/backend/api/models/zModels'
 import { AmplifyUser } from 'lib/backend/auth/userUtil'
@@ -23,7 +24,8 @@ interface Model {
   createNew: boolean
 }
 
-const SecretsLayout = ({ profile, user }: { profile: UserProfile; user: AmplifyUser }) => {
+const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
+  const profile = useUserController().authProfile!
   const encKey = `${user.id}-${profile.username}`
   const defaultModel: Model = {
     isLoading: true,
@@ -73,41 +75,39 @@ const SecretsLayout = ({ profile, user }: { profile: UserProfile; user: AmplifyU
     fn()
   }, [])
 
-  return (
+  return model.isLoading ? (
+    <WarmupBox text='loading secrets...' />
+  ) : (
     <ResponsiveContainer>
-      {model.isLoading ? (
-        <WarmupBox text='loading secrets...' />
-      ) : (
-        <>
-          {model.createNew ? (
-            <EditSecret
-              username={user.email}
-              encKey={encKey}
-              userSecret={{ title: '', secret: '', salt: getRandomSalt() }}
-              onCancel={() => setModel({ ...model, createNew: false })}
-              onSaved={handleItemAdded}
-              onDeleted={handleItemDeleted}
-            />
-          ) : (
-            <Box pb={3}>
-              <SecondaryButton text={'add'} size='small' onClick={() => setModel({ ...model, createNew: true })} />
-            </Box>
-          )}
-
-          <Box py={2}>
-            <CenterStack>
-              <SearchWithinList onChanged={handleFilterChanged} defaultValue={model.filter} />
-            </CenterStack>
+      <>
+        {model.createNew ? (
+          <EditSecret
+            username={user.email}
+            encKey={encKey}
+            userSecret={{ title: '', secret: '', salt: getRandomSalt() }}
+            onCancel={() => setModel({ ...model, createNew: false })}
+            onSaved={handleItemAdded}
+            onDeleted={handleItemDeleted}
+          />
+        ) : (
+          <Box pb={3}>
+            <SecondaryButton text={'add'} size='small' onClick={() => setModel({ ...model, createNew: true })} />
           </Box>
+        )}
 
-          {model.filteredSecrets.map((item, i) => (
-            <Box key={item.id}>
-              <SecretLayout username={profile.username} encKey={encKey} userSecret={item} onDeleted={handleItemDeleted} />
-            </Box>
-          ))}
-          {model.filteredSecrets.length === 0 && <CenteredParagraph text={'No secrets found.'} />}
-        </>
-      )}
+        <Box py={2}>
+          <CenterStack>
+            <SearchWithinList onChanged={handleFilterChanged} defaultValue={model.filter} />
+          </CenterStack>
+        </Box>
+
+        {model.filteredSecrets.map((item, i) => (
+          <Box key={item.id}>
+            <SecretLayout username={profile.username} encKey={encKey} userSecret={item} onDeleted={handleItemDeleted} />
+          </Box>
+        ))}
+        {model.filteredSecrets.length === 0 && <CenteredParagraph text={'No secrets found.'} />}
+      </>
     </ResponsiveContainer>
   )
 }

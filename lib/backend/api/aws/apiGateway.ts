@@ -54,11 +54,17 @@ export interface WheelSpinStats {
   even: number
 }
 
+export interface UserPin {
+  pin: string
+  lastEnterDate: string
+}
+
 export interface UserProfile {
   id: string
   username: string
   noteTitles: UserNote[]
   secKey?: string
+  pin?: UserPin
 }
 
 export async function hello(name: string) {
