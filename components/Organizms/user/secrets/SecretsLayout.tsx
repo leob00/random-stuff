@@ -5,8 +5,10 @@ import CenterStack from 'components/Atoms/CenterStack'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import CenteredParagraph from 'components/Atoms/Text/CenteredParagraph'
 import WarmupBox from 'components/Atoms/WarmupBox'
+import EnterPinDialog from 'components/Organizms/Login/EnterPinDialog'
+import dayjs from 'dayjs'
 import { useUserController } from 'hooks/userController'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { UserPin, UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { UserSecret, userSecretArraySchema } from 'lib/backend/api/models/zModels'
 import { AmplifyUser } from 'lib/backend/auth/userUtil'
 import { getUserSecrets } from 'lib/backend/csr/nextApiWrapper'
@@ -22,10 +24,12 @@ interface Model {
   filter: string
   isLoading: boolean
   createNew: boolean
+  needsPin: boolean
 }
 
 const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
-  const profile = useUserController().authProfile!
+  const userController = useUserController()
+  const profile = userController.authProfile!
   const encKey = `${user.id}-${profile.username}`
   const defaultModel: Model = {
     isLoading: true,
@@ -33,8 +37,10 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
     filteredSecrets: [],
     filter: '',
     createNew: false,
+    needsPin: dayjs(profile.pin!.lastEnterDate).add(4, 'hours').isBefore(dayjs()),
   }
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
+
   const applyFilter = (list: UserSecret[], filter: string) => {
     return list.filter((o) => o.title.toLowerCase().includes(filter.toLowerCase()))
   }
@@ -65,6 +71,11 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
   }
   const handleFilterChanged = async (text: string) => {
     setModel({ ...model, filteredSecrets: applyFilter(model.originalSecrets, text), filter: text })
+  }
+  const handlePinValidated = (pin: UserPin) => {
+    const p = { ...userController.authProfile!, pin: pin }
+    userController.setProfile(p)
+    setModel({ ...model, needsPin: false })
   }
 
   React.useEffect(() => {
@@ -100,13 +111,18 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
             <SearchWithinList onChanged={handleFilterChanged} defaultValue={model.filter} />
           </CenterStack>
         </Box>
-
-        {model.filteredSecrets.map((item, i) => (
-          <Box key={item.id}>
-            <SecretLayout username={profile.username} encKey={encKey} userSecret={item} onDeleted={handleItemDeleted} />
-          </Box>
-        ))}
-        {model.filteredSecrets.length === 0 && <CenteredParagraph text={'No secrets found.'} />}
+        {model.needsPin ? (
+          <EnterPinDialog show={model.needsPin} userProfile={profile} onConfirm={handlePinValidated} onCancel={() => {}} />
+        ) : (
+          <>
+            {model.filteredSecrets.map((item) => (
+              <Box key={item.id}>
+                <SecretLayout username={profile.username} encKey={encKey} userSecret={item} onDeleted={handleItemDeleted} />
+              </Box>
+            ))}
+            {model.filteredSecrets.length === 0 && <CenteredParagraph text={'No secrets found.'} />}
+          </>
+        )}
       </>
     </ResponsiveContainer>
   )

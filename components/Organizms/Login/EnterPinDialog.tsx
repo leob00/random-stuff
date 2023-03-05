@@ -1,16 +1,16 @@
 import { Close } from '@mui/icons-material'
 import { Box, Dialog, DialogTitle, Stack, Button, DialogContent, DialogContentText, Typography, Alert } from '@mui/material'
-import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import PinInput from 'components/Atoms/Inputs/PinInput'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
+import { useUserController } from 'hooks/userController'
 import { UserPin, UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
-import { myEncrypt } from 'lib/backend/encryption/useEncryptor'
+import { myDecrypt, myEncrypt } from 'lib/backend/encryption/useEncryptor'
 import React from 'react'
 
-const CreatePinDialog = ({
+const EnterPinDialog = ({
   show,
   userProfile,
   onConfirm,
@@ -22,43 +22,39 @@ const CreatePinDialog = ({
   onCancel: () => void
 }) => {
   const [error, setError] = React.useState('')
-  const [pin, setPin] = React.useState('')
-  const [confirmPin, setConfirmPin] = React.useState('')
   const [profile, setProfile] = React.useState(userProfile)
+  const userController = useUserController()
 
   const handleClose = async () => {
     onCancel()
   }
-  const savePin = async () => {
-    const userPin: UserPin = {
-      pin: myEncrypt(`${profile.id}${profile.username}`, pin),
-      lastEnterDate: dayjs().format(),
-    }
+  const savePin = async (userPin: UserPin) => {
     const p = { ...profile, pin: userPin }
     setProfile(p)
+    userController.setProfile(p)
     await putUserProfile(p)
-    console.log('saved pin')
+    //console.log('saved pin')
     onConfirm(userPin)
   }
 
   const handleSetPin = async (text: string) => {
-    setError('')
+    console.log('text: ', text)
     if (text.length === 4) {
-      setPin(text)
-      console.log('pin: ', text)
-    }
-  }
-  const handleSetConfirmPin = async (text: string) => {
-    if (text.length === 4) {
-      setConfirmPin(text)
-      if (pin === text) {
-        setError('')
-        await savePin()
+      const decryptedPin = myDecrypt(`${userProfile.id}${userProfile.username}`, userProfile.pin!.pin)
+      //console.log(`decrypted user pin: ${decryptedPin} user pin: ${text}`)
+      if (decryptedPin === text) {
+        const updatedPin = { ...userProfile.pin! }
+        updatedPin.lastEnterDate = dayjs().format()
+
+        await savePin(updatedPin)
       } else {
-        setError('pins do not match')
+        setError('incorrect pin')
       }
+    } else {
+      setError('pin is invalid')
     }
   }
+
   return (
     <Box>
       <Dialog open={show} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
@@ -74,36 +70,20 @@ const CreatePinDialog = ({
         </DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-description' sx={{ pt: 3 }} color='primary' variant='subtitle1'>
-            The pin is designed to enhance security.
+            Please enter yourpin so you can be able to retrieve secrets.
           </DialogContentText>
           <Box py={2}>
             <Typography>
-              You will be asked to enter your pin occasionally to make sure your data is protected. Please try not to forget your pin! But if you do, you will
-              need to reset it through an email confirmation... which is a hassle.
+              You will be asked to enter your pin periodically to make sure your secrets are protected. Please try not to forget your pin! But if you do, you
+              will need to reset it through an email confirmation... which is a hassle.
             </Typography>
           </Box>
           <Box py={2}>
-            {pin.length < 4 && (
-              <CenterStack>
-                <Box>
-                  <PinInput onConfirmed={handleSetPin} setFocus />
-                </Box>
-              </CenterStack>
-            )}
-            {pin.length === 4 && (
-              <>
-                <Box py={2}>
-                  <CenterStack>
-                    <Typography>confirm pin</Typography>
-                  </CenterStack>
-                </Box>
-                <CenterStack>
-                  <Box>
-                    <PinInput onConfirmed={handleSetConfirmPin} />
-                  </Box>
-                </CenterStack>
-              </>
-            )}
+            <CenterStack>
+              <Box>
+                <PinInput onConfirmed={handleSetPin} setFocus />
+              </Box>
+            </CenterStack>
             {error.length > 0 && (
               <Box py={2}>
                 <CenterStack>
@@ -118,4 +98,4 @@ const CreatePinDialog = ({
   )
 }
 
-export default CreatePinDialog
+export default EnterPinDialog
