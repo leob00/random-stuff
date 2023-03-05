@@ -71,92 +71,96 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
   }, [])
   return (
     <>
-      <Box>
-        <Box display={'flex'} justifyContent={'space-evenly'} alignItems={'center'}>
-          <TextField
-            onChange={handlePin1Change}
-            inputRef={pin1Ref}
-            onFocus={handleFocus}
-            sx={{ width: 35 }}
-            required
-            type='password'
-            inputProps={{ maxLength: 1 }}
-            variant='outlined'
-            autoComplete='off'
-            size='small'
-            placeholder={''}
-            InputProps={{
-              autoComplete: 'off',
-            }}
-          ></TextField>
-          <Typography variant='h5' px={2}>
-            -
-          </Typography>
-          <TextField
-            onChange={handlePin2Change}
-            inputRef={pin2Ref}
-            onFocus={handleFocus}
-            sx={{ width: 35 }}
-            required
-            type='password'
-            inputProps={{ maxLength: 1 }}
-            variant='outlined'
-            autoComplete='off'
-            size='small'
-            placeholder={''}
-            InputProps={{
-              autoComplete: 'off',
-            }}
-          ></TextField>
-          <Typography variant='h5' px={2}>
-            -
-          </Typography>
-          <TextField
-            onChange={handlePin3Change}
-            inputRef={pin3Ref}
-            onFocus={handleFocus}
-            sx={{ width: 35 }}
-            required
-            type='password'
-            inputProps={{ maxLength: 1 }}
-            variant='outlined'
-            autoComplete='off'
-            size='small'
-            placeholder={''}
-            InputProps={{
-              autoComplete: 'off',
-            }}
-          ></TextField>
-          <Typography variant='h5' px={2}>
-            -
-          </Typography>
-          <TextField
-            onChange={handlePin4Change}
-            inputRef={pin4Ref}
-            onFocus={handleFocus}
-            sx={{ width: 35 }}
-            required
-            type='password'
-            inputProps={{ maxLength: 1 }}
-            variant='outlined'
-            autoComplete='off'
-            size='small'
-            placeholder={''}
-            InputProps={{
-              autoComplete: 'off',
-            }}
-          ></TextField>
-        </Box>
-      </Box>
-      <Box minHeight={10}>
-        {error.length > 0 && (
-          <Box py={2}>
-            <CenterStack>
-              <Alert severity='error'>{error}</Alert>
-            </CenterStack>
+      <form>
+        <Box>
+          <Box display={'flex'} justifyContent={'space-evenly'} alignItems={'center'}>
+            <TextField
+              onChange={handlePin1Change}
+              inputRef={pin1Ref}
+              onFocus={handleFocus}
+              sx={{ width: 35 }}
+              required
+              type='password'
+              inputProps={{ maxLength: 1 }}
+              variant='outlined'
+              autoComplete='off'
+              size='small'
+              placeholder={''}
+              InputProps={{
+                autoComplete: 'off',
+              }}
+            ></TextField>
+
+            <Typography variant='h5' px={2}>
+              -
+            </Typography>
+
+            <TextField
+              onChange={handlePin2Change}
+              inputRef={pin2Ref}
+              onFocus={handleFocus}
+              sx={{ width: 35 }}
+              required
+              type='password'
+              inputProps={{ maxLength: 1 }}
+              variant='outlined'
+              autoComplete='off'
+              size='small'
+              placeholder={''}
+              InputProps={{
+                autoComplete: 'off',
+              }}
+            ></TextField>
+            <Typography variant='h5' px={2}>
+              -
+            </Typography>
+            <TextField
+              onChange={handlePin3Change}
+              inputRef={pin3Ref}
+              onFocus={handleFocus}
+              sx={{ width: 35 }}
+              required
+              type='password'
+              inputProps={{ maxLength: 1 }}
+              variant='outlined'
+              autoComplete='off'
+              size='small'
+              placeholder={''}
+              InputProps={{
+                autoComplete: 'off',
+              }}
+            ></TextField>
+            <Typography variant='h5' px={2}>
+              -
+            </Typography>
+            <TextField
+              onChange={handlePin4Change}
+              inputRef={pin4Ref}
+              onFocus={handleFocus}
+              sx={{ width: 35 }}
+              required
+              type='password'
+              inputProps={{ maxLength: 1 }}
+              variant='outlined'
+              autoComplete='off'
+              size='small'
+              placeholder={''}
+              InputProps={{
+                autoComplete: 'off',
+              }}
+            ></TextField>
           </Box>
-        )}{' '}
-      </Box>
+        </Box>
+        <Box minHeight={10}>
+          {error.length > 0 && (
+            <Box py={2}>
+              <CenterStack>
+                <Alert severity='error'>{error}</Alert>
+              </CenterStack>
+            </Box>
+          )}
+        </Box>
+      </form>
     </>
   )
 }

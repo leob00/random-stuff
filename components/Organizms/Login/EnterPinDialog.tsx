@@ -55,6 +55,10 @@ const EnterPinDialog = ({
     }
   }
 
+  React.useEffect(() => {
+    setError('')
+  }, [])
+
   return (
     <Box>
       <Dialog open={show} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
@@ -70,7 +74,7 @@ const EnterPinDialog = ({
         </DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-description' sx={{ pt: 3 }} color='primary' variant='subtitle1'>
-            Please enter yourpin so you can be able to retrieve secrets.
+            Please enter your pin.
           </DialogContentText>
           <Box py={2}>
             <Typography>

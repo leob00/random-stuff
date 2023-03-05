@@ -105,16 +105,15 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
             <SecondaryButton text={'add'} size='small' onClick={() => setModel({ ...model, createNew: true })} />
           </Box>
         )}
-
-        <Box py={2}>
-          <CenterStack>
-            <SearchWithinList onChanged={handleFilterChanged} defaultValue={model.filter} />
-          </CenterStack>
-        </Box>
         {model.needsPin ? (
           <EnterPinDialog show={model.needsPin} userProfile={profile} onConfirm={handlePinValidated} onCancel={() => {}} />
         ) : (
           <>
+            <Box py={2}>
+              <CenterStack>
+                <SearchWithinList onChanged={handleFilterChanged} defaultValue={model.filter} />
+              </CenterStack>
+            </Box>
             {model.filteredSecrets.map((item) => (
               <Box key={item.id}>
                 <SecretLayout username={profile.username} encKey={encKey} userSecret={item} onDeleted={handleItemDeleted} />
