@@ -10,6 +10,7 @@ const ReEnterPassword = ({ userProfile, onSuccess }: { userProfile: UserProfile;
   const [password, setPassword] = React.useState('')
   const [error, setError] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
+
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError('')
@@ -44,7 +45,7 @@ const ReEnterPassword = ({ userProfile, onSuccess }: { userProfile: UserProfile;
             }}
           ></TextField>
         </CenterStack>
-        <Box height={80}>
+        <Box height={60}>
           {error.length > 0 && (
             <Box py={2}>
               <CenterStack>
@@ -52,15 +53,12 @@ const ReEnterPassword = ({ userProfile, onSuccess }: { userProfile: UserProfile;
               </CenterStack>
             </Box>
           )}
+          {isLoading && <WarmupBox text='signing in...' />}
         </Box>
-        <Box pt={3} height={80}>
-          {isLoading ? (
-            <WarmupBox text='signing in...' />
-          ) : (
-            <CenterStack>
-              <SecondaryButton type='submit' text='submit'></SecondaryButton>
-            </CenterStack>
-          )}
+        <Box pt={3} height={50}>
+          <CenterStack>
+            <SecondaryButton type='submit' text='submit' showEffect={isLoading}></SecondaryButton>
+          </CenterStack>
         </Box>
       </form>
     </Box>
