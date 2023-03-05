@@ -71,7 +71,9 @@ const Page = () => {
             <HorizontalDivider />
             <CenterStack>
               <Typography variant='body1'>
-                <LinkButton onClick={handleChangePinClick}>{`${userProfile.pin ? 'reset pin' : 'create pin'}`}</LinkButton>
+                {!showPasswordEntry && !showPinEntry && (
+                  <LinkButton onClick={handleChangePinClick}>{`${userProfile.pin ? 'reset pin' : 'create pin'}`}</LinkButton>
+                )}
               </Typography>
             </CenterStack>
             <ReEnterPasswordDialog

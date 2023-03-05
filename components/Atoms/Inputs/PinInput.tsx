@@ -59,7 +59,8 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
         validateEntry(e.currentTarget.value)
       if (isValid) {
         const pin = `${pin1Ref.current?.value}${pin2Ref.current?.value}${pin3Ref.current?.value}${pin4Ref.current?.value}`
-        console.log('pin: ', `${pin}`)
+        //console.log('pin: ', `${pin}`)
+
         onConfirmed(pin)
       }
     }
@@ -87,7 +88,7 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
               size='small'
               placeholder={''}
               InputProps={{
-                autoComplete: 'off',
+                autoComplete: 'new-password',
               }}
             ></TextField>
 
@@ -108,7 +109,7 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
               size='small'
               placeholder={''}
               InputProps={{
-                autoComplete: 'off',
+                autoComplete: 'new-password',
               }}
             ></TextField>
             <Typography variant='h5' px={2}>
@@ -127,7 +128,7 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
               size='small'
               placeholder={''}
               InputProps={{
-                autoComplete: 'off',
+                autoComplete: 'new-password',
               }}
             ></TextField>
             <Typography variant='h5' px={2}>
@@ -146,7 +147,7 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
               size='small'
               placeholder={''}
               InputProps={{
-                autoComplete: 'off',
+                autoComplete: 'new-password',
               }}
             ></TextField>
           </Box>

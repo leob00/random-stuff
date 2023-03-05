@@ -3,6 +3,7 @@ import { Box, Dialog, DialogTitle, Stack, Button, DialogContent, DialogContentTe
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import PinInput from 'components/Atoms/Inputs/PinInput'
+import WarmupBox from 'components/Atoms/WarmupBox'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { UserPin, UserProfile } from 'lib/backend/api/aws/apiGateway'
@@ -23,10 +24,11 @@ const CreatePinDialog = ({
 }) => {
   const [error, setError] = React.useState('')
   const [pin, setPin] = React.useState('')
-  const [confirmPin, setConfirmPin] = React.useState('')
   const [profile, setProfile] = React.useState(userProfile)
+  const [isLoading, setIsLoading] = React.useState(false)
 
   const handleClose = async () => {
+    setPin('')
     onCancel()
   }
   const savePin = async () => {
@@ -37,7 +39,10 @@ const CreatePinDialog = ({
     const p = { ...profile, pin: userPin }
     setProfile(p)
     await putUserProfile(p)
-    console.log('saved pin')
+    setPin('')
+    //console.log('saved pin')
+    setIsLoading(false)
+
     onConfirm(userPin)
   }
 
@@ -45,20 +50,21 @@ const CreatePinDialog = ({
     setError('')
     if (text.length === 4) {
       setPin(text)
-      console.log('pin: ', text)
+      //console.log('pin: ', text)
     }
   }
   const handleSetConfirmPin = async (text: string) => {
     if (text.length === 4) {
-      setConfirmPin(text)
       if (pin === text) {
         setError('')
+        setIsLoading(true)
         await savePin()
       } else {
         setError('pins do not match')
       }
     }
   }
+
   return (
     <Box>
       <Dialog open={show} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
@@ -99,18 +105,21 @@ const CreatePinDialog = ({
                 </Box>
                 <CenterStack>
                   <Box>
-                    <PinInput onConfirmed={handleSetConfirmPin} />
+                    <PinInput onConfirmed={handleSetConfirmPin} setFocus />
                   </Box>
                 </CenterStack>
               </>
             )}
-            {error.length > 0 && (
-              <Box py={2}>
-                <CenterStack>
-                  <Alert severity='error'>{error}</Alert>
-                </CenterStack>
-              </Box>
-            )}
+            <Box height={60} pb={2}>
+              {error.length > 0 && (
+                <Box py={2}>
+                  <CenterStack>
+                    <Alert severity='error'>{error}</Alert>
+                  </CenterStack>
+                </Box>
+              )}
+              {isLoading && <WarmupBox text='setting pin...' />}
+            </Box>
           </Box>
         </DialogContent>
       </Dialog>

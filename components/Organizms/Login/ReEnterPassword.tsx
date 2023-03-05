@@ -57,7 +57,7 @@ const ReEnterPassword = ({ userProfile, onSuccess }: { userProfile: UserProfile;
         </Box>
         <Box pt={3} height={50}>
           <CenterStack>
-            <SecondaryButton type='submit' text='submit' showEffect={isLoading}></SecondaryButton>
+            <SecondaryButton type='submit' text='submit' disabled={isLoading}></SecondaryButton>
           </CenterStack>
         </Box>
       </form>
