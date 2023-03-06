@@ -59,9 +59,14 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
         validateEntry(e.currentTarget.value)
       if (isValid) {
         const pin = `${pin1Ref.current?.value}${pin2Ref.current?.value}${pin3Ref.current?.value}${pin4Ref.current?.value}`
-        //console.log('pin: ', `${pin}`)
-
         onConfirmed(pin)
+      } else {
+        setError('invalid pin')
+        pin1Ref.current!.value = ''
+        pin2Ref.current!.value = ''
+        pin3Ref.current!.value = ''
+        pin4Ref.current!.value = ''
+        pin1Ref.current!.focus()
       }
     }
   }

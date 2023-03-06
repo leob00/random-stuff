@@ -4,6 +4,7 @@ import React from 'react'
 import EditSecret from './EditSecret'
 import { Close } from '@mui/icons-material'
 import SecretListItem from './SecretListItem'
+import RequirePin from 'components/Organizms/Login/RequirePin'
 
 export interface SecretViewModel {
   id?: string
@@ -52,14 +53,16 @@ const SecretLayout = ({
                 <Close fontSize='small' />
               </IconButton>
             </Box>
-            <EditSecret
-              username={username}
-              encKey={encKey}
-              userSecret={{ ...model, id: model.id, title: model.title, secret: model.secret }}
-              onCancel={() => setModel({ ...model, editMode: false })}
-              onSaved={handleSaved}
-              onDeleted={handleDeleted}
-            />
+            <RequirePin minuteDuration={2}>
+              <EditSecret
+                username={username}
+                encKey={encKey}
+                userSecret={{ ...model, id: model.id, title: model.title, secret: model.secret }}
+                onCancel={() => setModel({ ...model, editMode: false })}
+                onSaved={handleSaved}
+                onDeleted={handleDeleted}
+              />
+            </RequirePin>
           </Box>
         </Box>
       ) : (

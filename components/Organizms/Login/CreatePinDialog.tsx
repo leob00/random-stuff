@@ -90,11 +90,18 @@ const CreatePinDialog = ({
           </Box>
           <Box py={2}>
             {pin.length < 4 && (
-              <CenterStack>
-                <Box>
-                  <PinInput onConfirmed={handleSetPin} setFocus />
+              <>
+                <Box py={2}>
+                  <CenterStack>
+                    <Typography>pin</Typography>
+                  </CenterStack>
                 </Box>
-              </CenterStack>
+                <CenterStack>
+                  <Box>
+                    <PinInput onConfirmed={handleSetPin} setFocus />
+                  </Box>
+                </CenterStack>
+              </>
             )}
             {pin.length === 4 && (
               <>
