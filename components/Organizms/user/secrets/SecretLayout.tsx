@@ -53,7 +53,7 @@ const SecretLayout = ({
                 <Close fontSize='small' />
               </IconButton>
             </Box>
-            <RequirePin minuteDuration={2}>
+            <RequirePin>
               <EditSecret
                 username={username}
                 encKey={encKey}

@@ -6,6 +6,7 @@ import { SecretViewModel } from './SecretLayout'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 
 const SecretListItem = ({ encKey, viewModel, onEdit }: { encKey: string; viewModel: SecretViewModel; onEdit: () => void }) => {
   const textRef = React.useRef<HTMLInputElement | null>(null)
@@ -91,13 +92,7 @@ const SecretListItem = ({ encKey, viewModel, onEdit }: { encKey: string; viewMod
           </Stack>
         </Stack>
       </Stack>
-      <Box>
-        {model.copied && (
-          <Box py={1} pr={5}>
-            <Typography textAlign={'right'}>copied!</Typography>
-          </Box>
-        )}
-      </Box>
+      <Box>{model.copied && <SnackbarSuccess show={model.copied} text={'copied!'} duration={2000} />}</Box>
     </>
   )
 }
