@@ -22,7 +22,6 @@ const RequirePin = ({ minuteDuration = 20, children }: { minuteDuration?: number
     setShowPinEntry(false)
   }
   React.useEffect(() => {
-    const duration = minuteDuration * 1000 * 60
     if (!intervalRef.current) {
       intervalRef.current = setInterval(() => {
         if (!showPinEntry) {
