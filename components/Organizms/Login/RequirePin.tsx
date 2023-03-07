@@ -50,19 +50,19 @@ const RequirePin = ({
       if (timeOutRef.current) {
         clearTimeout(timeOutRef.current)
       }
-      timeOutRef.current = setTimeout(() => {
-        if (userController.authProfile) {
-          let newCounter = counter + 1
-          if (newCounter >= 50) {
-            newCounter = 0
+      if (!showPinEntry) {
+        timeOutRef.current = setTimeout(() => {
+          if (userController.authProfile) {
+            let newCounter = counter + 1
+            if (newCounter >= 50) {
+              newCounter = 0
+            }
+            const shouldEnterPin = needsPinEntry(userController.authProfile, minuteDuration, newCounter % 2 === 0)
+            setShowPinEntry(shouldEnterPin)
+            setCounter(newCounter)
           }
-          //console.log(`counter: ${newCounter % 2 === 0} ? 'even' : 'odd'`)
-          const shouldEnterPin = needsPinEntry(userController.authProfile, minuteDuration, newCounter % 2 === 0)
-          setShowPinEntry(shouldEnterPin)
-          setCounter(newCounter)
-          //console.log('polling: ', newCounter)
-        }
-      }, 20000)
+        }, 20000)
+      }
     } else {
       if (userController.authProfile) {
         const shouldEnterPin = needsPinEntry(userController.authProfile, minuteDuration)
