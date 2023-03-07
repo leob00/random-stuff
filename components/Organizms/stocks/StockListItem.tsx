@@ -45,10 +45,10 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
     return (
       <Stack direction={'row'} spacing={1} py={1}>
         <Stack>
-          <Typography variant={'body2'}>{`${label}:`}</Typography>
+          <Typography color={DarkBlueTransparent} fontWeight={600} variant={'body2'}>{`${label}:`}</Typography>
         </Stack>
         <Stack>
-          <Typography variant={'body2'} fontWeight={600} color={DarkBlueTransparent}>
+          <Typography variant={'body2'} fontWeight={600} color={DarkBlue}>
             {val}
           </Typography>
         </Stack>
@@ -99,7 +99,7 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
       </Box>
       {showMore && (
         <>
-          <Box py={1} pl={1} sx={{ backgroundColor: 'unset' }}>
+          <Box pl={1} sx={{ backgroundColor: 'unset' }}>
             {stockHistory.length > 0 ? (
               <>
                 <StockChart symbol={item.Symbol} history={stockHistory} />
@@ -113,18 +113,12 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
               </>
             )}
           </Box>
-          <Box pl={3}>
+          <Box pl={3} pb={2}>
             {renderDetail('Sector', item.Sector)}
             {renderDetail('Cap', item.MarketCapShort)}
             {renderDetail('P/E', item.PeRatio)}
+            {renderDetail('Date', dayjs(item.TradeDate).format('MM/DD/YYYY hh:mm a'))}
           </Box>
-          <Stack direction={'row'} spacing={1} py={1} pl={3}>
-            <Stack>
-              <Typography fontSize={12} color={CasinoBlackTransparent}>
-                {dayjs(item.TradeDate).format('MM/DD/YYYY hh:mm a')}
-              </Typography>
-            </Stack>
-          </Stack>
         </>
       )}
     </Box>

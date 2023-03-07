@@ -3,7 +3,7 @@ import { ApexOptions } from 'apexcharts'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import { DarkBlueTransparent, DarkBlue, VeryLightBlueTransparent, CasinoBlueTransparent, CasinoBlue } from 'components/themes/mainTheme'
+import { DarkBlueTransparent, DarkBlue, VeryLightBlueTransparent, CasinoBlueTransparent, CasinoBlue, DarkModeBlue } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { getStockChart } from 'lib/backend/api/qln/qlnApi'
@@ -45,12 +45,12 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
         {
           name: '',
           data: items.y,
-          color: DarkBlueTransparent,
+          color: CasinoBlue,
         },
       ],
       stroke: {
-        width: 2,
-        colors: [DarkBlue],
+        width: 3,
+        colors: [CasinoBlue],
       },
       chart: {
         type: 'line',
@@ -65,7 +65,8 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
       yaxis: {
         labels: {
           style: {
-            colors: [CasinoBlue],
+            colors: [DarkBlue],
+            fontWeight: 700,
           },
           formatter: (val: number) => {
             return `$${val.toFixed(2)}`
