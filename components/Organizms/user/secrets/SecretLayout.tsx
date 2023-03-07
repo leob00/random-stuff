@@ -67,7 +67,6 @@ const SecretLayout = ({
               onSaved={handleSaved}
               onDeleted={handleDeleted}
             />
-            s{' '}
           </Box>
         </Box>
       ) : (
