@@ -37,50 +37,46 @@ const RequirePin = ({
   const [userProfile, setUserProfile] = React.useState(userController.authProfile!)
   const [counter, setCounter] = React.useState(0)
 
+  const startPolling = () => {
+    //console.log('polling started.')
+    if (timeOutRef.current) {
+      clearTimeout(timeOutRef.current)
+    }
+    if (!showPinEntry) {
+      timeOutRef.current = setTimeout(() => {
+        if (userController.authProfile) {
+          let newCounter = counter + 1
+          if (newCounter >= 50) {
+            newCounter = 0
+          }
+          const shouldEnterPin = needsPinEntry(userController.authProfile, minuteDuration, newCounter % 2 === 0)
+          setShowPinEntry(shouldEnterPin)
+          setCounter(newCounter)
+        }
+      }, 20000)
+    } else {
+      console.log('polling paused.')
+    }
+  }
+
   const handlePinValidated = (pin: UserPin) => {
     const p = { ...userController.authProfile! }
     p.pin = pin
     userController.setProfile(p)
     setUserProfile(p)
     setShowPinEntry(false)
+    setCounter(50000)
     onPinValidated?.()
   }
   React.useEffect(() => {
     if (enablePolling) {
-      if (timeOutRef.current) {
-        clearTimeout(timeOutRef.current)
-      }
-      if (!showPinEntry) {
-        timeOutRef.current = setTimeout(() => {
-          if (userController.authProfile) {
-            let newCounter = counter + 1
-            if (newCounter >= 50) {
-              newCounter = 0
-            }
-            const shouldEnterPin = needsPinEntry(userController.authProfile, minuteDuration, newCounter % 2 === 0)
-            setShowPinEntry(shouldEnterPin)
-            setCounter(newCounter)
-          }
-        }, 20000)
-      }
+      startPolling()
     } else {
       if (userController.authProfile) {
         const shouldEnterPin = needsPinEntry(userController.authProfile, minuteDuration)
         setShowPinEntry(shouldEnterPin)
       }
     }
-
-    //if (intervalRef.current === null) {
-    /* intervalRef.current = setInterval(() => {
-        if (userController.authProfile) {
-          const shouldEnterPin = needsPinEntry(userController.authProfile, minuteDuration)
-          setShowPinEntry(shouldEnterPin)
-        }
-      }, 10000)
-    }
-    if (intervalRef.current) {
-      return clearInterval(intervalRef.current)
-    } */
   }, [counter])
 
   return (
