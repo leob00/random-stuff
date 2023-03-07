@@ -4,7 +4,7 @@ import { Auth, Hub } from 'aws-amplify'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
-import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
+import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 import LoggedInUserMenu from './LoggedInUserMenu'
@@ -22,7 +22,9 @@ const UserLoginPanel = () => {
   const userController = useUserController()
   const signOut = () => {
     const fn = async () => {
-      await Auth.signOut({ global: true })
+      try {
+        await Auth.signOut({ global: true })
+      } catch (err) {}
     }
 
     fn()
@@ -31,6 +33,7 @@ const UserLoginPanel = () => {
   const handleAuthEvent = async (payload: HubPayload) => {
     switch (payload.event) {
       case 'signOut':
+        console.log('signing out')
         await userController.setIsLoggedIn(false)
         await userController.setUsername(null)
         await userController.setProfile(null)
@@ -41,9 +44,19 @@ const UserLoginPanel = () => {
         const user = { email: payload.data?.attributes.email, roles: payload.data?.attributes['custom:roles'] }
         await userController.setIsLoggedIn(true)
         await userController.setUsername(user.email)
+        let p = (await getUserProfile(user.email)) as UserProfile | null
+        if (!p) {
+          p = {
+            id: constructUserProfileKey(user.email),
+            noteTitles: [],
+            username: user.email,
+          }
+
+          await putUserProfile(p)
+        }
+        userController.setProfile(p)
         if (window.location.pathname.includes('login')) {
           router.push('/ssg/waitandredirect?id=protected/csr/dashboard')
-        } else {
         }
         break
       case 'signUp':
@@ -54,7 +67,9 @@ const UserLoginPanel = () => {
           noteTitles: [],
           username: newUser.email,
         }
+        userController.setProfile(newProfile)
         await putUserProfile(newProfile)
+
         //console.log('profile created')
         break
 

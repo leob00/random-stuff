@@ -16,11 +16,7 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
   }
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const isValid =
-      validateEntry(pin1Ref.current?.value) &&
-      validateEntry(pin2Ref.current?.value) &&
-      validateEntry(pin3Ref.current?.value) &&
-      validateEntry(e.currentTarget.value)
+    const isValid = validateEntry(pin1Ref.current?.value) && validateEntry(pin2Ref.current?.value) && validateEntry(pin3Ref.current?.value) && validateEntry(e.currentTarget.value)
     if (isValid) {
       const pin = `${pin1Ref.current?.value}${pin2Ref.current?.value}${pin3Ref.current?.value}${pin4Ref.current?.value}`
       onConfirmed(pin)
@@ -83,11 +79,7 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
     if (!valid) {
       pin4Ref.current!.value = ''
     } else {
-      const isValid =
-        validateEntry(pin1Ref.current?.value) &&
-        validateEntry(pin2Ref.current?.value) &&
-        validateEntry(pin3Ref.current?.value) &&
-        validateEntry(e.currentTarget.value)
+      const isValid = validateEntry(pin1Ref.current?.value) && validateEntry(pin2Ref.current?.value) && validateEntry(pin3Ref.current?.value) && validateEntry(e.currentTarget.value)
       if (isValid) {
         const pin = `${pin1Ref.current?.value}${pin2Ref.current?.value}${pin3Ref.current?.value}${pin4Ref.current?.value}`
         onConfirmed(pin)
@@ -110,8 +102,9 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
     <>
       <Box>
         <Box display={'flex'} justifyContent={'space-evenly'} alignItems={'center'}>
-          <form onSubmit={handleFormSubmit}>
+          <form onSubmit={handleFormSubmit} autoComplete='off'>
             <TextField
+              id={'pin1'}
               onChange={handlePin1Change}
               inputRef={pin1Ref}
               onFocus={handleFocus}
@@ -120,21 +113,21 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
               type='password'
               inputProps={{ maxLength: 1 }}
               variant='outlined'
-              autoComplete='off'
+              autoComplete='new-password'
               size='small'
               placeholder={''}
               InputProps={{
                 //type: 'number',
                 autoComplete: 'new-password',
-              }}
-            ></TextField>
+              }}></TextField>
           </form>
 
           <Typography variant='h5' px={2}>
             -
           </Typography>
-          <form onSubmit={handleFormSubmit}>
+          <form onSubmit={handleFormSubmit} autoComplete='off'>
             <TextField
+              id={'pin2'}
               onChange={handlePin2Change}
               inputRef={pin2Ref}
               onFocus={handleFocus}
@@ -143,19 +136,19 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
               type='password'
               inputProps={{ maxLength: 1 }}
               variant='outlined'
-              autoComplete='off'
+              autoComplete='new-password'
               size='small'
               placeholder={''}
               InputProps={{
                 autoComplete: 'new-password',
-              }}
-            ></TextField>
+              }}></TextField>
           </form>
           <Typography variant='h5' px={2}>
             -
           </Typography>
-          <form onSubmit={handleFormSubmit}>
+          <form onSubmit={handleFormSubmit} autoComplete='off'>
             <TextField
+              id={'pin3'}
               onChange={handlePin3Change}
               inputRef={pin3Ref}
               onFocus={handleFocus}
@@ -164,19 +157,19 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
               type='password'
               inputProps={{ maxLength: 1 }}
               variant='outlined'
-              autoComplete='off'
+              autoComplete='new-password'
               size='small'
               placeholder={''}
               InputProps={{
                 autoComplete: 'new-password',
-              }}
-            ></TextField>
+              }}></TextField>
           </form>
           <Typography variant='h5' px={2}>
             -
           </Typography>
-          <form onSubmit={handleFormSubmit}>
+          <form onSubmit={handleFormSubmit} autoComplete='off'>
             <TextField
+              id={'pin4'}
               onChange={handlePin4Change}
               inputRef={pin4Ref}
               onFocus={handleFocus}
@@ -185,13 +178,12 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
               type='password'
               inputProps={{ maxLength: 1 }}
               variant='outlined'
-              autoComplete='off'
+              autoComplete='new-password'
               size='small'
               placeholder={''}
               InputProps={{
                 autoComplete: 'new-password',
-              }}
-            ></TextField>
+              }}></TextField>
           </form>
         </Box>
       </Box>

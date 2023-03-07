@@ -95,7 +95,7 @@ const StockSearchLayout = () => {
       })
       setModel({ ...model, username: username, stockListMap: map, stockList: stockList, isLoading: false })
       const testMap = getMapFromArray<StockQuote>(stockList, 'Symbol')
-      console.log(testMap)
+      //console.log(testMap)
     } else {
       setTimeout(() => {
         setModel({ ...model, username: username, stockListMap: map, stockList: stockList, isLoading: false })
@@ -163,13 +163,7 @@ const StockSearchLayout = () => {
     <>
       <Box py={2}>
         <CenterStack>
-          <SearchAutoComplete
-            placeholder={'search stocks'}
-            onChanged={handleSearched}
-            searchResults={model.autoCompleteResults}
-            debounceWaitMilliseconds={500}
-            onSelected={handleSelectQuote}
-          />
+          <SearchAutoComplete placeholder={'search stocks'} onChanged={handleSearched} searchResults={model.autoCompleteResults} debounceWaitMilliseconds={500} onSelected={handleSelectQuote} />
         </CenterStack>
       </Box>
       <>
@@ -209,8 +203,7 @@ const StockSearchLayout = () => {
                           color='secondary'
                           onClick={() => {
                             setModel({ ...model, editList: false })
-                          }}
-                        >
+                          }}>
                           <Close fontSize='small' />
                         </Button>
                       </Stack>

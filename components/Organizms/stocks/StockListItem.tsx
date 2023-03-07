@@ -1,15 +1,24 @@
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, IconButton, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
 import LinesSkeleton from 'components/Atoms/Skeletons/LinesSkeleton'
-import { CasinoBlackTransparent, CasinoDarkGreenTransparent, CasinoDarkRedTransparent, DarkBlueTransparent } from 'components/themes/mainTheme'
+import {
+  CasinoBlackTransparent,
+  CasinoBlue,
+  CasinoDarkGreenTransparent,
+  CasinoDarkRedTransparent,
+  DarkBlue,
+  DarkBlueTransparent,
+} from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockChart } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import StockChart from 'components/Organizms/stocks/StockChart'
+import { Close } from '@mui/icons-material'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
-const StockListItem = ({ item, expand = false }: { item: StockQuote; expand?: boolean }) => {
+const StockListItem = ({ item, expand = false, showBorder = true }: { item: StockQuote; expand?: boolean; showBorder?: boolean }) => {
   const [showMore, setShowMore] = React.useState(expand)
   const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
 
@@ -53,26 +62,33 @@ const StockListItem = ({ item, expand = false }: { item: StockQuote; expand?: bo
 
   return (
     <Box key={item.Symbol} py={1}>
+      {showMore && <HorizontalDivider />}
       <Box
         pl={2}
         sx={{
           borderRadius: '10px',
-          border: `solid 1px ${getPositiveNegativeColor(item.Change)}`,
+          border: !showMore ? `solid 1px ${getPositiveNegativeColor(item.Change)}` : '',
         }}
       >
-        <LinkButton
-          onClick={() => {
-            handleCompanyClick(!showMore)
-          }}
-        >
-          <Stack direction={'row'} alignItems={'center'} display={'flex'} spacing={1} pt={1}>
-            <Stack>
-              <Typography textAlign={'left'} variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)} sx={{ textDecoration: 'unset' }}>
-                {`${item.Symbol} - ${item.Company}`}
-              </Typography>
-            </Stack>
+        <Stack direction={'row'} alignItems={'center'} display={'flex'} pt={1}>
+          <LinkButton
+            onClick={() => {
+              handleCompanyClick(!showMore)
+            }}
+          >
+            <Typography textAlign={'left'} variant='h6' fontWeight={600} color={DarkBlue} sx={{ textDecoration: 'unset' }}>
+              {`${item.Company}   (${item.Symbol})`}
+            </Typography>
+          </LinkButton>
+          <Stack alignItems={'flex-end'} flexGrow={1}>
+            {showMore && (
+              <IconButton color='default' onClick={() => setShowMore(false)}>
+                <Close fontSize='small' />
+              </IconButton>
+            )}
           </Stack>
-        </LinkButton>
+        </Stack>
+
         <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
           <Stack direction={'row'} spacing={2} pl={1} sx={{ backgroundColor: 'unset' }} pt={1}>
             <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.Price.toFixed(2)}`}</Typography>
