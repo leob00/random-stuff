@@ -42,6 +42,12 @@ const SecretLayout = ({
   const handleDeleted = (id: string) => {
     onDeleted(id)
   }
+  const handleEditClick = () => {
+    setModel({ ...model, editMode: true })
+    setTimeout(() => {
+      setModel({ ...model, editMode: false })
+    }, 20000)
+  }
 
   return (
     <Box>
@@ -53,21 +59,20 @@ const SecretLayout = ({
                 <Close fontSize='small' />
               </IconButton>
             </Box>
-            <RequirePin>
-              <EditSecret
-                username={username}
-                encKey={encKey}
-                userSecret={{ ...model, id: model.id, title: model.title, secret: model.secret }}
-                onCancel={() => setModel({ ...model, editMode: false })}
-                onSaved={handleSaved}
-                onDeleted={handleDeleted}
-              />
-            </RequirePin>
+            <EditSecret
+              username={username}
+              encKey={encKey}
+              userSecret={{ ...model, id: model.id, title: model.title, secret: model.secret }}
+              onCancel={() => setModel({ ...model, editMode: false })}
+              onSaved={handleSaved}
+              onDeleted={handleDeleted}
+            />
+            s{' '}
           </Box>
         </Box>
       ) : (
         <>
-          <SecretListItem encKey={encKey} viewModel={model} onEdit={() => setModel({ ...model, editMode: true })} />
+          <SecretListItem encKey={encKey} viewModel={model} onEdit={handleEditClick} />
         </>
       )}
     </Box>

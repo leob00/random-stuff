@@ -70,7 +70,7 @@ const CreatePinDialog = ({
       <Dialog open={show} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
         <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>
           <Stack display='flex' direction={'row'}>
-            <Stack flexGrow={1}>{'Create pin'}</Stack>
+            <Stack flexGrow={1}>{'Create a pin'}</Stack>
             <Stack>
               <Button onClick={handleClose} sx={{ pl: 8 }}>
                 <Close />

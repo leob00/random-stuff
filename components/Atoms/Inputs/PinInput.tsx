@@ -10,7 +10,28 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
   const [error, setError] = React.useState('')
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    e.target.select()
+    if (e.target.value.length > 0) {
+      e.target.select()
+    }
+  }
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const isValid =
+      validateEntry(pin1Ref.current?.value) &&
+      validateEntry(pin2Ref.current?.value) &&
+      validateEntry(pin3Ref.current?.value) &&
+      validateEntry(e.currentTarget.value)
+    if (isValid) {
+      const pin = `${pin1Ref.current?.value}${pin2Ref.current?.value}${pin3Ref.current?.value}${pin4Ref.current?.value}`
+      onConfirmed(pin)
+    } else {
+      setError('invalid pin')
+      pin1Ref.current!.value = ''
+      pin2Ref.current!.value = ''
+      pin3Ref.current!.value = ''
+      e.currentTarget.defaultValue = ''
+      pin1Ref.current!.focus()
+    }
   }
 
   const validateEntry = (text: any) => {
@@ -26,9 +47,12 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
     const valid = validateEntry(e.currentTarget.value)
     if (!valid) {
       pin1Ref.current!.value = ''
-      pin1Ref.current!.focus()
+      e.currentTarget.focus()
     } else {
-      pin2Ref.current!.focus()
+      if (pin2Ref.current) {
+        pin2Ref.current.value = ''
+        pin2Ref.current.focus()
+      }
     }
   }
   const handlePin2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,15 +60,22 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
     if (!valid) {
       pin2Ref.current!.value = ''
     } else {
-      pin3Ref.current!.focus()
+      if (pin3Ref.current) {
+        pin3Ref.current.value = ''
+        pin3Ref.current.focus()
+      }
     }
   }
   const handlePin3Change = (e: React.ChangeEvent<HTMLInputElement>) => {
     const valid = validateEntry(e.currentTarget.value)
     if (!valid) {
       pin3Ref.current!.value = ''
+      pin3Ref.current!.focus()
     } else {
-      pin4Ref.current!.focus()
+      if (pin4Ref.current) {
+        pin4Ref.current.value = ''
+        pin4Ref.current.focus()
+      }
     }
   }
   const handlePin4Change = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,7 +96,7 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
         pin1Ref.current!.value = ''
         pin2Ref.current!.value = ''
         pin3Ref.current!.value = ''
-        pin4Ref.current!.value = ''
+        e.currentTarget.defaultValue = ''
         pin1Ref.current!.focus()
       }
     }
@@ -77,9 +108,9 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
   }, [])
   return (
     <>
-      <form>
-        <Box>
-          <Box display={'flex'} justifyContent={'space-evenly'} alignItems={'center'}>
+      <Box>
+        <Box display={'flex'} justifyContent={'space-evenly'} alignItems={'center'}>
+          <form onSubmit={handleFormSubmit}>
             <TextField
               onChange={handlePin1Change}
               inputRef={pin1Ref}
@@ -93,14 +124,16 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
               size='small'
               placeholder={''}
               InputProps={{
+                //type: 'number',
                 autoComplete: 'new-password',
               }}
             ></TextField>
+          </form>
 
-            <Typography variant='h5' px={2}>
-              -
-            </Typography>
-
+          <Typography variant='h5' px={2}>
+            -
+          </Typography>
+          <form onSubmit={handleFormSubmit}>
             <TextField
               onChange={handlePin2Change}
               inputRef={pin2Ref}
@@ -117,9 +150,11 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
                 autoComplete: 'new-password',
               }}
             ></TextField>
-            <Typography variant='h5' px={2}>
-              -
-            </Typography>
+          </form>
+          <Typography variant='h5' px={2}>
+            -
+          </Typography>
+          <form onSubmit={handleFormSubmit}>
             <TextField
               onChange={handlePin3Change}
               inputRef={pin3Ref}
@@ -136,9 +171,11 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
                 autoComplete: 'new-password',
               }}
             ></TextField>
-            <Typography variant='h5' px={2}>
-              -
-            </Typography>
+          </form>
+          <Typography variant='h5' px={2}>
+            -
+          </Typography>
+          <form onSubmit={handleFormSubmit}>
             <TextField
               onChange={handlePin4Change}
               inputRef={pin4Ref}
@@ -155,18 +192,18 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
                 autoComplete: 'new-password',
               }}
             ></TextField>
+          </form>
+        </Box>
+      </Box>
+      <Box minHeight={10}>
+        {error.length > 0 && (
+          <Box py={2}>
+            <CenterStack>
+              <Alert severity='error'>{error}</Alert>
+            </CenterStack>
           </Box>
-        </Box>
-        <Box minHeight={10}>
-          {error.length > 0 && (
-            <Box py={2}>
-              <CenterStack>
-                <Alert severity='error'>{error}</Alert>
-              </CenterStack>
-            </Box>
-          )}
-        </Box>
-      </form>
+        )}
+      </Box>
     </>
   )
 }

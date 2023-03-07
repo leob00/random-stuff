@@ -6,6 +6,7 @@ import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import CenteredParagraph from 'components/Atoms/Text/CenteredParagraph'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import EnterPinDialog from 'components/Organizms/Login/EnterPinDialog'
+import RequirePin from 'components/Organizms/Login/RequirePin'
 import dayjs from 'dayjs'
 import { useUserController } from 'hooks/userController'
 import { UserPin, UserProfile } from 'lib/backend/api/aws/apiGateway'
@@ -89,41 +90,43 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
   return model.isLoading ? (
     <WarmupBox text='loading secrets...' />
   ) : (
-    <ResponsiveContainer>
-      <>
-        {model.createNew ? (
-          <EditSecret
-            username={user.email}
-            encKey={encKey}
-            userSecret={{ title: '', secret: '', salt: getRandomSalt() }}
-            onCancel={() => setModel({ ...model, createNew: false })}
-            onSaved={handleItemAdded}
-            onDeleted={handleItemDeleted}
-          />
-        ) : (
-          <Box pb={3}>
-            <SecondaryButton text={'add'} size='small' onClick={() => setModel({ ...model, createNew: true })} />
-          </Box>
-        )}
-        {model.needsPin ? (
-          <EnterPinDialog show={model.needsPin} userProfile={profile} onConfirm={handlePinValidated} onCancel={() => {}} />
-        ) : (
-          <>
-            <Box py={2}>
-              <CenterStack>
-                <SearchWithinList onChanged={handleFilterChanged} defaultValue={model.filter} />
-              </CenterStack>
+    <RequirePin minuteDuration={10} enablePolling={true}>
+      <ResponsiveContainer>
+        <>
+          {model.createNew ? (
+            <EditSecret
+              username={user.email}
+              encKey={encKey}
+              userSecret={{ title: '', secret: '', salt: getRandomSalt() }}
+              onCancel={() => setModel({ ...model, createNew: false })}
+              onSaved={handleItemAdded}
+              onDeleted={handleItemDeleted}
+            />
+          ) : (
+            <Box pb={3}>
+              <SecondaryButton text={'add'} size='small' onClick={() => setModel({ ...model, createNew: true })} />
             </Box>
-            {model.filteredSecrets.map((item) => (
-              <Box key={item.id}>
-                <SecretLayout username={profile.username} encKey={encKey} userSecret={item} onDeleted={handleItemDeleted} />
+          )}
+          {model.needsPin ? (
+            <EnterPinDialog show={model.needsPin} userProfile={profile} onConfirm={handlePinValidated} onCancel={() => {}} />
+          ) : (
+            <>
+              <Box py={2}>
+                <CenterStack>
+                  <SearchWithinList onChanged={handleFilterChanged} defaultValue={model.filter} />
+                </CenterStack>
               </Box>
-            ))}
-            {model.filteredSecrets.length === 0 && <CenteredParagraph text={'No secrets found.'} />}
-          </>
-        )}
-      </>
-    </ResponsiveContainer>
+              {model.filteredSecrets.map((item) => (
+                <Box key={item.id}>
+                  <SecretLayout username={profile.username} encKey={encKey} userSecret={item} onDeleted={handleItemDeleted} />
+                </Box>
+              ))}
+              {model.filteredSecrets.length === 0 && <CenteredParagraph text={'No secrets found.'} />}
+            </>
+          )}
+        </>
+      </ResponsiveContainer>
+    </RequirePin>
   )
 }
 

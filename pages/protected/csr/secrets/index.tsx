@@ -73,7 +73,7 @@ const Page = () => {
                       </CenterStack>
                       <CenterStack>
                         <Box py={2}>
-                          <SecondaryButton text='Create pin' onClick={() => setShowCreatePin(true)} width={200} />
+                          <SecondaryButton text='Create a pin' onClick={() => setShowCreatePin(true)} width={200} />
                         </Box>
                       </CenterStack>
                     </Box>

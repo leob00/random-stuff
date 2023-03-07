@@ -1,29 +1,16 @@
 import { Create } from '@mui/icons-material'
-import { Box, IconButton, InputAdornment, Stack, TextField, Tooltip, Typography } from '@mui/material'
-import { myDecrypt, myEncrypt } from 'lib/backend/encryption/useEncryptor'
+import { Box, IconButton, InputAdornment, Stack, TextField, Typography } from '@mui/material'
+import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
 import React from 'react'
 import { SecretViewModel } from './SecretLayout'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
+import RequirePin, { needsPinEntry } from 'components/Organizms/Login/RequirePin'
 
 const SecretListItem = ({ encKey, viewModel, onEdit }: { encKey: string; viewModel: SecretViewModel; onEdit: () => void }) => {
   const textRef = React.useRef<HTMLInputElement | null>(null)
   const [model, setModel] = React.useReducer((state: SecretViewModel, newState: SecretViewModel) => ({ ...state, ...newState }), { ...viewModel })
 
-  const handleEncryptDecrypt = () => {
-    let val = { ...model }.secret
-    if (model.isEncrypted) {
-      val = myDecrypt(encKey, model.secret)
-    } else {
-      val = myEncrypt(encKey, model.secret)
-    }
-    if (textRef.current) {
-      textRef.current.value = val
-    }
-    setModel({ ...model, isEncrypted: !model.isEncrypted, secret: val, copied: false })
-  }
   const handleDecryptCopy = () => {
     let val = { ...model }.secret
     if (model.isEncrypted) {
@@ -50,7 +37,6 @@ const SecretListItem = ({ encKey, viewModel, onEdit }: { encKey: string; viewMod
         <Stack flexGrow={1}>
           <TextField
             variant='standard'
-            //label='secret'
             autoComplete='off'
             defaultValue={model.secret}
             //onChange={handleChange}
@@ -63,7 +49,7 @@ const SecretListItem = ({ encKey, viewModel, onEdit }: { encKey: string; viewMod
               autoComplete: 'off',
               endAdornment: (
                 <InputAdornment position='end'>
-                  <IconButton edge='end' onClick={handleEncryptDecrypt} size='small' color='secondary'>
+                  {/* <IconButton edge='end' onClick={handleEncryptDecrypt} size='small' color='secondary'>
                     <>
                       {model.isEncrypted ? (
                         <VisibilityIcon fontSize='small' />
@@ -73,11 +59,9 @@ const SecretListItem = ({ encKey, viewModel, onEdit }: { encKey: string; viewMod
                         </>
                       )}
                     </>
-                  </IconButton>
+                  </IconButton> */}
                   <IconButton edge='end' onClick={handleDecryptCopy} size='small' color='secondary'>
-                    <Tooltip title={'decrypt and copy'} placement='top' arrow>
-                      <ContentCopyIcon fontSize='small' />
-                    </Tooltip>
+                    <ContentCopyIcon fontSize='small' />
                   </IconButton>
                 </InputAdornment>
               ),
@@ -92,7 +76,7 @@ const SecretListItem = ({ encKey, viewModel, onEdit }: { encKey: string; viewMod
           </Stack>
         </Stack>
       </Stack>
-      <Box>{model.copied && <SnackbarSuccess show={model.copied} text={'copied!'} duration={2000} />}</Box>
+      <Box>{model.copied && <SnackbarSuccess show={model.copied} text={'copied!'} duration={2500} />}</Box>
     </>
   )
 }

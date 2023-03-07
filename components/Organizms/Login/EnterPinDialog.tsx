@@ -85,9 +85,9 @@ const EnterPinDialog = ({
             <Box>
               <Typography>{`You will be asked to enter your pin periodically to make sure your secrets are protected. Please try not to forget your pin! But if you do, you
               can always reset it in your profle settings. `}</Typography>
-              <NLink href={'/protected/csr/profile'}>
-                <Link color={'secondary'}>reset pin</Link>
-              </NLink>
+              <Link href={'/protected/csr/profile'} color={'secondary'}>
+                reset pin
+              </Link>
               .
             </Box>
           </Box>

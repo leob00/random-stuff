@@ -80,7 +80,7 @@ const EditSecret = ({
             <>
               <FormGroup sx={{ alignItems: 'center' }}>
                 <FormControl sx={{ paddingBottom: 2 }}>
-                  <FormTextBox defaultValue={model.userSecret.title} label={'title'} onChanged={handleTitleChange} />
+                  <FormTextBox defaultValue={model.userSecret.title} label={'name'} maxLength={50} onChanged={handleTitleChange} />
                 </FormControl>
                 <FormControl sx={{ paddingBottom: 2 }}>
                   <FormTextBox defaultValue={model.userSecret.secret} label={'secret'} onChanged={handleSecretChange} />
