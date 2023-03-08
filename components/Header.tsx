@@ -23,7 +23,7 @@ function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
   })
 }
 
-const Header = () => {
+const Header = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
   const [elevationEffect, setElevationEffect] = useState(true)
   const router = useRouter()
 
@@ -65,7 +65,7 @@ const Header = () => {
                         />
                       </Stack>
                       <Stack>
-                        <UserLoginPanel />
+                        <UserLoginPanel onLoggedOff={onLoggedOff} />
                       </Stack>
                     </Stack>
                   </Box>

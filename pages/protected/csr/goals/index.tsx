@@ -1,4 +1,5 @@
 import { Container } from '@mui/system'
+import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
@@ -23,7 +24,7 @@ const Page = () => {
   }, [])
 
   return (
-    <Container>
+    <ResponsiveContainer>
       {isLoggedIn ? (
         <>
           <BackButton
@@ -36,7 +37,7 @@ const Page = () => {
       ) : (
         <PleaseLogin />
       )}
-    </Container>
+    </ResponsiveContainer>
   )
 }
 

@@ -16,7 +16,7 @@ export type HubPayload = {
   message?: string
 }
 
-const UserLoginPanel = () => {
+const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
   //const authStore = useAuthStore()
   const router = useRouter()
   const userController = useUserController()
@@ -40,7 +40,10 @@ const UserLoginPanel = () => {
         await userController.setUsername(null)
         await userController.setProfile(null)
         //await userController.setLastProfileFetchDate('')
-        router.push('/login')
+        if (window.location.pathname.includes('protected') || window.location.pathname.includes('stocks')) {
+          router.push('/login')
+        }
+        //router.push('/login')
         break
       case 'signIn':
         const user = { email: payload.data?.attributes.email, roles: payload.data?.attributes['custom:roles'] }
@@ -58,7 +61,7 @@ const UserLoginPanel = () => {
         }
         userController.setProfile(p)
         if (window.location.pathname.includes('login')) {
-          router.push('/ssg/waitandredirect?id=protected/csr/dashboard')
+          router.push('/protected/csr/dashboard')
         }
         break
       case 'signUp':

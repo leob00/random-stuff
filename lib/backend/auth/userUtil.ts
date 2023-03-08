@@ -43,7 +43,7 @@ export async function getUserCSR() {
     }
     return result
   } catch (error) {
-    console.log('error in getUserCSR: ', error)
+    console.log(error)
     return null
   }
 }

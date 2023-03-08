@@ -7,23 +7,26 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import InternalLink from 'components/Atoms/Buttons/InternalLink'
 import WarmupBox from 'components/Atoms/WarmupBox'
+import { useUserController } from 'hooks/userController'
 
 const HomeMenu = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false)
+  const userController = useUserController()
+
   const [isAdmin, setIsAdmin] = React.useState(false)
   const [isLoading, setIsloading] = React.useState(true)
 
   React.useEffect(() => {
     const fn = async () => {
       const user = await getUserCSR()
-      setIsLoggedIn(user !== null)
       if (user) {
         setIsAdmin(userHasRole('Admin', user.roles))
+      } else {
+        userController.setIsLoggedIn(false)
       }
       setIsloading(false)
     }
     fn()
-  }, [isLoggedIn])
+  }, [userController.isLoggedIn])
 
   return (
     <Box>
@@ -31,8 +34,7 @@ const HomeMenu = () => {
         sx={{
           mt: 4,
           borderTopWidth: 3,
-        }}
-      >
+        }}>
         <Container>
           <CenteredHeader title={'Welcome to random stuff'} description={'You came to the right place to view random things. Enjoy!'} />
 
@@ -56,7 +58,7 @@ const HomeMenu = () => {
             <InternalLink route={'/csr/stocks'} text={'stocks'} />
           </CenterStack>
           {isLoading && <WarmupBox text='loading user menu...' />}
-          {isLoggedIn && (
+          {userController.isLoggedIn && (
             <Box py={2}>
               <HorizontalDivider />
               <CenteredTitle title='My Stuff' />

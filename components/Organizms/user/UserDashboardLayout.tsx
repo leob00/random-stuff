@@ -9,6 +9,8 @@ import ButtonSkeleton from 'components/Atoms/Skeletons/ButtonSkeleton'
 import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import TabButton from 'components/Atoms/Buttons/TabButton'
+import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 
 const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const [isLoading, setIsLoading] = React.useState(true)
@@ -41,48 +43,76 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           </>
         )}
         <>
-          <CenterStack sx={{ py: 2 }}>
+          {/* <Box display={'flex'} justifyContent={'space-evenly'}>
             <LinkButton
               onClick={() => {
                 router.push('/protected/csr/notes')
-              }}
-            >
+              }}>
               {`notes: ${userProfile.noteTitles.length}`}
             </LinkButton>
-          </CenterStack>
-          <HorizontalDivider />
-          <CenterStack sx={{ py: 2 }}>
             <LinkButton
               onClick={() => {
                 router.push('/protected/csr/goals')
-              }}
-            >
+              }}>
               {`goals`}
             </LinkButton>
-          </CenterStack>
-          <HorizontalDivider />
-          <CenterStack sx={{ py: 2 }}>
             <LinkButton
               onClick={() => {
                 router.push('/csr/stocks')
-              }}
-            >
+              }}>
               {`stocks`}
             </LinkButton>
-          </CenterStack>
-          <CenterStack sx={{ py: 2 }}>
             <LinkButton
               onClick={() => {
                 router.push('/protected/csr/secrets')
-              }}
-            >
+              }}>
               {`secrets`}
             </LinkButton>
-          </CenterStack>
-          <HorizontalDivider />
+          </Box> */}
+          <>
+            <CenterStack sx={{ py: 2 }}>
+              <LinkButton
+                onClick={() => {
+                  router.push('/protected/csr/notes')
+                }}
+              >
+                <Typography variant={'h5'}>notes</Typography>
+              </LinkButton>
+            </CenterStack>
+            <HorizontalDivider />
+            <CenterStack sx={{ py: 2 }}>
+              <LinkButton
+                onClick={() => {
+                  router.push('/protected/csr/goals')
+                }}
+              >
+                <Typography variant={'h5'}>goals</Typography>
+              </LinkButton>
+            </CenterStack>
+            <HorizontalDivider />
+            <CenterStack sx={{ py: 2 }}>
+              <LinkButton
+                onClick={() => {
+                  router.push('/csr/stocks')
+                }}
+              >
+                <Typography variant={'h5'}>stocks</Typography>
+              </LinkButton>
+            </CenterStack>
+            <HorizontalDivider />
+
+            <CenterStack sx={{ py: 2 }}>
+              <LinkButton
+                onClick={() => {
+                  router.push('/protected/csr/secrets')
+                }}
+              >
+                <Typography variant={'h5'}>secrets</Typography>
+              </LinkButton>
+            </CenterStack>
+          </>
         </>
       </Box>
-
       {isLoading && <WarmupBox />}
     </>
   )

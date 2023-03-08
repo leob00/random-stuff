@@ -1,4 +1,5 @@
 import { Alert, Box, Snackbar, Typography } from '@mui/material'
+import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredParagraph from 'components/Atoms/Text/CenteredParagraph'
@@ -58,43 +59,45 @@ const Page = () => {
         ) : profile && ticket ? (
           <>
             <>
-              <CenteredTitle title='Secrets Manager' />
-              {showCreatePin ? (
-                <CreatePinDialog show={showCreatePin} userProfile={profile} onConfirm={handlePinSaved} onCancel={() => setShowCreatePin(false)} />
-              ) : (
-                <>
-                  {!profile.pin ? (
-                    <Box>
-                      <CenterStack>
-                        <Typography>
-                          You will be asked to enter your pin occasionally to make sure your secrets are protected. Please try not to forget your pin! But if
-                          you do, you will need to reset it through an email confirmation... which is a hassle....
-                        </Typography>
-                      </CenterStack>
-                      <CenterStack>
-                        <Box py={2}>
-                          <SecondaryButton text='Create a pin' onClick={() => setShowCreatePin(true)} width={200} />
-                        </Box>
-                      </CenterStack>
-                    </Box>
-                  ) : (
-                    <Box py={2}>
-                      <SecretsLayout user={ticket} />
-                    </Box>
-                  )}
+              <ResponsiveContainer>
+                <CenteredTitle title='Secrets Manager' />
+                {showCreatePin ? (
+                  <CreatePinDialog show={showCreatePin} userProfile={profile} onConfirm={handlePinSaved} onCancel={() => setShowCreatePin(false)} />
+                ) : (
+                  <>
+                    {!profile.pin ? (
+                      <Box>
+                        <CenterStack>
+                          <Typography>
+                            You will be asked to enter your pin occasionally to make sure your secrets are protected. Please try not to forget your pin! But if
+                            you do, you will need to reset it through an email confirmation... which is a hassle....
+                          </Typography>
+                        </CenterStack>
+                        <CenterStack>
+                          <Box py={2}>
+                            <SecondaryButton text='Create a pin' onClick={() => setShowCreatePin(true)} width={200} />
+                          </Box>
+                        </CenterStack>
+                      </Box>
+                    ) : (
+                      <Box py={2}>
+                        <SecretsLayout user={ticket} />
+                      </Box>
+                    )}
 
-                  <Snackbar
-                    open={showCreatePinAlert}
-                    autoHideDuration={3000}
-                    onClose={handleCloseCreatePinAlert}
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                  >
-                    <Alert onClose={handleCloseCreatePinAlert} severity='success' sx={{ width: '100%' }}>
-                      Login succeeded. Thank you!
-                    </Alert>
-                  </Snackbar>
-                </>
-              )}
+                    <Snackbar
+                      open={showCreatePinAlert}
+                      autoHideDuration={3000}
+                      onClose={handleCloseCreatePinAlert}
+                      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                    >
+                      <Alert onClose={handleCloseCreatePinAlert} severity='success' sx={{ width: '100%' }}>
+                        Login succeeded. Thank you!
+                      </Alert>
+                    </Snackbar>
+                  </>
+                )}
+              </ResponsiveContainer>
             </>
           </>
         ) : (

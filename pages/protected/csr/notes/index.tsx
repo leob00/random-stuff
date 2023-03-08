@@ -11,6 +11,7 @@ import { useUserController } from 'hooks/userController'
 import NonSSRWrapper from 'components/Organizms/NonSSRWrapper'
 import ButtonSkeleton from 'components/Atoms/Skeletons/ButtonSkeleton'
 import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
+import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 
 const Notes = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true)
@@ -58,7 +59,7 @@ const Notes = () => {
     }
   }, [reload])
   return (
-    <Container>
+    <ResponsiveContainer>
       {/* <TopPageSkeleton /> */}
       {!isLoggedIn ? (
         <PleaseLogin />
@@ -79,7 +80,7 @@ const Notes = () => {
           </NonSSRWrapper>
         </>
       )}
-    </Container>
+    </ResponsiveContainer>
   )
 }
 

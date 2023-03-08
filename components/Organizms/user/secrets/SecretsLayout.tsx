@@ -30,18 +30,20 @@ interface Model {
 
 const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
   const userController = useUserController()
+
   const profile = userController.authProfile
-  if (profile === null) {
-    return
+  let encKey: string | null = null
+  if (profile) {
+    encKey = `${user.id}-${profile.username}`
   }
-  const encKey = `${user.id}-${profile.username}`
+
   const defaultModel: Model = {
     isLoading: true,
     originalSecrets: [],
     filteredSecrets: [],
     filter: '',
     createNew: false,
-    needsPin: dayjs(profile.pin!.lastEnterDate).add(4, 'hours').isBefore(dayjs()),
+    needsPin: profile !== null ? dayjs(profile.pin!.lastEnterDate).add(4, 'hours').isBefore(dayjs()) : false,
   }
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
 
@@ -64,7 +66,7 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
   }
 
   const loadData = async () => {
-    const dbresult = await getUserSecrets(profile.username)
+    const dbresult = await getUserSecrets(profile!.username)
     const secrets = userSecretArraySchema.parse(dbresult.map((item) => JSON.parse(item.data)))
     secrets.forEach((item) => {
       if (!item.salt) {
@@ -94,7 +96,7 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
     <WarmupBox text='loading secrets...' />
   ) : (
     <RequirePin minuteDuration={10} enablePolling={true}>
-      <ResponsiveContainer>
+      {profile && encKey && (
         <>
           {model.createNew ? (
             <EditSecret
@@ -121,14 +123,14 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
               </Box>
               {model.filteredSecrets.map((item) => (
                 <Box key={item.id}>
-                  <SecretLayout username={profile.username} encKey={encKey} userSecret={item} onDeleted={handleItemDeleted} />
+                  {encKey && <SecretLayout username={profile.username} encKey={encKey} userSecret={item} onDeleted={handleItemDeleted} />}
                 </Box>
               ))}
               {model.filteredSecrets.length === 0 && <CenteredParagraph text={'No secrets found.'} />}
             </>
           )}
         </>
-      </ResponsiveContainer>
+      )}
     </RequirePin>
   )
 }

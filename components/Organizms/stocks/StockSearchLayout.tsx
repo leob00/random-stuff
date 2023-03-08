@@ -6,6 +6,7 @@ import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchAutoComplete from 'components/Atoms/Inputs/SearchAutoComplete'
+import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
 import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
 import PaperListSkeleton from 'components/Atoms/Skeletons/PaperListSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
@@ -163,7 +164,13 @@ const StockSearchLayout = () => {
     <>
       <Box py={2}>
         <CenterStack>
-          <SearchAutoComplete placeholder={'search stocks'} onChanged={handleSearched} searchResults={model.autoCompleteResults} debounceWaitMilliseconds={500} onSelected={handleSelectQuote} />
+          <SearchAutoComplete
+            placeholder={'search stocks'}
+            onChanged={handleSearched}
+            searchResults={model.autoCompleteResults}
+            debounceWaitMilliseconds={500}
+            onSelected={handleSelectQuote}
+          />
         </CenterStack>
       </Box>
       <>
@@ -190,7 +197,13 @@ const StockSearchLayout = () => {
                 <>
                   <ResponsiveContainer>
                     <WarmupBox text='loading stock list...' />
-                    <PaperListSkeleton rowCount={5} />
+                    <BoxSkeleton height={100} />
+                    <HorizontalDivider />
+                    <BoxSkeleton height={100} />
+                    <HorizontalDivider />
+                    <BoxSkeleton height={100} />
+                    <HorizontalDivider />
+                    <BoxSkeleton height={100} />
                   </ResponsiveContainer>
                 </>
               ) : (
@@ -203,7 +216,8 @@ const StockSearchLayout = () => {
                           color='secondary'
                           onClick={() => {
                             setModel({ ...model, editList: false })
-                          }}>
+                          }}
+                        >
                           <Close fontSize='small' />
                         </Button>
                       </Stack>
