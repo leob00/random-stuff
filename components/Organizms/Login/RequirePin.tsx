@@ -24,7 +24,17 @@ export const needsPinEntry = (profile: UserProfile, minuteDuration: number, logE
   return isExpired
 }
 
-const RequirePin = ({ minuteDuration = 20, onPinValidated, enablePolling, children }: { minuteDuration?: number; onPinValidated?: () => void; enablePolling?: boolean; children: ReactNode }) => {
+const RequirePin = ({
+  minuteDuration = 20,
+  onPinValidated,
+  enablePolling,
+  children,
+}: {
+  minuteDuration?: number
+  onPinValidated?: () => void
+  enablePolling?: boolean
+  children: ReactNode
+}) => {
   const timeOutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const userController = useUserController()
@@ -34,7 +44,7 @@ const RequirePin = ({ minuteDuration = 20, onPinValidated, enablePolling, childr
   const [counter, setCounter] = React.useState(0)
 
   const startPolling = () => {
-    console.log('polling: ', counter)
+    // console.log('polling: ', counter)
     if (timeOutRef.current) {
       clearTimeout(timeOutRef.current)
     }

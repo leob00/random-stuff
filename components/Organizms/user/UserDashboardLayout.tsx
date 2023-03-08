@@ -64,6 +64,15 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           <CenterStack sx={{ py: 2 }}>
             <LinkButton
               onClick={() => {
+                router.push('/csr/stocks')
+              }}
+            >
+              {`stocks`}
+            </LinkButton>
+          </CenterStack>
+          <CenterStack sx={{ py: 2 }}>
+            <LinkButton
+              onClick={() => {
                 router.push('/protected/csr/secrets')
               }}
             >

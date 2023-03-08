@@ -30,7 +30,10 @@ interface Model {
 
 const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
   const userController = useUserController()
-  const profile = userController.authProfile!
+  const profile = userController.authProfile
+  if (profile === null) {
+    return
+  }
   const encKey = `${user.id}-${profile.username}`
   const defaultModel: Model = {
     isLoading: true,

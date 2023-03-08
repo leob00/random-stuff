@@ -24,7 +24,9 @@ const UserLoginPanel = () => {
     const fn = async () => {
       try {
         await Auth.signOut({ global: true })
-      } catch (err) {}
+      } catch (err) {
+        await Auth.signOut({ global: false })
+      }
     }
 
     fn()

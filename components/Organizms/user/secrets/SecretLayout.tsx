@@ -4,7 +4,6 @@ import React from 'react'
 import EditSecret from './EditSecret'
 import { Close } from '@mui/icons-material'
 import SecretListItem from './SecretListItem'
-import RequirePin from 'components/Organizms/Login/RequirePin'
 
 export interface SecretViewModel {
   id?: string

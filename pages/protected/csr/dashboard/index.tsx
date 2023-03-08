@@ -26,18 +26,16 @@ const Page = () => {
 
   return (
     <>
-      <NonSSRWrapper>
-        {loading ? (
-          <WarmupBox />
-        ) : userProfile ? (
-          <>
-            <CenteredTitle title='Dashboard' />
-            <UserDashboardLayout userProfile={userProfile} />
-          </>
-        ) : (
-          <PleaseLogin />
-        )}
-      </NonSSRWrapper>
+      {loading ? (
+        <WarmupBox />
+      ) : userProfile ? (
+        <>
+          <CenteredTitle title='Dashboard' />
+          <UserDashboardLayout userProfile={userProfile} />
+        </>
+      ) : (
+        <PleaseLogin />
+      )}
     </>
   )
 }
