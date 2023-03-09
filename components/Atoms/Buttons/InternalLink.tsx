@@ -22,7 +22,9 @@ const InternalLink = ({ route, text, large = false }: { route: string; text: str
               setIsLoading(true)
             }}
           >
-            <Typography variant={`${large ? 'h4' : 'h5'}`}>{text}</Typography>
+            <Typography textAlign={'center'} variant={`${large ? 'h4' : 'h5'}`}>
+              {text}
+            </Typography>
           </Link>
         </NLink>
       )}

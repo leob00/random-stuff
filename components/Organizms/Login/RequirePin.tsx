@@ -95,7 +95,7 @@ const RequirePin = ({
     const p = { ...userController.authProfile! }
     p.pin = pin
     userController.setProfile(p)
-    setModel({ ...model, userPr1ofile: p, showPinEntry: false, isPinExpired: false, pollingCounter: 0 })
+    setModel({ ...model, userPr1ofile: p, showPinEntry: false, isPinExpired: false, pollingCounter: 5000 })
     onPinValidated?.()
   }
 
