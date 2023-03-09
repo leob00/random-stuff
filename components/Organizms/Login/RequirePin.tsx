@@ -16,6 +16,7 @@ interface Model {
   showPinEntry: boolean
   userPr1ofile: UserProfile
   pollingCounter: number
+  pinExpirationdate: string
 }
 
 export const needsPinEntry = (profile: UserProfile, minuteDuration: number, logExpiration: boolean = false) => {
@@ -50,6 +51,7 @@ const RequirePin = ({
     showPinEntry: isPinExpired,
     userPr1ofile: userController.authProfile!,
     pollingCounter: 0,
+    pinExpirationdate: dayjs().add(minuteDuration, 'minutes').format(),
   }
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
 

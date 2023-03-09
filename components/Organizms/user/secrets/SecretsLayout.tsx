@@ -25,7 +25,7 @@ interface Model {
   filter: string
   isLoading: boolean
   createNew: boolean
-  needsPin: boolean
+  showPinEntry: boolean
 }
 
 const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
@@ -43,7 +43,7 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
     filteredSecrets: [],
     filter: '',
     createNew: false,
-    needsPin: profile !== null ? dayjs(profile.pin!.lastEnterDate).add(4, 'hours').isBefore(dayjs()) : false,
+    showPinEntry: profile !== null ? dayjs(profile.pin!.lastEnterDate).add(10, 'minutes').isBefore(dayjs()) : false,
   }
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
 
@@ -81,7 +81,7 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
   const handlePinValidated = (pin: UserPin) => {
     const p = { ...userController.authProfile!, pin: pin }
     userController.setProfile(p)
-    setModel({ ...model, needsPin: false })
+    setModel({ ...model, showPinEntry: false })
   }
 
   React.useEffect(() => {
@@ -112,8 +112,8 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
               <SecondaryButton text={'add'} size='small' onClick={() => setModel({ ...model, createNew: true })} />
             </Box>
           )}
-          {model.needsPin ? (
-            <EnterPinDialog show={model.needsPin} userProfile={profile} onConfirm={handlePinValidated} onCancel={() => {}} />
+          {model.showPinEntry ? (
+            <EnterPinDialog show={model.showPinEntry} userProfile={profile} onConfirm={handlePinValidated} onCancel={() => {}} />
           ) : (
             <>
               <Box py={2}>

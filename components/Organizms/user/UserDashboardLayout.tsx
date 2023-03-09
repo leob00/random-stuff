@@ -76,7 +76,7 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                   router.push('/protected/csr/notes')
                 }}
               >
-                <Typography variant={'h5'}>notes</Typography>
+                <Typography variant={'h4'}>notes</Typography>
               </LinkButton>
             </CenterStack>
             <HorizontalDivider />
@@ -86,7 +86,7 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                   router.push('/protected/csr/goals')
                 }}
               >
-                <Typography variant={'h5'}>goals</Typography>
+                <Typography variant={'h4'}>goals</Typography>
               </LinkButton>
             </CenterStack>
             <HorizontalDivider />
@@ -96,7 +96,7 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                   router.push('/csr/stocks')
                 }}
               >
-                <Typography variant={'h5'}>stocks</Typography>
+                <Typography variant={'h4'}>stocks</Typography>
               </LinkButton>
             </CenterStack>
             <HorizontalDivider />
@@ -107,7 +107,7 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                   router.push('/protected/csr/secrets')
                 }}
               >
-                <Typography variant={'h5'}>secrets</Typography>
+                <Typography variant={'h4'}>secrets</Typography>
               </LinkButton>
             </CenterStack>
           </>
