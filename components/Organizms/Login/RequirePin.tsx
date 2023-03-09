@@ -80,7 +80,7 @@ const RequirePin = ({
         }
       }, 20000)
     } else {
-      setModel({ ...model, isPinExpired: true })
+      setModel({ ...model, isPinExpired: true, showPinEntry: isPinExpired })
       console.log('polling paused.')
       if (timeOutRef.current) {
         clearTimeout(timeOutRef.current)
@@ -94,6 +94,7 @@ const RequirePin = ({
     }
     const p = { ...model.userProfile }
     p.pin = pin
+
     userController.setProfile(p)
     setModel({
       ...model,
@@ -107,7 +108,7 @@ const RequirePin = ({
   }
 
   React.useEffect(() => {
-    if (enablePolling) {
+    if (enablePolling && !model.isPinExpired) {
       startPolling()
     } else {
       if (userController.authProfile) {
@@ -115,7 +116,7 @@ const RequirePin = ({
         setModel({ ...model, isPinExpired: shouldEnterPin, showPinEntry: shouldEnterPin })
       }
     }
-  }, [model.pollingCounter])
+  }, [model.pollingCounter, model.isPinExpired])
 
   return (
     <>
