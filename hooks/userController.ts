@@ -52,6 +52,7 @@ export const useUserController = () => {
     isLoggedIn: isLoggedIn,
     username: username,
     authProfile: authProfile,
+
     setIsLoggedIn: async (loggedIn: boolean) => {
       setIsLoggedin(loggedIn)
     },

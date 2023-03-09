@@ -38,52 +38,53 @@ const HomeMenu = () => {
       >
         <Container>
           <CenteredHeader title={'Welcome to random stuff'} description={'You came to the right place to view random things. Enjoy!'} />
-
           <Box>
+            <Box py={2}>
+              <Box>
+                <CenterStack>
+                  <InternalLink route={'/csr/news'} text={'news'} large />
+                </CenterStack>
+                <HorizontalDivider />
+                <CenterStack>
+                  <InternalLink route={'/csr/stocks'} text={'stocks'} large />
+                </CenterStack>
+                <HorizontalDivider />
+                <CenterStack>
+                  <InternalLink route={'/ssg/recipes'} text={'recipes'} large />
+                </CenterStack>
+                <HorizontalDivider />
+                {userController.isLoggedIn && (
+                  <>
+                    <CenterStack>
+                      <InternalLink route={'/protected/csr/goals'} text={'goals'} large />
+                    </CenterStack>
+                    <HorizontalDivider />
+                    <CenterStack>
+                      <InternalLink route={'/protected/csr/notes'} text={'notes'} large />
+                    </CenterStack>
+                    <HorizontalDivider />
+                    <CenterStack>
+                      <InternalLink route={'/protected/csr/dashboard'} text={'dashboard'} large />
+                    </CenterStack>
+                    <HorizontalDivider />
+                    <CenterStack>
+                      <InternalLink route={'/protected/csr/secrets'} text={'secrets'} large />
+                    </CenterStack>
+                    <HorizontalDivider />
+                  </>
+                )}
+              </Box>
+            </Box>
             <CenterStack>
               <InternalLink route={'/ssg/randomdogs'} text={'dogs'} large />
               <InternalLink route={'/ssg/randomcats'} text={'cats'} large />
             </CenterStack>
-            <CenterStack>
-              <InternalLink route={'/ssg/recipes'} text={'recipes'} large />
-            </CenterStack>
+            <HorizontalDivider />
           </Box>
           <CenterStack>
             <InternalLink route={'/ssg/coinflip'} text={'flip a coin'} large />
             <InternalLink route={'/ssg/roulette'} text={'spin wheel'} large />
           </CenterStack>
-          <CenterStack>
-            <InternalLink route={'/csr/news'} text={'news'} large />
-          </CenterStack>
-          <CenterStack>
-            <InternalLink route={'/csr/stocks'} text={'stocks'} large />
-          </CenterStack>
-          {isLoading && <WarmupBox text='loading user menu...' />}
-          {userController.isLoggedIn && (
-            <Box py={2}>
-              <HorizontalDivider />
-              <CenteredTitle title='My Stuff' />
-              <Box>
-                <CenterStack>
-                  <InternalLink route={'/protected/csr/dashboard'} text={'dashboard'} large />
-                  <InternalLink route={'/protected/csr/notes'} text={'notes'} large />
-                  <InternalLink route={'/protected/csr/goals'} text={'goals'} large />
-                </CenterStack>
-              </Box>
-              <Box>
-                <CenterStack>
-                  <InternalLink route={'/protected/csr/secrets'} text={'secrets'} large />
-                </CenterStack>
-              </Box>
-              {isAdmin && (
-                <Box>
-                  <CenterStack>
-                    <InternalLink route={'/protected/csr/admin'} text={'admin'} large />
-                  </CenterStack>
-                </Box>
-              )}
-            </Box>
-          )}
         </Container>
       </Box>
     </Box>

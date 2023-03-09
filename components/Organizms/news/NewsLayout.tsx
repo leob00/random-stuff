@@ -16,6 +16,7 @@ import { orderBy } from 'lodash'
 import React from 'react'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
 import { get } from 'lib/backend/api/fetchFunctions'
+import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 
 const NewsLayout = () => {
   const [isLoading, setIsLoading] = React.useState(true)
@@ -58,7 +59,7 @@ const NewsLayout = () => {
     fn()
   }, [])
   return (
-    <Container>
+    <>
       <NonSSRWrapper>
         <Box py={2}>
           <CenterStack>
@@ -92,8 +93,8 @@ const NewsLayout = () => {
                       </Box>
                     )}
                     {userController.username && (
-                      <Box pr={4}>
-                        <Stack pl={6} py={2} direction='row-reverse'>
+                      <Box>
+                        <Stack py={2}>
                           {!item.Saved ? (
                             <SaveToNotesButton
                               username={userController.username}
@@ -122,7 +123,7 @@ const NewsLayout = () => {
           )}
         </Box>
       </NonSSRWrapper>
-    </Container>
+    </>
   )
 }
 

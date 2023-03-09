@@ -79,12 +79,14 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
         sx={{
           borderRadius: '10px',
           border: !showMore ? `solid 1px ${getPositiveNegativeColor(item.Change)}` : '',
-        }}>
+        }}
+      >
         <Stack direction={'row'} alignItems={'center'} display={'flex'} pt={1}>
           <LinkButton
             onClick={(e) => {
               handleCompanyClick(e, !showMore)
-            }}>
+            }}
+          >
             <Typography ref={scrollTarget} textAlign={'left'} variant='h6' fontWeight={600} color={DarkBlue} sx={{ textDecoration: 'unset' }}>
               {`${item.Company}   (${item.Symbol})`}
             </Typography>
@@ -107,7 +109,7 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
       </Box>
       {showMore && (
         <>
-          <Box pl={1} sx={{ backgroundColor: 'unset' }} minHeight={400}>
+          <Box pl={1} sx={{ backgroundColor: 'unset' }} minHeight={108}>
             {stockHistory.length > 0 ? (
               <>
                 <StockChart symbol={item.Symbol} history={stockHistory} />
