@@ -5,9 +5,9 @@ import { Option } from 'lib/AutoCompleteOptions'
 import router from 'next/router'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import RemoteImage from './Atoms/RemoteImage'
-import InternalLinkButton from './Atoms/Buttons/InternalLinkButton'
 import CenteredParagraph from './Atoms/Text/CenteredParagraph'
 import CenterStack from './Atoms/CenterStack'
+import InternalLink from './Atoms/Buttons/InternalLink'
 
 const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Option[]; baseUrl: string; featured: Recipe[] }) => {
   const handleSelect = (
@@ -38,7 +38,7 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Opti
           featured.map((item, ix) => (
             <Box sx={{ paddingBottom: 2 }} key={item.title}>
               <CenterStack>
-                <InternalLinkButton text={item.title} route={`${baseUrl}${item.sys.id}`} />
+                <InternalLink text={item.title} route={`${baseUrl}${item.sys.id}`} large />
               </CenterStack>
               {item.summary && item.summary.length > 0 && <CenteredParagraph text={item.summary} />}
               <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>

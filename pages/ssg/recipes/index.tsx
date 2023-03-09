@@ -11,6 +11,7 @@ import RecipesLayout from 'components/RecipesLayout'
 import { Option } from 'lib/AutoCompleteOptions'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
+import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 
 const cmsRefreshIntervalSeconds = 3600
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
@@ -59,13 +60,12 @@ const CachedRecipes = ({ fallbackData, featured }: { fallbackData: RecipeCollect
 
 const Recipes: NextPage<{ model: RecipeCollection; fallback: any; featured: Recipe[] }> = ({ model, fallback, featured }) => {
   return (
-    <>
+    <ResponsiveContainer>
       <BackToHomeButton />
-      <CenteredTitle title='Recipes' />
       <SWRConfig value={{ fallback }}>
         <CachedRecipes fallbackData={model} featured={featured} />
       </SWRConfig>
-    </>
+    </ResponsiveContainer>
   )
 }
 

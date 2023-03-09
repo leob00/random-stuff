@@ -4,7 +4,7 @@ import Link from '@mui/material/Link'
 import { Stack, Typography } from '@mui/material'
 import RollingLinearProgress from '../Loaders/RollingLinearProgress'
 
-const InternalLink = ({ route, text }: { route: string; text: string }) => {
+const InternalLink = ({ route, text, large = false }: { route: string; text: string; large?: boolean }) => {
   const [isLoading, setIsLoading] = React.useState(false)
   return (
     <>
@@ -22,7 +22,7 @@ const InternalLink = ({ route, text }: { route: string; text: string }) => {
               setIsLoading(true)
             }}
           >
-            <Typography variant='h5'>{text}</Typography>
+            <Typography variant={`${large ? 'h4' : 'h5'}`}>{text}</Typography>
           </Link>
         </NLink>
       )}
