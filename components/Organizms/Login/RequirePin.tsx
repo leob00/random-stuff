@@ -14,7 +14,7 @@ dayjs.extend(relativeTime)
 interface Model {
   isPinExpired: boolean
   showPinEntry: boolean
-  userPr1ofile: UserProfile
+  userProfile: UserProfile
   pollingCounter: number
   pinExpirationdate: string
 }
@@ -49,7 +49,7 @@ const RequirePin = ({
   const defaultModel: Model = {
     isPinExpired: isPinExpired,
     showPinEntry: isPinExpired,
-    userPr1ofile: userController.authProfile!,
+    userProfile: userController.authProfile!,
     pollingCounter: 0,
     pinExpirationdate: dayjs().add(minuteDuration, 'minutes').format(),
   }
@@ -92,10 +92,17 @@ const RequirePin = ({
     if (timeOutRef.current) {
       clearTimeout(timeOutRef.current)
     }
-    const p = { ...userController.authProfile! }
+    const p = { ...model.userProfile }
     p.pin = pin
     userController.setProfile(p)
-    setModel({ ...model, userPr1ofile: p, showPinEntry: false, isPinExpired: false, pollingCounter: 5000 })
+    setModel({
+      ...model,
+      userProfile: p,
+      showPinEntry: false,
+      isPinExpired: false,
+      pollingCounter: 5000,
+      pinExpirationdate: dayjs().add(minuteDuration, 'minutes').format(),
+    })
     onPinValidated?.()
   }
 
@@ -116,7 +123,7 @@ const RequirePin = ({
         <>
           <EnterPinDialog
             show={model.showPinEntry}
-            userProfile={model.userPr1ofile}
+            userProfile={model.userProfile}
             onConfirm={handlePinValidated}
             onCancel={() => setModel({ ...model, showPinEntry: false })}
           />
