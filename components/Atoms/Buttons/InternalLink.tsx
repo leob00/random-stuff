@@ -9,7 +9,7 @@ const InternalLink = ({ route, text, large = false }: { route: string; text: str
   return (
     <>
       {isLoading ? (
-        <RollingLinearProgress width={48} height={32} />
+        <RollingLinearProgress width={48} height={48} />
       ) : (
         <NLink href={route} passHref legacyBehavior>
           <Link

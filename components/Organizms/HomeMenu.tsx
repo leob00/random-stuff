@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import React from 'react'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
@@ -34,28 +34,29 @@ const HomeMenu = () => {
         sx={{
           mt: 4,
           borderTopWidth: 3,
-        }}>
+        }}
+      >
         <Container>
           <CenteredHeader title={'Welcome to random stuff'} description={'You came to the right place to view random things. Enjoy!'} />
 
           <Box>
             <CenterStack>
-              <InternalLink route={'/ssg/randomdogs'} text={'dogs'} />
-              <InternalLink route={'/ssg/randomcats'} text={'cats'} />
+              <InternalLink route={'/ssg/randomdogs'} text={'dogs'} large />
+              <InternalLink route={'/ssg/randomcats'} text={'cats'} large />
             </CenterStack>
             <CenterStack>
-              <InternalLink route={'/ssg/recipes'} text={'recipes'} />
+              <InternalLink route={'/ssg/recipes'} text={'recipes'} large />
             </CenterStack>
           </Box>
           <CenterStack>
-            <InternalLink route={'/ssg/coinflip'} text={'flip coin'} />
-            <InternalLink route={'/ssg/roulette'} text={'spin wheel'} />
+            <InternalLink route={'/ssg/coinflip'} text={'flip a coin'} large />
+            <InternalLink route={'/ssg/roulette'} text={'spin wheel'} large />
           </CenterStack>
           <CenterStack>
-            <InternalLink route={'/csr/news'} text={'news'} />
+            <InternalLink route={'/csr/news'} text={'news'} large />
           </CenterStack>
           <CenterStack>
-            <InternalLink route={'/csr/stocks'} text={'stocks'} />
+            <InternalLink route={'/csr/stocks'} text={'stocks'} large />
           </CenterStack>
           {isLoading && <WarmupBox text='loading user menu...' />}
           {userController.isLoggedIn && (
@@ -64,20 +65,20 @@ const HomeMenu = () => {
               <CenteredTitle title='My Stuff' />
               <Box>
                 <CenterStack>
-                  <InternalLink route={'/protected/csr/dashboard'} text={'dashboard'} />
-                  <InternalLink route={'/protected/csr/notes'} text={'notes'} />
-                  <InternalLink route={'/protected/csr/goals'} text={'goals'} />
+                  <InternalLink route={'/protected/csr/dashboard'} text={'dashboard'} large />
+                  <InternalLink route={'/protected/csr/notes'} text={'notes'} large />
+                  <InternalLink route={'/protected/csr/goals'} text={'goals'} large />
                 </CenterStack>
               </Box>
               <Box>
                 <CenterStack>
-                  <InternalLink route={'/protected/csr/secrets'} text={'secrets'} />
+                  <InternalLink route={'/protected/csr/secrets'} text={'secrets'} large />
                 </CenterStack>
               </Box>
               {isAdmin && (
                 <Box>
                   <CenterStack>
-                    <InternalLink route={'/protected/csr/admin'} text={'admin'} />
+                    <InternalLink route={'/protected/csr/admin'} text={'admin'} large />
                   </CenterStack>
                 </Box>
               )}
