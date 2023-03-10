@@ -45,7 +45,7 @@ const ReEnterPassword = ({ userProfile, onSuccess }: { userProfile: UserProfile;
             }}
           ></TextField>
         </CenterStack>
-        <Box height={60}>
+        <Box height={74}>
           {error.length > 0 && (
             <Box py={2}>
               <CenterStack>
@@ -53,7 +53,11 @@ const ReEnterPassword = ({ userProfile, onSuccess }: { userProfile: UserProfile;
               </CenterStack>
             </Box>
           )}
-          {isLoading && <WarmupBox text='signing in...' />}
+          {isLoading && (
+            <Box py={2}>
+              <WarmupBox text='signing in...' />
+            </Box>
+          )}
         </Box>
         <Box pt={3} height={50}>
           <CenterStack>

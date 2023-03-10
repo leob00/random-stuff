@@ -71,9 +71,6 @@ const Notes = () => {
               <UserNotesLayout data={model} />
             ) : (
               <>
-                <CenterStack sx={{ pt: 6 }}>
-                  <TextSkeleton />
-                </CenterStack>
                 <WarmupBox />
               </>
             )}

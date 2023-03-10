@@ -59,11 +59,12 @@ const CachedRecipes = ({ fallbackData, featured }: { fallbackData: RecipeCollect
 }
 
 const Recipes: NextPage<{ model: RecipeCollection; fallback: any; featured: Recipe[] }> = ({ model, fallback, featured }) => {
+  const shuffled = shuffle(featured)
   return (
     <ResponsiveContainer>
       <BackToHomeButton />
       <SWRConfig value={{ fallback }}>
-        <CachedRecipes fallbackData={model} featured={featured} />
+        <CachedRecipes fallbackData={model} featured={shuffled} />
       </SWRConfig>
     </ResponsiveContainer>
   )

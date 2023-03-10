@@ -2,6 +2,7 @@ import { Alert, Snackbar, Typography } from '@mui/material'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import CenterStack from 'components/Atoms/CenterStack'
+import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CreatePinDialog from 'components/Organizms/Login/CreatePinDialog'
 import ReEnterPasswordDialog from 'components/Organizms/Login/ReEnterPasswordDialog'
@@ -14,6 +15,7 @@ const ProfileLayout = ({ profile }: { profile: UserProfile }) => {
   const [showPinEntry, setShowPinEntry] = React.useState(false)
   const [showPinChangedMessage, setShowPinChangedMessage] = React.useState(false)
   const [userProfile, setUserProfile] = React.useState<UserProfile>(profile)
+
   const userController = useUserController()
   const handleChangePinClick = () => {
     setShowPasswordEntry(true)
@@ -32,26 +34,21 @@ const ProfileLayout = ({ profile }: { profile: UserProfile }) => {
     p.pin = pin
     userController.setProfile(p)
     setUserProfile(p)
-    await handleCancelChangePin()
     setShowPinChangedMessage(true)
+    setShowPinEntry(false)
   }
   return (
     <>
-      <Snackbar
-        open={showPinChangedMessage}
-        autoHideDuration={3000}
-        onClose={() => setShowPinChangedMessage(false)}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert onClose={() => setShowPinChangedMessage(false)} severity='success' sx={{ width: '100%' }}>
-          Your pin has been updated!
-        </Alert>
-      </Snackbar>
+      <SnackbarSuccess show={showPinChangedMessage} text={'Your pin has been updated!'} />
       <CenteredHeader title={`Profile`} />
       <HorizontalDivider />
       <CenterStack>
         <Typography variant='body1'>
-          {!showPasswordEntry && !showPinEntry && <LinkButton onClick={handleChangePinClick}>{`${userProfile.pin ? 'reset pin' : 'create a pin'}`}</LinkButton>}
+          {!showPasswordEntry && !showPinEntry && (
+            <LinkButton onClick={handleChangePinClick}>
+              <Typography>{`${userProfile.pin ? 'reset pin' : 'create a pin'}`}</Typography>
+            </LinkButton>
+          )}
         </Typography>
       </CenterStack>
       <ReEnterPasswordDialog
