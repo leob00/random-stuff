@@ -95,10 +95,10 @@ const themeOptions: ThemeOptions = {
     h4: { fontSize: '1.75rem', fontWeight: 500 },
     h5: { fontSize: '1.375rem', fontWeight: 500 },
     h6: { fontSize: '1.2rem', fontWeight: 500 },
-    subtitle1: { fontSize: '1.0rem', fontWeight: 600 },
-    subtitle2: { fontSize: '0.875rem', fontWeight: 500 },
+    subtitle1: { fontSize: '1.275rem', fontWeight: 300 },
+    subtitle2: { fontSize: '0.975rem', fontWeight: 200 },
     body1: { fontSize: '1.4rem', fontWeight: 100, color: Default }, // normal body text
-    body2: { fontSize: '1.2rem', fontWeight: 100, color: Default }, // less important text
+    body2: { fontSize: '1.08rem', fontWeight: 100, color: Default }, // less important text
     caption: { fontSize: '0.85rem', fontWeight: 400 },
     overline: { fontSize: '0.625rem', fontWeight: 400 },
     button: { fontSize: '1.0rem', fontWeight: 300, textTransform: 'none' },
