@@ -56,26 +56,19 @@ const RequirePin = ({ minuteDuration = 20, enablePolling, children }: { minuteDu
     } else {
       newCounter += 1
     }
-    if (!newModel.isPinExpired) {
-      timeOutRef.current = setTimeout(() => {
-        console.log('polling: ', newCounter)
-        const shouldEnterPin = needsPinEntry(newModel.userProfile, minuteDuration, newCounter === 0 || Math.abs(newCounter % 2) == 1)
-        newModel.isPinExpired = shouldEnterPin
-        newModel.showPinEntry = shouldEnterPin
-        if (!shouldEnterPin) {
-          newModel.pollingCounter = newCounter
-        } else {
-          console.log('pin expired')
-        }
-        setModel(newModel)
-      }, 20000)
-    } else {
-      setModel({ ...model, isPinExpired: true })
-      console.log('polling paused.')
-      if (timeOutRef.current) {
-        clearTimeout(timeOutRef.current)
+    //console.log(`polling: isPinExpired, showPinEntry ${newModel.isPinExpired}, ${newModel.showPinEntry}`)
+    timeOutRef.current = setTimeout(() => {
+      console.log('polling: ', newCounter)
+      const shouldEnterPin = needsPinEntry(newModel.userProfile, minuteDuration, newCounter === 0 || Math.abs(newCounter % 2) == 1)
+      newModel.isPinExpired = shouldEnterPin
+      newModel.showPinEntry = shouldEnterPin
+      if (!shouldEnterPin) {
+        newModel.pollingCounter = newCounter
+      } else {
+        console.log('pin expired')
       }
-    }
+      setModel(newModel)
+    }, 20000)
   }
 
   const handleClosePinEntry = () => {
@@ -103,17 +96,15 @@ const RequirePin = ({ minuteDuration = 20, enablePolling, children }: { minuteDu
   }
 
   React.useEffect(() => {
-    //console.log('useEffect called')
     const m = { ...model }
+
     if (enablePolling) {
       if (!m.isPinExpired && !m.showPinEntry) {
         startPolling()
       }
     } else {
-      if (userController.authProfile) {
-        const shouldEnterPin = needsPinEntry(userController.authProfile, minuteDuration)
-        setModel({ ...model, isPinExpired: shouldEnterPin, showPinEntry: shouldEnterPin })
-      }
+      const shouldEnterPin = needsPinEntry(m.userProfile, minuteDuration)
+      setModel({ ...model, isPinExpired: shouldEnterPin, showPinEntry: shouldEnterPin })
     }
   }, [model.pollingCounter])
 
