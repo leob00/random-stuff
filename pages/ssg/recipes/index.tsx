@@ -12,6 +12,7 @@ import { Option } from 'lib/AutoCompleteOptions'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import { shuffleArray } from 'lib/util/collectionsNative'
 
 const cmsRefreshIntervalSeconds = 3600
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
@@ -51,20 +52,21 @@ const CachedRecipes = ({ fallbackData, featured }: { fallbackData: RecipeCollect
   if (!data) {
     return <Container>loading...</Container>
   }
-  let model = data as RecipeCollection
+
   //let ordered = orderBy(model.items, ['title'], ['asc'])
-  let options = model.items.map((item) => ({ id: item.sys.id, label: item.title })) as Option[]
+  let options = data.items.map((item) => ({ id: item.sys.id, label: item.title })) as Option[]
   options = orderBy(options, ['label'], ['asc'])
   //const shuffled = shuffle(featured)
   return <RecipesLayout autoComplete={options} baseUrl='/ssg/recipes/' featured={featured} />
 }
 
-const Recipes: NextPage<{ model: RecipeCollection; fallback: any; featured: Recipe[] }> = ({ model, fallback, featured }) => {
+const Recipes: NextPage<{ model: RecipeCollection; fallback: RecipeCollection; featured: Recipe[] }> = ({ model, fallback, featured }) => {
+  const shuffled = shuffleArray(featured)
   return (
     <ResponsiveContainer>
       <BackToHomeButton />
       <SWRConfig value={{ fallback }}>
-        <CachedRecipes fallbackData={model} featured={featured} />
+        <CachedRecipes fallbackData={model} featured={shuffled} />
       </SWRConfig>
     </ResponsiveContainer>
   )
