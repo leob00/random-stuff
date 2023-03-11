@@ -11,26 +11,47 @@ import RecipesLayout from 'components/RecipesLayout'
 import { Option } from 'lib/AutoCompleteOptions'
 import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
-import { ModelAttributeAuthAllow } from '@aws-amplify/datastore'
+import { getRandomStuff, putRandomStuff, SiteStats } from 'lib/backend/api/aws/apiGateway'
+import dayjs from 'dayjs'
+import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(relativeTime)
 
 const cmsRefreshIntervalSeconds = 3600
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
 
 export interface RecipesLayoutModel {
-  allRecipes: Recipe[]
   autoComplete: Option[]
   featured: Recipe[]
+}
+
+const getSiteStats = async () => {
+  const result = (await getRecord('site-stats')) as unknown as SiteStats
+  return result
 }
 
 const fetcherFn = async (url: string) => {
   let resp = await axios.get(url)
   const result = resp.data as RecipeCollection
   const allRecipes = result.items
-  const featured = take(shuffle(allRecipes), 10)
+
+  let newFeatured = take(shuffle(allRecipes), 10)
+  const stats = await getSiteStats()
+  const expirationDate = dayjs(stats.recipes.lastRefreshDate).add(1, 'hour')
+  const needsRefresh = expirationDate.isBefore(dayjs())
+  if (needsRefresh) {
+    stats.recipes.featured = newFeatured
+    stats.recipes.lastRefreshDate = dayjs().format()
+    await putRecord('site-states', 'site-stats', stats)
+    console.log('fetcherFn:: updated featured recipes.')
+  } else {
+    console.log(`fetcherFn: no update to featured recipes needed. expires ${dayjs().to(expirationDate)} `)
+  }
+  const featured = needsRefresh ? newFeatured : stats.recipes.featured
+
   let options = allRecipes.map((item) => ({ id: item.sys.id, label: item.title })) as Option[]
   options = orderBy(options, ['label'], ['asc'])
   const model: RecipesLayoutModel = {
-    allRecipes: allRecipes,
     featured: featured,
     autoComplete: options,
   }
@@ -40,11 +61,22 @@ const fetcherFn = async (url: string) => {
 export const getStaticProps: GetStaticProps = async (context) => {
   let result = await getAllRecipes()
   const allRecipes = result.items
-  const featured = take(shuffle(allRecipes), 10)
+  const newFeatured = take(shuffle(allRecipes), 10)
   let options = allRecipes.map((item) => ({ id: item.sys.id, label: item.title })) as Option[]
   options = orderBy(options, ['label'], ['asc'])
+  const stats = (await getRandomStuff('site-stats')) as SiteStats
+  const needsRefresh = dayjs(stats.recipes.lastRefreshDate).add(1, 'hour').isBefore(dayjs())
+  if (needsRefresh) {
+    stats.recipes.featured = newFeatured
+    stats.recipes.lastRefreshDate = dayjs().format()
+    await putRandomStuff('site-states', 'site-stats', stats)
+    console.log('build:: updated featured recipes')
+  } else {
+    console.log('build:: no update to featured recipes needed')
+  }
+  const featured = needsRefresh ? newFeatured : stats.recipes.featured
+
   const model: RecipesLayoutModel = {
-    allRecipes: allRecipes,
     featured: featured,
     autoComplete: options,
   }
@@ -65,7 +97,7 @@ const CachedRecipes = ({ fallbackData }: { fallbackData: RecipesLayoutModel }) =
     fallbackData: fallbackData,
     refreshInterval: cmsRefreshIntervalMs,
     revalidateOnFocus: false,
-    revalidateOnReconnect: false,
+    revalidateOnReconnect: true,
   })
   if (error) {
     return <RecipesLayout autoComplete={fallbackData.autoComplete} baseUrl='/ssg/recipes/' featured={fallbackData.featured} />
@@ -77,10 +109,15 @@ const CachedRecipes = ({ fallbackData }: { fallbackData: RecipesLayoutModel }) =
   //let ordered = orderBy(model.items, ['title'], ['asc'])
   //const shuffled = shuffle(featured)
   //const shuffled = shuffleArray(featured)
-  return <RecipesLayout autoComplete={data.autoComplete} baseUrl='/ssg/recipes/' featured={fallbackData.featured} />
+  return <RecipesLayout autoComplete={data.autoComplete} baseUrl='/ssg/recipes/' featured={data.featured} />
 }
 
 const Recipes: NextPage<{ model: RecipesLayoutModel; fallback: RecipesLayoutModel }> = ({ model, fallback }) => {
+  /* console.log(model)
+  console.log('fallback: ', fallback) */
+
+  //const needRefresh = await needsRefresh()
+
   return (
     <ResponsiveContainer>
       <BackToHomeButton />

@@ -3,7 +3,7 @@ import { UserNote } from 'lib/models/randomStuffModels'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
-import { LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
+import { DynamoKeys, LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
 import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
 import { get, post } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
@@ -286,4 +286,34 @@ export async function deleteRecord(id: string) {
     key: id,
   }
   await post(`/api/deleteRandomStuff`, req)
+}
+
+export async function getRecord(id: DynamoKeys) {
+  let result: LambdaBody | null = null
+
+  try {
+    const body = encryptKey(id)
+    const data = await post(`/api/getRandomStuffEnc`, body)
+    if (data) {
+      result = data
+      return result
+    }
+  } catch (err) {
+    console.log(err)
+  }
+  return result
+}
+
+export async function putRecord(id: DynamoKeys, category: DynamoKeys, item: any) {
+  let req: LambdaDynamoRequest = {
+    id: id,
+    category: category,
+    data: item,
+    token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${id}`),
+    expiration: 0,
+  }
+  const putRequest: EncPutRequest = {
+    data: encryptBody(req),
+  }
+  await post(`/api/putRandomStuff`, putRequest)
 }

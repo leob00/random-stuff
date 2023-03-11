@@ -1,10 +1,11 @@
 import { EncPutRequest } from 'lib/backend/csr/nextApiWrapper'
 import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { BasicArticle } from 'lib/model'
+import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { get, post } from '../fetchFunctions'
 
-export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | string
+export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | 'site-stats' | string
 let baseUrl = process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL
 
 type CategoryType = 'animals' | 'random' | 'userProfile' | string
@@ -65,6 +66,13 @@ export interface UserProfile {
   noteTitles: UserNote[]
   secKey?: string
   pin?: UserPin
+}
+
+export interface SiteStats {
+  recipes: {
+    lastRefreshDate: string
+    featured: Recipe[]
+  }
 }
 
 export async function hello(name: string) {
