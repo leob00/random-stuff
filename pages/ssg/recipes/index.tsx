@@ -9,10 +9,8 @@ import { orderBy, shuffle, take } from 'lodash'
 import { Recipe, RecipeCollection } from 'lib/models/cms/contentful/recipe'
 import RecipesLayout from 'components/RecipesLayout'
 import { Option } from 'lib/AutoCompleteOptions'
-import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
-import { shuffleArray } from 'lib/util/collectionsNative'
 
 const cmsRefreshIntervalSeconds = 3600
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000

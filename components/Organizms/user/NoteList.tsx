@@ -71,13 +71,13 @@ const NoteList = ({
       <Box>
         {data.map((item, i) => (
           <Box key={i} textAlign='left'>
-            <Stack direction='row' py={'3px'} justifyContent='center' alignItems='center'>
+            <Stack direction='row' py={'3px'} alignItems='center'>
               <LinkButton2
                 onClick={() => {
                   handleNoteTitleClick(item)
                 }}
               >
-                <Typography>{item.title}</Typography>
+                <Typography textAlign={'left'}>{item.title}</Typography>
               </LinkButton2>
 
               <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
