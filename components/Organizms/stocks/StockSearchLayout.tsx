@@ -2,22 +2,19 @@ import { Close } from '@mui/icons-material'
 import { Box, Button, Stack } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
-import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchAutoComplete from 'components/Atoms/Inputs/SearchAutoComplete'
 import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
-import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
-import PaperListSkeleton from 'components/Atoms/Skeletons/PaperListSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import StockListMenu from 'components/Molecules/Menus/StockListMenu'
 import DraggableList from 'components/Organizms/stocks/DraggableList'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { getStockQuotes, getUserStockListLatest, searchStockQuotes } from 'lib/backend/api/qln/qlnApi'
+import { getUserStockListLatest, searchStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
-import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
+import { putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
-import { getListFromMap, getMapFromArray, shuffleArray } from 'lib/util/collections'
+import { getMapFromArray } from 'lib/util/collections'
 import { cloneDeep } from 'lodash'
 import React from 'react'
 import { DropResult } from 'react-beautiful-dnd'
@@ -91,8 +88,6 @@ const StockSearchLayout = () => {
 
     if (username) {
       stockList = await getUserStockListLatest(username)
-      const shuffled = shuffleArray<StockQuote>(stockList)
-      console.log(shuffled)
       stockList.forEach((q) => {
         map.set(q.Symbol, q)
       })
