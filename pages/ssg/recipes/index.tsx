@@ -19,6 +19,9 @@ dayjs.extend(relativeTime)
 
 const cmsRefreshIntervalSeconds = 3600
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
+const featuredRecipesExpirationMinutes = 60
+
+const siteStatsKey = 'site-stats'
 
 export interface RecipesLayoutModel {
   autoComplete: Option[]
@@ -26,7 +29,7 @@ export interface RecipesLayoutModel {
 }
 
 const getSiteStats = async () => {
-  const result = (await getRecord('site-stats')) as unknown as SiteStats
+  const result = (await getRecord(siteStatsKey)) as unknown as SiteStats
   return result
 }
 
@@ -37,12 +40,12 @@ const fetcherFn = async (url: string) => {
 
   let newFeatured = take(shuffle(allRecipes), 10)
   const stats = await getSiteStats()
-  const expirationDate = dayjs(stats.recipes.lastRefreshDate).add(1, 'hour')
+  const expirationDate = dayjs(stats.recipes.lastRefreshDate).add(featuredRecipesExpirationMinutes, 'minute')
   const needsRefresh = expirationDate.isBefore(dayjs())
   if (needsRefresh) {
     stats.recipes.featured = newFeatured
     stats.recipes.lastRefreshDate = dayjs().format()
-    await putRecord('site-states', 'site-stats', stats)
+    await putRecord(siteStatsKey, siteStatsKey, stats)
     console.log('fetcherFn:: updated featured recipes.')
   } else {
     console.log(`fetcherFn: no update to featured recipes needed. expires ${dayjs().to(expirationDate)} `)
@@ -64,12 +67,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const newFeatured = take(shuffle(allRecipes), 10)
   let options = allRecipes.map((item) => ({ id: item.sys.id, label: item.title })) as Option[]
   options = orderBy(options, ['label'], ['asc'])
-  const stats = (await getRandomStuff('site-stats')) as SiteStats
-  const needsRefresh = dayjs(stats.recipes.lastRefreshDate).add(1, 'hour').isBefore(dayjs())
+  const stats = (await getRandomStuff(siteStatsKey)) as SiteStats
+  const needsRefresh = dayjs(stats.recipes.lastRefreshDate).add(featuredRecipesExpirationMinutes, 'minute').isBefore(dayjs())
   if (needsRefresh) {
     stats.recipes.featured = newFeatured
     stats.recipes.lastRefreshDate = dayjs().format()
-    await putRandomStuff('site-states', 'site-stats', stats)
+    await putRandomStuff(siteStatsKey, siteStatsKey, stats)
     console.log('build:: updated featured recipes')
   } else {
     console.log('build:: no update to featured recipes needed')
