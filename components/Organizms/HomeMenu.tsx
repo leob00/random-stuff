@@ -57,12 +57,11 @@ const HomeMenu = () => {
                   <>
                     <CenterStack>
                       <InternalLink route={'/protected/csr/goals'} text={'goals'} large />
-                    </CenterStack>
-                    <HorizontalDivider />
-                    <CenterStack>
+                      <Typography>|</Typography>
                       <InternalLink route={'/protected/csr/notes'} text={'notes'} large />
                     </CenterStack>
                     <HorizontalDivider />
+
                     <CenterStack>
                       <InternalLink route={'/protected/csr/dashboard'} text={'dashboard'} large />
                     </CenterStack>
@@ -77,12 +76,14 @@ const HomeMenu = () => {
             </Box>
             <CenterStack>
               <InternalLink route={'/ssg/randomdogs'} text={'dogs'} large />
+              <Typography>|</Typography>
               <InternalLink route={'/ssg/randomcats'} text={'cats'} large />
             </CenterStack>
             <HorizontalDivider />
           </Box>
           <CenterStack>
             <InternalLink route={'/ssg/coinflip'} text={'flip a coin'} large />
+            <Typography>|</Typography>
             <InternalLink route={'/ssg/roulette'} text={'spin wheel'} large />
           </CenterStack>
         </Container>

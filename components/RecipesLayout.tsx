@@ -8,6 +8,8 @@ import RemoteImage from './Atoms/RemoteImage'
 import CenteredParagraph from './Atoms/Text/CenteredParagraph'
 import CenterStack from './Atoms/CenterStack'
 import InternalLink from './Atoms/Buttons/InternalLink'
+import CenteredHeader from './Atoms/Boxes/CenteredHeader'
+import CenteredTitle from './Atoms/Text/CenteredTitle'
 
 const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Option[]; baseUrl: string; featured: Recipe[] }) => {
   const handleSelect = (
@@ -37,7 +39,7 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Opti
         />
       </Stack>
       <Box sx={{ my: 2 }}>
-        <CenteredParagraph text='Top 10 Featured Recipes' />
+        <CenteredTitle title={'Featured Recipes'} />
         {featured.length > 0 &&
           featured.map((item, ix) => (
             <Box sx={{ paddingBottom: 2 }} key={item.title}>

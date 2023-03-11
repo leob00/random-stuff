@@ -1,4 +1,4 @@
-import { Typography, Container, Stack } from '@mui/material'
+import { Typography, Container, Stack, Box } from '@mui/material'
 import router from 'next/router'
 import React from 'react'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
@@ -18,18 +18,17 @@ const RecipeLayout = ({ article, baseUrl }: { article: Recipe; baseUrl: string }
       />
       <>
         <CenteredHeader title={article.title} description={''} />
-        <HorizontalDivider />
-        <Container sx={{ my: 2 }}>
+        <Box sx={{ py: 1 }}>
           <Typography variant='body1' sx={{ paddingBottom: 2, textAlign: 'center' }}>
             {article.summary}
           </Typography>
-        </Container>
+        </Box>
         {article.heroImage && (
           <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
             <RemoteImage url={article.heroImage.url} title={article.title ? article.title : ''} />
           </Stack>
         )}
-        <Container>{documentToReactComponents(article.richBody.json)}</Container>
+        <Box>{documentToReactComponents(article.richBody.json)}</Box>
       </>
     </>
   )

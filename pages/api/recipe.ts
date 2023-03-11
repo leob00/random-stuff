@@ -1,9 +1,11 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { getRecipe } from 'lib/backend/api/contenfulApi'
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Recipe>) {
-  let id = req.query['id'] as string
+import { NextRequest, NextResponse } from 'next/server'
+export const config = {
+  runtime: 'edge',
+}
+export default async function handler(req: NextRequest) {
+  let id = req.nextUrl.searchParams.get('id') as string
   let data = await getRecipe(id)
-  res.status(200).json(data)
+  return NextResponse.json(data)
 }

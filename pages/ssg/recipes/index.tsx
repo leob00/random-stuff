@@ -1,7 +1,7 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
-import { Container } from '@mui/material'
+import { Box, Container } from '@mui/material'
 import useSWR, { SWRConfig } from 'swr'
 import axios from 'axios'
 import { getAllRecipes } from 'lib/backend/api/contenfulApi'
@@ -102,7 +102,7 @@ const CachedRecipes = ({ fallbackData }: { fallbackData: RecipesLayoutModel }) =
     return <RecipesLayout autoComplete={fallbackData.autoComplete} baseUrl='/ssg/recipes/' featured={fallbackData.featured} />
   }
   if (!data) {
-    return <Container>loading...</Container>
+    return <Box>loading...</Box>
   }
   return <RecipesLayout autoComplete={data.autoComplete} baseUrl='/ssg/recipes/' featured={data.featured} />
 }
