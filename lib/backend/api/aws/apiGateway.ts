@@ -116,6 +116,9 @@ export async function getRandomStuff(type: DynamoKeys) {
     result = (await get(url)) as LambdaResponse
     if (result.body && result.body.data) {
       let data = JSON.parse(result.body.data)
+      // if (type === 'site-stats') {
+      //   console.log('fetched site stats')
+      // }
       return data
     }
   } catch (err) {
