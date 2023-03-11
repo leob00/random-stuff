@@ -302,7 +302,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
                               handleGoalClick(item)
                             }}
                           >
-                            {item.body}
+                            <Typography>{item.body}</Typography>
                           </LinkButton2>
                           {item.completePercent !== undefined && (
                             <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>

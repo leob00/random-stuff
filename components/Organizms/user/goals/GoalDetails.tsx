@@ -146,13 +146,11 @@ const GoalDetails = ({
         }
       })
       const hideComp = goalDetailModel.selectedGoal.settings && !goalDetailModel.selectedGoal.settings.showCompletedTasks
-      console.log('hide completed: ', hideComp)
       let tasks = reorderTasks(result)
       let filteredTasks = tasks
       /*  if (hideComp === true) {
         filteredTasks = filter(tasks, (e) => e.status !== 'completed')
       } */
-      console.log('filtered tasks: ', filterTasks.length)
       setGoalDetailModel({ ...goalDetailModel, tasks: tasks, filteredTasks: filteredTasks, isLoading: false })
       onLoaded?.(goalDetailModel.selectedGoal, tasks)
     }

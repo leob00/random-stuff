@@ -77,7 +77,7 @@ const NoteList = ({
                   handleNoteTitleClick(item)
                 }}
               >
-                {item.title}
+                <Typography>{item.title}</Typography>
               </LinkButton2>
 
               <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
