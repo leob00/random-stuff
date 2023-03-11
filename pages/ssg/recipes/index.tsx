@@ -11,18 +11,43 @@ import RecipesLayout from 'components/RecipesLayout'
 import { Option } from 'lib/AutoCompleteOptions'
 import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import { ModelAttributeAuthAllow } from '@aws-amplify/datastore'
 
 const cmsRefreshIntervalSeconds = 3600
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
 
+export interface RecipesLayoutModel {
+  allRecipes: Recipe[]
+  autoComplete: Option[]
+  featured: Recipe[]
+}
+
 const fetcherFn = async (url: string) => {
   let resp = await axios.get(url)
-  return resp.data as RecipeCollection
+  const result = resp.data as RecipeCollection
+  const allRecipes = result.items
+  const featured = take(shuffle(allRecipes), 10)
+  let options = allRecipes.map((item) => ({ id: item.sys.id, label: item.title })) as Option[]
+  options = orderBy(options, ['label'], ['asc'])
+  const model: RecipesLayoutModel = {
+    allRecipes: allRecipes,
+    featured: featured,
+    autoComplete: options,
+  }
+  return model
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  let model = await getAllRecipes()
-  const featured = take(shuffle(model.items), 10)
+  let result = await getAllRecipes()
+  const allRecipes = result.items
+  const featured = take(shuffle(allRecipes), 10)
+  let options = allRecipes.map((item) => ({ id: item.sys.id, label: item.title })) as Option[]
+  options = orderBy(options, ['label'], ['asc'])
+  const model: RecipesLayoutModel = {
+    allRecipes: allRecipes,
+    featured: featured,
+    autoComplete: options,
+  }
 
   return {
     props: {
@@ -30,41 +55,37 @@ export const getStaticProps: GetStaticProps = async (context) => {
       fallback: {
         '/api/recipes': model,
       },
-      featured: featured,
     },
     revalidate: cmsRefreshIntervalSeconds,
   }
 }
 
-const CachedRecipes = ({ fallbackData, featured }: { fallbackData: RecipeCollection; featured: Recipe[] }) => {
+const CachedRecipes = ({ fallbackData }: { fallbackData: RecipesLayoutModel }) => {
   const { data, error } = useSWR(['/api/recipes'], (url: string) => fetcherFn(url), {
     fallbackData: fallbackData,
     refreshInterval: cmsRefreshIntervalMs,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   })
-  let search: Option[] = []
   if (error) {
-    return <RecipesLayout autoComplete={search} baseUrl='/ssg/recipes/' featured={featured} />
+    return <RecipesLayout autoComplete={fallbackData.autoComplete} baseUrl='/ssg/recipes/' featured={fallbackData.featured} />
   }
   if (!data) {
     return <Container>loading...</Container>
   }
 
   //let ordered = orderBy(model.items, ['title'], ['asc'])
-  let options = data.items.map((item) => ({ id: item.sys.id, label: item.title })) as Option[]
-  options = orderBy(options, ['label'], ['asc'])
   //const shuffled = shuffle(featured)
   //const shuffled = shuffleArray(featured)
-  return <RecipesLayout autoComplete={options} baseUrl='/ssg/recipes/' featured={featured} />
+  return <RecipesLayout autoComplete={data.autoComplete} baseUrl='/ssg/recipes/' featured={fallbackData.featured} />
 }
 
-const Recipes: NextPage<{ model: RecipeCollection; fallback: RecipeCollection; featured: Recipe[] }> = ({ model, fallback, featured }) => {
+const Recipes: NextPage<{ model: RecipesLayoutModel; fallback: RecipesLayoutModel }> = ({ model, fallback }) => {
   return (
     <ResponsiveContainer>
       <BackToHomeButton />
       <SWRConfig value={{ fallback }}>
-        <CachedRecipes fallbackData={model} featured={featured} />
+        <CachedRecipes fallbackData={model} />
       </SWRConfig>
     </ResponsiveContainer>
   )

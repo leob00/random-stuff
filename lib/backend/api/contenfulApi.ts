@@ -1,5 +1,5 @@
 import { BlogResponse, BlogTypes } from '../../models/cms/contentful/blog'
-import { RecipeCollection, RecipesResponse } from '../../models/cms/contentful/recipe'
+import { Recipe, RecipeCollection, RecipesResponse } from '../../models/cms/contentful/recipe'
 import { post } from './fetchFunctions'
 
 const url = `${process.env.CONTENTFUL_GRAPH_BASE_URL}${process.env.CONTENTFUL_SPACE_ID}?access_token=${process.env.CONTENTFUL_ACCESS_TOKEN}`
@@ -90,19 +90,24 @@ const getRecipeQuery = (skip: number) => {
 }`
 }
 
-export async function getAllRecipes() {
-  let firstQuery = getRecipeQuery(0)
-  let secondQuery = getRecipeQuery(100)
+let allRecipes: Recipe[] = []
 
-  let collection1 = await getRecipes(firstQuery)
-  let collection2 = await getRecipes(secondQuery)
-  let collection = collection1.items
-  collection.push(...collection2.items)
-  //const result = orderBy(collection, ['sys.firstPublishedAt'], ['desc'])
-  let coll: RecipeCollection = {
-    items: collection,
+export async function getAllRecipes() {
+  if (allRecipes.length === 0) {
+    let firstQuery = getRecipeQuery(0)
+    let secondQuery = getRecipeQuery(100)
+    let collection1 = await getRecipes(firstQuery)
+    let collection2 = await getRecipes(secondQuery)
+    let collection = collection1.items
+    collection.push(...collection2.items)
+    allRecipes = collection
   }
-  return coll
+
+  //const result = orderBy(collection, ['sys.firstPublishedAt'], ['desc'])
+  const result: RecipeCollection = {
+    items: allRecipes,
+  }
+  return result
 }
 
 const getRecipes = async (query: string) => {
