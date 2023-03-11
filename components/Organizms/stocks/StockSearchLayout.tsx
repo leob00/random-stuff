@@ -17,7 +17,7 @@ import { getStockQuotes, getUserStockListLatest, searchStockQuotes } from 'lib/b
 import { getUserCSR } from 'lib/backend/auth/userUtil'
 import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
-import { getListFromMap, getMapFromArray } from 'lib/util/collections'
+import { getListFromMap, getMapFromArray, shuffleArray } from 'lib/util/collections'
 import { cloneDeep } from 'lodash'
 import React from 'react'
 import { DropResult } from 'react-beautiful-dnd'
@@ -91,6 +91,8 @@ const StockSearchLayout = () => {
 
     if (username) {
       stockList = await getUserStockListLatest(username)
+      const shuffled = shuffleArray<StockQuote>(stockList)
+      console.log(shuffled)
       stockList.forEach((q) => {
         map.set(q.Symbol, q)
       })

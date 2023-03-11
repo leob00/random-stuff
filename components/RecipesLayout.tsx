@@ -8,6 +8,7 @@ import RemoteImage from './Atoms/RemoteImage'
 import CenteredParagraph from './Atoms/Text/CenteredParagraph'
 import CenterStack from './Atoms/CenterStack'
 import InternalLink from './Atoms/Buttons/InternalLink'
+import { shuffleArray } from 'lib/util/collections'
 
 const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Option[]; baseUrl: string; featured: Recipe[] }) => {
   const handleSelect = (
@@ -19,6 +20,10 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Opti
     let sel = value as Option
     router.push(`${baseUrl}${sel.id}`)
   }
+
+  //const shuffled = shuffleArray(featured)
+  //console.log('featured: ', featured)
+  //console.log('shuffled: ', shuffled)
 
   return (
     <Box>

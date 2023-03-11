@@ -55,16 +55,16 @@ const CachedRecipes = ({ fallbackData, featured }: { fallbackData: RecipeCollect
   //let ordered = orderBy(model.items, ['title'], ['asc'])
   let options = model.items.map((item) => ({ id: item.sys.id, label: item.title })) as Option[]
   options = orderBy(options, ['label'], ['asc'])
+  //const shuffled = shuffle(featured)
   return <RecipesLayout autoComplete={options} baseUrl='/ssg/recipes/' featured={featured} />
 }
 
 const Recipes: NextPage<{ model: RecipeCollection; fallback: any; featured: Recipe[] }> = ({ model, fallback, featured }) => {
-  const shuffled = shuffle(featured)
   return (
     <ResponsiveContainer>
       <BackToHomeButton />
       <SWRConfig value={{ fallback }}>
-        <CachedRecipes fallbackData={model} featured={shuffled} />
+        <CachedRecipes fallbackData={model} featured={featured} />
       </SWRConfig>
     </ResponsiveContainer>
   )
