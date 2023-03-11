@@ -8,7 +8,6 @@ import RemoteImage from './Atoms/RemoteImage'
 import CenteredParagraph from './Atoms/Text/CenteredParagraph'
 import CenterStack from './Atoms/CenterStack'
 import InternalLink from './Atoms/Buttons/InternalLink'
-import { shuffleArray } from 'lib/util/collections'
 
 const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Option[]; baseUrl: string; featured: Recipe[] }) => {
   const handleSelect = (
