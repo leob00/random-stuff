@@ -39,7 +39,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       fallback: {
-        [unstable_serialize(['api', 'recipe', id])]: article,
+        '/api/recipe': article,
       },
       article,
     },

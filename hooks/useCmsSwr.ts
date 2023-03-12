@@ -5,5 +5,6 @@ export const useCmsSwr = (url: string, id: string, fetcher: (url: string, arg: s
     fallbackData: fallbackData,
     refreshInterval: intervalSeconds * 1000,
     revalidateOnFocus: true,
+    revalidateOnReconnect: true,
   })
 }
