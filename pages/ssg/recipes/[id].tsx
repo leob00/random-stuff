@@ -1,6 +1,6 @@
 import { Container } from '@mui/material'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import { SWRConfig, unstable_serialize } from 'swr'
+import useSWR, { SWRConfig, unstable_serialize, Fetcher } from 'swr'
 import { useCmsSwr } from 'hooks/useCmsSwr'
 import axios, { AxiosRequestConfig } from 'axios'
 import { getAllRecipes, getRecipe } from 'lib/backend/api/contenfulApi'
@@ -27,7 +27,9 @@ const fetcherFn = async (url: string, id: string) => {
     },
   }
   let resp = await axios.get(url, config)
-  return await resp.data
+  const recipe = resp.data as Recipe
+  console.log('fetcherFn - recipe fetched: ', recipe.title)
+  return recipe
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -48,13 +50,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 const RecipeDetails = ({ fallbackData }: { fallbackData: Recipe }) => {
   //console.log(JSON.stringify(fallbackData))
-  const { data, error } = useCmsSwr(
+  const fetcher: Fetcher<Recipe, string> = (id) => fetcherFn('/api/recipe', id)
+
+  const { data, error } = useSWR(fallbackData.sys.id, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: true,
+    fallbackData: fallbackData,
+    refreshInterval: cmsRefreshIntervalSeconds * 1000,
+  })
+  /* const { data, error } = useCmsSwr(
     '/api/recipe',
     fallbackData.sys.id,
     (url: string, id: string) => fetcherFn(url, id),
     fallbackData,
     cmsRefreshIntervalSeconds,
-  )
+  ) */
   if (error) {
     return <RecipeLayout article={fallbackData} baseUrl='/ssg/recipes' />
   }
