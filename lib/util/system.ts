@@ -8,6 +8,7 @@ export interface WindowDimension {
 }
 
 export const getWindowDimensions = () => {
+  const isClient = typeof window
   const hasWindow = typeof window !== 'undefined'
   let dimension: WindowDimension = {
     width: 320,

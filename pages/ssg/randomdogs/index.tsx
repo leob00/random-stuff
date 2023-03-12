@@ -6,7 +6,7 @@ import { shuffle } from 'lodash'
 import { buildRandomAnimals } from 'lib/backend/api/randomAnimalsApi'
 import { isBrowser } from 'lib/util/system'
 import { getAnimals } from 'lib/backend/api/aws/apiGateway'
-import useSWR, { SWRConfig } from 'swr'
+import useSWR, { Fetcher, SWRConfig } from 'swr'
 import { Container } from '@mui/material'
 import Header from 'next/head'
 import { get } from 'lib/backend/api/fetchFunctions'
@@ -37,7 +37,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 const Cached = ({ fallbackData }: { fallbackData: BasicArticle[] }) => {
-  const { data, error } = useSWR([`/api/edgeRandomAnimals?id=dogs`], (url: string) => fetcherFn(url), {
+  const fetcher: Fetcher<BasicArticle[], string> = (url) => fetcherFn(url)
+  const { data, error } = useSWR('/api/edgeRandomAnimals?id=dogs', fetcher, {
     fallbackData: fallbackData,
     refreshInterval: cmsRefreshIntervalSeconds * 1000,
     revalidateOnFocus: false,

@@ -48,7 +48,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-const RecipeDetails = ({ fallbackData }: { fallbackData: Recipe }) => {
+const Cached = ({ fallbackData }: { fallbackData: Recipe }) => {
   //console.log(JSON.stringify(fallbackData))
   const fetcher: Fetcher<Recipe, string> = (id) => fetcherFn('/api/recipe', id)
 
@@ -79,7 +79,7 @@ const FoodRecipe: NextPage<{ fallback: Recipe; article: Recipe }> = ({ fallback,
   return (
     <Container>
       <SWRConfig value={{ fallback }}>
-        <RecipeDetails fallbackData={article} />
+        <Cached fallbackData={article} />
       </SWRConfig>
     </Container>
   )
