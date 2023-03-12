@@ -145,9 +145,9 @@ export async function getRecipe(id: string) {
 }`
   let body = { query: query }
 
-  let resp = await post(url, body)
-  let data = resp as RecipesResponse
-  let result = data.data.recipe
+  const resp = await post(url, body)
+  const data = resp as RecipesResponse
+  const result = data.data.recipe
   //console.log(`retrieved ${result.title} recipe: ${result.sys.id}`)
   return result
 }

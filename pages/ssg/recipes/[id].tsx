@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material'
+import { Container } from '@mui/material'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { SWRConfig, unstable_serialize } from 'swr'
 import { useCmsSwr } from 'hooks/useCmsSwr'
@@ -6,7 +6,6 @@ import axios, { AxiosRequestConfig } from 'axios'
 import { getAllRecipes, getRecipe } from 'lib/backend/api/contenfulApi'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import RecipeLayout from 'components/RecipeLayout'
-import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 
 const cmsRefreshIntervalSeconds = 3600
 
@@ -39,7 +38,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       fallback: {
-        '/api/recipe': article,
+        [unstable_serialize(['api', 'recipe', id])]: article,
       },
       article,
     },
@@ -50,7 +49,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 const RecipeDetails = ({ fallbackData }: { fallbackData: Recipe }) => {
   //console.log(JSON.stringify(fallbackData))
   const { data, error } = useCmsSwr(
-    `/api/recipe?id=${fallbackData.sys.id}`,
+    '/api/recipe',
     fallbackData.sys.id,
     (url: string, id: string) => fetcherFn(url, id),
     fallbackData,
@@ -61,18 +60,18 @@ const RecipeDetails = ({ fallbackData }: { fallbackData: Recipe }) => {
   }
   let article = data as Recipe
   if (!article) {
-    return <Box>loading</Box>
+    return <Container>loading</Container>
   }
   return <RecipeLayout article={article} baseUrl='/ssg/recipes' />
 }
 
 const FoodRecipe: NextPage<{ fallback: Recipe; article: Recipe }> = ({ fallback, article }) => {
   return (
-    <ResponsiveContainer>
+    <Container>
       <SWRConfig value={{ fallback }}>
         <RecipeDetails fallbackData={article} />
       </SWRConfig>
-    </ResponsiveContainer>
+    </Container>
   )
 }
 

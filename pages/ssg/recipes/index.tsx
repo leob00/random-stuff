@@ -91,7 +91,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 const CachedRecipes = ({ fallbackData }: { fallbackData: RecipesLayoutModel }) => {
-  const { data, error } = useSWR(['/api/recipes'], (url: string) => fetcherFn(url), {
+  const { data, error, isValidating } = useSWR(['/api/recipes'], (url: string) => fetcherFn(url), {
     fallbackData: fallbackData,
     refreshInterval: cmsRefreshIntervalMs,
     revalidateOnFocus: false,
