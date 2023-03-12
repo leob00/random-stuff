@@ -3,6 +3,7 @@ import DraggableListItem from './DraggableListItem'
 import { DragDropContext, OnDragEndResponder } from 'react-beautiful-dnd'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { StrictModeDroppable } from './StrictModeDroppable'
+import { Box } from '@mui/material'
 
 export type DraggableListProps = {
   items: StockQuote[]
@@ -18,7 +19,7 @@ const DraggableList = ({ items, onDragEnd, onRemoveItem }: DraggableListProps) =
     <DragDropContext onDragEnd={onDragEnd}>
       <StrictModeDroppable droppableId='droppable-list'>
         {(provided) => (
-          <div ref={provided.innerRef} {...provided.droppableProps}>
+          <Box ref={provided.innerRef} {...provided.droppableProps}>
             {items.map((item, index) => (
               <DraggableListItem
                 item={item}
@@ -30,7 +31,7 @@ const DraggableList = ({ items, onDragEnd, onRemoveItem }: DraggableListProps) =
               />
             ))}
             {provided.placeholder}
-          </div>
+          </Box>
         )}
       </StrictModeDroppable>
     </DragDropContext>

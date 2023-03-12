@@ -18,6 +18,7 @@ export interface Recipe {
   summary: string
   richBody: RichText
   heroImage: HeroImage
+  summaryNotes?: string
 }
 export interface RichText {
   json: Document

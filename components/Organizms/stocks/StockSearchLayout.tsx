@@ -1,6 +1,5 @@
 import { Close } from '@mui/icons-material'
 import { Box, Button, Stack } from '@mui/material'
-import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
@@ -172,7 +171,7 @@ const StockSearchLayout = () => {
       </Box>
       <>
         {model.quoteToAdd ? (
-          <ResponsiveContainer>
+          <>
             <StockListItem item={model.quoteToAdd} expand={true} />
             <Stack py={1} direction={'row'} spacing={1}>
               <Stack flexGrow={1}>
@@ -186,13 +185,13 @@ const StockSearchLayout = () => {
                 <PassiveButton text={'close'} onClick={handleCloseAddQuote} size='small' />
               </Stack>
             </Stack>
-          </ResponsiveContainer>
+          </>
         ) : (
           <>
             <Box py={2}>
               {model.isLoading ? (
                 <>
-                  <ResponsiveContainer>
+                  <>
                     <WarmupBox text='loading stock list...' />
                     <BoxSkeleton height={100} />
                     <HorizontalDivider />
@@ -201,12 +200,12 @@ const StockSearchLayout = () => {
                     <BoxSkeleton height={100} />
                     <HorizontalDivider />
                     <BoxSkeleton height={100} />
-                  </ResponsiveContainer>
+                  </>
                 </>
               ) : (
                 <Box>
                   {model.editList && model.stockList.length > 0 ? (
-                    <ResponsiveContainer>
+                    <>
                       <Stack py={2} alignItems={'flex-end'} pr={2}>
                         <Button
                           size='small'
@@ -220,10 +219,10 @@ const StockSearchLayout = () => {
                       </Stack>
                       <HorizontalDivider />
                       <DraggableList items={model.stockList} onDragEnd={onDragEnd} onRemoveItem={handleRemoveQuote} />
-                    </ResponsiveContainer>
+                    </>
                   ) : (
                     <>
-                      <ResponsiveContainer>
+                      <>
                         {model.stockList.length > 0 && (
                           <>
                             <Stack py={2} alignItems={'flex-end'} pr={2}>
@@ -237,7 +236,7 @@ const StockSearchLayout = () => {
                           </>
                         )}
                         <StockTable stockList={model.stockList} onRemoveItem={handleRemoveQuote} />
-                      </ResponsiveContainer>
+                      </>
                     </>
                   )}
                 </Box>

@@ -131,6 +131,7 @@ export async function getRecipe(id: string) {
       }      
       title
       summary
+      summaryNotes
       richBody {
         json
       }

@@ -1,4 +1,5 @@
 import { Button } from '@mui/material'
+import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import StockSearchLayout from 'components/Organizms/stocks/StockSearchLayout'
@@ -8,7 +9,7 @@ import React from 'react'
 const Page = () => {
   const router = useRouter()
   return (
-    <>
+    <ResponsiveContainer>
       <Button
         variant='text'
         onClick={() => {
@@ -20,7 +21,7 @@ const Page = () => {
       <CenteredTitle title={'Stocks'} />
       <HorizontalDivider />
       <StockSearchLayout />
-    </>
+    </ResponsiveContainer>
   )
 }
 

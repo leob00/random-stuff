@@ -22,7 +22,13 @@ const RecipeLayout = ({ article, baseUrl }: { article: Recipe; baseUrl: string }
           <Typography variant='body1' sx={{ paddingBottom: 2, textAlign: 'center' }}>
             {article.summary}
           </Typography>
+          {article.summaryNotes && (
+            <Typography textAlign={'center'} variant={'body2'}>
+              {article.summaryNotes}
+            </Typography>
+          )}
         </Box>
+
         {article.heroImage && (
           <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
             <RemoteImage url={article.heroImage.url} title={article.title ? article.title : ''} />

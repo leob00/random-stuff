@@ -30,7 +30,7 @@ const DraggableListItem = ({ item, index, onRemoveItem }: DraggableListItemProps
             <ListItemAvatar>
               <DragIndicator />
             </ListItemAvatar>
-            <ListItemText primary={item.Symbol} secondary={item.Company} />
+            <ListItemText primary={item.Company} secondary={item.Symbol} />
             <Stack alignItems={'flex-end'} flexGrow={1} pr={2}>
               <IconButton
                 onClick={() => {
