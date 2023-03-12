@@ -19,7 +19,12 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Opti
     details?: AutocompleteChangeDetails<Option> | undefined,
   ) => {
     let sel = value as Option
-    router.push(`${baseUrl}${sel.id}`)
+
+    if (sel.id) {
+      router.push(`${baseUrl}${sel.id}`)
+    } else {
+      console.log('error generating single recipe: ', sel)
+    }
   }
 
   //const shuffled = shuffleArray(featured)

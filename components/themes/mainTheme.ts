@@ -90,8 +90,8 @@ const themeOptions: ThemeOptions = {
     ].join(','), */
     fontSize: 16,
     h1: { fontSize: '3.5rem', fontWeight: 500 }, // hero section title
-    h2: { fontSize: '2.8125rem', fontWeight: 500 }, // other section title
-    h3: { fontSize: '2.25rem', fontWeight: 500 },
+    h2: { fontSize: '2.4125rem', fontWeight: 500 }, // other section title
+    h3: { fontSize: '2.115rem', fontWeight: 500 },
     h4: { fontSize: '1.75rem', fontWeight: 500 },
     h5: { fontSize: '1.375rem', fontWeight: 500 },
     h6: { fontSize: '1.2rem', fontWeight: 500 },

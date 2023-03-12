@@ -50,7 +50,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 const RecipeDetails = ({ fallbackData }: { fallbackData: Recipe }) => {
   //console.log(JSON.stringify(fallbackData))
   const { data, error } = useCmsSwr(
-    '/api/recipe',
+    `/api/recipe?id=${fallbackData.sys.id}`,
     fallbackData.sys.id,
     (url: string, id: string) => fetcherFn(url, id),
     fallbackData,
@@ -66,7 +66,7 @@ const RecipeDetails = ({ fallbackData }: { fallbackData: Recipe }) => {
   return <RecipeLayout article={article} baseUrl='/ssg/recipes' />
 }
 
-const FoodRecipe: NextPage<{ fallback: any; article: Recipe }> = ({ fallback, article }) => {
+const FoodRecipe: NextPage<{ fallback: Recipe; article: Recipe }> = ({ fallback, article }) => {
   return (
     <ResponsiveContainer>
       <SWRConfig value={{ fallback }}>

@@ -14,8 +14,6 @@ const InternalLink = ({ route, text, large = false }: { route: string; text: str
         <NLink href={route} passHref legacyBehavior>
           <Link
             color='secondary'
-            fontSize={'1.1rem'}
-            fontWeight={700}
             sx={{ textDecoration: 'none' }}
             p={1}
             onClick={() => {
