@@ -9,6 +9,7 @@ import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import CenterStack from 'components/Atoms/CenterStack'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import { CasinoGrayTransparent } from 'components/themes/mainTheme'
+import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 dayjs.extend(relativeTime)
 
 interface Model {
@@ -62,6 +63,9 @@ const RequirePin = ({ minuteDuration = 20, enablePolling, children }: { minuteDu
     timeOutRef.current = setTimeout(() => {
       const newModel = { ...model }
       let newCounter = newModel.pollingCounter
+      if (newCounter >= 50) {
+        newCounter = -1
+      }
       if (newCounter === -1) {
         needsPinEntry(newModel.userProfile, minuteDuration, true)
         newCounter = 1
@@ -83,24 +87,27 @@ const RequirePin = ({ minuteDuration = 20, enablePolling, children }: { minuteDu
     setModel({ ...model, showPinEntry: false })
   }
 
-  const handlePinValidated = (pin: UserPin) => {
+  const handlePinValidated = async (pin: UserPin) => {
     if (timeOutRef.current) {
       clearTimeout(timeOutRef.current)
     }
-    const profile = { ...model.userProfile, pin: pin }
-    userController.setProfile(profile)
+    const newProfile = { ...model.userProfile, pin: pin }
+    userController.setProfile(newProfile)
 
     console.log(`pin validated. `)
-    setTimeout(() => {
-      setModel({
-        ...model,
-        userProfile: profile,
-        showPinEntry: false,
-        isPinExpired: false,
-        pollingCounter: -1,
-        pinExpirationdate: dayjs().add(minuteDuration, 'minutes').format(),
-      })
-    }, 1000)
+
+    await putUserProfile(newProfile)
+    setModel({
+      ...model,
+      userProfile: newProfile,
+      showPinEntry: false,
+      isPinExpired: false,
+      pollingCounter: 50000,
+      pinExpirationdate: dayjs().add(minuteDuration, 'minutes').format(),
+    })
+    // setTimeout(() => {
+
+    // }, 1000)
   }
 
   React.useEffect(() => {

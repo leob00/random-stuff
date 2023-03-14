@@ -1,18 +1,13 @@
 import { Close } from '@mui/icons-material'
 import { Box, Dialog, DialogTitle, Stack, Button, DialogContent, DialogContentText, Typography, Alert, Link } from '@mui/material'
-import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import PinInput from 'components/Atoms/Inputs/PinInput'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
-import { useUserController } from 'hooks/userController'
 import { UserPin, UserProfile } from 'lib/backend/api/aws/apiGateway'
-import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
-import { myDecrypt, myEncrypt } from 'lib/backend/encryption/useEncryptor'
-import { Router, useRouter } from 'next/router'
+import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
 import React from 'react'
-import NLink from 'next/link'
 const EnterPinDialog = ({
   show,
   userProfile,
@@ -25,38 +20,38 @@ const EnterPinDialog = ({
   onCancel: () => void
 }) => {
   const [error, setError] = React.useState('')
-  const [profile, setProfile] = React.useState(userProfile)
   const [isLoading, setIsLoading] = React.useState(false)
-  const userController = useUserController()
+  const [open, setOpen] = React.useState(show)
 
   const handleClose = async () => {
     onCancel()
   }
   const savePin = async (userPin: UserPin) => {
-    setIsLoading(true)
-    const p = { ...profile, pin: userPin }
-    setProfile(p)
-    userController.setProfile(p)
-    await putUserProfile(p)
-    setIsLoading(false)
-    onConfirm(userPin)
+    //setIsLoading(true)
+    // const p = { ...userProfile, pin: userPin }
+    //setIsLoading(false)
+    //onConfirm(userPin)
   }
 
   const handleSetPin = async (text: string) => {
-    //console.log('text: ', text)
     if (text.length === 4) {
       const decryptedPin = myDecrypt(`${userProfile.id}${userProfile.username}`, userProfile.pin!.pin)
-      //console.log(`decrypted user pin: ${decryptedPin} user pin: ${text}`)
       if (decryptedPin === text) {
         const updatedPin = { ...userProfile.pin! }
         updatedPin.lastEnterDate = dayjs().format()
         setError('')
-        await savePin(updatedPin)
+        setIsLoading(true)
+        onConfirm(updatedPin)
+        setOpen(false)
       } else {
         setError('incorrect pin')
+        console.log('incorrect pin')
+        setIsLoading(false)
       }
     } else {
       setError('pin is invalid')
+      console.log('pin is invalid')
+      setIsLoading(false)
     }
   }
 
@@ -66,7 +61,7 @@ const EnterPinDialog = ({
 
   return (
     <Box>
-      <Dialog open={show} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
+      <Dialog open={open} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
         <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>
           <Stack display='flex' direction={'row'}>
             <Stack flexGrow={1}>{'Enter pin'}</Stack>
