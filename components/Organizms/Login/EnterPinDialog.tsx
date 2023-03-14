@@ -61,50 +61,54 @@ const EnterPinDialog = ({
 
   return (
     <Box>
-      <Dialog open={open} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
-        <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>
-          <Stack display='flex' direction={'row'}>
-            <Stack flexGrow={1}>{'Enter pin'}</Stack>
-            <Stack>
-              <Button onClick={handleClose} sx={{ pl: 8 }}>
-                <Close />
-              </Button>
+      {open ? (
+        <Dialog open={open} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
+          <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>
+            <Stack display='flex' direction={'row'}>
+              <Stack flexGrow={1}>{'Enter pin'}</Stack>
+              <Stack>
+                <Button onClick={handleClose} sx={{ pl: 8 }}>
+                  <Close />
+                </Button>
+              </Stack>
             </Stack>
-          </Stack>
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id='alert-dialog-description' sx={{ pt: 3 }} color='primary' variant='subtitle1'>
-            Please enter your pin.
-          </DialogContentText>
-          <Box py={2}>
-            <Box>
-              <Typography>{`You will be asked to enter your pin periodically to make sure your secrets are protected. Please try not to forget your pin! But if you do, you
-              can always reset it in your profle settings. `}</Typography>
-              <Link href={'/protected/csr/profile'} color={'secondary'}>
-                reset pin
-              </Link>
-              .
-            </Box>
-          </Box>
-          <Box py={2}>
-            <CenterStack>
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id='alert-dialog-description' sx={{ pt: 3 }} color='primary' variant='subtitle1'>
+              Please enter your pin.
+            </DialogContentText>
+            <Box py={2}>
               <Box>
-                <PinInput onConfirmed={handleSetPin} setFocus />
+                <Typography>{`You will be asked to enter your pin periodically to make sure your secrets are protected. Please try not to forget your pin! But if you do, you
+              can always reset it in your profle settings. `}</Typography>
+                <Link href={'/protected/csr/profile'} color={'secondary'}>
+                  reset pin
+                </Link>
+                .
               </Box>
-            </CenterStack>
-            <Box height={100} pb={2}>
-              {error.length > 0 && (
-                <Box py={2}>
-                  <CenterStack>
-                    <Alert severity='error'>{error}</Alert>
-                  </CenterStack>
-                </Box>
-              )}
-              {isLoading && <WarmupBox text='validating pin...' />}
             </Box>
-          </Box>
-        </DialogContent>
-      </Dialog>
+            <Box py={2}>
+              <CenterStack>
+                <Box>
+                  <PinInput onConfirmed={handleSetPin} setFocus />
+                </Box>
+              </CenterStack>
+              <Box height={100} pb={2}>
+                {error.length > 0 && (
+                  <Box py={2}>
+                    <CenterStack>
+                      <Alert severity='error'>{error}</Alert>
+                    </CenterStack>
+                  </Box>
+                )}
+                {isLoading && <WarmupBox text='validating pin...' />}
+              </Box>
+            </Box>
+          </DialogContent>
+        </Dialog>
+      ) : (
+        <></>
+      )}
     </Box>
   )
 }
