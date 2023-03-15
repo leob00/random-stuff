@@ -78,11 +78,6 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
   const handleFilterChanged = async (text: string) => {
     setModel({ ...model, filteredSecrets: applyFilter(model.originalSecrets, text), filter: text })
   }
-  const handlePinValidated = (pin: UserPin) => {
-    const p = { ...userController.authProfile!, pin: pin }
-    userController.setProfile(p)
-    setModel({ ...model, showPinEntry: false })
-  }
 
   React.useEffect(() => {
     const fn = async () => {
@@ -99,36 +94,23 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
       {profile && encKey && (
         <>
           {model.createNew ? (
-            <EditSecret
-              username={user.email}
-              encKey={encKey}
-              userSecret={{ title: '', secret: '', salt: getRandomSalt() }}
-              onCancel={() => setModel({ ...model, createNew: false })}
-              onSaved={handleItemAdded}
-              onDeleted={handleItemDeleted}
-            />
+            <EditSecret username={user.email} encKey={encKey} userSecret={{ title: '', secret: '', salt: getRandomSalt() }} onCancel={() => setModel({ ...model, createNew: false })} onSaved={handleItemAdded} onDeleted={handleItemDeleted} />
           ) : (
             <Box pb={3}>
               <SecondaryButton text={'add'} size='small' onClick={() => setModel({ ...model, createNew: true })} />
             </Box>
           )}
-          {model.showPinEntry ? (
-            <EnterPinDialog show={model.showPinEntry} userProfile={profile} onConfirm={handlePinValidated} onCancel={() => {}} />
-          ) : (
-            <>
-              <Box py={2}>
-                <CenterStack>
-                  <SearchWithinList onChanged={handleFilterChanged} defaultValue={model.filter} />
-                </CenterStack>
-              </Box>
-              {model.filteredSecrets.map((item) => (
-                <Box key={item.id}>
-                  {encKey && <SecretLayout username={profile.username} encKey={encKey} userSecret={item} onDeleted={handleItemDeleted} />}
-                </Box>
-              ))}
-              {model.filteredSecrets.length === 0 && <CenteredParagraph text={'No secrets found.'} />}
-            </>
-          )}
+          <>
+            <Box py={2}>
+              <CenterStack>
+                <SearchWithinList onChanged={handleFilterChanged} defaultValue={model.filter} />
+              </CenterStack>
+            </Box>
+            {model.filteredSecrets.map((item) => (
+              <Box key={item.id}>{encKey && <SecretLayout username={profile.username} encKey={encKey} userSecret={item} onDeleted={handleItemDeleted} />}</Box>
+            ))}
+            {model.filteredSecrets.length === 0 && <CenteredParagraph text={'No secrets found.'} />}
+          </>
         </>
       )}
     </RequirePin>

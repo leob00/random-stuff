@@ -10,29 +10,18 @@ import { constructUserSecretPrimaryKey } from 'lib/backend/api/aws/util'
 import { deleteRecord, putUserSecret } from 'lib/backend/csr/nextApiWrapper'
 import { Delete } from '@mui/icons-material'
 import WarmupBox from 'components/Atoms/WarmupBox'
+import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 
 interface Model {
   isLoading: boolean
   userSecret: UserSecret
+  showConfirmDelete: boolean
 }
 
-const EditSecret = ({
-  username,
-  encKey,
-  userSecret,
-  onCancel,
-  onSaved,
-  onDeleted,
-}: {
-  username: string
-  encKey: string
-  userSecret: UserSecret
-  onCancel: () => void
-  onSaved: (item: UserSecret) => void
-  onDeleted: (id: string) => void
-}) => {
+const EditSecret = ({ username, encKey, userSecret, onCancel, onSaved, onDeleted }: { username: string; encKey: string; userSecret: UserSecret; onCancel: () => void; onSaved: (item: UserSecret) => void; onDeleted: (id: string) => void }) => {
   const defaultModel: Model = {
     isLoading: false,
+    showConfirmDelete: false,
     userSecret: { ...userSecret, secret: myDecrypt(encKey, userSecret.secret) },
   }
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
@@ -63,6 +52,9 @@ const EditSecret = ({
     //const isValid = model.title.trim().length > 0 && model.secret.trim().length > 0
   }
   const handleDeleteClick = async () => {
+    setModel({ ...model, showConfirmDelete: true })
+  }
+  const handleYesDelete = async () => {
     const item = { ...model.userSecret }
     if (item.id) {
       await deleteRecord(item.id)
@@ -72,6 +64,7 @@ const EditSecret = ({
 
   return (
     <Box>
+      <ConfirmDeleteDialog show={model.showConfirmDelete} text={`Are you sure you want to delete ${model.userSecret.title}?`} onCancel={() => setModel({ ...model, showConfirmDelete: false })} onConfirm={handleYesDelete} />
       <Stack>
         <form onSubmit={handleFormSubmit}>
           {model.isLoading ? (
@@ -93,8 +86,7 @@ const EditSecret = ({
                       size='small'
                       onClick={() => {
                         handleDeleteClick()
-                      }}
-                    >
+                      }}>
                       <Delete color='error' />
                     </Button>
                   )}

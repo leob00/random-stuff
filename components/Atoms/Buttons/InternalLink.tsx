@@ -1,7 +1,7 @@
 import React from 'react'
 import NLink from 'next/link'
 import Link from '@mui/material/Link'
-import { Stack, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import RollingLinearProgress from '../Loaders/RollingLinearProgress'
 
 const InternalLink = ({ route, text, large = false }: { route: string; text: string; large?: boolean }) => {
@@ -18,8 +18,7 @@ const InternalLink = ({ route, text, large = false }: { route: string; text: str
             p={1}
             onClick={() => {
               setIsLoading(true)
-            }}
-          >
+            }}>
             <Typography textAlign={'center'} variant={`${large ? 'h4' : 'h5'}`}>
               {text}
             </Typography>

@@ -31,7 +31,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
       setTitleError(true)
       return
     }
-    let noteCopy = cloneDeep(note)
+    let noteCopy = { ...note }
     noteCopy.title = title.current ? title.current.value : ''
     noteCopy.body = bodyText.replace('<br>', '')
     noteCopy.body = noteCopy.body.replace('<p class="ql-align-justify"></p>', '<p>')
@@ -120,9 +120,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
             selectedOption={'3'}
             onOptionSelected={handleChangeExp}
           />
-          <CenterStack sx={{ py: 4, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
-            {editedExpDate && <RecordExpirationWarning expirationDate={editedExpDate} precise={true} />}
-          </CenterStack>
+          <CenterStack sx={{ py: 4, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>{editedExpDate && <RecordExpirationWarning expirationDate={editedExpDate} precise={true} />}</CenterStack>
         </>
       </FormDialog>
       <Box sx={{ pt: 2 }} component='form'>

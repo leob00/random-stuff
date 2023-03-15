@@ -70,6 +70,14 @@ const HomeMenu = () => {
                       <InternalLink route={'/protected/csr/secrets'} text={'secrets'} large />
                     </CenterStack>
                     <HorizontalDivider />
+                    {isAdmin && (
+                      <>
+                        <CenterStack>
+                          <InternalLink route={'/protected/csr/admin'} text={'admin'} large />
+                        </CenterStack>
+                        <HorizontalDivider />
+                      </>
+                    )}
                   </>
                 )}
               </Box>

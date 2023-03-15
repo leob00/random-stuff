@@ -26,12 +26,10 @@ const WarmupBox = ({ text }: { text?: string }) => {
     }, 2500)
   }, [model.message, text])
   return (
-    <Box sx={{ border: `1px solid ${CasinoBlueTransparent}` }} borderRadius={2}>
-      <Box sx={{ pt: 1 }}>
+    <Box sx={{ border: `1px solid ${CasinoBlueTransparent}` }} borderRadius={'10px'}>
+      <Box sx={{ pt: 2 }}>
         <CenterStack>
-          <Typography variant='h5' sx={{}}>
-            {text ? text : `${model.message}...`}
-          </Typography>
+          <Typography variant='h5'>{text ? text : `${model.message}...`}</Typography>
         </CenterStack>
       </Box>
       <Box pb={2}>

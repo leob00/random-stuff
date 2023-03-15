@@ -8,20 +8,9 @@ import dayjs from 'dayjs'
 import { UserPin, UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
 import React from 'react'
-const EnterPinDialog = ({
-  show,
-  userProfile,
-  onConfirm,
-  onCancel,
-}: {
-  show: boolean
-  userProfile: UserProfile
-  onConfirm: (userPin: UserPin) => void
-  onCancel: () => void
-}) => {
+const EnterPinDialog = ({ show, userProfile, onConfirm, onCancel }: { show: boolean; userProfile: UserProfile; onConfirm: (userPin: UserPin) => void; onCancel: () => void }) => {
   const [error, setError] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
-  const [open, setOpen] = React.useState(show)
 
   const handleClose = async () => {
     onCancel()
@@ -42,7 +31,6 @@ const EnterPinDialog = ({
         setError('')
         setIsLoading(true)
         onConfirm(updatedPin)
-        setOpen(false)
       } else {
         setError('incorrect pin')
         console.log('incorrect pin')
@@ -61,8 +49,8 @@ const EnterPinDialog = ({
 
   return (
     <Box>
-      {open ? (
-        <Dialog open={open} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
+      {show ? (
+        <Dialog open={show} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
           <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>
             <Stack display='flex' direction={'row'}>
               <Stack flexGrow={1}>{'Enter pin'}</Stack>

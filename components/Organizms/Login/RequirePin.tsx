@@ -128,7 +128,7 @@ const RequirePin = ({ minuteDuration = 20, enablePolling, children }: { minuteDu
     <>
       {model.showPinEntry ? (
         <>
-          <EnterPinDialog show={true} userProfile={model.userProfile} onConfirm={handlePinValidated} onCancel={handleClosePinEntry} />
+          <EnterPinDialog show={model.showPinEntry} userProfile={model.userProfile} onConfirm={handlePinValidated} onCancel={handleClosePinEntry} />
         </>
       ) : (
         <>
