@@ -8,6 +8,8 @@ import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import InternalLink from 'components/Atoms/Buttons/InternalLink'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { useUserController } from 'hooks/userController'
+import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
+import CenteredNavigationButton from 'components/Atoms/Buttons/CenteredNavigationButton'
 
 const HomeMenu = () => {
   const userController = useUserController()
@@ -40,60 +42,35 @@ const HomeMenu = () => {
           <CenteredHeader title={'Welcome to random stuff'} description={'You came to the right place to view random things. Enjoy!'} />
           <Box>
             <Box py={2}>
-              <Box>
-                <CenterStack>
-                  <InternalLink route={'/csr/news'} text={'news'} large />
-                </CenterStack>
-                <HorizontalDivider />
-                <CenterStack>
-                  <InternalLink route={'/csr/stocks'} text={'stocks'} large />
-                </CenterStack>
-                <HorizontalDivider />
-                <CenterStack>
-                  <InternalLink route={'/ssg/recipes'} text={'recipes'} large />
-                </CenterStack>
-                <HorizontalDivider />
-                {userController.isLoggedIn && (
-                  <>
-                    <CenterStack>
-                      <InternalLink route={'/protected/csr/goals'} text={'goals'} large />
-                      <Typography>|</Typography>
-                      <InternalLink route={'/protected/csr/notes'} text={'notes'} large />
-                    </CenterStack>
-                    <HorizontalDivider />
-
-                    <CenterStack>
-                      <InternalLink route={'/protected/csr/dashboard'} text={'dashboard'} large />
-                    </CenterStack>
-                    <HorizontalDivider />
-                    <CenterStack>
-                      <InternalLink route={'/protected/csr/secrets'} text={'secrets'} large />
-                    </CenterStack>
-                    <HorizontalDivider />
-                    {isAdmin && (
-                      <>
-                        <CenterStack>
-                          <InternalLink route={'/protected/csr/admin'} text={'admin'} large />
-                        </CenterStack>
-                        <HorizontalDivider />
-                      </>
-                    )}
-                  </>
-                )}
-              </Box>
+              <CenteredNavigationButton route={'/csr/news'} text={'news'} />
+              <CenteredNavigationButton route={'/csr/stocks'} text={'stocks'} />
+              <CenteredNavigationButton route={'/ssg/recipes'} text={'recipes'} />
+              {userController.isLoggedIn && (
+                <>
+                  <CenterStack sx={{ py: 2 }}>
+                    <NavigationButton route={'/protected/csr/goals'} text={'goals'} />
+                    <Typography>|</Typography>
+                    <NavigationButton route={'/protected/csr/notes'} text={'notes'} />
+                  </CenterStack>
+                  <HorizontalDivider />
+                  <CenteredNavigationButton route={'/protected/csr/dashboard'} text={'dashboard'} />
+                  <CenteredNavigationButton route={'/protected/csr/secrets'} text={'secrets'} />
+                  {isAdmin && <CenteredNavigationButton route={'/protected/csr/admin'} text={'admin'} />}
+                </>
+              )}
             </Box>
-            <CenterStack>
-              <InternalLink route={'/ssg/randomdogs'} text={'dogs'} large />
+            <CenterStack sx={{ py: 2 }}>
+              <NavigationButton route={'/ssg/randomdogs'} text={'dogs'} />
               <Typography>|</Typography>
-              <InternalLink route={'/ssg/randomcats'} text={'cats'} large />
+              <NavigationButton route={'/ssg/randomcats'} text={'cats'} />
             </CenterStack>
             <HorizontalDivider />
+            <CenterStack sx={{ py: 2 }}>
+              <NavigationButton route={'/ssg/coinflip'} text={'flip a coin'} />
+              <Typography>|</Typography>
+              <NavigationButton route={'/ssg/roulette'} text={'spin wheel'} />
+            </CenterStack>
           </Box>
-          <CenterStack>
-            <InternalLink route={'/ssg/coinflip'} text={'flip a coin'} large />
-            <Typography>|</Typography>
-            <InternalLink route={'/ssg/roulette'} text={'spin wheel'} large />
-          </CenterStack>
         </Container>
       </Box>
     </Box>

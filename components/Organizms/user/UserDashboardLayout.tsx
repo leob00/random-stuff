@@ -8,11 +8,10 @@ import BackButton from 'components/Atoms/Buttons/BackButton'
 import ButtonSkeleton from 'components/Atoms/Skeletons/ButtonSkeleton'
 import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import LinkButton from 'components/Atoms/Buttons/LinkButton'
-import TabButton from 'components/Atoms/Buttons/TabButton'
-import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
+import CenteredNavigationButton from 'components/Atoms/Buttons/CenteredNavigationButton'
 
-const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
+const UserDashboardLayout = () => {
   const [isLoading, setIsLoading] = React.useState(true)
 
   React.useEffect(() => {
@@ -30,86 +29,13 @@ const UserDashboardLayout = ({ userProfile }: { userProfile: UserProfile }) => {
         <HorizontalDivider />
       </Box>
       <Box sx={{ my: 2 }}>
-        {isLoading && (
-          <>
-            <CenterStack>
-              <Skeleton variant='text' sx={{ bgcolor: VeryLightBlueTransparent }}>
-                <Typography variant='subtitle1'>Take Notes</Typography>
-              </Skeleton>
-            </CenterStack>
-            <CenterStack>
-              <ButtonSkeleton buttonText='Notes: 00' />
-            </CenterStack>
-          </>
-        )}
+        {isLoading && <WarmupBox text='loading dashboard...' />}
         <>
-          {/* <Box display={'flex'} justifyContent={'space-evenly'}>
-            <LinkButton
-              onClick={() => {
-                router.push('/protected/csr/notes')
-              }}>
-              {`notes: ${userProfile.noteTitles.length}`}
-            </LinkButton>
-            <LinkButton
-              onClick={() => {
-                router.push('/protected/csr/goals')
-              }}>
-              {`goals`}
-            </LinkButton>
-            <LinkButton
-              onClick={() => {
-                router.push('/csr/stocks')
-              }}>
-              {`stocks`}
-            </LinkButton>
-            <LinkButton
-              onClick={() => {
-                router.push('/protected/csr/secrets')
-              }}>
-              {`secrets`}
-            </LinkButton>
-          </Box> */}
           <>
-            <CenterStack sx={{ py: 2 }}>
-              <LinkButton
-                onClick={() => {
-                  router.push('/protected/csr/notes')
-                }}
-              >
-                <Typography variant={'h4'}>notes</Typography>
-              </LinkButton>
-            </CenterStack>
-            <HorizontalDivider />
-            <CenterStack sx={{ py: 2 }}>
-              <LinkButton
-                onClick={() => {
-                  router.push('/protected/csr/goals')
-                }}
-              >
-                <Typography variant={'h4'}>goals</Typography>
-              </LinkButton>
-            </CenterStack>
-            <HorizontalDivider />
-            <CenterStack sx={{ py: 2 }}>
-              <LinkButton
-                onClick={() => {
-                  router.push('/csr/stocks')
-                }}
-              >
-                <Typography variant={'h4'}>stocks</Typography>
-              </LinkButton>
-            </CenterStack>
-            <HorizontalDivider />
-
-            <CenterStack sx={{ py: 2 }}>
-              <LinkButton
-                onClick={() => {
-                  router.push('/protected/csr/secrets')
-                }}
-              >
-                <Typography variant={'h4'}>secrets</Typography>
-              </LinkButton>
-            </CenterStack>
+            <CenteredNavigationButton route={'/protected/csr/goals'} text={'goals'} />
+            <CenteredNavigationButton route={'/protected/csr/notes'} text={'notes'} />
+            <CenteredNavigationButton route={'/csr/stocks'} text={'stocks'} />
+            <CenteredNavigationButton route={'/protected/csr/secrets'} text={'secrets'} showDivider={false} />
           </>
         </>
       </Box>
