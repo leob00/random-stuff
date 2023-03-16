@@ -9,9 +9,9 @@ import WarmupBox from 'components/Atoms/WarmupBox'
 import StockListMenu from 'components/Molecules/Menus/StockListMenu'
 import DraggableList from 'components/Organizms/stocks/DraggableList'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { getUserStockListLatest, searchStockQuotes } from 'lib/backend/api/qln/qlnApi'
+import { refreshQuotes, searchStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
-import { putUserStockList } from 'lib/backend/csr/nextApiWrapper'
+import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
 import { getMapFromArray } from 'lib/util/collections'
 import { cloneDeep } from 'lodash'
@@ -86,12 +86,17 @@ const StockSearchLayout = () => {
     let map = model.stockListMap
 
     if (username) {
-      stockList = await getUserStockListLatest(username)
+      stockList = await getUserStockList(username)
       stockList.forEach((q) => {
         map.set(q.Symbol, q)
       })
       setModel({ ...model, username: username, stockListMap: map, stockList: stockList, isLoading: false })
-      const testMap = getMapFromArray<StockQuote>(stockList, 'Symbol')
+      refreshQuotes(stockList, username).then((refreshed) => {
+        refreshed.forEach((q) => {
+          map.set(q.Symbol, q)
+        })
+        setModel({ ...model, stockList: refreshed, username: username, stockListMap: map, isLoading: false })
+      })
       //console.log(testMap)
     } else {
       setTimeout(() => {

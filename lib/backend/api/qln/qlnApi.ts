@@ -1,7 +1,8 @@
-import { getUserStockList } from 'lib/backend/csr/nextApiWrapper'
+import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
 import { quoteArraySchema, quoteHistorySchema, StockQuote } from '../models/zModels'
 import { get } from '../fetchFunctions'
+import { getListFromMap, getMapFromArray } from 'lib/util/collections'
 
 let baseUrl = process.env.NEXT_PUBLIC_QLN_API_URL
 
@@ -194,4 +195,26 @@ export async function getLatestQuotes(symbols: string[]) {
     return []
   }
   return await getStockQuotes(symbols)
+}
+
+export async function refreshQuotes(quotes: StockQuote[], username?: string) {
+  const map = getMapFromArray(quotes, 'Symbol')
+
+  const symbols = quotes.map((o) => o.Symbol)
+  const latest = await getLatestQuotes(symbols)
+  latest.forEach((item) => {
+    map.set(item.Symbol, item)
+  })
+
+  const result: StockQuote[] = getListFromMap(map)
+  if (username) {
+    if (JSON.stringify(result) !== JSON.stringify(quotes)) {
+      console.log(`stock quotes are stale. Saving ${result.length} quotes.`)
+      putUserStockList(username, result)
+    } else {
+      console.log('stock are up to date')
+    }
+  }
+
+  return result
 }
