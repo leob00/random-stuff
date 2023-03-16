@@ -2,7 +2,7 @@ import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapp
 import { DropdownItem } from 'lib/models/dropdown'
 import { quoteArraySchema, quoteHistorySchema, StockQuote } from '../models/zModels'
 import { get } from '../fetchFunctions'
-import { getListFromMap, getMapFromArray } from 'lib/util/collections'
+import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 
 let baseUrl = process.env.NEXT_PUBLIC_QLN_API_URL
 
@@ -209,7 +209,7 @@ export async function refreshQuotes(quotes: StockQuote[], username?: string) {
   const result: StockQuote[] = getListFromMap(map)
   if (username) {
     if (JSON.stringify(result) !== JSON.stringify(quotes)) {
-      console.log(`stock quotes are stale. Saving ${result.length} quotes.`)
+      console.log(`Quotes are stale. Saving ${result.length} quotes.`)
       putUserStockList(username, result)
     } else {
       console.log('stock are up to date')
