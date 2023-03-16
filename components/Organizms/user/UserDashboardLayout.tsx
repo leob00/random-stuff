@@ -1,14 +1,9 @@
-import { Box, Skeleton, Typography } from '@mui/material'
-import CenterStack from 'components/Atoms/CenterStack'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { Box } from '@mui/material'
 import React from 'react'
 import router from 'next/router'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import BackButton from 'components/Atoms/Buttons/BackButton'
-import ButtonSkeleton from 'components/Atoms/Skeletons/ButtonSkeleton'
-import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
 import CenteredNavigationButton from 'components/Atoms/Buttons/CenteredNavigationButton'
 
 const UserDashboardLayout = () => {

@@ -32,7 +32,7 @@ const Page = () => {
         ) : userProfile ? (
           <>
             <CenteredTitle title='Dashboard' />
-            <UserDashboardLayout userProfile={userProfile} />
+            <UserDashboardLayout />
           </>
         ) : (
           <PleaseLogin />
