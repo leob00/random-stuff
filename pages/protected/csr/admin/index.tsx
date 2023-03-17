@@ -17,6 +17,7 @@ import { EncPutRequest } from 'lib/backend/csr/nextApiWrapper'
 import { get, post } from 'lib/backend/api/fetchFunctions'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import ReEnterPasswordDialog from 'components/Organizms/Login/ReEnterPasswordDialog'
+import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 
 const Page = () => {
   const userController = useUserController()
@@ -107,7 +108,7 @@ const Page = () => {
   }
 
   return (
-    <>
+    <ResponsiveContainer>
       <NonSSRWrapper>
         {loading ? (
           <WarmupBox />
@@ -158,7 +159,7 @@ const Page = () => {
           <PleaseLogin />
         )}
       </NonSSRWrapper>
-    </>
+    </ResponsiveContainer>
   )
 }
 
