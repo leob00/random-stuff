@@ -37,7 +37,7 @@ export const needsPinEntry = (profile: UserProfile, minuteDuration: number, logE
   return isExpired
 }
 
-const RequirePin = ({ minuteDuration = 20, enablePolling, children }: { minuteDuration?: number; enablePolling?: boolean; children: ReactNode }) => {
+const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { minuteDuration?: number; enablePolling?: boolean; children: ReactNode }) => {
   const timeOutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const userController = useUserController()
   const profile = userController.authProfile!
@@ -96,7 +96,7 @@ const RequirePin = ({ minuteDuration = 20, enablePolling, children }: { minuteDu
 
     console.log(`pin validated. `)
 
-    await putUserProfile(newProfile)
+    putUserProfile(newProfile)
     setModel({
       ...model,
       userProfile: newProfile,

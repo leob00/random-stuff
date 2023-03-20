@@ -2,11 +2,10 @@ import { putRandomStuffEnc } from 'lib/backend/api/aws/apiGateway'
 import { EncPutRequest } from 'lib/backend/csr/nextApiWrapper'
 import { NextRequest, NextResponse } from 'next/server'
 export const config = {
-  runtime: 'edge', // this is a pre-requisite
+  runtime: 'edge',
 }
 
 export default async function handler(req: NextRequest) {
-  //console.log('url: ', req.url)
   const enc = (await req.json()) as EncPutRequest
   const body = await putRandomStuffEnc(enc)
   if (!body) {

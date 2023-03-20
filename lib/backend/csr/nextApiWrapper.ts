@@ -3,7 +3,7 @@ import { UserNote } from 'lib/models/randomStuffModels'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
-import { DynamoKeys, LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
+import { DynamoKeys, EmailMessage, LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
 import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
 import { get, post } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
@@ -316,4 +316,14 @@ export async function putRecord(id: DynamoKeys, category: DynamoKeys, item: any)
     data: encryptBody(req),
   }
   await post(`/api/putRandomStuff`, putRequest)
+}
+
+export async function sendEmailFromClient(item: EmailMessage) {
+  // const putRequest: EncPutRequest = {
+  //   data: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${item.to}`),
+  // }
+  /* const putRequest: EncPutRequest = {
+    data: 
+  } */
+  await post(`/api/sendEmail`, item)
 }

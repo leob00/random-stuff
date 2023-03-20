@@ -45,7 +45,7 @@ const ReEnterPassword = ({ userProfile, onSuccess }: { userProfile: UserProfile;
             }}
           ></TextField>
         </CenterStack>
-        <Box height={74}>
+        <Box height={84}>
           {error.length > 0 && (
             <Box py={2}>
               <CenterStack>

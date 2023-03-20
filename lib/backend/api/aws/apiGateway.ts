@@ -66,6 +66,7 @@ export interface UserProfile {
   noteTitles: UserNote[]
   secKey?: string
   pin?: UserPin
+  emailVerified?: boolean
 }
 
 export interface SiteStats {
@@ -236,6 +237,18 @@ export async function getWheelSpinStats() {
     await putRandomStuff('wheelspin-community', 'random', item)
   }
   return item
+}
+
+export interface EmailMessage {
+  to: string
+  subject: string
+  html: string
+}
+
+export async function sendEmail(message: EmailMessage) {
+  const url = `${baseUrl}/sendemail`
+  const response = (await post(url, message)) as LambdaResponse
+  return response.body
 }
 
 export async function putCoinflipStats(data: CoinFlipStats) {

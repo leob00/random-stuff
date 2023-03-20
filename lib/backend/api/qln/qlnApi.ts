@@ -209,8 +209,9 @@ export async function refreshQuotes(quotes: StockQuote[], username?: string) {
   const result: StockQuote[] = getListFromMap(map)
   if (username) {
     if (JSON.stringify(result) !== JSON.stringify(quotes)) {
-      console.log(`Quotes are stale. Saving ${result.length} quotes.`)
+      console.log(`Quotes are stale.`)
       putUserStockList(username, result)
+      console.log(`Saved ${result.length} quotes.`)
     } else {
       console.log('stock are up to date')
     }

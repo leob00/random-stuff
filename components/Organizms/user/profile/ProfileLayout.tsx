@@ -6,6 +6,7 @@ import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CreatePinDialog from 'components/Organizms/Login/CreatePinDialog'
 import ReEnterPasswordDialog from 'components/Organizms/Login/ReEnterPasswordDialog'
+import RequirePin from 'components/Organizms/Login/RequirePin'
 import { useUserController } from 'hooks/userController'
 import { UserPin, UserProfile } from 'lib/backend/api/aws/apiGateway'
 import React from 'react'
@@ -42,24 +43,29 @@ const ProfileLayout = ({ profile }: { profile: UserProfile }) => {
       <SnackbarSuccess show={showPinChangedMessage} text={'Your pin has been updated!'} />
       <CenteredHeader title={`Profile`} />
       <HorizontalDivider />
-      <CenterStack>
-        <Typography variant='body1'>
-          {!showPasswordEntry && !showPinEntry && (
-            <LinkButton onClick={handleChangePinClick}>
-              <Typography>{`${userProfile.pin ? 'reset pin' : 'create a pin'}`}</Typography>
-            </LinkButton>
-          )}
-        </Typography>
-      </CenterStack>
-      <ReEnterPasswordDialog
-        show={showPasswordEntry}
-        title='Login'
-        text='Please enter your password so you can set your pin.'
-        userProfile={userProfile}
-        onConfirm={handlePasswordValidated}
-        onCancel={handleCancelChangePin}
-      />
-      <CreatePinDialog show={showPinEntry} userProfile={userProfile} onCancel={handleCancelChangePin} onConfirm={handlePinChanged} />
+      <RequirePin>
+        <>
+          <CenterStack>
+            <Typography variant='body1'>
+              {!showPasswordEntry && !showPinEntry && (
+                <LinkButton onClick={handleChangePinClick}>
+                  <Typography>{`${userProfile.pin ? 'reset pin' : 'create a pin'}`}</Typography>
+                </LinkButton>
+              )}
+            </Typography>
+          </CenterStack>
+          <ReEnterPasswordDialog
+            show={showPasswordEntry}
+            title='Login'
+            text='Please enter your password so you can set your pin.'
+            userProfile={userProfile}
+            onConfirm={handlePasswordValidated}
+            onCancel={handleCancelChangePin}
+          />
+
+          <CreatePinDialog show={showPinEntry} userProfile={userProfile} onCancel={handleCancelChangePin} onConfirm={handlePinChanged} />
+        </>
+      </RequirePin>
     </>
   )
 }

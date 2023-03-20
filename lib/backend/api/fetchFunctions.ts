@@ -28,16 +28,27 @@ export async function get(url: string, params?: any) {
 }
 
 export async function post(url: string, body: any) {
-  //console.log('body: ', body)
-  const resp = await fetch(url, {
-    method: 'POST',
-    body: JSON.stringify(body),
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_PUBLIC_KEY),
-      ApiKey: String(process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY),
-    },
-  })
-  const data = await resp.json()
-  return data
+  //console.log('posting body: ', body)
+  //console.log('token: ', String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_PUBLIC_KEY))
+  const awsApiKey = String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_PUBLIC_KEY)
+  try {
+    //console.log(`post: ${url}`)
+    //console.log(`body: ${postBody}`)
+    const resp = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': awsApiKey,
+        ApiKey: String(process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY),
+      },
+    })
+
+    const data = await resp.json()
+    //console.log('response: ', resp)
+    return data
+  } catch (err) {
+    console.log('error in post: ', err)
+    return null
+  }
 }
