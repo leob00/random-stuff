@@ -85,7 +85,7 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
       setModel({ ...model, isLoading: false, originalSecrets: result, filteredSecrets: applyFilter(result, model.filter), createNew: false })
     }
     fn()
-  }, [])
+  }, []) // eslint-disable-line it is OK
 
   return model.isLoading ? (
     <WarmupBox text='loading secrets...' />
@@ -94,7 +94,14 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
       {profile && encKey && (
         <>
           {model.createNew ? (
-            <EditSecret username={user.email} encKey={encKey} userSecret={{ title: '', secret: '', salt: getRandomSalt() }} onCancel={() => setModel({ ...model, createNew: false })} onSaved={handleItemAdded} onDeleted={handleItemDeleted} />
+            <EditSecret
+              username={user.email}
+              encKey={encKey}
+              userSecret={{ title: '', secret: '', salt: getRandomSalt() }}
+              onCancel={() => setModel({ ...model, createNew: false })}
+              onSaved={handleItemAdded}
+              onDeleted={handleItemDeleted}
+            />
           ) : (
             <Box pb={3}>
               <SecondaryButton text={'add'} size='small' onClick={() => setModel({ ...model, createNew: true })} />

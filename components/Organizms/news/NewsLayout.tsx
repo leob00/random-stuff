@@ -57,7 +57,7 @@ const NewsLayout = () => {
       await loadData('GoogleTopStories')
     }
     fn()
-  }, [])
+  }, []) // eslint-disable-line it is OK
   return (
     <>
       <NonSSRWrapper>

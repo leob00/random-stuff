@@ -155,7 +155,7 @@ const GoalDetails = ({
       onLoaded?.(goalDetailModel.selectedGoal, tasks)
     }
     fn()
-  }, [goalId])
+  }, [goalId]) // eslint-disable-line it is OK
 
   return (
     <>

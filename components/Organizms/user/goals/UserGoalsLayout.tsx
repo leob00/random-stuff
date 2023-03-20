@@ -192,7 +192,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
       setModel({ ...model, goals: goals, isLoading: false, goalsAndTasks: goalsAndTasks })
     }
     fn()
-  }, [])
+  }, []) // eslint-disable-line it is OK
 
   return (
     <Box>

@@ -158,7 +158,7 @@ const StockSearchLayout = () => {
       await reloadData()
     }
     fn()
-  }, [])
+  }, []) // eslint-disable-line it is OK
 
   return (
     <>
