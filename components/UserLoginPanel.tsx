@@ -103,6 +103,7 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
     }
 
     fn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userController.username])
 
   const handleLoginClick = async () => {

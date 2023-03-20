@@ -155,7 +155,8 @@ const GoalDetails = ({
       onLoaded?.(goalDetailModel.selectedGoal, tasks)
     }
     fn()
-  }, [goalId]) // eslint-disable-line it is OK
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [goalId])
 
   return (
     <>

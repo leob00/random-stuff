@@ -34,8 +34,8 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
     if (showMore) {
       fn()
     }
-  }, [showMore]) // eslint-disable-line it is OK
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showMore])
   const renderDetail = (label: string, val?: string | number | null) => {
     return (
       <Stack direction={'row'} spacing={1} py={1}>

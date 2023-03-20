@@ -100,7 +100,8 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
     const map = mapHistory(history)
     setChartOptions(mapOptions(map))
     setIsLoading(false)
-  }, []) // eslint-disable-line it is OK
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Box>

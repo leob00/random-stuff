@@ -85,7 +85,8 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
       setModel({ ...model, isLoading: false, originalSecrets: result, filteredSecrets: applyFilter(result, model.filter), createNew: false })
     }
     fn()
-  }, []) // eslint-disable-line it is OK
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return model.isLoading ? (
     <WarmupBox text='loading secrets...' />

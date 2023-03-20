@@ -49,6 +49,7 @@ const Page = () => {
       setLoading(false)
     }
     fn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userController.username])
 
   return (
@@ -71,7 +72,12 @@ const Page = () => {
                       </Box>
                     )}
 
-                    <Snackbar open={showCreatePinAlert} autoHideDuration={3000} onClose={handleCloseCreatePinAlert} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                    <Snackbar
+                      open={showCreatePinAlert}
+                      autoHideDuration={3000}
+                      onClose={handleCloseCreatePinAlert}
+                      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                    >
                       <Alert onClose={handleCloseCreatePinAlert} severity='success' sx={{ width: '100%' }}>
                         Login succeeded. Thank you!
                       </Alert>

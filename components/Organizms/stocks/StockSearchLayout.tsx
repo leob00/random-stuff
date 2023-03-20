@@ -158,7 +158,8 @@ const StockSearchLayout = () => {
       await reloadData()
     }
     fn()
-  }, []) // eslint-disable-line it is OK
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
