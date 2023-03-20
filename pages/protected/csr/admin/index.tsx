@@ -18,6 +18,7 @@ import { get, post } from 'lib/backend/api/fetchFunctions'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import ReEnterPasswordDialog from 'components/Organizms/Login/ReEnterPasswordDialog'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import HtmlView from 'components/Atoms/Boxes/HtmlView'
 
 const Page = () => {
   const userController = useUserController()
@@ -27,6 +28,7 @@ const Page = () => {
   const [jsonResult, setJsonResult] = React.useState('')
   const [showPasswordPrompt, setShowPasswordPrompt] = React.useState(false)
   const [showLoginSuccess, setShowLoginSuccess] = React.useState(false)
+  const [emailTemplate, setEmailTemplate] = React.useState('')
   const router = useRouter()
 
   React.useEffect(() => {
@@ -48,6 +50,11 @@ const Page = () => {
       setUserProfile(p)
       await handleApiSelected('/api/edgeStatus')
       setLoading(false)
+      const resp = await fetch('/emailTemplates/sendPin.html')
+      const html = await resp.text()
+      setEmailTemplate(html)
+      //console.log('base path: ', router.pathname)
+      //const resp = await fetch()
     }
     fn()
   }, [userController.username])
@@ -130,6 +137,10 @@ const Page = () => {
                   </Typography>
                 </Box>
               )}
+            </CenterStack>
+            <CenteredTitle title='Email Template' />
+            <CenterStack>
+              <HtmlView html={emailTemplate} />
             </CenterStack>
 
             <CenteredTitle title='Login Test' />

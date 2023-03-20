@@ -1,0 +1,67 @@
+import { Box, Typography, Button, Stack } from '@mui/material'
+import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
+import InternalLink from 'components/Atoms/Buttons/InternalLink'
+import CenterStack from 'components/Atoms/CenterStack'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import { EmailMessage, UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { AmplifyUser } from 'lib/backend/auth/userUtil'
+import { sendEmailFromClient } from 'lib/backend/csr/nextApiWrapper'
+import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
+import React from 'react'
+import { useRouter } from 'next/router'
+
+const SendPinLayout = ({ ticket, profile }: { ticket: AmplifyUser; profile: UserProfile }) => {
+  const [emailSent, setEmailSent] = React.useState(false)
+  const [isLoading, setIsLoading] = React.useState(false)
+  const router = useRouter()
+  const { id } = router.query
+
+  const handleSendPinEmail = async () => {
+    setIsLoading(true)
+    const encKey = `${profile.id}${profile.username}`
+    const decryptedPin = myDecrypt(encKey, profile.pin!.pin)
+    const message: EmailMessage = {
+      to: profile.username,
+      subject: 'your pin',
+      html: `<html><p>Your requested pin:</p><h3>${decryptedPin}</h3></html>`,
+    }
+    await sendEmailFromClient(message)
+    setEmailSent(true)
+  }
+  return (
+    <Box py={2}>
+      <CenteredHeader title={'Recover pin'} />
+      <HorizontalDivider />
+      <Box py={2}>
+        {!emailSent ? (
+          <>
+            <Box py={2}>
+              <Typography>
+                {`We can send your your pin via email. The sender address will appear as 'alertsender@quotelookup.net' Please be sure to check your spam folders
+                if you don't find the email in your inbox.`}
+              </Typography>
+            </Box>
+            <CenterStack>
+              <Button variant='contained' disabled={isLoading} onClick={handleSendPinEmail}>
+                {isLoading ? 'sending...' : 'Send'}
+              </Button>
+            </CenterStack>
+          </>
+        ) : (
+          <>
+            <Box py={2}>
+              <CenterStack>
+                <Typography>Email sent! Please be sure to check your spam folder if you annot find the email in your inbox.</Typography>
+              </CenterStack>
+            </Box>
+            <CenterStack>
+              <InternalLink route={String(id)} text={'enter pin'} />
+            </CenterStack>
+          </>
+        )}
+      </Box>
+    </Box>
+  )
+}
+
+export default SendPinLayout
