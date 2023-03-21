@@ -101,7 +101,7 @@ const EnterPinDialog = ({
               </Box>
               <Box display={'flex'} gap={2} justifyContent={'center'}>
                 <Box>
-                  <InternalLink text='forgot pin' route={`/protected/ssr/profile/forgotPin?id=${router.asPath}`}></InternalLink>
+                  <InternalLink text='forgot pin' route={`/protected/csr/profile/forgotPin?id=${router.asPath}`}></InternalLink>
                 </Box>
               </Box>
             </Box>

@@ -9,6 +9,7 @@ import { sendEmailFromClient } from 'lib/backend/csr/nextApiWrapper'
 import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
 import React from 'react'
 import { useRouter } from 'next/router'
+import { formatEmail } from 'lib/ui/mailUtil'
 
 const SendPinLayout = ({ ticket, profile }: { ticket: AmplifyUser; profile: UserProfile }) => {
   const [emailSent, setEmailSent] = React.useState(false)
@@ -20,12 +21,21 @@ const SendPinLayout = ({ ticket, profile }: { ticket: AmplifyUser; profile: User
     setIsLoading(true)
     const encKey = `${profile.id}${profile.username}`
     const decryptedPin = myDecrypt(encKey, profile.pin!.pin)
+    const replaceValues = new Map<string, string>()
+    const siteUrl = `${document.location.protocol.toString()}//${document.location.host}/`
+
+    replaceValues.set('pin', decryptedPin)
+    //console.log(siteUrl)
+    replaceValues.set('siteUrl', siteUrl)
+
+    const html = await formatEmail('/emailTemplates/sendPin.html', replaceValues)
     const message: EmailMessage = {
       to: profile.username,
       subject: 'your pin',
-      html: `<html><p>Your requested pin:</p><h3>${decryptedPin}</h3></html>`,
+      html: html,
     }
-    await sendEmailFromClient(message)
+    //console.log(message)
+    //await sendEmailFromClient(message)
     setEmailSent(true)
   }
   return (
