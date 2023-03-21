@@ -35,7 +35,7 @@ const SendPinLayout = ({ ticket, profile }: { ticket: AmplifyUser; profile: User
       html: html,
     }
     //console.log(message)
-    //await sendEmailFromClient(message)
+    await sendEmailFromClient(message)
     setEmailSent(true)
   }
   return (
