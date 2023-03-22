@@ -7,8 +7,8 @@ const loaders = [
   'generating random things',
   'doing laundry',
   'warming up the server',
-  'computing lucky stars',
-  'firing up the lambdas',
+  'counting lucky stars',
+  'firing up the server',
   'counting random bytes',
   'catching up on chores',
   'performing quick maintenance',
@@ -20,6 +20,12 @@ const loaders = [
   'waiting for response',
   'adding up numbers',
   'performing basic multiplication',
+  'reading from the dictionary',
+  'reorganizing',
+  'buying ice cream',
+  'waiting for a song to end',
+  'catching up with friends',
+  'waiting for a bus',
 ]
 
 export function getRandomLoaderText() {

@@ -197,7 +197,7 @@ const StockSearchLayout = () => {
               {model.isLoading ? (
                 <>
                   <>
-                    <WarmupBox text='loading stock list...' />
+                    <WarmupBox />
                     <BoxSkeleton height={100} />
                     <HorizontalDivider />
                     <BoxSkeleton height={100} />

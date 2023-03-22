@@ -89,7 +89,7 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
   }, [])
 
   return model.isLoading ? (
-    <WarmupBox text='loading secrets...' />
+    <WarmupBox />
   ) : (
     <RequirePin minuteDuration={5} enablePolling={true}>
       {profile && encKey && (
