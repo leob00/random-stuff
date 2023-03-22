@@ -33,7 +33,7 @@ const Page = () => {
   return (
     <ResponsiveContainer>
       <PageHeader text={'Dashboard'} backButtonRoute={'/'} />
-      <NonSSRWrapper>
+      <>
         {loading ? (
           <WarmupBox />
         ) : userProfile ? (
@@ -43,7 +43,7 @@ const Page = () => {
         ) : (
           <PleaseLogin />
         )}
-      </NonSSRWrapper>
+      </>
     </ResponsiveContainer>
   )
 }

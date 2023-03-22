@@ -62,22 +62,19 @@ const Notes = () => {
   return (
     <ResponsiveContainer>
       <PageHeader text={'Notes'} backButtonRoute={'/protected/csr/dashboard'} />
-
       {!isLoggedIn ? (
         <PleaseLogin />
       ) : (
         <>
-          <NonSSRWrapper>
-            {model ? (
-              <>
-                <UserNotesLayout data={model} />
-              </>
-            ) : (
-              <>
-                <WarmupBox />
-              </>
-            )}
-          </NonSSRWrapper>
+          {model ? (
+            <>
+              <UserNotesLayout data={model} />
+            </>
+          ) : (
+            <>
+              <WarmupBox />
+            </>
+          )}
         </>
       )}
     </ResponsiveContainer>

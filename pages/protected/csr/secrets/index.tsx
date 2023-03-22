@@ -2,6 +2,7 @@ import { Alert, Box, Snackbar, Typography } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
 import CenteredParagraph from 'components/Atoms/Text/CenteredParagraph'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import WarmupBox from 'components/Atoms/WarmupBox'
@@ -54,43 +55,47 @@ const Page = () => {
 
   return (
     <>
-      <NonSSRWrapper>
-        {loading ? (
-          <WarmupBox />
-        ) : profile && ticket ? (
-          <>
+      <>
+        <ResponsiveContainer>
+          <PageHeader text={'Secrets'} backButtonRoute={'/protected/csr/dashboard'} />
+          {loading ? (
+            <WarmupBox />
+          ) : (
             <>
-              <ResponsiveContainer>
-                <CenteredTitle title='Secrets Manager' />
-                {showCreatePin ? (
-                  <CreatePinDialog show={showCreatePin} userProfile={profile} onConfirm={handlePinSaved} onCancel={() => setShowCreatePin(false)} />
-                ) : (
-                  <>
-                    {profile.pin && (
-                      <Box py={2}>
-                        <SecretsLayout user={ticket} />
-                      </Box>
-                    )}
+              {profile && ticket ? (
+                <>
+                  {showCreatePin ? (
+                    <CreatePinDialog show={showCreatePin} userProfile={profile} onConfirm={handlePinSaved} onCancel={() => setShowCreatePin(false)} />
+                  ) : (
+                    <>
+                      {profile.pin && (
+                        <Box py={2}>
+                          <SecretsLayout user={ticket} />
+                        </Box>
+                      )}
 
-                    <Snackbar
-                      open={showCreatePinAlert}
-                      autoHideDuration={3000}
-                      onClose={handleCloseCreatePinAlert}
-                      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                    >
-                      <Alert onClose={handleCloseCreatePinAlert} severity='success' sx={{ width: '100%' }}>
-                        Login succeeded. Thank you!
-                      </Alert>
-                    </Snackbar>
-                  </>
-                )}
-              </ResponsiveContainer>
+                      <Snackbar
+                        open={showCreatePinAlert}
+                        autoHideDuration={3000}
+                        onClose={handleCloseCreatePinAlert}
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                      >
+                        <Alert onClose={handleCloseCreatePinAlert} severity='success' sx={{ width: '100%' }}>
+                          Login succeeded. Thank you!
+                        </Alert>
+                      </Snackbar>
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  <PleaseLogin />
+                </>
+              )}
             </>
-          </>
-        ) : (
-          <PleaseLogin />
-        )}
-      </NonSSRWrapper>
+          )}
+        </ResponsiveContainer>
+      </>
     </>
   )
 }

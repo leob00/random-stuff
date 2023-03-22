@@ -1,6 +1,7 @@
 import { Container } from '@mui/system'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import BackButton from 'components/Atoms/Buttons/BackButton'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import UserGoalsLayout from 'components/Organizms/user/goals/UserGoalsLayout'
@@ -25,18 +26,8 @@ const Page = () => {
 
   return (
     <ResponsiveContainer>
-      {isLoggedIn ? (
-        <>
-          <BackButton
-            onClicked={() => {
-              router.push('/protected/csr/dashboard')
-            }}
-          />
-          {isLoading ? <WarmupBox text='loading' /> : <>{user && <UserGoalsLayout username={user.email} />}</>}
-        </>
-      ) : (
-        <PleaseLogin />
-      )}
+      <PageHeader text={'Goals'} backButtonRoute={'/protected/csr/dashboard'} />
+      {isLoggedIn ? <>{isLoading ? <WarmupBox text='loading' /> : <>{user && <UserGoalsLayout username={user.email} />}</>}</> : <PleaseLogin />}
     </ResponsiveContainer>
   )
 }
