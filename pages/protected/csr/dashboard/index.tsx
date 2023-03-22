@@ -10,6 +10,8 @@ import { useUserController } from 'hooks/userController'
 import React from 'react'
 import router from 'next/router'
 import CenterStack from 'components/Atoms/CenterStack'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
 
 const Page = () => {
   const userController = useUserController()
@@ -30,21 +32,12 @@ const Page = () => {
 
   return (
     <ResponsiveContainer>
+      <PageHeader text={'Dashboard'} backButtonRoute={'/'} />
       <NonSSRWrapper>
         {loading ? (
           <WarmupBox />
         ) : userProfile ? (
           <>
-            <Box display={'flex'}>
-              <BackButton
-                onClicked={() => {
-                  router.push('/')
-                }}
-              />
-            </Box>
-            <CenterStack>
-              <CenteredTitle title='Dashboard' />
-            </CenterStack>
             <UserDashboardLayout />
           </>
         ) : (

@@ -92,11 +92,6 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
     <>
       {!model.editMode && !model.viewMode && (
         <>
-          <BackButton
-            onClicked={() => {
-              router.push('/protected/csr/dashboard')
-            }}
-          />
           <Box sx={{ py: 2 }}>
             <CenterStack>
               <SearchWithinList onChanged={handleSearch} disabled={model.isLoading || model.editMode} text='search notes' defaultValue={model.search} />

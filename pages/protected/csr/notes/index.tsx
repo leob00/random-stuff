@@ -12,6 +12,7 @@ import NonSSRWrapper from 'components/Organizms/NonSSRWrapper'
 import ButtonSkeleton from 'components/Atoms/Skeletons/ButtonSkeleton'
 import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
 
 const Notes = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true)
@@ -60,15 +61,17 @@ const Notes = () => {
   }, [reload])
   return (
     <ResponsiveContainer>
-      {/* <TopPageSkeleton /> */}
+      <PageHeader text={'Notes'} backButtonRoute={'/protected/csr/dashboard'} />
+
       {!isLoggedIn ? (
         <PleaseLogin />
       ) : (
         <>
-          <CenteredTitle title={'My Notes'}></CenteredTitle>
           <NonSSRWrapper>
             {model ? (
-              <UserNotesLayout data={model} />
+              <>
+                <UserNotesLayout data={model} />
+              </>
             ) : (
               <>
                 <WarmupBox />
