@@ -15,14 +15,6 @@ const UserDashboardLayout = () => {
 
   return (
     <>
-      <Box sx={{ py: 2 }}>
-        <BackButton
-          onClicked={() => {
-            router.push('/')
-          }}
-        />
-        <HorizontalDivider />
-      </Box>
       <Box sx={{ my: 2 }}>
         {isLoading && <WarmupBox text='loading dashboard...' />}
         <>

@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material'
+import { CasinoBlackTransparent, CasinoBlue, CasinoBlueTransparent } from 'components/themes/mainTheme'
 import React from 'react'
 
 const CenteredTitle = ({ title }: { title: string }) => {

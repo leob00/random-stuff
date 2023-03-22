@@ -1,4 +1,6 @@
+import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import BackButton from 'components/Atoms/Buttons/BackButton'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
@@ -6,6 +8,8 @@ import NonSSRWrapper from 'components/Organizms/NonSSRWrapper'
 import UserDashboardLayout from 'components/Organizms/user/UserDashboardLayout'
 import { useUserController } from 'hooks/userController'
 import React from 'react'
+import router from 'next/router'
+import CenterStack from 'components/Atoms/CenterStack'
 
 const Page = () => {
   const userController = useUserController()
@@ -31,7 +35,16 @@ const Page = () => {
           <WarmupBox />
         ) : userProfile ? (
           <>
-            <CenteredTitle title='Dashboard' />
+            <Box display={'flex'}>
+              <BackButton
+                onClicked={() => {
+                  router.push('/')
+                }}
+              />
+            </Box>
+            <CenterStack>
+              <CenteredTitle title='Dashboard' />
+            </CenterStack>
             <UserDashboardLayout />
           </>
         ) : (
