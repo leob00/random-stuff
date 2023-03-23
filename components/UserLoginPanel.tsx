@@ -66,14 +66,26 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
         break
       case 'signUp':
         //console.log('creating profile')
-        const newUser = { email: payload.data?.attributes.email }
-        const newProfile: UserProfile = {
+        console.log(payload.data)
+        const newUser = { email: payload.data?.user.username }
+        const existingProfile = (await getUserProfile(newUser.email)) as UserProfile | null
+        if (!existingProfile) {
+          const newProfile: UserProfile = {
+            id: constructUserProfileKey(newUser.email),
+            noteTitles: [],
+            username: newUser.email,
+          }
+          userController.setProfile(newProfile)
+          await putUserProfile(newProfile)
+        }
+        // }
+        /* const newProfile: UserProfile = {
           id: constructUserProfileKey(newUser.email),
           noteTitles: [],
           username: newUser.email,
         }
         userController.setProfile(newProfile)
-        await putUserProfile(newProfile)
+        await putUserProfile(newProfile) */
 
         //console.log('profile created')
         break

@@ -117,7 +117,7 @@ const CreatePinDialog = ({
                 </CenterStack>
               </>
             )}
-            <Box height={60} pb={2}>
+            <Box height={100} pb={2}>
               {error.length > 0 && (
                 <Box py={2}>
                   <CenterStack>
