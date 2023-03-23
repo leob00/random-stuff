@@ -1,6 +1,5 @@
 import { Box } from '@mui/material'
 import React from 'react'
-import WarmupBox from 'components/Atoms/WarmupBox'
 import CenteredNavigationButton from 'components/Atoms/Buttons/CenteredNavigationButton'
 
 const UserDashboardLayout = () => {
@@ -13,7 +12,6 @@ const UserDashboardLayout = () => {
   return (
     <>
       <Box sx={{ my: 2 }}>
-        {isLoading && <WarmupBox />}
         <>
           <CenteredNavigationButton route={'/csr/news'} text={'news'} />
           <CenteredNavigationButton route={'/csr/stocks'} text={'stocks'} />
@@ -22,7 +20,6 @@ const UserDashboardLayout = () => {
           <CenteredNavigationButton route={'/protected/csr/secrets'} text={'secrets'} showDivider={false} />
         </>
       </Box>
-      {isLoading && <WarmupBox />}
     </>
   )
 }

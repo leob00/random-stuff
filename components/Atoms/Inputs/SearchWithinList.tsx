@@ -1,5 +1,6 @@
 import { Close } from '@mui/icons-material'
 import { TextField, InputAdornment, IconButton } from '@mui/material'
+import { CasinoBlue } from 'components/themes/mainTheme'
 import { debounce } from 'lodash'
 import React from 'react'
 
@@ -45,17 +46,18 @@ const SearchWithinList = ({
       defaultValue={defaultValue}
       disabled={disabled}
       id='searchWithinList'
-      sx={{ width: width }}
+      sx={{ width: width, input: { color: CasinoBlue } }}
       onChange={handleChange}
       size='small'
       placeholder={text}
       inputRef={textRef}
       InputProps={{
+        color: 'secondary',
         autoComplete: 'off',
         endAdornment:
           search.length > 0 ? (
             <InputAdornment position='end'>
-              <IconButton edge='end' onClick={handleClear}>
+              <IconButton edge='end' onClick={handleClear} color={'secondary'}>
                 <Close />
               </IconButton>
             </InputAdornment>

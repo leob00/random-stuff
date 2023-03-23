@@ -16,6 +16,7 @@ import router from 'next/router'
 import { buildSaveModel } from 'lib/controllers/notes/notesController'
 import { useUserController } from 'hooks/userController'
 import dayjs from 'dayjs'
+import numeral from 'numeral'
 const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
   const [model, dispatch] = React.useReducer(notesReducer, data)
   const userController = useUserController()
@@ -83,8 +84,6 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
   }
 
   const handleSearch = async (text: string) => {
-    console.log('searching ', text)
-
     dispatch({ type: 'search', payload: { search: text } })
   }
 
@@ -94,7 +93,13 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
         <>
           <Box sx={{ py: 2 }}>
             <CenterStack>
-              <SearchWithinList onChanged={handleSearch} disabled={model.isLoading || model.editMode} text='search notes' defaultValue={model.search} />
+              <SearchWithinList
+                width={350}
+                onChanged={handleSearch}
+                disabled={model.isLoading || model.editMode}
+                text={`search ${numeral(model.noteTitles.length).format('###,###')} notes`}
+                defaultValue={model.search}
+              />
             </CenterStack>
           </Box>
         </>

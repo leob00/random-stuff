@@ -33,17 +33,7 @@ const Page = () => {
   return (
     <ResponsiveContainer>
       <PageHeader text={'Dashboard'} backButtonRoute={'/'} />
-      <>
-        {loading ? (
-          <WarmupBox />
-        ) : userProfile ? (
-          <>
-            <UserDashboardLayout />
-          </>
-        ) : (
-          <PleaseLogin />
-        )}
-      </>
+      <Box>{loading ? <WarmupBox /> : userProfile ? <UserDashboardLayout /> : <PleaseLogin />}</Box>
     </ResponsiveContainer>
   )
 }
