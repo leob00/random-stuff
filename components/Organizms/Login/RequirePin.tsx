@@ -11,6 +11,7 @@ import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import { CasinoGrayTransparent } from 'components/themes/mainTheme'
 import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import CreatePinDialog from './CreatePinDialog'
+import PleaseLogin from 'components/Molecules/PleaseLogin'
 dayjs.extend(relativeTime)
 
 interface Model {
@@ -40,6 +41,9 @@ export const needsPinEntry = (profile: UserProfile, minuteDuration: number, logE
 const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { minuteDuration?: number; enablePolling?: boolean; children: ReactNode }) => {
   const timeOutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const userController = useUserController()
+  if (!userController.authProfile) {
+    return <PleaseLogin />
+  }
   const profile = userController.authProfile!
   const missingPin = !profile.pin
 
@@ -48,7 +52,7 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
     showPinCreate: missingPin,
     isPinExpired: isPinExpired,
     showPinEntry: isPinExpired,
-    userProfile: userController.authProfile!,
+    userProfile: profile!,
     pollingCounter: 0,
     pinExpirationdate: !missingPin ? dayjs(profile.pin!.lastEnterDate).add(minuteDuration, 'minutes').format() : dayjs().format(),
   }
@@ -130,29 +134,35 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
 
   return (
     <>
-      {model.showPinCreate ? (
-        <CreatePinDialog show={model.showPinCreate} userProfile={model.userProfile} onConfirm={handlePinValidated} onCancel={handleClosePinEntry} />
-      ) : (
+      {userController.authProfile ? (
         <>
-          {model.showPinEntry ? (
-            <>
-              <EnterPinDialog show={model.showPinEntry} userProfile={model.userProfile} onConfirm={handlePinValidated} onCancel={handleClosePinEntry} />
-            </>
+          {model.showPinCreate ? (
+            <CreatePinDialog show={model.showPinCreate} userProfile={model.userProfile} onConfirm={handlePinValidated} onCancel={handleClosePinEntry} />
           ) : (
             <>
-              {model.isPinExpired ? (
-                <Box p={2} border={`1px solid ${CasinoGrayTransparent}`} borderRadius={2}>
-                  <CenteredHeader title='Pin required' description='please enter your pin to proceed.' />
-                  <CenterStack>
-                    <SecondaryButton text='enter pin' onClick={() => setModel({ ...model, showPinEntry: true })} />
-                  </CenterStack>
-                </Box>
+              {model.showPinEntry ? (
+                <>
+                  <EnterPinDialog show={model.showPinEntry} userProfile={model.userProfile} onConfirm={handlePinValidated} onCancel={handleClosePinEntry} />
+                </>
               ) : (
-                <>{children}</>
+                <>
+                  {model.isPinExpired ? (
+                    <Box p={2} border={`1px solid ${CasinoGrayTransparent}`} borderRadius={2}>
+                      <CenteredHeader title='Pin required' description='please enter your pin to proceed.' />
+                      <CenterStack>
+                        <SecondaryButton text='enter pin' onClick={() => setModel({ ...model, showPinEntry: true })} />
+                      </CenterStack>
+                    </Box>
+                  ) : (
+                    <>{children}</>
+                  )}
+                </>
               )}
             </>
           )}
         </>
+      ) : (
+        <></>
       )}
     </>
   )

@@ -1,4 +1,4 @@
-import { Box, Container, Link, Stack, Typography, useMediaQuery } from '@mui/material'
+import { Box, Link, Stack } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import DropDownList from 'components/Atoms/Inputs/DropdownList'
@@ -16,7 +16,6 @@ import { orderBy } from 'lodash'
 import React from 'react'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
 import { get } from 'lib/backend/api/fetchFunctions'
-import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 
 const NewsLayout = () => {
   const [isLoading, setIsLoading] = React.useState(true)
@@ -27,7 +26,6 @@ const NewsLayout = () => {
   const loadData = async (id: NewsTypeIds) => {
     try {
       const result = (await get(`/api/news?id=${id}`)) as NewsItem[]
-      //console.log(result[0])
       const sorted = orderBy(result, ['PublishDate'], ['desc'])
       if (userController.authProfile) {
         userController.authProfile.noteTitles.forEach((note) => {
@@ -38,7 +36,6 @@ const NewsLayout = () => {
           })
         })
       }
-      //console.log(sorted[0])
       setNewsItems(sorted)
     } catch (err) {
       console.log('error in news api: ', err)
@@ -51,6 +48,24 @@ const NewsLayout = () => {
     await loadData(id as NewsTypeIds)
   }
   const handleSaved = async (note: UserNote) => {}
+
+  const RenderDescription = (item: NewsItem) => {
+    if (item.Source!.includes('HackerNews')) {
+      return <></>
+    }
+    if (item.Source?.includes('Bbc')) {
+      return (
+        <Box pt={1} width={{ xs: 280, md: 'unset' }} textAlign={'center'}>
+          <HtmlView html={item.Description} />
+        </Box>
+      )
+    }
+    return (
+      <Box pt={1} width={{ xs: 280, md: 'unset' }}>
+        <HtmlView html={item.Description} />
+      </Box>
+    )
+  }
 
   React.useEffect(() => {
     const fn = async () => {
@@ -78,18 +93,14 @@ const NewsLayout = () => {
               {newsItems.length > 0 ? (
                 newsItems.map((item, i) => (
                   <Box key={i} pb={2}>
-                    <Box width={{ xs: 300, md: 'unset' }}>
+                    <Box width={{ xs: 300, md: 'unset' }} textAlign={'center'}>
                       <Link href={item.Link} target='_blank' color='primary' sx={{ fontWeight: 700 }}>
                         {item.Headline}
                       </Link>
                     </Box>
-                    {item.Description && item.Source && item.Source !== 'HackerNews' && (
-                      <Box width={{ xs: 280, md: 'unset' }}>
-                        <HtmlView html={item.Description}></HtmlView>
-                      </Box>
-                    )}
+                    {RenderDescription(item)}
                     {item.TeaserImageUrl && item.TeaserImageUrl.length > 0 && (
-                      <Box pt={1} maxWidth={350}>
+                      <Box pt={1} maxWidth={350} display={'flex'} sx={{ margin: 'auto' }}>
                         <img src={item.TeaserImageUrl} title='' width={300} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
                       </Box>
                     )}

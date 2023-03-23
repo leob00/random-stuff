@@ -5,20 +5,12 @@ import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import NewsLayout from '../../../components/Organizms/news/NewsLayout'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
 
 const Page = () => {
-  const router = useRouter()
   return (
     <ResponsiveContainer>
-      <Button
-        variant='text'
-        onClick={() => {
-          router.push('/')
-        }}
-      >
-        &#8592; back
-      </Button>
-      <HorizontalDivider />
+      <PageHeader text='News' backButtonRoute='/' />
       <NewsLayout />
     </ResponsiveContainer>
   )

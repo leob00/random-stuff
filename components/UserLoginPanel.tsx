@@ -78,16 +78,6 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
           userController.setProfile(newProfile)
           await putUserProfile(newProfile)
         }
-        // }
-        /* const newProfile: UserProfile = {
-          id: constructUserProfileKey(newUser.email),
-          noteTitles: [],
-          username: newUser.email,
-        }
-        userController.setProfile(newProfile)
-        await putUserProfile(newProfile) */
-
-        //console.log('profile created')
         break
 
       case 'signIn_failure':
@@ -135,17 +125,17 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
 
   return (
     <>
-      <Box justifyContent={'space-evenly'} display='flex'>
+      <Box justifyContent={'space-evenly'} display='flex' alignItems={'center'}>
         {userController.username ? (
           <>
-            <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
+            <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} mt={'6px'}>
               <Stack flexGrow={1}></Stack>
               <LoggedInUserMenu onLogOut={signOut} username={userController.username} />
             </Stack>
           </>
         ) : (
           <>
-            <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />}>
+            <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} mt={'6px'}>
               <Stack flexGrow={1}></Stack>
               <Stack justifyContent={'center'} alignItems={'center'}>
                 <Button onClick={handleLoginClick} size='small' sx={{}}>
