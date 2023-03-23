@@ -55,13 +55,13 @@ const NewsLayout = () => {
     }
     if (item.Source?.includes('Bbc')) {
       return (
-        <Box pt={1} width={{ xs: 280, md: 'unset' }} textAlign={'center'}>
+        <Box pt={1} width={{ xs: 360, sm: 'unset' }} textAlign={'center'}>
           <HtmlView html={item.Description} />
         </Box>
       )
     }
     return (
-      <Box pt={1} width={{ xs: 280, md: 'unset' }}>
+      <Box pt={1} width={{ xs: 360, sm: 'unset' }}>
         <HtmlView html={item.Description} />
       </Box>
     )
@@ -93,14 +93,14 @@ const NewsLayout = () => {
               {newsItems.length > 0 ? (
                 newsItems.map((item, i) => (
                   <Box key={i} pb={2}>
-                    <Box width={{ xs: 300, md: 'unset' }} textAlign={'center'}>
+                    <Box textAlign={'center'} px={2}>
                       <Link href={item.Link} target='_blank' color='primary' sx={{ fontWeight: 700 }}>
                         {item.Headline}
                       </Link>
                     </Box>
                     {RenderDescription(item)}
                     {item.TeaserImageUrl && item.TeaserImageUrl.length > 0 && (
-                      <Box pt={1} maxWidth={350} display={'flex'} sx={{ margin: 'auto' }}>
+                      <Box pt={1} maxWidth={350} display={'flex'} sx={{ margin: 'auto' }} px={2}>
                         <img src={item.TeaserImageUrl} title='' width={300} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
                       </Box>
                     )}
