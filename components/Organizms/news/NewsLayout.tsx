@@ -1,4 +1,4 @@
-import { Box, Link, Stack } from '@mui/material'
+import { Box, Link, Stack, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import DropDownList from 'components/Atoms/Inputs/DropdownList'
@@ -21,6 +21,7 @@ const NewsLayout = () => {
   const [isLoading, setIsLoading] = React.useState(true)
   const [newsItems, setNewsItems] = React.useState<NewsItem[]>([])
   const [showError, setShowError] = React.useState(false)
+  const [selectedSource, setSelectedSource] = React.useState<NewsTypeIds>('GoogleTopStories')
   const userController = useUserController()
 
   const loadData = async (id: NewsTypeIds) => {
@@ -45,7 +46,9 @@ const NewsLayout = () => {
   }
   const handleNewsSourceSelected = async (id: string) => {
     setIsLoading(true)
-    await loadData(id as NewsTypeIds)
+    const source = id as NewsTypeIds
+    setSelectedSource(source)
+    //await loadData(id as NewsTypeIds)
   }
   const handleSaved = async (note: UserNote) => {}
 
@@ -69,18 +72,18 @@ const NewsLayout = () => {
 
   React.useEffect(() => {
     const fn = async () => {
-      await loadData('GoogleTopStories')
+      await loadData(selectedSource)
     }
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [selectedSource])
   return (
     <>
       <NonSSRWrapper>
         <Box py={2}>
           <CenterStack>
             <Stack display='flex' flexDirection='row' gap={2}>
-              <DropDownList options={newsTypes} selectedOption={'GoogleTopStories'} onOptionSelected={handleNewsSourceSelected} label='source' />
+              <DropDownList options={newsTypes} selectedOption={selectedSource} onOptionSelected={handleNewsSourceSelected} label='source' />
             </Stack>
           </CenterStack>
         </Box>
@@ -94,8 +97,8 @@ const NewsLayout = () => {
                 newsItems.map((item, i) => (
                   <Box key={i} pb={2}>
                     <Box textAlign={'center'} px={2}>
-                      <Link href={item.Link} target='_blank' color='primary' sx={{ fontWeight: 700 }}>
-                        {item.Headline}
+                      <Link href={item.Link} target='_blank' color='primary' sx={{ fontWeight: 700, textDecoration: 'none' }}>
+                        <Typography variant={'h4'}>{item.Headline}</Typography>
                       </Link>
                     </Box>
                     {RenderDescription(item)}

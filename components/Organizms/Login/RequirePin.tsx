@@ -18,13 +18,15 @@ interface Model {
   showPinCreate: boolean
   isPinExpired: boolean
   showPinEntry: boolean
-  userProfile: UserProfile
+  userProfile: UserProfile | null
   pollingCounter: number
   pinExpirationdate: string
 }
 
-export const needsPinEntry = (profile: UserProfile, minuteDuration: number, logExpiration: boolean = false) => {
-  const pin = profile.pin!
+export const needsPinEntry = (minuteDuration: number, logExpiration: boolean = false, pin?: UserPin) => {
+  if (!pin) {
+    return true
+  }
   const lastDt = dayjs(pin.lastEnterDate)
   const expDt = dayjs(pin.lastEnterDate).add(minuteDuration, 'minute')
   const isExpired = expDt.isBefore(dayjs())
@@ -41,16 +43,16 @@ export const needsPinEntry = (profile: UserProfile, minuteDuration: number, logE
 const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { minuteDuration?: number; enablePolling?: boolean; children: ReactNode }) => {
   const timeOutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const userController = useUserController()
+  const profile = userController.authProfile
 
-  const profile = userController.authProfile!
-  const missingPin = !profile.pin
+  const missingPin = profile === null || !profile.pin
 
-  const isPinExpired = missingPin || needsPinEntry(userController.authProfile!, minuteDuration)
+  const isPinExpired = missingPin || needsPinEntry(minuteDuration, true, profile?.pin)
   const defaultModel: Model = {
     showPinCreate: missingPin,
     isPinExpired: isPinExpired,
     showPinEntry: isPinExpired,
-    userProfile: profile!,
+    userProfile: profile,
     pollingCounter: 0,
     pinExpirationdate: !missingPin ? dayjs(profile.pin!.lastEnterDate).add(minuteDuration, 'minutes').format() : dayjs().format(),
   }
@@ -60,7 +62,7 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
     if (timeOutRef.current) {
       clearTimeout(timeOutRef.current)
     }
-    if (model.isPinExpired) {
+    if (model.isPinExpired || !profile || !profile.pin) {
       return
     }
 
@@ -72,13 +74,13 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
         newCounter = -1
       }
       if (newCounter === -1) {
-        needsPinEntry(newModel.userProfile, minuteDuration, true)
+        needsPinEntry(minuteDuration, true, newModel.userProfile?.pin)
         newCounter = 1
       } else {
         newCounter += 1
       }
       //console.log('polling: ', newCounter)
-      const shouldEnterPin = needsPinEntry(newModel.userProfile, minuteDuration, newCounter === 0 || Math.abs(newCounter % 2) == 1)
+      const shouldEnterPin = needsPinEntry(minuteDuration, newCounter === 0 || Math.abs(newCounter % 2) == 1, newModel.userProfile?.pin)
       //console.log('shouldEnterPin: ', shouldEnterPin)
       newModel.isPinExpired = shouldEnterPin
       newModel.showPinEntry = shouldEnterPin
@@ -95,6 +97,9 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
   const handlePinValidated = async (pin: UserPin) => {
     if (timeOutRef.current) {
       clearTimeout(timeOutRef.current)
+    }
+    if (!model.userProfile) {
+      return
     }
     const newProfile = { ...model.userProfile, pin: pin }
     userController.setProfile(newProfile)
@@ -117,6 +122,9 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
   }
 
   React.useEffect(() => {
+    if (!model.userProfile) {
+      return
+    }
     const m = { ...model }
     if (m.isPinExpired) {
       return
@@ -124,7 +132,7 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
     if (enablePolling) {
       startPolling()
     } else {
-      const shouldEnterPin = needsPinEntry(m.userProfile, minuteDuration)
+      const shouldEnterPin = needsPinEntry(minuteDuration, true, m.userProfile?.pin)
       setModel({ ...model, isPinExpired: shouldEnterPin, showPinEntry: shouldEnterPin })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -132,7 +140,7 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
 
   return (
     <>
-      {userController.authProfile ? (
+      {model.userProfile ? (
         <>
           {model.showPinCreate ? (
             <CreatePinDialog show={model.showPinCreate} userProfile={model.userProfile} onConfirm={handlePinValidated} onCancel={handleClosePinEntry} />

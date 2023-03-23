@@ -31,7 +31,9 @@ const WarmupBox = ({ text }: { text?: string }) => {
         <Box py={2}>
           <Box sx={{ pt: 2 }}>
             <CenterStack>
-              <Typography variant='h5'>{text ? text : `${model.message}...`}</Typography>
+              <Typography color={'secondary'} variant='h5'>
+                {text ? text : `${model.message}...`}
+              </Typography>
             </CenterStack>
           </Box>
           <Box pb={2}>
