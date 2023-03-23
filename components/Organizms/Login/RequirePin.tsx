@@ -41,9 +41,7 @@ export const needsPinEntry = (profile: UserProfile, minuteDuration: number, logE
 const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { minuteDuration?: number; enablePolling?: boolean; children: ReactNode }) => {
   const timeOutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const userController = useUserController()
-  if (!userController.authProfile) {
-    return <PleaseLogin />
-  }
+
   const profile = userController.authProfile!
   const missingPin = !profile.pin
 
