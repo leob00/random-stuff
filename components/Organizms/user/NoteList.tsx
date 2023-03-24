@@ -84,7 +84,7 @@ const NoteList = ({
                 {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
                   <Button size='small'>
                     <DefaultTooltip text={getExpirationText(item.expirationDate)}>
-                      <Warning fontSize='small' color='warning' />
+                      <Warning fontSize='small' color='primary' />
                     </DefaultTooltip>
                   </Button>
                 )}

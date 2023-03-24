@@ -1,10 +1,13 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { getWheelSpinStats, putWheelSpinStats, WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
+import { getWheelSpinStats, putWheelSpinStats } from 'lib/backend/api/aws/apiGateway'
 import { RouletteNumber } from 'lib/backend/roulette/wheel'
 import { isEven, isOdd } from 'lib/util/numberUtil'
+import { NextRequest, NextResponse } from 'next/server'
+export const config = {
+  runtime: 'edge',
+}
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<WheelSpinStats | null>) {
-  let body = req.body as RouletteNumber
+export default async function handler(req: NextRequest) {
+  let body = (await req.json()) as RouletteNumber
   let spinStats = await getWheelSpinStats()
 
   if (spinStats) {
@@ -44,5 +47,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     })
   }
 
-  res.status(200).json(spinStats)
+  return NextResponse.json(spinStats)
 }

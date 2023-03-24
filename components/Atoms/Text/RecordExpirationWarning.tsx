@@ -9,7 +9,7 @@ const RecordExpirationWarning = ({ expirationDate, precise = false }: { expirati
   return (
     <>
       <Typography pr={1}>
-        <Warning fontSize='small' color='warning' />
+        <Warning fontSize='small' color='primary' />
       </Typography>
       <Typography pr={1} variant='body2'>
         {message}

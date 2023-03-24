@@ -311,10 +311,11 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
             }}
           >
             <Typography
+              variant='h2'
               sx={{
                 color: model.result.color === 'black' ? 'black' : translateCasinoColor(model.result.color),
-                marginTop: -5,
-                fontSize: 40,
+                marginTop: { xs: -3, sm: -4 },
+                //fontSize: 40,
                 fontWeight: 'bolder',
               }}
             >
