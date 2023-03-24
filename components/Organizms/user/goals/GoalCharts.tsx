@@ -14,7 +14,6 @@ const GoalCharts = ({ barChart, goalTasks, handleCloseCharts }: { barChart: BarC
   return (
     <>
       <Box py={2}>
-        <HorizontalDivider />
         <Stack display={'flex'} direction={'row'} justifyContent={'flex-end'}>
           <Button onClick={handleCloseCharts}>
             <Close />

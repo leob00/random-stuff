@@ -8,6 +8,7 @@ import {
   CasinoBlueTransparent,
   CasinoDarkGreenTransparent,
   CasinoDarkRedTransparent,
+  ChartBackground,
   DarkBlue,
   DarkBlueTransparent,
   DarkModeBlueTransparent,
@@ -74,7 +75,6 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
 
   return (
     <Box key={item.Symbol} py={1} ref={containerRef}>
-      {showMore && <HorizontalDivider />}
       <Box
         pl={2}
         // sx={{
@@ -82,24 +82,26 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
         //   border: !showMore ? `solid 1px ${getPositiveNegativeColor(item.Change)}` : '',
         // }}
       >
-        <Stack direction={'row'} alignItems={'center'} display={'flex'} pt={1}>
-          <LinkButton
-            onClick={(e) => {
-              handleCompanyClick(e, !showMore)
-            }}
-          >
-            <Typography ref={scrollTarget} textAlign={'left'} variant='h6' fontWeight={600} color={DarkBlue} sx={{ textDecoration: 'unset' }}>
-              {`${item.Company}   (${item.Symbol})`}
-            </Typography>
-          </LinkButton>
-          {showMore && (
-            <Stack alignItems={'flex-end'} flexGrow={1}>
-              <IconButton color='default' onClick={() => setShowMore(false)}>
-                <Close fontSize='small' color={'secondary'} />
-              </IconButton>
-            </Stack>
-          )}
+        <Stack direction={'row'} alignItems={'flex-start'} display={'flex'} pt={1} justifyContent={'space-between'}>
+          <Stack sx={{ backgroundColor: ChartBackground }} direction={'row'} flexGrow={1} ml={-2} px={2} py={1}>
+            <LinkButton
+              onClick={(e) => {
+                handleCompanyClick(e, !showMore)
+              }}
+            >
+              <Typography ref={scrollTarget} textAlign={'left'} variant='h6' fontWeight={600} color={DarkBlue} sx={{ textDecoration: 'unset' }}>
+                {`${item.Company}   (${item.Symbol})`}
+              </Typography>
+            </LinkButton>
+          </Stack>
         </Stack>
+        <Box display={'flex'} justifyContent={'flex-end'}>
+          {showMore && (
+            <IconButton color='default' onClick={() => setShowMore(false)}>
+              <Close fontSize='small' color={'secondary'} />
+            </IconButton>
+          )}
+        </Box>
         <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
           <Stack direction={'row'} spacing={2} pl={1} sx={{ backgroundColor: 'unset' }} pt={1}>
             <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.Price.toFixed(2)}`}</Typography>
@@ -107,8 +109,8 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
             <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
           </Stack>
         </Stack>
-        {!showMore && <HorizontalDivider />}
       </Box>
+      {!showMore && <HorizontalDivider />}
       {showMore && (
         <>
           <Box pl={1} sx={{ backgroundColor: 'unset' }} minHeight={108}>

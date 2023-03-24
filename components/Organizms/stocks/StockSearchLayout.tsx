@@ -227,21 +227,19 @@ const StockSearchLayout = () => {
                     </>
                   ) : (
                     <>
-                      <>
-                        {model.stockList.length > 0 && (
-                          <>
-                            <Stack pt={1} alignItems={'flex-end'} pr={2}>
-                              <StockListMenu
-                                onEdit={() => {
-                                  setModel({ ...model, editList: true })
-                                }}
-                                onRefresh={reloadData}
-                              />
-                            </Stack>
-                          </>
-                        )}
-                        <StockTable stockList={model.stockList} onRemoveItem={handleRemoveQuote} />
-                      </>
+                      {model.stockList.length > 0 && (
+                        <>
+                          <Stack pt={1} alignItems={'flex-end'}>
+                            <StockListMenu
+                              onEdit={() => {
+                                setModel({ ...model, editList: true })
+                              }}
+                              onRefresh={reloadData}
+                            />
+                          </Stack>
+                        </>
+                      )}
+                      <StockTable stockList={model.stockList} onRemoveItem={handleRemoveQuote} />
                     </>
                   )}
                 </Box>

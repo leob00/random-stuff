@@ -63,7 +63,7 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
         },
       ],
       stroke: {
-        width: 3,
+        width: 2.2,
       },
       chart: {
         type: 'line',
@@ -78,8 +78,8 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
       yaxis: {
         labels: {
           style: {
-            colors: [VeryLightBlue],
-            fontWeight: 600,
+            colors: [CasinoBlue],
+            fontWeight: 400,
             fontSize: '14px',
           },
           formatter: (val: number) => {
@@ -138,7 +138,7 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
         ) : (
           <>
             {chartOptions && (
-              <Box borderRadius={6} sx={{ backgroundColor: DarkBlue }} p={1}>
+              <Box borderRadius={6} p={1}>
                 <ReactApexChart series={chartOptions.series} options={chartOptions} type='line' />
               </Box>
             )}

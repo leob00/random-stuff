@@ -1,4 +1,5 @@
 import { MenuItem, TextField } from '@mui/material'
+import { CasinoBlue } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
 import React from 'react'
 
@@ -20,9 +21,9 @@ const DropdownList = ({
   }
 
   return (
-    <TextField select value={opt} onChange={handleOptionSelect} size='small' label={label}>
+    <TextField select value={opt} onChange={handleOptionSelect} size='small' label={label} color={'secondary'}>
       {options.map((item) => (
-        <MenuItem key={item.value} value={item.value} selected={selectedOption === opt}>
+        <MenuItem key={item.value} value={item.value} selected={selectedOption === opt} color={'secondary'}>
           {item.text}
         </MenuItem>
       ))}
