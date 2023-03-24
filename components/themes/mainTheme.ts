@@ -6,7 +6,7 @@ export const Blue800: string = '#436ab6'
 export const LightBlue = '#446ab7'
 export const VeryLightBlue = '#d6e7f8'
 export const VeryLightBlueTransparent = '#b5d7fc67'
-export const DarkBlue = '#0b224e'
+export const DarkBlue = '#142d5d'
 export const DarkBlueTransparent = '#0b224ebb'
 export const FadedWhite = 'rgba(255, 255, 255, 0.2)'
 export const LightGrey = '#ecf2f1'
@@ -37,11 +37,12 @@ export const Default = CasinoBlue
 export const CasinoBlack = '#131212fa'
 export const White = '#ffffff'
 export const SoftWhite = '#fcfcfcf1'
+export const ChartBackground = '#c2dffa3d'
 
 const lightPalette: PaletteOptions = {
   mode: 'light',
   primary: {
-    main: DarkModeBlue,
+    main: DarkBlue,
   },
   secondary: {
     main: CasinoBlue,

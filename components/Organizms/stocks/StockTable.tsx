@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import dayjs from 'dayjs'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
@@ -10,10 +11,14 @@ const StockTable = ({ stockList, onRemoveItem }: { stockList: StockQuote[]; onRe
     <>
       <Box pl={1}>
         {stockList.map((item, index) => (
-          <StockListItem key={item.Symbol} item={item} />
+          <Box key={item.Symbol}>
+            <StockListItem item={item} />
+          </Box>
         ))}
         {stockList.length > 0 ? (
-          <Typography variant={'body2'}>{`All quote prices are as of: ${dayjs(stockList[0].TradeDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
+          <CenterStack>
+            <Typography variant={'caption'}>{`prices are as of: ${dayjs(stockList[0].TradeDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
+          </CenterStack>
         ) : (
           <CenterStack>
             <Typography>no stocks found</Typography>

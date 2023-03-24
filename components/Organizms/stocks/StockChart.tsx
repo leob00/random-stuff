@@ -13,6 +13,10 @@ import {
   CasinoLightGrayTransparent,
   VeryLightBlue,
   DarkModeBlueTransparent,
+  ChartBackground,
+  SoftWhite,
+  CasinoBlackTransparent,
+  CasinoBlack,
 } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
@@ -55,12 +59,11 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
         {
           name: '',
           data: items.y,
-          color: DarkModeBlue,
+          color: CasinoBlue,
         },
       ],
       stroke: {
         width: 3,
-        colors: [DarkModeBlue],
       },
       chart: {
         type: 'line',
@@ -70,13 +73,14 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
       },
       grid: {
         show: true,
-        borderColor: 'white',
+        borderColor: VeryLightBlueTransparent,
       },
       yaxis: {
         labels: {
           style: {
-            colors: [DarkModeBlue],
-            fontWeight: 800,
+            colors: [VeryLightBlue],
+            fontWeight: 600,
+            fontSize: '14px',
           },
           formatter: (val: number) => {
             return `$${val.toFixed(2)}`
@@ -94,8 +98,16 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
         tickAmount: Math.floor(items.x.length / (items.x.length / 12)),
         categories: items.x,
         axisTicks: { show: false },
+        axisBorder: {
+          show: false,
+          color: CasinoBlueTransparent,
+        },
       },
       tooltip: {
+        fillSeriesColor: false,
+        style: {
+          fontSize: '14px',
+        },
         y: {
           formatter: (val: number) => {
             return `$${val.toFixed(2)}`
@@ -116,7 +128,7 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
   return (
     <Box>
       <>
-        <Box textAlign={'right'} pr={1} py={1}>
+        <Box textAlign={'right'} pr={1} pt={1} pb={2}>
           <DropdownList options={daySelect} selectedOption={'365'} onOptionSelected={handleDaysSelected} />
         </Box>
         {isLoading ? (
@@ -126,7 +138,7 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
         ) : (
           <>
             {chartOptions && (
-              <Box borderRadius={4} sx={{ backgroundColor: VeryLightBlueTransparent }}>
+              <Box borderRadius={6} sx={{ backgroundColor: DarkBlue }} p={1}>
                 <ReactApexChart series={chartOptions.series} options={chartOptions} type='line' />
               </Box>
             )}

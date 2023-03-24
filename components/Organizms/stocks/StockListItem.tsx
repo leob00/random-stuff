@@ -2,7 +2,16 @@ import { Box, IconButton, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
 import LinesSkeleton from 'components/Atoms/Skeletons/LinesSkeleton'
-import { CasinoBlackTransparent, CasinoDarkGreenTransparent, CasinoDarkRedTransparent, DarkBlue, DarkBlueTransparent } from 'components/themes/mainTheme'
+import {
+  CasinoBlackTransparent,
+  CasinoBlue,
+  CasinoBlueTransparent,
+  CasinoDarkGreenTransparent,
+  CasinoDarkRedTransparent,
+  DarkBlue,
+  DarkBlueTransparent,
+  DarkModeBlueTransparent,
+} from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockChart } from 'lib/backend/api/qln/qlnApi'
@@ -10,6 +19,7 @@ import React from 'react'
 import StockChart from 'components/Organizms/stocks/StockChart'
 import { Close } from '@mui/icons-material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import { Table, TableBody, TableCell, TableRow } from '@aws-amplify/ui-react'
 
 const StockListItem = ({ item, expand = false, showBorder = true }: { item: StockQuote; expand?: boolean; showBorder?: boolean }) => {
   const [showMore, setShowMore] = React.useState(expand)
@@ -38,16 +48,18 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
   }, [showMore])
   const renderDetail = (label: string, val?: string | number | null) => {
     return (
-      <Stack direction={'row'} spacing={1} py={1}>
-        <Stack>
-          <Typography color={DarkBlueTransparent} fontWeight={600} variant={'body2'}>{`${label}:`}</Typography>
+      <>
+        <Stack direction={'row'} spacing={2} py={1}>
+          <Stack minWidth={80} textAlign={'right'}>
+            <Typography color={CasinoBlueTransparent} fontWeight={300} variant={'body2'}>{`${label}:`}</Typography>
+          </Stack>
+          <Stack>
+            <Typography variant={'body2'} fontWeight={600} color={CasinoBlue}>
+              {val}
+            </Typography>
+          </Stack>
         </Stack>
-        <Stack>
-          <Typography variant={'body2'} fontWeight={600} color={DarkBlue}>
-            {val}
-          </Typography>
-        </Stack>
-      </Stack>
+      </>
     )
   }
 
@@ -65,10 +77,10 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
       {showMore && <HorizontalDivider />}
       <Box
         pl={2}
-        sx={{
-          borderRadius: '10px',
-          border: !showMore ? `solid 1px ${getPositiveNegativeColor(item.Change)}` : '',
-        }}
+        // sx={{
+        //   borderRadius: '10px',
+        //   border: !showMore ? `solid 1px ${getPositiveNegativeColor(item.Change)}` : '',
+        // }}
       >
         <Stack direction={'row'} alignItems={'center'} display={'flex'} pt={1}>
           <LinkButton
@@ -80,13 +92,13 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
               {`${item.Company}   (${item.Symbol})`}
             </Typography>
           </LinkButton>
-          <Stack alignItems={'flex-end'} flexGrow={1}>
-            {showMore && (
+          {showMore && (
+            <Stack alignItems={'flex-end'} flexGrow={1}>
               <IconButton color='default' onClick={() => setShowMore(false)}>
-                <Close fontSize='small' />
+                <Close fontSize='small' color={'secondary'} />
               </IconButton>
-            )}
-          </Stack>
+            </Stack>
+          )}
         </Stack>
         <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
           <Stack direction={'row'} spacing={2} pl={1} sx={{ backgroundColor: 'unset' }} pt={1}>
@@ -95,6 +107,7 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
             <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
           </Stack>
         </Stack>
+        {!showMore && <HorizontalDivider />}
       </Box>
       {showMore && (
         <>
@@ -112,7 +125,7 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
               </>
             )}
           </Box>
-          <Box pl={3} pb={2}>
+          <Box pl={3} pb={2} pt={2}>
             {renderDetail('Sector', item.Sector)}
             {renderDetail('Cap', item.MarketCapShort)}
             {renderDetail('P/E', item.PeRatio)}

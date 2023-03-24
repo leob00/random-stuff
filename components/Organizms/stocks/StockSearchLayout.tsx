@@ -219,7 +219,7 @@ const StockSearchLayout = () => {
                             setModel({ ...model, editList: false })
                           }}
                         >
-                          <Close fontSize='small' />
+                          <Close fontSize='small' color='secondary' />
                         </Button>
                       </Stack>
                       <HorizontalDivider />
@@ -230,7 +230,7 @@ const StockSearchLayout = () => {
                       <>
                         {model.stockList.length > 0 && (
                           <>
-                            <Stack py={2} alignItems={'flex-end'} pr={2}>
+                            <Stack pt={1} alignItems={'flex-end'} pr={2}>
                               <StockListMenu
                                 onEdit={() => {
                                   setModel({ ...model, editList: true })

@@ -53,7 +53,7 @@ const NewsLayout = () => {
   const handleSaved = async (note: UserNote) => {}
 
   const RenderDescription = (item: NewsItem) => {
-    if (item.Source!.includes('HackerNews')) {
+    if (item.Source!.includes('HackerNews') || item.Source!.includes('Plural')) {
       return <></>
     }
     if (item.Source?.includes('Bbc')) {
@@ -66,6 +66,18 @@ const NewsLayout = () => {
     return (
       <Box pt={1} width={{ xs: 360, sm: 'unset' }}>
         <HtmlView html={item.Description} />
+      </Box>
+    )
+  }
+  const RenderHeadline = (item: NewsItem) => {
+    if (!item.Headline) {
+      return <></>
+    }
+    return (
+      <Box textAlign={'center'} px={2}>
+        <Link href={item.Link} target='_blank' color='primary' sx={{ fontWeight: 700, textDecoration: 'none' }}>
+          <Typography variant={'h4'}>{`${item.Headline.replace('Pluralistic: ', '')}`}</Typography>
+        </Link>
       </Box>
     )
   }
@@ -96,11 +108,7 @@ const NewsLayout = () => {
               {newsItems.length > 0 ? (
                 newsItems.map((item, i) => (
                   <Box key={i} pb={2}>
-                    <Box textAlign={'center'} px={2}>
-                      <Link href={item.Link} target='_blank' color='primary' sx={{ fontWeight: 700, textDecoration: 'none' }}>
-                        <Typography variant={'h4'}>{item.Headline}</Typography>
-                      </Link>
-                    </Box>
+                    {RenderHeadline(item)}
                     {RenderDescription(item)}
                     {item.TeaserImageUrl && item.TeaserImageUrl.length > 0 && (
                       <Box pt={1} maxWidth={350} display={'flex'} sx={{ margin: 'auto' }} px={2}>
