@@ -193,7 +193,7 @@ const StockSearchLayout = () => {
           </>
         ) : (
           <>
-            <Box py={2}>
+            <Box>
               {model.isLoading ? (
                 <>
                   <>
@@ -208,7 +208,7 @@ const StockSearchLayout = () => {
                   </>
                 </>
               ) : (
-                <Box>
+                <Box py={2}>
                   {model.editList && model.stockList.length > 0 ? (
                     <>
                       <Stack py={2} alignItems={'flex-end'} pr={2}>

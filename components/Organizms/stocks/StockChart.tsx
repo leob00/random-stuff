@@ -3,7 +3,17 @@ import { ApexOptions } from 'apexcharts'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import { DarkBlueTransparent, DarkBlue, VeryLightBlueTransparent, CasinoBlueTransparent, CasinoBlue, DarkModeBlue } from 'components/themes/mainTheme'
+import {
+  DarkBlueTransparent,
+  DarkBlue,
+  VeryLightBlueTransparent,
+  CasinoBlueTransparent,
+  CasinoBlue,
+  DarkModeBlue,
+  CasinoLightGrayTransparent,
+  VeryLightBlue,
+  DarkModeBlueTransparent,
+} from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { getStockChart } from 'lib/backend/api/qln/qlnApi'
@@ -45,12 +55,12 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
         {
           name: '',
           data: items.y,
-          color: CasinoBlue,
+          color: DarkModeBlue,
         },
       ],
       stroke: {
         width: 3,
-        colors: [CasinoBlue],
+        colors: [DarkModeBlue],
       },
       chart: {
         type: 'line',
@@ -60,13 +70,13 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
       },
       grid: {
         show: true,
-        borderColor: VeryLightBlueTransparent,
+        borderColor: 'white',
       },
       yaxis: {
         labels: {
           style: {
-            colors: [DarkBlue],
-            fontWeight: 700,
+            colors: [DarkModeBlue],
+            fontWeight: 800,
           },
           formatter: (val: number) => {
             return `$${val.toFixed(2)}`
@@ -106,7 +116,7 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
   return (
     <Box>
       <>
-        <Box textAlign={'right'} pr={1}>
+        <Box textAlign={'right'} pr={1} py={1}>
           <DropdownList options={daySelect} selectedOption={'365'} onOptionSelected={handleDaysSelected} />
         </Box>
         {isLoading ? (
@@ -114,7 +124,13 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
             <WarmupBox text='loading chart...' />
           </Box>
         ) : (
-          <>{chartOptions && <ReactApexChart series={chartOptions.series} options={chartOptions} type='line' />}</>
+          <>
+            {chartOptions && (
+              <Box borderRadius={4} sx={{ backgroundColor: VeryLightBlueTransparent }}>
+                <ReactApexChart series={chartOptions.series} options={chartOptions} type='line' />
+              </Box>
+            )}
+          </>
         )}
       </>
     </Box>

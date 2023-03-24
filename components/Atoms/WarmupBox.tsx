@@ -27,7 +27,7 @@ const WarmupBox = ({ text }: { text?: string }) => {
   }, [model.message, text])
   return (
     <NonSSRWrapper>
-      <Paper elevation={6} sx={{ mt: 4 }}>
+      <Paper elevation={6} sx={{ mt: 1 }}>
         <Box py={2}>
           <Box sx={{ pt: 2 }}>
             <CenterStack>

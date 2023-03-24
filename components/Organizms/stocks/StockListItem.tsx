@@ -57,17 +57,6 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
       if (containerRef.current) {
         //containerRef.current.scrollIntoView()
       }
-      if (e && e.currentTarget) {
-        const rect = e.currentTarget.getBoundingClientRect().bottom
-        // var elementPosition = element.getBoundingClientRect().top
-        //console.log(' window.pageYOffset: ', window.pageYOffset)
-        var offsetPosition = rect + window.pageYOffset - 100
-        //e.currentTarget.scrollTop = 0
-        //e.currentTarget.scrollIntoView({ behavior: 'smooth', inline: 'start' })
-        // console.log('rect: ', rect)
-        //window.scroll({ top: rect.y })
-        //window.scrollTo({ top: offsetPosition, behavior: 'smooth' })
-      }
     }
   }
 
