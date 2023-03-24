@@ -1,5 +1,6 @@
 import { Close } from '@mui/icons-material'
 import { TextField, InputAdornment, IconButton, MenuItem, Autocomplete, Box } from '@mui/material'
+import { CasinoBlue } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
 import { debounce, size } from 'lodash'
 import React from 'react'
@@ -53,7 +54,7 @@ const SearchAutoComplete = ({
       size='small'
       id='searchAutoComplete'
       freeSolo
-      sx={{ width: width }}
+      sx={{ width: width, input: { color: CasinoBlue } }}
       options={searchResults.map((e) => e.text)}
       autoHighlight
       onChange={(e, value) => {
@@ -62,10 +63,13 @@ const SearchAutoComplete = ({
       renderInput={(params) => (
         <TextField
           {...params}
-          label={placeholder}
+          //label={placeholder}
+          sx={{ input: { color: CasinoBlue } }}
           inputRef={textRef}
+          placeholder={placeholder}
           inputProps={{
             ...params.inputProps,
+            color: 'secondary',
             autoComplete: 'off', // disable autocomplete and autofill
           }}
           onChange={handleChange}
