@@ -1,17 +1,17 @@
-import { EncPutRequest } from 'lib/backend/csr/nextApiWrapper'
+import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { BasicArticle } from 'lib/model'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { get, post } from '../fetchFunctions'
 
-export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | 'site-stats' | string
+export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | 'site-stats'
 let baseUrl = process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL
 
 type CategoryType = 'animals' | 'random' | 'userProfile' | string
 
 export interface RandomStuffPut {
-  key: DynamoKeys
+  key: DynamoKeys | string
   data: BasicArticle[] | CoinFlipStats
   category: CategoryType
   expiration?: number
@@ -110,7 +110,7 @@ export async function getAnimals(type: DynamoKeys) {
   }
 }
 
-export async function getRandomStuff(type: DynamoKeys) {
+export async function getRandomStuff(type: DynamoKeys | string) {
   const url = `${baseUrl}/randomstuff?key=${type}`
   let result: LambdaResponse | null = null
   try {
@@ -162,7 +162,7 @@ export async function putRandomStuff(type: DynamoKeys, category: CategoryType, d
     console.log('error in putRandomStuff')
   }
 }
-export async function putRandomStuffEnc(req: EncPutRequest) {
+export async function putRandomStuffEnc(req: SignedRequest) {
   const json = myDecrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), req.data)
   const body = JSON.parse(json) as LambdaDynamoRequest
   if (!body) {

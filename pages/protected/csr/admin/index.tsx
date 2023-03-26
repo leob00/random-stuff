@@ -13,7 +13,7 @@ import { DropdownItem } from 'lib/models/dropdown'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { myEncrypt } from 'lib/backend/encryption/useEncryptor'
-import { EncPutRequest } from 'lib/backend/csr/nextApiWrapper'
+import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { get, post } from 'lib/backend/api/fetchFunctions'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import ReEnterPasswordDialog from 'components/Organizms/Login/ReEnterPasswordDialog'
@@ -93,7 +93,7 @@ const Page = () => {
       const enc = myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), 'user-goal-tasks[leo_bel@hotmail.com]')
       //req = `/api/searchRandomStuff?id=user-goal-tasks[leo_bel@hotmail.com]&enc=${enc}`
       //console.log('enc: ', enc)
-      const body: EncPutRequest = {
+      const body: SignedRequest = {
         data: enc,
       }
       const result = await post(req, body)

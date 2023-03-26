@@ -1,12 +1,10 @@
 import { Box, LinearProgress, Typography } from '@mui/material'
-import axios from 'axios'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import BasicBarChart from 'components/Atoms/Charts/BasicBarChart'
 import ImageSpinner from 'components/Atoms/ImageSpinner'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
-import SimpleBarChart2 from 'components/Molecules/Charts/SimpleBarChart2'
 import {
   CasinoBlackTransparent,
   CasinoBlueTransparent,
@@ -17,7 +15,9 @@ import {
   CasinoWhiteTransparent,
 } from 'components/themes/mainTheme'
 import { WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
+import { get, post } from 'lib/backend/api/fetchFunctions'
 import { translateCasinoColor } from 'lib/backend/charts/barChartMapper'
+import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
 import { getWheel, RouletteNumber, RouletteWheel } from 'lib/backend/roulette/wheel'
 import { getRandomInteger, isEven, isOdd } from 'lib/util/numberUtil'
 import { cloneDeep, filter, shuffle } from 'lodash'
@@ -97,7 +97,7 @@ export function reducer(state: Model, action: ActionType): Model {
 const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
   const defaultSpinSpeed = 40
   const loadCommunityStats = async () => {
-    let cs = (await (await axios.get('/api/wheelSpin')).data) as WheelSpinStats
+    let cs = (await get('/api/wheelSpin')) as WheelSpinStats
     if (cs) {
       const communityChart = mapRouletteStatsChart(cs.red, cs.black, cs.zero, cs.doubleZero, cs.odd, cs.even, cs.total)
       let m = cloneDeep(model)
@@ -225,9 +225,41 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     let playerChart = mapPlayerChart(playerResults)
 
     const updateCommunity = async () => {
-      let resp = await axios.post('/api/incrementWheelSpin', pickedNum)
-      let data = resp.data as WheelSpinStats
-      let communityChart = mapRouletteStatsChart(data.red, data.black, data.zero, data.doubleZero, data.odd, data.even, data.total)
+      const spinStats = await getRecord<WheelSpinStats>('wheelspin-community')
+
+      switch (pickedNum.color) {
+        case 'black':
+          spinStats.black += 1
+          break
+        case 'red':
+          spinStats.red += 1
+          break
+        case 'zero':
+          spinStats.zero += 1
+          break
+        case 'doubleZero':
+          spinStats.doubleZero += 1
+          break
+      }
+      if (pickedNum.color !== 'zero' && pickedNum.color !== 'doubleZero') {
+        if (isEven(parseInt(pickedNum.value))) {
+          spinStats.even += 1
+        }
+        if (isOdd(parseInt(pickedNum.value))) {
+          spinStats.odd += 1
+        }
+      }
+      spinStats.total = spinStats.red + spinStats.black + spinStats.zero + spinStats.doubleZero
+      await putRecord('wheelspin-community', 'random', spinStats)
+      let communityChart = mapRouletteStatsChart(
+        spinStats.red,
+        spinStats.black,
+        spinStats.zero,
+        spinStats.doubleZero,
+        spinStats.odd,
+        spinStats.even,
+        spinStats.total,
+      )
       let m = cloneDeep(model)
       m.communityChart = communityChart
       dispatch({

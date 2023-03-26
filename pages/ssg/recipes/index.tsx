@@ -34,7 +34,7 @@ const fetcherFn = async (url: string) => {
   const allItems = result.items
 
   let newData = take(shuffle(allItems), 10)
-  const stats = (await getRecord(siteStatsKey)) as unknown as SiteStats
+  const stats = await getRecord<SiteStats>(siteStatsKey)
   const expirationDate = dayjs(stats.recipes.lastRefreshDate).add(featuredRecipesExpirationMinutes, 'minute')
   const needsRefresh = expirationDate.isBefore(dayjs())
   if (needsRefresh) {
