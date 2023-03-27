@@ -11,7 +11,9 @@ import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import {
   CasinoBlackTransparent,
   CasinoBlueTransparent,
+  CasinoDarkGreenTransparent,
   CasinoGrayTransparent,
+  CasinoGreen,
   CasinoGreenTransparent,
   CasinoOrangeTransparent,
   CasinoRedTransparent,
@@ -52,12 +54,19 @@ const mapRouletteStatsChart = (red: number, black: number, zero: number, doubleZ
       CasinoBlackTransparent,
       CasinoOrangeTransparent,
       CasinoBlueTransparent,
-      CasinoGreenTransparent,
-      CasinoGreenTransparent,
-      CasinoGrayTransparent,
+      CasinoDarkGreenTransparent,
+      CasinoDarkGreenTransparent,
     ],
-    labels: ['red', 'black', 'odd', 'even', '0', '00', 'total'],
-    numbers: [red, black, odd, even, zero, doubleZero, total],
+    labels: ['red', 'black', 'odd', 'even', '0', '00'],
+    // numbers: [red, black, odd, even, zero, doubleZero, total],
+    numbers: [
+      calculatePercent(red, total),
+      calculatePercent(black, total),
+      calculatePercent(odd, total),
+      calculatePercent(even, total),
+      calculatePercent(zero, total),
+      calculatePercent(doubleZero, total),
+    ],
   }
   return communityChart
 }
@@ -450,19 +459,19 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
           </>
         )}
       </Box>
-      {model.communityApexChart && (
+      {/* {model.communityApexChart && (
         <Box>
           <Box py={1}>
             <CenteredHeader title='Community Spins' />
           </Box>
           <ApexVerticalBarchart data={model.communityApexChart} seriesName={''} yAxisDecorator={'%'} />
         </Box>
-      )}
-      {/* {model.communityChart && (
-        <Box>
-          <BasicBarChart title='Community spins' barChart={model.communityChart} />
-        </Box>
       )} */}
+      {model.communityChart && (
+        <Box>
+          <BasicBarChart title='Community spins' barChart={model.communityChart} yAxisDecorator='%' />
+        </Box>
+      )}
     </Box>
   )
 }

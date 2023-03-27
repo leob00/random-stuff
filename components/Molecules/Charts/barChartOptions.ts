@@ -1,5 +1,13 @@
 import { ChartData, ChartOptions } from 'chart.js'
-import { CasinoMoreBlackTransparent, CasinoWhiteTransparent, DarkBlue } from 'components/themes/mainTheme'
+import {
+  CasinoBlue,
+  CasinoBlueTransparent,
+  CasinoMoreBlackTransparent,
+  CasinoWhiteTransparent,
+  ChartBackground,
+  DarkBlue,
+  VeryLightBlueTransparent,
+} from 'components/themes/mainTheme'
 import { max } from 'lodash'
 
 export interface BarChart {
@@ -9,7 +17,7 @@ export interface BarChart {
   borderColors?: string[]
 }
 
-export const getBarChartData = (labels: string[], numbers: number[], colors: string[]): ChartData<'bar', number[], unknown> => {
+export const getBarChartData = (labels: string[], numbers: number[], colors: string[], yAxisDecorator = ''): ChartData<'bar', number[], unknown> => {
   return {
     labels: labels,
     datasets: [
@@ -25,7 +33,7 @@ export const getBarChartData = (labels: string[], numbers: number[], colors: str
   }
 }
 
-export const getBarChartOptions = (title: string, data: BarChart): ChartOptions<'bar'> => {
+export const getBarChartOptions = (title: string, data: BarChart, yAxisDecorator = '', colors: string[]): ChartOptions<'bar'> => {
   return {
     responsive: true,
     hover: {
@@ -69,13 +77,13 @@ export const getBarChartOptions = (title: string, data: BarChart): ChartOptions<
             return ''
           },
           label: (tooltipItems) => {
-            return ` ${[tooltipItems.label]}: ${tooltipItems.formattedValue}`
+            return ` ${[tooltipItems.label]}: ${Number(tooltipItems.formattedValue).toFixed(2)}${yAxisDecorator}`
           },
           labelPointStyle: (tooltiipItems) => {
             return {
               pointStyle: 'circle',
               rotation: 0,
-              border: 0,
+              border: 4,
             }
           },
           footer: (tooltipItems) => {
@@ -88,19 +96,41 @@ export const getBarChartOptions = (title: string, data: BarChart): ChartOptions<
     scales: {
       y: {
         ticks: {
-          color: DarkBlue,
+          color: CasinoBlue,
+          font: {
+            size: 14,
+            weight: '400',
+          },
+          callback(tickValue, index, ticks) {
+            return `${tickValue}${yAxisDecorator}`
+          },
           autoSkip: true,
-          //stepSize: 1,
-          precision: 1,
+          stepSize: 10,
+          //precision: 1,
           maxTicksLimit: max(data?.numbers),
+        },
+        grid: {
+          display: true,
+          color: VeryLightBlueTransparent,
+          //color: "red"
         },
       },
       x: {
         display: true,
         ticks: {
-          color: DarkBlue,
+          color: CasinoBlue,
+          font: {
+            size: 14,
+            weight: '600',
+          },
+
+          // textStrokeColor(ctx, options) {
+          //   return `${colors[ctx.index]}`
+          // },
         },
         grid: {
+          display: false,
+          color: VeryLightBlueTransparent,
           //color: "red"
         },
       },

@@ -5,10 +5,10 @@ import { BarChart, getBarChartData, getBarChartOptions } from 'components/Molecu
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
-const BasicBarChart = ({ title, barChart }: { title: string; barChart: BarChart }) => {
-  const options = getBarChartOptions(title, barChart)
+const BasicBarChart = ({ title, barChart, yAxisDecorator = '' }: { title: string; barChart: BarChart; yAxisDecorator?: string }) => {
+  const options = getBarChartOptions(title, barChart, yAxisDecorator, barChart.colors)
 
-  const data = getBarChartData(barChart.labels, barChart.numbers, barChart.colors)
+  const data = getBarChartData(barChart.labels, barChart.numbers, barChart.colors, yAxisDecorator)
   return (
     <>
       <Bar data={data} options={options} />
