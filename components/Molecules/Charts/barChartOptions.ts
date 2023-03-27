@@ -3,6 +3,7 @@ import {
   CasinoBlue,
   CasinoBlueTransparent,
   CasinoMoreBlackTransparent,
+  CasinoRedTransparent,
   CasinoWhiteTransparent,
   ChartBackground,
   DarkBlue,
@@ -44,6 +45,7 @@ export const getBarChartOptions = (title: string, data: BarChart, yAxisDecorator
       title: {
         display: true,
         text: title,
+        color: CasinoRedTransparent,
       },
       legend: {
         display: false,

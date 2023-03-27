@@ -19,6 +19,7 @@ import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import ReEnterPasswordDialog from 'components/Organizms/Login/ReEnterPasswordDialog'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
+import MultiDatasetBarchart from 'components/Molecules/Charts/MultiDatasetBarchart'
 
 const Page = () => {
   const userController = useUserController()
@@ -137,6 +138,10 @@ const Page = () => {
                   </Typography>
                 </Box>
               )}
+            </CenterStack>
+            <CenteredTitle title='Multi dataset bar chart' />
+            <CenterStack>
+              <MultiDatasetBarchart />
             </CenterStack>
             <CenteredTitle title='Email Template' />
             <CenterStack>

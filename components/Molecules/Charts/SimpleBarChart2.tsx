@@ -6,7 +6,7 @@ import { BarChart, getBarChartData, getBarChartOptions } from './barChartOptions
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const SimpleBarChart2 = ({ title, barChart }: { title: string; barChart: BarChart }) => {
-  const options = getBarChartOptions(title, barChart)
+  const options = getBarChartOptions(title, barChart, '', barChart.colors)
 
   const data = getBarChartData(barChart.labels, barChart.numbers, barChart.colors)
   return (
