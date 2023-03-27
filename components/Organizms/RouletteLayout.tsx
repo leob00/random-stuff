@@ -66,37 +66,37 @@ const mapRouletteStatsApexChart = (red: number, black: number, zero: number, dou
     {
       x: 'red',
       fillColor: CasinoRedTransparent,
-      y: calculatePercent(red, total),
+      y: Number(calculatePercent(red, total).toFixed(0)),
     },
     {
       x: 'black',
       fillColor: CasinoBlackTransparent,
-      y: calculatePercent(black, total),
+      y: Number(calculatePercent(black, total).toFixed(0)),
     },
     {
       x: 'zero',
       fillColor: CasinoGreenTransparent,
-      y: calculatePercent(zero, total),
+      y: Number(calculatePercent(zero, total).toFixed(0)),
     },
     {
       x: 'double zero',
       fillColor: CasinoGreenTransparent,
-      y: calculatePercent(doubleZero, total),
+      y: Number(calculatePercent(doubleZero, total).toFixed(0)),
     },
     {
       x: 'odd',
       fillColor: CasinoOrangeTransparent,
-      y: calculatePercent(odd, total),
+      y: Number(calculatePercent(odd, total).toFixed(0)),
     },
     {
       x: 'even',
       fillColor: CasinoBlueTransparent,
-      y: calculatePercent(even, total),
+      y: Number(calculatePercent(even, total).toFixed(0)),
     },
     {
       x: 'total',
       fillColor: CasinoGrayTransparent,
-      y: calculatePercent(total, total),
+      y: Number(calculatePercent(total, total).toFixed(0)),
     },
   ]
   return result

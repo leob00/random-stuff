@@ -39,10 +39,13 @@ const ApexBarChart = ({
       axisTicks: { show: false },
     },
     yaxis: {
-      forceNiceScale: true,
+      decimalsInFloat: 0,
+      max: 100,
+      //forceNiceScale: true,
       labels: {
         style: {
           colors: [CasinoBlack],
+
           //fontWeight: 600,
         },
       },
