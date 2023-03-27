@@ -27,6 +27,7 @@ const ApexBarChart = ({
   const options: ApexOptions = {
     chart: {
       type: 'bar',
+      toolbar: { show: false },
     },
     grid: {
       show: false,

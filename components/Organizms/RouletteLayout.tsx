@@ -115,9 +115,10 @@ export function reducer(state: Model, action: ActionType): Model {
         playerResults: action.payload.playerResults,
         playerChart: action.payload.playerChart,
         communityChart: action.payload.communityChart,
+        communityApexChart: action.payload.communityApexChart,
       }
     case 'reload-community-stats':
-      return { ...state, communityChart: action.payload.communityChart }
+      return { ...state, communityChart: action.payload.communityChart, communityApexChart: action.payload.communityApexChart }
     case 'start-simulation':
       return { ...state, spinSpeed: action.payload.spinSpeed, result: undefined, isSpinning: true, isSimulationRunning: true, playerResults: [] }
     case 'update-simulation':
@@ -127,6 +128,7 @@ export function reducer(state: Model, action: ActionType): Model {
         playerResults: action.payload.playerResults,
         playerChart: action.payload.playerChart,
         communityChart: action.payload.communityChart,
+        communityApexChart: action.payload.communityApexChart,
         isSimulationRunning: true,
       }
     case 'stop-simulation':
@@ -316,11 +318,21 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       )
       let m = cloneDeep(model)
       m.communityChart = communityChart
+      m.communityApexChart = mapRouletteStatsApexChart(
+        spinStats.red,
+        spinStats.black,
+        spinStats.zero,
+        spinStats.doubleZero,
+        spinStats.odd,
+        spinStats.even,
+        spinStats.total,
+      )
       dispatch({
         type: 'reload-community-stats',
         payload: m,
       })
     }
+
     let spinTimeout = getRandomInteger(2601, 3999)
     const spin = async () => {
       setTimeout(() => {
@@ -332,6 +344,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
             playerResults: playerResults,
             playerChart: playerChart,
             communityChart: model.communityChart,
+            communityApexChart: model.communityApexChart,
           },
         })
         updateCommunity()
@@ -435,12 +448,19 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
           </>
         )}
       </Box>
-      {model.communityChart && (
+      {model.communityApexChart && (
         <Box>
-          <ApexBarChart data={model.communityApexChart!} seriesName={'community spins'} yAxisDecorator={'%'} />
-          <BasicBarChart title='Community spins' barChart={model.communityChart} />
+          <Box py={1}>
+            <CenteredHeader title='Community Spins' />
+          </Box>
+          <ApexBarChart data={model.communityApexChart} seriesName={'community spins'} yAxisDecorator={'%'} />
         </Box>
       )}
+      {/* {model.communityChart && (
+        <Box>
+          <BasicBarChart title='Community spins' barChart={model.communityChart} />
+        </Box>
+      )} */}
     </Box>
   )
 }
