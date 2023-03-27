@@ -5,6 +5,7 @@ import CenterStack from 'components/Atoms/CenterStack'
 import BasicBarChart from 'components/Atoms/Charts/BasicBarChart'
 import ImageSpinner from 'components/Atoms/ImageSpinner'
 import ApexBarChart from 'components/Molecules/Charts/apex/ApexBarChart'
+import ApexVerticalBarchart from 'components/Molecules/Charts/apex/ApexVerticalBarchart'
 import { ApexBarChartData } from 'components/Molecules/Charts/apex/models/chartModes'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import {
@@ -74,16 +75,6 @@ const mapRouletteStatsApexChart = (red: number, black: number, zero: number, dou
       y: Number(calculatePercent(black, total).toFixed(1)),
     },
     {
-      x: 'zero',
-      fillColor: CasinoGreenTransparent,
-      y: Number(calculatePercent(zero, total).toFixed(1)),
-    },
-    {
-      x: 'double zero',
-      fillColor: CasinoGreenTransparent,
-      y: Number(calculatePercent(doubleZero, total).toFixed(1)),
-    },
-    {
       x: 'odd',
       fillColor: CasinoOrangeTransparent,
       y: Number(calculatePercent(odd, total).toFixed(1)),
@@ -94,10 +85,21 @@ const mapRouletteStatsApexChart = (red: number, black: number, zero: number, dou
       y: Number(calculatePercent(even, total).toFixed(1)),
     },
     {
-      x: 'total',
-      fillColor: CasinoGrayTransparent,
-      y: Number(calculatePercent(total, total).toFixed(0)),
+      x: 'zero',
+      fillColor: CasinoGreenTransparent,
+      y: Number(calculatePercent(zero, total).toFixed(1)),
     },
+    {
+      x: 'double zero',
+      fillColor: CasinoGreenTransparent,
+      y: Number(calculatePercent(doubleZero, total).toFixed(1)),
+    },
+
+    // {
+    //   x: 'total',
+    //   fillColor: CasinoGrayTransparent,
+    //   y: Number(calculatePercent(total, total).toFixed(0)),
+    // },
   ]
   return result
 }
@@ -424,11 +426,11 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
         </CenterStack>
       )}
       <Box sx={{ my: 1 }}>
-        {model.playerChart && (
+        {/* {model.playerChart && (
           <Box>
             <BasicBarChart title={'Player spins'} barChart={model.playerChart} />
           </Box>
-        )}
+        )} */}
         {model.playerResults && !model.isSimulationRunning && (
           <>
             <CenterStack sx={{ my: 1 }}>
@@ -453,7 +455,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
           <Box py={1}>
             <CenteredHeader title='Community Spins' />
           </Box>
-          <ApexBarChart data={model.communityApexChart} seriesName={'community spins'} yAxisDecorator={'%'} />
+          <ApexVerticalBarchart data={model.communityApexChart} seriesName={''} yAxisDecorator={'%'} />
         </Box>
       )}
       {/* {model.communityChart && (

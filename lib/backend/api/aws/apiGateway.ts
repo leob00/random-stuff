@@ -1,4 +1,4 @@
-import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
+import { getRecord, SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { BasicArticle } from 'lib/model'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
@@ -117,9 +117,6 @@ export async function getRandomStuff(type: DynamoKeys | string) {
     result = (await get(url)) as LambdaResponse
     if (result.body && result.body.data) {
       let data = JSON.parse(result.body.data)
-      // if (type === 'site-stats') {
-      //   console.log('fetched site stats')
-      // }
       return data
     }
   } catch (err) {
@@ -130,13 +127,8 @@ export async function getRandomStuff(type: DynamoKeys | string) {
 }
 export async function searchRandomStuffBySecIndex(search: CategoryType | string) {
   const url = `${baseUrl}/searchrandomstuff`
-  //console.log(url)
-  //let result: LambdaBody[] = []
   try {
     let result = await post(url, { key: search })
-    //console.log('raw: ', raw)
-    //let response = (await raw.json())
-    //console.log(result)
     return result.body
   } catch (err) {
     console.log('error occurred in searchRandomStuffBySecIndex: ', err)
@@ -146,7 +138,6 @@ export async function searchRandomStuffBySecIndex(search: CategoryType | string)
 
 export async function putRandomStuff(type: DynamoKeys, category: CategoryType, data: any, expiration?: number) {
   const url = `${baseUrl}/randomstuff`
-
   const model: RandomStuffPut = {
     key: type,
     data: data,
@@ -204,7 +195,6 @@ export async function deleteRandomStuff(key: string) {
   try {
     let resp = await post(url, params)
     return resp
-    //console.log('response: ', resp)
   } catch (error) {
     console.log('error in deleteRandomStuff', error)
   }
@@ -229,13 +219,9 @@ export async function getWheelSpinStats() {
     even: 0,
   }
   try {
-    let result = await getRandomStuff('wheelspin-community')
-    if (result) {
-      return result as WheelSpinStats
-    }
-  } catch (err) {
-    await putRandomStuff('wheelspin-community', 'random', item)
-  }
+    let result = (await getRandomStuff('wheelspin-community')) as WheelSpinStats
+    return result
+  } catch (err) {}
   return item
 }
 

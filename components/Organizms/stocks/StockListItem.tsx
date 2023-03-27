@@ -95,13 +95,7 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
             </LinkButton>
           </Stack>
         </Stack>
-        <Box display={'flex'} justifyContent={'flex-end'}>
-          {showMore && (
-            <IconButton color='default' onClick={() => setShowMore(false)}>
-              <Close fontSize='small' color={'secondary'} />
-            </IconButton>
-          )}
-        </Box>
+
         <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
           <Stack direction={'row'} spacing={2} pl={1} sx={{ backgroundColor: 'unset' }} pt={1}>
             <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.Price.toFixed(2)}`}</Typography>
@@ -113,6 +107,11 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
       {!showMore && <HorizontalDivider />}
       {showMore && (
         <>
+          <Box display={'flex'} justifyContent={'flex-end'}>
+            <IconButton color='default' onClick={() => setShowMore(false)}>
+              <Close fontSize='small' color={'secondary'} />
+            </IconButton>
+          </Box>
           <Box pl={1} sx={{ backgroundColor: 'unset' }} minHeight={108}>
             {stockHistory.length > 0 ? (
               <>
