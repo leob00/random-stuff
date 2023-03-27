@@ -66,32 +66,32 @@ const mapRouletteStatsApexChart = (red: number, black: number, zero: number, dou
     {
       x: 'red',
       fillColor: CasinoRedTransparent,
-      y: Number(calculatePercent(red, total).toFixed(0)),
+      y: Number(calculatePercent(red, total).toFixed(1)),
     },
     {
       x: 'black',
       fillColor: CasinoBlackTransparent,
-      y: Number(calculatePercent(black, total).toFixed(0)),
+      y: Number(calculatePercent(black, total).toFixed(1)),
     },
     {
       x: 'zero',
       fillColor: CasinoGreenTransparent,
-      y: Number(calculatePercent(zero, total).toFixed(0)),
+      y: Number(calculatePercent(zero, total).toFixed(1)),
     },
     {
       x: 'double zero',
       fillColor: CasinoGreenTransparent,
-      y: Number(calculatePercent(doubleZero, total).toFixed(0)),
+      y: Number(calculatePercent(doubleZero, total).toFixed(1)),
     },
     {
       x: 'odd',
       fillColor: CasinoOrangeTransparent,
-      y: Number(calculatePercent(odd, total).toFixed(0)),
+      y: Number(calculatePercent(odd, total).toFixed(1)),
     },
     {
       x: 'even',
       fillColor: CasinoBlueTransparent,
-      y: Number(calculatePercent(even, total).toFixed(0)),
+      y: Number(calculatePercent(even, total).toFixed(1)),
     },
     {
       x: 'total',
@@ -143,7 +143,7 @@ export function reducer(state: Model, action: ActionType): Model {
 const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
   const defaultSpinSpeed = 40
   const loadCommunityStats = async () => {
-    let cs = (await get('/api/wheelSpin')) as WheelSpinStats
+    let cs = await getRecord<WheelSpinStats>('wheelspin-community')
     if (cs) {
       const communityChart = mapRouletteStatsChart(cs.red, cs.black, cs.zero, cs.doubleZero, cs.odd, cs.even, cs.total)
       let m = {
