@@ -7,7 +7,7 @@ import { DynamoKeys, EmailMessage, LambdaBody, LambdaDynamoRequest, UserProfile 
 import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
 import { get, post } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
-import { myEncrypt } from '../encryption/useEncryptor'
+import { myEncrypt, weakEncrypt } from '../encryption/useEncryptor'
 
 export interface SignedRequest {
   data: string
@@ -123,7 +123,7 @@ export async function getUserNote(id: string) {
 }
 
 function encryptKey(key: string) {
-  const enc = myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), key)
+  const enc = weakEncrypt(key)
   const body: SignedRequest = {
     data: enc,
   }
@@ -288,7 +288,7 @@ export async function deleteRecord(id: string) {
   await post(`/api/deleteRandomStuff`, req)
 }
 
-export async function getRecord<T>(id: DynamoKeys) {
+export async function getRecord<T>(id: DynamoKeys): Promise<T> {
   let result: any
   try {
     const body = encryptKey(id)

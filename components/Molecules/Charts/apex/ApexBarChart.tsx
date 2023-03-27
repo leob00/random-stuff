@@ -34,7 +34,7 @@ const ApexBarChart = ({
     xaxis: {
       max: yAxisDecorator === '%' ? 100 : undefined,
       labels: {
-        show: false,
+        show: !horizontal,
       },
       axisTicks: { show: false },
     },

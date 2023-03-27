@@ -1,6 +1,6 @@
 import { getRandomStuff, LambdaBody } from 'lib/backend/api/aws/apiGateway'
 import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
-import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
+import { myDecrypt, weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { NextRequest, NextResponse } from 'next/server'
 export const config = {
   runtime: 'edge', // this is a pre-requisite
@@ -8,7 +8,7 @@ export const config = {
 
 export default async function handler(req: NextRequest) {
   const enc = (await req.json()) as SignedRequest
-  const dec = myDecrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), enc.data)
+  const dec = weakDecrypt(enc.data)
   //console.log('decrypted: ', dec)
   if (dec.length === 0) {
     return new Response(JSON.stringify({ message: 'validation failed' }), { status: 200 })

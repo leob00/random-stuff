@@ -15,3 +15,10 @@ export function calculatePercentInt(variable: number, total: number) {
   let result = Math.floor((variable * 100) / total)
   return result
 }
+export function calculatePercent(variable: number, total: number) {
+  if (variable === 0 || total === 0) {
+    return 0
+  }
+  let result = Number(((variable * 100) / total).toFixed(3))
+  return result
+}

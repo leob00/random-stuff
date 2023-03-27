@@ -4,6 +4,8 @@ import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import BasicBarChart from 'components/Atoms/Charts/BasicBarChart'
 import ImageSpinner from 'components/Atoms/ImageSpinner'
+import ApexBarChart from 'components/Molecules/Charts/apex/ApexBarChart'
+import { ApexBarChartData } from 'components/Molecules/Charts/apex/models/chartModes'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import {
   CasinoBlackTransparent,
@@ -19,7 +21,7 @@ import { get, post } from 'lib/backend/api/fetchFunctions'
 import { translateCasinoColor } from 'lib/backend/charts/barChartMapper'
 import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
 import { getWheel, RouletteNumber, RouletteWheel } from 'lib/backend/roulette/wheel'
-import { getRandomInteger, isEven, isOdd } from 'lib/util/numberUtil'
+import { calculatePercent, calculatePercentInt, getRandomInteger, isEven, isOdd } from 'lib/util/numberUtil'
 import { cloneDeep, filter, shuffle } from 'lodash'
 import React from 'react'
 
@@ -31,6 +33,7 @@ export interface Model {
   playerResults?: RouletteNumber[]
   playerChart?: BarChart
   communityChart?: BarChart
+  communityApexChart?: ApexBarChartData[]
   isSimulationRunning?: boolean
 }
 
@@ -56,6 +59,47 @@ const mapRouletteStatsChart = (red: number, black: number, zero: number, doubleZ
     numbers: [red, black, odd, even, zero, doubleZero, total],
   }
   return communityChart
+}
+
+const mapRouletteStatsApexChart = (red: number, black: number, zero: number, doubleZero: number, odd: number, even: number, total: number) => {
+  let result: ApexBarChartData[] = [
+    {
+      x: 'red',
+      fillColor: CasinoRedTransparent,
+      y: calculatePercent(red, total),
+    },
+    {
+      x: 'black',
+      fillColor: CasinoBlackTransparent,
+      y: calculatePercent(black, total),
+    },
+    {
+      x: 'zero',
+      fillColor: CasinoGreenTransparent,
+      y: calculatePercent(zero, total),
+    },
+    {
+      x: 'double zero',
+      fillColor: CasinoGreenTransparent,
+      y: calculatePercent(doubleZero, total),
+    },
+    {
+      x: 'odd',
+      fillColor: CasinoOrangeTransparent,
+      y: calculatePercent(odd, total),
+    },
+    {
+      x: 'even',
+      fillColor: CasinoBlueTransparent,
+      y: calculatePercent(even, total),
+    },
+    {
+      x: 'total',
+      fillColor: CasinoGrayTransparent,
+      y: calculatePercent(total, total),
+    },
+  ]
+  return result
 }
 
 export function reducer(state: Model, action: ActionType): Model {
@@ -100,8 +144,11 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     let cs = (await get('/api/wheelSpin')) as WheelSpinStats
     if (cs) {
       const communityChart = mapRouletteStatsChart(cs.red, cs.black, cs.zero, cs.doubleZero, cs.odd, cs.even, cs.total)
-      let m = cloneDeep(model)
-      m.communityChart = communityChart
+      let m = {
+        ...model,
+        communityChart: communityChart,
+        communityApexChart: mapRouletteStatsApexChart(cs.red, cs.black, cs.zero, cs.doubleZero, cs.odd, cs.even, cs.total),
+      }
       dispatch({
         type: 'reload-community-stats',
         payload: m,
@@ -115,6 +162,15 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     isSpinning: false,
     isSimulationRunning: false,
     communityChart: mapRouletteStatsChart(spinStats.red, spinStats.black, spinStats.zero, spinStats.doubleZero, spinStats.odd, spinStats.even, spinStats.total),
+    communityApexChart: mapRouletteStatsApexChart(
+      spinStats.red,
+      spinStats.black,
+      spinStats.zero,
+      spinStats.doubleZero,
+      spinStats.odd,
+      spinStats.even,
+      spinStats.total,
+    ),
   }
 
   const [model, dispatch] = React.useReducer(reducer, initialState)
@@ -167,7 +223,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
         }
       }
       fn()
-    }, 25)
+    }, 50)
   }
 
   const handleRunSimulation = () => {
@@ -177,9 +233,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       type: 'start-simulation',
       payload: { spinSpeed: 5.25 },
     })
-    setTimeout(() => {
-      runSimulation()
-    }, 250)
+    runSimulation()
   }
 
   const mapPlayerChart = (playerResults: RouletteNumber[]) => {
@@ -383,6 +437,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       </Box>
       {model.communityChart && (
         <Box>
+          <ApexBarChart data={model.communityApexChart!} seriesName={'community spins'} yAxisDecorator={'%'} />
           <BasicBarChart title='Community spins' barChart={model.communityChart} />
         </Box>
       )}

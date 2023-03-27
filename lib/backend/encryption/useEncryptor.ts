@@ -23,9 +23,14 @@ export function myEncryptBase64(passPhrase: string, data: string) {
   return result
 }
 
-export function myEncryptDefault(data: string) {
+export function weakEncrypt(data: string) {
   const result = CryptoJS.AES.encrypt(data, String(process.env.NEXT_PUBLIC_API_TOKEN), CryptoJS.enc.Utf8).toString()
   return result
+}
+export function weakDecrypt(data: string) {
+  const bytes = CryptoJS.AES.decrypt(data, String(process.env.NEXT_PUBLIC_API_TOKEN))
+  const decryptedData = bytes.toString(CryptoJS.enc.Utf8)
+  return decryptedData
 }
 
 export function myDecrypt(passPhrase: string, data: string) {
