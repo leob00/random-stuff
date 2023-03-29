@@ -1,4 +1,4 @@
-import { Box, Paper, Typography } from '@mui/material'
+import { Box, Paper, Stack, Typography } from '@mui/material'
 import { getRandomLoaderText } from 'lib/randomLoaderText'
 import React, { useEffect, useReducer } from 'react'
 import { Model, warmupReducer } from 'lib/reducers/warmupReducer'
@@ -27,22 +27,24 @@ const WarmupBox = ({ text }: { text?: string }) => {
   }, [model.message, text])
   return (
     <NonSSRWrapper>
-      <Paper elevation={6} sx={{ mt: 1 }}>
-        <Box py={2}>
-          <Box sx={{ pt: 2 }}>
-            <CenterStack>
-              <Typography color={'secondary'} variant='h5'>
-                {text ? text : `${model.message}...`}
-              </Typography>
-            </CenterStack>
+      <Stack>
+        <Paper elevation={6} sx={{ mt: 1 }}>
+          <Box py={2}>
+            <Box sx={{ pt: 2 }}>
+              <CenterStack>
+                <Typography color={'secondary'} variant='h5'>
+                  {text ? text : `${model.message}...`}
+                </Typography>
+              </CenterStack>
+            </Box>
+            <Box pb={2}>
+              <CenterStack>
+                <RollingLinearProgress width={100} height={25} />
+              </CenterStack>
+            </Box>
           </Box>
-          <Box pb={2}>
-            <CenterStack>
-              <RollingLinearProgress width={100} height={25} />
-            </CenterStack>
-          </Box>
-        </Box>
-      </Paper>
+        </Paper>
+      </Stack>
     </NonSSRWrapper>
   )
 }

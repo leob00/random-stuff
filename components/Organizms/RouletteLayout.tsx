@@ -9,17 +9,7 @@ import ApexVerticalBarchart from 'components/Molecules/Charts/apex/ApexVerticalB
 import { ApexBarChartData } from 'components/Molecules/Charts/apex/models/chartModes'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import RouletteBarChart from 'components/Molecules/Charts/RouletteBarChart'
-import {
-  CasinoBlackTransparent,
-  CasinoBlueTransparent,
-  CasinoDarkGreenTransparent,
-  CasinoGrayTransparent,
-  CasinoGreen,
-  CasinoGreenTransparent,
-  CasinoOrangeTransparent,
-  CasinoRedTransparent,
-  CasinoWhiteTransparent,
-} from 'components/themes/mainTheme'
+import { CasinoBlackTransparent, CasinoBlueTransparent, CasinoDarkGreenTransparent, CasinoGrayTransparent, CasinoGreen, CasinoGreenTransparent, CasinoOrangeTransparent, CasinoRedTransparent, CasinoWhiteTransparent } from 'components/themes/mainTheme'
 import { WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
 import { get, post } from 'lib/backend/api/fetchFunctions'
 import { translateCasinoColor } from 'lib/backend/charts/barChartMapper'
@@ -35,7 +25,7 @@ export interface Model {
   result?: RouletteNumber
   isSpinning?: boolean
   playerResults?: RouletteNumber[]
-  playerChart?: BarChart
+  playerChart?: WheelSpinStats
   communityChartOld?: BarChart
   communityApexChart?: ApexBarChartData[]
   isSimulationRunning?: boolean
@@ -51,24 +41,10 @@ let simulationCounter = 0
 let simulationPlayerResults: RouletteNumber[] = []
 const mapRouletteStatsChart = (red: number, black: number, zero: number, doubleZero: number, odd: number, even: number, total: number) => {
   let communityChart: BarChart = {
-    colors: [
-      CasinoRedTransparent,
-      CasinoBlackTransparent,
-      CasinoOrangeTransparent,
-      CasinoBlueTransparent,
-      CasinoDarkGreenTransparent,
-      CasinoDarkGreenTransparent,
-    ],
+    colors: [CasinoRedTransparent, CasinoBlackTransparent, CasinoOrangeTransparent, CasinoBlueTransparent, CasinoDarkGreenTransparent, CasinoDarkGreenTransparent],
     labels: ['red', 'black', 'odd', 'even', '0', '00'],
     // numbers: [red, black, odd, even, zero, doubleZero, total],
-    numbers: [
-      calculatePercent(red, total),
-      calculatePercent(black, total),
-      calculatePercent(odd, total),
-      calculatePercent(even, total),
-      calculatePercent(zero, total),
-      calculatePercent(doubleZero, total),
-    ],
+    numbers: [calculatePercent(red, total), calculatePercent(black, total), calculatePercent(odd, total), calculatePercent(even, total), calculatePercent(zero, total), calculatePercent(doubleZero, total)],
   }
   return communityChart
 }
@@ -158,7 +134,6 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
   const loadCommunityStats = async () => {
     let cs = await getRecord<WheelSpinStats>('wheelspin-community')
     if (cs) {
-      const communityChart = mapRouletteStatsChart(cs.red, cs.black, cs.zero, cs.doubleZero, cs.odd, cs.even, cs.total)
       let m = {
         ...model,
         communityChart: cs,
@@ -177,15 +152,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     isSpinning: false,
     isSimulationRunning: false,
     communityChart: spinStats,
-    communityApexChart: mapRouletteStatsApexChart(
-      spinStats.red,
-      spinStats.black,
-      spinStats.zero,
-      spinStats.doubleZero,
-      spinStats.odd,
-      spinStats.even,
-      spinStats.total,
-    ),
+    communityApexChart: mapRouletteStatsApexChart(spinStats.red, spinStats.black, spinStats.zero, spinStats.doubleZero, spinStats.odd, spinStats.even, spinStats.total),
   }
 
   const [model, dispatch] = React.useReducer(reducer, initialState)
@@ -272,8 +239,18 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     }).length
     let total = playerResults.length
 
+    const stats: WheelSpinStats = {
+      black: blackTotal,
+      doubleZero: doubleZeroTotal,
+      even: evenTotal,
+      odd: oddTotal,
+      red: redTotal,
+      total: total,
+      zero: zeroTotal,
+    }
+
     let playerChart = mapRouletteStatsChart(redTotal, blackTotal, zeroTotal, doubleZeroTotal, oddTotal, evenTotal, total)
-    return playerChart
+    return stats
   }
 
   const handleSpin = async () => {
@@ -320,26 +297,10 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       }
       spinStats.total = spinStats.red + spinStats.black + spinStats.zero + spinStats.doubleZero
       await putRecord('wheelspin-community', 'random', spinStats)
-      let communityChart = mapRouletteStatsChart(
-        spinStats.red,
-        spinStats.black,
-        spinStats.zero,
-        spinStats.doubleZero,
-        spinStats.odd,
-        spinStats.even,
-        spinStats.total,
-      )
+      let communityChart = mapRouletteStatsChart(spinStats.red, spinStats.black, spinStats.zero, spinStats.doubleZero, spinStats.odd, spinStats.even, spinStats.total)
       let m = cloneDeep(model)
       m.communityChart = spinStats
-      m.communityApexChart = mapRouletteStatsApexChart(
-        spinStats.red,
-        spinStats.black,
-        spinStats.zero,
-        spinStats.doubleZero,
-        spinStats.odd,
-        spinStats.even,
-        spinStats.total,
-      )
+      m.communityApexChart = mapRouletteStatsApexChart(spinStats.red, spinStats.black, spinStats.zero, spinStats.doubleZero, spinStats.odd, spinStats.even, spinStats.total)
       dispatch({
         type: 'reload-community-stats',
         payload: m,
@@ -378,29 +339,14 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       <CenteredHeader title={'This is your chance to spin the wheel!'} description={'press the wheel to spin or run simulation of 100 turns.'} />
       <Box sx={{ minHeight: 80 }}>
         <CenterStack sx={{ my: 2 }}>
-          <SecondaryButton
-            text={model.isSimulationRunning ? 'running...' : 'run simultaion'}
-            isDisabled={false}
-            onClicked={handleRunSimulation}
-            disabled={model.isSpinning}
-            width={170}
-          />
+          <SecondaryButton text={model.isSimulationRunning ? 'running...' : 'run simultaion'} isDisabled={false} onClicked={handleRunSimulation} disabled={model.isSpinning} width={170} />
         </CenterStack>
         <CenterStack>
-          <Box sx={{ width: '80%', textAlign: 'center' }}>
-            {model.isSimulationRunning && <LinearProgress variant='determinate' value={simulationCounter} />}
-          </Box>
+          <Box sx={{ width: '80%', textAlign: 'center' }}>{model.isSimulationRunning && <LinearProgress variant='determinate' value={simulationCounter} />}</Box>
         </CenterStack>
       </Box>
       <CenterStack sx={{ minHeight: 280 }}>
-        <ImageSpinner
-          imageUrl={'/images/american-roulette-wheel.png'}
-          speed={model.isSpinning ? model.spinSpeed : defaultSpinSpeed}
-          width={240}
-          height={240}
-          onClicked={handleSpinClick}
-          clickable={true}
-        />
+        <ImageSpinner imageUrl={'/images/american-roulette-wheel.png'} speed={model.isSpinning ? model.spinSpeed : defaultSpinSpeed} width={240} height={240} onClicked={handleSpinClick} clickable={true} />
       </CenterStack>
 
       {model.result && (
@@ -420,8 +366,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
               paddingTop: 7,
               fontSize: 60,
               fontWeight: 'bolder',
-            }}
-          >
+            }}>
             <Typography
               variant='h2'
               sx={{
@@ -429,8 +374,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
                 marginTop: { xs: -3, sm: -4 },
                 //fontSize: 40,
                 fontWeight: 'bolder',
-              }}
-            >
+              }}>
               {model.result.value}
             </Typography>
           </Box>
@@ -439,10 +383,10 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       <Box sx={{ my: 1 }}>
         {model.playerChart && (
           <Box>
-            <BasicBarChart title={'Player spins'} barChart={model.playerChart} />
+            <RouletteBarChart data={model.playerChart} title={'Player results'} />
           </Box>
         )}
-        {model.playerResults && !model.isSimulationRunning && (
+        {model.playerResults && (
           <>
             <CenterStack sx={{ my: 1 }}>
               <Typography variant='body1' sx={{}}>{`player results`}</Typography>

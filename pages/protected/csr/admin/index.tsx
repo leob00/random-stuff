@@ -1,14 +1,13 @@
-import { Alert, Box, Snackbar, TextField, Typography } from '@mui/material'
+import { Alert, Box, Snackbar, Typography } from '@mui/material'
 import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
-import NonSSRWrapper from 'components/Organizms/NonSSRWrapper'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
-import { getUserCSR, userHasRole, validateUserCSR } from 'lib/backend/auth/userUtil'
+import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 import { DropdownItem } from 'lib/models/dropdown'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -117,64 +116,50 @@ const Page = () => {
 
   return (
     <ResponsiveContainer>
-      <NonSSRWrapper>
-        {loading ? (
-          <WarmupBox />
-        ) : userProfile ? (
-          <>
-            <BackToHomeButton />
-            <CenteredTitle title='Admin' />
-            <CenteredTitle title={`Test Api's`} />
-            <CenterStack>
-              <DropdownList options={apiOptions} selectedOption={'/api/edgeStatus'} onOptionSelected={handleApiSelected} />
-            </CenterStack>
+      {loading ? (
+        <WarmupBox />
+      ) : userProfile ? (
+        <>
+          <BackToHomeButton />
+          <CenteredTitle title='Admin' />
+          <CenteredTitle title={`Test Api's`} />
+          <CenterStack>
+            <DropdownList options={apiOptions} selectedOption={'/api/edgeStatus'} onOptionSelected={handleApiSelected} />
+          </CenterStack>
+          {loadingResult ? (
+            <WarmupBox />
+          ) : (
             <CenterStack sx={{ py: 4 }}>
-              {loadingResult ? (
-                <WarmupBox />
-              ) : (
-                <Box maxHeight={300} sx={{ overflowY: 'auto' }}>
-                  <Typography textAlign={'center'} variant='body1'>
-                    {jsonResult}
-                  </Typography>
-                </Box>
-              )}
+              <Box maxHeight={300} sx={{ overflowY: 'auto' }}>
+                <Typography textAlign={'center'} variant='body1'>
+                  {jsonResult}
+                </Typography>
+              </Box>
             </CenterStack>
-            <CenteredTitle title='Multi dataset bar chart' />
-            <CenterStack>
-              <MultiDatasetBarchart />
-            </CenterStack>
-            <CenteredTitle title='Email Template' />
-            <CenterStack>
-              <HtmlView html={emailTemplate} />
-            </CenterStack>
+          )}
+          <CenteredTitle title='Multi dataset bar chart' />
+          <CenterStack>
+            <MultiDatasetBarchart />
+          </CenterStack>
+          <CenteredTitle title='Email Template' />
+          <CenterStack>
+            <HtmlView html={emailTemplate} />
+          </CenterStack>
 
-            <CenteredTitle title='Login Test' />
-            <CenterStack>
-              <SecondaryButton text='show' onClick={() => setShowPasswordPrompt(true)} />
-            </CenterStack>
-            <ReEnterPasswordDialog
-              userProfile={userProfile}
-              show={showPasswordPrompt}
-              title={'authentication request'}
-              text={'please re-enter your password to proceed'}
-              onConfirm={handleConfirmLogin}
-              onCancel={() => setShowPasswordPrompt(false)}
-            />
-            <Snackbar
-              open={showLoginSuccess}
-              autoHideDuration={3000}
-              onClose={handleCloseLoginSuccess}
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            >
-              <Alert onClose={handleCloseLoginSuccess} severity='success' sx={{ width: '100%' }}>
-                Login succeeded. Thank you!
-              </Alert>
-            </Snackbar>
-          </>
-        ) : (
-          <PleaseLogin />
-        )}
-      </NonSSRWrapper>
+          <CenteredTitle title='Login Test' />
+          <CenterStack>
+            <SecondaryButton text='show' onClick={() => setShowPasswordPrompt(true)} />
+          </CenterStack>
+          <ReEnterPasswordDialog userProfile={userProfile} show={showPasswordPrompt} title={'authentication request'} text={'please re-enter your password to proceed'} onConfirm={handleConfirmLogin} onCancel={() => setShowPasswordPrompt(false)} />
+          <Snackbar open={showLoginSuccess} autoHideDuration={3000} onClose={handleCloseLoginSuccess} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+            <Alert onClose={handleCloseLoginSuccess} severity='success' sx={{ width: '100%' }}>
+              Login succeeded. Thank you!
+            </Alert>
+          </Snackbar>
+        </>
+      ) : (
+        <PleaseLogin />
+      )}
     </ResponsiveContainer>
   )
 }

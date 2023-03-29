@@ -1,25 +1,14 @@
 import React from 'react'
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, TooltipItem, ChartData, ChartOptions } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
-import {
-  CasinoBlack,
-  CasinoBlackTransparent,
-  CasinoBlue,
-  CasinoBlueTransparent,
-  CasinoGreen,
-  CasinoGreenTransparent,
-  CasinoOrange,
-  CasinoOrangeTransparent,
-  CasinoRed,
-  CasinoRedTransparent,
-} from 'components/themes/mainTheme'
+import { CasinoBlack, CasinoBlackTransparent, CasinoBlue, CasinoBlueTransparent, CasinoGreen, CasinoGreenTransparent, CasinoOrange, CasinoOrangeTransparent, CasinoRed, CasinoRedTransparent } from 'components/themes/mainTheme'
 import { getRecord } from 'lib/backend/csr/nextApiWrapper'
 import { WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
 import { calculatePercent } from 'lib/util/numberUtil'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
-const RouletteBarChart = ({ data }: { data: WheelSpinStats }) => {
+const RouletteBarChart = ({ data, title = 'Roulette Chart' }: { data: WheelSpinStats; title?: string }) => {
   const chartData: ChartData<'bar', number[], string> = {
     labels: [''],
     datasets: [
@@ -92,7 +81,7 @@ const RouletteBarChart = ({ data }: { data: WheelSpinStats }) => {
         stack: 'Stack 6',
       },
       {
-        label: 'zero',
+        label: 'double zero',
         data: [data.doubleZero],
         backgroundColor: CasinoGreenTransparent,
         stack: 'Stack 6',
@@ -111,7 +100,7 @@ const RouletteBarChart = ({ data }: { data: WheelSpinStats }) => {
       },
       title: {
         display: true,
-        text: 'Roulette Chart',
+        text: title,
       },
       tooltip: {
         padding: 16,
