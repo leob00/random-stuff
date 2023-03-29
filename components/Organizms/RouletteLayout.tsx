@@ -8,6 +8,7 @@ import ApexBarChart from 'components/Molecules/Charts/apex/ApexBarChart'
 import ApexVerticalBarchart from 'components/Molecules/Charts/apex/ApexVerticalBarchart'
 import { ApexBarChartData } from 'components/Molecules/Charts/apex/models/chartModes'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
+import RouletteBarChart from 'components/Molecules/Charts/RouletteBarChart'
 import {
   CasinoBlackTransparent,
   CasinoBlueTransparent,
@@ -35,9 +36,10 @@ export interface Model {
   isSpinning?: boolean
   playerResults?: RouletteNumber[]
   playerChart?: BarChart
-  communityChart?: BarChart
+  communityChartOld?: BarChart
   communityApexChart?: ApexBarChartData[]
   isSimulationRunning?: boolean
+  communityChart?: WheelSpinStats
 }
 
 export type ActionTypes = 'spin' | 'spin-finished' | 'reload-community-stats' | 'start-simulation' | 'stop-simulation' | 'reset' | 'update-simulation'
@@ -159,7 +161,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       const communityChart = mapRouletteStatsChart(cs.red, cs.black, cs.zero, cs.doubleZero, cs.odd, cs.even, cs.total)
       let m = {
         ...model,
-        communityChart: communityChart,
+        communityChart: cs,
         communityApexChart: mapRouletteStatsApexChart(cs.red, cs.black, cs.zero, cs.doubleZero, cs.odd, cs.even, cs.total),
       }
       dispatch({
@@ -174,7 +176,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     wheel: getWheel(),
     isSpinning: false,
     isSimulationRunning: false,
-    communityChart: mapRouletteStatsChart(spinStats.red, spinStats.black, spinStats.zero, spinStats.doubleZero, spinStats.odd, spinStats.even, spinStats.total),
+    communityChart: spinStats,
     communityApexChart: mapRouletteStatsApexChart(
       spinStats.red,
       spinStats.black,
@@ -328,7 +330,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
         spinStats.total,
       )
       let m = cloneDeep(model)
-      m.communityChart = communityChart
+      m.communityChart = spinStats
       m.communityApexChart = mapRouletteStatsApexChart(
         spinStats.red,
         spinStats.black,
@@ -435,11 +437,11 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
         </CenterStack>
       )}
       <Box sx={{ my: 1 }}>
-        {/* {model.playerChart && (
+        {model.playerChart && (
           <Box>
             <BasicBarChart title={'Player spins'} barChart={model.playerChart} />
           </Box>
-        )} */}
+        )}
         {model.playerResults && !model.isSimulationRunning && (
           <>
             <CenterStack sx={{ my: 1 }}>
@@ -469,7 +471,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       )} */}
       {model.communityChart && (
         <Box>
-          <BasicBarChart title='Community spins' barChart={model.communityChart} yAxisDecorator='%' />
+          <RouletteBarChart data={model.communityChart} />
         </Box>
       )}
     </Box>
