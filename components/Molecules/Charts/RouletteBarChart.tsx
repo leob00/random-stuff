@@ -1,7 +1,18 @@
 import React from 'react'
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, TooltipItem, ChartData, ChartOptions } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
-import { CasinoBlack, CasinoBlackTransparent, CasinoBlue, CasinoBlueTransparent, CasinoGreen, CasinoGreenTransparent, CasinoOrange, CasinoOrangeTransparent, CasinoRed, CasinoRedTransparent } from 'components/themes/mainTheme'
+import {
+  CasinoBlack,
+  CasinoBlackTransparent,
+  CasinoBlue,
+  CasinoBlueTransparent,
+  CasinoGreen,
+  CasinoGreenTransparent,
+  CasinoOrange,
+  CasinoOrangeTransparent,
+  CasinoRed,
+  CasinoRedTransparent,
+} from 'components/themes/mainTheme'
 import { getRecord } from 'lib/backend/csr/nextApiWrapper'
 import { WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
 import { calculatePercent } from 'lib/util/numberUtil'
@@ -121,7 +132,7 @@ const RouletteBarChart = ({ data, title = 'Roulette Chart' }: { data: WheelSpinS
           },
           label: (tooltipItems) => {
             if (tooltipItems.dataset.label && tooltipItems.dataset.label.includes('%')) {
-              return ` ${tooltipItems.dataset.label.replaceAll('%', '')}: ${tooltipItems.formattedValue}%`
+              return ` ${tooltipItems.dataset.label.replaceAll('%', '')}: ${Number(tooltipItems.formattedValue).toFixed(2)}%`
             }
             return ` ${tooltipItems.dataset.label}: ${tooltipItems.formattedValue}`
             // return ` ${tooltipItems.formattedValue}`
