@@ -1,4 +1,4 @@
-import { Box, LinearProgress, Typography } from '@mui/material'
+import { Box, LinearProgress, Stack, Typography } from '@mui/material'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
@@ -19,6 +19,8 @@ import {
   CasinoOrangeTransparent,
   CasinoRedTransparent,
   CasinoWhiteTransparent,
+  ChartBackground,
+  VeryLightBlue,
 } from 'components/themes/mainTheme'
 import { WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
 import { get, post } from 'lib/backend/api/fetchFunctions'
@@ -458,15 +460,24 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
               <Typography variant='body1' sx={{}}>{`player spins`}</Typography>
             </CenterStack>
             <Box sx={{ maxHeight: 200, overflowY: 'auto' }}>
-              {model.playerResults.map((item, index) => (
-                <Box key={index}>
-                  <CenterStack>
-                    <Typography variant='h5' sx={{ color: translateCasinoColor(item.color) }}>
-                      {item.value}
-                    </Typography>
-                  </CenterStack>
-                </Box>
-              ))}
+              <Box display={'flex'} gap={1} flexWrap={'wrap'} alignItems={'center'}>
+                {model.playerResults.map((item, index) => (
+                  <Box key={index} display={'flex'}>
+                    <Box
+                      bgcolor={ChartBackground}
+                      border={index === 0 ? `1px solid ${CasinoBlueTransparent}` : 'unset'}
+                      borderRadius={'50%'}
+                      p={2}
+                      textAlign='center'
+                      width={60}
+                    >
+                      <Typography variant='h5' sx={{ color: translateCasinoColor(item.color) }}>
+                        {item.value}
+                      </Typography>
+                    </Box>
+                  </Box>
+                ))}
+              </Box>
             </Box>
           </>
         )}

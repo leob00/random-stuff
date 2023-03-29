@@ -1,4 +1,4 @@
-import { CasinoBlackTransparent, CasinoGreen, CasinoRed } from 'components/themes/mainTheme'
+import { CasinoBlack, CasinoBlackTransparent, CasinoGreen, CasinoRed } from 'components/themes/mainTheme'
 import { RouletteNumberColor } from '../roulette/wheel'
 
 export function translateCasinoColor(color: RouletteNumberColor) {
@@ -6,7 +6,7 @@ export function translateCasinoColor(color: RouletteNumberColor) {
     case 'red':
       return CasinoRed
     case 'black':
-      return CasinoBlackTransparent
+      return CasinoBlack
     case 'zero':
     case 'doubleZero':
       return CasinoGreen
