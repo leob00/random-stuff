@@ -1,11 +1,8 @@
-import { Box, LinearProgress, Stack, Typography } from '@mui/material'
+import { Box, LinearProgress, Typography } from '@mui/material'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
-import BasicBarChart from 'components/Atoms/Charts/BasicBarChart'
 import ImageSpinner from 'components/Atoms/ImageSpinner'
-import ApexBarChart from 'components/Molecules/Charts/apex/ApexBarChart'
-import ApexVerticalBarchart from 'components/Molecules/Charts/apex/ApexVerticalBarchart'
 import { ApexBarChartData } from 'components/Molecules/Charts/apex/models/chartModes'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import RouletteBarChart from 'components/Molecules/Charts/RouletteBarChart'
@@ -13,21 +10,17 @@ import {
   CasinoBlackTransparent,
   CasinoBlueTransparent,
   CasinoDarkGreenTransparent,
-  CasinoGrayTransparent,
-  CasinoGreen,
   CasinoGreenTransparent,
   CasinoOrangeTransparent,
   CasinoRedTransparent,
   CasinoWhiteTransparent,
   ChartBackground,
-  VeryLightBlue,
 } from 'components/themes/mainTheme'
 import { WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
-import { get, post } from 'lib/backend/api/fetchFunctions'
 import { translateCasinoColor } from 'lib/backend/charts/barChartMapper'
 import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
 import { getWheel, RouletteNumber, RouletteWheel } from 'lib/backend/roulette/wheel'
-import { calculatePercent, calculatePercentInt, getRandomInteger, isEven, isOdd } from 'lib/util/numberUtil'
+import { calculatePercent, getRandomInteger, isEven, isOdd } from 'lib/util/numberUtil'
 import { cloneDeep, filter, shuffle } from 'lodash'
 import React from 'react'
 import numeral from 'numeral'
@@ -400,7 +393,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
         </CenterStack>
         <CenterStack>
           <Box sx={{ width: '80%', textAlign: 'center' }}>
-            {model.isSimulationRunning && <LinearProgress variant='determinate' value={simulationCounter} />}
+            <LinearProgress variant='determinate' value={simulationCounter} />
           </Box>
         </CenterStack>
       </Box>

@@ -28,6 +28,7 @@ const Page = () => {
       setLoading(false)
     }
     fn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userController.username])
 
   return (

@@ -57,6 +57,7 @@ const Page = () => {
       //const resp = await fetch()
     }
     fn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userController.username])
 
   const apiOptions: DropdownItem[] = [
@@ -150,8 +151,20 @@ const Page = () => {
           <CenterStack>
             <SecondaryButton text='show' onClick={() => setShowPasswordPrompt(true)} />
           </CenterStack>
-          <ReEnterPasswordDialog userProfile={userProfile} show={showPasswordPrompt} title={'authentication request'} text={'please re-enter your password to proceed'} onConfirm={handleConfirmLogin} onCancel={() => setShowPasswordPrompt(false)} />
-          <Snackbar open={showLoginSuccess} autoHideDuration={3000} onClose={handleCloseLoginSuccess} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+          <ReEnterPasswordDialog
+            userProfile={userProfile}
+            show={showPasswordPrompt}
+            title={'authentication request'}
+            text={'please re-enter your password to proceed'}
+            onConfirm={handleConfirmLogin}
+            onCancel={() => setShowPasswordPrompt(false)}
+          />
+          <Snackbar
+            open={showLoginSuccess}
+            autoHideDuration={3000}
+            onClose={handleCloseLoginSuccess}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          >
             <Alert onClose={handleCloseLoginSuccess} severity='success' sx={{ width: '100%' }}>
               Login succeeded. Thank you!
             </Alert>

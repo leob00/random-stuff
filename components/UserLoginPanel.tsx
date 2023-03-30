@@ -119,8 +119,8 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
         handleAuthEvent(payload)
       })
     }
-
     fn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

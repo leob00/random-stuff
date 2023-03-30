@@ -25,6 +25,7 @@ const HomeMenu = () => {
       setIsloading(false)
     }
     fn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userController.isLoggedIn])
 
   return (

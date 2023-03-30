@@ -1,3 +1,4 @@
+import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
 import CoinFlipLayout from 'components/Organizms/CoinFlipLayout'
 import RouletteLayout from 'components/Organizms/RouletteLayout'
@@ -28,8 +29,11 @@ const Roulette: NextPage<{ spinStats: WheelSpinStats }> = ({ spinStats }) => {
           key='rouletteDescription'
         />
       </Header>
-      <BackToHomeButton />
-      <RouletteLayout spinStats={spinStats} />
+      <ResponsiveContainer>
+        <BackToHomeButton />
+
+        <RouletteLayout spinStats={spinStats} />
+      </ResponsiveContainer>
     </>
   )
 }

@@ -58,6 +58,7 @@ const Notes = () => {
     if (reload) {
       fn()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reload])
   return (
     <ResponsiveContainer>

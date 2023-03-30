@@ -16,7 +16,11 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
   }
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const isValid = validateEntry(pin1Ref.current?.value) && validateEntry(pin2Ref.current?.value) && validateEntry(pin3Ref.current?.value) && validateEntry(e.currentTarget.value)
+    const isValid =
+      validateEntry(pin1Ref.current?.value) &&
+      validateEntry(pin2Ref.current?.value) &&
+      validateEntry(pin3Ref.current?.value) &&
+      validateEntry(e.currentTarget.value)
     if (isValid) {
       const pin = `${pin1Ref.current?.value}${pin2Ref.current?.value}${pin3Ref.current?.value}${pin4Ref.current?.value}`
       onConfirmed(pin)
@@ -79,7 +83,11 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
     if (!valid) {
       pin4Ref.current!.value = ''
     } else {
-      const isValid = validateEntry(pin1Ref.current?.value) && validateEntry(pin2Ref.current?.value) && validateEntry(pin3Ref.current?.value) && validateEntry(e.currentTarget.value)
+      const isValid =
+        validateEntry(pin1Ref.current?.value) &&
+        validateEntry(pin2Ref.current?.value) &&
+        validateEntry(pin3Ref.current?.value) &&
+        validateEntry(e.currentTarget.value)
       if (isValid) {
         const pin = `${pin1Ref.current?.value}${pin2Ref.current?.value}${pin3Ref.current?.value}${pin4Ref.current?.value}`
         onConfirmed(pin)
@@ -97,6 +105,7 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
     if (pin1Ref.current && setFocus) {
       pin1Ref.current.focus()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <>
@@ -119,7 +128,8 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
               InputProps={{
                 //type: 'number',
                 autoComplete: 'new-password',
-              }}></TextField>
+              }}
+            ></TextField>
           </form>
 
           <Typography variant='h5' px={2}>
@@ -141,7 +151,8 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
               placeholder={''}
               InputProps={{
                 autoComplete: 'new-password',
-              }}></TextField>
+              }}
+            ></TextField>
           </form>
           <Typography variant='h5' px={2}>
             -
@@ -162,7 +173,8 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
               placeholder={''}
               InputProps={{
                 autoComplete: 'new-password',
-              }}></TextField>
+              }}
+            ></TextField>
           </form>
           <Typography variant='h5' px={2}>
             -
@@ -183,7 +195,8 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
               placeholder={''}
               InputProps={{
                 autoComplete: 'new-password',
-              }}></TextField>
+              }}
+            ></TextField>
           </form>
         </Box>
       </Box>

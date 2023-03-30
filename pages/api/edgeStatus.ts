@@ -5,9 +5,8 @@ import { ApiStatus } from './status'
 export const config = {
   runtime: 'edge', // this is a pre-requisite
 }
-
+// eslint-disable-next-line import/no-anonymous-default-export
 export default async (req: NextRequest) => {
-  const { searchParams } = new URL(req.url)
   const result: ApiStatus = {
     date: dayjs().format(),
     status: 'online',
