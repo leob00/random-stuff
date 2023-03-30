@@ -410,23 +410,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
 
   return (
     <Box>
-      <CenteredHeader title={'This is your chance to spin the wheel!'} description={'press the wheel to spin or run simulation of 100 turns.'} />
-      <Box sx={{ minHeight: 80 }}>
-        <CenterStack sx={{ my: 2 }}>
-          <SecondaryButton
-            text={model.isSimulationRunning ? 'running...' : 'run simulation'}
-            isDisabled={false}
-            onClicked={handleRunSimulation}
-            disabled={model.isSpinning}
-            width={170}
-          />
-        </CenterStack>
-        <CenterStack>
-          <Box sx={{ width: '80%', textAlign: 'center' }}>
-            <LinearProgress variant='determinate' value={model.simulationCounter} />
-          </Box>
-        </CenterStack>
-      </Box>
+      <CenteredHeader title={'This is your chance to spin the wheel!'} description={''} />
       <CenterStack sx={{ minHeight: 280 }}>
         <ImageSpinner
           imageUrl={'/images/american-roulette-wheel.png'}
@@ -437,9 +421,44 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
           clickable={true}
         />
       </CenterStack>
-
+      {!model.isSpinning && (
+        <CenterStack>
+          <Box
+            onClick={handleSpin}
+            sx={{
+              cursor: 'pointer',
+              marginTop: '-460px',
+              marginLeft: '2px',
+              zIndex: 100,
+              position: 'relative',
+              height: '60px',
+              width: '200px',
+              backgroundColor: CasinoWhiteTransparent,
+              borderRadius: 8,
+              textAlign: 'center',
+              //justifyContent: 'center',
+              paddingTop: 5.2,
+              //fontSize: 40,
+              fontWeight: 'bolder',
+            }}
+          >
+            <Typography
+              variant='h4'
+              color={'primary'}
+              sx={{
+                // color: model.result.color === 'black' ? 'black' : translateCasinoColor(model.result.color),
+                marginTop: { xs: -3, sm: -4 },
+                //fontSize: 40,
+                fontWeight: 'bolder',
+              }}
+            >
+              Spin
+            </Typography>
+          </Box>
+        </CenterStack>
+      )}
       {model.result && (
-        <CenterStack sx={{}}>
+        <CenterStack>
           <Box
             sx={{
               cursor: 'pointer',
@@ -471,6 +490,22 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
           </Box>
         </CenterStack>
       )}
+      <Box sx={{ minHeight: 80 }}>
+        <CenterStack sx={{ my: 2 }}>
+          <SecondaryButton
+            text={model.isSimulationRunning ? 'running...' : 'run simulation'}
+            isDisabled={false}
+            onClicked={handleRunSimulation}
+            disabled={model.isSpinning}
+            width={170}
+          />
+        </CenterStack>
+        <CenterStack>
+          <Box sx={{ width: '80%', textAlign: 'center' }}>
+            <LinearProgress variant='determinate' value={model.simulationCounter} />
+          </Box>
+        </CenterStack>
+      </Box>
       <Box sx={{ my: 1 }}>
         {model.playerChart && (
           <Box>
