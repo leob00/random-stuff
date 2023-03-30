@@ -1,4 +1,3 @@
-import { blue, deepOrange } from '@mui/material/colors'
 import { createTheme, PaletteOptions, responsiveFontSizes, ThemeOptions } from '@mui/material/styles'
 import { ResponsiveFontSizesOptions } from '@mui/material/styles/responsiveFontSizes'
 
@@ -77,20 +76,10 @@ const darkPalette: PaletteOptions = {
 
 const themeOptions: ThemeOptions = {
   typography: {
-    //fontSize: 16, fontFace: Roboto,
-    /* fontFamily: [
-      '"Segoe UI"',
-      '"Segoe UI Symbol"',
-      '"Segoe UI Emoji"',
-      '-apple-system',
-      'Roboto',
-      'BlinkMacSystemFont',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-    ].join(','), */
+    // fontSize: 16, fontFace: Roboto,
+    fontFamily: ['-apple-system', 'Roboto', 'BlinkMacSystemFont', '"Helvetica Neue"', 'Arial', 'sans-serif', '"Apple Color Emoji"'].join(','),
     fontSize: 16,
+
     h1: { fontSize: '3.5rem', fontWeight: 500 }, // hero section title
     h2: { fontSize: '2.6125rem', fontWeight: 500 }, // other section title
     h3: { fontSize: '2.115rem', fontWeight: 500 },
@@ -100,7 +89,7 @@ const themeOptions: ThemeOptions = {
     subtitle1: { fontSize: '1.275rem', fontWeight: 300 },
     subtitle2: { fontSize: '0.975rem', fontWeight: 200 },
     body1: { fontSize: '1.175rem', fontWeight: 100, color: Default }, // normal body text
-    body2: { fontSize: '1.08rem', fontWeight: 100, color: Default }, // less important text
+    body2: { fontSize: '1.08rem', fontWeight: 100 }, // less important text
     caption: { fontSize: '0.85rem', fontWeight: 400 },
     overline: { fontSize: '0.625rem', fontWeight: 400 },
     button: { fontSize: '1.0rem', fontWeight: 300, textTransform: 'none' },

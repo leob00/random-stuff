@@ -1,7 +1,7 @@
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
 import CoinFlipLayout from 'components/Organizms/CoinFlipLayout'
-import RouletteLayout from 'components/Organizms/RouletteLayout'
+import RouletteLayout from 'components/Organizms/roulette/RouletteLayout'
 import { CoinFlipStats, getCoinflipStats, getWheelSpinStats, WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
 import { GetStaticProps, NextPage } from 'next'
 import Header from 'next/head'

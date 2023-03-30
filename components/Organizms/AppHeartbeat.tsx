@@ -20,7 +20,7 @@ const AppHeartbeat = ({ children }: { children: ReactNode }) => {
     if (counter === 0) {
       setTimeout(() => {
         console.log('initializing heart beat...')
-        fn().then(() => console.log('heart beat started'))
+        //fn().then(() => console.log('heart beat started'))
       }, 1000)
       //clearTimeout(timeOut)
     }

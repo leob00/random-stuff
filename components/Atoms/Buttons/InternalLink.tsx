@@ -18,7 +18,8 @@ const InternalLink = ({ route, text, large = false }: { route: string; text: str
             p={1}
             onClick={() => {
               setIsLoading(true)
-            }}>
+            }}
+          >
             <Typography textAlign={'center'} variant={`${large ? 'h4' : 'h5'}`}>
               {text}
             </Typography>
