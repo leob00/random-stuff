@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { useMediaQuery, Typography } from '@mui/material'
-import theme, { CasinoBlue, CasinoBlueTransparent } from 'components/themes/mainTheme'
+import theme, { CasinoBlue } from 'components/themes/mainTheme'
 const HtmlView = ({ html }: { html?: string }) => {
   const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const StyledBox = styled(Typography)(() => ({
@@ -11,7 +11,7 @@ const HtmlView = ({ html }: { html?: string }) => {
       borderRadius: '16px',
       marginTop: 1,
     },
-    p: { width: isXSmall ? 300 : 'unset', color: CasinoBlue },
+    p: { width: isXSmall ? 300 : 'unset', color: CasinoBlue, fontSize: 18 },
   }))
   return (
     <>

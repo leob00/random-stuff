@@ -78,7 +78,8 @@ const themeOptions: ThemeOptions = {
   typography: {
     // fontSize: 16, fontFace: Roboto,
     fontFamily: ['-apple-system', 'Roboto', 'BlinkMacSystemFont', '"Helvetica Neue"', 'Arial', 'sans-serif', '"Apple Color Emoji"'].join(','),
-    fontSize: 16,
+    fontSize: 18,
+    fontWeightBold: 'bold',
 
     h1: { fontSize: '3.5rem', fontWeight: 500 }, // hero section title
     h2: { fontSize: '2.6125rem', fontWeight: 500 }, // other section title
