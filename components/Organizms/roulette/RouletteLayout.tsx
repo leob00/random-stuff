@@ -219,7 +219,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       //console.log(counter)
     }, 50)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [model.simulationCounter])
+  }, [model.simulationCounter, model.isSimulationRunning])
 
   React.useEffect(() => {
     const communityFn = async () => {
