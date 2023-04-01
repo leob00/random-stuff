@@ -3,200 +3,55 @@ import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ImageSpinner from 'components/Atoms/ImageSpinner'
-import { ApexBarChartData } from 'components/Molecules/Charts/apex/models/chartModes'
-import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import RouletteBarChart from 'components/Molecules/Charts/RouletteBarChart'
-import {
-  CasinoBlackTransparent,
-  CasinoBlueTransparent,
-  CasinoDarkGreenTransparent,
-  CasinoGreenTransparent,
-  CasinoOrangeTransparent,
-  CasinoRedTransparent,
-  CasinoWhiteTransparent,
-  ChartBackground,
-} from 'components/themes/mainTheme'
+import { CasinoBlueTransparent, CasinoWhiteTransparent, ChartBackground } from 'components/themes/mainTheme'
 import { WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
 import { translateCasinoColor } from 'lib/backend/charts/barChartMapper'
 import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
 import { getWheel, RouletteNumber, RouletteWheel } from 'lib/backend/roulette/wheel'
-import { calculatePercent, getRandomInteger, isEven, isOdd } from 'lib/util/numberUtil'
+import { getRandomInteger, isEven, isOdd } from 'lib/util/numberUtil'
 import { cloneDeep, filter, shuffle } from 'lodash'
 import React from 'react'
 import numeral from 'numeral'
 
-export interface Model {
+interface Model {
   spinSpeed?: number
   wheel: RouletteWheel
   result?: RouletteNumber
   isSpinning: boolean
   playerResults: RouletteNumber[]
   playerChart?: WheelSpinStats
-  communityChartOld?: BarChart
-  communityApexChart?: ApexBarChartData[]
   isSimulationRunning?: boolean
   communityChart?: WheelSpinStats
   simulationCounter: number
-  simulationPlayerResults: RouletteNumber[]
+  simulationJustFinished: boolean
 }
-
-// export type ActionTypes = 'spin' | 'spin-finished' | 'reload-community-stats' | 'start-simulation' | 'stop-simulation' | 'reset' | 'update-simulation'
-// export interface ActionType {
-//   type: ActionTypes
-//   payload: Model
-// }
-// let simulationCounter = 0
-// let simulationPlayerResults: RouletteNumber[] = []
-const mapRouletteStatsChart = (red: number, black: number, zero: number, doubleZero: number, odd: number, even: number, total: number) => {
-  let communityChart: BarChart = {
-    colors: [
-      CasinoRedTransparent,
-      CasinoBlackTransparent,
-      CasinoOrangeTransparent,
-      CasinoBlueTransparent,
-      CasinoDarkGreenTransparent,
-      CasinoDarkGreenTransparent,
-    ],
-    labels: ['red', 'black', 'odd', 'even', '0', '00'],
-    // numbers: [red, black, odd, even, zero, doubleZero, total],
-    numbers: [
-      calculatePercent(red, total),
-      calculatePercent(black, total),
-      calculatePercent(odd, total),
-      calculatePercent(even, total),
-      calculatePercent(zero, total),
-      calculatePercent(doubleZero, total),
-    ],
-  }
-  return communityChart
-}
-
-const mapRouletteStatsApexChart = (red: number, black: number, zero: number, doubleZero: number, odd: number, even: number, total: number) => {
-  let result: ApexBarChartData[] = [
-    {
-      x: 'red',
-      fillColor: CasinoRedTransparent,
-      y: Number(calculatePercent(red, total).toFixed(1)),
-    },
-    {
-      x: 'black',
-      fillColor: CasinoBlackTransparent,
-      y: Number(calculatePercent(black, total).toFixed(1)),
-    },
-    {
-      x: 'odd',
-      fillColor: CasinoOrangeTransparent,
-      y: Number(calculatePercent(odd, total).toFixed(1)),
-    },
-    {
-      x: 'even',
-      fillColor: CasinoBlueTransparent,
-      y: Number(calculatePercent(even, total).toFixed(1)),
-    },
-    {
-      x: 'zero',
-      fillColor: CasinoGreenTransparent,
-      y: Number(calculatePercent(zero, total).toFixed(1)),
-    },
-    {
-      x: 'double zero',
-      fillColor: CasinoGreenTransparent,
-      y: Number(calculatePercent(doubleZero, total).toFixed(1)),
-    },
-
-    // {
-    //   x: 'total',
-    //   fillColor: CasinoGrayTransparent,
-    //   y: Number(calculatePercent(total, total).toFixed(0)),
-    // },
-  ]
-  return result
-}
-
-// export function reducer(state: Model, action: ActionType): Model {
-//   switch (action.type) {
-//     case 'spin':
-//       return { ...state, spinSpeed: action.payload.spinSpeed, result: undefined, isSpinning: true, isSimulationRunning: false }
-//     case 'spin-finished':
-//       return {
-//         ...state,
-//         spinSpeed: action.payload.spinSpeed,
-//         result: action.payload.result,
-//         isSpinning: false,
-//         playerResults: action.payload.playerResults,
-//         playerChart: action.payload.playerChart,
-//         communityChart: action.payload.communityChart,
-//         communityApexChart: action.payload.communityApexChart,
-//       }
-//     case 'reload-community-stats':
-//       return { ...state, communityChart: action.payload.communityChart, communityApexChart: action.payload.communityApexChart }
-//     case 'start-simulation':
-//       return { ...state, spinSpeed: action.payload.spinSpeed, result: undefined, isSpinning: true, isSimulationRunning: true, playerResults: [] }
-//     case 'update-simulation':
-//       return {
-//         ...state,
-//         result: action.payload.result,
-//         playerResults: action.payload.playerResults,
-//         playerChart: action.payload.playerChart,
-//         communityChart: action.payload.communityChart,
-//         communityApexChart: action.payload.communityApexChart,
-//         isSimulationRunning: true,
-//       }
-//     case 'stop-simulation':
-//       return { ...state, spinSpeed: 40, isSpinning: false, isSimulationRunning: false, playerResults: action.payload.playerResults }
-//     case 'reset':
-//       return { ...state, spinSpeed: 40, isSpinning: false, isSimulationRunning: false, playerResults: [], result: undefined }
-//     default:
-//       return action.payload
-//   }
-// }
 
 const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
   const defaultSpinSpeed = 40
   const simulationSpinMax = 100
   const defaultModel: Model = {
     simulationCounter: 0,
-    simulationPlayerResults: [],
     wheel: getWheel(),
     playerResults: [],
     communityChart: spinStats,
     isSpinning: false,
+    simulationJustFinished: false,
   }
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
+  const timeOutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+
   const loadCommunityStats = async () => {
     let cs = await getRecord<WheelSpinStats>('wheelspin-community')
     if (cs) {
       let m = {
         ...model,
         communityChart: cs,
-        communityApexChart: mapRouletteStatsApexChart(cs.red, cs.black, cs.zero, cs.doubleZero, cs.odd, cs.even, cs.total),
       }
       setModel(m)
-      // dispatch({
-      //   type: 'reload-community-stats',
-      //   payload: m,
-      // })
     }
   }
 
-  // const initialState: Model = {
-  //   spinSpeed: defaultSpinSpeed,
-  //   wheel: getWheel(),
-  //   isSpinning: false,
-  //   isSimulationRunning: false,
-  //   communityChart: spinStats,
-  //   communityApexChart: mapRouletteStatsApexChart(
-  //     spinStats.red,
-  //     spinStats.black,
-  //     spinStats.zero,
-  //     spinStats.doubleZero,
-  //     spinStats.odd,
-  //     spinStats.even,
-  //     spinStats.total,
-  //   ),
-  // }
-
-  // const [model, dispatch] = React.useReducer(reducer, initialState)
   const shuffleNumbers = (numbers: RouletteNumber[]) => {
     let result: RouletteNumber[] = []
     let dt = new Date()
@@ -221,86 +76,20 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     await handleSpin()
   }
 
-  // const spinFn = async () => {
-  //   let counter = { ...model }.simulationCounter
-  //   if (counter >= 100) {
-  //     return 100
-  //   }
-  //   let nums = shuffle(cloneDeep(model.wheel?.numbers)!)
-  //   let numbers = shuffleNumbers(nums)
-  //   let pickedNum = numbers[getRandomInteger(0, 37)]
-  //   const playerResults = { ...model }.playerResults
-  //   counter = counter + 1
-
-  //   //newModel.playerChart = mapPlayerChart(newModel.simulationPlayerResults)
-  //   //setModel(newModel)
-  //   setModel({
-  //     ...model,
-  //     spinSpeed: 5.25,
-  //     result: pickedNum,
-  //     isSimulationRunning: true,
-  //     isSpinning: true,
-  //     playerChart: mapPlayerChart(playerResults),
-  //     simulationCounter: counter,
-  //   })
-  //   return counter
-  // }
-  // const runSimulation = () => {
-  //   let counter = { ...model }.simulationCounter
-  //   if (counter >= 100) {
-  //     //dispatch({ type: 'stop-simulation', payload: { playerResults: simulationPlayerResults, spinSpeed: defaultSpinSpeed } })
-  //     setModel({ ...model, isSimulationRunning: false, spinSpeed: defaultSpinSpeed, isSpinning: false, simulationCounter: 100 })
-  //     return
-  //   }
-
-  //   setTimeout(() => {
-  //     const fn = async () => {
-  //       const counter = await spinFn()
-  //       console.log('counter: ', counter)
-  //       if (counter > 0 && counter < 100) {
-  //         runSimulation()
-  //       } else {
-  //         //dispatch({ type: 'stop-simulation', payload: { playerResults: simulationPlayerResults, spinSpeed: defaultSpinSpeed } })
-  //         setModel({ ...model, isSimulationRunning: false, spinSpeed: defaultSpinSpeed, isSpinning: false, simulationCounter: 100 })
-  //       }
-  //     }
-  //     fn()
-  //   }, 50)
-  // }
-
   const handleRunSimulation = () => {
     if (model.isSpinning) {
       return
     }
+
     setModel({
       ...model,
       isSpinning: true,
       spinSpeed: 5.25,
       isSimulationRunning: true,
       simulationCounter: 0,
-      simulationPlayerResults: [],
       playerResults: [],
       result: undefined,
     })
-
-    const spins: RouletteNumber[] = []
-    for (let index = 0; index < simulationSpinMax; index++) {
-      const spin = getSpinResult()
-      spins.unshift(spin)
-    }
-    setTimeout(() => {
-      setModel({
-        ...model,
-        result: spins[0],
-        isSpinning: false,
-        spinSpeed: defaultSpinSpeed,
-        isSimulationRunning: false,
-        simulationCounter: 100,
-        simulationPlayerResults: spins,
-        playerResults: spins,
-        playerChart: mapPlayerChart(spins),
-      })
-    }, 4000)
   }
 
   const mapPlayerChart = (playerResults: RouletteNumber[]) => {
@@ -334,7 +123,6 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       zero: zeroTotal,
     }
 
-    //let playerChart = mapRouletteStatsChart(redTotal, blackTotal, zeroTotal, doubleZeroTotal, oddTotal, evenTotal, total)
     return stats
   }
   const finishSpin = async (pickedNum: RouletteNumber, playerResults: RouletteNumber[]) => {
@@ -369,11 +157,12 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       spinSpeed: defaultSpinSpeed,
       isSpinning: false,
       isSimulationRunning: false,
-      simulationCounter: 100,
+      simulationCounter: simulationSpinMax,
       result: pickedNum,
       playerResults: playerResults,
       playerChart: mapPlayerChart(playerResults),
       communityChart: spinStats,
+      simulationJustFinished: false,
     })
     return spinStats
   }
@@ -385,14 +174,15 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       isSimulationRunning: false,
       spinSpeed: 5.25,
       simulationCounter: 0,
-      simulationPlayerResults: [],
       result: undefined,
+      simulationJustFinished: false,
+      playerResults: model.simulationJustFinished ? [] : model.playerResults,
     })
-    let playerResults = cloneDeep(model).playerResults
+    let playerResults = model.simulationJustFinished ? [] : cloneDeep(model).playerResults
     const pickedNum = getSpinResult()
     playerResults.unshift(pickedNum)
 
-    let spinTimeout = getRandomInteger(2601, 3999)
+    let spinTimeout = getRandomInteger(2601, 3388)
     const spin = async () => {
       setTimeout(() => {
         finishSpin(pickedNum, playerResults)
@@ -400,6 +190,36 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     }
     await spin()
   }
+
+  React.useEffect(() => {
+    if (timeOutRef.current) {
+      clearInterval(timeOutRef.current)
+    }
+
+    timeOutRef.current = setTimeout(() => {
+      if (!model.isSimulationRunning) {
+        return
+      }
+      let counter = { ...model }.simulationCounter
+      if (counter >= simulationSpinMax) {
+        setModel({ ...model, isSimulationRunning: false, isSpinning: false, simulationCounter: simulationSpinMax, simulationJustFinished: true })
+
+        console.log(`simulation stopped: player results: ${model.playerResults.length}`)
+      } else {
+        counter += 1
+        const spin = getSpinResult()
+        const playerResults = { ...model }.playerResults
+        if (playerResults.length === 0) {
+          playerResults.push(spin)
+        } else {
+          playerResults.unshift(spin)
+        }
+        setModel({ ...model, simulationCounter: counter, result: spin, playerResults: playerResults, playerChart: mapPlayerChart(playerResults) })
+      }
+      //console.log(counter)
+    }, 50)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [model.simulationCounter])
 
   React.useEffect(() => {
     const communityFn = async () => {
@@ -424,7 +244,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       {!model.isSpinning && (
         <CenterStack>
           <Box
-            onClick={handleSpin}
+            onClick={handleSpinClick}
             sx={{
               cursor: 'pointer',
               marginTop: '-460px',

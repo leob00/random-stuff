@@ -6,7 +6,7 @@ import React from 'react'
 
 const SavedNoteButtonLink = () => {
   return (
-    <Stack justifyContent={'center'} direction='row' spacing={1}>
+    <Stack justifyContent={'center'} direction='row' spacing={1} alignItems={'center'}>
       <Button
         variant='outlined'
         color='success'
@@ -21,7 +21,7 @@ const SavedNoteButtonLink = () => {
         </Typography>
       </Button>
       <ExpirationWarningTooltip>
-        <Warning fontSize='small' />
+        <Warning fontSize='small' color='primary' />
       </ExpirationWarningTooltip>
     </Stack>
   )

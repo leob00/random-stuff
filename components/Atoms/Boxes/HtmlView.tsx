@@ -11,13 +11,13 @@ const HtmlView = ({ html }: { html?: string }) => {
       borderRadius: '16px',
       marginTop: 1,
     },
-    p: { width: isXSmall ? 300 : 'unset', color: CasinoBlue, fontSize: 18 },
+    p: { width: isXSmall ? 300 : 'unset', color: CasinoBlue, fontSize: 18, fontWeight: 600 },
   }))
   return (
     <>
       {html ? (
         <StyledBox
-          sx={{ width: { xs: 340, md: 'unset' }, display: 'inline-block', wordWrap: 'break-word', color: CasinoBlue }}
+          sx={{ width: { xs: 340, md: 'unset' }, display: 'inline-block', wordWrap: 'break-word', color: CasinoBlue, fontWeight: 500 }}
           variant='body1'
           color='primary'
           dangerouslySetInnerHTML={{ __html: html }}
