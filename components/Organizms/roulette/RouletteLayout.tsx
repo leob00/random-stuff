@@ -1,4 +1,4 @@
-import { Box, LinearProgress, Typography } from '@mui/material'
+import { Box, LinearProgress, Stack, Typography } from '@mui/material'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
@@ -13,6 +13,8 @@ import { getRandomInteger, isEven, isOdd } from 'lib/util/numberUtil'
 import { cloneDeep, filter, shuffle } from 'lodash'
 import React from 'react'
 import numeral from 'numeral'
+import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 interface Model {
   spinSpeed?: number
@@ -55,7 +57,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
   const shuffleNumbers = (numbers: RouletteNumber[]) => {
     let result: RouletteNumber[] = []
     let dt = new Date()
-    const iterations = getRandomInteger(300, 401) + dt.getSeconds()
+    const iterations = getRandomInteger(101, 299 + dt.getSeconds())
     const clone = cloneDeep(numbers)
     for (let i = 0; i <= iterations; i++) {
       result = shuffle(clone)
@@ -65,7 +67,8 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
   const getSpinResult = () => {
     let nums = shuffle(cloneDeep(model.wheel.numbers))
     let numbers = shuffleNumbers(nums)
-    let pickedNum = numbers[getRandomInteger(0, 37)]
+    //let pickedNum = numbers[getRandomInteger(0, 37)]
+    let pickedNum = numbers[0]
     return pickedNum
   }
 
@@ -182,13 +185,13 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     const pickedNum = getSpinResult()
     playerResults.unshift(pickedNum)
 
-    let spinTimeout = getRandomInteger(2601, 3388)
+    let spinTimeout = 1000
     const spin = async () => {
       setTimeout(() => {
         finishSpin(pickedNum, playerResults)
       }, spinTimeout)
     }
-    await spin()
+    spin()
   }
 
   React.useEffect(() => {
@@ -216,8 +219,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
         }
         setModel({ ...model, simulationCounter: counter, result: spin, playerResults: playerResults, playerChart: mapPlayerChart(playerResults) })
       }
-      //console.log(counter)
-    }, 50)
+    }, 25)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [model.simulationCounter, model.isSimulationRunning])
 
@@ -266,9 +268,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
               variant='h4'
               color={'primary'}
               sx={{
-                // color: model.result.color === 'black' ? 'black' : translateCasinoColor(model.result.color),
                 marginTop: { xs: -3, sm: -4 },
-                //fontSize: 40,
                 fontWeight: 'bolder',
               }}
             >
@@ -320,18 +320,45 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
             width={170}
           />
         </CenterStack>
+        <CenterStack sx={{ minHeight: 50 }}>
+          {!model.isSpinning && model.playerResults.length > 0 && (
+            <LinkButton
+              onClick={() => {
+                setModel({ ...model, playerResults: [], playerChart: undefined, result: undefined, simulationCounter: 0 })
+              }}
+            >
+              clear
+            </LinkButton>
+          )}{' '}
+        </CenterStack>
         <CenterStack>
           <Box sx={{ width: '80%', textAlign: 'center' }}>
             <LinearProgress variant='determinate' value={model.simulationCounter} />
           </Box>
         </CenterStack>
       </Box>
-      <Box sx={{ my: 1 }}>
-        {model.playerChart && (
-          <Box>
-            <RouletteBarChart data={model.playerChart} title={`Player spins: ${numeral(model.playerChart.total).format('###,###')}`} />
-          </Box>
-        )}
+
+      <Box my={1}>
+        {/* // {model.playerChart && ( */}
+        <Box>
+          <RouletteBarChart
+            data={
+              model.playerChart
+                ? model.playerChart
+                : {
+                    black: 0,
+                    doubleZero: 0,
+                    even: 0,
+                    odd: 0,
+                    red: 0,
+                    total: 0,
+                    zero: 0,
+                  }
+            }
+            title={`Player spins: ${numeral(model.playerResults.length).format('###,###')}`}
+          />
+        </Box>
+        {/* )} */}
         {model.playerResults.length > 0 && (
           <>
             <CenterStack sx={{ my: 1 }}>
@@ -360,16 +387,9 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
           </>
         )}
       </Box>
-      {/* {model.communityApexChart && (
-        <Box>
-          <Box py={1}>
-            <CenteredHeader title='Community Spins' />
-          </Box>
-          <ApexVerticalBarchart data={model.communityApexChart} seriesName={''} yAxisDecorator={'%'} />
-        </Box>
-      )} */}
+
       {model.communityChart && (
-        <Box>
+        <Box pt={2}>
           <RouletteBarChart data={model.communityChart} title={`Community spins: ${numeral(model.communityChart.total).format('###,###')}`} />
         </Box>
       )}
