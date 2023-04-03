@@ -80,7 +80,7 @@ const Cached = ({ fallbackData }: { fallbackData: Recipe }) => {
 const FoodRecipe: NextPage<{ fallback: Recipe; article: Recipe }> = ({ fallback, article }) => {
   return (
     <>
-      <Seo pageTitle='Recipe' />
+      <Seo pageTitle={`Recipe: ${article.title}`} />
       <ResponsiveContainer>
         <SWRConfig value={{ fallback }}>
           <Cached fallbackData={article} />

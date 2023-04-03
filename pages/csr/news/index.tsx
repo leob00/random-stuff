@@ -1,18 +1,18 @@
 import React from 'react'
-import { Button } from '@mui/material'
-import { useRouter } from 'next/router'
-import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
-import NewsLayout from '../../../components/Organizms/news/NewsLayout'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import NewsLayout from 'components/Organizms/news/NewsLayout'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
+import Seo from 'components/Organizms/Seo'
 
 const Page = () => {
   return (
-    <ResponsiveContainer>
-      <PageHeader text='News' backButtonRoute='/' />
-      <NewsLayout />
-    </ResponsiveContainer>
+    <>
+      <Seo pageTitle={`News`} />
+      <ResponsiveContainer>
+        <PageHeader text='News' backButtonRoute='/' />
+        <NewsLayout />
+      </ResponsiveContainer>
+    </>
   )
 }
 

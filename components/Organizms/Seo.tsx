@@ -4,7 +4,7 @@ import Header from 'next/head'
 const Seo = ({ pageTitle }: { pageTitle: string }) => {
   return (
     <Header>
-      <title>Random Stuff - {pageTitle}</title>
+      <title>{`Random Stuff - ${pageTitle}`}</title>
       <meta name='twitter:card' content='summary_large_image'></meta>
       <meta property='og:title' content='Random Stuff: this site is dedicated to random foolishness and inconsequential musings.' key='homeTitle' />
       <meta

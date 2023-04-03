@@ -10,6 +10,7 @@ import useSWR, { Fetcher, SWRConfig } from 'swr'
 import { Container } from '@mui/material'
 import Header from 'next/head'
 import { get } from 'lib/backend/api/fetchFunctions'
+import Seo from 'components/Organizms/Seo'
 
 const cmsRefreshIntervalSeconds = 360
 
@@ -59,10 +60,7 @@ const Cached = ({ fallbackData }: { fallbackData: BasicArticle[] }) => {
 const RandomDogs: NextPage<{ articles: BasicArticle[]; fallback: BasicArticle[] }> = ({ articles, fallback }) => {
   return (
     <>
-      <Header>
-        <title>Random Stuff - Dogs</title>
-        <meta property='og:title' content='Random Stuff - Dogs' key='dogsTitle' />
-      </Header>
+      <Seo pageTitle='Dogs' />
       <SWRConfig value={{ fallback }}>
         <Cached fallbackData={articles} />
       </SWRConfig>
