@@ -6,6 +6,8 @@ import axios, { AxiosRequestConfig } from 'axios'
 import { getAllRecipes, getRecipe } from 'lib/backend/api/contenfulApi'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import RecipeLayout from 'components/RecipeLayout'
+import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import Seo from 'components/Organizms/Seo'
 
 const cmsRefreshIntervalSeconds = 3600
 
@@ -77,11 +79,14 @@ const Cached = ({ fallbackData }: { fallbackData: Recipe }) => {
 
 const FoodRecipe: NextPage<{ fallback: Recipe; article: Recipe }> = ({ fallback, article }) => {
   return (
-    <Container>
-      <SWRConfig value={{ fallback }}>
-        <Cached fallbackData={article} />
-      </SWRConfig>
-    </Container>
+    <>
+      <Seo pageTitle='Recipe' />
+      <ResponsiveContainer>
+        <SWRConfig value={{ fallback }}>
+          <Cached fallbackData={article} />
+        </SWRConfig>
+      </ResponsiveContainer>
+    </>
   )
 }
 

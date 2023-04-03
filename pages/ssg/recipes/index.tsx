@@ -15,6 +15,8 @@ import { getRandomStuff, putRandomStuff, SiteStats } from 'lib/backend/api/aws/a
 import dayjs from 'dayjs'
 import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import Header from 'next/head'
+import Seo from 'components/Organizms/Seo'
 dayjs.extend(relativeTime)
 
 const cmsRefreshIntervalSeconds = 3600
@@ -109,12 +111,15 @@ const CachedRecipes = ({ fallbackData }: { fallbackData: RecipesLayoutModel }) =
 
 const Recipes: NextPage<{ model: RecipesLayoutModel; fallback: RecipesLayoutModel }> = ({ model, fallback }) => {
   return (
-    <ResponsiveContainer>
-      <BackToHomeButton />
-      <SWRConfig value={{ fallback }}>
-        <CachedRecipes fallbackData={model} />
-      </SWRConfig>
-    </ResponsiveContainer>
+    <>
+      <Seo pageTitle='Recipes' />
+      <ResponsiveContainer>
+        <BackToHomeButton />
+        <SWRConfig value={{ fallback }}>
+          <CachedRecipes fallbackData={model} />
+        </SWRConfig>
+      </ResponsiveContainer>
+    </>
   )
 }
 

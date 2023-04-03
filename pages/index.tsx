@@ -1,7 +1,6 @@
 import type { GetStaticProps, NextPage } from 'next'
 import HomeMenu from 'components/Organizms/HomeMenu'
-import Header from 'next/head'
-import logo from '/public/images/logo-with-text-blue-small.png'
+import Seo from 'components/Organizms/Seo'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   return {
@@ -11,19 +10,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 const Home: NextPage = () => {
   return (
     <>
-      <Header>
-        <title>Random Stuff - Home</title>
-        <meta name='twitter:card' content='summary_large_image'></meta>
-        <meta property='og:title' content='Random Stuff: this site is dedicated to random foolishness and inconsequential musings.' key='homeTitle' />
-        <meta
-          property='twitter:title'
-          content='Random Stuff: this site is dedicated to random foolishness and inconsequential musings.'
-          key='twitter-homeTitle'
-        />
-        <meta property='og:description' content='Find recipes, create notes, and view random pictures. Happy browsing!' key='homeDescription' />
-        <meta property='twitter:description' content='Find recipes, create notes, and view random pictures. Happy browsing!' key='twitter-homeDescription' />
-        <meta property='og:image' content='https://random-stuff-seven.vercel.app/images/logo-with-text-blue-small-social.png' key='homeLogo' />
-      </Header>
+      <Seo pageTitle='Home' />
       <HomeMenu />
     </>
   )
