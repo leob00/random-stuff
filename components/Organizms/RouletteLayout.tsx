@@ -15,6 +15,8 @@ import {
   CasinoRedTransparent,
   CasinoWhiteTransparent,
   ChartBackground,
+  OceanBlue,
+  OceanBlueTransparent,
 } from 'components/themes/mainTheme'
 import { WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
 import { translateCasinoColor } from 'lib/backend/charts/barChartMapper'
@@ -419,7 +421,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
               position: 'relative',
               height: '100px',
               width: '100px',
-              backgroundColor: CasinoWhiteTransparent,
+              backgroundColor: OceanBlue,
               borderRadius: '50%',
               textAlign: 'center',
               paddingTop: 7,
