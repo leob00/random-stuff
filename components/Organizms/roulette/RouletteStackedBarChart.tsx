@@ -19,7 +19,7 @@ import { calculatePercent } from 'lib/util/numberUtil'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
-const RouletteBarChart = ({ data, title = 'Roulette Chart' }: { data: WheelSpinStats; title?: string }) => {
+const RouletteStackedBarChart = ({ data, title = 'Roulette Chart' }: { data: WheelSpinStats; title?: string }) => {
   const chartData: ChartData<'bar', number[], string> = {
     labels: [''],
     datasets: [
@@ -149,4 +149,4 @@ const RouletteBarChart = ({ data, title = 'Roulette Chart' }: { data: WheelSpinS
   )
 }
 
-export default RouletteBarChart
+export default RouletteStackedBarChart

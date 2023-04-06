@@ -3,7 +3,7 @@ import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ImageSpinner from 'components/Atoms/ImageSpinner'
-import RouletteBarChart from 'components/Molecules/Charts/RouletteBarChart'
+import RouletteBarChart from 'components/Organizms/roulette/RouletteBarChart'
 import { CasinoBlueTransparent, CasinoWhiteTransparent, ChartBackground, OceanBlue, OceanBlueTransparent } from 'components/themes/mainTheme'
 import { WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
 import { translateCasinoColor } from 'lib/backend/charts/barChartMapper'
@@ -15,6 +15,7 @@ import React from 'react'
 import numeral from 'numeral'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import RoulettePlayerResultNumbers from './RoulettePlayerResultNumbers'
 
 interface Model {
   spinSpeed?: number
@@ -310,33 +311,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
           </Box>
         </CenterStack>
       )}
-      {model.playerResults.length > 0 && (
-        <>
-          <CenterStack sx={{ my: 1 }}>
-            <Typography variant='body1' sx={{}}>{`player spins`}</Typography>
-          </CenterStack>
-          <Box sx={{ maxHeight: 200, overflowY: 'auto' }}>
-            <Box display={'flex'} gap={1} flexWrap={'wrap'} alignItems={'center'}>
-              {model.playerResults.map((item, index) => (
-                <Box key={index} display={'flex'}>
-                  <Box
-                    bgcolor={ChartBackground}
-                    border={index === 0 ? `1px solid ${CasinoBlueTransparent}` : 'unset'}
-                    borderRadius={'50%'}
-                    p={2}
-                    textAlign='center'
-                    width={60}
-                  >
-                    <Typography variant='h5' sx={{ color: translateCasinoColor(item.color) }}>
-                      {item.value}
-                    </Typography>
-                  </Box>
-                </Box>
-              ))}
-            </Box>
-          </Box>
-        </>
-      )}
+      {model.playerResults.length > 0 && <RoulettePlayerResultNumbers data={model.playerResults} />}
       <Box sx={{ minHeight: 80 }}>
         <CenterStack sx={{ my: 2 }}>
           <SecondaryButton

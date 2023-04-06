@@ -5,7 +5,7 @@ import CenterStack from 'components/Atoms/CenterStack'
 import ImageSpinner from 'components/Atoms/ImageSpinner'
 import { ApexBarChartData } from 'components/Molecules/Charts/apex/models/chartModes'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
-import RouletteBarChart from 'components/Molecules/Charts/RouletteBarChart'
+import RouletteBarChart from 'components/Organizms/roulette/RouletteBarChart'
 import {
   CasinoBlackTransparent,
   CasinoBlueTransparent,
