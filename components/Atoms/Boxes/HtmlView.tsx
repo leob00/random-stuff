@@ -11,7 +11,7 @@ const HtmlView = ({ html }: { html?: string }) => {
       borderRadius: '16px',
       marginTop: 1,
     },
-    p: { width: isXSmall ? 300 : 'unset', color: CasinoBlue, fontSize: 18, fontWeight: 600 },
+    p: { width: isXSmall ? 300 : 'unset', color: CasinoBlue, fontSize: 20, fontWeight: 600 },
   }))
   return (
     <>

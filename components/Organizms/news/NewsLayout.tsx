@@ -53,16 +53,26 @@ const NewsLayout = () => {
   const handleSaved = async (note: UserNote) => {}
 
   const RenderDescription = (item: NewsItem) => {
-    if (item.Source!.includes('HackerNews') || item.Source!.includes('Plural')) {
-      return <></>
+    switch (item.Source! as NewsTypeIds) {
+      case 'Pluralistic':
+      case 'HackerNews': {
+        return <></>
+      }
+      case 'BbcBusiness':
+      case 'BbcWorld':
+      case 'CNN': {
+        return (
+          <>
+            {item.Description && item.Description.length > 2 && (
+              <Box pt={1} width={{ xs: 360, sm: 'unset' }} textAlign={'center'}>
+                <HtmlView html={item.Description} />
+              </Box>
+            )}
+          </>
+        )
+      }
     }
-    if (item.Source?.includes('Bbc')) {
-      return (
-        <Box pt={1} width={{ xs: 360, sm: 'unset' }} textAlign={'center'}>
-          <HtmlView html={item.Description} />
-        </Box>
-      )
-    }
+
     return (
       <Box pt={1} width={{ xs: 360, sm: 'unset' }}>
         <HtmlView html={item.Description} />
