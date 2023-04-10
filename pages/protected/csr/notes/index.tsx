@@ -34,7 +34,7 @@ const Notes = () => {
       filteredTitles: [],
       search: '',
     }
-    const profile = await userController.refetchProfile(300)
+    const profile = await userController.fetchProfilePassive(300)
     if (profile === null) {
       router.push('/login')
       console.log('not logged in')

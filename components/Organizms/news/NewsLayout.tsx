@@ -95,7 +95,7 @@ const NewsLayout = () => {
   React.useEffect(() => {
     const fn = async () => {
       await loadData(selectedSource)
-      userController.refetchProfile()
+      userController.fetchProfilePassive()
     }
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps

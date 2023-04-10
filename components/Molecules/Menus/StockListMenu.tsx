@@ -1,8 +1,9 @@
 import React from 'react'
 import { Menu, MenuList, MenuItem, ListItemIcon, ListItemText, Button, ListItemAvatar, ListItem, Divider } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
-import { Edit } from '@mui/icons-material'
+import { Edit, Toc, ViewList } from '@mui/icons-material'
 import CachedIcon from '@mui/icons-material/Cached'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 const StockListMenu = ({ onEdit, onRefresh }: { onEdit: () => void; onRefresh: () => void }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -52,18 +53,18 @@ const StockListMenu = ({ onEdit, onRefresh }: { onEdit: () => void; onRefresh: (
         }}
       >
         <MenuList>
-          <MenuItem onClick={handleEdit}>
-            <ListItemIcon>
-              <Edit color='secondary' fontSize='small' />
-            </ListItemIcon>
-            <ListItemText primary='edit'></ListItemText>
-          </MenuItem>
-          <Divider />
           <MenuItem onClick={handleRefresh}>
             <ListItemIcon>
               <CachedIcon color='secondary' fontSize='small' />
             </ListItemIcon>
             <ListItemText primary='refresh'></ListItemText>
+          </MenuItem>
+          <HorizontalDivider />
+          <MenuItem onClick={handleEdit}>
+            <ListItemIcon>
+              <ViewList color='secondary' fontSize='small' />
+            </ListItemIcon>
+            <ListItemText primary='edit'></ListItemText>
           </MenuItem>
         </MenuList>
       </Menu>

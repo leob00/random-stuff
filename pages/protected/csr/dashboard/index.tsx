@@ -15,16 +15,18 @@ import PageHeader from 'components/Atoms/Containers/PageHeader'
 
 const Page = () => {
   const userController = useUserController()
-  const userProfile = userController.authProfile
+  //const userProfile = userController.authProfile
   const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
     const fn = async () => {
-      const p = await userController.refetchProfile(300)
-      if (!p) {
-        console.log('unable to load profile')
+      if (!userController.authProfile) {
+        const p = await userController.fetchProfilePassive(300)
+        if (!p) {
+          console.log('unable to load profile')
+        }
+        userController.setProfile(p)
       }
-      userController.setProfile(p)
       setLoading(false)
     }
     fn()
@@ -34,7 +36,7 @@ const Page = () => {
   return (
     <ResponsiveContainer>
       <PageHeader text={'Dashboard'} backButtonRoute={'/'} />
-      <Box>{loading ? <WarmupBox /> : userProfile ? <UserDashboardLayout /> : <PleaseLogin />}</Box>
+      <Box>{loading ? <WarmupBox /> : userController.authProfile ? <UserDashboardLayout /> : <PleaseLogin />}</Box>
     </ResponsiveContainer>
   )
 }

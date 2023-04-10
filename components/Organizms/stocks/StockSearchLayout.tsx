@@ -1,6 +1,8 @@
 import { Close } from '@mui/icons-material'
 import { Box, Button, Stack } from '@mui/material'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchAutoComplete from 'components/Atoms/Inputs/SearchAutoComplete'
@@ -8,6 +10,7 @@ import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import StockListMenu from 'components/Molecules/Menus/StockListMenu'
 import DraggableList from 'components/Organizms/stocks/DraggableList'
+import { useUserController } from 'hooks/userController'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { refreshQuotes, searchStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
@@ -42,6 +45,7 @@ const StockSearchLayout = () => {
   }
 
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
+  const userController = useUserController()
 
   const getStockListMap = (list: StockQuote[]) => {
     const map = cloneDeep(model.stockListMap)
@@ -77,8 +81,7 @@ const StockSearchLayout = () => {
     }
   }
   const reloadData = async () => {
-    const user = await getUserCSR()
-    const username = user ? user.email : null
+    const username = userController.username
     setModel({ ...model, isLoading: true })
 
     let stockList = [...model.stockList]
@@ -181,9 +184,7 @@ const StockSearchLayout = () => {
             <Stack py={1} direction={'row'} spacing={1}>
               <Stack flexGrow={1}>
                 <Box textAlign={'right'}>
-                  <Button variant='contained' color='success' size='small' onClick={handleAddToList}>
-                    Add to list
-                  </Button>
+                  <SecondaryButton text=' Add to list' size='small' onClick={handleAddToList}></SecondaryButton>
                 </Box>
               </Stack>
               <Stack>

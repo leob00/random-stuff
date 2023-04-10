@@ -21,7 +21,7 @@ const ForgotPin = () => {
       userTicket = await getUserCSR()
       if (userTicket) {
         const key = constructUserProfileKey(userTicket.email)
-        profile = await userController.refetchProfile(10)
+        profile = await userController.fetchProfilePassive(10)
         setProfile(profile)
       }
       setTicket(userTicket)

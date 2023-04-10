@@ -13,7 +13,7 @@ const Page = () => {
 
   React.useEffect(() => {
     const fn = async () => {
-      const p = await userController.refetchProfile(300)
+      const p = await userController.fetchProfilePassive(300)
       setUserProfile(p)
       setLoading(false)
     }

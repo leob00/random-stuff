@@ -30,10 +30,11 @@ export const useUserController = () => {
 
       if (profile !== null) {
         profile.username = user.email
-        if (!profile.secKey) {
-          profile.secKey = myEncryptBase64(`${user.id}-${profile.username}`, `${profile.username}${user.id}`)
-          putUserProfile(profile)
-        }
+        //this can be removed 4/7/2023
+        // if (!profile.secKey) {
+        //   profile.secKey = myEncryptBase64(`${user.id}-${profile.username}`, `${profile.username}${user.id}`)
+        //   putUserProfile(profile)
+        // }
         setLastProfileFetchDate(dayjs().format())
         setAuthProfile(profile)
         return profile
@@ -64,11 +65,14 @@ export const useUserController = () => {
     getProfile: async () => {
       if (authProfile === null) {
         return await fetchProfile()
+      } else {
+        return authProfile
       }
-      return authProfile
     },
-    refetchProfile: async (seconds: number = 300) => {
+
+    fetchProfilePassive: async (seconds: number = 300) => {
       const lastDt = lastProfileFetchDate
+
       if (lastDt.length === 0) {
         return await fetchProfile()
       }

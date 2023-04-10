@@ -41,7 +41,7 @@ const Page = () => {
     const fn = async () => {
       const user = await getUserCSR()
       setTicket(user)
-      const p = await userController.refetchProfile()
+      const p = await userController.fetchProfilePassive()
       setProfile(p)
       if (p !== null && !p.pin) {
         setShowCreatePin(true)

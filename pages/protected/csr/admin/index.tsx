@@ -39,7 +39,7 @@ const Page = () => {
         return
       }
 
-      const p = await userController.refetchProfile(300)
+      const p = await userController.fetchProfilePassive(300)
       if (p) {
         if (!userHasRole('Admin', loggedInUser.roles)) {
           router.push('/login')
