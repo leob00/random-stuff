@@ -39,7 +39,7 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
   }
   React.useEffect(() => {
     const fn = async () => {
-      const history = await getStockChart(item.Symbol, 365)
+      const history = await getStockChart(item.Symbol, 90)
       setStockHistory(history)
     }
     if (showMore) {

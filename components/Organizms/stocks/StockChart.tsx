@@ -3,21 +3,7 @@ import { ApexOptions } from 'apexcharts'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import {
-  DarkBlueTransparent,
-  DarkBlue,
-  VeryLightBlueTransparent,
-  CasinoBlueTransparent,
-  CasinoBlue,
-  DarkModeBlue,
-  CasinoLightGrayTransparent,
-  VeryLightBlue,
-  DarkModeBlueTransparent,
-  ChartBackground,
-  SoftWhite,
-  CasinoBlackTransparent,
-  CasinoBlack,
-} from 'components/themes/mainTheme'
+import { VeryLightBlueTransparent, CasinoBlueTransparent, CasinoBlue, CasinoGreen, CasinoRed } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { getStockChart } from 'lib/backend/api/qln/qlnApi'
@@ -54,12 +40,18 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
   const [isLoading, setIsLoading] = React.useState(true)
 
   const mapOptions = (items: XyValues) => {
+    let lineColor = CasinoGreen
+    if (items.y.length > 0) {
+      if (items.y[0] > items.y[items.y.length - 1]) {
+        lineColor = CasinoRed
+      }
+    }
     const options: ApexOptions = {
       series: [
         {
           name: '',
           data: items.y,
-          color: CasinoBlue,
+          color: lineColor,
         },
       ],
       stroke: {
@@ -70,6 +62,7 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
         toolbar: {
           show: false,
         },
+        foreColor: lineColor,
       },
       grid: {
         show: true,
@@ -105,12 +98,28 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
       },
       tooltip: {
         fillSeriesColor: false,
+
+        marker: {
+          fillColors: [lineColor],
+        },
+
         style: {
           fontSize: '14px',
         },
+
         y: {
-          formatter: (val: number) => {
-            return `$${val.toFixed(2)}`
+          title: {
+            formatter(seriesName) {
+              return ` ${seriesName}`
+            },
+          },
+          formatter: (val: number, opts: any) => {
+            //console.log(history[opts.dataPointIndex].Price)
+            const change =
+              history[opts.dataPointIndex].Change > 0
+                ? `+$${history[opts.dataPointIndex].Change.toFixed(2)}`
+                : `${history[opts.dataPointIndex].Change.toFixed(2)}`
+            return `$${history[opts.dataPointIndex].Price.toFixed(2)}  ${change} ${history[opts.dataPointIndex].ChangePercent}%`
           },
         },
       },
@@ -129,7 +138,7 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
     <Box>
       <>
         <Box textAlign={'right'} pr={1} pt={1} pb={2}>
-          <DropdownList options={daySelect} selectedOption={'365'} onOptionSelected={handleDaysSelected} />
+          <DropdownList options={daySelect} selectedOption={'90'} onOptionSelected={handleDaysSelected} />
         </Box>
         {isLoading ? (
           <Box minHeight={300}>

@@ -2,8 +2,7 @@ import dayjs from 'dayjs'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { useAuthStore } from 'lib/backend/auth/useAuthStore'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
-import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
-import { myEncryptBase64 } from 'lib/backend/encryption/useEncryptor'
+import { getUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import shallow from 'zustand/shallow'
 
 export const useUserController = () => {
