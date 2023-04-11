@@ -4,6 +4,7 @@ import { Auth, Hub } from 'aws-amplify'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
+import { AmplifyUser } from 'lib/backend/auth/userUtil'
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
@@ -36,8 +37,7 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
     switch (payload.event) {
       case 'signOut':
         console.log('signing out')
-        await userController.setIsLoggedIn(false)
-        await userController.setUsername(null)
+        await userController.setTicket(null)
         await userController.setProfile(null)
         //await userController.setLastProfileFetchDate('')
         if (window.location.pathname.includes('protected') || window.location.pathname.includes('stocks')) {
@@ -46,9 +46,10 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
         //router.push('/login')
         break
       case 'signIn':
-        const user = { email: payload.data?.attributes.email, roles: payload.data?.attributes['custom:roles'] }
-        await userController.setIsLoggedIn(true)
-        await userController.setUsername(user.email)
+        //console.log(payload)
+        const user: AmplifyUser = { id: payload.data?.attributes.sub, email: payload.data?.attributes.email, roles: payload.data?.attributes['custom:roles'] }
+        //console.log('user: ', user)
+        await userController.setTicket(user)
         let p = (await getUserProfile(user.email)) as UserProfile | null
         if (!p) {
           p = {
@@ -81,32 +82,30 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
         break
 
       case 'signIn_failure':
+        await userController.setTicket(null)
         break
     }
   }
 
   useEffect(() => {
     let fn = async () => {
-      if (userController.username) {
+      if (userController.ticket) {
         return
       }
 
       try {
         let user = await Auth.currentAuthenticatedUser()
         if (user) {
-          await userController.setIsLoggedIn(true)
-          await userController.setUsername(user.attributes.email)
+          await userController.setTicket({ id: user.attributes.id, email: user.attributes.email })
         }
       } catch (error) {
-        await userController.setIsLoggedIn(false)
-        await userController.setUsername(null)
-        await userController.setProfile(null)
+        await userController.setTicket(null)
       }
     }
 
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userController.username])
+  }, [userController.ticket])
 
   const handleLoginClick = async () => {
     router.push('/login')
@@ -126,11 +125,11 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
   return (
     <>
       <Box justifyContent={'space-evenly'} display='flex' alignItems={'center'}>
-        {userController.username ? (
+        {userController.ticket ? (
           <>
             <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} mt={'6px'}>
               <Stack flexGrow={1}></Stack>
-              <LoggedInUserMenu onLogOut={signOut} username={userController.username} />
+              <LoggedInUserMenu onLogOut={signOut} username={userController.ticket.email} />
             </Stack>
           </>
         ) : (

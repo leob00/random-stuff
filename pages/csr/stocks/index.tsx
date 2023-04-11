@@ -6,8 +6,8 @@ import { useUserController } from 'hooks/userController'
 import React from 'react'
 
 const Page = () => {
-  const isLoggedIn = useUserController().isLoggedIn
-  const backUrl = isLoggedIn ? '/protected/csr/dashboard' : ''
+  const ticket = useUserController().ticket
+  const backUrl = ticket ? '/protected/csr/dashboard' : ''
   return (
     <>
       <Seo pageTitle='Stocks' />

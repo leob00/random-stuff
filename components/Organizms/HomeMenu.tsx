@@ -20,13 +20,13 @@ const HomeMenu = () => {
       if (user) {
         setIsAdmin(userHasRole('Admin', user.roles))
       } else {
-        userController.setIsLoggedIn(false)
+        userController.setTicket(null)
       }
       setIsloading(false)
     }
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userController.isLoggedIn])
+  }, [userController.ticket])
 
   return (
     <Box>
@@ -43,7 +43,7 @@ const HomeMenu = () => {
               <CenteredNavigationButton route={'/csr/news'} text={'news'} />
               <CenteredNavigationButton route={'/csr/stocks'} text={'stocks'} />
               <CenteredNavigationButton route={'/ssg/recipes'} text={'recipes'} />
-              {userController.isLoggedIn && (
+              {userController.ticket && (
                 <>
                   <CenterStack sx={{ py: 2 }}>
                     <NavigationButton route={'/protected/csr/goals'} text={'goals'} />

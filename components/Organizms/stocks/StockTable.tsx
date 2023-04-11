@@ -6,7 +6,7 @@ import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import StockListItem from './StockListItem'
 
-const StockTable = ({ stockList, onRemoveItem }: { stockList: StockQuote[]; onRemoveItem: (id: string) => void }) => {
+const StockTable = ({ stockList }: { stockList: StockQuote[] }) => {
   return (
     <>
       <Box pl={1}>
@@ -21,7 +21,7 @@ const StockTable = ({ stockList, onRemoveItem }: { stockList: StockQuote[]; onRe
           </CenterStack>
         ) : (
           <CenterStack>
-            <Typography>no stocks found</Typography>
+            <Typography></Typography>
           </CenterStack>
         )}
       </Box>

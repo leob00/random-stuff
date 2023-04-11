@@ -1,29 +1,25 @@
 import create from 'zustand'
 import { UserProfile } from '../api/aws/apiGateway'
-import { Role } from './userUtil'
+import { AmplifyUser, Role } from './userUtil'
 
 interface UserAuthState {
-  isLoggedIn: boolean
-  username: string | null
+  ticket: AmplifyUser | null
   profile: UserProfile | null
   roles: Role[]
   setRoles: (roles: Role[]) => void
   lastProfileFetchDate: string
   setLastProfileFetchDate: (fetchDate: string) => void
-  setIsLoggedIn: (loggedIn: boolean) => void
-  setUsername: (username: string | null) => void
+  setTicket: (ticket: AmplifyUser | null) => void
   setProfile: (profile: UserProfile | null) => void
 }
 
 export const useAuthStore = create<UserAuthState>()((set) => ({
-  isLoggedIn: false,
-  username: null,
+  ticket: null,
   profile: null,
   roles: [],
   setRoles: (roles) => set((state) => ({ ...state, roles: roles })),
   lastProfileFetchDate: '',
   setLastProfileFetchDate: (fetchDate) => set((state) => ({ ...state, lastProfileFetchDate: fetchDate })),
-  setIsLoggedIn: (loggedIn) => set((state) => ({ ...state, isLoggedIn: loggedIn })),
-  setUsername: (username) => set((state) => ({ ...state, username: username })),
+  setTicket: (ticket) => set((state) => ({ ...state, ticket: ticket })),
   setProfile: (profile) => set((state) => ({ ...state, profile: profile })),
 }))

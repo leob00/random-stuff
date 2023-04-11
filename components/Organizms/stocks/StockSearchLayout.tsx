@@ -1,3 +1,4 @@
+import { getAmplifyUserAgent } from '@aws-amplify/core'
 import { Close } from '@mui/icons-material'
 import { Box, Button, Stack } from '@mui/material'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
@@ -16,6 +17,7 @@ import { refreshQuotes, searchStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
 import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
+import { getMapFromArray } from 'lib/util/collectionsNative'
 import { cloneDeep } from 'lodash'
 import React from 'react'
 import { DropResult } from 'react-beautiful-dnd'
@@ -48,10 +50,11 @@ const StockSearchLayout = () => {
   const userController = useUserController()
 
   const getStockListMap = (list: StockQuote[]) => {
-    const map = cloneDeep(model.stockListMap)
-    list.forEach((item) => {
-      map.set(item.Symbol, item)
-    })
+    let map = cloneDeep(model.stockListMap)
+    map = getMapFromArray(list, 'Symbol')
+    // list.forEach((item) => {
+    //   map.set(item.Symbol, item)
+    // })
     return map
   }
 
@@ -81,28 +84,29 @@ const StockSearchLayout = () => {
     }
   }
   const reloadData = async () => {
-    const username = userController.username
+    const ticket = userController.ticket
     setModel({ ...model, isLoading: true })
 
     let stockList = [...model.stockList]
     let map = model.stockListMap
 
-    if (username) {
-      stockList = await getUserStockList(username)
-      stockList.forEach((q) => {
-        map.set(q.Symbol, q)
-      })
-      setModel({ ...model, username: username, stockListMap: map, stockList: stockList, isLoading: false })
-      refreshQuotes(stockList, username).then((refreshed) => {
+    if (ticket) {
+      stockList = await getUserStockList(ticket.email)
+      map = getMapFromArray(stockList, 'Symbol')
+      // stockList.forEach((q) => {
+      //   map.set(q.Symbol, q)
+      // })
+      setModel({ ...model, username: ticket.email, stockListMap: map, stockList: stockList, isLoading: false })
+      refreshQuotes(stockList, ticket.email).then((refreshed) => {
         refreshed.forEach((q) => {
           map.set(q.Symbol, q)
         })
-        setModel({ ...model, stockList: refreshed, username: username, stockListMap: map, isLoading: false })
+        setModel({ ...model, stockList: refreshed, username: ticket.email, stockListMap: map, isLoading: false })
       })
       //console.log(testMap)
     } else {
       setTimeout(() => {
-        setModel({ ...model, username: username, stockListMap: map, stockList: stockList, isLoading: false })
+        setModel({ ...model, username: null, stockListMap: map, stockList: stockList, isLoading: false })
       }, 1000)
     }
   }
@@ -162,7 +166,7 @@ const StockSearchLayout = () => {
     }
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [userController.ticket])
 
   return (
     <>
@@ -240,7 +244,7 @@ const StockSearchLayout = () => {
                           </Stack>
                         </>
                       )}
-                      <StockTable stockList={model.stockList} onRemoveItem={handleRemoveQuote} />
+                      <StockTable stockList={model.stockList} />
                     </>
                   )}
                 </Box>

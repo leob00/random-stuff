@@ -126,12 +126,12 @@ const NewsLayout = () => {
                         <img src={item.TeaserImageUrl} title='' width={300} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
                       </Box>
                     )}
-                    {userController.username && (
+                    {userController.ticket && (
                       <Box>
                         <Stack py={2}>
                           {!item.Saved ? (
                             <SaveToNotesButton
-                              username={userController.username}
+                              username={userController.ticket.email}
                               note={{
                                 title: item.Headline!,
                                 body: `${item.Description} <p style='text-align:center;'><a href='${item.Link}' target='_blank'>link<a/></p>`,

@@ -1,27 +1,24 @@
 import dayjs from 'dayjs'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { useAuthStore } from 'lib/backend/auth/useAuthStore'
-import { getUserCSR } from 'lib/backend/auth/userUtil'
+import { AmplifyUser, getUserCSR } from 'lib/backend/auth/userUtil'
 import { getUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import shallow from 'zustand/shallow'
 
 export const useUserController = () => {
-  const { isLoggedIn, username, authProfile, setAuthProfile, lastProfileFetchDate, setLastProfileFetchDate, setIsLoggedin, setUsername, roles, setRoles } =
-    useAuthStore(
-      (state) => ({
-        isLoggedIn: state.isLoggedIn,
-        username: state.username,
-        authProfile: state.profile,
-        roles: state.roles,
-        setRoles: state.setRoles,
-        setAuthProfile: state.setProfile,
-        lastProfileFetchDate: state.lastProfileFetchDate,
-        setLastProfileFetchDate: state.setLastProfileFetchDate,
-        setIsLoggedin: state.setIsLoggedIn,
-        setUsername: state.setUsername,
-      }),
-      shallow,
-    )
+  const { ticket, authProfile, setAuthProfile, lastProfileFetchDate, setLastProfileFetchDate, setTicket } = useAuthStore(
+    (state) => ({
+      ticket: state.ticket,
+      authProfile: state.profile,
+      roles: state.roles,
+      setRoles: state.setRoles,
+      setAuthProfile: state.setProfile,
+      lastProfileFetchDate: state.lastProfileFetchDate,
+      setLastProfileFetchDate: state.setLastProfileFetchDate,
+      setTicket: state.setTicket,
+    }),
+    shallow,
+  )
   const fetchProfile = async () => {
     const user = await getUserCSR()
     if (user !== null) {
@@ -48,12 +45,10 @@ export const useUserController = () => {
     return null
   }
   return {
-    isLoggedIn: isLoggedIn,
-    username: username,
+    ticket: ticket,
     authProfile: authProfile,
-
-    setIsLoggedIn: async (loggedIn: boolean) => {
-      setIsLoggedin(loggedIn)
+    setTicket: async (ticket: AmplifyUser | null) => {
+      setTicket(ticket)
     },
     setProfile: async (profile: UserProfile | null) => {
       setAuthProfile(profile)
@@ -86,9 +81,6 @@ export const useUserController = () => {
         }
       }
       return authProfile
-    },
-    setUsername: async (username: string | null) => {
-      setUsername(username)
     },
   }
 }

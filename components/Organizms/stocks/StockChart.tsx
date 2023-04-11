@@ -115,10 +115,13 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
           },
           formatter: (val: number, opts: any) => {
             //console.log(history[opts.dataPointIndex].Price)
+            if (history.length === 0) {
+              return ''
+            }
             const change =
-              history[opts.dataPointIndex].Change > 0
-                ? `+$${history[opts.dataPointIndex].Change.toFixed(2)}`
-                : `${history[opts.dataPointIndex].Change.toFixed(2)}`
+              history[opts.dataPointIndex].Change ?? 0 > 0
+                ? `+$${history[opts.dataPointIndex].Change?.toFixed(2)}`
+                : `${history[opts.dataPointIndex].Change?.toFixed(2)}`
             return `$${history[opts.dataPointIndex].Price.toFixed(2)}  ${change} ${history[opts.dataPointIndex].ChangePercent}%`
           },
         },

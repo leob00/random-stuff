@@ -31,7 +31,7 @@ const Page = () => {
     }
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userController.username])
+  }, [userController.ticket])
 
   return (
     <ResponsiveContainer>
