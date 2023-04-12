@@ -3,28 +3,17 @@ import { ApexOptions } from 'apexcharts'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import theme, {
-  VeryLightBlueTransparent,
-  CasinoBlueTransparent,
-  CasinoBlue,
-  CasinoGreen,
-  CasinoRed,
-  CasinoGreenTransparent,
-  CasinoRedTransparent,
-  TransparentBlue,
-  DarkBlueTransparent,
-  DarkBlue,
-} from 'components/themes/mainTheme'
+import theme from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { getStockChart } from 'lib/backend/api/qln/qlnApi'
 import { DropdownItem } from 'lib/models/dropdown'
 import dynamic from 'next/dynamic'
 import React from 'react'
+import { getOptions } from './lineChartOptions'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const StockChart = ({ symbol, history }: { symbol: string; history: StockHistoryItem[] }) => {
-  //const [rawData, setRawData] = React.useState(history)
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const isMedium = useMediaQuery(theme.breakpoints.down('lg'))
   let chartHeight = 680
@@ -52,153 +41,42 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
 
   const handleDaysSelected = async (val: string) => {
     const result = await getStockChart(symbol, Number(val))
-    //console.log(`send: ${val}, received count: ${result.length}`)
-    //setRawData(result)
     const map = mapHistory(result)
-    const options = mapOptions(map, result)
+    const options = getOptions(map, result, isXSmall)
     setChartOptions(options)
-
-    //console.log(val)
   }
   const [chartOptions, setChartOptions] = React.useState<ApexOptions | null>(null)
   const [isLoading, setIsLoading] = React.useState(true)
 
-  const mapOptions = (items: XyValues, raw: StockHistoryItem[]) => {
-    let lineColor = CasinoGreen
-    if (items.y.length > 0) {
-      if (items.y[0] > items.y[items.y.length - 1]) {
-        lineColor = CasinoRed
-      }
-    }
-    const options: ApexOptions = {
-      series: [
-        {
-          name: '',
-          data: items.y,
-          color: lineColor,
-        },
-      ],
-      stroke: {
-        width: 3.2,
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      fill: {
-        type: 'gradient',
-        gradient: {
-          shadeIntensity: 10,
-          opacityFrom: 0.9,
-          opacityTo: 0.8,
-          stops: [10, 99, 100],
-        },
-      },
-      chart: {
-        //height: 280,
-        type: 'area',
-        toolbar: {
-          show: false,
-        },
-        //foreColor: lineColor,
-      },
-      grid: {
-        show: true,
-        borderColor: VeryLightBlueTransparent,
-      },
-      yaxis: {
-        labels: {
-          style: {
-            colors: [DarkBlue],
-            fontWeight: isXSmall ? 500 : 600,
-            fontSize: isXSmall ? '14px' : '16px',
-          },
-          formatter: (val: number) => {
-            return `$${val.toFixed(2)}`
-          },
-        },
-      },
-      xaxis: {
-        //max: yAxisDecorator === '%' ? 100 : undefined,
-        labels: {
-          show: false,
-          formatter: (val) => {
-            return val
-          },
-        },
-        //tickAmount: Math.floor(items.x.length / (items.x.length / 12)),
-        categories: items.x,
-        axisTicks: { show: false },
-        axisBorder: {
-          show: false,
-          color: CasinoBlueTransparent,
-        },
-      },
-      tooltip: {
-        fillSeriesColor: false,
-        theme: undefined,
-        marker: {
-          fillColors: [lineColor],
-        },
-        style: {
-          //fontFamily: '-apple-system, Roboto',
-          fontSize: '16px',
-        },
-
-        y: {
-          title: {
-            formatter(seriesName) {
-              return ` ${seriesName}`
-            },
-          },
-          formatter: (val: number, opts: any) => {
-            //console.log(history[opts.dataPointIndex].Price)
-            if (raw.length === 0) {
-              return ''
-            }
-            // const foundChange = rawData[opts.dataPointIndex].Change
-            // console.log(`item length: ${raw.length}, opt index: ${opts.dataPointIndex}`)
-            const change =
-              raw[opts.dataPointIndex].Change! > 0 ? `+$${raw[opts.dataPointIndex].Change?.toFixed(2)}` : `${raw[opts.dataPointIndex].Change?.toFixed(2)}`
-            return `$${raw[opts.dataPointIndex].Price.toFixed(2)}   ${change}   ${raw[opts.dataPointIndex].ChangePercent}% `
-          },
-        },
-      },
-    }
-    return options
-  }
-
   React.useEffect(() => {
     const map = mapHistory(history)
-
-    setChartOptions(mapOptions(map, history))
+    setChartOptions(getOptions(map, history, isXSmall))
     setIsLoading(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <Box>
-      <>
-        <Box textAlign={'right'} pr={1} pt={1} pb={2}>
-          <DropdownList options={daySelect} selectedOption={'90'} onOptionSelected={handleDaysSelected} />
+      <Box textAlign={'right'} pr={1} pt={1} pb={2}>
+        <DropdownList options={daySelect} selectedOption={'90'} onOptionSelected={handleDaysSelected} />
+      </Box>
+      {isLoading ? (
+        <Box minHeight={300}>
+          <WarmupBox text='loading chart...' />
         </Box>
-        {isLoading ? (
-          <Box minHeight={300}>
-            <WarmupBox text='loading chart...' />
-          </Box>
-        ) : (
-          <>
-            {chartOptions && (
-              <Box
-                borderRadius={3}
-                p={1}
-                // sx={{ backgroundColor: VeryLightBlueTransparent }}
-              >
-                <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
-              </Box>
-            )}
-          </>
-        )}
-      </>
+      ) : (
+        <>
+          {chartOptions && (
+            <Box
+              borderRadius={3}
+              p={1}
+              // sx={{ backgroundColor: VeryLightBlueTransparent }}
+            >
+              <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
+            </Box>
+          )}
+        </>
+      )}
     </Box>
   )
 }
