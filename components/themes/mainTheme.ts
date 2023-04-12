@@ -1,6 +1,7 @@
 import { createTheme, PaletteOptions, responsiveFontSizes, ThemeOptions } from '@mui/material/styles'
 import { ResponsiveFontSizesOptions } from '@mui/material/styles/responsiveFontSizes'
 
+export const BlackTransparent: string = '#080808ef'
 export const Blue800: string = '#436ab6'
 export const LightBlue = '#446ab7'
 export const VeryLightBlue = '#d6e7f8'

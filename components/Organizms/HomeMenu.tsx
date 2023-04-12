@@ -41,8 +41,9 @@ const HomeMenu = () => {
           <Box>
             <Box py={2}>
               <CenteredNavigationButton route={'/csr/news'} text={'news'} />
-              <CenteredNavigationButton route={'/csr/stocks'} text={'stocks'} />
               <CenteredNavigationButton route={'/ssg/recipes'} text={'recipes'} />
+              <CenteredNavigationButton route={'/csr/stocks'} text={'stocks'} />
+
               {userController.ticket && (
                 <>
                   <CenterStack sx={{ py: 2 }}>

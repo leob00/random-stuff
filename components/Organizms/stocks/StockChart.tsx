@@ -1,9 +1,9 @@
-import { Box } from '@mui/material'
+import { Box, useMediaQuery } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import {
+import theme, {
   VeryLightBlueTransparent,
   CasinoBlueTransparent,
   CasinoBlue,
@@ -25,6 +25,15 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const StockChart = ({ symbol, history }: { symbol: string; history: StockHistoryItem[] }) => {
   //const [rawData, setRawData] = React.useState(history)
+  const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
+  const isMedium = useMediaQuery(theme.breakpoints.down('lg'))
+  let chartHeight = 680
+  if (isXSmall) {
+    chartHeight = 50
+  }
+  if (isMedium) {
+    chartHeight = 480
+  }
   const mapHistory = (items: StockHistoryItem[]) => {
     const data: XyValues = {
       x: items.map((o) => dayjs(o.TradeDate).format('MM/DD/YYYY')),
@@ -100,8 +109,8 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
         labels: {
           style: {
             colors: [DarkBlue],
-            fontWeight: 600,
-            fontSize: '14px',
+            fontWeight: isXSmall ? 500 : 600,
+            fontSize: isXSmall ? '14px' : '16px',
           },
           formatter: (val: number) => {
             return `$${val.toFixed(2)}`
@@ -184,7 +193,7 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
                 p={1}
                 // sx={{ backgroundColor: VeryLightBlueTransparent }}
               >
-                <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' />
+                <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
               </Box>
             )}
           </>
