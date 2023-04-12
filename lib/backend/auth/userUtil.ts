@@ -20,7 +20,7 @@ export function userHasRole(role: RoleTypes, roles?: Role[]) {
 }
 
 export function getRolesFromAmplifyUser(user: any) {
-  const roleAttr = user.attributes['custom:roles'] as string | undefined
+  const roleAttr = user.roles as string | undefined
   let roles: Role[] = []
   if (roleAttr) {
     const arr = roleAttr.split(',')

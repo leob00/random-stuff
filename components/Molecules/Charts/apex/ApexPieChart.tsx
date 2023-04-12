@@ -8,6 +8,9 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 const ApexPieChart = ({ x, y, colors, yAxisDecorator = '' }: { x: string[]; y: number[]; colors: string[]; yAxisDecorator?: string }) => {
   var options: ApexOptions = {
     tooltip: {
+      style: {
+        fontSize: '16px',
+      },
       y: {
         formatter: (val: number) => {
           return `${val}${yAxisDecorator}`

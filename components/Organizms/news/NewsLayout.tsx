@@ -16,6 +16,7 @@ import { orderBy } from 'lodash'
 import React from 'react'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
 import { get } from 'lib/backend/api/fetchFunctions'
+import { DarkBlue } from 'components/themes/mainTheme'
 
 const NewsLayout = () => {
   const [isLoading, setIsLoading] = React.useState(true)
@@ -85,7 +86,7 @@ const NewsLayout = () => {
     }
     return (
       <Box textAlign={'center'} px={2}>
-        <Link href={item.Link} target='_blank' color='primary' sx={{ fontWeight: 700, textDecoration: 'none' }}>
+        <Link href={item.Link} target='_blank' sx={{ fontWeight: 700, textDecoration: 'none' }}>
           <Typography variant={'h4'}>{`${item.Headline.replace('Pluralistic: ', '')}`}</Typography>
         </Link>
       </Box>
@@ -119,35 +120,37 @@ const NewsLayout = () => {
               {newsItems.length > 0 ? (
                 newsItems.map((item, i) => (
                   <Box key={i} pb={2}>
-                    {RenderHeadline(item)}
-                    {RenderDescription(item)}
-                    {item.TeaserImageUrl && item.TeaserImageUrl.length > 0 && (
-                      <Box pt={1} maxWidth={350} display={'flex'} sx={{ margin: 'auto' }} px={2}>
-                        <img src={item.TeaserImageUrl} title='' width={300} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
-                      </Box>
-                    )}
-                    {userController.ticket && (
-                      <Box>
-                        <Stack py={2}>
-                          {!item.Saved ? (
-                            <SaveToNotesButton
-                              username={userController.ticket.email}
-                              note={{
-                                title: item.Headline!,
-                                body: `${item.Description} <p style='text-align:center;'><a href='${item.Link}' target='_blank'>link<a/></p>`,
-                                dateCreated: getUtcNow().format(),
-                                dateModified: getUtcNow().format(),
-                                expirationDate: getUtcNow().add(3, 'day').format(),
-                              }}
-                              onSaved={handleSaved}
-                            />
-                          ) : (
-                            <SavedNoteButtonLink />
-                          )}
-                        </Stack>
-                        <HorizontalDivider />
-                      </Box>
-                    )}
+                    <Box minHeight={100}>
+                      {RenderHeadline(item)}
+                      {RenderDescription(item)}
+                      {item.TeaserImageUrl && item.TeaserImageUrl.length > 0 && (
+                        <Box pt={1} maxWidth={350} display={'flex'} sx={{ margin: 'auto' }} px={2}>
+                          <img src={item.TeaserImageUrl} title='' width={300} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
+                        </Box>
+                      )}
+                      {userController.ticket && (
+                        <Box>
+                          <Stack py={2}>
+                            {!item.Saved ? (
+                              <SaveToNotesButton
+                                username={userController.ticket.email}
+                                note={{
+                                  title: item.Headline!,
+                                  body: `${item.Description} <p style='text-align:center;'><a href='${item.Link}' target='_blank'>link<a/></p>`,
+                                  dateCreated: getUtcNow().format(),
+                                  dateModified: getUtcNow().format(),
+                                  expirationDate: getUtcNow().add(3, 'day').format(),
+                                }}
+                                onSaved={handleSaved}
+                              />
+                            ) : (
+                              <SavedNoteButtonLink />
+                            )}
+                          </Stack>
+                        </Box>
+                      )}
+                    </Box>
+                    <HorizontalDivider />
                   </Box>
                 ))
               ) : (

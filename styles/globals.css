@@ -23,15 +23,7 @@ a:hover {
 }
 /* https://www.joshwcomeau.com/css/make-beautiful-gradients/ */
 .blue-gradient {
-  background-image: linear-gradient(
-    90deg,
-    hsl(219deg 84% 15%) 0%,
-    hsl(221deg 52% 32%) 18%,
-    hsl(220deg 46% 50%) 38%,
-    hsl(220deg 46% 50%) 61%,
-    hsl(221deg 52% 32%) 82%,
-    hsl(219deg 84% 15%) 100%
-  );
+  background-image: linear-gradient(90deg, hsl(219deg 84% 15%) 0%, hsl(221deg 52% 32%) 18%, hsl(220deg 46% 50%) 38%, hsl(220deg 46% 50%) 61%, hsl(221deg 52% 32%) 82%, hsl(219deg 84% 15%) 100%);
 }
 /* https://neumorphism.io/#bdbcbc */
 .coolBox {
@@ -203,6 +195,27 @@ div[data-amplify-container].amplify-heading {
 .oceanBlueTransparent {
   color: #295d6f85;
 }
-.oceanBlue {
-  color: #295d6f;
+
+/* apex charts */
+.apexcharts-tooltip {
+  padding: '24px';
+  border: solid #2f4e8d 1px;
+  background: #2f4e8dee;
+  color: #d6e7f8;
+  font-size: '16px';
+  box-shadow: 4px 2px 6px -2px #142d5d !important;
+}
+.apexcharts-tooltip-title {
+  font-size: '16px';
+  font-weight: 600;
+  border-bottom: solid #b5d7fc67 1px;
+}
+.apexcharts-tooltip-text-y-value {
+  /* font-size: '14px' !important; */
+  font-weight: 600 !important;
+}
+.apexcharts-xaxistooltip {
+  background: #2f4e8dee !important;
+  color: #d6e7f8 !important;
+  border: solid #2f4e8d 1px !important;
 }

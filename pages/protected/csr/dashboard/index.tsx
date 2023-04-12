@@ -36,7 +36,7 @@ const Page = () => {
   return (
     <ResponsiveContainer>
       <PageHeader text={'Dashboard'} backButtonRoute={'/'} />
-      <Box>{loading ? <WarmupBox /> : userController.authProfile ? <UserDashboardLayout /> : <PleaseLogin />}</Box>
+      <Box>{loading ? <WarmupBox /> : userController.authProfile ? <UserDashboardLayout ticket={userController.ticket} /> : <PleaseLogin />}</Box>
     </ResponsiveContainer>
   )
 }

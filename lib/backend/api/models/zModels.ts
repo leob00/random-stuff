@@ -3,8 +3,8 @@ import { z } from 'zod'
 export const quoteHistorySchema = z
   .object({
     Price: z.number(),
-    Change: z.number(),
-    ChangePercent: z.number(),
+    Change: z.number().optional(),
+    ChangePercent: z.number().optional(),
     TradeDate: z.string(),
   })
   .array()

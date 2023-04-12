@@ -4,7 +4,7 @@ import { Auth, Hub } from 'aws-amplify'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
-import { AmplifyUser } from 'lib/backend/auth/userUtil'
+import { AmplifyUser, getRolesFromAmplifyUser, getUserCSR } from 'lib/backend/auth/userUtil'
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
@@ -18,7 +18,6 @@ export type HubPayload = {
 }
 
 const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
-  //const authStore = useAuthStore()
   const router = useRouter()
   const userController = useUserController()
   const signOut = () => {
@@ -47,8 +46,13 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
         break
       case 'signIn':
         //console.log(payload)
-        const user: AmplifyUser = { id: payload.data?.attributes.sub, email: payload.data?.attributes.email, roles: payload.data?.attributes['custom:roles'] }
-        //console.log('user: ', user)
+        const ticket = { id: payload.data?.attributes.sub, email: payload.data?.attributes.email, roles: payload.data?.attributes['custom:roles'] }
+        //console.log(ticket)
+        const user: AmplifyUser = {
+          id: ticket.id,
+          email: ticket.email,
+          roles: getRolesFromAmplifyUser(ticket),
+        }
         await userController.setTicket(user)
         let p = (await getUserProfile(user.email)) as UserProfile | null
         if (!p) {
@@ -67,7 +71,7 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
         break
       case 'signUp':
         //console.log('creating profile')
-        console.log(payload.data)
+        //console.log(payload.data)
         const newUser = { email: payload.data?.user.username }
         const existingProfile = (await getUserProfile(newUser.email)) as UserProfile | null
         if (!existingProfile) {
@@ -94,10 +98,8 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
       }
 
       try {
-        let user = await Auth.currentAuthenticatedUser()
-        if (user) {
-          await userController.setTicket({ id: user.attributes.id, email: user.attributes.email })
-        }
+        let user = await getUserCSR()
+        await userController.setTicket(user)
       } catch (error) {
         await userController.setTicket(null)
       }

@@ -3,7 +3,18 @@ import { ApexOptions } from 'apexcharts'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import { VeryLightBlueTransparent, CasinoBlueTransparent, CasinoBlue, CasinoGreen, CasinoRed } from 'components/themes/mainTheme'
+import {
+  VeryLightBlueTransparent,
+  CasinoBlueTransparent,
+  CasinoBlue,
+  CasinoGreen,
+  CasinoRed,
+  CasinoGreenTransparent,
+  CasinoRedTransparent,
+  TransparentBlue,
+  DarkBlueTransparent,
+  DarkBlue,
+} from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { getStockChart } from 'lib/backend/api/qln/qlnApi'
@@ -13,6 +24,7 @@ import React from 'react'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const StockChart = ({ symbol, history }: { symbol: string; history: StockHistoryItem[] }) => {
+  //const [rawData, setRawData] = React.useState(history)
   const mapHistory = (items: StockHistoryItem[]) => {
     const data: XyValues = {
       x: items.map((o) => dayjs(o.TradeDate).format('MM/DD/YYYY')),
@@ -31,15 +43,18 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
 
   const handleDaysSelected = async (val: string) => {
     const result = await getStockChart(symbol, Number(val))
+    //console.log(`send: ${val}, received count: ${result.length}`)
+    //setRawData(result)
     const map = mapHistory(result)
-    const options = mapOptions(map)
+    const options = mapOptions(map, result)
     setChartOptions(options)
+
     //console.log(val)
   }
   const [chartOptions, setChartOptions] = React.useState<ApexOptions | null>(null)
   const [isLoading, setIsLoading] = React.useState(true)
 
-  const mapOptions = (items: XyValues) => {
+  const mapOptions = (items: XyValues, raw: StockHistoryItem[]) => {
     let lineColor = CasinoGreen
     if (items.y.length > 0) {
       if (items.y[0] > items.y[items.y.length - 1]) {
@@ -55,14 +70,27 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
         },
       ],
       stroke: {
-        width: 2.2,
+        width: 3.2,
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      fill: {
+        type: 'gradient',
+        gradient: {
+          shadeIntensity: 10,
+          opacityFrom: 0.9,
+          opacityTo: 0.8,
+          stops: [10, 99, 100],
+        },
       },
       chart: {
-        type: 'line',
+        //height: 280,
+        type: 'area',
         toolbar: {
           show: false,
         },
-        foreColor: lineColor,
+        //foreColor: lineColor,
       },
       grid: {
         show: true,
@@ -71,8 +99,8 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
       yaxis: {
         labels: {
           style: {
-            colors: [CasinoBlue],
-            fontWeight: 400,
+            colors: [DarkBlue],
+            fontWeight: 600,
             fontSize: '14px',
           },
           formatter: (val: number) => {
@@ -88,7 +116,7 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
             return val
           },
         },
-        tickAmount: Math.floor(items.x.length / (items.x.length / 12)),
+        //tickAmount: Math.floor(items.x.length / (items.x.length / 12)),
         categories: items.x,
         axisTicks: { show: false },
         axisBorder: {
@@ -98,13 +126,13 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
       },
       tooltip: {
         fillSeriesColor: false,
-
+        theme: undefined,
         marker: {
           fillColors: [lineColor],
         },
-
         style: {
-          fontSize: '14px',
+          //fontFamily: '-apple-system, Roboto',
+          fontSize: '16px',
         },
 
         y: {
@@ -115,14 +143,14 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
           },
           formatter: (val: number, opts: any) => {
             //console.log(history[opts.dataPointIndex].Price)
-            if (history.length === 0) {
+            if (raw.length === 0) {
               return ''
             }
+            // const foundChange = rawData[opts.dataPointIndex].Change
+            // console.log(`item length: ${raw.length}, opt index: ${opts.dataPointIndex}`)
             const change =
-              history[opts.dataPointIndex].Change ?? 0 > 0
-                ? `+$${history[opts.dataPointIndex].Change?.toFixed(2)}`
-                : `${history[opts.dataPointIndex].Change?.toFixed(2)}`
-            return `$${history[opts.dataPointIndex].Price.toFixed(2)}  ${change} ${history[opts.dataPointIndex].ChangePercent}%`
+              raw[opts.dataPointIndex].Change! > 0 ? `+$${raw[opts.dataPointIndex].Change?.toFixed(2)}` : `${raw[opts.dataPointIndex].Change?.toFixed(2)}`
+            return `$${raw[opts.dataPointIndex].Price.toFixed(2)}   ${change}   ${raw[opts.dataPointIndex].ChangePercent}% `
           },
         },
       },
@@ -132,7 +160,8 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
 
   React.useEffect(() => {
     const map = mapHistory(history)
-    setChartOptions(mapOptions(map))
+
+    setChartOptions(mapOptions(map, history))
     setIsLoading(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -150,8 +179,12 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
         ) : (
           <>
             {chartOptions && (
-              <Box borderRadius={6} p={1}>
-                <ReactApexChart series={chartOptions.series} options={chartOptions} type='line' />
+              <Box
+                borderRadius={3}
+                p={1}
+                // sx={{ backgroundColor: VeryLightBlueTransparent }}
+              >
+                <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' />
               </Box>
             )}
           </>

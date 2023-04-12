@@ -2,17 +2,7 @@ import { Box, IconButton, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
 import LinesSkeleton from 'components/Atoms/Skeletons/LinesSkeleton'
-import {
-  CasinoBlackTransparent,
-  CasinoBlue,
-  CasinoBlueTransparent,
-  CasinoDarkGreenTransparent,
-  CasinoDarkRedTransparent,
-  ChartBackground,
-  DarkBlue,
-  DarkBlueTransparent,
-  DarkModeBlueTransparent,
-} from 'components/themes/mainTheme'
+import { CasinoBlackTransparent, CasinoBlue, CasinoBlueTransparent, CasinoDarkGreenTransparent, CasinoDarkRedTransparent, ChartBackground, DarkBlue, DarkBlueTransparent, DarkModeBlueTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockChart } from 'lib/backend/api/qln/qlnApi'
@@ -75,20 +65,13 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
 
   return (
     <Box key={item.Symbol} py={1} ref={containerRef}>
-      <Box
-        pl={2}
-        // sx={{
-        //   borderRadius: '10px',
-        //   border: !showMore ? `solid 1px ${getPositiveNegativeColor(item.Change)}` : '',
-        // }}
-      >
+      <Box pl={2}>
         <Stack direction={'row'} alignItems={'flex-start'} display={'flex'} pt={1} justifyContent={'space-between'}>
           <Stack sx={{ backgroundColor: ChartBackground }} direction={'row'} flexGrow={1} ml={-2} px={2} py={1}>
             <LinkButton
               onClick={(e) => {
                 handleCompanyClick(e, !showMore)
-              }}
-            >
+              }}>
               <Typography ref={scrollTarget} textAlign={'left'} variant='h6' fontWeight={600} color={DarkBlue} sx={{ textDecoration: 'unset' }}>
                 {`${item.Company}   (${item.Symbol})`}
               </Typography>

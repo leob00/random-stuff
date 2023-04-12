@@ -20,9 +20,7 @@ const StockTable = ({ stockList }: { stockList: StockQuote[] }) => {
             <Typography variant={'caption'}>{`prices are as of: ${dayjs(stockList[0].TradeDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
           </CenterStack>
         ) : (
-          <CenterStack>
-            <Typography></Typography>
-          </CenterStack>
+          <></>
         )}
       </Box>
     </>

@@ -6,17 +6,7 @@ import { CasinoBlack, CasinoBlue, CasinoBlueTransparent, CasinoRedTransparent, D
 import { ApexBarChartData } from './models/chartModes'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
-const ApexBarChart = ({
-  data,
-  horizontal = false,
-  seriesName,
-  yAxisDecorator = '',
-}: {
-  data: ApexBarChartData[]
-  horizontal?: boolean
-  seriesName: string
-  yAxisDecorator?: string
-}) => {
+const ApexBarChart = ({ data, horizontal = false, seriesName, yAxisDecorator = '' }: { data: ApexBarChartData[]; horizontal?: boolean; seriesName: string; yAxisDecorator?: string }) => {
   const series: ApexAxisChartSeries = [
     {
       data: data,
@@ -64,6 +54,10 @@ const ApexBarChart = ({
       },
     },
     tooltip: {
+      theme: undefined,
+      style: {
+        fontSize: '16px',
+      },
       y: {
         formatter: (val: number) => {
           return `${val}${yAxisDecorator}`
