@@ -4,14 +4,11 @@ import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
 import LinesSkeleton from 'components/Atoms/Skeletons/LinesSkeleton'
 import {
   CasinoBlackTransparent,
-  CasinoBlue,
   CasinoBlueTransparent,
   CasinoDarkGreenTransparent,
   CasinoDarkRedTransparent,
   ChartBackground,
   DarkBlue,
-  DarkBlueTransparent,
-  DarkModeBlueTransparent,
 } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem, StockQuote } from 'lib/backend/api/models/zModels'
@@ -20,13 +17,20 @@ import React from 'react'
 import StockChart from 'components/Organizms/stocks/StockChart'
 import { Close } from '@mui/icons-material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import { Table, TableBody, TableCell, TableRow } from '@aws-amplify/ui-react'
+import TabButton from 'components/Atoms/Buttons/TabButton'
+import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
+import CenterStack from 'components/Atoms/CenterStack'
+import StockNews from './StockNews'
 
 const StockListItem = ({ item, expand = false, showBorder = true }: { item: StockQuote; expand?: boolean; showBorder?: boolean }) => {
   const [showMore, setShowMore] = React.useState(expand)
   const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
+  const [selectedTab, setSelectedTab] = React.useState('Details')
+
   const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
   const containerRef = React.useRef<HTMLElement | null>(null)
+
+  const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'News' }]
 
   const getPositiveNegativeColor = (val: number) => {
     let color = CasinoBlackTransparent
@@ -52,10 +56,10 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
       <>
         <Stack direction={'row'} spacing={2} py={1} alignItems={'center'}>
           <Stack minWidth={80} textAlign={'right'}>
-            <Typography color={CasinoBlueTransparent} variant={'body2'}>{`${label}:`}</Typography>
+            <Typography color={CasinoBlueTransparent} variant={'body2'} fontSize={12}>{`${label}:`}</Typography>
           </Stack>
           <Stack>
-            <Typography variant={'body1'} color={'primary'}>
+            <Typography variant={'body2'} color={'primary'} fontSize={12}>
               {val}
             </Typography>
           </Stack>
@@ -71,6 +75,10 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
         scrollTarget.current.scrollIntoView()
       }
     }
+  }
+
+  const handleSelectTab = (title: string) => {
+    setSelectedTab(title)
   }
 
   return (
@@ -120,12 +128,16 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
               </>
             )}
           </Box>
-          <Box pl={3} pb={2} pt={2}>
-            {renderDetail('Sector', item.Sector)}
-            {renderDetail('Cap', item.MarketCapShort)}
-            {renderDetail('P/E', item.PeRatio)}
-            {renderDetail('Date', dayjs(item.TradeDate).format('MM/DD/YYYY hh:mm a'))}
-          </Box>
+          <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
+          {selectedTab === 'Details' && (
+            <Box pb={2} pt={2}>
+              {renderDetail('Sector', item.Sector)}
+              {renderDetail('Cap', item.MarketCapShort)}
+              {renderDetail('P/E', item.PeRatio)}
+              {renderDetail('Date', dayjs(item.TradeDate).format('MM/DD/YYYY hh:mm a'))}
+            </Box>
+          )}
+          {selectedTab === 'News' && <StockNews quote={item} />}
         </>
       )}
     </Box>

@@ -145,6 +145,14 @@ export async function getNewsBySource(id: NewsTypeIds) {
   //console.log(`${baseUrl}/NewsBySource?type=${id}`)
   return resp
 }
+export async function getNewsBySymbol(symbol: string) {
+  let params = {
+    symbol: symbol,
+  }
+  let resp = (await get(`${baseUrl}/NewsBySymbol`, params)).Body as NewsItem[]
+  //console.log(`${baseUrl}/NewsBySource?type=${id}`)
+  return resp
+}
 
 export async function searchStockQuotes(search?: string) {
   const url = search ? `${baseUrl}/StocksAutoComplete` : `${baseUrl}/Stocks`

@@ -62,7 +62,7 @@ const StockChart = ({ symbol, history, companyName }: { symbol: string; history:
         <DropdownList options={daySelect} selectedOption={'90'} onOptionSelected={handleDaysSelected} />
       </Box>
       {isLoading ? (
-        <Box minHeight={300}>
+        <Box minHeight={320}>
           <WarmupBox text='loading chart...' />
         </Box>
       ) : (
