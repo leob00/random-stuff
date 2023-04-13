@@ -2,7 +2,17 @@ import { Box, IconButton, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
 import LinesSkeleton from 'components/Atoms/Skeletons/LinesSkeleton'
-import { CasinoBlackTransparent, CasinoBlue, CasinoBlueTransparent, CasinoDarkGreenTransparent, CasinoDarkRedTransparent, ChartBackground, DarkBlue, DarkBlueTransparent, DarkModeBlueTransparent } from 'components/themes/mainTheme'
+import {
+  CasinoBlackTransparent,
+  CasinoBlue,
+  CasinoBlueTransparent,
+  CasinoDarkGreenTransparent,
+  CasinoDarkRedTransparent,
+  ChartBackground,
+  DarkBlue,
+  DarkBlueTransparent,
+  DarkModeBlueTransparent,
+} from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockChart } from 'lib/backend/api/qln/qlnApi'
@@ -57,8 +67,8 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
   const handleCompanyClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined, show: boolean) => {
     setShowMore(show)
     if (show) {
-      if (containerRef.current) {
-        //containerRef.current.scrollIntoView()
+      if (scrollTarget.current) {
+        scrollTarget.current.scrollIntoView()
       }
     }
   }
@@ -71,7 +81,8 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
             <LinkButton
               onClick={(e) => {
                 handleCompanyClick(e, !showMore)
-              }}>
+              }}
+            >
               <Typography ref={scrollTarget} textAlign={'left'} variant='h6' fontWeight={600} color={DarkBlue} sx={{ textDecoration: 'unset' }}>
                 {`${item.Company}   (${item.Symbol})`}
               </Typography>
