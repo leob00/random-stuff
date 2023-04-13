@@ -10,7 +10,7 @@ import { UserNote } from 'lib/models/randomStuffModels'
 import { getUtcNow } from 'lib/util/dateUtil'
 import React from 'react'
 
-const NewsList = ({ newsItems }: { newsItems: NewsItem[] }) => {
+const NewsList = ({ newsItems, hideSaveButton = false }: { newsItems: NewsItem[]; hideSaveButton?: boolean }) => {
   const userController = useUserController()
   const handleSaved = async (note: UserNote) => {}
   const RenderDescription = (item: NewsItem) => {
@@ -65,7 +65,7 @@ const NewsList = ({ newsItems }: { newsItems: NewsItem[] }) => {
                   <img src={item.TeaserImageUrl} title='' width={300} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
                 </Box>
               )}
-              {userController.ticket && (
+              {userController.ticket && !hideSaveButton && (
                 <Box>
                   <Stack py={2}>
                     {!item.Saved ? (
