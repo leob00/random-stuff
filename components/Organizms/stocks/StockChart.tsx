@@ -3,7 +3,7 @@ import { ApexOptions } from 'apexcharts'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import theme from 'components/themes/mainTheme'
+import theme, { OceanBlueTransparent, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { getStockChart } from 'lib/backend/api/qln/qlnApi'
@@ -70,7 +70,7 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
             <Box
               borderRadius={3}
               p={1}
-              // sx={{ backgroundColor: VeryLightBlueTransparent }}
+              // sx={{ backgroundColor: OceanBlueTransparent }}
             >
               <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' />
             </Box>

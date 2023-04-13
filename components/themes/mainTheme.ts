@@ -40,7 +40,7 @@ export const White = '#ffffff'
 export const SoftWhite = '#fcfcfcf1'
 export const ChartBackground = '#c2dffa3d'
 export const OceanBlue = '#295d6f'
-export const OceanBlueTransparent = '#295d6f85'
+export const OceanBlueTransparent = '#0ba3d631'
 
 const lightPalette: PaletteOptions = {
   mode: 'light',

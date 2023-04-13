@@ -1,6 +1,14 @@
 import { ApexOptions } from 'apexcharts'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import { CasinoGreen, CasinoRed, VeryLightBlueTransparent, DarkBlue, CasinoBlueTransparent } from 'components/themes/mainTheme'
+import {
+  CasinoGreen,
+  CasinoRed,
+  VeryLightBlueTransparent,
+  DarkBlue,
+  CasinoBlueTransparent,
+  TransparentBlue,
+  OceanBlueTransparent,
+} from 'components/themes/mainTheme'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 
 export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: boolean) {
@@ -40,14 +48,15 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
     fill: {
       type: 'gradient',
       gradient: {
-        shadeIntensity: 10,
+        shadeIntensity: 4,
         opacityFrom: 0.9,
-        opacityTo: 0.3,
+        opacityTo: 0.1,
         stops: [10, 99, 100],
       },
     },
     chart: {
       //height: 280,
+      //background: VeryLightBlueTransparent,
       type: 'area',
       toolbar: {
         show: false,
@@ -57,6 +66,9 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
     grid: {
       show: true,
       borderColor: VeryLightBlueTransparent,
+      column: {
+        colors: [OceanBlueTransparent],
+      },
     },
     yaxis: {
       labels: {
@@ -71,6 +83,7 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
       },
     },
     xaxis: {
+      //type: 'datetime',
       //max: yAxisDecorator === '%' ? 100 : undefined,
       labels: {
         show: false,
