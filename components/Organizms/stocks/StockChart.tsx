@@ -69,7 +69,9 @@ const StockChart = ({ symbol, history, companyName }: { symbol: string; history:
         <>
           {companyName && (
             <CenterStack>
-              <Typography variant='subtitle2'>{companyName}</Typography>
+              <Typography variant='h5' color='primary' sx={{ textAlign: 'center' }}>
+                {companyName}
+              </Typography>
             </CenterStack>
           )}
           {chartOptions && (

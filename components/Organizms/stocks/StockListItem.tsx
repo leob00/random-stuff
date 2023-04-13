@@ -50,12 +50,12 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
   const renderDetail = (label: string, val?: string | number | null) => {
     return (
       <>
-        <Stack direction={'row'} spacing={2} py={1}>
+        <Stack direction={'row'} spacing={2} py={1} alignItems={'center'}>
           <Stack minWidth={80} textAlign={'right'}>
-            <Typography color={CasinoBlueTransparent} fontWeight={300} variant={'body2'}>{`${label}:`}</Typography>
+            <Typography color={CasinoBlueTransparent} variant={'body2'}>{`${label}:`}</Typography>
           </Stack>
           <Stack>
-            <Typography variant={'body2'} fontWeight={600} color={CasinoBlue}>
+            <Typography variant={'body1'} color={'primary'}>
               {val}
             </Typography>
           </Stack>
