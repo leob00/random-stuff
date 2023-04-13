@@ -11,15 +11,15 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
     }
   }
   let strokeWidth = 3
-  if (raw.length >= 90) {
-    strokeWidth = 1
+  if (raw.length <= 200) {
+    strokeWidth = 2
   } else {
-    if (raw.length >= 90) {
-      strokeWidth = 0.05
-    } else if (raw.length >= 30) {
+    if (raw.length >= 20) {
+      strokeWidth = 1.05
+    } else if (raw.length >= 10) {
       strokeWidth = 2
     } else {
-      strokeWidth = 2.3
+      strokeWidth = 3.3
     }
   }
 
