@@ -72,7 +72,7 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
               p={1}
               // sx={{ backgroundColor: VeryLightBlueTransparent }}
             >
-              <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
+              <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' />
             </Box>
           )}
         </>

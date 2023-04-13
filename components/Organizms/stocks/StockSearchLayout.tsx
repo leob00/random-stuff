@@ -8,6 +8,7 @@ import CenterStack from 'components/Atoms/CenterStack'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchAutoComplete from 'components/Atoms/Inputs/SearchAutoComplete'
 import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
+import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import StockListMenu from 'components/Molecules/Menus/StockListMenu'
 import DraggableList from 'components/Organizms/stocks/DraggableList'
@@ -21,6 +22,7 @@ import { getMapFromArray } from 'lib/util/collectionsNative'
 import { cloneDeep } from 'lodash'
 import React from 'react'
 import { DropResult } from 'react-beautiful-dnd'
+import AddQuote from './AddQuote'
 import StockListItem from './StockListItem'
 import StockTable from './StockTable'
 
@@ -52,9 +54,6 @@ const StockSearchLayout = () => {
   const getStockListMap = (list: StockQuote[]) => {
     let map = cloneDeep(model.stockListMap)
     map = getMapFromArray(list, 'Symbol')
-    // list.forEach((item) => {
-    //   map.set(item.Symbol, item)
-    // })
     return map
   }
 
@@ -93,9 +92,6 @@ const StockSearchLayout = () => {
     if (ticket) {
       stockList = await getUserStockList(ticket.email)
       map = getMapFromArray(stockList, 'Symbol')
-      // stockList.forEach((q) => {
-      //   map.set(q.Symbol, q)
-      // })
       setModel({ ...model, username: ticket.email, stockListMap: map, stockList: stockList, isLoading: false })
       refreshQuotes(stockList, ticket.email).then((refreshed) => {
         refreshed.forEach((q) => {
@@ -162,6 +158,7 @@ const StockSearchLayout = () => {
 
   React.useEffect(() => {
     const fn = async () => {
+      //console.log('ticket: ', userController.ticket)
       await reloadData()
     }
     fn()
@@ -181,78 +178,52 @@ const StockSearchLayout = () => {
           />
         </CenterStack>
       </Box>
-      <>
-        {model.quoteToAdd ? (
-          <>
-            <StockListItem item={model.quoteToAdd} expand={true} />
-            <Stack py={1} direction={'row'} spacing={1}>
-              <Stack flexGrow={1}>
-                <Box textAlign={'right'}>
-                  <SecondaryButton text=' Add to list' size='small' onClick={handleAddToList}></SecondaryButton>
-                </Box>
-              </Stack>
-              <Stack>
-                <PassiveButton text={'close'} onClick={handleCloseAddQuote} size='small' />
-              </Stack>
-            </Stack>
-          </>
-        ) : (
-          <>
-            <Box>
-              {model.isLoading ? (
+      {model.quoteToAdd ? (
+        <AddQuote quote={model.quoteToAdd} handleAddToList={handleAddToList} handleCloseAddQuote={handleCloseAddQuote} />
+      ) : (
+        <Box>
+          {model.isLoading ? (
+            <>
+              <WarmupBox />
+              <LargeGridSkeleton />
+            </>
+          ) : (
+            <Box py={2}>
+              {model.editList && model.stockList.length > 0 ? (
                 <>
-                  <>
-                    <WarmupBox />
-                    <BoxSkeleton height={100} />
-                    <HorizontalDivider />
-                    <BoxSkeleton height={100} />
-                    <HorizontalDivider />
-                    <BoxSkeleton height={100} />
-                    <HorizontalDivider />
-                    <BoxSkeleton height={100} />
-                  </>
+                  <Stack py={2} alignItems={'flex-end'} pr={2}>
+                    <Button
+                      size='small'
+                      color='secondary'
+                      onClick={() => {
+                        setModel({ ...model, editList: false })
+                      }}
+                    >
+                      <Close fontSize='small' color='secondary' />
+                    </Button>
+                  </Stack>
+                  <HorizontalDivider />
+                  <DraggableList items={model.stockList} onDragEnd={onDragEnd} onRemoveItem={handleRemoveQuote} />
                 </>
               ) : (
-                <Box py={2}>
-                  {model.editList && model.stockList.length > 0 ? (
-                    <>
-                      <Stack py={2} alignItems={'flex-end'} pr={2}>
-                        <Button
-                          size='small'
-                          color='secondary'
-                          onClick={() => {
-                            setModel({ ...model, editList: false })
-                          }}
-                        >
-                          <Close fontSize='small' color='secondary' />
-                        </Button>
-                      </Stack>
-                      <HorizontalDivider />
-                      <DraggableList items={model.stockList} onDragEnd={onDragEnd} onRemoveItem={handleRemoveQuote} />
-                    </>
-                  ) : (
-                    <>
-                      {model.stockList.length > 0 && (
-                        <>
-                          <Stack pt={1} alignItems={'flex-end'}>
-                            <StockListMenu
-                              onEdit={() => {
-                                setModel({ ...model, editList: true })
-                              }}
-                              onRefresh={reloadData}
-                            />
-                          </Stack>
-                        </>
-                      )}
-                      <StockTable stockList={model.stockList} />
-                    </>
+                <>
+                  {model.stockList.length > 0 && (
+                    <Stack pt={1} alignItems={'flex-end'}>
+                      <StockListMenu
+                        onEdit={() => {
+                          setModel({ ...model, editList: true })
+                        }}
+                        onRefresh={reloadData}
+                      />
+                    </Stack>
                   )}
-                </Box>
+                  <StockTable stockList={model.stockList} />
+                </>
               )}
             </Box>
-          </>
-        )}
-      </>
+          )}
+        </Box>
+      )}
     </>
   )
 }

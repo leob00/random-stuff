@@ -42,7 +42,7 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
       gradient: {
         shadeIntensity: 10,
         opacityFrom: 0.9,
-        opacityTo: 0.8,
+        opacityTo: 0.3,
         stops: [10, 99, 100],
       },
     },
@@ -62,8 +62,8 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
       labels: {
         style: {
           colors: [DarkBlue],
-          fontWeight: isXSmall ? 500 : 600,
-          fontSize: isXSmall ? '14px' : '16px',
+          fontWeight: isXSmall ? 400 : 600,
+          fontSize: isXSmall ? '13px' : '16px',
         },
         formatter: (val: number) => {
           return `$${val.toFixed(2)}`

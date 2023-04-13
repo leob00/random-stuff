@@ -46,11 +46,12 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
         break
       case 'signIn':
         //console.log(payload)
-        const ticket = { id: payload.data?.attributes.sub, email: payload.data?.attributes.email, roles: payload.data?.attributes['custom:roles'] }
+        //const ticket = { id: payload.data?.attributes.sub, email: payload.data?.attributes.email, roles: payload.data?.attributes['custom:roles'] }
+        const ticket = payload.data!
         //console.log(ticket)
         const user: AmplifyUser = {
-          id: ticket.id,
-          email: ticket.email,
+          id: payload.data?.attributes.sub,
+          email: payload.data?.attributes.email,
           roles: getRolesFromAmplifyUser(ticket),
         }
         await userController.setTicket(user)

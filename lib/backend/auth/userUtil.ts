@@ -20,7 +20,7 @@ export function userHasRole(role: RoleTypes, roles?: Role[]) {
 }
 
 export function getRolesFromAmplifyUser(user: any) {
-  const roleAttr = user.roles as string | undefined
+  const roleAttr = user.attributes['custom:roles'] as string | undefined
   let roles: Role[] = []
   if (roleAttr) {
     const arr = roleAttr.split(',')
@@ -36,6 +36,7 @@ export function getRolesFromAmplifyUser(user: any) {
 export async function getUserCSR() {
   try {
     const user = await Auth.currentAuthenticatedUser()
+    //console.log(user)
     const result: AmplifyUser = {
       id: String(user.username),
       email: String(user.attributes.email),
