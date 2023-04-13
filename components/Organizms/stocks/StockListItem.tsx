@@ -109,7 +109,7 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
           <Box pl={1} sx={{ backgroundColor: 'unset' }} minHeight={108}>
             {stockHistory.length > 0 ? (
               <>
-                <StockChart symbol={item.Symbol} history={stockHistory} />
+                <StockChart symbol={item.Symbol} history={stockHistory} companyName={item.Company} />
               </>
             ) : (
               <>

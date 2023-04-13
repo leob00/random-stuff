@@ -1,5 +1,6 @@
-import { Box, useMediaQuery } from '@mui/material'
+import { Box, Typography, useMediaQuery } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
+import CenterStack from 'components/Atoms/CenterStack'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
@@ -13,7 +14,7 @@ import React from 'react'
 import { getOptions } from './lineChartOptions'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
-const StockChart = ({ symbol, history }: { symbol: string; history: StockHistoryItem[] }) => {
+const StockChart = ({ symbol, history, companyName }: { symbol: string; history: StockHistoryItem[]; companyName?: string }) => {
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const isMedium = useMediaQuery(theme.breakpoints.down('lg'))
   let chartHeight = 680
@@ -66,6 +67,11 @@ const StockChart = ({ symbol, history }: { symbol: string; history: StockHistory
         </Box>
       ) : (
         <>
+          {companyName && (
+            <CenterStack>
+              <Typography variant='subtitle2'>{companyName}</Typography>
+            </CenterStack>
+          )}
           {chartOptions && (
             <Box
               borderRadius={3}
