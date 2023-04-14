@@ -20,6 +20,7 @@ export interface NewsItem {
   HeadlineRecordHash?: string
   Read?: boolean
   Saved?: boolean
+  Rank?: number
 }
 
 export type NewsTypeIds =
@@ -207,7 +208,6 @@ export async function getLatestQuotes(symbols: string[]) {
 
 export async function refreshQuotes(quotes: StockQuote[], username?: string) {
   const map = getMapFromArray(quotes, 'Symbol')
-
   const symbols = quotes.map((o) => o.Symbol)
   const latest = await getLatestQuotes(symbols)
   latest.forEach((item) => {

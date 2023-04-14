@@ -12,6 +12,7 @@ import { Box } from '@mui/material'
 import StockTable from 'components/Organizms/stocks/StockTable'
 import { orderBy } from 'lodash'
 import { areObjectsEqual } from 'lib/util/objects'
+import { refreshQuotes } from 'lib/backend/api/qln/qlnApi'
 
 interface PageProps {
   result: StockQuote[]
@@ -29,30 +30,29 @@ export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
     const map = getMapFromArray(results, 'Symbol')
     const list = getListFromMap(map)
     const result = orderBy(list, ['Symbol'], ['asc'])
-    //console.log(returnVal)
     return result
   }
   const userData = await searchRandomStuffBySecIndex(searchKey)
-  const userResult = mapStockQuotes(userData)
+  const updatedQuotes = await refreshQuotes(mapStockQuotes(userData))
 
   const cData = (await getRandomStuff(communityKey)) as StockQuote[]
   const communityResult = orderBy(cData, ['Symbol'], 'asc')
-  console.log(`retrieved ${userResult.length} user quotes`)
+  console.log(`retrieved ${updatedQuotes.length} user quotes`)
   console.log(`retrieved ${communityResult.length} community quotes`)
   //console.log('user result: ', JSON.stringify(userResult))
   //console.log('-------------------------------')
   //console.log('community result: ', JSON.stringify(communityResult))
-  if (!areObjectsEqual(userResult, communityResult)) {
+  if (!areObjectsEqual(updatedQuotes, communityResult)) {
     console.log('community stocks are stale')
-    await putRandomStuff('community-stocks', 'stocks', userResult)
-    console.log(`updated ${userResult.length} community stocks`)
+    await putRandomStuff('community-stocks', 'stocks', updatedQuotes)
+    console.log(`updated ${updatedQuotes.length} community stocks`)
   } else {
     console.log('community stocks are up to date')
   }
 
   return {
     props: {
-      result: userResult,
+      result: updatedQuotes,
     },
   }
 }

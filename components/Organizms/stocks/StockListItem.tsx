@@ -17,10 +17,8 @@ import React from 'react'
 import StockChart from 'components/Organizms/stocks/StockChart'
 import { Close } from '@mui/icons-material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import TabButton from 'components/Atoms/Buttons/TabButton'
 import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
-import CenterStack from 'components/Atoms/CenterStack'
-import StockNews from './StockNews'
+import StockNews from 'components/Organizms/stocks/StockNews'
 
 const StockListItem = ({ item, expand = false, showBorder = true }: { item: StockQuote; expand?: boolean; showBorder?: boolean }) => {
   const [showMore, setShowMore] = React.useState(expand)
