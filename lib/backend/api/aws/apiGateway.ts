@@ -5,10 +5,10 @@ import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { get, post } from '../fetchFunctions'
 
-export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | 'site-stats'
+export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | 'site-stats' | 'community-stocks'
 let baseUrl = process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL
 
-type CategoryType = 'animals' | 'random' | 'userProfile' | string
+export type CategoryType = 'animals' | 'random' | 'userProfile' | 'community-stocks' | 'user-stock_list' | string
 
 export interface RandomStuffPut {
   key: DynamoKeys | string
@@ -129,7 +129,7 @@ export async function searchRandomStuffBySecIndex(search: CategoryType | string)
   const url = `${baseUrl}/searchrandomstuff`
   try {
     let result = await post(url, { key: search })
-    return result.body
+    return result.body as LambdaBody[]
   } catch (err) {
     console.log('error occurred in searchRandomStuffBySecIndex: ', err)
   }
