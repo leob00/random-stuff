@@ -74,8 +74,8 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
       labels: {
         style: {
           colors: [DarkBlue],
-          fontWeight: isXSmall ? 400 : 600,
-          fontSize: isXSmall ? '13px' : '16px',
+          fontWeight: isXSmall ? 300 : 600,
+          fontSize: isXSmall ? '8px' : '16px',
         },
         formatter: (val: number) => {
           return `$${val.toFixed(2)}`

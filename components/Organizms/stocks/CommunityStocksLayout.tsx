@@ -10,6 +10,7 @@ const CommunityStocksLayout = ({ data }: { data: StockQuote[] }) => {
   const pageSize = 5
   const paged = getPagedArray(data, pageSize)
   const [pages, setPages] = React.useState(paged)
+  const [originalData, setOriginalData] = React.useState(data)
   const [displayedItems, setDisplayedItems] = React.useState<StockQuote[]>(paged[0].items)
   const [currentPageIndex, setCurrentPageIndex] = React.useState(1)
 
