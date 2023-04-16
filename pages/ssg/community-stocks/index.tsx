@@ -13,6 +13,7 @@ import StockTable from 'components/Organizms/stocks/StockTable'
 import { orderBy } from 'lodash'
 import { areObjectsEqual } from 'lib/util/objects'
 import { refreshQuotes } from 'lib/backend/api/qln/qlnApi'
+import CommunityStocksLayout from 'components/Organizms/stocks/CommunityStocksLayout'
 
 interface PageProps {
   result: StockQuote[]
@@ -61,9 +62,7 @@ const Page: NextPage<PageProps> = ({ result }) => {
     <ResponsiveContainer>
       <CenteredHeader title='Community Stocks' />
       <CenteredParagraph text={'stocks tracked by all users'} />
-      <Box py={1}>
-        <StockTable stockList={result} />
-      </Box>
+      <CommunityStocksLayout data={result} />
     </ResponsiveContainer>
   )
 }

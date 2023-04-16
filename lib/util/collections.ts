@@ -34,6 +34,25 @@ export function getPagedItems<T>(items: T[], pageSize: number) {
   })
   return result
 }
+export interface PagedItem {
+  index: number
+}
+
+export function getPagedArray<T>(array: T[], pageSize: number) {
+  type Pages = {
+    index: number
+    items: T[]
+  }
+  const chunks = chunk(array, pageSize)
+  const result: Pages[] = []
+  chunks.forEach((item, index) => {
+    result.push({
+      index: index + 1,
+      items: item,
+    })
+  })
+  return result
+}
 
 export function replaceItemInArray<T>(T: any, array: T[], key: keyof T, keyVal: string | number) {
   const existingIx = findIndex(array, (e) => {
