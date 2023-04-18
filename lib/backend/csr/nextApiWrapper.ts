@@ -150,6 +150,7 @@ export async function getUserTasksLambaBody(username: string) {
   const body: SignedRequest = {
     data: enc,
   }
+
   const result = (await post('/api/searchRandomStuff', body)) as LambdaBody[]
   return result
 }
@@ -159,6 +160,7 @@ export async function getUserTasks(username: string) {
   const body: SignedRequest = {
     data: enc,
   }
+  //console.log(JSON.stringify(body))
   const result = (await post('/api/searchRandomStuff', body)) as LambdaBody[]
   const tasks: UserTask[] = []
   result.forEach((g) => {
@@ -301,6 +303,15 @@ export async function getRecord<T>(id: DynamoKeys): Promise<T> {
     console.log(err)
   }
   return result as T
+}
+export async function searchRecords(id: DynamoKeys): Promise<LambdaBody[]> {
+  const enc = myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), id)
+  const body: SignedRequest = {
+    data: enc,
+  }
+  //console.log(body)
+  const result = (await post('/api/searchRandomStuff', body)) as LambdaBody[]
+  return result
 }
 
 export async function putRecord(id: DynamoKeys, category: string, item: any) {

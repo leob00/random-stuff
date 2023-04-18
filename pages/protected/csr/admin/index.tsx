@@ -12,7 +12,7 @@ import { DropdownItem } from 'lib/models/dropdown'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { myEncrypt } from 'lib/backend/encryption/useEncryptor'
-import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
+import { searchRecords, SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { get, post } from 'lib/backend/api/fetchFunctions'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import ReEnterPasswordDialog from 'components/Organizms/Login/ReEnterPasswordDialog'
@@ -46,7 +46,8 @@ const Page = () => {
           return
         }
       }
-
+      //const allStocks = await searchRecords('user-stock_list')
+      //console.log(JSON.stringify(allStocks))
       setUserProfile(p)
       await handleApiSelected('/api/edgeStatus')
       setLoading(false)

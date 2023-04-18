@@ -10,6 +10,7 @@ export default async function handler(req: NextRequest) {
   const json = await req.json()
   const enc = json as SignedRequest
   const dec = myDecrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), enc.data)
+  //console.log(dec)
   const result = await searchRandomStuffBySecIndex(dec)
   return NextResponse.json(result)
 }

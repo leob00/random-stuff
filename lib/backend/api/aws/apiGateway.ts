@@ -5,7 +5,7 @@ import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { get, post } from '../fetchFunctions'
 
-export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | 'site-stats' | 'community-stocks'
+export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | 'site-stats' | 'community-stocks' | 'user-stock_list'
 let baseUrl = process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL
 
 export type CategoryType = 'animals' | 'random' | 'userProfile' | 'community-stocks' | 'user-stock_list' | string
