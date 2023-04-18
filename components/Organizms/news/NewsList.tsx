@@ -1,16 +1,20 @@
 import { Box, Link, Stack, Typography } from '@mui/material'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
+import CenterStack from 'components/Atoms/CenterStack'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import SavedNoteButtonLink from 'components/Molecules/Buttons/SavedNoteButtonLink'
 import SaveToNotesButton from 'components/Molecules/Buttons/SaveToNotesButton'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import { useUserController } from 'hooks/userController'
 import { NewsItem, NewsTypeIds } from 'lib/backend/api/qln/qlnApi'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { getUtcNow } from 'lib/util/dateUtil'
 import React from 'react'
+dayjs.extend(relativeTime)
 
-const NewsList = ({ newsItems, hideSaveButton = false }: { newsItems: NewsItem[]; hideSaveButton?: boolean }) => {
+const NewsList = ({ newsItems, hideSaveButton = false, showPublishDate = false }: { newsItems: NewsItem[]; hideSaveButton?: boolean; showPublishDate?: boolean }) => {
   const userController = useUserController()
   const handleSaved = async (note: UserNote) => {}
   const RenderDescription = (item: NewsItem) => {
@@ -64,6 +68,18 @@ const NewsList = ({ newsItems, hideSaveButton = false }: { newsItems: NewsItem[]
                 <Box pt={1} maxWidth={350} display={'flex'} sx={{ margin: 'auto' }} px={2}>
                   <img src={item.TeaserImageUrl} title='' width={300} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
                 </Box>
+              )}
+              {showPublishDate && item.PublishDate && (
+                <>
+                  <CenterStack sx={{ pt: 1 }}>
+                    <Typography variant='caption'>{`published: ${dayjs(item.PublishDate).fromNow()}`}</Typography>
+                  </CenterStack>
+                  {/* {item.Source && (
+                    <CenterStack sx={{ pt: 1 }}>
+                      <Typography variant='caption'>{`source: ${item.Source}`}</Typography>
+                    </CenterStack>
+                  )} */}
+                </>
               )}
               {userController.ticket && !hideSaveButton && (
                 <Box>

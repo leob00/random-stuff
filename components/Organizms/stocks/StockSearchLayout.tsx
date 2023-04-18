@@ -137,20 +137,24 @@ const StockSearchLayout = () => {
     const quote = cloneDeep(model.quoteToAdd!)
     let stockList = cloneDeep(model.stockList)
     let stockListMap = getStockListMap(stockList)
-    stockListMap.set(quote.Symbol, quote)
-    const newList: StockQuote[] = []
-    stockListMap.forEach((val) => {
-      if (val.Symbol !== quote.Symbol) {
-        newList.push(val)
+    if (!stockListMap.has(quote.Symbol)) {
+      stockListMap.set(quote.Symbol, quote)
+      const newList: StockQuote[] = []
+      stockListMap.forEach((val) => {
+        if (val.Symbol !== quote.Symbol) {
+          newList.push(val)
+        }
+      })
+      newList.unshift(quote)
+      if (model.username) {
+        putUserStockList(model.username, newList)
       }
-    })
-    newList.unshift(quote)
-    if (model.username) {
-      putUserStockList(model.username, newList)
-    }
+      window.scrollTo({ top: 0, behavior: 'smooth' })
 
-    setModel({ ...model, stockListMap: stockListMap, stockList: newList, autoCompleteResults: [], quoteToAdd: undefined, isLoading: false })
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+      setModel({ ...model, stockListMap: stockListMap, stockList: newList, autoCompleteResults: [], quoteToAdd: undefined, isLoading: false })
+    } else {
+      setModel({ ...model, quoteToAdd: undefined, isLoading: false })
+    }
   }
   const handleCloseAddQuote = () => {
     setModel({ ...model, quoteToAdd: undefined, isLoading: false })
@@ -169,13 +173,7 @@ const StockSearchLayout = () => {
     <>
       <Box py={2}>
         <CenterStack>
-          <SearchAutoComplete
-            placeholder={'search stocks'}
-            onChanged={handleSearched}
-            searchResults={model.autoCompleteResults}
-            debounceWaitMilliseconds={500}
-            onSelected={handleSelectQuote}
-          />
+          <SearchAutoComplete placeholder={'search stocks'} onChanged={handleSearched} searchResults={model.autoCompleteResults} debounceWaitMilliseconds={500} onSelected={handleSelectQuote} />
         </CenterStack>
       </Box>
       {model.quoteToAdd ? (
@@ -197,8 +195,7 @@ const StockSearchLayout = () => {
                       color='secondary'
                       onClick={() => {
                         setModel({ ...model, editList: false })
-                      }}
-                    >
+                      }}>
                       <Close fontSize='small' color='secondary' />
                     </Button>
                   </Stack>

@@ -46,7 +46,7 @@ const StockNews = ({ quote }: { quote: StockQuote }) => {
         <WarmupBox />
       ) : (
         <>
-          <NewsList newsItems={newsItems} hideSaveButton={true} />
+          <NewsList newsItems={newsItems} hideSaveButton={true} showPublishDate={true} />
         </>
       )}
     </Box>

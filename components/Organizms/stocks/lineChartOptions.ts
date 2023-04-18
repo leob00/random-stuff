@@ -1,14 +1,6 @@
 import { ApexOptions } from 'apexcharts'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import {
-  CasinoGreen,
-  CasinoRed,
-  VeryLightBlueTransparent,
-  DarkBlue,
-  CasinoBlueTransparent,
-  TransparentBlue,
-  OceanBlueTransparent,
-} from 'components/themes/mainTheme'
+import { CasinoGreen, CasinoRed, VeryLightBlueTransparent, DarkBlue, CasinoBlueTransparent, TransparentBlue, OceanBlueTransparent, DarkModeBlueTransparent, DarkModeBlue, CasinoBlue, VeryLightBlue } from 'components/themes/mainTheme'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 
 export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: boolean) {
@@ -23,7 +15,7 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
     strokeWidth = 2
   } else {
     if (raw.length >= 20) {
-      strokeWidth = 1.05
+      strokeWidth = 1.25
     } else if (raw.length >= 10) {
       strokeWidth = 2
     } else {
@@ -61,13 +53,28 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
       toolbar: {
         show: false,
       },
+      animations: {
+        easing: 'easeout',
+      },
       //foreColor: lineColor,
     },
     grid: {
       show: true,
       borderColor: VeryLightBlueTransparent,
+      strokeDashArray: 0,
       column: {
-        colors: [OceanBlueTransparent],
+        colors: [VeryLightBlue],
+        opacity: 0.5,
+      },
+      yaxis: {
+        lines: {
+          show: true,
+        },
+      },
+      xaxis: {
+        lines: {
+          show: false,
+        },
       },
     },
     yaxis: {
@@ -75,8 +82,9 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
         style: {
           colors: [DarkBlue],
           fontWeight: isXSmall ? 300 : 600,
-          fontSize: isXSmall ? '8px' : '16px',
+          fontSize: isXSmall ? '8px' : '15px',
         },
+
         formatter: (val: number) => {
           return `$${val.toFixed(2)}`
         },
@@ -93,10 +101,11 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
       },
       //tickAmount: Math.floor(items.x.length / (items.x.length / 12)),
       categories: items.x,
-      axisTicks: { show: false },
+      axisTicks: { show: false, borderType: 'none', color: 'red' },
+      //tickAmount: 20,
       axisBorder: {
         show: false,
-        color: CasinoBlueTransparent,
+        //color: CasinoBlueTransparent,
       },
     },
     tooltip: {
@@ -121,8 +130,7 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
             return ''
           }
 
-          const change =
-            raw[opts.dataPointIndex].Change! > 0 ? `+$${raw[opts.dataPointIndex].Change?.toFixed(2)}` : `${raw[opts.dataPointIndex].Change?.toFixed(2)}`
+          const change = raw[opts.dataPointIndex].Change! > 0 ? `+$${raw[opts.dataPointIndex].Change?.toFixed(2)}` : `${raw[opts.dataPointIndex].Change?.toFixed(2)}`
           return `$${raw[opts.dataPointIndex].Price.toFixed(2)}   ${change}   ${raw[opts.dataPointIndex].ChangePercent}% `
         },
       },

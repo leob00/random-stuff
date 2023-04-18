@@ -16,14 +16,12 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const StockChart = ({ symbol, history, companyName }: { symbol: string; history: StockHistoryItem[]; companyName?: string }) => {
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
-  const isMedium = useMediaQuery(theme.breakpoints.down('lg'))
-  let chartHeight = 680
+  const isLarge = useMediaQuery(theme.breakpoints.up('lg'))
+  let chartHeight = 580
   if (isXSmall) {
-    chartHeight = 50
+    chartHeight = 240
   }
-  if (isMedium) {
-    chartHeight = 480
-  }
+
   const mapHistory = (items: StockHistoryItem[]) => {
     const data: XyValues = {
       x: items.map((o) => dayjs(o.TradeDate).format('MM/DD/YYYY')),
@@ -80,7 +78,7 @@ const StockChart = ({ symbol, history, companyName }: { symbol: string; history:
               p={1}
               // sx={{ backgroundColor: OceanBlueTransparent }}
             >
-              <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' />
+              <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
             </Box>
           )}
         </>
