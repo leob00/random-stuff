@@ -51,12 +51,6 @@ const StockSearchLayout = () => {
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
   const userController = useUserController()
 
-  const getStockListMap = (list: StockQuote[]) => {
-    let map = cloneDeep(model.stockListMap)
-    map = getMapFromArray(list, 'Symbol')
-    return map
-  }
-
   const handleSearched = async (text: string) => {
     if (text.length > 0) {
       const result = await searchStockQuotes(text)
@@ -93,13 +87,6 @@ const StockSearchLayout = () => {
       stockList = await getUserStockList(ticket.email)
       map = getMapFromArray(stockList, 'Symbol')
       setModel({ ...model, username: ticket.email, stockListMap: map, stockList: stockList, isLoading: false })
-      // refreshQuotes(stockList, ticket.email).then((refreshed) => {
-      //   refreshed.forEach((q) => {
-      //     map.set(q.Symbol, q)
-      //   })
-      //   setModel({ ...model, stockList: refreshed, username: ticket.email, stockListMap: map, isLoading: false })
-      // })
-      //console.log(testMap)
     } else {
       setTimeout(() => {
         setModel({ ...model, username: null, stockListMap: map, stockList: stockList, isLoading: false })
@@ -108,20 +95,15 @@ const StockSearchLayout = () => {
   }
 
   const handleRemoveQuote = (symbol: string) => {
-    let stockListMap = cloneDeep(model.stockListMap)
-    stockListMap.delete(symbol)
-    const list: StockQuote[] = []
-    stockListMap.forEach((val) => {
-      list.push(val)
-    })
+    const list = model.stockList.filter((m) => m.Symbol !== symbol)
+    const map = getMapFromArray(list, 'Symbol')
     if (model.username) {
       putUserStockList(model.username, list)
     }
-    setModel({ ...model, stockListMap: stockListMap, stockList: list })
+    setModel({ ...model, stockListMap: map, stockList: list })
   }
 
   const onDragEnd = ({ destination, source }: DropResult) => {
-    // dropped outside the list
     if (!destination) {
       return
     }
@@ -136,7 +118,7 @@ const StockSearchLayout = () => {
   const handleAddToList = async () => {
     const quote = cloneDeep(model.quoteToAdd!)
     let stockList = cloneDeep(model.stockList)
-    let stockListMap = getStockListMap(stockList)
+    let stockListMap = getMapFromArray(stockList, 'Symbol')
     if (!stockListMap.has(quote.Symbol)) {
       stockListMap.set(quote.Symbol, quote)
       const newList: StockQuote[] = []

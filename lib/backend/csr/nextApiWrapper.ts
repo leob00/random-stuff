@@ -328,6 +328,11 @@ export async function putRecord(id: DynamoKeys, category: string, item: any) {
   await post(`/api/putRandomStuff`, putRequest)
 }
 
+export async function getCommunityStocks() {
+  var result = await getRecord<StockQuote[]>('community-stocks')
+  return result
+}
+
 export async function sendEmailFromClient(item: EmailMessage) {
   // const putRequest: SignedRequest = {
   //   data: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${item.to}`),

@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material'
+import CenterStack from 'components/Atoms/CenterStack'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { getNewsBySymbol, NewsItem } from 'lib/backend/api/qln/qlnApi'
@@ -22,7 +23,9 @@ const StockEarnings = ({ quote }: { quote: StockQuote }) => {
         <WarmupBox />
       ) : (
         <>
-          <Typography>coming soon</Typography>
+          <CenterStack sx={{ py: 2 }}>
+            <Typography variant='body2'>coming soon!</Typography>
+          </CenterStack>
         </>
       )}
     </Box>
