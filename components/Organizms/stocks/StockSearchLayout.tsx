@@ -93,12 +93,12 @@ const StockSearchLayout = () => {
       stockList = await getUserStockList(ticket.email)
       map = getMapFromArray(stockList, 'Symbol')
       setModel({ ...model, username: ticket.email, stockListMap: map, stockList: stockList, isLoading: false })
-      refreshQuotes(stockList, ticket.email).then((refreshed) => {
-        refreshed.forEach((q) => {
-          map.set(q.Symbol, q)
-        })
-        setModel({ ...model, stockList: refreshed, username: ticket.email, stockListMap: map, isLoading: false })
-      })
+      // refreshQuotes(stockList, ticket.email).then((refreshed) => {
+      //   refreshed.forEach((q) => {
+      //     map.set(q.Symbol, q)
+      //   })
+      //   setModel({ ...model, stockList: refreshed, username: ticket.email, stockListMap: map, isLoading: false })
+      // })
       //console.log(testMap)
     } else {
       setTimeout(() => {
@@ -173,7 +173,13 @@ const StockSearchLayout = () => {
     <>
       <Box py={2}>
         <CenterStack>
-          <SearchAutoComplete placeholder={'search stocks'} onChanged={handleSearched} searchResults={model.autoCompleteResults} debounceWaitMilliseconds={500} onSelected={handleSelectQuote} />
+          <SearchAutoComplete
+            placeholder={'search stocks'}
+            onChanged={handleSearched}
+            searchResults={model.autoCompleteResults}
+            debounceWaitMilliseconds={500}
+            onSelected={handleSelectQuote}
+          />
         </CenterStack>
       </Box>
       {model.quoteToAdd ? (
@@ -195,7 +201,8 @@ const StockSearchLayout = () => {
                       color='secondary'
                       onClick={() => {
                         setModel({ ...model, editList: false })
-                      }}>
+                      }}
+                    >
                       <Close fontSize='small' color='secondary' />
                     </Button>
                   </Stack>

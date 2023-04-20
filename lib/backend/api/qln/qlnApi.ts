@@ -3,6 +3,7 @@ import { DropdownItem } from 'lib/models/dropdown'
 import { quoteArraySchema, quoteHistorySchema, StockQuote } from '../models/zModels'
 import { get } from '../fetchFunctions'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
+import dayjs from 'dayjs'
 
 let baseUrl = process.env.NEXT_PUBLIC_QLN_API_URL
 
@@ -216,12 +217,12 @@ export async function refreshQuotes(quotes: StockQuote[], username?: string) {
 
   const result: StockQuote[] = getListFromMap(map)
   if (username) {
-    if (JSON.stringify(result) !== JSON.stringify(quotes)) {
+    if (result.length > 0 && quotes.length > 0 && dayjs(result[0].TradeDate).isAfter(dayjs(quotes[0].TradeDate))) {
       console.log(`Quotes are stale.`)
       putUserStockList(username, result)
       console.log(`Saved ${result.length} quotes.`)
     } else {
-      console.log('stock are up to date')
+      console.log('stocks are up to date')
     }
   }
 
