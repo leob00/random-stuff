@@ -33,27 +33,27 @@ export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
     const result = orderBy(list, ['Symbol'], ['asc'])
     return result
   }
-  const userData = await searchRandomStuffBySecIndex(searchKey)
-  const updatedQuotes = await refreshQuotes(mapStockQuotes(userData))
+  //const userData = await searchRandomStuffBySecIndex(searchKey)
+  //const updatedQuotes = await refreshQuotes(mapStockQuotes(userData))
 
   const cData = (await getRandomStuff(communityKey)) as StockQuote[]
   const communityResult = orderBy(cData, ['Symbol'], 'asc')
-  console.log(`retrieved ${updatedQuotes.length} user quotes`)
+  //console.log(`retrieved ${updatedQuotes.length} user quotes`)
   console.log(`retrieved ${communityResult.length} community quotes`)
   //console.log('user result: ', JSON.stringify(userResult))
   //console.log('-------------------------------')
   //console.log('community result: ', JSON.stringify(communityResult))
-  if (!areObjectsEqual(updatedQuotes, communityResult)) {
-    console.log('community stocks are stale')
-    await putRandomStuff('community-stocks', 'stocks', updatedQuotes)
-    console.log(`updated ${updatedQuotes.length} community stocks`)
-  } else {
-    console.log('community stocks are up to date')
-  }
+  // if (!areObjectsEqual(updatedQuotes, communityResult)) {
+  //   console.log('community stocks are stale')
+  //   await putRandomStuff('community-stocks', 'stocks', updatedQuotes)
+  //   console.log(`updated ${updatedQuotes.length} community stocks`)
+  // } else {
+  //   console.log('community stocks are up to date')
+  // }
 
   return {
     props: {
-      result: updatedQuotes,
+      result: communityResult,
     },
   }
 }
