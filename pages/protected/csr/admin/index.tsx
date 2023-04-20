@@ -1,4 +1,4 @@
-import { Alert, Box, Snackbar, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
@@ -12,13 +12,13 @@ import { DropdownItem } from 'lib/models/dropdown'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { myEncrypt } from 'lib/backend/encryption/useEncryptor'
-import { searchRecords, SignedRequest } from 'lib/backend/csr/nextApiWrapper'
+import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { get, post } from 'lib/backend/api/fetchFunctions'
-import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
-import ReEnterPasswordDialog from 'components/Organizms/Login/ReEnterPasswordDialog'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
 import MultiDatasetBarchart from 'components/Molecules/Charts/MultiDatasetBarchart'
+import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
+const tabs: TabInfo[] = [{ title: 'Api', selected: true }, { title: 'Chart' }, { title: 'Email' }]
 
 const Page = () => {
   const userController = useUserController()
@@ -26,9 +26,8 @@ const Page = () => {
   const [loadingResult, setLoadingResult] = React.useState(true)
   const [userProfile, setUserProfile] = React.useState<UserProfile | null>(userController.authProfile)
   const [jsonResult, setJsonResult] = React.useState('')
-  const [showPasswordPrompt, setShowPasswordPrompt] = React.useState(false)
-  const [showLoginSuccess, setShowLoginSuccess] = React.useState(false)
   const [emailTemplate, setEmailTemplate] = React.useState('')
+  const [selectedTab, setSelectedTab] = React.useState('Api')
   const router = useRouter()
 
   React.useEffect(() => {
@@ -46,16 +45,12 @@ const Page = () => {
           return
         }
       }
-      //const allStocks = await searchRecords('user-stock_list')
-      //console.log(JSON.stringify(allStocks))
       setUserProfile(p)
       await handleApiSelected('/api/edgeStatus')
       setLoading(false)
       const resp = await fetch('/emailTemplates/sendPin.html')
       const html = await resp.text()
       setEmailTemplate(html)
-      //console.log('base path: ', router.pathname)
-      //const resp = await fetch()
     }
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -83,7 +78,7 @@ const Page = () => {
       value: '/api/recipes',
     },
     {
-      text: 'user tasks',
+      text: 'user stock lists',
       value: '/api/searchRandomStuff',
     },
   ]
@@ -92,28 +87,22 @@ const Page = () => {
     setLoadingResult(true)
     let req = url
     if (req.includes('searchRandomStuff')) {
-      const enc = myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), 'user-goal-tasks[leo_bel@hotmail.com]')
-      //req = `/api/searchRandomStuff?id=user-goal-tasks[leo_bel@hotmail.com]&enc=${enc}`
-      //console.log('enc: ', enc)
+      const enc = myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `user-stock_list`)
       const body: SignedRequest = {
         data: enc,
       }
       const result = await post(req, body)
-      setJsonResult(JSON.stringify(result))
+      setJsonResult(JSON.stringify(result, null, 2))
       setLoadingResult(false)
       return
     }
     const result = await get(req)
-    setJsonResult(JSON.stringify(result))
+    setJsonResult(JSON.stringify(result, null, 2))
     setLoadingResult(false)
   }
 
-  const handleConfirmLogin = async () => {
-    setShowPasswordPrompt(false)
-    setShowLoginSuccess(true)
-  }
-  const handleCloseLoginSuccess = async () => {
-    setShowLoginSuccess(false)
+  const handleSelectTab = (title: string) => {
+    setSelectedTab(title)
   }
 
   return (
@@ -124,52 +113,40 @@ const Page = () => {
         <>
           <BackToHomeButton />
           <CenteredTitle title='Admin' />
-          <CenteredTitle title={`Test Api's`} />
-          <CenterStack>
-            <DropdownList options={apiOptions} selectedOption={'/api/edgeStatus'} onOptionSelected={handleApiSelected} />
-          </CenterStack>
-          {loadingResult ? (
-            <WarmupBox />
-          ) : (
-            <CenterStack sx={{ py: 4 }}>
-              <Box maxHeight={300} sx={{ overflowY: 'auto' }}>
-                <Typography textAlign={'center'} variant='body1'>
-                  {jsonResult}
-                </Typography>
-              </Box>
-            </CenterStack>
+          <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
+          {selectedTab === 'Api' && (
+            <Box>
+              <CenteredTitle title={`Test Api's`} />
+              <CenterStack sx={{ pt: 2 }}>
+                <DropdownList options={apiOptions} selectedOption={'/api/edgeStatus'} onOptionSelected={handleApiSelected} />
+              </CenterStack>
+              {loadingResult ? (
+                <WarmupBox />
+              ) : (
+                <CenterStack sx={{ py: 4 }}>
+                  <Box maxHeight={300} sx={{ overflowY: 'auto' }}>
+                    <pre>{jsonResult}</pre>
+                  </Box>
+                </CenterStack>
+              )}
+            </Box>
           )}
-          <CenteredTitle title='Multi dataset bar chart' />
-          <CenterStack>
-            <MultiDatasetBarchart />
-          </CenterStack>
-          <CenteredTitle title='Email Template' />
-          <CenterStack>
-            <HtmlView html={emailTemplate} />
-          </CenterStack>
-
-          <CenteredTitle title='Login Test' />
-          <CenterStack>
-            <SecondaryButton text='show' onClick={() => setShowPasswordPrompt(true)} />
-          </CenterStack>
-          <ReEnterPasswordDialog
-            userProfile={userProfile}
-            show={showPasswordPrompt}
-            title={'authentication request'}
-            text={'please re-enter your password to proceed'}
-            onConfirm={handleConfirmLogin}
-            onCancel={() => setShowPasswordPrompt(false)}
-          />
-          <Snackbar
-            open={showLoginSuccess}
-            autoHideDuration={3000}
-            onClose={handleCloseLoginSuccess}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-          >
-            <Alert onClose={handleCloseLoginSuccess} severity='success' sx={{ width: '100%' }}>
-              Login succeeded. Thank you!
-            </Alert>
-          </Snackbar>
+          {selectedTab === 'Chart' && (
+            <Box>
+              <CenteredTitle title='Multi dataset bar chart' />
+              <CenterStack>
+                <MultiDatasetBarchart />
+              </CenterStack>
+            </Box>
+          )}
+          {selectedTab === 'Email' && (
+            <Box>
+              <CenteredTitle title='Forgot Pin Email Template' />
+              <CenterStack>
+                <HtmlView html={emailTemplate} />
+              </CenterStack>
+            </Box>
+          )}
         </>
       ) : (
         <PleaseLogin />

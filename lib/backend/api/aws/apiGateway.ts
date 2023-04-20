@@ -154,8 +154,8 @@ export async function putRandomStuff(type: DynamoKeys, category: CategoryType, d
   }
 }
 export async function putRandomStuffEnc(req: SignedRequest) {
-  const json = myDecrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), req.data)
-  const body = JSON.parse(json) as LambdaDynamoRequest
+  const decryptedString = myDecrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), req.data)
+  const body = JSON.parse(decryptedString) as LambdaDynamoRequest
   if (!body) {
     console.log('putRandomStuff: body validation failed')
     return null

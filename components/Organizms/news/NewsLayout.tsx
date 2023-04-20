@@ -63,25 +63,23 @@ const NewsLayout = () => {
   }, [selectedSource])
   return (
     <>
-      <NonSSRWrapper>
-        <Box py={2}>
-          <CenterStack>
-            <Stack display='flex' flexDirection='row' gap={2}>
-              <DropDownList options={newsTypes} selectedOption={selectedSource} onOptionSelected={handleNewsSourceSelected} label='source' />
-            </Stack>
-          </CenterStack>
-        </Box>
-        <Box py={2}>
-          {isLoading ? (
-            <WarmupBox />
-          ) : (
-            <Box sx={{ maxHeight: 580, overflowY: 'auto' }}>
-              {showError && <ErrorMessage text='There is an error that occurred. We have been made aware of it. Please try again in a few minutes.' />}
-              <NewsList newsItems={newsItems} />
-            </Box>
-          )}
-        </Box>
-      </NonSSRWrapper>
+      <Box py={2}>
+        <CenterStack>
+          <Stack display='flex' flexDirection='row' gap={2}>
+            <DropDownList options={newsTypes} selectedOption={selectedSource} onOptionSelected={handleNewsSourceSelected} label='source' />
+          </Stack>
+        </CenterStack>
+      </Box>
+      <Box py={2}>
+        {isLoading ? (
+          <WarmupBox />
+        ) : (
+          <Box sx={{ maxHeight: 580, overflowY: 'auto' }}>
+            {showError && <ErrorMessage text='There is an error that occurred. We have been made aware of it. Please try again in a few minutes.' />}
+            <NewsList newsItems={newsItems} />
+          </Box>
+        )}
+      </Box>
     </>
   )
 }
