@@ -1,33 +1,36 @@
-import { Container } from '@mui/system'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
-import BackButton from 'components/Atoms/Buttons/BackButton'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import UserGoalsLayout from 'components/Organizms/user/goals/UserGoalsLayout'
+import { useUserController } from 'hooks/userController'
 import { AmplifyUser, getUserCSR } from 'lib/backend/auth/userUtil'
-import router from 'next/router'
 import React from 'react'
 
 const Page = () => {
-  const [isLoggedIn, setIsLoggenIn] = React.useState(true)
-  const [user, setUser] = React.useState<AmplifyUser | null>(null)
+  const auth = useUserController().ticket
+
+  const [ticket, setTicket] = React.useState<AmplifyUser | null>(auth)
   const [isLoading, setIsLoading] = React.useState(true)
 
   React.useEffect(() => {
     const fn = async () => {
-      const userResult = await getUserCSR()
-      setIsLoggenIn(userResult !== null)
-      setUser(userResult)
+      if (!ticket) {
+        const userResult = await getUserCSR()
+
+        setTicket(userResult)
+      }
       setIsLoading(false)
+
+      //console.log(ticket)
     }
     fn()
-  }, [])
+  }, [ticket])
 
   return (
     <ResponsiveContainer>
       <PageHeader text={'Goals'} backButtonRoute={'/protected/csr/dashboard'} />
-      {isLoggedIn ? <>{isLoading ? <WarmupBox text='loading' /> : <>{user && <UserGoalsLayout username={user.email} />}</>}</> : <PleaseLogin />}
+      {ticket ? <>{isLoading ? <WarmupBox text='loading' /> : <>{ticket && <UserGoalsLayout username={ticket.email} />}</>}</> : <PleaseLogin />}
     </ResponsiveContainer>
   )
 }

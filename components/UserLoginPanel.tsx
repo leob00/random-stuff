@@ -18,11 +18,22 @@ export type HubPayload = {
 }
 
 const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
-  const [calledPush, setCalledPush] = React.useState(false)
   const router = useRouter()
+  const [calledPush, setCalledPush] = React.useState(false)
+
+  const path = router.asPath
+  const [lastPath, setLastPath] = React.useState(path.includes('/login') ? '/' : path)
+
   const userController = useUserController()
-  const signOut = () => {
+  const signOut = async () => {
+    const p = router.asPath
     const fn = async () => {
+      if (!p.includes(' /login')) {
+        Hub.dispatch('navigation', {
+          event: 'signed_out',
+          data: { lastPath: p },
+        })
+      }
       try {
         await Auth.signOut({ global: true })
       } catch (err) {
@@ -33,25 +44,22 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
     fn()
   }
 
+  const handleNavigationEvent = async (payload: HubPayload) => {
+    setLastPath(payload.data.lastPath)
+    // console.log('payload data: ', payload.data)
+  }
+
   const handleAuthEvent = async (payload: HubPayload) => {
     switch (payload.event) {
       case 'signOut':
         console.log('signing out')
         await userController.setTicket(null)
         await userController.setProfile(null)
-        //await userController.setLastProfileFetchDate('')
-        // if (window.location.pathname.includes('protected')) {
         setCalledPush(false)
-        const forward = router.asPath
-        router.push(`/login?forward=${forward}`)
-        // }
-        //router.push('/login')
+        router.push(`/login`)
         break
       case 'signIn':
-        //console.log(payload)
-        //const ticket = { id: payload.data?.attributes.sub, email: payload.data?.attributes.email, roles: payload.data?.attributes['custom:roles'] }
         const ticket = payload.data!
-        //console.log(ticket)
         const user: AmplifyUser = {
           id: payload.data?.attributes.sub,
           email: payload.data?.attributes.email,
@@ -69,14 +77,11 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
           await putUserProfile(p)
         }
         userController.setProfile(p)
-        if (window.location.pathname.includes('login')) {
-          if (!calledPush) {
-            setCalledPush(true)
-            router.push('/protected/csr/dashboard', '/dashboard')
-            //const { forward } = router.query
-            //console.log('forward: ', forward as string)
-          }
+        if (!calledPush) {
+          //console.log('redirecting to: ', lastPath)
+          router.push('/protected/csr/dashboard')
         }
+
         break
       case 'signUp':
         const newUser = { email: payload.data?.user.username }
@@ -125,6 +130,10 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
       Hub.listen('auth', (data) => {
         const { payload } = data
         handleAuthEvent(payload)
+      })
+      Hub.listen('navigation', (data) => {
+        const { payload } = data
+        handleNavigationEvent(payload)
       })
     }
     fn()
