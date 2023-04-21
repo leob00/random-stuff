@@ -6,7 +6,7 @@ import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import { AmplifyUser, getRolesFromAmplifyUser, getUserCSR } from 'lib/backend/auth/userUtil'
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import LoggedInUserMenu from './LoggedInUserMenu'
 import { VeryLightBlue } from './themes/mainTheme'
@@ -18,6 +18,7 @@ export type HubPayload = {
 }
 
 const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
+  const [calledPush, setCalledPush] = React.useState(false)
   const router = useRouter()
   const userController = useUserController()
   const signOut = () => {
@@ -39,9 +40,11 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
         await userController.setTicket(null)
         await userController.setProfile(null)
         //await userController.setLastProfileFetchDate('')
-        if (window.location.pathname.includes('protected') || window.location.pathname.includes('stocks')) {
-          router.push('/login')
-        }
+        // if (window.location.pathname.includes('protected')) {
+        setCalledPush(false)
+        const forward = router.asPath
+        router.push(`/login?forward=${forward}`)
+        // }
         //router.push('/login')
         break
       case 'signIn':
@@ -67,12 +70,15 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
         }
         userController.setProfile(p)
         if (window.location.pathname.includes('login')) {
-          router.push('/protected/csr/dashboard')
+          if (!calledPush) {
+            setCalledPush(true)
+            router.push('/protected/csr/dashboard', '/dashboard')
+            //const { forward } = router.query
+            //console.log('forward: ', forward as string)
+          }
         }
         break
       case 'signUp':
-        //console.log('creating profile')
-        //console.log(payload.data)
         const newUser = { email: payload.data?.user.username }
         const existingProfile = (await getUserProfile(newUser.email)) as UserProfile | null
         if (!existingProfile) {
@@ -92,7 +98,7 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
     }
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     let fn = async () => {
       if (userController.ticket) {
         return
@@ -114,7 +120,7 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
     router.push('/login')
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     let fn = async () => {
       Hub.listen('auth', (data) => {
         const { payload } = data

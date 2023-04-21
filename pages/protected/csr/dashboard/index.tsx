@@ -14,8 +14,6 @@ const Page = () => {
 
   React.useEffect(() => {
     const fn = async () => {
-      //const ticket = await getUserCSR()
-      //console.log(ticket)
       if (!userController.authProfile) {
         const p = await userController.fetchProfilePassive(300)
         if (!p) {
