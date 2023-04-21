@@ -2,7 +2,7 @@ import React from 'react'
 import '@aws-amplify/ui-react/styles.css'
 import LoginLayout from 'components/Organizms/Login/LoginLayout'
 
-const login = () => {
+const Page = () => {
   return (
     <>
       <LoginLayout />
@@ -10,4 +10,4 @@ const login = () => {
   )
 }
 
-export default login
+export default Page

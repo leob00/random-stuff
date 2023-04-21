@@ -5,6 +5,5 @@ export const config = {
 }
 export default async function handler(req: NextRequest) {
   const data = await getAllRecipes()
-  //data.items = shuffleArray(data.items)
   return NextResponse.json(data)
 }
