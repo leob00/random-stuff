@@ -27,24 +27,23 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
   const userController = useUserController()
   const signOut = async () => {
     const p = router.asPath
-    const fn = async () => {
-      if (!p.includes(' /login')) {
-        Hub.dispatch('navigation', {
-          event: 'signed_out',
-          data: { lastPath: p },
-        })
-      }
-      try {
-        await Auth.signOut({ global: true })
-      } catch (err) {
-        await Auth.signOut({ global: false })
-      }
-    }
 
-    fn()
+    if (!p.includes('/login')) {
+      setLastPath(p)
+      Hub.dispatch('navigation', {
+        event: 'signed_out',
+        data: { lastPath: p },
+      })
+    }
+    try {
+      await Auth.signOut({ global: true })
+    } catch (err) {
+      await Auth.signOut({ global: false })
+    }
   }
 
-  const handleNavigationEvent = async (payload: HubPayload) => {
+  const handleNavigationEvent = (payload: HubPayload) => {
+    console.log('last path: ', payload.data.lastPath)
     setLastPath(payload.data.lastPath)
     // console.log('payload data: ', payload.data)
   }
@@ -56,6 +55,7 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
         await userController.setTicket(null)
         await userController.setProfile(null)
         setCalledPush(false)
+
         router.push(`/login`)
         break
       case 'signIn':
@@ -78,7 +78,7 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
         }
         userController.setProfile(p)
         if (!calledPush) {
-          //console.log('redirecting to: ', lastPath)
+          console.log('last path: ', lastPath)
           router.push('/protected/csr/dashboard')
         }
 

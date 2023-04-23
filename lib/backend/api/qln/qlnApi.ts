@@ -1,7 +1,7 @@
 import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
 import { quoteArraySchema, quoteHistorySchema, StockQuote } from '../models/zModels'
-import { get } from '../fetchFunctions'
+import { get, getList } from '../fetchFunctions'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import dayjs from 'dayjs'
 
@@ -108,6 +108,16 @@ export const newsTypes: DropdownItem[] = [
     value: 'Pluralistic',
   },
 ]
+
+export interface Job {
+  NextRunDate?: string
+  Name: string
+  Description: string
+  StartDate?: string
+  Status: 1 | 2
+  ProgressPercent: number
+  LastMessage?: string
+}
 
 /* export interface StockQuote {
   Symbol: string
@@ -226,5 +236,12 @@ export async function refreshQuotes(quotes: StockQuote[], username?: string) {
     }
   }
 
+  return result
+}
+export async function getJobs() {
+  const url = `${baseUrl}/BatchJobList`
+
+  const response = await get(url)
+  const result = response.Body as Job[]
   return result
 }

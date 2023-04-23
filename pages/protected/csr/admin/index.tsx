@@ -18,7 +18,8 @@ import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
 import MultiDatasetBarchart from 'components/Molecules/Charts/MultiDatasetBarchart'
 import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
-const tabs: TabInfo[] = [{ title: 'Api', selected: true }, { title: 'Chart' }, { title: 'Email' }]
+import JobsLayout from 'components/Organizms/admin/JobsLayout'
+const tabs: TabInfo[] = [{ title: 'Api', selected: true }, { title: 'Chart' }, { title: 'Email' }, { title: 'Jobs' }]
 
 const Page = () => {
   const userController = useUserController()
@@ -147,6 +148,7 @@ const Page = () => {
               </CenterStack>
             </Box>
           )}
+          {selectedTab === 'Jobs' && <JobsLayout />}
         </>
       ) : (
         <PleaseLogin />

@@ -52,3 +52,11 @@ export async function post(url: string, body: any) {
     return null
   }
 }
+
+export async function getList<T>(url: string, params?: any): Promise<T[]> {
+  const resp = await get(url, params)
+  //console.log('response: ', resp)
+  const data = await resp.json()
+  // console.log('data: ', data)
+  return data as T[]
+}
