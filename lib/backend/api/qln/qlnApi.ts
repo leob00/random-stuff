@@ -115,7 +115,7 @@ export interface Job {
   Description: string
   StartDate?: string
   Status: 1 | 2
-  ProgressPercent: number
+  ProgressPercent?: number
   LastMessage?: string
 }
 
