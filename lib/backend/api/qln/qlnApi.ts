@@ -118,15 +118,14 @@ export interface Job {
   ProgressPercent?: number
   LastMessage?: string
   EndRunDate?: string
+  Chart?: LineChart
 }
 
-/* export interface StockQuote {
-  Symbol: string
-  Company: string
-  Price: number
-  ChangePercent: number
-  TradeDate: string
-} */
+export interface LineChart {
+  XValues: string[]
+  YValues: string[]
+  RawData?: any[]
+}
 
 export async function getNewsFeed() {
   const url = `${baseUrl}/MarketHandshake`

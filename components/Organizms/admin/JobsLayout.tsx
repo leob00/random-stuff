@@ -6,7 +6,7 @@ import React from 'react'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import JobInProgress from './JobInProgress'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
-import JobDetails from './JobDetails'
+import JobDetail from './JobDetail'
 dayjs.extend(relativeTime)
 
 const JobsLayout = () => {
@@ -32,8 +32,7 @@ const JobsLayout = () => {
   }
   const handleItemClicked = async (item: Job) => {
     const result = await getJob(item.Name)
-    console.log(result)
-    setSelectedItem(item)
+    setSelectedItem(result)
   }
 
   React.useEffect(() => {
@@ -41,7 +40,7 @@ const JobsLayout = () => {
   }, [pollCounter])
   return (
     <Box>
-      {selectedItem && <JobDetails item={selectedItem} onClose={() => setSelectedItem(null)} />}
+      {selectedItem && <JobDetail item={selectedItem} onClose={() => setSelectedItem(null)} />}
       {data.map((item) => (
         <Box pl={2} key={item.Name}>
           <>

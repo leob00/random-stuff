@@ -79,23 +79,43 @@ export function getOptions(items: XyValues, raw: any[], isXSmall: boolean) {
           fontWeight: isXSmall ? 300 : 600,
           fontSize: isXSmall ? '8px' : '15px',
         },
-
-        formatter: (val: number) => {
-          return `$${val.toFixed(2)}`
-        },
       },
     },
     xaxis: {
+      //type: 'datetime',
+      //max: yAxisDecorator === '%' ? 100 : undefined,
       labels: {
         show: false,
         formatter: (val) => {
           return val
         },
       },
+      //tickAmount: Math.floor(items.x.length / (items.x.length / 12)),
       categories: items.x,
       axisTicks: { show: false, borderType: 'none', color: 'red' },
+      //tickAmount: 20,
       axisBorder: {
         show: false,
+        //color: CasinoBlueTransparent,
+      },
+    },
+    tooltip: {
+      fillSeriesColor: false,
+      theme: undefined,
+      marker: {
+        fillColors: [lineColor],
+      },
+      style: {
+        //fontFamily: '-apple-system, Roboto',
+        fontSize: '16px',
+      },
+
+      y: {
+        title: {
+          formatter(seriesName) {
+            return ` ${seriesName}`
+          },
+        },
       },
     },
   }

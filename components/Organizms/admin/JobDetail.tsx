@@ -1,12 +1,15 @@
 import { Box, Stack, Typography } from '@mui/material'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
+import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import dayjs from 'dayjs'
 import { Job } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
+import JobDetailChart from './JobDetailChart'
 
 const JobDetails = ({ item, onClose }: { item: Job; onClose: () => void }) => {
+  // console.log('chart: ', JSON.stringify(item.Chart))
   return (
-    <FormDialog show={true} title={item.Description} onCancel={() => onClose()}>
+    <InfoDialog show={true} title={item.Description} onCancel={() => onClose()}>
       <Box>
         <Stack>
           <Typography variant='caption'>{`name: ${item.Description}`}</Typography>
@@ -24,8 +27,14 @@ const JobDetails = ({ item, onClose }: { item: Job; onClose: () => void }) => {
             <Typography variant='caption'>{`ended: ${dayjs(item.EndRunDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
           </Stack>
         )}
+
+        {item.Chart && (
+          <Box pt={2}>
+            <JobDetailChart data={item.Chart} />
+          </Box>
+        )}
       </Box>
-    </FormDialog>
+    </InfoDialog>
   )
 }
 
