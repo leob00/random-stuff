@@ -11,7 +11,7 @@ import { getStockChart } from 'lib/backend/api/qln/qlnApi'
 import { DropdownItem } from 'lib/models/dropdown'
 import dynamic from 'next/dynamic'
 import React from 'react'
-import { getOptions } from './lineChartOptions'
+import { getOptions } from './stockLineChartOptions'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const StockChart = ({ symbol, history, companyName }: { symbol: string; history: StockHistoryItem[]; companyName?: string }) => {

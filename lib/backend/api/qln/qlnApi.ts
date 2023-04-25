@@ -117,6 +117,7 @@ export interface Job {
   Status: 1 | 2
   ProgressPercent?: number
   LastMessage?: string
+  EndRunDate?: string
 }
 
 /* export interface StockQuote {
@@ -240,8 +241,15 @@ export async function refreshQuotes(quotes: StockQuote[], username?: string) {
 }
 export async function getJobs() {
   const url = `${baseUrl}/BatchJobList`
-
   const response = await get(url)
   const result = response.Body as Job[]
+  return result
+}
+
+export async function getJob(jobName: string) {
+  const url = `${baseUrl}/BatchJobDetail`
+
+  const response = await get(url, { jobName: jobName })
+  const result = response.Body as Job
   return result
 }

@@ -16,23 +16,23 @@ const FormDialog = ({
   children: ReactNode
   title: string
   show: boolean
-  onCancel: () => void
-  onSave: () => void
+  onCancel?: () => void
+  onSave?: () => void
 }) => {
   //const [open, setOpen] = React.useState(show)
   const handleClose = () => {
     // setOpen(false)
-    onCancel()
+    onCancel?.()
   }
 
   return (
     <Box>
-      <Dialog open={show} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
+      <Dialog open={show} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description' maxWidth='lg'>
         <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>
-          <Stack display='flex' direction={'row'}>
-            <Stack flexGrow={1}>{title}</Stack>
+          <Stack display='flex' direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
+            <Stack>{title}</Stack>
             <Stack>
-              <Button onClick={handleClose} sx={{ pl: 8 }}>
+              <Button onClick={handleClose}>
                 <Close />
               </Button>
             </Stack>
@@ -44,7 +44,7 @@ const FormDialog = ({
         </DialogContent>
         <HorizontalDivider />
         <DialogActions sx={{ pt: 1, pb: 2 }}>
-          <SecondaryButton text={'save'} size='small' width={80} onClick={onSave} />
+          {onSave && <SecondaryButton text={'save'} size='small' width={80} onClick={onSave} />}
           <PassiveButton onClick={handleClose} text={'cancel'} size='small' width={80} />
         </DialogActions>
       </Dialog>

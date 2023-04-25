@@ -1,10 +1,15 @@
 import { ApexOptions } from 'apexcharts'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import { VeryLightBlueTransparent, DarkBlue, CasinoBlue, VeryLightBlue } from 'components/themes/mainTheme'
+import { CasinoGreen, CasinoRed, VeryLightBlueTransparent, DarkBlue, CasinoBlueTransparent, TransparentBlue, OceanBlueTransparent, DarkModeBlueTransparent, DarkModeBlue, CasinoBlue, VeryLightBlue } from 'components/themes/mainTheme'
+import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 
-export function getOptions(items: XyValues, raw: any[], isXSmall: boolean) {
-  let lineColor = CasinoBlue
-
+export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: boolean) {
+  let lineColor = CasinoGreen
+  if (items.y.length > 0) {
+    if (items.y[0] > items.y[items.y.length - 1]) {
+      lineColor = CasinoRed
+    }
+  }
   let strokeWidth = 3
   if (raw.length <= 200) {
     strokeWidth = 2
@@ -86,16 +91,48 @@ export function getOptions(items: XyValues, raw: any[], isXSmall: boolean) {
       },
     },
     xaxis: {
+      //type: 'datetime',
+      //max: yAxisDecorator === '%' ? 100 : undefined,
       labels: {
         show: false,
         formatter: (val) => {
           return val
         },
       },
+      //tickAmount: Math.floor(items.x.length / (items.x.length / 12)),
       categories: items.x,
       axisTicks: { show: false, borderType: 'none', color: 'red' },
+      //tickAmount: 20,
       axisBorder: {
         show: false,
+        //color: CasinoBlueTransparent,
+      },
+    },
+    tooltip: {
+      fillSeriesColor: false,
+      theme: undefined,
+      marker: {
+        fillColors: [lineColor],
+      },
+      style: {
+        //fontFamily: '-apple-system, Roboto',
+        fontSize: '16px',
+      },
+
+      y: {
+        title: {
+          formatter(seriesName) {
+            return ` ${seriesName}`
+          },
+        },
+        formatter: (val: number, opts: any) => {
+          if (raw.length === 0) {
+            return ''
+          }
+
+          const change = raw[opts.dataPointIndex].Change! > 0 ? `+$${raw[opts.dataPointIndex].Change?.toFixed(2)}` : `${raw[opts.dataPointIndex].Change?.toFixed(2)}`
+          return `$${raw[opts.dataPointIndex].Price.toFixed(2)}   ${change}   ${raw[opts.dataPointIndex].ChangePercent}% `
+        },
       },
     },
   }
