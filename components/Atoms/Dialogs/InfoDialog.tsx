@@ -1,5 +1,6 @@
 import { Close } from '@mui/icons-material'
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Stack } from '@mui/material'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Stack, Typography } from '@mui/material'
+import { DarkMode } from 'components/themes/DarkMode'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import React, { ReactNode } from 'react'
 import PassiveButton from '../Buttons/PassiveButton'
@@ -30,12 +31,14 @@ const InfoDialog = ({
       <Dialog open={show} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description' maxWidth='lg'>
         <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>
           <Stack display='flex' direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
-            <Stack>{title}</Stack>
-            <Stack flexGrow={1} justifyContent='flex-end'>
-              <IconButton onClick={handleClose} size='small'>
-                <Close fontSize='small' />
-              </IconButton>
-            </Stack>
+            <Box>{title}</Box>
+            <Box sx={{ marginRight: -2 }}>
+              <DarkMode>
+                <IconButton onClick={handleClose} size='small'>
+                  <Close fontSize='small' />
+                </IconButton>
+              </DarkMode>
+            </Box>
           </Stack>
         </DialogTitle>
         <DialogContent>

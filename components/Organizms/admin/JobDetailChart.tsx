@@ -13,7 +13,7 @@ const JobDetailChart = ({ data }: { data: LineChart }) => {
   return (
     <Box>
       <CenterStack>
-        <Typography>average run time in minutes</Typography>
+        <Typography variant='caption'>average run time in minutes</Typography>
       </CenterStack>
       <ApexAreaLineChart xyValues={xyValues} isXmall={true} />
     </Box>

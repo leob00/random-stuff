@@ -21,6 +21,7 @@ const JobsLayout = () => {
     }
 
     timeOutRef.current = setTimeout(() => {
+      console.log('polling finished: ', dayjs().format('MM/DD/YYYY hh:mm:ss a'))
       setPollCounter(pollCounter + 1)
     }, 5000)
   }
@@ -31,8 +32,15 @@ const JobsLayout = () => {
     poll()
   }
   const handleItemClicked = async (item: Job) => {
+    if (timeOutRef.current) {
+      clearTimeout(timeOutRef.current)
+    }
     const result = await getJob(item.Name)
     setSelectedItem(result)
+  }
+  const handleClose = () => {
+    setSelectedItem(null)
+    poll()
   }
 
   React.useEffect(() => {
@@ -40,7 +48,7 @@ const JobsLayout = () => {
   }, [pollCounter])
   return (
     <Box>
-      {selectedItem && <JobDetail item={selectedItem} onClose={() => setSelectedItem(null)} />}
+      {selectedItem && <JobDetail item={selectedItem} onClose={handleClose} />}
       {data.map((item) => (
         <Box pl={2} key={item.Name}>
           <>

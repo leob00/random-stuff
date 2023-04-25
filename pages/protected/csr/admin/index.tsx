@@ -19,7 +19,6 @@ import HtmlView from 'components/Atoms/Boxes/HtmlView'
 import MultiDatasetBarchart from 'components/Molecules/Charts/MultiDatasetBarchart'
 import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import JobsLayout from 'components/Organizms/admin/JobsLayout'
-const tabs: TabInfo[] = [{ title: 'Api', selected: true }, { title: 'Chart' }, { title: 'Email' }, { title: 'Jobs' }]
 
 const Page = () => {
   const userController = useUserController()
@@ -28,8 +27,10 @@ const Page = () => {
   const [userProfile, setUserProfile] = React.useState<UserProfile | null>(userController.authProfile)
   const [jsonResult, setJsonResult] = React.useState('')
   const [emailTemplate, setEmailTemplate] = React.useState('')
-  const [selectedTab, setSelectedTab] = React.useState('Api')
+  const [selectedTab, setSelectedTab] = React.useState('Jobs')
   const router = useRouter()
+
+  const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Api' }, { title: 'Chart' }, { title: 'Email' }]
 
   React.useEffect(() => {
     const fn = async () => {
