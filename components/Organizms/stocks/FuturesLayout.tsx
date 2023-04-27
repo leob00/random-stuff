@@ -35,7 +35,7 @@ const FuturesLayout = () => {
       ) : (
         <Box pt={2}>
           {data.map((item) => (
-            <Box key={item.Symbol}>
+            <Box key={item.Symbol} pl={2}>
               <ListHeader text={item.Company} item={item} onClicked={() => {}} />
               <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
                 <Stack direction={'row'} spacing={2} pl={1} sx={{ backgroundColor: 'unset' }} pt={1}>

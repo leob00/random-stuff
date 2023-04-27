@@ -4,17 +4,13 @@ import { VeryLightBlueTransparent, DarkBlue, CasinoBlue, VeryLightBlue } from 'c
 
 export function getOptions(items: XyValues, raw: any[], isXSmall: boolean) {
   let lineColor = CasinoBlue
-
-  let strokeWidth = 3
-  if (raw.length <= 200) {
-    strokeWidth = 2
+  //console.log('raw length: ', raw.length)
+  let strokeWidth = 2.4
+  if (raw.length >= 100) {
+    strokeWidth = 1.5
   } else {
-    if (raw.length >= 20) {
-      strokeWidth = 1.25
-    } else if (raw.length >= 10) {
-      strokeWidth = 2
-    } else {
-      strokeWidth = 3.3
+    if (raw.length >= 50) {
+      strokeWidth = 1.8
     }
   }
 
