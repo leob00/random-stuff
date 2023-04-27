@@ -1,8 +1,10 @@
 import { Close } from '@mui/icons-material'
 import { Box, Button, Stack } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
+import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchAutoComplete from 'components/Atoms/Inputs/SearchAutoComplete'
+import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import StockListMenu from 'components/Molecules/Menus/StockListMenu'
@@ -26,8 +28,10 @@ interface Model {
   searchedStocksMap: Map<string, StockQuote>
   stockListMap: Map<string, StockQuote>
   stockList: StockQuote[]
+  filteredList: StockQuote[]
   editList: boolean
   quoteToAdd?: StockQuote
+  successMesage: string | null
 }
 
 const StockSearchLayout = () => {
@@ -38,7 +42,9 @@ const StockSearchLayout = () => {
     searchedStocksMap: new Map<string, StockQuote>([]),
     stockListMap: new Map<string, StockQuote>([]),
     stockList: [],
+    filteredList: [],
     editList: false,
+    successMesage: null,
   }
 
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
@@ -57,7 +63,7 @@ const StockSearchLayout = () => {
       result.forEach((item, index) => {
         searchedStocksMap.set(item.Symbol, item)
       })
-      setModel({ ...model, searchedStocksMap: searchedStocksMap, autoCompleteResults: autoComp, quoteToAdd: undefined })
+      setModel({ ...model, searchedStocksMap: searchedStocksMap, autoCompleteResults: autoComp, quoteToAdd: undefined, successMesage: null })
     }
   }
 
@@ -66,12 +72,12 @@ const StockSearchLayout = () => {
     const quote = cloneDeep(model.searchedStocksMap.get(symbol))
     setModel({ ...model, isLoading: true })
     if (quote) {
-      setModel({ ...model, quoteToAdd: quote, autoCompleteResults: [] })
+      setModel({ ...model, quoteToAdd: quote, autoCompleteResults: [], successMesage: null })
     }
   }
   const reloadData = async () => {
     const ticket = userController.ticket
-    setModel({ ...model, isLoading: true })
+    setModel({ ...model, isLoading: true, successMesage: null })
 
     let stockList = [...model.stockList]
     let map = model.stockListMap
@@ -79,7 +85,7 @@ const StockSearchLayout = () => {
     if (ticket) {
       stockList = await getUserStockList(ticket.email)
       map = getMapFromArray(stockList, 'Symbol')
-      setModel({ ...model, username: ticket.email, stockListMap: map, stockList: stockList, isLoading: false })
+      setModel({ ...model, username: ticket.email, stockListMap: map, stockList: stockList, isLoading: false, filteredList: stockList })
     } else {
       setTimeout(() => {
         setModel({ ...model, username: null, stockListMap: map, stockList: stockList, isLoading: false })
@@ -93,7 +99,7 @@ const StockSearchLayout = () => {
     if (model.username) {
       putUserStockList(model.username, list)
     }
-    setModel({ ...model, stockListMap: map, stockList: list })
+    setModel({ ...model, stockListMap: map, stockList: list, successMesage: `${symbol} removed!` })
   }
 
   const onDragEnd = ({ destination, source }: DropResult) => {
@@ -126,13 +132,27 @@ const StockSearchLayout = () => {
       }
       window.scrollTo({ top: 0, behavior: 'smooth' })
 
-      setModel({ ...model, stockListMap: stockListMap, stockList: newList, autoCompleteResults: [], quoteToAdd: undefined, isLoading: false })
+      setModel({
+        ...model,
+        stockListMap: stockListMap,
+        stockList: newList,
+        autoCompleteResults: [],
+        quoteToAdd: undefined,
+        isLoading: false,
+        successMesage: `${quote.Company} added!`,
+      })
     } else {
-      setModel({ ...model, quoteToAdd: undefined, isLoading: false })
+      setModel({ ...model, quoteToAdd: undefined, isLoading: false, successMesage: `${quote.Company} is already in your list` })
     }
   }
   const handleCloseAddQuote = () => {
     setModel({ ...model, quoteToAdd: undefined, isLoading: false })
+  }
+  const handleSearchListChange = async (text: string) => {
+    const result = model.stockList.filter(
+      (o) => o.Symbol.toLowerCase().startsWith(text.toLowerCase()) || o.Company.toLowerCase().startsWith(text.toLowerCase()),
+    )
+    setModel({ ...model, filteredList: result })
   }
 
   React.useEffect(() => {
@@ -146,6 +166,11 @@ const StockSearchLayout = () => {
 
   return (
     <>
+      {model.successMesage && (
+        <>
+          <SnackbarSuccess show={true} text={model.successMesage} />
+        </>
+      )}
       <Box py={2}>
         <CenterStack>
           <SearchAutoComplete
@@ -187,16 +212,19 @@ const StockSearchLayout = () => {
               ) : (
                 <>
                   {model.stockList.length > 0 && (
-                    <Stack pt={1} alignItems={'flex-end'}>
-                      <StockListMenu
-                        onEdit={() => {
-                          setModel({ ...model, editList: true })
-                        }}
-                        onRefresh={reloadData}
-                      />
-                    </Stack>
+                    <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                      <Box>{model.stockList.length >= 10 && <SearchWithinList onChanged={handleSearchListChange} debounceWaitMilliseconds={25} />}</Box>
+                      <Box>
+                        <StockListMenu
+                          onEdit={() => {
+                            setModel({ ...model, editList: true })
+                          }}
+                          onRefresh={reloadData}
+                        />
+                      </Box>
+                    </Box>
                   )}
-                  <StockTable stockList={model.stockList} />
+                  <StockTable stockList={model.filteredList} />
                 </>
               )}
             </Box>

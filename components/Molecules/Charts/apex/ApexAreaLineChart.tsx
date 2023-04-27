@@ -1,8 +1,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import { Box } from '@mui/material'
-import { ApexOptions } from 'apexcharts'
-import { ApexBarChartData, XyValues } from './models/chartModes'
+import { XyValues } from './models/chartModes'
 import { getOptions } from 'components/Organizms/stocks/lineChartOptions'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 

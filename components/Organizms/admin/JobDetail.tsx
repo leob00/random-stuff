@@ -29,6 +29,11 @@ const JobDetails = ({ item, onClose }: { item: Job; onClose: () => void }) => {
             <Typography variant='caption'>{`ended: ${dayjs(item.EndRunDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
           </Stack>
         )}
+        {item.NextRunDate && (
+          <Stack>
+            <Typography variant='caption'>{`next run: ${dayjs(item.NextRunDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
+          </Stack>
+        )}
 
         {item.Chart && (
           <Box pt={2}>

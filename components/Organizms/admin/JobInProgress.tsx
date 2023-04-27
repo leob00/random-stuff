@@ -16,7 +16,7 @@ const JobInProgress = ({ item }: { item: Job }) => {
               {item.LastMessage}
             </Typography>
           </Box>
-          {item.ProgressPercent && (
+          {item.ProgressPercent && item.ProgressPercent > 0 && (
             <Box pr={1}>
               <Typography variant='caption'>{`${item.ProgressPercent.toFixed(1)}%`}</Typography>
             </Box>
