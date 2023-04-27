@@ -253,3 +253,10 @@ export async function getJob(jobName: string) {
   const result = response.Body as Job
   return result
 }
+
+export async function getFutures() {
+  const url = `${baseUrl}/Futures`
+  const response = await get(url)
+  const result = response.Body as StockQuote[]
+  return result
+}

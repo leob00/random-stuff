@@ -23,22 +23,21 @@ import StockEarnings from './StockEarnings'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 
 const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'News' }, { title: 'Earnings' }]
-
+export const getPositiveNegativeColor = (val: number) => {
+  let color = CasinoBlackTransparent
+  if (val < 0) {
+    color = CasinoDarkRedTransparent
+  } else if (val > 0) {
+    color = CasinoDarkGreenTransparent
+  }
+  return color
+}
 const StockListItem = ({ item, expand = false, showBorder = true }: { item: StockQuote; expand?: boolean; showBorder?: boolean }) => {
   const [showMore, setShowMore] = React.useState(expand)
   const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
   const [selectedTab, setSelectedTab] = React.useState('Details')
   const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
 
-  const getPositiveNegativeColor = (val: number) => {
-    let color = CasinoBlackTransparent
-    if (val < 0) {
-      color = CasinoDarkRedTransparent
-    } else if (val > 0) {
-      color = CasinoDarkGreenTransparent
-    }
-    return color
-  }
   React.useEffect(() => {
     const fn = async () => {
       const history = await getStockChart(item.Symbol, 90)
