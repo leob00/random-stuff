@@ -7,12 +7,17 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import JobInProgress from './JobInProgress'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import JobDetail from './JobDetail'
+import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
+import WarmupBox from 'components/Atoms/WarmupBox'
 dayjs.extend(relativeTime)
 
 const JobsLayout = () => {
   const [data, setData] = React.useState<Job[]>([])
   const [pollCounter, setPollCounter] = React.useState(0)
   const [selectedItem, setSelectedItem] = React.useState<Job | null>(null)
+  const [isLoading, setIsLoading] = React.useState(true)
+  const [isLoadingDetail, setIsLoadingDetail] = React.useState(false)
+
   const timeOutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const poll = () => {
@@ -32,11 +37,13 @@ const JobsLayout = () => {
     poll()
   }
   const handleItemClicked = async (item: Job) => {
+    setIsLoadingDetail(true)
     if (timeOutRef.current) {
       clearTimeout(timeOutRef.current)
     }
     const result = await getJob(item.Name)
     setSelectedItem(result)
+    setIsLoadingDetail(false)
   }
   const handleClose = () => {
     setSelectedItem(null)
@@ -44,36 +51,48 @@ const JobsLayout = () => {
   }
 
   React.useEffect(() => {
-    loadData()
+    const fn = async () => {
+      await loadData()
+      setIsLoading(false)
+    }
+    fn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pollCounter])
   return (
     <Box>
-      {selectedItem && <JobDetail item={selectedItem} onClose={handleClose} />}
-      {data.map((item) => (
-        <Box pl={2} key={item.Name}>
-          <>
-            <ListHeader text={item.Description} item={item} onClicked={handleItemClicked} />
-            {item.Status === 1 ? (
-              <JobInProgress item={item} />
-            ) : (
-              <Box minHeight={50} pt={1} pl={1}>
-                <Box>
-                  {item.EndRunDate && (
-                    <Stack>
-                      <Typography variant='caption'>{`last run: ${dayjs().to(dayjs(item.EndRunDate))}`}</Typography>
-                    </Stack>
-                  )}
-                  {item.NextRunDate && (
-                    <Stack>
-                      <Typography variant='caption'>{`next run: ${dayjs().to(dayjs(item.NextRunDate))}`}</Typography>
-                    </Stack>
-                  )}
-                </Box>
-              </Box>
-            )}
-          </>
-        </Box>
-      ))}
+      {isLoading ? (
+        <LargeGridSkeleton />
+      ) : (
+        <>
+          {isLoadingDetail && <WarmupBox />}
+          {selectedItem && <JobDetail item={selectedItem} onClose={handleClose} />}
+          {data.map((item) => (
+            <Box pl={2} key={item.Name}>
+              <>
+                <ListHeader text={item.Description} item={item} onClicked={handleItemClicked} />
+                {item.Status === 1 ? (
+                  <JobInProgress item={item} />
+                ) : (
+                  <Box minHeight={50} pt={1} pl={1}>
+                    <Box>
+                      {item.EndRunDate && (
+                        <Stack>
+                          <Typography variant='caption'>{`last run: ${dayjs().to(dayjs(item.EndRunDate))}`}</Typography>
+                        </Stack>
+                      )}
+                      {item.NextRunDate && (
+                        <Stack>
+                          <Typography variant='caption'>{`next run: ${dayjs().to(dayjs(item.NextRunDate))}`}</Typography>
+                        </Stack>
+                      )}
+                    </Box>
+                  </Box>
+                )}
+              </>
+            </Box>
+          ))}
+        </>
+      )}
     </Box>
   )
 }
