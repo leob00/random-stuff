@@ -12,11 +12,13 @@ const JobDetails = ({ item, onClose }: { item: Job; onClose: () => void }) => {
     <InfoDialog show={true} title={item.Description} onCancel={() => onClose()}>
       <Box>
         <Stack>
-          <Typography variant='caption'>{`name: ${item.Description}`}</Typography>
-        </Stack>
-        <Stack>
           <Typography variant='caption'>{`internal name: ${item.Name}`}</Typography>
         </Stack>
+        {item.Executer && (
+          <Stack>
+            <Typography variant='caption'>{`executer: ${item.Executer.substring(item.Executer.lastIndexOf('.') + 1)}`}</Typography>
+          </Stack>
+        )}
         {item.StartDate && (
           <Stack>
             <Typography variant='caption'>{`started: ${dayjs(item.StartDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>

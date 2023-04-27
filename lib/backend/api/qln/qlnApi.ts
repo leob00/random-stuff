@@ -119,6 +119,7 @@ export interface Job {
   LastMessage?: string
   EndRunDate?: string
   Chart?: LineChart
+  Executer?: string
 }
 
 export interface LineChart {

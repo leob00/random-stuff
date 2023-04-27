@@ -2,7 +2,14 @@ import { Box, IconButton, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
 import LinesSkeleton from 'components/Atoms/Skeletons/LinesSkeleton'
-import { CasinoBlackTransparent, CasinoBlueTransparent, CasinoDarkGreenTransparent, CasinoDarkRedTransparent, ChartBackground, DarkBlue } from 'components/themes/mainTheme'
+import {
+  CasinoBlackTransparent,
+  CasinoBlueTransparent,
+  CasinoDarkGreenTransparent,
+  CasinoDarkRedTransparent,
+  ChartBackground,
+  DarkBlue,
+} from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockChart } from 'lib/backend/api/qln/qlnApi'
@@ -13,6 +20,7 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import StockNews from 'components/Organizms/stocks/StockNews'
 import StockEarnings from './StockEarnings'
+import ListHeader from 'components/Molecules/Lists/ListHeader'
 
 const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'News' }, { title: 'Earnings' }]
 
@@ -74,19 +82,8 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
   return (
     <Box key={item.Symbol} py={1}>
       <Box pl={2}>
-        <Stack direction={'row'} alignItems={'flex-start'} display={'flex'} pt={1} justifyContent={'space-between'}>
-          <Stack sx={{ backgroundColor: ChartBackground }} direction={'row'} flexGrow={1} ml={-2} px={2} py={1}>
-            <LinkButton
-              onClick={(e) => {
-                handleCompanyClick(e, !showMore)
-              }}>
-              <Typography ref={scrollTarget} textAlign={'left'} variant='h6' fontWeight={600} color={DarkBlue} sx={{ textDecoration: 'unset' }}>
-                {`${item.Company}   (${item.Symbol})`}
-              </Typography>
-            </LinkButton>
-          </Stack>
-        </Stack>
-
+        <ListHeader text={`${item.Company}   (${item.Symbol})`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
+        <Typography ref={scrollTarget}></Typography>
         <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
           <Stack direction={'row'} spacing={2} pl={1} sx={{ backgroundColor: 'unset' }} pt={1}>
             <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.Price.toFixed(2)}`}</Typography>
