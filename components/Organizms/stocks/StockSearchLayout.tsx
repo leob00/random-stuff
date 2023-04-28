@@ -224,7 +224,7 @@ const StockSearchLayout = () => {
                       </Box>
                     </Box>
                   )}
-                  <StockTable stockList={model.filteredList} />
+                  <StockTable stockList={model.filteredList} isStock={true} />
                 </>
               )}
             </Box>

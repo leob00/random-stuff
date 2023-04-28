@@ -6,13 +6,13 @@ import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import StockListItem from './StockListItem'
 
-const StockTable = ({ stockList }: { stockList: StockQuote[] }) => {
+const StockTable = ({ stockList, isStock }: { stockList: StockQuote[]; isStock: boolean }) => {
   return (
     <>
       <Box pl={1}>
         {stockList.map((item, index) => (
           <Box key={item.Symbol}>
-            <StockListItem item={item} />
+            <StockListItem item={item} isStock={isStock} />
           </Box>
         ))}
         {stockList.length > 0 ? (

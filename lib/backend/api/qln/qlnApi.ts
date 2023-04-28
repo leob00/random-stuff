@@ -185,17 +185,38 @@ export async function getStockQuotes(symbols: string[]) {
   const result = quoteArraySchema.parse(response.Body)
   return result
 }
-export async function getStockChart(symbol: string, days?: number) {
-  const url = `${baseUrl}/StockHistoryChart`
+
+export async function getStockOrFutureChart(symbol: string, days?: number, isStock = true) {
+  const url = isStock ? `${baseUrl}/StockHistoryChart` : `${baseUrl}/FuturesHistoryChart`
   const params = {
     symbol: symbol,
     days: days ?? 90,
   }
   const response = await get(url, params)
-  //console.log(response)
   const result = quoteHistorySchema.parse(response.Body)
   return result
 }
+
+// export async function getStockChart(symbol: string, days?: number) {
+//   const url = `${baseUrl}/StockHistoryChart`
+//   const params = {
+//     symbol: symbol,
+//     days: days ?? 90,
+//   }
+//   const response = await get(url, params)
+//   const result = quoteHistorySchema.parse(response.Body)
+//   return result
+// }
+// export async function getFutureChart(symbol: string, days?: number) {
+//   const url = `${baseUrl}/FuturesHistoryChart`
+//   const params = {
+//     symbol: symbol,
+//     days: days ?? 90,
+//   }
+//   const response = await get(url, params)
+//   const result = quoteHistorySchema.parse(response.Body)
+//   return result
+// }
 
 export async function getUserStockListLatest(username: string) {
   const stockList = await getUserStockList(username)

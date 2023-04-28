@@ -7,14 +7,14 @@ import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import theme, { OceanBlueTransparent, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
-import { getStockChart } from 'lib/backend/api/qln/qlnApi'
+import { getStockOrFutureChart } from 'lib/backend/api/qln/qlnApi'
 import { DropdownItem } from 'lib/models/dropdown'
 import dynamic from 'next/dynamic'
 import React from 'react'
 import { getOptions } from './stockLineChartOptions'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
-const StockChart = ({ symbol, history, companyName }: { symbol: string; history: StockHistoryItem[]; companyName?: string }) => {
+const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string; history: StockHistoryItem[]; companyName?: string; isStock: boolean }) => {
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const isLarge = useMediaQuery(theme.breakpoints.up('lg'))
   let chartHeight = 580
@@ -39,7 +39,7 @@ const StockChart = ({ symbol, history, companyName }: { symbol: string; history:
   ]
 
   const handleDaysSelected = async (val: string) => {
-    const result = await getStockChart(symbol, Number(val))
+    const result = await getStockOrFutureChart(symbol, Number(val), isStock)
     const map = mapHistory(result)
     const options = getOptions(map, result, isXSmall)
     setChartOptions(options)

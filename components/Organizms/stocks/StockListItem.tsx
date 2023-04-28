@@ -12,7 +12,7 @@ import {
 } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem, StockQuote } from 'lib/backend/api/models/zModels'
-import { getStockChart } from 'lib/backend/api/qln/qlnApi'
+import { getStockOrFutureChart } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import StockChart from 'components/Organizms/stocks/StockChart'
 import { Close } from '@mui/icons-material'
@@ -32,7 +32,17 @@ export const getPositiveNegativeColor = (val: number) => {
   }
   return color
 }
-const StockListItem = ({ item, expand = false, showBorder = true }: { item: StockQuote; expand?: boolean; showBorder?: boolean }) => {
+const StockListItem = ({
+  item,
+  expand = false,
+  showBorder = true,
+  isStock = true,
+}: {
+  item: StockQuote
+  expand?: boolean
+  showBorder?: boolean
+  isStock: boolean
+}) => {
   const [showMore, setShowMore] = React.useState(expand)
   const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
   const [selectedTab, setSelectedTab] = React.useState('Details')
@@ -40,7 +50,7 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
 
   React.useEffect(() => {
     const fn = async () => {
-      const history = await getStockChart(item.Symbol, 90)
+      const history = await getStockOrFutureChart(item.Symbol, 90, isStock)
       setStockHistory(history)
     }
     if (showMore) {
@@ -51,16 +61,18 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
   const renderDetail = (label: string, val?: string | number | null) => {
     return (
       <>
-        <Stack direction={'row'} spacing={2} py={1} alignItems={'center'}>
-          <Stack minWidth={80} textAlign={'right'}>
-            <Typography color={CasinoBlueTransparent} variant={'body2'} fontSize={12}>{`${label}:`}</Typography>
+        {val && (
+          <Stack direction={'row'} spacing={2} py={1} alignItems={'center'}>
+            <Stack minWidth={80} textAlign={'right'}>
+              <Typography color={CasinoBlueTransparent} variant={'body2'} fontSize={12}>{`${label}:`}</Typography>
+            </Stack>
+            <Stack>
+              <Typography variant={'body2'} color={'primary'} fontSize={12}>
+                {val}
+              </Typography>
+            </Stack>
           </Stack>
-          <Stack>
-            <Typography variant={'body2'} color={'primary'} fontSize={12}>
-              {val}
-            </Typography>
-          </Stack>
-        </Stack>
+        )}
       </>
     )
   }
@@ -81,7 +93,11 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
   return (
     <Box key={item.Symbol} py={1}>
       <Box pl={2}>
-        <ListHeader text={`${item.Company}   (${item.Symbol})`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
+        {isStock ? (
+          <ListHeader text={`${item.Company}   (${item.Symbol})`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
+        ) : (
+          <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
+        )}
         <Typography ref={scrollTarget}></Typography>
         <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
           <Stack direction={'row'} spacing={2} pl={1} sx={{ backgroundColor: 'unset' }} pt={1}>
@@ -102,7 +118,7 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
           <Box pl={1} sx={{ backgroundColor: 'unset' }} minHeight={108}>
             {stockHistory.length > 0 ? (
               <>
-                <StockChart symbol={item.Symbol} history={stockHistory} companyName={item.Company} />
+                <StockChart symbol={item.Symbol} history={stockHistory} companyName={item.Company} isStock={isStock} />
               </>
             ) : (
               <>
@@ -113,17 +129,21 @@ const StockListItem = ({ item, expand = false, showBorder = true }: { item: Stoc
               </>
             )}
           </Box>
-          <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
-          {selectedTab === 'Details' && (
-            <Box pb={2} pt={2}>
-              {renderDetail('Sector', item.Sector)}
-              {renderDetail('Cap', item.MarketCapShort)}
-              {renderDetail('P/E', item.PeRatio)}
-              {renderDetail('Date', dayjs(item.TradeDate).format('MM/DD/YYYY hh:mm a'))}
-            </Box>
+          {isStock && (
+            <>
+              <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
+              {selectedTab === 'Details' && (
+                <Box pb={2} pt={2}>
+                  {renderDetail('Sector', item.Sector)}
+                  {renderDetail('Cap', item.MarketCapShort)}
+                  {renderDetail('P/E', item.PeRatio)}
+                  {renderDetail('Date', dayjs(item.TradeDate).format('MM/DD/YYYY hh:mm a'))}
+                </Box>
+              )}
+              {selectedTab === 'News' && <StockNews quote={item} />}
+              {selectedTab === 'Earnings' && <StockEarnings quote={item} />}
+            </>
           )}
-          {selectedTab === 'News' && <StockNews quote={item} />}
-          {selectedTab === 'Earnings' && <StockEarnings quote={item} />}
         </>
       )}
     </Box>

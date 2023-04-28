@@ -48,7 +48,7 @@ const CommunityStocksLayout = ({ data }: { data: StockQuote[] }) => {
 
   return (
     <Box py={1}>
-      <StockTable stockList={displayedItems} />
+      <StockTable stockList={displayedItems} isStock={true} />
       <Pager
         pageCount={paged.length}
         itemCount={data.length}
