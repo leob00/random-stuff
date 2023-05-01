@@ -88,7 +88,7 @@ const StockSearchLayout = () => {
       setModel({ ...model, username: ticket.email, stockListMap: map, stockList: stockList, isLoading: false, filteredList: stockList })
     } else {
       setTimeout(() => {
-        setModel({ ...model, username: null, stockListMap: map, stockList: stockList, isLoading: false })
+        setModel({ ...model, username: null, stockListMap: map, stockList: stockList, filteredList: stockList, isLoading: false })
       }, 1000)
     }
   }
@@ -99,7 +99,7 @@ const StockSearchLayout = () => {
     if (model.username) {
       putUserStockList(model.username, list)
     }
-    setModel({ ...model, stockListMap: map, stockList: list, successMesage: `${symbol} removed!` })
+    setModel({ ...model, stockListMap: map, stockList: list, filteredList: list, successMesage: `${symbol} removed!` })
   }
 
   const onDragEnd = ({ destination, source }: DropResult) => {
@@ -139,6 +139,7 @@ const StockSearchLayout = () => {
         autoCompleteResults: [],
         quoteToAdd: undefined,
         isLoading: false,
+        filteredList: newList,
         successMesage: `${quote.Company} added!`,
       })
     } else {
@@ -146,7 +147,7 @@ const StockSearchLayout = () => {
     }
   }
   const handleCloseAddQuote = () => {
-    setModel({ ...model, quoteToAdd: undefined, isLoading: false })
+    setModel({ ...model, quoteToAdd: undefined, isLoading: false, successMesage: null })
   }
   const handleSearchListChange = async (text: string) => {
     const result = model.stockList.filter(
@@ -157,7 +158,6 @@ const StockSearchLayout = () => {
 
   React.useEffect(() => {
     const fn = async () => {
-      //console.log('ticket: ', userController.ticket)
       await reloadData()
     }
     fn()
@@ -166,11 +166,7 @@ const StockSearchLayout = () => {
 
   return (
     <>
-      {model.successMesage && (
-        <>
-          <SnackbarSuccess show={true} text={model.successMesage} />
-        </>
-      )}
+      {model.successMesage && <SnackbarSuccess show={true} text={model.successMesage} />}
       <Box py={2}>
         <CenterStack>
           <SearchAutoComplete
@@ -213,7 +209,7 @@ const StockSearchLayout = () => {
                 <>
                   {model.stockList.length > 0 && (
                     <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                      <Box>{model.stockList.length >= 10 && <SearchWithinList onChanged={handleSearchListChange} debounceWaitMilliseconds={25} />}</Box>
+                      <Box pl={1}>{model.stockList.length >= 10 && <SearchWithinList onChanged={handleSearchListChange} debounceWaitMilliseconds={25} />}</Box>
                       <Box>
                         <StockListMenu
                           onEdit={() => {

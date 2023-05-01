@@ -1,6 +1,5 @@
 import { Box, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import dayjs from 'dayjs'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
@@ -20,7 +19,9 @@ const StockTable = ({ stockList, isStock }: { stockList: StockQuote[]; isStock: 
             <Typography variant={'caption'}>{`prices are as of: ${dayjs(stockList[0].TradeDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
           </CenterStack>
         ) : (
-          <></>
+          <CenterStack sx={{ py: 4 }}>
+            <Typography variant='body2'>No data found.</Typography>
+          </CenterStack>
         )}
       </Box>
     </>

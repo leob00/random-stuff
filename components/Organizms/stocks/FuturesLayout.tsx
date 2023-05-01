@@ -1,6 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
+import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { StockQuote } from 'lib/backend/api/models/zModels'
@@ -32,6 +33,7 @@ const FuturesLayout = () => {
       {isLoading ? (
         <>
           <WarmupBox />
+          <LargeGridSkeleton />
         </>
       ) : (
         <Box pt={2}>

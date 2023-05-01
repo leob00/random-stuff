@@ -8,8 +8,9 @@ import { Box } from '@mui/material'
 import { VeryLightBlue } from './themes/mainTheme'
 import HorizontalDivider from './Atoms/Dividers/HorizontalDivider'
 import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
+import { useUserController } from 'hooks/userController'
 
-const LoggedInUserMenu = ({ username, onLogOut }: { username: string; onLogOut: () => void }) => {
+const LoggedInUserMenu = ({ onLogOut }: { onLogOut: () => void }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [isAdmin, setIsAdmin] = React.useState(false)
   const open = Boolean(anchorEl)

@@ -1,6 +1,7 @@
 import { Person } from '@mui/icons-material'
 import { Stack, Button, Divider, Typography, Box } from '@mui/material'
 import { Auth, Hub } from 'aws-amplify'
+import { useSessionController } from 'hooks/sessionController'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
@@ -21,30 +22,20 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
   const router = useRouter()
   const [calledPush, setCalledPush] = React.useState(false)
 
-  const path = router.asPath
-  const [lastPath, setLastPath] = React.useState(path.includes('/login') ? '/' : path)
-
   const userController = useUserController()
+  const lastPath = useSessionController().lastPath
   const signOut = async () => {
-    const p = router.asPath
-
-    if (!p.includes('/login')) {
-      setLastPath(p)
-      Hub.dispatch('navigation', {
-        event: 'signed_out',
-        data: { lastPath: p },
-      })
-    }
     try {
-      await Auth.signOut({ global: true })
-    } catch (err) {
       await Auth.signOut({ global: false })
+
+      //await Auth.signOut({ global: true })
+    } catch (err) {
+      console.log(err)
     }
   }
 
   const handleNavigationEvent = (payload: HubPayload) => {
     console.log('last path: ', payload.data.lastPath)
-    setLastPath(payload.data.lastPath)
     // console.log('payload data: ', payload.data)
   }
 
@@ -78,8 +69,7 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
         }
         userController.setProfile(p)
         if (!calledPush) {
-          console.log('last path: ', lastPath)
-          router.push('/protected/csr/dashboard')
+          router.push(lastPath)
         }
 
         break
@@ -147,7 +137,7 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
           <>
             <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} mt={'6px'}>
               <Stack flexGrow={1}></Stack>
-              <LoggedInUserMenu onLogOut={signOut} username={userController.ticket.email} />
+              <LoggedInUserMenu onLogOut={signOut} />
             </Stack>
           </>
         ) : (

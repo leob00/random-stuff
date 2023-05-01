@@ -67,13 +67,13 @@ const JobsLayout = () => {
           {isLoadingDetail && <WarmupBox />}
           {selectedItem && <JobDetail item={selectedItem} onClose={handleClose} />}
           {data.map((item) => (
-            <Box pl={2} key={item.Name}>
+            <Box key={item.Name}>
               <>
                 <ListHeader text={item.Description} item={item} onClicked={handleItemClicked} />
                 {item.Status === 1 ? (
                   <JobInProgress item={item} />
                 ) : (
-                  <Box minHeight={50} pt={1} pl={1}>
+                  <Box minHeight={50} pt={1} pl={2}>
                     <Box>
                       {item.EndRunDate && (
                         <Stack>
