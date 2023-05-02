@@ -26,7 +26,7 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
   const lastPath = useSessionController().lastPath
   const signOut = async () => {
     try {
-      await Auth.signOut({ global: false })
+      await Auth.signOut()
 
       //await Auth.signOut({ global: true })
     } catch (err) {

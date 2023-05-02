@@ -11,6 +11,7 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
       console.log('route: ', route)
       session.setLastPath(route)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [route])
 
   return <>{children}</>
