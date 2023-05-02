@@ -5,7 +5,7 @@ import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { notesReducer, UserNotesModel } from 'components/reducers/notesReducer'
 import { constructUserNoteCategoryKey } from 'lib/backend/api/aws/util'
-import { expireUserNote, getUserNote, putUserNote, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
+import { expireUserNote, getUserNote, putUserNote, putUserNoteTitles, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { filter } from 'lodash'
 import React from 'react'
@@ -72,14 +72,14 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
 
   const handleDelete = async (item: UserNote) => {
     dispatch({ type: 'set-loading', payload: { isLoading: true } })
-    let profile = model.userProfile
-    let noteTitles = filter(profile.noteTitles, (e) => {
+    //let profile = model.userProfile
+    let noteTitles = filter(model.noteTitles, (e) => {
       return e.id !== item.id
     })
-    profile.noteTitles = noteTitles
-    userController.setProfile(profile)
+
+    //userController.setProfile(profile)
     await expireUserNote(item)
-    await putUserProfile(profile)
+    await putUserNoteTitles(model.userProfile.username, noteTitles)
     dispatch({ type: 'reload', payload: { noteTitles: noteTitles } })
   }
 
@@ -93,13 +93,7 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
         <>
           <Box sx={{ py: 2 }}>
             <CenterStack>
-              <SearchWithinList
-                width={350}
-                onChanged={handleSearch}
-                disabled={model.isLoading || model.editMode}
-                text={`search ${numeral(model.noteTitles.length).format('###,###')} notes`}
-                defaultValue={model.search}
-              />
+              <SearchWithinList width={350} onChanged={handleSearch} disabled={model.isLoading || model.editMode} text={`search ${numeral(model.noteTitles.length).format('###,###')} notes`} defaultValue={model.search} />
             </CenterStack>
           </Box>
         </>
@@ -109,13 +103,7 @@ const UserNotesLayout = ({ data }: { data: UserNotesModel }) => {
       ) : !model.editMode ? (
         model.selectedNote === null ? (
           <>
-            <NoteList
-              data={model.filteredTitles}
-              onClicked={handleNoteTitleClick}
-              onDelete={handleDelete}
-              onAddNote={handleAddNote}
-              isFiltered={model.filteredTitles.length < model.noteTitles.length}
-            />
+            <NoteList data={model.filteredTitles} onClicked={handleNoteTitleClick} onDelete={handleDelete} onAddNote={handleAddNote} isFiltered={model.filteredTitles.length < model.noteTitles.length} />
           </>
         ) : (
           model.viewMode &&

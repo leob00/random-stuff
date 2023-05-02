@@ -1,6 +1,5 @@
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
-import PageHeader from 'components/Atoms/Containers/PageHeader'
 import Seo from 'components/Organizms/Seo'
 import FuturesLayout from 'components/Organizms/stocks/FuturesLayout'
 import StockSearchLayout from 'components/Organizms/stocks/StockSearchLayout'

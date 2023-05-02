@@ -63,10 +63,13 @@ export interface UserPin {
 export interface UserProfile {
   id: string
   username: string
-  noteTitles: UserNote[]
+  noteTitles?: UserNote[]
   secKey?: string
   pin?: UserPin
   emailVerified?: boolean
+  settings?: {
+    lastPath?: string
+  }
 }
 
 export interface SiteStats {

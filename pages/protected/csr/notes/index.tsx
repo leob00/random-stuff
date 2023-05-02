@@ -13,6 +13,8 @@ import ButtonSkeleton from 'components/Atoms/Skeletons/ButtonSkeleton'
 import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
+import { getUserNoteTitles, putUserNoteTitles, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
+import { UserNote } from 'lib/models/randomStuffModels'
 
 const Notes = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true)
@@ -29,7 +31,7 @@ const Notes = () => {
       username: '',
       editMode: false,
       selectedNote: null,
-      userProfile: { id: '', noteTitles: [], username: '' },
+      userProfile: { id: '', username: '' },
       viewMode: false,
       filteredTitles: [],
       search: '',
@@ -39,8 +41,17 @@ const Notes = () => {
       router.push('/login')
       console.log('not logged in')
     } else {
-      model.noteTitles = profile.noteTitles
-      model.filteredTitles = profile.noteTitles
+      let noteTitles = await getUserNoteTitles(profile.username)
+      if (noteTitles.length === 0 && profile.noteTitles) {
+        console.log('migration of notes is required')
+        noteTitles = profile.noteTitles
+        putUserNoteTitles(profile.username, noteTitles)
+      } else if (profile.noteTitles) {
+        profile.noteTitles = undefined
+        putUserProfile(profile)
+      }
+      model.noteTitles = noteTitles
+      model.filteredTitles = noteTitles
       model.username = profile.username
       model.isLoading = false
       model.userProfile = profile

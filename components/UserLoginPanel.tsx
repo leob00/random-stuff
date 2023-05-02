@@ -23,10 +23,10 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
   const [calledPush, setCalledPush] = React.useState(false)
 
   const userController = useUserController()
-  const lastPath = useSessionController().lastPath
+  //const lastPath = useSessionController().lastPath
   const signOut = async () => {
     try {
-      await Auth.signOut()
+      await Auth.signOut({ global: false })
 
       //await Auth.signOut({ global: true })
     } catch (err) {
@@ -46,8 +46,9 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
         await userController.setTicket(null)
         await userController.setProfile(null)
         setCalledPush(false)
-
-        router.push(`/login`)
+        if (!calledPush) {
+          router.push(`/login`)
+        }
         break
       case 'signIn':
         const ticket = payload.data!
@@ -61,15 +62,20 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
         if (!p) {
           p = {
             id: constructUserProfileKey(user.email),
-            noteTitles: [],
             username: user.email,
           }
-
           await putUserProfile(p)
         }
         userController.setProfile(p)
         if (!calledPush) {
-          router.push(lastPath)
+          if (p) {
+            const lastPath = p.settings?.lastPath
+            if (lastPath) {
+              router.push(lastPath)
+              return
+            }
+          }
+          router.push('/protected/csr/dashboard')
         }
 
         break
@@ -79,7 +85,6 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
         if (!existingProfile) {
           const newProfile: UserProfile = {
             id: constructUserProfileKey(newUser.email),
-            noteTitles: [],
             username: newUser.email,
           }
           userController.setProfile(newProfile)

@@ -26,11 +26,6 @@ export const useUserController = () => {
 
       if (profile !== null) {
         profile.username = user.email
-        //this can be removed 4/7/2023
-        // if (!profile.secKey) {
-        //   profile.secKey = myEncryptBase64(`${user.id}-${profile.username}`, `${profile.username}${user.id}`)
-        //   putUserProfile(profile)
-        // }
         setLastProfileFetchDate(dayjs().format())
         setAuthProfile(profile)
         return profile

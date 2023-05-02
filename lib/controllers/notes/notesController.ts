@@ -41,7 +41,6 @@ export async function buildSaveModel(model: UserNotesModel, item: UserNote) {
     }
   }
   result.noteTitles = orderBy(result.noteTitles, ['dateModified'], ['desc'])
-  result.userProfile.noteTitles = result.noteTitles
 
   return result
 }

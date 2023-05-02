@@ -4,7 +4,7 @@ import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
 import { DynamoKeys, EmailMessage, LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
-import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
+import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserNoteTitlesKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
 import { get, post } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { myEncrypt, weakEncrypt } from '../encryption/useEncryptor'
@@ -62,6 +62,22 @@ export async function putUserProfile(item: UserProfile) {
   }
   await post(`/api/putRandomStuff`, putRequest)
 }
+
+export async function putUserNoteTitles(username: string, item: UserNote[]) {
+  const id = constructUserNoteTitlesKey(username)
+  let req: LambdaDynamoRequest = {
+    id: id,
+    category: 'user-note-titles',
+    data: item,
+    expiration: 0,
+    token: weakEncrypt(id),
+  }
+  const putRequest: SignedRequest = {
+    data: encryptBody(req),
+  }
+  await post(`/api/putRandomStuff`, putRequest)
+}
+
 // todo: this neeeds to be secured
 export async function getUserNotes(username: string) {
   let categoryKey = constructUserNoteCategoryKey(username)
@@ -80,19 +96,7 @@ export async function getUserProfile(username: string) {
 
     if (data) {
       let parsed = data as UserProfile
-      if (parsed) {
-        parsed.noteTitles = parsed.noteTitles.filter((e) => {
-          return !e.expirationDate || dayjs(e.expirationDate).isAfter(getUtcNow())
-        })
-        return parsed
-      } else {
-        const err: ApiError = {
-          statusCode: 500,
-          name: 'failed to parse user profile',
-          message: `${JSON.stringify(data)}`,
-        }
-        return err
-      }
+      return parsed
     }
   } catch (err) {
     console.log(err)
@@ -105,6 +109,28 @@ export async function getUserProfile(username: string) {
   }
   return result
 }
+
+export async function getUserNoteTitles(username: string) {
+  const key = constructUserNoteTitlesKey(username)
+
+  try {
+    const body = encryptKey(key)
+    const data = (await post(`/api/getRandomStuffEnc`, body)) as UserNote[] | null
+
+    if (data) {
+      let parsed = data.filter((e) => {
+        return !e.expirationDate || dayjs(e.expirationDate).isAfter(getUtcNow())
+      })
+      return parsed
+    }
+  } catch (err) {
+    console.log(err)
+
+    //return error
+  }
+  return []
+}
+
 export async function getUserNote(id: string) {
   let result: UserNote | null = null
 

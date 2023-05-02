@@ -18,6 +18,7 @@ import HtmlView from 'components/Atoms/Boxes/HtmlView'
 import { get } from 'lib/backend/api/fetchFunctions'
 import { DarkBlue } from 'components/themes/mainTheme'
 import NewsList from './NewsList'
+import { getUserNoteTitles } from 'lib/backend/csr/nextApiWrapper'
 
 const NewsLayout = () => {
   const [isLoading, setIsLoading] = React.useState(true)
@@ -31,7 +32,8 @@ const NewsLayout = () => {
       const result = (await get(`/api/news?id=${id}`)) as NewsItem[]
       const sorted = orderBy(result, ['PublishDate'], ['desc'])
       if (userController.authProfile) {
-        userController.authProfile.noteTitles.forEach((note) => {
+        const noteTitles = await getUserNoteTitles(userController.authProfile.username)
+        noteTitles.forEach((note) => {
           sorted.forEach((newsItem) => {
             if (newsItem.Headline === note.title) {
               newsItem.Saved = true

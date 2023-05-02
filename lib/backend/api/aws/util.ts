@@ -6,6 +6,9 @@ dayjs.extend(utc)
 export function constructUserProfileKey(username: string) {
   return `user-profile[${username}]`
 }
+export function constructUserNoteTitlesKey(username: string) {
+  return `user-note-titles[${username}]`
+}
 export function constructUserNotePrimaryKey(username: string) {
   //const utcNow = getUtcNow().format()
   return `user-note[${getSecondsFromEpoch()}][${username}]`
