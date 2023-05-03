@@ -4,7 +4,13 @@ import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
 import { DynamoKeys, EmailMessage, LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
-import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserNoteTitlesKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
+import {
+  constructUserGoalTaksSecondaryKey,
+  constructUserNoteCategoryKey,
+  constructUserNoteTitlesKey,
+  constructUserProfileKey,
+  constructUserSecretSecondaryKey,
+} from '../api/aws/util'
 import { get, post } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { myEncrypt, weakEncrypt } from '../encryption/useEncryptor'
@@ -50,6 +56,7 @@ export async function deleteUserNote(item: UserNote) {
 
 export async function putUserProfile(item: UserProfile) {
   const cat = 'userProfile'
+  item.secKey = undefined
   let req: LambdaDynamoRequest = {
     id: item.id,
     category: cat,

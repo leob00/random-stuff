@@ -69,6 +69,9 @@ export interface UserProfile {
   emailVerified?: boolean
   settings?: {
     lastPath?: string
+    news?: {
+      lastNewsType?: string
+    }
   }
 }
 
