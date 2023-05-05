@@ -19,6 +19,7 @@ import HtmlView from 'components/Atoms/Boxes/HtmlView'
 import MultiDatasetBarchart from 'components/Molecules/Charts/MultiDatasetBarchart'
 import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import JobsLayout from 'components/Organizms/admin/JobsLayout'
+import BackButton from 'components/Atoms/Buttons/BackButton'
 
 const Page = () => {
   const userController = useUserController()
@@ -113,7 +114,7 @@ const Page = () => {
         <WarmupBox />
       ) : userProfile ? (
         <>
-          <BackToHomeButton />
+          <BackButton onClicked={() => router.push('/protected/csr/dashboard')} />
           <CenteredTitle title='Admin' />
           <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
           {selectedTab === 'Api' && (

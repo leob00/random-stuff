@@ -15,9 +15,9 @@ const StockTable = ({ stockList, isStock }: { stockList: StockQuote[]; isStock: 
           </Box>
         ))}
         {stockList.length > 0 ? (
-          <CenterStack>
+          <Box>
             <Typography variant={'caption'}>{`prices are as of: ${dayjs(stockList[0].TradeDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
-          </CenterStack>
+          </Box>
         ) : (
           <CenterStack sx={{ py: 4 }}>
             <Typography variant='body2'>No data found.</Typography>
