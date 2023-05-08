@@ -18,7 +18,7 @@ const JobInProgress = ({ item }: { item: Job }) => {
           </Box>
           {item.ProgressPercent && item.ProgressPercent > 0 && (
             <Box pr={1}>
-              <Typography variant='caption'>{`${item.ProgressPercent.toFixed(1)}%`}</Typography>
+              <Typography variant='caption'>{`${Math.ceil(item.ProgressPercent)}%`}</Typography>
             </Box>
           )}
         </Box>
