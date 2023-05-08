@@ -14,7 +14,15 @@ import { getUtcNow } from 'lib/util/dateUtil'
 import React from 'react'
 dayjs.extend(relativeTime)
 
-const NewsList = ({ newsItems, hideSaveButton = false, showPublishDate = false }: { newsItems: NewsItem[]; hideSaveButton?: boolean; showPublishDate?: boolean }) => {
+const NewsList = ({
+  newsItems,
+  hideSaveButton = false,
+  showPublishDate = false,
+}: {
+  newsItems: NewsItem[]
+  hideSaveButton?: boolean
+  showPublishDate?: boolean
+}) => {
   const userController = useUserController()
   const handleSaved = async (note: UserNote) => {}
   const RenderDescription = (item: NewsItem) => {
@@ -51,7 +59,7 @@ const NewsList = ({ newsItems, hideSaveButton = false, showPublishDate = false }
     return (
       <Box textAlign={'center'} px={2}>
         <Link href={item.Link} target='_blank' sx={{ fontWeight: 700, textDecoration: 'none' }}>
-          <Typography variant={'h4'}>{`${item.Headline.replace('Pluralistic: ', '')}`}</Typography>
+          <Typography variant={'h4'} dangerouslySetInnerHTML={{ __html: `${item.Headline.replace('Pluralistic: ', '')}` }}></Typography>
         </Link>
       </Box>
     )
