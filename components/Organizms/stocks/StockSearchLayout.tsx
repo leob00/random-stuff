@@ -191,19 +191,12 @@ const StockSearchLayout = () => {
             <Box py={2}>
               {model.editList && model.stockList.length > 0 ? (
                 <>
-                  <Stack py={2} alignItems={'flex-end'} pr={2}>
-                    <Button
-                      size='small'
-                      color='secondary'
-                      onClick={() => {
-                        setModel({ ...model, editList: false })
-                      }}
-                    >
-                      <Close fontSize='small' color='secondary' />
-                    </Button>
-                  </Stack>
-                  <HorizontalDivider />
-                  <DraggableList items={model.stockList} onDragEnd={onDragEnd} onRemoveItem={handleRemoveQuote} />
+                  <DraggableList
+                    items={model.stockList}
+                    onDragEnd={onDragEnd}
+                    onRemoveItem={handleRemoveQuote}
+                    onCancelEdit={() => setModel({ ...model, editList: false })}
+                  />
                 </>
               ) : (
                 <>

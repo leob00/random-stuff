@@ -5,6 +5,7 @@ import BarChartIcon from '@mui/icons-material/BarChart'
 import MenuIcon from '@mui/icons-material/Menu'
 import { Delete } from '@mui/icons-material'
 import { CasinoRedTransparent } from 'components/themes/mainTheme'
+import HamburgerMenu from './HamburgerMenu'
 
 const StockListItemMenu = ({ id, onRemoveItem }: { id: string; onRemoveItem: (id: string) => void }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -25,33 +26,7 @@ const StockListItemMenu = ({ id, onRemoveItem }: { id: string; onRemoveItem: (id
   }
   return (
     <>
-      <Button
-        size='small'
-        id='basic-button'
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup='true'
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleShowMenu}
-      >
-        <MenuIcon color='secondary' fontSize='small' />
-      </Button>
-      <Menu
-        id='basic-menu'
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleCloseMenu}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-      >
+      <HamburgerMenu>
         <MenuList>
           <MenuItem onClick={handleRemove}>
             <ListItemIcon>
@@ -59,9 +34,8 @@ const StockListItemMenu = ({ id, onRemoveItem }: { id: string; onRemoveItem: (id
             </ListItemIcon>
             <ListItemText primary='remove' color={CasinoRedTransparent}></ListItemText>
           </MenuItem>
-          {/* <Divider /> */}
         </MenuList>
-      </Menu>
+      </HamburgerMenu>
     </>
   )
 }
