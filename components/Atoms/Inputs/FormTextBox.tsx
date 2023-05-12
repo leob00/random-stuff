@@ -16,8 +16,8 @@ const FormTextBox = ({
   label: string
   required?: boolean
   error?: boolean
-  onChanged: (text: string) => void
-  onBlurred?: () => void
+  onChanged?: (text: string) => void
+  onBlurred?: (text: string) => void
   disabled?: boolean
   width?: number | string
   maxLength?: number
@@ -28,12 +28,17 @@ const FormTextBox = ({
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.currentTarget.value
     if (required) {
-      const isValid = val.length > 0 && !val.includes('  ')
+      const isValid = val.trim().length > 0 && !val.includes('  ')
       setTextError(!isValid)
     } else {
       setTextError(false)
     }
-    onChanged(val)
+    onChanged?.(val)
+  }
+  const handleBlur = () => {
+    if (textRef.current) {
+      onBlurred?.(textRef.current?.value)
+    }
   }
   return (
     <TextField
@@ -49,7 +54,7 @@ const FormTextBox = ({
       required={required}
       error={textError}
       sx={{ color: 'secondary', width: width }}
-      onBlur={onBlurred}
+      onBlur={handleBlur}
       disabled={disabled}
       autoComplete={'off'}
     />

@@ -12,7 +12,7 @@ import DraggableList from 'components/Organizms/stocks/DraggableList'
 import { useUserController } from 'hooks/userController'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { searchStockQuotes } from 'lib/backend/api/qln/qlnApi'
-import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
+import { getUserStockList, putUserProfile, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import { cloneDeep } from 'lodash'
@@ -22,7 +22,7 @@ import AddQuote from './AddQuote'
 import StockTable from './StockTable'
 
 interface Model {
-  username: string | null
+  username?: string | null
   isLoading: boolean
   autoCompleteResults: DropdownItem[]
   searchedStocksMap: Map<string, StockQuote>
@@ -32,11 +32,13 @@ interface Model {
   editList: boolean
   quoteToAdd?: StockQuote
   successMesage: string | null
+  showAsGroup?: boolean
 }
 
 const StockSearchLayout = () => {
+  const userController = useUserController()
   const defaultModel: Model = {
-    username: null,
+    username: userController.ticket?.email,
     isLoading: true,
     autoCompleteResults: [],
     searchedStocksMap: new Map<string, StockQuote>([]),
@@ -45,10 +47,10 @@ const StockSearchLayout = () => {
     filteredList: [],
     editList: false,
     successMesage: null,
+    showAsGroup: userController.authProfile?.settings?.stocks?.defaultView! === 'grouped' ?? undefined,
   }
 
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
-  const userController = useUserController()
 
   const handleSearched = async (text: string) => {
     if (text.length > 0) {
@@ -77,6 +79,18 @@ const StockSearchLayout = () => {
   }
   const reloadData = async () => {
     const ticket = userController.ticket
+    const profile = userController.authProfile ? userController.authProfile : await userController.fetchProfilePassive()
+    if (profile) {
+      if (!profile.settings) {
+        profile.settings = {
+          stocks: {
+            defaultView: 'flat',
+          },
+        }
+        userController.setProfile(profile)
+        putUserProfile(profile)
+      }
+    }
     setModel({ ...model, isLoading: true, successMesage: null })
 
     let stockList = [...model.stockList]
@@ -85,35 +99,14 @@ const StockSearchLayout = () => {
     if (ticket) {
       stockList = await getUserStockList(ticket.email)
       map = getMapFromArray(stockList, 'Symbol')
-      setModel({ ...model, username: ticket.email, stockListMap: map, stockList: stockList, isLoading: false, filteredList: stockList })
+      setModel({ ...model, username: ticket.email, stockListMap: map, stockList: stockList, isLoading: false, filteredList: stockList, successMesage: null })
     } else {
       setTimeout(() => {
-        setModel({ ...model, username: null, stockListMap: map, stockList: stockList, filteredList: stockList, isLoading: false })
+        setModel({ ...model, username: null, stockListMap: map, stockList: stockList, filteredList: stockList, isLoading: false, successMesage: null })
       }, 1000)
     }
   }
 
-  const handleRemoveQuote = (symbol: string) => {
-    const list = model.stockList.filter((m) => m.Symbol !== symbol)
-    const map = getMapFromArray(list, 'Symbol')
-    if (model.username) {
-      putUserStockList(model.username, list)
-    }
-    setModel({ ...model, stockListMap: map, stockList: list, filteredList: list, successMesage: `${symbol} removed!` })
-  }
-
-  const onDragEnd = ({ destination, source }: DropResult) => {
-    if (!destination) {
-      return
-    }
-    const items = model.stockList
-    const [removed] = items.splice(source.index, 1)
-    items.splice(destination.index, 0, removed)
-    setModel({ ...model, stockList: items })
-    if (model.username) {
-      putUserStockList(model.username, items)
-    }
-  }
   const handleAddToList = async () => {
     const quote = cloneDeep(model.quoteToAdd!)
     let stockList = cloneDeep(model.stockList)
@@ -155,6 +148,35 @@ const StockSearchLayout = () => {
     )
     setModel({ ...model, filteredList: result })
   }
+  const handleSaveChanges = async (quotes: StockQuote[]) => {
+    if (model.username) {
+      setModel({ ...model, successMesage: null })
+      await putUserStockList(model.username, quotes)
+    }
+    setModel({
+      ...model,
+      stockList: quotes,
+      stockListMap: getMapFromArray(quotes, 'Symbol'),
+      filteredList: quotes,
+      successMesage: 'Your list has been updated!',
+    })
+  }
+
+  const handleShowAsGroup = async (show: boolean) => {
+    const profile = userController.authProfile
+    if (profile) {
+      setModel({ ...model, isLoading: true })
+      if (!profile.settings?.stocks) {
+        profile.settings!.stocks = {}
+      }
+      profile.settings!.stocks!.defaultView = show ? 'grouped' : 'flat'
+      userController.setProfile(profile)
+      await putUserProfile(profile)
+      setModel({ ...model, isLoading: false })
+    }
+
+    setModel({ ...model, showAsGroup: show })
+  }
 
   React.useEffect(() => {
     const fn = async () => {
@@ -192,28 +214,33 @@ const StockSearchLayout = () => {
               {model.editList && model.stockList.length > 0 ? (
                 <>
                   <DraggableList
+                    username={model.username ?? null}
                     items={model.stockList}
-                    onDragEnd={onDragEnd}
-                    onRemoveItem={handleRemoveQuote}
                     onCancelEdit={() => setModel({ ...model, editList: false })}
+                    onPushChanges={handleSaveChanges}
                   />
                 </>
               ) : (
                 <>
                   {model.stockList.length > 0 && (
                     <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                      <Box pl={1}>{model.stockList.length >= 10 && <SearchWithinList onChanged={handleSearchListChange} debounceWaitMilliseconds={25} />}</Box>
+                      <Box pl={1}>
+                        {model.stockList.length >= 10 && !model.showAsGroup && (
+                          <SearchWithinList onChanged={handleSearchListChange} debounceWaitMilliseconds={25} />
+                        )}
+                      </Box>
                       <Box>
                         <StockListMenu
                           onEdit={() => {
                             setModel({ ...model, editList: true })
                           }}
                           onRefresh={reloadData}
+                          onShowAsGroup={handleShowAsGroup}
                         />
                       </Box>
                     </Box>
                   )}
-                  <StockTable stockList={model.filteredList} isStock={true} />
+                  {model.showAsGroup ? <CenterStack>coming soon</CenterStack> : <StockTable stockList={model.filteredList} isStock={true} />}
                 </>
               )}
             </Box>

@@ -106,6 +106,11 @@ const StockListItem = ({
             <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
           </Stack>
         </Stack>
+        {item.GroupName && (
+          <Stack pl={2}>
+            <Typography variant='caption'>{`Group Name: ${item.GroupName}`}</Typography>
+          </Stack>
+        )}
       </Box>
       {!showMore && <HorizontalDivider />}
       {showMore && (

@@ -1,10 +1,11 @@
 import React, { ReactNode } from 'react'
-import { Menu, Button } from '@mui/material'
+import { Menu, Button, MenuList } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 
 const HamburgerMenu = ({ children }: { children: ReactNode }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
+
   const handleShowMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
@@ -25,7 +26,7 @@ const HamburgerMenu = ({ children }: { children: ReactNode }) => {
         <MenuIcon color='secondary' fontSize='small' />
       </Button>
       <Menu
-        //id='basic-menu'
+        id='basic-menu'
         anchorEl={anchorEl}
         open={open}
         onClose={handleCloseMenu}

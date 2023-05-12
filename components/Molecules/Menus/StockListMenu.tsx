@@ -4,15 +4,15 @@ import MenuIcon from '@mui/icons-material/Menu'
 import { Edit, Toc, ViewList } from '@mui/icons-material'
 import CachedIcon from '@mui/icons-material/Cached'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import HamburgerMenu from './HamburgerMenu'
+import SortIcon from '@mui/icons-material/Sort'
 
-const StockListMenu = ({ onEdit, onRefresh }: { onEdit: () => void; onRefresh: () => void }) => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const open = Boolean(anchorEl)
+const StockListMenu = ({ onEdit, onRefresh, onShowAsGroup }: { onEdit: () => void; onRefresh: () => void; onShowAsGroup?: (show: boolean) => void }) => {
   const handleShowMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
+    // setAnchorEl(event.currentTarget)
   }
   const handleCloseMenu = () => {
-    setAnchorEl(null)
+    // setAnchorEl(null)
   }
   const handleEdit = () => {
     handleCloseMenu()
@@ -22,53 +22,58 @@ const StockListMenu = ({ onEdit, onRefresh }: { onEdit: () => void; onRefresh: (
     handleCloseMenu()
     onRefresh()
   }
+  const handleClick = (event: 'refresh' | 'edit' | 'showAsGroup') => {
+    handleCloseMenu()
+    switch (event) {
+      case 'refresh':
+        onRefresh()
+        break
+      case 'showAsGroup':
+        onShowAsGroup?.(true)
+        break
+      case 'edit':
+        onEdit()
+        break
+    }
+  }
+
+  const handleShowGrouped = (grouped: boolean) => {
+    handleCloseMenu()
+    onShowAsGroup?.(grouped)
+  }
 
   return (
-    <>
-      <Button
-        size='small'
-        id='basic-button'
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup='true'
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleShowMenu}
-      >
-        <MenuIcon color='secondary' fontSize='small' />
-      </Button>
-      <Menu
-        id='basic-menu'
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleCloseMenu}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-      >
-        <MenuList>
-          <MenuItem onClick={handleRefresh}>
-            <ListItemIcon>
-              <CachedIcon color='secondary' fontSize='small' />
-            </ListItemIcon>
-            <ListItemText primary='refresh'></ListItemText>
-          </MenuItem>
-          <HorizontalDivider />
-          <MenuItem onClick={handleEdit}>
-            <ListItemIcon>
-              <ViewList color='secondary' fontSize='small' />
-            </ListItemIcon>
-            <ListItemText primary='edit'></ListItemText>
-          </MenuItem>
-        </MenuList>
-      </Menu>
-    </>
+    <HamburgerMenu>
+      <MenuList>
+        <MenuItem onClick={() => handleClick('refresh')}>
+          <ListItemIcon>
+            <CachedIcon color='secondary' fontSize='small' />
+          </ListItemIcon>
+          <ListItemText primary='refresh'></ListItemText>
+        </MenuItem>
+        <HorizontalDivider />
+        <MenuItem onClick={() => handleClick('edit')}>
+          <ListItemIcon>
+            <ViewList color='secondary' fontSize='small' />
+          </ListItemIcon>
+          <ListItemText primary='edit'></ListItemText>
+        </MenuItem>
+        <HorizontalDivider />
+        <MenuItem onClick={() => handleShowGrouped(true)}>
+          <ListItemIcon>
+            <SortIcon color='secondary' fontSize='small' />
+          </ListItemIcon>
+          <ListItemText primary='view by group name'></ListItemText>
+        </MenuItem>
+        <HorizontalDivider />
+        <MenuItem onClick={() => handleShowGrouped(false)}>
+          <ListItemIcon>
+            <SortIcon color='secondary' fontSize='small' />
+          </ListItemIcon>
+          <ListItemText primary='view as flat list'></ListItemText>
+        </MenuItem>
+      </MenuList>
+    </HamburgerMenu>
   )
 }
 

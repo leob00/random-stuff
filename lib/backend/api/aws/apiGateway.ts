@@ -60,6 +60,16 @@ export interface UserPin {
   lastEnterDate: string
 }
 
+export interface UserSettings {
+  lastPath?: string
+  news?: {
+    lastNewsType?: string
+  }
+  stocks?: {
+    defaultView?: 'flat' | 'grouped'
+  }
+}
+
 export interface UserProfile {
   id: string
   username: string
@@ -67,12 +77,7 @@ export interface UserProfile {
   secKey?: string
   pin?: UserPin
   emailVerified?: boolean
-  settings?: {
-    lastPath?: string
-    news?: {
-      lastNewsType?: string
-    }
-  }
+  settings?: UserSettings
 }
 
 export interface SiteStats {
