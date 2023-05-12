@@ -1,15 +1,7 @@
 import { Box, IconButton, Stack, Typography } from '@mui/material'
-import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
 import LinesSkeleton from 'components/Atoms/Skeletons/LinesSkeleton'
-import {
-  CasinoBlackTransparent,
-  CasinoBlueTransparent,
-  CasinoDarkGreenTransparent,
-  CasinoDarkRedTransparent,
-  ChartBackground,
-  DarkBlue,
-} from 'components/themes/mainTheme'
+import { CasinoBlackTransparent, CasinoBlueTransparent, CasinoDarkGreenTransparent, CasinoDarkRedTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockOrFutureChart } from 'lib/backend/api/qln/qlnApi'
@@ -35,13 +27,13 @@ export const getPositiveNegativeColor = (val: number) => {
 const StockListItem = ({
   item,
   expand = false,
-  showBorder = true,
   isStock = true,
+  showGroupName = true,
 }: {
   item: StockQuote
   expand?: boolean
-  showBorder?: boolean
   isStock: boolean
+  showGroupName?: boolean
 }) => {
   const [showMore, setShowMore] = React.useState(expand)
   const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
@@ -106,7 +98,7 @@ const StockListItem = ({
             <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
           </Stack>
         </Stack>
-        {item.GroupName && (
+        {showGroupName && item.GroupName && (
           <Stack pl={2}>
             <Typography variant='caption'>{`Group Name: ${item.GroupName}`}</Typography>
           </Stack>

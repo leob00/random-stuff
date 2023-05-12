@@ -19,6 +19,7 @@ import { cloneDeep } from 'lodash'
 import React from 'react'
 import { DropResult } from 'react-beautiful-dnd'
 import AddQuote from './AddQuote'
+import GroupedStocksLayout from './GroupedStocksLayout'
 import StockTable from './StockTable'
 
 interface Model {
@@ -240,7 +241,7 @@ const StockSearchLayout = () => {
                       </Box>
                     </Box>
                   )}
-                  {model.showAsGroup ? <CenterStack>coming soon</CenterStack> : <StockTable stockList={model.filteredList} isStock={true} />}
+                  {model.showAsGroup ? <GroupedStocksLayout stockList={model.stockList} /> : <StockTable stockList={model.filteredList} isStock={true} />}
                 </>
               )}
             </Box>
