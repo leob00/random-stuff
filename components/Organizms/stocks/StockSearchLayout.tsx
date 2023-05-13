@@ -80,13 +80,11 @@ const StockSearchLayout = () => {
   }
   const reloadData = async () => {
     const ticket = userController.ticket
-    const profile = userController.authProfile ? userController.authProfile : await userController.fetchProfilePassive()
+    const profile = await userController.fetchProfilePassive()
     if (profile) {
-      if (!profile.settings) {
-        profile.settings = {
-          stocks: {
-            defaultView: 'flat',
-          },
+      if (!profile.settings!.stocks) {
+        profile.settings!.stocks = {
+          defaultView: 'flat',
         }
         userController.setProfile(profile)
         putUserProfile(profile)
@@ -99,6 +97,7 @@ const StockSearchLayout = () => {
 
     if (ticket) {
       stockList = await getUserStockList(ticket.email)
+      console.log(stockList)
       map = getMapFromArray(stockList, 'Symbol')
       setModel({ ...model, username: ticket.email, stockListMap: map, stockList: stockList, isLoading: false, filteredList: stockList, successMesage: null })
     } else {

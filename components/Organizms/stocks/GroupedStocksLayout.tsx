@@ -8,22 +8,22 @@ import StockListItem, { getPositiveNegativeColor } from './StockListItem'
 import { orderBy, mean } from 'lodash'
 
 const GroupedStocksLayout = ({ stockList }: { stockList: StockQuote[] }) => {
-  stockList.forEach((item) => {
+  const allStocks = [...stockList]
+  allStocks.forEach((item) => {
     if (!item.GroupName) {
       item.GroupName = 'Unassigned'
     }
   })
-  const groupSet = new Set(stockList.map((item) => item.GroupName!))
+  const groupSet = new Set(allStocks.map((item) => item.GroupName!))
   const groupedList: { groupName: string; movingAvg: number; quotes: StockQuote[] }[] = []
   groupSet.forEach((i) => {
     groupedList.push({
       groupName: i,
-      movingAvg: mean(stockList.filter((o) => o.GroupName === i).map((o) => o.ChangePercent)),
-      quotes: stockList.filter((o) => o.GroupName === i),
+      movingAvg: mean(allStocks.filter((o) => o.GroupName === i).map((o) => o.ChangePercent)),
+      quotes: allStocks.filter((o) => o.GroupName === i),
     })
   })
-  //const groupMap = getMapFromArray(stockList, 'GroupName')
-  //console.log(groupMap)
+
   return (
     <Box py={2}>
       <Box display={'flex'} flexDirection={'column'} gap={2}>

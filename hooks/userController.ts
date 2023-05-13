@@ -24,10 +24,13 @@ export const useUserController = () => {
     if (user !== null) {
       const profile = (await getUserProfile(user.email)) as UserProfile
 
-      if (profile !== null) {
+      if (profile) {
         profile.username = user.email
         setLastProfileFetchDate(dayjs().format())
         setAuthProfile(profile)
+        if (!profile.settings) {
+          profile.settings = {}
+        }
         return profile
       } else {
         setLastProfileFetchDate('')

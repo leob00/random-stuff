@@ -22,7 +22,7 @@ export const quoteArraySchema = z
     Sector: z.string().nullable().optional(),
     SectorId: z.string().nullable().optional(),
     History: quoteHistorySchema.optional(),
-    GroupName: z.string().optional(),
+    GroupName: z.string().nullable().optional(),
   })
   .array()
 
