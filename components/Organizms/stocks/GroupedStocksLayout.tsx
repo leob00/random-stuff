@@ -15,7 +15,7 @@ const GroupedStocksLayout = ({ stockList }: { stockList: StockQuote[] }) => {
     }
   })
   const groupSet = new Set(allStocks.map((item) => item.GroupName!))
-  const groupedList: { groupName: string; movingAvg: number; quotes: StockQuote[] }[] = []
+  let groupedList: { groupName: string; movingAvg: number; quotes: StockQuote[] }[] = []
   groupSet.forEach((i) => {
     groupedList.push({
       groupName: i,
@@ -23,6 +23,7 @@ const GroupedStocksLayout = ({ stockList }: { stockList: StockQuote[] }) => {
       quotes: allStocks.filter((o) => o.GroupName === i),
     })
   })
+  groupedList = orderBy(groupedList, ['groupName', ['asc']])
 
   return (
     <Box py={2}>
