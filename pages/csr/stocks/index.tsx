@@ -1,3 +1,4 @@
+import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import Seo from 'components/Organizms/Seo'
@@ -22,10 +23,15 @@ const Page = () => {
       <Seo pageTitle='Stocks' />
       <ResponsiveContainer>
         <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
-        {/* <PageHeader text={'Stocks'} backButtonRoute={backUrl} /> */}
-        {selectedTab === 'Stocks' && <StockSearchLayout />}
-        {selectedTab === 'Futures' && <FuturesLayout />}
-        {selectedTab === 'Econ Events' && <EconCalendarLayout />}
+        <Box sx={{ display: selectedTab === 'Stocks' ? 'unset' : 'none' }}>
+          <StockSearchLayout />
+        </Box>
+        <Box sx={{ display: selectedTab === 'Futures' ? 'unset' : 'none' }}>
+          <FuturesLayout />
+        </Box>
+        <Box sx={{ display: selectedTab === 'Econ Events' ? 'unset' : 'none' }}>
+          <EconCalendarLayout />
+        </Box>
       </ResponsiveContainer>
     </>
   )

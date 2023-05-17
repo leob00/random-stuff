@@ -38,15 +38,17 @@ const DraggableList = ({ username, items, onCancelEdit, onPushChanges }: Draggab
   const [showMultiMenu, setShowMultiMenu] = React.useState(true)
   const [showGroupNameDialog, setShowGroupNameDialog] = React.useState(false)
   const [allStocks, setAllStocks] = React.useState(items)
+  const [filteredStocks, setFilteredStocks] = React.useState(items)
 
   const handleRemoveQuote = (symbol: string) => {
     const list = allStocks.filter((m) => m.Symbol !== symbol)
     const map = getMapFromArray(list, 'Symbol')
-    if (username) {
-      putUserStockList(username, list)
-    }
+    // if (username) {
+    //   putUserStockList(username, list)
+    // }
     setMap(map)
     setAllStocks(list)
+    onPushChanges(list)
     //setModel({ ...model, stockListMap: map, stockList: list, filteredList: list, successMesage: `${symbol} removed!` })
   }
 
@@ -143,21 +145,6 @@ const DraggableList = ({ username, items, onCancelEdit, onPushChanges }: Draggab
 
   return (
     <>
-      <FormDialog show={showGroupNameDialog} title={'assign to group'} onSave={() => {}} onCancel={() => setShowGroupNameDialog(false)}>
-        <FormTextBox defaultValue={selectedItems.length > 0 ? selectedItems[0].GroupName ?? '' : ''} label='group name:' onBlurred={handleSaveGroupName} />
-      </FormDialog>
-      <ConfirmDeleteDialog
-        show={showConfirmDelete}
-        text={`Are you sure you want to remove ${deleteItem?.Company}?`}
-        onConfirm={() => handleRemoveItem(deleteItem!.Symbol)}
-        onCancel={handleCancelDelete}
-      />
-      <ConfirmDeleteDialog
-        show={showConfirmDeleteMulti}
-        text={`are you sure you want to remove all selected quotes?`}
-        onConfirm={handleDeleteMulti}
-        onCancel={handleCancelDelete}
-      />
       <Box py={2} display='flex' justifyContent={'space-between'} alignItems={'center'}>
         <Box>
           {selectedItems.length > 0 && showMultiMenu && (
@@ -211,6 +198,21 @@ const DraggableList = ({ username, items, onCancelEdit, onPushChanges }: Draggab
           )}
         </StrictModeDroppable>
       </DragDropContext>
+      <FormDialog show={showGroupNameDialog} title={'assign to group'} onSave={() => {}} onCancel={() => setShowGroupNameDialog(false)}>
+        <FormTextBox defaultValue={selectedItems.length > 0 ? selectedItems[0].GroupName ?? '' : ''} label='group name:' onBlurred={handleSaveGroupName} />
+      </FormDialog>
+      <ConfirmDeleteDialog
+        show={showConfirmDelete}
+        text={`Are you sure you want to remove ${deleteItem?.Company}?`}
+        onConfirm={() => handleRemoveItem(deleteItem!.Symbol)}
+        onCancel={handleCancelDelete}
+      />
+      <ConfirmDeleteDialog
+        show={showConfirmDeleteMulti}
+        text={`are you sure you want to remove all selected quotes?`}
+        onConfirm={handleDeleteMulti}
+        onCancel={handleCancelDelete}
+      />
     </>
   )
 }

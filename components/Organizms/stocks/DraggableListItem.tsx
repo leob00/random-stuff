@@ -6,6 +6,7 @@ import { Delete, DragIndicator } from '@mui/icons-material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
 import { SelectableQuote } from './DraggableList'
+import SingleItemMenu from './SingleItemMenu'
 
 export type DraggableListItemProps = {
   item: SelectableQuote
@@ -37,13 +38,14 @@ const DraggableListItem = ({ item, index, onRemoveItem, onCheckItem }: Draggable
 
             <ListItemText primary={`${item.Company} (${item.Symbol})`} secondary={`Group name: ${item.GroupName ?? ''}`} />
             <Stack alignItems={'flex-end'} flexGrow={1} pr={2}>
-              <IconButton
+              {/* <IconButton
                 onClick={() => {
                   handleRemoveItem(item.Symbol)
                 }}
               >
                 <Delete color='error' fontSize='small' />
-              </IconButton>
+              </IconButton> */}
+              <SingleItemMenu onEdelete={handleRemoveItem} symbol={item.Symbol} />
             </Stack>
           </ListItem>
 

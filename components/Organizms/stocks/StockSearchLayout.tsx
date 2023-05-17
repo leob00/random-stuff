@@ -19,6 +19,8 @@ import { cloneDeep } from 'lodash'
 import React from 'react'
 import { DropResult } from 'react-beautiful-dnd'
 import AddQuote from './AddQuote'
+import FlatListMenu from './FlatListMenu'
+import GroupedListMenu from './GroupedListMenu'
 import GroupedStocksLayout from './GroupedStocksLayout'
 import StockTable from './StockTable'
 
@@ -79,7 +81,6 @@ const StockSearchLayout = () => {
     }
   }
   const reloadData = async () => {
-    //const ticket = userController.ticket
     const profile = await userController.fetchProfilePassive()
     if (profile) {
       if (!profile.settings!.stocks) {
@@ -229,15 +230,11 @@ const StockSearchLayout = () => {
                 </>
               ) : (
                 <>
-                  {model.stockList.length > 0 && (
-                    <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                      <Box pl={1}>
-                        {model.stockList.length >= 10 && !model.showAsGroup && (
-                          <SearchWithinList onChanged={handleSearchListChange} debounceWaitMilliseconds={25} />
-                        )}
-                      </Box>
-                      <Box>
-                        <StockListMenu
+                  {model.showAsGroup ? (
+                    <Box>
+                      <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                        <Box></Box>
+                        <GroupedListMenu
                           onEdit={() => {
                             setModel({ ...model, editList: true })
                           }}
@@ -245,9 +242,28 @@ const StockSearchLayout = () => {
                           onShowAsGroup={handleShowAsGroup}
                         />
                       </Box>
+                      <GroupedStocksLayout stockList={model.stockList} />
+                    </Box>
+                  ) : (
+                    <Box>
+                      <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                        <Box pl={1}>
+                          {model.stockList.length >= 10 && !model.showAsGroup && (
+                            <SearchWithinList onChanged={handleSearchListChange} debounceWaitMilliseconds={25} />
+                          )}
+                        </Box>
+                        <FlatListMenu
+                          onEdit={() => {
+                            setModel({ ...model, editList: true })
+                          }}
+                          onRefresh={reloadData}
+                          onShowAsGroup={handleShowAsGroup}
+                        />
+                      </Box>
+                      <Box display={'flex'} justifyContent={'flex-end'}></Box>
+                      <StockTable stockList={model.filteredList} isStock={true} />
                     </Box>
                   )}
-                  {model.showAsGroup ? <GroupedStocksLayout stockList={model.stockList} /> : <StockTable stockList={model.filteredList} isStock={true} />}
                 </>
               )}
             </Box>

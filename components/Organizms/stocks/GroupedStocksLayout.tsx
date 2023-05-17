@@ -1,14 +1,15 @@
 import { Box, Typography } from '@mui/material'
-import CenterStack from 'components/Atoms/CenterStack'
 import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { getMapFromArray } from 'lib/util/collectionsNative'
 import React from 'react'
-import StockListItem, { getPositiveNegativeColor } from './StockListItem'
-import { orderBy, mean } from 'lodash'
+import { getPositiveNegativeColor } from './StockListItem'
+import { orderBy, mean, cloneDeep } from 'lodash'
 import StockTable from './StockTable'
+import { getMapFromArray } from 'lib/util/collectionsNative'
 
 interface Model {
+  id: string
+  isExpanded: boolean
   groupName: string
   movingAvg: number
   quotes: StockQuote[]
@@ -22,31 +23,46 @@ const GroupedStocksLayout = ({ stockList }: { stockList: StockQuote[] }) => {
     }
   })
   const groupSet = new Set(allStocks.map((item) => item.GroupName!))
-  let groupedList: { groupName: string; movingAvg: number; quotes: StockQuote[] }[] = []
+  let groupedList: Model[] = []
   groupSet.forEach((i) => {
     groupedList.push({
+      id: crypto.randomUUID(),
+      isExpanded: false,
       groupName: i,
       movingAvg: mean(allStocks.filter((o) => o.GroupName === i).map((o) => o.ChangePercent)),
       quotes: allStocks.filter((o) => o.GroupName === i),
     })
   })
-  groupedList = orderBy(groupedList, ['groupName', ['asc']])
+  groupedList = orderBy(groupedList, ['movingAvg', 'groupName'], ['desc', 'asc'])
+  const groupMap = getMapFromArray(groupedList, 'id')
+  const [data, setData] = React.useState(groupMap)
+
+  const handleExpandCollapseGroup = (item: Model) => {
+    const newMap = new Map(data)
+    const newItem = newMap.get(item.id)
+    if (newItem) {
+      newItem.isExpanded = !item.isExpanded
+      newMap.set(newItem.id, newItem)
+      setData(newMap)
+    }
+  }
 
   return (
     <Box py={2}>
       <Box display={'flex'} flexDirection={'column'} gap={2}>
-        {groupedList.map((item, i) => (
+        {Array.from(data.values()).map((item, i) => (
           <Box key={item.groupName}>
             <Box
-              sx={{ backgroundColor: VeryLightBlueTransparent }}
+              sx={{ backgroundColor: VeryLightBlueTransparent, cursor: 'pointer' }}
               py={1}
               pl={1}
               display={'flex'}
               gap={2}
               alignItems={'center'}
               justifyContent={'space-between'}
+              onClick={() => handleExpandCollapseGroup(item)}
             >
-              <Box>
+              <Box sx={{}}>
                 <Typography variant='h4' pl={1} fontWeight={600} color='primary'>
                   {`${!item.groupName || item.groupName.length === 0 ? 'Unassigned' : item.groupName}`}
                 </Typography>
@@ -57,10 +73,7 @@ const GroupedStocksLayout = ({ stockList }: { stockList: StockQuote[] }) => {
                 </Typography>
               </Box>
             </Box>
-            {/* <StockTable isStock={true} stockList={item.quotes} key={i} /> */}
-            {/* {item.quotes.map((quote, i) => (
-              <StockListItem key={i} isStock={true} item={quote} showGroupName={false} />
-            ))} */}
+            {item.isExpanded && <StockTable isStock={true} stockList={item.quotes} key={item.id} />}
           </Box>
         ))}
       </Box>
