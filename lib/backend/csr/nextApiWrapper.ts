@@ -4,16 +4,10 @@ import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
 import { DynamoKeys, EmailMessage, LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
-import {
-  constructUserGoalTaksSecondaryKey,
-  constructUserNoteCategoryKey,
-  constructUserNoteTitlesKey,
-  constructUserProfileKey,
-  constructUserSecretSecondaryKey,
-} from '../api/aws/util'
+import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserNoteTitlesKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
 import { get, post } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
-import { myEncrypt, weakEncrypt } from '../encryption/useEncryptor'
+import { weakEncrypt } from '../encryption/useEncryptor'
 
 export interface SignedRequest {
   data: string
@@ -25,8 +19,7 @@ export async function putUserNote(item: UserNote, secondaryKey: string, expirati
     category: secondaryKey,
     data: item,
     expiration: expiration,
-    token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${item.id}`),
-    //token: signLambdaDynamoPut(item.id!, secondaryKey, String(process.env.NEXT_PUBLIC_API_TOKEN)),
+    token: weakEncrypt(`${item.id}`),
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),
@@ -40,7 +33,7 @@ export async function expireUserNote(item: UserNote) {
     category: 'expired',
     data: item,
     expiration: unixNowSeconds,
-    token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${item.id}`),
+    token: weakEncrypt(`${item.id}`),
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),
@@ -62,7 +55,7 @@ export async function putUserProfile(item: UserProfile) {
     category: cat,
     data: item,
     expiration: 0,
-    token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${item.id}`),
+    token: weakEncrypt(`${item.id}`),
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),
@@ -132,8 +125,6 @@ export async function getUserNoteTitles(username: string) {
     }
   } catch (err) {
     console.log(err)
-
-    //return error
   }
   return []
 }
@@ -179,7 +170,7 @@ export async function getUserGoals(id: string) {
   return result
 }
 export async function getUserTasksLambaBody(username: string) {
-  const enc = myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `user-goal-tasks[${username}]`)
+  const enc = weakEncrypt(`user-goal-tasks[${username}]`)
   const body: SignedRequest = {
     data: enc,
   }
@@ -189,28 +180,24 @@ export async function getUserTasksLambaBody(username: string) {
 }
 
 export async function getUserTasks(username: string) {
-  const enc = myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `user-goal-tasks[${username}]`)
+  const enc = weakEncrypt(`user-goal-tasks[${username}]`)
   const body: SignedRequest = {
     data: enc,
   }
-  //console.log(JSON.stringify(body))
   const result = (await post('/api/searchRandomStuff', body)) as LambdaBody[]
   const tasks: UserTask[] = []
   result.forEach((g) => {
     const m = JSON.parse(g.data) as unknown as UserTask[]
-    //console.log(m)
     tasks.push(...m)
   })
   return tasks
 }
 export async function getUserGoalTasks(goalId: string) {
-  //const id = `user-goal-tasks${goalId}`
   let result: UserTask[] = []
 
   try {
     const body = encryptKey(goalId)
     const data = await post(`/api/getRandomStuffEnc`, body)
-    //console.log('api random stuff: ', data)
     if (data) {
       result = data
 
@@ -228,8 +215,7 @@ export async function putUserGoals(id: string, data: UserGoal[], expiration: num
     category: 'user-goals',
     data: data,
     expiration: expiration,
-    token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${id}`),
-    //token: signLambdaDynamoPut(item.id!, secondaryKey, String(process.env.NEXT_PUBLIC_API_TOKEN)),
+    token: weakEncrypt(`${id}`),
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),
@@ -237,19 +223,16 @@ export async function putUserGoals(id: string, data: UserGoal[], expiration: num
   await post(`/api/putRandomStuff`, putRequest)
 }
 export async function putUserGoalTasks(username: string, goalId: string, data: UserTask[], expiration: number = 0) {
-  //console.log('goal id ', goalId)
   let req: LambdaDynamoRequest = {
     id: goalId,
     category: constructUserGoalTaksSecondaryKey(username),
     data: data,
     expiration: expiration,
-    token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${goalId}`),
-    //token: signLambdaDynamoPut(item.id!, secondaryKey, String(process.env.NEXT_PUBLIC_API_TOKEN)),
+    token: weakEncrypt(`${goalId}`),
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),
   }
-  //console.log(putRequest)
   await post(`/api/putRandomStuff`, putRequest)
 }
 
@@ -260,24 +243,18 @@ export async function putUserStockList(username: string, data: StockQuote[]) {
     category: 'user-stock_list',
     data: data,
     expiration: 0,
-    token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${id}`),
-    //token: signLambdaDynamoPut(item.id!, secondaryKey, String(process.env.NEXT_PUBLIC_API_TOKEN)),
+    token: weakEncrypt(`${id}`),
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),
   }
   await post(`/api/putRandomStuff`, putRequest)
-  //console.log('put stock list: ', data.length)
 }
 
 export async function getUserStockList(username: string) {
-  //const id = `user-goal-tasks${goalId}`
-  //let result: UserTask[] = []
-
   try {
     const body = encryptKey(`user-stock_list[${username}]`)
     const data = await post(`/api/getRandomStuffEnc`, body)
-    //console.log('api random stuff: ', data)
     if (data) {
       const result = quoteArraySchema.parse(data)
       return result
@@ -289,7 +266,7 @@ export async function getUserStockList(username: string) {
 }
 
 export async function getUserSecrets(username: string) {
-  const enc = myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), constructUserSecretSecondaryKey(username))
+  const enc = weakEncrypt(constructUserSecretSecondaryKey(username))
   const body: SignedRequest = {
     data: enc,
   }
@@ -298,7 +275,7 @@ export async function getUserSecrets(username: string) {
 }
 
 function encryptBody(req: LambdaDynamoRequest) {
-  return myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), JSON.stringify(req))
+  return weakEncrypt(JSON.stringify(req))
 }
 
 export async function putUserSecret(item: UserSecret, username: string, expiration: number = 0) {
@@ -307,8 +284,7 @@ export async function putUserSecret(item: UserSecret, username: string, expirati
     category: constructUserSecretSecondaryKey(username),
     data: item,
     expiration: expiration,
-    token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${item.id}`),
-    //token: signLambdaDynamoPut(item.id!, secondaryKey, String(process.env.NEXT_PUBLIC_API_TOKEN)),
+    token: weakEncrypt(`${item.id}`),
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),
@@ -338,11 +314,10 @@ export async function getRecord<T>(id: DynamoKeys): Promise<T> {
   return result as T
 }
 export async function searchRecords(id: DynamoKeys): Promise<LambdaBody[]> {
-  const enc = myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), id)
+  const enc = weakEncrypt(id)
   const body: SignedRequest = {
     data: enc,
   }
-  //console.log(body)
   const result = (await post('/api/searchRandomStuff', body)) as LambdaBody[]
   return result
 }
@@ -352,7 +327,7 @@ export async function putRecord(id: DynamoKeys, category: string, item: any) {
     id: id,
     category: category,
     data: item,
-    token: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${id}`),
+    token: weakEncrypt(`${id}`),
     expiration: 0,
   }
   const putRequest: SignedRequest = {
@@ -367,11 +342,5 @@ export async function getCommunityStocks() {
 }
 
 export async function sendEmailFromClient(item: EmailMessage) {
-  // const putRequest: SignedRequest = {
-  //   data: myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `${item.to}`),
-  // }
-  /* const putRequest: SignedRequest = {
-    data: 
-  } */
   await post(`/api/sendEmail`, item)
 }

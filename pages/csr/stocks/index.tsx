@@ -1,6 +1,7 @@
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import Seo from 'components/Organizms/Seo'
+import EconCalendarLayout from 'components/Organizms/stocks/EconCalendarLayout'
 import FuturesLayout from 'components/Organizms/stocks/FuturesLayout'
 import StockSearchLayout from 'components/Organizms/stocks/StockSearchLayout'
 import { useUserController } from 'hooks/userController'
@@ -9,7 +10,7 @@ import React from 'react'
 const Page = () => {
   const ticket = useUserController().ticket
   const backUrl = ticket ? '/protected/csr/dashboard' : ''
-  const tabs: TabInfo[] = [{ title: 'Stocks', selected: true }, { title: 'Futures' }]
+  const tabs: TabInfo[] = [{ title: 'Stocks', selected: true }, { title: 'Futures' }, { title: 'Econ Events' }]
   const [selectedTab, setSelectedTab] = React.useState('Stocks')
 
   const handleSelectTab = (title: string) => {
@@ -24,6 +25,7 @@ const Page = () => {
         {/* <PageHeader text={'Stocks'} backButtonRoute={backUrl} /> */}
         {selectedTab === 'Stocks' && <StockSearchLayout />}
         {selectedTab === 'Futures' && <FuturesLayout />}
+        {selectedTab === 'Econ Events' && <EconCalendarLayout />}
       </ResponsiveContainer>
     </>
   )

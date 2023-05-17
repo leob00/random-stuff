@@ -38,19 +38,6 @@ const FuturesLayout = () => {
       ) : (
         <Box pt={2}>
           <StockTable stockList={data} isStock={false} />
-          {/* {data.map((item) => (
-           
-            // <Box key={item.Symbol} pl={2}>
-            //   <ListHeader text={item.Company} item={item} onClicked={() => {}} />
-            //   <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
-            //     <Stack direction={'row'} spacing={2} pl={1} sx={{ backgroundColor: 'unset' }} pt={1}>
-            //       <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.Price.toFixed(2)}`}</Typography>
-            //       <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.Change.toFixed(2)}`}</Typography>
-            //       <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
-            //     </Stack>
-            //   </Stack>
-            // </Box>
-          ))} */}
         </Box>
       )}
     </Box>

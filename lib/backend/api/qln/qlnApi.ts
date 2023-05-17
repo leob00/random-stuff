@@ -197,27 +197,6 @@ export async function getStockOrFutureChart(symbol: string, days?: number, isSto
   return result
 }
 
-// export async function getStockChart(symbol: string, days?: number) {
-//   const url = `${baseUrl}/StockHistoryChart`
-//   const params = {
-//     symbol: symbol,
-//     days: days ?? 90,
-//   }
-//   const response = await get(url, params)
-//   const result = quoteHistorySchema.parse(response.Body)
-//   return result
-// }
-// export async function getFutureChart(symbol: string, days?: number) {
-//   const url = `${baseUrl}/FuturesHistoryChart`
-//   const params = {
-//     symbol: symbol,
-//     days: days ?? 90,
-//   }
-//   const response = await get(url, params)
-//   const result = quoteHistorySchema.parse(response.Body)
-//   return result
-// }
-
 export async function getUserStockListLatest(username: string) {
   const stockList = await getUserStockList(username)
   const latestQuotes = await getLatestQuotes(stockList.map((o) => o.Symbol))
@@ -279,5 +258,18 @@ export async function getFutures() {
   const url = `${baseUrl}/Futures`
   const response = await get(url)
   const result = response.Body as StockQuote[]
+  return result
+}
+
+export interface EconCalendarItem {
+  EventDate: string
+  Name: string
+  Description: string | null
+  Url: string | null
+}
+
+export async function getEconCalendar() {
+  const response = await get(`${baseUrl}/EconCalendar`)
+  const result = response.Body as EconCalendarItem[]
   return result
 }
