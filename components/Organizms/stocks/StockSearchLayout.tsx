@@ -19,6 +19,7 @@ import { cloneDeep } from 'lodash'
 import React from 'react'
 import { DropResult } from 'react-beautiful-dnd'
 import AddQuote from './AddQuote'
+import EditList from './EditList'
 import FlatListMenu from './FlatListMenu'
 import GroupedListMenu from './GroupedListMenu'
 import GroupedStocksLayout from './GroupedStocksLayout'
@@ -221,9 +222,9 @@ const StockSearchLayout = () => {
             <Box py={2}>
               {model.editList && model.stockList.length > 0 ? (
                 <>
-                  <DraggableList
+                  <EditList
                     username={model.username ?? null}
-                    items={model.stockList}
+                    data={model.stockList}
                     onCancelEdit={() => setModel({ ...model, editList: false })}
                     onPushChanges={handleSaveChanges}
                   />

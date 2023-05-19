@@ -1,20 +1,18 @@
 import * as React from 'react'
 import DraggableListItem from './DraggableListItem'
-import { DragDropContext, DropResult, OnDragEndResponder } from 'react-beautiful-dnd'
+import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { StrictModeDroppable } from './StrictModeDroppable'
-import { Box, Button, ListItemIcon, ListItemText, MenuItem, MenuList } from '@mui/material'
+import { Box, ListItemIcon, ListItemText } from '@mui/material'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
-import { Close, Delete } from '@mui/icons-material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import HamburgerMenu from 'components/Molecules/Menus/HamburgerMenu'
-import { CasinoRedTransparent } from 'components/themes/mainTheme'
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
-import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { cloneDeep } from 'lodash'
+import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
+import ContextMenuDelete from 'components/Molecules/Menus/ContextMenuDelete'
 
 export type DraggableListProps = {
   username: string | null
@@ -43,13 +41,9 @@ const DraggableList = ({ username, items, onCancelEdit, onPushChanges }: Draggab
   const handleRemoveQuote = (symbol: string) => {
     const list = allStocks.filter((m) => m.Symbol !== symbol)
     const map = getMapFromArray(list, 'Symbol')
-    // if (username) {
-    //   putUserStockList(username, list)
-    // }
     setMap(map)
     setAllStocks(list)
     onPushChanges(list)
-    //setModel({ ...model, stockListMap: map, stockList: list, filteredList: list, successMesage: `${symbol} removed!` })
   }
 
   const onDragEnd = ({ destination, source }: DropResult) => {
@@ -114,11 +108,9 @@ const DraggableList = ({ username, items, onCancelEdit, onPushChanges }: Draggab
     pushChanges(newMap)
   }
   const handleShowConfirmDeleteMulti = () => {
-    setShowMultiMenu(false)
     setShowConfirmDeleteMulti(true)
   }
-  const hanldleShowGroupNameForm = () => {
-    setShowMultiMenu(false)
+  const handleShowGroupNameForm = () => {
     setShowGroupNameDialog(true)
   }
 
@@ -137,11 +129,28 @@ const DraggableList = ({ username, items, onCancelEdit, onPushChanges }: Draggab
       newItem.GroupName = text
     })
     setShowGroupNameDialog(false)
-    //setSelectedItems([])
     setMap(newMap)
     setShowMultiMenu(true)
     pushChanges(newMap)
   }
+
+  const contextMenu: ContextMenuItem[] = [
+    {
+      item: (
+        <>
+          <ListItemIcon>
+            <DriveFileRenameOutlineIcon color='secondary' fontSize='small' />
+          </ListItemIcon>
+          <ListItemText primary='add to list'></ListItemText>
+        </>
+      ),
+      fn: handleShowGroupNameForm,
+    },
+    {
+      item: <ContextMenuDelete />,
+      fn: handleShowConfirmDeleteMulti,
+    },
+  ]
 
   return (
     <>
@@ -149,30 +158,9 @@ const DraggableList = ({ username, items, onCancelEdit, onPushChanges }: Draggab
         <Box>
           {selectedItems.length > 0 && showMultiMenu && (
             <Box>
-              <HamburgerMenu>
-                <MenuList>
-                  <MenuItem onClick={hanldleShowGroupNameForm}>
-                    <ListItemIcon>
-                      <DriveFileRenameOutlineIcon color='secondary' fontSize='small' />
-                    </ListItemIcon>
-                    <ListItemText primary='add to list'></ListItemText>
-                  </MenuItem>
-                  <HorizontalDivider />
-                  <MenuItem onClick={handleShowConfirmDeleteMulti}>
-                    <ListItemIcon>
-                      <Delete color='error' fontSize='small' />
-                    </ListItemIcon>
-                    <ListItemText primary='remove' color={CasinoRedTransparent}></ListItemText>
-                  </MenuItem>
-                </MenuList>
-              </HamburgerMenu>
+              <ContextMenu items={contextMenu} />
             </Box>
           )}
-        </Box>
-        <Box>
-          <Button size='small' color='secondary' onClick={onCancelEdit}>
-            <Close fontSize='small' color='secondary' />
-          </Button>
         </Box>
       </Box>
       <HorizontalDivider />

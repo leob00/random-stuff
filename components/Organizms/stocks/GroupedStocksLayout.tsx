@@ -18,8 +18,8 @@ interface Model {
 const GroupedStocksLayout = ({ stockList }: { stockList: StockQuote[] }) => {
   const allStocks = [...stockList]
   allStocks.forEach((item) => {
-    if (!item.GroupName) {
-      item.GroupName = ''
+    if (!item.GroupName || item.GroupName === 'Unassigned') {
+      item.GroupName = item.Sector ?? ''
     }
   })
   const groupSet = new Set(allStocks.map((item) => item.GroupName!))
