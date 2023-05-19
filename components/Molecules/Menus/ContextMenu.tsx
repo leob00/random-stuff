@@ -2,10 +2,12 @@ import React, { ReactNode } from 'react'
 import { Menu, Button, MenuList, MenuItem, Box } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import { VeryLightBlue } from 'components/themes/mainTheme'
+import { DarkMode } from 'components/themes/DarkMode'
 
 export interface ContextMenuItem {
   fn: (arg?: unknown) => void
-  item: JSX.Element | JSX.Element[]
+  item: JSX.Element[] | JSX.Element
 }
 
 const ContextMenu = ({ items }: { items: ContextMenuItem[] }) => {
@@ -31,7 +33,8 @@ const ContextMenu = ({ items }: { items: ContextMenuItem[] }) => {
         <MenuIcon color='secondary' fontSize='small' />
       </Button>
       <Menu
-        id='basic-menu'
+        //id='basic-menu'
+        sx={{}}
         anchorEl={anchorEl}
         open={open}
         onClose={handleCloseMenu}
@@ -50,7 +53,7 @@ const ContextMenu = ({ items }: { items: ContextMenuItem[] }) => {
         <MenuList>
           {items.map((item, i) => (
             <MenuItem
-              sx={{ py: 1 }}
+              sx={{ py: 1, color: VeryLightBlue }}
               divider={true}
               key={i}
               onClick={() => {
