@@ -11,7 +11,6 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
 
   React.useEffect(() => {
     if (!route.includes('/login')) {
-      //console.log('route: ', route)
       session.setLastPath(route)
       const profile = userController.authProfile
       if (profile) {
@@ -21,10 +20,9 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
         profile.settings.lastPath = route
         userController.setProfile(profile)
         putUserProfile(profile)
-        //console.log(profile)
-        //putUserProfile(profile)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [route])
 
   return <>{children}</>
