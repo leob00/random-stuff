@@ -38,3 +38,4 @@ export const DynamicAutoCompleteInput = forwardRef<InputTextRef, Props>((props, 
     )}
   />
 ))
+DynamicAutoCompleteInput.displayName = 'DynamicAutoCompleteInput'
