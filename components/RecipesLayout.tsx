@@ -26,11 +26,6 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Opti
       console.log('error generating single recipe: ', sel)
     }
   }
-
-  //const shuffled = shuffleArray(featured)
-  //console.log('featured: ', featured)
-  //console.log('shuffled: ', shuffled)
-
   return (
     <Box>
       <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>

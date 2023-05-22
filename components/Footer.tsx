@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Container, Divider, Stack, Typography } from '@mui/material'
+import { Box, Container, Divider, Stack, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import { ApiStatus } from 'pages/api/status'
 import { Circle } from '@mui/icons-material'
@@ -39,18 +39,24 @@ const Footer = () => {
       <Container>
         <HorizontalDivider />
 
-        <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} py={4}>
-          <Typography sx={{ fontSize: 'small' }}>©{dayjs().format('YYYY')} Random Stuff</Typography>
-          {isLoading ? (
-            <RollingLinearProgress height={20} />
-          ) : (
-            <Stack>
-              <Stack fontSize={'small'} justifyContent={'center'} flexDirection={'row'}>
-                <Circle color={'secondary'} fontSize='small' sx={{ mr: 1, ml: 1 }} />
-                online
-              </Stack>
-            </Stack>
-          )}
+        <Stack direction='row' display={'flex'} spacing={2} divider={<Divider orientation='vertical' flexItem />} py={4} alignItems={'center'}>
+          <Box>
+            <Typography variant='caption'>©{dayjs().format('YYYY')} Random Stuff</Typography>
+          </Box>
+          <Box>
+            {isLoading ? (
+              <RollingLinearProgress height={20} />
+            ) : (
+              <Box>
+                <Stack alignItems={'center'} flexDirection={'row'}>
+                  <Circle color={'secondary'} fontSize='small' />
+                  <Typography variant='caption' pl={1}>
+                    online
+                  </Typography>
+                </Stack>
+              </Box>
+            )}
+          </Box>
         </Stack>
       </Container>
     </Container>

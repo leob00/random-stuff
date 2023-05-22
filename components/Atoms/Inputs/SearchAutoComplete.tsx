@@ -13,6 +13,8 @@ const SearchAutoComplete = ({
   searchResults,
   onSelected,
   clearOnSelect = true,
+  label = '',
+  defaultVal = '',
 }: {
   onChanged?: (text: string) => void
   width?: number
@@ -21,9 +23,11 @@ const SearchAutoComplete = ({
   searchResults: DropdownItem[]
   onSelected: (text: string) => void
   clearOnSelect?: boolean
+  label?: string
+  defaultVal?: string | null
 }) => {
   const textRef = React.useRef<HTMLInputElement | null>(null)
-  const [defaultValue, setDefaultValue] = React.useState('')
+  const [defaultValue, setDefaultValue] = React.useState(defaultVal)
 
   //console.log('search results: ', searchResults.length)
 
@@ -33,8 +37,8 @@ const SearchAutoComplete = ({
   const debouncedFn = debounce(raiseChangeEvent, debounceWaitMilliseconds)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    debouncedFn(e.currentTarget.value)
     setDefaultValue(e.currentTarget.value)
+    debouncedFn(e.currentTarget.value)
   }
   const handleSelected = (e: React.SyntheticEvent<Element, Event>, value: string | null) => {
     if (value) {
@@ -44,7 +48,6 @@ const SearchAutoComplete = ({
       if (textRef.current) {
         textRef.current.blur()
       }
-      setDefaultValue('')
     }
   }
 
@@ -63,7 +66,7 @@ const SearchAutoComplete = ({
       renderInput={(params) => (
         <TextField
           {...params}
-          //label={placeholder}
+          label={label}
           sx={{ input: { color: CasinoBlue } }}
           inputRef={textRef}
           placeholder={placeholder}

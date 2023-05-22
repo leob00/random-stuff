@@ -17,15 +17,15 @@ import ContextMenuDelete from 'components/Molecules/Menus/ContextMenuDelete'
 export type DraggableListProps = {
   username: string | null
   items: StockQuote[]
-  onCancelEdit: () => void
   onPushChanges: (quotes: StockQuote[]) => void
+  onEditSingleItem: (quote: StockQuote) => void
 }
 
 export interface SelectableQuote extends StockQuote {
   selected?: boolean
 }
 
-const DraggableList = ({ username, items, onCancelEdit, onPushChanges }: DraggableListProps) => {
+const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: DraggableListProps) => {
   const [deleteItem, setDeleteItem] = React.useState<StockQuote | null>(null)
   const [showConfirmDelete, setShowConfirmDelete] = React.useState(false)
   const [showConfirmDeleteMulti, setShowConfirmDeleteMulti] = React.useState(false)
@@ -179,6 +179,7 @@ const DraggableList = ({ username, items, onCancelEdit, onPushChanges }: Draggab
                   onCheckItem={(checked: boolean) => {
                     handleCheckItem(item.Symbol, checked)
                   }}
+                  onEdit={onEditSingleItem}
                 />
               ))}
               {provided.placeholder}
