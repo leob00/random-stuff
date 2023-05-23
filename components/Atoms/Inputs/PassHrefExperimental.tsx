@@ -2,17 +2,11 @@ import { Autocomplete, TextField } from '@mui/material'
 import { CasinoBlue } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
 import { forwardRef } from 'react'
+import { AutoCompleteProps } from './AutoCompleteSolo'
 
-interface Props {
-  defaultValue: string
-  options: DropdownItem[]
-  label: string
-  width: number | string
-  onSelected: (text: string | null) => void
-}
 export type InputTextRef = HTMLInputElement
 
-export const DynamicAutoCompleteInput = forwardRef<InputTextRef, Props>((props, ref) => (
+export const PassHrefExperimental = forwardRef<InputTextRef, AutoCompleteProps>((props, ref) => (
   <Autocomplete
     value={props.defaultValue}
     size='small'
@@ -20,6 +14,9 @@ export const DynamicAutoCompleteInput = forwardRef<InputTextRef, Props>((props, 
     freeSolo
     sx={{ width: props.width, input: { color: CasinoBlue } }}
     options={props.options}
+    onChange={(e, value) => {
+      props.onSubmitted(value ?? '')
+    }}
     autoHighlight
     renderInput={(params) => (
       <TextField
@@ -38,4 +35,4 @@ export const DynamicAutoCompleteInput = forwardRef<InputTextRef, Props>((props, 
     )}
   />
 ))
-DynamicAutoCompleteInput.displayName = 'DynamicAutoCompleteInput'
+PassHrefExperimental.displayName = 'PassHrefExperimental'

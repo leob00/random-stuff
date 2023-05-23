@@ -13,6 +13,7 @@ import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
 import { cloneDeep } from 'lodash'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuDelete from 'components/Molecules/Menus/ContextMenuDelete'
+import AutoCompleteSolo from 'components/Atoms/Inputs/AutoCompleteSolo'
 
 export type DraggableListProps = {
   username: string | null
@@ -37,6 +38,8 @@ const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: Dra
   const [showGroupNameDialog, setShowGroupNameDialog] = React.useState(false)
   const [allStocks, setAllStocks] = React.useState(items)
   const [filteredStocks, setFilteredStocks] = React.useState(items)
+
+  const groupSearch = new Set(allStocks.map((o) => o.GroupName ?? ''))
 
   const handleRemoveQuote = (symbol: string) => {
     const list = allStocks.filter((m) => m.Symbol !== symbol)
@@ -122,17 +125,20 @@ const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: Dra
     const selected = getListFromMap(map).filter((item) => item.selected)
     setSelectedItems(selected)
   }
-  const handleSaveGroupName = (text: string) => {
-    const newMap = map
-    selectedItems.forEach((item) => {
-      const newItem = newMap.get(item.Symbol)!
-      newItem.GroupName = text
-    })
-    setShowGroupNameDialog(false)
-    setMap(newMap)
-    setShowMultiMenu(true)
-    pushChanges(newMap)
-  }
+  // const handleSaveGroupName = (text: string) => {
+  //   const newMap = map
+  //   selectedItems.forEach((item) => {
+  //     const newItem = newMap.get(item.Symbol)!
+  //     newItem.GroupName = text
+  //   })
+  //   setShowGroupNameDialog(false)
+  //   setMap(newMap)
+  //   setShowMultiMenu(true)
+  //   pushChanges(newMap)
+  // }
+  // const handleSelectGroupName = (text: string | null) => {
+  //   console.log('text: ', text)
+  // }
 
   const contextMenu: ContextMenuItem[] = [
     {
@@ -188,7 +194,15 @@ const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: Dra
         </StrictModeDroppable>
       </DragDropContext>
       <FormDialog show={showGroupNameDialog} title={'assign to group'} onSave={() => {}} onCancel={() => setShowGroupNameDialog(false)}>
-        <FormTextBox defaultValue={selectedItems.length > 0 ? selectedItems[0].GroupName ?? '' : ''} label='group name:' onBlurred={handleSaveGroupName} />
+        {/* <AutoCompleteSolo props={{
+          defaultValue: selectedItems.length > 0 ? selectedItems[0].GroupName ?? '' : '',
+          options={[]}
+          label={'Group Name'}
+          width={200}
+          ={handleSelectGroupName}
+        }}
+        /> */}
+        {/* <FormTextBox defaultValue={selectedItems.length > 0 ? selectedItems[0].GroupName ?? '' : ''} label='group name:' onBlurred={handleSaveGroupName} /> */}
       </FormDialog>
       <ConfirmDeleteDialog
         show={showConfirmDelete}
