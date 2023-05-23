@@ -37,9 +37,6 @@ const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: Dra
   const [showMultiMenu, setShowMultiMenu] = React.useState(true)
   const [showGroupNameDialog, setShowGroupNameDialog] = React.useState(false)
   const [allStocks, setAllStocks] = React.useState(items)
-  const [filteredStocks, setFilteredStocks] = React.useState(items)
-
-  const groupSearch = new Set(allStocks.map((o) => o.GroupName ?? ''))
 
   const handleRemoveQuote = (symbol: string) => {
     const list = allStocks.filter((m) => m.Symbol !== symbol)

@@ -158,15 +158,22 @@ const StockSearchLayout = () => {
     setModel({ ...model, filteredList: result })
   }
   const handleSaveChanges = async (quotes: StockQuote[]) => {
+    const newMap = getMapFromArray(quotes, 'Symbol')
+    quotes.forEach((item) => {
+      newMap.set(item.Symbol, item)
+    })
+    const newList = Array.from(newMap.values())
     if (model.username) {
       setModel({ ...model, successMesage: null })
-      await putUserStockList(model.username, quotes)
+      await putUserStockList(model.username, newList)
     }
+
     setModel({
       ...model,
-      stockList: quotes,
-      stockListMap: getMapFromArray(quotes, 'Symbol'),
-      filteredList: quotes,
+      //isLoading: false,
+      stockList: newList,
+      stockListMap: newMap,
+      filteredList: newList,
       successMesage: 'Your list has been updated!',
     })
   }
@@ -227,6 +234,7 @@ const StockSearchLayout = () => {
                     data={model.stockList}
                     onCancelEdit={() => setModel({ ...model, editList: false })}
                     onPushChanges={handleSaveChanges}
+                    loading={model.isLoading}
                   />
                 </>
               ) : (
