@@ -53,8 +53,8 @@ const GroupedStocksLayout = ({ stockList }: { stockList: StockQuote[] }) => {
         {Array.from(data.values()).map((item, i) => (
           <Box key={item.groupName}>
             <Box
-              sx={{ backgroundColor: VeryLightBlueTransparent, cursor: 'pointer' }}
-              py={1}
+              sx={{ backgroundColor: VeryLightBlueTransparent, cursor: 'pointer', borderRadius: 1.2 }}
+              py={2}
               pl={1}
               display={'flex'}
               gap={2}
@@ -63,12 +63,12 @@ const GroupedStocksLayout = ({ stockList }: { stockList: StockQuote[] }) => {
               onClick={() => handleExpandCollapseGroup(item)}
             >
               <Box sx={{}}>
-                <Typography variant='h4' pl={1} fontWeight={600} color='primary'>
+                <Typography variant='h5' pl={1} color='primary'>
                   {`${!item.groupName || item.groupName.length === 0 ? 'Unassigned' : item.groupName}`}
                 </Typography>
               </Box>
-              <Box pr={1}>
-                <Typography variant='h5' pl={1} fontWeight={600} color={getPositiveNegativeColor(item.movingAvg)}>
+              <Box pr={2}>
+                <Typography variant='h5' pl={1} color={getPositiveNegativeColor(item.movingAvg)}>
                   {`${item.movingAvg.toFixed(2)}%`}
                 </Typography>
               </Box>
@@ -77,11 +77,6 @@ const GroupedStocksLayout = ({ stockList }: { stockList: StockQuote[] }) => {
           </Box>
         ))}
       </Box>
-      {/* {Array.from(groupMap.keys()).map((key) => (
-        <Box key={key} display={'flex'} flexDirection={'column'} gap={1}>
-          <Typography variant='h4'>{key}</Typography>
-        </Box>
-      ))} */}
     </Box>
   )
 }

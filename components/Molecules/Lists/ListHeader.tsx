@@ -13,7 +13,7 @@ const ListHeader = ({ text, item, onClicked }: { text: string; item: any; onClic
       }}
     >
       <Stack sx={{ backgroundColor: ChartBackground }} direction={'row'} flexGrow={1} px={2} py={1}>
-        <Typography textAlign={'left'} variant='h6' fontWeight={600} color={DarkBlue} sx={{ textDecoration: 'unset' }}>
+        <Typography textAlign={'left'} variant='h5' color={DarkBlue} sx={{ textDecoration: 'unset' }}>
           {text}
         </Typography>
       </Stack>

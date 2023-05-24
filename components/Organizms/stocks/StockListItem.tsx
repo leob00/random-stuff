@@ -56,10 +56,10 @@ const StockListItem = ({
         {val && (
           <Stack direction={'row'} spacing={2} py={1} alignItems={'center'}>
             <Stack minWidth={80} textAlign={'right'}>
-              <Typography color={CasinoBlueTransparent} variant={'body2'} fontSize={12}>{`${label}:`}</Typography>
+              <Typography color={CasinoBlueTransparent} variant={'body2'}>{`${label}:`}</Typography>
             </Stack>
             <Stack>
-              <Typography variant={'body2'} color={'primary'} fontSize={12}>
+              <Typography variant={'body2'} color={'primary'}>
                 {val}
               </Typography>
             </Stack>
@@ -93,9 +93,9 @@ const StockListItem = ({
         <Typography ref={scrollTarget}></Typography>
         <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
           <Stack direction={'row'} spacing={2} pl={2} sx={{ backgroundColor: 'unset' }} pt={1}>
-            <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.Price.toFixed(2)}`}</Typography>
-            <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.Change.toFixed(2)}`}</Typography>
-            <Typography variant='h6' fontWeight={600} color={getPositiveNegativeColor(item.Change)}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
+            <Typography variant='h6' color={getPositiveNegativeColor(item.Change)}>{`${item.Price.toFixed(2)}`}</Typography>
+            <Typography variant='h6' color={getPositiveNegativeColor(item.Change)}>{`${item.Change.toFixed(2)}`}</Typography>
+            <Typography variant='h6' color={getPositiveNegativeColor(item.Change)}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
           </Stack>
         </Stack>
         {showGroupName && item.GroupName && (
