@@ -12,6 +12,9 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SingleItemMenu from './SingleItemMenu'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import { orderBy } from 'lodash'
+import EditableStockList from './EditableStockList'
+import { searchWithinResults } from './StockSearchLayout'
 
 const EditList = ({
   username,
@@ -50,14 +53,13 @@ const EditList = ({
     setShowEditSingleItem(true)
   }
   const handleSearched = (text: string) => {
-    const result = originalData.filter((o) => o.Symbol.toLowerCase().includes(text.toLowerCase()) || o.Company.toLowerCase().startsWith(text.toLowerCase()))
-    setFiltered(result)
+    setFiltered(searchWithinResults(originalData, text))
   }
   const handleCloseEditSingleItem = () => {
     setEditItem(undefined)
     setShowEditSingleItem(false)
   }
-  const handleSelectGroupName = (text: string) => {
+  const handleSelectGroupName = (text: string, closeForm?: boolean) => {
     setIsLoading(true)
     const item = { ...editItem! }
     item.GroupName = text
@@ -66,7 +68,13 @@ const EditList = ({
     map.set(item.Symbol, item)
     const newList = getListFromMap(map)
     setOriginalData(newList)
+    const newFilteredMap = getMapFromArray(filtered, 'Symbol')
+    newFilteredMap.set(item.Symbol, item)
+    setFiltered(Array.from(newFilteredMap.values()))
     onPushChanges(newList)
+    if (closeForm) {
+      handleCloseEditSingleItem()
+    }
     //console.log('text: ', text ?? '')
   }
   const handleRemoveItem = (id: string) => {
@@ -97,19 +105,20 @@ const EditList = ({
       ) : (
         <>
           {filtered.length < originalData.length ? (
-            <Box pt={4}>
-              <HorizontalDivider />
-              {filtered.map((item, i) => (
-                <Box key={item.Symbol} py={2} display='flex' justifyContent={'space-between'} alignItems={'center'}>
-                  <Box>
-                    <ListItemText primary={`${item.Company} (${item.Symbol})`} secondary={`Group name: ${item.GroupName ?? ''}`} />
-                  </Box>
-                  <Stack alignItems={'flex-end'} flexGrow={1} pr={2}>
-                    <SingleItemMenu onEdelete={handleRemoveItem} quote={item} onEdit={handleEditSingleItem} />
-                  </Stack>
-                </Box>
-              ))}
-            </Box>
+            // <Box pt={4}>
+            //   <HorizontalDivider />
+            //   {filtered.map((item, i) => (
+            //     <Box key={item.Symbol} py={2} display='flex' justifyContent={'space-between'} alignItems={'center'}>
+            //       <Box>
+            //         <ListItemText primary={`${item.Company} (${item.Symbol})`} secondary={`Group name: ${item.GroupName ?? ''}`} />
+            //       </Box>
+            //       <Stack alignItems={'flex-end'} flexGrow={1} pr={2}>
+            //         <SingleItemMenu onEdelete={handleRemoveItem} quote={item} onEdit={handleEditSingleItem} />
+            //       </Stack>
+            //     </Box>
+            //   ))}
+            // </Box>
+            <EditableStockList items={filtered} handleRemoveItem={handleRemoveItem} handleEditSingleItem={handleEditSingleItem} />
           ) : (
             <Box>
               <DraggableList username={username} items={originalData} onPushChanges={onPushChanges} onEditSingleItem={handleEditSingleItem} />
@@ -139,12 +148,15 @@ const EditList = ({
             You can assign a new group name or pick from existing ones.
           </DialogContentText>
           <Box py={4}>
-            {/* <SearchAutoComplete defaultVal={editItem?.GroupName} label={'Group name'} searchResults={groups} onSelected={() => {}} /> */}
             <AutoCompleteSolo
               props={{
                 defaultValue: editItem?.GroupName ?? '',
                 label: 'Group Name',
-                options: groups.map((o) => o.text),
+                options: orderBy(
+                  groups.map((o) => o.text),
+                  [],
+                  ['asc'],
+                ),
                 onSubmitted: handleSelectGroupName,
                 width: 300,
               }}
@@ -155,7 +167,6 @@ const EditList = ({
         <DialogActions>
           <PrimaryButton text={'Save'} onClick={handleCloseEditSingleItem}></PrimaryButton>
         </DialogActions>
-        {/* <HorizontalDivider /> */}
       </Dialog>
     </Box>
   )

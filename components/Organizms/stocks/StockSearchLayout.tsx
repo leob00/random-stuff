@@ -39,6 +39,16 @@ interface Model {
   showAsGroup?: boolean
 }
 
+export const searchWithinResults = (quotes: StockQuote[], text: string) => {
+  const result = quotes.filter(
+    (o) =>
+      o.Symbol.toLowerCase().includes(text.toLowerCase()) ||
+      o.Company.toLowerCase().startsWith(text.toLowerCase()) ||
+      (o.GroupName && o.GroupName.toLowerCase().includes(text.toLowerCase())),
+  )
+  return result
+}
+
 const StockSearchLayout = () => {
   const userController = useUserController()
   const defaultModel: Model = {
@@ -152,9 +162,7 @@ const StockSearchLayout = () => {
     setModel({ ...model, quoteToAdd: undefined, isLoading: false, successMesage: null })
   }
   const handleSearchListChange = async (text: string) => {
-    const result = model.stockList.filter(
-      (o) => o.Symbol.toLowerCase().startsWith(text.toLowerCase()) || o.Company.toLowerCase().startsWith(text.toLowerCase()),
-    )
+    const result = searchWithinResults(model.stockList, text)
     setModel({ ...model, filteredList: result })
   }
   const handleSaveChanges = async (quotes: StockQuote[]) => {

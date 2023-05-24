@@ -6,7 +6,7 @@ export interface AutoCompleteProps {
   options: string[]
   label: string
   width: number | string
-  onSubmitted: (text: string) => void
+  onSubmitted: (text: string, closeForm?: boolean) => void
 }
 const AutoCompleteSolo = ({ props }: { props: AutoCompleteProps }) => {
   const textRef = React.useRef<HTMLInputElement | null>(null)
@@ -18,7 +18,7 @@ const AutoCompleteSolo = ({ props }: { props: AutoCompleteProps }) => {
   }
   const handleSubmitted = (text: string | null) => {
     if (text) {
-      props.onSubmitted(text)
+      props.onSubmitted(text, true)
     }
   }
 
