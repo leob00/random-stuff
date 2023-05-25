@@ -146,6 +146,8 @@ const StockSearchLayout = () => {
 
       setModel({
         ...model,
+        editList: false,
+        showAsGroup: false,
         stockListMap: stockListMap,
         stockList: newList,
         autoCompleteResults: [],
