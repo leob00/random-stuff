@@ -130,14 +130,10 @@ const StockSearchLayout = () => {
     const quote = cloneDeep(model.quoteToAdd!)
     let stockList = cloneDeep(model.stockList)
     let stockListMap = getMapFromArray(stockList, 'Symbol')
+    quote.GroupName = quote.Sector ?? 'Unassigned'
     if (!stockListMap.has(quote.Symbol)) {
       stockListMap.set(quote.Symbol, quote)
-      const newList: StockQuote[] = []
-      stockListMap.forEach((val) => {
-        if (val.Symbol !== quote.Symbol) {
-          newList.push(val)
-        }
-      })
+      const newList = Array.from(stockListMap.values())
       newList.unshift(quote)
       if (model.username) {
         putUserStockList(model.username, newList)

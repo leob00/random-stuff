@@ -1,7 +1,8 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import dayjs from 'dayjs'
 import { StockQuote } from 'lib/backend/api/models/zModels'
+import numeral from 'numeral'
 import React from 'react'
 import StockListItem from './StockListItem'
 
@@ -16,7 +17,10 @@ const StockTable = ({ stockList, isStock }: { stockList: StockQuote[]; isStock: 
         ))}
         {stockList.length > 0 ? (
           <Box>
-            <Typography variant={'caption'}>{`prices are as of: ${dayjs(stockList[0].TradeDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
+            <Stack>
+              <Typography variant={'caption'}>{`prices are as of: ${dayjs(stockList[0].TradeDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
+            </Stack>
+            <Typography variant={'caption'}>{`total count: ${numeral(stockList.length).format()}`}</Typography>
           </Box>
         ) : (
           <CenterStack sx={{ py: 4 }}>

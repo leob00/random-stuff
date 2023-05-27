@@ -75,7 +75,7 @@ const GroupedStocksLayout = ({
     <Box>
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} pb={1}>
         <Box pl={1}>
-          <SearchWithinList onChanged={handleSearchGroupWithinList} debounceWaitMilliseconds={25} />
+          <SearchWithinList onChanged={handleSearchGroupWithinList} debounceWaitMilliseconds={150} />
         </Box>
         <GroupedListMenu onEdit={onEdit} onRefresh={onRefresh} onShowAsGroup={onShowAsGroup} />
       </Box>
