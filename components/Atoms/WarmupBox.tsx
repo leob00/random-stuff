@@ -27,15 +27,11 @@ const WarmupBox = ({ text }: { text?: string }) => {
   }, [model.message, text])
   return (
     <NonSSRWrapper>
-      <Stack>
+      <Box>
         <Backdrop sx={{ backgroundColor: VeryLightTransparent, zIndex: (theme) => theme.zIndex.drawer + 1 }} open={true}>
           <img src={'/images/loaders/dots.svg'} />
         </Backdrop>
-        <CenterStack sx={{ py: 4 }}>
-          <Typography variant='body2' color={'secondary'}>
-            {text ? text : `${model.message}...`}
-          </Typography>
-        </CenterStack>
+
         {/* <Paper elevation={6} sx={{ mt: 1 }}>
           <Box py={2}>
             <Box pt={2}>
@@ -51,7 +47,14 @@ const WarmupBox = ({ text }: { text?: string }) => {
             </Box>
           </Box>
         </Paper> */}
-      </Stack>
+      </Box>
+      <Box pt={1}>
+        <CenterStack>
+          <Typography variant='body2' color={'secondary'}>
+            {text ? text : `${model.message}...`}
+          </Typography>
+        </CenterStack>
+      </Box>
     </NonSSRWrapper>
   )
 }

@@ -10,6 +10,7 @@ import React from 'react'
 import { get } from 'lib/backend/api/fetchFunctions'
 import NewsList from './NewsList'
 import { getUserNoteTitles, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
+import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 
 const NewsLayout = () => {
   const [isLoading, setIsLoading] = React.useState(true)
@@ -80,11 +81,14 @@ const NewsLayout = () => {
           </Stack>
         </CenterStack>
       </Box>
-      <Box py={2}>
+      <Box>
         {isLoading ? (
-          <WarmupBox />
+          <>
+            <WarmupBox />
+            <LargeGridSkeleton />
+          </>
         ) : (
-          <Box sx={{ maxHeight: 580, overflowY: 'auto' }}>
+          <Box sx={{ maxHeight: 580, overflowY: 'auto' }} py={2}>
             {showError && <ErrorMessage text='There is an error that occurred. We have been made aware of it. Please try again in a few minutes.' />}
             <NewsList newsItems={newsItems} />
           </Box>

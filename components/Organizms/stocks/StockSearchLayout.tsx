@@ -257,9 +257,7 @@ const StockSearchLayout = () => {
                       <GroupedStocksLayout
                         stockList={model.filteredList}
                         onRefresh={reloadData}
-                        onEdit={() => () => {
-                          setModel({ ...model, editList: true })
-                        }}
+                        onEdit={() => setModel({ ...model, editList: true })}
                         onShowAsGroup={() => handleShowAsGroup(false)}
                       />
                     </Box>
@@ -271,13 +269,7 @@ const StockSearchLayout = () => {
                             <SearchWithinList onChanged={handleSearchListChange} debounceWaitMilliseconds={25} />
                           )}
                         </Box>
-                        <FlatListMenu
-                          onEdit={() => {
-                            setModel({ ...model, editList: true })
-                          }}
-                          onRefresh={reloadData}
-                          onShowAsGroup={handleShowAsGroup}
-                        />
+                        <FlatListMenu onEdit={() => setModel({ ...model, editList: true })} onRefresh={reloadData} onShowAsGroup={handleShowAsGroup} />
                       </Box>
                       <Box display={'flex'} justifyContent={'flex-end'}></Box>
                       <StockTable stockList={model.filteredList} isStock={true} />
