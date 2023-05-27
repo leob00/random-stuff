@@ -31,8 +31,10 @@ const WarmupBox = ({ text }: { text?: string }) => {
         <Backdrop sx={{ backgroundColor: VeryLightTransparent, zIndex: (theme) => theme.zIndex.drawer + 1 }} open={true}>
           <img src={'/images/loaders/dots.svg'} />
         </Backdrop>
-        <CenterStack>
-          <Typography color={'secondary'}>{text ? text : `${model.message}...`}</Typography>
+        <CenterStack sx={{ py: 4 }}>
+          <Typography variant='body2' color={'secondary'}>
+            {text ? text : `${model.message}...`}
+          </Typography>
         </CenterStack>
         {/* <Paper elevation={6} sx={{ mt: 1 }}>
           <Box py={2}>
