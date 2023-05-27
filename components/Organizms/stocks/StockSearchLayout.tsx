@@ -167,6 +167,7 @@ const StockSearchLayout = () => {
     const result = searchWithinResults(model.stockList, text)
     setModel({ ...model, filteredList: result })
   }
+
   const handleSaveChanges = async (quotes: StockQuote[]) => {
     const newMap = getMapFromArray(quotes, 'Symbol')
     quotes.forEach((item) => {
@@ -201,8 +202,14 @@ const StockSearchLayout = () => {
       setModel({ ...model, isLoading: false })
     }
 
-    setModel({ ...model, showAsGroup: show })
+    setModel({ ...model, filteredList: show ? model.stockList : model.filteredList, showAsGroup: show })
   }
+
+  React.useEffect(() => {
+    if (model.isLoading) {
+      setModel({ ...model, isLoading: false })
+    }
+  }, [model.isLoading])
 
   React.useEffect(() => {
     const fn = async () => {
@@ -251,17 +258,14 @@ const StockSearchLayout = () => {
                 <>
                   {model.showAsGroup ? (
                     <Box>
-                      <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                        <Box></Box>
-                        <GroupedListMenu
-                          onEdit={() => {
-                            setModel({ ...model, editList: true })
-                          }}
-                          onRefresh={reloadData}
-                          onShowAsGroup={handleShowAsGroup}
-                        />
-                      </Box>
-                      <GroupedStocksLayout stockList={model.stockList} />
+                      <GroupedStocksLayout
+                        stockList={model.filteredList}
+                        onRefresh={reloadData}
+                        onEdit={() => () => {
+                          setModel({ ...model, editList: true })
+                        }}
+                        onShowAsGroup={() => handleShowAsGroup(false)}
+                      />
                     </Box>
                   ) : (
                     <Box>

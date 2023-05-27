@@ -6,6 +6,8 @@ import { getPositiveNegativeColor } from './StockListItem'
 import { orderBy, mean, cloneDeep } from 'lodash'
 import StockTable from './StockTable'
 import { getMapFromArray } from 'lib/util/collectionsNative'
+import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
+import GroupedListMenu from './GroupedListMenu'
 
 interface Model {
   id: string
@@ -15,27 +17,44 @@ interface Model {
   quotes: StockQuote[]
 }
 
-const GroupedStocksLayout = ({ stockList }: { stockList: StockQuote[] }) => {
+const GroupedStocksLayout = ({
+  stockList,
+  onEdit,
+  onRefresh,
+  onShowAsGroup,
+}: {
+  stockList: StockQuote[]
+  onEdit: () => void
+  onRefresh: () => void
+  onShowAsGroup: (show: boolean) => void
+}) => {
+  const groupify = (list: StockQuote[]) => {
+    const groupSet = new Set(list.map((item) => item.GroupName!))
+    let groupedList: Model[] = []
+    groupSet.forEach((i) => {
+      groupedList.push({
+        id: crypto.randomUUID(),
+        isExpanded: false,
+        groupName: i,
+        movingAvg: mean(list.filter((o) => o.GroupName === i).map((o) => o.ChangePercent)),
+        quotes: list.filter((o) => o.GroupName === i),
+      })
+    })
+    return groupedList
+  }
+
   const allStocks = [...stockList]
+
   allStocks.forEach((item) => {
     if (!item.GroupName || item.GroupName === 'Unassigned') {
       item.GroupName = item.Sector ?? ''
     }
   })
-  const groupSet = new Set(allStocks.map((item) => item.GroupName!))
-  let groupedList: Model[] = []
-  groupSet.forEach((i) => {
-    groupedList.push({
-      id: crypto.randomUUID(),
-      isExpanded: false,
-      groupName: i,
-      movingAvg: mean(allStocks.filter((o) => o.GroupName === i).map((o) => o.ChangePercent)),
-      quotes: allStocks.filter((o) => o.GroupName === i),
-    })
-  })
+  let groupedList = groupify(allStocks)
   groupedList = orderBy(groupedList, ['movingAvg', 'groupName'], ['desc', 'asc'])
   const groupMap = getMapFromArray(groupedList, 'id')
   const [data, setData] = React.useState(groupMap)
+  const [originalData] = React.useState(groupMap)
 
   const handleExpandCollapseGroup = (item: Model) => {
     const newMap = new Map(data)
@@ -46,9 +65,20 @@ const GroupedStocksLayout = ({ stockList }: { stockList: StockQuote[] }) => {
       setData(newMap)
     }
   }
+  const handleSearchGroupWithinList = (text: string) => {
+    const result = Array.from(originalData.values()).filter((o) => o.groupName.toLowerCase().includes(text.toLowerCase()))
+    const map = getMapFromArray(result, 'id')
+    setData(map)
+  }
 
   return (
-    <Box py={2}>
+    <Box>
+      <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} pb={1}>
+        <Box pl={1}>
+          <SearchWithinList onChanged={handleSearchGroupWithinList} debounceWaitMilliseconds={25} />
+        </Box>
+        <GroupedListMenu onEdit={onEdit} onRefresh={onRefresh} onShowAsGroup={onShowAsGroup} />
+      </Box>
       <Box display={'flex'} flexDirection={'column'} gap={2}>
         {Array.from(data.values()).map((item, i) => (
           <Box key={item.groupName}>
