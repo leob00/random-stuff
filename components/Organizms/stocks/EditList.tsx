@@ -16,19 +16,7 @@ import { orderBy } from 'lodash'
 import EditableStockList from './EditableStockList'
 import { searchWithinResults } from './StockSearchLayout'
 
-const EditList = ({
-  username,
-  data,
-  onPushChanges,
-  onCancelEdit,
-  loading,
-}: {
-  username: string | null
-  data: StockQuote[]
-  onPushChanges: (quotes: StockQuote[]) => void
-  onCancelEdit: () => void
-  loading: boolean
-}) => {
+const EditList = ({ username, data, onPushChanges, onCancelEdit, loading }: { username: string | null; data: StockQuote[]; onPushChanges: (quotes: StockQuote[]) => void; onCancelEdit: () => void; loading: boolean }) => {
   const [originalData, setOriginalData] = React.useState(data)
   const [filtered, setFiltered] = React.useState(data)
   const [showEditSingleItem, setShowEditSingleItem] = React.useState(false)
@@ -80,6 +68,8 @@ const EditList = ({
   const handleRemoveItem = (id: string) => {
     setEditItem(undefined)
     const newQuotes = { ...originalData }.filter((i) => i.Symbol !== id)
+    setFiltered(newQuotes)
+    setOriginalData(newQuotes)
     onPushChanges(newQuotes)
   }
   React.useEffect(() => {
@@ -126,13 +116,7 @@ const EditList = ({
           )}
         </>
       )}
-      <Dialog
-        open={showEditSingleItem}
-        onClose={handleCloseEditSingleItem}
-        aria-labelledby='alert-dialog-title'
-        aria-describedby='alert-dialog-description'
-        maxWidth='lg'
-      >
+      <Dialog open={showEditSingleItem} onClose={handleCloseEditSingleItem} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description' maxWidth='lg'>
         <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>
           <Stack display='flex' direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
             <Box>{editItem?.Company}</Box>
