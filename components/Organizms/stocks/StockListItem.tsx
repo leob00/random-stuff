@@ -47,7 +47,7 @@ const StockListItem = ({
       setStockHistory(history)
       if (showMore) {
         if (scrollTarget.current) {
-          scrollTarget.current.scrollIntoView()
+          scrollTarget.current.scrollIntoView({ behavior: 'smooth' })
         }
       }
     }
@@ -77,11 +77,6 @@ const StockListItem = ({
 
   const handleCompanyClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined, show: boolean) => {
     setShowMore(show)
-    // if (show) {
-    //   if (scrollTarget.current) {
-    //     scrollTarget.current.scrollIntoView()
-    //   }
-    // }
   }
 
   const handleSelectTab = (title: string) => {
@@ -114,6 +109,9 @@ const StockListItem = ({
       {!showMore && <HorizontalDivider />}
       {showMore && (
         <>
+          <Box>
+            <HorizontalDivider />
+          </Box>
           <Box display={'flex'} justifyContent={'flex-end'}>
             <IconButton color='default' onClick={() => setShowMore(false)}>
               <Close fontSize='small' color={'secondary'} />
@@ -122,7 +120,7 @@ const StockListItem = ({
           <Box pl={1} sx={{ backgroundColor: 'unset' }} minHeight={108}>
             {stockHistory.length > 0 ? (
               <>
-                <StockChart symbol={item.Symbol} history={stockHistory} companyName={item.Company} isStock={isStock} />
+                <StockChart symbol={item.Symbol} history={stockHistory} isStock={isStock} />
               </>
             ) : (
               <>
