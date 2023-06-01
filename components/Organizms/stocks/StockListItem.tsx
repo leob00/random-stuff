@@ -13,6 +13,7 @@ import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import StockNews from 'components/Organizms/stocks/StockNews'
 import StockEarnings from './StockEarnings'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
+import CenterStack from 'components/Atoms/CenterStack'
 
 const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'News' }, { title: 'Earnings' }]
 export const getPositiveNegativeColor = (val: number) => {
@@ -44,6 +45,11 @@ const StockListItem = ({
     const fn = async () => {
       const history = await getStockOrFutureChart(item.Symbol, 90, isStock)
       setStockHistory(history)
+      if (showMore) {
+        if (scrollTarget.current) {
+          scrollTarget.current.scrollIntoView()
+        }
+      }
     }
     if (showMore) {
       fn()
@@ -71,11 +77,11 @@ const StockListItem = ({
 
   const handleCompanyClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined, show: boolean) => {
     setShowMore(show)
-    if (show) {
-      if (scrollTarget.current) {
-        scrollTarget.current.scrollIntoView()
-      }
-    }
+    // if (show) {
+    //   if (scrollTarget.current) {
+    //     scrollTarget.current.scrollIntoView()
+    //   }
+    // }
   }
 
   const handleSelectTab = (title: string) => {
@@ -84,13 +90,14 @@ const StockListItem = ({
 
   return (
     <Box key={item.Symbol} py={1}>
+      <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
       <Box>
         {isStock ? (
           <ListHeader text={`${item.Company}   (${item.Symbol})`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
         ) : (
           <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
         )}
-        <Typography ref={scrollTarget}></Typography>
+
         <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
           <Stack direction={'row'} spacing={2} pl={2} sx={{ backgroundColor: 'unset' }} pt={1}>
             <Typography variant='h5' color={getPositiveNegativeColor(item.Change)}>{`${item.Price.toFixed(2)}`}</Typography>
@@ -119,9 +126,11 @@ const StockListItem = ({
               </>
             ) : (
               <>
-                <Box height={400}>
-                  <LinesSkeleton lines={1} />
-                  <BoxSkeleton />
+                <Box>
+                  <CenterStack sx={{ pt: 6 }}>
+                    <LinesSkeleton lines={1} width={200} />
+                  </CenterStack>
+                  <BoxSkeleton height={200} />
                 </Box>
               </>
             )}

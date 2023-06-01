@@ -17,10 +17,7 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string; history: StockHistoryItem[]; companyName?: string; isStock: boolean }) => {
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const isLarge = useMediaQuery(theme.breakpoints.up('lg'))
-  let chartHeight = 580
-  if (isXSmall) {
-    chartHeight = 240
-  }
+  const chartHeight = isXSmall ? 250 : 580
 
   const mapHistory = (items: StockHistoryItem[]) => {
     const data: XyValues = {
@@ -60,9 +57,7 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
         <DropdownList options={daySelect} selectedOption={'90'} onOptionSelected={handleDaysSelected} />
       </Box>
       {isLoading ? (
-        <Box minHeight={320}>
-          <WarmupBox text='loading chart...' />
-        </Box>
+        <></>
       ) : (
         <>
           {companyName && (
