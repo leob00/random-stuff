@@ -28,7 +28,7 @@ const InfoDialog = ({
 
   return (
     <Box>
-      <Dialog open={show} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description' maxWidth='lg'>
+      <Dialog open={show} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description' maxWidth='lg' fullWidth>
         <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>
           <Stack display='flex' direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
             <Box>{title}</Box>

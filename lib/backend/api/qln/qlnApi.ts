@@ -120,6 +120,7 @@ export interface Job {
   EndRunDate?: string
   Chart?: LineChart
   Executer?: string
+  RecordsProcessed?: number
 }
 
 export interface LineChart {

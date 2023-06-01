@@ -1,13 +1,13 @@
 import { Box, Stack, Typography } from '@mui/material'
-import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import dayjs from 'dayjs'
 import { Job } from 'lib/backend/api/qln/qlnApi'
+import numeral from 'numeral'
 import React from 'react'
 import JobDetailChart from './JobDetailChart'
 
 const JobDetails = ({ item, onClose }: { item: Job; onClose: () => void }) => {
-  // console.log('chart: ', JSON.stringify(item.Chart))
+  //console.log('records: ', item.RecordsProcessed)
   return (
     <InfoDialog show={true} title={item.Description} onCancel={() => onClose()}>
       <Box>
@@ -24,6 +24,11 @@ const JobDetails = ({ item, onClose }: { item: Job; onClose: () => void }) => {
         {item.NextRunDate && (
           <Stack>
             <Typography variant='caption'>{`next run: ${dayjs(item.NextRunDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
+          </Stack>
+        )}
+        {item.RecordsProcessed && (
+          <Stack>
+            <Typography variant='caption'>{`records processed: ${numeral(item.RecordsProcessed).format('###,###')}`}</Typography>
           </Stack>
         )}
         {item.Chart && (
