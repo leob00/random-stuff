@@ -14,7 +14,7 @@ import { StockQuote } from 'lib/backend/api/models/zModels'
 import { searchStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import { getUserStockList, putUserProfile, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
-import { getMapFromArray } from 'lib/util/collectionsNative'
+import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import { cloneDeep } from 'lodash'
 import React from 'react'
 import { DropResult } from 'react-beautiful-dnd'
@@ -40,7 +40,12 @@ interface Model {
 }
 
 export const searchWithinResults = (quotes: StockQuote[], text: string) => {
-  const result = quotes.filter((o) => o.Symbol.toLowerCase().includes(text.toLowerCase()) || o.Company.toLowerCase().startsWith(text.toLowerCase()) || (o.GroupName && o.GroupName.toLowerCase().includes(text.toLowerCase())))
+  const result = quotes.filter(
+    (o) =>
+      o.Symbol.toLowerCase().includes(text.toLowerCase()) ||
+      o.Company.toLowerCase().startsWith(text.toLowerCase()) ||
+      (o.GroupName && o.GroupName.toLowerCase().includes(text.toLowerCase())),
+  )
   return result
 }
 
@@ -80,8 +85,8 @@ const StockSearchLayout = () => {
 
   const handleSelectQuote = (text: string) => {
     const symbol = text.split(':')[0]
-    const quote = cloneDeep(model.searchedStocksMap.get(symbol))
-    setModel({ ...model, isLoading: true })
+    const quote = model.searchedStocksMap.get(symbol)
+    //setModel({ ...model, isLoading: true })
     if (quote) {
       setModel({ ...model, quoteToAdd: quote, autoCompleteResults: [], successMesage: null })
     }
@@ -121,19 +126,27 @@ const StockSearchLayout = () => {
   }
 
   const handleAddToList = async () => {
-    setModel({ ...model, isLoading: true, successMesage: null })
+    //console.log('adding to list ', model.quoteToAdd)
+    //setModel({ ...model, isLoading: true, successMesage: null })
     const quote = cloneDeep(model.quoteToAdd!)
-    let stockList = cloneDeep(model.stockList)
+    let stockList = [...model.stockList]
     let stockListMap = getMapFromArray(stockList, 'Symbol')
     quote.GroupName = quote.Sector ?? 'Unassigned'
     if (!stockListMap.has(quote.Symbol)) {
       stockListMap.set(quote.Symbol, quote)
-      const newList = Array.from(stockListMap.values())
+      const newList = getListFromMap(stockListMap).filter((m) => m.Symbol !== quote.Symbol)
       newList.unshift(quote)
+      //console.log('map: ', stockListMap)
+
+      // if (newList.length === 0) {
+      //   newList.push(quote)
+      // } else {
+      //   newList.unshift(quote)
+      // }
       if (model.username) {
         putUserStockList(model.username, newList)
       }
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      //console.log('new list: ', newList)
 
       setModel({
         ...model,
@@ -150,6 +163,7 @@ const StockSearchLayout = () => {
     } else {
       setModel({ ...model, quoteToAdd: undefined, isLoading: false, successMesage: `${quote.Company} is already in your list` })
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
   const handleCloseAddQuote = () => {
     setModel({ ...model, quoteToAdd: undefined, isLoading: false, successMesage: null })
@@ -220,7 +234,13 @@ const StockSearchLayout = () => {
       {model.successMesage && <SnackbarSuccess show={true} text={model.successMesage} />}
       <Box py={2}>
         <CenterStack>
-          <SearchAutoComplete placeholder={'search stocks'} onChanged={handleSearched} searchResults={model.autoCompleteResults} debounceWaitMilliseconds={500} onSelected={handleSelectQuote} />
+          <SearchAutoComplete
+            placeholder={'search stocks'}
+            onChanged={handleSearched}
+            searchResults={model.autoCompleteResults}
+            debounceWaitMilliseconds={500}
+            onSelected={handleSelectQuote}
+          />
         </CenterStack>
       </Box>
       {model.quoteToAdd ? (
@@ -236,18 +256,33 @@ const StockSearchLayout = () => {
             <Box py={2}>
               {model.editList && model.stockList.length > 0 ? (
                 <>
-                  <EditList username={model.username ?? null} data={model.stockList} onCancelEdit={() => setModel({ ...model, editList: false })} onPushChanges={handleSaveChanges} loading={model.isLoading} />
+                  <EditList
+                    username={model.username ?? null}
+                    data={model.stockList}
+                    onCancelEdit={() => setModel({ ...model, editList: false })}
+                    onPushChanges={handleSaveChanges}
+                    loading={model.isLoading}
+                  />
                 </>
               ) : (
                 <>
                   {model.showAsGroup ? (
                     <Box>
-                      <GroupedStocksLayout stockList={model.filteredList} onRefresh={handleReloadData} onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={() => handleShowAsGroup(false)} />
+                      <GroupedStocksLayout
+                        stockList={model.filteredList}
+                        onRefresh={handleReloadData}
+                        onEdit={() => setModel({ ...model, editList: true })}
+                        onShowAsGroup={() => handleShowAsGroup(false)}
+                      />
                     </Box>
                   ) : (
                     <Box>
                       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                        <Box pl={1}>{model.stockList.length >= 10 && !model.showAsGroup && <SearchWithinList onChanged={handleSearchListChange} debounceWaitMilliseconds={25} />}</Box>
+                        <Box pl={1}>
+                          {model.stockList.length >= 10 && !model.showAsGroup && (
+                            <SearchWithinList onChanged={handleSearchListChange} debounceWaitMilliseconds={25} />
+                          )}
+                        </Box>
                         <FlatListMenu onEdit={() => setModel({ ...model, editList: true })} onRefresh={handleReloadData} onShowAsGroup={handleShowAsGroup} />
                       </Box>
                       <Box display={'flex'} justifyContent={'flex-end'}></Box>
