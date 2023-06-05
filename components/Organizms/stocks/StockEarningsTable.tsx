@@ -14,37 +14,87 @@ import numeral from 'numeral'
 import React from 'react'
 import StockListItem, { getPositiveNegativeColor } from './StockListItem'
 import { Box, Typography } from '@mui/material'
+import { uniq } from 'lodash'
+
+interface GroupedModel {
+  key: string
+  items: StockEarning[]
+}
 
 const StockEarningsTable = ({ data }: { data: StockEarning[] }) => {
+  const yearsGroup: GroupedModel[] = []
+  const years = uniq(data.filter((f) => f.ReportDate).map((m) => dayjs(m.ReportDate).format('YYYY')))
+  years.forEach((year) => {
+    yearsGroup.push({
+      key: year,
+      items: data.filter((m) => dayjs(m.ReportDate).format('YYYY') === year),
+    })
+  })
+
   return (
     <>
       <Box pl={1}>
         <TableContainer component={Paper}>
           <Table>
-            <TableHead>
+            {/* <TableHead>
               <TableRow>
                 <TableCell>Actual</TableCell>
                 <TableCell>Estimate</TableCell>
                 <TableCell>Date</TableCell>
               </TableRow>
-            </TableHead>
+            </TableHead> */}
             <TableBody>
-              {data.map((item, index) => (
-                <TableRow key={index}>
-                  <TableCell>
-                    <Typography color={getPositiveNegativeColor(item.ActualEarnings)}>
-                      {`${item.ActualEarnings ? numeral(item.ActualEarnings).format('0.00') : ''}`}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography color={getPositiveNegativeColor(item.EstimatedEarnings)}>
-                      {`${item.EstimatedEarnings ? numeral(item.EstimatedEarnings).format('0.00') : ''}`}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography>{dayjs(item.ReportDate).format('MM/DD/YYYY')}</Typography>
+              {yearsGroup.map((item, index) => (
+                <TableRow key={item.key}>
+                  <TableCell colSpan={10} sx={{ borderBottom: 'none' }}>
+                    <TableContainer>
+                      <Table>
+                        <TableHead>
+                          <TableRow>
+                            <TableCell>{item.key}</TableCell>
+                            <TableCell>Actual</TableCell>
+                            <TableCell>Estimate</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {item.items.map((subItem, i) => (
+                            <TableRow key={i}>
+                              <TableCell>
+                                <Typography>{dayjs(subItem.ReportDate).format('MM/DD/YYYY')}</Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Typography color={getPositiveNegativeColor(subItem.ActualEarnings)}>
+                                  {`${subItem.ActualEarnings ? numeral(subItem.ActualEarnings).format('0.00') : ''}`}
+                                </Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Typography color={getPositiveNegativeColor(subItem.EstimatedEarnings)}>
+                                  {`${subItem.EstimatedEarnings ? numeral(subItem.EstimatedEarnings).format('0.00') : ''}`}
+                                </Typography>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
                   </TableCell>
                 </TableRow>
+
+                // <TableRow key={index}>
+                //   <TableCell>
+                //     <Typography color={getPositiveNegativeColor(item.ActualEarnings)}>
+                //       {`${item.ActualEarnings ? numeral(item.ActualEarnings).format('0.00') : ''}`}
+                //     </Typography>
+                //   </TableCell>
+                //   <TableCell>
+                //     <Typography color={getPositiveNegativeColor(item.EstimatedEarnings)}>
+                //       {`${item.EstimatedEarnings ? numeral(item.EstimatedEarnings).format('0.00') : ''}`}
+                //     </Typography>
+                //   </TableCell>
+                //   <TableCell>
+                //     <Typography>{dayjs(item.ReportDate).format('MM/DD/YYYY')}</Typography>
+                //   </TableCell>
+                // </TableRow>
               ))}
             </TableBody>
           </Table>
