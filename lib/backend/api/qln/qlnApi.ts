@@ -277,9 +277,9 @@ export async function getEconCalendar() {
 
 export interface StockEarning {
   Symbol: string
-  ActualEarnings?: number
-  EstimatedEarnings?: number
-  ReportDate?: string
+  ActualEarnings?: number | null
+  EstimatedEarnings?: number | null
+  ReportDate?: string | null
 }
 
 export async function getStockEarnings(symbol: string) {

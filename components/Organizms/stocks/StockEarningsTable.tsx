@@ -32,11 +32,13 @@ const StockEarningsTable = ({ data }: { data: StockEarning[] }) => {
               {data.map((item, index) => (
                 <TableRow key={index}>
                   <TableCell>
-                    <Typography color={getPositiveNegativeColor(item.ActualEarnings)}>{`${numeral(item.ActualEarnings).format('0.00[0000]')}`}</Typography>
+                    <Typography color={getPositiveNegativeColor(item.ActualEarnings)}>
+                      {`${item.ActualEarnings ? numeral(item.ActualEarnings).format('0.00') : ''}`}
+                    </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography color={getPositiveNegativeColor(item.EstimatedEarnings)}>
-                      {`${numeral(item.EstimatedEarnings).format('0.00[0000]')}`}
+                      {`${item.EstimatedEarnings ? numeral(item.EstimatedEarnings).format('0.00') : ''}`}
                     </Typography>
                   </TableCell>
                   <TableCell>
