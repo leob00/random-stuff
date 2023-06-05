@@ -2,16 +2,20 @@ import { Box, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { getNewsBySymbol, NewsItem } from 'lib/backend/api/qln/qlnApi'
+import { getNewsBySymbol, getStockEarnings, getStockQuotes, NewsItem, StockEarning } from 'lib/backend/api/qln/qlnApi'
 import { orderBy } from 'lodash'
 import React from 'react'
 import NewsList from '../news/NewsList'
+import StockEarningsTable from './StockEarningsTable'
 
 const StockEarnings = ({ quote }: { quote: StockQuote }) => {
   const [isLoading, setIsLoading] = React.useState(true)
+  const [data, setData] = React.useState<StockEarning[]>([])
 
   React.useEffect(() => {
     const fn = async () => {
+      const apiData = await getStockEarnings(quote.Symbol)
+      setData(apiData)
       setIsLoading(false)
     }
     fn()
@@ -23,9 +27,9 @@ const StockEarnings = ({ quote }: { quote: StockQuote }) => {
         <WarmupBox />
       ) : (
         <>
-          <CenterStack sx={{ py: 2 }}>
-            <Typography variant='body2'>coming soon!</Typography>
-          </CenterStack>
+          <Box sx={{ py: 2 }}>
+            <StockEarningsTable data={data} />
+          </Box>
         </>
       )}
     </Box>

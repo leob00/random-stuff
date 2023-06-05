@@ -17,7 +17,7 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string; history: StockHistoryItem[]; companyName?: string; isStock: boolean }) => {
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const isLarge = useMediaQuery(theme.breakpoints.up('lg'))
-  const chartHeight = isXSmall ? 250 : 580
+  const chartHeight = isXSmall ? 300 : 580
 
   const mapHistory = (items: StockHistoryItem[]) => {
     const data: XyValues = {
@@ -53,7 +53,7 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
 
   return (
     <Box>
-      <Box textAlign={'right'} pr={1} pt={1} pb={2}>
+      <Box textAlign={'right'} pr={1} pt={1}>
         <DropdownList options={daySelect} selectedOption={'90'} onOptionSelected={handleDaysSelected} />
       </Box>
       {isLoading ? (
@@ -69,9 +69,9 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
           )}
           {chartOptions && (
             <Box
-              borderRadius={3}
-              p={1}
-              // sx={{ backgroundColor: OceanBlueTransparent }}
+            //borderRadius={3}
+            //p={1}
+            // sx={{ backgroundColor: OceanBlueTransparent }}
             >
               <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
             </Box>

@@ -126,8 +126,6 @@ const StockSearchLayout = () => {
   }
 
   const handleAddToList = async () => {
-    //console.log('adding to list ', model.quoteToAdd)
-    //setModel({ ...model, isLoading: true, successMesage: null })
     const quote = cloneDeep(model.quoteToAdd!)
     let stockList = [...model.stockList]
     let stockListMap = getMapFromArray(stockList, 'Symbol')
@@ -136,17 +134,10 @@ const StockSearchLayout = () => {
       stockListMap.set(quote.Symbol, quote)
       const newList = getListFromMap(stockListMap).filter((m) => m.Symbol !== quote.Symbol)
       newList.unshift(quote)
-      //console.log('map: ', stockListMap)
 
-      // if (newList.length === 0) {
-      //   newList.push(quote)
-      // } else {
-      //   newList.unshift(quote)
-      // }
       if (model.username) {
         putUserStockList(model.username, newList)
       }
-      //console.log('new list: ', newList)
 
       setModel({
         ...model,
@@ -214,12 +205,6 @@ const StockSearchLayout = () => {
     setModel({ ...model, isLoading: true, successMesage: null })
     await reloadData()
   }
-
-  // React.useEffect(() => {
-  //   if (model.isLoading) {
-  //     setModel({ ...model, isLoading: false })
-  //   }
-  // }, [model.isLoading])
 
   React.useEffect(() => {
     const fn = async () => {

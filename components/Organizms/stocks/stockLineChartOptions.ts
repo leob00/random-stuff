@@ -26,8 +26,8 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
   if (raw.length <= 200) {
     strokeWidth = 2
   } else {
-    if (raw.length >= 20) {
-      strokeWidth = 1.25
+    if (raw.length >= 60) {
+      strokeWidth = 1.75
     } else if (raw.length >= 10) {
       strokeWidth = 2
     } else {

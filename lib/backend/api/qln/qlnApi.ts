@@ -274,3 +274,19 @@ export async function getEconCalendar() {
   const result = response.Body as EconCalendarItem[]
   return result
 }
+
+export interface StockEarning {
+  Symbol: string
+  ActualEarnings?: number
+  EstimatedEarnings?: number
+  ReportDate?: string
+}
+
+export async function getStockEarnings(symbol: string) {
+  const response = await get(`${baseUrl}/StockEarnings`, {
+    symbol: symbol,
+  })
+
+  const result = response.Body as StockEarning[]
+  return result
+}
