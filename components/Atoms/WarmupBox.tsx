@@ -6,6 +6,7 @@ import CenterStack from './CenterStack'
 import RollingLinearProgress from './Loaders/RollingLinearProgress'
 import { CasinoBlueTransparent, CasinoLightGrayTransparent, VeryLightBlueTransparent, VeryLightTransparent } from 'components/themes/mainTheme'
 import NonSSRWrapper from 'components/Organizms/NonSSRWrapper'
+import BackdropLoader from './Loaders/BackdropLoader'
 
 const WarmupBox = ({ text }: { text?: string }) => {
   const defaultModel: Model = {
@@ -27,27 +28,7 @@ const WarmupBox = ({ text }: { text?: string }) => {
   }, [model.message, text])
   return (
     <NonSSRWrapper>
-      <Box>
-        <Backdrop sx={{ backgroundColor: VeryLightTransparent, zIndex: (theme) => theme.zIndex.drawer + 1 }} open={true}>
-          <img src={'/images/loaders/dots.svg'} />
-        </Backdrop>
-
-        {/* <Paper elevation={6} sx={{ mt: 1 }}>
-          <Box py={2}>
-            <Box pt={2}>
-              <CenterStack>
-                <Typography color={'secondary'}>{text ? text : `${model.message}...`}</Typography>
-              </CenterStack>
-            </Box>
-            <Box>
-              
-              <CenterStack>
-                <RollingLinearProgress width={100} height={25} />
-              </CenterStack>
-            </Box>
-          </Box>
-        </Paper> */}
-      </Box>
+      <BackdropLoader />
       <Box pt={1}>
         <CenterStack>
           <Typography variant='body2' color={'secondary'}>

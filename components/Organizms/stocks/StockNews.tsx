@@ -1,4 +1,5 @@
 import { Box } from '@mui/material'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { getNewsBySymbol, NewsItem } from 'lib/backend/api/qln/qlnApi'
@@ -41,9 +42,9 @@ const StockNews = ({ quote }: { quote: StockQuote }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
-    <Box pb={2} pt={2}>
+    <Box pb={2} pt={2} minHeight={400}>
       {isLoading ? (
-        <WarmupBox />
+        <BackdropLoader />
       ) : (
         <>
           <NewsList newsItems={newsItems} hideSaveButton={true} showPublishDate={true} />
