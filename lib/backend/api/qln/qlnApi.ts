@@ -168,12 +168,10 @@ export async function getNewsBySymbol(symbol: string) {
   return resp
 }
 
-export async function searchStockQuotes(search?: string) {
-  const url = search ? `${baseUrl}/StocksAutoComplete` : `${baseUrl}/Stocks`
-  const params = {
+export async function searchStockQuotes(search: string) {
+  const response = await get(`${baseUrl}/StocksAutoComplete`, {
     searchString: search ?? '',
-  }
-  const response = await get(url, params)
+  })
   const result = quoteArraySchema.parse(response.Body)
   return result
 }

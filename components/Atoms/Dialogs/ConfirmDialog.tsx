@@ -1,10 +1,7 @@
-import { Close } from '@mui/icons-material'
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack } from '@mui/material'
+import Close from '@mui/icons-material/Close'
+import { Box, Button, Dialog, DialogContent, DialogContentText, DialogTitle, Stack } from '@mui/material'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import React from 'react'
-import PassiveButton from '../Buttons/PassiveButton'
-import SecondaryButton from '../Buttons/SecondaryButton'
-import HorizontalDivider from '../Dividers/HorizontalDivider'
 
 const ConfirmDialog = ({
   show,

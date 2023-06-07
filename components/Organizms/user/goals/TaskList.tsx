@@ -1,4 +1,5 @@
-import { Search, SearchOff } from '@mui/icons-material'
+import Search from '@mui/icons-material/Search'
+import SearchOff from '@mui/icons-material/SearchOff'
 import { Box, IconButton, Stack, Typography } from '@mui/material'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import ConfirmDialog from 'components/Atoms/Dialogs/ConfirmDialog'

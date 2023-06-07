@@ -1,9 +1,6 @@
 import React from 'react'
-import { Menu, MenuList, MenuItem, ListItemIcon, ListItemText, Divider, Button } from '@mui/material'
-import CachedIcon from '@mui/icons-material/Cached'
-import BarChartIcon from '@mui/icons-material/BarChart'
-import MenuIcon from '@mui/icons-material/Menu'
-import { Delete } from '@mui/icons-material'
+import { MenuList, MenuItem, ListItemIcon, ListItemText } from '@mui/material'
+import Delete from '@mui/icons-material/Delete'
 import { CasinoRedTransparent } from 'components/themes/mainTheme'
 import HamburgerMenu from './HamburgerMenu'
 

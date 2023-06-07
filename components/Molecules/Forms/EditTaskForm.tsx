@@ -9,7 +9,7 @@ import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import dayjs from 'dayjs'
 import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
-import { Delete } from '@mui/icons-material'
+import Delete from '@mui/icons-material/Delete'
 import { getUtcNow } from 'lib/util/dateUtil'
 
 const EditTaskForm = ({

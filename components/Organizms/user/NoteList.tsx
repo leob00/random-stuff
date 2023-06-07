@@ -1,4 +1,5 @@
-import { Delete, Warning } from '@mui/icons-material'
+import Delete from '@mui/icons-material/Delete'
+import Warning from '@mui/icons-material/Warning'
 import { Box, Stack, Button, Typography } from '@mui/material'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'

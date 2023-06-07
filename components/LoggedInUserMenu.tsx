@@ -2,13 +2,12 @@ import * as React from 'react'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import { Person } from '@mui/icons-material'
+import Person from '@mui/icons-material/Person'
 import { useRouter } from 'next/navigation'
 import { Box } from '@mui/material'
 import { VeryLightBlue } from './themes/mainTheme'
 import HorizontalDivider from './Atoms/Dividers/HorizontalDivider'
 import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
-import { useUserController } from 'hooks/userController'
 
 const LoggedInUserMenu = ({ onLogOut }: { onLogOut: () => void }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)

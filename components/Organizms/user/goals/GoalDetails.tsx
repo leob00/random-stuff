@@ -1,4 +1,6 @@
-import { Close, Create, Delete } from '@mui/icons-material'
+import Close from '@mui/icons-material/Close'
+import Create from '@mui/icons-material/Create'
+import Delete from '@mui/icons-material/Delete'
 import { Box, Grid, Stack, IconButton, Typography } from '@mui/material'
 import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'

@@ -1,4 +1,4 @@
-import { Warning } from '@mui/icons-material'
+import Warning from '@mui/icons-material/Warning'
 import { Typography } from '@mui/material'
 import { getExpirationText } from 'lib/util/dateUtil'
 import React from 'react'

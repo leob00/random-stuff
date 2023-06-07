@@ -1,4 +1,4 @@
-import { Close } from '@mui/icons-material'
+import Close from '@mui/icons-material/Close'
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack } from '@mui/material'
 import { CasinoPinkTransparent } from 'components/themes/mainTheme'
 import React from 'react'
@@ -6,7 +6,19 @@ import DangerButton from '../Buttons/DangerButton'
 import PassiveButton from '../Buttons/PassiveButton'
 import HorizontalDivider from '../Dividers/HorizontalDivider'
 
-const ConfirmDeleteDialog = ({ show, title = 'confirm delete', text, onConfirm, onCancel }: { show: boolean; title?: string; text: string; onConfirm: () => void; onCancel: () => void }) => {
+const ConfirmDeleteDialog = ({
+  show,
+  title = 'confirm delete',
+  text,
+  onConfirm,
+  onCancel,
+}: {
+  show: boolean
+  title?: string
+  text: string
+  onConfirm: () => void
+  onCancel: () => void
+}) => {
   const handleClose = () => {
     onCancel()
   }

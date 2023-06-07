@@ -1,4 +1,4 @@
-import { Close } from '@mui/icons-material'
+import Close from '@mui/icons-material/Close'
 import { Box, Dialog, DialogTitle, Stack, Button, DialogContent, DialogContentText, Typography, Alert } from '@mui/material'
 import InternalLink from 'components/Atoms/Buttons/InternalLink'
 import CenterStack from 'components/Atoms/CenterStack'

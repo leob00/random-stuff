@@ -1,6 +1,6 @@
 import { ListItemIcon, ListItemText } from '@mui/material'
 import React from 'react'
-import { Delete } from '@mui/icons-material'
+import Delete from '@mui/icons-material/Delete'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 const ContextMenuDelete = () => {

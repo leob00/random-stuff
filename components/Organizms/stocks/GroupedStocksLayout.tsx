@@ -92,18 +92,24 @@ const GroupedStocksLayout = ({
               justifyContent={'space-between'}
               onClick={() => handleExpandCollapseGroup(item)}
             >
-              <Box sx={{}}>
+              <Box>
                 <Typography variant='h5' pl={1} color='primary'>
                   {`${!item.groupName || item.groupName.length === 0 ? 'Unassigned' : item.groupName}`}
                 </Typography>
               </Box>
+
               <Box pr={2}>
                 <Typography variant='h5' pl={1} color={getPositiveNegativeColor(item.movingAvg)}>
                   {`${item.movingAvg.toFixed(2)}%`}
                 </Typography>
               </Box>
             </Box>
-            {item.isExpanded && <StockTable isStock={true} stockList={item.quotes} key={item.id} />}
+
+            {item.isExpanded && (
+              <>
+                <StockTable isStock={true} stockList={item.quotes} key={item.id} scrollIntoView />
+              </>
+            )}
           </Box>
         ))}
       </Box>

@@ -1,22 +1,32 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, ListItemText, Stack, Typography } from '@mui/material'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Stack } from '@mui/material'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import DraggableList from './DraggableList'
-import { Close } from '@mui/icons-material'
-import SearchAutoComplete from 'components/Atoms/Inputs/SearchAutoComplete'
+import Close from '@mui/icons-material/Close'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
 import AutoCompleteSolo from 'components/Atoms/Inputs/AutoCompleteSolo'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import SingleItemMenu from './SingleItemMenu'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { orderBy } from 'lodash'
 import EditableStockList from './EditableStockList'
 import { searchWithinResults } from './StockSearchLayout'
 
-const EditList = ({ username, data, onPushChanges, onCancelEdit, loading }: { username: string | null; data: StockQuote[]; onPushChanges: (quotes: StockQuote[]) => void; onCancelEdit: () => void; loading: boolean }) => {
+const EditList = ({
+  username,
+  data,
+  onPushChanges,
+  onCancelEdit,
+  loading,
+}: {
+  username: string | null
+  data: StockQuote[]
+  onPushChanges: (quotes: StockQuote[]) => void
+  onCancelEdit: () => void
+  loading: boolean
+}) => {
   const [originalData, setOriginalData] = React.useState(data)
   const [filtered, setFiltered] = React.useState(data)
   const [showEditSingleItem, setShowEditSingleItem] = React.useState(false)
@@ -116,7 +126,13 @@ const EditList = ({ username, data, onPushChanges, onCancelEdit, loading }: { us
           )}
         </>
       )}
-      <Dialog open={showEditSingleItem} onClose={handleCloseEditSingleItem} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description' maxWidth='lg'>
+      <Dialog
+        open={showEditSingleItem}
+        onClose={handleCloseEditSingleItem}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
+        maxWidth='lg'
+      >
         <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>
           <Stack display='flex' direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
             <Box>{editItem?.Company}</Box>

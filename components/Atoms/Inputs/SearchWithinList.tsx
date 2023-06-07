@@ -1,4 +1,4 @@
-import { Close } from '@mui/icons-material'
+import Close from '@mui/icons-material/Close'
 import { TextField, InputAdornment, IconButton } from '@mui/material'
 import { CasinoBlue } from 'components/themes/mainTheme'
 import { debounce } from 'lodash'

@@ -1,4 +1,8 @@
-import { Save, Close, Create, Delete } from '@mui/icons-material'
+import Save from '@mui/icons-material/Save'
+import Close from '@mui/icons-material/Close'
+import Create from '@mui/icons-material/Create'
+import Delete from '@mui/icons-material/Delete'
+
 import { Box, Stack, IconButton } from '@mui/material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 

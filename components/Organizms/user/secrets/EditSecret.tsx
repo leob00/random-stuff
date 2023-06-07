@@ -8,7 +8,7 @@ import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import { constructUserSecretPrimaryKey } from 'lib/backend/api/aws/util'
 import { deleteRecord, putUserSecret } from 'lib/backend/csr/nextApiWrapper'
-import { Delete } from '@mui/icons-material'
+import Delete from '@mui/icons-material/Delete'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 
@@ -18,7 +18,21 @@ interface Model {
   showConfirmDelete: boolean
 }
 
-const EditSecret = ({ username, encKey, userSecret, onCancel, onSaved, onDeleted }: { username: string; encKey: string; userSecret: UserSecret; onCancel: () => void; onSaved: (item: UserSecret) => void; onDeleted: (id: string) => void }) => {
+const EditSecret = ({
+  username,
+  encKey,
+  userSecret,
+  onCancel,
+  onSaved,
+  onDeleted,
+}: {
+  username: string
+  encKey: string
+  userSecret: UserSecret
+  onCancel: () => void
+  onSaved: (item: UserSecret) => void
+  onDeleted: (id: string) => void
+}) => {
   const defaultModel: Model = {
     isLoading: false,
     showConfirmDelete: false,
@@ -64,7 +78,12 @@ const EditSecret = ({ username, encKey, userSecret, onCancel, onSaved, onDeleted
 
   return (
     <Box>
-      <ConfirmDeleteDialog show={model.showConfirmDelete} text={`Are you sure you want to delete ${model.userSecret.title}?`} onCancel={() => setModel({ ...model, showConfirmDelete: false })} onConfirm={handleYesDelete} />
+      <ConfirmDeleteDialog
+        show={model.showConfirmDelete}
+        text={`Are you sure you want to delete ${model.userSecret.title}?`}
+        onCancel={() => setModel({ ...model, showConfirmDelete: false })}
+        onConfirm={handleYesDelete}
+      />
       <Stack>
         <form onSubmit={handleFormSubmit}>
           {model.isLoading ? (
@@ -86,7 +105,8 @@ const EditSecret = ({ username, encKey, userSecret, onCancel, onSaved, onDeleted
                       size='small'
                       onClick={() => {
                         handleDeleteClick()
-                      }}>
+                      }}
+                    >
                       <Delete color='error' />
                     </Button>
                   )}

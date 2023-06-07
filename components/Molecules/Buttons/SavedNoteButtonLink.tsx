@@ -1,4 +1,5 @@
-import { Check, Warning } from '@mui/icons-material'
+import Check from '@mui/icons-material/Check'
+import Warning from '@mui/icons-material/Warning'
 import { Button, Stack, Typography } from '@mui/material'
 import ExpirationWarningTooltip from 'components/Atoms/Tooltips/ExprationWarningTooltip'
 import router from 'next/router'

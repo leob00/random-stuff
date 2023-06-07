@@ -1,7 +1,6 @@
 import { ListItem, ListItemAvatar, ListItemText, Stack } from '@mui/material'
-import * as React from 'react'
 import { Draggable } from 'react-beautiful-dnd'
-import { DragIndicator } from '@mui/icons-material'
+import DragIndicator from '@mui/icons-material/DragIndicator'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
 import { SelectableQuote } from './DraggableList'

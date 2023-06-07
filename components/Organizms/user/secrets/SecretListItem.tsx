@@ -1,11 +1,10 @@
-import { Create } from '@mui/icons-material'
+import Create from '@mui/icons-material/Create'
 import { Box, IconButton, InputAdornment, Stack, TextField, Typography } from '@mui/material'
 import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
 import React from 'react'
 import { SecretViewModel } from './SecretLayout'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
-import RequirePin, { needsPinEntry } from 'components/Organizms/Login/RequirePin'
 
 const SecretListItem = ({ encKey, viewModel, onEdit }: { encKey: string; viewModel: SecretViewModel; onEdit: () => void }) => {
   const textRef = React.useRef<HTMLInputElement | null>(null)

@@ -1,8 +1,7 @@
-import { Close } from '@mui/icons-material'
-import { TextField, InputAdornment, IconButton, MenuItem, Autocomplete, Box } from '@mui/material'
+import { TextField, Autocomplete } from '@mui/material'
 import { CasinoBlue } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
-import { debounce, size } from 'lodash'
+import { debounce } from 'lodash'
 import React from 'react'
 
 const SearchAutoComplete = ({

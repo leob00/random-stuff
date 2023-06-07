@@ -2,7 +2,7 @@ import { Box, IconButton } from '@mui/material'
 import { UserSecret } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import EditSecret from './EditSecret'
-import { Close } from '@mui/icons-material'
+import Close from '@mui/icons-material/Close'
 import SecretListItem from './SecretListItem'
 
 export interface SecretViewModel {
