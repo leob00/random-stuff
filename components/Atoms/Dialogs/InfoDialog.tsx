@@ -1,5 +1,5 @@
-import { Close } from '@mui/icons-material'
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Stack, Typography } from '@mui/material'
+import Close from '@mui/icons-material/Close'
+import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Stack } from '@mui/material'
 import { DarkMode } from 'components/themes/DarkMode'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import React, { ReactNode } from 'react'
@@ -20,9 +20,7 @@ const InfoDialog = ({
   onCancel?: () => void
   onSave?: () => void
 }) => {
-  //const [open, setOpen] = React.useState(show)
   const handleClose = () => {
-    // setOpen(false)
     onCancel?.()
   }
 
