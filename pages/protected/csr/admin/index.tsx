@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Link, Typography } from '@mui/material'
 import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
@@ -20,6 +20,8 @@ import MultiDatasetBarchart from 'components/Molecules/Charts/MultiDatasetBarcha
 import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import JobsLayout from 'components/Organizms/admin/JobsLayout'
 import BackButton from 'components/Atoms/Buttons/BackButton'
+import InternalLink from 'components/Atoms/Buttons/InternalLink'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 const Page = () => {
   const userController = useUserController()
@@ -31,7 +33,7 @@ const Page = () => {
   const [selectedTab, setSelectedTab] = React.useState('Jobs')
   const router = useRouter()
 
-  const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Api' }, { title: 'Chart' }, { title: 'Email' }]
+  const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Api' }, { title: 'Links' }]
 
   React.useEffect(() => {
     const fn = async () => {
@@ -134,22 +136,21 @@ const Page = () => {
               )}
             </Box>
           )}
-          {selectedTab === 'Chart' && (
-            <Box>
-              <CenteredTitle title='Multi dataset bar chart' />
-              <CenterStack>
-                <MultiDatasetBarchart />
+          {selectedTab === 'Links' && (
+            <Box py={2}>
+              <CenteredTitle title='Helpful Links' />
+              <HorizontalDivider />
+              <CenterStack sx={{ py: 2 }}>
+                <InternalLink text='health status SSR' route={'/ssr/healthcheck'} />
+              </CenterStack>
+              <CenterStack sx={{ py: 2 }}>
+                <Link href={'https://server6.m6.net:8443/'} target={'_blank'} sx={{ textDecoration: 'none' }}>
+                  <Typography>Quote Lookup Administration</Typography>
+                </Link>
               </CenterStack>
             </Box>
           )}
-          {selectedTab === 'Email' && (
-            <Box>
-              <CenteredTitle title='Forgot Pin Email Template' />
-              <CenterStack>
-                <HtmlView html={emailTemplate} />
-              </CenterStack>
-            </Box>
-          )}
+
           {selectedTab === 'Jobs' && <JobsLayout />}
         </>
       ) : (

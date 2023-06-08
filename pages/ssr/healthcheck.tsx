@@ -1,4 +1,5 @@
 import { Box, Button, Typography, Divider, Stack } from '@mui/material'
+import BackButton from 'components/Atoms/Buttons/BackButton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import RemoteImage from 'components/Atoms/RemoteImage'
 import { BasicArticle } from 'lib/model'
@@ -24,15 +25,8 @@ const healthcheck: NextPage<{ data: BasicArticle }> = ({ data }) => {
   return (
     <>
       <Box>
-        <Button
-          variant='text'
-          onClick={() => {
-            router.push('/')
-          }}
-        >
-          &#8592; back
-        </Button>
-        <Typography variant='h6'>Health check: SSR</Typography>
+        <BackButton onClicked={() => router.back()} />
+
         <HorizontalDivider />
       </Box>
       <Stack direction='row' justifyContent='center' my={2}>
