@@ -3,7 +3,7 @@ import DraggableListItem from './DraggableListItem'
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { StrictModeDroppable } from './StrictModeDroppable'
-import { Box, ListItemIcon, ListItemText } from '@mui/material'
+import { Box, ListItemIcon, ListItemText, Typography } from '@mui/material'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
@@ -14,6 +14,7 @@ import { cloneDeep } from 'lodash'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuDelete from 'components/Molecules/Menus/ContextMenuDelete'
 import AutoCompleteSolo from 'components/Atoms/Inputs/AutoCompleteSolo'
+import CenterStack from 'components/Atoms/CenterStack'
 
 export type DraggableListProps = {
   username: string | null
@@ -122,20 +123,6 @@ const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: Dra
     const selected = getListFromMap(map).filter((item) => item.selected)
     setSelectedItems(selected)
   }
-  // const handleSaveGroupName = (text: string) => {
-  //   const newMap = map
-  //   selectedItems.forEach((item) => {
-  //     const newItem = newMap.get(item.Symbol)!
-  //     newItem.GroupName = text
-  //   })
-  //   setShowGroupNameDialog(false)
-  //   setMap(newMap)
-  //   setShowMultiMenu(true)
-  //   pushChanges(newMap)
-  // }
-  // const handleSelectGroupName = (text: string | null) => {
-  //   console.log('text: ', text)
-  // }
 
   const contextMenu: ContextMenuItem[] = [
     {
@@ -167,6 +154,13 @@ const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: Dra
         </Box>
       </Box>
       <HorizontalDivider />
+      <Box py={2}>
+        <CenterStack>
+          <Typography variant='caption'>
+            You can reorder your list by dragging and dropping items, or you can edit each item by using its corresponding menu.
+          </Typography>
+        </CenterStack>
+      </Box>
       <DragDropContext onDragEnd={onDragEnd}>
         <StrictModeDroppable droppableId='droppable-list'>
           {(provided) => (

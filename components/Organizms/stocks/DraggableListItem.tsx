@@ -32,7 +32,7 @@ const DraggableListItem = ({ item, index, onRemoveItem, onCheckItem, onEdit }: D
               {...provided.dragHandleProps}
               // className={snapshot.isDragging ? classes.draggingListItem : ''}
             >
-              <SecondaryCheckbox onChanged={onCheckItem} checked={item.selected} />
+              {/* <SecondaryCheckbox onChanged={onCheckItem} checked={item.selected} /> */}
               <ListItemAvatar>
                 <DragIndicator />
               </ListItemAvatar>

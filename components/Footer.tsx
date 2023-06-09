@@ -15,7 +15,7 @@ const Footer = () => {
   React.useEffect(() => {
     const fn = async () => {
       setIsLoading(true)
-      const result = (await get('/api/edgeStatus')) as ApiStatus
+      await get('/api/edgeStatus')
       //console.log(`status: ${result.status} - date: ${dayjs(result.date).format('MM/DD/YYYY hh:mm:ss a')}`)
       setCounter(counter + 1)
 

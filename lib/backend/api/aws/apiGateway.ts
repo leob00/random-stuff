@@ -60,6 +60,11 @@ export interface UserPin {
   lastEnterDate: string
 }
 
+export type Sort = {
+  key: string
+  direction: 'asc' | 'desc'
+}
+
 export interface UserSettings {
   lastPath?: string
   news?: {
@@ -67,6 +72,12 @@ export interface UserSettings {
   }
   stocks?: {
     defaultView?: 'flat' | 'grouped'
+    sort?: {
+      grouped: {
+        main: Sort[]
+        inside: Sort[]
+      }
+    }
   }
 }
 

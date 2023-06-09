@@ -1,6 +1,5 @@
 import { Autocomplete, TextField } from '@mui/material'
 import { CasinoBlue } from 'components/themes/mainTheme'
-import { DropdownItem } from 'lib/models/dropdown'
 import { forwardRef } from 'react'
 import { AutoCompleteProps } from './AutoCompleteSolo'
 
