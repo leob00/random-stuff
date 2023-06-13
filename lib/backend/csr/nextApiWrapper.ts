@@ -4,12 +4,19 @@ import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
 import { DynamoKeys, EmailMessage, LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
-import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserNoteTitlesKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
+import {
+  constructUserGoalTaksSecondaryKey,
+  constructUserNoteCategoryKey,
+  constructUserNoteTitlesKey,
+  constructUserProfileKey,
+  constructUserSecretSecondaryKey,
+} from '../api/aws/util'
 import { get, post } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { weakEncrypt } from '../encryption/useEncryptor'
 
 export interface SignedRequest {
+  appId?: string
   data: string
 }
 

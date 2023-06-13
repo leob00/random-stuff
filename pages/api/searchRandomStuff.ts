@@ -1,6 +1,6 @@
 import { searchRandomStuffBySecIndex } from 'lib/backend/api/aws/apiGateway'
 import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
-import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
+import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { NextRequest, NextResponse } from 'next/server'
 export const config = {
   runtime: 'edge',
@@ -9,7 +9,7 @@ export const config = {
 export default async function handler(req: NextRequest) {
   const json = await req.json()
   const enc = json as SignedRequest
-  const dec = myDecrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), enc.data)
+  const dec = weakDecrypt(enc.data)
   //console.log(dec)
   const result = await searchRandomStuffBySecIndex(dec)
   return NextResponse.json(result)
