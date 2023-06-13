@@ -1,4 +1,5 @@
-import { chunk, findIndex } from 'lodash'
+import { Sort, SortDirection } from 'lib/backend/api/aws/apiGateway'
+import { chunk, findIndex, orderBy } from 'lodash'
 export interface Page {
   index: number
   items: any[]
@@ -61,4 +62,8 @@ export function replaceItemInArray<T>(T: any, array: T[], key: keyof T, keyVal: 
   if (existingIx > -1) {
     array[existingIx] = T
   }
+}
+
+export function sortArray<T>(array: T[], fields: (keyof T)[] | string[], direction: SortDirection[]): T[] {
+  return orderBy(array, fields, direction)
 }

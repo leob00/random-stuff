@@ -59,6 +59,7 @@ export interface UserPin {
   pin: string
   lastEnterDate: string
 }
+export type SortDirection = 'asc' | 'desc'
 
 export type Sort = {
   key: string

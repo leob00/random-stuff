@@ -8,6 +8,10 @@ import StockTable from './StockTable'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import GroupedListMenu from './GroupedListMenu'
+import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { sortArray } from 'lib/util/collections'
+import { useUserController } from 'hooks/userController'
+import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 
 interface Model {
   id: string
@@ -17,17 +21,9 @@ interface Model {
   quotes: StockQuote[]
 }
 
-const GroupedStocksLayout = ({
-  stockList,
-  onEdit,
-  onRefresh,
-  onShowAsGroup,
-}: {
-  stockList: StockQuote[]
-  onEdit: () => void
-  onRefresh: () => void
-  onShowAsGroup: (show: boolean) => void
-}) => {
+const GroupedStocksLayout = ({ userProfile, stockList, onEdit, onRefresh, onShowAsGroup }: { userProfile: UserProfile | null; stockList: StockQuote[]; onEdit: () => void; onRefresh: () => void; onShowAsGroup: (show: boolean) => void }) => {
+  const userController = useUserController()
+
   const groupify = (list: StockQuote[]) => {
     const groupSet = new Set(list.map((item) => item.GroupName!))
     let groupedList: Model[] = []
@@ -51,7 +47,18 @@ const GroupedStocksLayout = ({
     }
   })
   let groupedList = groupify(allStocks)
-  groupedList = orderBy(groupedList, ['movingAvg', 'groupName'], ['desc', 'asc'])
+  const groupedSort = userProfile?.settings?.stocks?.sort?.grouped
+
+  if (groupedSort) {
+    if (userController.authProfile) {
+      groupedList = sortArray(
+        groupedList,
+        groupedSort.main.map((m) => m.key),
+        groupedSort.main.map((m) => m.direction),
+      )
+    }
+  }
+  //console.log(groupedList)
   const groupMap = getMapFromArray(groupedList, 'id')
   const [data, setData] = React.useState(groupMap)
   const [originalData] = React.useState(groupMap)
@@ -61,7 +68,35 @@ const GroupedStocksLayout = ({
     const newItem = newMap.get(item.id)
     if (newItem) {
       newItem.isExpanded = !item.isExpanded
+      if (item.isExpanded) {
+        if (userController.authProfile) {
+          const p = { ...userController.authProfile }
+          let insideSort = p.settings?.stocks?.sort?.grouped.inside
+          let mainSort = p.settings?.stocks?.sort?.grouped.main
+          if (insideSort) {
+            //console.log(insideSort)
+            //p.settings!.stocks!.sort!.grouped.inside = [{ key: 'Company', direction: 'asc' }]
+            newItem.quotes = sortArray(
+              newItem.quotes,
+              insideSort.map((m) => m.key),
+              insideSort.map((m) => m.direction),
+            )
+          } else {
+            p.settings!.stocks!.sort = {
+              grouped: {
+                main: [{ key: 'movingAvg', direction: 'desc' }],
+                inside: [{ key: 'Company', direction: 'asc' }],
+              },
+            }
+            putUserProfile(p)
+            newItem.quotes = sortArray(newItem.quotes, ['Company'], ['asc'])
+            userController.setProfile(p)
+          }
+        }
+        //console.log(newItem.quotes)
+      }
       newMap.set(newItem.id, newItem)
+
       setData(newMap)
     }
   }
@@ -82,16 +117,7 @@ const GroupedStocksLayout = ({
       <Box display={'flex'} flexDirection={'column'} gap={2}>
         {Array.from(data.values()).map((item, i) => (
           <Box key={item.groupName}>
-            <Box
-              sx={{ backgroundColor: VeryLightBlueTransparent, cursor: 'pointer', borderRadius: 1.2 }}
-              py={2}
-              pl={1}
-              display={'flex'}
-              gap={2}
-              alignItems={'center'}
-              justifyContent={'space-between'}
-              onClick={() => handleExpandCollapseGroup(item)}
-            >
+            <Box sx={{ backgroundColor: VeryLightBlueTransparent, cursor: 'pointer', borderRadius: 1.2 }} py={2} pl={1} display={'flex'} gap={2} alignItems={'center'} justifyContent={'space-between'} onClick={() => handleExpandCollapseGroup(item)}>
               <Box>
                 <Typography variant='h5' pl={1} color='primary'>
                   {`${!item.groupName || item.groupName.length === 0 ? 'Unassigned' : item.groupName}`}
