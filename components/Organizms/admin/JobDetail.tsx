@@ -7,7 +7,7 @@ import React from 'react'
 import JobDetailChart from './JobDetailChart'
 
 const JobDetails = ({ item, onClose }: { item: Job; onClose: () => void }) => {
-  //console.log('records: ', item.RecordsProcessed)
+  console.log('records: ', item.RecordsProcessed)
   return (
     <InfoDialog show={true} title={item.Description} onCancel={() => onClose()}>
       <Box>
@@ -26,7 +26,7 @@ const JobDetails = ({ item, onClose }: { item: Job; onClose: () => void }) => {
             <Typography variant='caption'>{`next run: ${dayjs(item.NextRunDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
           </Stack>
         )}
-        {item.RecordsProcessed && (
+        {item.RecordsProcessed !== undefined && item.RecordsProcessed > 0 && (
           <Stack>
             <Typography variant='caption'>{`records processed: ${numeral(item.RecordsProcessed).format('###,###')}`}</Typography>
           </Stack>
