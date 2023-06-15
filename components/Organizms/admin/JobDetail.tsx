@@ -7,7 +7,7 @@ import React from 'react'
 import JobDetailChart from './JobDetailChart'
 
 const JobDetails = ({ item, onClose }: { item: Job; onClose: () => void }) => {
-  console.log('records: ', item.RecordsProcessed)
+  //console.log('record: ', item)
   return (
     <InfoDialog show={true} title={item.Description} onCancel={() => onClose()}>
       <Box>

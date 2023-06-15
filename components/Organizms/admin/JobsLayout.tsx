@@ -9,6 +9,7 @@ import ListHeader from 'components/Molecules/Lists/ListHeader'
 import JobDetail from './JobDetail'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 dayjs.extend(relativeTime)
 
 const JobsLayout = () => {
@@ -64,7 +65,7 @@ const JobsLayout = () => {
         <LargeGridSkeleton />
       ) : (
         <>
-          {isLoadingDetail && <WarmupBox />}
+          {isLoadingDetail && <BackdropLoader />}
           {selectedItem && <JobDetail item={selectedItem} onClose={handleClose} />}
           {data.map((item) => (
             <Box key={item.Name}>
