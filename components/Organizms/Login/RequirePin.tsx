@@ -90,8 +90,8 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
   }
 
   const handleClosePinEntry = () => {
-    console.log('hide dialog')
-    setModel({ ...model, showPinEntry: false })
+    //console.log('hide dialog')
+    setModel({ ...model, showPinEntry: false, showPinCreate: false })
   }
 
   const handlePinValidated = async (pin: UserPin) => {

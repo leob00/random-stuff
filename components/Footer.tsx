@@ -32,7 +32,7 @@ const Footer = () => {
     }
     intervalRef.current = setInterval(() => {
       fn()
-    }, 240000)
+    }, 480000)
   }, [counter])
   return (
     <Container>
