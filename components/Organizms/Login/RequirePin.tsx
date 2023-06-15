@@ -122,19 +122,23 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
   }
 
   React.useEffect(() => {
-    if (!model.userProfile) {
-      return
+    const fn = async () => {
+      const m = { ...model }
+      const p = await userController.fetchProfilePassive()
+      if (!p) {
+        return
+      }
+      if (m.isPinExpired) {
+        return
+      }
+      if (enablePolling) {
+        startPolling()
+      } else {
+        const shouldEnterPin = needsPinEntry(minuteDuration, true, m.userProfile?.pin)
+        setModel({ ...model, isPinExpired: shouldEnterPin, showPinEntry: shouldEnterPin, userProfile: p })
+      }
     }
-    const m = { ...model }
-    if (m.isPinExpired) {
-      return
-    }
-    if (enablePolling) {
-      startPolling()
-    } else {
-      const shouldEnterPin = needsPinEntry(minuteDuration, true, m.userProfile?.pin)
-      setModel({ ...model, isPinExpired: shouldEnterPin, showPinEntry: shouldEnterPin })
-    }
+    fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [model.pollingCounter])
 
