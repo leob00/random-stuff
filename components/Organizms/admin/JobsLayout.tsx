@@ -27,7 +27,7 @@ const JobsLayout = () => {
     }
 
     timeOutRef.current = setTimeout(() => {
-      console.log('polling finished: ', dayjs().format('MM/DD/YYYY hh:mm:ss a'))
+      //console.log('polling finished: ', dayjs().format('MM/DD/YYYY hh:mm:ss a'))
       setPollCounter(pollCounter + 1)
     }, 5000)
   }

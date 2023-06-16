@@ -27,15 +27,11 @@ export const needsPinEntry = (minuteDuration: number, logExpiration: boolean = f
   if (!pin) {
     return true
   }
-  const lastDt = dayjs(pin.lastEnterDate)
+
   const expDt = dayjs(pin.lastEnterDate).add(minuteDuration, 'minute')
   const isExpired = expDt.isBefore(dayjs())
   if (isExpired) {
     console.log('expired: ', isExpired)
-  } else {
-    if (logExpiration) {
-      console.log(`pin will expire ${dayjs(pin.lastEnterDate).add(minuteDuration, 'minutes').from(dayjs())}`)
-    }
   }
   return isExpired
 }
@@ -132,6 +128,10 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
         return
       }
       if (enablePolling) {
+        if (p && p.pin) {
+          console.log(`pin will expire ${dayjs(p.pin.lastEnterDate).add(minuteDuration, 'minutes').from(dayjs())}`)
+        }
+
         startPolling()
       } else {
         const shouldEnterPin = needsPinEntry(minuteDuration, true, m.userProfile?.pin)

@@ -1,9 +1,10 @@
-import { Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import CreatePinDialog from 'components/Organizms/Login/CreatePinDialog'
 import ReEnterPasswordDialog from 'components/Organizms/Login/ReEnterPasswordDialog'
 import RequirePin from 'components/Organizms/Login/RequirePin'
@@ -43,7 +44,7 @@ const ProfileLayout = ({ profile }: { profile: UserProfile }) => {
       <SnackbarSuccess show={showPinChangedMessage} text={'Your pin has been updated!'} />
       <CenteredHeader title={`Profile`} />
       <HorizontalDivider />
-      <RequirePin>
+      <RequirePin minuteDuration={11}>
         <>
           <CenterStack>
             <Typography variant='body1'>
@@ -62,8 +63,10 @@ const ProfileLayout = ({ profile }: { profile: UserProfile }) => {
             onConfirm={handlePasswordValidated}
             onCancel={handleCancelChangePin}
           />
-
           <CreatePinDialog show={showPinEntry} userProfile={userProfile} onCancel={handleCancelChangePin} onConfirm={handlePinChanged} />
+          <Box py={4}>
+            <CenterStack>Settings</CenterStack>
+          </Box>
         </>
       </RequirePin>
     </>

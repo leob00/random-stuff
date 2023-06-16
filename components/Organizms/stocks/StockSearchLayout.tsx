@@ -19,7 +19,7 @@ import FlatListMenu from './FlatListMenu'
 import GroupedStocksLayout from './GroupedStocksLayout'
 import StockTable from './StockTable'
 
-interface Model {
+export interface StockLayoutModel {
   username?: string | null
   isLoading: boolean
   autoCompleteResults: DropdownItem[]
@@ -34,13 +34,18 @@ interface Model {
 }
 
 export const searchWithinResults = (quotes: StockQuote[], text: string) => {
-  const result = quotes.filter((o) => o.Symbol.toLowerCase().includes(text.toLowerCase()) || o.Company.toLowerCase().startsWith(text.toLowerCase()) || (o.GroupName && o.GroupName.toLowerCase().includes(text.toLowerCase())))
+  const result = quotes.filter(
+    (o) =>
+      o.Symbol.toLowerCase().includes(text.toLowerCase()) ||
+      o.Company.toLowerCase().startsWith(text.toLowerCase()) ||
+      (o.GroupName && o.GroupName.toLowerCase().includes(text.toLowerCase())),
+  )
   return result
 }
 
 const StockSearchLayout = () => {
   const userController = useUserController()
-  const defaultModel: Model = {
+  const defaultModel: StockLayoutModel = {
     username: userController.ticket?.email,
     isLoading: true,
     autoCompleteResults: [],
@@ -53,7 +58,7 @@ const StockSearchLayout = () => {
     showAsGroup: userController.authProfile?.settings?.stocks?.defaultView! === 'grouped' ?? undefined,
   }
 
-  const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
+  const [model, setModel] = React.useReducer((state: StockLayoutModel, newState: StockLayoutModel) => ({ ...state, ...newState }), defaultModel)
 
   const handleSearched = async (text: string) => {
     if (text.length > 0) {
@@ -163,7 +168,6 @@ const StockSearchLayout = () => {
     if (model.username) {
       await putUserStockList(model.username, newList)
     }
-
     setModel({
       ...model,
       isLoading: false,
@@ -208,7 +212,13 @@ const StockSearchLayout = () => {
       {model.successMesage && <SnackbarSuccess show={true} text={model.successMesage} />}
       <Box py={2}>
         <CenterStack>
-          <SearchAutoComplete placeholder={'search stocks'} onChanged={handleSearched} searchResults={model.autoCompleteResults} debounceWaitMilliseconds={500} onSelected={handleSelectQuote} />
+          <SearchAutoComplete
+            placeholder={'search stocks'}
+            onChanged={handleSearched}
+            searchResults={model.autoCompleteResults}
+            debounceWaitMilliseconds={500}
+            onSelected={handleSelectQuote}
+          />
         </CenterStack>
       </Box>
       {model.quoteToAdd ? (
@@ -224,18 +234,36 @@ const StockSearchLayout = () => {
             <Box py={2}>
               {model.editList && model.stockList.length > 0 ? (
                 <>
-                  <EditList username={model.username ?? null} data={model.stockList} onCancelEdit={() => setModel({ ...model, editList: false })} onPushChanges={handleSaveChanges} loading={model.isLoading} />
+                  <EditList
+                    username={model.username ?? null}
+                    data={model.stockList}
+                    onCancelEdit={() => setModel({ ...model, editList: false })}
+                    onPushChanges={handleSaveChanges}
+                    loading={model.isLoading}
+                    state={model}
+                    setState={setModel}
+                  />
                 </>
               ) : (
                 <>
                   {model.showAsGroup ? (
                     <Box>
-                      <GroupedStocksLayout userProfile={userController.authProfile} stockList={model.filteredList} onRefresh={handleReloadData} onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={() => handleShowAsGroup(false)} />
+                      <GroupedStocksLayout
+                        userProfile={userController.authProfile}
+                        stockList={model.filteredList}
+                        onRefresh={handleReloadData}
+                        onEdit={() => setModel({ ...model, editList: true })}
+                        onShowAsGroup={() => handleShowAsGroup(false)}
+                      />
                     </Box>
                   ) : (
                     <Box>
                       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                        <Box pl={1}>{model.stockList.length >= 10 && !model.showAsGroup && <SearchWithinList onChanged={handleSearchListChange} debounceWaitMilliseconds={25} />}</Box>
+                        <Box pl={1}>
+                          {model.stockList.length >= 10 && !model.showAsGroup && (
+                            <SearchWithinList onChanged={handleSearchListChange} debounceWaitMilliseconds={25} />
+                          )}
+                        </Box>
                         <FlatListMenu onEdit={() => setModel({ ...model, editList: true })} onRefresh={handleReloadData} onShowAsGroup={handleShowAsGroup} />
                       </Box>
                       <Box display={'flex'} justifyContent={'flex-end'}></Box>

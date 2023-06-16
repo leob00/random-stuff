@@ -22,6 +22,7 @@ import JobsLayout from 'components/Organizms/admin/JobsLayout'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import InternalLink from 'components/Atoms/Buttons/InternalLink'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import FormExample from 'components/Organizms/admin/FormExample'
 
 const Page = () => {
   const userController = useUserController()
@@ -33,7 +34,7 @@ const Page = () => {
   const [selectedTab, setSelectedTab] = React.useState('Jobs')
   const router = useRouter()
 
-  const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Api' }, { title: 'Links' }]
+  const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Api' }, { title: 'Links' }, { title: 'Form' }]
 
   React.useEffect(() => {
     const fn = async () => {
@@ -150,6 +151,7 @@ const Page = () => {
               </CenterStack>
             </Box>
           )}
+          {selectedTab === 'Form' && <FormExample />}
 
           {selectedTab === 'Jobs' && <JobsLayout />}
         </>

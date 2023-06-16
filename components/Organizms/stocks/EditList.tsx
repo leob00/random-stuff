@@ -12,7 +12,9 @@ import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { orderBy } from 'lodash'
 import EditableStockList from './EditableStockList'
-import { searchWithinResults } from './StockSearchLayout'
+import { searchWithinResults, StockLayoutModel } from './StockSearchLayout'
+import EditStockGroupForm from 'components/Molecules/Forms/EditStockGroupForm'
+import { getUserStockList, putUserProfile, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 
 const EditList = ({
   username,
@@ -20,12 +22,16 @@ const EditList = ({
   onPushChanges,
   onCancelEdit,
   loading,
+  state,
+  setState,
 }: {
   username: string | null
   data: StockQuote[]
   onPushChanges: (quotes: StockQuote[]) => void
   onCancelEdit: () => void
   loading: boolean
+  state: StockLayoutModel
+  setState: React.Dispatch<StockLayoutModel>
 }) => {
   const [originalData, setOriginalData] = React.useState(data)
   const [filtered, setFiltered] = React.useState(data)
@@ -46,6 +52,12 @@ const EditList = ({
     }
   })
 
+  const groupsSelect = orderBy(
+    groups.map((o) => o.text),
+    [],
+    ['asc'],
+  )
+
   const handleEditSingleItem = (quote: StockQuote) => {
     setEditItem(quote)
     setShowEditSingleItem(true)
@@ -57,8 +69,8 @@ const EditList = ({
     setEditItem(undefined)
     setShowEditSingleItem(false)
   }
-  const handleSelectGroupName = (text: string, closeForm?: boolean) => {
-    setIsLoading(true)
+  const handleSaveGroupName = async (text: string, closeForm?: boolean) => {
+    //setIsLoading(true)
     const item = { ...editItem! }
     item.GroupName = text
     setEditItem(item)
@@ -68,12 +80,8 @@ const EditList = ({
     setOriginalData(newList)
     const newFilteredMap = getMapFromArray(filtered, 'Symbol')
     newFilteredMap.set(item.Symbol, item)
-    setFiltered(Array.from(newFilteredMap.values()))
+
     onPushChanges(newList)
-    if (closeForm) {
-      handleCloseEditSingleItem()
-    }
-    //console.log('text: ', text ?? '')
   }
   const handleRemoveItem = (id: string) => {
     setEditItem(undefined)
@@ -105,19 +113,6 @@ const EditList = ({
       ) : (
         <>
           {filtered.length < originalData.length ? (
-            // <Box pt={4}>
-            //   <HorizontalDivider />
-            //   {filtered.map((item, i) => (
-            //     <Box key={item.Symbol} py={2} display='flex' justifyContent={'space-between'} alignItems={'center'}>
-            //       <Box>
-            //         <ListItemText primary={`${item.Company} (${item.Symbol})`} secondary={`Group name: ${item.GroupName ?? ''}`} />
-            //       </Box>
-            //       <Stack alignItems={'flex-end'} flexGrow={1} pr={2}>
-            //         <SingleItemMenu onEdelete={handleRemoveItem} quote={item} onEdit={handleEditSingleItem} />
-            //       </Stack>
-            //     </Box>
-            //   ))}
-            // </Box>
             <EditableStockList items={filtered} handleRemoveItem={handleRemoveItem} handleEditSingleItem={handleEditSingleItem} />
           ) : (
             <Box>
@@ -148,25 +143,10 @@ const EditList = ({
             You can assign a new group name or pick from existing ones.
           </DialogContentText>
           <Box py={4}>
-            <AutoCompleteSolo
-              props={{
-                defaultValue: editItem?.GroupName ?? '',
-                label: 'Group Name',
-                options: orderBy(
-                  groups.map((o) => o.text),
-                  [],
-                  ['asc'],
-                ),
-                onSubmitted: handleSelectGroupName,
-                width: 300,
-              }}
-            />
+            <EditStockGroupForm options={groupsSelect} onSubmitted={handleSaveGroupName} defaultValue={editItem?.GroupName!} />
           </Box>
         </DialogContent>
         <HorizontalDivider />
-        <DialogActions>
-          <PrimaryButton text={'Save'} onClick={handleCloseEditSingleItem}></PrimaryButton>
-        </DialogActions>
       </Dialog>
     </Box>
   )
