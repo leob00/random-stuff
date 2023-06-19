@@ -1,21 +1,23 @@
 import React, { ChangeEventHandler } from 'react'
 import _ from 'lodash/fp'
-import { Controller } from 'react-hook-form'
+import { Controller, FieldValues } from 'react-hook-form'
 import type { Control } from 'react-hook-form'
 import { GroupInputs } from '../EditStockGroupForm'
 import { Autocomplete, TextField } from '@mui/material'
 
 export default function FormLookUpSoloInput({
   control,
+  label,
   options,
   defaultValue,
   fieldName,
   required,
 }: {
-  control: Control<GroupInputs>
+  control: Control<any>
+  label: string
   options: string[]
   defaultValue: string
-  fieldName: keyof GroupInputs
+  fieldName: string
   required?: boolean
 }) {
   return (
@@ -29,7 +31,7 @@ export default function FormLookUpSoloInput({
           renderInput={(params) => (
             <TextField
               {...params}
-              label='Choose a group'
+              label={label}
               variant='outlined'
               size='small'
               onChange={(event) => {

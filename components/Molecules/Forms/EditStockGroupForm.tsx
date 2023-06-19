@@ -29,7 +29,7 @@ const EditStockGroupForm = ({ options, defaultValue, onSubmitted }: { options: s
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box py={2}>
-          <FormLookUpSoloInput control={control} options={options} defaultValue={defaultValue} fieldName='name' required />
+          <FormLookUpSoloInput control={control} options={options} defaultValue={defaultValue} fieldName='name' required label={'group name'} />
         </Box>
         {errors.name && (
           <Box py={2}>
