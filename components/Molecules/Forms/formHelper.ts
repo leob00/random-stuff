@@ -1,24 +1,24 @@
+import { DropdownItem } from 'lib/models/dropdown'
 import React from 'react'
 import { FormInput, FormInputType } from './DynamicForm'
 
-export function useFormHelper<T>(item: T) {
-  const [inputs, setInputs] = React.useState<FormInput[]>([])
+export function useFormHelper<T>() {
+  const inputs: FormInput[] = []
 
   return {
     inputs: () => {
       return [...inputs]
     },
-    append: (fieldName: keyof T, defaultValue: string | number | boolean, label: string, inputType: FormInputType) => {
+    append: (fieldName: keyof T, defaultValue: string | number | boolean, label: string, inputType: FormInputType, required?: boolean, options?: DropdownItem[]) => {
       const newInput: FormInput = {
         defaultValue: defaultValue,
         label: label,
         name: String(fieldName),
         type: inputType,
+        options: options,
+        required: required,
       }
-      const result = [...inputs]
       inputs.push(newInput)
-      setInputs(result)
-      return result
     },
   }
 }

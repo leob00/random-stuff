@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import React from 'react'
 import { useForm, useFieldArray } from 'react-hook-form'
-import FormLookUpSoloInput from './FormLookUpSoloInput'
+import ControlledLookUpSoloInput from './ControlledLookUpSoloInput'
 
 interface FormInput {
   fieldName: string
@@ -40,7 +40,7 @@ export default function MutliControlForm() {
         {controlledFields.map((field, index) => {
           return (
             <Box key={field.id} py={2}>
-              <FormLookUpSoloInput control={control} defaultValue='' fieldName={field.fieldName} label='label' options={['aaa', 'bb', 'cccc']} />
+              <ControlledLookUpSoloInput control={control} defaultValue='' fieldName={field.fieldName} label='label' options={['aaa', 'bb', 'cccc']} />
             </Box>
           )
           //return <input key={field.id} {...register(`fieldArray.${index}.name` as const)} />
@@ -53,8 +53,7 @@ export default function MutliControlForm() {
               fieldName: 'bill',
               id: `${controlledFields.length + 1}`,
             })
-          }
-        >
+          }>
           Append
         </button>
 

@@ -177,6 +177,24 @@ const StockSearchLayout = () => {
       successMesage: 'Your list has been updated!',
     })
   }
+  const handleReorderList = async (quotes: StockQuote[]) => {
+    const newMap = getMapFromArray(quotes, 'Symbol')
+    quotes.forEach((item) => {
+      newMap.set(item.Symbol, item)
+    })
+    const newList = Array.from(newMap.values())
+    if (model.username) {
+      putUserStockList(model.username, newList)
+    }
+    setModel({
+      ...model,
+      isLoading: false,
+      stockList: newList,
+      stockListMap: newMap,
+      filteredList: newList,
+      successMesage: 'Your list has been updated!',
+    })
+  }
 
   const handleShowAsGroup = async (show: boolean) => {
     const profile = userController.authProfile
@@ -239,7 +257,7 @@ const StockSearchLayout = () => {
                     data={model.stockList}
                     onCancelEdit={() => setModel({ ...model, editList: false })}
                     onPushChanges={handleSaveChanges}
-                    loading={model.isLoading}
+                    onReorder={handleReorderList}
                     state={model}
                     setState={setModel}
                   />

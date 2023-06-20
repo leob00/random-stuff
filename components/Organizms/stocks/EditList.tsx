@@ -21,7 +21,7 @@ const EditList = ({
   data,
   onPushChanges,
   onCancelEdit,
-  loading,
+  onReorder,
   state,
   setState,
 }: {
@@ -29,7 +29,7 @@ const EditList = ({
   data: StockQuote[]
   onPushChanges: (quotes: StockQuote[]) => void
   onCancelEdit: () => void
-  loading: boolean
+  onReorder: (quotes: StockQuote[]) => void
   state: StockLayoutModel
   setState: React.Dispatch<StockLayoutModel>
 }) => {
@@ -37,7 +37,7 @@ const EditList = ({
   const [filtered, setFiltered] = React.useState(data)
   const [showEditSingleItem, setShowEditSingleItem] = React.useState(false)
   const [editItem, setEditItem] = React.useState<StockQuote | undefined>(undefined)
-  const [isLoading, setIsLoading] = React.useState(loading)
+  const [isLoading, setIsLoading] = React.useState(false)
 
   const groupSet = new Set(
     data.map((o) => {
@@ -52,12 +52,6 @@ const EditList = ({
     }
   })
 
-  const groupsSelect = orderBy(
-    groups.map((o) => o.text),
-    [],
-    ['asc'],
-  )
-
   const handleEditSingleItem = (quote: StockQuote) => {
     setEditItem(quote)
     setShowEditSingleItem(true)
@@ -69,17 +63,16 @@ const EditList = ({
     setEditItem(undefined)
     setShowEditSingleItem(false)
   }
-  const handleSaveGroupName = async (text: string, closeForm?: boolean) => {
-    //setIsLoading(true)
-    const item = { ...editItem! }
-    item.GroupName = text
+  const handleSaveGroupName = async (text: string) => {
+    // setIsLoading(true)
+    const item = { ...editItem!, GroupName: text }
     setEditItem(item)
-    const map = getMapFromArray(originalData, 'Symbol')
+    const map = getMapFromArray(data, 'Symbol')
     map.set(item.Symbol, item)
     const newList = getListFromMap(map)
-    setOriginalData(newList)
-    const newFilteredMap = getMapFromArray(filtered, 'Symbol')
-    newFilteredMap.set(item.Symbol, item)
+    // setOriginalData(newList)
+    // const newFilteredMap = getMapFromArray(filtered, 'Symbol')
+    // newFilteredMap.set(item.Symbol, item)
 
     onPushChanges(newList)
   }
@@ -90,11 +83,6 @@ const EditList = ({
     setOriginalData(newQuotes)
     onPushChanges(newQuotes)
   }
-  React.useEffect(() => {
-    if (isLoading) {
-      setIsLoading(false)
-    }
-  }, [isLoading])
 
   return (
     <Box>
@@ -116,7 +104,7 @@ const EditList = ({
             <EditableStockList items={filtered} handleRemoveItem={handleRemoveItem} handleEditSingleItem={handleEditSingleItem} />
           ) : (
             <Box>
-              <DraggableList username={username} items={originalData} onPushChanges={onPushChanges} onEditSingleItem={handleEditSingleItem} />
+              <DraggableList username={username} items={originalData} onPushChanges={onReorder} onEditSingleItem={handleEditSingleItem} />
             </Box>
           )}
         </>
@@ -143,7 +131,7 @@ const EditList = ({
             You can assign a new group name or pick from existing ones.
           </DialogContentText>
           <Box py={4}>
-            <EditStockGroupForm options={groupsSelect} onSubmitted={handleSaveGroupName} defaultValue={editItem?.GroupName!} />
+            <EditStockGroupForm options={groups} onSubmitted={handleSaveGroupName} defaultValue={editItem?.GroupName!} />
           </Box>
         </DialogContent>
         <HorizontalDivider />

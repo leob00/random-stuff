@@ -1,35 +1,21 @@
-import React, { ChangeEventHandler } from 'react'
-import _ from 'lodash/fp'
-import { Controller, FieldValues } from 'react-hook-form'
+import React from 'react'
+import { Controller } from 'react-hook-form'
 import type { Control } from 'react-hook-form'
-
 import { Autocomplete, TextField } from '@mui/material'
+import { CasinoBlue } from 'components/themes/mainTheme'
 
-export default function FormLookUpSoloInput({
-  control,
-  label,
-  options,
-  defaultValue,
-  fieldName,
-  required,
-}: {
-  control: Control<any>
-  label: string
-  options: string[]
-  defaultValue: string
-  fieldName: string
-  required?: boolean
-}) {
+export default function ControlledLookUpSoloInput({ control, label, options, defaultValue, fieldName, required }: { control: Control<any>; label: string; options: string[]; defaultValue: string; fieldName: string; required?: boolean }) {
   return (
     <Controller
       render={({ field }) => (
         <Autocomplete
-          //value={val}
+          sx={{ width: { xs: 250, sm: 500 } }}
           freeSolo
           {...field}
           options={options}
           renderInput={(params) => (
             <TextField
+              sx={{ input: { color: CasinoBlue } }}
               {...params}
               label={label}
               variant='outlined'

@@ -1,19 +1,8 @@
 import { MenuItem, TextField } from '@mui/material'
-import { CasinoBlue } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
 import React from 'react'
 
-const DropdownList = ({
-  options,
-  selectedOption,
-  onOptionSelected,
-  label,
-}: {
-  options: DropdownItem[]
-  selectedOption: string
-  onOptionSelected?: (id: string) => void
-  label?: string
-}) => {
+const DropdownList = ({ options, selectedOption, onOptionSelected, label }: { options: DropdownItem[]; selectedOption: string; onOptionSelected?: (id: string) => void; label?: string }) => {
   const [opt, setOpt] = React.useState(selectedOption)
   const handleOptionSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     setOpt(e.target.value)

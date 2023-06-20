@@ -2,31 +2,31 @@ import { Alert, Box } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import React from 'react'
-import { useForm, SubmitHandler, Control, FieldValues } from 'react-hook-form'
-import FormLookUpSoloInput from './ReactHookForm/FormLookUpSoloInput'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import ControlledLookUpSoloInput from './ReactHookForm/ControlledLookUpSoloInput'
+import { ControlledFreeTextInput } from './ReactHookForm/ControlledFreeTextInput'
+import ControlledSwitch from './ReactHookForm/ControlledSwitch'
+import { DropdownItem } from 'lib/models/dropdown'
+import { ControlledSelect } from './ReactHookForm/ControlledSelect'
 
-export type GroupInputs = {
-  name: string
-}
-
-export type FormInputType = 'autocompletesolo'
+export type FormInputType = 'autocompletesolo' | 'freetext' | 'switch' | 'select'
 
 export interface FormInput {
   label: string
   type: FormInputType
   name: string
   defaultValue: string | number | boolean
-  options?: string[]
+  required?: boolean
+  options?: DropdownItem[]
 }
 
-export default function DynamicForm({ inputs, onSubmitted }: { inputs: FormInput[]; onSubmitted: (data: any) => void }) {
+export default function DynamicForm<T>({ inputs, onSubmitted }: { inputs: FormInput[]; onSubmitted: (data: T) => void }) {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<any>()
-  const onSubmit: SubmitHandler<any> = (data: any) => {
-    //console.log(data)
+  const onSubmit: SubmitHandler<any> = (data: T) => {
     onSubmitted(data)
   }
 
@@ -34,14 +34,37 @@ export default function DynamicForm({ inputs, onSubmitted }: { inputs: FormInput
     switch (input.type) {
       case 'autocompletesolo':
         return (
-          <FormLookUpSoloInput
-            control={control}
-            options={input.options ?? []}
-            defaultValue={String(input.defaultValue)}
-            fieldName={input.name}
-            required
-            label={input.label}
-          />
+          <>
+            <ControlledLookUpSoloInput control={control} options={input.options ? input.options.map((m) => m.text) : []} defaultValue={String(input.defaultValue)} fieldName={input.name} required label={input.label} />
+            {errors[input.name] && (
+              <Box py={2}>
+                <Alert color='error'>{`${input.label} is required`}</Alert>
+              </Box>
+            )}
+          </>
+        )
+      case 'freetext':
+        return (
+          <>
+            <ControlledFreeTextInput control={control} defaultValue={String(input.defaultValue)} fieldName={input.name} label={input.label} required />
+            {errors[input.name] && (
+              <Box py={2}>
+                <Alert color='error'>{`${input.label} is required`}</Alert>
+              </Box>
+            )}
+          </>
+        )
+      case 'switch':
+        return (
+          <>
+            <ControlledSwitch control={control} defaultValue={Boolean(input.defaultValue)} fieldName={input.name} label={input.label} />
+          </>
+        )
+      case 'select':
+        return (
+          <>
+            <ControlledSelect control={control} defaultValue={String(input.defaultValue)} fieldName={input.name} label={input.label} items={input.options!} />
+          </>
         )
       default:
         return <></>
@@ -56,15 +79,7 @@ export default function DynamicForm({ inputs, onSubmitted }: { inputs: FormInput
             {renderControl(input)}
           </Box>
         ))}
-        {/* <Box py={2}>
-          <FormLookUpSoloInput control={control} options={options} defaultValue={defaultValue} fieldName='name' required />
-        </Box>
-        {errors.name && (
-          <Box py={2}>
-            <Alert color='error'>This field is required</Alert>
-          </Box>
-        )}
-        */}
+
         <HorizontalDivider />
         <Box display='flex' justifyContent={'flex-end'} pt={2}>
           <PrimaryButton text={'Save'} type='submit'></PrimaryButton>

@@ -1,46 +1,27 @@
 import { Alert, Box } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import { DropdownItem } from 'lib/models/dropdown'
 import React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import FormLookUpSoloInput from './ReactHookForm/FormLookUpSoloInput'
+import DynamicForm from './DynamicForm'
+import { useFormHelper } from './formHelper'
+import ControlledLookUpSoloInput from './ReactHookForm/ControlledLookUpSoloInput'
 
-export type GroupInputs = {
-  name: string
+interface FormInput {
+  groupName: string
 }
 
-const EditStockGroupForm = ({ options, defaultValue, onSubmitted }: { options: string[]; defaultValue: string; onSubmitted: (data: string) => void }) => {
-  //   const {
-  //     register,
-  //     handleSubmit,
-  //     watch,
-  //     formState: { errors },
-  //   } = useForm<Inputs>()
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<GroupInputs>()
-  const onSubmit: SubmitHandler<GroupInputs> = (data) => {
-    //console.log(data)
-    onSubmitted(data.name)
+const EditStockGroupForm = ({ options, defaultValue, onSubmitted }: { options: DropdownItem[]; defaultValue: string; onSubmitted: (data: string) => void }) => {
+  const formHelper = useFormHelper<FormInput>()
+  formHelper.append('groupName', defaultValue, 'group name', 'autocompletesolo', true, options)
+  const handleSubmitted = (data: FormInput) => {
+    console.log(data)
+    onSubmitted(data.groupName)
   }
   return (
     <Box>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Box py={2}>
-          <FormLookUpSoloInput control={control} options={options} defaultValue={defaultValue} fieldName='name' required label={'group name'} />
-        </Box>
-        {errors.name && (
-          <Box py={2}>
-            <Alert color='error'>This field is required</Alert>
-          </Box>
-        )}
-        <HorizontalDivider />
-        <Box display='flex' justifyContent={'flex-end'} pt={2}>
-          <PrimaryButton text={'Save'} type='submit'></PrimaryButton>
-        </Box>
-      </form>
+      <DynamicForm<FormInput> inputs={formHelper.inputs()} onSubmitted={handleSubmitted} />
     </Box>
   )
 }
