@@ -9,9 +9,11 @@ export type GroupInputs = {
   name: string
 }
 
+export type FormInputType = 'autocompletesolo'
+
 export interface FormInput {
   label: string
-  type: 'autocompletesolo'
+  type: FormInputType
   name: string
   defaultValue: string | number | boolean
   options?: string[]
