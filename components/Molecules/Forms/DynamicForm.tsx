@@ -2,7 +2,7 @@ import { Alert, Box } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import React from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
 import ControlledLookUpSoloInput from './ReactHookForm/ControlledLookUpSoloInput'
 import { ControlledFreeTextInput } from './ReactHookForm/ControlledFreeTextInput'
 import ControlledSwitch from './ReactHookForm/ControlledSwitch'
@@ -20,13 +20,13 @@ export interface FormInput {
   options?: DropdownItem[]
 }
 
-export default function DynamicForm<T>({ inputs, onSubmitted }: { inputs: FormInput[]; onSubmitted: (data: T) => void }) {
+export default function DynamicForm<T extends FieldValues>({ inputs, onSubmitted }: { inputs: FormInput[]; onSubmitted: (data: T) => void }) {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<any>()
-  const onSubmit: SubmitHandler<any> = (data: T) => {
+  } = useForm<T>()
+  const onSubmit: SubmitHandler<T> = (data: T) => {
     onSubmitted(data)
   }
 
@@ -35,7 +35,14 @@ export default function DynamicForm<T>({ inputs, onSubmitted }: { inputs: FormIn
       case 'autocompletesolo':
         return (
           <>
-            <ControlledLookUpSoloInput control={control} options={input.options ? input.options.map((m) => m.text) : []} defaultValue={String(input.defaultValue)} fieldName={input.name} required label={input.label} />
+            <ControlledLookUpSoloInput
+              control={control}
+              options={input.options ? input.options.map((m) => m.text) : []}
+              defaultValue={String(input.defaultValue)}
+              fieldName={input.name}
+              required
+              label={input.label}
+            />
             {errors[input.name] && (
               <Box py={2}>
                 <Alert color='error'>{`${input.label} is required`}</Alert>
