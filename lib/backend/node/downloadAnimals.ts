@@ -1,8 +1,6 @@
 var fs = require('fs')
 var https = require('https')
-//let { downloadFile } = require('./node/downloadFileUtil')
-
-const downloadFile = (response: any, localFilePath: string, localFilName: string) => {
+const downloadAnimal = (response: any, localFilePath: string, localFilName: string) => {
   //console.log(`file name: ${fileName}`)
   var file = fs.createWriteStream(`${localFilePath}`)
   response.pipe(file)
@@ -28,7 +26,7 @@ const getRandomDog = async () => {
             .get(result.message, function (res: any) {
               var fileName = result.message.substring(result.message.lastIndexOf('/') + 1)
               var filePath = `public/images/randomDogs/${fileName}`
-              downloadFile(res, filePath, fileName)
+              downloadAnimal(res, filePath, fileName)
             })
             .on('error', function (err: any) {
               console.log('Error: ', err.message)
@@ -59,7 +57,7 @@ const getRandomCat = async () => {
             .get(result[0].url, function (res: any) {
               var fileName = result[0].url.substring(result[0].url.lastIndexOf('/') + 1)
               var filePath = `public/images/randomCats/${fileName}`
-              downloadFile(res, filePath, fileName)
+              downloadAnimal(res, filePath, fileName)
             })
             .on('error', function (err: any) {
               console.log('Error: ', err.message)

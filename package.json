@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "download": "npx ts-node --project tsconfig-dev.json lib/backend/fileUtil.ts",
-    "downloadandbuild": "npx ts-node --project tsconfig-dev.json lib/backend/fileUtil.ts | next build"
+    "downloadandbuild": "npx ts-node --project tsconfig-dev.json lib/backend/node/downloadAnimals.ts | next build"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^4.0.3",
