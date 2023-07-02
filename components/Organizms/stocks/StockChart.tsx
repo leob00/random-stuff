@@ -2,6 +2,7 @@ import { Box, Typography, useMediaQuery } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
 import CenterStack from 'components/Atoms/CenterStack'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import theme from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
@@ -37,10 +38,12 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
   ]
 
   const handleDaysSelected = async (val: string) => {
+    setIsLoading(true)
     const result = await getStockOrFutureChart(symbol, Number(val), isStock)
     const map = mapHistory(result)
     const options = getOptions(map, result, isXSmall)
     setChartOptions(options)
+    setIsLoading(false)
   }
   const [chartOptions, setChartOptions] = React.useState<ApexOptions | null>(null)
   const [isLoading, setIsLoading] = React.useState(true)
@@ -57,24 +60,21 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
       <Box textAlign={'right'} pr={1} pt={1}>
         <DropdownList options={daySelect} selectedOption={'90'} onOptionSelected={handleDaysSelected} />
       </Box>
-      {isLoading ? (
-        <></>
-      ) : (
-        <>
-          {companyName && (
-            <CenterStack>
-              <Typography variant='h5' color='primary' sx={{ textAlign: 'center' }}>
-                {companyName}
-              </Typography>
-            </CenterStack>
-          )}
-          {chartOptions && (
-            <Box>
-              <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
-            </Box>
-          )}
-        </>
-      )}
+
+      <>
+        {companyName && (
+          <CenterStack>
+            <Typography variant='h5' color='primary' sx={{ textAlign: 'center' }}>
+              {companyName}
+            </Typography>
+          </CenterStack>
+        )}
+        {chartOptions && (
+          <Box minHeight={600}>
+            {isLoading ? <BackdropLoader /> : <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />}
+          </Box>
+        )}
+      </>
     </Box>
   )
 }
