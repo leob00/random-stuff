@@ -1,18 +1,36 @@
-import { Stack, Box } from '@mui/material'
+import { Stack, Box, Typography, Alert } from '@mui/material'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import StockListItem from './StockListItem'
 
-const AddQuote = ({ quote, handleAddToList, handleCloseAddQuote }: { quote: StockQuote; handleAddToList: () => void; handleCloseAddQuote: () => void }) => {
+const AddQuote = ({
+  quote,
+  stockListMap,
+  handleAddToList,
+  handleCloseAddQuote,
+}: {
+  quote: StockQuote
+  stockListMap: Map<string, StockQuote>
+  handleAddToList: () => void
+  handleCloseAddQuote: () => void
+}) => {
+  const alreadyExists = stockListMap.has(quote.Symbol)
+  console.log(stockListMap)
   return (
     <>
       <StockListItem item={quote} expand={true} isStock={true} />
-      <Stack py={1} direction={'row'} spacing={1}>
+      <Stack py={1} direction={'row'} spacing={1} alignItems='center'>
         <Stack flexGrow={1}>
           <Box textAlign={'right'}>
-            <SecondaryButton text=' Add to list' size='small' onClick={handleAddToList}></SecondaryButton>
+            {!alreadyExists ? (
+              <SecondaryButton text='Add to list' size='small' onClick={handleAddToList}></SecondaryButton>
+            ) : (
+              <Alert severity='success'>
+                <Typography pr={2} variant='caption'>{`Exists in your list`}</Typography>
+              </Alert>
+            )}
           </Box>
         </Stack>
         <Stack>

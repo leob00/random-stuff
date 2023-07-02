@@ -2,9 +2,8 @@ import { Box, Typography, useMediaQuery } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
 import CenterStack from 'components/Atoms/CenterStack'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
-import WarmupBox from 'components/Atoms/WarmupBox'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import theme, { OceanBlueTransparent, VeryLightBlueTransparent } from 'components/themes/mainTheme'
+import theme from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { getStockOrFutureChart } from 'lib/backend/api/qln/qlnApi'
@@ -28,11 +27,13 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
   }
 
   const daySelect: DropdownItem[] = [
-    { text: '1 year', value: '365' },
-    { text: '6 months', value: '180' },
-    { text: '3 months', value: '90' },
-    { text: '1 month', value: '30' },
     { text: '1 week', value: '7' },
+    { text: '1 month', value: '30' },
+    { text: '3 months', value: '90' },
+    { text: '6 months', value: '180' },
+    { text: '1 year', value: '365' },
+    { text: '3 year', value: '1095' },
+    { text: '5 year', value: '1825' },
   ]
 
   const handleDaysSelected = async (val: string) => {
@@ -68,11 +69,7 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
             </CenterStack>
           )}
           {chartOptions && (
-            <Box
-            //borderRadius={3}
-            //p={1}
-            // sx={{ backgroundColor: OceanBlueTransparent }}
-            >
+            <Box>
               <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
             </Box>
           )}

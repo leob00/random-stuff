@@ -20,6 +20,7 @@ import FlatListMenu from './FlatListMenu'
 import GroupedStocksLayout from './GroupedStocksLayout'
 import StockTable from './StockTable'
 import lookupData from 'public/data/symbolCompanies.json'
+import { searchAheadStocks } from './stockSearcher'
 
 export interface StockLayoutModel {
   username?: string | null
@@ -63,57 +64,8 @@ const StockSearchLayout = () => {
   const [model, setModel] = React.useReducer((state: StockLayoutModel, newState: StockLayoutModel) => ({ ...state, ...newState }), defaultModel)
 
   const handleSearched = async (text: string) => {
-    if (text.length === 0) {
-      return
-    }
-    let searchResults: SymbolCompany[] = []
-    const directHit = lookupData.find((m) => m.Symbol.toLowerCase() === text.toLowerCase())
-    if (directHit) {
-      searchResults.push(directHit)
-    }
-    let moreResults = take(
-      lookupData.filter((m) => m.Symbol.toLowerCase().startsWith(text.toLowerCase()) || m.Company.toLowerCase().startsWith(text.toLowerCase())),
-      10,
-    )
-    if (directHit) {
-      moreResults = moreResults.filter((m) => m.Symbol !== directHit.Symbol)
-    }
-    searchResults.push(...moreResults)
-    if (searchResults.length === 0) {
-      const words = text.split(' ')
-      const map = new Map<string, SymbolCompany>()
-      words.forEach((word) => {
-        const results = take(
-          lookupData.filter((m) => m.Company.toLowerCase().includes(word.toLowerCase())),
-          10,
-        )
-        results.forEach((result) => {
-          map.set(result.Symbol, result)
-        })
-      })
-      const secondTry = take(getListFromMap(map), 10)
-      searchResults = secondTry
-    }
-    // //const result = await searchStockQuotes(text)
-    // let result = take(
-    //   lookupData.filter((m) => m.Symbol.toLowerCase().startsWith(text.toLowerCase()) || m.Company.toLowerCase().includes(text.toLowerCase())),
-    //   10,
-    // )
-    // if (result.length === 0) {
-    //   const words = text.split(' ')
-    //   const map = new Map<string, SymbolCompany>()
-    //   words.forEach((word) => {
-    //     const results = take(
-    //       lookupData.filter((m) => m.Company.toLowerCase().includes(word.toLowerCase())),
-    //       10,
-    //     )
-    //     results.forEach((result) => {
-    //       map.set(result.Symbol, result)
-    //     })
-    //   })
-    //   const secondTry = take(getListFromMap(map), 10)
-    //   result = secondTry
-    // }
+    const searchResults = searchAheadStocks(text)
+
     const autoComp: DropdownItem[] = searchResults.map((e) => {
       return {
         text: `${e.Symbol}: ${e.Company}`,
@@ -171,7 +123,7 @@ const StockSearchLayout = () => {
   }
 
   const handleAddToList = async () => {
-    const quote = cloneDeep(model.quoteToAdd!)
+    const quote = { ...model.quoteToAdd! }
     let stockList = [...model.stockList]
     let stockListMap = getMapFromArray(stockList, 'Symbol')
     quote.GroupName = quote.Sector ?? 'Unassigned'
@@ -281,13 +233,6 @@ const StockSearchLayout = () => {
       {model.successMesage && <SnackbarSuccess show={true} text={model.successMesage} />}
       <Box py={2}>
         <CenterStack>
-          {/* <SearchAutoComplete
-            placeholder={'search stocks'}
-            onChanged={handleSearched}
-            searchResults={model.autoCompleteResults}
-            debounceWaitMilliseconds={500}
-            onSelected={handleSelectQuote}
-          /> */}
           <StocksAutoComplete
             placeholder={'search stocks'}
             onChanged={handleSearched}
@@ -298,7 +243,7 @@ const StockSearchLayout = () => {
         </CenterStack>
       </Box>
       {model.quoteToAdd ? (
-        <AddQuote quote={model.quoteToAdd} handleAddToList={handleAddToList} handleCloseAddQuote={handleCloseAddQuote} />
+        <AddQuote stockListMap={model.stockListMap} quote={model.quoteToAdd} handleAddToList={handleAddToList} handleCloseAddQuote={handleCloseAddQuote} />
       ) : (
         <Box>
           {model.isLoading ? (
