@@ -70,7 +70,7 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
           </CenterStack>
         )}
         {chartOptions && (
-          <Box minHeight={600}>
+          <Box minHeight={{ xs: 300, md: 500 }}>
             {isLoading ? <BackdropLoader /> : <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />}
           </Box>
         )}
