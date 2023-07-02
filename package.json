@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "npx ts-node --project tsconfig-dev.json lib/backend/node/downloadSymbolCompanies.ts | next dev",
+    "build": "npx ts-node --project tsconfig-dev.json lib/backend/node/downloadSymbolCompanies.ts | next build",
     "start": "next start",
     "lint": "next lint",
-    "download": "npx ts-node --project tsconfig-dev.json lib/backend/fileUtil.ts",
+    "download": "npx ts-node --project tsconfig-dev.json lib/backend/node/downloadAnimals.ts | npx ts-node --project tsconfig-dev.json lib/backend/node/downloadSymbolCompanies.ts",
     "downloadandbuild": "npx ts-node --project tsconfig-dev.json lib/backend/node/downloadAnimals.ts | next build"
   },
   "dependencies": {

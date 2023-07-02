@@ -3,27 +3,29 @@ import CenterStack from 'components/Atoms/CenterStack'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import SearchAutoComplete from 'components/Atoms/Inputs/SearchAutoComplete'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
+import StocksAutoComplete from 'components/Atoms/Inputs/StocksAutoComplete'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { useUserController } from 'hooks/userController'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { searchStockQuotes } from 'lib/backend/api/qln/qlnApi'
+import { getStockQuotes, searchStockQuotes, SymbolCompany } from 'lib/backend/api/qln/qlnApi'
 import { getUserStockList, putUserProfile, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, take } from 'lodash'
 import React from 'react'
 import AddQuote from './AddQuote'
 import EditList from './EditList'
 import FlatListMenu from './FlatListMenu'
 import GroupedStocksLayout from './GroupedStocksLayout'
 import StockTable from './StockTable'
+import lookupData from 'public/data/symbolCompanies.json'
 
 export interface StockLayoutModel {
   username?: string | null
   isLoading: boolean
   autoCompleteResults: DropdownItem[]
-  searchedStocksMap: Map<string, StockQuote>
+  searchedStocksMap: Map<string, SymbolCompany>
   stockListMap: Map<string, StockQuote>
   stockList: StockQuote[]
   filteredList: StockQuote[]
@@ -61,28 +63,63 @@ const StockSearchLayout = () => {
   const [model, setModel] = React.useReducer((state: StockLayoutModel, newState: StockLayoutModel) => ({ ...state, ...newState }), defaultModel)
 
   const handleSearched = async (text: string) => {
-    if (text.length > 0) {
-      const result = await searchStockQuotes(text)
-      const autoComp: DropdownItem[] = result.map((e) => {
-        return {
-          text: `${e.Symbol}: ${e.Company}`,
-          value: e.Symbol,
-        }
-      })
-      const searchedStocksMap = new Map<string, StockQuote>([])
-      result.forEach((item, index) => {
-        searchedStocksMap.set(item.Symbol, item)
-      })
-      setModel({ ...model, searchedStocksMap: searchedStocksMap, autoCompleteResults: autoComp, quoteToAdd: undefined, successMesage: null })
+    if (text.length === 0) {
+      return
     }
+    let searchResults: SymbolCompany[] = []
+    const directHit = lookupData.find((m) => m.Symbol.toLowerCase() === text.toLowerCase())
+    if (directHit) {
+      searchResults.push(directHit)
+    }
+    let moreResults = take(
+      lookupData.filter((m) => m.Symbol.toLowerCase().startsWith(text.toLowerCase()) || m.Company.toLowerCase().startsWith(text.toLowerCase())),
+      10,
+    )
+    if (directHit) {
+      moreResults = moreResults.filter((m) => m.Symbol !== directHit.Symbol)
+    }
+    searchResults.push(...moreResults)
+
+    // //const result = await searchStockQuotes(text)
+    // let result = take(
+    //   lookupData.filter((m) => m.Symbol.toLowerCase().startsWith(text.toLowerCase()) || m.Company.toLowerCase().includes(text.toLowerCase())),
+    //   10,
+    // )
+    // if (result.length === 0) {
+    //   const words = text.split(' ')
+    //   const map = new Map<string, SymbolCompany>()
+    //   words.forEach((word) => {
+    //     const results = take(
+    //       lookupData.filter((m) => m.Company.toLowerCase().includes(word.toLowerCase())),
+    //       10,
+    //     )
+    //     results.forEach((result) => {
+    //       map.set(result.Symbol, result)
+    //     })
+    //   })
+    //   const secondTry = take(getListFromMap(map), 10)
+    //   result = secondTry
+    // }
+    const autoComp: DropdownItem[] = searchResults.map((e) => {
+      return {
+        text: `${e.Symbol}: ${e.Company}`,
+        value: e.Symbol,
+      }
+    })
+    const searchedStocksMap = new Map<string, SymbolCompany>([])
+    searchResults.forEach((item, index) => {
+      searchedStocksMap.set(item.Symbol, item)
+    })
+    setModel({ ...model, autoCompleteResults: autoComp, quoteToAdd: undefined, successMesage: null })
   }
 
-  const handleSelectQuote = (text: string) => {
+  const handleSelectQuote = async (text: string) => {
     const symbol = text.split(':')[0]
-    const quote = model.searchedStocksMap.get(symbol)
+    setModel({ ...model, isLoading: true })
+    const quotes = await getStockQuotes([symbol])
     //setModel({ ...model, isLoading: true })
-    if (quote) {
-      setModel({ ...model, quoteToAdd: quote, autoCompleteResults: [], successMesage: null })
+    if (quotes.length > 0) {
+      setModel({ ...model, quoteToAdd: quotes[0], autoCompleteResults: [], successMesage: null, isLoading: false })
     }
   }
   const reloadData = async () => {
@@ -230,7 +267,14 @@ const StockSearchLayout = () => {
       {model.successMesage && <SnackbarSuccess show={true} text={model.successMesage} />}
       <Box py={2}>
         <CenterStack>
-          <SearchAutoComplete
+          {/* <SearchAutoComplete
+            placeholder={'search stocks'}
+            onChanged={handleSearched}
+            searchResults={model.autoCompleteResults}
+            debounceWaitMilliseconds={500}
+            onSelected={handleSelectQuote}
+          /> */}
+          <StocksAutoComplete
             placeholder={'search stocks'}
             onChanged={handleSearched}
             searchResults={model.autoCompleteResults}

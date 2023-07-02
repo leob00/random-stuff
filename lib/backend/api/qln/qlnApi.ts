@@ -150,6 +150,10 @@ export async function getNewsFeed() {
     return result
   }
 }
+export interface SymbolCompany {
+  Symbol: string
+  Company: string
+}
 
 export async function getNewsBySource(id: NewsTypeIds) {
   let params = {

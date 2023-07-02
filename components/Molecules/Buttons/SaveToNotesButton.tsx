@@ -14,7 +14,6 @@ import RollingLinearProgress from 'components/Atoms/Loaders/RollingLinearProgres
 const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note: UserNote; onSaved: (note: UserNote) => void }) => {
   const [saving, setSaving] = React.useState(false)
   const [saved, setIsSaved] = React.useState(false)
-  const userController = useUserController()
   const handleClick = async (item: UserNote) => {
     setSaving(true)
     let noteTitles = await getUserNoteTitles(username)
@@ -33,7 +32,11 @@ const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note
 
   return !saved ? (
     <Stack justifyContent={'center'} direction='row' spacing={2}>
-      {saving ? <RollingLinearProgress height={30} width={100} /> : <SecondaryButton text={saving ? 'saving...' : 'read later'} size='small' onClick={() => handleClick(note)} disabled={saving} />}
+      {saving ? (
+        <RollingLinearProgress height={30} width={100} />
+      ) : (
+        <SecondaryButton text={saving ? 'saving...' : 'read later'} size='small' onClick={() => handleClick(note)} disabled={saving} />
+      )}
     </Stack>
   ) : (
     <Stack fontSize={'small'} justifyContent={'center'} flexDirection={'row'}>
