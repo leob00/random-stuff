@@ -79,7 +79,21 @@ const StockSearchLayout = () => {
       moreResults = moreResults.filter((m) => m.Symbol !== directHit.Symbol)
     }
     searchResults.push(...moreResults)
-
+    if (searchResults.length === 0) {
+      const words = text.split(' ')
+      const map = new Map<string, SymbolCompany>()
+      words.forEach((word) => {
+        const results = take(
+          lookupData.filter((m) => m.Company.toLowerCase().includes(word.toLowerCase())),
+          10,
+        )
+        results.forEach((result) => {
+          map.set(result.Symbol, result)
+        })
+      })
+      const secondTry = take(getListFromMap(map), 10)
+      searchResults = secondTry
+    }
     // //const result = await searchStockQuotes(text)
     // let result = take(
     //   lookupData.filter((m) => m.Symbol.toLowerCase().startsWith(text.toLowerCase()) || m.Company.toLowerCase().includes(text.toLowerCase())),

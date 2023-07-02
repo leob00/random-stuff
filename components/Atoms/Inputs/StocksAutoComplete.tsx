@@ -43,11 +43,11 @@ const StocksAutoComplete = ({
     if (value) {
       onSelected(value)
     }
-    if (clearOnSelect) {
-      if (textRef.current) {
-        textRef.current.blur()
-      }
-    }
+    // if (clearOnSelect) {
+    //   if (textRef.current) {
+    //     textRef.current.blur()
+    //   }
+    // }
   }
 
   return (
