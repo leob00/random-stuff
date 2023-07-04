@@ -1544,6 +1544,10 @@
     "Symbol": "ALVO"
   },
   {
+    "Company": "Alvotech - Warrant",
+    "Symbol": "ALVOW"
+  },
+  {
     "Company": "AlloVir Inc",
     "Symbol": "ALVR"
   },
@@ -36020,6 +36024,10 @@
     "Symbol": "STIX"
   },
   {
+    "Company": "Semantix, Inc. - Warrant",
+    "Symbol": "STIXW"
+  },
+  {
     "Company": "Columbia Seligman Premium Technology Growth Fund Inc",
     "Symbol": "STK"
   },
@@ -40412,6 +40420,10 @@
     "Symbol": "VTLE"
   },
   {
+    "Company": "Corporacion Inmobiliaria Vesta, S.A.B de C.V. American Depositary Shares, each representing ten (10) Common Shares",
+    "Symbol": "VTMX"
+  },
+  {
     "Company": "Invesco Trust For Investment Grade New York Municipals",
     "Symbol": "VTN"
   },
@@ -40650,6 +40662,10 @@
   {
     "Company": "Western Acquisition Ventures Corp",
     "Symbol": "WAVS"
+  },
+  {
+    "Company": "Western Acquisition Ventures Corp. - Unit",
+    "Symbol": "WAVSU"
   },
   {
     "Company": "Weibo Corp",
@@ -42134,6 +42150,10 @@
   {
     "Company": "Full Truck Alliance Co Ltd",
     "Symbol": "YMM"
+  },
+  {
+    "Company": "Yandex N.V. - Class A Ordinary Shares",
+    "Symbol": "YNDX"
   },
   {
     "Company": "Advisorshares Trust",

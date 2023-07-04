@@ -32,8 +32,7 @@ const NewsList = ({
         return <></>
       }
       case 'BbcBusiness':
-      case 'BbcWorld':
-      case 'CNN': {
+      case 'BbcWorld': {
         return (
           <>
             {item.Description && item.Description.length > 2 && (
