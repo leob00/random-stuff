@@ -55,7 +55,7 @@ const StocksAutoComplete = ({
       value={defaultValue}
       size='small'
       id='searchAutoComplete'
-      freeSolo
+      //freeSolo
       sx={{ width: width, input: { color: CasinoBlue } }}
       options={searchResults.map((e) => e.text)}
       autoHighlight

@@ -3,6 +3,7 @@ import { ApexOptions } from 'apexcharts'
 import CenterStack from 'components/Atoms/CenterStack'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import theme from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
@@ -40,12 +41,14 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
   const handleDaysSelected = async (val: string) => {
     setIsLoading(true)
     const result = await getStockOrFutureChart(symbol, Number(val), isStock)
+    setChartData(result)
     const map = mapHistory(result)
     const options = getOptions(map, result, isXSmall)
     setChartOptions(options)
     setIsLoading(false)
   }
   const [chartOptions, setChartOptions] = React.useState<ApexOptions | null>(null)
+  const [chartData, setChartData] = React.useState(history)
   const [isLoading, setIsLoading] = React.useState(true)
 
   React.useEffect(() => {
@@ -71,7 +74,22 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
         )}
         {chartOptions && (
           <Box minHeight={{ xs: 300, md: 500 }}>
-            {isLoading ? <BackdropLoader /> : <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />}
+            {isLoading && (
+              <>
+                <BackdropLoader />
+              </>
+            )}
+            <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
+            <Box display='flex' gap={4} pb={4}>
+              <Box display='flex' gap={1}>
+                <Typography variant='caption'>start date:</Typography>
+                <Typography variant='caption'>{dayjs(chartData[0].TradeDate).format('MM/DD/YYYY')}</Typography>
+              </Box>
+              <Box display='flex' gap={1}>
+                <Typography variant='caption'>end date:</Typography>
+                <Typography variant='caption'>{dayjs(chartData[chartData.length - 1].TradeDate).format('MM/DD/YYYY')}</Typography>
+              </Box>
+            </Box>
           </Box>
         )}
       </>

@@ -35,7 +35,6 @@ export type NewsTypeIds =
   | 'GoogleSports'
   | 'YahooWorld'
   | 'YahooScience'
-  | 'CNN'
   | 'Reuters'
   | 'HackerNews'
   | 'TheDaily'
@@ -50,10 +49,6 @@ export const newsTypes: DropdownItem[] = [
   {
     text: 'BBC Business',
     value: 'BbcBusiness',
-  },
-  {
-    text: 'CNN',
-    value: 'CNN',
   },
   {
     text: 'Google Business',
