@@ -16,7 +16,6 @@ const EditStockGroupForm = ({ options, defaultValue, onSubmitted }: { options: D
   const formHelper = useFormHelper<FormInput>()
   formHelper.append('groupName', defaultValue, 'group name', 'autocompletesolo', true, options)
   const handleSubmitted = (data: FormInput) => {
-    console.log(data)
     onSubmitted(data.groupName)
   }
   return (

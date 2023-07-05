@@ -34,7 +34,7 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
   }
 
   const handleNavigationEvent = (payload: HubPayload) => {
-    console.log('last path: ', payload.data.lastPath)
+    //console.log('last path: ', payload.data.lastPath)
     // console.log('payload data: ', payload.data)
   }
 

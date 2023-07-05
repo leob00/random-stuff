@@ -17,7 +17,7 @@ const AddQuote = ({
   handleCloseAddQuote: () => void
 }) => {
   const alreadyExists = stockListMap.has(quote.Symbol)
-  console.log(stockListMap)
+  //console.log(stockListMap)
   return (
     <>
       <StockListItem item={quote} expand={true} isStock={true} />

@@ -36,7 +36,7 @@ const fetcherFn = async (url: string) => {
   const result = resp.data as RecipeCollection
   const allItems = result.items
 
-  let newData = take(shuffle(allItems), 10)
+  let newData = take(shuffle(allItems), 5)
   const stats = await getRecord<SiteStats>(siteStatsKey)
   const expirationDate = dayjs(stats.recipes.lastRefreshDate).add(featuredRecipesExpirationMinutes, 'minute')
   const needsRefresh = expirationDate.isBefore(dayjs())
@@ -62,7 +62,7 @@ const fetcherFn = async (url: string) => {
 export const getStaticProps: GetStaticProps = async (context) => {
   let result = await getAllRecipes()
   const items = result.items
-  const newData = take(shuffle(items), 10)
+  const newData = take(shuffle(items), 5)
   let options = items.map((item) => ({ id: item.sys.id, label: item.title })) as Option[]
   options = orderBy(options, ['label'], ['asc'])
   const stats = (await getRandomStuff(siteStatsKey)) as SiteStats
