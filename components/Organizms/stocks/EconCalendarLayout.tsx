@@ -63,10 +63,13 @@ const EconCalendarLayout = () => {
           {calendar.map((item) => (
             <Box key={item.date}>
               <ListHeader text={`${item.date}`} item={item} onClicked={() => {}} />
-              <Box display={'flex'} gap={1} alignItems={'center'} flexWrap={'wrap'} pl={2}>
+              <Box display={'flex'} gap={1} alignItems={'center'} flexWrap={'wrap'} justifyContent='center'>
                 {item.items.map((event) => (
                   <Box key={`${event.Name}-${event.EventDate}`} py={1}>
-                    <Paper component={Stack} sx={{ minHeight: 160, p: 2, width: 240, direction: 'column', justifyContent: 'center' }}>
+                    <Paper
+                      component={Stack}
+                      sx={{ minHeight: { xs: 180, sm: 160 }, p: 2, width: { xs: 150, sm: 240 }, direction: 'column', justifyContent: 'center' }}
+                    >
                       {event.Url ? (
                         <Link href={event.Url} target={'_blank'}>
                           <Typography textAlign={'center'}>{event.Name}</Typography>
