@@ -60,13 +60,7 @@ const Cached = ({ fallbackData }: { fallbackData: Recipe }) => {
     fallbackData: fallbackData,
     refreshInterval: cmsRefreshIntervalSeconds * 1000,
   })
-  /* const { data, error } = useCmsSwr(
-    '/api/recipe',
-    fallbackData.sys.id,
-    (url: string, id: string) => fetcherFn(url, id),
-    fallbackData,
-    cmsRefreshIntervalSeconds,
-  ) */
+
   if (error) {
     return <RecipeLayout article={fallbackData} baseUrl='/ssg/recipes' />
   }

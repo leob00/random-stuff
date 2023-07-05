@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
 import { Box, Container } from '@mui/material'
@@ -17,6 +17,7 @@ import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Header from 'next/head'
 import Seo from 'components/Organizms/Seo'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 dayjs.extend(relativeTime)
 
 const cmsRefreshIntervalSeconds = 3600
@@ -115,8 +116,10 @@ const Recipes: NextPage<{ model: RecipesLayoutModel; fallback: RecipesLayoutMode
       <Seo pageTitle='Recipes' />
       <ResponsiveContainer>
         <BackToHomeButton />
-        <SWRConfig value={{ fallback }}>
-          <CachedRecipes fallbackData={model} />
+        <SWRConfig value={{ fallback, suspense: true }}>
+          <Suspense fallback={<BackdropLoader />}>
+            <CachedRecipes fallbackData={model} />
+          </Suspense>
         </SWRConfig>
       </ResponsiveContainer>
     </>
