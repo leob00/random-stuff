@@ -19,7 +19,6 @@ import EditList from './EditList'
 import FlatListMenu from './FlatListMenu'
 import GroupedStocksLayout from './GroupedStocksLayout'
 import StockTable from './StockTable'
-import lookupData from 'public/data/symbolCompanies.json'
 import { searchAheadStocks } from './stockSearcher'
 
 export interface StockLayoutModel {
@@ -234,7 +233,7 @@ const StockSearchLayout = () => {
       <Box py={2}>
         <CenterStack>
           <StocksAutoComplete
-            placeholder={'search stocks'}
+            placeholder={`search stocks`}
             onChanged={handleSearched}
             searchResults={model.autoCompleteResults}
             debounceWaitMilliseconds={500}

@@ -42,12 +42,10 @@ const StocksAutoComplete = ({
   const handleSelected = (e: React.SyntheticEvent<Element, Event>, value: string | null) => {
     if (value) {
       onSelected(value)
+      if (textRef.current) {
+        textRef.current.blur()
+      }
     }
-    // if (clearOnSelect) {
-    //   if (textRef.current) {
-    //     textRef.current.blur()
-    //   }
-    // }
   }
 
   return (
@@ -55,7 +53,7 @@ const StocksAutoComplete = ({
       value={defaultValue}
       size='small'
       id='searchAutoComplete'
-      //freeSolo
+      freeSolo
       sx={{ width: width, input: { color: CasinoBlue } }}
       options={searchResults.map((e) => e.text)}
       autoHighlight
@@ -72,7 +70,7 @@ const StocksAutoComplete = ({
           inputProps={{
             ...params.inputProps,
             color: 'secondary',
-            autoComplete: 'off', // disable autocomplete and autofill
+            autoComplete: 'off',
           }}
           onChange={handleChange}
         />
