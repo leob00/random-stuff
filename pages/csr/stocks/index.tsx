@@ -46,7 +46,10 @@ const Page = () => {
           <WarmupBox />
         ) : (
           <>
-            <Box sx={{ display: selectedTab === 'Stocks' ? 'unset' : 'none' }}>
+            {selectedTab === 'Stocks' && <StockSearchLayout />}
+            {selectedTab === 'Futures' && <FuturesLayout />}
+            {selectedTab === 'Econ Events' && <EconCalendarLayout />}
+            {/* <Box sx={{ display: selectedTab === 'Stocks' ? 'unset' : 'none' }}>
               <StockSearchLayout />
             </Box>
             <Box sx={{ display: selectedTab === 'Futures' ? 'unset' : 'none' }}>
@@ -54,7 +57,7 @@ const Page = () => {
             </Box>
             <Box sx={{ display: selectedTab === 'Econ Events' ? 'unset' : 'none' }}>
               <EconCalendarLayout />
-            </Box>
+            </Box> */}
           </>
         )}
       </ResponsiveContainer>

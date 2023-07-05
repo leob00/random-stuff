@@ -1,11 +1,12 @@
 import { Box, Link, Paper, Stack, Typography } from '@mui/material'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import dayjs from 'dayjs'
 import { EconCalendarItem, getEconCalendar } from 'lib/backend/api/qln/qlnApi'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 interface Model {
   date: string
@@ -53,12 +54,20 @@ const EconCalendarLayout = () => {
 
   return (
     <Box py={2}>
-      {isLoading ? (
+      {/* {isLoading ? (
         <>
           <WarmupBox />
           <LargeGridSkeleton />
         </>
-      ) : (
+      ) : ( */}
+      <Suspense
+        fallback={
+          <>
+            <BackdropLoader />
+            <LargeGridSkeleton />
+          </>
+        }
+      >
         <Box pt={2}>
           {calendar.map((item) => (
             <Box key={item.date}>
@@ -86,9 +95,10 @@ const EconCalendarLayout = () => {
               </Box>
             </Box>
           ))}
-          {calendar.length === 0 && <NoDataFound />}
+          {!isLoading && calendar.length === 0 && <NoDataFound />}
         </Box>
-      )}
+      </Suspense>
+      {/* )} */}
     </Box>
   )
 }
