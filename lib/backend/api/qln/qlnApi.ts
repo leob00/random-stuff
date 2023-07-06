@@ -5,7 +5,7 @@ import { get, getList } from '../fetchFunctions'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import dayjs from 'dayjs'
 
-let baseUrl = process.env.NEXT_PUBLIC_QLN_API_URL
+export const qlnApiBaseUrl = process.env.NEXT_PUBLIC_QLN_API_URL
 
 export interface NewsItem {
   Source?: NewsTypeIds | string
@@ -125,7 +125,7 @@ export interface LineChart {
 }
 
 export async function getNewsFeed() {
-  const url = `${baseUrl}/MarketHandshake`
+  const url = `${qlnApiBaseUrl}/MarketHandshake`
   let params = {
     loadLatestNews: true,
   }
@@ -154,7 +154,7 @@ export async function getNewsBySource(id: NewsTypeIds) {
   let params = {
     type: id,
   }
-  let resp = (await get(`${baseUrl}/NewsBySource`, params)).Body as NewsItem[]
+  let resp = (await get(`${qlnApiBaseUrl}/NewsBySource`, params)).Body as NewsItem[]
   //console.log(`${baseUrl}/NewsBySource?type=${id}`)
   return resp
 }
@@ -162,20 +162,20 @@ export async function getNewsBySymbol(symbol: string) {
   let params = {
     symbol: symbol,
   }
-  let resp = (await get(`${baseUrl}/NewsBySymbol`, params)).Body as NewsItem[]
+  let resp = (await get(`${qlnApiBaseUrl}/NewsBySymbol`, params)).Body as NewsItem[]
   //console.log(`${baseUrl}/NewsBySource?type=${id}`)
   return resp
 }
 
 export async function searchStockQuotes(search: string) {
-  const response = await get(`${baseUrl}/StocksAutoComplete`, {
+  const response = await get(`${qlnApiBaseUrl}/StocksAutoComplete`, {
     searchString: search ?? '',
   })
   const result = quoteArraySchema.parse(response.Body)
   return result
 }
 export async function getStockQuotes(symbols: string[]) {
-  const url = `${baseUrl}/Stocks`
+  const url = `${qlnApiBaseUrl}/Stocks`
   const params = {
     symbols: symbols.join(),
   }
@@ -185,7 +185,7 @@ export async function getStockQuotes(symbols: string[]) {
 }
 
 export async function getStockOrFutureChart(symbol: string, days?: number, isStock = true) {
-  const url = isStock ? `${baseUrl}/StockHistoryChart` : `${baseUrl}/FuturesHistoryChart`
+  const url = isStock ? `${qlnApiBaseUrl}/StockHistoryChart` : `${qlnApiBaseUrl}/FuturesHistoryChart`
   const params = {
     symbol: symbol,
     days: days ?? 90,
@@ -238,14 +238,14 @@ export async function refreshQuotes(quotes: StockQuote[], username?: string) {
   return result
 }
 export async function getJobs() {
-  const url = `${baseUrl}/BatchJobList`
+  const url = `${qlnApiBaseUrl}/BatchJobList`
   const response = await get(url)
   const result = response.Body as Job[]
   return result
 }
 
 export async function getJob(jobName: string) {
-  const url = `${baseUrl}/BatchJobDetail`
+  const url = `${qlnApiBaseUrl}/BatchJobDetail`
 
   const response = await get(url, { jobName: jobName })
   const result = response.Body as Job
@@ -253,7 +253,7 @@ export async function getJob(jobName: string) {
 }
 
 export async function getFutures() {
-  const url = `${baseUrl}/Futures`
+  const url = `${qlnApiBaseUrl}/Futures`
   const response = await get(url)
   const result = response.Body as StockQuote[]
   return result
@@ -267,7 +267,7 @@ export interface EconCalendarItem {
 }
 
 export async function getEconCalendar() {
-  const response = await get(`${baseUrl}/EconCalendar`)
+  const response = await get(`${qlnApiBaseUrl}/EconCalendar`)
   const result = response.Body as EconCalendarItem[]
   return result
 }
@@ -280,7 +280,7 @@ export interface StockEarning {
 }
 
 export async function getStockEarnings(symbol: string) {
-  const response = await get(`${baseUrl}/StockEarnings`, {
+  const response = await get(`${qlnApiBaseUrl}/StockEarnings`, {
     symbol: symbol,
   })
 

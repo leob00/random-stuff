@@ -1,25 +1,25 @@
 import { Box, Link, Paper, Stack, Typography } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
-import WarmupBox from 'components/Atoms/WarmupBox'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import dayjs from 'dayjs'
-import { EconCalendarItem, getEconCalendar } from 'lib/backend/api/qln/qlnApi'
-import React, { Suspense } from 'react'
+import { get } from 'lib/backend/api/fetchFunctions'
+import { EconCalendarItem, qlnApiBaseUrl } from 'lib/backend/api/qln/qlnApi'
+import React from 'react'
+import useSWR, { Fetcher } from 'swr'
 
 interface Model {
   date: string
   items: EconCalendarItem[]
 }
+const apiUrl = `${qlnApiBaseUrl}/EconCalendar`
+const fetcher: Fetcher<any> = (url: string) => get(url)
 
 const EconCalendarLayout = () => {
-  const [data, setData] = React.useState<EconCalendarItem[]>([])
-  const [calendar, setCalendar] = React.useState<Model[]>([])
-  const [isLoading, setIsLoading] = React.useState(true)
+  const { data, error, isLoading, isValidating } = useSWR(apiUrl, fetcher)
 
-  const loadData = async () => {
-    const result = await getEconCalendar()
+  const RenderDisplay = (apiResult: any) => {
+    const result = apiResult.Body as EconCalendarItem[]
     const datesMap = new Map<string, EconCalendarItem[]>()
     result.forEach((item) => {
       datesMap.set(
@@ -29,7 +29,6 @@ const EconCalendarLayout = () => {
         }),
       )
     })
-    //console.log(datesMap)
     const calendar: Model[] = []
     const keys = Array.from(datesMap.keys())
     keys.forEach((key) => {
@@ -38,33 +37,13 @@ const EconCalendarLayout = () => {
         items: datesMap.get(key) ?? [],
       })
     })
-    setCalendar(calendar)
+    console.log(calendar)
 
-    setData(result)
-  }
-
-  React.useEffect(() => {
-    const fn = async () => {
-      await loadData()
-      setIsLoading(false)
-    }
-    fn()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  return (
-    <Box py={2}>
-      {/* {isLoading ? (
-        <>
-          <WarmupBox />
-          <LargeGridSkeleton />
-        </>
-      ) : ( */}
-
+    return (
       <Box pt={2}>
         {calendar.map((item) => (
           <Box key={item.date}>
-            <ListHeader text={`${item.date}`} item={item} onClicked={() => {}} />
+            <ListHeader text={`${item.date === dayjs().format('MM/DD/YYYY') ? `Today: ${item.date}` : item.date}`} item={item} onClicked={() => {}} />
             <Box display={'flex'} gap={1} alignItems={'center'} flexWrap={'wrap'} justifyContent='center'>
               {item.items.map((event) => (
                 <Box key={`${event.Name}-${event.EventDate}`} py={1}>
@@ -88,14 +67,16 @@ const EconCalendarLayout = () => {
             </Box>
           </Box>
         ))}
-        {isLoading && (
-          <>
-            <BackdropLoader />
-            <LargeGridSkeleton />
-          </>
-        )}
-        {!isLoading && calendar.length === 0 && <NoDataFound />}
       </Box>
+    )
+  }
+
+  return (
+    <Box py={2}>
+      {isValidating && <BackdropLoader />}
+
+      {!isLoading && data && data.length === 0 && <NoDataFound />}
+      {data && RenderDisplay(data)}
     </Box>
   )
 }

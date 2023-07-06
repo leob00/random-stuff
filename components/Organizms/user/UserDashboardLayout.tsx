@@ -20,7 +20,8 @@ const UserDashboardLayout = ({ ticket }: { ticket: AmplifyUser | null }) => {
           <CenteredNavigationButton route={'/protected/csr/goals'} text={'goals'} />
           <CenteredNavigationButton route={'/protected/csr/notes'} text={'notes'} />
           <CenteredNavigationButton route={'/protected/csr/secrets'} text={'secrets'} showDivider={isAdmin} />
-          {isAdmin && <CenteredNavigationButton route={'/protected/csr/admin'} text={'admin'} showDivider={false} />}
+          {isAdmin && <CenteredNavigationButton route={'/protected/csr/admin'} text={'admin'} />}
+          {isAdmin && <CenteredNavigationButton route={'/protected/csr/sandbox'} text={'sandbox'} showDivider={false} />}
         </>
       </Box>
     </>
