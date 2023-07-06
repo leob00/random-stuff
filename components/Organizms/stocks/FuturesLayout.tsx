@@ -38,30 +38,27 @@ const FuturesLayout = () => {
 
   return (
     <Box py={2}>
-      <Suspense
-        fallback={
+      <>
+        <Box display={'flex'} justifyContent={'flex-end'}>
+          <HamburgerMenu>
+            <MenuList>
+              <MenuItem onClick={handleRefresh}>
+                <ListItemIcon>
+                  <CachedIcon color='secondary' fontSize='small' />
+                </ListItemIcon>
+                <ListItemText primary='refresh'></ListItemText>
+              </MenuItem>
+            </MenuList>
+          </HamburgerMenu>
+        </Box>
+        {isLoading && (
           <>
             <BackdropLoader />
             <LargeGridSkeleton />
           </>
-        }
-      >
-        <>
-          <Box display={'flex'} justifyContent={'flex-end'}>
-            <HamburgerMenu>
-              <MenuList>
-                <MenuItem onClick={handleRefresh}>
-                  <ListItemIcon>
-                    <CachedIcon color='secondary' fontSize='small' />
-                  </ListItemIcon>
-                  <ListItemText primary='refresh'></ListItemText>
-                </MenuItem>
-              </MenuList>
-            </HamburgerMenu>
-          </Box>
-          <Box pt={2}>{!isLoading && <StockTable stockList={data} isStock={false} />}</Box>
-        </>
-      </Suspense>
+        )}
+        <Box pt={2}>{!isLoading && <StockTable stockList={data} isStock={false} />}</Box>
+      </>
     </Box>
   )
 }
