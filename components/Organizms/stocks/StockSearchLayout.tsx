@@ -1,25 +1,24 @@
 import { Box } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
-import SearchAutoComplete from 'components/Atoms/Inputs/SearchAutoComplete'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import StocksAutoComplete from 'components/Atoms/Inputs/StocksAutoComplete'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { useUserController } from 'hooks/userController'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { getStockQuotes, searchStockQuotes, SymbolCompany } from 'lib/backend/api/qln/qlnApi'
+import { getStockQuotes, SymbolCompany } from 'lib/backend/api/qln/qlnApi'
 import { getUserStockList, putUserProfile, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
-import { cloneDeep, take } from 'lodash'
 import React from 'react'
 import AddQuote from './AddQuote'
 import EditList from './EditList'
 import FlatListMenu from './FlatListMenu'
 import GroupedStocksLayout from './GroupedStocksLayout'
 import StockTable from './StockTable'
-import { searchAheadStocks } from './stockSearcher'
+import { getSearchAheadTotalCount, searchAheadStocks } from './stockSearcher'
+import numeral from 'numeral'
 
 export interface StockLayoutModel {
   username?: string | null
@@ -71,10 +70,10 @@ const StockSearchLayout = () => {
         value: e.Symbol,
       }
     })
-    const searchedStocksMap = new Map<string, SymbolCompany>([])
-    searchResults.forEach((item, index) => {
-      searchedStocksMap.set(item.Symbol, item)
-    })
+    // const searchedStocksMap = new Map<string, SymbolCompany>([])
+    // searchResults.forEach((item, index) => {
+    //   searchedStocksMap.set(item.Symbol, item)
+    // })
     setModel({ ...model, autoCompleteResults: autoComp, quoteToAdd: undefined, successMesage: null })
   }
 
@@ -233,7 +232,7 @@ const StockSearchLayout = () => {
       <Box py={2}>
         <CenterStack>
           <StocksAutoComplete
-            placeholder={`search stocks`}
+            placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}
             onChanged={handleSearched}
             searchResults={model.autoCompleteResults}
             debounceWaitMilliseconds={500}

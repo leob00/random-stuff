@@ -37,3 +37,7 @@ export function searchAheadStocks(text: string) {
   }
   return searchResults
 }
+
+export function getSearchAheadTotalCount() {
+  return lookupData.length
+}
