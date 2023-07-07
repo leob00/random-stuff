@@ -1,5 +1,4 @@
 import { Box, Link, Typography } from '@mui/material'
-import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
@@ -15,8 +14,6 @@ import { myEncrypt } from 'lib/backend/encryption/useEncryptor'
 import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { get, post } from 'lib/backend/api/fetchFunctions'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
-import HtmlView from 'components/Atoms/Boxes/HtmlView'
-import MultiDatasetBarchart from 'components/Molecules/Charts/MultiDatasetBarchart'
 import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import JobsLayout from 'components/Organizms/admin/JobsLayout'
 import BackButton from 'components/Atoms/Buttons/BackButton'
@@ -152,7 +149,6 @@ const Page = () => {
             </Box>
           )}
           {selectedTab === 'Form' && <FormExample />}
-
           {selectedTab === 'Jobs' && <JobsLayout />}
         </>
       ) : (

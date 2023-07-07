@@ -11,19 +11,17 @@ import { get } from 'lib/backend/api/fetchFunctions'
 import NewsList from './NewsList'
 import { getUserNoteTitles, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
+import useSWR, { Fetcher, mutate } from 'swr'
 
 const NewsLayout = () => {
-  const [isLoading, setIsLoading] = React.useState(true)
-  const [newsItems, setNewsItems] = React.useState<NewsItem[]>([])
-  const [showError, setShowError] = React.useState(false)
   const userController = useUserController()
   const defaultSource: NewsTypeIds = (userController.authProfile?.settings?.news?.lastNewsType as NewsTypeIds) ?? 'GoogleTopStories'
   const [selectedSource, setSelectedSource] = React.useState<NewsTypeIds>(defaultSource)
 
-  const loadData = async (id: NewsTypeIds) => {
+  const fetchWithId = async (url: string, id: string) => {
+    const result = (await get(`/api/news?id=${id}`)) as NewsItem[]
+    const sorted = orderBy(result, ['PublishDate'], ['desc'])
     try {
-      const result = (await get(`/api/news?id=${id}`)) as NewsItem[]
-      const sorted = orderBy(result, ['PublishDate'], ['desc'])
       if (userController.authProfile) {
         const noteTitles = await getUserNoteTitles(userController.authProfile.username)
         noteTitles.forEach((note) => {
@@ -34,13 +32,14 @@ const NewsLayout = () => {
           })
         })
       }
-      setNewsItems(sorted)
     } catch (err) {
       console.log('error in news api: ', err)
-      setShowError(true)
     }
-    setIsLoading(false)
+    console.log(`retrieved ${sorted.length} ${id} results`)
+    return sorted
   }
+
+  const { data, isLoading, isValidating, error } = useSWR(['/api/news', selectedSource], ([url, id]) => fetchWithId(url, id))
 
   const saveProfileNewsType = async (newstype: NewsTypeIds) => {
     const profile = await userController.fetchProfilePassive()
@@ -55,23 +54,13 @@ const NewsLayout = () => {
       putUserProfile(profile)
     }
   }
-
   const handleNewsSourceSelected = async (id: string) => {
-    setIsLoading(true)
     const source = id as NewsTypeIds
     setSelectedSource(source)
     saveProfileNewsType(source)
-    //await loadData(id as NewsTypeIds)
+    mutate('/api/news', selectedSource)
   }
 
-  React.useEffect(() => {
-    const fn = async () => {
-      const profile = await userController.fetchProfilePassive()
-      await loadData(selectedSource)
-    }
-    fn()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSource])
   return (
     <>
       <Box py={2}>
@@ -89,8 +78,8 @@ const NewsLayout = () => {
           </>
         ) : (
           <Box sx={{ maxHeight: 580, overflowY: 'auto' }} py={2}>
-            {showError && <ErrorMessage text='There is an error that occurred. We have been made aware of it. Please try again in a few minutes.' />}
-            <NewsList newsItems={newsItems} />
+            {error && <ErrorMessage text='There is an error that occurred. We have been made aware of it. Please try again in a few minutes.' />}
+            {data && <NewsList newsItems={data} />}
           </Box>
         )}
       </Box>

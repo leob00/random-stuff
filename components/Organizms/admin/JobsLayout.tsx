@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material'
 import dayjs from 'dayjs'
-import { getJob, getJobs, Job, qlnApiBaseUrl, QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
+import { getJob, Job, qlnApiBaseUrl, QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
 import { orderBy } from 'lodash'
 import React from 'react'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -17,9 +17,7 @@ const JobsLayout = () => {
   const [pollCounter, setPollCounter] = React.useState(0)
   const [selectedItem, setSelectedItem] = React.useState<Job | null>(null)
   const [isLoadingDetail, setIsLoadingDetail] = React.useState(false)
-
   const timeOutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
-
   const apiUrl = `${qlnApiBaseUrl}/BatchJobList`
   const fetcher: Fetcher<QlnApiResponse> = (url: string) => get(url)
   const { data, isLoading } = useSWR(apiUrl, fetcher)
