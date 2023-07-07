@@ -11,7 +11,7 @@ import { get } from 'lib/backend/api/fetchFunctions'
 import NewsList from './NewsList'
 import { getUserNoteTitles, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
-import useSWR, { Fetcher, mutate } from 'swr'
+import useSWR from 'swr'
 
 const NewsLayout = () => {
   const userController = useUserController()
@@ -35,11 +35,11 @@ const NewsLayout = () => {
     } catch (err) {
       console.log('error in news api: ', err)
     }
-    console.log(`retrieved ${sorted.length} ${id} results`)
+    //console.log(`retrieved ${sorted.length} ${id} results`)
     return sorted
   }
 
-  const { data, isLoading, isValidating, error } = useSWR(['/api/news', selectedSource], ([url, id]) => fetchWithId(url, id))
+  const { data, isLoading, error } = useSWR(['/api/news', selectedSource], ([url, id]) => fetchWithId(url, id))
 
   const saveProfileNewsType = async (newstype: NewsTypeIds) => {
     const profile = await userController.fetchProfilePassive()
@@ -58,7 +58,6 @@ const NewsLayout = () => {
     const source = id as NewsTypeIds
     setSelectedSource(source)
     saveProfileNewsType(source)
-    //mutate('/api/news', selectedSource)
   }
 
   return (

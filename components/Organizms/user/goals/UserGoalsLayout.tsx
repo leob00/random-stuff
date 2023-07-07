@@ -21,6 +21,7 @@ import GoalCharts from './GoalCharts'
 import GoalsMenu from 'components/Molecules/Menus/GoalsMenu'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
+import useSWR, { mutate } from 'swr'
 
 export interface UserGoalAndTask {
   goal: UserGoal
@@ -71,12 +72,14 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
 
   const [, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
+  const goalsKey = constructUserGoalsKey(username)
+
   const handleCloseMenu = () => {
     setAnchorEl(null)
   }
 
   const loadGoals = async () => {
-    const goals = orderBy(await getUserGoals(constructUserGoalsKey(username)), ['dateModified'], ['desc'])
+    const goals = orderBy(await getUserGoals(goalsKey), ['dateModified'], ['desc'])
     const tasks = reorderTasks(await getUserTasks(username))
     return mapGoalTasks(goals, tasks)
   }

@@ -1,20 +1,13 @@
-import { Container } from '@mui/material'
 import UserNotesLayout from 'components/Organizms/user/UserNotesLayout'
 import React from 'react'
 import router from 'next/router'
 import { UserNotesModel } from 'components/reducers/notesReducer'
-import CenterStack from 'components/Atoms/CenterStack'
-import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import { useUserController } from 'hooks/userController'
-import NonSSRWrapper from 'components/Organizms/NonSSRWrapper'
-import ButtonSkeleton from 'components/Atoms/Skeletons/ButtonSkeleton'
-import TextSkeleton from 'components/Atoms/Skeletons/TextSkeleton'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { getUserNoteTitles, putUserNoteTitles, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
-import { UserNote } from 'lib/models/randomStuffModels'
 
 const Notes = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true)

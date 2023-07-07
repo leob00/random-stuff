@@ -43,6 +43,8 @@ const StocksAutoComplete = ({
     if (value) {
       onSelected(value)
       if (textRef.current) {
+        textRef.current.value = ''
+        setDefaultValue('')
         textRef.current.blur()
       }
     }

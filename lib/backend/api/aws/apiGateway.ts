@@ -6,7 +6,7 @@ import { UserNote } from 'lib/models/randomStuffModels'
 import { get, post } from '../fetchFunctions'
 
 export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | 'site-stats' | 'community-stocks' | 'user-stock_list'
-let baseUrl = process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL
+export const apiGatewayUrl = String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL)
 
 export type CategoryType = 'animals' | 'random' | 'userProfile' | 'community-stocks' | 'user-stock_list' | string
 
@@ -100,13 +100,13 @@ export interface SiteStats {
 }
 
 export async function hello(name: string) {
-  const url = `${baseUrl}/hello?name=${name}`
+  const url = `${apiGatewayUrl}/hello?name=${name}`
   let data = await get(url)
   return data as LambdaResponse
 }
 
 export async function putAnimals(type: DynamoKeys, data: BasicArticle[]) {
-  const url = `${baseUrl}/animals`
+  const url = `${apiGatewayUrl}/animals`
   let model: RandomStuffPut = {
     key: type,
     data: data,
@@ -121,7 +121,7 @@ export async function putAnimals(type: DynamoKeys, data: BasicArticle[]) {
 }
 
 export async function getAnimals(type: DynamoKeys) {
-  const url = `${baseUrl}/animals?key=${type}`
+  const url = `${apiGatewayUrl}/animals?key=${type}`
   let response: LambdaResponse | null = null
   try {
     response = (await get(url)) as LambdaResponse
@@ -134,7 +134,7 @@ export async function getAnimals(type: DynamoKeys) {
 }
 
 export async function getRandomStuff(type: DynamoKeys | string) {
-  const url = `${baseUrl}/randomstuff?key=${type}`
+  const url = `${apiGatewayUrl}/randomstuff?key=${type}`
   let result: LambdaResponse | null = null
   try {
     result = (await get(url)) as LambdaResponse
@@ -149,7 +149,7 @@ export async function getRandomStuff(type: DynamoKeys | string) {
   return null
 }
 export async function searchRandomStuffBySecIndex(search: CategoryType | string) {
-  const url = `${baseUrl}/searchrandomstuff`
+  const url = `${apiGatewayUrl}/searchrandomstuff`
   try {
     let result = await post(url, { key: search })
     return result.body as LambdaBody[]
@@ -160,7 +160,7 @@ export async function searchRandomStuffBySecIndex(search: CategoryType | string)
 }
 
 export async function putRandomStuff(type: DynamoKeys, category: CategoryType, data: any, expiration?: number) {
-  const url = `${baseUrl}/randomstuff`
+  const url = `${apiGatewayUrl}/randomstuff`
   const model: RandomStuffPut = {
     key: type,
     data: data,
@@ -190,7 +190,7 @@ export async function putRandomStuffEnc(req: SignedRequest) {
     return null
   }
 
-  const url = `${baseUrl}/randomstuff`
+  const url = `${apiGatewayUrl}/randomstuff`
 
   const model: RandomStuffPut = {
     key: body.id,
@@ -211,7 +211,7 @@ export async function putRandomStuffEnc(req: SignedRequest) {
 }
 
 export async function deleteRandomStuff(key: string) {
-  const url = `${baseUrl}/deleterandomstuff`
+  const url = `${apiGatewayUrl}/deleterandomstuff`
   let params = {
     key: key,
   }
@@ -255,7 +255,7 @@ export interface EmailMessage {
 }
 
 export async function sendEmail(message: EmailMessage) {
-  const url = `${baseUrl}/sendemail`
+  const url = `${apiGatewayUrl}/sendemail`
   const response = (await post(url, message)) as LambdaResponse
   return response.body
 }
