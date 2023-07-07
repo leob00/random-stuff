@@ -252,6 +252,13 @@ export async function getJob(jobName: string) {
   return result
 }
 
+export interface QlnApiResponse {
+  RequestId: string
+  ResponseId: string
+  ResponseDate: string
+  Body: any
+}
+
 export async function getFutures() {
   const url = `${qlnApiBaseUrl}/Futures`
   const response = await get(url)

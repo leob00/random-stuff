@@ -4,7 +4,7 @@ import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import dayjs from 'dayjs'
 import { get } from 'lib/backend/api/fetchFunctions'
-import { EconCalendarItem, qlnApiBaseUrl } from 'lib/backend/api/qln/qlnApi'
+import { EconCalendarItem, qlnApiBaseUrl, QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import useSWR, { Fetcher } from 'swr'
 
@@ -13,12 +13,12 @@ interface Model {
   items: EconCalendarItem[]
 }
 const apiUrl = `${qlnApiBaseUrl}/EconCalendar`
-const fetcher: Fetcher<any> = (url: string) => get(url)
+const fetcher: Fetcher<QlnApiResponse> = (url: string) => get(url)
 
 const EconCalendarLayout = () => {
-  const { data, error, isLoading, isValidating } = useSWR(apiUrl, fetcher)
+  const { data, isLoading, isValidating } = useSWR(apiUrl, fetcher)
 
-  const RenderDisplay = (apiResult: any) => {
+  const RenderDisplay = (apiResult: QlnApiResponse) => {
     const result = apiResult.Body as EconCalendarItem[]
     const datesMap = new Map<string, EconCalendarItem[]>()
     result.forEach((item) => {
@@ -37,7 +37,7 @@ const EconCalendarLayout = () => {
         items: datesMap.get(key) ?? [],
       })
     })
-    console.log(calendar)
+    //console.log(calendar)
 
     return (
       <Box pt={2}>
@@ -75,7 +75,7 @@ const EconCalendarLayout = () => {
     <Box py={2}>
       {isValidating && <BackdropLoader />}
 
-      {!isLoading && data && data.length === 0 && <NoDataFound />}
+      {!isLoading && data && data.Body.length === 0 && <NoDataFound />}
       {data && RenderDisplay(data)}
     </Box>
   )
