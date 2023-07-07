@@ -19,7 +19,7 @@ const NewsLayout = () => {
   const [selectedSource, setSelectedSource] = React.useState<NewsTypeIds>(defaultSource)
 
   const fetchWithId = async (url: string, id: string) => {
-    const result = (await get(`/api/news?id=${id}`)) as NewsItem[]
+    const result = (await get(`${url}?id=${id}`)) as NewsItem[]
     const sorted = orderBy(result, ['PublishDate'], ['desc'])
     try {
       if (userController.authProfile) {
@@ -58,7 +58,7 @@ const NewsLayout = () => {
     const source = id as NewsTypeIds
     setSelectedSource(source)
     saveProfileNewsType(source)
-    mutate('/api/news', selectedSource)
+    //mutate('/api/news', selectedSource)
   }
 
   return (
