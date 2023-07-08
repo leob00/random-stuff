@@ -9,22 +9,44 @@ import FuturesLayout from 'components/Organizms/stocks/FuturesLayout'
 import StockSearchLayout from 'components/Organizms/stocks/StockSearchLayout'
 import { useUserController } from 'hooks/userController'
 import { isLoggedIn } from 'lib/auth'
+import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { constructUserProfileKey } from 'lib/backend/api/aws/util'
+import { get } from 'lib/backend/api/fetchFunctions'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import React from 'react'
+import useSWR, { Fetcher, mutate } from 'swr'
 
-const getDbKey = (username: string) => {
+const getStocksDbKey = (username: string) => {
   const key = `user-stock_list[${username}]`
   return encodeURIComponent(weakEncrypt(key))
 }
 
+const getProfileDbKey = (username: string) => {
+  const key = constructUserProfileKey(username)
+  const result = encodeURIComponent(weakEncrypt(key))
+  return result
+}
+
 const Page = () => {
   const ticket = useUserController().ticket
-  const backUrl = ticket ? '/protected/csr/dashboard' : ''
+  //const backUrl = ticket ? '/protected/csr/dashboard' : ''
   const tabs: TabInfo[] = [{ title: 'Stocks', selected: true }, { title: 'Futures' }, { title: 'Econ Events' }]
   const [selectedTab, setSelectedTab] = React.useState('Stocks')
   const userController = useUserController()
   const [loading, setLoading] = React.useState(true)
-  const [apiUrl, setApiUrl] = React.useState('')
+  const profileKey = getProfileDbKey(ticket?.email ?? '')
+  // console.log(profileApiUrl)
+  const fetchProfile = async (url: string, token: string) => {
+    // const p = userController.fetchProfilePassive(900)
+    console.log('token: ', token)
+    const result = (await get(url, { enc: token })) as UserProfile | null
+    console.log(result)
+    return result
+  }
+  // const { data: token } = useSWR(['/api/edgeGetRandomStuff', profileKey], ([url, token]) => fetchProfile(url, token))
+  // const fetcher: Fetcher<UserProfile> = (url: string) => fetchProfile(url)
+  //const { data, isLoading, isValidating } = useSWR(profileApiUrl, fetcher)
+  //console.log(data)
 
   const handleSelectTab = (title: string) => {
     setSelectedTab(title)
@@ -37,8 +59,6 @@ const Page = () => {
         if (!p) {
           console.log('unable to load profile')
         } else {
-          const stockApiUrl = `/api/edgeGetRandomStuff?enc=${getDbKey(p.username)}`
-          setApiUrl(stockApiUrl)
         }
         userController.setProfile(p)
       }
@@ -58,13 +78,7 @@ const Page = () => {
         ) : (
           <>
             {selectedTab === 'Stocks' && (
-              <>
-                {userController.authProfile && apiUrl.length > 0 ? (
-                  <StockSearchLayout />
-                ) : (
-                  <PleaseLogin message={'In order to track stocks, you need to register and login.'} />
-                )}
-              </>
+              <>{userController.authProfile ? <StockSearchLayout /> : <PleaseLogin message={'In order to track stocks, you need to register and login.'} />}</>
             )}
             {selectedTab === 'Futures' && <FuturesLayout />}
             {selectedTab === 'Econ Events' && <EconCalendarLayout />}
