@@ -70,10 +70,7 @@ const StockSearchLayout = () => {
         value: e.Symbol,
       }
     })
-    // const searchedStocksMap = new Map<string, SymbolCompany>([])
-    // searchResults.forEach((item, index) => {
-    //   searchedStocksMap.set(item.Symbol, item)
-    // })
+
     setModel({ ...model, autoCompleteResults: autoComp, quoteToAdd: undefined, successMesage: null })
   }
 

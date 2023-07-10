@@ -7,6 +7,7 @@ import Seo from 'components/Organizms/Seo'
 import EconCalendarLayout from 'components/Organizms/stocks/EconCalendarLayout'
 import FuturesLayout from 'components/Organizms/stocks/FuturesLayout'
 import StockSearchLayout from 'components/Organizms/stocks/StockSearchLayout'
+import StockSearchLayoutUseSWR from 'components/Organizms/stocks/StockSearchLayoutUseSWR'
 import { useUserController } from 'hooks/userController'
 import { isLoggedIn } from 'lib/auth'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
@@ -72,7 +73,7 @@ const Page = () => {
           <>
             <Box sx={{ display: selectedTab !== 'Stocks' ? 'none' : 'unset' }}>
               {userController.authProfile !== null && !loading ? (
-                <StockSearchLayout />
+                <StockSearchLayoutUseSWR userProfile={userController.authProfile} />
               ) : (
                 <PleaseLogin message={'In order to track stocks, you need to register and login.'} />
               )}
