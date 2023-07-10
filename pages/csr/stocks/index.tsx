@@ -16,17 +16,6 @@ import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import React from 'react'
 import useSWR, { Fetcher, mutate } from 'swr'
 
-const getStocksDbKey = (username: string) => {
-  const key = `user-stock_list[${username}]`
-  return encodeURIComponent(weakEncrypt(key))
-}
-
-const getProfileDbKey = (username: string) => {
-  const key = constructUserProfileKey(username)
-  const result = encodeURIComponent(weakEncrypt(key))
-  return result
-}
-
 const Page = () => {
   const ticket = useUserController().ticket
   //const backUrl = ticket ? '/protected/csr/dashboard' : ''
@@ -34,7 +23,6 @@ const Page = () => {
   const [selectedTab, setSelectedTab] = React.useState('Stocks')
   const userController = useUserController()
   const [loading, setLoading] = React.useState(true)
-  const profileKey = getProfileDbKey(ticket?.email ?? '')
   // console.log(profileApiUrl)
   const fetchProfile = async (url: string, token: string) => {
     // const p = userController.fetchProfilePassive(900)
@@ -53,37 +41,39 @@ const Page = () => {
   }
 
   React.useEffect(() => {
-    const fn = async () => {
-      if (!userController.authProfile) {
-        const p = await userController.fetchProfilePassive(900)
-        if (!p) {
-          console.log('unable to load profile')
-        } else {
+    let isLoaded = false
+    if (!isLoaded) {
+      const fn = async () => {
+        if (userController.authProfile === null || !userController.authProfile) {
+          const p = await userController.fetchProfilePassive(900)
+          if (!p) {
+            console.log('unable to load profile')
+          }
+          userController.setProfile(p)
         }
-        userController.setProfile(p)
+        setLoading(false)
       }
-      setLoading(false)
+      fn()
     }
-    fn()
+    return () => {
+      isLoaded = true
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userController.ticket])
+  }, [userController.authProfile?.username])
 
   return (
     <>
       <Seo pageTitle='Stocks' />
       <ResponsiveContainer>
         <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
-        {loading ? (
-          <WarmupBox />
-        ) : (
-          <>
-            {selectedTab === 'Stocks' && (
-              <>{userController.authProfile ? <StockSearchLayout /> : <PleaseLogin message={'In order to track stocks, you need to register and login.'} />}</>
-            )}
-            {selectedTab === 'Futures' && <FuturesLayout />}
-            {selectedTab === 'Econ Events' && <EconCalendarLayout />}
-          </>
-        )}
+        {loading && <WarmupBox />}
+        <>
+          <Box sx={{ display: selectedTab !== 'Stocks' ? 'none' : 'unset' }}>
+            {userController.authProfile ? <StockSearchLayout /> : <PleaseLogin message={'In order to track stocks, you need to register and login.'} />}
+          </Box>
+          {selectedTab === 'Futures' && <FuturesLayout />}
+          {selectedTab === 'Econ Events' && <EconCalendarLayout />}
+        </>
       </ResponsiveContainer>
     </>
   )

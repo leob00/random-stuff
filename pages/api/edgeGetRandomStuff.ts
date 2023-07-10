@@ -12,5 +12,6 @@ export default async (req: NextRequest) => {
   //console.log(id)
   const arg = id as DynamoKeys | string
   const result = await getRandomStuff(arg)
+//  console.log('retrieved api data from edgeGetRandomStuff')
   return NextResponse.json(result)
 }
