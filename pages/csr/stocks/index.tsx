@@ -66,14 +66,21 @@ const Page = () => {
       <Seo pageTitle='Stocks' />
       <ResponsiveContainer>
         <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
-        {loading && <WarmupBox />}
-        <>
-          <Box sx={{ display: selectedTab !== 'Stocks' ? 'none' : 'unset' }}>
-            {userController.authProfile ? <StockSearchLayout /> : <PleaseLogin message={'In order to track stocks, you need to register and login.'} />}
-          </Box>
-          {selectedTab === 'Futures' && <FuturesLayout />}
-          {selectedTab === 'Econ Events' && <EconCalendarLayout />}
-        </>
+        {loading ? (
+          <WarmupBox />
+        ) : (
+          <>
+            <Box sx={{ display: selectedTab !== 'Stocks' ? 'none' : 'unset' }}>
+              {userController.authProfile !== null && !loading ? (
+                <StockSearchLayout />
+              ) : (
+                <PleaseLogin message={'In order to track stocks, you need to register and login.'} />
+              )}
+            </Box>
+            {selectedTab === 'Futures' && <FuturesLayout />}
+            {selectedTab === 'Econ Events' && <EconCalendarLayout />}
+          </>
+        )}
       </ResponsiveContainer>
     </>
   )
