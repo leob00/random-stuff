@@ -5,12 +5,9 @@ import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/Context
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import ContextMenuRefresh from 'components/Molecules/Menus/ContextMenuRefresh'
 
-const FlatListMenu = ({ onEdit, onRefresh, onShowAsGroup }: { onEdit: () => void; onRefresh: () => void; onShowAsGroup?: (show: boolean) => void }) => {
-  const handleClick = (event: 'refresh' | 'edit' | 'showAsGroup') => {
+const FlatListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShowAsGroup?: (show: boolean) => void }) => {
+  const handleClick = (event: 'edit' | 'showAsGroup') => {
     switch (event) {
-      case 'refresh':
-        onRefresh()
-        break
       case 'showAsGroup':
         onShowAsGroup?.(true)
         break
@@ -24,15 +21,6 @@ const FlatListMenu = ({ onEdit, onRefresh, onShowAsGroup }: { onEdit: () => void
     onShowAsGroup?.(grouped)
   }
   const contextMenu: ContextMenuItem[] = [
-    {
-      item: (
-        <>
-          <ContextMenuRefresh />
-          <Divider />
-        </>
-      ),
-      fn: () => handleClick('refresh'),
-    },
     {
       item: <ContextMenuEdit />,
       fn: () => handleClick('edit'),

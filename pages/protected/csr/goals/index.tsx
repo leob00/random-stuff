@@ -4,33 +4,30 @@ import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import UserGoalsLayout from 'components/Organizms/user/goals/UserGoalsLayout'
 import { useUserController } from 'hooks/userController'
+import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { AmplifyUser, getUserCSR } from 'lib/backend/auth/userUtil'
-import React from 'react'
+import React, { useState } from 'react'
 
 const Page = () => {
-  const auth = useUserController().ticket
-
-  const [ticket, setTicket] = React.useState<AmplifyUser | null>(auth)
+  const userController = useUserController()
+  const [userProfile, setUserProfile] = React.useState<UserProfile | null>(userController.authProfile)
   const [isLoading, setIsLoading] = React.useState(true)
 
   React.useEffect(() => {
     const fn = async () => {
-      if (!ticket) {
-        const userResult = await getUserCSR()
-
-        setTicket(userResult)
+      if (!userProfile) {
+        const p = await userController.fetchProfilePassive()
+        setUserProfile(p)
       }
       setIsLoading(false)
-
-      //console.log(ticket)
     }
     fn()
-  }, [ticket])
+  }, [userProfile])
 
   return (
     <ResponsiveContainer>
       <PageHeader text={'Goals'} backButtonRoute={'/protected/csr/dashboard'} />
-      {ticket ? <>{isLoading ? <WarmupBox text='loading' /> : <>{ticket && <UserGoalsLayout username={ticket.email} />}</>}</> : <PleaseLogin />}
+      {isLoading ? <WarmupBox /> : <>{userProfile ? <UserGoalsLayout username={userProfile.username} /> : <PleaseLogin />}</>}
     </ResponsiveContainer>
   )
 }

@@ -21,7 +21,7 @@ interface Model {
   quotes: StockQuote[]
 }
 
-const GroupedStocksLayout = ({ userProfile, stockList, onEdit, onRefresh, onShowAsGroup }: { userProfile: UserProfile | null; stockList: StockQuote[]; onEdit: () => void; onRefresh: () => void; onShowAsGroup: (show: boolean) => void }) => {
+const GroupedStocksLayout = ({ userProfile, stockList, onEdit, onShowAsGroup }: { userProfile: UserProfile | null; stockList: StockQuote[]; onEdit: () => void; onShowAsGroup: (show: boolean) => void }) => {
   const userController = useUserController()
 
   const groupify = (list: StockQuote[]) => {
@@ -74,8 +74,6 @@ const GroupedStocksLayout = ({ userProfile, stockList, onEdit, onRefresh, onShow
           let insideSort = p.settings?.stocks?.sort?.grouped.inside
           let mainSort = p.settings?.stocks?.sort?.grouped.main
           if (insideSort) {
-            //console.log(insideSort)
-            //p.settings!.stocks!.sort!.grouped.inside = [{ key: 'Company', direction: 'asc' }]
             newItem.quotes = sortArray(
               newItem.quotes,
               insideSort.map((m) => m.key),
@@ -93,7 +91,6 @@ const GroupedStocksLayout = ({ userProfile, stockList, onEdit, onRefresh, onShow
             userController.setProfile(p)
           }
         }
-        //console.log(newItem.quotes)
       }
       newMap.set(newItem.id, newItem)
 
@@ -112,7 +109,7 @@ const GroupedStocksLayout = ({ userProfile, stockList, onEdit, onRefresh, onShow
         <Box pl={1}>
           <SearchWithinList onChanged={handleSearchGroupWithinList} debounceWaitMilliseconds={150} />
         </Box>
-        <GroupedListMenu onEdit={onEdit} onRefresh={onRefresh} onShowAsGroup={onShowAsGroup} />
+        <GroupedListMenu onEdit={onEdit} onShowAsGroup={onShowAsGroup} />
       </Box>
       <Box display={'flex'} flexDirection={'column'} gap={2}>
         {Array.from(data.values()).map((item, i) => (

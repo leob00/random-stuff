@@ -7,77 +7,34 @@ import PleaseLogin from 'components/Molecules/PleaseLogin'
 import { useUserController } from 'hooks/userController'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
-import { getUserNoteTitles, putUserNoteTitles, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
+import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 const Notes = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true)
-  const [reload, setReload] = React.useState(true)
-  const [model, setModel] = React.useState<UserNotesModel | undefined>(undefined)
-  const [, setIsLoading] = React.useState(true)
-
   const userController = useUserController()
-
-  const loadData = async () => {
-    const model: UserNotesModel = {
-      noteTitles: [],
-      isLoading: false,
-      username: '',
-      editMode: false,
-      selectedNote: null,
-      userProfile: { id: '', username: '' },
-      viewMode: false,
-      filteredTitles: [],
-      search: '',
-    }
-    const profile = await userController.fetchProfilePassive(300)
-    if (profile === null) {
-      router.push('/login')
-      console.log('not logged in')
-    } else {
-      let noteTitles = await getUserNoteTitles(profile.username)
-      if (noteTitles.length === 0 && profile.noteTitles) {
-        console.log('migration of notes is required')
-        noteTitles = profile.noteTitles
-        putUserNoteTitles(profile.username, noteTitles)
-      } else if (profile.noteTitles) {
-        profile.noteTitles = undefined
-        putUserProfile(profile)
-      }
-      model.noteTitles = noteTitles
-      model.filteredTitles = noteTitles
-      model.username = profile.username
-      model.isLoading = false
-      model.userProfile = profile
-      setModel(model)
-    }
-    setIsLoggedIn(profile !== null)
-    setIsLoading(false)
-  }
+  const [userProfile, setUserProfile] = React.useState<UserProfile | null>(userController.authProfile)
+  const [isLoading, setIsLoading] = React.useState(true)
 
   React.useEffect(() => {
     let fn = async () => {
-      setReload(false)
-      await loadData()
+      const p = await userController.fetchProfilePassive(900)
+      setUserProfile(p)
+      setIsLoading(false)
     }
-    if (reload) {
-      fn()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reload])
+    fn()
+  }, [userProfile])
   return (
     <ResponsiveContainer>
       <PageHeader text={'Notes'} backButtonRoute={'/protected/csr/dashboard'} />
-      {!isLoggedIn ? (
-        <PleaseLogin />
+      {isLoading ? (
+        <WarmupBox />
       ) : (
         <>
-          {model ? (
-            <>
-              <UserNotesLayout data={model} />
-            </>
+          {!userProfile ? (
+            <PleaseLogin />
           ) : (
             <>
-              <WarmupBox />
+              <UserNotesLayout userProfile={userProfile} />
             </>
           )}
         </>

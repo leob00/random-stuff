@@ -6,36 +6,15 @@ import PleaseLogin from 'components/Molecules/PleaseLogin'
 import Seo from 'components/Organizms/Seo'
 import EconCalendarLayout from 'components/Organizms/stocks/EconCalendarLayout'
 import FuturesLayout from 'components/Organizms/stocks/FuturesLayout'
-import StockSearchLayout from 'components/Organizms/stocks/StockSearchLayout'
-import StockSearchLayoutUseSWR from 'components/Organizms/stocks/StockSearchLayoutUseSWR'
+import StocksLayout from 'components/Organizms/stocks/StocksLayout'
 import { useUserController } from 'hooks/userController'
-import { isLoggedIn } from 'lib/auth'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
-import { constructUserProfileKey } from 'lib/backend/api/aws/util'
-import { get } from 'lib/backend/api/fetchFunctions'
-import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import React from 'react'
-import useSWR, { Fetcher, mutate } from 'swr'
 
 const Page = () => {
-  const ticket = useUserController().ticket
-  //const backUrl = ticket ? '/protected/csr/dashboard' : ''
   const tabs: TabInfo[] = [{ title: 'Stocks', selected: true }, { title: 'Futures' }, { title: 'Econ Events' }]
   const [selectedTab, setSelectedTab] = React.useState('Stocks')
   const userController = useUserController()
   const [loading, setLoading] = React.useState(true)
-  // console.log(profileApiUrl)
-  const fetchProfile = async (url: string, token: string) => {
-    // const p = userController.fetchProfilePassive(900)
-    console.log('token: ', token)
-    const result = (await get(url, { enc: token })) as UserProfile | null
-    console.log(result)
-    return result
-  }
-  // const { data: token } = useSWR(['/api/edgeGetRandomStuff', profileKey], ([url, token]) => fetchProfile(url, token))
-  // const fetcher: Fetcher<UserProfile> = (url: string) => fetchProfile(url)
-  //const { data, isLoading, isValidating } = useSWR(profileApiUrl, fetcher)
-  //console.log(data)
 
   const handleSelectTab = (title: string) => {
     setSelectedTab(title)
@@ -72,11 +51,7 @@ const Page = () => {
         ) : (
           <>
             <Box sx={{ display: selectedTab !== 'Stocks' ? 'none' : 'unset' }}>
-              {userController.authProfile !== null && !loading ? (
-                <StockSearchLayoutUseSWR userProfile={userController.authProfile} />
-              ) : (
-                <PleaseLogin message={'In order to track stocks, you need to register and login.'} />
-              )}
+              {userController.authProfile !== null && !loading ? <StocksLayout userProfile={userController.authProfile} /> : <PleaseLogin message={'In order to track stocks, you need to register and login.'} />}
             </Box>
             {selectedTab === 'Futures' && <FuturesLayout />}
             {selectedTab === 'Econ Events' && <EconCalendarLayout />}

@@ -104,9 +104,7 @@ const CachedRecipes = ({ fallbackData }: { fallbackData: RecipesLayoutModel }) =
     console.log('swr error: ', error)
     return <RecipesLayout autoComplete={fallbackData.autoComplete} baseUrl='/ssg/recipes/' featured={fallbackData.featured} />
   }
-  if (!data) {
-    return <Box>loading...</Box>
-  }
+ 
   return <RecipesLayout autoComplete={data.autoComplete} baseUrl='/ssg/recipes/' featured={data.featured} />
 }
 
