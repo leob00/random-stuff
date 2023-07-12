@@ -62,7 +62,7 @@ export const useUserController = () => {
       }
     },
 
-    fetchProfilePassive: async (seconds: number = 300) => {
+    fetchProfilePassive: async (seconds: number = 600) => {
       const lastDt = lastProfileFetchDate
 
       if (lastDt.length === 0) {

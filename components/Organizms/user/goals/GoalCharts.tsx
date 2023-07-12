@@ -20,7 +20,7 @@ const GoalCharts = ({ barChart, goalTasks, handleCloseCharts }: { barChart: BarC
           </Button>
         </Stack>
         <CenteredTitle title={`Goals by Progress`} />
-        <Box pb={2}>
+        <Box pb={2} minHeight={200}>
           <Grid container spacing={1} justifyContent={'center'} alignItems={'flex-end'}>
             <Grid item xs={12} md={8}>
               <Box>
@@ -31,7 +31,7 @@ const GoalCharts = ({ barChart, goalTasks, handleCloseCharts }: { barChart: BarC
         </Box>
         <HorizontalDivider />
         <CenteredTitle title={`All ${numeral(sum(barChart.numbers)).format('###,###')} Tasks By Status`} />
-        <Box>
+        <Box minHeight={200}>
           <Grid container spacing={1} justifyContent={'center'} alignItems={'flex-end'}>
             <Grid item xs={12} md={6}>
               <ApexPieChart x={barChart.labels} y={barChart.numbers} colors={barChart.colors} />

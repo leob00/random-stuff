@@ -22,6 +22,7 @@ const Notes = () => {
       setIsLoading(false)
     }
     fn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userProfile])
   return (
     <ResponsiveContainer>

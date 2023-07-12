@@ -1,5 +1,6 @@
 var fs = require('fs')
 var https = require('https')
+var _ = require('lodash')
 // const downloadStocks = (response: any, localFilePath: string, localFilName: string) => {
 //   //console.log(`file name: ${fileName}`)
 //   var file = fs.createWriteStream(`${localFilePath}`)
@@ -26,8 +27,9 @@ const getSymbolCompanies = async () => {
         try {
           let response = JSON.parse(body)
           const records = response.Body as SymbolCompany[]
-          console.log(`downloaded ${records.length} companies`)
-          fs.writeFile('public/data/symbolCompanies.json', JSON.stringify(response.Body, null, 2), (err: string) => {
+          const ordered = _.orderBy(records, ['Sumbol'], ['asc'])
+          console.log(`downloaded ${ordered.length} companies`)
+          fs.writeFile('public/data/symbolCompanies.json', JSON.stringify(ordered, null, 2), (err: string) => {
             if (err) {
               console.error(err)
             } else {

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npx ts-node --project tsconfig-dev.json lib/backend/node/downloadSymbolCompanies.ts | next dev",
+    "dev": "next dev",
     "build": "npx ts-node --project tsconfig-dev.json lib/backend/node/downloadSymbolCompanies.ts | next build",
     "start": "next start",
     "lint": "next lint",
