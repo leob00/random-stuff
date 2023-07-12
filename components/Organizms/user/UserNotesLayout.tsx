@@ -19,6 +19,7 @@ import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import useSWR from 'swr'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 
 const UserNotesLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const enc = encodeURIComponent(weakEncrypt(constructUserNoteTitlesKey(userProfile.username)))
@@ -110,7 +111,13 @@ const UserNotesLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           <>
             <Box sx={{ py: 2 }}>
               <CenterStack>
-                <SearchWithinList width={350} onChanged={handleSearch} disabled={model.isLoading || model.editMode} text={`search ${numeral(model.noteTitles.length).format('###,###')} notes`} defaultValue={model.search} />
+                <SearchWithinList
+                  width={350}
+                  onChanged={handleSearch}
+                  disabled={model.isLoading || model.editMode}
+                  text={`search ${numeral(model.noteTitles.length).format('###,###')} notes`}
+                  defaultValue={model.search}
+                />
               </CenterStack>
             </Box>
           </>
@@ -120,7 +127,13 @@ const UserNotesLayout = ({ userProfile }: { userProfile: UserProfile }) => {
         ) : !model.editMode ? (
           model.selectedNote === null ? (
             <>
-              <NoteList data={model.filteredTitles} onClicked={handleNoteTitleClick} onDelete={handleDelete} onAddNote={handleAddNote} isFiltered={model.filteredTitles.length < model.noteTitles.length} />
+              <NoteList
+                data={model.filteredTitles}
+                onClicked={handleNoteTitleClick}
+                onDelete={handleDelete}
+                onAddNote={handleAddNote}
+                isFiltered={model.filteredTitles.length < model.noteTitles.length}
+              />
             </>
           ) : (
             model.viewMode &&
@@ -142,7 +155,12 @@ const UserNotesLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   }
   return (
     <>
-      {isLoading && <BackdropLoader />}
+      {isLoading && (
+        <>
+          <BackdropLoader />
+          <LargeGridSkeleton />
+        </>
+      )}
       {notes && <RenderDisplay result={notes} />}
     </>
   )

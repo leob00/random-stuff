@@ -9,7 +9,10 @@ const PageWithGridSkeleton = ({ rowCount = 6 }: { rowCount?: number }) => {
   return (
     <>
       {r.map((item, i) => (
-        <Box py={2} key={i}>
+        <Box py={2} key={i} display={'flex'} gap={4}>
+          <TextSkeleton />
+          <TextSkeleton />
+          <TextSkeleton />
           <TextSkeleton />
         </Box>
       ))}

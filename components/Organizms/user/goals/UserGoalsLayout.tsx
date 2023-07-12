@@ -9,6 +9,7 @@ import useSWR from 'swr'
 import { get } from 'lib/backend/api/fetchFunctions'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UserGoalsDisplay from './UserGoalsDisplay'
+import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 
 export interface UserGoalAndTask {
   goal: UserGoal
@@ -65,7 +66,12 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
 
   return (
     <>
-      {isLoading && <BackdropLoader />}
+      {isLoading && (
+        <>
+          <BackdropLoader />
+          <LargeGridSkeleton />
+        </>
+      )}
       {goals && tasks && <UserGoalsDisplay goals={goals} tasks={tasks} username={username} />}
     </>
   )

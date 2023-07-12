@@ -1,5 +1,6 @@
 import { Box, Link, Paper, Stack, Typography } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import dayjs from 'dayjs'
@@ -74,6 +75,7 @@ const EconCalendarLayout = () => {
   return (
     <Box py={2}>
       {isValidating && <BackdropLoader />}
+      {isLoading && <LargeGridSkeleton />}
 
       {!isLoading && data && data.Body.length === 0 && <NoDataFound />}
       {data && RenderDisplay(data)}

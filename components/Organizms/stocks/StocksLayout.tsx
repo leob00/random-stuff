@@ -6,6 +6,7 @@ import useSWR from 'swr'
 import { get } from 'lib/backend/api/fetchFunctions'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import StocksDisplay from './StocksDisplay'
+import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 
 const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const enc = encodeURIComponent(weakEncrypt(`user-stock_list[${userProfile.username}]`))
@@ -18,7 +19,12 @@ const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   return (
     <>
       {isValidating && <BackdropLoader />}
-      {isLoading && <BackdropLoader />} {stocks && <StocksDisplay userProfile={userProfile} result={stocks} />}
+      {isLoading && (
+        <>
+          <LargeGridSkeleton />
+        </>
+      )}{' '}
+      {stocks && <StocksDisplay userProfile={userProfile} result={stocks} />}
     </>
   )
 }

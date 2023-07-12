@@ -5,8 +5,7 @@ import PleaseLogin from 'components/Molecules/PleaseLogin'
 import UserGoalsLayout from 'components/Organizms/user/goals/UserGoalsLayout'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
-import { AmplifyUser, getUserCSR } from 'lib/backend/auth/userUtil'
-import React, { useState } from 'react'
+import React from 'react'
 
 const Page = () => {
   const userController = useUserController()
