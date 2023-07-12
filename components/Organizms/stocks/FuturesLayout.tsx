@@ -30,28 +30,9 @@ const FuturesLayout = () => {
         {isValidating && (
           <>
             <BackdropLoader />
-            <LargeGridSkeleton />
           </>
         )}
-        {data && (
-          <>
-            {!isValidating && (
-              <Box display={'flex'} justifyContent={'flex-end'}>
-                <HamburgerMenu>
-                  <MenuList>
-                    <MenuItem onClick={handleRefresh}>
-                      <ListItemIcon>
-                        <CachedIcon color='secondary' fontSize='small' />
-                      </ListItemIcon>
-                      <ListItemText primary='refresh'></ListItemText>
-                    </MenuItem>
-                  </MenuList>
-                </HamburgerMenu>
-              </Box>
-            )}
-            {RenderDisplay(data)}
-          </>
-        )}
+        {data && <>{RenderDisplay(data)}</>}
       </>
     </Box>
   )
