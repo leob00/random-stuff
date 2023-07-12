@@ -23,9 +23,11 @@ const loaders = [
   'reading from the dictionary',
   'reorganizing',
   'buying ice cream',
-  'waiting for a song to end',
   'catching up with friends',
   'waiting for a bus',
+  'waiting for an answer',
+  'going hiking',
+  'perfrming maintenance',
 ]
 
 export function getRandomLoaderText() {

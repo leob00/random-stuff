@@ -31,7 +31,7 @@ const WarmupBox = ({ text }: { text?: string }) => {
       <BackdropLoader />
       <Box pt={1}>
         <CenterStack>
-          <Typography variant='body2' color={'secondary'}>
+          <Typography variant='body1' color={'secondary'}>
             {text ? text : `${model.message}...`}
           </Typography>
         </CenterStack>

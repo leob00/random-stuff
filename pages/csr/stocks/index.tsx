@@ -50,9 +50,16 @@ const Page = () => {
           <WarmupBox />
         ) : (
           <>
-            <Box sx={{ display: selectedTab !== 'Stocks' ? 'none' : 'unset' }}>
-              {userController.authProfile !== null && !loading ? <StocksLayout userProfile={userController.authProfile} /> : <PleaseLogin message={'In order to track stocks, you need to register and login.'} />}
-            </Box>
+            {selectedTab === 'Stocks' && (
+              <>
+                {userController.authProfile !== null ? (
+                  <StocksLayout userProfile={userController.authProfile} />
+                ) : (
+                  <PleaseLogin message={'In order to track stocks, you need to register and login.'} />
+                )}
+              </>
+            )}
+
             {selectedTab === 'Futures' && <FuturesLayout />}
             {selectedTab === 'Econ Events' && <EconCalendarLayout />}
           </>
