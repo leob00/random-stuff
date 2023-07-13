@@ -23,7 +23,17 @@ import GoalDetails from './GoalDetails'
 import { UserGoalAndTask, UserGoalsModel } from './UserGoalsLayout'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 
-const UserGoalsDisplay = ({ goals, tasks, username }: { goals: UserGoal[]; tasks: UserTask[]; username: string }) => {
+const UserGoalsDisplay = ({
+  goals,
+  tasks,
+  username,
+  onMutated,
+}: {
+  goals: UserGoal[]
+  tasks: UserTask[]
+  username: string
+  onMutated: (newData: UserGoal[]) => void
+}) => {
   const mapGoalTasks = (goals: UserGoal[], tasks: UserTask[]) => {
     const goalsAndTasks: UserGoalAndTask[] = []
     goals.forEach((goal) => {
@@ -64,6 +74,7 @@ const UserGoalsDisplay = ({ goals, tasks, username }: { goals: UserGoal[]; tasks
     goals = orderBy(goals, ['dateModified'], ['desc'])
     await putUserGoals(constructUserGoalsKey(model.username), goals)
     setModel({ ...model, goals: goals, selectedGoal: newGoal ? item : undefined, isLoading: false, showAddGoalForm: false })
+    onMutated(goals)
   }
 
   const handleGoalClick = async (item: UserGoal) => {
@@ -81,6 +92,7 @@ const UserGoalsDisplay = ({ goals, tasks, username }: { goals: UserGoal[]; tasks
     await putUserGoals(constructUserGoalsKey(username), goalList)
     await putUserGoalTasks(model.username, model.selectedGoal?.id!, [], getSecondsFromEpoch())
     setModel({ ...model, goals: goalList, selectedGoal: undefined, isLoading: false, showConfirmDeleteGoal: false })
+    onMutated(goalList)
   }
 
   const handleSetGoalEditMode = (isEdit: boolean) => {
@@ -95,6 +107,7 @@ const UserGoalsDisplay = ({ goals, tasks, username }: { goals: UserGoal[]; tasks
     goals = orderBy(goals, ['dateModified'], ['desc'])
     await putUserGoals(constructUserGoalsKey(model.username), goals)
     setModel({ ...model, goals: goals, isSaving: false, isLoading: false, goalEditMode: false, selectedGoal: goal })
+    onMutated(goals)
   }
 
   const handelGoalDetailsLoaded = async (goal: UserGoal, tasks: UserTask[]) => {
@@ -168,7 +181,8 @@ const UserGoalsDisplay = ({ goals, tasks, username }: { goals: UserGoal[]; tasks
                   color='secondary'
                   onClick={() => {
                     setModel({ ...model, showAddGoalForm: !model.showAddGoalForm })
-                  }}>
+                  }}
+                >
                   {`${model.showAddGoalForm ? 'cancel' : 'create goal'}`}
                 </Button>
               </Box>
@@ -227,7 +241,8 @@ const UserGoalsDisplay = ({ goals, tasks, username }: { goals: UserGoal[]; tasks
                           <LinkButton2
                             onClick={() => {
                               handleGoalClick(item)
-                            }}>
+                            }}
+                          >
                             <Typography>{item.body}</Typography>
                           </LinkButton2>
                           {item.completePercent !== undefined && (
@@ -245,7 +260,8 @@ const UserGoalsDisplay = ({ goals, tasks, username }: { goals: UserGoal[]; tasks
                               <LinkButton2
                                 onClick={() => {
                                   handleGoalClick(item)
-                                }}>
+                                }}
+                              >
                                 <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
                               </LinkButton2>
                             )}

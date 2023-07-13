@@ -18,12 +18,13 @@ const Notes = () => {
   React.useEffect(() => {
     let fn = async () => {
       const p = await userController.fetchProfilePassive(900)
+      //console.log('effect: ', p)
       setUserProfile(p)
       setIsLoading(false)
     }
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userProfile])
+  }, [userProfile?.username])
   return (
     <ResponsiveContainer>
       <PageHeader text={'Notes'} backButtonRoute={'/protected/csr/dashboard'} />

@@ -9,7 +9,6 @@ export interface UserNotesModel {
   isLoading: boolean
   editMode: boolean
   viewMode: boolean
-  userProfile: UserProfile
   filteredTitles: UserNote[]
   search: string
 }

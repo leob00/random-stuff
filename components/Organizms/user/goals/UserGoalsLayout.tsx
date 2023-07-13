@@ -5,7 +5,7 @@ import { filter, orderBy } from 'lodash'
 import React from 'react'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
-import useSWR from 'swr'
+import useSWR, { mutate } from 'swr'
 import { get } from 'lib/backend/api/fetchFunctions'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UserGoalsDisplay from './UserGoalsDisplay'
@@ -51,6 +51,8 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   const tasksKey = `user-goal-tasks[${username}]`
   const goalsEnc = encodeURIComponent(weakEncrypt(goalsKey))
   const tasksEnc = encodeURIComponent(weakEncrypt(tasksKey))
+  const goalsMutateKey = ['/api/edgeGetRandomStuff', goalsEnc]
+  const taskMutateKey = ['/api/edgeGetRandomStuff', tasksEnc]
 
   const fetchGoalsData = async (url: string, enc: string) => {
     const result = (await get(url, { enc: enc })) as UserGoal[]
@@ -61,9 +63,12 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
     return result
   }
 
-  const { data: goals } = useSWR(['/api/edgeGetRandomStuff', goalsEnc], ([url, enc]) => fetchGoalsData(url, enc))
-  const { data: tasks, isLoading, isValidating } = useSWR(['/api/edgeGetRandomStuff', tasksEnc], ([url, enc]) => fetchTasksData(url, enc))
-
+  const { data: goals } = useSWR(goalsMutateKey, ([url, enc]) => fetchGoalsData(url, enc))
+  const { data: tasks, isLoading, isValidating } = useSWR(taskMutateKey, ([url, enc]) => fetchTasksData(url, enc))
+  const handleMutated = (newGoals: UserGoal[]) => {
+    mutate(goalsMutateKey, newGoals, { revalidate: false })
+    mutate(taskMutateKey, tasks, { revalidate: true })
+  }
   return (
     <>
       {isLoading && (
@@ -72,7 +77,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
           <LargeGridSkeleton />
         </>
       )}
-      {goals && tasks && <UserGoalsDisplay goals={goals} tasks={tasks} username={username} />}
+      {goals && tasks && <UserGoalsDisplay goals={goals} tasks={tasks} username={username} onMutated={handleMutated} />}
     </>
   )
 }

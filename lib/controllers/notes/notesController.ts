@@ -6,10 +6,7 @@ import { cloneDeep, findIndex, orderBy } from 'lodash'
 
 export async function buildSaveModel(model: UserNotesModel, item: UserNote) {
   const result = cloneDeep(model)
-  const profile = model.userProfile
-  if (profile) {
-    result.userProfile = profile
-  }
+
   const now = getUtcNow().format()
   item.dateModified = now
   if (!item.id) {
