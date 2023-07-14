@@ -22,7 +22,21 @@ import GoalCharts from './GoalCharts'
 import GoalDetails from './GoalDetails'
 import { UserGoalAndTask, UserGoalsModel } from './UserGoalsLayout'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
-
+const mapGoalTasks = (goals: UserGoal[], tasks: UserTask[]) => {
+  const goalsAndTasks: UserGoalAndTask[] = []
+  goals.forEach((goal) => {
+    const goalTasks = filter(tasks, (e) => e.goalId === goal.id)
+    goal.stats = getGoalStats(goalTasks)
+    if (!goal.completePercent) {
+      goal.completePercent = 0
+    }
+    goalsAndTasks.push({
+      goal: goal,
+      tasks: goalTasks,
+    })
+  })
+  return goalsAndTasks
+}
 const UserGoalsDisplay = ({
   goals,
   tasks,
@@ -34,21 +48,6 @@ const UserGoalsDisplay = ({
   username: string
   onMutated: (newData: UserGoal[]) => void
 }) => {
-  const mapGoalTasks = (goals: UserGoal[], tasks: UserTask[]) => {
-    const goalsAndTasks: UserGoalAndTask[] = []
-    goals.forEach((goal) => {
-      const goalTasks = filter(tasks, (e) => e.goalId === goal.id)
-      goal.stats = getGoalStats(goalTasks)
-      if (!goal.completePercent) {
-        goal.completePercent = 0
-      }
-      goalsAndTasks.push({
-        goal: goal,
-        tasks: goalTasks,
-      })
-    })
-    return goalsAndTasks
-  }
   const goalsAndTasks = mapGoalTasks(goals, tasks)
   const defaultModel: UserGoalsModel = {
     goals: goals,
@@ -100,13 +99,14 @@ const UserGoalsDisplay = ({
   }
 
   const saveGoal = async (goal: UserGoal) => {
-    setModel({ ...model, isSaving: false, isLoading: false })
-    goal.dateModified = getUtcNow().format()
-    let goals = filter(cloneDeep(model.goals), (e) => e.id !== goal!.id)
-    goals.push(goal)
+    const goalCopy = { ...goal }
+    goalCopy.dateModified = getUtcNow().format()
+    goalCopy.stats = getGoalStats(tasks)
+    let goals = filter(cloneDeep(model.goals), (e) => e.id !== goalCopy.id)
+    goals.push(goalCopy)
     goals = orderBy(goals, ['dateModified'], ['desc'])
     await putUserGoals(constructUserGoalsKey(model.username), goals)
-    setModel({ ...model, goals: goals, isSaving: false, isLoading: false, goalEditMode: false, selectedGoal: goal })
+    setModel({ ...model, goals: goals, goalEditMode: false, selectedGoal: goalCopy })
     onMutated(goals)
   }
 

@@ -3,7 +3,17 @@ import React from 'react'
 import CheckBoxOutlineBlankRoundedIcon from '@mui/icons-material/CheckBoxOutlineBlankRounded'
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined'
 import TextSkeleton from '../Skeletons/TextSkeleton'
-const SecondaryCheckbox = ({ checked, loading = false, onChanged }: { checked?: boolean; loading?: boolean; onChanged: (checked: boolean) => void }) => {
+const SecondaryCheckbox = ({
+  checked,
+  loading = false,
+  onChanged,
+  disabled = false,
+}: {
+  checked?: boolean
+  loading?: boolean
+  onChanged: (checked: boolean) => void
+  disabled?: boolean
+}) => {
   const [isChecked, setIsChecked] = React.useState(checked)
   const [isLoading, setIsLoading] = React.useState(loading)
 
@@ -18,31 +28,29 @@ const SecondaryCheckbox = ({ checked, loading = false, onChanged }: { checked?: 
 
   return (
     <>
-      {isLoading ? (
-        <TextSkeleton width={30} />
-      ) : (
-        <Box>
-          {isChecked ? (
-            <Button
-              sx={{ padding: 0 }}
-              onClick={() => {
-                handleCheckClick(false)
-              }}
-            >
-              <CheckBoxOutlinedIcon color='secondary' />
-            </Button>
-          ) : (
-            <Button
-              sx={{ padding: 0 }}
-              onClick={() => {
-                handleCheckClick(true)
-              }}
-            >
-              <CheckBoxOutlineBlankRoundedIcon color='secondary' />
-            </Button>
-          )}
-        </Box>
-      )}
+      <Box>
+        {isChecked ? (
+          <Button
+            disabled={disabled}
+            sx={{ padding: 0 }}
+            onClick={() => {
+              handleCheckClick(false)
+            }}
+          >
+            <CheckBoxOutlinedIcon color='secondary' />
+          </Button>
+        ) : (
+          <Button
+            disabled={disabled}
+            sx={{ padding: 0 }}
+            onClick={() => {
+              handleCheckClick(true)
+            }}
+          >
+            <CheckBoxOutlineBlankRoundedIcon color='secondary' />
+          </Button>
+        )}
+      </Box>
     </>
   )
 }

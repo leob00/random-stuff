@@ -53,7 +53,7 @@ const GoalDetails = ({
   })
 
   const handleAddTask = async (item: UserTask) => {
-    setGoalDetailModel({ ...goalDetailModel, isLoading: true })
+    //setGoalDetailModel({ ...goalDetailModel, isLoading: true })
     item.status = 'in progress'
     let tasks = cloneDeep(goalDetailModel.tasks)
     tasks.push(item)
@@ -67,29 +67,30 @@ const GoalDetails = ({
       goal.completePercent = 0
     }
     await putUserGoalTasks(model.username, goal.id!, tasks)
-    setGoalDetailModel({ ...goalDetailModel, selectedGoal: goal, tasks: tasks, isLoading: false })
+    setGoalDetailModel({ ...goalDetailModel, selectedGoal: goal, tasks: tasks })
     handleModifyGoal(goal)
   }
 
   const handleModifyTask = async (item: UserTask) => {
-    setGoalDetailModel({ ...goalDetailModel, isLoading: true })
+    //setGoalDetailModel({ ...goalDetailModel, isLoading: true })
+    console.log('modifying task: ', item.id)
     let tasks = cloneDeep(goalDetailModel.tasks)
     replaceItemInArray<UserTask>(item, tasks, 'id', item.id!)
     tasks = reorderTasks(tasks)
+
+    const goal = cloneDeep(goalDetailModel.selectedGoal)
+    goal.stats = getGoalStats(tasks)
+    if (tasks.length > 0) {
+      const completed = filter(tasks, (e) => e.status === 'completed')
+      goal.completePercent = calculatePercentInt(completed.length, tasks.length)
+    } else {
+      goal.completePercent = 0
+    }
     await putUserGoalTasks(model.username, model.selectedGoal!.id!, tasks)
 
-    if (goalDetailModel.selectedGoal) {
-      const goal = cloneDeep(goalDetailModel.selectedGoal)
-      goal.stats = getGoalStats(tasks)
-      if (tasks.length > 0) {
-        const completed = filter(tasks, (e) => e.status === 'completed')
-        goal.completePercent = calculatePercentInt(completed.length, tasks.length)
-      } else {
-        goal.completePercent = 0
-      }
-      handleModifyGoal(goal)
-      setGoalDetailModel({ ...goalDetailModel, selectedGoal: goal, tasks: tasks, isLoading: false })
-    }
+    setGoalDetailModel({ ...goalDetailModel, selectedGoal: goal, tasks: tasks, isLoading: false })
+
+    handleModifyGoal(goal)
   }
   const handleDeleteTask = async (item: UserTask) => {
     setGoalDetailModel({ ...goalDetailModel, isLoading: true })
@@ -109,36 +110,6 @@ const GoalDetails = ({
     }
   }
 
-  const filterTasks = (show: boolean) => {
-    const g = cloneDeep(goalDetailModel.selectedGoal)
-    if (!g.settings) {
-      g.settings = { showCompletedTasks: show }
-    } else {
-      g.settings.showCompletedTasks = show
-    }
-
-    let displayTasks = cloneDeep(goalDetailModel.tasks)
-    if (!show) {
-      displayTasks = filter(displayTasks, (e) => e.status !== 'completed')
-    }
-    return displayTasks
-  }
-
-  const handleShowCompletedTasks = (show: boolean) => {
-    //console.log('show: ', show)
-    //setGoalDetailModel({ ...goalDetailModel, isLoading: true, filteredTasks: [] })
-    /* setGoalDetailModel({ ...goalDetailModel, filteredTasks: [], isLoading: true })
-    const g = cloneDeep(goalDetailModel.selectedGoal)
-    if (!g.settings) {
-      g.settings = { showCompletedTasks: show }
-    } else {
-      g.settings.showCompletedTasks = show
-    }
-    let displayTasks = filterTasks(show)
-    console.log('displayed tasks: ', displayTasks.length)
-    setGoalDetailModel({ ...goalDetailModel, selectedGoal: g, filteredTasks: displayTasks, isLoading: false }) */
-  }
-
   React.useEffect(() => {
     const fn = async () => {
       const result = await getUserGoalTasks(goalId)
@@ -147,12 +118,8 @@ const GoalDetails = ({
           task.status = 'in progress'
         }
       })
-      const hideComp = goalDetailModel.selectedGoal.settings && !goalDetailModel.selectedGoal.settings.showCompletedTasks
       let tasks = reorderTasks(result)
       let filteredTasks = tasks
-      /*  if (hideComp === true) {
-        filteredTasks = filter(tasks, (e) => e.status !== 'completed')
-      } */
       setGoalDetailModel({ ...goalDetailModel, tasks: tasks, filteredTasks: filteredTasks, isLoading: false })
       onLoaded?.(goalDetailModel.selectedGoal, tasks)
     }
@@ -198,7 +165,7 @@ const GoalDetails = ({
           </Grid>
           {model.goalEditMode ? (
             <Box pt={2}>
-              <EditGoal goal={model.selectedGoal} onSaveGoal={handleModifyGoal} onShowCompletedTasks={handleShowCompletedTasks} />
+              <EditGoal goal={model.selectedGoal} onSaveGoal={handleModifyGoal} onShowCompletedTasks={(show: boolean) => {}} />
             </Box>
           ) : (
             <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
@@ -244,14 +211,14 @@ const GoalDetails = ({
           )}
 
           <Box py={1}>
-            {goalDetailModel.isLoading ? (
-              <>
-                <WarmupBox />
-                <PageWithGridSkeleton />
-              </>
-            ) : (
-              <>
+            <>
+              {goalDetailModel.isLoading ? (
+                <Box mt={10}>
+                  <PageWithGridSkeleton />
+                </Box>
+              ) : (
                 <TaskList
+                  disabled={goalDetailModel.isLoading}
                   username={model.username}
                   selectedGoal={goalDetailModel.selectedGoal}
                   tasks={goalDetailModel.tasks}
@@ -259,8 +226,8 @@ const GoalDetails = ({
                   onModifyTask={handleModifyTask}
                   onDeleteTask={handleDeleteTask}
                 />
-              </>
-            )}
+              )}
+            </>
           </Box>
         </Box>
       )}

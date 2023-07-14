@@ -36,6 +36,7 @@ const TaskList = ({
   onAddTask,
   onModifyTask,
   onDeleteTask,
+  disabled = false,
 }: {
   username: string
   selectedGoal: UserGoal
@@ -43,6 +44,7 @@ const TaskList = ({
   onAddTask: (item: UserTask) => void
   onModifyTask: (item: UserTask) => void
   onDeleteTask: (item: UserTask) => void
+  disabled?: boolean
 }) => {
   const [model, setModel] = React.useReducer((state: TaskModel, newState: TaskModel) => ({ ...state, ...newState }), {
     isLoading: false,
@@ -102,8 +104,10 @@ const TaskList = ({
     let tasks = cloneDeep(model.tasks)
     replaceItemInArray(item, tasks, 'id', item.id!)
     tasks = reorderTasks(tasks)
-    setModel({ ...model, tasks: tasks })
     await handleSaveTask(item)
+    setModel({ ...model, tasks: tasks, isLoading: false })
+
+    onModifyTask(item)
   }
 
   const handleSearched = (text: string) => {
@@ -193,6 +197,7 @@ const TaskList = ({
                       </LinkButton2>
                       <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
                         <SecondaryCheckbox
+                          disabled={model.isLoading}
                           loading={model.isLoading}
                           checked={item.status === 'completed'}
                           onChanged={(checked: boolean) => {

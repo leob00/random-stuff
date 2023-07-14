@@ -12,7 +12,7 @@ export function getGoalStats(tasks: UserTask[]) {
     return stats
   }
 
-  stats.inProgress = filter(tasks, (e) => e.status === 'in progress').length
+  stats.inProgress = filter(tasks, (e) => !e.status || e.status === 'in progress').length
   stats.completed = filter(tasks, (e) => e.status === 'completed').length
   stats.pastDue = filter(tasks, (e) => {
     return e.dueDate && e.status === 'in progress' && dayjs().isAfter(e.dueDate)
