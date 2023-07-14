@@ -2,6 +2,7 @@ import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
+import Seo from 'components/Organizms/Seo'
 import UserGoalsLayout from 'components/Organizms/user/goals/UserGoalsLayout'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
@@ -25,10 +26,13 @@ const Page = () => {
   }, [userProfile])
 
   return (
-    <ResponsiveContainer>
-      <PageHeader text={'Goals'} backButtonRoute={'/protected/csr/dashboard'} />
-      {isLoading ? <WarmupBox /> : <>{userProfile ? <UserGoalsLayout username={userProfile.username} /> : <PleaseLogin />}</>}
-    </ResponsiveContainer>
+    <>
+      <Seo pageTitle='Goals' />
+      <ResponsiveContainer>
+        <PageHeader text={'Goals'} backButtonRoute={'/protected/csr/dashboard'} />
+        {isLoading ? <WarmupBox /> : <>{userProfile ? <UserGoalsLayout username={userProfile.username} /> : <PleaseLogin />}</>}
+      </ResponsiveContainer>
+    </>
   )
 }
 

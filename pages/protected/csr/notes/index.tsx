@@ -9,6 +9,7 @@ import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import Seo from 'components/Organizms/Seo'
 
 const Notes = () => {
   const userController = useUserController()
@@ -26,22 +27,25 @@ const Notes = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userProfile?.username])
   return (
-    <ResponsiveContainer>
-      <PageHeader text={'Notes'} backButtonRoute={'/protected/csr/dashboard'} />
-      {isLoading ? (
-        <WarmupBox />
-      ) : (
-        <>
-          {!userProfile ? (
-            <PleaseLogin />
-          ) : (
-            <>
-              <UserNotesLayout userProfile={userProfile} />
-            </>
-          )}
-        </>
-      )}
-    </ResponsiveContainer>
+    <>
+      <Seo pageTitle='Notes' />
+      <ResponsiveContainer>
+        <PageHeader text={'Notes'} backButtonRoute={'/protected/csr/dashboard'} />
+        {isLoading ? (
+          <WarmupBox />
+        ) : (
+          <>
+            {!userProfile ? (
+              <PleaseLogin />
+            ) : (
+              <>
+                <UserNotesLayout userProfile={userProfile} />
+              </>
+            )}
+          </>
+        )}
+      </ResponsiveContainer>
+    </>
   )
 }
 

@@ -74,6 +74,7 @@ const EditTaskForm = ({
         title={'confirm delete'}
         text={`Are you sure you want to delete ${formInput.body}?`}
         onConfirm={() => {
+          setShowConfirmDelete(false)
           onDelete(formInput)
         }}
         onCancel={() => {

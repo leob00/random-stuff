@@ -56,6 +56,7 @@ const TaskList = ({
 
   const handleAddTask = (item: UserTask) => {
     setModel({ ...model, isLoading: true })
+
     item.status = 'in progress'
     item.goalId = selectedGoal.id
     item.id = constructUserTaskPk(username)
@@ -81,7 +82,7 @@ const TaskList = ({
     const tasks = filter(cloneDeep(model.tasks), (e) => e.id !== item.id)
     tasks.push(item)
     const reordered = reorderTasks(tasks)
-    setModel({ ...model, isLoading: false, tasks: reordered, filteredTasks: reordered })
+    setModel({ ...model, isLoading: false, tasks: reordered, filteredTasks: reordered, editTask: undefined })
     onModifyTask(item)
   }
 
@@ -123,6 +124,11 @@ const TaskList = ({
 
   const handleToggleSearch = () => {
     setModel({ ...model, showSearch: !model.showSearch })
+  }
+  const handleDeleteTask = (item: UserTask) => {
+    const newTasks = [...model.tasks].filter((m) => m.id !== item.id)
+    setModel({ ...model, editTask: undefined, tasks: newTasks, filteredTasks: model.filteredTasks.filter((m) => m.id !== item.id) })
+    onDeleteTask({ ...item })
   }
 
   return (
@@ -179,7 +185,7 @@ const TaskList = ({
                     onCancel={() => {
                       setModel({ ...model, editTask: undefined, selectedTask: undefined })
                     }}
-                    onDelete={onDeleteTask}
+                    onDelete={handleDeleteTask}
                   />
                 </Box>
               ) : (

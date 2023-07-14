@@ -22,7 +22,7 @@ const EditGoalForm = ({ goal, onSubmit }: { goal: UserGoal; onSubmit: (data: Use
     setValid(isValid)
     if (isValid) {
       const goal = cloneDeep(formInput)
-      setFormInput({ ...formInput, id: undefined, body: undefined })
+      setFormInput({ ...formInput, id: undefined, body: '' })
       onSubmit(goal)
     }
   }

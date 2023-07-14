@@ -22,6 +22,8 @@ import GoalCharts from './GoalCharts'
 import GoalDetails from './GoalDetails'
 import { UserGoalAndTask, UserGoalsModel } from './UserGoalsLayout'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
+import router from 'next/router'
+import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 const mapGoalTasks = (goals: UserGoal[], tasks: UserTask[]) => {
   const goalsAndTasks: UserGoalAndTask[] = []
   goals.forEach((goal) => {
@@ -60,10 +62,10 @@ const UserGoalsDisplay = ({
     goalsAndTasks: goalsAndTasks,
   }
   const [model, setModel] = React.useReducer((state: UserGoalsModel, newState: UserGoalsModel) => ({ ...state, ...newState }), defaultModel)
+
   const handleEditGoalSubmit = async (item: UserGoal) => {
-    setModel({ ...model, isLoading: true })
+    setModel({ ...model, showAddGoalForm: false, goalsAndTasks: [], goals: [], isLoading: true })
     let goals = cloneDeep(model).goals
-    const newGoal = !item.id
     if (!item.id) {
       item.id = constructUserGoalPk(username)
       item.dateCreated = getUtcNow().format()
@@ -72,13 +74,18 @@ const UserGoalsDisplay = ({
     goals.push(item)
     goals = orderBy(goals, ['dateModified'], ['desc'])
     await putUserGoals(constructUserGoalsKey(model.username), goals)
-    setModel({ ...model, goals: goals, selectedGoal: newGoal ? item : undefined, isLoading: false, showAddGoalForm: false })
+    //setModel({ ...model, goals: goals, selectedGoal: newGoal ? item : undefined, isLoading: false, showAddGoalForm: false })
     onMutated(goals)
+    await handleGoalClick(item)
   }
 
   const handleGoalClick = async (item: UserGoal) => {
-    setModel({ ...model, selectedGoal: item, barChart: undefined })
+    setModel({ ...model, showAddGoalForm: false, goalsAndTasks: [], goals: [], isLoading: true, selectedGoal: undefined })
+    const goalId = encodeURIComponent(weakEncrypt(item.id!))
+    const token = encodeURIComponent(weakEncrypt(username))
+    router.push(`/protected/csr/goals/details?id=${goalId}&token=${token}`)
   }
+
   const handleCloseSelectedGoal = () => {
     setModel({ ...model, selectedGoal: undefined, goalEditMode: false })
   }
@@ -267,6 +274,15 @@ const UserGoalsDisplay = ({
                             )}
                           </Box>
                         )}
+                        {/* <Box>
+                          <LinkButton2
+                            onClick={() => {
+                              handleGoalClickNewView(item)
+                            }}
+                          >
+                            New goals view
+                          </LinkButton2>
+                        </Box> */}
                         {i < model.goals.length - 1 && <HorizontalDivider />}
                       </Box>
                     ))}

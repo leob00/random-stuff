@@ -1,5 +1,5 @@
 import { constructUserGoalsKey } from 'lib/backend/api/aws/util'
-import { getUserTasks } from 'lib/backend/csr/nextApiWrapper'
+import { getUserGoals, getUserTasks } from 'lib/backend/csr/nextApiWrapper'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { filter, orderBy } from 'lodash'
 import React from 'react'
@@ -55,7 +55,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   const taskMutateKey = ['/api/edgeGetRandomStuff', tasksEnc]
 
   const fetchGoalsData = async (url: string, enc: string) => {
-    const result = (await get(url, { enc: enc })) as UserGoal[]
+    const result = await getUserGoals(constructUserGoalsKey(username))
     return result
   }
   const fetchTasksData = async (url: string, enc: string) => {
@@ -66,7 +66,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   const { data: goals } = useSWR(goalsMutateKey, ([url, enc]) => fetchGoalsData(url, enc))
   const { data: tasks, isLoading, isValidating } = useSWR(taskMutateKey, ([url, enc]) => fetchTasksData(url, enc))
   const handleMutated = (newGoals: UserGoal[]) => {
-    mutate(goalsMutateKey, newGoals, { revalidate: false })
+    mutate(goalsMutateKey, newGoals, { revalidate: true })
     mutate(taskMutateKey, tasks, { revalidate: true })
   }
   return (
@@ -77,6 +77,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
           <LargeGridSkeleton />
         </>
       )}
+      {isValidating && <BackdropLoader />}
       {goals && tasks && <UserGoalsDisplay goals={goals} tasks={tasks} username={username} onMutated={handleMutated} />}
     </>
   )

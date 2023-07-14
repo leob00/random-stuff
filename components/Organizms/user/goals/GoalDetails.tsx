@@ -73,7 +73,7 @@ const GoalDetails = ({
 
   const handleModifyTask = async (item: UserTask) => {
     //setGoalDetailModel({ ...goalDetailModel, isLoading: true })
-    console.log('modifying task: ', item.id)
+    //console.log('modifying task: ', item.id)
     let tasks = cloneDeep(goalDetailModel.tasks)
     replaceItemInArray<UserTask>(item, tasks, 'id', item.id!)
     tasks = reorderTasks(tasks)

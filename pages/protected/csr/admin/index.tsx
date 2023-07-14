@@ -20,6 +20,7 @@ import BackButton from 'components/Atoms/Buttons/BackButton'
 import InternalLink from 'components/Atoms/Buttons/InternalLink'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import FormExample from 'components/Organizms/admin/FormExample'
+import Seo from 'components/Organizms/Seo'
 
 const Page = () => {
   const userController = useUserController()
@@ -109,52 +110,55 @@ const Page = () => {
   }
 
   return (
-    <ResponsiveContainer>
-      {loading ? (
-        <WarmupBox />
-      ) : userProfile ? (
-        <>
-          <BackButton onClicked={() => router.push('/protected/csr/dashboard')} />
-          <CenteredTitle title='Admin' />
-          <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
-          {selectedTab === 'Api' && (
-            <Box>
-              <CenteredTitle title={`Test Api's`} />
-              <CenterStack sx={{ pt: 2 }}>
-                <DropdownList options={apiOptions} selectedOption={'/api/edgeStatus'} onOptionSelected={handleApiSelected} />
-              </CenterStack>
-              {loadingResult ? (
-                <WarmupBox />
-              ) : (
-                <CenterStack sx={{ py: 4 }}>
-                  <Box maxHeight={300} sx={{ overflowY: 'auto' }}>
-                    <pre>{jsonResult}</pre>
-                  </Box>
+    <>
+      <Seo pageTitle='Admin' />
+      <ResponsiveContainer>
+        {loading ? (
+          <WarmupBox />
+        ) : userProfile ? (
+          <>
+            <BackButton onClicked={() => router.push('/protected/csr/dashboard')} />
+            <CenteredTitle title='Admin' />
+            <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
+            {selectedTab === 'Api' && (
+              <Box>
+                <CenteredTitle title={`Test Api's`} />
+                <CenterStack sx={{ pt: 2 }}>
+                  <DropdownList options={apiOptions} selectedOption={'/api/edgeStatus'} onOptionSelected={handleApiSelected} />
                 </CenterStack>
-              )}
-            </Box>
-          )}
-          {selectedTab === 'Links' && (
-            <Box py={2}>
-              <CenteredTitle title='Helpful Links' />
-              <HorizontalDivider />
-              <CenterStack sx={{ py: 2 }}>
-                <InternalLink text='health status SSR' route={'/ssr/healthcheck'} />
-              </CenterStack>
-              <CenterStack sx={{ py: 2 }}>
-                <Link href={'https://server6.m6.net:8443/'} target={'_blank'} sx={{ textDecoration: 'none' }}>
-                  <Typography>Quote Lookup Administration</Typography>
-                </Link>
-              </CenterStack>
-            </Box>
-          )}
-          {selectedTab === 'Form' && <FormExample />}
-          {selectedTab === 'Jobs' && <JobsLayout />}
-        </>
-      ) : (
-        <PleaseLogin />
-      )}
-    </ResponsiveContainer>
+                {loadingResult ? (
+                  <WarmupBox />
+                ) : (
+                  <CenterStack sx={{ py: 4 }}>
+                    <Box maxHeight={300} sx={{ overflowY: 'auto' }}>
+                      <pre>{jsonResult}</pre>
+                    </Box>
+                  </CenterStack>
+                )}
+              </Box>
+            )}
+            {selectedTab === 'Links' && (
+              <Box py={2}>
+                <CenteredTitle title='Helpful Links' />
+                <HorizontalDivider />
+                <CenterStack sx={{ py: 2 }}>
+                  <InternalLink text='health status SSR' route={'/ssr/healthcheck'} />
+                </CenterStack>
+                <CenterStack sx={{ py: 2 }}>
+                  <Link href={'https://server6.m6.net:8443/'} target={'_blank'} sx={{ textDecoration: 'none' }}>
+                    <Typography>Quote Lookup Administration</Typography>
+                  </Link>
+                </CenterStack>
+              </Box>
+            )}
+            {selectedTab === 'Form' && <FormExample />}
+            {selectedTab === 'Jobs' && <JobsLayout />}
+          </>
+        ) : (
+          <PleaseLogin />
+        )}
+      </ResponsiveContainer>
+    </>
   )
 }
 

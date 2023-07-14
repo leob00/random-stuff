@@ -7,6 +7,7 @@ import { useUserController } from 'hooks/userController'
 import React from 'react'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
+import Seo from 'components/Organizms/Seo'
 
 const Page = () => {
   const userController = useUserController()
@@ -28,10 +29,13 @@ const Page = () => {
   }, [userController.ticket])
 
   return (
-    <ResponsiveContainer>
-      <PageHeader text={'Dashboard'} backButtonRoute={'/'} />
-      <Box>{loading ? <WarmupBox /> : userController.authProfile ? <UserDashboardLayout ticket={userController.ticket} /> : <PleaseLogin />}</Box>
-    </ResponsiveContainer>
+    <>
+      <Seo pageTitle='Dashboard' />
+      <ResponsiveContainer>
+        <PageHeader text={'Dashboard'} backButtonRoute={'/'} />
+        <Box>{loading ? <WarmupBox /> : userController.authProfile ? <UserDashboardLayout ticket={userController.ticket} /> : <PleaseLogin />}</Box>
+      </ResponsiveContainer>
+    </>
   )
 }
 
