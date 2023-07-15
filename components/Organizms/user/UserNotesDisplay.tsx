@@ -55,8 +55,14 @@ const UserNotesDisplay = ({ result, username, onMutated }: { result: UserNote[];
   const handleSaveNote = async (item: UserNote) => {
     dispatch({ type: 'set-loading', payload: { isLoading: true } })
     const saveModel = await buildSaveModel(model, item)
-    //userController.setProfile(saveModel.userProfile)
-    //await putUserProfile(saveModel.userProfile)
+    //const profile = userController.authProfile!
+    //profile.noteTitles = saveModel.noteTitles
+    //console.log(saveModel.noteTitles)
+    //userController.setProfile(profile)
+    await putUserNoteTitles(username, saveModel.noteTitles)
+
+    //await putUserProfile(profile)
+
     if (item.expirationDate) {
       const expireSeconds = Math.floor(dayjs(item.expirationDate).valueOf() / 1000)
       await putUserNote(item, constructUserNoteCategoryKey(saveModel.username), expireSeconds)
