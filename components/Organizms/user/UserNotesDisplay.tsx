@@ -1,6 +1,7 @@
 import { Box } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
+import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { notesReducer, UserNotesModel } from 'components/reducers/notesReducer'
 import dayjs from 'dayjs'
@@ -28,7 +29,6 @@ const UserNotesDisplay = ({ result, username, onMutated }: { result: UserNote[];
     search: '',
   }
   const [model, dispatch] = React.useReducer(notesReducer, defaultModel)
-  const userController = useUserController()
 
   const handleAddNote = () => {
     dispatch({
@@ -55,13 +55,7 @@ const UserNotesDisplay = ({ result, username, onMutated }: { result: UserNote[];
   const handleSaveNote = async (item: UserNote) => {
     dispatch({ type: 'set-loading', payload: { isLoading: true } })
     const saveModel = await buildSaveModel(model, item)
-    //const profile = userController.authProfile!
-    //profile.noteTitles = saveModel.noteTitles
-    //console.log(saveModel.noteTitles)
-    //userController.setProfile(profile)
     await putUserNoteTitles(username, saveModel.noteTitles)
-
-    //await putUserProfile(profile)
 
     if (item.expirationDate) {
       const expireSeconds = Math.floor(dayjs(item.expirationDate).valueOf() / 1000)
@@ -98,19 +92,21 @@ const UserNotesDisplay = ({ result, username, onMutated }: { result: UserNote[];
     dispatch({ type: 'reload', payload: { noteTitles: noteTitles } })
     onMutated(noteTitles)
   }
+
+  const handleNoteSelected = (text: string) => {
+    const note = result.find((m) => m.title === text)
+    if (note) {
+      handleNoteTitleClick(note)
+    }
+  }
+
   return (
     <>
       {!model.editMode && !model.viewMode && (
         <>
-          <Box sx={{ py: 2 }}>
+          <Box py={2}>
             <CenterStack>
-              <SearchWithinList
-                width={350}
-                onChanged={handleSearch}
-                disabled={model.isLoading || model.editMode}
-                text={`search ${numeral(model.noteTitles.length).format('###,###')} notes`}
-                defaultValue={model.search}
-              />
+              <StaticAutoComplete options={result.map((m) => m.title)} placeholder={`search ${result.length} notes`} onSelected={handleNoteSelected} />
             </CenterStack>
           </Box>
         </>
@@ -121,7 +117,7 @@ const UserNotesDisplay = ({ result, username, onMutated }: { result: UserNote[];
         model.selectedNote === null ? (
           <>
             <NoteList
-              data={model.filteredTitles}
+              data={result}
               onClicked={handleNoteTitleClick}
               onDelete={handleDelete}
               onAddNote={handleAddNote}

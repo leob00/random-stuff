@@ -8,10 +8,13 @@ import SaveToNotesButton from 'components/Molecules/Buttons/SaveToNotesButton'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useUserController } from 'hooks/userController'
+import { constructUserNoteTitlesKey } from 'lib/backend/api/aws/util'
 import { NewsItem, NewsTypeIds } from 'lib/backend/api/qln/qlnApi'
+import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { getUtcNow } from 'lib/util/dateUtil'
 import React from 'react'
+import { mutate } from 'swr'
 dayjs.extend(relativeTime)
 
 const NewsList = ({

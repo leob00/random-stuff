@@ -122,6 +122,9 @@ const themeOptions: ThemeOptions = {
         },
       },
     },
+    MuiPaper: {
+      styleOverrides: {},
+    },
   },
 }
 const rfsOptions: ResponsiveFontSizesOptions = { breakpoints: ['xs', 'sm', 'md', 'lg', 'xl'] }

@@ -6,7 +6,7 @@ import React from 'react'
 
 const JobInProgress = ({ item }: { item: Job }) => {
   return (
-    <Box minHeight={50} pt={2}>
+    <Box minHeight={50} pt={2} pb={2}>
       <Box pl={2} pr={2}>
         <DefaultTooltip text={`Records: ${numeral(item.RecordsProcessed).format('###,###')}`}>
           <Paper elevation={4}>
@@ -19,7 +19,7 @@ const JobInProgress = ({ item }: { item: Job }) => {
               {item.LastMessage}
             </Typography>
           </Box>
-          {item.ProgressPercent && item.ProgressPercent !== 0 && (
+          {item.ProgressPercent !== undefined && item.ProgressPercent !== 0 && (
             <Box pr={1}>
               <Typography variant='caption'>{`${Math.ceil(item.ProgressPercent ?? 0)}%`}</Typography>
             </Box>

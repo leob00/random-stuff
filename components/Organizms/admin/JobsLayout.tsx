@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Paper, Stack, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import { getJob, Job, qlnApiBaseUrl, QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
 import { orderBy } from 'lodash'
@@ -11,6 +11,7 @@ import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import useSWR, { Fetcher, mutate } from 'swr'
 import { get } from 'lib/backend/api/fetchFunctions'
+import { CasinoBlue, CasinoBlueTransparent } from 'components/themes/mainTheme'
 dayjs.extend(relativeTime)
 
 const JobsLayout = () => {
@@ -57,12 +58,12 @@ const JobsLayout = () => {
     jobs = orderBy(jobs, ['Status', 'NextRunDate'], ['asc', 'asc'])
     return jobs.map((item) => (
       <Box key={item.Name}>
-        <>
+        <Paper elevation={item.Status == 1 ? 2 : 0} sx={{ color: CasinoBlue }}>
           <ListHeader text={item.Description} item={item} onClicked={handleItemClicked} />
           {item.Status === 1 ? (
             <JobInProgress item={item} />
           ) : (
-            <Box minHeight={50} pt={1} pl={2}>
+            <Box minHeight={50} pt={1} pl={2} pb={1}>
               <Box>
                 {item.EndRunDate && (
                   <Stack>
@@ -77,7 +78,7 @@ const JobsLayout = () => {
               </Box>
             </Box>
           )}
-        </>
+        </Paper>
       </Box>
     ))
   }
