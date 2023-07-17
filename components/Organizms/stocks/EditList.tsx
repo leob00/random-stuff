@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Stack } from '@mui/material'
+import { Box, Button, Dialog, DialogContent, DialogContentText, DialogTitle, IconButton, Stack } from '@mui/material'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
@@ -6,15 +6,11 @@ import DraggableList from './DraggableList'
 import Close from '@mui/icons-material/Close'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
-import AutoCompleteSolo from 'components/Atoms/Inputs/AutoCompleteSolo'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
-import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import { orderBy } from 'lodash'
 import EditableStockList from './EditableStockList'
 import { searchWithinResults, StockLayoutModel } from './StockSearchLayout'
 import EditStockGroupForm from 'components/Molecules/Forms/EditStockGroupForm'
-import { getUserStockList, putUserProfile, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 
 const EditList = ({
   username,
@@ -70,10 +66,11 @@ const EditList = ({
     const map = getMapFromArray(data, 'Symbol')
     map.set(item.Symbol, item)
     const newList = getListFromMap(map)
-    // setOriginalData(newList)
+    setOriginalData(newList)
+    setFiltered(newList)
     // const newFilteredMap = getMapFromArray(filtered, 'Symbol')
     // newFilteredMap.set(item.Symbol, item)
-
+    setShowEditSingleItem(false)
     onPushChanges(newList)
   }
   const handleRemoveItem = (id: string) => {

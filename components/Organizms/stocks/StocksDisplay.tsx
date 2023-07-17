@@ -185,11 +185,11 @@ const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserPr
             </>
           )}
           <Box py={2}>
-            {model.editList && model.stockList.length > 0 ? (
+            {model.editList && result.length > 0 ? (
               <>
                 <EditList
                   username={userProfile.username}
-                  data={model.stockList}
+                  data={result}
                   onCancelEdit={() => setModel({ ...model, editList: false })}
                   onPushChanges={handleSaveChanges}
                   onReorder={handleReorderList}
