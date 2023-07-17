@@ -1,9 +1,19 @@
 import { Button, Paper, Stack, Typography } from '@mui/material'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
-import { ChartBackground, DarkBlue } from 'components/themes/mainTheme'
+import { ChartBackground, DarkBlue, DarkBlueTransparent } from 'components/themes/mainTheme'
 import React from 'react'
 
-const ListHeader = ({ text, item, onClicked }: { text: string; item: any; onClicked: (item: any) => void }) => {
+const ListHeader = ({
+  text,
+  item,
+  onClicked,
+  backgroundColor = ChartBackground,
+}: {
+  text: string
+  item: any
+  onClicked: (item: any) => void
+  backgroundColor?: string
+}) => {
   return (
     <Stack
       //pt={1}
@@ -12,7 +22,7 @@ const ListHeader = ({ text, item, onClicked }: { text: string; item: any; onClic
         onClicked(item)
       }}
     >
-      <Stack sx={{ backgroundColor: ChartBackground }} direction={'row'} flexGrow={1} px={2} py={1}>
+      <Stack sx={{ backgroundColor: backgroundColor }} direction={'row'} flexGrow={1} px={2} py={1}>
         <Typography textAlign={'left'} variant='h5' color={DarkBlue} sx={{ textDecoration: 'unset' }}>
           {text}
         </Typography>

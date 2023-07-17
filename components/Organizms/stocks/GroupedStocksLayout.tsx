@@ -12,6 +12,7 @@ import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { sortArray } from 'lib/util/collections'
 import { useUserController } from 'hooks/userController'
 import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
+import NoDataFound from 'components/Atoms/Text/NoDataFound'
 
 interface Model {
   id: string
@@ -21,7 +22,17 @@ interface Model {
   quotes: StockQuote[]
 }
 
-const GroupedStocksLayout = ({ userProfile, stockList, onEdit, onShowAsGroup }: { userProfile: UserProfile | null; stockList: StockQuote[]; onEdit: () => void; onShowAsGroup: (show: boolean) => void }) => {
+const GroupedStocksLayout = ({
+  userProfile,
+  stockList,
+  onEdit,
+  onShowAsGroup,
+}: {
+  userProfile: UserProfile | null
+  stockList: StockQuote[]
+  onEdit: () => void
+  onShowAsGroup: (show: boolean) => void
+}) => {
   const userController = useUserController()
 
   const groupify = (list: StockQuote[]) => {
@@ -93,7 +104,6 @@ const GroupedStocksLayout = ({ userProfile, stockList, onEdit, onShowAsGroup }: 
         }
       }
       newMap.set(newItem.id, newItem)
-
       setData(newMap)
     }
   }
@@ -114,7 +124,16 @@ const GroupedStocksLayout = ({ userProfile, stockList, onEdit, onShowAsGroup }: 
       <Box display={'flex'} flexDirection={'column'} gap={2}>
         {Array.from(data.values()).map((item, i) => (
           <Box key={item.groupName}>
-            <Box sx={{ backgroundColor: VeryLightBlueTransparent, cursor: 'pointer', borderRadius: 1.2 }} py={2} pl={1} display={'flex'} gap={2} alignItems={'center'} justifyContent={'space-between'} onClick={() => handleExpandCollapseGroup(item)}>
+            <Box
+              sx={{ backgroundColor: VeryLightBlueTransparent, cursor: 'pointer', borderRadius: 1.2 }}
+              py={2}
+              pl={1}
+              display={'flex'}
+              gap={2}
+              alignItems={'center'}
+              justifyContent={'space-between'}
+              onClick={() => handleExpandCollapseGroup(item)}
+            >
               <Box>
                 <Typography variant='h5' pl={1} color='primary'>
                   {`${!item.groupName || item.groupName.length === 0 ? 'Unassigned' : item.groupName}`}
@@ -135,6 +154,13 @@ const GroupedStocksLayout = ({ userProfile, stockList, onEdit, onShowAsGroup }: 
             )}
           </Box>
         ))}
+        <>
+          {Array.from(data.values()).length === 0 && (
+            <Box>
+              <NoDataFound message='We were unable to find any results that match your search critera.' />
+            </Box>
+          )}
+        </>
       </Box>
     </Box>
   )

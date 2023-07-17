@@ -6,6 +6,7 @@ import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
+import ListHeader from 'components/Molecules/Lists/ListHeader'
 import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { getExpirationText, getUtcNow } from 'lib/util/dateUtil'
@@ -28,7 +29,6 @@ const NoteList = ({
   const [selectedNote, setSelectedNote] = React.useState<UserNote | null>(null)
   const [showConfirm, setShowConfirm] = React.useState(false)
   //const [displayedData, setDisplayedData] = React.useState(take(data, 5))
-  const displayedData = take(data, 5)
   const handleNoteTitleClick = (item: UserNote) => {
     onClicked(item)
   }
@@ -73,13 +73,21 @@ const NoteList = ({
         {data.map((item, i) => (
           <Box key={i} textAlign='left'>
             <Stack direction='row' py={'3px'} alignItems='center'>
-              <LinkButton2
+              <ListHeader
+                backgroundColor='transparent'
+                item={item}
+                text={item.title}
+                onClicked={(item: UserNote) => {
+                  handleNoteTitleClick(item)
+                }}
+              />
+              {/* <LinkButton2
                 onClick={() => {
                   handleNoteTitleClick(item)
                 }}
               >
                 <Typography textAlign={'left'}>{item.title}</Typography>
-              </LinkButton2>
+              </LinkButton2> */}
 
               <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
                 {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (

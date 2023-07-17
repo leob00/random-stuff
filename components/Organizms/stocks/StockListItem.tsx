@@ -15,7 +15,7 @@ import StockEarnings from './StockEarnings'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import CenterStack from 'components/Atoms/CenterStack'
 
-const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'News' }, { title: 'Earnings' }]
+const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'Earnings' }, { title: 'News' }]
 export const getPositiveNegativeColor = (val?: number | null) => {
   let color = CasinoBlackTransparent
   if (!val) {
