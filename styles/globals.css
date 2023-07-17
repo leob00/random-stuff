@@ -244,4 +244,29 @@ div[data-amplify-container].amplify-heading {
   background: #080808ef !important;
   color: #d6e7f8 !important;
   border: solid #2f4e8d 1px !important;
+  padding: 12px !important;
 }
+/* .apexcharts-xaxistooltip::after {
+  width: 10;
+  height: 10;
+  border: 150px solid transparent;
+  border-top: 0;
+  border-bottom: 300px solid red;
+} */
+
+.apexcharts-xaxistooltip::after {
+  /* background: 'transparent' !important; */
+  border: none !important;
+  padding: 6px !important;
+  background-image: linear-gradient(to bottom right, transparent 50%, #080808ef 0), linear-gradient(to top right, #080808ef 50%, transparent 0) !important;
+  background-size: 50% 100%;
+  background-repeat: no-repeat;
+  background-position: left, right;
+}
+/* .arrow_box {
+  border-color: rgba(0, 0, 0, 0);
+  border-right-color: 'red';
+  border-width: 13px;
+  border-radius: 2rem;
+  margin-top: -13px;
+} */

@@ -121,6 +121,7 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
       },
     },
     tooltip: {
+      cssClass: 'arrow_box',
       fillSeriesColor: false,
       theme: undefined,
       marker: {

@@ -22,6 +22,7 @@ import GroupedStocksLayout from './GroupedStocksLayout'
 import StockTable from './StockTable'
 import { useUserController } from 'hooks/userController'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
+import { orderBy } from 'lodash'
 
 export const searchWithinResults = (quotes: StockQuote[], text: string) => {
   const result = quotes.filter(
@@ -49,6 +50,10 @@ const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserPr
   }
 
   const [model, setModel] = React.useReducer((state: StockLayoutModel, newState: StockLayoutModel) => ({ ...state, ...newState }), defaultModel)
+
+  const existingStockLookup = orderBy(result, ['Symbol'], ['asc']).map((m) => {
+    return `${m.Symbol}: ${m.Company}`
+  })
 
   const handleSearched = async (text: string) => {
     const searchResults = searchAheadStocks(text)
@@ -207,12 +212,7 @@ const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserPr
                   <Box>
                     <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
                       <Box pl={1}>
-                        {/* <StaticAutoComplete
-                          options={result.map((m) => {
-                            return `${m.Symbol}: ${m.Company}`
-                          })}
-                          onSelected={(data: string) => {}}
-                        /> */}
+                        <StaticAutoComplete options={existingStockLookup} onSelected={handleSelectQuote} />
                         {/* {model.stockList.length >= 10 && !model.showAsGroup && (
                           <SearchWithinList onChanged={handleSearchListChange} debounceWaitMilliseconds={25} />
                         )} */}

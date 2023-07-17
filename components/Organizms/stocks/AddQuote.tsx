@@ -1,6 +1,7 @@
 import { Stack, Box, Typography, Alert } from '@mui/material'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
+import CenterStack from 'components/Atoms/CenterStack'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import StockListItem from './StockListItem'
@@ -21,17 +22,16 @@ const AddQuote = ({
   return (
     <>
       <StockListItem item={quote} expand={true} isStock={true} />
+      {alreadyExists && (
+        <CenterStack>
+          <Alert severity='success'>
+            <Typography pr={2} variant='caption'>{`This stock already exists in your list`}</Typography>
+          </Alert>
+        </CenterStack>
+      )}
       <Stack py={1} direction={'row'} spacing={1} alignItems='center'>
         <Stack flexGrow={1}>
-          <Box textAlign={'right'}>
-            {!alreadyExists ? (
-              <SecondaryButton text='Add to list' size='small' onClick={handleAddToList}></SecondaryButton>
-            ) : (
-              <Alert severity='success'>
-                <Typography pr={2} variant='caption'>{`Exists in your list`}</Typography>
-              </Alert>
-            )}
-          </Box>
+          <Box textAlign={'right'}>{!alreadyExists && <SecondaryButton text='Add to list' size='small' onClick={handleAddToList}></SecondaryButton>}</Box>
         </Stack>
         <Stack>
           <PassiveButton text={'close'} onClick={handleCloseAddQuote} size='small' />
