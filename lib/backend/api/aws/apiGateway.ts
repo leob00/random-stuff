@@ -85,7 +85,6 @@ export interface UserSettings {
 export interface UserProfile {
   id: string
   username: string
-  noteTitles?: UserNote[]
   secKey?: string
   pin?: UserPin
   emailVerified?: boolean

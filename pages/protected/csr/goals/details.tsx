@@ -1,11 +1,10 @@
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
-import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import Seo from 'components/Organizms/Seo'
 import SingleGoalDisplay from 'components/Organizms/user/goals/SingleGoalDisplay'
@@ -42,15 +41,10 @@ const Page = () => {
   const { data: tasks } = useSWR(tasksMutateKey, ([url, enc]) => fetchGoalTasks(url, enc))
 
   const handleMutated = async (newGoal: UserGoal, newTasks: UserTask[]) => {
-    //console.log(`mutating goal: `, newGoal.id)
-    //mutate(goalMutateKey, newGoal, { revalidate: false })
-    mutate(goalsMutateKey)
     mutate(goalMutateKey, newGoal, { revalidate: false })
     mutate(tasksMutateKey, newTasks, { revalidate: false })
   }
   const handleDeleted = async (deletedGoal: UserGoal) => {
-    //console.log(`mutating goal: `, newGoal.id)
-    console.log(`deleting goal: ${deletedGoal.body}. Mutating...`)
     const goals = await getUserGoals(constructUserGoalsKey(username))
     mutate(goalsMutateKey, goals, { revalidate: false })
     mutate(tasksMutateKey, [], { revalidate: false })

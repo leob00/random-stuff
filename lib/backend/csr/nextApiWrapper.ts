@@ -57,6 +57,7 @@ export async function deleteUserNote(item: UserNote) {
 export async function putUserProfile(item: UserProfile) {
   const cat = 'userProfile'
   item.secKey = undefined
+
   let req: LambdaDynamoRequest = {
     id: item.id,
     category: cat,

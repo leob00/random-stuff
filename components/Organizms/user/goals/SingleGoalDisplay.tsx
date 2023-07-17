@@ -89,9 +89,7 @@ const SingleGoalDisplay = ({
     await putUserGoals(constructUserGoalsKey(username), newGoals)
     await putUserGoalTasks(username, goal.id!, [], getSecondsFromEpoch())
     onDeleted(goal)
-    setTimeout(() => {
-      router.push('/protected/csr/goals')
-    }, 1000)
+    router.push('/protected/csr/goals')
   }
 
   const contextMenu: ContextMenuItem[] = [
