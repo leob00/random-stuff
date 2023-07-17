@@ -21,7 +21,7 @@ const AddQuote = ({
   //console.log(stockListMap)
   return (
     <>
-      <StockListItem item={quote} expand={true} isStock={true} />
+      <StockListItem item={quote} expand={true} isStock={true} closeOnCollapse={true} onClose={handleCloseAddQuote} />
       {alreadyExists && (
         <CenterStack>
           <Alert severity='success'>

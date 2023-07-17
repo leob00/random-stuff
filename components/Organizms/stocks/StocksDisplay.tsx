@@ -212,15 +212,14 @@ const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserPr
                   <Box>
                     <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
                       <Box pl={1}>
-                        <StaticAutoComplete options={existingStockLookup} onSelected={handleSelectQuote} />
-                        {/* {model.stockList.length >= 10 && !model.showAsGroup && (
-                          <SearchWithinList onChanged={handleSearchListChange} debounceWaitMilliseconds={25} />
-                        )} */}
+                        {result.length > 5 && (
+                          <StaticAutoComplete options={existingStockLookup} onSelected={handleSelectQuote} placeholder={'search in your list'} />
+                        )}
                       </Box>
                       <FlatListMenu onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={handleShowAsGroup} />
                     </Box>
                     <Box display={'flex'} justifyContent={'flex-end'}></Box>
-                    <StockTable stockList={result} isStock={true} />
+                    <StockTable stockList={result} isStock={true} scrollIntoView />
                   </Box>
                 )}
               </>

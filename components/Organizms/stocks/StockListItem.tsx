@@ -33,11 +33,15 @@ const StockListItem = ({
   expand = false,
   isStock = true,
   showGroupName = true,
+  closeOnCollapse = false,
+  onClose,
 }: {
   item: StockQuote
   expand?: boolean
   isStock: boolean
   showGroupName?: boolean
+  closeOnCollapse?: boolean
+  onClose?: () => void
 }) => {
   const [showMore, setShowMore] = React.useState(expand)
   const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
@@ -85,6 +89,13 @@ const StockListItem = ({
   const handleSelectTab = (title: string) => {
     setSelectedTab(title)
   }
+  const handleCollapseClick = () => {
+    if (closeOnCollapse) {
+      onClose?.()
+    } else {
+      setShowMore(false)
+    }
+  }
 
   return (
     <Box key={item.Symbol} py={1}>
@@ -116,7 +127,7 @@ const StockListItem = ({
             <HorizontalDivider />
           </Box>
           <Box display={'flex'} justifyContent={'flex-end'}>
-            <IconButton color='default' onClick={() => setShowMore(false)}>
+            <IconButton color='default' onClick={handleCollapseClick}>
               <Close fontSize='small' color={'secondary'} />
             </IconButton>
           </Box>
