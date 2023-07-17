@@ -17,16 +17,11 @@ export interface UserGoalAndTask {
 }
 
 export interface UserGoalsModel {
-  isLoading: boolean
-  isSaving: boolean
-  selectedGoal?: UserGoal
   goals: UserGoal[]
   username: string
-  goalEditMode: boolean
-  showConfirmDeleteGoal: boolean
-  showAddGoalForm: boolean
   barChart?: BarChart
   goalsAndTasks: UserGoalAndTask[]
+  showAddGoalForm: boolean
 }
 
 export function reorderTasks(list: UserTask[]) {
@@ -66,8 +61,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
   const { data: goals } = useSWR(goalsMutateKey, ([url, enc]) => fetchGoalsData(url, enc))
   const { data: tasks, isLoading, isValidating } = useSWR(taskMutateKey, ([url, enc]) => fetchTasksData(url, enc))
   const handleMutated = (newGoals: UserGoal[]) => {
-    mutate(goalsMutateKey, newGoals, { revalidate: true })
-    mutate(taskMutateKey, tasks, { revalidate: true })
+    mutate(goalsMutateKey, newGoals, { revalidate: false })
   }
   return (
     <>
@@ -77,7 +71,11 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
           <LargeGridSkeleton />
         </>
       )}
-      {isValidating && <BackdropLoader />}
+      {isValidating && (
+        <>
+          <BackdropLoader />
+        </>
+      )}
       {goals && tasks && <UserGoalsDisplay goals={goals} tasks={tasks} username={username} onMutated={handleMutated} />}
     </>
   )

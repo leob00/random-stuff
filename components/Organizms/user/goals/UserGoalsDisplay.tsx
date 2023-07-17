@@ -13,20 +13,18 @@ import { constructUserGoalPk, constructUserGoalsKey } from 'lib/backend/api/aws/
 import { putUserGoals, putUserGoalTasks, getUserTasks } from 'lib/backend/csr/nextApiWrapper'
 import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
-import { replaceItemInArray } from 'lib/util/collections'
 import { getUtcNow, getSecondsFromEpoch } from 'lib/util/dateUtil'
-import { areObjectsEqual } from 'lib/util/objects'
 import { cloneDeep, orderBy, filter } from 'lodash'
 import React from 'react'
 import GoalCharts from './GoalCharts'
-import GoalDetails from './GoalDetails'
 import { UserGoalAndTask, UserGoalsModel } from './UserGoalsLayout'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import router from 'next/router'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 const mapGoalTasks = (goals: UserGoal[], tasks: UserTask[]) => {
   const goalsAndTasks: UserGoalAndTask[] = []
-  goals.forEach((goal) => {
+  const goalsCopy = [...goals]
+  goalsCopy.forEach((goal) => {
     const goalTasks = filter(tasks, (e) => e.goalId === goal.id)
     goal.stats = getGoalStats(goalTasks)
     if (!goal.completePercent) {
@@ -51,89 +49,37 @@ const UserGoalsDisplay = ({
   onMutated: (newData: UserGoal[]) => void
 }) => {
   const goalsAndTasks = mapGoalTasks(goals, tasks)
-  const defaultModel: UserGoalsModel = {
-    goals: goals,
-    username: username,
-    isLoading: false,
-    goalEditMode: false,
-    isSaving: false,
-    showConfirmDeleteGoal: false,
-    showAddGoalForm: false,
-    goalsAndTasks: goalsAndTasks,
-  }
-  const [model, setModel] = React.useReducer((state: UserGoalsModel, newState: UserGoalsModel) => ({ ...state, ...newState }), defaultModel)
+  const [barChart, setBarchart] = React.useState<BarChart | undefined>(undefined)
+  const [showAddGoalForm, setShowAddGoalForm] = React.useState(false)
+  //const [model, setModel] = React.useReducer((state: UserGoalsModel, newState: UserGoalsModel) => ({ ...state, ...newState }), defaultModel)
 
   const handleEditGoalSubmit = async (item: UserGoal) => {
-    setModel({ ...model, showAddGoalForm: false, goalsAndTasks: [], goals: [], isLoading: true })
-    let goals = cloneDeep(model).goals
+    // setModel({ ...model, showAddGoalForm: false, goalsAndTasks: [], goals: [] })
+    let newGoals = [...goals]
     if (!item.id) {
       item.id = constructUserGoalPk(username)
       item.dateCreated = getUtcNow().format()
     }
     item.dateModified = getUtcNow().format()
-    goals.push(item)
-    goals = orderBy(goals, ['dateModified'], ['desc'])
-    await putUserGoals(constructUserGoalsKey(model.username), goals)
+    newGoals.push(item)
+    newGoals = orderBy(newGoals, ['dateModified'], ['desc'])
+    await putUserGoals(constructUserGoalsKey(username), newGoals)
     //setModel({ ...model, goals: goals, selectedGoal: newGoal ? item : undefined, isLoading: false, showAddGoalForm: false })
     onMutated(goals)
     await handleGoalClick(item)
   }
 
   const handleGoalClick = async (item: UserGoal) => {
-    setModel({ ...model, showAddGoalForm: false, goalsAndTasks: [], goals: [], isLoading: true, selectedGoal: undefined })
+    //setModel({ ...model, showAddGoalForm: false, goalsAndTasks: [], goals: [] })
     const goalId = encodeURIComponent(weakEncrypt(item.id!))
     const token = encodeURIComponent(weakEncrypt(username))
     router.push(`/protected/csr/goals/details?id=${goalId}&token=${token}`)
   }
 
-  const handleCloseSelectedGoal = () => {
-    setModel({ ...model, selectedGoal: undefined, goalEditMode: false })
-  }
-  const handleDeleteGoal = (item: UserGoal) => {
-    setModel({ ...model, selectedGoal: item, showConfirmDeleteGoal: true })
-  }
-  const handleYesDeleteGoal = async () => {
-    setModel({ ...model, isLoading: true, showConfirmDeleteGoal: false })
-    const goalList = filter(model.goals, (e) => e.id !== model.selectedGoal?.id)
-    await putUserGoals(constructUserGoalsKey(username), goalList)
-    await putUserGoalTasks(model.username, model.selectedGoal?.id!, [], getSecondsFromEpoch())
-    setModel({ ...model, goals: goalList, selectedGoal: undefined, isLoading: false, showConfirmDeleteGoal: false })
-    onMutated(goalList)
-  }
-
-  const handleSetGoalEditMode = (isEdit: boolean) => {
-    setModel({ ...model, goalEditMode: isEdit })
-  }
-
-  const saveGoal = async (goal: UserGoal) => {
-    const goalCopy = { ...goal }
-    goalCopy.dateModified = getUtcNow().format()
-    goalCopy.stats = getGoalStats(tasks)
-    let goals = filter(cloneDeep(model.goals), (e) => e.id !== goalCopy.id)
-    goals.push(goalCopy)
-    goals = orderBy(goals, ['dateModified'], ['desc'])
-    await putUserGoals(constructUserGoalsKey(model.username), goals)
-    setModel({ ...model, goals: goals, goalEditMode: false, selectedGoal: goalCopy })
-    onMutated(goals)
-  }
-
-  const handelGoalDetailsLoaded = async (goal: UserGoal, tasks: UserTask[]) => {
-    const newStats = getGoalStats(tasks)
-    const areEqual = areObjectsEqual(goal.stats, newStats)
-    goal.stats = newStats
-    if (!areEqual) {
-      let goals = cloneDeep(model.goals)
-      replaceItemInArray<UserGoal>(goal, goals, 'id', goal.id!)
-      putUserGoals(constructUserGoalsKey(model.username), goals)
-    }
-    setModel({ ...model, selectedGoal: goal })
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
   const handleShowCharts = async () => {
-    setModel({ ...model, isLoading: true, selectedGoal: undefined, barChart: undefined })
-    const tasks = await getUserTasks(model.username)
-    const goalsAndTasks = mapGoalTasks(model.goals, tasks)
+    //setModel({ ...model, barChart: undefined })
+    //const tasks = await getUserTasks(model.username)
+    //const goalsAndTasks = mapGoalTasks(model.goals, tasks)
     const inProg = filter(tasks, (e) => e.status !== 'completed')
     const comp = filter(tasks, (e) => e.status === 'completed').length
     const pastDue = filter(inProg, (e) => e.dueDate !== undefined && dayjs(e.dueDate).isBefore(dayjs())).length
@@ -142,155 +88,100 @@ const UserGoalsDisplay = ({
       labels: ['past due', 'in progress', 'completed'],
       numbers: [pastDue, inProg.length, comp],
     }
-    setModel({ ...model, isLoading: false, barChart: barChart, selectedGoal: undefined, goalsAndTasks: goalsAndTasks })
+    setBarchart(barChart)
+    //setModel({ ...model, barChart: barChart, goalsAndTasks: goalsAndTasks })
   }
 
   const handleCloseCharts = () => {
-    setModel({ ...model, barChart: undefined })
+    setBarchart(undefined)
   }
 
   return (
     <Box>
-      <Button id='goalDetailsLink' sx={{ display: 'none' }} />
-      <ConfirmDeleteDialog
-        show={model.showConfirmDeleteGoal}
-        title={'confirm delete'}
-        text={`Are you sure you want to delete ${model.selectedGoal?.body}?`}
-        onConfirm={handleYesDeleteGoal}
-        onCancel={() => {
-          setModel({ ...model, showConfirmDeleteGoal: false })
-        }}
-      />
       <Box py={2}>
-        {model.isLoading && (
+        {barChart ? (
           <>
-            <WarmupBox />
-            <BoxSkeleton height={100} />
-            <HorizontalDivider />
-            <BoxSkeleton height={100} />
-            <HorizontalDivider />
-            <BoxSkeleton height={100} />
-            <HorizontalDivider />
-            <BoxSkeleton height={100} />
-          </>
-        )}
-        {model.barChart ? (
-          <>
-            <GoalCharts barChart={model.barChart} handleCloseCharts={handleCloseCharts} goalTasks={model.goalsAndTasks} />
+            <GoalCharts barChart={barChart} handleCloseCharts={handleCloseCharts} goalTasks={goalsAndTasks} />
           </>
         ) : (
           <Stack display={'flex'} direction={'row'} justifyContent={'left'} alignItems={'left'}>
-            {!model.selectedGoal && !model.isLoading && (
-              <Box>
-                <Button
-                  variant='contained'
-                  size='small'
-                  color='secondary'
-                  onClick={() => {
-                    setModel({ ...model, showAddGoalForm: !model.showAddGoalForm })
-                  }}
-                >
-                  {`${model.showAddGoalForm ? 'cancel' : 'create goal'}`}
-                </Button>
-              </Box>
-            )}
-            {!model.isLoading && (
-              <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
-                <GoalsMenu
-                  onShowCharts={() => {
-                    handleShowCharts()
-                  }}
-                />
-              </Stack>
-            )}
+            <Box>
+              <Button variant='contained' size='small' color='secondary' onClick={() => setShowAddGoalForm(!showAddGoalForm)}>
+                {`${showAddGoalForm ? 'cancel' : 'create goal'}`}
+              </Button>
+            </Box>
+            <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
+              <GoalsMenu
+                onShowCharts={() => {
+                  handleShowCharts()
+                }}
+              />
+            </Stack>
           </Stack>
         )}
-        {model.showAddGoalForm && (
+        {showAddGoalForm && (
           <Box pt={1}>
             <AddGoalForm goal={{}} onSubmit={handleEditGoalSubmit} />
           </Box>
         )}
       </Box>
       <Box>
-        {model.isLoading ? (
-          <></>
-        ) : (
-          <>
-            {!model.barChart && (
-              <>
-                {model.goals.length > 0 && !model.selectedGoal && (
-                  <Stack direction='row' pt={2} pb={1} justifyContent='left' alignItems='left'>
-                    <Typography textAlign={'left'} variant='body2'>
-                      Goal
-                    </Typography>
-                    <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-                      <Typography variant='body2'>Progress</Typography>
-                    </Stack>
+        <>
+          {!barChart && (
+            <>
+              {goals.length > 0 && (
+                <Stack direction='row' pt={2} pb={1} justifyContent='left' alignItems='left'>
+                  <Typography textAlign={'left'} variant='body2'>
+                    Goal
+                  </Typography>
+                  <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
+                    <Typography variant='body2'>Progress</Typography>
                   </Stack>
-                )}
-                <HorizontalDivider />
-                {model.selectedGoal && (
-                  <GoalDetails
-                    model={model}
-                    goalId={model.selectedGoal!.id!}
-                    handleCloseSelectedGoal={handleCloseSelectedGoal}
-                    handleDeleteGoal={handleDeleteGoal}
-                    handleSetGoalEditMode={handleSetGoalEditMode}
-                    handleModifyGoal={saveGoal}
-                    onLoaded={handelGoalDetailsLoaded}
-                  />
-                )}
-                <>
-                  {!model.selectedGoal &&
-                    model.goals.map((item, i) => (
-                      <Box key={i}>
-                        <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
+                </Stack>
+              )}
+              <HorizontalDivider />
+
+              <>
+                {goals.map((item, i) => (
+                  <Box key={i}>
+                    <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
+                      <LinkButton2
+                        onClick={() => {
+                          handleGoalClick(item)
+                        }}
+                      >
+                        <Typography>{item.body}</Typography>
+                      </LinkButton2>
+                      {item.completePercent !== undefined && (
+                        <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
+                          <ProgressBar value={item.completePercent} toolTipText={`${item.completePercent}% complete`} width={80} />
+                        </Stack>
+                      )}
+                    </Stack>
+                    {item.stats && (
+                      <Box pl={1}>
+                        {item.stats && <Typography variant='body2'>{`tasks: ${Number(item.stats.completed) + Number(item.stats.inProgress)}`}</Typography>}
+                        {item.stats && <Typography variant='body2'>{`completed: ${item.stats.completed}`}</Typography>}
+                        {item.stats && <Typography variant='body2'>{`in progress: ${item.stats.inProgress}`}</Typography>}
+                        {item.stats && item.stats.pastDue > 0 && (
                           <LinkButton2
                             onClick={() => {
                               handleGoalClick(item)
                             }}
                           >
-                            <Typography>{item.body}</Typography>
+                            <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
                           </LinkButton2>
-                          {item.completePercent !== undefined && (
-                            <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-                              <ProgressBar value={item.completePercent} toolTipText={`${item.completePercent}% complete`} width={80} />
-                            </Stack>
-                          )}
-                        </Stack>
-                        {item.stats && (
-                          <Box pl={1}>
-                            {item.stats && <Typography variant='body2'>{`tasks: ${Number(item.stats.completed) + Number(item.stats.inProgress)}`}</Typography>}
-                            {item.stats && <Typography variant='body2'>{`completed: ${item.stats.completed}`}</Typography>}
-                            {item.stats && <Typography variant='body2'>{`in progress: ${item.stats.inProgress}`}</Typography>}
-                            {item.stats && item.stats.pastDue > 0 && (
-                              <LinkButton2
-                                onClick={() => {
-                                  handleGoalClick(item)
-                                }}
-                              >
-                                <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
-                              </LinkButton2>
-                            )}
-                          </Box>
                         )}
-                        {/* <Box>
-                          <LinkButton2
-                            onClick={() => {
-                              handleGoalClickNewView(item)
-                            }}
-                          >
-                            New goals view
-                          </LinkButton2>
-                        </Box> */}
-                        {i < model.goals.length - 1 && <HorizontalDivider />}
                       </Box>
-                    ))}
-                </>
+                    )}
+
+                    {i < goals.length - 1 && <HorizontalDivider />}
+                  </Box>
+                ))}
               </>
-            )}
-          </>
-        )}
+            </>
+          )}
+        </>
       </Box>
     </Box>
   )

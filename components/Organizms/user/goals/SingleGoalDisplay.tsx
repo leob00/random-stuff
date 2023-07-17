@@ -54,27 +54,31 @@ const SingleGoalDisplay = ({
     onMutated(resultGoal, newTasks)
   }
   const handleModifyTask = async (item: UserTask) => {
+    // console.log(item)
     let newTasks = [...tasks]
     replaceItemInArray(item, newTasks, 'id', item.id!)
     newTasks = reorderTasks(newTasks)
+    await putUserGoalTasks(username, item.goalId!, newTasks)
     const resultGoal = await saveGoal(goal, newTasks)
+
     onMutated(resultGoal, newTasks)
   }
 
-  const saveGoal = async (goal: UserGoal, tasks: UserTask[]) => {
+  const saveGoal = async (goal: UserGoal, newTasks: UserTask[]) => {
     const goalCopy = { ...goal }
     goalCopy.dateModified = dayjs().format()
-    goalCopy.stats = getGoalStats(tasks)
-    if (tasks.length > 0) {
-      const completed = filter(tasks, (e) => e.status === 'completed')
-      goalCopy.completePercent = calculatePercentInt(completed.length, tasks.length)
+    goalCopy.stats = getGoalStats(newTasks)
+    goalCopy.dateModified = dayjs().format()
+    if (newTasks.length > 0) {
+      const completed = filter(newTasks, (e) => e.status === 'completed')
+      goalCopy.completePercent = calculatePercentInt(completed.length, newTasks.length)
     } else {
       goalCopy.completePercent = 0
     }
-    let goals = await getUserGoals(constructUserGoalsKey(username))
-    replaceItemInArray(goalCopy, goals, 'id', goalCopy.id!)
-    goals = orderBy(goals, ['dateModified'], ['desc'])
-    await putUserGoals(constructUserGoalsKey(username), goals)
+    let existingGoals = await getUserGoals(constructUserGoalsKey(username))
+    replaceItemInArray(goalCopy, existingGoals, 'id', goalCopy.id!)
+    existingGoals = orderBy(existingGoals, ['dateModified'], ['desc'])
+    await putUserGoals(constructUserGoalsKey(username), existingGoals)
     return goalCopy
   }
 

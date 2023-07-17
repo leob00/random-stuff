@@ -43,6 +43,8 @@ const Page = () => {
 
   const handleMutated = async (newGoal: UserGoal, newTasks: UserTask[]) => {
     //console.log(`mutating goal: `, newGoal.id)
+    //mutate(goalMutateKey, newGoal, { revalidate: false })
+    mutate(goalsMutateKey)
     mutate(goalMutateKey, newGoal, { revalidate: false })
     mutate(tasksMutateKey, newTasks, { revalidate: false })
   }
@@ -51,6 +53,7 @@ const Page = () => {
     console.log(`deleting goal: ${deletedGoal.body}. Mutating...`)
     const goals = await getUserGoals(constructUserGoalsKey(username))
     mutate(goalsMutateKey, goals, { revalidate: false })
+    mutate(tasksMutateKey, [], { revalidate: false })
   }
 
   return (
