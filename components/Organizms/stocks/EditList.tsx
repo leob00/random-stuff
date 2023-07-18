@@ -68,8 +68,6 @@ const EditList = ({
     const newList = getListFromMap(map)
     setOriginalData(newList)
     setFiltered(newList)
-    // const newFilteredMap = getMapFromArray(filtered, 'Symbol')
-    // newFilteredMap.set(item.Symbol, item)
     setShowEditSingleItem(false)
     onPushChanges(newList)
   }

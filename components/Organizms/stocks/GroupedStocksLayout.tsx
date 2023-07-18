@@ -27,12 +27,15 @@ const GroupedStocksLayout = ({
   stockList,
   onEdit,
   onShowAsGroup,
+  scrollIntoView,
 }: {
   userProfile: UserProfile | null
   stockList: StockQuote[]
   onEdit: () => void
   onShowAsGroup: (show: boolean) => void
+  scrollIntoView?: boolean
 }) => {
+  const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
   const userController = useUserController()
 
   const groupify = (list: StockQuote[]) => {
@@ -112,18 +115,26 @@ const GroupedStocksLayout = ({
     const map = getMapFromArray(result, 'id')
     setData(map)
   }
+  React.useEffect(() => {
+    if (scrollIntoView) {
+      if (scrollTarget.current) {
+        scrollTarget.current.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+  }, [scrollIntoView])
 
   return (
     <Box>
-      <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} pb={1}>
+      <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} pb={2}>
         <Box pl={1}>
           <SearchWithinList onChanged={handleSearchGroupWithinList} debounceWaitMilliseconds={150} />
         </Box>
         <GroupedListMenu onEdit={onEdit} onShowAsGroup={onShowAsGroup} />
       </Box>
       <Box display={'flex'} flexDirection={'column'} gap={2}>
-        {Array.from(data.values()).map((item, i) => (
+        {Array.from(data.values()).map((item, index) => (
           <Box key={item.groupName}>
+            {index == 0 && <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>}
             <Box
               sx={{ backgroundColor: VeryLightBlueTransparent, cursor: 'pointer', borderRadius: 1.2 }}
               py={2}

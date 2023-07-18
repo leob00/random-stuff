@@ -206,6 +206,7 @@ const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserPr
                       stockList={model.filteredList}
                       onEdit={() => setModel({ ...model, editList: true })}
                       onShowAsGroup={() => handleShowAsGroup(false)}
+                      scrollIntoView
                     />
                   </Box>
                 ) : (
