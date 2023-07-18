@@ -1,35 +1,54 @@
 import type { GetStaticProps, NextPage } from 'next'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
-import CenteredParagraph from 'components/Atoms/Text/CenteredParagraph'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { CategoryType, getRandomStuff, LambdaBody } from 'lib/backend/api/aws/apiGateway'
-import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
+import { CategoryType, getRandomStuff } from 'lib/backend/api/aws/apiGateway'
 import { orderBy } from 'lodash'
 import CommunityStocksLayout from 'components/Organizms/stocks/CommunityStocksLayout'
+import BackButton from 'components/Atoms/Buttons/BackButton'
+import router from 'next/router'
+import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
+import React from 'react'
+import RecentlySearchedLayout from 'components/Organizms/stocks/RecentlySearchedLayout'
 
 interface PageProps {
-  result: StockQuote[]
+  allCommunityStocks: StockQuote[]
 }
-const communityKey: CategoryType = 'community-stocks'
 
 export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
+  const communityKey: CategoryType = 'community-stocks'
+
   const cData = (await getRandomStuff(communityKey)) as StockQuote[]
   const communityResult = orderBy(cData, ['Company'], 'asc')
-  console.log(`retrieved ${communityResult.length} community quotes`)
 
   return {
     props: {
-      result: communityResult,
+      allCommunityStocks: communityResult,
     },
   }
 }
-const Page: NextPage<PageProps> = ({ result }) => {
+const Page: NextPage<PageProps> = ({ allCommunityStocks }) => {
+  const [selectedTab, setSelectedTab] = React.useState('All')
+
+  const tabs: TabInfo[] = [
+    {
+      selected: true,
+      title: 'All',
+    },
+    {
+      title: 'Recently Searched',
+    },
+  ]
+  const handleSelectTab = (title: string) => {
+    setSelectedTab(title)
+  }
   return (
     <ResponsiveContainer>
+      <BackButton onClicked={() => router.push('/csr/stocks')} />
       <CenteredHeader title='Community Stocks' />
-      <CenteredParagraph text={'stocks tracked by all users'} />
-      <CommunityStocksLayout data={result} />
+      <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
+      {selectedTab === 'All' && <CommunityStocksLayout data={allCommunityStocks} />}
+      {selectedTab === 'Recently Searched' && <RecentlySearchedLayout />}
     </ResponsiveContainer>
   )
 }

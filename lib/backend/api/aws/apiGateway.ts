@@ -8,7 +8,7 @@ import { get, post } from '../fetchFunctions'
 export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | 'site-stats' | 'community-stocks' | 'user-stock_list'
 export const apiGatewayUrl = String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL)
 
-export type CategoryType = 'animals' | 'random' | 'userProfile' | 'community-stocks' | 'user-stock_list' | string
+export type CategoryType = 'animals' | 'random' | 'userProfile' | 'community-stocks' | 'searched-stocks' | 'user-stock_list' | string
 
 export interface RandomStuffPut {
   key: DynamoKeys | string
@@ -132,8 +132,8 @@ export async function getAnimals(type: DynamoKeys) {
   }
 }
 
-export async function getRandomStuff(type: DynamoKeys | string) {
-  const url = `${apiGatewayUrl}/randomstuff?key=${type}`
+export async function getRandomStuff(key: DynamoKeys | string) {
+  const url = `${apiGatewayUrl}/randomstuff?key=${key}`
   let result: LambdaResponse | null = null
   try {
     result = (await get(url)) as LambdaResponse

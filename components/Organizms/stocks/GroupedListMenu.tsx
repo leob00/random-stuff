@@ -1,11 +1,12 @@
 import React from 'react'
 import { ListItemIcon, ListItemText } from '@mui/material'
 import SortIcon from '@mui/icons-material/Sort'
-import ContextMenuRefresh from 'components/Molecules/Menus/ContextMenuRefresh'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
+import { useRouter } from 'next/router'
 
 const GroupedListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShowAsGroup?: (show: boolean) => void }) => {
+  const router = useRouter()
   const handleClick = (event: 'edit' | 'showAsGroup') => {
     switch (event) {
       case 'showAsGroup':
@@ -36,6 +37,10 @@ const GroupedListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShow
         </>
       ),
       fn: () => handleShowGrouped(false),
+    },
+    {
+      item: <ListItemText primary='view community stocks' />,
+      fn: () => router.push('/ssg/community-stocks'),
     },
   ]
 

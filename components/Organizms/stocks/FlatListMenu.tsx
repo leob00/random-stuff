@@ -1,11 +1,12 @@
 import React from 'react'
-import { Divider, ListItemIcon, ListItemText } from '@mui/material'
+import { ListItemIcon, ListItemText } from '@mui/material'
 import SortIcon from '@mui/icons-material/Sort'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
-import ContextMenuRefresh from 'components/Molecules/Menus/ContextMenuRefresh'
+import { useRouter } from 'next/router'
 
 const FlatListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShowAsGroup?: (show: boolean) => void }) => {
+  const router = useRouter()
   const handleClick = (event: 'edit' | 'showAsGroup') => {
     switch (event) {
       case 'showAsGroup':
@@ -35,6 +36,10 @@ const FlatListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShowAsG
         </>
       ),
       fn: () => handleShowGrouped(true),
+    },
+    {
+      item: <ListItemText primary='view community stocks' />,
+      fn: () => router.push('/ssg/community-stocks'),
     },
   ]
 

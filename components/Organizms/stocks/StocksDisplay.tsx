@@ -25,12 +25,7 @@ import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import { orderBy } from 'lodash'
 
 export const searchWithinResults = (quotes: StockQuote[], text: string) => {
-  const result = quotes.filter(
-    (o) =>
-      o.Symbol.toLowerCase().includes(text.toLowerCase()) ||
-      o.Company.toLowerCase().startsWith(text.toLowerCase()) ||
-      (o.GroupName && o.GroupName.toLowerCase().includes(text.toLowerCase())),
-  )
+  const result = quotes.filter((o) => o.Symbol.toLowerCase().includes(text.toLowerCase()) || o.Company.toLowerCase().startsWith(text.toLowerCase()) || (o.GroupName && o.GroupName.toLowerCase().includes(text.toLowerCase())))
   return result
 }
 const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserProfile; result: StockQuote[]; onMutated: (newData: StockQuote[]) => void }) => {
@@ -71,7 +66,12 @@ const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserPr
     setModel({ ...model, isLoading: true })
     const quotes = await getStockQuotes([symbol])
     if (quotes.length > 0) {
-      setModel({ ...model, quoteToAdd: quotes[0], autoCompleteResults: [], successMesage: null, isLoading: false })
+      const quote = quotes[0]
+      const existing = result.find((m) => m.Symbol === quote.Symbol)
+      if (existing) {
+        quote.GroupName = existing.GroupName
+      }
+      setModel({ ...model, quoteToAdd: quote, autoCompleteResults: [], successMesage: null, isLoading: false })
     }
   }
 
@@ -107,10 +107,6 @@ const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserPr
   const handleCloseAddQuote = () => {
     setModel({ ...model, quoteToAdd: undefined, isLoading: false, successMesage: null })
   }
-  const handleSearchListChange = async (text: string) => {
-    const result = searchWithinResults(model.stockList, text)
-    setModel({ ...model, filteredList: result })
-  }
 
   const handleSaveChanges = async (quotes: StockQuote[]) => {
     setModel({ ...model, isLoading: true, successMesage: null })
@@ -136,7 +132,7 @@ const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserPr
       newMap.set(item.Symbol, item)
     })
     const newList = Array.from(newMap.values())
-    putUserStockList(userProfile.username, newList)
+    await putUserStockList(userProfile.username, newList)
     setModel({
       ...model,
       isLoading: false,
@@ -162,70 +158,46 @@ const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserPr
   return (
     <>
       {model.successMesage && <SnackbarSuccess show={true} text={model.successMesage} />}
-
       <Box py={2}>
         <CenterStack>
-          <StocksAutoComplete
-            placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}
-            onChanged={handleSearched}
-            searchResults={model.autoCompleteResults}
-            debounceWaitMilliseconds={500}
-            onSelected={handleSelectQuote}
-          />
+          <StocksAutoComplete placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`} onChanged={handleSearched} searchResults={model.autoCompleteResults} debounceWaitMilliseconds={500} onSelected={handleSelectQuote} />
         </CenterStack>
       </Box>
       {model.quoteToAdd ? (
         <AddQuote stockListMap={model.stockListMap} quote={model.quoteToAdd} handleAddToList={handleAddToList} handleCloseAddQuote={handleCloseAddQuote} />
       ) : (
         <Box>
-          {model.isLoading && (
+          {model.isLoading ? (
             <>
               <WarmupBox />
               <LargeGridSkeleton />
             </>
-          )}
-          <Box py={2}>
-            {model.editList && result.length > 0 ? (
-              <>
-                <EditList
-                  username={userProfile.username}
-                  data={result}
-                  onCancelEdit={() => setModel({ ...model, editList: false })}
-                  onPushChanges={handleSaveChanges}
-                  onReorder={handleReorderList}
-                  state={model}
-                  setState={setModel}
-                />
-              </>
-            ) : (
-              <>
-                {model.showAsGroup ? (
-                  <Box>
-                    <GroupedStocksLayout
-                      userProfile={userProfile}
-                      stockList={model.filteredList}
-                      onEdit={() => setModel({ ...model, editList: true })}
-                      onShowAsGroup={() => handleShowAsGroup(false)}
-                      scrollIntoView
-                    />
-                  </Box>
-                ) : (
-                  <Box>
-                    <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                      <Box pl={1}>
-                        {result.length > 5 && (
-                          <StaticAutoComplete options={existingStockLookup} onSelected={handleSelectQuote} placeholder={'search in your list'} />
-                        )}
-                      </Box>
-                      <FlatListMenu onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={handleShowAsGroup} />
+          ) : (
+            <Box py={2}>
+              {model.editList && result.length > 0 ? (
+                <>
+                  <EditList username={userProfile.username} data={result} onCancelEdit={() => setModel({ ...model, editList: false })} onPushChanges={handleSaveChanges} onReorder={handleReorderList} state={model} setState={setModel} />
+                </>
+              ) : (
+                <>
+                  {model.showAsGroup ? (
+                    <Box>
+                      <GroupedStocksLayout userProfile={userProfile} stockList={model.filteredList} onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={() => handleShowAsGroup(false)} scrollIntoView />
                     </Box>
-                    <Box display={'flex'} justifyContent={'flex-end'}></Box>
-                    <StockTable stockList={result} isStock={true} scrollIntoView />
-                  </Box>
-                )}
-              </>
-            )}
-          </Box>
+                  ) : (
+                    <Box>
+                      <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                        <Box pl={1}>{result.length > 5 && <StaticAutoComplete options={existingStockLookup} onSelected={handleSelectQuote} placeholder={'search in your list'} />}</Box>
+                        <FlatListMenu onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={handleShowAsGroup} />
+                      </Box>
+                      <Box display={'flex'} justifyContent={'flex-end'}></Box>
+                      <StockTable stockList={result} isStock={true} scrollIntoView />
+                    </Box>
+                  )}
+                </>
+              )}
+            </Box>
+          )}
         </Box>
       )}
     </>

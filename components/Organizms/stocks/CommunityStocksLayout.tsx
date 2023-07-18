@@ -8,54 +8,36 @@ import { findLast, orderBy } from 'lodash'
 import React from 'react'
 import StockTable from './StockTable'
 
-const CommunityStocksLayout = ({ data }: { data: StockQuote[] }) => {
-  const pageSize = 5
-  const paged = getPagedArray(data, pageSize)
-  const [pages, setPages] = React.useState(paged)
-  const [displayedItems, setDisplayedItems] = React.useState<StockQuote[]>(paged[0].items)
-  const [originalData, setOriginalData] = React.useState(data)
+const CommunityStocksLayout = ({ data, defaultSort = true, pageSize = 10 }: { data: StockQuote[]; defaultSort?: boolean; pageSize?: number }) => {
+  const stocks = defaultSort ? orderBy(data, ['Company'], ['asc']) : [...data]
+  const pagedStocks = getPagedArray(stocks, pageSize)
+
+  const [displayedItems, setDisplayedItems] = React.useState<StockQuote[]>(pagedStocks[0].items)
   const [currentPageIndex, setCurrentPageIndex] = React.useState(1)
+
+  //setOriginalData(stocks)
 
   const handlePaged = (pageNum: number) => {
     setCurrentPageIndex(pageNum)
-    let page = findLast(pages, (p) => {
+    let page = findLast(pagedStocks, (p) => {
       return p.index === pageNum
     })
     if (page) {
       setDisplayedItems(page.items)
     }
   }
-
-  React.useEffect(() => {
-    const fn = async () => {
-      const result = await getCommunityStocks()
-      const stocks = orderBy(result, ['Company'], ['asc'])
-      if (!areObjectsEqual(data, stocks)) {
-        console.log(`data: ${data.length} apiData: ${stocks.length}`)
-        console.log('stocks are stale. re-rendering list')
-        const pagedStocks = getPagedArray(stocks, pageSize)
-        setPages(pagedStocks)
-        setDisplayedItems(pagedStocks[0].items)
-        setOriginalData(stocks)
-      } else {
-        console.log('stocks are up to date')
-      }
-      //console.log(JSON.stringify(stocks))
-    }
-    fn()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   return (
     <Box py={1}>
-      <StockTable stockList={displayedItems} isStock={true} />
-      <Pager
-        pageCount={paged.length}
-        itemCount={data.length}
-        itemsPerPage={pageSize}
-        onPaged={(pageNum: number) => handlePaged(pageNum)}
-        defaultPageIndex={currentPageIndex}
-      ></Pager>
+      <StockTable stockList={displayedItems} isStock={true} showGroupName={false} showSummary={false} />
+      <Box pt={4}>
+        <Pager
+          pageCount={pagedStocks.length}
+          itemCount={data.length}
+          itemsPerPage={pageSize}
+          onPaged={(pageNum: number) => handlePaged(pageNum)}
+          defaultPageIndex={currentPageIndex}
+        ></Pager>
+      </Box>
     </Box>
   )
 }

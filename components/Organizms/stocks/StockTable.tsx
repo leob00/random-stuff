@@ -6,7 +6,7 @@ import numeral from 'numeral'
 import React from 'react'
 import StockListItem from './StockListItem'
 
-const StockTable = ({ stockList, isStock, scrollIntoView }: { stockList: StockQuote[]; isStock: boolean; scrollIntoView?: boolean }) => {
+const StockTable = ({ stockList, isStock, scrollIntoView, showGroupName = true, showSummary = true }: { stockList: StockQuote[]; isStock: boolean; scrollIntoView?: boolean; showGroupName?: boolean; showSummary?: boolean }) => {
   const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
 
   React.useEffect(() => {
@@ -23,16 +23,20 @@ const StockTable = ({ stockList, isStock, scrollIntoView }: { stockList: StockQu
         {stockList.map((item, index) => (
           <Box key={item.Symbol}>
             {index == 0 && <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>}
-            <StockListItem item={item} isStock={isStock} />
+            <StockListItem item={item} isStock={isStock} showGroupName={showGroupName} />
           </Box>
         ))}
         {stockList.length > 0 ? (
-          <Box>
-            <Stack>
-              <Typography variant={'caption'}>{`prices are as of: ${dayjs(stockList[0].TradeDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
-            </Stack>
-            <Typography variant={'caption'}>{`total count: ${numeral(stockList.length).format()}`}</Typography>
-          </Box>
+          <>
+            {showSummary && (
+              <Box>
+                <Stack>
+                  <Typography variant={'caption'}>{`prices are as of: ${dayjs(stockList[0].TradeDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
+                </Stack>
+                <Typography variant={'caption'}>{`total count: ${numeral(stockList.length).format()}`}</Typography>
+              </Box>
+            )}
+          </>
         ) : (
           <CenterStack sx={{ py: 4 }}>
             <Typography variant='body2'>No data found.</Typography>

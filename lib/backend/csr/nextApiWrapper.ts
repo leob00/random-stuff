@@ -3,7 +3,7 @@ import { UserNote } from 'lib/models/randomStuffModels'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
-import { DynamoKeys, EmailMessage, LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
+import { CategoryType, DynamoKeys, EmailMessage, LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
 import {
   constructUserGoalTaksSecondaryKey,
   constructUserNoteCategoryKey,
@@ -33,6 +33,25 @@ export async function putUserNote(item: UserNote, secondaryKey: string, expirati
   }
   await post(`/api/putRandomStuff`, putRequest)
 }
+
+export async function putSearchedStock(item: StockQuote) {
+  const now = getUtcNow()
+  const expireDt = now.add(10, 'day')
+  const expireSeconds = Math.floor(expireDt.valueOf() / 1000)
+  const stock = { ...item, groupName: undefined }
+  let req: LambdaDynamoRequest = {
+    id: `searched-stocks[${stock.Symbol}]`,
+    category: 'searched-stocks',
+    data: stock,
+    expiration: expireSeconds,
+    token: weakEncrypt(`searched-stocks[${stock.Symbol}]`),
+  }
+  const putRequest: SignedRequest = {
+    data: encryptBody(req),
+  }
+  await post(`/api/putRandomStuff`, putRequest)
+}
+
 export async function expireUserNote(item: UserNote) {
   const unixNowSeconds = Math.floor(getUtcNow().valueOf() / 1000)
   let req: LambdaDynamoRequest = {
@@ -321,7 +340,7 @@ export async function getRecord<T>(id: DynamoKeys): Promise<T> {
   }
   return result as T
 }
-export async function searchRecords(id: DynamoKeys): Promise<LambdaBody[]> {
+export async function searchRecords(id: DynamoKeys | CategoryType): Promise<LambdaBody[]> {
   const enc = weakEncrypt(id)
   const body: SignedRequest = {
     data: enc,

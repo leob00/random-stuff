@@ -1,9 +1,7 @@
 import { Stack } from '@mui/material'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
-import { useUserController } from 'hooks/userController'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructUserNoteCategoryKey, constructUserNotePrimaryKey } from 'lib/backend/api/aws/util'
-import { getUserNoteTitles, getUserProfile, putUserNote, putUserNoteTitles, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
+import { getUserNoteTitles, putUserNote, putUserNoteTitles } from 'lib/backend/csr/nextApiWrapper'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { orderBy } from 'lodash'
 import React from 'react'
@@ -30,18 +28,18 @@ const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note
     onSaved(item)
   }
 
-  return !saved ? (
-    <Stack justifyContent={'center'} direction='row' spacing={2}>
-      {saving ? (
-        <RollingLinearProgress height={30} width={100} />
+  return (
+    <>
+      {!saved ? (
+        <Stack justifyContent={'center'} direction='row' spacing={2}>
+          {saving ? <RollingLinearProgress height={30} width={100} /> : <SecondaryButton text={saving ? 'saving...' : 'read later'} size='small' onClick={() => handleClick(note)} disabled={saving} />}
+        </Stack>
       ) : (
-        <SecondaryButton text={saving ? 'saving...' : 'read later'} size='small' onClick={() => handleClick(note)} disabled={saving} />
+        <Stack fontSize={'small'} justifyContent={'center'} flexDirection={'row'}>
+          <SavedNoteButtonLink />
+        </Stack>
       )}
-    </Stack>
-  ) : (
-    <Stack fontSize={'small'} justifyContent={'center'} flexDirection={'row'}>
-      <SavedNoteButtonLink />
-    </Stack>
+    </>
   )
 }
 
