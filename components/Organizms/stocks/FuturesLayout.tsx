@@ -20,12 +20,16 @@ const FuturesLayout = () => {
     return <Box pt={2}>{!isLoading && <StockTable stockList={result} isStock={false} />}</Box>
   }
 
-  const handleRefresh = () => {
-    mutate(apiUrl)
-  }
-
   return (
     <Box py={2}>
+      <>
+        {isLoading && (
+          <>
+            <LargeGridSkeleton />
+            <BackdropLoader />
+          </>
+        )}
+      </>
       <>
         {isValidating && (
           <>
