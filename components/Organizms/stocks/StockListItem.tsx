@@ -103,7 +103,11 @@ const StockListItem = ({
     <Box key={item.Symbol} py={1}>
       <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
       <Box>
-        {isStock ? <ListHeader text={`${item.Company}   (${item.Symbol})`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} /> : <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />}
+        {isStock ? (
+          <ListHeader text={`${item.Company}   (${item.Symbol})`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
+        ) : (
+          <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
+        )}
 
         <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
           <Stack direction={'row'} spacing={2} pl={2} sx={{ backgroundColor: 'unset' }} pt={1}>
@@ -137,9 +141,9 @@ const StockListItem = ({
             ) : (
               <>
                 <Box>
-                  <CenterStack sx={{ pt: 6 }}>
-                    <LinesSkeleton lines={1} width={200} />
-                  </CenterStack>
+                  <Box display={'flex'} justifyContent={'flex-end'} pt={3} pb={1}>
+                    <LinesSkeleton lines={1} width={160} height={68} />
+                  </Box>
                   <BoxSkeleton height={200} />
                 </Box>
               </>
