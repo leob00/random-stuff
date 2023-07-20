@@ -160,7 +160,7 @@ const GroupedStocksLayout = ({
 
             {item.isExpanded && (
               <>
-                <StockTable isStock={true} stockList={item.quotes} key={item.id} scrollIntoView />
+                <StockTable isStock={true} stockList={item.quotes} key={item.id} scrollIntoView showGroupName={false} showSummary={false} />
               </>
             )}
           </Box>

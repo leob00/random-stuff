@@ -20,9 +20,9 @@ import Seo from 'components/Organizms/Seo'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 dayjs.extend(relativeTime)
 
-const cmsRefreshIntervalSeconds = 3600
+const cmsRefreshIntervalSeconds = 72000
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
-const featuredRecipesExpirationMinutes = 30
+const featuredRecipesExpirationMinutes = 120
 
 const siteStatsKey = 'site-stats'
 
@@ -98,13 +98,13 @@ const CachedRecipes = ({ fallbackData }: { fallbackData: RecipesLayoutModel }) =
     fallbackData: fallbackData,
     refreshInterval: cmsRefreshIntervalMs,
     revalidateOnFocus: false,
-    revalidateOnReconnect: true,
+    revalidateOnReconnect: false,
   })
   if (error) {
     console.log('swr error: ', error)
     return <RecipesLayout autoComplete={fallbackData.autoComplete} baseUrl='/ssg/recipes/' featured={fallbackData.featured} />
   }
- 
+
   return <RecipesLayout autoComplete={data.autoComplete} baseUrl='/ssg/recipes/' featured={data.featured} />
 }
 

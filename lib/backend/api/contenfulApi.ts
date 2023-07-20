@@ -98,8 +98,7 @@ export async function getAllRecipes() {
     let secondQuery = getRecipeQuery(100)
     let collection1 = await getRecipes(firstQuery)
     let collection2 = await getRecipes(secondQuery)
-    let collection = collection1.items
-    collection.push(...collection2.items)
+    let collection = [...collection1.items, ...collection2.items]
     allRecipes = collection
   }
 

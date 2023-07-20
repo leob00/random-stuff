@@ -12,7 +12,7 @@ import Header from 'next/head'
 import { get } from 'lib/backend/api/fetchFunctions'
 import Seo from 'components/Organizms/Seo'
 
-const cmsRefreshIntervalSeconds = 360
+const cmsRefreshIntervalSeconds = 3600
 
 const fetcherFn = async (url: string) => {
   let response = await get(url)
@@ -41,7 +41,7 @@ const Cached = ({ fallbackData }: { fallbackData: BasicArticle[] }) => {
   const fetcher: Fetcher<BasicArticle[], string> = (url) => fetcherFn(url)
   const { data, error } = useSWR('/api/edgeRandomAnimals?id=dogs', fetcher, {
     fallbackData: fallbackData,
-    refreshInterval: cmsRefreshIntervalSeconds * 1000,
+    refreshInterval: cmsRefreshIntervalSeconds,
     revalidateOnFocus: false,
     revalidateOnReconnect: true,
   })
