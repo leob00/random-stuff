@@ -23,20 +23,27 @@ const StockTable = ({
 }) => {
   const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
 
-  React.useEffect(() => {
-    if (scrollIntoView) {
-      if (scrollTarget.current) {
-        scrollTarget.current.scrollIntoView({ behavior: 'smooth' })
-      }
-    }
-  }, [scrollIntoView])
+  // React.useEffect(() => {
+  //   let isCanceled = false
+  //   if (!isCanceled) {
+  //     if (scrollIntoView) {
+  //       if (scrollTarget.current) {
+  //         scrollTarget.current.scrollIntoView({ behavior: 'smooth' })
+  //       }
+  //     }
+  //   }
+  //   return () => {
+  //     isCanceled = true
+  //   }
+  // }, [scrollIntoView])
 
   return (
     <>
       <Box pl={1}>
+        <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: scrollMargin }}></Typography>
+
         {stockList.map((item, index) => (
           <Box key={item.Symbol}>
-            {index == 0 && <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: scrollMargin }}></Typography>}
             <StockListItem item={item} isStock={isStock} showGroupName={showGroupName} />
           </Box>
         ))}

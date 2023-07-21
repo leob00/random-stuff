@@ -12,6 +12,7 @@ const Pager = ({
   onPaged,
   defaultPageIndex = 1,
   showPageText = true,
+  totalItemCount = 0,
 }: {
   pageCount: number
   itemCount: number
@@ -19,12 +20,17 @@ const Pager = ({
   onPaged: (pageNum: number) => void
   defaultPageIndex?: number
   showPageText?: boolean
+  totalItemCount: number
 }) => {
   const [pageIndex, setPageIndex] = useState(defaultPageIndex)
   const [displayMessage, setDisplayMessage] = useState('')
 
   const getDisplayMessage = (currIndex: number, totalPageCount: number) => {
-    return `page ${currIndex} of ${totalPageCount}`
+    //const runningTotal = currIndex === 1 ? 1 : currIndex
+    const currRecords =
+      currIndex === 1 ? `1 - ${itemCount} of ${totalItemCount}` : `${currIndex * itemCount} - ${currIndex * itemCount + itemCount} of ${totalItemCount}`
+
+    return `page ${currIndex} of ${totalPageCount} (${currRecords})`
   }
 
   const handlePreviousClick = () => {

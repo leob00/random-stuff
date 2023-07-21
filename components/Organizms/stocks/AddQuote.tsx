@@ -6,12 +6,32 @@ import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import StockListItem from './StockListItem'
 
-const AddQuote = ({ quote, stockListMap, handleAddToList, handleCloseAddQuote }: { quote: StockQuote; stockListMap: Map<string, StockQuote>; handleAddToList: () => void; handleCloseAddQuote: () => void }) => {
+const AddQuote = ({
+  quote,
+  stockListMap,
+  handleAddToList,
+  handleCloseAddQuote,
+  scrollIntoView = true,
+}: {
+  quote: StockQuote
+  stockListMap: Map<string, StockQuote>
+  handleAddToList: () => void
+  handleCloseAddQuote: () => void
+  scrollIntoView?: boolean
+}) => {
   const alreadyExists = stockListMap.has(quote.Symbol)
   //console.log(stockListMap)
   return (
     <>
-      <StockListItem item={quote} expand={true} isStock={true} closeOnCollapse={true} onClose={handleCloseAddQuote} showGroupName={true} />
+      <StockListItem
+        item={quote}
+        expand={true}
+        isStock={true}
+        closeOnCollapse={true}
+        onClose={handleCloseAddQuote}
+        showGroupName={true}
+        scrollIntoView={scrollIntoView}
+      />
       {alreadyExists && (
         <CenterStack>
           <Alert severity='success'>

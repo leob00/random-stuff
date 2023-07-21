@@ -226,7 +226,13 @@ const StocksDisplay = ({
         </CenterStack>
       </Box>
       {model.quoteToAdd ? (
-        <AddQuote stockListMap={model.stockListMap} quote={model.quoteToAdd} handleAddToList={handleAddToList} handleCloseAddQuote={handleCloseAddQuote} />
+        <AddQuote
+          stockListMap={model.stockListMap}
+          quote={model.quoteToAdd}
+          handleAddToList={handleAddToList}
+          handleCloseAddQuote={handleCloseAddQuote}
+          scrollIntoView
+        />
       ) : (
         <Box>
           {model.isLoading ? (

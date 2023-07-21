@@ -36,6 +36,7 @@ const StockListItem = ({
   showGroupName = true,
   closeOnCollapse = false,
   onClose,
+  scrollIntoView = true,
 }: {
   item: StockQuote
   expand?: boolean
@@ -43,6 +44,7 @@ const StockListItem = ({
   showGroupName?: boolean
   closeOnCollapse?: boolean
   onClose?: () => void
+  scrollIntoView?: boolean
 }) => {
   const [showMore, setShowMore] = React.useState(expand)
   const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
@@ -51,8 +53,9 @@ const StockListItem = ({
   const tabScrollTarget = React.useRef<HTMLSpanElement | null>(null)
 
   React.useEffect(() => {
+    let isCanceled = false
     const fn = async () => {
-      if (showMore) {
+      if (showMore && scrollIntoView && !isCanceled) {
         if (scrollTarget.current) {
           scrollTarget.current.scrollIntoView({ behavior: 'smooth' })
         }
@@ -63,6 +66,9 @@ const StockListItem = ({
     }
     if (showMore) {
       fn()
+    }
+    return () => {
+      isCanceled = true
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showMore])
@@ -102,7 +108,9 @@ const StockListItem = ({
 
   React.useEffect(() => {
     if (tabScrollTarget.current) {
-      tabScrollTarget.current.scrollIntoView({ behavior: 'smooth' })
+      if (selectedTab !== 'Details') {
+        tabScrollTarget.current.scrollIntoView({ behavior: 'smooth' })
+      }
     }
   }, [selectedTab])
 

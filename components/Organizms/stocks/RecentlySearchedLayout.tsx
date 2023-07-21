@@ -18,7 +18,6 @@ const RecentlySearchedLayout = () => {
 
   const fetchRecentlySearched = async (url: string, enc: string) => {
     const searchedStocksResult = await searchRecords(searchedStocksKey)
-    //console.log(searchedStocksResult)
     const searchedStocks: StockQuote[] = []
     orderBy(searchedStocksResult, ['last_modified'], ['desc']).forEach((item) => {
       searchedStocks.push(JSON.parse(item.data))
