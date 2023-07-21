@@ -198,11 +198,12 @@ const NewsFeedLayout = ({ articles }: { articles: NewsItem[] }) => {
               <Box sx={{ my: 4 }}>
                 <Pager
                   pageCount={paged.pages.length}
-                  itemCount={articles.length}
+                  itemCount={paged.pages[model.currentPageNum].items.length}
                   itemsPerPage={itemsPerPage}
                   onPaged={(pageNum: number) => handlePaged(pageNum)}
                   defaultPageIndex={model.currentPageNum}
                   showPageText={false}
+                  totalItemCount={articles.length}
                 ></Pager>
               </Box>
             )}

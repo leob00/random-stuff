@@ -32,7 +32,7 @@ const CommunityStocksLayout = ({ data, defaultSort = true, pageSize = 10 }: { da
       <Box pt={4}>
         <Pager
           pageCount={pagedStocks.length}
-          itemCount={displayedItems.length}
+          itemCount={pagedStocks[currentPageIndex].items.length}
           itemsPerPage={pageSize}
           onPaged={(pageNum: number) => handlePaged(pageNum)}
           defaultPageIndex={currentPageIndex}

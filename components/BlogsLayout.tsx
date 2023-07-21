@@ -35,7 +35,12 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
-  const handleSearched = (event: React.SyntheticEvent<Element, Event>, value: Option | null, reason: AutocompleteChangeReason, details?: AutocompleteChangeDetails<Option> | undefined) => {
+  const handleSearched = (
+    event: React.SyntheticEvent<Element, Event>,
+    value: Option | null,
+    reason: AutocompleteChangeReason,
+    details?: AutocompleteChangeDetails<Option> | undefined,
+  ) => {
     let sel = value as Option
 
     if (!sel) {
@@ -106,7 +111,14 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
         ))}
       </Box>
 
-      <Pager pageCount={paged.pages.length} itemCount={model.items.length} itemsPerPage={itemsPerPage} onPaged={(pageNum: number) => handlePaged(pageNum)} defaultPageIndex={currentPageIndex}></Pager>
+      <Pager
+        pageCount={paged.pages.length}
+        itemCount={model.items.length}
+        itemsPerPage={itemsPerPage}
+        onPaged={(pageNum: number) => handlePaged(pageNum)}
+        defaultPageIndex={currentPageIndex}
+        totalItemCount={model.items.length}
+      ></Pager>
     </>
   )
 }

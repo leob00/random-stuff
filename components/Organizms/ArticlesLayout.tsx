@@ -44,10 +44,11 @@ const ArticlesLayout = ({ articles }: { articles: BasicArticle[] }) => {
           )}
           <Pager
             pageCount={paged.pages.length}
-            itemCount={articles.length}
+            itemCount={paged.pages[currentPageIndex].items.length}
             itemsPerPage={itemsPerPage}
             onPaged={(pageNum: number) => handlePaged(pageNum)}
             defaultPageIndex={currentPageIndex}
+            totalItemCount={articles.length}
           ></Pager>
         </>
       )}
