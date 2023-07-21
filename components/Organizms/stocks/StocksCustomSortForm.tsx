@@ -21,6 +21,8 @@ const StocksCustomSortForm = ({ result, onSubmitted }: { result: UserSettings; o
     { text: 'symbol', value: 'Symbol' },
     { text: 'company name', value: 'Company' },
     { text: 'change percent', value: 'ChangePercent' },
+    { text: 'price', value: 'Price' },
+    { text: 'market cap', value: 'MarketCap' },
   ]
   let directionOptions: DropdownItem[] = [
     { text: 'ascending', value: 'asc' },

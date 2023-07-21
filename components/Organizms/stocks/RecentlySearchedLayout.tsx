@@ -37,12 +37,7 @@ const RecentlySearchedLayout = () => {
         </>
       )}
 
-      {searchedStocks && (
-        <>
-          {isValidating && <BackdropLoader />}
-          {searchedStocks && <CommunityStocksLayout data={searchedStocks} defaultSort={false} />}
-        </>
-      )}
+      {searchedStocks && <>{searchedStocks && <CommunityStocksLayout data={searchedStocks} defaultSort={false} />}</>}
     </>
   )
 }

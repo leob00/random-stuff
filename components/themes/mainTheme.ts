@@ -55,7 +55,7 @@ const lightPalette: PaletteOptions = {
     main: CasinoPinkTransparent,
   },
   info: {
-    main: CasinoBlackTransparent,
+    main: CasinoBlueTransparent,
   },
   success: {
     main: CasinoGreenTransparent,
@@ -95,7 +95,7 @@ const themeOptions: ThemeOptions = {
     subtitle2: { fontSize: '0.975rem', fontWeight: 200 },
     body1: { fontSize: '1.175rem', fontWeight: 300, color: Default }, // normal body text
     body2: { fontSize: '1.08rem', fontWeight: 200, color: Default }, // less important text
-    caption: { fontSize: '0.85rem', fontWeight: 400 },
+    caption: { fontSize: '0.85rem', fontWeight: 400, color: Default },
     overline: { fontSize: '0.625rem', fontWeight: 400 },
     button: { fontSize: '1.0rem', fontWeight: 300, textTransform: 'none' },
   },

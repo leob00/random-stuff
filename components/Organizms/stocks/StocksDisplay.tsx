@@ -191,6 +191,21 @@ const StocksDisplay = ({
     putUserProfile(newProfile)
   }
 
+  const translateSort = (sort: Sort) => {
+    const key = sort.key as keyof StockQuote
+    let resultField = sort.key
+    switch (key) {
+      case 'ChangePercent':
+        resultField = 'change percent'
+        break
+      case 'MarketCap':
+        resultField = 'market cap'
+        break
+    }
+    const direction = `${sort.direction === 'desc' ? 'largest to smallest' : 'smallest to largest'}`
+    return `'${resultField}' (${direction})`
+  }
+
   return (
     <>
       {model.successMesage && <SnackbarSuccess show={true} text={model.successMesage} />}
@@ -256,12 +271,13 @@ const StocksDisplay = ({
                       </Box>
                       {/* <Box display={'flex'} justifyContent={'flex-end'}></Box> */}
                       {customSort && (
-                        <Box p={2}>
+                        <Box pl={1} pt={2}>
                           <Alert severity='info'>
                             <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
                               <Box>
-                                <Typography variant='caption'>custom sort is enabled</Typography>
+                                <Typography variant='caption'>{`sorted by ${translateSort(customSort[0])}`}</Typography>
                               </Box>
+
                               {/* <Box justifyContent={'flex-end'}>
                                 <LinkButton onClick={() => setModel({ ...model, showCustomSort: true })}>modify</LinkButton>
                               </Box> */}
@@ -269,7 +285,7 @@ const StocksDisplay = ({
                           </Alert>
                         </Box>
                       )}
-                      <StockTable stockList={customSorted} isStock={true} scrollIntoView />
+                      <StockTable stockList={customSorted} isStock={true} scrollIntoView scrollMargin={customSort ? -19 : -20} />
                     </Box>
                   )}
                 </>
@@ -279,7 +295,12 @@ const StocksDisplay = ({
         </Box>
       )}
       <>
-        <FormDialog show={model.showCustomSort ?? false} title={'custom sort'} onCancel={() => setModel({ ...model, showCustomSort: false })}>
+        <FormDialog
+          show={model.showCustomSort ?? false}
+          title={'custom sort'}
+          onCancel={() => setModel({ ...model, showCustomSort: false })}
+          showActionButtons={false}
+        >
           <StocksCustomSortForm result={userProfile.settings!} onSubmitted={handleSubmitCustomSort} />
         </FormDialog>
       </>

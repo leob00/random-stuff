@@ -23,6 +23,7 @@ export const quoteArraySchema = z
     SectorId: z.string().nullable().optional(),
     History: quoteHistorySchema.optional(),
     GroupName: z.string().nullable().optional(),
+    MarketCap: z.number().nullable().optional(),
   })
   .array()
 

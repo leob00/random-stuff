@@ -17,7 +17,7 @@ const FuturesLayout = () => {
 
   const RenderDisplay = (response: QlnApiResponse) => {
     const result = response.Body as StockQuote[]
-    return <Box pt={2}>{!isLoading && <StockTable stockList={result} isStock={false} />}</Box>
+    return <Box pt={2}>{!isLoading && <StockTable stockList={result} isStock={false} scrollIntoView scrollMargin={-14} />}</Box>
   }
 
   return (

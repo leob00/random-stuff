@@ -1,5 +1,5 @@
 import Close from '@mui/icons-material/Close'
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack } from '@mui/material'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack, IconButton } from '@mui/material'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import React, { ReactNode } from 'react'
 import PassiveButton from '../Buttons/PassiveButton'
@@ -12,12 +12,14 @@ const FormDialog = ({
   show,
   onCancel,
   onSave,
+  showActionButtons = true,
 }: {
   children: ReactNode
   title: string
   show: boolean
   onCancel?: () => void
   onSave?: () => void
+  showActionButtons?: boolean
 }) => {
   //const [open, setOpen] = React.useState(show)
   const handleClose = () => {
@@ -32,9 +34,9 @@ const FormDialog = ({
           <Stack display='flex' direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
             <Stack>{title}</Stack>
             <Stack>
-              <Button onClick={handleClose}>
-                <Close />
-              </Button>
+              <IconButton onClick={handleClose}>
+                <Close fontSize='small' />
+              </IconButton>
             </Stack>
           </Stack>
         </DialogTitle>
@@ -42,11 +44,15 @@ const FormDialog = ({
           <DialogContentText id='alert-dialog-description' sx={{ pt: 3 }} color='primary'></DialogContentText>
           {children}
         </DialogContent>
-        <HorizontalDivider />
-        <DialogActions sx={{ pt: 1, pb: 2 }}>
-          {onSave && <SecondaryButton text={'save'} size='small' width={80} onClick={onSave} />}
-          {onCancel && <PassiveButton onClick={handleClose} text={'cancel'} size='small' width={80} />}
-        </DialogActions>
+        {showActionButtons && (
+          <>
+            <HorizontalDivider />
+            <DialogActions sx={{ pt: 1, pb: 2 }}>
+              {onSave && <SecondaryButton text={'save'} size='small' width={80} onClick={onSave} />}
+              {onCancel && <PassiveButton onClick={handleClose} text={'cancel'} size='small' width={80} />}
+            </DialogActions>
+          </>
+        )}
       </Dialog>
     </Box>
   )
