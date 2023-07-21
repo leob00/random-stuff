@@ -39,3 +39,5 @@ export const userSecretArraySchema = z
 export type StockQuote = z.infer<typeof quoteArraySchema.element>
 export type StockHistoryItem = z.infer<typeof quoteHistorySchema.element>
 export type UserSecret = z.infer<typeof userSecretArraySchema.element>
+
+export type SortableStockKeys = Pick<StockQuote, 'ChangePercent' | 'Company' | 'Change' | 'Symbol' | 'MarketCap' | 'Price'>

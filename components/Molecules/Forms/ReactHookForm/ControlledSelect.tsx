@@ -11,6 +11,7 @@ export const ControlledSelect = ({
   label,
   items,
   disabled,
+  required,
 }: {
   fieldName: string
   control: Control<any, any>
@@ -18,6 +19,7 @@ export const ControlledSelect = ({
   label?: string
   items: DropdownItem[]
   disabled?: boolean
+  required?: boolean
 }) => {
   const [opt, setOpt] = React.useState(defaultValue)
   const handleOptionSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,11 +30,13 @@ export const ControlledSelect = ({
       name={fieldName}
       control={control}
       defaultValue={defaultValue}
+      rules={{ required: required }}
       render={({ field }) => (
         <>
           <FormControl sx={{ minWidth: 250 }}>
             {/* <InputLabel id='select-helper-label'>{label}</InputLabel> */}
             <TextField
+              required={required}
               select
               {...field}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {

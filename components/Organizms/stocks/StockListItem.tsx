@@ -52,14 +52,14 @@ const StockListItem = ({
 
   React.useEffect(() => {
     const fn = async () => {
-      const history = await getStockOrFutureChart(item.Symbol, 90, isStock)
-      putSearchedStock(item)
-      setStockHistory(history)
       if (showMore) {
         if (scrollTarget.current) {
           scrollTarget.current.scrollIntoView({ behavior: 'smooth' })
         }
       }
+      const history = await getStockOrFutureChart(item.Symbol, 90, isStock)
+      putSearchedStock(item)
+      setStockHistory(history)
     }
     if (showMore) {
       fn()

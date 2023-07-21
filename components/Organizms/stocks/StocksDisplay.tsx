@@ -1,4 +1,4 @@
-import { StockQuote } from 'lib/backend/api/models/zModels'
+import { SortableStockKeys, StockQuote } from 'lib/backend/api/models/zModels'
 import { getSearchAheadTotalCount, searchAheadStocks } from './stockSearcher'
 import { StockLayoutModel } from './StockSearchLayout'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
@@ -192,7 +192,8 @@ const StocksDisplay = ({
   }
 
   const translateSort = (sort: Sort) => {
-    const key = sort.key as keyof StockQuote
+    let direction = `${sort.direction === 'desc' ? 'largest to smallest' : 'smallest to largest'}`
+    const key = sort.key as keyof SortableStockKeys
     let resultField = sort.key
     switch (key) {
       case 'ChangePercent':
@@ -201,8 +202,12 @@ const StocksDisplay = ({
       case 'MarketCap':
         resultField = 'market cap'
         break
+      case 'Company':
+      case 'Symbol':
+        direction = `${sort.direction === 'desc' ? 'Z-A' : 'A-Z'}`
+        break
     }
-    const direction = `${sort.direction === 'desc' ? 'largest to smallest' : 'smallest to largest'}`
+
     return `'${resultField}' (${direction})`
   }
 

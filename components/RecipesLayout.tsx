@@ -9,6 +9,7 @@ import CenteredParagraph from './Atoms/Text/CenteredParagraph'
 import CenterStack from './Atoms/CenterStack'
 import InternalLink from './Atoms/Buttons/InternalLink'
 import CenteredTitle from './Atoms/Text/CenteredTitle'
+import StaticAutoComplete from './Atoms/Inputs/StaticAutoComplete'
 
 const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Option[]; baseUrl: string; featured: Recipe[] }) => {
   const handleSelect = (

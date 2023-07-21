@@ -1,32 +1,54 @@
-import DynamicForm from 'components/Molecules/Forms/DynamicForm'
-import { useFormHelper } from 'components/Molecules/Forms/formHelper'
 import { Sort, UserSettings } from 'lib/backend/api/aws/apiGateway'
 import { DropdownItem } from 'lib/models/dropdown'
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import React from 'react'
 import ControlledSwitch from 'components/Molecules/Forms/ReactHookForm/ControlledSwitch'
-import { Box, Stack } from '@mui/material'
+import { Alert, Box, Stack } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { ControlledSelect } from 'components/Molecules/Forms/ReactHookForm/ControlledSelect'
-import { StockQuote } from 'lib/backend/api/models/zModels'
+import { SortableStockKeys } from 'lib/backend/api/models/zModels'
 interface FormInput {
   selectField: string
   selectDirection: 'asc' | 'desc'
   onOff: boolean
 }
+type ExtractKeys<T> = NonNullable<
+  {
+    [K in keyof T]: K
+  }[keyof T]
+>
 const StocksCustomSortForm = ({ result, onSubmitted }: { result: UserSettings; onSubmitted: (data?: Sort[]) => void }) => {
-  //const sortableFields: [keyof StockQuote] = ['Symbol', 'Company', 'ChangePercent']
-  let fieldOptions: DropdownItem[] = [
-    { text: 'symbol', value: 'Symbol' },
-    { text: 'company name', value: 'Company' },
-    { text: 'change percent', value: 'ChangePercent' },
-    { text: 'price', value: 'Price' },
-    { text: 'market cap', value: 'MarketCap' },
+  type Option = {
+    text: string
+    value: ExtractKeys<SortableStockKeys>
+  }
+  const fields: Option[] = [
+    {
+      value: 'Symbol',
+      text: 'symbol',
+    },
+    {
+      value: 'Company',
+      text: 'company',
+    },
+    {
+      value: 'ChangePercent',
+      text: 'change percent',
+    },
+    {
+      value: 'Price',
+      text: 'price',
+    },
+    {
+      value: 'MarketCap',
+      text: 'market cap',
+    },
   ]
+
   let directionOptions: DropdownItem[] = [
-    { text: 'smallest to largest', value: 'asc' },
-    { text: 'largest to smallest', value: 'desc' },
+    { text: 'ascending', value: 'asc' },
+    { text: 'descending', value: 'desc' },
   ]
   const customSort = result.stocks?.customSort
   const [data, setData] = React.useState(customSort)
@@ -38,12 +60,10 @@ const StocksCustomSortForm = ({ result, onSubmitted }: { result: UserSettings; o
   } = useForm<FormInput>()
   const onSubmit: SubmitHandler<FormInput> = (formData: FormInput) => {
     const newSort: Sort[] | undefined = formData.onOff ? [{ key: formData.selectField, direction: formData.selectDirection }] : undefined
-    //console.log('new sort: ', newSort)
     setData(newSort)
     onSubmitted(newSort)
   }
   const handleOnOffChanged = (val: boolean) => {
-    //console.log('changed: ', val)
     if (val) {
       const newData: Sort[] = [
         {
@@ -75,8 +95,9 @@ const StocksCustomSortForm = ({ result, onSubmitted }: { result: UserSettings; o
             defaultValue={data ? data[0].key : ''}
             fieldName={'selectField'}
             label={'attribute'}
-            items={fieldOptions}
+            items={fields}
             disabled={data === undefined}
+            required
           />
         </Stack>
         <Stack pt={4} pb={4}>
@@ -87,8 +108,10 @@ const StocksCustomSortForm = ({ result, onSubmitted }: { result: UserSettings; o
             label={'direction'}
             items={directionOptions}
             disabled={data === undefined}
+            required
           />
         </Stack>
+        {/* {errors && result.stocks?.customSort && <Alert severity='error'>please enter all required fields</Alert>} */}
         <HorizontalDivider />
         <Box display='flex' justifyContent={'flex-end'} pt={2}>
           <PrimaryButton text={'Save'} type='submit'></PrimaryButton>
