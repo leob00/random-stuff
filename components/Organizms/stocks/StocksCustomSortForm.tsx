@@ -25,8 +25,8 @@ const StocksCustomSortForm = ({ result, onSubmitted }: { result: UserSettings; o
     { text: 'market cap', value: 'MarketCap' },
   ]
   let directionOptions: DropdownItem[] = [
-    { text: 'ascending', value: 'asc' },
-    { text: 'descending', value: 'desc' },
+    { text: 'smallest to largest', value: 'asc' },
+    { text: 'largest to smallest', value: 'desc' },
   ]
   const customSort = result.stocks?.customSort
   const [data, setData] = React.useState(customSort)

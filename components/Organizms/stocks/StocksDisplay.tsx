@@ -7,7 +7,7 @@ import React from 'react'
 import { DropdownItem } from 'lib/models/dropdown'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import { putUserProfile, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
-import { Alert, Box, Typography } from '@mui/material'
+import { Alert, Box, Button, Stack, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
@@ -272,20 +272,19 @@ const StocksDisplay = ({
                       {/* <Box display={'flex'} justifyContent={'flex-end'}></Box> */}
                       {customSort && (
                         <Box pl={1} pt={2}>
-                          <Alert severity='info'>
-                            <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                              <Box>
-                                <Typography variant='caption'>{`sorted by ${translateSort(customSort[0])}`}</Typography>
-                              </Box>
-
-                              {/* <Box justifyContent={'flex-end'}>
-                                <LinkButton onClick={() => setModel({ ...model, showCustomSort: true })}>modify</LinkButton>
-                              </Box> */}
-                            </Box>
+                          <Alert
+                            severity='info'
+                            action={
+                              <Button color='secondary' size='small' onClick={() => setModel({ ...model, showCustomSort: true })}>
+                                modify
+                              </Button>
+                            }
+                          >
+                            <Typography variant='body2'>{`sorted by ${translateSort(customSort[0])}`}</Typography>
                           </Alert>
                         </Box>
                       )}
-                      <StockTable stockList={customSorted} isStock={true} scrollIntoView scrollMargin={customSort ? -19 : -20} />
+                      <StockTable stockList={customSorted} isStock={true} scrollIntoView scrollMargin={customSort ? -26 : -18} />
                     </Box>
                   )}
                 </>

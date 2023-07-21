@@ -31,7 +31,6 @@ const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
 
   return (
     <>
-      {isValidating && <BackdropLoader />}
       {isLoading && (
         <>
           <LargeGridSkeleton />
