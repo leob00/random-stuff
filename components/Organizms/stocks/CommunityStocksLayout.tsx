@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Pagination } from '@mui/material'
 import Pager from 'components/Atoms/Pager'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { getCommunityStocks } from 'lib/backend/csr/nextApiWrapper'
@@ -30,9 +30,10 @@ const CommunityStocksLayout = ({ data, defaultSort = true, pageSize = 10 }: { da
     <Box py={1}>
       <StockTable stockList={displayedItems} isStock={true} showGroupName={false} showSummary={false} />
       <Box pt={4}>
+        {/* <Pagination count={pagedStocks.length} variant='outlined'  /> */}
         <Pager
           pageCount={pagedStocks.length}
-          itemCount={pagedStocks[currentPageIndex].items.length}
+          itemCount={pagedStocks[currentPageIndex - 1].items.length}
           itemsPerPage={pageSize}
           onPaged={(pageNum: number) => handlePaged(pageNum)}
           defaultPageIndex={currentPageIndex}

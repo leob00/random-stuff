@@ -27,10 +27,21 @@ const Pager = ({
 
   const getDisplayMessage = (currIndex: number, totalPageCount: number) => {
     //const runningTotal = currIndex === 1 ? 1 : currIndex
-    const currRecords =
-      currIndex === 1 ? `1 - ${itemCount} of ${totalItemCount}` : `${currIndex * itemCount} - ${currIndex * itemCount + itemCount} of ${totalItemCount}`
+    const pageMessage = `page ${currIndex} of ${totalPageCount} `
+    if (itemsPerPage === 1) {
+      return pageMessage
+    }
 
-    return `page ${currIndex} of ${totalPageCount} (${currRecords})`
+    const firstPage = currIndex === 1
+    const lastPage = currIndex === totalPageCount
+    if (firstPage) {
+      return `${pageMessage} [${pageIndex} - ${pageIndex * itemCount} of ${totalItemCount}]`
+    }
+    if (lastPage) {
+      return `${pageMessage} [${totalItemCount - itemCount} - ${totalItemCount}]`
+    }
+
+    return `${pageMessage} [${(currIndex - 1) * itemCount + 1} - ${pageIndex * itemCount} of ${totalItemCount}]`
   }
 
   const handlePreviousClick = () => {
@@ -72,17 +83,13 @@ const Pager = ({
       <Box sx={{ textAlign: 'center', my: 2 }}>
         {pageIndex > 1 ? (
           <>
-            <DefaultTooltip text='1st page' placement='bottom'>
-              <Button variant='text' disabled={pageIndex <= 1} onClick={handleFirstPageClick}>
-                <ArrowBackIos sx={{ fontSize: 'smaller' }} />
-                <ArrowBackIos sx={{ fontSize: 'smaller' }} />
-              </Button>
-            </DefaultTooltip>
-            <DefaultTooltip text='previous' placement='bottom'>
-              <Button variant='text' disabled={pageIndex <= 1} onClick={handlePreviousClick}>
-                <ArrowBackIos />
-              </Button>
-            </DefaultTooltip>
+            <Button variant='text' disabled={pageIndex <= 1} onClick={handleFirstPageClick}>
+              <ArrowBackIos sx={{ fontSize: 'smaller' }} />
+              <ArrowBackIos sx={{ fontSize: 'smaller' }} />
+            </Button>
+            <Button variant='text' disabled={pageIndex <= 1} onClick={handlePreviousClick}>
+              <ArrowBackIos />
+            </Button>
           </>
         ) : (
           <>
@@ -97,17 +104,13 @@ const Pager = ({
         )}
         {pageIndex < pageCount ? (
           <>
-            <DefaultTooltip text='next' placement='bottom'>
-              <Button variant='text' onClick={handleNextClick} disabled={pageIndex === pageCount}>
-                <ArrowForwardIos />
-              </Button>
-            </DefaultTooltip>
-            <DefaultTooltip text='last page' placement='bottom'>
-              <Button variant='text' disabled={pageIndex === pageCount} onClick={handleLastPageClick}>
-                <ArrowForwardIos sx={{ fontSize: 'smaller' }} />
-                <ArrowForwardIos sx={{ fontSize: 'smaller' }} />
-              </Button>
-            </DefaultTooltip>
+            <Button variant='text' onClick={handleNextClick} disabled={pageIndex === pageCount}>
+              <ArrowForwardIos />
+            </Button>
+            <Button variant='text' disabled={pageIndex === pageCount} onClick={handleLastPageClick}>
+              <ArrowForwardIos sx={{ fontSize: 'smaller' }} />
+              <ArrowForwardIos sx={{ fontSize: 'smaller' }} />
+            </Button>
           </>
         ) : (
           <>
