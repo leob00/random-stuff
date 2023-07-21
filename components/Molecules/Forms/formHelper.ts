@@ -9,7 +9,16 @@ export function useFormHelper<T>() {
     inputs: () => {
       return [...inputs]
     },
-    append: (fieldName: keyof T, defaultValue: string | number | boolean, label: string, inputType: FormInputType, required?: boolean, options?: DropdownItem[]) => {
+    append: (
+      fieldName: keyof T,
+      defaultValue: string | number | boolean,
+      label: string,
+      inputType: FormInputType,
+      required?: boolean,
+      options?: DropdownItem[],
+      disabled?: boolean,
+      onChanged?: (val: string | boolean | number) => void,
+    ) => {
       const newInput: FormInput = {
         defaultValue: defaultValue,
         label: label,
@@ -17,6 +26,8 @@ export function useFormHelper<T>() {
         type: inputType,
         options: options,
         required: required,
+        disabled: disabled,
+        onChanged: onChanged,
       }
       inputs.push(newInput)
     },

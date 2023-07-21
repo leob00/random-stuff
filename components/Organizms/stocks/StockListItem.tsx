@@ -48,6 +48,7 @@ const StockListItem = ({
   const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
   const [selectedTab, setSelectedTab] = React.useState('Details')
   const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
+  const tabScrollTarget = React.useRef<HTMLSpanElement | null>(null)
 
   React.useEffect(() => {
     const fn = async () => {
@@ -98,6 +99,12 @@ const StockListItem = ({
       setShowMore(false)
     }
   }
+
+  React.useEffect(() => {
+    if (tabScrollTarget.current) {
+      tabScrollTarget.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [selectedTab])
 
   return (
     <Box key={item.Symbol} py={1}>
@@ -152,6 +159,7 @@ const StockListItem = ({
           {isStock && (
             <>
               <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
+              <Typography ref={tabScrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>
               {selectedTab === 'Details' && (
                 <Box pb={2} pt={2}>
                   {renderDetail('Sector', item.Sector)}

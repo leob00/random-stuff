@@ -79,6 +79,7 @@ export interface UserSettings {
         inside: Sort[]
       }
     }
+    customSort?: Sort[]
   }
 }
 

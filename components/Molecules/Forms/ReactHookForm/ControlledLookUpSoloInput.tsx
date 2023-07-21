@@ -4,7 +4,25 @@ import type { Control } from 'react-hook-form'
 import { Autocomplete, TextField } from '@mui/material'
 import { CasinoBlue } from 'components/themes/mainTheme'
 
-export default function ControlledLookUpSoloInput({ control, label, options, defaultValue, fieldName, required }: { control: Control<any>; label: string; options: string[]; defaultValue: string; fieldName: string; required?: boolean }) {
+export default function ControlledLookUpSoloInput({
+  control,
+  label,
+  options,
+  defaultValue,
+  fieldName,
+  required,
+  disabled,
+  onChanged,
+}: {
+  control: Control<any>
+  label: string
+  options: string[]
+  defaultValue: string
+  fieldName: string
+  required?: boolean
+  disabled?: boolean
+  onChanged?: (val: string) => void
+}) {
   return (
     <Controller
       render={({ field }) => (
@@ -13,6 +31,7 @@ export default function ControlledLookUpSoloInput({ control, label, options, def
           freeSolo
           {...field}
           options={options}
+          disabled={disabled}
           renderInput={(params) => (
             <TextField
               sx={{ input: { color: CasinoBlue } }}
@@ -27,6 +46,7 @@ export default function ControlledLookUpSoloInput({ control, label, options, def
           )}
           onChange={(_, data) => {
             field.onChange(data)
+            onChanged?.(data)
           }}
         />
       )}

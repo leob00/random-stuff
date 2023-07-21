@@ -18,9 +18,19 @@ export interface FormInput {
   defaultValue: string | number | boolean
   required?: boolean
   options?: DropdownItem[]
+  disabled?: boolean
+  onChanged?: (val: string | boolean | number) => void
 }
 
-export default function DynamicForm<T extends FieldValues>({ inputs, onSubmitted }: { inputs: FormInput[]; onSubmitted: (data: T) => void }) {
+export default function DynamicForm<T extends FieldValues>({
+  inputs,
+  onSubmitted,
+  onFieldChanged,
+}: {
+  inputs: FormInput[]
+  onSubmitted: (data: T) => void
+  onFieldChanged?: (val: string | boolean | number) => void
+}) {
   const {
     control,
     handleSubmit,
@@ -42,6 +52,8 @@ export default function DynamicForm<T extends FieldValues>({ inputs, onSubmitted
               fieldName={input.name}
               required
               label={input.label}
+              disabled={input.disabled}
+              onChanged={input.onChanged}
             />
             {errors[input.name] && (
               <Box py={2}>
@@ -64,13 +76,26 @@ export default function DynamicForm<T extends FieldValues>({ inputs, onSubmitted
       case 'switch':
         return (
           <>
-            <ControlledSwitch control={control} defaultValue={Boolean(input.defaultValue)} fieldName={input.name} label={input.label} />
+            <ControlledSwitch
+              control={control}
+              defaultValue={Boolean(input.defaultValue)}
+              fieldName={input.name}
+              label={input.label}
+              onChanged={input.onChanged}
+            />
           </>
         )
       case 'select':
         return (
           <>
-            <ControlledSelect control={control} defaultValue={String(input.defaultValue)} fieldName={input.name} label={input.label} items={input.options!} />
+            <ControlledSelect
+              control={control}
+              defaultValue={String(input.defaultValue)}
+              fieldName={input.name}
+              label={input.label}
+              items={input.options!}
+              disabled={input.disabled}
+            />
           </>
         )
       default:

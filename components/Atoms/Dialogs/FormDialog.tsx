@@ -45,7 +45,7 @@ const FormDialog = ({
         <HorizontalDivider />
         <DialogActions sx={{ pt: 1, pb: 2 }}>
           {onSave && <SecondaryButton text={'save'} size='small' width={80} onClick={onSave} />}
-          <PassiveButton onClick={handleClose} text={'cancel'} size='small' width={80} />
+          {onCancel && <PassiveButton onClick={handleClose} text={'cancel'} size='small' width={80} />}
         </DialogActions>
       </Dialog>
     </Box>

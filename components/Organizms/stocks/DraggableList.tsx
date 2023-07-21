@@ -157,7 +157,8 @@ const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: Dra
       <Box py={2}>
         <CenterStack>
           <Typography variant='caption'>
-            You can reorder your list by dragging and dropping items, or you can edit each item by using its corresponding menu.
+            You can reorder your list by dragging and dropping items, or you can edit each item by using its corresponding menu. The order will only be applied
+            if custom sort is turned off.
           </Typography>
         </CenterStack>
       </Box>

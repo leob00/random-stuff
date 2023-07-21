@@ -34,7 +34,12 @@ const RecipeLayout = ({ article, baseUrl }: { article: Recipe; baseUrl: string }
             <RemoteImage url={article.heroImage.url} title={article.title ? article.title : ''} />
           </Stack>
         )}
-        <Box>{documentToReactComponents(article.richBody.json)}</Box>
+        {/* <Box ml={{ sx: 0, sm: 16, md: 36, lg: 48, xl: 60 }}> */}
+        <Stack>
+          <Box m={'auto'} width={'50%'}>
+            {documentToReactComponents(article.richBody.json)}
+          </Box>
+        </Stack>
       </>
     </>
   )

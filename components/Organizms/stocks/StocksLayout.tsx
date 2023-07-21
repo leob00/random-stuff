@@ -1,6 +1,6 @@
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { Sort, UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import useSWR, { mutate, useSWRConfig } from 'swr'
 import { get } from 'lib/backend/api/fetchFunctions'
@@ -9,10 +9,13 @@ import StocksDisplay from './StocksDisplay'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import useSWRMutation from 'swr/mutation'
 import { Typography } from '@mui/material'
+import { useUserController } from 'hooks/userController'
+import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 
 const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const enc = encodeURIComponent(weakEncrypt(`user-stock_list[${userProfile.username}]`))
   const mutateKey = ['/api/edgeGetRandomStuff', enc]
+  const userController = useUserController()
 
   const fetchData = async (url: string, enc: string) => {
     const result = (await get(url, { enc: enc })) as StockQuote[]
@@ -24,6 +27,7 @@ const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const handleMutated = (newData: StockQuote[]) => {
     mutate(mutateKey, newData, { revalidate: false })
   }
+  const handleCustomSortUpdate = (data?: Sort[]) => {}
 
   return (
     <>
@@ -33,7 +37,7 @@ const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           <LargeGridSkeleton />
         </>
       )}
-      {stocks && <StocksDisplay userProfile={userProfile} result={stocks} onMutated={handleMutated} />}
+      {stocks && <StocksDisplay userProfile={userProfile} result={stocks} onMutated={handleMutated} onCustomSortUpdated={handleCustomSortUpdate} />}
     </>
   )
 }
