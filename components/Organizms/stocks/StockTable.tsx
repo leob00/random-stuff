@@ -10,7 +10,7 @@ const StockTable = ({
   stockList,
   isStock,
   scrollIntoView,
-  scrollMargin = -20,
+  scrollMargin = -10,
   showGroupName = true,
   showSummary = true,
 }: {
@@ -23,19 +23,19 @@ const StockTable = ({
 }) => {
   const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
 
-  // React.useEffect(() => {
-  //   let isCanceled = false
-  //   if (!isCanceled) {
-  //     if (scrollIntoView) {
-  //       if (scrollTarget.current) {
-  //         scrollTarget.current.scrollIntoView({ behavior: 'smooth' })
-  //       }
-  //     }
-  //   }
-  //   return () => {
-  //     isCanceled = true
-  //   }
-  // }, [scrollIntoView])
+  React.useEffect(() => {
+    let isCanceled = false
+    if (!isCanceled) {
+      if (scrollIntoView) {
+        if (scrollTarget.current) {
+          scrollTarget.current.scrollIntoView({ behavior: 'smooth' })
+        }
+      }
+    }
+    return () => {
+      isCanceled = true
+    }
+  }, [scrollIntoView])
 
   return (
     <>

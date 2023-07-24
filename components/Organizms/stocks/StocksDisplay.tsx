@@ -295,7 +295,7 @@ const StocksDisplay = ({
                           </Alert>
                         </Box>
                       )}
-                      <StockTable stockList={customSorted} isStock={true} scrollIntoView scrollMargin={customSort ? -26 : -18} />
+                      <StockTable stockList={customSorted} isStock={true} scrollIntoView scrollMargin={customSort ? -20 : -18} />
                     </Box>
                   )}
                 </>
