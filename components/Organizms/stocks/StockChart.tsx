@@ -72,29 +72,32 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
             </Typography>
           </CenterStack>
         )}
-        {isLoading && (
+        {isLoading ? (
           <>
             <BackdropLoader />
             <ReactApexChart series={emptyOps.series} options={emptyOps} type='area' height={chartHeight} />
           </>
-        )}
-        {chartOptions && (
-          <Box minHeight={{ xs: 300, sm: 600 }}>
-            <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
+        ) : (
+          <>
+            {chartOptions && (
+              <Box minHeight={{ xs: 300, sm: 600 }}>
+                <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
 
-            <Box display='flex' gap={4} pb={4}>
-              <Box display='flex' gap={1}>
-                <Typography variant='caption'>start date:</Typography>
-                <Typography variant='caption'>{dayjs(chartData[0].TradeDate).format('MM/DD/YYYY')}</Typography>
-              </Box>
-              {chartData.length > 0 && (
-                <Box display='flex' gap={1}>
-                  <Typography variant='caption'>end date:</Typography>
-                  <Typography variant='caption'>{dayjs(chartData[chartData.length - 1].TradeDate).format('MM/DD/YYYY')}</Typography>
+                <Box display='flex' gap={4} pb={4}>
+                  <Box display='flex' gap={1}>
+                    <Typography variant='caption'>start date:</Typography>
+                    <Typography variant='caption'>{dayjs(chartData[0].TradeDate).format('MM/DD/YYYY')}</Typography>
+                  </Box>
+                  {chartData.length > 0 && (
+                    <Box display='flex' gap={1}>
+                      <Typography variant='caption'>end date:</Typography>
+                      <Typography variant='caption'>{dayjs(chartData[chartData.length - 1].TradeDate).format('MM/DD/YYYY')}</Typography>
+                    </Box>
+                  )}
                 </Box>
-              )}
-            </Box>
-          </Box>
+              </Box>
+            )}
+          </>
         )}
       </>
     </Box>
