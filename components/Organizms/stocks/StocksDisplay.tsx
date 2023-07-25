@@ -65,7 +65,11 @@ const StocksDisplay = ({
   const customSort = userProfile.settings!.stocks!.customSort
   const orderStocks = (list: StockQuote[]) => {
     if (customSort) {
-      const ordered = orderBy(list, [customSort[0].key], [customSort[0].direction])
+      const ordered = orderBy(
+        list,
+        customSort.map((m) => m.key),
+        customSort.map((m) => m.direction),
+      )
       return ordered
     }
     return list
@@ -295,7 +299,7 @@ const StocksDisplay = ({
                           </Alert>
                         </Box>
                       )}
-                      <StockTable stockList={customSorted} isStock={true} scrollIntoView scrollMargin={customSort ? -20 : -18} />
+                      <StockTable stockList={customSorted} isStock={true} scrollIntoView scrollMargin={customSort ? -26 : -18} />
                     </Box>
                   )}
                 </>

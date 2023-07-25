@@ -27,7 +27,7 @@ const loaders = [
   'waiting for a bus',
   'waiting for an answer',
   'going hiking',
-  'perfrming maintenance',
+  'performing maintenance',
 ]
 
 export function getRandomLoaderText() {

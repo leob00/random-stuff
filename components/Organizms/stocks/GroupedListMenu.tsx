@@ -1,6 +1,7 @@
 import React from 'react'
 import { ListItemIcon, ListItemText } from '@mui/material'
 import SortIcon from '@mui/icons-material/Sort'
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import { useRouter } from 'next/router'
@@ -31,7 +32,7 @@ const GroupedListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShow
       item: (
         <>
           <ListItemIcon>
-            <SortIcon color='secondary' fontSize='small' />
+            <FormatListBulletedIcon color='secondary' fontSize='small' />
           </ListItemIcon>
           <ListItemText primary='view as flat list' />
         </>

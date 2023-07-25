@@ -28,14 +28,15 @@ export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
   }
 }
 const Page: NextPage<PageProps> = ({ allCommunityStocks }) => {
-  const [selectedTab, setSelectedTab] = React.useState('All')
+  const [selectedTab, setSelectedTab] = React.useState('Recently Searched')
 
   const tabs: TabInfo[] = [
+    // {
+    //   selected: true,
+    //   title: 'All',
+    // },
     {
       selected: true,
-      title: 'All',
-    },
-    {
       title: 'Recently Searched',
     },
   ]
@@ -47,7 +48,7 @@ const Page: NextPage<PageProps> = ({ allCommunityStocks }) => {
       <BackButton onClicked={() => router.push('/csr/stocks')} />
       <CenteredHeader title='Community Stocks' />
       <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
-      {selectedTab === 'All' && <CommunityStocksLayout data={allCommunityStocks} />}
+      {/* {selectedTab === 'All' && <CommunityStocksLayout data={allCommunityStocks} />} */}
       {selectedTab === 'Recently Searched' && <RecentlySearchedLayout />}
     </ResponsiveContainer>
   )
