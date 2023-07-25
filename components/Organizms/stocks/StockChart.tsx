@@ -3,7 +3,6 @@ import { ApexOptions } from 'apexcharts'
 import CenterStack from 'components/Atoms/CenterStack'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import theme from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
@@ -19,6 +18,7 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const isLarge = useMediaQuery(theme.breakpoints.up('lg'))
   const chartHeight = isXSmall ? 300 : 580
+  const [isLoading, setIsLoading] = React.useState(true)
 
   const mapHistory = (items: StockHistoryItem[]) => {
     const data: XyValues = {
@@ -47,15 +47,15 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
     setChartOptions(options)
     setIsLoading(false)
   }
-  const [chartOptions, setChartOptions] = React.useState<ApexOptions | null>(null)
+  const chartMap = mapHistory(history)
+  const opts = getOptions(chartMap, history, isXSmall)
+  const emptyOps = getOptions({ x: [], y: [] }, [], isXSmall)
+
+  const [chartOptions, setChartOptions] = React.useState<ApexOptions | null>(opts)
   const [chartData, setChartData] = React.useState(history)
-  const [isLoading, setIsLoading] = React.useState(true)
 
   React.useEffect(() => {
-    const map = mapHistory(history)
-    setChartOptions(getOptions(map, history, isXSmall))
     setIsLoading(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -72,23 +72,27 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
             </Typography>
           </CenterStack>
         )}
+        {isLoading && (
+          <>
+            <BackdropLoader />
+            <ReactApexChart series={emptyOps.series} options={emptyOps} type='area' height={chartHeight} />
+          </>
+        )}
         {chartOptions && (
-          <Box minHeight={{ xs: 300, md: 500 }}>
-            {isLoading && (
-              <>
-                <BackdropLoader />
-              </>
-            )}
+          <Box minHeight={{ xs: 300, sm: 600 }}>
             <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
+
             <Box display='flex' gap={4} pb={4}>
               <Box display='flex' gap={1}>
                 <Typography variant='caption'>start date:</Typography>
                 <Typography variant='caption'>{dayjs(chartData[0].TradeDate).format('MM/DD/YYYY')}</Typography>
               </Box>
-              <Box display='flex' gap={1}>
-                <Typography variant='caption'>end date:</Typography>
-                <Typography variant='caption'>{dayjs(chartData[chartData.length - 1].TradeDate).format('MM/DD/YYYY')}</Typography>
-              </Box>
+              {chartData.length > 0 && (
+                <Box display='flex' gap={1}>
+                  <Typography variant='caption'>end date:</Typography>
+                  <Typography variant='caption'>{dayjs(chartData[chartData.length - 1].TradeDate).format('MM/DD/YYYY')}</Typography>
+                </Box>
+              )}
             </Box>
           </Box>
         )}

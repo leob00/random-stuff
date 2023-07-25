@@ -39,9 +39,9 @@ const StockTable = ({
 
   return (
     <>
-      <Box pl={1}>
-        <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: scrollMargin }}></Typography>
+      <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: scrollMargin }}></Typography>
 
+      <Box pl={1}>
         {stockList.map((item, index) => (
           <Box key={item.Symbol}>
             <StockListItem item={item} isStock={isStock} showGroupName={showGroupName} />

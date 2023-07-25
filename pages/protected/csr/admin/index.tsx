@@ -21,13 +21,13 @@ import InternalLink from 'components/Atoms/Buttons/InternalLink'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import FormExample from 'components/Organizms/admin/FormExample'
 import Seo from 'components/Organizms/Seo'
+import ApiTest from 'components/Organizms/admin/ApiTest'
 
 const Page = () => {
   const userController = useUserController()
   const [loading, setLoading] = React.useState(true)
-  const [loadingResult, setLoadingResult] = React.useState(true)
   const [userProfile, setUserProfile] = React.useState<UserProfile | null>(userController.authProfile)
-  const [jsonResult, setJsonResult] = React.useState('')
+
   const [emailTemplate, setEmailTemplate] = React.useState('')
   const [selectedTab, setSelectedTab] = React.useState('Jobs')
   const router = useRouter()
@@ -50,7 +50,6 @@ const Page = () => {
         }
       }
       setUserProfile(p)
-      await handleApiSelected('/api/edgeStatus')
       setLoading(false)
       const resp = await fetch('/emailTemplates/sendPin.html')
       const html = await resp.text()
@@ -59,51 +58,6 @@ const Page = () => {
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userController.ticket])
-
-  const apiOptions: DropdownItem[] = [
-    {
-      text: 'status',
-      value: '/api/edgeStatus',
-    },
-    {
-      text: 'dogs',
-      value: '/api/edgeRandomAnimals?id=dogs',
-    },
-    {
-      text: 'cats',
-      value: '/api/edgeRandomAnimals?id=cats',
-    },
-    {
-      text: 'news',
-      value: '/api/news?id=GoogleTopStories',
-    },
-    {
-      text: 'recipes',
-      value: '/api/recipes',
-    },
-    {
-      text: 'user stock lists',
-      value: '/api/searchRandomStuff',
-    },
-  ]
-
-  const handleApiSelected = async (url: string) => {
-    setLoadingResult(true)
-    let req = url
-    if (req.includes('searchRandomStuff')) {
-      const enc = myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `user-stock_list`)
-      const body: SignedRequest = {
-        data: enc,
-      }
-      const result = await post(req, body)
-      setJsonResult(JSON.stringify(result, null, 2))
-      setLoadingResult(false)
-      return
-    }
-    const result = await get(req)
-    setJsonResult(JSON.stringify(result, null, 2))
-    setLoadingResult(false)
-  }
 
   const handleSelectTab = (title: string) => {
     setSelectedTab(title)
@@ -120,23 +74,7 @@ const Page = () => {
             <BackButton onClicked={() => router.push('/protected/csr/dashboard')} />
             <CenteredTitle title='Admin' />
             <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
-            {selectedTab === 'Api' && (
-              <Box>
-                <CenteredTitle title={`Test Api's`} />
-                <CenterStack sx={{ pt: 2 }}>
-                  <DropdownList options={apiOptions} selectedOption={'/api/edgeStatus'} onOptionSelected={handleApiSelected} />
-                </CenterStack>
-                {loadingResult ? (
-                  <WarmupBox />
-                ) : (
-                  <CenterStack sx={{ py: 4 }}>
-                    <Box maxHeight={300} sx={{ overflowY: 'auto' }}>
-                      <pre>{jsonResult}</pre>
-                    </Box>
-                  </CenterStack>
-                )}
-              </Box>
-            )}
+            {selectedTab === 'Api' && <ApiTest />}
             {selectedTab === 'Links' && (
               <Box py={2}>
                 <CenteredTitle title='Helpful Links' />

@@ -12,33 +12,21 @@ const CommunityStocksLayout = ({ data, defaultSort = true, pageSize = 10 }: { da
   const stocks = defaultSort ? orderBy(data, ['Company'], ['asc']) : [...data]
   const pagedStocks = getPagedArray(stocks, pageSize)
 
-  const [displayedItems, setDisplayedItems] = React.useState(pagedStocks[0].items)
   const [currentPageIndex, setCurrentPageIndex] = React.useState(1)
-
-  //setOriginalData(stocks)
-
   const handlePaged = (pageNum: number) => {
     setCurrentPageIndex(pageNum)
-    let page = findLast(pagedStocks, (p) => {
-      return p.index === pageNum
-    })
-    if (page) {
-      setDisplayedItems(page.items)
-    }
   }
   return (
     <Box py={1}>
-      <StockTable stockList={displayedItems} isStock={true} showGroupName={false} showSummary={false} />
+      <StockTable stockList={pagedStocks[currentPageIndex - 1].items} isStock={true} showGroupName={false} showSummary={false} />
       <Box pt={4}>
-        {/* <Pagination count={pagedStocks.length} variant='outlined'  /> */}
         <Pager
           pageCount={pagedStocks.length}
           itemCount={pagedStocks[currentPageIndex - 1].items.length}
           itemsPerPage={pageSize}
           onPaged={(pageNum: number) => handlePaged(pageNum)}
           defaultPageIndex={currentPageIndex}
-          totalItemCount={stocks.length}
-        ></Pager>
+          totalItemCount={stocks.length}></Pager>
       </Box>
     </Box>
   )

@@ -3,7 +3,7 @@ import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import { getPositiveNegativeColor } from './StockListItem'
-import { orderBy, mean, cloneDeep } from 'lodash'
+import { mean } from 'lodash'
 import StockTable from './StockTable'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
@@ -22,19 +22,7 @@ interface Model {
   quotes: StockQuote[]
 }
 
-const GroupedStocksLayout = ({
-  userProfile,
-  stockList,
-  onEdit,
-  onShowAsGroup,
-  scrollIntoView,
-}: {
-  userProfile: UserProfile | null
-  stockList: StockQuote[]
-  onEdit: () => void
-  onShowAsGroup: (show: boolean) => void
-  scrollIntoView?: boolean
-}) => {
+const GroupedStocksLayout = ({ userProfile, stockList, onEdit, onShowAsGroup, scrollIntoView }: { userProfile: UserProfile | null; stockList: StockQuote[]; onEdit: () => void; onShowAsGroup: (show: boolean) => void; scrollIntoView?: boolean }) => {
   const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
   const userController = useUserController()
 
@@ -75,7 +63,7 @@ const GroupedStocksLayout = ({
   //console.log(groupedList)
   const groupMap = getMapFromArray(groupedList, 'id')
   const [data, setData] = React.useState(groupMap)
-  const [originalData] = React.useState(groupMap)
+  //const [originalData] = React.useState(groupMap)
 
   const handleExpandCollapseGroup = (item: Model) => {
     const newMap = new Map(data)
@@ -111,7 +99,7 @@ const GroupedStocksLayout = ({
     }
   }
   const handleSearchGroupWithinList = (text: string) => {
-    const result = Array.from(originalData.values()).filter((o) => o.groupName.toLowerCase().includes(text.toLowerCase()))
+    const result = Array.from(groupMap.values()).filter((o) => o.groupName.toLowerCase().includes(text.toLowerCase()))
     const map = getMapFromArray(result, 'id')
     setData(map)
   }
@@ -124,7 +112,7 @@ const GroupedStocksLayout = ({
   }, [scrollIntoView])
 
   return (
-    <Box>
+    <Box minHeight={650}>
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} pb={2}>
         <Box pl={1}>
           <SearchWithinList onChanged={handleSearchGroupWithinList} debounceWaitMilliseconds={150} />
@@ -135,16 +123,7 @@ const GroupedStocksLayout = ({
         {Array.from(data.values()).map((item, index) => (
           <Box key={item.groupName}>
             {index == 0 && <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>}
-            <Box
-              sx={{ backgroundColor: VeryLightBlueTransparent, cursor: 'pointer', borderRadius: 1.2 }}
-              py={2}
-              pl={1}
-              display={'flex'}
-              gap={2}
-              alignItems={'center'}
-              justifyContent={'space-between'}
-              onClick={() => handleExpandCollapseGroup(item)}
-            >
+            <Box sx={{ backgroundColor: VeryLightBlueTransparent, cursor: 'pointer', borderRadius: 1.2 }} py={2} pl={1} display={'flex'} gap={2} alignItems={'center'} justifyContent={'space-between'} onClick={() => handleExpandCollapseGroup(item)}>
               <Box>
                 <Typography variant='h5' pl={1} color='primary'>
                   {`${!item.groupName || item.groupName.length === 0 ? 'Unassigned' : item.groupName}`}
@@ -160,7 +139,7 @@ const GroupedStocksLayout = ({
 
             {item.isExpanded && (
               <>
-                <StockTable isStock={true} stockList={item.quotes} key={item.id} scrollIntoView showGroupName={false} showSummary={false} />
+                <StockTable isStock={true} stockList={item.quotes} key={item.id} scrollIntoView scrollMargin={-20} showGroupName={false} showSummary={false} />
               </>
             )}
           </Box>
