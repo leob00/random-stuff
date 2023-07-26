@@ -22,6 +22,7 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import FormExample from 'components/Organizms/admin/FormExample'
 import Seo from 'components/Organizms/Seo'
 import ApiTest from 'components/Organizms/admin/ApiTest'
+import Calculator from 'components/Organizms/admin/Calculator'
 
 const Page = () => {
   const userController = useUserController()
@@ -32,7 +33,7 @@ const Page = () => {
   const [selectedTab, setSelectedTab] = React.useState('Jobs')
   const router = useRouter()
 
-  const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Api' }, { title: 'Links' }, { title: 'Form' }]
+  const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Api' }, { title: 'Links' }, { title: 'Calculator' }]
 
   React.useEffect(() => {
     const fn = async () => {
@@ -89,7 +90,7 @@ const Page = () => {
                 </CenterStack>
               </Box>
             )}
-            {selectedTab === 'Form' && <FormExample />}
+            {selectedTab === 'Calculator' && <Calculator />}
             {selectedTab === 'Jobs' && <JobsLayout />}
           </>
         ) : (

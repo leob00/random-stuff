@@ -64,7 +64,7 @@ export async function getAllBlogs() {
   return blogCollection
 }
 
-const getRecipeQuery = (skip: number) => {
+const getRecipesQuery = (skip: number) => {
   return /* GraphQL */ `{
   recipeCollection (skip: ${skip}) {
     items {
@@ -74,10 +74,7 @@ const getRecipeQuery = (skip: number) => {
         publishedAt
       }      
       title
-      summary
-      richBody {
-        json
-      }
+      summary      
       heroImage {
         url
         size
@@ -90,21 +87,27 @@ const getRecipeQuery = (skip: number) => {
 }`
 }
 
-let allRecipes: Recipe[] = []
+const recipesMap = new Map<string, Recipe>()
 
-export async function getAllRecipes() {
-  if (allRecipes.length === 0) {
-    let firstQuery = getRecipeQuery(0)
-    let secondQuery = getRecipeQuery(100)
-    let collection1 = await getRecipes(firstQuery)
-    let collection2 = await getRecipes(secondQuery)
-    let collection = [...collection1.items, ...collection2.items]
-    allRecipes = collection
+export async function getAllRecipes(): Promise<RecipeCollection> {
+  if (recipesMap.size > 0) {
+    return {
+      items: Array.from(recipesMap.values()),
+    }
   }
-
-  //const result = orderBy(collection, ['sys.firstPublishedAt'], ['desc'])
+  for (let index = 0; index < 50; index++) {
+    const result = await getRecipes(getRecipesQuery(index * 100))
+    console.log(`retrieved ${result.items.length} recipes.`)
+    result.items.forEach((item) => {
+      recipesMap.set(item.sys.id, item)
+    })
+    if (result.items.length === 0) {
+      console.log(`returning ${recipesMap.size} recipes.`)
+      break
+    }
+  }
   const result: RecipeCollection = {
-    items: allRecipes,
+    items: Array.from(recipesMap.values()),
   }
   return result
 }
@@ -112,7 +115,6 @@ export async function getAllRecipes() {
 const getRecipes = async (query: string) => {
   let body = { query: query }
   let resp = await post(url, body)
-  //console.log(resp)
   let data = resp as RecipesResponse
   let collection = data.data.recipeCollection
 

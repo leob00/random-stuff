@@ -20,9 +20,9 @@ import Seo from 'components/Organizms/Seo'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 dayjs.extend(relativeTime)
 
-const cmsRefreshIntervalSeconds = 72000
+const cmsRefreshIntervalSeconds = 86400
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
-const featuredRecipesExpirationMinutes = 120
+const featuredRecipesExpirationMinutes = 360
 
 const siteStatsKey = 'site-stats'
 
@@ -114,10 +114,8 @@ const Recipes: NextPage<{ model: RecipesLayoutModel; fallback: RecipesLayoutMode
       <Seo pageTitle='Recipes' />
       <ResponsiveContainer>
         <BackToHomeButton />
-        <SWRConfig value={{ fallback, suspense: true }}>
-          <Suspense fallback={<BackdropLoader />}>
-            <CachedRecipes fallbackData={model} />
-          </Suspense>
+        <SWRConfig value={{ fallback }}>
+          <CachedRecipes fallbackData={model} />
         </SWRConfig>
       </ResponsiveContainer>
     </>

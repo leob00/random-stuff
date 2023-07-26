@@ -9,7 +9,7 @@ import RecipeLayout from 'components/RecipeLayout'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import Seo from 'components/Organizms/Seo'
 
-const cmsRefreshIntervalSeconds = 3600
+const cmsRefreshIntervalSeconds = 86400
 
 export const getStaticPaths: GetStaticPaths = async () => {
   let model = await getAllRecipes()
