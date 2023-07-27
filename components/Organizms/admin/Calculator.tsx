@@ -50,26 +50,15 @@ const Calculator = () => {
                 <Stack width={90}>
                   <TextField
                     {...register('percent', { required: true })}
-                    //defaultValue=''
                     size='small'
                     label='Percent %'
-                    type='number'
-                    inputProps={{
-                      inputMode: 'numeric',
-                      step: '.01',
-                    }}
+                    //type='number'
+                    // inputProps={{
+                    //   inputMode: 'numeric',
+                    // }}
                     InputProps={{
                       ref: percentRef,
                     }}
-                    // InputProps={{
-                    //   endAdornment: (
-                    //     <InputAdornment position='end'>
-                    //       <IconButton aria-label='toggle password visibility' edge='end'>
-                    //         <Visibility />
-                    //       </IconButton>
-                    //     </InputAdornment>
-                    //   ),
-                    // }}
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -81,11 +70,11 @@ const Calculator = () => {
                     {...register('total', { required: true })}
                     size='small'
                     label='Total'
-                    type='number'
-                    inputProps={{
-                      inputMode: 'numeric',
-                      step: '.01',
-                    }}
+                    //type='number'
+                    // inputProps={{
+                    //   inputMode: 'numeric',
+                    //   step: '.01',
+                    // }}
                     InputLabelProps={{
                       shrink: true,
                     }}

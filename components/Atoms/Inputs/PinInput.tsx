@@ -120,7 +120,7 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
               sx={{ width: 35 }}
               required
               type='password'
-              inputProps={{ maxLength: 1 }}
+              inputProps={{ maxLength: 1, inputMode: 'numeric' }}
               variant='outlined'
               autoComplete='new-password'
               size='small'
@@ -144,7 +144,7 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
               sx={{ width: 35 }}
               required
               type='password'
-              inputProps={{ maxLength: 1 }}
+              inputProps={{ maxLength: 1, inputMode: 'numeric' }}
               variant='outlined'
               autoComplete='new-password'
               size='small'
@@ -166,7 +166,7 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
               sx={{ width: 35 }}
               required
               type='password'
-              inputProps={{ maxLength: 1 }}
+              inputProps={{ maxLength: 1, inputMode: 'numeric' }}
               variant='outlined'
               autoComplete='new-password'
               size='small'
@@ -188,7 +188,7 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
               sx={{ width: 35 }}
               required
               type='password'
-              inputProps={{ maxLength: 1 }}
+              inputProps={{ maxLength: 1, inputMode: 'numeric' }}
               variant='outlined'
               autoComplete='new-password'
               size='small'
