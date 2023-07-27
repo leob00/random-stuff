@@ -15,12 +15,13 @@ const Calculator = () => {
   const {
     control,
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<FormInput>()
 
   const [result, setResult] = React.useState(0)
-  const [clearForm, setClearForm] = React.useState(false)
+  const [formValues, setFormValues] = React.useState<FormInput | null>(null)
   const percentRef = React.useRef<HTMLInputElement | null>(null)
 
   const onSubmit: SubmitHandler<FormInput> = (formData: FormInput) => {
@@ -29,72 +30,74 @@ const Calculator = () => {
       setResult(0)
     } else {
       setResult(Number(calc.toFixed(3)))
+      setFormValues(formData)
     }
   }
-  const handleClearForm = () => {
-    if (percentRef.current) {
-      console.log('value: ', percentRef.current.value)
-      percentRef.current.defaultValue = ''
-      percentRef.current.value = ''
+  const calculateGrandTotal = () => {
+    if (!formValues) {
+      return 0
     }
+    return Number(result) + Number(formValues.total)
+  }
+  const handleClearForm = () => {
+    setResult(0)
+    setFormValues(null)
+    reset()
   }
 
   return (
     <Box>
-      <CenteredSubtitle text='calculate amount from percentage of total' />
-      {!clearForm && (
-        <>
-          <form onSubmit={handleSubmit(onSubmit)}>
+      <CenteredSubtitle text='tip calculator' />
+      <>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <CenterStack>
+            <Box py={2} display={'flex'} gap={1} alignItems={'center'}>
+              <Stack width={90}>
+                <TextField
+                  {...register('total', { required: true })}
+                  size='small'
+                  label='Total'
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Stack>
+              <Stack width={90}>
+                <TextField
+                  {...register('percent', { required: true })}
+                  size='small'
+                  label='Percent %'
+                  InputProps={{
+                    ref: percentRef,
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Stack>
+              <Typography>=</Typography>
+              <Typography variant={'h5'} sx={{ fontWeight: 700 }}>
+                {result}
+              </Typography>
+            </Box>
+          </CenterStack>
+          <Box minHeight={50}>
             <CenterStack>
-              <Box py={2} display={'flex'} gap={1} alignItems={'center'}>
-                <Stack width={90}>
-                  <TextField
-                    {...register('percent', { required: true })}
-                    size='small'
-                    label='Percent %'
-                    //type='number'
-                    // inputProps={{
-                    //   inputMode: 'numeric',
-                    // }}
-                    InputProps={{
-                      ref: percentRef,
-                    }}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                  />
-                </Stack>
-                <Typography>of</Typography>
-                <Stack width={90}>
-                  <TextField
-                    {...register('total', { required: true })}
-                    size='small'
-                    label='Total'
-                    //type='number'
-                    // inputProps={{
-                    //   inputMode: 'numeric',
-                    //   step: '.01',
-                    // }}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                  />
-                </Stack>
-                <Typography>=</Typography>
+              {formValues && (
                 <Typography variant={'h5'} sx={{ fontWeight: 700 }}>
-                  {result}
+                  {`total: ${calculateGrandTotal()}`}
                 </Typography>
-              </Box>
+              )}
             </CenterStack>
-            <CenterStack>
-              <Box display={'flex'} gap={1}>
-                <Button onClick={handleClearForm}>clear</Button>
-                <PrimaryButton type='submit' text='submit' />
-              </Box>
-            </CenterStack>
-          </form>
-        </>
-      )}
+          </Box>
+          <CenterStack>
+            <Box display={'flex'} gap={1}>
+              <Button onClick={handleClearForm}>clear</Button>
+              <PrimaryButton type='submit' text='submit' />
+            </Box>
+          </CenterStack>
+        </form>
+      </>
     </Box>
   )
 }
