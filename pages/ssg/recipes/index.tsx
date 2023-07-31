@@ -22,7 +22,7 @@ dayjs.extend(relativeTime)
 
 const cmsRefreshIntervalSeconds = 86400
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
-const featuredRecipesExpirationMinutes = 360
+const featuredRecipesExpirationMinutes = 1440
 
 const siteStatsKey = 'site-stats'
 

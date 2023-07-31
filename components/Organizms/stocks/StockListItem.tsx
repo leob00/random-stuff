@@ -61,7 +61,9 @@ const StockListItem = ({
         }
       }
       const history = await getStockOrFutureChart(item.Symbol, 90, isStock)
-      putSearchedStock(item)
+      if (isStock) {
+        putSearchedStock(item)
+      }
       setStockHistory(history)
     }
     if (showMore) {
@@ -118,7 +120,11 @@ const StockListItem = ({
     <Box key={item.Symbol} py={1}>
       <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
       <Box>
-        {isStock ? <ListHeader text={`${item.Company}   (${item.Symbol})`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} /> : <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />}
+        {isStock ? (
+          <ListHeader text={`${item.Company}   (${item.Symbol})`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
+        ) : (
+          <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
+        )}
 
         <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
           <Stack direction={'row'} spacing={2} pl={2} sx={{ backgroundColor: 'unset' }} pt={1}>
