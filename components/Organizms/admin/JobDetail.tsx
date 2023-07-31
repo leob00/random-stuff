@@ -44,6 +44,11 @@ const JobDetails = ({ item, onClose }: { item: Job; onClose: () => void }) => {
             <Typography variant='caption'>{`executer: ${item.Executer.substring(item.Executer.lastIndexOf('.') + 1)}`}</Typography>
           </Stack>
         )}
+        {item.LastMessage && (
+          <Stack>
+            <Typography variant='caption'>{`message: ${item.LastMessage}`}</Typography>
+          </Stack>
+        )}
       </Box>
     </InfoDialog>
   )
