@@ -26,6 +26,7 @@ export const ControlledFreeTextInput = ({
       render={({ field }) => (
         <TextField
           label={label}
+          required={required}
           placeholder={placeholder}
           autoComplete='off'
           sx={{ input: { color: CasinoBlue } }}

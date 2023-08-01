@@ -1,4 +1,5 @@
 import { Box, Paper, Typography } from '@mui/material'
+import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import DateAndTimePicker from 'components/Atoms/Inputs/DateAndTimePicker'
 import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
@@ -13,15 +14,7 @@ interface Model {
   isSaving: boolean
 }
 
-const EditGoal = ({
-  goal,
-  onSaveGoal,
-  onShowCompletedTasks,
-}: {
-  goal: UserGoal
-  onSaveGoal: (item: UserGoal) => void
-  onShowCompletedTasks: (show: boolean) => void
-}) => {
+const EditGoal = ({ goal, onSaveGoal, onShowCompletedTasks, onCancelEdit }: { goal: UserGoal; onSaveGoal: (item: UserGoal) => void; onShowCompletedTasks: (show: boolean) => void; onCancelEdit: () => void }) => {
   const defaultSettings: UserGoalSettings = {
     showCompletedTasks: true,
   }
@@ -68,15 +61,17 @@ const EditGoal = ({
             //onBlurred={handleSubmitGoalChanges}
             disabled={model.isSaving}
             maxLength={50}
+            required
           />
         </Box>
         <Box py={2}>
           <DateAndTimePicker disabled={model.isSaving} onChanged={handleDueDateChange} label={'due date'} defaultValue={goal.dueDate} />
         </Box>
-        <Box py={2}>
+        {/* <Box py={2}>
           <OnOffSwitch isChecked={model.goal.settings?.showCompletedTasks} label={'show completed tasks'} onChanged={handleSetShowComp} />
-        </Box>
-        <Box py={2}>
+        </Box> */}
+        <Box py={2} display='flex' gap={2}>
+          <PassiveButton text={'cancel'} onClick={onCancelEdit} disabled={model.isSaving} />
           <SecondaryButton text={'save'} onClick={handleSubmitGoalChanges} disabled={model.isSaving} />
         </Box>
       </Box>

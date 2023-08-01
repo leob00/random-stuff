@@ -11,7 +11,7 @@ const PassiveButton: React.FC<ButtonAttributes> = ({ text, isDisabled, onClicked
     onClicked?.()
   }
   return (
-    <Button variant='contained' color='info' onClick={handleClick} disabled={isDisabled} {...props} sx={{ width: width }}>
+    <Button variant='outlined' color='secondary' onClick={handleClick} disabled={isDisabled} {...props} sx={{ width: width }}>
       {`${text}`}
     </Button>
   )

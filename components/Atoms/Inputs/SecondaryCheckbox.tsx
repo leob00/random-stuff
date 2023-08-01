@@ -15,7 +15,6 @@ const SecondaryCheckbox = ({
   disabled?: boolean
 }) => {
   const [isChecked, setIsChecked] = React.useState(checked)
-  const [isLoading, setIsLoading] = React.useState(loading)
 
   const handleCheckClick = (val: boolean) => {
     setIsChecked(val)
@@ -23,8 +22,8 @@ const SecondaryCheckbox = ({
   }
 
   React.useEffect(() => {
-    setIsLoading(false)
-  }, [])
+    setIsChecked(checked)
+  }, [checked])
 
   return (
     <>

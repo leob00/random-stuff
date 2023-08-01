@@ -1,7 +1,7 @@
 import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
-import { quoteArraySchema, quoteHistorySchema, StockQuote } from '../models/zModels'
-import { get, getList } from '../fetchFunctions'
+import { quoteArraySchema, quoteHistorySchema, StockHistoryItem, StockQuote } from '../models/zModels'
+import { get } from '../fetchFunctions'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import dayjs from 'dayjs'
 
@@ -181,17 +181,6 @@ export async function getStockQuotes(symbols: string[]) {
   }
   const response = await get(url, params)
   const result = quoteArraySchema.parse(response.Body)
-  return result
-}
-
-export async function getStockOrFutureChart(symbol: string, days?: number, isStock = true) {
-  const url = isStock ? `${qlnApiBaseUrl}/StockHistoryChart` : `${qlnApiBaseUrl}/FuturesHistoryChart`
-  const params = {
-    symbol: symbol,
-    days: days ?? 90,
-  }
-  const response = await get(url, params)
-  const result = quoteHistorySchema.parse(response.Body)
   return result
 }
 

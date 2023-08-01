@@ -7,8 +7,9 @@ import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import theme from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
-import { getStockOrFutureChart } from 'lib/backend/api/qln/qlnApi'
+import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
 import { DropdownItem } from 'lib/models/dropdown'
+import { chunk, mean } from 'lodash'
 import dynamic from 'next/dynamic'
 import React from 'react'
 import { getOptions } from './stockLineChartOptions'
@@ -16,16 +17,22 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string; history: StockHistoryItem[]; companyName?: string; isStock: boolean }) => {
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
-  const isLarge = useMediaQuery(theme.breakpoints.up('lg'))
-  const chartHeight = isXSmall ? 300 : 580
+  const chartHeight = isXSmall ? 300 : 520
   const [isLoading, setIsLoading] = React.useState(true)
 
   const mapHistory = (items: StockHistoryItem[]) => {
-    const data: XyValues = {
-      x: items.map((o) => dayjs(o.TradeDate).format('MM/DD/YYYY')),
-      y: items.map((o) => o.Price),
+    const result: XyValues = {
+      x: [],
+      y: [],
     }
-    return data
+    if (items.length === 0) {
+      return result
+    }
+
+    result.x = items.map((o) => dayjs(o.TradeDate).format('MM/DD/YYYY'))
+    result.y = items.map((o) => o.Price)
+
+    return result
   }
 
   const daySelect: DropdownItem[] = [
@@ -80,7 +87,7 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
         ) : (
           <>
             {chartOptions && (
-              <Box minHeight={{ xs: 300, sm: 600 }}>
+              <Box minHeight={{ xs: 300, sm: chartHeight }}>
                 <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
 
                 <Box display='flex' gap={4} pb={4}>

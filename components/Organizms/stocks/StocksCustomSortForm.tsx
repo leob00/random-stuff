@@ -18,10 +18,12 @@ type ExtractKeys<T> = NonNullable<
     [K in keyof T]: K
   }[keyof T]
 >
+
+type Keys = keyof SortableStockKeys & {}
 const StocksCustomSortForm = ({ result, onSubmitted }: { result: UserSettings; onSubmitted: (data?: Sort[]) => void }) => {
   type Option = {
     text: string
-    value: ExtractKeys<SortableStockKeys>
+    value: Keys
   }
   const fields: Option[] = [
     {
@@ -81,37 +83,14 @@ const StocksCustomSortForm = ({ result, onSubmitted }: { result: UserSettings; o
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack>
-          <ControlledSwitch
-            control={control}
-            defaultValue={data !== undefined}
-            fieldName={'onOff'}
-            label={'enable custom sort'}
-            onChanged={handleOnOffChanged}
-          />
+          <ControlledSwitch control={control} defaultValue={data !== undefined} fieldName={'onOff'} onChanged={handleOnOffChanged} />
         </Stack>
         <Stack pt={4}>
-          <ControlledSelect
-            control={control}
-            defaultValue={data ? data[0].key : ''}
-            fieldName={'selectField'}
-            label={'attribute'}
-            items={fields}
-            disabled={data === undefined}
-            required
-          />
+          <ControlledSelect control={control} defaultValue={data ? data[0].key : ''} fieldName={'selectField'} label={'attribute'} items={fields} disabled={data === undefined} required />
         </Stack>
         <Stack pt={4} pb={4}>
-          <ControlledSelect
-            control={control}
-            defaultValue={data ? data[0].direction : ''}
-            fieldName={'selectDirection'}
-            label={'direction'}
-            items={directionOptions}
-            disabled={data === undefined}
-            required
-          />
+          <ControlledSelect control={control} defaultValue={data ? data[0].direction : ''} fieldName={'selectDirection'} label={'direction'} items={directionOptions} disabled={data === undefined} required />
         </Stack>
-        {/* {errors && result.stocks?.customSort && <Alert severity='error'>please enter all required fields</Alert>} */}
         <HorizontalDivider />
         <Box display='flex' justifyContent={'flex-end'} pt={2}>
           <PrimaryButton text={'Save'} type='submit'></PrimaryButton>

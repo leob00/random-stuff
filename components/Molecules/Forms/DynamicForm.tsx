@@ -76,13 +76,7 @@ export default function DynamicForm<T extends FieldValues>({
       case 'switch':
         return (
           <>
-            <ControlledSwitch
-              control={control}
-              defaultValue={Boolean(input.defaultValue)}
-              fieldName={input.name}
-              label={input.label}
-              onChanged={input.onChanged}
-            />
+            <ControlledSwitch control={control} defaultValue={Boolean(input.defaultValue)} fieldName={input.name} onChanged={input.onChanged} />
           </>
         )
       case 'select':

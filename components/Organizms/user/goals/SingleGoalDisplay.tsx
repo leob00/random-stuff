@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
@@ -10,7 +10,7 @@ import { getUserGoals, putUserGoals, putUserGoalTasks } from 'lib/backend/csr/ne
 import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { replaceItemInArray } from 'lib/util/collections'
-import { getSecondsFromEpoch, getUtcNow } from 'lib/util/dateUtil'
+import { getSecondsFromEpoch } from 'lib/util/dateUtil'
 import { calculatePercentInt } from 'lib/util/numberUtil'
 import { filter, orderBy } from 'lodash'
 import React from 'react'
@@ -20,20 +20,9 @@ import { ListItemIcon, ListItemText } from '@mui/material'
 import Delete from '@mui/icons-material/Delete'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import { useRouter } from 'next/router'
+import EditGoal from './EditGoal'
 
-const SingleGoalDisplay = ({
-  username,
-  goal,
-  tasks,
-  onMutated,
-  onDeleted,
-}: {
-  username: string
-  goal: UserGoal
-  tasks: UserTask[]
-  onMutated: (goal: UserGoal, tasks: UserTask[]) => void
-  onDeleted: (goal: UserGoal) => void
-}) => {
+const SingleGoalDisplay = ({ username, goal, tasks, onMutated, onDeleted }: { username: string; goal: UserGoal; tasks: UserTask[]; onMutated: (goal: UserGoal, tasks: UserTask[]) => void; onDeleted: (goal: UserGoal) => void }) => {
   const [goalEditMode, setGoalEditMode] = React.useState(false)
   const [showDeleteGoalConfirm, setShowDeleteGoalConfirm] = React.useState(false)
   const router = useRouter()
@@ -92,6 +81,13 @@ const SingleGoalDisplay = ({
     router.push('/protected/csr/goals')
   }
 
+  const handleModifyGoal = async (editGoal: UserGoal) => {
+    const newTasks = [...tasks]
+    const resultGoal = await saveGoal(editGoal, newTasks)
+    setGoalEditMode(false)
+    onMutated(resultGoal, newTasks)
+  }
+
   const contextMenu: ContextMenuItem[] = [
     {
       item: <ContextMenuEdit />,
@@ -112,42 +108,36 @@ const SingleGoalDisplay = ({
 
   return (
     <>
-      <Box py={2} display='flex' justifyContent='space-between' alignItems={'flex-start'}>
-        <Box>
-          {goal.stats && (
-            <>
-              <Typography variant='body2'>{`tasks: ${Number(goal.stats.completed) + Number(goal.stats.inProgress)}`}</Typography>
-              <Typography variant='body2'>{`completed: ${goal.stats.completed}`}</Typography>
-              <Typography variant='body2'>{`started: ${goal.stats.inProgress}`}</Typography>
-              {goal.stats.pastDue > 0 && <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${goal.stats.pastDue}`}</Typography>}
-            </>
-          )}
-          {goal.completePercent !== undefined && (
-            <Box display={'flex'} gap={2} alignItems={'center'}>
-              <Typography variant='body2'>progress: </Typography>
-              <ProgressBar value={goal.completePercent} toolTipText={`${goal.completePercent}% complete`} width={120} />
+      {goalEditMode ? (
+        <EditGoal goal={goal} onSaveGoal={handleModifyGoal} onShowCompletedTasks={() => {}} onCancelEdit={() => setGoalEditMode(false)} />
+      ) : (
+        <>
+          <Box py={2} display='flex' justifyContent='space-between' alignItems={'flex-start'}>
+            <Box>
+              {goal.stats && (
+                <>
+                  <Typography variant='body2'>{`tasks: ${Number(goal.stats.completed) + Number(goal.stats.inProgress)}`}</Typography>
+                  <Typography variant='body2'>{`completed: ${goal.stats.completed}`}</Typography>
+                  <Typography variant='body2'>{`started: ${goal.stats.inProgress}`}</Typography>
+                  {goal.stats.pastDue > 0 && <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${goal.stats.pastDue}`}</Typography>}
+                </>
+              )}
+              {goal.completePercent !== undefined && (
+                <Box display={'flex'} gap={2} alignItems={'center'}>
+                  <Typography variant='body2'>progress: </Typography>
+                  <ProgressBar value={goal.completePercent} toolTipText={`${goal.completePercent}% complete`} width={120} />
+                </Box>
+              )}
             </Box>
-          )}
-        </Box>
-        <Box>
-          <ContextMenu items={contextMenu} />
-        </Box>
-      </Box>
-      <HorizontalDivider />
-      <TaskList
-        username={username}
-        selectedGoal={goal}
-        tasks={tasks}
-        onAddTask={handleAddTask}
-        onDeleteTask={handleDeleteTask}
-        onModifyTask={handleModifyTask}
-      />
-      <ConfirmDeleteDialog
-        show={showDeleteGoalConfirm}
-        text={`Are you sure you want to delete ${goal.body} and all of its tasks?`}
-        onConfirm={handleDeleteGoal}
-        onCancel={() => setShowDeleteGoalConfirm(false)}
-      />
+            <Box>
+              <ContextMenu items={contextMenu} />
+            </Box>
+          </Box>
+          <HorizontalDivider />
+          <TaskList username={username} selectedGoal={goal} tasks={tasks} onAddTask={handleAddTask} onDeleteTask={handleDeleteTask} onModifyTask={handleModifyTask} />
+          <ConfirmDeleteDialog show={showDeleteGoalConfirm} text={`Are you sure you want to delete '${goal.body}' and all of its tasks?`} onConfirm={handleDeleteGoal} onCancel={() => setShowDeleteGoalConfirm(false)} />
+        </>
+      )}
     </>
   )
 }

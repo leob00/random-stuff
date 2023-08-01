@@ -1,6 +1,6 @@
 import Search from '@mui/icons-material/Search'
 import SearchOff from '@mui/icons-material/SearchOff'
-import { Box, IconButton, Stack, Typography } from '@mui/material'
+import { Box, IconButton, Stack, Switch, Typography } from '@mui/material'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import ConfirmDialog from 'components/Atoms/Dialogs/ConfirmDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
@@ -15,7 +15,6 @@ import { constructUserTaskPk } from 'lib/backend/api/aws/util'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { replaceItemInArray } from 'lib/util/collections'
 import { getUtcNow } from 'lib/util/dateUtil'
-import { cloneDeep, filter } from 'lodash'
 import React from 'react'
 import { reorderTasks } from './UserGoalsLayout'
 
@@ -60,7 +59,7 @@ const TaskList = ({
     item.status = 'in progress'
     item.goalId = selectedGoal.id
     item.id = constructUserTaskPk(username)
-    const tasks = cloneDeep(model.tasks)
+    const tasks = [...model.tasks]
     tasks.push(item)
     const reordered = reorderTasks(tasks)
     setModel({ ...model, isLoading: false, tasks: reordered, filteredTasks: reordered })
@@ -79,7 +78,7 @@ const TaskList = ({
       item.status = 'in progress'
     }
     item.dateModified = getUtcNow().format()
-    const tasks = filter(cloneDeep(model.tasks), (e) => e.id !== item.id)
+    const tasks = model.tasks.filter((e) => e.id !== item.id)
     tasks.push(item)
     const reordered = reorderTasks(tasks)
     setModel({ ...model, isLoading: false, tasks: reordered, filteredTasks: reordered, editTask: undefined })
@@ -88,7 +87,7 @@ const TaskList = ({
 
   const handleYesChangeTaskStatus = () => {}
   const handleNoChangeTaskStatus = () => {
-    const tasks = cloneDeep(model.tasks)
+    const tasks = [...model.tasks]
     if (model.selectedTask !== undefined) {
       tasks.forEach((task) => {
         if (task.id === model.selectedTask!.id) {
@@ -102,7 +101,7 @@ const TaskList = ({
   const handleCompleteTaskClick = async (checked: boolean, item: UserTask) => {
     setModel({ ...model, isLoading: true })
     item.status = checked ? 'completed' : 'in progress'
-    let tasks = cloneDeep(model.tasks)
+    let tasks = [...model.tasks]
     replaceItemInArray(item, tasks, 'id', item.id!)
     tasks = reorderTasks(tasks)
     await handleSaveTask(item)
@@ -167,7 +166,7 @@ const TaskList = ({
             </Stack>
           ) : (
             <Box pt={1} pb={3}>
-              <AddTaskForm task={{}} onSubmit={handleAddTask} />
+              <AddTaskForm task={{}} onSubmitted={handleAddTask} />
             </Box>
           )}
           {model.filteredTasks.length === 0 && model.tasks.length > 0 && (
@@ -198,15 +197,22 @@ const TaskList = ({
                         }}
                       >
                         <Typography textAlign={'left'} variant='subtitle1'>
-                          {item.body}
+                          {`${item.body && item.body.length > 0 ? item.body : 'not set'}`}
                         </Typography>
                       </LinkButton2>
                       <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-                        <SecondaryCheckbox
+                        {/* <SecondaryCheckbox
                           disabled={model.isLoading}
                           loading={model.isLoading}
                           checked={item.status === 'completed'}
                           onChanged={(checked: boolean) => {
+                            handleCompleteTaskClick(checked, item)
+                          }}
+                        /> */}
+                        <Switch
+                          checked={item.status === 'completed'}
+                          onChange={(event, checked) => {
+                            //handleChanged(event, checked)
                             handleCompleteTaskClick(checked, item)
                           }}
                         />
