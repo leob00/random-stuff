@@ -1,5 +1,6 @@
 import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import BackButton from 'components/Atoms/Buttons/BackButton'
 import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
@@ -44,6 +45,8 @@ const Page = () => {
   return (
     <>
       <Seo pageTitle='Stocks' />
+      <BackButton />
+
       <ResponsiveContainer>
         <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
         {loading ? (
