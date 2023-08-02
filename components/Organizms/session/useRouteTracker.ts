@@ -33,10 +33,14 @@ export const useRouteTracker = () => {
     routes: sortArray(getListFromMap(routesMap), ['date'], ['desc']),
     addRoute: (url: string) => {
       const map = new Map(routesMap)
+      let name = url.substring(url.lastIndexOf('/') + 1)
+      if (name.length == 0) {
+        name = 'home'
+      }
       map.set(url, {
         date: dayjs().format(),
         path: url,
-        name: url.substring(url.lastIndexOf('/') + 1),
+        name: name,
       })
       //console.log(url.substring(url.lastIndexOf('/' + 1)))
       pushRoute(map)

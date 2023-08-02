@@ -15,7 +15,7 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
   React.useEffect(() => {
     const handleRouteChange = async (url: string, shallow: boolean) => {
       // console.log(`App is changing to ${url} ${shallow ? 'with' : 'without'} shallow routing`)
-      if (!url.includes('/login')) {
+      if (!url.includes('/login') && !url.includes('?')) {
         session.setLastPath(route)
         // const profile = userController.authProfile ?? (await userController.fetchProfilePassive())
         // if (profile) {
