@@ -36,8 +36,9 @@ export const useRouteTracker = () => {
       map.set(url, {
         date: dayjs().format(),
         path: url,
-        name: url.substring(url.lastIndexOf('/' + 1)),
+        name: url.substring(url.lastIndexOf('/') + 1),
       })
+      //console.log(url.substring(url.lastIndexOf('/' + 1)))
       pushRoute(map)
     },
   }

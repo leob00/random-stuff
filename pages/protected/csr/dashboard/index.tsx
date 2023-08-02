@@ -8,6 +8,7 @@ import React from 'react'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
 import Seo from 'components/Organizms/Seo'
+import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 
 const Page = () => {
   const userController = useUserController()
