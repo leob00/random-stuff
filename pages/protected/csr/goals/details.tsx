@@ -73,11 +73,7 @@ const Page = () => {
               <NoDataFound />
               <CenterStack>
                 <Box display={'flex'}>
-                  <BackButton
-                    onClicked={() => {
-                      router.push('/protected/csr/goals')
-                    }}
-                  />
+                  <BackButton route='/protected/csr/goals' />
                 </Box>
               </CenterStack>
             </Box>

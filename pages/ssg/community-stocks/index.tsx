@@ -45,7 +45,7 @@ const Page: NextPage<PageProps> = ({ allCommunityStocks }) => {
   }
   return (
     <ResponsiveContainer>
-      <BackButton onClicked={() => router.push('/csr/stocks')} />
+      <BackButton />
       <CenteredHeader title='Community Stocks' />
       <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
       {/* {selectedTab === 'All' && <CommunityStocksLayout data={allCommunityStocks} />} */}

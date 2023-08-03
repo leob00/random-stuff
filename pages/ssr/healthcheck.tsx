@@ -37,7 +37,7 @@ const Page: NextPage<{ article: BasicArticle }> = ({ article }) => {
   return (
     <>
       <Box>
-        <BackButton onClicked={() => router.back()} />
+        <BackButton />
         <HorizontalDivider />
       </Box>
       <SWRConfig value={{ fetcher: fetcher }}>

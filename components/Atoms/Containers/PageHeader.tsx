@@ -12,11 +12,7 @@ const PageHeader = ({ text, backButtonRoute }: { text: string; backButtonRoute?:
     <>
       {backButtonRoute && (
         <Box display={'flex'}>
-          <BackButton
-            onClicked={() => {
-              router.push(backButtonRoute)
-            }}
-          />
+          <BackButton />
         </Box>
       )}
       <CenterStack>

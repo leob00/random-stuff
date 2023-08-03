@@ -72,7 +72,7 @@ const Page = () => {
           <WarmupBox />
         ) : userProfile ? (
           <>
-            <BackButton onClicked={() => router.push('/protected/csr/dashboard')} />
+            <BackButton />
             <CenteredTitle title='Admin' />
             <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
             {selectedTab === 'Api' && <ApiTest />}

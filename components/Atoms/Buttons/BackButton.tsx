@@ -3,16 +3,19 @@ import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 import React from 'react'
 import { useRouter } from 'next/navigation'
 
-const BackButton = ({ onClicked }: { onClicked?: () => void }) => {
+const BackButton = ({ route }: { route?: string }) => {
   const router = useRouter()
   const lastRoute = useRouteTracker().getLastRoute()
   // console.log('lastRoute: ', lastRoute)
   const handleClick = () => {
+    if (route) {
+      router.push(route)
+      return
+    }
     if (lastRoute.length > 0) {
       router.push(lastRoute)
       return
     }
-    onClicked?.()
   }
   return (
     <Button variant='text' onClick={handleClick} color='primary'>

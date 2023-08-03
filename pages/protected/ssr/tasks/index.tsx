@@ -36,11 +36,7 @@ const Page: NextPage<PageProps> = ({ user, data }) => {
   const router = useRouter()
   return user ? (
     <Box>
-      <BackButton
-        onClicked={() => {
-          router.push('/protected/csr/dashboard')
-        }}
-      />
+      <BackButton />
       <CenteredTitle title='Tasks' />
       <HorizontalDivider />
       <Box>
