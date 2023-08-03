@@ -11,7 +11,7 @@ const Page = () => {
     <>
       <Seo pageTitle={`News`} />
       <ResponsiveContainer>
-        <PageHeader text='News' backButtonRoute={`${ticket ? '/protected/csr/dashboard' : '/'}`} />
+        <PageHeader text='News' />
         <NewsLayout />
       </ResponsiveContainer>
     </>

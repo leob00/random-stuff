@@ -29,7 +29,7 @@ const Page = () => {
     <>
       <Seo pageTitle='Goals' />
       <ResponsiveContainer>
-        <PageHeader text={'Goals'} backButtonRoute={'/protected/csr/dashboard'} />
+        <PageHeader text={'Goals'} />
         {isLoading ? <WarmupBox /> : <>{userProfile ? <UserGoalsLayout username={userProfile.username} /> : <PleaseLogin />}</>}
       </ResponsiveContainer>
     </>

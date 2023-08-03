@@ -30,7 +30,7 @@ const Notes = () => {
     <>
       <Seo pageTitle='Notes' />
       <ResponsiveContainer>
-        <PageHeader text={'Notes'} backButtonRoute={'/protected/csr/dashboard'} />
+        <PageHeader text={'Notes'} />
         {isLoading ? (
           <WarmupBox />
         ) : (

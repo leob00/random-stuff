@@ -10,11 +10,9 @@ const PageHeader = ({ text, backButtonRoute }: { text: string; backButtonRoute?:
   const router = useRouter()
   return (
     <>
-      {backButtonRoute && (
-        <Box display={'flex'}>
-          <BackButton />
-        </Box>
-      )}
+      <Box display={'flex'}>
+        <BackButton route={backButtonRoute} />
+      </Box>
       <CenterStack>
         <CenteredTitle title={text} />
       </CenterStack>

@@ -19,7 +19,7 @@ const Page = () => {
     <>
       <Seo pageTitle={`Sandbox`} />
       <ResponsiveContainer>
-        <PageHeader text='Sandbox' backButtonRoute={`${ticket ? '/protected/csr/dashboard' : '/'}`} />
+        <PageHeader text='Sandbox' />
         <Typography>useSWR example</Typography>
         <Box maxHeight={324} sx={{ overflowY: 'auto' }}>
           {isValidating && <BackdropLoader />}

@@ -33,7 +33,7 @@ const Page = () => {
     <>
       <Seo pageTitle='Dashboard' />
       <ResponsiveContainer>
-        <PageHeader text={'Dashboard'} backButtonRoute={'/'} />
+        <PageHeader text={'Dashboard'} />
         <Box>{loading ? <WarmupBox /> : userController.authProfile ? <UserDashboardLayout ticket={userController.ticket} /> : <PleaseLogin />}</Box>
       </ResponsiveContainer>
     </>

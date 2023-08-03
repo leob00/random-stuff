@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation'
 const BackButton = ({ route }: { route?: string }) => {
   const router = useRouter()
   const lastRoute = useRouteTracker().getLastRoute()
-  // console.log('lastRoute: ', lastRoute)
   const handleClick = () => {
     if (route) {
       router.push(route)
@@ -16,6 +15,7 @@ const BackButton = ({ route }: { route?: string }) => {
       router.push(lastRoute)
       return
     }
+    router.push('/')
   }
   return (
     <Button variant='text' onClick={handleClick} color='primary'>

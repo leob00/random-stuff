@@ -57,7 +57,7 @@ const Page = () => {
     <>
       <>
         <ResponsiveContainer>
-          <PageHeader text={'Secrets'} backButtonRoute={'/protected/csr/dashboard'} />
+          <PageHeader text={'Secrets'} />
           {loading ? (
             <WarmupBox />
           ) : (
