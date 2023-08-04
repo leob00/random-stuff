@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+import { useUserController } from 'hooks/userController'
 import { useRouter } from 'next/router'
 import React, { ReactNode } from 'react'
 import { useRouteTracker } from './useRouteTracker'
@@ -5,9 +7,19 @@ import { useRouteTracker } from './useRouteTracker'
 const RouteTracker = ({ children }: { children: ReactNode }) => {
   const router = useRouter()
   const routeTracker = useRouteTracker()
+  const profile = useUserController().authProfile
   React.useEffect(() => {
     const handleRouteChange = async (url: string, shallow: boolean) => {
-      if (!url.includes('/login') && !url.includes('?') && !url.endsWith('/')) {
+      if (!url.includes('/login') && !url.includes('?') && !url.includes('recipes/')) {
+        const lastRoute = routeTracker.routes.length > 0 ? routeTracker.routes[0] : undefined
+
+        if (lastRoute) {
+          const diffInMunutes = dayjs().diff(lastRoute.date, 'minutes')
+          if (diffInMunutes > 1) {
+            // TODO: consider saving to user profile
+            //console.log(`${lastRoute.path} is ${diffInMunutes}. Need to persist to DB...`)
+          }
+        }
         routeTracker.addRoute(url)
       }
     }
@@ -17,7 +29,7 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
     return () => {
       router.events.off('routeChangeStart', handleRouteChange)
     }
-  }, [router])
+  }, [router, routeTracker])
 
   return <>{children}</>
 }

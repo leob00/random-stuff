@@ -5,6 +5,8 @@ import { AmplifyUser, userHasRole } from 'lib/backend/auth/userUtil'
 import { useRouteTracker } from '../session/useRouteTracker'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
+import CenteredSubtitle from 'components/Atoms/Text/CenteredSubtitle'
 
 const UserDashboardLayout = ({ ticket }: { ticket: AmplifyUser | null }) => {
   const [isLoading, setIsLoading] = React.useState(true)
@@ -21,14 +23,16 @@ const UserDashboardLayout = ({ ticket }: { ticket: AmplifyUser | null }) => {
         <>
           {recentRoutes.length > 0 && (
             <Box pb={4}>
-              <CenteredHeader title={'Recent'} />
+              <CenteredTitle title={'Recent'} variant={'h5'} />
               {recentRoutes.map((item, i) => (
-                <CenteredNavigationButton key={item.path} route={item.path} text={item.name} showDivider={recentRoutes.length < 1} />
+                <Box key={item.path}>
+                  <CenteredNavigationButton route={item.path} text={item.name} showDivider={i < recentRoutes.length - 1} />
+                </Box>
               ))}
             </Box>
           )}
-          <>
-            {recentRoutes.length > 0 && <CenteredHeader title={'All'} />}
+          <Box pt={4}>
+            {recentRoutes.length > 0 && <CenteredTitle title={'All'} variant={'h5'} />}
             <CenteredNavigationButton route={'/csr/news'} text={'news'} />
             <CenteredNavigationButton route={'/csr/stocks'} text={'stocks'} />
             <CenteredNavigationButton route={'/protected/csr/goals'} text={'goals'} />
@@ -37,7 +41,7 @@ const UserDashboardLayout = ({ ticket }: { ticket: AmplifyUser | null }) => {
             <CenteredNavigationButton route={'/protected/csr/secrets'} text={'secrets'} showDivider={isAdmin} />
             {isAdmin && <CenteredNavigationButton route={'/protected/csr/admin'} text={'admin'} />}
             {isAdmin && <CenteredNavigationButton route={'/protected/csr/sandbox'} text={'sandbox'} showDivider={false} />}
-          </>
+          </Box>
         </>
       </Box>
     </>

@@ -75,7 +75,7 @@ const NewsList = ({
               {RenderHeadline(item)}
               {RenderDescription(item)}
               {item.TeaserImageUrl && item.TeaserImageUrl.length > 0 && (
-                <Box pt={1} maxWidth={350} display={'flex'} sx={{ margin: 'auto' }} px={2}>
+                <Box pt={1} maxWidth={350} display={'flex'} sx={{ margin: 'auto' }} px={2} justifyContent={'center'} textAlign={'center'}>
                   <img src={item.TeaserImageUrl} title='' width={300} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
                 </Box>
               )}
@@ -84,11 +84,6 @@ const NewsList = ({
                   <CenterStack sx={{ pt: 1 }}>
                     <Typography variant='caption'>{`published: ${dayjs(item.PublishDate).fromNow()}`}</Typography>
                   </CenterStack>
-                  {/* {item.Source && (
-                    <CenterStack sx={{ pt: 1 }}>
-                      <Typography variant='caption'>{`source: ${item.Source}`}</Typography>
-                    </CenterStack>
-                  )} */}
                 </>
               )}
               {userController.ticket && !hideSaveButton && (

@@ -52,6 +52,8 @@ const StocksAutoComplete = ({
 
   return (
     <Autocomplete
+      autoCorrect={'false'}
+      autoComplete={false}
       value={defaultValue}
       size='small'
       id='searchAutoComplete'

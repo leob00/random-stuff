@@ -1,4 +1,5 @@
 import { Navigation } from 'components/Organizms/session/useRouteTracker'
+import dayjs from 'dayjs'
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
@@ -16,7 +17,7 @@ export const useRoutePersistentStore = create(
   persist<RouteState>(
     (set, get) => ({
       routes: [],
-      saveRoutes: (routes) => set((state) => ({ ...state, routes: routes })),
+      saveRoutes: (routes) => set((state) => ({ ...state, routes: routes, lastRefreshDate: dayjs().format() })),
     }),
     {
       name: 'route-store',

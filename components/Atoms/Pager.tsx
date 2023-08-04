@@ -70,7 +70,8 @@ const Pager = ({
 
   useEffect(() => {
     setPageIndex(defaultPageIndex)
-    setDisplayMessage(getDisplayMessage(defaultPageIndex, pageCount))
+    const newMessage = getDisplayMessage(defaultPageIndex, pageCount)
+    setDisplayMessage(newMessage)
   }, [pageCount, defaultPageIndex, displayMessage])
   return (
     <>

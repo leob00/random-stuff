@@ -20,7 +20,7 @@ export const useRouteTracker = () => {
       const result = sortArray(routes, ['date'], ['desc'])
       return result.length > 1 ? result[1].path : ''
     },
-    routesMap: getMapFromArray(routes, 'path'),
+    //routesMap: getMapFromArray(routes, 'path'),
     routes: sortArray(routes, ['date'], ['desc']),
     addRoute: (url: string) => {
       const map = getMapFromArray(routes, 'path')
@@ -35,6 +35,7 @@ export const useRouteTracker = () => {
       })
       saveRoutes(sortArray(Array.from(map.values()), ['date'], ['desc']))
     },
+
     clear: () => {
       saveRoutes([])
     },

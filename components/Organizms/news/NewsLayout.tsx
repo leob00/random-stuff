@@ -76,10 +76,12 @@ const NewsLayout = () => {
             <LargeGridSkeleton />
           </>
         ) : (
-          <Box sx={{ maxHeight: 580, overflowY: 'auto' }} py={2}>
+          <>
             {error && <ErrorMessage text='There is an error that occurred. We have been made aware of it. Please try again in a few minutes.' />}
-            {data && <NewsList newsItems={data} />}
-          </Box>
+            <Box sx={{ maxHeight: 580, overflowY: 'auto' }} py={2}>
+              {data && <NewsList newsItems={data} />}
+            </Box>
+          </>
         )}
       </Box>
     </>
