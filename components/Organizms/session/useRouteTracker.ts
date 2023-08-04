@@ -1,9 +1,8 @@
 import dayjs from 'dayjs'
-import { useRouteStore } from 'lib/backend/store/useRouteStore'
+import { useRouteStore, useRoutePersistentStore } from 'lib/backend/store/useRouteStore'
 import { sortArray } from 'lib/util/collections'
-import { getListFromMap } from 'lib/util/collectionsNative'
+import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import React from 'react'
-import shallow from 'zustand/shallow'
 
 export type NavigationName = 'stocks' | 'goals' | 'home' | 'news' | 'notes' | 'admin'
 export interface Navigation {
@@ -13,26 +12,26 @@ export interface Navigation {
 }
 
 export const useRouteTracker = () => {
-  //const map = new Map<string, Navigation>()
-  //const [currentNav, setCurrentNav] = React.useState(map)
+  const map = new Map<string, Navigation>()
+  const [currentNav, setCurrentNav] = React.useState(map)
 
-  const { routesMap, pushRoute } = useRouteStore(
-    (state) => ({
-      routesMap: state.routesMap,
-      pushRoute: state.saveRouteMap,
-    }),
-    shallow,
-  )
-
+  const { routes, pushRoute } = useRouteStore((state) => ({
+    routes: state.routes,
+    pushRoute: state.saveRoutes,
+  }))
+  //const { routesMap, saveRouteMap } = useRoutePersistentStore()
   return {
     getLastRoute: () => {
-      const result = sortArray(getListFromMap(routesMap), ['date'], ['desc'])
+      //console.log('routes map', routesMap)
+      const result = sortArray(routes, ['date'], ['desc'])
       return result.length > 1 ? result[1].path : ''
     },
-    routesMap: routesMap,
-    routes: sortArray(getListFromMap(routesMap), ['date'], ['desc']),
+    routesMap: getMapFromArray(routes, 'path'),
+    routes: sortArray(routes, ['date'], ['desc']),
     addRoute: (url: string) => {
-      const map = new Map(routesMap)
+      //console.log(routes)
+      const map = getMapFromArray(routes, 'path')
+      //console.log(map)
       let name = url.substring(url.lastIndexOf('/') + 1)
       if (name.length == 0) {
         name = 'home'
@@ -43,7 +42,7 @@ export const useRouteTracker = () => {
         name: name,
       })
       //console.log(url.substring(url.lastIndexOf('/' + 1)))
-      pushRoute(map)
+      pushRoute(sortArray(Array.from(map.values()), ['date'], ['desc']))
     },
   }
 }

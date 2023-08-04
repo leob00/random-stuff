@@ -1,14 +1,10 @@
-import { useSessionStore } from 'lib/backend/session/useSessionStore'
-import shallow from 'zustand/shallow'
+import { useSessionStore } from 'lib/backend/store/useSessionStore'
 
 export const useSessionController = () => {
-  const { lastPath, setLastPath } = useSessionStore(
-    (state) => ({
-      lastPath: state.lastPath,
-      setLastPath: state.setLastPath,
-    }),
-    shallow,
-  )
+  const { lastPath, setLastPath } = useSessionStore((state) => ({
+    lastPath: state.lastPath,
+    setLastPath: state.setLastPath,
+  }))
 
   return {
     lastPath: lastPath,

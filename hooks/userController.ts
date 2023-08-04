@@ -3,22 +3,18 @@ import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { useAuthStore } from 'lib/backend/auth/useAuthStore'
 import { AmplifyUser, getUserCSR } from 'lib/backend/auth/userUtil'
 import { getUserProfile } from 'lib/backend/csr/nextApiWrapper'
-import shallow from 'zustand/shallow'
 
 export const useUserController = () => {
-  const { ticket, authProfile, setAuthProfile, lastProfileFetchDate, setLastProfileFetchDate, setTicket } = useAuthStore(
-    (state) => ({
-      ticket: state.ticket,
-      authProfile: state.profile,
-      roles: state.roles,
-      setRoles: state.setRoles,
-      setAuthProfile: state.setProfile,
-      lastProfileFetchDate: state.lastProfileFetchDate,
-      setLastProfileFetchDate: state.setLastProfileFetchDate,
-      setTicket: state.setTicket,
-    }),
-    shallow,
-  )
+  const { ticket, authProfile, setAuthProfile, lastProfileFetchDate, setLastProfileFetchDate, setTicket } = useAuthStore((state) => ({
+    ticket: state.ticket,
+    authProfile: state.profile,
+    roles: state.roles,
+    setRoles: state.setRoles,
+    setAuthProfile: state.setProfile,
+    lastProfileFetchDate: state.lastProfileFetchDate,
+    setLastProfileFetchDate: state.setLastProfileFetchDate,
+    setTicket: state.setTicket,
+  }))
   const fetchProfile = async () => {
     const user = await getUserCSR()
     if (user !== null) {

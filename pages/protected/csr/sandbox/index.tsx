@@ -7,6 +7,7 @@ import useSWR, { Fetcher, preload } from 'swr'
 import { Box, Typography } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { BasicArticle } from 'lib/model'
+import JsonView from 'components/Atoms/Boxes/JsonView'
 
 const apiUrl = '/api/edgeRandomAnimals?id=dogs'
 const fetcher: Fetcher<BasicArticle[]> = (url: string) => fetch(url).then((res) => res.json())
@@ -21,10 +22,8 @@ const Page = () => {
       <ResponsiveContainer>
         <PageHeader text='Sandbox' />
         <Typography>useSWR example</Typography>
-        <Box maxHeight={324} sx={{ overflowY: 'auto' }}>
-          {isValidating && <BackdropLoader />}
-          <pre>{JSON.stringify(data, null, 2)}</pre>
-        </Box>
+        {isValidating && <BackdropLoader />}
+        {data && <JsonView obj={data} />}
       </ResponsiveContainer>
     </>
   )

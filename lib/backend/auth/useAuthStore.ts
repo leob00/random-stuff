@@ -1,4 +1,4 @@
-import create from 'zustand'
+import { create } from 'zustand'
 import { UserProfile } from '../api/aws/apiGateway'
 import { AmplifyUser, Role } from './userUtil'
 

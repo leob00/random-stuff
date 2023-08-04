@@ -1,12 +1,27 @@
 import { Navigation } from 'components/Organizms/session/useRouteTracker'
-import create from 'zustand'
+import { create } from 'zustand'
+import { persist, createJSONStorage } from 'zustand/middleware'
+import { createWithEqualityFn } from 'zustand/traditional'
 
 interface RouteState {
-  routesMap: Map<string, Navigation>
-  saveRouteMap: (route: Map<string, Navigation>) => void
+  routes: Navigation[]
+  saveRoutes: (routes: Navigation[]) => void
 }
 
 export const useRouteStore = create<RouteState>()((set) => ({
-  routesMap: new Map<string, Navigation>(),
-  saveRouteMap: (map) => set((state) => ({ ...state, routesMap: map })),
+  routes: [],
+  saveRoutes: (routes) => set((state) => ({ ...state, routes: routes })),
 }))
+
+export const useRoutePersistentStore = create(
+  persist<RouteState>(
+    (set, get) => ({
+      routes: [],
+      saveRoutes: (routes) => set((state) => ({ ...state, routes: routes })),
+    }),
+    {
+      name: 'route-store',
+      storage: createJSONStorage(() => sessionStorage),
+    },
+  ),
+)

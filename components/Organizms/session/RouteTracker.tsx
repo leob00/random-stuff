@@ -9,6 +9,8 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
   const route = usePathname() ?? ''
   const session = useSessionController()
   const routeTracker = useRouteTracker()
+  //const loc = window.location.pathname
+  //console.log(loc)
   React.useEffect(() => {
     const handleRouteChange = async (url: string, shallow: boolean) => {
       if (!url.includes('/login') && !url.includes('?')) {

@@ -1,4 +1,5 @@
-import create from 'zustand'
+import { create } from 'zustand'
+import { createWithEqualityFn } from 'zustand/traditional'
 
 interface SessionState {
   lastPath: string
