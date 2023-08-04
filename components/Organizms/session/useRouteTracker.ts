@@ -12,10 +12,11 @@ export interface Navigation {
 }
 
 export const useRouteTracker = () => {
-  const map = new Map<string, Navigation>()
-  const [currentNav, setCurrentNav] = React.useState(map)
-
-  const { routes, pushRoute } = useRouteStore((state) => ({
+  // const { routes, pushRoute } = useRouteStore((state) => ({
+  //   routes: state.routes,
+  //   pushRoute: state.saveRoutes,
+  // }))
+  const { routes, pushRoute } = useRoutePersistentStore((state) => ({
     routes: state.routes,
     pushRoute: state.saveRoutes,
   }))
