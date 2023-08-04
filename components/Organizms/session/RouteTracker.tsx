@@ -1,20 +1,13 @@
-import { useSessionController } from 'hooks/sessionController'
-import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/router'
 import React, { ReactNode } from 'react'
 import { useRouteTracker } from './useRouteTracker'
 
 const RouteTracker = ({ children }: { children: ReactNode }) => {
   const router = useRouter()
-  const route = usePathname() ?? ''
-  const session = useSessionController()
   const routeTracker = useRouteTracker()
-  //const loc = window.location.pathname
-  //console.log(loc)
   React.useEffect(() => {
     const handleRouteChange = async (url: string, shallow: boolean) => {
-      if (!url.includes('/login') && !url.includes('?')) {
-        session.setLastPath(route)
+      if (!url.includes('/login') && !url.includes('?') && !url.endsWith('/')) {
         routeTracker.addRoute(url)
       }
     }

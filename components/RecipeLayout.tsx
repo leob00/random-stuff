@@ -11,7 +11,7 @@ import HorizontalDivider from './Atoms/Dividers/HorizontalDivider'
 const RecipeLayout = ({ article, baseUrl }: { article: Recipe; baseUrl: string }) => {
   return (
     <>
-      <BackButton />
+      <BackButton route='/ssg/recipes' />
       <>
         <CenteredHeader title={article.title} description={''} />
         <Box sx={{ py: 1 }}>

@@ -18,6 +18,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import Header from 'next/head'
 import Seo from 'components/Organizms/Seo'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import BackButton from 'components/Atoms/Buttons/BackButton'
 dayjs.extend(relativeTime)
 
 const cmsRefreshIntervalSeconds = 86400
@@ -113,7 +114,7 @@ const Recipes: NextPage<{ model: RecipesLayoutModel; fallback: RecipesLayoutMode
     <>
       <Seo pageTitle='Recipes' />
       <ResponsiveContainer>
-        <BackToHomeButton />
+        <BackButton />
         <SWRConfig value={{ fallback }}>
           <CachedRecipes fallbackData={model} />
         </SWRConfig>

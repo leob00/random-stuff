@@ -1,8 +1,7 @@
 import dayjs from 'dayjs'
-import { useRouteStore, useRoutePersistentStore } from 'lib/backend/store/useRouteStore'
+import { useRoutePersistentStore } from 'lib/backend/store/useRouteStore'
 import { sortArray } from 'lib/util/collections'
-import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
-import React from 'react'
+import { getMapFromArray } from 'lib/util/collectionsNative'
 
 export type NavigationName = 'stocks' | 'goals' | 'home' | 'news' | 'notes' | 'admin'
 export interface Navigation {
@@ -12,28 +11,20 @@ export interface Navigation {
 }
 
 export const useRouteTracker = () => {
-  // const { routes, pushRoute } = useRouteStore((state) => ({
-  //   routes: state.routes,
-  //   pushRoute: state.saveRoutes,
-  // }))
-  const { routes, pushRoute } = useRoutePersistentStore((state) => ({
+  const { routes, saveRoutes } = useRoutePersistentStore((state) => ({
     routes: state.routes,
-    pushRoute: state.saveRoutes,
+    saveRoutes: state.saveRoutes,
   }))
-  //const { routesMap, saveRouteMap } = useRoutePersistentStore()
   return {
     getLastRoute: () => {
-      //console.log('routes map', routesMap)
       const result = sortArray(routes, ['date'], ['desc'])
       return result.length > 1 ? result[1].path : ''
     },
     routesMap: getMapFromArray(routes, 'path'),
     routes: sortArray(routes, ['date'], ['desc']),
     addRoute: (url: string) => {
-      //console.log(routes)
       const map = getMapFromArray(routes, 'path')
-      //console.log(map)
-      let name = url.substring(url.lastIndexOf('/') + 1)
+      let name = url.substring(url.lastIndexOf('/') + 1).replace('-', ' ')
       if (name.length == 0) {
         name = 'home'
       }
@@ -42,8 +33,10 @@ export const useRouteTracker = () => {
         path: url,
         name: name,
       })
-      //console.log(url.substring(url.lastIndexOf('/' + 1)))
-      pushRoute(sortArray(Array.from(map.values()), ['date'], ['desc']))
+      saveRoutes(sortArray(Array.from(map.values()), ['date'], ['desc']))
+    },
+    clear: () => {
+      saveRoutes([])
     },
   }
 }

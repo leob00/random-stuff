@@ -9,6 +9,7 @@ import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { useRouter } from 'next/router'
 import React from 'react'
 import LoggedInUserMenu from './LoggedInUserMenu'
+import { useRouteTracker } from './Organizms/session/useRouteTracker'
 import { VeryLightBlue } from './themes/mainTheme'
 
 export type HubPayload = {
@@ -22,6 +23,7 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
   const [calledPush, setCalledPush] = React.useState(false)
 
   const userController = useUserController()
+  const routeTracker = useRouteTracker()
   //const lastPath = useSessionController().lastPath
   const signOut = async () => {
     try {
@@ -44,6 +46,7 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
         console.log('signing out')
         await userController.setTicket(null)
         await userController.setProfile(null)
+        routeTracker.clear()
         setCalledPush(false)
         if (!calledPush) {
           router.push(`/login`)
@@ -67,14 +70,12 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
         }
         userController.setProfile(p)
         if (!calledPush) {
-          if (p) {
-            const lastPath = p.settings?.lastPath
-            if (lastPath) {
-              router.push(lastPath)
-              return
-            }
+          const lastPath = routeTracker.getLastRoute()
+          if (lastPath.length === 0) {
+            router.push('/')
+            return
           }
-          router.push('/protected/csr/dashboard')
+          router.push(lastPath)
         }
 
         break
