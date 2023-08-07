@@ -46,6 +46,21 @@ const UserGoalsDisplay = ({
   username: string
   onMutated: (newData: UserGoal[]) => void
 }) => {
+  // recover goals
+  // if (goals.length === 0 && tasks.length > 0) {
+  //   const newGoals: UserGoal[] = []
+  //   tasks.forEach((t) => {
+  //     if (!newGoals.find((m) => m.id === t.goalId)) {
+  //       newGoals.push({
+  //         id: t.goalId,
+  //         body: t.goalId,
+  //       })
+  //     }
+  //   })
+  //   console.log('new goals: ', newGoals)
+  //   putUserGoals(constructUserGoalsKey('leo_bel@hotmail.com'), newGoals)
+  // }
+
   const goalsAndTasks = mapGoalTasks(goals, tasks)
   const [barChart, setBarchart] = React.useState<BarChart | undefined>(undefined)
   const [showAddGoalForm, setShowAddGoalForm] = React.useState(false)

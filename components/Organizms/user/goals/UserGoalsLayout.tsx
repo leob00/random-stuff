@@ -51,10 +51,12 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
 
   const fetchGoalsData = async (url: string, enc: string) => {
     const result = await getUserGoals(constructUserGoalsKey(username))
+
     return result
   }
   const fetchTasksData = async (url: string, enc: string) => {
     const result = await getUserTasks(username)
+    //console.log('tasks: ', result)
     return result
   }
 

@@ -54,6 +54,7 @@ const StocksCustomSortForm = ({ result, onSubmitted }: { result: UserSettings; o
   ]
   const customSort = result.stocks?.customSort
   const [data, setData] = React.useState(customSort)
+  const [isMutating, setIsMutating] = React.useState(false)
 
   const {
     control,
@@ -62,6 +63,7 @@ const StocksCustomSortForm = ({ result, onSubmitted }: { result: UserSettings; o
   } = useForm<FormInput>()
   const onSubmit: SubmitHandler<FormInput> = (formData: FormInput) => {
     const newSort: Sort[] | undefined = formData.onOff ? [{ key: formData.selectField, direction: formData.selectDirection }] : undefined
+    setIsMutating(true)
     setData(newSort)
     onSubmitted(newSort)
   }
@@ -86,14 +88,30 @@ const StocksCustomSortForm = ({ result, onSubmitted }: { result: UserSettings; o
           <ControlledSwitch control={control} defaultValue={data !== undefined} fieldName={'onOff'} onChanged={handleOnOffChanged} />
         </Stack>
         <Stack pt={4}>
-          <ControlledSelect control={control} defaultValue={data ? data[0].key : ''} fieldName={'selectField'} label={'attribute'} items={fields} disabled={data === undefined} required />
+          <ControlledSelect
+            control={control}
+            defaultValue={data ? data[0].key : ''}
+            fieldName={'selectField'}
+            label={'attribute'}
+            items={fields}
+            disabled={data === undefined || isMutating}
+            required
+          />
         </Stack>
         <Stack pt={4} pb={4}>
-          <ControlledSelect control={control} defaultValue={data ? data[0].direction : ''} fieldName={'selectDirection'} label={'direction'} items={directionOptions} disabled={data === undefined} required />
+          <ControlledSelect
+            control={control}
+            defaultValue={data ? data[0].direction : ''}
+            fieldName={'selectDirection'}
+            label={'direction'}
+            items={directionOptions}
+            disabled={data === undefined || isMutating}
+            required
+          />
         </Stack>
         <HorizontalDivider />
         <Box display='flex' justifyContent={'flex-end'} pt={2}>
-          <PrimaryButton text={'Save'} type='submit'></PrimaryButton>
+          <PrimaryButton text={'Save'} type='submit' disabled={isMutating}></PrimaryButton>
         </Box>
       </form>
     </>

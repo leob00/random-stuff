@@ -1,5 +1,6 @@
 export interface UserGoal extends UserTask {
   stats?: UserGoalStats
+  deleteCompletedTasks?: boolean
   settings?: UserGoalSettings
 }
 export interface UserTask {
