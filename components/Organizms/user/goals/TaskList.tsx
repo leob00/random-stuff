@@ -22,7 +22,7 @@ import { reorderTasks } from './UserGoalsLayout'
 interface TaskModel {
   isLoading: boolean
   //tasks: UserTask[]
-  ///filteredTasks: UserTask[]
+  searchTasksText: string
   editTask?: UserTask
   selectedTask?: UserTask
   confirmCompleteTask: boolean
@@ -49,9 +49,8 @@ const TaskList = ({
   let defaultTasks = selectedGoal.deleteCompletedTasks ? [...tasks].filter((m) => m.status !== 'completed') : [...tasks]
   const [model, setModel] = React.useReducer((state: TaskModel, newState: TaskModel) => ({ ...state, ...newState }), {
     isLoading: false,
-    //tasks: defaultTasks,
     confirmCompleteTask: false,
-    //filteredTasks: defaultTasks,
+    searchTasksText: '',
     showSearch: false,
   })
 
@@ -114,15 +113,16 @@ const TaskList = ({
     onModifyTask(itemCopy)
   }
 
-  const handleSearched = (text: string) => {
+  const filterTasks = (text: string) => {
     if (text.length === 0) {
-      defaultTasks = [...tasks]
-      return
+      return [...tasks]
     }
-    const filtered: UserTask[] = tasks.filter((e) => {
-      return e.body?.toLocaleLowerCase().includes(text.toLocaleLowerCase())
-    })
-    defaultTasks = filtered
+    const filtered = [...tasks].filter((m) => m.body?.toLowerCase().includes(text.toLowerCase()))
+    return filtered
+  }
+
+  const handleSearched = (text: string) => {
+    setModel({ ...model, searchTasksText: text })
   }
 
   const handleToggleSearch = () => {
@@ -144,42 +144,47 @@ const TaskList = ({
         title={'confirm'}
         onConfirm={handleYesChangeTaskStatus}
       />
-      <Box py={2}>
-        <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
-          <Typography variant='subtitle1'>Tasks</Typography>
 
-          <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-            <Typography>complete</Typography>
-          </Stack>
-        </Stack>
-        <HorizontalDivider />
-        <Box pl={2}>
-          <IconButton size='small' color='secondary' onClick={handleToggleSearch}>
-            {model.showSearch ? <SearchOff fontSize='small' /> : <Search fontSize='small' />}
-          </IconButton>
-        </Box>
-      </Box>
       {model.isLoading ? (
         <>
           <PageWithGridSkeleton />
         </>
       ) : (
         <>
-          {model.showSearch ? (
-            <Stack direction={'row'} justifyContent={'center'} alignItems={'center'} pb={2}>
-              <SearchWithinList text={'search tasks'} onChanged={handleSearched} />
-            </Stack>
-          ) : (
-            <Box pt={1} pb={3}>
-              <AddTaskForm task={{}} onSubmitted={handleAddTask} />
-            </Box>
-          )}
-          {defaultTasks.length === 0 && tasks.length > 0 && (
+          {defaultTasks.length === 0 && (
             <Stack direction={'row'} justifyContent={'center'} alignItems={'center'}>
               <Typography textAlign={'center'}>0 tasks found</Typography>
             </Stack>
           )}
-          {defaultTasks.map((item, i) => (
+
+          <Box pt={1} pb={3}>
+            <AddTaskForm task={{}} onSubmitted={handleAddTask} />
+          </Box>
+
+          <Box py={2}>
+            <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
+              <Box display={'flex'} alignItems={'center'} gap={2}>
+                <Box>
+                  <IconButton size='small' color='secondary' onClick={handleToggleSearch}>
+                    {!model.showSearch ? <Search fontSize='small' /> : <SearchOff fontSize='small' />}
+                  </IconButton>
+                </Box>
+
+                <Box>
+                  {model.showSearch && (
+                    <Stack>
+                      <SearchWithinList text={'search tasks'} onChanged={handleSearched} />
+                    </Stack>
+                  )}
+                </Box>
+              </Box>
+              <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
+                <Typography variant='caption'>complete</Typography>
+              </Stack>
+            </Stack>
+            <HorizontalDivider />
+          </Box>
+          {filterTasks(model.searchTasksText).map((item, i) => (
             <Box key={item.id}>
               {model.editTask !== undefined && model.editTask.id === item.id ? (
                 <Box>
