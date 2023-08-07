@@ -1096,10 +1096,6 @@
     "Symbol": "AIB"
   },
   {
-    "Company": "AIB Acquisition Corp",
-    "Symbol": "AIBBR"
-  },
-  {
     "Company": "Arlington Asset Investment Corp",
     "Symbol": "AIC"
   },
@@ -1528,16 +1524,16 @@
     "Symbol": "ALTY"
   },
   {
+    "Company": "Allurion Technologies Inc",
+    "Symbol": "ALUR"
+  },
+  {
     "Company": "Autoliv Inc.",
     "Symbol": "ALV"
   },
   {
     "Company": "Alvotech",
     "Symbol": "ALVO"
-  },
-  {
-    "Company": "Alvotech - Warrant",
-    "Symbol": "ALVOW"
   },
   {
     "Company": "AlloVir Inc",
@@ -2440,6 +2436,10 @@
     "Symbol": "ARIZR"
   },
   {
+    "Company": "Arisz Acquisition Corp",
+    "Symbol": "ARIZU"
+  },
+  {
     "Company": "ARK ETF Trust",
     "Symbol": "ARKF"
   },
@@ -2828,10 +2828,6 @@
     "Symbol": "ATAKR"
   },
   {
-    "Company": "Aurora Technology Acquisition Corp",
-    "Symbol": "ATAKU"
-  },
-  {
     "Company": "Altimar Acquisition Corp III",
     "Symbol": "ATAQ"
   },
@@ -3050,6 +3046,14 @@
   {
     "Company": "Audiocodes",
     "Symbol": "AUDC"
+  },
+  {
+    "Company": "AIM ETF Products Trust",
+    "Symbol": "AUGT"
+  },
+  {
+    "Company": "AIM ETF Products Trust - AllianzIM U.S. Large Cap Buffer20 Aug ETF",
+    "Symbol": "AUGW"
   },
   {
     "Company": "Augmedix Inc",
@@ -4200,10 +4204,6 @@
     "Symbol": "BGC"
   },
   {
-    "Company": "BGC Partners Inc",
-    "Symbol": "BGCP"
-  },
-  {
     "Company": "Big 5 Sporting Goods Corp",
     "Symbol": "BGFV"
   },
@@ -4374,10 +4374,6 @@
   {
     "Company": "First Trust Exchange-Traded Fund III",
     "Symbol": "BICK"
-  },
-  {
-    "Company": "Amplify ETF Trust",
-    "Symbol": "BIDS"
   },
   {
     "Company": "Baidu Inc",
@@ -4792,10 +4788,6 @@
     "Symbol": "BLEUR"
   },
   {
-    "Company": "bleuacacia ltd",
-    "Symbol": "BLEUU"
-  },
-  {
     "Company": "Biolife Solutions Inc",
     "Symbol": "BLFS"
   },
@@ -5074,10 +5066,6 @@
   {
     "Company": "Bank Of Nova Scotia",
     "Symbol": "BNS"
-  },
-  {
-    "Company": "Bonso Electronics International",
-    "Symbol": "BNSO"
   },
   {
     "Company": "Benitec Biopharma Inc",
@@ -5874,6 +5862,10 @@
   {
     "Company": "BrightView Holdings Inc",
     "Symbol": "BV"
+  },
+  {
+    "Company": "BV Financial Inc",
+    "Symbol": "BVFL"
   },
   {
     "Company": "Bluegreen Vacations Holding Corporation",
@@ -6674,10 +6666,6 @@
   {
     "Company": "Codere Online Luxembourg S.A",
     "Symbol": "CDRO"
-  },
-  {
-    "Company": "Codere Online Luxembourg S.A",
-    "Symbol": "CDROW"
   },
   {
     "Company": "CDTi Advanced Materials Inc",
@@ -7644,10 +7632,6 @@
     "Symbol": "CLRCR"
   },
   {
-    "Company": "ClimateRock",
-    "Symbol": "CLRCU"
-  },
-  {
     "Company": "IndexIQ ETF Trust",
     "Symbol": "CLRG"
   },
@@ -8220,10 +8204,6 @@
     "Symbol": "CORR"
   },
   {
-    "Company": "Corsair Partnering Corp",
-    "Symbol": "CORS"
-  },
-  {
     "Company": "Corcept Therapeutics Inc",
     "Symbol": "CORT"
   },
@@ -8705,6 +8685,10 @@
   },
   {
     "Company": "Chicken Soup for the Soul Entertainment Inc",
+    "Symbol": "CSSEN"
+  },
+  {
+    "Company": "Chicken Soup for the Soul Entertainment Inc",
     "Symbol": "CSSEP"
   },
   {
@@ -8818,6 +8802,10 @@
   {
     "Company": "CytomX Therapeutics Inc",
     "Symbol": "CTMX"
+  },
+  {
+    "Company": "Cheetah Net Supply Chain Service Inc",
+    "Symbol": "CTNT"
   },
   {
     "Company": "CTO Realty Growth Inc",
@@ -10037,6 +10025,10 @@
   },
   {
     "Company": "Disruptive Acquisition Corp I",
+    "Symbol": "DISA"
+  },
+  {
+    "Company": "Disruptive Acquisition Corp I",
     "Symbol": "DISAU"
   },
   {
@@ -10290,14 +10282,6 @@
   {
     "Company": "Ginkgo Bioworks Holdings Inc",
     "Symbol": "DNA"
-  },
-  {
-    "Company": "Social Capital Suvretta Holdings Corp II",
-    "Symbol": "DNAB"
-  },
-  {
-    "Company": "Social Capital Suvretta Holdings Corp IV",
-    "Symbol": "DNAD"
   },
   {
     "Company": "Dun & Bradstreet Holdings Inc",
@@ -10558,10 +10542,6 @@
   {
     "Company": "First Trust Exchange-Traded Fund VIII",
     "Symbol": "DSEP"
-  },
-  {
-    "Company": "Diversey Holdings Ltd",
-    "Symbol": "DSEY"
   },
   {
     "Company": "Design Therapeutics Inc",
@@ -11576,6 +11556,10 @@
     "Symbol": "EICA"
   },
   {
+    "Company": "Eagle Point Income Company Inc",
+    "Symbol": "EICB"
+  },
+  {
     "Company": "BlackRock Institutional Trust Company N.A.",
     "Symbol": "EIDO"
   },
@@ -11666,6 +11650,10 @@
   {
     "Company": "e.l.f. Beauty Inc",
     "Symbol": "ELF"
+  },
+  {
+    "Company": "Electriq Power Holdings Inc",
+    "Symbol": "ELIQ"
   },
   {
     "Company": "Ellomay Capital Ltd",
@@ -12088,10 +12076,6 @@
     "Symbol": "EOCT"
   },
   {
-    "Company": "Elliott Opportunity II Corp",
-    "Symbol": "EOCW"
-  },
-  {
     "Company": "Allspring Global Dividend Opportunity Fund",
     "Symbol": "EOD"
   },
@@ -12288,18 +12272,6 @@
     "Symbol": "ERC"
   },
   {
-    "Company": "Abacus Life Inc",
-    "Symbol": "ERES"
-  },
-  {
-    "Company": "Abacus Life Inc",
-    "Symbol": "ERESU"
-  },
-  {
-    "Company": "Abacus Life Inc",
-    "Symbol": "ERESW"
-  },
-  {
     "Company": "iShares Trust",
     "Symbol": "ERET"
   },
@@ -12354,10 +12326,6 @@
   {
     "Company": "Direxion Shares ETF Trust",
     "Symbol": "ERY"
-  },
-  {
-    "Company": "Erytech Pharma",
-    "Symbol": "ERYP"
   },
   {
     "Company": "Eversource Energy",
@@ -12422,6 +12390,10 @@
   {
     "Company": "FlexShares Trust",
     "Symbol": "ESGG"
+  },
+  {
+    "Company": "ESGL Holdings Ltd",
+    "Symbol": "ESGL"
   },
   {
     "Company": "Columbia ETF Trust I",
@@ -13920,6 +13892,10 @@
     "Symbol": "FIHL"
   },
   {
+    "Company": "First Trust Exchange-Traded Fund IV",
+    "Symbol": "FIIG"
+  },
+  {
     "Company": "BlackRock Institutional Trust Company N.A.",
     "Symbol": "FILL"
   },
@@ -14106,6 +14082,10 @@
   {
     "Company": "Franklin Templeton ETF Trust",
     "Symbol": "FLEH"
+  },
+  {
+    "Company": "Franklin Templeton ETF Trust",
+    "Symbol": "FLEU"
   },
   {
     "Company": "Flex Ltd",
@@ -15888,10 +15868,6 @@
     "Symbol": "GEOS"
   },
   {
-    "Company": "Goldman Sachs MLP and Energy Renaissance Fund",
-    "Symbol": "GER"
-  },
-  {
     "Company": "ETF Managers Trust",
     "Symbol": "GERM"
   },
@@ -16436,6 +16412,10 @@
     "Symbol": "GMFI"
   },
   {
+    "Company": "Aetherium Acquisition Corp",
+    "Symbol": "GMFIU"
+  },
+  {
     "Company": "Golden Matrix Group Inc",
     "Symbol": "GMGI"
   },
@@ -16582,10 +16562,6 @@
   {
     "Company": "Golden Ocean Group Limited",
     "Symbol": "GOGL"
-  },
-  {
-    "Company": "GoGreen Investments Corp",
-    "Symbol": "GOGN"
   },
   {
     "Company": "Gogo Inc",
@@ -16996,18 +16972,6 @@
     "Symbol": "GSPY"
   },
   {
-    "Company": "GSR II Meteora Acquisition Corp",
-    "Symbol": "GSRM"
-  },
-  {
-    "Company": "Bitcoin Depot Inc",
-    "Symbol": "GSRMR"
-  },
-  {
-    "Company": "Bitcoin Depot Inc",
-    "Symbol": "GSRMU"
-  },
-  {
     "Company": "Goldman Sachs ETF Trust",
     "Symbol": "GSSC"
   },
@@ -17272,7 +17236,7 @@
     "Symbol": "HAPY"
   },
   {
-    "Company": "Simplify Exchange Traded Funds",
+    "Company": "Harden Technologies Inc",
     "Symbol": "HARD"
   },
   {
@@ -17598,6 +17562,10 @@
   {
     "Company": "BlackRock Institutional Trust Company N.A.",
     "Symbol": "HEZU"
+  },
+  {
+    "Company": "Tidal Trust II",
+    "Symbol": "HF"
   },
   {
     "Company": "Home Federal Bancorp Inc (Louisiana)",
@@ -18146,6 +18114,10 @@
   {
     "Company": "Heron Therapeutics Inc",
     "Symbol": "HRTX"
+  },
+  {
+    "Company": "Hanryu Holdings Inc",
+    "Symbol": "HRYU"
   },
   {
     "Company": "Horizon Technology Finance Corp",
@@ -19420,10 +19392,6 @@
     "Symbol": "IIPR"
   },
   {
-    "Company": "Coherent Corp",
-    "Symbol": "IIVI"
-  },
-  {
     "Company": "Innovator ETFs Trust",
     "Symbol": "IJAN"
   },
@@ -20118,10 +20086,6 @@
   {
     "Company": "iQIYI Inc",
     "Symbol": "IQ"
-  },
-  {
-    "Company": "FlexShares Trust",
-    "Symbol": "IQDE"
   },
   {
     "Company": "FlexShares Trust",
@@ -21224,6 +21188,10 @@
     "Symbol": "JPC"
   },
   {
+    "Company": "J.P. Morgan Exchange-Traded Fund Trust",
+    "Symbol": "JPEF"
+  },
+  {
     "Company": "J.P.Morgan Investment Management Inc.",
     "Symbol": "JPEM"
   },
@@ -21242,6 +21210,10 @@
   {
     "Company": "J.P.Morgan Investment Management Inc.",
     "Symbol": "JPIN"
+  },
+  {
+    "Company": "J.P. Morgan Exchange-Traded Fund Trust",
+    "Symbol": "JPLD"
   },
   {
     "Company": "JPMorgan Chase & Co.",
@@ -21496,7 +21468,7 @@
     "Symbol": "KAI"
   },
   {
-    "Company": "Kala Pharmaceuticals Inc",
+    "Company": "Kala Bio Inc.",
     "Symbol": "KALA"
   },
   {
@@ -22568,6 +22540,10 @@
     "Symbol": "LDUR"
   },
   {
+    "Company": "Lendway Inc",
+    "Symbol": "LDWY"
+  },
+  {
     "Company": "Lands` End, Inc.",
     "Symbol": "LE"
   },
@@ -22938,6 +22914,14 @@
   {
     "Company": "Lilly(Eli) & Co",
     "Symbol": "LLY"
+  },
+  {
+    "Company": "Liberty Media Corp.",
+    "Symbol": "LLYVA"
+  },
+  {
+    "Company": "Liberty Media Corp.",
+    "Symbol": "LLYVK"
   },
   {
     "Company": "Lemaitre Vascular Inc",
@@ -23568,6 +23552,10 @@
     "Symbol": "MAKX"
   },
   {
+    "Company": "Mama`s Creations Inc.",
+    "Symbol": "MAMA"
+  },
+  {
     "Company": "Northern Lights Fund Trust IV",
     "Symbol": "MAMB"
   },
@@ -23902,10 +23890,6 @@
   {
     "Company": "mCloud Technologies Corp",
     "Symbol": "MCLD"
-  },
-  {
-    "Company": "mCloud Technologies Corp",
-    "Symbol": "MCLDP"
   },
   {
     "Company": "mCloud Technologies Corp",
@@ -24312,6 +24296,10 @@
     "Symbol": "MGOL"
   },
   {
+    "Company": "First Trust Exchange-Traded Fund IV",
+    "Symbol": "MGOV"
+  },
+  {
     "Company": "MGP Ingredients, Inc.",
     "Symbol": "MGPI"
   },
@@ -24486,6 +24474,10 @@
   {
     "Company": "Mirion Technologies Inc.",
     "Symbol": "MIR"
+  },
+  {
+    "Company": "Mira Pharmaceuticals Inc",
+    "Symbol": "MIRA"
   },
   {
     "Company": "Mirum Pharmaceuticals Inc",
@@ -25394,10 +25386,6 @@
   {
     "Company": "Monterey Innovation Acquisition Corp",
     "Symbol": "MTRY"
-  },
-  {
-    "Company": "Monterey Innovation Acquisition Corp",
-    "Symbol": "MTRYU"
   },
   {
     "Company": "MACOM Technology Solutions Holdings Inc",
@@ -28004,10 +27992,6 @@
     "Symbol": "ORC"
   },
   {
-    "Company": "Owl Rock Capital Corp",
-    "Symbol": "ORCC"
-  },
-  {
     "Company": "Oracle Corp.",
     "Symbol": "ORCL"
   },
@@ -28646,10 +28630,6 @@
   {
     "Company": "PCB Bancorp.",
     "Symbol": "PCB"
-  },
-  {
-    "Company": "Perception Capital Corp II",
-    "Symbol": "PCCT"
   },
   {
     "Company": "Invesco Capital Management LLC",
@@ -29600,7 +29580,7 @@
     "Symbol": "PM"
   },
   {
-    "Company": "Principal Maritime Tankers Corp",
+    "Company": "Innovator ETFs Trust",
     "Symbol": "PMAR"
   },
   {
@@ -29886,10 +29866,6 @@
   {
     "Company": "Papaya Growth Opportunity Corp I",
     "Symbol": "PPYA"
-  },
-  {
-    "Company": "Papaya Growth Opportunity Corp I",
-    "Symbol": "PPYAU"
   },
   {
     "Company": "Principal Exchange-Traded Funds",
@@ -30616,6 +30592,10 @@
     "Symbol": "PXD"
   },
   {
+    "Company": "Pixie Dust Technologies Inc",
+    "Symbol": "PXDT"
+  },
+  {
     "Company": "Invesco Capital Management LLC",
     "Symbol": "PXE"
   },
@@ -30806,10 +30786,6 @@
   {
     "Company": "Quadro Acquisition One Corp",
     "Symbol": "QDROW"
-  },
-  {
-    "Company": "FlexShares Trust",
-    "Symbol": "QDYN"
   },
   {
     "Company": "SSgA Active Trust",
@@ -32172,6 +32148,10 @@
     "Symbol": "RODM"
   },
   {
+    "Company": "EA Series Trust",
+    "Symbol": "ROE"
+  },
+  {
     "Company": "Rogers Corp.",
     "Symbol": "ROG"
   },
@@ -32744,7 +32724,7 @@
     "Symbol": "SABS"
   },
   {
-    "Company": "SAB Biotherapeutics, Inc. - Warrant",
+    "Company": "SAB Biotherapeutics Inc",
     "Symbol": "SABSW"
   },
   {
@@ -32818,10 +32798,6 @@
   {
     "Company": "Boston Beer Co., Inc.",
     "Symbol": "SAM"
-  },
-  {
-    "Company": "Schultze Special Purpose Acquisition Corp II",
-    "Symbol": "SAMA"
   },
   {
     "Company": "Schultze Special Purpose Acquisition Corp II",
@@ -33828,6 +33804,10 @@
     "Symbol": "SHPW"
   },
   {
+    "Company": "Shapeways Holdings Inc - Warrants (31/10/2026)",
+    "Symbol": "SHPWW"
+  },
+  {
     "Company": "SHUAA Partners Acquisition Corp I",
     "Symbol": "SHUA"
   },
@@ -34078,6 +34058,10 @@
   {
     "Company": "SK Growth Opportunities Corp",
     "Symbol": "SKGR"
+  },
+  {
+    "Company": "SK Growth Opportunities Corp",
+    "Symbol": "SKGRU"
   },
   {
     "Company": "Skillsoft Corp.",
@@ -34502,6 +34486,10 @@
   {
     "Company": "SMX (Security Matters) Plc",
     "Symbol": "SMXWW"
+  },
+  {
+    "Company": "SharkNinja Inc.",
+    "Symbol": "SN"
   },
   {
     "Company": "Snap-on, Inc.",
@@ -35236,10 +35224,6 @@
     "Symbol": "SQSP"
   },
   {
-    "Company": "SQZ Biotechnologies Co",
-    "Symbol": "SQZ"
-  },
-  {
     "Company": "Spire Inc.",
     "Symbol": "SR"
   },
@@ -35286,10 +35270,6 @@
   {
     "Company": "Seritage Growth Properties",
     "Symbol": "SRG"
-  },
-  {
-    "Company": "Surgalign Holdings Inc",
-    "Symbol": "SRGA"
   },
   {
     "Company": "Elevation Series Trust",
@@ -35550,10 +35530,6 @@
   {
     "Company": "Semantix Inc",
     "Symbol": "STIX"
-  },
-  {
-    "Company": "Semantix, Inc. - Warrant",
-    "Symbol": "STIXW"
   },
   {
     "Company": "Columbia Seligman Premium Technology Growth Fund Inc",
@@ -36316,10 +36292,6 @@
     "Symbol": "TCBX"
   },
   {
-    "Company": "Community Financial Corp",
-    "Symbol": "TCFC"
-  },
-  {
     "Company": "iShares Trust",
     "Symbol": "TCHI"
   },
@@ -36562,10 +36534,6 @@
   {
     "Company": "Technology & Telecommunication Acquisition Corp",
     "Symbol": "TETE"
-  },
-  {
-    "Company": "Technology & Telecommunication Acquisition Corp",
-    "Symbol": "TETEU"
   },
   {
     "Company": "Teva- Pharmaceutical Industries Ltd.",
@@ -36950,10 +36918,6 @@
   {
     "Company": "TLGY Acquisition Corp",
     "Symbol": "TLGY"
-  },
-  {
-    "Company": "TLGY Acquisition Corp",
-    "Symbol": "TLGYU"
   },
   {
     "Company": "BlackRock Institutional Trust Company N.A.",
@@ -38724,10 +38688,6 @@
     "Symbol": "USVT"
   },
   {
-    "Company": "U.S. Xpress Enterprises Inc",
-    "Symbol": "USX"
-  },
-  {
     "Company": "iShares Trust",
     "Symbol": "USXF"
   },
@@ -38738,6 +38698,10 @@
   {
     "Company": "UTA Acquisition Corp.",
     "Symbol": "UTAAU"
+  },
+  {
+    "Company": "UTA Acquisition Corp.",
+    "Symbol": "UTAAW"
   },
   {
     "Company": "Rbb Fund Inc",
@@ -39186,6 +39150,10 @@
   {
     "Company": "Vermilion Energy Inc",
     "Symbol": "VET"
+  },
+  {
+    "Company": "Tidal ETF Trust",
+    "Symbol": "VETZ"
   },
   {
     "Company": "Vanguard Group, Inc.",
@@ -41914,6 +41882,18 @@
   {
     "Company": "Zai Lab Limited",
     "Symbol": "ZLAB"
+  },
+  {
+    "Company": "Zalatoris II Acquisition Corp",
+    "Symbol": "ZLS"
+  },
+  {
+    "Company": "Zalatoris II Acquisition Corp",
+    "Symbol": "ZLSWU"
+  },
+  {
+    "Company": "Zalatoris II Acquisition Corp",
+    "Symbol": "ZLSWW"
   },
   {
     "Company": "Zoom Video Communications Inc",

@@ -22,7 +22,19 @@ import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import { useRouter } from 'next/router'
 import EditGoal from './EditGoal'
 
-const SingleGoalDisplay = ({ username, goal, tasks, onMutated, onDeleted }: { username: string; goal: UserGoal; tasks: UserTask[]; onMutated: (goal: UserGoal, tasks: UserTask[]) => void; onDeleted: (goal: UserGoal) => void }) => {
+const SingleGoalDisplay = ({
+  username,
+  goal,
+  tasks,
+  onMutated,
+  onDeleted,
+}: {
+  username: string
+  goal: UserGoal
+  tasks: UserTask[]
+  onMutated: (goal: UserGoal, tasks: UserTask[]) => void
+  onDeleted: (goal: UserGoal) => void
+}) => {
   const [goalEditMode, setGoalEditMode] = React.useState(false)
   const [showDeleteGoalConfirm, setShowDeleteGoalConfirm] = React.useState(false)
   const router = useRouter()
@@ -31,13 +43,19 @@ const SingleGoalDisplay = ({ username, goal, tasks, onMutated, onDeleted }: { us
     let newTasks = [...tasks]
     const newGoal = { ...goal }
     newTasks.push(item)
+    if (newGoal.deleteCompletedTasks) {
+      newTasks = newTasks.filter((m) => m.status !== 'completed')
+    }
     newTasks = reorderTasks(newTasks)
     await putUserGoalTasks(username, newGoal.id!, newTasks)
     const resultGoal = await saveGoal(newGoal, newTasks)
     onMutated(resultGoal, newTasks)
   }
   const handleDeleteTask = async (item: UserTask) => {
-    let newTasks = tasks.filter((m) => m.id !== item.id)
+    let newTasks = [...tasks].filter((m) => m.id !== item.id)
+    if (goal.deleteCompletedTasks) {
+      newTasks = newTasks.filter((m) => m.status !== 'completed')
+    }
     await putUserGoalTasks(username, goal.id!, newTasks)
     const resultGoal = await saveGoal(goal, newTasks)
     onMutated(resultGoal, newTasks)
@@ -46,7 +64,11 @@ const SingleGoalDisplay = ({ username, goal, tasks, onMutated, onDeleted }: { us
     // console.log(item)
     let newTasks = [...tasks]
     replaceItemInArray(item, newTasks, 'id', item.id!)
+    if (goal.deleteCompletedTasks) {
+      newTasks = newTasks.filter((m) => m.status !== 'completed')
+    }
     newTasks = reorderTasks(newTasks)
+
     await putUserGoalTasks(username, item.goalId!, newTasks)
     const resultGoal = await saveGoal(goal, newTasks)
 
@@ -55,12 +77,16 @@ const SingleGoalDisplay = ({ username, goal, tasks, onMutated, onDeleted }: { us
 
   const saveGoal = async (goal: UserGoal, newTasks: UserTask[]) => {
     const goalCopy = { ...goal }
+    let tasksCopy = [...newTasks]
+    if (goalCopy.deleteCompletedTasks) {
+      tasksCopy = tasksCopy.filter((m) => m.status !== 'completed')
+    }
     goalCopy.dateModified = dayjs().format()
-    goalCopy.stats = getGoalStats(newTasks)
+    goalCopy.stats = getGoalStats(tasksCopy)
     goalCopy.dateModified = dayjs().format()
-    if (newTasks.length > 0) {
-      const completed = filter(newTasks, (e) => e.status === 'completed')
-      goalCopy.completePercent = calculatePercentInt(completed.length, newTasks.length)
+    if (tasksCopy.length > 0) {
+      const completed = filter(tasksCopy, (e) => e.status === 'completed')
+      goalCopy.completePercent = calculatePercentInt(completed.length, tasksCopy.length)
     } else {
       goalCopy.completePercent = 0
     }
@@ -82,9 +108,13 @@ const SingleGoalDisplay = ({ username, goal, tasks, onMutated, onDeleted }: { us
   }
 
   const handleModifyGoal = async (editGoal: UserGoal) => {
-    const newTasks = [...tasks]
+    let newTasks = [...tasks]
     const resultGoal = await saveGoal(editGoal, newTasks)
     setGoalEditMode(false)
+    if (resultGoal.deleteCompletedTasks) {
+      newTasks = newTasks.filter((m) => m.status !== 'completed')
+      await putUserGoalTasks(username, editGoal.id!, newTasks)
+    }
     onMutated(resultGoal, newTasks)
   }
 
@@ -134,8 +164,20 @@ const SingleGoalDisplay = ({ username, goal, tasks, onMutated, onDeleted }: { us
             </Box>
           </Box>
           <HorizontalDivider />
-          <TaskList username={username} selectedGoal={goal} tasks={tasks} onAddTask={handleAddTask} onDeleteTask={handleDeleteTask} onModifyTask={handleModifyTask} />
-          <ConfirmDeleteDialog show={showDeleteGoalConfirm} text={`Are you sure you want to delete '${goal.body}' and all of its tasks?`} onConfirm={handleDeleteGoal} onCancel={() => setShowDeleteGoalConfirm(false)} />
+          <TaskList
+            username={username}
+            selectedGoal={goal}
+            tasks={tasks}
+            onAddTask={handleAddTask}
+            onDeleteTask={handleDeleteTask}
+            onModifyTask={handleModifyTask}
+          />
+          <ConfirmDeleteDialog
+            show={showDeleteGoalConfirm}
+            text={`Are you sure you want to delete '${goal.body}' and all of its tasks?`}
+            onConfirm={handleDeleteGoal}
+            onCancel={() => setShowDeleteGoalConfirm(false)}
+          />
         </>
       )}
     </>

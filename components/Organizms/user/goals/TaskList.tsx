@@ -78,10 +78,14 @@ const TaskList = ({
       item.status = 'in progress'
     }
     item.dateModified = getUtcNow().format()
-    const tasks = model.tasks.filter((e) => e.id !== item.id)
+    let tasks = model.tasks.filter((e) => e.id !== item.id)
     tasks.push(item)
+    if (selectedGoal.deleteCompletedTasks) {
+      tasks = tasks.filter((m) => m.status !== 'completed')
+    }
     const reordered = reorderTasks(tasks)
-    setModel({ ...model, isLoading: false, tasks: reordered, filteredTasks: reordered, editTask: undefined })
+
+    setModel({ ...model, isLoading: false, tasks: reordered, filteredTasks: reordered, editTask: undefined, selectedTask: undefined })
     onModifyTask(item)
   }
 
@@ -105,7 +109,7 @@ const TaskList = ({
     replaceItemInArray(item, tasks, 'id', item.id!)
     tasks = reorderTasks(tasks)
     await handleSaveTask(item)
-    setModel({ ...model, tasks: tasks, isLoading: false })
+    //setModel({ ...model, tasks: tasks, isLoading: false })
 
     onModifyTask(item)
   }
