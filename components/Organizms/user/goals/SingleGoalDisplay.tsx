@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Paper, Stack, Typography } from '@mui/material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
@@ -8,7 +8,7 @@ import dayjs from 'dayjs'
 import { constructUserGoalsKey } from 'lib/backend/api/aws/util'
 import { getUserGoals, putUserGoals, putUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
 import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
-import { UserGoal, UserTask } from 'lib/models/userTasks'
+import { UserGoal, UserGoalStats, UserTask } from 'lib/models/userTasks'
 import { replaceItemInArray } from 'lib/util/collections'
 import { getSecondsFromEpoch } from 'lib/util/dateUtil'
 import { calculatePercentInt } from 'lib/util/numberUtil'
@@ -21,6 +21,9 @@ import Delete from '@mui/icons-material/Delete'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import { useRouter } from 'next/router'
 import EditGoal from './EditGoal'
+import CenterStack from 'components/Atoms/CenterStack'
+import Warning from '@mui/icons-material/Warning'
+import GoalStats from './GoalStats'
 
 const SingleGoalDisplay = ({
   username,
@@ -144,20 +147,23 @@ const SingleGoalDisplay = ({
         <EditGoal goal={goal} onSaveGoal={handleModifyGoal} onShowCompletedTasks={() => {}} onCancelEdit={() => setGoalEditMode(false)} />
       ) : (
         <>
-          <Box py={2} display='flex' justifyContent='space-between' alignItems={'flex-start'}>
+          <Box py={2} display='flex' justifyContent='space-between'>
             <Box>
               {goal.stats && (
                 <>
-                  <Typography variant='body2'>{`tasks: ${Number(goal.stats.completed) + Number(goal.stats.inProgress)}`}</Typography>
-                  <Typography variant='body2'>{`completed: ${goal.stats.completed}`}</Typography>
-                  <Typography variant='body2'>{`started: ${goal.stats.inProgress}`}</Typography>
-                  {goal.stats.pastDue > 0 && <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${goal.stats.pastDue}`}</Typography>}
+                  <GoalStats stats={goal.stats} />
                 </>
               )}
-              {goal.completePercent !== undefined && (
-                <Box display={'flex'} gap={2} alignItems={'center'}>
-                  <Typography variant='body2'>progress: </Typography>
-                  <ProgressBar value={goal.completePercent} toolTipText={`${goal.completePercent}% complete`} width={120} />
+              {goal.completePercent !== undefined && !goal.deleteCompletedTasks && (
+                <Box display={'flex'} gap={1} alignItems={'center'}>
+                  <Box width={100} justifyContent={'flex-end'}>
+                    <Typography variant='body2' textAlign={'right'}>
+                      progress:
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <ProgressBar value={goal.completePercent} toolTipText={`${goal.completePercent}% complete`} width={160} />
+                  </Box>
                 </Box>
               )}
             </Box>
@@ -165,6 +171,18 @@ const SingleGoalDisplay = ({
               <ContextMenu items={contextMenu} />
             </Box>
           </Box>
+          {goal.deleteCompletedTasks && (
+            <Stack>
+              <Box display={'flex'} alignItems={'center'} gap={1} justifyContent={'center'}>
+                <Typography>
+                  <Warning fontSize='small' color='primary' />
+                </Typography>
+                <Typography variant='caption' textAlign={'center'}>
+                  completed tasks will be deleted
+                </Typography>
+              </Box>
+            </Stack>
+          )}
           <HorizontalDivider />
           <TaskList
             username={username}
