@@ -1,0 +1,55 @@
+import { Box, Stack, Switch, Typography } from '@mui/material'
+import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import { CasinoRedTransparent } from 'components/themes/mainTheme'
+import dayjs from 'dayjs'
+import { UserTask } from 'lib/models/userTasks'
+import React from 'react'
+
+const TaskItem = ({
+  task,
+  taskCount,
+  index,
+  handleTaskClick,
+  handleCompleteTaskClick,
+}: {
+  task: UserTask
+  taskCount: number
+  index: number
+  handleTaskClick: (item: UserTask) => void
+  handleCompleteTaskClick: (checked: boolean, item: UserTask) => void
+}) => {
+  return (
+    <>
+      <Stack direction='row' justifyContent='left' alignItems='left'>
+        <LinkButton2
+          onClick={() => {
+            handleTaskClick(task)
+          }}
+        >
+          <Typography textAlign={'left'} variant='subtitle1'>
+            {`${task.body && task.body.length > 0 ? task.body : 'not set'}`}
+          </Typography>
+        </LinkButton2>
+        <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
+          <Switch
+            checked={task.status === 'completed'}
+            onChange={(event, checked) => {
+              task.status = checked ? 'completed' : { ...task }.status
+              handleCompleteTaskClick(checked, task)
+            }}
+          />
+        </Stack>
+      </Stack>
+      {task.dueDate && (
+        <Typography variant='body2' color={task.status === 'in progress' && dayjs().isAfter(task.dueDate) ? CasinoRedTransparent : 'unset'}>{`due: ${dayjs(
+          task.dueDate,
+        ).format('MM/DD/YYYY hh:mm A')}`}</Typography>
+      )}
+      {task.dateCompleted && <Typography variant='body2'>{`completed: ${dayjs(task.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
+      {index < taskCount - 1 && <HorizontalDivider />}
+    </>
+  )
+}
+
+export default TaskItem

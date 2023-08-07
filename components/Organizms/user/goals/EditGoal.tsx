@@ -20,6 +20,7 @@ import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import { ControlledFreeTextInput } from 'components/Molecules/Forms/ReactHookForm/ControlledFreeTextInput'
 import { ControlledDatePicker } from 'components/Molecules/Forms/ReactHookForm/ControlledDatePicker'
 import ControlledSwitch from 'components/Molecules/Forms/ReactHookForm/ControlledSwitch'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 interface Model {
   goal: UserGoal
@@ -65,6 +66,7 @@ const EditGoal = ({
 
   return (
     <Box pt={2}>
+      {model.isSaving && <BackdropLoader />}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box py={2}>
           <ControlledFreeTextInput control={control} defaultValue={model.goal.body ?? ''} fieldName='body' label='name' required={true} placeholder='name' />

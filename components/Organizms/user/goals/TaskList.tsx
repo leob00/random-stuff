@@ -16,12 +16,13 @@ import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { replaceItemInArray } from 'lib/util/collections'
 import { getUtcNow } from 'lib/util/dateUtil'
 import React from 'react'
+import TaskItem from './TaskItem'
 import { reorderTasks } from './UserGoalsLayout'
 
 interface TaskModel {
   isLoading: boolean
-  tasks: UserTask[]
-  filteredTasks: UserTask[]
+  //tasks: UserTask[]
+  ///filteredTasks: UserTask[]
   editTask?: UserTask
   selectedTask?: UserTask
   confirmCompleteTask: boolean
@@ -45,31 +46,30 @@ const TaskList = ({
   onDeleteTask: (item: UserTask) => void
   disabled?: boolean
 }) => {
+  let defaultTasks = selectedGoal.deleteCompletedTasks ? [...tasks].filter((m) => m.status !== 'completed') : [...tasks]
   const [model, setModel] = React.useReducer((state: TaskModel, newState: TaskModel) => ({ ...state, ...newState }), {
     isLoading: false,
-    tasks: tasks,
+    //tasks: defaultTasks,
     confirmCompleteTask: false,
-    filteredTasks: tasks,
+    //filteredTasks: defaultTasks,
     showSearch: false,
   })
 
   const handleAddTask = (item: UserTask) => {
-    setModel({ ...model, isLoading: true })
-
     item.status = 'in progress'
     item.goalId = selectedGoal.id
     item.id = constructUserTaskPk(username)
-    const tasks = [...model.tasks]
-    tasks.push(item)
-    const reordered = reorderTasks(tasks)
-    setModel({ ...model, isLoading: false, tasks: reordered, filteredTasks: reordered })
+    const tasksCopy = [...tasks]
+    tasksCopy.push(item)
+    const reordered = reorderTasks(tasksCopy)
+    defaultTasks = reordered
+    setModel({ ...model, isLoading: false })
     onAddTask(item)
   }
   const handleTaskClick = (item: UserTask) => {
     setModel({ ...model, editTask: item })
   }
   const handleSaveTask = async (item: UserTask) => {
-    setModel({ ...model, isLoading: true })
     if (item.status && item.status === 'completed') {
       item.dateCompleted = getUtcNow().format()
       item.status = 'completed'
@@ -78,59 +78,60 @@ const TaskList = ({
       item.status = 'in progress'
     }
     item.dateModified = getUtcNow().format()
-    let tasks = model.tasks.filter((e) => e.id !== item.id)
-    tasks.push(item)
+    let tasksCopy = tasks.filter((e) => e.id !== item.id)
+    tasksCopy.push(item)
     if (selectedGoal.deleteCompletedTasks) {
-      tasks = tasks.filter((m) => m.status !== 'completed')
+      tasksCopy = tasksCopy.filter((m) => m.status !== 'completed')
     }
-    const reordered = reorderTasks(tasks)
+    const reordered = reorderTasks(tasksCopy)
+    defaultTasks = reordered
 
-    setModel({ ...model, isLoading: false, tasks: reordered, filteredTasks: reordered, editTask: undefined, selectedTask: undefined })
+    setModel({ ...model, isLoading: false, editTask: undefined, selectedTask: undefined })
     onModifyTask(item)
   }
 
   const handleYesChangeTaskStatus = () => {}
   const handleNoChangeTaskStatus = () => {
-    const tasks = [...model.tasks]
+    const tasksCopy = [...tasks]
     if (model.selectedTask !== undefined) {
-      tasks.forEach((task) => {
+      tasksCopy.forEach((task) => {
         if (task.id === model.selectedTask!.id) {
           task.status = model.selectedTask!.status == 'in progress' ? 'completed' : 'in progress'
         }
       })
     }
-    setModel({ ...model, confirmCompleteTask: false, selectedTask: undefined, editTask: undefined, tasks: tasks })
+    defaultTasks = tasksCopy
+
+    setModel({ ...model, confirmCompleteTask: false, selectedTask: undefined, editTask: undefined })
   }
 
   const handleCompleteTaskClick = async (checked: boolean, item: UserTask) => {
-    setModel({ ...model, isLoading: true })
-    item.status = checked ? 'completed' : 'in progress'
-    let tasks = [...model.tasks]
-    replaceItemInArray(item, tasks, 'id', item.id!)
-    tasks = reorderTasks(tasks)
-    await handleSaveTask(item)
-    //setModel({ ...model, tasks: tasks, isLoading: false })
+    //setModel({ ...model, isLoading: true })
+    const itemCopy = { ...item }
+    itemCopy.status = checked ? 'completed' : 'in progress'
 
-    onModifyTask(item)
+    await handleSaveTask(itemCopy)
+    onModifyTask(itemCopy)
   }
 
   const handleSearched = (text: string) => {
     if (text.length === 0) {
-      setModel({ ...model, filteredTasks: model.tasks })
+      defaultTasks = [...tasks]
       return
     }
-    const filtered: UserTask[] = model.tasks.filter((e) => {
+    const filtered: UserTask[] = tasks.filter((e) => {
       return e.body?.toLocaleLowerCase().includes(text.toLocaleLowerCase())
     })
-    setModel({ ...model, filteredTasks: filtered })
+    defaultTasks = filtered
   }
 
   const handleToggleSearch = () => {
     setModel({ ...model, showSearch: !model.showSearch })
   }
   const handleDeleteTask = (item: UserTask) => {
-    const newTasks = [...model.tasks].filter((m) => m.id !== item.id)
-    setModel({ ...model, editTask: undefined, tasks: newTasks, filteredTasks: model.filteredTasks.filter((m) => m.id !== item.id) })
+    const newTasks = [...tasks].filter((m) => m.id !== item.id)
+    defaultTasks = newTasks
+    setModel({ ...model, editTask: undefined })
     onDeleteTask({ ...item })
   }
 
@@ -173,13 +174,13 @@ const TaskList = ({
               <AddTaskForm task={{}} onSubmitted={handleAddTask} />
             </Box>
           )}
-          {model.filteredTasks.length === 0 && model.tasks.length > 0 && (
+          {defaultTasks.length === 0 && tasks.length > 0 && (
             <Stack direction={'row'} justifyContent={'center'} alignItems={'center'}>
               <Typography textAlign={'center'}>0 tasks found</Typography>
             </Stack>
           )}
-          {model.filteredTasks.map((item, i) => (
-            <Box key={i}>
+          {defaultTasks.map((item, i) => (
+            <Box key={item.id}>
               {model.editTask !== undefined && model.editTask.id === item.id ? (
                 <Box>
                   <EditTaskForm
@@ -193,43 +194,16 @@ const TaskList = ({
                 </Box>
               ) : (
                 <>
-                  <Box>
-                    <Stack key={i} direction='row' justifyContent='left' alignItems='left'>
-                      <LinkButton2
-                        onClick={() => {
-                          handleTaskClick(item)
-                        }}
-                      >
-                        <Typography textAlign={'left'} variant='subtitle1'>
-                          {`${item.body && item.body.length > 0 ? item.body : 'not set'}`}
-                        </Typography>
-                      </LinkButton2>
-                      <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-                        {/* <SecondaryCheckbox
-                          disabled={model.isLoading}
-                          loading={model.isLoading}
-                          checked={item.status === 'completed'}
-                          onChanged={(checked: boolean) => {
-                            handleCompleteTaskClick(checked, item)
-                          }}
-                        /> */}
-                        <Switch
-                          checked={item.status === 'completed'}
-                          onChange={(event, checked) => {
-                            //handleChanged(event, checked)
-                            handleCompleteTaskClick(checked, item)
-                          }}
-                        />
-                      </Stack>
-                    </Stack>
-                    {item.dueDate && (
-                      <Typography
-                        variant='body2'
-                        color={item.status === 'in progress' && dayjs().isAfter(item.dueDate) ? CasinoRedTransparent : 'unset'}
-                      >{`due: ${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>
-                    )}
-                    {item.dateCompleted && <Typography variant='body2'>{`completed: ${dayjs(item.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
-                    {i < tasks.length - 1 && <HorizontalDivider />}
+                  <Box pb={2}>
+                    <Box key={item.id}>
+                      <TaskItem
+                        task={item}
+                        index={i}
+                        taskCount={tasks.length}
+                        handleCompleteTaskClick={handleCompleteTaskClick}
+                        handleTaskClick={handleTaskClick}
+                      />
+                    </Box>
                   </Box>
                 </>
               )}

@@ -39,6 +39,8 @@ const SingleGoalDisplay = ({
   const [showDeleteGoalConfirm, setShowDeleteGoalConfirm] = React.useState(false)
   const router = useRouter()
 
+  const displayTasks = goal.deleteCompletedTasks ? [...tasks].filter((m) => m.status !== 'completed') : [...tasks]
+
   const handleAddTask = async (item: UserTask) => {
     let newTasks = [...tasks]
     const newGoal = { ...goal }
@@ -167,7 +169,7 @@ const SingleGoalDisplay = ({
           <TaskList
             username={username}
             selectedGoal={goal}
-            tasks={tasks}
+            tasks={displayTasks}
             onAddTask={handleAddTask}
             onDeleteTask={handleDeleteTask}
             onModifyTask={handleModifyTask}
