@@ -26,19 +26,17 @@ export interface UserGoalsModel {
 
 export function reorderTasks(list: UserTask[]) {
   const inProg = orderBy(
-    filter(list, (e) => e.status === 'in progress'),
-    ['status', 'dueDate'],
-    ['desc', 'asc'],
+    filter(list, (e) => e.status !== 'completed'),
+    ['status', 'dueDate', 'dateCreated'],
+    ['desc', 'asc', 'desc'],
   )
   const completed = orderBy(
     filter(list, (e) => e.status === 'completed'),
     ['dateCompleted'],
     ['desc'],
   )
-  const result: UserTask[] = []
-  result.push(...inProg)
-  result.push(...completed)
-  return result
+  const merged = [...inProg, ...completed]
+  return merged
 }
 
 const UserGoalsLayout = ({ username }: { username: string }) => {

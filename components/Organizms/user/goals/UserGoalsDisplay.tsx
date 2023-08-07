@@ -160,17 +160,23 @@ const UserGoalsDisplay = ({
                     </Stack>
                     {item.stats && (
                       <Box pl={1}>
-                        {item.stats && <Typography variant='body2'>{`tasks: ${Number(item.stats.completed) + Number(item.stats.inProgress)}`}</Typography>}
-                        {item.stats && <Typography variant='body2'>{`completed: ${item.stats.completed}`}</Typography>}
-                        {item.stats && <Typography variant='body2'>{`in progress: ${item.stats.inProgress}`}</Typography>}
-                        {item.stats && item.stats.pastDue > 0 && (
-                          <LinkButton2
-                            onClick={() => {
-                              handleGoalClick(item)
-                            }}
-                          >
-                            <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
-                          </LinkButton2>
+                        {item.stats && (
+                          <>
+                            <Box>
+                              <Typography variant='body2'>{`tasks: ${Number(item.stats.completed) + Number(item.stats.inProgress)}`}</Typography>
+                              <Typography variant='body2'>{`completed: ${item.stats.completed}`}</Typography>
+                              <Typography variant='body2'>{`in progress: ${item.stats.inProgress}`}</Typography>
+                            </Box>
+                            {item.stats.pastDue > 0 && (
+                              <LinkButton2
+                                onClick={() => {
+                                  handleGoalClick(item)
+                                }}
+                              >
+                                <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
+                              </LinkButton2>
+                            )}
+                          </>
                         )}
                       </Box>
                     )}

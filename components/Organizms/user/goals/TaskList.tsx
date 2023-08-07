@@ -7,6 +7,7 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
 import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
+import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import AddTaskForm from 'components/Molecules/Forms/AddTaskForm'
 import EditTaskForm from 'components/Molecules/Forms/EditTaskForm'
 import { CasinoRedTransparent } from 'components/themes/mainTheme'
@@ -151,12 +152,6 @@ const TaskList = ({
         </>
       ) : (
         <>
-          {defaultTasks.length === 0 && (
-            <Stack direction={'row'} justifyContent={'center'} alignItems={'center'}>
-              <Typography textAlign={'center'}>0 tasks found</Typography>
-            </Stack>
-          )}
-
           <Box pt={1} pb={3}>
             <AddTaskForm task={{}} onSubmitted={handleAddTask} />
           </Box>
@@ -184,6 +179,11 @@ const TaskList = ({
             </Stack>
             <HorizontalDivider />
           </Box>
+          {defaultTasks.length === 0 && (
+            <Stack direction={'row'} justifyContent={'center'} alignItems={'center'}>
+              <NoDataFound message={'you do not have tasks for this goal'} />
+            </Stack>
+          )}
           {filterTasks(model.searchTasksText).map((item, i) => (
             <Box key={item.id}>
               {model.editTask !== undefined && model.editTask.id === item.id ? (
