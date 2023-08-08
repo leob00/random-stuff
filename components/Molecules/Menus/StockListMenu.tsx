@@ -5,6 +5,7 @@ import CachedIcon from '@mui/icons-material/Cached'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import HamburgerMenu from './HamburgerMenu'
 import SortIcon from '@mui/icons-material/Sort'
+import { DarkMode } from 'components/themes/DarkMode'
 
 const StockListMenu = ({ onEdit, onRefresh, onShowAsGroup }: { onEdit: () => void; onRefresh: () => void; onShowAsGroup?: (show: boolean) => void }) => {
   const handleShowMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -42,37 +43,39 @@ const StockListMenu = ({ onEdit, onRefresh, onShowAsGroup }: { onEdit: () => voi
   }
 
   return (
-    <HamburgerMenu>
-      <MenuList>
-        <MenuItem onClick={() => handleClick('refresh')}>
-          <ListItemIcon>
-            <CachedIcon color='secondary' fontSize='small' />
-          </ListItemIcon>
-          <ListItemText primary='refresh'></ListItemText>
-        </MenuItem>
-        <HorizontalDivider />
-        <MenuItem onClick={() => handleClick('edit')}>
-          <ListItemIcon>
-            <ViewList color='secondary' fontSize='small' />
-          </ListItemIcon>
-          <ListItemText primary='edit'></ListItemText>
-        </MenuItem>
-        <HorizontalDivider />
-        <MenuItem onClick={() => handleShowGrouped(true)}>
-          <ListItemIcon>
-            <SortIcon color='secondary' fontSize='small' />
-          </ListItemIcon>
-          <ListItemText primary='view by group name'></ListItemText>
-        </MenuItem>
-        <HorizontalDivider />
-        <MenuItem onClick={() => handleShowGrouped(false)}>
-          <ListItemIcon>
-            <SortIcon color='secondary' fontSize='small' />
-          </ListItemIcon>
-          <ListItemText primary='view as flat list'></ListItemText>
-        </MenuItem>
-      </MenuList>
-    </HamburgerMenu>
+    <DarkMode>
+      <HamburgerMenu>
+        <MenuList>
+          <MenuItem onClick={() => handleClick('refresh')}>
+            <ListItemIcon>
+              <CachedIcon color='secondary' fontSize='small' />
+            </ListItemIcon>
+            <ListItemText primary='refresh'></ListItemText>
+          </MenuItem>
+          <HorizontalDivider />
+          <MenuItem onClick={() => handleClick('edit')}>
+            <ListItemIcon>
+              <ViewList color='secondary' fontSize='small' />
+            </ListItemIcon>
+            <ListItemText primary='edit'></ListItemText>
+          </MenuItem>
+          <HorizontalDivider />
+          <MenuItem onClick={() => handleShowGrouped(true)}>
+            <ListItemIcon>
+              <SortIcon color='secondary' fontSize='small' />
+            </ListItemIcon>
+            <ListItemText primary='view by group name'></ListItemText>
+          </MenuItem>
+          <HorizontalDivider />
+          <MenuItem onClick={() => handleShowGrouped(false)}>
+            <ListItemIcon>
+              <SortIcon color='secondary' fontSize='small' />
+            </ListItemIcon>
+            <ListItemText primary='view as flat list'></ListItemText>
+          </MenuItem>
+        </MenuList>
+      </HamburgerMenu>
+    </DarkMode>
   )
 }
 

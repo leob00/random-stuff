@@ -11,7 +11,7 @@ import { putUserGoals } from 'lib/backend/csr/nextApiWrapper'
 import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
-import { orderBy, filter } from 'lodash'
+import { orderBy } from 'lodash'
 import React from 'react'
 import GoalCharts from './GoalCharts'
 import { UserGoalAndTask } from './UserGoalsLayout'
@@ -23,7 +23,7 @@ const mapGoalTasks = (goals: UserGoal[], tasks: UserTask[]) => {
   const goalsAndTasks: UserGoalAndTask[] = []
   const goalsCopy = [...goals]
   goalsCopy.forEach((goal) => {
-    const goalTasks = filter(tasks, (e) => e.goalId === goal.id)
+    const goalTasks = tasks.filter((e) => e.goalId === goal.id)
     goal.stats = getGoalStats(goalTasks)
     if (!goal.completePercent) {
       goal.completePercent = 0
@@ -35,17 +35,7 @@ const mapGoalTasks = (goals: UserGoal[], tasks: UserTask[]) => {
   })
   return goalsAndTasks
 }
-const UserGoalsDisplay = ({
-  goals,
-  tasks,
-  username,
-  onMutated,
-}: {
-  goals: UserGoal[]
-  tasks: UserTask[]
-  username: string
-  onMutated: (newData: UserGoal[]) => void
-}) => {
+const UserGoalsDisplay = ({ goals, tasks, username, onMutated }: { goals: UserGoal[]; tasks: UserTask[]; username: string; onMutated: (newData: UserGoal[]) => void }) => {
   // recover goals
   // if (goals.length === 0 && tasks.length > 0) {
   //   const newGoals: UserGoal[] = []
@@ -86,9 +76,9 @@ const UserGoalsDisplay = ({
   }
 
   const handleShowCharts = async () => {
-    const inProg = filter(tasks, (e) => e.status !== 'completed')
-    const comp = filter(tasks, (e) => e.status === 'completed').length
-    const pastDue = filter(inProg, (e) => e.dueDate !== undefined && dayjs(e.dueDate).isBefore(dayjs())).length
+    const inProg = tasks.filter((e) => e.status !== 'completed')
+    const comp = tasks.filter((e) => e.status === 'completed').length
+    const pastDue = inProg.filter((e) => e.dueDate !== undefined && dayjs(e.dueDate).isBefore(dayjs())).length
     const barChart: BarChart = {
       colors: [CasinoRedTransparent, CasinoBlueTransparent, CasinoGreenTransparent],
       labels: ['past due', 'in progress', 'completed'],
@@ -148,8 +138,7 @@ const UserGoalsDisplay = ({
                       <LinkButton2
                         onClick={() => {
                           handleGoalClick(item)
-                        }}
-                      >
+                        }}>
                         <Typography>{item.body}</Typography>
                       </LinkButton2>
                       {item.completePercent !== undefined && (
@@ -171,8 +160,7 @@ const UserGoalsDisplay = ({
                               <LinkButton2
                                 onClick={() => {
                                   handleGoalClick(item)
-                                }}
-                              >
+                                }}>
                                 <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
                               </LinkButton2>
                             )}

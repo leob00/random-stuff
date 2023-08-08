@@ -22,7 +22,7 @@ const AddTaskForm = ({ task, onSubmitted }: { task: UserTask; onSubmitted: (data
     <form onSubmit={handleSubmit(onSubmit)}>
       <Stack direction={'row'} spacing={1}>
         <ControlledFreeTextInput control={control} fieldName='body' defaultValue={task.body ?? ''} label='' placeholder='new task' required />
-        <ControlledDatePicker control={control} fieldName='dueDate' defaultValue={''} placeholder={'due date'} label={'due date'} />
+        <ControlledDatePicker control={control} fieldName='dueDate' defaultValue={task.dueDate ?? null} placeholder={'due date'} label={'due date'} />
         <SecondaryButton text='add' type='submit' size='small' width={80} />
       </Stack>
     </form>

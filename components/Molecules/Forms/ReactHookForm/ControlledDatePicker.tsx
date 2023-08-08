@@ -17,27 +17,21 @@ export const ControlledDatePicker = ({
 }: {
   fieldName: string
   control: Control<any, any>
-  defaultValue: string
+  defaultValue: string | null
   placeholder?: string
   label: string
   required?: boolean
 }) => {
-  const [currentValue, setCurrentValue] = React.useState(defaultValue)
   return (
     <Controller
       name={fieldName}
       control={control}
-      //rules={{ required: required }}
+      defaultValue={defaultValue ? dayjs(defaultValue) : null}
+      rules={{ required: required }}
       render={({ field }) => (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateTimePicker
-            value={currentValue.length === 0 ? null : dayjs(currentValue)}
-            onChange={(val) => {
-              setCurrentValue(dayjs(val).format())
-              field.onChange(dayjs(val).format())
-              //console.log(val)
-            }}
-            // {...field}
+            {...field}
             renderInput={(props) => (
               <TextField
                 required={required}
@@ -56,7 +50,6 @@ export const ControlledDatePicker = ({
           />
         </LocalizationProvider>
       )}
-      //defaultValue={defaultValue.length === 0 ? dayjs(defaultValue) : ''}
     />
   )
 }

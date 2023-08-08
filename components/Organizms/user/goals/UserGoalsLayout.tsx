@@ -10,6 +10,7 @@ import { get } from 'lib/backend/api/fetchFunctions'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UserGoalsDisplay from './UserGoalsDisplay'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
+import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 
 export interface UserGoalAndTask {
   goal: UserGoal
@@ -27,8 +28,8 @@ export interface UserGoalsModel {
 export function reorderTasks(list: UserTask[]) {
   const inProg = orderBy(
     filter(list, (e) => e.status !== 'completed'),
-    ['status', 'dueDate', 'dateCreated'],
-    ['desc', 'asc', 'desc'],
+    ['status', 'dueDate'],
+    ['desc', 'asc'],
   )
   const completed = orderBy(
     filter(list, (e) => e.status === 'completed'),
@@ -49,7 +50,6 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
 
   const fetchGoalsData = async (url: string, enc: string) => {
     const result = await getUserGoals(constructUserGoalsKey(username))
-
     return result
   }
   const fetchTasksData = async (url: string, enc: string) => {
@@ -58,7 +58,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
     return result
   }
 
-  const { data: goals } = useSWR(goalsMutateKey, ([url, enc]) => fetchGoalsData(url, enc))
+  const { data: goals, error } = useSWR(goalsMutateKey, ([url, enc]) => fetchGoalsData(url, enc))
   const { data: tasks, isLoading, isValidating } = useSWR(taskMutateKey, ([url, enc]) => fetchTasksData(url, enc))
   const handleMutated = (newGoals: UserGoal[]) => {
     mutate(goalsMutateKey, newGoals, { revalidate: false })
@@ -76,6 +76,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
           <BackdropLoader />
         </>
       )}
+      {error && <ErrorMessage text='Opps. We encountered and error. Please try refreshing the page.' />}
       {goals && tasks && <UserGoalsDisplay goals={goals} tasks={tasks} username={username} onMutated={handleMutated} />}
     </>
   )

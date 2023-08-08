@@ -32,40 +32,42 @@ const ContextMenu = ({ items }: { items: ContextMenuItem[] }) => {
       >
         <MenuIcon color='secondary' fontSize='small' />
       </Button>
-      <Menu
-        //id='basic-menu'
-        sx={{}}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleCloseMenu}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-      >
-        <MenuList>
-          {items.map((item, i) => (
-            <MenuItem
-              sx={{ py: 1, color: VeryLightBlue }}
-              divider={true}
-              key={i}
-              onClick={() => {
-                handleCloseMenu()
-                item.fn()
-              }}
-            >
-              {item.item}
-            </MenuItem>
-          ))}
-        </MenuList>
-      </Menu>
+      <DarkMode>
+        <Menu
+          //id='basic-menu'
+          sx={{}}
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleCloseMenu}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+        >
+          <MenuList>
+            {items.map((item, i) => (
+              <MenuItem
+                sx={{ py: 1 }}
+                divider={true}
+                key={i}
+                onClick={() => {
+                  handleCloseMenu()
+                  item.fn()
+                }}
+              >
+                {item.item}
+              </MenuItem>
+            ))}
+          </MenuList>
+        </Menu>
+      </DarkMode>
     </>
   )
 }

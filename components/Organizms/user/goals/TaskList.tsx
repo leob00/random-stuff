@@ -22,7 +22,7 @@ import { reorderTasks } from './UserGoalsLayout'
 
 interface TaskModel {
   isLoading: boolean
-  //tasks: UserTask[]
+  taskList: UserTask[]
   searchTasksText: string
   editTask?: UserTask
   selectedTask?: UserTask
@@ -50,20 +50,22 @@ const TaskList = ({
   let defaultTasks = selectedGoal.deleteCompletedTasks ? [...tasks].filter((m) => m.status !== 'completed') : [...tasks]
   const [model, setModel] = React.useReducer((state: TaskModel, newState: TaskModel) => ({ ...state, ...newState }), {
     isLoading: false,
+    taskList: reorderTasks(defaultTasks),
     confirmCompleteTask: false,
     searchTasksText: '',
     showSearch: false,
   })
 
   const handleAddTask = (item: UserTask) => {
-    item.status = 'in progress'
-    item.goalId = selectedGoal.id
-    item.id = constructUserTaskPk(username)
-    const tasksCopy = [...tasks]
-    tasksCopy.push(item)
+    const newItem = { ...item }
+    newItem.status = 'in progress'
+    newItem.goalId = selectedGoal.id
+    newItem.id = constructUserTaskPk(username)
+
+    const tasksCopy = [...model.taskList]
+    tasksCopy.unshift(newItem)
     const reordered = reorderTasks(tasksCopy)
-    defaultTasks = reordered
-    setModel({ ...model, isLoading: false })
+    setModel({ ...model, searchTasksText: '', taskList: reordered })
     onAddTask(item)
   }
   const handleTaskClick = (item: UserTask) => {
@@ -78,21 +80,20 @@ const TaskList = ({
       item.status = 'in progress'
     }
     item.dateModified = getUtcNow().format()
-    let tasksCopy = tasks.filter((e) => e.id !== item.id)
+    let tasksCopy = model.taskList.filter((e) => e.id !== item.id)
     tasksCopy.push(item)
     if (selectedGoal.deleteCompletedTasks) {
       tasksCopy = tasksCopy.filter((m) => m.status !== 'completed')
     }
     const reordered = reorderTasks(tasksCopy)
-    defaultTasks = reordered
 
-    setModel({ ...model, isLoading: false, editTask: undefined, selectedTask: undefined })
+    setModel({ ...model, isLoading: false, editTask: undefined, selectedTask: undefined, taskList: reordered })
     onModifyTask(item)
   }
 
   const handleYesChangeTaskStatus = () => {}
   const handleNoChangeTaskStatus = () => {
-    const tasksCopy = [...tasks]
+    const tasksCopy = [...model.taskList]
     if (model.selectedTask !== undefined) {
       tasksCopy.forEach((task) => {
         if (task.id === model.selectedTask!.id) {
@@ -100,15 +101,18 @@ const TaskList = ({
         }
       })
     }
-    defaultTasks = tasksCopy
 
-    setModel({ ...model, confirmCompleteTask: false, selectedTask: undefined, editTask: undefined })
+    setModel({ ...model, confirmCompleteTask: false, selectedTask: undefined, editTask: undefined, taskList: tasksCopy })
   }
 
   const handleCompleteTaskClick = async (checked: boolean, item: UserTask) => {
     //setModel({ ...model, isLoading: true })
     const itemCopy = { ...item }
     itemCopy.status = checked ? 'completed' : 'in progress'
+    if (selectedGoal.deleteCompletedTasks) {
+      const newTasks = model.taskList.filter((m) => m.id !== itemCopy.id)
+      setModel({ ...model, taskList: reorderTasks(newTasks) })
+    }
 
     await handleSaveTask(itemCopy)
     onModifyTask(itemCopy)
@@ -116,9 +120,9 @@ const TaskList = ({
 
   const filterTasks = (text: string) => {
     if (text.length === 0) {
-      return [...tasks]
+      return [...model.taskList]
     }
-    const filtered = [...tasks].filter((m) => m.body?.toLowerCase().includes(text.toLowerCase()))
+    const filtered = [...model.taskList].filter((m) => m.body?.toLowerCase().includes(text.toLowerCase()))
     return filtered
   }
 
@@ -132,19 +136,14 @@ const TaskList = ({
   const handleDeleteTask = (item: UserTask) => {
     const newTasks = [...tasks].filter((m) => m.id !== item.id)
     defaultTasks = newTasks
-    setModel({ ...model, editTask: undefined })
+    setModel({ ...model, editTask: undefined, taskList: reorderTasks(newTasks) })
+
     onDeleteTask({ ...item })
   }
 
   return (
     <>
-      <ConfirmDialog
-        onCancel={handleNoChangeTaskStatus}
-        show={model.confirmCompleteTask}
-        text={'complete task?'}
-        title={'confirm'}
-        onConfirm={handleYesChangeTaskStatus}
-      />
+      <ConfirmDialog onCancel={handleNoChangeTaskStatus} show={model.confirmCompleteTask} text={'complete task?'} title={'confirm'} onConfirm={handleYesChangeTaskStatus} />
 
       {model.isLoading ? (
         <>
@@ -179,7 +178,7 @@ const TaskList = ({
             </Stack>
             <HorizontalDivider />
           </Box>
-          {defaultTasks.length === 0 && (
+          {model.taskList.length === 0 && (
             <Stack direction={'row'} justifyContent={'center'} alignItems={'center'}>
               <NoDataFound message={'you do not have tasks for this goal'} />
             </Stack>
@@ -201,13 +200,7 @@ const TaskList = ({
                 <>
                   <Box pb={2}>
                     <Box key={item.id}>
-                      <TaskItem
-                        task={item}
-                        index={i}
-                        taskCount={tasks.length}
-                        handleCompleteTaskClick={handleCompleteTaskClick}
-                        handleTaskClick={handleTaskClick}
-                      />
+                      <TaskItem task={item} index={i} taskCount={tasks.length} handleCompleteTaskClick={handleCompleteTaskClick} handleTaskClick={handleTaskClick} />
                     </Box>
                   </Box>
                 </>
