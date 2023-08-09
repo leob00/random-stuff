@@ -2,14 +2,14 @@ import { Box, Pagination } from '@mui/material'
 import Pager from 'components/Atoms/Pager'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { getCommunityStocks } from 'lib/backend/csr/nextApiWrapper'
-import { getPagedArray } from 'lib/util/collections'
+import { getPagedArray, sortArray } from 'lib/util/collections'
 import { areObjectsEqual } from 'lib/util/objects'
 import { findLast, orderBy } from 'lodash'
 import React from 'react'
 import StockTable from './StockTable'
 
 const CommunityStocksLayout = ({ data, defaultSort = true, pageSize = 10 }: { data: StockQuote[]; defaultSort?: boolean; pageSize?: number }) => {
-  const stocks = defaultSort ? orderBy(data, ['Company'], ['asc']) : [...data]
+  const stocks = defaultSort ? sortArray(data, ['Company'], ['asc']) : [...data]
   const pagedStocks = getPagedArray(stocks, pageSize)
 
   const [currentPageIndex, setCurrentPageIndex] = React.useState(1)
@@ -26,7 +26,8 @@ const CommunityStocksLayout = ({ data, defaultSort = true, pageSize = 10 }: { da
           itemsPerPage={pageSize}
           onPaged={(pageNum: number) => handlePaged(pageNum)}
           defaultPageIndex={currentPageIndex}
-          totalItemCount={stocks.length}></Pager>
+          totalItemCount={stocks.length}
+        ></Pager>
       </Box>
     </Box>
   )

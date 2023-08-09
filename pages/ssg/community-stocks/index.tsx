@@ -27,8 +27,9 @@ export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
     },
   }
 }
+type Tab = 'Recent'
 const Page: NextPage<PageProps> = ({ allCommunityStocks }) => {
-  const [selectedTab, setSelectedTab] = React.useState('Recently Searched')
+  const [selectedTab, setSelectedTab] = React.useState<Tab>('Recent')
 
   const tabs: TabInfo[] = [
     // {
@@ -37,19 +38,18 @@ const Page: NextPage<PageProps> = ({ allCommunityStocks }) => {
     // },
     {
       selected: true,
-      title: 'Recently Searched',
+      title: 'Recent',
     },
   ]
   const handleSelectTab = (title: string) => {
-    setSelectedTab(title)
+    setSelectedTab(title as Tab)
   }
   return (
     <ResponsiveContainer>
       <BackButton />
       <CenteredHeader title='Community Stocks' />
       <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
-      {/* {selectedTab === 'All' && <CommunityStocksLayout data={allCommunityStocks} />} */}
-      {selectedTab === 'Recently Searched' && <RecentlySearchedLayout />}
+      {selectedTab === 'Recent' && <RecentlySearchedLayout />}
     </ResponsiveContainer>
   )
 }
