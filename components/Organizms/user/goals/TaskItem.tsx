@@ -34,7 +34,8 @@ const TaskItem = ({
         <LinkButton2
           onClick={() => {
             handleTaskClick(task)
-          }}>
+          }}
+        >
           <Typography textAlign={'left'} variant='subtitle1'>
             {`${task.body && task.body.length > 0 ? task.body : 'not set'}`}
           </Typography>
@@ -43,7 +44,11 @@ const TaskItem = ({
           <Switch checked={isCompleted} onChange={handleChecked} />
         </Stack>
       </Stack>
-      {task.dueDate && <Typography variant='body2' color={task.status === 'in progress' && dayjs().isAfter(task.dueDate) ? CasinoRedTransparent : 'unset'}>{`due: ${dayjs(task.dueDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
+      {task.dueDate && (
+        <Typography variant='body2' color={task.status !== 'completed' && dayjs().isAfter(task.dueDate) ? CasinoRedTransparent : 'unset'}>{`due: ${dayjs(
+          task.dueDate,
+        ).format('MM/DD/YYYY hh:mm A')}`}</Typography>
+      )}
       {task.dateCompleted && <Typography variant='body2'>{`completed: ${dayjs(task.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
       {index < taskCount - 1 && <HorizontalDivider />}
     </>

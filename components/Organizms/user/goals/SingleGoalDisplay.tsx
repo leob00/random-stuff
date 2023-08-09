@@ -24,29 +24,40 @@ import EditGoal from './EditGoal'
 import CenterStack from 'components/Atoms/CenterStack'
 import Warning from '@mui/icons-material/Warning'
 import GoalStats from './GoalStats'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
-const SingleGoalDisplay = ({ username, goal, tasks, onMutated, onDeleted }: { username: string; goal: UserGoal; tasks: UserTask[]; onMutated: (goal: UserGoal, tasks: UserTask[]) => void; onDeleted: (goal: UserGoal) => void }) => {
+const SingleGoalDisplay = ({
+  username,
+  goal,
+  tasks,
+  onMutated,
+  onDeleted,
+}: {
+  username: string
+  goal: UserGoal
+  tasks: UserTask[]
+  onMutated: (goal: UserGoal, tasks: UserTask[]) => void
+  onDeleted: (goal: UserGoal) => void
+}) => {
   const [goalEditMode, setGoalEditMode] = React.useState(false)
   const [showDeleteGoalConfirm, setShowDeleteGoalConfirm] = React.useState(false)
+  const [isSaving, setIsSaving] = React.useState(false)
   const router = useRouter()
 
   const displayTasks = goal.deleteCompletedTasks ? [...tasks].filter((m) => m.status !== 'completed') : [...tasks]
 
   const handleAddTask = async (item: UserTask) => {
+    setIsSaving(true)
     let newTasks = [...tasks]
     const newGoal = { ...goal }
-    if (!item.id) {
-      item.id = constructUserTaskPk(username)
-      item.goalId = newGoal.id
-    }
-    newTasks.push(item)
+    newTasks.unshift(item)
     if (newGoal.deleteCompletedTasks) {
       newTasks = newTasks.filter((m) => m.status !== 'completed')
     }
-    newTasks = reorderTasks(newTasks)
     await putUserGoalTasks(username, newGoal.id!, newTasks)
     const resultGoal = await saveGoal(newGoal, newTasks)
     onMutated(resultGoal, newTasks)
+    setIsSaving(false)
   }
   const handleDeleteTask = async (item: UserTask) => {
     let newTasks = [...tasks].filter((m) => m.id !== item.id)
@@ -58,7 +69,7 @@ const SingleGoalDisplay = ({ username, goal, tasks, onMutated, onDeleted }: { us
     onMutated(resultGoal, newTasks)
   }
   const handleModifyTask = async (item: UserTask) => {
-    // console.log(item)
+    setIsSaving(true)
     let newTasks = [...tasks]
     replaceItemInArray(item, newTasks, 'id', item.id!)
     if (goal.deleteCompletedTasks) {
@@ -70,6 +81,7 @@ const SingleGoalDisplay = ({ username, goal, tasks, onMutated, onDeleted }: { us
     const resultGoal = await saveGoal(goal, newTasks)
 
     onMutated(resultGoal, newTasks)
+    setIsSaving(false)
   }
 
   const saveGoal = async (goal: UserGoal, newTasks: UserTask[]) => {
@@ -86,7 +98,6 @@ const SingleGoalDisplay = ({ username, goal, tasks, onMutated, onDeleted }: { us
     } else {
       goalCopy.completePercent = 0
     }
-    console.log(tasksCopy)
     goalCopy.stats = getGoalStats(tasksCopy)
     let existingGoals = await getUserGoals(constructUserGoalsKey(username))
     replaceItemInArray(goalCopy, existingGoals, 'id', goalCopy.id!)
@@ -178,8 +189,21 @@ const SingleGoalDisplay = ({ username, goal, tasks, onMutated, onDeleted }: { us
             </Stack>
           )}
           <HorizontalDivider />
-          <TaskList username={username} selectedGoal={goal} tasks={displayTasks} onAddTask={handleAddTask} onDeleteTask={handleDeleteTask} onModifyTask={handleModifyTask} />
-          <ConfirmDeleteDialog show={showDeleteGoalConfirm} text={`Are you sure you want to delete '${goal.body}' and all of its tasks?`} onConfirm={handleDeleteGoal} onCancel={() => setShowDeleteGoalConfirm(false)} />
+          {isSaving && <BackdropLoader />}
+          <TaskList
+            username={username}
+            selectedGoal={goal}
+            tasks={displayTasks}
+            onAddTask={handleAddTask}
+            onDeleteTask={handleDeleteTask}
+            onModifyTask={handleModifyTask}
+          />
+          <ConfirmDeleteDialog
+            show={showDeleteGoalConfirm}
+            text={`Are you sure you want to delete '${goal.body}' and all of its tasks?`}
+            onConfirm={handleDeleteGoal}
+            onCancel={() => setShowDeleteGoalConfirm(false)}
+          />
         </>
       )}
     </>

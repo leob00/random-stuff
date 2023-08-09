@@ -57,13 +57,12 @@ const TaskList = ({
   })
 
   const handleAddTask = (item: UserTask) => {
-    const newItem = { ...item }
-    newItem.status = 'in progress'
-    newItem.goalId = selectedGoal.id
-    newItem.id = constructUserTaskPk(username)
+    item.status = 'in progress'
+    item.goalId = selectedGoal.id
+    item.id = constructUserTaskPk(username)
 
-    const tasksCopy = [...model.taskList]
-    tasksCopy.unshift(newItem)
+    const tasksCopy = [...tasks]
+    tasksCopy.unshift(item)
     const reordered = reorderTasks(tasksCopy)
     setModel({ ...model, searchTasksText: '', taskList: reordered })
     onAddTask(item)
@@ -118,7 +117,7 @@ const TaskList = ({
     }
     setTimeout(() => {
       fn()
-    }, 1000)
+    }, 350)
   }
 
   const filterTasks = (text: string) => {
@@ -146,7 +145,13 @@ const TaskList = ({
 
   return (
     <>
-      <ConfirmDialog onCancel={handleNoChangeTaskStatus} show={model.confirmCompleteTask} text={'complete task?'} title={'confirm'} onConfirm={handleYesChangeTaskStatus} />
+      <ConfirmDialog
+        onCancel={handleNoChangeTaskStatus}
+        show={model.confirmCompleteTask}
+        text={'complete task?'}
+        title={'confirm'}
+        onConfirm={handleYesChangeTaskStatus}
+      />
 
       {model.isLoading ? (
         <>
@@ -203,7 +208,13 @@ const TaskList = ({
                 <>
                   <Box pb={2}>
                     <Box key={item.id}>
-                      <TaskItem task={item} index={i} taskCount={tasks.length} handleCompleteTaskClick={handleCompleteTaskClick} handleTaskClick={handleTaskClick} />
+                      <TaskItem
+                        task={item}
+                        index={i}
+                        taskCount={tasks.length}
+                        handleCompleteTaskClick={handleCompleteTaskClick}
+                        handleTaskClick={handleTaskClick}
+                      />
                     </Box>
                   </Box>
                 </>

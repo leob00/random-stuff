@@ -28,8 +28,8 @@ export interface UserGoalsModel {
 export function reorderTasks(list: UserTask[]) {
   const inProg = orderBy(
     filter(list, (e) => e.status !== 'completed'),
-    ['status', 'dueDate'],
-    ['desc', 'asc'],
+    ['dueDate', 'status'],
+    ['asc', 'desc'],
   )
   const completed = orderBy(
     filter(list, (e) => e.status === 'completed'),
