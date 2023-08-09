@@ -1,9 +1,9 @@
 import { Stack, Box, Typography } from '@mui/material'
 import { CasinoRedTransparent } from 'components/themes/mainTheme'
-import { UserGoalStats } from 'lib/models/userTasks'
+import { UserGoal, UserGoalStats } from 'lib/models/userTasks'
 import React from 'react'
 
-const GoalStats = ({ stats }: { stats: UserGoalStats }) => {
+const GoalStats = ({ goal, stats }: { goal: UserGoal; stats: UserGoalStats }) => {
   return (
     <Stack>
       <Box display={'flex'} gap={1}>
@@ -16,16 +16,18 @@ const GoalStats = ({ stats }: { stats: UserGoalStats }) => {
           <Typography variant='body2'>{`${Number(stats.completed) + Number(stats.inProgress)}`}</Typography>
         </Box>
       </Box>
-      <Box display={'flex'} gap={1}>
-        <Box width={100} justifyContent={'flex-end'}>
-          <Typography variant='body2' textAlign={'right'}>
-            completed:
-          </Typography>
+      {!goal.deleteCompletedTasks && (
+        <Box display={'flex'} gap={1}>
+          <Box width={100} justifyContent={'flex-end'}>
+            <Typography variant='body2' textAlign={'right'}>
+              completed:
+            </Typography>
+          </Box>
+          <Box>
+            <Typography variant='body2'>{`${stats.completed}`}</Typography>
+          </Box>
         </Box>
-        <Box>
-          <Typography variant='body2'>{`${stats.completed}`}</Typography>
-        </Box>
-      </Box>
+      )}
       <Box display={'flex'} gap={1}>
         <Box width={100} justifyContent={'flex-end'}>
           <Typography variant='body2' textAlign={'right'}>
