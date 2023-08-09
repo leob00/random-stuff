@@ -72,6 +72,9 @@ const TaskList = ({
     setModel({ ...model, editTask: item })
   }
   const handleSaveTask = async (item: UserTask) => {
+    if (!item.id) {
+      item.id = constructUserTaskPk(username)
+    }
     if (item.status && item.status === 'completed') {
       item.dateCompleted = getUtcNow().format()
       item.status = 'completed'
@@ -109,13 +112,13 @@ const TaskList = ({
     //setModel({ ...model, isLoading: true })
     const itemCopy = { ...item }
     itemCopy.status = checked ? 'completed' : 'in progress'
-    if (selectedGoal.deleteCompletedTasks) {
-      const newTasks = model.taskList.filter((m) => m.id !== itemCopy.id)
-      setModel({ ...model, taskList: reorderTasks(newTasks) })
+    const fn = async () => {
+      await handleSaveTask(itemCopy)
+      onModifyTask(itemCopy)
     }
-
-    await handleSaveTask(itemCopy)
-    onModifyTask(itemCopy)
+    setTimeout(() => {
+      fn()
+    }, 1000)
   }
 
   const filterTasks = (text: string) => {

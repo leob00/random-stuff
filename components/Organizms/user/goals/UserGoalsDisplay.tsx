@@ -11,7 +11,7 @@ import { putUserGoals } from 'lib/backend/csr/nextApiWrapper'
 import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
-import { orderBy } from 'lodash'
+import { iteratee, orderBy } from 'lodash'
 import React from 'react'
 import GoalCharts from './GoalCharts'
 import { UserGoalAndTask } from './UserGoalsLayout'
@@ -23,8 +23,9 @@ const mapGoalTasks = (goals: UserGoal[], tasks: UserTask[]) => {
   const goalsAndTasks: UserGoalAndTask[] = []
   const goalsCopy = [...goals]
   goalsCopy.forEach((goal) => {
-    const goalTasks = tasks.filter((e) => e.goalId === goal.id)
+    const goalTasks = [...tasks].filter((e) => e.goalId === goal.id)
     goal.stats = getGoalStats(goalTasks)
+
     if (!goal.completePercent) {
       goal.completePercent = 0
     }
@@ -55,21 +56,22 @@ const UserGoalsDisplay = ({ goals, tasks, username, onMutated }: { goals: UserGo
   const [barChart, setBarchart] = React.useState<BarChart | undefined>(undefined)
   const [showAddGoalForm, setShowAddGoalForm] = React.useState(false)
 
-  const handleEditGoalSubmit = async (item: UserGoal) => {
+  const handleAddGoal = async (item: UserGoal) => {
     let newGoals = [...goals]
     if (!item.id) {
       item.id = constructUserGoalPk(username)
       item.dateCreated = getUtcNow().format()
+      item.stats = getGoalStats([])
     }
     item.dateModified = getUtcNow().format()
     newGoals.push(item)
     newGoals = orderBy(newGoals, ['dateModified'], ['desc'])
     await putUserGoals(constructUserGoalsKey(username), newGoals)
     //onMutated(goals)
-    await handleGoalClick(item)
+    await handleShowEditGoal(item)
   }
 
-  const handleGoalClick = async (item: UserGoal) => {
+  const handleShowEditGoal = async (item: UserGoal) => {
     const goalId = encodeURIComponent(weakEncrypt(item.id!))
     const token = encodeURIComponent(weakEncrypt(username))
     router.push(`/protected/csr/goals/details?id=${goalId}&token=${token}`)
@@ -112,7 +114,7 @@ const UserGoalsDisplay = ({ goals, tasks, username, onMutated }: { goals: UserGo
         )}
         {showAddGoalForm && (
           <Box pt={1}>
-            <AddGoalForm goal={{}} onSubmit={handleEditGoalSubmit} />
+            <AddGoalForm goal={{}} onSubmit={handleAddGoal} />
           </Box>
         )}
       </Box>
@@ -137,7 +139,7 @@ const UserGoalsDisplay = ({ goals, tasks, username, onMutated }: { goals: UserGo
                     <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
                       <LinkButton2
                         onClick={() => {
-                          handleGoalClick(item)
+                          handleShowEditGoal(item)
                         }}>
                         <Typography>{item.body}</Typography>
                       </LinkButton2>
@@ -149,23 +151,21 @@ const UserGoalsDisplay = ({ goals, tasks, username, onMutated }: { goals: UserGo
                     </Stack>
                     {item.stats && (
                       <Box pl={1}>
-                        {item.stats && (
-                          <>
-                            <Box>
-                              <Typography variant='body2'>{`tasks: ${Number(item.stats.completed) + Number(item.stats.inProgress)}`}</Typography>
-                              <Typography variant='body2'>{`completed: ${item.stats.completed}`}</Typography>
-                              <Typography variant='body2'>{`in progress: ${item.stats.inProgress}`}</Typography>
-                            </Box>
-                            {item.stats.pastDue > 0 && (
-                              <LinkButton2
-                                onClick={() => {
-                                  handleGoalClick(item)
-                                }}>
-                                <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
-                              </LinkButton2>
-                            )}
-                          </>
-                        )}
+                        <>
+                          <Box>
+                            <Typography variant='body2'>{`tasks: ${Number(item.stats.completed) + Number(item.stats.inProgress)}`}</Typography>
+                            <Typography variant='body2'>{`completed: ${item.stats.completed}`}</Typography>
+                            <Typography variant='body2'>{`in progress: ${item.stats.inProgress}`}</Typography>
+                          </Box>
+                          {item.stats.pastDue > 0 && (
+                            <LinkButton2
+                              onClick={() => {
+                                handleShowEditGoal(item)
+                              }}>
+                              <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
+                            </LinkButton2>
+                          )}
+                        </>
                       </Box>
                     )}
                     {i < goals.length - 1 && <HorizontalDivider />}

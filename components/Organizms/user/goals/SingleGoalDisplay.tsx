@@ -5,7 +5,7 @@ import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/Context
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import { CasinoRedTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
-import { constructUserGoalsKey } from 'lib/backend/api/aws/util'
+import { constructUserGoalsKey, constructUserTaskPk } from 'lib/backend/api/aws/util'
 import { getUserGoals, putUserGoals, putUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
 import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
 import { UserGoal, UserGoalStats, UserTask } from 'lib/models/userTasks'
@@ -25,19 +25,7 @@ import CenterStack from 'components/Atoms/CenterStack'
 import Warning from '@mui/icons-material/Warning'
 import GoalStats from './GoalStats'
 
-const SingleGoalDisplay = ({
-  username,
-  goal,
-  tasks,
-  onMutated,
-  onDeleted,
-}: {
-  username: string
-  goal: UserGoal
-  tasks: UserTask[]
-  onMutated: (goal: UserGoal, tasks: UserTask[]) => void
-  onDeleted: (goal: UserGoal) => void
-}) => {
+const SingleGoalDisplay = ({ username, goal, tasks, onMutated, onDeleted }: { username: string; goal: UserGoal; tasks: UserTask[]; onMutated: (goal: UserGoal, tasks: UserTask[]) => void; onDeleted: (goal: UserGoal) => void }) => {
   const [goalEditMode, setGoalEditMode] = React.useState(false)
   const [showDeleteGoalConfirm, setShowDeleteGoalConfirm] = React.useState(false)
   const router = useRouter()
@@ -47,6 +35,10 @@ const SingleGoalDisplay = ({
   const handleAddTask = async (item: UserTask) => {
     let newTasks = [...tasks]
     const newGoal = { ...goal }
+    if (!item.id) {
+      item.id = constructUserTaskPk(username)
+      item.goalId = newGoal.id
+    }
     newTasks.push(item)
     if (newGoal.deleteCompletedTasks) {
       newTasks = newTasks.filter((m) => m.status !== 'completed')
@@ -87,14 +79,15 @@ const SingleGoalDisplay = ({
       tasksCopy = tasksCopy.filter((m) => m.status !== 'completed')
     }
     goalCopy.dateModified = dayjs().format()
-    goalCopy.stats = getGoalStats(tasksCopy)
-    goalCopy.dateModified = dayjs().format()
+
     if (tasksCopy.length > 0) {
       const completed = filter(tasksCopy, (e) => e.status === 'completed')
       goalCopy.completePercent = calculatePercentInt(completed.length, tasksCopy.length)
     } else {
       goalCopy.completePercent = 0
     }
+    console.log(tasksCopy)
+    goalCopy.stats = getGoalStats(tasksCopy)
     let existingGoals = await getUserGoals(constructUserGoalsKey(username))
     replaceItemInArray(goalCopy, existingGoals, 'id', goalCopy.id!)
     existingGoals = orderBy(existingGoals, ['dateModified'], ['desc'])
@@ -115,6 +108,7 @@ const SingleGoalDisplay = ({
   const handleModifyGoal = async (editGoal: UserGoal) => {
     let newTasks = [...tasks]
     const resultGoal = await saveGoal(editGoal, newTasks)
+
     setGoalEditMode(false)
     if (resultGoal.deleteCompletedTasks) {
       newTasks = newTasks.filter((m) => m.status !== 'completed')
@@ -184,20 +178,8 @@ const SingleGoalDisplay = ({
             </Stack>
           )}
           <HorizontalDivider />
-          <TaskList
-            username={username}
-            selectedGoal={goal}
-            tasks={displayTasks}
-            onAddTask={handleAddTask}
-            onDeleteTask={handleDeleteTask}
-            onModifyTask={handleModifyTask}
-          />
-          <ConfirmDeleteDialog
-            show={showDeleteGoalConfirm}
-            text={`Are you sure you want to delete '${goal.body}' and all of its tasks?`}
-            onConfirm={handleDeleteGoal}
-            onCancel={() => setShowDeleteGoalConfirm(false)}
-          />
+          <TaskList username={username} selectedGoal={goal} tasks={displayTasks} onAddTask={handleAddTask} onDeleteTask={handleDeleteTask} onModifyTask={handleModifyTask} />
+          <ConfirmDeleteDialog show={showDeleteGoalConfirm} text={`Are you sure you want to delete '${goal.body}' and all of its tasks?`} onConfirm={handleDeleteGoal} onCancel={() => setShowDeleteGoalConfirm(false)} />
         </>
       )}
     </>

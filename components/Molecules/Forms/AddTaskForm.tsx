@@ -15,6 +15,7 @@ const AddTaskForm = ({ task, onSubmitted }: { task: UserTask; onSubmitted: (data
   } = useForm<UserTask>()
   const onSubmit: SubmitHandler<UserTask> = (formData: UserTask) => {
     const submitData = { ...formData }
+
     onSubmitted(submitData)
     reset()
   }

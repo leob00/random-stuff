@@ -1,55 +1,30 @@
 import React from 'react'
-import { Menu, MenuList, MenuItem, ListItemIcon, ListItemText, Divider, Button } from '@mui/material'
-import CachedIcon from '@mui/icons-material/Cached'
+import { ListItemIcon, ListItemText } from '@mui/material'
 import BarChartIcon from '@mui/icons-material/BarChart'
-import MenuIcon from '@mui/icons-material/Menu'
+import ContextMenu, { ContextMenuItem } from './ContextMenu'
 
 const GoalsMenu = ({ onShowCharts }: { onShowCharts: () => void }) => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const open = Boolean(anchorEl)
-  const handleShowMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleCloseMenu = () => {
-    setAnchorEl(null)
-  }
-
   const handleShowCharts = () => {
-    handleCloseMenu()
     onShowCharts()
   }
-  return (
-    <>
-      <Button size='small' id='basic-button' aria-controls={open ? 'basic-menu' : undefined} aria-haspopup='true' aria-expanded={open ? 'true' : undefined} onClick={handleShowMenu}>
-        <MenuIcon color='secondary' fontSize='small' />
-      </Button>
-      <Menu
-        id='basic-menu'
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleCloseMenu}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}>
-        <MenuList>
-          <MenuItem onClick={handleShowCharts}>
-            <ListItemIcon>
-              <BarChartIcon color='secondary' fontSize='small' />
-            </ListItemIcon>
-            <ListItemText>summary</ListItemText>
-          </MenuItem>
-        </MenuList>
-      </Menu>
-    </>
-  )
+
+  const contextMenu: ContextMenuItem[] = [
+    {
+      item: (
+        <>
+          <ListItemIcon>
+            <BarChartIcon color='secondary' fontSize='small' />
+          </ListItemIcon>
+
+          <ListItemText primary='summary'></ListItemText>
+        </>
+      ),
+
+      fn: handleShowCharts,
+    },
+  ]
+
+  return <ContextMenu items={contextMenu} />
 }
 
 export default GoalsMenu

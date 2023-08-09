@@ -4,7 +4,6 @@ import React from 'react'
 import DateAndTimePicker from 'components/Atoms/Inputs/DateAndTimePicker'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
-import { cloneDeep } from 'lodash'
 
 const EditGoalForm = ({ goal, onSubmit }: { goal: UserGoal; onSubmit: (data: UserGoal) => void }) => {
   const [formInput, setFormInput] = React.useReducer((state: UserGoal, newState: UserGoal) => ({ ...state, ...newState }), goal)
@@ -21,7 +20,7 @@ const EditGoalForm = ({ goal, onSubmit }: { goal: UserGoal; onSubmit: (data: Use
     const isValid = formInput.body !== undefined && formInput.body.trim().length > 0 && !formInput.body.includes('  ')
     setValid(isValid)
     if (isValid) {
-      const goal = cloneDeep(formInput)
+      const goal = { ...formInput }
       setFormInput({ ...formInput, id: undefined, body: '' })
       onSubmit(goal)
     }

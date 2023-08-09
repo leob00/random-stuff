@@ -1,23 +1,17 @@
 import React, { ReactNode } from 'react'
-import { ThemeProvider } from '@mui/styles'
-import { Container, CssBaseline } from '@mui/material'
-import Header from './Header'
+import { Box, Container, ThemeProvider } from '@mui/material'
 import Footer from './Footer'
-import theme from './themes/mainTheme'
 import RouteTracker from 'components/Organizms/session/RouteTracker'
+import darkTheme from './themes/darkTheme'
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
-    <>
-      <CssBaseline />
-      <ThemeProvider theme={theme}>
-        <Header />
-        <RouteTracker>
-          <Container sx={{ marginTop: 2, minHeight: 600, paddingBottom: 4 }}>{children}</Container>
-        </RouteTracker>
-        <Footer />
-      </ThemeProvider>
-    </>
+    <Box>
+      <RouteTracker>
+        <Container sx={{ marginTop: 2, minHeight: 600, paddingBottom: 4 }}>{children}</Container>
+      </RouteTracker>
+      <Footer />
+    </Box>
   )
 }
 

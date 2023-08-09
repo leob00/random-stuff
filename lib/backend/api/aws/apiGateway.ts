@@ -185,7 +185,7 @@ export async function putRandomStuffEnc(req: SignedRequest) {
   }
   const id = myDecrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), body.token)
   if (body.id !== id) {
-    console.log('body id: ', body.id)
+    //console.log('body id: ', body.id)
     console.log('token validation failed')
     return null
   }

@@ -27,17 +27,7 @@ interface Model {
   isSaving: boolean
 }
 
-const EditGoal = ({
-  goal,
-  onSaveGoal,
-  onShowCompletedTasks,
-  onCancelEdit,
-}: {
-  goal: UserGoal
-  onSaveGoal: (item: UserGoal) => void
-  onShowCompletedTasks: (show: boolean) => void
-  onCancelEdit: () => void
-}) => {
+const EditGoal = ({ goal, onSaveGoal, onShowCompletedTasks, onCancelEdit }: { goal: UserGoal; onSaveGoal: (item: UserGoal) => void; onShowCompletedTasks: (show: boolean) => void; onCancelEdit: () => void }) => {
   if (!goal.settings) {
     goal.settings = {
       showCompletedTasks: true,
@@ -56,7 +46,6 @@ const EditGoal = ({
     const newGoal = { ...goal, body: formData.body, dueDate: formData.dueDate, deleteCompletedTasks: formData.deleteCompletedTasks }
     setModel({ ...model, goal: newGoal, isSaving: true })
     onSaveGoal(newGoal)
-    //console.log('submitted: ', newGoal)
   }
 
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), {
