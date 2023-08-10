@@ -5,7 +5,7 @@ import theme, { CasinoBlue, CasinoRed, DarkBlue } from 'components/themes/mainTh
 const HtmlView = ({ html }: { html: string }) => {
   const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const currTheme = useTheme()
-  //console.log('palette mode: ', currTheme.palette.mode)
+
   const text = html.replaceAll('font color="#6f6f6f"', `font color="${DarkBlue}"`)
 
   const StyledBox = styled(Typography)(() => ({

@@ -52,9 +52,9 @@ const darkThemeOptions: ThemeOptions = {
     MuiContainer: {
       styleOverrides: {
         maxWidthLg: '100%',
-        // root: {
-        //   backgroundColor: DarkModeBlue,
-        // },
+        root: {
+          backgroundColor: DarkModeBlue,
+        },
       },
     },
     MuiTooltip: {

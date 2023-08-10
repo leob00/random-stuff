@@ -67,12 +67,6 @@ const GroupedStocksLayout = ({
       )
     }
   }
-  const groupMap = getMapFromArray(groupedList, 'id')
-
-  const handleSearchGroupWithinList = (text: string) => {
-    groupedList = Array.from(groupMap.values()).filter((o) => o.groupName.toLowerCase().includes(text.toLowerCase()))
-    //const map = getMapFromArray(result, 'id')
-  }
 
   return (
     <Box>
