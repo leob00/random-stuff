@@ -28,16 +28,18 @@ const GoalStats = ({ goal, stats }: { goal: UserGoal; stats: UserGoalStats }) =>
           </Box>
         </Box>
       )}
-      <Box display={'flex'} gap={1}>
-        <Box width={100} justifyContent={'flex-end'}>
-          <Typography variant='body2' textAlign={'right'}>
-            started:
-          </Typography>
+      {!goal.deleteCompletedTasks && (
+        <Box display={'flex'} gap={1}>
+          <Box width={100} justifyContent={'flex-end'}>
+            <Typography variant='body2' textAlign={'right'}>
+              started:
+            </Typography>
+          </Box>
+          <Box>
+            <Typography variant='body2'>{`${stats.inProgress}`}</Typography>
+          </Box>
         </Box>
-        <Box>
-          <Typography variant='body2'>{`${stats.inProgress}`}</Typography>
-        </Box>
-      </Box>
+      )}
       {stats.pastDue > 0 && (
         <Box display={'flex'} gap={1}>
           <Box width={100} justifyContent={'flex-end'}>

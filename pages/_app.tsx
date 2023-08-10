@@ -19,9 +19,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <CssBaseline />
       <Header />
       <ThemeProvider theme={theme}>
+        <CssBaseline />
+
         <Layout>
           <Component {...pageProps} />
         </Layout>
