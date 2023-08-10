@@ -1,5 +1,5 @@
 'use client'
-import { AppBar, Button, Container, Toolbar, useScrollTrigger, Box, Stack, Typography } from '@mui/material'
+import { AppBar, Button, Container, Toolbar, useScrollTrigger, Box, Stack, Typography, IconButton, useTheme, Theme } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import NLink from 'next/link'
 import { useEffect, useState } from 'react'
@@ -10,6 +10,8 @@ import { DarkMode } from './themes/DarkMode'
 import logo from '/public/images/logo-with-text-blue-small.png'
 import StaticImage from './Atoms/StaticImage'
 import MenuLinkButton from './Atoms/Buttons/MenuLinkButton'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
+import LightModeIcon from '@mui/icons-material/LightMode'
 
 // This is used to make the header stick to the top
 function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
@@ -23,7 +25,7 @@ function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
   })
 }
 
-const Header = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
+const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; onSetColorMode: () => void }) => {
   const [elevationEffect, setElevationEffect] = useState(true)
   const router = useRouter()
 
@@ -35,6 +37,11 @@ const Header = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
   useEffect(() => {
     setElevationEffect(bodyScrolled)
   }, [bodyScrolled])
+
+  const handleChangeLightMode = () => {
+    onSetColorMode()
+  }
+
   return (
     <>
       <AppBar sx={{ backgroundColor: 'transparent' }} position='sticky' elevation={elevationEffect ? 4 : 0} className='blue-gradient'>
@@ -48,7 +55,7 @@ const Header = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
                   </NLink>
                   <Box display={'flex'} pt={4}>
                     <Stack direction='row' spacing={{ xs: 1, sm: 2 }}>
-                      <Stack display={'flex'}>
+                      <Stack display={{ xs: 'none', sm: 'flex' }}>
                         <MenuLinkButton
                           text={'Home'}
                           onClicked={() => {
@@ -65,7 +72,14 @@ const Header = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
                         />
                       </Stack>
                       <Stack>
-                        <UserLoginPanel onLoggedOff={onLoggedOff} />
+                        <UserLoginPanel onLoggedOff={() => {}} />
+                      </Stack>
+                      <Stack>
+                        <Box>
+                          <IconButton size='small' onClick={handleChangeLightMode}>
+                            {colorTheme === 'light' ? <DarkModeIcon fontSize='small' /> : <LightModeIcon fontSize='small' />}
+                          </IconButton>
+                        </Box>
                       </Stack>
                     </Stack>
                   </Box>

@@ -10,17 +10,30 @@ import Header from 'components/Header'
 import { DarkMode } from 'components/themes/DarkMode'
 import darkTheme from 'components/themes/darkTheme'
 import theme from 'components/themes/mainTheme'
+import React from 'react'
 Amplify.configure({ ...awsconfig, ssr: true })
 //Amplify.configure(awsconfig)
 
 function MyApp({ Component, pageProps }: AppProps) {
   //
+
+  const [colorMode, setColorModel] = React.useState<'dark' | 'light'>('light')
+
   useEffect(() => {}, [])
+
+  const handleChangeColorMode = () => {
+    const newMode = colorMode === 'light' ? 'dark' : 'light'
+    setColorModel(newMode)
+  }
+  const setTheme = (mode: 'light' | 'dark') => {
+    return mode === 'dark' ? darkTheme : theme
+  }
 
   return (
     <>
-      <Header />
-      <ThemeProvider theme={theme}>
+      <Header onSetColorMode={handleChangeColorMode} colorTheme={colorMode} />
+
+      <ThemeProvider theme={setTheme(colorMode)}>
         <CssBaseline />
 
         <Layout>

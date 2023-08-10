@@ -1,52 +1,13 @@
 import { Box, Typography } from '@mui/material'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
-import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import { useUserController } from 'hooks/userController'
 import React from 'react'
 import { StockGroup } from './GroupedStocksLayout'
-import { getPositiveNegativeColor } from './StockListItem'
-import StockTable from './StockTable'
-import { replaceItemInArray, sortArray } from 'lib/util/collections'
-import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import GroupedStockItem from './GroupedStockItem'
 
 const GroupedStockTable = ({ result, scrollIntoView = false }: { result: StockGroup[]; scrollIntoView?: boolean }) => {
   const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
-  const userController = useUserController()
-  //const [data, setData] = React.useState(result)
 
-  // const handleExpandCollapseGroup = (item: StockGroup) => {
-  //   const newData = [...data]
-  //   const newItem = data.find((m) => m.id === item.id)
-  //   if (newItem) {
-  //     newItem.isExpanded = !item.isExpanded
-  //     if (item.isExpanded) {
-  //       if (userController.authProfile) {
-  //         const p = { ...userController.authProfile }
-  //         let insideSort = p.settings?.stocks?.sort?.grouped.inside
-  //         if (insideSort) {
-  //           newItem.quotes = sortArray(
-  //             newItem.quotes,
-  //             insideSort.map((m) => m.key),
-  //             insideSort.map((m) => m.direction),
-  //           )
-  //         } else {
-  //           p.settings!.stocks!.sort = {
-  //             grouped: {
-  //               main: [{ key: 'movingAvg', direction: 'desc' }],
-  //               inside: [{ key: 'Company', direction: 'asc' }],
-  //             },
-  //           }
-  //           putUserProfile(p)
-  //           newItem.quotes = sortArray(newItem.quotes, ['Company'], ['asc'])
-  //           userController.setProfile(p)
-  //         }
-  //       }
-  //     }
-  //     replaceItemInArray(newItem, newData, 'id', newItem.id)
-  //     setData(newData)
-  //   }
-  // }
   React.useEffect(() => {
     if (scrollIntoView) {
       if (scrollTarget.current) {

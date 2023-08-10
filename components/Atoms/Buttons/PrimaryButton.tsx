@@ -1,5 +1,6 @@
 import { Button, ButtonProps } from '@mui/material'
 import React from 'react'
+import { useTheme } from '@mui/material'
 
 type ButtonAttributes = ButtonProps & {
   text: string
@@ -7,11 +8,19 @@ type ButtonAttributes = ButtonProps & {
   isDisabled?: boolean
 }
 const PrimaryButton: React.FC<ButtonAttributes> = ({ text, isDisabled, onClicked, ...props }) => {
+  const theme = useTheme()
   const handleClick = () => {
     onClicked?.()
   }
   return (
-    <Button variant='contained' color='primary' onClick={handleClick} disabled={isDisabled} {...props} sx={{ minWidth: 100 }}>
+    <Button
+      variant='contained'
+      color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
+      onClick={handleClick}
+      disabled={isDisabled}
+      {...props}
+      sx={{ minWidth: 100 }}
+    >
       {`${text}`}
     </Button>
   )

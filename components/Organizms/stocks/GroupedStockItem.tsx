@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Typography, useTheme } from '@mui/material'
 import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import React from 'react'
 import { StockGroup } from './GroupedStocksLayout'
@@ -10,6 +10,7 @@ const GroupedStockItem = ({ group }: { group: StockGroup }) => {
   const handleExpandCollapse = () => {
     setExpanded(!expanded)
   }
+  const theme = useTheme()
   return (
     <>
       <Box
@@ -29,7 +30,7 @@ const GroupedStockItem = ({ group }: { group: StockGroup }) => {
         </Box>
 
         <Box pr={2}>
-          <Typography variant='h5' pl={1} color={getPositiveNegativeColor(group.movingAvg)}>
+          <Typography variant='h5' pl={1} color={getPositiveNegativeColor(group.movingAvg, theme.palette.mode)}>
             {`${group.movingAvg.toFixed(2)}%`}
           </Typography>
         </Box>

@@ -1,5 +1,5 @@
 import Person from '@mui/icons-material/Person'
-import { Stack, Button, Divider, Typography, Box } from '@mui/material'
+import { Stack, Button, Divider, Typography, Box, IconButton, useTheme } from '@mui/material'
 import { Auth, Hub } from 'aws-amplify'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
@@ -21,10 +21,8 @@ export type HubPayload = {
 const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
   const router = useRouter()
   const [calledPush, setCalledPush] = React.useState(false)
-
   const userController = useUserController()
   const routeTracker = useRouteTracker()
-  //const lastPath = useSessionController().lastPath
   const signOut = async () => {
     try {
       await Auth.signOut({ global: false })
@@ -137,18 +135,17 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
 
   return (
     <>
-      <Box justifyContent={'space-evenly'} display='flex' alignItems={'center'}>
+      <Box justifyContent={'space-evenly'} display='flex' alignItems={'center'} gap={4}>
         {userController.ticket ? (
           <>
-            <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} mt={'6px'}>
+            <Stack direction='row' spacing={2}>
               <Stack flexGrow={1}></Stack>
               <LoggedInUserMenu onLogOut={signOut} />
             </Stack>
           </>
         ) : (
           <>
-            <Stack direction='row' spacing={2} divider={<Divider orientation='vertical' flexItem />} mt={'6px'}>
-              <Stack flexGrow={1}></Stack>
+            <Stack direction='row' spacing={2} mt={'6px'}>
               <Stack justifyContent={'center'} alignItems={'center'}>
                 <Button onClick={handleLoginClick} size='small' sx={{}}>
                   <Person fontSize='small' />

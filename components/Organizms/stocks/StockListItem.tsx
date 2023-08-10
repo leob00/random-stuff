@@ -1,7 +1,12 @@
 import { Box, IconButton, Stack, Typography } from '@mui/material'
-import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
-import LinesSkeleton from 'components/Atoms/Skeletons/LinesSkeleton'
-import { CasinoBlackTransparent, CasinoBlueTransparent, CasinoDarkGreenTransparent, CasinoDarkRedTransparent } from 'components/themes/mainTheme'
+import {
+  CasinoBlackTransparent,
+  CasinoBlueTransparent,
+  CasinoDarkGreenTransparent,
+  CasinoDarkRedTransparent,
+  CasinoOrange,
+  VeryLightBlue,
+} from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
@@ -13,19 +18,19 @@ import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import StockNews from 'components/Organizms/stocks/StockNews'
 import StockEarnings from './StockEarnings'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
-import CenterStack from 'components/Atoms/CenterStack'
 import { putSearchedStock } from 'lib/backend/csr/nextApiWrapper'
+import { useTheme } from '@mui/material'
 
 const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'Earnings' }, { title: 'News' }]
-export const getPositiveNegativeColor = (val?: number | null) => {
-  let color = CasinoBlackTransparent
+export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'dark' = 'light') => {
+  let color = mode === 'light' ? CasinoBlackTransparent : VeryLightBlue
   if (!val) {
     return color
   }
   if (val < 0) {
-    color = CasinoDarkRedTransparent
+    color = mode === 'light' ? CasinoDarkRedTransparent : CasinoOrange
   } else if (val > 0) {
-    color = CasinoDarkGreenTransparent
+    color = mode === 'light' ? CasinoDarkGreenTransparent : VeryLightBlue
   }
   return color
 }
@@ -51,6 +56,7 @@ const StockListItem = ({
   const [selectedTab, setSelectedTab] = React.useState('Details')
   const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
   const tabScrollTarget = React.useRef<HTMLSpanElement | null>(null)
+  const theme = useTheme()
 
   React.useEffect(() => {
     let isCanceled = false
@@ -128,9 +134,9 @@ const StockListItem = ({
 
         <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
           <Stack direction={'row'} spacing={2} pl={2} sx={{ backgroundColor: 'unset' }} pt={1}>
-            <Typography variant='h5' color={getPositiveNegativeColor(item.Change)}>{`${item.Price.toFixed(2)}`}</Typography>
-            <Typography variant='h5' color={getPositiveNegativeColor(item.Change)}>{`${item.Change.toFixed(2)}`}</Typography>
-            <Typography variant='h5' color={getPositiveNegativeColor(item.Change)}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
+            <Typography variant='h5' color={getPositiveNegativeColor(item.Change, theme.palette.mode)}>{`${item.Price.toFixed(2)}`}</Typography>
+            <Typography variant='h5' color={getPositiveNegativeColor(item.Change, theme.palette.mode)}>{`${item.Change.toFixed(2)}`}</Typography>
+            <Typography variant='h5' color={getPositiveNegativeColor(item.Change, theme.palette.mode)}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
           </Stack>
         </Stack>
         {showGroupName && item.GroupName && (
