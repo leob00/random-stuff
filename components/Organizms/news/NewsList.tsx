@@ -50,7 +50,7 @@ const NewsList = ({
 
     return (
       <Box pt={1} width={{ xs: 360, sm: 'unset' }}>
-        <HtmlView html={item.Description} />
+        <HtmlView html={item.Description ?? ''} />
       </Box>
     )
   }
