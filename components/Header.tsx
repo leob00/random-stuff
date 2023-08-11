@@ -53,8 +53,8 @@ const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; 
                   <NLink href='/' passHref>
                     <StaticImage image={logo} title='random things' width={120} height={60} priority={true} />
                   </NLink>
-                  <Box display={'flex'} pt={4}>
-                    <Stack direction='row' spacing={{ xs: 1, sm: 2 }}>
+                  <Box pt={4}>
+                    <Stack direction='row' spacing={{ xs: 1, sm: 2 }} alignItems={'center'}>
                       <Stack display={{ xs: 'none', sm: 'flex' }}>
                         <MenuLinkButton
                           text={'Home'}
@@ -75,7 +75,7 @@ const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; 
                         <UserLoginPanel onLoggedOff={() => {}} />
                       </Stack>
                       <Stack>
-                        <Box>
+                        <Box pl={4}>
                           <IconButton size='small' onClick={handleChangeLightMode}>
                             {colorTheme === 'light' ? <DarkModeIcon fontSize='small' /> : <LightModeIcon fontSize='small' />}
                           </IconButton>

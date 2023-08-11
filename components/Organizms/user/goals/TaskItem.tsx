@@ -1,7 +1,7 @@
-import { Box, Stack, Switch, Typography } from '@mui/material'
+import { Box, Stack, Switch, Typography, useTheme } from '@mui/material'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import { CasinoRedTransparent } from 'components/themes/mainTheme'
+import { CasinoRedTransparent, RedDarkMode } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { UserTask } from 'lib/models/userTasks'
 import React from 'react'
@@ -19,6 +19,8 @@ const TaskItem = ({
   handleTaskClick: (item: UserTask) => void
   handleCompleteTaskClick: (checked: boolean, item: UserTask) => void
 }) => {
+  const theme = useTheme()
+  const redColor = theme.palette.mode === 'dark' ? RedDarkMode : CasinoRedTransparent
   const [isCompleted, setIsCompleted] = React.useState(task.status === 'completed')
 
   const handleChecked = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
@@ -45,7 +47,7 @@ const TaskItem = ({
         </Stack>
       </Stack>
       {task.dueDate && (
-        <Typography variant='body2' color={task.status !== 'completed' && dayjs().isAfter(task.dueDate) ? CasinoRedTransparent : 'unset'}>{`due: ${dayjs(
+        <Typography variant='body2' color={task.status !== 'completed' && dayjs().isAfter(task.dueDate) ? redColor : 'unset'}>{`due: ${dayjs(
           task.dueDate,
         ).format('MM/DD/YYYY hh:mm A')}`}</Typography>
       )}

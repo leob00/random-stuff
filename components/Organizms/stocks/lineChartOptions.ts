@@ -2,7 +2,7 @@ import { ApexOptions } from 'apexcharts'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import { VeryLightBlueTransparent, DarkBlue, CasinoBlue, VeryLightBlue } from 'components/themes/mainTheme'
 
-export function getOptions(items: XyValues, raw: any[], isXSmall: boolean) {
+export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palette: 'light' | 'dark') {
   let lineColor = CasinoBlue
   //console.log('raw length: ', raw.length)
   let strokeWidth = 2.4
@@ -71,7 +71,7 @@ export function getOptions(items: XyValues, raw: any[], isXSmall: boolean) {
     yaxis: {
       labels: {
         style: {
-          colors: [DarkBlue],
+          colors: palette === 'dark' ? [VeryLightBlue] : [DarkBlue],
           fontWeight: isXSmall ? 300 : 600,
           fontSize: isXSmall ? '8px' : '15px',
         },

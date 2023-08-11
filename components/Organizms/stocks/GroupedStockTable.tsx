@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Typography, useTheme } from '@mui/material'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import { useUserController } from 'hooks/userController'
 import React from 'react'

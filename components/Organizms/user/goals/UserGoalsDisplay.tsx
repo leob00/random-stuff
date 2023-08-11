@@ -1,10 +1,10 @@
-import { Box, Button, Stack, Typography } from '@mui/material'
+import { Box, Button, Stack, Typography, useTheme } from '@mui/material'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 import AddGoalForm from 'components/Molecules/Forms/AddGoalForm'
 import GoalsMenu from 'components/Molecules/Menus/GoalsMenu'
-import { CasinoRedTransparent, CasinoBlueTransparent, CasinoGreenTransparent } from 'components/themes/mainTheme'
+import { CasinoRedTransparent, CasinoBlueTransparent, CasinoGreenTransparent, RedDarkMode } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { constructUserGoalPk, constructUserGoalsKey } from 'lib/backend/api/aws/util'
 import { putUserGoals } from 'lib/backend/csr/nextApiWrapper'
@@ -36,7 +36,17 @@ const mapGoalTasks = (goals: UserGoal[], tasks: UserTask[]) => {
   })
   return goalsAndTasks
 }
-const UserGoalsDisplay = ({ goals, tasks, username, onMutated }: { goals: UserGoal[]; tasks: UserTask[]; username: string; onMutated: (newData: UserGoal[]) => void }) => {
+const UserGoalsDisplay = ({
+  goals,
+  tasks,
+  username,
+  onMutated,
+}: {
+  goals: UserGoal[]
+  tasks: UserTask[]
+  username: string
+  onMutated: (newData: UserGoal[]) => void
+}) => {
   // recover goals
   // if (goals.length === 0 && tasks.length > 0) {
   //   const newGoals: UserGoal[] = []
@@ -51,6 +61,8 @@ const UserGoalsDisplay = ({ goals, tasks, username, onMutated }: { goals: UserGo
   //   console.log('new goals: ', newGoals)
   //   putUserGoals(constructUserGoalsKey('leo_bel@hotmail.com'), newGoals)
   // }
+  const theme = useTheme()
+  const redColor = theme.palette.mode === 'dark' ? RedDarkMode : CasinoRedTransparent
 
   const goalsAndTasks = mapGoalTasks(goals, tasks)
   const [barChart, setBarchart] = React.useState<BarChart | undefined>(undefined)
@@ -140,7 +152,8 @@ const UserGoalsDisplay = ({ goals, tasks, username, onMutated }: { goals: UserGo
                       <LinkButton2
                         onClick={() => {
                           handleShowEditGoal(item)
-                        }}>
+                        }}
+                      >
                         <Typography>{item.body}</Typography>
                       </LinkButton2>
                       {item.completePercent !== undefined && (
@@ -161,8 +174,9 @@ const UserGoalsDisplay = ({ goals, tasks, username, onMutated }: { goals: UserGo
                             <LinkButton2
                               onClick={() => {
                                 handleShowEditGoal(item)
-                              }}>
-                              <Typography variant='body2' color={CasinoRedTransparent}>{`past due: ${item.stats.pastDue}`}</Typography>
+                              }}
+                            >
+                              <Typography variant='body2' color={redColor}>{`past due: ${item.stats.pastDue}`}</Typography>
                             </LinkButton2>
                           )}
                         </>

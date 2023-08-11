@@ -1,9 +1,11 @@
-import { Stack, Box, Typography } from '@mui/material'
-import { CasinoRedTransparent } from 'components/themes/mainTheme'
+import { Stack, Box, Typography, useTheme } from '@mui/material'
+import { CasinoRedTransparent, RedDarkMode } from 'components/themes/mainTheme'
 import { UserGoal, UserGoalStats } from 'lib/models/userTasks'
 import React from 'react'
 
 const GoalStats = ({ goal, stats }: { goal: UserGoal; stats: UserGoalStats }) => {
+  const theme = useTheme()
+  const redColor = theme.palette.mode === 'dark' ? RedDarkMode : CasinoRedTransparent
   return (
     <Stack>
       <Box display={'flex'} gap={1}>
@@ -43,12 +45,12 @@ const GoalStats = ({ goal, stats }: { goal: UserGoal; stats: UserGoalStats }) =>
       {stats.pastDue > 0 && (
         <Box display={'flex'} gap={1}>
           <Box width={100} justifyContent={'flex-end'}>
-            <Typography variant='body2' textAlign={'right'} color={CasinoRedTransparent}>
+            <Typography variant='body2' textAlign={'right'} color={redColor}>
               past due:
             </Typography>
           </Box>
           <Box>
-            <Typography variant='body2' color={CasinoRedTransparent}>{`${stats.pastDue}`}</Typography>
+            <Typography variant='body2' color={redColor}>{`${stats.pastDue}`}</Typography>
           </Box>
         </Box>
       )}

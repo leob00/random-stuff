@@ -1,5 +1,5 @@
 import { Box, Typography, useTheme } from '@mui/material'
-import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
+import { DarkBlue, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import React from 'react'
 import { StockGroup } from './GroupedStocksLayout'
 import { getPositiveNegativeColor } from './StockListItem'
@@ -14,7 +14,7 @@ const GroupedStockItem = ({ group }: { group: StockGroup }) => {
   return (
     <>
       <Box
-        sx={{ backgroundColor: VeryLightBlueTransparent, cursor: 'pointer', borderRadius: 1.2 }}
+        sx={{ backgroundColor: theme.palette.mode === 'dark' ? DarkBlue : VeryLightBlueTransparent, cursor: 'pointer', borderRadius: 1.2 }}
         py={2}
         pl={1}
         display={'flex'}
