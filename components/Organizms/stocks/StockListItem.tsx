@@ -4,6 +4,8 @@ import {
   CasinoBlueTransparent,
   CasinoDarkGreenTransparent,
   CasinoDarkRedTransparent,
+  CasinoGreenTransparent,
+  CasinoLimeTransparent,
   CasinoOrange,
   VeryLightBlue,
 } from 'components/themes/mainTheme'
@@ -30,7 +32,7 @@ export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'd
   if (val < 0) {
     color = mode === 'light' ? CasinoDarkRedTransparent : CasinoOrange
   } else if (val > 0) {
-    color = mode === 'light' ? CasinoDarkGreenTransparent : VeryLightBlue
+    color = mode === 'light' ? CasinoDarkGreenTransparent : CasinoLimeTransparent
   }
   return color
 }

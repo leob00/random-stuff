@@ -1,12 +1,14 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { useMediaQuery, Typography, useTheme } from '@mui/material'
-import theme, { CasinoBlue, CasinoRed, DarkBlue } from 'components/themes/mainTheme'
+import { CasinoBlue, CasinoRed, DarkBlue, VeryLightBlue } from 'components/themes/mainTheme'
 const HtmlView = ({ html }: { html: string }) => {
+  const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const currTheme = useTheme()
-  //console.log('palette mode: ', currTheme.palette.mode)
-  const text = html.replaceAll('font color="#6f6f6f"', `font color="${DarkBlue}"`)
+  const darkColor = theme.palette.mode === 'dark' ? VeryLightBlue : DarkBlue
+  const color = theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlue
+  const text = html.replaceAll('font color="#6f6f6f"', `font color="${darkColor}"`)
 
   const StyledBox = styled(Typography)(() => ({
     img: {
@@ -15,9 +17,10 @@ const HtmlView = ({ html }: { html: string }) => {
       marginTop: 1,
       //margin: 'auto',
     },
-    font: CasinoBlue,
-    a: { color: CasinoBlue },
-    p: { color: CasinoBlue, fontSize: 20, fontWeight: 600 },
+    //div: { backgroundColor: 'unset' },
+    font: color,
+    a: { color: color },
+    p: { color: color, fontSize: 20, fontWeight: 600 },
   }))
   return (
     <>
@@ -31,9 +34,9 @@ const HtmlView = ({ html }: { html: string }) => {
             maxWidth: { xs: '95%', md: '98%' },
             display: 'inline-block',
             wordWrap: 'break-word',
-            color: CasinoBlue,
+            color: color,
             fontWeight: 500,
-            backgroundColor: 'white',
+            //backgroundColor: 'white',
           }}
           variant='body1'
           color='primary'
