@@ -13,20 +13,22 @@ const HtmlView = ({ html }: { html: string }) => {
       width: isXSmall ? 280 : 'unset',
       borderRadius: '16px',
       marginTop: 1,
-      margin: 'auto',
+      //margin: 'auto',
     },
     font: CasinoBlue,
     a: { color: CasinoBlue },
-    p: { width: isXSmall ? 300 : 'unset', color: CasinoBlue, fontSize: 20, fontWeight: 600 },
+    p: { color: CasinoBlue, fontSize: 20, fontWeight: 600 },
   }))
   return (
     <>
       {html ? (
         <StyledBox
-          display={'flex'}
+          //display={'flex'}
           justifyContent={'center'}
           sx={{
-            width: { xs: 270, md: 'unset' },
+            borderRadius: '16px',
+            padding: 2,
+            maxWidth: { xs: '95%', md: '98%' },
             display: 'inline-block',
             wordWrap: 'break-word',
             color: CasinoBlue,
