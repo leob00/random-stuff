@@ -1,7 +1,7 @@
 import { Box, Button, ButtonProps } from '@mui/material'
-import { CasinoBlueTransparent } from 'components/themes/mainTheme'
-import { truncate } from 'fs'
-import React, { ReactNode } from 'react'
+import { CasinoBlueTransparent, VeryLightBlue } from 'components/themes/mainTheme'
+import React from 'react'
+import { useTheme } from '@mui/material'
 
 interface CustomProps {
   selected?: boolean
@@ -10,7 +10,8 @@ interface CustomProps {
 }
 
 const TabButton = ({ selected, title, onClicked, ...props }: CustomProps & ButtonProps) => {
-  //const [isSelected, setIsSelected] = React.useState(selected)
+  const theme = useTheme()
+  const color = theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlueTransparent
   const handleClick = (title: string) => {
     //setIsSelected(true)
     onClicked(title)
@@ -24,7 +25,7 @@ const TabButton = ({ selected, title, onClicked, ...props }: CustomProps & Butto
       }}
       disabled={selected}
     >
-      <Box sx={{ borderBottom: selected ? `2px solid ${CasinoBlueTransparent}` : 'unset' }} p={1} color={CasinoBlueTransparent} minWidth={{ xs: 60, sm: 80 }}>
+      <Box sx={{ borderBottom: selected ? `2px solid ${color}` : 'unset' }} p={1} color={color} minWidth={{ xs: 60, sm: 80 }}>
         {title}
       </Box>
     </Button>

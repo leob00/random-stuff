@@ -1,8 +1,9 @@
 import { TextField, Autocomplete } from '@mui/material'
-import { CasinoBlue } from 'components/themes/mainTheme'
+import { CasinoBlue, VeryLightBlue } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
 import { debounce } from 'lodash'
 import React from 'react'
+import { useTheme } from '@mui/material'
 
 const StocksAutoComplete = ({
   onChanged,
@@ -25,10 +26,10 @@ const StocksAutoComplete = ({
   label?: string
   defaultVal?: string | null
 }) => {
+  const theme = useTheme()
+  const color = theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlue
   const textRef = React.useRef<HTMLInputElement | null>(null)
   const [defaultValue, setDefaultValue] = React.useState(defaultVal)
-
-  //console.log('search results: ', searchResults.length)
 
   const raiseChangeEvent = (term: string) => {
     onChanged?.(term)
@@ -58,7 +59,7 @@ const StocksAutoComplete = ({
       size='small'
       id='searchAutoComplete'
       freeSolo
-      sx={{ width: width, input: { color: CasinoBlue } }}
+      sx={{ width: width, input: { color: color } }}
       options={searchResults.map((e) => e.text)}
       autoHighlight
       onChange={(e, value) => {
@@ -68,7 +69,7 @@ const StocksAutoComplete = ({
         <TextField
           {...params}
           label={label}
-          sx={{ input: { color: CasinoBlue } }}
+          sx={{ input: { color: color } }}
           inputRef={textRef}
           placeholder={placeholder}
           inputProps={{

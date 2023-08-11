@@ -8,6 +8,7 @@ import { Box, Typography } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { BasicArticle } from 'lib/model'
 import JsonView from 'components/Atoms/Boxes/JsonView'
+import TabList from 'components/Atoms/Buttons/TabList'
 
 const apiUrl = '/api/edgeRandomAnimals?id=dogs'
 const fetcher: Fetcher<BasicArticle[]> = (url: string) => fetch(url).then((res) => res.json())
@@ -21,6 +22,7 @@ const Page = () => {
       <Seo pageTitle={`Sandbox`} />
       <ResponsiveContainer>
         <PageHeader text='Sandbox' />
+        <TabList />
         <Typography>useSWR example</Typography>
         {isValidating && <BackdropLoader />}
         {data && <JsonView obj={data} />}
