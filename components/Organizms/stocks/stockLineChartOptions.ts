@@ -1,21 +1,9 @@
 import { ApexOptions } from 'apexcharts'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import {
-  CasinoGreen,
-  CasinoRed,
-  VeryLightBlueTransparent,
-  DarkBlue,
-  CasinoBlueTransparent,
-  TransparentBlue,
-  OceanBlueTransparent,
-  DarkModeBlueTransparent,
-  DarkModeBlue,
-  CasinoBlue,
-  VeryLightBlue,
-} from 'components/themes/mainTheme'
+import { CasinoGreen, CasinoRed, VeryLightBlueTransparent, DarkBlue, VeryLightBlue } from 'components/themes/mainTheme'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 
-export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: boolean) {
+export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: boolean, palette: 'light' | 'dark' = 'light') {
   let lineColor = CasinoGreen
   if (items.y.length > 0) {
     if (items.y[0] > items.y[items.y.length - 1]) {
@@ -92,7 +80,7 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
     yaxis: {
       labels: {
         style: {
-          colors: [DarkBlue],
+          colors: palette === 'dark' ? [VeryLightBlue] : [DarkBlue],
           fontWeight: isXSmall ? 300 : 600,
           fontSize: isXSmall ? '8px' : '15px',
         },

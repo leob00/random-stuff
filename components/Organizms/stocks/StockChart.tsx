@@ -1,22 +1,20 @@
-import { Box, CssBaseline, Typography, useMediaQuery } from '@mui/material'
+import { Box, CssBaseline, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
 import CenterStack from 'components/Atoms/CenterStack'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import { DarkMode } from 'components/themes/DarkMode'
-import theme from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
 import { DropdownItem } from 'lib/models/dropdown'
-import { chunk, mean } from 'lodash'
 import dynamic from 'next/dynamic'
 import React from 'react'
 import { getOptions } from './stockLineChartOptions'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string; history: StockHistoryItem[]; companyName?: string; isStock: boolean }) => {
+  const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const chartHeight = isXSmall ? 300 : 520
   const [isLoading, setIsLoading] = React.useState(true)
@@ -51,13 +49,13 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
     const result = await getStockOrFutureChart(symbol, Number(val), isStock)
     setChartData(result)
     const map = mapHistory(result)
-    const options = getOptions(map, result, isXSmall)
+    const options = getOptions(map, result, isXSmall, theme.palette.mode)
     setChartOptions(options)
     setIsLoading(false)
   }
   const chartMap = mapHistory(history)
-  const opts = getOptions(chartMap, history, isXSmall)
-  const emptyOps = getOptions({ x: [], y: [] }, [], isXSmall)
+  const opts = getOptions(chartMap, history, isXSmall, theme.palette.mode)
+  const emptyOps = getOptions({ x: [], y: [] }, [], isXSmall, theme.palette.mode)
 
   const [chartOptions, setChartOptions] = React.useState<ApexOptions | null>(opts)
   const [chartData, setChartData] = React.useState(history)
