@@ -45,8 +45,8 @@
 .casinoLimeTransparent {
   color: #44f70de7;
 }
-.casinoDarModeRedTransparent {
-  color: #f70d0dfd;
+.darModeRedTransparent {
+  color: #b80606fd;
 }
 
 .casinoDarkGreenTransparent {
@@ -172,7 +172,7 @@ div[data-amplify-container].amplify-heading {
 
 /* end Amplify auth */
 .DarkModeBlue {
-  color: #2f4e8d;
+  color: #051635fb;
 }
 .DarkModeBlueTransparent {
   color: #2f4e8dee;

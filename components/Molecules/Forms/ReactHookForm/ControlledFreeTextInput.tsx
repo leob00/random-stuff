@@ -1,6 +1,6 @@
 import { Control, Controller } from 'react-hook-form'
 import React from 'react'
-import { TextField } from '@mui/material'
+import { TextField, useTheme } from '@mui/material'
 import { CasinoBlue } from 'components/themes/mainTheme'
 
 export const ControlledFreeTextInput = ({
@@ -18,6 +18,7 @@ export const ControlledFreeTextInput = ({
   label: string
   required?: boolean
 }) => {
+  const theme = useTheme()
   return (
     <Controller
       name={fieldName}
@@ -29,7 +30,7 @@ export const ControlledFreeTextInput = ({
           required={required}
           placeholder={placeholder}
           autoComplete='off'
-          sx={{ input: { color: CasinoBlue } }}
+          sx={{ input: { color: theme.palette.mode === 'light' ? CasinoBlue : 'unset' } }}
           size='small'
           InputProps={{
             color: 'secondary',

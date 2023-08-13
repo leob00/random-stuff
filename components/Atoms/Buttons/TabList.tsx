@@ -10,9 +10,11 @@ const TabList = () => {
   }
   return (
     <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label='basic tabs example'>
-          <Tab label='Item One' />
+      <Box
+      // sx={{ borderBottom: 1, borderColor: 'divider' }}
+      >
+        <Tabs value={value} onChange={handleChange} aria-label='basic tabs example' sx={{ backgroundColor: 'transparent' }}>
+          <Tab label='Item One' sx={{ backgroundColor: 'black', color: 'black' }} />
           <Tab label='Item Two' />
           <Tab label='Item Three' />
         </Tabs>

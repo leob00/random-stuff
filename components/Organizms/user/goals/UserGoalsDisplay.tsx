@@ -170,15 +170,7 @@ const UserGoalsDisplay = ({
                             <Typography variant='body2'>{`completed: ${item.stats.completed}`}</Typography>
                             <Typography variant='body2'>{`in progress: ${item.stats.inProgress}`}</Typography>
                           </Box>
-                          {item.stats.pastDue > 0 && (
-                            <LinkButton2
-                              onClick={() => {
-                                handleShowEditGoal(item)
-                              }}
-                            >
-                              <Typography variant='body2' color={redColor}>{`past due: ${item.stats.pastDue}`}</Typography>
-                            </LinkButton2>
-                          )}
+                          {item.stats.pastDue > 0 && <Typography variant='body2' color={redColor}>{`past due: ${item.stats.pastDue}`}</Typography>}
                         </>
                       </Box>
                     )}

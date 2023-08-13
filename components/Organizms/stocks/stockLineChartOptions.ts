@@ -60,10 +60,10 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
     },
     grid: {
       show: true,
-      borderColor: VeryLightBlueTransparent,
+      borderColor: palette === 'dark' ? DarkBlue : VeryLightBlueTransparent,
       strokeDashArray: 0,
       column: {
-        colors: [VeryLightBlue],
+        colors: palette === 'dark' ? [VeryLightBlue] : [DarkBlue],
         opacity: 0.5,
       },
       yaxis: {
