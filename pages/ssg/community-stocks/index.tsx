@@ -9,47 +9,131 @@ import BackButton from 'components/Atoms/Buttons/BackButton'
 import router from 'next/router'
 import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import React from 'react'
-import RecentlySearchedLayout from 'components/Organizms/stocks/RecentlySearchedLayout'
+import { Box } from '@mui/material'
+import CenterStack from 'components/Atoms/CenterStack'
+import StocksAutoComplete from 'components/Atoms/Inputs/StocksAutoComplete'
+import { getSearchAheadTotalCount, searchAheadStocks } from 'components/Organizms/stocks/stockSearcher'
+import numeral from 'numeral'
+import { DropdownItem } from 'lib/models/dropdown'
+import { getLatestQuotes, getStockQuotes } from 'lib/backend/api/qln/qlnApi'
+import AddQuote from 'components/Organizms/stocks/AddQuote'
+import { getMapFromArray } from 'lib/util/collectionsNative'
+import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
+import { searchRecords } from 'lib/backend/csr/nextApiWrapper'
+import useSWR, { mutate } from 'swr'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 
-interface PageProps {
-  allCommunityStocks: StockQuote[]
-}
-
-export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
-  const communityKey: CategoryType = 'community-stocks'
-
-  const cData = (await getRandomStuff(communityKey)) as StockQuote[]
-  const communityResult = orderBy(cData, ['Company'], 'asc')
-
-  return {
-    props: {
-      allCommunityStocks: communityResult,
-    },
-  }
-}
-type Tab = 'Recent'
-const Page: NextPage<PageProps> = ({ allCommunityStocks }) => {
+type Tab = 'Recent' | 'Winners' | 'Losers'
+const Page = () => {
   const [selectedTab, setSelectedTab] = React.useState<Tab>('Recent')
 
+  const searchedStocksKey: CategoryType = 'searched-stocks'
+  const recentlySearchedEnc = encodeURIComponent(weakEncrypt(`${searchedStocksKey}`))
+  const recentlySearchedMutateKey = ['/api/searchRandomStuff', recentlySearchedEnc]
+  const fetchRecentlySearched = async (url: string, enc: string) => {
+    const searchedStocksResult = await searchRecords(searchedStocksKey)
+    const searchedStocks: StockQuote[] = []
+    orderBy(searchedStocksResult, ['last_modified'], ['desc']).forEach((item) => {
+      searchedStocks.push(JSON.parse(item.data))
+    })
+    const latest = await getLatestQuotes(searchedStocks.map((m) => m.Symbol))
+    return latest
+  }
+
+  const { data: searchedStocks, isLoading, isValidating } = useSWR(recentlySearchedMutateKey, ([url, enc]) => fetchRecentlySearched(url, enc))
+  const [stockSearchResults, setStockSearchResults] = React.useState<DropdownItem[]>([])
+
   const tabs: TabInfo[] = [
-    // {
-    //   selected: true,
-    //   title: 'All',
-    // },
     {
       selected: true,
       title: 'Recent',
     },
+    {
+      title: 'Winners',
+    },
+    {
+      title: 'Losers',
+    },
   ]
+
   const handleSelectTab = (title: string) => {
     setSelectedTab(title as Tab)
   }
+  const [selectedStock, setSelectedStock] = React.useState<StockQuote | null>(null)
+
+  const handleSearched = async (text: string) => {
+    const searchResults = searchAheadStocks(text)
+    const autoComp: DropdownItem[] = searchResults.map((e) => {
+      return {
+        text: `${e.Symbol}: ${e.Company}`,
+        value: e.Symbol,
+      }
+    })
+    setStockSearchResults(autoComp)
+  }
+
+  const handleSelectQuote = async (text: string) => {
+    const symbol = text.split(':')[0]
+    setStockSearchResults([])
+    const quotes = await getStockQuotes([symbol])
+    if (quotes.length > 0) {
+      const quote = quotes[0]
+      setSelectedStock(quote)
+    }
+  }
+
+  const handleAddToList = () => {}
+
+  const handleCloseAddQuote = () => {
+    setSelectedStock(null)
+    mutate(recentlySearchedMutateKey, searchedStocks, { revalidate: true })
+  }
+
   return (
     <ResponsiveContainer>
       <BackButton />
       <CenteredHeader title='Community Stocks' />
+      <Box py={2}>
+        <CenterStack>
+          <StocksAutoComplete
+            placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}
+            onChanged={handleSearched}
+            searchResults={stockSearchResults}
+            debounceWaitMilliseconds={500}
+            onSelected={handleSelectQuote}
+          />
+        </CenterStack>
+      </Box>
+      {selectedStock && searchedStocks && (
+        <AddQuote
+          stockListMap={getMapFromArray(searchedStocks, 'Symbol')}
+          quote={selectedStock}
+          handleAddToList={handleAddToList}
+          handleCloseAddQuote={handleCloseAddQuote}
+          scrollIntoView
+          showAddToListButton={false}
+        />
+      )}
       <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
-      {selectedTab === 'Recent' && <RecentlySearchedLayout />}
+      {isLoading && (
+        <>
+          <BackdropLoader />
+          <LargeGridSkeleton />
+        </>
+      )}
+      {!selectedStock && (
+        <>
+          {' '}
+          {searchedStocks && (
+            <>
+              <>{selectedTab === 'Recent' && <CommunityStocksLayout data={searchedStocks} defaultSort={[]} />}</>
+              <>{selectedTab === 'Winners' && <CommunityStocksLayout data={searchedStocks} defaultSort={[{ key: 'ChangePercent', direction: 'desc' }]} />}</>
+              <>{selectedTab === 'Losers' && <CommunityStocksLayout data={searchedStocks} defaultSort={[{ key: 'ChangePercent', direction: 'asc' }]} />}</>
+            </>
+          )}
+        </>
+      )}
     </ResponsiveContainer>
   )
 }

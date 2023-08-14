@@ -12,12 +12,14 @@ const AddQuote = ({
   handleAddToList,
   handleCloseAddQuote,
   scrollIntoView = true,
+  showAddToListButton = true,
 }: {
   quote: StockQuote
   stockListMap: Map<string, StockQuote>
   handleAddToList: () => void
   handleCloseAddQuote: () => void
   scrollIntoView?: boolean
+  showAddToListButton?: boolean
 }) => {
   const alreadyExists = stockListMap.has(quote.Symbol)
   //console.log(stockListMap)
@@ -41,7 +43,9 @@ const AddQuote = ({
       )}
       <Stack py={1} direction={'row'} spacing={1} alignItems='center'>
         <Stack flexGrow={1}>
-          <Box textAlign={'right'}>{!alreadyExists && <SecondaryButton text='Add to list' size='small' onClick={handleAddToList}></SecondaryButton>}</Box>
+          <Box textAlign={'right'}>
+            {!alreadyExists && showAddToListButton && <SecondaryButton text='Add to list' size='small' onClick={handleAddToList}></SecondaryButton>}
+          </Box>
         </Stack>
         <Stack>
           <PassiveButton text={'close'} onClick={handleCloseAddQuote} size='small' />

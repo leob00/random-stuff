@@ -19,19 +19,18 @@ const getTheme = (mode: 'light' | 'dark') => {
 }
 function MyApp({ Component, pageProps }: AppProps) {
   const sessionSettings = useSessionSettings()
-  const mode = useSessionSettings().palette
   //console.log(mode)
-  const [colorMode, setColorModel] = React.useState<'dark' | 'light'>('light')
+  const [colorMode, setColorMode] = React.useState<'dark' | 'light'>('dark')
   //const [currentTheme, setCurrentTheme] = React.useState<Theme>(getTheme(mode))
 
-  // useEffect(() => {
-  //   sessionSettings.savePalette(colorMode)
-  //   setColorModel(sessionSettings.palette)
-  // }, [sessionSettings.palette])
+  useEffect(() => {
+    sessionSettings.savePalette(colorMode)
+    setColorMode(sessionSettings.palette)
+  }, [sessionSettings.palette])
 
   const handleChangeColorMode = () => {
     const newMode = colorMode === 'light' ? 'dark' : 'light'
-    setColorModel(newMode)
+    setColorMode(newMode)
     //setCurrentTheme(getTheme(newMode))
     sessionSettings.savePalette(newMode)
   }
