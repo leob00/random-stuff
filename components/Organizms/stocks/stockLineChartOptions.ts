@@ -1,13 +1,24 @@
 import { ApexOptions } from 'apexcharts'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import { CasinoGreen, CasinoRed, VeryLightBlueTransparent, DarkBlue, VeryLightBlue } from 'components/themes/mainTheme'
+import {
+  CasinoGreen,
+  CasinoRed,
+  VeryLightBlueTransparent,
+  DarkBlue,
+  VeryLightBlue,
+  DarkModeBlue,
+  RedDarkMode,
+  CasinoLimeTransparent,
+  CasinoRedTransparent,
+} from 'components/themes/mainTheme'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 
 export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: boolean, palette: 'light' | 'dark' = 'light') {
-  let lineColor = CasinoGreen
+  let lineColor = palette === 'dark' ? CasinoLimeTransparent : CasinoGreen
+
   if (items.y.length > 0) {
     if (items.y[0] > items.y[items.y.length - 1]) {
-      lineColor = CasinoRed
+      lineColor = palette === 'dark' ? RedDarkMode : CasinoRed
     }
   }
   let strokeWidth = 3
@@ -56,15 +67,15 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
       animations: {
         easing: 'easeout',
       },
-      //foreColor: lineColor,
+      foreColor: lineColor,
     },
     grid: {
       show: true,
-      borderColor: palette === 'dark' ? DarkBlue : VeryLightBlueTransparent,
+      borderColor: VeryLightBlueTransparent,
       strokeDashArray: 0,
       column: {
-        colors: palette === 'dark' ? [VeryLightBlue] : [DarkBlue],
-        opacity: 0.5,
+        //colors: palette === 'dark' ? [DarkModeBlue] : [DarkModeBlue],
+        //opacity: 0.5,
       },
       yaxis: {
         lines: {

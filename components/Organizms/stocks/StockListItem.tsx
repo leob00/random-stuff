@@ -88,7 +88,7 @@ const StockListItem = ({
         {val && (
           <Stack direction={'row'} spacing={2} py={1} alignItems={'center'}>
             <Stack minWidth={80} textAlign={'right'}>
-              <Typography color={CasinoBlueTransparent} variant={'body2'}>{`${label}:`}</Typography>
+              <Typography variant={'body2'}>{`${label}:`}</Typography>
             </Stack>
             <Stack>
               <Typography variant={'body2'} color={'primary'}>
@@ -164,16 +164,6 @@ const StockListItem = ({
                 <StockChart symbol={item.Symbol} history={stockHistory} isStock={isStock} />
               </>
             )}
-            {/* : (
-              <>
-                <Box>
-                  <Box display={'flex'} justifyContent={'flex-end'} pt={3} pb={1}>
-                    <LinesSkeleton lines={1} width={160} height={68} />
-                  </Box>
-                  <BoxSkeleton height={200} />
-                </Box>
-              </>
-            )} */}
           </Box>
           {isStock && (
             <>
