@@ -21,7 +21,7 @@ const GroupedStockTable = ({ result, scrollIntoView = false }: { result: StockGr
       <Box display={'flex'} flexDirection={'column'} gap={2}>
         {result.map((item, index) => (
           <Box key={item.groupName}>
-            {index == 0 && <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>}
+            {index == 0 && <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -28 }}></Typography>}
             <GroupedStockItem group={item} />
           </Box>
         ))}

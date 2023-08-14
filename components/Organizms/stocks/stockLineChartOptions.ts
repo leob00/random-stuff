@@ -58,8 +58,7 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
       },
     },
     chart: {
-      //height: 280,
-      //background: VeryLightBlueTransparent,
+      background: DarkModeBlue,
       type: 'area',
       toolbar: {
         show: false,
@@ -73,10 +72,6 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
       show: true,
       borderColor: palette === 'dark' ? VeryLightBlueTransparent : VeryLightBlue,
       strokeDashArray: 1,
-      // column: {
-      //   colors: palette === 'dark' ? [DarkModeBlue] : [DarkModeBlue],
-      //   opacity: 0.5,
-      // },
       yaxis: {
         lines: {
           show: true,

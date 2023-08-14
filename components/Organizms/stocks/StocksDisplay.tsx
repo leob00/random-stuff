@@ -255,9 +255,9 @@ const StocksDisplay = ({
                     <Box>
                       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
                         <Box pl={1}>
-                          {result.length > 5 && (
+                          {/* {result.length > 5 && (
                             <StaticAutoComplete options={existingStockLookup} onSelected={handleSelectQuote} placeholder={'search in your list'} />
-                          )}
+                          )} */}
                         </Box>
                         <FlatListMenu
                           onEdit={() => setModel({ ...model, editList: true })}
@@ -267,7 +267,7 @@ const StocksDisplay = ({
                       </Box>
                       {/* <Box display={'flex'} justifyContent={'flex-end'}></Box> */}
                       {customSort && <CustomSortAlert result={customSort} onModify={() => setModel({ ...model, showCustomSort: true })} />}
-                      <StockTable stockList={customSorted} isStock={true} scrollIntoView scrollMargin={customSort ? -32 : -20} />
+                      <StockTable stockList={customSorted} isStock={true} scrollIntoView scrollMargin={customSort ? -38 : -26} />
                     </Box>
                   )}
                 </>

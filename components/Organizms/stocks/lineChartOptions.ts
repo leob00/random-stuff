@@ -1,16 +1,32 @@
 import { ApexOptions } from 'apexcharts'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import { VeryLightBlueTransparent, DarkBlue, CasinoBlue, VeryLightBlue } from 'components/themes/mainTheme'
+import {
+  CasinoGreen,
+  CasinoRed,
+  VeryLightBlueTransparent,
+  DarkBlue,
+  VeryLightBlue,
+  DarkModeBlue,
+  RedDarkMode,
+  CasinoLimeTransparent,
+  CasinoRedTransparent,
+  CasinoBlue,
+} from 'components/themes/mainTheme'
+import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 
-export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palette: 'light' | 'dark') {
+export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: boolean, palette: 'light' | 'dark' = 'light') {
   let lineColor = palette === 'dark' ? VeryLightBlue : CasinoBlue
-  //console.log('raw length: ', raw.length)
-  let strokeWidth = 2.4
-  if (raw.length >= 100) {
-    strokeWidth = 1.5
+
+  let strokeWidth = 3
+  if (raw.length <= 200) {
+    strokeWidth = 2
   } else {
-    if (raw.length >= 50) {
-      strokeWidth = 1.8
+    if (raw.length >= 60) {
+      strokeWidth = 1.75
+    } else if (raw.length >= 10) {
+      strokeWidth = 2
+    } else {
+      strokeWidth = 3.3
     }
   }
 
@@ -38,8 +54,7 @@ export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palet
       },
     },
     chart: {
-      //height: 280,
-      //background: VeryLightBlueTransparent,
+      background: DarkModeBlue,
       type: 'area',
       toolbar: {
         show: false,
@@ -47,16 +62,12 @@ export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palet
       animations: {
         easing: 'easeout',
       },
-      //foreColor: lineColor,
+      foreColor: lineColor,
     },
     grid: {
       show: true,
-      borderColor: VeryLightBlueTransparent,
-      strokeDashArray: 0,
-      // column: {
-      //   colors: [VeryLightBlue],
-      //   opacity: 0.5,
-      // },
+      borderColor: palette === 'dark' ? VeryLightBlueTransparent : VeryLightBlue,
+      strokeDashArray: 1,
       yaxis: {
         lines: {
           show: true,
@@ -74,6 +85,10 @@ export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palet
           colors: palette === 'dark' ? [VeryLightBlue] : [DarkBlue],
           fontWeight: isXSmall ? 300 : 600,
           fontSize: isXSmall ? '8px' : '15px',
+        },
+
+        formatter: (val: number) => {
+          return `$${val.toFixed(2)}`
         },
       },
     },
