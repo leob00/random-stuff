@@ -71,12 +71,12 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
     },
     grid: {
       show: true,
-      borderColor: VeryLightBlueTransparent,
-      strokeDashArray: 0,
-      column: {
-        //colors: palette === 'dark' ? [DarkModeBlue] : [DarkModeBlue],
-        //opacity: 0.5,
-      },
+      borderColor: palette === 'dark' ? VeryLightBlueTransparent : VeryLightBlue,
+      strokeDashArray: 1,
+      // column: {
+      //   colors: palette === 'dark' ? [DarkModeBlue] : [DarkModeBlue],
+      //   opacity: 0.5,
+      // },
       yaxis: {
         lines: {
           show: true,

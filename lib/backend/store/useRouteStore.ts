@@ -7,6 +7,7 @@ interface SessionState {
   palette: 'light' | 'dark'
   routes: Navigation[]
   saveRoutes: (routes: Navigation[]) => void
+  savePalette: (palette: 'light' | 'dark') => void
 }
 
 export const useRouteStore = create<SessionState>()((set) => ({

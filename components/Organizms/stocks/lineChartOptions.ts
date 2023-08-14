@@ -3,7 +3,7 @@ import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import { VeryLightBlueTransparent, DarkBlue, CasinoBlue, VeryLightBlue } from 'components/themes/mainTheme'
 
 export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palette: 'light' | 'dark') {
-  let lineColor = CasinoBlue
+  let lineColor = palette === 'dark' ? VeryLightBlue : CasinoBlue
   //console.log('raw length: ', raw.length)
   let strokeWidth = 2.4
   if (raw.length >= 100) {
@@ -53,10 +53,10 @@ export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palet
       show: true,
       borderColor: VeryLightBlueTransparent,
       strokeDashArray: 0,
-      column: {
-        colors: [VeryLightBlue],
-        opacity: 0.5,
-      },
+      // column: {
+      //   colors: [VeryLightBlue],
+      //   opacity: 0.5,
+      // },
       yaxis: {
         lines: {
           show: true,
