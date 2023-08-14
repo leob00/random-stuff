@@ -72,7 +72,7 @@ const Pager = ({
     setPageIndex(defaultPageIndex)
     const newMessage = getDisplayMessage(defaultPageIndex, pageCount)
     setDisplayMessage(newMessage)
-  }, [pageCount, defaultPageIndex, displayMessage])
+  }, [pageCount, defaultPageIndex, totalItemCount, displayMessage])
   return (
     <>
       <HorizontalDivider />

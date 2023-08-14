@@ -87,13 +87,14 @@ const Page = () => {
 
   const handleCloseAddQuote = () => {
     setSelectedStock(null)
-    mutate(recentlySearchedMutateKey, searchedStocks, { revalidate: true })
+    mutate(recentlySearchedMutateKey)
   }
 
   return (
     <ResponsiveContainer>
       <BackButton />
       <CenteredHeader title='Community Stocks' />
+
       <Box py={2}>
         <CenterStack>
           <StocksAutoComplete
@@ -105,9 +106,9 @@ const Page = () => {
           />
         </CenterStack>
       </Box>
-      {selectedStock && searchedStocks && (
+      {selectedStock && (
         <AddQuote
-          stockListMap={getMapFromArray(searchedStocks, 'Symbol')}
+          stockListMap={getMapFromArray(searchedStocks!, 'Symbol')}
           quote={selectedStock}
           handleAddToList={handleAddToList}
           handleCloseAddQuote={handleCloseAddQuote}
@@ -115,7 +116,7 @@ const Page = () => {
           showAddToListButton={false}
         />
       )}
-      <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
+      {!selectedStock && <TabButtonList tabs={tabs} onSelected={handleSelectTab} />}
       {isLoading && (
         <>
           <BackdropLoader />
@@ -124,12 +125,15 @@ const Page = () => {
       )}
       {!selectedStock && (
         <>
-          {' '}
           {searchedStocks && (
             <>
-              <>{selectedTab === 'Recent' && <CommunityStocksLayout data={searchedStocks} defaultSort={[]} />}</>
-              <>{selectedTab === 'Winners' && <CommunityStocksLayout data={searchedStocks} defaultSort={[{ key: 'ChangePercent', direction: 'desc' }]} />}</>
-              <>{selectedTab === 'Losers' && <CommunityStocksLayout data={searchedStocks} defaultSort={[{ key: 'ChangePercent', direction: 'asc' }]} />}</>
+              {selectedTab === 'Recent' && <CommunityStocksLayout data={searchedStocks} defaultSort={[]} />}
+              {selectedTab === 'Winners' && (
+                <CommunityStocksLayout data={searchedStocks.filter((m) => m.ChangePercent >= 0)} defaultSort={[{ key: 'ChangePercent', direction: 'desc' }]} />
+              )}
+              {selectedTab === 'Losers' && (
+                <CommunityStocksLayout data={searchedStocks.filter((m) => m.ChangePercent < 0)} defaultSort={[{ key: 'ChangePercent', direction: 'asc' }]} />
+              )}
             </>
           )}
         </>
