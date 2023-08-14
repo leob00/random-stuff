@@ -3,10 +3,7 @@ import React from 'react'
 import CenteredNavigationButton from 'components/Atoms/Buttons/CenteredNavigationButton'
 import { AmplifyUser, userHasRole } from 'lib/backend/auth/userUtil'
 import { useRouteTracker } from '../session/useRouteTracker'
-import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
-import CenteredSubtitle from 'components/Atoms/Text/CenteredSubtitle'
 
 const UserDashboardLayout = ({ ticket }: { ticket: AmplifyUser | null }) => {
   const [isLoading, setIsLoading] = React.useState(true)
