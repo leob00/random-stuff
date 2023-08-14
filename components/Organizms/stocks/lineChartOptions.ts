@@ -14,7 +14,7 @@ import {
 } from 'components/themes/mainTheme'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 
-export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: boolean, palette: 'light' | 'dark' = 'light') {
+export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palette: 'light' | 'dark' = 'light') {
   let lineColor = palette === 'dark' ? VeryLightBlue : CasinoBlue
 
   let strokeWidth = 3
@@ -88,7 +88,7 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
         },
 
         formatter: (val: number) => {
-          return `$${val.toFixed(2)}`
+          return `${val.toFixed(1)} minutes`
         },
       },
     },

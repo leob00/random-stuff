@@ -18,7 +18,7 @@ const JobDetailChart = ({ data }: { data: LineChart }) => {
       <CenterStack>
         <Typography variant='caption'>average run time in minutes</Typography>
       </CenterStack>
-      <ApexAreaLineChart xyValues={xyValues} isXmall={true} />
+      <ApexAreaLineChart xyValues={xyValues} isXmall={true} paletteMode={theme.palette.mode} />
     </Box>
   )
 }

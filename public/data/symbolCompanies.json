@@ -1532,6 +1532,10 @@
     "Symbol": "ALVO"
   },
   {
+    "Company": "Alvotech - Warrant",
+    "Symbol": "ALVOW"
+  },
+  {
     "Company": "AlloVir Inc",
     "Symbol": "ALVR"
   },
@@ -35470,6 +35474,10 @@
   {
     "Company": "Semantix Inc",
     "Symbol": "STIX"
+  },
+  {
+    "Company": "Semantix, Inc. - Warrant",
+    "Symbol": "STIXW"
   },
   {
     "Company": "Columbia Seligman Premium Technology Growth Fund Inc",
