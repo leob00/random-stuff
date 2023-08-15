@@ -1,12 +1,15 @@
-import { getRecord, SignedRequest } from 'lib/backend/csr/nextApiWrapper'
+import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { BasicArticle } from 'lib/model'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
-import { UserNote } from 'lib/models/randomStuffModels'
+import { apiConnection } from '../config'
 import { get, post } from '../fetchFunctions'
 
 export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | 'site-stats' | 'community-stocks' | 'user-stock_list'
-export const apiGatewayUrl = String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL)
+
+const connection = apiConnection().aws
+const apiGatewayUrl = connection.url
+//export const apiGatewayUrl = String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL)
 
 export type CategoryType = 'animals' | 'random' | 'userProfile' | 'community-stocks' | 'searched-stocks' | 'user-stock_list' | string
 
@@ -185,7 +188,6 @@ export async function putRandomStuffEnc(req: SignedRequest) {
   }
   const id = myDecrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), body.token)
   if (body.id !== id) {
-    //console.log('body id: ', body.id)
     console.log('token validation failed')
     return null
   }

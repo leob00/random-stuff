@@ -1,13 +1,12 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { ThemeProvider } from '@emotion/react'
-import { CssBaseline, Theme } from '@mui/material'
+import { CssBaseline } from '@mui/material'
 import Layout from 'components/Layout'
 import awsconfig from '../src/aws-exports'
 import { Amplify } from 'aws-amplify'
 import { useEffect } from 'react'
 import Header from 'components/Header'
-import { DarkMode } from 'components/themes/DarkMode'
 import darkTheme from 'components/themes/darkTheme'
 import theme from 'components/themes/mainTheme'
 import React from 'react'
@@ -26,7 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     sessionSettings.savePalette(colorMode)
     setColorMode(sessionSettings.palette)
-  }, [sessionSettings.palette])
+  }, [sessionSettings.palette, colorMode])
 
   const handleChangeColorMode = () => {
     const newMode = colorMode === 'light' ? 'dark' : 'light'

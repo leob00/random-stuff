@@ -1,11 +1,13 @@
 import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
-import { quoteArraySchema, quoteHistorySchema, StockHistoryItem, StockQuote } from '../models/zModels'
+import { quoteArraySchema, StockQuote } from '../models/zModels'
 import { get } from '../fetchFunctions'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import dayjs from 'dayjs'
+import { apiConnection } from '../config'
 
-export const qlnApiBaseUrl = process.env.NEXT_PUBLIC_QLN_API_URL
+const config = apiConnection()
+const qlnApiBaseUrl = config.qln.url
 
 export interface NewsItem {
   Source?: NewsTypeIds | string

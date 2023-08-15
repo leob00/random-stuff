@@ -1,11 +1,13 @@
 import dayjs from 'dayjs'
 import { chunk } from 'lodash'
+import { apiConnection } from '../config'
 import { get } from '../fetchFunctions'
 import { quoteHistorySchema, StockHistoryItem } from '../models/zModels'
-import { qlnApiBaseUrl } from './qlnApi'
 
 export async function getStockOrFutureChart(symbol: string, days?: number, isStock = true) {
-  const url = isStock ? `${qlnApiBaseUrl}/StockHistoryChart` : `${qlnApiBaseUrl}/FuturesHistoryChart`
+  const config = apiConnection().qln
+
+  const url = isStock ? `${config.url}/StockHistoryChart` : `${config.url}/FuturesHistoryChart`
   const params = {
     symbol: symbol,
     days: days ?? 90,

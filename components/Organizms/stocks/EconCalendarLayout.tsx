@@ -4,8 +4,9 @@ import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import dayjs from 'dayjs'
+import { apiConnection } from 'lib/backend/api/config'
 import { get } from 'lib/backend/api/fetchFunctions'
-import { EconCalendarItem, qlnApiBaseUrl, QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
+import { EconCalendarItem, QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import useSWR, { Fetcher } from 'swr'
 
@@ -13,7 +14,8 @@ interface Model {
   date: string
   items: EconCalendarItem[]
 }
-const apiUrl = `${qlnApiBaseUrl}/EconCalendar`
+const config = apiConnection().qln
+const apiUrl = `${config.url}/EconCalendar`
 const fetcher: Fetcher<QlnApiResponse> = (url: string) => get(url)
 
 const EconCalendarLayout = () => {
@@ -48,10 +50,7 @@ const EconCalendarLayout = () => {
             <Box display={'flex'} gap={1} alignItems={'center'} flexWrap={'wrap'} justifyContent='center'>
               {item.items.map((event) => (
                 <Box key={`${event.Name}-${event.EventDate}`} py={1}>
-                  <Paper
-                    component={Stack}
-                    sx={{ minHeight: { xs: 180, sm: 160 }, p: 2, width: { xs: 150, sm: 240 }, direction: 'column', justifyContent: 'center' }}
-                  >
+                  <Paper component={Stack} sx={{ minHeight: { xs: 180, sm: 160 }, p: 2, width: { xs: 150, sm: 240 }, direction: 'column', justifyContent: 'center' }}>
                     {event.Url ? (
                       <Link href={event.Url} target={'_blank'}>
                         <Typography textAlign={'center'}>{event.Name}</Typography>

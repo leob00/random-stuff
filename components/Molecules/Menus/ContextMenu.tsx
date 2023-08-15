@@ -1,8 +1,6 @@
-import React, { ReactNode } from 'react'
-import { Menu, Button, MenuList, MenuItem, Box, Divider } from '@mui/material'
+import React from 'react'
+import { Menu, Button, MenuList, MenuItem } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import { VeryLightBlue } from 'components/themes/mainTheme'
 import { DarkMode } from 'components/themes/DarkMode'
 
 export interface ContextMenuItem {

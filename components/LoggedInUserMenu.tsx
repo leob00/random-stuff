@@ -4,25 +4,17 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Person from '@mui/icons-material/Person'
 import { useRouter } from 'next/navigation'
-import { Box } from '@mui/material'
+import { Box, ListItemIcon, ListItemText } from '@mui/material'
 import { VeryLightBlue } from './themes/mainTheme'
 import HorizontalDivider from './Atoms/Dividers/HorizontalDivider'
 import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
+import ContextMenu, { ContextMenuItem } from './Molecules/Menus/ContextMenu'
 
 const LoggedInUserMenu = ({ onLogOut }: { onLogOut: () => void }) => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [isAdmin, setIsAdmin] = React.useState(false)
-  const open = Boolean(anchorEl)
   const router = useRouter()
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
 
   const handleLogout = () => {
-    handleClose()
     onLogOut()
   }
   React.useEffect(() => {
@@ -35,9 +27,44 @@ const LoggedInUserMenu = ({ onLogOut }: { onLogOut: () => void }) => {
     fn()
   }, [])
 
+  const menu: ContextMenuItem[] = [
+    {
+      item: <ListItemText primary='dashboard'></ListItemText>,
+      fn: () => {
+        router.push('/protected/csr/dashboard')
+      },
+    },
+    {
+      item: <ListItemText primary='profile'></ListItemText>,
+      fn: () => {
+        router.push('/protected/csr/profile')
+      },
+    },
+  ]
+  if (isAdmin) {
+    menu.push({
+      item: <ListItemText primary='admin'></ListItemText>,
+      fn: () => {
+        router.push('/protected/csr/admin')
+      },
+    })
+  }
+  menu.push({
+    item: (
+      <>
+        <ListItemIcon>
+          <Person fontSize='small' />
+        </ListItemIcon>
+        <ListItemText primary='log off'></ListItemText>
+      </>
+    ),
+    fn: () => onLogOut(),
+  })
+
   return (
     <>
-      <Button
+      <ContextMenu items={menu} />
+      {/* <Button
         size='small'
         //sx={{ display: 'flex' }}
         id='basic-button'
@@ -49,7 +76,6 @@ const LoggedInUserMenu = ({ onLogOut }: { onLogOut: () => void }) => {
       >
         <Person fontSize='small' />
       </Button>
-
       <Menu
         id='basic-menu'
         anchorEl={anchorEl}
@@ -102,7 +128,7 @@ const LoggedInUserMenu = ({ onLogOut }: { onLogOut: () => void }) => {
         <MenuItem sx={{ color: VeryLightBlue }} onClick={handleLogout}>
           log off
         </MenuItem>
-      </Menu>
+      </Menu> */}
     </>
   )
 }

@@ -1,6 +1,6 @@
 import { Box, Paper, Stack, Typography } from '@mui/material'
 import dayjs from 'dayjs'
-import { getJob, Job, qlnApiBaseUrl, QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
+import { getJob, Job, QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
 import { orderBy } from 'lodash'
 import React from 'react'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -11,15 +11,17 @@ import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import useSWR, { Fetcher, mutate } from 'swr'
 import { get } from 'lib/backend/api/fetchFunctions'
-import { CasinoBlue, CasinoBlueTransparent } from 'components/themes/mainTheme'
+import { CasinoBlue } from 'components/themes/mainTheme'
+import { apiConnection } from 'lib/backend/api/config'
 dayjs.extend(relativeTime)
 
 const JobsLayout = () => {
+  const config = apiConnection().qln
   const [pollCounter, setPollCounter] = React.useState(0)
   const [selectedItem, setSelectedItem] = React.useState<Job | null>(null)
   const [isLoadingDetail, setIsLoadingDetail] = React.useState(false)
   const timeOutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
-  const apiUrl = `${qlnApiBaseUrl}/BatchJobList`
+  const apiUrl = `${config.url}/BatchJobList`
   const fetcher: Fetcher<QlnApiResponse> = (url: string) => get(url)
   const { data, isLoading } = useSWR(apiUrl, fetcher)
 

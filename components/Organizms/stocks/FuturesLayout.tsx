@@ -1,17 +1,17 @@
-import { Box, ListItemIcon, ListItemText, MenuItem, MenuList } from '@mui/material'
+import { Box } from '@mui/material'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
-import HamburgerMenu from 'components/Molecules/Menus/HamburgerMenu'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { qlnApiBaseUrl, QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
+import { QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import StockTable from './StockTable'
-import CachedIcon from '@mui/icons-material/Cached'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import useSWR, { Fetcher, mutate } from 'swr'
+import useSWR, { Fetcher } from 'swr'
 import { get } from 'lib/backend/api/fetchFunctions'
+import { apiConnection } from 'lib/backend/api/config'
 
 const FuturesLayout = () => {
-  const apiUrl = `${qlnApiBaseUrl}/Futures`
+  const config = apiConnection().qln
+  const apiUrl = `${config.url}/Futures`
   const fetcher: Fetcher<QlnApiResponse> = (url: string) => get(url)
   const { data, isLoading, isValidating } = useSWR(apiUrl, fetcher)
 
