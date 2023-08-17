@@ -283,7 +283,7 @@ const StocksDisplay = ({
           onCancel={() => setModel({ ...model, showCustomSort: false })}
           showActionButtons={false}
         >
-          <StocksCustomSortForm result={userProfile.settings!} onSubmitted={handleSubmitCustomSort} />
+          <StocksCustomSortForm result={userProfile.settings?.stocks?.customSort} onSubmitted={handleSubmitCustomSort} />
         </FormDialog>
       </>
     </>

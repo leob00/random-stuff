@@ -1,7 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getAllBlogs as getBogCollection } from 'lib/backend/api/contenfulApi'
-import { BlogCollection } from 'lib/models/cms/contentful/blog'
-import { CoinFlipStats, getCoinflipStats, getRandomStuff, putCoinflipStats, putRandomStuff } from 'lib/backend/api/aws/apiGateway'
+import { CoinFlipStats, getCoinflipStats, putCoinflipStats } from 'lib/backend/api/aws/apiGateway'
 import { Coin } from 'components/Organizms/CoinFlipLayout'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<CoinFlipStats | null>) {

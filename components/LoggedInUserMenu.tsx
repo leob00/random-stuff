@@ -1,12 +1,8 @@
 import * as React from 'react'
-import Button from '@mui/material/Button'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
 import Person from '@mui/icons-material/Person'
+import LogoutIcon from '@mui/icons-material/Logout'
 import { useRouter } from 'next/navigation'
-import { Box, ListItemIcon, ListItemText } from '@mui/material'
-import { VeryLightBlue } from './themes/mainTheme'
-import HorizontalDivider from './Atoms/Dividers/HorizontalDivider'
+import { ListItemIcon, ListItemText } from '@mui/material'
 import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 import ContextMenu, { ContextMenuItem } from './Molecules/Menus/ContextMenu'
 
@@ -53,7 +49,7 @@ const LoggedInUserMenu = ({ onLogOut }: { onLogOut: () => void }) => {
     item: (
       <>
         <ListItemIcon>
-          <Person fontSize='small' />
+          <LogoutIcon fontSize='small' />
         </ListItemIcon>
         <ListItemText primary='log off'></ListItemText>
       </>

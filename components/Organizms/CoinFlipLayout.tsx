@@ -90,11 +90,11 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
   const coins: Coin[] = [
     {
       face: 'heads',
-      imageUrl: getImage('heads'),
+      imageUrl: '/images/coin-head.png',
     },
     {
       face: 'tails',
-      imageUrl: getImage('tails'),
+      imageUrl: '/images/coin-tails.png',
     },
   ]
 
@@ -133,7 +133,7 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
       shuffled = shuffle(shuffled)
     }
     const flipped = shuffled[0]
-    let coinStats = cloneDeep(model.coinflipStats) as CoinFlipStats
+    let coinStats = cloneDeep(model.coinflipStats)!
     if (flipped.face === 'heads') {
       coinStats.heads += 1
     }
@@ -185,17 +185,17 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
           )}
           {model.isLoading && <RemoteImageFlat title={model.allCoins[0].face} url={model.allCoins[0].imageUrl} height={100} width={100} className='rotate' />}
           {model.flippedCoin && (
-            <Box sx={{ cursor: 'pointer' }}>
-              <RemoteImageFlat title={model.flippedCoin.face} url={model.flippedCoin.imageUrl} height={100} width={100} onClicked={handleFlipClick} />
-            </Box>
-          )}
-          <CenterStack sx={{ minHeight: 36 }}>
-            {model.flippedCoin && (
-              <Box>
-                <Typography variant='h4'>{`${model.flippedCoin.face}!`}</Typography>
+            <>
+              <Box sx={{ cursor: 'pointer' }}>
+                <RemoteImageFlat title={model.flippedCoin.face} url={model.flippedCoin.imageUrl} height={100} width={100} onClicked={handleFlipClick} />
               </Box>
-            )}
-          </CenterStack>
+              <CenterStack sx={{ minHeight: 36 }}>
+                <Box>
+                  <Typography variant='h4'>{`${model.flippedCoin.face}!`}</Typography>
+                </Box>
+              </CenterStack>
+            </>
+          )}
         </Box>
       </CenterStack>
       {model.runningChart && <CoinFlipChart totalFlips={model.runningChart.numbers[0] + model.runningChart.numbers[1]} chart={model.runningChart} />}

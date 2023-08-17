@@ -8,12 +8,16 @@ export interface Navigation {
 }
 
 export const useSessionSettings = () => {
-  const { palette, savePalette } = useSessionPersistentSore((state) => ({
+  const { palette, savePalette, communityStocks, saveCommunityStocksSort } = useSessionPersistentSore((state) => ({
     palette: state.palette,
     savePalette: state.savePalette,
+    communityStocks: state.communityStocks,
+    saveCommunityStocksSort: state.saveCommunityStocksSort,
   }))
   return {
     palette: palette,
     savePalette: savePalette,
+    communityStocks: communityStocks,
+    saveCommunityStocksSort: saveCommunityStocksSort,
   }
 }

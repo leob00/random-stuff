@@ -23,6 +23,7 @@ import { searchRecords } from 'lib/backend/csr/nextApiWrapper'
 import useSWR, { mutate } from 'swr'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
+import CommunityStocksRecentLayout from 'components/Organizms/stocks/CommunityStocksRecentLayout'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'
 const Page = () => {
@@ -43,6 +44,7 @@ const Page = () => {
 
   const { data: searchedStocks, isLoading, isValidating } = useSWR(recentlySearchedMutateKey, ([url, enc]) => fetchRecentlySearched(url, enc))
   const [stockSearchResults, setStockSearchResults] = React.useState<DropdownItem[]>([])
+  const [loadingStock, setLoadingStock] = React.useState(false)
 
   const tabs: TabInfo[] = [
     {
@@ -76,7 +78,9 @@ const Page = () => {
   const handleSelectQuote = async (text: string) => {
     const symbol = text.split(':')[0]
     setStockSearchResults([])
+    setLoadingStock(true)
     const quotes = await getStockQuotes([symbol])
+    setLoadingStock(false)
     if (quotes.length > 0) {
       const quote = quotes[0]
       setSelectedStock(quote)
@@ -123,11 +127,12 @@ const Page = () => {
           <LargeGridSkeleton />
         </>
       )}
+      {loadingStock && <BackdropLoader />}
       {!selectedStock && (
         <>
           {searchedStocks && (
             <>
-              {selectedTab === 'Recent' && <CommunityStocksLayout data={searchedStocks} defaultSort={[]} />}
+              {selectedTab === 'Recent' && <CommunityStocksRecentLayout data={searchedStocks} />}
               {selectedTab === 'Winners' && (
                 <CommunityStocksLayout data={searchedStocks.filter((m) => m.ChangePercent >= 0)} defaultSort={[{ key: 'ChangePercent', direction: 'desc' }]} />
               )}

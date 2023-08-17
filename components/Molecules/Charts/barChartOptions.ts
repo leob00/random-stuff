@@ -1,14 +1,5 @@
 import { ChartData, ChartOptions } from 'chart.js'
-import {
-  CasinoBlue,
-  CasinoBlueTransparent,
-  CasinoMoreBlackTransparent,
-  CasinoRedTransparent,
-  CasinoWhiteTransparent,
-  ChartBackground,
-  DarkBlue,
-  VeryLightBlueTransparent,
-} from 'components/themes/mainTheme'
+import { CasinoBlue, CasinoBlueTransparent, CasinoMoreBlackTransparent, CasinoRedTransparent, CasinoWhiteTransparent, ChartBackground, DarkBlue, VeryLightBlue, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import { max } from 'lodash'
 
 export interface BarChart {
@@ -34,7 +25,7 @@ export const getBarChartData = (labels: string[], numbers: number[], colors: str
   }
 }
 
-export const getBarChartOptions = (title: string, data: BarChart, yAxisDecorator = '', colors: string[]): ChartOptions<'bar'> => {
+export const getBarChartOptions = (title: string, data: BarChart, yAxisDecorator = '', colors: string[], palette: 'light' | 'dark'): ChartOptions<'bar'> => {
   return {
     responsive: true,
     hover: {
@@ -45,16 +36,16 @@ export const getBarChartOptions = (title: string, data: BarChart, yAxisDecorator
       title: {
         display: true,
         text: title,
-        color: CasinoRedTransparent,
+        color: palette === 'light' ? CasinoRedTransparent : VeryLightBlue,
       },
       legend: {
         display: false,
         labels: {
-          color: 'rgba(203, 241, 247, 0.932)',
+          color: palette === 'light' ? 'rgba(203, 241, 247, 0.932)' : VeryLightBlueTransparent,
         },
         title: {
           display: true,
-          color: 'rgba(203, 241, 247, 0.932)',
+          color: palette === 'light' ? 'rgba(203, 241, 247, 0.932)' : VeryLightBlueTransparent,
         },
       },
       tooltip: {
@@ -98,7 +89,7 @@ export const getBarChartOptions = (title: string, data: BarChart, yAxisDecorator
     scales: {
       y: {
         ticks: {
-          color: CasinoBlue,
+          color: palette === 'light' ? CasinoBlue : VeryLightBlueTransparent,
           font: {
             size: 14,
             weight: '400',
@@ -120,7 +111,7 @@ export const getBarChartOptions = (title: string, data: BarChart, yAxisDecorator
       x: {
         display: true,
         ticks: {
-          color: CasinoBlue,
+          color: palette === 'light' ? CasinoBlue : VeryLightBlueTransparent,
           font: {
             size: 14,
             weight: '600',

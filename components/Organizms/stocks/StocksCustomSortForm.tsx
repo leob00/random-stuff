@@ -20,7 +20,7 @@ type ExtractKeys<T> = NonNullable<
 >
 
 type Keys = keyof SortableStockKeys & {}
-const StocksCustomSortForm = ({ result, onSubmitted }: { result: UserSettings; onSubmitted: (data?: Sort[]) => void }) => {
+const StocksCustomSortForm = ({ result, onSubmitted }: { result?: Sort[]; onSubmitted: (data?: Sort[]) => void }) => {
   type Option = {
     text: string
     value: Keys
@@ -52,8 +52,7 @@ const StocksCustomSortForm = ({ result, onSubmitted }: { result: UserSettings; o
     { text: 'ascending', value: 'asc' },
     { text: 'descending', value: 'desc' },
   ]
-  const customSort = result.stocks?.customSort
-  const [data, setData] = React.useState(customSort)
+  const [data, setData] = React.useState(result)
   const [isMutating, setIsMutating] = React.useState(false)
 
   const {

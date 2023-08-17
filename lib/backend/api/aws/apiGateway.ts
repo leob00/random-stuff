@@ -1,5 +1,5 @@
 import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
-import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
+import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { BasicArticle } from 'lib/model'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { apiConnection } from '../config'
@@ -180,13 +180,13 @@ export async function putRandomStuff(type: DynamoKeys, category: CategoryType, d
   }
 }
 export async function putRandomStuffEnc(req: SignedRequest) {
-  const decryptedString = myDecrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), req.data)
+  const decryptedString = weakDecrypt(req.data)
   const body = JSON.parse(decryptedString) as LambdaDynamoRequest
   if (!body) {
     console.log('putRandomStuff: body validation failed')
     return null
   }
-  const id = myDecrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), body.token)
+  const id = weakDecrypt(body.token)
   if (body.id !== id) {
     console.log('token validation failed')
     return null

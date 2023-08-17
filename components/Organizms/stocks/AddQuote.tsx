@@ -34,7 +34,7 @@ const AddQuote = ({
         showGroupName={true}
         scrollIntoView={scrollIntoView}
       />
-      {alreadyExists && (
+      {alreadyExists && showAddToListButton && (
         <CenterStack>
           <Alert severity='success'>
             <Typography pr={2} variant='caption'>{`This stock already exists in your list`}</Typography>
