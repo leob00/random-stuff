@@ -26,7 +26,14 @@ const CommunityStocksLayout = ({ data, defaultSort, pageSize = 10 }: { data: Sto
   }
   return (
     <Box py={1}>
-      <StockTable stockList={pagedStocks[currentPageIndex - 1].items} isStock={true} showGroupName={false} showSummary={false} />
+      <StockTable
+        stockList={pagedStocks[currentPageIndex - 1].items}
+        isStock={true}
+        showGroupName={false}
+        showSummary={false}
+        // scrollIntoView
+        // scrollMargin={-28}
+      />
       <Box pt={4}>
         <Pager
           pageCount={pagedStocks.length}

@@ -11,7 +11,6 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 const BasicLineChart = ({ xyValues, rawData }: { xyValues: XyValues; rawData: any[] }) => {
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
-  const isLarge = useMediaQuery(theme.breakpoints.up('lg'))
   let chartHeight = 580
   if (isXSmall) {
     chartHeight = 240
@@ -35,11 +34,7 @@ const BasicLineChart = ({ xyValues, rawData }: { xyValues: XyValues; rawData: an
       ) : (
         <>
           {chartOptions && (
-            <Box
-              borderRadius={3}
-              p={1}
-              // sx={{ backgroundColor: OceanBlueTransparent }}
-            >
+            <Box borderRadius={3} p={1}>
               <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
             </Box>
           )}

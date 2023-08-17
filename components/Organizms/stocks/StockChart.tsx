@@ -12,7 +12,15 @@ import dynamic from 'next/dynamic'
 import React from 'react'
 import { getOptions } from './stockLineChartOptions'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
-
+export const stockChartDaySelect: DropdownItem[] = [
+  { text: '1 week', value: '7' },
+  { text: '1 month', value: '30' },
+  { text: '3 months', value: '90' },
+  { text: '6 months', value: '180' },
+  { text: '1 year', value: '365' },
+  { text: '3 year', value: '1095' },
+  { text: '5 year', value: '1825' },
+]
 const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string; history: StockHistoryItem[]; companyName?: string; isStock: boolean }) => {
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
@@ -34,16 +42,6 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
 
     return result
   }
-
-  const daySelect: DropdownItem[] = [
-    { text: '1 week', value: '7' },
-    { text: '1 month', value: '30' },
-    { text: '3 months', value: '90' },
-    { text: '6 months', value: '180' },
-    { text: '1 year', value: '365' },
-    { text: '3 year', value: '1095' },
-    { text: '5 year', value: '1825' },
-  ]
 
   const handleDaysSelected = async (val: string) => {
     setIsLoading(true)
@@ -68,7 +66,7 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
   return (
     <Box>
       <Box textAlign={'right'} pr={1} pt={1}>
-        <DropdownList options={daySelect} selectedOption={'90'} onOptionSelected={handleDaysSelected} />
+        <DropdownList options={stockChartDaySelect} selectedOption={'90'} onOptionSelected={handleDaysSelected} />
       </Box>
 
       <>

@@ -13,7 +13,7 @@ const FuturesLayout = () => {
   const config = apiConnection().qln
   const apiUrl = `${config.url}/Futures`
   const fetcher: Fetcher<QlnApiResponse> = (url: string) => get(url)
-  const { data, isLoading, isValidating } = useSWR(apiUrl, fetcher)
+  const { data, isLoading, isValidating } = useSWR(apiUrl, fetcher, { refreshInterval: 60000 })
 
   const RenderDisplay = (response: QlnApiResponse) => {
     const result = response.Body as StockQuote[]

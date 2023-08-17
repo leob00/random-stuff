@@ -19,7 +19,7 @@ const apiUrl = `${config.url}/EconCalendar`
 const fetcher: Fetcher<QlnApiResponse> = (url: string) => get(url)
 
 const EconCalendarLayout = () => {
-  const { data, isLoading, isValidating } = useSWR(apiUrl, fetcher)
+  const { data, isLoading, isValidating } = useSWR(apiUrl, fetcher, { refreshInterval: 60000 })
 
   const RenderDisplay = (apiResult: QlnApiResponse) => {
     const result = apiResult.Body as EconCalendarItem[]
@@ -50,7 +50,10 @@ const EconCalendarLayout = () => {
             <Box display={'flex'} gap={1} alignItems={'center'} flexWrap={'wrap'} justifyContent='center'>
               {item.items.map((event) => (
                 <Box key={`${event.Name}-${event.EventDate}`} py={1}>
-                  <Paper component={Stack} sx={{ minHeight: { xs: 180, sm: 160 }, p: 2, width: { xs: 150, sm: 240 }, direction: 'column', justifyContent: 'center' }}>
+                  <Paper
+                    component={Stack}
+                    sx={{ minHeight: { xs: 180, sm: 160 }, p: 2, width: { xs: 150, sm: 240 }, direction: 'column', justifyContent: 'center' }}
+                  >
                     {event.Url ? (
                       <Link href={event.Url} target={'_blank'}>
                         <Typography textAlign={'center'}>{event.Name}</Typography>
