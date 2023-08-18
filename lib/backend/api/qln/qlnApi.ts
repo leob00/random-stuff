@@ -263,18 +263,18 @@ export interface EconCalendarItem {
   Description: string | null
   Url: string | null
 }
-
-export async function getEconCalendar() {
-  const response = await get(`${qlnApiBaseUrl}/EconCalendar`)
-  const result = response.Body as EconCalendarItem[]
-  return result
-}
-
 export interface StockEarning {
   Symbol: string
   ActualEarnings?: number | null
   EstimatedEarnings?: number | null
   ReportDate?: string | null
+  StockQuote?: StockQuote
+}
+
+export async function getEconCalendar() {
+  const response = await get(`${qlnApiBaseUrl}/EconCalendar`)
+  const result = response.Body as EconCalendarItem[]
+  return result
 }
 
 export async function getStockEarnings(symbol: string) {
@@ -284,4 +284,10 @@ export async function getStockEarnings(symbol: string) {
 
   const result = response.Body as StockEarning[]
   return result
+}
+
+export async function getRecentStockEarnings(symbol: string) {
+  const response = await get(`${qlnApiBaseUrl}/RecentEarnings`)
+  const resp = response as QlnApiResponse
+  return resp.Body as StockEarning[]
 }

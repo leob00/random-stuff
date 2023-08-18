@@ -5,6 +5,7 @@ import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import Seo from 'components/Organizms/Seo'
+import EarningsCalendarLayout from 'components/Organizms/stocks/EarningsCalendarLayout'
 import EconCalendarLayout from 'components/Organizms/stocks/EconCalendarLayout'
 import FuturesLayout from 'components/Organizms/stocks/FuturesLayout'
 import StocksLayout from 'components/Organizms/stocks/StocksLayout'
@@ -12,7 +13,7 @@ import { useUserController } from 'hooks/userController'
 import React from 'react'
 
 const Page = () => {
-  const tabs: TabInfo[] = [{ title: 'Stocks', selected: true }, { title: 'Futures' }, { title: 'Econ Events' }]
+  const tabs: TabInfo[] = [{ title: 'Stocks', selected: true }, { title: 'Futures' }, { title: 'Events' }, { title: 'Earnings' }]
   const [selectedTab, setSelectedTab] = React.useState('Stocks')
   const userController = useUserController()
   const [loading, setLoading] = React.useState(true)
@@ -64,7 +65,8 @@ const Page = () => {
             )}
 
             {selectedTab === 'Futures' && <FuturesLayout />}
-            {selectedTab === 'Econ Events' && <EconCalendarLayout />}
+            {selectedTab === 'Events' && <EconCalendarLayout />}
+            {selectedTab === 'Earnings' && <EarningsCalendarLayout />}
           </>
         )}
       </ResponsiveContainer>

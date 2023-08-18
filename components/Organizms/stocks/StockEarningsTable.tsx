@@ -20,7 +20,7 @@ interface GroupedModel {
   items: StockEarning[]
 }
 
-const StockEarningsTable = ({ data }: { data: StockEarning[] }) => {
+const StockEarningsTable = ({ data, showCompany = false }: { data: StockEarning[]; showCompany?: boolean }) => {
   const theme = useTheme()
   const yearsGroup: GroupedModel[] = []
   const years = uniq(data.filter((f) => f.ReportDate).map((m) => dayjs(m.ReportDate).format('YYYY')))
@@ -53,7 +53,11 @@ const StockEarningsTable = ({ data }: { data: StockEarning[] }) => {
                           {item.items.map((subItem, i) => (
                             <TableRow key={i}>
                               <TableCell>
-                                <Typography>{dayjs(subItem.ReportDate).format('MM/DD/YYYY')}</Typography>
+                                {showCompany ? (
+                                  <Typography>{`${subItem.StockQuote?.Company} (${subItem.StockQuote?.Symbol})`}</Typography>
+                                ) : (
+                                  <Typography>{dayjs(subItem.ReportDate).format('MM/DD/YYYY')}</Typography>
+                                )}
                               </TableCell>
                               <TableCell>
                                 <Typography color={getPositiveNegativeColor(subItem.ActualEarnings, theme.palette.mode)}>
