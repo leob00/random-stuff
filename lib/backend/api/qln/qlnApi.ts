@@ -1,10 +1,11 @@
 import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
 import { quoteArraySchema, StockQuote } from '../models/zModels'
-import { get } from '../fetchFunctions'
+import { get, post } from '../fetchFunctions'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import dayjs from 'dayjs'
 import { apiConnection } from '../config'
+import { chunk } from 'lodash'
 
 const config = apiConnection()
 const qlnApiBaseUrl = config.qln.url
@@ -178,12 +179,14 @@ export async function searchStockQuotes(search: string) {
 }
 export async function getStockQuotes(symbols: string[]) {
   const url = `${qlnApiBaseUrl}/Stocks`
-  const params = {
-    symbols: symbols.join(),
+  try {
+    const response = await post(url, symbols.join())
+    const result = quoteArraySchema.parse(response.Body)
+    return result
+  } catch (err) {
+    console.log(err)
+    return []
   }
-  const response = await get(url, params)
-  const result = quoteArraySchema.parse(response.Body)
-  return result
 }
 
 export async function getUserStockListLatest(username: string) {

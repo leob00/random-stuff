@@ -45,7 +45,7 @@ export async function post(url: string, body: any) {
     })
 
     const data = await resp.json()
-    //console.log('response: ', resp)
+    //console.log('response: ', data)
     return data
   } catch (err) {
     console.log('error in post: ', err)
