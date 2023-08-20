@@ -4,8 +4,10 @@ import { CasinoBlueTransparent, CasinoGreenTransparent, CasinoRedTransparent } f
 import { orderBy } from 'lodash'
 import React from 'react'
 import { UserGoalAndTask } from './UserGoalsLayout'
+import { useTheme } from '@mui/material'
 
 const GoalsBarChartByStatus = ({ goalTasks }: { goalTasks: UserGoalAndTask[] }) => {
+  const theme = useTheme()
   let data: ApexBarChartData[] = []
   const gt = orderBy(goalTasks, (e) => e.goal.completePercent, ['desc'])
 
@@ -29,7 +31,7 @@ const GoalsBarChartByStatus = ({ goalTasks }: { goalTasks: UserGoalAndTask[] }) 
       fillColor: getFillColor(e.goal.completePercent),
     }
   })
-  return <ApexBarChart data={data} horizontal seriesName='completed' yAxisDecorator='%' />
+  return <ApexBarChart data={data} horizontal seriesName='completed' yAxisDecorator='%' palette={theme.palette.mode} />
 }
 
 export default GoalsBarChartByStatus

@@ -10,11 +10,14 @@ import { StockEarning } from 'lib/backend/api/qln/qlnApi'
 import numeral from 'numeral'
 import React from 'react'
 import { getPositiveNegativeColor } from './StockListItem'
-import { Box, Typography } from '@mui/material'
+import { Box, Link, Typography } from '@mui/material'
 import { useTheme } from '@mui/material'
 import { getPagedArray } from 'lib/util/collections'
 import Pager from 'components/Atoms/Pager'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
+import { Router } from '@aws-amplify/ui-react/dist/types/components/Authenticator/Router'
+import router from 'next/router'
+import NLink from 'next/link'
 
 const StockEarningsCalendarDetails = ({ data }: { data: StockEarning[] }) => {
   const theme = useTheme()
@@ -31,18 +34,12 @@ const StockEarningsCalendarDetails = ({ data }: { data: StockEarning[] }) => {
   }
   const pages = getPagedArray(filterList(), pageSize)
 
-  //const [pages, setPages] = React.useState(pagedItems)
-
   const [currentPageIndex, setCurrentPageIndex] = React.useState(1)
   const handlePaged = (pageNum: number) => {
     setCurrentPageIndex(pageNum)
   }
   const handleSearched = (text: string) => {
     setSearchWithinList(text)
-
-    // const filtered = filterList(data)
-    // const newPages = getPagedArray(filtered, pageSize)
-    // setPages(newPages)
   }
 
   React.useEffect(() => {
@@ -73,7 +70,11 @@ const StockEarningsCalendarDetails = ({ data }: { data: StockEarning[] }) => {
                 pages[currentPageIndex - 1].items.map((item, index) => (
                   <TableRow key={item.Symbol}>
                     <TableCell>
-                      <Typography>{`${item.StockQuote?.Company} (${item.StockQuote?.Symbol})`}</Typography>
+                      <NLink passHref legacyBehavior href={`/csr/stocks/details?id=${item.Symbol}`}>
+                        <Link>
+                          <Typography>{`${item.StockQuote?.Company} (${item.StockQuote?.Symbol})`}</Typography>
+                        </Link>
+                      </NLink>
                     </TableCell>
                     <TableCell>
                       <Typography color={getPositiveNegativeColor(item.ActualEarnings, theme.palette.mode)}>

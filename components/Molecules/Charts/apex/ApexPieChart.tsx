@@ -2,10 +2,22 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import { Box } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
-import { White } from 'components/themes/mainTheme'
+import { CasinoBlack, VeryLightBlue, White } from 'components/themes/mainTheme'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
-const ApexPieChart = ({ x, y, colors, yAxisDecorator = '' }: { x: string[]; y: number[]; colors: string[]; yAxisDecorator?: string }) => {
+const ApexPieChart = ({
+  x,
+  y,
+  colors,
+  yAxisDecorator = '',
+  palette = 'dark',
+}: {
+  x: string[]
+  y: number[]
+  colors: string[]
+  yAxisDecorator?: string
+  palette?: 'light' | 'dark'
+}) => {
   var options: ApexOptions = {
     tooltip: {
       style: {
@@ -19,6 +31,9 @@ const ApexPieChart = ({ x, y, colors, yAxisDecorator = '' }: { x: string[]; y: n
     },
     legend: {
       position: 'top',
+      labels: {
+        colors: palette === 'dark' ? [VeryLightBlue] : [CasinoBlack],
+      },
     },
     stroke: {
       show: false,

@@ -6,17 +6,18 @@ import useSWR, { mutate } from 'swr'
 import { get } from 'lib/backend/api/fetchFunctions'
 import StocksDisplay from './StocksDisplay'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
+import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
+import AddQuote from './AddQuote'
+import { getMapFromArray } from 'lib/util/collectionsNative'
+import StockListItem from './StockListItem'
 
-const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
-  const enc = encodeURIComponent(weakEncrypt(`user-stock_list[${userProfile.username}]`))
-  const mutateKey = ['/api/edgeGetRandomStuff', enc]
-
-  const fetchData = async (url: string, enc: string) => {
-    const result = (await get(url, { enc: enc })) as StockQuote[]
+const StockDetailsLayout = ({ userProfile, symbol }: { userProfile: UserProfile | null; symbol: string }) => {
+  const mutateKey = ['/api/baseRoute', symbol]
+  const fetchData = async (url: string, id: string) => {
+    const result = await getStockQuotes([id])
     return result
   }
-
-  const { data: stocks, isLoading, isValidating } = useSWR(mutateKey, ([url, enc]) => fetchData(url, enc))
+  const { data: stocks, isLoading, isValidating } = useSWR(mutateKey, ([url, id]) => fetchData(url, symbol))
 
   const handleMutated = (newData: StockQuote[]) => {
     mutate(mutateKey, newData, { revalidate: false })
@@ -30,9 +31,9 @@ const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           <LargeGridSkeleton />
         </>
       )}
-      {stocks && <StocksDisplay userProfile={userProfile} result={stocks} onMutated={handleMutated} onCustomSortUpdated={handleCustomSortUpdate} />}
+      {stocks && stocks.length > 0 && <StockListItem isStock item={stocks[0]} expand scrollIntoView />}
     </>
   )
 }
 
-export default StocksLayout
+export default StockDetailsLayout

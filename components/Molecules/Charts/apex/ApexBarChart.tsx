@@ -2,11 +2,23 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import { Box } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
-import { CasinoBlack, CasinoBlue, CasinoBlueTransparent, CasinoRedTransparent, DarkBlue, DarkBlueTransparent } from 'components/themes/mainTheme'
+import { CasinoBlack, CasinoBlue, CasinoBlueTransparent, CasinoRedTransparent, DarkBlue, DarkBlueTransparent, VeryLightBlue } from 'components/themes/mainTheme'
 import { ApexBarChartData } from './models/chartModes'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
-const ApexBarChart = ({ data, horizontal = false, seriesName, yAxisDecorator = '' }: { data: ApexBarChartData[]; horizontal?: boolean; seriesName: string; yAxisDecorator?: string }) => {
+const ApexBarChart = ({
+  data,
+  horizontal = false,
+  seriesName,
+  yAxisDecorator = '',
+  palette = 'dark',
+}: {
+  data: ApexBarChartData[]
+  horizontal?: boolean
+  seriesName: string
+  yAxisDecorator?: string
+  palette?: 'light' | 'dark'
+}) => {
   const series: ApexAxisChartSeries = [
     {
       data: data,
@@ -26,6 +38,9 @@ const ApexBarChart = ({ data, horizontal = false, seriesName, yAxisDecorator = '
       max: yAxisDecorator === '%' ? 100 : undefined,
       labels: {
         show: !horizontal,
+        style: {
+          colors: palette === 'dark' ? [VeryLightBlue] : [CasinoBlack],
+        },
       },
       axisTicks: { show: false },
     },
@@ -35,9 +50,7 @@ const ApexBarChart = ({ data, horizontal = false, seriesName, yAxisDecorator = '
       //forceNiceScale: true,
       labels: {
         style: {
-          colors: [CasinoBlack],
-
-          //fontWeight: 600,
+          colors: palette === 'dark' ? [VeryLightBlue] : [CasinoBlack],
         },
       },
     },
@@ -49,6 +62,9 @@ const ApexBarChart = ({ data, horizontal = false, seriesName, yAxisDecorator = '
       },
     },
     dataLabels: {
+      style: {
+        colors: palette === 'dark' ? [VeryLightBlue] : [CasinoBlack],
+      },
       formatter: (val: number) => {
         return `${val}${yAxisDecorator}`
       },
