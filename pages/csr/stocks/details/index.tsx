@@ -20,7 +20,6 @@ import React from 'react'
 
 const Page = () => {
   const tabs: TabInfo[] = [{ title: 'Stocks', selected: true }, { title: 'Futures' }, { title: 'Events' }, { title: 'Earnings' }]
-  const [selectedTab, setSelectedTab] = React.useState('Stocks')
   const userController = useUserController()
 
   const [loading, setLoading] = React.useState(true)
@@ -28,11 +27,7 @@ const Page = () => {
 
   const router = useRouter()
   const id = router.query['id'] as string
-  console.log('id', id)
-
-  const handleSelectTab = (title: string) => {
-    setSelectedTab(title)
-  }
+  //console.log('id', id)
 
   React.useEffect(() => {
     let isLoaded = false
@@ -55,33 +50,12 @@ const Page = () => {
 
   return (
     <>
-      <Seo pageTitle='Stocks' />
-
+      <Seo pageTitle={`Stock Details: ${id}`} />
       <ResponsiveContainer>
         {loading && <BackdropLoader />}
-        <BackButton />
+        <BackButton route='/csr/stocks?tab=Earnings' />
         <CenteredTitle title={`${id}`}></CenteredTitle>
         {id && <StockDetailsLayout userProfile={userProfile} symbol={id} />}
-        {/* <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
-        {loading ? (
-          <WarmupBox />
-        ) : (
-          <>
-            {selectedTab === 'Stocks' && (
-              <>
-                {userController.authProfile !== null ? (
-                  <StocksLayout userProfile={userController.authProfile} />
-                ) : (
-                  <PleaseLogin message={'In order to track stocks, you need to register and login.'} />
-                )}
-              </>
-            )}
-
-            {selectedTab === 'Futures' && <FuturesLayout />}
-            {selectedTab === 'Events' && <EconCalendarLayout />}
-            {selectedTab === 'Earnings' && <EarningsCalendarLayout />}
-          </>
-        )} */}
       </ResponsiveContainer>
     </>
   )

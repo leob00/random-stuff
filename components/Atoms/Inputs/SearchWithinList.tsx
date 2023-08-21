@@ -1,6 +1,6 @@
 import Close from '@mui/icons-material/Close'
-import { TextField, InputAdornment, IconButton } from '@mui/material'
-import { CasinoBlue } from 'components/themes/mainTheme'
+import { TextField, InputAdornment, IconButton, useTheme } from '@mui/material'
+import { CasinoBlue, VeryLightBlue } from 'components/themes/mainTheme'
 import { debounce } from 'lodash'
 import React from 'react'
 
@@ -20,6 +20,7 @@ const SearchWithinList = ({
   debounceWaitMilliseconds?: number
 }) => {
   const textRef = React.useRef<HTMLInputElement | null>(null)
+  const theme = useTheme()
 
   const [search, setSearch] = React.useState(defaultValue ?? '')
 
@@ -46,13 +47,14 @@ const SearchWithinList = ({
       defaultValue={defaultValue}
       disabled={disabled}
       id='searchWithinList'
-      sx={{ width: width, input: { color: CasinoBlue } }}
+      sx={{ width: width, input: { color: theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlue } }}
       onChange={handleChange}
       size='small'
       placeholder={text}
       inputRef={textRef}
       InputProps={{
-        color: 'secondary',
+        //color: 'secondary',
+        spellCheck: false,
         autoComplete: 'off',
         endAdornment:
           search.length > 0 ? (

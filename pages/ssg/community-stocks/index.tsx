@@ -24,6 +24,7 @@ import useSWR, { mutate } from 'swr'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import CommunityStocksRecentLayout from 'components/Organizms/stocks/CommunityStocksRecentLayout'
+import Seo from 'components/Organizms/Seo'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'
 const Page = () => {
@@ -95,55 +96,62 @@ const Page = () => {
   }
 
   return (
-    <ResponsiveContainer>
-      <BackButton />
-      <CenteredHeader title='Community Stocks' />
+    <>
+      <Seo pageTitle={`Community Stocks`} />
 
-      <Box py={2}>
-        <CenterStack>
-          <StocksAutoComplete
-            placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}
-            onChanged={handleSearched}
-            searchResults={stockSearchResults}
-            debounceWaitMilliseconds={500}
-            onSelected={handleSelectQuote}
+      <ResponsiveContainer>
+        <BackButton />
+        <CenteredHeader title='Community Stocks' />
+
+        <Box py={2}>
+          <CenterStack>
+            <StocksAutoComplete
+              placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}
+              onChanged={handleSearched}
+              searchResults={stockSearchResults}
+              debounceWaitMilliseconds={500}
+              onSelected={handleSelectQuote}
+            />
+          </CenterStack>
+        </Box>
+        {selectedStock && (
+          <AddQuote
+            stockListMap={getMapFromArray(searchedStocks!, 'Symbol')}
+            quote={selectedStock}
+            handleAddToList={handleAddToList}
+            handleCloseAddQuote={handleCloseAddQuote}
+            scrollIntoView
+            showAddToListButton={false}
           />
-        </CenterStack>
-      </Box>
-      {selectedStock && (
-        <AddQuote
-          stockListMap={getMapFromArray(searchedStocks!, 'Symbol')}
-          quote={selectedStock}
-          handleAddToList={handleAddToList}
-          handleCloseAddQuote={handleCloseAddQuote}
-          scrollIntoView
-          showAddToListButton={false}
-        />
-      )}
-      {!selectedStock && <TabButtonList tabs={tabs} onSelected={handleSelectTab} />}
-      {isLoading && (
-        <>
-          <BackdropLoader />
-          <LargeGridSkeleton />
-        </>
-      )}
-      {loadingStock && <BackdropLoader />}
-      {!selectedStock && (
-        <>
-          {searchedStocks && (
-            <>
-              {selectedTab === 'Recent' && <CommunityStocksRecentLayout data={searchedStocks} />}
-              {selectedTab === 'Winners' && (
-                <CommunityStocksLayout data={searchedStocks.filter((m) => m.ChangePercent >= 0)} defaultSort={[{ key: 'ChangePercent', direction: 'desc' }]} />
-              )}
-              {selectedTab === 'Losers' && (
-                <CommunityStocksLayout data={searchedStocks.filter((m) => m.ChangePercent < 0)} defaultSort={[{ key: 'ChangePercent', direction: 'asc' }]} />
-              )}
-            </>
-          )}
-        </>
-      )}
-    </ResponsiveContainer>
+        )}
+        {!selectedStock && <TabButtonList tabs={tabs} onSelected={handleSelectTab} />}
+        {isLoading && (
+          <>
+            <BackdropLoader />
+            <LargeGridSkeleton />
+          </>
+        )}
+        {loadingStock && <BackdropLoader />}
+        {!selectedStock && (
+          <>
+            {searchedStocks && (
+              <>
+                {selectedTab === 'Recent' && <CommunityStocksRecentLayout data={searchedStocks} />}
+                {selectedTab === 'Winners' && (
+                  <CommunityStocksLayout
+                    data={searchedStocks.filter((m) => m.ChangePercent >= 0)}
+                    defaultSort={[{ key: 'ChangePercent', direction: 'desc' }]}
+                  />
+                )}
+                {selectedTab === 'Losers' && (
+                  <CommunityStocksLayout data={searchedStocks.filter((m) => m.ChangePercent < 0)} defaultSort={[{ key: 'ChangePercent', direction: 'asc' }]} />
+                )}
+              </>
+            )}
+          </>
+        )}
+      </ResponsiveContainer>
+    </>
   )
 }
 

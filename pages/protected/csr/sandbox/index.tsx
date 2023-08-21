@@ -15,7 +15,7 @@ const fetcher: Fetcher<BasicArticle[]> = (url: string) => fetch(url).then((res) 
 
 const Page = () => {
   const ticket = useUserController().ticket
-  const { data, error, isLoading, isValidating } = useSWR(apiUrl, fetcher)
+  //const { data, error, isLoading, isValidating } = useSWR(apiUrl, fetcher)
 
   return (
     <>
@@ -23,9 +23,9 @@ const Page = () => {
       <ResponsiveContainer>
         <PageHeader text='Sandbox' />
         <TabList />
-        <Typography>useSWR example</Typography>
-        {isValidating && <BackdropLoader />}
-        {data && <JsonView obj={data} />}
+        {/* <Typography>useSWR example</Typography> */}
+        {/* {isValidating && <BackdropLoader />}
+        {data && <JsonView obj={data} />} */}
       </ResponsiveContainer>
     </>
   )

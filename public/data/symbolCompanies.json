@@ -36533,6 +36533,10 @@
   },
   {
     "Company": "TG Venture Acquisition Corp",
+    "Symbol": "TGVC"
+  },
+  {
+    "Company": "TG Venture Acquisition Corp",
     "Symbol": "TGVCU"
   },
   {
@@ -36774,6 +36778,10 @@
   {
     "Company": "TLGY Acquisition Corp",
     "Symbol": "TLGY"
+  },
+  {
+    "Company": "TLGY Acquisition Corp",
+    "Symbol": "TLGYU"
   },
   {
     "Company": "BlackRock Institutional Trust Company N.A.",
@@ -39032,6 +39040,14 @@
     "Symbol": "VFQY"
   },
   {
+    "Company": "VinFast Auto Ltd.",
+    "Symbol": "VFS"
+  },
+  {
+    "Company": "VinFast Auto Ltd.",
+    "Symbol": "VFSWW"
+  },
+  {
     "Company": "Vanguard Group, Inc.",
     "Symbol": "VFVA"
   },
@@ -39346,6 +39362,10 @@
   {
     "Company": "Valuence Merger Corp I",
     "Symbol": "VMCA"
+  },
+  {
+    "Company": "Valuence Merger Corp I",
+    "Symbol": "VMCAU"
   },
   {
     "Company": "Viemed Healthcare Inc",

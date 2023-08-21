@@ -1,21 +1,18 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import { ThemeProvider } from '@emotion/react'
-import { CssBaseline } from '@mui/material'
+'use client'
+import { CssBaseline, ThemeProvider } from '@mui/material'
+import Header from 'components/Header'
 import Layout from 'components/Layout'
+import { useSessionSettings } from 'components/Organizms/session/useSessionSettings'
+import React, { ReactNode, useEffect } from 'react'
 import awsconfig from '../src/aws-exports'
 import { Amplify } from 'aws-amplify'
-import { useEffect } from 'react'
-import Header from 'components/Header'
 import darkTheme from 'components/themes/darkTheme'
 import theme from 'components/themes/mainTheme'
-import React from 'react'
-import { useSessionSettings } from 'components/Organizms/session/useSessionSettings'
 Amplify.configure({ ...awsconfig, ssr: true })
 const getTheme = (mode: 'light' | 'dark') => {
   return mode === 'dark' ? darkTheme : theme
 }
-function MyApp({ Component, pageProps }: AppProps) {
+const AppLayout = ({ children }: { children: ReactNode }) => {
   const sessionSettings = useSessionSettings()
   const [colorMode, setColorMode] = React.useState<'dark' | 'light'>('dark')
 
@@ -29,19 +26,16 @@ function MyApp({ Component, pageProps }: AppProps) {
     setColorMode(newMode)
     sessionSettings.savePalette(newMode)
   }
-
   return (
     <>
       <Header onSetColorMode={handleChangeColorMode} colorTheme={colorMode} />
 
       <ThemeProvider theme={getTheme(colorMode)}>
         <CssBaseline />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <Layout>{children}</Layout>
       </ThemeProvider>
     </>
   )
 }
 
-export default MyApp
+export default AppLayout

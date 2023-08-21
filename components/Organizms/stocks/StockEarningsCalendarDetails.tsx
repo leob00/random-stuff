@@ -99,7 +99,7 @@ const StockEarningsCalendarDetails = ({ data }: { data: StockEarning[] }) => {
               itemsPerPage={pageSize}
               onPaged={(pageNum: number) => handlePaged(pageNum)}
               defaultPageIndex={currentPageIndex}
-              totalItemCount={data.length}
+              totalItemCount={pages.length === 1 ? pages[currentPageIndex - 1].items.length : data.length}
             ></Pager>
           </Box>
         )}
