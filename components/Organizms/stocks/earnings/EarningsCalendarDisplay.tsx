@@ -65,7 +65,6 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
         {selectedDate && (
           <Box pt={1}>
             <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -22 }}></Typography>
-
             <StockEarningsCalendarDetails data={filteredResults} />
           </Box>
         )}

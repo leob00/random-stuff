@@ -28,12 +28,12 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
   }
   return (
     <>
-      <Header onSetColorMode={handleChangeColorMode} colorTheme={colorMode} />
+      {/* <Header onSetColorMode={handleChangeColorMode} colorTheme={colorMode} />
 
       <ThemeProvider theme={getTheme(colorMode)}>
         <CssBaseline />
         <Layout>{children}</Layout>
-      </ThemeProvider>
+      </ThemeProvider> */}
     </>
   )
 }

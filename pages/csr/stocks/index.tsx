@@ -1,4 +1,3 @@
-import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
@@ -11,10 +10,20 @@ import FuturesLayout from 'components/Organizms/stocks/FuturesLayout'
 import StocksLayout from 'components/Organizms/stocks/StocksLayout'
 import { useUserController } from 'hooks/userController'
 import React from 'react'
+import { useRouter } from 'next/router'
 
 const Page = () => {
-  const tabs: TabInfo[] = [{ title: 'Stocks', selected: true }, { title: 'Futures' }, { title: 'Events' }, { title: 'Earnings' }]
-  const [selectedTab, setSelectedTab] = React.useState('Stocks')
+  const router = useRouter()
+  const tab = router.query['tab'] as string | undefined
+
+  const tabs: TabInfo[] = [{ title: 'Stocks' }, { title: 'Futures' }, { title: 'Events' }, { title: 'Earnings' }]
+  if (tab) {
+    tabs[tabs.findIndex((m) => m.title === tab)].selected = true
+  } else {
+    tabs[0].selected = true
+  }
+
+  const [selectedTab, setSelectedTab] = React.useState(tab ?? 'Stocks')
   const userController = useUserController()
   const [loading, setLoading] = React.useState(true)
 

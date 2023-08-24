@@ -17,15 +17,7 @@ import React from 'react'
 import { mutate } from 'swr'
 dayjs.extend(relativeTime)
 
-const NewsList = ({
-  newsItems,
-  hideSaveButton = false,
-  showPublishDate = false,
-}: {
-  newsItems: NewsItem[]
-  hideSaveButton?: boolean
-  showPublishDate?: boolean
-}) => {
+const NewsList = ({ newsItems, hideSaveButton = false, showPublishDate = false }: { newsItems: NewsItem[]; hideSaveButton?: boolean; showPublishDate?: boolean }) => {
   const userController = useUserController()
   const handleSaved = async (note: UserNote) => {}
   const RenderDescription = (item: NewsItem) => {
@@ -70,7 +62,7 @@ const NewsList = ({
     <>
       {newsItems.length > 0 ? (
         newsItems.map((item, i) => (
-          <Box key={i} pb={2}>
+          <Box key={item.HeadlineRecordHash} pb={2}>
             <Box minHeight={100}>
               {RenderHeadline(item)}
               {RenderDescription(item)}
