@@ -1,8 +1,7 @@
 import React, { ReactNode } from 'react'
-import { Box, Container, ThemeProvider } from '@mui/material'
+import { Box, Container } from '@mui/material'
 import Footer from './Footer'
 import RouteTracker from 'components/Organizms/session/RouteTracker'
-import darkTheme from './themes/darkTheme'
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (

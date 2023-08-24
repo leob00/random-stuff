@@ -1,27 +1,39 @@
 import * as React from 'react'
-import Person from '@mui/icons-material/Person'
+
 import LogoutIcon from '@mui/icons-material/Logout'
 import { useRouter } from 'next/navigation'
-import { ListItemIcon, ListItemText } from '@mui/material'
+import { ListItemIcon, ListItemText, useTheme } from '@mui/material'
 import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 import ContextMenu, { ContextMenuItem } from './Molecules/Menus/ContextMenu'
+import HeaderMenu from './Molecules/Menus/HeaderMenu'
+import { useUserController } from 'hooks/userController'
 
-const LoggedInUserMenu = ({ onLogOut }: { onLogOut: () => void }) => {
+const LoggedInUserMenu = ({ palette, onChangePalette, onLogOut }: { palette: 'light' | 'dark'; onChangePalette: () => void; onLogOut: () => void }) => {
   const [isAdmin, setIsAdmin] = React.useState(false)
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false)
+
   const router = useRouter()
+  const { ticket, setTicket } = useUserController()
 
   const handleLogout = () => {
     onLogOut()
   }
   React.useEffect(() => {
     const fn = async () => {
-      const user = await getUserCSR()
-      if (user) {
-        setIsAdmin(userHasRole('Admin', user.roles))
+      if (!ticket) {
+        const user = await getUserCSR()
+        if (!user) {
+          setIsLoggedIn(false)
+          return
+        } else {
+          setIsAdmin(userHasRole('Admin', user.roles))
+          setIsLoggedIn(true)
+        }
+        setTicket(user)
       }
     }
     fn()
-  }, [])
+  }, [ticket])
 
   const menu: ContextMenuItem[] = [
     {
@@ -59,7 +71,8 @@ const LoggedInUserMenu = ({ onLogOut }: { onLogOut: () => void }) => {
 
   return (
     <>
-      <ContextMenu items={menu} />
+      <HeaderMenu ticket={ticket} palette={palette} onLogOutClick={handleLogout} onChangePalette={onChangePalette} />
+      {/* <ContextMenu items={menu} /> */}
       {/* <Button
         size='small'
         //sx={{ display: 'flex' }}

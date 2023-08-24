@@ -1,16 +1,15 @@
-import Person from '@mui/icons-material/Person'
-import { Stack, Button, Divider, Typography, Box, IconButton, useTheme } from '@mui/material'
+'use client'
+import { Box } from '@mui/material'
 import { Auth, Hub } from 'aws-amplify'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import { AmplifyUser, getRolesFromAmplifyUser, getUserCSR } from 'lib/backend/auth/userUtil'
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import LoggedInUserMenu from './LoggedInUserMenu'
 import { useRouteTracker } from './Organizms/session/useRouteTracker'
-import { VeryLightBlue } from './themes/mainTheme'
 
 export type HubPayload = {
   event: string
@@ -18,16 +17,14 @@ export type HubPayload = {
   message?: string
 }
 
-const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
+const UserLoginPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; onChangePalette: () => void }) => {
   const router = useRouter()
   const [calledPush, setCalledPush] = React.useState(false)
-  const userController = useUserController()
-  const routeTracker = useRouteTracker()
+  const { ticket, setTicket, setProfile } = useUserController()
+  const { clearRoutes, getLastRoute } = useRouteTracker()
   const signOut = async () => {
     try {
       await Auth.signOut({ global: false })
-
-      //await Auth.signOut({ global: true })
     } catch (err) {
       console.log(err)
     }
@@ -42,9 +39,9 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
     switch (payload.event) {
       case 'signOut':
         console.log('signing out')
-        await userController.setTicket(null)
-        await userController.setProfile(null)
-        routeTracker.clear()
+        await setTicket(null)
+        await setProfile(null)
+        clearRoutes()
         setCalledPush(false)
         if (!calledPush) {
           router.push(`/login`)
@@ -57,7 +54,7 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
           email: payload.data?.attributes.email,
           roles: getRolesFromAmplifyUser(ticket),
         }
-        await userController.setTicket(user)
+        await setTicket(user)
         let p = (await getUserProfile(user.email)) as UserProfile | null
         if (!p) {
           p = {
@@ -66,16 +63,15 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
           }
           await putUserProfile(p)
         }
-        userController.setProfile(p)
+        setProfile(p)
         if (!calledPush) {
-          const lastPath = routeTracker.getLastRoute()
+          const lastPath = getLastRoute()
           if (lastPath.length === 0) {
             router.push('/')
             return
           }
           router.push(lastPath)
         }
-
         break
       case 'signUp':
         const newUser = { email: payload.data?.user.username }
@@ -85,34 +81,34 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
             id: constructUserProfileKey(newUser.email),
             username: newUser.email,
           }
-          userController.setProfile(newProfile)
+          setProfile(newProfile)
           await putUserProfile(newProfile)
         }
         break
 
       case 'signIn_failure':
-        await userController.setTicket(null)
+        await setTicket(null)
         break
     }
   }
 
   React.useEffect(() => {
     let fn = async () => {
-      if (userController.ticket) {
+      if (ticket) {
         return
       }
 
       try {
         let user = await getUserCSR()
-        await userController.setTicket(user)
+        await setTicket(user)
       } catch (error) {
-        await userController.setTicket(null)
+        await setTicket(null)
       }
     }
 
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userController.ticket])
+  }, [ticket])
 
   const handleLoginClick = async () => {
     router.push('/login')
@@ -136,27 +132,7 @@ const UserLoginPanel = ({ onLoggedOff }: { onLoggedOff?: () => void }) => {
   return (
     <>
       <Box justifyContent={'space-evenly'} display='flex' alignItems={'center'} gap={4}>
-        {userController.ticket ? (
-          <>
-            <Stack direction='row' spacing={2}>
-              <Stack flexGrow={1}></Stack>
-              <LoggedInUserMenu onLogOut={signOut} />
-            </Stack>
-          </>
-        ) : (
-          <>
-            <Stack direction='row' spacing={2} mt={'6px'}>
-              <Stack justifyContent={'center'} alignItems={'center'}>
-                <Button onClick={handleLoginClick} size='small' sx={{}}>
-                  <Person fontSize='small' />
-                  <Typography variant='body2' sx={{ color: VeryLightBlue }}>
-                    Sign In
-                  </Typography>
-                </Button>
-              </Stack>
-            </Stack>
-          </>
-        )}
+        <LoggedInUserMenu onLogOut={signOut} palette={palette} onChangePalette={onChangePalette} />
       </Box>
     </>
   )

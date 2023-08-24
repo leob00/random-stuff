@@ -1,3 +1,4 @@
+'use client'
 import dayjs from 'dayjs'
 import { useUserController } from 'hooks/userController'
 import { useRouter } from 'next/router'
@@ -7,7 +8,6 @@ import { useRouteTracker } from './useRouteTracker'
 const RouteTracker = ({ children }: { children: ReactNode }) => {
   const router = useRouter()
   const routeTracker = useRouteTracker()
-  const profile = useUserController().authProfile
   React.useEffect(() => {
     const handleRouteChange = async (url: string, shallow: boolean) => {
       if (!url.includes('/login') && !url.includes('?') && !url.includes('recipes/')) {

@@ -36,7 +36,7 @@ export const useRouteTracker = () => {
       saveRoutes(sortArray(Array.from(map.values()), ['date'], ['desc']))
     },
 
-    clear: () => {
+    clearRoutes: () => {
       saveRoutes([])
     },
   }

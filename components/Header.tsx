@@ -1,17 +1,15 @@
 'use client'
-import { AppBar, Button, Container, Toolbar, useScrollTrigger, Box, Stack, Typography, IconButton, useTheme, Theme } from '@mui/material'
+import { AppBar, Container, Toolbar, useScrollTrigger, Box, Stack } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import NLink from 'next/link'
 import { useEffect, useState } from 'react'
-import '@aws-amplify/ui-react/styles.css'
+//import '@aws-amplify/ui-react/styles.css'
 import React from 'react'
 import UserLoginPanel from './UserLoginPanel'
 import { DarkMode } from './themes/DarkMode'
 import logo from '/public/images/logo-with-text-blue-small.png'
 import StaticImage from './Atoms/StaticImage'
 import MenuLinkButton from './Atoms/Buttons/MenuLinkButton'
-import DarkModeIcon from '@mui/icons-material/DarkMode'
-import LightModeIcon from '@mui/icons-material/LightMode'
 
 // This is used to make the header stick to the top
 function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
@@ -72,15 +70,15 @@ const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; 
                         />
                       </Stack>
                       <Stack>
-                        <UserLoginPanel onLoggedOff={() => {}} />
+                        <UserLoginPanel palette={colorTheme} onChangePalette={handleChangeLightMode} />
                       </Stack>
-                      <Stack>
+                      {/* <Stack>
                         <Box pl={4}>
                           <IconButton size='small' onClick={handleChangeLightMode}>
                             {colorTheme === 'light' ? <DarkModeIcon fontSize='small' /> : <LightModeIcon fontSize='small' />}
                           </IconButton>
                         </Box>
-                      </Stack>
+                      </Stack> */}
                     </Stack>
                   </Box>
                 </DarkMode>

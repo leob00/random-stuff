@@ -21,11 +21,13 @@ const UserDashboardLayout = ({ ticket }: { ticket: AmplifyUser | null }) => {
           {recentRoutes.length > 0 && (
             <Box pb={4}>
               <CenteredTitle title={'Recent'} variant={'h5'} />
-              {recentRoutes.map((item, i) => (
-                <Box key={item.path}>
-                  <CenteredNavigationButton route={item.path} text={item.name} showDivider={i < recentRoutes.length - 1} />
-                </Box>
-              ))}
+              <Box>
+                {recentRoutes.map((item, i) => (
+                  <Box key={item.path}>
+                    <CenteredNavigationButton route={item.path} text={item.name} showDivider={i < recentRoutes.length - 1} />
+                  </Box>
+                ))}
+              </Box>
             </Box>
           )}
           <Box pt={4}>
