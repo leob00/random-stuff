@@ -8,7 +8,7 @@ import { AmplifyUser, getRolesFromAmplifyUser, getUserCSR } from 'lib/backend/au
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { useRouter } from 'next/navigation'
 import React from 'react'
-import LoggedInUserMenu from './LoggedInUserMenu'
+import HeaderMenu from './Molecules/Menus/HeaderMenu'
 import { useRouteTracker } from './Organizms/session/useRouteTracker'
 
 export type HubPayload = {
@@ -17,7 +17,7 @@ export type HubPayload = {
   message?: string
 }
 
-const UserLoginPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; onChangePalette: () => void }) => {
+const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; onChangePalette: () => void }) => {
   const router = useRouter()
   const [calledPush, setCalledPush] = React.useState(false)
   const { ticket, setTicket, setProfile } = useUserController()
@@ -110,10 +110,6 @@ const UserLoginPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ticket])
 
-  const handleLoginClick = async () => {
-    router.push('/login')
-  }
-
   React.useEffect(() => {
     let fn = async () => {
       Hub.listen('auth', (data) => {
@@ -132,10 +128,10 @@ const UserLoginPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark
   return (
     <>
       <Box justifyContent={'space-evenly'} display='flex' alignItems={'center'} gap={4}>
-        <LoggedInUserMenu onLogOut={signOut} palette={palette} onChangePalette={onChangePalette} />
+        <HeaderMenu ticket={ticket} palette={palette} onLogOutClick={signOut} onChangePalette={onChangePalette} />
       </Box>
     </>
   )
 }
 
-export default UserLoginPanel
+export default UserPanel

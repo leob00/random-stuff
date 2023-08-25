@@ -23,6 +23,7 @@ import FormExample from 'components/Organizms/admin/FormExample'
 import Seo from 'components/Organizms/Seo'
 import ApiTest from 'components/Organizms/admin/ApiTest'
 import Calculator from 'components/Organizms/admin/Calculator'
+import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 
 const Page = () => {
   const userController = useUserController()
@@ -78,15 +79,19 @@ const Page = () => {
             {selectedTab === 'Api' && <ApiTest />}
             {selectedTab === 'Links' && (
               <Box py={2}>
-                <CenteredTitle title='Helpful Links' />
-                <HorizontalDivider />
+                <CenteredHeader title='Random Stuff' />
                 <CenterStack sx={{ py: 2 }}>
-                  <InternalLink text='health status SSR' route={'/ssr/healthcheck'} />
+                  <InternalLink text='health check' route={'/ssr/healthcheck'} />
                 </CenterStack>
-                <CenterStack sx={{ py: 2 }}>
-                  <Link href={'https://server6.m6.net:8443/'} target={'_blank'} sx={{ textDecoration: 'none' }}>
-                    <Typography>Quote Lookup Administration</Typography>
+                <HorizontalDivider />
+                <CenteredHeader title='Quote Lookup .NET' />
+                <CenterStack>
+                  <Link href={'https://server6.m6.net:8443/'} target={'_blank'} sx={{}}>
+                    <Typography>Web Server Administration</Typography>
                   </Link>
+                </CenterStack>
+                <CenterStack sx={{ pt: 2 }}>
+                  <Typography>Database: 192.99.150.165</Typography>
                 </CenterStack>
               </Box>
             )}

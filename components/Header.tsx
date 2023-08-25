@@ -3,25 +3,12 @@ import { AppBar, Container, Toolbar, useScrollTrigger, Box, Stack } from '@mui/m
 import { useRouter } from 'next/navigation'
 import NLink from 'next/link'
 import { useEffect, useState } from 'react'
-//import '@aws-amplify/ui-react/styles.css'
 import React from 'react'
-import UserLoginPanel from './UserLoginPanel'
+import UserPanel from './UserPanel'
 import { DarkMode } from './themes/DarkMode'
 import logo from '/public/images/logo-with-text-blue-small.png'
 import StaticImage from './Atoms/StaticImage'
 import MenuLinkButton from './Atoms/Buttons/MenuLinkButton'
-
-// This is used to make the header stick to the top
-function ElevationScroll({ children }: { children: React.ReactElement<any> }) {
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-  })
-
-  return React.cloneElement(children, {
-    elevation: trigger ? 4 : 0,
-  })
-}
 
 const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; onSetColorMode: () => void }) => {
   const [elevationEffect, setElevationEffect] = useState(true)
@@ -46,7 +33,7 @@ const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; 
         <Toolbar>
           <Container sx={{ width: '100%', py: 1 }}>
             <Box>
-              <Stack direction='row' spacing={{ xs: 1, sm: 2 }}>
+              <Stack direction='row' spacing={{ xs: 1, sm: 2 }} justifyItems={'center'}>
                 <DarkMode>
                   <NLink href='/' passHref>
                     <StaticImage image={logo} title='random things' width={120} height={60} priority={true} />
@@ -70,15 +57,8 @@ const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; 
                         />
                       </Stack>
                       <Stack>
-                        <UserLoginPanel palette={colorTheme} onChangePalette={handleChangeLightMode} />
+                        <UserPanel palette={colorTheme} onChangePalette={handleChangeLightMode} />
                       </Stack>
-                      {/* <Stack>
-                        <Box pl={4}>
-                          <IconButton size='small' onClick={handleChangeLightMode}>
-                            {colorTheme === 'light' ? <DarkModeIcon fontSize='small' /> : <LightModeIcon fontSize='small' />}
-                          </IconButton>
-                        </Box>
-                      </Stack> */}
                     </Stack>
                   </Box>
                 </DarkMode>
