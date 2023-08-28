@@ -10,6 +10,7 @@ export const ControlledFreeTextInput = ({
   placeholder = '',
   label,
   required = false,
+  type = 'text',
 }: {
   fieldName: string
   control: Control<any, any>
@@ -17,6 +18,7 @@ export const ControlledFreeTextInput = ({
   placeholder?: string
   label: string
   required?: boolean
+  type?: string
 }) => {
   const theme = useTheme()
   return (
@@ -26,6 +28,7 @@ export const ControlledFreeTextInput = ({
       rules={{ required: required }}
       render={({ field }) => (
         <TextField
+          type={type}
           label={label}
           required={required}
           placeholder={placeholder}
