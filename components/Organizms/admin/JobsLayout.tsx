@@ -21,7 +21,7 @@ const JobsLayout = () => {
   const [selectedItem, setSelectedItem] = React.useState<Job | null>(null)
   const [isLoadingDetail, setIsLoadingDetail] = React.useState(false)
   const timeOutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
-  const apiUrl = `${config.url}/BatchJobList`
+  const apiUrl = `${config.url}/BatchJobList?Apikey=${config.key}`
   const fetcher: Fetcher<QlnApiResponse> = (url: string) => get(url)
   const { data, isLoading } = useSWR(apiUrl, fetcher)
 
