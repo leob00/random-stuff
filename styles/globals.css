@@ -133,20 +133,20 @@
   --amplify-primary-color: #1150a2 !important;
   --amplify-primary-tint: #3f4c60;
   --amplify-primary-shade: #2d92ba;
-  --amplify-background-color: #e0ebfa;
+  --amplify-background-color: #d6e7f8;
 }
 div [role='tablist'] {
-  background-color: #456cba !important;
+  background-color: #0a214c !important;
 }
 div [role='tablist'] button {
-  color: #456cba !important;
+  color: #0a214c !important;
   font-weight: 600 !important;
 }
 div [role='tablist'] [aria-selected='true'] {
   color: #d6e7f8 !important;
 }
 div [role='tablist'] [aria-selected='false'] {
-  color: #456cba !important;
+  color: #446ab7 !important;
 }
 div [role='tablist'] .amplify-tabs {
   border: none !important;
@@ -154,7 +154,7 @@ div [role='tablist'] .amplify-tabs {
 .amplify-button--primary {
   color: #d6e7f8 !important;
   font-weight: 600 !important;
-  background-color: #456cba !important;
+  background-color: #0a214c !important;
 }
 .amplify-button--link {
   color: #456cba !important;

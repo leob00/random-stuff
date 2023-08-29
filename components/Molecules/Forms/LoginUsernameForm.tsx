@@ -1,10 +1,8 @@
 import { Box, Stack, Typography } from '@mui/material'
-
 import React from 'react'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ControlledFreeTextInput } from './ReactHookForm/ControlledFreeTextInput'
-import { ControlledDatePicker } from './ReactHookForm/ControlledDatePicker'
 import { z } from 'zod'
 
 const UsernameLoginSchema = z.object({
@@ -14,7 +12,17 @@ const UsernameLoginSchema = z.object({
 
 export type UsernameLogin = z.infer<typeof UsernameLoginSchema>
 
-const LoginUsernameForm = ({ obj, title = 'Log in', onSubmitted }: { obj: UsernameLogin; title?: string; onSubmitted: (data: UsernameLogin) => void }) => {
+const LoginUsernameForm = ({
+  obj,
+  title = 'Log in',
+  onSubmitted,
+  error,
+}: {
+  obj: UsernameLogin
+  title?: string
+  onSubmitted: (data: UsernameLogin) => void
+  error?: string
+}) => {
   const {
     control,
     handleSubmit,
@@ -30,27 +38,27 @@ const LoginUsernameForm = ({ obj, title = 'Log in', onSubmitted }: { obj: Userna
       console.log(err)
     }
 
-    reset()
+    //reset()
   }
   return (
     <Box>
       <Typography variant='h5' py={2}>
         {title}
       </Typography>
-
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Box display={'flex'} flexDirection={'column'} gap={2}>
-          <ControlledFreeTextInput control={control} fieldName='username' defaultValue={obj.username} label='' placeholder='username' required />
+        <Box display={'flex'} flexDirection={'column'} gap={4}>
+          <ControlledFreeTextInput control={control} fieldName='username' defaultValue={obj.username} label='username' placeholder='username' required />
           <ControlledFreeTextInput
             control={control}
             fieldName='password'
             defaultValue={obj.username}
-            label=''
-            placeholder='username'
+            label='password'
+            placeholder='password'
             required
             type={'password'}
           />
-          <Stack direction={'row'} justifyContent={'flex-end'} alignItems={'center'}>
+          <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
+            <Box></Box>
             <SecondaryButton text='submit' type='submit' size='small' width={80} />
           </Stack>
         </Box>

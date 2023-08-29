@@ -82,6 +82,16 @@ const darkThemeOptions: ThemeOptions = {
         },
       },
     },
+    // MuiTabs: {
+    //   styleOverrides: {
+    //     root: {
+    //       backgroundColor: DarkModeBlue,
+    //     },
+    //     indicator: {
+    //       backgroundColor: VeryLightBlue,
+    //     },
+    //   },
+    // },
   },
 }
 const darkTheme = responsiveFontSizes(createTheme({ ...darkThemeOptions, palette: darkPalette }), rfsOptions)

@@ -251,7 +251,7 @@ export interface QlnApiResponse {
   ResponseId: string
   ResponseDate: string
   Body: any
-  Errors: string[]
+  Errors: Array<{ Code: string; Message: string }>
 }
 
 export async function getFutures() {

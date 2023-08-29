@@ -24,6 +24,7 @@ import Seo from 'components/Organizms/Seo'
 import ApiTest from 'components/Organizms/admin/ApiTest'
 import Calculator from 'components/Organizms/admin/Calculator'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
+import TabList from 'components/Atoms/Buttons/TabList'
 
 const Page = () => {
   const userController = useUserController()
@@ -34,7 +35,7 @@ const Page = () => {
   const [selectedTab, setSelectedTab] = React.useState('Jobs')
   const router = useRouter()
 
-  const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Api' }, { title: 'Links' }, { title: 'Calculator' }]
+  const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Server' }, { title: 'Api' }, { title: 'Calculator' }]
 
   React.useEffect(() => {
     const fn = async () => {
@@ -61,8 +62,8 @@ const Page = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userController.ticket])
 
-  const handleSelectTab = (title: string) => {
-    setSelectedTab(title)
+  const handleSelectTab = (tab: TabInfo) => {
+    setSelectedTab(tab.title)
   }
 
   return (
@@ -75,9 +76,9 @@ const Page = () => {
           <>
             <BackButton />
             <CenteredTitle title='Admin' />
-            <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
+            <TabList tabs={tabs} onSetTab={handleSelectTab} />
             {selectedTab === 'Api' && <ApiTest />}
-            {selectedTab === 'Links' && (
+            {selectedTab === 'Server' && (
               <Box py={2}>
                 <CenteredHeader title='Random Stuff' />
                 <CenterStack sx={{ py: 2 }}>

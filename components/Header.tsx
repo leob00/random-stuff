@@ -28,8 +28,8 @@ const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; 
   }
 
   return (
-    <>
-      <AppBar sx={{ backgroundColor: 'transparent' }} position='sticky' elevation={elevationEffect ? 4 : 0} className='blue-gradient'>
+    <Stack className='blue-gradient'>
+      <AppBar sx={{ backgroundColor: 'transparent' }} position='sticky' elevation={elevationEffect ? 4 : 0}>
         <Toolbar>
           <Container sx={{ width: '100%', py: 1 }}>
             <Box>
@@ -67,7 +67,7 @@ const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; 
           </Container>
         </Toolbar>
       </AppBar>
-    </>
+    </Stack>
   )
 }
 
