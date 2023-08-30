@@ -1,4 +1,5 @@
 import { Box, Stack, Typography, useTheme } from '@mui/material'
+import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import CenterStack from 'components/Atoms/CenterStack'
 import dayjs from 'dayjs'
 import { StockQuote } from 'lib/backend/api/models/zModels'
@@ -21,26 +22,9 @@ const StockTable = ({
   showGroupName?: boolean
   showSummary?: boolean
 }) => {
-  const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
-
-  React.useEffect(() => {
-    let isCanceled = false
-    if (!isCanceled) {
-      if (scrollIntoView) {
-        if (scrollTarget.current) {
-          scrollTarget.current.scrollIntoView({ behavior: 'smooth' })
-        }
-      }
-    }
-    return () => {
-      isCanceled = true
-    }
-  }, [scrollIntoView])
-
   return (
     <>
-      <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: scrollMargin }}></Typography>
-
+      <ScrollIntoView enabled={scrollIntoView!!} margin={scrollMargin} />
       <Box pl={1}>
         {stockList.map((item, index) => (
           <Box key={item.Symbol}>

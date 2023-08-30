@@ -1,12 +1,13 @@
-import { Box, Stack, Typography } from '@mui/material'
+import { Alert, Box, Stack, Typography } from '@mui/material'
 import React from 'react'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ControlledFreeTextInput } from './ReactHookForm/ControlledFreeTextInput'
 import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 const UsernameLoginSchema = z.object({
-  username: z.string().min(1, { message: 'Username is required' }),
+  username: z.string().email({ message: 'Invalid email' }),
   password: z.string().min(1, { message: 'Password is required' }),
 })
 
@@ -28,17 +29,12 @@ const LoginUsernameForm = ({
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<UsernameLogin>()
+  } = useForm<UsernameLogin>({
+    resolver: zodResolver(UsernameLoginSchema),
+  })
   const onSubmit: SubmitHandler<UsernameLogin> = (formData: UsernameLogin) => {
     const submitData = { ...formData }
-    try {
-      const parsed = UsernameLoginSchema.parse(submitData)
-      onSubmitted(parsed)
-    } catch (err) {
-      console.log(err)
-    }
-
-    //reset()
+    onSubmitted(submitData)
   }
   return (
     <Box>
@@ -54,9 +50,11 @@ const LoginUsernameForm = ({
             defaultValue={obj.username}
             label='password'
             placeholder='password'
-            required
             type={'password'}
           />
+          {errors.username && <Alert severity={'error'}>{errors.username?.message}</Alert>}
+          {errors.password && <Alert severity={'error'}>{errors.password?.message}</Alert>}
+          {error && <Alert severity={'error'}>{error}</Alert>}
           <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
             <Box></Box>
             <SecondaryButton text='submit' type='submit' size='small' width={80} />

@@ -4,7 +4,7 @@ import PageHeader from 'components/Atoms/Containers/PageHeader'
 import Seo from 'components/Organizms/Seo'
 import { useUserController } from 'hooks/userController'
 import useSWR, { Fetcher, preload } from 'swr'
-import { Box, Typography } from '@mui/material'
+import { Alert, Box, Typography } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { BasicArticle } from 'lib/model'
 import JsonView from 'components/Atoms/Boxes/JsonView'
@@ -86,7 +86,6 @@ const Page = () => {
                   <SnackbarSuccess show={showLoginSuccess} text={'Login Successful'} />
                 </>
               )}
-              {loginError && <SnackbarError show={true} text={loginError} />}
             </Box>
           )}
           {selectedTab === 'Tab 3' && <Box>tab 3</Box>}

@@ -11,7 +11,7 @@ const JobDetailChart = ({ data }: { data: LineChart }) => {
   const filtered = data.RawData!.filter((m) => dayjs(m.DateCompleted).isAfter(dayjs().subtract(90, 'days')))
   const xyValues: XyValues = {
     x: filtered.map((m) => dayjs(m.DateCompleted).format('MM/DD/YYYY hh:mm a')),
-    y: filtered.map((m) => Number(m.TotalMinutes)),
+    y: filtered.map((m) => Number(Number(m.TotalMinutes).toFixed(1))),
   }
   return (
     <Box>

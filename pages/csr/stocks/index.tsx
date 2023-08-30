@@ -11,6 +11,7 @@ import StocksLayout from 'components/Organizms/stocks/StocksLayout'
 import { useUserController } from 'hooks/userController'
 import React from 'react'
 import { useRouter } from 'next/router'
+import TabList from 'components/Atoms/Buttons/TabList'
 
 const Page = () => {
   const router = useRouter()
@@ -27,8 +28,8 @@ const Page = () => {
   const userController = useUserController()
   const [loading, setLoading] = React.useState(true)
 
-  const handleSelectTab = (title: string) => {
-    setSelectedTab(title)
+  const handleSelectTab = (tab: TabInfo) => {
+    setSelectedTab(tab.title)
   }
 
   React.useEffect(() => {
@@ -58,21 +59,12 @@ const Page = () => {
       <BackButton />
 
       <ResponsiveContainer>
-        <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
+        <TabList tabs={tabs} onSetTab={handleSelectTab} />
         {loading ? (
           <WarmupBox />
         ) : (
           <>
-            {selectedTab === 'Stocks' && (
-              <>
-                {userController.authProfile !== null ? (
-                  <StocksLayout userProfile={userController.authProfile} />
-                ) : (
-                  <PleaseLogin message={'In order to track stocks, you need to register and login.'} />
-                )}
-              </>
-            )}
-
+            {selectedTab === 'Stocks' && <>{userController.authProfile !== null ? <StocksLayout userProfile={userController.authProfile} /> : <PleaseLogin message={'In order to track stocks, you need to register and login.'} />}</>}
             {selectedTab === 'Futures' && <FuturesLayout />}
             {selectedTab === 'Events' && <EconCalendarLayout />}
             {selectedTab === 'Earnings' && <EarningsCalendarLayout />}

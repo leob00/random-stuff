@@ -1,4 +1,4 @@
-import { SortableStockKeys, StockQuote } from 'lib/backend/api/models/zModels'
+import { StockQuote } from 'lib/backend/api/models/zModels'
 import { getSearchAheadTotalCount, searchAheadStocks } from './stockSearcher'
 import { StockLayoutModel } from './StockSearchLayout'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
@@ -7,10 +7,9 @@ import React from 'react'
 import { DropdownItem } from 'lib/models/dropdown'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import { putUserProfile, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
-import { Alert, AlertTitle, Box, Button, Stack, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
-import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import StocksAutoComplete from 'components/Atoms/Inputs/StocksAutoComplete'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import WarmupBox from 'components/Atoms/WarmupBox'
@@ -21,33 +20,17 @@ import FlatListMenu from './FlatListMenu'
 import GroupedStocksLayout from './GroupedStocksLayout'
 import StockTable from './StockTable'
 import { useUserController } from 'hooks/userController'
-import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import { orderBy } from 'lodash'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import StocksCustomSortForm from './StocksCustomSortForm'
-import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import CustomSortAlert from './CustomSortAlert'
+import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 
 export const searchWithinResults = (quotes: StockQuote[], text: string) => {
-  const result = quotes.filter(
-    (o) =>
-      o.Symbol.toLowerCase().includes(text.toLowerCase()) ||
-      o.Company.toLowerCase().startsWith(text.toLowerCase()) ||
-      (o.GroupName && o.GroupName.toLowerCase().includes(text.toLowerCase())),
-  )
+  const result = quotes.filter((o) => o.Symbol.toLowerCase().includes(text.toLowerCase()) || o.Company.toLowerCase().startsWith(text.toLowerCase()) || (o.GroupName && o.GroupName.toLowerCase().includes(text.toLowerCase())))
   return result
 }
-const StocksDisplay = ({
-  userProfile,
-  result,
-  onMutated,
-  onCustomSortUpdated,
-}: {
-  userProfile: UserProfile
-  result: StockQuote[]
-  onMutated: (newData: StockQuote[]) => void
-  onCustomSortUpdated: (data?: Sort[]) => void
-}) => {
+const StocksDisplay = ({ userProfile, result, onMutated, onCustomSortUpdated }: { userProfile: UserProfile; result: StockQuote[]; onMutated: (newData: StockQuote[]) => void; onCustomSortUpdated: (data?: Sort[]) => void }) => {
   const userController = useUserController()
   let map = new Map<string, StockQuote>([])
   map = getMapFromArray(result, 'Symbol')
@@ -198,26 +181,16 @@ const StocksDisplay = ({
 
   return (
     <>
+      <ScrollIntoView enabled={true} margin={-14} />
+
       {model.successMesage && <SnackbarSuccess show={true} text={model.successMesage} />}
       <Box py={2}>
         <CenterStack>
-          <StocksAutoComplete
-            placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}
-            onChanged={handleSearched}
-            searchResults={model.autoCompleteResults}
-            debounceWaitMilliseconds={500}
-            onSelected={handleSelectQuote}
-          />
+          <StocksAutoComplete placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`} onChanged={handleSearched} searchResults={model.autoCompleteResults} debounceWaitMilliseconds={500} onSelected={handleSelectQuote} />
         </CenterStack>
       </Box>
       {model.quoteToAdd ? (
-        <AddQuote
-          stockListMap={model.stockListMap}
-          quote={model.quoteToAdd}
-          handleAddToList={handleAddToList}
-          handleCloseAddQuote={handleCloseAddQuote}
-          scrollIntoView
-        />
+        <AddQuote stockListMap={model.stockListMap} quote={model.quoteToAdd} handleAddToList={handleAddToList} handleCloseAddQuote={handleCloseAddQuote} scrollIntoView />
       ) : (
         <Box>
           {model.isLoading ? (
@@ -229,45 +202,22 @@ const StocksDisplay = ({
             <Box py={2}>
               {model.editList && result.length > 0 ? (
                 <>
-                  <EditList
-                    username={userProfile.username}
-                    data={result}
-                    onCancelEdit={() => setModel({ ...model, editList: false })}
-                    onPushChanges={handleSaveChanges}
-                    onReorder={handleReorderList}
-                    state={model}
-                    setState={setModel}
-                  />
+                  <EditList username={userProfile.username} data={result} onCancelEdit={() => setModel({ ...model, editList: false })} onPushChanges={handleSaveChanges} onReorder={handleReorderList} state={model} setState={setModel} />
                 </>
               ) : (
                 <>
                   {model.showAsGroup ? (
                     <Box>
-                      <GroupedStocksLayout
-                        userProfile={userProfile}
-                        stockList={result}
-                        onEdit={() => setModel({ ...model, editList: true })}
-                        onShowAsGroup={() => handleShowAsGroup(false)}
-                        scrollIntoView
-                      />
+                      <GroupedStocksLayout userProfile={userProfile} stockList={result} onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={() => handleShowAsGroup(false)} />
                     </Box>
                   ) : (
                     <Box>
                       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                        <Box pl={1}>
-                          {/* {result.length > 5 && (
-                            <StaticAutoComplete options={existingStockLookup} onSelected={handleSelectQuote} placeholder={'search in your list'} />
-                          )} */}
-                        </Box>
-                        <FlatListMenu
-                          onEdit={() => setModel({ ...model, editList: true })}
-                          onShowAsGroup={handleShowAsGroup}
-                          onShowCustomSort={handleShowCustomSort}
-                        />
+                        <Box pl={1}></Box>
+                        <FlatListMenu onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={handleShowAsGroup} onShowCustomSort={handleShowCustomSort} />
                       </Box>
-                      {/* <Box display={'flex'} justifyContent={'flex-end'}></Box> */}
                       {customSort && <CustomSortAlert result={customSort} onModify={() => setModel({ ...model, showCustomSort: true })} />}
-                      <StockTable stockList={customSorted} isStock={true} scrollIntoView scrollMargin={customSort ? -38 : -26} />
+                      <StockTable stockList={customSorted} isStock={true} />
                     </Box>
                   )}
                 </>
@@ -277,12 +227,7 @@ const StocksDisplay = ({
         </Box>
       )}
       <>
-        <FormDialog
-          show={model.showCustomSort ?? false}
-          title={'custom sort'}
-          onCancel={() => setModel({ ...model, showCustomSort: false })}
-          showActionButtons={false}
-        >
+        <FormDialog show={model.showCustomSort ?? false} title={'custom sort'} onCancel={() => setModel({ ...model, showCustomSort: false })} showActionButtons={false}>
           <StocksCustomSortForm result={userProfile.settings?.stocks?.customSort} onSubmitted={handleSubmitCustomSort} />
         </FormDialog>
       </>

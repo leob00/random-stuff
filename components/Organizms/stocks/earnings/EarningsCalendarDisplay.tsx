@@ -1,4 +1,5 @@
 import { Box, Stack, Typography } from '@mui/material'
+import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import CenterStack from 'components/Atoms/CenterStack'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import dayjs from 'dayjs'
@@ -20,8 +21,6 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   const dateToSelect = uniqueDates.length > 0 ? (todayDate ? todayDate : uniqueDates[0]) : null
   const [selectedDate, setSelectedDate] = React.useState(dateToSelect)
   const [filteredResults, setFilteredResults] = React.useState(dateToSelect ? filterResult(data, dateToSelect) : [])
-  const [scrollIntoView, setScrollIntoView] = React.useState(dateToSelect ? true : false)
-  const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
   const datesMap = new Map<string, StockEarning[]>()
 
   uniqueDates.forEach((item) => {
@@ -39,21 +38,15 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   })
 
   const handleDateSelected = (dt: string) => {
-    setScrollIntoView(true)
     //console.log(dt)
     setSelectedDate(dt)
     setFilteredResults(filterResult(data, dt))
   }
-  React.useEffect(() => {
-    if (scrollIntoView) {
-      if (scrollTarget.current) {
-        scrollTarget.current.scrollIntoView({ behavior: 'smooth' })
-      }
-    }
-    setScrollIntoView(false)
-  }, [scrollIntoView])
+
   return (
     <>
+      <ScrollIntoView enabled={true} margin={-16} />
+
       <CenterStack>
         {dateOptions.length > 0 && (
           <Stack width={{ xs: '90%', md: '60%' }}>
@@ -64,7 +57,6 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
       <Box py={2}>
         {selectedDate && (
           <Box pt={1}>
-            <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -22 }}></Typography>
             <StockEarningsCalendarDetails data={filteredResults} />
           </Box>
         )}

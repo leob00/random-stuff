@@ -8,6 +8,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import useSWR, { Fetcher } from 'swr'
 import { get } from 'lib/backend/api/fetchFunctions'
 import { apiConnection } from 'lib/backend/api/config'
+import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 
 const FuturesLayout = () => {
   const config = apiConnection().qln
@@ -17,7 +18,12 @@ const FuturesLayout = () => {
 
   const RenderDisplay = (response: QlnApiResponse) => {
     const result = response.Body as StockQuote[]
-    return <Box pt={2}>{!isLoading && <StockTable stockList={result} isStock={false} scrollIntoView scrollMargin={-14} />}</Box>
+    return (
+      <Box pt={2}>
+        <ScrollIntoView enabled={true} margin={-18} />
+        {!isLoading && <StockTable stockList={result} isStock={false} />}
+      </Box>
+    )
   }
 
   return (

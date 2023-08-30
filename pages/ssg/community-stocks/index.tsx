@@ -9,7 +9,7 @@ import BackButton from 'components/Atoms/Buttons/BackButton'
 import router from 'next/router'
 import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import React from 'react'
-import { Box } from '@mui/material'
+import { Box, tableClasses } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import StocksAutoComplete from 'components/Atoms/Inputs/StocksAutoComplete'
 import { getSearchAheadTotalCount, searchAheadStocks } from 'components/Organizms/stocks/stockSearcher'
@@ -25,6 +25,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import CommunityStocksRecentLayout from 'components/Organizms/stocks/CommunityStocksRecentLayout'
 import Seo from 'components/Organizms/Seo'
+import TabList from 'components/Atoms/Buttons/TabList'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'
 const Page = () => {
@@ -60,8 +61,8 @@ const Page = () => {
     },
   ]
 
-  const handleSelectTab = (title: string) => {
-    setSelectedTab(title as Tab)
+  const handleSelectTab = (tab: TabInfo) => {
+    setSelectedTab(tab.title as Tab)
   }
   const [selectedStock, setSelectedStock] = React.useState<StockQuote | null>(null)
 
@@ -105,26 +106,11 @@ const Page = () => {
 
         <Box py={2}>
           <CenterStack>
-            <StocksAutoComplete
-              placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}
-              onChanged={handleSearched}
-              searchResults={stockSearchResults}
-              debounceWaitMilliseconds={500}
-              onSelected={handleSelectQuote}
-            />
+            <StocksAutoComplete placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`} onChanged={handleSearched} searchResults={stockSearchResults} debounceWaitMilliseconds={500} onSelected={handleSelectQuote} />
           </CenterStack>
         </Box>
-        {selectedStock && (
-          <AddQuote
-            stockListMap={getMapFromArray(searchedStocks!, 'Symbol')}
-            quote={selectedStock}
-            handleAddToList={handleAddToList}
-            handleCloseAddQuote={handleCloseAddQuote}
-            scrollIntoView
-            showAddToListButton={false}
-          />
-        )}
-        {!selectedStock && <TabButtonList tabs={tabs} onSelected={handleSelectTab} />}
+        {selectedStock && <AddQuote stockListMap={getMapFromArray(searchedStocks!, 'Symbol')} quote={selectedStock} handleAddToList={handleAddToList} handleCloseAddQuote={handleCloseAddQuote} scrollIntoView showAddToListButton={false} />}
+        {!selectedStock && <TabList tabs={tabs} onSetTab={handleSelectTab} />}
         {isLoading && (
           <>
             <BackdropLoader />
@@ -137,15 +123,8 @@ const Page = () => {
             {searchedStocks && (
               <>
                 {selectedTab === 'Recent' && <CommunityStocksRecentLayout data={searchedStocks} />}
-                {selectedTab === 'Winners' && (
-                  <CommunityStocksLayout
-                    data={searchedStocks.filter((m) => m.ChangePercent >= 0)}
-                    defaultSort={[{ key: 'ChangePercent', direction: 'desc' }]}
-                  />
-                )}
-                {selectedTab === 'Losers' && (
-                  <CommunityStocksLayout data={searchedStocks.filter((m) => m.ChangePercent < 0)} defaultSort={[{ key: 'ChangePercent', direction: 'asc' }]} />
-                )}
+                {selectedTab === 'Winners' && <CommunityStocksLayout data={searchedStocks.filter((m) => m.ChangePercent >= 0)} defaultSort={[{ key: 'ChangePercent', direction: 'desc' }]} />}
+                {selectedTab === 'Losers' && <CommunityStocksLayout data={searchedStocks.filter((m) => m.ChangePercent < 0)} defaultSort={[{ key: 'ChangePercent', direction: 'asc' }]} />}
               </>
             )}
           </>
