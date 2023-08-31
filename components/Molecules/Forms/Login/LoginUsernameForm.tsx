@@ -2,7 +2,7 @@ import { Alert, Box, Stack, Typography } from '@mui/material'
 import React from 'react'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { ControlledFreeTextInput } from './ReactHookForm/ControlledFreeTextInput'
+import { ControlledFreeTextInput } from '../ReactHookForm/ControlledFreeTextInput'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -43,15 +43,8 @@ const LoginUsernameForm = ({
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box display={'flex'} flexDirection={'column'} gap={4}>
-          <ControlledFreeTextInput control={control} fieldName='username' defaultValue={obj.username} label='username' placeholder='username' required />
-          <ControlledFreeTextInput
-            control={control}
-            fieldName='password'
-            defaultValue={obj.username}
-            label='password'
-            placeholder='password'
-            type={'password'}
-          />
+          <ControlledFreeTextInput control={control} fieldName='username' defaultValue={obj.username} label='' placeholder='email' required />
+          <ControlledFreeTextInput control={control} fieldName='password' defaultValue={obj.username} label='' placeholder='password' type={'password'} />
           {errors.username && <Alert severity={'error'}>{errors.username?.message}</Alert>}
           {errors.password && <Alert severity={'error'}>{errors.password?.message}</Alert>}
           {error && <Alert severity={'error'}>{error}</Alert>}

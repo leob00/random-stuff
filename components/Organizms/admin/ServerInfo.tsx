@@ -7,14 +7,24 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import React from 'react'
 import { apiConnection } from 'lib/backend/api/config'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
+import { useSessionPersistentSore, useSessionStore } from 'lib/backend/store/useSessionStore'
+import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
+import { Claim } from 'lib/backend/auth/userUtil'
+import QlnAdministration from './QlnAdministration'
 
 const ServerInfo = () => {
   const config = apiConnection().qln
   const [showCopyConfirm, setShowCopyConfirm] = React.useState(false)
+  const { claims, saveClaims } = useSessionPersistentSore()
+  const claim = claims.find((m) => m.type === 'qln')
 
   const handleCopyItem = (item: string) => {
     navigator.clipboard.writeText(item)
     setShowCopyConfirm(true)
+  }
+  const handleQlnLogin = (claims: Claim[]) => {
+    saveClaims(claims)
+    console.log('claims: ', JSON.stringify(claims))
   }
   React.useEffect(() => {
     if (showCopyConfirm) {
@@ -53,6 +63,15 @@ const ServerInfo = () => {
           <ContentCopyIcon fontSize='small' />
         </IconButton>
       </CenterStack>
+      {claim ? (
+        <CenterStack sx={{ py: 2 }}>
+          <QlnAdministration claim={claim} />
+        </CenterStack>
+      ) : (
+        <>
+          <QlnUsernameLoginForm onSuccess={handleQlnLogin} />
+        </>
+      )}
       {showCopyConfirm && <SnackbarSuccess show={true} text={'copied!'} />}
     </Box>
   )

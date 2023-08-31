@@ -1,4 +1,4 @@
-import { useSessionPersistentSore } from 'lib/backend/store/useRouteStore'
+import { useSessionPersistentSore } from 'lib/backend/store/useSessionStore'
 
 export type NavigationName = 'stocks' | 'goals' | 'home' | 'news' | 'notes' | 'admin'
 export interface Navigation {
@@ -8,16 +8,20 @@ export interface Navigation {
 }
 
 export const useSessionSettings = () => {
-  const { palette, savePalette, communityStocks, saveCommunityStocksSort } = useSessionPersistentSore((state) => ({
+  const { palette, savePalette, communityStocks, saveCommunityStocksSort, claims, saveClaims } = useSessionPersistentSore((state) => ({
     palette: state.palette,
     savePalette: state.savePalette,
     communityStocks: state.communityStocks,
     saveCommunityStocksSort: state.saveCommunityStocksSort,
+    claims: state.claims,
+    saveClaims: state.saveClaims,
   }))
   return {
     palette: palette,
     savePalette: savePalette,
     communityStocks: communityStocks,
     saveCommunityStocksSort: saveCommunityStocksSort,
+    claims: claims,
+    saveClaims: saveClaims,
   }
 }

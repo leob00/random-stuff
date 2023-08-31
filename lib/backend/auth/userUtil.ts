@@ -1,9 +1,20 @@
 import { Auth } from 'aws-amplify'
 
+export interface Claim {
+  type: 'qln'
+  token: string
+  tokenExpirationDate?: string
+}
+
 export interface AmplifyUser {
   id: string
   email: string
   roles?: Role[]
+}
+
+export interface QlnUser {
+  Token: string
+  TokenExpirationDate: string
 }
 
 export type RoleTypes = 'Registered User' | 'Admin'
