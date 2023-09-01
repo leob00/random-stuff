@@ -1,4 +1,4 @@
-import { useSessionPersistentSore } from 'lib/backend/store/useSessionStore'
+import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
 
 export type NavigationName = 'stocks' | 'goals' | 'home' | 'news' | 'notes' | 'admin'
 export interface Navigation {
@@ -8,7 +8,7 @@ export interface Navigation {
 }
 
 export const useSessionSettings = () => {
-  const { palette, savePalette, communityStocks, saveCommunityStocksSort, claims, saveClaims } = useSessionPersistentSore((state) => ({
+  const { palette, savePalette, communityStocks, saveCommunityStocksSort, claims, saveClaims } = useSessionPersistentStore((state) => ({
     palette: state.palette,
     savePalette: state.savePalette,
     communityStocks: state.communityStocks,

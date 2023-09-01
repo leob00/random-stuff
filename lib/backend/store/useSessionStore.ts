@@ -31,7 +31,7 @@ export const useSessionStore = create<SessionState>()((set) => ({
   saveClaims: (claims) => set((state) => ({ ...state, claims: claims })),
 }))
 
-export const useSessionPersistentSore = create(
+export const useSessionPersistentStore = create(
   persist<SessionState>(
     (set, get) => ({
       palette: 'light',
