@@ -1,6 +1,7 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Card, CardContent, CardHeader, Paper, Typography } from '@mui/material'
 import JsonView from 'components/Atoms/Boxes/JsonView'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
@@ -25,19 +26,48 @@ const QlnAdministration = () => {
   }
   return (
     <Box>
-      <Box>
-        <CenteredTitle title='QLN Admin' />
-      </Box>
+      <Paper elevation={4}>
+        {/* <Box>
+          <CenteredTitle title='QLN Admin' />
+        </Box> */}
+        <Card>
+          <CardHeader title={'QLN Admin'} />
+          <CardContent>
+            {isTokenValid && claim ? (
+              <>
+                <CacheSettings claim={claim} />
+                <HorizontalDivider />
+                <Box py={2} display={'flex'} justifyContent={'flex-end'}>
+                  <SecondaryButton text='log off' onClick={handleLogOff} />
+                </Box>
+              </>
+            ) : (
+              <>
+                <QlnUsernameLoginForm onSuccess={handleQlnLogin} />
+              </>
+            )}
+          </CardContent>
+        </Card>
+      </Paper>
 
-      {!isTokenValid && <QlnUsernameLoginForm onSuccess={handleQlnLogin} />}
+      {/* {!isTokenValid && <QlnUsernameLoginForm onSuccess={handleQlnLogin} />}
       {isTokenValid && claim && (
         <Box>
-          <CacheSettings claim={claim} />
-          <Box py={2} display={'flex'} justifyContent={'flex-end'}>
-            <SecondaryButton text='log off' onClick={handleLogOff} />
-          </Box>
+          <Paper>
+            <Box>
+              <CenteredTitle title='QLN Admin' />
+            </Box>
+            <Card>
+              <CardContent>
+                <CacheSettings claim={claim} />
+                <Box py={2} display={'flex'} justifyContent={'flex-end'}>
+                  <SecondaryButton text='log off' onClick={handleLogOff} />
+                </Box>
+              </CardContent>
+            </Card>
+          </Paper>
         </Box>
-      )}
+      )} */}
     </Box>
   )
 }

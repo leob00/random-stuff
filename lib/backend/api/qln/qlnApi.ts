@@ -196,6 +196,11 @@ export async function getCacheStats(token: string) {
 
   return response
 }
+export async function resetStockCache(token: string) {
+  const response = (await post(`${qlnApiBaseUrl}/StockCache?Token=${token}`, {})) as QlnApiResponse
+
+  return response
+}
 
 export async function getUserStockListLatest(username: string) {
   const stockList = await getUserStockList(username)

@@ -1,24 +1,21 @@
 import Search from '@mui/icons-material/Search'
 import SearchOff from '@mui/icons-material/SearchOff'
-import { Box, IconButton, Stack, Switch, Typography } from '@mui/material'
-import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
+import { Box, IconButton, Stack, Typography } from '@mui/material'
 import ConfirmDialog from 'components/Atoms/Dialogs/ConfirmDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
-import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
 import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import AddTaskForm from 'components/Molecules/Forms/AddTaskForm'
 import EditTaskForm from 'components/Molecules/Forms/EditTaskForm'
-import { CasinoRedTransparent } from 'components/themes/mainTheme'
-import dayjs from 'dayjs'
 import { constructUserTaskPk } from 'lib/backend/api/aws/util'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
-import { replaceItemInArray } from 'lib/util/collections'
 import { getUtcNow } from 'lib/util/dateUtil'
 import React from 'react'
 import TaskItem from './TaskItem'
 import { reorderTasks } from './UserGoalsLayout'
+import FileDownloadIcon from '@mui/icons-material/FileDownload'
+import dayjs from 'dayjs'
 
 interface TaskModel {
   isLoading: boolean
@@ -142,6 +139,53 @@ const TaskList = ({
 
     onDeleteTask({ ...item })
   }
+  const download = (data: any) => {
+    // Creating a Blob for having a csv file format
+    // and passing the data with type
+    const blob = new Blob([data], { type: 'text/csv' })
+
+    // Creating an object for downloading url
+    const url = window.URL.createObjectURL(blob)
+
+    // Creating an anchor(a) tag of HTML
+    const a = document.createElement('a')
+
+    // Passing the blob downloading url
+    a.setAttribute('href', url)
+
+    // Setting the anchor tag attribute for downloading
+    // and passing the download file name
+    a.setAttribute('download', 'download.csv')
+
+    // Performing a download with click
+    a.click()
+  }
+  const csvmaker = (data: UserTask[]) => {
+    const csvRows = []
+    type Keys = keyof UserTask & {}
+    const headers: Keys[] = ['body', 'dueDate', 'dateCompleted', 'notes']
+    csvRows.push(headers.join(','))
+
+    data.forEach((m) => {
+      // const values = Object.values(m)
+      //   .map((i) => {
+      //     return `"${i}"`
+      //   })
+      //   .join(',')
+      csvRows.push(
+        `"${m.body ?? ''}",${m.dueDate ? dayjs(m.dueDate).format('YYYY-MM-DD hh:mm A') : ''}, ${
+          m.dateCompleted ? dayjs(m.dateCompleted).format('YYYY-MM-DD hh:mm A') : ''
+        },${m.notes ? m.notes.replaceAll('\n', '') : ''}`,
+      )
+    })
+
+    return csvRows.join('\n')
+  }
+  const handleDownloadToFile = () => {
+    const data = csvmaker(model.taskList)
+    // console.log(data)
+    download(data)
+  }
 
   return (
     <>
@@ -170,6 +214,11 @@ const TaskList = ({
                   <IconButton size='small' color='secondary' onClick={handleToggleSearch}>
                     {!model.showSearch ? <Search fontSize='small' /> : <SearchOff fontSize='small' />}
                   </IconButton>
+                  {!model.showSearch && (
+                    <IconButton size='small' color='secondary' onClick={handleDownloadToFile}>
+                      <FileDownloadIcon fontSize='small' />
+                    </IconButton>
+                  )}
                 </Box>
 
                 <Box>
