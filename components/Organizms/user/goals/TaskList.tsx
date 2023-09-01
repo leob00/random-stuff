@@ -140,26 +140,14 @@ const TaskList = ({
     onDeleteTask({ ...item })
   }
   const download = (data: any) => {
-    // Creating a Blob for having a csv file format
-    // and passing the data with type
     const blob = new Blob([data], { type: 'text/csv' })
-
-    // Creating an object for downloading url
     const url = window.URL.createObjectURL(blob)
-
-    // Creating an anchor(a) tag of HTML
     const a = document.createElement('a')
-
-    // Passing the blob downloading url
     a.setAttribute('href', url)
-
-    // Setting the anchor tag attribute for downloading
-    // and passing the download file name
     a.setAttribute('download', 'download.csv')
-
-    // Performing a download with click
     a.click()
   }
+
   const csvmaker = (data: UserTask[]) => {
     const csvRows = []
     type Keys = keyof UserTask & {}
@@ -167,15 +155,10 @@ const TaskList = ({
     csvRows.push(headers.join(','))
 
     data.forEach((m) => {
-      // const values = Object.values(m)
-      //   .map((i) => {
-      //     return `"${i}"`
-      //   })
-      //   .join(',')
       csvRows.push(
         `"${m.body ?? ''}",${m.dueDate ? dayjs(m.dueDate).format('YYYY-MM-DD hh:mm A') : ''}, ${
           m.dateCompleted ? dayjs(m.dateCompleted).format('YYYY-MM-DD hh:mm A') : ''
-        },${m.notes ? m.notes.replaceAll('\n', '') : ''}`,
+        },"${m.notes ? m.notes.replaceAll('\n', '') : ''}",`,
       )
     })
 
