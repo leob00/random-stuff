@@ -189,6 +189,14 @@ export async function getStockQuotes(symbols: string[]) {
   }
 }
 
+export async function getCacheStats(token: string) {
+  const response = (await get(`${qlnApiBaseUrl}/ServerSettings`, {
+    Token: token,
+  })) as QlnApiResponse
+
+  return response
+}
+
 export async function getUserStockListLatest(username: string) {
   const stockList = await getUserStockList(username)
   const latestQuotes = await getLatestQuotes(stockList.map((o) => o.Symbol))

@@ -4,6 +4,7 @@ export interface Claim {
   type: 'qln'
   token: string
   tokenExpirationDate?: string
+  tokenExpirationSeconds: number
 }
 
 export interface AmplifyUser {
@@ -15,6 +16,7 @@ export interface AmplifyUser {
 export interface QlnUser {
   Token: string
   TokenExpirationDate: string
+  TokenExpirationSeconds: number
 }
 
 export type RoleTypes = 'Registered User' | 'Admin'

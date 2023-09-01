@@ -1,14 +1,9 @@
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import { Sort, UserProfile } from 'lib/backend/api/aws/apiGateway'
-import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import useSWR, { mutate } from 'swr'
-import { get } from 'lib/backend/api/fetchFunctions'
-import StocksDisplay from './StocksDisplay'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
-import AddQuote from './AddQuote'
-import { getMapFromArray } from 'lib/util/collectionsNative'
 import StockListItem from './StockListItem'
 
 const StockDetailsLayout = ({ userProfile, symbol }: { userProfile: UserProfile | null; symbol: string }) => {

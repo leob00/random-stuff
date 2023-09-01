@@ -8,6 +8,7 @@ import LoginUsernameForm, { UsernameLogin } from 'components/Molecules/Forms/Log
 import { useSessionPersistentSore, useSessionStore } from 'lib/backend/store/useSessionStore'
 import { Claim, QlnUser } from 'lib/backend/auth/userUtil'
 import { replaceItemInArray } from 'lib/util/collections'
+import dayjs from 'dayjs'
 
 const QlnUsernameLoginForm = ({ onSuccess }: { onSuccess: (claims: Claim[]) => void }) => {
   const [loginError, setLoginError] = React.useState<string | undefined>(undefined)
@@ -25,17 +26,15 @@ const QlnUsernameLoginForm = ({ onSuccess }: { onSuccess: (claims: Claim[]) => v
     if (response.Errors.length === 0) {
       const body: QlnUser | null = response.Body
       if (body) {
-        const newClaims = [...claims]
-        const claim = newClaims.find((m) => m.type === 'qln')
-        if (claim) {
-          replaceItemInArray(claim, newClaims, 'type', 'qln')
-        } else {
-          newClaims.push({
-            type: 'qln',
-            token: body.Token,
-            tokenExpirationDate: body.TokenExpirationDate,
-          })
-        }
+        const newClaims = [...claims].filter((m) => m.type !== 'qln')
+
+        newClaims.push({
+          type: 'qln',
+          token: body.Token,
+          tokenExpirationDate: dayjs().add(body.TokenExpirationSeconds, 'seconds').format(),
+          tokenExpirationSeconds: body.TokenExpirationSeconds,
+        })
+
         saveClaims(newClaims)
         onSuccess(newClaims)
         setShowLoginSuccess(true)
