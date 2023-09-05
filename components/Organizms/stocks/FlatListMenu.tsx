@@ -68,6 +68,14 @@ const FlatListMenu = ({
       ),
       fn: () => router.push('/ssg/community-stocks'),
     },
+    {
+      item: (
+        <>
+          <ListItemText primary='portfolio' />
+        </>
+      ),
+      fn: () => router.push('/csr/stocks/stock-porfolios'),
+    },
   ]
 
   return <ContextMenu items={contextMenu} />

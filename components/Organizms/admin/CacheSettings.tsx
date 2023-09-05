@@ -1,9 +1,10 @@
-import { Box, Card, CardContent, CardHeader, Paper, Typography } from '@mui/material'
+import { Box, Card, CardContent, CardHeader, Paper, Stack, Typography } from '@mui/material'
 import JsonView from 'components/Atoms/Boxes/JsonView'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import CopyableText from 'components/Atoms/Text/CopyableText'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
@@ -40,11 +41,14 @@ const CacheSettings = ({ claim }: { claim: Claim }) => {
     <>
       {isValidating && <BackdropLoader />}
       {data && (
-        <Paper sx={{ p: 2 }} elevation={6}>
-          {/* <JsonView obj={data} /> */}
-
-          <Box display={'flex'} flexDirection={'column'} gap={2}>
+        <Box>
+          <Typography variant='h5' pb={2}>{`Server Settings`}</Typography>
+          <Box display={'flex'} flexDirection={'column'} gap={2} justifyItems={'center'}>
             <Typography>{`Web Server Address: ${data.WebServerIpAddress}`}</Typography>
+            <Box display={'flex'} alignItems={'center'}>
+              <CopyableText label='Token:' value={claim.token} showValue />
+            </Box>
+            <Typography>{`Token Expiration Date: ${dayjs(claim.tokenExpirationDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
             <Typography variant='h5' pt={2}>{`Cache`}</Typography>
             <Typography>{`Stock Item Count: ${numeral(data.StocksCache.ItemCount).format('###,###')}`}</Typography>
             <Typography>{`Create Date: ${data.StocksCache.CreateDate ? dayjs(data.StocksCache.CreateDate).format('MM/DD/YYYY hh:mm a') : ''}`}</Typography>
@@ -53,7 +57,7 @@ const CacheSettings = ({ claim }: { claim: Claim }) => {
             {isLoading && <BackdropLoader />}
             <PrimaryButton text='Reset' onClick={handleResetCache} disabled={isLoading} />
           </Box>
-        </Paper>
+        </Box>
       )}
     </>
   )

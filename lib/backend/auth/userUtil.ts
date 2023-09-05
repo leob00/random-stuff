@@ -1,7 +1,7 @@
 import { Auth } from 'aws-amplify'
-
+export type ClaimType = 'qln' | 'rs'
 export interface Claim {
-  type: 'qln'
+  type: ClaimType
   token: string
   tokenExpirationDate?: string
   tokenExpirationSeconds: number

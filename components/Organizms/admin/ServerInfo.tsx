@@ -7,27 +7,11 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import React from 'react'
 import { apiConnection } from 'lib/backend/api/config'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
-import { useSessionPersistentStore, useSessionStore } from 'lib/backend/store/useSessionStore'
-import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
-import { Claim } from 'lib/backend/auth/userUtil'
 import QlnAdministration from './QlnAdministration'
+import CopyableText from 'components/Atoms/Text/CopyableText'
 
 const ServerInfo = () => {
   const config = apiConnection().qln
-  const [showCopyConfirm, setShowCopyConfirm] = React.useState(false)
-
-  const handleCopyItem = (item: string) => {
-    navigator.clipboard.writeText(item)
-    setShowCopyConfirm(true)
-  }
-
-  React.useEffect(() => {
-    if (showCopyConfirm) {
-      setTimeout(() => {
-        setShowCopyConfirm(false)
-      }, 2000)
-    }
-  }, [showCopyConfirm])
 
   return (
     <Box py={2}>
@@ -46,23 +30,14 @@ const ServerInfo = () => {
         <Typography>Database: 192.99.150.165</Typography>
       </CenterStack>
       <CenterStack sx={{ pt: 2 }}>
-        <Typography pr={2}>Api url:</Typography>
-        <Typography pr={2}>{config.url}</Typography>
-        <IconButton size='small' onClick={() => handleCopyItem(config.url)}>
-          <ContentCopyIcon fontSize='small' />
-        </IconButton>
+        <CopyableText label='Api url:' value={config.url} showValue />
       </CenterStack>
       <CenterStack sx={{ pt: 2 }}>
-        <Typography pr={2}>Api key:</Typography>
-        <IconButton size='small' onClick={() => handleCopyItem(config.key)}>
-          <ContentCopyIcon fontSize='small' />
-        </IconButton>
+        <CopyableText label='Api key:' value={config.key} />
       </CenterStack>
       <Box py={2}>
         <QlnAdministration />
       </Box>
-
-      {showCopyConfirm && <SnackbarSuccess show={true} text={'copied!'} />}
     </Box>
   )
 }

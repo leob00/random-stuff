@@ -1,11 +1,19 @@
-import { Typography, Box } from '@mui/material'
+import { Box } from '@mui/material'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import { CasinoBlackTransparent, CasinoBlueTransparent } from 'components/themes/mainTheme'
+import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import router from 'next/router'
 import React from 'react'
+import { Auth } from 'aws-amplify'
 
 const PleaseLogin = ({ message = 'Sorry! Looks like you are not signed in.' }: { message?: string }) => {
+  const signOut = async () => {
+    try {
+      await Auth.signOut({ global: false })
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return (
     <Box sx={{ border: `solid 1px ${CasinoBlueTransparent}`, borderRadius: 2 }} mt={4}>
       <Box sx={{ my: 2 }}>
@@ -14,7 +22,7 @@ const PleaseLogin = ({ message = 'Sorry! Looks like you are not signed in.' }: {
           <PrimaryButton
             text='Sign In'
             onClicked={() => {
-              router.push('/login')
+              signOut()
             }}
           />
         </Box>

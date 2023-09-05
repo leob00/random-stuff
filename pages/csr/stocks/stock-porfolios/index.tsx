@@ -1,0 +1,24 @@
+import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import BackButton from 'components/Atoms/Buttons/BackButton'
+import Seo from 'components/Organizms/Seo'
+import React from 'react'
+import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
+import RequireClaim from 'components/Organizms/user/RequireClaim'
+
+const Page = () => {
+  return (
+    <>
+      <Seo pageTitle='Stock Portfolios' />
+      <BackButton />
+      <ResponsiveContainer>
+        <RequireClaim claimType='rs'>
+          <>
+            <CenteredHeader title='Stock Portfolios' description='coming soon' />
+          </>
+        </RequireClaim>
+      </ResponsiveContainer>
+    </>
+  )
+}
+
+export default Page

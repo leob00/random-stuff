@@ -6,6 +6,7 @@ import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import { AmplifyUser, getRolesFromAmplifyUser, getUserCSR } from 'lib/backend/auth/userUtil'
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
+import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import HeaderMenu from './Molecules/Menus/HeaderMenu'
@@ -22,6 +23,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
   const [calledPush, setCalledPush] = React.useState(false)
   const { ticket, setTicket, setProfile } = useUserController()
   const { clearRoutes, getLastRoute } = useRouteTracker()
+  const { claims, saveClaims } = useSessionPersistentStore()
   const signOut = async () => {
     try {
       await Auth.signOut({ global: false })
@@ -36,12 +38,14 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
   }
 
   const handleAuthEvent = async (payload: HubPayload) => {
+    const newClaims = claims.filter((m) => m.type !== 'rs')
     switch (payload.event) {
       case 'signOut':
         console.log('signing out')
         await setTicket(null)
         await setProfile(null)
         clearRoutes()
+        saveClaims([])
         setCalledPush(false)
         if (!calledPush) {
           router.push(`/login`)
@@ -64,6 +68,12 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
           await putUserProfile(p)
         }
         setProfile(p)
+        newClaims.push({
+          token: crypto.randomUUID(),
+          type: 'rs',
+          tokenExpirationSeconds: 6400000,
+        })
+        saveClaims(newClaims)
         if (!calledPush) {
           const lastPath = getLastRoute()
           if (lastPath.length === 0) {
@@ -83,11 +93,18 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
           }
           setProfile(newProfile)
           await putUserProfile(newProfile)
+          newClaims.push({
+            token: crypto.randomUUID(),
+            type: 'rs',
+            tokenExpirationSeconds: 6400000,
+          })
+          saveClaims(newClaims)
         }
         break
 
       case 'signIn_failure':
         await setTicket(null)
+        saveClaims([])
         break
     }
   }

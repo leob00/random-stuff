@@ -43,6 +43,14 @@ const GroupedListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShow
       item: <ListItemText primary='view community stocks' />,
       fn: () => router.push('/ssg/community-stocks'),
     },
+    {
+      item: (
+        <>
+          <ListItemText primary='portfolio' />
+        </>
+      ),
+      fn: () => router.push('/csr/stocks/stock-porfolios'),
+    },
   ]
 
   return <ContextMenu items={contextMenu} />
