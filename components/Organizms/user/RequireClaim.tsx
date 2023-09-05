@@ -1,10 +1,11 @@
-import { Box } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import { useUserController } from 'hooks/userController'
 import { Claim, ClaimType } from 'lib/backend/auth/userUtil'
 import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
 import React, { ReactNode } from 'react'
+import QlnAdministration from '../admin/QlnAdministration'
 const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children: ReactNode }) => {
   const { claims, saveClaims } = useSessionPersistentStore()
   const { authProfile, fetchProfilePassive } = useUserController()
@@ -47,9 +48,14 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
   }, [claimType, validatedClaim])
 
   const RenderChallenge = () => {
+    const handleQlnLogin = (userClaims: Claim[]) => {
+      saveClaims(userClaims)
+    }
     switch (claimType) {
       case 'rs':
         return <PleaseLogin message='Please login to use this feature' />
+      case 'qln':
+        return <QlnUsernameLoginForm onSuccess={handleQlnLogin} />
     }
     return <></>
   }

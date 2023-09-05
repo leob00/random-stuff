@@ -1,6 +1,6 @@
 import Close from '@mui/icons-material/Close'
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack } from '@mui/material'
-import { CasinoPinkTransparent } from 'components/themes/mainTheme'
+import { CasinoPinkTransparent, RedDarkMode } from 'components/themes/mainTheme'
 import React from 'react'
 import DangerButton from '../Buttons/DangerButton'
 import PassiveButton from '../Buttons/PassiveButton'
@@ -28,7 +28,7 @@ const ConfirmDeleteDialog = ({
   return (
     <Box>
       <Dialog open={show} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
-        <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoPinkTransparent, color: 'white' }}>
+        <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: RedDarkMode, color: 'white' }}>
           <Stack display='flex' direction={'row'}>
             <Stack flexGrow={1}>{title}</Stack>
             <Stack>

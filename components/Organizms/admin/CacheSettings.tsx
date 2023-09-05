@@ -42,11 +42,11 @@ const CacheSettings = ({ claim }: { claim: Claim }) => {
       {isValidating && <BackdropLoader />}
       {data && (
         <Box>
-          <Typography variant='h5' pb={2}>{`Server Settings`}</Typography>
+          <Typography variant='h5' pb={2}>{`Web Server Settings`}</Typography>
           <Box display={'flex'} flexDirection={'column'} gap={2} justifyItems={'center'}>
-            <Typography>{`Web Server Address: ${data.WebServerIpAddress}`}</Typography>
+            <Typography>{`Address: ${data.WebServerIpAddress}`}</Typography>
             <Box display={'flex'} alignItems={'center'}>
-              <CopyableText label='Token:' value={claim.token} showValue />
+              <CopyableText label='Token:' value={claim.token} />
             </Box>
             <Typography>{`Token Expiration Date: ${dayjs(claim.tokenExpirationDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
             <Typography variant='h5' pt={2}>{`Cache`}</Typography>
