@@ -12,6 +12,7 @@ import { useUserController } from 'hooks/userController'
 import React from 'react'
 import { useRouter } from 'next/router'
 import TabList from 'components/Atoms/Buttons/TabList'
+import RequireClaim from 'components/Organizms/user/RequireClaim'
 
 const Page = () => {
   const router = useRouter()
@@ -64,7 +65,17 @@ const Page = () => {
           <WarmupBox />
         ) : (
           <>
-            {selectedTab === 'Stocks' && <>{userController.authProfile !== null ? <StocksLayout userProfile={userController.authProfile} /> : <PleaseLogin message={'In order to track stocks, you need to register and login.'} />}</>}
+            {selectedTab === 'Stocks' && (
+              <>
+                {userController.authProfile !== null ? (
+                  <RequireClaim claimType={'rs'}>
+                    <StocksLayout userProfile={userController.authProfile} />
+                  </RequireClaim>
+                ) : (
+                  <></>
+                )}
+              </>
+            )}
             {selectedTab === 'Futures' && <FuturesLayout />}
             {selectedTab === 'Events' && <EconCalendarLayout />}
             {selectedTab === 'Earnings' && <EarningsCalendarLayout />}

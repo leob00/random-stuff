@@ -1,5 +1,5 @@
 import { Auth } from 'aws-amplify'
-export type ClaimType = 'qln' | 'rs'
+export type ClaimType = 'qln' | 'rs' | 'rs-admin'
 export interface Claim {
   type: ClaimType
   token: string

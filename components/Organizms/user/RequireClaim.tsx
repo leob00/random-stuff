@@ -5,47 +5,53 @@ import { useUserController } from 'hooks/userController'
 import { Claim, ClaimType } from 'lib/backend/auth/userUtil'
 import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
 import React, { ReactNode } from 'react'
-import QlnAdministration from '../admin/QlnAdministration'
 const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children: ReactNode }) => {
   const { claims, saveClaims } = useSessionPersistentStore()
-  const { authProfile, fetchProfilePassive } = useUserController()
+  const { authProfile, fetchProfilePassive, setProfile } = useUserController()
 
   const [isValidating, setIsValidating] = React.useState(true)
   const [validatedClaim, setValidatedClaim] = React.useState(claims.find((m) => m.type === claimType))
 
   React.useEffect(() => {
     const fn = async () => {
-      if (validatedClaim) {
-        setIsValidating(false)
-        return
-      }
       const allClaims = [...claims]
-      let claim = allClaims.find((m) => m.type === claimType)
+      let claim = { ...validatedClaim }
       switch (claimType) {
-        case 'rs':
-          {
-            if (!claim) {
-              if (!authProfile) {
-                const p = await fetchProfilePassive(60000)
-                if (p) {
-                  const newClaim: Claim = {
-                    token: crypto.randomUUID(),
-                    type: 'rs',
-                    tokenExpirationSeconds: 6400000,
-                  }
-
-                  allClaims.push(newClaim)
-                  saveClaims(allClaims)
-                  setValidatedClaim(newClaim)
+        case 'rs': {
+          if (!claim) {
+            if (!authProfile) {
+              const p = await fetchProfilePassive(60000)
+              if (p) {
+                const newClaim: Claim = {
+                  token: crypto.randomUUID(),
+                  type: 'rs',
+                  tokenExpirationSeconds: 6400000,
                 }
+                setProfile(p)
+                allClaims.push(newClaim)
+                saveClaims(allClaims)
+                setValidatedClaim(newClaim)
               }
+            } else {
+              const newClaim: Claim = {
+                token: crypto.randomUUID(),
+                type: 'rs',
+                tokenExpirationSeconds: 6400000,
+              }
+              allClaims.push(newClaim)
+              saveClaims(allClaims)
+              setValidatedClaim(newClaim)
             }
+          } else {
+            setProfile(await fetchProfilePassive(6000))
           }
-          setIsValidating(false)
+        }
       }
+
+      setIsValidating(false)
     }
     fn()
-  }, [claimType, validatedClaim])
+  }, [])
 
   const RenderChallenge = () => {
     const handleQlnLogin = (userClaims: Claim[]) => {

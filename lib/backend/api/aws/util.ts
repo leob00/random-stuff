@@ -2,6 +2,7 @@ import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import { getGuid, myEncrypt } from 'lib/backend/encryption/useEncryptor'
 import { getSecondsFromEpoch, getUtcNow } from 'lib/util/dateUtil'
+import { DynamoKeys } from './apiGateway'
 dayjs.extend(utc)
 export function constructUserProfileKey(username: string) {
   return `user-profile[${username}]`
@@ -20,7 +21,7 @@ export function constructUserGoalsKey(username: string) {
   return `user-goals[${username}]`
 }
 
-export function constructDymamoPrimaryKey(arg1: string, arg2: string, arg3: string) {
+export function constructDymamoPrimaryKey(arg1: DynamoKeys, arg2: string, arg3: string) {
   return `${arg1}[${arg2}][${arg3}]`
 }
 

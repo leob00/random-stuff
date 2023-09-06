@@ -5,7 +5,15 @@ import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { apiConnection } from '../config'
 import { get, post } from '../fetchFunctions'
 
-export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | 'site-stats' | 'community-stocks' | 'user-stock_list'
+export type DynamoKeys =
+  | 'dogs'
+  | 'cats'
+  | 'coinflip-community'
+  | 'wheelspin-community'
+  | 'site-stats'
+  | 'community-stocks'
+  | 'user-stock_list'
+  | 'stockportfolio'
 
 const connection = apiConnection().aws
 const apiGatewayUrl = connection.url

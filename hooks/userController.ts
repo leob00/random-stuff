@@ -68,11 +68,9 @@ export const useUserController = () => {
       const last = dayjs(lastDt)
       const nextFetch = last.add(seconds, 'second')
 
-      if (now.isAfter(last)) {
-        if (nextFetch.isBefore(now)) {
-          //console.log('refetching profile...')
-          return await fetchProfile()
-        }
+      if (nextFetch.isBefore(now)) {
+        //console.log('refetching profile...')
+        return await fetchProfile()
       }
       return authProfile
     },

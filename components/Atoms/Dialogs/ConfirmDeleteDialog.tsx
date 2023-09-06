@@ -1,6 +1,6 @@
 import Close from '@mui/icons-material/Close'
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack } from '@mui/material'
-import { CasinoPinkTransparent, RedDarkMode } from 'components/themes/mainTheme'
+import { RedDarkMode } from 'components/themes/mainTheme'
 import React from 'react'
 import DangerButton from '../Buttons/DangerButton'
 import PassiveButton from '../Buttons/PassiveButton'

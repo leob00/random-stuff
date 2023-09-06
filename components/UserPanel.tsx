@@ -4,7 +4,7 @@ import { Auth, Hub } from 'aws-amplify'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
-import { AmplifyUser, getRolesFromAmplifyUser, getUserCSR } from 'lib/backend/auth/userUtil'
+import { AmplifyUser, getRolesFromAmplifyUser, getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
 import { useRouter } from 'next/navigation'
@@ -59,6 +59,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
           roles: getRolesFromAmplifyUser(ticket),
         }
         await setTicket(user)
+
         let p = (await getUserProfile(user.email)) as UserProfile | null
         if (!p) {
           p = {
@@ -68,11 +69,19 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
           await putUserProfile(p)
         }
         setProfile(p)
+        const isAdmin = userHasRole('Admin', ticket.roles)
         newClaims.push({
           token: crypto.randomUUID(),
           type: 'rs',
           tokenExpirationSeconds: 6400000,
         })
+        if (isAdmin) {
+          newClaims.push({
+            token: crypto.randomUUID(),
+            type: 'rs-admin',
+            tokenExpirationSeconds: 6400000,
+          })
+        }
         saveClaims(newClaims)
         if (!calledPush) {
           const lastPath = getLastRoute()
