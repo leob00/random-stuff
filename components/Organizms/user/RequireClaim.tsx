@@ -69,7 +69,7 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
   return (
     <>
       {isValidating && <BackdropLoader />}
-      {!isValidating && <>{validatedClaim ? <>{children}</> : RenderChallenge()}</>}
+      {!isValidating && authProfile && <>{validatedClaim ? <>{children}</> : RenderChallenge()}</>}
     </>
   )
 }

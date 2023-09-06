@@ -10,12 +10,10 @@ import React from 'react'
 const StockPortfolioLayout = () => {
   const { ticket } = useUserController()
   const username = ticket?.email
-  if (!username) {
-    return <></>
-  }
+
   const [showAddPortfolio, setShowAddPortfolio] = React.useState(false)
 
-  const portfolioId = constructDymamoPrimaryKey('stockportfolio', username, crypto.randomUUID())
+  const portfolioId = constructDymamoPrimaryKey('stockportfolio', username ?? '', crypto.randomUUID())
 
   const regEx = new RegExp(/(?<=\[).+?(?=\])/g)
   const matches = Array.from(portfolioId.matchAll(regEx))
@@ -26,26 +24,28 @@ const StockPortfolioLayout = () => {
   }
   return (
     <>
-      <Box py={2}>
-        <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
-          <Box></Box>
-          <Box>
-            <HamburgerMenu>
-              <MenuList>
-                <MenuItem onClick={handleAddPortfolioClick}>
-                  <ListItemText primary='create a new portfolio'></ListItemText>
-                </MenuItem>
-                <HorizontalDivider />
-              </MenuList>
-            </HamburgerMenu>
+      {username && (
+        <Box py={2}>
+          <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
+            <Box></Box>
+            <Box>
+              <HamburgerMenu>
+                <MenuList>
+                  <MenuItem onClick={handleAddPortfolioClick}>
+                    <ListItemText primary='create a new portfolio'></ListItemText>
+                  </MenuItem>
+                  <HorizontalDivider />
+                </MenuList>
+              </HamburgerMenu>
+            </Box>
           </Box>
+          {showAddPortfolio && (
+            <Box>
+              <CenterStack>new portfolio</CenterStack>
+            </Box>
+          )}
         </Box>
-        {showAddPortfolio && (
-          <Box>
-            <CenterStack>new portfolio</CenterStack>
-          </Box>
-        )}
-      </Box>
+      )}
     </>
   )
 }

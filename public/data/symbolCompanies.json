@@ -24892,6 +24892,10 @@
     "Symbol": "MPRAU"
   },
   {
+    "Company": "Mercato Partners Acquisition Corporation - Warrant",
+    "Symbol": "MPRAW"
+  },
+  {
     "Company": "Northern Lights Fund Trust IV",
     "Symbol": "MPRO"
   },
@@ -31144,6 +31148,10 @@
     "Symbol": "RCAC"
   },
   {
+    "Company": "Revelstone Capital Acquisition Corp",
+    "Symbol": "RCACU"
+  },
+  {
     "Company": "Red Cat Holdings Inc",
     "Symbol": "RCAT"
   },
@@ -31262,6 +31270,10 @@
   {
     "Company": "ALPS Fund Services",
     "Symbol": "RDOG"
+  },
+  {
+    "Company": "Radius Recycling Inc",
+    "Symbol": "RDUS"
   },
   {
     "Company": "First Trust Exchange-Traded Fund IV",
@@ -32608,6 +32620,10 @@
     "Symbol": "SAGAR"
   },
   {
+    "Company": "Sagaliam Acquisition Corp",
+    "Symbol": "SAGAU"
+  },
+  {
     "Company": "Sage Therapeutics Inc",
     "Symbol": "SAGE"
   },
@@ -32658,6 +32674,10 @@
   {
     "Company": "Schultze Special Purpose Acquisition Corp II",
     "Symbol": "SAMAU"
+  },
+  {
+    "Company": "Schultze Special Purpose Acquisition Corp. II - Warrant",
+    "Symbol": "SAMAW"
   },
   {
     "Company": "Silvercrest Asset Management Group Inc",
@@ -33218,6 +33238,10 @@
   {
     "Company": "Vivid Seats Inc",
     "Symbol": "SEAT"
+  },
+  {
+    "Company": "Vivid Seats Inc. - Warrant",
+    "Symbol": "SEATW"
   },
   {
     "Company": "Seaboard Corp.",
