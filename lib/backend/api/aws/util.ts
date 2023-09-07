@@ -21,8 +21,11 @@ export function constructUserGoalsKey(username: string) {
   return `user-goals[${username}]`
 }
 
-export function constructDymamoPrimaryKey(arg1: DynamoKeys, arg2: string, arg3: string) {
-  return `${arg1}[${arg2}][${arg3}]`
+export function constructDymamoPrimaryKey(arg1: DynamoKeys, arg2: string, arg3?: string) {
+  if (!arg3) {
+    return `${arg1}[${arg2}]`
+  }
+  return `${arg1}[${arg2}][arg3]`
 }
 
 export function constructUserGoalPk(username: string) {

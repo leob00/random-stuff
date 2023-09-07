@@ -276,3 +276,19 @@ export async function putCoinflipStats(data: CoinFlipStats) {
 export async function putWheelSpinStats(data: WheelSpinStats) {
   await putRandomStuff('wheelspin-community', 'random', data)
 }
+
+export type StockPositionType = 'short' | 'long'
+export interface StockPosition {
+  id: string
+  name: string
+  type: StockPositionType
+  openQuantity: number
+  realizedGainLoss?: number
+  unrealizedGainLoss?: number
+  stockSymbol: string
+}
+export interface StockPortfolio {
+  id: string
+  name: string
+  positions: StockPosition[]
+}

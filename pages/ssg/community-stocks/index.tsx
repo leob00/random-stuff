@@ -34,6 +34,7 @@ const Page = () => {
   const searchedStocksKey: CategoryType = 'searched-stocks'
   const recentlySearchedEnc = encodeURIComponent(weakEncrypt(`${searchedStocksKey}`))
   const recentlySearchedMutateKey = ['/api/searchRandomStuff', recentlySearchedEnc]
+
   const fetchRecentlySearched = async (url: string, enc: string) => {
     const searchedStocksResult = await searchRecords(searchedStocksKey)
     const searchedStocks: StockQuote[] = []
@@ -106,10 +107,25 @@ const Page = () => {
 
         <Box py={2}>
           <CenterStack>
-            <StocksAutoComplete placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`} onChanged={handleSearched} searchResults={stockSearchResults} debounceWaitMilliseconds={500} onSelected={handleSelectQuote} />
+            <StocksAutoComplete
+              placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}
+              onChanged={handleSearched}
+              searchResults={stockSearchResults}
+              debounceWaitMilliseconds={500}
+              onSelected={handleSelectQuote}
+            />
           </CenterStack>
         </Box>
-        {selectedStock && <AddQuote stockListMap={getMapFromArray(searchedStocks!, 'Symbol')} quote={selectedStock} handleAddToList={handleAddToList} handleCloseAddQuote={handleCloseAddQuote} scrollIntoView showAddToListButton={false} />}
+        {selectedStock && (
+          <AddQuote
+            stockListMap={getMapFromArray(searchedStocks!, 'Symbol')}
+            quote={selectedStock}
+            handleAddToList={handleAddToList}
+            handleCloseAddQuote={handleCloseAddQuote}
+            scrollIntoView
+            showAddToListButton={false}
+          />
+        )}
         {!selectedStock && <TabList tabs={tabs} onSetTab={handleSelectTab} />}
         {isLoading && (
           <>
@@ -123,8 +139,15 @@ const Page = () => {
             {searchedStocks && (
               <>
                 {selectedTab === 'Recent' && <CommunityStocksRecentLayout data={searchedStocks} />}
-                {selectedTab === 'Winners' && <CommunityStocksLayout data={searchedStocks.filter((m) => m.ChangePercent >= 0)} defaultSort={[{ key: 'ChangePercent', direction: 'desc' }]} />}
-                {selectedTab === 'Losers' && <CommunityStocksLayout data={searchedStocks.filter((m) => m.ChangePercent < 0)} defaultSort={[{ key: 'ChangePercent', direction: 'asc' }]} />}
+                {selectedTab === 'Winners' && (
+                  <CommunityStocksLayout
+                    data={searchedStocks.filter((m) => m.ChangePercent >= 0)}
+                    defaultSort={[{ key: 'ChangePercent', direction: 'desc' }]}
+                  />
+                )}
+                {selectedTab === 'Losers' && (
+                  <CommunityStocksLayout data={searchedStocks.filter((m) => m.ChangePercent < 0)} defaultSort={[{ key: 'ChangePercent', direction: 'asc' }]} />
+                )}
               </>
             )}
           </>

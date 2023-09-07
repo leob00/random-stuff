@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { Menu, Button, MenuList } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 
-const HamburgerMenu = ({ children }: { children: ReactNode }) => {
+const HamburgerMenu = ({ close = true, children }: { close?: boolean; children: ReactNode }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
 

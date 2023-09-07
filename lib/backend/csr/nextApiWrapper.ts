@@ -4,7 +4,13 @@ import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
 import { CategoryType, DynamoKeys, EmailMessage, LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
-import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserNoteTitlesKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
+import {
+  constructUserGoalTaksSecondaryKey,
+  constructUserNoteCategoryKey,
+  constructUserNoteTitlesKey,
+  constructUserProfileKey,
+  constructUserSecretSecondaryKey,
+} from '../api/aws/util'
 import { get, post } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { weakEncrypt } from '../encryption/useEncryptor'
@@ -335,7 +341,7 @@ export async function getRecord<T>(id: DynamoKeys): Promise<T> {
   }
   return result as T
 }
-export async function searchRecords(id: DynamoKeys | CategoryType): Promise<LambdaBody[]> {
+export async function searchRecords(id: DynamoKeys | CategoryType | string): Promise<LambdaBody[]> {
   const enc = weakEncrypt(id)
   const body: SignedRequest = {
     data: enc,

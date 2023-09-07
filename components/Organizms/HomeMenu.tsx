@@ -7,12 +7,11 @@ import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import { useUserController } from 'hooks/userController'
 import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
 import CenteredNavigationButton from 'components/Atoms/Buttons/CenteredNavigationButton'
+import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 
 const HomeMenu = () => {
-  const userController = useUserController()
-
+  const { ticket, setTicket } = useUserController()
   const [isAdmin, setIsAdmin] = React.useState(false)
-  const [isLoading, setIsloading] = React.useState(true)
 
   React.useEffect(() => {
     const fn = async () => {
@@ -20,13 +19,12 @@ const HomeMenu = () => {
       if (user) {
         setIsAdmin(userHasRole('Admin', user.roles))
       } else {
-        userController.setTicket(null)
+        setTicket(null)
       }
-      setIsloading(false)
     }
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userController.ticket])
+  }, [ticket])
 
   return (
     <Box>
@@ -42,9 +40,18 @@ const HomeMenu = () => {
             <Box py={2}>
               <CenteredNavigationButton route={'/csr/news'} text={'news'} />
               <CenteredNavigationButton route={'/ssg/recipes'} text={'recipes'} />
-              <CenteredNavigationButton route={'/csr/stocks'} text={'stocks'} />
+              <CenteredTitle title='Stocks' />
+              <CenterStack sx={{ pt: 2 }}>
+                <NavigationButton route={'/csr/stocks'} text={'my list'} />
+                {/* <Typography>|</Typography> */}
+                <NavigationButton route={'/csr/stocks/stock-porfolios'} text={'portfolio'} />
+              </CenterStack>
+              <CenteredNavigationButton route={'/ssg/community-stocks'} text={'community stocks'} showDivider={false} />
+              <HorizontalDivider />
+              {/* <CenteredNavigationButton route={'/csr/stocks'} text={'my list'} showDivider={false} />
+              <CenteredNavigationButton route={'/csr/stocks/stock-porfolios'} text={'portfolios'} /> */}
 
-              {userController.ticket && (
+              {ticket && (
                 <>
                   <CenterStack sx={{ py: 2 }}>
                     <NavigationButton route={'/protected/csr/goals'} text={'goals'} />
@@ -52,6 +59,7 @@ const HomeMenu = () => {
                     <NavigationButton route={'/protected/csr/notes'} text={'notes'} />
                   </CenterStack>
                   <HorizontalDivider />
+
                   <CenteredNavigationButton route={'/protected/csr/dashboard'} text={'dashboard'} />
                   <CenteredNavigationButton route={'/protected/csr/secrets'} text={'secrets'} />
                   {isAdmin && <CenteredNavigationButton route={'/protected/csr/admin'} text={'admin'} />}

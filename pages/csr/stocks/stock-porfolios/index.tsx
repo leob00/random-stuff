@@ -4,8 +4,6 @@ import Seo from 'components/Organizms/Seo'
 import React from 'react'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import RequireClaim from 'components/Organizms/user/RequireClaim'
-import { useUserController } from 'hooks/userController'
-import { constructDymamoPrimaryKey } from 'lib/backend/api/aws/util'
 import StockPortfolioLayout from 'components/Organizms/stocks/portfolio/StockPortfolioLayout'
 
 const Page = () => {
@@ -15,7 +13,7 @@ const Page = () => {
       <Seo pageTitle='Stock Portfolios' />
       <BackButton />
       <ResponsiveContainer>
-        <CenteredHeader title='Stock Portfolios' description='coming soon' />
+        <CenteredHeader title='Stock Portfolios' />
         <RequireClaim claimType='rs'>
           <>
             <StockPortfolioLayout />

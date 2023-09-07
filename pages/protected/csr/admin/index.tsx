@@ -15,6 +15,7 @@ import ApiTest from 'components/Organizms/admin/ApiTest'
 import Calculator from 'components/Organizms/admin/Calculator'
 import TabList from 'components/Atoms/Buttons/TabList'
 import ServerInfo from 'components/Organizms/admin/ServerInfo'
+import RequireClaim from 'components/Organizms/user/RequireClaim'
 
 const Page = () => {
   const userController = useUserController()
@@ -66,11 +67,15 @@ const Page = () => {
           <>
             <BackButton />
             <CenteredTitle title='Admin' />
-            <TabList tabs={tabs} onSetTab={handleSelectTab} />
-            {selectedTab === 'Api' && <ApiTest />}
-            {selectedTab === 'Server' && <ServerInfo />}
-            {selectedTab === 'Calculator' && <Calculator />}
-            {selectedTab === 'Jobs' && <JobsLayout />}
+            <RequireClaim claimType='qln'>
+              <>
+                <TabList tabs={tabs} onSetTab={handleSelectTab} />
+                {selectedTab === 'Api' && <ApiTest />}
+                {selectedTab === 'Server' && <ServerInfo />}
+                {selectedTab === 'Calculator' && <Calculator />}
+                {selectedTab === 'Jobs' && <JobsLayout />}
+              </>
+            </RequireClaim>
           </>
         ) : (
           <PleaseLogin />

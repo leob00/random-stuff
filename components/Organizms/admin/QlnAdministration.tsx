@@ -13,8 +13,8 @@ const QlnAdministration = () => {
   let claim = claims.find((m) => m.type === 'qln')
   const isTokenValid = claim && dayjs(claim.tokenExpirationDate).isAfter(dayjs())
 
-  const handleQlnLogin = (claims: Claim[]) => {
-    saveClaims(claims)
+  const handleQlnLogin = (newClaims: Claim[]) => {
+    saveClaims(newClaims)
   }
   const handleLogOff = () => {
     saveClaims([...claims].filter((m) => m.type !== 'qln'))
