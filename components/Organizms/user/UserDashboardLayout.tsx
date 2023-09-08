@@ -4,6 +4,9 @@ import CenteredNavigationButton from 'components/Atoms/Buttons/CenteredNavigatio
 import { AmplifyUser, userHasRole } from 'lib/backend/auth/userUtil'
 import { useRouteTracker } from '../session/useRouteTracker'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
+import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
+import CenterStack from 'components/Atoms/CenterStack'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 const UserDashboardLayout = ({ ticket }: { ticket: AmplifyUser | null }) => {
   const [isLoading, setIsLoading] = React.useState(true)
@@ -33,7 +36,13 @@ const UserDashboardLayout = ({ ticket }: { ticket: AmplifyUser | null }) => {
           <Box pt={4}>
             {recentRoutes.length > 0 && <CenteredTitle title={'All'} variant={'h5'} />}
             <CenteredNavigationButton route={'/csr/news'} text={'news'} />
-            <CenteredNavigationButton route={'/csr/stocks'} text={'stocks'} />
+            <CenteredTitle title='Stocks' />
+            <CenterStack sx={{ pt: 2, gap: 2 }}>
+              <NavigationButton route={'/csr/stocks'} text={'my list'} />
+              <NavigationButton route={'/csr/stocks/stock-porfolios'} text={'portfolio'} />
+            </CenterStack>
+            <CenteredNavigationButton route={'/ssg/community-stocks'} text={'community'} showDivider={false} />
+            <HorizontalDivider />
             <CenteredNavigationButton route={'/protected/csr/goals'} text={'goals'} />
             <CenteredNavigationButton route={'/protected/csr/notes'} text={'notes'} />
             <CenteredNavigationButton route={'/ssg/recipes'} text={'recipes'} />

@@ -1,6 +1,7 @@
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
+import dayjs from 'dayjs'
 import { useUserController } from 'hooks/userController'
 import { Claim, ClaimType } from 'lib/backend/auth/userUtil'
 import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
@@ -49,7 +50,11 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
           }
         }
       } else {
-        setProfile(await fetchProfilePassive())
+        if (claimType === 'qln') {
+          if (dayjs().isAfter(claim.tokenExpirationDate!)) {
+            setValidatedClaim(undefined)
+          }
+        }
       }
 
       setIsValidating(false)

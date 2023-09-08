@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Container, Paper, Typography } from '@mui/material'
 import React from 'react'
 import CenterStack from 'components/Atoms/CenterStack'
 import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
@@ -41,16 +41,12 @@ const HomeMenu = () => {
               <CenteredNavigationButton route={'/csr/news'} text={'news'} />
               <CenteredNavigationButton route={'/ssg/recipes'} text={'recipes'} />
               <CenteredTitle title='Stocks' />
-              <CenterStack sx={{ pt: 2 }}>
+              <CenterStack sx={{ pt: 2, gap: 2 }}>
                 <NavigationButton route={'/csr/stocks'} text={'my list'} />
-                {/* <Typography>|</Typography> */}
                 <NavigationButton route={'/csr/stocks/stock-porfolios'} text={'portfolio'} />
               </CenterStack>
-              <CenteredNavigationButton route={'/ssg/community-stocks'} text={'community stocks'} showDivider={false} />
+              <CenteredNavigationButton route={'/ssg/community-stocks'} text={'community'} showDivider={false} />
               <HorizontalDivider />
-              {/* <CenteredNavigationButton route={'/csr/stocks'} text={'my list'} showDivider={false} />
-              <CenteredNavigationButton route={'/csr/stocks/stock-porfolios'} text={'portfolios'} /> */}
-
               {ticket && (
                 <>
                   <CenterStack sx={{ py: 2 }}>

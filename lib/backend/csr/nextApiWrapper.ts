@@ -350,7 +350,7 @@ export async function searchRecords(id: DynamoKeys | CategoryType | string): Pro
   return result
 }
 
-export async function putRecord(id: DynamoKeys, category: string, item: any) {
+export async function putRecord(id: DynamoKeys | string, category: string, item: any) {
   let req: LambdaDynamoRequest = {
     id: id,
     category: category,

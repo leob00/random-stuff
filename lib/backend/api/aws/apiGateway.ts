@@ -279,6 +279,7 @@ export async function putWheelSpinStats(data: WheelSpinStats) {
 
 export type StockPositionType = 'short' | 'long'
 export interface StockPosition {
+  portfolioId: string
   id: string
   name: string
   type: StockPositionType

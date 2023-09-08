@@ -7,21 +7,23 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 
-const PorfoliFieldsSchema = z.object({
+const PorfolioFieldsSchema = z.object({
   name: z.string().min(1, { message: 'Please name your portfolio' }),
 })
 
-export type PorfoliFields = z.infer<typeof PorfoliFieldsSchema>
+export type PorfolioFields = z.infer<typeof PorfolioFieldsSchema>
 
 const EditPortfolioForm = ({
   obj,
-  title = 'Log in',
+  title,
   onSubmitted,
+  onCancel,
   error,
 }: {
-  obj: PorfoliFields
+  obj: PorfolioFields
   title?: string
-  onSubmitted: (data: PorfoliFields) => void
+  onSubmitted: (data: PorfolioFields) => void
+  onCancel: () => void
   error?: string
 }) => {
   const {
@@ -29,25 +31,29 @@ const EditPortfolioForm = ({
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<PorfoliFields>({
-    resolver: zodResolver(PorfoliFieldsSchema),
+  } = useForm<PorfolioFields>({
+    resolver: zodResolver(PorfolioFieldsSchema),
   })
-  const onSubmit: SubmitHandler<PorfoliFields> = (formData: PorfoliFields) => {
+  const onSubmit: SubmitHandler<PorfolioFields> = (formData: PorfolioFields) => {
     const submitData = { ...formData }
     onSubmitted(submitData)
   }
   return (
     <Box>
-      <Typography variant='h5' py={2}>
-        {title}
-      </Typography>
+      {title && (
+        <Typography variant='h5' py={2}>
+          {title}
+        </Typography>
+      )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box display={'flex'} flexDirection={'column'} gap={4}>
           <ControlledFreeTextInput control={control} fieldName='name' defaultValue={obj.name} label='' placeholder='name *' />
           {errors.name && <Alert severity={'error'}>{errors.name?.message}</Alert>}
           {error && <Alert severity={'error'}>{error}</Alert>}
           <Stack direction={'row'} alignItems={'center'} gap={2} justifyContent={'flex-end'}>
-            <Box></Box>
+            <Box>
+              <SecondaryButton text='cancel' size='small' onClick={onCancel} />
+            </Box>
             <PrimaryButton text='save' type='submit' size='small' />
           </Stack>
         </Box>

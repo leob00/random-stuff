@@ -1,5 +1,5 @@
-import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
-import { CasinoBlue } from 'components/themes/mainTheme'
+import { FormControl, InputLabel, MenuItem, Select, TextField, useTheme } from '@mui/material'
+import { CasinoBlue, VeryLightBlue } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
 import React from 'react'
 import { Control, Controller } from 'react-hook-form'
@@ -21,10 +21,12 @@ export const ControlledSelect = ({
   disabled?: boolean
   required?: boolean
 }) => {
+  const theme = useTheme()
   const [opt, setOpt] = React.useState(defaultValue)
   const handleOptionSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     setOpt(e.target.value)
   }
+
   return (
     <Controller
       name={fieldName}
@@ -51,7 +53,12 @@ export const ControlledSelect = ({
               value={opt}
             >
               {items.map((item) => (
-                <MenuItem key={item.value} value={item.value} sx={{ color: CasinoBlue }} selected={item.value === opt}>
+                <MenuItem
+                  key={item.value}
+                  value={item.value}
+                  sx={{ color: theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlue }}
+                  selected={item.value === opt}
+                >
                   {item.text}
                 </MenuItem>
               ))}

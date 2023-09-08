@@ -11,6 +11,7 @@ export const ControlledFreeTextInput = ({
   label,
   required = false,
   type = 'text',
+  readOnly = false,
 }: {
   fieldName: string
   control: Control<any, any>
@@ -19,6 +20,7 @@ export const ControlledFreeTextInput = ({
   label: string
   required?: boolean
   type?: string
+  readOnly?: boolean
 }) => {
   const theme = useTheme()
   return (
@@ -38,6 +40,8 @@ export const ControlledFreeTextInput = ({
           InputProps={{
             color: 'secondary',
             autoComplete: 'off',
+            readOnly: readOnly,
+            type: type,
           }}
           {...field}
         />
