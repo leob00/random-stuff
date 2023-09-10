@@ -12,6 +12,9 @@ import { CasinoBlue } from 'components/themes/mainTheme'
 import { getPositiveNegativeColor } from 'components/Organizms/stocks/StockListItem'
 import { ControlledSelect } from '../ReactHookForm/ControlledSelect'
 import { DropdownItem } from 'lib/models/dropdown'
+import { ControlledDatePicker } from '../ReactHookForm/ControlledDatePicker'
+import dayjs from 'dayjs'
+import { ControlledDateTimePicker } from '../ReactHookForm/ControlledDateTimePicker'
 
 const checkPrice = (val: any) => {
   if (isNaN(val)) {
@@ -28,6 +31,8 @@ const PositionFieldsSchema = z.object({
     .min(1)
     .refine((val: any) => checkPrice(val), { message: 'Please enter a valid price' }),
   type: z.string(),
+  //date: z.string(),
+  date: z.preprocess((arg: any) => (typeof arg == 'object' ? dayjs(arg).format() : null), z.string().nullable()),
 })
 
 export type PositionFields = z.infer<typeof PositionFieldsSchema>
@@ -133,12 +138,14 @@ const EditPositionForm = ({
                 defaultValue={obj.quantity}
               />
               <ControlledFreeTextInput control={control} fieldName='price' defaultValue={selectedQuote.Price.toFixed(2)} label='price' placeholder='price' />
+              <ControlledDateTimePicker control={control} fieldName='date' defaultValue={dayjs().format()} label='' />
             </>
           )}
 
           {errors.symbol && <Alert severity={'error'}>{errors.symbol?.message}</Alert>}
           {errors.quantity && <Alert severity={'error'}>{'Please enter a valid quantity'}</Alert>}
           {errors.price && <Alert severity={'error'}>{'Please enter a valid price'}</Alert>}
+          {errors.date && <Alert severity={'error'}>{'Please enter a valid date'}</Alert>}
           {error && <Alert severity={'error'}>{error}</Alert>}
           <Stack direction={'row'} alignItems={'center'} gap={2} justifyContent={'flex-end'}>
             <Box>

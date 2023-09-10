@@ -4,6 +4,7 @@ import { BasicArticle } from 'lib/model'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { apiConnection } from '../config'
 import { get, post } from '../fetchFunctions'
+import { StockQuote } from '../models/zModels'
 
 export type DynamoKeys =
   | 'dogs'
@@ -287,9 +288,10 @@ export interface StockPosition {
   realizedGainLoss?: number
   unrealizedGainLoss?: number
   stockSymbol: string
+  date: string | null
+  quote?: StockQuote
 }
 export interface StockPortfolio {
   id: string
   name: string
-  positions: StockPosition[]
 }

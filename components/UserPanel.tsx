@@ -1,6 +1,7 @@
 'use client'
 import { Box } from '@mui/material'
 import { Auth, Hub } from 'aws-amplify'
+import dayjs from 'dayjs'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
@@ -70,16 +71,17 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
         }
         setProfile(p)
         const isAdmin = userHasRole('Admin', ticket.roles)
+        const now = dayjs()
         newClaims.push({
           token: crypto.randomUUID(),
           type: 'rs',
-          tokenExpirationSeconds: 6400000,
+          tokenExpirationSeconds: dayjs(now).diff(now.add(30, 'days'), 'second'),
         })
         if (isAdmin) {
           newClaims.push({
             token: crypto.randomUUID(),
             type: 'rs-admin',
-            tokenExpirationSeconds: 6400000,
+            tokenExpirationSeconds: dayjs(now).diff(now.add(1, 'days'), 'second'),
           })
         }
         saveClaims(newClaims)

@@ -17,6 +17,8 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
     const fn = async () => {
       const allClaims = [...claims]
       let claim = { ...validatedClaim }
+      const now = dayjs()
+      const expirationSeconds = dayjs(now).diff(now.add(30, 'days'), 'second')
       if (!claim) {
         switch (claimType) {
           case 'rs': {
@@ -26,7 +28,7 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
                 const newClaim: Claim = {
                   token: crypto.randomUUID(),
                   type: 'rs',
-                  tokenExpirationSeconds: 6400000,
+                  tokenExpirationSeconds: expirationSeconds,
                 }
                 setProfile(p)
                 allClaims.push(newClaim)
@@ -37,7 +39,7 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
               const newClaim: Claim = {
                 token: crypto.randomUUID(),
                 type: 'rs',
-                tokenExpirationSeconds: 6400000,
+                tokenExpirationSeconds: expirationSeconds,
               }
               allClaims.push(newClaim)
               saveClaims(allClaims)

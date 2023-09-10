@@ -18,7 +18,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import { ControlledFreeTextInput } from 'components/Molecules/Forms/ReactHookForm/ControlledFreeTextInput'
-import { ControlledDatePicker } from 'components/Molecules/Forms/ReactHookForm/ControlledDatePicker'
+import { ControlledDateTimePicker } from 'components/Molecules/Forms/ReactHookForm/ControlledDateTimePicker'
 import ControlledSwitch from 'components/Molecules/Forms/ReactHookForm/ControlledSwitch'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
@@ -27,7 +27,17 @@ interface Model {
   isSaving: boolean
 }
 
-const EditGoal = ({ goal, onSaveGoal, onShowCompletedTasks, onCancelEdit }: { goal: UserGoal; onSaveGoal: (item: UserGoal) => void; onShowCompletedTasks: (show: boolean) => void; onCancelEdit: () => void }) => {
+const EditGoal = ({
+  goal,
+  onSaveGoal,
+  onShowCompletedTasks,
+  onCancelEdit,
+}: {
+  goal: UserGoal
+  onSaveGoal: (item: UserGoal) => void
+  onShowCompletedTasks: (show: boolean) => void
+  onCancelEdit: () => void
+}) => {
   if (!goal.settings) {
     goal.settings = {
       showCompletedTasks: true,
@@ -61,7 +71,7 @@ const EditGoal = ({ goal, onSaveGoal, onShowCompletedTasks, onCancelEdit }: { go
           <ControlledFreeTextInput control={control} defaultValue={model.goal.body ?? ''} fieldName='body' label='name' required={true} placeholder='name' />
         </Box>
         <Box py={2}>
-          <ControlledDatePicker control={control} defaultValue={model.goal.dueDate ?? ''} fieldName='dueDate' label='due date' placeholder='due date' />
+          <ControlledDateTimePicker control={control} defaultValue={model.goal.dueDate ?? ''} fieldName='dueDate' label='due date' placeholder='due date' />
         </Box>
         <Box py={2}>
           <Box display={'flex'} gap={1} alignItems={'center'}>

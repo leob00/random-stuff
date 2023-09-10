@@ -6,9 +6,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { CasinoBlueTransparent, VeryLightBlue } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
-import { DatePicker, DesktopDatePicker } from '@mui/x-date-pickers'
 
-export const ControlledDatePicker = ({
+export const ControlledDateTimePicker = ({
   fieldName,
   control,
   defaultValue,
@@ -24,23 +23,18 @@ export const ControlledDatePicker = ({
   required?: boolean
 }) => {
   const theme = useTheme()
-  const handleChange = (event: any) => {
-    console.log(event)
-  }
   return (
     <Controller
       name={fieldName}
       control={control}
-      defaultValue={defaultValue ? dayjs(defaultValue).format('MM/DD/YYYY') : null}
+      defaultValue={defaultValue ? dayjs(defaultValue) : null}
       rules={{ required: required }}
       render={({ field }) => (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            inputFormat='MM/DD/YYYY'
+          <DateTimePicker
             {...field}
             renderInput={(props) => (
               <TextField
-                onChange={() => {}}
                 required={required}
                 placeholder={placeholder}
                 size='small'

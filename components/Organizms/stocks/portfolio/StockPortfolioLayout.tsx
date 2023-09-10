@@ -10,7 +10,7 @@ import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/Context
 import HamburgerMenu from 'components/Molecules/Menus/HamburgerMenu'
 import { useUserController } from 'hooks/userController'
 import { StockPortfolio } from 'lib/backend/api/aws/apiGateway'
-import { constructDymamoPrimaryKey } from 'lib/backend/api/aws/util'
+import { constructDynamoKey } from 'lib/backend/api/aws/util'
 import { deleteRecord, putRecord, searchRecords } from 'lib/backend/csr/nextApiWrapper'
 import { sortArray } from 'lib/util/collections'
 import { findTextBetweenBrackets } from 'lib/util/string.util'
@@ -22,8 +22,8 @@ const StockPortfolioLayout = () => {
   const { ticket } = useUserController()
   const username = ticket?.email
   const [showAddPortfolio, setShowAddPortfolio] = React.useState(false)
-  const portfolioId = constructDymamoPrimaryKey('stockportfolio', username ?? '', crypto.randomUUID())
-  const portfolioSecKey = constructDymamoPrimaryKey('stockportfolio', username!)
+  const portfolioId = constructDynamoKey('stockportfolio', username ?? '', crypto.randomUUID())
+  const portfolioSecKey = constructDynamoKey('stockportfolio', username!)
   const matches = findTextBetweenBrackets(portfolioId)
   const portfoliosMutateKey = ['/api/baseRoute', portfolioSecKey]
   const [editedPortfolio, setEditedPortfolio] = React.useState<StockPortfolio | null>(null)
@@ -46,11 +46,10 @@ const StockPortfolioLayout = () => {
     setShowAddPortfolio(false)
 
     const item: StockPortfolio = {
-      id: constructDymamoPrimaryKey('stockportfolio', username!, crypto.randomUUID()),
+      id: constructDynamoKey('stockportfolio', username!, crypto.randomUUID()),
       name: data.name,
-      positions: [],
     }
-    const cat = constructDymamoPrimaryKey('stockportfolio', username!)
+    const cat = constructDynamoKey('stockportfolio', username!)
     //console.log(cat)
     await putRecord(item.id, cat, item)
     mutate(portfoliosMutateKey)
@@ -59,14 +58,13 @@ const StockPortfolioLayout = () => {
     if (editedPortfolio) {
       const item = { ...editedPortfolio, name: data.name }
       setEditedPortfolio(null)
-      const cat = constructDymamoPrimaryKey('stockportfolio', username!)
+      const cat = constructDynamoKey('stockportfolio', username!)
       await putRecord(item.id, cat, item)
       mutate(portfoliosMutateKey)
     }
 
     setEditedPortfolio(null)
   }
-  const handlePortfoliClick = (item: StockPortfolio) => {}
   const handleEditPortfolio = (item: StockPortfolio) => {
     setEditedPortfolio(item)
   }
@@ -135,7 +133,6 @@ const StockPortfolioLayout = () => {
                         portfolio={item}
                         editPortfolio={editedPortfolio}
                         handleSavePortfolio={handleSavePortfolio}
-                        handlePortfolioClick={handlePortfoliClick}
                         handleCancelEditPortfolio={handleCancelEditPortfolio}
                         handleEditPortfolio={handleEditPortfolio}
                         handlePortfolioDelete={handlePortfolioDelete}
