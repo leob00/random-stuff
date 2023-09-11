@@ -68,7 +68,7 @@ const StockPortfolioListItem = ({
     setPositions(records)
     setIsLoading(false)
   }
-  const getHeaderName = (quote: StockQuote) => {
+  const getHeaderText = (quote: StockQuote) => {
     return `${quote.Company} (${quote.Symbol})`
   }
 
@@ -115,7 +115,7 @@ const StockPortfolioListItem = ({
                 <Box py={2} px={2}>
                   {positions.map((item) => (
                     <Box key={item.id}>
-                      <ListHeader item={item} text={`${item.type}: ${item.quote ? getHeaderName(item.quote) : item.stockSymbol}`} onClicked={() => {}} />
+                      <ListHeader item={item} text={`${item.type}: ${item.quote ? getHeaderText(item.quote) : item.stockSymbol}`} onClicked={() => {}} />
                     </Box>
                   ))}
                 </Box>

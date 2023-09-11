@@ -70,7 +70,7 @@ const NewsList = ({
     <>
       {newsItems.length > 0 ? (
         newsItems.map((item, i) => (
-          <Box key={item.Headline} pb={2}>
+          <Box key={`${item.Headline}${item.PublishDate}`} pb={2}>
             <Box minHeight={100}>
               {RenderHeadline(item)}
               {RenderDescription(item)}
