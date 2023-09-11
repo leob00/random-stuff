@@ -3,14 +3,9 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import EditPortfolioForm, { PorfolioFields } from 'components/Molecules/Forms/Stocks/EditPortfolioForm'
 import EditPositionForm, { PositionFields } from 'components/Molecules/Forms/Stocks/EditPositionForm'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
-import dayjs from 'dayjs'
-import { StockPortfolio, StockPosition, StockPositionType } from 'lib/backend/api/aws/apiGateway'
-import { constructDynamoKey, constructStockPositionSecondaryKey } from 'lib/backend/api/aws/util'
+import { StockPortfolio, StockPosition } from 'lib/backend/api/aws/apiGateway'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { getPorfolioIdFromKey, getUsernameFromKey } from 'lib/backend/api/portfolioUtil'
-import { putRecord, searchRecords } from 'lib/backend/csr/nextApiWrapper'
 import { usePortfolioHelper } from 'lib/ui/usePortfolioHelper'
-import { findTextBetweenBrackets } from 'lib/util/string.util'
 import React from 'react'
 
 const StockPortfolioListItem = ({
@@ -80,7 +75,7 @@ const StockPortfolioListItem = ({
   return (
     <Box key={portfolio.id}>
       {isLoading && <BackdropLoader />}
-      {editPortfolio && editPortfolio.id === portfolio.id ? (
+      {editPortfolio !== null && editPortfolio.id === portfolio.id ? (
         <Box pt={1} pb={2}>
           <EditPortfolioForm obj={{ name: portfolio.name }} onSubmitted={handleSavePortfolio} onCancel={handleCancelEditPortfolio} />
         </Box>
@@ -95,7 +90,7 @@ const StockPortfolioListItem = ({
             onAdd={handleShowAddPostion}
             addText='add position'
           />
-          {editedPosition ? (
+          {editedPosition !== null ? (
             <Box pb={4} pt={2} px={2}>
               <EditPositionForm
                 obj={{

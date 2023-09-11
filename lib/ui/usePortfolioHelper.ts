@@ -16,7 +16,7 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
     const portfolioId = getPorfolioIdFromKey(portfolio.id)
     const pos = { ...position }
     if (!pos.id) {
-      pos.id = `${constructStockPositionSecondaryKey(username, portfolio.id)}[${crypto.randomUUID()}]`
+      pos.id = `${constructStockPositionSecondaryKey(username, portfolioId)}[${crypto.randomUUID()}]`
     }
 
     pos.portfolioId = portfolio.id
@@ -33,16 +33,12 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
     const portfolioId = getPorfolioIdFromKey(portfolio.id)
     const searchKey = constructStockPositionSecondaryKey(username, portfolioId)
     const records = (await searchRecords(searchKey)).map((m) => JSON.parse(m.data) as StockPosition)
+
     const symbols = new Set(records.map((m) => m.stockSymbol))
+
     const newMap = new Map(stockMap)
-    const toDownload = new Set(symbols)
-    toDownload.clear()
-    symbols.forEach((symbol) => {
-      if (!newMap.has(symbol)) {
-        toDownload.add(symbol)
-      }
-    })
-    const quotes = await getStockQuotes(Array.from(toDownload))
+
+    const quotes = await getStockQuotes(Array.from(symbols))
     quotes.forEach((quote) => {
       newMap.set(quote.Symbol, quote)
     })
