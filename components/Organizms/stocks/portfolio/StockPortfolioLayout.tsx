@@ -1,19 +1,16 @@
-import { Box, ListItem, ListItemIcon, ListItemText, MenuItem, MenuList } from '@mui/material'
+import { Box, ListItemText } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import EditPortfolioForm, { PorfolioFields } from 'components/Molecules/Forms/Stocks/EditPortfolioForm'
-import ListHeader from 'components/Molecules/Lists/ListHeader'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
-import HamburgerMenu from 'components/Molecules/Menus/HamburgerMenu'
 import { useUserController } from 'hooks/userController'
-import { StockPortfolio } from 'lib/backend/api/aws/apiGateway'
-import { constructDynamoKey } from 'lib/backend/api/aws/util'
+import { StockPortfolio, StockPosition } from 'lib/backend/api/aws/apiGateway'
+import { constructDynamoKey, constructStockPositionSecondaryKey } from 'lib/backend/api/aws/util'
+import { getPorfolioIdFromKey, getUsernameFromKey } from 'lib/backend/api/portfolioUtil'
 import { deleteRecord, putRecord, searchRecords } from 'lib/backend/csr/nextApiWrapper'
 import { sortArray } from 'lib/util/collections'
-import { findTextBetweenBrackets } from 'lib/util/string.util'
 import React from 'react'
 import useSWR, { mutate } from 'swr'
 import StockPortfolioListItem from './StockPortfolioListItem'
@@ -22,12 +19,11 @@ const StockPortfolioLayout = () => {
   const { ticket } = useUserController()
   const username = ticket?.email
   const [showAddPortfolio, setShowAddPortfolio] = React.useState(false)
-  const portfolioId = constructDynamoKey('stockportfolio', username ?? '', crypto.randomUUID())
   const portfolioSecKey = constructDynamoKey('stockportfolio', username!)
-  const matches = findTextBetweenBrackets(portfolioId)
   const portfoliosMutateKey = ['/api/baseRoute', portfolioSecKey]
   const [editedPortfolio, setEditedPortfolio] = React.useState<StockPortfolio | null>(null)
   const [deletedPortfolio, setDeletedPortfolio] = React.useState<StockPortfolio | null>(null)
+  const [isMutating, setIsMutating] = React.useState(false)
 
   const fetcherFn = async (url: string, key: string) => {
     const response = sortArray(await searchRecords(portfolioSecKey), ['last_modified'], ['desc'])
@@ -43,8 +39,6 @@ const StockPortfolioLayout = () => {
     setShowAddPortfolio(true)
   }
   const handleAddPortfolio = async (data: PorfolioFields) => {
-    setShowAddPortfolio(false)
-
     const item: StockPortfolio = {
       id: constructDynamoKey('stockportfolio', username!, crypto.randomUUID()),
       name: data.name,
@@ -53,6 +47,7 @@ const StockPortfolioLayout = () => {
     //console.log(cat)
     await putRecord(item.id, cat, item)
     mutate(portfoliosMutateKey)
+    setShowAddPortfolio(false)
   }
   const handleSavePortfolio = async (data: PorfolioFields) => {
     if (editedPortfolio) {
@@ -78,10 +73,20 @@ const StockPortfolioLayout = () => {
     setEditedPortfolio(null)
   }
   const handleDeletePortfolio = async () => {
+    setIsMutating(true)
     if (deletedPortfolio) {
       const item = { ...deletedPortfolio }
       setDeletedPortfolio(null)
+      const username = getUsernameFromKey(item.id)
+      const portfolioId = getPorfolioIdFromKey(item.id)
+      const searchKey = constructStockPositionSecondaryKey(username, portfolioId)
+      const records = (await searchRecords(searchKey)).map((m) => JSON.parse(m.data) as StockPosition)
+      // TODO: refactor to batch delete records
+      records.forEach((r) => {
+        deleteRecord(r.id)
+      })
       await deleteRecord(item.id)
+      setIsMutating(false)
       mutate(portfoliosMutateKey)
     }
     setDeletedPortfolio(null)
@@ -103,6 +108,7 @@ const StockPortfolioLayout = () => {
   return (
     <>
       <Box py={2}>
+        {isMutating && <BackdropLoader />}
         {isLoading && <BackdropLoader />}
         {isValidating && <BackdropLoader />}
         {!showAddPortfolio && (

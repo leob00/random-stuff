@@ -279,6 +279,8 @@ export async function putWheelSpinStats(data: WheelSpinStats) {
 }
 
 export type StockPositionType = 'short' | 'long'
+export type StockTransactionType = 'buy' | 'sell' | 'sell short' | 'buy to cover'
+export type StockPositionStatus = 'open' | 'closed'
 export interface StockPosition {
   portfolioId: string
   id: string
@@ -290,7 +292,18 @@ export interface StockPosition {
   stockSymbol: string
   date: string | null
   quote?: StockQuote
+  status: StockPositionStatus
+  transactions: StockTransaction[]
 }
+export interface StockTransaction {
+  id: string
+  positionId: string
+  type: StockTransactionType
+  quantity: number
+  price: number
+  isClosing?: boolean
+}
+
 export interface StockPortfolio {
   id: string
   name: string

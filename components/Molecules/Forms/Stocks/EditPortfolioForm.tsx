@@ -6,6 +6,7 @@ import { ControlledFreeTextInput } from '../ReactHookForm/ControlledFreeTextInpu
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 const PorfolioFieldsSchema = z.object({
   name: z.string().min(1, { message: 'Please name your portfolio' }),
@@ -34,12 +35,15 @@ const EditPortfolioForm = ({
   } = useForm<PorfolioFields>({
     resolver: zodResolver(PorfolioFieldsSchema),
   })
+  const [isLoading, setIsLoading] = React.useState(false)
   const onSubmit: SubmitHandler<PorfolioFields> = (formData: PorfolioFields) => {
+    setIsLoading(true)
     const submitData = { ...formData }
     onSubmitted(submitData)
   }
   return (
     <Box>
+      {isLoading && <BackdropLoader />}
       {title && (
         <Typography variant='h5' py={2}>
           {title}

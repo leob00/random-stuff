@@ -1,12 +1,17 @@
 import { Box } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import EditPortfolioForm, { PorfolioFields } from 'components/Molecules/Forms/Stocks/EditPortfolioForm'
-import EditPositionForm, { PositionFields } from 'components/Molecules/Forms/Stocks/EditPositionForm'
+import AddPositionForm, { PositionFields } from 'components/Molecules/Forms/Stocks/AddPositionForm'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
-import { StockPortfolio, StockPosition } from 'lib/backend/api/aws/apiGateway'
+import { StockPortfolio, StockPosition, StockTransaction } from 'lib/backend/api/aws/apiGateway'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { usePortfolioHelper } from 'lib/ui/usePortfolioHelper'
 import React from 'react'
+import TransactionsTable from './TransactionsTable'
+import { putRecord } from 'lib/backend/csr/nextApiWrapper'
+import { constructStockPositionSecondaryKey } from 'lib/backend/api/aws/util'
+import { getPorfolioIdFromKey, getUsernameFromKey } from 'lib/backend/api/portfolioUtil'
 
 const StockPortfolioListItem = ({
   portfolio,
@@ -29,7 +34,7 @@ const StockPortfolioListItem = ({
   const [showMore, setShowMore] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
   const [positions, setPositions] = React.useState<StockPosition[]>([])
-  const { savePosition, loadPositions } = usePortfolioHelper(portfolio)
+  const { addPosition, loadPositions, updatePosition } = usePortfolioHelper(portfolio)
 
   const handlePortfolioClick = (item: StockPortfolio) => {
     setShowMore((prev) => !prev)
@@ -38,12 +43,14 @@ const StockPortfolioListItem = ({
   const handleShowAddPostion = async (item: StockPortfolio) => {
     const pos: StockPosition = {
       portfolioId: item.id,
-      id: `[${item.id}]position[${crypto.randomUUID()}]`,
+      id: `${item.id}position[${crypto.randomUUID()}]`,
       name: '',
       openQuantity: 0,
       type: 'long',
       stockSymbol: '',
       date: '',
+      status: 'open',
+      transactions: [],
     }
     setEditedPosition(pos)
     setShowMore(false)
@@ -51,7 +58,7 @@ const StockPortfolioListItem = ({
   const handleAddPosition = async (data: PositionFields) => {
     setIsLoading(true)
     setEditedPosition(null)
-    await savePosition(data, editedPosition!)
+    await addPosition(data, editedPosition!)
     setShowMore(true)
 
     setIsLoading(false)
@@ -63,8 +70,21 @@ const StockPortfolioListItem = ({
     setPositions(records)
     setIsLoading(false)
   }
+  const handlePositionClick = async (item: StockPosition) => {
+    console.log(item)
+  }
   const getHeaderText = (quote: StockQuote) => {
     return `${quote.Company} (${quote.Symbol})`
+  }
+  const handleDeleteTransaction = async (item: StockTransaction) => {
+    const newPosition = [...positions].find((m) => m.id === item.positionId)
+    if (newPosition) {
+      setIsLoading(true)
+      newPosition.transactions = newPosition.transactions.filter((m) => m.id !== item.id)
+      await updatePosition(newPosition)
+      setIsLoading(false)
+      loadData()
+    }
   }
 
   React.useEffect(() => {
@@ -92,7 +112,7 @@ const StockPortfolioListItem = ({
           />
           {editedPosition !== null ? (
             <Box pb={4} pt={2} px={2}>
-              <EditPositionForm
+              <AddPositionForm
                 obj={{
                   symbol: editedPosition.stockSymbol,
                   quantity: editedPosition.openQuantity,
@@ -107,10 +127,16 @@ const StockPortfolioListItem = ({
           ) : (
             <>
               {showMore && (
-                <Box py={2} px={2}>
+                <Box py={2} px={1}>
+                  {positions.length === 0 && !isLoading && <NoDataFound message='this position is currently empty' />}
                   {positions.map((item) => (
                     <Box key={item.id}>
-                      <ListHeader item={item} text={`${item.type}: ${item.quote ? getHeaderText(item.quote) : item.stockSymbol}`} onClicked={() => {}} />
+                      <ListHeader
+                        item={item}
+                        text={`${item.type}: ${item.quote ? getHeaderText(item.quote) : item.stockSymbol}`}
+                        onClicked={() => handlePositionClick(item)}
+                      />
+                      <TransactionsTable position={item} transactions={item.transactions} onDeleteTransaction={handleDeleteTransaction} />
                     </Box>
                   ))}
                 </Box>

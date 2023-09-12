@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { Menu, Button, MenuList, MenuItem } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import { DarkMode } from 'components/themes/DarkMode'

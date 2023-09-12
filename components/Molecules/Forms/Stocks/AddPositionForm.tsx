@@ -12,9 +12,9 @@ import { CasinoBlue } from 'components/themes/mainTheme'
 import { getPositiveNegativeColor } from 'components/Organizms/stocks/StockListItem'
 import { ControlledSelect } from '../ReactHookForm/ControlledSelect'
 import { DropdownItem } from 'lib/models/dropdown'
-import { ControlledDatePicker } from '../ReactHookForm/ControlledDatePicker'
 import dayjs from 'dayjs'
 import { ControlledDateTimePicker } from '../ReactHookForm/ControlledDateTimePicker'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 const checkPrice = (val: any) => {
   if (isNaN(val)) {
@@ -37,7 +37,7 @@ const PositionFieldsSchema = z.object({
 
 export type PositionFields = z.infer<typeof PositionFieldsSchema>
 
-const EditPositionForm = ({
+const AddPositionForm = ({
   obj,
   title,
   onSubmitted,
@@ -63,9 +63,11 @@ const EditPositionForm = ({
     resolver: zodResolver(PositionFieldsSchema),
   })
   const theme = useTheme()
+  const [isLoading, setIsLoading] = React.useState(false)
   const [selectedQuote, setSelectedQuote] = React.useState<StockQuote | null>(null)
 
   const onSubmit: SubmitHandler<PositionFields> = (formData: PositionFields) => {
+    setIsLoading(true)
     const submitData = { ...formData }
     onSubmitted(submitData)
   }
@@ -86,6 +88,7 @@ const EditPositionForm = ({
   ]
   return (
     <Box>
+      {isLoading && <BackdropLoader />}
       {title && (
         <Typography variant='h5' py={2}>
           {title}
@@ -159,4 +162,4 @@ const EditPositionForm = ({
   )
 }
 
-export default EditPositionForm
+export default AddPositionForm
