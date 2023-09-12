@@ -12,6 +12,8 @@ import TransactionsTable from './TransactionsTable'
 import { putRecord } from 'lib/backend/csr/nextApiWrapper'
 import { constructStockPositionSecondaryKey } from 'lib/backend/api/aws/util'
 import { getPorfolioIdFromKey, getUsernameFromKey } from 'lib/backend/api/portfolioUtil'
+import { sum } from 'lodash'
+import QuickQuote from '../QuickQuote'
 
 const StockPortfolioListItem = ({
   portfolio,
@@ -70,17 +72,15 @@ const StockPortfolioListItem = ({
     setPositions(records)
     setIsLoading(false)
   }
-  const handlePositionClick = async (item: StockPosition) => {
-    console.log(item)
-  }
-  const getHeaderText = (quote: StockQuote) => {
-    return `${quote.Company} (${quote.Symbol})`
-  }
+
   const handleDeleteTransaction = async (item: StockTransaction) => {
     const newPosition = [...positions].find((m) => m.id === item.positionId)
     if (newPosition) {
       setIsLoading(true)
       newPosition.transactions = newPosition.transactions.filter((m) => m.id !== item.id)
+      newPosition.openQuantity =
+        sum(newPosition.transactions.filter((m) => !m.isClosing).map((t) => t.quantity)) -
+        sum(newPosition.transactions.filter((m) => m.isClosing).map((t) => t.quantity))
       await updatePosition(newPosition)
       setIsLoading(false)
       loadData()
@@ -131,11 +131,11 @@ const StockPortfolioListItem = ({
                   {positions.length === 0 && !isLoading && <NoDataFound message='this position is currently empty' />}
                   {positions.map((item) => (
                     <Box key={item.id}>
-                      <ListHeader
-                        item={item}
-                        text={`${item.type}: ${item.quote ? getHeaderText(item.quote) : item.stockSymbol}`}
-                        onClicked={() => handlePositionClick(item)}
-                      />
+                      {item.quote && (
+                        <Box px={1}>
+                          <QuickQuote quote={item.quote} prependCompanyName={`${item.type.substring(0, 1).toUpperCase()}${item.type.substring(1)}: `} />
+                        </Box>
+                      )}
                       <TransactionsTable position={item} transactions={item.transactions} onDeleteTransaction={handleDeleteTransaction} />
                     </Box>
                   ))}

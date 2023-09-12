@@ -15,6 +15,8 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { ControlledSelect } from 'components/Molecules/Forms/ReactHookForm/ControlledSelect'
 import { ControlledFreeTextInput } from 'components/Molecules/Forms/ReactHookForm/ControlledFreeTextInput'
 import { ControlledDateTimePicker } from 'components/Molecules/Forms/ReactHookForm/ControlledDateTimePicker'
+import { StockPosition } from 'lib/backend/api/aws/apiGateway'
+import QuickQuote from '../QuickQuote'
 
 const checkPrice = (val: any) => {
   if (isNaN(val)) {
@@ -23,8 +25,7 @@ const checkPrice = (val: any) => {
   return true
 }
 
-const PositionFieldsSchema = z.object({
-  symbol: z.string().min(1, { message: 'Please enter a stock symbol' }),
+const TransactionFieldsSchema = z.object({
   quantity: z.number().min(1, { message: 'Please enter a valid quantity' }),
   price: z
     .string()
@@ -35,18 +36,19 @@ const PositionFieldsSchema = z.object({
   date: z.preprocess((arg: any) => (typeof arg == 'object' ? dayjs(arg).format() : null), z.string().nullable()),
 })
 
-export type PositionFields = z.infer<typeof PositionFieldsSchema>
+export type TransactionFields = z.infer<typeof TransactionFieldsSchema>
 
 const AddTransactionForm = ({
-  obj,
+  position,
+
   title,
   onSubmitted,
   onCancel,
   error,
 }: {
-  obj: PositionFields
+  position: StockPosition
   title?: string
-  onSubmitted: (data: PositionFields) => void
+  onSubmitted: (data: TransactionFields) => void
   onCancel: () => void
   error?: string
 }) => {
@@ -59,33 +61,25 @@ const AddTransactionForm = ({
     resetField,
     setValue,
     formState: { errors },
-  } = useForm<PositionFields>({
-    resolver: zodResolver(PositionFieldsSchema),
+  } = useForm<TransactionFields>({
+    resolver: zodResolver(TransactionFieldsSchema),
   })
   const theme = useTheme()
   const [isLoading, setIsLoading] = React.useState(false)
-  const [selectedQuote, setSelectedQuote] = React.useState<StockQuote | null>(null)
 
-  const onSubmit: SubmitHandler<PositionFields> = (formData: PositionFields) => {
+  const onSubmit: SubmitHandler<TransactionFields> = (formData: TransactionFields) => {
     setIsLoading(true)
     const submitData = { ...formData }
     onSubmitted(submitData)
   }
-  const handleSymbolSelected = (quote: StockQuote) => {
-    //resetField('symbol')
-    setValue('symbol', quote.Symbol)
-    setSelectedQuote(quote)
+
+  const typeOptions: DropdownItem[] = []
+  if (position.type === 'long') {
+    typeOptions.push({ text: 'Buy', value: 'buy' })
+    if (position.openQuantity > 0) {
+      typeOptions.push({ text: 'Sell', value: 'sell' })
+    }
   }
-  const typeOptions: DropdownItem[] = [
-    {
-      text: 'Buy',
-      value: 'buy',
-    },
-    {
-      text: 'Sell Short',
-      value: 'sell short',
-    },
-  ]
   return (
     <Box>
       {isLoading && <BackdropLoader />}
@@ -96,36 +90,10 @@ const AddTransactionForm = ({
       )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box display={'flex'} flexDirection={'column'} gap={4}>
-          <StockSearch onSymbolSelected={handleSymbolSelected} />
-          <Box display={'none'}>
-            <ControlledFreeTextInput
-              control={control}
-              fieldName='symbol'
-              defaultValue={selectedQuote ? selectedQuote.Symbol : ''}
-              label=''
-              placeholder='stock symbol *'
-              readOnly
-            />
-          </Box>
-          {selectedQuote && (
+          {position.quote && (
             <>
-              <Box>
-                <Typography variant='h5'>{`${selectedQuote.Company} (${selectedQuote.Symbol})`}</Typography>
-                <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
-                  <Stack direction={'row'} spacing={2} sx={{ backgroundColor: 'unset' }} pt={1}>
-                    <Typography variant='h5' color={getPositiveNegativeColor(selectedQuote.Change, theme.palette.mode)}>{`${selectedQuote.Price.toFixed(
-                      2,
-                    )}`}</Typography>
-                    <Typography variant='h5' color={getPositiveNegativeColor(selectedQuote.Change, theme.palette.mode)}>{`${selectedQuote.Change.toFixed(
-                      2,
-                    )}`}</Typography>
-                    <Typography variant='h5' color={getPositiveNegativeColor(selectedQuote.Change, theme.palette.mode)}>{`${selectedQuote.ChangePercent.toFixed(
-                      2,
-                    )}%`}</Typography>
-                  </Stack>
-                </Stack>
-              </Box>
-              <ControlledSelect control={control} fieldName='type' items={typeOptions} defaultValue={obj.type} label='type' />
+              <QuickQuote quote={position.quote} />
+              <ControlledSelect control={control} fieldName='type' items={typeOptions} defaultValue={typeOptions[0].value} label='type' />
               <TextField
                 {...register('quantity', { valueAsNumber: true })}
                 type={'number'}
@@ -138,14 +106,13 @@ const AddTransactionForm = ({
                   color: 'secondary',
                   autoComplete: 'off',
                 }}
-                defaultValue={obj.quantity}
+                defaultValue={0}
               />
-              <ControlledFreeTextInput control={control} fieldName='price' defaultValue={selectedQuote.Price.toFixed(2)} label='price' placeholder='price' />
+              <ControlledFreeTextInput control={control} fieldName='price' defaultValue='' label='price' placeholder='price' />
               <ControlledDateTimePicker control={control} fieldName='date' defaultValue={dayjs().format()} label='' />
             </>
           )}
 
-          {errors.symbol && <Alert severity={'error'}>{errors.symbol?.message}</Alert>}
           {errors.quantity && <Alert severity={'error'}>{'Please enter a valid quantity'}</Alert>}
           {errors.price && <Alert severity={'error'}>{'Please enter a valid price'}</Alert>}
           {errors.date && <Alert severity={'error'}>{'Please enter a valid date'}</Alert>}

@@ -51,10 +51,12 @@ const StockPortfolioLayout = () => {
   }
   const handleSavePortfolio = async (data: PorfolioFields) => {
     if (editedPortfolio) {
+      setIsMutating(true)
       const item = { ...editedPortfolio, name: data.name }
       setEditedPortfolio(null)
       const cat = constructDynamoKey('stockportfolio', username!)
       await putRecord(item.id, cat, item)
+      setIsMutating(false)
       mutate(portfoliosMutateKey)
     }
 
@@ -125,7 +127,7 @@ const StockPortfolioLayout = () => {
           <>
             {data && (
               <Box>
-                {data.length === 0 && (
+                {data.length === 0 && !isValidating && (
                   <Box py={4}>
                     <CenterStack>
                       <PrimaryButton text={'create a new portfolio'} onClick={() => setShowAddPortfolio(true)} />

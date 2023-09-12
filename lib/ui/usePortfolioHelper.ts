@@ -68,8 +68,8 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
   }
 
   return {
-    addPosition: addPosition,
-    loadPositions: loadPositions,
-    updatePosition: updatePosition,
+    addPosition,
+    loadPositions,
+    updatePosition,
   }
 }

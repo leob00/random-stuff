@@ -6,6 +6,7 @@ import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import { StockPosition, StockTransaction } from 'lib/backend/api/aws/apiGateway'
 import numeral from 'numeral'
 import React from 'react'
+import AddTransactionForm, { TransactionFields } from './AddTransactionForm'
 
 const TransactionsTable = ({
   position,
@@ -17,10 +18,11 @@ const TransactionsTable = ({
   onDeleteTransaction: (item: StockTransaction) => void
 }) => {
   const [confirmDeleteTransaction, setConfirmDeleteTransaction] = React.useState(false)
+  const [showAdTransactionForm, setShowAddTransactionForm] = React.useState(false)
   const menu: ContextMenuItem[] = [
     {
       item: <ListItemText primary='add transaction'></ListItemText>,
-      fn: () => {},
+      fn: () => setShowAddTransactionForm(true),
     },
   ]
 
@@ -52,45 +54,55 @@ const TransactionsTable = ({
     setConfirmDeleteTransaction(false)
     onDeleteTransaction(tr)
   }
+  const handleAddTransaction = (data: TransactionFields) => {
+    setShowAddTransactionForm(false)
+  }
 
   return (
     <Box pt={1}>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>type</TableCell>
-              <TableCell>quantity</TableCell>
-              <TableCell>price</TableCell>
-              <TableCell>total</TableCell>
-              <TableCell>gain/loss</TableCell>
-              <TableCell sx={{ textAlign: 'right' }}>
-                <ContextMenu items={menu} />
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {transactions.map((tr) => (
-              <TableRow key={tr.id}>
-                <TableCell>{tr.type}</TableCell>
-                <TableCell>{tr.quantity}</TableCell>
-                <TableCell>{`$${tr.price}`}</TableCell>
-                <TableCell>{`$${numeral(tr.price * tr.quantity).format('0,0.00')}`}</TableCell>
-                <TableCell>{`$${numeral(calculateTrGainLoss(tr)).format('0,0.00')}`}</TableCell>
+      {showAdTransactionForm ? (
+        <Box p={2}>
+          <AddTransactionForm position={position} onCancel={() => setShowAddTransactionForm(false)} onSubmitted={handleAddTransaction} />
+        </Box>
+      ) : (
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>type</TableCell>
+                <TableCell>quantity</TableCell>
+                <TableCell>price</TableCell>
+                <TableCell>total</TableCell>
+                <TableCell>gain/loss</TableCell>
                 <TableCell sx={{ textAlign: 'right' }}>
-                  <ContextMenu items={getTransactionMenu(tr)} />
-                  <ConfirmDeleteDialog
-                    text='Are you sure you want to delete this transaction'
-                    show={confirmDeleteTransaction}
-                    onCancel={() => setConfirmDeleteTransaction(false)}
-                    onConfirm={() => handleDeleteTransaction(tr)}
-                  />
+                  <ContextMenu items={menu} />
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+
+            <TableBody>
+              {transactions.map((tr) => (
+                <TableRow key={tr.id}>
+                  <TableCell>{tr.type}</TableCell>
+                  <TableCell>{tr.quantity}</TableCell>
+                  <TableCell>{`$${tr.price}`}</TableCell>
+                  <TableCell>{`$${numeral(tr.price * tr.quantity).format('0,0.00')}`}</TableCell>
+                  <TableCell>{`$${numeral(calculateTrGainLoss(tr)).format('0,0.00')}`}</TableCell>
+                  <TableCell sx={{ textAlign: 'right' }}>
+                    <ContextMenu items={getTransactionMenu(tr)} />
+                    <ConfirmDeleteDialog
+                      text='Are you sure you want to delete this transaction'
+                      show={confirmDeleteTransaction}
+                      onCancel={() => setConfirmDeleteTransaction(false)}
+                      onConfirm={() => handleDeleteTransaction(tr)}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
     </Box>
   )
 }
