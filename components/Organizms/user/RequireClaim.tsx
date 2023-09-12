@@ -3,12 +3,12 @@ import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLo
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import dayjs from 'dayjs'
 import { useUserController } from 'hooks/userController'
-import { Claim, ClaimType } from 'lib/backend/auth/userUtil'
+import { Claim, ClaimType, getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
 import React, { ReactNode } from 'react'
 const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children: ReactNode }) => {
   const { claims, saveClaims } = useSessionPersistentStore()
-  const { authProfile, fetchProfilePassive, setProfile } = useUserController()
+  const { authProfile, ticket, fetchProfilePassive, setProfile } = useUserController()
 
   const [isValidating, setIsValidating] = React.useState(true)
   const [validatedClaim, setValidatedClaim] = React.useState(claims.find((m) => m.type === claimType))
@@ -19,7 +19,7 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
       let claim = { ...validatedClaim }
       const now = dayjs()
       const expirationSeconds = dayjs(now).diff(now.add(30, 'days'), 'second')
-      if (!claim) {
+      if (!claim.token) {
         switch (claimType) {
           case 'rs': {
             if (!authProfile) {
