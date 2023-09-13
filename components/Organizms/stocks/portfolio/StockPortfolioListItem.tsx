@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import EditPortfolioForm, { PorfolioFields } from 'components/Molecules/Forms/Stocks/EditPortfolioForm'
@@ -6,29 +6,24 @@ import AddPositionForm, { PositionFields } from 'components/Molecules/Forms/Stoc
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { StockPortfolio, StockPosition, StockTransaction } from 'lib/backend/api/aws/apiGateway'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { usePortfolioHelper } from 'lib/ui/usePortfolioHelper'
+import { usePortfolioHelper } from 'lib/ui/portfolio/usePortfolioHelper'
 import React from 'react'
 import TransactionsTable from './TransactionsTable'
 import { putRecord } from 'lib/backend/csr/nextApiWrapper'
-import { constructStockPositionSecondaryKey } from 'lib/backend/api/aws/util'
+import { constructDynamoKey, constructStockPositionSecondaryKey } from 'lib/backend/api/aws/util'
 import { getPorfolioIdFromKey, getUsernameFromKey } from 'lib/backend/api/portfolioUtil'
 import { sum } from 'lodash'
 import QuickQuote from '../QuickQuote'
+import PortfolioHeader from './PortfolioHeader'
 
 const StockPortfolioListItem = ({
   portfolio,
-  editPortfolio,
-  handleSavePortfolio,
-  handleCancelEditPortfolio,
-  handleEditPortfolio,
+
   handlePortfolioDelete,
   onMutate,
 }: {
   portfolio: StockPortfolio
-  editPortfolio: StockPortfolio | null
-  handleSavePortfolio: (item: PorfolioFields) => void
-  handleCancelEditPortfolio: () => void
-  handleEditPortfolio: (item: StockPortfolio) => void
+
   handlePortfolioDelete: (item: StockPortfolio) => void
   onMutate: () => void
 }) => {
@@ -36,13 +31,33 @@ const StockPortfolioListItem = ({
   const [showMore, setShowMore] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
   const [positions, setPositions] = React.useState<StockPosition[]>([])
-  const { addPosition, loadPositions, updatePosition } = usePortfolioHelper(portfolio)
+  const [editedPortfolio, setEditedPortfolio] = React.useState<StockPortfolio | null>(null)
+  const { addPosition, loadPositions, updatePosition, savePortfolio } = usePortfolioHelper(portfolio)
+
+  const handleSavePortfolio = async (data: PorfolioFields) => {
+    if (editedPortfolio) {
+      setIsLoading(true)
+      const item = { ...editedPortfolio, name: data.name }
+      setEditedPortfolio(null)
+      await savePortfolio(item)
+      setIsLoading(false)
+      onMutate()
+    }
+
+    setEditedPortfolio(null)
+  }
+  const handleEditPortfolio = (item: StockPortfolio) => {
+    setEditedPortfolio(item)
+  }
+  const handleCancelEditPortfolio = () => {
+    setEditedPortfolio(null)
+  }
 
   const handlePortfolioClick = (item: StockPortfolio) => {
     setShowMore((prev) => !prev)
   }
 
-  const handleShowAddPostion = async (item: StockPortfolio) => {
+  const handleShowAddPosition = async (item: StockPortfolio) => {
     const pos: StockPosition = {
       portfolioId: item.id,
       id: `${item.id}position[${crypto.randomUUID()}]`,
@@ -59,10 +74,9 @@ const StockPortfolioListItem = ({
   }
   const handleAddPosition = async (data: PositionFields) => {
     setIsLoading(true)
-    setEditedPosition(null)
     await addPosition(data, editedPosition!)
+    setEditedPosition(null)
     setShowMore(true)
-
     setIsLoading(false)
   }
 
@@ -95,20 +109,18 @@ const StockPortfolioListItem = ({
   return (
     <Box key={portfolio.id}>
       {isLoading && <BackdropLoader />}
-      {editPortfolio !== null && editPortfolio.id === portfolio.id ? (
+      {editedPortfolio !== null && editedPortfolio.id === portfolio.id ? (
         <Box pt={1} pb={2}>
           <EditPortfolioForm obj={{ name: portfolio.name }} onSubmitted={handleSavePortfolio} onCancel={handleCancelEditPortfolio} />
         </Box>
       ) : (
-        <Box>
-          <ListHeader
-            item={portfolio}
-            text={portfolio.name}
+        <Box pb={1}>
+          <PortfolioHeader
+            portfolio={portfolio}
+            onAddPosition={handleShowAddPosition}
             onClicked={handlePortfolioClick}
             onEdit={handleEditPortfolio}
             onDelete={handlePortfolioDelete}
-            onAdd={handleShowAddPostion}
-            addText='add position'
           />
           {editedPosition !== null ? (
             <Box pb={4} pt={2} px={2}>
@@ -129,14 +141,19 @@ const StockPortfolioListItem = ({
               {showMore && (
                 <Box py={2} px={1}>
                   {positions.length === 0 && !isLoading && <NoDataFound message='this position is currently empty' />}
-                  {positions.map((item) => (
-                    <Box key={item.id}>
-                      {item.quote && (
+                  {positions.map((position) => (
+                    <Box key={position.id}>
+                      {position.quote && (
                         <Box px={1}>
-                          <QuickQuote quote={item.quote} prependCompanyName={`${item.type.substring(0, 1).toUpperCase()}${item.type.substring(1)}: `} />
+                          <QuickQuote
+                            quote={position.quote}
+                            prependCompanyName={`${position.type.substring(0, 1).toUpperCase()}${position.type.substring(1)}: `}
+                          />
                         </Box>
                       )}
-                      <TransactionsTable position={item} transactions={item.transactions} onDeleteTransaction={handleDeleteTransaction} />
+                      <Box pb={4}>
+                        <TransactionsTable portfolio={portfolio} position={position} onDeleteTransaction={handleDeleteTransaction} />
+                      </Box>
                     </Box>
                   ))}
                 </Box>

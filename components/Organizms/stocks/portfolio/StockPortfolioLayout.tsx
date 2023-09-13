@@ -21,59 +21,36 @@ const StockPortfolioLayout = () => {
   const [showAddPortfolio, setShowAddPortfolio] = React.useState(false)
   const portfolioSecKey = constructDynamoKey('stockportfolio', username!)
   const portfoliosMutateKey = ['/api/baseRoute', portfolioSecKey]
-  const [editedPortfolio, setEditedPortfolio] = React.useState<StockPortfolio | null>(null)
   const [deletedPortfolio, setDeletedPortfolio] = React.useState<StockPortfolio | null>(null)
   const [isMutating, setIsMutating] = React.useState(false)
 
   const fetcherFn = async (url: string, key: string) => {
     const response = sortArray(await searchRecords(portfolioSecKey), ['last_modified'], ['desc'])
     const result = response.map((m) => JSON.parse(m.data) as StockPortfolio)
-    //console.log(result)
-    return result
+    const sorted = sortArray(result, ['name'], ['asc'])
+    return sorted
   }
 
   const { data, isLoading, isValidating } = useSWR(portfoliosMutateKey, ([url, key]) => fetcherFn(url, key))
 
-  //console.log('found: ', `${matches[0]}`)
-  const handleAddPortfolioClick = () => {
-    setShowAddPortfolio(true)
-  }
   const handleAddPortfolio = async (data: PorfolioFields) => {
     const item: StockPortfolio = {
       id: constructDynamoKey('stockportfolio', username!, crypto.randomUUID()),
       name: data.name,
     }
     const cat = constructDynamoKey('stockportfolio', username!)
-    //console.log(cat)
     await putRecord(item.id, cat, item)
     mutate(portfoliosMutateKey)
     setShowAddPortfolio(false)
   }
-  const handleSavePortfolio = async (data: PorfolioFields) => {
-    if (editedPortfolio) {
-      setIsMutating(true)
-      const item = { ...editedPortfolio, name: data.name }
-      setEditedPortfolio(null)
-      const cat = constructDynamoKey('stockportfolio', username!)
-      await putRecord(item.id, cat, item)
-      setIsMutating(false)
-      mutate(portfoliosMutateKey)
-    }
 
-    setEditedPortfolio(null)
-  }
-  const handleEditPortfolio = (item: StockPortfolio) => {
-    setEditedPortfolio(item)
-  }
   const handlePortfolioDelete = (item: StockPortfolio) => {
     setDeletedPortfolio(item)
   }
   const handleCancelAddPortfolio = () => {
     setShowAddPortfolio(false)
   }
-  const handleCancelEditPortfolio = () => {
-    setEditedPortfolio(null)
-  }
+
   const handleDeletePortfolio = async () => {
     setIsMutating(true)
     if (deletedPortfolio) {
@@ -137,15 +114,7 @@ const StockPortfolioLayout = () => {
                 <Box pt={1}>
                   {data.map((item) => (
                     <Box key={item.id}>
-                      <StockPortfolioListItem
-                        portfolio={item}
-                        editPortfolio={editedPortfolio}
-                        handleSavePortfolio={handleSavePortfolio}
-                        handleCancelEditPortfolio={handleCancelEditPortfolio}
-                        handleEditPortfolio={handleEditPortfolio}
-                        handlePortfolioDelete={handlePortfolioDelete}
-                        onMutate={handlePortfoliosMutate}
-                      />
+                      <StockPortfolioListItem portfolio={item} handlePortfolioDelete={handlePortfolioDelete} onMutate={handlePortfoliosMutate} />
                     </Box>
                   ))}
                 </Box>

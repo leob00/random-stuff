@@ -17,13 +17,13 @@ const QlnAdministration = () => {
     saveClaims(newClaims)
   }
   const handleLogOff = () => {
-    saveClaims([...claims].filter((m) => m.type !== 'qln'))
+    saveClaims(claims.filter((m) => m.type !== 'qln'))
   }
   return (
     <Box>
       <Card>
         <CardContent>
-          {isTokenValid && claim ? (
+          {isTokenValid && claim !== undefined ? (
             <>
               <CacheSettings claim={claim} />
               <HorizontalDivider />

@@ -14,6 +14,7 @@ export const ControlledDateTimePicker = ({
   placeholder = '',
   label,
   required = false,
+  minDate,
 }: {
   fieldName: string
   control: Control<any, any>
@@ -21,6 +22,7 @@ export const ControlledDateTimePicker = ({
   placeholder?: string
   label: string
   required?: boolean
+  minDate?: string
 }) => {
   const theme = useTheme()
   return (
@@ -32,6 +34,7 @@ export const ControlledDateTimePicker = ({
       render={({ field }) => (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateTimePicker
+            minDateTime={minDate}
             {...field}
             renderInput={(props) => (
               <TextField

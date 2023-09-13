@@ -16,7 +16,6 @@ import { ControlledSelect } from 'components/Molecules/Forms/ReactHookForm/Contr
 import { ControlledFreeTextInput } from 'components/Molecules/Forms/ReactHookForm/ControlledFreeTextInput'
 import { ControlledDateTimePicker } from 'components/Molecules/Forms/ReactHookForm/ControlledDateTimePicker'
 import { StockPosition } from 'lib/backend/api/aws/apiGateway'
-import QuickQuote from '../QuickQuote'
 
 const checkPrice = (val: any) => {
   if (isNaN(val)) {
@@ -32,7 +31,6 @@ const TransactionFieldsSchema = z.object({
     .min(1)
     .refine((val: any) => checkPrice(val), { message: 'Please enter a valid price' }),
   type: z.string(),
-  //date: z.string(),
   date: z.preprocess((arg: any) => (typeof arg == 'object' ? dayjs(arg).format() : null), z.string().nullable()),
 })
 
@@ -40,7 +38,6 @@ export type TransactionFields = z.infer<typeof TransactionFieldsSchema>
 
 const AddTransactionForm = ({
   position,
-
   title,
   onSubmitted,
   onCancel,
@@ -56,10 +53,6 @@ const AddTransactionForm = ({
     control,
     register,
     handleSubmit,
-    getValues,
-    reset,
-    resetField,
-    setValue,
     formState: { errors },
   } = useForm<TransactionFields>({
     resolver: zodResolver(TransactionFieldsSchema),
@@ -90,28 +83,25 @@ const AddTransactionForm = ({
       )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box display={'flex'} flexDirection={'column'} gap={4}>
-          {position.quote && (
-            <>
-              <QuickQuote quote={position.quote} />
-              <ControlledSelect control={control} fieldName='type' items={typeOptions} defaultValue={typeOptions[0].value} label='type' />
-              <TextField
-                {...register('quantity', { valueAsNumber: true })}
-                type={'number'}
-                label={'quantity'}
-                placeholder={'quantity'}
-                autoComplete='off'
-                sx={{ input: { color: theme.palette.mode === 'light' ? CasinoBlue : 'unset' } }}
-                size='small'
-                InputProps={{
-                  color: 'secondary',
-                  autoComplete: 'off',
-                }}
-                defaultValue={0}
-              />
-              <ControlledFreeTextInput control={control} fieldName='price' defaultValue='' label='price' placeholder='price' />
-              <ControlledDateTimePicker control={control} fieldName='date' defaultValue={dayjs().format()} label='' />
-            </>
-          )}
+          <>
+            <ControlledSelect control={control} fieldName='type' items={typeOptions} defaultValue={typeOptions[0].value} label='type' />
+            <TextField
+              {...register('quantity', { valueAsNumber: true })}
+              type={'number'}
+              label={'quantity'}
+              placeholder={'quantity'}
+              autoComplete='off'
+              sx={{ input: { color: theme.palette.mode === 'light' ? CasinoBlue : 'unset' } }}
+              size='small'
+              InputProps={{
+                color: 'secondary',
+                autoComplete: 'off',
+              }}
+              defaultValue={0}
+            />
+            <ControlledFreeTextInput control={control} fieldName='price' defaultValue={''} label='price' placeholder='price' />
+            <ControlledDateTimePicker control={control} fieldName='date' defaultValue={dayjs().format()} label='' />
+          </>
 
           {errors.quantity && <Alert severity={'error'}>{'Please enter a valid quantity'}</Alert>}
           {errors.price && <Alert severity={'error'}>{'Please enter a valid price'}</Alert>}

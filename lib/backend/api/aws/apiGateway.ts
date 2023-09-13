@@ -302,9 +302,14 @@ export interface StockTransaction {
   quantity: number
   price: number
   isClosing?: boolean
+  date: string | null
+  status?: StockPositionStatus
+  gainLoss?: number
+  cost?: number
 }
 
 export interface StockPortfolio {
   id: string
   name: string
+  gainLoss?: number
 }
