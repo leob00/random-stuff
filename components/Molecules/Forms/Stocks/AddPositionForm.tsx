@@ -46,7 +46,7 @@ const AddPositionForm = ({
 }: {
   obj: PositionFields
   title?: string
-  onSubmitted: (data: PositionFields) => void
+  onSubmitted: (data: PositionFields, quote: StockQuote) => void
   onCancel: () => void
   error?: string
 }) => {
@@ -69,7 +69,7 @@ const AddPositionForm = ({
   const onSubmit: SubmitHandler<PositionFields> = (formData: PositionFields) => {
     setIsLoading(true)
     const submitData = { ...formData }
-    onSubmitted(submitData)
+    onSubmitted(submitData, selectedQuote!)
   }
   const handleSymbolSelected = (quote: StockQuote) => {
     //resetField('symbol')

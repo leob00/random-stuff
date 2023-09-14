@@ -61,7 +61,7 @@ const AddTransactionForm = ({
   const [isLoading, setIsLoading] = React.useState(false)
 
   const onSubmit: SubmitHandler<TransactionFields> = (formData: TransactionFields) => {
-    setIsLoading(true)
+    // setIsLoading(true)
     const submitData = { ...formData }
     onSubmitted(submitData)
   }
@@ -73,6 +73,13 @@ const AddTransactionForm = ({
       typeOptions.push({ text: 'Sell', value: 'sell' })
     }
   }
+  if (position.type === 'short') {
+    typeOptions.push({ text: 'Sell short', value: 'sell short' })
+    if (position.openQuantity > 0) {
+      typeOptions.push({ text: 'Buy to cover', value: 'nuy to cover' })
+    }
+  }
+
   return (
     <Box>
       {isLoading && <BackdropLoader />}

@@ -17,6 +17,7 @@ import { ControlledFreeTextInput } from 'components/Molecules/Forms/ReactHookFor
 import { ControlledDateTimePicker } from 'components/Molecules/Forms/ReactHookForm/ControlledDateTimePicker'
 import { StockPosition, StockTransaction } from 'lib/backend/api/aws/apiGateway'
 import { TransactionFields } from './AddTransactionForm'
+import { type } from 'os'
 
 const checkPrice = (val: any) => {
   if (isNaN(val)) {
@@ -83,7 +84,14 @@ const EditTransactionForm = ({
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box display={'flex'} flexDirection={'column'} gap={4}>
           <>
-            <ControlledSelect control={control} fieldName='type' items={typeOptions} defaultValue={transaction.type} label='type' />
+            <ControlledSelect
+              control={control}
+              fieldName='type'
+              items={typeOptions}
+              defaultValue={transaction.type}
+              label='type'
+              disabled={typeOptions.length < 2}
+            />
             <TextField
               {...register('quantity', { valueAsNumber: true })}
               type={'number'}

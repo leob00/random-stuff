@@ -6,7 +6,7 @@ import AddPositionForm, { PositionFields } from 'components/Molecules/Forms/Stoc
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { StockPortfolio, StockPosition, StockTransaction } from 'lib/backend/api/aws/apiGateway'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { usePortfolioHelper } from 'lib/ui/portfolio/usePortfolioHelper'
+import { usePortfolioHelper, Validation } from 'lib/ui/portfolio/usePortfolioHelper'
 import React from 'react'
 import TransactionsTable from './TransactionsTable'
 import { putRecord } from 'lib/backend/csr/nextApiWrapper'
@@ -32,7 +32,8 @@ const StockPortfolioListItem = ({
   const [isLoading, setIsLoading] = React.useState(false)
   const [positions, setPositions] = React.useState<StockPosition[]>([])
   const [editedPortfolio, setEditedPortfolio] = React.useState<StockPortfolio | null>(null)
-  const { addPosition, loadPositions, updatePosition, savePortfolio } = usePortfolioHelper(portfolio)
+  const [validationResult, setValidationResult] = React.useState<Validation | null>(null)
+  const { addPosition, loadPositions, updatePosition, savePortfolio, saveTransaction, addTransaction } = usePortfolioHelper(portfolio)
 
   const handleSavePortfolio = async (data: PorfolioFields) => {
     if (editedPortfolio) {
@@ -72,9 +73,12 @@ const StockPortfolioListItem = ({
     setEditedPosition(pos)
     setShowMore(false)
   }
-  const handleAddPosition = async (data: PositionFields) => {
+  const handleAddPosition = async (data: PositionFields, quote: StockQuote) => {
     setIsLoading(true)
-    await addPosition(data, editedPosition!)
+    const newPosition = { ...editedPosition! }
+    newPosition.quote = quote
+
+    await addPosition(data, newPosition)
     setEditedPosition(null)
     setShowMore(true)
     setIsLoading(false)
@@ -99,6 +103,18 @@ const StockPortfolioListItem = ({
       setIsLoading(false)
       loadData()
     }
+  }
+  const handleSaveTransaction = async (item: StockTransaction) => {
+    const newPosition = [...positions].find((m) => m.id === item.positionId)
+    if (newPosition) {
+      setIsLoading(true)
+      await saveTransaction(newPosition, item)
+      setIsLoading(false)
+      loadData()
+    }
+  }
+  const handleModifiedTransaction = async () => {
+    loadData()
   }
 
   React.useEffect(() => {
@@ -152,7 +168,12 @@ const StockPortfolioListItem = ({
                         </Box>
                       )}
                       <Box pb={4}>
-                        <TransactionsTable portfolio={portfolio} position={position} onDeleteTransaction={handleDeleteTransaction} />
+                        <TransactionsTable
+                          portfolio={portfolio}
+                          position={position}
+                          onDeleteTransaction={handleDeleteTransaction}
+                          onModifiedTransaction={handleModifiedTransaction}
+                        />
                       </Box>
                     </Box>
                   ))}
