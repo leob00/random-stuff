@@ -163,7 +163,7 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
             transaction.quantity - quantity
             quantity = 0
           }
-          refTrs.push(refTr)
+          refTrs.push({ ...refTr, id: crypto.randomUUID() })
         }
       })
       tr.originalTransactions = refTrs
@@ -174,9 +174,10 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
           tr.gainLoss = sum(refTrs.map((m) => m.cost)) + tr.cost!
           break
         case 'buy to cover':
-          tr.cost = tr.quantity * tr.price * -1
-          tr.value = tr.quantity * tr.price * -1
-          tr.gainLoss = sum(refTrs.map((m) => m.cost)) + tr.cost!
+          tr.cost = tr.quantity * tr.price
+          tr.value = tr.quantity * tr.price
+          //transaction.cost! - transaction.value!
+          tr.gainLoss = sum(refTrs.map((m) => m.cost)) - tr.value!
           break
       }
 
