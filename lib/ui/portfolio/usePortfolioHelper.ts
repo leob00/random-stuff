@@ -1,15 +1,11 @@
 import { PositionFields } from 'components/Molecules/Forms/Stocks/AddPositionForm'
-import { PorfolioFields } from 'components/Molecules/Forms/Stocks/EditPortfolioForm'
-import { TransactionFields } from 'components/Organizms/stocks/portfolio/AddTransactionForm'
 import { StockPortfolio, StockPosition, StockPositionType, StockTransaction, StockTransactionType } from 'lib/backend/api/aws/apiGateway'
 import { constructDynamoKey, constructStockPositionSecondaryKey } from 'lib/backend/api/aws/util'
-import { post } from 'lib/backend/api/fetchFunctions'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { getPorfolioIdFromKey, getUsernameFromKey } from 'lib/backend/api/portfolioUtil'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import { deleteRecord, putRecord, searchRecords } from 'lib/backend/csr/nextApiWrapper'
 import { sortArray } from 'lib/util/collections'
-import { getMapFromArray } from 'lib/util/collectionsNative'
 import { sum } from 'lodash'
 import React from 'react'
 import { usePortfolioCalculator } from './usePortfolioCalculator'
@@ -181,7 +177,6 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
         case 'buy to cover':
           tr.cost = tr.quantity * tr.price
           tr.value = tr.quantity * tr.price
-
           refTrs.forEach((ref) => {
             prevCost += ref.price * tr.quantity
           })
@@ -235,7 +230,6 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
       position.transactions = position.transactions.filter((m) => m.id !== ref.id)
     })
     position.transactions.push(...refs)
-
     await updatePosition(position)
   }
 
