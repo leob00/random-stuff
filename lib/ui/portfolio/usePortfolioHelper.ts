@@ -151,7 +151,7 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
       const refTrs: StockTransaction[] = []
       let quantity = tr.quantity
 
-      openTransactions.forEach((transaction) => {
+      openTransactions.forEach((transaction, i) => {
         if (quantity > 0) {
           const refTr = { ...transaction }
           if (quantity >= transaction.quantity) {
@@ -160,24 +160,32 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
             transaction.status = 'closed'
             transaction.value = 0
           } else {
-            transaction.quantity - quantity
+            transaction.quantity -= quantity
             quantity = 0
           }
-          refTrs.push({ ...refTr, id: crypto.randomUUID() })
+          refTrs.push(refTr)
+          openTransactions[i] = transaction
         }
       })
       tr.originalTransactions = refTrs
+      let prevCost = 0
       switch (tr.type) {
         case 'sell':
           tr.cost = tr.quantity * tr.price
           tr.value = tr.quantity * tr.price
-          tr.gainLoss = sum(refTrs.map((m) => m.cost)) + tr.cost!
+          refTrs.forEach((ref) => {
+            prevCost += ref.price * tr.quantity * -1
+          })
+          tr.gainLoss = prevCost! + tr.value
           break
         case 'buy to cover':
           tr.cost = tr.quantity * tr.price
           tr.value = tr.quantity * tr.price
-          //transaction.cost! - transaction.value!
-          tr.gainLoss = sum(refTrs.map((m) => m.cost)) - tr.value!
+
+          refTrs.forEach((ref) => {
+            prevCost += ref.price * tr.quantity
+          })
+          tr.gainLoss = prevCost! - tr.value
           break
       }
 
@@ -186,7 +194,19 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
       removedTrs.forEach((t) => {
         position.transactions = position.transactions.filter((m) => m.id !== t.id)
       })
+      openTransactions
+        .filter((m) => m.status === 'open')
+        .forEach((o) => {
+          const found = position.transactions.find((m) => m.id === o.id)
+          if (found) {
+            if (found.quantity !== o.quantity) {
+              position.transactions = position.transactions.filter((m) => m.id !== found.id)
+              position.transactions.push(o)
+            }
+          }
+        })
       await updatePosition(position)
+      //console.log(tr)
     }
 
     return result
@@ -210,8 +230,12 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
       return
     }
     const refs = tr.originalTransactions ? tr.originalTransactions : []
-    position.transactions.push(...refs)
     position.transactions = position.transactions.filter((m) => m.id !== tr.id)
+    refs.forEach((ref) => {
+      position.transactions = position.transactions.filter((m) => m.id !== ref.id)
+    })
+    position.transactions.push(...refs)
+
     await updatePosition(position)
   }
 
