@@ -106,7 +106,13 @@ const AddTransactionForm = ({
               }}
               defaultValue={0}
             />
-            <ControlledFreeTextInput control={control} fieldName='price' defaultValue={''} label='price' placeholder='price' />
+            <ControlledFreeTextInput
+              control={control}
+              fieldName='price'
+              defaultValue={position.quote ? position.quote.Price.toFixed(2) : ''}
+              label='price'
+              placeholder='price'
+            />
             <ControlledDateTimePicker control={control} fieldName='date' defaultValue={dayjs().format()} label='' />
           </>
 

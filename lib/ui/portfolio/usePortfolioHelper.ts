@@ -23,7 +23,7 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
   const username = getUsernameFromKey(portfolio.id)
   const portfolioId = getPorfolioIdFromKey(portfolio.id)
   const [positions, setPostions] = React.useState<StockPosition[]>([])
-  const { recalculateTransaction, calculatePositionUnrealizedGainLoss } = usePortfolioCalculator()
+  const { recalculateTransaction, calculatePositionGainLoss: calculatePositionUnrealizedGainLoss } = usePortfolioCalculator()
 
   const addPosition = async (data: PositionFields, position: StockPosition) => {
     const username = getUsernameFromKey(portfolio.id)
@@ -83,7 +83,7 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
     records.forEach((position, positionIx) => {
       if (newMap.has(position.stockSymbol)) {
         position.quote = newMap.get(position.stockSymbol)
-        position.transactions = sortArray(position.transactions, ['date'], ['desc'])
+        position.transactions = sortArray(position.transactions, ['date'], ['asc'])
         position.transactions.forEach((transaction, i) => {
           transaction.status = transaction.isClosing ? 'closed' : 'open'
           recalculateTransaction(position, transaction)
@@ -94,8 +94,10 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
       }
     })
     const unrealizedGainLoss = sum(records.map((p) => p.unrealizedGainLoss))
-    if (unrealizedGainLoss !== portfolio.gainLoss) {
-      portfolio.gainLoss = unrealizedGainLoss
+    const realizedGainLoss = sum(records.map((p) => p.realizedGainLoss))
+    const total = unrealizedGainLoss + realizedGainLoss
+    if (total !== portfolio.gainLoss) {
+      portfolio.gainLoss = total
       savePortfolio(portfolio)
     }
     setPostions(records)
@@ -139,14 +141,51 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
       if (tr.quantity > position.openQuantity) {
         result.isValid = false
         result.messages.push(`Please make sure the ${tr.type} quantity does not exceed ${oppositeType} quantity.`)
+        return result
       }
-      return result
-    }
-    //recalculateTransaction(position, tr)
+      const openTransactions = sortArray(
+        position.transactions.filter((m) => m.status === 'open' && m.type === oppositeType),
+        ['date'],
+        ['asc'],
+      )
+      const refTrs: StockTransaction[] = []
+      let quantity = tr.quantity
 
-    if (tr.type === 'sell' || tr.type === 'buy to cover') {
-      const openTransactions = position.transactions.filter((m) => m.status === 'open' && m.type === oppositeType)
-      //const openQuantity =
+      openTransactions.forEach((transaction) => {
+        if (quantity > 0) {
+          const refTr = { ...transaction }
+          if (quantity >= transaction.quantity) {
+            quantity -= transaction.quantity
+            transaction.quantity = 0
+            transaction.status = 'closed'
+            transaction.value = 0
+          } else {
+            transaction.quantity - quantity
+            quantity = 0
+          }
+          refTrs.push(refTr)
+        }
+      })
+      tr.originalTransactions = refTrs
+      switch (tr.type) {
+        case 'sell':
+          tr.cost = tr.quantity * tr.price
+          tr.value = tr.quantity * tr.price
+          tr.gainLoss = sum(refTrs.map((m) => m.cost)) + tr.cost!
+          break
+        case 'buy to cover':
+          tr.cost = tr.quantity * tr.price * -1
+          tr.value = tr.quantity * tr.price * -1
+          tr.gainLoss = sum(refTrs.map((m) => m.cost)) + tr.cost!
+          break
+      }
+
+      position.transactions.push(tr)
+      const removedTrs = openTransactions.filter((m) => m.quantity === 0)
+      removedTrs.forEach((t) => {
+        position.transactions = position.transactions.filter((m) => m.id !== t.id)
+      })
+      await updatePosition(position)
     }
 
     return result
@@ -163,6 +202,18 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
     await deleteRecord(pos.id)
   }
 
+  const deleteTransaction = async (position: StockPosition, tr: StockTransaction) => {
+    if (tr.status === 'open') {
+      position.transactions = position.transactions.filter((m) => m.id !== tr.id)
+      await updatePosition(position)
+      return
+    }
+    const refs = tr.originalTransactions ? tr.originalTransactions : []
+    position.transactions.push(...refs)
+    position.transactions = position.transactions.filter((m) => m.id !== tr.id)
+    await updatePosition(position)
+  }
+
   return {
     addPosition,
     loadPositions,
@@ -171,5 +222,6 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
     saveTransaction,
     addTransaction,
     deletePosition,
+    deleteTransaction,
   }
 }

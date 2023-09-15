@@ -307,6 +307,7 @@ export interface StockTransaction {
   gainLoss?: number
   cost?: number
   value?: number
+  originalTransactions?: StockTransaction[]
 }
 
 export interface StockPortfolio {

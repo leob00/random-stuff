@@ -64,4 +64,6 @@ const getSymbolCompanies = async () => {
     })
 }
 
-getSymbolCompanies()
+getSymbolCompanies().then(() => {
+  return 0
+})

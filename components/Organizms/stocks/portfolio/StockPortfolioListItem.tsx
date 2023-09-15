@@ -91,28 +91,6 @@ const StockPortfolioListItem = ({
     setIsLoading(false)
   }
 
-  const handleDeleteTransaction = async (item: StockTransaction) => {
-    const newPosition = [...positions].find((m) => m.id === item.positionId)
-    if (newPosition) {
-      setIsLoading(true)
-      newPosition.transactions = newPosition.transactions.filter((m) => m.id !== item.id)
-      newPosition.openQuantity =
-        sum(newPosition.transactions.filter((m) => !m.isClosing).map((t) => t.quantity)) -
-        sum(newPosition.transactions.filter((m) => m.isClosing).map((t) => t.quantity))
-      await updatePosition(newPosition)
-      setIsLoading(false)
-      loadData()
-    }
-  }
-  const handleSaveTransaction = async (item: StockTransaction) => {
-    const newPosition = [...positions].find((m) => m.id === item.positionId)
-    if (newPosition) {
-      setIsLoading(true)
-      await saveTransaction(newPosition, item)
-      setIsLoading(false)
-      loadData()
-    }
-  }
   const handleModifiedTransaction = async () => {
     loadData()
   }
@@ -168,12 +146,7 @@ const StockPortfolioListItem = ({
                         </Box>
                       )}
                       <Box pb={4}>
-                        <TransactionsTable
-                          portfolio={portfolio}
-                          position={position}
-                          onDeleteTransaction={handleDeleteTransaction}
-                          onModifiedTransaction={handleModifiedTransaction}
-                        />
+                        <TransactionsTable portfolio={portfolio} position={position} onModifiedTransaction={handleModifiedTransaction} />
                       </Box>
                     </Box>
                   ))}

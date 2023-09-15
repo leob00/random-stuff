@@ -17,12 +17,10 @@ import EditTransactionForm from './EditTransactionForm'
 const TransactionsTable = ({
   portfolio,
   position,
-  onDeleteTransaction,
   onModifiedTransaction,
 }: {
   portfolio: StockPortfolio
   position: StockPosition
-  onDeleteTransaction: (item: StockTransaction) => void
   onModifiedTransaction: () => void
 }) => {
   const theme = useTheme()
@@ -32,7 +30,7 @@ const TransactionsTable = ({
   const [validationResult, setValidationResult] = React.useState<Validation | null>(null)
   const [isLoading, setIsLoading] = React.useState(false)
   const [showDeletePositionConfirm, setShowDeletePositionConfirm] = React.useState(false)
-  const { addTransaction, saveTransaction, deletePosition } = usePortfolioHelper(portfolio)
+  const { addTransaction, saveTransaction, deletePosition, deleteTransaction } = usePortfolioHelper(portfolio)
 
   const menu: ContextMenuItem[] = [
     {
@@ -62,9 +60,12 @@ const TransactionsTable = ({
     }
     return result
   }
-  const handleDeleteTransaction = (tr: StockTransaction) => {
+  const handleDeleteTransaction = async (tr: StockTransaction) => {
     setConfirmDeleteTransaction(false)
-    onDeleteTransaction(tr)
+    setIsLoading(true)
+    await deleteTransaction(position, tr)
+    setIsLoading(false)
+    onModifiedTransaction()
   }
   const handleAddTransaction = async (data: TransactionFields) => {
     //setShowAddTransactionForm(false)
@@ -132,13 +133,21 @@ const TransactionsTable = ({
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell colSpan={1}>
-                      <Box display={'flex'} gap={1} alignItems={'center'}>
+                    <TableCell colSpan={10}>
+                      <Box display={'flex'} gap={1} flexDirection={{ xs: 'column', sm: 'row' }}>
                         <Typography variant='caption'>open quantity:</Typography>
                         <Typography variant='caption'>{position.openQuantity}</Typography>
+                        <Typography variant='caption'>unrealized gain/loss:</Typography>
+                        <Typography variant='caption' color={getPositiveNegativeColor(position.unrealizedGainLoss, theme.palette.mode)}>{`$${numeral(
+                          position.unrealizedGainLoss,
+                        ).format('0,0.00')}`}</Typography>
+                        <Typography variant='caption'>realized gain/loss:</Typography>
+                        <Typography variant='caption' color={getPositiveNegativeColor(position.realizedGainLoss, theme.palette.mode)}>{`$${numeral(
+                          position.realizedGainLoss,
+                        ).format('0,0.00')}`}</Typography>
                       </Box>
                     </TableCell>
-                    <TableCell colSpan={2}>
+                    {/* <TableCell colSpan={2}>
                       <Box display={'flex'} gap={1} alignItems={'center'}>
                         <Typography variant='caption'>unrealized gain/loss:</Typography>
                         <Typography variant='caption' color={getPositiveNegativeColor(position.unrealizedGainLoss, theme.palette.mode)}>{`$${numeral(
@@ -146,7 +155,7 @@ const TransactionsTable = ({
                         ).format('0,0.00')}`}</Typography>
                       </Box>
                     </TableCell>
-                    <TableCell colSpan={10}></TableCell>
+                    <TableCell colSpan={10}></TableCell> */}
                   </TableRow>
                   <TableRow>
                     <TableCell>type</TableCell>
