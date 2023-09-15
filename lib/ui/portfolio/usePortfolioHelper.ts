@@ -167,19 +167,20 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
       let prevCost = 0
       switch (tr.type) {
         case 'sell':
-          tr.cost = tr.quantity * tr.price
           tr.value = tr.quantity * tr.price
           refTrs.forEach((ref) => {
             prevCost += ref.price * tr.quantity * -1
           })
-          tr.gainLoss = prevCost! + tr.value
+          tr.cost = prevCost * -1
+          tr.gainLoss = tr.value - tr.cost
           break
         case 'buy to cover':
-          tr.cost = tr.quantity * tr.price
           tr.value = tr.quantity * tr.price
           refTrs.forEach((ref) => {
             prevCost += ref.price * tr.quantity
           })
+          tr.cost = prevCost
+
           tr.gainLoss = prevCost! - tr.value
           break
       }

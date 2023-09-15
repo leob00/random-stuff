@@ -18,7 +18,7 @@ export const usePortfolioCalculator = () => {
           break
       }
     } else {
-      transaction.gainLoss = transaction.cost! - transaction.value!
+      // transaction.gainLoss = transaction.cost! - transaction.value!
     }
   }
   const calculatePositionGainLoss = (position: StockPosition) => {
