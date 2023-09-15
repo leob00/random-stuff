@@ -1,39 +1,31 @@
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import EditPortfolioForm, { PorfolioFields } from 'components/Molecules/Forms/Stocks/EditPortfolioForm'
 import AddPositionForm, { PositionFields } from 'components/Molecules/Forms/Stocks/AddPositionForm'
-import ListHeader from 'components/Molecules/Lists/ListHeader'
-import { StockPortfolio, StockPosition, StockTransaction } from 'lib/backend/api/aws/apiGateway'
+import { StockPortfolio, StockPosition } from 'lib/backend/api/aws/apiGateway'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { usePortfolioHelper, Validation } from 'lib/ui/portfolio/usePortfolioHelper'
 import React from 'react'
 import TransactionsTable from './TransactionsTable'
-import { putRecord } from 'lib/backend/csr/nextApiWrapper'
-import { constructDynamoKey, constructStockPositionSecondaryKey } from 'lib/backend/api/aws/util'
-import { getPorfolioIdFromKey, getUsernameFromKey } from 'lib/backend/api/portfolioUtil'
-import { sum } from 'lodash'
 import QuickQuote from '../QuickQuote'
 import PortfolioHeader from './PortfolioHeader'
 
 const StockPortfolioListItem = ({
   portfolio,
-
   handlePortfolioDelete,
   onMutate,
 }: {
   portfolio: StockPortfolio
-
   handlePortfolioDelete: (item: StockPortfolio) => void
   onMutate: () => void
 }) => {
   const [editedPosition, setEditedPosition] = React.useState<StockPosition | null>(null)
   const [showMore, setShowMore] = React.useState(false)
-  const [isLoading, setIsLoading] = React.useState(false)
   const [positions, setPositions] = React.useState<StockPosition[]>([])
   const [editedPortfolio, setEditedPortfolio] = React.useState<StockPortfolio | null>(null)
   const [validationResult, setValidationResult] = React.useState<Validation | null>(null)
-  const { addPosition, loadPositions, updatePosition, savePortfolio, saveTransaction, addTransaction } = usePortfolioHelper(portfolio)
+  const { addPosition, loadPositions, savePortfolio, isLoading, setIsLoading } = usePortfolioHelper(portfolio)
 
   const handleSavePortfolio = async (data: PorfolioFields) => {
     if (editedPortfolio) {
@@ -54,7 +46,7 @@ const StockPortfolioListItem = ({
     setEditedPortfolio(null)
   }
 
-  const handlePortfolioClick = (item: StockPortfolio) => {
+  const handlePortfolioClick = () => {
     setShowMore((prev) => !prev)
   }
 

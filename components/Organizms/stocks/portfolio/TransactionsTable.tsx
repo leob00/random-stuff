@@ -1,4 +1,18 @@
-import { Box, ListItemText, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, Typography, useTheme } from '@mui/material'
+import {
+  Box,
+  ListItemIcon,
+  ListItemText,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableFooter,
+  TableHead,
+  TableRow,
+  Typography,
+  useTheme,
+} from '@mui/material'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
@@ -13,6 +27,8 @@ import React from 'react'
 import { getPositiveNegativeColor } from '../StockListItem'
 import AddTransactionForm, { TransactionFields } from './AddTransactionForm'
 import EditTransactionForm from './EditTransactionForm'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 
 const TransactionsTable = ({
   portfolio,
@@ -28,9 +44,9 @@ const TransactionsTable = ({
   const [showAddTransactionForm, setShowAddTransactionForm] = React.useState(false)
   const [editTransaction, setEditTransaction] = React.useState<StockTransaction | null>(null)
   const [validationResult, setValidationResult] = React.useState<Validation | null>(null)
-  const [isLoading, setIsLoading] = React.useState(false)
   const [showDeletePositionConfirm, setShowDeletePositionConfirm] = React.useState(false)
-  const { addTransaction, saveTransaction, deletePosition, deleteTransaction } = usePortfolioHelper(portfolio)
+  const [showTransactionEditInfoDialog, setShowTransactionEditInfoDialog] = React.useState(false)
+  const { addTransaction, saveTransaction, deletePosition, deleteTransaction, isLoading, setIsLoading } = usePortfolioHelper(portfolio)
 
   const menu: ContextMenuItem[] = [
     {
@@ -45,19 +61,33 @@ const TransactionsTable = ({
 
   const getTransactionMenu = (tr: StockTransaction) => {
     const result: ContextMenuItem[] = []
-    const hasClosingTransactions = position.transactions.filter((m) => m.isClosing).length > 0
+    const hasClosingTransactions = position.transactions.filter((m) => m.status === 'closed').length > 0
     if (!hasClosingTransactions) {
       result.push({
         item: <ContextMenuEdit />,
         fn: () => setEditTransaction(tr),
       })
     }
-    if (tr.isClosing || !hasClosingTransactions) {
+    if (tr.status === 'closed' || !hasClosingTransactions) {
       result.push({
         item: <ContextMenuDelete />,
         fn: () => setConfirmDeleteTransaction(true),
       })
     }
+    if (result.length === 0) {
+      result.push({
+        item: (
+          <>
+            <ListItemIcon>
+              <InfoOutlinedIcon color='primary' fontSize='small' />
+            </ListItemIcon>
+            <ListItemText primary={'info'} />
+          </>
+        ),
+        fn: () => setShowTransactionEditInfoDialog(true),
+      })
+    }
+
     return result
   }
   const handleDeleteTransaction = async (tr: StockTransaction) => {
@@ -68,7 +98,6 @@ const TransactionsTable = ({
     onModifiedTransaction()
   }
   const handleAddTransaction = async (data: TransactionFields) => {
-    //setShowAddTransactionForm(false)
     const tr: StockTransaction = {
       id: crypto.randomUUID(),
       type: data.type as StockTransactionType,
@@ -96,11 +125,9 @@ const TransactionsTable = ({
       tr.quantity = data.quantity
     }
     await saveTransaction(position, tr)
-    //console.log(tr)
     setEditTransaction(null)
     setIsLoading(false)
     onModifiedTransaction()
-    //setShowAddTransactionForm(false)
   }
   const handleDeletePosition = async () => {
     setShowDeletePositionConfirm(false)
@@ -147,15 +174,6 @@ const TransactionsTable = ({
                         ).format('0,0.00')}`}</Typography>
                       </Box>
                     </TableCell>
-                    {/* <TableCell colSpan={2}>
-                      <Box display={'flex'} gap={1} alignItems={'center'}>
-                        <Typography variant='caption'>unrealized gain/loss:</Typography>
-                        <Typography variant='caption' color={getPositiveNegativeColor(position.unrealizedGainLoss, theme.palette.mode)}>{`$${numeral(
-                          position.unrealizedGainLoss,
-                        ).format('0,0.00')}`}</Typography>
-                      </Box>
-                    </TableCell>
-                    <TableCell colSpan={10}></TableCell> */}
                   </TableRow>
                   <TableRow>
                     <TableCell>type</TableCell>
@@ -184,7 +202,6 @@ const TransactionsTable = ({
                       )}`}</TableCell>
                       <TableCell>{dayjs(tr.date).format('MM/DD/YYYY')}</TableCell>
                       <TableCell>{tr.status}</TableCell>
-
                       <TableCell sx={{ textAlign: 'right' }}>
                         <ContextMenu items={getTransactionMenu(tr)} />
                         <ConfirmDeleteDialog
@@ -208,6 +225,17 @@ const TransactionsTable = ({
         onConfirm={handleDeletePosition}
         text={'Are you sure you want to delete this position?'}
       />
+      <InfoDialog
+        show={showTransactionEditInfoDialog}
+        title={'Unable to edit transaction'}
+        onCancel={() => setShowTransactionEditInfoDialog(false)}
+        fullScreen={false}
+      >
+        <Typography>
+          This position contains closing transactions. Modifying this transaction will cause gain/loss miscalculations. Please delete all of the related closing
+          transactions before editing this transaction.
+        </Typography>
+      </InfoDialog>
     </Box>
   )
 }

@@ -20,6 +20,7 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
   const portfolioId = getPorfolioIdFromKey(portfolio.id)
   const [positions, setPostions] = React.useState<StockPosition[]>([])
   const { recalculateTransaction, calculatePositionGainLoss: calculatePositionUnrealizedGainLoss } = usePortfolioCalculator()
+  const [isLoading, setIsLoading] = React.useState(false)
 
   const addPosition = async (data: PositionFields, position: StockPosition) => {
     const username = getUsernameFromKey(portfolio.id)
@@ -235,6 +236,8 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
   }
 
   return {
+    isLoading,
+    setIsLoading,
     addPosition,
     loadPositions,
     updatePosition,

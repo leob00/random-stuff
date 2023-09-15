@@ -13,12 +13,14 @@ const InfoDialog = ({
   show,
   onCancel,
   onSave,
+  fullScreen = true,
 }: {
   children: ReactNode
   title: string
   show: boolean
   onCancel?: () => void
   onSave?: () => void
+  fullScreen?: boolean
 }) => {
   const handleClose = () => {
     onCancel?.()
@@ -33,7 +35,7 @@ const InfoDialog = ({
         aria-describedby='alert-dialog-description'
         maxWidth='md'
         //fullWidth
-        fullScreen
+        fullScreen={fullScreen}
       >
         <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>
           <Stack display='flex' direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
