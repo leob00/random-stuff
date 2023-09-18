@@ -31,10 +31,12 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 
 const TransactionsTable = ({
+  allPortfolios,
   portfolio,
   position,
   onModifiedTransaction,
 }: {
+  allPortfolios: StockPortfolio[]
   portfolio: StockPortfolio
   position: StockPosition
   onModifiedTransaction: () => void

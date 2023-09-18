@@ -114,7 +114,12 @@ const StockPortfolioLayout = () => {
                 <Box pt={1}>
                   {data.map((item) => (
                     <Box key={item.id}>
-                      <StockPortfolioListItem portfolio={item} handlePortfolioDelete={handlePortfolioDelete} onMutate={handlePortfoliosMutate} />
+                      <StockPortfolioListItem
+                        allPortfolios={data}
+                        portfolio={item}
+                        handlePortfolioDelete={handlePortfolioDelete}
+                        onMutate={handlePortfoliosMutate}
+                      />
                     </Box>
                   ))}
                 </Box>

@@ -12,10 +12,12 @@ import QuickQuote from '../QuickQuote'
 import PortfolioHeader from './PortfolioHeader'
 
 const StockPortfolioListItem = ({
+  allPortfolios,
   portfolio,
   handlePortfolioDelete,
   onMutate,
 }: {
+  allPortfolios: StockPortfolio[]
   portfolio: StockPortfolio
   handlePortfolioDelete: (item: StockPortfolio) => void
   onMutate: () => void
@@ -138,7 +140,12 @@ const StockPortfolioListItem = ({
                         </Box>
                       )}
                       <Box pb={4}>
-                        <TransactionsTable portfolio={portfolio} position={position} onModifiedTransaction={handleModifiedTransaction} />
+                        <TransactionsTable
+                          allPortfolios={allPortfolios}
+                          portfolio={portfolio}
+                          position={position}
+                          onModifiedTransaction={handleModifiedTransaction}
+                        />
                       </Box>
                     </Box>
                   ))}
