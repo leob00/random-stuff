@@ -3,7 +3,7 @@ import { UserNote } from 'lib/models/randomStuffModels'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
-import { CategoryType, DynamoKeys, EmailMessage, LambdaBody, LambdaDynamoRequest, UserProfile } from '../api/aws/apiGateway'
+import { CategoryType, DynamoKeys, EmailMessage, LambdaBody, LambdaDynamoRequest, LambdaDynamoRequestBatch, UserProfile } from '../api/aws/apiGateway'
 import {
   constructUserGoalTaksSecondaryKey,
   constructUserNoteCategoryKey,
@@ -362,6 +362,12 @@ export async function putRecord(id: DynamoKeys | string, category: string, item:
     data: encryptBody(req),
   }
   await post(`/api/putRandomStuff`, putRequest)
+}
+export async function putRecordsBatch(batch: LambdaDynamoRequestBatch) {
+  const putRequest: SignedRequest = {
+    data: weakEncrypt(JSON.stringify(batch)),
+  }
+  await post(`/api/putRandomStuffBatch`, putRequest)
 }
 
 export async function getCommunityStocks() {

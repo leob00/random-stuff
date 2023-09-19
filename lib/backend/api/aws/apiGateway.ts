@@ -34,7 +34,11 @@ export interface LambdaDynamoRequest {
   category: CategoryType | string
   data: any
   expiration: number
-  token: string
+  token?: string
+}
+
+export interface LambdaDynamoRequestBatch {
+  records: LambdaDynamoRequest[]
 }
 
 export interface LambdaResponse {
@@ -190,13 +194,13 @@ export async function putRandomStuff(type: DynamoKeys, category: CategoryType, d
 }
 export async function putRandomStuffEnc(req: SignedRequest) {
   const decryptedString = weakDecrypt(req.data)
-  const body = JSON.parse(decryptedString) as LambdaDynamoRequest
-  if (!body) {
-    console.log('putRandomStuff: body validation failed')
+  const dynamoRequest = JSON.parse(decryptedString) as LambdaDynamoRequest
+  if (!dynamoRequest) {
+    console.log('putRandomStuffEnc: signed request validation failed')
     return null
   }
-  const id = weakDecrypt(body.token)
-  if (body.id !== id) {
+  const id = weakDecrypt(dynamoRequest.token!)
+  if (dynamoRequest.id !== id) {
     console.log('token validation failed')
     return null
   }
@@ -204,17 +208,36 @@ export async function putRandomStuffEnc(req: SignedRequest) {
   const url = `${apiGatewayUrl}/randomstuff`
 
   const model: RandomStuffPut = {
-    key: body.id,
-    data: body.data,
-    category: body.category,
-    expiration: body.expiration ?? 0,
+    key: dynamoRequest.id,
+    data: dynamoRequest.data,
+    category: dynamoRequest.category,
+    expiration: dynamoRequest.expiration ?? 0,
   }
   const postData = {
     body: model,
   }
   try {
     await post(url, postData)
-    return body
+    return dynamoRequest
+  } catch (error) {
+    console.log('error in putRandomStuff')
+    return null
+  }
+}
+
+export async function putRandomStuffBatchEnc(req: SignedRequest) {
+  const decryptedString = weakDecrypt(req.data)
+  const dynamoRequest = JSON.parse(decryptedString) as LambdaDynamoRequestBatch
+  if (!dynamoRequest) {
+    console.log('putRandomStuffBatchEnc: signed request validation failed')
+    return null
+  }
+
+  const url = `${apiGatewayUrl}/randomstuffBatch`
+
+  try {
+    await post(url, dynamoRequest)
+    return dynamoRequest
   } catch (error) {
     console.log('error in putRandomStuff')
     return null
