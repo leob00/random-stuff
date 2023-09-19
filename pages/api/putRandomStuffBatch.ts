@@ -1,4 +1,4 @@
-import { putRandomStuffEnc } from 'lib/backend/api/aws/apiGateway'
+import { putRandomStuffBatchEnc, putRandomStuffEnc } from 'lib/backend/api/aws/apiGateway'
 import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { NextRequest, NextResponse } from 'next/server'
 export const config = {
@@ -7,7 +7,8 @@ export const config = {
 
 export default async function handler(req: NextRequest) {
   const enc = (await req.json()) as SignedRequest
-  const body = await putRandomStuffEnc(enc)
+  const body = await putRandomStuffBatchEnc(enc)
+
   if (!body) {
     return new Response(JSON.stringify({ message: 'api/putRandomStuffBatch error: post failed' }), { status: 200 })
   }

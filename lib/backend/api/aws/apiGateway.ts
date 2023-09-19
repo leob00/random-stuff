@@ -233,10 +233,18 @@ export async function putRandomStuffBatchEnc(req: SignedRequest) {
     return null
   }
 
-  const url = `${apiGatewayUrl}/randomstuffBatch`
-
+  const url = `${apiGatewayUrl}/randomstuffbatch`
+  const postData: RandomStuffPut[] = dynamoRequest.records.map((m) => {
+    return {
+      key: m.id,
+      category: m.category,
+      expiration: m.expiration,
+      data: m.data,
+    }
+  })
   try {
-    await post(url, dynamoRequest)
+    await post(url, { records: postData })
+    //console.log(dynamoRequest)
     return dynamoRequest
   } catch (error) {
     console.log('error in putRandomStuff')

@@ -8,11 +8,18 @@ import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import NLink from 'next/link'
 import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
 import { Claim } from 'lib/backend/auth/userUtil'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
+import { LambdaDynamoRequestBatch } from 'lib/backend/api/aws/apiGateway'
+import { getExpirateDateFromSeconds, getSecondsFromEpoch } from 'lib/util/dateUtil'
+import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
+import { post } from 'lib/backend/api/fetchFunctions'
+import PostBatch from 'components/Organizms/sandbox/PostBatch'
 
 const Page = () => {
   const tabs: TabInfo[] = [
     {
-      title: 'Page Router',
+      title: 'Batch Post to Dynamo',
       selected: true,
     },
     {
@@ -39,11 +46,7 @@ const Page = () => {
         <PageHeader text='Sandbox' />
         <TabList tabs={tabs} onSetTab={handleSetTab} />
         <Box p={2}>
-          {selectedTab === 'Page Router' && (
-            <Box>
-              <NLink href='/status'>status</NLink>
-            </Box>
-          )}
+          {selectedTab === 'Batch Post to Dynamo' && <PostBatch />}
           {selectedTab === 'Login Form' && (
             <Box>
               <QlnUsernameLoginForm onSuccess={handleLoginSuccess} />
