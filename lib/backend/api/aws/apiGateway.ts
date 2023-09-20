@@ -52,6 +52,7 @@ export interface LambdaListResponse {
 export interface LambdaBody {
   count?: number
   key?: string
+  category?: string
   data: string
   last_modified?: string
   expiration?: number
@@ -219,6 +220,20 @@ export async function putRandomStuffEnc(req: SignedRequest) {
   try {
     await post(url, postData)
     return dynamoRequest
+  } catch (error) {
+    console.log('error in putRandomStuff')
+    return null
+  }
+}
+
+export async function deleteRandomStuffBatch(req: SignedRequest) {
+  const decryptedString = weakDecrypt(req.data)
+  const items = JSON.parse(decryptedString) as string[]
+  const url = `${apiGatewayUrl}/deleterandomstuffbatch`
+  try {
+    await post(url, { records: items })
+    //console.log(dynamoRequest)
+    return items
   } catch (error) {
     console.log('error in putRandomStuff')
     return null

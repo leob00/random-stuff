@@ -369,6 +369,12 @@ export async function putRecordsBatch(batch: LambdaDynamoRequestBatch) {
   }
   await post(`/api/putRandomStuffBatch`, putRequest)
 }
+export async function deleteRecordsBatch(items: string[]) {
+  const putRequest: SignedRequest = {
+    data: weakEncrypt(JSON.stringify(items)),
+  }
+  await post(`/api/deleteRandomStuffBatch`, putRequest)
+}
 
 export async function getCommunityStocks() {
   var result = await getRecord<StockQuote[]>('community-stocks')
