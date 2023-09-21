@@ -13,6 +13,8 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import TabList from 'components/Atoms/Buttons/TabList'
 import RequireClaim from 'components/Organizms/user/RequireClaim'
+import { Box, ListItemText } from '@mui/material'
+import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 
 const Page = () => {
   const router = useRouter()
@@ -32,6 +34,24 @@ const Page = () => {
   const handleSelectTab = (tab: TabInfo) => {
     setSelectedTab(tab.title)
   }
+  const contextMenu: ContextMenuItem[] = [
+    {
+      item: (
+        <>
+          <ListItemText primary='view community stocks' />
+        </>
+      ),
+      fn: () => router.push('/ssg/community-stocks'),
+    },
+    {
+      item: (
+        <>
+          <ListItemText primary='portfolio' />
+        </>
+      ),
+      fn: () => router.push('/csr/stocks/stock-porfolios'),
+    },
+  ]
 
   React.useEffect(() => {
     let isLoaded = false
@@ -57,7 +77,10 @@ const Page = () => {
   return (
     <>
       <Seo pageTitle='Stocks' />
-      <BackButton />
+      <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+        <BackButton />
+        <ContextMenu items={contextMenu} />
+      </Box>
 
       <ResponsiveContainer>
         <TabList tabs={tabs} onSetTab={handleSelectTab} />
