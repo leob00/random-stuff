@@ -15,11 +15,9 @@ import { useTheme } from '@mui/material'
 import { getPagedArray } from 'lib/util/collections'
 import Pager from 'components/Atoms/Pager'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
-import { Router } from '@aws-amplify/ui-react/dist/types/components/Authenticator/Router'
-import router from 'next/router'
 import NLink from 'next/link'
 
-const StockEarningsCalendarDetails = ({ data }: { data: StockEarning[] }) => {
+const StockEarningsCalendarDetails = ({ data, currentPageIndex, onPaged, onSearched }: { data: StockEarning[]; currentPageIndex: number; onPaged: (pageNum: number) => void; onSearched: () => void }) => {
   const theme = useTheme()
   const pageSize = 10
   const [searchWithinList, setSearchWithinList] = React.useState('')
@@ -32,14 +30,8 @@ const StockEarningsCalendarDetails = ({ data }: { data: StockEarning[] }) => {
   }
   const pages = getPagedArray(filterList(), pageSize)
 
-  const [currentPageIndex, setCurrentPageIndex] = React.useState(1)
-  const handlePaged = (pageNum: number) => {
-    setCurrentPageIndex(pageNum)
-  }
   const handleSearched = (text: string) => {
-    if (currentPageIndex > 1) {
-      setCurrentPageIndex(1)
-    }
+    onSearched()
     setSearchWithinList(text)
   }
 
@@ -94,7 +86,7 @@ const StockEarningsCalendarDetails = ({ data }: { data: StockEarning[] }) => {
               pageCount={pages.length}
               itemCount={pages[currentPageIndex - 1].items.length}
               itemsPerPage={pageSize}
-              onPaged={(pageNum: number) => handlePaged(pageNum)}
+              onPaged={(pageNum: number) => onPaged(pageNum)}
               defaultPageIndex={currentPageIndex}
               totalItemCount={pages.length === 1 ? pages[currentPageIndex - 1].items.length : data.length}></Pager>
           </Box>

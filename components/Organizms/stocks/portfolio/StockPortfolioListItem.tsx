@@ -86,7 +86,7 @@ const StockPortfolioListItem = ({
   }
 
   const handleModifiedTransaction = async () => {
-    loadData()
+    await loadData()
   }
 
   React.useEffect(() => {
@@ -104,6 +104,7 @@ const StockPortfolioListItem = ({
       ) : (
         <Box pb={1}>
           <PortfolioHeader
+            allPortfolios={allPortfolios}
             portfolio={portfolio}
             onAddPosition={handleShowAddPosition}
             onClicked={handlePortfolioClick}

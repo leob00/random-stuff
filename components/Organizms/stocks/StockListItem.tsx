@@ -1,14 +1,5 @@
 import { Box, IconButton, Stack, Typography } from '@mui/material'
-import {
-  CasinoBlackTransparent,
-  CasinoBlueTransparent,
-  CasinoDarkGreenTransparent,
-  CasinoDarkRedTransparent,
-  CasinoGreenTransparent,
-  CasinoLimeTransparent,
-  CasinoOrange,
-  VeryLightBlue,
-} from 'components/themes/mainTheme'
+import { CasinoBlackTransparent, CasinoBlueTransparent, CasinoDarkGreenTransparent, CasinoDarkRedTransparent, CasinoGreenTransparent, CasinoLimeTransparent, CasinoOrange, VeryLightBlue } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
@@ -85,7 +76,7 @@ const StockListItem = ({
   const renderDetail = (label: string, val?: string | number | null) => {
     return (
       <>
-        {val && (
+        {val !== undefined && (
           <Stack direction={'row'} spacing={2} py={1} alignItems={'center'}>
             <Stack minWidth={80} textAlign={'right'}>
               <Typography variant={'body2'}>{`${label}:`}</Typography>
@@ -128,11 +119,7 @@ const StockListItem = ({
     <Box key={item.Symbol} py={1}>
       <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
       <Box>
-        {isStock ? (
-          <ListHeader text={`${item.Company}   (${item.Symbol})`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
-        ) : (
-          <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
-        )}
+        {isStock ? <ListHeader text={`${item.Company}   (${item.Symbol})`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} /> : <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />}
 
         <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
           <Stack direction={'row'} spacing={2} pl={2} sx={{ backgroundColor: 'unset' }} pt={1}>

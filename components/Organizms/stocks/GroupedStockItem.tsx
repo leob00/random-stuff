@@ -1,4 +1,5 @@
 import { Box, Typography, useTheme } from '@mui/material'
+import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import { DarkBlue, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import React from 'react'
 import { StockGroup } from './GroupedStocksLayout'
@@ -21,8 +22,7 @@ const GroupedStockItem = ({ group }: { group: StockGroup }) => {
         gap={2}
         alignItems={'center'}
         justifyContent={'space-between'}
-        onClick={handleExpandCollapse}
-      >
+        onClick={handleExpandCollapse}>
         <Box>
           <Typography variant='h5' pl={1} color='primary'>
             {`${!group.groupName || group.groupName.length === 0 ? 'Unassigned' : group.groupName}`}
@@ -37,7 +37,8 @@ const GroupedStockItem = ({ group }: { group: StockGroup }) => {
       </Box>
       {expanded && (
         <>
-          <StockTable isStock={true} stockList={group.quotes} key={group.id} scrollIntoView scrollMargin={-20} showGroupName={false} showSummary={false} />
+          <ScrollIntoView enabled={expanded} margin={-10} />
+          <StockTable isStock={true} stockList={group.quotes} key={group.id} showGroupName={false} showSummary={false} />
         </>
       )}
     </>

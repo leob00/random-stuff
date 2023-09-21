@@ -84,6 +84,7 @@ const StockPortfolioLayout = () => {
       fn: () => setShowAddPortfolio(true),
     },
   ]
+
   return (
     <>
       <Box py={2}>

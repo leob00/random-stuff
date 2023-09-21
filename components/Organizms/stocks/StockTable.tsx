@@ -24,7 +24,6 @@ const StockTable = ({
 }) => {
   return (
     <>
-      <ScrollIntoView enabled={scrollIntoView!!} margin={scrollMargin} />
       <Box pl={1}>
         {stockList.map((item, index) => (
           <Box key={item.Symbol}>
@@ -35,6 +34,7 @@ const StockTable = ({
           <>
             {showSummary && (
               <Box>
+                {scrollIntoView && <ScrollIntoView enabled={showSummary} margin={scrollMargin} />}
                 <Stack>
                   <Typography variant={'caption'}>{`prices are as of: ${dayjs(stockList[0].TradeDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
                 </Stack>

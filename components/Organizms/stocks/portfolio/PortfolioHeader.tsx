@@ -3,6 +3,7 @@ import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/Context
 import ContextMenuAdd from 'components/Molecules/Menus/ContextMenuAdd'
 import ContextMenuDelete from 'components/Molecules/Menus/ContextMenuDelete'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
+import ContextMenuMove from 'components/Molecules/Menus/ContextMenuMove'
 import { ChartBackground, DarkBlue } from 'components/themes/mainTheme'
 import { StockPortfolio } from 'lib/backend/api/aws/apiGateway'
 import numeral from 'numeral'
@@ -10,12 +11,14 @@ import React from 'react'
 import { getPositiveNegativeColor } from '../StockListItem'
 
 const PortfolioHeader = ({
+  allPortfolios,
   portfolio,
   onClicked,
   onEdit,
   onDelete,
   onAddPosition,
 }: {
+  allPortfolios: StockPortfolio[]
   portfolio: StockPortfolio
   onClicked: (item: StockPortfolio) => void
   onEdit: (tem: StockPortfolio) => void
@@ -23,7 +26,7 @@ const PortfolioHeader = ({
   onAddPosition: (tem: StockPortfolio) => void
 }) => {
   const theme = useTheme()
-  const contextMenu: ContextMenuItem[] = [
+  const portfolioMenu: ContextMenuItem[] = [
     {
       item: <ContextMenuEdit />,
       fn: () => {
@@ -43,6 +46,7 @@ const PortfolioHeader = ({
       },
     },
   ]
+
   return (
     <Stack sx={{ backgroundColor: theme.palette.mode === 'dark' ? DarkBlue : ChartBackground }} p={1}>
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} px={1}>
@@ -66,7 +70,7 @@ const PortfolioHeader = ({
           </Box>
         </Box>
         <Box>
-          <ContextMenu items={contextMenu} />
+          <ContextMenu items={portfolioMenu} />
         </Box>
       </Box>
     </Stack>

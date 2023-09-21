@@ -62,8 +62,11 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
   }
 
   const updatePosition = async (position: StockPosition) => {
-    const secKey = constructStockPositionSecondaryKey(username, portfolioId)
+    const pId = getPorfolioIdFromKey(position.portfolioId)
+    const secKey = constructStockPositionSecondaryKey(username, pId)
+    setIsLoading(true)
     await putRecord(position.id, secKey, position)
+    setIsLoading(false)
   }
 
   const loadPositions = async () => {

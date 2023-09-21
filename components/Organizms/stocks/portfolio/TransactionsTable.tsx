@@ -29,6 +29,13 @@ import AddTransactionForm, { TransactionFields } from './AddTransactionForm'
 import EditTransactionForm from './EditTransactionForm'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
+import ContextMenuMove from 'components/Molecules/Menus/ContextMenuMove'
+import ConfirmDialog from 'components/Atoms/Dialogs/ConfirmDialog'
+import FormDialog from 'components/Atoms/Dialogs/FormDialog'
+import { DropdownItem } from 'lib/models/dropdown'
+import DropdownList from 'components/Atoms/Inputs/DropdownList'
+import CenterStack from 'components/Atoms/CenterStack'
+import { useRouter, usePathname } from 'next/navigation'
 
 const TransactionsTable = ({
   allPortfolios,
@@ -48,18 +55,30 @@ const TransactionsTable = ({
   const [validationResult, setValidationResult] = React.useState<Validation | null>(null)
   const [showDeletePositionConfirm, setShowDeletePositionConfirm] = React.useState(false)
   const [showTransactionEditInfoDialog, setShowTransactionEditInfoDialog] = React.useState(false)
-  const { addTransaction, saveTransaction, deletePosition, deleteTransaction, isLoading, setIsLoading } = usePortfolioHelper(portfolio)
+  const { addTransaction, saveTransaction, deletePosition, deleteTransaction, isLoading, setIsLoading, updatePosition } = usePortfolioHelper(portfolio)
+  const [movePosition, setMovePosition] = React.useState<StockPosition | null>(null)
+  const router = useRouter()
+  const path = usePathname()
 
-  const menu: ContextMenuItem[] = [
-    {
-      item: <ContextMenuAdd text='add transaction' />,
-      fn: () => setShowAddTransactionForm(true),
-    },
-    {
-      item: <ContextMenuDelete text='delete position' />,
-      fn: () => setShowDeletePositionConfirm(true),
-    },
-  ]
+  const getPositionsMenu = (position: StockPosition) => {
+    const positionMenu: ContextMenuItem[] = [
+      {
+        item: <ContextMenuAdd text='add transaction' />,
+        fn: () => setShowAddTransactionForm(true),
+      },
+      {
+        item: <ContextMenuDelete text='delete position' />,
+        fn: () => setShowDeletePositionConfirm(true),
+      },
+    ]
+    if (allPortfolios.length > 1) {
+      positionMenu.push({
+        item: <ContextMenuMove text={'move position'} />,
+        fn: () => setMovePosition(position),
+      })
+    }
+    return positionMenu
+  }
 
   const getTransactionMenu = (tr: StockTransaction) => {
     const result: ContextMenuItem[] = []
@@ -138,6 +157,21 @@ const TransactionsTable = ({
     setIsLoading(false)
     onModifiedTransaction()
   }
+  const handleMovePosition = async () => {
+    await updatePosition(movePosition!)
+    setMovePosition(null)
+    onModifiedTransaction()
+    router.push('/csr/waitandredirect?id=csr/stocks/stock-porfolios')
+  }
+  const portfolioDropdown: DropdownItem[] = allPortfolios.map((m) => {
+    return { text: m.name, value: m.id }
+  })
+
+  const handleChangePortfolio = async (val: string) => {
+    const newPos = { ...movePosition!, portfolioId: val }
+    // console.log(val)
+    setMovePosition(newPos)
+  }
 
   return (
     <Box pt={1}>
@@ -187,7 +221,7 @@ const TransactionsTable = ({
                     <TableCell>date</TableCell>
                     <TableCell>status</TableCell>
                     <TableCell sx={{ textAlign: 'right' }}>
-                      <ContextMenu items={menu} />
+                      <ContextMenu items={getPositionsMenu(position)} />
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -238,6 +272,16 @@ const TransactionsTable = ({
           transactions before editing this transaction.
         </Typography>
       </InfoDialog>
+      <FormDialog show={movePosition !== null} title='move position' onCancel={() => setMovePosition(null)} onSave={handleMovePosition}>
+        <Box>
+          <Typography>You can move this position to another portfolio.</Typography>
+          <Box py={2}>
+            <CenterStack>
+              <DropdownList options={portfolioDropdown} selectedOption={portfolio.id} onOptionSelected={handleChangePortfolio} />
+            </CenterStack>
+          </Box>
+        </Box>
+      </FormDialog>
     </Box>
   )
 }

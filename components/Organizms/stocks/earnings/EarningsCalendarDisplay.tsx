@@ -21,6 +21,7 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   const dateToSelect = uniqueDates.length > 0 ? (todayDate ? todayDate : uniqueDates[0]) : null
   const [selectedDate, setSelectedDate] = React.useState(dateToSelect)
   const [filteredResults, setFilteredResults] = React.useState(dateToSelect ? filterResult(data, dateToSelect) : [])
+  const [currentPageIndex, setCurrentPageIndex] = React.useState(1)
   const datesMap = new Map<string, StockEarning[]>()
 
   uniqueDates.forEach((item) => {
@@ -40,7 +41,17 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   const handleDateSelected = (dt: string) => {
     //console.log(dt)
     setSelectedDate(dt)
+    setCurrentPageIndex(1)
+
     setFilteredResults(filterResult(data, dt))
+  }
+  const handlePaged = (pageNum: number) => {
+    setCurrentPageIndex(pageNum)
+  }
+  const handleSearched = () => {
+    if (currentPageIndex > 1) {
+      setCurrentPageIndex(1)
+    }
   }
 
   return (
@@ -57,7 +68,7 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
       <Box py={2}>
         {selectedDate && (
           <Box pt={1}>
-            <StockEarningsCalendarDetails data={filteredResults} />
+            <StockEarningsCalendarDetails data={filteredResults} currentPageIndex={currentPageIndex} onPaged={handlePaged} onSearched={handleSearched} />
           </Box>
         )}
       </Box>

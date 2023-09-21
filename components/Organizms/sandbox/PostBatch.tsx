@@ -1,12 +1,10 @@
-import { Box, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow } from '@mui/material'
-import JsonView from 'components/Atoms/Boxes/JsonView'
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import DangerButton from 'components/Atoms/Buttons/DangerButton'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import { LambdaDynamoRequestBatch } from 'lib/backend/api/aws/apiGateway'
-import { post } from 'lib/backend/api/fetchFunctions'
-import { deleteRecordsBatch, putRecordsBatch, searchRecords, SignedRequest } from 'lib/backend/csr/nextApiWrapper'
+import { deleteRecordsBatch, putRecordsBatch, searchRecords } from 'lib/backend/csr/nextApiWrapper'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import { getExpirateDateFromSeconds, getSecondsFromEpoch } from 'lib/util/dateUtil'
 import React from 'react'
@@ -55,18 +53,25 @@ const PostBatch = () => {
   }
 
   const { data, isLoading, isValidating } = useSWR(secKey, ([url, key]) => fetcherFn(url, key))
+  const [isWaiting, setIsWaiting] = React.useState(false)
   const handlePostBatch = async () => {
+    setIsWaiting(true)
     await putRecordsBatch(testData)
+    setIsWaiting(false)
     mutate(secKey)
   }
   const handleDeleteBatch = async () => {
+    setIsWaiting(true)
     await deleteRecordsBatch(testData.records.map((m) => m.id))
+    setIsWaiting(false)
     mutate(secKey)
   }
   return (
     <Box>
       {isLoading && <BackdropLoader />}
       {isValidating && <BackdropLoader />}
+      {isWaiting && <BackdropLoader />}
+
       {data && (
         <Box py={2}>
           <TableContainer>
@@ -92,7 +97,7 @@ const PostBatch = () => {
                 ) : (
                   <TableRow>
                     <TableCell colSpan={10}>
-                      <NoDataFound showDivider={false} />
+                      <NoDataFound showDivider={false} message={'No records found.'} />
                     </TableCell>
                   </TableRow>
                 )}

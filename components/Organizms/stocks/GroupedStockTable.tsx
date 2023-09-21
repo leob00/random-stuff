@@ -1,27 +1,15 @@
-import { Box, Typography, useTheme } from '@mui/material'
+import { Box } from '@mui/material'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
-import { useUserController } from 'hooks/userController'
 import React from 'react'
 import { StockGroup } from './GroupedStocksLayout'
 import GroupedStockItem from './GroupedStockItem'
 
-const GroupedStockTable = ({ result, scrollIntoView = false }: { result: StockGroup[]; scrollIntoView?: boolean }) => {
-  const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
-
-  React.useEffect(() => {
-    if (scrollIntoView) {
-      if (scrollTarget.current) {
-        scrollTarget.current.scrollIntoView({ behavior: 'smooth' })
-      }
-    }
-  }, [scrollIntoView])
-
+const GroupedStockTable = ({ result }: { result: StockGroup[] }) => {
   return (
     <Box minHeight={650}>
       <Box display={'flex'} flexDirection={'column'} gap={2}>
         {result.map((item, index) => (
           <Box key={item.groupName}>
-            {index == 0 && <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -28 }}></Typography>}
             <GroupedStockItem group={item} />
           </Box>
         ))}
