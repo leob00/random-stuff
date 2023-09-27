@@ -1,16 +1,15 @@
 import Delete from '@mui/icons-material/Delete'
 import Warning from '@mui/icons-material/Warning'
-import { Box, Stack, Button, Typography } from '@mui/material'
-import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
+import { Box, Stack, Button, useTheme } from '@mui/material'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
+import { DarkBlue, ChartBackground } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { getExpirationText, getUtcNow } from 'lib/util/dateUtil'
-import { take } from 'lodash'
 import React from 'react'
 
 const NoteList = ({
@@ -26,9 +25,9 @@ const NoteList = ({
   onDelete: (item: UserNote) => void
   isFiltered: boolean
 }) => {
+  const theme = useTheme()
   const [selectedNote, setSelectedNote] = React.useState<UserNote | null>(null)
   const [showConfirm, setShowConfirm] = React.useState(false)
-  //const [displayedData, setDisplayedData] = React.useState(take(data, 5))
   const handleNoteTitleClick = (item: UserNote) => {
     onClicked(item)
   }
@@ -41,13 +40,6 @@ const NoteList = ({
     if (selectedNote) {
       onDelete(selectedNote)
     }
-  }
-
-  const handleShowMore = () => {
-    // setDisplayedData(data)
-  }
-  const handleShowLess = () => {
-    //setDisplayedData(take(data, 5))
   }
 
   return (
@@ -72,39 +64,33 @@ const NoteList = ({
       <Box>
         {data.map((item, i) => (
           <Box key={i} textAlign='left'>
-            <Stack direction='row' py={'3px'} alignItems='center'>
-              <ListHeader
-                backgroundColor='transparent'
-                item={item}
-                text={item.title}
-                onClicked={(item: UserNote) => {
-                  handleNoteTitleClick(item)
-                }}
-              />
-              {/* <LinkButton2
-                onClick={() => {
-                  handleNoteTitleClick(item)
-                }}
-              >
-                <Typography textAlign={'left'}>{item.title}</Typography>
-              </LinkButton2> */}
-
-              <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
-                {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
-                  <Button size='small'>
-                    <DefaultTooltip text={getExpirationText(item.expirationDate)}>
-                      <Warning fontSize='small' color='primary' />
-                    </DefaultTooltip>
-                  </Button>
-                )}
-                <Button
-                  size='small'
-                  onClick={() => {
-                    handleDeleteClick(item)
+            <Stack sx={{ backgroundColor: theme.palette.mode === 'dark' ? DarkBlue : ChartBackground }}>
+              <Stack direction='row' py={'3px'} alignItems='center'>
+                <ListHeader
+                  backgroundColor='transparent'
+                  item={item}
+                  text={item.title}
+                  onClicked={(item: UserNote) => {
+                    handleNoteTitleClick(item)
                   }}
-                >
-                  <Delete color='error' />
-                </Button>
+                />
+                <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
+                  {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
+                    <Button size='small'>
+                      <DefaultTooltip text={getExpirationText(item.expirationDate)}>
+                        <Warning fontSize='small' color='primary' />
+                      </DefaultTooltip>
+                    </Button>
+                  )}
+                  <Button
+                    size='small'
+                    onClick={() => {
+                      handleDeleteClick(item)
+                    }}
+                  >
+                    <Delete color='error' />
+                  </Button>
+                </Stack>
               </Stack>
             </Stack>
             {i < data.length - 1 && <HorizontalDivider />}
