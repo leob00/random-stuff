@@ -9,7 +9,7 @@ import { useUserController } from 'hooks/userController'
 import { StockPortfolio, StockPosition } from 'lib/backend/api/aws/apiGateway'
 import { constructDynamoKey, constructStockPositionSecondaryKey } from 'lib/backend/api/aws/util'
 import { getPorfolioIdFromKey, getUsernameFromKey } from 'lib/backend/api/portfolioUtil'
-import { deleteRecord, putRecord, searchRecords } from 'lib/backend/csr/nextApiWrapper'
+import { deleteRecord, deleteRecordsBatch, putRecord, searchRecords } from 'lib/backend/csr/nextApiWrapper'
 import { sortArray } from 'lib/util/collections'
 import React from 'react'
 import useSWR, { mutate } from 'swr'
@@ -60,10 +60,13 @@ const StockPortfolioLayout = () => {
       const portfolioId = getPorfolioIdFromKey(item.id)
       const searchKey = constructStockPositionSecondaryKey(username, portfolioId)
       const records = (await searchRecords(searchKey)).map((m) => JSON.parse(m.data) as StockPosition)
+      const ids = records.map((m) => m.id)
+      deleteRecordsBatch(ids)
       // TODO: refactor to batch delete records
-      records.forEach((r) => {
-        deleteRecord(r.id)
-      })
+
+      // records.forEach((r) => {
+      //   deleteRecord(r.id)
+      // })
       await deleteRecord(item.id)
       setIsMutating(false)
       mutate(portfoliosMutateKey)
