@@ -66,25 +66,26 @@ export const newsTypes: DropdownItem[] = [
     value: 'GoogleBusiness',
   },
   {
-    text: 'Google Top Stories',
-    value: 'GoogleTopStories',
-  },
-  {
-    text: 'Google Tech',
-    value: 'GoogleTech',
+    text: 'Google Entertainment',
+    value: 'GoogleEntertainment',
   },
   {
     text: 'Google Science',
     value: 'GoogleScience',
   },
   {
-    text: 'Google Entertainment',
-    value: 'GoogleEntertainment',
-  },
-  {
     text: 'Google Sports',
     value: 'GoogleSports',
   },
+  {
+    text: 'Google Tech',
+    value: 'GoogleTech',
+  },
+  {
+    text: 'Google Top Stories',
+    value: 'GoogleTopStories',
+  },
+
   {
     text: 'Hacker News',
     value: 'HackerNews',
@@ -93,17 +94,14 @@ export const newsTypes: DropdownItem[] = [
     text: 'Reuters',
     value: 'Reuters',
   }, */
-  {
-    text: 'Yahoo World',
-    value: 'YahooWorld',
-  },
-  {
-    text: 'Yahoo Science',
-    value: 'YahooScience',
-  },
+
   {
     text: 'Life Hacks',
     value: 'LifeHacker',
+  },
+  {
+    text: 'NPR',
+    value: 'NPR',
   },
   {
     text: 'Podcast: The Daily',
@@ -112,6 +110,14 @@ export const newsTypes: DropdownItem[] = [
   {
     text: 'Pluralistic',
     value: 'Pluralistic',
+  },
+  {
+    text: 'Yahoo World',
+    value: 'YahooWorld',
+  },
+  {
+    text: 'Yahoo Science',
+    value: 'YahooScience',
   },
 ]
 
