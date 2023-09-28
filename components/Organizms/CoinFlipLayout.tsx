@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Container, getInputAdornmentUtilityClass, Typography } from '@mui/material'
 import axios from 'axios'
 import CenterStack from 'components/Atoms/CenterStack'
 import ImageYRotator from 'components/Atoms/Images/ImageYRotator'
@@ -15,7 +15,7 @@ type headsTails = 'heads' | 'tails'
 const barChartColors = [TransparentGreen, TransparentBlue]
 const barChartLabels = ['heads', 'tails']
 
-export interface Coin {
+interface Coin {
   face: headsTails
   imageUrl: string
 }
@@ -23,34 +23,36 @@ export interface Coin {
 const getImage = (face: headsTails) => {
   switch (face) {
     case 'heads':
-      return '/images/penny-head.jpg'
+      return '/images/penny-heads.png'
     case 'tails':
-      return '/images/coin-tails.png'
+      return '/images/penny-tails.png'
   }
 }
 
-export interface Model {
+interface Model {
   defaultState?: boolean
   isLoading?: boolean
-  currentCoinState?: Coin
   flippedCoin?: Coin
   allCoins: Coin[]
   runningChart?: BarChart
   coinflipStats?: CoinFlipStats
   communityChart?: BarChart
+  currentFace: Coin
 }
 
-export type ActionTypes = 'toss' | 'flipped' | 'update-community-stats'
+type ActionTypes = 'toss' | 'flipped' | 'update-community-stats' | 'default'
 
-export interface ActionType {
+interface ActionType {
   type: ActionTypes
   payload: Model
 }
 
-export function reducer(state: Model, action: ActionType): Model {
+function reducer(state: Model, action: ActionType): Model {
   switch (action.type) {
+    case 'default':
+      return { ...state, defaultState: true, currentFace: action.payload.currentFace, isLoading: false, flippedCoin: undefined }
     case 'toss':
-      return { ...state, allCoins: action.payload.allCoins, isLoading: true, flippedCoin: undefined, defaultState: false }
+      return { ...state, allCoins: action.payload.allCoins, isLoading: true, flippedCoin: undefined, defaultState: false, currentFace: state.currentFace }
     case 'flipped':
       let currentState = { ...state }
       if (currentState.runningChart && currentState.coinflipStats) {
@@ -74,6 +76,7 @@ export function reducer(state: Model, action: ActionType): Model {
         flippedCoin: action.payload.flippedCoin,
         runningChart: currentState.runningChart,
         coinflipStats: currentState.coinflipStats,
+        defaultState: false,
       }
     case 'update-community-stats': {
       let chart: BarChart = {
@@ -88,6 +91,7 @@ export function reducer(state: Model, action: ActionType): Model {
   }
 }
 const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => {
+  const defaultStateIntervalRef = React.useRef<NodeJS.Timer | null>(null)
   const coins: Coin[] = [
     {
       face: 'heads',
@@ -102,7 +106,7 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
   const initialState: Model = {
     isLoading: false,
     defaultState: true,
-    currentCoinState: shuffle(coins)[0],
+    currentFace: shuffle(coins)[0],
     allCoins: coins,
     runningChart: {
       labels: barChartLabels,
@@ -125,8 +129,9 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
     dispatch({
       type: 'toss',
       payload: {
-        currentCoinState: shuffled[0],
+        currentFace: shuffled[0],
         allCoins: shuffled,
+        flippedCoin: undefined,
       },
     })
     const iterations = getRandomInteger(100, 150)
@@ -147,8 +152,10 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
       dispatch({
         type: 'update-community-stats',
         payload: {
+          currentFace: flipped,
           allCoins: allCoins,
           coinflipStats: result,
+          defaultState: false,
         },
       })
     }
@@ -157,6 +164,7 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
       dispatch({
         type: 'flipped',
         payload: {
+          currentFace: flipped,
           allCoins: allCoins,
           flippedCoin: flipped,
         },
@@ -164,6 +172,39 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
       postFn()
     }, 3000)
   }
+  React.useEffect(() => {
+    if (defaultStateIntervalRef.current) {
+      clearInterval(defaultStateIntervalRef.current)
+    }
+    if (model.defaultState && !model.isLoading) {
+      defaultStateIntervalRef.current = setInterval(() => {
+        const currentFace: Coin = {
+          face: model.currentFace.face,
+          imageUrl: model.currentFace.imageUrl,
+        }
+        if (currentFace.face === 'heads') {
+          currentFace.face = 'tails'
+          currentFace.imageUrl = getImage('tails')
+        } else {
+          currentFace.face = 'heads'
+          currentFace.imageUrl = getImage('heads')
+        }
+
+        dispatch({
+          type: 'default',
+          payload: {
+            currentFace: currentFace,
+            allCoins: model.allCoins,
+          },
+        })
+        // console.log(currentFace)
+      }, 1490)
+    } else {
+      if (defaultStateIntervalRef.current) {
+        clearInterval(defaultStateIntervalRef.current)
+      }
+    }
+  }, [model.currentFace, model.isLoading])
 
   return (
     <Container>
@@ -182,13 +223,15 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
           {model.defaultState && (
             <Box sx={{ cursor: 'pointer' }}>
               {/* <RemoteImageFlat title={model.allCoins[0].face} url={model.allCoins[0].imageUrl} height={100} width={100} onClicked={handleFlipClick} /> */}
-              <ImageYRotator imageUrl={model.allCoins[0].imageUrl} height={100} width={100} speed={0} onClicked={handleFlipClick} />
+              <ImageYRotator imageUrl={model.currentFace.imageUrl} height={100} width={100} speed={3} onClicked={handleFlipClick} />
             </Box>
           )}
           {model.isLoading && (
             <>
               {/* <RemoteImageFlat title={model.allCoins[0].face} url={model.allCoins[0].imageUrl} height={100} width={100} className='rotate' /> */}
-              <ImageYRotator imageUrl={model.allCoins[0].imageUrl} height={100} width={100} speed={1.2} />
+              <Box sx={{ cursor: 'pointer' }}>
+                <ImageYRotator imageUrl={model.allCoins[0].imageUrl} height={100} width={100} speed={1.2} />
+              </Box>
             </>
           )}
           {model.flippedCoin && (
