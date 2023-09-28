@@ -25,6 +25,10 @@
 .rotate {
   animation: rotation 3s infinite linear;
 }
+.rotateY {
+  transform: translateX(-1px) rotateY(180deg);
+  animation: rotation 3s infinite linear;
+}
 
 @keyframes rotation {
   from {

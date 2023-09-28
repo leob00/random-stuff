@@ -22,6 +22,9 @@ export async function get(url: string, params?: any) {
     },
   })
   //console.log('response: ', resp)
+  if (resp.status !== 200) {
+    throw new Error('authentication failed')
+  }
   const data = await resp.json()
   // console.log('data: ', data)
   return data

@@ -26,10 +26,11 @@ interface CacheStats {
 const CacheSettings = ({ claim }: { claim: Claim }) => {
   const mutateKey = ['/api/baseRoute', claim.token]
   const fetchData = async (url: string, id: string) => {
-    const result = await getCacheStats(claim.token)
-    return result.Body as CacheStats
+    const response = await getCacheStats(claim.token)
+
+    return response.Body as CacheStats
   }
-  const { data, isValidating } = useSWR(mutateKey, ([url, id]) => fetchData(url, claim.token))
+  const { data, isValidating, error } = useSWR(mutateKey, ([url, id]) => fetchData(url, claim.token))
   const [isLoading, setIsLoading] = React.useState(false)
   const handleResetCache = async () => {
     setIsLoading(true)

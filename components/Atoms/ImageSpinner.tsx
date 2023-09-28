@@ -15,7 +15,21 @@ const StyledSpinner = styled.div`
   }
 `
 
-const ImageSpinner = ({ imageUrl, speed, width, height, clickable, onClicked }: { imageUrl: string; speed?: number; width?: number; height?: number; clickable?: boolean; onClicked?: () => void }) => {
+const ImageSpinner = ({
+  imageUrl,
+  speed,
+  width,
+  height,
+  clickable,
+  onClicked,
+}: {
+  imageUrl: string
+  speed?: number
+  width?: number
+  height?: number
+  clickable?: boolean
+  onClicked?: () => void
+}) => {
   const handleClick = () => {
     onClicked?.()
   }

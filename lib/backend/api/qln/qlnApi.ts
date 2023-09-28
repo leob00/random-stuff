@@ -46,12 +46,20 @@ export type NewsTypeIds =
 
 export const newsTypes: DropdownItem[] = [
   {
+    text: 'ABC International',
+    value: 'AbcInternational',
+  },
+  {
     text: 'BBC World',
     value: 'BbcWorld',
   },
   {
     text: 'BBC Business',
     value: 'BbcBusiness',
+  },
+  {
+    text: 'CNBC',
+    value: 'CNBC',
   },
   {
     text: 'Google Business',
@@ -190,11 +198,11 @@ export async function getStockQuotes(symbols: string[]) {
 }
 
 export async function getCacheStats(token: string) {
-  const response = (await get(`${qlnApiBaseUrl}/ServerSettings`, {
+  const response = await get(`${qlnApiBaseUrl}/ServerSettings`, {
     Token: token,
-  })) as QlnApiResponse
+  })
 
-  return response
+  return response as QlnApiResponse
 }
 export async function resetStockCache(token: string) {
   const response = (await post(`${qlnApiBaseUrl}/StockCache?Token=${token}`, {})) as QlnApiResponse
