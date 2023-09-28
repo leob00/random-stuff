@@ -1,21 +1,21 @@
 import React from 'react'
 import styled from 'styled-components'
-import CenterStack from './CenterStack'
-import RemoteImageFlat from './RemoteImageFlat'
+import CenterStack from '../CenterStack'
+import RemoteImageFlat from '../RemoteImageFlat'
 
 const StyledSpinner = styled.div`
-  animation: rotation ${(props) => props.className || '0s'}s linear infinite;
+  animation: rotation ${(props) => props.className || '0s'}s alternate infinite;
   @keyframes rotation {
     from {
-      transform: rotate(0deg);
+      transform: rotateY(0deg);
     }
     to {
-      transform: rotate(359deg);
+      transform: rotateY(360deg);
     }
   }
 `
 
-const ImageSpinner = ({
+const ImageYRotator = ({
   imageUrl,
   speed,
   width,
@@ -44,4 +44,4 @@ const ImageSpinner = ({
   )
 }
 
-export default ImageSpinner
+export default ImageYRotator

@@ -37,6 +37,7 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Opti
           sx={{ width: 360 }}
           renderInput={(params) => <TextField {...params} placeholder={`search ${autoComplete.length} recipes`} />}
         />
+        {/* <StaticAutoComplete options={autoComplete} placeholder={`search ${result.length} notes`} onSelected={handleNoteSelected} /> */}
       </Stack>
       <Box sx={{ my: 2 }}>
         <CenteredTitle title={'Featured Recipes'} />

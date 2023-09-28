@@ -1,6 +1,7 @@
 import { Box, Container, Typography } from '@mui/material'
 import axios from 'axios'
 import CenterStack from 'components/Atoms/CenterStack'
+import ImageYRotator from 'components/Atoms/Images/ImageYRotator'
 import RemoteImageFlat from 'components/Atoms/RemoteImageFlat'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import CoinFlipChart from 'components/Molecules/CoinFlipChart'
@@ -22,7 +23,7 @@ export interface Coin {
 const getImage = (face: headsTails) => {
   switch (face) {
     case 'heads':
-      return '/images/coin-head.png'
+      return '/images/penny-head.jpg'
     case 'tails':
       return '/images/coin-tails.png'
   }
@@ -90,11 +91,11 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
   const coins: Coin[] = [
     {
       face: 'heads',
-      imageUrl: '/images/coin-head.png',
+      imageUrl: '/images/penny-heads.png',
     },
     {
       face: 'tails',
-      imageUrl: '/images/coin-tails.png',
+      imageUrl: '/images/penny-tails.png',
     },
   ]
 
@@ -180,14 +181,21 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
         <Box>
           {model.defaultState && (
             <Box sx={{ cursor: 'pointer' }}>
-              <RemoteImageFlat title={model.allCoins[0].face} url={model.allCoins[0].imageUrl} height={100} width={100} onClicked={handleFlipClick} />
+              {/* <RemoteImageFlat title={model.allCoins[0].face} url={model.allCoins[0].imageUrl} height={100} width={100} onClicked={handleFlipClick} /> */}
+              <ImageYRotator imageUrl={model.allCoins[0].imageUrl} height={100} width={100} speed={0} onClicked={handleFlipClick} />
             </Box>
           )}
-          {model.isLoading && <RemoteImageFlat title={model.allCoins[0].face} url={model.allCoins[0].imageUrl} height={100} width={100} className='rotate' />}
+          {model.isLoading && (
+            <>
+              {/* <RemoteImageFlat title={model.allCoins[0].face} url={model.allCoins[0].imageUrl} height={100} width={100} className='rotate' /> */}
+              <ImageYRotator imageUrl={model.allCoins[0].imageUrl} height={100} width={100} speed={1.2} />
+            </>
+          )}
           {model.flippedCoin && (
             <>
               <Box sx={{ cursor: 'pointer' }}>
-                <RemoteImageFlat title={model.flippedCoin.face} url={model.flippedCoin.imageUrl} height={100} width={100} onClicked={handleFlipClick} />
+                {/* <RemoteImageFlat title={model.flippedCoin.face} url={model.flippedCoin.imageUrl} height={100} width={100} onClicked={handleFlipClick} /> */}
+                <ImageYRotator imageUrl={model.flippedCoin.imageUrl} height={100} width={100} speed={0} onClicked={handleFlipClick} />
               </Box>
               <CenterStack sx={{ minHeight: 36 }}>
                 <Box>

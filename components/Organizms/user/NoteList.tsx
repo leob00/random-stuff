@@ -44,15 +44,6 @@ const NoteList = ({
 
   return (
     <Box sx={{ py: 2 }}>
-      <ConfirmDeleteDialog
-        show={showConfirm}
-        title={'confirm delete'}
-        text={'Are you sure you want to delete this note?'}
-        onConfirm={handleYesDelete}
-        onCancel={() => {
-          setShowConfirm(false)
-        }}
-      />
       {!isFiltered && (
         <Box>
           <Box sx={{ pb: 2 }}>
@@ -65,7 +56,7 @@ const NoteList = ({
         {data.map((item, i) => (
           <Box key={i} textAlign='left'>
             <Stack sx={{ backgroundColor: theme.palette.mode === 'dark' ? DarkBlue : ChartBackground }}>
-              <Stack direction='row' py={'3px'} alignItems='center'>
+              <Stack direction='row' py={1} alignItems='center'>
                 <ListHeader
                   backgroundColor='transparent'
                   item={item}
@@ -97,6 +88,15 @@ const NoteList = ({
           </Box>
         ))}
       </Box>
+      <ConfirmDeleteDialog
+        show={showConfirm}
+        title={'confirm delete'}
+        text={'Are you sure you want to delete this note?'}
+        onConfirm={handleYesDelete}
+        onCancel={() => {
+          setShowConfirm(false)
+        }}
+      />
     </Box>
   )
 }
