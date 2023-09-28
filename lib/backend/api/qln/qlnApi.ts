@@ -90,11 +90,10 @@ export const newsTypes: DropdownItem[] = [
     text: 'Hacker News',
     value: 'HackerNews',
   },
-  /* {
-    text: 'Reuters',
-    value: 'Reuters',
-  }, */
-
+  {
+    text: 'Headlines of Today',
+    value: 'HeadlinesOfToday',
+  },
   {
     text: 'Life Hacks',
     value: 'LifeHacker',
@@ -110,6 +109,14 @@ export const newsTypes: DropdownItem[] = [
   {
     text: 'Pluralistic',
     value: 'Pluralistic',
+  },
+  {
+    text: 'Sky News',
+    value: 'SkyNews',
+  },
+  {
+    text: 'Spiegel International',
+    value: 'SpiegelInternational',
   },
   {
     text: 'Yahoo World',
