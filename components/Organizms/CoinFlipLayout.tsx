@@ -173,10 +173,10 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
     }, 3000)
   }
   React.useEffect(() => {
-    if (defaultStateIntervalRef.current) {
-      clearInterval(defaultStateIntervalRef.current)
-    }
-    if (model.defaultState && !model.isLoading) {
+    // if (defaultStateIntervalRef.current) {
+    //   clearInterval(defaultStateIntervalRef.current)
+    // }
+    if (model.isLoading) {
       defaultStateIntervalRef.current = setInterval(() => {
         const currentFace: Coin = {
           face: model.currentFace.face,
@@ -197,14 +197,14 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
             allCoins: model.allCoins,
           },
         })
-        // console.log(currentFace)
-      }, 1490)
+        console.log(currentFace)
+      }, 300)
     } else {
       if (defaultStateIntervalRef.current) {
         clearInterval(defaultStateIntervalRef.current)
       }
     }
-  }, [model.currentFace, model.isLoading])
+  }, [model.isLoading])
 
   return (
     <Container>
