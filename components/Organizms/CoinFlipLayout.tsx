@@ -208,14 +208,14 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
           },
         })
         // console.log(currentFace)
-      }, 100)
+      }, 300)
     } else {
       if (defaultStateIntervalRef.current) {
         clearInterval(defaultStateIntervalRef.current)
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [model.isLoading])
+  }, [model.isLoading, model.currentFace.face])
 
   return (
     <Container>
