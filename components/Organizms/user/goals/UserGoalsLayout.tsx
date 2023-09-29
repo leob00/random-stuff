@@ -11,6 +11,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UserGoalsDisplay from './UserGoalsDisplay'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
+import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
 
 export interface UserGoalAndTask {
   goal: UserGoal
@@ -39,30 +40,36 @@ export function reorderTasks(list: UserTask[]) {
   const merged = [...inProg, ...completed]
   return merged
 }
+const mapGoalTasks = (goals: UserGoal[], tasks: UserTask[]) => {
+  const goalsAndTasks: UserGoalAndTask[] = []
+  const goalsCopy = [...goals]
+  goalsCopy.forEach((goal) => {
+    const goalTasks = [...tasks].filter((e) => e.goalId === goal.id)
+    goal.stats = getGoalStats(goalTasks)
+
+    if (!goal.completePercent) {
+      goal.completePercent = 0
+    }
+    goalsAndTasks.push({
+      goal: goal,
+      tasks: goalTasks,
+    })
+  })
+  return goalsAndTasks
+}
 
 const UserGoalsLayout = ({ username }: { username: string }) => {
   const goalsKey = constructUserGoalsKey(username)
-  const tasksKey = `user-goal-tasks[${username}]`
-  const goalsEnc = encodeURIComponent(weakEncrypt(goalsKey))
-  const tasksEnc = encodeURIComponent(weakEncrypt(tasksKey))
-  const goalsMutateKey = ['/api/edgeGetRandomStuff', goalsEnc]
-  const taskMutateKey = ['/api/edgeGetRandomStuff', tasksEnc]
+  const goalsMutateKey = ['/api/edgeGetRandomStuff', encodeURIComponent(weakEncrypt(goalsKey))]
 
   const fetchGoalsData = async (url: string, enc: string) => {
-    const result = await getUserGoals(constructUserGoalsKey(username))
+    const goals = await getUserGoals(constructUserGoalsKey(username))
+    const tasks = await getUserTasks(username)
+    const result = mapGoalTasks(goals, tasks)
     return result
   }
-  const fetchTasksData = async (url: string, enc: string) => {
-    const result = await getUserTasks(username)
-    //console.log('tasks: ', result)
-    return result
-  }
+  const { data: goalsAndTasks, error, isLoading, isValidating } = useSWR(goalsMutateKey, ([url, enc]) => fetchGoalsData(url, enc))
 
-  const { data: goals, error } = useSWR(goalsMutateKey, ([url, enc]) => fetchGoalsData(url, enc))
-  const { data: tasks, isLoading, isValidating } = useSWR(taskMutateKey, ([url, enc]) => fetchTasksData(url, enc))
-  const handleMutated = (newGoals: UserGoal[]) => {
-    mutate(goalsMutateKey, newGoals, { revalidate: false })
-  }
   return (
     <>
       {isLoading && (
@@ -77,7 +84,7 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
         </>
       )}
       {error && <ErrorMessage text='Opps. We encountered and error. Please try refreshing the page.' />}
-      {goals && tasks && <UserGoalsDisplay goals={goals} tasks={tasks} username={username} onMutated={handleMutated} />}
+      {goalsAndTasks && <UserGoalsDisplay goalsAndTasks={goalsAndTasks} username={username} />}
     </>
   )
 }

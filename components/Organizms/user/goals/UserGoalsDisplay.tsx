@@ -19,34 +19,7 @@ import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import router from 'next/router'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 
-const mapGoalTasks = (goals: UserGoal[], tasks: UserTask[]) => {
-  const goalsAndTasks: UserGoalAndTask[] = []
-  const goalsCopy = [...goals]
-  goalsCopy.forEach((goal) => {
-    const goalTasks = [...tasks].filter((e) => e.goalId === goal.id)
-    goal.stats = getGoalStats(goalTasks)
-
-    if (!goal.completePercent) {
-      goal.completePercent = 0
-    }
-    goalsAndTasks.push({
-      goal: goal,
-      tasks: goalTasks,
-    })
-  })
-  return goalsAndTasks
-}
-const UserGoalsDisplay = ({
-  goals,
-  tasks,
-  username,
-  onMutated,
-}: {
-  goals: UserGoal[]
-  tasks: UserTask[]
-  username: string
-  onMutated: (newData: UserGoal[]) => void
-}) => {
+const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoalAndTask[]; username: string }) => {
   // recover goals
   // if (goals.length === 0 && tasks.length > 0) {
   //   const newGoals: UserGoal[] = []
@@ -64,12 +37,13 @@ const UserGoalsDisplay = ({
   const theme = useTheme()
   const redColor = theme.palette.mode === 'dark' ? RedDarkMode : CasinoRedTransparent
 
-  const goalsAndTasks = mapGoalTasks(goals, tasks)
+  //const goalsAndTasks = mapGoalTasks(goals, tasks)
   const [barChart, setBarchart] = React.useState<BarChart | undefined>(undefined)
   const [showAddGoalForm, setShowAddGoalForm] = React.useState(false)
+  const allGoals = goalsAndTasks.flatMap((m) => m.goal)
 
   const handleAddGoal = async (item: UserGoal) => {
-    let newGoals = [...goals]
+    let newGoals = goalsAndTasks.flatMap((m) => m.goal)
     if (!item.id) {
       item.id = constructUserGoalPk(username)
       item.dateCreated = getUtcNow().format()
@@ -90,6 +64,7 @@ const UserGoalsDisplay = ({
   }
 
   const handleShowCharts = async () => {
+    const tasks = goalsAndTasks.flatMap((m) => m.tasks)
     const inProg = tasks.filter((e) => e.status !== 'completed')
     const comp = tasks.filter((e) => e.status === 'completed').length
     const pastDue = inProg.filter((e) => e.dueDate !== undefined && dayjs(e.dueDate).isBefore(dayjs())).length
@@ -134,7 +109,7 @@ const UserGoalsDisplay = ({
         <>
           {!barChart && (
             <>
-              {goals.length > 0 && (
+              {allGoals.length > 0 && (
                 <Stack direction='row' pt={2} pb={1} justifyContent='left' alignItems='left'>
                   <Typography textAlign={'left'} variant='body2'>
                     Goal
@@ -146,8 +121,8 @@ const UserGoalsDisplay = ({
               )}
               <HorizontalDivider />
               <>
-                {goals.map((item, i) => (
-                  <Box key={i}>
+                {allGoals.map((item, i) => (
+                  <Box key={item.id}>
                     <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
                       <LinkButton2
                         onClick={() => {
@@ -174,7 +149,7 @@ const UserGoalsDisplay = ({
                         </>
                       </Box>
                     )}
-                    {i < goals.length - 1 && <HorizontalDivider />}
+                    {i < allGoals.length - 1 && <HorizontalDivider />}
                   </Box>
                 ))}
               </>

@@ -15,7 +15,7 @@ type headsTails = 'heads' | 'tails'
 const barChartColors = [TransparentGreen, TransparentBlue]
 const barChartLabels = ['heads', 'tails']
 
-interface Coin {
+export interface Coin {
   face: headsTails
   imageUrl: string
 }

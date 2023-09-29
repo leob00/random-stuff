@@ -1,5 +1,6 @@
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import Seo from 'components/Organizms/Seo'
@@ -30,7 +31,7 @@ const Page = () => {
       <Seo pageTitle='Goals' />
       <ResponsiveContainer>
         <PageHeader text={'Goals'} />
-        {isLoading ? <WarmupBox /> : <>{userProfile ? <UserGoalsLayout username={userProfile.username} /> : <PleaseLogin />}</>}
+        {isLoading ? <BackdropLoader /> : <>{userProfile ? <UserGoalsLayout username={userProfile.username} /> : <PleaseLogin />}</>}
       </ResponsiveContainer>
     </>
   )

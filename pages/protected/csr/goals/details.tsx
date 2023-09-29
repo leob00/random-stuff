@@ -24,9 +24,6 @@ const Page = () => {
   const username = weakDecrypt(decodeURIComponent(token))
   const tasksMutateKey = ['/api/edgeGetRandomStuff', id]
   const goalMutateKey = ['/api/edgeGetRandomStuff', token]
-  const goalsKey = constructUserGoalsKey(username)
-  const goalsEnc = encodeURIComponent(weakEncrypt(goalsKey))
-  const goalsMutateKey = ['/api/edgeGetRandomStuff', goalsEnc]
 
   const fetchGoalTasks = async (url: string, enc: string) => {
     const result = await getUserGoalTasks(goalId)
@@ -37,16 +34,14 @@ const Page = () => {
     const result = results.find((m) => m.id === goalId)
     return result
   }
-  const { data: goal, isLoading, isValidating } = useSWR(goalMutateKey, ([url, enc]) => fetchGoal(url, enc))
-  const { data: tasks } = useSWR(tasksMutateKey, ([url, enc]) => fetchGoalTasks(url, enc))
+  const { data: goal, isLoading } = useSWR(goalMutateKey, ([url, enc]) => fetchGoal(url, enc))
+  const { data: tasks, isValidating } = useSWR(tasksMutateKey, ([url, enc]) => fetchGoalTasks(url, enc))
 
   const handleMutated = async (newGoal: UserGoal, newTasks: UserTask[]) => {
     mutate(goalMutateKey, newGoal, { revalidate: false })
     mutate(tasksMutateKey, newTasks, { revalidate: false })
   }
   const handleDeleted = async (deletedGoal: UserGoal) => {
-    const goals = await getUserGoals(constructUserGoalsKey(username))
-    mutate(goalsMutateKey, goals, { revalidate: false })
     mutate(tasksMutateKey, [], { revalidate: false })
   }
 
