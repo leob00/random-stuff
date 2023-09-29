@@ -4,7 +4,7 @@ import CenterStack from '../CenterStack'
 import RemoteImageFlat from '../RemoteImageFlat'
 
 const StyledSpinner = styled.div`
-  animation: rotation ${(props) => props.className || '0s'}s linear infinite;
+  animation: rotation ${(props) => props.className || '0s'}s alternate infinite;
   @keyframes rotation {
     from {
       transform: rotateY(0deg);

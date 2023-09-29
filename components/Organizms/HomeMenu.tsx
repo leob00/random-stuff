@@ -69,7 +69,7 @@ const HomeMenu = () => {
             </CenterStack>
             <HorizontalDivider />
             <CenterStack sx={{ py: 2 }}>
-              <NavigationButton route={'/ssg/coinflip'} text={'flip a coin'} />
+              <NavigationButton route={'/ssg/coin-flip'} text={'flip a coin'} />
               <Typography>|</Typography>
               <NavigationButton route={'/ssg/roulette'} text={'spin wheel'} />
             </CenterStack>

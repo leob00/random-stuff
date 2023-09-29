@@ -52,7 +52,14 @@ function reducer(state: Model, action: ActionType): Model {
     case 'default':
       return { ...state, defaultState: true, currentFace: action.payload.currentFace, isLoading: false, flippedCoin: undefined }
     case 'toss':
-      return { ...state, allCoins: action.payload.allCoins, isLoading: true, flippedCoin: undefined, defaultState: false, currentFace: state.currentFace }
+      return {
+        ...state,
+        allCoins: action.payload.allCoins,
+        isLoading: true,
+        flippedCoin: undefined,
+        defaultState: false,
+        currentFace: action.payload.currentFace,
+      }
     case 'flipped':
       let currentState = { ...state }
       if (currentState.runningChart && currentState.coinflipStats) {
@@ -132,6 +139,7 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
         currentFace: shuffled[0],
         allCoins: shuffled,
         flippedCoin: undefined,
+        isLoading: true,
       },
     })
     const iterations = getRandomInteger(100, 150)
@@ -172,10 +180,12 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
       postFn()
     }, 3000)
   }
+
   React.useEffect(() => {
-    // if (defaultStateIntervalRef.current) {
-    //   clearInterval(defaultStateIntervalRef.current)
-    // }
+    // console.log('isLoading: ', model.isLoading)
+    if (defaultStateIntervalRef.current) {
+      clearInterval(defaultStateIntervalRef.current)
+    }
     if (model.isLoading) {
       defaultStateIntervalRef.current = setInterval(() => {
         const currentFace: Coin = {
@@ -191,14 +201,14 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
         }
 
         dispatch({
-          type: 'default',
+          type: 'toss',
           payload: {
             currentFace: currentFace,
             allCoins: model.allCoins,
           },
         })
-        console.log(currentFace)
-      }, 300)
+        // console.log(currentFace)
+      }, 100)
     } else {
       if (defaultStateIntervalRef.current) {
         clearInterval(defaultStateIntervalRef.current)
@@ -223,22 +233,19 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
         <Box>
           {model.defaultState && (
             <Box sx={{ cursor: 'pointer' }}>
-              {/* <RemoteImageFlat title={model.allCoins[0].face} url={model.allCoins[0].imageUrl} height={100} width={100} onClicked={handleFlipClick} /> */}
-              <ImageYRotator imageUrl={model.currentFace.imageUrl} height={100} width={100} speed={3} onClicked={handleFlipClick} />
+              <ImageYRotator imageUrl={model.currentFace.imageUrl} height={100} width={100} speed={6} onClicked={handleFlipClick} />
             </Box>
           )}
           {model.isLoading && (
             <>
-              {/* <RemoteImageFlat title={model.allCoins[0].face} url={model.allCoins[0].imageUrl} height={100} width={100} className='rotate' /> */}
-              <Box sx={{ cursor: 'pointer' }}>
-                <ImageYRotator imageUrl={model.allCoins[0].imageUrl} height={100} width={100} speed={1.2} />
+              <Box>
+                <ImageYRotator imageUrl={model.currentFace.imageUrl} height={100} width={100} speed={1} />
               </Box>
             </>
           )}
           {model.flippedCoin && (
             <>
-              <Box sx={{ cursor: 'pointer' }}>
-                {/* <RemoteImageFlat title={model.flippedCoin.face} url={model.flippedCoin.imageUrl} height={100} width={100} onClicked={handleFlipClick} /> */}
+              <Box sx={{ cursor: 'pointer !important' }}>
                 <ImageYRotator imageUrl={model.flippedCoin.imageUrl} height={100} width={100} speed={0} onClicked={handleFlipClick} />
               </Box>
               <CenterStack sx={{ minHeight: 36 }}>

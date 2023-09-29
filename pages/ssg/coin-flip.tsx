@@ -15,7 +15,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-const CoinFlip: NextPage<{ coinflipStats: CoinFlipStats }> = ({ coinflipStats }) => {
+const Page: NextPage<{ coinflipStats: CoinFlipStats }> = ({ coinflipStats }) => {
   return (
     <>
       <Seo pageTitle='Coin Flip' />
@@ -25,4 +25,4 @@ const CoinFlip: NextPage<{ coinflipStats: CoinFlipStats }> = ({ coinflipStats })
   )
 }
 
-export default CoinFlip
+export default Page
