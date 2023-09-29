@@ -50,12 +50,12 @@ export const newsTypes: DropdownItem[] = [
     value: 'AbcInternational',
   },
   {
-    text: 'BBC World',
-    value: 'BbcWorld',
-  },
-  {
     text: 'BBC Business',
     value: 'BbcBusiness',
+  },
+  {
+    text: 'BBC World',
+    value: 'BbcWorld',
   },
   {
     text: 'CNBC',
@@ -103,13 +103,14 @@ export const newsTypes: DropdownItem[] = [
     value: 'NPR',
   },
   {
-    text: 'Podcast: The Daily',
-    value: 'TheDaily',
-  },
-  {
     text: 'Pluralistic',
     value: 'Pluralistic',
   },
+  {
+    text: 'Podcast: The Daily',
+    value: 'TheDaily',
+  },
+
   {
     text: 'Sky News',
     value: 'SkyNews',
@@ -119,12 +120,12 @@ export const newsTypes: DropdownItem[] = [
     value: 'SpiegelInternational',
   },
   {
-    text: 'Yahoo World',
-    value: 'YahooWorld',
-  },
-  {
     text: 'Yahoo Science',
     value: 'YahooScience',
+  },
+  {
+    text: 'Yahoo World',
+    value: 'YahooWorld',
   },
 ]
 

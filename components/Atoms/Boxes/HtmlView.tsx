@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { useMediaQuery, Typography, useTheme } from '@mui/material'
 import { CasinoBlue, CasinoRed, DarkBlue, VeryLightBlue } from 'components/themes/mainTheme'
-const HtmlView = ({ html }: { html: string }) => {
+const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'left' | 'center' | 'right' }) => {
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const currTheme = useTheme()
@@ -27,7 +27,7 @@ const HtmlView = ({ html }: { html: string }) => {
       {html ? (
         <StyledBox
           display={'flex'}
-          textAlign={'center'}
+          textAlign={textAlign}
           justifyContent={'center'}
           sx={{
             borderRadius: '16px',

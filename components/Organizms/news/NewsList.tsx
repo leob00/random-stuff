@@ -28,6 +28,7 @@ const NewsList = ({
 }) => {
   const userController = useUserController()
   const handleSaved = async (note: UserNote) => {}
+
   const RenderDescription = (item: NewsItem) => {
     switch (item.Source! as NewsTypeIds) {
       case 'Pluralistic':
@@ -50,7 +51,7 @@ const NewsList = ({
 
     return (
       <Box pt={1} width={{ xs: 360, sm: 'unset' }}>
-        <HtmlView html={item.Description ?? ''} />
+        <HtmlView html={item.Description ?? ''} textAlign={item.Source!.includes('Google') ? 'left' : 'center'} />
       </Box>
     )
   }
