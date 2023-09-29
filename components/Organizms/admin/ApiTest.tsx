@@ -1,4 +1,5 @@
 import { Box } from '@mui/material'
+import JsonView from 'components/Atoms/Boxes/JsonView'
 import CenterStack from 'components/Atoms/CenterStack'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
@@ -25,7 +26,7 @@ const apiOptions: DropdownItem[] = [
   },
   {
     text: 'news',
-    value: '/api/news?id=GoogleTopStories',
+    value: '/api/news?id=LifeHacker',
   },
   {
     text: 'recipes',
@@ -73,9 +74,7 @@ const ApiTest = () => {
       </CenterStack>
       {isLoading && <BackdropLoader />}
       <CenterStack sx={{ py: 4 }}>
-        <Box maxHeight={300} sx={{ overflowY: 'auto' }}>
-          <pre>{jsonResult}</pre>
-        </Box>
+        <JsonView obj={jsonResult} />
       </CenterStack>
     </Box>
   )

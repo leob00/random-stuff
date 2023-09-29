@@ -74,7 +74,7 @@ const NewsList = ({
             <Box minHeight={100}>
               {RenderHeadline(item)}
               {RenderDescription(item)}
-              {item.TeaserImageUrl && item.TeaserImageUrl.length > 0 && (
+              {item.TeaserImageUrl !== undefined && item.TeaserImageUrl.length > 0 && (
                 <Box pt={1} maxWidth={350} display={'flex'} sx={{ margin: 'auto' }} px={2} justifyContent={'center'} textAlign={'center'}>
                   <img src={item.TeaserImageUrl} title='' width={300} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
                 </Box>

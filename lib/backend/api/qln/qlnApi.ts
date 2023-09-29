@@ -95,7 +95,7 @@ export const newsTypes: DropdownItem[] = [
     value: 'HeadlinesOfToday',
   },
   {
-    text: 'Life Hacks',
+    text: 'Life Hacker',
     value: 'LifeHacker',
   },
   {

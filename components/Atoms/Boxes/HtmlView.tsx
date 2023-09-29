@@ -12,7 +12,7 @@ const HtmlView = ({ html }: { html: string }) => {
 
   const StyledBox = styled(Typography)(() => ({
     img: {
-      width: isXSmall ? 280 : 'unset',
+      width: isXSmall ? 280 : 600,
       borderRadius: '16px',
       marginTop: 1,
       //margin: 'auto',
@@ -26,7 +26,8 @@ const HtmlView = ({ html }: { html: string }) => {
     <>
       {html ? (
         <StyledBox
-          //display={'flex'}
+          display={'flex'}
+          textAlign={'center'}
           justifyContent={'center'}
           sx={{
             borderRadius: '16px',
