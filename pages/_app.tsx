@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     sessionSettings.savePalette(colorMode)
     setColorMode(sessionSettings.palette)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionSettings.palette, colorMode])
 
   const handleChangeColorMode = () => {

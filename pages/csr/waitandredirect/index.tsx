@@ -12,6 +12,7 @@ const Page = () => {
     //const { id } = router.query
     //console.log('id: ' + id)
     router.push(`/${id}`)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

@@ -62,6 +62,7 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
       setIsValidating(false)
     }
     fn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [validatedClaim])
 
   const RenderChallenge = () => {

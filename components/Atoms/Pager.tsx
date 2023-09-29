@@ -72,6 +72,7 @@ const Pager = ({
     setPageIndex(defaultPageIndex)
     const newMessage = getDisplayMessage(defaultPageIndex, pageCount)
     setDisplayMessage(newMessage)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageCount, defaultPageIndex, totalItemCount, displayMessage])
   return (
     <>

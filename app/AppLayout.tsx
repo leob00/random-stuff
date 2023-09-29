@@ -25,6 +25,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     sessionSettings.savePalette(colorMode)
     setColorMode(sessionSettings.palette)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionSettings.palette, colorMode])
 
   const handleChangeColorMode = () => {

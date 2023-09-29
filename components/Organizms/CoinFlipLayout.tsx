@@ -204,6 +204,7 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
         clearInterval(defaultStateIntervalRef.current)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [model.isLoading])
 
   return (

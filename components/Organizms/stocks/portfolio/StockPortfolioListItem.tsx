@@ -93,6 +93,7 @@ const StockPortfolioListItem = ({
     if (showMore) {
       loadData()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showMore])
   return (
     <Box key={portfolio.id}>
