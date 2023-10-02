@@ -29,7 +29,7 @@ const NewsList = ({
 }) => {
   const userController = useUserController()
   const handleSaved = async (note: UserNote) => {}
-
+  //console.log(newsItems)
   const RenderHeadline = (item: NewsItem) => {
     if (!item.Headline) {
       return <></>
@@ -42,6 +42,20 @@ const NewsList = ({
       </Box>
     )
   }
+
+  const getThumbnailSize = (source?: string) => {
+    if (!source) {
+      return 300
+    }
+    const s = source as NewsTypeIds
+    switch (s) {
+      case 'CBSWorld':
+        return 80
+      default:
+        return 300
+    }
+  }
+
   return (
     <>
       {newsItems.length > 0 ? (
@@ -52,7 +66,7 @@ const NewsList = ({
               <NewsDescription item={item} />
               {item.TeaserImageUrl !== undefined && item.TeaserImageUrl.length > 0 && (
                 <Box pt={1} maxWidth={350} display={'flex'} sx={{ margin: 'auto' }} px={2} justifyContent={'center'} textAlign={'center'}>
-                  <img src={item.TeaserImageUrl} title='' width={300} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
+                  <img src={item.TeaserImageUrl} title='' width={getThumbnailSize(item.Source)} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
                 </Box>
               )}
               {showPublishDate && item.PublishDate && (

@@ -48,6 +48,8 @@ export type NewsTypeIds =
   | 'NPR'
   | 'SkyNews'
   | 'SpiegelInternational'
+  | 'CBSWorld'
+  | 'France24'
 
 export const newsTypes: DropdownItem[] = [
   {
@@ -63,8 +65,16 @@ export const newsTypes: DropdownItem[] = [
     value: 'BbcWorld',
   },
   {
+    text: 'CBS World',
+    value: 'CBSWorld',
+  },
+  {
     text: 'CNBC',
     value: 'CNBC',
+  },
+  {
+    text: 'France 24',
+    value: 'France24',
   },
   {
     text: 'Google Business',
