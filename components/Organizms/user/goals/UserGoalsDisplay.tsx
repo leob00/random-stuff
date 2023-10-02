@@ -126,8 +126,11 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
                 {allGoals.map((item, i) => (
                   <Box key={item.id}>
                     <ListItemContainer>
-                      <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
-                        <ListHeader text={item.body!} item={item} onClicked={handleShowEditGoal} />
+                      <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left' pl={2} pt={1}>
+                        {/* <ListHeader text={item.body!} item={item} onClicked={handleShowEditGoal} /> */}
+                        <LinkButton2 onClick={() => handleShowEditGoal(item)}>
+                          <Typography>{item.body}</Typography>
+                        </LinkButton2>
 
                         {item.completePercent !== undefined && (
                           <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'} pr={2}>
