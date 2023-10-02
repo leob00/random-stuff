@@ -28,8 +28,8 @@ const Page = () => {
   }
 
   const [selectedTab, setSelectedTab] = React.useState(tab ?? 'Stocks')
-  const userController = useUserController()
   const [loading, setLoading] = React.useState(true)
+  const { authProfile, fetchProfilePassive, setProfile } = useUserController()
 
   const handleSelectTab = (tab: TabInfo) => {
     setSelectedTab(tab.title)
@@ -57,12 +57,12 @@ const Page = () => {
     let isLoaded = false
     if (!isLoaded) {
       const fn = async () => {
-        if (userController.authProfile === null || !userController.authProfile) {
-          const p = await userController.fetchProfilePassive(900)
+        if (!authProfile) {
+          const p = await fetchProfilePassive(900)
           if (!p) {
             console.log('unable to load profile')
           }
-          userController.setProfile(p)
+          await setProfile(p)
         }
         setLoading(false)
       }
@@ -72,7 +72,7 @@ const Page = () => {
       isLoaded = true
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userController.authProfile?.username])
+  }, [authProfile?.username])
 
   return (
     <>
@@ -90,9 +90,9 @@ const Page = () => {
           <>
             {selectedTab === 'Stocks' && (
               <>
-                {userController.authProfile !== null ? (
+                {authProfile ? (
                   <RequireClaim claimType={'rs'}>
-                    <StocksLayout userProfile={userController.authProfile} />
+                    <StocksLayout userProfile={authProfile} />
                   </RequireClaim>
                 ) : (
                   <></>

@@ -25,6 +25,7 @@ import CenterStack from 'components/Atoms/CenterStack'
 import Warning from '@mui/icons-material/Warning'
 import GoalStats from './GoalStats'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 
 const SingleGoalDisplay = ({
   username,

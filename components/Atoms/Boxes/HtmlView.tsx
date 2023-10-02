@@ -5,7 +5,6 @@ import { CasinoBlue, CasinoRed, DarkBlue, VeryLightBlue } from 'components/theme
 const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'left' | 'center' | 'right' }) => {
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
-  const currTheme = useTheme()
   const darkColor = theme.palette.mode === 'dark' ? VeryLightBlue : DarkBlue
   const color = theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlue
   const text = html.replaceAll('font color="#6f6f6f"', `font color="${darkColor}"`)
@@ -22,13 +21,15 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
     a: { color: color },
     p: { color: color, fontSize: 20, fontWeight: 600 },
   }))
+
   return (
     <>
       {html ? (
         <StyledBox
           display={'flex'}
           textAlign={textAlign}
-          justifyContent={'center'}
+          justifyContent={textAlign}
+          justifyItems={textAlign}
           sx={{
             borderRadius: '16px',
             padding: 2,

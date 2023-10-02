@@ -6,6 +6,7 @@ import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
+import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import { DarkBlue, ChartBackground } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
@@ -55,7 +56,7 @@ const NoteList = ({
       <Box>
         {data.map((item, i) => (
           <Box key={i} textAlign='left'>
-            <Stack sx={{ backgroundColor: theme.palette.mode === 'dark' ? DarkBlue : ChartBackground }}>
+            <ListItemContainer>
               <Stack direction='row' py={1} alignItems='center'>
                 <ListHeader
                   backgroundColor='transparent'
@@ -83,7 +84,7 @@ const NoteList = ({
                   </Button>
                 </Stack>
               </Stack>
-            </Stack>
+            </ListItemContainer>
             {i < data.length - 1 && <HorizontalDivider />}
           </Box>
         ))}

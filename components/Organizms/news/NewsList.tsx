@@ -15,6 +15,7 @@ import { UserNote } from 'lib/models/randomStuffModels'
 import { getUtcNow } from 'lib/util/dateUtil'
 import React from 'react'
 import { mutate } from 'swr'
+import NewsDescription from './NewsDescription'
 dayjs.extend(relativeTime)
 
 const NewsList = ({
@@ -29,32 +30,6 @@ const NewsList = ({
   const userController = useUserController()
   const handleSaved = async (note: UserNote) => {}
 
-  const RenderDescription = (item: NewsItem) => {
-    switch (item.Source! as NewsTypeIds) {
-      case 'Pluralistic':
-      case 'HackerNews': {
-        return <></>
-      }
-      case 'BbcBusiness':
-      case 'BbcWorld': {
-        return (
-          <>
-            {item.Description && item.Description.length > 2 && (
-              <Box pt={1} width={{ xs: 360, sm: 'unset' }} textAlign={'center'}>
-                <HtmlView html={item.Description} />
-              </Box>
-            )}
-          </>
-        )
-      }
-    }
-
-    return (
-      <Box pt={1} width={{ xs: 360, sm: 'unset' }}>
-        <HtmlView html={item.Description ?? ''} textAlign={item.Source!.includes('Google') ? 'left' : 'center'} />
-      </Box>
-    )
-  }
   const RenderHeadline = (item: NewsItem) => {
     if (!item.Headline) {
       return <></>
@@ -74,7 +49,7 @@ const NewsList = ({
           <Box key={`${item.Headline}${item.PublishDate}`} pb={2}>
             <Box minHeight={100}>
               {RenderHeadline(item)}
-              {RenderDescription(item)}
+              <NewsDescription item={item} />
               {item.TeaserImageUrl !== undefined && item.TeaserImageUrl.length > 0 && (
                 <Box pt={1} maxWidth={350} display={'flex'} sx={{ margin: 'auto' }} px={2} justifyContent={'center'} textAlign={'center'}>
                   <img src={item.TeaserImageUrl} title='' width={300} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />

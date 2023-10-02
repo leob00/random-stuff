@@ -43,6 +43,11 @@ export type NewsTypeIds =
   | 'TheDaily'
   | 'LifeHacker'
   | 'Pluralistic'
+  | 'AbcInternational'
+  | 'HeadlinesOfToday'
+  | 'NPR'
+  | 'SkyNews'
+  | 'SpiegelInternational'
 
 export const newsTypes: DropdownItem[] = [
   {
