@@ -50,12 +50,17 @@ export type NewsTypeIds =
   | 'SpiegelInternational'
   | 'CBSWorld'
   | 'France24'
+  | 'CanadaGlobalNews'
+  | 'WashingtonTimes'
+  | 'WashingtonPost'
+  | 'DailyTelegraph'
 
 export const newsTypes: DropdownItem[] = [
   {
     text: 'ABC International',
     value: 'AbcInternational',
   },
+
   {
     text: 'BBC Business',
     value: 'BbcBusiness',
@@ -71,6 +76,14 @@ export const newsTypes: DropdownItem[] = [
   {
     text: 'CNBC',
     value: 'CNBC',
+  },
+  {
+    text: 'Canada Global News',
+    value: 'CanadaGlobalNews',
+  },
+  {
+    text: 'Daily Telegraph',
+    value: 'DailyTelegraph',
   },
   {
     text: 'France 24',
@@ -125,6 +138,10 @@ export const newsTypes: DropdownItem[] = [
     text: 'Podcast: The Daily',
     value: 'TheDaily',
   },
+  {
+    text: 'Raw Story',
+    value: 'RawStory',
+  },
 
   {
     text: 'Sky News',
@@ -133,6 +150,14 @@ export const newsTypes: DropdownItem[] = [
   {
     text: 'Spiegel International',
     value: 'SpiegelInternational',
+  },
+  {
+    text: 'Washington Post',
+    value: 'WashingtonPost',
+  },
+  {
+    text: 'Washington Times',
+    value: 'WashingtonTimes',
   },
   {
     text: 'Yahoo Science',
