@@ -18,15 +18,7 @@ import { mutate } from 'swr'
 import NewsDescription from './NewsDescription'
 dayjs.extend(relativeTime)
 
-const NewsList = ({
-  newsItems,
-  hideSaveButton = false,
-  showPublishDate = false,
-}: {
-  newsItems: NewsItem[]
-  hideSaveButton?: boolean
-  showPublishDate?: boolean
-}) => {
+const NewsList = ({ newsItems, hideSaveButton = false, showPublishDate = false }: { newsItems: NewsItem[]; hideSaveButton?: boolean; showPublishDate?: boolean }) => {
   const userController = useUserController()
   const handleSaved = async (note: UserNote) => {}
   //console.log(newsItems)
@@ -64,7 +56,7 @@ const NewsList = ({
             <Box minHeight={100}>
               {RenderHeadline(item)}
               <NewsDescription item={item} />
-              {item.TeaserImageUrl !== undefined && item.TeaserImageUrl.length > 0 && (
+              {item.TeaserImageUrl !== undefined && item.TeaserImageUrl.length > 0 && !item.Description!.includes('img') && (
                 <Box pt={1} maxWidth={350} display={'flex'} sx={{ margin: 'auto' }} px={2} justifyContent={'center'} textAlign={'center'}>
                   <img src={item.TeaserImageUrl} title='' width={getThumbnailSize(item.Source)} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
                 </Box>

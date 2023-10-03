@@ -20,6 +20,7 @@ import router from 'next/router'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
+import OverdueTasks from './OverdueTasks'
 
 const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoalAndTask[]; username: string }) => {
   // recover goals
@@ -87,6 +88,7 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
       <Box py={2}>
         {barChart ? (
           <>
+            <OverdueTasks goalsAndTasks={goalsAndTasks} username={username} />
             <GoalCharts barChart={barChart} handleCloseCharts={handleCloseCharts} goalTasks={goalsAndTasks} />
           </>
         ) : (

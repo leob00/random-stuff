@@ -1,6 +1,7 @@
 import { Box, Stack, Switch, Typography, useTheme } from '@mui/material'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import { CasinoRedTransparent, RedDarkMode } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
@@ -30,6 +31,12 @@ const TaskItem = ({
     newTask.status = checked ? 'completed' : newTask.status
     handleCompleteTaskClick(checked, newTask)
   }
+  const handleCheckTask = (checked: boolean) => {
+    setIsCompleted(checked)
+    const newTask = { ...task }
+    newTask.status = checked ? 'completed' : newTask.status
+    handleCompleteTaskClick(checked, newTask)
+  }
 
   return (
     <>
@@ -46,7 +53,8 @@ const TaskItem = ({
               </Typography>
             </LinkButton2>
             <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-              <Switch checked={isCompleted} onChange={handleChecked} />
+              <SecondaryCheckbox checked={isCompleted} onChanged={handleCheckTask} />
+              {/* <Switch checked={isCompleted} onChange={handleChecked} /> */}
             </Stack>
           </Stack>
           {task.dueDate && (

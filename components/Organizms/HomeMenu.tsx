@@ -32,49 +32,32 @@ const HomeMenu = () => {
         sx={{
           mt: 4,
           borderTopWidth: 3,
-        }}
-      >
-        <Container>
-          <CenteredHeader title={'Welcome to random stuff'} description={'You came to the right place to view random things. Enjoy!'} />
-          <Box>
-            <Box py={2}>
+        }}>
+        <CenteredHeader title={'Welcome to random stuff'} description={'You came to the right place to view random things. Enjoy!'} />
+        <Box pb={8}>
+          <Box py={2}>
+            <Paper>
               <CenteredNavigationButton route={'/csr/news'} text={'news'} />
               <CenteredNavigationButton route={'/ssg/recipes'} text={'recipes'} />
-              <CenteredTitle title='Stocks' />
-              <CenterStack sx={{ pt: 2, gap: 2 }}>
-                <NavigationButton route={'/csr/stocks'} text={'my list'} />
-                <NavigationButton route={'/csr/stocks/stock-porfolios'} text={'portfolio'} />
-              </CenterStack>
-              <CenteredNavigationButton route={'/ssg/community-stocks'} text={'community'} showDivider={false} />
-              <HorizontalDivider />
+              <CenteredNavigationButton route={'/csr/stocks'} text={'stocks'} />
+              <CenteredNavigationButton route={'/ssg/community-stocks'} text={'community stocks'} />
+              <CenteredNavigationButton route={'/csr/stocks/stock-porfolios'} text={'stock portfolios'} />
               {ticket && (
                 <>
-                  <CenterStack sx={{ py: 2 }}>
-                    <NavigationButton route={'/protected/csr/goals'} text={'goals'} />
-                    <Typography>|</Typography>
-                    <NavigationButton route={'/protected/csr/notes'} text={'notes'} />
-                  </CenterStack>
-                  <HorizontalDivider />
-
+                  <CenteredNavigationButton route={'/protected/csr/goals'} text={'goals'} />
+                  <CenteredNavigationButton route={'/protected/csr/notes'} text={'notes'} />
                   <CenteredNavigationButton route={'/protected/csr/dashboard'} text={'dashboard'} />
                   <CenteredNavigationButton route={'/protected/csr/secrets'} text={'secrets'} />
                   {isAdmin && <CenteredNavigationButton route={'/protected/csr/admin'} text={'admin'} />}
                 </>
               )}
-            </Box>
-            <CenterStack sx={{ py: 2 }}>
-              <NavigationButton route={'/ssg/randomdogs'} text={'dogs'} />
-              <Typography>|</Typography>
-              <NavigationButton route={'/ssg/randomcats'} text={'cats'} />
-            </CenterStack>
-            <HorizontalDivider />
-            <CenterStack sx={{ py: 2 }}>
-              <NavigationButton route={'/ssg/coin-flip'} text={'flip a coin'} />
-              <Typography>|</Typography>
-              <NavigationButton route={'/ssg/roulette'} text={'spin wheel'} />
-            </CenterStack>
+              <CenteredNavigationButton route={'/ssg/coin-flip'} text={'coin flip'} />
+              <CenteredNavigationButton route={'/ssg/roulette'} text={'roulette'} />
+              <CenteredNavigationButton route={'/ssg/randomdogs'} text={'dogs'} />
+              <CenteredNavigationButton route={'/ssg/randomcats'} text={'cats'} />
+            </Paper>
           </Box>
-        </Container>
+        </Box>
       </Box>
     </Box>
   )
