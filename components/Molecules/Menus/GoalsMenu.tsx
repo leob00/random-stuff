@@ -19,11 +19,9 @@ const GoalsMenu = ({ onShowCharts }: { onShowCharts: () => void }) => {
           <ListItemText primary='summary'></ListItemText>
         </>
       ),
-
       fn: handleShowCharts,
     },
   ]
-
   return <ContextMenu items={contextMenu} />
 }
 

@@ -35,7 +35,6 @@ const NewsLayout = () => {
     } catch (err) {
       console.log('error in news api: ', err)
     }
-    //console.log(`retrieved ${sorted.length} ${id} results`)
     return sorted
   }
 

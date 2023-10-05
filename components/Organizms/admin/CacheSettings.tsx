@@ -1,7 +1,8 @@
-import { Box, Typography } from '@mui/material'
+import { Alert, Box, Typography } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import CopyableText from 'components/Atoms/Text/CopyableText'
+import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import { getCacheStats, resetStockCache } from 'lib/backend/api/qln/qlnApi'
@@ -23,7 +24,6 @@ const CacheSettings = ({ claim }: { claim: Claim }) => {
   const mutateKey = ['/api/baseRoute', claim.token]
   const fetchData = async (url: string, id: string) => {
     const response = await getCacheStats(claim.token)
-
     return response.Body as CacheStats
   }
   const { data, isValidating, error } = useSWR(mutateKey, ([url, id]) => fetchData(url, claim.token))
@@ -37,6 +37,7 @@ const CacheSettings = ({ claim }: { claim: Claim }) => {
   return (
     <>
       {isValidating && <BackdropLoader />}
+      {error && <ErrorMessage text={'An error occurred while retrieving data.'} />}
       {data && (
         <Box>
           <Typography variant='h5' pb={2}>{`Web Server Settings`}</Typography>

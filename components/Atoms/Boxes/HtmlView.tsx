@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { useMediaQuery, Typography, useTheme } from '@mui/material'
-import { CasinoBlue, CasinoRed, DarkBlue, VeryLightBlue } from 'components/themes/mainTheme'
+import { useMediaQuery, Box, useTheme } from '@mui/material'
+import { CasinoBlue, DarkBlue, VeryLightBlue } from 'components/themes/mainTheme'
 const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'left' | 'center' | 'right' }) => {
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
@@ -9,12 +9,12 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
   const color = theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlue
   const text = html.replaceAll('font color="#6f6f6f"', `font color="${darkColor}"`)
 
-  const StyledBox = styled(Typography)(() => ({
+  const StyledBox = styled(Box)(() => ({
     img: {
       width: isXSmall ? 280 : 600,
       borderRadius: '16px',
       marginTop: 1,
-      //margin: 'auto',
+      margin: 'auto',
     },
     //div: { backgroundColor: 'unset' },
     font: color,
@@ -35,15 +35,14 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
             padding: 2,
             maxWidth: { xs: '95%', md: '98%' },
             display: 'inline-block',
-            wordWrap: 'break-word',
+            // wordWrap: 'break-word',
             color: color,
             fontWeight: 500,
             //backgroundColor: 'white',
           }}
-          variant='body1'
+          //variant='body1'
           color='primary'
-          dangerouslySetInnerHTML={{ __html: text }}
-        ></StyledBox>
+          dangerouslySetInnerHTML={{ __html: text }}></StyledBox>
       ) : (
         <></>
       )}

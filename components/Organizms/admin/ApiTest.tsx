@@ -36,6 +36,10 @@ const apiOptions: DropdownItem[] = [
     text: 'user stock lists',
     value: '/api/searchRandomStuff',
   },
+  {
+    text: 'upload',
+    value: '/api/upload',
+  },
 ]
 
 const ApiTest = () => {

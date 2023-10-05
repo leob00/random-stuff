@@ -3,7 +3,6 @@ import type { AppProps } from 'next/app'
 import { ThemeProvider } from '@emotion/react'
 import { CssBaseline } from '@mui/material'
 import Layout from 'components/Layout'
-import awsconfig from '../src/aws-exports'
 import { Amplify } from 'aws-amplify'
 import { useEffect } from 'react'
 import Header from 'components/Header'
@@ -11,6 +10,8 @@ import darkTheme from 'components/themes/darkTheme'
 import theme from 'components/themes/mainTheme'
 import React from 'react'
 import { useSessionSettings } from 'components/Organizms/session/useSessionSettings'
+import awsconfig from '../src/aws-exports'
+
 Amplify.configure({ ...awsconfig, ssr: true })
 const getTheme = (mode: 'light' | 'dark') => {
   return mode === 'dark' ? darkTheme : theme

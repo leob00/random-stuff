@@ -4,17 +4,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { TextField } from '@mui/material'
 import dayjs from 'dayjs'
-const DateAndTimePicker = ({
-  defaultValue,
-  label,
-  onChanged,
-  disabled = false,
-}: {
-  defaultValue?: string
-  label: string
-  onChanged: (value?: string) => void
-  disabled?: boolean
-}) => {
+const DateAndTimePicker = ({ defaultValue, label, onChanged, disabled = false }: { defaultValue?: string; label: string; onChanged: (value?: string) => void; disabled?: boolean }) => {
   const [value, setValue] = React.useState<dayjs.Dayjs | undefined | null>(defaultValue !== undefined ? dayjs(defaultValue) : null)
   const handleChange = (val?: string | null, keyboardInputValue?: string | undefined) => {
     const dt = val ?? keyboardInputValue
@@ -37,14 +27,7 @@ const DateAndTimePicker = ({
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DateTimePicker
-        disabled={disabled}
-        key={label}
-        renderInput={(props) => <TextField autoComplete={'off'} size='small' {...props} />}
-        label={label}
-        value={value ?? null}
-        onChange={handleChange}
-      />
+      <DateTimePicker value={value ?? null} disabled={disabled} key={label} renderInput={(props) => <TextField autoComplete={'off'} size='small' {...props} />} label={label} onChange={handleChange} />
     </LocalizationProvider>
   )
 }

@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Paper } from '@mui/material'
 import { range } from 'lodash'
 import React from 'react'
 import HorizontalDivider from '../Dividers/HorizontalDivider'
@@ -10,8 +10,7 @@ const LargeGridSkeleton = ({ rowCount = 5 }: { rowCount?: number }) => {
     <>
       {r.map((item, i) => (
         <Box key={i}>
-          <BoxSkeleton height={100} />
-          <HorizontalDivider />
+          <BoxSkeleton height={80} />
         </Box>
       ))}
       {/* // <BoxSkeleton height={100} />

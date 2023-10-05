@@ -10,17 +10,12 @@ import React from 'react'
 import GoalsBarChartByStatus from './GoalBarChartByCompleted'
 import { UserGoalAndTask } from './UserGoalsLayout'
 
-const GoalCharts = ({ barChart, goalTasks, handleCloseCharts }: { barChart: BarChart; goalTasks: UserGoalAndTask[]; handleCloseCharts: () => void }) => {
+const GoalCharts = ({ barChart, goalTasks }: { barChart: BarChart; goalTasks: UserGoalAndTask[] }) => {
   const theme = useTheme()
   return (
     <>
       <Box py={2}>
-        <Stack display={'flex'} direction={'row'} justifyContent={'flex-end'}>
-          <Button onClick={handleCloseCharts}>
-            <Close />
-          </Button>
-        </Stack>
-        <CenteredTitle title={`Goals by Progress`} />
+        <CenteredTitle title={`Goal Completion`} />
         <Box pb={2} minHeight={200}>
           <Grid container spacing={1} justifyContent={'center'} alignItems={'flex-end'}>
             <Grid item xs={12} md={8}>

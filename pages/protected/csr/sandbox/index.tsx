@@ -14,6 +14,7 @@ import { LambdaDynamoRequestBatch } from 'lib/backend/api/aws/apiGateway'
 import { getExpirateDateFromSeconds, getSecondsFromEpoch } from 'lib/util/dateUtil'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import { post } from 'lib/backend/api/fetchFunctions'
+import FileUploadForm from 'components/Molecules/Forms/FileUploadForm'
 import PostBatch from 'components/Organizms/sandbox/PostBatch'
 
 const Page = () => {
@@ -52,7 +53,11 @@ const Page = () => {
               <QlnUsernameLoginForm onSuccess={handleLoginSuccess} />
             </Box>
           )}
-          {selectedTab === 'Tab 3' && <Box>tab 3</Box>}
+          {selectedTab === 'Tab 3' && (
+            <Box>
+              <FileUploadForm />
+            </Box>
+          )}
         </Box>
       </ResponsiveContainer>
     </>

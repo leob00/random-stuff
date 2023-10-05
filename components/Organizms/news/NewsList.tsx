@@ -43,6 +43,8 @@ const NewsList = ({ newsItems, hideSaveButton = false, showPublishDate = false }
     switch (s) {
       case 'CBSWorld':
         return 80
+      case 'SkyNews':
+        return 120
       default:
         return 300
     }
@@ -57,9 +59,11 @@ const NewsList = ({ newsItems, hideSaveButton = false, showPublishDate = false }
               {RenderHeadline(item)}
               <NewsDescription item={item} />
               {item.TeaserImageUrl !== undefined && item.TeaserImageUrl.length > 0 && !item.Description!.includes('img') && (
-                <Box pt={1} maxWidth={350} display={'flex'} sx={{ margin: 'auto' }} px={2} justifyContent={'center'} textAlign={'center'}>
-                  <img src={item.TeaserImageUrl} title='' width={getThumbnailSize(item.Source)} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
-                </Box>
+                <Stack>
+                  <Box pt={1} maxWidth={350} display={'flex'} sx={{ margin: 'auto' }} px={2} justifyContent={'center'} textAlign={'center'}>
+                    <img src={item.TeaserImageUrl} title='' width={getThumbnailSize(item.Source)} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
+                  </Box>
+                </Stack>
               )}
               {showPublishDate && item.PublishDate && (
                 <>

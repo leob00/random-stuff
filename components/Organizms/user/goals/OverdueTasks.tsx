@@ -7,8 +7,6 @@ import dayjs from 'dayjs'
 import { UserTask } from 'lib/models/userTasks'
 import { sortArray } from 'lib/util/collections'
 import React from 'react'
-import TaskItem from './TaskItem'
-import TaskList from './TaskList'
 import { UserGoalAndTask } from './UserGoalsLayout'
 import { useRouter } from 'next/navigation'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
@@ -36,20 +34,20 @@ const OverdueTasks = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoalAndT
         <Box>
           <CenteredHeader title='Overdue Tasks' />
           {overdue.map((item, i) => (
-            <Box key={item.id} py={2}>
+            <Box key={item.id} py={1}>
               <ListItemContainer>
                 <Box py={2}>
                   <Box pl={2}>
                     <LinkButton2
                       onClick={() => {
                         handleTaskClick(item)
-                      }}
-                    >
+                      }}>
                       <Typography>{item.body}</Typography>
                     </LinkButton2>
                   </Box>
-                  <Box pl={2}>
-                    <Typography variant={'caption'}>{`due: ${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
+                  <Box pl={2} display={'flex'} gap={1} alignItems={'center'}>
+                    <Typography variant='caption'>due date:</Typography>
+                    <Typography color={redColor} variant={'caption'}>{`${dayjs(item.dueDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
                   </Box>
                 </Box>
               </ListItemContainer>

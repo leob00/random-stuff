@@ -21,6 +21,7 @@ import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import OverdueTasks from './OverdueTasks'
+import GoalsSummary from './GoalsSummary'
 
 const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoalAndTask[]; username: string }) => {
   // recover goals
@@ -88,8 +89,7 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
       <Box py={2}>
         {barChart ? (
           <>
-            <OverdueTasks goalsAndTasks={goalsAndTasks} username={username} />
-            <GoalCharts barChart={barChart} handleCloseCharts={handleCloseCharts} goalTasks={goalsAndTasks} />
+            <GoalsSummary barChart={barChart} goalTasks={goalsAndTasks} username={username} handleCloseSummary={handleCloseCharts} />
           </>
         ) : (
           <Stack display={'flex'} direction={'row'} justifyContent={'left'} alignItems={'left'}>

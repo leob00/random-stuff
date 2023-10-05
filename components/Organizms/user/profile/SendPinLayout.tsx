@@ -10,6 +10,7 @@ import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
 import React from 'react'
 import { useRouter } from 'next/router'
 import { formatEmail } from 'lib/ui/mailUtil'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 
 const SendPinLayout = ({ ticket, profile }: { ticket: AmplifyUser; profile: UserProfile }) => {
   const [emailSent, setEmailSent] = React.useState(false)
@@ -52,16 +53,14 @@ const SendPinLayout = ({ ticket, profile }: { ticket: AmplifyUser; profile: User
               </Typography>
             </Box>
             <CenterStack>
-              <Button variant='contained' disabled={isLoading} onClick={handleSendPinEmail}>
-                {isLoading ? 'sending...' : 'Send'}
-              </Button>
+              <PrimaryButton text={isLoading ? 'sending...' : 'Send'} disabled={isLoading} onClick={handleSendPinEmail} />
             </CenterStack>
           </>
         ) : (
           <>
             <Box py={2}>
               <CenterStack>
-                <Typography>Email sent! Please be sure to check your spam folder if you annot find the email in your inbox.</Typography>
+                <Typography>Email sent! Please be sure to check your spam folder if you cannot find the email in your inbox.</Typography>
               </CenterStack>
             </Box>
             <CenterStack>

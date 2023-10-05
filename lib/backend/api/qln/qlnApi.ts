@@ -54,6 +54,7 @@ export type NewsTypeIds =
   | 'WashingtonTimes'
   | 'WashingtonPost'
   | 'DailyTelegraph'
+  | 'RawStory'
 
 export const newsTypes: DropdownItem[] = [
   {

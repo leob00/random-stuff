@@ -6,7 +6,8 @@ import React from 'react'
 const NewsDescription = ({ item }: { item: NewsItem }) => {
   switch (item.Source! as NewsTypeIds) {
     case 'Pluralistic':
-    case 'HackerNews': {
+    case 'HackerNews':
+    case 'RawStory': {
       return <></>
     }
     case 'BbcBusiness':
