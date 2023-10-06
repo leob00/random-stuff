@@ -7,6 +7,7 @@ import { notesReducer, UserNotesModel } from 'components/reducers/notesReducer'
 import dayjs from 'dayjs'
 import { useUserController } from 'hooks/userController'
 import { constructUserNoteCategoryKey } from 'lib/backend/api/aws/util'
+import { postDelete } from 'lib/backend/api/fetchFunctions'
 import { expireUserNote, getUserNote, putUserNote, putUserNoteTitles, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { buildSaveModel } from 'lib/controllers/notes/notesController'
 import { UserNote } from 'lib/models/randomStuffModels'
@@ -78,9 +79,7 @@ const UserNotesDisplay = ({ result, username, onMutated }: { result: UserNote[];
     const note = await getUserNote(item.id!)
     dispatch({ type: 'view-note', payload: { selectedNote: note } })
   }
-  const handleSearch = async (text: string) => {
-    dispatch({ type: 'search', payload: { search: text } })
-  }
+
   const handleDelete = async (item: UserNote) => {
     dispatch({ type: 'set-loading', payload: { isLoading: true } })
     let noteTitles = filter(model.noteTitles, (e) => {
@@ -89,6 +88,13 @@ const UserNotesDisplay = ({ result, username, onMutated }: { result: UserNote[];
 
     await expireUserNote(item)
     await putUserNoteTitles(model.username, noteTitles)
+    const files = item.attachments ?? []
+    if (files.length > 0) {
+      files.map(async (file) => {
+        await postDelete('/api/s3', file)
+      })
+    }
+
     dispatch({ type: 'reload', payload: { noteTitles: noteTitles } })
     onMutated(noteTitles)
   }

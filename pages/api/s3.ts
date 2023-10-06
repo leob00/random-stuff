@@ -1,14 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getUserSSRApi } from 'lib/backend/server-side/serverSideAuth'
-import { Bucket, deleteS3Object, getS3ObjectPresignedUrl, listS3Objects, putS3 } from 'lib/backend/api/aws/apiGateway'
+import { Bucket, deleteS3Object, getS3ObjectPresignedUrl, listS3Objects, putS3, S3Object } from 'lib/backend/api/aws/apiGateway'
 import { postDelete } from 'lib/backend/api/fetchFunctions'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const user = await getUserSSRApi(req)
-  type Arg = {
-    bucket: string
-    prefix: string
-    filename?: string
+  interface Arg extends S3Object {
     expiration?: number
   }
   if (user) {
@@ -19,8 +16,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     if (req.method === 'GET') {
       const getArgs: Arg = {
-        bucket: String(req.query['bucket']),
+        bucket: String(req.query['bucket']) as Bucket,
         prefix: String(req.query['prefix']),
+        filename: '',
       }
       const response = await listS3Objects(getArgs.bucket as Bucket, getArgs.prefix)
 
@@ -28,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     if (req.method === 'DELETE') {
       const deletArgs: Arg = {
-        bucket: String(req.query['bucket']),
+        bucket: String(req.query['bucket']) as Bucket,
         prefix: String(req.query['prefix']),
         filename: String(req.query['filename']),
       }

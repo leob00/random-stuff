@@ -21,12 +21,17 @@ const S3FilesTable = ({
   const [itemToDelete, setItemToDelete] = React.useState<S3Object | null>(null)
   const handleView = async (item: S3Object) => {
     const params = { bucket: item.bucket, prefix: item.prefix, filename: item.filename, expiration: 60 }
-    const resp = JSON.parse(await post(`/api/s3`, params)) as string
-    Object.assign(document.createElement('a'), {
-      target: '_blank',
-      rel: 'noopener noreferrer',
-      href: resp,
-    }).click()
+    const url = JSON.parse(await post(`/api/s3`, params)) as string
+    //const url = window.URL.createObjectURL(resp  )
+    const a = document.createElement('a')
+    a.setAttribute('href', url)
+    a.setAttribute('target', '_blank')
+    a.click()
+    // Object.assign(document.createElement('a'), {
+    //   target: '_blank',
+    //   rel: 'noopener noreferrer',
+    //   href: resp,
+    // }).click()
   }
   const handleDelete = async (item: S3Object) => {
     setItemToDelete(item)

@@ -89,15 +89,17 @@ const NoteList = ({
           </Box>
         ))}
       </Box>
-      <ConfirmDeleteDialog
-        show={showConfirm}
-        title={'confirm delete'}
-        text={'Are you sure you want to delete this note?'}
-        onConfirm={handleYesDelete}
-        onCancel={() => {
-          setShowConfirm(false)
-        }}
-      />
+      {selectedNote && (
+        <ConfirmDeleteDialog
+          show={showConfirm}
+          title={'confirm delete'}
+          text={`Are you sure you want to delete ${selectedNote.title}?`}
+          onConfirm={handleYesDelete}
+          onCancel={() => {
+            setShowConfirm(false)
+          }}
+        />
+      )}
     </Box>
   )
 }
