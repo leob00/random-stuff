@@ -20,7 +20,7 @@ import PostBatch from 'components/Organizms/sandbox/PostBatch'
 const Page = () => {
   const tabs: TabInfo[] = [
     {
-      title: 'Batch Post to Dynamo',
+      title: 'Batch Post',
       selected: true,
     },
     {
@@ -47,7 +47,7 @@ const Page = () => {
         <PageHeader text='Sandbox' />
         <TabList tabs={tabs} onSetTab={handleSetTab} />
         <Box p={2}>
-          {selectedTab === 'Batch Post to Dynamo' && <PostBatch />}
+          {selectedTab === 'Batch Post' && <PostBatch />}
           {selectedTab === 'Login Form' && (
             <Box>
               <QlnUsernameLoginForm onSuccess={handleLoginSuccess} />

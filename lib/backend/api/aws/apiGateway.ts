@@ -324,6 +324,22 @@ export async function putWheelSpinStats(data: WheelSpinStats) {
   await putRandomStuff('wheelspin-community', 'random', data)
 }
 
+export async function putS3(bucket: string, prefix: string, filename: string, mimeType: string, body: any) {
+  const url = `${apiGatewayUrl}/s3Direct/${bucket}/${prefix}/${filename}`
+  try {
+    const resp = await fetch(url, {
+      method: 'PUT',
+      body: body,
+      headers: { 'x-api-key': connection.key, 'Content-Type': mimeType },
+    })
+
+    return resp
+  } catch (error) {
+    console.log('error in putS3: ', error)
+    return null
+  }
+}
+
 export type StockPositionType = 'short' | 'long'
 export type StockTransactionType = 'buy' | 'sell' | 'sell short' | 'buy to cover'
 export type StockPositionStatus = 'open' | 'closed'
