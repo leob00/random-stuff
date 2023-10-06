@@ -21,6 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         filename: '',
       }
       const response = await listS3Objects(getArgs.bucket as Bucket, getArgs.prefix)
+      console.log(response)
 
       return res.status(200).json(response)
     }

@@ -4,6 +4,7 @@ import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import { S3Object } from 'lib/backend/api/aws/apiGateway'
 import { post, postDelete } from 'lib/backend/api/fetchFunctions'
+import numeral from 'numeral'
 import React from 'react'
 import FileMenu from './FileMenu'
 
@@ -22,7 +23,6 @@ const S3FilesTable = ({
   const handleView = async (item: S3Object) => {
     const params = { bucket: item.bucket, prefix: item.prefix, filename: item.filename, expiration: 60 }
     const url = JSON.parse(await post(`/api/s3`, params)) as string
-    //const url = window.URL.createObjectURL(resp  )
     const a = document.createElement('a')
     a.setAttribute('href', url)
     a.setAttribute('target', '_blank')
@@ -52,8 +52,11 @@ const S3FilesTable = ({
           <Box py={1}>
             <ListItemContainer>
               <Box px={1} py={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                <Box>
-                  <Typography>{item.filename}</Typography>
+                <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} gap={2}>
+                  <Box>
+                    <Typography>{item.filename}</Typography>
+                  </Box>
+                  <Box>{item.size && <Typography>{`size: ${numeral(item.size / 1024 / 1024).format('###,###.00')} MB`}</Typography>}</Box>
                 </Box>
                 <Box>
                   <FileMenu item={item} onView={handleView} onDelete={handleDelete} />

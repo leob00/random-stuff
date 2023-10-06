@@ -27,6 +27,7 @@ const S3FilesLayout = () => {
         bucket: 'rs-files',
         prefix: ticket!.email,
         filename: m.key.substring(m.key.lastIndexOf('/') + 1),
+        size: m.size,
       }
     })
     //console.log(items)

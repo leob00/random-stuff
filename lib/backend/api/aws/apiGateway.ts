@@ -204,7 +204,7 @@ export async function listS3Objects(bucket: Bucket, prefix: string) {
 export async function deleteS3Object(bucket: Bucket, prefix: string, filename: string) {
   const url = `${apiGatewayUrl}/s3/object`
   try {
-    const body = { bucket: bucket, prefix: prefix, filename: filename }
+    const body: S3Object = { bucket: bucket, prefix: prefix, filename: filename }
     const result = await postDelete(url, body)
     return result
   } catch (err) {
@@ -422,4 +422,5 @@ export interface S3Object {
   bucket: Bucket
   prefix: string
   filename: string
+  size?: number
 }
