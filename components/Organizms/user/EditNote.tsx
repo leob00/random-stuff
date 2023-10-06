@@ -5,6 +5,7 @@ import CenterStack from 'components/Atoms/CenterStack'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import OnOffSwitch from 'components/Atoms/Inputs/OnOffSwitch'
+import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import RecordExpirationWarning from 'components/Atoms/Text/RecordExpirationWarning'
 import EditItemToolbar from 'components/Molecules/EditItemToolbar'
 import dayjs from 'dayjs'
@@ -13,6 +14,7 @@ import { getUtcNow } from 'lib/util/dateUtil'
 import { cloneDeep } from 'lodash'
 import React from 'react'
 import HtmlEditorQuill from '../../Atoms/Inputs/HtmlEditorQuill'
+import S3FilesTable from '../files/S3FilesTable'
 
 const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCanceled?: () => void; onSubmitted?: (note: UserNote) => void }) => {
   const title = React.useRef<HTMLInputElement | null>(null)
@@ -120,7 +122,9 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
             selectedOption={'3'}
             onOptionSelected={handleChangeExp}
           />
-          <CenterStack sx={{ py: 4, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>{editedExpDate && <RecordExpirationWarning expirationDate={editedExpDate} precise={true} />}</CenterStack>
+          <CenterStack sx={{ py: 4, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
+            {editedExpDate && <RecordExpirationWarning expirationDate={editedExpDate} precise={true} />}
+          </CenterStack>
         </>
       </FormDialog>
       <Box sx={{ pt: 2 }} component='form'>
@@ -166,6 +170,12 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
           </CenterStack>
         </Box>
       </Box>
+      {item.attachments && (
+        <Box>
+          <CenteredTitle title={'files'} />
+          <S3FilesTable data={item.attachments} />
+        </Box>
+      )}
     </>
   ) : (
     <></>

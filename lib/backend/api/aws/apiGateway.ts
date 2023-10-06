@@ -3,8 +3,10 @@ import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { BasicArticle } from 'lib/model'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { apiConnection } from '../config'
-import { get, post } from '../fetchFunctions'
+import { get, post, postDelete } from '../fetchFunctions'
 import { StockQuote } from '../models/zModels'
+
+export type Bucket = 'rs-files'
 
 export type DynamoKeys =
   | 'dogs'
@@ -176,6 +178,41 @@ export async function searchRandomStuffBySecIndex(search: CategoryType | string)
   return []
 }
 
+export async function getS3ObjectPresignedUrl(bucket: string, prefix: string, filename: string, expirationInSeconds: number) {
+  const url = `${apiGatewayUrl}/s3/presignedurl`
+  try {
+    const body = { bucket: bucket, prefix: prefix, filename: filename, expiration: expirationInSeconds }
+    const result = await post(url, body)
+    return result.body
+  } catch (err) {
+    console.log('error occurred in presignedurl: ', err)
+  }
+  return []
+}
+export async function listS3Objects(bucket: Bucket, prefix: string) {
+  const url = `${apiGatewayUrl}/s3/list`
+  try {
+    const body = { bucket: bucket, prefix: prefix }
+    const result = await post(url, body)
+    return result.body
+  } catch (err) {
+    console.log('error occurred in presignedurl: ', err)
+  }
+  return []
+}
+
+export async function deleteS3Object(bucket: Bucket, prefix: string, filename: string) {
+  const url = `${apiGatewayUrl}/s3/object`
+  try {
+    const body = { bucket: bucket, prefix: prefix, filename: filename }
+    const result = await postDelete(url, body)
+    return result
+  } catch (err) {
+    console.log('error occurred in postDelete: ', err)
+  }
+  return []
+}
+
 export async function putRandomStuff(type: DynamoKeys, category: CategoryType, data: any, expiration?: number) {
   const url = `${apiGatewayUrl}/randomstuff`
   const model: RandomStuffPut = {
@@ -232,7 +269,6 @@ export async function deleteRandomStuffBatch(req: SignedRequest) {
   const url = `${apiGatewayUrl}/deleterandomstuffbatch`
   try {
     await post(url, { records: items })
-    //console.log(dynamoRequest)
     return items
   } catch (error) {
     console.log('error in putRandomStuff')
@@ -324,16 +360,20 @@ export async function putWheelSpinStats(data: WheelSpinStats) {
   await putRandomStuff('wheelspin-community', 'random', data)
 }
 
-export async function putS3(bucket: string, prefix: string, filename: string, mimeType: string, body: any) {
+export async function putS3(bucket: Bucket, prefix: string, filename: string, mimeType: string, body: any) {
   const url = `${apiGatewayUrl}/s3Direct/${bucket}/${prefix}/${filename}`
   try {
-    const resp = await fetch(url, {
+    await fetch(url, {
       method: 'PUT',
       body: body,
       headers: { 'x-api-key': connection.key, 'Content-Type': mimeType },
     })
-
-    return resp
+    const result: S3Object = {
+      bucket: bucket,
+      prefix: `${prefix}`,
+      filename: filename,
+    }
+    return result
   } catch (error) {
     console.log('error in putS3: ', error)
     return null
@@ -376,4 +416,10 @@ export interface StockPortfolio {
   id: string
   name: string
   gainLoss?: number
+}
+
+export interface S3Object {
+  bucket: Bucket
+  prefix: string
+  filename: string
 }

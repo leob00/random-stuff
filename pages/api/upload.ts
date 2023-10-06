@@ -12,10 +12,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const form = formidable({})
     try {
       const [fields, files] = await form.parse(req)
-      const file = files.file![0]
-      let rawData = fs.readFileSync(file.filepath!)
-      const resp = await putS3('rs-files', `${user.email}`, `${file.originalFilename!}`, file.mimetype!, rawData)
-      return res.json({ message: resp?.statusText })
+      if (files.file) {
+        const file = files.file![0]
+        let rawData = fs.readFileSync(file.filepath!)
+        const resp = await putS3('rs-files', `${user.email}`, `${file.originalFilename!}`, file.mimetype!, rawData)
+        if (resp) {
+          return res.status(200).json(resp)
+        }
+      }
+      return res.status(500).json({ message: `failed to put object to S3` })
     } catch (err) {
       return res.status(500).json({ message: `internal server error: ${err}` })
     }

@@ -5,17 +5,11 @@ import Seo from 'components/Organizms/Seo'
 import { Box } from '@mui/material'
 import TabList from 'components/Atoms/Buttons/TabList'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
-import NLink from 'next/link'
 import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
 import { Claim } from 'lib/backend/auth/userUtil'
-import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
-import { LambdaDynamoRequestBatch } from 'lib/backend/api/aws/apiGateway'
-import { getExpirateDateFromSeconds, getSecondsFromEpoch } from 'lib/util/dateUtil'
-import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
-import { post } from 'lib/backend/api/fetchFunctions'
 import FileUploadForm from 'components/Molecules/Forms/FileUploadForm'
 import PostBatch from 'components/Organizms/sandbox/PostBatch'
+import S3FilesLayout from 'components/Organizms/files/S3FilesLayout'
 
 const Page = () => {
   const tabs: TabInfo[] = [
@@ -27,7 +21,7 @@ const Page = () => {
       title: 'Login Form',
     },
     {
-      title: 'Tab 3',
+      title: 'S3',
     },
   ]
   const [selectedTab, setSelectedTab] = React.useState(tabs[0].title)
@@ -53,11 +47,7 @@ const Page = () => {
               <QlnUsernameLoginForm onSuccess={handleLoginSuccess} />
             </Box>
           )}
-          {selectedTab === 'Tab 3' && (
-            <Box>
-              <FileUploadForm />
-            </Box>
-          )}
+          {selectedTab === 'S3' && <S3FilesLayout />}
         </Box>
       </ResponsiveContainer>
     </>

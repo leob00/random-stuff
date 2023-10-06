@@ -12,6 +12,7 @@ import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
 import React from 'react'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
+import S3FilesTable from '../files/S3FilesTable'
 
 const ViewNote = ({
   selectedNote,
@@ -66,6 +67,13 @@ const ViewNote = ({
           </CenterStack>
         )}
         <HorizontalDivider />
+
+        {selectedNote.attachments && (
+          <Box>
+            <CenteredTitle title={'files'} />
+            <S3FilesTable data={selectedNote.attachments} readOnly />
+          </Box>
+        )}
         <CenterStack sx={{ py: 2, gap: 2 }}>
           <SecondaryButton
             size='small'

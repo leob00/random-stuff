@@ -1,3 +1,4 @@
+import { S3Object } from 'lib/backend/api/aws/apiGateway'
 import { BasicArticle } from 'lib/model'
 
 export interface RandomStuffData {
@@ -12,4 +13,5 @@ export interface UserNote {
   dateCreated: string
   dateModified: string
   expirationDate?: string
+  attachments?: S3Object[]
 }
