@@ -20,13 +20,19 @@ const S3FilesTable = ({
   onDeleted?: (item: S3Object) => void
 }) => {
   const [itemToDelete, setItemToDelete] = React.useState<S3Object | null>(null)
+  const [signedUrl, setSignedUrl] = React.useState<string | null>(null)
+  const signedUrlRef = React.useRef<HTMLAnchorElement | null>(null)
   const handleView = async (item: S3Object) => {
     const params = { bucket: item.bucket, prefix: item.prefix, filename: item.filename, expiration: 60 }
     const url = JSON.parse(await post(`/api/s3`, params)) as string
-    const a = document.createElement('a')
-    a.setAttribute('href', url)
-    a.setAttribute('target', '_blank')
-    a.click()
+    setSignedUrl(url)
+    if (signedUrlRef.current) {
+      signedUrlRef.current.click()
+    }
+    // const a = document.createElement('a')
+    // a.setAttribute('href', url)
+    // a.setAttribute('target', '_blank')
+    // a.click()
     // Object.assign(document.createElement('a'), {
     //   target: '_blank',
     //   rel: 'noopener noreferrer',
@@ -34,6 +40,7 @@ const S3FilesTable = ({
     // }).click()
   }
   const handleDelete = async (item: S3Object) => {
+    setSignedUrl(null)
     setItemToDelete(item)
   }
   const handleConfirmDelete = async () => {
@@ -74,6 +81,11 @@ const S3FilesTable = ({
           onCancel={() => setItemToDelete(null)}
           onConfirm={handleConfirmDelete}
         />
+      )}
+      {signedUrl && (
+        <a style={{ display: 'none' }} ref={signedUrlRef} href={signedUrl} target={'_blank'}>
+          link
+        </a>
       )}
     </>
   )
