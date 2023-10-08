@@ -83,7 +83,7 @@ const S3FilesTable = ({
         />
       )}
       {signedUrl && (
-        <a style={{ display: 'none' }} ref={signedUrlRef} href={signedUrl} target={'_blank'}>
+        <a style={{ display: 'none' }} rel='noreferrer' ref={signedUrlRef} href={signedUrl} target={'_blank'}>
           link
         </a>
       )}
