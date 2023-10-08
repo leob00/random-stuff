@@ -1,5 +1,5 @@
 import { Button } from '@aws-amplify/ui-react'
-import { Box, Link, Stack, Typography } from '@mui/material'
+import { Alert, Box, Link, Stack, Typography } from '@mui/material'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
@@ -97,7 +97,7 @@ const S3FilesTable = ({
       )}
       {signedUrl && (
         <FormDialog
-          title='secure file link'
+          title='View file'
           show={true}
           onCancel={() => {
             setSelectedItem(null)
@@ -106,6 +106,14 @@ const S3FilesTable = ({
         >
           <>
             <Stack>
+              <Box py={2}>
+                <Alert color='warning'>
+                  <Typography variant='caption' textAlign={'center'}>
+                    This secure link will expire in a few minutes.
+                  </Typography>
+                </Alert>
+              </Box>
+
               <CenterStack>
                 <Typography textAlign={'center'}>{selectedItem?.filename}</Typography>
               </CenterStack>
