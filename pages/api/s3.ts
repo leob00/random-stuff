@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getUserSSRApi } from 'lib/backend/server-side/serverSideAuth'
-import { Bucket, deleteS3Object, getS3ObjectPresignedUrl, listS3Objects, putS3, S3Object } from 'lib/backend/api/aws/apiGateway'
+import { Bucket, deleteS3Object, getS3ObjectPresignedUrl, listS3Objects, putS3, renameS3Object, S3Object } from 'lib/backend/api/aws/apiGateway'
 import { postDelete } from 'lib/backend/api/fetchFunctions'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         prefix: String(req.query['prefix']),
         filename: '',
       }
-      const response = await listS3Objects(getArgs.bucket as Bucket, getArgs.prefix)
+      const response = await listS3Objects(getArgs.bucket, getArgs.prefix)
 
       return res.status(200).json(response)
     }
@@ -31,8 +31,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         filename: String(req.query['filename']),
       }
 
-      const response = await deleteS3Object(deletArgs.bucket as Bucket, deletArgs.prefix, deletArgs.filename!)
+      const response = await deleteS3Object(deletArgs.bucket, deletArgs.prefix, deletArgs.filename!)
       return res.status(202).json(response)
+    }
+
+    if (req.method === 'PATCH') {
+      const patchArgs = req.body
+      console.log(JSON.stringify(patchArgs))
+      const response = await renameS3Object(patchArgs.bucket, patchArgs.prefix, patchArgs.oldfilename, patchArgs.newfilename)
+      return res.status(202).json('')
     }
   }
 

@@ -1,15 +1,15 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import React from 'react'
-import ViewListIcon from '@mui/icons-material/ViewList'
+import EditIcon from '@mui/icons-material/Edit'
 //import { Edit, Toc, ViewList } from '@mui/icons-material'
-const ContextMenuEdit = () => {
+const ContextMenuEdit = ({ text = 'edit' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <ViewListIcon color='secondary' fontSize='small' />
+        <EditIcon color='secondary' fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary='edit' />
+      <ListItemText primary={text} />
     </>
   )
 }

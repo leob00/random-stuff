@@ -3,20 +3,12 @@ import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { BasicArticle } from 'lib/model'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { apiConnection } from '../config'
-import { get, post, postDelete } from '../fetchFunctions'
+import { get, post, postBody, postDelete } from '../fetchFunctions'
 import { StockQuote } from '../models/zModels'
 
 export type Bucket = 'rs-files'
 
-export type DynamoKeys =
-  | 'dogs'
-  | 'cats'
-  | 'coinflip-community'
-  | 'wheelspin-community'
-  | 'site-stats'
-  | 'community-stocks'
-  | 'user-stock_list'
-  | 'stockportfolio'
+export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | 'site-stats' | 'community-stocks' | 'user-stock_list' | 'stockportfolio'
 
 const connection = apiConnection().aws
 const apiGatewayUrl = connection.url
@@ -205,7 +197,24 @@ export async function deleteS3Object(bucket: Bucket, prefix: string, filename: s
   const url = `${apiGatewayUrl}/s3/object`
   try {
     const body: S3Object = { bucket: bucket, prefix: prefix, filename: filename }
-    const result = await postDelete(url, body)
+    const result = await postBody(url, 'DELETE', body)
+    return result
+  } catch (err) {
+    console.log('error occurred in postDelete: ', err)
+  }
+  return []
+}
+
+export async function renameS3Object(bucket: Bucket, prefix: string, oldfilename: string, newfilename: string) {
+  const url = `${apiGatewayUrl}/s3/object`
+  try {
+    //const body: S3Object = { bucket: bucket, prefix: prefix, filename: filename }
+    const result = await postBody(url, 'PATCH', {
+      bucket: bucket,
+      prefix: prefix,
+      oldfilename: oldfilename,
+      newfilename: newfilename,
+    })
     return result
   } catch (err) {
     console.log('error occurred in postDelete: ', err)

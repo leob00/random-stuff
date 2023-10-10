@@ -15,7 +15,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (files.file) {
         const file = files.file![0]
         let rawData = fs.readFileSync(file.filepath!)
-        const resp = await putS3('rs-files', `${user.email}`, `${file.originalFilename!}`, file.mimetype!, rawData)
+        let userFileName = fields.userFilename![0]
+        if (!userFileName || userFileName.length === 0) {
+          userFileName = file.originalFilename!
+        }
+        const resp = await putS3('rs-files', `${user.email}`, `${userFileName}`, file.mimetype!, rawData)
         if (resp) {
           return res.status(200).json(resp)
         }

@@ -49,6 +49,27 @@ export async function post(url: string, body: any) {
   }
 }
 
+export async function postBody(url: string, method: 'PATCH' | 'POST' | 'DELETE', body: any) {
+  const awsApiKey = String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_PUBLIC_KEY)
+  try {
+    const resp = await fetch(url, {
+      method: method,
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': awsApiKey,
+        ApiKey: String(process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY),
+      },
+    })
+
+    const data = await resp.json()
+    return data
+  } catch (err) {
+    console.log('error in post: ', err)
+    return null
+  }
+}
+
 export async function postDelete(url: string, params: any) {
   const awsApiKey = String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_PUBLIC_KEY)
   let args = ''

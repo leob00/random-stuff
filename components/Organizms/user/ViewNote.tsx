@@ -1,48 +1,56 @@
 import { Box, Stack, Typography } from '@mui/material'
-import DangerButton from 'components/Atoms/Buttons/DangerButton'
-import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
-import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import RecordExpirationWarning from 'components/Atoms/Text/RecordExpirationWarning'
-import EditItemToolbar from 'components/Molecules/EditItemToolbar'
 import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
 import React from 'react'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
-import S3FilesTable from '../files/S3FilesTable'
+import NoteFiles from './notes/NoteFiles'
+import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
+import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
+import ContextMenuDelete from 'components/Molecules/Menus/ContextMenuDelete'
+import ContextMenuClose from 'components/Molecules/Menus/ContextMenuClose'
+import { S3Object } from 'lib/backend/api/aws/apiGateway'
 
 const ViewNote = ({
   selectedNote,
   onEdit,
   onCancel,
   onDelete,
+  onFilesMutated,
 }: {
   selectedNote: UserNote
   onEdit: (item: UserNote) => void
   onCancel: () => void
   onDelete: (note: UserNote) => void
+  onFilesMutated: (files: S3Object[]) => void
 }) => {
   const [showConfirmDelete, setShowConfirmDelete] = React.useState(false)
 
   const handleYesDelete = () => {
     onDelete(selectedNote)
   }
+  const menu: ContextMenuItem[] = [
+    {
+      item: <ContextMenuClose />,
+      fn: onCancel,
+    },
+    {
+      item: <ContextMenuEdit />,
+      fn: () => onEdit(selectedNote),
+    },
+    {
+      item: <ContextMenuDelete />,
+      fn: () => setShowConfirmDelete(true),
+    },
+  ]
 
   return (
     <>
-      <ConfirmDeleteDialog
-        show={showConfirmDelete}
-        title={'confirm delete'}
-        text={'Are you sure you want to delete this note?'}
-        onConfirm={handleYesDelete}
-        onCancel={() => {
-          setShowConfirmDelete(false)
-        }}
-      />
-      <EditItemToolbar
+      {/* <EditItemToolbar
         onCancel={onCancel}
         onEdit={() => {
           onEdit(selectedNote)
@@ -50,9 +58,12 @@ const ViewNote = ({
         onDelete={() => {
           setShowConfirmDelete(true)
         }}
-      />
+      /> */}
       <Box sx={{ py: 1 }}>
         <CenteredTitle title={`${selectedNote.title}`} />
+        <Box display={'flex'} justifyContent={'flex-end'}>
+          <ContextMenu items={menu} />
+        </Box>
         <CenterStack>
           <HtmlView html={selectedNote.body} />
         </CenterStack>
@@ -67,14 +78,10 @@ const ViewNote = ({
           </CenterStack>
         )}
         <HorizontalDivider />
-
-        {selectedNote.attachments && (
-          <Box>
-            <CenteredTitle title={'files'} />
-            <S3FilesTable data={selectedNote.attachments} readOnly />
-          </Box>
-        )}
-        <CenterStack sx={{ py: 2, gap: 2 }}>
+        <Box pt={2}>
+          <NoteFiles files={selectedNote.attachments} onMutated={onFilesMutated} />
+        </Box>
+        {/* <CenterStack sx={{ py: 2, gap: 2 }}>
           <SecondaryButton
             size='small'
             width={70}
@@ -93,8 +100,17 @@ const ViewNote = ({
             }}
           />
           <PassiveButton size='small' width={70} onClick={onCancel} text='close' />
-        </CenterStack>
+        </CenterStack> */}
       </Box>
+      <ConfirmDeleteDialog
+        show={showConfirmDelete}
+        title={'confirm delete'}
+        text={'Are you sure you want to delete this note?'}
+        onConfirm={handleYesDelete}
+        onCancel={() => {
+          setShowConfirmDelete(false)
+        }}
+      />
     </>
   )
 }

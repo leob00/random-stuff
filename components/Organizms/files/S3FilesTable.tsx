@@ -8,9 +8,11 @@ import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import WarmupBox from 'components/Atoms/WarmupBox'
+import RenameFileDialog from 'components/Molecules/Forms/Files/RenameFileDialog'
+import ViewS3FileDialog from 'components/Molecules/Forms/Files/ViewS3FileDialog'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import { S3Object } from 'lib/backend/api/aws/apiGateway'
-import { post, postDelete } from 'lib/backend/api/fetchFunctions'
+import { post, postBody, postDelete } from 'lib/backend/api/fetchFunctions'
 import numeral from 'numeral'
 import React from 'react'
 import FileMenu from './FileMenu'
@@ -29,27 +31,16 @@ const S3FilesTable = ({
   const [itemToDelete, setItemToDelete] = React.useState<S3Object | null>(null)
   const [signedUrl, setSignedUrl] = React.useState<string | null>(null)
   const [selectedItem, setSelectedItem] = React.useState<S3Object | null>(null)
-  const [isLoading, setIsLoading] = React.useState(false)
-  const signedUrlRef = React.useRef<HTMLAnchorElement | null>(null)
-  const handleView = async (item: S3Object) => {
-    setIsLoading(true)
+  const [showRenameForm, setShowRenameForm] = React.useState(false)
+  const [isMutating, setIsMutating] = React.useState(false)
+
+  const handleViewFile = async (item: S3Object) => {
+    setIsMutating(true)
     const params = { bucket: item.bucket, prefix: item.prefix, filename: item.filename, expiration: 60 }
     const url = JSON.parse(await post(`/api/s3`, params)) as string
     setSignedUrl(url)
     setSelectedItem(item)
-    setIsLoading(false)
-    // if (signedUrlRef.current) {
-    //   signedUrlRef.current.click()
-    // }
-    // const a = document.createElement('a')
-    // a.setAttribute('href', url)
-    // a.setAttribute('target', '_blank')
-    // a.click()
-    // Object.assign(document.createElement('a'), {
-    //   target: '_blank',
-    //   rel: 'noopener noreferrer',
-    //   href: resp,
-    // }).click()
+    setIsMutating(false)
   }
   const handleDelete = async (item: S3Object) => {
     setSignedUrl(null)
@@ -57,16 +48,39 @@ const S3FilesTable = ({
   }
   const handleConfirmDelete = async () => {
     if (itemToDelete) {
-      await postDelete('/api/s3', itemToDelete)
-      onDeleted?.(itemToDelete)
+      const item = { ...itemToDelete }
+      setItemToDelete(null)
+      setIsMutating(true)
+      await postDelete('/api/s3', item)
+      setIsMutating(false)
+      onDeleted?.(item)
+      onMutated?.()
     }
-    setItemToDelete(null)
-    onMutated?.()
+  }
+
+  const handleCancelViewFile = () => {
+    setSelectedItem(null)
+    setSignedUrl(null)
+  }
+
+  const handleOnRename = async (item: S3Object) => {
+    setSelectedItem(item)
+    setShowRenameForm(true)
+  }
+
+  const handleRenameFile = async (oldfilename: string, newfilename: string) => {
+    if (selectedItem) {
+      setShowRenameForm(false)
+      setIsMutating(true)
+      await postBody('/api/s3', 'PATCH', { bucket: selectedItem.bucket, prefix: selectedItem.prefix, oldfilename: oldfilename, newfilename: newfilename })
+      setIsMutating(false)
+      onMutated?.()
+    }
   }
 
   return (
     <>
-      {isLoading && <WarmupBox text='generating a secure link...' />}
+      {isMutating && <BackdropLoader />}
       {data.map((item) => (
         <Box key={item.filename}>
           <Box py={1}>
@@ -79,14 +93,13 @@ const S3FilesTable = ({
                   <Box>{item.size && <Typography>{`size: ${numeral(item.size / 1024 / 1024).format('###,###.00')} MB`}</Typography>}</Box>
                 </Box>
                 <Box>
-                  <FileMenu item={item} onView={handleView} onDelete={handleDelete} />
+                  <FileMenu item={item} onView={handleViewFile} onDelete={handleDelete} onRename={handleOnRename} />
                 </Box>
               </Box>
             </ListItemContainer>
           </Box>
         </Box>
       ))}
-      <>{data.length === 0 && <NoDataFound />}</>
       {itemToDelete && (
         <ConfirmDeleteDialog
           show={true}
@@ -95,37 +108,8 @@ const S3FilesTable = ({
           onConfirm={handleConfirmDelete}
         />
       )}
-      {signedUrl && (
-        <FormDialog
-          title='View file'
-          show={true}
-          onCancel={() => {
-            setSelectedItem(null)
-            setSignedUrl(null)
-          }}
-        >
-          <>
-            <Stack>
-              <Box py={2}>
-                <Alert color='warning'>
-                  <Typography variant='caption' textAlign={'center'}>
-                    This secure link will expire in a few minutes.
-                  </Typography>
-                </Alert>
-              </Box>
-
-              <CenterStack>
-                <Typography textAlign={'center'}>{selectedItem?.filename}</Typography>
-              </CenterStack>
-            </Stack>
-            <CenterStack sx={{ pt: 2 }}>
-              <Link rel='noreferrer' ref={signedUrlRef} href={signedUrl} target={'_blank'}>
-                <PrimaryButton text={'view file'} onClick={() => setSignedUrl(null)}></PrimaryButton>
-              </Link>
-            </CenterStack>
-          </>
-        </FormDialog>
-      )}
+      {signedUrl && <ViewS3FileDialog onCancel={handleCancelViewFile} signedUrl={signedUrl} filename={selectedItem?.filename} />}
+      {showRenameForm && <RenameFileDialog filename={selectedItem!.filename} onCancel={() => setShowRenameForm(false)} onSubmitted={handleRenameFile} />}
     </>
   )
 }

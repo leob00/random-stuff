@@ -1,11 +1,14 @@
 import { Box } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { notesReducer, UserNotesModel } from 'components/reducers/notesReducer'
 import dayjs from 'dayjs'
 import { useUserController } from 'hooks/userController'
+import { S3Object } from 'lib/backend/api/aws/apiGateway'
 import { constructUserNoteCategoryKey } from 'lib/backend/api/aws/util'
 import { postDelete } from 'lib/backend/api/fetchFunctions'
 import { expireUserNote, getUserNote, putUserNote, putUserNoteTitles, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
@@ -105,10 +108,44 @@ const UserNotesDisplay = ({ result, username, onMutated }: { result: UserNote[];
       handleNoteTitleClick(note)
     }
   }
+  const handleFilesMutated = async (files: S3Object[]) => {
+    const n = { ...model.selectedNote! }
+    n.attachments = files
+    await handleSaveNote(n)
+  }
 
   return (
     <>
-      {!model.editMode && !model.viewMode && (
+      {model.isLoading && <BackdropLoader />}
+      <>
+        {!model.editMode && !model.selectedNote && (
+          <>
+            <PageHeader text={'Notes'} />
+            <NoteList
+              data={result}
+              onClicked={handleNoteTitleClick}
+              onDelete={handleDelete}
+              onAddNote={handleAddNote}
+              isFiltered={model.filteredTitles.length < model.noteTitles.length}
+            />
+          </>
+        )}
+        {model.selectedNote && !model.editMode && (
+          <>
+            <ViewNote
+              selectedNote={model.selectedNote}
+              onEdit={handleEditNote}
+              onCancel={handleCancelClick}
+              onDelete={handleDelete}
+              onFilesMutated={handleFilesMutated}
+            />
+          </>
+        )}
+        {model.editMode && !model.viewMode && model.selectedNote && (
+          <EditNote item={model.selectedNote} onCanceled={handleCancelClick} onSubmitted={handleSaveNote} />
+        )}
+      </>
+      {/* {!model.editMode && !model.viewMode && (
         <>
           <Box py={2}>
             <CenterStack>
@@ -144,7 +181,7 @@ const UserNotesDisplay = ({ result, username, onMutated }: { result: UserNote[];
             <EditNote item={model.selectedNote} onCanceled={handleCancelClick} onSubmitted={handleSaveNote} />
           </>
         )
-      )}
+      )} */}
     </>
   )
 }

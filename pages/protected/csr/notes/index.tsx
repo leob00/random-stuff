@@ -30,7 +30,6 @@ const Notes = () => {
     <>
       <Seo pageTitle='Notes' />
       <ResponsiveContainer>
-        <PageHeader text={'Notes'} />
         {isLoading ? (
           <WarmupBox />
         ) : (
