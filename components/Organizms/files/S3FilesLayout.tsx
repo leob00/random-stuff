@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
-import FileUploadForm from 'components/Molecules/Forms/FileUploadForm'
+import S3FileUploadForm from 'components/Molecules/Forms/S3FileUploadForm'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import { useUserController } from 'hooks/userController'
 import { S3Object } from 'lib/backend/api/aws/apiGateway'
@@ -42,7 +42,7 @@ const S3FilesLayout = () => {
       {error && <ErrorMessage text={'Opps! An error has occured. Please try refreshing the page.'} />}
       {isLoading && <BackdropLoader />}
       {isValidating && <BackdropLoader />}
-      <FileUploadForm onUploaded={handleUploaded} />
+      <S3FileUploadForm onUploaded={handleUploaded} />
       <Box py={2}>
         <CenteredHeader title={'Files'} />
         {data && <S3FilesTable data={data} onMutated={() => mutate(mutateKey)} />}

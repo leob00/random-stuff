@@ -26,7 +26,7 @@ const apiOptions: DropdownItem[] = [
   },
   {
     text: 'news',
-    value: '/api/news?id=LifeHacker',
+    value: '/api/news?id=CBSWorld',
   },
   {
     text: 'recipes',

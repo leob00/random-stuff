@@ -1816,6 +1816,10 @@
     "Symbol": "AMZN"
   },
   {
+    "Company": "NEOS ETF Trust Kurv Yield Premium Strategy Amazon (AMZN) ETF",
+    "Symbol": "AMZP"
+  },
+  {
     "Company": "Direxion Shares ETF Trust",
     "Symbol": "AMZU"
   },
@@ -16568,6 +16572,10 @@
     "Symbol": "GOOGL"
   },
   {
+    "Company": "NEOS ETF Trust Kurv Yield Premium Strategy Google (GOOGL) ETF",
+    "Symbol": "GOOP"
+  },
+  {
     "Company": "Canada Goose Holdings Inc",
     "Symbol": "GOOS"
   },
@@ -25284,6 +25292,10 @@
     "Symbol": "MSFU"
   },
   {
+    "Company": "NEOS ETF Trust Kurv Yield Premium Strategy Microsoft (MSFT) ETF",
+    "Symbol": "MSFY"
+  },
+  {
     "Company": "Madison Square Garden Entertainment Corp.",
     "Symbol": "MSGE"
   },
@@ -28945,6 +28957,10 @@
   },
   {
     "Company": "PepperLime Health Acquisition Corp",
+    "Symbol": "PEPLU"
+  },
+  {
+    "Company": "PepperLime Health Acquisition Corp",
     "Symbol": "PEPLW"
   },
   {
@@ -29558,6 +29574,18 @@
   {
     "Company": "Polymet Mining Corp",
     "Symbol": "PLM"
+  },
+  {
+    "Company": "Plum Acquisition Corp I",
+    "Symbol": "PLMI"
+  },
+  {
+    "Company": "Plum Acquisition Corp I",
+    "Symbol": "PLMIU"
+  },
+  {
+    "Company": "Plum Acquisition Corp I",
+    "Symbol": "PLMIW"
   },
   {
     "Company": "Palomar Holdings Inc",
@@ -30890,6 +30918,10 @@
   {
     "Company": "Simplify Exchange Traded Funds",
     "Symbol": "QIS"
+  },
+  {
+    "Company": "QIWI plc",
+    "Symbol": "QIWI"
   },
   {
     "Company": "First Trust Exchange-Traded Fund VIII",

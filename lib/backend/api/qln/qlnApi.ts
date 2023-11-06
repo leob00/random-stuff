@@ -221,7 +221,6 @@ export async function getNewsBySource(id: NewsTypeIds) {
     type: id,
   }
   let resp = (await get(`${qlnApiBaseUrl}/NewsBySource`, params)).Body as NewsItem[]
-  //console.log(`${baseUrl}/NewsBySource?type=${id}`)
   return resp
 }
 export async function getNewsBySymbol(symbol: string) {
@@ -229,7 +228,6 @@ export async function getNewsBySymbol(symbol: string) {
     symbol: symbol,
   }
   let resp = (await get(`${qlnApiBaseUrl}/NewsBySymbol`, params)).Body as NewsItem[]
-  //console.log(`${baseUrl}/NewsBySource?type=${id}`)
   return resp
 }
 

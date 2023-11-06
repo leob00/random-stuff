@@ -5,7 +5,7 @@ import React from 'react'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuAttach from 'components/Molecules/Menus/ContextMenuAttach'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
-import FileUploadForm from 'components/Molecules/Forms/FileUploadForm'
+import S3FileUploadForm from 'components/Molecules/Forms/S3FileUploadForm'
 
 const NoteFiles = ({ files, onMutated }: { files?: S3Object[]; onMutated: (items: S3Object[]) => void }) => {
   const [showAddFile, setShowAddFile] = React.useState(false)
@@ -34,7 +34,7 @@ const NoteFiles = ({ files, onMutated }: { files?: S3Object[]; onMutated: (items
       {files && <S3FilesTable data={files} onDeleted={handleFileDeleted} />}
 
       <FormDialog show={showAddFile} onCancel={() => setShowAddFile(false)} title={'add file'}>
-        <FileUploadForm onUploaded={onAddedFile}></FileUploadForm>
+        <S3FileUploadForm onUploaded={onAddedFile}></S3FileUploadForm>
       </FormDialog>
     </Box>
   )

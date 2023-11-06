@@ -21,6 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         const resp = await putS3('rs-files', `${user.email}`, `${userFileName}`, file.mimetype!, rawData)
         if (resp) {
+          //console.log(resp)
           return res.status(200).json(resp)
         }
       }

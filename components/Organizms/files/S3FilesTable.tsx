@@ -78,6 +78,14 @@ const S3FilesTable = ({
     }
   }
 
+  const fileSizeDisplay = (bytes: number) => {
+    const result = bytes / 1024
+    if (result > 1000) {
+      return `${numeral(result / 1024).format('###,###.00')} MB`
+    }
+    return `${numeral(result).format('###,###.00')} KB`
+  }
+
   return (
     <>
       {isMutating && <BackdropLoader />}
@@ -90,7 +98,7 @@ const S3FilesTable = ({
                   <Box>
                     <Typography>{item.filename}</Typography>
                   </Box>
-                  <Box>{item.size && <Typography>{`size: ${numeral(item.size / 1024 / 1024).format('###,###.00')} MB`}</Typography>}</Box>
+                  <Box>{item.size && <Typography>{fileSizeDisplay(item.size)}</Typography>}</Box>
                 </Box>
                 <Box>
                   <FileMenu item={item} onView={handleViewFile} onDelete={handleDelete} onRename={handleOnRename} />
@@ -108,7 +116,7 @@ const S3FilesTable = ({
           onConfirm={handleConfirmDelete}
         />
       )}
-      {signedUrl && <ViewS3FileDialog onCancel={handleCancelViewFile} signedUrl={signedUrl} filename={selectedItem?.filename} />}
+      {signedUrl && selectedItem && <ViewS3FileDialog onCancel={handleCancelViewFile} signedUrl={signedUrl} filename={selectedItem.filename} />}
       {showRenameForm && <RenameFileDialog filename={selectedItem!.filename} onCancel={() => setShowRenameForm(false)} onSubmitted={handleRenameFile} />}
     </>
   )

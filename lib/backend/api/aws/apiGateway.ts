@@ -8,7 +8,15 @@ import { StockQuote } from '../models/zModels'
 
 export type Bucket = 'rs-files'
 
-export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | 'site-stats' | 'community-stocks' | 'user-stock_list' | 'stockportfolio'
+export type DynamoKeys =
+  | 'dogs'
+  | 'cats'
+  | 'coinflip-community'
+  | 'wheelspin-community'
+  | 'site-stats'
+  | 'community-stocks'
+  | 'user-stock_list'
+  | 'stockportfolio'
 
 const connection = apiConnection().aws
 const apiGatewayUrl = connection.url
@@ -372,16 +380,21 @@ export async function putWheelSpinStats(data: WheelSpinStats) {
 export async function putS3(bucket: Bucket, prefix: string, filename: string, mimeType: string, body: any) {
   const url = `${apiGatewayUrl}/s3Direct/${bucket}/${prefix}/${filename}`
   try {
-    await fetch(url, {
+    const response = await fetch(url, {
       method: 'PUT',
       body: body,
       headers: { 'x-api-key': connection.key, 'Content-Type': mimeType },
     })
+    //console.log(response)
     const result: S3Object = {
       bucket: bucket,
       prefix: `${prefix}`,
       filename: filename,
     }
+    if (response.status === 413) {
+      result.message = 'File is too large'
+    }
+
     return result
   } catch (error) {
     console.log('error in putS3: ', error)
@@ -432,4 +445,5 @@ export interface S3Object {
   prefix: string
   filename: string
   size?: number
+  message?: string
 }
