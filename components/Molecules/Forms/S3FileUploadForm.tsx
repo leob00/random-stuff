@@ -47,9 +47,8 @@ const S3FileUploadForm = ({ onUploaded }: { onUploaded: (item: S3Object) => void
         setIsUploading(false)
         onUploaded(respData)
       } catch (err) {
-        console.log(err)
         console.log(response)
-        setError('Oops! Ecountered an error. Please try again')
+        setError('Oops! Encountered an error. Please try again')
         setFile(undefined)
       }
     } else {

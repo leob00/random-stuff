@@ -349,6 +349,16 @@ export interface StockEarning {
   StockQuote?: StockQuote
 }
 
+export interface Company {
+  Symbol: string
+  CompanyName?: string
+  Description?: string
+  Sector?: string
+  Industry?: string
+  Ceo?: string
+  LogoBase64?: string
+}
+
 export async function getEconCalendar() {
   const response = await get(`${qlnApiBaseUrl}/EconCalendar`)
   const result = response.Body as EconCalendarItem[]
@@ -368,4 +378,13 @@ export async function getRecentStockEarnings(symbol: string) {
   const response = await get(`${qlnApiBaseUrl}/RecentEarnings`)
   const resp = response as QlnApiResponse
   return resp.Body as StockEarning[]
+}
+
+export async function getCompanyProfile(symbols: string[]) {
+  const response = await get(`${qlnApiBaseUrl}/CompanyDetails`, {
+    symbols: symbols,
+  })
+
+  const result = response.Body as Company[]
+  return result
 }

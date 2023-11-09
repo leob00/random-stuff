@@ -11,7 +11,7 @@ type Config = {
 export function apiConnection() {
   const result: Config = {
     qln: {
-      url: String(process.env.NEXT_PUBLIC_QLN_API_URL),
+      url: String(process.env.NEXT_PUBLIC_QLN_API_URL_LOCAL),
       key: String(process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY),
     },
     aws: {

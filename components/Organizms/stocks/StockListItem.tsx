@@ -13,8 +13,9 @@ import StockEarnings from './StockEarnings'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { putSearchedStock } from 'lib/backend/csr/nextApiWrapper'
 import { useTheme } from '@mui/material'
+import CompanyProfile from './CompanyProfile'
 
-const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'Earnings' }, { title: 'News' }]
+const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'Earnings' }, { title: 'News' }, { title: 'Profile' }]
 export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'dark' = 'light') => {
   let color = mode === 'light' ? CasinoBlackTransparent : VeryLightBlue
   if (!val) {
@@ -166,6 +167,7 @@ const StockListItem = ({
               )}
               {selectedTab === 'News' && <StockNews quote={item} />}
               {selectedTab === 'Earnings' && <StockEarnings quote={item} />}
+              {selectedTab === 'Profile' && <CompanyProfile quote={item} />}
             </>
           )}
         </>
