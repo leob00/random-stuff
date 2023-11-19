@@ -13,6 +13,8 @@ import useSWR, { Fetcher, mutate } from 'swr'
 import { get } from 'lib/backend/api/fetchFunctions'
 import { CasinoBlue } from 'components/themes/mainTheme'
 import { apiConnection } from 'lib/backend/api/config'
+import JobList from './JobList'
+import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
 dayjs.extend(relativeTime)
 
 const JobsLayout = () => {
@@ -24,6 +26,9 @@ const JobsLayout = () => {
   const apiUrl = `${config.url}/BatchJobList?Apikey=${config.key}`
   const fetcher: Fetcher<QlnApiResponse> = (url: string) => get(url)
   const { data, isLoading } = useSWR(apiUrl, fetcher)
+
+  const { claims } = useSessionPersistentStore()
+  let claim = claims.find((m) => m.type === 'qln')
 
   const poll = () => {
     if (timeOutRef.current) {
@@ -40,7 +45,7 @@ const JobsLayout = () => {
     if (timeOutRef.current) {
       clearTimeout(timeOutRef.current)
     }
-    const result = await getJob(item.Name)
+    const result = await getJob(claim?.token!, item.Name)
     setSelectedItem(result)
     setIsLoadingDetail(false)
   }
@@ -55,36 +60,6 @@ const JobsLayout = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pollCounter])
 
-  const RenderDisplay = (response: QlnApiResponse) => {
-    let jobs = response.Body as Job[]
-    jobs = orderBy(jobs, ['Status', 'NextRunDate'], ['asc', 'asc'])
-    return jobs.map((item) => (
-      <Box key={item.Name}>
-        <Paper elevation={item.Status == 1 ? 2 : 0} sx={{ color: CasinoBlue }}>
-          <ListHeader text={item.Description} item={item} onClicked={handleItemClicked} />
-          {item.Status === 1 ? (
-            <JobInProgress item={item} />
-          ) : (
-            <Box minHeight={50} pt={1} pl={2} pb={1}>
-              <Box>
-                {item.EndRunDate && (
-                  <Stack>
-                    <Typography variant='caption'>{`last run: ${dayjs().to(dayjs(item.EndRunDate))}`}</Typography>
-                  </Stack>
-                )}
-                {item.NextRunDate && (
-                  <Stack>
-                    <Typography variant='caption'>{`next run: ${dayjs().to(dayjs(item.NextRunDate))}`}</Typography>
-                  </Stack>
-                )}
-              </Box>
-            </Box>
-          )}
-        </Paper>
-      </Box>
-    ))
-  }
-
   return (
     <Box>
       {isLoading ? (
@@ -93,7 +68,7 @@ const JobsLayout = () => {
         <>
           {isLoadingDetail && <BackdropLoader />}
           {selectedItem && <JobDetail item={selectedItem} onClose={handleClose} />}
-          {data && RenderDisplay(data)}
+          {data && <JobList response={data} onJobSelected={handleItemClicked} />}
         </>
       )}
     </Box>

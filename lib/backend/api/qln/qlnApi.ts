@@ -305,17 +305,17 @@ export async function refreshQuotes(quotes: StockQuote[], username?: string) {
 
   return result
 }
-export async function getJobs() {
+export async function getJobs(token: string) {
   const url = `${qlnApiBaseUrl}/BatchJobList`
-  const response = await get(url)
+  const response = await get(url, { Token: token })
   const result = response.Body as Job[]
   return result
 }
 
-export async function getJob(jobName: string) {
+export async function getJob(token: string, jobName: string) {
   const url = `${qlnApiBaseUrl}/BatchJobDetail`
 
-  const response = await get(url, { jobName: jobName })
+  const response = await get(url, { Token: token, jobName: jobName })
   const result = response.Body as Job
   return result
 }
