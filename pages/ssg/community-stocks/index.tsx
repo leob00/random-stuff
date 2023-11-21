@@ -1,15 +1,13 @@
-import type { GetStaticProps, NextPage } from 'next'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { CategoryType, getRandomStuff } from 'lib/backend/api/aws/apiGateway'
+import { CategoryType } from 'lib/backend/api/aws/apiGateway'
 import { orderBy } from 'lodash'
 import CommunityStocksLayout from 'components/Organizms/stocks/CommunityStocksLayout'
 import BackButton from 'components/Atoms/Buttons/BackButton'
-import router from 'next/router'
-import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
+import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import React from 'react'
-import { Box, tableClasses } from '@mui/material'
+import { Box } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import StocksAutoComplete from 'components/Atoms/Inputs/StocksAutoComplete'
 import { getSearchAheadTotalCount, searchAheadStocks } from 'components/Organizms/stocks/stockSearcher'
@@ -82,6 +80,7 @@ const Page = () => {
     const symbol = text.split(':')[0]
     setStockSearchResults([])
     setLoadingStock(true)
+    setSelectedStock(null)
     const quotes = await getStockQuotes([symbol])
     setLoadingStock(false)
     if (quotes.length > 0) {

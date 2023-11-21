@@ -98,7 +98,7 @@ const S3FilesTable = ({
                   <Box>
                     <Typography>{item.filename}</Typography>
                   </Box>
-                  <Box>{item.size && <Typography>{fileSizeDisplay(item.size)}</Typography>}</Box>
+                  <Box>{item.size !== undefined && <Typography>{fileSizeDisplay(item.size)}</Typography>}</Box>
                 </Box>
                 <Box>
                   <FileMenu item={item} onView={handleViewFile} onDelete={handleDelete} onRename={handleOnRename} />
