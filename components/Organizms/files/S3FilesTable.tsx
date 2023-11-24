@@ -1,13 +1,6 @@
-import { Button } from '@aws-amplify/ui-react'
-import { Alert, Box, Link, Stack, Typography } from '@mui/material'
-import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
-import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import CenterStack from 'components/Atoms/CenterStack'
+import { Box, Typography } from '@mui/material'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
-import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import NoDataFound from 'components/Atoms/Text/NoDataFound'
-import WarmupBox from 'components/Atoms/WarmupBox'
 import RenameFileDialog from 'components/Molecules/Forms/Files/RenameFileDialog'
 import ViewS3FileDialog from 'components/Molecules/Forms/Files/ViewS3FileDialog'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
@@ -16,6 +9,7 @@ import { post, postBody, postDelete } from 'lib/backend/api/fetchFunctions'
 import numeral from 'numeral'
 import React from 'react'
 import FileMenu from './FileMenu'
+import S3Folder from './S3Folder'
 
 const S3FilesTable = ({
   data,
@@ -95,14 +89,14 @@ const S3FilesTable = ({
             <ListItemContainer>
               <Box px={1} py={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
                 <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} gap={2}>
+                  <Box>{!item.isFolder ? <Typography>{item.filename}</Typography> : <S3Folder path={item.filename} />}</Box>
+                  {!item.isFolder && <Box>{item.size !== undefined && <Typography>{fileSizeDisplay(item.size)}</Typography>}</Box>}
+                </Box>
+                {!item.isFolder && (
                   <Box>
-                    <Typography>{item.filename}</Typography>
+                    <FileMenu item={item} onView={handleViewFile} onDelete={handleDelete} onRename={handleOnRename} />
                   </Box>
-                  <Box>{item.size !== undefined && <Typography>{fileSizeDisplay(item.size)}</Typography>}</Box>
-                </Box>
-                <Box>
-                  <FileMenu item={item} onView={handleViewFile} onDelete={handleDelete} onRename={handleOnRename} />
-                </Box>
+                )}
               </Box>
             </ListItemContainer>
           </Box>

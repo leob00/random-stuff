@@ -23,12 +23,13 @@ const JobsLayout = () => {
   const [selectedItem, setSelectedItem] = React.useState<Job | null>(null)
   const [isLoadingDetail, setIsLoadingDetail] = React.useState(false)
   const timeOutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
-  const apiUrl = `${config.url}/BatchJobList?Apikey=${config.key}`
-  const fetcher: Fetcher<QlnApiResponse> = (url: string) => get(url)
-  const { data, isLoading } = useSWR(apiUrl, fetcher)
 
   const { claims } = useSessionPersistentStore()
   let claim = claims.find((m) => m.type === 'qln')
+
+  const apiUrl = `${config.url}/BatchJobList?Token=${claim!.token}`
+  const fetcher: Fetcher<QlnApiResponse> = (url: string) => get(url)
+  const { data, isLoading } = useSWR(apiUrl, fetcher)
 
   const poll = () => {
     if (timeOutRef.current) {

@@ -7,6 +7,7 @@ import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import { useUserController } from 'hooks/userController'
 import { S3Object } from 'lib/backend/api/aws/apiGateway'
 import { get } from 'lib/backend/api/fetchFunctions'
+import { sortArray } from 'lib/util/collections'
 import React from 'react'
 import useSWR, { mutate } from 'swr'
 import S3FilesTable from './S3FilesTable'
@@ -27,11 +28,12 @@ const S3FilesLayout = () => {
         bucket: 'rs-files',
         prefix: ticket!.email,
         filename: m.key.endsWith('/') ? m.key : m.key.substring(m.key.lastIndexOf('/') + 1),
+        isFolder: m.key.endsWith('/'),
         size: m.size,
       }
     })
     //console.log(items)
-    return items
+    return sortArray(items, ['isFolder'], ['desc'])
   }
   const { data, isLoading, isValidating, error } = useSWR(mutateKey, ([url, id]) => fetchData(url, 's3FileList'))
   const handleUploaded = async (item: S3Object) => {

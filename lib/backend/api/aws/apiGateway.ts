@@ -8,7 +8,15 @@ import { StockQuote } from '../models/zModels'
 
 export type Bucket = 'rs-files'
 
-export type DynamoKeys = 'dogs' | 'cats' | 'coinflip-community' | 'wheelspin-community' | 'site-stats' | 'community-stocks' | 'user-stock_list' | 'stockportfolio'
+export type DynamoKeys =
+  | 'dogs'
+  | 'cats'
+  | 'coinflip-community'
+  | 'wheelspin-community'
+  | 'site-stats'
+  | 'community-stocks'
+  | 'user-stock_list'
+  | 'stockportfolio'
 
 const connection = apiConnection().aws
 const apiGatewayUrl = connection.url
@@ -435,6 +443,7 @@ export interface S3Object {
   bucket: Bucket
   prefix: string
   filename: string
+  isFolder?: boolean
   size?: number
   message?: string
 }

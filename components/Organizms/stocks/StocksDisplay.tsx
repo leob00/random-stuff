@@ -27,10 +27,25 @@ import CustomSortAlert from './CustomSortAlert'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 
 export const searchWithinResults = (quotes: StockQuote[], text: string) => {
-  const result = quotes.filter((o) => o.Symbol.toLowerCase().includes(text.toLowerCase()) || o.Company.toLowerCase().startsWith(text.toLowerCase()) || (o.GroupName && o.GroupName.toLowerCase().includes(text.toLowerCase())))
+  const result = quotes.filter(
+    (o) =>
+      o.Symbol.toLowerCase().includes(text.toLowerCase()) ||
+      o.Company.toLowerCase().startsWith(text.toLowerCase()) ||
+      (o.GroupName && o.GroupName.toLowerCase().includes(text.toLowerCase())),
+  )
   return result
 }
-const StocksDisplay = ({ userProfile, result, onMutated, onCustomSortUpdated }: { userProfile: UserProfile; result: StockQuote[]; onMutated: (newData: StockQuote[]) => void; onCustomSortUpdated: (data?: Sort[]) => void }) => {
+const StocksDisplay = ({
+  userProfile,
+  result,
+  onMutated,
+  onCustomSortUpdated,
+}: {
+  userProfile: UserProfile
+  result: StockQuote[]
+  onMutated: (newData: StockQuote[]) => void
+  onCustomSortUpdated: (data?: Sort[]) => void
+}) => {
   const userController = useUserController()
   let map = new Map<string, StockQuote>([])
   map = getMapFromArray(result, 'Symbol')
@@ -60,10 +75,6 @@ const StocksDisplay = ({ userProfile, result, onMutated, onCustomSortUpdated }: 
   }
 
   const customSorted = orderStocks(result)
-
-  const existingStockLookup = orderBy(result, ['Symbol'], ['asc']).map((m) => {
-    return `${m.Symbol}: ${m.Company}`
-  })
 
   const handleSearched = async (text: string) => {
     const searchResults = searchAheadStocks(text)
@@ -186,11 +197,23 @@ const StocksDisplay = ({ userProfile, result, onMutated, onCustomSortUpdated }: 
       {model.successMesage && <SnackbarSuccess show={true} text={model.successMesage} />}
       <Box py={2}>
         <CenterStack>
-          <StocksAutoComplete placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`} onChanged={handleSearched} searchResults={model.autoCompleteResults} debounceWaitMilliseconds={500} onSelected={handleSelectQuote} />
+          <StocksAutoComplete
+            placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}
+            onChanged={handleSearched}
+            searchResults={model.autoCompleteResults}
+            debounceWaitMilliseconds={500}
+            onSelected={handleSelectQuote}
+          />
         </CenterStack>
       </Box>
       {model.quoteToAdd ? (
-        <AddQuote stockListMap={model.stockListMap} quote={model.quoteToAdd} handleAddToList={handleAddToList} handleCloseAddQuote={handleCloseAddQuote} scrollIntoView />
+        <AddQuote
+          stockListMap={model.stockListMap}
+          quote={model.quoteToAdd}
+          handleAddToList={handleAddToList}
+          handleCloseAddQuote={handleCloseAddQuote}
+          scrollIntoView
+        />
       ) : (
         <Box>
           {model.isLoading ? (
@@ -202,19 +225,36 @@ const StocksDisplay = ({ userProfile, result, onMutated, onCustomSortUpdated }: 
             <Box py={2}>
               {model.editList && result.length > 0 ? (
                 <>
-                  <EditList username={userProfile.username} data={result} onCancelEdit={() => setModel({ ...model, editList: false })} onPushChanges={handleSaveChanges} onReorder={handleReorderList} state={model} setState={setModel} />
+                  <EditList
+                    username={userProfile.username}
+                    data={result}
+                    onCancelEdit={() => setModel({ ...model, editList: false })}
+                    onPushChanges={handleSaveChanges}
+                    onReorder={handleReorderList}
+                    state={model}
+                    setState={setModel}
+                  />
                 </>
               ) : (
                 <>
                   {model.showAsGroup ? (
                     <Box>
-                      <GroupedStocksLayout userProfile={userProfile} stockList={result} onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={() => handleShowAsGroup(false)} />
+                      <GroupedStocksLayout
+                        userProfile={userProfile}
+                        stockList={result}
+                        onEdit={() => setModel({ ...model, editList: true })}
+                        onShowAsGroup={() => handleShowAsGroup(false)}
+                      />
                     </Box>
                   ) : (
                     <Box>
                       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
                         <Box pl={1}></Box>
-                        <FlatListMenu onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={handleShowAsGroup} onShowCustomSort={handleShowCustomSort} />
+                        <FlatListMenu
+                          onEdit={() => setModel({ ...model, editList: true })}
+                          onShowAsGroup={handleShowAsGroup}
+                          onShowCustomSort={handleShowCustomSort}
+                        />
                       </Box>
                       {customSort && <CustomSortAlert result={customSort} onModify={() => setModel({ ...model, showCustomSort: true })} />}
                       <StockTable stockList={customSorted} isStock={true} />
@@ -227,7 +267,12 @@ const StocksDisplay = ({ userProfile, result, onMutated, onCustomSortUpdated }: 
         </Box>
       )}
       <>
-        <FormDialog show={model.showCustomSort ?? false} title={'custom sort'} onCancel={() => setModel({ ...model, showCustomSort: false })} showActionButtons={false}>
+        <FormDialog
+          show={model.showCustomSort ?? false}
+          title={'custom sort'}
+          onCancel={() => setModel({ ...model, showCustomSort: false })}
+          showActionButtons={false}
+        >
           <StocksCustomSortForm result={userProfile.settings?.stocks?.customSort} onSubmitted={handleSubmitCustomSort} />
         </FormDialog>
       </>
