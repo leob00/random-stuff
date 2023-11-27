@@ -73,7 +73,7 @@ const EditList = ({
   }
   const handleRemoveItem = (id: string) => {
     setEditItem(undefined)
-    const newQuotes = { ...originalData }.filter((i) => i.Symbol !== id)
+    const newQuotes = [...originalData].filter((i) => i.Symbol !== id)
     setFiltered(newQuotes)
     setOriginalData(newQuotes)
     onPushChanges(newQuotes)
@@ -104,7 +104,13 @@ const EditList = ({
           )}
         </>
       )}
-      <Dialog open={showEditSingleItem} onClose={handleCloseEditSingleItem} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description' maxWidth='lg'>
+      <Dialog
+        open={showEditSingleItem}
+        onClose={handleCloseEditSingleItem}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
+        maxWidth='lg'
+      >
         <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>
           <Stack display='flex' direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
             <Box>{editItem?.Company}</Box>

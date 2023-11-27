@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {
   const user = await getUserSSRApi(req)
-  console.log('user: ', user)
   if (!user) {
     console.log('no user')
     NextResponse.json({ message: 'no user' })

@@ -50,3 +50,9 @@ export function constructUserSecretPrimaryKey(username: string) {
   const guid = getGuid()
   return `user-sec[${username}][${guid}]`
 }
+export function constructStockAlertsSubPrimaryKey(username: string, symbol: string) {
+  return `stock-alerts[${username}][${symbol}]`
+}
+export function constructStockAlertsSubSecondaryKey(username: string) {
+  return `stock-alerts[${username}]`
+}

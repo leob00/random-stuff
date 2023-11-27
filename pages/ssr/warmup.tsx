@@ -9,7 +9,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { Auth } = withSSRContext(context)
   try {
     const user = await Auth.currentAuthenticatedUser()
-    //console.log('user: ' + user)
     return {
       props: {
         authenticated: true,

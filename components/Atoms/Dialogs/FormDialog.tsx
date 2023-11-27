@@ -6,13 +6,36 @@ import PassiveButton from '../Buttons/PassiveButton'
 import SecondaryButton from '../Buttons/SecondaryButton'
 import HorizontalDivider from '../Dividers/HorizontalDivider'
 
-const FormDialog = ({ children, title, show, onCancel, onSave, showActionButtons = true }: { children: ReactNode; title: string; show: boolean; onCancel?: () => void; onSave?: () => void; showActionButtons?: boolean }) => {
+const FormDialog = ({
+  children,
+  title,
+  show,
+  onCancel,
+  onSave,
+  showActionButtons = true,
+  fullScreen,
+}: {
+  children: ReactNode
+  title: string
+  show: boolean
+  onCancel?: () => void
+  onSave?: () => void
+  showActionButtons?: boolean
+  fullScreen?: boolean
+}) => {
   const handleClose = () => {
     onCancel?.()
   }
 
   return (
-    <Dialog open={show} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description' maxWidth='lg'>
+    <Dialog
+      open={show}
+      onClose={handleClose}
+      aria-labelledby='alert-dialog-title'
+      aria-describedby='alert-dialog-description'
+      maxWidth='lg'
+      fullScreen={fullScreen}
+    >
       <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>
         <Stack display='flex' direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
           <Stack>{title}</Stack>

@@ -1,5 +1,12 @@
 import { Box, IconButton, Stack, Typography } from '@mui/material'
-import { CasinoBlackTransparent, CasinoBlueTransparent, CasinoDarkGreenTransparent, CasinoDarkRedTransparent, CasinoGreenTransparent, CasinoLimeTransparent, CasinoOrange, VeryLightBlue } from 'components/themes/mainTheme'
+import {
+  CasinoBlackTransparent,
+  CasinoDarkGreenTransparent,
+  CasinoDarkRedTransparent,
+  CasinoLimeTransparent,
+  CasinoOrange,
+  VeryLightBlue,
+} from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockHistoryItem, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
@@ -14,6 +21,9 @@ import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { putSearchedStock } from 'lib/backend/csr/nextApiWrapper'
 import { useTheme } from '@mui/material'
 import CompanyProfile from './CompanyProfile'
+import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
+import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import StockSubscibeIcon from './StockSubscibeIcon'
 
 const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'Earnings' }, { title: 'News' }, { title: 'Profile' }]
 export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'dark' = 'light') => {
@@ -36,6 +46,8 @@ const StockListItem = ({
   closeOnCollapse = false,
   onClose,
   scrollIntoView = true,
+  userProfile,
+  showDetailCollapse = true,
 }: {
   item: StockQuote
   expand?: boolean
@@ -44,6 +56,8 @@ const StockListItem = ({
   closeOnCollapse?: boolean
   onClose?: () => void
   scrollIntoView?: boolean
+  userProfile?: UserProfile | null
+  showDetailCollapse?: boolean
 }) => {
   const [showMore, setShowMore] = React.useState(expand)
   const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
@@ -51,7 +65,6 @@ const StockListItem = ({
   const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
   const tabScrollTarget = React.useRef<HTMLSpanElement | null>(null)
   const theme = useTheme()
-
   React.useEffect(() => {
     let isCanceled = false
     const fn = async () => {
@@ -74,24 +87,6 @@ const StockListItem = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showMore])
-  const renderDetail = (label: string, val?: string | number | null) => {
-    return (
-      <>
-        {val !== undefined && (
-          <Stack direction={'row'} spacing={2} py={1} alignItems={'center'}>
-            <Stack minWidth={80} textAlign={'right'}>
-              <Typography variant={'body2'}>{`${label}:`}</Typography>
-            </Stack>
-            <Stack>
-              <Typography variant={'body2'} color={'primary'}>
-                {val}
-              </Typography>
-            </Stack>
-          </Stack>
-        )}
-      </>
-    )
-  }
 
   const handleCompanyClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined, show: boolean) => {
     setShowMore(show)
@@ -120,7 +115,11 @@ const StockListItem = ({
     <Box key={item.Symbol} py={1}>
       <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
       <Box>
-        {isStock ? <ListHeader text={`${item.Company}   (${item.Symbol})`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} /> : <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />}
+        {isStock ? (
+          <ListHeader text={`${item.Company}   (${item.Symbol})`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
+        ) : (
+          <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
+        )}
 
         <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
           <Stack direction={'row'} spacing={2} pl={2} sx={{ backgroundColor: 'unset' }} pt={1}>
@@ -141,11 +140,13 @@ const StockListItem = ({
           <Box>
             <HorizontalDivider />
           </Box>
-          <Box display={'flex'} justifyContent={'flex-end'}>
-            <IconButton color='default' onClick={handleCollapseClick}>
-              <Close fontSize='small' color={'secondary'} />
-            </IconButton>
-          </Box>
+          {showDetailCollapse && (
+            <Box display={'flex'} justifyContent={'flex-end'}>
+              <IconButton color='default' onClick={handleCollapseClick}>
+                <Close fontSize='small' color={'secondary'} />
+              </IconButton>
+            </Box>
+          )}
           <Box pl={1} sx={{ backgroundColor: 'unset' }} minHeight={{ xs: 300, sm: 600 }}>
             {stockHistory.length > 0 && (
               <>
@@ -155,14 +156,19 @@ const StockListItem = ({
           </Box>
           {isStock && (
             <>
+              {userProfile && (
+                <>
+                  <StockSubscibeIcon userProfile={userProfile} />
+                </>
+              )}
               <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
               <Typography ref={tabScrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>
               {selectedTab === 'Details' && (
                 <Box pb={2} pt={2}>
-                  {renderDetail('Sector', item.Sector)}
-                  {renderDetail('Cap', item.MarketCapShort)}
-                  {renderDetail('P/E', item.PeRatio)}
-                  {renderDetail('Date', dayjs(item.TradeDate).format('MM/DD/YYYY hh:mm a'))}
+                  <ReadOnlyField label={'Sector'} val={item.Sector} />
+                  <ReadOnlyField label={'Cap'} val={item.MarketCapShort} />
+                  <ReadOnlyField label={'P/E'} val={item.PeRatio} />
+                  <ReadOnlyField label={'Date'} val={dayjs(item.TradeDate).format('MM/DD/YYYY hh:mm a')} />
                 </Box>
               )}
               {selectedTab === 'News' && <StockNews quote={item} />}

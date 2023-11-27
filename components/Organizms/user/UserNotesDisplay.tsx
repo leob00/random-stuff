@@ -145,43 +145,6 @@ const UserNotesDisplay = ({ result, username, onMutated }: { result: UserNote[];
           <EditNote item={model.selectedNote} onCanceled={handleCancelClick} onSubmitted={handleSaveNote} />
         )}
       </>
-      {/* {!model.editMode && !model.viewMode && (
-        <>
-          <Box py={2}>
-            <CenterStack>
-              <StaticAutoComplete options={result.map((m) => m.title)} placeholder={`search ${result.length} notes`} onSelected={handleNoteSelected} />
-            </CenterStack>
-          </Box>
-        </>
-      )}
-      {model.isLoading ? (
-        <WarmupBox />
-      ) : !model.editMode ? (
-        model.selectedNote === null ? (
-          <>
-            <NoteList
-              data={result}
-              onClicked={handleNoteTitleClick}
-              onDelete={handleDelete}
-              onAddNote={handleAddNote}
-              isFiltered={model.filteredTitles.length < model.noteTitles.length}
-            />
-          </>
-        ) : (
-          model.viewMode &&
-          model.selectedNote !== null && (
-            <>
-              <ViewNote selectedNote={model.selectedNote} onEdit={handleEditNote} onCancel={handleCancelClick} onDelete={handleDelete} />
-            </>
-          )
-        )
-      ) : (
-        model.selectedNote && (
-          <>
-            <EditNote item={model.selectedNote} onCanceled={handleCancelClick} onSubmitted={handleSaveNote} />
-          </>
-        )
-      )} */}
     </>
   )
 }

@@ -22,7 +22,6 @@ const AddQuote = ({
   showAddToListButton?: boolean
 }) => {
   const alreadyExists = stockListMap.has(quote.Symbol)
-  //console.log(stockListMap)
   return (
     <>
       <StockListItem
@@ -33,6 +32,7 @@ const AddQuote = ({
         onClose={handleCloseAddQuote}
         showGroupName={true}
         scrollIntoView={scrollIntoView}
+        showDetailCollapse={false}
       />
       {alreadyExists && showAddToListButton && (
         <CenterStack>

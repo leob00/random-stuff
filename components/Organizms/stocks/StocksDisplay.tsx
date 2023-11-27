@@ -257,7 +257,7 @@ const StocksDisplay = ({
                         />
                       </Box>
                       {customSort && <CustomSortAlert result={customSort} onModify={() => setModel({ ...model, showCustomSort: true })} />}
-                      <StockTable stockList={customSorted} isStock={true} />
+                      <StockTable stockList={customSorted} isStock={true} userProfile={userProfile} />
                     </Box>
                   )}
                 </>

@@ -9,6 +9,22 @@ export const quoteHistorySchema = z
   })
   .array()
 
+const alertTriggerTypes = ['dailyPercentMove', 'price'] as const
+const workflowStatusTypes = ['queued', 'started', 'complete'] as const
+export const stockAlerttriggerSchema = z.object({
+  target: z.number(),
+  status: z.enum(workflowStatusTypes),
+  executedDate: z.string().optional(),
+  message: z.string().optional(),
+  typeId: z.enum(alertTriggerTypes),
+  typeDescription: z.string(),
+})
+export const quoteSubscriptionSchema = z.object({
+  id: z.string(),
+  symbol: z.string(),
+  triggers: stockAlerttriggerSchema.array(),
+})
+
 export const quoteArraySchema = z
   .object({
     Symbol: z.string(),

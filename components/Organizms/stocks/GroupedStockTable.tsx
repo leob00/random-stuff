@@ -3,14 +3,15 @@ import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import React from 'react'
 import { StockGroup } from './GroupedStocksLayout'
 import GroupedStockItem from './GroupedStockItem'
+import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 
-const GroupedStockTable = ({ result }: { result: StockGroup[] }) => {
+const GroupedStockTable = ({ result, userProfile }: { result: StockGroup[]; userProfile?: UserProfile | null }) => {
   return (
     <Box minHeight={650}>
       <Box display={'flex'} flexDirection={'column'} gap={2}>
         {result.map((item, index) => (
           <Box key={item.groupName}>
-            <GroupedStockItem group={item} />
+            <GroupedStockItem group={item} userProfile={userProfile} />
           </Box>
         ))}
         <>

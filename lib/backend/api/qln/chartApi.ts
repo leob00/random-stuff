@@ -14,6 +14,9 @@ export async function getStockOrFutureChart(symbol: string, days?: number, isSto
   }
   const response = await get(url, params)
   const result = quoteHistorySchema.parse(response.Body)
+  if (result.length === 0) {
+    return result
+  }
 
   const startDt = dayjs(result[0].TradeDate)
   const diff = dayjs().diff(startDt, 'months')

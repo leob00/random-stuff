@@ -1,12 +1,13 @@
 import { Box, Typography, useTheme } from '@mui/material'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import { DarkBlue, VeryLightBlueTransparent } from 'components/themes/mainTheme'
+import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import React from 'react'
 import { StockGroup } from './GroupedStocksLayout'
 import { getPositiveNegativeColor } from './StockListItem'
 import StockTable from './StockTable'
 
-const GroupedStockItem = ({ group }: { group: StockGroup }) => {
+const GroupedStockItem = ({ group, userProfile }: { group: StockGroup; userProfile?: UserProfile | null }) => {
   const [expanded, setExpanded] = React.useState(false)
   const handleExpandCollapse = () => {
     setExpanded(!expanded)
@@ -22,7 +23,8 @@ const GroupedStockItem = ({ group }: { group: StockGroup }) => {
         gap={2}
         alignItems={'center'}
         justifyContent={'space-between'}
-        onClick={handleExpandCollapse}>
+        onClick={handleExpandCollapse}
+      >
         <Box>
           <Typography variant='h5' pl={1} color='primary'>
             {`${!group.groupName || group.groupName.length === 0 ? 'Unassigned' : group.groupName}`}
@@ -38,7 +40,7 @@ const GroupedStockItem = ({ group }: { group: StockGroup }) => {
       {expanded && (
         <>
           <ScrollIntoView enabled={expanded} margin={-10} />
-          <StockTable isStock={true} stockList={group.quotes} key={group.id} showGroupName={false} showSummary={false} />
+          <StockTable isStock={true} stockList={group.quotes} key={group.id} showGroupName={false} showSummary={false} userProfile={userProfile} />
         </>
       )}
     </>

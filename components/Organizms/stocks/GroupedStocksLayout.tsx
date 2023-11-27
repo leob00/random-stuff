@@ -18,7 +18,19 @@ export interface StockGroup {
   quotes: StockQuote[]
 }
 
-const GroupedStocksLayout = ({ userProfile, stockList, onEdit, onShowAsGroup, scrollIntoView }: { userProfile: UserProfile | null; stockList: StockQuote[]; onEdit: () => void; onShowAsGroup: (show: boolean) => void; scrollIntoView?: boolean }) => {
+const GroupedStocksLayout = ({
+  userProfile,
+  stockList,
+  onEdit,
+  onShowAsGroup,
+  scrollIntoView,
+}: {
+  userProfile: UserProfile | null
+  stockList: StockQuote[]
+  onEdit: () => void
+  onShowAsGroup: (show: boolean) => void
+  scrollIntoView?: boolean
+}) => {
   const userController = useUserController()
 
   const groupify = (list: StockQuote[]) => {
@@ -62,7 +74,7 @@ const GroupedStocksLayout = ({ userProfile, stockList, onEdit, onShowAsGroup, sc
         <Box pl={1}>{/* <SearchWithinList onChanged={handleSearchGroupWithinList} debounceWaitMilliseconds={150} /> */}</Box>
         <GroupedListMenu onEdit={onEdit} onShowAsGroup={onShowAsGroup} />
       </Box>
-      <GroupedStockTable result={groupedList} />
+      <GroupedStockTable result={groupedList} userProfile={userProfile} />
     </Box>
   )
 }

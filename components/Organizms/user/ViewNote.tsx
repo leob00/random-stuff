@@ -50,15 +50,6 @@ const ViewNote = ({
 
   return (
     <>
-      {/* <EditItemToolbar
-        onCancel={onCancel}
-        onEdit={() => {
-          onEdit(selectedNote)
-        }}
-        onDelete={() => {
-          setShowConfirmDelete(true)
-        }}
-      /> */}
       <Box sx={{ py: 1 }}>
         <CenteredTitle title={`${selectedNote.title}`} />
         <Box display={'flex'} justifyContent={'flex-end'}>
@@ -77,30 +68,10 @@ const ViewNote = ({
             </Stack>
           </CenterStack>
         )}
-        <HorizontalDivider />
+        {/* <HorizontalDivider />
         <Box pt={2}>
           <NoteFiles files={selectedNote.attachments} onMutated={onFilesMutated} />
-        </Box>
-        {/* <CenterStack sx={{ py: 2, gap: 2 }}>
-          <SecondaryButton
-            size='small'
-            width={70}
-            text='edit'
-            onClick={() => {
-              onEdit(selectedNote)
-            }}
-            sx={{ ml: 2 }}
-          ></SecondaryButton>
-          <DangerButton
-            text={'delete'}
-            size='small'
-            width={70}
-            onClick={() => {
-              setShowConfirmDelete(true)
-            }}
-          />
-          <PassiveButton size='small' width={70} onClick={onCancel} text='close' />
-        </CenterStack> */}
+        </Box> */}
       </Box>
       <ConfirmDeleteDialog
         show={showConfirmDelete}

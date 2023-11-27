@@ -5,7 +5,13 @@ import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
 import { CategoryType, DynamoKeys, EmailMessage, LambdaBody, LambdaDynamoRequest, LambdaDynamoRequestBatch, UserProfile } from '../api/aws/apiGateway'
 
-import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserNoteTitlesKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
+import {
+  constructUserGoalTaksSecondaryKey,
+  constructUserNoteCategoryKey,
+  constructUserNoteTitlesKey,
+  constructUserProfileKey,
+  constructUserSecretSecondaryKey,
+} from '../api/aws/util'
 import { get, post } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { weakEncrypt } from '../encryption/useEncryptor'
@@ -322,7 +328,7 @@ export async function deleteRecord(id: string) {
   await post(`/api/deleteRandomStuff`, req)
 }
 
-export async function getRecord<T>(id: DynamoKeys): Promise<T> {
+export async function getRecord<T>(id: DynamoKeys | string): Promise<T> {
   let result: any
   try {
     const body = encryptKey(id)
