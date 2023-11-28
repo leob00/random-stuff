@@ -3,7 +3,7 @@ import React from 'react'
 import { TextField, useTheme } from '@mui/material'
 import { CasinoBlue } from 'components/themes/mainTheme'
 
-export const ControlledFreeTextInput = ({
+export const ControlledNumberInput = ({
   fieldName,
   control,
   defaultValue,
@@ -16,7 +16,7 @@ export const ControlledFreeTextInput = ({
 }: {
   fieldName: string
   control: Control<any, any>
-  defaultValue?: string
+  defaultValue?: number
   placeholder?: string
   label: string
   required?: boolean
@@ -45,6 +45,7 @@ export const ControlledFreeTextInput = ({
             readOnly: readOnly,
             type: type,
           }}
+          inputProps={{ inputMode: 'numeric' }}
           {...field}
         />
       )}

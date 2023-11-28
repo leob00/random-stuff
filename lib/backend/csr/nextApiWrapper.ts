@@ -2,16 +2,11 @@ import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
+import { isNull } from 'lodash'
 import { ApiError } from 'next/dist/server/api-utils'
 import { CategoryType, DynamoKeys, EmailMessage, LambdaBody, LambdaDynamoRequest, LambdaDynamoRequestBatch, UserProfile } from '../api/aws/apiGateway'
 
-import {
-  constructUserGoalTaksSecondaryKey,
-  constructUserNoteCategoryKey,
-  constructUserNoteTitlesKey,
-  constructUserProfileKey,
-  constructUserSecretSecondaryKey,
-} from '../api/aws/util'
+import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserNoteTitlesKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
 import { get, post } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { weakEncrypt } from '../encryption/useEncryptor'
@@ -329,12 +324,14 @@ export async function deleteRecord(id: string) {
 }
 
 export async function getRecord<T>(id: DynamoKeys | string): Promise<T> {
-  let result: any
+  let result: any = null
   try {
     const body = encryptKey(id)
     const data = await post(`/api/getRandomStuffEnc`, body)
     if (data) {
       result = data
+      return result
+    } else {
       return result
     }
   } catch (err) {

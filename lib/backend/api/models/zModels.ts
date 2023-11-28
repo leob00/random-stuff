@@ -19,7 +19,7 @@ const validateNumber = (val: any) => {
   return true
 }
 
-export const stockAlerttriggerSchema = z.object({
+export const stockAlertTriggerSchema = z.object({
   target: z
     .string()
     .min(1)
@@ -28,15 +28,21 @@ export const stockAlerttriggerSchema = z.object({
   executedDate: z.string().optional(),
   message: z.string().optional(),
   typeId: z.enum(alertTriggerTypes),
-  typeDescription: z.string(),
-  typeInstruction: z.string(),
+  typeDescription: z.string().optional(),
+  typeInstruction: z.string().optional(),
   enabled: z.boolean(),
+  order: z.number(),
 })
-export const quoteSubscriptionSchema = z.object({
-  id: z.string(),
-  symbol: z.string(),
-  triggers: stockAlerttriggerSchema.array(),
-})
+export const quoteSubscriptionSchema = z
+  .object({
+    id: z.string(),
+    symbol: z.string(),
+    triggers: stockAlertTriggerSchema.array(),
+  })
+  .array()
+
+export type StockAlertSubscription = z.infer<typeof quoteSubscriptionSchema.element>
+export type StockAlertTrigger = z.infer<typeof stockAlertTriggerSchema>
 
 export const quoteArraySchema = z
   .object({
