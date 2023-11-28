@@ -1,6 +1,6 @@
 import { Control, Controller } from 'react-hook-form'
 import React from 'react'
-import { TextField, useTheme } from '@mui/material'
+import { InputAdornment, TextField, useTheme } from '@mui/material'
 import { CasinoBlue } from 'components/themes/mainTheme'
 
 export const ControlledFreeTextInput = ({
@@ -13,6 +13,7 @@ export const ControlledFreeTextInput = ({
   type = 'text',
   readOnly = false,
   hidden = false,
+  endAdorn,
 }: {
   fieldName: string
   control: Control<any, any>
@@ -23,6 +24,7 @@ export const ControlledFreeTextInput = ({
   type?: string
   readOnly?: boolean
   hidden?: boolean
+  endAdorn?: string
 }) => {
   const theme = useTheme()
   return (
@@ -39,7 +41,9 @@ export const ControlledFreeTextInput = ({
           autoComplete='off'
           sx={{ input: { color: theme.palette.mode === 'light' ? CasinoBlue : 'unset' }, display: hidden ? 'none' : 'unset' }}
           size='small'
+          margin='dense'
           InputProps={{
+            endAdornment: <InputAdornment position='end'>{endAdorn ?? ''}</InputAdornment>,
             color: 'secondary',
             autoComplete: 'off',
             readOnly: readOnly,

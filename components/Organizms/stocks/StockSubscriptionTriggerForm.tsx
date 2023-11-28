@@ -9,8 +9,22 @@ import ControlledSwitch from 'components/Molecules/Forms/ReactHookForm/Controlle
 import { StockAlertTrigger, stockAlertTriggerSchema, StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import NotificationsIcon from '@mui/icons-material/Notifications'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
-const StockSubscriptionTriggerForm = ({ show, trigger, quote, onClose, onSave }: { show: boolean; trigger: StockAlertTrigger; quote: StockQuote; onClose: () => void; onSave: (item: StockAlertTrigger) => void }) => {
+const StockSubscriptionTriggerForm = ({
+  show,
+  trigger,
+  quote,
+  onClose,
+  onSave,
+}: {
+  show: boolean
+  trigger: StockAlertTrigger
+  quote: StockQuote
+  onClose: () => void
+  onSave: (item: StockAlertTrigger) => void
+}) => {
   const {
     control,
     register,
@@ -47,14 +61,29 @@ const StockSubscriptionTriggerForm = ({ show, trigger, quote, onClose, onSave }:
 
           {/* Hidden fields end */}
           <Box display={'flex'} flexDirection={'column'} gap={1}>
-            <Typography variant='h4'>{`${quote.Company} (${quote.Symbol})`}</Typography>
             <Box>
-              <Typography variant='h5'>{`Alert trigger: ${formData.typeDescription}`}</Typography>
+              <Typography variant='h4'>{`${quote.Company} (${quote.Symbol})`}</Typography>
+            </Box>
+            <HorizontalDivider />
+            <Box>
+              <Box display={'flex'} gap={1} alignItems={'center'} pt={2}>
+                <NotificationsIcon fontSize='medium' />
+                <Typography variant='h5'>{`Alert trigger: ${formData.typeDescription}`}</Typography>
+              </Box>
+
               <Typography variant={'body2'} pt={2}>
                 {formData.typeInstruction}
               </Typography>
               <Box pt={3} pb={2} display={'flex'} flexDirection={'column'} gap={2}>
-                <ControlledFreeTextInput control={control} fieldName='target' defaultValue={formData.target} label='' placeholder='target' required />
+                <ControlledFreeTextInput
+                  control={control}
+                  fieldName='target'
+                  defaultValue={formData.target}
+                  label=''
+                  placeholder='target'
+                  required
+                  endAdorn='%'
+                />
                 {errors.target && <Alert severity={'error'}>{`Please enter a valid number.`}</Alert>}
 
                 <Box display={'flex'} gap={1} alignItems={'center'}>

@@ -33,7 +33,7 @@ const StockSubscibeIcon = ({ userProfile, quote }: { userProfile: UserProfile; q
   const dailyMoveTrigger: StockAlertTrigger = data?.triggers.find((m) => m.typeId === 'dailyPercentMove') ?? {
     enabled: true,
     status: 'queued',
-    target: '3',
+    target: '3.5',
     typeDescription: 'Daily moving average',
     typeInstruction: 'Alert me when the daily moving average exceeds a set value (up/down).',
     typeId: 'dailyPercentMove',
@@ -57,7 +57,13 @@ const StockSubscibeIcon = ({ userProfile, quote }: { userProfile: UserProfile; q
     <Box>
       {isLoading && <BackdropLoader />}
       {isValidating && <BackdropLoader />}
-      <StockSubscriptionTriggerForm show={showAlertEdit} trigger={dailyMoveTrigger} onClose={() => setShowAlertEdit(false)} quote={quote} onSave={handleSaveTrigger} />
+      <StockSubscriptionTriggerForm
+        show={showAlertEdit}
+        trigger={dailyMoveTrigger}
+        onClose={() => setShowAlertEdit(false)}
+        quote={quote}
+        onSave={handleSaveTrigger}
+      />
       <Box>
         {!data && (
           <IconButton size='small' color='success' onClick={handleEditAlerts}>
