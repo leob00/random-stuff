@@ -12,6 +12,7 @@ export const ControlledFreeTextInput = ({
   required = false,
   type = 'text',
   readOnly = false,
+  hidden = false,
 }: {
   fieldName: string
   control: Control<any, any>
@@ -21,6 +22,7 @@ export const ControlledFreeTextInput = ({
   required?: boolean
   type?: string
   readOnly?: boolean
+  hidden?: boolean
 }) => {
   const theme = useTheme()
   return (
@@ -35,7 +37,7 @@ export const ControlledFreeTextInput = ({
           required={required}
           placeholder={placeholder}
           autoComplete='off'
-          sx={{ input: { color: theme.palette.mode === 'light' ? CasinoBlue : 'unset' } }}
+          sx={{ input: { color: theme.palette.mode === 'light' ? CasinoBlue : 'unset' }, display: hidden ? 'none' : 'unset' }}
           size='small'
           InputProps={{
             color: 'secondary',

@@ -11,7 +11,7 @@ import UserNotesDisplay from './UserNotesDisplay'
 
 const UserNotesLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const enc = encodeURIComponent(weakEncrypt(constructUserNoteTitlesKey(userProfile.username)))
-  const mutateKey = ['/api/edgeGetRandomStuff', enc]
+  const mutateKey = ['/api/baseRoute', enc]
   const fetchData = async (url: string, enc: string) => {
     const result = await getUserNoteTitles(userProfile.username)
     return result
@@ -28,7 +28,6 @@ const UserNotesLayout = ({ userProfile }: { userProfile: UserProfile }) => {
       {isLoading && (
         <>
           <BackdropLoader />
-          <LargeGridSkeleton />
         </>
       )}
       {notes && <UserNotesDisplay username={userProfile.username} result={notes} onMutated={handleMutated} />}

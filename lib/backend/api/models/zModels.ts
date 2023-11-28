@@ -11,13 +11,26 @@ export const quoteHistorySchema = z
 
 const alertTriggerTypes = ['dailyPercentMove', 'price'] as const
 const workflowStatusTypes = ['queued', 'started', 'complete'] as const
+
+const validateNumber = (val: any) => {
+  if (isNaN(val)) {
+    return false
+  }
+  return true
+}
+
 export const stockAlerttriggerSchema = z.object({
-  target: z.number(),
+  target: z
+    .string()
+    .min(1)
+    .refine((val: any) => validateNumber(val), { message: 'Please enter a valid number.' }),
   status: z.enum(workflowStatusTypes),
   executedDate: z.string().optional(),
   message: z.string().optional(),
   typeId: z.enum(alertTriggerTypes),
   typeDescription: z.string(),
+  typeInstruction: z.string(),
+  enabled: z.boolean(),
 })
 export const quoteSubscriptionSchema = z.object({
   id: z.string(),

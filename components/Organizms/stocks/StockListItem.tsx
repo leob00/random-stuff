@@ -158,7 +158,7 @@ const StockListItem = ({
             <>
               {userProfile && (
                 <>
-                  <StockSubscibeIcon userProfile={userProfile} />
+                  <StockSubscibeIcon userProfile={userProfile} quote={item} />
                 </>
               )}
               <TabButtonList tabs={tabs} onSelected={handleSelectTab} />

@@ -5,10 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import StockSearch from 'components/Atoms/Inputs/StockSearch'
-import { StockQuote } from 'lib/backend/api/models/zModels'
 import { CasinoBlue } from 'components/themes/mainTheme'
-import { getPositiveNegativeColor } from 'components/Organizms/stocks/StockListItem'
 import { DropdownItem } from 'lib/models/dropdown'
 import dayjs from 'dayjs'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
@@ -25,11 +22,11 @@ const checkPrice = (val: any) => {
 }
 
 const TransactionFieldsSchema = z.object({
-  quantity: z.number().min(1, { message: 'Please enter a valid quantity' }),
+  quantity: z.number().min(1, { message: 'Please enter a valid quantity.' }),
   price: z
     .string()
     .min(1)
-    .refine((val: any) => checkPrice(val), { message: 'Please enter a valid price' }),
+    .refine((val: any) => checkPrice(val), { message: 'Please enter a valid price.' }),
   type: z.string(),
   date: z.preprocess((arg: any) => (typeof arg == 'object' ? dayjs(arg).format() : null), z.string().nullable()),
 })

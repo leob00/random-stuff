@@ -2,6 +2,7 @@ import { Stack, Box, Typography, Alert } from '@mui/material'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
+import { useUserController } from 'hooks/userController'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import StockListItem from './StockListItem'
@@ -22,6 +23,7 @@ const AddQuote = ({
   showAddToListButton?: boolean
 }) => {
   const alreadyExists = stockListMap.has(quote.Symbol)
+  const { authProfile } = useUserController()
   return (
     <>
       <StockListItem
@@ -33,6 +35,7 @@ const AddQuote = ({
         showGroupName={true}
         scrollIntoView={scrollIntoView}
         showDetailCollapse={false}
+        userProfile={authProfile}
       />
       {alreadyExists && showAddToListButton && (
         <CenterStack>
