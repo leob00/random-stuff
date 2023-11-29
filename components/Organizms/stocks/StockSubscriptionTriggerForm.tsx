@@ -11,6 +11,7 @@ import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import StockListItem from './StockListItem'
 
 const StockSubscriptionTriggerForm = ({
   show,
@@ -62,9 +63,9 @@ const StockSubscriptionTriggerForm = ({
           {/* Hidden fields end */}
           <Box display={'flex'} flexDirection={'column'} gap={1}>
             <Box>
-              <Typography variant='h4'>{`${quote.Company} (${quote.Symbol})`}</Typography>
+              {/* <Typography variant='h4'>{`${quote.Company} (${quote.Symbol})`}</Typography> */}
+              <StockListItem isStock={true} item={quote} disabled showGroupName={false} />
             </Box>
-            <HorizontalDivider />
             <Box>
               <Box display={'flex'} gap={1} alignItems={'center'} pt={2}>
                 <NotificationsIcon fontSize='medium' />

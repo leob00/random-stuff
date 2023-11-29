@@ -48,6 +48,7 @@ const StockListItem = ({
   scrollIntoView = true,
   userProfile,
   showDetailCollapse = true,
+  disabled,
 }: {
   item: StockQuote
   expand?: boolean
@@ -58,6 +59,7 @@ const StockListItem = ({
   scrollIntoView?: boolean
   userProfile?: UserProfile | null
   showDetailCollapse?: boolean
+  disabled?: boolean
 }) => {
   const [showMore, setShowMore] = React.useState(expand)
   const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
@@ -89,7 +91,9 @@ const StockListItem = ({
   }, [showMore])
 
   const handleCompanyClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined, show: boolean) => {
-    setShowMore(show)
+    if (!disabled) {
+      setShowMore(show)
+    }
   }
 
   const handleSelectTab = (title: string) => {

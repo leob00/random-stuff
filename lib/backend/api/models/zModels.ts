@@ -33,16 +33,6 @@ export const stockAlertTriggerSchema = z.object({
   enabled: z.boolean(),
   order: z.number(),
 })
-export const quoteSubscriptionSchema = z
-  .object({
-    id: z.string(),
-    symbol: z.string(),
-    triggers: stockAlertTriggerSchema.array(),
-  })
-  .array()
-
-export type StockAlertSubscription = z.infer<typeof quoteSubscriptionSchema.element>
-export type StockAlertTrigger = z.infer<typeof stockAlertTriggerSchema>
 
 export const quoteArraySchema = z
   .object({
@@ -76,3 +66,14 @@ export type StockHistoryItem = z.infer<typeof quoteHistorySchema.element>
 export type UserSecret = z.infer<typeof userSecretArraySchema.element>
 
 export type SortableStockKeys = Pick<StockQuote, 'ChangePercent' | 'Company' | 'Change' | 'Symbol' | 'MarketCap' | 'Price'>
+export const quoteSubscriptionSchema = z
+  .object({
+    id: z.string(),
+    symbol: z.string(),
+    triggers: stockAlertTriggerSchema.array(),
+    quote: quoteArraySchema.element.optional(),
+  })
+  .array()
+
+export type StockAlertSubscription = z.infer<typeof quoteSubscriptionSchema.element>
+export type StockAlertTrigger = z.infer<typeof stockAlertTriggerSchema>

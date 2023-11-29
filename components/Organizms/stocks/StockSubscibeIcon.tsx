@@ -20,6 +20,7 @@ const StockSubscibeIcon = ({ userProfile, quote }: { userProfile: UserProfile; q
 
   const fetcherFn = async (url: string, key: string) => {
     const response = await getRecord<StockAlertSubscription>(subscriptionId)
+    response.quote = quote
     return response
   }
 
@@ -49,6 +50,7 @@ const StockSubscibeIcon = ({ userProfile, quote }: { userProfile: UserProfile; q
     const newTriggers = newData.triggers.filter((m) => m.typeId !== item.typeId)
     newTriggers.push(item)
     newData.triggers = sortArray(newTriggers, ['order'], ['asc'])
+    newData.quote = quote
     await putRecord(newData.id, constructStockAlertsSubSecondaryKey(userProfile.username), newData)
     mutate(subscriptionId)
   }

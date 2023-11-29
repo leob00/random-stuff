@@ -6,6 +6,7 @@ import { useUserController } from 'hooks/userController'
 import { Claim, ClaimType, getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
 import React, { ReactNode } from 'react'
+
 const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children: ReactNode }) => {
   const { claims, saveClaims } = useSessionPersistentStore()
   const { authProfile, ticket, fetchProfilePassive, setProfile } = useUserController()
