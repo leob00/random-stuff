@@ -24,6 +24,7 @@ import CompanyProfile from './CompanyProfile'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import StockSubscibeIcon from './StockSubscibeIcon'
+import { useUserController } from 'hooks/userController'
 
 const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'Earnings' }, { title: 'News' }, { title: 'Profile' }]
 export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'dark' = 'light') => {
@@ -46,7 +47,6 @@ const StockListItem = ({
   closeOnCollapse = false,
   onClose,
   scrollIntoView = true,
-  userProfile,
   showDetailCollapse = true,
   disabled,
 }: {
@@ -57,10 +57,10 @@ const StockListItem = ({
   closeOnCollapse?: boolean
   onClose?: () => void
   scrollIntoView?: boolean
-  userProfile?: UserProfile | null
   showDetailCollapse?: boolean
   disabled?: boolean
 }) => {
+  const { authProfile } = useUserController()
   const [showMore, setShowMore] = React.useState(expand)
   const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
   const [selectedTab, setSelectedTab] = React.useState('Details')
@@ -160,9 +160,9 @@ const StockListItem = ({
           </Box>
           {isStock && (
             <>
-              {userProfile && (
+              {authProfile && (
                 <>
-                  <StockSubscibeIcon userProfile={userProfile} quote={item} />
+                  <StockSubscibeIcon userProfile={authProfile} quote={item} />
                 </>
               )}
               <TabButtonList tabs={tabs} onSelected={handleSelectTab} />

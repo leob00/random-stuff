@@ -17,7 +17,6 @@ const CommunityStocksLayout = ({ data, defaultSort, pageSize = 10 }: { data: Sto
         )
       : [...data]
   const pagedStocks = getPagedArray(stocks, pageSize)
-
   const [currentPageIndex, setCurrentPageIndex] = React.useState(1)
   const handlePaged = (pageNum: number) => {
     setCurrentPageIndex(pageNum)

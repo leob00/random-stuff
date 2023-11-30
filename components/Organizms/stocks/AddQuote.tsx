@@ -23,7 +23,6 @@ const AddQuote = ({
   showAddToListButton?: boolean
 }) => {
   const alreadyExists = stockListMap.has(quote.Symbol)
-  const { authProfile } = useUserController()
   return (
     <>
       <StockListItem
@@ -35,7 +34,6 @@ const AddQuote = ({
         showGroupName={true}
         scrollIntoView={scrollIntoView}
         showDetailCollapse={false}
-        userProfile={authProfile}
       />
       {alreadyExists && showAddToListButton && (
         <CenterStack>

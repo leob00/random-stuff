@@ -32,6 +32,7 @@ export const stockAlertTriggerSchema = z.object({
   typeInstruction: z.string().optional(),
   enabled: z.boolean(),
   order: z.number(),
+  symbol: z.string().optional(),
 })
 
 export const quoteArraySchema = z
@@ -70,8 +71,8 @@ export const quoteSubscriptionSchema = z
   .object({
     id: z.string(),
     symbol: z.string(),
+    company: z.string(),
     triggers: stockAlertTriggerSchema.array(),
-    quote: quoteArraySchema.element.optional(),
   })
   .array()
 

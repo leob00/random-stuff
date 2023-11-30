@@ -5,7 +5,7 @@ import NotificationsOffIcon from '@mui/icons-material/NotificationsOff'
 import NotificationAddIcon from '@mui/icons-material/NotificationAdd'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import useSWR, { mutate } from 'swr'
-import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
+import { deleteRecord, getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
 import { constructStockAlertsSubPrimaryKey, constructStockAlertsSubSecondaryKey } from 'lib/backend/api/aws/util'
 import { quoteSubscriptionSchema, StockAlertSubscription, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 import JsonView from 'components/Atoms/Boxes/JsonView'
@@ -45,13 +45,19 @@ const StockSubscibeIcon = ({ userProfile, quote }: { userProfile: UserProfile; q
     const newData: StockAlertSubscription = data ?? {
       id: subscriptionId,
       symbol: quote.Symbol,
+      company: quote.Company,
       triggers: [],
     }
     const newTriggers = newData.triggers.filter((m) => m.typeId !== item.typeId)
-    newTriggers.push(item)
+    newTriggers.push({ ...item, symbol: quote.Symbol })
     newData.triggers = sortArray(newTriggers, ['order'], ['asc'])
-    newData.quote = quote
-    await putRecord(newData.id, constructStockAlertsSubSecondaryKey(userProfile.username), newData)
+    newData.quote = undefined
+    newData.company = quote.Company
+    if (newData.triggers.every((m) => !m.enabled)) {
+      await deleteRecord(subscriptionId)
+    } else {
+      await putRecord(newData.id, constructStockAlertsSubSecondaryKey(userProfile.username), newData)
+    }
     mutate(subscriptionId)
   }
 

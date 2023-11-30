@@ -4,15 +4,13 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import Seo from 'components/Organizms/Seo'
 import StockDetailsLayout from 'components/Organizms/stocks/StockDetailsLayout'
 import { useUserController } from 'hooks/userController'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { useRouter } from 'next/router'
 import React from 'react'
 
 const Page = () => {
-  const userController = useUserController()
+  const { authProfile, fetchProfilePassive, setProfile } = useUserController()
 
   const [loading, setLoading] = React.useState(true)
-  const [userProfile, setUserProfile] = React.useState<UserProfile | null>(null)
   const router = useRouter()
   const id = router.query['id'] as string
   const returnUrl = router.query['returnUrl'] as string | undefined
@@ -21,10 +19,9 @@ const Page = () => {
     let isLoaded = false
     if (!isLoaded) {
       const fn = async () => {
-        if (!userController.authProfile) {
-          const p = await userController.fetchProfilePassive(900)
-          userController.setProfile(p)
-          setUserProfile(p)
+        if (!authProfile) {
+          const p = await fetchProfilePassive(900)
+          setProfile(p)
         }
         setLoading(false)
       }
@@ -34,7 +31,7 @@ const Page = () => {
       isLoaded = true
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userController.authProfile?.username])
+  }, [authProfile?.username])
 
   return (
     <>
@@ -42,7 +39,7 @@ const Page = () => {
       <ResponsiveContainer>
         {loading && <BackdropLoader />}
         <BackButton route={returnUrl} />
-        {id && <StockDetailsLayout userProfile={userProfile} symbol={id} />}
+        {id && <StockDetailsLayout symbol={id} />}
       </ResponsiveContainer>
     </>
   )

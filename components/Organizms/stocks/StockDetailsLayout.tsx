@@ -6,7 +6,7 @@ import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import StockListItem from './StockListItem'
 
-const StockDetailsLayout = ({ userProfile, symbol }: { userProfile: UserProfile | null; symbol: string }) => {
+const StockDetailsLayout = ({ symbol }: { symbol: string }) => {
   const mutateKey = ['/api/baseRoute', symbol]
   const fetchData = async (url: string, id: string) => {
     const result = await getStockQuotes([id])

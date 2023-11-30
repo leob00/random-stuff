@@ -51,6 +51,14 @@ const Page = () => {
       ),
       fn: () => router.push('/csr/stocks/stock-porfolios'),
     },
+    {
+      item: (
+        <>
+          <ListItemText primary='manage alerts' />
+        </>
+      ),
+      fn: () => router.push('/csr/stocks/alerts'),
+    },
   ]
 
   React.useEffect(() => {
