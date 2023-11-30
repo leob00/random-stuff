@@ -48,7 +48,7 @@ const StockSubscriptionTriggerForm = ({
   }
 
   return (
-    <FormDialog title={'Alerts'} show={show} onCancel={onClose} fullScreen>
+    <FormDialog title={'Alerts'} show={show} onCancel={onClose}>
       <CenterStack>
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Hidden fields */}

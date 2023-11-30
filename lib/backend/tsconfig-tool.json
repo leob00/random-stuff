@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig-dev.json",
+
+  "compilerOptions": {
+    "module": "CommonJS",
+    "outDir": "./"
+  },
+  "isolatedModules": true,
+
+  "include": ["*.ts"]
+}
