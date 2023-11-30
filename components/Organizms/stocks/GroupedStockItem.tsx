@@ -40,7 +40,7 @@ const GroupedStockItem = ({ group, userProfile }: { group: StockGroup; userProfi
       {expanded && (
         <>
           <ScrollIntoView enabled={expanded} margin={-10} />
-          <StockTable isStock={true} stockList={group.quotes} key={group.id} showGroupName={false} showSummary={false} userProfile={userProfile} />
+          <StockTable isStock={true} stockList={group.quotes} key={group.id} showGroupName={false} showSummary={false} />
         </>
       )}
     </>

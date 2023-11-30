@@ -265,11 +265,6 @@ const StockSearchLayout = () => {
                   ) : (
                     <Box>
                       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                        {/* <Box pl={1}>
-                          {model.stockList.length >= 10 && !model.showAsGroup && (
-                            <SearchWithinList onChanged={handleSearchListChange} debounceWaitMilliseconds={25} />
-                          )}
-                        </Box> */}
                         <FlatListMenu onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={handleShowAsGroup} />
                       </Box>
                       <Box display={'flex'} justifyContent={'flex-end'}></Box>
