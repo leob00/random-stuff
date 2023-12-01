@@ -85,7 +85,7 @@ const StockSubscriptionTriggerForm = ({
                   required
                   endAdorn='%'
                 />
-                {errors.target && <Alert severity={'error'}>{`Please enter a valid number.`}</Alert>}
+                {errors.target && <Alert severity={'error'}>{`${errors.target.message}`}</Alert>}
 
                 <Box display={'flex'} gap={1} alignItems={'center'}>
                   <ControlledSwitch control={control} fieldName='enabled' defaultValue={formData.enabled} onChanged={handleEnabledChange} />

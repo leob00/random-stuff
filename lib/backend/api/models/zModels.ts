@@ -12,9 +12,14 @@ export const quoteHistorySchema = z
 const alertTriggerTypes = ['dailyPercentMove', 'price'] as const
 const workflowStatusTypes = ['queued', 'started', 'complete'] as const
 
-const validateNumber = (val: any) => {
+const validateNumber = (val: any, allowPostiveOnly?: boolean) => {
   if (isNaN(val)) {
     return false
+  }
+  if (allowPostiveOnly) {
+    if (Number(val) <= 0) {
+      return false
+    }
   }
   return true
 }
@@ -23,7 +28,7 @@ export const stockAlertTriggerSchema = z.object({
   target: z
     .string()
     .min(1)
-    .refine((val: any) => validateNumber(val), { message: 'Please enter a valid number.' }),
+    .refine((val: any) => validateNumber(val, true), { message: 'Please enter a positive number.' }),
   status: z.enum(workflowStatusTypes),
   executedDate: z.string().optional(),
   message: z.string().optional(),
@@ -33,6 +38,7 @@ export const stockAlertTriggerSchema = z.object({
   enabled: z.boolean(),
   order: z.number(),
   symbol: z.string().optional(),
+  reviewed: z.boolean().optional(),
 })
 
 export const quoteArraySchema = z

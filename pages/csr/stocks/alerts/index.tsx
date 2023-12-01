@@ -23,7 +23,6 @@ const Page = () => {
 
   return (
     <Box>
-      <BackButton />
       <RequireClaim claimType='rs'>
         <>{authProfile && <StockAlertsLayout userProfile={authProfile} />}</>
       </RequireClaim>
