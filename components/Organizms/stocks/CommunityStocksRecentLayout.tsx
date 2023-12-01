@@ -1,6 +1,7 @@
 import { Box, ListItemText } from '@mui/material'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
+import ContextMenuSort from 'components/Molecules/Menus/ContextMenuSort'
 import { Sort } from 'lib/backend/api/aws/apiGateway'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
@@ -16,7 +17,7 @@ const CommunityStocksRecentLayout = ({ data }: { data: StockQuote[] }) => {
   const menu: ContextMenuItem[] = [
     {
       fn: () => setShowCustomSortForm(true),
-      item: <ListItemText primary='custom sort'></ListItemText>,
+      item: <ContextMenuSort text={'sort'} />,
     },
   ]
   const handleCustomSortSubmitted = (sort?: Sort[]) => {
@@ -33,7 +34,7 @@ const CommunityStocksRecentLayout = ({ data }: { data: StockQuote[] }) => {
       </Box>
       {settings.communityStocks?.defaultSort && <CustomSortAlert result={settings.communityStocks?.defaultSort} onModify={() => setShowCustomSortForm(true)} />}
       <CommunityStocksLayout data={data} defaultSort={settings.communityStocks?.defaultSort ?? []} />
-      <FormDialog show={showCustomSortForm} title={'custom sort'} onCancel={() => setShowCustomSortForm(false)} showActionButtons={false}>
+      <FormDialog show={showCustomSortForm} title={'sort'} onCancel={() => setShowCustomSortForm(false)} showActionButtons={false}>
         <StocksCustomSortForm result={settings.communityStocks?.defaultSort} onSubmitted={handleCustomSortSubmitted} />
       </FormDialog>
     </Box>

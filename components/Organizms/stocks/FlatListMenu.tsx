@@ -1,10 +1,12 @@
 import React from 'react'
 import { ListItemIcon, ListItemText } from '@mui/material'
-import SortIcon from '@mui/icons-material/Sort'
 import StreetviewIcon from '@mui/icons-material/Streetview'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import { useRouter } from 'next/router'
+import ContextMenuPortfolio from 'components/Molecules/Menus/ContextMenuPortfolio'
+import ContextMenuSort from 'components/Molecules/Menus/ContextMenuSort'
+import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
 
 const FlatListMenu = ({
   onEdit,
@@ -52,10 +54,7 @@ const FlatListMenu = ({
     {
       item: (
         <>
-          <ListItemIcon>
-            <SortIcon color='secondary' fontSize='small' />
-          </ListItemIcon>
-          <ListItemText primary='custom sort' />
+          <ContextMenuSort text={'sort'} />
         </>
       ),
       fn: () => handleClick('customSort'),
@@ -63,7 +62,7 @@ const FlatListMenu = ({
     {
       item: (
         <>
-          <ListItemText primary='view community stocks' />
+          <ContextMenuPeople text={'community stocks'} />
         </>
       ),
       fn: () => router.push('/ssg/community-stocks'),
@@ -71,7 +70,7 @@ const FlatListMenu = ({
     {
       item: (
         <>
-          <ListItemText primary='portfolio' />
+          <ContextMenuPortfolio text={'portfolio'} />
         </>
       ),
       fn: () => router.push('/csr/stocks/stock-porfolios'),

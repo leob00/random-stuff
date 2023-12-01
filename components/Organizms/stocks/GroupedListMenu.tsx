@@ -1,10 +1,11 @@
 import React from 'react'
 import { ListItemIcon, ListItemText } from '@mui/material'
-import SortIcon from '@mui/icons-material/Sort'
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import { useRouter } from 'next/router'
+import ContextMenuPortfolio from 'components/Molecules/Menus/ContextMenuPortfolio'
+import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
 
 const GroupedListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShowAsGroup?: (show: boolean) => void }) => {
   const router = useRouter()
@@ -40,13 +41,13 @@ const GroupedListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShow
       fn: () => handleShowGrouped(false),
     },
     {
-      item: <ListItemText primary='view community stocks' />,
+      item: <ContextMenuPeople text={'community stocks'} />,
       fn: () => router.push('/ssg/community-stocks'),
     },
     {
       item: (
         <>
-          <ListItemText primary='portfolio' />
+          <ContextMenuPortfolio text={'portfolio'} />
         </>
       ),
       fn: () => router.push('/csr/stocks/stock-porfolios'),

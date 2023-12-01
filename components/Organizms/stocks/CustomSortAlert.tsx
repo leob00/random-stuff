@@ -36,7 +36,7 @@ const CustomSortAlert = ({ result, onModify }: { result: Sort[]; onModify: () =>
           </Button>
         }
       >
-        <AlertTitle>custom sort enabled</AlertTitle>
+        <AlertTitle>sort enabled</AlertTitle>
         {/* <Typography variant='body2'>{`sorted by ${translateSort(result[0])}`}</Typography> */}
       </Alert>
     </Box>

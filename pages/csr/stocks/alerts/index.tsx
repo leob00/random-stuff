@@ -6,7 +6,20 @@ import { useUserController } from 'hooks/userController'
 import React from 'react'
 
 const Page = () => {
-  const { authProfile } = useUserController()
+  const { authProfile, fetchProfilePassive, setProfile } = useUserController()
+
+  React.useEffect(() => {
+    if (!authProfile) {
+      const fn = async () => {
+        const p = await fetchProfilePassive()
+        if (p) {
+          setProfile(p)
+        }
+      }
+      fn()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authProfile])
 
   return (
     <Box>

@@ -269,7 +269,7 @@ const StocksDisplay = ({
       <>
         <FormDialog
           show={model.showCustomSort ?? false}
-          title={'custom sort'}
+          title={'sort'}
           onCancel={() => setModel({ ...model, showCustomSort: false })}
           showActionButtons={false}
         >

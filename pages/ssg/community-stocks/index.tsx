@@ -129,7 +129,6 @@ const Page = () => {
         {isLoading && (
           <>
             <BackdropLoader />
-            <LargeGridSkeleton />
           </>
         )}
         {loadingStock && <BackdropLoader />}

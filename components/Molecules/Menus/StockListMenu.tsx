@@ -4,8 +4,8 @@ import ViewList from '@mui/icons-material/ViewList'
 import CachedIcon from '@mui/icons-material/Cached'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import HamburgerMenu from './HamburgerMenu'
-import SortIcon from '@mui/icons-material/Sort'
 import { DarkMode } from 'components/themes/DarkMode'
+import ContextMenuSort from './ContextMenuSort'
 
 const StockListMenu = ({ onEdit, onRefresh, onShowAsGroup }: { onEdit: () => void; onRefresh: () => void; onShowAsGroup?: (show: boolean) => void }) => {
   const handleShowMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -61,17 +61,12 @@ const StockListMenu = ({ onEdit, onRefresh, onShowAsGroup }: { onEdit: () => voi
           </MenuItem>
           <HorizontalDivider />
           <MenuItem onClick={() => handleShowGrouped(true)}>
-            <ListItemIcon>
-              <SortIcon color='secondary' fontSize='small' />
-            </ListItemIcon>
+            <ListItemIcon />
             <ListItemText primary='view by group name'></ListItemText>
           </MenuItem>
           <HorizontalDivider />
           <MenuItem onClick={() => handleShowGrouped(false)}>
-            <ListItemIcon>
-              <SortIcon color='secondary' fontSize='small' />
-            </ListItemIcon>
-            <ListItemText primary='view as flat list'></ListItemText>
+            <ContextMenuSort text={'view as flat list'} />
           </MenuItem>
         </MenuList>
       </HamburgerMenu>

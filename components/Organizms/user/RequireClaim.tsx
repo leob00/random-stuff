@@ -9,7 +9,7 @@ import React, { ReactNode } from 'react'
 
 const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children: ReactNode }) => {
   const { claims, saveClaims } = useSessionPersistentStore()
-  const { authProfile, ticket, fetchProfilePassive, setProfile } = useUserController()
+  const { authProfile, fetchProfilePassive, setProfile } = useUserController()
 
   const [isValidating, setIsValidating] = React.useState(true)
   const [validatedClaim, setValidatedClaim] = React.useState(claims.find((m) => m.type === claimType))

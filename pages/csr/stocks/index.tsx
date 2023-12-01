@@ -15,6 +15,9 @@ import TabList from 'components/Atoms/Buttons/TabList'
 import RequireClaim from 'components/Organizms/user/RequireClaim'
 import { Box, ListItemText } from '@mui/material'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
+import ContextMenuAlert from 'components/Molecules/Menus/ContextMenuAlert'
+import ContextMenuPortfolio from 'components/Molecules/Menus/ContextMenuPortfolio'
+import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
 
 const Page = () => {
   const router = useRouter()
@@ -38,7 +41,7 @@ const Page = () => {
     {
       item: (
         <>
-          <ListItemText primary='view community stocks' />
+          <ContextMenuPeople text={'community stocks'} />
         </>
       ),
       fn: () => router.push('/ssg/community-stocks'),
@@ -46,7 +49,7 @@ const Page = () => {
     {
       item: (
         <>
-          <ListItemText primary='portfolio' />
+          <ContextMenuPortfolio text={'portfolio'} />
         </>
       ),
       fn: () => router.push('/csr/stocks/stock-porfolios'),
@@ -54,7 +57,7 @@ const Page = () => {
     {
       item: (
         <>
-          <ListItemText primary='manage alerts' />
+          <ContextMenuAlert text='manage alerts' />
         </>
       ),
       fn: () => router.push('/csr/stocks/alerts'),
