@@ -1,4 +1,4 @@
-export type EmailTemplateUrls = '/emailTemplates/sendPin.html'
+export type EmailTemplateUrls = '/emailTemplates/sendPin.html' | '/emailTemplates/stockAlertSubscriptionEmailTemplate.html'
 export async function getTemplate(url: EmailTemplateUrls) {
   const resp = await fetch(url)
   const html = await resp.text()

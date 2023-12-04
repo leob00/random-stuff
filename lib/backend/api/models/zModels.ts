@@ -31,6 +31,7 @@ export const stockAlertTriggerSchema = z.object({
     .refine((val: any) => validateNumber(val, true), { message: 'Please enter a positive number.' }),
   status: z.enum(workflowStatusTypes),
   executedDate: z.string().optional(),
+  lastExecutedDate: z.string().optional(),
   message: z.string().optional(),
   typeId: z.enum(alertTriggerTypes),
   typeDescription: z.string().optional(),
@@ -39,6 +40,7 @@ export const stockAlertTriggerSchema = z.object({
   order: z.number(),
   symbol: z.string().optional(),
   reviewed: z.boolean().optional(),
+  actual: z.number().optional(),
 })
 
 export const quoteArraySchema = z
@@ -84,3 +86,7 @@ export const quoteSubscriptionSchema = z
 
 export type StockAlertSubscription = z.infer<typeof quoteSubscriptionSchema.element>
 export type StockAlertTrigger = z.infer<typeof stockAlertTriggerSchema>
+export interface StockAlertSubscriptionWithMessage {
+  subscriptions: StockAlertSubscription[]
+  message?: string
+}

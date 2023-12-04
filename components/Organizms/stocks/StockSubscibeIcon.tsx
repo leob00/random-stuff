@@ -45,8 +45,9 @@ const StockSubscibeIcon = ({ userProfile, quote }: { userProfile: UserProfile; q
       company: quote.Company,
       triggers: [],
     }
+
     const newTriggers = newData.triggers.filter((m) => m.typeId !== item.typeId)
-    newTriggers.push({ ...item, symbol: quote.Symbol })
+    newTriggers.push({ ...item, symbol: quote.Symbol, status: 'queued' })
     newData.triggers = sortArray(newTriggers, ['order'], ['asc'])
     newData.company = quote.Company
     if (newData.triggers.every((m) => !m.enabled)) {
