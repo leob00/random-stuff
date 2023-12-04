@@ -35,11 +35,13 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
 
   const { data, isLoading, isValidating } = useSWR(alertsSearchhKey, ([url, key]) => fetcherFn(url, key))
   const showSend = data ? data.subscriptions.flatMap((s) => s.triggers).filter((m) => m.status === 'complete').length > 0 : false
+  const [htmlMessage, setHtmlMessage] = React.useState<string | undefined>(undefined)
 
   const handleGenerateAlerts = async () => {
     setIsGenerating(true)
     const quotes = await getStockQuotes(data!.subscriptions.map((m) => m.symbol))
-    const result = processAlertTriggers(data!, quotes)
+    const template = await formatEmail('/emailTemplates/stockAlertSubscriptionEmailTemplate.html', new Map<string, string>())
+    const result = processAlertTriggers(data!, quotes, template)
     const records: LambdaDynamoRequest[] = result.subscriptions.map((m) => {
       return {
         id: m.id,
@@ -49,20 +51,22 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
       }
     })
     await putRecordsBatch({ records: records })
+    setHtmlMessage(result.message)
     setIsGenerating(false)
     mutate(alertsSearchhKey, result)
   }
   const handleSendEmail = async () => {
-    setIsGenerating(true)
-    const html = await formatEmail('/emailTemplates/stockAlertSubscriptionEmailTemplate.html', new Map<string, string>())
-
-    const postData: EmailMessage = {
-      to: userProfile.username,
-      subject: 'Test Alert',
-      html: html,
+    //console.log(resultHtml)
+    if (htmlMessage) {
+      const postData: EmailMessage = {
+        to: userProfile.username,
+        subject: 'Random Stuff - Stock Alerts',
+        html: htmlMessage,
+      }
+      setIsGenerating(true)
+      await sendEmailFromClient(postData)
+      setIsGenerating(false)
     }
-    await sendEmailFromClient(postData)
-    setIsGenerating(false)
   }
 
   return (
@@ -97,7 +101,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                             <Box>
                               <Typography variant='body2'>{`target: ${trigger.target}%`}</Typography>
                             </Box>
-                            {trigger.status === 'complete' && <Box>{trigger.message && <Alert severity='success'>{`${trigger.message}`}</Alert>}</Box>}
+                            <Box>{trigger.message && <Alert severity='success'>{`${trigger.message}`}</Alert>}</Box>
                           </Box>
                         ))}
                       </Box>

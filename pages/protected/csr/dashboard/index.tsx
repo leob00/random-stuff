@@ -18,9 +18,6 @@ const Page = () => {
     const fn = async () => {
       if (!userController.authProfile) {
         const p = await userController.fetchProfilePassive(300)
-        if (!p) {
-          console.log('unable to load profile')
-        }
         userController.setProfile(p)
       }
       setLoading(false)
