@@ -28,8 +28,6 @@ function processDailyMoveTrigger(trigger: StockAlertTrigger, quote: StockQuote) 
     trigger.lastExecutedDate = quote.TradeDate
     trigger.status = 'complete'
     trigger.actual = quote.ChangePercent
-    trigger.message = `${dayjs(quote.TradeDate).format('MM/DD/YYYY')} - ${trigger.typeDescription} achieved! target: ${trigger.target}% actual: ${
-      quote.ChangePercent
-    }% `
+    trigger.message = `${dayjs(quote.TradeDate).format('MM/DD/YYYY hh:mm a')} - target: ${trigger.target}% actual: ${quote.ChangePercent}% `
   }
 }

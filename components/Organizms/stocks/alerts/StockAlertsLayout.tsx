@@ -5,13 +5,13 @@ import PageHeader from 'components/Atoms/Containers/PageHeader'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useUserController } from 'hooks/userController'
 import { processAlertTriggers } from 'lib/backend/alerts/stockAlertProcessor'
-import { EmailMessage, UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { EmailMessage, LambdaDynamoRequest, LambdaDynamoRequestBatch, UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructStockAlertsSubSecondaryKey } from 'lib/backend/api/aws/util'
 import { post } from 'lib/backend/api/fetchFunctions'
 import { StockAlertSubscription, StockAlertSubscriptionWithMessage, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockQuotes, SymbolCompany } from 'lib/backend/api/qln/qlnApi'
 import { userHasRole } from 'lib/backend/auth/userUtil'
-import { searchRecords, sendEmailFromClient } from 'lib/backend/csr/nextApiWrapper'
+import { putRecordsBatch, searchRecords, sendEmailFromClient } from 'lib/backend/csr/nextApiWrapper'
 import { formatEmail } from 'lib/ui/mailUtil'
 import { sortArray } from 'lib/util/collections'
 import React from 'react'
@@ -25,6 +25,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const fetcherFn = async (url: string, key: string) => {
     const response = sortArray(await searchRecords(alertsSearchhKey), ['last_modified'], ['desc'])
     const subs = response.map((m) => JSON.parse(m.data) as StockAlertSubscription)
+
     const result = sortArray(subs, ['symbol'], ['asc'])
     const model: StockAlertSubscriptionWithMessage = {
       subscriptions: result,
@@ -39,13 +40,22 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     setIsGenerating(true)
     const quotes = await getStockQuotes(data!.subscriptions.map((m) => m.symbol))
     const result = processAlertTriggers(data!, quotes)
-    mutate(alertsSearchhKey, result)
+    const records: LambdaDynamoRequest[] = result.subscriptions.map((m) => {
+      return {
+        id: m.id,
+        category: alertsSearchhKey,
+        data: m,
+        expiration: 0,
+      }
+    })
+    await putRecordsBatch({ records: records })
     setIsGenerating(false)
+    mutate(alertsSearchhKey, result)
   }
   const handleSendEmail = async () => {
     setIsGenerating(true)
     const html = await formatEmail('/emailTemplates/stockAlertSubscriptionEmailTemplate.html', new Map<string, string>())
-    console.log(html)
+
     const postData: EmailMessage = {
       to: userProfile.username,
       subject: 'Test Alert',
@@ -57,7 +67,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
 
   return (
     <Box py={2}>
-      <PageHeader text='Alerts' />
+      <PageHeader text='Alerts' backButtonRoute='/csr/stocks' />
       {isLoading && <BackdropLoader />}
       {isValidating && <BackdropLoader />}
       {isGenerating && <BackdropLoader />}
