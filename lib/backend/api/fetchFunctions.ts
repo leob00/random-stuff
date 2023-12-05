@@ -49,7 +49,7 @@ export async function post(url: string, body: any) {
   }
 }
 
-export async function postBody(url: string, method: 'PATCH' | 'POST' | 'DELETE', body: any) {
+export async function postBody(url: string, method: 'PATCH' | 'POST' | 'DELETE' | 'PUT', body: any) {
   const awsApiKey = String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_PUBLIC_KEY)
   try {
     const resp = await fetch(url, {

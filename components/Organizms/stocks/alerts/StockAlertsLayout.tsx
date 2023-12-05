@@ -56,7 +56,6 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     mutate(alertsSearchhKey, result)
   }
   const handleSendEmail = async () => {
-    //console.log(resultHtml)
     if (htmlMessage) {
       const postData: EmailMessage = {
         to: userProfile.username,

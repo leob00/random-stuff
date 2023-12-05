@@ -1,39 +1,30 @@
-import WarmupBox from 'components/Atoms/WarmupBox'
-import PleaseLogin from 'components/Molecules/PleaseLogin'
-import NonSSRWrapper from 'components/Organizms/NonSSRWrapper'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ProfileLayout from 'components/Organizms/user/profile/ProfileLayout'
 import { useUserController } from 'hooks/userController'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import React from 'react'
 
 const Page = () => {
-  const userController = useUserController()
-  const [loading, setLoading] = React.useState(true)
-  const [userProfile, setUserProfile] = React.useState<UserProfile | null>(userController.authProfile)
+  const { authProfile, setProfile, fetchProfilePassive } = useUserController()
+  const [isLoading, setIsLoading] = React.useState(false)
 
   React.useEffect(() => {
     const fn = async () => {
-      const p = await userController.fetchProfilePassive(300)
-      setUserProfile(p)
-      setLoading(false)
+      if (!authProfile) {
+        const p = await fetchProfilePassive()
+        setProfile(p)
+        setIsLoading(false)
+      }
     }
-    fn()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userController.ticket])
 
+    fn()
+  }, [authProfile])
+  //const { data, isLoading, isValidating } = useSWR(key, ([url, key]) => fetcherFn(url, key))
   return (
     <>
-      <NonSSRWrapper>
-        {loading ? (
-          <WarmupBox />
-        ) : userProfile ? (
-          <>
-            <ProfileLayout profile={userProfile} />
-          </>
-        ) : (
-          <PleaseLogin />
-        )}
-      </NonSSRWrapper>
+      <>
+        {isLoading && <BackdropLoader />}
+        {authProfile && <ProfileLayout userProfile={authProfile} />}
+      </>
     </>
   )
 }

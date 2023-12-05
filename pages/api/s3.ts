@@ -37,7 +37,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'PATCH') {
     const patchArgs = req.body
-    console.log(JSON.stringify(patchArgs))
     const response = await renameS3Object(patchArgs.bucket, patchArgs.prefix, patchArgs.oldfilename, patchArgs.newfilename)
     return res.status(200).json('')
   }

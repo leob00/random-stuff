@@ -102,14 +102,17 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
             id: constructUserProfileKey(newUser.email),
             username: newUser.email,
           }
-          setProfile(newProfile)
           await putUserProfile(newProfile)
+          setProfile(newProfile)
           newClaims.push({
             token: crypto.randomUUID(),
             type: 'rs',
             tokenExpirationSeconds: 6400000,
           })
           saveClaims(newClaims)
+          router.push('/')
+        } else {
+          router.push('/protected/csr/dashboard')
         }
         break
 

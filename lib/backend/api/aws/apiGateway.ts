@@ -400,6 +400,13 @@ export async function putS3(bucket: Bucket, prefix: string, filename: string, mi
     return null
   }
 }
+export async function getSesAttributes(username: string) {
+  const response = (await postBody(`${apiGatewayUrl}/ses`, 'POST', { key: username })) as LambdaResponse
+  return response.body
+}
+export async function sendSesEmailVerification(username: string) {
+  const response = await postBody(`${apiGatewayUrl}/ses`, 'PUT', { key: username })
+}
 
 export type StockPositionType = 'short' | 'long'
 export type StockTransactionType = 'buy' | 'sell' | 'sell short' | 'buy to cover'

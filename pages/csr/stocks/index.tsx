@@ -71,7 +71,6 @@ const Page = () => {
         if (!authProfile) {
           const p = await fetchProfilePassive(900)
           if (!p) {
-            console.log('unable to load profile')
           }
           await setProfile(p)
         }
