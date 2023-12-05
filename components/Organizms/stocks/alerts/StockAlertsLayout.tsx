@@ -1,8 +1,11 @@
-import { Alert, Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
+import { Alert, Box, Card, CardActions, CardContent, CardHeader, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
+import CenterStack from 'components/Atoms/CenterStack'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
@@ -49,8 +52,6 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     const result = processAlertTriggers(data!, quotes, template)
     result.subscriptions = sortArray(result.subscriptions, ['lastTriggerExecuteDate'], ['desc'])
 
-    //console.log('result.subscriptions: ', result.subscriptions)
-
     const records: LambdaDynamoRequest[] = result.subscriptions.map((m) => {
       return {
         id: m.id,
@@ -92,12 +93,49 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
       {data && (
         <>
           {isAdmin && (
-            <Box py={2} display={'flex'} justifyContent={'space-between'}>
-              <PrimaryButton text='generate alerts' onClick={handleGenerateAlerts} />
-              {htmlMessage && <PrimaryButton text='send email' onClick={handleSendEmail} />}
-            </Box>
+            <>
+              <Box py={2} display={'flex'} justifyContent={'space-between'}>
+                <PrimaryButton text='generate alerts' onClick={handleGenerateAlerts} />
+              </Box>
+              {htmlMessage && (
+                <Box>
+                  <CenterStack></CenterStack>
+                  <HorizontalDivider />
+                  <Box pt={2}>
+                    <CenterStack>
+                      <Box display={'flex'} gap={2}>
+                        <PrimaryButton text='send' onClick={handleSendEmail} />
+                        <SecondaryButton text='close' onClick={() => setHtmlMessage(null)} />
+                      </Box>
+                    </CenterStack>
+                  </Box>
+                  <CenterStack sx={{ pt: 2 }}>
+                    <Card>
+                      <CardContent>
+                        <Typography variant={'h5'} component='div'>
+                          email preview
+                        </Typography>
+                        <HtmlView html={htmlMessage} />
+                      </CardContent>
+                      {/* <CardActions>
+                        <PrimaryButton size='small' text='send' />
+                        <SecondaryButton size='small' text='close' />
+                      </CardActions> */}
+                    </Card>
+                  </CenterStack>
+                  <Box pt={2}>
+                    <CenterStack>
+                      <Box display={'flex'} gap={2}>
+                        <PrimaryButton text='send' onClick={handleSendEmail} />
+                        <SecondaryButton text='close' onClick={() => setHtmlMessage(null)} />
+                      </Box>
+                    </CenterStack>
+                  </Box>
+                </Box>
+              )}
+            </>
           )}
-          {/* {isAdmin && htmlMessage && <HtmlView html={htmlMessage} />} */}
+
           <Table>
             <TableHead></TableHead>
             <TableBody>
