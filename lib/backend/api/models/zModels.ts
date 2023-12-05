@@ -81,6 +81,7 @@ export const quoteSubscriptionSchema = z
     symbol: z.string(),
     company: z.string(),
     triggers: stockAlertTriggerSchema.array(),
+    lastTriggerExecuteDate: z.string().optional(),
   })
   .array()
 

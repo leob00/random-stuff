@@ -1,22 +1,54 @@
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <style>
-      table tbody td {
-        padding: 2px, 2px, 2px, 2px;
+      h4 {
+        font-size: 22px;
+      }
+      body {
+        color: #d6e7f8;
+        background-color: #0a214c;
+        font-family: apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        font-size: 12px;
+        line-height: 1.4;
+        margin: 0;
+        padding: 12px;
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+      }
+      table {
+        width: 100%;
+      }
+      th {
+        font-size: 18px;
+        text-align: left;
+        padding-bottom: 12px;
+      }
+      td {
+        text-align: left;
+        vertical-align: top;
+        padding: 8px 2px 8px 4px;
+      }
+      .negative {
+        color: #d45309;
+      }
+      .positive {
+        color: #44f70de7;
       }
     </style>
   </head>
-  <h4>Daily Moving Average</h4>
-  <table style="border: none">
-    <thead>
-      <tr>
-        <th>company</th>
-        <th>price</th>
-        <th>change</th>
-        <th>%</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-  <!-- <div style="padding-top: 4"><a href="{siteUrl}">random stuff</a></div> -->
+  <body>
+    <h4>Daily Moving Average</h4>
+    <table id="dailyMoveTable">
+      <thead>
+        <tr>
+          <th>company</th>
+          <th>change %</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </body>
 </html>
