@@ -47,15 +47,16 @@ function processDailyMoveTrigger(sub: StockAlertSubscription, trigger: StockAler
   sub.lastTriggerExecuteDate = trigger.lastExecutedDate ?? dayjs(new Date(1900, 1, 1)).format()
 
   if (trigger.status === 'started') {
-    console.log('status: started')
     appendDailyRow(quote, dailyRows)
     return
   }
   if (trigger.status !== 'complete') {
     trigger.status = 'queued'
   }
+  const lastEx = trigger.lastExecutedDate ? dayjs(trigger.lastExecutedDate).format() : dayjs(new Date(1900, 1, 1)).format()
+  const tradeDate = dayjs(quote.TradeDate).format()
 
-  if (trigger.lastExecutedDate && dayjs(trigger.lastExecutedDate).isBefore(dayjs(quote.TradeDate))) {
+  if (lastEx !== tradeDate) {
     if (Number(trigger.target) <= Math.abs(quote.ChangePercent)) {
       const newDate = dayjs(quote.TradeDate).format()
       sub.lastTriggerExecuteDate = newDate
@@ -64,6 +65,7 @@ function processDailyMoveTrigger(sub: StockAlertSubscription, trigger: StockAler
       trigger.status = 'started'
       trigger.actual = quote.ChangePercent
       trigger.message = `${dayjs(newDate).format('MM/DD/YYYY hh:mm a')} - target: ${trigger.target}% actual: ${quote.ChangePercent}% `
+
       appendDailyRow(quote, dailyRows)
     }
   }

@@ -52,12 +52,16 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     setEmailMessage(null)
     setSuccessMessage(null)
 
-    const quotes = await getStockQuotes(uniq(data!.subscriptions.map((m) => m.symbol)))
+    const dataCopy = { ...data! }
+
+    const quotes = await getStockQuotes(uniq(dataCopy.subscriptions.map((m) => m.symbol)))
+
     const template = await formatEmail('/emailTemplates/stockAlertSubscriptionEmailTemplate.html', new Map<string, string>())
     const templateKey: DynamoKeys = 'email-template[stock-alert]'
     putRecord(templateKey, 'email-template', template)
-    const result = processAlertTriggers(userProfile.username, data!, quotes, template)
+    const result = processAlertTriggers(userProfile.username, dataCopy, quotes, template)
     result.subscriptions = sortArray(result.subscriptions, ['lastTriggerExecuteDate'], ['desc'])
+
     //await updateDb(result.subscriptions)
 
     const newItems = result.subscriptions.flatMap((s) => s.triggers).filter((f) => f.status === 'started')
