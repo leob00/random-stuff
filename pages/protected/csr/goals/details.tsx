@@ -53,7 +53,6 @@ const Page = () => {
         {isLoading && (
           <>
             <BackdropLoader />
-            <LargeGridSkeleton />
           </>
         )}
         {goal && <PageHeader text={`Goal: ${goal.body}`} backButtonRoute={'/protected/csr/goals'} />}
