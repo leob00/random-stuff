@@ -73,7 +73,7 @@ function processDailyMoveTrigger(sub: StockAlertSubscription, trigger: StockAler
 
 function appendDailyRow(quote: StockQuote, dailyRows: string[]) {
   const tr = '<tr>'
-  const td1 = `<td>${quote.Company} (${quote.Symbol}</td>`
+  const td1 = `<td>${quote.Company} (${quote.Symbol})</td>`
   const td2 = `<td class="${quote.ChangePercent < 0 ? 'negative' : 'positive'}">${quote.ChangePercent}</td>`
 
   const resultRow = `${tr}${td1}${td2}</tr>`
