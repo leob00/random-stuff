@@ -17,6 +17,7 @@ export type DynamoKeys =
   | 'community-stocks'
   | 'user-stock_list'
   | 'stockportfolio'
+  | 'email-template[stock-alert]'
 
 const connection = apiConnection().aws
 const apiGatewayUrl = connection.url
@@ -289,6 +290,14 @@ export async function deleteRandomStuffBatch(req: SignedRequest) {
   } catch (error) {
     console.log('error in putRandomStuff')
     return null
+  }
+}
+
+export async function putRandomStuffBatch(data: LambdaDynamoRequest[]) {
+  try {
+    await post(`${apiGatewayUrl}/randomstuffbatch`, { records: data })
+  } catch (error) {
+    console.log('error in putRandomStuff')
   }
 }
 

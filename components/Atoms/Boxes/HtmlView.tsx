@@ -42,7 +42,8 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
           }}
           //variant='body1'
           color='primary'
-          dangerouslySetInnerHTML={{ __html: text }}></StyledBox>
+          dangerouslySetInnerHTML={{ __html: text }}
+        ></StyledBox>
       ) : (
         <></>
       )}

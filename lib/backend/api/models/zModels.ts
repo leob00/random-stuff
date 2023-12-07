@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { EmailMessage } from '../aws/apiGateway'
 
 export const quoteHistorySchema = z
   .object({
@@ -89,5 +90,5 @@ export type StockAlertSubscription = z.infer<typeof quoteSubscriptionSchema.elem
 export type StockAlertTrigger = z.infer<typeof stockAlertTriggerSchema>
 export interface StockAlertSubscriptionWithMessage {
   subscriptions: StockAlertSubscription[]
-  message?: string
+  message?: EmailMessage
 }
