@@ -1,7 +1,10 @@
+import { TableCell, TableRow } from '@aws-amplify/ui-react'
 import { Box, Table, TableBody, TableContainer, TableHead } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import CenterStack from 'components/Atoms/CenterStack'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
+import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useAlertsController } from 'hooks/stocks/useAlertsController'
 import { processAlertTriggers } from 'lib/backend/alerts/stockAlertProcessor'
@@ -19,6 +22,17 @@ import StockAlertRow from './StockAlertRow'
 
 const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const alertsSearchhKey = constructStockAlertsSubSecondaryKey(userProfile.username)
+  const [searchFilter, setSearchFilter] = React.useState('')
+
+  const filterRecords = (data: StockAlertSubscriptionWithMessage): StockAlertSubscriptionWithMessage => {
+    const result = { ...data }
+    if (searchFilter.length > 0) {
+      result.subscriptions = result.subscriptions.filter(
+        (m) => m.symbol.toLowerCase().startsWith(searchFilter.toLowerCase()) || m.company.toLowerCase().startsWith(searchFilter.toLowerCase()),
+      )
+    }
+    return result
+  }
 
   const dataFn = async () => {
     const response = sortArray(await searchRecords(alertsSearchhKey), ['last_modified'], ['desc'])
@@ -51,6 +65,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     setIsLoading(true)
     setEmailMessage(null)
     setSuccessMessage(null)
+    setSearchFilter('')
 
     const dataCopy = { ...data! }
 
@@ -91,6 +106,9 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
       mutate(alertsSearchhKey, newData)
     }
   }
+  const handleSearched = (text: string) => {
+    setSearchFilter(text)
+  }
 
   return (
     <Box py={2}>
@@ -108,8 +126,20 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           )}
           <TableContainer>
             <Table>
-              <TableHead></TableHead>
-              <TableBody>{data && data.subscriptions.map((sub) => <StockAlertRow key={sub.id} sub={sub} />)}</TableBody>
+              <TableHead>
+                <TableRow>
+                  <TableCell colSpan={10}>
+                    <CenterStack>
+                      <SearchWithinList onChanged={handleSearched} />
+                    </CenterStack>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {filterRecords(data).subscriptions.map((sub) => (
+                  <StockAlertRow key={sub.id} sub={sub} />
+                ))}
+              </TableBody>
             </Table>
           </TableContainer>
         </>

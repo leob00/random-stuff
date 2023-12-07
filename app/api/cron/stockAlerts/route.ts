@@ -16,6 +16,12 @@ import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import { processAlertTriggers } from 'lib/backend/alerts/stockAlertProcessor'
 
 export async function GET(req: NextRequest) {
+  const authHeader = req.headers.get('authorization')
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return new Response('Unauthorized', {
+      status: 401,
+    })
+  }
   const updateSubscriptions = async (items: StockAlertSubscription[], searchKey: string) => {
     const records: LambdaDynamoRequest[] = items.map((m) => {
       return {
