@@ -40,7 +40,7 @@ export function processAlertTriggers(
   } else {
     htmlTemplate = htmlTemplate.replaceAll('{dailyData}', '')
   }
-  console.log('daily rows created: ', dailyRows.length)
+  //sconsole.log('daily rows created: ', dailyRows.length)
   return userSub
 }
 function processDailyMoveTrigger(sub: StockAlertSubscription, trigger: StockAlertTrigger, quote: StockQuote, dailyRows: string[]) {

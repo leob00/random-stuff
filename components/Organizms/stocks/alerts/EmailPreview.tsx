@@ -10,13 +10,13 @@ import React from 'react'
 
 const EmailPreview = ({ emailMessage, onClose, onSend }: { emailMessage: EmailMessage; onClose: () => void; onSend: () => void }) => {
   return (
-    <Box>
+    <Box pb={6}>
       <HorizontalDivider />
       <Box pt={2}>
         <CenterStack>
           <Box display={'flex'} gap={2}>
-            <PrimaryButton text='send' onClick={onSend} />
-            <SecondaryButton text='close' onClick={onClose} />
+            <PrimaryButton text='send' size='small' color='success' onClick={onSend} />
+            <SecondaryButton text='close' size='small' onClick={onClose} />
           </Box>
         </CenterStack>
       </Box>
@@ -36,8 +36,8 @@ const EmailPreview = ({ emailMessage, onClose, onSend }: { emailMessage: EmailMe
       <Box pt={2}>
         <CenterStack>
           <Box display={'flex'} gap={2}>
-            <PrimaryButton text='send' onClick={onSend} />
-            <SecondaryButton text='close' onClick={onClose} />
+            <PrimaryButton color='success' text='send' size='small' onClick={onSend} />
+            <SecondaryButton text='close' size='small' onClick={onClose} />
           </Box>
         </CenterStack>
       </Box>

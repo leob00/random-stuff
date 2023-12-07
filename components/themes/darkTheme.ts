@@ -1,5 +1,5 @@
 import { createTheme, PaletteOptions, responsiveFontSizes, ThemeOptions } from '@mui/material'
-import { VeryLightBlue, DarkModeBlue, CasinoBlueTransparent, CasinoBlue, RedDarkMode, rfsOptions } from './mainTheme'
+import { VeryLightBlue, DarkModeBlue, CasinoBlueTransparent, CasinoBlue, RedDarkMode, rfsOptions, CasinoGreenTransparent } from './mainTheme'
 
 const darkPalette: PaletteOptions = {
   mode: 'dark',
@@ -14,6 +14,7 @@ const darkPalette: PaletteOptions = {
   error: {
     main: RedDarkMode,
   },
+
   background: {
     default: DarkModeBlue,
     paper: DarkModeBlue,

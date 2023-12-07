@@ -16,6 +16,7 @@ import { putRecord, putRecordsBatch, searchRecords, sendEmailFromClient } from '
 import { formatEmail } from 'lib/ui/mailUtil'
 import { sortArray } from 'lib/util/collections'
 import { uniq } from 'lodash'
+import numeral from 'numeral'
 import React from 'react'
 import EmailPreview from './EmailPreview'
 import StockAlertRow from './StockAlertRow'
@@ -83,9 +84,9 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     if (newItems.length > 0) {
       setEmailMessage(result.message ?? null)
     }
-    setSuccessMessage(`generated ${newItems.length} new messages`)
+    setSuccessMessage(`generated ${newItems.length} new ${newItems.length === 1 ? 'message' : 'messages'}`)
     setIsLoading(false)
-    mutate(alertsSearchhKey, result)
+    mutate(alertsSearchhKey, result, { revalidate: false })
   }
   const handleSendEmail = async () => {
     if (emailMessage) {
@@ -119,7 +120,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           {isAdmin && (
             <>
               <Box py={2} display={'flex'} justifyContent={'space-between'}>
-                <PrimaryButton text='generate alerts' onClick={handleGenerateAlerts} />
+                <PrimaryButton text='generate alerts' color='success' onClick={handleGenerateAlerts} />
               </Box>
               {emailMessage && <EmailPreview emailMessage={emailMessage} onClose={() => setEmailMessage(null)} onSend={handleSendEmail} />}
             </>
@@ -130,7 +131,9 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                 <TableRow>
                   <TableCell colSpan={10}>
                     <CenterStack>
-                      <SearchWithinList onChanged={handleSearched} />
+                      {!isLoading && (
+                        <SearchWithinList onChanged={handleSearched} text={`search in ${numeral(data.subscriptions.length).format('###,###')} alerts`} />
+                      )}
                     </CenterStack>
                   </TableCell>
                 </TableRow>
