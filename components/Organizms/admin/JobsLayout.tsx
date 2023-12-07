@@ -64,7 +64,7 @@ const JobsLayout = () => {
   return (
     <Box>
       {isLoading ? (
-        <LargeGridSkeleton />
+        <BackdropLoader />
       ) : (
         <>
           {isLoadingDetail && <BackdropLoader />}

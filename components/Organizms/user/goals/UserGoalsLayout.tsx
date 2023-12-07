@@ -72,17 +72,8 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
 
   return (
     <>
-      {isLoading && (
-        <>
-          <BackdropLoader />
-          <LargeGridSkeleton />
-        </>
-      )}
-      {isValidating && (
-        <>
-          <BackdropLoader />
-        </>
-      )}
+      {isLoading && <BackdropLoader />}
+      {isValidating && <BackdropLoader />}
       {error && <ErrorMessage text='Opps. We encountered and error. Please try refreshing the page.' />}
       {goalsAndTasks && <UserGoalsDisplay goalsAndTasks={goalsAndTasks} username={username} />}
     </>

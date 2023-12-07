@@ -31,7 +31,7 @@ const Page = () => {
       <Seo pageTitle='Goals' />
       <ResponsiveContainer>
         <PageHeader text={'Goals'} />
-        {isLoading ? <BackdropLoader /> : <>{userProfile ? <UserGoalsLayout username={userProfile.username} /> : <PleaseLogin />}</>}
+        {isLoading ? <></> : <>{userProfile ? <UserGoalsLayout username={userProfile.username} /> : <PleaseLogin />}</>}
       </ResponsiveContainer>
     </>
   )

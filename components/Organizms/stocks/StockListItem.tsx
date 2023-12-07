@@ -161,9 +161,9 @@ const StockListItem = ({
           {isStock && (
             <>
               {authProfile && (
-                <>
+                <Box display={'flex'} gap={2} alignItems={'center'}>
                   <StockSubscibeIcon userProfile={authProfile} quote={item} />
-                </>
+                </Box>
               )}
               <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
               <Typography ref={tabScrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>

@@ -18,6 +18,7 @@ import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/Context
 import ContextMenuAlert from 'components/Molecules/Menus/ContextMenuAlert'
 import ContextMenuPortfolio from 'components/Molecules/Menus/ContextMenuPortfolio'
 import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 const Page = () => {
   const router = useRouter()
@@ -95,7 +96,7 @@ const Page = () => {
       <ResponsiveContainer>
         <TabList tabs={tabs} onSetTab={handleSelectTab} />
         {loading ? (
-          <WarmupBox />
+          <></>
         ) : (
           <>
             {selectedTab === 'Stocks' && (

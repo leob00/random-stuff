@@ -6,6 +6,7 @@ import useSWR, { mutate } from 'swr'
 import { get } from 'lib/backend/api/fetchFunctions'
 import StocksDisplay from './StocksDisplay'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const enc = encodeURIComponent(weakEncrypt(`user-stock_list[${userProfile.username}]`))
@@ -25,11 +26,7 @@ const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
 
   return (
     <>
-      {isLoading && (
-        <>
-          <LargeGridSkeleton />
-        </>
-      )}
+      {isLoading && <BackdropLoader />}
       {stocks && <StocksDisplay userProfile={userProfile} result={stocks} onMutated={handleMutated} onCustomSortUpdated={handleCustomSortUpdate} />}
     </>
   )

@@ -1,4 +1,4 @@
-import { Box, IconButton } from '@mui/material'
+import { Box, Button, IconButton } from '@mui/material'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import React from 'react'
 import NotificationsOffIcon from '@mui/icons-material/NotificationsOff'
@@ -11,10 +11,12 @@ import StockSubscriptionTriggerForm from './StockSubscriptionTriggerForm'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { sortArray } from 'lib/util/collections'
+import { useRouter } from 'next/router'
 
 const StockSubscibeIcon = ({ userProfile, quote }: { userProfile: UserProfile; quote: StockQuote }) => {
   const [showAlertEdit, setShowAlertEdit] = React.useState(false)
   const subscriptionId = constructStockAlertsSubPrimaryKey(userProfile.username, quote.Symbol)
+  const router = useRouter()
 
   const fetcherFn = async (url: string, key: string) => {
     const response = await getRecord<StockAlertSubscription>(subscriptionId)
@@ -69,22 +71,27 @@ const StockSubscibeIcon = ({ userProfile, quote }: { userProfile: UserProfile; q
         quote={quote}
         onSave={handleSaveTrigger}
       />
-      <Box>
-        {!data && (
-          <IconButton size='small' color='success' onClick={handleEditAlerts}>
-            <NotificationAddIcon fontSize='small' />
-          </IconButton>
-        )}
-        {hasActiveTriggers && (
-          <IconButton size='small' color='success' onClick={handleEditAlerts}>
-            <NotificationsIcon fontSize='small' />
-          </IconButton>
-        )}
-        {data && !hasActiveTriggers && (
-          <IconButton size='small' color='success' onClick={handleEditAlerts}>
-            <NotificationsOffIcon fontSize='small' />
-          </IconButton>
-        )}
+      <Box display={'flex'} gap={2} alignItems={'center'}>
+        <Box>
+          {!data && (
+            <IconButton size='small' color='success' onClick={handleEditAlerts}>
+              <NotificationAddIcon fontSize='small' />
+            </IconButton>
+          )}
+          {hasActiveTriggers && (
+            <IconButton size='small' color='success' onClick={handleEditAlerts}>
+              <NotificationsIcon fontSize='small' />
+            </IconButton>
+          )}
+          {data && !hasActiveTriggers && (
+            <IconButton size='small' color='success' onClick={handleEditAlerts}>
+              <NotificationsOffIcon fontSize='small' />
+            </IconButton>
+          )}
+        </Box>
+        <Box>
+          <Button onClick={() => router.push('/csr/stocks/alerts')}>manage alerts</Button>
+        </Box>
       </Box>
     </Box>
   )

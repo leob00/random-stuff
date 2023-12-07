@@ -12,6 +12,7 @@ import NewsList from './NewsList'
 import { getUserNoteTitles, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import useSWR from 'swr'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 const NewsLayout = () => {
   const userController = useUserController()
@@ -70,10 +71,7 @@ const NewsLayout = () => {
       </Box>
       <Box>
         {isLoading ? (
-          <>
-            <WarmupBox />
-            <LargeGridSkeleton />
-          </>
+          <BackdropLoader />
         ) : (
           <>
             {error && <ErrorMessage text='There is an error that occurred. We have been made aware of it. Please try again in a few minutes.' />}

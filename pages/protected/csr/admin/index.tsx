@@ -62,7 +62,7 @@ const Page = () => {
       <Seo pageTitle='Admin' />
       <ResponsiveContainer>
         {loading ? (
-          <WarmupBox />
+          <></>
         ) : userProfile ? (
           <>
             <BackButton />
