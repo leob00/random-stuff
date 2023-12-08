@@ -98,10 +98,18 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           }
         })
       })
-      await updateSubscriptions(newData.subscriptions!, userProfile.username)
+      const records: LambdaDynamoRequest[] = newData.subscriptions!.map((m) => {
+        return {
+          id: m.id,
+          category: alertsSearchhKey,
+          data: m,
+          expiration: 0,
+        }
+      })
+      await putRecordsBatch({ records: records })
       setEmailMessage(null)
       setIsLoading(false)
-      mutate(alertsSearchhKey, newData)
+      mutate(alertsSearchhKey)
     }
   }
   const handleSearched = (text: string) => {

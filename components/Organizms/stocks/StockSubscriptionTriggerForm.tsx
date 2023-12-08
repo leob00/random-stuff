@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Alert, Box, Typography } from '@mui/material'
+import { Alert, Box, Typography, Button } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
@@ -12,6 +12,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import StockListItem from './StockListItem'
+import { useRouter } from 'next/router'
 
 const StockSubscriptionTriggerForm = ({
   show,
@@ -34,6 +35,7 @@ const StockSubscriptionTriggerForm = ({
   } = useForm<StockAlertTrigger>({
     resolver: zodResolver(stockAlertTriggerSchema),
   })
+  const router = useRouter()
 
   const onSubmit: SubmitHandler<StockAlertTrigger> = (formFields: StockAlertTrigger) => {
     const submitData = { ...formFields }
@@ -94,8 +96,11 @@ const StockSubscriptionTriggerForm = ({
               </Box>
             </Box>
           </Box>
-          <Box py={2} display={'flex'} alignItems={'flex-end'}>
+          <Box py={2} display={'flex'} gap={2}>
             <PrimaryButton text='save' type='submit' size='small' />
+            <Button variant='text' onClick={() => router.push('/csr/stocks/alerts')}>
+              manage all alerts
+            </Button>
           </Box>
         </form>
       </CenterStack>

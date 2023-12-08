@@ -16,6 +16,7 @@ import Calculator from 'components/Organizms/admin/Calculator'
 import TabList from 'components/Atoms/Buttons/TabList'
 import ServerInfo from 'components/Organizms/admin/ServerInfo'
 import RequireClaim from 'components/Organizms/user/RequireClaim'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 const Page = () => {
   const userController = useUserController()
@@ -62,7 +63,7 @@ const Page = () => {
       <Seo pageTitle='Admin' />
       <ResponsiveContainer>
         {loading ? (
-          <></>
+          <BackdropLoader />
         ) : userProfile ? (
           <>
             <BackButton />

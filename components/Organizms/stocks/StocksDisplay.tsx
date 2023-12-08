@@ -11,8 +11,6 @@ import { Box } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import StocksAutoComplete from 'components/Atoms/Inputs/StocksAutoComplete'
-import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
-import WarmupBox from 'components/Atoms/WarmupBox'
 import numeral from 'numeral'
 import AddQuote from './AddQuote'
 import EditList from './EditList'
@@ -25,6 +23,7 @@ import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import StocksCustomSortForm from './StocksCustomSortForm'
 import CustomSortAlert from './CustomSortAlert'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 export const searchWithinResults = (quotes: StockQuote[], text: string) => {
   const result = quotes.filter(
@@ -217,10 +216,7 @@ const StocksDisplay = ({
       ) : (
         <Box>
           {model.isLoading ? (
-            <>
-              <WarmupBox />
-              <LargeGridSkeleton />
-            </>
+            <BackdropLoader />
           ) : (
             <Box py={2}>
               {model.editList && result.length > 0 ? (
