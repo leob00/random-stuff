@@ -53,8 +53,8 @@ const TaskItem = ({
               </Typography>
             </LinkButton2>
             <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-              <SecondaryCheckbox checked={isCompleted} onChanged={handleCheckTask} />
-              {/* <Switch checked={isCompleted} onChange={handleChecked} /> */}
+              {/* <SecondaryCheckbox checked={isCompleted} onChanged={handleCheckTask} /> */}
+              <Switch color={isCompleted ? 'success' : 'default'} checked={isCompleted} onChange={handleChecked} />
             </Stack>
           </Stack>
           {task.dueDate && (

@@ -36,12 +36,10 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   }
 
   const dataFn = async () => {
-    //const response = sortArray(await searchRecords(alertsSearchhKey), ['last_modified'], ['desc'])
     const response = await searchRecords(alertsSearchhKey)
     const subs = response.map((m) => JSON.parse(m.data) as StockAlertSubscription)
-
     const model: StockAlertSubscriptionWithMessage = {
-      subscriptions: subs,
+      subscriptions: sortAlerts(subs),
     }
     return model
   }
@@ -50,18 +48,12 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const [emailMessage, setEmailMessage] = React.useState<EmailMessage | null>(null)
   const [successMesssage, setSuccessMessage] = React.useState<string | null>(null)
 
-  // if (data) {
-  //   console.log(data.subscriptions.flatMap((m) => m.triggers))
-  // }
-
   const handleGenerateAlerts = async () => {
     setIsLoading(true)
     setEmailMessage(null)
     setSuccessMessage(null)
     setSearchFilter('')
-
     const dataCopy = { ...data! }
-
     const quotes = await getStockQuotes(uniq(dataCopy.subscriptions.map((m) => m.symbol)))
 
     const template = await formatEmail('/emailTemplates/stockAlertSubscriptionEmailTemplate.html', new Map<string, string>())
@@ -125,7 +117,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           {isAdmin && (
             <>
               <Box py={2} display={'flex'} justifyContent={'space-between'}>
-                <PrimaryButton size='small' text='preview email' onClick={handleGenerateAlerts} />
+                <PrimaryButton size='small' text='generate email' onClick={handleGenerateAlerts} />
               </Box>
               {emailMessage && <EmailPreview emailMessage={emailMessage} onClose={() => setEmailMessage(null)} onSend={handleSendEmail} />}
             </>
@@ -155,6 +147,33 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
       {successMesssage && <SnackbarSuccess show={true} text={successMesssage} duration={3000} />}
     </Box>
   )
+}
+
+function sortAlerts(subs: StockAlertSubscription[]) {
+  const subsMap = new Map<string, StockAlertSubscription>()
+  subs.forEach((sub) => {
+    subsMap.set(sub.symbol, sub)
+  })
+  const allTriggers = subs.flatMap((m) => m.triggers)
+  const executedTriggers = sortArray(
+    allTriggers.filter((m) => m.message),
+    ['lastExecutedDate'],
+    ['desc'],
+  )
+  const nonExecutedTriggers = sortArray(
+    allTriggers.filter((m) => !m.executedDate),
+    ['lastExecutedDate'],
+    ['desc'],
+  )
+
+  const result: StockAlertSubscription[] = []
+  executedTriggers.forEach((tr) => {
+    result.push(subsMap.get(tr.symbol!)!)
+  })
+  nonExecutedTriggers.forEach((tr) => {
+    result.push(subsMap.get(tr.symbol!)!)
+  })
+  return result
 }
 
 export default StockAlertsLayout

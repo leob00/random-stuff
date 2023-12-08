@@ -13,8 +13,6 @@ export const useAlertsController = <T>(alertsSearchhKey: string, fetcherFunction
   const isAdmin = ticket !== null && userHasRole('Admin', ticket.roles)
   const { data, mutate, isLoading } = useSwrHelper(alertsSearchhKey, fetcherFunction)
 
-  //const { data, isLoading, isValidating } = useSWR(alertsSearchhKey, ([url, key]) => fetcherFunction(url, key))
-
   const [isMutating, setIsMutating] = React.useState(false)
   const loading = isLoading || isMutating
 

@@ -78,14 +78,4 @@ function appendDailyRow(quote: StockQuote, dailyRows: string[]) {
 
   const resultRow = `${tr}${td1}${td2}</tr>`
   dailyRows.push(resultRow)
-
-  // const tr = doc.createElement('tr')
-  // const td1 = doc.createElement('td')
-  // const td2 = doc.createElement('td')
-  // td1.append(`${quote.Company} (${quote.Symbol})`)
-  // td2.setAttribute('class', quote.ChangePercent < 0 ? 'negative' : 'positive')
-  // td2.append(`${quote.ChangePercent}%`)
-  // tr.appendChild(td1)
-  // tr.appendChild(td2)
-  // tableBody.appendChild(tr)
 }

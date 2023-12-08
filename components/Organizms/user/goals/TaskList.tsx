@@ -17,6 +17,7 @@ import { reorderTasks } from './UserGoalsLayout'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import dayjs from 'dayjs'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 interface TaskModel {
   isLoading: boolean
@@ -182,9 +183,7 @@ const TaskList = ({
       />
 
       {model.isLoading ? (
-        <>
-          <PageWithGridSkeleton />
-        </>
+        <BackdropLoader />
       ) : (
         <>
           <Box pt={1} pb={3}>
