@@ -15,7 +15,7 @@ const PrimaryButton: React.FC<ButtonAttributes> = ({ text, isDisabled, onClicked
   return (
     <Button
       variant='contained'
-      color={theme.palette.mode === 'light' ? 'primary' : 'secondary'}
+      color={theme.palette.mode === 'light' ? 'primary' : 'info'}
       onClick={handleClick}
       disabled={isDisabled}
       {...props}

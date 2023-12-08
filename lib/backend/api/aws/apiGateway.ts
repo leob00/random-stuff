@@ -4,7 +4,8 @@ import { BasicArticle } from 'lib/model'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { apiConnection } from '../config'
 import { get, post, postBody, postDelete } from '../fetchFunctions'
-import { StockQuote } from '../models/zModels'
+import { StockAlertSubscription, StockQuote } from '../models/zModels'
+import { constructStockAlertsSubSecondaryKey } from './util'
 
 export type Bucket = 'rs-files'
 
@@ -415,6 +416,19 @@ export async function getSesAttributes(username: string) {
 }
 export async function sendSesEmailVerification(username: string) {
   const response = await postBody(`${apiGatewayUrl}/ses`, 'PUT', { key: username })
+}
+
+export async function updateSubscriptions(items: StockAlertSubscription[], username: string) {
+  const records: LambdaDynamoRequest[] = items.map((m) => {
+    return {
+      id: m.id,
+      category: constructStockAlertsSubSecondaryKey(username),
+      data: m,
+      expiration: 0,
+    }
+  })
+
+  await putRandomStuffBatch(records)
 }
 
 export type StockPositionType = 'short' | 'long'

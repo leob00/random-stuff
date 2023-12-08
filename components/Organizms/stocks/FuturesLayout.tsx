@@ -28,20 +28,9 @@ const FuturesLayout = () => {
 
   return (
     <Box py={2}>
+      <>{isLoading && <BackdropLoader />}</>
       <>
-        {isLoading && (
-          <>
-            <LargeGridSkeleton />
-            <BackdropLoader />
-          </>
-        )}
-      </>
-      <>
-        {isValidating && (
-          <>
-            <BackdropLoader />
-          </>
-        )}
+        {isValidating && <BackdropLoader />}
         {data && <>{RenderDisplay(data)}</>}
       </>
     </Box>

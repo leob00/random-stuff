@@ -15,7 +15,7 @@ const EmailPreview = ({ emailMessage, onClose, onSend }: { emailMessage: EmailMe
       <Box pt={2}>
         <CenterStack>
           <Box display={'flex'} gap={2}>
-            <PrimaryButton text='send' size='small' color='success' onClick={onSend} />
+            <PrimaryButton text='send' size='small' onClick={onSend} />
             <SecondaryButton text='close' size='small' onClick={onClose} />
           </Box>
         </CenterStack>
@@ -36,7 +36,7 @@ const EmailPreview = ({ emailMessage, onClose, onSend }: { emailMessage: EmailMe
       <Box pt={2}>
         <CenterStack>
           <Box display={'flex'} gap={2}>
-            <PrimaryButton color='success' text='send' size='small' onClick={onSend} />
+            <PrimaryButton text='send' size='small' onClick={onSend} />
             <SecondaryButton text='close' size='small' onClick={onClose} />
           </Box>
         </CenterStack>

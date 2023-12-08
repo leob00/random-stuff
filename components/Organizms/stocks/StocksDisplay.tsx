@@ -61,7 +61,7 @@ const StocksDisplay = ({
   }
 
   const [model, setModel] = React.useReducer((state: StockLayoutModel, newState: StockLayoutModel) => ({ ...state, ...newState }), defaultModel)
-  const customSort = userProfile.settings!.stocks!.customSort
+  const customSort = userProfile.settings?.stocks?.customSort
   const orderStocks = (list: StockQuote[]) => {
     if (customSort) {
       const ordered = orderBy(

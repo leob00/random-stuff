@@ -5,6 +5,7 @@ import useSWR, { mutate } from 'swr'
 import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import StockListItem from './StockListItem'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 const StockDetailsLayout = ({ symbol }: { symbol: string }) => {
   const mutateKey = ['/api/baseRoute', symbol]
@@ -21,11 +22,7 @@ const StockDetailsLayout = ({ symbol }: { symbol: string }) => {
 
   return (
     <>
-      {isLoading && (
-        <>
-          <LargeGridSkeleton />
-        </>
-      )}
+      {isLoading && <BackdropLoader />}
       {stocks && stocks.length > 0 && <StockListItem isStock item={stocks[0]} expand scrollIntoView />}
     </>
   )

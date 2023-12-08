@@ -90,7 +90,7 @@ const StockSubscibeIcon = ({ userProfile, quote }: { userProfile: UserProfile; q
           )}
         </Box>
         <Box>
-          <Button onClick={() => router.push('/csr/stocks/alerts')}>manage alerts</Button>
+          <Button onClick={() => router.push('/csr/stocks/alerts')}>manage all alerts</Button>
         </Box>
       </Box>
     </Box>

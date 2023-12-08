@@ -8,7 +8,7 @@ import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useAlertsController } from 'hooks/stocks/useAlertsController'
 import { processAlertTriggers } from 'lib/backend/alerts/stockAlertProcessor'
-import { DynamoKeys, EmailMessage, LambdaDynamoRequest, UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { DynamoKeys, EmailMessage, LambdaDynamoRequest, updateSubscriptions, UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructStockAlertsSubSecondaryKey } from 'lib/backend/api/aws/util'
 import { StockAlertSubscription, StockAlertSubscriptionWithMessage } from 'lib/backend/api/models/zModels'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
@@ -36,11 +36,12 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   }
 
   const dataFn = async () => {
-    const response = sortArray(await searchRecords(alertsSearchhKey), ['last_modified'], ['desc'])
+    //const response = sortArray(await searchRecords(alertsSearchhKey), ['last_modified'], ['desc'])
+    const response = await searchRecords(alertsSearchhKey)
     const subs = response.map((m) => JSON.parse(m.data) as StockAlertSubscription)
 
     const model: StockAlertSubscriptionWithMessage = {
-      subscriptions: sortArray(subs, ['lastTriggerExecuteDate'], ['desc']),
+      subscriptions: subs,
     }
     return model
   }
@@ -49,18 +50,9 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const [emailMessage, setEmailMessage] = React.useState<EmailMessage | null>(null)
   const [successMesssage, setSuccessMessage] = React.useState<string | null>(null)
 
-  const updateDb = async (items: StockAlertSubscription[]) => {
-    const records: LambdaDynamoRequest[] = items.map((m) => {
-      return {
-        id: m.id,
-        category: alertsSearchhKey,
-        data: m,
-        expiration: 0,
-      }
-    })
-
-    await putRecordsBatch({ records: records })
-  }
+  // if (data) {
+  //   console.log(data.subscriptions.flatMap((m) => m.triggers))
+  // }
 
   const handleGenerateAlerts = async () => {
     setIsLoading(true)
@@ -78,9 +70,14 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     const result = processAlertTriggers(userProfile.username, dataCopy, quotes, template)
     result.subscriptions = sortArray(result.subscriptions, ['lastTriggerExecuteDate'], ['desc'])
 
-    //await updateDb(result.subscriptions)
-
     const newItems = result.subscriptions.flatMap((s) => s.triggers).filter((f) => f.status === 'started')
+    result.subscriptions.forEach((sub) => {
+      sub.triggers.forEach((tr) => {
+        if (tr.status === 'started') {
+          tr.status = 'queued'
+        }
+      })
+    })
     if (newItems.length > 0) {
       setEmailMessage(result.message ?? null)
     }
@@ -101,7 +98,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           }
         })
       })
-      await updateDb(newData.subscriptions!)
+      await updateSubscriptions(newData.subscriptions!, userProfile.username)
       setEmailMessage(null)
       setIsLoading(false)
       mutate(alertsSearchhKey, newData)
@@ -120,7 +117,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           {isAdmin && (
             <>
               <Box py={2} display={'flex'} justifyContent={'space-between'}>
-                <PrimaryButton text='generate alerts' color='success' onClick={handleGenerateAlerts} />
+                <PrimaryButton size='small' text='preview email' onClick={handleGenerateAlerts} />
               </Box>
               {emailMessage && <EmailPreview emailMessage={emailMessage} onClose={() => setEmailMessage(null)} onSend={handleSendEmail} />}
             </>

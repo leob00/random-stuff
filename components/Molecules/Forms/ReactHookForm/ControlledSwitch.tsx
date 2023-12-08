@@ -24,6 +24,7 @@ export default function ControlledSwitch({
       defaultValue={defaultValue}
       render={({ field }) => (
         <Switch
+          color={defaultValue ? 'success' : 'default'}
           {...field}
           checked={defaultValue}
           onChange={(event, checked) => {

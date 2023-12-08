@@ -1,6 +1,8 @@
 import { Alert, Box, TableCell, TableRow, Typography } from '@mui/material'
+import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
+import dayjs from 'dayjs'
 import { StockAlertSubscription } from 'lib/backend/api/models/zModels'
 import React from 'react'
 
@@ -33,7 +35,17 @@ const StockAlertRow = ({ sub }: { sub: StockAlertSubscription }) => {
               <Box>
                 <Typography variant='body2'>{`target: ${trigger.target}%`}</Typography>
               </Box>
-              <Box>{trigger.message && <Alert severity='success'>{`${trigger.message}`}</Alert>}</Box>
+              <Box>
+                {trigger.message && (
+                  <>
+                    <AlertWithHeader
+                      severity='success'
+                      header={`${dayjs(trigger.lastExecutedDate).format('MM/DD/YYYY hh:mm a')}`}
+                      text={`${trigger.message}`}
+                    />
+                  </>
+                )}
+              </Box>
             </Box>
           ))}
         </Box>

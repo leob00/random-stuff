@@ -14,6 +14,10 @@ const darkPalette: PaletteOptions = {
   error: {
     main: RedDarkMode,
   },
+  info: {
+    main: CasinoBlueTransparent,
+    contrastText: VeryLightBlue,
+  },
 
   background: {
     default: DarkModeBlue,

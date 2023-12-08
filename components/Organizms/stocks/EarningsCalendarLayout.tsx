@@ -19,7 +19,7 @@ const EarningsCalendarLayout = () => {
   return (
     <Box py={2}>
       {isValidating && <BackdropLoader />}
-      {isLoading && <LargeGridSkeleton />}
+      {isLoading && <BackdropLoader />}
       {!isLoading && data && data.Body.length === 0 && <NoDataFound />}
       {data && data.Body.length > 0 && <EarningsCalendarDisplay data={data.Body as StockEarning[]} />}
     </Box>

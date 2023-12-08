@@ -64,7 +64,7 @@ function processDailyMoveTrigger(sub: StockAlertSubscription, trigger: StockAler
       trigger.lastExecutedDate = newDate
       trigger.status = 'started'
       trigger.actual = quote.ChangePercent
-      trigger.message = `${dayjs(newDate).format('MM/DD/YYYY hh:mm a')} - target: ${trigger.target}% actual: ${quote.ChangePercent}% `
+      trigger.message = `target: ${trigger.target}% actual: ${quote.ChangePercent}% `
 
       appendDailyRow(quote, dailyRows)
     }
