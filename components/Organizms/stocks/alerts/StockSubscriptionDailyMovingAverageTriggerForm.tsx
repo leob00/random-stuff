@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Alert, Box, Typography, Button } from '@mui/material'
+import { Alert, Box, Typography, Button, Stack } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
@@ -11,21 +11,19 @@ import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import StockListItem from './StockListItem'
+import StockListItem from '../StockListItem'
 import { useRouter } from 'next/router'
 
-const StockSubscriptionTriggerForm = ({
-  show,
+const StockSubscriptionDailyMovingAverageTriggerForm = ({
   trigger,
   quote,
-  onClose,
   onSave,
+  showManageAlertsButton,
 }: {
-  show: boolean
   trigger: StockAlertTrigger
   quote: StockQuote
-  onClose: () => void
   onSave: (item: StockAlertTrigger) => void
+  showManageAlertsButton: boolean
 }) => {
   const {
     control,
@@ -40,7 +38,6 @@ const StockSubscriptionTriggerForm = ({
   const onSubmit: SubmitHandler<StockAlertTrigger> = (formFields: StockAlertTrigger) => {
     const submitData = { ...formFields }
     onSave(submitData)
-    onClose()
   }
 
   const [formData, setFormData] = React.useState(trigger)
@@ -50,28 +47,23 @@ const StockSubscriptionTriggerForm = ({
   }
 
   return (
-    <FormDialog title={'Alerts'} show={show} onCancel={onClose}>
-      <CenterStack>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {/* Hidden fields */}
-          <ControlledFreeTextInput control={control} fieldName='status' defaultValue={formData.status} label='status' hidden />
-          <ControlledFreeTextInput control={control} fieldName='typeId' defaultValue={formData.typeId} label='status' hidden />
-          <ControlledFreeTextInput control={control} fieldName='typeDescription' defaultValue={formData.typeDescription ?? ''} label='typeDescription' hidden />
-          <ControlledFreeTextInput control={control} fieldName='typeInstruction' defaultValue={formData.typeInstruction ?? ''} label='typeInstruction' hidden />
-          <ControlledFreeTextInput control={control} fieldName='executedDate' defaultValue={formData.executedDate} label='executedDate' hidden />
-          <ControlledFreeTextInput control={control} fieldName='message' defaultValue={formData.message} label='message' hidden />
-          <ControlledNumberInput control={control} fieldName='order' type='number' defaultValue={formData.order} label='order' hidden />
-
-          {/* Hidden fields end */}
+    <Box>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {/* Hidden fields */}
+        <ControlledFreeTextInput control={control} fieldName='status' defaultValue={formData.status} label='status' hidden />
+        <ControlledFreeTextInput control={control} fieldName='typeId' defaultValue={formData.typeId} label='status' hidden />
+        <ControlledFreeTextInput control={control} fieldName='typeDescription' defaultValue={formData.typeDescription ?? ''} label='typeDescription' hidden />
+        <ControlledFreeTextInput control={control} fieldName='typeInstruction' defaultValue={formData.typeInstruction ?? ''} label='typeInstruction' hidden />
+        <ControlledFreeTextInput control={control} fieldName='executedDate' defaultValue={formData.executedDate} label='executedDate' hidden />
+        <ControlledFreeTextInput control={control} fieldName='message' defaultValue={formData.message} label='message' hidden />
+        <ControlledNumberInput control={control} fieldName='order' type='number' defaultValue={formData.order} label='order' hidden />
+        {/* Hidden fields end */}
+        <Stack>
           <Box display={'flex'} flexDirection={'column'} gap={1}>
-            <Box>
-              {/* <Typography variant='h4'>{`${quote.Company} (${quote.Symbol})`}</Typography> */}
-              <StockListItem isStock={true} item={quote} disabled showGroupName={false} />
-            </Box>
             <Box>
               <Box display={'flex'} gap={1} alignItems={'center'} pt={2}>
                 <NotificationsIcon fontSize='medium' />
-                <Typography variant='h5'>{`Alert trigger: ${formData.typeDescription}`}</Typography>
+                <Typography variant='h5'>{`${formData.typeDescription}`}</Typography>
               </Box>
 
               <Typography variant={'body2'} pt={2}>
@@ -96,16 +88,20 @@ const StockSubscriptionTriggerForm = ({
               </Box>
             </Box>
           </Box>
+        </Stack>
+        <Box>
           <Box py={2} display={'flex'} gap={2}>
             <PrimaryButton text='save' type='submit' size='small' />
-            <Button variant='text' onClick={() => router.push('/csr/stocks/alerts')}>
-              manage all alerts
-            </Button>
+            {showManageAlertsButton && (
+              <Button variant='text' onClick={() => router.push('/csr/stocks/alerts')}>
+                manage all alerts
+              </Button>
+            )}
           </Box>
-        </form>
-      </CenterStack>
-    </FormDialog>
+        </Box>
+      </form>
+    </Box>
   )
 }
 
-export default StockSubscriptionTriggerForm
+export default StockSubscriptionDailyMovingAverageTriggerForm

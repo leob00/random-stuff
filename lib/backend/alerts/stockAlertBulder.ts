@@ -18,8 +18,8 @@ export async function buildStockAlertsForAllUsers() {
       userSubMap.set(username, {
         subscriptions: subs,
       })
-      const symbsolsToAdd = subs.map((m) => m.symbol)
-      symbsolsToAdd.forEach((symbol) => {
+      const symbolsToAdd = subs.map((m) => m.symbol)
+      symbolsToAdd.forEach((symbol) => {
         symbols.add(symbol)
       })
     }

@@ -16,6 +16,7 @@ export const useUserController = () => {
     setLastProfileFetchDate: state.setLastProfileFetchDate,
     setTicket: state.setTicket,
   }))
+
   const fetchProfile = async () => {
     const user = await getUserCSR()
     if (user !== null) {

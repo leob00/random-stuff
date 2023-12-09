@@ -7,14 +7,17 @@ import useSWR, { mutate } from 'swr'
 import { deleteRecord, getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
 import { constructStockAlertsSubPrimaryKey, constructStockAlertsSubSecondaryKey } from 'lib/backend/api/aws/util'
 import { StockAlertSubscription, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
-import StockSubscriptionTriggerForm from './StockSubscriptionTriggerForm'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { sortArray } from 'lib/util/collections'
 import { useRouter } from 'next/router'
+import StockSubscriptionForm from './alerts/StockSubscriptionForm'
+import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
+import { getDefaultSubscription, saveTrigger } from 'lib/ui/alerts/stockAlertHelper'
 
 const StockSubscibeIcon = ({ userProfile, quote }: { userProfile: UserProfile; quote: StockQuote }) => {
   const [showAlertEdit, setShowAlertEdit] = React.useState(false)
+  const [snackbarMessage, setSnackBarMessage] = React.useState<string | null>(null)
   const subscriptionId = constructStockAlertsSubPrimaryKey(userProfile.username, quote.Symbol)
   const router = useRouter()
 
@@ -30,47 +33,24 @@ const StockSubscibeIcon = ({ userProfile, quote }: { userProfile: UserProfile; q
   const handleEditAlerts = () => {
     setShowAlertEdit(true)
   }
-  const dailyMoveTrigger: StockAlertTrigger = data?.triggers.find((m) => m.typeId === 'dailyPercentMove') ?? {
-    enabled: true,
-    status: 'queued',
-    target: '3.5',
-    typeDescription: 'Daily moving average',
-    typeInstruction: 'Alert me when the daily moving average exceeds a set value (up/down).',
-    typeId: 'dailyPercentMove',
-    order: 1,
-  }
+
+  const selectedSub = getDefaultSubscription(userProfile, quote, data)
 
   const handleSaveTrigger = async (item: StockAlertTrigger) => {
-    const newData: StockAlertSubscription = data ?? {
-      id: subscriptionId,
-      symbol: quote.Symbol,
-      company: quote.Company,
-      triggers: [],
-    }
-
-    const newTriggers = newData.triggers.filter((m) => m.typeId !== item.typeId)
-    newTriggers.push({ ...item, symbol: quote.Symbol, status: 'queued' })
-    newData.triggers = sortArray(newTriggers, ['order'], ['asc'])
-    newData.company = quote.Company
-    if (newData.triggers.every((m) => !m.enabled)) {
-      await deleteRecord(subscriptionId)
-    } else {
-      await putRecord(newData.id, constructStockAlertsSubSecondaryKey(userProfile.username), newData)
-    }
+    setSnackBarMessage(null)
+    const newSub: StockAlertSubscription = data ? { ...data } : { ...selectedSub }
+    await saveTrigger(userProfile.username, subscriptionId, quote, newSub, item)
+    setShowAlertEdit(false)
     mutate(subscriptionId)
+    setSnackBarMessage('saved!')
   }
 
   return (
     <Box>
       {isLoading && <BackdropLoader />}
       {isValidating && <BackdropLoader />}
-      <StockSubscriptionTriggerForm
-        show={showAlertEdit}
-        trigger={dailyMoveTrigger}
-        onClose={() => setShowAlertEdit(false)}
-        quote={quote}
-        onSave={handleSaveTrigger}
-      />
+      <StockSubscriptionForm show={showAlertEdit} sub={selectedSub} quote={quote} onClose={() => setShowAlertEdit(false)} onSave={handleSaveTrigger} />
+
       <Box display={'flex'} gap={2} alignItems={'center'}>
         <Box>
           {!data && (
@@ -93,6 +73,7 @@ const StockSubscibeIcon = ({ userProfile, quote }: { userProfile: UserProfile; q
           <Button onClick={() => router.push('/csr/stocks/alerts')}>manage all alerts</Button>
         </Box>
       </Box>
+      {snackbarMessage && <SnackbarSuccess show={snackbarMessage !== null} text={snackbarMessage} duration={1000} />}
     </Box>
   )
 }
