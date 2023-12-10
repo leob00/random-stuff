@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Alert, Box } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import StocksAutoComplete from 'components/Atoms/Inputs/StocksAutoComplete'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
@@ -45,6 +45,11 @@ const StocksLookup = ({ onFound }: { onFound: (item: StockQuote) => void }) => {
     <>
       <Box>
         {isLoading && <BackdropLoader />}
+        {error && (
+          <CenterStack>
+            <Alert severity='error'>{error}</Alert>
+          </CenterStack>
+        )}
         <CenterStack>
           <StocksAutoComplete
             placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}

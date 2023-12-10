@@ -1,13 +1,18 @@
 import { Alert, Box, TableCell, TableRow, Typography } from '@mui/material'
+import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
+import ContextMenuDelete from 'components/Molecules/Menus/ContextMenuDelete'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import dayjs from 'dayjs'
+import { constructStockAlertsSubSecondaryKey } from 'lib/backend/api/aws/util'
 import { StockAlertSubscription, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
+import { deleteRecord } from 'lib/backend/csr/nextApiWrapper'
 import { saveTrigger } from 'lib/ui/alerts/stockAlertHelper'
 import React from 'react'
+import { mutate } from 'swr'
 import StockSubscriptionForm from './StockSubscriptionForm'
 
 const StockAlertRow = ({ sub, username }: { sub: StockAlertSubscription; username: string }) => {
@@ -15,6 +20,7 @@ const StockAlertRow = ({ sub, username }: { sub: StockAlertSubscription; usernam
   const [quote, setQuote] = React.useState<StockQuote | null>(null)
   const [error, setError] = React.useState<string | null>(null)
   const [isLoading, setIsLoading] = React.useState(false)
+  const [showConfirmDelete, setShowConfirmDelete] = React.useState(false)
 
   const handleEdit = async (item: StockAlertSubscription) => {
     setIsLoading(true)
@@ -41,11 +47,37 @@ const StockAlertRow = ({ sub, username }: { sub: StockAlertSubscription; usernam
     handleClose()
   }
 
+  const handleDelete = (sub: StockAlertSubscription) => {
+    setShowConfirmDelete(true)
+    setEditSub(sub)
+  }
+
+  const handleYesDelete = async () => {
+    if (editSub) {
+      setIsLoading(true)
+      await deleteRecord(editSub.id)
+      setIsLoading(false)
+    }
+    handleCloseDelete()
+    mutate(constructStockAlertsSubSecondaryKey(username))
+  }
+
+  const handleCloseDelete = async () => {
+    setShowConfirmDelete(false)
+    setEditSub(null)
+  }
+
   const menuItems: ContextMenuItem[] = [
     {
       item: <ContextMenuEdit />,
       fn: (arg?: unknown) => {
         handleEdit(sub)
+      },
+    },
+    {
+      item: <ContextMenuDelete text={'delete'} />,
+      fn: (arg?: unknown) => {
+        handleDelete(sub)
       },
     },
   ]
@@ -54,6 +86,9 @@ const StockAlertRow = ({ sub, username }: { sub: StockAlertSubscription; usernam
       <TableCell colSpan={10}>
         <Box>
           {isLoading && <BackdropLoader />}
+          {showConfirmDelete && editSub && (
+            <ConfirmDeleteDialog onCancel={handleCloseDelete} onConfirm={handleYesDelete} show={true} text={`Delete subscription for ${editSub.symbol}?`} />
+          )}
           {error && <Alert severity='error'>{error}</Alert>}
           {quote && editSub && <StockSubscriptionForm show={true} onClose={handleClose} onSave={handleSave} quote={quote} sub={editSub} />}
           <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>

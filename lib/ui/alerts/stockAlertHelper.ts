@@ -23,7 +23,7 @@ const priceTrigger: StockAlertTrigger = {
   order: 2,
 }
 
-export function getDefaultSubscription(userProfile: UserProfile, quote: StockQuote, data?: StockAlertSubscription) {
+export function getDefaultSubscription(userProfile: UserProfile, quote: StockQuote, data?: StockAlertSubscription | null) {
   const selectedSub = data ?? {
     company: quote.Company,
     id: constructStockAlertsSubPrimaryKey(userProfile.username, quote.Symbol),

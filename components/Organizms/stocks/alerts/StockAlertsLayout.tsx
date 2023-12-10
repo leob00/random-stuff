@@ -8,10 +8,11 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useAlertsController } from 'hooks/stocks/alerts/useAlertsController'
 import { processAlertTriggers } from 'lib/backend/alerts/stockAlertProcessor'
 import { DynamoKeys, EmailMessage, LambdaDynamoRequest, updateSubscriptions, UserProfile } from 'lib/backend/api/aws/apiGateway'
-import { constructStockAlertsSubSecondaryKey } from 'lib/backend/api/aws/util'
-import { StockAlertSubscription, StockAlertSubscriptionWithMessage, StockQuote } from 'lib/backend/api/models/zModels'
+import { constructStockAlertsSubPrimaryKey, constructStockAlertsSubSecondaryKey } from 'lib/backend/api/aws/util'
+import { StockAlertSubscription, StockAlertSubscriptionWithMessage, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
-import { putRecord, putRecordsBatch, searchRecords, sendEmailFromClient } from 'lib/backend/csr/nextApiWrapper'
+import { getRecord, putRecord, putRecordsBatch, searchRecords, sendEmailFromClient } from 'lib/backend/csr/nextApiWrapper'
+import { getDefaultSubscription } from 'lib/ui/alerts/stockAlertHelper'
 import { formatEmail } from 'lib/ui/mailUtil'
 import { sortArray } from 'lib/util/collections'
 import { uniq } from 'lodash'
@@ -20,6 +21,8 @@ import React from 'react'
 import StocksLookup from '../StocksLookup'
 import EmailPreview from './EmailPreview'
 import StockAlertRow from './StockAlertRow'
+import StockSubscriptionForm from './StockSubscriptionForm'
+import { saveTrigger } from 'lib/ui/alerts/stockAlertHelper'
 
 const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const alertsSearchhKey = constructStockAlertsSubSecondaryKey(userProfile.username)
@@ -49,6 +52,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const [emailMessage, setEmailMessage] = React.useState<EmailMessage | null>(null)
   const [successMesssage, setSuccessMessage] = React.useState<string | null>(null)
   const [quote, setQuote] = React.useState<StockQuote | null>(null)
+  const [editSub, setEditSub] = React.useState<StockAlertSubscription | null>(null)
 
   const handleGenerateAlerts = async () => {
     setIsLoading(true)
@@ -111,8 +115,17 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const handleSearched = (text: string) => {
     setSearchFilter(text)
   }
-  const handleQuoteLoaded = (item: StockQuote) => {
-    console.log('item: ', item)
+  const handleQuoteLoaded = async (item: StockQuote) => {
+    //console.log('item: ', item)
+    setIsLoading(true)
+    const id = constructStockAlertsSubPrimaryKey(userProfile.username, item.Symbol)
+    let sub = await getRecord<StockAlertSubscription>(id)
+    if (!sub) {
+      sub = getDefaultSubscription(userProfile, item, sub)
+    }
+    setEditSub(sub)
+    setQuote(item)
+    setIsLoading(false)
   }
   const showHideAddAlert = (show: boolean) => {
     setShowAddAlert(!show)
@@ -120,35 +133,45 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
       setQuote(null)
     }
   }
+  const handleCloseEditForm = () => {
+    setQuote(null)
+    setEditSub(null)
+  }
+  const handleSaveTriger = async (item: StockAlertTrigger) => {
+    if (editSub && quote) {
+      setIsLoading(true)
+      await saveTrigger(userProfile.username, editSub.id, quote, editSub, item)
+      setIsLoading(false)
+      mutate(alertsSearchhKey)
+    }
+    handleCloseEditForm()
+  }
 
   return (
     <Box py={2}>
       <PageHeader text='Alerts' backButtonRoute='/csr/stocks' />
+      {quote && editSub && <StockSubscriptionForm show={true} onClose={handleCloseEditForm} onSave={handleSaveTriger} quote={quote} sub={editSub} />}
       {isLoading && <BackdropLoader />}
       {data && (
         <>
           <>
             <Box py={2} display={'flex'} justifyContent={'space-between'}>
               <Box display={'flex'} gap={2}>
-                {isAdmin && <PrimaryButton size='small' text='preview email' onClick={handleGenerateAlerts} />}
-                {/* <PrimaryButton size='small' text='add alert' color='success' onClick={() => showHideAddAlert(showAddAlert)} /> */}
+                <PrimaryButton size='small' text='preview email' onClick={handleGenerateAlerts} />
+                <PrimaryButton size='small' text='add alert' color='success' onClick={() => showHideAddAlert(showAddAlert)} />
               </Box>
-
               {showAddAlert && <StocksLookup onFound={handleQuoteLoaded} />}
               <Box></Box>
             </Box>
             {emailMessage && <EmailPreview emailMessage={emailMessage} onClose={() => setEmailMessage(null)} onSend={handleSendEmail} />}
           </>
-
           <TableContainer>
             <Table>
               <TableHead>
                 <TableRow>
                   <TableCell colSpan={10}>
                     <CenterStack>
-                      {!isLoading && (
-                        <SearchWithinList onChanged={handleSearched} text={`search in ${numeral(data.subscriptions.length).format('###,###')} alerts`} />
-                      )}
+                      <SearchWithinList onChanged={handleSearched} text={`search in ${numeral(data.subscriptions.length).format('###,###')} alerts`} />
                     </CenterStack>
                   </TableCell>
                 </TableRow>

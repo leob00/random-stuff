@@ -335,15 +335,14 @@ export async function getRecord<T>(id: DynamoKeys | string): Promise<T> {
     const body = encryptKey(id)
     const data = await post(`/api/getRandomStuffEnc`, body)
     if (data) {
-      result = data
-      return result
+      return data as T
     } else {
       return result
     }
   } catch (err) {
     console.log(err)
+    return result
   }
-  return result as T
 }
 export async function searchRecords(id: DynamoKeys | CategoryType | string): Promise<LambdaBody[]> {
   const enc = weakEncrypt(id)
