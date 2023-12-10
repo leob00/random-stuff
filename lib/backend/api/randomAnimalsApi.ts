@@ -46,7 +46,6 @@ export async function getRandomAnimalsFromLocalFiles(type: DynamoKeys) {
   }
   try {
     let files = await fs.promises.readdir(basePath)
-    console.log(`found ${files.length} ${title} files`)
     let mappedArticles: BasicArticle[] = files.map((item) => {
       return { type: type, title: title, imagePath: `${targetPath}${item}` }
     })
@@ -65,27 +64,13 @@ export async function getRandomAnimalsFromLocalFiles(type: DynamoKeys) {
 
     return mappedArticles
   } catch (err) {
-    console.log(err)
+    console.error(err)
     let r: BasicArticle[] = []
     return r
   }
 }
 
-export async function writeToFile(data: RandomStuffData) {
-  //const jsonData = require('../../../public/data/randomStuff.json')
-  /* const data = jsonData as RandomStuffData
-
-  switch (type) {
-    case 'cats':
-      data.cats = shuffle(articles)
-      break
-    case 'dogs':
-      data.dogs = shuffle(articles)
-      break
-  } */
-  /* await fs.promises.writeFile('./public/data/randomStuff.json', JSON.stringify(data))
-  console.log(`randomStuff.json updated`) */
-}
+export async function writeToFile(data: RandomStuffData) {}
 
 export async function getRandomCat() {
   let result: BasicArticle = {
@@ -99,7 +84,6 @@ export async function getRandomCat() {
 
     if (data.length > 0) {
       result.imagePath = data[0].url
-      //console.log('retrieved random cat')
     }
   } catch (error) {
     console.error(`api error ocurred: ${error}`)

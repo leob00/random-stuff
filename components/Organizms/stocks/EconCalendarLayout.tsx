@@ -40,7 +40,6 @@ const EconCalendarLayout = () => {
         items: datesMap.get(key) ?? [],
       })
     })
-    //console.log(calendar)
 
     return (
       <Box pt={2}>

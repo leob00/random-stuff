@@ -8,14 +8,6 @@ export const config = {
 
 export default async function handler(req: NextRequest) {
   const id = (await req.nextUrl.searchParams.get('id')) as NewsTypeIds
-  //console.log(id)
-  //let id = json['id'] as unknown as NewsTypeIds
   let result = await getNewsBySource(id)
   return NextResponse.json(result)
 }
-
-/* export default async function handler(req: NextApiRequest, res: NextApiResponse<NewsItem[]>) {
-  let id = req.query['id'] as unknown as NewsTypeIds
-  let result = await getNewsBySource(id)
-  res.status(200).json(result)
-} */

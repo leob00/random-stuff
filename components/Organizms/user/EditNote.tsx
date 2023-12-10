@@ -37,7 +37,6 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
     noteCopy.title = title.current ? title.current.value : ''
     noteCopy.body = bodyText.replace('<br>', '')
     noteCopy.body = noteCopy.body.replace('<p class="ql-align-justify"></p>', '<p>')
-    //console.log(noteCopy.body)
     onSubmitted?.(noteCopy)
   }
 
@@ -66,7 +65,6 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
   }
   const handleChangeExp = (val: string) => {
     const dt = dayjs().add(Number(val), 'day').add(1, 'minute').format()
-    //console.log('new exp date', dt)
     setEditedExpDate(dt)
   }
   const handleSaveExp = () => {

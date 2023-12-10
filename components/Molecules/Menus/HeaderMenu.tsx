@@ -21,7 +21,6 @@ const HeaderMenu = ({
   onChangePalette: () => void
 }) => {
   const router = useRouter()
-  //console.log('loggedIn: ', ticket !== null
   const paletteMenuItem: ContextMenuItem = {
     item: (
       <>

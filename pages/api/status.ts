@@ -7,7 +7,6 @@ export interface ApiStatus {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ApiStatus>) {
-  //console.log('executing api/status: ')
   const result: ApiStatus = {
     date: dayjs().format(),
     status: 'online',

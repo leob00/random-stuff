@@ -24,7 +24,6 @@ export async function get(url: string, params?: any) {
     throw new Error('authentication failed')
   }
   const data = await resp.json()
-  // console.log('data: ', data)
   return data
 }
 
@@ -44,7 +43,7 @@ export async function post(url: string, body: any) {
     const data = await resp.json()
     return data
   } catch (err) {
-    console.log('error in post: ', err)
+    console.error('error in post: ', err)
     return null
   }
 }
@@ -65,7 +64,7 @@ export async function postBody(url: string, method: 'PATCH' | 'POST' | 'DELETE' 
     const data = await resp.json()
     return data
   } catch (err) {
-    console.log('error in post: ', err)
+    console.error('error in post: ', err)
     return null
   }
 }
@@ -98,15 +97,13 @@ export async function postDelete(url: string, params: any) {
 
     return resp
   } catch (err) {
-    console.log('error in delete: ', err)
+    console.error('error in delete: ', err)
     return null
   }
 }
 
 export async function getList<T>(url: string, params?: any): Promise<T[]> {
   const resp = await get(url, params)
-  //console.log('response: ', resp)
   const data = await resp.json()
-  // console.log('data: ', data)
   return data as T[]
 }

@@ -244,7 +244,7 @@ export async function getStockQuotes(symbols: string[]) {
     const result = quoteArraySchema.parse(response.Body)
     return result
   } catch (err) {
-    console.log(err)
+    console.error(err)
     return []
   }
 }
@@ -294,11 +294,8 @@ export async function refreshQuotes(quotes: StockQuote[], username?: string) {
   const result: StockQuote[] = getListFromMap(map)
   if (username) {
     if (result.length > 0 && quotes.length > 0 && dayjs(result[0].TradeDate).isAfter(dayjs(quotes[0].TradeDate))) {
-      console.log(`Quotes are stale.`)
+      console.error(`Quotes are stale.`)
       putUserStockList(username, result)
-      console.log(`Saved ${result.length} quotes.`)
-    } else {
-      console.log('stocks are up to date')
     }
   }
 

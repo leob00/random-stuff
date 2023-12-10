@@ -7,7 +7,6 @@ import React from 'react'
 const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string; filename: string; onCancel: () => void }) => {
   const signedUrlRef = React.useRef<HTMLAnchorElement | null>(null)
   const isAudio = filename.includes('.mp3')
-  //console.log('isAudio: ', isAudio)
   return (
     <FormDialog title='View file' show={true} onCancel={onCancel}>
       <>

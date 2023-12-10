@@ -33,7 +33,6 @@ const fetcherFn = async (url: string) => {
 const Page: NextPage<{ article: BasicArticle }> = ({ article }) => {
   const fetcher: Fetcher<ApiStatus> = () => fetcherFn('/api/edgeStatus')
   const { data } = useSWR('/api/edgeStatus', fetcherFn)
-  // console.log(data)
   return (
     <>
       <Box>

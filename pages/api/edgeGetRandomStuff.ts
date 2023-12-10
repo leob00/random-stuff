@@ -9,9 +9,7 @@ export const config = {
 export default async (req: NextRequest) => {
   const enc = decodeURIComponent(req.nextUrl.searchParams.get('enc')!)
   const id = weakDecrypt(enc)
-  //console.log(id)
   const arg = id as DynamoKeys | string
   const result = await getRandomStuff(arg)
-//  console.log('retrieved api data from edgeGetRandomStuff')
   return NextResponse.json(result)
 }

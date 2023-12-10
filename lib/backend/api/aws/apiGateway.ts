@@ -138,7 +138,6 @@ export async function putAnimals(type: DynamoKeys, data: BasicArticle[]) {
   }
   let articles = postData.body.data as BasicArticle[]
   await post(url, postData)
-  console.log(`put ${articles.length} ${type} to Dynamo`)
 }
 
 export async function getAnimals(type: DynamoKeys) {
@@ -149,7 +148,7 @@ export async function getAnimals(type: DynamoKeys) {
     let data = JSON.parse(response.body.data) as BasicArticle[]
     return data
   } catch (err) {
-    console.log(`error in getAnimals: ${type} `, JSON.stringify(response))
+    console.error(`error in getAnimals: ${type} `, JSON.stringify(response))
     return []
   }
 }
@@ -164,7 +163,7 @@ export async function getRandomStuff(key: DynamoKeys | string) {
       return data
     }
   } catch (err) {
-    console.log('error in getRandomStuff: ', err)
+    console.error('error in getRandomStuff: ', err)
   }
 
   return null
@@ -175,7 +174,7 @@ export async function searchRandomStuffBySecIndex(search: CategoryType | string)
     let result = await post(url, { key: search })
     return result.body as LambdaBody[]
   } catch (err) {
-    console.log('error occurred in searchRandomStuffBySecIndex: ', err)
+    console.error('error occurred in searchRandomStuffBySecIndex: ', err)
   }
   return []
 }
@@ -187,7 +186,7 @@ export async function getS3ObjectPresignedUrl(bucket: string, prefix: string, fi
     const result = await post(url, body)
     return result.body
   } catch (err) {
-    console.log('error occurred in presignedurl: ', err)
+    console.error('error occurred in presignedurl: ', err)
   }
   return []
 }
@@ -198,7 +197,7 @@ export async function listS3Objects(bucket: Bucket, prefix: string) {
     const result = await post(url, body)
     return result.body
   } catch (err) {
-    console.log('error occurred in presignedurl: ', err)
+    console.error('error occurred in presignedurl: ', err)
   }
   return []
 }
@@ -210,7 +209,7 @@ export async function deleteS3Object(bucket: Bucket, prefix: string, filename: s
     const result = await postBody(url, 'DELETE', body)
     return result
   } catch (err) {
-    console.log('error occurred in postDelete: ', err)
+    console.error('error occurred in postDelete: ', err)
   }
   return []
 }
@@ -226,7 +225,7 @@ export async function renameS3Object(bucket: Bucket, prefix: string, oldfilename
     })
     return result
   } catch (err) {
-    console.log('error occurred in postDelete: ', err)
+    console.error('error occurred in postDelete: ', err)
   }
   return []
 }
@@ -245,19 +244,19 @@ export async function putRandomStuff(type: DynamoKeys, category: CategoryType, d
   try {
     await post(url, postData)
   } catch (error) {
-    console.log('error in putRandomStuff')
+    console.error('error in putRandomStuff')
   }
 }
 export async function putRandomStuffEnc(req: SignedRequest) {
   const decryptedString = weakDecrypt(req.data)
   const dynamoRequest = JSON.parse(decryptedString) as LambdaDynamoRequest
   if (!dynamoRequest) {
-    console.log('putRandomStuffEnc: signed request validation failed')
+    console.error('putRandomStuffEnc: signed request validation failed')
     return null
   }
   const id = weakDecrypt(dynamoRequest.token!)
   if (dynamoRequest.id !== id) {
-    console.log('token validation failed')
+    console.error('token validation failed')
     return null
   }
 
@@ -276,7 +275,7 @@ export async function putRandomStuffEnc(req: SignedRequest) {
     await post(url, postData)
     return dynamoRequest
   } catch (error) {
-    console.log('error in putRandomStuff')
+    console.error('error in putRandomStuff')
     return null
   }
 }
@@ -289,16 +288,26 @@ export async function deleteRandomStuffBatch(req: SignedRequest) {
     await post(url, { records: items })
     return items
   } catch (error) {
-    console.log('error in putRandomStuff')
+    console.error('error in putRandomStuff')
     return null
   }
 }
 
 export async function putRandomStuffBatch(data: LambdaDynamoRequest[]) {
+  const url = `${apiGatewayUrl}/randomstuffbatch`
+  const postData: RandomStuffPut[] = data.map((m) => {
+    return {
+      key: m.id,
+      category: m.category,
+      expiration: m.expiration,
+      data: m.data,
+    }
+  })
   try {
-    await post(`${apiGatewayUrl}/randomstuffbatch`, { records: data })
+    await post(url, { records: postData })
   } catch (error) {
-    console.log('error in putRandomStuff')
+    console.error('error in putRandomStuff')
+    return null
   }
 }
 
@@ -306,7 +315,7 @@ export async function putRandomStuffBatchEnc(req: SignedRequest) {
   const decryptedString = weakDecrypt(req.data)
   const dynamoRequest = JSON.parse(decryptedString) as LambdaDynamoRequestBatch
   if (!dynamoRequest) {
-    console.log('putRandomStuffBatchEnc: signed request validation failed')
+    console.error('putRandomStuffBatchEnc: signed request validation failed')
     return null
   }
 
@@ -321,10 +330,10 @@ export async function putRandomStuffBatchEnc(req: SignedRequest) {
   })
   try {
     await post(url, { records: postData })
-    //console.log(dynamoRequest)
+
     return dynamoRequest
   } catch (error) {
-    console.log('error in putRandomStuff')
+    console.error('error in putRandomStuff')
     return null
   }
 }
@@ -338,7 +347,7 @@ export async function deleteRandomStuff(key: string) {
     let resp = await post(url, params)
     return resp
   } catch (error) {
-    console.log('error in deleteRandomStuff', error)
+    console.error('error in deleteRandomStuff', error)
   }
   return { status: 'success' }
 }
@@ -394,7 +403,6 @@ export async function putS3(bucket: Bucket, prefix: string, filename: string, mi
       body: body,
       headers: { 'x-api-key': connection.key, 'Content-Type': mimeType },
     })
-    //console.log(response)
     const result: S3Object = {
       bucket: bucket,
       prefix: `${prefix}`,
@@ -406,7 +414,7 @@ export async function putS3(bucket: Bucket, prefix: string, filename: string, mi
 
     return result
   } catch (error) {
-    console.log('error in putS3: ', error)
+    console.error('error in putS3: ', error)
     return null
   }
 }
@@ -427,7 +435,6 @@ export async function updateSubscriptions(items: StockAlertSubscription[], usern
       expiration: 0,
     }
   })
-
   await putRandomStuffBatch(records)
 }
 

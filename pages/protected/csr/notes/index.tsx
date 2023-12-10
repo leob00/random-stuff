@@ -19,7 +19,6 @@ const Notes = () => {
   React.useEffect(() => {
     let fn = async () => {
       const p = await userController.fetchProfilePassive(900)
-      //console.log('effect: ', p)
       setUserProfile(p)
       setIsLoading(false)
     }

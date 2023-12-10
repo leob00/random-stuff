@@ -182,7 +182,6 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
   }
 
   React.useEffect(() => {
-    // console.log('isLoading: ', model.isLoading)
     if (defaultStateIntervalRef.current) {
       clearInterval(defaultStateIntervalRef.current)
     }
@@ -207,7 +206,6 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
             allCoins: model.allCoins,
           },
         })
-        // console.log(currentFace)
       }, 300)
     } else {
       if (defaultStateIntervalRef.current) {

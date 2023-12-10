@@ -17,7 +17,6 @@ const CompanyProfile = ({ quote }: { quote: StockQuote }) => {
         const logoUrl = encodeURIComponent(`http://qln-cdn.s3-website-us-east-1.amazonaws.com/companyLogos/${quote.Symbol}.png`)
         const logoResponse = await fetch(`/api/downloadImage?url=${logoUrl}`)
         const logoData = await logoResponse.json()
-        //console.log(logoData)
         setLogo(logoData)
         setData(apiData[0])
       }

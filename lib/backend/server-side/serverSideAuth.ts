@@ -34,7 +34,7 @@ export async function getUserSSRApi(req: NextApiRequest | NextRequest) {
     }
     return result
   } catch (error) {
-    console.log(`getUserSSRApi: user not authorized.`)
+    console.error(`getUserSSRApi: user not authorized.`)
     return null
   }
 }

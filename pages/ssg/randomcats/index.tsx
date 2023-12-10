@@ -50,7 +50,6 @@ const Cached = ({ fallbackData }: { fallbackData: BasicArticle[] }) => {
     return <Container>loading...</Container>
   }
   const apiData = shuffle(data)
-  //console.log(`got ${apiData.length} cats`)
   return <ArticlesLayout articles={apiData} />
 }
 

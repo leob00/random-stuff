@@ -30,13 +30,11 @@ const fetcherFn = async (url: string, id: string) => {
   }
   let resp = await axios.get(url, config)
   const recipe = resp.data as Recipe
-  console.log('fetcherFn - recipe fetched: ', recipe.title)
   return recipe
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
   let id = context.params?.id as string
-  //console.log(id)
   let article = await getRecipe(id)
 
   return {
@@ -51,7 +49,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 const Cached = ({ fallbackData }: { fallbackData: Recipe }) => {
-  //console.log(JSON.stringify(fallbackData))
   const fetcher: Fetcher<Recipe, string> = (id) => fetcherFn('/api/recipe', id)
 
   const { data, error } = useSWR(fallbackData.sys.id, fetcher, {

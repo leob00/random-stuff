@@ -59,8 +59,6 @@ export async function getAllBlogs() {
   let resp = await post(url, body)
   let data = resp as BlogResponse
   let blogCollection = data.data.blogCollection
-  //blogCollection.items = orderBy(blogCollection.items, ['sys.firstPublishedAt'], ['desc'])
-  console.log(`retrieved ${blogCollection.items.length} blogs`)
   return blogCollection
 }
 
@@ -97,12 +95,10 @@ export async function getAllRecipes(): Promise<RecipeCollection> {
   }
   for (let index = 0; index < 50; index++) {
     const result = await getRecipes(getRecipesQuery(index * 100))
-    console.log(`retrieved ${result.items.length} recipes.`)
     result.items.forEach((item) => {
       recipesMap.set(item.sys.id, item)
     })
     if (result.items.length === 0) {
-      console.log(`returning ${recipesMap.size} recipes.`)
       break
     }
   }
@@ -118,7 +114,6 @@ const getRecipes = async (query: string) => {
   let data = resp as RecipesResponse
   let collection = data.data.recipeCollection
 
-  console.log(`retrieved ${collection.items.length} recipes`)
   return collection
 }
 
@@ -149,7 +144,6 @@ export async function getRecipe(id: string) {
   const resp = await post(url, body)
   const data = resp as RecipesResponse
   const result = data.data.recipe
-  console.log(`retrieved ${result.title} recipe id: ${result.sys.id}`)
   return result
 }
 

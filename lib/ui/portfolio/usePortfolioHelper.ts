@@ -79,7 +79,6 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
     quotes.forEach((quote) => {
       newMap.set(quote.Symbol, quote)
     })
-    //console.log(`retrieved ${quotes.length} quotes`)
 
     records.forEach((position, positionIx) => {
       if (newMap.has(position.stockSymbol)) {
@@ -207,7 +206,6 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
           }
         })
       await updatePosition(position)
-      //console.log(tr)
     }
 
     return result

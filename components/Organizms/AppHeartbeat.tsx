@@ -11,18 +11,13 @@ const AppHeartbeat = ({ children }: { children: ReactNode }) => {
   React.useEffect(() => {
     const fn = async () => {
       const result = (await get('/api/edgeStatus')) as ApiStatus
-      console.log(`status: ${result.status} - date: ${dayjs(result.date).format('MM/DD/YYYY hh:mm:ss a')}`)
       setCounter(counter + 1)
       if (intervalRef.current) {
         clearInterval(intervalRef.current)
       }
     }
     if (counter === 0) {
-      setTimeout(() => {
-        //console.log('initializing heart beat...')
-        //fn().then(() => console.log('heart beat started'))
-      }, 1000)
-      //clearTimeout(timeOut)
+      setTimeout(() => {}, 1000)
     }
     intervalRef.current = setInterval(() => {
       fn()

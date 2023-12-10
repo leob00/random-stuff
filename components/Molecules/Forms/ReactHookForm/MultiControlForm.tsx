@@ -10,7 +10,6 @@ interface FormInput {
   id: string
 }
 type FormValues = {
-  //firstName: string
   fieldArray: FormInput[]
 }
 
@@ -20,7 +19,7 @@ export default function MutliControlForm() {
     control,
     name: 'fieldArray',
   })
-  const onSubmit = (data: FormValues) => console.log(data)
+  const onSubmit = (data: FormValues) => () => {}
   const watchFieldArray = watch('fieldArray')
   const controlledFields = fields.map((field, index) => {
     return {
@@ -28,8 +27,6 @@ export default function MutliControlForm() {
       ...watchFieldArray[index],
     }
   })
-
-  // console.log('updated', controlledFields)
 
   return (
     <div>

@@ -7,14 +7,10 @@ export async function middleware(req: NextRequest) {
 
   switch (url.pathname.toLowerCase()) {
     case '/':
-      console.log(`going home: ${url.toString()}`)
       /*  let resp = await fetch(`${url.toString()}ssr/warmup`)
       let status = await resp.status */
-      //console.log('warm up status: ' + status)
-      //sconsole.log(await resp.body)
 
       // let settings = getSiteSettings()
-      //console.log(`date reloaded: ${settings.lastReloadDate}`)
       break
   }
 

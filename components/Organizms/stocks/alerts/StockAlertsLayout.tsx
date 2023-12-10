@@ -116,7 +116,6 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     setSearchFilter(text)
   }
   const handleQuoteLoaded = async (item: StockQuote) => {
-    //console.log('item: ', item)
     setIsLoading(true)
     const id = constructStockAlertsSubPrimaryKey(userProfile.username, item.Symbol)
     let sub = await getRecord<StockAlertSubscription>(id)

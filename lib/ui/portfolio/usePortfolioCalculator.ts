@@ -14,7 +14,6 @@ export const usePortfolioCalculator = () => {
           transaction.cost = transaction.quantity * transaction.price
           transaction.value = position.quote!.Price * transaction.quantity
           transaction.gainLoss = transaction.cost! - transaction.value!
-          //console.log('sell short')
           break
       }
     } else {
@@ -31,7 +30,6 @@ export const usePortfolioCalculator = () => {
     position.realizedGainLoss = sum(closedTr.map((m) => m.gainLoss))
 
     //todo: calculate realized gain loss
-    //console.log(position.unrealizedGainLoss)
   }
 
   return {

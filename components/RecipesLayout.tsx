@@ -23,7 +23,7 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Opti
     if (sel.id) {
       router.push(`${baseUrl}${sel.id}`)
     } else {
-      console.log('error generating single recipe: ', sel)
+      console.error('error generating single recipe: ', sel)
     }
   }
   return (

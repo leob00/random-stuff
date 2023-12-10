@@ -18,10 +18,17 @@ import { mutate } from 'swr'
 import NewsDescription from './NewsDescription'
 dayjs.extend(relativeTime)
 
-const NewsList = ({ newsItems, hideSaveButton = false, showPublishDate = false }: { newsItems: NewsItem[]; hideSaveButton?: boolean; showPublishDate?: boolean }) => {
+const NewsList = ({
+  newsItems,
+  hideSaveButton = false,
+  showPublishDate = false,
+}: {
+  newsItems: NewsItem[]
+  hideSaveButton?: boolean
+  showPublishDate?: boolean
+}) => {
   const userController = useUserController()
   const handleSaved = async (note: UserNote) => {}
-  //console.log(newsItems)
   const RenderHeadline = (item: NewsItem) => {
     if (!item.Headline) {
       return <></>

@@ -11,7 +11,7 @@ const PleaseLogin = ({ message = 'Sorry! Looks like you are not signed in.' }: {
     try {
       await Auth.signOut({ global: false })
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
   return (

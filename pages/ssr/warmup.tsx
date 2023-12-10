@@ -16,7 +16,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     }
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return {
       props: {
         authenticated: false,

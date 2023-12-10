@@ -9,39 +9,21 @@ import dayjs from 'dayjs'
 import { constructUserGoalPk, constructUserGoalsKey } from 'lib/backend/api/aws/util'
 import { putUserGoals } from 'lib/backend/csr/nextApiWrapper'
 import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
-import { UserGoal, UserTask } from 'lib/models/userTasks'
+import { UserGoal } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
-import { iteratee, orderBy } from 'lodash'
+import { orderBy } from 'lodash'
 import React from 'react'
-import GoalCharts from './GoalCharts'
 import { UserGoalAndTask } from './UserGoalsLayout'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import router from 'next/router'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
-import ListHeader from 'components/Molecules/Lists/ListHeader'
-import OverdueTasks from './OverdueTasks'
 import GoalsSummary from './GoalsSummary'
 
 const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoalAndTask[]; username: string }) => {
-  // recover goals
-  // if (goals.length === 0 && tasks.length > 0) {
-  //   const newGoals: UserGoal[] = []
-  //   tasks.forEach((t) => {
-  //     if (!newGoals.find((m) => m.id === t.goalId)) {
-  //       newGoals.push({
-  //         id: t.goalId,
-  //         body: t.goalId,
-  //       })
-  //     }
-  //   })
-  //   console.log('new goals: ', newGoals)
-  //   putUserGoals(constructUserGoalsKey('leo_bel@hotmail.com'), newGoals)
-  // }
   const theme = useTheme()
   const redColor = theme.palette.mode === 'dark' ? RedDarkMode : CasinoRedTransparent
 
-  //const goalsAndTasks = mapGoalTasks(goals, tasks)
   const [barChart, setBarchart] = React.useState<BarChart | undefined>(undefined)
   const [showAddGoalForm, setShowAddGoalForm] = React.useState(false)
   const allGoals = goalsAndTasks.flatMap((m) => m.goal)

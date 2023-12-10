@@ -46,14 +46,13 @@ const Cached = ({ fallbackData }: { fallbackData: BasicArticle[] }) => {
     revalidateOnReconnect: true,
   })
   if (error) {
-    console.log('error occured', error)
+    console.error('error occured', error)
     return <ArticlesLayout articles={fallbackData} />
   }
   if (!data || data.length === 0) {
     return <Container>loading...</Container>
   }
   const apiData = shuffle(data)
-  //console.log(`got ${apiData.length} dogs`)
   return <ArticlesLayout articles={apiData} />
 }
 

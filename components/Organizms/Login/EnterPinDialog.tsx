@@ -27,12 +27,6 @@ const EnterPinDialog = ({
   const handleClose = async () => {
     onCancel()
   }
-  const savePin = async (userPin: UserPin) => {
-    //setIsLoading(true)
-    // const p = { ...userProfile, pin: userPin }
-    //setIsLoading(false)
-    //onConfirm(userPin)
-  }
 
   const handleSetPin = async (text: string) => {
     if (text.length === 4) {
@@ -45,12 +39,10 @@ const EnterPinDialog = ({
         onConfirm(updatedPin)
       } else {
         setError('incorrect pin')
-        console.log('incorrect pin')
         setIsLoading(false)
       }
     } else {
       setError('pin is invalid')
-      console.log('pin is invalid')
       setIsLoading(false)
     }
   }

@@ -31,7 +31,6 @@ export const needsPinEntry = (minuteDuration: number, logExpiration: boolean = f
   const expDt = dayjs(pin.lastEnterDate).add(minuteDuration, 'minute')
   const isExpired = expDt.isBefore(dayjs())
   if (isExpired) {
-    console.log('expired: ', isExpired)
   }
   return isExpired
 }
@@ -62,7 +61,6 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
       return
     }
 
-    //console.log(`polling: isPinExpired, showPinEntry ${newModel.isPinExpired}, ${newModel.showPinEntry}`)
     timeOutRef.current = setTimeout(() => {
       const newModel = { ...model }
       let newCounter = newModel.pollingCounter
@@ -75,9 +73,7 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
       } else {
         newCounter += 1
       }
-      //console.log('polling: ', newCounter)
       const shouldEnterPin = needsPinEntry(minuteDuration, newCounter === 0 || Math.abs(newCounter % 2) == 1, newModel.userProfile?.pin)
-      //console.log('shouldEnterPin: ', shouldEnterPin)
       newModel.isPinExpired = shouldEnterPin
       newModel.showPinEntry = shouldEnterPin
       newModel.pollingCounter = newCounter
@@ -86,7 +82,6 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
   }
 
   const handleClosePinEntry = () => {
-    //console.log('hide dialog')
     setModel({ ...model, showPinEntry: false, showPinCreate: false })
   }
 
@@ -99,8 +94,6 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
     }
     const newProfile = { ...model.userProfile, pin: pin }
     userController.setProfile(newProfile)
-
-    console.log(`pin validated. `)
 
     putUserProfile(newProfile)
     setModel({
@@ -128,10 +121,6 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
         return
       }
       if (enablePolling) {
-        if (p && p.pin) {
-          console.log(`pin will expire ${dayjs(p.pin.lastEnterDate).add(minuteDuration, 'minutes').from(dayjs())}`)
-        }
-
         startPolling()
       } else {
         const shouldEnterPin = needsPinEntry(minuteDuration, true, m.userProfile?.pin)

@@ -14,7 +14,6 @@ const encryptNative = (text: string) => {
 
 const encrypt = (passPhrase: string, data: string) => {
   var CryptoJS = require('crypto-js')
-  //console.log(`file name: ${fileName}`)
   const result = CryptoJS.AES.encrypt(data, passPhrase).toString().toString(16)
   return result
 }
@@ -25,11 +24,8 @@ const decrypt = (passPhrase: string, data: string) => {
   const result = bytes.toString(CryptoJS.enc.Utf8)
   return result
 }
-//const enc1 = encryptNative('testing 163563- -88er')
-//console.log(enc1)
+
 const toEncrypt = 'hellO World, You silly Goo$$e!'
 
 const encrypted = encrypt('/L0g3ZcqpbaAZEXSMjjFr0mFccn9MNYf/zhcTq9QJNMph9VUN2WmJq9nyCRRqQ=', toEncrypt)
-console.log(`encrypted ${toEncrypt}: ${encrypted}`)
 const decrypted = decrypt('/L0g3ZcqpbaAZEXSMjjFr0mFccn9MNYf/zhcTq9QJNMph9VUN2WmJq9nyCRRqQ=', encrypted)
-console.log(`decrypted: ${decrypted}`)

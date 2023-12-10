@@ -18,7 +18,6 @@ const Page = () => {
 
     fn()
   }, [authProfile])
-  //const { data, isLoading, isValidating } = useSWR(key, ([url, key]) => fetcherFn(url, key))
   return (
     <>
       <>

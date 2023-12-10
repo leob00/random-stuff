@@ -10,6 +10,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   }
   let resp = await axios.get(id, config)
   let data = resp.data
-  //console.log(data)
   res.status(200).json(data)
 }

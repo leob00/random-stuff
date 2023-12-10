@@ -207,8 +207,6 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       let counter = { ...model }.simulationCounter
       if (counter >= simulationSpinMax) {
         setModel({ ...model, isSimulationRunning: false, isSpinning: false, simulationCounter: simulationSpinMax, simulationJustFinished: true })
-
-        console.log(`simulation stopped: player results: ${model.playerResults.length}`)
       } else {
         counter += 1
         const spin = getSpinResult()

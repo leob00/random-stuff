@@ -169,7 +169,6 @@ const TransactionsTable = ({
 
   const handleChangePortfolio = async (val: string) => {
     const newPos = { ...movePosition!, portfolioId: val }
-    // console.log(val)
     setMovePosition(newPos)
   }
 

@@ -26,7 +26,6 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const chartHeight = isXSmall ? 300 : 520
   const [isLoading, setIsLoading] = React.useState(true)
-  //console.log(theme.palette.mode)
 
   const mapHistory = (items: StockHistoryItem[]) => {
     const result: XyValues = {

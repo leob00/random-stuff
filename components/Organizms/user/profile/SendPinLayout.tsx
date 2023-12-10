@@ -26,7 +26,6 @@ const SendPinLayout = ({ ticket, profile }: { ticket: AmplifyUser; profile: User
     const siteUrl = `${document.location.protocol.toString()}//${document.location.host}/`
 
     replaceValues.set('pin', decryptedPin)
-    //console.log(siteUrl)
     replaceValues.set('siteUrl', siteUrl)
 
     const html = await formatEmail('/emailTemplates/sendPin.html', replaceValues)
@@ -35,7 +34,6 @@ const SendPinLayout = ({ ticket, profile }: { ticket: AmplifyUser; profile: User
       subject: 'your pin',
       html: html,
     }
-    //console.log(message)
     await sendEmailFromClient(message)
     setEmailSent(true)
   }

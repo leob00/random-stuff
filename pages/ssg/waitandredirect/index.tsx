@@ -11,7 +11,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 const Waitandredirect: NextPage<{}> = ({}) => {
   useEffect(() => {
     const { id } = router.query
-    //console.log('id: ' + id)
     router.push(`/${id}`)
   }, [])
 

@@ -17,7 +17,6 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
           const diffInMunutes = dayjs().diff(lastRoute.date, 'minutes')
           if (diffInMunutes > 1) {
             // TODO: consider saving to user profile
-            //console.log(`${lastRoute.path} is ${diffInMunutes}. Need to persist to DB...`)
           }
         }
         routeTracker.addRoute(url)

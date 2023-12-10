@@ -44,7 +44,6 @@ export const ControlledSelect = ({
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 field.onChange(e.target.value)
                 handleOptionSelect(e)
-                //console.log('changed: ', e.target.value)
               }}
               size='small'
               label={label}

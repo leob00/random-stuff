@@ -24,9 +24,7 @@ export const ControlledDatePicker = ({
   required?: boolean
 }) => {
   const theme = useTheme()
-  const handleChange = (event: any) => {
-    console.log(event)
-  }
+
   return (
     <Controller
       name={fieldName}

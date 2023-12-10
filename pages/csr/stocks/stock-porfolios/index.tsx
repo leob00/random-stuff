@@ -7,7 +7,6 @@ import RequireClaim from 'components/Organizms/user/RequireClaim'
 import StockPortfolioLayout from 'components/Organizms/stocks/portfolio/StockPortfolioLayout'
 
 const Page = () => {
-  // console.log('new profolioid: ', portfolioId)
   return (
     <>
       <Seo pageTitle='Stock Portfolios' />

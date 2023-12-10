@@ -19,7 +19,6 @@ const S3FileUploadForm = ({ onUploaded }: { onUploaded: (item: S3Object) => void
     event.preventDefault()
     setResponse(null)
     if (file) {
-      console.log('file size: ', file.size)
       if (file.size > 10000000) {
         setError('file cannot exceed 10 MB')
         return
@@ -47,12 +46,10 @@ const S3FileUploadForm = ({ onUploaded }: { onUploaded: (item: S3Object) => void
         setIsUploading(false)
         onUploaded(respData)
       } catch (err) {
-        console.log(response)
         setError('Oops! Encountered an error. Please try again')
         setFile(undefined)
       }
     } else {
-      //console.log('no file')
       setError('Please select a file!')
     }
   }

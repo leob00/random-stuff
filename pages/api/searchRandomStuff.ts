@@ -10,7 +10,6 @@ export default async function handler(req: NextRequest) {
   const json = await req.json()
   const enc = json as SignedRequest
   const dec = weakDecrypt(enc.data)
-  //console.log(dec)
   const result = await searchRandomStuffBySecIndex(dec)
   return NextResponse.json(result)
 }

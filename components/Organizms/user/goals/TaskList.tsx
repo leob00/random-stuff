@@ -168,7 +168,6 @@ const TaskList = ({
   }
   const handleDownloadToFile = () => {
     const data = csvmaker(model.taskList)
-    // console.log(data)
     download(data)
   }
 

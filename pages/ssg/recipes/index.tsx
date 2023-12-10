@@ -45,9 +45,6 @@ const fetcherFn = async (url: string) => {
     stats.recipes.featured = newData
     stats.recipes.lastRefreshDate = dayjs().format()
     await putRecord(siteStatsKey, siteStatsKey, stats)
-    console.log('fetcherFn:: updated featured recipes.')
-  } else {
-    console.log(`fetcherFn: no update to featured recipes needed. expires ${dayjs().to(expirationDate)} `)
   }
   const featured = needsRefresh ? newData : stats.recipes.featured
 
@@ -72,9 +69,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     stats.recipes.featured = newData
     stats.recipes.lastRefreshDate = dayjs().format()
     await putRandomStuff(siteStatsKey, siteStatsKey, stats)
-    console.log('build:: updated featured recipes')
-  } else {
-    console.log('build:: no update to featured recipes needed')
   }
   const featured = needsRefresh ? newData : stats.recipes.featured
 
@@ -102,7 +96,7 @@ const CachedRecipes = ({ fallbackData }: { fallbackData: RecipesLayoutModel }) =
     revalidateOnReconnect: false,
   })
   if (error) {
-    console.log('swr error: ', error)
+    console.error('swr error: ', error)
     return <RecipesLayout autoComplete={fallbackData.autoComplete} baseUrl='/ssg/recipes/' featured={fallbackData.featured} />
   }
 

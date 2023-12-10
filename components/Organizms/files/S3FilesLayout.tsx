@@ -32,7 +32,6 @@ const S3FilesLayout = () => {
         size: m.size,
       }
     })
-    //console.log(items)
     return sortArray(items, ['isFolder'], ['desc'])
   }
   const { data, isLoading, isValidating, error } = useSWR(mutateKey, ([url, id]) => fetchData(url, 's3FileList'))

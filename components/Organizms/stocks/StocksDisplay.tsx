@@ -173,7 +173,6 @@ const StocksDisplay = ({
   }
   const handleSubmitCustomSort = (data?: Sort[]) => {
     setModel({ ...model, showCustomSort: false })
-    //console.log('sort: ', data)
     const newProfile = { ...userProfile }
     newProfile.settings!.stocks!.customSort = data
     userController.setProfile(newProfile)

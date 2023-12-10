@@ -71,7 +71,6 @@ export const useUserController = () => {
       const nextFetch = last.add(seconds, 'second')
 
       if (nextFetch.isBefore(now)) {
-        //console.log('refetching profile...')
         return await fetchProfile()
       }
       return authProfile

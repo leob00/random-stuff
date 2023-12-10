@@ -28,8 +28,6 @@ const SearchAutoComplete = ({
   const textRef = React.useRef<HTMLInputElement | null>(null)
   const [defaultValue, setDefaultValue] = React.useState(defaultVal)
 
-  //console.log('search results: ', searchResults.length)
-
   const raiseChangeEvent = (term: string) => {
     onChanged?.(term)
   }

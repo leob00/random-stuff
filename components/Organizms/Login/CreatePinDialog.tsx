@@ -39,7 +39,6 @@ const CreatePinDialog = ({
     setProfile(p)
     await putUserProfile(p)
     setPin('')
-    //console.log('saved pin')
     setIsLoading(false)
 
     onConfirm(userPin)
@@ -49,7 +48,6 @@ const CreatePinDialog = ({
     setError('')
     if (text.length === 4) {
       setPin(text)
-      //console.log('pin: ', text)
     }
   }
   const handleSetConfirmPin = async (text: string) => {

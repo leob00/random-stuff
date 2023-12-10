@@ -32,7 +32,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const Page: NextPage<PageProps> = ({ user, data }) => {
-  //console.log(JSON.stringify(data))
   const router = useRouter()
   return user ? (
     <Box>

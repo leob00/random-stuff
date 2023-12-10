@@ -128,7 +128,7 @@ export async function getUserProfile(username: string) {
       return parsed
     }
   } catch (err) {
-    console.log(err)
+    console.error(err)
     const error: ApiError = {
       statusCode: 500,
       name: 'failed to get user profile',
@@ -153,7 +153,7 @@ export async function getUserNoteTitles(username: string) {
       return parsed
     }
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
   return []
 }
@@ -170,7 +170,7 @@ export async function getUserNote(id: string) {
       return result
     }
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
   return result
 }
@@ -194,7 +194,7 @@ export async function getUserGoals(id: string) {
       return result
     }
   } catch (err) {
-    console.log(err)
+    console.error(err)
     throw err
   }
   return result
@@ -234,7 +234,7 @@ export async function getUserGoalTasks(goalId: string) {
       return result
     }
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
   return result
 }
@@ -290,7 +290,7 @@ export async function getUserStockList(username: string) {
       return result
     }
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
   return []
 }
@@ -340,7 +340,7 @@ export async function getRecord<T>(id: DynamoKeys | string): Promise<T> {
       return result
     }
   } catch (err) {
-    console.log(err)
+    console.error(err)
     return result
   }
 }

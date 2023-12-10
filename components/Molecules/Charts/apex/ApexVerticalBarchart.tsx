@@ -72,7 +72,6 @@ const ApexVerticalBarchart = ({ data, seriesName, yAxisDecorator = '' }: { data:
       //   },
       y: {
         formatter: (val: number, opts: any) => {
-          //console.log(opts)
           //return `<div style='color: ${opts.series[seriesIndex][dataPointIndex]};'>kaka: ${val}${yAxisDecorator}</div>`
           return `${val}${yAxisDecorator}`
         },

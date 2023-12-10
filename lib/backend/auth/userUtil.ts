@@ -49,7 +49,6 @@ export function getRolesFromAmplifyUser(user: any) {
 export async function getUserCSR() {
   try {
     const user = await Auth.currentAuthenticatedUser()
-    //console.log(user)
     const result: AmplifyUser = {
       id: String(user.username),
       email: String(user.attributes.email),
@@ -57,7 +56,7 @@ export async function getUserCSR() {
     }
     return result
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return null
   }
 }
@@ -70,7 +69,7 @@ export async function validateUserCSR(username: string, password: string) {
     })
     return result
   } catch (err) {
-    console.log('error password validation: ', err)
+    console.error('error password validation: ', err)
     return null
   }
 }

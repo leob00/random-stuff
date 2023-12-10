@@ -39,7 +39,6 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   })
 
   const handleDateSelected = (dt: string) => {
-    //console.log(dt)
     setSelectedDate(dt)
     setCurrentPageIndex(1)
 

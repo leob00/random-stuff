@@ -1,12 +1,10 @@
 var fs = require('fs')
 var https = require('https')
 const downloadAnimal = (response: any, localFilePath: string, localFilName: string) => {
-  //console.log(`file name: ${fileName}`)
   var file = fs.createWriteStream(`${localFilePath}`)
   response.pipe(file)
   file.on('finish', function () {
     file.close()
-    console.log(`file downloaded: ${localFilePath}`)
   })
 }
 
@@ -29,7 +27,7 @@ const getRandomDog = async () => {
               downloadAnimal(res, filePath, fileName)
             })
             .on('error', function (err: any) {
-              console.log('Error: ', err.message)
+              console.error('Error: ', err.message)
             })
         } catch (error: any) {
           console.error(error.message)
@@ -60,7 +58,7 @@ const getRandomCat = async () => {
               downloadAnimal(res, filePath, fileName)
             })
             .on('error', function (err: any) {
-              console.log('Error: ', err.message)
+              console.error('Error: ', err.message)
             })
         } catch (error: any) {
           console.error(error.message)
