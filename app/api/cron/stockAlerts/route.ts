@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { sendEmail } from 'lib/backend/api/aws/apiGateway'
+import { EmailMessage, sendEmail } from 'lib/backend/api/aws/apiGateway'
 import { buildStockAlertsForAllUsers } from 'lib/backend/alerts/stockAlertBulder'
 
 export async function GET(req: NextRequest) {
@@ -10,14 +10,16 @@ export async function GET(req: NextRequest) {
   //     status: 401,
   //   })
   // }
+  let emailMessages: EmailMessage[] = []
   try {
-    const emailMessages = await buildStockAlertsForAllUsers()
+    emailMessages = await buildStockAlertsForAllUsers()
     for (const email of emailMessages) {
       await sendEmail(email)
     }
   } catch (err) {
     console.error(`api/cron/stockAlerts error: ${err}`)
+    NextResponse.json({ status: 'failed' })
   }
 
-  return NextResponse.json({ message: 'cron job completed' })
+  return NextResponse.json({ status: 'success', messagesSent: emailMessages.length })
 }
