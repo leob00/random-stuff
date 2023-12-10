@@ -1,17 +1,51 @@
 import { Alert, Box, TableCell, TableRow, Typography } from '@mui/material'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import dayjs from 'dayjs'
-import { StockAlertSubscription } from 'lib/backend/api/models/zModels'
+import { StockAlertSubscription, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
+import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
+import { saveTrigger } from 'lib/ui/alerts/stockAlertHelper'
 import React from 'react'
+import StockSubscriptionForm from './StockSubscriptionForm'
 
-const StockAlertRow = ({ sub }: { sub: StockAlertSubscription }) => {
+const StockAlertRow = ({ sub, username }: { sub: StockAlertSubscription; username: string }) => {
+  const [editSub, setEditSub] = React.useState<StockAlertSubscription | null>(null)
+  const [quote, setQuote] = React.useState<StockQuote | null>(null)
+  const [error, setError] = React.useState<string | null>(null)
+  const [isLoading, setIsLoading] = React.useState(false)
+
+  const handleEdit = async (item: StockAlertSubscription) => {
+    setIsLoading(true)
+    const subCopy = { ...item }
+    const q = await getStockQuotes([item.symbol])
+    setIsLoading(false)
+    if (q.length > 0) {
+      setQuote(q[0])
+      setEditSub(subCopy)
+    } else {
+      setError(`unable to load quote: ${item.symbol}`)
+    }
+  }
+  const handleClose = () => {
+    setQuote(null)
+    setEditSub(null)
+  }
+  const handleSave = async (item: StockAlertTrigger) => {
+    if (editSub && quote) {
+      setIsLoading(true)
+      await saveTrigger(username, editSub.id, quote, editSub, item)
+      setIsLoading(false)
+    }
+    handleClose()
+  }
+
   const menuItems: ContextMenuItem[] = [
     {
       item: <ContextMenuEdit />,
       fn: (arg?: unknown) => {
-        console.log(arg)
+        handleEdit(sub)
       },
     },
   ]
@@ -19,6 +53,9 @@ const StockAlertRow = ({ sub }: { sub: StockAlertSubscription }) => {
     <TableRow>
       <TableCell colSpan={10}>
         <Box>
+          {isLoading && <BackdropLoader />}
+          {error && <Alert severity='error'>{error}</Alert>}
+          {quote && editSub && <StockSubscriptionForm show={true} onClose={handleClose} onSave={handleSave} quote={quote} sub={editSub} />}
           <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
             <Box>
               <Typography variant='h5'>{`${sub.company} (${sub.symbol})`}</Typography>

@@ -1,5 +1,4 @@
-import { TableCell, TableRow } from '@aws-amplify/ui-react'
-import { Box, Table, TableBody, TableContainer, TableHead } from '@mui/material'
+import { Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
@@ -10,7 +9,7 @@ import { useAlertsController } from 'hooks/stocks/alerts/useAlertsController'
 import { processAlertTriggers } from 'lib/backend/alerts/stockAlertProcessor'
 import { DynamoKeys, EmailMessage, LambdaDynamoRequest, updateSubscriptions, UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructStockAlertsSubSecondaryKey } from 'lib/backend/api/aws/util'
-import { StockAlertSubscription, StockAlertSubscriptionWithMessage } from 'lib/backend/api/models/zModels'
+import { StockAlertSubscription, StockAlertSubscriptionWithMessage, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import { putRecord, putRecordsBatch, searchRecords, sendEmailFromClient } from 'lib/backend/csr/nextApiWrapper'
 import { formatEmail } from 'lib/ui/mailUtil'
@@ -18,12 +17,14 @@ import { sortArray } from 'lib/util/collections'
 import { uniq } from 'lodash'
 import numeral from 'numeral'
 import React from 'react'
+import StocksLookup from '../StocksLookup'
 import EmailPreview from './EmailPreview'
 import StockAlertRow from './StockAlertRow'
 
 const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const alertsSearchhKey = constructStockAlertsSubSecondaryKey(userProfile.username)
   const [searchFilter, setSearchFilter] = React.useState('')
+  const [showAddAlert, setShowAddAlert] = React.useState(false)
 
   const filterRecords = (data: StockAlertSubscriptionWithMessage): StockAlertSubscriptionWithMessage => {
     const result = { ...data }
@@ -47,12 +48,15 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const { data, isLoading, isAdmin, mutate, setIsLoading } = useAlertsController<StockAlertSubscriptionWithMessage>(alertsSearchhKey, dataFn)
   const [emailMessage, setEmailMessage] = React.useState<EmailMessage | null>(null)
   const [successMesssage, setSuccessMessage] = React.useState<string | null>(null)
+  const [quote, setQuote] = React.useState<StockQuote | null>(null)
 
   const handleGenerateAlerts = async () => {
     setIsLoading(true)
     setEmailMessage(null)
     setSuccessMessage(null)
     setSearchFilter('')
+    setQuote(null)
+    setShowAddAlert(false)
     const dataCopy = { ...data! }
     const quotes = await getStockQuotes(uniq(dataCopy.subscriptions.map((m) => m.symbol)))
 
@@ -107,6 +111,15 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const handleSearched = (text: string) => {
     setSearchFilter(text)
   }
+  const handleQuoteLoaded = (item: StockQuote) => {
+    console.log('item: ', item)
+  }
+  const showHideAddAlert = (show: boolean) => {
+    setShowAddAlert(!show)
+    if (!show) {
+      setQuote(null)
+    }
+  }
 
   return (
     <Box py={2}>
@@ -114,14 +127,19 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
       {isLoading && <BackdropLoader />}
       {data && (
         <>
-          {isAdmin && (
-            <>
-              <Box py={2} display={'flex'} justifyContent={'space-between'}>
-                <PrimaryButton size='small' text='generate email' onClick={handleGenerateAlerts} />
+          <>
+            <Box py={2} display={'flex'} justifyContent={'space-between'}>
+              <Box display={'flex'} gap={2}>
+                {isAdmin && <PrimaryButton size='small' text='preview email' onClick={handleGenerateAlerts} />}
+                {/* <PrimaryButton size='small' text='add alert' color='success' onClick={() => showHideAddAlert(showAddAlert)} /> */}
               </Box>
-              {emailMessage && <EmailPreview emailMessage={emailMessage} onClose={() => setEmailMessage(null)} onSend={handleSendEmail} />}
-            </>
-          )}
+
+              {showAddAlert && <StocksLookup onFound={handleQuoteLoaded} />}
+              <Box></Box>
+            </Box>
+            {emailMessage && <EmailPreview emailMessage={emailMessage} onClose={() => setEmailMessage(null)} onSend={handleSendEmail} />}
+          </>
+
           <TableContainer>
             <Table>
               <TableHead>
@@ -137,7 +155,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
               </TableHead>
               <TableBody>
                 {filterRecords(data).subscriptions.map((sub) => (
-                  <StockAlertRow key={sub.id} sub={sub} />
+                  <StockAlertRow key={sub.id} sub={sub} username={userProfile.username} />
                 ))}
               </TableBody>
             </Table>

@@ -18,6 +18,10 @@ const darkPalette: PaletteOptions = {
     main: CasinoBlueTransparent,
     contrastText: VeryLightBlue,
   },
+  success: {
+    main: CasinoGreenTransparent,
+    contrastText: VeryLightBlue,
+  },
 
   background: {
     default: DarkModeBlue,

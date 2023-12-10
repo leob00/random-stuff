@@ -66,24 +66,19 @@ const Page = () => {
   ]
 
   React.useEffect(() => {
-    let isLoaded = false
-    if (!isLoaded) {
-      const fn = async () => {
-        if (!authProfile) {
-          const p = await fetchProfilePassive(900)
-          if (!p) {
-          }
-          await setProfile(p)
+    const fn = async () => {
+      if (!authProfile) {
+        const p = await fetchProfilePassive(900)
+        if (!p) {
         }
-        setLoading(false)
+        await setProfile(p)
       }
-      fn()
+      setLoading(false)
     }
-    return () => {
-      isLoaded = true
-    }
+    fn()
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authProfile?.username])
+  }, [authProfile])
 
   return (
     <>

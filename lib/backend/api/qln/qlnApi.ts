@@ -5,7 +5,6 @@ import { get, post } from '../fetchFunctions'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import dayjs from 'dayjs'
 import { apiConnection } from '../config'
-import { chunk } from 'lodash'
 
 const config = apiConnection()
 const qlnApiBaseUrl = config.qln.url

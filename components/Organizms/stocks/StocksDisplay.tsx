@@ -24,6 +24,7 @@ import StocksCustomSortForm from './StocksCustomSortForm'
 import CustomSortAlert from './CustomSortAlert'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import StocksLookup from './StocksLookup'
 
 export const searchWithinResults = (quotes: StockQuote[], text: string) => {
   const result = quotes.filter(
@@ -86,18 +87,8 @@ const StocksDisplay = ({
     setModel({ ...model, autoCompleteResults: autoComp, quoteToAdd: undefined, successMesage: null })
   }
 
-  const handleSelectQuote = async (text: string) => {
-    const symbol = text.split(':')[0]
-    setModel({ ...model, isLoading: true })
-    const quotes = await getStockQuotes([symbol])
-    if (quotes.length > 0) {
-      const quote = quotes[0]
-      const existing = result.find((m) => m.Symbol === quote.Symbol)
-      if (existing) {
-        quote.GroupName = existing.GroupName
-      }
-      setModel({ ...model, quoteToAdd: quote, autoCompleteResults: [], successMesage: null, isLoading: false })
-    }
+  const handleSelectQuote = async (item: StockQuote) => {
+    setModel({ ...model, quoteToAdd: item, autoCompleteResults: [], successMesage: null, isLoading: false })
   }
 
   const handleAddToList = async () => {
@@ -195,7 +186,8 @@ const StocksDisplay = ({
 
       {model.successMesage && <SnackbarSuccess show={true} text={model.successMesage} />}
       <Box py={2}>
-        <CenterStack>
+        <StocksLookup onFound={handleSelectQuote} />
+        {/* <CenterStack>
           <StocksAutoComplete
             placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}
             onChanged={handleSearched}
@@ -203,7 +195,7 @@ const StocksDisplay = ({
             debounceWaitMilliseconds={500}
             onSelected={handleSelectQuote}
           />
-        </CenterStack>
+        </CenterStack> */}
       </Box>
       {model.quoteToAdd ? (
         <AddQuote

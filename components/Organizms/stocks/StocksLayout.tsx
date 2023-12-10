@@ -5,7 +5,6 @@ import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import useSWR, { mutate } from 'swr'
 import { get } from 'lib/backend/api/fetchFunctions'
 import StocksDisplay from './StocksDisplay'
-import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
