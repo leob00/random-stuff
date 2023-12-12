@@ -23,6 +23,7 @@ import EmailPreview from './EmailPreview'
 import StockAlertRow from './StockAlertRow'
 import StockSubscriptionForm from './StockSubscriptionForm'
 import { saveTrigger } from 'lib/ui/alerts/stockAlertHelper'
+import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 
 const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const alertsSearchhKey = constructStockAlertsSubSecondaryKey(userProfile.username)
@@ -68,7 +69,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     const templateKey: DynamoKeys = 'email-template[stock-alert]'
     putRecord(templateKey, 'email-template', template)
     const result = processAlertTriggers(userProfile.username, dataCopy, quotes, template)
-    result.subscriptions = sortArray(result.subscriptions, ['lastTriggerExecuteDate'], ['desc'])
+    result.subscriptions = sortAlerts(result.subscriptions)
 
     const newItems = result.subscriptions.flatMap((s) => s.triggers).filter((f) => f.status === 'started')
     result.subscriptions.forEach((sub) => {
@@ -78,10 +79,8 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
         }
       })
     })
-    if (newItems.length > 0) {
-      setEmailMessage(result.message ?? null)
-    }
-    setSuccessMessage(`generated ${newItems.length} new ${newItems.length === 1 ? 'message' : 'messages'}`)
+    setEmailMessage(result.message ?? null)
+    setSuccessMessage(`messages generated: ${newItems.length}`)
     setIsLoading(false)
     mutate(alertsSearchhKey, result, { revalidate: false })
   }
@@ -125,6 +124,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     setEditSub(sub)
     setQuote(item)
     setIsLoading(false)
+    setShowAddAlert(false)
   }
   const showHideAddAlert = (show: boolean) => {
     setShowAddAlert(!show)
@@ -135,6 +135,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const handleCloseEditForm = () => {
     setQuote(null)
     setEditSub(null)
+    setShowAddAlert(false)
   }
   const handleSaveTriger = async (item: StockAlertTrigger) => {
     if (editSub && quote) {
@@ -144,6 +145,11 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
       mutate(alertsSearchhKey)
     }
     handleCloseEditForm()
+  }
+  const handleHideAddAlert = () => {
+    setShowAddAlert(false)
+    setQuote(null)
+    setEditSub(null)
   }
 
   return (
@@ -159,8 +165,6 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                 <PrimaryButton size='small' text='preview email' onClick={handleGenerateAlerts} />
                 <PrimaryButton size='small' text='add alert' color='success' onClick={() => showHideAddAlert(showAddAlert)} />
               </Box>
-              {showAddAlert && <StocksLookup onFound={handleQuoteLoaded} />}
-              <Box></Box>
             </Box>
             {emailMessage && <EmailPreview emailMessage={emailMessage} onClose={() => setEmailMessage(null)} onSend={handleSendEmail} />}
           </>
@@ -185,6 +189,9 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
         </>
       )}
       {successMesssage && <SnackbarSuccess show={true} text={successMesssage} duration={3000} />}
+      <FormDialog title='add alert' show={showAddAlert} onCancel={handleHideAddAlert}>
+        <StocksLookup onFound={handleQuoteLoaded} />
+      </FormDialog>
     </Box>
   )
 }

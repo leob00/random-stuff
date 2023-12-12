@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { Prettify } from 'lib/util/tsUtil'
+import { Prettify } from 'lib/util/objects'
 import React from 'react'
 import CenterStack from '../CenterStack'
 
