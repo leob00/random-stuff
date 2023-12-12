@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import ContextMenuPortfolio from 'components/Molecules/Menus/ContextMenuPortfolio'
 import ContextMenuSort from 'components/Molecules/Menus/ContextMenuSort'
 import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
+import ContextMenuAlert from 'components/Molecules/Menus/ContextMenuAlert'
 
 const FlatListMenu = ({
   onEdit,
@@ -74,6 +75,14 @@ const FlatListMenu = ({
         </>
       ),
       fn: () => router.push('/csr/stocks/stock-porfolios'),
+    },
+    {
+      item: (
+        <>
+          <ContextMenuAlert text={'manage alerts'} />
+        </>
+      ),
+      fn: () => router.push('/csr/stocks/alerts'),
     },
   ]
 

@@ -76,17 +76,6 @@ const StocksDisplay = ({
 
   const customSorted = orderStocks(result)
 
-  const handleSearched = async (text: string) => {
-    const searchResults = searchAheadStocks(text)
-    const autoComp: DropdownItem[] = searchResults.map((e) => {
-      return {
-        text: `${e.Symbol}: ${e.Company}`,
-        value: e.Symbol,
-      }
-    })
-    setModel({ ...model, autoCompleteResults: autoComp, quoteToAdd: undefined, successMesage: null })
-  }
-
   const handleSelectQuote = async (item: StockQuote) => {
     setModel({ ...model, quoteToAdd: item, autoCompleteResults: [], successMesage: null, isLoading: false })
   }
@@ -182,19 +171,9 @@ const StocksDisplay = ({
   return (
     <>
       <ScrollIntoView enabled={true} margin={-14} />
-
       {model.successMesage && <SnackbarSuccess show={true} text={model.successMesage} />}
       <Box py={2}>
         <StocksLookup onFound={handleSelectQuote} />
-        {/* <CenterStack>
-          <StocksAutoComplete
-            placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}
-            onChanged={handleSearched}
-            searchResults={model.autoCompleteResults}
-            debounceWaitMilliseconds={500}
-            onSelected={handleSelectQuote}
-          />
-        </CenterStack> */}
       </Box>
       {model.quoteToAdd ? (
         <AddQuote

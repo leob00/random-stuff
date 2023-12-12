@@ -6,6 +6,7 @@ import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import { useRouter } from 'next/router'
 import ContextMenuPortfolio from 'components/Molecules/Menus/ContextMenuPortfolio'
 import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
+import ContextMenuAlert from 'components/Molecules/Menus/ContextMenuAlert'
 
 const GroupedListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShowAsGroup?: (show: boolean) => void }) => {
   const router = useRouter()
@@ -51,6 +52,14 @@ const GroupedListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShow
         </>
       ),
       fn: () => router.push('/csr/stocks/stock-porfolios'),
+    },
+    {
+      item: (
+        <>
+          <ContextMenuAlert text={'manage alerts'} />
+        </>
+      ),
+      fn: () => router.push('/csr/stocks/alerts'),
     },
   ]
 
