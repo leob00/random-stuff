@@ -1,12 +1,8 @@
 import UserNotesLayout from 'components/Organizms/user/UserNotesLayout'
 import React from 'react'
-import router from 'next/router'
-import { UserNotesModel } from 'components/reducers/notesReducer'
-import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import { useUserController } from 'hooks/userController'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
-import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import Seo from 'components/Organizms/Seo'
@@ -30,7 +26,7 @@ const Notes = () => {
       <Seo pageTitle='Notes' />
       <ResponsiveContainer>
         {isLoading ? (
-          <WarmupBox />
+          <BackdropLoader />
         ) : (
           <>
             {!userProfile ? (

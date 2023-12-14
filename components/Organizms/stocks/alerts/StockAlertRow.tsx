@@ -14,6 +14,8 @@ import { saveTrigger } from 'lib/ui/alerts/stockAlertHelper'
 import React from 'react'
 import { mutate } from 'swr'
 import StockSubscriptionForm from './StockSubscriptionForm'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+dayjs.extend(customParseFormat)
 
 const StockAlertRow = ({ sub, username }: { sub: StockAlertSubscription; username: string }) => {
   const [editSub, setEditSub] = React.useState<StockAlertSubscription | null>(null)

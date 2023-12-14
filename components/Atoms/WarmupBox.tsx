@@ -1,10 +1,8 @@
-import { Backdrop, Box, Paper, Stack, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { getRandomLoaderText } from 'lib/randomLoaderText'
 import React, { useEffect, useReducer } from 'react'
 import { Model, warmupReducer } from 'lib/reducers/warmupReducer'
 import CenterStack from './CenterStack'
-import RollingLinearProgress from './Loaders/RollingLinearProgress'
-import { CasinoBlueTransparent, CasinoLightGrayTransparent, VeryLightBlueTransparent, VeryLightTransparent } from 'components/themes/mainTheme'
 import NonSSRWrapper from 'components/Organizms/NonSSRWrapper'
 import BackdropLoader from './Loaders/BackdropLoader'
 
