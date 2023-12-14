@@ -23,9 +23,6 @@ const nextConfig = {
     // Enables the styled-components SWC transform
     styledComponents: true,
   },
-  experimental: {
-    appDir: true,
-  },
 }
 
 module.exports = nextConfig
