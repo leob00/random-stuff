@@ -77,7 +77,7 @@ const themeOptions: ThemeOptions = {
     h4: { fontSize: '1.95rem', fontWeight: 300 },
     h5: { fontSize: '1.45rem', fontWeight: 200 },
     h6: { fontSize: '1.2rem', fontWeight: 200 },
-    subtitle1: { fontSize: '1.275rem', fontWeight: 300 },
+    subtitle1: { fontSize: '1.275rem', fontWeight: 200 },
     subtitle2: { fontSize: '0.975rem', fontWeight: 200 },
     body1: { fontSize: '1.175rem', fontWeight: 300, color: Default }, // normal body text
     body2: { fontSize: '1.08rem', fontWeight: 200, color: Default }, // less important text

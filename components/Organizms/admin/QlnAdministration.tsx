@@ -1,4 +1,5 @@
 import { Box, Card, CardContent } from '@mui/material'
+import DangerButton from 'components/Atoms/Buttons/DangerButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
@@ -28,7 +29,7 @@ const QlnAdministration = () => {
               <CacheSettings claim={claim} />
               <HorizontalDivider />
               <Box py={2} display={'flex'} justifyContent={'flex-end'}>
-                <SecondaryButton text='log off' onClick={handleLogOff} />
+                <DangerButton text='Sign out' onClick={handleLogOff} />
               </Box>
             </>
           ) : (

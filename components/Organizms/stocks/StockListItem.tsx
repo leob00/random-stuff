@@ -135,7 +135,7 @@ const StockListItem = ({
         </Stack>
         {showGroupName && item.GroupName && (
           <Stack pl={2}>
-            <Typography variant='caption'>{`Group Name: ${item.GroupName}`}</Typography>
+            <Typography variant='caption' color='primary'>{`Group Name: ${item.GroupName}`}</Typography>
           </Stack>
         )}
       </Box>

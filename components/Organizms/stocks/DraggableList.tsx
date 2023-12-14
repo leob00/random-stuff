@@ -185,17 +185,7 @@ const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: Dra
           )}
         </StrictModeDroppable>
       </DragDropContext>
-      <FormDialog show={showGroupNameDialog} title={'assign to group'} onSave={() => {}} onCancel={() => setShowGroupNameDialog(false)}>
-        {/* <AutoCompleteSolo props={{
-          defaultValue: selectedItems.length > 0 ? selectedItems[0].GroupName ?? '' : '',
-          options={[]}
-          label={'Group Name'}
-          width={200}
-          ={handleSelectGroupName}
-        }}
-        /> */}
-        {/* <FormTextBox defaultValue={selectedItems.length > 0 ? selectedItems[0].GroupName ?? '' : ''} label='group name:' onBlurred={handleSaveGroupName} /> */}
-      </FormDialog>
+      <FormDialog show={showGroupNameDialog} title={'assign to group'} onSave={() => {}} onCancel={() => setShowGroupNameDialog(false)}></FormDialog>
       <ConfirmDeleteDialog
         show={showConfirmDelete}
         text={`Are you sure you want to remove ${deleteItem?.Company}?`}

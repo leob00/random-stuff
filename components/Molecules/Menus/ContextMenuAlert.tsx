@@ -8,7 +8,7 @@ const ContextMenuAlert = ({ text = 'alerts' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <NotificationsIcon color='secondary' fontSize='small' />
+        <NotificationsIcon color='primary' fontSize='small' />
       </ListItemIcon>
       <ListItemText primary={text} />
     </>

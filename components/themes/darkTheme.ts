@@ -10,6 +10,7 @@ import {
   CasinoGrayTransparent,
   CasinoMoreBlackTransparent,
   CasinoBlackTransparent,
+  VeryLightBlueTransparent,
 } from './mainTheme'
 
 const darkPalette: PaletteOptions = {

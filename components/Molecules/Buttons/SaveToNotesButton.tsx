@@ -8,6 +8,7 @@ import React from 'react'
 import SavedNoteButtonLink from './SavedNoteButtonLink'
 import { getUtcNow } from 'lib/util/dateUtil'
 import RollingLinearProgress from 'components/Atoms/Loaders/RollingLinearProgress'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 
 const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note: UserNote; onSaved: (note: UserNote) => void }) => {
   const [saving, setSaving] = React.useState(false)
@@ -32,7 +33,11 @@ const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note
     <>
       {!saved ? (
         <Stack justifyContent={'center'} direction='row' spacing={2}>
-          {saving ? <RollingLinearProgress height={30} width={100} /> : <SecondaryButton text={saving ? 'saving...' : 'read later'} size='small' onClick={() => handleClick(note)} disabled={saving} />}
+          {saving ? (
+            <RollingLinearProgress height={30} width={100} />
+          ) : (
+            <PrimaryButton text={saving ? 'saving...' : 'read later'} size='small' onClick={() => handleClick(note)} disabled={saving} />
+          )}
         </Stack>
       ) : (
         <Stack fontSize={'small'} justifyContent={'center'} flexDirection={'row'}>

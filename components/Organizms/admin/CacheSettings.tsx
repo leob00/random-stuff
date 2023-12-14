@@ -3,6 +3,7 @@ import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import CopyableText from 'components/Atoms/Text/CopyableText'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
+import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import { getCacheStats, resetStockCache } from 'lib/backend/api/qln/qlnApi'
@@ -40,16 +41,17 @@ const CacheSettings = ({ claim }: { claim: Claim }) => {
       {error && <ErrorMessage text={'An error occurred while retrieving data.'} />}
       {data && (
         <Box>
-          <Typography variant='h5' pb={2}>{`Web Server Settings`}</Typography>
-          <Box display={'flex'} flexDirection={'column'} gap={2} justifyItems={'center'}>
-            <Typography>{`Address: ${data.WebServerIpAddress}`}</Typography>
-            <Box display={'flex'} alignItems={'center'}>
-              <CopyableText label='Token:' value={claim.token} />
-            </Box>
-            <Typography>{`Token Expiration Date: ${dayjs(claim.tokenExpirationDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
-            <Typography variant='h5' pt={2}>{`Cache`}</Typography>
-            <Typography>{`Stock Item Count: ${numeral(data.StocksCache.ItemCount).format('###,###')}`}</Typography>
-            <Typography>{`Create Date: ${data.StocksCache.CreateDate ? dayjs(data.StocksCache.CreateDate).format('MM/DD/YYYY hh:mm a') : ''}`}</Typography>
+          <Typography variant='h5' pb={2} color='primary'>{`Web Server Settings`}</Typography>
+          <ReadOnlyField label='address' val={data.WebServerIpAddress} />
+          {/* <Typography>{`Address: ${data.WebServerIpAddress}`}</Typography> */}
+          <Box display={'flex'} alignItems={'center'}>
+            <CopyableText label='Token:' value={claim.token} />
+          </Box>
+          <ReadOnlyField label='Token Expiration Date' val={`${dayjs(claim.tokenExpirationDate).format('MM/DD/YYYY hh:mm a')}`} />
+          <Typography variant='h5' py={2} color='primary'>{`Cache`}</Typography>
+          <ReadOnlyField label='stock item count' val={`${numeral(data.StocksCache.ItemCount).format('###,###')}`} />
+          <Box>
+            <ReadOnlyField label='created' val={`${data.StocksCache.CreateDate ? dayjs(data.StocksCache.CreateDate).format('MM/DD/YYYY hh:mm a') : ''}`} />
           </Box>
           <Box py={2}>
             {isLoading && <BackdropLoader />}

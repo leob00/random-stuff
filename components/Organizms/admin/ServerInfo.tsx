@@ -9,6 +9,7 @@ import { apiConnection } from 'lib/backend/api/config'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import QlnAdministration from './QlnAdministration'
 import CopyableText from 'components/Atoms/Text/CopyableText'
+import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 
 const ServerInfo = () => {
   const config = apiConnection().qln
@@ -27,7 +28,7 @@ const ServerInfo = () => {
         </Link>
       </CenterStack>
       <CenterStack sx={{ pt: 2 }}>
-        <Typography>Database: 192.99.150.165</Typography>
+        <ReadOnlyField label='Database' val='192.99.150.165' />
       </CenterStack>
       <CenterStack sx={{ pt: 2 }}>
         <CopyableText label='Api url:' value={config.url} showValue />

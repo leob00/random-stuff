@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { Menu, Button, MenuList, MenuItem } from '@mui/material'
+import { Menu, Button, MenuList, MenuItem, Typography, Box } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import { DarkMode } from 'components/themes/DarkMode'
 
@@ -28,7 +28,7 @@ const ContextMenu = ({ items }: { items: ContextMenuItem[] }) => {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleShowMenu}
       >
-        <MenuIcon color='secondary' fontSize='small' />
+        <MenuIcon color='primary' fontSize='small' />
       </Button>
       <DarkMode>
         <Menu

@@ -1,22 +1,26 @@
-import { Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography, useTheme } from '@mui/material'
 import React from 'react'
 
-const ReadOnlyField = ({ label, val }: { label: string; val?: string | null | number }) => {
+const ReadOnlyField = ({ label, val }: { label?: string; val?: string | null | number }) => {
+  const theme = useTheme()
+  const textColor = theme.palette.primary.main
   return (
-    <>
-      {val !== undefined && (
-        <Stack direction={'row'} spacing={2} py={1} alignItems={'center'}>
-          <Stack minWidth={80} textAlign={'right'}>
-            <Typography variant={'body2'}>{`${label}:`}</Typography>
-          </Stack>
-          <Stack>
+    <Box>
+      <Box display={'flex'} flexDirection={'row'} gap={2} py={1}>
+        {label !== undefined && (
+          <Box textAlign={'right'}>
+            <Typography variant={'body2'} color={'primary'}>{`${label}:`}</Typography>
+          </Box>
+        )}
+        {val !== undefined && (
+          <Box>
             <Typography variant={'body2'} color={'primary'}>
               {val}
             </Typography>
-          </Stack>
-        </Stack>
-      )}
-    </>
+          </Box>
+        )}
+      </Box>
+    </Box>
   )
 }
 

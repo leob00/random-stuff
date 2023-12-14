@@ -7,7 +7,7 @@ const ContextMenuAdd = ({ text = 'add' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <Add color='secondary' fontSize='small' />
+        <Add color='primary' fontSize='small' />
       </ListItemIcon>
       <ListItemText primary={text} />
       <HorizontalDivider />

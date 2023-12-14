@@ -1,4 +1,4 @@
-import { MenuItem, TextField } from '@mui/material'
+import { MenuItem, TextField, Typography } from '@mui/material'
 import { DropdownItem } from 'lib/models/dropdown'
 import React from 'react'
 
@@ -22,10 +22,10 @@ const DropdownList = ({
   }
 
   return (
-    <TextField select value={opt} onChange={handleOptionSelect} size='small' label={label} color={'secondary'} fullWidth={fullWidth}>
+    <TextField select value={opt} onChange={handleOptionSelect} size='small' label={label} color={'primary'} fullWidth={fullWidth}>
       {options.map((item) => (
-        <MenuItem key={item.value} value={item.value} selected={selectedOption === opt} color={'secondary'}>
-          {item.text}
+        <MenuItem key={item.value} value={item.value} selected={selectedOption === opt} color={'primary'}>
+          <Typography color='primary'>{item.text}</Typography>
         </MenuItem>
       ))}
     </TextField>

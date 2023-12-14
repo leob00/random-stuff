@@ -5,8 +5,8 @@ import { CasinoBlue, DarkBlue, VeryLightBlue } from 'components/themes/mainTheme
 const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'left' | 'center' | 'right' }) => {
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
-  const darkColor = theme.palette.mode === 'dark' ? VeryLightBlue : DarkBlue
-  const color = theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlue
+  const darkColor = theme.palette.mode === 'dark' ? '#90caf9' : DarkBlue
+  const color = theme.palette.mode === 'dark' ? '#90caf9' : CasinoBlue
   const text = html.replaceAll('font color="#6f6f6f"', `font color="${darkColor}"`)
 
   const StyledBox = styled(Box)(() => ({
@@ -17,7 +17,8 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
       margin: 'auto',
     },
     //div: { backgroundColor: 'unset' },
-    font: color,
+    //font: color,
+    color: color,
     a: { color: color },
     p: { color: color, fontSize: 20, fontWeight: 600 },
   }))
