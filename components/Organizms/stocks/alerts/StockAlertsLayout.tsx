@@ -5,7 +5,7 @@ import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useAlertsController } from 'hooks/stocks/alerts/useAlertsController'
 import { processAlertTriggers } from 'lib/backend/alerts/stockAlertProcessor'
-import { DynamoKeys, EmailMessage, LambdaDynamoRequest, UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { DynamoKeys, EmailMessage, LambdaDynamoRequest, LambdaDynamoRequestBatch, UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructStockAlertsSubPrimaryKey, constructStockAlertsSubSecondaryKey } from 'lib/backend/api/aws/util'
 import { StockAlertSubscription, StockAlertSubscriptionWithMessage, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
@@ -21,6 +21,7 @@ import StockSubscriptionForm from './StockSubscriptionForm'
 import { saveTrigger } from 'lib/ui/alerts/stockAlertHelper'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import TableHeaderWithSearchWithinList from 'components/Atoms/Tables/TableHeaderWithSearchWithinList'
+import dayjs from 'dayjs'
 
 const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const alertsSearchhKey = constructStockAlertsSubSecondaryKey(userProfile.username)
@@ -69,13 +70,23 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     result.subscriptions = sortAlerts(result.subscriptions)
 
     const newItems = result.subscriptions.flatMap((s) => s.triggers).filter((f) => f.status === 'started')
+    //const batch: LambdaDynamoRequestBatch = { records: [] }
     result.subscriptions.forEach((sub) => {
       sub.triggers.forEach((tr) => {
         if (tr.status === 'started') {
           tr.status = 'queued'
         }
+        //tr.lastExecutedDate = tr.lastExecutedDate ? dayjs(tr.lastExecutedDate).format() : dayjs(new Date(1900, 1, 1)).format()
       })
+      // batch.records.push({
+      //   id: sub.id,
+      //   category: alertsSearchhKey,
+      //   data: sub,
+      //   expiration: 0,
+      // })
     })
+    // putRecordsBatch(batch)
+
     setEmailMessage(result.message ?? null)
     setSuccessMessage(`messages generated: ${newItems.length}`)
     setIsLoading(false)
