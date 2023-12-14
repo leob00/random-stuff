@@ -75,8 +75,8 @@ const themeOptions: ThemeOptions = {
     h2: { fontSize: '2.6125rem', fontWeight: 500 }, // other section title
     h3: { fontSize: '2.115rem', fontWeight: 500 },
     h4: { fontSize: '1.75rem', fontWeight: 600 },
-    h5: { fontSize: '1.375rem', fontWeight: 600 },
-    h6: { fontSize: '1.2rem', fontWeight: 500 },
+    h5: { fontSize: '1.45rem', fontWeight: 200 },
+    h6: { fontSize: '1.2rem', fontWeight: 200 },
     subtitle1: { fontSize: '1.275rem', fontWeight: 300 },
     subtitle2: { fontSize: '0.975rem', fontWeight: 200 },
     body1: { fontSize: '1.175rem', fontWeight: 300, color: Default }, // normal body text

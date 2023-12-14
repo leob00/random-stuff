@@ -19,6 +19,8 @@ import router from 'next/router'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import GoalsSummary from './GoalsSummary'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 
 const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoalAndTask[]; username: string }) => {
   const theme = useTheme()
@@ -76,20 +78,16 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
         ) : (
           <Stack display={'flex'} direction={'row'} justifyContent={'left'} alignItems={'left'}>
             <Box>
-              <Button variant='contained' size='small' color='secondary' onClick={() => setShowAddGoalForm(!showAddGoalForm)}>
-                {`${showAddGoalForm ? 'cancel' : 'create goal'}`}
-              </Button>
+              <PrimaryButton text={`new goal`} onClick={() => setShowAddGoalForm(true)}></PrimaryButton>
             </Box>
             <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
               <GoalsMenu onShowCharts={handleShowCharts} />
             </Stack>
           </Stack>
         )}
-        {showAddGoalForm && (
-          <Box pt={1}>
-            <AddGoalForm goal={{}} onSubmit={handleAddGoal} />
-          </Box>
-        )}
+        <FormDialog show={showAddGoalForm} title='add a new goal' onCancel={() => setShowAddGoalForm(false)}>
+          <AddGoalForm goal={{}} onSubmit={handleAddGoal} />
+        </FormDialog>
       </Box>
       <Box>
         <>
@@ -115,7 +113,6 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
                         <LinkButton2 onClick={() => handleShowEditGoal(item)}>
                           <Typography>{item.body}</Typography>
                         </LinkButton2>
-
                         {item.completePercent !== undefined && (
                           <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'} pr={2}>
                             <ProgressBar value={item.completePercent} toolTipText={`${item.completePercent}% complete`} width={80} />

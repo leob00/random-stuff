@@ -64,7 +64,7 @@ const StockSubscibeIcon = ({
       <Box display={'flex'} gap={2} alignItems={'center'}>
         <Box>
           {!data && (
-            <IconButton size='small' color='success' onClick={handleEditAlerts}>
+            <IconButton size='small' color='info' onClick={handleEditAlerts}>
               <NotificationAddIcon fontSize={size} />
             </IconButton>
           )}

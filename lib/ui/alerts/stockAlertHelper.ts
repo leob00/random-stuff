@@ -57,3 +57,30 @@ export async function saveTrigger(username: string, subscriptionId: string, quot
     await putRecord(sub.id, constructStockAlertsSubSecondaryKey(username), sub)
   }
 }
+
+export function sortAlerts(subs: StockAlertSubscription[]) {
+  const subsMap = new Map<string, StockAlertSubscription>()
+  subs.forEach((sub) => {
+    subsMap.set(sub.symbol, sub)
+  })
+  const allTriggers = subs.flatMap((m) => m.triggers)
+  const executedTriggers = sortArray(
+    allTriggers.filter((m) => m.message),
+    ['lastExecutedDate'],
+    ['desc'],
+  )
+  const nonExecutedTriggers = sortArray(
+    allTriggers.filter((m) => !m.executedDate),
+    ['lastExecutedDate'],
+    ['desc'],
+  )
+
+  const result: StockAlertSubscription[] = []
+  executedTriggers.forEach((tr) => {
+    result.push(subsMap.get(tr.symbol!)!)
+  })
+  nonExecutedTriggers.forEach((tr) => {
+    result.push(subsMap.get(tr.symbol!)!)
+  })
+  return result
+}

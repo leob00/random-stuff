@@ -1,22 +1,18 @@
-import { Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { Box, Table, TableBody, TableContainer } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import CenterStack from 'components/Atoms/CenterStack'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
-import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useAlertsController } from 'hooks/stocks/alerts/useAlertsController'
 import { processAlertTriggers } from 'lib/backend/alerts/stockAlertProcessor'
-import { DynamoKeys, EmailMessage, LambdaDynamoRequest, updateSubscriptions, UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { DynamoKeys, EmailMessage, LambdaDynamoRequest, UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { constructStockAlertsSubPrimaryKey, constructStockAlertsSubSecondaryKey } from 'lib/backend/api/aws/util'
 import { StockAlertSubscription, StockAlertSubscriptionWithMessage, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import { getRecord, putRecord, putRecordsBatch, searchRecords, sendEmailFromClient } from 'lib/backend/csr/nextApiWrapper'
-import { getDefaultSubscription } from 'lib/ui/alerts/stockAlertHelper'
+import { getDefaultSubscription, sortAlerts } from 'lib/ui/alerts/stockAlertHelper'
 import { formatEmail } from 'lib/ui/mailUtil'
-import { sortArray } from 'lib/util/collections'
 import { uniq } from 'lodash'
-import numeral from 'numeral'
 import React from 'react'
 import StocksLookup from '../StocksLookup'
 import EmailPreview from './EmailPreview'
@@ -24,6 +20,7 @@ import StockAlertRow from './StockAlertRow'
 import StockSubscriptionForm from './StockSubscriptionForm'
 import { saveTrigger } from 'lib/ui/alerts/stockAlertHelper'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
+import TableHeaderWithSearchWithinList from 'components/Atoms/Tables/TableHeaderWithSearchWithinList'
 
 const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const alertsSearchhKey = constructStockAlertsSubSecondaryKey(userProfile.username)
@@ -159,26 +156,16 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
       {isLoading && <BackdropLoader />}
       {data && (
         <>
-          <>
-            <Box py={2} display={'flex'} justifyContent={'space-between'}>
-              <Box display={'flex'} gap={2}>
-                <PrimaryButton size='small' text='preview email' onClick={handleGenerateAlerts} />
-                <PrimaryButton size='small' text='add alert' color='success' onClick={() => showHideAddAlert(showAddAlert)} />
-              </Box>
+          <Box py={2} display={'flex'} justifyContent={'space-between'}>
+            <Box display={'flex'} gap={2}>
+              <PrimaryButton size='small' text='preview email' onClick={handleGenerateAlerts} />
+              <PrimaryButton size='small' text='add alert' color='success' onClick={() => showHideAddAlert(showAddAlert)} />
             </Box>
-            {emailMessage && <EmailPreview emailMessage={emailMessage} onClose={() => setEmailMessage(null)} onSend={handleSendEmail} />}
-          </>
+          </Box>
+          {emailMessage && <EmailPreview emailMessage={emailMessage} onClose={() => setEmailMessage(null)} onSend={handleSendEmail} />}
           <TableContainer>
             <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell colSpan={10}>
-                    <CenterStack>
-                      <SearchWithinList onChanged={handleSearched} text={`search in ${numeral(data.subscriptions.length).format('###,###')} alerts`} />
-                    </CenterStack>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
+              <TableHeaderWithSearchWithinList count={data.subscriptions.length} handleSearched={handleSearched} />
               <TableBody>
                 {filterRecords(data).subscriptions.map((sub) => (
                   <StockAlertRow key={sub.id} sub={sub} username={userProfile.username} />
@@ -194,33 +181,6 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
       </FormDialog>
     </Box>
   )
-}
-
-function sortAlerts(subs: StockAlertSubscription[]) {
-  const subsMap = new Map<string, StockAlertSubscription>()
-  subs.forEach((sub) => {
-    subsMap.set(sub.symbol, sub)
-  })
-  const allTriggers = subs.flatMap((m) => m.triggers)
-  const executedTriggers = sortArray(
-    allTriggers.filter((m) => m.message),
-    ['lastExecutedDate'],
-    ['desc'],
-  )
-  const nonExecutedTriggers = sortArray(
-    allTriggers.filter((m) => !m.executedDate),
-    ['lastExecutedDate'],
-    ['desc'],
-  )
-
-  const result: StockAlertSubscription[] = []
-  executedTriggers.forEach((tr) => {
-    result.push(subsMap.get(tr.symbol!)!)
-  })
-  nonExecutedTriggers.forEach((tr) => {
-    result.push(subsMap.get(tr.symbol!)!)
-  })
-  return result
 }
 
 export default StockAlertsLayout

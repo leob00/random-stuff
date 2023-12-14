@@ -71,10 +71,10 @@ const Page = () => {
             <RequireClaim claimType='qln'>
               <>
                 <TabList tabs={tabs} onSetTab={handleSelectTab} />
+                {selectedTab === 'Jobs' && <JobsLayout />}
                 {selectedTab === 'Api' && <ApiTest />}
                 {selectedTab === 'Server' && <ServerInfo />}
                 {selectedTab === 'Calculator' && <Calculator />}
-                {selectedTab === 'Jobs' && <JobsLayout />}
               </>
             </RequireClaim>
           </>
