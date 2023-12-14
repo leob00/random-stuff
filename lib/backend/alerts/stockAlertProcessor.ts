@@ -52,14 +52,12 @@ function processDailyMoveTrigger(trigger: StockAlertTrigger, quote: StockQuote, 
   if (trigger.status !== 'complete') {
     trigger.status = 'queued'
   }
-  const lastEx = trigger.lastExecutedDate
-    ? dayjs(trigger.lastExecutedDate).format('YYYY-MM-DD hh:mm A')
-    : dayjs(new Date(1900, 1, 1)).format('YYYY-MM-DD hh:mm A')
-  const tradeDate = dayjs(quote.TradeDate).format('YYYY-MM-DD hh:mm A')
+  const lastEx = trigger.lastExecutedDate ? dayjs(trigger.lastExecutedDate).format() : dayjs(new Date(1900, 1, 1)).format()
+  const tradeDate = dayjs(quote.TradeDate).format()
 
-  if (lastEx !== tradeDate) {
+  if (dayjs(tradeDate).isAfter(dayjs(lastEx))) {
     if (Number(trigger.target) <= Math.abs(quote.ChangePercent)) {
-      const newDate = dayjs(quote.TradeDate).format('YYYY-MM-DD hh:mm A')
+      const newDate = dayjs(quote.TradeDate).format()
       trigger.executedDate = newDate
       trigger.lastExecutedDate = newDate
       trigger.status = 'started'
