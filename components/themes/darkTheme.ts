@@ -42,7 +42,7 @@ const darkPalette: PaletteOptions = {
   },
   text: {
     primary: VeryLightBlue,
-    secondary: VeryLightBlue,
+    //   secondary: VeryLightBlue,
   },
 }
 

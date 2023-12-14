@@ -13,7 +13,7 @@ const InternalLink = ({ route, text, large = false }: { route: string; text: str
       ) : (
         <NLink href={route} passHref legacyBehavior>
           <Link
-            color='secondary'
+            //color='info'
             sx={{ textDecoration: 'none' }}
             p={1}
             onClick={() => {

@@ -1,8 +1,8 @@
 import { Stack, Box, Typography, Alert } from '@mui/material'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
-import { useUserController } from 'hooks/userController'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import StockListItem from './StockListItem'
@@ -44,9 +44,7 @@ const AddQuote = ({
       )}
       <Stack py={1} direction={'row'} spacing={1} alignItems='center'>
         <Stack flexGrow={1}>
-          <Box textAlign={'right'}>
-            {!alreadyExists && showAddToListButton && <SecondaryButton text='Add to list' size='small' onClick={handleAddToList}></SecondaryButton>}
-          </Box>
+          <Box textAlign={'right'}>{!alreadyExists && showAddToListButton && <PrimaryButton text='Add to list' size='small' onClick={handleAddToList} />}</Box>
         </Stack>
         <Stack>
           <PassiveButton text={'close'} onClick={handleCloseAddQuote} size='small' />
