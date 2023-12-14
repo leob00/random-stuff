@@ -36,7 +36,7 @@ const SecondaryCheckbox = ({
               handleCheckClick(false)
             }}
           >
-            <CheckBoxOutlinedIcon color='secondary' />
+            <CheckBoxOutlinedIcon color='primary' />
           </Button>
         ) : (
           <Button
@@ -46,7 +46,7 @@ const SecondaryCheckbox = ({
               handleCheckClick(true)
             }}
           >
-            <CheckBoxOutlineBlankRoundedIcon color='secondary' />
+            <CheckBoxOutlineBlankRoundedIcon color='primary' />
           </Button>
         )}
       </Box>

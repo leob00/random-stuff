@@ -7,7 +7,7 @@ const ContextMenuAttach = ({ text = 'add file' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <AttachFileIcon color='primary' fontSize='small' />
+        <AttachFileIcon fontSize='small' />
       </ListItemIcon>
       <ListItemText primary={text} />
       <HorizontalDivider />

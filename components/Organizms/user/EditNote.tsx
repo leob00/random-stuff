@@ -144,7 +144,6 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
         </CenterStack>
         <CenterStack sx={{ width: { xs: '100%' } }}>
           <TextField
-            color='secondary'
             inputProps={{ maxLength: 150 }}
             fullWidth
             inputRef={title}

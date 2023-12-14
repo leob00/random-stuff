@@ -45,7 +45,7 @@ const FlatListMenu = ({
       item: (
         <>
           <ListItemIcon>
-            <StreetviewIcon color='secondary' fontSize='small' />
+            <StreetviewIcon color='primary' fontSize='small' />
           </ListItemIcon>
           <ListItemText primary='view by group name' />
         </>

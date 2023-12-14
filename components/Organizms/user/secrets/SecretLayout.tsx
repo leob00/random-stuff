@@ -54,7 +54,7 @@ const SecretLayout = ({
         <Box>
           <Box py={2}>
             <Box textAlign={'right'}>
-              <IconButton color='secondary' onClick={() => setModel({ ...model, editMode: false })}>
+              <IconButton color='primary' onClick={() => setModel({ ...model, editMode: false })}>
                 <Close fontSize='small' />
               </IconButton>
             </Box>

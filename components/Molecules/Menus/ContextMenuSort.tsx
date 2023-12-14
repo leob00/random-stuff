@@ -6,7 +6,7 @@ const ContextMenuSort = ({ text = 'edit' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <SortIcon color='secondary' fontSize='small' />
+        <SortIcon fontSize='small' />
       </ListItemIcon>
       <ListItemText primary={text} />
     </>

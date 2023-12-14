@@ -48,14 +48,14 @@ const StockListMenu = ({ onEdit, onRefresh, onShowAsGroup }: { onEdit: () => voi
         <MenuList>
           <MenuItem onClick={() => handleClick('refresh')}>
             <ListItemIcon>
-              <CachedIcon color='secondary' fontSize='small' />
+              <CachedIcon color='primary' fontSize='small' />
             </ListItemIcon>
             <ListItemText primary='refresh'></ListItemText>
           </MenuItem>
           <HorizontalDivider />
           <MenuItem onClick={() => handleClick('edit')}>
             <ListItemIcon>
-              <ViewList color='secondary' fontSize='small' />
+              <ViewList color='primary' fontSize='small' />
             </ListItemIcon>
             <ListItemText primary='edit'></ListItemText>
           </MenuItem>

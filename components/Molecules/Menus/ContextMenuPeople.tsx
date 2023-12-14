@@ -6,7 +6,7 @@ const ContextMenuPeople = ({ text = 'edit' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <PeopleIcon color='secondary' fontSize='small' />
+        <PeopleIcon fontSize='small' />
       </ListItemIcon>
       <ListItemText primary={text} />
     </>

@@ -13,7 +13,7 @@ const GoalsMenu = ({ onShowCharts }: { onShowCharts: () => void }) => {
       item: (
         <>
           <ListItemIcon>
-            <BarChartIcon color='secondary' fontSize='small' />
+            <BarChartIcon color='primary' fontSize='small' />
           </ListItemIcon>
 
           <ListItemText primary='summary'></ListItemText>

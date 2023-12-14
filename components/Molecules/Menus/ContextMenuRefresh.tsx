@@ -5,7 +5,7 @@ const ContextMenuRefresh = () => {
   return (
     <>
       <ListItemIcon>
-        <CachedIcon color='secondary' fontSize='small' />
+        <CachedIcon fontSize='small' />
       </ListItemIcon>
       <ListItemText primary='refresh' />
     </>

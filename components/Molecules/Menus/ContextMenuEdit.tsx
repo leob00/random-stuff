@@ -7,7 +7,7 @@ const ContextMenuEdit = ({ text = 'edit' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <EditIcon color='secondary' fontSize='small' />
+        <EditIcon fontSize='small' />
       </ListItemIcon>
       <ListItemText primary={text} />
     </>

@@ -34,7 +34,8 @@ export default function ControlledLookUpSoloInput({
           disabled={disabled}
           renderInput={(params) => (
             <TextField
-              sx={{ input: { color: CasinoBlue } }}
+              color='primary'
+              //sx={{ input: { color: 'primary' } }}
               {...params}
               label={label}
               variant='outlined'

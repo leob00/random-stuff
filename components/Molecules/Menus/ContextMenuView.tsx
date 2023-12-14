@@ -7,7 +7,7 @@ const ContextMenuView = ({ text = 'view' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <ZoomInIcon color='primary' fontSize='small' />
+        <ZoomInIcon fontSize='small' />
       </ListItemIcon>
       <ListItemText primary={text} />
       <HorizontalDivider />

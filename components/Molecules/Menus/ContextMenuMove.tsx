@@ -7,7 +7,7 @@ const ContextMenuMove = ({ text = 'add' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <Move color='secondary' fontSize='small' />
+        <Move fontSize='small' />
       </ListItemIcon>
       <ListItemText primary={text} />
       <HorizontalDivider />

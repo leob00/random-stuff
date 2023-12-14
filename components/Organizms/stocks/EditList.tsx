@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, DialogContent, DialogContentText, DialogTitle, IconButton, Stack } from '@mui/material'
+import { Box, Button, Dialog, DialogContent, DialogContentText, DialogTitle, IconButton, Stack, Typography } from '@mui/material'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
@@ -86,8 +86,8 @@ const EditList = ({
           <SearchWithinList onChanged={handleSearched} />
         </Box>
         <Box>
-          <Button size='small' color='secondary' onClick={onCancelEdit}>
-            <Close fontSize='small' color='secondary' />
+          <Button size='small' color='primary' onClick={onCancelEdit}>
+            <Close fontSize='small' color='primary' />
           </Button>
         </Box>
       </Box>
@@ -122,8 +122,8 @@ const EditList = ({
           </Stack>
         </DialogTitle>
         <DialogContent>
-          <DialogContentText id='alert-dialog-description' sx={{ pt: 3 }} color='primary'>
-            You can assign a new group name or pick from existing ones.
+          <DialogContentText id='alert-dialog-description' sx={{ pt: 3 }}>
+            <Typography>You can assign a new group name or pick from existing ones.</Typography>
           </DialogContentText>
           <Box py={4}>
             <EditStockGroupForm options={groups} onSubmitted={handleSaveGroupName} defaultValue={editItem?.GroupName!} />

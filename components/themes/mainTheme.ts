@@ -35,6 +35,7 @@ export const CasinoBlueTransparent = '#0979d4bb'
 export const CasinoBlue = '#0979d4'
 export const CasinoYellowTransparent = '#fae62ebb'
 export const DarkModeBlue = '#0a214c'
+export const DarkModePrimary = '#90caf9'
 export const DarkModeBlueTransparent = '#2f4e8dee'
 export const Default = CasinoBlue
 export const CasinoBlack = '#131212fa'

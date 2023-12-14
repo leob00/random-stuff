@@ -129,7 +129,7 @@ const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: Dra
       item: (
         <>
           <ListItemIcon>
-            <DriveFileRenameOutlineIcon color='secondary' fontSize='small' />
+            <DriveFileRenameOutlineIcon color='primary' fontSize='small' />
           </ListItemIcon>
           <ListItemText primary='add to list'></ListItemText>
         </>
@@ -185,7 +185,9 @@ const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: Dra
           )}
         </StrictModeDroppable>
       </DragDropContext>
-      <FormDialog show={showGroupNameDialog} title={'assign to group'} onSave={() => {}} onCancel={() => setShowGroupNameDialog(false)}></FormDialog>
+      <FormDialog show={showGroupNameDialog} title={'assign to group'} onSave={() => {}} onCancel={() => setShowGroupNameDialog(false)}>
+        <></>
+      </FormDialog>
       <ConfirmDeleteDialog
         show={showConfirmDelete}
         text={`Are you sure you want to remove ${deleteItem?.Company}?`}

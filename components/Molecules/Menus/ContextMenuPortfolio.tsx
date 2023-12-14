@@ -8,7 +8,7 @@ const ContextMenuPortfolio = ({ text = 'alerts' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <StackedLineChartIcon color='secondary' fontSize='small' />
+        <StackedLineChartIcon fontSize='small' />
       </ListItemIcon>
       <ListItemText primary={text} />
     </>

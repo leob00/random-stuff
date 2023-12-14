@@ -7,7 +7,7 @@ const ContextMenuClose = ({ text = 'close' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <Close color='primary' fontSize='small' />
+        <Close fontSize='small' />
       </ListItemIcon>
       <ListItemText primary={text} />
       <HorizontalDivider />

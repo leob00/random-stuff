@@ -23,7 +23,7 @@ const HamburgerMenu = ({ close = true, children }: { close?: boolean; children: 
         aria-expanded={open ? 'true' : undefined}
         onClick={handleShowMenu}
       >
-        <MenuIcon color='secondary' fontSize='small' />
+        <MenuIcon color='primary' fontSize='small' />
       </Button>
       <Menu
         id='basic-menu'

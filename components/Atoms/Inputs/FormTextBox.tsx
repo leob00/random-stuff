@@ -42,7 +42,6 @@ const FormTextBox = ({
   }
   return (
     <TextField
-      color='secondary'
       inputProps={{ maxLength: maxLength }}
       fullWidth={false}
       inputRef={textRef}

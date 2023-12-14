@@ -7,7 +7,9 @@ const OnOffSwitch = ({ isChecked = false, label, onChanged }: { isChecked?: bool
     setChecked(checked)
     onChanged(checked)
   }
-  return <FormControlLabel control={<Switch size='small' onChange={handleChange} color='secondary' />} label={label} checked={checked} />
+  return (
+    <FormControlLabel control={<Switch size='small' onChange={handleChange} color={checked ? 'success' : 'secondary'} />} label={label} checked={checked} />
+  )
 }
 
 export default OnOffSwitch

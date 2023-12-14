@@ -193,11 +193,11 @@ const TaskList = ({
             <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
               <Box display={'flex'} alignItems={'center'} gap={2}>
                 <Box>
-                  <IconButton size='small' color='secondary' onClick={handleToggleSearch}>
+                  <IconButton size='small' color='primary' onClick={handleToggleSearch}>
                     {!model.showSearch ? <Search fontSize='small' /> : <SearchOff fontSize='small' />}
                   </IconButton>
                   {!model.showSearch && (
-                    <IconButton size='small' color='secondary' onClick={handleDownloadToFile}>
+                    <IconButton size='small' color='primary' onClick={handleDownloadToFile}>
                       <FileDownloadIcon fontSize='small' />
                     </IconButton>
                   )}

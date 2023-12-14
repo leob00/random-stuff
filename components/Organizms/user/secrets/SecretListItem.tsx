@@ -48,18 +48,7 @@ const SecretListItem = ({ encKey, viewModel, onEdit }: { encKey: string; viewMod
               autoComplete: 'off',
               endAdornment: (
                 <InputAdornment position='end'>
-                  {/* <IconButton edge='end' onClick={handleEncryptDecrypt} size='small' color='secondary'>
-                    <>
-                      {model.isEncrypted ? (
-                        <VisibilityIcon fontSize='small' />
-                      ) : (
-                        <>
-                          <VisibilityOffIcon fontSize='small' />
-                        </>
-                      )}
-                    </>
-                  </IconButton> */}
-                  <IconButton edge='end' onClick={handleDecryptCopy} size='small' color='secondary'>
+                  <IconButton edge='end' onClick={handleDecryptCopy} size='small' color='primary'>
                     <ContentCopyIcon fontSize='small' />
                   </IconButton>
                 </InputAdornment>
@@ -69,7 +58,7 @@ const SecretListItem = ({ encKey, viewModel, onEdit }: { encKey: string; viewMod
         </Stack>
         <Stack>
           <Stack pl={2}>
-            <IconButton onClick={handleEditClick} color='secondary' size='small'>
+            <IconButton onClick={handleEditClick} color='primary' size='small'>
               <Create />
             </IconButton>
           </Stack>

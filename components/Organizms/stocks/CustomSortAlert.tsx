@@ -31,7 +31,7 @@ const CustomSortAlert = ({ result, onModify }: { result: Sort[]; onModify: () =>
         icon={<CheckIcon fontSize='inherit' />}
         severity='info'
         action={
-          <Button color='secondary' size='small' onClick={onModify}>
+          <Button color='primary' size='small' onClick={onModify}>
             modify
           </Button>
         }

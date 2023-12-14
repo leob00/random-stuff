@@ -5,7 +5,7 @@ import CenterStack from '../CenterStack'
 const LargeSpinner = () => {
   return (
     <CenterStack sx={{ py: 2 }}>
-      <CircularProgress color='secondary' />
+      <CircularProgress />
     </CenterStack>
   )
 }

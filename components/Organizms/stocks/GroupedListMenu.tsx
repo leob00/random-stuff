@@ -34,7 +34,7 @@ const GroupedListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShow
       item: (
         <>
           <ListItemIcon>
-            <FormatListBulletedIcon color='secondary' fontSize='small' />
+            <FormatListBulletedIcon fontSize='small' />
           </ListItemIcon>
           <ListItemText primary='view as flat list' />
         </>

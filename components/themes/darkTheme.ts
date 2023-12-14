@@ -11,15 +11,15 @@ import {
   CasinoMoreBlackTransparent,
   CasinoBlackTransparent,
   VeryLightBlueTransparent,
+  DarkModePrimary,
 } from './mainTheme'
 
 const darkPalette: PaletteOptions = {
   mode: 'dark',
 
-  // primary: {
-  //   main: VeryLightBlue,
-  //   contrastText: VeryLightBlue,
-  // },
+  primary: {
+    main: '#90caf9',
+  },
   secondary: {
     main: VeryLightBlue,
     contrastText: CasinoBlackTransparent,
@@ -55,6 +55,9 @@ const darkThemeOptions: ThemeOptions = {
     fontFamily: ['-apple-system', 'Roboto', 'BlinkMacSystemFont', '"Helvetica Neue"', 'Arial', 'sans-serif', '"Apple Color Emoji"'].join(','),
     fontSize: 18,
     fontWeightBold: 'bold',
+    allVariants: {
+      color: DarkModePrimary,
+    },
 
     h1: { fontSize: '3.5rem', fontWeight: 500 }, // hero section title
     h2: { fontSize: '2.6125rem', fontWeight: 500 }, // other section title
@@ -102,6 +105,13 @@ const darkThemeOptions: ThemeOptions = {
       styleOverrides: {
         root: {
           backgroundColor: DarkModeBlue,
+        },
+      },
+    },
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          color: DarkModePrimary,
         },
       },
     },
