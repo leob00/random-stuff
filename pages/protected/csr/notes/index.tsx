@@ -9,18 +9,21 @@ import Seo from 'components/Organizms/Seo'
 
 const Notes = () => {
   const userController = useUserController()
-  const [userProfile, setUserProfile] = React.useState<UserProfile | null>(userController.authProfile)
+  //const [userProfile, setUserProfile] = React.useState<UserProfile | null>(userController.authProfile)
   const [isLoading, setIsLoading] = React.useState(true)
+  const { authProfile, setProfile } = useUserController()
 
   React.useEffect(() => {
     let fn = async () => {
-      const p = await userController.fetchProfilePassive(900)
-      setUserProfile(p)
+      if (!authProfile) {
+        const p = await userController.fetchProfilePassive()
+        setProfile(p)
+      }
       setIsLoading(false)
     }
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userProfile?.username])
+  }, [authProfile])
   return (
     <>
       <Seo pageTitle='Notes' />
@@ -29,11 +32,11 @@ const Notes = () => {
           <BackdropLoader />
         ) : (
           <>
-            {!userProfile ? (
+            {!authProfile ? (
               <PleaseLogin />
             ) : (
               <>
-                <UserNotesLayout userProfile={userProfile} />
+                <UserNotesLayout userProfile={authProfile} />
               </>
             )}
           </>

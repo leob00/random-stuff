@@ -36,7 +36,7 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
             maxWidth: { xs: '95%', md: '98%' },
             display: 'inline-block',
             // wordWrap: 'break-word',
-            color: color,
+            //color: color,
             fontWeight: 500,
             //backgroundColor: 'white',
           }}

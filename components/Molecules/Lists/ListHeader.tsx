@@ -64,7 +64,7 @@ const ListHeader = ({
             onClicked(item)
           }}
         >
-          <Typography textAlign={'left'} variant='h5' color={'primary'}>
+          <Typography textAlign={'left'} variant='h5'>
             {text}
           </Typography>
         </Stack>

@@ -1,21 +1,14 @@
-import { Box } from '@mui/material'
-import CenterStack from 'components/Atoms/CenterStack'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
-import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
-import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import WarmupBox from 'components/Atoms/WarmupBox'
 import { notesReducer, UserNotesModel } from 'components/reducers/notesReducer'
 import dayjs from 'dayjs'
-import { useUserController } from 'hooks/userController'
 import { S3Object } from 'lib/backend/api/aws/apiGateway'
 import { constructUserNoteCategoryKey } from 'lib/backend/api/aws/util'
 import { postDelete } from 'lib/backend/api/fetchFunctions'
-import { expireUserNote, getUserNote, putUserNote, putUserNoteTitles, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
+import { expireUserNote, getUserNote, putUserNote, putUserNoteTitles } from 'lib/backend/csr/nextApiWrapper'
 import { buildSaveModel } from 'lib/controllers/notes/notesController'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { filter } from 'lodash'
-import numeral from 'numeral'
 import React from 'react'
 import EditNote from './EditNote'
 import NoteList from './NoteList'
@@ -102,12 +95,6 @@ const UserNotesDisplay = ({ result, username, onMutated }: { result: UserNote[];
     onMutated(noteTitles)
   }
 
-  const handleNoteSelected = (text: string) => {
-    const note = result.find((m) => m.title === text)
-    if (note) {
-      handleNoteTitleClick(note)
-    }
-  }
   const handleFilesMutated = async (files: S3Object[]) => {
     const n = { ...model.selectedNote! }
     n.attachments = files
@@ -121,13 +108,7 @@ const UserNotesDisplay = ({ result, username, onMutated }: { result: UserNote[];
         {!model.editMode && !model.selectedNote && (
           <>
             <PageHeader text={'Notes'} />
-            <NoteList
-              data={result}
-              onClicked={handleNoteTitleClick}
-              onDelete={handleDelete}
-              onAddNote={handleAddNote}
-              isFiltered={model.filteredTitles.length < model.noteTitles.length}
-            />
+            <NoteList data={result} onClicked={handleNoteTitleClick} onDelete={handleDelete} onAddNote={handleAddNote} />
           </>
         )}
         {model.selectedNote && !model.editMode && (

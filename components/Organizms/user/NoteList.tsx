@@ -1,16 +1,18 @@
 import Delete from '@mui/icons-material/Delete'
 import Warning from '@mui/icons-material/Warning'
-import { Box, Stack, Button, useTheme } from '@mui/material'
+import { Box, Stack, Button } from '@mui/material'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
-import { DarkBlue, ChartBackground } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { getExpirationText, getUtcNow } from 'lib/util/dateUtil'
+import numeral from 'numeral'
 import React from 'react'
 
 const NoteList = ({
@@ -18,17 +20,15 @@ const NoteList = ({
   onClicked,
   onAddNote,
   onDelete,
-  isFiltered,
 }: {
   data: UserNote[]
   onClicked: (item: UserNote) => void
   onAddNote: () => void
   onDelete: (item: UserNote) => void
-  isFiltered: boolean
 }) => {
-  const theme = useTheme()
   const [selectedNote, setSelectedNote] = React.useState<UserNote | null>(null)
   const [showConfirm, setShowConfirm] = React.useState(false)
+  const [searchText, setSearchText] = React.useState('')
   const handleNoteTitleClick = (item: UserNote) => {
     onClicked(item)
   }
@@ -43,19 +43,30 @@ const NoteList = ({
     }
   }
 
+  const handleSearched = (text: string) => {
+    setSearchText(text)
+  }
+  const filterResults = () => {
+    if (searchText.length > 0) {
+      return data.filter((m) => m.title.toLowerCase().includes(searchText.toLowerCase()))
+    }
+    return [...data]
+  }
+
+  const filtered = filterResults()
+
   return (
     <Box sx={{ py: 2 }}>
-      {!isFiltered && (
-        <Box>
-          <Box sx={{ pb: 2 }}>
-            <SecondaryButton text='add note' size='small' onClick={onAddNote} width={100} />
-          </Box>
-          <HorizontalDivider />
-        </Box>
-      )}
       <Box>
-        {data.map((item, i) => (
-          <Box key={i} textAlign='left'>
+        <Box sx={{ pb: 2 }} display={'flex'} gap={2}>
+          <PrimaryButton text='add note' size='small' onClick={onAddNote} />
+          <SearchWithinList text={`search ${numeral(data.length).format('###,###')} notes`} onChanged={handleSearched} />
+        </Box>
+        <HorizontalDivider />
+      </Box>
+      <Box>
+        {filtered.map((item, i) => (
+          <Box key={item.id} textAlign='left'>
             <ListItemContainer>
               <Stack direction='row' py={1} alignItems='center'>
                 <ListHeader

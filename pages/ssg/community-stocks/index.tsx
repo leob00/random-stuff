@@ -20,7 +20,6 @@ import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import { searchRecords } from 'lib/backend/csr/nextApiWrapper'
 import useSWR, { mutate } from 'swr'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import CommunityStocksRecentLayout from 'components/Organizms/stocks/CommunityStocksRecentLayout'
 import Seo from 'components/Organizms/Seo'
 import TabList from 'components/Atoms/Buttons/TabList'
@@ -99,11 +98,9 @@ const Page = () => {
   return (
     <>
       <Seo pageTitle={`Community Stocks`} />
-
       <ResponsiveContainer>
         <BackButton />
         <CenteredHeader title='Community Stocks' />
-
         <Box py={2}>
           <CenterStack>
             <StocksAutoComplete
