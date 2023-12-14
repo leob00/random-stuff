@@ -144,7 +144,8 @@ div [role='tablist'] {
 }
 div [role='tablist'] button {
   color: #0a214c !important;
-  font-weight: 600 !important;
+  font-weight: 300 !important;
+  font-size: 18px !important;
 }
 div [role='tablist'] [aria-selected='true'] {
   color: #d6e7f8 !important;

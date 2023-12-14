@@ -25,6 +25,7 @@ import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import StockSubscibeIcon from './StockSubscibeIcon'
 import { useUserController } from 'hooks/userController'
+import TabList from 'components/Atoms/Buttons/TabList'
 
 const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'Earnings' }, { title: 'News' }, { title: 'Profile' }]
 export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'dark' = 'light') => {
@@ -96,8 +97,8 @@ const StockListItem = ({
     }
   }
 
-  const handleSelectTab = (title: string) => {
-    setSelectedTab(title)
+  const handleSelectTab = (tab: TabInfo) => {
+    setSelectedTab(tab.title)
   }
   const handleCollapseClick = () => {
     if (closeOnCollapse) {
@@ -165,7 +166,7 @@ const StockListItem = ({
                   <StockSubscibeIcon userProfile={authProfile} quote={item} />
                 </Box>
               )}
-              <TabButtonList tabs={tabs} onSelected={handleSelectTab} />
+              <TabList tabs={tabs} onSetTab={handleSelectTab} />
               <Typography ref={tabScrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>
               {selectedTab === 'Details' && (
                 <Box pb={2} pt={2}>

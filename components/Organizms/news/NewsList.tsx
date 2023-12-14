@@ -12,6 +12,7 @@ import { UserNote } from 'lib/models/randomStuffModels'
 import { getUtcNow } from 'lib/util/dateUtil'
 import React from 'react'
 import NewsDescription from './NewsDescription'
+import NewsHeadline from './NewsHeadline'
 dayjs.extend(relativeTime)
 
 const NewsList = ({
@@ -59,7 +60,7 @@ const NewsList = ({
         newsItems.map((item, i) => (
           <Box key={`${item.Headline}${item.PublishDate}`} pb={2}>
             <Box minHeight={100}>
-              {RenderHeadline(item)}
+              <NewsHeadline item={item} />
               <NewsDescription item={item} />
               {item.TeaserImageUrl !== undefined && item.TeaserImageUrl.length > 0 && !item.Description!.includes('img') && (
                 <Stack>
