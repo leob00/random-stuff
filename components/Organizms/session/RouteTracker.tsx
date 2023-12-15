@@ -10,7 +10,7 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
   const routeTracker = useRouteTracker()
   React.useEffect(() => {
     const handleRouteChange = async (url: string, shallow: boolean) => {
-      if (!url.includes('/login') && !url.includes('?') && !url.includes('recipes/')) {
+      if (!url.includes('/login' || !url.includes('logoff')) && !url.includes('?')) {
         const lastRoute = routeTracker.routes.length > 0 ? routeTracker.routes[0] : undefined
 
         if (lastRoute) {

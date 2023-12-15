@@ -62,25 +62,27 @@ const Page = () => {
     <>
       <Seo pageTitle='Admin' />
       <ResponsiveContainer>
-        {loading ? (
-          <BackdropLoader />
-        ) : userProfile ? (
-          <>
-            <BackButton />
-            <CenteredTitle title='Admin' />
-            <RequireClaim claimType='qln'>
-              <>
-                <TabList tabs={tabs} onSetTab={handleSelectTab} />
-                {selectedTab === 'Jobs' && <JobsLayout />}
-                {selectedTab === 'Api' && <ApiTest />}
-                {selectedTab === 'Server' && <ServerInfo />}
-                {selectedTab === 'Calculator' && <Calculator />}
-              </>
-            </RequireClaim>
-          </>
-        ) : (
-          <PleaseLogin />
-        )}
+        <RequireClaim claimType='rs'>
+          {loading ? (
+            <BackdropLoader />
+          ) : userProfile ? (
+            <>
+              <BackButton />
+              <CenteredTitle title='Admin' />
+              <RequireClaim claimType='qln'>
+                <>
+                  <TabList tabs={tabs} onSetTab={handleSelectTab} />
+                  {selectedTab === 'Jobs' && <JobsLayout />}
+                  {selectedTab === 'Api' && <ApiTest />}
+                  {selectedTab === 'Server' && <ServerInfo />}
+                  {selectedTab === 'Calculator' && <Calculator />}
+                </>
+              </RequireClaim>
+            </>
+          ) : (
+            <PleaseLogin />
+          )}
+        </RequireClaim>
       </ResponsiveContainer>
     </>
   )

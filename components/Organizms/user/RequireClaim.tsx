@@ -80,6 +80,12 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
         )
       case 'qln':
         return <QlnUsernameLoginForm onSuccess={handleQlnLogin} />
+      case 'rs-admin':
+        return (
+          <>
+            <PleaseLogin message='Please login to use this feature' />
+          </>
+        )
     }
     return <></>
   }
