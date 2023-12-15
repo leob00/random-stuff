@@ -33,7 +33,7 @@
         </circle>
         <circle cx="22" cy="22" r="8">
             <animate attributeName="r"
-                 begin="0s" dur="1.5s"
+                 begin=".02s" dur="1.5s"
                  values="6;1;2;3;4;5;6"
                  calcMode="linear"
                  repeatCount="indefinite" />
