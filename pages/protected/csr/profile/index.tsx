@@ -17,6 +17,7 @@ const Page = () => {
     }
 
     fn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authProfile])
   return (
     <>

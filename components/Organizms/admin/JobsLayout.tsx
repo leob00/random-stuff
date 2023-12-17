@@ -17,21 +17,33 @@ import JobList from './JobList'
 import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
 import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
 import { Claim } from 'lib/backend/auth/userUtil'
+import { useSwrHelper } from 'hooks/useSwrHelper'
 dayjs.extend(relativeTime)
 
 const JobsLayout = () => {
   const config = apiConnection().qln
+  const pollingIterval = 5200
   const [pollCounter, setPollCounter] = React.useState(0)
   const [selectedItem, setSelectedItem] = React.useState<Job | null>(null)
   const [isLoadingDetail, setIsLoadingDetail] = React.useState(false)
   const timeOutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const { claims } = useSessionPersistentStore()
+  const { claims, saveClaims } = useSessionPersistentStore()
   let claim = claims.find((m) => m.type === 'qln')
 
+  const handleLogin = async (result: Claim[]) => {
+    saveClaims(result)
+    claim = claims.find((m) => m.type === 'qln')
+  }
+
   const apiUrl = `${config.url}/BatchJobList?Token=${claim!.token}`
-  const fetcher: Fetcher<QlnApiResponse> = (url: string) => get(url)
-  const { data, isLoading } = useSWR(apiUrl, fetcher)
+
+  const dataFn = async () => {
+    const response = await get(apiUrl)
+    return response
+  }
+
+  const { data } = useSwrHelper<QlnApiResponse>(apiUrl, dataFn)
 
   const poll = () => {
     if (timeOutRef.current) {
@@ -40,7 +52,7 @@ const JobsLayout = () => {
 
     timeOutRef.current = setTimeout(() => {
       setPollCounter(pollCounter + 1)
-    }, 5000)
+    }, pollingIterval)
   }
 
   const handleItemClicked = async (item: Job) => {
@@ -65,15 +77,11 @@ const JobsLayout = () => {
 
   return (
     <Box>
-      {isLoading ? (
-        <BackdropLoader />
-      ) : (
-        <>
-          {isLoadingDetail && <BackdropLoader />}
-          {selectedItem && <JobDetail item={selectedItem} onClose={handleClose} />}
-          {data && <JobList response={data} onJobSelected={handleItemClicked} />}
-        </>
-      )}
+      <>
+        {isLoadingDetail && <BackdropLoader />}
+        {selectedItem && <JobDetail item={selectedItem} onClose={handleClose} />}
+        {data && <JobList response={data} onJobSelected={handleItemClicked} />}
+      </>
     </Box>
   )
 }

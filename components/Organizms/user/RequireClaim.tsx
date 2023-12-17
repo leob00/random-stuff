@@ -1,3 +1,4 @@
+import { Box } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
@@ -82,9 +83,9 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
         return <QlnUsernameLoginForm onSuccess={handleQlnLogin} />
       case 'rs-admin':
         return (
-          <>
+          <Box>
             <PleaseLogin message='Please login to use this feature' />
-          </>
+          </Box>
         )
     }
     return <></>

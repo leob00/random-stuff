@@ -31,7 +31,9 @@ const QlnUsernameLoginForm = ({ onSuccess }: { onSuccess: (claims: Claim[]) => v
         newClaims.push({
           type: 'qln',
           token: body.Token,
-          tokenExpirationDate: dayjs().add(body.TokenExpirationSeconds, 'seconds').format(),
+          tokenExpirationDate: dayjs()
+            .add(body.TokenExpirationSeconds - 300, 'seconds')
+            .format(),
           tokenExpirationSeconds: body.TokenExpirationSeconds,
         })
 
