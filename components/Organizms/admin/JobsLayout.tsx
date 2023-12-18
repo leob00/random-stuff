@@ -42,9 +42,6 @@ const JobsLayout = () => {
   const dataFn = async () => {
     try {
       const response = await get(apiUrl)
-      if (response.status !== 200) {
-        console.log('status is not OK: ', response.status)
-      }
       return response
     } catch (err) {
       console.error('error ocurred')

@@ -8,7 +8,8 @@ const BackdropLoader = () => {
       <Backdrop sx={{ backgroundColor: VeryLightTransparent, zIndex: (theme) => theme.zIndex.drawer + 1 }} open={true}>
         <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
           <img src={'/images/loaders/blue-ring-expanded.svg'} alt='loader' />
-          <img src={'/images/loaders/blue-ring.svg'} alt='loader' />
+          {/* <img src={'/images/loaders/blue-ring.svg'} alt='loader' />               */}
+          <img src={'/images/loaders/blue-ring-expanded-delayed.svg'} alt='loader' />
           <img src={'/images/loaders/blue-ring-expanded.svg'} alt='loader' />
         </Box>
         {/* <img src={'/images/loaders/dots.svg'} alt='loader' /> */}
