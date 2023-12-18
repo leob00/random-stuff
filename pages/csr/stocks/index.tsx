@@ -83,6 +83,7 @@ const Page = () => {
   return (
     <>
       <Seo pageTitle='Stocks' />
+      <BackdropLoader />
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
         <BackButton />
         <ContextMenu items={contextMenu} />

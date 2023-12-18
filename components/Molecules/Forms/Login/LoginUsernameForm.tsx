@@ -7,6 +7,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 
 const UsernameLoginSchema = z.object({
   username: z.string().email({ message: 'Invalid email' }),
@@ -15,7 +16,17 @@ const UsernameLoginSchema = z.object({
 
 export type UsernameLogin = z.infer<typeof UsernameLoginSchema>
 
-const LoginUsernameForm = ({ obj, title = 'Log in', onSubmitted, error }: { obj: UsernameLogin; title?: string; onSubmitted: (data: UsernameLogin) => void; error?: string }) => {
+const LoginUsernameForm = ({
+  obj,
+  title = 'Log in',
+  onSubmitted,
+  error,
+}: {
+  obj: UsernameLogin
+  title?: string
+  onSubmitted: (data: UsernameLogin) => void
+  error?: string
+}) => {
   const {
     control,
     handleSubmit,
@@ -29,7 +40,7 @@ const LoginUsernameForm = ({ obj, title = 'Log in', onSubmitted, error }: { obj:
     onSubmitted(submitData)
   }
   return (
-    <Box maxWidth={{ xs: '100%', md: '50%' }}>
+    <Box maxWidth={{ xs: '100%', md: '80%' }}>
       <Typography variant='h5' py={2}>
         {title}
       </Typography>
@@ -42,7 +53,7 @@ const LoginUsernameForm = ({ obj, title = 'Log in', onSubmitted, error }: { obj:
           {error && <Alert severity={'error'}>{error}</Alert>}
           <HorizontalDivider />
           <Box display={'flex'} justifyContent={'flex-end'}>
-            <SecondaryButton text='submit' type='submit' size='small' />
+            <PrimaryButton text='log in' type='submit' size='small' />
           </Box>
         </Box>
       </form>

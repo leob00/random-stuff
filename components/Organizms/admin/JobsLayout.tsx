@@ -18,6 +18,7 @@ import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
 import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
 import { Claim } from 'lib/backend/auth/userUtil'
 import { useSwrHelper } from 'hooks/useSwrHelper'
+import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 dayjs.extend(relativeTime)
 
 const JobsLayout = () => {
@@ -36,14 +37,21 @@ const JobsLayout = () => {
     claim = claims.find((m) => m.type === 'qln')
   }
 
-  const apiUrl = `${config.url}/BatchJobList?Token=${claim!.token}`
+  const apiUrl = `${config.url}/BatchJobList?Token=${claim?.token ?? ''}`
 
   const dataFn = async () => {
-    const response = await get(apiUrl)
-    return response
+    try {
+      const response = await get(apiUrl)
+      if (response.status !== 200) {
+        console.log('status is not OK: ', response.status)
+      }
+      return response
+    } catch (err) {
+      console.error('error ocurred')
+    }
   }
 
-  const { data } = useSwrHelper<QlnApiResponse>(apiUrl, dataFn)
+  const { data, error } = useSwrHelper<QlnApiResponse>(apiUrl, dataFn)
 
   const poll = () => {
     if (timeOutRef.current) {
@@ -78,9 +86,11 @@ const JobsLayout = () => {
   return (
     <Box>
       <>
+        {error && <AlertWithHeader severity='error' header='Error' text='authentication error has ocurred' />}
+
         {isLoadingDetail && <BackdropLoader />}
         {selectedItem && <JobDetail item={selectedItem} onClose={handleClose} />}
-        {data && <JobList response={data} onJobSelected={handleItemClicked} />}
+        {data && claim && <JobList response={data} onJobSelected={handleItemClicked} />}
       </>
     </Box>
   )

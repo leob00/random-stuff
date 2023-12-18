@@ -12,19 +12,25 @@ export async function get(url: string, params?: any) {
     })
   }
   const postUrl = `${url}${args}`
-  const resp = await fetch(postUrl, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_PUBLIC_KEY),
-      ApiKey: String(process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY),
-    },
-  })
-  if (resp.status !== 200) {
-    throw new Error('authentication failed')
+  try {
+    const resp = await fetch(postUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_PUBLIC_KEY),
+        ApiKey: String(process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY),
+      },
+    })
+    if (resp.status !== 200) {
+      console.error('authentication failed')
+      return resp
+    }
+    const data = await resp.json()
+    return data
+  } catch (err) {
+    console.error(err)
+    return err
   }
-  const data = await resp.json()
-  return data
 }
 
 export async function post(url: string, body: any) {

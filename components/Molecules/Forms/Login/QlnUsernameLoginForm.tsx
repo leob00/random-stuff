@@ -9,6 +9,8 @@ import { useSessionPersistentStore, useSessionStore } from 'lib/backend/store/us
 import { Claim, QlnUser } from 'lib/backend/auth/userUtil'
 import { replaceItemInArray } from 'lib/util/collections'
 import dayjs from 'dayjs'
+import FormDialog from 'components/Atoms/Dialogs/FormDialog'
+import { useRouter } from 'next/router'
 
 const QlnUsernameLoginForm = ({ onSuccess }: { onSuccess: (claims: Claim[]) => void }) => {
   const [loginError, setLoginError] = React.useState<string | undefined>(undefined)
@@ -16,6 +18,7 @@ const QlnUsernameLoginForm = ({ onSuccess }: { onSuccess: (claims: Claim[]) => v
   const [isLoading, setIsLoading] = React.useState(false)
   const config = apiConnection().qln
   const { claims, saveClaims } = useSessionPersistentStore()
+  const router = useRouter()
 
   const handleSubmitLogin = async (data: UsernameLogin) => {
     setIsLoading(true)
@@ -51,7 +54,9 @@ const QlnUsernameLoginForm = ({ onSuccess }: { onSuccess: (claims: Claim[]) => v
   return (
     <>
       {isLoading && <BackdropLoader />}
-      <LoginUsernameForm obj={{ username: '', password: '' }} onSubmitted={handleSubmitLogin} title={'QLN Login'} error={loginError} />
+      <FormDialog show={!showLoginSuccess} title={'Log in'} onCancel={() => router.push('/protected/csr/dashboard')}>
+        <LoginUsernameForm obj={{ username: '', password: '' }} onSubmitted={handleSubmitLogin} title={'QLN Login'} error={loginError} />
+      </FormDialog>
       {showLoginSuccess && (
         <>
           <SnackbarSuccess show={showLoginSuccess} text={'Login Successful'} />
