@@ -67,6 +67,7 @@ const StockListItem = ({
   const [selectedTab, setSelectedTab] = React.useState('Details')
   const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
   const tabScrollTarget = React.useRef<HTMLSpanElement | null>(null)
+  const [chartIsLoading, setChartIsLoading] = React.useState(false)
   const theme = useTheme()
   React.useEffect(() => {
     let isCanceled = false
@@ -76,20 +77,22 @@ const StockListItem = ({
           scrollTarget.current.scrollIntoView({ behavior: 'smooth' })
         }
       }
-      const history = await getStockOrFutureChart(item.Symbol, 90, isStock)
-      if (isStock) {
-        putSearchedStock(item)
+      if (showMore) {
+        const history = await getStockOrFutureChart(item.Symbol, 90, isStock)
+        if (isStock) {
+          putSearchedStock(item)
+        }
+        setStockHistory(history)
       }
-      setStockHistory(history)
     }
-    if (showMore) {
-      fn()
-    }
+    //if (showMore) {
+    fn()
+    //}
     return () => {
       isCanceled = true
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [showMore])
+  }, [showMore, item.Symbol])
 
   const handleCompanyClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined, show: boolean) => {
     if (!disabled) {
