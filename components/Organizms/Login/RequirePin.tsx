@@ -12,6 +12,7 @@ import { CasinoGrayTransparent } from 'components/themes/mainTheme'
 import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import CreatePinDialog from './CreatePinDialog'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 dayjs.extend(relativeTime)
 
 interface Model {
@@ -149,7 +150,7 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
                     <Box p={2} border={`1px solid ${CasinoGrayTransparent}`} borderRadius={2}>
                       <CenteredHeader title='Pin required' description='please enter your pin to proceed.' />
                       <CenterStack>
-                        <SecondaryButton text='enter pin' onClick={() => setModel({ ...model, showPinEntry: true })} />
+                        <PrimaryButton text='enter pin' onClick={() => setModel({ ...model, showPinEntry: true })} />
                       </CenterStack>
                     </Box>
                   ) : (

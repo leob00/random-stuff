@@ -11,6 +11,8 @@ import { deleteRecord, putUserSecret } from 'lib/backend/csr/nextApiWrapper'
 import Delete from '@mui/icons-material/Delete'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 
 interface Model {
   isLoading: boolean
@@ -87,7 +89,7 @@ const EditSecret = ({
       <Stack>
         <form onSubmit={handleFormSubmit}>
           {model.isLoading ? (
-            <WarmupBox />
+            <BackdropLoader />
           ) : (
             <>
               <FormGroup sx={{ alignItems: 'center' }}>
@@ -111,7 +113,7 @@ const EditSecret = ({
                     </Button>
                   )}
                   <PassiveButton text={'cancel'} onClick={onCancel} size='small' width={90} sx={{ mr: 2 }} />
-                  <SecondaryButton text='save' type='submit' size='small' width={90} />
+                  <PrimaryButton text='save' type='submit' size='small' />
                 </Stack>
               </FormGroup>
             </>

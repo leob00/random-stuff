@@ -3,6 +3,7 @@ import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import CenteredParagraph from 'components/Atoms/Text/CenteredParagraph'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import WarmupBox from 'components/Atoms/WarmupBox'
@@ -59,7 +60,7 @@ const Page = () => {
         <ResponsiveContainer>
           <PageHeader text={'Secrets'} />
           {loading ? (
-            <WarmupBox />
+            <BackdropLoader />
           ) : (
             <>
               {profile && ticket ? (

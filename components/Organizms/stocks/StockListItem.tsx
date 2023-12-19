@@ -14,7 +14,7 @@ import React from 'react'
 import StockChart from 'components/Organizms/stocks/StockChart'
 import Close from '@mui/icons-material/Close'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
+import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import StockNews from 'components/Organizms/stocks/StockNews'
 import StockEarnings from './StockEarnings'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
@@ -22,7 +22,6 @@ import { putSearchedStock } from 'lib/backend/csr/nextApiWrapper'
 import { useTheme } from '@mui/material'
 import CompanyProfile from './CompanyProfile'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import StockSubscibeIcon from './StockSubscibeIcon'
 import { useUserController } from 'hooks/userController'
 import TabList from 'components/Atoms/Buttons/TabList'
@@ -67,7 +66,6 @@ const StockListItem = ({
   const [selectedTab, setSelectedTab] = React.useState('Details')
   const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
   const tabScrollTarget = React.useRef<HTMLSpanElement | null>(null)
-  const [chartIsLoading, setChartIsLoading] = React.useState(false)
   const theme = useTheme()
   React.useEffect(() => {
     const fn = async () => {
@@ -79,6 +77,7 @@ const StockListItem = ({
       if (showMore) {
         setStockHistory([])
         const history = await getStockOrFutureChart(item.Symbol, 90, isStock)
+        //console.log('loaded history for: ', item.Symbol)
         if (isStock) {
           putSearchedStock(item)
         }

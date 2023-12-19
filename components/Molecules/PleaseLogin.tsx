@@ -2,7 +2,6 @@ import { Box } from '@mui/material'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
-import router from 'next/router'
 import React from 'react'
 import { Auth } from 'aws-amplify'
 

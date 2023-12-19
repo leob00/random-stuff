@@ -1,8 +1,10 @@
 import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import CenteredParagraph from 'components/Atoms/Text/CenteredParagraph'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import EnterPinDialog from 'components/Organizms/Login/EnterPinDialog'
@@ -89,7 +91,7 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
   }, [])
 
   return model.isLoading ? (
-    <WarmupBox />
+    <BackdropLoader />
   ) : (
     <RequirePin minuteDuration={5} enablePolling={true}>
       {profile && encKey && (
@@ -105,7 +107,7 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
             />
           ) : (
             <Box pb={3}>
-              <SecondaryButton text={'add'} size='small' onClick={() => setModel({ ...model, createNew: true })} />
+              <PrimaryButton text={'add'} size='small' onClick={() => setModel({ ...model, createNew: true })} />
             </Box>
           )}
           <>
