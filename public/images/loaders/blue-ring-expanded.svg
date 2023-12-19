@@ -3,7 +3,7 @@
     <g fill="none" fill-rule="evenodd" transform="translate(1 1)" stroke-width="2">
         <circle cx="22" cy="22" r="6" stroke-opacity="0">
             <animate attributeName="r"
-                 begin="1s" dur="3.5s"
+                 begin="0s" dur="3.5s"
                  values="2;6;22"
                  calcMode="linear"
                  repeatCount="indefinite" />

@@ -1,17 +1,12 @@
-import { Box, Paper, Stack, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import dayjs from 'dayjs'
 import { getJob, Job, QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
-import { orderBy } from 'lodash'
 import React from 'react'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import JobInProgress from './JobInProgress'
-import ListHeader from 'components/Molecules/Lists/ListHeader'
 import JobDetail from './JobDetail'
-import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import useSWR, { Fetcher, mutate } from 'swr'
+import { mutate } from 'swr'
 import { get } from 'lib/backend/api/fetchFunctions'
-import { CasinoBlue } from 'components/themes/mainTheme'
 import { apiConnection } from 'lib/backend/api/config'
 import JobList from './JobList'
 import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
@@ -28,6 +23,7 @@ const JobsLayout = () => {
   const [selectedItem, setSelectedItem] = React.useState<Job | null>(null)
   const [isLoadingDetail, setIsLoadingDetail] = React.useState(false)
   const timeOutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [error, setError] = React.useState(false)
 
   const { claims, saveClaims } = useSessionPersistentStore()
   let claim = claims.find((m) => m.type === 'qln')
@@ -35,6 +31,8 @@ const JobsLayout = () => {
   const handleLogin = async (result: Claim[]) => {
     saveClaims(result)
     claim = claims.find((m) => m.type === 'qln')
+    setPollCounter(-1)
+    setError(false)
   }
 
   const apiUrl = `${config.url}/BatchJobList?Token=${claim?.token ?? ''}`
@@ -42,19 +40,24 @@ const JobsLayout = () => {
   const dataFn = async () => {
     try {
       const response = await get(apiUrl)
+      if (response.status && response.status !== 200) {
+        setError(true)
+      }
       return response
     } catch (err) {
-      console.error('error ocurred')
+      throw new Error('not authenticated')
     }
   }
 
-  const { data, error } = useSwrHelper<QlnApiResponse>(apiUrl, dataFn)
+  const { data } = useSwrHelper<QlnApiResponse>(apiUrl, dataFn)
 
   const poll = () => {
     if (timeOutRef.current) {
       clearTimeout(timeOutRef.current)
     }
-
+    if (error) {
+      return
+    }
     timeOutRef.current = setTimeout(() => {
       setPollCounter(pollCounter + 1)
     }, pollingIterval)
@@ -83,7 +86,8 @@ const JobsLayout = () => {
   return (
     <Box>
       <>
-        {error && <AlertWithHeader severity='error' header='Error' text='authentication error has ocurred' />}
+        {error && <AlertWithHeader severity='error' header='Error' text='authentication failed' />}
+        {error && <QlnUsernameLoginForm onSuccess={handleLogin} />}
 
         {isLoadingDetail && <BackdropLoader />}
         {selectedItem && <JobDetail item={selectedItem} onClose={handleClose} />}
