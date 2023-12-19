@@ -70,14 +70,14 @@ const StockListItem = ({
   const [chartIsLoading, setChartIsLoading] = React.useState(false)
   const theme = useTheme()
   React.useEffect(() => {
-    let isCanceled = false
     const fn = async () => {
-      if (showMore && scrollIntoView && !isCanceled) {
+      if (showMore && scrollIntoView) {
         if (scrollTarget.current) {
           scrollTarget.current.scrollIntoView({ behavior: 'smooth' })
         }
       }
       if (showMore) {
+        setStockHistory([])
         const history = await getStockOrFutureChart(item.Symbol, 90, isStock)
         if (isStock) {
           putSearchedStock(item)
@@ -88,9 +88,7 @@ const StockListItem = ({
     //if (showMore) {
     fn()
     //}
-    return () => {
-      isCanceled = true
-    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showMore, item.Symbol])
 
