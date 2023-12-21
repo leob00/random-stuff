@@ -38892,6 +38892,10 @@
     "Symbol": "VCR"
   },
   {
+    "Company": "Vanguard Malvern Funds",
+    "Symbol": "VCRB"
+  },
+  {
     "Company": "Vacasa Inc",
     "Symbol": "VCSA"
   },
@@ -39686,6 +39690,10 @@
   {
     "Company": "Vision Sensing Acquisition Corp",
     "Symbol": "VSAC"
+  },
+  {
+    "Company": "Vision Sensing Acquisition Corp",
+    "Symbol": "VSACU"
   },
   {
     "Company": "Viasat, Inc.",
@@ -40712,6 +40720,10 @@
     "Symbol": "WTMAR"
   },
   {
+    "Company": "Welsbach Technology Metals Acquisitions Corp.",
+    "Symbol": "WTMAU"
+  },
+  {
     "Company": "WisdomTree Trust",
     "Symbol": "WTMF"
   },
@@ -41232,6 +41244,10 @@
     "Symbol": "XPDB"
   },
   {
+    "Company": "Power & Digital Infrastructure Acquisition II Corp",
+    "Symbol": "XPDBU"
+  },
+  {
     "Company": "XPEL Inc",
     "Symbol": "XPEL"
   },
@@ -41538,6 +41554,10 @@
   {
     "Company": "Full Truck Alliance Co Ltd",
     "Symbol": "YMM"
+  },
+  {
+    "Company": "Yandex NV",
+    "Symbol": "YNDX"
   },
   {
     "Company": "Advisorshares Trust",
