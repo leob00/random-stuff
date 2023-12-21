@@ -8,7 +8,7 @@ import JobDetailChart from './JobDetailChart'
 
 const JobDetails = ({ item, onClose }: { item: Job; onClose: () => void }) => {
   return (
-    <InfoDialog show={true} title={item.Description} onCancel={() => onClose()}>
+    <InfoDialog show={true} title={item.Description} onCancel={() => onClose()} fullScreen={false}>
       <Box>
         {item.StartDate && (
           <Stack>

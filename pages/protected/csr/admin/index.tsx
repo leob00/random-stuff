@@ -12,11 +12,12 @@ import JobsLayout from 'components/Organizms/admin/JobsLayout'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import Seo from 'components/Organizms/Seo'
 import ApiTest from 'components/Organizms/admin/ApiTest'
-import Calculator from 'components/Organizms/admin/Calculator'
+import TipCalculator from 'components/Organizms/admin/TipCalculator'
 import TabList from 'components/Atoms/Buttons/TabList'
 import ServerInfo from 'components/Organizms/admin/ServerInfo'
 import RequireClaim from 'components/Organizms/user/RequireClaim'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import StockCalculator from 'components/Organizms/admin/StockCalculator'
 
 const Page = () => {
   const userController = useUserController()
@@ -75,7 +76,12 @@ const Page = () => {
                   {selectedTab === 'Jobs' && <JobsLayout />}
                   {selectedTab === 'Api' && <ApiTest />}
                   {selectedTab === 'Server' && <ServerInfo />}
-                  {selectedTab === 'Calculator' && <Calculator />}
+                  {selectedTab === 'Calculator' && (
+                    <>
+                      <TipCalculator />
+                      <StockCalculator />
+                    </>
+                  )}
                 </>
               </RequireClaim>
             </>

@@ -32,7 +32,8 @@ const HomeMenu = () => {
         sx={{
           mt: 4,
           borderTopWidth: 3,
-        }}>
+        }}
+      >
         <CenteredHeader title={'Welcome to random stuff'} description={'You came to the right place to view random things. Enjoy!'} />
         <Box pb={8}>
           <Box py={2}>
@@ -51,6 +52,7 @@ const HomeMenu = () => {
                   {isAdmin && <CenteredNavigationButton route={'/protected/csr/admin'} text={'admin'} />}
                 </>
               )}
+              <CenteredNavigationButton route={'/csr/calculator'} text={'calculator'} />
               <CenteredNavigationButton route={'/ssg/coin-flip'} text={'coin flip'} />
               <CenteredNavigationButton route={'/ssg/roulette'} text={'roulette'} />
               <CenteredNavigationButton route={'/ssg/randomdogs'} text={'dogs'} />

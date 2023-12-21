@@ -33,8 +33,8 @@ const InfoDialog = ({
         onClose={handleClose}
         aria-labelledby='alert-dialog-title'
         aria-describedby='alert-dialog-description'
-        maxWidth='md'
-        //fullWidth
+        maxWidth='lg'
+        fullWidth
         fullScreen={fullScreen}
       >
         <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>

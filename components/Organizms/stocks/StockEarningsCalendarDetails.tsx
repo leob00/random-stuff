@@ -9,24 +9,39 @@ import CenterStack from 'components/Atoms/CenterStack'
 import { StockEarning } from 'lib/backend/api/qln/qlnApi'
 import numeral from 'numeral'
 import React from 'react'
-import { getPositiveNegativeColor } from './StockListItem'
+import StockListItem, { getPositiveNegativeColor } from './StockListItem'
 import { Box, Link, Typography } from '@mui/material'
 import { useTheme } from '@mui/material'
 import { getPagedArray } from 'lib/util/collections'
 import Pager from 'components/Atoms/Pager'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import NLink from 'next/link'
+import ListHeader from 'components/Molecules/Lists/ListHeader'
+import { useRouter } from 'next/router'
 
-const StockEarningsCalendarDetails = ({ data, currentPageIndex, onPaged, onSearched }: { data: StockEarning[]; currentPageIndex: number; onPaged: (pageNum: number) => void; onSearched: () => void }) => {
+const StockEarningsCalendarDetails = ({
+  data,
+  currentPageIndex,
+  onPaged,
+  onSearched,
+}: {
+  data: StockEarning[]
+  currentPageIndex: number
+  onPaged: (pageNum: number) => void
+  onSearched: () => void
+}) => {
   const theme = useTheme()
   const pageSize = 10
   const [searchWithinList, setSearchWithinList] = React.useState('')
+  const router = useRouter()
 
   const filterList = () => {
     if (searchWithinList.length === 0) {
       return [...data]
     }
-    return data.filter((f) => f.Symbol.toLowerCase().startsWith(searchWithinList.toLowerCase()) || f.StockQuote?.Company.toLowerCase().includes(searchWithinList.toLowerCase()))
+    return data.filter(
+      (f) => f.Symbol.toLowerCase().startsWith(searchWithinList.toLowerCase()) || f.StockQuote?.Company.toLowerCase().includes(searchWithinList.toLowerCase()),
+    )
   }
   const pages = getPagedArray(filterList(), pageSize)
 
@@ -63,17 +78,30 @@ const StockEarningsCalendarDetails = ({ data, currentPageIndex, onPaged, onSearc
                 pages[currentPageIndex - 1].items.map((item, index) => (
                   <TableRow key={item.Symbol}>
                     <TableCell>
-                      <NLink passHref legacyBehavior href={`/csr/stocks/details?id=${item.Symbol}&returnUrl=/csr/stocks?tab=Earnings`}>
+                      <ListHeader
+                        text={`${item.StockQuote?.Company} (${item.StockQuote?.Symbol})`}
+                        item={item.StockQuote}
+                        onClicked={() => {
+                          router.push(`/csr/stocks/details?id=${item.Symbol}&returnUrl=/csr/stocks?tab=Earnings`)
+                        }}
+                        backgroundColor={'transparent'}
+                      />
+                      {/* {item.StockQuote && <StockListItem isStock={true} item={item.StockQuote} />} */}
+                      {/* <NLink passHref legacyBehavior href={`/csr/stocks/details?id=${item.Symbol}&returnUrl=/csr/stocks?tab=Earnings`}>
                         <Link>
                           <Typography>{`${item.StockQuote?.Company} (${item.StockQuote?.Symbol})`}</Typography>
                         </Link>
-                      </NLink>
+                      </NLink> */}
                     </TableCell>
                     <TableCell>
-                      <Typography color={getPositiveNegativeColor(item.ActualEarnings, theme.palette.mode)}>{`${item.ActualEarnings ? numeral(item.ActualEarnings).format('0.00') : ''}`}</Typography>
+                      <Typography color={getPositiveNegativeColor(item.ActualEarnings, theme.palette.mode)}>{`${
+                        item.ActualEarnings ? numeral(item.ActualEarnings).format('0.00') : ''
+                      }`}</Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography color={getPositiveNegativeColor(item.EstimatedEarnings, theme.palette.mode)}>{`${item.EstimatedEarnings ? numeral(item.EstimatedEarnings).format('0.00') : ''}`}</Typography>
+                      <Typography color={getPositiveNegativeColor(item.EstimatedEarnings, theme.palette.mode)}>{`${
+                        item.EstimatedEarnings ? numeral(item.EstimatedEarnings).format('0.00') : ''
+                      }`}</Typography>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -88,7 +116,8 @@ const StockEarningsCalendarDetails = ({ data, currentPageIndex, onPaged, onSearc
               itemsPerPage={pageSize}
               onPaged={(pageNum: number) => onPaged(pageNum)}
               defaultPageIndex={currentPageIndex}
-              totalItemCount={pages.length === 1 ? pages[currentPageIndex - 1].items.length : data.length}></Pager>
+              totalItemCount={pages.length === 1 ? pages[currentPageIndex - 1].items.length : data.length}
+            ></Pager>
           </Box>
         )}
         {data.length === 0 && (
