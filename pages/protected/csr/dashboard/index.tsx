@@ -1,14 +1,11 @@
 import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
-import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import UserDashboardLayout from 'components/Organizms/user/UserDashboardLayout'
 import { useUserController } from 'hooks/userController'
 import React from 'react'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
-import { getUserCSR } from 'lib/backend/auth/userUtil'
 import Seo from 'components/Organizms/Seo'
-import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 const Page = () => {

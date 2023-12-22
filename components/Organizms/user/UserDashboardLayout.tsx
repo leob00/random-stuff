@@ -5,9 +5,9 @@ import { AmplifyUser, userHasRole } from 'lib/backend/auth/userUtil'
 import { useRouteTracker } from '../session/useRouteTracker'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import { useRouter } from 'next/navigation'
+import StockMarketGlance from '../stocks/StockMarketGlance'
 
 const UserDashboardLayout = ({ ticket }: { ticket: AmplifyUser | null }) => {
-  const router = useRouter()
   const [isLoading, setIsLoading] = React.useState(true)
   let isAdmin = ticket !== null && userHasRole('Admin', ticket.roles)
   const recentRoutes = useRouteTracker().routes.filter((m) => m.name !== 'dashboard')
@@ -27,6 +27,7 @@ const UserDashboardLayout = ({ ticket }: { ticket: AmplifyUser | null }) => {
                 {recentRoutes.map((item, i) => (
                   <Box key={item.path}>
                     <CenteredNavigationButton route={item.path} text={item.name} />
+                    {item.name === 'stocks' && <StockMarketGlance />}
                   </Box>
                 ))}
               </Paper>

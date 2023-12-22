@@ -8,6 +8,7 @@ import {
   CasinoYellowTransparent,
   DarkBlue,
   DarkBlueTransparent,
+  VeryLightBlue,
 } from 'components/themes/mainTheme'
 import { max } from 'lodash'
 
@@ -33,7 +34,7 @@ export const getPieChartData = (labels: string[], numbers: number[], colors: str
   }
 }
 
-export const getPieChartOptions = (title: string, data: BarChart): ChartOptions<'doughnut'> => {
+export const getPieChartOptions = (title: string, palette: 'light' | 'dark'): ChartOptions<'doughnut'> => {
   return {
     responsive: true,
     rotation: 180,
@@ -51,11 +52,11 @@ export const getPieChartOptions = (title: string, data: BarChart): ChartOptions<
       legend: {
         display: true,
         labels: {
-          color: DarkBlue,
+          color: palette === 'light' ? DarkBlue : VeryLightBlue,
         },
         title: {
           display: true,
-          color: 'rgba(203, 241, 247, 0.932)',
+          color: CasinoWhiteTransparent,
         },
       },
       tooltip: {
@@ -80,7 +81,7 @@ export const getPieChartOptions = (title: string, data: BarChart): ChartOptions<
             return ''
           },
           label: (tooltipItems) => {
-            return ` ${[tooltipItems.label]}: ${tooltipItems.formattedValue}`
+            return ` ${[tooltipItems.label]}: ${tooltipItems.formattedValue}%`
           },
           labelPointStyle: (tooltiipItems) => {
             return {
