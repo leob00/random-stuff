@@ -21,7 +21,7 @@ interface SessionState {
 }
 
 export const useSessionStore = create<SessionState>()((set) => ({
-  palette: 'light',
+  palette: 'dark',
   routes: [],
   communityStocks: {},
   claims: [],

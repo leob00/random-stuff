@@ -17,19 +17,19 @@ const getTheme = (mode: 'light' | 'dark') => {
   return mode === 'dark' ? darkTheme : theme
 }
 function MyApp({ Component, pageProps }: AppProps) {
-  const sessionSettings = useSessionSettings()
+  const { palette, savePalette } = useSessionSettings()
   const [colorMode, setColorMode] = React.useState<'dark' | 'light'>('dark')
 
   useEffect(() => {
-    sessionSettings.savePalette(colorMode)
-    setColorMode(sessionSettings.palette)
+    //savePalette(colorMode)
+    setColorMode(palette)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionSettings.palette, colorMode])
+  }, [palette, colorMode])
 
   const handleChangeColorMode = () => {
     const newMode = colorMode === 'light' ? 'dark' : 'light'
     setColorMode(newMode)
-    sessionSettings.savePalette(newMode)
+    savePalette(newMode)
   }
 
   return (
