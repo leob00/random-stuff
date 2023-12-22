@@ -12,27 +12,27 @@ import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 const Page = () => {
-  const userController = useUserController()
+  const { ticket, authProfile, setProfile, fetchProfilePassive } = useUserController()
   const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
     const fn = async () => {
-      if (!userController.authProfile) {
-        const p = await userController.fetchProfilePassive(300)
-        userController.setProfile(p)
+      if (!authProfile) {
+        const p = await fetchProfilePassive(300)
+        setProfile(p)
       }
       setLoading(false)
     }
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userController.ticket])
+  }, [ticket])
 
   return (
     <>
       <Seo pageTitle='Dashboard' />
       <ResponsiveContainer>
         <PageHeader text={'Dashboard'} />
-        <Box>{loading ? <BackdropLoader /> : userController.authProfile ? <UserDashboardLayout ticket={userController.ticket} /> : <PleaseLogin />}</Box>
+        <Box>{loading ? <BackdropLoader /> : authProfile ? <UserDashboardLayout ticket={ticket} /> : <PleaseLogin />}</Box>
       </ResponsiveContainer>
     </>
   )

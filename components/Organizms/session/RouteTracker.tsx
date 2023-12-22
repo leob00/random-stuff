@@ -1,17 +1,21 @@
 'use client'
 import dayjs from 'dayjs'
-import { useUserController } from 'hooks/userController'
 import { useRouter } from 'next/router'
 import React, { ReactNode } from 'react'
 import { useRouteTracker } from './useRouteTracker'
 
 const RouteTracker = ({ children }: { children: ReactNode }) => {
+  const [isClient, setIsClient] = React.useState(false)
   const router = useRouter()
-  const routeTracker = useRouteTracker()
+  const { routes, addRoute } = useRouteTracker()
+  React.useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   React.useEffect(() => {
     const handleRouteChange = async (url: string, shallow: boolean) => {
       if (!url.includes('/login' || !url.includes('logoff')) && !url.includes('?')) {
-        const lastRoute = routeTracker.routes.length > 0 ? routeTracker.routes[0] : undefined
+        const lastRoute = routes.length > 0 ? routes[0] : undefined
 
         if (lastRoute) {
           const diffInMunutes = dayjs().diff(lastRoute.date, 'minutes')
@@ -19,7 +23,7 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
             // TODO: consider saving to user profile
           }
         }
-        routeTracker.addRoute(url)
+        addRoute(url)
       }
     }
 
@@ -28,9 +32,9 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
     return () => {
       router.events.off('routeChangeStart', handleRouteChange)
     }
-  }, [router, routeTracker])
+  }, [router])
 
-  return <>{children}</>
+  return <>{isClient && <>{children}</>}</>
 }
 
 export default RouteTracker

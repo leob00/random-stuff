@@ -1,4 +1,4 @@
-type siteCategories = 'Markets' | 'Personal' | 'Admin' | 'Games' | 'General Interest'
+type siteCategories = 'Markets' | 'Personal' | 'Admin' | 'Games' | 'General Interest' | 'Utilities' | 'Pictures'
 type path = {
   name: string
   route: string
@@ -76,6 +76,28 @@ export function siteMap() {
         {
           name: 'roulette',
           route: '/ssg/roulette',
+        },
+      ],
+    },
+    {
+      category: 'Utilities',
+      paths: [
+        {
+          name: 'calculator',
+          route: '/csr/calculator',
+        },
+      ],
+    },
+    {
+      category: 'Pictures',
+      paths: [
+        {
+          name: 'dogs',
+          route: '/ssg/randomdogs',
+        },
+        {
+          name: 'cats',
+          route: '/ssg/randomcats',
         },
       ],
     },
