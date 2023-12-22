@@ -9,6 +9,7 @@ import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CopyableText from 'components/Atoms/Text/CopyableText'
+import numeral from 'numeral'
 
 function checkPositiveNumber(val: any) {
   if (isNaN(val)) {
@@ -53,7 +54,7 @@ const TipCalculator = () => {
     if (!formValues) {
       return 0
     }
-    return Number(result) + Number(formValues.total)
+    return numeral(Number(result) + Number(formValues.total)).format('###,###,0.00')
   }
   const handleClearForm = () => {
     setResult(0)
@@ -78,7 +79,7 @@ const TipCalculator = () => {
             <Card>
               <CardContent>
                 <Box display={'flex'} flexDirection={'column'} gap={2}>
-                  <Typography variant={'h5'}>{`result: $${result}`}</Typography>
+                  <Typography variant={'h5'}>{`result: $${numeral(result).format('###,###,0.00')}`}</Typography>
                 </Box>
               </CardContent>
             </Card>

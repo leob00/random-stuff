@@ -1,20 +1,22 @@
 import React from 'react'
-import { Button, Typography } from '@mui/material'
+import { Button, ButtonProps, Typography, TypographyProps } from '@mui/material'
 import router from 'next/router'
 import BackdropLoader from '../Loaders/BackdropLoader'
 import { useTheme } from '@mui/material'
 
-const NavigationButton = ({ text, route }: { text: string; route: string }) => {
+type PageProps = { text: string; route: string }
+
+const NavigationButton = ({ ...props }: PageProps & TypographyProps) => {
   const [isLoading, setIsLoading] = React.useState(false)
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsLoading(true)
-    router.push(route)
+    router.push(props.route)
   }
   return (
     <>
       {isLoading && <BackdropLoader />}
       <Button variant='text' onClick={handleClick}>
-        <Typography variant={'h4'}>{text}</Typography>
+        <Typography variant={props.variant ?? 'h4'}>{props.text}</Typography>
       </Button>
     </>
   )

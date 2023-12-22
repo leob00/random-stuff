@@ -1,15 +1,10 @@
-import { Box, Card, Paper, Stack, Typography } from '@mui/material'
+import { Box, Paper } from '@mui/material'
 import React from 'react'
 import CenteredNavigationButton from 'components/Atoms/Buttons/CenteredNavigationButton'
 import { AmplifyUser, userHasRole } from 'lib/backend/auth/userUtil'
 import { useRouteTracker } from '../session/useRouteTracker'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
-import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
-import CenterStack from 'components/Atoms/CenterStack'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import { useRouter } from 'next/navigation'
-import LinkButton from 'components/Atoms/Buttons/LinkButton'
 
 const UserDashboardLayout = ({ ticket }: { ticket: AmplifyUser | null }) => {
   const router = useRouter()

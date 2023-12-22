@@ -14,7 +14,7 @@ const ListHeader = ({
   onDelete,
   onAdd,
   addText = 'add',
-  backgroundColor = ChartBackground,
+  backgroundColor,
 }: {
   text: string
   item: any
@@ -27,7 +27,7 @@ const ListHeader = ({
 }) => {
   const theme = useTheme()
   const showContextMenu = onEdit !== undefined || onDelete !== undefined || onAdd !== undefined
-  const backColor = backgroundColor ?? theme.palette.mode === 'dark' ? DarkBlue : backgroundColor
+  const backColor = !backgroundColor ? (theme.palette.mode === 'dark' ? DarkBlue : 'unset') : backgroundColor
   const contextMenu: ContextMenuItem[] = []
   if (onEdit) {
     contextMenu.push({
@@ -56,7 +56,7 @@ const ListHeader = ({
 
   return (
     <Stack pt={1}>
-      <Stack sx={{ backgroundColor: backColor ? backColor : 'unset' }} direction={'row'} flexGrow={1} px={2} alignItems={'center'}>
+      <Stack sx={{ backgroundColor: backColor }} direction={'row'} flexGrow={1} px={2} alignItems={'center'}>
         <Stack
           py={1}
           width={'100%'}
