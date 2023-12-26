@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [colorMode, setColorMode] = React.useState<'dark' | 'light'>('dark')
 
   useEffect(() => {
-    //savePalette(colorMode)
+    savePalette(colorMode)
     setColorMode(palette)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [palette, colorMode])
