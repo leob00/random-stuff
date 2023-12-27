@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Paper, Typography } from '@mui/material'
 import JsonView from 'components/Atoms/Boxes/JsonView'
 import CenterStack from 'components/Atoms/CenterStack'
 import BasicPieChart from 'components/Atoms/Charts/BasicPieChart'
@@ -22,18 +22,20 @@ const StockMarketGlance = () => {
   }
   const { data } = useSwrHelper<MarketHandshake>(apiUrl, dataFn)
   return (
-    <Box py={2}>
-      <CenteredTitle title={'Stock market at a glance'} />
-      {data && (
-        <>
-          <StockMarketStatus data={data} />
-          <CenterStack sx={{ pt: 1 }}>
-            <Typography variant='caption'>{`data as of: ${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} (ET)`}</Typography>
-          </CenterStack>
-          <StockMarketStatsChart data={data} />
-        </>
-      )}
-    </Box>
+    <Paper elevation={4}>
+      <Box py={2}>
+        <CenteredTitle title={'Stock market at a glance'} />
+        {data && (
+          <>
+            <StockMarketStatus data={data} />
+            <CenterStack sx={{ pt: 1 }}>
+              <Typography variant='caption'>{`data as of: ${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} (ET)`}</Typography>
+            </CenterStack>
+            <StockMarketStatsChart data={data} />
+          </>
+        )}
+      </Box>
+    </Paper>
   )
 }
 

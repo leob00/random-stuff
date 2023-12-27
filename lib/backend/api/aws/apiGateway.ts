@@ -19,6 +19,7 @@ export type DynamoKeys =
   | 'user-stock_list'
   | 'stockportfolio'
   | 'email-template[stock-alert]'
+  | 'stocks-daily-market-sentiment'
 
 const connection = apiConnection().aws
 const apiGatewayUrl = connection.url
