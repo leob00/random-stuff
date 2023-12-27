@@ -1,7 +1,6 @@
 import dayjs from 'dayjs'
 import { getMapFromArray } from 'lib/util/collectionsNative'
-import { template } from 'lodash'
-import { StockAlertSubscription, StockAlertSubscriptionWithMessage, StockAlertTrigger, StockQuote } from '../api/models/zModels'
+import { StockAlertSubscriptionWithMessage, StockAlertTrigger, StockQuote } from '../api/models/zModels'
 
 export function processAlertTriggers(
   username: string,
@@ -52,18 +51,17 @@ function processDailyMoveTrigger(trigger: StockAlertTrigger, quote: StockQuote, 
   if (trigger.status !== 'complete') {
     trigger.status = 'queued'
   }
-  const lastEx = trigger.lastExecutedDate ? dayjs(trigger.lastExecutedDate).format() : dayjs(new Date(1900, 1, 1)).format()
-  const tradeDate = dayjs(quote.TradeDate).format()
+  const lastEx = trigger.lastExecutedDate ? dayjs(trigger.lastExecutedDate) : dayjs(new Date(1900, 1, 1))
+  const tradeDate = dayjs(quote.TradeDate)
 
-  if (dayjs(tradeDate).isAfter(dayjs(lastEx))) {
+  if (tradeDate.isAfter(lastEx)) {
     if (Number(trigger.target) <= Math.abs(quote.ChangePercent)) {
       const newDate = dayjs(quote.TradeDate).format()
       trigger.executedDate = newDate
       trigger.lastExecutedDate = newDate
       trigger.status = 'started'
       trigger.actual = quote.ChangePercent
-      trigger.message = `target: ${trigger.target}% actual: ${quote.ChangePercent}% `
-
+      trigger.message = `target: ${trigger.target}% actual: ${quote.ChangePercent}%`
       appendDailyRow(quote, dailyRows)
     }
   }

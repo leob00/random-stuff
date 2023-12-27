@@ -6,10 +6,20 @@ import GoalCharts from './GoalCharts'
 import OverdueTasks from './OverdueTasks'
 import { UserGoalAndTask } from './UserGoalsLayout'
 
-const GoalsSummary = ({ barChart, goalTasks, username, handleCloseSummary }: { barChart: BarChart; username: string; goalTasks: UserGoalAndTask[]; handleCloseSummary: () => void }) => {
+const GoalsSummary = ({
+  barChart,
+  goalTasks,
+  username,
+  handleCloseSummary,
+}: {
+  barChart: BarChart
+  username: string
+  goalTasks: UserGoalAndTask[]
+  handleCloseSummary: () => void
+}) => {
   return (
     <>
-      <Box py={2}>
+      <Box pt={2}>
         <Stack display={'flex'} direction={'row'} justifyContent={'flex-end'}>
           <Button onClick={handleCloseSummary}>
             <Close />

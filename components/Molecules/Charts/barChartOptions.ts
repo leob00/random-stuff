@@ -1,5 +1,15 @@
 import { ChartData, ChartOptions } from 'chart.js'
-import { CasinoBlue, CasinoBlueTransparent, CasinoMoreBlackTransparent, CasinoRedTransparent, CasinoWhiteTransparent, ChartBackground, DarkBlue, VeryLightBlue, VeryLightBlueTransparent } from 'components/themes/mainTheme'
+import {
+  CasinoBlue,
+  CasinoBlueTransparent,
+  CasinoMoreBlackTransparent,
+  CasinoRedTransparent,
+  CasinoWhiteTransparent,
+  ChartBackground,
+  DarkBlue,
+  VeryLightBlue,
+  VeryLightBlueTransparent,
+} from 'components/themes/mainTheme'
 import { max } from 'lodash'
 
 export interface BarChart {
@@ -12,6 +22,7 @@ export interface BarChart {
 export const getBarChartData = (labels: string[], numbers: number[], colors: string[], yAxisDecorator = ''): ChartData<'bar', number[], unknown> => {
   return {
     labels: labels,
+
     datasets: [
       {
         borderColor: 'black',
@@ -19,15 +30,24 @@ export const getBarChartData = (labels: string[], numbers: number[], colors: str
         data: numbers,
         backgroundColor: colors,
         type: 'bar',
-        indexAxis: 'x',
+
+        //indexAxis: 'y',
       },
     ],
   }
 }
 
-export const getBarChartOptions = (title: string, data: BarChart, yAxisDecorator = '', colors: string[], palette: 'light' | 'dark'): ChartOptions<'bar'> => {
+export const getBarChartOptions = (
+  title: string,
+  data: BarChart,
+  yAxisDecorator = '',
+  colors: string[],
+  palette: 'light' | 'dark',
+  isHorizontal?: boolean,
+): ChartOptions<'bar'> => {
   return {
     responsive: true,
+    indexAxis: isHorizontal ? 'y' : 'x',
     hover: {
       mode: 'nearest',
       intersect: true,
@@ -89,33 +109,36 @@ export const getBarChartOptions = (title: string, data: BarChart, yAxisDecorator
     scales: {
       y: {
         ticks: {
+          //padding: 2,
           color: palette === 'light' ? CasinoBlue : VeryLightBlueTransparent,
           font: {
-            size: 14,
-            weight: '400',
+            // size: 10,
+            //weight: '400',
           },
-          callback(tickValue, index, ticks) {
-            return `${tickValue}${yAxisDecorator}`
-          },
+          // callback(tickValue, index, ticks) {
+          //   return `${tickValue}${yAxisDecorator}`
+          // },
           autoSkip: true,
-          stepSize: 10,
+          //stepSize: 20,
           //precision: 1,
           maxTicksLimit: max(data?.numbers),
         },
         grid: {
-          display: true,
-          color: VeryLightBlueTransparent,
+          display: !isHorizontal,
+          //color: VeryLightBlueTransparent,
           //color: "red"
         },
       },
       x: {
         display: true,
+
         ticks: {
+          padding: 0,
           color: palette === 'light' ? CasinoBlue : VeryLightBlueTransparent,
-          font: {
-            size: 14,
-            weight: '600',
-          },
+          // font: {
+          //   size: 14,
+          //   weight: '600',
+          // },
 
           // textStrokeColor(ctx, options) {
           //   return `${colors[ctx.index]}`

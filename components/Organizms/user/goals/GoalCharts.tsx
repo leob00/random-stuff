@@ -4,6 +4,7 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import ApexPieChart from 'components/Molecules/Charts/apex/ApexPieChart'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
+import SimpleBarChart2 from 'components/Molecules/Charts/SimpleBarChart2'
 import { sum } from 'lodash'
 import numeral from 'numeral'
 import React from 'react'
@@ -14,17 +15,16 @@ const GoalCharts = ({ barChart, goalTasks }: { barChart: BarChart; goalTasks: Us
   const theme = useTheme()
   return (
     <>
-      <Box py={2}>
+      <Box pb={2}>
         <CenteredTitle title={`Goal Completion`} />
-        <Box pb={2} minHeight={200}>
+        <GoalsBarChartByStatus goalTasks={goalTasks} />
+        {/* <Box pb={2}>
           <Grid container spacing={1} justifyContent={'center'} alignItems={'flex-end'}>
-            <Grid item xs={12} md={8}>
-              <Box>
-                <GoalsBarChartByStatus goalTasks={goalTasks} />
-              </Box>
+            <Grid item xs={12} md={10}>
+              <Box></Box>
             </Grid>
           </Grid>
-        </Box>
+        </Box> */}
         <HorizontalDivider />
         <CenteredTitle title={`All ${numeral(sum(barChart.numbers)).format('###,###')} Tasks By Status`} />
         <Box minHeight={200}>

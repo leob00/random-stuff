@@ -6,14 +6,24 @@ import { useTheme } from '@mui/material'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
-const SimpleBarChart2 = ({ title, barChart }: { title: string; barChart: BarChart }) => {
+const SimpleBarChart2 = ({
+  title,
+  barChart,
+  yAxisDecorator = '',
+  isHorizontal,
+}: {
+  title: string
+  barChart: BarChart
+  yAxisDecorator?: string
+  isHorizontal?: boolean
+}) => {
   const theme = useTheme()
-  const options = getBarChartOptions(title, barChart, '', barChart.colors, theme.palette.mode)
+  const options = getBarChartOptions(title, barChart, yAxisDecorator, barChart.colors, theme.palette.mode, isHorizontal)
 
   const data = getBarChartData(barChart.labels, barChart.numbers, barChart.colors)
   return (
     <>
-      <Bar data={data} options={options} />
+      <Bar data={data} options={options} height={260} />
     </>
   )
 }

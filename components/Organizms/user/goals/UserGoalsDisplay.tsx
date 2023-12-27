@@ -93,7 +93,7 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
         <>
           {!barChart && (
             <>
-              {allGoals.length > 0 && (
+              {/* {allGoals.length > 0 && (
                 <Stack direction='row' pt={2} pb={1} justifyContent='left' alignItems='left'>
                   <Typography textAlign={'left'} variant='body2'>
                     Goal
@@ -103,7 +103,7 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
                   </Stack>
                 </Stack>
               )}
-              <HorizontalDivider />
+              <HorizontalDivider /> */}
               <>
                 {allGoals.map((item, i) => (
                   <Box key={item.id}>

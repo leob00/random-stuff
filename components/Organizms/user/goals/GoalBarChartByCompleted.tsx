@@ -4,7 +4,9 @@ import { CasinoBlueTransparent, CasinoGreenTransparent, CasinoRedTransparent } f
 import { orderBy } from 'lodash'
 import React from 'react'
 import { UserGoalAndTask } from './UserGoalsLayout'
-import { useTheme } from '@mui/material'
+import { Box, useTheme } from '@mui/material'
+import SimpleBarChart2 from 'components/Molecules/Charts/SimpleBarChart2'
+import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 
 const GoalsBarChartByStatus = ({ goalTasks }: { goalTasks: UserGoalAndTask[] }) => {
   const theme = useTheme()
@@ -31,7 +33,18 @@ const GoalsBarChartByStatus = ({ goalTasks }: { goalTasks: UserGoalAndTask[] }) 
       fillColor: getFillColor(e.goal.completePercent),
     }
   })
-  return <ApexBarChart data={data} horizontal seriesName='completed' yAxisDecorator='%' palette={theme.palette.mode} />
+  const barChart: BarChart = {
+    colors: data.map((m) => m.fillColor),
+    labels: data.map((m) => m.x),
+    numbers: data.map((m) => m.y),
+  }
+
+  return (
+    <Box>
+      <SimpleBarChart2 title='' barChart={barChart} yAxisDecorator='%' isHorizontal />
+      {/* <ApexBarChart data={data} horizontal seriesName='completed' yAxisDecorator='%' palette={theme.palette.mode} /> */}
+    </Box>
+  )
 }
 
 export default GoalsBarChartByStatus
