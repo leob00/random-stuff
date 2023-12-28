@@ -2,6 +2,7 @@ import React from 'react'
 import { ListItemIcon, ListItemText } from '@mui/material'
 import BarChartIcon from '@mui/icons-material/BarChart'
 import ContextMenu, { ContextMenuItem } from './ContextMenu'
+import ContextMenuSummary from './ContextMenuSummary'
 
 const GoalsMenu = ({ onShowCharts }: { onShowCharts: () => void }) => {
   const handleShowCharts = () => {
@@ -10,15 +11,7 @@ const GoalsMenu = ({ onShowCharts }: { onShowCharts: () => void }) => {
 
   const contextMenu: ContextMenuItem[] = [
     {
-      item: (
-        <>
-          <ListItemIcon>
-            <BarChartIcon color='primary' fontSize='small' />
-          </ListItemIcon>
-
-          <ListItemText primary='summary'></ListItemText>
-        </>
-      ),
+      item: <ContextMenuSummary />,
       fn: handleShowCharts,
     },
   ]

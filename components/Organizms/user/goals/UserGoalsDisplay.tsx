@@ -18,9 +18,11 @@ import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import router from 'next/router'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
-import GoalsSummary from './GoalsSummary'
+import GoalsSummary from 'components/Organizms/user/goals/GoalsSummary'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
+import ListHeader from 'components/Molecules/Lists/ListHeader'
+import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 
 const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoalAndTask[]; username: string }) => {
   const theme = useTheme()
@@ -93,49 +95,36 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
         <>
           {!barChart && (
             <>
-              {/* {allGoals.length > 0 && (
-                <Stack direction='row' pt={2} pb={1} justifyContent='left' alignItems='left'>
-                  <Typography textAlign={'left'} variant='body2'>
-                    Goal
-                  </Typography>
-                  <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-                    <Typography variant='body2'>Progress</Typography>
-                  </Stack>
-                </Stack>
-              )}
-              <HorizontalDivider /> */}
-              <>
-                {allGoals.map((item, i) => (
-                  <Box key={item.id}>
-                    <ListItemContainer>
-                      <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left' pl={2} pt={1}>
-                        {/* <ListHeader text={item.body!} item={item} onClicked={handleShowEditGoal} /> */}
-                        <LinkButton2 onClick={() => handleShowEditGoal(item)}>
-                          <Typography>{item.body}</Typography>
-                        </LinkButton2>
-                        {item.completePercent !== undefined && (
-                          <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'} pr={2}>
-                            <ProgressBar value={item.completePercent} toolTipText={`${item.completePercent}% complete`} width={80} />
-                          </Stack>
-                        )}
-                      </Stack>
-                      {item.stats && (
-                        <Box pl={3} pb={2}>
-                          <>
-                            <Box>
-                              <Typography variant='body2'>{`tasks: ${Number(item.stats.completed) + Number(item.stats.inProgress)}`}</Typography>
-                              <Typography variant='body2'>{`completed: ${item.stats.completed}`}</Typography>
-                              <Typography variant='body2'>{`in progress: ${item.stats.inProgress}`}</Typography>
-                            </Box>
-                            {item.stats.pastDue > 0 && <Typography variant='body2' color={redColor}>{`past due: ${item.stats.pastDue}`}</Typography>}
-                          </>
-                        </Box>
+              {allGoals.map((item, i) => (
+                <Box key={item.id}>
+                  <ListItemContainer>
+                    <ListHeader text={item.body!} item={item} onClicked={() => handleShowEditGoal(item)} />
+                    <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left' pl={2} pt={1}>
+                      {/* <LinkButton2 onClick={() => handleShowEditGoal(item)}>
+                        <Typography>{item.body}</Typography>
+                      </LinkButton2> */}
+                      {item.completePercent !== undefined && (
+                        <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'} pr={2}>
+                          <ProgressBar value={item.completePercent} toolTipText={`${item.completePercent}% complete`} width={80} />
+                        </Stack>
                       )}
-                    </ListItemContainer>
-                    {i < allGoals.length - 1 && <HorizontalDivider />}
-                  </Box>
-                ))}
-              </>
+                    </Stack>
+                    {item.stats && (
+                      <Box pl={2} pb={2}>
+                        <>
+                          <Box>
+                            <ReadOnlyField label={`tasks`} val={`${Number(item.stats.completed) + Number(item.stats.inProgress)}`} />
+                            <ReadOnlyField label={`completed`} val={`${item.stats.completed}`} />
+                            <ReadOnlyField label={`in progress`} val={`${item.stats.inProgress}`} />
+                          </Box>
+                          {item.stats.pastDue > 0 && <Typography variant='body2' p={2} color={redColor}>{`past due: ${item.stats.pastDue}`}</Typography>}
+                        </>
+                      </Box>
+                    )}
+                  </ListItemContainer>
+                  {i < allGoals.length - 1 && <HorizontalDivider />}
+                </Box>
+              ))}
             </>
           )}
         </>

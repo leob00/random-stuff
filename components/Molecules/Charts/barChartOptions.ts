@@ -110,7 +110,7 @@ export const getBarChartOptions = (
       y: {
         ticks: {
           //padding: 2,
-          color: palette === 'light' ? CasinoBlue : VeryLightBlueTransparent,
+          color: palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {
             // size: 10,
             //weight: '400',
