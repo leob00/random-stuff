@@ -19,6 +19,7 @@ import ContextMenuAlert from 'components/Molecules/Menus/ContextMenuAlert'
 import ContextMenuPortfolio from 'components/Molecules/Menus/ContextMenuPortfolio'
 import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
 
 const Page = () => {
   const router = useRouter()
@@ -45,7 +46,7 @@ const Page = () => {
           <ContextMenuPeople text={'community stocks'} />
         </>
       ),
-      fn: () => router.push('/ssg/community-stocks'),
+      fn: () => router.push('/csr/community-stocks'),
     },
     {
       item: (
@@ -62,6 +63,14 @@ const Page = () => {
         </>
       ),
       fn: () => router.push('/csr/stocks/alerts'),
+    },
+    {
+      item: (
+        <>
+          <ContextMenuReport text='reports' />
+        </>
+      ),
+      fn: () => router.push(`/ssg/stocks/reports/volumeleaders`),
     },
   ]
 

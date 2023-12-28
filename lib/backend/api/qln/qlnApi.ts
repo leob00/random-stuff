@@ -5,6 +5,7 @@ import { get, post } from '../fetchFunctions'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import dayjs from 'dayjs'
 import { apiConnection } from '../config'
+import { StockReportTypes } from './qlnModels'
 
 const config = apiConnection()
 const qlnApiBaseUrl = config.qln.url
@@ -313,6 +314,14 @@ export async function getJob(token: string, jobName: string) {
 
   const response = await get(url, { Token: token, jobName: jobName })
   const result = response.Body as Job
+  return result
+}
+
+export async function getReport(id: StockReportTypes) {
+  const url = `${qlnApiBaseUrl}/StockReports`
+
+  const response = await get(url, { id: id })
+  const result = response.Body as StockQuote[]
   return result
 }
 

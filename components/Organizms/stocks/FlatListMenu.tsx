@@ -66,7 +66,7 @@ const FlatListMenu = ({
           <ContextMenuPeople text={'community stocks'} />
         </>
       ),
-      fn: () => router.push('/ssg/community-stocks'),
+      fn: () => router.push('/csr/community-stocks'),
     },
     {
       item: (

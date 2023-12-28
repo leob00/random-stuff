@@ -1,4 +1,5 @@
 'use client'
+import { useGridLogger } from '@mui/x-data-grid'
 import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
 import React, { ReactNode } from 'react'
@@ -14,7 +15,7 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
 
   React.useEffect(() => {
     const handleRouteChange = async (url: string, shallow: boolean) => {
-      if (!url.includes('/login' || !url.includes('logoff')) && !url.includes('?')) {
+      if (!url.includes('/login' || !url.includes('logoff')) && !url.includes('report') && !url.includes('?')) {
         const lastRoute = routes.length > 0 ? routes[0] : undefined
 
         if (lastRoute) {

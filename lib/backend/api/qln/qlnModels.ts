@@ -13,3 +13,5 @@ export interface MarketHandshake {
     DateModified: string
   }
 }
+
+export type StockReportTypes = 'marketcapleaders' | 'volumeleaders'

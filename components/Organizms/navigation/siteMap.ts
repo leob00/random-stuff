@@ -33,7 +33,7 @@ export function siteMap() {
         },
         {
           name: 'community stocks',
-          route: '/ssg/community-stocks',
+          route: '/csr/community-stocks',
         },
         {
           name: 'stock porfolios',

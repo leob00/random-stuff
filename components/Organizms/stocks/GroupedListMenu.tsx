@@ -43,7 +43,7 @@ const GroupedListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShow
     },
     {
       item: <ContextMenuPeople text={'community stocks'} />,
-      fn: () => router.push('/ssg/community-stocks'),
+      fn: () => router.push('/csr/community-stocks'),
     },
     {
       item: (
