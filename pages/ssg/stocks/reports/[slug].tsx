@@ -38,7 +38,7 @@ const Page = () => {
   return (
     <>
       <Seo pageTitle={`Stock reports - ${selectedOption.text}`} />
-      <PageHeader text='Stock Reports' backButtonRoute='/csr/stocks' />
+      <PageHeader text='Stock Reports' />
       <ResponsiveContainer>
         <Box pt={2}>
           <CenterStack>

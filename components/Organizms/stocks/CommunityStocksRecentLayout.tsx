@@ -1,6 +1,7 @@
 import { Box, ListItemText } from '@mui/material'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
+import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
 import ContextMenuSort from 'components/Molecules/Menus/ContextMenuSort'
 import { Sort } from 'lib/backend/api/aws/apiGateway'
 import { StockQuote } from 'lib/backend/api/models/zModels'
@@ -9,15 +10,21 @@ import { useSessionSettings } from '../session/useSessionSettings'
 import CommunityStocksLayout from './CommunityStocksLayout'
 import CustomSortAlert from './CustomSortAlert'
 import StocksCustomSortForm from './StocksCustomSortForm'
+import { useRouter } from 'next/router'
 
 const CommunityStocksRecentLayout = ({ data }: { data: StockQuote[] }) => {
+  const router = useRouter()
   const settings = useSessionSettings()
   const [showCustomSortForm, setShowCustomSortForm] = React.useState(false)
 
   const menu: ContextMenuItem[] = [
     {
-      fn: () => setShowCustomSortForm(true),
       item: <ContextMenuSort text={'sort'} />,
+      fn: () => setShowCustomSortForm(true),
+    },
+    {
+      item: <ContextMenuReport text={'reports'} />,
+      fn: () => router.push('/ssg/stocks/reports/volumeleaders'),
     },
   ]
   const handleCustomSortSubmitted = (sort?: Sort[]) => {

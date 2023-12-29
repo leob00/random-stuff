@@ -33,6 +33,7 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
     return () => {
       router.events.off('routeChangeStart', handleRouteChange)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router])
 
   return <>{isClient && <>{children}</>}</>

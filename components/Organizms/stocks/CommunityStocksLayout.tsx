@@ -17,7 +17,7 @@ const CommunityStocksLayout = ({ data, defaultSort, pageSize = 10 }: { data: Sto
 
   return (
     <Box py={1}>
-      <PagedStockTable data={data} />
+      <PagedStockTable data={stocks} />
     </Box>
   )
 }
