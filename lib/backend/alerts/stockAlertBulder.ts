@@ -34,18 +34,18 @@ export async function buildStockAlertsForAllUsers() {
     const userSub = userSubMap.get(username)
     if (userSub) {
       //const newSub = { ...userSub }
-      const resultSub = processAlertTriggers(username, userSub, quotes, template)
-      if (resultSub.message) {
-        emailMessages.push(resultSub.message)
+      const subWithMessage = processAlertTriggers(username, userSub, quotes, template)
+      if (subWithMessage.message) {
+        emailMessages.push(subWithMessage.message)
       }
-      resultSub.subscriptions.forEach((s) => {
+      subWithMessage.subscriptions.forEach((s) => {
         s.triggers.forEach((t) => {
           if (t.status === 'started') {
             t.status = 'queued'
           }
         })
       })
-      await updateSubscriptions(resultSub.subscriptions, username)
+      await updateSubscriptions(subWithMessage.subscriptions, username)
     }
   }
   return emailMessages
