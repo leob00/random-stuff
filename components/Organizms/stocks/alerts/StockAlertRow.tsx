@@ -112,11 +112,7 @@ const StockAlertRow = ({ sub, username }: { sub: StockAlertSubscription; usernam
               <Box>
                 {trigger.message && (
                   <>
-                    <AlertWithHeader
-                      severity='success'
-                      header={`${dayjs(trigger.lastExecutedDate).format('MM/DD/YYYY hh:mm a')}`}
-                      text={`${trigger.message}`}
-                    />
+                    <AlertWithHeader severity='success' header={`${dayjs(trigger.executedDate).format('MM/DD/YYYY hh:mm a')}`} text={`${trigger.message}`} />
                   </>
                 )}
               </Box>

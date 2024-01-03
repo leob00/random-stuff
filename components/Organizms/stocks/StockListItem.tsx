@@ -25,6 +25,7 @@ import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import StockSubscibeIcon from './StockSubscibeIcon'
 import { useUserController } from 'hooks/userController'
 import TabList from 'components/Atoms/Buttons/TabList'
+import numeral from 'numeral'
 
 const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'Earnings' }, { title: 'News' }, { title: 'Profile' }]
 export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'dark' = 'light') => {
@@ -171,8 +172,10 @@ const StockListItem = ({
               {selectedTab === 'Details' && (
                 <Box pb={2} pt={2}>
                   <ReadOnlyField label={'Sector'} val={item.Sector} />
+                  <ReadOnlyField label={'Industry'} val={item.Industry} />
                   <ReadOnlyField label={'Cap'} val={item.MarketCapShort} />
-                  <ReadOnlyField label={'P/E'} val={item.PeRatio} />
+                  {item.PeRatio && <ReadOnlyField label={'P/E'} val={item.PeRatio} />}
+                  {item.Volume && <ReadOnlyField label={'Volume'} val={numeral(item.Volume).format('###,###')} />}
                   <ReadOnlyField label={'Date'} val={dayjs(item.TradeDate).format('MM/DD/YYYY hh:mm a')} />
                 </Box>
               )}

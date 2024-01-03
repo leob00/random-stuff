@@ -56,7 +56,7 @@ function processDailyMoveTrigger(trigger: StockAlertTrigger, quote: StockQuote, 
 
   if (tradeDate.isAfter(lastEx)) {
     if (Number(trigger.target) <= Math.abs(quote.ChangePercent)) {
-      const newDate = dayjs(quote.TradeDate).format()
+      const newDate = dayjs(tradeDate).format('YYYY-MM-DD hh:mm:ss')
       trigger.executedDate = newDate
       trigger.lastExecutedDate = newDate
       trigger.status = 'started'
