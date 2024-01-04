@@ -70,20 +70,12 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     result.subscriptions = sortAlerts(result.subscriptions)
 
     const newItems = result.subscriptions.flatMap((s) => s.triggers).filter((f) => f.status === 'started')
-    //const batch: LambdaDynamoRequestBatch = { records: [] }
     result.subscriptions.forEach((sub) => {
       sub.triggers.forEach((tr) => {
         if (tr.status === 'started') {
           tr.status = 'queued'
         }
-        //tr.lastExecutedDate = tr.lastExecutedDate ? dayjs(tr.lastExecutedDate).format() : dayjs(new Date(1900, 1, 1)).format()
       })
-      // batch.records.push({
-      //   id: sub.id,
-      //   category: alertsSearchhKey,
-      //   data: sub,
-      //   expiration: 0,
-      // })
     })
     // putRecordsBatch(batch)
 

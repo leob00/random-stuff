@@ -66,12 +66,12 @@ export function sortAlerts(subs: StockAlertSubscription[]) {
   const allTriggers = subs.flatMap((m) => m.triggers)
   const executedTriggers = sortArray(
     allTriggers.filter((m) => m.message),
-    ['lastExecutedDate'],
+    ['executedDate'],
     ['desc'],
   )
   const nonExecutedTriggers = sortArray(
     allTriggers.filter((m) => !m.executedDate),
-    ['lastExecutedDate'],
+    ['executedDate'],
     ['desc'],
   )
 
