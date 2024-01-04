@@ -26,6 +26,7 @@ import StockSubscibeIcon from './StockSubscibeIcon'
 import { useUserController } from 'hooks/userController'
 import TabList from 'components/Atoms/Buttons/TabList'
 import numeral from 'numeral'
+import StockChange from './StockChange'
 
 const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'Earnings' }, { title: 'News' }, { title: 'Profile' }]
 export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'dark' = 'light') => {
@@ -126,14 +127,7 @@ const StockListItem = ({
         ) : (
           <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
         )}
-
-        <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
-          <Stack direction={'row'} spacing={2} pl={2} sx={{ backgroundColor: 'unset' }} pt={1}>
-            <Typography variant='h5' color={getPositiveNegativeColor(item.Change, theme.palette.mode)}>{`${item.Price.toFixed(2)}`}</Typography>
-            <Typography variant='h5' color={getPositiveNegativeColor(item.Change, theme.palette.mode)}>{`${item.Change.toFixed(2)}`}</Typography>
-            <Typography variant='h5' color={getPositiveNegativeColor(item.Change, theme.palette.mode)}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
-          </Stack>
-        </Stack>
+        <StockChange item={item} />
         {showGroupName && item.GroupName && (
           <Stack pl={2}>
             <Typography variant='caption' color='primary'>{`Group Name: ${item.GroupName}`}</Typography>

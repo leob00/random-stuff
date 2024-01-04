@@ -18,6 +18,7 @@ import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import NLink from 'next/link'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { useRouter } from 'next/router'
+import StockChange from './StockChange'
 
 const StockEarningsCalendarDetails = ({
   data,
@@ -86,12 +87,7 @@ const StockEarningsCalendarDetails = ({
                         }}
                         backgroundColor={'transparent'}
                       />
-                      {/* {item.StockQuote && <StockListItem isStock={true} item={item.StockQuote} />} */}
-                      {/* <NLink passHref legacyBehavior href={`/csr/stocks/details?id=${item.Symbol}&returnUrl=/csr/stocks?tab=Earnings`}>
-                        <Link>
-                          <Typography>{`${item.StockQuote?.Company} (${item.StockQuote?.Symbol})`}</Typography>
-                        </Link>
-                      </NLink> */}
+                      {item.StockQuote && <StockChange item={item.StockQuote} />}
                     </TableCell>
                     <TableCell>
                       <Typography color={getPositiveNegativeColor(item.ActualEarnings, theme.palette.mode)}>{`${
