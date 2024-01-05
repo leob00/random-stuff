@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
   try {
     emailMessages = await buildStockAlertsForAllUsers()
     for (const email of emailMessages) {
-      await sendEmail(email)
+      sendEmail(email)
     }
   } catch (err) {
     console.error(`api/cron/stockAlerts error: ${err}`)

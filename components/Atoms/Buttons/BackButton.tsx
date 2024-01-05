@@ -1,9 +1,10 @@
 import { Button } from '@mui/material'
 import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 import React from 'react'
-import router from 'next/router'
+import { useRouter } from 'next/router'
 
 const BackButton = ({ route }: { route?: string }) => {
+  const router = useRouter()
   const lastRoute = useRouteTracker().getLastRoute()
   const handleClick = () => {
     if (route) {
