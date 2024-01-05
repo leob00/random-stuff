@@ -12,6 +12,7 @@ import React from 'react'
 const Playground = () => {
   const max = 10
   const { pollCounter, isStopped, stop, start } = usePolling(5, max, true)
+
   return (
     <Box py={2}>
       <CenteredHeader title='Playground' />

@@ -33,8 +33,8 @@ export async function buildStockAlertsForAllUsers() {
   for (const username of users) {
     const userSub = userSubMap.get(username)
     if (userSub) {
-      //const newSub = { ...userSub }
-      const subWithMessage = processAlertTriggers(username, userSub, quotes, template)
+      const newSub = { ...userSub }
+      const subWithMessage = processAlertTriggers(username, newSub, quotes, template)
       if (subWithMessage.message) {
         emailMessages.push(subWithMessage.message)
       }

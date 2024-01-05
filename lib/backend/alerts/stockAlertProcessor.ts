@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import { getMapFromArray } from 'lib/util/collectionsNative'
-import { StockAlertSubscriptionWithMessage, StockAlertTrigger, StockQuote } from '../api/models/zModels'
+import { StockAlertSubscriptionWithMessage, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 
 export function processAlertTriggers(
   username: string,
@@ -8,13 +8,7 @@ export function processAlertTriggers(
   quotes: StockQuote[],
   htmlTemplate: string,
 ): StockAlertSubscriptionWithMessage {
-  //const parser = new DOMParser()
-  //const doc = parser.parseFromString(htmlTemplate, 'text/html')
-  //const tableBody = doc.querySelector('#dailyMoveTable tbody')!
   const dailyRows: string[] = []
-
-  //const userSub = { ...subscription }
-  //const subs = userSub.subscriptions
   const quoteMap = getMapFromArray<StockQuote>(quotes, 'Symbol')
   subscription.subscriptions.forEach((sub) => {
     sub.triggers.forEach((trigger) => {
@@ -52,15 +46,13 @@ function processDailyMoveTrigger(trigger: StockAlertTrigger, quote: StockQuote, 
   const lastEx = trigger.executedDate ? dayjs(trigger.executedDate) : dayjs(new Date(1900, 1, 1))
   const tradeDate = dayjs(quote.TradeDate)
 
-  if (tradeDate.isAfter(lastEx)) {
-    if (Number(trigger.target) <= Math.abs(quote.ChangePercent)) {
-      const newDate = dayjs(quote.TradeDate).format()
-      trigger.executedDate = newDate
-      trigger.status = 'started'
-      trigger.actual = quote.ChangePercent
-      trigger.message = `target: ${trigger.target}% actual: ${quote.ChangePercent}%`
-      appendDailyRow(quote, dailyRows)
-    }
+  if (Number(trigger.target) <= Math.abs(quote.ChangePercent)) {
+    const newDate = dayjs(quote.TradeDate).format()
+    trigger.executedDate = newDate
+    trigger.status = 'started'
+    trigger.actual = quote.ChangePercent
+    trigger.message = `target: ${trigger.target}% actual: ${quote.ChangePercent}%`
+    appendDailyRow(quote, dailyRows)
   }
 }
 
