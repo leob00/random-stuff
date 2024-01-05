@@ -8,6 +8,7 @@ import ContextMenuPortfolio from 'components/Molecules/Menus/ContextMenuPortfoli
 import ContextMenuSort from 'components/Molecules/Menus/ContextMenuSort'
 import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
 import ContextMenuAlert from 'components/Molecules/Menus/ContextMenuAlert'
+import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
 
 const FlatListMenu = ({
   onEdit,
@@ -83,6 +84,14 @@ const FlatListMenu = ({
         </>
       ),
       fn: () => router.push('/csr/stocks/alerts'),
+    },
+    {
+      item: (
+        <>
+          <ContextMenuReport text='reports' />
+        </>
+      ),
+      fn: () => router.push(`/ssg/stocks/reports/volumeleaders`),
     },
   ]
 

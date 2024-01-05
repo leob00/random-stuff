@@ -14,6 +14,7 @@ import { getPositiveNegativeColor } from './StockListItem'
 import { Box, Typography } from '@mui/material'
 import { uniq } from 'lodash'
 import { useTheme } from '@mui/material'
+import NoDataFound from 'components/Atoms/Text/NoDataFound'
 
 interface GroupedModel {
   key: string
@@ -80,11 +81,7 @@ const StockEarningsTable = ({ data, showCompany = false }: { data: StockEarning[
             </TableBody>
           </Table>
         </TableContainer>
-        {data.length === 0 && (
-          <CenterStack sx={{ py: 4 }}>
-            <Typography variant='body2'>No data found.</Typography>
-          </CenterStack>
-        )}
+        {data.length === 0 && <NoDataFound />}
       </Box>
     </>
   )

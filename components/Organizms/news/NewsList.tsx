@@ -102,7 +102,7 @@ const NewsList = ({
           </Box>
         ))
       ) : (
-        <NoDataFound message={'Unable to find any articles at this time. Please try again later.'} />
+        <NoDataFound />
       )}
     </>
   )

@@ -93,7 +93,7 @@ const SecretsLayout = ({ user }: { user: AmplifyUser }) => {
   return model.isLoading ? (
     <BackdropLoader />
   ) : (
-    <RequirePin minuteDuration={5} enablePolling={true}>
+    <RequirePin minuteDuration={5}>
       {profile && encKey && (
         <>
           {model.createNew ? (
