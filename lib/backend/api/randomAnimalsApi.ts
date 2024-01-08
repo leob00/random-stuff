@@ -50,7 +50,7 @@ export async function getRandomAnimalsFromLocalFiles(type: DynamoKeys) {
       return { type: type, title: title, imagePath: `${targetPath}${item}` }
     })
 
-    await putAnimals(type, mappedArticles)
+    //await putAnimals(type, mappedArticles)
 
     switch (type) {
       case 'cats':
