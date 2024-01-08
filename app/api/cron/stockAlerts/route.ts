@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
       sendEmail(email)
     }
   } catch (err) {
-    console.error(`api/cron/stockAlerts error: ${err}`)
+    console.error(`/api/cron/stockAlerts error: ${JSON.stringify(err)}`)
     NextResponse.json({ status: 'failed' })
   }
 

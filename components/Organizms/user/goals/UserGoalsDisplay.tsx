@@ -1,5 +1,4 @@
-import { Box, Button, Stack, Typography, useTheme } from '@mui/material'
-import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
+import { Box, Stack, Typography, useTheme } from '@mui/material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 import AddGoalForm from 'components/Molecules/Forms/AddGoalForm'
@@ -23,6 +22,7 @@ import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
+import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 
 const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoalAndTask[]; username: string }) => {
   const theme = useTheme()
@@ -30,7 +30,9 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
 
   const [barChart, setBarchart] = React.useState<BarChart | undefined>(undefined)
   const [showAddGoalForm, setShowAddGoalForm] = React.useState(false)
+  const [searchWithinList, setSearchWithinList] = React.useState('')
   const allGoals = goalsAndTasks.flatMap((m) => m.goal)
+  const goalsKey = constructUserGoalsKey(username)
 
   const handleAddGoal = async (item: UserGoal) => {
     let newGoals = goalsAndTasks.flatMap((m) => m.goal)
@@ -42,8 +44,7 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
     item.dateModified = getUtcNow().format()
     newGoals.push(item)
     newGoals = orderBy(newGoals, ['dateModified'], ['desc'])
-    await putUserGoals(constructUserGoalsKey(username), newGoals)
-    //onMutated(goals)
+    await putUserGoals(goalsKey, newGoals)
     await handleShowEditGoal(item)
   }
 
@@ -69,6 +70,13 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
   const handleCloseCharts = () => {
     setBarchart(undefined)
   }
+  const filterGoals = () => {
+    if (searchWithinList.length > 0) {
+      return allGoals.filter((m) => m.body!.toLowerCase().startsWith(searchWithinList.toLowerCase()))
+    }
+    return allGoals
+  }
+  const filteredGoals = filterGoals()
 
   return (
     <Box>
@@ -78,10 +86,11 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
             <GoalsSummary barChart={barChart} goalTasks={goalsAndTasks} username={username} handleCloseSummary={handleCloseCharts} />
           </>
         ) : (
-          <Stack display={'flex'} direction={'row'} justifyContent={'left'} alignItems={'left'}>
+          <Stack display={'flex'} direction={'row'} gap={2} alignItems={'center'}>
             <Box>
               <PrimaryButton text={`new goal`} onClick={() => setShowAddGoalForm(true)}></PrimaryButton>
             </Box>
+            <SearchWithinList text='search...' onChanged={(text: string) => setSearchWithinList(text)} />
             <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
               <GoalsMenu onShowCharts={handleShowCharts} />
             </Stack>
@@ -95,16 +104,13 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
         <>
           {!barChart && (
             <>
-              {allGoals.map((item, i) => (
+              {filteredGoals.map((item, i) => (
                 <Box key={item.id}>
                   <ListItemContainer>
-                    <ListHeader text={item.body!} item={item} onClicked={() => handleShowEditGoal(item)} />
-                    <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left' pl={2} pt={1}>
-                      {/* <LinkButton2 onClick={() => handleShowEditGoal(item)}>
-                        <Typography>{item.body}</Typography>
-                      </LinkButton2> */}
+                    <Stack direction='row' py={'3px'} justifyContent='left' alignItems='center'>
+                      <ListHeader text={item.body!} item={item} onClicked={() => handleShowEditGoal(item)} />
                       {item.completePercent !== undefined && (
-                        <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'} pr={2}>
+                        <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' pr={2}>
                           <ProgressBar value={item.completePercent} toolTipText={`${item.completePercent}% complete`} width={80} />
                         </Stack>
                       )}
@@ -122,7 +128,7 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
                       </Box>
                     )}
                   </ListItemContainer>
-                  {i < allGoals.length - 1 && <HorizontalDivider />}
+                  {i < filteredGoals.length - 1 && <HorizontalDivider />}
                 </Box>
               ))}
             </>

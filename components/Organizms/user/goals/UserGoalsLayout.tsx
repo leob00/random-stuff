@@ -1,15 +1,14 @@
 import { constructUserGoalsKey } from 'lib/backend/api/aws/util'
-import { getUserGoals, getUserTasks } from 'lib/backend/csr/nextApiWrapper'
+import { getRecord, searchRecords } from 'lib/backend/csr/nextApiWrapper'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { filter, orderBy } from 'lodash'
 import React from 'react'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
-import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
-import useSWR from 'swr'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UserGoalsDisplay from './UserGoalsDisplay'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
+import { useSwrHelper } from 'hooks/useSwrHelper'
 
 export interface UserGoalAndTask {
   goal: UserGoal
@@ -58,20 +57,19 @@ const mapGoalTasks = (goals: UserGoal[], tasks: UserTask[]) => {
 
 const UserGoalsLayout = ({ username }: { username: string }) => {
   const goalsKey = constructUserGoalsKey(username)
-  const goalsMutateKey = ['/api/edgeGetRandomStuff', encodeURIComponent(weakEncrypt(goalsKey))]
 
-  const fetchGoalsData = async (url: string, enc: string) => {
-    const goals = await getUserGoals(constructUserGoalsKey(username))
-    const tasks = await getUserTasks(username)
+  const fetchGoalsData = async () => {
+    const goals = await getRecord<UserGoal[]>(goalsKey)
+    const tasksResp = await searchRecords(username)
+    const tasks = tasksResp.map((m) => JSON.parse(m.data) as UserTask)
     const result = mapGoalTasks(goals, tasks)
     return result
   }
-  const { data: goalsAndTasks, error, isLoading, isValidating } = useSWR(goalsMutateKey, ([url, enc]) => fetchGoalsData(url, enc))
+  const { data: goalsAndTasks, error, isLoading } = useSwrHelper(goalsKey, fetchGoalsData)
 
   return (
     <>
       {isLoading && <BackdropLoader />}
-      {isValidating && <BackdropLoader />}
       {error && <ErrorMessage text='Opps. We encountered and error. Please try refreshing the page.' />}
       {goalsAndTasks && <UserGoalsDisplay goalsAndTasks={goalsAndTasks} username={username} />}
     </>
