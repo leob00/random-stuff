@@ -60,8 +60,9 @@ const UserGoalsLayout = ({ username }: { username: string }) => {
 
   const fetchGoalsData = async () => {
     const goals = await getRecord<UserGoal[]>(goalsKey)
-    const tasksResp = await searchRecords(username)
-    const tasks = tasksResp.map((m) => JSON.parse(m.data) as UserTask)
+    const tasksResp = await searchRecords(`user-goal-tasks[${username}]`)
+    const tasks = tasksResp.flatMap((m) => JSON.parse(m.data) as UserTask)
+
     const result = mapGoalTasks(goals, tasks)
     return result
   }

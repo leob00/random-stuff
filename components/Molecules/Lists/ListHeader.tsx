@@ -27,7 +27,7 @@ const ListHeader = ({
 }) => {
   const theme = useTheme()
   const showContextMenu = onEdit !== undefined || onDelete !== undefined || onAdd !== undefined
-  const backColor = !backgroundColor ? (theme.palette.mode === 'dark' ? DarkBlue : 'unset') : backgroundColor
+  const backColor = !backgroundColor ? (theme.palette.mode === 'dark' ? DarkBlue : 'unset') : backgroundColor ?? 'transparent'
   const contextMenu: ContextMenuItem[] = []
   if (onEdit) {
     contextMenu.push({
