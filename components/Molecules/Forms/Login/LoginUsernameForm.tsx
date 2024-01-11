@@ -40,7 +40,7 @@ const LoginUsernameForm = ({
     onSubmitted(submitData)
   }
   return (
-    <Box maxWidth={{ xs: '100%', md: '80%' }}>
+    <Box>
       <Typography variant='h5' py={2}>
         {title}
       </Typography>

@@ -34,7 +34,7 @@ const S3FilesLayout = () => {
     })
     return sortArray(items, ['isFolder'], ['desc'])
   }
-  const { data, isLoading, isValidating, error } = useSWR(mutateKey, ([url, id]) => fetchData(url, 's3FileList'))
+  const { data, isLoading, isValidating, error } = useSWR(mutateKey, ([url, id]) => fetchData(url, 's3FileList'), { revalidateOnFocus: false })
   const handleUploaded = async (item: S3Object) => {
     mutate(mutateKey)
   }

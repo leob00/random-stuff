@@ -1,4 +1,4 @@
-import { Box, TextField, Typography } from '@mui/material'
+import { Box, Button, TextField, Typography } from '@mui/material'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
@@ -6,6 +6,11 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import { S3Object } from 'lib/backend/api/aws/apiGateway'
 import React from 'react'
+import { styled } from '@mui/material/styles'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'
+import S3UploadInput from 'components/Organizms/files/S3UploadInput'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 
 const S3FileUploadForm = ({ onUploaded }: { onUploaded: (item: S3Object) => void }) => {
   const [file, setFile] = React.useState<File | undefined>(undefined)
@@ -15,12 +20,26 @@ const S3FileUploadForm = ({ onUploaded }: { onUploaded: (item: S3Object) => void
   const [isUploading, setIsUploading] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)
 
+  const maxFileSize = 10000000
+
+  const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+  })
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setResponse(null)
     if (file) {
-      if (file.size > 10000000) {
-        setError('file cannot exceed 10 MB')
+      if (file.size > maxFileSize) {
+        setError(`file cannot exceed ${maxFileSize / 1000000} MB`)
         return
       }
       setIsLoading(true)
@@ -71,41 +90,31 @@ const S3FileUploadForm = ({ onUploaded }: { onUploaded: (item: S3Object) => void
         <>
           {!isUploading && (
             <Box flexDirection={'column'} gap={1} display={'flex'} alignItems={'center'}>
-              <TextField
+              <Button color='info' component='label' variant='contained' startIcon={<CloudUploadIcon />}>
+                <Typography>...choose file</Typography>
+                <VisuallyHiddenInput type='file' onChange={handleFileSelected} accept={allowed} />
+              </Button>
+              {/* <TextField
                 type='file'
                 name='file'
                 onChange={handleFileSelected}
                 inputProps={{
                   accept: allowed,
                 }}
-              />
+              /> */}
             </Box>
           )}
-          {file && !isUploading && (
-            <Box py={2}>
-              <CenterStack>
-                <Box display={'flex'} gap={1}>
-                  <Typography>file name:</Typography>
-                  <TextField
-                    name='userFilename'
-                    variant='outlined'
-                    size='small'
-                    value={userFilename}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                      setUserFilename(event.target.value)
-                    }}
-                  ></TextField>
-                  {/* <Typography>{file.name.substring(file.name.lastIndexOf('.'))}</Typography> */}
-                </Box>
-              </CenterStack>
-            </Box>
+          {file && (
+            <>
+              <S3UploadInput filename={userFilename} onSelected={(filename: string) => setUserFilename(filename)} />
+              <Box py={2}>
+                <CenterStack>
+                  <PrimaryButton type='submit' text='Upload' />
+                </CenterStack>
+              </Box>
+            </>
           )}
           {error && <ErrorMessage text={error} />}
-          <Box py={2}>
-            <CenterStack>
-              <SecondaryButton type='submit' text='Upload' />
-            </CenterStack>
-          </Box>
         </>
       </form>
       {response && <SnackbarSuccess show={true} text={'file uploaded!'} />}
