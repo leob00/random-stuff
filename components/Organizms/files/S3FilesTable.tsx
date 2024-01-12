@@ -84,19 +84,18 @@ const S3FilesTable = ({
     <>
       {isMutating && <BackdropLoader />}
       {data.map((item) => (
-        <Box key={item.filename}>
+        <Box key={item.fullPath}>
           <Box py={1}>
             <ListItemContainer>
               <Box px={1} py={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
                 <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} gap={2}>
-                  <Box>{!item.isFolder ? <Typography>{item.filename}</Typography> : <S3Folder path={item.filename} />}</Box>
+                  <Box>{!item.isFolder ? <Typography>{item.fullPath}</Typography> : <S3Folder path={item.fullPath} />}</Box>
                   {!item.isFolder && <Box>{item.size !== undefined && <Typography>{fileSizeDisplay(item.size)}</Typography>}</Box>}
                 </Box>
-                {!item.isFolder && (
-                  <Box>
-                    <FileMenu item={item} onView={handleViewFile} onDelete={handleDelete} onRename={handleOnRename} />
-                  </Box>
-                )}
+
+                <Box>
+                  <FileMenu item={item} onView={handleViewFile} onDelete={handleDelete} onRename={handleOnRename} />
+                </Box>
               </Box>
             </ListItemContainer>
           </Box>
@@ -105,7 +104,7 @@ const S3FilesTable = ({
       {itemToDelete && (
         <ConfirmDeleteDialog
           show={true}
-          text={`Are you sure you want to delete ${itemToDelete.filename}?`}
+          text={`Are you sure you want to delete ${itemToDelete.fullPath}?`}
           onCancel={() => setItemToDelete(null)}
           onConfirm={handleConfirmDelete}
         />

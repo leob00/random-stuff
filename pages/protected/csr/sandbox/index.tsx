@@ -11,6 +11,8 @@ import S3FileUploadForm from 'components/Molecules/Forms/S3FileUploadForm'
 import PostBatch from 'components/Organizms/sandbox/PostBatch'
 import S3FilesLayout from 'components/Organizms/files/S3FilesLayout'
 import Playground from 'components/Organizms/admin/Playground'
+import { useUserController } from 'hooks/userController'
+import PleaseLogin from 'components/Molecules/PleaseLogin'
 
 const Page = () => {
   const tabs: TabInfo[] = [
@@ -26,6 +28,7 @@ const Page = () => {
     },
   ]
   const [selectedTab, setSelectedTab] = React.useState(tabs[0].title)
+  const { ticket } = useUserController()
 
   const handleSetTab = (tab: TabInfo) => {
     setSelectedTab(tab.title)
@@ -40,7 +43,7 @@ const Page = () => {
         <TabList tabs={tabs} onSetTab={handleSetTab} />
         <Box p={2}>
           {selectedTab === 'New' && <Playground />}
-          {selectedTab === 'S3' && <S3FilesLayout />}
+          {selectedTab === 'S3' && <>{ticket ? <S3FilesLayout ticket={ticket} /> : <PleaseLogin />}</>}
           {selectedTab === 'Batch Post' && <PostBatch />}
         </Box>
       </ResponsiveContainer>

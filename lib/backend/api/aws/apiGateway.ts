@@ -203,11 +203,10 @@ export async function listS3Objects(bucket: Bucket, prefix: string) {
   return []
 }
 
-export async function deleteS3Object(bucket: Bucket, prefix: string, filename: string) {
+export async function deleteS3Object(bucket: string, fullPath: string) {
   const url = `${apiGatewayUrl}/s3/object`
   try {
-    const body: S3Object = { bucket: bucket, prefix: prefix, filename: filename }
-    const result = await postBody(url, 'DELETE', body)
+    const result = await postBody(url, 'DELETE', { bucket: bucket, fullPath: fullPath })
     return result
   } catch (err) {
     console.error('error occurred in postDelete: ', err)
@@ -408,6 +407,7 @@ export async function putS3(bucket: Bucket, prefix: string, filename: string, mi
       bucket: bucket,
       prefix: `${prefix}`,
       filename: filename,
+      fullPath: `${prefix}/${filename}`,
     }
     if (response.status === 413) {
       result.message = 'File is too large'
@@ -484,4 +484,5 @@ export interface S3Object {
   isFolder?: boolean
   size?: number
   message?: string
+  fullPath: string
 }

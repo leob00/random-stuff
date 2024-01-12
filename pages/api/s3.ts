@@ -20,18 +20,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       bucket: String(req.query['bucket']) as Bucket,
       prefix: String(req.query['prefix']),
       filename: '',
+      fullPath: String(req.query['fullPath']),
     }
     const response = await listS3Objects(getArgs.bucket, getArgs.prefix)
     return res.status(200).json(response)
   }
   if (req.method === 'DELETE') {
-    const deletArgs: Arg = {
+    const deleteArgs: Arg = {
       bucket: String(req.query['bucket']) as Bucket,
       prefix: String(req.query['prefix']),
       filename: String(req.query['filename']),
+      fullPath: String(req.query['fullPath']),
     }
 
-    const response = await deleteS3Object(deletArgs.bucket, deletArgs.prefix, deletArgs.filename!)
+    const response = await deleteS3Object(deleteArgs.bucket, deleteArgs.fullPath)
     return res.status(202).json(response)
   }
 
