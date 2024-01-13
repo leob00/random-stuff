@@ -17,13 +17,20 @@ interface Key {
   key: string
   size: number
 }
-const isInFolder = (key: string) => {
-  const result = key.split('/')
-  if (result.length > 2) {
-    console.log(result.length)
-  }
-  return result.length > 2
+
+const buildFilesAndFolders = (items: S3Object[]) => {
+  const result: S3Object[] = []
+  items.forEach((item) => {
+    var count = (item.fullPath.match(/[/]/g) || []).length
+    const isInFolder = count > 1
+    const fileName = !isInFolder ? item.fullPath.substring(item.fullPath.indexOf('/') + 1) : item.fullPath.split('/')[1]
+    if (!isInFolder) {
+      result.push({ ...item, filename: fileName, isFolder: isInFolder })
+    }
+  })
+  return result
 }
+
 const bucketName: Bucket = 'rs-files'
 
 const S3FilesLayout = ({ ticket }: { ticket: AmplifyUser }) => {
@@ -34,33 +41,32 @@ const S3FilesLayout = ({ ticket }: { ticket: AmplifyUser }) => {
     if (!ticket) {
       return []
     }
-    const response = await get('/api/s3', { bucket: bucketName, prefix: ticket.email })
+    const response = await get('/api/s3', { bucket: bucketName, prefix: baseFolder })
     const result = JSON.parse(response) as Key[]
 
-    const ret: S3Object[] = []
+    //const ret: S3Object[] = []
 
     const items: S3Object[] = result.map((m) => {
       return {
         bucket: bucketName,
         prefix: m.key,
         fullPath: m.key,
-        filename: m.key.endsWith('/') ? m.key : m.key.substring(m.key.lastIndexOf('/') + 1),
-        isFolder: isInFolder(m.key),
+        filename: '',
+        isFolder: false,
         size: m.size,
       }
     })
-    //console.log(items)
-    return sortArray(items, ['isFolder'], ['desc'])
+    const results = buildFilesAndFolders(items)
+    return sortArray(results, ['isFolder'], ['desc'])
   }
   const { data, isLoading, isValidating, error } = useSWR(mutateKey, ([url, id]) => fetchData(url, 's3FileList'), { revalidateOnFocus: false })
 
-  const objects = data ?? []
-  const folders = objects.filter((m) => m.isFolder)
-  const files: S3Object[] = []
-  folders.forEach((folder) => {
-    const f = objects.filter((m) => m.isFolder || !m.fullPath.includes(folder.fullPath))
-    files.push(...f)
-  })
+  // const folders = objects.filter((m) => m.isFolder)
+  // const files: S3Object[] = []
+  // folders.forEach((folder) => {
+  //   const f = objects.filter((m) => m.isFolder || !m.fullPath.includes(folder.fullPath))
+  //   files.push(...f)
+  // })
 
   const handleUploaded = async (item: S3Object) => {
     mutate(mutateKey)
@@ -73,7 +79,7 @@ const S3FilesLayout = ({ ticket }: { ticket: AmplifyUser }) => {
       <S3FileUploadForm onUploaded={handleUploaded} />
       <Box py={2}>
         <CenteredHeader title={'Files'} />
-        {data && <S3FilesTable data={objects} onMutated={() => mutate(mutateKey)} />}
+        {data && <S3FilesTable data={data} onMutated={() => mutate(mutateKey)} />}
       </Box>
     </Box>
   )

@@ -89,7 +89,7 @@ const S3FilesTable = ({
             <ListItemContainer>
               <Box px={1} py={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
                 <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} gap={2}>
-                  <Box>{!item.isFolder ? <Typography>{item.fullPath}</Typography> : <S3Folder path={item.fullPath} />}</Box>
+                  <Box>{!item.isFolder ? <Typography>{item.filename}</Typography> : <S3Folder path={item.filename} />}</Box>
                   {!item.isFolder && <Box>{item.size !== undefined && <Typography>{fileSizeDisplay(item.size)}</Typography>}</Box>}
                 </Box>
 
