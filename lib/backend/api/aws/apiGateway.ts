@@ -180,10 +180,10 @@ export async function searchRandomStuffBySecIndex(search: CategoryType | string)
   return []
 }
 
-export async function getS3ObjectPresignedUrl(bucket: string, prefix: string, filename: string, expirationInSeconds: number) {
+export async function getS3ObjectPresignedUrl(bucket: string, fullPath: string, expirationInSeconds: number) {
   const url = `${apiGatewayUrl}/s3/presignedurl`
   try {
-    const body = { bucket: bucket, prefix: prefix, filename: filename, expiration: expirationInSeconds }
+    const body = { bucket: bucket, fullPath: fullPath, expiration: expirationInSeconds }
     const result = await post(url, body)
     return result.body
   } catch (err) {

@@ -30,7 +30,7 @@ const S3FilesTable = ({
 
   const handleViewFile = async (item: S3Object) => {
     setIsMutating(true)
-    const params = { bucket: item.bucket, prefix: item.prefix, filename: item.filename, expiration: 60 }
+    const params = { bucket: item.bucket, fullPath: item.fullPath, expiration: 60 }
     const url = JSON.parse(await post(`/api/s3`, params)) as string
     setSignedUrl(url)
     setSelectedItem(item)

@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
   if (req.method === 'POST') {
     const postArgs: Arg = req.body
-    const response = await getS3ObjectPresignedUrl(postArgs.bucket, postArgs.prefix, postArgs.filename!, postArgs.expiration!)
+    const response = await getS3ObjectPresignedUrl(postArgs.bucket, postArgs.fullPath, postArgs.expiration!)
     return res.status(200).json(response)
   }
   if (req.method === 'GET') {
