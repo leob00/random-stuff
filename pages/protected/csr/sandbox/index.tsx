@@ -5,14 +5,12 @@ import Seo from 'components/Organizms/Seo'
 import { Box } from '@mui/material'
 import TabList from 'components/Atoms/Buttons/TabList'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
-import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
 import { Claim } from 'lib/backend/auth/userUtil'
-import S3FileUploadForm from 'components/Molecules/Forms/S3FileUploadForm'
 import PostBatch from 'components/Organizms/sandbox/PostBatch'
-import S3FilesLayout from 'components/Organizms/files/S3FilesLayout'
 import Playground from 'components/Organizms/admin/Playground'
 import { useUserController } from 'hooks/userController'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
+import S3Display from 'components/Organizms/files/S3Display'
 
 const Page = () => {
   const tabs: TabInfo[] = [
@@ -43,7 +41,7 @@ const Page = () => {
         <TabList tabs={tabs} onSetTab={handleSetTab} />
         <Box p={2}>
           {selectedTab === 'New' && <Playground />}
-          {selectedTab === 'S3' && <>{ticket ? <S3FilesLayout ticket={ticket} /> : <PleaseLogin />}</>}
+          {selectedTab === 'S3' && <>{ticket ? <S3Display ticket={ticket} /> : <PleaseLogin />}</>}
           {selectedTab === 'Batch Post' && <PostBatch />}
         </Box>
       </ResponsiveContainer>

@@ -4,7 +4,7 @@ import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { isNull } from 'lodash'
 import { ApiError } from 'next/dist/server/api-utils'
-import { CategoryType, DynamoKeys, EmailMessage, LambdaBody, LambdaDynamoRequest, LambdaDynamoRequestBatch, UserProfile } from '../api/aws/apiGateway'
+import { CategoryType, DynamoKeys, EmailMessage, LambdaBody, LambdaDynamoRequest, LambdaDynamoRequestBatch, S3Object, UserProfile } from '../api/aws/apiGateway'
 
 import {
   constructUserGoalTaksSecondaryKey,
@@ -13,7 +13,7 @@ import {
   constructUserProfileKey,
   constructUserSecretSecondaryKey,
 } from '../api/aws/util'
-import { get, post } from '../api/fetchFunctions'
+import { get, post, postBody } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { weakEncrypt } from '../encryption/useEncryptor'
 
@@ -386,4 +386,8 @@ export async function getCommunityStocks() {
 
 export async function sendEmailFromClient(item: EmailMessage) {
   await post(`/api/sendEmail`, item)
+}
+
+export async function renameS3File(bucket: string, oldPath: string, newPath: string) {
+  await postBody('/api/s3', 'PATCH', { bucket: bucket, oldPath: oldPath, newPath: newPath })
 }

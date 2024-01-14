@@ -7,6 +7,7 @@ import ViewS3FileDialog from 'components/Molecules/Forms/Files/ViewS3FileDialog'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import { S3Object } from 'lib/backend/api/aws/apiGateway'
 import { post, postBody, postDelete } from 'lib/backend/api/fetchFunctions'
+import { renameS3File } from 'lib/backend/csr/nextApiWrapper'
 import numeral from 'numeral'
 import React from 'react'
 import FileMenu from './FileMenu'
@@ -79,8 +80,9 @@ const S3FilesTable = ({
       setIsMutating(true)
       const oldPath = selectedItem.fullPath
       const newPath = `${selectedItem.fullPath.substring(0, selectedItem.fullPath.lastIndexOf('/'))}/${newfilename}`
-      await postBody('/api/s3', 'PATCH', { bucket: selectedItem.bucket, oldPath: oldPath, newPath: newPath })
+      await renameS3File(selectedItem.bucket, oldPath, newPath)
       setIsMutating(false)
+      setSearchWithinList('')
       onMutated?.()
     }
   }
@@ -96,9 +98,11 @@ const S3FilesTable = ({
   return (
     <>
       {isMutating && <BackdropLoader />}
-      <Box>
-        <SearchWithinList onChanged={(text: string) => setSearchWithinList(text)} />
-      </Box>
+      {data.length > 3 && (
+        <Box>
+          <SearchWithinList onChanged={(text: string) => setSearchWithinList(text)} />
+        </Box>
+      )}
       {results.map((item) => (
         <Box key={item.fullPath}>
           <Box py={1}>

@@ -91,7 +91,7 @@ const S3FileUploadForm = ({ onUploaded }: { onUploaded: (item: S3Object) => void
           {!isUploading && (
             <Box flexDirection={'column'} gap={1} display={'flex'} alignItems={'center'}>
               <Button color='info' component='label' variant='contained' startIcon={<CloudUploadIcon />}>
-                <Typography>...choose file</Typography>
+                <Typography>...upload a file</Typography>
                 <VisuallyHiddenInput type='file' onChange={handleFileSelected} accept={allowed} />
               </Button>
               {/* <TextField
