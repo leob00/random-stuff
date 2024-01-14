@@ -17,7 +17,7 @@ const S3FileUploadForm = ({ onUploaded }: { onUploaded: (item: S3Object) => void
   const [userFilename, setUserFilename] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
   const [response, setResponse] = React.useState<S3Object | null>(null)
-  const [isUploading, setIsUploading] = React.useState(false)
+  //const [isUploading, setIsUploading] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)
 
   const maxFileSize = 10000000
@@ -43,7 +43,6 @@ const S3FileUploadForm = ({ onUploaded }: { onUploaded: (item: S3Object) => void
         return
       }
       setIsLoading(true)
-      setIsUploading(true)
 
       const data = new FormData()
       data.append('file', file)
@@ -62,7 +61,6 @@ const S3FileUploadForm = ({ onUploaded }: { onUploaded: (item: S3Object) => void
         setIsLoading(false)
         setUserFilename('')
         setFile(undefined)
-        setIsUploading(false)
         onUploaded(respData)
       } catch (err) {
         setError('Oops! Encountered an error. Please try again')
@@ -88,7 +86,7 @@ const S3FileUploadForm = ({ onUploaded }: { onUploaded: (item: S3Object) => void
       {isLoading && <BackdropLoader />}
       <form action='/api/defaultRoute' method='post' encType='multipart/form-data' onSubmit={handleSubmit}>
         <>
-          {!isUploading && (
+          {!isLoading && (
             <Box flexDirection={'column'} gap={1} display={'flex'} alignItems={'center'}>
               <Button color='info' component='label' variant='contained' startIcon={<CloudUploadIcon />}>
                 <Typography>...upload a file</Typography>

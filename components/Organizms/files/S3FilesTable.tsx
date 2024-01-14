@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, IconButton, Typography } from '@mui/material'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
@@ -12,6 +12,7 @@ import numeral from 'numeral'
 import React from 'react'
 import FileMenu from './FileMenu'
 import S3Folder from './S3Folder'
+import RefreshIcon from '@mui/icons-material/Refresh'
 
 const S3FilesTable = ({
   data,
@@ -98,11 +99,22 @@ const S3FilesTable = ({
   return (
     <>
       {isMutating && <BackdropLoader />}
-      {data.length > 3 && (
+
+      <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
+        <Box> {data.length > 3 && <SearchWithinList onChanged={(text: string) => setSearchWithinList(text)} />}</Box>
         <Box>
-          <SearchWithinList onChanged={(text: string) => setSearchWithinList(text)} />
+          <IconButton
+            size='small'
+            color='primary'
+            onClick={() => {
+              onMutated?.()
+            }}
+          >
+            <RefreshIcon fontSize='small' />
+          </IconButton>
         </Box>
-      )}
+      </Box>
+
       {results.map((item) => (
         <Box key={item.fullPath}>
           <Box py={1}>
