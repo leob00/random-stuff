@@ -214,14 +214,13 @@ export async function deleteS3Object(bucket: string, fullPath: string) {
   return []
 }
 
-export async function renameS3Object(bucket: Bucket, prefix: string, oldfilename: string, newfilename: string) {
+export async function renameS3Object(bucket: Bucket, oldPath: string, newPath: string) {
   const url = `${apiGatewayUrl}/s3/object`
   try {
     const result = await postBody(url, 'PATCH', {
       bucket: bucket,
-      prefix: prefix,
-      oldfilename: oldfilename,
-      newfilename: newfilename,
+      oldPath: oldPath,
+      newPath: newPath,
     })
     return result
   } catch (err) {

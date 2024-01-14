@@ -44,8 +44,6 @@ const S3FilesLayout = ({ ticket }: { ticket: AmplifyUser }) => {
     const response = await get('/api/s3', { bucket: bucketName, prefix: baseFolder })
     const result = JSON.parse(response) as Key[]
 
-    //const ret: S3Object[] = []
-
     const items: S3Object[] = result.map((m) => {
       return {
         bucket: bucketName,
@@ -60,13 +58,6 @@ const S3FilesLayout = ({ ticket }: { ticket: AmplifyUser }) => {
     return sortArray(results, ['isFolder'], ['desc'])
   }
   const { data, isLoading, isValidating, error } = useSWR(mutateKey, ([url, id]) => fetchData(url, 's3FileList'), { revalidateOnFocus: false })
-
-  // const folders = objects.filter((m) => m.isFolder)
-  // const files: S3Object[] = []
-  // folders.forEach((folder) => {
-  //   const f = objects.filter((m) => m.isFolder || !m.fullPath.includes(folder.fullPath))
-  //   files.push(...f)
-  // })
 
   const handleUploaded = async (item: S3Object) => {
     mutate(mutateKey)

@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
+import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import RenameFileDialog from 'components/Molecules/Forms/Files/RenameFileDialog'
 import ViewS3FileDialog from 'components/Molecules/Forms/Files/ViewS3FileDialog'
@@ -27,10 +28,20 @@ const S3FilesTable = ({
   const [selectedItem, setSelectedItem] = React.useState<S3Object | null>(null)
   const [showRenameForm, setShowRenameForm] = React.useState(false)
   const [isMutating, setIsMutating] = React.useState(false)
+  const [searchWithinList, setSearchWithinList] = React.useState('')
+
+  const filterList = (items: S3Object[]) => {
+    if (searchWithinList.length === 0) {
+      return items
+    }
+    return items.filter((m) => m.filename.toLowerCase().includes(searchWithinList.toLowerCase()))
+  }
+
+  const results = filterList(data)
 
   const handleViewFile = async (item: S3Object) => {
     setIsMutating(true)
-    const params = { bucket: item.bucket, fullPath: item.fullPath, expiration: 60 }
+    const params = { bucket: item.bucket, fullPath: item.fullPath, expiration: 600 }
     const url = JSON.parse(await post(`/api/s3`, params)) as string
     setSignedUrl(url)
     setSelectedItem(item)
@@ -66,7 +77,9 @@ const S3FilesTable = ({
     if (selectedItem) {
       setShowRenameForm(false)
       setIsMutating(true)
-      await postBody('/api/s3', 'PATCH', { bucket: selectedItem.bucket, prefix: selectedItem.prefix, oldfilename: oldfilename, newfilename: newfilename })
+      const oldPath = selectedItem.fullPath
+      const newPath = `${selectedItem.fullPath.substring(0, selectedItem.fullPath.lastIndexOf('/'))}/${newfilename}`
+      await postBody('/api/s3', 'PATCH', { bucket: selectedItem.bucket, oldPath: oldPath, newPath: newPath })
       setIsMutating(false)
       onMutated?.()
     }
@@ -83,7 +96,10 @@ const S3FilesTable = ({
   return (
     <>
       {isMutating && <BackdropLoader />}
-      {data.map((item) => (
+      <Box>
+        <SearchWithinList onChanged={(text: string) => setSearchWithinList(text)} />
+      </Box>
+      {results.map((item) => (
         <Box key={item.fullPath}>
           <Box py={1}>
             <ListItemContainer>

@@ -8,7 +8,7 @@ const SearchWithinList = ({
   onChanged,
   width = 220,
   disabled = false,
-  text = 'search in results',
+  text = 'search in results ',
   defaultValue = '',
   debounceWaitMilliseconds = 250,
 }: {

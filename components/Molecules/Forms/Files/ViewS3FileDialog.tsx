@@ -24,18 +24,18 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
         </Stack>
         <CenterStack sx={{ pt: 2 }}>
           {isAudio && (
-            <>
+            <Box>
               <audio controls>
                 <source src={signedUrl} type='audio/ogg' />
                 Your browser does not support the audio element.
               </audio>
-            </>
+            </Box>
           )}
-          {!isAudio && (
-            <Link rel='noreferrer' ref={signedUrlRef} href={signedUrl} target={'_blank'}>
-              <PrimaryButton text={'view file'} onClick={onCancel}></PrimaryButton>
-            </Link>
-          )}
+        </CenterStack>
+        <CenterStack sx={{ py: 2 }}>
+          <Link rel='noreferrer' ref={signedUrlRef} href={signedUrl} target={'_blank'}>
+            <PrimaryButton text={'view file'} onClick={onCancel}></PrimaryButton>
+          </Link>
         </CenterStack>
       </>
     </FormDialog>
