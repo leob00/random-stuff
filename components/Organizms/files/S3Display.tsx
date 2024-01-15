@@ -1,6 +1,6 @@
 import { Alert, Box, Typography } from '@mui/material'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
-import { Bucket, S3Object } from 'lib/backend/api/aws/apiGateway'
+import { Bucket, S3Object, UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { get } from 'lib/backend/api/fetchFunctions'
 import { AmplifyUser } from 'lib/backend/auth/userUtil'
 import { DropdownItem } from 'lib/models/dropdown'
@@ -13,43 +13,29 @@ import S3FileUploadForm from 'components/Molecules/Forms/S3FileUploadForm'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import S3FilesTable from './S3FilesTable'
 import { useSwrHelper } from 'hooks/useSwrHelper'
-import { renameS3File } from 'lib/backend/csr/nextApiWrapper'
+import { getDefaultFolders, renameS3File } from 'lib/backend/csr/nextApiWrapper'
 import CenterStack from 'components/Atoms/CenterStack'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
+import ContextMenuAdd from 'components/Molecules/Menus/ContextMenuAdd'
+import FormDialog from 'components/Atoms/Dialogs/FormDialog'
+import AddFolderForm from 'components/Molecules/Forms/Files/AddFolderForm'
 interface Key {
   key: string
   size: number
 }
 
-const S3Display = ({ ticket }: { ticket: AmplifyUser }) => {
+const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
   const bucketName: Bucket = 'rs-files'
-
-  const folders: DropdownItem[] = [
-    {
-      text: 'home',
-      value: `${ticket.email}/home`,
-    },
-    {
-      text: 'notes',
-      value: `${ticket.email}/notes`,
-    },
-    {
-      text: 'music',
-      value: `${ticket.email}/music`,
-    },
-    {
-      text: 'pictures',
-      value: `${ticket.email}/pictures`,
-    },
-  ]
-  const [selectedFolder, setSelectedFolder] = React.useState(folders[0])
+  const folders = userProfile.settings?.folders ?? []
+  const [selectedFolder, setSelectedFolder] = React.useState(folders.length > 0 ? folders[0] : getDefaultFolders(userProfile)[0])
+  const [showAddFolderForm, setShowAddFolderForm] = React.useState(false)
 
   const mutateKey = `/api/baseRoute?id=s3FileList${selectedFolder.value}`
 
   const buildFilesAndFolders = (items: S3Object[]) => {
     const result: S3Object[] = []
     items.forEach((item) => {
-      var count = (item.fullPath.match(/[/]/g) || []).length
       const isInFolder = item.fullPath.endsWith('/')
       const fileName = !isInFolder ? item.fullPath.substring(item.fullPath.lastIndexOf('/') + 1) : item.fullPath.substring(item.fullPath.lastIndexOf('/'))
       if (!isInFolder) {
@@ -60,9 +46,6 @@ const S3Display = ({ ticket }: { ticket: AmplifyUser }) => {
   }
 
   const dataFn = async () => {
-    if (!ticket) {
-      return []
-    }
     const response = await get('/api/s3', { bucket: bucketName, prefix: selectedFolder.value })
     const result = JSON.parse(response) as Key[]
 
@@ -86,8 +69,6 @@ const S3Display = ({ ticket }: { ticket: AmplifyUser }) => {
     if (item.prefix !== selectedFolder.value) {
       const oldPath = item.fullPath
       const newPath = `${selectedFolder.value}${item.fullPath.substring(item.fullPath.lastIndexOf('/'))}`
-      console.log('oldPath: ', oldPath)
-      console.log('newPath: ', newPath)
       await renameS3File(item.bucket, oldPath, newPath)
     }
 
@@ -98,15 +79,30 @@ const S3Display = ({ ticket }: { ticket: AmplifyUser }) => {
     setSelectedFolder(folders.find((m) => m.value === id)!)
     mutate(mutateKey)
   }
+
+  const menu: ContextMenuItem[] = [
+    {
+      fn: () => {
+        setShowAddFolderForm(!showAddFolderForm)
+      },
+      item: <ContextMenuAdd text='add folder'></ContextMenuAdd>,
+    },
+  ]
+
   return (
     <>
       {error && <ErrorMessage text={'Opps! An error has occured. Please try refreshing the page.'} />}
       {isLoading && <BackdropLoader />}
-      <Box display={'flex'} gap={2} alignItems={'center'}>
-        <Typography>folder: </Typography>
-        <DropdownList options={folders} selectedOption={selectedFolder.value} onOptionSelected={handleFolderChange} />
+      <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+        <Box display={'flex'} gap={2} alignItems={'center'}>
+          <Typography>folder: </Typography>
+          <DropdownList options={folders} selectedOption={selectedFolder.value} onOptionSelected={handleFolderChange} />
+        </Box>
+        {/* <ContextMenu items={menu} /> */}
       </Box>
-      <S3FileUploadForm onUploaded={handleUploaded} />
+      <Box pt={2}>
+        <S3FileUploadForm onUploaded={handleUploaded} />
+      </Box>
       <Box py={2}>{data && <S3FilesTable data={data} onMutated={() => mutate(mutateKey)} />}</Box>
       {!isLoading && data && data.length === 0 && (
         <>
@@ -116,6 +112,9 @@ const S3Display = ({ ticket }: { ticket: AmplifyUser }) => {
           </CenterStack>
         </>
       )}
+      <FormDialog title={'folder'} show={showAddFolderForm} onCancel={() => setShowAddFolderForm(false)}>
+        <AddFolderForm onCancel={() => setShowAddFolderForm(false)} />
+      </FormDialog>
     </>
   )
 }

@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import { DropdownItem } from 'lib/models/dropdown'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
@@ -115,6 +116,28 @@ export async function getUserNotes(username: string) {
   return notes
 }
 
+export const getDefaultFolders = (userProfile: UserProfile) => {
+  const folders: DropdownItem[] = [
+    {
+      text: 'home',
+      value: `${userProfile.username}/home`,
+    },
+    {
+      text: 'notes',
+      value: `${userProfile.username}/notes`,
+    },
+    {
+      text: 'music',
+      value: `${userProfile.username}/music`,
+    },
+    {
+      text: 'pictures',
+      value: `${userProfile.username}/pictures`,
+    },
+  ]
+  return folders
+}
+
 export async function getUserProfile(username: string) {
   let result: UserProfile | null = null
   const key = constructUserProfileKey(username)
@@ -125,6 +148,14 @@ export async function getUserProfile(username: string) {
 
     if (data) {
       let parsed = data as UserProfile
+      if (!parsed.settings) {
+        parsed.settings = {
+          folders: getDefaultFolders(parsed),
+        }
+      }
+      if (!parsed.settings.folders) {
+        parsed.settings.folders = getDefaultFolders(parsed)
+      }
       return parsed
     }
   } catch (err) {

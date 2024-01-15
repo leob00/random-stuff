@@ -26,7 +26,19 @@ const Page = () => {
     },
   ]
   const [selectedTab, setSelectedTab] = React.useState(tabs[0].title)
-  const { ticket } = useUserController()
+  const { authProfile, fetchProfilePassive, setProfile } = useUserController()
+
+  React.useEffect(() => {
+    const fn = async () => {
+      if (!authProfile) {
+        const newProfile = await fetchProfilePassive()
+        if (newProfile) {
+          setProfile(newProfile)
+        }
+      }
+    }
+    fn()
+  }, [authProfile])
 
   const handleSetTab = (tab: TabInfo) => {
     setSelectedTab(tab.title)
@@ -41,7 +53,7 @@ const Page = () => {
         <TabList tabs={tabs} onSetTab={handleSetTab} />
         <Box p={2}>
           {selectedTab === 'New' && <Playground />}
-          {selectedTab === 'S3' && <>{ticket ? <S3Display ticket={ticket} /> : <PleaseLogin />}</>}
+          {selectedTab === 'S3' && <>{authProfile ? <S3Display userProfile={authProfile} /> : <PleaseLogin />}</>}
           {selectedTab === 'Batch Post' && <PostBatch />}
         </Box>
       </ResponsiveContainer>

@@ -31,7 +31,6 @@ const PositionFieldsSchema = z.object({
     .min(1)
     .refine((val: any) => checkPrice(val), { message: 'Please enter a valid price' }),
   type: z.string(),
-  //date: z.string(),
   date: z.preprocess((arg: any) => (typeof arg == 'object' ? dayjs(arg).format() : null), z.string().nullable()),
 })
 
@@ -66,7 +65,7 @@ const AddPositionForm = ({
   const [isLoading, setIsLoading] = React.useState(false)
   const [selectedQuote, setSelectedQuote] = React.useState<StockQuote | null>(null)
 
-  const onSubmit: SubmitHandler<PositionFields> = (formData: PositionFields) => {
+  const onSubmit: SubmitHandler<PositionFields> = (formData) => {
     setIsLoading(true)
     const submitData = { ...formData }
     onSubmitted(submitData, selectedQuote!)
