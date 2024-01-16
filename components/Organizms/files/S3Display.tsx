@@ -2,24 +2,20 @@ import { Alert, Box, Typography } from '@mui/material'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import { Bucket, S3Object, UserProfile } from 'lib/backend/api/aws/apiGateway'
 import { get } from 'lib/backend/api/fetchFunctions'
-import { AmplifyUser } from 'lib/backend/auth/userUtil'
 import { DropdownItem } from 'lib/models/dropdown'
 import { sortArray } from 'lib/util/collections'
 import React from 'react'
-import useSWR, { mutate } from 'swr'
+import { mutate } from 'swr'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import S3FileUploadForm from 'components/Molecules/Forms/S3FileUploadForm'
-import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import S3FilesTable from './S3FilesTable'
 import { useSwrHelper } from 'hooks/useSwrHelper'
-import { getDefaultFolders, renameS3File } from 'lib/backend/csr/nextApiWrapper'
+import { getDefaultFolders, putUserProfile, renameS3File } from 'lib/backend/csr/nextApiWrapper'
 import CenterStack from 'components/Atoms/CenterStack'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
-import ContextMenuAdd from 'components/Molecules/Menus/ContextMenuAdd'
-import FormDialog from 'components/Atoms/Dialogs/FormDialog'
-import AddFolderForm from 'components/Molecules/Forms/Files/AddFolderForm'
+import FolderActions from './FolderActions'
+import { useUserController } from 'hooks/userController'
 interface Key {
   key: string
   size: number
@@ -27,11 +23,13 @@ interface Key {
 
 const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
   const bucketName: Bucket = 'rs-files'
-  const folders = userProfile.settings?.folders ?? []
-  const [selectedFolder, setSelectedFolder] = React.useState(folders.length > 0 ? folders[0] : getDefaultFolders(userProfile)[0])
-  const [showAddFolderForm, setShowAddFolderForm] = React.useState(false)
+  const userFolders = userProfile.settings?.folders ?? []
+  const [selectedFolder, setSelectedFolder] = React.useState(userFolders.length > 0 ? userFolders[0] : getDefaultFolders(userProfile)[0])
+  const [allFolders, setAllFolders] = React.useState(userFolders)
 
   const mutateKey = `/api/baseRoute?id=s3FileList${selectedFolder.value}`
+
+  const { setProfile } = useUserController()
 
   const buildFilesAndFolders = (items: S3Object[]) => {
     const result: S3Object[] = []
@@ -76,18 +74,38 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
   }
 
   const handleFolderChange = (id: string) => {
-    setSelectedFolder(folders.find((m) => m.value === id)!)
+    setSelectedFolder(allFolders.find((m) => m.value === id)!)
     mutate(mutateKey)
   }
+  const handleFolderAdd = async (name: string) => {
+    const newFolders = [...allFolders]
+    const newItem: DropdownItem = {
+      text: name,
+      value: `${userProfile.username}/${name}`,
+    }
+    newFolders.push(newItem)
 
-  const menu: ContextMenuItem[] = [
-    {
-      fn: () => {
-        setShowAddFolderForm(!showAddFolderForm)
-      },
-      item: <ContextMenuAdd text='add folder'></ContextMenuAdd>,
-    },
-  ]
+    const newProfile = { ...userProfile }
+    const sorted = sortArray(newFolders, ['text'], ['asc'])
+    newProfile.settings!.folders = sorted
+    await setProfile(newProfile)
+    setAllFolders(newFolders)
+    setSelectedFolder(newItem)
+    mutate(mutateKey)
+  }
+  const handleFolderDelete = async (item: DropdownItem) => {
+    const newFolders = [...allFolders].filter((m) => m.text !== item.text)
+
+    const newProfile = { ...userProfile }
+    const sorted = sortArray(newFolders, ['text'], ['asc'])
+    newProfile.settings!.folders = sorted
+    setAllFolders(sorted)
+    setSelectedFolder(sorted[0])
+    await putUserProfile(newProfile)
+    setProfile(newProfile)
+
+    mutate(`/api/baseRoute?id=s3FileList${sorted[0].value}`)
+  }
 
   return (
     <>
@@ -96,13 +114,19 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
         <Box display={'flex'} gap={2} alignItems={'center'}>
           <Typography>folder: </Typography>
-          <DropdownList options={folders} selectedOption={selectedFolder.value} onOptionSelected={handleFolderChange} />
+          {!isLoading && <DropdownList options={allFolders} selectedOption={selectedFolder.value} onOptionSelected={handleFolderChange} fullWidth />}
         </Box>
-        {/* <ContextMenu items={menu} /> */}
+        {data && (
+          <FolderActions
+            folders={allFolders}
+            onFolderAdded={handleFolderAdd}
+            items={data}
+            selectedFolder={selectedFolder}
+            onFolderDeleted={handleFolderDelete}
+          />
+        )}
       </Box>
-      <Box pt={2}>
-        <S3FileUploadForm onUploaded={handleUploaded} />
-      </Box>
+      <Box pt={2}>{!isLoading && <S3FileUploadForm onUploaded={handleUploaded} />}</Box>
       <Box py={2}>{data && <S3FilesTable data={data} onMutated={() => mutate(mutateKey)} />}</Box>
       {!isLoading && data && data.length === 0 && (
         <>
@@ -112,9 +136,6 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
           </CenterStack>
         </>
       )}
-      <FormDialog title={'folder'} show={showAddFolderForm} onCancel={() => setShowAddFolderForm(false)}>
-        <AddFolderForm onCancel={() => setShowAddFolderForm(false)} />
-      </FormDialog>
     </>
   )
 }

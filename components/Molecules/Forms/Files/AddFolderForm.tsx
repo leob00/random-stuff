@@ -7,25 +7,32 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import { DropdownItem } from 'lib/models/dropdown'
 
-const checkName = (val: any) => {
-  const text = String(val)
-  if (text.includes('/') || text.includes('.')) {
+const AddFolderForm = ({ folders, onCancel, onSubmitted }: { folders: DropdownItem[]; onCancel: () => void; onSubmitted: (name: string) => void }) => {
+  const checkSpecialChars = (val: string) => {
+    if (val.includes('/') || val.includes('.')) {
+      return false
+    }
+    return true
+  }
+  const checkName = (val: any) => {
+    if (!folders.find((m) => m.text.toLowerCase() === val.toLowerCase())) {
+      return true
+    }
     return false
   }
-  return true
-}
 
-const FolderFieldsSchema = z.object({
-  name: z
-    .string()
-    .min(1)
-    .refine((val: any) => checkName(val), { message: 'Please enter a valid name' }),
-})
+  const FolderFieldsSchema = z.object({
+    name: z
+      .string()
+      .min(1)
+      .refine((val) => checkSpecialChars(val), { message: 'Please use alpha-numeric characters.' })
+      .refine((val) => checkName(val), { message: 'Folder already exists' }),
+  })
 
-export type FolderFields = z.infer<typeof FolderFieldsSchema>
+  type FolderFields = z.infer<typeof FolderFieldsSchema>
 
-const AddFolderForm = ({ onCancel }: { onCancel: () => void }) => {
   const {
     control,
     register,
@@ -34,6 +41,7 @@ const AddFolderForm = ({ onCancel }: { onCancel: () => void }) => {
     formState: { errors },
   } = useForm<FolderFields>({
     resolver: zodResolver(FolderFieldsSchema),
+    mode: 'onTouched',
   })
   const theme = useTheme()
   const [isLoading, setIsLoading] = React.useState(false)
@@ -41,7 +49,7 @@ const AddFolderForm = ({ onCancel }: { onCancel: () => void }) => {
   const onSubmit: SubmitHandler<FolderFields> = (formData) => {
     setIsLoading(true)
     const submitData = { ...formData }
-    console.log(submitData)
+    onSubmitted(submitData.name)
   }
 
   return (

@@ -77,3 +77,4 @@ export const useUserController = () => {
     },
   }
 }
+export type UserController = ReturnType<typeof useUserController>
