@@ -136,7 +136,7 @@ const S3FilesTable = ({
       {itemToDelete && (
         <ConfirmDeleteDialog
           show={true}
-          text={`Are you sure you want to delete ${itemToDelete.fullPath}?`}
+          text={`Are you sure you want to delete ${itemToDelete.filename}?`}
           onCancel={() => setItemToDelete(null)}
           onConfirm={handleConfirmDelete}
         />

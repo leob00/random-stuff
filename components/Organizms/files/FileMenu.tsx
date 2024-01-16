@@ -29,7 +29,7 @@ const FileMenu = ({
     fn: () => onRename?.(item),
   })
   menu.push({
-    item: <ContextMenuDelete />,
+    item: <ContextMenuDelete text={'delete'} />,
     fn: () => onDelete(item),
   })
   return <ContextMenu items={menu} />

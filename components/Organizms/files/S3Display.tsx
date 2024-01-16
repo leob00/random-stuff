@@ -16,6 +16,7 @@ import CenterStack from 'components/Atoms/CenterStack'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import FolderActions from './FolderActions'
 import { useUserController } from 'hooks/userController'
+import S3FolderDropDown from './S3FolderDropDown'
 interface Key {
   key: string
   size: number
@@ -26,6 +27,7 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
   const userFolders = userProfile.settings?.folders ?? []
   const [selectedFolder, setSelectedFolder] = React.useState(userFolders.length > 0 ? userFolders[0] : getDefaultFolders(userProfile)[0])
   const [allFolders, setAllFolders] = React.useState(userFolders)
+  const [isWaiting, setIsWaiting] = React.useState(false)
 
   const mutateKey = `/api/baseRoute?id=s3FileList${selectedFolder.value}`
 
@@ -46,7 +48,6 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
   const dataFn = async () => {
     const response = await get('/api/s3', { bucket: bucketName, prefix: selectedFolder.value })
     const result = JSON.parse(response) as Key[]
-
     const items: S3Object[] = result.map((m) => {
       return {
         bucket: bucketName,
@@ -58,18 +59,19 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
       }
     })
     const results = buildFilesAndFolders(items)
-    return sortArray(results, ['isFolder'], ['desc'])
+    return sortArray(results, ['filename'], ['asc'])
   }
 
   const { data, isLoading, error } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
   const handleUploaded = async (item: S3Object) => {
     if (item.prefix !== selectedFolder.value) {
+      setIsWaiting(true)
       const oldPath = item.fullPath
       const newPath = `${selectedFolder.value}${item.fullPath.substring(item.fullPath.lastIndexOf('/'))}`
       await renameS3File(item.bucket, oldPath, newPath)
     }
-
+    setIsWaiting(false)
     mutate(mutateKey)
   }
 
@@ -89,21 +91,23 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
     const sorted = sortArray(newFolders, ['text'], ['asc'])
     newProfile.settings!.folders = sorted
     await setProfile(newProfile)
-    setAllFolders(newFolders)
+    setAllFolders(sorted)
     setSelectedFolder(newItem)
     mutate(mutateKey)
   }
   const handleFolderDelete = async (item: DropdownItem) => {
+    setIsWaiting(true)
     const newFolders = [...allFolders].filter((m) => m.text !== item.text)
 
     const newProfile = { ...userProfile }
     const sorted = sortArray(newFolders, ['text'], ['asc'])
     newProfile.settings!.folders = sorted
-    setAllFolders(sorted)
-    setSelectedFolder(sorted[0])
+
     await putUserProfile(newProfile)
     setProfile(newProfile)
-
+    setAllFolders(sorted)
+    setSelectedFolder(sorted[0])
+    setIsWaiting(false)
     mutate(`/api/baseRoute?id=s3FileList${sorted[0].value}`)
   }
 
@@ -111,11 +115,9 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
     <>
       {error && <ErrorMessage text={'Opps! An error has occured. Please try refreshing the page.'} />}
       {isLoading && <BackdropLoader />}
+      {isWaiting && <BackdropLoader />}
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-        <Box display={'flex'} gap={2} alignItems={'center'}>
-          <Typography>folder: </Typography>
-          {!isLoading && <DropdownList options={allFolders} selectedOption={selectedFolder.value} onOptionSelected={handleFolderChange} fullWidth />}
-        </Box>
+        <S3FolderDropDown folders={allFolders} folder={selectedFolder} onFolderSelected={handleFolderChange} />
         {data && (
           <FolderActions
             folders={allFolders}
@@ -126,9 +128,9 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
           />
         )}
       </Box>
-      <Box pt={2}>{!isLoading && <S3FileUploadForm onUploaded={handleUploaded} />}</Box>
+      <Box pt={2}>{!isLoading && !isWaiting && <S3FileUploadForm onUploaded={handleUploaded} />}</Box>
       <Box py={2}>{data && <S3FilesTable data={data} onMutated={() => mutate(mutateKey)} />}</Box>
-      {!isLoading && data && data.length === 0 && (
+      {!isLoading && !isWaiting && data && data.length === 0 && (
         <>
           <HorizontalDivider />
           <CenterStack sx={{ py: 2 }}>
