@@ -4,7 +4,7 @@ import { BasicArticle } from 'lib/model'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { DropdownItem } from 'lib/models/dropdown'
 import { apiConnection } from '../config'
-import { get, post, postBody, postDelete } from '../fetchFunctions'
+import { get, post, postBody } from '../fetchFunctions'
 import { StockAlertSubscription, StockQuote } from '../models/zModels'
 import { constructStockAlertsSubSecondaryKey } from './util'
 

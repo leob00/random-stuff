@@ -2,7 +2,6 @@ import dayjs from 'dayjs'
 import { DropdownItem } from 'lib/models/dropdown'
 import { UserNote } from 'lib/models/randomStuffModels'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
-import { sortArray } from 'lib/util/collections'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { isNull } from 'lodash'
 import { ApiError } from 'next/dist/server/api-utils'
@@ -137,7 +136,7 @@ export const getDefaultFolders = (userProfile: UserProfile) => {
       value: `${userProfile.username}/pictures`,
     },
   ]
-  return sortArray(folders, ['text'], ['asc'])
+  return folders
 }
 
 export async function getUserProfile(username: string) {

@@ -40,6 +40,7 @@ const Page = () => {
       setIsLoading(false)
     }
     fn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authProfile])
 
   const handleSetTab = (tab: TabInfo) => {
