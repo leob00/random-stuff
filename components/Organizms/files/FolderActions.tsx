@@ -63,7 +63,7 @@ const FolderActions = ({
       {deleteItem && (
         <ConfirmDeleteDialog
           show={true}
-          text={`Are your sure you ant to delete ${deleteItem.text}?`}
+          text={`Are you sure you want to delete ${deleteItem.text}?`}
           onConfirm={handleDeleteItem}
           onCancel={() => setDeleteItem(null)}
         />
