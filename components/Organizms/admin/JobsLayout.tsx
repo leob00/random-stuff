@@ -19,7 +19,7 @@ dayjs.extend(relativeTime)
 
 const JobsLayout = () => {
   const config = apiConnection().qln
-  const pollingIterval = 8
+  const pollingIterval = 8000
   const [selectedItem, setSelectedItem] = React.useState<Job | null>(null)
   const [isLoadingDetail, setIsLoadingDetail] = React.useState(false)
   const [error, setError] = React.useState(false)
