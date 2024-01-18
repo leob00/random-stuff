@@ -3,16 +3,22 @@ import React from 'react'
 export const usePolling = (intervalMilliseconds: number = 3000, restartAfter?: number, stopped?: boolean) => {
   const [pollCounter, setPollCounter] = React.useState(0)
   const [isStopped, setIsStopped] = React.useState(stopped ?? false)
+  const [isPaused, setIsPased] = React.useState(stopped ?? false)
   const timeOutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const stop = () => {
     setIsStopped(true)
     setPollCounter(0)
+    setIsPased(false)
   }
   const start = () => {
     setIsStopped(false)
+    setIsPased(false)
   }
-  const onEllapsed = () => {}
+
+  const pause = (paused: boolean) => {
+    setIsPased(paused)
+  }
 
   React.useEffect(() => {
     if (timeOutRef.current) {
@@ -27,7 +33,6 @@ export const usePolling = (intervalMilliseconds: number = 3000, restartAfter?: n
           }
         }
         setPollCounter(newCounter)
-        onEllapsed()
       }, intervalMilliseconds)
     }
   }, [pollCounter, isStopped])
@@ -35,8 +40,9 @@ export const usePolling = (intervalMilliseconds: number = 3000, restartAfter?: n
   return {
     pollCounter,
     isStopped,
+    isPaused,
     stop,
     start,
-    onEllapsed,
+    pause,
   }
 }
