@@ -45,6 +45,7 @@ const ListIterator = ({ items, pollingInterval = 250 }: { items: QueuedTask[]; p
       }
     }
     fn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isStopped, isPaused, pollCounter])
 
   return (

@@ -1,4 +1,4 @@
-import { SortDirection } from 'lib/backend/api/aws/apiGateway'
+import { SortDirection } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { chunk, findIndex, orderBy } from 'lodash'
 export interface Page {
   index: number

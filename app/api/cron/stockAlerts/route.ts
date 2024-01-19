@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { EmailMessage, sendEmail } from 'lib/backend/api/aws/apiGateway'
+import { sendEmail } from 'lib/backend/api/aws/apiGateway'
 import { buildStockAlertsForAllUsers } from 'lib/backend/alerts/stockAlertBulder'
+import { EmailMessage } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 export async function GET(req: NextRequest) {
   const authHeader = req.headers.get('authorization')

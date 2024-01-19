@@ -1,17 +1,15 @@
 import dayjs from 'dayjs'
 import { useUserController } from 'hooks/userController'
-import { UserPin, UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { UserPin, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import React, { ReactNode } from 'react'
 import EnterPinDialog from './EnterPinDialog'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { Box } from '@mui/material'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import CenterStack from 'components/Atoms/CenterStack'
-import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import { CasinoGrayTransparent } from 'components/themes/mainTheme'
 import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import CreatePinDialog from './CreatePinDialog'
-import PleaseLogin from 'components/Molecules/PleaseLogin'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 dayjs.extend(relativeTime)
 

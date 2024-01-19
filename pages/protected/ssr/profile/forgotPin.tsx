@@ -1,13 +1,14 @@
 import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
-import { getRandomStuff, UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { getRandomStuff } from 'lib/backend/api/aws/apiGateway'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import { AmplifyUser } from 'lib/backend/auth/userUtil'
 import { getUserSSR } from 'lib/backend/server-side/serverSideAuth'
 import { GetServerSideProps, NextPage } from 'next'
 import React from 'react'
 import SendPinLayout from 'components/Organizms/user/profile/SendPinLayout'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 interface PageProps {
   ticket: AmplifyUser | null

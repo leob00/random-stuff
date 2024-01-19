@@ -1,4 +1,4 @@
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { constructStockAlertsSubPrimaryKey, constructStockAlertsSubSecondaryKey } from 'lib/backend/api/aws/util'
 import { StockAlertSubscription, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 import { deleteRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'

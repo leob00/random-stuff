@@ -2,7 +2,7 @@ import { TextField, Box, Typography, Alert } from '@mui/material'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import WarmupBox from 'components/Atoms/WarmupBox'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { validateUserCSR } from 'lib/backend/auth/userUtil'
 import React from 'react'
 

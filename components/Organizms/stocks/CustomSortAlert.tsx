@@ -1,6 +1,5 @@
-import { Box, Alert, Button, AlertTitle, Typography, IconButton } from '@mui/material'
-import LinkButton from 'components/Atoms/Buttons/LinkButton'
-import { Sort } from 'lib/backend/api/aws/apiGateway'
+import { Box, Alert, Button, AlertTitle } from '@mui/material'
+import { Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { SortableStockKeys } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import CheckIcon from '@mui/icons-material/Check'

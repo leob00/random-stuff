@@ -5,7 +5,6 @@ import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import RecordExpirationWarning from 'components/Atoms/Text/RecordExpirationWarning'
 import dayjs from 'dayjs'
-import { UserNote } from 'lib/models/randomStuffModels'
 import React from 'react'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
 import NoteFiles from './notes/NoteFiles'
@@ -13,7 +12,7 @@ import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/Context
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import ContextMenuDelete from 'components/Molecules/Menus/ContextMenuDelete'
 import ContextMenuClose from 'components/Molecules/Menus/ContextMenuClose'
-import { S3Object } from 'lib/backend/api/aws/apiGateway'
+import { S3Object, UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 const ViewNote = ({
   selectedNote,

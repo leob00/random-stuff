@@ -1,7 +1,7 @@
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { CategoryType } from 'lib/backend/api/aws/apiGateway'
+import { CategoryType } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { orderBy } from 'lodash'
 import CommunityStocksLayout from 'components/Organizms/stocks/CommunityStocksLayout'
 import BackButton from 'components/Atoms/Buttons/BackButton'

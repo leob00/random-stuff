@@ -1,6 +1,5 @@
-import { useSessionSettings } from 'components/Organizms/session/useSessionSettings'
 import dayjs from 'dayjs'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { useAuthStore } from 'lib/backend/auth/useAuthStore'
 import { AmplifyUser, getUserCSR } from 'lib/backend/auth/userUtil'
 import { getUserProfile } from 'lib/backend/csr/nextApiWrapper'

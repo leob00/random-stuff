@@ -1,5 +1,4 @@
 import { Box, Button, Divider, Stack, Typography, Link } from '@mui/material'
-import { BasicArticle } from 'lib/model'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Download from '@mui/icons-material/Download'
@@ -7,6 +6,7 @@ import RemoteImage from './Atoms/RemoteImage'
 import loader from '../public/images/loaders/black-white-spinner.gif'
 import NImage from 'next/image'
 import HorizontalDivider from './Atoms/Dividers/HorizontalDivider'
+import { BasicArticle } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 const RandomAnimalLayout = ({
   data,

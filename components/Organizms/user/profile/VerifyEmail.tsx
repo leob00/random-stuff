@@ -2,7 +2,7 @@ import { Alert, Box, Typography } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { postBody } from 'lib/backend/api/fetchFunctions'
 import React from 'react'
 

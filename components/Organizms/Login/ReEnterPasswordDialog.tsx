@@ -1,7 +1,7 @@
 import Close from '@mui/icons-material/Close'
 import { Box, Dialog, DialogTitle, Stack, Button, DialogContent, DialogContentText } from '@mui/material'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import React from 'react'
 import ReEnterPassword from './ReEnterPassword'
 

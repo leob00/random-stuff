@@ -1,4 +1,4 @@
-import { BasicArticle } from 'lib/model'
+import { BasicArticle } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { getXkCd, XkCdResponse } from 'lib/repo'
 import type { NextApiRequest, NextApiResponse } from 'next'
 

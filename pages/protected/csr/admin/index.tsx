@@ -1,7 +1,7 @@
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import { useUserController } from 'hooks/userController'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 import { useRouter } from 'next/router'
 import React from 'react'

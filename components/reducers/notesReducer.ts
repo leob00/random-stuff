@@ -1,5 +1,4 @@
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
-import { UserNote } from 'lib/models/randomStuffModels'
+import { UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { filter, orderBy } from 'lodash'
 
 export interface UserNotesModel {

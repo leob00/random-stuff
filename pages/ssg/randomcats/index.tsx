@@ -1,6 +1,5 @@
 import React from 'react'
 import type { GetStaticProps, NextPage } from 'next'
-import { BasicArticle } from 'lib/model'
 import ArticlesLayout from 'components/Organizms/ArticlesLayout'
 import { shuffle } from 'lodash'
 import { buildRandomAnimals } from 'lib/backend/api/randomAnimalsApi'
@@ -11,6 +10,7 @@ import { Container } from '@mui/material'
 import Header from 'next/head'
 import { get } from 'lib/backend/api/fetchFunctions'
 import Seo from 'components/Organizms/Seo'
+import { BasicArticle } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 const cmsRefreshIntervalSeconds = 3600
 

@@ -1,10 +1,9 @@
-import { BasicArticle } from 'lib/model'
 import { CatResponse, DogResponse } from 'lib/repo'
 import fs from 'fs'
-import { RandomStuffData } from 'lib/models/randomStuffModels'
 import jsonData from '../../../public/data/randomStuff.json'
 import { cloneDeep } from 'lodash'
-import { DynamoKeys, putAnimals } from './aws/apiGateway'
+import { putAnimals } from './aws/apiGateway'
+import { BasicArticle, DynamoKeys, RandomStuffData } from './aws/models/apiGatewayModels'
 
 export async function getRandomDog() {
   let result: BasicArticle = {

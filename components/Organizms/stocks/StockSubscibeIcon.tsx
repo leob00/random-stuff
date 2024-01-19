@@ -1,5 +1,5 @@
 import { Box, Button, IconButton } from '@mui/material'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import React from 'react'
 import NotificationsOffIcon from '@mui/icons-material/NotificationsOff'
 import NotificationAddIcon from '@mui/icons-material/NotificationAdd'

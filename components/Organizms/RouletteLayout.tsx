@@ -13,12 +13,10 @@ import {
   CasinoGreenTransparent,
   CasinoOrangeTransparent,
   CasinoRedTransparent,
-  CasinoWhiteTransparent,
   ChartBackground,
   OceanBlue,
-  OceanBlueTransparent,
 } from 'components/themes/mainTheme'
-import { WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
+import { WheelSpinStats } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { translateCasinoColor } from 'lib/backend/charts/barChartMapper'
 import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
 import { getWheel, RouletteNumber, RouletteWheel } from 'lib/backend/roulette/wheel'

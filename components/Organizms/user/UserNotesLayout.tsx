@@ -1,13 +1,11 @@
 import { constructUserNoteTitlesKey } from 'lib/backend/api/aws/util'
 import { getUserNoteTitles } from 'lib/backend/csr/nextApiWrapper'
-import { UserNote } from 'lib/models/randomStuffModels'
 import React from 'react'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
 import useSWR, { mutate } from 'swr'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import UserNotesDisplay from './UserNotesDisplay'
+import { UserProfile, UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 const UserNotesLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const enc = encodeURIComponent(weakEncrypt(constructUserNoteTitlesKey(userProfile.username)))

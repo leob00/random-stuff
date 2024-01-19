@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { UserProfile } from '../api/aws/apiGateway'
+import { UserProfile } from '../api/aws/models/apiGatewayModels'
 import { AmplifyUser, Role } from './userUtil'
 
 interface UserAuthState {

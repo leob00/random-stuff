@@ -6,7 +6,7 @@ import useSWR, { mutate } from 'swr'
 import { useUserController } from 'hooks/userController'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import { getUserProfile } from 'lib/backend/csr/nextApiWrapper'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import CenterStack from 'components/Atoms/CenterStack'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 

@@ -1,6 +1,6 @@
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
-import { Sort, UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { Sort, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import useSWR, { mutate } from 'swr'
 import { get } from 'lib/backend/api/fetchFunctions'

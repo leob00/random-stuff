@@ -2,15 +2,15 @@ import { Box } from '@mui/material'
 import CenteredParagraph from 'components/Atoms/Text/CenteredParagraph'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
-import { LambdaBody, searchRandomStuffBySecIndex } from 'lib/backend/api/aws/apiGateway'
+import { LambdaBody } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { getUserSSR } from 'lib/backend/server-side/serverSideAuth'
 import { GetServerSideProps, NextPage } from 'next'
 import React from 'react'
 import { useRouter } from 'next/navigation'
-
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { AmplifyUser } from 'lib/backend/auth/userUtil'
+import { searchRandomStuffBySecIndex } from 'lib/backend/api/aws/apiGateway'
 
 interface PageProps {
   user: AmplifyUser

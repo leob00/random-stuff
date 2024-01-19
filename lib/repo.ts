@@ -1,4 +1,4 @@
-import type { BasicArticle } from 'lib/model'
+import { BasicArticle } from './backend/api/aws/models/apiGatewayModels'
 
 export interface DogResponse {
   message: string

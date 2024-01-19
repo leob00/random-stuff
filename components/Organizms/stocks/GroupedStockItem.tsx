@@ -1,7 +1,7 @@
 import { Box, Typography, useTheme } from '@mui/material'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import { DarkBlue, VeryLightBlueTransparent } from 'components/themes/mainTheme'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import React from 'react'
 import { StockGroup } from './GroupedStocksLayout'
 import { getPositiveNegativeColor } from './StockListItem'

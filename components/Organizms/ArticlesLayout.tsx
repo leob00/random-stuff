@@ -4,10 +4,10 @@ import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import Pager from 'components/Atoms/Pager'
 import RemoteImage from 'components/Atoms/RemoteImage'
-import { BasicArticle } from 'lib/model'
 import { getPagedItems } from 'lib/util/collections'
 import { cloneDeep, findLast } from 'lodash'
 import React, { useState } from 'react'
+import { BasicArticle } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 const ArticlesLayout = ({ articles }: { articles: BasicArticle[] }) => {
   const shuffled = cloneDeep(articles)

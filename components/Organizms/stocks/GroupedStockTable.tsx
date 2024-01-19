@@ -3,7 +3,7 @@ import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import React from 'react'
 import { StockGroup } from './GroupedStocksLayout'
 import GroupedStockItem from './GroupedStockItem'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 const GroupedStockTable = ({ result, userProfile }: { result: StockGroup[]; userProfile?: UserProfile | null }) => {
   return (

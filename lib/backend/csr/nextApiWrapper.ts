@@ -1,11 +1,19 @@
 import dayjs from 'dayjs'
 import { DropdownItem } from 'lib/models/dropdown'
-import { UserNote } from 'lib/models/randomStuffModels'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { isNull } from 'lodash'
 import { ApiError } from 'next/dist/server/api-utils'
-import { CategoryType, DynamoKeys, EmailMessage, LambdaBody, LambdaDynamoRequest, LambdaDynamoRequestBatch, S3Object, UserProfile } from '../api/aws/apiGateway'
+import {
+  UserNote,
+  LambdaDynamoRequest,
+  UserProfile,
+  LambdaBody,
+  DynamoKeys,
+  CategoryType,
+  LambdaDynamoRequestBatch,
+  EmailMessage,
+} from '../api/aws/models/apiGatewayModels'
 
 import {
   constructUserGoalTaksSecondaryKey,

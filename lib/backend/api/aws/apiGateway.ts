@@ -1,127 +1,28 @@
 import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
-import { BasicArticle } from 'lib/model'
-import { Recipe } from 'lib/models/cms/contentful/recipe'
-import { DropdownItem } from 'lib/models/dropdown'
 import { apiConnection } from '../config'
 import { get, post, postBody } from '../fetchFunctions'
 import { StockAlertSubscription, StockQuote } from '../models/zModels'
+import {
+  BasicArticle,
+  Bucket,
+  CategoryType,
+  CoinFlipStats,
+  DynamoKeys,
+  EmailMessage,
+  LambdaBody,
+  LambdaDynamoRequest,
+  LambdaDynamoRequestBatch,
+  LambdaResponse,
+  PresignedUrlPost,
+  RandomStuffPut,
+  S3Object,
+  WheelSpinStats,
+} from './models/apiGatewayModels'
 import { constructStockAlertsSubSecondaryKey } from './util'
-
-export type Bucket = 'rs-files'
-
-export type DynamoKeys =
-  | 'dogs'
-  | 'cats'
-  | 'coinflip-community'
-  | 'wheelspin-community'
-  | 'site-stats'
-  | 'community-stocks'
-  | 'user-stock_list'
-  | 'stockportfolio'
-  | 'email-template[stock-alert]'
-  | 'stocks-daily-market-sentiment'
 
 const connection = apiConnection().aws
 const apiGatewayUrl = connection.url
-//export const apiGatewayUrl = String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL)
-
-export type CategoryType = 'animals' | 'random' | 'userProfile' | 'community-stocks' | 'searched-stocks' | 'user-stock_list' | string
-
-export interface RandomStuffPut {
-  key: DynamoKeys | string
-  data: BasicArticle[] | CoinFlipStats
-  category: CategoryType
-  expiration?: number
-}
-
-export interface LambdaDynamoRequest {
-  id: string
-  category: CategoryType | string
-  data: any
-  expiration: number
-  token?: string
-}
-
-export interface LambdaDynamoRequestBatch {
-  records: LambdaDynamoRequest[]
-}
-
-export interface LambdaResponse {
-  statusCode: number
-  body: LambdaBody
-}
-export interface LambdaListResponse {
-  statusCode: number
-  body: LambdaBody[]
-}
-export interface LambdaBody {
-  count?: number
-  key?: string
-  category?: string
-  data: string
-  last_modified?: string
-  expiration?: number
-}
-
-export interface CoinFlipStats {
-  heads: number
-  tails: number
-}
-export interface WheelSpinStats {
-  total: number
-  red: number
-  black: number
-  zero: number
-  doubleZero: number
-  odd: number
-  even: number
-}
-
-export interface UserPin {
-  pin: string
-  lastEnterDate: string
-}
-export type SortDirection = 'asc' | 'desc'
-
-export type Sort = {
-  key: string
-  direction: 'asc' | 'desc'
-}
-
-export interface UserSettings {
-  lastPath?: string
-  news?: {
-    lastNewsType?: string
-  }
-  stocks?: {
-    defaultView?: 'flat' | 'grouped'
-    sort?: {
-      grouped: {
-        main: Sort[]
-        inside: Sort[]
-      }
-    }
-    customSort?: Sort[]
-  }
-  folders?: DropdownItem[]
-}
-
-export interface UserProfile {
-  id: string
-  username: string
-  secKey?: string
-  pin?: UserPin
-  emailVerified?: boolean
-  settings?: UserSettings
-}
-
-export interface SiteStats {
-  recipes: {
-    lastRefreshDate: string
-    featured: Recipe[]
-  }
-}
 
 export async function hello(name: string) {
   const url = `${apiGatewayUrl}/hello?name=${name}`
@@ -193,17 +94,7 @@ export async function getS3ObjectPresignedUrl(bucket: string, fullPath: string, 
   }
   return []
 }
-export interface PresignedUrlPost {
-  url: string
-  fields: {
-    'Content-Type': string
-    key: string
-    AWSAccessKeyId: string
-    'x-amz-security-token': string
-    policy: string
-    signature: string
-  }
-}
+
 export async function getS3ObjectPresignedUrlForWrite(bucket: string, fullPath: string, expirationInSeconds: number, contentType: string) {
   const url = `${apiGatewayUrl}/s3/presignedUrlWrite`
   try {
@@ -400,12 +291,6 @@ export async function getWheelSpinStats() {
   return item
 }
 
-export interface EmailMessage {
-  to: string
-  subject: string
-  html: string
-}
-
 export async function sendEmail(message: EmailMessage) {
   const url = `${apiGatewayUrl}/sendemail`
   const response = (await post(url, message)) as LambdaResponse
@@ -444,14 +329,35 @@ export async function putS3(bucket: Bucket, prefix: string, filename: string, mi
   }
 }
 // TODO: not implemented
-export async function putS3Large(bucket: Bucket, filename: string, fullPath: string, signedUrl: PresignedUrlPost, mimeType: string, body: any) {
+export async function putS3Large(bucket: Bucket, filename: string, fullPath: string, signedUrl: PresignedUrlPost, mimeType: string, fileStream: any) {
   try {
-    const url = `${signedUrl.url}?Content-Type=${signedUrl.fields['Content-Type']}&key=/${signedUrl.fields.key}&AWSAccessKeyId=${signedUrl.fields.AWSAccessKeyId}&x-amz-security-token=${signedUrl.fields['x-amz-security-token']}&policy=${signedUrl.fields.policy}&signature=${signedUrl.fields.signature}`
-    const response = await fetch(url, {
-      method: 'PUT',
-      body: body,
+    //const url = `${signedUrl.url}?Content-Type=${signedUrl.fields['Content-Type']}&key=/${signedUrl.fields.key}&AWSAccessKeyId=${signedUrl.fields.AWSAccessKeyId}&x-amz-security-token=${signedUrl.fields['x-amz-security-token']}&policy=${signedUrl.fields.policy}&signature=${signedUrl.fields.signature}`
+    // const req: RequestInfo = {
+    //   url: signedUrl.url,
+    //   formData: body,
+    //   headers: {}
+    // }
+    const formData = new FormData()
+
+    // formData.append('Content-Type', signedUrl.fields['Content-Type'])
+    //
+    Object.entries({ ...signedUrl.fields }).forEach(([key, value]) => {
+      formData.append(key, value)
+    })
+    // formData.append('key', signedUrl.fields.key)
+    // formData.append('Content-Type', signedUrl.fields['Content-Type'])
+    // formData.append('AWSAccessKeyId', signedUrl.fields.AWSAccessKeyId)
+    // formData.append('policy', signedUrl.fields.policy)
+    // formData.append('key', signedUrl.fields.key)
+    // formData.append('signature', signedUrl.fields.signature)
+    // formData.append('x-amz-security-token', signedUrl.fields['x-amz-security-token'])
+    formData.append('file', fileStream)
+    const response = await fetch(signedUrl.url, {
+      method: 'POST',
+      body: formData,
+
       //headers: {signedUrl.},
-      //headers: signedUrl.fields,
+      headers: { 'Content-Type': 'multipart/form-data' },
     })
     const result: S3Object = {
       bucket: bucket,
@@ -462,8 +368,8 @@ export async function putS3Large(bucket: Bucket, filename: string, fullPath: str
     if (response.status === 413) {
       result.message = 'File is too large'
     }
-    if (response.status === 403) {
-      console.log('response: ', response.status)
+    if (response.status !== 200) {
+      console.log('response: ', response.statusText)
     }
 
     return result
@@ -529,14 +435,4 @@ export interface StockPortfolio {
   id: string
   name: string
   gainLoss?: number
-}
-
-export interface S3Object {
-  bucket: Bucket
-  prefix: string
-  filename: string
-  isFolder?: boolean
-  size?: number
-  message?: string
-  fullPath: string
 }

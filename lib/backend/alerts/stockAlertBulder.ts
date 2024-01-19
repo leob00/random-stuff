@@ -1,4 +1,5 @@
-import { DynamoKeys, EmailMessage, getRandomStuff, searchRandomStuffBySecIndex, updateSubscriptions, UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { getRandomStuff, searchRandomStuffBySecIndex, updateSubscriptions } from 'lib/backend/api/aws/apiGateway'
+import { UserProfile, DynamoKeys, EmailMessage } from '../api/aws/models/apiGatewayModels'
 import { constructStockAlertsSubSecondaryKey } from '../api/aws/util'
 import { StockAlertSubscription, StockAlertSubscriptionWithMessage } from '../api/models/zModels'
 import { getStockQuotes } from '../api/qln/qlnApi'

@@ -1,12 +1,10 @@
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import WarmupBox from 'components/Atoms/WarmupBox'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import Seo from 'components/Organizms/Seo'
 import UserGoalsLayout from 'components/Organizms/user/goals/UserGoalsLayout'
 import { useUserController } from 'hooks/userController'
-import { UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import React from 'react'
 
 const Page = () => {

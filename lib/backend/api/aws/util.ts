@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import { getGuid } from 'lib/backend/encryption/useEncryptor'
 import { getSecondsFromEpoch } from 'lib/util/dateUtil'
-import { DynamoKeys } from './apiGateway'
+import { DynamoKeys } from './models/apiGatewayModels'
 dayjs.extend(utc)
 export function constructUserProfileKey(username: string) {
   return `user-profile[${username}]`

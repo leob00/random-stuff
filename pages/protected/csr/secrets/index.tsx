@@ -6,7 +6,7 @@ import PleaseLogin from 'components/Molecules/PleaseLogin'
 import CreatePinDialog from 'components/Organizms/Login/CreatePinDialog'
 import SecretsLayout from 'components/Organizms/user/secrets/SecretsLayout'
 import { useUserController } from 'hooks/userController'
-import { UserPin } from 'lib/backend/api/aws/apiGateway'
+import { UserPin } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { AmplifyUser, getUserCSR } from 'lib/backend/auth/userUtil'
 import React from 'react'
 

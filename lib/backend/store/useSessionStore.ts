@@ -2,7 +2,7 @@ import { Navigation } from 'components/Organizms/session/useRouteTracker'
 import dayjs from 'dayjs'
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import { Sort } from '../api/aws/apiGateway'
+import { Sort } from '../api/aws/models/apiGatewayModels'
 import { Claim } from '../auth/userUtil'
 
 interface CommunityStocksSettings {

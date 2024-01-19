@@ -1,11 +1,9 @@
 import { Box } from '@mui/material'
 import S3FilesTable from 'components/Organizms/files/S3FilesTable'
-import { S3Object } from 'lib/backend/api/aws/apiGateway'
 import React from 'react'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuAttach from 'components/Molecules/Menus/ContextMenuAttach'
-import FormDialog from 'components/Atoms/Dialogs/FormDialog'
-import S3FileUploadForm from 'components/Molecules/Forms/S3FileUploadForm'
+import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 const NoteFiles = ({ files, onMutated }: { files?: S3Object[]; onMutated: (items: S3Object[]) => void }) => {
   const [showAddFile, setShowAddFile] = React.useState(false)

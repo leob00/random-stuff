@@ -1,9 +1,8 @@
 import { Box } from '@mui/material'
-import JsonView from 'components/Atoms/Boxes/JsonView'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { useSwrHelper } from 'hooks/useSwrHelper'
-import { CategoryType, DynamoKeys, UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { searchRecords } from 'lib/backend/csr/nextApiWrapper'
 import React from 'react'
 

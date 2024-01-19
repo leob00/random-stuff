@@ -1,10 +1,8 @@
-import { LambdaListResponse, UserProfile } from './api/aws/apiGateway'
 import { apiConnection } from './api/config'
 require('dotenv').config()
 import axios from 'axios'
-import { constructStockAlertsSubSecondaryKey } from './api/aws/util'
 import { StockAlertSubscription } from './api/models/zModels'
-import { uniq } from 'lodash'
+import { UserProfile, LambdaListResponse } from './api/aws/models/apiGatewayModels'
 const conn = apiConnection()
 
 const profileSubMap = new Map<string, StockAlertSubscription[]>()

@@ -1,9 +1,8 @@
-import { ListItemText } from '@mui/material'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuDelete from 'components/Molecules/Menus/ContextMenuDelete'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import ContextMenuView from 'components/Molecules/Menus/ContextMenuView'
-import { S3Object } from 'lib/backend/api/aws/apiGateway'
+import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import React from 'react'
 
 const FileMenu = ({

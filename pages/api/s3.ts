@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getUserSSRApi } from 'lib/backend/server-side/serverSideAuth'
-import { Bucket, deleteS3Object, getS3ObjectPresignedUrl, listS3Objects, renameS3Object, S3Object } from 'lib/backend/api/aws/apiGateway'
+import { deleteS3Object, getS3ObjectPresignedUrl, listS3Objects, renameS3Object } from 'lib/backend/api/aws/apiGateway'
+import { Bucket, S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const user = await getUserSSRApi(req)

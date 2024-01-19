@@ -14,7 +14,7 @@ import {
   CasinoRedTransparent,
 } from 'components/themes/mainTheme'
 import { getRecord } from 'lib/backend/csr/nextApiWrapper'
-import { WheelSpinStats } from 'lib/backend/api/aws/apiGateway'
+import { WheelSpinStats } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { calculatePercent } from 'lib/util/numberUtil'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)

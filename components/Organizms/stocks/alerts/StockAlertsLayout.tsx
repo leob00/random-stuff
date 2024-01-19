@@ -5,7 +5,7 @@ import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useAlertsController } from 'hooks/stocks/alerts/useAlertsController'
 import { processAlertTriggers } from 'lib/backend/alerts/stockAlertProcessor'
-import { DynamoKeys, EmailMessage, LambdaDynamoRequest, LambdaDynamoRequestBatch, UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { DynamoKeys, EmailMessage, LambdaDynamoRequest, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { constructStockAlertsSubPrimaryKey, constructStockAlertsSubSecondaryKey } from 'lib/backend/api/aws/util'
 import { StockAlertSubscription, StockAlertSubscriptionWithMessage, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
@@ -21,7 +21,6 @@ import StockSubscriptionForm from './StockSubscriptionForm'
 import { saveTrigger } from 'lib/ui/alerts/stockAlertHelper'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import TableHeaderWithSearchWithinList from 'components/Atoms/Tables/TableHeaderWithSearchWithinList'
-import dayjs from 'dayjs'
 
 const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const alertsSearchhKey = constructStockAlertsSubSecondaryKey(userProfile.username)

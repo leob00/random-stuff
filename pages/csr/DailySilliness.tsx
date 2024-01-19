@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import RandomAnimalLayout from 'components/RandomAnimalLayout'
 import Layout from 'components/Layout'
-import { BasicArticle } from 'lib/model'
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
+import { BasicArticle } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 const DailySilliness: NextPage = () => {
   const [item, setItem] = useState<BasicArticle | null>(null)

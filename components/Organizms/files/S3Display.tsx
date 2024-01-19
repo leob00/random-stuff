@@ -1,6 +1,6 @@
 import { Alert, Box, Typography } from '@mui/material'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
-import { Bucket, S3Object, UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { Bucket, S3Object, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { get } from 'lib/backend/api/fetchFunctions'
 import { DropdownItem } from 'lib/models/dropdown'
 import { sortArray } from 'lib/util/collections'
@@ -65,13 +65,13 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
   const { data, isLoading, error } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
   const handleUploaded = async (item: S3Object) => {
-    if (item.prefix !== selectedFolder.value) {
-      setIsWaiting(true)
-      const oldPath = item.fullPath
-      const newPath = `${selectedFolder.value}${item.fullPath.substring(item.fullPath.lastIndexOf('/'))}`
-      await renameS3File(item.bucket, oldPath, newPath)
-    }
-    setIsWaiting(false)
+    // if (item.prefix !== selectedFolder.value) {
+    //   setIsWaiting(true)
+    //   const oldPath = item.fullPath
+    //   const newPath = `${selectedFolder.value}${item.fullPath.substring(item.fullPath.lastIndexOf('/'))}`
+    //   await renameS3File(item.bucket, oldPath, newPath)
+    // }
+    // setIsWaiting(false)
     mutate(mutateKey)
   }
 

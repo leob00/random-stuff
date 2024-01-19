@@ -4,13 +4,14 @@ import CenterStack from 'components/Atoms/CenterStack'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
-import { S3Object } from 'lib/backend/api/aws/apiGateway'
 import React from 'react'
 import { styled } from '@mui/material/styles'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import S3UploadInput from 'components/Organizms/files/S3UploadInput'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
+import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { renameS3File } from 'lib/backend/csr/nextApiWrapper'
 
 const S3FileUploadForm = ({ folder, onUploaded }: { folder: string; onUploaded: (item: S3Object) => void }) => {
   const [file, setFile] = React.useState<File | undefined>(undefined)
@@ -58,11 +59,16 @@ const S3FileUploadForm = ({ folder, onUploaded }: { folder: string; onUploaded: 
         if (respData.message) {
           setError(respData.message)
         }
-        setResponse(respData)
+
+        const oldPath = respData.fullPath
+        const newPath = `${folder}${respData.fullPath.substring(respData.fullPath.lastIndexOf('/'))}`
+        await renameS3File(respData.bucket, oldPath, newPath)
+        const result = { ...respData, fullPath: newPath, prefix: newPath.substring(0, newPath.lastIndexOf('/') + 1) }
+        setResponse(result)
+        onUploaded(result)
         setIsLoading(false)
         setUserFilename('')
         setFile(undefined)
-        onUploaded(respData)
       } catch (err) {
         setError('Oops! Encountered an error. Please try again')
         setFile(undefined)

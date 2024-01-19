@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { Sort } from 'lib/backend/api/aws/apiGateway'
+import { Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { orderBy } from 'lodash'
 import React from 'react'

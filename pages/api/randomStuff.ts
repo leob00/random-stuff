@@ -1,6 +1,5 @@
 import { getRandomStuff } from 'lib/backend/api/aws/apiGateway'
 import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
-import { authorizeGetRequest } from 'lib/backend/server-side/requestProcessor'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {

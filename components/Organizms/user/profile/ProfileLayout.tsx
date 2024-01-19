@@ -1,19 +1,16 @@
 import { Alert, Box, Typography } from '@mui/material'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
-import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import CreatePinDialog from 'components/Organizms/Login/CreatePinDialog'
 import ReEnterPasswordDialog from 'components/Organizms/Login/ReEnterPasswordDialog'
-import RequirePin from 'components/Organizms/Login/RequirePin'
 import { useUserController } from 'hooks/userController'
-import { UserPin, UserProfile } from 'lib/backend/api/aws/apiGateway'
+import { UserPin, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import React from 'react'
 import VerifyEmail from './VerifyEmail'
-import useSWR, { mutate } from 'swr'
+import useSWR from 'swr'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import { get } from 'lib/backend/api/fetchFunctions'
 import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
@@ -38,7 +35,15 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
 
     return result
   }
-  const { data: validatedProfile, isLoading, isValidating } = useSWR(key, ([url, key]) => fetcherFn(url, key), { revalidateOnFocus: !emailVerified, revalidateIfStale: !emailVerified, revalidateOnReconnect: !emailVerified })
+  const {
+    data: validatedProfile,
+    isLoading,
+    isValidating,
+  } = useSWR(key, ([url, key]) => fetcherFn(url, key), {
+    revalidateOnFocus: !emailVerified,
+    revalidateIfStale: !emailVerified,
+    revalidateOnReconnect: !emailVerified,
+  })
 
   const handleChangePinClick = () => {
     setShowPasswordEntry(true)
@@ -77,7 +82,14 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                 )}
               </Typography>
             </CenterStack>
-            <ReEnterPasswordDialog show={showPasswordEntry} title='Login' text='Please enter your password so you can set your pin.' userProfile={validatedProfile} onConfirm={handlePasswordValidated} onCancel={handleCancelChangePin} />
+            <ReEnterPasswordDialog
+              show={showPasswordEntry}
+              title='Login'
+              text='Please enter your password so you can set your pin.'
+              userProfile={validatedProfile}
+              onConfirm={handlePasswordValidated}
+              onCancel={handleCancelChangePin}
+            />
             <CreatePinDialog show={showPinEntry} userProfile={validatedProfile} onCancel={handleCancelChangePin} onConfirm={handlePinChanged} />
             <Box py={4}>
               <CenterStack>Settings</CenterStack>
