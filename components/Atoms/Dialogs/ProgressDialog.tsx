@@ -28,7 +28,14 @@ const ProgressDialog = ({
   }
 
   return (
-    <Dialog open={show} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description' maxWidth='lg' fullScreen={fullScreen}>
+    <Dialog
+      open={show}
+      onClose={handleClose}
+      aria-labelledby='alert-dialog-title'
+      aria-describedby='alert-dialog-description'
+      maxWidth='lg'
+      fullScreen={fullScreen}
+    >
       <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>
         <Stack display='flex' direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
           <Stack>{title}</Stack>
@@ -36,7 +43,7 @@ const ProgressDialog = ({
       </DialogTitle>
       <DialogContent>
         <DialogContentText id='alert-dialog-description' sx={{ pt: 3 }} color='primary'></DialogContentText>
-        <Box minHeight={300} minWidth={250}>
+        <Box minHeight={350} minWidth={250}>
           {children}
         </Box>
       </DialogContent>

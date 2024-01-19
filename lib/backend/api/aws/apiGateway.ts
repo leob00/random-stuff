@@ -193,6 +193,29 @@ export async function getS3ObjectPresignedUrl(bucket: string, fullPath: string, 
   }
   return []
 }
+export interface PresignedUrlPost {
+  url: string
+  fields: {
+    'Content-Type': string
+    key: string
+    AWSAccessKeyId: string
+    'x-amz-security-token': string
+    policy: string
+    signature: string
+  }
+}
+export async function getS3ObjectPresignedUrlForWrite(bucket: string, fullPath: string, expirationInSeconds: number, contentType: string) {
+  const url = `${apiGatewayUrl}/s3/presignedUrlWrite`
+  try {
+    const body = { bucket: bucket, fullPath: fullPath, contentType: contentType, expiration: expirationInSeconds }
+    const result = await post(url, body)
+    //console.log(result.body)
+    return JSON.parse(result.body) as PresignedUrlPost
+  } catch (err) {
+    console.error('error occurred in presignedurl: ', err)
+  }
+  return null
+}
 export async function listS3Objects(bucket: Bucket, prefix: string) {
   const url = `${apiGatewayUrl}/s3/list`
   try {
@@ -420,6 +443,36 @@ export async function putS3(bucket: Bucket, prefix: string, filename: string, mi
     return null
   }
 }
+// TODO: not implemented
+export async function putS3Large(bucket: Bucket, filename: string, fullPath: string, signedUrl: PresignedUrlPost, mimeType: string, body: any) {
+  try {
+    const url = `${signedUrl.url}?Content-Type=${signedUrl.fields['Content-Type']}&key=/${signedUrl.fields.key}&AWSAccessKeyId=${signedUrl.fields.AWSAccessKeyId}&x-amz-security-token=${signedUrl.fields['x-amz-security-token']}&policy=${signedUrl.fields.policy}&signature=${signedUrl.fields.signature}`
+    const response = await fetch(url, {
+      method: 'PUT',
+      body: body,
+      //headers: {signedUrl.},
+      //headers: signedUrl.fields,
+    })
+    const result: S3Object = {
+      bucket: bucket,
+      prefix: `${fullPath.substring(fullPath.lastIndexOf('/'))}`,
+      filename: filename,
+      fullPath: `${fullPath}`,
+    }
+    if (response.status === 413) {
+      result.message = 'File is too large'
+    }
+    if (response.status === 403) {
+      console.log('response: ', response.status)
+    }
+
+    return result
+  } catch (error) {
+    console.error('error in putS3: ', error)
+    return null
+  }
+}
+
 export async function getSesAttributes(username: string) {
   const response = (await postBody(`${apiGatewayUrl}/ses`, 'POST', { key: username })) as LambdaResponse
   return response.body

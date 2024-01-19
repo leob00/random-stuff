@@ -26568,6 +26568,10 @@
     "Symbol": "NRXP"
   },
   {
+    "Company": "NRX Pharmaceuticals, Inc. - Warrant",
+    "Symbol": "NRXPW"
+  },
+  {
     "Company": "Neuraxis Inc",
     "Symbol": "NRXS"
   },
@@ -36074,6 +36078,14 @@
   {
     "Company": "ProShares Trust",
     "Symbol": "TBF"
+  },
+  {
+    "Company": "ETF Series Solutions Trust",
+    "Symbol": "TBFC"
+  },
+  {
+    "Company": "ETF Series Solutions Trust",
+    "Symbol": "TBFG"
   },
   {
     "Company": "EA Series Trust",

@@ -1,4 +1,4 @@
-import { Stack, Typography, useTheme } from '@mui/material'
+import { Paper, Stack, Typography, useTheme } from '@mui/material'
 import { ChartBackground, DarkBlue } from 'components/themes/mainTheme'
 import React from 'react'
 import ContextMenu, { ContextMenuItem } from '../Menus/ContextMenu'
@@ -15,6 +15,7 @@ const ListHeader = ({
   onAdd,
   addText = 'add',
   backgroundColor,
+  elevation,
 }: {
   text: string
   item: any
@@ -24,6 +25,7 @@ const ListHeader = ({
   onAdd?: (item: any) => void
   addText?: string
   backgroundColor?: string
+  elevation?: number
 }) => {
   const theme = useTheme()
   const showContextMenu = onEdit !== undefined || onDelete !== undefined || onAdd !== undefined
@@ -56,21 +58,41 @@ const ListHeader = ({
 
   return (
     <Stack pt={1}>
-      <Stack sx={{ backgroundColor: backColor }} direction={'row'} flexGrow={1} px={2} alignItems={'center'}>
-        <Stack
-          py={1}
-          width={'100%'}
-          sx={{ cursor: 'pointer' }}
-          onClick={(e) => {
-            onClicked(item)
-          }}
-        >
-          <Typography textAlign={'left'} variant='h5' color='primary'>
-            {text}
-          </Typography>
+      {elevation ? (
+        <Paper elevation={elevation}>
+          <Stack sx={{ backgroundColor: backColor }} direction={'row'} flexGrow={1} px={2} alignItems={'center'}>
+            <Stack
+              py={1}
+              width={'100%'}
+              sx={{ cursor: 'pointer' }}
+              onClick={(e) => {
+                onClicked(item)
+              }}
+            >
+              <Typography textAlign={'left'} variant='h5' color='primary'>
+                {text}
+              </Typography>
+            </Stack>
+            <Stack>{showContextMenu && <ContextMenu items={contextMenu} />}</Stack>
+          </Stack>
+        </Paper>
+      ) : (
+        <Stack sx={{ backgroundColor: backColor }} direction={'row'} flexGrow={1} px={2} alignItems={'center'}>
+          <Stack
+            py={1}
+            width={'100%'}
+            sx={{ cursor: 'pointer' }}
+            onClick={(e) => {
+              onClicked(item)
+            }}
+          >
+            <Typography textAlign={'left'} variant='h5' color='primary'>
+              {text}
+            </Typography>
+          </Stack>
+          <Stack>{showContextMenu && <ContextMenu items={contextMenu} />}</Stack>
         </Stack>
-        <Stack>{showContextMenu && <ContextMenu items={contextMenu} />}</Stack>
-      </Stack>
+      )}
     </Stack>
   )
 }

@@ -54,11 +54,7 @@ const ListIterator = ({ items, pollingInterval = 250 }: { items: QueuedTask[]; p
       </Box>
       <ProgressDialog title='work in progress...' show={!isStopped} showActionButtons={false}>
         <>
-          {processingItem && (
-            <Paper>
-              <ListHeader item={processingItem} onClicked={() => {}} text={`${processingItem.description}`} />
-            </Paper>
-          )}
+          {processingItem && <ListHeader item={processingItem} onClicked={() => {}} text={`${processingItem.description}`} elevation={16} />}
           {stateItems.slice(0, 5).map((item) => (
             <Box key={item.id}>
               <ListHeader item={item} onClicked={() => {}} text={`${item.description}`} />

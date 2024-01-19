@@ -33,14 +33,15 @@ export async function get(url: string, params?: any) {
   }
 }
 
-export async function post(url: string, body: any) {
+export async function post(url: string, body: any, contentType: string = 'application/json') {
   const awsApiKey = String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_PUBLIC_KEY)
+
   try {
     const resp = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(body),
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': contentType,
         'x-api-key': awsApiKey,
         ApiKey: String(process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY),
       },

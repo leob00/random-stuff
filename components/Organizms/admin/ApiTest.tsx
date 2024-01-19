@@ -38,7 +38,7 @@ const apiOptions: DropdownItem[] = [
   },
   {
     text: 'upload',
-    value: '/api/upload',
+    value: '/api/s3upload',
   },
 ]
 

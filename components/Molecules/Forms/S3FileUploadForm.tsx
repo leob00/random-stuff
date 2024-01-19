@@ -12,7 +12,7 @@ import S3UploadInput from 'components/Organizms/files/S3UploadInput'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 
-const S3FileUploadForm = ({ onUploaded }: { onUploaded: (item: S3Object) => void }) => {
+const S3FileUploadForm = ({ folder, onUploaded }: { folder: string; onUploaded: (item: S3Object) => void }) => {
   const [file, setFile] = React.useState<File | undefined>(undefined)
   const [userFilename, setUserFilename] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
@@ -47,8 +47,9 @@ const S3FileUploadForm = ({ onUploaded }: { onUploaded: (item: S3Object) => void
       const data = new FormData()
       data.append('file', file)
       data.append('userFilename', userFilename)
+      data.append('prefix', folder)
       setError(null)
-      const resp = await fetch('/api/upload', {
+      const resp = await fetch('/api/s3uploadPresignedUrl', {
         method: 'POST',
         body: data,
       })

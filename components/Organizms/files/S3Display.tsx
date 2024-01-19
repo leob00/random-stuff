@@ -91,6 +91,7 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
     const sorted = sortArray(newFolders, ['text'], ['asc'])
     newProfile.settings!.folders = sorted
     await setProfile(newProfile)
+    await putUserProfile(newProfile)
     setAllFolders(sorted)
     setSelectedFolder(newItem)
     mutate(mutateKey)
@@ -128,7 +129,7 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
           />
         )}
       </Box>
-      <Box pt={2}>{!isLoading && !isWaiting && <S3FileUploadForm onUploaded={handleUploaded} />}</Box>
+      <Box pt={2}>{!isLoading && !isWaiting && <S3FileUploadForm folder={selectedFolder.value} onUploaded={handleUploaded} />}</Box>
       <Box py={2}>{data && <S3FilesTable data={data} onMutated={() => mutate(mutateKey)} />}</Box>
       {!isLoading && !isWaiting && data && data.length === 0 && (
         <>
