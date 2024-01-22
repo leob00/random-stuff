@@ -91,6 +91,7 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
     setAllFolders(newFolders)
     setSelectedFolder(newItem)
     setIsWaiting(false)
+    s3Controller.dispatch({ type: 'reset', payload: s3Controller.uiDefaultState })
     mutate(mutateKey)
   }
   const handleFolderDelete = async (item: DropdownItem) => {
@@ -100,17 +101,11 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
     setAllFolders(newFolders)
     setSelectedFolder(newFolders[0])
     setIsWaiting(false)
+    s3Controller.dispatch({ type: 'reset', payload: s3Controller.uiDefaultState })
     mutate(`${mutateKeyBase}${newFolders[0].value}`)
   }
 
-  const handleFolderMove = async (items: S3Object[], targetFolder: DropdownItem) => {
-    //setIsWaiting(true)
-
-    // const newFolders = await deleteFolder(userProfile, item.text, allFolders)
-    // setAllFolders(newFolders)
-    // setSelectedFolder(newFolders[0])
-    //setIsWaiting(false)
-    //mutate(`${mutateKeyBase}${item.value}`)
+  const handleMoveFiles = async (items: S3Object[], targetFolder: DropdownItem) => {
     await handleFolderSelected(targetFolder.value)
   }
   return (
@@ -142,7 +137,7 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
             allFolders={allFolders}
             data={data}
             onMutated={() => mutate(mutateKey)}
-            onMoveItems={handleFolderMove}
+            onMoveItems={handleMoveFiles}
           />
         )}
       </Box>

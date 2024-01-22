@@ -20,6 +20,7 @@ import ContextMenuDelete from 'components/Molecules/Menus/ContextMenuDelete'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import CenterStack from 'components/Atoms/CenterStack'
 import { S3Controller } from 'hooks/s3/useS3Controller'
+import { sleep } from 'lib/util/timers'
 
 const S3FilesTable = ({
   s3Controller,
@@ -38,19 +39,14 @@ const S3FilesTable = ({
   onMutated?: () => void
   onDeleted?: (item: S3Object) => void
 }) => {
-  const [itemToDelete, setItemToDelete] = React.useState<S3Object | null>(null)
-  const [showRenameForm, setShowRenameForm] = React.useState(false)
   const [isMutating, setIsMutating] = React.useState(false)
   const [searchWithinList, setSearchWithinList] = React.useState('')
-  //const [showEditMode, seShowEditModel] = React.useState(false)
-  const [showMoveDialog, setShowMoveDialog] = React.useState(false)
-
   const targetFolders = allFolders.filter((m) => m.text !== folder.text)
   const { uiState, dispatch, uiDefaultState } = s3Controller
 
   const filterList = (items: S3Object[]) => {
     if (searchWithinList.length === 0) {
-      return items
+      return [...items]
     }
     return items.filter((m) => m.filename.toLowerCase().includes(searchWithinList.toLowerCase()))
   }
@@ -59,46 +55,42 @@ const S3FilesTable = ({
 
   const handleViewFile = async (item: S3Object) => {
     setIsMutating(true)
-
     const params = { bucket: item.bucket, fullPath: item.fullPath, expiration: 600 }
     const url = JSON.parse(await post(`/api/s3`, params)) as string
-    dispatch({ type: 'update', payload: { ...uiState, signedUrl: url, isEditEmode: false, viewFile: item } })
+    dispatch({ type: 'update', payload: { ...uiState, signedUrl: url, selectedItem: item } })
     setIsMutating(false)
   }
   const handleDelete = async (item: S3Object) => {
-    dispatch({ type: 'update', payload: { ...uiState, isEditEmode: false } })
-    setItemToDelete(item)
+    dispatch({ type: 'update', payload: { ...uiState, itemToDelete: item } })
   }
   const handleConfirmDelete = async () => {
-    if (itemToDelete) {
-      const item = { ...itemToDelete }
-      setItemToDelete(null)
+    if (uiState.itemToDelete) {
+      const item = { ...uiState.itemToDelete }
       setIsMutating(true)
       await postDelete('/api/s3', item)
       setIsMutating(false)
-      dispatch({ type: 'update', payload: { ...uiState, isEditEmode: false, selectedItems: [] } })
+      dispatch({ type: 'reset', payload: uiDefaultState })
       onDeleted?.(item)
       onMutated?.()
     }
   }
 
   const handleCancelViewFile = () => {
-    dispatch({ type: 'update', payload: { ...uiState, signedUrl: null, viewFile: null } })
+    dispatch({ type: 'reset', payload: uiDefaultState })
   }
 
   const handleOnRename = async (item: S3Object) => {
-    dispatch({ type: 'update', payload: { ...uiState, viewFile: item } })
-    setShowRenameForm(true)
+    dispatch({ type: 'update', payload: { ...uiState, selectedItem: item, showRenameFileDialog: true } })
   }
 
   const handleRenameFile = async (oldfilename: string, newfilename: string) => {
     const selectedItem = uiState.selectedItem
     if (selectedItem) {
-      setShowRenameForm(false)
       setIsMutating(true)
       const oldPath = selectedItem.fullPath
       const newPath = `${selectedItem.fullPath.substring(0, selectedItem.fullPath.lastIndexOf('/'))}/${newfilename}`
       await renameS3File(selectedItem.bucket, oldPath, newPath)
+      dispatch({ type: 'reset', payload: uiDefaultState })
       setIsMutating(false)
       setSearchWithinList('')
       onMutated?.()
@@ -110,7 +102,7 @@ const S3FilesTable = ({
     if (checked) {
       if (!existing.find((m) => m.fullPath === file.fullPath)) {
         existing.push(file)
-        dispatch({ type: 'update', payload: { ...uiState, selectedItems: existing } })
+        dispatch({ type: 'update', payload: { ...uiState, selectedItems: existing, targetFolder: targetFolders[0] } })
       }
     } else {
       dispatch({ type: 'update', payload: { ...uiState, selectedItems: existing.filter((m) => m.fullPath !== file.fullPath) } })
@@ -124,30 +116,42 @@ const S3FilesTable = ({
     }
   }
 
-  const handleMoveItemsToFolder = () => {
+  const handleMoveItemsToFolder = async () => {
     if (uiState.targetFolder) {
-      setShowMoveDialog(false)
-      dispatch({ type: 'update', payload: uiDefaultState })
+      const selectedItems = [...uiState.selectedItems]
+      const targetFolder = { ...uiState.targetFolder }
+      setIsMutating(true)
+      for (const f of selectedItems) {
+        const oldPath = f.fullPath
+        const newPath = `${targetFolder.value}/${f.filename}`
+        // console.log(`old path: ${oldPath}`)
+        // console.log(`new path: ${newPath}`)
+        await renameS3File(f.bucket, oldPath, newPath)
+        dispatch({
+          type: 'update',
+          payload: { ...uiState, showMoveFilesDialog: false, targetFolder: null, selectedItems: selectedItems.filter((m) => m.fullPath !== f.fullPath) },
+        })
+        await sleep(250)
+      }
 
-      //onMoveItems(uiState.selectedItems, uiState.targetFolder)
+      setIsMutating(false)
+      await sleep(250)
+      onMoveItems(selectedItems, targetFolder)
+
+      dispatch({ type: 'reset', payload: uiDefaultState })
     }
   }
 
   const handleSetEditMode = () => {
-    //dispatch({ type: 'updateSelectedItems', payload: [] })
     const newEditMode = !uiState.isEditEmode
-    if (newEditMode) {
-      //dispatch({ type: 'updateTargetFolder', payload: targetFolders[0] })
-      dispatch({ type: 'update', payload: { ...uiState, targetFolder: newEditMode ? targetFolders[0] : null, isEditEmode: newEditMode } })
-    }
+    dispatch({ type: 'update', payload: { ...uiState, targetFolder: newEditMode ? targetFolders[0] : null, isEditEmode: newEditMode } })
   }
 
   const multiFileCommands: ContextMenuItem[] = [
     {
       item: <ContextMenuMove text='move' />,
       fn: () => {
-        dispatch({ type: 'update', payload: { ...uiState, targetFolder: targetFolders[0] } })
-        setShowMoveDialog(true)
+        dispatch({ type: 'update', payload: { ...uiState, targetFolder: targetFolders[0], showMoveFilesDialog: true } })
       },
     },
     {
@@ -197,21 +201,30 @@ const S3FilesTable = ({
           </Box>
         </Box>
       ))}
-      {itemToDelete && (
+      {uiState.itemToDelete && (
         <ConfirmDeleteDialog
           show={true}
-          text={`Are you sure you want to delete ${itemToDelete.filename}?`}
-          onCancel={() => setItemToDelete(null)}
+          text={`Are you sure you want to delete ${uiState.itemToDelete.filename}?`}
+          onCancel={() => dispatch({ type: 'update', payload: { ...uiState, itemToDelete: null } })}
           onConfirm={handleConfirmDelete}
         />
       )}
-      {uiState.signedUrl && uiState.viewFile && (
-        <ViewS3FileDialog onCancel={handleCancelViewFile} signedUrl={uiState.signedUrl} filename={uiState.viewFile.filename} />
+      {uiState.signedUrl && uiState.selectedItem && (
+        <ViewS3FileDialog onCancel={handleCancelViewFile} signedUrl={uiState.signedUrl} filename={uiState.selectedItem.filename} />
       )}
-      {showRenameForm && uiState.selectedItem && (
-        <RenameFileDialog filename={uiState.selectedItem.filename} onCancel={() => setShowRenameForm(false)} onSubmitted={handleRenameFile} />
+      {uiState.showRenameFileDialog && uiState.selectedItem && (
+        <RenameFileDialog
+          filename={uiState.selectedItem.filename}
+          onCancel={() => dispatch({ type: 'update', payload: { ...uiState, showRenameFileDialog: false } })}
+          onSubmitted={handleRenameFile}
+        />
       )}
-      <FormDialog show={showMoveDialog} onCancel={() => setShowMoveDialog(false)} title={'move files'} showActionButtons>
+      <FormDialog
+        show={uiState.showMoveFilesDialog}
+        onCancel={() => dispatch({ type: 'update', payload: { ...uiState, showMoveFilesDialog: false } })}
+        title={'move files'}
+        showActionButtons
+      >
         <CenterStack>
           <Typography>{`Move ${uiState.selectedItems.length} files to folder of your choice:`}</Typography>
         </CenterStack>

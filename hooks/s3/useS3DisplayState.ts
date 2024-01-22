@@ -8,10 +8,12 @@ export interface S3ModelState {
 type S3DisplayState = {
   selectedItems: S3Object[]
   selectedItem: S3Object | null
-  viewFile: S3Object | null
+  itemToDelete: S3Object | null
   targetFolder: DropdownItem | null
   signedUrl: string | null
   isEditEmode: boolean
+  showMoveFilesDialog: boolean
+  showRenameFileDialog: boolean
 }
 export type ActionTypes = { type: 'reset'; payload: S3DisplayState } | { type: 'update'; payload: S3DisplayState }
 // | { type: 'updateTargetFolder'; payload: DropdownItem | null }

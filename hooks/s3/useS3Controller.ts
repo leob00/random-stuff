@@ -13,9 +13,11 @@ export const useS3Controller = () => {
       selectedItems: [],
       targetFolder: null,
       selectedItem: null,
-      viewFile: null,
       signedUrl: null,
       isEditEmode: false,
+      itemToDelete: null,
+      showMoveFilesDialog: false,
+      showRenameFileDialog: false,
     },
   }
   //const s3DisplayState = useS3DisplayState()
