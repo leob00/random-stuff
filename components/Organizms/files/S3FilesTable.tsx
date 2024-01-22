@@ -67,9 +67,10 @@ const S3FilesTable = ({
     if (uiState.itemToDelete) {
       const item = { ...uiState.itemToDelete }
       setIsMutating(true)
+      dispatch({ type: 'reset', payload: uiDefaultState })
       await postDelete('/api/s3', item)
       setIsMutating(false)
-      dispatch({ type: 'reset', payload: uiDefaultState })
+
       onDeleted?.(item)
       onMutated?.()
     }
