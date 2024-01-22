@@ -1,5 +1,4 @@
-import { Box, Button, TextField, Typography } from '@mui/material'
-import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
+import { Box, Button, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
@@ -9,16 +8,16 @@ import { styled } from '@mui/material/styles'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import S3UploadInput from 'components/Organizms/files/S3UploadInput'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { renameS3File } from 'lib/backend/csr/nextApiWrapper'
+const allowed =
+  'application/pdf, image/jpeg, image/jpg, image/png, application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.wordprocessingml.document, audio/mpeg, audio/mp4, video/mp4, application/zip'
 
 const S3FileUploadForm = ({ folder, onUploaded }: { folder: string; onUploaded: (item: S3Object) => void }) => {
   const [file, setFile] = React.useState<File | undefined>(undefined)
   const [userFilename, setUserFilename] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
   const [response, setResponse] = React.useState<S3Object | null>(null)
-  //const [isUploading, setIsUploading] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)
 
   const maxFileSize = 10000000
@@ -86,8 +85,7 @@ const S3FileUploadForm = ({ folder, onUploaded }: { folder: string; onUploaded: 
       }
     }
   }
-  const allowed =
-    'application/pdf, image/jpeg, image/jpg, image/png, application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.wordprocessingml.document, audio/mpeg, audio/mp4, video/mp4, application/zip'
+
   return (
     <>
       {isLoading && <BackdropLoader />}
@@ -99,14 +97,6 @@ const S3FileUploadForm = ({ folder, onUploaded }: { folder: string; onUploaded: 
                 <Typography>...upload a file</Typography>
                 <VisuallyHiddenInput type='file' onChange={handleFileSelected} accept={allowed} />
               </Button>
-              {/* <TextField
-                type='file'
-                name='file'
-                onChange={handleFileSelected}
-                inputProps={{
-                  accept: allowed,
-                }}
-              /> */}
             </Box>
           )}
           {file && (
@@ -122,7 +112,7 @@ const S3FileUploadForm = ({ folder, onUploaded }: { folder: string; onUploaded: 
           {error && <ErrorMessage text={error} />}
         </>
       </form>
-      {response && <SnackbarSuccess show={true} text={'file uploaded!'} />}
+      {response && <SnackbarSuccess show={true} text={`${response.filename} uploaded!`} />}
     </>
   )
 }

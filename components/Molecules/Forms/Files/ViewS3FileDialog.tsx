@@ -18,9 +18,9 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
               </Typography>
             </Alert>
           </Box>
-          <CenterStack>
+          {/* <CenterStack>
             <Typography textAlign={'center'}>{filename}</Typography>
-          </CenterStack>
+          </CenterStack> */}
         </Stack>
         <CenterStack sx={{ pt: 2 }}>
           {isAudio && (

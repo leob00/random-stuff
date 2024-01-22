@@ -29,7 +29,7 @@ const NoteFiles = ({ files, onMutated }: { files?: S3Object[]; onMutated: (items
       <Box display={'flex'} alignItems={'center'} py={2} justifyContent={'flex-end'}>
         <ContextMenu items={menu} />
       </Box>
-      {files && <S3FilesTable data={files} onDeleted={handleFileDeleted} />}
+      {/* {files && <S3FilesTable data={files} onDeleted={handleFileDeleted} />} */}
 
       {/* <FormDialog show={showAddFile} onCancel={() => setShowAddFile(false)} title={'add file'}>
         <S3FileUploadForm onUploaded={onAddedFile}></S3FileUploadForm>

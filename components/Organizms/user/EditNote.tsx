@@ -167,12 +167,12 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
           </CenterStack>
         </Box>
       </Box>
-      {item.attachments && (
+      {/* {item.attachments && (
         <Box>
           <CenteredTitle title={'files'} />
           <S3FilesTable data={item.attachments} />
         </Box>
-      )}
+      )} */}
     </>
   ) : (
     <></>
