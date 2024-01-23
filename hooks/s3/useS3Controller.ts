@@ -18,6 +18,8 @@ export const useS3Controller = () => {
       itemToDelete: null,
       showMoveFilesDialog: false,
       showRenameFileDialog: false,
+      showDeleteFilesDialog: false,
+      showListIterator: false,
     },
   }
   //const s3DisplayState = useS3DisplayState()

@@ -9,14 +9,14 @@ import React from 'react'
 export interface QueuedTask {
   id: string
   description: string
-  fn: Promise<any>
+  fn?: Promise<any>
   isProcesssing?: boolean
 }
 
-const ListIterator = ({ items, pollingInterval = 250 }: { items: QueuedTask[]; pollingInterval?: number }) => {
+const ListIterator = ({ items, pollingInterval = 250, defaultStopped = true }: { items: QueuedTask[]; pollingInterval?: number; defaultStopped?: boolean }) => {
   const [stateItems, setStateItems] = React.useState(items)
   const [processingItem, setProcessingItem] = React.useState<QueuedTask | null>(items[0])
-  const { pollCounter, isStopped, isPaused, stop, start, pause } = usePolling(pollingInterval, items.length, true)
+  const { pollCounter, isStopped, isPaused, stop, start, pause } = usePolling(pollingInterval, items.length, defaultStopped)
 
   const handleIterate = async () => {
     if (stateItems.length === 0) {
@@ -50,9 +50,11 @@ const ListIterator = ({ items, pollingInterval = 250 }: { items: QueuedTask[]; p
 
   return (
     <>
-      <Box py={2}>
-        <PrimaryButton text='iterate' onClick={handleIterate} disabled={!isStopped} />
-      </Box>
+      {isStopped && (
+        <Box py={2}>
+          <PrimaryButton text='iterate' onClick={handleIterate} disabled={!isStopped} />
+        </Box>
+      )}
       <ProgressDialog title='work in progress...' show={!isStopped} showActionButtons={false}>
         <>
           {processingItem && <ListHeader item={processingItem} onClicked={() => {}} text={`${processingItem.description}`} elevation={16} />}

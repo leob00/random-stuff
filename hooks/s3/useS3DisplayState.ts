@@ -14,6 +14,8 @@ type S3DisplayState = {
   isEditEmode: boolean
   showMoveFilesDialog: boolean
   showRenameFileDialog: boolean
+  showDeleteFilesDialog: boolean
+  showListIterator: boolean
 }
 export type ActionTypes = { type: 'reset'; payload: S3DisplayState } | { type: 'update'; payload: S3DisplayState }
 // | { type: 'updateTargetFolder'; payload: DropdownItem | null }

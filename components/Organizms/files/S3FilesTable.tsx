@@ -21,23 +21,25 @@ import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import CenterStack from 'components/Atoms/CenterStack'
 import { S3Controller } from 'hooks/s3/useS3Controller'
 import { sleep } from 'lib/util/timers'
+import ListIterator from '../sandbox/ListIterator'
+import WarmupBox from 'components/Atoms/WarmupBox'
 
 const S3FilesTable = ({
   s3Controller,
   data,
   folder,
   allFolders,
-  onMoveItems,
+  onReloadFolder,
   onMutated,
-  onDeleted,
+  onFilesMutated,
 }: {
   s3Controller: S3Controller
   data: S3Object[]
   folder: DropdownItem
   allFolders: DropdownItem[]
-  onMoveItems: (items: S3Object[], targetFolder: DropdownItem) => void
+  onReloadFolder: (targetFolder: DropdownItem) => Promise<void>
   onMutated?: () => void
-  onDeleted?: (item: S3Object) => void
+  onFilesMutated?: (files: S3Object[]) => void
 }) => {
   const [isMutating, setIsMutating] = React.useState(false)
   const [searchWithinList, setSearchWithinList] = React.useState('')
@@ -70,8 +72,6 @@ const S3FilesTable = ({
       dispatch({ type: 'reset', payload: uiDefaultState })
       await postDelete('/api/s3', item)
       setIsMutating(false)
-
-      onDeleted?.(item)
       onMutated?.()
     }
   }
@@ -88,10 +88,11 @@ const S3FilesTable = ({
     const selectedItem = uiState.selectedItem
     if (selectedItem) {
       setIsMutating(true)
+      dispatch({ type: 'reset', payload: uiDefaultState })
       const oldPath = selectedItem.fullPath
       const newPath = `${selectedItem.fullPath.substring(0, selectedItem.fullPath.lastIndexOf('/'))}/${newfilename}`
       await renameS3File(selectedItem.bucket, oldPath, newPath)
-      dispatch({ type: 'reset', payload: uiDefaultState })
+
       setIsMutating(false)
       setSearchWithinList('')
       onMutated?.()
@@ -122,30 +123,43 @@ const S3FilesTable = ({
       const selectedItems = [...uiState.selectedItems]
       const targetFolder = { ...uiState.targetFolder }
       setIsMutating(true)
+      dispatch({ type: 'reset', payload: { ...uiDefaultState, showListIterator: true, selectedItems: selectedItems } })
       for (const f of selectedItems) {
         const oldPath = f.fullPath
         const newPath = `${targetFolder.value}/${f.filename}`
-        // console.log(`old path: ${oldPath}`)
-        // console.log(`new path: ${newPath}`)
+        await sleep(500)
         await renameS3File(f.bucket, oldPath, newPath)
-        dispatch({
-          type: 'update',
-          payload: { ...uiState, showMoveFilesDialog: false, targetFolder: null, selectedItems: selectedItems.filter((m) => m.fullPath !== f.fullPath) },
-        })
-        await sleep(250)
       }
+      await sleep(1200).then(() => {
+        setIsMutating(false)
+        dispatch({ type: 'reset', payload: uiDefaultState })
+        onReloadFolder(folder)
+      })
 
-      setIsMutating(false)
-      await sleep(250)
-      onMoveItems(selectedItems, targetFolder)
-
-      dispatch({ type: 'reset', payload: uiDefaultState })
+      //await onReloadFolder(folder)
     }
   }
 
   const handleSetEditMode = () => {
     const newEditMode = !uiState.isEditEmode
     dispatch({ type: 'update', payload: { ...uiState, targetFolder: newEditMode ? targetFolders[0] : null, isEditEmode: newEditMode } })
+  }
+  const handleShowDeleteFilesDialog = (show: boolean) => {
+    dispatch({ type: 'update', payload: { ...uiState, showDeleteFilesDialog: show } })
+  }
+  const handleConfirmDeleteFiles = async () => {
+    const selectedItems = [...uiState.selectedItems]
+    setIsMutating(true)
+    dispatch({ type: 'reset', payload: { ...uiDefaultState, showListIterator: true, selectedItems: selectedItems } })
+    for (const f of selectedItems) {
+      await postDelete('/api/s3', f)
+      await sleep(250)
+    }
+
+    setIsMutating(false)
+    await sleep(250)
+    await onReloadFolder(folder)
+    dispatch({ type: 'reset', payload: uiDefaultState })
   }
 
   const multiFileCommands: ContextMenuItem[] = [
@@ -157,14 +171,15 @@ const S3FilesTable = ({
     },
     {
       item: <ContextMenuDelete text='delete' />,
-      fn: () => {},
+      fn: () => {
+        handleShowDeleteFilesDialog(true)
+      },
     },
   ]
 
   return (
     <>
       {isMutating && <BackdropLoader />}
-
       <Box>
         <Box display={'flex'} alignItems={'center'} gap={2}>
           {!uiState.isEditEmode && <Box>{data.length > 3 && <SearchWithinList onChanged={(text: string) => setSearchWithinList(text)} />}</Box>}
@@ -220,6 +235,15 @@ const S3FilesTable = ({
           onSubmitted={handleRenameFile}
         />
       )}
+      {uiState.showDeleteFilesDialog && uiState.selectedItems.length > 0 && (
+        <ConfirmDeleteDialog
+          show={true}
+          onCancel={() => handleShowDeleteFilesDialog(false)}
+          onConfirm={handleConfirmDeleteFiles}
+          title='confirm delete'
+          text={`Are you sure you want to delete all selected files?`}
+        />
+      )}
       <FormDialog
         show={uiState.showMoveFilesDialog}
         onCancel={() => dispatch({ type: 'update', payload: { ...uiState, showMoveFilesDialog: false } })}
@@ -240,6 +264,18 @@ const S3FilesTable = ({
           </CenterStack>
         </Box>
       </FormDialog>
+      {/* {uiState.showListIterator && (
+        <ListIterator
+          pollingInterval={1000}
+          defaultStopped={false}
+          items={uiState.selectedItems.map((item, i) => {
+            return {
+              description: item.filename.substring(0, item.filename.lastIndexOf('.')),
+              id: `${i + 1}`,
+            }
+          })}
+        />
+      )} */}
     </>
   )
 }

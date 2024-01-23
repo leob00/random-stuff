@@ -16,6 +16,7 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import FolderActions from './FolderActions'
 import S3FolderDropDown from './S3FolderDropDown'
 import { useS3Controller } from 'hooks/s3/useS3Controller'
+import { getMapFromArray } from 'lib/util/collectionsNative'
 interface Key {
   key: string
   size: number
@@ -72,9 +73,12 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
 
   const handleUploaded = async (item: S3Object) => {
     const dataCopy = [...data!]
-    dataCopy.push(item)
-    const newItems = sortArray(dataCopy, ['filename'], ['asc'])
-    mutate(mutateKey, newItems, { revalidate: false })
+
+    if (!dataCopy.find((m) => m.filename.toLowerCase() === item.filename.toLowerCase())) {
+      dataCopy.push(item)
+    }
+
+    mutate(mutateKey, dataCopy, { revalidate: false })
   }
 
   const handleFolderSelected = async (id: string) => {
@@ -105,8 +109,11 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
     mutate(`${mutateKeyBase}${newFolders[0].value}`)
   }
 
-  const handleMoveFiles = async (items: S3Object[], targetFolder: DropdownItem) => {
+  const handleReloadFolder = async (targetFolder: DropdownItem) => {
     await handleFolderSelected(targetFolder.value)
+  }
+  const handleFilesMutated = (files: S3Object[]) => {
+    mutate(`${mutateKeyBase}${selectedFolder.value}`, files, { revalidate: false })
   }
   return (
     <>
@@ -126,10 +133,15 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
           />
         )}
       </Box>
+
       <Box pt={2}>
-        <S3FileUploadForm folder={selectedFolder.value} onUploaded={handleUploaded} />
+        {data && (
+          <>
+            <S3FileUploadForm files={data} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />
+          </>
+        )}
       </Box>
-      <Box py={2}>
+      <Box py={3}>
         {data && (
           <S3FilesTable
             s3Controller={s3Controller}
@@ -137,7 +149,8 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
             allFolders={allFolders}
             data={data}
             onMutated={() => mutate(mutateKey)}
-            onMoveItems={handleMoveFiles}
+            onReloadFolder={handleReloadFolder}
+            onFilesMutated={handleFilesMutated}
           />
         )}
       </Box>

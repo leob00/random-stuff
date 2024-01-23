@@ -12,15 +12,12 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
       <>
         <Stack>
           <Box py={2}>
-            <Alert color='warning'>
+            <Alert color='success'>
               <Typography variant='caption' textAlign={'center'}>
                 This secure link will expire in a few minutes.
               </Typography>
             </Alert>
           </Box>
-          {/* <CenterStack>
-            <Typography textAlign={'center'}>{filename}</Typography>
-          </CenterStack> */}
         </Stack>
         <CenterStack sx={{ pt: 2 }}>
           {isAudio && (

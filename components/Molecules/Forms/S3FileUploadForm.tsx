@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Alert, Box, Button, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
@@ -10,15 +10,27 @@ import S3UploadInput from 'components/Organizms/files/S3UploadInput'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { renameS3File } from 'lib/backend/csr/nextApiWrapper'
+import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 const allowed =
   'application/pdf, image/jpeg, image/jpg, image/png, application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.wordprocessingml.document, audio/mpeg, audio/mp4, video/mp4, application/zip'
 
-const S3FileUploadForm = ({ folder, onUploaded }: { folder: string; onUploaded: (item: S3Object) => void }) => {
+const S3FileUploadForm = ({
+  folder,
+  files,
+  onUploaded,
+  isWaiting,
+}: {
+  folder: string
+  files: S3Object[]
+  onUploaded: (item: S3Object) => void
+  isWaiting?: boolean
+}) => {
   const [file, setFile] = React.useState<File | undefined>(undefined)
   const [userFilename, setUserFilename] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
   const [response, setResponse] = React.useState<S3Object | null>(null)
   const [error, setError] = React.useState<string | null>(null)
+  const [warning, setWarning] = React.useState<string | null>(null)
 
   const maxFileSize = 10000000
 
@@ -37,9 +49,11 @@ const S3FileUploadForm = ({ folder, onUploaded }: { folder: string; onUploaded: 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setResponse(null)
+    setWarning(null)
     if (file) {
       if (file.size > maxFileSize) {
         setError(`file cannot exceed ${maxFileSize / 1000000} MB`)
+
         return
       }
       setIsLoading(true)
@@ -81,8 +95,17 @@ const S3FileUploadForm = ({ folder, onUploaded }: { folder: string; onUploaded: 
       if (e.currentTarget.files.length > 0) {
         const newFile = e.currentTarget.files[0]
         setFile(newFile)
+        if (files.find((m) => m.filename.toLowerCase() === newFile.name.toLowerCase())) {
+          setWarning(`${newFile.name} already exists and will be overwritten`)
+        }
         setUserFilename(newFile.name)
       }
+    }
+  }
+  const handleSelected = (fileName: string) => {
+    //console.log(fileName)
+    if (files.find((m) => m.filename.toLowerCase() === fileName.toLowerCase())) {
+      setWarning(`${fileName} already exists and will be overwritten`)
     }
   }
 
@@ -95,20 +118,28 @@ const S3FileUploadForm = ({ folder, onUploaded }: { folder: string; onUploaded: 
             <Box flexDirection={'column'} gap={1} display={'flex'} alignItems={'center'}>
               <Button color='info' component='label' variant='contained' startIcon={<CloudUploadIcon />}>
                 <Typography>...upload a file</Typography>
-                <VisuallyHiddenInput type='file' onChange={handleFileSelected} accept={allowed} />
+                <VisuallyHiddenInput type='file' onChange={handleFileSelected} accept={allowed} disabled={isWaiting} />
               </Button>
             </Box>
           )}
           {file && (
             <>
-              <S3UploadInput filename={userFilename} onSelected={(filename: string) => setUserFilename(filename)} />
+              <S3UploadInput filename={userFilename} onSelected={handleSelected} />
               <Box py={2}>
+                {warning && (
+                  <Box py={2}>
+                    <CenterStack>
+                      <Alert severity='warning'>{warning}</Alert>
+                    </CenterStack>
+                  </Box>
+                )}
                 <CenterStack>
                   <PrimaryButton type='submit' text='Upload' />
                 </CenterStack>
               </Box>
             </>
           )}
+
           {error && <ErrorMessage text={error} />}
         </>
       </form>
