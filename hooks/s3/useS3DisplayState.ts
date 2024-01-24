@@ -16,6 +16,7 @@ export type S3DisplayState = {
   showRenameFileDialog: boolean
   showDeleteFilesDialog: boolean
   showListIterator: boolean
+  snackbarSuccessMessage: string | null
 }
 export type ActionTypes = { type: 'reset'; payload: S3DisplayState } | { type: 'update'; payload: S3DisplayState }
 // | { type: 'updateTargetFolder'; payload: DropdownItem | null }

@@ -34,11 +34,20 @@ const mediaTypes = [
 
 const allowed = mediaTypes.join()
 
-const S3FileUploadForm = ({ folder, files, onUploaded, isWaiting }: { folder: string; files: S3Object[]; onUploaded: (item: S3Object) => void; isWaiting?: boolean }) => {
+const S3FileUploadForm = ({
+  folder,
+  files,
+  onUploaded,
+  isWaiting,
+}: {
+  folder: string
+  files: S3Object[]
+  onUploaded: (item: S3Object) => void
+  isWaiting?: boolean
+}) => {
   const [file, setFile] = React.useState<File | undefined>(undefined)
   const [userFilename, setUserFilename] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
-  const [response, setResponse] = React.useState<S3Object | null>(null)
   const [error, setError] = React.useState<string | null>(null)
   const [warning, setWarning] = React.useState<string | null>(null)
 
@@ -58,7 +67,6 @@ const S3FileUploadForm = ({ folder, files, onUploaded, isWaiting }: { folder: st
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setResponse(null)
     setWarning(null)
     if (file) {
       if (file.size > maxFileSize) {
@@ -81,14 +89,16 @@ const S3FileUploadForm = ({ folder, files, onUploaded, isWaiting }: { folder: st
         const respData = (await resp.json()) as S3Object
         if (respData.message) {
           setError(respData.message)
+          return
         }
 
         const oldPath = respData.fullPath
         const newPath = `${folder}${respData.fullPath.substring(respData.fullPath.lastIndexOf('/'))}`
-        await renameS3File(respData.bucket, oldPath, newPath)
-        const result = { ...respData, fullPath: newPath, prefix: newPath.substring(0, newPath.lastIndexOf('/') + 1) }
-        setResponse(result)
-        onUploaded(result)
+        const renameResp = await renameS3File(respData.bucket, oldPath, newPath)
+        if (renameResp.statusCode === 200) {
+          const result = { ...respData, fullPath: newPath, prefix: newPath.substring(0, newPath.lastIndexOf('/') + 1) }
+          onUploaded(result)
+        }
         setIsLoading(false)
         setUserFilename('')
         setFile(undefined)
@@ -153,7 +163,6 @@ const S3FileUploadForm = ({ folder, files, onUploaded, isWaiting }: { folder: st
           {error && <ErrorMessage text={error} />}
         </>
       </form>
-      {response && <SnackbarSuccess show={true} text={`${response.filename} uploaded!`} />}
     </>
   )
 }

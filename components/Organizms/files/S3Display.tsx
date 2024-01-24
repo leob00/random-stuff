@@ -16,6 +16,7 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import FolderActions from './FolderActions'
 import S3FolderDropDown from './S3FolderDropDown'
 import { useS3Controller } from 'hooks/s3/useS3Controller'
+import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 interface Key {
   key: string
   size: number
@@ -38,6 +39,7 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
   const mutateKeyBase = `/api/baseRoute?id=s3FileList`
   const mutateKey = `${mutateKeyBase}${selectedFolder.value}`
   const s3Controller = useS3Controller()
+  const { dispatch, uiState } = s3Controller
 
   const buildFilesAndFolders = (items: S3Object[]) => {
     const result: S3Object[] = []
@@ -76,8 +78,9 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
     if (!dataCopy.find((m) => m.filename.toLowerCase() === item.filename.toLowerCase())) {
       dataCopy.push(item)
     }
-
-    mutate(mutateKey, sortArray(dataCopy, ['filename'], ['asc']), { revalidate: false })
+    const sorted = sortArray(dataCopy, ['filename'], ['asc'])
+    handleFilesMutated(selectedFolder, sorted)
+    dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: `${item.filename} uploaded.` } })
   }
 
   const handleFolderSelected = async (id: string) => {
@@ -94,17 +97,16 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
     setAllFolders(newFolders)
     setSelectedFolder(newItem)
     setIsWaiting(false)
-    s3Controller.dispatch({ type: 'reset', payload: s3Controller.uiDefaultState })
+    dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: `${name} added.` } })
     mutate(mutateKey)
   }
   const handleFolderDelete = async (item: DropdownItem) => {
     setIsWaiting(true)
-
     const newFolders = await s3Controller.deleteFolder(userProfile, item.text, allFolders)
     setAllFolders(newFolders)
     setSelectedFolder(newFolders[0])
     setIsWaiting(false)
-    s3Controller.dispatch({ type: 'reset', payload: s3Controller.uiDefaultState })
+    dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: `${item.text} deleted.` } })
     mutate(`${mutateKeyBase}${newFolders[0].value}`)
   }
 
@@ -114,11 +116,16 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
   const handleFilesMutated = (folder: DropdownItem, files: S3Object[]) => {
     mutate(`${mutateKeyBase}${folder.value}`, files, { revalidate: false })
   }
+  //console.log('message: ', uiState.snackbarSuccessMessage)
   return (
     <>
       {isLoading && <BackdropLoader />}
       {isWaiting && <BackdropLoader />}
       {error && <ErrorMessage text={'Opps! An error has occured. Please try refreshing the page.'} />}
+
+      <Box>
+        <SnackbarSuccess show={uiState.snackbarSuccessMessage !== null} text={uiState.snackbarSuccessMessage!} duration={3000} />
+      </Box>
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
         <S3FolderDropDown folders={allFolders} folder={selectedFolder} onFolderSelected={handleFolderSelected} />
         {data && (

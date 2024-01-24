@@ -20,6 +20,7 @@ export const useS3Controller = () => {
       showRenameFileDialog: false,
       showDeleteFilesDialog: false,
       showListIterator: false,
+      snackbarSuccessMessage: null,
     },
   }
   //const s3DisplayState = useS3DisplayState()

@@ -190,17 +190,6 @@ const S3FilesTable = ({
         onRefresh={handleRefresh}
         handleSearchWithinListChanged={handleSearchWithinListChanged}
       />
-      {/* {uiState.showListIterator && (
-        <Box py={1}>
-          {uiState.selectedItems.map((item) => (
-            <Box key={item.fullPath}>
-              <ListItemContainer>
-                <Typography>{item.filename.substring(0, item.filename.lastIndexOf('.'))}</Typography>
-              </ListItemContainer>
-            </Box>
-          ))}
-        </Box>
-      )} */}
       {results.map((item) => (
         <Box key={item.fullPath} py={1}>
           <S3FileRow

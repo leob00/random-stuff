@@ -62,7 +62,7 @@ const StockEarningsTable = ({ data, showCompany = false }: { data: StockEarning[
                               </TableCell>
                               <TableCell>
                                 <Typography color={getPositiveNegativeColor(subItem.ActualEarnings, theme.palette.mode)}>
-                                  {`${subItem.ActualEarnings ? numeral(subItem.ActualEarnings).format('0.00') : ''}`}
+                                  {`${subItem.ActualEarnings !== null ? numeral(subItem.ActualEarnings).format('0.00') : ''}`}
                                 </Typography>
                               </TableCell>
                               <TableCell>
