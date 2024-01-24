@@ -4,13 +4,13 @@ import CenterStack from 'components/Atoms/CenterStack'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import React from 'react'
 
-const RenameFileDialog = ({ filename, onCancel, onSubmitted }: { filename: string; onCancel: () => void; onSubmitted: (oldfilename: string, newfilename: string) => void }) => {
+const RenameFileDialog = ({ filename, onCancel, onSubmitted }: { filename: string; onCancel: () => void; onSubmitted: (newfilename: string) => void }) => {
   const [userFilename, setUserFilename] = React.useState(filename.substring(0, filename.lastIndexOf('.')))
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const newFileName = `${userFilename}${filename.substring(filename.lastIndexOf('.'))}`
-    onSubmitted(filename, newFileName)
+    onSubmitted(newFileName)
   }
   return (
     <FormDialog title='View file' show={true} onCancel={onCancel}>

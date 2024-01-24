@@ -10,21 +10,31 @@ import S3UploadInput from 'components/Organizms/files/S3UploadInput'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { renameS3File } from 'lib/backend/csr/nextApiWrapper'
-import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
-const allowed =
-  'application/pdf, image/jpeg, image/jpg, image/png, application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.wordprocessingml.document, audio/mpeg, audio/mp4, video/mp4, application/zip'
 
-const S3FileUploadForm = ({
-  folder,
-  files,
-  onUploaded,
-  isWaiting,
-}: {
-  folder: string
-  files: S3Object[]
-  onUploaded: (item: S3Object) => void
-  isWaiting?: boolean
-}) => {
+const mediaTypes = [
+  'audio/mp3',
+  'application/pdf',
+  'application/msword',
+  'application/vnd.ms-powerpoint',
+  'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'application/zip',
+  'image/avif',
+  'image/gif',
+  'image/jpeg',
+  'image/svg+xml',
+  'image/webp',
+  'video/mp4',
+  'video/mpeg',
+]
+
+// const allowed =
+//   'application/pdf, image/jpeg, image/gif, image/webp image/jpg, image/png, application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.wordprocessingml.document, audio/mpeg, audio/mp4, video/mp4, application/zip'
+
+const allowed = mediaTypes.join()
+
+const S3FileUploadForm = ({ folder, files, onUploaded, isWaiting }: { folder: string; files: S3Object[]; onUploaded: (item: S3Object) => void; isWaiting?: boolean }) => {
   const [file, setFile] = React.useState<File | undefined>(undefined)
   const [userFilename, setUserFilename] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
@@ -103,10 +113,10 @@ const S3FileUploadForm = ({
     }
   }
   const handleSelected = (fileName: string) => {
-    //console.log(fileName)
     if (files.find((m) => m.filename.toLowerCase() === fileName.toLowerCase())) {
       setWarning(`${fileName} already exists and will be overwritten`)
     }
+    setUserFilename(fileName)
   }
 
   return (

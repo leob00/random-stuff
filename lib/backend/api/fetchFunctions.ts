@@ -69,9 +69,13 @@ export async function postBody(url: string, method: 'PATCH' | 'POST' | 'DELETE' 
     })
 
     const data = await resp.json()
-    return data
+    if (!data) {
+      return resp
+    } else {
+      return data
+    }
   } catch (err) {
-    console.error('error in post: ', err)
+    console.error(`error in ${method}: `, err)
     return null
   }
 }
@@ -102,7 +106,7 @@ export async function postDelete(url: string, params: any) {
       },
     })
 
-    return resp
+    return resp.json()
   } catch (err) {
     console.error('error in delete: ', err)
     return null

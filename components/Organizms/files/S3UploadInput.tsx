@@ -7,7 +7,6 @@ const S3UploadInput = ({ filename, onSelected }: { filename: string; onSelected:
   const displayName = filename.substring(0, filename.lastIndexOf('.'))
   const onChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     onSelected(`${event.target.value}${ext}`)
-    console.log(`${event.target.value}${ext}`)
   }
   return (
     <Box py={2}>

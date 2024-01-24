@@ -6,7 +6,10 @@ import React from 'react'
 
 const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string; filename: string; onCancel: () => void }) => {
   const signedUrlRef = React.useRef<HTMLAnchorElement | null>(null)
-  const isAudio = filename.includes('.mp3')
+  const previewImageExtenstions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.svg']
+  const ext = filename.substring(filename.lastIndexOf('.')).toLowerCase()
+  const isAudio = ext.includes('.mp3')
+  const isImage = previewImageExtenstions.includes(ext)
   return (
     <FormDialog title='View file' show={true} onCancel={onCancel}>
       <>
@@ -19,19 +22,27 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
             </Alert>
           </Box>
         </Stack>
-        <CenterStack sx={{ pt: 2 }}>
-          {isAudio && (
+        {isAudio && (
+          <CenterStack sx={{ pt: 2 }}>
             <Box>
               <audio controls>
                 <source src={signedUrl} type='audio/ogg' />
                 Your browser does not support the audio element.
               </audio>
+            </Box>{' '}
+          </CenterStack>
+        )}
+        {isImage && (
+          <CenterStack sx={{ pt: 2 }}>
+            <Box width={250}>
+              <img width={250} src={signedUrl} alt='preview image' />
             </Box>
-          )}
-        </CenterStack>
+          </CenterStack>
+        )}
+
         <CenterStack sx={{ py: 2 }}>
           <Link rel='noreferrer' ref={signedUrlRef} href={signedUrl} target={'_blank'}>
-            <PrimaryButton text={'view file'} onClick={onCancel}></PrimaryButton>
+            <PrimaryButton text={'download file'} onClick={onCancel}></PrimaryButton>
           </Link>
         </CenterStack>
       </>

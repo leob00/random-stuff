@@ -127,7 +127,7 @@ export async function deleteS3Object(bucket: string, fullPath: string) {
   } catch (err) {
     console.error('error occurred in postDelete: ', err)
   }
-  return []
+  return null
 }
 
 export async function renameS3Object(bucket: Bucket, oldPath: string, newPath: string) {
@@ -142,7 +142,7 @@ export async function renameS3Object(bucket: Bucket, oldPath: string, newPath: s
   } catch (err) {
     console.error('error occurred in postDelete: ', err)
   }
-  return []
+  return null
 }
 
 export async function putRandomStuff(type: DynamoKeys, category: CategoryType, data: any, expiration?: number) {

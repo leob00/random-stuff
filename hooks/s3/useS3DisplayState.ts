@@ -5,7 +5,7 @@ export interface S3ModelState {
   uiState: S3DisplayState
 }
 
-type S3DisplayState = {
+export type S3DisplayState = {
   selectedItems: S3Object[]
   selectedItem: S3Object | null
   itemToDelete: S3Object | null

@@ -2,7 +2,6 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import React from 'react'
 import EditIcon from '@mui/icons-material/Edit'
-//import { Edit, Toc, ViewList } from '@mui/icons-material'
 const ContextMenuEdit = ({ text = 'edit' }: { text?: string }) => {
   return (
     <>

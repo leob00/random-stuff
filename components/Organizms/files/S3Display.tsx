@@ -16,7 +16,6 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import FolderActions from './FolderActions'
 import S3FolderDropDown from './S3FolderDropDown'
 import { useS3Controller } from 'hooks/s3/useS3Controller'
-import { getMapFromArray } from 'lib/util/collectionsNative'
 interface Key {
   key: string
   size: number
@@ -78,7 +77,7 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
       dataCopy.push(item)
     }
 
-    mutate(mutateKey, dataCopy, { revalidate: false })
+    mutate(mutateKey, sortArray(dataCopy, ['filename'], ['asc']), { revalidate: false })
   }
 
   const handleFolderSelected = async (id: string) => {
@@ -112,15 +111,14 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
   const handleReloadFolder = async (targetFolder: DropdownItem) => {
     await handleFolderSelected(targetFolder.value)
   }
-  const handleFilesMutated = (files: S3Object[]) => {
-    mutate(`${mutateKeyBase}${selectedFolder.value}`, files, { revalidate: false })
+  const handleFilesMutated = (folder: DropdownItem, files: S3Object[]) => {
+    mutate(`${mutateKeyBase}${folder.value}`, files, { revalidate: false })
   }
   return (
     <>
       {isLoading && <BackdropLoader />}
       {isWaiting && <BackdropLoader />}
       {error && <ErrorMessage text={'Opps! An error has occured. Please try refreshing the page.'} />}
-
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
         <S3FolderDropDown folders={allFolders} folder={selectedFolder} onFolderSelected={handleFolderSelected} />
         {data && (
@@ -133,14 +131,7 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
           />
         )}
       </Box>
-
-      <Box pt={2}>
-        {data && (
-          <>
-            <S3FileUploadForm files={data} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />
-          </>
-        )}
-      </Box>
+      <Box pt={2}>{data && <S3FileUploadForm files={data} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />}</Box>
       <Box py={3}>
         {data && (
           <S3FilesTable
@@ -150,7 +141,7 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
             data={data}
             onMutated={() => mutate(mutateKey)}
             onReloadFolder={handleReloadFolder}
-            onFilesMutated={handleFilesMutated}
+            onLocalDataMutate={handleFilesMutated}
           />
         )}
       </Box>

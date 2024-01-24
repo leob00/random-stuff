@@ -428,6 +428,6 @@ export async function sendEmailFromClient(item: EmailMessage) {
   await post(`/api/sendEmail`, item)
 }
 
-export async function renameS3File(bucket: string, oldPath: string, newPath: string) {
-  await postBody('/api/s3', 'PATCH', { bucket: bucket, oldPath: oldPath, newPath: newPath })
+export async function renameS3File(bucket: string, oldPath: string, newPath: string): Promise<any> {
+  return await postBody('/api/s3', 'PATCH', { bucket: bucket, oldPath: oldPath, newPath: newPath })
 }
