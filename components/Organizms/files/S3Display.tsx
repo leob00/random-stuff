@@ -35,6 +35,7 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
   const userFolders = sortFolders(userProfile.settings?.folders)
   const [selectedFolder, setSelectedFolder] = React.useState(userFolders.length > 0 ? userFolders[0] : getDefaultFolders(userProfile)[0])
   const [allFolders, setAllFolders] = React.useState(userFolders)
+  const [showTopUploadForm, setShowTopUploadForm] = React.useState(false)
   const [isWaiting, setIsWaiting] = React.useState(false)
   const mutateKeyBase = `/api/baseRoute?id=s3FileList`
   const mutateKey = `${mutateKeyBase}${selectedFolder.value}`
@@ -84,7 +85,9 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
   }
 
   const handleFolderSelected = async (id: string) => {
+    setShowTopUploadForm(false)
     setSelectedFolder(allFolders.find((m) => m.value === id)!)
+    dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: null } })
     mutate(`${mutateKeyBase}${id}`)
   }
   const handleFolderAdd = async (name: string) => {
@@ -102,6 +105,8 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
   }
   const handleFolderDelete = async (item: DropdownItem) => {
     setIsWaiting(true)
+    setShowTopUploadForm(false)
+    dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: null } })
     const newFolders = await s3Controller.deleteFolder(userProfile, item.text, allFolders)
     setAllFolders(newFolders)
     setSelectedFolder(newFolders[0])
@@ -116,16 +121,18 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
   const handleFilesMutated = (folder: DropdownItem, files: S3Object[]) => {
     mutate(`${mutateKeyBase}${folder.value}`, files, { revalidate: false })
   }
-  //console.log('message: ', uiState.snackbarSuccessMessage)
+  console.log('message: ', uiState.snackbarSuccessMessage)
   return (
     <>
       {isLoading && <BackdropLoader />}
       {isWaiting && <BackdropLoader />}
       {error && <ErrorMessage text={'Opps! An error has occured. Please try refreshing the page.'} />}
+      {uiState.snackbarSuccessMessage && !isLoading && (
+        <Box>
+          <SnackbarSuccess show={true} text={uiState.snackbarSuccessMessage} duration={3000} />
+        </Box>
+      )}
 
-      <Box>
-        <SnackbarSuccess show={uiState.snackbarSuccessMessage !== null} text={uiState.snackbarSuccessMessage!} duration={3000} />
-      </Box>
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
         <S3FolderDropDown folders={allFolders} folder={selectedFolder} onFolderSelected={handleFolderSelected} />
         {data && (
@@ -135,10 +142,13 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
             items={data}
             selectedFolder={selectedFolder}
             onFolderDeleted={handleFolderDelete}
+            onShowTopUploadForm={(show: boolean) => setShowTopUploadForm(show)}
           />
         )}
       </Box>
-      <Box pt={2}>{data && <S3FileUploadForm files={data} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />}</Box>
+      {showTopUploadForm && (
+        <Box pt={2}>{data && <S3FileUploadForm files={data} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />}</Box>
+      )}
       <Box py={3}>
         {data && (
           <S3FilesTable
@@ -152,6 +162,7 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
           />
         )}
       </Box>
+
       {!isLoading && !isWaiting && data && data.length === 0 && (
         <>
           <HorizontalDivider />
@@ -160,6 +171,9 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
           </CenterStack>
         </>
       )}
+      <Box pt={2}>
+        {data && !showTopUploadForm && <S3FileUploadForm files={data} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />}
+      </Box>
     </>
   )
 }

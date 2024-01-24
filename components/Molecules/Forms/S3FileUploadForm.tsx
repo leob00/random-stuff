@@ -1,6 +1,5 @@
 import { Alert, Box, Button, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
-import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import React from 'react'
@@ -136,8 +135,8 @@ const S3FileUploadForm = ({
         <>
           {!isLoading && (
             <Box flexDirection={'column'} gap={1} display={'flex'} alignItems={'center'}>
-              <Button color='info' component='label' variant='contained' startIcon={<CloudUploadIcon />}>
-                <Typography>...upload a file</Typography>
+              <Button color='info' component='label' variant='contained'>
+                <Typography>...choose a file</Typography>
                 <VisuallyHiddenInput type='file' onChange={handleFileSelected} accept={allowed} disabled={isWaiting} />
               </Button>
             </Box>
@@ -154,7 +153,7 @@ const S3FileUploadForm = ({
                   </Box>
                 )}
                 <CenterStack>
-                  <PrimaryButton type='submit' text='Upload' />
+                  <PrimaryButton type='submit' text='Upload' startIcon={<CloudUploadIcon />} />
                 </CenterStack>
               </Box>
             </>

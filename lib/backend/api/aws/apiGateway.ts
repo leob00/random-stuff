@@ -304,7 +304,7 @@ export async function putWheelSpinStats(data: WheelSpinStats) {
   await putRandomStuff('wheelspin-community', 'random', data)
 }
 
-export async function putS3(bucket: Bucket, prefix: string, filename: string, mimeType: string, body: any) {
+export async function putS3(bucket: Bucket, prefix: string, filename: string, mimeType: string, fileSize: number, body: any) {
   const url = `${apiGatewayUrl}/s3Direct/${bucket}/${prefix}/${filename}`
   try {
     const response = await fetch(url, {
@@ -317,6 +317,7 @@ export async function putS3(bucket: Bucket, prefix: string, filename: string, mi
       prefix: `${prefix}`,
       filename: filename,
       fullPath: `${prefix}/${filename}`,
+      size: fileSize,
     }
     if (response.status === 413) {
       result.message = 'File is too large'

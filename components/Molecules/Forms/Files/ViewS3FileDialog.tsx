@@ -3,10 +3,11 @@ import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import React from 'react'
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload'
 
 const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string; filename: string; onCancel: () => void }) => {
   const signedUrlRef = React.useRef<HTMLAnchorElement | null>(null)
-  const previewImageExtenstions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.svg']
+  const previewImageExtenstions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.svg', '.webp']
   const ext = filename.substring(filename.lastIndexOf('.')).toLowerCase()
   const isAudio = ext.includes('.mp3')
   const isImage = previewImageExtenstions.includes(ext)
@@ -22,6 +23,11 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
             </Alert>
           </Box>
         </Stack>
+        <CenterStack sx={{ py: 2 }}>
+          <Link rel='noreferrer' ref={signedUrlRef} href={signedUrl} target={'_blank'}>
+            <PrimaryButton text={'download file'} onClick={onCancel} startIcon={<CloudDownloadIcon />} />
+          </Link>
+        </CenterStack>
         {isAudio && (
           <CenterStack sx={{ pt: 2 }}>
             <Box>
@@ -39,12 +45,6 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
             </Box>
           </CenterStack>
         )}
-
-        <CenterStack sx={{ py: 2 }}>
-          <Link rel='noreferrer' ref={signedUrlRef} href={signedUrl} target={'_blank'}>
-            <PrimaryButton text={'download file'} onClick={onCancel}></PrimaryButton>
-          </Link>
-        </CenterStack>
       </>
     </FormDialog>
   )

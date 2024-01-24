@@ -75,13 +75,14 @@ const S3FilesTable = ({
   const handleRenameFile = async (newfilename: string) => {
     const selectedItem = uiState.selectedItem
     if (selectedItem) {
-      setIsWaiting(true)
       dispatch({ type: 'reset', payload: uiDefaultState })
       const oldPath = selectedItem.fullPath
       const newPath = `${selectedItem.fullPath.substring(0, selectedItem.fullPath.lastIndexOf('/'))}/${newfilename}`
-      await renameS3File(selectedItem.bucket, oldPath, newPath)
-
-      setIsWaiting(false)
+      if (oldPath !== newPath) {
+        setIsWaiting(true)
+        await renameS3File(selectedItem.bucket, oldPath, newPath)
+        setIsWaiting(false)
+      }
       setSearchWithinList('')
       onMutated?.()
     }

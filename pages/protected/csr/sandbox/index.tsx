@@ -16,6 +16,7 @@ import Poller from 'components/Organizms/sandbox/Poller'
 import { range } from 'lodash'
 import { sleep } from 'lib/util/timers'
 import ListIteratorLayout from 'components/Organizms/sandbox/ListIteratorLayout'
+import { auth } from 'aws-crt'
 
 const Page = () => {
   const tabs: TabInfo[] = [
@@ -71,7 +72,7 @@ const Page = () => {
         <Box p={2}>
           {selectedTab === 'Iterator' && <ListIteratorLayout />}
           {selectedTab === 'Poller' && <Poller />}
-          {selectedTab === 'S3' && <>{!isLoading && authProfile ? <S3Display userProfile={authProfile} /> : <PleaseLogin />}</>}
+          {selectedTab === 'S3' && <>{!isLoading && authProfile && <S3Display userProfile={authProfile} />}</>}
           {selectedTab === 'Batch Post' && <PostBatch />}
         </Box>
       </ResponsiveContainer>

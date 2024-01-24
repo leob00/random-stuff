@@ -14,12 +14,14 @@ const FolderActions = ({
   items,
   onFolderAdded,
   onFolderDeleted,
+  onShowTopUploadForm,
 }: {
   folders: DropdownItem[]
   selectedFolder: DropdownItem
   items: S3Object[]
   onFolderAdded: (name: string) => void
   onFolderDeleted: (item: DropdownItem) => void
+  onShowTopUploadForm: (show: boolean) => void
 }) => {
   const [showAddFolderForm, setShowAddFolderForm] = React.useState(false)
   const [deleteItem, setDeleteItem] = React.useState<DropdownItem | null>(null)
@@ -40,7 +42,15 @@ const FolderActions = ({
   const menu: ContextMenuItem[] = [
     {
       fn: () => {
+        setShowAddFolderForm(false)
+        onShowTopUploadForm(true)
+      },
+      item: <ContextMenuAdd text='add file' />,
+    },
+    {
+      fn: () => {
         setShowAddFolderForm(!showAddFolderForm)
+        onShowTopUploadForm(false)
       },
       item: <ContextMenuAdd text='add folder' />,
     },
