@@ -81,13 +81,12 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
     }
     const sorted = sortArray(dataCopy, ['filename'], ['asc'])
     handleFilesMutated(selectedFolder, sorted)
-    dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: `${item.filename} uploaded.` } })
+    //dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: `${item.filename} uploaded.` } })
   }
 
   const handleFolderSelected = async (id: string) => {
     setShowTopUploadForm(false)
     setSelectedFolder(allFolders.find((m) => m.value === id)!)
-    dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: null } })
     mutate(`${mutateKeyBase}${id}`)
   }
   const handleFolderAdd = async (name: string) => {
@@ -100,18 +99,18 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
     setAllFolders(newFolders)
     setSelectedFolder(newItem)
     setIsWaiting(false)
-    dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: `${name} added.` } })
+    //dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: `${name} added.` } })
     mutate(mutateKey)
   }
   const handleFolderDelete = async (item: DropdownItem) => {
     setIsWaiting(true)
     setShowTopUploadForm(false)
-    dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: null } })
+    //dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: null } })
     const newFolders = await s3Controller.deleteFolder(userProfile, item.text, allFolders)
     setAllFolders(newFolders)
     setSelectedFolder(newFolders[0])
     setIsWaiting(false)
-    dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: `${item.text} deleted.` } })
+    //dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: `${item.text} deleted.` } })
     mutate(`${mutateKeyBase}${newFolders[0].value}`)
   }
 
@@ -172,7 +171,9 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
         </>
       )}
       <Box pt={2}>
-        {data && !showTopUploadForm && <S3FileUploadForm files={data} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />}
+        {data && !showTopUploadForm && !isLoading && (
+          <S3FileUploadForm files={data} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />
+        )}
       </Box>
     </>
   )
