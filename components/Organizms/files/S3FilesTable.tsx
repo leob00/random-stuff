@@ -122,6 +122,7 @@ const S3FilesTable = ({
             folder,
             data.filter((m) => m.fullPath !== f.fullPath),
           )
+          await sleep(250)
         }
         await sleep(500)
       }
@@ -140,6 +141,7 @@ const S3FilesTable = ({
           folder,
           data.filter((m) => m.fullPath !== f.fullPath),
         )
+        await sleep(250)
       }
       await sleep(500)
     }
