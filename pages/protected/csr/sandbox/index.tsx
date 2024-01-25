@@ -40,17 +40,17 @@ const Page = () => {
 
   React.useEffect(() => {
     const fn = async () => {
-      if (!authProfile) {
-        const newProfile = await fetchProfilePassive()
-        if (newProfile) {
-          await setProfile(newProfile)
-        }
+      const newProfile = await fetchProfilePassive()
+      if (newProfile) {
+        await setProfile(newProfile)
+        setIsLoading(false)
+      } else {
+        setIsLoading(false)
       }
-      setIsLoading(false)
     }
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authProfile])
+  }, [])
 
   const handleSetTab = (tab: TabInfo) => {
     setSelectedTab(tab.title)

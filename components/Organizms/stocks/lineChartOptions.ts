@@ -55,6 +55,9 @@ export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palet
       },
     },
     chart: {
+      dropShadow: {
+        enabled: true,
+      },
       background: palette === 'dark' ? DarkModeBlue : 'transparent',
       type: 'area',
       toolbar: {

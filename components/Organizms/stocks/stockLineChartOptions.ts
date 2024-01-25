@@ -1,6 +1,16 @@
 import { ApexOptions } from 'apexcharts'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import { CasinoGreen, CasinoRed, VeryLightBlueTransparent, DarkBlue, VeryLightBlue, DarkModeBlue, RedDarkMode, CasinoLimeTransparent, CasinoRedTransparent } from 'components/themes/mainTheme'
+import {
+  CasinoGreen,
+  CasinoRed,
+  VeryLightBlueTransparent,
+  DarkBlue,
+  VeryLightBlue,
+  DarkModeBlue,
+  RedDarkMode,
+  CasinoLimeTransparent,
+  CasinoRedTransparent,
+} from 'components/themes/mainTheme'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 
 export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: boolean, palette: 'light' | 'dark' = 'light') {
@@ -48,6 +58,9 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
       },
     },
     chart: {
+      dropShadow: {
+        enabled: true,
+      },
       background: palette === 'dark' ? DarkModeBlue : 'transparent',
       type: 'area',
       toolbar: {
@@ -60,8 +73,8 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
     },
     grid: {
       show: true,
-      borderColor: palette === 'dark' ? VeryLightBlueTransparent : VeryLightBlue,
-      strokeDashArray: 1,
+      borderColor: palette === 'dark' ? VeryLightBlueTransparent : VeryLightBlueTransparent,
+      strokeDashArray: 3,
       yaxis: {
         lines: {
           show: true,
@@ -76,7 +89,7 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
     yaxis: {
       labels: {
         style: {
-          colors: palette === 'dark' ? [VeryLightBlue] : [DarkBlue],
+          colors: palette === 'dark' ? [VeryLightBlueTransparent] : [DarkBlue],
           fontWeight: isXSmall ? 300 : 600,
           fontSize: isXSmall ? '8px' : '15px',
         },
@@ -127,7 +140,8 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
             return ''
           }
 
-          const change = raw[opts.dataPointIndex].Change! > 0 ? `+$${raw[opts.dataPointIndex].Change?.toFixed(2)}` : `${raw[opts.dataPointIndex].Change?.toFixed(2)}`
+          const change =
+            raw[opts.dataPointIndex].Change! > 0 ? `+$${raw[opts.dataPointIndex].Change?.toFixed(2)}` : `${raw[opts.dataPointIndex].Change?.toFixed(2)}`
           return `$${raw[opts.dataPointIndex].Price.toFixed(2)}   ${change}   ${raw[opts.dataPointIndex].ChangePercent}% `
         },
       },

@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Typography } from '@mui/material'
+import { Alert, Box, Button, Paper, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
@@ -9,6 +9,7 @@ import S3UploadInput from 'components/Organizms/files/S3UploadInput'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { renameS3File } from 'lib/backend/csr/nextApiWrapper'
+import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 
 const mediaTypes = [
   'audio/mp3',
@@ -134,9 +135,9 @@ const S3FileUploadForm = ({
       <form action='/api/defaultRoute' method='post' encType='multipart/form-data' onSubmit={handleSubmit}>
         <>
           {!isLoading && (
-            <Box flexDirection={'column'} gap={1} display={'flex'} alignItems={'center'}>
+            <Box flexDirection={'column'} gap={1} display={'flex'} alignItems={'center'} py={2}>
               <Button color='info' component='label' variant='contained'>
-                <Typography>...choose a file</Typography>
+                <Typography>{`${file ? '...change file' : '...upload a file'}`}</Typography>
                 <VisuallyHiddenInput type='file' onChange={handleFileSelected} accept={allowed} disabled={isWaiting} />
               </Button>
             </Box>
@@ -153,7 +154,7 @@ const S3FileUploadForm = ({
                   </Box>
                 )}
                 <CenterStack>
-                  <PrimaryButton type='submit' text='Upload' startIcon={<CloudUploadIcon />} />
+                  <SuccessButton type='submit' text='Upload' startIcon={<CloudUploadIcon />} />
                 </CenterStack>
               </Box>
             </>

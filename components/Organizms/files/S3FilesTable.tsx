@@ -119,10 +119,7 @@ const S3FilesTable = ({
 
         const resp = await renameS3File(f.bucket, oldPath, newPath)
         if (resp.statusCode === 200) {
-          onLocalDataMutate(
-            folder,
-            data.filter((m) => m.fullPath !== f.fullPath),
-          )
+          onLocalDataMutate(folder, data.slice(0, 1))
           await sleep(250)
         }
         await sleep(500)
@@ -138,10 +135,7 @@ const S3FilesTable = ({
     for (const f of selectedItems) {
       const resp = await postDelete('/api/s3', f)
       if (resp.statusCode === 200) {
-        onLocalDataMutate(
-          folder,
-          data.filter((m) => m.fullPath !== f.fullPath),
-        )
+        onLocalDataMutate(folder, data.slice(0, 1))
         await sleep(250)
       }
       await sleep(500)

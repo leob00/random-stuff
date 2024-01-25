@@ -115,12 +115,13 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
   }
 
   const handleReloadFolder = async (targetFolder: DropdownItem) => {
+    setShowTopUploadForm(false)
     await handleFolderSelected(targetFolder.value)
   }
   const handleFilesMutated = (folder: DropdownItem, files: S3Object[]) => {
+    setShowTopUploadForm(false)
     mutate(`${mutateKeyBase}${folder.value}`, files, { revalidate: false })
   }
-  console.log('message: ', uiState.snackbarSuccessMessage)
   return (
     <>
       {isLoading && <BackdropLoader />}
@@ -155,7 +156,10 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
             folder={selectedFolder}
             allFolders={allFolders}
             data={data}
-            onMutated={() => mutate(mutateKey)}
+            onMutated={() => {
+              setShowTopUploadForm(false)
+              mutate(mutateKey)
+            }}
             onReloadFolder={handleReloadFolder}
             onLocalDataMutate={handleFilesMutated}
           />
