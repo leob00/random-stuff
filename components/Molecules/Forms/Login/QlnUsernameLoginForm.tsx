@@ -5,9 +5,8 @@ import { get } from 'lib/backend/api/fetchFunctions'
 import { QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import LoginUsernameForm, { UsernameLogin } from 'components/Molecules/Forms/Login/LoginUsernameForm'
-import { useSessionPersistentStore, useSessionStore } from 'lib/backend/store/useSessionStore'
+import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
 import { Claim, QlnUser } from 'lib/backend/auth/userUtil'
-import { replaceItemInArray } from 'lib/util/collections'
 import dayjs from 'dayjs'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import { useRouter } from 'next/router'
@@ -30,7 +29,6 @@ const QlnUsernameLoginForm = ({ onSuccess }: { onSuccess: (claims: Claim[]) => v
       const body: QlnUser | null = response.Body
       if (body) {
         const newClaims = [...claims].filter((m) => m.type !== 'qln')
-
         newClaims.push({
           type: 'qln',
           token: body.Token,
@@ -55,7 +53,7 @@ const QlnUsernameLoginForm = ({ onSuccess }: { onSuccess: (claims: Claim[]) => v
     <>
       {isLoading && <BackdropLoader />}
       <FormDialog show={!showLoginSuccess} title={'Log in'} onCancel={() => router.push('/protected/csr/dashboard')}>
-        <LoginUsernameForm obj={{ username: '', password: '' }} onSubmitted={handleSubmitLogin} title={'QLN Login'} error={loginError} />
+        <LoginUsernameForm obj={{ username: '', password: '' }} onSubmitted={handleSubmitLogin} title={'Admin Login'} error={loginError} />
       </FormDialog>
       {showLoginSuccess && (
         <>

@@ -17,6 +17,7 @@ import FolderActions from './FolderActions'
 import S3FolderDropDown from './S3FolderDropDown'
 import { useS3Controller } from 'hooks/s3/useS3Controller'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
+import { useUserController } from 'hooks/userController'
 interface Key {
   key: string
   size: number
@@ -24,23 +25,24 @@ interface Key {
 
 function sortFolders(items?: DropdownItem[]) {
   const result = items ?? []
-  if (items?.length === 0) {
-    return items
-  }
   return sortArray(result, ['text'], ['asc'])
 }
 
 const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
   const bucketName: Bucket = 'rs-files'
   const userFolders = sortFolders(userProfile.settings?.folders)
-  const [selectedFolder, setSelectedFolder] = React.useState(userFolders.length > 0 ? userFolders[0] : getDefaultFolders(userProfile)[0])
+  const lastFolder = userProfile.settings?.selectedFolder
+  const stateSelectedFolder = lastFolder ?? (userFolders.length > 0 ? userFolders[0] : getDefaultFolders(userProfile)[0])
+
+  const [selectedFolder, setSelectedFolder] = React.useState(stateSelectedFolder)
   const [allFolders, setAllFolders] = React.useState(userFolders)
   const [showTopUploadForm, setShowTopUploadForm] = React.useState(false)
   const [isWaiting, setIsWaiting] = React.useState(false)
   const mutateKeyBase = `/api/baseRoute?id=s3FileList`
   const mutateKey = `${mutateKeyBase}${selectedFolder.value}`
   const s3Controller = useS3Controller()
-  const { dispatch, uiState } = s3Controller
+  const { setProfile } = useUserController()
+  const { uiState } = s3Controller
 
   const buildFilesAndFolders = (items: S3Object[]) => {
     const result: S3Object[] = []
@@ -81,12 +83,13 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
     }
     const sorted = sortArray(dataCopy, ['filename'], ['asc'])
     handleFilesMutated(selectedFolder, sorted)
-    //dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: `${item.filename} uploaded.` } })
   }
 
   const handleFolderSelected = async (id: string) => {
     setShowTopUploadForm(false)
-    setSelectedFolder(allFolders.find((m) => m.value === id)!)
+    const newSelectedFolder = allFolders.find((m) => m.value === id)!
+    setSelectedFolder(newSelectedFolder)
+    setProfile({ ...userProfile, settings: { ...userProfile.settings, selectedFolder: newSelectedFolder } })
     mutate(`${mutateKeyBase}${id}`)
   }
   const handleFolderAdd = async (name: string) => {
@@ -99,18 +102,15 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
     setAllFolders(newFolders)
     setSelectedFolder(newItem)
     setIsWaiting(false)
-    //dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: `${name} added.` } })
     mutate(mutateKey)
   }
   const handleFolderDelete = async (item: DropdownItem) => {
     setIsWaiting(true)
     setShowTopUploadForm(false)
-    //dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: null } })
     const newFolders = await s3Controller.deleteFolder(userProfile, item.text, allFolders)
     setAllFolders(newFolders)
     setSelectedFolder(newFolders[0])
     setIsWaiting(false)
-    //dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: `${item.text} deleted.` } })
     mutate(`${mutateKeyBase}${newFolders[0].value}`)
   }
 

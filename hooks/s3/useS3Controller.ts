@@ -36,6 +36,7 @@ export const useS3Controller = () => {
     const newProfile = { ...userProfile }
     const sorted = sortArray(newFolders, ['text'], ['asc'])
     newProfile.settings!.folders = sorted
+    newProfile.settings!.selectedFolder = newItem
     await setProfile(newProfile)
     await putUserProfile(newProfile)
     return sorted
@@ -46,6 +47,7 @@ export const useS3Controller = () => {
     const newProfile = { ...userProfile }
     const sorted = sortArray(newFolders, ['text'], ['asc'])
     newProfile.settings!.folders = sorted
+    newProfile.settings!.selectedFolder = sorted[0]
     await putUserProfile(newProfile)
     await setProfile(newProfile)
     return sorted

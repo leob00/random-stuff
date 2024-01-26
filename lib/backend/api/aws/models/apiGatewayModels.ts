@@ -53,6 +53,7 @@ export interface UserSettings {
     customSort?: Sort[]
   }
   folders?: DropdownItem[]
+  selectedFolder?: DropdownItem
 }
 
 export interface UserProfile {
