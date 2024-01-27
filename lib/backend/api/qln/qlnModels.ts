@@ -15,3 +15,20 @@ export interface MarketHandshake {
 }
 
 export type StockReportTypes = 'marketcapleaders' | 'volumeleaders'
+
+export type QlnLineChart = {
+  XValues: string[]
+  YValues: string[]
+  RawData: any
+}
+
+export interface EconomicDataItem {
+  Title: string
+  InternalId: string
+  Units: string
+  Notes: string
+  Value: number
+  FirstObservationDate?: string
+  LastObservationDate?: string
+  Chart: QlnLineChart | null
+}

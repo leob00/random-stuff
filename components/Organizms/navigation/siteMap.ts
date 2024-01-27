@@ -48,6 +48,10 @@ export function siteMap() {
           name: 'economic calendar',
           route: '/csr/economic-calendar',
         },
+        {
+          name: 'economic data',
+          route: '/csr/economic-data',
+        },
       ],
     },
     {
