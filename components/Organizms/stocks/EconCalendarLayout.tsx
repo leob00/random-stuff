@@ -9,6 +9,8 @@ import { get } from 'lib/backend/api/fetchFunctions'
 import { EconCalendarItem, QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import useSWR, { Fetcher } from 'swr'
+import weekday from 'dayjs/plugin/weekday'
+dayjs.extend(weekday)
 
 interface Model {
   date: string
@@ -26,7 +28,7 @@ const EconCalendarLayout = () => {
     const datesMap = new Map<string, EconCalendarItem[]>()
     result.forEach((item) => {
       datesMap.set(
-        dayjs(item.EventDate).format('MM/DD/YYYY'),
+        `${dayjs(item.EventDate).format('dddd')}, ${dayjs(item.EventDate).format('MMM DD YYYY')}`,
         result.filter((o) => {
           return dayjs(o.EventDate).format('MM/DD/YYYY') === dayjs(item.EventDate).format('MM/DD/YYYY')
         }),

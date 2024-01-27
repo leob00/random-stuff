@@ -1,4 +1,4 @@
-type siteCategories = 'Markets' | 'Personal' | 'Admin' | 'Games' | 'General Interest' | 'Utilities' | 'Pictures'
+type siteCategories = 'Markets' | 'Personal' | 'Admin' | 'Games' | 'General Interest' | 'Utilities' | 'Pictures' | 'Economy'
 type path = {
   name: string
   route: string
@@ -38,6 +38,15 @@ export function siteMap() {
         {
           name: 'stock porfolios',
           route: '/csr/stocks/stock-porfolios',
+        },
+      ],
+    },
+    {
+      category: 'Economy',
+      paths: [
+        {
+          name: 'economic calendar',
+          route: '/csr/economic-calendar',
         },
       ],
     },

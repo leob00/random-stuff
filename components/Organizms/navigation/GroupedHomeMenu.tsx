@@ -7,18 +7,18 @@ import { Paths } from './siteMap'
 
 const GroupedHomeMenu = ({ pathCategories }: { pathCategories: Paths[] }) => {
   return (
-    <>
+    <Box>
       {pathCategories.map((category) => (
         <Box key={category.category} pb={2}>
           <Card>
             <CardContent>
               <CenteredTitle title={category.category} variant='h4' />
               <Box display={'flex'} justifyContent={'center'}>
-                <Box display={'flex'} alignItems={'flex-start'} gap={1}>
+                <Box display={'flex'} gap={1}>
                   {category.paths.map((path) => (
-                    <Stack key={path.route}>
+                    <Box key={path.route}>
                       <NavigationButton route={path.route} text={path.name} variant={'h5'} />
-                    </Stack>
+                    </Box>
                   ))}
                 </Box>
               </Box>
@@ -26,7 +26,7 @@ const GroupedHomeMenu = ({ pathCategories }: { pathCategories: Paths[] }) => {
           </Card>
         </Box>
       ))}
-    </>
+    </Box>
   )
 }
 
