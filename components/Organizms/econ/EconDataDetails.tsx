@@ -24,15 +24,7 @@ interface Model {
   isLoading: boolean
 }
 const config = apiConnection().qln
-const loadDetails = async (id: string, startYear: number, endYear: number) => {
-  const url = `${config.url}/EconReports`
-  const resp = (await post(url, {
-    Id: id,
-    StartYear: startYear,
-    EndYear: endYear,
-  })) as EconDataModel
-  return resp.Body.Item
-}
+
 const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: () => void }) => {
   const itemChart = item.Chart ?? { RawData: [], XValues: [], YValues: [] }
   const startYear = dayjs(item.FirstObservationDate!).year()
@@ -57,26 +49,31 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
   }
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
 
-  const handleStartYearChange = async (val: string) => {
-    const newYear = Number(val)
-
-    if (newYear > model.selectedEndYear) {
-      setModel({ ...model, error: `start year should be before end year`, selectedStartYear: newYear })
+  const loadDetails = async (id: string, yearStart: number, yearEnd: number) => {
+    if (yearStart > yearEnd) {
+      setModel({ ...model, error: 'start year should be before end year', selectedStartYear: yearStart, selectedEndYear: yearEnd })
+      return
+    }
+    if (Math.abs(yearEnd - yearStart) > 5) {
+      setModel({ ...model, error: 'range hould be between 5 years or less ', selectedStartYear: yearStart, selectedEndYear: yearEnd })
       return
     }
     setModel({ ...model, isLoading: true })
-    const result = await loadDetails(item.InternalId, newYear, model.selectedEndYear)
-    setModel({ ...model, error: null, chart: result.Chart!, selectedStartYear: newYear, selectedEndYear: model.selectedEndYear, isLoading: false })
+    const url = `${config.url}/EconReports`
+    const resp = (await post(url, {
+      Id: id,
+      StartYear: yearStart,
+      EndYear: yearEnd,
+    })) as EconDataModel
+    const result = resp.Body.Item
+    setModel({ ...model, error: null, chart: result.Chart!, isLoading: false })
+  }
+
+  const handleStartYearChange = async (val: string) => {
+    await loadDetails(item.InternalId, Number(val), model.selectedEndYear)
   }
   const handleEndYearChange = async (val: string) => {
-    const newYear = Number(val)
-    if (newYear < model.selectedStartYear) {
-      setModel({ ...model, error: `end year should be after start year`, selectedEndYear: newYear })
-      return
-    }
-    setModel({ ...model, isLoading: true })
-    const result = await loadDetails(item.InternalId, model.selectedStartYear, newYear)
-    setModel({ ...model, error: null, chart: result.Chart!, selectedStartYear: model.selectedStartYear, selectedEndYear: newYear, isLoading: false })
+    await loadDetails(item.InternalId, model.selectedStartYear, Number(val))
   }
   return (
     <Box p={1}>
