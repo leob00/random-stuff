@@ -60,9 +60,9 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
       setModel({ ...model, error: `start year should be before end year`, selectedStartYear: newYear })
       return
     }
-    setModel({ ...model, error: null, selectedStartYear: newYear, isLoading: true })
+    setModel({ ...model, isLoading: true })
     const result = await loadDetails(item.InternalId, newYear, model.selectedEndYear)
-    setModel({ ...model, error: null, chart: result.Chart!, isLoading: false })
+    setModel({ ...model, error: null, chart: result.Chart!, selectedStartYear: newYear, selectedEndYear: model.selectedEndYear, isLoading: false })
   }
   const handleEndYearChange = async (val: string) => {
     const newYear = Number(val)
@@ -70,9 +70,9 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
       setModel({ ...model, error: `end year should be after start year`, selectedEndYear: newYear })
       return
     }
-    setModel({ ...model, error: null, selectedEndYear: newYear, isLoading: true })
+    //setModel({ ...model, error: null, isLoading: true })
     const result = await loadDetails(item.InternalId, model.selectedStartYear, newYear)
-    setModel({ ...model, error: null, chart: result.Chart!, isLoading: false })
+    setModel({ ...model, error: null, chart: result.Chart!, selectedStartYear: model.selectedStartYear, selectedEndYear: newYear, isLoading: false })
   }
   return (
     <Box p={1}>
