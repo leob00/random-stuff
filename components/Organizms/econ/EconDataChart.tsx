@@ -16,7 +16,7 @@ const EconDataChart = ({ chart }: { chart: QlnLineChart }) => {
     y: chart.YValues.map((m) => Number(m)),
   }
 
-  const options = getBaseLineChartOptions(xyValues, xyValues.x, isXSmall, theme.palette.mode, '')
+  const options = getBaseLineChartOptions(xyValues, xyValues.x, isXSmall, theme.palette.mode, '', undefined, false)
 
   return (
     <Box borderRadius={3} p={1}>

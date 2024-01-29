@@ -24,8 +24,9 @@ const DropdownList = ({
   return (
     <TextField select value={opt} onChange={handleOptionSelect} size='small' label={label} color={'primary'} fullWidth={fullWidth}>
       {options.map((item) => (
-        <MenuItem key={item.value} value={item.value} selected={selectedOption === opt} color={'primary'}>
-          <Typography color='primary'>{item.text}</Typography>
+        <MenuItem key={item.value} value={item.value} selected={selectedOption === opt} color={'primary'} disabled={item.disabled}>
+          {item.text}
+          {/* <Typography color='primary'>{item.text}</Typography> */}
         </MenuItem>
       ))}
     </TextField>

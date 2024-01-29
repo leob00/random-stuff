@@ -1,5 +1,14 @@
 import { ApexOptions } from 'apexcharts'
-import { CasinoGreen, CasinoLimeTransparent, CasinoRed, DarkBlue, DarkModeBlue, RedDarkMode, VeryLightBlueTransparent } from 'components/themes/mainTheme'
+import {
+  CasinoBlue,
+  CasinoGreen,
+  CasinoLimeTransparent,
+  CasinoRed,
+  DarkBlue,
+  DarkModeBlue,
+  RedDarkMode,
+  VeryLightBlueTransparent,
+} from 'components/themes/mainTheme'
 import { XyValues } from './models/chartModes'
 
 export function getBaseLineChartOptions(
@@ -9,18 +18,23 @@ export function getBaseLineChartOptions(
   palette: 'light' | 'dark' = 'light',
   yLabelPrefix: string = '$',
   toolTipFormatter?: (val: number, opts: any) => string,
+  changePositiveColor = true,
 ) {
   const defaultTooltipFormatter = (val: number, opts: any) => {
     return ` ${val}`
   }
 
   const selectedTooltipFormatter = toolTipFormatter ?? defaultTooltipFormatter
-
-  let lineColor = palette === 'dark' ? CasinoLimeTransparent : CasinoGreen
+  let lineColor = palette === 'dark' ? CasinoBlue : VeryLightBlueTransparent
+  if (changePositiveColor) {
+    lineColor = palette === 'dark' ? CasinoLimeTransparent : CasinoGreen
+  }
 
   if (items.y.length > 0) {
-    if (items.y[0] > items.y[items.y.length - 1]) {
-      lineColor = palette === 'dark' ? RedDarkMode : CasinoRed
+    if (changePositiveColor) {
+      if (items.y[0] > items.y[items.y.length - 1]) {
+        lineColor = palette === 'dark' ? RedDarkMode : CasinoRed
+      }
     }
   }
   let strokeWidth = 3
@@ -137,7 +151,7 @@ export function getBaseLineChartOptions(
             return ` ${seriesName}`
           },
         },
-        formatter: toolTipFormatter,
+        formatter: selectedTooltipFormatter,
       },
     },
   }

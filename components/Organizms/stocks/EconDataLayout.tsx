@@ -1,24 +1,19 @@
-import { Box, Link, Paper, Stack, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import dayjs from 'dayjs'
 import { apiConnection } from 'lib/backend/api/config'
-import { get } from 'lib/backend/api/fetchFunctions'
-import { EconCalendarItem, QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
+import { get, post } from 'lib/backend/api/fetchFunctions'
 import React from 'react'
-import useSWR, { Fetcher, mutate } from 'swr'
 import weekday from 'dayjs/plugin/weekday'
-import EconCalendarDisplay from './EconCalendarDisplay'
 import { useSwrHelper } from 'hooks/useSwrHelper'
-import FormDialog from 'components/Atoms/Dialogs/FormDialog'
-import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
-import EconDataChart from '../econ/EconDataChart'
-import { replaceItemInArray } from 'lib/util/collections'
+import { EconDataCriteria, EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 import EconDataDetails from '../econ/EconDataDetails'
+import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 dayjs.extend(weekday)
 
-interface Model {
+export interface EconDataModel {
   Body: {
     Item: EconomicDataItem
     Items: EconomicDataItem[]
@@ -27,52 +22,48 @@ interface Model {
 
 const EconDataLayout = () => {
   const config = apiConnection().qln
-  const mutateListKey = `${config.url}/EconomicData`
+  const mutateListKey = `${config.url}/EconReports`
 
   const dataFn = async () => {
     const resp = await get(mutateListKey)
-    //console.log(resp)
-    return resp as Model
+    return resp as EconDataModel
   }
 
   const [isWaiting, setIsWaiting] = React.useState(false)
+  const [searchWithinList, setSearchWithinList] = React.useState('')
   const [selectedItem, setSelectedItem] = React.useState<EconomicDataItem | null>(null)
 
   const handleItemClicked = async (item: EconomicDataItem) => {
     const modelCopy = { ...data }
-
+    const endYear = dayjs(item.LastObservationDate!).year()
+    const startYear = dayjs(item.LastObservationDate!).subtract(5, 'years').year()
+    const criteria: EconDataCriteria = {
+      id: item.InternalId,
+      startYear,
+      endYear,
+    }
     if (modelCopy) {
       setIsWaiting(true)
       setSelectedItem(null)
-      const newItems = modelCopy.Body!.Items
-      const existing = newItems.find((m) => m.InternalId === item.InternalId)!
-      const url = `${config.url}/EconomicData`
-      const resp = (await get(url, { id: item.InternalId })) as Model
-      const result = resp.Body.Item
-      setSelectedItem(result)
+      const existing = data?.Body.Items.find((m) => m.InternalId === item.InternalId)
+      if (existing) {
+        const url = `${config.url}/EconReports?id=${criteria.id}&startYear=${criteria.startYear}&endYear=${criteria.endYear}`
+        const resp = (await post(url, {})) as EconDataModel
+        setSelectedItem({ ...existing, criteria: criteria, Chart: resp.Body.Item.Chart })
+      }
+      //setSearchWithinList('')
       setIsWaiting(false)
-
-      // if (!item.Chart) {
-      //   setIsWaiting(true)
-      //   const url = `${config.url}/EconomicData`
-      //   const resp = (await get(url, { id: item.InternalId })) as Model
-      //   const result = resp.Body.Item
-      //   existing.Chart = result.Chart!
-      //   setIsWaiting(false)
-      //   replaceItemInArray(existing, newItems, 'InternalId', item.InternalId)
-      //   const newModel = { ...modelCopy, Items: newItems }
-      //   mutate(mutateListKey, newModel, { revalidate: false })
-      // }
-      // else {
-      //   const newItems = modelCopy.Body!.Items
-      //   existing.Chart = null
-      //   replaceItemInArray(existing, newItems, 'InternalId', item.InternalId)
-      //   const newModel = { ...modelCopy, Items: newItems }
-      //   mutate(mutateListKey, newModel, { revalidate: false })
-      // }
     }
   }
-  const { data, isLoading } = useSwrHelper(mutateListKey, dataFn)
+
+  const filterList = (items: EconomicDataItem[]) => {
+    if (searchWithinList.length === 0) {
+      return items
+    }
+    return items.filter((m) => m.Title.toLowerCase().includes(searchWithinList.toLowerCase()))
+  }
+
+  const { data, isLoading } = useSwrHelper(mutateListKey, dataFn, { revalidateOnFocus: false })
 
   return (
     <Box py={2}>
@@ -80,23 +71,22 @@ const EconDataLayout = () => {
 
       {!isLoading && data && data.Body.Items.length === 0 && <NoDataFound />}
       {data && (
-        <Box py={2}>
-          {data.Body.Items.map((item) => (
-            <Box key={item.InternalId}>
-              <ListHeader item={item} text={item.Title} onClicked={handleItemClicked} />
-              {/* {item.Chart && (
-                <Box py={2}>
-                  <EconDataDetails item={item} />
-                </Box>
-              )} */}
+        <>
+          {selectedItem && selectedItem.Chart && (
+            <Box py={2}>
+              <EconDataDetails item={selectedItem} onClose={() => setSelectedItem(null)} />
             </Box>
-          ))}
-        </Box>
-      )}
-      {selectedItem && (
-        <FormDialog title={selectedItem.Title} show={true} onCancel={() => setSelectedItem(null)} fullScreen>
-          <EconDataDetails item={selectedItem} />
-        </FormDialog>
+          )}
+          <Box py={2} sx={{ display: selectedItem ? 'none' : 'unset' }}>
+            <SearchWithinList onChanged={(text: string) => setSearchWithinList(text)} />
+
+            {filterList(data.Body.Items).map((item) => (
+              <Box key={item.InternalId}>
+                <ListHeader item={item} text={item.Title} onClicked={handleItemClicked} />
+              </Box>
+            ))}
+          </Box>
+        </>
       )}
     </Box>
   )

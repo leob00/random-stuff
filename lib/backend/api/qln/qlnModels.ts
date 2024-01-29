@@ -31,4 +31,11 @@ export interface EconomicDataItem {
   FirstObservationDate?: string
   LastObservationDate?: string
   Chart: QlnLineChart | null
+  criteria?: EconDataCriteria
+}
+
+export interface EconDataCriteria {
+  id: string
+  startYear: number
+  endYear: number
 }
