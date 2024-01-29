@@ -89,6 +89,14 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
         </Box>
       </Box>
       <EconDataChart chart={model.chart} />
+      <Box py={2}>
+        <ReadOnlyField label={'value'} val={numeral(model.chart.YValues[model.chart.YValues.length - 1]).format('###,###.0,00')} />
+
+        <ReadOnlyField
+          label='date range'
+          val={`${dayjs(model.chart.XValues[0]).format('MM/DD/YYYY')} - ${dayjs(model.chart.XValues[model.chart.XValues.length - 1]).format('MM/DD/YYYY')}`}
+        />
+      </Box>
       <Box display={'flex'} gap={1} alignItems={'center'}>
         <Typography>years from:</Typography>
         <DropdownList options={model.startYearOptions} selectedOption={String(model.selectedStartYear)} onOptionSelected={handleStartYearChange} />
@@ -101,7 +109,6 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
         </Box>
       )}
       <Box py={2}>
-        <ReadOnlyField label={'current value'} val={numeral(item.Value).format('###,###.0,00')} />
         <ReadOnlyField
           val={`data available from ${dayjs(item.FirstObservationDate).format('MM/DD/YYYY')} to ${dayjs(item.LastObservationDate).format('MM/DD/YYYY')}`}
         />
