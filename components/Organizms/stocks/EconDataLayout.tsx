@@ -47,8 +47,8 @@ const EconDataLayout = () => {
       setSelectedItem(null)
       const existing = data?.Body.Items.find((m) => m.InternalId === item.InternalId)
       if (existing) {
-        const url = `${config.url}/EconReports?id=${criteria.id}&startYear=${criteria.startYear}&endYear=${criteria.endYear}`
-        const resp = (await post(url, {})) as EconDataModel
+        const url = `${config.url}/EconReports`
+        const resp = (await post(url, { Id: item.InternalId, StartYear: startYear, EndYear: endYear })) as EconDataModel
         setSelectedItem({ ...existing, criteria: criteria, Chart: resp.Body.Item.Chart })
       }
       //setSearchWithinList('')

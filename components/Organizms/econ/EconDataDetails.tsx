@@ -25,8 +25,12 @@ interface Model {
 }
 const config = apiConnection().qln
 const loadDetails = async (id: string, startYear: number, endYear: number) => {
-  const url = `${config.url}/EconReports?id=${id}&startYear=${startYear}&endYear=${endYear}`
-  const resp = (await post(url, {})) as EconDataModel
+  const url = `${config.url}/EconReports`
+  const resp = (await post(url, {
+    Id: id,
+    StartYear: startYear,
+    EndYear: endYear,
+  })) as EconDataModel
   return resp.Body.Item
 }
 const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: () => void }) => {
@@ -70,7 +74,7 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
       setModel({ ...model, error: `end year should be after start year`, selectedEndYear: newYear })
       return
     }
-    //setModel({ ...model, error: null, isLoading: true })
+    setModel({ ...model, isLoading: true })
     const result = await loadDetails(item.InternalId, model.selectedStartYear, newYear)
     setModel({ ...model, error: null, chart: result.Chart!, selectedStartYear: model.selectedStartYear, selectedEndYear: newYear, isLoading: false })
   }
