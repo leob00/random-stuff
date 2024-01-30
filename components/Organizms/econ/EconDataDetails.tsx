@@ -54,8 +54,8 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
       setModel({ ...model, error: 'start year should be before end year', selectedStartYear: yearStart, selectedEndYear: yearEnd })
       return
     }
-    if (Math.abs(yearEnd - yearStart) > 5) {
-      setModel({ ...model, error: 'range hould be between 5 years or less ', selectedStartYear: yearStart, selectedEndYear: yearEnd })
+    if (Math.abs(yearEnd - yearStart) > 10) {
+      setModel({ ...model, error: 'range hould be between 10 years or less ', selectedStartYear: yearStart, selectedEndYear: yearEnd })
       return
     }
     setModel({ ...model, isLoading: true })
