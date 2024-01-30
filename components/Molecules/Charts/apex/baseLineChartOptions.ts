@@ -1,6 +1,7 @@
 import { ApexOptions } from 'apexcharts'
 import {
   CasinoBlue,
+  CasinoBlueTransparent,
   CasinoGreen,
   CasinoLimeTransparent,
   CasinoRed,
@@ -25,7 +26,7 @@ export function getBaseLineChartOptions(
   }
 
   const selectedTooltipFormatter = toolTipFormatter ?? defaultTooltipFormatter
-  let lineColor = palette === 'dark' ? CasinoBlue : VeryLightBlueTransparent
+  let lineColor = palette === 'dark' ? CasinoBlue : CasinoBlueTransparent
   if (changePositiveColor) {
     lineColor = palette === 'dark' ? CasinoLimeTransparent : CasinoGreen
   }
