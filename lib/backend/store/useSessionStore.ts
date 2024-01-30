@@ -39,7 +39,7 @@ export const useSessionPersistentStore = create(
       communityStocks: {},
       claims: [],
       saveRoutes: (routes) => set((state) => ({ ...state, routes: routes, lastRefreshDate: dayjs().format() })),
-      savePalette: (palette: 'light' | 'dark') => set((state) => ({ ...state, palette: palette })),
+      savePalette: (palette: 'light' | 'dark') => set((state) => ({ ...get, palette: palette })),
       saveCommunityStocksSort: (sort) => set((state) => ({ ...state, communityStocks: { defaultSort: sort } })),
       saveClaims: (claims) => set((state) => ({ ...state, claims: claims })),
     }),
