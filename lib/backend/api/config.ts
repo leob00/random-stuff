@@ -16,7 +16,7 @@ export function apiConnection() {
     },
     aws: {
       url: String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL),
-      key: String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_PUBLIC_KEY),
+      key: String(process.env.AWS_API_GATEWAY_KEY),
     },
   }
 

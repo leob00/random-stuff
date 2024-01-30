@@ -112,6 +112,11 @@ const themeOptions: ThemeOptions = {
     MuiPaper: {
       styleOverrides: {},
     },
+    MuiLink: {
+      styleOverrides: {
+        underlineAlways: true,
+      },
+    },
   },
 }
 

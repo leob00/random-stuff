@@ -17,12 +17,17 @@ import { range } from 'lodash'
 import { sleep } from 'lib/util/timers'
 import ListIteratorLayout from 'components/Organizms/sandbox/ListIteratorLayout'
 import { auth } from 'aws-crt'
+import Streamer from 'components/Organizms/sandbox/Streamer'
 
 const Page = () => {
   const tabs: TabInfo[] = [
     {
-      title: 'Iterator',
+      title: 'Stream',
       selected: true,
+    },
+    {
+      title: 'Iterator',
+      selected: false,
     },
     {
       title: 'Poller',
@@ -70,6 +75,7 @@ const Page = () => {
         <PageHeader text='Sandbox' />
         <TabList tabs={tabs} onSetTab={handleSetTab} />
         <Box p={2}>
+          {selectedTab === 'Stream' && <Streamer />}
           {selectedTab === 'Iterator' && <ListIteratorLayout />}
           {selectedTab === 'Poller' && <Poller />}
           {selectedTab === 'S3' && <>{!isLoading && authProfile && <S3Display userProfile={authProfile} />}</>}

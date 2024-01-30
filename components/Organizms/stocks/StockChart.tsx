@@ -86,7 +86,6 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
             {chartOptions && (
               <Box minHeight={{ xs: 300, sm: chartHeight }} pt={2}>
                 <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
-
                 <Box display='flex' gap={4} pb={4}>
                   <Box display='flex' gap={1}>
                     <Typography variant='caption'>start date:</Typography>

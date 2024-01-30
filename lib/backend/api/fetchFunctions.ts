@@ -1,3 +1,6 @@
+import { apiConnection } from './config'
+
+const config = apiConnection()
 export async function get(url: string, params?: any) {
   let args = ''
   if (params) {
@@ -17,7 +20,7 @@ export async function get(url: string, params?: any) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_PUBLIC_KEY),
+        'x-api-key': config.aws.key,
         ApiKey: String(process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY),
       },
     })
@@ -34,15 +37,13 @@ export async function get(url: string, params?: any) {
 }
 
 export async function post(url: string, body: any, contentType: string = 'application/json') {
-  const awsApiKey = String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_PUBLIC_KEY)
-
   try {
     const resp = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(body),
       headers: {
         'Content-Type': contentType,
-        'x-api-key': awsApiKey,
+        'x-api-key': config.aws.key,
         ApiKey: String(process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY),
       },
     })
@@ -56,14 +57,13 @@ export async function post(url: string, body: any, contentType: string = 'applic
 }
 
 export async function postBody(url: string, method: 'PATCH' | 'POST' | 'DELETE' | 'PUT', body: any) {
-  const awsApiKey = String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_PUBLIC_KEY)
   try {
     const resp = await fetch(url, {
       method: method,
       body: JSON.stringify(body),
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': awsApiKey,
+        'x-api-key': config.aws.key,
         ApiKey: String(process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY),
       },
     })
@@ -81,7 +81,6 @@ export async function postBody(url: string, method: 'PATCH' | 'POST' | 'DELETE' 
 }
 
 export async function postDelete(url: string, params: any) {
-  const awsApiKey = String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_PUBLIC_KEY)
   let args = ''
   if (params) {
     const keys = Object.keys(params)
@@ -101,7 +100,7 @@ export async function postDelete(url: string, params: any) {
       body: JSON.stringify(params),
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': awsApiKey,
+        'x-api-key': config.aws.key,
         ApiKey: String(process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY),
       },
     })

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert, Box, IconButton, Typography } from '@mui/material'
+import { Alert, Box, Button, IconButton, Typography } from '@mui/material'
 import { EconomicDataItem, QlnLineChart } from 'lib/backend/api/qln/qlnModels'
 import EconDataChart from 'components/Organizms/econ/EconDataChart'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
@@ -13,6 +13,7 @@ import { apiConnection } from 'lib/backend/api/config'
 import { post } from 'lib/backend/api/fetchFunctions'
 import { EconDataModel } from '../stocks/EconDataLayout'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import UncontrolledDropdownList from 'components/Atoms/Inputs/UncontrolledDropdownList'
 
 interface Model {
   startYearOptions: DropdownItem[]
@@ -66,7 +67,7 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
       EndYear: yearEnd,
     })) as EconDataModel
     const result = resp.Body.Item
-    setModel({ ...model, error: null, chart: result.Chart!, isLoading: false })
+    setModel({ ...model, error: null, chart: result.Chart!, isLoading: false, selectedStartYear: yearStart, selectedEndYear: yearEnd })
   }
 
   const handleStartYearChange = async (val: string) => {
@@ -75,10 +76,14 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
   const handleEndYearChange = async (val: string) => {
     await loadDetails(item.InternalId, model.selectedStartYear, Number(val))
   }
+
+  const handleReset = () => {
+    setModel(defaultModel)
+  }
+
   return (
     <Box p={1}>
       {model.isLoading && <BackdropLoader />}
-
       <Box py={2} display='flex' justifyContent={'space-between'} alignItems={'center'}>
         <Box>
           <Typography variant='h6'>{item.Title}</Typography>
@@ -92,17 +97,16 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
       <EconDataChart chart={model.chart} />
       <Box py={2}>
         <ReadOnlyField label={'value'} val={numeral(model.chart.YValues[model.chart.YValues.length - 1]).format('###,###.0,00')} />
-
-        <ReadOnlyField
-          label='date range'
-          val={`${dayjs(model.chart.XValues[0]).format('MM/DD/YYYY')} - ${dayjs(model.chart.XValues[model.chart.XValues.length - 1]).format('MM/DD/YYYY')}`}
-        />
+        <ReadOnlyField label='date range' val={`${dayjs(model.chart.XValues[0]).format('MM/DD/YYYY')} - ${dayjs(model.chart.XValues[model.chart.XValues.length - 1]).format('MM/DD/YYYY')}`} />
       </Box>
       <Box display={'flex'} gap={1} alignItems={'center'}>
         <Typography>years from:</Typography>
-        <DropdownList options={model.startYearOptions} selectedOption={String(model.selectedStartYear)} onOptionSelected={handleStartYearChange} />
+        <UncontrolledDropdownList options={model.startYearOptions} selectedOption={String(model.selectedStartYear)} onOptionSelected={handleStartYearChange} />
         <Typography>to:</Typography>
-        <DropdownList options={model.endYearOptions} selectedOption={String(model.selectedEndYear)} onOptionSelected={handleEndYearChange} />
+        <UncontrolledDropdownList options={model.endYearOptions} selectedOption={String(model.selectedEndYear)} onOptionSelected={handleEndYearChange} />
+        <Button onClick={handleReset}>
+          <Typography>reset</Typography>
+        </Button>
       </Box>
       {model.error && (
         <Box py={2}>
@@ -110,11 +114,8 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
         </Box>
       )}
       <Box py={2}>
-        <ReadOnlyField
-          val={`data available from ${dayjs(item.FirstObservationDate).format('MM/DD/YYYY')} to ${dayjs(item.LastObservationDate).format('MM/DD/YYYY')}`}
-        />
+        <Typography variant='caption'>{`data available from ${dayjs(item.FirstObservationDate).format('MM/DD/YYYY')} to ${dayjs(item.LastObservationDate).format('MM/DD/YYYY')}`}</Typography>
       </Box>
-
       <Box py={2}>
         <Typography>{item.Notes}</Typography>
       </Box>

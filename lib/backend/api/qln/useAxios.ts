@@ -1,9 +1,11 @@
 import axios, { AxiosRequestConfig } from 'axios'
+import { apiConnection } from '../config'
 const apiKey = process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY as string
+const conn = apiConnection()
 const config: AxiosRequestConfig = {
   headers: {
     'Content-Type': 'application/json',
-    'x-api-key': String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_PUBLIC_KEY),
+    'x-api-key': conn.aws.key,
     ApiKey: apiKey,
   },
 }

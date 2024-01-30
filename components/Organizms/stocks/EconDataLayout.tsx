@@ -51,7 +51,6 @@ const EconDataLayout = () => {
         const resp = (await post(url, { Id: item.InternalId, StartYear: startYear, EndYear: endYear })) as EconDataModel
         setSelectedItem({ ...existing, criteria: criteria, Chart: resp.Body.Item.Chart })
       }
-      //setSearchWithinList('')
       setIsWaiting(false)
     }
   }
@@ -68,7 +67,6 @@ const EconDataLayout = () => {
   return (
     <Box py={2}>
       {(isLoading || isWaiting) && <BackdropLoader />}
-
       {!isLoading && data && data.Body.Items.length === 0 && <NoDataFound />}
       {data && (
         <>
@@ -79,7 +77,6 @@ const EconDataLayout = () => {
           )}
           <Box py={2} sx={{ display: selectedItem ? 'none' : 'unset' }}>
             <SearchWithinList onChanged={(text: string) => setSearchWithinList(text)} />
-
             {filterList(data.Body.Items).map((item) => (
               <Box key={item.InternalId}>
                 <ListHeader item={item} text={item.Title} onClicked={handleItemClicked} />
