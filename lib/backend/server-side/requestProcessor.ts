@@ -1,13 +1,13 @@
-import { isBrowser } from 'lib/util/system'
-import { findLast } from 'lodash'
 import { NextApiRequest } from 'next'
+import { apiConnection } from '../api/config'
 
 export async function authorizeGetRequest(req: NextApiRequest) {
+  const config = apiConnection().internal
   const providedToken = req.query['token'] as string | undefined
   if (!providedToken) {
     return false
   }
-  if (process.env.NEXT_PUBLIC_API_TOKEN !== providedToken) {
+  if (config.key !== providedToken) {
     return false
   }
   return true

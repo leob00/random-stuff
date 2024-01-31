@@ -14,7 +14,7 @@ const NewsDescription = ({ item }: { item: NewsItem }) => {
     case 'BbcWorld': {
       return (
         <>
-          {item.Description && item.Description.length > 2 && (
+          {item.Description && item.Description.length > 1 && (
             <Box pt={1} width={{ xs: 360, sm: 'unset' }} textAlign={'center'}>
               <HtmlView html={item.Description} />
             </Box>
@@ -24,9 +24,11 @@ const NewsDescription = ({ item }: { item: NewsItem }) => {
     }
   }
   return (
-    <Box pt={1} width={{ xs: 360, sm: 'unset' }}>
-      <HtmlView html={item.Description ?? ''} textAlign={item.Source!.includes('Google') ? 'left' : 'center'} />
-    </Box>
+    <>
+      <Box pt={1} width={{ xs: 360, sm: 'unset' }} textAlign={item.Source!.includes('Google') ? 'left' : 'center'}>
+        <HtmlView html={item.Description ?? ''} textAlign={item.Source!.includes('Google') ? 'left' : 'center'} />
+      </Box>
+    </>
   )
 }
 

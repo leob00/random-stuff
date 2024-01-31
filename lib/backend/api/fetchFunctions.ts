@@ -21,7 +21,7 @@ export async function get(url: string, params?: any) {
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': config.aws.key,
-        ApiKey: String(process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY),
+        ApiKey: String(config.qln.key),
       },
     })
     if (resp.status !== 200) {
@@ -44,7 +44,7 @@ export async function post(url: string, body: any, contentType: string = 'applic
       headers: {
         'Content-Type': contentType,
         'x-api-key': config.aws.key,
-        ApiKey: String(process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY),
+        ApiKey: String(config.qln.key),
       },
     })
 
@@ -64,7 +64,7 @@ export async function postBody(url: string, method: 'PATCH' | 'POST' | 'DELETE' 
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': config.aws.key,
-        ApiKey: String(process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY),
+        ApiKey: String(config.qln.key),
       },
     })
 
@@ -101,7 +101,7 @@ export async function postDelete(url: string, params: any) {
       headers: {
         'Content-Type': 'application/json',
         'x-api-key': config.aws.key,
-        ApiKey: String(process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY),
+        ApiKey: String(config.qln.key),
       },
     })
 

@@ -5,6 +5,7 @@ import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import WarmupBox from 'components/Atoms/WarmupBox'
+import { apiConnection } from 'lib/backend/api/config'
 import { post, get } from 'lib/backend/api/fetchFunctions'
 import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { myEncrypt } from 'lib/backend/encryption/useEncryptor'
@@ -43,6 +44,7 @@ const apiOptions: DropdownItem[] = [
 ]
 
 const ApiTest = () => {
+  const config = apiConnection().internal
   const [isLoading, setIsLoading] = React.useState(true)
   const [jsonResult, setJsonResult] = React.useState('')
 
@@ -50,7 +52,7 @@ const ApiTest = () => {
     setIsLoading(true)
     let req = url
     if (req.includes('searchRandomStuff')) {
-      const enc = myEncrypt(String(process.env.NEXT_PUBLIC_API_TOKEN), `user-stock_list`)
+      const enc = myEncrypt(config.key, `user-stock_list`)
       const body: SignedRequest = {
         data: enc,
       }

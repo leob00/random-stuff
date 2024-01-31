@@ -1,8 +1,11 @@
 import { BlogResponse, BlogTypes } from '../../models/cms/contentful/blog'
 import { Recipe, RecipeCollection, RecipesResponse } from '../../models/cms/contentful/recipe'
+import { apiConnection } from './config'
 import { post } from './fetchFunctions'
 
-const url = `${process.env.CONTENTFUL_GRAPH_BASE_URL}${process.env.CONTENTFUL_SPACE_ID}?access_token=${process.env.CONTENTFUL_ACCESS_TOKEN}`
+const config = apiConnection().contentful
+
+const url = `${config.url}${config.spaceId}?access_token=${config.key}`
 
 const allBlogsQuery = /* GraphQL */ `
   {
