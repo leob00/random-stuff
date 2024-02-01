@@ -55,7 +55,6 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
         break
       case 'signIn':
         if (ticket) {
-          console.log('breaking out: ', ticket)
           return
         }
         const payloadTicket = payload.data!

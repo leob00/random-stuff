@@ -14,6 +14,7 @@ import { post } from 'lib/backend/api/fetchFunctions'
 import { EconDataModel } from '../stocks/EconDataLayout'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UncontrolledDropdownList from 'components/Atoms/Inputs/UncontrolledDropdownList'
+import HtmlView from 'components/Atoms/Boxes/HtmlView'
 
 interface Model {
   startYearOptions: DropdownItem[]
@@ -97,7 +98,10 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
       <EconDataChart chart={model.chart} />
       <Box py={2}>
         <ReadOnlyField label={'value'} val={numeral(model.chart.YValues[model.chart.YValues.length - 1]).format('###,###.0,00')} />
-        <ReadOnlyField label='date range' val={`${dayjs(model.chart.XValues[0]).format('MM/DD/YYYY')} - ${dayjs(model.chart.XValues[model.chart.XValues.length - 1]).format('MM/DD/YYYY')}`} />
+        <ReadOnlyField
+          label='date range'
+          val={`${dayjs(model.chart.XValues[0]).format('MM/DD/YYYY')} - ${dayjs(model.chart.XValues[model.chart.XValues.length - 1]).format('MM/DD/YYYY')}`}
+        />
       </Box>
       <Box display={'flex'} gap={1} alignItems={'center'}>
         <Typography>years from:</Typography>
@@ -114,10 +118,13 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
         </Box>
       )}
       <Box py={2}>
-        <Typography variant='caption'>{`data available from ${dayjs(item.FirstObservationDate).format('MM/DD/YYYY')} to ${dayjs(item.LastObservationDate).format('MM/DD/YYYY')}`}</Typography>
+        <Typography variant='caption'>{`data available from ${dayjs(item.FirstObservationDate).format('MM/DD/YYYY')} to ${dayjs(
+          item.LastObservationDate,
+        ).format('MM/DD/YYYY')}`}</Typography>
       </Box>
       <Box py={2}>
-        <Typography>{item.Notes}</Typography>
+        {/* <HtmlView html={item.Notes} text /> */}
+        <Typography sx={{ wordWrap: 'break-word' }}>{item.Notes}</Typography>
       </Box>
     </Box>
   )

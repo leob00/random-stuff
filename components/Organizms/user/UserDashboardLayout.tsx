@@ -40,6 +40,8 @@ const UserDashboardLayout = ({ ticket }: { ticket: AmplifyUser | null }) => {
               <CenteredNavigationButton route={'/csr/stocks'} text={'stocks'} />
               <CenteredNavigationButton route={'/csr/stocks/stock-porfolios'} text={'stock portfolios'} />
               <CenteredNavigationButton route={'/csr/community-stocks'} text={'community stocks'} />
+              <CenteredNavigationButton route={'/csr/economic-calendar'} text={'economic calendar'} />
+              <CenteredNavigationButton route={'/csr/economic-data'} text={'economic data'} />
               <CenteredNavigationButton route={'/protected/csr/goals'} text={'goals'} />
               <CenteredNavigationButton route={'/protected/csr/notes'} text={'notes'} />
               <CenteredNavigationButton route={'/ssg/recipes'} text={'recipes'} />

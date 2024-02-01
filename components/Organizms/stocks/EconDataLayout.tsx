@@ -49,7 +49,6 @@ const EconDataLayout = () => {
       if (existing) {
         const url = `${config.url}/EconReports`
         const resp = (await post(url, { Id: item.InternalId, StartYear: startYear, EndYear: endYear })) as EconDataModel
-        console.log(resp)
         setSelectedItem({ ...existing, criteria: criteria, Chart: resp.Body.Item.Chart })
       }
       setIsWaiting(false)
