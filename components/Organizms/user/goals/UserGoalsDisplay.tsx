@@ -108,7 +108,7 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
                 <Box key={item.id}>
                   <ListItemContainer>
                     <Stack direction='row' py={'3px'} justifyContent='left' alignItems='center'>
-                      <ListHeader text={item.body!} item={item} onClicked={() => handleShowEditGoal(item)} />
+                      <ListHeader text={item.body!} item={item} onClicked={() => handleShowEditGoal(item)} underline />
                       {item.completePercent !== undefined && (
                         <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' pr={2}>
                           <ProgressBar value={item.completePercent} toolTipText={`${item.completePercent}% complete`} width={80} />

@@ -40,6 +40,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
 
   const handleAuthEvent = async (payload: HubPayload) => {
     const newClaims = claims.filter((m) => m.type !== 'rs')
+    console.log(payload)
     switch (payload.event) {
       case 'signOut':
         console.log('signing out')
@@ -53,11 +54,15 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
         }
         break
       case 'signIn':
-        const ticket = payload.data!
+        if (ticket) {
+          console.log('breaking out: ', ticket)
+          return
+        }
+        const payloadTicket = payload.data!
         const user: AmplifyUser = {
           id: payload.data?.attributes.sub,
           email: payload.data?.attributes.email,
-          roles: getRolesFromAmplifyUser(ticket),
+          roles: getRolesFromAmplifyUser(payloadTicket),
         }
         await setTicket(user)
 
@@ -70,7 +75,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
           await putUserProfile(p)
         }
         setProfile(p)
-        const isAdmin = userHasRole('Admin', ticket.roles)
+        const isAdmin = userHasRole('Admin', payloadTicket.roles)
         const now = dayjs()
         newClaims.push({
           token: crypto.randomUUID(),
@@ -91,6 +96,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
             router.push('/')
             return
           }
+          console.log('pushing to last path')
           router.push(lastPath)
         }
         break

@@ -1,5 +1,7 @@
 import { TextField, Box, Typography, Alert } from '@mui/material'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
+import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
@@ -59,9 +61,9 @@ const ReEnterPassword = ({ userProfile, onSuccess }: { userProfile: UserProfile;
             </Box>
           )}
         </Box>
-        <Box pt={3} height={50}>
+        <Box pt={0} height={50}>
           <CenterStack>
-            <SecondaryButton type='submit' text='submit' disabled={isLoading}></SecondaryButton>
+            <PrimaryButton type='submit' text='submit' disabled={isLoading} />
           </CenterStack>
         </Box>
       </form>

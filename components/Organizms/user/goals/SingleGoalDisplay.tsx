@@ -26,6 +26,7 @@ import Warning from '@mui/icons-material/Warning'
 import GoalStats from './GoalStats'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
+import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 
 const SingleGoalDisplay = ({
   username,
@@ -180,12 +181,7 @@ const SingleGoalDisplay = ({
           {goal.deleteCompletedTasks && (
             <Stack>
               <Box display={'flex'} alignItems={'center'} gap={1} justifyContent={'center'}>
-                <Typography>
-                  <Warning fontSize='small' color='primary' />
-                </Typography>
-                <Typography variant='caption' textAlign={'center'}>
-                  completed tasks will be deleted
-                </Typography>
+                <AlertWithHeader severity='warning' text='completed tasks will be deleted' />
               </Box>
             </Stack>
           )}

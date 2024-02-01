@@ -16,6 +16,7 @@ const ListHeader = ({
   addText = 'add',
   backgroundColor,
   elevation,
+  underline,
 }: {
   text: string
   item: any
@@ -26,6 +27,7 @@ const ListHeader = ({
   addText?: string
   backgroundColor?: string
   elevation?: number
+  underline?: boolean
 }) => {
   const theme = useTheme()
   const showContextMenu = onEdit !== undefined || onDelete !== undefined || onAdd !== undefined
@@ -69,7 +71,7 @@ const ListHeader = ({
                 onClicked(item)
               }}
             >
-              <Typography textAlign={'left'} variant='h5' color='primary'>
+              <Typography textAlign={'left'} variant='h5' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
                 {text}
               </Typography>
             </Stack>
@@ -86,7 +88,7 @@ const ListHeader = ({
               onClicked(item)
             }}
           >
-            <Typography textAlign={'left'} variant='h5' color='primary'>
+            <Typography textAlign={'left'} variant='h5' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
               {text}
             </Typography>
           </Stack>

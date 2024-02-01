@@ -15,6 +15,7 @@ import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import { get } from 'lib/backend/api/fetchFunctions'
 import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 
 const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const [showPasswordEntry, setShowPasswordEntry] = React.useState(false)
@@ -73,24 +74,11 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
         <HorizontalDivider />
         {validatedProfile && (
           <>
-            <CenterStack>
-              <Typography variant='body1'>
-                {!showPasswordEntry && !showPinEntry && (
-                  <LinkButton onClick={handleChangePinClick}>
-                    <Typography>{`${validatedProfile.pin ? 'reset pin' : 'create a pin'}`}</Typography>
-                  </LinkButton>
-                )}
-              </Typography>
+            <CenterStack sx={{ py: 2 }}>
+              {!showPasswordEntry && !showPinEntry && (
+                <PrimaryButton text={`${validatedProfile.pin ? 'reset pin' : 'create a pin'}`} onClicked={handleChangePinClick} />
+              )}
             </CenterStack>
-            <ReEnterPasswordDialog
-              show={showPasswordEntry}
-              title='Login'
-              text='Please enter your password so you can set your pin.'
-              userProfile={validatedProfile}
-              onConfirm={handlePasswordValidated}
-              onCancel={handleCancelChangePin}
-            />
-            <CreatePinDialog show={showPinEntry} userProfile={validatedProfile} onCancel={handleCancelChangePin} onConfirm={handlePinChanged} />
             <Box py={4}>
               <CenterStack>Settings</CenterStack>
               {!validatedProfile.emailVerified ? (
@@ -103,6 +91,15 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                 </CenterStack>
               )}
             </Box>
+            <ReEnterPasswordDialog
+              show={showPasswordEntry}
+              title='Login'
+              text='Please enter your password so you can set your pin.'
+              userProfile={validatedProfile}
+              onConfirm={handlePasswordValidated}
+              onCancel={handleCancelChangePin}
+            />
+            <CreatePinDialog show={showPinEntry} userProfile={validatedProfile} onCancel={handleCancelChangePin} onConfirm={handlePinChanged} />
           </>
         )}
       </>

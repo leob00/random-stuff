@@ -15,6 +15,8 @@ import React from 'react'
 import { mutate } from 'swr'
 import StockSubscriptionForm from './StockSubscriptionForm'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
+import Clickable from 'components/Atoms/Containers/Clickable'
+import { useRouter } from 'next/router'
 dayjs.extend(customParseFormat)
 
 const StockAlertRow = ({ sub, username }: { sub: StockAlertSubscription; username: string }) => {
@@ -23,6 +25,7 @@ const StockAlertRow = ({ sub, username }: { sub: StockAlertSubscription; usernam
   const [error, setError] = React.useState<string | null>(null)
   const [isLoading, setIsLoading] = React.useState(false)
   const [showConfirmDelete, setShowConfirmDelete] = React.useState(false)
+  const router = useRouter()
 
   const handleEdit = async (item: StockAlertSubscription) => {
     setIsLoading(true)
@@ -95,7 +98,13 @@ const StockAlertRow = ({ sub, username }: { sub: StockAlertSubscription; usernam
           {quote && editSub && <StockSubscriptionForm show={true} onClose={handleClose} onSave={handleSave} quote={quote} sub={editSub} />}
           <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
             <Box>
-              <Typography variant='h5'>{`${sub.company} (${sub.symbol})`}</Typography>
+              <Clickable
+                onClicked={() => {
+                  router.push(`/csr/stocks/details?id=${sub.symbol}&returnUrl=/csr/stocks/alerts`)
+                }}
+              >
+                <Typography variant='h5' sx={{ textDecoration: 'underline' }}>{`${sub.company} (${sub.symbol})`}</Typography>
+              </Clickable>
             </Box>
             <Box>
               <ContextMenu items={menuItems} />

@@ -5,6 +5,7 @@ import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ControlledFreeTextInput } from './ReactHookForm/ControlledFreeTextInput'
 import { ControlledDateTimePicker } from './ReactHookForm/ControlledDateTimePicker'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 
 const AddTaskForm = ({ task, onSubmitted }: { task: UserTask; onSubmitted: (data: UserTask) => void }) => {
   const {
@@ -24,7 +25,7 @@ const AddTaskForm = ({ task, onSubmitted }: { task: UserTask; onSubmitted: (data
       <Stack direction={'row'} spacing={1}>
         <ControlledFreeTextInput control={control} fieldName='body' defaultValue={task.body ?? ''} label='' placeholder='new task' required />
         <ControlledDateTimePicker control={control} fieldName='dueDate' defaultValue={task.dueDate ?? null} placeholder={'due date'} label={'due date'} />
-        <SecondaryButton text='add' type='submit' size='small' width={80} />
+        <PrimaryButton text='add' type='submit' size='small' />
       </Stack>
     </form>
   )

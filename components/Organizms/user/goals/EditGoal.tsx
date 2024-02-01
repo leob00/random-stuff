@@ -68,7 +68,7 @@ const EditGoal = ({
       {model.isSaving && <BackdropLoader />}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box py={2}>
-          <ControlledFreeTextInput control={control} defaultValue={model.goal.body ?? ''} fieldName='body' label='name' required={true} placeholder='name' />
+          <ControlledFreeTextInput control={control} defaultValue={model.goal.body ?? ''} fieldName='body' label='' required={true} placeholder='name' />
         </Box>
         <Box py={2}>
           <ControlledDateTimePicker control={control} defaultValue={model.goal.dueDate ?? ''} fieldName='dueDate' label='due date' placeholder='due date' />

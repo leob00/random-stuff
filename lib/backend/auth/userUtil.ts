@@ -67,6 +67,7 @@ export async function validateUserCSR(username: string, password: string) {
     const result = await Auth.signIn(username, password, {
       reason: 're-enter-password',
     })
+
     return result
   } catch (err) {
     console.error('error password validation: ', err)
