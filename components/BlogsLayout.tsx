@@ -13,7 +13,7 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
   const paged = getPagedItems<BlogItem>(model.items, itemsPerPage) as PagedCollection
   let searchItems: Array<Option> = []
   model.items.forEach((a) => {
-    searchItems.push({ label: a.title, id: a.id })
+    searchItems.push({ label: a.title, id: String(a.id) })
   })
   const displayed = paged.pages[0].items as BlogItem[]
   const [currentPageIndex, setCurrentPageIndex] = useState(1)
@@ -47,7 +47,7 @@ const BlogsLayout = ({ model }: { model: BlogCollection }) => {
       //setCurrentPageIndex(1)
       return
     }
-    let id = sel.id as number
+    let id = sel.id!
     let foundPage = findLast(paged.pages, function (p) {
       return (
         findLast(p.items, function (i) {

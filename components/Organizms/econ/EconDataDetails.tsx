@@ -51,7 +51,7 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
   }
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
 
-  const loadDetails = async (id: string, yearStart: number, yearEnd: number) => {
+  const loadDetails = async (id: number, yearStart: number, yearEnd: number) => {
     if (yearStart > yearEnd) {
       setModel({ ...model, error: 'start year should be before end year', selectedStartYear: yearStart, selectedEndYear: yearEnd })
       return
