@@ -4,10 +4,9 @@ import { GetStaticProps } from 'next'
 import useSWR, { SWRConfig } from 'swr'
 import axios from 'axios'
 import { getAllRecipes } from 'lib/backend/api/contenfulApi'
-import { orderBy, shuffle, take } from 'lodash'
+import { shuffle, take } from 'lodash'
 import { Recipe, RecipeCollection } from 'lib/models/cms/contentful/recipe'
 import RecipesLayout from 'components/RecipesLayout'
-import { Option } from 'lib/AutoCompleteOptions'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import { SiteStats } from 'lib/backend/api/aws/models/apiGatewayModels'
 import dayjs from 'dayjs'
@@ -16,6 +15,8 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import Seo from 'components/Organizms/Seo'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import { getRandomStuff, putRandomStuff } from 'lib/backend/api/aws/apiGateway'
+import { DropdownItem } from 'lib/models/dropdown'
+import { sortArray } from 'lib/util/collections'
 dayjs.extend(relativeTime)
 
 const cmsRefreshIntervalSeconds = 86400
@@ -25,7 +26,7 @@ const featuredRecipesExpirationMinutes = 1440
 const siteStatsKey = 'site-stats'
 
 export interface RecipesLayoutModel {
-  autoComplete: Option[]
+  autoComplete: DropdownItem[]
   featured: Recipe[]
 }
 
@@ -45,8 +46,10 @@ const fetcherFn = async (url: string) => {
   }
   const featured = needsRefresh ? newData : stats.recipes.featured
 
-  let options = allItems.map((item) => ({ id: item.sys.id, label: item.title })) as Option[]
-  options = orderBy(options, ['label'], ['asc'])
+  let options: DropdownItem[] = allItems.map((item) => {
+    return { value: item.sys.id, text: item.title }
+  })
+  options = sortArray(options, ['text'], ['asc'])
   const model: RecipesLayoutModel = {
     featured: featured,
     autoComplete: options,
@@ -58,8 +61,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
   let result = await getAllRecipes()
   const items = result.items
   const newData = take(shuffle(items), 5)
-  let options = items.map((item) => ({ id: item.sys.id, label: item.title })) as Option[]
-  options = orderBy(options, ['label'], ['asc'])
+  let options: DropdownItem[] = items.map((item) => {
+    return { value: item.sys.id, text: item.title }
+  })
+  options = sortArray(options, ['text'], ['asc'])
   const stats = (await getRandomStuff(siteStatsKey)) as SiteStats
   const needsRefresh = dayjs(stats.recipes.lastRefreshDate).add(featuredRecipesExpirationMinutes, 'minute').isBefore(dayjs())
   if (needsRefresh) {

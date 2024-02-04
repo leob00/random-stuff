@@ -10,34 +10,40 @@ import CenterStack from './Atoms/CenterStack'
 import InternalLink from './Atoms/Buttons/InternalLink'
 import CenteredTitle from './Atoms/Text/CenteredTitle'
 import StaticAutoComplete from './Atoms/Inputs/StaticAutoComplete'
+import { DropdownItem } from 'lib/models/dropdown'
 
-const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Option[]; baseUrl: string; featured: Recipe[] }) => {
-  const handleSelect = (
-    event: React.SyntheticEvent<Element, Event>,
-    value: Option | null,
-    reason: AutocompleteChangeReason,
-    details?: AutocompleteChangeDetails<Option> | undefined,
-  ) => {
-    const selectedItem = { ...value }
+const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: DropdownItem[]; baseUrl: string; featured: Recipe[] }) => {
+  // const handleSelect = (
+  //   event: React.SyntheticEvent<Element, Event>,
+  //   value: Option | null,
+  //   reason: AutocompleteChangeReason,
+  //   details?: AutocompleteChangeDetails<Option> | undefined,
+  // ) => {
+  //   const selectedItem = { ...value }
 
-    if (selectedItem.id) {
-      router.push(`${baseUrl}${selectedItem.id}`)
-    } else {
-      console.error('error generating single recipe: ', selectedItem)
-    }
+  //   if (selectedItem.id) {
+  //     router.push(`${baseUrl}${selectedItem.id}`)
+  //   } else {
+  //     console.error('error generating single recipe: ', selectedItem)
+  //   }
+  // }
+
+  const handleSelected = (item: DropdownItem) => {
+    router.push(`${baseUrl}${item.value}`)
   }
+
   return (
     <Box>
       <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
-        <Autocomplete
+        {/* <Autocomplete
           size='small'
           onChange={handleSelect}
           disablePortal
           options={autoComplete}
           sx={{ width: 360 }}
           renderInput={(params) => <TextField {...params} placeholder={`search ${autoComplete.length} recipes`} />}
-        />
-        {/* <StaticAutoComplete options={autoComplete} placeholder={`search ${result.length} notes`} onSelected={handleNoteSelected} /> */}
+        /> */}
+        <StaticAutoComplete options={autoComplete} placeholder={`search ${autoComplete.length} recipes`} onSelected={handleSelected} />
       </Stack>
       <Box sx={{ my: 2 }}>
         <CenteredTitle title={'Featured Recipes'} />
