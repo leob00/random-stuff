@@ -23,6 +23,7 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
             </Alert>
           </Box>
         </Stack>
+        <CenterStack sx={{ py: 2 }}>{filename}</CenterStack>
         <CenterStack sx={{ py: 2 }}>
           <Link rel='noreferrer' ref={signedUrlRef} href={signedUrl} target={'_blank'}>
             <PrimaryButton text={'download file'} onClick={onCancel} startIcon={<CloudDownloadIcon />} />

@@ -11,7 +11,7 @@ import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import { range } from 'lodash'
 import { apiConnection } from 'lib/backend/api/config'
 import { post } from 'lib/backend/api/fetchFunctions'
-import { EconDataModel } from '../stocks/EconDataLayout'
+import { EconDataModel } from './EconDataLayout'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UncontrolledDropdownList from 'components/Atoms/Inputs/UncontrolledDropdownList'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
@@ -56,8 +56,8 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
       setModel({ ...model, error: 'start year should be before end year', selectedStartYear: yearStart, selectedEndYear: yearEnd })
       return
     }
-    if (Math.abs(yearEnd - yearStart) > 10) {
-      setModel({ ...model, error: 'range hould be between 10 years or less ', selectedStartYear: yearStart, selectedEndYear: yearEnd })
+    if (Math.abs(yearEnd - yearStart) > 15) {
+      setModel({ ...model, error: 'range should be between 15 years or less ', selectedStartYear: yearStart, selectedEndYear: yearEnd })
       return
     }
     setModel({ ...model, isLoading: true })

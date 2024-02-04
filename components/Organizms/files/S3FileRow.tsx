@@ -13,6 +13,7 @@ const S3FileRow = ({
   onViewFile,
   onDelete,
   onRename,
+  onMovefile,
 }: {
   file: S3Object
   isEditEmode: boolean
@@ -20,6 +21,7 @@ const S3FileRow = ({
   onViewFile: (item: S3Object) => void
   onDelete: (item: S3Object) => void
   onRename: (item: S3Object) => void
+  onMovefile: (item: S3Object) => void
 }) => {
   const fileSizeDisplay = (bytes: number) => {
     const result = bytes / 1024
@@ -45,7 +47,7 @@ const S3FileRow = ({
           <Typography>{isEditEmode ? file.filename : file.filename.substring(0, file.filename.lastIndexOf('.'))}</Typography>
           {isEditEmode && file.size !== undefined && <Typography pl={2}>{`${fileSizeDisplay(file.size)}`}</Typography>}
         </Box>
-        <Box>{!isEditEmode && <FileMenu item={file} onView={onViewFile} onDelete={onDelete} onRename={onRename} />}</Box>
+        <Box>{!isEditEmode && <FileMenu item={file} onView={onViewFile} onDelete={onDelete} onRename={onRename} onMovefile={onMovefile} />}</Box>
       </Box>
     </ListItemContainer>
   )

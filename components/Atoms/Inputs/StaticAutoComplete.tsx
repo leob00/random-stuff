@@ -1,31 +1,46 @@
-import { Autocomplete, TextField } from '@mui/material'
+import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, TextField } from '@mui/material'
 import { CasinoBlue } from 'components/themes/mainTheme'
 import React from 'react'
+import { Option } from 'lib/AutoCompleteOptions'
+import { DropdownItem } from 'lib/models/dropdown'
 
 const StaticAutoComplete = ({
   options,
   placeholder = 'search',
   onSelected,
 }: {
-  options: string[]
+  options: DropdownItem[]
   placeholder?: string
 
-  onSelected: (data: string) => void
+  onSelected: (item: DropdownItem) => void
 }) => {
+  const items: Option[] = options.map((m) => {
+    return {
+      id: m.value,
+      label: m.text,
+    }
+  })
+  const handleSelect = (
+    event: React.SyntheticEvent<Element, Event>,
+    value: Option | null,
+    reason: AutocompleteChangeReason,
+    details?: AutocompleteChangeDetails<Option> | undefined,
+  ) => {
+    const selectedItem = { ...value }
+    const item: DropdownItem = {
+      value: String(selectedItem.id),
+      text: selectedItem.label!,
+    }
+    onSelected(item)
+  }
   return (
     <Autocomplete
-      fullWidth
-      freeSolo
-      sx={{ width: { xs: 250, md: 500 }, input: { color: CasinoBlue } }}
-      options={options}
-      renderInput={(params) => (
-        <TextField {...params} placeholder={placeholder} variant='outlined' size='small' sx={{ width: '100%', maxWidth: '708px', borderRadius: 1 }} />
-      )}
-      onChange={(_, data) => {
-        if (data) {
-          onSelected(data)
-        }
-      }}
+      size='small'
+      onChange={handleSelect}
+      disablePortal
+      options={items}
+      sx={{ width: 360 }}
+      renderInput={(params) => <TextField {...params} placeholder={placeholder} />}
     />
   )
 }

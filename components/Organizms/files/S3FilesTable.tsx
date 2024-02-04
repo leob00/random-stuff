@@ -18,7 +18,7 @@ const S3FilesTable = ({
   folder,
   allFolders,
   onReloadFolder,
-  onMutated,
+  //onMutated,
   onLocalDataMutate,
 }: {
   s3Controller: S3Controller
@@ -26,7 +26,7 @@ const S3FilesTable = ({
   folder: DropdownItem
   allFolders: DropdownItem[]
   onReloadFolder: (targetFolder: DropdownItem) => Promise<void>
-  onMutated: () => void
+  //onMutated: () => void
   onLocalDataMutate: (folder: DropdownItem, files: S3Object[]) => void
 }) => {
   const [isWaiting, setIsWaiting] = React.useState(false)
@@ -60,7 +60,10 @@ const S3FilesTable = ({
       dispatch({ type: 'reset', payload: uiDefaultState })
       await postDelete('/api/s3', item)
       setIsWaiting(false)
-      onMutated?.()
+      onLocalDataMutate(
+        folder,
+        [...data].filter((m) => m.fullPath !== item.fullPath),
+      )
     }
   }
 
@@ -84,7 +87,7 @@ const S3FilesTable = ({
         setIsWaiting(false)
       }
       setSearchWithinList('')
-      onMutated?.()
+      onReloadFolder(folder)
     }
   }
 
@@ -98,6 +101,9 @@ const S3FilesTable = ({
     } else {
       dispatch({ type: 'update', payload: { ...uiState, selectedItems: existing.filter((m) => m.fullPath !== file.fullPath) } })
     }
+  }
+  const handleMoveSingleFile = (file: S3Object) => {
+    dispatch({ type: 'update', payload: { ...uiState, showMoveFilesDialog: true, selectedItems: [file], targetFolder: targetFolders[0] } })
   }
 
   const handleSelectTargetFolder = (val: string) => {
@@ -119,7 +125,10 @@ const S3FilesTable = ({
 
         const resp = await renameS3File(f.bucket, oldPath, newPath)
         if (resp.statusCode === 200) {
-          onLocalDataMutate(folder, data.slice(0, 1))
+          onLocalDataMutate(
+            folder,
+            [...data].filter((m) => m.fullPath !== f.fullPath),
+          )
           await sleep(250)
         }
         await sleep(500)
@@ -135,7 +144,10 @@ const S3FilesTable = ({
     for (const f of selectedItems) {
       const resp = await postDelete('/api/s3', f)
       if (resp.statusCode === 200) {
-        onLocalDataMutate(folder, data.slice(0, 1))
+        onLocalDataMutate(
+          folder,
+          [...data].filter((m) => m.fullPath !== f.fullPath),
+        )
         await sleep(250)
       }
       await sleep(500)
@@ -170,7 +182,7 @@ const S3FilesTable = ({
     dispatch({ type: 'update', payload: { ...uiState, targetFolder: targetFolders[0], showMoveFilesDialog: true } })
   }
   const handleRefresh = () => {
-    onMutated?.()
+    onReloadFolder(folder)
   }
 
   return (
@@ -194,6 +206,7 @@ const S3FilesTable = ({
             onViewFile={handleViewFile}
             onDelete={handleDelete}
             onRename={handleOnRename}
+            onMovefile={handleMoveSingleFile}
           />
         </Box>
       ))}

@@ -18,6 +18,7 @@ import { sleep } from 'lib/util/timers'
 import ListIteratorLayout from 'components/Organizms/sandbox/ListIteratorLayout'
 import { auth } from 'aws-crt'
 import Streamer from 'components/Organizms/sandbox/Streamer'
+import UploadLargeFile from 'components/Organizms/sandbox/UploadLargeFile'
 
 const Page = () => {
   const tabs: TabInfo[] = [

@@ -18,12 +18,12 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Opti
     reason: AutocompleteChangeReason,
     details?: AutocompleteChangeDetails<Option> | undefined,
   ) => {
-    let sel = value as Option
+    const selectedItem = { ...value }
 
-    if (sel.id) {
-      router.push(`${baseUrl}${sel.id}`)
+    if (selectedItem.id) {
+      router.push(`${baseUrl}${selectedItem.id}`)
     } else {
-      console.error('error generating single recipe: ', sel)
+      console.error('error generating single recipe: ', selectedItem)
     }
   }
   return (

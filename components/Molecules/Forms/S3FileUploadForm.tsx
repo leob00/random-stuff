@@ -10,8 +10,20 @@ import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { renameS3File } from 'lib/backend/csr/nextApiWrapper'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
+import FileUploadButton from 'components/Atoms/Buttons/FileUploadButton'
 
-const mediaTypes = [
+export const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+})
+export const mediaTypes = [
   'audio/mp3',
   'application/pdf',
   'application/msword',
@@ -32,7 +44,7 @@ const mediaTypes = [
 // const allowed =
 //   'application/pdf, image/jpeg, image/gif, image/webp image/jpg, image/png, application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.wordprocessingml.document, audio/mpeg, audio/mp4, video/mp4, application/zip'
 
-const allowed = mediaTypes.join()
+export const allowed = mediaTypes.join()
 
 const S3FileUploadForm = ({
   folder,
@@ -52,18 +64,6 @@ const S3FileUploadForm = ({
   const [warning, setWarning] = React.useState<string | null>(null)
 
   const maxFileSize = 10000000
-
-  const VisuallyHiddenInput = styled('input')({
-    clip: 'rect(0 0 0 0)',
-    clipPath: 'inset(50%)',
-    height: 1,
-    overflow: 'hidden',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    whiteSpace: 'nowrap',
-    width: 1,
-  })
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -110,17 +110,12 @@ const S3FileUploadForm = ({
       setError('Please select a file!')
     }
   }
-  const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.currentTarget.files) {
-      if (e.currentTarget.files.length > 0) {
-        const newFile = e.currentTarget.files[0]
-        setFile(newFile)
-        if (files.find((m) => m.filename.toLowerCase() === newFile.name.toLowerCase())) {
-          setWarning(`${newFile.name} already exists and will be overwritten`)
-        }
-        setUserFilename(newFile.name)
-      }
+  const handleFileSelected = (f: File) => {
+    setFile(f)
+    if (files.find((m) => m.filename.toLowerCase() === f.name.toLowerCase())) {
+      setWarning(`${f.name} already exists and will be overwritten`)
     }
+    setUserFilename(f.name)
   }
   const handleSelected = (fileName: string) => {
     if (files.find((m) => m.filename.toLowerCase() === fileName.toLowerCase())) {
@@ -132,16 +127,11 @@ const S3FileUploadForm = ({
   return (
     <>
       {isLoading && <BackdropLoader />}
-      <form action='/api/defaultRoute' method='post' encType='multipart/form-data' onSubmit={handleSubmit}>
+      <form method='post' encType='multipart/form-data' onSubmit={handleSubmit}>
         <>
-          {!isLoading && (
-            <Box flexDirection={'column'} gap={1} display={'flex'} alignItems={'center'} py={2}>
-              <Button color='info' component='label' variant='contained'>
-                <Typography>{`${file ? '...change file' : '...upload a file'}`}</Typography>
-                <VisuallyHiddenInput type='file' onChange={handleFileSelected} accept={allowed} disabled={isWaiting} />
-              </Button>
-            </Box>
-          )}
+          <Box flexDirection={'column'} gap={1} display={'flex'} alignItems={'center'} py={2}>
+            <FileUploadButton file={file} onFileSelected={handleFileSelected} disabled={isWaiting} />
+          </Box>
           {file && (
             <>
               <S3UploadInput filename={userFilename} onSelected={handleSelected} />

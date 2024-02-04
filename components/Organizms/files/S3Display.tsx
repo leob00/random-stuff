@@ -115,7 +115,6 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
   }
 
   const handleReloadFolder = async (targetFolder: DropdownItem) => {
-    setShowTopUploadForm(false)
     await handleFolderSelected(targetFolder.value)
   }
   const handleFilesMutated = (folder: DropdownItem, files: S3Object[]) => {
@@ -156,10 +155,6 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
             folder={selectedFolder}
             allFolders={allFolders}
             data={data}
-            onMutated={() => {
-              setShowTopUploadForm(false)
-              mutate(mutateKey)
-            }}
             onReloadFolder={handleReloadFolder}
             onLocalDataMutate={handleFilesMutated}
           />
