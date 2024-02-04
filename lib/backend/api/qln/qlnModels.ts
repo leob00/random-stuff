@@ -24,7 +24,7 @@ export type QlnLineChart = {
 
 export interface EconomicDataItem {
   Title: string
-  InternalId: string
+  InternalId: number
   Units: string
   Notes: string
   Value: number

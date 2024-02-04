@@ -9,7 +9,7 @@ import React from 'react'
 import weekday from 'dayjs/plugin/weekday'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { EconDataCriteria, EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
-import EconDataDetails from './EconDataDetails'
+import EconDataDetails from '../econ/EconDataDetails'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import { DropdownItem } from 'lib/models/dropdown'
@@ -32,15 +32,14 @@ const EconDataLayout = () => {
   }
 
   const [isWaiting, setIsWaiting] = React.useState(false)
-  // const [searchWithinList, setSearchWithinList] = React.useState('')
   const [selectedItem, setSelectedItem] = React.useState<EconomicDataItem | null>(null)
 
   const handleItemClicked = async (item: EconomicDataItem) => {
     const modelCopy = { ...data }
     const endYear = dayjs(item.LastObservationDate!).year()
-    const startYear = dayjs(item.LastObservationDate!).subtract(10, 'years').year()
+    const startYear = dayjs(item.LastObservationDate!).subtract(5, 'years').year()
     const criteria: EconDataCriteria = {
-      id: item.InternalId,
+      id: String(item.InternalId),
       startYear,
       endYear,
     }
@@ -65,6 +64,7 @@ const EconDataLayout = () => {
   // }
 
   const { data, isLoading } = useSwrHelper(mutateListKey, dataFn, { revalidateOnFocus: false })
+
   const allItems: DropdownItem[] = data
     ? data.Body.Items.map((m) => {
         return {
@@ -74,10 +74,9 @@ const EconDataLayout = () => {
       })
     : []
   const handleLoad = (item: DropdownItem) => {
-    const ex = allItems.find((m) => m.value === item.value)
-    console.log('ex: ', ex)
+    const ex = data?.Body.Items.find((m) => m.InternalId === Number(item.value))
     if (ex) {
-      // handleItemClicked(ex)
+      handleItemClicked(ex)
     }
   }
 
@@ -93,8 +92,8 @@ const EconDataLayout = () => {
             </Box>
           )}
           <Box py={2} sx={{ display: selectedItem ? 'none' : 'unset' }}>
-            {/* <SearchWithinList text={`search in ${data.Body.Items.length} results`} onChanged={(text: string) => setSearchWithinList(text)} /> */}
-            <StaticAutoComplete options={allItems} onSelected={handleLoad} />
+            {/* <SearchWithinList onChanged={(text: string) => setSearchWithinList(text)} /> */}
+            <StaticAutoComplete options={allItems} onSelected={handleLoad} placeholder={`search in ${data.Body.Items.length} results`} />
             {data.Body.Items.map((item) => (
               <Box key={item.InternalId}>
                 <ListHeader item={item} text={item.Title} onClicked={handleItemClicked} />

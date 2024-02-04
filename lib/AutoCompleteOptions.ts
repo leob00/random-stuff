@@ -1,4 +1,4 @@
 export interface Option {
   label: string
-  id: string | number
+  id: string
 }

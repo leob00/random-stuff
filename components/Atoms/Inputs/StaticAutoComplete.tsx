@@ -28,7 +28,7 @@ const StaticAutoComplete = ({
   ) => {
     const selectedItem = { ...value }
     const item: DropdownItem = {
-      value: String(selectedItem.id),
+      value: selectedItem.id!,
       text: selectedItem.label!,
     }
     onSelected(item)
@@ -40,6 +40,7 @@ const StaticAutoComplete = ({
       disablePortal
       options={items}
       sx={{ width: 360 }}
+      isOptionEqualToValue={(opt, compOpt) => opt.id === compOpt.id}
       renderInput={(params) => <TextField {...params} placeholder={placeholder} />}
     />
   )
