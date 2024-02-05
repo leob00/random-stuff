@@ -19,16 +19,22 @@ import ListIteratorLayout from 'components/Organizms/sandbox/ListIteratorLayout'
 import { auth } from 'aws-crt'
 import Streamer from 'components/Organizms/sandbox/Streamer'
 import UploadLargeFile from 'components/Organizms/sandbox/UploadLargeFile'
+import MultiLineChart from 'components/Atoms/Charts/MultiLineChart'
+import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
+import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
+import { mapHistory } from 'components/Organizms/stocks/StockChart'
 
 const Page = () => {
   const tabs: TabInfo[] = [
     {
-      title: 'Stream',
+      title: 'Multi Line Chart',
       selected: true,
     },
     {
+      title: 'Stream',
+    },
+    {
       title: 'Iterator',
-      selected: false,
     },
     {
       title: 'Poller',
@@ -43,6 +49,14 @@ const Page = () => {
   const [selectedTab, setSelectedTab] = React.useState(tabs[0].title)
   const { authProfile, fetchProfilePassive, setProfile } = useUserController()
   const [isLoading, setIsLoading] = React.useState(true)
+
+  const chartFn = async () => {
+    const xyVaues: XyValues[] = []
+    const stock = await getStockOrFutureChart('NVDA', 90, true)
+    const stockChart = mapHistory(stock)
+    xyVaues.push(stockChart)
+    return xyVaues
+  }
 
   React.useEffect(() => {
     const fn = async () => {
@@ -67,7 +81,18 @@ const Page = () => {
     return true
   }
 
-  const handleLoginSuccess = (claims: Claim[]) => {}
+  const xYValues: XyValues[] = [
+    {
+      name: 'First',
+      x: ['Jan', 'Feb', 'March'],
+      y: [3, 4, 6.5],
+    },
+    {
+      name: 'Second',
+      x: ['Jan', 'Feb', 'March'],
+      y: [6.5, 4.8, 3.2],
+    },
+  ]
 
   return (
     <>
@@ -76,6 +101,7 @@ const Page = () => {
         <PageHeader text='Sandbox' />
         <TabList tabs={tabs} onSetTab={handleSetTab} />
         <Box p={2}>
+          {selectedTab === 'Multi Line Chart' && <MultiLineChart xYValues={xYValues} />}
           {selectedTab === 'Stream' && <Streamer />}
           {selectedTab === 'Iterator' && <ListIteratorLayout />}
           {selectedTab === 'Poller' && <Poller />}

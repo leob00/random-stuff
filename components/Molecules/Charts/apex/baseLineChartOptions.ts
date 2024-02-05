@@ -12,6 +12,16 @@ import {
 } from 'components/themes/mainTheme'
 import { XyValues } from './models/chartModes'
 
+export function getPositiveNegativeLineColor(palette: 'light' | 'dark' = 'light', items: number[]) {
+  let lineColor = palette === 'dark' ? CasinoLimeTransparent : CasinoGreen
+  if (items.length > 0) {
+    if (items[0] > items[items.length - 1]) {
+      lineColor = palette === 'dark' ? RedDarkMode : CasinoRed
+    }
+  }
+  return lineColor
+}
+
 export function getBaseLineChartOptions(
   items: XyValues,
   raw: any[],
@@ -20,6 +30,7 @@ export function getBaseLineChartOptions(
   yLabelPrefix: string = '$',
   toolTipFormatter?: (val: number, opts: any) => string,
   changePositiveColor = true,
+  seriesName = '',
 ) {
   const defaultTooltipFormatter = (val: number, opts: any) => {
     return ` ${val}`
@@ -31,12 +42,8 @@ export function getBaseLineChartOptions(
     lineColor = palette === 'dark' ? CasinoLimeTransparent : CasinoGreen
   }
 
-  if (items.y.length > 0) {
-    if (changePositiveColor) {
-      if (items.y[0] > items.y[items.y.length - 1]) {
-        lineColor = palette === 'dark' ? RedDarkMode : CasinoRed
-      }
-    }
+  if (changePositiveColor) {
+    lineColor = getPositiveNegativeLineColor(palette, items.y)
   }
   let strokeWidth = 3
   if (raw.length <= 200) {
@@ -50,15 +57,16 @@ export function getBaseLineChartOptions(
       strokeWidth = 3.3
     }
   }
+  const series: ApexAxisChartSeries = [
+    {
+      name: seriesName ?? '',
+      data: items.y,
+      color: lineColor,
+    },
+  ]
 
   const options: ApexOptions = {
-    series: [
-      {
-        name: '',
-        data: items.y,
-        color: lineColor,
-      },
-    ],
+    series: series,
     stroke: {
       width: strokeWidth,
     },

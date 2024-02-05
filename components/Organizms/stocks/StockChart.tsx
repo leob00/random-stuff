@@ -21,26 +21,25 @@ export const stockChartDaySelect: DropdownItem[] = [
   { text: '3 year', value: '1095' },
   { text: '5 year', value: '1825' },
 ]
+export const mapHistory = (items: StockHistoryItem[]) => {
+  const result: XyValues = {
+    x: [],
+    y: [],
+  }
+  if (items.length === 0) {
+    return result
+  }
+
+  result.x = items.map((o) => dayjs(o.TradeDate).format('MM/DD/YYYY'))
+  result.y = items.map((o) => o.Price)
+
+  return result
+}
 const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string; history: StockHistoryItem[]; companyName?: string; isStock: boolean }) => {
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const chartHeight = isXSmall ? 300 : 520
   const [isLoading, setIsLoading] = React.useState(true)
-
-  const mapHistory = (items: StockHistoryItem[]) => {
-    const result: XyValues = {
-      x: [],
-      y: [],
-    }
-    if (items.length === 0) {
-      return result
-    }
-
-    result.x = items.map((o) => dayjs(o.TradeDate).format('MM/DD/YYYY'))
-    result.y = items.map((o) => o.Price)
-
-    return result
-  }
 
   const handleDaysSelected = async (val: string) => {
     setIsLoading(true)

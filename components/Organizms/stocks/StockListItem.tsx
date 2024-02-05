@@ -68,7 +68,6 @@ const StockListItem = ({
   const [selectedTab, setSelectedTab] = React.useState('Details')
   const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
   const tabScrollTarget = React.useRef<HTMLSpanElement | null>(null)
-  const theme = useTheme()
   React.useEffect(() => {
     const fn = async () => {
       if (showMore && scrollIntoView) {
@@ -79,7 +78,6 @@ const StockListItem = ({
       if (showMore) {
         setStockHistory([])
         const history = await getStockOrFutureChart(item.Symbol, 90, isStock)
-        //console.log('loaded history for: ', item.Symbol)
         if (isStock) {
           putSearchedStock(item)
         }
