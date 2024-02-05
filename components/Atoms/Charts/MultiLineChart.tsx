@@ -22,7 +22,7 @@ const MultiLineChart = ({ xYValues }: { xYValues: XyValues[] }) => {
   }
 
   chartOptions.series = series
-  console.log(chartOptions.series!)
+  //console.log(chartOptions.series!)
 
   return (
     <Box>

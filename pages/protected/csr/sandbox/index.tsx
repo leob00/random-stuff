@@ -23,6 +23,8 @@ import MultiLineChart from 'components/Atoms/Charts/MultiLineChart'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
 import { mapHistory } from 'components/Organizms/stocks/StockChart'
+import { useSwrHelper } from 'hooks/useSwrHelper'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 const Page = () => {
   const tabs: TabInfo[] = [
@@ -52,11 +54,15 @@ const Page = () => {
 
   const chartFn = async () => {
     const xyVaues: XyValues[] = []
-    const stock = await getStockOrFutureChart('NVDA', 90, true)
-    const stockChart = mapHistory(stock)
-    xyVaues.push(stockChart)
+    const stock1 = await getStockOrFutureChart('NVDA', 90, true)
+    const stockChart1 = mapHistory(stock1)
+    const stock2 = await getStockOrFutureChart('META', 90, true)
+    const stockChart2 = mapHistory(stock2)
+    xyVaues.push({ ...stockChart1, name: 'NVDA' })
+    xyVaues.push({ ...stockChart2, name: 'META' })
     return xyVaues
   }
+  const { data, isLoading: isFetching } = useSwrHelper(`api/baseRoute?id=multiChart,NVDA,META`, chartFn)
 
   React.useEffect(() => {
     const fn = async () => {
@@ -100,8 +106,9 @@ const Page = () => {
       <ResponsiveContainer>
         <PageHeader text='Sandbox' />
         <TabList tabs={tabs} onSetTab={handleSetTab} />
+        {isFetching && <BackdropLoader />}
         <Box p={2}>
-          {selectedTab === 'Multi Line Chart' && <MultiLineChart xYValues={xYValues} />}
+          {selectedTab === 'Multi Line Chart' && <>{data && <MultiLineChart xYValues={data} />}</>}
           {selectedTab === 'Stream' && <Streamer />}
           {selectedTab === 'Iterator' && <ListIteratorLayout />}
           {selectedTab === 'Poller' && <Poller />}
