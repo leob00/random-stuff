@@ -10,9 +10,9 @@ import weekday from 'dayjs/plugin/weekday'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { EconDataCriteria, EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 import EconDataDetails from '../econ/EconDataDetails'
-import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import { DropdownItem } from 'lib/models/dropdown'
+import { getEconDataReport } from 'lib/backend/api/qln/qlnApi'
 dayjs.extend(weekday)
 
 export interface EconDataModel {
@@ -48,20 +48,14 @@ const EconDataLayout = () => {
       setSelectedItem(null)
       const existing = data?.Body.Items.find((m) => m.InternalId === item.InternalId)
       if (existing) {
-        const url = `${config.url}/EconReports`
-        const resp = (await post(url, { Id: item.InternalId, StartYear: startYear, EndYear: endYear })) as EconDataModel
-        setSelectedItem({ ...existing, criteria: criteria, Chart: resp.Body.Item.Chart })
+        // const url = `${config.url}/EconReports`
+        // const resp = (await post(url, { Id: item.InternalId, StartYear: startYear, EndYear: endYear })) as EconDataModel
+        const result = await getEconDataReport(item.InternalId, startYear, endYear)
+        setSelectedItem({ ...existing, criteria: criteria, Chart: result.Chart })
       }
       setIsWaiting(false)
     }
   }
-
-  // const filterList = (items: EconomicDataItem[]) => {
-  //   if (searchWithinList.length === 0) {
-  //     return items
-  //   }
-  //   return items.filter((m) => m.Title.toLowerCase().includes(searchWithinList.toLowerCase()))
-  // }
 
   const { data, isLoading } = useSwrHelper(mutateListKey, dataFn, { revalidateOnFocus: false })
 
@@ -92,7 +86,6 @@ const EconDataLayout = () => {
             </Box>
           )}
           <Box py={2} sx={{ display: selectedItem ? 'none' : 'unset' }}>
-            {/* <SearchWithinList onChanged={(text: string) => setSearchWithinList(text)} /> */}
             <StaticAutoComplete options={allItems} onSelected={handleLoad} placeholder={`search in ${data.Body.Items.length} results`} />
             {data.Body.Items.map((item) => (
               <Box key={item.InternalId}>

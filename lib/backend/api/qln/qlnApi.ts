@@ -6,6 +6,7 @@ import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import dayjs from 'dayjs'
 import { apiConnection } from '../config'
 import { StockReportTypes } from './qlnModels'
+import { EconDataModel } from 'components/Organizms/econ/EconDataLayout'
 
 const config = apiConnection()
 const qlnApiBaseUrl = config.qln.url
@@ -391,5 +392,19 @@ export async function getCompanyProfile(symbols: string[]) {
   })
 
   const result = response.Body as Company[]
+  return result
+}
+
+export async function getEconDataReport(id: number, startYear: number, endYear: number) {
+  const url = `${qlnApiBaseUrl}/EconReports`
+  const resp = (await post(url, { Id: id, StartYear: startYear, EndYear: endYear })) as EconDataModel
+  return resp.Body.Item
+}
+export async function getEconDataReportSnp(startYear: number, endYear: number) {
+  const result = await getEconDataReport(15, startYear, endYear)
+  return result
+}
+export async function getEconDataReportDowJones(startYear: number, endYear: number) {
+  const result = await getEconDataReport(14, startYear, endYear)
   return result
 }

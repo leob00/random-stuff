@@ -21,7 +21,7 @@ export const stockChartDaySelect: DropdownItem[] = [
   { text: '3 year', value: '1095' },
   { text: '5 year', value: '1825' },
 ]
-export const mapHistory = (items: StockHistoryItem[]) => {
+export const mapHistory = (items: StockHistoryItem[], symbol?: string) => {
   const result: XyValues = {
     x: [],
     y: [],
@@ -29,7 +29,7 @@ export const mapHistory = (items: StockHistoryItem[]) => {
   if (items.length === 0) {
     return result
   }
-
+  result.name = symbol
   result.x = items.map((o) => dayjs(o.TradeDate).format('MM/DD/YYYY'))
   result.y = items.map((o) => o.Price)
 
@@ -45,7 +45,7 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
     setIsLoading(true)
     const result = await getStockOrFutureChart(symbol, Number(val), isStock)
     setChartData(result)
-    const map = mapHistory(result)
+    const map = mapHistory(result, symbol)
     const options = getOptions(map, result, isXSmall, theme.palette.mode)
     setChartOptions(options)
     setIsLoading(false)

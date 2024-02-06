@@ -104,7 +104,7 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
         />
       </Box>
       <Box display={'flex'} gap={1} alignItems={'center'}>
-        <Typography>years from:</Typography>
+        <Typography>from:</Typography>
         <UncontrolledDropdownList options={model.startYearOptions} selectedOption={String(model.selectedStartYear)} onOptionSelected={handleStartYearChange} />
         <Typography>to:</Typography>
         <UncontrolledDropdownList options={model.endYearOptions} selectedOption={String(model.selectedEndYear)} onOptionSelected={handleEndYearChange} />

@@ -41,7 +41,17 @@ const StaticAutoComplete = ({
       options={items}
       sx={{ width: 360 }}
       isOptionEqualToValue={(opt, compOpt) => opt.id === compOpt.id}
-      renderInput={(params) => <TextField {...params} placeholder={placeholder} />}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          placeholder={placeholder}
+          inputProps={{
+            ...params.inputProps,
+            color: 'secondary',
+            autoComplete: 'off',
+          }}
+        />
+      )}
     />
   )
 }

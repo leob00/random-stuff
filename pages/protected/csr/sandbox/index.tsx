@@ -25,6 +25,8 @@ import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
 import { mapHistory } from 'components/Organizms/stocks/StockChart'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import { getEconDataReportDowJones, getEconDataReportSnp } from 'lib/backend/api/qln/qlnApi'
+import dayjs from 'dayjs'
 
 const Page = () => {
   const tabs: TabInfo[] = [
@@ -54,15 +56,28 @@ const Page = () => {
 
   const chartFn = async () => {
     const xyVaues: XyValues[] = []
-    const stock1 = await getStockOrFutureChart('NVDA', 90, true)
-    const stockChart1 = mapHistory(stock1)
-    const stock2 = await getStockOrFutureChart('META', 90, true)
-    const stockChart2 = mapHistory(stock2)
-    xyVaues.push({ ...stockChart1, name: 'NVDA' })
-    xyVaues.push({ ...stockChart2, name: 'META' })
+    const startYear = dayjs().add(-1, 'years').year()
+    const endYear = dayjs().year()
+    const snp = await getEconDataReportSnp(startYear, endYear)
+    const snpChart: XyValues = {
+      name: 'S&P 500',
+      x: snp.Chart!.XValues,
+      y: snp.Chart!.YValues.map((m) => Number(m)),
+    }
+    const dj = await getEconDataReportDowJones(startYear, endYear)
+    const djChart: XyValues = {
+      name: 'Dow Jones Industrial Average',
+      x: dj.Chart!.XValues,
+      y: dj.Chart!.YValues.map((m) => Number(m)),
+    }
+    xyVaues.push(snpChart)
+    xyVaues.push(djChart)
+    console.log('djChart: ', djChart)
+    console.log('snpChart: ', snpChart)
+
     return xyVaues
   }
-  const { data, isLoading: isFetching } = useSwrHelper(`api/baseRoute?id=multiChart,NVDA,META`, chartFn)
+  const { data, isLoading: isFetching } = useSwrHelper(`api/baseRoute?id=multiChart,NVDA,META`, chartFn, { revalidateOnFocus: false })
 
   React.useEffect(() => {
     const fn = async () => {
@@ -87,19 +102,6 @@ const Page = () => {
     return true
   }
 
-  const xYValues: XyValues[] = [
-    {
-      name: 'First',
-      x: ['Jan', 'Feb', 'March'],
-      y: [3, 4, 6.5],
-    },
-    {
-      name: 'Second',
-      x: ['Jan', 'Feb', 'March'],
-      y: [6.5, 4.8, 3.2],
-    },
-  ]
-
   return (
     <>
       <Seo pageTitle={`Sandbox`} />
@@ -108,7 +110,7 @@ const Page = () => {
         <TabList tabs={tabs} onSetTab={handleSetTab} />
         {isFetching && <BackdropLoader />}
         <Box p={2}>
-          {selectedTab === 'Multi Line Chart' && <>{data && <MultiLineChart xYValues={data} />}</>}
+          {selectedTab === 'Multi Line Chart' && <>{data && <MultiLineChart xYValues={data} yLabelPrefix={'$'} />}</>}
           {selectedTab === 'Stream' && <Streamer />}
           {selectedTab === 'Iterator' && <ListIteratorLayout />}
           {selectedTab === 'Poller' && <Poller />}
