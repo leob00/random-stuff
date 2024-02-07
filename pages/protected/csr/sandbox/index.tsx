@@ -5,34 +5,29 @@ import Seo from 'components/Organizms/Seo'
 import { Box } from '@mui/material'
 import TabList from 'components/Atoms/Buttons/TabList'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
-import { Claim } from 'lib/backend/auth/userUtil'
 import PostBatch from 'components/Organizms/sandbox/PostBatch'
-import Playground from 'components/Organizms/admin/Playground'
 import { useUserController } from 'hooks/userController'
-import PleaseLogin from 'components/Molecules/PleaseLogin'
 import S3Display from 'components/Organizms/files/S3Display'
-import ListIterator from 'components/Organizms/sandbox/ListIterator'
 import Poller from 'components/Organizms/sandbox/Poller'
-import { range } from 'lodash'
 import { sleep } from 'lib/util/timers'
 import ListIteratorLayout from 'components/Organizms/sandbox/ListIteratorLayout'
-import { auth } from 'aws-crt'
 import Streamer from 'components/Organizms/sandbox/Streamer'
-import UploadLargeFile from 'components/Organizms/sandbox/UploadLargeFile'
 import MultiLineChart from 'components/Atoms/Charts/MultiLineChart'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
-import { mapHistory } from 'components/Organizms/stocks/StockChart'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { getEconDataReportDowJones, getEconDataReportSnp } from 'lib/backend/api/qln/qlnApi'
 import dayjs from 'dayjs'
+import { CasinoBlue } from 'components/themes/mainTheme'
 
 const Page = () => {
   const tabs: TabInfo[] = [
     {
       title: 'Multi Line Chart',
       selected: true,
+    },
+    {
+      title: 'Files',
     },
     {
       title: 'Stream',
@@ -43,9 +38,7 @@ const Page = () => {
     {
       title: 'Poller',
     },
-    {
-      title: 'S3',
-    },
+
     {
       title: 'Batch Post',
     },
@@ -56,11 +49,12 @@ const Page = () => {
 
   const chartFn = async () => {
     const xyVaues: XyValues[] = []
-    const startYear = dayjs().add(-1, 'years').year()
+    const startYear = dayjs().add(-5, 'years').year()
     const endYear = dayjs().year()
     const snp = await getEconDataReportSnp(startYear, endYear)
     const snpChart: XyValues = {
       name: 'S&P 500',
+      color: CasinoBlue,
       x: snp.Chart!.XValues,
       y: snp.Chart!.YValues.map((m) => Number(m)),
     }
@@ -70,10 +64,11 @@ const Page = () => {
       x: dj.Chart!.XValues,
       y: dj.Chart!.YValues.map((m) => Number(m)),
     }
-    xyVaues.push(snpChart)
     xyVaues.push(djChart)
-    console.log('djChart: ', djChart)
-    console.log('snpChart: ', snpChart)
+
+    xyVaues.push(snpChart)
+    // console.log('djChart: ', djChart)
+    // console.log('snpChart: ', snpChart)
 
     return xyVaues
   }
@@ -94,7 +89,9 @@ const Page = () => {
   }, [])
 
   const handleSetTab = (tab: TabInfo) => {
-    setSelectedTab(tab.title)
+    React.startTransition(() => {
+      setSelectedTab(tab.title)
+    })
   }
 
   const waitFn = async () => {
@@ -114,7 +111,7 @@ const Page = () => {
           {selectedTab === 'Stream' && <Streamer />}
           {selectedTab === 'Iterator' && <ListIteratorLayout />}
           {selectedTab === 'Poller' && <Poller />}
-          {selectedTab === 'S3' && <>{!isLoading && authProfile && <S3Display userProfile={authProfile} />}</>}
+          {selectedTab === 'Files' && <>{!isLoading && authProfile && <S3Display userProfile={authProfile} />}</>}
           {selectedTab === 'Batch Post' && <PostBatch />}
         </Box>
       </ResponsiveContainer>

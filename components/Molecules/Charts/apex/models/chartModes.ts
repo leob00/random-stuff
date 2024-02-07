@@ -9,6 +9,7 @@ export interface ApexBarChartData extends SimpleChartData {
 
 export interface XyValues {
   name?: string
+  color?: string
   x: string[]
   y: number[]
 }
