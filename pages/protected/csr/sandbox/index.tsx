@@ -19,6 +19,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { getEconDataReportDowJones, getEconDataReportSnp } from 'lib/backend/api/qln/qlnApi'
 import dayjs from 'dayjs'
 import { CasinoBlue } from 'components/themes/mainTheme'
+import MultiLineChartDisplay from 'components/Organizms/sandbox/MultiLineChartDisplay'
 
 const Page = () => {
   const tabs: TabInfo[] = [
@@ -46,33 +47,6 @@ const Page = () => {
   const [selectedTab, setSelectedTab] = React.useState(tabs[0].title)
   const { authProfile, fetchProfilePassive, setProfile } = useUserController()
   const [isLoading, setIsLoading] = React.useState(true)
-
-  const chartFn = async () => {
-    const xyVaues: XyValues[] = []
-    const startYear = dayjs().add(-5, 'years').year()
-    const endYear = dayjs().year()
-    const snp = await getEconDataReportSnp(startYear, endYear)
-    const snpChart: XyValues = {
-      name: 'S&P 500',
-      color: CasinoBlue,
-      x: snp.Chart!.XValues,
-      y: snp.Chart!.YValues.map((m) => Number(m)),
-    }
-    const dj = await getEconDataReportDowJones(startYear, endYear)
-    const djChart: XyValues = {
-      name: 'Dow Jones Industrial Average',
-      x: dj.Chart!.XValues,
-      y: dj.Chart!.YValues.map((m) => Number(m)),
-    }
-    xyVaues.push(djChart)
-
-    xyVaues.push(snpChart)
-    // console.log('djChart: ', djChart)
-    // console.log('snpChart: ', snpChart)
-
-    return xyVaues
-  }
-  const { data, isLoading: isFetching } = useSwrHelper(`api/baseRoute?id=multiChart,NVDA,META`, chartFn, { revalidateOnFocus: false })
 
   React.useEffect(() => {
     const fn = async () => {
@@ -105,9 +79,9 @@ const Page = () => {
       <ResponsiveContainer>
         <PageHeader text='Sandbox' />
         <TabList tabs={tabs} onSetTab={handleSetTab} />
-        {isFetching && <BackdropLoader />}
+
         <Box p={2}>
-          {selectedTab === 'Multi Line Chart' && <>{data && <MultiLineChart xYValues={data} yLabelPrefix={'$'} />}</>}
+          {selectedTab === 'Multi Line Chart' && <MultiLineChartDisplay />}
           {selectedTab === 'Stream' && <Streamer />}
           {selectedTab === 'Iterator' && <ListIteratorLayout />}
           {selectedTab === 'Poller' && <Poller />}

@@ -8,16 +8,22 @@ import {
   DarkBlue,
   DarkModeBlue,
   RedDarkMode,
+  VeryLightBlue,
   VeryLightBlueTransparent,
 } from 'components/themes/mainTheme'
-import { max, min } from 'lodash'
 import numeral from 'numeral'
 import { XyValues } from './models/chartModes'
 
-function getBaseChart(palette: 'light' | 'dark') {
+function getBaseChart(groupName: string, palette: 'light' | 'dark', chartId?: string) {
   const chart: ApexChart = {
+    id: chartId,
+    group: groupName,
     dropShadow: {
       enabled: true,
+      top: 16,
+      left: 7,
+      blur: 10,
+      //opacity: 0.2,
     },
     background: palette === 'dark' ? DarkModeBlue : 'transparent',
     type: 'area',
@@ -27,7 +33,7 @@ function getBaseChart(palette: 'light' | 'dark') {
     animations: {
       easing: 'easeout',
     },
-    foreColor: palette === 'dark' ? VeryLightBlueTransparent : DarkModeBlue,
+    foreColor: palette === 'dark' ? VeryLightBlue : DarkModeBlue,
   }
   return chart
 }
@@ -55,7 +61,7 @@ function getBaseYAxis(palette: 'light' | 'dark', isXSmall: boolean, yLabelPrefix
   const result: ApexYAxis = {
     labels: {
       style: {
-        colors: palette === 'dark' ? [VeryLightBlueTransparent] : [DarkBlue],
+        colors: palette === 'dark' ? [VeryLightBlue] : [DarkBlue],
         fontWeight: isXSmall ? 300 : 600,
         fontSize: isXSmall ? '8px' : '15px',
       },
@@ -64,23 +70,6 @@ function getBaseYAxis(palette: 'light' | 'dark', isXSmall: boolean, yLabelPrefix
       },
     },
   }
-  return result
-}
-function getBaseYAxisMulti(palette: 'light' | 'dark', isXSmall: boolean, yLabelPrefix: string, items: XyValues[]) {
-  const result: ApexYAxis[] = items.map((item) => {
-    return {
-      labels: {
-        style: {
-          colors: palette === 'dark' ? [VeryLightBlueTransparent] : [DarkBlue],
-          fontWeight: isXSmall ? 300 : 600,
-          fontSize: isXSmall ? '8px' : '15px',
-        },
-        formatter: (val: number) => {
-          return `${yLabelPrefix}${numeral(val).format('###,###.00')}`
-        },
-      },
-    }
-  })
   return result
 }
 
@@ -130,9 +119,14 @@ export function getBaseLineChartOptions(
   toolTipFormatter?: (val: number, opts: any) => string,
   changePositiveColor = true,
   seriesName = '',
+  groupName = 'group',
+  chartId?: string,
 ) {
   const defaultTooltipFormatter = (val: number, opts: any) => {
-    return ` ${val}`
+    if (!opts) {
+      return ''
+    }
+    return ` ${numeral(val).format('###,###.00')}`
   }
 
   const selectedTooltipFormatter = toolTipFormatter ?? defaultTooltipFormatter
@@ -156,16 +150,19 @@ export function getBaseLineChartOptions(
       strokeWidth = 3.3
     }
   }
-  const series: ApexAxisChartSeries = [
-    {
-      name: seriesName ?? '',
-      data: items.y,
-      color: lineColor,
-    },
-  ]
 
   const options: ApexOptions = {
-    series: series,
+    title: {
+      text: seriesName,
+      align: 'center',
+    },
+    series: [
+      {
+        name: seriesName ?? '',
+        data: items.y,
+        color: lineColor,
+      },
+    ],
     stroke: {
       width: strokeWidth,
     },
@@ -173,7 +170,7 @@ export function getBaseLineChartOptions(
       enabled: false,
     },
     fill: lineFill,
-    chart: getBaseChart(palette),
+    chart: { ...getBaseChart(groupName, palette, chartId), zoom: { enabled: false } },
     grid: getBaseGrid(palette),
     yaxis: getBaseYAxis(palette, isXSmall, yLabelPrefix),
     xaxis: getBaseXAxis(items.x),
@@ -181,16 +178,16 @@ export function getBaseLineChartOptions(
       cssClass: 'arrow_box',
       fillSeriesColor: false,
       theme: undefined,
-      marker: {
-        fillColors: [lineColor],
-      },
+      // marker: {
+      //   fillColors: [lineColor],
+      // },
       style: {
         fontSize: '16px',
       },
       y: {
         title: {
-          formatter(seriesName) {
-            return ` ${seriesName}`
+          formatter(val) {
+            return ` ${val}`
           },
         },
         formatter: selectedTooltipFormatter,
@@ -244,7 +241,7 @@ export function getMulitiLineChartOptions(
       color: color,
     }
   })
-  console.log('max: ', max(items.flatMap((m) => m.y)))
+  //console.log('max: ', max(items.flatMap((m) => m.y)))
   const yAxis = getBaseYAxis(palette, isXSmall, '')
   const options: ApexOptions = {
     series: series,
@@ -255,7 +252,7 @@ export function getMulitiLineChartOptions(
       enabled: false,
     },
     fill: lineFill,
-    chart: { ...getBaseChart(palette), zoom: { enabled: false } },
+    chart: { ...getBaseChart('group', palette), zoom: { enabled: false } },
     grid: getBaseGrid(palette),
     yaxis: { ...yAxis, forceNiceScale: true },
     xaxis: { ...getBaseXAxis(items[items.length - 1].x) },

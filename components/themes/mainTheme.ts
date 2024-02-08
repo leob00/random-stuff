@@ -4,7 +4,7 @@ import { ResponsiveFontSizesOptions } from '@mui/material/styles/responsiveFontS
 export const BlackTransparent: string = '#080808ef'
 export const Blue800: string = '#436ab6'
 export const LightBlue = '#446ab7'
-export const VeryLightBlue = '#d6e7f8'
+export const VeryLightBlue = '#b5d7fcdc'
 export const VeryLightBlueTransparent = '#b5d7fc67'
 export const VeryLightTransparent = '#d6e7f821'
 export const DarkBlue = '#142d5d'

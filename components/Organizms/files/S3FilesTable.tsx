@@ -11,6 +11,7 @@ import S3FileRow from './S3FileRow'
 import S3FilesTableHeader from './S3FilesTableHeader'
 import S3FileCommandDialogs from './S3FileCommandDialogs'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
+import { useUserController } from 'hooks/userController'
 
 const S3FilesTable = ({
   s3Controller,
@@ -33,6 +34,7 @@ const S3FilesTable = ({
   const [searchWithinList, setSearchWithinList] = React.useState('')
   const targetFolders = allFolders.filter((m) => m.text !== folder.text)
   const { uiState, dispatch, uiDefaultState } = s3Controller
+  const { authProfile, setProfile } = useUserController()
 
   const filterList = (items: S3Object[]) => {
     if (searchWithinList.length === 0) {
@@ -47,6 +49,7 @@ const S3FilesTable = ({
     setIsWaiting(true)
     const params = { bucket: item.bucket, fullPath: item.fullPath, expiration: 600 }
     const url = JSON.parse(await post(`/api/s3`, params)) as string
+    setProfile({ ...authProfile!, settings: { ...authProfile!.settings, selectedFolder: folder } })
     dispatch({ type: 'update', payload: { ...uiState, signedUrl: url, selectedItem: item } })
     setIsWaiting(false)
   }
@@ -199,15 +202,7 @@ const S3FilesTable = ({
       />
       {results.map((item) => (
         <Box key={item.fullPath} py={1}>
-          <S3FileRow
-            isEditEmode={uiState.isEditEmode}
-            file={item}
-            onSelectFile={handleSelectFile}
-            onViewFile={handleViewFile}
-            onDelete={handleDelete}
-            onRename={handleOnRename}
-            onMovefile={handleMoveSingleFile}
-          />
+          <S3FileRow isEditEmode={uiState.isEditEmode} file={item} onSelectFile={handleSelectFile} onViewFile={handleViewFile} onDelete={handleDelete} onRename={handleOnRename} onMovefile={handleMoveSingleFile} />
         </Box>
       ))}
       <S3FileCommandDialogs
