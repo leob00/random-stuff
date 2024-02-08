@@ -1,8 +1,10 @@
 import { Box, CssBaseline, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
 import CenterStack from 'components/Atoms/CenterStack'
+import BasicLineChart from 'components/Atoms/Charts/BasicLineChart'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import { getBaseLineChartOptions } from 'components/Molecules/Charts/apex/baseLineChartOptions'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
@@ -10,7 +12,7 @@ import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
 import { DropdownItem } from 'lib/models/dropdown'
 import dynamic from 'next/dynamic'
 import React from 'react'
-import { getOptions } from './stockLineChartOptions'
+import { getOptions, mapHistory } from './stockLineChartOptions'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 export const stockChartDaySelect: DropdownItem[] = [
   { text: '1 week', value: '7' },
@@ -21,20 +23,7 @@ export const stockChartDaySelect: DropdownItem[] = [
   { text: '3 year', value: '1095' },
   { text: '5 year', value: '1825' },
 ]
-export const mapHistory = (items: StockHistoryItem[], symbol?: string) => {
-  const result: XyValues = {
-    x: [],
-    y: [],
-  }
-  if (items.length === 0) {
-    return result
-  }
-  result.name = symbol
-  result.x = items.map((o) => dayjs(o.TradeDate).format('MM/DD/YYYY'))
-  result.y = items.map((o) => o.Price)
 
-  return result
-}
 const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string; history: StockHistoryItem[]; companyName?: string; isStock: boolean }) => {
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
@@ -45,16 +34,21 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
     setIsLoading(true)
     const result = await getStockOrFutureChart(symbol, Number(val), isStock)
     setChartData(result)
-    const map = mapHistory(result, symbol)
+    const map = mapHistory(result, 'Price')
     const options = getOptions(map, result, isXSmall, theme.palette.mode)
     setChartOptions(options)
+    const vOps = isStock ? mapHistory(result, 'Volume') : null
+    setVolumeChart(vOps)
     setIsLoading(false)
   }
-  const chartMap = mapHistory(history)
-  const opts = getOptions(chartMap, history, isXSmall, theme.palette.mode)
+  const chartMap = mapHistory(history, 'Price')
+  const priceChartOptions = getOptions(chartMap, history, isXSmall, theme.palette.mode)
   const emptyOps = getOptions({ x: [], y: [] }, [], isXSmall, theme.palette.mode)
 
-  const [chartOptions, setChartOptions] = React.useState<ApexOptions | null>(opts)
+  const volOpts = isStock ? mapHistory(history, 'Volume') : null
+
+  const [chartOptions, setChartOptions] = React.useState<ApexOptions | null>(priceChartOptions)
+  const [volumeChart, setVolumeChart] = React.useState<XyValues | null>(volOpts)
   const [chartData, setChartData] = React.useState(history)
 
   React.useEffect(() => {
@@ -85,6 +79,11 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
             {chartOptions && (
               <Box minHeight={{ xs: 300, sm: chartHeight }} pt={2}>
                 <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
+                {volumeChart && (
+                  <Box mt={-2}>
+                    <BasicLineChart xyValues={volumeChart} rawData={[]} height={160} title={'Volume'} isXSmall={true} />
+                  </Box>
+                )}
                 <Box display='flex' gap={4} pb={4}>
                   <Box display='flex' gap={1}>
                     <Typography variant='caption'>start date:</Typography>

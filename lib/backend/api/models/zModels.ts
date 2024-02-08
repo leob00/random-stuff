@@ -3,10 +3,12 @@ import { EmailMessage } from '../aws/models/apiGatewayModels'
 
 export const quoteHistorySchema = z
   .object({
+    Symbol: z.string(),
     Price: z.number(),
     Change: z.number().optional(),
     ChangePercent: z.number().optional(),
     TradeDate: z.string(),
+    Volume: z.number().optional(),
   })
   .array()
 

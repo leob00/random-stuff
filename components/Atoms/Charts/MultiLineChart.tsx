@@ -2,8 +2,9 @@ import { Box, useMediaQuery, useTheme } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
 import { getBaseLineChartOptions } from 'components/Molecules/Charts/apex/baseLineChartOptions'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import dynamic from 'next/dynamic'
 import React from 'react'
+import dynamic from 'next/dynamic'
+
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const MultiLineChart = ({ xYValues, yLabelPrefix = '' }: { xYValues: XyValues[]; yLabelPrefix?: string }) => {
@@ -13,9 +14,11 @@ const MultiLineChart = ({ xYValues, yLabelPrefix = '' }: { xYValues: XyValues[];
   const [allOptions, setAllOptions] = React.useState<ApexOptions[]>([])
 
   React.useEffect(() => {
-    const options: ApexOptions[] = xYValues.map((m, i) => getBaseLineChartOptions(m, [], isXSmall, theme.palette.mode, yLabelPrefix, undefined, true, m.name, 'multi', `chart-${m.name}`))
-
+    const options: ApexOptions[] = xYValues.map((m, i) =>
+      getBaseLineChartOptions(m, [], isXSmall, theme.palette.mode, yLabelPrefix, undefined, true, m.name, 'multi', `chart-${m.name}`),
+    )
     setAllOptions(options)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

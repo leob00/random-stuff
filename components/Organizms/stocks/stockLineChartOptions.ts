@@ -1,6 +1,7 @@
 import { ApexOptions } from 'apexcharts'
 import { getBaseLineChartOptions } from 'components/Molecules/Charts/apex/baseLineChartOptions'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
+import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 
 export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: boolean, palette: 'light' | 'dark' = 'light') {
@@ -14,4 +15,18 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
   const options = getBaseLineChartOptions(items, raw, isXSmall, palette, '$', toolTipFormatter)
 
   return options
+}
+
+export const mapHistory = (items: StockHistoryItem[], yKey: keyof StockHistoryItem) => {
+  const result: XyValues = {
+    x: [],
+    y: [],
+  }
+  if (items.length === 0) {
+    return result
+  }
+  result.name = items.length > 0 ? items[0].Symbol : ''
+  result.x = items.map((o) => dayjs(o.TradeDate).format('MM/DD/YYYY'))
+  result.y = items.map((o) => Number(o[yKey]))
+  return result
 }
