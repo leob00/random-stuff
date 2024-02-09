@@ -11,6 +11,7 @@ import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
 import { DropdownItem } from 'lib/models/dropdown'
 import dynamic from 'next/dynamic'
+import numeral from 'numeral'
 import React from 'react'
 import { getOptions, mapHistory } from './stockLineChartOptions'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
@@ -73,6 +74,11 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
           <>
             <BackdropLoader />
             <ReactApexChart series={emptyOps.series} options={emptyOps} type='area' height={chartHeight} />
+            {isStock && (
+              <Box mt={-2}>
+                <BasicLineChart xyValues={{ x: [], y: [] }} rawData={[]} height={160} title={'Volume'} isXSmall={true} />
+              </Box>
+            )}
           </>
         ) : (
           <>
@@ -81,7 +87,16 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
                 <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
                 {volumeChart && (
                   <Box mt={-2}>
-                    <BasicLineChart xyValues={volumeChart} rawData={[]} height={160} title={'Volume'} isXSmall={true} />
+                    <BasicLineChart
+                      xyValues={volumeChart}
+                      rawData={[]}
+                      height={160}
+                      title={'Volume'}
+                      isXSmall={true}
+                      numericFormatter={(val: number) => {
+                        return numeral(val).format('###,###')
+                      }}
+                    />
                   </Box>
                 )}
                 <Box display='flex' gap={4} pb={4}>

@@ -6,6 +6,7 @@ import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import { getOptions } from 'components/Organizms/stocks/lineChartOptions'
 import dynamic from 'next/dynamic'
 import React from 'react'
+import BackdropLoader from '../Loaders/BackdropLoader'
 
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
@@ -17,6 +18,7 @@ const BasicLineChart = ({
   changePositiveColor = false,
   title,
   isXSmall = false,
+  numericFormatter,
 }: {
   xyValues: XyValues
   rawData: any[]
@@ -25,6 +27,7 @@ const BasicLineChart = ({
   changePositiveColor?: boolean
   title?: string
   isXSmall?: boolean
+  numericFormatter?: (num: number) => string
 }) => {
   const theme = useTheme()
 
@@ -37,7 +40,14 @@ const BasicLineChart = ({
   const [isLoading, setIsLoading] = React.useState(true)
 
   React.useEffect(() => {
-    const opts = getBaseLineChartOptions(xyValues, rawData, isXSmall, theme.palette.mode, yLabelPrefix, undefined, changePositiveColor)
+    const opts = getBaseLineChartOptions(xyValues, {
+      raw: rawData,
+      isXSmall: isXSmall,
+      palette: theme.palette.mode,
+      yLabelPrefix: yLabelPrefix,
+      changePositiveColor: changePositiveColor,
+      numericFormatter: numericFormatter,
+    })
     if (title) {
       opts.title = {
         text: title,
@@ -57,9 +67,7 @@ const BasicLineChart = ({
   return (
     <Box>
       {isLoading ? (
-        <Box minHeight={320}>
-          <WarmupBox text='loading chart...' />
-        </Box>
+        <BackdropLoader />
       ) : (
         <>
           {chartOptions && (

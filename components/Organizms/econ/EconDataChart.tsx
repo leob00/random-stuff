@@ -1,10 +1,9 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import { Box, useMediaQuery, useTheme } from '@mui/material'
-import { getOptions } from 'components/Organizms/stocks/lineChartOptions'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import { getBaseLineChartOptions } from 'components/Molecules/Charts/apex/baseLineChartOptions'
-import { EconomicDataItem, QlnLineChart } from 'lib/backend/api/qln/qlnModels'
+import { QlnLineChart } from 'lib/backend/api/qln/qlnModels'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const EconDataChart = ({ chart }: { chart: QlnLineChart }) => {
@@ -16,7 +15,13 @@ const EconDataChart = ({ chart }: { chart: QlnLineChart }) => {
     y: chart.YValues.map((m) => Number(m)),
   }
 
-  const options = getBaseLineChartOptions(xyValues, xyValues.x, isXSmall, theme.palette.mode, '', undefined, false)
+  const options = getBaseLineChartOptions(xyValues, {
+    raw: xyValues.x,
+    isXSmall: isXSmall,
+    palette: theme.palette.mode,
+    yLabelPrefix: '',
+    changePositiveColor: false,
+  })
 
   return (
     <Box borderRadius={3} p={1}>

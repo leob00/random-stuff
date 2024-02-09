@@ -15,7 +15,16 @@ const MultiLineChart = ({ xYValues, yLabelPrefix = '' }: { xYValues: XyValues[];
 
   React.useEffect(() => {
     const options: ApexOptions[] = xYValues.map((m, i) =>
-      getBaseLineChartOptions(m, [], isXSmall, theme.palette.mode, yLabelPrefix, undefined, true, m.name, 'multi', `chart-${m.name}`),
+      getBaseLineChartOptions(m, {
+        raw: [],
+        isXSmall: isXSmall,
+        palette: theme.palette.mode,
+        yLabelPrefix: yLabelPrefix,
+        changePositiveColor: true,
+        seriesName: m.name,
+        groupName: 'multi',
+        chartId: `chart-${m.name}`,
+      }),
     )
     setAllOptions(options)
     // eslint-disable-next-line react-hooks/exhaustive-deps
