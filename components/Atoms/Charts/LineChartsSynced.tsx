@@ -15,25 +15,6 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
   const chartHeight = isXSmall ? 360 : 480
   const [allOptions, setAllOptions] = React.useState<ApexOptions[]>([])
 
-  const emptyXValues: XyValues[] = xYValues.map((m) => {
-    return {
-      x: [],
-      y: [],
-    }
-  })
-  const emptyLineOptions: LineChartOptions[] = lineOptions.map((m, index) => {
-    return {
-      raw: [],
-      isXSmall: m.isXSmall,
-      palette: m.palette,
-      yLabelPrefix: m.yLabelPrefix,
-      seriesName: '',
-      changePositiveColor: false,
-
-      //chartId: `emptyChart${index}`,
-    }
-  })
-  const emptyOptions: ApexOptions[] = emptyXValues.map((m, i) => getBaseLineChartOptions(m, emptyLineOptions[i]))
   const options: ApexOptions[] = xYValues.map((m, i) => getBaseLineChartOptions(m, lineOptions[i]))
   React.useEffect(() => {
     setAllOptions(options)
@@ -44,7 +25,9 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
     <Box>
       {isLoading ? (
         <>
-          <BackdropLoader />
+          <Box minHeight={550}>
+            <BackdropLoader />
+          </Box>
           {/* {emptyOptions.map((item, index) => (
             <Box key={index}>
               {item.chart && (
@@ -60,7 +43,7 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
           {allOptions.map((item, index) => (
             <Box key={item.chart?.id}>
               {item.chart && (
-                <Box mt={index > 0 ? -4 : 0}>
+                <Box mt={index > 0 ? -3 : 0}>
                   <ReactApexChart options={item} series={item.series} type='area' height={index === 0 ? chartHeight : 160} />
                 </Box>
               )}

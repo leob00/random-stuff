@@ -116,7 +116,7 @@ const MultiLineChartDisplay = () => {
   }
   React.useEffect(() => {
     const fn = async () => {
-      console.log('effect fired: ', selectedChartDays)
+      //console.log('effect fired: ', selectedChartDays)
       setIsMutating(true)
       const newModel = await refreshModel('META', selectedChartDays)
       mutate(stockChartMutateKey, newModel, { revalidate: false })
@@ -134,9 +134,14 @@ const MultiLineChartDisplay = () => {
             <Box textAlign={'right'}>
               <StockChartDaysSelect selectedOption={String(selectedChartDays)} onSelected={handleChartRangeSelect} />
             </Box>
-            <Box>
-              <LineChartsSynced xYValues={stockData.xyValues} lineOptions={stockData.options} isLoading={isMutating} />
-            </Box>
+            {isMutating && (
+              <>
+                <Box minHeight={500}>
+                  <BackdropLoader />
+                </Box>
+              </>
+            )}
+            <Box>{!isMutating && <LineChartsSynced xYValues={stockData.xyValues} lineOptions={stockData.options} isLoading={isMutating} />}</Box>
             {/* <BasicLineChart xyValues={stockData.xyValues[0]} rawData={[]} yLabelPrefix={'$'} changePositiveColor={true} isXSmall={isXSmall} />
             <Box mt={-4}>
               <BasicLineChart xyValues={stockData.xyValues[1]} rawData={[]} height={160} title={'Volume'} isXSmall={true} />

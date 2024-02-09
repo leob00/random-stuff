@@ -81,6 +81,9 @@ export function getBaseLineChartOptions(items: XyValues, lineOptions: LineChartO
     title: {
       text: lineOptions.seriesName,
       align: 'center',
+      style: {
+        fontWeight: 100,
+      },
     },
     series: [
       {
@@ -102,6 +105,7 @@ export function getBaseLineChartOptions(items: XyValues, lineOptions: LineChartO
     xaxis: getBaseXAxis(items.x),
     tooltip: {
       cssClass: 'arrow_box',
+
       //fillSeriesColor: true,
 
       theme: undefined,
@@ -117,6 +121,7 @@ export function getBaseLineChartOptions(items: XyValues, lineOptions: LineChartO
             return ` ${val}`
           },
         },
+
         formatter: selectedTooltipFormatter,
       },
     },
