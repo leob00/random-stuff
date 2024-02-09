@@ -5,7 +5,6 @@ import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import React from 'react'
 import dynamic from 'next/dynamic'
 import BackdropLoader from '../Loaders/BackdropLoader'
-import BoxSkeleton from '../Skeletons/BoxSkeleton'
 
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
@@ -25,7 +24,7 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
     <Box>
       {isLoading ? (
         <>
-          <Box minHeight={550}>
+          <Box minHeight={chartHeight + 180}>
             <BackdropLoader />
           </Box>
           {/* {emptyOptions.map((item, index) => (

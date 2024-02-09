@@ -105,9 +105,6 @@ export function getBaseLineChartOptions(items: XyValues, lineOptions: LineChartO
     xaxis: getBaseXAxis(items.x),
     tooltip: {
       cssClass: 'arrow_box',
-
-      //fillSeriesColor: true,
-
       theme: undefined,
       marker: {
         fillColors: [lineColor],
@@ -121,7 +118,6 @@ export function getBaseLineChartOptions(items: XyValues, lineOptions: LineChartO
             return ` ${val}`
           },
         },
-
         formatter: selectedTooltipFormatter,
       },
     },

@@ -17,7 +17,6 @@ interface SyncedChartModel {
 const StockChartWithVolume = ({ symbol, data, isLoading }: { symbol: string; data: StockHistoryItem[]; isLoading: boolean }) => {
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
-  const chartHeight = isXSmall ? 300 : 520
 
   const mapModel = (symbol: string, history: StockHistoryItem[]) => {
     const newXYValues: XyValues[] = []
@@ -38,7 +37,7 @@ const StockChartWithVolume = ({ symbol, data, isLoading }: { symbol: string; dat
       raw: history,
       changePositiveColor: true,
       yLabelPrefix: '$',
-      chartId: `main-chart`,
+      chartId: `main-chart-${symbol}`,
       groupName: `stock-chart-${symbol}`,
       toolTipFormatter: (val: number, opts: any) => {
         return stockChartTooltipFormatter(val, opts, history)
@@ -51,7 +50,7 @@ const StockChartWithVolume = ({ symbol, data, isLoading }: { symbol: string; dat
       raw: history,
       yLabelPrefix: '',
       changePositiveColor: false,
-      chartId: `child-chart`,
+      chartId: `child-chart-${symbol}`,
       groupName: `stock-chart-${symbol}`,
       numericFormatter: (num: number) => {
         return `${numeral(num).format('###,###')}`

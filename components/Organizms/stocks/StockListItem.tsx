@@ -84,10 +84,7 @@ const StockListItem = ({
         setStockHistory(history)
       }
     }
-    //if (showMore) {
     fn()
-    //}
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showMore, item.Symbol])
 
