@@ -55,6 +55,7 @@ const StockChartWithVolume = ({ symbol, data, isLoading }: { symbol: string; dat
       numericFormatter: (num: number) => {
         return `${numeral(num).format('###,###')}`
       },
+      enableAxisXTooltip: false,
     })
     const result: SyncedChartModel = {
       xyValues: newXYValues,

@@ -27,15 +27,6 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
           <Box minHeight={chartHeight + 180}>
             <BackdropLoader />
           </Box>
-          {/* {emptyOptions.map((item, index) => (
-            <Box key={index}>
-              {item.chart && (
-                <Box mt={index > 0 ? -4 : 0}>
-                  <ReactApexChart options={item} series={item.series} type='area' height={index === 0 ? chartHeight : 160} />
-                </Box>
-              )}
-            </Box>
-          ))} */}
         </>
       ) : (
         <>

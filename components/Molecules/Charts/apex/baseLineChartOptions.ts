@@ -25,6 +25,7 @@ export type LineChartOptions = {
   groupName?: string
   chartId?: string
   numericFormatter?: (num: number) => string
+  enableAxisXTooltip?: boolean
 }
 
 const lineFill: ApexFill = {
@@ -52,7 +53,7 @@ export function getBaseLineChartOptions(items: XyValues, lineOptions: LineChartO
     if (lineOptions.numericFormatter) {
       return lineOptions.numericFormatter(val)
     }
-    return ` ${numeral(val).format('###,###.00')}`
+    return ` ${numeral(val).format('###,###.00')} `
   }
 
   const selectedTooltipFormatter = lineOptions.toolTipFormatter ?? defaultTooltipFormatter
@@ -102,9 +103,14 @@ export function getBaseLineChartOptions(items: XyValues, lineOptions: LineChartO
     chart: { ...getBaseChart(lineOptions.groupName ?? 'group', lineOptions.palette, lineOptions.chartId), zoom: { enabled: false } },
     grid: getBaseGrid(lineOptions.palette),
     yaxis: getBaseYAxis(lineOptions),
-    xaxis: getBaseXAxis(items.x),
+    xaxis: {
+      ...getBaseXAxis(items.x),
+      tooltip: {
+        enabled: lineOptions.enableAxisXTooltip ?? true,
+      },
+    },
     tooltip: {
-      cssClass: 'arrow_box',
+      //cssClass: 'arrow_box',
       theme: undefined,
       marker: {
         fillColors: [lineColor],
