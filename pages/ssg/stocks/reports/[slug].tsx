@@ -18,6 +18,7 @@ const Page = () => {
   const dropdown: DropdownItem[] = [
     { text: 'Volume Leaders', value: 'volumeleaders' },
     { text: 'Market Cap Leaders', value: 'marketcapleaders' },
+    { text: 'Sectors', value: 'sectors' },
   ]
   let selectedOption = dropdown.find((m) => m.value === router.query.slug)
   if (!selectedOption) {
@@ -32,13 +33,17 @@ const Page = () => {
   const { data, isLoading } = useSwrHelper(selectedOption.value, dataFn)
 
   const handleReportSelected = (value: string) => {
+    if (value === 'sectors') {
+      router.push('/csr/stocks/sectors')
+      return
+    }
     router.replace(`/ssg/stocks/reports/${value}`, undefined, { scroll: false })
   }
 
   return (
     <>
       <Seo pageTitle={`Stock reports - ${selectedOption.text}`} />
-      <PageHeader text='Stock Reports' backButtonRoute='/csr/stocks' />
+      <PageHeader text='Stock Reports' />
       <ResponsiveContainer>
         <Box pt={2}>
           <CenterStack>

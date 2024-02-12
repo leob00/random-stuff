@@ -39,3 +39,14 @@ export interface EconDataCriteria {
   startYear: number
   endYear: number
 }
+
+export interface MovingAvg {
+  UnitType: string
+  UnitValue: number
+  CurrentValue: number
+}
+
+export interface SectorIndustry {
+  Name: string
+  MovingAvg: MovingAvg[]
+}
