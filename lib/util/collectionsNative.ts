@@ -29,3 +29,13 @@ export function getMapFromArray<T>(array: T[], key: keyof T) {
   })
   return map
 }
+
+export function dedup<T>(array: T[], key: keyof T): T[] {
+  const map = new Map<any, T>()
+  array.forEach((item) => {
+    if (!map.has(item[key])) {
+      map.set(item[key], item)
+    }
+  })
+  return Array.from(map.values())
+}

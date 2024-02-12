@@ -9,13 +9,20 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
   const [isClient, setIsClient] = React.useState(false)
   const router = useRouter()
   const { routes, addRoute } = useRouteTracker()
+
   React.useEffect(() => {
     setIsClient(true)
   }, [])
 
   React.useEffect(() => {
     const handleRouteChange = async (url: string, shallow: boolean) => {
-      if (!url.includes('/login' || !url.includes('logoff')) && !url.includes('recipe') && !url.includes('report') && !url.includes('?')) {
+      if (
+        !url.includes('/login' || !url.includes('logoff')) &&
+        !url.includes('recipe') &&
+        !url.includes('reports/') &&
+        !url.includes('sectors/') &&
+        !url.includes('?')
+      ) {
         const lastRoute = routes.length > 0 ? routes[0] : undefined
 
         if (lastRoute) {

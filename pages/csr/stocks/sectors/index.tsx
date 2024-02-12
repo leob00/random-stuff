@@ -23,7 +23,7 @@ const Page = () => {
       <PageHeader text='Sectors' />
       {isLoading && <BackdropLoader />}
       <ResponsiveContainer>
-        <Box>{data && <SectorsTable data={data} />}</Box>
+        <Box pb={8}>{data && <SectorsTable data={data} />}</Box>
       </ResponsiveContainer>
     </>
   )

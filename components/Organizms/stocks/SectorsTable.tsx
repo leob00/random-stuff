@@ -8,10 +8,13 @@ import { getPositiveNegativeColor } from './StockListItem'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import SortableHeaderCell from 'components/Atoms/Tables/SortableHeader'
+import Clickable from 'components/Atoms/Containers/Clickable'
+import { useRouter } from 'next/router'
 
 interface Model {
   Id: string
   Name: string
+  Category: string
   MovingAvg7: number
   MovingAvg30: number
   MovingAvg90: number
@@ -20,9 +23,10 @@ interface Model {
 }
 
 const SectorsTable = ({ data }: { data: SectorIndustry[] }) => {
+  const router = useRouter()
   const theme = useTheme()
   const defaultSort: Sort = {
-    key: 'MovingAvg90',
+    key: 'MovingAvg30',
     direction: 'desc',
   }
   const model = mapModel(data, defaultSort)
@@ -32,6 +36,10 @@ const SectorsTable = ({ data }: { data: SectorIndustry[] }) => {
   const handleChangeSort = (newSort: Sort) => {
     setSort(newSort)
     setResults(mapModel(data, newSort))
+  }
+  const handleItemClick = async (item: Model) => {
+    console.log(`/csr/stocks/sectors/${item.Id}`)
+    router.push(`/csr/stocks/sectors/${item.Id}`)
   }
 
   return (
@@ -57,7 +65,10 @@ const SectorsTable = ({ data }: { data: SectorIndustry[] }) => {
           <TableBody>
             {results.map((item) => (
               <TableRow key={item.Name}>
-                <TableCell>{item.Name}</TableCell>
+                <TableCell>
+                  {' '}
+                  <Clickable onClicked={() => handleItemClick(item)}>{item.Name} </Clickable>
+                </TableCell>
                 <TableCell>
                   <Typography color={getPositiveNegativeColor(item.MovingAvg7, theme.palette.mode)}>
                     {`${numeral(item.MovingAvg7).format('###,###0.00')}%`}
@@ -98,6 +109,7 @@ function mapModel(results: SectorIndustry[], sort: Sort) {
   const result: Model[] = results.map((m) => {
     return {
       Id: m.ContainerId,
+      Category: m.Category,
       Name: m.Name,
       MovingAvg7: m.MovingAvg[0].CurrentValue,
       MovingAvg30: m.MovingAvg[1].CurrentValue,

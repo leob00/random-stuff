@@ -21,7 +21,7 @@ const SortableHeaderCell = ({
       onChangeSort({ ...sort, direction: sort.direction === 'asc' ? 'desc' : 'asc' })
       return
     }
-    onChangeSort({ ...sort, key: fieldName, direction: 'asc' })
+    onChangeSort({ ...sort, key: fieldName, direction: 'desc' })
   }
   return (
     <TableCell>
