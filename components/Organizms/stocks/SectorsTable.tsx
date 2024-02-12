@@ -1,11 +1,39 @@
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useTheme } from '@mui/material'
+import { Box, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useTheme } from '@mui/material'
+import { Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { SectorIndustry } from 'lib/backend/api/qln/qlnModels'
+import { sortArray } from 'lib/util/collections'
 import numeral from 'numeral'
 import React from 'react'
 import { getPositiveNegativeColor } from './StockListItem'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import SortableHeaderCell from 'components/Atoms/Tables/SortableHeader'
+
+interface Model {
+  Id: string
+  Name: string
+  MovingAvg7: number
+  MovingAvg30: number
+  MovingAvg90: number
+  MovingAvg180: number
+  MovingAvg365: number
+}
 
 const SectorsTable = ({ data }: { data: SectorIndustry[] }) => {
   const theme = useTheme()
+  const defaultSort: Sort = {
+    key: 'MovingAvg90',
+    direction: 'desc',
+  }
+  const model = mapModel(data, defaultSort)
+  const [results, setResults] = React.useState(model)
+  const [sort, setSort] = React.useState(defaultSort)
+
+  const handleChangeSort = (newSort: Sort) => {
+    setSort(newSort)
+    setResults(mapModel(data, newSort))
+  }
+
   return (
     <Box>
       <TableContainer>
@@ -19,40 +47,42 @@ const SectorsTable = ({ data }: { data: SectorIndustry[] }) => {
             </TableRow>
             <TableRow>
               <TableCell align='right'>days:</TableCell>
-              <TableCell align='center'>7</TableCell>
-              <TableCell>30</TableCell>
-              <TableCell>90</TableCell>
-              <TableCell>180</TableCell>
-              <TableCell>365</TableCell>
+              <SortableHeaderCell displayText='7' fieldName='MovingAvg7' sort={sort} onChangeSort={handleChangeSort} />
+              <SortableHeaderCell displayText='30' fieldName='MovingAvg30' sort={sort} onChangeSort={handleChangeSort} />
+              <SortableHeaderCell displayText='90' fieldName='MovingAvg90' sort={sort} onChangeSort={handleChangeSort} />
+              <SortableHeaderCell displayText='180' fieldName='MovingAvg180' sort={sort} onChangeSort={handleChangeSort} />
+              <SortableHeaderCell displayText='365' fieldName='MovingAvg365' sort={sort} onChangeSort={handleChangeSort} />
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((item) => (
+            {results.map((item) => (
               <TableRow key={item.Name}>
                 <TableCell>{item.Name}</TableCell>
                 <TableCell>
-                  <Typography color={getPositiveNegativeColor(item.MovingAvg[0].CurrentValue, theme.palette.mode)}>
-                    {`${numeral(item.MovingAvg[0].CurrentValue).format('###,###0.00')}%`}
+                  <Typography color={getPositiveNegativeColor(item.MovingAvg7, theme.palette.mode)}>
+                    {`${numeral(item.MovingAvg7).format('###,###0.00')}%`}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color={getPositiveNegativeColor(item.MovingAvg[1].CurrentValue, theme.palette.mode)}>
-                    {`${numeral(item.MovingAvg[1].CurrentValue).format('###,###0.00')}%`}
+                  <Typography color={getPositiveNegativeColor(item.MovingAvg30, theme.palette.mode)}>
+                    {`${numeral(item.MovingAvg30).format('###,###0.00')}%`}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color={getPositiveNegativeColor(item.MovingAvg[2].CurrentValue, theme.palette.mode)}>
-                    {`${numeral(item.MovingAvg[2].CurrentValue).format('###,###0.00')}%`}
+                  <Box display={'flex'} alignItems={'center'} gap={1}>
+                    <Typography color={getPositiveNegativeColor(item.MovingAvg90, theme.palette.mode)}>
+                      {`${numeral(item.MovingAvg90).format('###,###0.00')}%`}
+                    </Typography>
+                  </Box>
+                </TableCell>
+                <TableCell>
+                  <Typography color={getPositiveNegativeColor(item.MovingAvg180, theme.palette.mode)}>
+                    {`${numeral(item.MovingAvg180).format('###,###0.00')}%`}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color={getPositiveNegativeColor(item.MovingAvg[3].CurrentValue, theme.palette.mode)}>
-                    {`${numeral(item.MovingAvg[3].CurrentValue).format('###,###0.00')}%`}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color={getPositiveNegativeColor(item.MovingAvg[4].CurrentValue, theme.palette.mode)}>
-                    {`${numeral(item.MovingAvg[4].CurrentValue).format('###,###0.00')}%`}
+                  <Typography color={getPositiveNegativeColor(item.MovingAvg365, theme.palette.mode)}>
+                    {`${numeral(item.MovingAvg365).format('###,###0.00')}%`}
                   </Typography>
                 </TableCell>
               </TableRow>
@@ -62,6 +92,22 @@ const SectorsTable = ({ data }: { data: SectorIndustry[] }) => {
       </TableContainer>
     </Box>
   )
+}
+
+function mapModel(results: SectorIndustry[], sort: Sort) {
+  const result: Model[] = results.map((m) => {
+    return {
+      Id: m.ContainerId,
+      Name: m.Name,
+      MovingAvg7: m.MovingAvg[0].CurrentValue,
+      MovingAvg30: m.MovingAvg[1].CurrentValue,
+      MovingAvg90: m.MovingAvg[2].CurrentValue,
+      MovingAvg180: m.MovingAvg[3].CurrentValue,
+      MovingAvg365: m.MovingAvg[4].CurrentValue,
+    }
+  })
+
+  return sortArray(result, [sort.key], [sort.direction])
 }
 
 export default SectorsTable

@@ -47,6 +47,7 @@ export interface MovingAvg {
 }
 
 export interface SectorIndustry {
+  ContainerId: string
   Name: string
   MovingAvg: MovingAvg[]
 }
