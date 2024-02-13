@@ -55,7 +55,7 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
 
   return (
     <>
-      <ScrollIntoView enabled={true} margin={-16} />
+      <ScrollIntoView enabled={true} margin={-15} />
 
       <CenterStack>
         {dateOptions.length > 0 && (

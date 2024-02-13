@@ -2,7 +2,6 @@ import { Box, Stack } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import DropDownList from 'components/Atoms/Inputs/DropdownList'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
-import WarmupBox from 'components/Atoms/WarmupBox'
 import { useUserController } from 'hooks/userController'
 import { NewsItem, NewsTypeIds, newsTypes } from 'lib/backend/api/qln/qlnApi'
 import { orderBy } from 'lodash'
@@ -10,7 +9,6 @@ import React from 'react'
 import { get } from 'lib/backend/api/fetchFunctions'
 import NewsList from './NewsList'
 import { getUserNoteTitles, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
-import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import useSWR from 'swr'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
@@ -39,7 +37,7 @@ const NewsLayout = () => {
     return sorted
   }
 
-  const { data, isLoading, error } = useSWR(['/api/news', selectedSource], ([url, id]) => fetchWithId(url, id))
+  const { data, isLoading, error } = useSWR(['/api/news', selectedSource], ([url, id]) => fetchWithId(url, id), { revalidateOnFocus: false })
 
   const saveProfileNewsType = async (newstype: NewsTypeIds) => {
     const profile = await userController.fetchProfilePassive()

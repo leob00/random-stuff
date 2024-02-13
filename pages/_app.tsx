@@ -36,9 +36,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <Header onSetColorMode={handleChangeColorMode} colorTheme={colorMode} />
       <ThemeProvider theme={getTheme(colorMode)}>
         <CssBaseline />
+        <Header onSetColorMode={handleChangeColorMode} colorTheme={colorMode} />
         <Layout>
           <Component {...pageProps} />
         </Layout>

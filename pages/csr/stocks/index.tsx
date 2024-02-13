@@ -1,8 +1,6 @@
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import BackButton from 'components/Atoms/Buttons/BackButton'
-import TabButtonList, { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
-import WarmupBox from 'components/Atoms/WarmupBox'
-import PleaseLogin from 'components/Molecules/PleaseLogin'
+import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import Seo from 'components/Organizms/Seo'
 import EarningsCalendarLayout from 'components/Organizms/stocks/EarningsCalendarLayout'
 import EconCalendarLayout from 'components/Organizms/stocks/EconCalendarLayout'
@@ -13,13 +11,13 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import TabList from 'components/Atoms/Buttons/TabList'
 import RequireClaim from 'components/Organizms/user/RequireClaim'
-import { Box, ListItemText } from '@mui/material'
+import { Box } from '@mui/material'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuAlert from 'components/Molecules/Menus/ContextMenuAlert'
 import ContextMenuPortfolio from 'components/Molecules/Menus/ContextMenuPortfolio'
 import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 const Page = () => {
   const router = useRouter()
@@ -33,7 +31,7 @@ const Page = () => {
   }
 
   const [selectedTab, setSelectedTab] = React.useState(tab ?? 'Stocks')
-  const [loading, setLoading] = React.useState(true)
+  const [isLoading, setIsLoading] = React.useState(true)
   const { authProfile, fetchProfilePassive, setProfile } = useUserController()
 
   const handleSelectTab = (tab: TabInfo) => {
@@ -82,7 +80,7 @@ const Page = () => {
         }
         await setProfile(p)
       }
-      setLoading(false)
+      setIsLoading(false)
     }
     fn()
 
@@ -99,8 +97,8 @@ const Page = () => {
 
       <ResponsiveContainer>
         <TabList tabs={tabs} onSetTab={handleSelectTab} />
-        {loading ? (
-          <></>
+        {isLoading ? (
+          <BackdropLoader />
         ) : (
           <>
             {selectedTab === 'Stocks' && (
