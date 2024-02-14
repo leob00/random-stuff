@@ -29,7 +29,7 @@ export const useRouteTracker = () => {
     addRoute: (url: string) => {
       setIsLoading(true)
       const map = getMapFromArray(routes, 'path')
-      let name = url.substring(url.lastIndexOf('/') + 1).replace('-', ' ')
+      let name = url.substring(url.lastIndexOf('/') + 1).replaceAll('-', ' ')
       if (name.length == 0) {
         name = 'home'
       }

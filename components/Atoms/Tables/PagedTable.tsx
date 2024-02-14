@@ -1,22 +1,22 @@
 import { Box } from '@mui/material'
-import Pager from 'components/Atoms/Pager'
 import { usePager } from 'hooks/usePager'
-import { StockQuote } from 'lib/backend/api/models/zModels'
-import React from 'react'
-import StockTable from './StockTable'
+import React, { ReactNode } from 'react'
+import Pager from '../Pager'
 
-const PagedStockTable = ({ data, pageSize = 10 }: { data: StockQuote[]; pageSize?: number }) => {
+const PagedTable = ({ data, pageSize = 10, onPaged, table }: { data: any[]; pageSize?: number; onPaged: (pageNum: number) => void; table: ReactNode }) => {
   const { page, setPage, displayItems, pageCount, allItems } = usePager(data, pageSize)
   const handlePaged = (pageNum: number) => {
     setPage(pageNum)
+    onPaged(pageNum)
   }
   return (
     <>
-      <StockTable stockList={displayItems} isStock={true} showGroupName={false} showSummary={false} />
+      {table}
       <Box pt={4}>
         <Pager pageCount={pageCount} itemCount={displayItems.length} itemsPerPage={pageSize} onPaged={(pageNum: number) => handlePaged(pageNum)} defaultPageIndex={page} totalItemCount={allItems.length}></Pager>
       </Box>
     </>
   )
 }
-export default PagedStockTable
+
+export default PagedTable

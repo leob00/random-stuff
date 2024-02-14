@@ -16,17 +16,21 @@ const Page = () => {
   const router = useRouter()
 
   const dropdown: DropdownItem[] = [
-    { text: 'Volume Leaders', value: 'volumeleaders' },
-    { text: 'Market Cap Leaders', value: 'marketcapleaders' },
+    { text: 'Volume Leaders', value: 'volume-leaders' },
+    { text: 'Market Cap Leaders', value: 'market-cap-leaders' },
     { text: 'Sectors', value: 'sectors' },
   ]
-  let selectedOption = dropdown.find((m) => m.value === router.query.slug)
+  const id = String(router.query.slug)
+
+  let selectedOption = dropdown.find((m) => m.value === id)
   if (!selectedOption) {
     selectedOption = dropdown[0]
   }
 
   const dataFn = async () => {
-    const result = await getReport(selectedOption!.value as StockReportTypes)
+    const arg = selectedOption?.value.replaceAll('-', '') as StockReportTypes
+    const result = await getReport(arg)
+
     return result
   }
 
@@ -43,7 +47,7 @@ const Page = () => {
   return (
     <>
       <Seo pageTitle={`Stock reports - ${selectedOption.text}`} />
-      <PageHeader text='Stock Reports' />
+      <PageHeader text='Stock Reports' backButtonRoute='/csr/stocks' />
       <ResponsiveContainer>
         <Box pt={2}>
           <CenterStack>
@@ -51,7 +55,7 @@ const Page = () => {
           </CenterStack>
         </Box>
         {isLoading && <BackdropLoader />}
-        {data && (
+        {data && !isLoading && (
           <>
             <PagedStockTable data={data} />
           </>

@@ -19,7 +19,7 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
       if (
         !url.includes('/login' || !url.includes('logoff')) &&
         !url.includes('recipe') &&
-        !url.includes('reports/') &&
+        //&& !url.includes('reports/')
         !url.includes('sectors/') &&
         !url.includes('?')
       ) {

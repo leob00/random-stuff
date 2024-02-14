@@ -36,9 +36,8 @@ const StockTable = ({
               <Box>
                 {scrollIntoView && <ScrollIntoView enabled={showSummary} margin={scrollMargin} />}
                 <Stack>
-                  <Typography variant={'caption'}>{`prices are as of: ${dayjs(stockList[0].TradeDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
+                  <Typography variant={'caption'}>{`last updated: ${dayjs(stockList[0].TradeDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
                 </Stack>
-                <Typography variant={'caption'}>{`total count: ${numeral(stockList.length).format()}`}</Typography>
               </Box>
             )}
           </>

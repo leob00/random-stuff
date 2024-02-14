@@ -1,28 +1,28 @@
-import { getPagedArray } from 'lib/util/collections'
 import React from 'react'
 import { chunk } from 'lodash'
 
 export const usePager = <T>(items: T[], pageSize: number) => {
-  //const pagedStocks = getPagedArray(items, pageSize)
   const chunks = chunk(items, pageSize)
   const pageCount = chunks.length
   const map = new Map<number, T[]>()
   chunks.forEach((chunk, i) => {
-    map.set(i, chunk)
+    map.set(i + 1, chunk)
   })
 
   const [currentPageIndex, setCurrentPageIndex] = React.useState(1)
-  const [displayItems, setDisplayItems] = React.useState(Array.from(map.get(currentPageIndex)!.values()))
+  const [displayItems, setDisplayItems] = React.useState(chunks.length > 0 ? chunks[0] : [])
 
-  const setPageIndex = (pageNum: number) => {
+  const setPage = (pageNum: number) => {
     setCurrentPageIndex(pageNum)
-    setDisplayItems(Array.from(map.get(currentPageIndex)!.values()))
+    const newDisplayItems = Array.from(map.get(pageNum)!.values())
+    setDisplayItems(newDisplayItems)
   }
   return {
-    currentPageIndex,
-    setPageIndex,
+    page: currentPageIndex,
+    setPage,
     pageCount,
     displayItems: displayItems,
+    allItems: [...items],
   }
 }
-export type UserController = ReturnType<typeof usePager>
+export type Pager = ReturnType<typeof usePager>

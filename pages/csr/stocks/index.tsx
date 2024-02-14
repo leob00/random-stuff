@@ -68,7 +68,7 @@ const Page = () => {
           <ContextMenuReport text='reports' />
         </>
       ),
-      fn: () => router.push(`/ssg/stocks/reports/volumeleaders`),
+      fn: () => router.push(`/ssg/stocks/reports/volume-leaders`),
     },
   ]
 

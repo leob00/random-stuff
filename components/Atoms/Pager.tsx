@@ -1,9 +1,13 @@
-import ArrowBackIos from '@mui/icons-material/ArrowBackIos'
-import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos'
+// import ArrowBackIos from '@mui/icons-material/ArrowBackIos'
+// import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos'
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
+import FirstPageIcon from '@mui/icons-material/FirstPage'
+import LastPageIcon from '@mui/icons-material/LastPage'
 import { Box, Button, Typography } from '@mui/material'
+import numeral from 'numeral'
 import React, { useEffect, useState } from 'react'
 import HorizontalDivider from './Dividers/HorizontalDivider'
-import DefaultTooltip from './Tooltips/DefaultTooltip'
 
 const Pager = ({
   pageCount,
@@ -26,7 +30,6 @@ const Pager = ({
   const [displayMessage, setDisplayMessage] = useState('')
 
   const getDisplayMessage = (currIndex: number, totalPageCount: number) => {
-    //const runningTotal = currIndex === 1 ? 1 : currIndex
     const pageMessage = `page ${currIndex} of ${totalPageCount} `
     if (itemsPerPage === 1) {
       return pageMessage
@@ -35,13 +38,13 @@ const Pager = ({
     const firstPage = currIndex === 1
     const lastPage = currIndex === totalPageCount
     if (firstPage) {
-      return `${pageMessage} [${pageIndex} - ${pageIndex * itemCount} of ${totalItemCount}]`
+      return `${pageMessage} [${pageIndex} - ${pageIndex * itemCount} of ${numeral(totalItemCount).format('###,###')}]`
     }
     if (lastPage) {
       return `${pageMessage} [${totalItemCount - itemCount} - ${totalItemCount}]`
     }
 
-    return `${pageMessage} [${(currIndex - 1) * itemCount + 1} - ${pageIndex * itemCount} of ${totalItemCount}]`
+    return `${pageMessage} [${(currIndex - 1) * itemCount + 1} - ${pageIndex * itemCount} of ${numeral(totalItemCount).format('###,###')}]`
   }
 
   const handlePreviousClick = () => {
@@ -83,48 +86,18 @@ const Pager = ({
         </Typography>
       )}
       <Box sx={{ textAlign: 'center', my: 2 }}>
-        {pageIndex > 1 ? (
-          <>
-            <Button variant='text' disabled={pageIndex <= 1} onClick={handleFirstPageClick}>
-              <ArrowBackIos sx={{ fontSize: 'smaller' }} />
-              <ArrowBackIos sx={{ fontSize: 'smaller' }} />
-            </Button>
-            <Button variant='text' disabled={pageIndex <= 1} onClick={handlePreviousClick}>
-              <ArrowBackIos />
-            </Button>
-          </>
-        ) : (
-          <>
-            <Button variant='text' disabled={pageIndex <= 1} onClick={handleFirstPageClick}>
-              <ArrowBackIos sx={{ fontSize: 'smaller' }} />
-              <ArrowBackIos sx={{ fontSize: 'smaller' }} />
-            </Button>
-            <Button variant='text' disabled={pageIndex <= 1} onClick={handlePreviousClick}>
-              <ArrowBackIos />
-            </Button>
-          </>
-        )}
-        {pageIndex < pageCount ? (
-          <>
-            <Button variant='text' onClick={handleNextClick} disabled={pageIndex === pageCount}>
-              <ArrowForwardIos />
-            </Button>
-            <Button variant='text' disabled={pageIndex === pageCount} onClick={handleLastPageClick}>
-              <ArrowForwardIos sx={{ fontSize: 'smaller' }} />
-              <ArrowForwardIos sx={{ fontSize: 'smaller' }} />
-            </Button>
-          </>
-        ) : (
-          <>
-            <Button variant='text' onClick={handleNextClick} disabled={pageIndex === pageCount}>
-              <ArrowForwardIos />
-            </Button>
-            <Button variant='text' disabled={pageIndex === pageCount} onClick={handleLastPageClick}>
-              <ArrowForwardIos sx={{ fontSize: 'smaller' }} />
-              <ArrowForwardIos sx={{ fontSize: 'smaller' }} />
-            </Button>
-          </>
-        )}
+        <Button variant='text' disabled={pageIndex <= 1} onClick={handleFirstPageClick}>
+          <FirstPageIcon />
+        </Button>
+        <Button variant='text' disabled={pageIndex <= 1} onClick={handlePreviousClick}>
+          <KeyboardArrowLeft />
+        </Button>
+        <Button variant='text' onClick={handleNextClick} disabled={pageIndex === pageCount}>
+          <KeyboardArrowRight />
+        </Button>
+        <Button variant='text' disabled={pageIndex === pageCount} onClick={handleLastPageClick}>
+          <LastPageIcon />
+        </Button>
       </Box>
     </>
   )

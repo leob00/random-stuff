@@ -24,7 +24,7 @@ const CommunityStocksRecentLayout = ({ data }: { data: StockQuote[] }) => {
     },
     {
       item: <ContextMenuReport text={'reports'} />,
-      fn: () => router.push('/ssg/stocks/reports/volumeleaders'),
+      fn: () => router.push('/ssg/stocks/reports/volume-leaders'),
     },
   ]
   const handleCustomSortSubmitted = (sort?: Sort[]) => {

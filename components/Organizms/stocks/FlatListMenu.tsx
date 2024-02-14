@@ -10,15 +10,7 @@ import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
 import ContextMenuAlert from 'components/Molecules/Menus/ContextMenuAlert'
 import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
 
-const FlatListMenu = ({
-  onEdit,
-  onShowAsGroup,
-  onShowCustomSort,
-}: {
-  onEdit: () => void
-  onShowAsGroup?: (show: boolean) => void
-  onShowCustomSort?: () => void
-}) => {
+const FlatListMenu = ({ onEdit, onShowAsGroup, onShowCustomSort }: { onEdit: () => void; onShowAsGroup?: (show: boolean) => void; onShowCustomSort?: () => void }) => {
   const router = useRouter()
   const handleClick = (event: 'edit' | 'showAsGroup' | 'customSort') => {
     switch (event) {
@@ -91,7 +83,7 @@ const FlatListMenu = ({
           <ContextMenuReport text='reports' />
         </>
       ),
-      fn: () => router.push(`/ssg/stocks/reports/volumeleaders`),
+      fn: () => router.push(`/ssg/stocks/reports/volume-leaders`),
     },
   ]
 

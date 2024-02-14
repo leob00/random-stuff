@@ -68,7 +68,7 @@ const GroupedListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShow
           <ContextMenuReport text='reports' />
         </>
       ),
-      fn: () => router.push(`/ssg/stocks/reports/volumeleaders`),
+      fn: () => router.push(`/ssg/stocks/reports/volume-leaders`),
     },
   ]
 
