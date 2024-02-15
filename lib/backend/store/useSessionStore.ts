@@ -34,7 +34,7 @@ export const useSessionStore = create<SessionState>()((set) => ({
 export const useSessionPersistentStore = create(
   persist<SessionState>(
     (set, get) => ({
-      palette: 'light',
+      palette: 'dark',
       routes: [],
       communityStocks: {},
       claims: [],
