@@ -17,6 +17,7 @@ const Pager = ({
   defaultPageIndex = 1,
   showPageText = true,
   totalItemCount = 0,
+  showHorizontalDivider = true,
 }: {
   pageCount: number
   itemCount: number
@@ -25,6 +26,7 @@ const Pager = ({
   defaultPageIndex?: number
   showPageText?: boolean
   totalItemCount: number
+  showHorizontalDivider?: boolean
 }) => {
   const [pageIndex, setPageIndex] = useState(defaultPageIndex)
   const [displayMessage, setDisplayMessage] = useState('')
@@ -78,8 +80,8 @@ const Pager = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageCount, defaultPageIndex, totalItemCount, displayMessage])
   return (
-    <Box pt={4}>
-      <HorizontalDivider />
+    <Box pt={1}>
+      {showHorizontalDivider && <HorizontalDivider />}
       {showPageText && (
         <Typography sx={{ my: 2, textAlign: 'center' }} variant='body2'>
           {displayMessage}

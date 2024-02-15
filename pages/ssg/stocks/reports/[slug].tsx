@@ -12,6 +12,7 @@ import { StockReportTypes } from 'lib/backend/api/qln/qlnModels'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import PagedStockTable from 'components/Organizms/stocks/PagedStockTable'
+import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 const Page = () => {
   const router = useRouter()
 
@@ -54,10 +55,12 @@ const Page = () => {
             <DropdownList options={dropdown} selectedOption={selectedOption.value} onOptionSelected={handleReportSelected} />
           </CenterStack>
         </Box>
+
         {isLoading && <BackdropLoader />}
         {data && !isLoading && (
           <>
-            <PagedStockTable data={data} />
+            <ScrollIntoView enabled={true} margin={-28} />
+            <PagedStockTable data={data} pageSize={5} />
           </>
         )}
       </ResponsiveContainer>

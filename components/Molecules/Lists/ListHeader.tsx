@@ -64,7 +64,6 @@ const ListHeader = ({
         <Paper elevation={elevation}>
           <Stack sx={{ backgroundColor: backColor }} direction={'row'} flexGrow={1} px={2} alignItems={'center'}>
             <Stack
-              py={1}
               width={'100%'}
               sx={{ cursor: 'pointer' }}
               onClick={(e) => {
