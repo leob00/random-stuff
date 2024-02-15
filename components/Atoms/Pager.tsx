@@ -78,7 +78,7 @@ const Pager = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageCount, defaultPageIndex, totalItemCount, displayMessage])
   return (
-    <>
+    <Box pt={4}>
       <HorizontalDivider />
       {showPageText && (
         <Typography sx={{ my: 2, textAlign: 'center' }} variant='body2'>
@@ -99,7 +99,7 @@ const Pager = ({
           <LastPageIcon />
         </Button>
       </Box>
-    </>
+    </Box>
   )
 }
 
