@@ -6,6 +6,7 @@ export const usePager = <T>(items: T[], pageSize: number) => {
     page: number
     displayItems: T[]
     numberOfPages: number
+    allItems: T[]
   }
 
   const chunks = chunk(items, pageSize)
@@ -22,6 +23,7 @@ export const usePager = <T>(items: T[], pageSize: number) => {
     page: 1,
     displayItems: chunks.length > 0 ? chunks[0] : [],
     numberOfPages: chunks.length,
+    allItems: items,
   }
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
 
@@ -37,10 +39,10 @@ export const usePager = <T>(items: T[], pageSize: number) => {
     newChunks.forEach((chunk, i) => {
       map.set(i + 1, chunk)
     })
-    setModel({ ...model, page: 1, displayItems: newChunks.length > 0 ? Array.from(map.get(1)!.values()) : [], numberOfPages: newChunks.length })
+    setModel({ ...model, page: 1, allItems: data, displayItems: newChunks.length > 0 ? Array.from(map.get(1)!.values()) : [], numberOfPages: newChunks.length })
   }
   React.useEffect(() => {
-    const newChunks = chunk(items, pageSize)
+    const newChunks = chunk(model.allItems, pageSize)
     map.clear()
     newChunks.forEach((chunk, i) => {
       map.set(i + 1, chunk)
