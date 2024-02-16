@@ -10,6 +10,8 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import SortableHeaderCell from 'components/Atoms/Tables/SortableHeader'
 import Clickable from 'components/Atoms/Containers/Clickable'
 import { useRouter } from 'next/router'
+import { usePager } from 'hooks/usePager'
+import Pager from 'components/Atoms/Pager'
 
 interface Model {
   Id: string
@@ -23,6 +25,7 @@ interface Model {
 }
 
 const SectorsTable = ({ data }: { data: SectorIndustry[] }) => {
+  const pageSize = 10
   const router = useRouter()
   const theme = useTheme()
   const defaultSort: Sort = {
@@ -30,16 +33,21 @@ const SectorsTable = ({ data }: { data: SectorIndustry[] }) => {
     direction: 'desc',
   }
   const model = mapModel(data, defaultSort)
-  const [results, setResults] = React.useState(model)
   const [sort, setSort] = React.useState(defaultSort)
+
+  const pager = usePager(model, pageSize)
 
   const handleChangeSort = (newSort: Sort) => {
     setSort(newSort)
-    setResults(mapModel(data, newSort))
+    const newResults = mapModel(data, newSort)
+    pager.reset(newResults)
   }
   const handleItemClick = async (item: Model) => {
     console.log(`/csr/stocks/sectors/${item.Id}`)
     router.push(`/csr/stocks/sectors/${item.Id}`)
+  }
+  const handlePaged = (pageNum: number) => {
+    pager.setPage(pageNum)
   }
 
   return (
@@ -63,7 +71,7 @@ const SectorsTable = ({ data }: { data: SectorIndustry[] }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {results.map((item) => (
+            {pager.displayItems.map((item) => (
               <TableRow key={item.Name}>
                 <TableCell>
                   {' '}
@@ -101,6 +109,15 @@ const SectorsTable = ({ data }: { data: SectorIndustry[] }) => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Pager
+        pageCount={pager.pageCount}
+        itemCount={pager.displayItems.length}
+        itemsPerPage={pageSize}
+        onPaged={(pageNum: number) => handlePaged(pageNum)}
+        defaultPageIndex={pager.page}
+        totalItemCount={data.length}
+        showHorizontalDivider={false}
+      ></Pager>
     </Box>
   )
 }

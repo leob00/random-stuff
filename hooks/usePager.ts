@@ -52,6 +52,7 @@ export const usePager = <T>(items: T[], pageSize: number) => {
     setPage,
     pageCount: model.numberOfPages,
     displayItems: model.displayItems,
+    reset,
   }
 }
 
