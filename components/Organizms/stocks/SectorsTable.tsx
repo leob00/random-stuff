@@ -75,7 +75,6 @@ const SectorsTable = ({ data }: { data: SectorIndustry[] }) => {
             {modelItems.map((item) => (
               <TableRow key={item.Name}>
                 <TableCell>
-                  {' '}
                   <Clickable onClicked={() => handleItemClick(item)}>{item.Name} </Clickable>
                 </TableCell>
                 <TableCell>
@@ -116,7 +115,7 @@ const SectorsTable = ({ data }: { data: SectorIndustry[] }) => {
         itemsPerPage={pageSize}
         onPaged={(pageNum: number) => handlePaged(pageNum)}
         defaultPageIndex={pager.page}
-        totalItemCount={data.length}
+        totalItemCount={pager.allItems.length}
         showHorizontalDivider={false}
       ></Pager>
     </Box>
