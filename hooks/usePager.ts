@@ -2,11 +2,12 @@ import React from 'react'
 import { chunk } from 'lodash'
 
 export const usePager = <T>(items: T[], pageSize: number) => {
+  const [isReset, setIsReset] = React.useState(false)
   interface Model {
     page: number
-    displayItems: T[]
+    displayItems: T[] | unknown[]
     numberOfPages: number
-    allItems: T[]
+    allItems: T[] | unknown[]
   }
 
   const chunks = chunk(items, pageSize)
@@ -33,29 +34,37 @@ export const usePager = <T>(items: T[], pageSize: number) => {
     // const newDisplayItems = Array.from(map.get(pageNum)!.values())
     // setDisplayItems(newDisplayItems)
   }
-  const reset = (data: T[]) => {
+  const reset = (data: T[] | unknown[]) => {
     const newChunks = chunk(data, pageSize)
     map.clear()
     newChunks.forEach((chunk, i) => {
-      map.set(i + 1, chunk)
+      map.set(i + 1, chunk as T[])
     })
     setModel({ ...model, page: 1, allItems: data, displayItems: newChunks.length > 0 ? Array.from(map.get(1)!.values()) : [], numberOfPages: newChunks.length })
+    setIsReset(true)
   }
   React.useEffect(() => {
-    const newChunks = chunk(model.allItems, pageSize)
-    map.clear()
-    newChunks.forEach((chunk, i) => {
-      map.set(i + 1, chunk)
-    })
-    setModel({ ...model, displayItems: newChunks.length > 0 ? Array.from(map.get(model.page)!.values()) : [], numberOfPages: newChunks.length })
-  }, [model.page])
+    if (isReset) {
+      setIsReset(false)
+    } else {
+      const newPage = model.page === 0 ? 1 : model.page
+      const newChunks = chunk(model.allItems, pageSize)
+      map.clear()
+      newChunks.forEach((chunk, i) => {
+        map.set(i + 1, chunk as T[])
+      })
+      setModel({ ...model, page: newPage, displayItems: newChunks.length > 0 ? Array.from(map.get(newPage)!.values()) : [], numberOfPages: newChunks.length })
+    }
+  }, [model.page, isReset])
+
   return {
     page: model.page,
     setPage,
     pageCount: model.numberOfPages,
     displayItems: model.displayItems,
+    allItems: model.allItems,
     reset,
   }
 }
 
-export type Pager = ReturnType<typeof usePager>
+export type ListPager = ReturnType<typeof usePager>

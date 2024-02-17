@@ -11,12 +11,23 @@ import CommunityStocksLayout from './CommunityStocksLayout'
 import CustomSortAlert from './CustomSortAlert'
 import StocksCustomSortForm from './StocksCustomSortForm'
 import { useRouter } from 'next/router'
+import { usePager } from 'hooks/usePager'
+import { orderBy } from 'lodash'
+import { sortArray } from 'lib/util/collections'
 
 const CommunityStocksRecentLayout = ({ data }: { data: StockQuote[] }) => {
   const router = useRouter()
   const settings = useSessionSettings()
-  const [showCustomSortForm, setShowCustomSortForm] = React.useState(false)
+  const sortedData = settings.communityStocks?.defaultSort
+    ? sortArray(
+        data,
+        settings.communityStocks.defaultSort.map((m) => m.key),
+        settings.communityStocks.defaultSort.map((m) => m.direction),
+      )
+    : [...data]
 
+  const [showCustomSortForm, setShowCustomSortForm] = React.useState(false)
+  const pager = usePager(sortedData, 5)
   const menu: ContextMenuItem[] = [
     {
       item: <ContextMenuSort text={'sort'} />,
@@ -30,7 +41,17 @@ const CommunityStocksRecentLayout = ({ data }: { data: StockQuote[] }) => {
   const handleCustomSortSubmitted = (sort?: Sort[]) => {
     settings.saveCommunityStocksSort(sort)
     setShowCustomSortForm(false)
+    const sorted =
+      sort && sort.length > 0
+        ? orderBy(
+            data,
+            sort.map((k) => k.key),
+            sort.map((d) => d.direction),
+          )
+        : [...data]
+    pager.reset(sorted)
   }
+
   return (
     <Box>
       <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
@@ -40,7 +61,7 @@ const CommunityStocksRecentLayout = ({ data }: { data: StockQuote[] }) => {
         </Box>
       </Box>
       {settings.communityStocks?.defaultSort && <CustomSortAlert result={settings.communityStocks?.defaultSort} onModify={() => setShowCustomSortForm(true)} />}
-      <CommunityStocksLayout data={data} defaultSort={settings.communityStocks?.defaultSort ?? []} />
+      <CommunityStocksLayout data={sortedData} pager={pager} />
       <FormDialog show={showCustomSortForm} title={'sort'} onCancel={() => setShowCustomSortForm(false)} showActionButtons={false}>
         <StocksCustomSortForm result={settings.communityStocks?.defaultSort} onSubmitted={handleCustomSortSubmitted} />
       </FormDialog>

@@ -14,6 +14,7 @@ import { useRouter } from 'next/router'
 import { dedup } from 'lib/util/collectionsNative'
 import { excludeFinancialInstruments } from 'lib/ui/stocks/util'
 import React from 'react'
+import { usePager } from 'hooks/usePager'
 interface Model {
   container: SectorIndustry
   quotes: StockQuote[]
@@ -37,6 +38,10 @@ const Page = () => {
     return model
   }
   const { isLoading, data } = useSwrHelper(id, dataFn, { revalidateOnFocus: false })
+  const pager = usePager(data?.quotes ?? [], 5)
+  if (!data) {
+    return <BackdropLoader />
+  }
   return (
     <ResponsiveContainer>
       {isLoading && <BackdropLoader />}
@@ -44,7 +49,7 @@ const Page = () => {
         <Box>
           <PageHeader text={`${data.container.Name}`} backButtonRoute={'/csr/stocks/sectors'} />
           <Box py={2}>
-            <PagedStockTable data={data.quotes} />
+            <PagedStockTable data={data.quotes} pager={pager} />
           </Box>
         </Box>
       )}

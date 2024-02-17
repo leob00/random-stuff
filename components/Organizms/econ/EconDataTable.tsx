@@ -7,9 +7,11 @@ import React from 'react'
 
 const EconDataTable = ({ data, handleItemClicked }: { data: EconomicDataItem[]; handleItemClicked: (item: EconomicDataItem) => void }) => {
   const pageSize = 10
-  const { page, setPage, displayItems, pageCount } = usePager(data, pageSize)
+  const pager = usePager(data, 10)
+  const displayItems = pager.displayItems as EconomicDataItem[]
+
   const handlePaged = (pageNum: number) => {
-    setPage(pageNum)
+    pager.setPage(pageNum)
   }
   return (
     <>
@@ -19,11 +21,11 @@ const EconDataTable = ({ data, handleItemClicked }: { data: EconomicDataItem[]; 
         </Box>
       ))}
       <Pager
-        pageCount={pageCount}
+        pageCount={pager.pageCount}
         itemCount={displayItems.length}
         itemsPerPage={pageSize}
         onPaged={(pageNum: number) => handlePaged(pageNum)}
-        defaultPageIndex={page}
+        defaultPageIndex={pager.page}
         totalItemCount={data.length}
       ></Pager>
     </>

@@ -36,6 +36,7 @@ const SectorsTable = ({ data }: { data: SectorIndustry[] }) => {
   const [sort, setSort] = React.useState(defaultSort)
 
   const pager = usePager(model, pageSize)
+  const modelItems = pager.displayItems as Model[]
 
   const handleChangeSort = (newSort: Sort) => {
     setSort(newSort)
@@ -71,7 +72,7 @@ const SectorsTable = ({ data }: { data: SectorIndustry[] }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {pager.displayItems.map((item) => (
+            {modelItems.map((item) => (
               <TableRow key={item.Name}>
                 <TableCell>
                   {' '}

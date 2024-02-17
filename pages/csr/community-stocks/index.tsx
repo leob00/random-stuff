@@ -1,7 +1,7 @@
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { CategoryType } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { CategoryType, Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { orderBy } from 'lodash'
 import CommunityStocksLayout from 'components/Organizms/stocks/CommunityStocksLayout'
 import BackButton from 'components/Atoms/Buttons/BackButton'
@@ -23,8 +23,13 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import CommunityStocksRecentLayout from 'components/Organizms/stocks/CommunityStocksRecentLayout'
 import Seo from 'components/Organizms/Seo'
 import TabList from 'components/Atoms/Buttons/TabList'
+import { sortArray } from 'lib/util/collections'
+import CommunityStocksWrapper from 'components/Organizms/stocks/CommunityStocksWrapper'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'
+const getList = (list: StockQuote[], sort: Sort) => {
+  return sortArray(list, [sort.key], [sort.direction])
+}
 const Page = () => {
   const [selectedTab, setSelectedTab] = React.useState<Tab>('Recent')
 
@@ -45,6 +50,21 @@ const Page = () => {
   const { data: searchedStocks, isLoading, isValidating } = useSWR(recentlySearchedMutateKey, ([url, enc]) => fetchRecentlySearched(url, enc))
   const [stockSearchResults, setStockSearchResults] = React.useState<DropdownItem[]>([])
   const [loadingStock, setLoadingStock] = React.useState(false)
+
+  const winners: StockQuote[] = searchedStocks
+    ? sortArray(
+        searchedStocks.filter((m) => m.ChangePercent >= 0),
+        ['ChangePercent'],
+        ['desc'],
+      )
+    : []
+  const losers: StockQuote[] = searchedStocks
+    ? sortArray(
+        searchedStocks.filter((m) => m.ChangePercent >= 0),
+        ['ChangePercent'],
+        ['asc'],
+      )
+    : []
 
   const tabs: TabInfo[] = [
     {
@@ -134,15 +154,8 @@ const Page = () => {
             {searchedStocks && (
               <>
                 {selectedTab === 'Recent' && <CommunityStocksRecentLayout data={searchedStocks} />}
-                {selectedTab === 'Winners' && (
-                  <CommunityStocksLayout
-                    data={searchedStocks.filter((m) => m.ChangePercent >= 0)}
-                    defaultSort={[{ key: 'ChangePercent', direction: 'desc' }]}
-                  />
-                )}
-                {selectedTab === 'Losers' && (
-                  <CommunityStocksLayout data={searchedStocks.filter((m) => m.ChangePercent < 0)} defaultSort={[{ key: 'ChangePercent', direction: 'asc' }]} />
-                )}
+                {selectedTab === 'Winners' && <CommunityStocksWrapper data={winners} />}
+                {selectedTab === 'Losers' && <CommunityStocksWrapper data={losers} />}
               </>
             )}
           </>

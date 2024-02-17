@@ -1,23 +1,14 @@
 import { Box } from '@mui/material'
+import { ListPager } from 'hooks/usePager'
 import { Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { orderBy } from 'lodash'
 import React from 'react'
 import PagedStockTable from './PagedStockTable'
 
-const CommunityStocksLayout = ({ data, defaultSort, pageSize = 10 }: { data: StockQuote[]; defaultSort: Sort[]; pageSize?: number }) => {
-  const stocks =
-    defaultSort.length > 0
-      ? orderBy(
-          data,
-          defaultSort.map((k) => k.key),
-          defaultSort.map((d) => d.direction),
-        )
-      : [...data]
-
+const CommunityStocksLayout = ({ data, pager }: { data: StockQuote[]; pageSize?: number; pager: ListPager }) => {
   return (
     <Box py={1}>
-      <PagedStockTable data={stocks} />
+      <PagedStockTable data={data} pager={pager} />
     </Box>
   )
 }

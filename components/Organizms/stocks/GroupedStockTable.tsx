@@ -9,9 +9,10 @@ import Pager from 'components/Atoms/Pager'
 
 const GroupedStockTable = ({ result, userProfile }: { result: StockGroup[]; userProfile?: UserProfile | null }) => {
   const pageSize = 10
-  const { page, setPage, displayItems, pageCount } = usePager(result, pageSize)
+  const pager = usePager(result, 10)
+  const displayItems = pager.displayItems as StockGroup[]
   const handlePaged = (pageNum: number) => {
-    setPage(pageNum)
+    pager.setPage(pageNum)
   }
   return (
     <Box minHeight={650}>
@@ -30,11 +31,11 @@ const GroupedStockTable = ({ result, userProfile }: { result: StockGroup[]; user
         </>
       </Box>
       <Pager
-        pageCount={pageCount}
+        pageCount={pager.pageCount}
         itemCount={displayItems.length}
         itemsPerPage={pageSize}
         onPaged={(pageNum: number) => handlePaged(pageNum)}
-        defaultPageIndex={page}
+        defaultPageIndex={pager.page}
         totalItemCount={result.length}
       ></Pager>
     </Box>

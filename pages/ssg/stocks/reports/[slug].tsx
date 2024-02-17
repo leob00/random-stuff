@@ -13,6 +13,7 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import PagedStockTable from 'components/Organizms/stocks/PagedStockTable'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
+import StockReportDisplay from 'components/Organizms/stocks/StockReportDisplay'
 const Page = () => {
   const router = useRouter()
 
@@ -35,7 +36,7 @@ const Page = () => {
     return result
   }
 
-  const { data, isLoading } = useSwrHelper(selectedOption.value, dataFn)
+  const { data, isLoading } = useSwrHelper(selectedOption.value, dataFn, { revalidateOnFocus: false })
 
   const handleReportSelected = (value: string) => {
     if (value === 'sectors') {
@@ -57,12 +58,7 @@ const Page = () => {
         </Box>
 
         {isLoading && <BackdropLoader />}
-        {data && !isLoading && (
-          <>
-            <ScrollIntoView enabled={true} margin={-28} />
-            <PagedStockTable data={data} pageSize={5} />
-          </>
-        )}
+        {data && !isLoading && <StockReportDisplay data={data} />}
       </ResponsiveContainer>
     </>
   )
