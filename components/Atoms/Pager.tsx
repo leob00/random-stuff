@@ -40,13 +40,17 @@ const Pager = ({
     const firstPage = currIndex === 1
     const lastPage = currIndex === totalPageCount
     if (firstPage) {
-      return `${pageMessage} [${pageIndex} - ${pageIndex * itemCount} of ${numeral(totalItemCount).format('###,###')}]`
+      return `${pageMessage} [${pageIndex} - ${pageIndex * itemsPerPage} of ${numeral(totalItemCount).format('###,###')}]`
     }
     if (lastPage) {
-      return `${pageMessage} [${totalItemCount - itemCount} - ${totalItemCount}]`
+      //return `${pageMessage} [${pageIndex * itemsPerPage} - ${totalItemCount}]`
+    }
+    let counter = pageIndex * itemCount
+    if (counter > totalItemCount) {
+      counter = totalItemCount
     }
 
-    return `${pageMessage} [${(currIndex - 1) * itemCount + 1} - ${pageIndex * itemCount} of ${numeral(totalItemCount).format('###,###')}]`
+    return `${pageMessage} [${(currIndex - 1) * itemCount + 1} - ${counter} of ${numeral(totalItemCount).format('###,###')}]`
   }
 
   const handlePreviousClick = () => {
@@ -78,7 +82,7 @@ const Pager = ({
     const newMessage = getDisplayMessage(defaultPageIndex, pageCount)
     setDisplayMessage(newMessage)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageCount, defaultPageIndex, totalItemCount, displayMessage])
+  }, [pageCount, defaultPageIndex, totalItemCount])
   return (
     <Box pt={1}>
       {showHorizontalDivider && <HorizontalDivider />}
