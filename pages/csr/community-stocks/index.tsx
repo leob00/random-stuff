@@ -60,7 +60,7 @@ const Page = () => {
     : []
   const losers: StockQuote[] = searchedStocks
     ? sortArray(
-        searchedStocks.filter((m) => m.ChangePercent >= 0),
+        searchedStocks.filter((m) => m.ChangePercent < 0),
         ['ChangePercent'],
         ['asc'],
       )
