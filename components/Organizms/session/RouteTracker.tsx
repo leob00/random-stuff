@@ -21,6 +21,7 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
         !url.includes('recipe') &&
         //&& !url.includes('reports/')
         !url.includes('sectors/') &&
+        !url.includes('industries/') &&
         !url.includes('?')
       ) {
         const lastRoute = routes.length > 0 ? routes[0] : undefined
