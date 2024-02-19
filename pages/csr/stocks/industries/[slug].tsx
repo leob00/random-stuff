@@ -23,7 +23,8 @@ const Page = () => {
   const apiConn = apiConnection().qln
   const id = router.query.slug as string
   const dataFn = async () => {
-    const resp = await post(`${apiConn.url}/Sectors`, { Category: 'Sector', Id: id })
+    const resp = await post(`${apiConn.url}/Sectors`, { Category: 'Industry', Id: id })
+    //console.log(resp)
     const container = resp.Body.Container as SectorIndustry
     const quotes = resp.Body.Quotes as StockQuote[]
     const filteredQuotes = excludeFinancialInstruments(quotes.filter((m) => m.MarketCap).filter((c) => c.Change !== null))
@@ -42,7 +43,7 @@ const Page = () => {
       {isLoading && <BackdropLoader />}
       {data && (
         <Box>
-          <PageHeader text={`${data.container.Name}`} backButtonRoute={'/csr/stocks/sectors'} />
+          <PageHeader text={`${data.container.Name}`} backButtonRoute={'/csr/stocks/industries'} />
           <Box py={2}>
             <StockReportDisplay data={data.quotes} />
           </Box>

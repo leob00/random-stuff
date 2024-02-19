@@ -21,6 +21,7 @@ const Page = () => {
     { text: 'Volume Leaders', value: 'volume-leaders' },
     { text: 'Market Cap Leaders', value: 'market-cap-leaders' },
     { text: 'Sectors', value: 'sectors' },
+    { text: 'Industries', value: 'industries' },
   ]
   const id = String(router.query.slug)
 
@@ -39,11 +40,17 @@ const Page = () => {
   const { data, isLoading } = useSwrHelper(selectedOption.value, dataFn, { revalidateOnFocus: false })
 
   const handleReportSelected = (value: string) => {
-    if (value === 'sectors') {
-      router.push('/csr/stocks/sectors')
-      return
+    switch (value) {
+      case 'sectors':
+        router.push('/csr/stocks/sectors')
+        break
+      case 'industries':
+        router.push('/csr/stocks/industries')
+        break
+      default:
+        router.replace(`/ssg/stocks/reports/${value}`, undefined, { scroll: false })
+        break
     }
-    router.replace(`/ssg/stocks/reports/${value}`, undefined, { scroll: false })
   }
 
   return (

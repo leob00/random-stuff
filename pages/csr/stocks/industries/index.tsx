@@ -13,17 +13,17 @@ import React from 'react'
 const Page = () => {
   const apiConn = apiConnection().qln
   const dataFn = async () => {
-    const resp = await get(`${apiConn.url}/Sectors`)
+    const resp = await get(`${apiConn.url}/Industries`)
     return resp.Body as SectorIndustry[]
   }
-  const { isLoading, data } = useSwrHelper('/api/baseUrl?id=sectors', dataFn, { revalidateOnFocus: false })
+  const { isLoading, data } = useSwrHelper('/api/baseUrl?id=industries', dataFn, { revalidateOnFocus: false })
   return (
     <>
-      <Seo pageTitle='Sectors' />
-      <PageHeader text='Sectors' />
+      <Seo pageTitle='Industries' />
+      <PageHeader text='Industries' />
       {isLoading && <BackdropLoader />}
       <ResponsiveContainer>
-        <Box pb={8}>{data && <SectorsTable data={data} category='Sector' />}</Box>
+        <Box pb={8}>{data && <SectorsTable data={data} category='Industry' />}</Box>
       </ResponsiveContainer>
     </>
   )

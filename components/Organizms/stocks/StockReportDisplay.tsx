@@ -7,7 +7,6 @@ import { usePager } from 'hooks/usePager'
 
 const StockReportDisplay = ({ data }: { data: StockQuote[] }) => {
   const pager = usePager(data ?? [], 5)
-  const displayItems = pager.displayItems as StockQuote[]
   return (
     <>
       <ScrollIntoView enabled={true} margin={-28} />

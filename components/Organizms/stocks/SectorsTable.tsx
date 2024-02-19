@@ -24,7 +24,7 @@ interface Model {
   MovingAvg365: number
 }
 
-const SectorsTable = ({ data }: { data: SectorIndustry[] }) => {
+const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: string }) => {
   const pageSize = 10
   const router = useRouter()
   const theme = useTheme()
@@ -44,8 +44,8 @@ const SectorsTable = ({ data }: { data: SectorIndustry[] }) => {
     pager.reset(newResults)
   }
   const handleItemClick = async (item: Model) => {
-    console.log(`/csr/stocks/sectors/${item.Id}`)
-    router.push(`/csr/stocks/sectors/${item.Id}`)
+    const sec = category === 'Sector' ? 'sectors' : 'industries'
+    router.push(`/csr/stocks/${sec}/${item.Id}`)
   }
   const handlePaged = (pageNum: number) => {
     pager.setPage(pageNum)
