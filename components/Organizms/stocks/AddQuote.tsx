@@ -17,7 +17,7 @@ const AddQuote = ({
 }: {
   quote: StockQuote
   stockListMap: Map<string, StockQuote>
-  handleAddToList: () => void
+  handleAddToList: (quote: StockQuote) => void
   handleCloseAddQuote: () => void
   scrollIntoView?: boolean
   showAddToListButton?: boolean
@@ -44,7 +44,17 @@ const AddQuote = ({
       )}
       <Stack py={1} direction={'row'} spacing={1} alignItems='center'>
         <Stack flexGrow={1}>
-          <Box textAlign={'right'}>{!alreadyExists && showAddToListButton && <PrimaryButton text='Add to list' size='small' onClick={handleAddToList} />}</Box>
+          <Box textAlign={'right'}>
+            {!alreadyExists && showAddToListButton && (
+              <PrimaryButton
+                text='Add to list'
+                size='small'
+                onClick={() => {
+                  handleAddToList(quote)
+                }}
+              />
+            )}
+          </Box>
         </Stack>
         <Stack>
           <PassiveButton text={'close'} onClick={handleCloseAddQuote} size='small' />

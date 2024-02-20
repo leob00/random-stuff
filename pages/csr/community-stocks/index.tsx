@@ -25,6 +25,8 @@ import Seo from 'components/Organizms/Seo'
 import TabList from 'components/Atoms/Buttons/TabList'
 import { sortArray } from 'lib/util/collections'
 import CommunityStocksWrapper from 'components/Organizms/stocks/CommunityStocksWrapper'
+import { useSwrHelper } from 'hooks/useSwrHelper'
+import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'
 const getList = (list: StockQuote[], sort: Sort) => {
@@ -34,10 +36,11 @@ const Page = () => {
   const [selectedTab, setSelectedTab] = React.useState<Tab>('Recent')
 
   const searchedStocksKey: CategoryType = 'searched-stocks'
-  const recentlySearchedEnc = encodeURIComponent(weakEncrypt(`${searchedStocksKey}`))
-  const recentlySearchedMutateKey = ['/api/searchRandomStuff', recentlySearchedEnc]
+  //const recentlySearchedEnc = encodeURIComponent(weakEncrypt(`${searchedStocksKey}`))
+  //const recentlySearchedMutateKey = ['/api/searchRandomStuff', recentlySearchedEnc]
+  const mutateKey = `community-stocks`
 
-  const fetchRecentlySearched = async (url: string, enc: string) => {
+  const dataFn = async () => {
     const searchedStocksResult = await searchRecords(searchedStocksKey)
     const searchedStocks: StockQuote[] = []
     orderBy(searchedStocksResult, ['last_modified'], ['desc']).forEach((item) => {
@@ -46,8 +49,7 @@ const Page = () => {
     const latest = await getLatestQuotes(searchedStocks.map((m) => m.Symbol))
     return latest
   }
-
-  const { data: searchedStocks, isLoading, isValidating } = useSWR(recentlySearchedMutateKey, ([url, enc]) => fetchRecentlySearched(url, enc))
+  const { data: searchedStocks, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   const [stockSearchResults, setStockSearchResults] = React.useState<DropdownItem[]>([])
   const [loadingStock, setLoadingStock] = React.useState(false)
 
@@ -105,14 +107,18 @@ const Page = () => {
     if (quotes.length > 0) {
       const quote = quotes[0]
       setSelectedStock(quote)
+      const newData = [...searchedStocks!].filter((m) => m.Symbol !== quote.Symbol)
+      newData.unshift(quote)
+      mutate(mutateKey, newData, { revalidate: false })
     }
   }
 
-  const handleAddToList = () => {}
+  const handleAddToList = (quote: StockQuote) => {
+    mutate(mutateKey)
+  }
 
   const handleCloseAddQuote = () => {
     setSelectedStock(null)
-    mutate(recentlySearchedMutateKey)
   }
 
   return (
@@ -153,9 +159,14 @@ const Page = () => {
           <>
             {searchedStocks && (
               <>
-                {selectedTab === 'Recent' && <CommunityStocksRecentLayout data={searchedStocks} />}
-                {selectedTab === 'Winners' && <CommunityStocksWrapper data={winners} />}
-                {selectedTab === 'Losers' && <CommunityStocksWrapper data={losers} />}
+                {selectedTab === 'Recent' && (
+                  <Box>
+                    <ScrollIntoView margin={-20} enabled />
+                    <CommunityStocksRecentLayout data={searchedStocks} isLoading={isLoading} />
+                  </Box>
+                )}
+                {selectedTab === 'Winners' && <CommunityStocksWrapper data={winners} isLoading={isLoading} />}
+                {selectedTab === 'Losers' && <CommunityStocksWrapper data={losers} isLoading={isLoading} />}
               </>
             )}
           </>

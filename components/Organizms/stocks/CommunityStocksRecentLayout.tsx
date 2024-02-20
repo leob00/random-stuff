@@ -15,7 +15,7 @@ import { usePager } from 'hooks/usePager'
 import { orderBy } from 'lodash'
 import { sortArray } from 'lib/util/collections'
 
-const CommunityStocksRecentLayout = ({ data }: { data: StockQuote[] }) => {
+const CommunityStocksRecentLayout = ({ data, isLoading }: { data: StockQuote[]; isLoading: boolean }) => {
   const router = useRouter()
   const settings = useSessionSettings()
   const sortedData = settings.communityStocks?.defaultSort
@@ -61,7 +61,7 @@ const CommunityStocksRecentLayout = ({ data }: { data: StockQuote[] }) => {
         </Box>
       </Box>
       {settings.communityStocks?.defaultSort && <CustomSortAlert result={settings.communityStocks?.defaultSort} onModify={() => setShowCustomSortForm(true)} />}
-      <CommunityStocksLayout data={sortedData} pager={pager} />
+      {!isLoading && <CommunityStocksLayout data={sortedData} pager={pager} isLoading={isLoading} />}
       <FormDialog show={showCustomSortForm} title={'sort'} onCancel={() => setShowCustomSortForm(false)} showActionButtons={false}>
         <StocksCustomSortForm result={settings.communityStocks?.defaultSort} onSubmitted={handleCustomSortSubmitted} />
       </FormDialog>
