@@ -106,11 +106,11 @@ export function siteMap() {
       paths: [
         {
           name: 'dogs',
-          route: '/ssg/randomdogs',
+          route: '/ssg/dogs',
         },
         {
           name: 'cats',
-          route: '/ssg/randomcats',
+          route: '/ssg/cats',
         },
       ],
     },
