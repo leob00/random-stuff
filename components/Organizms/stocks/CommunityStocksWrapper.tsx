@@ -9,7 +9,7 @@ const CommunityStocksWrapper = ({ data, isLoading }: { data: StockQuote[] | unde
   if (!data) {
     return <BackdropLoader />
   }
-  return <CommunityStocksLayout data={pager.allItems as StockQuote[]} pager={pager} isLoading={isLoading} />
+  return <>{!isLoading && <CommunityStocksLayout data={pager.allItems as StockQuote[]} pager={pager} isLoading={isLoading} />}</>
 }
 
 export default CommunityStocksWrapper

@@ -123,6 +123,7 @@ const MultiLineChartDisplay = () => {
       setIsMutating(false)
     }
     fn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedChartDays])
 
   return (
