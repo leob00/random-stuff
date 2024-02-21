@@ -8,25 +8,33 @@ import { getPagedItems } from 'lib/util/collections'
 import { cloneDeep, findLast } from 'lodash'
 import React, { useState } from 'react'
 import { BasicArticle } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { usePager } from 'hooks/usePager'
 
 const ArticlesLayout = ({ articles }: { articles: BasicArticle[] }) => {
   const shuffled = cloneDeep(articles)
-  const itemsPerPage = 1
-  const paged = getPagedItems<BasicArticle>(shuffled, itemsPerPage)
+  // const itemsPerPage = 1
+  // const paged = getPagedItems<BasicArticle>(shuffled, itemsPerPage)
 
-  const [currentPageIndex, setCurrentPageIndex] = useState(1)
-  const [displayedItems, setDisplayedItems] = useState<BasicArticle[]>(paged.pages[0].items as BasicArticle[])
+  // const [currentPageIndex, setCurrentPageIndex] = useState(1)
+  // const [displayedItems, setDisplayedItems] = useState<BasicArticle[]>(paged.pages[0].items as BasicArticle[])
+
+  // const handlePaged = (pageNum: number) => {
+  //   setCurrentPageIndex(pageNum)
+  //   let page = findLast(paged.pages, (p) => {
+  //     return p.index === pageNum
+  //   })
+  //   if (page) {
+  //     setDisplayedItems(page.items as BasicArticle[])
+  //   }
+  // }
+  const handleImageLoaded = () => {}
+
+  const { displayItems: items, allItems, pageCount, page, setPage } = usePager(articles, 1)
+  const displayItems = items as BasicArticle[]
 
   const handlePaged = (pageNum: number) => {
-    setCurrentPageIndex(pageNum)
-    let page = findLast(paged.pages, (p) => {
-      return p.index === pageNum
-    })
-    if (page) {
-      setDisplayedItems(page.items as BasicArticle[])
-    }
+    setPage(pageNum)
   }
-  const handleImageLoaded = () => {}
 
   return (
     <>
@@ -37,18 +45,18 @@ const ArticlesLayout = ({ articles }: { articles: BasicArticle[] }) => {
             <CenteredTitle title={articles[0].title} />
             <HorizontalDivider />
           </Box>
-          {displayedItems.length > 0 && (
+          {displayItems.length > 0 && (
             <Stack direction='row' justifyContent='center' my={2}>
-              <RemoteImage url={displayedItems[0].imagePath} title={displayedItems[0].title} onLoaded={handleImageLoaded} />
+              <RemoteImage url={displayItems[0].imagePath} title={displayItems[0].title} onLoaded={handleImageLoaded} />
             </Stack>
           )}
           <Pager
-            pageCount={paged.pages.length}
-            itemCount={paged.pages[currentPageIndex].items.length}
-            itemsPerPage={itemsPerPage}
+            pageCount={pageCount}
+            itemCount={displayItems.length}
+            itemsPerPage={1}
             onPaged={(pageNum: number) => handlePaged(pageNum)}
-            defaultPageIndex={currentPageIndex}
-            totalItemCount={articles.length}
+            defaultPageIndex={page}
+            totalItemCount={allItems.length}
           ></Pager>
         </>
       )}
