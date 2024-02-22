@@ -31,14 +31,14 @@ const Pager = ({
   const [pageIndex, setPageIndex] = useState(defaultPageIndex)
   const [displayMessage, setDisplayMessage] = useState('')
 
-  const getDisplayMessage = (currIndex: number, totalPageCount: number) => {
-    const pageMessage = `page ${currIndex} of ${totalPageCount} `
+  const getDisplayMessage = (totalPageCount: number) => {
+    const pageMessage = `page ${pageIndex} of ${totalPageCount} `
     if (itemsPerPage === 1) {
       return pageMessage
     }
 
-    const firstPage = currIndex === 1
-    const lastPage = currIndex === totalPageCount
+    const firstPage = pageIndex === 1
+    const lastPage = pageIndex === totalPageCount
     if (firstPage) {
       return `${pageMessage} [${pageIndex} - ${pageIndex * itemsPerPage} of ${numeral(totalItemCount).format('###,###')}]`
     }
@@ -50,39 +50,34 @@ const Pager = ({
       counter = totalItemCount
     }
 
-    return `${pageMessage} [${(currIndex - 1) * itemCount + 1} - ${counter} of ${numeral(totalItemCount).format('###,###')}]`
+    return `${pageMessage} [${(pageIndex - 1) * itemCount + 1} - ${counter} of ${numeral(totalItemCount).format('###,###')}]`
   }
 
   const handlePreviousClick = () => {
     let idx = pageIndex - 1
     setPageIndex(idx)
-    setDisplayMessage(getDisplayMessage(idx, pageCount))
     onPaged(idx)
   }
   const handleNextClick = () => {
     let idx = pageIndex + 1
     setPageIndex(idx)
-    setDisplayMessage(getDisplayMessage(idx, pageCount))
     onPaged(idx)
   }
   const handleFirstPageClick = () => {
     setPageIndex(1)
-    setDisplayMessage(getDisplayMessage(1, pageCount))
     onPaged(1)
   }
   const handleLastPageClick = () => {
     let idx = pageCount
     setPageIndex(idx)
-    setDisplayMessage(getDisplayMessage(idx, idx))
     onPaged(idx)
   }
 
   useEffect(() => {
-    setPageIndex(defaultPageIndex)
-    const newMessage = getDisplayMessage(defaultPageIndex, pageCount)
+    const newMessage = getDisplayMessage(pageCount)
     setDisplayMessage(newMessage)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageCount, defaultPageIndex, totalItemCount])
+  }, [pageCount, pageIndex, itemCount])
   return (
     <Box pt={1}>
       {showHorizontalDivider && <HorizontalDivider />}

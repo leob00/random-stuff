@@ -36,17 +36,15 @@ const Page = () => {
   const [selectedTab, setSelectedTab] = React.useState<Tab>('Recent')
 
   const searchedStocksKey: CategoryType = 'searched-stocks'
-  //const recentlySearchedEnc = encodeURIComponent(weakEncrypt(`${searchedStocksKey}`))
-  //const recentlySearchedMutateKey = ['/api/searchRandomStuff', recentlySearchedEnc]
   const mutateKey = `community-stocks`
 
   const dataFn = async () => {
     const searchedStocksResult = await searchRecords(searchedStocksKey)
-    const searchedStocks: StockQuote[] = []
+    const result: StockQuote[] = []
     orderBy(searchedStocksResult, ['last_modified'], ['desc']).forEach((item) => {
-      searchedStocks.push(JSON.parse(item.data))
+      result.push(JSON.parse(item.data))
     })
-    const latest = await getLatestQuotes(searchedStocks.map((m) => m.Symbol))
+    const latest = await getLatestQuotes(result.map((m) => m.Symbol))
     return latest
   }
   const { data: searchedStocks, isLoading } = useSwrHelper(mutateKey, dataFn)
