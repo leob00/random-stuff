@@ -49,7 +49,7 @@ const Page = () => {
     const latest = await getLatestQuotes(searchedStocks.map((m) => m.Symbol))
     return latest
   }
-  const { data: searchedStocks, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
+  const { data: searchedStocks, isLoading } = useSwrHelper(mutateKey, dataFn)
   const [stockSearchResults, setStockSearchResults] = React.useState<DropdownItem[]>([])
   const [loadingStock, setLoadingStock] = React.useState(false)
 
