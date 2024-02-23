@@ -26,6 +26,7 @@ const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   return (
     <>
       {isLoading && <BackdropLoader />}
+      {isValidating && <BackdropLoader />}
       {stocks && <StocksDisplay userProfile={userProfile} result={stocks} onMutated={handleMutated} onCustomSortUpdated={handleCustomSortUpdate} />}
     </>
   )

@@ -6,7 +6,11 @@ import React from 'react'
 import PagedStockTable from './PagedStockTable'
 
 const CommunityStocksLayout = ({ data, pager, isLoading }: { data: StockQuote[]; pageSize?: number; pager: ListPager; isLoading: boolean }) => {
-  return <Box py={1}>{!isLoading && <PagedStockTable data={data} pager={pager} />}</Box>
+  return (
+    <Box py={1}>
+      <PagedStockTable data={data} pager={pager} />
+    </Box>
+  )
 }
 
 export default CommunityStocksLayout

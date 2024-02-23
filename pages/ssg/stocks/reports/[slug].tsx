@@ -5,15 +5,13 @@ import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import CenterStack from 'components/Atoms/CenterStack'
 import { DropdownItem } from 'lib/models/dropdown'
-import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { getReport } from 'lib/backend/api/qln/qlnApi'
 import { StockReportTypes } from 'lib/backend/api/qln/qlnModels'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import PagedStockTable from 'components/Organizms/stocks/PagedStockTable'
-import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import StockReportDisplay from 'components/Organizms/stocks/StockReportDisplay'
+import UncontrolledDropdownList from 'components/Atoms/Inputs/UncontrolledDropdownList'
 const Page = () => {
   const router = useRouter()
 
@@ -22,6 +20,7 @@ const Page = () => {
     { text: 'Market Cap Leaders', value: 'market-cap-leaders' },
     { text: 'Sectors', value: 'sectors' },
     { text: 'Industries', value: 'industries' },
+    { text: 'Dividend Payers', value: 'dividend-payers' },
   ]
   const id = String(router.query.slug)
 
@@ -47,6 +46,9 @@ const Page = () => {
       case 'industries':
         router.push('/csr/stocks/industries')
         break
+      case 'dividend-payers':
+        router.push('/csr/stocks/dividend-payers')
+        break
       default:
         router.replace(`/ssg/stocks/reports/${value}`, undefined, { scroll: false })
         break
@@ -60,7 +62,7 @@ const Page = () => {
       <ResponsiveContainer>
         <Box pt={2}>
           <CenterStack>
-            <DropdownList options={dropdown} selectedOption={selectedOption.value} onOptionSelected={handleReportSelected} />
+            <UncontrolledDropdownList options={dropdown} selectedOption={selectedOption.value} onOptionSelected={handleReportSelected} />
           </CenterStack>
         </Box>
 

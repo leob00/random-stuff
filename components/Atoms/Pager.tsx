@@ -43,6 +43,9 @@ const Pager = ({
       return `${pageMessage} [${pageIndex} - ${pageIndex * itemsPerPage} of ${numeral(totalItemCount).format('###,###')}]`
     }
     if (lastPage) {
+      if (itemCount === 1) {
+        return `${pageMessage} [${totalItemCount - 1} - ${totalItemCount}]`
+      }
       return `${pageMessage} [${totalItemCount - itemCount + 1} - ${totalItemCount}]`
     }
     let counter = pageIndex * itemCount

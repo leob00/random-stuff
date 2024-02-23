@@ -21,7 +21,7 @@
     "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.14.11",
     "@mui/styles": "^5.13.2",
-    "@mui/x-data-grid": "^5.11.0",
+    "@mui/x-data-grid": "^6.19.4",
     "@mui/x-date-pickers": "^5.0.9",
     "@types/formidable": "^3.4.3",
     "apexcharts": "^3.45.2",

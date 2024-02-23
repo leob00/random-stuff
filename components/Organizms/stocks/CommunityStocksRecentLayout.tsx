@@ -61,7 +61,7 @@ const CommunityStocksRecentLayout = ({ data, isLoading }: { data: StockQuote[]; 
         </Box>
       </Box>
       {settings.communityStocks?.defaultSort && <CustomSortAlert result={settings.communityStocks?.defaultSort} onModify={() => setShowCustomSortForm(true)} />}
-      {!isLoading && <CommunityStocksLayout data={sortedData} pager={pager} isLoading={isLoading} />}
+      <CommunityStocksLayout data={sortedData} pager={pager} isLoading={isLoading} />
       <FormDialog show={showCustomSortForm} title={'sort'} onCancel={() => setShowCustomSortForm(false)} showActionButtons={false}>
         <StocksCustomSortForm result={settings.communityStocks?.defaultSort} onSubmitted={handleCustomSortSubmitted} />
       </FormDialog>

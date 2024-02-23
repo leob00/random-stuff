@@ -121,7 +121,13 @@ const Page = () => {
 
   return (
     <>
+      {isLoading && (
+        <>
+          <BackdropLoader />
+        </>
+      )}
       <Seo pageTitle={`Community Stocks`} />
+
       <ResponsiveContainer>
         <BackButton />
         <CenteredHeader title='Community Stocks' />
@@ -147,26 +153,18 @@ const Page = () => {
           />
         )}
         {!selectedStock && <TabList tabs={tabs} onSetTab={handleSelectTab} />}
-        {isLoading && (
-          <>
-            <BackdropLoader />
-          </>
-        )}
+
         {loadingStock && <BackdropLoader />}
         {!selectedStock && (
           <>
-            {searchedStocks && (
-              <>
-                {selectedTab === 'Recent' && (
-                  <Box>
-                    <ScrollIntoView margin={-20} enabled />
-                    <CommunityStocksRecentLayout data={searchedStocks} isLoading={isLoading} />
-                  </Box>
-                )}
-                {selectedTab === 'Winners' && <CommunityStocksWrapper data={winners} isLoading={isLoading} />}
-                {selectedTab === 'Losers' && <CommunityStocksWrapper data={losers} isLoading={isLoading} />}
-              </>
+            {selectedTab === 'Recent' && (
+              <Box>
+                <ScrollIntoView margin={-20} enabled />
+                {searchedStocks && <CommunityStocksRecentLayout data={searchedStocks} isLoading={isLoading} />}
+              </Box>
             )}
+            {selectedTab === 'Winners' && <CommunityStocksWrapper data={winners} isLoading={isLoading} />}
+            {selectedTab === 'Losers' && <CommunityStocksWrapper data={losers} isLoading={isLoading} />}
           </>
         )}
       </ResponsiveContainer>
