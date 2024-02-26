@@ -20,6 +20,8 @@ const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
 
   const { data: stocks, isLoading, isValidating } = useSWR(mutateKey, ([url, enc]) => fetchData(url, enc))
 
+  const isMutating = isLoading || isValidating
+
   const handleMutated = (newData: StockQuote[]) => {
     mutate(mutateKey, newData, { revalidate: false })
   }
@@ -27,9 +29,16 @@ const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
 
   return (
     <>
-      {isLoading && <BackdropLoader />}
-      {isValidating && <BackdropLoader />}
-      {stocks && <StocksDisplay userProfile={userProfile} result={stocks} onMutated={handleMutated} onCustomSortUpdated={handleCustomSortUpdate} />}
+      {isMutating && <BackdropLoader />}
+      {stocks && (
+        <StocksDisplay
+          userProfile={userProfile}
+          result={stocks}
+          isMutating={isMutating}
+          onMutated={handleMutated}
+          onCustomSortUpdated={handleCustomSortUpdate}
+        />
+      )}
     </>
   )
 }

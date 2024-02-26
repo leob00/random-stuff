@@ -35,11 +35,13 @@ const StocksDisplay = ({
   result,
   onMutated,
   onCustomSortUpdated,
+  isMutating,
 }: {
   userProfile: UserProfile
   result: StockQuote[]
   onMutated: (newData: StockQuote[]) => void
   onCustomSortUpdated: (data?: Sort[]) => void
+  isMutating: boolean
 }) => {
   const userController = useUserController()
   let map = new Map<string, StockQuote>([])
@@ -200,12 +202,14 @@ const StocksDisplay = ({
                 <>
                   {model.showAsGroup ? (
                     <Box>
-                      <GroupedStocksLayout
-                        userProfile={userProfile}
-                        stockList={model.stockList}
-                        onEdit={() => setModel({ ...model, editList: true })}
-                        onShowAsGroup={() => handleShowAsGroup(false)}
-                      />
+                      {!isMutating && (
+                        <GroupedStocksLayout
+                          userProfile={userProfile}
+                          stockList={model.stockList}
+                          onEdit={() => setModel({ ...model, editList: true })}
+                          onShowAsGroup={() => handleShowAsGroup(false)}
+                        />
+                      )}
                     </Box>
                   ) : (
                     <Box>

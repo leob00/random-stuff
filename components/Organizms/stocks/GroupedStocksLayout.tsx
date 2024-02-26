@@ -21,13 +21,11 @@ const GroupedStocksLayout = ({
   stockList,
   onEdit,
   onShowAsGroup,
-  scrollIntoView,
 }: {
   userProfile: UserProfile | null
   stockList: StockQuote[]
   onEdit: () => void
   onShowAsGroup: (show: boolean) => void
-  scrollIntoView?: boolean
 }) => {
   const userController = useUserController()
 
