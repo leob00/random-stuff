@@ -202,7 +202,7 @@ const StocksDisplay = ({
                     <Box>
                       <GroupedStocksLayout
                         userProfile={userProfile}
-                        stockList={result}
+                        stockList={model.stockList}
                         onEdit={() => setModel({ ...model, editList: true })}
                         onShowAsGroup={() => handleShowAsGroup(false)}
                       />

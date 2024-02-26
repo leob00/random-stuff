@@ -20,7 +20,7 @@ const apiUrl = `${config.url}/EconCalendar`
 const fetcher: Fetcher<QlnApiResponse> = (url: string) => get(url)
 
 const EconCalendarLayout = () => {
-  const { data, isLoading, isValidating } = useSWR(apiUrl, fetcher, { refreshInterval: 60000 })
+  const { data, isLoading, isValidating } = useSWR(apiUrl, fetcher, { refreshInterval: 60000, revalidateOnFocus: false })
 
   return (
     <Box py={2}>

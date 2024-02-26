@@ -12,7 +12,9 @@ const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const mutateKey = ['/api/edgeGetRandomStuff', enc]
 
   const fetchData = async (url: string, enc: string) => {
-    const result = (await get(url, { enc: enc })) as StockQuote[]
+    const record = ''
+    const resp = await get(url, { enc: enc })
+    const result = resp as StockQuote[]
     return result
   }
 

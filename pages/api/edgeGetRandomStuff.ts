@@ -10,7 +10,7 @@ export const config = {
 export default async (req: NextRequest) => {
   const enc = decodeURIComponent(req.nextUrl.searchParams.get('enc')!)
   const id = weakDecrypt(enc)
-  const arg = id as DynamoKeys | string
-  const result = await getRandomStuff(arg)
+  const key = id as DynamoKeys | string
+  const result = await getRandomStuff(key)
   return NextResponse.json(result)
 }

@@ -53,6 +53,12 @@ const StockDividendsTable = ({ data }: { data: StockDividendItem[] }) => {
         return `${dayjs(params.value).format('MM/DD/YYYY')}`
       },
     },
+    {
+      field: 'Frequency',
+      headerName: 'frequency',
+      width: 135,
+      editable: false,
+    },
   ]
   const rows = data.map((m) => {
     return { ...m, id: m.Symbol }
@@ -73,7 +79,7 @@ const StockDividendsTable = ({ data }: { data: StockDividendItem[] }) => {
         pageSizeOptions={[5]}
         // pageSizeOptions={[5]}
         // checkboxSelection
-        // disableRowSelectionOnClick
+        disableRowSelectionOnClick
       />
     </Box>
   )
