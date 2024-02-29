@@ -15,7 +15,7 @@ import { usePager } from 'hooks/usePager'
 import { orderBy } from 'lodash'
 import { sortArray } from 'lib/util/collections'
 
-const CommunityStocksRecentLayout = ({ data, isLoading }: { data: StockQuote[]; isLoading: boolean }) => {
+const CommunityStocksRecentLayout = ({ data }: { data: StockQuote[] }) => {
   const router = useRouter()
   const settings = useSessionSettings()
   const sortedData = settings.communityStocks?.defaultSort
@@ -27,7 +27,9 @@ const CommunityStocksRecentLayout = ({ data, isLoading }: { data: StockQuote[]; 
     : [...data]
 
   const [showCustomSortForm, setShowCustomSortForm] = React.useState(false)
+
   const pager = usePager(sortedData, 5)
+
   const menu: ContextMenuItem[] = [
     {
       item: <ContextMenuSort text={'sort'} />,
@@ -61,7 +63,7 @@ const CommunityStocksRecentLayout = ({ data, isLoading }: { data: StockQuote[]; 
         </Box>
       </Box>
       {settings.communityStocks?.defaultSort && <CustomSortAlert result={settings.communityStocks?.defaultSort} onModify={() => setShowCustomSortForm(true)} />}
-      <CommunityStocksLayout data={sortedData} pager={pager} isLoading={isLoading} />
+      <CommunityStocksLayout data={pager.allItems as StockQuote[]} pager={pager} />
       <FormDialog show={showCustomSortForm} title={'sort'} onCancel={() => setShowCustomSortForm(false)} showActionButtons={false}>
         <StocksCustomSortForm result={settings.communityStocks?.defaultSort} onSubmitted={handleCustomSortSubmitted} />
       </FormDialog>

@@ -8,6 +8,7 @@ export const usePager = <T>(items: T[], pageSize: number) => {
     displayItems: T[] | unknown[]
     numberOfPages: number
     allItems: T[] | unknown[]
+    isDirty: boolean
   }
 
   const chunks = chunk(items, pageSize)
@@ -25,6 +26,7 @@ export const usePager = <T>(items: T[], pageSize: number) => {
     displayItems: chunks.length > 0 ? chunks[0] : [],
     numberOfPages: chunks.length,
     allItems: items,
+    isDirty: true,
   }
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
 
@@ -53,7 +55,13 @@ export const usePager = <T>(items: T[], pageSize: number) => {
       newChunks.forEach((chunk, i) => {
         map.set(i + 1, chunk as T[])
       })
-      setModel({ ...model, page: newPage, displayItems: newChunks.length > 0 ? Array.from(map.get(newPage)!.values()) : [], numberOfPages: newChunks.length })
+      setModel({
+        ...model,
+        page: newPage,
+        displayItems: newChunks.length > 0 ? Array.from(map.get(newPage)!.values()) : [],
+        numberOfPages: newChunks.length,
+        isDirty: false,
+      })
     }
   }, [model.page, isReset])
 
@@ -64,6 +72,7 @@ export const usePager = <T>(items: T[], pageSize: number) => {
     displayItems: model.displayItems,
     allItems: model.allItems,
     reset,
+    isDirty: model.isDirty,
   }
 }
 

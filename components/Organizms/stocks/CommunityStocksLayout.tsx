@@ -5,7 +5,7 @@ import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import PagedStockTable from './PagedStockTable'
 
-const CommunityStocksLayout = ({ data, pager, isLoading }: { data: StockQuote[]; pageSize?: number; pager: ListPager; isLoading: boolean }) => {
+const CommunityStocksLayout = ({ data, pager }: { data: StockQuote[]; pageSize?: number; pager: ListPager }) => {
   return (
     <Box py={1}>
       <PagedStockTable data={data} pager={pager} />

@@ -30,14 +30,8 @@ const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   return (
     <>
       {isMutating && <BackdropLoader />}
-      {stocks && (
-        <StocksDisplay
-          userProfile={userProfile}
-          result={stocks}
-          isMutating={isMutating}
-          onMutated={handleMutated}
-          onCustomSortUpdated={handleCustomSortUpdate}
-        />
+      {stocks && !isMutating && (
+        <StocksDisplay userProfile={userProfile} result={stocks} onMutated={handleMutated} onCustomSortUpdated={handleCustomSortUpdate} />
       )}
     </>
   )

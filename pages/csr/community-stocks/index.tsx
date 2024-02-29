@@ -51,6 +51,8 @@ const Page = () => {
   const [stockSearchResults, setStockSearchResults] = React.useState<DropdownItem[]>([])
   const [loadingStock, setLoadingStock] = React.useState(false)
 
+  //console.log('searchedStocks: ', searchedStocks)
+
   const winners: StockQuote[] = searchedStocks
     ? sortArray(
         searchedStocks.filter((m) => m.ChangePercent >= 0),
@@ -160,11 +162,11 @@ const Page = () => {
             {selectedTab === 'Recent' && (
               <Box>
                 <ScrollIntoView margin={-20} enabled />
-                {searchedStocks && <CommunityStocksRecentLayout data={searchedStocks} isLoading={isLoading} />}
+                {searchedStocks && !isLoading && <CommunityStocksRecentLayout data={searchedStocks} />}
               </Box>
             )}
-            {selectedTab === 'Winners' && <CommunityStocksWrapper data={winners} isLoading={isLoading} />}
-            {selectedTab === 'Losers' && <CommunityStocksWrapper data={losers} isLoading={isLoading} />}
+            {selectedTab === 'Winners' && <CommunityStocksWrapper data={winners} />}
+            {selectedTab === 'Losers' && <CommunityStocksWrapper data={losers} />}
           </>
         )}
       </ResponsiveContainer>

@@ -1,4 +1,5 @@
 import { Box } from '@mui/material'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import Pager from 'components/Atoms/Pager'
 import { ListPager, usePager } from 'hooks/usePager'
 import { StockQuote } from 'lib/backend/api/models/zModels'
@@ -8,6 +9,7 @@ import StockTable from './StockTable'
 const PagedStockTable = ({ data, pageSize = 5, pager }: { data: StockQuote[]; pageSize?: number; pager: ListPager }) => {
   const { page, setPage, displayItems, pageCount } = pager
   const items = displayItems as StockQuote[]
+  //console.log('items: ', items)
   const handlePaged = (pageNum: number) => {
     setPage(pageNum)
   }
