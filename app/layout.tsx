@@ -1,3 +1,4 @@
+import Footer from 'components/Footer'
 import AppLayout from './AppLayout'
 import ThemeRegistry from './theme/ThemeRegistry'
 

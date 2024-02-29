@@ -5,9 +5,9 @@ import React from 'react'
 const Page = () => {
   return (
     <>
-      <div>
-        <p>hello!</p>
-      </div>
+      <Box>
+        <Typography>All is well!</Typography>
+      </Box>
       {/* <Box>
 
         <HorizontalDivider />

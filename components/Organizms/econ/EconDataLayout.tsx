@@ -89,11 +89,6 @@ const EconDataLayout = () => {
           <Box py={2} sx={{ display: selectedItem ? 'none' : 'unset' }}>
             <StaticAutoComplete options={allItems} onSelected={handleLoad} placeholder={`search in ${data.Body.Items.length} results`} />
             <EconDataTable data={data.Body.Items} handleItemClicked={handleItemClicked} />
-            {/* {data.Body.Items.map((item) => (
-              <Box key={item.InternalId}>
-                <ListHeader item={item} text={item.Title} onClicked={handleItemClicked} />
-              </Box>
-            ))} */}
           </Box>
         </>
       )}

@@ -95,7 +95,9 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
           </IconButton>
         </Box>
       </Box>
-      <EconDataChart chart={model.chart} />
+      <Box minHeight={500}>
+        <EconDataChart chart={model.chart} />
+      </Box>
       <Box py={2}>
         <ReadOnlyField label={'value'} val={numeral(model.chart.YValues[model.chart.YValues.length - 1]).format('###,###.0,00')} />
         <ReadOnlyField

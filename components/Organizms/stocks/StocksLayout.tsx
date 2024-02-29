@@ -18,7 +18,7 @@ const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     return result
   }
 
-  const { data: stocks, isLoading, isValidating } = useSWR(mutateKey, ([url, enc]) => fetchData(url, enc))
+  const { data: stocks, isLoading, isValidating } = useSWR(mutateKey, ([url, enc]) => fetchData(url, enc), { revalidateOnFocus: false })
 
   const isMutating = isLoading || isValidating
 
