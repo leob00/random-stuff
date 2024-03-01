@@ -1,11 +1,60 @@
 import { Box } from '@mui/material'
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid'
+import { DataGrid, GridCallbackDetails, GridCellParams, GridColDef, GridValueGetterParams, MuiEvent } from '@mui/x-data-grid'
+import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import dayjs from 'dayjs'
+import { apiConnection } from 'lib/backend/api/config'
 import { StockDividendItem } from 'lib/backend/api/qln/qlnModels'
 import numeral from 'numeral'
 import React from 'react'
+import StockDividendDetails from './dividends/StockDividendDetails'
 
 const StockDividendsTable = ({ data }: { data: StockDividendItem[] }) => {
+  const columns = getColumnDef()
+
+  const [selectedItem, setSelectedItem] = React.useState<StockDividendItem | null>(null)
+
+  const handleCellClick = async (params: GridCellParams, event: MuiEvent, details: GridCallbackDetails) => {
+    const item = params.row as StockDividendItem
+    setSelectedItem(item)
+  }
+
+  const rows = data.map((m) => {
+    return { ...m, id: m.Symbol }
+  })
+
+  return (
+    <>
+      <Box sx={{ height: 420, width: '100%' }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          onCellClick={handleCellClick}
+          pageSizeOptions={[5]}
+          //disableColumnSelector
+          // pageSizeOptions={[5]}
+          // checkboxSelection
+          // disableRowSelectionOnClick
+        />
+      </Box>
+      {selectedItem && (
+        <InfoDialog title={`Dividends: ${selectedItem.Symbol}`} show={selectedItem != null} onCancel={() => setSelectedItem(null)} fullScreen>
+          <Box>
+            <StockDividendDetails symbol={selectedItem.Symbol} />
+          </Box>
+        </InfoDialog>
+      )}
+    </>
+  )
+}
+
+function getColumnDef() {
   const columns: GridColDef[] = [
     {
       //flex: 1,
@@ -60,29 +109,7 @@ const StockDividendsTable = ({ data }: { data: StockDividendItem[] }) => {
       editable: false,
     },
   ]
-  const rows = data.map((m) => {
-    return { ...m, id: m.Symbol }
-  })
-
-  return (
-    <Box sx={{ height: 420, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
-        pageSizeOptions={[5]}
-        // pageSizeOptions={[5]}
-        // checkboxSelection
-        disableRowSelectionOnClick
-      />
-    </Box>
-  )
+  return columns
 }
 
 export default StockDividendsTable

@@ -39,7 +39,7 @@ const EconCalendarDisplay = ({ apiResult }: { apiResult: QlnApiResponse }) => {
               <Box key={`${event.Name}-${event.EventDate}`} py={1}>
                 <Paper
                   component={Stack}
-                  sx={{ minHeight: { xs: 180, sm: 160 }, p: 2, width: { xs: 150, sm: 240 }, direction: 'column', justifyContent: 'center' }}
+                  sx={{ minHeight: { xs: 260, sm: 180 }, p: 2, width: { xs: 160, sm: 240 }, direction: 'column', justifyContent: 'center' }}
                 >
                   {event.Url ? (
                     <Link href={event.Url} target={'_blank'}>

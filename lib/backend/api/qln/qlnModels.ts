@@ -57,7 +57,7 @@ export interface StockDividendItem {
   CompanyName: string
   Amount: number
   AnnualYield: number
-  ExDate: string
+  ExDate: string | null
   PaymentDate: string
   Frequency: string
 }
