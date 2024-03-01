@@ -11,17 +11,11 @@ import { StockReportTypes } from 'lib/backend/api/qln/qlnModels'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import StockReportDisplay from 'components/Organizms/stocks/StockReportDisplay'
-import UncontrolledDropdownList from 'components/Atoms/Inputs/UncontrolledDropdownList'
+import StockReportsDropdown, { stockReportsDropdown } from 'components/Organizms/stocks/reports/StockReportsDropdown'
 const Page = () => {
   const router = useRouter()
 
-  const dropdown: DropdownItem[] = [
-    { text: 'Volume Leaders', value: 'volume-leaders' },
-    { text: 'Market Cap Leaders', value: 'market-cap-leaders' },
-    { text: 'Sectors', value: 'sectors' },
-    { text: 'Industries', value: 'industries' },
-    { text: 'Dividend Payers', value: 'dividend-payers' },
-  ]
+  const dropdown = stockReportsDropdown
   const id = String(router.query.slug)
 
   let selectedOption = dropdown.find((m) => m.value === id)
@@ -38,34 +32,12 @@ const Page = () => {
 
   const { data, isLoading } = useSwrHelper(selectedOption.value, dataFn, { revalidateOnFocus: false })
 
-  const handleReportSelected = (value: string) => {
-    switch (value) {
-      case 'sectors':
-        router.push('/csr/stocks/sectors')
-        break
-      case 'industries':
-        router.push('/csr/stocks/industries')
-        break
-      case 'dividend-payers':
-        router.push('/csr/stocks/dividend-payers')
-        break
-      default:
-        router.replace(`/ssg/stocks/reports/${value}`, undefined, { scroll: false })
-        break
-    }
-  }
-
   return (
     <>
       <Seo pageTitle={`Stock reports - ${selectedOption.text}`} />
       <PageHeader text='Stock Reports' backButtonRoute='/csr/stocks' />
       <ResponsiveContainer>
-        <Box pt={2}>
-          <CenterStack>
-            <UncontrolledDropdownList options={dropdown} selectedOption={selectedOption.value} onOptionSelected={handleReportSelected} />
-          </CenterStack>
-        </Box>
-
+        <StockReportsDropdown selectedValue={selectedOption.value} />
         {isLoading && <BackdropLoader />}
         {data && !isLoading && <StockReportDisplay data={data} />}
       </ResponsiveContainer>

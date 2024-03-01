@@ -1,9 +1,10 @@
 import { Box } from '@mui/material'
-import JsonView from 'components/Atoms/Boxes/JsonView'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import Seo from 'components/Organizms/Seo'
+import StockReportsDropdown from 'components/Organizms/stocks/reports/StockReportsDropdown'
 import StockDividendsTable from 'components/Organizms/stocks/StockDividendsTable'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { apiConnection } from 'lib/backend/api/config'
@@ -15,16 +16,21 @@ const Page = () => {
   const apiConn = apiConnection().qln
   const dataFn = async () => {
     const resp = await get(`${apiConn.url}/StockDividends`)
-    return resp.Body as StockDividendItem[]
+    const result = resp.Body as StockDividendItem[]
+    return result.filter((m) => m.Frequency !== 'irregular')
   }
   const { isLoading, data } = useSwrHelper('/api/baseUrl?id=alldividends', dataFn, { revalidateOnFocus: false })
   return (
     <>
       <Seo pageTitle='Sectors' />
-      <PageHeader text='Dividend paying stocks' />
       {isLoading && <BackdropLoader />}
       <ResponsiveContainer>
-        <Box py={2}>{data && <StockDividendsTable data={data} />}</Box>
+        <PageHeader text='Stock Reports' backButtonRoute='/csr/stocks' />
+        <StockReportsDropdown selectedValue='dividend-payers' />
+
+        <Box pt={2} pb={8}>
+          {data && <StockDividendsTable data={data} />}
+        </Box>
       </ResponsiveContainer>
     </>
   )

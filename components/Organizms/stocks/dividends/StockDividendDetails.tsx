@@ -1,4 +1,5 @@
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+import CenterStack from 'components/Atoms/CenterStack'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import dayjs from 'dayjs'
 import { useSwrHelper } from 'hooks/useSwrHelper'
@@ -26,33 +27,42 @@ const StockDividendDetails = ({ symbol }: { symbol: string }) => {
       {data && (
         <>
           {data.length > 0 && (
-            <Box display={'flex'} flexDirection={'column'} gap={1}>
-              <Typography variant='h5'>{`${data[0].CompanyName} (${data[0].Symbol})`}</Typography>
-              <Typography variant='h6'>{`Annual yield: ${data[0].AnnualYield}%`}</Typography>
+            <Box display={'flex'} flexDirection={'column'} gap={2}>
+              <CenterStack>
+                <Typography variant='h4'>{`${data[0].CompanyName} (${data[0].Symbol})`}</Typography>
+              </CenterStack>
+              <CenterStack>
+                <Typography variant='h5'>{`Annual yield: ${data[0].AnnualYield}%`}</Typography>
+              </CenterStack>
+              {/* <CenterStack>
+                <Typography variant='h5'>{`Amount: $${numeral(data[0].Amount).format('0.000')}`}</Typography>
+              </CenterStack> */}
             </Box>
           )}
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>amount</TableCell>
-                  <TableCell>ex date</TableCell>
-                  <TableCell>payment date</TableCell>
-                  <TableCell>frequency</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data.map((item) => (
-                  <TableRow key={`${item.Symbol}${item.PaymentDate}`}>
-                    <TableCell>{`$${numeral(item.Amount).format('0.000')}`}</TableCell>
-                    <TableCell>{dayjs(item.ExDate).format('MM/DD/YYYY')}</TableCell>
-                    <TableCell>{dayjs(item.PaymentDate).format('MM/DD/YYYY')}</TableCell>
-                    <TableCell>{item.Frequency}</TableCell>
+          <Box pt={2}>
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>amount</TableCell>
+                    <TableCell>ex date</TableCell>
+                    <TableCell>payment date</TableCell>
+                    <TableCell>frequency</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                </TableHead>
+                <TableBody>
+                  {data.map((item) => (
+                    <TableRow key={`${item.Symbol}${item.PaymentDate}`}>
+                      <TableCell>{`$${numeral(item.Amount).format('0.000')}`}</TableCell>
+                      <TableCell>{dayjs(item.ExDate).format('MM/DD/YYYY')}</TableCell>
+                      <TableCell>{dayjs(item.PaymentDate).format('MM/DD/YYYY')}</TableCell>
+                      <TableCell>{item.Frequency}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Box>
         </>
       )}
     </Box>

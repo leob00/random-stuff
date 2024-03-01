@@ -1,9 +1,13 @@
 import { Box } from '@mui/material'
 import { DataGrid, GridCallbackDetails, GridCellParams, GridColDef, GridValueGetterParams, MuiEvent } from '@mui/x-data-grid'
+import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
+import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import dayjs from 'dayjs'
 import { apiConnection } from 'lib/backend/api/config'
 import { StockDividendItem } from 'lib/backend/api/qln/qlnModels'
+import { DropdownItem } from 'lib/models/dropdown'
+import { sortArray } from 'lib/util/collections'
 import numeral from 'numeral'
 import React from 'react'
 import StockDividendDetails from './dividends/StockDividendDetails'
@@ -12,10 +16,22 @@ const StockDividendsTable = ({ data }: { data: StockDividendItem[] }) => {
   const columns = getColumnDef()
 
   const [selectedItem, setSelectedItem] = React.useState<StockDividendItem | null>(null)
+  const options: DropdownItem[] = sortArray(data, ['Symbol'], ['asc']).map((m) => {
+    return {
+      text: `${m.Symbol}: ${m.CompanyName}`,
+      value: m.Symbol,
+    }
+  })
 
   const handleCellClick = async (params: GridCellParams, event: MuiEvent, details: GridCallbackDetails) => {
     const item = params.row as StockDividendItem
     setSelectedItem(item)
+  }
+  const handleSearchSelected = (item: DropdownItem) => {
+    const i = data.find((m) => m.Symbol == item.value)
+    if (i) {
+      setSelectedItem(i)
+    }
   }
 
   const rows = data.map((m) => {
@@ -24,6 +40,10 @@ const StockDividendsTable = ({ data }: { data: StockDividendItem[] }) => {
 
   return (
     <>
+      <ScrollIntoView enabled={true} margin={-28} />
+      <Box py={1}>
+        <StaticAutoComplete options={options} onSelected={handleSearchSelected} placeholder={'search in list'} />
+      </Box>
       <Box sx={{ height: 420, width: '100%' }}>
         <DataGrid
           rows={rows}
@@ -37,10 +57,6 @@ const StockDividendsTable = ({ data }: { data: StockDividendItem[] }) => {
           }}
           onCellClick={handleCellClick}
           pageSizeOptions={[5]}
-          //disableColumnSelector
-          // pageSizeOptions={[5]}
-          // checkboxSelection
-          // disableRowSelectionOnClick
         />
       </Box>
       {selectedItem && (
@@ -111,5 +127,7 @@ function getColumnDef() {
   ]
   return columns
 }
+
+function filterList() {}
 
 export default StockDividendsTable

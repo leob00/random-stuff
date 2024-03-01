@@ -166,6 +166,7 @@ const StockListItem = ({
                   {item.PeRatio && <ReadOnlyField label={'P/E'} val={item.PeRatio} />}
                   {item.Volume && <ReadOnlyField label={'Volume'} val={numeral(item.Volume).format('###,###')} />}
                   <ReadOnlyField label={'Date'} val={dayjs(item.TradeDate).format('MM/DD/YYYY hh:mm a')} />
+                  {item.AnnualDividendYield && <ReadOnlyField label={'Annual Yield'} val={`${numeral(item.AnnualDividendYield).format('0.000')}%`} />}
                 </Box>
               )}
               {selectedTab === 'News' && <StockNews quote={item} />}

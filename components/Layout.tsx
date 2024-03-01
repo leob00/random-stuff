@@ -7,7 +7,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <Box>
       <RouteTracker>
-        <Container sx={{ marginTop: 2, minHeight: 800, paddingBottom: 4 }}>{children}</Container>
+        <Container sx={{ marginTop: 2, minHeight: 760, paddingBottom: 4 }}>{children}</Container>
       </RouteTracker>
       <Footer />
     </Box>

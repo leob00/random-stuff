@@ -63,6 +63,7 @@ export const quoteArraySchema = z
     History: quoteHistorySchema.optional(),
     GroupName: z.string().nullable().optional(),
     MarketCap: z.number().nullable().optional(),
+    AnnualDividendYield: z.number().nullable(),
   })
   .array()
 
