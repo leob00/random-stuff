@@ -90,6 +90,7 @@ const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: Dra
         PeRatio: item.PeRatio,
         Sector: item.Sector,
         SectorId: item.SectorId,
+        AnnualDividendYield: item.AnnualDividendYield,
       }
     })
     setMap(newMap)

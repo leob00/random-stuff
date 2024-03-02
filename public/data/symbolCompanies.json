@@ -1532,6 +1532,10 @@
     "Symbol": "ALVO"
   },
   {
+    "Company": "Alvotech - Warrant",
+    "Symbol": "ALVOW"
+  },
+  {
     "Company": "AlloVir Inc",
     "Symbol": "ALVR"
   },
@@ -1950,6 +1954,10 @@
   {
     "Company": "Arogo Capital Acquisition Corp",
     "Symbol": "AOGO"
+  },
+  {
+    "Company": "Arogo Capital Acquisition Corp. - Warrant",
+    "Symbol": "AOGOW"
   },
   {
     "Company": "Angel Oak Funds Trust",
@@ -8512,6 +8520,10 @@
     "Symbol": "CRGO"
   },
   {
+    "Company": "Freightos Limited - Warrants",
+    "Symbol": "CRGOW"
+  },
+  {
     "Company": "CARGO Therapeutics Inc",
     "Symbol": "CRGX"
   },
@@ -12394,6 +12406,10 @@
   {
     "Company": "ESGL Holdings Ltd",
     "Symbol": "ESGL"
+  },
+  {
+    "Company": "ESGL Holdings Limited - Warrants",
+    "Symbol": "ESGLW"
   },
   {
     "Company": "Columbia ETF Trust I",
@@ -20324,6 +20340,10 @@
     "Symbol": "ISRLU"
   },
   {
+    "Company": "Israel Acquisitions Corp - Warrant",
+    "Symbol": "ISRLW"
+  },
+  {
     "Company": "Innovative Solutions And Support Inc",
     "Symbol": "ISSC"
   },
@@ -27612,6 +27632,10 @@
     "Symbol": "OCS"
   },
   {
+    "Company": "Oculis Holding AG - Warrants",
+    "Symbol": "OCSAW"
+  },
+  {
     "Company": "Oaktree Specialty Lending Corp",
     "Symbol": "OCSL"
   },
@@ -31776,6 +31800,10 @@
     "Symbol": "RFACR"
   },
   {
+    "Company": "RF Acquisition Corp. - Warrants",
+    "Symbol": "RFACW"
+  },
+  {
     "Company": "ALPS Advisors Inc",
     "Symbol": "RFCI"
   },
@@ -33322,6 +33350,10 @@
   {
     "Company": "Screaming Eagle Acquisition Corp",
     "Symbol": "SCRMU"
+  },
+  {
+    "Company": "Screaming Eagle Acquisition Corp. - Warrant",
+    "Symbol": "SCRMW"
   },
   {
     "Company": "Steelcase, Inc.",
@@ -41506,6 +41538,10 @@
   {
     "Company": "Power & Digital Infrastructure Acquisition II Corp",
     "Symbol": "XPDBU"
+  },
+  {
+    "Company": "Power & Digital Infrastructure Acquisition II Corp. - Warrant",
+    "Symbol": "XPDBW"
   },
   {
     "Company": "XPEL Inc",
