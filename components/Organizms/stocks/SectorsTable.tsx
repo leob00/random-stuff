@@ -8,8 +8,8 @@ import { getPositiveNegativeColor } from './StockListItem'
 import SortableHeaderCell from 'components/Atoms/Tables/SortableHeader'
 import Clickable from 'components/Atoms/Containers/Clickable'
 import { useRouter } from 'next/router'
-import { usePager } from 'hooks/usePager'
 import Pager from 'components/Atoms/Pager'
+import { useClientPager } from 'hooks/useClientPager'
 
 interface Model {
   Id: string
@@ -32,14 +32,15 @@ const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: st
   }
   const model = mapModel(data, defaultSort)
   const [sort, setSort] = React.useState(defaultSort)
-
-  const pager = usePager(model, pageSize)
-  const modelItems = pager.displayItems as Model[]
+  const pager = useClientPager(model, pageSize)
+  const [allItems, setAllItems] = React.useState(model)
 
   const handleChangeSort = (newSort: Sort) => {
     setSort(newSort)
     const newResults = mapModel(data, newSort)
     pager.reset(newResults)
+    setAllItems(newResults)
+    handlePaged(1)
   }
   const handleItemClick = async (item: Model) => {
     const sec = category === 'Sector' ? 'sectors' : 'industries'
@@ -70,37 +71,27 @@ const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: st
             </TableRow>
           </TableHead>
           <TableBody>
-            {modelItems.map((item) => (
+            {pager.getPagedItems(allItems).map((item) => (
               <TableRow key={item.Name}>
                 <TableCell>
                   <Clickable onClicked={() => handleItemClick(item)}>{item.Name} </Clickable>
                 </TableCell>
                 <TableCell>
-                  <Typography color={getPositiveNegativeColor(item.MovingAvg7, theme.palette.mode)}>
-                    {`${numeral(item.MovingAvg7).format('###,###0.00')}%`}
-                  </Typography>
+                  <Typography color={getPositiveNegativeColor(item.MovingAvg7, theme.palette.mode)}>{`${numeral(item.MovingAvg7).format('###,###0.00')}%`}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color={getPositiveNegativeColor(item.MovingAvg30, theme.palette.mode)}>
-                    {`${numeral(item.MovingAvg30).format('###,###0.00')}%`}
-                  </Typography>
+                  <Typography color={getPositiveNegativeColor(item.MovingAvg30, theme.palette.mode)}>{`${numeral(item.MovingAvg30).format('###,###0.00')}%`}</Typography>
                 </TableCell>
                 <TableCell>
                   <Box display={'flex'} alignItems={'center'} gap={1}>
-                    <Typography color={getPositiveNegativeColor(item.MovingAvg90, theme.palette.mode)}>
-                      {`${numeral(item.MovingAvg90).format('###,###0.00')}%`}
-                    </Typography>
+                    <Typography color={getPositiveNegativeColor(item.MovingAvg90, theme.palette.mode)}>{`${numeral(item.MovingAvg90).format('###,###0.00')}%`}</Typography>
                   </Box>
                 </TableCell>
                 <TableCell>
-                  <Typography color={getPositiveNegativeColor(item.MovingAvg180, theme.palette.mode)}>
-                    {`${numeral(item.MovingAvg180).format('###,###0.00')}%`}
-                  </Typography>
+                  <Typography color={getPositiveNegativeColor(item.MovingAvg180, theme.palette.mode)}>{`${numeral(item.MovingAvg180).format('###,###0.00')}%`}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color={getPositiveNegativeColor(item.MovingAvg365, theme.palette.mode)}>
-                    {`${numeral(item.MovingAvg365).format('###,###0.00')}%`}
-                  </Typography>
+                  <Typography color={getPositiveNegativeColor(item.MovingAvg365, theme.palette.mode)}>{`${numeral(item.MovingAvg365).format('###,###0.00')}%`}</Typography>
                 </TableCell>
               </TableRow>
             ))}
@@ -109,13 +100,12 @@ const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: st
       </TableContainer>
       <Pager
         pageCount={pager.pageCount}
-        itemCount={pager.displayItems.length}
+        itemCount={pager.getPagedItems(allItems).length}
         itemsPerPage={pageSize}
         onPaged={(pageNum: number) => handlePaged(pageNum)}
         defaultPageIndex={pager.page}
-        totalItemCount={pager.allItems.length}
-        showHorizontalDivider={false}
-      ></Pager>
+        totalItemCount={allItems.length}
+        showHorizontalDivider={false}></Pager>
     </Box>
   )
 }

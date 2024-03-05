@@ -1,17 +1,15 @@
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import { usePager } from 'hooks/usePager'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import CommunityStocksLayout from './CommunityStocksLayout'
 
 const CommunityStocksWrapper = ({ data }: { data: StockQuote[] | undefined }) => {
-  const pager = usePager(data ?? [], 5)
   if (!data) {
     return <BackdropLoader />
   }
   return (
     <>
-      <CommunityStocksLayout data={pager.allItems as StockQuote[]} pager={pager} />
+      <CommunityStocksLayout data={data} />
     </>
   )
 }

@@ -1,9 +1,8 @@
-import { Box, Stack, Typography, useTheme } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import CenterStack from 'components/Atoms/CenterStack'
 import dayjs from 'dayjs'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import numeral from 'numeral'
 import React from 'react'
 import StockListItem from './StockListItem'
 

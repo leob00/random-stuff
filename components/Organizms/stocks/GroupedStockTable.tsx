@@ -4,13 +4,13 @@ import React from 'react'
 import { StockGroup } from './GroupedStocksLayout'
 import GroupedStockItem from './GroupedStockItem'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { usePager } from 'hooks/usePager'
 import Pager from 'components/Atoms/Pager'
+import { useClientPager } from 'hooks/useClientPager'
 
 const GroupedStockTable = ({ result, userProfile }: { result: StockGroup[]; userProfile?: UserProfile | null }) => {
   const pageSize = 10
-  const pager = usePager(result, 10)
-  const displayItems = pager.displayItems as StockGroup[]
+  const pager = useClientPager(result, 10)
+  const displayItems = pager.getPagedItems(result)
   const handlePaged = (pageNum: number) => {
     pager.setPage(pageNum)
   }
@@ -30,14 +30,7 @@ const GroupedStockTable = ({ result, userProfile }: { result: StockGroup[]; user
           )}
         </>
       </Box>
-      <Pager
-        pageCount={pager.pageCount}
-        itemCount={displayItems.length}
-        itemsPerPage={pageSize}
-        onPaged={(pageNum: number) => handlePaged(pageNum)}
-        defaultPageIndex={pager.page}
-        totalItemCount={result.length}
-      ></Pager>
+      <Pager pageCount={pager.pageCount} itemCount={displayItems.length} itemsPerPage={pageSize} onPaged={(pageNum: number) => handlePaged(pageNum)} defaultPageIndex={pager.page} totalItemCount={result.length}></Pager>
     </Box>
   )
 }

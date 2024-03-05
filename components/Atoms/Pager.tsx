@@ -28,7 +28,8 @@ const Pager = ({
   totalItemCount: number
   showHorizontalDivider?: boolean
 }) => {
-  const [pageIndex, setPageIndex] = useState(defaultPageIndex)
+  //const [pageIndex, setPageIndex] = useState(defaultPageIndex)
+  const pageIndex = defaultPageIndex
   const [displayMessage, setDisplayMessage] = useState('')
 
   const getDisplayMessage = (totalPageCount: number) => {
@@ -58,21 +59,21 @@ const Pager = ({
 
   const handlePreviousClick = () => {
     let idx = pageIndex - 1
-    setPageIndex(idx)
+    //setPageIndex(idx)
     onPaged(idx)
   }
   const handleNextClick = () => {
     let idx = pageIndex + 1
-    setPageIndex(idx)
+    //setPageIndex(idx)
     onPaged(idx)
   }
   const handleFirstPageClick = () => {
-    setPageIndex(1)
+    //setPageIndex(1)
     onPaged(1)
   }
   const handleLastPageClick = () => {
     let idx = pageCount
-    setPageIndex(idx)
+    //setPageIndex(idx)
     onPaged(idx)
   }
 

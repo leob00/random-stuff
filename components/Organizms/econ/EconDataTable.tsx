@@ -1,14 +1,14 @@
 import { Box } from '@mui/material'
 import Pager from 'components/Atoms/Pager'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
-import { usePager } from 'hooks/usePager'
+import { useClientPager } from 'hooks/useClientPager'
 import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 import React from 'react'
 
 const EconDataTable = ({ data, handleItemClicked }: { data: EconomicDataItem[]; handleItemClicked: (item: EconomicDataItem) => void }) => {
   const pageSize = 10
-  const pager = usePager(data, 10)
-  const displayItems = pager.displayItems as EconomicDataItem[]
+  const pager = useClientPager(data, 10)
+  const displayItems = pager.getPagedItems(data)
 
   const handlePaged = (pageNum: number) => {
     pager.setPage(pageNum)
@@ -20,14 +20,7 @@ const EconDataTable = ({ data, handleItemClicked }: { data: EconomicDataItem[]; 
           <ListHeader item={item} text={item.Title} onClicked={handleItemClicked} />
         </Box>
       ))}
-      <Pager
-        pageCount={pager.pageCount}
-        itemCount={displayItems.length}
-        itemsPerPage={pageSize}
-        onPaged={(pageNum: number) => handlePaged(pageNum)}
-        defaultPageIndex={pager.page}
-        totalItemCount={data.length}
-      ></Pager>
+      <Pager pageCount={pager.pageCount} itemCount={displayItems.length} itemsPerPage={pageSize} onPaged={(pageNum: number) => handlePaged(pageNum)} defaultPageIndex={pager.page} totalItemCount={data.length}></Pager>
     </>
   )
 }

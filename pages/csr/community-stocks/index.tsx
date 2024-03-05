@@ -135,25 +135,10 @@ const Page = () => {
         <CenteredHeader title='Community Stocks' />
         <Box py={2}>
           <CenterStack>
-            <StocksAutoComplete
-              placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}
-              onChanged={handleSearched}
-              searchResults={stockSearchResults}
-              debounceWaitMilliseconds={500}
-              onSelected={handleSelectQuote}
-            />
+            <StocksAutoComplete placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`} onChanged={handleSearched} searchResults={stockSearchResults} debounceWaitMilliseconds={500} onSelected={handleSelectQuote} />
           </CenterStack>
         </Box>
-        {selectedStock && (
-          <AddQuote
-            stockListMap={getMapFromArray(searchedStocks!, 'Symbol')}
-            quote={selectedStock}
-            handleAddToList={handleAddToList}
-            handleCloseAddQuote={handleCloseAddQuote}
-            scrollIntoView
-            showAddToListButton={false}
-          />
-        )}
+        {selectedStock && <AddQuote stockListMap={getMapFromArray(searchedStocks!, 'Symbol')} quote={selectedStock} handleAddToList={handleAddToList} handleCloseAddQuote={handleCloseAddQuote} scrollIntoView showAddToListButton={false} />}
         {!selectedStock && <TabList tabs={tabs} onSetTab={handleSelectTab} />}
 
         {loadingStock && <BackdropLoader />}
@@ -162,7 +147,7 @@ const Page = () => {
             {selectedTab === 'Recent' && (
               <Box>
                 <ScrollIntoView margin={-20} enabled />
-                {searchedStocks && !isLoading && <CommunityStocksRecentLayout data={searchedStocks} />}
+                {searchedStocks && <CommunityStocksRecentLayout data={searchedStocks} />}
               </Box>
             )}
             {selectedTab === 'Winners' && <CommunityStocksWrapper data={winners} />}
