@@ -15,7 +15,7 @@ const JobList = ({ response, onJobSelected }: { response: QlnApiResponse; onJobS
       {jobs.map((item) => (
         <Box key={item.Name}>
           <Paper elevation={item.Status == 1 ? 2 : 0}>
-            <ListHeader text={item.Description} item={item} onClicked={onJobSelected} />
+            <ListHeader text={item.Description} item={item} onClicked={onJobSelected} backgroundColor={item.Status == 1 ? 'transparent' : undefined} />
             {item.Status === 1 ? (
               <JobInProgress item={item} />
             ) : (

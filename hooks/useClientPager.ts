@@ -24,6 +24,7 @@ export const useClientPager = <T>(items: T[], pageSize: number) => {
     const newChunks = chunk(data, pageSize)
     if (model.totalNumberOfPages !== newChunks.length) {
       setModel({ ...model, page: 1, totalNumberOfPages: newChunks.length, totalNumberOfItems: data.length })
+      return newChunks.length > 0 ? newChunks[0] : []
     }
     return newChunks.length > 0 ? newChunks[model.page - 1] : []
   }
@@ -40,6 +41,7 @@ export const useClientPager = <T>(items: T[], pageSize: number) => {
     page: model.page,
     setPage,
     pageCount: model.totalNumberOfPages,
+    totalNumberOfItems: model.totalNumberOfItems,
     reset,
     getPagedItems,
   }

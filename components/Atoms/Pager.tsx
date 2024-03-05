@@ -6,7 +6,6 @@ import FirstPageIcon from '@mui/icons-material/FirstPage'
 import LastPageIcon from '@mui/icons-material/LastPage'
 import { Box, Button, Typography } from '@mui/material'
 import numeral from 'numeral'
-import React, { useEffect, useState } from 'react'
 import HorizontalDivider from './Dividers/HorizontalDivider'
 
 const Pager = ({
@@ -28,9 +27,7 @@ const Pager = ({
   totalItemCount: number
   showHorizontalDivider?: boolean
 }) => {
-  //const [pageIndex, setPageIndex] = useState(defaultPageIndex)
   const pageIndex = defaultPageIndex
-  const [displayMessage, setDisplayMessage] = useState('')
 
   const getDisplayMessage = (totalPageCount: number) => {
     const pageMessage = `page ${pageIndex} of ${totalPageCount} `
@@ -56,6 +53,7 @@ const Pager = ({
 
     return `${pageMessage} [${(pageIndex - 1) * itemCount + 1} - ${counter} of ${numeral(totalItemCount).format('###,###')}]`
   }
+  const displayMessage = getDisplayMessage(pageCount)
 
   const handlePreviousClick = () => {
     let idx = pageIndex - 1
@@ -77,11 +75,11 @@ const Pager = ({
     onPaged(idx)
   }
 
-  useEffect(() => {
-    const newMessage = getDisplayMessage(pageCount)
-    setDisplayMessage(newMessage)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageCount, pageIndex, itemCount])
+  // useEffect(() => {
+  //   const newMessage = getDisplayMessage(pageCount)
+  //   setDisplayMessage(newMessage)
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [pageCount, pageIndex, itemCount])
   return (
     <Box pt={1}>
       {showHorizontalDivider && <HorizontalDivider />}
