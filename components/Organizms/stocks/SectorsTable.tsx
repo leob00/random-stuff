@@ -52,62 +52,64 @@ const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: st
 
   return (
     <Box>
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell colSpan={5} align='center'>
-                Moving Average
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell align='right'>days:</TableCell>
-              <SortableHeaderCell displayText='7' fieldName='MovingAvg7' sort={sort} onChangeSort={handleChangeSort} />
-              <SortableHeaderCell displayText='30' fieldName='MovingAvg30' sort={sort} onChangeSort={handleChangeSort} />
-              <SortableHeaderCell displayText='90' fieldName='MovingAvg90' sort={sort} onChangeSort={handleChangeSort} />
-              <SortableHeaderCell displayText='180' fieldName='MovingAvg180' sort={sort} onChangeSort={handleChangeSort} />
-              <SortableHeaderCell displayText='365' fieldName='MovingAvg365' sort={sort} onChangeSort={handleChangeSort} />
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {pager.getPagedItems(allItems).map((item) => (
-              <TableRow key={item.Name}>
-                <TableCell>
-                  <Clickable onClicked={() => handleItemClick(item)}>{item.Name} </Clickable>
-                </TableCell>
-                <TableCell>
-                  <Typography color={getPositiveNegativeColor(item.MovingAvg7, theme.palette.mode)}>{`${numeral(item.MovingAvg7).format(
-                    '###,###0.00',
-                  )}%`}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color={getPositiveNegativeColor(item.MovingAvg30, theme.palette.mode)}>{`${numeral(item.MovingAvg30).format(
-                    '###,###0.00',
-                  )}%`}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Box display={'flex'} alignItems={'center'} gap={1}>
-                    <Typography color={getPositiveNegativeColor(item.MovingAvg90, theme.palette.mode)}>{`${numeral(item.MovingAvg90).format(
-                      '###,###0.00',
-                    )}%`}</Typography>
-                  </Box>
-                </TableCell>
-                <TableCell>
-                  <Typography color={getPositiveNegativeColor(item.MovingAvg180, theme.palette.mode)}>{`${numeral(item.MovingAvg180).format(
-                    '###,###0.00',
-                  )}%`}</Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color={getPositiveNegativeColor(item.MovingAvg365, theme.palette.mode)}>{`${numeral(item.MovingAvg365).format(
-                    '###,###0.00',
-                  )}%`}</Typography>
+      <Box minHeight={74 * pageSize}>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell colSpan={5} align='center'>
+                  Moving Average
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+              <TableRow>
+                <TableCell align='right'>days:</TableCell>
+                <SortableHeaderCell displayText='7' fieldName='MovingAvg7' sort={sort} onChangeSort={handleChangeSort} />
+                <SortableHeaderCell displayText='30' fieldName='MovingAvg30' sort={sort} onChangeSort={handleChangeSort} />
+                <SortableHeaderCell displayText='90' fieldName='MovingAvg90' sort={sort} onChangeSort={handleChangeSort} />
+                <SortableHeaderCell displayText='180' fieldName='MovingAvg180' sort={sort} onChangeSort={handleChangeSort} />
+                <SortableHeaderCell displayText='365' fieldName='MovingAvg365' sort={sort} onChangeSort={handleChangeSort} />
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {pager.getPagedItems(allItems).map((item) => (
+                <TableRow key={item.Name}>
+                  <TableCell>
+                    <Clickable onClicked={() => handleItemClick(item)}>{item.Name} </Clickable>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color={getPositiveNegativeColor(item.MovingAvg7, theme.palette.mode)}>{`${numeral(item.MovingAvg7).format(
+                      '###,###0.00',
+                    )}%`}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color={getPositiveNegativeColor(item.MovingAvg30, theme.palette.mode)}>{`${numeral(item.MovingAvg30).format(
+                      '###,###0.00',
+                    )}%`}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Box display={'flex'} alignItems={'center'} gap={1}>
+                      <Typography color={getPositiveNegativeColor(item.MovingAvg90, theme.palette.mode)}>{`${numeral(item.MovingAvg90).format(
+                        '###,###0.00',
+                      )}%`}</Typography>
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color={getPositiveNegativeColor(item.MovingAvg180, theme.palette.mode)}>{`${numeral(item.MovingAvg180).format(
+                      '###,###0.00',
+                    )}%`}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography color={getPositiveNegativeColor(item.MovingAvg365, theme.palette.mode)}>{`${numeral(item.MovingAvg365).format(
+                      '###,###0.00',
+                    )}%`}</Typography>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
       <Pager
         pageCount={pager.pagerModel.totalNumberOfPages}
         itemCount={pager.getPagedItems(allItems).length}

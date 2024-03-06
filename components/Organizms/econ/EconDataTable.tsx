@@ -15,11 +15,13 @@ const EconDataTable = ({ data, handleItemClicked }: { data: EconomicDataItem[]; 
   }
   return (
     <>
-      {displayItems.map((item) => (
-        <Box key={item.InternalId}>
-          <ListHeader item={item} text={item.Title} onClicked={handleItemClicked} />
-        </Box>
-      ))}
+      <Box minHeight={60 * pageSize}>
+        {displayItems.map((item) => (
+          <Box key={item.InternalId}>
+            <ListHeader item={item} text={item.Title} onClicked={handleItemClicked} />
+          </Box>
+        ))}
+      </Box>
       <Pager
         pageCount={pager.pagerModel.totalNumberOfPages}
         itemCount={displayItems.length}

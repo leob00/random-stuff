@@ -39,7 +39,7 @@ const Page = () => {
       <ResponsiveContainer>
         <StockReportsDropdown selectedValue={selectedOption.value} />
         {isLoading && <BackdropLoader />}
-        {data && !isLoading && <StockReportDisplay data={data} />}
+        {data && <StockReportDisplay data={data} />}
       </ResponsiveContainer>
     </>
   )
