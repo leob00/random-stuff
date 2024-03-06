@@ -20,7 +20,14 @@ const EconDataTable = ({ data, handleItemClicked }: { data: EconomicDataItem[]; 
           <ListHeader item={item} text={item.Title} onClicked={handleItemClicked} />
         </Box>
       ))}
-      <Pager pageCount={pager.pageCount} itemCount={displayItems.length} itemsPerPage={pageSize} onPaged={(pageNum: number) => handlePaged(pageNum)} defaultPageIndex={pager.page} totalItemCount={data.length}></Pager>
+      <Pager
+        pageCount={pager.pagerModel.totalNumberOfPages}
+        itemCount={displayItems.length}
+        itemsPerPage={pageSize}
+        onPaged={(pageNum: number) => handlePaged(pageNum)}
+        defaultPageIndex={pager.pagerModel.page}
+        totalItemCount={pager.pagerModel.totalNumberOfItems}
+      ></Pager>
     </>
   )
 }

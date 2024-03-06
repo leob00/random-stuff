@@ -11,7 +11,7 @@ import { useClientPager } from 'hooks/useClientPager'
 const ArticlesLayout = ({ articles }: { articles: BasicArticle[] }) => {
   const handleImageLoaded = () => {}
 
-  const { pageCount, getPagedItems, page, setPage } = useClientPager(articles, 1)
+  const { pagerModel, getPagedItems, setPage } = useClientPager(articles, 1)
   const displayItems = getPagedItems(articles)
 
   const handlePaged = (pageNum: number) => {
@@ -32,7 +32,14 @@ const ArticlesLayout = ({ articles }: { articles: BasicArticle[] }) => {
               <RemoteImage url={displayItems[0].imagePath} title={displayItems[0].title} onLoaded={handleImageLoaded} />
             </Stack>
           )}
-          <Pager pageCount={pageCount} itemCount={displayItems.length} itemsPerPage={1} onPaged={(pageNum: number) => handlePaged(pageNum)} defaultPageIndex={page} totalItemCount={articles.length}></Pager>
+          <Pager
+            pageCount={pagerModel.totalNumberOfPages}
+            itemCount={displayItems.length}
+            itemsPerPage={1}
+            onPaged={(pageNum: number) => handlePaged(pageNum)}
+            defaultPageIndex={pagerModel.page}
+            totalItemCount={pagerModel.totalNumberOfItems}
+          ></Pager>
         </>
       )}
     </>

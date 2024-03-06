@@ -77,21 +77,31 @@ const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: st
                   <Clickable onClicked={() => handleItemClick(item)}>{item.Name} </Clickable>
                 </TableCell>
                 <TableCell>
-                  <Typography color={getPositiveNegativeColor(item.MovingAvg7, theme.palette.mode)}>{`${numeral(item.MovingAvg7).format('###,###0.00')}%`}</Typography>
+                  <Typography color={getPositiveNegativeColor(item.MovingAvg7, theme.palette.mode)}>{`${numeral(item.MovingAvg7).format(
+                    '###,###0.00',
+                  )}%`}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color={getPositiveNegativeColor(item.MovingAvg30, theme.palette.mode)}>{`${numeral(item.MovingAvg30).format('###,###0.00')}%`}</Typography>
+                  <Typography color={getPositiveNegativeColor(item.MovingAvg30, theme.palette.mode)}>{`${numeral(item.MovingAvg30).format(
+                    '###,###0.00',
+                  )}%`}</Typography>
                 </TableCell>
                 <TableCell>
                   <Box display={'flex'} alignItems={'center'} gap={1}>
-                    <Typography color={getPositiveNegativeColor(item.MovingAvg90, theme.palette.mode)}>{`${numeral(item.MovingAvg90).format('###,###0.00')}%`}</Typography>
+                    <Typography color={getPositiveNegativeColor(item.MovingAvg90, theme.palette.mode)}>{`${numeral(item.MovingAvg90).format(
+                      '###,###0.00',
+                    )}%`}</Typography>
                   </Box>
                 </TableCell>
                 <TableCell>
-                  <Typography color={getPositiveNegativeColor(item.MovingAvg180, theme.palette.mode)}>{`${numeral(item.MovingAvg180).format('###,###0.00')}%`}</Typography>
+                  <Typography color={getPositiveNegativeColor(item.MovingAvg180, theme.palette.mode)}>{`${numeral(item.MovingAvg180).format(
+                    '###,###0.00',
+                  )}%`}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color={getPositiveNegativeColor(item.MovingAvg365, theme.palette.mode)}>{`${numeral(item.MovingAvg365).format('###,###0.00')}%`}</Typography>
+                  <Typography color={getPositiveNegativeColor(item.MovingAvg365, theme.palette.mode)}>{`${numeral(item.MovingAvg365).format(
+                    '###,###0.00',
+                  )}%`}</Typography>
                 </TableCell>
               </TableRow>
             ))}
@@ -99,13 +109,14 @@ const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: st
         </Table>
       </TableContainer>
       <Pager
-        pageCount={pager.pageCount}
+        pageCount={pager.pagerModel.totalNumberOfPages}
         itemCount={pager.getPagedItems(allItems).length}
         itemsPerPage={pageSize}
         onPaged={(pageNum: number) => handlePaged(pageNum)}
-        defaultPageIndex={pager.page}
-        totalItemCount={allItems.length}
-        showHorizontalDivider={false}></Pager>
+        defaultPageIndex={pager.pagerModel.page}
+        totalItemCount={pager.pagerModel.totalNumberOfItems}
+        showHorizontalDivider={false}
+      ></Pager>
     </Box>
   )
 }

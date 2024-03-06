@@ -30,7 +30,14 @@ const GroupedStockTable = ({ result, userProfile }: { result: StockGroup[]; user
           )}
         </>
       </Box>
-      <Pager pageCount={pager.pageCount} itemCount={displayItems.length} itemsPerPage={pageSize} onPaged={(pageNum: number) => handlePaged(pageNum)} defaultPageIndex={pager.page} totalItemCount={result.length}></Pager>
+      <Pager
+        pageCount={pager.pagerModel.totalNumberOfPages}
+        itemCount={displayItems.length}
+        itemsPerPage={pageSize}
+        onPaged={(pageNum: number) => handlePaged(pageNum)}
+        defaultPageIndex={pager.pagerModel.page}
+        totalItemCount={pager.pagerModel.totalNumberOfItems}
+      ></Pager>
     </Box>
   )
 }

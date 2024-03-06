@@ -6,7 +6,7 @@ import React from 'react'
 import StockTable from './StockTable'
 
 const PagedStockTable = ({ data, showGroupName = false, pageSize = 5 }: { data: StockQuote[]; showGroupName?: boolean; pageSize?: number }) => {
-  const { page, setPage, pageCount, totalNumberOfItems, getPagedItems } = useClientPager(data, pageSize)
+  const { pagerModel, setPage, getPagedItems } = useClientPager(data, pageSize)
   const items = getPagedItems(data)
   const handlePaged = (pageNum: number) => {
     setPage(pageNum)
@@ -17,12 +17,12 @@ const PagedStockTable = ({ data, showGroupName = false, pageSize = 5 }: { data: 
         <StockTable stockList={items} isStock={true} showGroupName={showGroupName} showSummary={false} />
       </Box>
       <Pager
-        pageCount={pageCount}
+        pageCount={pagerModel.totalNumberOfPages}
         itemCount={items.length}
         itemsPerPage={pageSize}
         onPaged={(pageNum: number) => handlePaged(pageNum)}
-        defaultPageIndex={page}
-        totalItemCount={totalNumberOfItems}
+        defaultPageIndex={pagerModel.page}
+        totalItemCount={pagerModel.totalNumberOfItems}
         showHorizontalDivider={false}
       ></Pager>
     </>

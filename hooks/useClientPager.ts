@@ -38,10 +38,8 @@ export const useClientPager = <T>(items: T[], pageSize: number) => {
   }
 
   return {
-    page: model.page,
+    pagerModel: model,
     setPage,
-    pageCount: model.totalNumberOfPages,
-    totalNumberOfItems: model.totalNumberOfItems,
     reset,
     getPagedItems,
   }
