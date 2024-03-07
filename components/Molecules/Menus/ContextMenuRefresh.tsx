@@ -1,13 +1,13 @@
 import { ListItemIcon, ListItemText } from '@mui/material'
 import React from 'react'
 import CachedIcon from '@mui/icons-material/Cached'
-const ContextMenuRefresh = () => {
+const ContextMenuRefresh = ({ text = 'refresh' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
         <CachedIcon fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary='refresh' />
+      <ListItemText primary={text} />
     </>
   )
 }

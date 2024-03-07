@@ -4,6 +4,9 @@ import UncontrolledDropdownList from 'components/Atoms/Inputs/UncontrolledDropdo
 import { DropdownItem } from 'lib/models/dropdown'
 import React from 'react'
 import { useRouter } from 'next/router'
+import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
+import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
+import ContextMenuPortfolio from 'components/Molecules/Menus/ContextMenuPortfolio'
 
 export const stockReportsDropdown: DropdownItem[] = [
   { text: 'Volume Leaders', value: 'volume-leaders' },
@@ -12,8 +15,23 @@ export const stockReportsDropdown: DropdownItem[] = [
   { text: 'Industries', value: 'industries' },
   { text: 'Dividend Payers', value: 'dividend-payers' },
 ]
+
 const StockReportsDropdown = ({ selectedValue }: { selectedValue: string }) => {
   const router = useRouter()
+  const menu: ContextMenuItem[] = [
+    {
+      item: <ContextMenuPeople text='community stocks' />,
+      fn: () => {
+        router.push('/csr/community-stocks')
+      },
+    },
+    {
+      item: <ContextMenuPortfolio text='my stocks' />,
+      fn: () => {
+        router.push('/csr/stocks')
+      },
+    },
+  ]
 
   const handleReportSelected = (value: string) => {
     switch (value) {
@@ -33,8 +51,19 @@ const StockReportsDropdown = ({ selectedValue }: { selectedValue: string }) => {
   }
   return (
     <Box pt={2}>
+      {/* <Box display={'flex'} justifyContent={'space-between'}>
+        <Box justifyContent={'end'}>
+          <Box>
+            <UncontrolledDropdownList options={stockReportsDropdown} selectedOption={selectedValue} onOptionSelected={handleReportSelected} />
+          </Box>
+        </Box>
+        <Box>
+          <ContextMenu items={menu} />
+        </Box>
+      </Box> */}
       <CenterStack>
         <UncontrolledDropdownList options={stockReportsDropdown} selectedOption={selectedValue} onOptionSelected={handleReportSelected} />
+        <ContextMenu items={menu} />
       </CenterStack>
     </Box>
   )

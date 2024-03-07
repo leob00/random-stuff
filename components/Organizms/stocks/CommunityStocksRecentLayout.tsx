@@ -13,17 +13,25 @@ import StocksCustomSortForm from './StocksCustomSortForm'
 import { useRouter } from 'next/router'
 import { orderBy } from 'lodash'
 import { sortArray } from 'lib/util/collections'
+import ContextMenuRefresh from 'components/Molecules/Menus/ContextMenuRefresh'
 
-const CommunityStocksRecentLayout = ({ data }: { data: StockQuote[] }) => {
+const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; onRefresh: () => void }) => {
   const router = useRouter()
   const settings = useSessionSettings()
 
   const [showCustomSortForm, setShowCustomSortForm] = React.useState(false)
-  const [sorter, setSorter] = React.useState(settings.communityStocks?.defaultSort ?? [])
+  const defaultSort = settings.communityStocks?.defaultSort ?? []
+  const [sorter, setSorter] = React.useState(defaultSort)
 
   const sortedData = applySort(data, sorter)
 
   const menu: ContextMenuItem[] = [
+    {
+      item: <ContextMenuRefresh text={'refresh'} />,
+      fn: () => {
+        onRefresh()
+      },
+    },
     {
       item: <ContextMenuSort text={'sort'} />,
       fn: () => setShowCustomSortForm(true),

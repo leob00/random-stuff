@@ -6,7 +6,7 @@ interface PagerModel {
   totalNumberOfPages: number
   totalNumberOfItems: number
 }
-const getModel = (items: unknown[], pageSize: number) => {
+const getDefaultModel = (items: unknown[], pageSize: number) => {
   const chunks = chunk(items, pageSize)
 
   const defaultModel: PagerModel = {
@@ -18,7 +18,9 @@ const getModel = (items: unknown[], pageSize: number) => {
 }
 
 export const useClientPager = <T>(items: T[], pageSize: number) => {
-  const [model, setModel] = React.useReducer((state: PagerModel, newState: PagerModel) => ({ ...state, ...newState }), getModel(items, pageSize))
+  let itemTotal = items.length
+  let allItems = [...items]
+  const [model, setModel] = React.useReducer((state: PagerModel, newState: PagerModel) => ({ ...state, ...newState }), getDefaultModel(items, pageSize))
 
   const getPagedItems = <T>(data: T[]) => {
     const newChunks = chunk(data, pageSize)
@@ -33,9 +35,18 @@ export const useClientPager = <T>(items: T[], pageSize: number) => {
     setModel({ ...model, page: pageNum })
   }
   const reset = (data: T[] | unknown[]) => {
+    itemTotal = data.length
+    allItems = [...data] as T[]
     const newChunks = chunk(data, pageSize)
     setModel({ ...model, page: 1, totalNumberOfPages: newChunks.length, totalNumberOfItems: data.length })
   }
+  React.useEffect(() => {
+    if (itemTotal !== model.totalNumberOfItems) {
+      //console.log(`model items: ${model.totalNumberOfItems} new total: ${itemTotal}`)
+      const newChunks = chunk(allItems, pageSize)
+      setModel({ ...model, totalNumberOfItems: itemTotal, totalNumberOfPages: newChunks.length })
+    }
+  }, [itemTotal])
 
   return {
     pagerModel: model,

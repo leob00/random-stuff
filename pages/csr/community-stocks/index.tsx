@@ -1,9 +1,8 @@
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { CategoryType, Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { CategoryType } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { orderBy } from 'lodash'
-import CommunityStocksLayout from 'components/Organizms/stocks/CommunityStocksLayout'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import React from 'react'
@@ -16,9 +15,8 @@ import { DropdownItem } from 'lib/models/dropdown'
 import { getLatestQuotes, getStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import AddQuote from 'components/Organizms/stocks/AddQuote'
 import { getMapFromArray } from 'lib/util/collectionsNative'
-import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import { searchRecords } from 'lib/backend/csr/nextApiWrapper'
-import useSWR, { mutate } from 'swr'
+import { mutate } from 'swr'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import CommunityStocksRecentLayout from 'components/Organizms/stocks/CommunityStocksRecentLayout'
 import Seo from 'components/Organizms/Seo'
@@ -29,9 +27,7 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'
-const getList = (list: StockQuote[], sort: Sort) => {
-  return sortArray(list, [sort.key], [sort.direction])
-}
+
 const Page = () => {
   const [selectedTab, setSelectedTab] = React.useState<Tab>('Recent')
 
@@ -120,6 +116,9 @@ const Page = () => {
   const handleCloseAddQuote = () => {
     setSelectedStock(null)
   }
+  const handleRefreshRecent = () => {
+    mutate(mutateKey)
+  }
 
   return (
     <>
@@ -135,10 +134,25 @@ const Page = () => {
         <CenteredHeader title='Community Stocks' />
         <Box py={2}>
           <CenterStack>
-            <StocksAutoComplete placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`} onChanged={handleSearched} searchResults={stockSearchResults} debounceWaitMilliseconds={500} onSelected={handleSelectQuote} />
+            <StocksAutoComplete
+              placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}
+              onChanged={handleSearched}
+              searchResults={stockSearchResults}
+              debounceWaitMilliseconds={500}
+              onSelected={handleSelectQuote}
+            />
           </CenterStack>
         </Box>
-        {selectedStock && <AddQuote stockListMap={getMapFromArray(searchedStocks!, 'Symbol')} quote={selectedStock} handleAddToList={handleAddToList} handleCloseAddQuote={handleCloseAddQuote} scrollIntoView showAddToListButton={false} />}
+        {selectedStock && (
+          <AddQuote
+            stockListMap={getMapFromArray(searchedStocks!, 'Symbol')}
+            quote={selectedStock}
+            handleAddToList={handleAddToList}
+            handleCloseAddQuote={handleCloseAddQuote}
+            scrollIntoView
+            showAddToListButton={false}
+          />
+        )}
         {!selectedStock && <TabList tabs={tabs} onSetTab={handleSelectTab} />}
 
         {loadingStock && <BackdropLoader />}
@@ -147,7 +161,7 @@ const Page = () => {
             {selectedTab === 'Recent' && (
               <Box>
                 <ScrollIntoView margin={-20} enabled />
-                {searchedStocks && <CommunityStocksRecentLayout data={searchedStocks} />}
+                {searchedStocks && <CommunityStocksRecentLayout data={searchedStocks} onRefresh={handleRefreshRecent} />}
               </Box>
             )}
             {selectedTab === 'Winners' && <CommunityStocksWrapper data={winners} />}
