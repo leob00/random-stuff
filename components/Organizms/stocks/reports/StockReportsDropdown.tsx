@@ -18,6 +18,7 @@ export const stockReportsDropdown: DropdownItem[] = [
 
 const StockReportsDropdown = ({ selectedValue }: { selectedValue: string }) => {
   const router = useRouter()
+
   const menu: ContextMenuItem[] = [
     {
       item: <ContextMenuPeople text='community stocks' />,
@@ -51,16 +52,6 @@ const StockReportsDropdown = ({ selectedValue }: { selectedValue: string }) => {
   }
   return (
     <Box pt={2}>
-      {/* <Box display={'flex'} justifyContent={'space-between'}>
-        <Box justifyContent={'end'}>
-          <Box>
-            <UncontrolledDropdownList options={stockReportsDropdown} selectedOption={selectedValue} onOptionSelected={handleReportSelected} />
-          </Box>
-        </Box>
-        <Box>
-          <ContextMenu items={menu} />
-        </Box>
-      </Box> */}
       <CenterStack>
         <UncontrolledDropdownList options={stockReportsDropdown} selectedOption={selectedValue} onOptionSelected={handleReportSelected} />
         <ContextMenu items={menu} />

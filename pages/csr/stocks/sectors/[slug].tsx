@@ -13,6 +13,7 @@ import { dedup } from 'lib/util/collectionsNative'
 import { excludeFinancialInstruments } from 'lib/ui/stocks/util'
 import React from 'react'
 import StockReportDisplay from 'components/Organizms/stocks/StockReportDisplay'
+import SortableStockContainer from 'components/Organizms/stocks/SortableStockContainer'
 interface Model {
   container: SectorIndustry
   quotes: StockQuote[]
@@ -44,7 +45,7 @@ const Page = () => {
         <Box>
           <PageHeader text={`${data.container.Name}`} backButtonRoute={'/csr/stocks/sectors'} />
           <Box py={2}>
-            <StockReportDisplay data={data.quotes} />
+            <SortableStockContainer data={data.quotes} />
           </Box>
         </Box>
       )}

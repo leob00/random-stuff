@@ -20,7 +20,7 @@ type ExtractKeys<T> = NonNullable<
 >
 
 type Keys = keyof SortableStockKeys & {}
-const StocksCustomSortForm = ({ result, onSubmitted }: { result?: Sort[]; onSubmitted: (data?: Sort[]) => void }) => {
+const StocksCustomSortForm = ({ result, onSubmitted, required = false }: { result?: Sort[]; onSubmitted: (data?: Sort[]) => void; required?: boolean }) => {
   type Option = {
     text: string
     value: Keys
@@ -83,7 +83,7 @@ const StocksCustomSortForm = ({ result, onSubmitted }: { result?: Sort[]; onSubm
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack>
+        <Stack sx={{ display: required ? 'none' : 'unset' }}>
           <ControlledSwitch control={control} defaultValue={data !== undefined} fieldName={'onOff'} onChanged={handleOnOffChanged} />
         </Stack>
         <Stack pt={4}>

@@ -6,7 +6,7 @@ import CheckIcon from '@mui/icons-material/Check'
 
 const CustomSortAlert = ({ result, onModify }: { result: Sort[]; onModify: () => void }) => {
   const translateSort = (sort: Sort) => {
-    let direction = `${sort.direction === 'desc' ? 'largest to smallest' : 'smallest to largest'}`
+    let direction = `${sort.direction === 'desc' ? 'descending' : 'ascending'}`
     const key = sort.key as keyof SortableStockKeys
     let resultField = sort.key
     switch (key) {
@@ -20,9 +20,11 @@ const CustomSortAlert = ({ result, onModify }: { result: Sort[]; onModify: () =>
       case 'Symbol':
         direction = `${sort.direction === 'desc' ? 'Z-A' : 'A-Z'}`
         break
+      default:
+        resultField = key.toLowerCase()
     }
 
-    return `'${resultField}' (${direction})`
+    return `sorted by: '${resultField}' (${direction})s`
   }
   return (
     <Box py={2}>
