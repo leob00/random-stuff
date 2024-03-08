@@ -15,6 +15,7 @@ interface Model {
   Id: string
   Name: string
   Category: string
+  MovingAvg1: number
   MovingAvg7: number
   MovingAvg30: number
   MovingAvg90: number
@@ -27,7 +28,7 @@ const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: st
   const router = useRouter()
   const theme = useTheme()
   const defaultSort: Sort = {
-    key: 'MovingAvg30',
+    key: 'MovingAvg1',
     direction: 'desc',
   }
   const model = mapModel(data, defaultSort)
@@ -64,6 +65,7 @@ const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: st
               </TableRow>
               <TableRow>
                 <TableCell align='right'>days:</TableCell>
+                <SortableHeaderCell displayText='1' fieldName='MovingAvg1' sort={sort} onChangeSort={handleChangeSort} />
                 <SortableHeaderCell displayText='7' fieldName='MovingAvg7' sort={sort} onChangeSort={handleChangeSort} />
                 <SortableHeaderCell displayText='30' fieldName='MovingAvg30' sort={sort} onChangeSort={handleChangeSort} />
                 <SortableHeaderCell displayText='90' fieldName='MovingAvg90' sort={sort} onChangeSort={handleChangeSort} />
@@ -77,6 +79,12 @@ const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: st
                   <TableCell>
                     <Clickable onClicked={() => handleItemClick(item)}>{item.Name} </Clickable>
                   </TableCell>
+                  <TableCell>
+                    <Typography color={getPositiveNegativeColor(item.MovingAvg1, theme.palette.mode)}>{`${numeral(item.MovingAvg1).format(
+                      '###,###0.00',
+                    )}%`}</Typography>
+                  </TableCell>
+
                   <TableCell>
                     <Typography color={getPositiveNegativeColor(item.MovingAvg7, theme.palette.mode)}>{`${numeral(item.MovingAvg7).format(
                       '###,###0.00',
@@ -129,11 +137,12 @@ function mapModel(results: SectorIndustry[], sort: Sort) {
       Id: m.ContainerId,
       Category: m.Category,
       Name: m.Name,
-      MovingAvg7: m.MovingAvg[0].CurrentValue,
-      MovingAvg30: m.MovingAvg[1].CurrentValue,
-      MovingAvg90: m.MovingAvg[2].CurrentValue,
-      MovingAvg180: m.MovingAvg[3].CurrentValue,
-      MovingAvg365: m.MovingAvg[4].CurrentValue,
+      MovingAvg1: m.MovingAvg[0].CurrentValue,
+      MovingAvg7: m.MovingAvg[1].CurrentValue,
+      MovingAvg30: m.MovingAvg[2].CurrentValue,
+      MovingAvg90: m.MovingAvg[3].CurrentValue,
+      MovingAvg180: m.MovingAvg[4].CurrentValue,
+      MovingAvg365: m.MovingAvg[5].CurrentValue,
     }
   })
 
