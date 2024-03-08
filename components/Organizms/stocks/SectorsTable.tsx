@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import Pager from 'components/Atoms/Pager'
 import { useClientPager } from 'hooks/useClientPager'
 
-interface Model {
+interface MovingAverage {
   Id: string
   Name: string
   Category: string
@@ -43,7 +43,7 @@ const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: st
     setAllItems(newResults)
     handlePaged(1)
   }
-  const handleItemClick = async (item: Model) => {
+  const handleItemClick = async (item: MovingAverage) => {
     const sec = category === 'Sector' ? 'sectors' : 'industries'
     router.push(`/csr/stocks/${sec}/${item.Id}`)
   }
@@ -59,7 +59,7 @@ const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: st
             <TableHead>
               <TableRow>
                 <TableCell>Name</TableCell>
-                <TableCell colSpan={5} align='center'>
+                <TableCell colSpan={6} align='center'>
                   Moving Average
                 </TableCell>
               </TableRow>
@@ -132,7 +132,7 @@ const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: st
 }
 
 function mapModel(results: SectorIndustry[], sort: Sort) {
-  const result: Model[] = results.map((m) => {
+  const result: MovingAverage[] = results.map((m) => {
     return {
       Id: m.ContainerId,
       Category: m.Category,
