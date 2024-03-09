@@ -1,7 +1,6 @@
 import { Box } from '@mui/material'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
-import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuSort from 'components/Molecules/Menus/ContextMenuSort'
 import { Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockQuote } from 'lib/backend/api/models/zModels'
@@ -33,7 +32,7 @@ const SortableStockContainer = ({ data, defaultSort }: { data: StockQuote[]; def
       <ScrollIntoView enabled={true} margin={-28} />
       <Box display='flex' justifyContent={'space-between'}>
         <Box flexGrow={1}>
-          <CustomSortAlert result={sort} onModify={() => setShowSortForm(true)} />
+          <CustomSortAlert result={sort} onModify={() => setShowSortForm(true)} translateDefaultMessage />
         </Box>
       </Box>
       <PagedStockTable data={sortData()} pageSize={5} sort={sort} />

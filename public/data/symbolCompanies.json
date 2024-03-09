@@ -232,6 +232,10 @@
     "Symbol": "ACABU"
   },
   {
+    "Company": "Atlantic Coastal Acquisition Corp. II - Warrant",
+    "Symbol": "ACABW"
+  },
+  {
     "Company": "Acri Capital Acquisition Corp",
     "Symbol": "ACAC"
   },
@@ -5896,6 +5900,10 @@
     "Symbol": "BWAQR"
   },
   {
+    "Company": "Blue World Acquisition Corporation - Warrant",
+    "Symbol": "BWAQW"
+  },
+  {
     "Company": "Brainsway Ltd",
     "Symbol": "BWAY"
   },
@@ -9546,6 +9554,10 @@
   {
     "Company": "Denali Capital Acquisition Corp",
     "Symbol": "DECAU"
+  },
+  {
+    "Company": "Denali Capital Acquisition Corp. - Warrant",
+    "Symbol": "DECAW"
   },
   {
     "Company": "Deckers Outdoor Corp.",
@@ -19948,6 +19960,10 @@
     "Symbol": "IPXXU"
   },
   {
+    "Company": "Inflection Point Acquisition Corp. II - Warrant",
+    "Symbol": "IPXXW"
+  },
+  {
     "Company": "iQIYI Inc",
     "Symbol": "IQ"
   },
@@ -22752,6 +22768,10 @@
     "Symbol": "LIFW"
   },
   {
+    "Company": "MSP Recovery, Inc. - Warrant",
+    "Symbol": "LIFWW"
+  },
+  {
     "Company": "MSP Recovery Inc",
     "Symbol": "LIFWZ"
   },
@@ -25106,6 +25126,10 @@
   {
     "Company": "MultiSensor AI Holdings Inc.",
     "Symbol": "MSAI"
+  },
+  {
+    "Company": "MultiSensor AI Holdings, Inc. - Warrants",
+    "Symbol": "MSAIW"
   },
   {
     "Company": "Mesabi Trust",
@@ -29382,6 +29406,10 @@
   {
     "Company": "Patria Latin American Opportunity Acquisition Corp. - Unit",
     "Symbol": "PLAOU"
+  },
+  {
+    "Company": "Patria Latin American Opportunity Acquisition Corp. - Warrant",
+    "Symbol": "PLAOW"
   },
   {
     "Company": "Dave & Buster`s Entertainment Inc",
@@ -41594,6 +41622,10 @@
   {
     "Company": "Yotta Acquisition Corp",
     "Symbol": "YOTAR"
+  },
+  {
+    "Company": "Yotta Acquisition Corporation - Warrant",
+    "Symbol": "YOTAW"
   },
   {
     "Company": "Clear Secure Inc",

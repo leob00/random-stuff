@@ -4,7 +4,15 @@ import { SortableStockKeys } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import CheckIcon from '@mui/icons-material/Check'
 
-const CustomSortAlert = ({ result, onModify }: { result: Sort[]; onModify: () => void }) => {
+const CustomSortAlert = ({
+  result,
+  onModify,
+  translateDefaultMessage = false,
+}: {
+  result: Sort[]
+  onModify: () => void
+  translateDefaultMessage?: boolean
+}) => {
   const translateSort = (sort: Sort) => {
     let direction = `${sort.direction === 'desc' ? 'descending' : 'ascending'}`
     const key = sort.key as keyof SortableStockKeys
@@ -16,15 +24,12 @@ const CustomSortAlert = ({ result, onModify }: { result: Sort[]; onModify: () =>
       case 'MarketCap':
         resultField = 'market cap'
         break
-      case 'Company':
-      case 'Symbol':
-        direction = `${sort.direction === 'desc' ? 'Z-A' : 'A-Z'}`
-        break
       default:
         resultField = key.toLowerCase()
+        direction = direction
     }
 
-    return `sorted by: '${resultField}' (${direction})s`
+    return `sorted by: ${resultField} (${direction})`
   }
   return (
     <Box py={2}>
@@ -37,8 +42,7 @@ const CustomSortAlert = ({ result, onModify }: { result: Sort[]; onModify: () =>
           </Button>
         }
       >
-        <AlertTitle>sort enabled</AlertTitle>
-        {/* <Typography variant='body2'>{`sorted by ${translateSort(result[0])}`}</Typography> */}
+        <AlertTitle>{translateDefaultMessage ? translateSort(result[0]) : 'sorted'}</AlertTitle>
       </Alert>
     </Box>
   )
