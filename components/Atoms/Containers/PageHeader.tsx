@@ -6,13 +6,11 @@ import CenterStack from '../CenterStack'
 import HorizontalDivider from '../Dividers/HorizontalDivider'
 import CenteredTitle from '../Text/CenteredTitle'
 
-const PageHeader = ({ text, backButtonRoute }: { text: string; backButtonRoute?: string }) => {
+const PageHeader = ({ text, backButtonRoute, onBackButtonClick }: { text: string; backButtonRoute?: string; onBackButtonClick?: () => void }) => {
   const router = useRouter()
   return (
     <>
-      <Box display={'flex'}>
-        <BackButton route={backButtonRoute} />
-      </Box>
+      <Box display={'flex'}>{onBackButtonClick ? <BackButton onClicked={onBackButtonClick} /> : <BackButton route={backButtonRoute} />}</Box>
       <CenterStack>
         <CenteredTitle title={text} />
       </CenterStack>

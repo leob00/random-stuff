@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 import React from 'react'
 
-const ScrollIntoView = ({ enabled, margin }: { enabled: boolean; margin: number }) => {
+const ScrollIntoView = ({ enabled = true, margin = -14 }: { enabled?: boolean; margin?: number }) => {
   const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
   const [scrollIntoView, setScrollIntoView] = React.useState(enabled)
   const id = React.useId()

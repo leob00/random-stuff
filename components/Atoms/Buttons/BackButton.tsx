@@ -3,7 +3,7 @@ import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 import React from 'react'
 import { useRouter } from 'next/router'
 
-const BackButton = ({ route }: { route?: string }) => {
+const BackButton = ({ route, onClicked }: { route?: string; onClicked?: () => void }) => {
   const router = useRouter()
   const lastRoute = useRouteTracker().getLastRoute()
   const handleClick = () => {
@@ -18,7 +18,7 @@ const BackButton = ({ route }: { route?: string }) => {
     router.push('/')
   }
   return (
-    <Button variant='text' onClick={handleClick} color='primary'>
+    <Button variant='text' onClick={onClicked ?? handleClick} color='primary'>
       &#8592; back
     </Button>
   )

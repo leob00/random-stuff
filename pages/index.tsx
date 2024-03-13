@@ -1,15 +1,36 @@
 import HomeMenu from 'components/Organizms/HomeMenu'
 import Seo from 'components/Organizms/Seo'
-import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
+import { GetStaticProps, NextPage } from 'next'
 import React from 'react'
 
-const Home = () => {
+interface PageProps {
+  title: string
+}
+
+export const getServerSideProps: GetStaticProps<PageProps> = async (context) => {
+  return {
+    props: {
+      title: 'Home',
+    },
+  }
+}
+
+const Page: NextPage<PageProps> = ({ title }) => {
   return (
     <>
-      <Seo pageTitle='Home' />
+      <Seo pageTitle={title} />
       <HomeMenu />
     </>
   )
 }
 
-export default Home
+// const Home = () => {
+//   return (
+//     <>
+//       <Seo pageTitle='Home' />
+//       <HomeMenu />
+//     </>
+//   )
+// }
+
+export default Page

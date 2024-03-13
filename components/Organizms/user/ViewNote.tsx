@@ -1,32 +1,19 @@
 import { Box, Stack, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
-import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import RecordExpirationWarning from 'components/Atoms/Text/RecordExpirationWarning'
 import dayjs from 'dayjs'
 import React from 'react'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
-import NoteFiles from './notes/NoteFiles'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import ContextMenuDelete from 'components/Molecules/Menus/ContextMenuDelete'
 import ContextMenuClose from 'components/Molecules/Menus/ContextMenuClose'
 import { S3Object, UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
+import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 
-const ViewNote = ({
-  selectedNote,
-  onEdit,
-  onCancel,
-  onDelete,
-  onFilesMutated,
-}: {
-  selectedNote: UserNote
-  onEdit: (item: UserNote) => void
-  onCancel: () => void
-  onDelete: (note: UserNote) => void
-  onFilesMutated: (files: S3Object[]) => void
-}) => {
+const ViewNote = ({ selectedNote, onEdit, onCancel, onDelete, onFilesMutated }: { selectedNote: UserNote; onEdit: (item: UserNote) => void; onCancel: () => void; onDelete: (note: UserNote) => void; onFilesMutated: (files: S3Object[]) => void }) => {
   const [showConfirmDelete, setShowConfirmDelete] = React.useState(false)
 
   const handleYesDelete = () => {
@@ -50,7 +37,8 @@ const ViewNote = ({
   return (
     <>
       <Box sx={{ py: 1 }}>
-        <CenteredTitle title={`${selectedNote.title}`} />
+        <ScrollIntoView enabled={true} />
+        <PageHeader text={`${selectedNote.title}`} onBackButtonClick={onCancel} />
         <Box display={'flex'} justifyContent={'flex-end'}>
           <ContextMenu items={menu} />
         </Box>
@@ -67,10 +55,6 @@ const ViewNote = ({
             </Stack>
           </CenterStack>
         )}
-        {/* <HorizontalDivider />
-        <Box pt={2}>
-          <NoteFiles files={selectedNote.attachments} onMutated={onFilesMutated} />
-        </Box> */}
       </Box>
       <ConfirmDeleteDialog
         show={showConfirmDelete}
