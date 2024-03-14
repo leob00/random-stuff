@@ -12,23 +12,16 @@ import Poller from 'components/Organizms/sandbox/Poller'
 import { sleep } from 'lib/util/timers'
 import ListIteratorLayout from 'components/Organizms/sandbox/ListIteratorLayout'
 import Streamer from 'components/Organizms/sandbox/Streamer'
-import MultiLineChart from 'components/Atoms/Charts/MultiLineChart'
-import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import { useSwrHelper } from 'hooks/useSwrHelper'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import { getEconDataReportDowJones, getEconDataReportSnp } from 'lib/backend/api/qln/qlnApi'
-import dayjs from 'dayjs'
-import { CasinoBlue } from 'components/themes/mainTheme'
 import MultiLineChartDisplay from 'components/Organizms/sandbox/MultiLineChartDisplay'
 
 const Page = () => {
   const tabs: TabInfo[] = [
     {
-      title: 'Multi Line Chart',
+      title: 'Files',
       selected: true,
     },
     {
-      title: 'Files',
+      title: 'Multi Line Chart',
     },
     {
       title: 'Stream',
