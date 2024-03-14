@@ -24,6 +24,7 @@
     "@mui/x-data-grid": "^6.19.4",
     "@mui/x-date-pickers": "^5.0.9",
     "@types/formidable": "^3.4.3",
+    "@vercel/analytics": "^1.2.2",
     "apexcharts": "^3.45.2",
     "aws-amplify": "^5.3.11",
     "aws-crt": "^1.18.0",
