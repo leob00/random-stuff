@@ -7,7 +7,7 @@ interface PageProps {
   title: string
 }
 
-export const getServerSideProps: GetStaticProps<PageProps> = async (context) => {
+export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
   return {
     props: {
       title: 'Home',
