@@ -23,6 +23,7 @@ const Seo = ({ pageTitle }: { pageTitle: string }) => {
       <meta property='twitter:url' content='https://random-stuff-seven.vercel.app' />
       <meta name='twitter:title' content='Random Stuff' />
       <meta property='twitter:description' content='Find recipes, create goals and notes, track stocks and view random pictures. Happy browsing!' />
+      <meta name='twitter:image' content={`https://random-stuff-seven.vercel.app/images/logo-with-text-blue-small-social.png`} />
     </Header>
   )
 }
