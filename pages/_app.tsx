@@ -11,6 +11,7 @@ import theme from 'components/themes/mainTheme'
 import React from 'react'
 import { useSessionSettings } from 'components/Organizms/session/useSessionSettings'
 import awsconfig from '../src/aws-exports'
+import Seo from 'components/Organizms/Seo'
 
 Amplify.configure({ ...awsconfig, ssr: true })
 const getTheme = (mode: 'light' | 'dark') => {
@@ -36,8 +37,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
+      <Seo pageTitle='Random Stuff - Home' />
       <ThemeProvider theme={getTheme(colorMode)}>
         <CssBaseline />
+
         <Header onSetColorMode={handleChangeColorMode} colorTheme={colorMode} />
         <Layout>
           <Component {...pageProps} />

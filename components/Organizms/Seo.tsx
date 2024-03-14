@@ -3,7 +3,7 @@ import Header from 'next/head'
 
 const Seo = ({ pageTitle }: { pageTitle: string }) => {
   return (
-    <Header>
+    <Header key={pageTitle}>
       <title>{`Random Stuff - ${pageTitle}`}</title>
       <meta name='description' content='Find recipes, create goals and notes, track stocks and view random pictures. Happy browsing!' />
       {/* Facebook */}
