@@ -2,7 +2,6 @@ import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { CategoryType } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { orderBy } from 'lodash'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import React from 'react'
@@ -36,12 +35,16 @@ const Page = () => {
 
   const dataFn = async () => {
     const searchedStocksResult = await searchRecords(searchedStocksKey)
-    const result: StockQuote[] = []
-    orderBy(searchedStocksResult, ['last_modified'], ['desc']).forEach((item) => {
-      result.push(JSON.parse(item.data))
+    const sorted = sortArray(searchedStocksResult, ['last_modified'], ['desc'])
+    const result: StockQuote[] = sorted.map((m) => {
+      return JSON.parse(m.data)
     })
+    const stockMap = getMapFromArray(result, 'Symbol')
     const latest = await getLatestQuotes(result.map((m) => m.Symbol))
-    return latest
+    latest.forEach((item) => {
+      stockMap.set(item.Symbol, item)
+    })
+    return Array.from(stockMap.values())
   }
   const { data: searchedStocks, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   const [stockSearchResults, setStockSearchResults] = React.useState<DropdownItem[]>([])

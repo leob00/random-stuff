@@ -11,7 +11,6 @@ import CommunityStocksLayout from './CommunityStocksLayout'
 import CustomSortAlert from './CustomSortAlert'
 import StocksCustomSortForm from './StocksCustomSortForm'
 import { useRouter } from 'next/router'
-import { orderBy } from 'lodash'
 import { sortArray } from 'lib/util/collections'
 import ContextMenuRefresh from 'components/Molecules/Menus/ContextMenuRefresh'
 
@@ -21,6 +20,7 @@ const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; 
 
   const [showCustomSortForm, setShowCustomSortForm] = React.useState(false)
   const defaultSort = settings.communityStocks?.defaultSort ?? []
+  //console.log('defaultSort: ', defaultSort)
   const [sorter, setSorter] = React.useState(defaultSort)
 
   const sortedData = applySort(data, sorter)
@@ -66,7 +66,7 @@ const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; 
 
 function applySort(data: StockQuote[], sort: Sort[]) {
   if (sort.length === 0) {
-    return [...data]
+    return data
   }
   const result = sortArray(
     data,
