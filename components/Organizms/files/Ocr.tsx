@@ -11,7 +11,7 @@ const Ocr = () => {
   const textRef = React.useRef<HTMLInputElement>(null)
   const [text, setText] = React.useState('')
   const [isGenerating, setIsGenerating] = React.useState(false)
-  //const [imageBlob, setImageBlob] = React.useState<string | undefined>(undefined)
+  const [imgageBase64, setImageBase64] = React.useState<string | null>(null)
 
   const dataFn = async () => {
     //const file = await getS3File('rs-files', 'leo_bel@hotmail.com/test', 'written-text.jpg')
@@ -24,11 +24,13 @@ const Ocr = () => {
   const isWaiting = isLoading || isGenerating
 
   const handleClick = async () => {
+    //console.log(`submitting: ${data}`)
     setIsGenerating(true)
-    const fileResp = await fetch(`/api/ocr?url=${data!}`)
-    const fileBase64 = await fileResp.json()
-
-    console.log(fileBase64)
+    const fileResp = await fetch(`/api/ocr?url=${encodeURIComponent(data!)}`)
+    const result = (await fileResp.json()) as Tesseract.Page
+    setText(result.text)
+    //console.log(result)
+    //setImageBase64(fileBase64)
     setIsGenerating(false)
   }
   // console.log('data: ', data)
@@ -37,9 +39,8 @@ const Ocr = () => {
       {isWaiting && <BackdropLoader />}
       <Box py={2}>{data && <TextField InputProps={{}} inputRef={textRef} defaultValue={data} />}</Box>
       {/* {imageBlob && <img src={imageBlob} />} */}
-      <Box minHeight={200}>
-        <Typography>{text}</Typography>
-      </Box>
+
+      <Box minHeight={200}>{text && <Typography>{text}</Typography>}</Box>
       <PrimaryButton text='submit' onClick={handleClick} />
     </Box>
   )

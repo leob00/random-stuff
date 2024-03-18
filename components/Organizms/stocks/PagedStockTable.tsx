@@ -3,7 +3,6 @@ import Pager from 'components/Atoms/Pager'
 import { useClientPager } from 'hooks/useClientPager'
 import { Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { orderBy } from 'lodash'
 import React from 'react'
 import StockTable from './StockTable'
 
@@ -27,6 +26,7 @@ const PagedStockTable = ({
     if (sort) {
       reset(data)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sort])
 
   return (
