@@ -1,4 +1,4 @@
-import { StockPosition, StockTransaction, StockTransactionType } from 'lib/backend/api/aws/apiGateway'
+import { StockPosition, StockTransaction, StockTransactionType } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { sum } from 'lodash'
 
 export const usePortfolioCalculator = () => {

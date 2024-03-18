@@ -1,4 +1,4 @@
-import { putRandomStuffBatchEnc } from 'lib/backend/api/aws/apiGateway'
+import { putRandomStuffBatchEnc } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { NextRequest, NextResponse } from 'next/server'
 export const config = {

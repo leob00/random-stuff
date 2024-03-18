@@ -1,4 +1,4 @@
-import { searchRandomStuffBySecIndex } from 'lib/backend/api/aws/apiGateway'
+import { searchRandomStuffBySecIndex } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { NextRequest, NextResponse } from 'next/server'

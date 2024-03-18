@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { post, postDelete } from 'lib/backend/api/fetchFunctions'
-import { renameS3File } from 'lib/backend/csr/nextApiWrapper'
+import { getPresignedUrl, renameS3File } from 'lib/backend/csr/nextApiWrapper'
 import React from 'react'
 import { DropdownItem } from 'lib/models/dropdown'
 import { S3Controller } from 'hooks/s3/useS3Controller'
@@ -19,7 +19,6 @@ const S3FilesTable = ({
   folder,
   allFolders,
   onReloadFolder,
-  //onMutated,
   onLocalDataMutate,
 }: {
   s3Controller: S3Controller
@@ -27,7 +26,6 @@ const S3FilesTable = ({
   folder: DropdownItem
   allFolders: DropdownItem[]
   onReloadFolder: (targetFolder: DropdownItem) => Promise<void>
-  //onMutated: () => void
   onLocalDataMutate: (folder: DropdownItem, files: S3Object[]) => void
 }) => {
   const [isWaiting, setIsWaiting] = React.useState(false)
@@ -47,8 +45,7 @@ const S3FilesTable = ({
 
   const handleViewFile = async (item: S3Object) => {
     setIsWaiting(true)
-    const params = { bucket: item.bucket, fullPath: item.fullPath, expiration: 600 }
-    const url = JSON.parse(await post(`/api/s3`, params)) as string
+    const url = await getPresignedUrl(item.bucket, item.fullPath)
     setProfile({ ...authProfile!, settings: { ...authProfile!.settings, selectedFolder: folder } })
     dispatch({ type: 'update', payload: { ...uiState, signedUrl: url, selectedItem: item } })
     setIsWaiting(false)
@@ -202,7 +199,15 @@ const S3FilesTable = ({
       />
       {results.map((item) => (
         <Box key={item.fullPath} py={1}>
-          <S3FileRow isEditEmode={uiState.isEditEmode} file={item} onSelectFile={handleSelectFile} onViewFile={handleViewFile} onDelete={handleDelete} onRename={handleOnRename} onMovefile={handleMoveSingleFile} />
+          <S3FileRow
+            isEditEmode={uiState.isEditEmode}
+            file={item}
+            onSelectFile={handleSelectFile}
+            onViewFile={handleViewFile}
+            onDelete={handleDelete}
+            onRename={handleOnRename}
+            onMovefile={handleMoveSingleFile}
+          />
         </Box>
       ))}
       <S3FileCommandDialogs

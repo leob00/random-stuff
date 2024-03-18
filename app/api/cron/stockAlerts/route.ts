@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { sendEmail } from 'lib/backend/api/aws/apiGateway'
+import { sendEmail } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { buildStockAlertsForAllUsers } from 'lib/backend/alerts/stockAlertBulder'
 import { EmailMessage } from 'lib/backend/api/aws/models/apiGatewayModels'
 

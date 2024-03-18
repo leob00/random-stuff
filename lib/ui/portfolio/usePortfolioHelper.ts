@@ -1,5 +1,5 @@
 import { PositionFields } from 'components/Molecules/Forms/Stocks/AddPositionForm'
-import { StockPortfolio, StockPosition, StockPositionType, StockTransaction, StockTransactionType } from 'lib/backend/api/aws/apiGateway'
+import { StockPortfolio, StockPosition, StockPositionType, StockTransaction, StockTransactionType } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { constructDynamoKey, constructStockPositionSecondaryKey } from 'lib/backend/api/aws/util'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { getPorfolioIdFromKey, getUsernameFromKey } from 'lib/backend/api/portfolioUtil'

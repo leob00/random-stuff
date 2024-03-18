@@ -1,4 +1,4 @@
-import { getRandomStuff } from 'lib/backend/api/aws/apiGateway'
+import { getRandomStuff } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { apiConnection } from 'lib/backend/api/config'
 import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
 import type { NextApiRequest, NextApiResponse } from 'next'

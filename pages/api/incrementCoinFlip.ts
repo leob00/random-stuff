@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getCoinflipStats, putCoinflipStats } from 'lib/backend/api/aws/apiGateway'
+import { getCoinflipStats, putCoinflipStats } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { Coin } from 'components/Organizms/CoinFlipLayout'
 import { CoinFlipStats } from 'lib/backend/api/aws/models/apiGatewayModels'
 

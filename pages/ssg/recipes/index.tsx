@@ -14,7 +14,7 @@ import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Seo from 'components/Organizms/Seo'
 import BackButton from 'components/Atoms/Buttons/BackButton'
-import { getRandomStuff, putRandomStuff } from 'lib/backend/api/aws/apiGateway'
+import { getRandomStuff, putRandomStuff } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { DropdownItem } from 'lib/models/dropdown'
 import { sortArray } from 'lib/util/collections'
 dayjs.extend(relativeTime)

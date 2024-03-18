@@ -15,7 +15,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { ControlledSelect } from 'components/Molecules/Forms/ReactHookForm/ControlledSelect'
 import { ControlledFreeTextInput } from 'components/Molecules/Forms/ReactHookForm/ControlledFreeTextInput'
 import { ControlledDateTimePicker } from 'components/Molecules/Forms/ReactHookForm/ControlledDateTimePicker'
-import { StockPosition, StockTransaction } from 'lib/backend/api/aws/apiGateway'
+import { StockPosition, StockTransaction } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { TransactionFields } from './AddTransactionForm'
 import { type } from 'os'
 

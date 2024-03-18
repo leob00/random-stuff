@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { AmplifyUser } from 'lib/backend/auth/userUtil'
-import { searchRandomStuffBySecIndex } from 'lib/backend/api/aws/apiGateway'
+import { searchRandomStuffBySecIndex } from 'lib/backend/api/aws/apiGateway/apiGateway'
 
 interface PageProps {
   user: AmplifyUser

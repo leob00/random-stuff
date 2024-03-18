@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { StockPosition } from 'lib/backend/api/aws/apiGateway'
+import { StockPosition } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import React from 'react'
 
 const AddTransaction = ({ position }: { position: StockPosition }) => {

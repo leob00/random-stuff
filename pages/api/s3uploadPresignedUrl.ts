@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { getUserSSRApi } from 'lib/backend/server-side/serverSideAuth'
 import formidable from 'formidable'
 import fs from 'fs'
-import { putS3 } from 'lib/backend/api/aws/apiGateway'
+import { putS3 } from 'lib/backend/api/aws/apiGateway/apiGateway'
 export const config = { api: { bodyParser: false } }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

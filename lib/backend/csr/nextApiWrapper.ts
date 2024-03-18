@@ -2,7 +2,6 @@ import dayjs from 'dayjs'
 import { DropdownItem } from 'lib/models/dropdown'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
-import { isNull } from 'lodash'
 import { ApiError } from 'next/dist/server/api-utils'
 import {
   UserNote,
@@ -13,6 +12,8 @@ import {
   CategoryType,
   LambdaDynamoRequestBatch,
   EmailMessage,
+  S3Object,
+  Bucket,
 } from '../api/aws/models/apiGatewayModels'
 
 import {
@@ -430,4 +431,57 @@ export async function sendEmailFromClient(item: EmailMessage) {
 
 export async function renameS3File(bucket: string, oldPath: string, newPath: string): Promise<any> {
   return await postBody('/api/s3', 'PATCH', { bucket: bucket, oldPath: oldPath, newPath: newPath })
+}
+
+// S3
+export interface S3Key {
+  key: string
+  size: number
+}
+const buildFilesAndFolders = (items: S3Object[]) => {
+  const result: S3Object[] = []
+  items.forEach((item) => {
+    const isInFolder = item.fullPath.endsWith('/')
+    const fileName = !isInFolder ? item.fullPath.substring(item.fullPath.lastIndexOf('/') + 1) : item.fullPath.substring(item.fullPath.lastIndexOf('/'))
+    if (!isInFolder) {
+      result.push({ ...item, filename: fileName, isFolder: isInFolder })
+    }
+  })
+  return result
+}
+
+export async function getS3Files(bucketName: Bucket, prefix: string) {
+  const response = await get('/api/s3', { bucket: bucketName, prefix: prefix })
+  const result = JSON.parse(response) as S3Key[]
+  const files: S3Object[] = result.map((m) => {
+    return {
+      bucket: bucketName,
+      prefix: m.key,
+      fullPath: m.key,
+      filename: '',
+      isFolder: false,
+      size: m.size,
+    }
+  })
+  const results = buildFilesAndFolders(files)
+  return results
+}
+export async function getS3File(bucketName: Bucket, prefix: string, fileName: string) {
+  const results = await getS3Files(bucketName, prefix)
+  const result = results.find((m) => m.filename.toLowerCase() === fileName.toLowerCase())
+  return result
+}
+
+export async function getPresignedUrl(bucket: Bucket, fullPath: string, expiration: number = 600) {
+  const params = { bucket: bucket, fullPath: fullPath, expiration: expiration }
+  const url = JSON.parse(await post(`/api/s3`, params)) as string
+  return url
+}
+
+export async function ocrImage(url: string) {
+  const params = { url: url }
+  const resp = await get(`/api/ocr`, params)
+  console.log(resp)
+  const result = resp as Tesseract.Page
+  return result
 }

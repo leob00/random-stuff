@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getUserSSRApi } from 'lib/backend/server-side/serverSideAuth'
-import { getSesAttributes, sendSesEmailVerification } from 'lib/backend/api/aws/apiGateway'
+import { getSesAttributes, sendSesEmailVerification } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

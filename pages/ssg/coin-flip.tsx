@@ -1,7 +1,7 @@
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import CoinFlipLayout from 'components/Organizms/CoinFlipLayout'
 import Seo from 'components/Organizms/Seo'
-import { getCoinflipStats } from 'lib/backend/api/aws/apiGateway'
+import { getCoinflipStats } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { CoinFlipStats } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { GetStaticProps, NextPage } from 'next'
 import React from 'react'

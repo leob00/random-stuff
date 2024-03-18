@@ -13,12 +13,16 @@ import { sleep } from 'lib/util/timers'
 import ListIteratorLayout from 'components/Organizms/sandbox/ListIteratorLayout'
 import Streamer from 'components/Organizms/sandbox/Streamer'
 import MultiLineChartDisplay from 'components/Organizms/sandbox/MultiLineChartDisplay'
+import Ocr from 'components/Organizms/files/Ocr'
 
 const Page = () => {
   const tabs: TabInfo[] = [
     {
       title: 'Files',
       selected: true,
+    },
+    {
+      title: 'OCR',
     },
     {
       title: 'Multi Line Chart',
@@ -74,7 +78,8 @@ const Page = () => {
         <TabList tabs={tabs} onSetTab={handleSetTab} />
 
         <Box p={2}>
-          {selectedTab === 'Multi Line Chart' && <MultiLineChartDisplay />}
+          {/* {selectedTab === 'Multi Line Chart' && <MultiLineChartDisplay />} */}
+          {selectedTab === 'OCR' && <Ocr />}
           {selectedTab === 'Stream' && <Streamer />}
           {selectedTab === 'Iterator' && <ListIteratorLayout />}
           {selectedTab === 'Poller' && <Poller />}

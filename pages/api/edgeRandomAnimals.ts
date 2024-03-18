@@ -1,4 +1,4 @@
-import { getRandomStuff } from 'lib/backend/api/aws/apiGateway'
+import { getRandomStuff } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { DynamoKeys } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { NextRequest, NextResponse } from 'next/server'
 

@@ -12,7 +12,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { ControlledSelect } from 'components/Molecules/Forms/ReactHookForm/ControlledSelect'
 import { ControlledFreeTextInput } from 'components/Molecules/Forms/ReactHookForm/ControlledFreeTextInput'
 import { ControlledDateTimePicker } from 'components/Molecules/Forms/ReactHookForm/ControlledDateTimePicker'
-import { StockPosition } from 'lib/backend/api/aws/apiGateway'
+import { StockPosition } from 'lib/backend/api/aws/apiGateway/apiGateway'
 
 const checkPrice = (val: any) => {
   if (isNaN(val)) {

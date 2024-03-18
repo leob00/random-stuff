@@ -1,4 +1,4 @@
-import { deleteRandomStuff } from 'lib/backend/api/aws/apiGateway'
+import { deleteRandomStuff } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { NextRequest, NextResponse } from 'next/server'
 interface Request {
   key: string

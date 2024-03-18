@@ -2,7 +2,7 @@ import { CatResponse, DogResponse } from 'lib/repo'
 import fs from 'fs'
 import jsonData from '../../../public/data/randomStuff.json'
 import { cloneDeep } from 'lodash'
-import { putAnimals } from './aws/apiGateway'
+import { putAnimals } from './aws/apiGateway/apiGateway'
 import { BasicArticle, DynamoKeys, RandomStuffData } from './aws/models/apiGatewayModels'
 
 export async function getRandomDog() {

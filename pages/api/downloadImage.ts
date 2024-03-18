@@ -5,6 +5,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   //req.query('url')
   const id = decodeURIComponent(req.query['url'] as string)
   const resp = await fetch(id)
+
   if (resp.status !== 200) {
     return res.status(200).json(null)
   }
