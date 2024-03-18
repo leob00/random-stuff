@@ -14,6 +14,7 @@ import ListIteratorLayout from 'components/Organizms/sandbox/ListIteratorLayout'
 import Streamer from 'components/Organizms/sandbox/Streamer'
 import MultiLineChartDisplay from 'components/Organizms/sandbox/MultiLineChartDisplay'
 import Ocr from 'components/Organizms/files/Ocr'
+import OcrLocal from 'components/Organizms/files/OcrLocal'
 
 const Page = () => {
   const tabs: TabInfo[] = [
@@ -79,7 +80,7 @@ const Page = () => {
 
         <Box p={2}>
           {/* {selectedTab === 'Multi Line Chart' && <MultiLineChartDisplay />} */}
-          {selectedTab === 'OCR' && <Ocr />}
+          {selectedTab === 'OCR' && <OcrLocal />}
           {selectedTab === 'Stream' && <Streamer />}
           {selectedTab === 'Iterator' && <ListIteratorLayout />}
           {selectedTab === 'Poller' && <Poller />}

@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
-import S3FileUploadForm, { allowed, VisuallyHiddenInput } from 'components/Molecules/Forms/S3FileUploadForm'
+import { allowed, VisuallyHiddenInput } from 'components/Molecules/Forms/S3FileUploadForm'
 import React from 'react'
 import S3UploadInput from '../files/S3UploadInput'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'

@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, Stack, TextareaAutosize, TextField, Typography } from '@mui/material'
+import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import { UserTask } from 'lib/models/userTasks'
 import React from 'react'
 import DateAndTimePicker from 'components/Atoms/Inputs/DateAndTimePicker'
