@@ -30,9 +30,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const filterRecords = (data: StockAlertSubscriptionWithMessage): StockAlertSubscriptionWithMessage => {
     const result = { ...data }
     if (searchFilter.length > 0) {
-      result.subscriptions = result.subscriptions.filter(
-        (m) => m.symbol.toLowerCase().startsWith(searchFilter.toLowerCase()) || m.company.toLowerCase().startsWith(searchFilter.toLowerCase()),
-      )
+      result.subscriptions = result.subscriptions.filter((m) => m.symbol.toLowerCase().startsWith(searchFilter.toLowerCase()) || m.company.toLowerCase().startsWith(searchFilter.toLowerCase()))
     }
     return result
   }
@@ -177,7 +175,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           </TableContainer>
         </>
       )}
-      {successMesssage && <SnackbarSuccess show={true} text={successMesssage} duration={3000} />}
+      {successMesssage && <SnackbarSuccess show={!!successMesssage} text={successMesssage} duration={3000} onClose={() => setSuccessMessage(null)} />}
       <FormDialog title='add alert' show={showAddAlert} onCancel={handleHideAddAlert}>
         <StocksLookup onFound={handleQuoteLoaded} />
       </FormDialog>

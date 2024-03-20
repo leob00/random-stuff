@@ -35,12 +35,7 @@ export interface StockLayoutModel {
 }
 
 export const searchWithinResults = (quotes: StockQuote[], text: string) => {
-  const result = quotes.filter(
-    (o) =>
-      o.Symbol.toLowerCase().includes(text.toLowerCase()) ||
-      o.Company.toLowerCase().startsWith(text.toLowerCase()) ||
-      (o.GroupName && o.GroupName.toLowerCase().includes(text.toLowerCase())),
-  )
+  const result = quotes.filter((o) => o.Symbol.toLowerCase().includes(text.toLowerCase()) || o.Company.toLowerCase().startsWith(text.toLowerCase()) || (o.GroupName && o.GroupName.toLowerCase().includes(text.toLowerCase())))
   return result
 }
 
@@ -216,16 +211,18 @@ const StockSearchLayout = () => {
 
   return (
     <>
-      {model.successMesage && <SnackbarSuccess show={true} text={model.successMesage} />}
+      {model.successMesage && (
+        <SnackbarSuccess
+          show={!!model.successMesage}
+          text={model.successMesage}
+          onClose={() => {
+            setModel({ ...model, successMesage: null })
+          }}
+        />
+      )}
       <Box py={2}>
         <CenterStack>
-          <StocksAutoComplete
-            placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}
-            onChanged={handleSearched}
-            searchResults={model.autoCompleteResults}
-            debounceWaitMilliseconds={500}
-            onSelected={handleSelectQuote}
-          />
+          <StocksAutoComplete placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`} onChanged={handleSearched} searchResults={model.autoCompleteResults} debounceWaitMilliseconds={500} onSelected={handleSelectQuote} />
         </CenterStack>
       </Box>
       {model.quoteToAdd ? (
@@ -241,26 +238,13 @@ const StockSearchLayout = () => {
             <Box py={2}>
               {model.editList && model.stockList.length > 0 ? (
                 <>
-                  <EditList
-                    username={model.username ?? null}
-                    data={model.stockList}
-                    onCancelEdit={() => setModel({ ...model, editList: false })}
-                    onPushChanges={handleSaveChanges}
-                    onReorder={handleReorderList}
-                    state={model}
-                    setState={setModel}
-                  />
+                  <EditList username={model.username ?? null} data={model.stockList} onCancelEdit={() => setModel({ ...model, editList: false })} onPushChanges={handleSaveChanges} onReorder={handleReorderList} state={model} setState={setModel} />
                 </>
               ) : (
                 <>
                   {model.showAsGroup ? (
                     <Box>
-                      <GroupedStocksLayout
-                        userProfile={userController.authProfile}
-                        stockList={model.stockList}
-                        onEdit={() => setModel({ ...model, editList: true })}
-                        onShowAsGroup={() => handleShowAsGroup(false)}
-                      />
+                      <GroupedStocksLayout userProfile={userController.authProfile} stockList={model.stockList} onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={() => handleShowAsGroup(false)} />
                     </Box>
                   ) : (
                     <Box>

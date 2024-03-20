@@ -69,16 +69,12 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
       <>
         {isLoading && <BackdropLoader />}
         {isValidating && <BackdropLoader />}
-        <SnackbarSuccess show={showPinChangedMessage} text={'Your pin has been updated!'} />
+        <SnackbarSuccess show={showPinChangedMessage} text={'Your pin has been updated!'} onClose={() => setShowPinChangedMessage(false)} />
         <CenteredHeader title={`Profile`} />
         <HorizontalDivider />
         {validatedProfile && (
           <>
-            <CenterStack sx={{ py: 2 }}>
-              {!showPasswordEntry && !showPinEntry && (
-                <PrimaryButton text={`${validatedProfile.pin ? 'reset pin' : 'create a pin'}`} onClicked={handleChangePinClick} />
-              )}
-            </CenterStack>
+            <CenterStack sx={{ py: 2 }}>{!showPasswordEntry && !showPinEntry && <PrimaryButton text={`${validatedProfile.pin ? 'reset pin' : 'create a pin'}`} onClicked={handleChangePinClick} />}</CenterStack>
             <Box py={4}>
               <CenterStack>Settings</CenterStack>
               {!validatedProfile.emailVerified ? (
@@ -91,14 +87,7 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                 </CenterStack>
               )}
             </Box>
-            <ReEnterPasswordDialog
-              show={showPasswordEntry}
-              title='Login'
-              text='Please enter your password so you can set your pin.'
-              userProfile={validatedProfile}
-              onConfirm={handlePasswordValidated}
-              onCancel={handleCancelChangePin}
-            />
+            <ReEnterPasswordDialog show={showPasswordEntry} title='Login' text='Please enter your password so you can set your pin.' userProfile={validatedProfile} onConfirm={handlePasswordValidated} onCancel={handleCancelChangePin} />
             <CreatePinDialog show={showPinEntry} userProfile={validatedProfile} onCancel={handleCancelChangePin} onConfirm={handlePinChanged} />
           </>
         )}

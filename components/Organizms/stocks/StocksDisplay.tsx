@@ -151,7 +151,15 @@ const StocksDisplay = ({ userProfile, result, onMutated, onCustomSortUpdated }: 
   return (
     <>
       <ScrollIntoView enabled={true} margin={-13} />
-      {model.successMesage && <SnackbarSuccess show={true} text={model.successMesage} />}
+      {model.successMesage && (
+        <SnackbarSuccess
+          show={!!model.successMesage}
+          text={model.successMesage}
+          onClose={() => {
+            setModel({ ...model, successMesage: null })
+          }}
+        />
+      )}
       <Box py={2}>
         <StocksLookup onFound={handleSelectQuote} />
       </Box>

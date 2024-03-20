@@ -37,7 +37,7 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
   const mutateKey = `${mutateKeyBase}${selectedFolder.value}`
   const s3Controller = useS3Controller()
   const { setProfile } = useUserController()
-  const { uiState } = s3Controller
+  const { uiState, dispatch } = s3Controller
 
   const dataFn = async () => {
     const result = await getS3Files(bucketName, selectedFolder.value)
@@ -100,40 +100,13 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
       {isLoading && <BackdropLoader />}
       {isWaiting && <BackdropLoader />}
       {error && <ErrorMessage text={'Opps! An error has occured. Please try refreshing the page.'} />}
-      {uiState.snackbarSuccessMessage && !isLoading && (
-        <Box>
-          <SnackbarSuccess show={true} text={uiState.snackbarSuccessMessage} duration={3000} />
-        </Box>
-      )}
 
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
         <S3FolderDropDown folders={allFolders} folder={selectedFolder} onFolderSelected={handleFolderSelected} />
-        {data && (
-          <FolderActions
-            folders={allFolders}
-            onFolderAdded={handleFolderAdd}
-            items={data}
-            selectedFolder={selectedFolder}
-            onFolderDeleted={handleFolderDelete}
-            onShowTopUploadForm={(show: boolean) => setShowTopUploadForm(show)}
-          />
-        )}
+        {data && <FolderActions folders={allFolders} onFolderAdded={handleFolderAdd} items={data} selectedFolder={selectedFolder} onFolderDeleted={handleFolderDelete} onShowTopUploadForm={(show: boolean) => setShowTopUploadForm(show)} />}
       </Box>
-      {showTopUploadForm && (
-        <Box pt={2}>{data && <S3FileUploadForm files={data} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />}</Box>
-      )}
-      <Box py={3}>
-        {data && (
-          <S3FilesTable
-            s3Controller={s3Controller}
-            folder={selectedFolder}
-            allFolders={allFolders}
-            data={data}
-            onReloadFolder={handleReloadFolder}
-            onLocalDataMutate={handleFilesMutated}
-          />
-        )}
-      </Box>
+      {showTopUploadForm && <Box pt={2}>{data && <S3FileUploadForm files={data} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />}</Box>}
+      <Box py={3}>{data && <S3FilesTable s3Controller={s3Controller} folder={selectedFolder} allFolders={allFolders} data={data} onReloadFolder={handleReloadFolder} onLocalDataMutate={handleFilesMutated} />}</Box>
 
       {!isLoading && !isWaiting && data && data.length === 0 && (
         <>
@@ -143,11 +116,7 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
           </CenterStack>
         </>
       )}
-      <Box pt={2}>
-        {data && !showTopUploadForm && !isLoading && (
-          <S3FileUploadForm files={data} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />
-        )}
-      </Box>
+      <Box pt={2}>{data && !showTopUploadForm && !isLoading && <S3FileUploadForm files={data} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />}</Box>
     </>
   )
 }

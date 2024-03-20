@@ -1,5 +1,5 @@
 import { Alert, Snackbar } from '@mui/material'
-import { CasinoBlue, CasinoBlueTransparent, CasinoGreen, CasinoRedTransparent, CasinoWhiteTransparent } from 'components/themes/mainTheme'
+import { CasinoRedTransparent } from 'components/themes/mainTheme'
 import React from 'react'
 
 const SnackbarError = ({ show, text, duration = 3000 }: { show: boolean; text: string; duration?: number }) => {

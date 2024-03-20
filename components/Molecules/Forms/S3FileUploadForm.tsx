@@ -23,6 +23,7 @@ export const VisuallyHiddenInput = styled('input')({
   whiteSpace: 'nowrap',
   width: 1,
 })
+
 export const mediaTypes = [
   'audio/mp3',
   'application/pdf',
@@ -35,6 +36,7 @@ export const mediaTypes = [
   'image/avif',
   'image/gif',
   'image/jpeg',
+  'image/png',
   'image/svg+xml',
   'image/webp',
   'video/mp4',

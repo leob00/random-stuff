@@ -13,13 +13,6 @@ const CopyableText = ({ label, value, showValue = false }: { label: string; valu
     setShowCopyConfirm(true)
   }
 
-  React.useEffect(() => {
-    if (showCopyConfirm) {
-      setTimeout(() => {
-        setShowCopyConfirm(false)
-      }, 2000)
-    }
-  }, [showCopyConfirm])
   return (
     <>
       <Typography pr={2} color={textColor}>{`${label}`}</Typography>
@@ -27,7 +20,7 @@ const CopyableText = ({ label, value, showValue = false }: { label: string; valu
       <IconButton size='small' onClick={() => handleCopyItem(value)}>
         <ContentCopyIcon fontSize='small' color='primary' />
       </IconButton>
-      {showCopyConfirm && <SnackbarSuccess show={true} text={'copied!'} />}
+      {showCopyConfirm && <SnackbarSuccess show={showCopyConfirm} text={'copied!'} onClose={() => setShowCopyConfirm(false)} />}
     </>
   )
 }

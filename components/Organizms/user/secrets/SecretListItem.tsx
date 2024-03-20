@@ -53,8 +53,7 @@ const SecretListItem = ({ encKey, viewModel, onEdit }: { encKey: string; viewMod
                   </IconButton>
                 </InputAdornment>
               ),
-            }}
-          ></TextField>
+            }}></TextField>
         </Stack>
         <Stack>
           <Stack pl={2}>
@@ -64,7 +63,18 @@ const SecretListItem = ({ encKey, viewModel, onEdit }: { encKey: string; viewMod
           </Stack>
         </Stack>
       </Stack>
-      <Box>{model.copied && <SnackbarSuccess show={model.copied} text={'copied!'} duration={2500} />}</Box>
+      <Box>
+        {model.copied && (
+          <SnackbarSuccess
+            show={model.copied}
+            text={'copied!'}
+            duration={2500}
+            onClose={() => {
+              setModel({ ...model, copied: false })
+            }}
+          />
+        )}
+      </Box>
     </>
   )
 }

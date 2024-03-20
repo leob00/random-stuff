@@ -57,7 +57,7 @@ const QlnUsernameLoginForm = ({ onSuccess }: { onSuccess: (claims: Claim[]) => v
       </FormDialog>
       {showLoginSuccess && (
         <>
-          <SnackbarSuccess show={showLoginSuccess} text={'Login Successful'} />
+          <SnackbarSuccess show={showLoginSuccess} text={'Login Successful'} onClose={() => setShowLoginSuccess(false)} />
         </>
       )}
     </>
