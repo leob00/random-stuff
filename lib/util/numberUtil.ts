@@ -46,8 +46,8 @@ export function getFileSizeText(val: number) {
 
 export function getImageSize(fileSize: number) {
   const result: ImageSize = {
-    height: 400,
     width: 350,
+    height: 400,
   }
   if (fileSize > 35000) {
     return result

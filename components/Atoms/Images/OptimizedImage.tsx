@@ -18,59 +18,36 @@ const OptimizedImage = ({
   priority?: boolean
   imageSize?: ImageSize
 }) => {
-  const handleLoaded = () => {
-    console.log('height: ', imageRef.current?.naturalHeight)
-    console.log('width: ', imageRef.current?.naturalWidth)
-    if (imageRef.current) {
-      setSize({ height: imageRef.current!.naturalHeight, width: imageRef.current!.naturalHeight })
-    }
-    if (onLoaded) {
-      onLoaded()
+  //const imageRef = React.useRef<HTMLImageElement | null>(null)
+  const hiddenImageRef = React.useRef<HTMLImageElement | null>(null)
+  const [calcSize, setCalcSize] = React.useState<ImageSize | undefined>(undefined)
+
+  const handleLoaded = () => {}
+  const handleHiddenImageLoaded = () => {
+    if (hiddenImageRef.current) {
+      const newSize: ImageSize = {
+        height: hiddenImageRef.current.naturalHeight,
+        width: hiddenImageRef.current.naturalWidth,
+      }
+      setCalcSize(newSize)
+      //console.log('newSize: ', newSize)
     }
   }
-  const imageRef = React.useRef<HTMLImageElement | null>(null)
-  const [size, setSize] = React.useState(imageSize)
+  React.useEffect(() => {
+    if (calcSize) {
+      setCalcSize(undefined)
+    }
+  }, [url])
 
   return (
     <>
       <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
-        {imageSize ? (
-          <Box sx={{ position: 'relative', padding: '5px', my: 1, borderRadius: '16px' }} width={imageSize.width} height={imageSize.height}>
-            <NImage
-              ref={imageRef}
-              style={style ? style : { borderRadius: '16px' }}
-              src={url}
-              alt={title}
-              placeholder='blur'
-              quality={100}
-              blurDataURL={url}
-              onLoad={handleLoaded}
-              priority={priority}
-              fill
-              //sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-            />
-          </Box>
-        ) : (
-          <Box
-            sx={{ position: 'relative', padding: '5px', my: 1, borderRadius: '16px' }}
-            width={{ xs: 275, lg: imageRef.current?.naturalWidth }}
-            height={{ xs: 500, lg: imageRef.current?.naturalHeight }}
-          >
-            <NImage
-              ref={imageRef}
-              style={style ? style : { borderRadius: '16px' }}
-              src={url}
-              alt={title}
-              placeholder='blur'
-              quality={100}
-              blurDataURL={url}
-              onLoad={handleLoaded}
-              //priority={priority}
-              fill
-              // sizes='(min-width: 66em) 33vw,(min-width: 44em) 50vw,100vw'
-            />
-          </Box>
-        )}
+        <Box sx={{ display: { xs: 'none', sm: 'none', md: 'none', lg: 'unset' } }}>
+          <img ref={hiddenImageRef} src={url} alt={title} onLoad={handleHiddenImageLoaded} style={{ borderRadius: '16px' }} />
+        </Box>
+        <Box sx={{ display: { xs: 'unset', sm: 'unset', md: 'unset', lg: 'none' } }}>
+          <img ref={hiddenImageRef} src={url} width={350} height={400} alt={title} onLoad={handleHiddenImageLoaded} style={{ borderRadius: '16px' }} />
+        </Box>
       </Stack>
     </>
   )

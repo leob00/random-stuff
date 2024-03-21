@@ -8,8 +8,8 @@ import React from 'react'
 const Page = () => {
   return (
     <>
-      <Seo pageTitle='Convert image to text' />
-      <PageHeader text='Convert image to text' backButtonRoute='/' />
+      <Seo pageTitle='Extract text from image' />
+      <PageHeader text='Extract text from image' backButtonRoute='/' />
       <ResponsiveContainer>
         <Box py={2}>
           <OcrLocal />

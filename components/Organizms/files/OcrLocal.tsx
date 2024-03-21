@@ -21,7 +21,7 @@ const OcrLocal = () => {
 
   const handleSelectFile = async (file: File) => {
     setSelectedFile(file)
-    console.log(file)
+    //console.log(file)
   }
 
   const handleExtractText = async () => {

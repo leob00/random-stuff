@@ -100,8 +100,8 @@ export function siteMap() {
           route: '/csr/calculator',
         },
         {
-          name: 'convert image to text',
-          route: '/csr/files/convert-image-to-text',
+          name: 'extract text from image',
+          route: '/csr/files/extract-text-from-image',
         },
       ],
     },
