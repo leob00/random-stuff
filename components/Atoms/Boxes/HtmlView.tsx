@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { useMediaQuery, Box, useTheme } from '@mui/material'
-import { CasinoBlue, DarkBlue, VeryLightBlue } from 'components/themes/mainTheme'
+import { CasinoBlue, DarkBlue } from 'components/themes/mainTheme'
 const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'left' | 'center' | 'right' }) => {
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))

@@ -1,3 +1,5 @@
+import numeral from 'numeral'
+
 export function getRandomInteger(start: number, end: number) {
   return Math.floor(Math.random() * (end - start) + start)
 }
@@ -32,4 +34,11 @@ export function calculateStockMovePercent(price: number, change: number) {
   const result = calculatePercent(change, startPrice)
 
   return result
+}
+
+export function getFileSizeText(val: number) {
+  if (val / 1024 > 1000) {
+    return `${numeral(val / 1024 / 1024).format('###,###.0')} MB`
+  }
+  return `${numeral(val / 1024).format('###,###.0')} KB`
 }

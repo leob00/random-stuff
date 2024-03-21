@@ -4,11 +4,15 @@ import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import { supportedOcrImageTypes } from 'lib/backend/files/fileTypes'
 import React from 'react'
 import { createWorker } from 'tesseract.js'
+import ImagePreview from 'components/Atoms/Images/ImagePreview'
+import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
+import { getFileSizeText } from 'lib/util/numberUtil'
+import CopyableText from 'components/Atoms/Text/CopyableText'
 
 const OcrLocal = () => {
-  const textRef = React.useRef<HTMLInputElement>(null)
   const [text, setText] = React.useState<string | null>(null)
   const [selectedFile, setSelectedFile] = React.useState<File | undefined>(undefined)
   const [progress, setProgress] = React.useState(0)
@@ -29,14 +33,12 @@ const OcrLocal = () => {
           setProgress(m.progress * 100)
         },
         errorHandler: (m) => {
-          console.log(m)
+          console.error(m)
           setIsLoading(false)
+          setShowSuccess(true)
         },
       })
-      const file = selectedFile!
-
-      const ext = file.name.substring(file.name.lastIndexOf('.') + 1)
-      const result = await worker.recognize(URL.createObjectURL(file))
+      const result = await worker.recognize(URL.createObjectURL(selectedFile!))
       setText(result.data.text)
       await worker.terminate()
       setIsLoading(false)
@@ -51,15 +53,14 @@ const OcrLocal = () => {
     <Box>
       {isLoading && <BackdropLoader />}
       <CenterStack>
-        <Typography>Select an image file to process.</Typography>
+        <Typography>Select an image to process.</Typography>
       </CenterStack>
-      <FileUploadButton file={selectedFile} onFileSelected={handleSelectFile} />
+      <FileUploadButton file={selectedFile} onFileSelected={handleSelectFile} accept={supportedOcrImageTypes} />
       {selectedFile && (
         <Box>
-          <CenterStack sx={{ py: 2 }}>
-            <Box>
-              <img src={URL.createObjectURL(selectedFile)} alt='preview image' />
-            </Box>
+          <ImagePreview url={URL.createObjectURL(selectedFile)} />
+          <CenterStack>
+            <ReadOnlyField label='size' val={getFileSizeText(selectedFile.size)} />
           </CenterStack>
           <CenterStack sx={{ py: 2 }}>
             <SuccessButton text='extract text' onClick={handleExtractText} />
@@ -67,6 +68,11 @@ const OcrLocal = () => {
         </Box>
       )}
       <Box minHeight={50}>{progress > 0 && <LinearProgress variant='determinate' value={progress} color='info' />}</Box>
+      {text && text.length > 0 && (
+        <Box>
+          <CopyableText label='' value={text} showValue={false} />
+        </Box>
+      )}
       <TextField label='' placeholder='text...' multiline rows={10} sx={{ width: '100%' }} value={text ?? ''} inputProps={{}} />
       <SnackbarSuccess show={showSuccess} text={'text extracted!'} onClose={() => setShowSuccess(false)} />
     </Box>

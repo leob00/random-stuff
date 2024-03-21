@@ -18,6 +18,8 @@ type SuportedFileTypes =
   | 'video/mp4'
   | 'video/mpeg'
 
+const imageTypes: ImageTypes[] = ['image/avif', 'image/gif', 'image/jpeg', 'image/png', 'image/svg+xml', 'image/webp']
+
 const supportedFileTypes: SuportedFileTypes[] = [
   'audio/mp3',
   'application/pdf',
@@ -47,4 +49,10 @@ type NonPreviewTypes =
   | 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
   | 'application/zip'
 
-export const allSuppoertedFileTypes = supportedFileTypes.join()
+//type OcrImageTypes = keyof Omit<keyof ImageTypes, 'image/svg+xml'>
+
+//const ocrable: OcrImageTypes[] = ['image/png']
+
+export const allSupportedFileTypes = supportedFileTypes.join()
+export const supportedImageTypes = imageTypes.join()
+export const supportedOcrImageTypes = imageTypes.filter((m) => m !== 'image/svg+xml').join()

@@ -11,6 +11,7 @@ import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { renameS3File } from 'lib/backend/csr/nextApiWrapper'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import FileUploadButton from 'components/Atoms/Buttons/FileUploadButton'
+import { allSupportedFileTypes } from 'lib/backend/files/fileTypes'
 
 export const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -132,7 +133,7 @@ const S3FileUploadForm = ({
       <form method='post' encType='multipart/form-data' onSubmit={handleSubmit}>
         <>
           <Box flexDirection={'column'} gap={1} display={'flex'} alignItems={'center'} py={2}>
-            <FileUploadButton file={file} onFileSelected={handleFileSelected} disabled={isWaiting} />
+            <FileUploadButton file={file} onFileSelected={handleFileSelected} disabled={isWaiting} accept={allSupportedFileTypes} />
           </Box>
           {file && (
             <>
