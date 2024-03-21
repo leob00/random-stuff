@@ -56,3 +56,8 @@ type NonPreviewTypes =
 export const allSupportedFileTypes = supportedFileTypes.join()
 export const supportedImageTypes = imageTypes.join()
 export const supportedOcrImageTypes = imageTypes.filter((m) => m !== 'image/svg+xml').join()
+
+export interface ImageSize {
+  height: number
+  width: number
+}

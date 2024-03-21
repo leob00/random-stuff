@@ -1,3 +1,4 @@
+import { ImageSize } from 'lib/backend/files/fileTypes'
 import numeral from 'numeral'
 
 export function getRandomInteger(start: number, end: number) {
@@ -41,4 +42,16 @@ export function getFileSizeText(val: number) {
     return `${numeral(val / 1024 / 1024).format('###,###.0')} MB`
   }
   return `${numeral(val / 1024).format('###,###.0')} KB`
+}
+
+export function getImageSize(fileSize: number) {
+  const result: ImageSize = {
+    height: 400,
+    width: 350,
+  }
+  if (fileSize > 35000) {
+    return result
+  } else {
+    return undefined
+  }
 }

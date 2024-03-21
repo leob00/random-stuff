@@ -9,7 +9,7 @@ import React from 'react'
 import { createWorker } from 'tesseract.js'
 import ImagePreview from 'components/Atoms/Images/ImagePreview'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
-import { getFileSizeText } from 'lib/util/numberUtil'
+import { getFileSizeText, getImageSize } from 'lib/util/numberUtil'
 import CopyableText from 'components/Atoms/Text/CopyableText'
 
 const OcrLocal = () => {
@@ -21,6 +21,7 @@ const OcrLocal = () => {
 
   const handleSelectFile = async (file: File) => {
     setSelectedFile(file)
+    console.log(file)
   }
 
   const handleExtractText = async () => {
@@ -58,7 +59,7 @@ const OcrLocal = () => {
       <FileUploadButton file={selectedFile} onFileSelected={handleSelectFile} accept={supportedOcrImageTypes} />
       {selectedFile && (
         <Box>
-          <ImagePreview url={URL.createObjectURL(selectedFile)} />
+          <ImagePreview url={URL.createObjectURL(selectedFile)} imageSize={getImageSize(selectedFile.size)} />
           <CenterStack>
             <ReadOnlyField label='size' val={getFileSizeText(selectedFile.size)} />
           </CenterStack>
@@ -69,7 +70,8 @@ const OcrLocal = () => {
       )}
       <Box minHeight={50}>{progress > 0 && <LinearProgress variant='determinate' value={progress} color='info' />}</Box>
       {text && text.length > 0 && (
-        <Box>
+        <Box display={'flex'} justifyContent={'flex-end'} alignItems={'center'}>
+          <Typography variant='body2'>copy:</Typography>
           <CopyableText label='' value={text} showValue={false} />
         </Box>
       )}

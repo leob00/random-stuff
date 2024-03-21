@@ -99,6 +99,10 @@ export function siteMap() {
           name: 'calculator',
           route: '/csr/calculator',
         },
+        {
+          name: 'convert image to text',
+          route: '/csr/files/convert-image-to-text',
+        },
       ],
     },
     {
