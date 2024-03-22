@@ -2,23 +2,10 @@ import { Authenticator } from '@aws-amplify/ui-react'
 import React from 'react'
 import styled from '@emotion/styled'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
-import { useUserController } from 'hooks/userController'
-import PleaseLogin from 'components/Molecules/PleaseLogin'
-
+type AuthMode = 'signIn' | 'signUp' | 'resetPassword'
 const LoginLayout = () => {
-  const StyledDiv = styled.div`
-    background-color: transparent;
-    & > amplify-flex amplify-tabs {
-      color: hotpink;
-    }
-  `
+  const [mode, setMode] = React.useState<AuthMode>('signIn')
 
-  return (
-    <ResponsiveContainer>
-      <StyledDiv>
-        <Authenticator variation='modal' initialState={'signIn'} />
-      </StyledDiv>
-    </ResponsiveContainer>
-  )
+  return <Authenticator variation='default' initialState={mode} />
 }
 export default LoginLayout

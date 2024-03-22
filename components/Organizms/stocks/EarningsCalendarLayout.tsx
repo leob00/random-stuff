@@ -1,6 +1,5 @@
 import { Box } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import LargeGridSkeleton from 'components/Atoms/Skeletons/LargeGridSkeleton'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import { apiConnection } from 'lib/backend/api/config'
 import { get } from 'lib/backend/api/fetchFunctions'
