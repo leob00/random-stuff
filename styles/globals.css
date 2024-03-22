@@ -149,7 +149,7 @@ div [role='tablist'] {
   background-color: #0a214c !important;
 }
 div [role='tablist'] button {
-  color: #0a214c !important;
+  color: #b5d7fcdc !important;
   font-weight: 300 !important;
   font-size: 18px !important;
 }
@@ -157,7 +157,7 @@ div [role='tablist'] [aria-selected='true'] {
   color: #b5d7fcdc !important;
 }
 div [role='tablist'] [aria-selected='false'] {
-  color: #0a214c !important;
+  color: #b5d7fcdc !important;
 }
 div [role='tablist'] .amplify-tabs {
   border: none !important;
