@@ -10,9 +10,6 @@ const Page = () => {
   return (
     <>
       <ResponsiveContainer>
-        <CenterStack sx={{ py: 4 }}>
-          <Typography variant='body2'>please login</Typography>
-        </CenterStack>
         <LoginLayout />
       </ResponsiveContainer>
     </>
