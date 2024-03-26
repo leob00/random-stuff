@@ -8,10 +8,12 @@ import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import { AmplifyUser, getRolesFromAmplifyUser, getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
-import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/router'
 import React from 'react'
 import HeaderMenu from './Molecules/Menus/HeaderMenu'
 import { useRouteTracker } from './Organizms/session/useRouteTracker'
+import { useSessionSettings } from './Organizms/session/useSessionSettings'
 
 export type HubPayload = {
   event: string
@@ -21,10 +23,12 @@ export type HubPayload = {
 
 const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; onChangePalette: () => void }) => {
   const router = useRouter()
-  const [calledPush, setCalledPush] = React.useState(false)
+  //const [calledPush, setCalledPush] = React.useState(false)
   const { ticket, setTicket, setProfile } = useUserController()
   const { clearRoutes, getLastRoute } = useRouteTracker()
+
   const { claims, saveClaims } = useSessionPersistentStore()
+  const searchParams = useSearchParams()
   const signOut = async () => {
     try {
       await Auth.signOut({ global: false })
@@ -34,24 +38,26 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
   }
 
   const handleNavigationEvent = (payload: HubPayload) => {
-    //console.log('last path: ', payload.data.lastPath)
+    console.log('last path: ', payload.data.lastPath)
     // console.log('payload data: ', payload.data)
   }
 
   const handleAuthEvent = async (payload: HubPayload) => {
     const newClaims = claims.filter((m) => m.type !== 'rs')
-    console.log(payload)
+    //console.log(payload)
     switch (payload.event) {
       case 'signOut':
-        console.log('signing out')
+        //console.log('signing out')
         await setTicket(null)
+        const lastRoute = getLastRoute()
         await setProfile(null)
         clearRoutes()
         saveClaims([])
-        setCalledPush(false)
-        if (!calledPush) {
-          router.push(`/login`)
-        }
+        router.push(`/signOut?ret=${encodeURIComponent(lastRoute)}`)
+        // setCalledPush(false)
+        // if (!calledPush) {
+        //   router.push(`/login`)
+        // }
         break
       case 'signIn':
         if (ticket) {
@@ -89,14 +95,22 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
           })
         }
         saveClaims(newClaims)
-        if (!calledPush) {
-          const lastPath = getLastRoute()
-          if (lastPath.length === 0) {
-            router.push('/')
-            return
+        const currentRoute = window.URL.toString()
+        if (currentRoute.includes('signOut')) {
+          const ret = searchParams?.get('ret') ?? ''
+          if (ret.length > 0) {
+            router.push(ret)
+          } else {
+            const lastPath = getLastRoute()
+            if (lastPath.length === 0) {
+              router.push('/')
+              return
+            }
+            console.log('pushing to last path')
+            router.push(lastPath)
           }
-          console.log('pushing to last path')
-          router.push(lastPath)
+        } else {
+          router.push('/')
         }
         break
       case 'signUp':

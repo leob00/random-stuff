@@ -1,4 +1,4 @@
-type siteCategories = 'Markets' | 'Personal' | 'Admin' | 'Games' | 'General Interest' | 'Utilities' | 'Pictures' | 'Economy'
+type siteCategories = 'Markets' | 'Personal' | 'Admin' | 'Games' | 'General Interest' | 'Utilities' | 'Pictures' | 'Economy' | 'Miscellaneous'
 type path = {
   name: string
   route: string
@@ -115,6 +115,15 @@ export function siteMap() {
         {
           name: 'cats',
           route: '/ssg/cats',
+        },
+      ],
+    },
+    {
+      category: 'Miscellaneous',
+      paths: [
+        {
+          name: 'site map',
+          route: '/site-map',
         },
       ],
     },

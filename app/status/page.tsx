@@ -8,16 +8,6 @@ const Page = () => {
       <Box>
         <Typography>All is well!</Typography>
       </Box>
-      {/* <Box>
-
-        <HorizontalDivider />
-      </Box>
-      <Stack direction='row' justifyContent='center' my={2}>
-        <Typography variant='h6'>Status</Typography>
-      </Stack>
-      <Stack direction='row' justifyContent='center' my={2}>
-        <Typography variant='body1'>System is operational</Typography>
-      </Stack> */}
     </>
   )
 }

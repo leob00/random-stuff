@@ -1,6 +1,8 @@
-import Footer from 'components/Footer'
-import AppLayout from './AppLayout'
+import { Amplify } from 'aws-amplify'
+import AppLayout from 'components/app/AppLayout'
 import ThemeRegistry from './theme/ThemeRegistry'
+import awsconfig from '../src/aws-exports'
+Amplify.configure({ ...awsconfig, ssr: true })
 
 export const metadata = {
   title: 'Random Stuff',

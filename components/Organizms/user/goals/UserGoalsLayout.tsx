@@ -23,19 +23,26 @@ export interface UserGoalsModel {
   showAddGoalForm: boolean
 }
 
-export function reorderTasks(list: UserTask[]) {
-  const inProg = orderBy(
-    filter(list, (e) => e.status !== 'completed'),
-    ['dueDate', 'status'],
-    ['asc', 'desc'],
+const UserGoalsLayout = ({ username }: { username: string }) => {
+  const goalsKey = constructUserGoalsKey(username)
+
+  const fetchGoalsData = async () => {
+    const goalsResp = getRecord<UserGoal[]>(goalsKey)
+    const tasksResp = searchRecords(`user-goal-tasks[${username}]`)
+    const [goalsData, tasksData] = await Promise.all([goalsResp, tasksResp])
+    const tasks = tasksData.flatMap((m) => JSON.parse(m.data) as UserTask)
+    const result = mapGoalTasks(goalsData, tasks)
+    return result
+  }
+  const { data: goalsAndTasks, error, isLoading } = useSwrHelper(goalsKey, fetchGoalsData)
+
+  return (
+    <>
+      {isLoading && <BackdropLoader />}
+      {error && <ErrorMessage text='Opps. We encountered and error. Please try refreshing the page.' />}
+      {goalsAndTasks && <UserGoalsDisplay goalsAndTasks={goalsAndTasks} username={username} />}
+    </>
   )
-  const completed = orderBy(
-    filter(list, (e) => e.status === 'completed'),
-    ['dateCompleted'],
-    ['desc'],
-  )
-  const merged = [...inProg, ...completed]
-  return merged
 }
 const mapGoalTasks = (goals: UserGoal[], tasks: UserTask[]) => {
   const goalsAndTasks: UserGoalAndTask[] = []
@@ -54,27 +61,19 @@ const mapGoalTasks = (goals: UserGoal[], tasks: UserTask[]) => {
   })
   return goalsAndTasks
 }
-
-const UserGoalsLayout = ({ username }: { username: string }) => {
-  const goalsKey = constructUserGoalsKey(username)
-
-  const fetchGoalsData = async () => {
-    const goals = await getRecord<UserGoal[]>(goalsKey)
-    const tasksResp = await searchRecords(`user-goal-tasks[${username}]`)
-    const tasks = tasksResp.flatMap((m) => JSON.parse(m.data) as UserTask)
-
-    const result = mapGoalTasks(goals, tasks)
-    return result
-  }
-  const { data: goalsAndTasks, error, isLoading } = useSwrHelper(goalsKey, fetchGoalsData)
-
-  return (
-    <>
-      {isLoading && <BackdropLoader />}
-      {error && <ErrorMessage text='Opps. We encountered and error. Please try refreshing the page.' />}
-      {goalsAndTasks && <UserGoalsDisplay goalsAndTasks={goalsAndTasks} username={username} />}
-    </>
+export function reorderTasks(list: UserTask[]) {
+  const inProg = orderBy(
+    filter(list, (e) => e.status !== 'completed'),
+    ['dueDate', 'status'],
+    ['asc', 'desc'],
   )
+  const completed = orderBy(
+    filter(list, (e) => e.status === 'completed'),
+    ['dateCompleted'],
+    ['desc'],
+  )
+  const merged = [...inProg, ...completed]
+  return merged
 }
 
 export default UserGoalsLayout

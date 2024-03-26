@@ -22,7 +22,7 @@ export const useRouteTracker = () => {
     loading: isLoading,
     getLastRoute: () => {
       const result = sortArray(routes, ['date'], ['desc'])
-      return result.length > 1 ? result[1].path : ''
+      return result.length > 1 ? result[1].path : '/'
     },
     //routesMap: getMapFromArray(routes, 'path'),
     routes: sortArray(routes, ['date'], ['desc']),

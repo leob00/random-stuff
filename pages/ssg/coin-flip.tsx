@@ -20,7 +20,7 @@ const Page: NextPage<{ coinflipStats: CoinFlipStats }> = ({ coinflipStats }) => 
   return (
     <>
       <Seo pageTitle='Coin Flip' />
-      <BackButton />
+      <BackButton route={'/'} />
       <CoinFlipLayout coinflipStats={coinflipStats} />
     </>
   )

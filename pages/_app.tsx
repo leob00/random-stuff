@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <Seo pageTitle='Random Stuff - Home' />
+      <Seo pageTitle='Random Stuff' />
       <ThemeProvider theme={getTheme(colorMode)}>
         <CssBaseline />
 

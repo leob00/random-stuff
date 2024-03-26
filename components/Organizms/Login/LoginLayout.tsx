@@ -4,8 +4,13 @@ import { Box, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import TabList from 'components/Atoms/Buttons/TabList'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
+import { useSearchParams } from 'next/navigation'
 export type AuthMode = 'signIn' | 'signUp' | 'resetPassword'
 const LoginLayout = () => {
+  const searchParams = useSearchParams()
+  const ret = searchParams?.get('ret') ?? ''
+  console.log('ret: ', ret)
+
   const defaultTabs: TabInfo[] = [
     {
       title: 'Sign in',

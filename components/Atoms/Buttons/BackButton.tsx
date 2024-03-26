@@ -5,20 +5,22 @@ import { useRouter } from 'next/router'
 
 const BackButton = ({ route, onClicked }: { route?: string; onClicked?: () => void }) => {
   const router = useRouter()
-  const lastRoute = useRouteTracker().getLastRoute()
+  const { getLastRoute } = useRouteTracker()
+
   const handleClick = () => {
+    if (!route && !onClicked) {
+      router.push('/')
+      return
+    }
+
     if (route) {
       router.push(route)
       return
     }
-    if (lastRoute.length > 0) {
-      router.push(lastRoute)
-      return
-    }
-    router.push('/')
+    onClicked?.()
   }
   return (
-    <Button variant='text' onClick={onClicked ?? handleClick} color='primary'>
+    <Button variant='text' onClick={handleClick} color='primary'>
       &#8592; back
     </Button>
   )
