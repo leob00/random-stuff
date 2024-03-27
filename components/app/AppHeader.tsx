@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { AppBar, Box, Container, CssBaseline, Stack, ThemeProvider, Toolbar, useScrollTrigger } from '@mui/material'
+import { AppBar, Box, Container, CssBaseline, Link, Stack, ThemeProvider, Toolbar, useScrollTrigger } from '@mui/material'
 import { DarkMode } from 'components/themes/DarkMode'
 import GradientContainer from 'components/Atoms/Boxes/GradientContainer'
 import NLink from 'next/link'
@@ -8,6 +8,7 @@ import StaticImage from 'components/Atoms/StaticImage'
 import logo from '/public/images/logo-with-text-blue-small.png'
 import MenuLinkButton from 'components/Atoms/Buttons/MenuLinkButton'
 import { useRouter } from 'next/navigation'
+import SiteLink from './server/Atoms/Links/SiteLink'
 const AppHeader = () => {
   const router = useRouter()
 
@@ -31,23 +32,13 @@ const AppHeader = () => {
                   <NLink href='/' passHref>
                     <StaticImage image={logo} title='random things' width={120} height={60} priority={true} />
                   </NLink>
-                  <Box pt={4}>
+                  <Box pt={2}>
                     <Stack direction='row' spacing={{ xs: 1, sm: 2 }} alignItems={'center'}>
-                      <Stack display={{ xs: 'none', sm: 'flex' }}>
-                        <MenuLinkButton
-                          text={'Home'}
-                          onClicked={() => {
-                            router.push('/')
-                          }}
-                        />
+                      <Stack display={{ xs: 'flex', sm: 'flex' }}>
+                        <SiteLink href='/' text={'home'} />
                       </Stack>
-                      <Stack display={{ xs: 'none', sm: 'flex' }}>
-                        <MenuLinkButton
-                          text={'About'}
-                          onClicked={() => {
-                            router.push('/ssg/About')
-                          }}
-                        />
+                      <Stack display={{ xs: 'flex', sm: 'flex' }}>
+                        <SiteLink href='/ssg/About' text={'about'} />
                       </Stack>
                     </Stack>
                   </Box>
