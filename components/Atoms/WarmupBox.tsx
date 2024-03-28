@@ -25,7 +25,7 @@ const WarmupBox = ({ text }: { text?: string }) => {
     }, 2500)
   }, [model.message, text])
   return (
-    <NonSSRWrapper>
+    <>
       <BackdropLoader />
       <Box pt={1}>
         <CenterStack>
@@ -34,7 +34,7 @@ const WarmupBox = ({ text }: { text?: string }) => {
           </Typography>
         </CenterStack>
       </Box>
-    </NonSSRWrapper>
+    </>
   )
 }
 

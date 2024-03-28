@@ -1,3 +1,4 @@
+'use client'
 import * as React from 'react'
 import DraggableListItem from './DraggableListItem'
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
@@ -163,6 +164,7 @@ const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: Dra
           </Typography>
         </CenterStack>
       </Box>
+      {/* @ts-expect-error needs to be reviewed */}
       <DragDropContext onDragEnd={onDragEnd}>
         <StrictModeDroppable droppableId='droppable-list'>
           {(provided) => (
@@ -181,7 +183,7 @@ const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: Dra
                   onEdit={onEditSingleItem}
                 />
               ))}
-              {provided.placeholder}
+              <>{provided.placeholder}</>
             </Box>
           )}
         </StrictModeDroppable>

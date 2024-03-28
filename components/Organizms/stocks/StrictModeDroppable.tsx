@@ -17,5 +17,10 @@ export const StrictModeDroppable = ({ children, ...props }: DroppableProps) => {
     return null
   }
 
-  return <Droppable {...props}>{children}</Droppable>
+  return (
+    <>
+      {/* @ts-expect-error needs to be reviewed */}
+      <Droppable {...props}>{children}</Droppable>
+    </>
+  )
 }

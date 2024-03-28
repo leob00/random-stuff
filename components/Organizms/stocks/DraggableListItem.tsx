@@ -22,6 +22,7 @@ const DraggableListItem = ({ item, index, onRemoveItem, onCheckItem, onEdit }: D
 
   return (
     <>
+      {/* @ts-expect-error needs to be reviewed */}
       <Draggable draggableId={item.Symbol} index={index} key={item.Symbol}>
         {(provided, snapshot) => (
           <>
