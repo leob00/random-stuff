@@ -1,17 +1,21 @@
-import { Stack, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
+import SiteCategories from 'components/app/server/Atoms/Links/SiteCategories'
 import CenterStack from 'components/Atoms/CenterStack'
-import { siteMap } from 'components/Organizms/navigation/siteMap'
-import React from 'react'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
+import React, { Suspense } from 'react'
 
 export default async function Page() {
-  const map = siteMap()
-
   return (
     <>
-      <CenterStack>
+      <CenterStack sx={{ pb: 4 }}>
         <Typography variant='h5'>site map</Typography>
       </CenterStack>
-      <Typography>coming soon!</Typography>
+      <>
+        <Suspense fallback={<CircleLoader />}>
+          <SiteCategories />
+        </Suspense>
+      </>
     </>
   )
 }
