@@ -1,9 +1,8 @@
-import { Box, Typography } from '@mui/material'
-import CenterStack from 'components/Atoms/CenterStack'
-import { SiteCategories, siteMap } from 'components/Organizms/navigation/siteMap'
-import { sleep } from 'lib/util/timers'
-import { Suspense } from 'react'
+import { Box } from '@mui/material'
+import { siteMap } from 'components/Organizms/navigation/siteMap'
 import SiteCategory from './SiteCategory'
+import React from 'react'
+import { sleep } from 'lib/util/timers'
 
 const getResult = async () => {
   await sleep(3000)
@@ -14,19 +13,13 @@ async function SiteCageories() {
   const items = await getResult()
   return (
     <>
-      <>
-        {items.map((item) => (
-          <Box key={item.category}>
-            {/* <SiteCategory category={item.category} /> */}
-            {/* <CenterStack>
-              <Typography variant='h5'>{item.category}</Typography>
-            </CenterStack> */}
-            <Suspense fallback={<Box>loading...</Box>}>
-              <SiteCategory category={item.category} />
-            </Suspense>
+      {items.map((item) => (
+        <React.Fragment key={item.category}>
+          <Box>
+            <SiteCategory category={item.category} />
           </Box>
-        ))}
-      </>
+        </React.Fragment>
+      ))}
     </>
   )
 }

@@ -4,6 +4,7 @@ import ThemeRegistry from './theme/ThemeRegistry'
 import awsconfig from '../src/aws-exports'
 import { Metadata } from 'next'
 Amplify.configure({ ...awsconfig, ssr: true })
+import { Analytics } from '@vercel/analytics/react'
 
 export const metadata: Metadata = {
   title: 'Random Stuff',
@@ -21,9 +22,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
+      <Analytics />
       <ThemeRegistry>
         <body>
-          <AppLayout>{children}</AppLayout>
+          <AppLayout>
+            <>{children}</>
+          </AppLayout>
         </body>
       </ThemeRegistry>
     </html>

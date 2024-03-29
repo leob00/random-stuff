@@ -6,9 +6,7 @@ import darkTheme from 'components/themes/darkTheme'
 import theme from 'components/themes/mainTheme'
 import '../../styles/globals.css'
 import Footer from 'components/Footer'
-import { Analytics } from '@vercel/analytics/react'
 import AppHeader from './AppHeader'
-import RouteTracker from 'components/Organizms/session/RouteTracker'
 import AppRouteTracker from 'components/Organizms/session/AppRouteTracker'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 
@@ -43,7 +41,6 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <>
-      <Analytics />
       <AppRouteTracker />
       <ThemeProvider theme={getTheme(colorMode)}>
         <CssBaseline />

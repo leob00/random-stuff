@@ -14,6 +14,7 @@ const AppRouteTracker = () => {
     if (pathname) {
       addRoute(pathname)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
   // React.useEffect(() => {
