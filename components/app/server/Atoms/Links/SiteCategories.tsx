@@ -16,7 +16,7 @@ async function SiteCageories() {
       {items.map((item) => (
         <React.Fragment key={item.category}>
           <Box>
-            <SiteCategory category={item.category} />
+            <SiteCategory category={item} />
           </Box>
         </React.Fragment>
       ))}

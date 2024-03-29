@@ -4,7 +4,7 @@ import { useSessionSettings } from 'components/Organizms/session/useSessionSetti
 import React, { ReactNode, useEffect } from 'react'
 import darkTheme from 'components/themes/darkTheme'
 import theme from 'components/themes/mainTheme'
-import '../../styles/globals.css'
+//import '../../styles/globals.css'
 import Footer from 'components/Footer'
 import AppHeader from './AppHeader'
 import AppRouteTracker from 'components/Organizms/session/AppRouteTracker'

@@ -10,7 +10,7 @@ const AppRouteTracker = () => {
   const pathname = usePathname()
 
   React.useEffect(() => {
-    console.log('route: ', pathname)
+    //console.log('route: ', pathname)
     if (pathname) {
       addRoute(pathname)
     }
