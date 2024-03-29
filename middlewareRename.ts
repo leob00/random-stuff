@@ -1,6 +1,3 @@
-import { withSSRContext } from 'aws-amplify'
-import { getUserSSR, getUserSSRApi } from 'lib/backend/server-side/serverSideAuth'
-import { getSiteSettings } from 'lib/store'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function middleware(req: NextRequest) {
