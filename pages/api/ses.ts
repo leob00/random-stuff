@@ -4,7 +4,7 @@ import { getSesAttributes, sendSesEmailVerification } from 'lib/backend/api/aws/
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const user = await getUserSSRApi(req)
+  const user = await getUserSSRApi(req, res)
   if (!user) {
     return res.status(403).json({ message: 'unauthorized' })
   }

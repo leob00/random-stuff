@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react'
 import type { GetServerSideProps, NextPage } from 'next'
 import router from 'next/router'
-import { withSSRContext } from 'aws-amplify'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import HomeMenu from 'components/Organizms/HomeMenu'
+import { getUserSSR } from 'lib/backend/server-side/serverSideAuth'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { Auth } = withSSRContext(context)
   try {
-    const user = await Auth.currentAuthenticatedUser()
+    const user = await getUserSSR(context)
     return {
       props: {
         authenticated: true,
-        username: user.attributes.email,
+        username: user?.email,
       },
     }
   } catch (error) {

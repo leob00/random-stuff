@@ -1,4 +1,4 @@
-import { Auth } from 'aws-amplify'
+import { signOut, signIn, getCurrentUser, AuthUser, fetchUserAttributes, FetchUserAttributesOutput } from 'aws-amplify/auth'
 export type ClaimType = 'qln' | 'rs' | 'rs-admin'
 export interface Claim {
   type: ClaimType
@@ -32,8 +32,8 @@ export function userHasRole(role: RoleTypes, roles?: Role[]) {
   return roles.map((item) => item.Name).includes(role)
 }
 
-export function getRolesFromAmplifyUser(user: any) {
-  const roleAttr = user.attributes['custom:roles'] as string | undefined
+export function getRolesFromAmplifyUser(user: AuthUser, attributes: FetchUserAttributesOutput) {
+  const roleAttr = attributes['custom:roles'] as string | undefined
   let roles: Role[] = []
   if (roleAttr) {
     const arr = roleAttr.split(',')
@@ -48,15 +48,16 @@ export function getRolesFromAmplifyUser(user: any) {
 
 export async function getUserCSR() {
   try {
-    const user = await Auth.currentAuthenticatedUser()
+    const user = await getCurrentUser()
+    const attributes = await fetchUserAttributes()
     const result: AmplifyUser = {
       id: String(user.username),
-      email: String(user.attributes.email),
-      roles: getRolesFromAmplifyUser(user),
+      email: String(attributes.email),
+      roles: getRolesFromAmplifyUser(user, attributes),
     }
     return result
   } catch (error) {
-    console.error(error)
+    //console.error(error)
     return null
   }
 }
@@ -64,8 +65,9 @@ export async function getUserCSR() {
 export async function validateUserCSR(username: string, password: string) {
   //const session = await Auth.userSession()
   try {
-    const result = await Auth.signIn(username, password, {
-      reason: 're-enter-password',
+    const result = await signIn({
+      username: username,
+      password: password,
     })
 
     return result

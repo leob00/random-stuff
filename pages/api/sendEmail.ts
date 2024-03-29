@@ -4,7 +4,7 @@ import { EmailMessage } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { sendEmail } from 'lib/backend/api/aws/apiGateway/apiGateway'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const user = await getUserSSRApi(req)
+  const user = await getUserSSRApi(req, res)
   if (user) {
     const json = req.body as EmailMessage
     const response = await sendEmail(json)

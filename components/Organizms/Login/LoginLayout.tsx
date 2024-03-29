@@ -5,11 +5,17 @@ import CenterStack from 'components/Atoms/CenterStack'
 import TabList from 'components/Atoms/Buttons/TabList'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import { useSearchParams } from 'next/navigation'
+
+import '@aws-amplify/ui-react/styles.css'
+
+import awsExports from 'src/aws-exports'
+import { Amplify } from 'aws-amplify'
+Amplify.configure(awsExports)
+
 export type AuthMode = 'signIn' | 'signUp' | 'resetPassword'
 const LoginLayout = () => {
   const searchParams = useSearchParams()
   const ret = searchParams?.get('ret') ?? ''
-  console.log('ret: ', ret)
 
   const defaultTabs: TabInfo[] = [
     {

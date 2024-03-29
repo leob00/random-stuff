@@ -3,12 +3,12 @@ import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import React from 'react'
-import { Auth } from 'aws-amplify'
+import { signOut as amplifySignOut } from 'aws-amplify/auth'
 
 const PleaseLogin = ({ message = 'Sorry! Looks like you are not signed in.' }: { message?: string }) => {
   const signOut = async () => {
     try {
-      await Auth.signOut({ global: false })
+      await amplifySignOut({ global: false })
     } catch (err) {
       console.error(err)
     }

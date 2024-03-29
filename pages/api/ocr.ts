@@ -3,7 +3,7 @@ import { getUserSSRApi } from 'lib/backend/server-side/serverSideAuth'
 import { getTextFromImage } from 'lib/backend/api/aws/apiGateway/apiGateway'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const user = await getUserSSRApi(req)
+  const user = await getUserSSRApi(req, res)
   if (!user) {
     return res.status(403).json({ message: 'unauthorized' })
   }

@@ -145,7 +145,7 @@
 div [data-amplify-container=''] {
   background-color: red !important;
 }
-.amplify-tabs {
+.amplify-tabs [role='tablist'] {
   background-color: #0a214c !important;
   display: none !important;
 }

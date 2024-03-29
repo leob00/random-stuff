@@ -6,7 +6,7 @@ import { putS3 } from 'lib/backend/api/aws/apiGateway/apiGateway'
 export const config = { api: { bodyParser: false } }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const user = await getUserSSRApi(req)
+  const user = await getUserSSRApi(req, res)
 
   if (user) {
     const form = formidable({})

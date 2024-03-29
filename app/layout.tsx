@@ -1,10 +1,10 @@
-import { Amplify } from 'aws-amplify'
 import AppLayout from 'components/app/AppLayout'
 import ThemeRegistry from './theme/ThemeRegistry'
-import awsconfig from '../src/aws-exports'
 import { Metadata } from 'next'
-Amplify.configure({ ...awsconfig, ssr: true })
 import { Analytics } from '@vercel/analytics/react'
+import { Amplify } from 'aws-amplify'
+import amplifyConfig from 'src/amplifyconfiguration.json'
+Amplify.configure(amplifyConfig, { ssr: true })
 
 export const metadata: Metadata = {
   title: 'Random Stuff',

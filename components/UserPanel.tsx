@@ -1,6 +1,5 @@
 'use client'
 import { Box } from '@mui/material'
-import { Auth, Hub } from 'aws-amplify'
 import dayjs from 'dayjs'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
@@ -13,7 +12,8 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import HeaderMenu from './Molecules/Menus/HeaderMenu'
 import { useRouteTracker } from './Organizms/session/useRouteTracker'
-import { useSessionSettings } from './Organizms/session/useSessionSettings'
+import { AuthUser, signOut as amplifySignOut, fetchUserAttributes } from 'aws-amplify/auth'
+import { Hub } from 'aws-amplify/utils'
 
 export type HubPayload = {
   event: string
@@ -23,7 +23,6 @@ export type HubPayload = {
 
 const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; onChangePalette: () => void }) => {
   const router = useRouter()
-  //const [calledPush, setCalledPush] = React.useState(false)
   const { ticket, setTicket, setProfile } = useUserController()
   const { clearRoutes, getLastRoute } = useRouteTracker()
 
@@ -31,43 +30,42 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
   const searchParams = useSearchParams()
   const signOut = async () => {
     try {
-      await Auth.signOut({ global: false })
+      //console.log('signing out...')
+      await amplifySignOut({ global: true })
     } catch (err) {
       console.log(err)
     }
   }
 
   const handleNavigationEvent = (payload: HubPayload) => {
-    console.log('last path: ', payload.data.lastPath)
+    // console.log('last path: ', payload.data.lastPath)
     // console.log('payload data: ', payload.data)
   }
 
   const handleAuthEvent = async (payload: HubPayload) => {
     const newClaims = claims.filter((m) => m.type !== 'rs')
-    //console.log(payload)
     switch (payload.event) {
-      case 'signOut':
-        //console.log('signing out')
+      case 'signedOut':
+        console.log('signing out')
         await setTicket(null)
         const lastRoute = getLastRoute()
         await setProfile(null)
         clearRoutes()
         saveClaims([])
         router.push(`/signOut?ret=${encodeURIComponent(lastRoute)}`)
-        // setCalledPush(false)
-        // if (!calledPush) {
-        //   router.push(`/login`)
-        // }
         break
-      case 'signIn':
+      case 'signedIn':
         if (ticket) {
           return
         }
-        const payloadTicket = payload.data!
+        console.log('payload.data: ', payload.data)
+        const payloadTicket = payload.data! as AuthUser
+        const attr = await fetchUserAttributes()
+        console.log('attr: ', attr)
         const user: AmplifyUser = {
-          id: payload.data?.attributes.sub,
-          email: payload.data?.attributes.email,
-          roles: getRolesFromAmplifyUser(payloadTicket),
+          id: payloadTicket.username,
+          email: String(attr.email),
+          roles: getRolesFromAmplifyUser(payloadTicket, attr),
         }
         await setTicket(user)
 
@@ -80,7 +78,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
           await putUserProfile(p)
         }
         setProfile(p)
-        const isAdmin = userHasRole('Admin', payloadTicket.roles)
+        const isAdmin = userHasRole('Admin', user.roles)
         const now = dayjs()
         newClaims.push({
           token: crypto.randomUUID(),
@@ -106,15 +104,15 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
               router.push('/')
               return
             }
-            console.log('pushing to last path')
             router.push(lastPath)
           }
         } else {
           router.push('/')
         }
         break
-      case 'signUp':
-        const newUser = { email: payload.data?.user.username }
+      case 'signedUp':
+        const signedUpAttr = await fetchUserAttributes()
+        const newUser = { email: String(signedUpAttr.email) }
         const existingProfile = (await getUserProfile(newUser.email)) as UserProfile | null
         if (!existingProfile) {
           const newProfile: UserProfile = {

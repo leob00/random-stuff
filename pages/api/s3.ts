@@ -4,7 +4,7 @@ import { Bucket, S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { getS3ObjectPresignedUrl, listS3Objects, deleteS3Object, renameS3Object } from 'lib/backend/api/aws/apiGateway/s3/s3functions'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const user = await getUserSSRApi(req)
+  const user = await getUserSSRApi(req, res)
   if (!user) {
     return res.status(403).json({ message: 'unauthorized' })
   }

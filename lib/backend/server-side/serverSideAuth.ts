@@ -1,40 +1,54 @@
-import { Amplify, withSSRContext } from 'aws-amplify'
-import { GetServerSidePropsContext, NextApiRequest, PreviewData } from 'next'
+import { GetServerSidePropsContext, NextApiRequest, NextApiResponse, PreviewData } from 'next'
 import { ParsedUrlQuery } from 'querystring'
 import { AmplifyUser, getRolesFromAmplifyUser } from '../auth/userUtil'
-import awsExports from '../../../src/aws-exports'
-import { NextRequest } from 'next/server'
-Amplify.configure({ ...awsExports, ssr: true })
+import { fetchUserAttributes, getCurrentUser } from 'aws-amplify/auth/server'
+import { createServerRunner } from '@aws-amplify/adapter-nextjs'
+import config from 'src/amplifyconfiguration.json'
+
+export const { runWithAmplifyServerContext } = createServerRunner({
+  config,
+})
 
 export async function getUserSSR(context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>) {
-  const { Auth } = withSSRContext(context)
   try {
-    const user = await Auth.currentAuthenticatedUser()
-    let email = user.attributes.email as string
+    const user = await runWithAmplifyServerContext({
+      nextServerContext: { request: context.req, response: context.res },
+      operation: (contextSpec) => getCurrentUser(contextSpec),
+    })
+    const userAttributes = await runWithAmplifyServerContext({
+      nextServerContext: { request: context.req, response: context.res },
+      operation: (contextSpec) => fetchUserAttributes(contextSpec),
+    })
     const result: AmplifyUser = {
       id: user.username,
-      email: email,
-      roles: getRolesFromAmplifyUser(user),
+      email: userAttributes.email ?? '',
+      roles: await getRolesFromAmplifyUser(user, userAttributes),
     }
     return result
-  } catch (error) {
+  } catch (err) {
+    console.log('getUserSSR:: user is not logged in')
     return null
   }
 }
 
-export async function getUserSSRApi(req: NextApiRequest | NextRequest) {
-  const { Auth } = withSSRContext({ req })
+export async function getUserSSRApi(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const user = await Auth.currentAuthenticatedUser()
-    let email = user.attributes.email as string
+    const user = await runWithAmplifyServerContext({
+      nextServerContext: { request: req, response: res },
+      operation: (contextSpec) => getCurrentUser(contextSpec),
+    })
+    const userAttributes = await runWithAmplifyServerContext({
+      nextServerContext: { request: req, response: res },
+      operation: (contextSpec) => fetchUserAttributes(contextSpec),
+    })
     const result: AmplifyUser = {
       id: user.username,
-      email: email,
-      roles: getRolesFromAmplifyUser(user),
+      email: userAttributes.email ?? '',
+      roles: await getRolesFromAmplifyUser(user, userAttributes),
     }
     return result
-  } catch (error) {
-    console.error(`getUserSSRApi: user not authorized.`)
+  } catch (err) {
+    console.log('getUserSSRApi:: user is not logged in')
     return null
   }
 }
