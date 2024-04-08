@@ -7,10 +7,11 @@ import React, { Suspense } from 'react'
 export default async function Page() {
   return (
     <>
-      <CenterStack sx={{ pb: 4 }}>
-        <Typography variant='h5'>site map</Typography>
-      </CenterStack>
       <Suspense fallback={<CircleLoader />}>
+        <CenterStack sx={{ pb: 4 }}>
+          <Typography variant='h5'>site map</Typography>
+        </CenterStack>
+
         <SiteCategories />
       </Suspense>
     </>

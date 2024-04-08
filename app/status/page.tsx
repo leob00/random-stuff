@@ -1,13 +1,14 @@
 import { Box, Typography, Stack } from '@mui/material'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 const Page = () => {
   return (
     <>
-      <Box>
-        <Typography>All is well!</Typography>
-      </Box>
+      <Suspense>
+        <Box>
+          <Typography>All is well!</Typography>
+        </Box>
+      </Suspense>
     </>
   )
 }

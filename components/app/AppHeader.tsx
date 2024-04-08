@@ -1,16 +1,18 @@
 'use client'
 import React from 'react'
-import { AppBar, Box, Container, CssBaseline, Link, Stack, ThemeProvider, Toolbar, useScrollTrigger } from '@mui/material'
+import { AppBar, Box, Container, Stack, Toolbar, useScrollTrigger, useTheme } from '@mui/material'
 import { DarkMode } from 'components/themes/DarkMode'
 import GradientContainer from 'components/Atoms/Boxes/GradientContainer'
 import NLink from 'next/link'
 import StaticImage from 'components/Atoms/StaticImage'
 import logo from '/public/images/logo-with-text-blue-small.png'
-import MenuLinkButton from 'components/Atoms/Buttons/MenuLinkButton'
-import { useRouter } from 'next/navigation'
 import SiteLink from './server/Atoms/Links/SiteLink'
+import HeaderMenu from 'components/Molecules/Menus/HeaderMenu'
+import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
+import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
+import AppUserPanel from './AppUserPanel'
 const AppHeader = () => {
-  const router = useRouter()
+  const theme = useTheme()
 
   const bodyScrolled = useScrollTrigger({
     disableHysteresis: true,
@@ -20,6 +22,8 @@ const AppHeader = () => {
   React.useEffect(() => {
     setElevationEffect(bodyScrolled)
   }, [bodyScrolled])
+
+  const handleChangePalette = () => {}
 
   return (
     <AppBar sx={{ backgroundColor: 'transparent' }} position='sticky' elevation={elevationEffect ? 4 : 0} className='blue-gradient'>
@@ -42,6 +46,9 @@ const AppHeader = () => {
                       </Stack>
                     </Stack>
                   </Box>
+                  {/* <Box pt={'12px'}>
+                    <AppUserPanel palette={theme.palette.mode} onChangePalette={handleChangePalette} />
+                  </Box> */}
                 </DarkMode>
               </Stack>
             </Box>

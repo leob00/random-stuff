@@ -2,12 +2,14 @@
 import { Box, Typography } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 const Page = () => {
   return (
     <ResponsiveContainer>
-      <Typography>hello!</Typography>
+      <Suspense>
+        <Typography>hello!</Typography>
+      </Suspense>
     </ResponsiveContainer>
   )
 }

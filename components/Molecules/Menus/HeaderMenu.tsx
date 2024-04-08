@@ -1,13 +1,13 @@
 'use client'
-import { IconButton, ListItemIcon, ListItemText } from '@mui/material'
+import { ListItemIcon, ListItemText } from '@mui/material'
 import React from 'react'
 import ContextMenu, { ContextMenuItem } from './ContextMenu'
-import LogoutIcon from '@mui/icons-material/Logout'
-import LoginIcon from '@mui/icons-material/Login'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { AmplifyUser, userHasRole } from 'lib/backend/auth/userUtil'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import LightModeIcon from '@mui/icons-material/LightMode'
+import ContextMenuSignIn from './ContextMenuSignIn'
+import ContextMenuSignOut from './ContextMenuSignOut'
 
 const HeaderMenu = ({
   ticket,
@@ -74,27 +74,13 @@ const HeaderMenu = ({
     }
     menuItems.push(paletteMenuItem)
     menuItems.push({
-      item: (
-        <>
-          <ListItemIcon>
-            <LogoutIcon fontSize='small' />
-          </ListItemIcon>
-          <ListItemText primary='log off'></ListItemText>
-        </>
-      ),
+      item: <ContextMenuSignOut />,
       fn: () => onLogOutClick(),
     })
   } else {
     menuItems.push(paletteMenuItem)
     menuItems.push({
-      item: (
-        <>
-          <ListItemIcon>
-            <LoginIcon fontSize='small' />
-          </ListItemIcon>
-          <ListItemText primary='log in'></ListItemText>
-        </>
-      ),
+      item: <ContextMenuSignIn />,
       fn: () => router.push('/login'),
     })
   }

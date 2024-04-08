@@ -1,7 +1,7 @@
 'use client'
-import { Container, CssBaseline, ThemeProvider } from '@mui/material'
+import { Container, CssBaseline, ThemeProvider, useScrollTrigger } from '@mui/material'
 import { useSessionSettings } from 'components/Organizms/session/useSessionSettings'
-import React, { ReactNode, useEffect } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import darkTheme from 'components/themes/darkTheme'
 import theme from 'components/themes/mainTheme'
 //import '../../styles/globals.css'
@@ -28,16 +28,16 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
     setColorMode(newMode)
     sessionSettings.savePalette(newMode)
   }
-  // const [elevationEffect, setElevationEffect] = useState(true)
+  const [elevationEffect, setElevationEffect] = useState(true)
 
-  // const bodyScrolled = useScrollTrigger({
-  //   disableHysteresis: true,
-  //   threshold: 0,
-  // })
+  const bodyScrolled = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+  })
 
-  // useEffect(() => {
-  //   setElevationEffect(bodyScrolled)
-  // }, [bodyScrolled])
+  useEffect(() => {
+    setElevationEffect(bodyScrolled)
+  }, [bodyScrolled])
 
   return (
     <>
@@ -46,7 +46,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
         <CssBaseline />
         <AppHeader />
         <ResponsiveContainer>
-          <Container sx={{ marginTop: 2, minHeight: 800, paddingBottom: 4 }}>{children}</Container>
+          <Container sx={{ marginTop: 2, minHeight: 760, paddingBottom: 4 }}>{children}</Container>
         </ResponsiveContainer>
         <Footer />
       </ThemeProvider>
