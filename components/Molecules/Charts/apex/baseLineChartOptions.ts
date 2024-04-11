@@ -6,6 +6,7 @@ import {
   CasinoLimeTransparent,
   CasinoRed,
   DarkBlue,
+  DarkModeBkg,
   DarkModeBlue,
   RedDarkMode,
   VeryLightBlue,
@@ -229,7 +230,7 @@ function getBaseChart(groupName: string, palette: 'light' | 'dark', chartId?: st
       blur: 10,
       //opacity: 0.2,
     },
-    background: palette === 'dark' ? DarkModeBlue : 'transparent',
+    //background: palette === 'dark' ? 'transparent' : 'transparent',
     type: 'area',
     toolbar: {
       show: false,

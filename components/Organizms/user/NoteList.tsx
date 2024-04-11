@@ -1,6 +1,6 @@
 import Delete from '@mui/icons-material/Delete'
 import Warning from '@mui/icons-material/Warning'
-import { Box, Stack, Button } from '@mui/material'
+import { Box, Stack, Button, Typography } from '@mui/material'
 import GradientContainer from 'components/Atoms/Boxes/GradientContainer'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
@@ -69,23 +69,18 @@ const NoteList = ({
           <Box key={item.id}>
             <Box>
               <GradientContainer>
-                <Stack direction='row' py={1} alignItems='center'>
-                  <Button
-                    size='large'
-                    onClick={() => {
-                      handleNoteTitleClick(item)
-                    }}
-                  >
-                    {item.title}
-                  </Button>
-                  {/* <ListHeader
-                    backgroundColor='transparent'
-                    item={item}
-                    text={item.title}
-                    onClicked={(item: UserNote) => {
-                      handleNoteTitleClick(item)
-                    }}
-                  /> */}
+                <Stack direction='row' py={1}>
+                  <Box sx={{}}>
+                    <Button
+                      size='large'
+                      onClick={() => {
+                        handleNoteTitleClick(item)
+                      }}
+                      //sx={{ width: '100%' }}
+                    >
+                      <Typography textAlign={'left'}>{item.title}</Typography>
+                    </Button>
+                  </Box>
                   <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
                     {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
                       <Button size='small'>

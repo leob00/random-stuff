@@ -39,18 +39,11 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
     const map = mapHistory(result, 'Price')
     const options = getOptions(map, result, isXSmall, theme.palette.mode)
     setChartOptions(options)
-    const vOps = isStock ? mapHistory(result, 'Volume') : null
-    //setVolumeChart(vOps)
     setIsLoading(false)
   }
   const chartMap = mapHistory(history, 'Price')
   const priceChartOptions = getOptions(chartMap, history, isXSmall, theme.palette.mode)
-  //const emptyOps = getOptions({ x: [], y: [] }, [], isXSmall, theme.palette.mode)
-
-  //const volOpts = isStock ? mapHistory(history, 'Volume') : null
-
   const [chartOptions, setChartOptions] = React.useState<ApexOptions | null>(priceChartOptions)
-  //const [volumeChart, setVolumeChart] = React.useState<XyValues | null>(volOpts)
   const [chartData, setChartData] = React.useState(history)
 
   React.useEffect(() => {
@@ -59,7 +52,7 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
 
   return (
     <Box>
-      <Box textAlign={'right'} pr={1} pt={1}>
+      <Box textAlign={'right'} pr={1} py={1}>
         <DropdownList options={stockChartDaySelect} selectedOption={'90'} onOptionSelected={handleDaysSelected} />
       </Box>
 
@@ -72,17 +65,7 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
           </CenterStack>
         )}
         {isLoading ? (
-          <>
-            {/* <Box minHeight={550}>
-              <BackdropLoader />
-            </Box> */}
-            {/* <ReactApexChart series={emptyOps.series} options={emptyOps} type='area' height={chartHeight} />
-            {isStock && (
-              <Box mt={-4}>
-                <BasicLineChart xyValues={{ x: [], y: [] }} rawData={[]} height={160} title={'Volume'} isXSmall={true} />
-              </Box>
-            )} */}
-          </>
+          <></>
         ) : (
           <>
             {isStock ? (
@@ -92,20 +75,6 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
                 {chartOptions && (
                   <Box minHeight={{ xs: 300, sm: chartHeight }} pt={2}>
                     <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
-                    {/* {volumeChart && (
-                  <Box mt={-4}>
-                    <BasicLineChart
-                      xyValues={volumeChart}
-                      rawData={[]}
-                      height={160}
-                      title={'Volume'}
-                      isXSmall={true}
-                      numericFormatter={(val: number) => {
-                        return numeral(val).format('###,###')
-                      }}
-                    />
-                  </Box>
-                )} */}
                     <Box display='flex' gap={4} pb={4}>
                       <Box display='flex' gap={1}>
                         <Typography variant='caption'>start date:</Typography>
