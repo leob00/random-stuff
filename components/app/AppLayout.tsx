@@ -1,7 +1,7 @@
 'use client'
-import { Container, CssBaseline, ThemeProvider, useScrollTrigger } from '@mui/material'
+import { Container, CssBaseline, ThemeProvider, useScrollTrigger, useTheme } from '@mui/material'
 import { useSessionSettings } from 'components/Organizms/session/useSessionSettings'
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode, Suspense, useEffect, useState } from 'react'
 import darkTheme from 'components/themes/darkTheme'
 import theme from 'components/themes/mainTheme'
 //import '../../styles/globals.css'
@@ -15,7 +15,9 @@ const getTheme = (mode: 'light' | 'dark') => {
 }
 const AppLayout = ({ children }: { children: ReactNode }) => {
   const sessionSettings = useSessionSettings()
-  const [colorMode, setColorMode] = React.useState<'dark' | 'light'>('dark')
+  const theme = useTheme()
+  const { palette, savePalette } = useSessionSettings()
+  const [colorMode, setColorMode] = React.useState<'light' | 'dark'>('dark')
 
   useEffect(() => {
     sessionSettings.savePalette(colorMode)
@@ -34,17 +36,32 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
     disableHysteresis: true,
     threshold: 0,
   })
+  const handleChangePalette = () => {
+    const newMode = colorMode === 'light' ? 'dark' : 'light'
+    setColorMode(newMode)
+    savePalette(newMode)
+  }
 
   useEffect(() => {
     setElevationEffect(bodyScrolled)
   }, [bodyScrolled])
+
+  React.useEffect(() => {
+    if (palette !== colorMode) {
+      savePalette(colorMode)
+      setColorMode(palette)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [palette])
 
   return (
     <>
       <AppRouteTracker />
       <ThemeProvider theme={getTheme(colorMode)}>
         <CssBaseline />
-        <AppHeader />
+        <Suspense>
+          <AppHeader handleChangePalette={handleChangePalette} />
+        </Suspense>
         <ResponsiveContainer>
           <Container sx={{ marginTop: 2, minHeight: 760, paddingBottom: 4 }}>{children}</Container>
         </ResponsiveContainer>

@@ -174,11 +174,9 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
   }, [])
 
   return (
-    <>
-      <Box justifyContent={'space-evenly'} display='flex' alignItems={'center'} gap={4}>
-        <HeaderMenu ticket={ticket} palette={palette} onLogOutClick={signOut} onChangePalette={onChangePalette} />
-      </Box>
-    </>
+    <Box>
+      <HeaderMenu ticket={ticket} palette={palette} onLogOutClick={signOut} onChangePalette={onChangePalette} />
+    </Box>
   )
 }
 

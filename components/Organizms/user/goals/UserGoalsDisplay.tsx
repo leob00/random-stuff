@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, useTheme } from '@mui/material'
+import { Box, Button, Stack, Typography, useTheme } from '@mui/material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 import AddGoalForm from 'components/Molecules/Forms/AddGoalForm'
@@ -23,6 +23,7 @@ import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
+import GradientContainer from 'components/Atoms/Boxes/GradientContainer'
 
 const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoalAndTask[]; username: string }) => {
   const theme = useTheme()
@@ -106,15 +107,20 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
             <>
               {filteredGoals.map((item, i) => (
                 <Box key={item.id}>
-                  <ListItemContainer>
-                    <Stack direction='row' py={'3px'} justifyContent='left' alignItems='center'>
-                      <ListHeader text={item.body!} item={item} onClicked={() => handleShowEditGoal(item)} underline />
-                      {item.completePercent !== undefined && (
-                        <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' pr={2}>
-                          <ProgressBar value={item.completePercent} toolTipText={`${item.completePercent}% complete`} width={80} />
-                        </Stack>
-                      )}
-                    </Stack>
+                  <Box>
+                    <GradientContainer>
+                      <Stack direction='row' py={'3px'} justifyContent='left' alignItems='center'>
+                        {/* <ListHeader text={item.body!} item={item} onClicked={() => handleShowEditGoal(item)} underline /> */}
+                        <Button size='large' onClick={() => handleShowEditGoal(item)}>
+                          {item.body}
+                        </Button>
+                        {item.completePercent !== undefined && (
+                          <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' pr={2}>
+                            <ProgressBar value={item.completePercent} toolTipText={`${item.completePercent}% complete`} width={80} />
+                          </Stack>
+                        )}
+                      </Stack>
+                    </GradientContainer>
                     {item.stats && (
                       <Box pl={2} pb={2}>
                         <>
@@ -123,11 +129,12 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
                             <ReadOnlyField label={`completed`} val={`${item.stats.completed}`} />
                             <ReadOnlyField label={`in progress`} val={`${item.stats.inProgress}`} />
                           </Box>
-                          {item.stats.pastDue > 0 && <Typography variant='body2' p={2} color={redColor}>{`past due: ${item.stats.pastDue}`}</Typography>}
+                          {item.stats.pastDue > 0 && <Typography variant='body2' pt={1} color={redColor}>{`past due: ${item.stats.pastDue}`}</Typography>}
                         </>
                       </Box>
                     )}
-                  </ListItemContainer>
+                  </Box>
+                  {/* </ListItemContainer> */}
                   {i < filteredGoals.length - 1 && <HorizontalDivider />}
                 </Box>
               ))}

@@ -149,6 +149,7 @@ const AppUserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark';
 
       try {
         let user = await getUserCSR()
+        //console.log('user: ', user)
         await setTicket(user)
       } catch (error) {
         await setTicket(null)

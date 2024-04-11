@@ -134,6 +134,12 @@
 .softWhite {
   color: #fcfcfcf1;
 }
+.darkModeBlue {
+  color: #0a214c;
+}
+.darkModeBkg {
+  color: #010d20fa;
+}
 
 /* Amplify auth */
 /* :root {

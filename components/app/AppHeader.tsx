@@ -7,12 +7,15 @@ import NLink from 'next/link'
 import StaticImage from 'components/Atoms/StaticImage'
 import logo from '/public/images/logo-with-text-blue-small.png'
 import SiteLink from './server/Atoms/Links/SiteLink'
-import HeaderMenu from 'components/Molecules/Menus/HeaderMenu'
-import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
-import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
 import AppUserPanel from './AppUserPanel'
-const AppHeader = () => {
+import amplifyConfig from 'src/amplifyconfiguration.json'
+import { Amplify } from 'aws-amplify'
+import { useSessionSettings } from 'components/Organizms/session/useSessionSettings'
+Amplify.configure(amplifyConfig, { ssr: true })
+const AppHeader = ({ handleChangePalette }: { handleChangePalette: () => void }) => {
   const theme = useTheme()
+  const { palette, savePalette } = useSessionSettings()
+  const [colorMode, setColorMode] = React.useState<'light' | 'dark'>('dark')
 
   const bodyScrolled = useScrollTrigger({
     disableHysteresis: true,
@@ -22,8 +25,6 @@ const AppHeader = () => {
   React.useEffect(() => {
     setElevationEffect(bodyScrolled)
   }, [bodyScrolled])
-
-  const handleChangePalette = () => {}
 
   return (
     <AppBar sx={{ backgroundColor: 'transparent' }} position='sticky' elevation={elevationEffect ? 4 : 0} className='blue-gradient'>
@@ -46,9 +47,9 @@ const AppHeader = () => {
                       </Stack>
                     </Stack>
                   </Box>
-                  {/* <Box pt={'12px'}>
+                  <Box pt={'12px'}>
                     <AppUserPanel palette={theme.palette.mode} onChangePalette={handleChangePalette} />
-                  </Box> */}
+                  </Box>
                 </DarkMode>
               </Stack>
             </Box>

@@ -4,17 +4,14 @@ import {
   DarkModeBlue,
   CasinoBlueTransparent,
   CasinoBlue,
-  RedDarkMode,
   rfsOptions,
   CasinoGreenTransparent,
-  CasinoGrayTransparent,
-  CasinoMoreBlackTransparent,
   CasinoBlackTransparent,
-  VeryLightBlueTransparent,
   DarkModePrimary,
   CasinoDarkRedTransparent,
   CasinoOrange,
   CasinoOrangeTransparent,
+  DarkModeBkg,
 } from './mainTheme'
 
 const darkPalette: PaletteOptions = {
@@ -45,8 +42,8 @@ const darkPalette: PaletteOptions = {
   },
 
   background: {
-    default: DarkModeBlue,
-    paper: DarkModeBlue,
+    default: DarkModeBkg,
+    paper: DarkModeBkg,
   },
   text: {
     primary: VeryLightBlue,
@@ -111,7 +108,7 @@ const darkThemeOptions: ThemeOptions = {
     MuiPaper: {
       styleOverrides: {
         root: {
-          backgroundColor: DarkModeBlue,
+          //backgroundColor: DarkModeBlue,
         },
       },
     },

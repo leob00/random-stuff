@@ -45,6 +45,7 @@ export const ChartBackground = '#c2dffa3d'
 export const OceanBlue = '#295d6f'
 export const OceanBlueTransparent = '#0ba3d631'
 export const RedDarkMode = '#f31d1d'
+export const DarkModeBkg = '#010d20fa'
 
 const lightPalette: PaletteOptions = {
   mode: 'light',

@@ -118,15 +118,15 @@ export function siteMap() {
         },
       ],
     },
-    {
-      category: 'Miscellaneous',
-      paths: [
-        {
-          name: 'site map',
-          route: '/site-map',
-        },
-      ],
-    },
+    // {
+    //   category: 'Miscellaneous',
+    //   paths: [
+    //     {
+    //       name: 'site map',
+    //       route: '/site-map',
+    //     },
+    //   ],
+    // },
   ]
   return result
 }

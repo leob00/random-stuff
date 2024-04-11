@@ -4,6 +4,7 @@ import { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/react'
 import { Amplify } from 'aws-amplify'
 import amplifyConfig from 'src/amplifyconfiguration.json'
+import { Suspense } from 'react'
 Amplify.configure(amplifyConfig, { ssr: true })
 
 export const metadata: Metadata = {
@@ -25,9 +26,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <Analytics />
       <ThemeRegistry>
         <body>
-          <AppLayout>
-            <>{children}</>
-          </AppLayout>
+          <div>
+            <AppLayout>
+              <>{children}</>
+            </AppLayout>
+          </div>
         </body>
       </ThemeRegistry>
     </html>

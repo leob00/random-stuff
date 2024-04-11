@@ -57,7 +57,7 @@ export async function getUserCSR() {
     }
     return result
   } catch (error) {
-    //console.error(error)
+    console.error(error)
     return null
   }
 }

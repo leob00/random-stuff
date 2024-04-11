@@ -1,6 +1,7 @@
 import Delete from '@mui/icons-material/Delete'
 import Warning from '@mui/icons-material/Warning'
 import { Box, Stack, Button } from '@mui/material'
+import GradientContainer from 'components/Atoms/Boxes/GradientContainer'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
@@ -65,36 +66,47 @@ const NoteList = ({
       </Box>
       <Box>
         {filtered.map((item, i) => (
-          <Box key={item.id} textAlign='left'>
-            <ListItemContainer>
-              <Stack direction='row' py={1} alignItems='center'>
-                <ListHeader
-                  backgroundColor='transparent'
-                  item={item}
-                  text={item.title}
-                  onClicked={(item: UserNote) => {
-                    handleNoteTitleClick(item)
-                  }}
-                />
-                <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
-                  {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
-                    <Button size='small'>
-                      <DefaultTooltip text={getExpirationText(item.expirationDate)}>
-                        <Warning fontSize='small' color='primary' />
-                      </DefaultTooltip>
-                    </Button>
-                  )}
+          <Box key={item.id}>
+            <Box>
+              <GradientContainer>
+                <Stack direction='row' py={1} alignItems='center'>
                   <Button
-                    size='small'
+                    size='large'
                     onClick={() => {
-                      handleDeleteClick(item)
+                      handleNoteTitleClick(item)
                     }}
                   >
-                    <Delete color='error' />
+                    {item.title}
                   </Button>
+                  {/* <ListHeader
+                    backgroundColor='transparent'
+                    item={item}
+                    text={item.title}
+                    onClicked={(item: UserNote) => {
+                      handleNoteTitleClick(item)
+                    }}
+                  /> */}
+                  <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
+                    {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
+                      <Button size='small'>
+                        <DefaultTooltip text={getExpirationText(item.expirationDate)}>
+                          <Warning fontSize='small' color='primary' />
+                        </DefaultTooltip>
+                      </Button>
+                    )}
+                    <Button
+                      size='small'
+                      onClick={() => {
+                        handleDeleteClick(item)
+                      }}
+                    >
+                      <Delete color='error' />
+                    </Button>
+                  </Stack>
                 </Stack>
-              </Stack>
-            </ListItemContainer>
+              </GradientContainer>
+            </Box>
+
             {i < data.length - 1 && <HorizontalDivider />}
           </Box>
         ))}
