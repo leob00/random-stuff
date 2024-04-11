@@ -1,5 +1,5 @@
 import React from 'react'
-import NImage from 'next/legacy/image'
+import NImage from 'next/image'
 import { Box } from '@mui/material'
 
 const RemoteImage = ({
@@ -26,16 +26,15 @@ const RemoteImage = ({
   }
   return (
     <>
-      <Box sx={{ position: 'relative', height: { height }, width: { width }, padding: '5px', my: 1, borderRadius: '16px' }} className='blue-gradient hoverBox'>
+      <Box sx={{ position: 'relative', height: { height }, width: { width }, borderRadius: '16px' }}>
         <NImage
           style={style ? style : { borderRadius: '16px' }}
           src={url}
           alt={title}
           placeholder='blur'
-          layout='fill'
-          objectFit='cover'
+          height={height}
+          width={width}
           blurDataURL={url}
-          //className=''
           onLoad={handleLoaded}
           priority={priority}
         />

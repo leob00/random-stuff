@@ -8,11 +8,14 @@ const StaticAutoComplete = ({
   options,
   placeholder = 'search',
   onSelected,
+  selectedItem,
+  disableClearable = false,
 }: {
   options: DropdownItem[]
   placeholder?: string
-
   onSelected: (item: DropdownItem) => void
+  selectedItem?: DropdownItem
+  disableClearable?: boolean
 }) => {
   const items: Option[] = options.map((m) => {
     return {
@@ -20,6 +23,9 @@ const StaticAutoComplete = ({
       label: m.text,
     }
   })
+
+  const selectedOption: Option | undefined = selectedItem ? { id: selectedItem.value, label: selectedItem.text } : undefined
+
   const handleSelect = (
     event: React.SyntheticEvent<Element, Event>,
     value: Option | null,
@@ -35,11 +41,13 @@ const StaticAutoComplete = ({
   }
   return (
     <Autocomplete
+      defaultValue={selectedOption}
       size='small'
       onChange={handleSelect}
       disablePortal
       options={items}
       sx={{ width: 360 }}
+      disableClearable={disableClearable}
       isOptionEqualToValue={(opt, compOpt) => opt.id === compOpt.id}
       renderInput={(params) => (
         <TextField

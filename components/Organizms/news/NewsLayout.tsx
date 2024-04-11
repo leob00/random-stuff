@@ -1,6 +1,5 @@
 import { Box, Stack } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
-import DropDownList from 'components/Atoms/Inputs/DropdownList'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import { useUserController } from 'hooks/userController'
 import { NewsItem, NewsTypeIds, newsTypes } from 'lib/backend/api/qln/qlnApi'
@@ -11,6 +10,7 @@ import NewsList from './NewsList'
 import { getUserNoteTitles, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import useSWR from 'swr'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 
 const NewsLayout = () => {
   const userController = useUserController()
@@ -63,7 +63,15 @@ const NewsLayout = () => {
       <Box py={2}>
         <CenterStack>
           <Stack display='flex' flexDirection='row' gap={2}>
-            <DropDownList options={newsTypes} selectedOption={selectedSource} onOptionSelected={handleNewsSourceSelected} label='source' />
+            <StaticAutoComplete
+              options={newsTypes}
+              placeholder='select source'
+              selectedItem={newsTypes.find((m) => m.value === selectedSource)}
+              onSelected={(item) => {
+                handleNewsSourceSelected(item.value)
+              }}
+              disableClearable
+            />
           </Stack>
         </CenterStack>
       </Box>

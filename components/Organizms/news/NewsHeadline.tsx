@@ -1,5 +1,4 @@
 import { Box, Card, CardHeader, Link, Typography } from '@mui/material'
-import GradientContainer from 'components/Atoms/Boxes/GradientContainer'
 import { NewsItem } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 
