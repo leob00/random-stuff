@@ -26,18 +26,6 @@ const NewsList = ({
 }) => {
   const userController = useUserController()
   const handleSaved = async (note: UserNote) => {}
-  const RenderHeadline = (item: NewsItem) => {
-    if (!item.Headline) {
-      return <></>
-    }
-    return (
-      <Box textAlign={'center'} px={2}>
-        <Link href={item.Link} target='_blank' sx={{ fontWeight: 700, textDecoration: 'none' }}>
-          <Typography variant={'h4'} dangerouslySetInnerHTML={{ __html: `${item.Headline.replace('Pluralistic: ', '')}` }}></Typography>
-        </Link>
-      </Box>
-    )
-  }
 
   const getThumbnailSize = (source?: string) => {
     if (!source) {

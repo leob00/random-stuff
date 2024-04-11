@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import styled from '@emotion/styled'
-import { useTheme } from '@mui/material'
+import { Box, useTheme } from '@mui/material'
 const Gradient = styled.div`
   background-image: linear-gradient(
     90deg,
@@ -14,7 +14,7 @@ const Gradient = styled.div`
 `
 const GradientContainer = ({ children }: { children: ReactNode }) => {
   const theme = useTheme()
-  return <>{theme.palette.mode === 'dark' ? <Gradient>{children}</Gradient> : <>{children}</>}</>
+  return <Box>{theme.palette.mode === 'dark' ? <Gradient>{children}</Gradient> : <>{children}</>}</Box>
 }
 
 export default GradientContainer
