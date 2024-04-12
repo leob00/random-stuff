@@ -73,16 +73,16 @@ const getRecipesQuery = (skip: number) => {
         id
         firstPublishedAt
         publishedAt
-      }      
+      }
       title
-      summary      
+      summary
       heroImage {
         url
         size
         height
         width
       }
-    
+
     }
   }
 }`
@@ -122,12 +122,12 @@ const getRecipes = async (query: string) => {
 
 export async function getRecipe(id: string) {
   const query = /* GraphQL */ `{
-  recipe(id: "${id}") {    
+  recipe(id: "${id}") {
       sys {
         id
         firstPublishedAt
         publishedAt
-      }      
+      }
       title
       summary
       summaryNotes

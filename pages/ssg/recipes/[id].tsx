@@ -5,9 +5,9 @@ import { useCmsSwr } from 'hooks/useCmsSwr'
 import axios, { AxiosRequestConfig } from 'axios'
 import { getAllRecipes, getRecipe } from 'lib/backend/api/contenfulApi'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
-import RecipeLayout from 'components/RecipeLayout'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import Seo from 'components/Organizms/Seo'
+import RecipeLayout from 'components/Organizms/recipes/RecipeLayout'
 
 const cmsRefreshIntervalSeconds = 86400
 
@@ -59,13 +59,13 @@ const Cached = ({ fallbackData }: { fallbackData: Recipe }) => {
   })
 
   if (error) {
-    return <RecipeLayout article={fallbackData} baseUrl='/ssg/recipes' />
+    return <RecipeLayout article={fallbackData} />
   }
   let article = data as Recipe
   if (!article) {
     return <Container>loading</Container>
   }
-  return <RecipeLayout article={article} baseUrl='/ssg/recipes' />
+  return <RecipeLayout article={article} />
 }
 
 const FoodRecipe: NextPage<{ fallback: Recipe; article: Recipe }> = ({ fallback, article }) => {

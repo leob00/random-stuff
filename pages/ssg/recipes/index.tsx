@@ -6,7 +6,7 @@ import axios from 'axios'
 import { getAllRecipes } from 'lib/backend/api/contenfulApi'
 import { shuffle, take } from 'lodash'
 import { Recipe, RecipeCollection } from 'lib/models/cms/contentful/recipe'
-import RecipesLayout from 'components/RecipesLayout'
+import RecipesLayout from 'components/Organizms/recipes/RecipesLayout'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import { SiteStats } from 'lib/backend/api/aws/models/apiGatewayModels'
 import dayjs from 'dayjs'
@@ -17,6 +17,7 @@ import BackButton from 'components/Atoms/Buttons/BackButton'
 import { getRandomStuff, putRandomStuff } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { DropdownItem } from 'lib/models/dropdown'
 import { sortArray } from 'lib/util/collections'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 dayjs.extend(relativeTime)
 
 const cmsRefreshIntervalSeconds = 86400
@@ -25,7 +26,7 @@ const featuredRecipesExpirationMinutes = 1440
 
 const siteStatsKey = 'site-stats'
 
-export interface RecipesLayoutModel {
+interface RecipesLayoutModel {
   autoComplete: DropdownItem[]
   featured: Recipe[]
 }
@@ -58,7 +59,7 @@ const fetcherFn = async (url: string) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  let result = await getAllRecipes()
+  const result = await getAllRecipes()
   const items = result.items
   const newData = take(shuffle(items), 5)
   let options: DropdownItem[] = items.map((item) => {
@@ -102,7 +103,12 @@ const CachedRecipes = ({ fallbackData }: { fallbackData: RecipesLayoutModel }) =
     return <RecipesLayout autoComplete={fallbackData.autoComplete} baseUrl='/ssg/recipes/' featured={fallbackData.featured} />
   }
 
-  return <RecipesLayout autoComplete={data.autoComplete} baseUrl='/ssg/recipes/' featured={data.featured} />
+  return (
+    <>
+      {isValidating && <BackdropLoader />}
+      <RecipesLayout autoComplete={data.autoComplete} baseUrl='/ssg/recipes/' featured={data.featured} />
+    </>
+  )
 }
 
 const Recipes: NextPage<{ model: RecipesLayoutModel; fallback: RecipesLayoutModel }> = ({ model, fallback }) => {
