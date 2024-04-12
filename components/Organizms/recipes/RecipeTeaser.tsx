@@ -19,9 +19,9 @@ const RecipeTeaser = ({ item }: { item: Recipe }) => {
       />
       <CardContent>
         {item.summary && item.summary.length > 0 && (
-          <CenterStack sx={{ pb: 2 }}>
-            <Typography>{item.summary}</Typography>
-          </CenterStack>
+          <Box pb={8}>
+            <Typography textAlign={'center'}>{item.summary}</Typography>
+          </Box>
         )}
         <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>
           {item.heroImage && (

@@ -60,9 +60,8 @@ const fetcherFn = async (url: string) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const result = await getAllRecipes()
-  const items = result.items
-  const newData = take(shuffle(items), 5)
-  let options: DropdownItem[] = items.map((item) => {
+  const newData = take(shuffle(result.items), 5)
+  let options: DropdownItem[] = result.items.map((item) => {
     return { value: item.sys.id, text: item.title }
   })
   options = sortArray(options, ['text'], ['asc'])

@@ -9,8 +9,8 @@ import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import { DropdownItem } from 'lib/models/dropdown'
 import router from 'next/router'
 
-const RecipeLayout = ({ article, autoComplete }: { article: Recipe; autoComplete?: DropdownItem[] }) => {
-  const baseUrl = '/ssg/recipes'
+const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Recipe; autoComplete?: DropdownItem[]; selectedOption?: DropdownItem }) => {
+  const baseUrl = '/ssg/recipes/'
   const handleSelected = (item: DropdownItem) => {
     router.push(`${baseUrl}${item.value}`)
   }
@@ -18,10 +18,16 @@ const RecipeLayout = ({ article, autoComplete }: { article: Recipe; autoComplete
     <>
       <PageHeader text={''} backButtonRoute={baseUrl} />
 
-      <Box my={2}>
+      <Box>
         {autoComplete && (
-          <CenterStack>
-            <StaticAutoComplete options={autoComplete} placeholder={`search ${autoComplete.length} recipes`} onSelected={handleSelected} />
+          <CenterStack sx={{ py: 2 }}>
+            <StaticAutoComplete
+              options={autoComplete}
+              selectedItem={selectedOption}
+              placeholder={`search ${autoComplete.length} recipes`}
+              onSelected={handleSelected}
+              disableClearable
+            />
           </CenterStack>
         )}
         <RecipeTeaser item={article} />

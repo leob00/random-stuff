@@ -8,6 +8,9 @@ import { Recipe } from 'lib/models/cms/contentful/recipe'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import Seo from 'components/Organizms/Seo'
 import RecipeLayout from 'components/Organizms/recipes/RecipeLayout'
+import { sortArray } from 'lib/util/collections'
+import { DropdownItem } from 'lib/models/dropdown'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 const cmsRefreshIntervalSeconds = 86400
 
@@ -34,8 +37,13 @@ const fetcherFn = async (url: string, id: string) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  let id = context.params?.id as string
-  let article = await getRecipe(id)
+  const id = context.params?.id as string
+  const article = await getRecipe(id)
+  const recipeCollection = await getAllRecipes()
+  let options: DropdownItem[] = recipeCollection.items.map((item) => {
+    return { value: item.sys.id, text: item.title }
+  })
+  options = sortArray(options, ['text'], ['asc'])
 
   return {
     props: {
@@ -43,12 +51,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
         [unstable_serialize(['api', 'recipe', id])]: article,
       },
       article,
+      options,
     },
     revalidate: cmsRefreshIntervalSeconds,
   }
 }
 
-const Cached = ({ fallbackData }: { fallbackData: Recipe }) => {
+const Cached = ({ fallbackData, options, selectedOption }: { fallbackData: Recipe; options?: DropdownItem[]; selectedOption?: DropdownItem }) => {
   const fetcher: Fetcher<Recipe, string> = (id) => fetcherFn('/api/recipe', id)
 
   const { data, error } = useSWR(fallbackData.sys.id, fetcher, {
@@ -63,18 +72,19 @@ const Cached = ({ fallbackData }: { fallbackData: Recipe }) => {
   }
   let article = data as Recipe
   if (!article) {
-    return <Container>loading</Container>
+    return <BackdropLoader />
   }
-  return <RecipeLayout article={article} />
+  return <RecipeLayout article={article} autoComplete={options} selectedOption={selectedOption} />
 }
 
-const FoodRecipe: NextPage<{ fallback: Recipe; article: Recipe }> = ({ fallback, article }) => {
+const FoodRecipe: NextPage<{ fallback: Recipe; article: Recipe; options?: DropdownItem[] }> = ({ fallback, article, options }) => {
+  const selectedOption = options?.find((m) => m.value == article.sys.id)
   return (
     <>
       <Seo pageTitle={`Recipe: ${article.title}`} />
       <ResponsiveContainer>
         <SWRConfig value={{ fallback }}>
-          <Cached fallbackData={article} />
+          <Cached fallbackData={article} options={options} selectedOption={selectedOption} />
         </SWRConfig>
       </ResponsiveContainer>
     </>
