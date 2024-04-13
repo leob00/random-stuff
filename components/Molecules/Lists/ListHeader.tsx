@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography, useTheme } from '@mui/material'
+import { Box, Card, CardHeader, Paper, Stack, Typography, useTheme } from '@mui/material'
 import { ChartBackground, DarkBlue } from 'components/themes/mainTheme'
 import React from 'react'
 import ContextMenu, { ContextMenuItem } from '../Menus/ContextMenu'
@@ -80,24 +80,31 @@ const ListHeader = ({
             </Stack>
           </Paper>
         ) : (
-          <Box>
-            <GradientContainer>
-              <Stack direction={'row'} flexGrow={1} px={2} alignItems={'center'}>
-                <Stack
-                  py={1}
-                  width={'100%'}
-                  sx={{ cursor: 'pointer' }}
-                  onClick={(e) => {
-                    onClicked(item)
-                  }}
-                >
-                  <Typography textAlign={'left'} variant='h5' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
-                    {text}
-                  </Typography>
-                </Stack>
-                <Stack>{showContextMenu && <ContextMenu items={contextMenu} />}</Stack>
-              </Stack>
-            </GradientContainer>
+          <Box py={1}>
+            <Stack direction={'row'} flexGrow={1} px={2} alignItems={'center'}>
+              <Card sx={{ width: '100%' }}>
+                <CardHeader
+                  title={
+                    <>
+                      <Stack
+                        py={1}
+                        width={'100%'}
+                        sx={{ cursor: 'pointer' }}
+                        onClick={(e) => {
+                          onClicked(item)
+                        }}
+                      >
+                        <Typography textAlign={'left'} variant='h5' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
+                          {text}
+                        </Typography>
+                      </Stack>
+                    </>
+                  }
+                ></CardHeader>
+              </Card>
+
+              <Stack>{showContextMenu && <ContextMenu items={contextMenu} />}</Stack>
+            </Stack>
           </Box>
         )}
       </Box>

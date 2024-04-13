@@ -15,7 +15,7 @@ const EconDataTable = ({ data, handleItemClicked }: { data: EconomicDataItem[]; 
   }
   return (
     <>
-      <Box minHeight={60 * pageSize}>
+      <Box minHeight={60 * pageSize} pt={2}>
         {displayItems.map((item) => (
           <Box key={item.InternalId}>
             <ListHeader item={item} text={item.Title} onClicked={handleItemClicked} />
