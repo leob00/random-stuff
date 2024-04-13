@@ -19,7 +19,6 @@ import StockNews from 'components/Organizms/stocks/StockNews'
 import StockEarnings from './StockEarnings'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { putSearchedStock } from 'lib/backend/csr/nextApiWrapper'
-import { useTheme } from '@mui/material'
 import CompanyProfile from './CompanyProfile'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import StockSubscibeIcon from './StockSubscibeIcon'
@@ -122,7 +121,9 @@ const StockListItem = ({
         ) : (
           <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
         )}
-        <StockChange item={item} />
+        <Box px={2}>
+          <StockChange item={item} />
+        </Box>
         {showGroupName && item.GroupName && (
           <Stack pl={2}>
             <Typography variant='caption' color='primary'>{`Group Name: ${item.GroupName}`}</Typography>

@@ -22,12 +22,12 @@ const JobList = ({ response, onJobSelected }: { response: QlnApiResponse; onJobS
               <Box minHeight={50} pt={1} pl={2} pb={1}>
                 <Box>
                   {item.EndRunDate && (
-                    <Stack>
+                    <Stack px={1}>
                       <Typography variant='caption' color='primary'>{`last run: ${dayjs().to(dayjs(item.EndRunDate))}`}</Typography>
                     </Stack>
                   )}
                   {item.NextRunDate && (
-                    <Stack>
+                    <Stack px={1}>
                       <Typography variant='caption' color='primary'>{`next run: ${dayjs().to(dayjs(item.NextRunDate))}`}</Typography>
                     </Stack>
                   )}
