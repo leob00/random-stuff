@@ -25,6 +25,7 @@ const StaticAutoComplete = ({
   })
 
   const selectedOption: Option | undefined = selectedItem ? { id: selectedItem.value, label: selectedItem.text } : undefined
+  const inputRef = React.useRef<HTMLInputElement | null>(null)
 
   const handleSelect = (
     event: React.SyntheticEvent<Element, Event>,
@@ -36,6 +37,9 @@ const StaticAutoComplete = ({
     const item: DropdownItem = {
       value: selectedItem.id!,
       text: selectedItem.label!,
+    }
+    if (inputRef.current) {
+      inputRef.current.blur()
     }
     onSelected(item)
   }
@@ -51,6 +55,7 @@ const StaticAutoComplete = ({
       isOptionEqualToValue={(opt, compOpt) => opt.id === compOpt.id}
       renderInput={(params) => (
         <TextField
+          inputRef={inputRef}
           {...params}
           placeholder={placeholder}
           inputProps={{
