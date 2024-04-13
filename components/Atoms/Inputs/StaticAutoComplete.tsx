@@ -45,7 +45,7 @@ const StaticAutoComplete = ({
   }
   return (
     <Autocomplete
-      defaultValue={selectedOption}
+      value={selectedOption}
       size='small'
       onChange={handleSelect}
       disablePortal
