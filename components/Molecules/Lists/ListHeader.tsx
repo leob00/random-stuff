@@ -15,7 +15,6 @@ const ListHeader = ({
   onDelete,
   onAdd,
   addText = 'add',
-  backgroundColor,
   elevation,
   underline,
 }: {
@@ -26,7 +25,6 @@ const ListHeader = ({
   onDelete?: (item: any) => void
   onAdd?: (item: any) => void
   addText?: string
-  backgroundColor?: string
   elevation?: number
   underline?: boolean
 }) => {
@@ -82,7 +80,7 @@ const ListHeader = ({
         ) : (
           <Box py={1}>
             <Stack direction={'row'} flexGrow={1} px={2} alignItems={'center'}>
-              <Card sx={{ width: '100%' }}>
+              <Card sx={{ width: '100%' }} elevation={10}>
                 <CardHeader
                   title={
                     <>

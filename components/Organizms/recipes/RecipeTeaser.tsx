@@ -6,19 +6,27 @@ import { Recipe } from 'lib/models/cms/contentful/recipe'
 import React from 'react'
 import NLink from 'next/link'
 
-const RecipeTeaser = ({ item }: { item: Recipe }) => {
+const RecipeTeaser = ({ item, clickable = true, showSummary = true }: { item: Recipe; clickable?: boolean; showSummary?: boolean }) => {
   const baseUrl = '/ssg/recipes/'
   return (
     <Card elevation={2}>
       <CardHeader
         title={
           <CenterStack>
-            <InternalLink text={item.title} route={`${baseUrl}${item.sys.id}`} large />
+            {clickable ? (
+              <InternalLink text={item.title} route={`${baseUrl}${item.sys.id}`} large />
+            ) : (
+              <>
+                <Typography textAlign={'center'} variant={'h4'}>
+                  {item.title}
+                </Typography>
+              </>
+            )}
           </CenterStack>
         }
       />
       <CardContent>
-        {item.summary && item.summary.length > 0 && (
+        {showSummary && item.summary && item.summary.length > 0 && (
           <Box pb={8}>
             <Typography textAlign={'center'}>{item.summary}</Typography>
           </Box>

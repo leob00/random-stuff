@@ -30,7 +30,7 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
             />
           </CenterStack>
         )}
-        <RecipeTeaser item={article} />
+        <RecipeTeaser item={article} clickable={false} />
       </Box>
       <Stack>
         <Box m={'auto'} width={'50%'}>
