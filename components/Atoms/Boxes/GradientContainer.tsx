@@ -14,7 +14,11 @@ const Gradient = styled.div`
 `
 const GradientContainer = ({ children }: { children: ReactNode }) => {
   const theme = useTheme()
-  return <Box>{theme.palette.mode === 'dark' ? <Gradient>{children}</Gradient> : <>{children}</>}</Box>
+  return (
+    <Box>
+      <Gradient>{children}</Gradient>
+    </Box>
+  )
 }
 
 export default GradientContainer

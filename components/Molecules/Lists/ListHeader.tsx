@@ -13,7 +13,6 @@ const ListHeader = ({
   onDelete,
   onAdd,
   addText = 'add',
-  elevation,
   underline,
 }: {
   text: string
@@ -23,7 +22,6 @@ const ListHeader = ({
   onDelete?: (item: any) => void
   onAdd?: (item: any) => void
   addText?: string
-  elevation?: number
   underline?: boolean
 }) => {
   const showContextMenu = onEdit !== undefined || onDelete !== undefined || onAdd !== undefined
@@ -56,52 +54,28 @@ const ListHeader = ({
 
   return (
     <Box>
-      <Box>
-        {elevation ? (
-          <Paper elevation={elevation}>
-            <Stack direction={'row'} flexGrow={1} px={2} alignItems={'center'}>
-              <Stack
-                width={'100%'}
-                sx={{ cursor: 'pointer' }}
-                onClick={(e) => {
-                  onClicked(item)
-                }}
-              >
-                <Typography textAlign={'left'} variant='h5' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
-                  {text}
-                </Typography>
-              </Stack>
-              <Stack>{showContextMenu && <ContextMenu items={contextMenu} />}</Stack>
-            </Stack>
-          </Paper>
-        ) : (
-          <Box py={1}>
-            <Stack direction={'row'} flexGrow={1} px={2} alignItems={'center'}>
-              <Card sx={{ width: '100%' }} elevation={6}>
-                <CardHeader
-                  title={
-                    <>
-                      <Stack
-                        py={1}
-                        width={'100%'}
-                        sx={{ cursor: 'pointer' }}
-                        onClick={(e) => {
-                          onClicked(item)
-                        }}
-                      >
-                        <Typography textAlign={'left'} variant='h5' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
-                          {text}
-                        </Typography>
-                      </Stack>
-                    </>
-                  }
-                ></CardHeader>
-              </Card>
-              <Stack>{showContextMenu && <ContextMenu items={contextMenu} />}</Stack>
-            </Stack>
-          </Box>
-        )}
-      </Box>
+      <Stack direction={'row'} flexGrow={1} alignItems={'center'}>
+        <Card sx={{ width: '100%' }} elevation={1}>
+          <CardHeader
+            title={
+              <>
+                <Box
+                  width={'100%'}
+                  sx={{ cursor: 'pointer' }}
+                  onClick={(e) => {
+                    onClicked(item)
+                  }}
+                >
+                  <Typography textAlign={'left'} variant='h5' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
+                    {text}
+                  </Typography>
+                </Box>
+              </>
+            }
+          ></CardHeader>
+        </Card>
+        <Box>{showContextMenu && <ContextMenu items={contextMenu} />}</Box>
+      </Stack>
     </Box>
   )
 }

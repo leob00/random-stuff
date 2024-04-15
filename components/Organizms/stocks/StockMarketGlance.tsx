@@ -1,9 +1,6 @@
 import { Box, Paper, Typography } from '@mui/material'
-import JsonView from 'components/Atoms/Boxes/JsonView'
 import CenterStack from 'components/Atoms/CenterStack'
-import BasicPieChart from 'components/Atoms/Charts/BasicPieChart'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
-import { CasinoGrayTransparent, CasinoGreenTransparent, CasinoRedTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { apiConnection } from 'lib/backend/api/config'
@@ -27,11 +24,11 @@ const StockMarketGlance = () => {
         <CenteredTitle title={'Stock market at a glance'} />
         {data && (
           <>
-            <StockMarketStatus data={data} />
             <CenterStack sx={{ pt: 1 }}>
               <Typography variant='caption'>{`data as of: ${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} (ET)`}</Typography>
             </CenterStack>
             <StockMarketStatsChart data={data} />
+            <StockMarketStatus data={data} />
           </>
         )}
       </Box>
