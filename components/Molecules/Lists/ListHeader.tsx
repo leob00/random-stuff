@@ -1,11 +1,9 @@
-import { Box, Card, CardHeader, Paper, Stack, Typography, useTheme } from '@mui/material'
-import { ChartBackground, DarkBlue } from 'components/themes/mainTheme'
+import { Box, Card, CardHeader, Paper, Stack, Typography } from '@mui/material'
 import React from 'react'
 import ContextMenu, { ContextMenuItem } from '../Menus/ContextMenu'
 import ContextMenuAdd from '../Menus/ContextMenuAdd'
 import ContextMenuDelete from '../Menus/ContextMenuDelete'
 import ContextMenuEdit from '../Menus/ContextMenuEdit'
-import GradientContainer from 'components/Atoms/Boxes/GradientContainer'
 
 const ListHeader = ({
   text,
@@ -28,7 +26,6 @@ const ListHeader = ({
   elevation?: number
   underline?: boolean
 }) => {
-  const theme = useTheme()
   const showContextMenu = onEdit !== undefined || onDelete !== undefined || onAdd !== undefined
 
   const contextMenu: ContextMenuItem[] = []
@@ -80,7 +77,7 @@ const ListHeader = ({
         ) : (
           <Box py={1}>
             <Stack direction={'row'} flexGrow={1} px={2} alignItems={'center'}>
-              <Card sx={{ width: '100%' }} elevation={10}>
+              <Card sx={{ width: '100%' }} elevation={6}>
                 <CardHeader
                   title={
                     <>
@@ -100,7 +97,6 @@ const ListHeader = ({
                   }
                 ></CardHeader>
               </Card>
-
               <Stack>{showContextMenu && <ContextMenu items={contextMenu} />}</Stack>
             </Stack>
           </Box>
