@@ -108,23 +108,7 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
               {filteredGoals.map((item, i) => (
                 <Box key={item.id}>
                   <Box>
-                    <GradientContainer>
-                      <Stack
-                        direction='row'
-                        py={'3px'}
-                        justifyContent='left'
-                        alignItems='center'
-                        sx={{ cursor: 'pointer' }}
-                        onClick={() => handleShowEditGoal(item)}
-                      >
-                        <Button size='large'>{item.body}</Button>
-                        {item.completePercent !== undefined && (
-                          <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' pr={2}>
-                            <ProgressBar value={item.completePercent} toolTipText={`${item.completePercent}% complete`} width={80} />
-                          </Stack>
-                        )}
-                      </Stack>
-                    </GradientContainer>
+                    <ListHeader text={item.body ?? ''} item={item} onClicked={() => handleShowEditGoal(item)} />
                     {item.stats && (
                       <Box pl={2} pb={2}>
                         <>
