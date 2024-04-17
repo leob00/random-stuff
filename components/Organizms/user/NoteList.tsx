@@ -68,38 +68,36 @@ const NoteList = ({
         {filtered.map((item, i) => (
           <Box key={item.id}>
             <Box>
-              <GradientContainer>
-                <Stack direction='row' py={1}>
-                  <Box sx={{}}>
-                    <Button
-                      size='large'
-                      onClick={() => {
-                        handleNoteTitleClick(item)
-                      }}
-                      //sx={{ width: '100%' }}
-                    >
-                      <Typography textAlign={'left'}>{item.title}</Typography>
+              <Stack direction='row' py={1}>
+                <Box sx={{ width: '100%' }}>
+                  <Button
+                    fullWidth
+                    size='large'
+                    onClick={() => {
+                      handleNoteTitleClick(item)
+                    }}
+                  >
+                    <Typography textAlign={'left'}>{item.title}</Typography>
+                  </Button>
+                </Box>
+                <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
+                  {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
+                    <Button size='small'>
+                      <DefaultTooltip text={getExpirationText(item.expirationDate)}>
+                        <Warning fontSize='small' color='primary' />
+                      </DefaultTooltip>
                     </Button>
-                  </Box>
-                  <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
-                    {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
-                      <Button size='small'>
-                        <DefaultTooltip text={getExpirationText(item.expirationDate)}>
-                          <Warning fontSize='small' color='primary' />
-                        </DefaultTooltip>
-                      </Button>
-                    )}
-                    <Button
-                      size='small'
-                      onClick={() => {
-                        handleDeleteClick(item)
-                      }}
-                    >
-                      <Delete color='error' />
-                    </Button>
-                  </Stack>
+                  )}
+                  <Button
+                    size='small'
+                    onClick={() => {
+                      handleDeleteClick(item)
+                    }}
+                  >
+                    <Delete color='error' />
+                  </Button>
                 </Stack>
-              </GradientContainer>
+              </Stack>
             </Box>
 
             {i < data.length - 1 && <HorizontalDivider />}
