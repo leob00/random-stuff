@@ -12,7 +12,7 @@ export function constructUserNoteTitlesKey(username: string) {
 }
 export function constructUserNotePrimaryKey(username: string) {
   //const utcNow = getUtcNow().format()
-  return `user-note[${getSecondsFromEpoch()}][${username}]`
+  return `user-note[${crypto.randomUUID()}][${username}]`
 }
 export function constructUserNoteCategoryKey(username: string) {
   return `user-note[${username}]`
