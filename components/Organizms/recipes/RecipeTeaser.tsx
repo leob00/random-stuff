@@ -6,7 +6,17 @@ import { Recipe } from 'lib/models/cms/contentful/recipe'
 import React from 'react'
 import NLink from 'next/link'
 
-const RecipeTeaser = ({ item, clickable = true, showSummary = true }: { item: Recipe; clickable?: boolean; showSummary?: boolean }) => {
+const RecipeTeaser = ({
+  item,
+  clickable = true,
+  showSummary = true,
+  showImage = true,
+}: {
+  item: Recipe
+  clickable?: boolean
+  showSummary?: boolean
+  showImage?: boolean
+}) => {
   const baseUrl = '/ssg/recipes/'
   return (
     <Card elevation={2}>
@@ -31,8 +41,8 @@ const RecipeTeaser = ({ item, clickable = true, showSummary = true }: { item: Re
             <Typography textAlign={'center'}>{item.summary}</Typography>
           </Box>
         )}
-        <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>
-          {item.heroImage && (
+        {item.heroImage && showImage && (
+          <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>
             <Card elevation={4} sx={{ borderRadius: '16px' }}>
               <NLink href={`${baseUrl}${item.sys.id}`} passHref legacyBehavior as={`${baseUrl}${item.sys.id}`}>
                 <Link href={`${baseUrl}${item.sys.id}`}>
@@ -42,8 +52,8 @@ const RecipeTeaser = ({ item, clickable = true, showSummary = true }: { item: Re
                 </Link>
               </NLink>
             </Card>
-          )}
-        </Stack>
+          </Stack>
+        )}
       </CardContent>
     </Card>
   )

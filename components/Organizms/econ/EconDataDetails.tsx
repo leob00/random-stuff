@@ -95,7 +95,7 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
           </IconButton>
         </Box>
       </Box>
-      <Box minHeight={500}>
+      <Box minHeight={{ xs: 325, md: 500 }}>
         <EconDataChart chart={model.chart} />
       </Box>
       <Box py={2}>

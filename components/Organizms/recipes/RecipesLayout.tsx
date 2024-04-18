@@ -23,7 +23,7 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Drop
         </CenterStack>
         {featured.map((item, ix) => (
           <Box key={item.sys.id} py={2}>
-            <RecipeTeaser item={item} />
+            <RecipeTeaser item={item} showSummary />
           </Box>
         ))}
       </Box>
