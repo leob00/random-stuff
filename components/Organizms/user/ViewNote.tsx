@@ -13,7 +13,17 @@ import { S3Object, UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 
-const ViewNote = ({ selectedNote, onEdit, onCancel, onDelete, onFilesMutated }: { selectedNote: UserNote; onEdit: (item: UserNote) => void; onCancel: () => void; onDelete: (note: UserNote) => void; onFilesMutated: (files: S3Object[]) => void }) => {
+const ViewNote = ({
+  selectedNote,
+  onEdit,
+  onCancel,
+  onDelete,
+}: {
+  selectedNote: UserNote
+  onEdit: (item: UserNote) => void
+  onCancel: () => void
+  onDelete: (note: UserNote) => void
+}) => {
   const [showConfirmDelete, setShowConfirmDelete] = React.useState(false)
 
   const handleYesDelete = () => {

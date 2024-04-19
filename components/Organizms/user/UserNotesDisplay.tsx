@@ -112,13 +112,7 @@ const UserNotesDisplay = ({ result, username, onMutated }: { result: UserNote[];
         )}
         {model.selectedNote && !model.editMode && (
           <>
-            <ViewNote
-              selectedNote={model.selectedNote}
-              onEdit={handleEditNote}
-              onCancel={handleCancelClick}
-              onDelete={handleDelete}
-              onFilesMutated={handleFilesMutated}
-            />
+            <ViewNote selectedNote={model.selectedNote} onEdit={handleEditNote} onCancel={handleCancelClick} onDelete={handleDelete} />
           </>
         )}
         {model.editMode && !model.viewMode && model.selectedNote && (

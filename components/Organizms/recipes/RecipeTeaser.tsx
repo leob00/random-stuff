@@ -18,6 +18,7 @@ const RecipeTeaser = ({
   showImage?: boolean
 }) => {
   const baseUrl = '/ssg/recipes/'
+  const showCardContent = showSummary && showImage
   return (
     <Card elevation={2}>
       <CardHeader
@@ -35,26 +36,28 @@ const RecipeTeaser = ({
           </CenterStack>
         }
       />
-      <CardContent>
-        {showSummary && item.summary && item.summary.length > 0 && (
-          <Box pb={8}>
-            <Typography textAlign={'center'}>{item.summary}</Typography>
-          </Box>
-        )}
-        {item.heroImage && showImage && (
-          <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>
-            <Card elevation={4} sx={{ borderRadius: '16px' }}>
-              <NLink href={`${baseUrl}${item.sys.id}`} passHref legacyBehavior as={`${baseUrl}${item.sys.id}`}>
-                <Link href={`${baseUrl}${item.sys.id}`}>
-                  <Box>
-                    <RemoteImage url={item.heroImage.url} title={item.title} />
-                  </Box>
-                </Link>
-              </NLink>
-            </Card>
-          </Stack>
-        )}
-      </CardContent>
+      {showCardContent && (
+        <CardContent>
+          {showSummary && item.summary && item.summary.length > 0 && (
+            <Box pb={8}>
+              <Typography textAlign={'center'}>{item.summary}</Typography>
+            </Box>
+          )}
+          {item.heroImage && showImage && (
+            <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>
+              <Card elevation={4} sx={{ borderRadius: '16px' }}>
+                <NLink href={`${baseUrl}${item.sys.id}`} passHref legacyBehavior as={`${baseUrl}${item.sys.id}`}>
+                  <Link href={`${baseUrl}${item.sys.id}`}>
+                    <Box>
+                      <RemoteImage url={item.heroImage.url} title={item.title} />
+                    </Box>
+                  </Link>
+                </NLink>
+              </Card>
+            </Stack>
+          )}
+        </CardContent>
+      )}
     </Card>
   )
 }

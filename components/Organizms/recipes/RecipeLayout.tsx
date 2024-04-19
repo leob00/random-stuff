@@ -30,13 +30,9 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
             />
           </CenterStack>
         )}
-        <RecipeTeaser item={article} clickable={false} showSummary={false} showImage={false} />
+        <RecipeTeaser item={article} clickable={false} />
       </Box>
-      <Stack>
-        <Box m={'auto'} width={'50%'}>
-          {documentToReactComponents(article.richBody.json)}
-        </Box>
-      </Stack>
+      <Box px={2}>{documentToReactComponents(article.richBody.json)}</Box>
     </>
   )
 }

@@ -3,6 +3,7 @@ import Warning from '@mui/icons-material/Warning'
 import { Box, Stack, Button, Typography } from '@mui/material'
 import GradientContainer from 'components/Atoms/Boxes/GradientContainer'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import Clickable from 'components/Atoms/Containers/Clickable'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
@@ -68,17 +69,15 @@ const NoteList = ({
         {filtered.map((item, i) => (
           <Box key={item.id}>
             <Box>
-              <Stack direction='row' py={1}>
-                <Box sx={{ width: '100%' }}>
-                  <Button
-                    fullWidth
-                    size='large'
-                    onClick={() => {
+              <Stack direction='row' py={2}>
+                <Box pt={1}>
+                  <Clickable
+                    onClicked={() => {
                       handleNoteTitleClick(item)
                     }}
                   >
                     <Typography textAlign={'left'}>{item.title}</Typography>
-                  </Button>
+                  </Clickable>
                 </Box>
                 <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
                   {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
