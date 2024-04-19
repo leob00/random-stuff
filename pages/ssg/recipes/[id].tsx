@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import useSWR, { SWRConfig, unstable_serialize, Fetcher } from 'swr'
 import { useCmsSwr } from 'hooks/useCmsSwr'
 import axios, { AxiosRequestConfig } from 'axios'
-import { getAllRecipes, getRecipe } from 'lib/backend/api/contenfulApi'
+import { getAllRecipes, getRecipe } from 'lib/backend/api/cms/contenfulApi'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import Seo from 'components/Organizms/Seo'
@@ -13,6 +13,16 @@ import { DropdownItem } from 'lib/models/dropdown'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 const cmsRefreshIntervalSeconds = 86400
+const fetcherFn = async (url: string, id: string) => {
+  let config: AxiosRequestConfig = {
+    params: {
+      id: id,
+    },
+  }
+  let resp = await axios.get(url, config)
+  const recipe = resp.data as Recipe
+  return recipe
+}
 
 export const getStaticPaths: GetStaticPaths = async () => {
   let model = await getAllRecipes()
@@ -23,17 +33,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: paths,
     fallback: 'blocking',
   }
-}
-
-const fetcherFn = async (url: string, id: string) => {
-  let config: AxiosRequestConfig = {
-    params: {
-      id: id,
-    },
-  }
-  let resp = await axios.get(url, config)
-  const recipe = resp.data as Recipe
-  return recipe
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {

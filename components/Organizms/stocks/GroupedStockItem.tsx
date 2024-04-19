@@ -20,7 +20,6 @@ const GroupedStockItem = ({ group, userProfile }: { group: StockGroup; userProfi
         py={2}
         pl={1}
         display={'flex'}
-        gap={2}
         alignItems={'center'}
         justifyContent={'space-between'}
         onClick={handleExpandCollapse}
@@ -39,8 +38,8 @@ const GroupedStockItem = ({ group, userProfile }: { group: StockGroup; userProfi
       </Box>
       {expanded && (
         <>
-          <ScrollIntoView enabled={expanded} margin={-10} />
-          <StockTable isStock={true} stockList={group.quotes} key={group.id} showGroupName={false} showSummary={false} />
+          <ScrollIntoView enabled={expanded} margin={-20} />
+          <StockTable isStock={true} stockList={group.quotes} key={group.id} showGroupName={false} showSummary={false} scrollIntoView />
         </>
       )}
     </>

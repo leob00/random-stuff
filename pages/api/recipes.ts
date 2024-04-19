@@ -1,4 +1,4 @@
-import { getAllRecipes } from 'lib/backend/api/contenfulApi'
+import { getAllRecipes } from 'lib/backend/api/cms/contenfulApi'
 import { NextRequest, NextResponse } from 'next/server'
 export const config = {
   runtime: 'edge',

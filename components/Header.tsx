@@ -11,11 +11,14 @@ import StaticImage from './Atoms/StaticImage'
 import MenuLinkButton from './Atoms/Buttons/MenuLinkButton'
 import GradientContainer from './Atoms/Boxes/GradientContainer'
 import SiteLink from './app/server/Atoms/Links/SiteLink'
+import { useUserController } from 'hooks/userController'
+import { getUserCSR } from 'lib/backend/auth/userUtil'
+import HeaderLinks from './HeaderLinks'
 //
 const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; onSetColorMode: () => void }) => {
-  const [elevationEffect, setElevationEffect] = useState(true)
-  const router = useRouter()
+  const [elevationEffect, setElevationEffect] = useState(false)
   const theme = useTheme()
+  const { ticket, setTicket } = useUserController()
 
   const bodyScrolled = useScrollTrigger({
     disableHysteresis: true,
@@ -29,9 +32,26 @@ const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; 
   const handleChangeLightMode = () => {
     onSetColorMode()
   }
+  React.useEffect(() => {
+    let fn = async () => {
+      if (ticket) {
+        return
+      }
+
+      try {
+        let user = await getUserCSR()
+        await setTicket(user)
+      } catch (error) {
+        await setTicket(null)
+      }
+    }
+
+    fn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ticket])
 
   return (
-    <AppBar component='nav' sx={{ zIndex: theme.zIndex.drawer + 1 }} position={'sticky'} elevation={elevationEffect ? 4 : 0}>
+    <AppBar component='nav' sx={{ zIndex: theme.zIndex.drawer + 1 }} position={'sticky'} elevation={elevationEffect ? 6 : 0}>
       <GradientContainer>
         <DarkMode>
           <Toolbar>
@@ -42,20 +62,7 @@ const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; 
                     <StaticImage image={logo} title='random things' width={120} height={60} priority={true} />
                   </NLink>
                   <Box pt={2}>
-                    <Box display='flex' gap={{ xs: 1, sm: 2 }} alignItems={'center'}>
-                      <Box>
-                        <SiteLink href='/' text={'home'} />
-                      </Box>
-                      <Box>
-                        <SiteLink href='/csr/news' text={'news'} />
-                      </Box>
-                      <Box sx={{ display: { xs: 'none', md: 'unset' } }}>
-                        <SiteLink href='/ssg/recipes' text={'recipes'} />
-                      </Box>
-                      <Box sx={{ display: { xs: 'none', md: 'unset' } }}>
-                        <SiteLink href='/csr/community-stocks' text={'stocks'} />
-                      </Box>
-                    </Box>
+                    <HeaderLinks ticket={ticket} />
                   </Box>
                 </Box>
                 <Box pt={'12px'}>

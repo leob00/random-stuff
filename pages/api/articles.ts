@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getAllBlogs as getBogCollection } from 'lib/backend/api/contenfulApi'
+import { getAllBlogs as getBogCollection } from 'lib/backend/api/cms/contenfulApi'
 import { BlogCollection } from 'lib/models/cms/contentful/blog'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<BlogCollection>) {

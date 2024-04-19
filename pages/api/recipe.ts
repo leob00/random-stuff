@@ -1,5 +1,5 @@
 import { Recipe } from 'lib/models/cms/contentful/recipe'
-import { getRecipe } from 'lib/backend/api/contenfulApi'
+import { getRecipe } from 'lib/backend/api/cms/contenfulApi'
 import { NextRequest, NextResponse } from 'next/server'
 export const config = {
   runtime: 'edge',

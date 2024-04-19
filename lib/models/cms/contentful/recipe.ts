@@ -27,11 +27,11 @@ export interface RecipeCollection {
   items: Recipe[]
 }
 
-export interface Data {
+export interface RecipeData {
   recipeCollection: RecipeCollection
   recipe: Recipe
 }
 
 export interface RecipesResponse {
-  data: Data
+  data: RecipeData
 }

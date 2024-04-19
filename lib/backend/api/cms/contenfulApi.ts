@@ -1,7 +1,8 @@
-import { BlogResponse, BlogTypes } from '../../models/cms/contentful/blog'
-import { Recipe, RecipeCollection, RecipesResponse } from '../../models/cms/contentful/recipe'
-import { apiConnection } from './config'
-import { post } from './fetchFunctions'
+import { BlogResponse, BlogTypes } from '../../../models/cms/contentful/blog'
+import { Recipe, RecipeCollection, RecipesResponse } from '../../../models/cms/contentful/recipe'
+import { apiConnection } from '../config'
+import { post } from '../fetchFunctions'
+import { getAllRecipesQuery, recipeQuery } from './recipeQueries'
 
 const config = apiConnection().contentful
 
@@ -31,30 +32,6 @@ const allBlogsQuery = /* GraphQL */ `
     }
   }
 `
-const allRecipesQuery = /* GraphQL */ `
-  {
-    recipeCollection {
-      items {
-        sys {
-          id
-          firstPublishedAt
-          publishedAt
-        }
-        title
-        summary
-        richBody {
-          json
-        }
-        heroImage {
-          url
-          size
-          height
-          width
-        }
-      }
-    }
-  }
-`
 
 export async function getAllBlogs() {
   let body = { query: allBlogsQuery }
@@ -63,29 +40,6 @@ export async function getAllBlogs() {
   let data = resp as BlogResponse
   let blogCollection = data.data.blogCollection
   return blogCollection
-}
-
-const getRecipesQuery = (skip: number) => {
-  return /* GraphQL */ `{
-  recipeCollection (skip: ${skip}) {
-    items {
-      sys {
-        id
-        firstPublishedAt
-        publishedAt
-      }
-      title
-      summary
-      heroImage {
-        url
-        size
-        height
-        width
-      }
-
-    }
-  }
-}`
 }
 
 const recipesMap = new Map<string, Recipe>()
@@ -97,7 +51,7 @@ export async function getAllRecipes(): Promise<RecipeCollection> {
     }
   }
   for (let index = 0; index < 50; index++) {
-    const result = await getRecipes(getRecipesQuery(index * 100))
+    const result = await getRecipes(getAllRecipesQuery(index * 100))
     result.items.forEach((item) => {
       recipesMap.set(item.sys.id, item)
     })
@@ -121,29 +75,7 @@ const getRecipes = async (query: string) => {
 }
 
 export async function getRecipe(id: string) {
-  const query = /* GraphQL */ `{
-  recipe(id: "${id}") {
-      sys {
-        id
-        firstPublishedAt
-        publishedAt
-      }
-      title
-      summary
-      summaryNotes
-      richBody {
-        json
-      }
-      heroImage {
-        url
-        size
-        height
-        width
-      }
-  }
-}`
-  let body = { query: query }
-
+  const body = { query: recipeQuery(id) }
   const resp = await post(url, body)
   const data = resp as RecipesResponse
   const result = data.data.recipe
