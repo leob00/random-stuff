@@ -54,7 +54,6 @@ const RouletteBarChart = ({ data, title = 'Roulette Chart' }: { data: WheelSpinS
           size: 16,
         },
         footerFont: {
-          weight: '',
           size: 15,
         },
         bodyFont: {

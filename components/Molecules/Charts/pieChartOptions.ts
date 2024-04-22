@@ -1,16 +1,5 @@
 import { ChartData, ChartOptions } from 'chart.js'
-import {
-  CasinoBlue,
-  CasinoBlueTransparent,
-  CasinoGreen,
-  CasinoMoreBlackTransparent,
-  CasinoWhiteTransparent,
-  CasinoYellowTransparent,
-  DarkBlue,
-  DarkBlueTransparent,
-  VeryLightBlue,
-} from 'components/themes/mainTheme'
-import { max } from 'lodash'
+import { CasinoMoreBlackTransparent, CasinoWhiteTransparent, DarkBlue, VeryLightBlue } from 'components/themes/mainTheme'
 
 export interface BarChart {
   labels: string[]
@@ -67,7 +56,6 @@ export const getPieChartOptions = (title: string, palette: 'light' | 'dark'): Ch
         footerSpacing: 2,
         footerMarginTop: 10,
         footerFont: {
-          weight: '',
           size: 15,
         },
         bodyFont: {

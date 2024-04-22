@@ -118,7 +118,6 @@ const RouletteStackedBarChart = ({ data, title = 'Roulette Chart' }: { data: Whe
         footerSpacing: 2,
         footerMarginTop: 10,
         footerFont: {
-          weight: '',
           size: 15,
         },
         bodyFont: {

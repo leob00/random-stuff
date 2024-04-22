@@ -45,7 +45,6 @@ const MultiDatasetBarchart = () => {
         footerSpacing: 2,
         footerMarginTop: 10,
         footerFont: {
-          weight: '',
           size: 15,
         },
         bodyFont: {
