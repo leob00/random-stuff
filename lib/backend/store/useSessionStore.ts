@@ -20,16 +20,16 @@ interface SessionState {
   saveClaims: (claims: Claim[]) => void
 }
 
-export const useSessionStore = create<SessionState>()((set) => ({
-  palette: 'dark',
-  routes: [],
-  communityStocks: {},
-  claims: [],
-  saveRoutes: (routes) => set((state) => ({ ...state, routes: routes })),
-  savePalette: (palette: 'light' | 'dark') => set((state) => ({ ...state, palette: palette })),
-  saveCommunityStocksSort: (sort) => set((state) => ({ ...state, communityStocks: { defaultSort: sort } })),
-  saveClaims: (claims) => set((state) => ({ ...state, claims: claims })),
-}))
+// const useSessionStore = create<SessionState>()((set) => ({
+//   palette: 'dark',
+//   routes: [],
+//   communityStocks: {},
+//   claims: [],
+//   saveRoutes: (routes) => set((state) => ({ ...state, routes: routes })),
+//   savePalette: (palette: 'light' | 'dark') => set((state) => ({ ...state, palette: palette })),
+//   saveCommunityStocksSort: (sort) => set((state) => ({ ...state, communityStocks: { defaultSort: sort } })),
+//   saveClaims: (claims) => set((state) => ({ ...state, claims: claims })),
+// }))
 
 export const useSessionPersistentStore = create(
   persist<SessionState>(
@@ -39,7 +39,7 @@ export const useSessionPersistentStore = create(
       communityStocks: {},
       claims: [],
       saveRoutes: (routes) => set((state) => ({ ...state, routes: routes, lastRefreshDate: dayjs().format() })),
-      savePalette: (palette: 'light' | 'dark') => set((state) => ({ ...get, palette: palette })),
+      savePalette: (palette: 'light' | 'dark') => set((state) => ({ ...state, palette: palette })),
       saveCommunityStocksSort: (sort) => set((state) => ({ ...state, communityStocks: { defaultSort: sort } })),
       saveClaims: (claims) => set((state) => ({ ...state, claims: claims })),
     }),
