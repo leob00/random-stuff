@@ -6,6 +6,7 @@ import CenterStack from '../../Atoms/CenterStack'
 import StaticAutoComplete from '../../Atoms/Inputs/StaticAutoComplete'
 import { DropdownItem } from 'lib/models/dropdown'
 import RecipeTeaser from './RecipeTeaser'
+import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 
 const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: DropdownItem[]; baseUrl: string; featured: Recipe[] }) => {
   const handleSelected = (item: DropdownItem) => {
@@ -17,16 +18,16 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Drop
       <CenterStack>
         <StaticAutoComplete options={autoComplete} placeholder={`search ${autoComplete.length} recipes`} onSelected={handleSelected} />
       </CenterStack>
-      <Box sx={{ my: 2 }}>
-        <CenterStack sx={{ pb: 4 }}>
-          <Typography variant='h4'>{'Featured Recipes'}</Typography>
-        </CenterStack>
+      <CenterStack sx={{ pt: 2 }}>
+        <Typography variant='h4'>{'Featured Recipes'}</Typography>
+      </CenterStack>
+      <ScrollableBox>
         {featured.map((item, ix) => (
           <Box key={item.sys.id} py={2}>
             <RecipeTeaser item={item} showSummary />
           </Box>
         ))}
-      </Box>
+      </ScrollableBox>
     </Box>
   )
 }

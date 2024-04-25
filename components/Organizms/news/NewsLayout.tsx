@@ -11,6 +11,7 @@ import { getUserNoteTitles, putUserProfile } from 'lib/backend/csr/nextApiWrappe
 import useSWR from 'swr'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
+import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 
 const NewsLayout = () => {
   const userController = useUserController()
@@ -81,9 +82,7 @@ const NewsLayout = () => {
         ) : (
           <>
             {error && <ErrorMessage text='There is an error that occurred. We have been made aware of it. Please try again in a few minutes.' />}
-            <Box sx={{ maxHeight: 580, overflowY: 'auto' }} py={2}>
-              {data && <NewsList newsItems={data} />}
-            </Box>
+            <ScrollableBox>{data && <NewsList newsItems={data} />}</ScrollableBox>
           </>
         )}
       </Box>

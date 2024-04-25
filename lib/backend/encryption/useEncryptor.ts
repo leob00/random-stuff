@@ -43,9 +43,14 @@ export function weakDecrypt(data: string) {
 }
 
 export function myDecrypt(passPhrase: string, data: string) {
-  const bytes = CryptoJS.AES.decrypt(data, passPhrase)
-  const decryptedData = bytes.toString(CryptoJS.enc.Utf8)
-  return decryptedData
+  try {
+    const bytes = CryptoJS.AES.decrypt(data, passPhrase)
+    const decryptedData = bytes.toString(CryptoJS.enc.Utf8)
+    return decryptedData
+  } catch (error) {
+    console.error('decrypt error: ', error)
+    return ''
+  }
 }
 export function myDecryptBase64(passPhrase: string, data: string) {
   const bytes = CryptoJS.AES.decrypt(data, passPhrase)

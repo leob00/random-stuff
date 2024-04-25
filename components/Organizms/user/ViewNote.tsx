@@ -1,7 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
-import RecordExpirationWarning from 'components/Atoms/Text/RecordExpirationWarning'
 import dayjs from 'dayjs'
 import React from 'react'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
@@ -12,6 +11,7 @@ import ContextMenuClose from 'components/Molecules/Menus/ContextMenuClose'
 import { S3Object, UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
+import RecordExpirationWarning from 'components/Atoms/Text/RecordExpirationWarning'
 
 const ViewNote = ({
   selectedNote,

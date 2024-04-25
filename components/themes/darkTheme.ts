@@ -12,6 +12,7 @@ import {
   CasinoOrange,
   CasinoOrangeTransparent,
   DarkModeBkg,
+  DarkModeRed,
 } from './mainTheme'
 
 const darkPalette: PaletteOptions = {
@@ -25,7 +26,7 @@ const darkPalette: PaletteOptions = {
     contrastText: CasinoBlackTransparent,
   },
   error: {
-    main: CasinoDarkRedTransparent,
+    main: DarkModeRed,
     contrastText: VeryLightBlue,
   },
   info: {
@@ -93,15 +94,15 @@ const darkThemeOptions: ThemeOptions = {
           padding: 12,
           borderRadius: '.8rem',
           borderStyle: 'solid',
-          borderWidth: 1,
-          borderColor: CasinoBlueTransparent,
+          borderWidth: 0,
+          borderColor: VeryLightBlue,
           backgroundColor: CasinoBlue,
-          fontSize: '0.875rem',
+          fontSize: '1.0rem',
           textAlign: 'center',
           color: VeryLightBlue,
         },
         arrow: {
-          color: VeryLightBlue,
+          color: CasinoBlue,
         },
       },
     },

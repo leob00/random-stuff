@@ -22,13 +22,28 @@ const StockMarketGlance = () => {
     <Paper elevation={4}>
       <Box py={2}>
         <CenteredTitle title={'Stock market at a glance'} />
-        {data && (
+        {data ? (
           <>
             <CenterStack sx={{ pt: 1 }}>
               <Typography variant='caption'>{`data as of: ${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} (ET)`}</Typography>
             </CenterStack>
-            <StockMarketStatsChart data={data} />
+            <StockMarketStatsChart data={data.StockStats} />
             <StockMarketStatus data={data} />
+          </>
+        ) : (
+          <>
+            <StockMarketStatsChart
+              data={{
+                MarketDate: '',
+                TotalDown: 0,
+                TotalDownPercent: 0,
+                TotalUnchanged: 0,
+                TotalUnchangedPercent: 0,
+                TotalUp: 0,
+                TotalUpPercent: 0,
+                DateModified: '',
+              }}
+            />
           </>
         )}
       </Box>

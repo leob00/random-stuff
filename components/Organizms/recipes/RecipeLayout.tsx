@@ -8,6 +8,7 @@ import CenterStack from 'components/Atoms/CenterStack'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import { DropdownItem } from 'lib/models/dropdown'
 import router from 'next/router'
+import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 
 const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Recipe; autoComplete?: DropdownItem[]; selectedOption?: DropdownItem }) => {
   const baseUrl = '/ssg/recipes/'
@@ -30,9 +31,11 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
             />
           </CenterStack>
         )}
-        <RecipeTeaser item={article} clickable={false} />
       </Box>
-      <Box px={2}>{documentToReactComponents(article.richBody.json)}</Box>
+      <ScrollableBox>
+        <RecipeTeaser item={article} clickable={false} />
+        <Box px={2}>{documentToReactComponents(article.richBody.json)}</Box>
+      </ScrollableBox>
     </>
   )
 }

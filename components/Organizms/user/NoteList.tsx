@@ -4,6 +4,7 @@ import { Box, Stack, Button, Typography } from '@mui/material'
 import GradientContainer from 'components/Atoms/Boxes/GradientContainer'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import Clickable from 'components/Atoms/Containers/Clickable'
+import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
@@ -65,7 +66,7 @@ const NoteList = ({
         </Box>
         <HorizontalDivider />
       </Box>
-      <Box>
+      <ScrollableBox>
         {filtered.map((item, i) => (
           <Box key={item.id}>
             <Box>
@@ -83,18 +84,10 @@ const NoteList = ({
                   {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
                     <Button size='small'>
                       <DefaultTooltip text={getExpirationText(item.expirationDate)}>
-                        <Warning fontSize='small' color='primary' />
+                        <Warning fontSize='small' color='warning' />
                       </DefaultTooltip>
                     </Button>
                   )}
-                  <Button
-                    size='small'
-                    onClick={() => {
-                      handleDeleteClick(item)
-                    }}
-                  >
-                    <Delete color='error' />
-                  </Button>
                 </Stack>
               </Stack>
             </Box>
@@ -102,7 +95,7 @@ const NoteList = ({
             {i < data.length - 1 && <HorizontalDivider />}
           </Box>
         ))}
-      </Box>
+      </ScrollableBox>
       {selectedNote && (
         <ConfirmDeleteDialog
           show={showConfirm}
