@@ -36,20 +36,11 @@ export const ControlledDateTimePicker = ({
           <DateTimePicker
             minDateTime={minDate}
             {...field}
-            renderInput={(props) => (
-              <TextField
-                required={required}
-                placeholder={placeholder}
-                size='small'
-                margin='dense'
-                InputProps={{
-                  color: 'secondary',
-                  autoComplete: 'off',
-                }}
-                sx={{ input: { color: theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlueTransparent } }}
-                {...props}
-              />
-            )}
+            slotProps={{
+              textField: {
+                size: 'small',
+              },
+            }}
             label={label}
           />
         </LocalizationProvider>

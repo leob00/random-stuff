@@ -34,23 +34,12 @@ export const ControlledDatePicker = ({
       render={({ field }) => (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
-            inputFormat='MM/DD/YYYY'
             {...field}
-            renderInput={(props) => (
-              <TextField
-                onChange={() => {}}
-                required={required}
-                placeholder={placeholder}
-                size='small'
-                margin='dense'
-                InputProps={{
-                  color: 'secondary',
-                  autoComplete: 'off',
-                }}
-                sx={{ input: { color: theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlueTransparent } }}
-                {...props}
-              />
-            )}
+            slotProps={{
+              textField: {
+                size: 'small',
+              },
+            }}
             label={label}
           />
         </LocalizationProvider>
