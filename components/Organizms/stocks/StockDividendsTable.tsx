@@ -1,10 +1,9 @@
 import { Box } from '@mui/material'
-import { DataGrid, GridCallbackDetails, GridCellParams, GridColDef, GridValueGetterParams, MuiEvent } from '@mui/x-data-grid'
+import { DataGrid, GridCallbackDetails, GridCellParams, GridColDef, MuiEvent } from '@mui/x-data-grid'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import dayjs from 'dayjs'
-import { apiConnection } from 'lib/backend/api/config'
 import { StockDividendItem } from 'lib/backend/api/qln/qlnModels'
 import { DropdownItem } from 'lib/models/dropdown'
 import { sortArray } from 'lib/util/collections'
@@ -78,8 +77,8 @@ function getColumnDef() {
       headerName: 'company',
       width: 250,
       editable: false,
-      valueGetter: (params) => {
-        return `${params.row.CompanyName} (${params.row.Symbol})`
+      valueGetter: (value, row) => {
+        return `${row.CompanyName} (${row.Symbol})`
       },
     },
     {
@@ -87,8 +86,8 @@ function getColumnDef() {
       headerName: 'annual yield',
       width: 140,
       editable: false,
-      valueGetter: (params) => {
-        return `${numeral(params.value).format('0,0.000')}%`
+      valueGetter: (value, row) => {
+        return `${numeral(value).format('0,0.000')}%`
       },
     },
     {
@@ -96,8 +95,8 @@ function getColumnDef() {
       headerName: 'amount',
       width: 90,
       editable: false,
-      valueGetter: (params) => {
-        return `$${numeral(params.value).format('0,0.000')}`
+      valueGetter: (value, row) => {
+        return `$${numeral(value).format('0,0.000')}`
       },
     },
     {
@@ -105,8 +104,8 @@ function getColumnDef() {
       headerName: 'ex date',
       width: 135,
       editable: false,
-      valueGetter: (params) => {
-        return `${dayjs(params.value).format('MM/DD/YYYY')}`
+      valueGetter: (value, row) => {
+        return `${dayjs(value).format('MM/DD/YYYY')}`
       },
     },
     {
@@ -114,8 +113,8 @@ function getColumnDef() {
       headerName: 'pay date',
       width: 135,
       editable: false,
-      valueGetter: (params) => {
-        return `${dayjs(params.value).format('MM/DD/YYYY')}`
+      valueGetter: (value, row) => {
+        return `${dayjs(value).format('MM/DD/YYYY')}`
       },
     },
     {
