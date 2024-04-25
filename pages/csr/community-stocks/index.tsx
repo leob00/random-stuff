@@ -156,7 +156,7 @@ const Page = () => {
             showAddToListButton={false}
           />
         )}
-        {!selectedStock && <TabList tabs={tabs} onSetTab={handleSelectTab} />}
+        {!selectedStock && <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />}
 
         {loadingStock && <BackdropLoader />}
         {!selectedStock && (

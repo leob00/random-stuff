@@ -70,7 +70,7 @@ const Page = () => {
               <CenteredTitle title='Admin' />
               <RequireClaim claimType='qln'>
                 <>
-                  <TabList tabs={tabs} onSetTab={handleSelectTab} />
+                  <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
                   {selectedTab === 'Jobs' && <JobsLayout />}
                   {selectedTab === 'Api' && <ApiTest />}
                   {selectedTab === 'Server' && <ServerInfo />}

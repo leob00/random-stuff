@@ -1,4 +1,5 @@
 import { Box, IconButton, Stack, Typography } from '@mui/material'
+
 import {
   CasinoBlackTransparent,
   CasinoDarkGreenTransparent,
@@ -7,66 +8,112 @@ import {
   CasinoOrange,
   VeryLightBlue,
 } from 'components/themes/mainTheme'
+
 import dayjs from 'dayjs'
+
 import { StockHistoryItem, StockQuote } from 'lib/backend/api/models/zModels'
+
 import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
+
 import React from 'react'
+
 import StockChart from 'components/Organizms/stocks/StockChart'
+
 import Close from '@mui/icons-material/Close'
+
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
+
 import StockNews from 'components/Organizms/stocks/StockNews'
+
 import StockEarnings from './StockEarnings'
+
 import ListHeader from 'components/Molecules/Lists/ListHeader'
+
 import { putSearchedStock } from 'lib/backend/csr/nextApiWrapper'
+
 import CompanyProfile from './CompanyProfile'
+
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
+
 import StockSubscibeIcon from './StockSubscibeIcon'
+
 import { useUserController } from 'hooks/userController'
+
 import TabList from 'components/Atoms/Buttons/TabList'
+
 import numeral from 'numeral'
+
 import StockChange from './StockChange'
 
 const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'Earnings' }, { title: 'News' }, { title: 'Profile' }]
+
 export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'dark' = 'light') => {
   let color = mode === 'light' ? CasinoBlackTransparent : VeryLightBlue
+
   if (!val) {
     return color
   }
+
   if (val < 0) {
     color = mode === 'light' ? CasinoDarkRedTransparent : CasinoOrange
   } else if (val > 0) {
     color = mode === 'light' ? CasinoDarkGreenTransparent : CasinoLimeTransparent
   }
+
   return color
 }
+
 const StockListItem = ({
   item,
+
   expand = false,
+
   isStock = true,
+
   showGroupName = true,
+
   closeOnCollapse = false,
+
   onClose,
+
   scrollIntoView = true,
+
   showDetailCollapse = true,
+
   disabled,
 }: {
   item: StockQuote
+
   expand?: boolean
+
   isStock: boolean
+
   showGroupName?: boolean
+
   closeOnCollapse?: boolean
+
   onClose?: () => void
+
   scrollIntoView?: boolean
+
   showDetailCollapse?: boolean
+
   disabled?: boolean
 }) => {
   const { authProfile } = useUserController()
+
   const [showMore, setShowMore] = React.useState(expand)
+
   const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
+
   const [selectedTab, setSelectedTab] = React.useState('Details')
+
   const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
+
   const tabScrollTarget = React.useRef<HTMLSpanElement | null>(null)
+
   React.useEffect(() => {
     const fn = async () => {
       if (showMore && scrollIntoView) {
@@ -74,16 +121,24 @@ const StockListItem = ({
           scrollTarget.current.scrollIntoView({ behavior: 'smooth' })
         }
       }
+
       if (showMore) {
         setStockHistory([])
+
         const history = await getStockOrFutureChart(item.Symbol, 90, isStock)
+
         if (isStock) {
           putSearchedStock(item)
         }
+
         setStockHistory(history)
+
+        setSelectedTab('Details')
       }
     }
+
     fn()
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showMore, item.Symbol])
 
@@ -96,6 +151,7 @@ const StockListItem = ({
   const handleSelectTab = (tab: TabInfo) => {
     setSelectedTab(tab.title)
   }
+
   const handleCollapseClick = () => {
     if (closeOnCollapse) {
       onClose?.()
@@ -115,27 +171,33 @@ const StockListItem = ({
   return (
     <Box key={item.Symbol} py={1}>
       <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
+
       <Box>
         {isStock ? (
           <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
         ) : (
           <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
         )}
+
         <Box>
           <StockChange item={item} />
         </Box>
+
         {showGroupName && item.GroupName && (
           <Stack pl={2}>
             <Typography variant='caption' color='primary'>{`Group Name: ${item.GroupName}`}</Typography>
           </Stack>
         )}
       </Box>
+
       {!showMore && <HorizontalDivider />}
+
       {showMore && (
         <>
           <Box>
             <HorizontalDivider />
           </Box>
+
           {showDetailCollapse && (
             <Box display={'flex'} justifyContent={'flex-end'}>
               <IconButton color='default' onClick={handleCollapseClick}>
@@ -143,6 +205,7 @@ const StockListItem = ({
               </IconButton>
             </Box>
           )}
+
           <Box pl={1} sx={{ backgroundColor: 'unset' }} minHeight={{ xs: 300, sm: 600 }}>
             {stockHistory.length > 0 && (
               <>
@@ -150,6 +213,7 @@ const StockListItem = ({
               </>
             )}
           </Box>
+
           {isStock && (
             <>
               {authProfile && (
@@ -157,22 +221,36 @@ const StockListItem = ({
                   <StockSubscibeIcon userProfile={authProfile} quote={item} />
                 </Box>
               )}
-              <TabList tabs={tabs} onSetTab={handleSelectTab} />
+
+              <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
+
               <Typography ref={tabScrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>
-              {selectedTab === 'Details' && (
-                <Box pb={2} pt={2}>
-                  <ReadOnlyField label={'Sector'} val={item.Sector} />
-                  <ReadOnlyField label={'Industry'} val={item.Industry} />
-                  <ReadOnlyField label={'Cap'} val={item.MarketCapShort} />
-                  {item.PeRatio && <ReadOnlyField label={'P/E'} val={item.PeRatio} />}
-                  {item.Volume && <ReadOnlyField label={'Volume'} val={numeral(item.Volume).format('###,###')} />}
-                  <ReadOnlyField label={'Date'} val={dayjs(item.TradeDate).format('MM/DD/YYYY hh:mm a')} />
-                  {item.AnnualDividendYield && <ReadOnlyField label={'Annual Yield'} val={`${numeral(item.AnnualDividendYield).format('0.000')}%`} />}
-                </Box>
-              )}
-              {selectedTab === 'News' && <StockNews quote={item} />}
-              {selectedTab === 'Earnings' && <StockEarnings quote={item} />}
-              {selectedTab === 'Profile' && <CompanyProfile quote={item} />}
+
+              <Box key={item.Symbol}>
+                {selectedTab === 'Details' && (
+                  <Box pb={2} pt={2}>
+                    <ReadOnlyField label={'Sector'} val={item.Sector} />
+
+                    <ReadOnlyField label={'Industry'} val={item.Industry} />
+
+                    <ReadOnlyField label={'Cap'} val={item.MarketCapShort} />
+
+                    {item.PeRatio && <ReadOnlyField label={'P/E'} val={item.PeRatio} />}
+
+                    {item.Volume && <ReadOnlyField label={'Volume'} val={numeral(item.Volume).format('###,###')} />}
+
+                    <ReadOnlyField label={'Date'} val={dayjs(item.TradeDate).format('MM/DD/YYYY hh:mm a')} />
+
+                    {item.AnnualDividendYield && <ReadOnlyField label={'Annual Yield'} val={`${numeral(item.AnnualDividendYield).format('0.000')}%`} />}
+                  </Box>
+                )}
+
+                {selectedTab === 'News' && <StockNews quote={item} />}
+
+                {selectedTab === 'Earnings' && <StockEarnings quote={item} />}
+
+                {selectedTab === 'Profile' && <CompanyProfile quote={item} />}
+              </Box>
             </>
           )}
         </>

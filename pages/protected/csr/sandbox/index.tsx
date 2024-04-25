@@ -76,7 +76,7 @@ const Page = () => {
       <Seo pageTitle={`Sandbox`} />
       <ResponsiveContainer>
         <PageHeader text='Sandbox' />
-        <TabList tabs={tabs} onSetTab={handleSetTab} />
+        <TabList tabs={tabs} onSetTab={handleSetTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
 
         <Box p={2}>
           {/* {selectedTab === 'Multi Line Chart' && <MultiLineChartDisplay />} */}

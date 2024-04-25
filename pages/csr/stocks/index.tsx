@@ -96,7 +96,7 @@ const Page = () => {
       </Box>
 
       <ResponsiveContainer>
-        <TabList tabs={tabs} onSetTab={handleSelectTab} />
+        <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
         {isLoading ? (
           <BackdropLoader />
         ) : (

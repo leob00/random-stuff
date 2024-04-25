@@ -24,7 +24,7 @@ interface SessionState {
 //   palette: 'dark',
 //   routes: [],
 //   communityStocks: {},
-//   claims: [],
+//   claims: [],0
 //   saveRoutes: (routes) => set((state) => ({ ...state, routes: routes })),
 //   savePalette: (palette: 'light' | 'dark') => set((state) => ({ ...state, palette: palette })),
 //   saveCommunityStocksSort: (sort) => set((state) => ({ ...state, communityStocks: { defaultSort: sort } })),
@@ -37,6 +37,7 @@ export const useSessionPersistentStore = create(
       palette: 'dark',
       routes: [],
       communityStocks: {},
+
       claims: [],
       saveRoutes: (routes) => set((state) => ({ ...state, routes: routes, lastRefreshDate: dayjs().format() })),
       savePalette: (palette: 'light' | 'dark') => set((state) => ({ ...state, palette: palette })),
