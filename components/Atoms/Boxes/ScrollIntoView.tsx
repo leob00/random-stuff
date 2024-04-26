@@ -9,6 +9,7 @@ const ScrollIntoView = ({ enabled = true, margin = -14 }: { enabled?: boolean; m
     if (scrollIntoView) {
       if (scrollTarget.current) {
         scrollTarget.current.scrollIntoView({ behavior: 'smooth' })
+        //scroll(0, scrollTarget.current.offsetTop ?? 0)
       }
     }
     setScrollIntoView(false)

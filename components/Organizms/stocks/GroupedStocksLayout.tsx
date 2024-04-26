@@ -7,7 +7,6 @@ import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { sortArray } from 'lib/util/collections'
 import { useUserController } from 'hooks/userController'
 import GroupedStockTable from './GroupedStockTable'
-import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 
 export interface StockGroup {
   id: string
@@ -71,9 +70,7 @@ const GroupedStocksLayout = ({
         <Box pl={1}>{/* <SearchWithinList onChanged={handleSearchGroupWithinList} debounceWaitMilliseconds={150} /> */}</Box>
         <GroupedListMenu onEdit={onEdit} onShowAsGroup={onShowAsGroup} />
       </Box>
-      <ScrollableBox>
-        <GroupedStockTable result={groupedList} userProfile={userProfile} />
-      </ScrollableBox>
+      <GroupedStockTable result={groupedList} userProfile={userProfile} />
     </Box>
   )
 }
