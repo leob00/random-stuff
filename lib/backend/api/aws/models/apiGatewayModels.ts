@@ -25,6 +25,7 @@ export type DynamoKeys =
   | 'stockportfolio'
   | 'email-template[stock-alert]'
   | 'stocks-daily-market-sentiment'
+  | 'stocks-monthly-market-sentiment'
 
 export type CategoryType = 'animals' | 'random' | 'userProfile' | 'community-stocks' | 'searched-stocks' | 'user-stock_list' | string
 

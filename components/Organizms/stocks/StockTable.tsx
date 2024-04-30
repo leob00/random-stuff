@@ -25,7 +25,7 @@ const StockTable = ({
     <>
       <Box pl={1}>
         {stockList.map((item, index) => (
-          <Box key={item.Symbol}>
+          <Box key={`${item.Symbol}${item.Price}`}>
             <StockListItem item={item} isStock={isStock} showGroupName={showGroupName} />
           </Box>
         ))}

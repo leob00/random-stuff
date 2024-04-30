@@ -67,51 +67,30 @@ export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'd
 
 const StockListItem = ({
   item,
-
   expand = false,
-
   isStock = true,
-
   showGroupName = true,
-
   closeOnCollapse = false,
-
   onClose,
-
   scrollIntoView = true,
-
   showDetailCollapse = true,
-
   disabled,
 }: {
   item: StockQuote
-
   expand?: boolean
-
   isStock: boolean
-
   showGroupName?: boolean
-
   closeOnCollapse?: boolean
-
   onClose?: () => void
-
   scrollIntoView?: boolean
-
   showDetailCollapse?: boolean
-
   disabled?: boolean
 }) => {
   const { authProfile } = useUserController()
-
   const [showMore, setShowMore] = React.useState(expand)
-
   const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
-
   const [selectedTab, setSelectedTab] = React.useState('Details')
-
   const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
-
   const tabScrollTarget = React.useRef<HTMLSpanElement | null>(null)
 
   React.useEffect(() => {
@@ -178,8 +157,7 @@ const StockListItem = ({
         ) : (
           <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
         )}
-
-        <Box>
+        <Box key={`${item.Symbol}${item.Price}`}>
           <StockChange item={item} />
         </Box>
 

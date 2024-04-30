@@ -6,7 +6,7 @@ import CenterStack from '../CenterStack'
 const JsonView = ({ obj }: { obj: Prettify<any> | string }) => {
   return (
     <CenterStack sx={{ py: 4 }}>
-      <Box maxHeight={300} maxWidth={{ xs: 475, md: 1000 }} sx={{ overflowY: 'auto', overflowX: 'auto' }}>
+      <Box maxHeight={300} width={{ xs: 475, sm: 800, md: 1200, lg: 1400 }} sx={{ overflowY: 'auto', overflowX: 'auto' }}>
         <pre>
           <code>{typeof obj === 'string' ? obj : JSON.stringify(obj, null, 2)}</code>
         </pre>
