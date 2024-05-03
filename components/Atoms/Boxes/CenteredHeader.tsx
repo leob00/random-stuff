@@ -5,7 +5,7 @@ import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 const CenteredHeader = ({ title, description }: { title: string; description?: string }) => {
   return (
     <Box>
-      <CenteredTitle title={title} />
+      <CenteredTitle title={title} variant='h4' />
       {description && (
         <Typography color='primary' variant='body1' sx={{ textAlign: 'center', paddingBottom: 2 }}>
           {`${description}`}

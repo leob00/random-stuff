@@ -6,18 +6,21 @@ import { useRouter } from 'next/router'
 const BackButton = ({ route, onClicked }: { route?: string; onClicked?: () => void }) => {
   const router = useRouter()
   const { getLastRoute } = useRouteTracker()
+  const lastRoute = getLastRoute()
 
   const handleClick = () => {
-    if (!route && !onClicked) {
-      router.push('/')
-      return
-    }
-
     if (route) {
       router.push(route)
       return
     }
-    onClicked?.()
+    if (onClicked) {
+      onClicked?.()
+      return
+    }
+    if (!route) {
+      router.push(lastRoute)
+      return
+    }
   }
   return (
     <Button variant='text' onClick={handleClick} color='primary'>

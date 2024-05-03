@@ -7,8 +7,11 @@ import { apiConnection } from 'lib/backend/api/config'
 import { get } from 'lib/backend/api/fetchFunctions'
 import { MarketHandshake } from 'lib/backend/api/qln/qlnModels'
 import React from 'react'
-import StockMarketStatsChart from './StockMarketStatsChart'
+import StockMarketStatsChart from './charts/StockMarketStatsChart'
 import StockMarketStatus from './StockMarketStatus'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
+import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 
 const StockMarketGlance = () => {
   const config = apiConnection().qln
@@ -19,16 +22,27 @@ const StockMarketGlance = () => {
   }
   const { data } = useSwrHelper<MarketHandshake>(apiUrl, dataFn)
   return (
-    <Paper elevation={4}>
+    <Box>
       <Box py={2}>
-        <CenteredTitle title={'Stock market at a glance'} />
+        <CenteredHeader title={'stock market sentiment'} />
         {data ? (
           <>
-            <CenterStack sx={{ pt: 1 }}>
-              <Typography variant='caption'>{`data as of: ${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} (ET)`}</Typography>
-            </CenterStack>
             <StockMarketStatsChart data={data.StockStats} />
-            <StockMarketStatus data={data} />
+            <Box pt={2}>
+              <StockMarketStatus data={data} />
+            </Box>
+            <CenterStack sx={{ my: 2 }}>
+              <Typography
+                variant='caption'
+                sx={{ fontSize: 10 }}
+              >{`data as of: ${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} (ET)`}</Typography>
+            </CenterStack>
+            <CenterStack>
+              <SiteLink text='sentiment report' href={'/csr/stocks/sentiment'} />
+            </CenterStack>
+            <Box py={2}>
+              <HorizontalDivider />
+            </Box>
           </>
         ) : (
           <>
@@ -47,7 +61,7 @@ const StockMarketGlance = () => {
           </>
         )}
       </Box>
-    </Paper>
+    </Box>
   )
 }
 

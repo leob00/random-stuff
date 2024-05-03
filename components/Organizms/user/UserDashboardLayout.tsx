@@ -9,9 +9,7 @@ const UserDashboardLayout = ({ ticket }: { ticket: AmplifyUser | null }) => {
   return (
     <>
       <ScrollableBox>
-        <CenteredNavigationButton route={'/csr/stocks'} text={'stocks'} showDivider={false} />
         <StockMarketGlance />
-        <CenteredNavigationButton route={'/csr/news'} text={'news'} showDivider={false} />
         <NewsLayout />
       </ScrollableBox>
     </>
