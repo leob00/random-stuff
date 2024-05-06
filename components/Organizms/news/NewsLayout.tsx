@@ -12,8 +12,9 @@ import useSWR from 'swr'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
+import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
 
-const NewsLayout = () => {
+const NewsLayout = ({ componentLoader = false }: { componentLoader?: boolean }) => {
   const userController = useUserController()
   const defaultSource: NewsTypeIds = (userController.authProfile?.settings?.news?.lastNewsType as NewsTypeIds) ?? 'GoogleTopStories'
   const [selectedSource, setSelectedSource] = React.useState<NewsTypeIds>(defaultSource)
@@ -78,7 +79,7 @@ const NewsLayout = () => {
       </Box>
       <Box>
         {isLoading ? (
-          <BackdropLoader />
+          <>{componentLoader ? <CircleLoader /> : <BackdropLoader />}</>
         ) : (
           <>
             {error && <ErrorMessage text='There is an error that occurred. We have been made aware of it. Please try again in a few minutes.' />}

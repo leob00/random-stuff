@@ -19,7 +19,7 @@ export function siteMap() {
           route: '/csr/news',
         },
         {
-          name: 'food recipes',
+          name: 'recipes',
           route: '/ssg/recipes',
         },
       ],

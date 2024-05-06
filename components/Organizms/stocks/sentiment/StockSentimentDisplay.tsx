@@ -1,4 +1,3 @@
-import JsonView from 'components/Atoms/Boxes/JsonView'
 import { StockStats } from 'lib/backend/api/qln/qlnModels'
 import React from 'react'
 import StockMarketStatsChart from '../charts/StockMarketStatsChart'
@@ -9,14 +8,15 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 const StockSentimentDisplay = ({ data }: { data: StockStats[] }) => {
   return (
     <>
-      <CenteredHeader title={'1 Week'} />
-      <StockMarketStatsChart data={getSentiment(data, 5)} />
-      <HorizontalDivider />
-      <CenteredHeader title={'2 Week'} />
-      <StockMarketStatsChart data={getSentiment(data, 10)} />
-      <HorizontalDivider />
-      <CenteredHeader title={'1 Month'} />
+      <CenteredHeader title={'1 Month'} variant='h5' />
       <StockMarketStatsChart data={getSentiment(data, 30)} />
+      <HorizontalDivider />
+      <CenteredHeader title={'2 Weeks'} variant='h5' />
+      <StockMarketStatsChart data={getSentiment(data, 14)} />
+      <HorizontalDivider />
+      <CenteredHeader title={'1 Week'} variant='h5' />
+      <StockMarketStatsChart data={getSentiment(data, 7)} />
+      <HorizontalDivider />
     </>
   )
 }

@@ -21,7 +21,7 @@ const Page = () => {
   const { data, isLoading } = useSwrHelper(monthlyKey, dataFn)
   return (
     <>
-      <Seo pageTitle='Sectors' />
+      <Seo pageTitle='Stock Sentiment' />
 
       {isLoading && <BackdropLoader />}
       <ResponsiveContainer>
