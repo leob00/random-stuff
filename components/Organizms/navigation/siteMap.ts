@@ -9,6 +9,7 @@ export interface Paths {
   paths: path[]
   isProtected?: boolean
 }
+
 export function siteMap() {
   const result: Paths[] = [
     {
@@ -118,15 +119,15 @@ export function siteMap() {
         },
       ],
     },
-    // {
-    //   category: 'Miscellaneous',
-    //   paths: [
-    //     {
-    //       name: 'site map',
-    //       route: '/site-map',
-    //     },
-    //   ],
-    // },
+    {
+      category: 'Admin',
+      paths: [
+        {
+          name: 'sandbox',
+          route: '/protected/csr/sandbox',
+        },
+      ],
+    },
   ]
   return result
 }

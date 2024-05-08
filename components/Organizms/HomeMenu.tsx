@@ -10,13 +10,20 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import GroupedHomeMenu from './navigation/GroupedHomeMenu'
 import StockMarketGlance from './stocks/StockMarketGlance'
 import CenteredNavigationButton from 'components/Atoms/Buttons/CenteredNavigationButton'
+import { useUserController } from 'hooks/userController'
+import { userHasRole } from 'lib/backend/auth/userUtil'
 
 const HomeMenu = () => {
   const { routes: recentRoutes, loading } = useRouteTracker()
 
   const recentHistory = recentRoutes.filter((m) => m.name !== 'home')
-  const pathCategories = siteMap()
+  const all = siteMap()
   const [showGroupedMenu, setShowGroupedMenu] = React.useState(recentHistory.length < 4)
+  const { ticket } = useUserController()
+  const isAdmin = userHasRole('Admin', ticket?.roles ?? [])
+
+  const adminCategories = isAdmin ? all.filter((m) => m.category === 'Admin') : []
+  const pathCategories = all.filter((m) => m.category !== 'Admin')
 
   return (
     <Box>
@@ -38,6 +45,7 @@ const HomeMenu = () => {
             {showGroupedMenu && (
               <>
                 <GroupedHomeMenu pathCategories={pathCategories} />
+                {isAdmin && <GroupedHomeMenu pathCategories={adminCategories} />}
               </>
             )}
             {!showGroupedMenu && (
@@ -46,7 +54,7 @@ const HomeMenu = () => {
                 {recentHistory.map((item, i) => (
                   <Box key={item.path}>
                     <CenteredNavigationButton route={item.path} text={item.name} />
-                    {item.name === 'stocks' && <StockMarketGlance />}
+                    {/* {item.name === 'stocks' && <StockMarketGlance />} */}
                   </Box>
                 ))}
               </>
