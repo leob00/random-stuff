@@ -30,17 +30,13 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
   const searchParams = useSearchParams()
   const signOut = async () => {
     try {
-      //console.log('signing out...')
       await amplifySignOut({ global: true })
     } catch (err) {
       console.log(err)
     }
   }
 
-  const handleNavigationEvent = (payload: HubPayload) => {
-    // console.log('last path: ', payload.data.lastPath)
-    // console.log('payload data: ', payload.data)
-  }
+  const handleNavigationEvent = (payload: HubPayload) => {}
 
   const handleAuthEvent = async (payload: HubPayload) => {
     const newClaims = claims.filter((m) => m.type !== 'rs')
@@ -58,10 +54,8 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
         if (ticket) {
           return
         }
-        console.log('payload.data: ', payload.data)
         const payloadTicket = payload.data! as AuthUser
         const attr = await fetchUserAttributes()
-        console.log('attr: ', attr)
         const user: AmplifyUser = {
           id: payloadTicket.username,
           email: String(attr.email),

@@ -24,13 +24,4 @@ const Page: NextPage<PageProps> = ({ title }) => {
   )
 }
 
-// const Home = () => {
-//   return (
-//     <>
-//       <Seo pageTitle='Home' />
-//       <HomeMenu />
-//     </>
-//   )
-// }
-
 export default Page
