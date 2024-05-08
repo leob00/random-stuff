@@ -5,16 +5,14 @@ import CenterStack from 'components/Atoms/CenterStack'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import OnOffSwitch from 'components/Atoms/Inputs/OnOffSwitch'
-import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import RecordExpirationWarning from 'components/Atoms/Text/RecordExpirationWarning'
 import EditItemToolbar from 'components/Molecules/EditItemToolbar'
 import dayjs from 'dayjs'
 import { UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { getUtcNow } from 'lib/util/dateUtil'
-import { cloneDeep } from 'lodash'
 import React from 'react'
 import HtmlEditorQuill from '../../Atoms/Inputs/HtmlEditorQuill'
-import S3FilesTable from '../files/S3FilesTable'
+import { DropdownItem } from 'lib/models/dropdown'
 
 const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCanceled?: () => void; onSubmitted?: (note: UserNote) => void }) => {
   const title = React.useRef<HTMLInputElement | null>(null)
@@ -33,7 +31,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
       setTitleError(true)
       return
     }
-    let noteCopy = { ...note }
+    const noteCopy = { ...note }
     noteCopy.title = title.current ? title.current.value : ''
     noteCopy.body = bodyText.replace('<br>', '')
     noteCopy.body = noteCopy.body.replace('<p class="ql-align-justify"></p>', '<p>')
@@ -85,44 +83,46 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
     setShowExpForm(true)
   }
 
+  const expOptions: DropdownItem[] = [
+    {
+      text: '1 day',
+      value: '1',
+    },
+    {
+      text: '2 days',
+      value: '2',
+    },
+    {
+      text: '3 days',
+      value: '3',
+    },
+    {
+      text: '5 days',
+      value: '5',
+    },
+    {
+      text: '10 days',
+      value: '10',
+    },
+    {
+      text: '1 month',
+      value: '30',
+    },
+  ]
+
   return item ? (
     <>
-      <EditItemToolbar onSave={handleSave} onCancel={handleCancel} />
+      {/* <EditItemToolbar onSave={handleSave} onCancel={handleCancel} /> */}
+      <Box>
+        <CenterStack sx={{ py: 2, gap: 2 }}>
+          <SecondaryButton onClick={handleSave} text='save' sx={{ ml: 3 }} size='small' width={70} />
+          <PassiveButton text={'close'} onClick={handleCancel} size='small' width={70} />
+        </CenterStack>
+      </Box>
       <FormDialog show={showExpForm} onCancel={handleCancelExp} title='Set expiration' onSave={handleSaveExp}>
         <>
-          <DropdownList
-            options={[
-              {
-                text: '1 day',
-                value: '1',
-              },
-              {
-                text: '2 days',
-                value: '2',
-              },
-              {
-                text: '3 days',
-                value: '3',
-              },
-              {
-                text: '5 days',
-                value: '5',
-              },
-              {
-                text: '10 days',
-                value: '10',
-              },
-              {
-                text: '1 month',
-                value: '30',
-              },
-            ]}
-            selectedOption={'3'}
-            onOptionSelected={handleChangeExp}
-          />
-          <CenterStack sx={{ py: 4, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
-            {editedExpDate && <RecordExpirationWarning expirationDate={editedExpDate} precise={true} />}
-          </CenterStack>
+          <DropdownList options={expOptions} selectedOption={'3'} onOptionSelected={handleChangeExp} />
+          <CenterStack sx={{ py: 4, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>{editedExpDate && <RecordExpirationWarning expirationDate={editedExpDate} precise={true} />}</CenterStack>
         </>
       </FormDialog>
       <Box sx={{ pt: 2 }} component='form'>
@@ -143,19 +143,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
           </Stack>
         </CenterStack>
         <CenterStack sx={{ width: { xs: '100%' } }}>
-          <TextField
-            inputProps={{ maxLength: 150 }}
-            fullWidth
-            inputRef={title}
-            defaultValue={item.title}
-            size='small'
-            label={'title'}
-            placeholder='title'
-            onChange={handleTitleChange}
-            required
-            error={titleError}
-            sx={{ color: 'secondary' }}
-          />
+          <TextField inputProps={{ maxLength: 150 }} fullWidth inputRef={title} defaultValue={item.title} size='small' label={'title'} placeholder='title' onChange={handleTitleChange} required error={titleError} sx={{ color: 'secondary' }} />
         </CenterStack>
         <CenterStack sx={{ py: 2, minHeight: 480, width: { xs: '100%' } }}>
           <HtmlEditorQuill value={bodyText} onChanged={handleBodyChange} />
@@ -163,7 +151,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
         <Box>
           <CenterStack sx={{ py: 2, gap: 2 }}>
             <SecondaryButton onClick={handleSave} text='save' sx={{ ml: 3 }} size='small' width={70} />
-            <PassiveButton text={'cancel'} onClick={handleCancel} size='small' width={70} />
+            <PassiveButton text={'close'} onClick={handleCancel} size='small' width={70} />
           </CenterStack>
         </Box>
       </Box>

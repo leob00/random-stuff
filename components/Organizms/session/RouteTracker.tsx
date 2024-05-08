@@ -1,5 +1,4 @@
 'use client'
-import { useGridLogger } from '@mui/x-data-grid'
 import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
 import React, { ReactNode } from 'react'
@@ -16,6 +15,7 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
 
   React.useEffect(() => {
     const handleRouteChange = async (url: string, shallow: boolean) => {
+      //TODO: remove after sitemap comprison has been implemented
       if (
         !url.includes('/login' || !url.includes('logoff')) &&
         !url.includes('recipe') &&
@@ -23,7 +23,8 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
         !url.includes('sectors/') &&
         !url.includes('industries/') &&
         !url.includes('?') &&
-        !url.includes('recipes/')
+        !url.includes('recipes/') &&
+        !url.includes('notes/')
       ) {
         const lastRoute = routes.length > 0 ? routes[0] : undefined
 

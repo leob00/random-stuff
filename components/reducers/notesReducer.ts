@@ -3,11 +3,8 @@ import { filter, orderBy } from 'lodash'
 
 export interface UserNotesModel {
   noteTitles: UserNote[]
-  selectedNote: UserNote | null
   username: string
   isLoading: boolean
-  editMode: boolean
-  viewMode: boolean
   filteredTitles: UserNote[]
   search: string
 }

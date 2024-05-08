@@ -1,11 +1,11 @@
 import { constructUserNoteTitlesKey } from 'lib/backend/api/aws/util'
 import { getUserNoteTitles } from 'lib/backend/csr/nextApiWrapper'
 import React from 'react'
-import useSWR, { mutate } from 'swr'
+import useSWR from 'swr'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UserNotesDisplay from './UserNotesDisplay'
-import { UserProfile, UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 const UserNotesLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const enc = encodeURIComponent(weakEncrypt(constructUserNoteTitlesKey(userProfile.username)))
@@ -14,21 +14,12 @@ const UserNotesLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     const result = await getUserNoteTitles(userProfile.username)
     return result
   }
-
-  const { data: notes, isLoading, isValidating } = useSWR(mutateKey, ([url, enc]) => fetchData(url, enc))
-
-  const handleMutated = (newData: UserNote[]) => {
-    mutate(mutateKey, newData, { revalidate: false })
-  }
+  const { data, isLoading } = useSWR(mutateKey, ([url, enc]) => fetchData(url, enc))
 
   return (
     <>
-      {isLoading && (
-        <>
-          <BackdropLoader />
-        </>
-      )}
-      {notes && <UserNotesDisplay username={userProfile.username} result={notes} onMutated={handleMutated} />}
+      {isLoading && <BackdropLoader />}
+      {data && <UserNotesDisplay username={userProfile.username} noteTitles={data} />}
     </>
   )
 }

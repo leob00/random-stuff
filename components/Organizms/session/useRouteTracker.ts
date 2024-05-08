@@ -3,6 +3,7 @@ import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
 import { sortArray } from 'lib/util/collections'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import React from 'react'
+import { siteMap } from '../navigation/siteMap'
 
 export type NavigationName = 'stocks' | 'goals' | 'home' | 'news' | 'notes' | 'admin'
 export interface Navigation {
@@ -18,6 +19,8 @@ export const useRouteTracker = () => {
     saveRoutes: state.saveRoutes,
   }))
 
+  const sitePaths = siteMap().flatMap((m) => m.paths)
+
   return {
     loading: isLoading,
     getLastRoute: () => {
@@ -27,6 +30,10 @@ export const useRouteTracker = () => {
     //routesMap: getMapFromArray(routes, 'path'),
     routes: sortArray(routes, ['date'], ['desc']),
     addRoute: (url: string) => {
+      const exists = sitePaths.findIndex((m) => m.route === url) > -1
+      if (!exists) {
+        return
+      }
       setIsLoading(true)
       const map = getMapFromArray(routes, 'path')
       let name = url.substring(url.lastIndexOf('/') + 1).replaceAll('-', ' ')

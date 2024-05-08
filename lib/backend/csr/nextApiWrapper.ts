@@ -3,26 +3,9 @@ import { DropdownItem } from 'lib/models/dropdown'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
-import {
-  UserNote,
-  LambdaDynamoRequest,
-  UserProfile,
-  LambdaBody,
-  DynamoKeys,
-  CategoryType,
-  LambdaDynamoRequestBatch,
-  EmailMessage,
-  S3Object,
-  Bucket,
-} from '../api/aws/models/apiGatewayModels'
+import { UserNote, LambdaDynamoRequest, UserProfile, LambdaBody, DynamoKeys, CategoryType, LambdaDynamoRequestBatch, EmailMessage, S3Object, Bucket } from '../api/aws/models/apiGatewayModels'
 
-import {
-  constructUserGoalTaksSecondaryKey,
-  constructUserNoteCategoryKey,
-  constructUserNoteTitlesKey,
-  constructUserProfileKey,
-  constructUserSecretSecondaryKey,
-} from '../api/aws/util'
+import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserNoteTitlesKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
 import { get, post, postBody } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { weakEncrypt } from '../encryption/useEncryptor'
@@ -188,7 +171,7 @@ export async function getUserNoteTitles(username: string) {
     const data = (await post(`/api/getRandomStuffEnc`, body)) as UserNote[] | null
 
     if (data) {
-      let parsed = data.filter((e) => {
+      const parsed = data.filter((e) => {
         return !e.expirationDate || dayjs(e.expirationDate).isAfter(getUtcNow())
       })
       return parsed

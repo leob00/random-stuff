@@ -1,53 +1,23 @@
-import Delete from '@mui/icons-material/Delete'
 import Warning from '@mui/icons-material/Warning'
 import { Box, Stack, Button, Typography } from '@mui/material'
-import GradientContainer from 'components/Atoms/Boxes/GradientContainer'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import Clickable from 'components/Atoms/Containers/Clickable'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
-import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
+import Pager from 'components/Atoms/Pager'
 import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
-import ListHeader from 'components/Molecules/Lists/ListHeader'
-import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import dayjs from 'dayjs'
+import { useClientPager } from 'hooks/useClientPager'
 import { UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { getExpirationText, getUtcNow } from 'lib/util/dateUtil'
 import numeral from 'numeral'
 import React from 'react'
 
-const NoteList = ({
-  data,
-  onClicked,
-  onAddNote,
-  onDelete,
-}: {
-  data: UserNote[]
-  onClicked: (item: UserNote) => void
-  onAddNote: () => void
-  onDelete: (item: UserNote) => void
-}) => {
-  const [selectedNote, setSelectedNote] = React.useState<UserNote | null>(null)
-  const [showConfirm, setShowConfirm] = React.useState(false)
+const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked: (item: UserNote) => void; onAddNote: () => void }) => {
   const [searchText, setSearchText] = React.useState('')
-  const handleNoteTitleClick = (item: UserNote) => {
-    onClicked(item)
-  }
-  const handleDeleteClick = (note: UserNote) => {
-    setSelectedNote(note)
-    setShowConfirm(true)
-  }
-  const handleYesDelete = () => {
-    setShowConfirm(false)
-    if (selectedNote) {
-      onDelete(selectedNote)
-    }
-  }
+  const pageSize = 5
 
-  const handleSearched = (text: string) => {
-    setSearchText(text)
-  }
   const filterResults = () => {
     if (searchText.length > 0) {
       return data.filter((m) => m.title.toLowerCase().includes(searchText.toLowerCase()))
@@ -56,6 +26,19 @@ const NoteList = ({
   }
 
   const filtered = filterResults()
+  const { pagerModel, setPage, getPagedItems, reset } = useClientPager(filtered, pageSize)
+  const handleNoteTitleClick = (item: UserNote) => {
+    onClicked(item)
+  }
+
+  const handleSearched = (text: string) => {
+    setSearchText(text)
+  }
+
+  const pagedItems = getPagedItems(filtered)
+  const handlePaged = (pageNum: number) => {
+    setPage(pageNum)
+  }
 
   return (
     <Box sx={{ py: 2 }}>
@@ -66,8 +49,9 @@ const NoteList = ({
         </Box>
         <HorizontalDivider />
       </Box>
-      <ScrollableBox>
-        {filtered.map((item, i) => (
+      {/* <ScrollableBox> */}
+      <Box minHeight={400}>
+        {pagedItems.map((item, i) => (
           <Box key={item.id}>
             <Box>
               <Stack direction='row' py={2}>
@@ -75,8 +59,7 @@ const NoteList = ({
                   <Clickable
                     onClicked={() => {
                       handleNoteTitleClick(item)
-                    }}
-                  >
+                    }}>
                     <Typography textAlign={'left'}>{item.title}</Typography>
                   </Clickable>
                 </Box>
@@ -92,21 +75,19 @@ const NoteList = ({
               </Stack>
             </Box>
 
-            {i < data.length - 1 && <HorizontalDivider />}
+            {i < pagedItems.length - 1 && <HorizontalDivider />}
           </Box>
         ))}
-      </ScrollableBox>
-      {selectedNote && (
-        <ConfirmDeleteDialog
-          show={showConfirm}
-          title={'confirm delete'}
-          text={`Are you sure you want to delete ${selectedNote.title}?`}
-          onConfirm={handleYesDelete}
-          onCancel={() => {
-            setShowConfirm(false)
-          }}
-        />
-      )}
+      </Box>
+      <Pager
+        pageCount={pagerModel.totalNumberOfPages}
+        itemCount={pagedItems.length}
+        itemsPerPage={pageSize}
+        onPaged={(pageNum: number) => handlePaged(pageNum)}
+        defaultPageIndex={pagerModel.page}
+        totalItemCount={pagerModel.totalNumberOfItems}
+        showHorizontalDivider={false}></Pager>
+      {/* </ScrollableBox> */}
     </Box>
   )
 }

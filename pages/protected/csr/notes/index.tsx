@@ -8,7 +8,6 @@ import Seo from 'components/Organizms/Seo'
 
 const Notes = () => {
   const userController = useUserController()
-  //const [userProfile, setUserProfile] = React.useState<UserProfile | null>(userController.authProfile)
   const [isLoading, setIsLoading] = React.useState(true)
   const { authProfile, setProfile } = useUserController()
 
