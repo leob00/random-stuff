@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from '@mui/material'
+import { Button, ButtonProps, useTheme } from '@mui/material'
 import React from 'react'
 
 type ButtonAttributes = ButtonProps & {
@@ -11,8 +11,9 @@ const DangerButton: React.FC<ButtonAttributes> = ({ text, isDisabled, onClicked,
   const handleClick = () => {
     onClicked?.()
   }
+  const theme = useTheme()
   return (
-    <Button variant='contained' color='error' onClick={handleClick} disabled={isDisabled} {...props} sx={{ width: width }}>
+    <Button variant='contained' color={'error'} onClick={handleClick} disabled={isDisabled} {...props} sx={{ width: width }}>
       {`${text}`}
     </Button>
   )

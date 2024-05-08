@@ -89,9 +89,10 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
     putUserProfile(newProfile)
     await handleFolderSelected(targetFolder.value)
   }
-  const handleFilesMutated = (folder: DropdownItem, files: S3Object[]) => {
+  const handleFilesMutated = async (folder: DropdownItem, files: S3Object[]) => {
     setShowTopUploadForm(false)
     mutate(`${mutateKeyBase}${folder.value}`, files, { revalidate: false })
+    await handleFolderSelected(folder.value)
   }
   return (
     <>

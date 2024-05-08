@@ -141,6 +141,9 @@
 .darkModeBkg {
   color: #010d20fa;
 }
+.darkModePrimary {
+  color: #90caf9;
+}
 
 /* Amplify auth */
 /* :root {

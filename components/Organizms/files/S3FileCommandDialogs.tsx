@@ -35,11 +35,28 @@ const S3FileCommandDialogs = ({
 }) => {
   return (
     <>
-      {uiState.itemToDelete && <ConfirmDeleteDialog show={true} text={`Are you sure you want to delete ${uiState.itemToDelete.filename}?`} onCancel={onCloseDeleteFileDialog} onConfirm={onConfirmDelete} />}
-      {uiState.signedUrl && uiState.selectedItem && <ViewS3FileDialog onCancel={onCancelViewFile} signedUrl={uiState.signedUrl} filename={uiState.selectedItem.filename} />}
-      {uiState.showRenameFileDialog && uiState.selectedItem && <RenameFileDialog filename={uiState.selectedItem.filename} onCancel={onCloseRenameFileDialog} onSubmitted={onRenameFile} />}
+      {uiState.itemToDelete && (
+        <ConfirmDeleteDialog
+          show={true}
+          text={`Are you sure you want to delete ${uiState.itemToDelete.filename}?`}
+          onCancel={onCloseDeleteFileDialog}
+          onConfirm={onConfirmDelete}
+        />
+      )}
+      {uiState.signedUrl && uiState.selectedItem && (
+        <ViewS3FileDialog onCancel={onCancelViewFile} signedUrl={uiState.signedUrl} filename={uiState.selectedItem.filename} />
+      )}
+      {uiState.showRenameFileDialog && uiState.selectedItem && (
+        <RenameFileDialog filename={uiState.selectedItem.filename} onCancel={onCloseRenameFileDialog} onSubmitted={onRenameFile} />
+      )}
       {uiState.showDeleteFilesDialog && uiState.selectedItems.length > 0 && (
-        <ConfirmDeleteDialog show={true} onCancel={() => onShowDeleteFilesDialog(false)} onConfirm={onConfirmDeleteFiles} title='confirm delete' text={`Are you sure you want to delete all selected files?`} />
+        <ConfirmDeleteDialog
+          show={true}
+          onCancel={() => onShowDeleteFilesDialog(false)}
+          onConfirm={onConfirmDeleteFiles}
+          title='confirm delete'
+          text={`Are you sure you want to delete all selected files?`}
+        />
       )}
       <S3MoveFilesDialog
         show={uiState.showMoveFilesDialog}

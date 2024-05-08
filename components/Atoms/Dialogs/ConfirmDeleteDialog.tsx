@@ -1,5 +1,5 @@
 import Close from '@mui/icons-material/Close'
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack } from '@mui/material'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack, useTheme } from '@mui/material'
 import { CasinoDarkRedTransparent, CasinoRed, RedDarkMode } from 'components/themes/mainTheme'
 import React from 'react'
 import DangerButton from '../Buttons/DangerButton'
@@ -19,6 +19,7 @@ const ConfirmDeleteDialog = ({
   onConfirm: () => void
   onCancel: () => void
 }) => {
+  const theme = useTheme()
   const handleClose = () => {
     onCancel()
   }
@@ -28,7 +29,7 @@ const ConfirmDeleteDialog = ({
   return (
     <Box>
       <Dialog open={show} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
-        <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoDarkRedTransparent, color: 'white' }}>
+        <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: theme.palette.error.dark, color: 'white' }}>
           <Stack display='flex' direction={'row'}>
             <Stack flexGrow={1}>{title}</Stack>
             <Stack>
