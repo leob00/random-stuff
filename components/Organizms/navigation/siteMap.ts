@@ -16,7 +16,7 @@ export function siteMap() {
       category: 'General Interest',
       paths: [
         {
-          name: 'latest news',
+          name: 'news',
           route: '/csr/news',
         },
         {
