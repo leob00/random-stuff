@@ -50,7 +50,7 @@ const StaticAutoComplete = ({
       onChange={handleSelect}
       disablePortal
       options={items}
-      sx={{ width: 360 }}
+      sx={{ width: { xs: 200, md: 400 } }}
       disableClearable={disableClearable}
       isOptionEqualToValue={(opt, compOpt) => opt.id === compOpt.id}
       renderInput={(params) => (
