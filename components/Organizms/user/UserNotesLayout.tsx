@@ -6,12 +6,15 @@ import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UserNotesDisplay from './UserNotesDisplay'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { useUserProfileContext } from 'lib/ui/auth/UserProfileContext'
 
-const UserNotesLayout = ({ userProfile }: { userProfile: UserProfile }) => {
-  const enc = encodeURIComponent(weakEncrypt(constructUserNoteTitlesKey(userProfile.username)))
+const UserNotesLayout = () => {
+  const { userProfile } = useUserProfileContext()
+  const username = userProfile!.username
+  const enc = encodeURIComponent(weakEncrypt(constructUserNoteTitlesKey(username)))
   const mutateKey = ['/api/baseRoute', enc]
   const fetchData = async (url: string, enc: string) => {
-    const result = await getUserNoteTitles(userProfile.username)
+    const result = await getUserNoteTitles(username)
     return result
   }
   const { data, isLoading } = useSWR(mutateKey, ([url, enc]) => fetchData(url, enc))
@@ -19,7 +22,7 @@ const UserNotesLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   return (
     <>
       {isLoading && <BackdropLoader />}
-      {data && <UserNotesDisplay username={userProfile.username} noteTitles={data} />}
+      {data && <UserNotesDisplay username={username} noteTitles={data} />}
     </>
   )
 }

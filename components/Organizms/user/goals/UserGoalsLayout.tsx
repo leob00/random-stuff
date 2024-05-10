@@ -9,6 +9,7 @@ import UserGoalsDisplay from './UserGoalsDisplay'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
 import { useSwrHelper } from 'hooks/useSwrHelper'
+import { useUserController } from 'hooks/userController'
 
 export interface UserGoalAndTask {
   goal: UserGoal
@@ -23,7 +24,9 @@ export interface UserGoalsModel {
   showAddGoalForm: boolean
 }
 
-const UserGoalsLayout = ({ username }: { username: string }) => {
+const UserGoalsLayout = () => {
+  const { authProfile } = useUserController()
+  const username = authProfile!.username
   const goalsKey = constructUserGoalsKey(username)
 
   const fetchGoalsData = async () => {

@@ -13,7 +13,7 @@ interface UserAuthState {
   setProfile: (profile: UserProfile | null) => void
 }
 
-export const useAuthStore = create<UserAuthState>()((set) => ({
+export const useAuthStore = create<UserAuthState>()((set, get) => ({
   ticket: null,
   profile: null,
   roles: [],

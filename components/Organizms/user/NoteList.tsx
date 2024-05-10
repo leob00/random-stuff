@@ -16,7 +16,7 @@ import React from 'react'
 
 const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked: (item: UserNote) => void; onAddNote: () => void }) => {
   const [searchText, setSearchText] = React.useState('')
-  const pageSize = 5
+  const pageSize = 10
 
   const filterResults = () => {
     if (searchText.length > 0) {
@@ -49,45 +49,47 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
         </Box>
         <HorizontalDivider />
       </Box>
-      {/* <ScrollableBox> */}
-      <Box minHeight={400}>
-        {pagedItems.map((item, i) => (
-          <Box key={item.id}>
-            <Box>
-              <Stack direction='row' py={2}>
-                <Box pt={1}>
-                  <Clickable
-                    onClicked={() => {
-                      handleNoteTitleClick(item)
-                    }}>
-                    <Typography textAlign={'left'}>{item.title}</Typography>
-                  </Clickable>
-                </Box>
-                <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
-                  {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
-                    <Button size='small'>
-                      <DefaultTooltip text={getExpirationText(item.expirationDate)}>
-                        <Warning fontSize='small' color='warning' />
-                      </DefaultTooltip>
-                    </Button>
-                  )}
+      <ScrollableBox>
+        <Box minHeight={400}>
+          {pagedItems.map((item, i) => (
+            <Box key={item.id}>
+              <Box>
+                <Stack direction='row' py={2}>
+                  <Box pt={1}>
+                    <Clickable
+                      onClicked={() => {
+                        handleNoteTitleClick(item)
+                      }}
+                    >
+                      <Typography textAlign={'left'}>{item.title}</Typography>
+                    </Clickable>
+                  </Box>
+                  <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
+                    {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
+                      <Button size='small'>
+                        <DefaultTooltip text={getExpirationText(item.expirationDate)}>
+                          <Warning fontSize='small' color='warning' />
+                        </DefaultTooltip>
+                      </Button>
+                    )}
+                  </Stack>
                 </Stack>
-              </Stack>
-            </Box>
+              </Box>
 
-            {i < pagedItems.length - 1 && <HorizontalDivider />}
-          </Box>
-        ))}
-      </Box>
-      <Pager
-        pageCount={pagerModel.totalNumberOfPages}
-        itemCount={pagedItems.length}
-        itemsPerPage={pageSize}
-        onPaged={(pageNum: number) => handlePaged(pageNum)}
-        defaultPageIndex={pagerModel.page}
-        totalItemCount={pagerModel.totalNumberOfItems}
-        showHorizontalDivider={false}></Pager>
-      {/* </ScrollableBox> */}
+              {i < pagedItems.length - 1 && <HorizontalDivider />}
+            </Box>
+          ))}
+        </Box>
+        <Pager
+          pageCount={pagerModel.totalNumberOfPages}
+          itemCount={pagedItems.length}
+          itemsPerPage={pageSize}
+          onPaged={(pageNum: number) => handlePaged(pageNum)}
+          defaultPageIndex={pagerModel.page}
+          totalItemCount={pagerModel.totalNumberOfItems}
+          showHorizontalDivider={false}
+        ></Pager>
+      </ScrollableBox>
     </Box>
   )
 }
