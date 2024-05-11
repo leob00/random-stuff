@@ -1,5 +1,7 @@
 import Warning from '@mui/icons-material/Warning'
 import { Box, Stack, Button, Typography } from '@mui/material'
+import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
+import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import Clickable from 'components/Atoms/Containers/Clickable'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
@@ -15,6 +17,7 @@ import numeral from 'numeral'
 import React from 'react'
 
 const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked: (item: UserNote) => void; onAddNote: () => void }) => {
+  const scroller = useScrollTop(0)
   const [searchText, setSearchText] = React.useState('')
   const pageSize = 10
 
@@ -38,6 +41,7 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
   const pagedItems = getPagedItems(filtered)
   const handlePaged = (pageNum: number) => {
     setPage(pageNum)
+    scroller.scroll()
   }
 
   return (
@@ -49,8 +53,11 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
         </Box>
         <HorizontalDivider />
       </Box>
+
       <ScrollableBox>
-        <Box minHeight={400}>
+        <Box minHeight={420}>
+          <ScrollTop scroller={scroller} />
+
           {pagedItems.map((item, i) => (
             <Box key={item.id}>
               <Box>

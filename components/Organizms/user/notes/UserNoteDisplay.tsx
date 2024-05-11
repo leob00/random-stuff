@@ -38,7 +38,6 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
     deleteRecord(item.id!)
     const titles = await getUserNoteTitles(authProfile!.username)
     const newTitles = titles.filter((m) => m.id !== item.id)
-    //console.log('newTitles: ', newTitles)
     await putUserNoteTitles(username, newTitles)
     router.push(backRoute)
   }
