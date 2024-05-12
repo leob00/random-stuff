@@ -47,16 +47,16 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
   return (
     <Box sx={{ py: 2 }}>
       <Box>
-        <Box sx={{ pb: 2 }} display={'flex'} gap={2}>
-          <PrimaryButton text='add note' size='small' onClick={onAddNote} />
+        <Box sx={{ pb: 2 }} display={'flex'} justifyContent={'space-between'}>
           <SearchWithinList text={`search ${numeral(data.length).format('###,###')} notes`} onChanged={handleSearched} />
+          <PrimaryButton text='add note' size='small' onClick={onAddNote} />
         </Box>
         <HorizontalDivider />
       </Box>
 
-      <ScrollableBox>
-        <Box minHeight={420}>
-          <ScrollTop scroller={scroller} />
+      <ScrollableBox scroller={scroller} maxHeight={320}>
+        <Box minHeight={324}>
+          {/* <ScrollTop scroller={scroller} /> */}
 
           {pagedItems.map((item, i) => (
             <Box key={item.id}>
@@ -87,16 +87,16 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
             </Box>
           ))}
         </Box>
-        <Pager
-          pageCount={pagerModel.totalNumberOfPages}
-          itemCount={pagedItems.length}
-          itemsPerPage={pageSize}
-          onPaged={(pageNum: number) => handlePaged(pageNum)}
-          defaultPageIndex={pagerModel.page}
-          totalItemCount={pagerModel.totalNumberOfItems}
-          showHorizontalDivider={false}
-        ></Pager>
       </ScrollableBox>
+      <Pager
+        pageCount={pagerModel.totalNumberOfPages}
+        itemCount={pagedItems.length}
+        itemsPerPage={pageSize}
+        onPaged={(pageNum: number) => handlePaged(pageNum)}
+        defaultPageIndex={pagerModel.page}
+        totalItemCount={pagerModel.totalNumberOfItems}
+        showHorizontalDivider={false}
+      ></Pager>
     </Box>
   )
 }

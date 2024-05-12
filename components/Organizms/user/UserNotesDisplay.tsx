@@ -32,9 +32,7 @@ const UserNotesDisplay = ({ noteTitles, username }: { noteTitles: UserNote[]; us
     <>
       {model.isLoading && <BackdropLoader />}
       <PageHeader text={'Notes'} />
-      <ScrollableBox>
-        <NoteList data={noteTitles} onClicked={handleNoteTitleClick} onAddNote={handleAddNote} />
-      </ScrollableBox>
+      <NoteList data={noteTitles} onClicked={handleNoteTitleClick} onAddNote={handleAddNote} />
     </>
   )
 }
