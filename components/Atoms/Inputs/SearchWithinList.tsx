@@ -11,6 +11,7 @@ const SearchWithinList = ({
   text = 'search in results ',
   defaultValue = '',
   debounceWaitMilliseconds = 250,
+  fullWidth = false,
 }: {
   onChanged?: (text: string) => void
   width?: number
@@ -18,6 +19,7 @@ const SearchWithinList = ({
   text?: string
   defaultValue?: string
   debounceWaitMilliseconds?: number
+  fullWidth?: boolean
 }) => {
   const textRef = React.useRef<HTMLInputElement | null>(null)
   const theme = useTheme()
@@ -47,7 +49,7 @@ const SearchWithinList = ({
       defaultValue={defaultValue}
       disabled={disabled}
       id='searchWithinList'
-      sx={{ width: width, input: { color: theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlue } }}
+      sx={{ width: !fullWidth ? width : undefined, input: { color: theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlue } }}
       onChange={handleChange}
       size='small'
       placeholder={text}
@@ -67,6 +69,7 @@ const SearchWithinList = ({
             <></>
           ),
       }}
+      fullWidth={fullWidth}
     ></TextField>
   )
 }

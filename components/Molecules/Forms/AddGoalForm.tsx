@@ -27,7 +27,7 @@ const EditGoalForm = ({ goal, onSubmit }: { goal: UserGoal; onSubmit: (data: Use
   }
   return (
     <form onSubmit={handleFormSubmit}>
-      <Stack direction={'row'} spacing={1}>
+      <Stack direction={'column'} spacing={2}>
         <FormTextBox defaultValue={formInput.body ?? ''} label={'new goal'} onChanged={handleTitleChanged} error={!valid} />
         <DateAndTimePicker onChanged={handleDueDateChange} label={'due date'} />
         <SecondaryButton text='add' type='submit' size='small' width={90} />

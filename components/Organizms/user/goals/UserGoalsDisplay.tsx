@@ -1,6 +1,5 @@
-import { Box, Button, Stack, Typography, useTheme } from '@mui/material'
+import { Box, Stack, Typography, useTheme } from '@mui/material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 import AddGoalForm from 'components/Molecules/Forms/AddGoalForm'
 import GoalsMenu from 'components/Molecules/Menus/GoalsMenu'
 import { CasinoRedTransparent, CasinoBlueTransparent, CasinoGreenTransparent, RedDarkMode } from 'components/themes/mainTheme'
@@ -16,14 +15,14 @@ import { UserGoalAndTask } from './UserGoalsLayout'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import router from 'next/router'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
-import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import GoalsSummary from 'components/Organizms/user/goals/GoalsSummary'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
-import GradientContainer from 'components/Atoms/Boxes/GradientContainer'
+import UserGoalsList from './UserGoalsList'
+import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 
 const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoalAndTask[]; username: string }) => {
   const theme = useTheme()
@@ -87,48 +86,31 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
             <GoalsSummary barChart={barChart} goalTasks={goalsAndTasks} username={username} handleCloseSummary={handleCloseCharts} />
           </>
         ) : (
-          <Stack display={'flex'} direction={'row'} gap={2} alignItems={'center'}>
-            <Box>
-              <PrimaryButton text={`new goal`} onClick={() => setShowAddGoalForm(true)}></PrimaryButton>
-            </Box>
-            <SearchWithinList text='search...' onChanged={(text: string) => setSearchWithinList(text)} />
-            <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
-              <GoalsMenu onShowCharts={handleShowCharts} />
-            </Stack>
-          </Stack>
+          <>
+            {goalsAndTasks.length == 0 ? (
+              <Box py={4}>
+                <PrimaryButton text={`add a goal`} onClick={() => setShowAddGoalForm(true)}></PrimaryButton>
+              </Box>
+            ) : (
+              <Stack display={'flex'} direction={'row'} gap={2} alignItems={'center'}>
+                <SearchWithinList text='search...' onChanged={(text: string) => setSearchWithinList(text)} fullWidth />
+                <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
+                  <GoalsMenu onShowCharts={handleShowCharts} onAddGoal={() => setShowAddGoalForm(true)} />
+                </Stack>
+              </Stack>
+            )}
+          </>
         )}
         <FormDialog show={showAddGoalForm} title='add a new goal' onCancel={() => setShowAddGoalForm(false)}>
           <AddGoalForm goal={{}} onSubmit={handleAddGoal} />
         </FormDialog>
       </Box>
       <Box>
-        <>
-          {!barChart && (
-            <>
-              {filteredGoals.map((item, i) => (
-                <Box key={item.id}>
-                  <Box>
-                    <ListHeader text={item.body ?? ''} item={item} onClicked={() => handleShowEditGoal(item)} />
-                    {item.stats && (
-                      <Box pl={2} pb={2}>
-                        <>
-                          <Box>
-                            <ReadOnlyField label={`tasks`} val={`${Number(item.stats.completed) + Number(item.stats.inProgress)}`} />
-                            <ReadOnlyField label={`completed`} val={`${item.stats.completed}`} />
-                            <ReadOnlyField label={`in progress`} val={`${item.stats.inProgress}`} />
-                          </Box>
-                          {item.stats.pastDue > 0 && <Typography variant='body2' pt={1} color={redColor}>{`past due: ${item.stats.pastDue}`}</Typography>}
-                        </>
-                      </Box>
-                    )}
-                  </Box>
-                  {/* </ListItemContainer> */}
-                  {i < filteredGoals.length - 1 && <HorizontalDivider />}
-                </Box>
-              ))}
-            </>
-          )}
-        </>
+        {!barChart && (
+          <ScrollableBox>
+            <UserGoalsList data={filteredGoals} onShowEdit={handleShowEditGoal} />
+          </ScrollableBox>
+        )}
       </Box>
     </Box>
   )

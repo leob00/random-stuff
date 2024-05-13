@@ -1,14 +1,13 @@
-import { Box, Paper, Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
-import { CasinoRedTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
-import { constructUserGoalsKey, constructUserTaskPk } from 'lib/backend/api/aws/util'
+import { constructUserGoalsKey } from 'lib/backend/api/aws/util'
 import { getUserGoals, putUserGoals, putUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
 import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
-import { UserGoal, UserGoalStats, UserTask } from 'lib/models/userTasks'
+import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { replaceItemInArray } from 'lib/util/collections'
 import { getSecondsFromEpoch } from 'lib/util/dateUtil'
 import { calculatePercentInt } from 'lib/util/numberUtil'
@@ -21,12 +20,10 @@ import Delete from '@mui/icons-material/Delete'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import { useRouter } from 'next/router'
 import EditGoal from './EditGoal'
-import CenterStack from 'components/Atoms/CenterStack'
-import Warning from '@mui/icons-material/Warning'
 import GoalStats from './GoalStats'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
+import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 
 const SingleGoalDisplay = ({
   username,
@@ -153,55 +150,58 @@ const SingleGoalDisplay = ({
       {goalEditMode ? (
         <EditGoal goal={goal} onSaveGoal={handleModifyGoal} onShowCompletedTasks={() => {}} onCancelEdit={() => setGoalEditMode(false)} />
       ) : (
-        <>
-          <Box py={2} display='flex' justifyContent='space-between'>
-            <Box>
-              {goal.stats && (
-                <>
-                  <GoalStats goal={goal} stats={goal.stats} />
-                </>
-              )}
-              {goal.completePercent !== undefined && !goal.deleteCompletedTasks && (
-                <Box display={'flex'} gap={1} alignItems={'center'}>
-                  <Box width={100} justifyContent={'flex-end'}>
-                    <Typography variant='body2' textAlign={'right'}>
-                      progress:
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <ProgressBar value={goal.completePercent} toolTipText={`${goal.completePercent}% complete`} width={160} />
-                  </Box>
+        <ScrollableBox>
+          <>
+            {goal.deleteCompletedTasks && (
+              <Box py={2}>
+                <Box display={'flex'} alignItems={'center'} gap={1} justifyContent={'center'}>
+                  <AlertWithHeader severity='warning' text='completed tasks will be deleted' />
                 </Box>
-              )}
-            </Box>
-            <Box>
-              <ContextMenu items={contextMenu} />
-            </Box>
-          </Box>
-          {goal.deleteCompletedTasks && (
-            <Stack>
-              <Box display={'flex'} alignItems={'center'} gap={1} justifyContent={'center'}>
-                <AlertWithHeader severity='warning' text='completed tasks will be deleted' />
               </Box>
-            </Stack>
-          )}
-          <HorizontalDivider />
-          {isSaving && <BackdropLoader />}
-          <TaskList
-            username={username}
-            selectedGoal={goal}
-            tasks={displayTasks}
-            onAddTask={handleAddTask}
-            onDeleteTask={handleDeleteTask}
-            onModifyTask={handleModifyTask}
-          />
-          <ConfirmDeleteDialog
-            show={showDeleteGoalConfirm}
-            text={`Are you sure you want to delete '${goal.body}' and all of its tasks?`}
-            onConfirm={handleDeleteGoal}
-            onCancel={() => setShowDeleteGoalConfirm(false)}
-          />
-        </>
+            )}
+            <Box py={2} display='flex' justifyContent='space-between'>
+              <Box>
+                {goal.stats && (
+                  <>
+                    <GoalStats goal={goal} stats={goal.stats} />
+                  </>
+                )}
+                {goal.completePercent !== undefined && !goal.deleteCompletedTasks && (
+                  <Box display={'flex'} gap={1} alignItems={'center'}>
+                    <Box width={100} justifyContent={'flex-end'}>
+                      <Typography variant='body2' textAlign={'right'}>
+                        progress:
+                      </Typography>
+                    </Box>
+                    <Box>
+                      <ProgressBar value={goal.completePercent} toolTipText={`${goal.completePercent}% complete`} width={160} />
+                    </Box>
+                  </Box>
+                )}
+              </Box>
+              <Box>
+                <ContextMenu items={contextMenu} />
+              </Box>
+            </Box>
+
+            <HorizontalDivider />
+            {isSaving && <BackdropLoader />}
+            <TaskList
+              username={username}
+              selectedGoal={goal}
+              tasks={displayTasks}
+              onAddTask={handleAddTask}
+              onDeleteTask={handleDeleteTask}
+              onModifyTask={handleModifyTask}
+            />
+            <ConfirmDeleteDialog
+              show={showDeleteGoalConfirm}
+              text={`Are you sure you want to delete '${goal.body}' and all of its tasks?`}
+              onConfirm={handleDeleteGoal}
+              onCancel={() => setShowDeleteGoalConfirm(false)}
+            />
+          </>
+        </ScrollableBox>
       )}
     </>
   )
