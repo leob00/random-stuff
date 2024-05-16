@@ -1,5 +1,4 @@
-import { Box, Stack, Typography, useTheme } from '@mui/material'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import { Box, Stack, useTheme } from '@mui/material'
 import AddGoalForm from 'components/Molecules/Forms/AddGoalForm'
 import GoalsMenu from 'components/Molecules/Menus/GoalsMenu'
 import { CasinoRedTransparent, CasinoBlueTransparent, CasinoGreenTransparent, RedDarkMode } from 'components/themes/mainTheme'
@@ -18,15 +17,12 @@ import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import GoalsSummary from 'components/Organizms/user/goals/GoalsSummary'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
-import ListHeader from 'components/Molecules/Lists/ListHeader'
-import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import UserGoalsList from './UserGoalsList'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 
 const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoalAndTask[]; username: string }) => {
   const theme = useTheme()
-  const redColor = theme.palette.mode === 'dark' ? RedDarkMode : CasinoRedTransparent
 
   const [barChart, setBarchart] = React.useState<BarChart | undefined>(undefined)
   const [showAddGoalForm, setShowAddGoalForm] = React.useState(false)
@@ -93,7 +89,7 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
               </Box>
             ) : (
               <Stack display={'flex'} direction={'row'} gap={2} alignItems={'center'}>
-                <SearchWithinList text='search...' onChanged={(text: string) => setSearchWithinList(text)} fullWidth />
+                <SearchWithinList text={`search ${goalsAndTasks.length} goals`} onChanged={(text: string) => setSearchWithinList(text)} fullWidth />
                 <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
                   <GoalsMenu onShowCharts={handleShowCharts} onAddGoal={() => setShowAddGoalForm(true)} />
                 </Stack>
