@@ -54,10 +54,8 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
         <HorizontalDivider />
       </Box>
 
-      <ScrollableBox scroller={scroller} maxHeight={320}>
-        <Box minHeight={324}>
-          {/* <ScrollTop scroller={scroller} /> */}
-
+      <ScrollableBox maxHeight={220} scroller={scroller}>
+        <Box>
           {pagedItems.map((item, i) => (
             <Box key={item.id}>
               <Box>
@@ -66,9 +64,9 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
                     <Clickable
                       onClicked={() => {
                         handleNoteTitleClick(item)
-                      }}
-                    >
-                      <Typography textAlign={'left'}>{item.title}</Typography>
+                      }}>
+                      <Typography>{item.title}</Typography>
+                      <Typography variant='caption'>{`${dayjs(item.dateModified).format('MM/DD/YYYY hh:mm A')}`}</Typography>
                     </Clickable>
                   </Box>
                   <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
@@ -82,7 +80,6 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
                   </Stack>
                 </Stack>
               </Box>
-
               {i < pagedItems.length - 1 && <HorizontalDivider />}
             </Box>
           ))}
@@ -96,7 +93,7 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
         defaultPageIndex={pagerModel.page}
         totalItemCount={pagerModel.totalNumberOfItems}
         showHorizontalDivider={false}
-      ></Pager>
+      />
     </Box>
   )
 }

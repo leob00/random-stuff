@@ -7,6 +7,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UserNotesDisplay from './UserNotesDisplay'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { useUserProfileContext } from 'lib/ui/auth/UserProfileContext'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
 
 const UserNotesLayout = () => {
   const { userProfile } = useUserProfileContext()
@@ -22,6 +23,8 @@ const UserNotesLayout = () => {
   return (
     <>
       {isLoading && <BackdropLoader />}
+      <PageHeader text={'Notes'} />
+
       {data && <UserNotesDisplay username={username} noteTitles={data} />}
     </>
   )

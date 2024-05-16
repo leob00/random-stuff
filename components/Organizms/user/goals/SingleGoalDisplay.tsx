@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
@@ -23,21 +23,8 @@ import EditGoal from './EditGoal'
 import GoalStats from './GoalStats'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
-import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 
-const SingleGoalDisplay = ({
-  username,
-  goal,
-  tasks,
-  onMutated,
-  onDeleted,
-}: {
-  username: string
-  goal: UserGoal
-  tasks: UserTask[]
-  onMutated: (goal: UserGoal, tasks: UserTask[]) => void
-  onDeleted: (goal: UserGoal) => void
-}) => {
+const SingleGoalDisplay = ({ username, goal, tasks, onMutated, onDeleted }: { username: string; goal: UserGoal; tasks: UserTask[]; onMutated: (goal: UserGoal, tasks: UserTask[]) => void; onDeleted: (goal: UserGoal) => void }) => {
   const [goalEditMode, setGoalEditMode] = React.useState(false)
   const [showDeleteGoalConfirm, setShowDeleteGoalConfirm] = React.useState(false)
   const [isSaving, setIsSaving] = React.useState(false)
@@ -150,58 +137,45 @@ const SingleGoalDisplay = ({
       {goalEditMode ? (
         <EditGoal goal={goal} onSaveGoal={handleModifyGoal} onShowCompletedTasks={() => {}} onCancelEdit={() => setGoalEditMode(false)} />
       ) : (
-        <ScrollableBox>
-          <>
-            {goal.deleteCompletedTasks && (
-              <Box py={2}>
-                <Box display={'flex'} alignItems={'center'} gap={1} justifyContent={'center'}>
-                  <AlertWithHeader severity='warning' text='completed tasks will be deleted' />
-                </Box>
-              </Box>
-            )}
-            <Box py={2} display='flex' justifyContent='space-between'>
-              <Box>
-                {goal.stats && (
-                  <>
-                    <GoalStats goal={goal} stats={goal.stats} />
-                  </>
-                )}
-                {goal.completePercent !== undefined && !goal.deleteCompletedTasks && (
-                  <Box display={'flex'} gap={1} alignItems={'center'}>
-                    <Box width={100} justifyContent={'flex-end'}>
-                      <Typography variant='body2' textAlign={'right'}>
-                        progress:
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <ProgressBar value={goal.completePercent} toolTipText={`${goal.completePercent}% complete`} width={160} />
-                    </Box>
-                  </Box>
-                )}
-              </Box>
-              <Box>
-                <ContextMenu items={contextMenu} />
+        <>
+          {goal.deleteCompletedTasks && (
+            <Box py={2}>
+              <Box display={'flex'} alignItems={'center'} gap={1} justifyContent={'center'}>
+                <AlertWithHeader severity='warning' text='completed tasks will be deleted' />
               </Box>
             </Box>
+          )}
+          <Box py={2} display='flex' justifyContent='space-between'>
+            <Box>
+              {goal.stats && (
+                <>
+                  <GoalStats goal={goal} stats={goal.stats} />
+                </>
+              )}
+              {goal.completePercent !== undefined && !goal.deleteCompletedTasks && (
+                <Box display={'flex'} gap={1} alignItems={'center'}>
+                  <Box width={100} justifyContent={'flex-end'}>
+                    <Typography variant='body2' textAlign={'right'}>
+                      progress:
+                    </Typography>
+                  </Box>
+                  <Box>
+                    <ProgressBar value={goal.completePercent} toolTipText={`${goal.completePercent}% complete`} width={160} />
+                  </Box>
+                </Box>
+              )}
+            </Box>
+            <Box>
+              <ContextMenu items={contextMenu} />
+            </Box>
+          </Box>
 
-            <HorizontalDivider />
-            {isSaving && <BackdropLoader />}
-            <TaskList
-              username={username}
-              selectedGoal={goal}
-              tasks={displayTasks}
-              onAddTask={handleAddTask}
-              onDeleteTask={handleDeleteTask}
-              onModifyTask={handleModifyTask}
-            />
-            <ConfirmDeleteDialog
-              show={showDeleteGoalConfirm}
-              text={`Are you sure you want to delete '${goal.body}' and all of its tasks?`}
-              onConfirm={handleDeleteGoal}
-              onCancel={() => setShowDeleteGoalConfirm(false)}
-            />
-          </>
-        </ScrollableBox>
+          <HorizontalDivider />
+          {isSaving && <BackdropLoader />}
+          <TaskList username={username} selectedGoal={goal} tasks={displayTasks} onAddTask={handleAddTask} onDeleteTask={handleDeleteTask} onModifyTask={handleModifyTask} />
+
+          <ConfirmDeleteDialog show={showDeleteGoalConfirm} text={`Are you sure you want to delete '${goal.body}' and all of its tasks?`} onConfirm={handleDeleteGoal} onCancel={() => setShowDeleteGoalConfirm(false)} />
+        </>
       )}
     </>
   )

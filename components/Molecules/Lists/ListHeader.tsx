@@ -64,15 +64,13 @@ const ListHeader = ({
                   sx={{ cursor: 'pointer' }}
                   onClick={(e) => {
                     onClicked(item)
-                  }}
-                >
-                  <Typography textAlign={'left'} variant='h5' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
+                  }}>
+                  <Typography textAlign={'left'} variant='h6' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
                     {text}
                   </Typography>
                 </Box>
               </>
-            }
-          ></CardHeader>
+            }></CardHeader>
         </Card>
         <Box>{showContextMenu && <ContextMenu items={contextMenu} />}</Box>
       </Stack>

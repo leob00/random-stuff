@@ -4,7 +4,7 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
 import FirstPageIcon from '@mui/icons-material/FirstPage'
 import LastPageIcon from '@mui/icons-material/LastPage'
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Stack, Typography } from '@mui/material'
 import numeral from 'numeral'
 import HorizontalDivider from './Dividers/HorizontalDivider'
 
@@ -84,11 +84,13 @@ const Pager = ({
     <Box pt={1}>
       {showHorizontalDivider && <HorizontalDivider />}
       {showPageText && (
-        <Typography sx={{ my: 2, textAlign: 'center' }} variant='body2'>
-          {displayMessage}
-        </Typography>
+        <Stack>
+          <Typography sx={{ textAlign: 'center' }} variant='caption'>
+            {displayMessage}
+          </Typography>
+        </Stack>
       )}
-      <Box sx={{ textAlign: 'center', my: 2 }}>
+      <Box sx={{ textAlign: 'center', my: 1 }}>
         <Button variant='text' disabled={pageIndex <= 1} onClick={handleFirstPageClick}>
           <FirstPageIcon />
         </Button>

@@ -10,7 +10,11 @@ const JobInProgress = ({ item }: { item: Job }) => {
       <Box pl={2} pr={2}>
         <DefaultTooltip text={`Records: ${numeral(item.RecordsProcessed).format('###,###')}`}>
           <Paper elevation={4}>
-            <LinearProgress variant='determinate' value={item.ProgressPercent} color='info' />
+            {item.Name === 'ProcessYahooEarnings' ? (
+              <LinearProgress variant='indeterminate' value={item.ProgressPercent} color='info' />
+            ) : (
+              <LinearProgress variant='determinate' value={item.ProgressPercent} color='info' />
+            )}
           </Paper>
         </DefaultTooltip>
         <Box display={'flex'} justifyContent={'space-between'} alignItems={'flex-start'}>

@@ -18,6 +18,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import dayjs from 'dayjs'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 
 interface TaskModel {
   isLoading: boolean
@@ -157,11 +158,7 @@ const TaskList = ({
     csvRows.push(headers.join(','))
 
     data.forEach((m) => {
-      csvRows.push(
-        `"${m.body ?? ''}",${m.dueDate ? dayjs(m.dueDate).format('YYYY-MM-DD hh:mm A') : ''}, ${
-          m.dateCompleted ? dayjs(m.dateCompleted).format('YYYY-MM-DD hh:mm A') : ''
-        },"${m.notes ? m.notes.replaceAll('\n', '') : ''}",`,
-      )
+      csvRows.push(`"${m.body ?? ''}",${m.dueDate ? dayjs(m.dueDate).format('YYYY-MM-DD hh:mm A') : ''}, ${m.dateCompleted ? dayjs(m.dateCompleted).format('YYYY-MM-DD hh:mm A') : ''},"${m.notes ? m.notes.replaceAll('\n', '') : ''}",`)
     })
 
     return csvRows.join('\n')
@@ -173,13 +170,7 @@ const TaskList = ({
 
   return (
     <>
-      <ConfirmDialog
-        onCancel={handleNoChangeTaskStatus}
-        show={model.confirmCompleteTask}
-        text={'complete task?'}
-        title={'confirm'}
-        onConfirm={handleYesChangeTaskStatus}
-      />
+      <ConfirmDialog onCancel={handleNoChangeTaskStatus} show={model.confirmCompleteTask} text={'complete task?'} title={'confirm'} onConfirm={handleYesChangeTaskStatus} />
 
       {model.isLoading ? (
         <BackdropLoader />
@@ -222,36 +213,32 @@ const TaskList = ({
               <NoDataFound message={'you do not have tasks for this goal'} />
             </Stack>
           )}
-          {filterTasks(model.searchTasksText).map((item, i) => (
-            <Box key={item.id}>
-              {model.editTask !== undefined && model.editTask.id === item.id ? (
-                <Box>
-                  <EditTaskForm
-                    task={model.editTask}
-                    onSubmit={handleSaveTask}
-                    onCancel={() => {
-                      setModel({ ...model, editTask: undefined, selectedTask: undefined })
-                    }}
-                    onDelete={handleDeleteTask}
-                  />
-                </Box>
-              ) : (
-                <>
-                  <Box pb={2}>
-                    <Box key={item.id}>
-                      <TaskItem
-                        task={item}
-                        index={i}
-                        taskCount={tasks.length}
-                        handleCompleteTaskClick={handleCompleteTaskClick}
-                        handleTaskClick={handleTaskClick}
-                      />
-                    </Box>
+          <ScrollableBox>
+            {filterTasks(model.searchTasksText).map((item, i) => (
+              <Box key={item.id}>
+                {model.editTask !== undefined && model.editTask.id === item.id ? (
+                  <Box>
+                    <EditTaskForm
+                      task={model.editTask}
+                      onSubmit={handleSaveTask}
+                      onCancel={() => {
+                        setModel({ ...model, editTask: undefined, selectedTask: undefined })
+                      }}
+                      onDelete={handleDeleteTask}
+                    />
                   </Box>
-                </>
-              )}
-            </Box>
-          ))}
+                ) : (
+                  <>
+                    <Box pb={2}>
+                      <Box key={item.id}>
+                        <TaskItem task={item} index={i} taskCount={tasks.length} handleCompleteTaskClick={handleCompleteTaskClick} handleTaskClick={handleTaskClick} />
+                      </Box>
+                    </Box>
+                  </>
+                )}
+              </Box>
+            ))}
+          </ScrollableBox>
         </>
       )}
     </>

@@ -23,6 +23,7 @@ import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 
 const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoalAndTask[]; username: string }) => {
   const theme = useTheme()
+  const redColor = theme.palette.mode === 'dark' ? RedDarkMode : CasinoRedTransparent
 
   const [barChart, setBarchart] = React.useState<BarChart | undefined>(undefined)
   const [showAddGoalForm, setShowAddGoalForm] = React.useState(false)
@@ -89,7 +90,7 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
               </Box>
             ) : (
               <Stack display={'flex'} direction={'row'} gap={2} alignItems={'center'}>
-                <SearchWithinList text={`search ${goalsAndTasks.length} goals`} onChanged={(text: string) => setSearchWithinList(text)} fullWidth />
+                <SearchWithinList text='search...' onChanged={(text: string) => setSearchWithinList(text)} fullWidth />
                 <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
                   <GoalsMenu onShowCharts={handleShowCharts} onAddGoal={() => setShowAddGoalForm(true)} />
                 </Stack>
@@ -101,13 +102,7 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
           <AddGoalForm goal={{}} onSubmit={handleAddGoal} />
         </FormDialog>
       </Box>
-      <Box>
-        {!barChart && (
-          <ScrollableBox>
-            <UserGoalsList data={filteredGoals} onShowEdit={handleShowEditGoal} />
-          </ScrollableBox>
-        )}
-      </Box>
+      <Box>{!barChart && <UserGoalsList data={filteredGoals} onShowEdit={handleShowEditGoal} />}</Box>
     </Box>
   )
 }

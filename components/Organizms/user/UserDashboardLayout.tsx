@@ -6,7 +6,7 @@ import NewsLayout from '../news/NewsLayout'
 const UserDashboardLayout = () => {
   return (
     <>
-      <ScrollableBox>
+      <ScrollableBox maxHeight={800}>
         <StockMarketGlance />
         <NewsLayout componentLoader />
       </ScrollableBox>

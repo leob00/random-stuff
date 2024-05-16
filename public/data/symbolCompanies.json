@@ -2960,6 +2960,10 @@
     "Symbol": "AUDC"
   },
   {
+    "Company": "PGIM Rock ETF Trust",
+    "Symbol": "AUGP"
+  },
+  {
     "Company": "AIM ETF Products Trust AllianzIM U.S. Large Cap Buffer10 Aug ETF",
     "Symbol": "AUGT"
   },
@@ -16528,6 +16532,10 @@
     "Symbol": "GPAK"
   },
   {
+    "Company": "GP-Act III Acquisition Corp. - Units",
+    "Symbol": "GPATU"
+  },
+  {
     "Company": "Genuine Parts Co.",
     "Symbol": "GPC"
   },
@@ -28588,6 +28596,10 @@
     "Symbol": "PBAP"
   },
   {
+    "Company": "PGIM Rock ETF Trust",
+    "Symbol": "PBAU"
+  },
+  {
     "Company": "PB Bankshares Inc",
     "Symbol": "PBBK"
   },
@@ -38770,6 +38782,10 @@
   {
     "Company": "Credit Suisse AG Nassau Branch",
     "Symbol": "USOI"
+  },
+  {
+    "Company": "Defiance Oil Enhanced Options Income ETF",
+    "Symbol": "USOY"
   },
   {
     "Company": "U.S. Physical Therapy, Inc.",

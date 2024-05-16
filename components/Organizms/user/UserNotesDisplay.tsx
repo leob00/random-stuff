@@ -7,7 +7,6 @@ import React from 'react'
 import NoteList from './NoteList'
 import { useRouter } from 'next/router'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
-import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 
 const UserNotesDisplay = ({ noteTitles, username }: { noteTitles: UserNote[]; username: string }) => {
   const router = useRouter()
@@ -31,7 +30,6 @@ const UserNotesDisplay = ({ noteTitles, username }: { noteTitles: UserNote[]; us
   return (
     <>
       {model.isLoading && <BackdropLoader />}
-      <PageHeader text={'Notes'} />
       <NoteList data={noteTitles} onClicked={handleNoteTitleClick} onAddNote={handleAddNote} />
     </>
   )

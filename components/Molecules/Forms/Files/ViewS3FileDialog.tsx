@@ -12,16 +12,16 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
   const isAudio = ext.includes('.mp3')
   const isImage = previewImageExtenstions.includes(ext)
   return (
-    <FormDialog title='View file' show={true} onCancel={onCancel}>
+    <FormDialog title='View file' show={true} onCancel={onCancel} fullScreen>
       <>
         <Stack>
-          <Box py={2}>
+          <Stack py={2} flexDirection={'row'} justifyContent={'center'}>
             <Alert color='success'>
               <Typography variant='caption' textAlign={'center'}>
                 This secure link will expire in a few minutes.
               </Typography>
             </Alert>
-          </Box>
+          </Stack>
         </Stack>
         <CenterStack sx={{ py: 2 }}>{filename}</CenterStack>
         <CenterStack sx={{ py: 2 }}>

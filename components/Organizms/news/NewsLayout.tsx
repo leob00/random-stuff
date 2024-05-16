@@ -13,6 +13,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
+import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 
 const NewsLayout = ({ componentLoader = false }: { componentLoader?: boolean }) => {
   const userController = useUserController()
@@ -40,6 +41,7 @@ const NewsLayout = ({ componentLoader = false }: { componentLoader?: boolean }) 
   }
 
   const { data, isLoading, error } = useSWR(['/api/news', selectedSource], ([url, id]) => fetchWithId(url, id), { revalidateOnFocus: false })
+  const scroller = useScrollTop(0)
 
   const saveProfileNewsType = async (newstype: NewsTypeIds) => {
     const profile = await userController.fetchProfilePassive()
@@ -57,6 +59,7 @@ const NewsLayout = ({ componentLoader = false }: { componentLoader?: boolean }) 
   const handleNewsSourceSelected = async (id: string) => {
     const source = id as NewsTypeIds
     setSelectedSource(source)
+    scroller.scroll()
     saveProfileNewsType(source)
   }
 
@@ -83,7 +86,9 @@ const NewsLayout = ({ componentLoader = false }: { componentLoader?: boolean }) 
         ) : (
           <>
             {error && <ErrorMessage text='There is an error that occurred. We have been made aware of it. Please try again in a few minutes.' />}
-            <ScrollableBox>{data && <NewsList newsItems={data} />}</ScrollableBox>
+            <ScrollableBox maxHeight={600} scroller={scroller}>
+              {data && <NewsList newsItems={data} />}
+            </ScrollableBox>
           </>
         )}
       </Box>

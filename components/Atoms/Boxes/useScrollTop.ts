@@ -1,20 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
-export const useScrollTop = (top: number, scrollOnRender?: boolean) => {
+export const useScrollTop = (top: number) => {
   const [id, setId] = useState<string | null>(null)
-  const [scrollTop, setScrollTop] = useState(top)
+  const [scrollPosition, setScrollPosition] = useState(0)
 
   const scroll = (scrollTop?: number) => {
-    if (scrollTop) {
-      setScrollTop(scrollTop)
-    }
     setId(crypto.randomUUID())
   }
 
+  const onScrolled = (top: number) => {
+    setScrollPosition(top)
+  }
+
   return {
-    scrollTop,
+    scrollPosition,
     id,
     scroll,
+    onScrolled,
   }
 }
 
