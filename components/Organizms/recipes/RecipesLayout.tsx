@@ -21,7 +21,7 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Drop
       <CenterStack sx={{ pt: 2 }}>
         <Typography variant='h4'>{'Featured Recipes'}</Typography>
       </CenterStack>
-      <ScrollableBox>
+      <ScrollableBox maxHeight={800}>
         {featured.map((item, ix) => (
           <Box key={item.sys.id} py={2}>
             <RecipeTeaser item={item} showSummary />

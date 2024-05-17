@@ -9,10 +9,13 @@ import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import { DropdownItem } from 'lib/models/dropdown'
 import router from 'next/router'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
+import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 
 const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Recipe; autoComplete?: DropdownItem[]; selectedOption?: DropdownItem }) => {
   const baseUrl = '/ssg/recipes/'
+  const scroller = useScrollTop(0)
   const handleSelected = (item: DropdownItem) => {
+    scroller.scroll()
     router.push(`${baseUrl}${item.value}`)
   }
   return (
@@ -32,7 +35,7 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
           </CenterStack>
         )}
       </Box>
-      <ScrollableBox>
+      <ScrollableBox maxHeight={800} scroller={scroller}>
         <RecipeTeaser item={article} clickable={false} />
         <Box px={2}>{documentToReactComponents(article.richBody.json)}</Box>
       </ScrollableBox>

@@ -41,9 +41,9 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
         )}
         {isImage && (
           <CenterStack sx={{ pt: 2 }}>
-            <Box width={250}>
-              <img width={250} src={signedUrl} alt='preview image' />
-            </Box>
+            <Stack width={{ xs: 275, md: 600 }}>
+              <img style={{ maxWidth: '100%', borderRadius: '12px' }} src={signedUrl} alt='preview image' />
+            </Stack>
           </CenterStack>
         )}
       </>

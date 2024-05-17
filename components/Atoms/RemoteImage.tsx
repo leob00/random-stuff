@@ -32,11 +32,11 @@ const RemoteImage = ({
           src={url}
           alt={title}
           placeholder='blur'
-          height={height}
-          width={width}
+          //height={height}
+          //width={width}
           blurDataURL={url}
           onLoad={handleLoaded}
-          priority={priority}
+          fill
         />
       </Box>
     </>
