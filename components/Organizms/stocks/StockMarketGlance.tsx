@@ -21,19 +21,23 @@ const StockMarketGlance = () => {
     const resp = await get(apiUrl)
     return resp.Body as MarketHandshake
   }
-  const { data } = useSwrHelper<MarketHandshake>(apiUrl, dataFn)
+  const { data, isLoading } = useSwrHelper<MarketHandshake>(apiUrl, dataFn)
   return (
     <Box>
       <Box py={2}>
         <CenteredHeader title={'stock market sentiment'} />
-        {data ? (
+        {isLoading && <CircleLoader />}
+        {data && (
           <>
             <StockMarketStatsChart data={data.StockStats} />
             <Box pt={2}>
               <StockMarketStatus data={data} />
             </Box>
             <CenterStack sx={{ my: 2 }}>
-              <Typography variant='caption' sx={{ fontSize: 10 }}>{`data as of: ${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} (ET)`}</Typography>
+              <Typography
+                variant='caption'
+                sx={{ fontSize: 10 }}
+              >{`data as of: ${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} (ET)`}</Typography>
             </CenterStack>
             <CenterStack>
               <SiteLink text='sentiment report' href={'/csr/stocks/sentiment'} />
@@ -41,22 +45,6 @@ const StockMarketGlance = () => {
             <Box py={2}>
               <HorizontalDivider />
             </Box>
-          </>
-        ) : (
-          <>
-            <CircleLoader />
-            <StockMarketStatsChart
-              data={{
-                MarketDate: '',
-                TotalDown: 0,
-                TotalDownPercent: 48,
-                TotalUnchanged: 0,
-                TotalUnchangedPercent: 6,
-                TotalUp: 0,
-                TotalUpPercent: 48,
-                DateModified: '',
-              }}
-            />
           </>
         )}
       </Box>

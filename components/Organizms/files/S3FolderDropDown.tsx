@@ -18,7 +18,7 @@ const S3FolderDropDown = ({
   return (
     <Box display={'flex'} gap={2} alignItems={'center'}>
       <Typography>folder: </Typography>
-      <StaticAutoComplete options={folders} onSelected={handleSelected} selectedItem={folder} />
+      <StaticAutoComplete options={folders} onSelected={handleSelected} selectedItem={folder} disableClearable />
     </Box>
   )
 }

@@ -20,6 +20,7 @@ import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import UserGoalsList from './UserGoalsList'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
+import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 
 const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoalAndTask[]; username: string }) => {
   const theme = useTheme()
@@ -50,6 +51,9 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
     const token = encodeURIComponent(weakEncrypt(username))
     router.push(`/protected/csr/goals/details?id=${goalId}&token=${token}`)
   }
+  const handleShowAddGoalForm = () => {
+    setShowAddGoalForm(true)
+  }
 
   const handleShowCharts = async () => {
     const tasks = goalsAndTasks.flatMap((m) => m.tasks)
@@ -67,6 +71,11 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
   const handleCloseCharts = () => {
     setBarchart(undefined)
   }
+
+  const handleSearchWithinList = (text: string) => {
+    setSearchWithinList(text)
+  }
+
   const filterGoals = () => {
     if (searchWithinList.length > 0) {
       return allGoals.filter((m) => m.body!.toLowerCase().startsWith(searchWithinList.toLowerCase()))
@@ -86,13 +95,14 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
           <>
             {goalsAndTasks.length == 0 ? (
               <Box py={4}>
-                <PrimaryButton text={`add a goal`} onClick={() => setShowAddGoalForm(true)}></PrimaryButton>
+                <PrimaryButton text={`add a goal`} onClick={handleShowAddGoalForm}></PrimaryButton>
               </Box>
             ) : (
               <Stack display={'flex'} direction={'row'} gap={2} alignItems={'center'}>
-                <SearchWithinList text='search...' onChanged={(text: string) => setSearchWithinList(text)} fullWidth />
+                <SearchWithinList text={`search in ${goalsAndTasks.length} goals`} onChanged={handleSearchWithinList} fullWidth />
+
                 <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
-                  <GoalsMenu onShowCharts={handleShowCharts} onAddGoal={() => setShowAddGoalForm(true)} />
+                  <GoalsMenu onShowCharts={handleShowCharts} onAddGoal={handleShowAddGoalForm} />
                 </Stack>
               </Stack>
             )}

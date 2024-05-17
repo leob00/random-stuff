@@ -33,7 +33,7 @@ const UserGoalsList = ({ data, onShowEdit }: { data: UserGoal[]; onShowEdit: (it
             <Box key={item.id}>
               <Box>
                 <ListHeader text={item.body ?? ''} item={item} onClicked={onShowEdit} />
-                {/* <Clickable 
+                {/* <Clickable
                   onClicked={() => {
                     onShowEdit(item)
                   }}>

@@ -1,6 +1,6 @@
 import Search from '@mui/icons-material/Search'
 import SearchOff from '@mui/icons-material/SearchOff'
-import { Box, IconButton, Stack, Typography } from '@mui/material'
+import { Box, IconButton, Stack, Tooltip, Typography } from '@mui/material'
 import ConfirmDialog from 'components/Atoms/Dialogs/ConfirmDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
@@ -19,6 +19,7 @@ import dayjs from 'dayjs'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
+import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
 
 interface TaskModel {
   isLoading: boolean
@@ -158,7 +159,9 @@ const TaskList = ({
     csvRows.push(headers.join(','))
 
     data.forEach((m) => {
-      csvRows.push(`"${m.body ?? ''}",${m.dueDate ? dayjs(m.dueDate).format('YYYY-MM-DD hh:mm A') : ''}, ${m.dateCompleted ? dayjs(m.dateCompleted).format('YYYY-MM-DD hh:mm A') : ''},"${m.notes ? m.notes.replaceAll('\n', '') : ''}",`)
+      csvRows.push(
+        `"${m.body ?? ''}",${m.dueDate ? dayjs(m.dueDate).format('YYYY-MM-DD hh:mm A') : ''}, ${m.dateCompleted ? dayjs(m.dateCompleted).format('YYYY-MM-DD hh:mm A') : ''},"${m.notes ? m.notes.replaceAll('\n', '') : ''}",`,
+      )
     })
 
     return csvRows.join('\n')
@@ -170,7 +173,13 @@ const TaskList = ({
 
   return (
     <>
-      <ConfirmDialog onCancel={handleNoChangeTaskStatus} show={model.confirmCompleteTask} text={'complete task?'} title={'confirm'} onConfirm={handleYesChangeTaskStatus} />
+      <ConfirmDialog
+        onCancel={handleNoChangeTaskStatus}
+        show={model.confirmCompleteTask}
+        text={'complete task?'}
+        title={'confirm'}
+        onConfirm={handleYesChangeTaskStatus}
+      />
 
       {model.isLoading ? (
         <BackdropLoader />
@@ -188,9 +197,11 @@ const TaskList = ({
                     {!model.showSearch ? <Search fontSize='small' /> : <SearchOff fontSize='small' />}
                   </IconButton>
                   {!model.showSearch && (
-                    <IconButton size='small' color='primary' onClick={handleDownloadToFile}>
-                      <FileDownloadIcon fontSize='small' />
-                    </IconButton>
+                    <DefaultTooltip text={'download file'}>
+                      <IconButton size='small' color='primary' onClick={handleDownloadToFile}>
+                        <FileDownloadIcon fontSize='small' />
+                      </IconButton>
+                    </DefaultTooltip>
                   )}
                 </Box>
 
@@ -213,7 +224,7 @@ const TaskList = ({
               <NoDataFound message={'you do not have tasks for this goal'} />
             </Stack>
           )}
-          <ScrollableBox>
+          <ScrollableBox maxHeight={400}>
             {filterTasks(model.searchTasksText).map((item, i) => (
               <Box key={item.id}>
                 {model.editTask !== undefined && model.editTask.id === item.id ? (
@@ -231,7 +242,13 @@ const TaskList = ({
                   <>
                     <Box pb={2}>
                       <Box key={item.id}>
-                        <TaskItem task={item} index={i} taskCount={tasks.length} handleCompleteTaskClick={handleCompleteTaskClick} handleTaskClick={handleTaskClick} />
+                        <TaskItem
+                          task={item}
+                          index={i}
+                          taskCount={tasks.length}
+                          handleCompleteTaskClick={handleCompleteTaskClick}
+                          handleTaskClick={handleTaskClick}
+                        />
                       </Box>
                     </Box>
                   </>
