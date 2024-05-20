@@ -1,5 +1,4 @@
 import { Box } from '@mui/material'
-import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
@@ -10,7 +9,6 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import { DynamoKeys } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockStats } from 'lib/backend/api/qln/qlnModels'
 import { getRecord } from 'lib/backend/csr/nextApiWrapper'
-import React from 'react'
 
 const Page = () => {
   const monthlyKey: DynamoKeys = 'stocks-monthly-market-sentiment'

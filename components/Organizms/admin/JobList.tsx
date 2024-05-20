@@ -1,6 +1,5 @@
 import { Box, Paper, Stack, Typography } from '@mui/material'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
-import { CasinoBlue } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { Job, QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
 import { sortArray } from 'lib/util/collections'

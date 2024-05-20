@@ -1,5 +1,4 @@
 import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, TextField } from '@mui/material'
-import { CasinoBlue } from 'components/themes/mainTheme'
 import React from 'react'
 import { Option } from 'lib/AutoCompleteOptions'
 import { DropdownItem } from 'lib/models/dropdown'
@@ -10,12 +9,14 @@ const StaticAutoComplete = ({
   onSelected,
   selectedItem,
   disableClearable = false,
+  fullWidth,
 }: {
   options: DropdownItem[]
   placeholder?: string
   onSelected: (item: DropdownItem) => void
   selectedItem?: DropdownItem
   disableClearable?: boolean
+  fullWidth?: boolean
 }) => {
   const items: Option[] = options.map((m) => {
     return {
@@ -53,6 +54,7 @@ const StaticAutoComplete = ({
       sx={{ width: { xs: 200, md: 400 } }}
       disableClearable={disableClearable}
       isOptionEqualToValue={(opt, compOpt) => opt.id === compOpt.id}
+      fullWidth={fullWidth}
       renderInput={(params) => (
         <TextField
           inputRef={inputRef}

@@ -1,6 +1,5 @@
-import { Box, Paper, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
-import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import dayjs from 'dayjs'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { apiConnection } from 'lib/backend/api/config'
@@ -12,8 +11,8 @@ import StockMarketStatus from './StockMarketStatus'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
-import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 
 const StockMarketGlance = () => {
   const config = apiConnection().qln
@@ -26,43 +25,45 @@ const StockMarketGlance = () => {
   return (
     <Box>
       <Box py={2}>
-        <CenteredHeader title={'stock market sentiment'} />
-        {isLoading && <BackdropLoader />}
-        {data ? (
-          <>
-            <StockMarketStatsChart data={data.StockStats} />
-            <Box pt={2}>
-              <StockMarketStatus data={data} />
-            </Box>
-            <CenterStack sx={{ my: 2 }}>
-              <Typography
-                variant='caption'
-                sx={{ fontSize: 10 }}
-              >{`data as of: ${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} (ET)`}</Typography>
-            </CenterStack>
-            <CenterStack>
-              <SiteLink text='sentiment report' href={'/csr/stocks/sentiment'} />
-            </CenterStack>
-            <Box py={2}>
-              <HorizontalDivider />
-            </Box>
-          </>
-        ) : (
-          <>
-            <StockMarketStatsChart
-              data={{
-                DateModified: '',
-                TotalDown: 0,
-                TotalUp: 0,
-                TotalUnchanged: 0,
-                TotalDownPercent: 34,
-                TotalUpPercent: 34,
-                TotalUnchangedPercent: 32,
-                MarketDate: '',
-              }}
-            />
-          </>
-        )}
+        <ScrollableBox maxHeight={400}>
+          <CenteredHeader title={'stock market sentiment'} />
+          {isLoading && <BackdropLoader />}
+          {data ? (
+            <>
+              <StockMarketStatsChart data={data.StockStats} />
+              <Box pt={2}>
+                <StockMarketStatus data={data} />
+              </Box>
+              <CenterStack sx={{ my: 2 }}>
+                <Typography
+                  variant='caption'
+                  sx={{ fontSize: 10 }}
+                >{`data as of: ${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} (ET)`}</Typography>
+              </CenterStack>
+              <CenterStack>
+                <SiteLink text='sentiment report' href={'/csr/stocks/sentiment'} />
+              </CenterStack>
+              <Box py={2}>
+                <HorizontalDivider />
+              </Box>
+            </>
+          ) : (
+            <>
+              <StockMarketStatsChart
+                data={{
+                  DateModified: '',
+                  TotalDown: 0,
+                  TotalUp: 0,
+                  TotalUnchanged: 0,
+                  TotalDownPercent: 34,
+                  TotalUpPercent: 34,
+                  TotalUnchangedPercent: 32,
+                  MarketDate: '',
+                }}
+              />
+            </>
+          )}
+        </ScrollableBox>
       </Box>
     </Box>
   )

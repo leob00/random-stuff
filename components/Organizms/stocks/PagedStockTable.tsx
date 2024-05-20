@@ -5,7 +5,6 @@ import { Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import StockTable from './StockTable'
-import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 
 const PagedStockTable = ({

@@ -1,5 +1,4 @@
 import { Box, Stack } from '@mui/material'
-import CenterStack from 'components/Atoms/CenterStack'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import { useUserController } from 'hooks/userController'
 import { NewsItem, NewsTypeIds, newsTypes } from 'lib/backend/api/qln/qlnApi'
@@ -66,19 +65,18 @@ const NewsLayout = ({ componentLoader = false }: { componentLoader?: boolean }) 
   return (
     <>
       <Box py={2}>
-        <CenterStack>
-          <Stack display='flex' flexDirection='row' gap={2}>
-            <StaticAutoComplete
-              options={newsTypes}
-              placeholder='select source'
-              selectedItem={newsTypes.find((m) => m.value === selectedSource)}
-              onSelected={(item) => {
-                handleNewsSourceSelected(item.value)
-              }}
-              disableClearable
-            />
-          </Stack>
-        </CenterStack>
+        <Stack display='flex' flexDirection='row' justifyContent={'center'}>
+          <StaticAutoComplete
+            options={newsTypes}
+            placeholder='select source'
+            selectedItem={newsTypes.find((m) => m.value === selectedSource)}
+            onSelected={(item) => {
+              handleNewsSourceSelected(item.value)
+            }}
+            disableClearable
+            fullWidth
+          />
+        </Stack>
       </Box>
       <Box>
         {isLoading ? (

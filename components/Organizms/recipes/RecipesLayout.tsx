@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import React from 'react'
 import router from 'next/router'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
