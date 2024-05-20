@@ -13,6 +13,7 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 const StockMarketGlance = () => {
   const config = apiConnection().qln
@@ -26,8 +27,8 @@ const StockMarketGlance = () => {
     <Box>
       <Box py={2}>
         <CenteredHeader title={'stock market sentiment'} />
-        {isLoading && <CircleLoader />}
-        {data && (
+        {isLoading && <BackdropLoader />}
+        {data ? (
           <>
             <StockMarketStatsChart data={data.StockStats} />
             <Box pt={2}>
@@ -45,6 +46,21 @@ const StockMarketGlance = () => {
             <Box py={2}>
               <HorizontalDivider />
             </Box>
+          </>
+        ) : (
+          <>
+            <StockMarketStatsChart
+              data={{
+                DateModified: '',
+                TotalDown: 0,
+                TotalUp: 0,
+                TotalUnchanged: 0,
+                TotalDownPercent: 34,
+                TotalUpPercent: 34,
+                TotalUnchangedPercent: 32,
+                MarketDate: '',
+              }}
+            />
           </>
         )}
       </Box>

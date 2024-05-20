@@ -5,6 +5,8 @@ import { Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import StockTable from './StockTable'
+import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
+import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 
 const PagedStockTable = ({
   data,
@@ -19,7 +21,9 @@ const PagedStockTable = ({
 }) => {
   const { pagerModel, setPage, getPagedItems, reset } = useClientPager(data, pageSize)
   const items = getPagedItems(data)
+  const scroller = useScrollTop(0)
   const handlePaged = (pageNum: number) => {
+    scroller.scroll()
     setPage(pageNum)
   }
   React.useEffect(() => {
@@ -31,9 +35,11 @@ const PagedStockTable = ({
 
   return (
     <>
-      <Box minHeight={140 * pageSize}>
-        <StockTable stockList={items} isStock={true} showGroupName={showGroupName} showSummary={false} />
-      </Box>
+      <ScrollableBox scroller={scroller} maxHeight={420}>
+        <Box minHeight={140 * pageSize}>
+          <StockTable stockList={items} isStock={true} showGroupName={showGroupName} showSummary={false} />
+        </Box>
+      </ScrollableBox>
       <Pager
         pageCount={pagerModel.totalNumberOfPages}
         itemCount={items.length}

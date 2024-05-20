@@ -26,7 +26,7 @@ const Page = () => {
       {isLoading && <BackdropLoader />}
       <ResponsiveContainer>
         <PageHeader text='Stock Market Sentiment' />
-        <ScrollableBox>
+        <ScrollableBox maxHeight={800}>
           <Box pb={8}>{data && <StockSentimentDisplay data={data} />}</Box>
         </ScrollableBox>
       </ResponsiveContainer>
