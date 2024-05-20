@@ -35,11 +35,9 @@ const PagedStockTable = ({
 
   return (
     <>
-      <ScrollableBox scroller={scroller} maxHeight={420}>
-        <Box minHeight={140 * pageSize}>
-          <StockTable stockList={items} isStock={true} showGroupName={showGroupName} showSummary={false} />
-        </Box>
-      </ScrollableBox>
+      <Box minHeight={140 * pageSize}>
+        <StockTable stockList={items} isStock={true} showGroupName={showGroupName} showSummary={false} />
+      </Box>
       <Pager
         pageCount={pagerModel.totalNumberOfPages}
         itemCount={items.length}
