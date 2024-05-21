@@ -1,6 +1,5 @@
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import UserDashboardLayout from 'components/Organizms/user/UserDashboardLayout'
-import React from 'react'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import Seo from 'components/Organizms/Seo'
 import RequireUserProfile from 'components/Organizms/user/RequireUserProfile'

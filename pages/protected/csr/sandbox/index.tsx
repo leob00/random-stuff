@@ -66,11 +66,6 @@ const Page = () => {
     })
   }
 
-  const waitFn = async () => {
-    await sleep(1500)
-    return true
-  }
-
   return (
     <>
       <Seo pageTitle={`Sandbox`} />

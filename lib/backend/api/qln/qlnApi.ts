@@ -120,10 +120,10 @@ export const newsTypes: DropdownItem[] = [
     text: 'Hacker News',
     value: 'HackerNews',
   },
-  {
-    text: 'Headlines of Today',
-    value: 'HeadlinesOfToday',
-  },
+  // {
+  //   text: 'Headlines of Today',
+  //   value: 'HeadlinesOfToday',
+  // },
   {
     text: 'Life Hacker',
     value: 'LifeHacker',

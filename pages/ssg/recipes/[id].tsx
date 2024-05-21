@@ -1,7 +1,5 @@
-import { Container } from '@mui/material'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import useSWR, { SWRConfig, unstable_serialize, Fetcher } from 'swr'
-import { useCmsSwr } from 'hooks/useCmsSwr'
 import axios, { AxiosRequestConfig } from 'axios'
 import { getAllRecipes, getRecipe } from 'lib/backend/api/cms/contenfulApi'
 import { Recipe } from 'lib/models/cms/contentful/recipe'

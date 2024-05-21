@@ -1,6 +1,5 @@
 import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
-import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import Seo from 'components/Organizms/Seo'

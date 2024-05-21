@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import RandomAnimalLayout from 'components/RandomAnimalLayout'
-import Layout from 'components/Layout'
 import { Box, Typography } from '@mui/material'
 import { BasicArticle } from 'lib/backend/api/aws/models/apiGatewayModels'
 

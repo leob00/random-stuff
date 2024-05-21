@@ -3,7 +3,6 @@ import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import OcrLocal from 'components/Organizms/files/OcrLocal'
 import Seo from 'components/Organizms/Seo'
-import React from 'react'
 
 const Page = () => {
   return (

@@ -20,7 +20,6 @@ const Page = () => {
   return (
     <>
       <Seo pageTitle='Stock Sentiment' />
-
       {isLoading && <BackdropLoader />}
       <ResponsiveContainer>
         <PageHeader text='Stock Market Sentiment' />

@@ -1,5 +1,4 @@
 import { Box } from '@mui/material'
-import BackButton from 'components/Atoms/Buttons/BackButton'
 import Seo from 'components/Organizms/Seo'
 import StockAlertsLayout from 'components/Organizms/stocks/alerts/StockAlertsLayout'
 import RequireClaim from 'components/Organizms/user/RequireClaim'
