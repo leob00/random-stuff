@@ -64,6 +64,7 @@ export const quoteArraySchema = z
     GroupName: z.string().nullable().optional(),
     MarketCap: z.number().nullable().optional(),
     AnnualDividendYield: z.number().nullable(),
+    Tags: z.string().array().nullable().optional(),
   })
   .array()
 

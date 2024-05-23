@@ -7,11 +7,13 @@ import Clickable from 'components/Atoms/Containers/Clickable'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
+import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import Pager from 'components/Atoms/Pager'
 import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
 import dayjs from 'dayjs'
 import { useClientPager } from 'hooks/useClientPager'
 import { UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { DropdownItem, mapDropdownItems } from 'lib/models/dropdown'
 import { getExpirationText, getUtcNow } from 'lib/util/dateUtil'
 import numeral from 'numeral'
 import React from 'react'
@@ -20,6 +22,7 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
   const scroller = useScrollTop(0)
   const [searchText, setSearchText] = React.useState('')
   const pageSize = 10
+  const notesSearch = mapDropdownItems(data, 'title', 'id')
 
   const filterResults = () => {
     if (searchText.length > 0) {
@@ -37,6 +40,10 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
   const handleSearched = (text: string) => {
     setSearchText(text)
   }
+  const handleSearchSelected = (item: DropdownItem) => {
+    const note = data.find((m) => m.id === item.value)!
+    onClicked(note)
+  }
 
   const pagedItems = getPagedItems(filtered)
   const handlePaged = (pageNum: number) => {
@@ -47,14 +54,19 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
   return (
     <Box sx={{ py: 2 }}>
       <Box>
-        <Box sx={{ pb: 2 }} display={'flex'} justifyContent={'space-between'}>
-          <SearchWithinList text={`search ${numeral(data.length).format('###,###')} notes`} onChanged={handleSearched} />
-          <PrimaryButton text='add note' size='small' onClick={onAddNote} />
+        <Box sx={{ pb: 2 }} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+          {/* <SearchWithinList text={`search ${numeral(data.length).format('###,###')} notes`} onChanged={handleSearched} /> */}
+          <Box>
+            <StaticAutoComplete options={notesSearch} onSelected={handleSearchSelected} fullWidth />
+          </Box>
+          <Box>
+            <PrimaryButton text='add note' size='small' onClick={onAddNote} />
+          </Box>
         </Box>
         <HorizontalDivider />
       </Box>
 
-      <ScrollableBox maxHeight={220} scroller={scroller}>
+      <ScrollableBox scroller={scroller}>
         <Box>
           {pagedItems.map((item, i) => (
             <Box key={item.id}>
@@ -64,7 +76,8 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
                     <Clickable
                       onClicked={() => {
                         handleNoteTitleClick(item)
-                      }}>
+                      }}
+                    >
                       <Typography>{item.title}</Typography>
                       <Typography variant='caption'>{`${dayjs(item.dateModified).format('MM/DD/YYYY hh:mm A')}`}</Typography>
                     </Clickable>

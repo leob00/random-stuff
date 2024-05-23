@@ -12,16 +12,13 @@ const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const mutateKey = ['/api/edgeGetRandomStuff', enc]
 
   const fetchData = async (url: string, enc: string) => {
-    const record = ''
     const resp = await get(url, { enc: enc })
     const result = resp as StockQuote[]
     return result
   }
 
   const { data: stocks, isLoading, isValidating } = useSWR(mutateKey, ([url, enc]) => fetchData(url, enc), { revalidateOnFocus: false })
-
   const isMutating = isLoading || isValidating
-
   const handleMutated = (newData: StockQuote[]) => {
     mutate(mutateKey, newData, { revalidate: false })
   }

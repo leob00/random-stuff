@@ -3,7 +3,7 @@ import { Box } from '@mui/material'
 import { Scroller } from '../Boxes/useScrollTop'
 import { ReactNode, useEffect, useRef } from 'react'
 
-const ScrollableBox = ({ children, maxHeight = 400, scroller }: { children: ReactNode | ReactJSXElement; maxHeight?: number; scroller?: Scroller }) => {
+const ScrollableBox = ({ children, maxHeight, scroller }: { children: ReactNode | ReactJSXElement; maxHeight?: number; scroller?: Scroller }) => {
   const boxRef = useRef<HTMLDivElement | null>(null)
 
   const detectScroll = (scrollTop: number) => {
@@ -28,7 +28,7 @@ const ScrollableBox = ({ children, maxHeight = 400, scroller }: { children: Reac
   }, [scroller?.id])
 
   return (
-    <Box ref={boxRef} sx={{ my: 2, maxHeight: maxHeight ?? { xs: 240, sm: 280, md: 350 }, overflowY: 'auto', msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+    <Box ref={boxRef} sx={{ my: 2, maxHeight: maxHeight ?? { xs: 240, sm: 280, md: 426 }, overflowY: 'auto', msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
       {children}
     </Box>
   )
