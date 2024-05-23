@@ -21,13 +21,11 @@ const fetcher: Fetcher<QlnApiResponse> = (url: string) => get(url)
 
 const EconCalendarLayout = () => {
   const { data, isLoading, isValidating } = useSWR(apiUrl, fetcher, { refreshInterval: 60000, revalidateOnFocus: false })
-
+  const isWaiting = isLoading || isValidating
   return (
     <Box py={2}>
-      {isValidating && <BackdropLoader />}
-      {isLoading && <BackdropLoader />}
-
-      {!isLoading && data && data.Body.length === 0 && <NoDataFound />}
+      {isWaiting && <BackdropLoader />}
+      {!isWaiting && data && data.Body.length === 0 && <NoDataFound />}
       {data && <EconCalendarDisplay apiResult={data} />}
     </Box>
   )

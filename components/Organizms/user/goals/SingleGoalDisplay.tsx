@@ -23,6 +23,7 @@ import EditGoal from './EditGoal'
 import GoalStats from './GoalStats'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
+import GoalProgressBar from './GoalProgressBar'
 
 const SingleGoalDisplay = ({ username, goal, tasks, onMutated, onDeleted }: { username: string; goal: UserGoal; tasks: UserTask[]; onMutated: (goal: UserGoal, tasks: UserTask[]) => void; onDeleted: (goal: UserGoal) => void }) => {
   const [goalEditMode, setGoalEditMode] = React.useState(false)
@@ -147,33 +148,20 @@ const SingleGoalDisplay = ({ username, goal, tasks, onMutated, onDeleted }: { us
           )}
           <Box py={2} display='flex' justifyContent='space-between'>
             <Box>
-              {goal.stats && (
+              {goal.stats && !goal.deleteCompletedTasks && (
                 <>
                   <GoalStats goal={goal} stats={goal.stats} />
+                  <GoalProgressBar completePercent={goal.completePercent ?? 0} />
                 </>
-              )}
-              {goal.completePercent !== undefined && !goal.deleteCompletedTasks && (
-                <Box display={'flex'} gap={1} alignItems={'center'}>
-                  <Box width={100} justifyContent={'flex-end'}>
-                    <Typography variant='body2' textAlign={'right'}>
-                      progress:
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <ProgressBar value={goal.completePercent} toolTipText={`${goal.completePercent}% complete`} width={160} />
-                  </Box>
-                </Box>
               )}
             </Box>
             <Box>
               <ContextMenu items={contextMenu} />
             </Box>
           </Box>
-
           <HorizontalDivider />
           {isSaving && <BackdropLoader />}
           <TaskList username={username} selectedGoal={goal} tasks={displayTasks} onAddTask={handleAddTask} onDeleteTask={handleDeleteTask} onModifyTask={handleModifyTask} />
-
           <ConfirmDeleteDialog show={showDeleteGoalConfirm} text={`Are you sure you want to delete '${goal.body}' and all of its tasks?`} onConfirm={handleDeleteGoal} onCancel={() => setShowDeleteGoalConfirm(false)} />
         </>
       )}

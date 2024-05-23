@@ -35,17 +35,18 @@ export const useRouteTracker = () => {
         return
       }
       setIsLoading(true)
-      const map = getMapFromArray(routes, 'path')
+      const routeMap = getMapFromArray(routes, 'path')
       let name = url.substring(url.lastIndexOf('/') + 1).replaceAll('-', ' ')
       if (name.length == 0) {
         name = 'home'
       }
-      map.set(url, {
+
+      routeMap.set(url, {
         date: dayjs().format(),
         path: url,
         name: name,
       })
-      saveRoutes(sortArray(Array.from(map.values()), ['date'], ['desc']))
+      saveRoutes(sortArray(Array.from(routeMap.values()), ['date'], ['desc']))
       setIsLoading(false)
     },
 

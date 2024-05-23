@@ -16,16 +16,7 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
   React.useEffect(() => {
     const handleRouteChange = async (url: string, shallow: boolean) => {
       //TODO: remove after sitemap comprison has been implemented
-      if (
-        !url.includes('/login' || !url.includes('logoff')) &&
-        !url.includes('recipe') &&
-        //&& !url.includes('reports/')
-        !url.includes('sectors/') &&
-        !url.includes('industries/') &&
-        !url.includes('?') &&
-        !url.includes('recipes/') &&
-        !url.includes('notes/')
-      ) {
+      if (!url.includes('/login' || !url.includes('logoff')) && !url.includes('recipe/') && !url.includes('sectors/') && !url.includes('industries/') && !url.includes('recipes/') && !url.includes('notes/') && !url.includes('economic-data/')) {
         const lastRoute = routes.length > 0 ? routes[0] : undefined
 
         if (lastRoute) {

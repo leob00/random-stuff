@@ -1,4 +1,4 @@
-import { Box, FormLabel, Paper, TextField, Typography } from '@mui/material'
+import { Box, FormLabel, Paper, Stack, TextField, Typography } from '@mui/material'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
@@ -27,17 +27,7 @@ interface Model {
   isSaving: boolean
 }
 
-const EditGoal = ({
-  goal,
-  onSaveGoal,
-  onShowCompletedTasks,
-  onCancelEdit,
-}: {
-  goal: UserGoal
-  onSaveGoal: (item: UserGoal) => void
-  onShowCompletedTasks: (show: boolean) => void
-  onCancelEdit: () => void
-}) => {
+const EditGoal = ({ goal, onSaveGoal, onShowCompletedTasks, onCancelEdit }: { goal: UserGoal; onSaveGoal: (item: UserGoal) => void; onShowCompletedTasks: (show: boolean) => void; onCancelEdit: () => void }) => {
   if (!goal.settings) {
     goal.settings = {
       showCompletedTasks: true,
@@ -64,7 +54,7 @@ const EditGoal = ({
   })
 
   return (
-    <Box pt={2}>
+    <Stack pt={2} flexDirection={'row'} justifyContent={'center'}>
       {model.isSaving && <BackdropLoader />}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box py={2}>
@@ -92,35 +82,7 @@ const EditGoal = ({
           <PrimaryButton type='submit' text={'save'} disabled={model.isSaving} />
         </Box>
       </form>
-    </Box>
-    // <Box pt={2}>
-    //   {/* <Paper sx={{ padding: 2 }}> */}
-    //   <Box maxWidth={{ xs: 280, md: 500 }}>
-    //     <Box py={2}>
-    //       <FormTextBox
-    //         width={'100%'}
-    //         defaultValue={model.goal.body ?? ''}
-    //         label={'name'}
-    //         onChanged={handleGoalBodyChange}
-    //         //onBlurred={handleSubmitGoalChanges}
-    //         disabled={model.isSaving}
-    //         maxLength={50}
-    //         required
-    //       />
-    //     </Box>
-    //     <Box py={2}>
-    //       <DateAndTimePicker disabled={model.isSaving} onChanged={handleDueDateChange} label={'due date'} defaultValue={goal.dueDate} />
-    //     </Box>
-    //     {/* <Box py={2}>
-    //       <OnOffSwitch isChecked={model.goal.settings?.showCompletedTasks} label={'show completed tasks'} onChanged={handleSetShowComp} />
-    //     </Box> */}
-    //     <Box py={2} display='flex' gap={2}>
-    //       <PassiveButton text={'cancel'} onClick={onCancelEdit} disabled={model.isSaving} />
-    //       <SecondaryButton text={'save'} onClick={handleSubmitGoalChanges} disabled={model.isSaving} />
-    //     </Box>
-    //   </Box>
-    //   {/* </Paper> */}
-    // </Box>
+    </Stack>
   )
 }
 

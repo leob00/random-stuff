@@ -1,20 +1,20 @@
 import { Box } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
-import ListHeader from 'components/Molecules/Lists/ListHeader'
 import dayjs from 'dayjs'
 import { apiConnection } from 'lib/backend/api/config'
-import { get, post } from 'lib/backend/api/fetchFunctions'
+import { get } from 'lib/backend/api/fetchFunctions'
 import React from 'react'
 import weekday from 'dayjs/plugin/weekday'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { EconDataCriteria, EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 import EconDataDetails from '../econ/EconDataDetails'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
-import { DropdownItem } from 'lib/models/dropdown'
+import { DropdownItem, mapDropdownItems } from 'lib/models/dropdown'
 import { getEconDataReport } from 'lib/backend/api/qln/qlnApi'
 import EconDataTable from './EconDataTable'
 import CenterStack from 'components/Atoms/CenterStack'
+import { useRouter } from 'next/router'
 dayjs.extend(weekday)
 
 export interface EconDataModel {
@@ -25,6 +25,7 @@ export interface EconDataModel {
 }
 
 const EconDataLayout = () => {
+  const router = useRouter()
   const config = apiConnection().qln
   const mutateListKey = `${config.url}/EconReports`
 
@@ -37,43 +38,35 @@ const EconDataLayout = () => {
   const [selectedItem, setSelectedItem] = React.useState<EconomicDataItem | null>(null)
 
   const handleItemClicked = async (item: EconomicDataItem) => {
-    const modelCopy = { ...data }
     const endYear = dayjs(item.LastObservationDate!).year()
     const startYear = dayjs(item.LastObservationDate!).subtract(5, 'years').year()
-    const criteria: EconDataCriteria = {
-      id: String(item.InternalId),
-      startYear,
-      endYear,
-    }
-    if (modelCopy) {
-      setIsWaiting(true)
-      setSelectedItem(null)
-      const existing = data?.Body.Items.find((m) => m.InternalId === item.InternalId)
-      if (existing) {
-        // const url = `${config.url}/EconReports`
-        // const resp = (await post(url, { Id: item.InternalId, StartYear: startYear, EndYear: endYear })) as EconDataModel
-        const result = await getEconDataReport(item.InternalId, startYear, endYear)
-        setSelectedItem({ ...existing, criteria: criteria, Chart: result.Chart })
-      }
-      setIsWaiting(false)
-    }
+    // const criteria: EconDataCriteria = {
+    //   id: String(item.InternalId),
+    //   startYear,
+    //   endYear,
+    // }
+    // setIsWaiting(true)
+    // setSelectedItem(null)
+
+    // const result = await getEconDataReport(item.InternalId, startYear, endYear)
+    // setSelectedItem({ ...result, criteria: criteria, Chart: result.Chart })
+
+    // setIsWaiting(false)
+
+    router.push(`/csr/economic-data/${item.InternalId}?startYear=${startYear}&endYear=${endYear}`)
   }
 
   const { data, isLoading } = useSwrHelper(mutateListKey, dataFn, { revalidateOnFocus: false })
+  const itemLookup: DropdownItem[] = data ? mapDropdownItems(data.Body.Items, 'Title', 'InternalId') : []
 
-  const allItems: DropdownItem[] = data
-    ? data.Body.Items.map((m) => {
-        return {
-          text: m.Title,
-          value: String(m.InternalId),
-        }
-      })
-    : []
   const handleLoad = (item: DropdownItem) => {
     const ex = data?.Body.Items.find((m) => m.InternalId === Number(item.value))
     if (ex) {
       handleItemClicked(ex)
     }
+  }
+  const handleCloseDetails = () => {
+    setSelectedItem(null)
   }
 
   return (
@@ -84,12 +77,12 @@ const EconDataLayout = () => {
         <>
           {selectedItem && selectedItem.Chart && (
             <Box py={2}>
-              <EconDataDetails item={selectedItem} onClose={() => setSelectedItem(null)} />
+              <EconDataDetails item={selectedItem} onClose={handleCloseDetails} />
             </Box>
           )}
           <Box py={2} sx={{ display: selectedItem ? 'none' : 'unset' }}>
             <CenterStack>
-              <StaticAutoComplete options={allItems} onSelected={handleLoad} placeholder={`search in ${data.Body.Items.length} results`} />
+              <StaticAutoComplete options={itemLookup} onSelected={handleLoad} placeholder={`search in ${data.Body.Items.length} results`} />
             </CenterStack>
             <EconDataTable data={data.Body.Items} handleItemClicked={handleItemClicked} />
           </Box>
