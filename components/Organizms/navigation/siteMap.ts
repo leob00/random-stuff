@@ -1,4 +1,4 @@
-export type SiteCategories = 'Markets' | 'Personal' | 'Admin' | 'Games' | 'General Interest' | 'Utilities' | 'Pictures' | 'Economy' | 'Miscellaneous'
+export type SiteCategories = 'Stocks' | 'Personal' | 'Admin' | 'Games' | 'General Interest' | 'Utilities' | 'Pictures' | 'Economy' | 'Miscellaneous'
 type path = {
   name: string
   route: string
@@ -26,19 +26,23 @@ export function siteMap() {
       ],
     },
     {
-      category: 'Markets',
+      category: 'Stocks',
       paths: [
         {
           name: 'my stocks',
           route: '/csr/my-stocks',
         },
         {
-          name: 'community stocks',
+          name: 'community',
           route: '/csr/community-stocks',
         },
         {
-          name: 'stock porfolios',
+          name: 'porfolios',
           route: '/csr/stocks/stock-porfolios',
+        },
+        {
+          name: 'tags',
+          route: '/csr/stocks/stock-tags',
         },
       ],
     },
@@ -46,11 +50,11 @@ export function siteMap() {
       category: 'Economy',
       paths: [
         {
-          name: 'economic calendar',
+          name: 'calendar',
           route: '/csr/economic-calendar',
         },
         {
-          name: 'economic data',
+          name: 'data',
           route: '/csr/economic-data',
         },
       ],

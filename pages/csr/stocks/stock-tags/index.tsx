@@ -22,7 +22,7 @@ const Page = () => {
   const { data, isLoading } = useSwrHelper(key, allTagsFn, { revalidateOnFocus: false })
 
   const searchParams = useSearchParams()
-  const selectedTag = searchParams!.get('id')!
+  const selectedTag = searchParams?.get('id')
 
   return (
     <>

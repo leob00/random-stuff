@@ -15,7 +15,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { sortArray } from 'lib/util/collections'
 import { useRouter } from 'next/router'
 
-const StockTagsLayout = ({ allTags, selectedTag }: { allTags: string[]; selectedTag: string }) => {
+const StockTagsLayout = ({ allTags, selectedTag }: { allTags: string[]; selectedTag?: string | null }) => {
   const router = useRouter()
   const conn = apiConnection().qln
   const tags = orderBy(allTags)
@@ -26,7 +26,7 @@ const StockTagsLayout = ({ allTags, selectedTag }: { allTags: string[]; selected
     }
   })
 
-  const [selectedItem, setSelectedItem] = useState(options.find((m) => m.value === selectedTag))
+  const [selectedItem, setSelectedItem] = useState(selectedTag ? options.find((m) => m.value === selectedTag) : options[0])
   const allTagsFn = async () => {
     const req: QlnApiRequest = {
       key: selectedItem?.value,
@@ -41,6 +41,7 @@ const StockTagsLayout = ({ allTags, selectedTag }: { allTags: string[]; selected
 
   const handleSelected = (item: DropdownItem) => {
     setSelectedItem(options.find((m) => m.value === item.value))
+    router.replace(`/csr/stocks/stock-tags?id=${encodeURIComponent(item.value)}`)
     mutate(key)
   }
 
