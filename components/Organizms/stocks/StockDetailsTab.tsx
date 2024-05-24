@@ -3,10 +3,14 @@ import Clickable from 'components/Atoms/Containers/Clickable'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import dayjs from 'dayjs'
 import { StockQuote } from 'lib/backend/api/models/zModels'
+import { useRouter } from 'next/router'
 import numeral from 'numeral'
 
 const StockDetailsTab = ({ quote }: { quote: StockQuote }) => {
-  const handleTagClick = (tag: string) => {}
+  const router = useRouter()
+  const handleTagClick = (tag: string) => {
+    router.push(`/csr/stocks/stock-tags?id=${encodeURIComponent(tag)}`)
+  }
   return (
     <Box pb={2} pt={2}>
       {quote.Sector && <ReadOnlyField label={'Sector'} val={quote.Sector} />}

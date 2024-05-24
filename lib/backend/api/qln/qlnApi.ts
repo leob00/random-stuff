@@ -333,6 +333,9 @@ export interface QlnApiResponse {
   Body: any
   Errors: Array<{ Code: string; Message: string }>
 }
+export interface QlnApiRequest {
+  key?: string
+}
 
 export async function getFutures() {
   const url = `${qlnApiBaseUrl}/Futures`
