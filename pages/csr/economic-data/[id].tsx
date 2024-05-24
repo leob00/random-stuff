@@ -6,24 +6,26 @@ import EconDataLayout from 'components/Organizms/econ/EconDataLayout'
 import Seo from 'components/Organizms/Seo'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { getEconDataReport } from 'lib/backend/api/qln/qlnApi'
+import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
 
 const Page = () => {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const id = router.query.id
 
   //console.log('id: ', id, ' startYear: ', startYear, ' endYear: ', endYear)
 
   const key = `economic-data-${id}`
   const dataFn = async () => {
-    const startYear = router.query.startYear
-    const endYear = router.query.endYear
+    const startYear = searchParams?.get('startYear') as string
+    const endYear = searchParams?.get('endYear') as string
     if (id && startYear && endYear) {
       const data = await getEconDataReport(Number(id), Number(startYear), Number(endYear))
       data.criteria = {
         id: String(data.InternalId),
-        endYear: Number(startYear),
-        startYear: Number(endYear),
+        endYear: Number(endYear),
+        startYear: Number(startYear),
       }
 
       return data

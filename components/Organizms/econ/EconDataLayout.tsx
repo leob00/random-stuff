@@ -40,18 +40,6 @@ const EconDataLayout = () => {
   const handleItemClicked = async (item: EconomicDataItem) => {
     const endYear = dayjs(item.LastObservationDate!).year()
     const startYear = dayjs(item.LastObservationDate!).subtract(5, 'years').year()
-    // const criteria: EconDataCriteria = {
-    //   id: String(item.InternalId),
-    //   startYear,
-    //   endYear,
-    // }
-    // setIsWaiting(true)
-    // setSelectedItem(null)
-
-    // const result = await getEconDataReport(item.InternalId, startYear, endYear)
-    // setSelectedItem({ ...result, criteria: criteria, Chart: result.Chart })
-
-    // setIsWaiting(false)
 
     router.push(`/csr/economic-data/${item.InternalId}?startYear=${startYear}&endYear=${endYear}`)
   }

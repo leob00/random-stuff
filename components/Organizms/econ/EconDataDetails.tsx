@@ -14,7 +14,6 @@ import { post } from 'lib/backend/api/fetchFunctions'
 import { EconDataModel } from './EconDataLayout'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UncontrolledDropdownList from 'components/Atoms/Inputs/UncontrolledDropdownList'
-import HtmlView from 'components/Atoms/Boxes/HtmlView'
 
 interface Model {
   startYearOptions: DropdownItem[]
