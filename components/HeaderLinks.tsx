@@ -16,7 +16,7 @@ const HeaderLinks = ({ ticket }: { ticket: AmplifyUser | null }) => {
         <SiteLink href='/ssg/recipes' text={'recipes'} />
       </Box>
       <Box sx={{ display: { xs: 'none', sm: 'unset' } }}>
-        {ticket ? <SiteLink href='/csr/stocks' text={'stocks'} /> : <SiteLink href='/csr/community-stocks' text={'stocks'} />}
+        {ticket ? <SiteLink href='/csr/my-stocks' text={'stocks'} /> : <SiteLink href='/csr/community-stocks' text={'stocks'} />}
       </Box>
     </Box>
   )

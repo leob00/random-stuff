@@ -29,8 +29,8 @@ export function siteMap() {
       category: 'Markets',
       paths: [
         {
-          name: 'stocks',
-          route: '/csr/stocks',
+          name: 'my stocks',
+          route: '/csr/my-stocks',
         },
         {
           name: 'community stocks',
