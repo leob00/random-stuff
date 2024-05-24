@@ -41,8 +41,7 @@ const StockTagsLayout = ({ allTags, selectedTag }: { allTags: string[]; selected
 
   const handleSelected = (item: DropdownItem) => {
     setSelectedItem(options.find((m) => m.value === item.value))
-    //mutate(key)
-    router.replace(`/csr/stocks/stock-tags?id=${encodeURIComponent(item.value)}`, undefined, { unstable_skipClientCache: true, scroll: true })
+    mutate(key)
   }
 
   return (

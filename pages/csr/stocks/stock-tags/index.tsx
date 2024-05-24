@@ -30,7 +30,7 @@ const Page = () => {
       <ResponsiveContainer>
         {isLoading && <BackdropLoader />}
         <PageHeader text='Stock Tags' />
-        {data && <StockTagsLayout allTags={data} selectedTag={selectedTag} />}
+        {data && <StockTagsLayout key={selectedTag} allTags={data} selectedTag={selectedTag} />}
       </ResponsiveContainer>
     </>
   )
