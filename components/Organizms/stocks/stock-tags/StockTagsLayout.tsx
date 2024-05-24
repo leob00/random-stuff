@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import { useSwrHelper } from 'hooks/useSwrHelper'
@@ -48,9 +48,9 @@ const StockTagsLayout = ({ allTags, selectedTag }: { allTags: string[]; selected
   return (
     <>
       {isLoading && <BackdropLoader />}
-      <CenterStack sx={{ py: 2 }}>
-        <StaticAutoComplete options={options} onSelected={handleSelected} selectedItem={selectedItem} disableClearable />
-      </CenterStack>
+      <Stack py={2} flexDirection={'row'} justifyContent={'center'} gap={2} alignItems={'center'}>
+        <StaticAutoComplete options={options} onSelected={handleSelected} selectedItem={selectedItem} disableClearable fullWidth />
+      </Stack>
       <Box key={selectedTag}>{data && <PagedStockTable data={data} />}</Box>
     </>
   )

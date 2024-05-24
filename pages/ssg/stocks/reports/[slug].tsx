@@ -9,15 +9,9 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import StockReportDisplay from 'components/Organizms/stocks/StockReportDisplay'
 import StockReportsDropdown, { stockReportsDropdown } from 'components/Organizms/stocks/reports/StockReportsDropdown'
-import { Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
 const Page = () => {
   const router = useRouter()
-  const [sort, setSort] = React.useState<Sort[]>([
-    {
-      key: 'MarketCap',
-      direction: 'desc',
-    },
-  ])
+
   const dropdown = stockReportsDropdown
   const id = String(router.query.slug)
 

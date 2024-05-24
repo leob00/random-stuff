@@ -22,7 +22,7 @@ const StockDetailsTab = ({ quote }: { quote: StockQuote }) => {
       {quote.AnnualDividendYield && <ReadOnlyField label={'Annual Yield'} val={`${numeral(quote.AnnualDividendYield).format('0.000')}%`} />}
       {quote.Tags && quote.Tags.length > 0 && (
         <>
-          <Box display={'flex'} gap={2} alignItems={'center'} flexWrap={'wrap'}>
+          <Box display={'flex'} gap={2} flexWrap={'wrap'} flexDirection={{ xs: 'column', sm: 'row' }}>
             <Typography variant={'body2'} color={'primary'}>{`tags:`}</Typography>
             {quote.Tags.map((tag) => (
               <Clickable
@@ -31,7 +31,7 @@ const StockDetailsTab = ({ quote }: { quote: StockQuote }) => {
                   handleTagClick(tag)
                 }}
               >
-                <Chip key={tag} variant='outlined' label={tag} />
+                <Chip key={tag} variant='outlined' label={tag.length > 50 ? `${tag.substring(0, 35)}...` : tag} />
               </Clickable>
             ))}
           </Box>

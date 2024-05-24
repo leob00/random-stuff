@@ -14,6 +14,7 @@ export const stockReportsDropdown: DropdownItem[] = [
   { text: 'Sectors', value: 'sectors' },
   { text: 'Industries', value: 'industries' },
   { text: 'Dividend Payers', value: 'dividend-payers' },
+  { text: 'Stock Tags', value: 'stock-tags' },
 ]
 
 const StockReportsDropdown = ({ selectedValue }: { selectedValue: string }) => {
@@ -44,6 +45,9 @@ const StockReportsDropdown = ({ selectedValue }: { selectedValue: string }) => {
         break
       case 'dividend-payers':
         router.push('/csr/stocks/dividend-payers')
+        break
+      case 'stock-tags':
+        router.push('/csr/stocks/stock-tags')
         break
       default:
         router.replace(`/ssg/stocks/reports/${value}`, undefined, { scroll: false })
