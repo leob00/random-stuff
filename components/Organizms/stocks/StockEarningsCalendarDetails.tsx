@@ -81,7 +81,7 @@ const StockEarningsCalendarDetails = ({
                       <Box>
                         <Clickable
                           onClicked={() => {
-                            router.push(`/csr/stocks/details?id=${item.Symbol}&returnUrl=/csr/stocks?tab=Earnings`)
+                            router.push(`/csr/stocks/details?id=${item.Symbol}&returnUrl=/csr/my-stocks?tab=Earnings`)
                           }}
                         >
                           <Typography px={2} variant='h5'>{`${item.StockQuote?.Company} (${item.StockQuote?.Symbol})`}</Typography>

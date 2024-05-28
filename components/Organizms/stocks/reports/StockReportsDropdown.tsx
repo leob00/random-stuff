@@ -30,7 +30,7 @@ const StockReportsDropdown = ({ selectedValue }: { selectedValue: string }) => {
     {
       item: <ContextMenuPortfolio text='my stocks' />,
       fn: () => {
-        router.push('/csr/stocks')
+        router.push('/csr/my-stocks')
       },
     },
   ]
