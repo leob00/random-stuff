@@ -35,7 +35,7 @@ const JobList = ({ response, onJobSelected }: { response: QlnApiResponse; onJobS
   return (
     <>
       <Box>
-        <StaticAutoComplete options={jobItems} onSelected={handleSelectJob} disableClearable />
+        <StaticAutoComplete options={jobItems} onSelected={handleSelectJob} disableClearable fullWidth />
       </Box>
       <ScrollableBox scroller={scroller}>
         {pagedItems.map((item) => (

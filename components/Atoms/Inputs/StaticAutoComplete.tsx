@@ -65,6 +65,7 @@ const StaticAutoComplete = ({
             color: 'secondary',
             autoComplete: 'off',
           }}
+          fullWidth={fullWidth}
         />
       )}
     />
