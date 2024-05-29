@@ -6,7 +6,6 @@ import Footer from 'components/Footer'
 import AppHeader from './AppHeader'
 import AppRouteTracker from 'components/Organizms/session/AppRouteTracker'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
-import { Analytics } from '@vercel/analytics/react'
 
 const AppLayout = ({
   children,
@@ -23,7 +22,6 @@ const AppLayout = ({
 
   return (
     <>
-      <Analytics />
       <AppRouteTracker />
       <AppHeader onSetColorMode={handleChangePalette} colorTheme={colorMode} />
       <ResponsiveContainer>

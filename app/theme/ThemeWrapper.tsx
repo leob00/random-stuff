@@ -3,6 +3,7 @@ import AppLayout from 'components/app/AppLayout'
 import { ReactNode, useEffect, useState } from 'react'
 import ThemeRegistry from './ThemeRegistry'
 import { useSessionSettings } from 'components/Organizms/session/useSessionSettings'
+import { Analytics } from '@vercel/analytics/react'
 
 const ThemeWrapper = ({ children }: { children: ReactNode | JSX.Element[] }) => {
   const { palette, savePalette } = useSessionSettings()
@@ -23,13 +24,10 @@ const ThemeWrapper = ({ children }: { children: ReactNode | JSX.Element[] }) => 
 
   return (
     <ThemeRegistry colorMode={colorMode}>
-      <body>
-        <div>
-          <AppLayout onChangeTheme={handleChangeTheme} colorMode={colorMode}>
-            <>{children}</>
-          </AppLayout>
-        </div>
-      </body>
+      <Analytics />
+      <AppLayout onChangeTheme={handleChangeTheme} colorMode={colorMode}>
+        <>{children}</>
+      </AppLayout>
     </ThemeRegistry>
   )
 }

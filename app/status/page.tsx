@@ -4,9 +4,11 @@ import React, { Suspense } from 'react'
 const Page = () => {
   return (
     <>
-      <Box>
-        <Typography>All is well!</Typography>
-      </Box>
+      <Suspense fallback={<>loading...</>}>
+        <Box>
+          <Typography>All is well!</Typography>
+        </Box>
+      </Suspense>
     </>
   )
 }

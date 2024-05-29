@@ -1,7 +1,7 @@
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { post, postDelete } from 'lib/backend/api/fetchFunctions'
+import { postDelete } from 'lib/backend/api/fetchFunctions'
 import { getPresignedUrl, renameS3File } from 'lib/backend/csr/nextApiWrapper'
 import React from 'react'
 import { DropdownItem } from 'lib/models/dropdown'
@@ -10,7 +10,6 @@ import { sleep } from 'lib/util/timers'
 import S3FileRow from './S3FileRow'
 import S3FilesTableHeader from './S3FilesTableHeader'
 import S3FileCommandDialogs from './S3FileCommandDialogs'
-import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import { useUserController } from 'hooks/userController'
 
 const S3FilesTable = ({

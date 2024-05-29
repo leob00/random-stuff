@@ -100,7 +100,7 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
       {isWaiting && <BackdropLoader />}
       {error && <ErrorMessage text={'Opps! An error has occured. Please try refreshing the page.'} />}
 
-      <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+      <Box display={'flex'} alignItems={'center'}>
         <S3FolderDropDown folders={allFolders} folder={selectedFolder} onFolderSelected={handleFolderSelected} />
         {data && (
           <FolderActions

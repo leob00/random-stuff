@@ -8,6 +8,7 @@ import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuMove from 'components/Molecules/Menus/ContextMenuMove'
 import ContextMenuDelete from 'components/Molecules/Menus/ContextMenuDelete'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 const S3FilesTableHeader = ({
   uiState,
@@ -65,6 +66,9 @@ const S3FilesTableHeader = ({
             </IconButton>
           </Box>
         )}
+      </Box>
+      <Box py={2}>
+        <HorizontalDivider />
       </Box>
     </Box>
   )

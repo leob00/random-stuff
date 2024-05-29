@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { Amplify } from 'aws-amplify'
 import ThemeWrapper from './theme/ThemeWrapper'
 import { Suspense } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 
 export const metadata: Metadata = {
   title: 'Random Stuff',
@@ -19,9 +20,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
-      <Suspense>
-        <ThemeWrapper>{children}</ThemeWrapper>
-      </Suspense>
+      <body>
+        <Suspense>
+          <ThemeWrapper>{children}</ThemeWrapper>
+        </Suspense>
+      </body>
     </html>
   )
 }

@@ -12,13 +12,11 @@ export const getTheme = (mode: 'light' | 'dark') => {
 
 export default function ThemeRegistry({ colorMode, children }: { colorMode: 'light' | 'dark'; children: React.ReactNode }) {
   return (
-    // <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>
     <AppRouterCacheProvider>
       <ThemeProvider theme={getTheme(colorMode)}>
         <CssBaseline />
         <>{children}</>
       </ThemeProvider>
     </AppRouterCacheProvider>
-    // </NextAppDirEmotionCacheProvider>
   )
 }
