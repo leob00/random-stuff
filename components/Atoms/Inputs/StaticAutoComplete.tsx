@@ -28,12 +28,7 @@ const StaticAutoComplete = ({
   const selectedOption: Option | undefined = selectedItem ? { id: selectedItem.value, label: selectedItem.text } : undefined
   const inputRef = React.useRef<HTMLInputElement | null>(null)
 
-  const handleSelect = (
-    event: React.SyntheticEvent<Element, Event>,
-    value: Option | null,
-    reason: AutocompleteChangeReason,
-    details?: AutocompleteChangeDetails<Option> | undefined,
-  ) => {
+  const handleSelect = (event: React.SyntheticEvent<Element, Event>, value: Option | null, reason: AutocompleteChangeReason, details?: AutocompleteChangeDetails<Option> | undefined) => {
     const selectedItem = { ...value }
     const item: DropdownItem = {
       value: selectedItem.id!,
@@ -65,7 +60,6 @@ const StaticAutoComplete = ({
             color: 'secondary',
             autoComplete: 'off',
           }}
-          fullWidth={fullWidth}
         />
       )}
     />

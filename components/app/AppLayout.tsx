@@ -1,72 +1,35 @@
 'use client'
-import { Container, CssBaseline, ThemeProvider, useScrollTrigger, useTheme } from '@mui/material'
-import { useSessionSettings } from 'components/Organizms/session/useSessionSettings'
-import React, { ReactNode, Suspense, useEffect, useState } from 'react'
-import darkTheme from 'components/themes/darkTheme'
-import theme from 'components/themes/mainTheme'
+import { Container, CssBaseline, ThemeProvider } from '@mui/material'
+import React, { ReactNode, Suspense } from 'react'
 //import '../../styles/globals.css'
 import Footer from 'components/Footer'
 import AppHeader from './AppHeader'
 import AppRouteTracker from 'components/Organizms/session/AppRouteTracker'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import { Analytics } from '@vercel/analytics/react'
 
-const getTheme = (mode: 'light' | 'dark') => {
-  return mode === 'dark' ? darkTheme : theme
-}
-const AppLayout = ({ children }: { children: ReactNode }) => {
-  const sessionSettings = useSessionSettings()
-  const theme = useTheme()
-  const { palette, savePalette } = useSessionSettings()
-  const [colorMode, setColorMode] = React.useState<'light' | 'dark'>('dark')
-
-  useEffect(() => {
-    sessionSettings.savePalette(colorMode)
-    setColorMode(sessionSettings.palette)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionSettings.palette, colorMode])
-
-  const handleChangeColorMode = () => {
-    const newMode = colorMode === 'light' ? 'dark' : 'light'
-    setColorMode(newMode)
-    sessionSettings.savePalette(newMode)
+const AppLayout = ({
+  children,
+  colorMode,
+  onChangeTheme,
+}: {
+  children: ReactNode
+  colorMode: 'light' | 'dark'
+  onChangeTheme: (colorMode: 'light' | 'dark') => void
+}) => {
+  const handleChangePalette = (palette: 'light' | 'dark') => {
+    onChangeTheme(palette)
   }
-  const [elevationEffect, setElevationEffect] = useState(true)
-
-  const bodyScrolled = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-  })
-  const handleChangePalette = () => {
-    const newMode = colorMode === 'light' ? 'dark' : 'light'
-    setColorMode(newMode)
-    savePalette(newMode)
-  }
-
-  useEffect(() => {
-    setElevationEffect(bodyScrolled)
-  }, [bodyScrolled])
-
-  React.useEffect(() => {
-    if (palette !== colorMode) {
-      savePalette(colorMode)
-      setColorMode(palette)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [palette])
 
   return (
     <>
+      <Analytics />
       <AppRouteTracker />
-      <ThemeProvider theme={getTheme(colorMode)}>
-        <CssBaseline />
-        <Suspense>
-          <AppHeader handleChangePalette={handleChangePalette} />
-        </Suspense>
-        <ResponsiveContainer>
-          <Container sx={{ marginTop: 2, minHeight: 760, paddingBottom: 4 }}>{children}</Container>
-        </ResponsiveContainer>
-        <Footer />
-      </ThemeProvider>
+      <AppHeader onSetColorMode={handleChangePalette} colorTheme={colorMode} />
+      <ResponsiveContainer>
+        <Container sx={{ marginTop: 2, minHeight: 760, paddingBottom: 4 }}>{children}</Container>
+      </ResponsiveContainer>
+      <Footer />
     </>
   )
 }

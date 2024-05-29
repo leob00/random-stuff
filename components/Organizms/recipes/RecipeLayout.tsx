@@ -25,13 +25,7 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
       <Box>
         {autoComplete && (
           <CenterStack sx={{ py: 2 }}>
-            <StaticAutoComplete
-              options={autoComplete}
-              selectedItem={selectedOption}
-              placeholder={`search ${autoComplete.length} recipes`}
-              onSelected={handleSelected}
-              disableClearable
-            />
+            <StaticAutoComplete options={autoComplete} selectedItem={selectedOption} placeholder={`search ${autoComplete.length} recipes`} onSelected={handleSelected} disableClearable fullWidth />
           </CenterStack>
         )}
       </Box>

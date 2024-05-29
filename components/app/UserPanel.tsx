@@ -1,5 +1,4 @@
 'use client'
-import { Box } from '@mui/material'
 import dayjs from 'dayjs'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
@@ -8,7 +7,7 @@ import { AmplifyUser, getRolesFromAmplifyUser, getUserCSR, userHasRole } from 'l
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
 import { useSearchParams } from 'next/navigation'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import { AuthUser, signOut as amplifySignOut, fetchUserAttributes } from 'aws-amplify/auth'
 import { Hub } from 'aws-amplify/utils'
@@ -21,7 +20,7 @@ export type HubPayload = {
   message?: string
 }
 
-const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; onChangePalette: () => void }) => {
+const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; onChangePalette: (palette: 'light' | 'dark') => void }) => {
   const router = useRouter()
   const { ticket, setTicket, setProfile } = useUserController()
   const { clearRoutes, getLastRoute } = useRouteTracker()

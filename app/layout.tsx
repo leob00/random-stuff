@@ -1,11 +1,7 @@
-import AppLayout from 'components/app/AppLayout'
-import ThemeRegistry from './theme/ThemeRegistry'
 import { Metadata } from 'next'
-import { Analytics } from '@vercel/analytics/react'
 import { Amplify } from 'aws-amplify'
-import amplifyConfig from 'src/amplifyconfiguration.json'
+import ThemeWrapper from './theme/ThemeWrapper'
 import { Suspense } from 'react'
-Amplify.configure(amplifyConfig, { ssr: true })
 
 export const metadata: Metadata = {
   title: 'Random Stuff',
@@ -23,16 +19,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='en'>
-      <Analytics />
-      <ThemeRegistry>
-        <body>
-          <div>
-            <AppLayout>
-              <>{children}</>
-            </AppLayout>
-          </div>
-        </body>
-      </ThemeRegistry>
+      <Suspense>
+        <ThemeWrapper>{children}</ThemeWrapper>
+      </Suspense>
     </html>
   )
 }

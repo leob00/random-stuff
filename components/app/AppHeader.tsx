@@ -1,60 +1,78 @@
 'use client'
-import React from 'react'
-import { AppBar, Box, Container, Stack, Toolbar, useScrollTrigger, useTheme } from '@mui/material'
-import { DarkMode } from 'components/themes/DarkMode'
-import GradientContainer from 'components/Atoms/Boxes/GradientContainer'
+import { AppBar, Container, Toolbar, useScrollTrigger, Box, useTheme } from '@mui/material'
 import NLink from 'next/link'
-import StaticImage from 'components/Atoms/StaticImage'
+import { useEffect, useState } from 'react'
+import React from 'react'
+import UserPanel from './UserPanel'
+import { DarkMode } from 'components/themes/DarkMode'
 import logo from '/public/images/logo-with-text-blue-small.png'
-import SiteLink from './server/Atoms/Links/SiteLink'
-import AppUserPanel from './AppUserPanel'
+import StaticImage from 'components/Atoms/StaticImage'
+import GradientContainer from 'components/Atoms/Boxes/GradientContainer'
+import { useUserController } from 'hooks/userController'
+import { getUserCSR } from 'lib/backend/auth/userUtil'
+import HeaderLinks from 'components/HeaderLinks'
 import amplifyConfig from 'src/amplifyconfiguration.json'
 import { Amplify } from 'aws-amplify'
-import { useSessionSettings } from 'components/Organizms/session/useSessionSettings'
 Amplify.configure(amplifyConfig, { ssr: true })
-const AppHeader = ({ handleChangePalette }: { handleChangePalette: () => void }) => {
+const AppHeader = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; onSetColorMode: (palette: 'light' | 'dark') => void }) => {
+  const [elevationEffect, setElevationEffect] = useState(false)
   const theme = useTheme()
-  const { palette, savePalette } = useSessionSettings()
-  const [colorMode, setColorMode] = React.useState<'light' | 'dark'>('dark')
+  const { ticket, setTicket } = useUserController()
 
   const bodyScrolled = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
   })
-  const [elevationEffect, setElevationEffect] = React.useState(true)
-  React.useEffect(() => {
+
+  useEffect(() => {
     setElevationEffect(bodyScrolled)
   }, [bodyScrolled])
 
+  const handleChangeLightMode = (mode: 'light' | 'dark') => {
+    onSetColorMode(mode)
+  }
+  React.useEffect(() => {
+    let fn = async () => {
+      if (ticket) {
+        return
+      }
+
+      try {
+        let user = await getUserCSR()
+        await setTicket(user)
+      } catch (error) {
+        await setTicket(null)
+      }
+    }
+
+    fn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ticket])
+
   return (
-    <AppBar sx={{ backgroundColor: 'transparent' }} position='sticky' elevation={elevationEffect ? 4 : 0} className='blue-gradient'>
+    <AppBar component='nav' sx={{ zIndex: theme.zIndex.drawer + 1 }} position={'sticky'} elevation={elevationEffect ? 6 : 0}>
       <GradientContainer>
-        <Toolbar>
-          <Container sx={{ width: '100%', py: 1 }}>
-            <Box>
-              <Stack direction='row' spacing={{ xs: 1, sm: 2 }} justifyItems={'center'}>
-                <DarkMode>
+        <DarkMode>
+          <Toolbar>
+            <Container sx={{ width: '100%', py: 1 }}>
+              <Box display={'flex'} justifyContent={'space-between'}>
+                <Box display='flex' gap={{ xs: 1, sm: 2 }}>
                   <NLink href='/' passHref>
                     <StaticImage image={logo} title='random things' width={120} height={60} priority={true} />
                   </NLink>
                   <Box pt={2}>
-                    <Stack direction='row' spacing={{ xs: 1, sm: 2 }} alignItems={'center'}>
-                      <Stack display={{ xs: 'flex', sm: 'flex' }}>
-                        <SiteLink href='/' text={'home'} />
-                      </Stack>
-                      <Stack display={{ xs: 'flex', sm: 'flex' }}>
-                        <SiteLink href='/ssg/About' text={'about'} />
-                      </Stack>
-                    </Stack>
+                    <HeaderLinks ticket={ticket} />
                   </Box>
-                  <Box pt={'12px'}>
-                    <AppUserPanel palette={theme.palette.mode} onChangePalette={handleChangePalette} />
+                </Box>
+                <Box pt={'12px'}>
+                  <Box display={'flex'} justifyContent={'flex-end'} flexDirection={'row-reverse'}>
+                    <UserPanel palette={colorTheme} onChangePalette={handleChangeLightMode} />
                   </Box>
-                </DarkMode>
-              </Stack>
-            </Box>
-          </Container>
-        </Toolbar>
+                </Box>
+              </Box>
+            </Container>
+          </Toolbar>
+        </DarkMode>
       </GradientContainer>
     </AppBar>
   )

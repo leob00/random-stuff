@@ -41,7 +41,7 @@ export function siteMap() {
           route: '/csr/stocks/stock-porfolios',
         },
         {
-          name: 'tags',
+          name: 'stock tags',
           route: '/csr/stocks/stock-tags',
         },
       ],
@@ -129,6 +129,10 @@ export function siteMap() {
         {
           name: 'sandbox',
           route: '/protected/csr/sandbox',
+        },
+        {
+          name: 'status',
+          route: '/status',
         },
       ],
     },

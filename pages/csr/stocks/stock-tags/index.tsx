@@ -8,15 +8,13 @@ import { apiConnection } from 'lib/backend/api/config'
 import { get } from 'lib/backend/api/fetchFunctions'
 import { QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
 import { useSearchParams } from 'next/navigation'
-import React from 'react'
 
 const Page = () => {
   const conn = apiConnection().qln
 
   const allTagsFn = async () => {
-    const resp = await get(`/api/qln?url=${conn.url}/StockTags`)
-    const result = resp as QlnApiResponse
-    return result.Body
+    const resp = (await get(`/api/qln?url=${conn.url}/StockTags`)) as QlnApiResponse
+    return resp.Body
   }
   const key = 'all-stock-tags'
   const { data, isLoading } = useSwrHelper(key, allTagsFn, { revalidateOnFocus: false })

@@ -21,7 +21,7 @@ export type HubPayload = {
   message?: string
 }
 
-const AppUserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; onChangePalette: () => void }) => {
+const AppUserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; onChangePalette: (palette: 'light' | 'dark') => void }) => {
   const router = useRouter()
   const { ticket, setTicket, setProfile } = useUserController()
   const { clearRoutes, getLastRoute } = useRouteTracker()

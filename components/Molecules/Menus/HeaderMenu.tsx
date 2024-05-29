@@ -9,17 +9,7 @@ import LightModeIcon from '@mui/icons-material/LightMode'
 import ContextMenuSignIn from './ContextMenuSignIn'
 import ContextMenuSignOut from './ContextMenuSignOut'
 
-const HeaderMenu = ({
-  ticket,
-  palette,
-  onLogOutClick,
-  onChangePalette,
-}: {
-  ticket: AmplifyUser | null
-  palette: 'light' | 'dark'
-  onLogOutClick: () => void
-  onChangePalette: () => void
-}) => {
+const HeaderMenu = ({ ticket, palette, onLogOutClick, onChangePalette }: { ticket: AmplifyUser | null; palette: 'light' | 'dark'; onLogOutClick: () => void; onChangePalette: (palette: 'light' | 'dark') => void }) => {
   const router = useRouter()
   const paletteMenuItem: ContextMenuItem = {
     item: (
@@ -42,7 +32,7 @@ const HeaderMenu = ({
       </>
     ),
     fn: () => {
-      onChangePalette()
+      onChangePalette(palette === 'dark' ? 'light' : 'dark')
     },
   }
   const loggedInMenu: ContextMenuItem[] = [

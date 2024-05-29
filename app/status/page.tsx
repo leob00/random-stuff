@@ -4,11 +4,9 @@ import React, { Suspense } from 'react'
 const Page = () => {
   return (
     <>
-      <Suspense>
-        <Box>
-          <Typography>All is well!</Typography>
-        </Box>
-      </Suspense>
+      <Box>
+        <Typography>All is well!</Typography>
+      </Box>
     </>
   )
 }
