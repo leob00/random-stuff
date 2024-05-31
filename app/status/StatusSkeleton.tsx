@@ -1,14 +1,24 @@
-import { Card, CardHeader, Typography, CardContent, Box } from '@mui/material'
+import { Card, CardHeader, Typography, CardContent, Box, Skeleton } from '@mui/material'
 
 const StatusSkeleton = () => {
   return (
     <Box py={1}>
       <Card>
-        <CardHeader title={<Typography>&nbsp;</Typography>} />
+        <CardHeader
+          title={
+            <Skeleton variant='rectangular' width={'100%'}>
+              <Typography>&nbsp;</Typography>
+            </Skeleton>
+          }
+        />
         <CardContent>
           <Box display={'flex'} gap={1}>
-            <Typography>&nbsp;</Typography>
-            <Typography>&nbsp;</Typography>
+            <Skeleton variant='rectangular' width={'100%'}>
+              <Typography>&nbsp;</Typography>
+            </Skeleton>
+            {/* <Skeleton variant='rectangular' width={'100%'} /> */}
+            {/* <Typography>&nbsp;</Typography> */}
+            {/* <Typography>&nbsp;</Typography> */}
           </Box>
         </CardContent>
       </Card>

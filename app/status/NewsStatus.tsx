@@ -1,22 +1,22 @@
 import { Box } from '@mui/material'
-import { getLatestQuotes } from 'lib/backend/api/qln/qlnApi'
+import { getNewsBySource } from 'lib/backend/api/qln/qlnApi'
 import { sleep } from 'lib/util/timers'
 import { StatusResponse } from './statusResponse'
 import StatusCard from './StatusCard'
 
 async function getData() {
-  await sleep(2000)
-  const resp = await getLatestQuotes(['MSFT', 'NVDA'])
+  await sleep(3000)
+  const resp = await getNewsBySource('BbcWorld')
   const result: StatusResponse = {
-    success: resp.length === 2,
+    success: resp.length > 0,
   }
   return result
 }
-export default async function StocksStatus() {
+export default async function NewsStatus() {
   const data = await getData()
   return (
     <Box py={1}>
-      <StatusCard title='Stocks' data={data} />
+      <StatusCard title='News' data={data} />
     </Box>
   )
 }

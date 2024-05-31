@@ -2,6 +2,7 @@ import React, { Suspense } from 'react'
 import StatusSkeleton from './StatusSkeleton'
 import StocksStatus from './StocksStatus'
 import { Box } from '@mui/material'
+import NewsStatus from './NewsStatus'
 
 export default async function Page() {
   return (
@@ -11,7 +12,7 @@ export default async function Page() {
           <StocksStatus />
         </Suspense>
         <Suspense fallback={<StatusSkeleton />}>
-          <StocksStatus />
+          <NewsStatus />
         </Suspense>
       </Box>
     </>
