@@ -6,7 +6,7 @@ import StatusCard from './StatusCard'
 
 async function getData() {
   await sleep(3000)
-  const resp = await getNewsBySource('BbcWorld')
+  const resp = await getNewsBySource('GoogleTopStories')
   const result: StatusResponse = {
     success: resp.length > 0,
   }

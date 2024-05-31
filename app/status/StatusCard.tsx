@@ -1,14 +1,21 @@
-import { Card, CardHeader, Typography, CardContent, Box } from '@mui/material'
+import { Card, CardHeader, Typography, CardContent, Box, Alert } from '@mui/material'
 import { StatusResponse } from './statusResponse'
 
 const StatusCard = ({ title, data }: { title: string; data: StatusResponse }) => {
   return (
-    <Card>
+    <Card sx={{}}>
       <CardHeader title={<Typography>{title}</Typography>} />
       <CardContent>
         <Box display={'flex'} gap={1}>
-          <Typography>status:</Typography>
-          <Typography>{data.success ? 'online' : 'failed'}</Typography>
+          {data.success ? (
+            <Alert sx={{ width: '80%' }} severity='success'>
+              online
+            </Alert>
+          ) : (
+            <Alert sx={{ width: '80%' }} severity='error'>
+              offline
+            </Alert>
+          )}
         </Box>
       </CardContent>
     </Card>
