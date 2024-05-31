@@ -1,12 +1,13 @@
+'use client'
 import React from 'react'
-import { Button, ButtonProps, Typography, TypographyProps } from '@mui/material'
-import router from 'next/router'
+import { Button, Typography, TypographyProps } from '@mui/material'
+import { useRouter } from 'next/navigation'
 import BackdropLoader from '../Loaders/BackdropLoader'
-import { useTheme } from '@mui/material'
 
 type PageProps = { text: string; route: string }
 
 const NavigationButton = ({ ...props }: PageProps & TypographyProps) => {
+  const router = useRouter()
   const [isLoading, setIsLoading] = React.useState(false)
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsLoading(true)

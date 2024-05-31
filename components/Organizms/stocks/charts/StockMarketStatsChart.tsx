@@ -1,3 +1,4 @@
+'use client'
 import { Box } from '@mui/material'
 import BasicPieChart from 'components/Atoms/Charts/BasicPieChart'
 import CenteredReadOnlyField from 'components/Atoms/Text/CenteredReadOnlyField'

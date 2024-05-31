@@ -51,7 +51,7 @@ export const DarkModeBkg = '#010d20fa'
 const lightPalette: PaletteOptions = {
   mode: 'light',
   primary: {
-    main: DarkBlue,
+    main: DarkModeBlueTransparent,
   },
   secondary: {
     main: CasinoBlue,

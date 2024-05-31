@@ -20,6 +20,7 @@ const getTheme = (mode: 'light' | 'dark') => {
 }
 function MyApp({ Component, pageProps }: AppProps) {
   const { palette, savePalette } = useSessionSettings()
+  //console.log(palette)
   const [colorMode, setColorMode] = React.useState<'light' | 'dark'>('dark')
 
   useEffect(() => {
@@ -41,7 +42,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Seo pageTitle='Random Stuff' />
       <ThemeProvider theme={getTheme(colorMode)}>
         <CssBaseline />
-
         <Header onSetColorMode={handleChangeColorMode} colorTheme={colorMode} />
         <Layout>
           <Component {...pageProps} />

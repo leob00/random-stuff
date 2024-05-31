@@ -58,7 +58,6 @@ const S3FilesTableHeader = ({
             </Box>
           )}
         </Box>
-
         {!uiState.isEditEmode && (
           <Box>
             <IconButton color='primary' size='small' onClick={onRefresh}>

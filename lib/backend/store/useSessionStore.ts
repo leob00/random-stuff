@@ -20,24 +20,12 @@ interface SessionState {
   saveClaims: (claims: Claim[]) => void
 }
 
-// const useSessionStore = create<SessionState>()((set) => ({
-//   palette: 'dark',
-//   routes: [],
-//   communityStocks: {},
-//   claims: [],0
-//   saveRoutes: (routes) => set((state) => ({ ...state, routes: routes })),
-//   savePalette: (palette: 'light' | 'dark') => set((state) => ({ ...state, palette: palette })),
-//   saveCommunityStocksSort: (sort) => set((state) => ({ ...state, communityStocks: { defaultSort: sort } })),
-//   saveClaims: (claims) => set((state) => ({ ...state, claims: claims })),
-// }))
-
 export const useSessionPersistentStore = create(
   persist<SessionState>(
     (set, get) => ({
       palette: 'dark',
       routes: [],
       communityStocks: {},
-
       claims: [],
       saveRoutes: (routes) => set((state) => ({ ...state, routes: routes, lastRefreshDate: dayjs().format() })),
       savePalette: (palette: 'light' | 'dark') => set((state) => ({ ...state, palette: palette })),

@@ -3,7 +3,6 @@ import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { apiConnection } from '../../config'
 import { get, post, postBody } from 'lib/backend/api/fetchFunctions'
 import { StockAlertSubscription, StockQuote } from '../../models/zModels'
-import { createWorker } from 'tesseract.js'
 import {
   BasicArticle,
   Bucket,
@@ -337,20 +336,6 @@ export async function updateSubscriptions(items: StockAlertSubscription[], usern
     }
   })
   await putRandomStuffBatch(records)
-}
-export async function getTextFromImage(url: string) {
-  try {
-    const worker = await createWorker('eng')
-    const ret = await worker.recognize(url, {})
-
-    await worker.terminate()
-    return ret.data
-  } catch (err) {
-    console.error(err)
-    return {
-      text: '',
-    }
-  }
 }
 
 export type StockPositionType = 'short' | 'long'

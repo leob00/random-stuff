@@ -1,21 +1,19 @@
-import { Box, Button, Card, CardContent, Paper } from '@mui/material'
+'use client'
+import { Box, Button } from '@mui/material'
 import React from 'react'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
-import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import { siteMap } from './navigation/siteMap'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useRouteTracker } from './session/useRouteTracker'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import GroupedHomeMenu from './navigation/GroupedHomeMenu'
-import StockMarketGlance from './stocks/StockMarketGlance'
 import CenteredNavigationButton from 'components/Atoms/Buttons/CenteredNavigationButton'
 import { useUserController } from 'hooks/userController'
 import { userHasRole } from 'lib/backend/auth/userUtil'
 
 const HomeMenu = () => {
   const { routes: recentRoutes, loading } = useRouteTracker()
-
   const recentHistory = recentRoutes.filter((m) => m.name !== 'home')
   const all = siteMap()
   const [showGroupedMenu, setShowGroupedMenu] = React.useState(recentHistory.length < 4)
@@ -27,13 +25,11 @@ const HomeMenu = () => {
 
   return (
     <Box>
-      {loading && <BackdropLoader />}
       <Box
         sx={{
           mt: 4,
           borderTopWidth: 3,
-        }}
-      >
+        }}>
         <CenteredHeader title={'Welcome to random stuff'} description={'You came to the right place to view random things. Enjoy!'} />
         <Box display={'flex'} justifyContent={'flex-end'}>
           <Button size='small' aria-haspopup='true' onClick={() => setShowGroupedMenu(!showGroupedMenu)}>
@@ -45,7 +41,7 @@ const HomeMenu = () => {
             {showGroupedMenu && (
               <>
                 <GroupedHomeMenu pathCategories={pathCategories} />
-                {isAdmin && <GroupedHomeMenu pathCategories={adminCategories} />}
+                <>{isAdmin && <GroupedHomeMenu pathCategories={adminCategories} />}</>
               </>
             )}
             {!showGroupedMenu && (
@@ -54,7 +50,6 @@ const HomeMenu = () => {
                 {recentHistory.map((item, i) => (
                   <Box key={item.path}>
                     <CenteredNavigationButton route={item.path} text={item.name} />
-                    {/* {item.name === 'stocks' && <StockMarketGlance />} */}
                   </Box>
                 ))}
               </>

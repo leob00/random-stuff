@@ -7,25 +7,16 @@ import { Analytics } from '@vercel/analytics/react'
 
 const ThemeWrapper = ({ children }: { children: ReactNode | JSX.Element[] }) => {
   const { palette, savePalette } = useSessionSettings()
-  const [colorMode, setColorMode] = useState<'light' | 'dark'>(palette)
+  // console.log('palette: ', palette)
   const handleChangeTheme = async (mode: 'light' | 'dark') => {
-    console.log('new mode: ', mode)
-    setColorMode(mode)
+    //console.log('new mode: ', mode)
     savePalette(mode)
   }
 
-  useEffect(() => {
-    if (palette !== colorMode) {
-      savePalette(colorMode)
-      setColorMode(palette)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [palette])
-
   return (
-    <ThemeRegistry colorMode={colorMode}>
+    <ThemeRegistry colorMode={palette}>
       <Analytics />
-      <AppLayout onChangeTheme={handleChangeTheme} colorMode={colorMode}>
+      <AppLayout onChangeTheme={handleChangeTheme} colorMode={palette}>
         <>{children}</>
       </AppLayout>
     </ThemeRegistry>

@@ -1,3 +1,4 @@
+'use client'
 import { Backdrop, Box, useTheme } from '@mui/material'
 import { VeryLightTransparent } from 'components/themes/mainTheme'
 import React from 'react'
