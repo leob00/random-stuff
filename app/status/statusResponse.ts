@@ -1,3 +1,3 @@
 export type StatusResponse = {
-  sucess: boolean
+  success: boolean
 }
