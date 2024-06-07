@@ -33,7 +33,10 @@ const StockMarketGlance = () => {
               <StockMarketStatus data={data} />
             </Box>
             <CenterStack sx={{ my: 2 }}>
-              <Typography variant='caption' sx={{ fontSize: 10 }}>{`data as of: ${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} (ET)`}</Typography>
+              <Typography
+                variant='caption'
+                sx={{ fontSize: 10 }}
+              >{`data as of: ${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} (ET)`}</Typography>
             </CenterStack>
             <CenterStack>
               <SiteLink text='sentiment report' href={'/csr/stocks/sentiment'} />
@@ -50,9 +53,9 @@ const StockMarketGlance = () => {
                 TotalDown: 0,
                 TotalUp: 0,
                 TotalUnchanged: 0,
-                TotalDownPercent: 34,
-                TotalUpPercent: 34,
-                TotalUnchangedPercent: 32,
+                TotalDownPercent: 0,
+                TotalUpPercent: 0,
+                TotalUnchangedPercent: 100,
                 MarketDate: '',
               }}
             />

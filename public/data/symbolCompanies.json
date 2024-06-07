@@ -252,10 +252,6 @@
     "Symbol": "ACACU"
   },
   {
-    "Company": "Acri Capital Acquisition Corporation - Warrant",
-    "Symbol": "ACACW"
-  },
-  {
     "Company": "Acadia Pharmaceuticals Inc",
     "Symbol": "ACAD"
   },
@@ -1044,10 +1040,6 @@
     "Symbol": "AIB"
   },
   {
-    "Company": "AIB Acquisition Corporation - Right",
-    "Symbol": "AIBBR"
-  },
-  {
     "Company": "Direxion Shares ETF Trust",
     "Symbol": "AIBD"
   },
@@ -1246,10 +1238,6 @@
   {
     "Company": "Great Ajax Corp",
     "Symbol": "AJX"
-  },
-  {
-    "Company": "Great Ajax Corp",
-    "Symbol": "AJXA"
   },
   {
     "Company": "a.k.a. Brands Holding Corp",
@@ -5004,10 +4992,6 @@
     "Symbol": "BNIXR"
   },
   {
-    "Company": "Bannix Acquisition Corp. - Warrant",
-    "Symbol": "BNIXW"
-  },
-  {
     "Company": "Brookfield Finance I (UK) plc",
     "Symbol": "BNJ"
   },
@@ -5226,10 +5210,6 @@
   {
     "Company": "Bio-Path Holdings Inc",
     "Symbol": "BPTH"
-  },
-  {
-    "Company": "Biophytis",
-    "Symbol": "BPTS"
   },
   {
     "Company": "Brookfield Property Partners L.P. - 6.25% Class A Cumulative Redeemable Preferred Units, Series 1",
@@ -5822,6 +5802,10 @@
   {
     "Company": "First Trust Exchange-Traded Fund VIII",
     "Symbol": "BUFR"
+  },
+  {
+    "Company": "First Trust Exchange-Traded Fund VIII FT Vest Laddered Small Cap Moderate Buffer ETF",
+    "Symbol": "BUFS"
   },
   {
     "Company": "FT Vest Buffered Allocation Defensive ETF",
@@ -7342,6 +7326,10 @@
   {
     "Company": "Chimera Investment Corp",
     "Symbol": "CIM"
+  },
+  {
+    "Company": "Chimera Investment Corp",
+    "Symbol": "CIMN"
   },
   {
     "Company": "Cincinnati Financial Corp.",
@@ -11444,10 +11432,6 @@
     "Symbol": "EGO"
   },
   {
-    "Company": "Next.e.GO N.V.",
-    "Symbol": "EGOX"
-  },
-  {
     "Company": "Eastgroup Properties, Inc.",
     "Symbol": "EGP"
   },
@@ -13580,6 +13564,10 @@
     "Symbol": "FEXDR"
   },
   {
+    "Company": "Fintech Ecosystem Development Corp. - Units",
+    "Symbol": "FEXDU"
+  },
+  {
     "Company": "Fintech Ecosystem Development Corp. - Warrant",
     "Symbol": "FEXDW"
   },
@@ -13774,10 +13762,6 @@
   {
     "Company": "Focus Impact Acquisition Corp",
     "Symbol": "FIAC"
-  },
-  {
-    "Company": "Focus Impact Acquisition Corp. - Unit",
-    "Symbol": "FIACU"
   },
   {
     "Company": "Focus Impact Acquisition Corp. - Warrant",
@@ -14452,10 +14436,6 @@
     "Symbol": "FNVT"
   },
   {
-    "Company": "Finnovate Acquisition Corp. - Units",
-    "Symbol": "FNVTU"
-  },
-  {
     "Company": "Finnovate Acquisition Corp. - Warrants",
     "Symbol": "FNVTW"
   },
@@ -14980,10 +14960,6 @@
     "Symbol": "FTIIU"
   },
   {
-    "Company": "FutureTech II Acquisition Corp. - Warrant",
-    "Symbol": "FTIIW"
-  },
-  {
     "Company": "Flotek Industries Inc",
     "Symbol": "FTK"
   },
@@ -15134,10 +15110,6 @@
   {
     "Company": "Fidelity MSCI Utilities Index ETF",
     "Symbol": "FUTY"
-  },
-  {
-    "Company": "Arcimoto Inc",
-    "Symbol": "FUV"
   },
   {
     "Company": "First Trust Dorsey Wright Focus 5 ETF",
@@ -15570,6 +15542,10 @@
   {
     "Company": "GDEV Inc",
     "Symbol": "GDEV"
+  },
+  {
+    "Company": "GDEV Inc. - Warrant",
+    "Symbol": "GDEVW"
   },
   {
     "Company": "Golden Heaven Group Holdings Ltd",
@@ -16190,6 +16166,10 @@
   {
     "Company": "Global Star Acquisition, Inc. - Right",
     "Symbol": "GLSTR"
+  },
+  {
+    "Company": "Global Star Acquisition, Inc. - Unit",
+    "Symbol": "GLSTU"
   },
   {
     "Company": "Global Star Acquisition, Inc. - Warrants",
@@ -18524,10 +18504,6 @@
     "Symbol": "IBACR"
   },
   {
-    "Company": "IB Acquisition Corp.",
-    "Symbol": "IBACU"
-  },
-  {
     "Company": "iShares Energy Storage & Materials ETF",
     "Symbol": "IBAT"
   },
@@ -19564,12 +19540,16 @@
     "Symbol": "INBS"
   },
   {
-    "Company": "Inhibrx Inc",
+    "Company": "Inhibrx Biosciences Inc.",
     "Symbol": "INBX"
   },
   {
     "Company": "VanEck ETF Trust VanEck Dynamic High Income ETF",
     "Symbol": "INC"
+  },
+  {
+    "Company": "Franklin Income Equity Focus ETF",
+    "Symbol": "INCE"
   },
   {
     "Company": "Franklin Templeton ETF Trust Franklin Income Focus ETF",
@@ -19770,10 +19750,6 @@
   {
     "Company": "Integral Acquisition Corp 1",
     "Symbol": "INTE"
-  },
-  {
-    "Company": "Integral Acquisition Corporation 1 - Unit",
-    "Symbol": "INTEU"
   },
   {
     "Company": "Integral Acquisition Corporation 1 - Warrant",
@@ -20062,6 +20038,10 @@
   {
     "Company": "Iris Acquisition Corp",
     "Symbol": "IRAA"
+  },
+  {
+    "Company": "Iris Acquisition Corp - Units",
+    "Symbol": "IRAAU"
   },
   {
     "Company": "Iris Acquisition Corp - Warrant",
@@ -21600,6 +21580,14 @@
     "Symbol": "KDIV"
   },
   {
+    "Company": "Kindly MD Inc.",
+    "Symbol": "KDLY"
+  },
+  {
+    "Company": "Kindly MD, Inc. - Warrants",
+    "Symbol": "KDLYW"
+  },
+  {
     "Company": "Keurig Dr Pepper Inc",
     "Symbol": "KDP"
   },
@@ -22708,18 +22696,6 @@
     "Symbol": "LGRO"
   },
   {
-    "Company": "LAMF Global Ventures Corp I",
-    "Symbol": "LGVC"
-  },
-  {
-    "Company": "LAMF Global Ventures Corp I",
-    "Symbol": "LGVCU"
-  },
-  {
-    "Company": "LAMF Global Ventures Corp. I - Warrant",
-    "Symbol": "LGVCW"
-  },
-  {
     "Company": "Longeveron Inc",
     "Symbol": "LGVN"
   },
@@ -23204,8 +23180,16 @@
     "Symbol": "LSAT"
   },
   {
+    "Company": "LakeShore Biopharma Co Ltd.",
+    "Symbol": "LSB"
+  },
+  {
     "Company": "Lake Shore Bancorp",
     "Symbol": "LSBK"
+  },
+  {
+    "Company": "LakeShore Biopharma Co., Ltd - Warrants",
+    "Symbol": "LSBPW"
   },
   {
     "Company": "Lattice Semiconductor Corp.",
@@ -24238,6 +24222,10 @@
   {
     "Company": "PIMCO Equitiy Series PIMCO RAFI Dynamic Multi-Factor U.S. Equity ETF",
     "Symbol": "MFUS"
+  },
+  {
+    "Company": "Tidal Trust II Cambria Chesapeake Pure Trend ETF",
+    "Symbol": "MFUT"
   },
   {
     "Company": "Mistras Group Inc",
@@ -26116,6 +26104,14 @@
     "Symbol": "NEWT"
   },
   {
+    "Company": "NewtekOne, Inc. - 8.50% Fixed Rate Senior Notes due 2029",
+    "Symbol": "NEWTG"
+  },
+  {
+    "Company": "NewtekOne, Inc. - 8.00% Fixed Rate Senior Notes due 2028",
+    "Symbol": "NEWTI"
+  },
+  {
     "Company": "NewtekOne, Inc. - 5.75% Notes due 2024",
     "Symbol": "NEWTL"
   },
@@ -26590,6 +26586,10 @@
   {
     "Company": "New Providence Acquisition Corp II",
     "Symbol": "NPAB"
+  },
+  {
+    "Company": "New Providence Acquisition Corp. II - Unit",
+    "Symbol": "NPABU"
   },
   {
     "Company": "New Providence Acquisition Corp. II - Warrant",
@@ -28340,10 +28340,6 @@
     "Symbol": "OXLC"
   },
   {
-    "Company": "Oxford Lane Capital Corp. - 6.75% Notes due 2031",
-    "Symbol": "OXLCL"
-  },
-  {
     "Company": "Oxford Lane Capital Corp. - 6.75% Series 2024 Term Preferred Stock",
     "Symbol": "OXLCM"
   },
@@ -29226,10 +29222,6 @@
   {
     "Company": "PropertyGuru Group Ltd",
     "Symbol": "PGRU"
-  },
-  {
-    "Company": "Pegasus Digital Mobility Acquisition Corp",
-    "Symbol": "PGSS"
   },
   {
     "Company": "Invesco Preferred ETF",
@@ -32508,6 +32500,10 @@
     "Symbol": "RSST"
   },
   {
+    "Company": "Tidal Trust II Return Stacked U.S. Stocks & Futures Yield ETF",
+    "Symbol": "RSSY"
+  },
+  {
     "Company": "Reservoir Media Inc",
     "Symbol": "RSVR"
   },
@@ -33448,8 +33444,8 @@
     "Symbol": "SEB"
   },
   {
-    "Company": "Secoo Holding Ltd",
-    "Symbol": "SECO"
+    "Company": "IQ MacKay Municipal Insured ETF IQ MacKay Securitzed Income ETF",
+    "Symbol": "SECR"
   },
   {
     "Company": "Northern Lights Fund Trust IV Main Sector Rotation ETF",
@@ -34568,6 +34564,10 @@
     "Symbol": "SMTI"
   },
   {
+    "Company": "SmartKem Inc",
+    "Symbol": "SMTK"
+  },
+  {
     "Company": "Similarweb Ltd",
     "Symbol": "SMWB"
   },
@@ -35314,6 +35314,10 @@
   {
     "Company": "Tidal Trust II Defiance S&P 500 Target Income ETF",
     "Symbol": "SPYT"
+  },
+  {
+    "Company": "Bank of Montreal",
+    "Symbol": "SPYU"
   },
   {
     "Company": "SPDR Series Trust SPDR Portfolio S&P 500 Value ETF",
@@ -36488,10 +36492,6 @@
     "Symbol": "TCMD"
   },
   {
-    "Company": "Tricon Residential Inc",
-    "Symbol": "TCN"
-  },
-  {
     "Company": "Zalatoris Acquisition Corp",
     "Symbol": "TCOA"
   },
@@ -36786,10 +36786,6 @@
   {
     "Company": "Target Global Acquisition I Corp",
     "Symbol": "TGAA"
-  },
-  {
-    "Company": "Target Global Acquisition I Corp. - Unit",
-    "Symbol": "TGAAU"
   },
   {
     "Company": "Target Global Acquisition I Corp. - Warrant",
@@ -37958,10 +37954,6 @@
   {
     "Company": "Twelve Seas Investment Co II",
     "Symbol": "TWLV"
-  },
-  {
-    "Company": "Twelve Seas Investment Company II - Unit",
-    "Symbol": "TWLVU"
   },
   {
     "Company": "Twelve Seas Investment Company II - Warrant",
@@ -39584,6 +39576,10 @@
     "Symbol": "VMCA"
   },
   {
+    "Company": "Valuence Merger Corp. I - Unit",
+    "Symbol": "VMCAU"
+  },
+  {
     "Company": "Valuence Merger Corp. I - Warrant",
     "Symbol": "VMCAW"
   },
@@ -39854,10 +39850,6 @@
   {
     "Company": "Versus Systems Inc",
     "Symbol": "VS"
-  },
-  {
-    "Company": "Vision Sensing Acquisition Corp. - Warrants",
-    "Symbol": "VSACW"
   },
   {
     "Company": "Viasat, Inc.",
@@ -40236,6 +40228,10 @@
     "Symbol": "WAVS"
   },
   {
+    "Company": "Western Acquisition Ventures Corp. - Unit",
+    "Symbol": "WAVSU"
+  },
+  {
     "Company": "Western Acquisition Ventures Corp. - Warrant",
     "Symbol": "WAVSW"
   },
@@ -40506,6 +40502,10 @@
   {
     "Company": "Wheeler Real Estate Investment Trust, Inc. - Series D Cumulative Preferred Stock",
     "Symbol": "WHLRD"
+  },
+  {
+    "Company": "Wheeler Real Estate Investment Trust, Inc. - 7.00% Senior Subordinated Convertible Notes Due 2031",
+    "Symbol": "WHLRL"
   },
   {
     "Company": "Wheeler Real Estate Investment Trust, Inc. - Series B Preferred Stock",
@@ -40888,10 +40888,6 @@
     "Symbol": "WTMA"
   },
   {
-    "Company": "Welsbach Technology Metals Acquisition Corp. - one right to receive 1/10th of a share of common stock",
-    "Symbol": "WTMAR"
-  },
-  {
     "Company": "WisdomTree Trust",
     "Symbol": "WTMF"
   },
@@ -41194,6 +41190,10 @@
   {
     "Company": "SPDR Series Trust",
     "Symbol": "XHE"
+  },
+  {
+    "Company": "XChange Tec.Inc.",
+    "Symbol": "XHG"
   },
   {
     "Company": "BondBloxx ETF Trust BondBloxx Bloomberg Six Month Target Duration US Treasury ETF",

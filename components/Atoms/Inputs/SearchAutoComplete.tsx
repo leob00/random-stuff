@@ -1,78 +1,80 @@
-import { TextField, Autocomplete } from '@mui/material'
-import { CasinoBlue } from 'components/themes/mainTheme'
+import { TextField, Autocomplete, AutocompleteChangeReason, AutocompleteChangeDetails, InputAdornment, IconButton } from '@mui/material'
 import { DropdownItem } from 'lib/models/dropdown'
 import { debounce } from 'lodash'
-import React from 'react'
+import { useRef, useState } from 'react'
+import { Option } from 'lib/AutoCompleteOptions'
+import CircularProgress from '@mui/material/CircularProgress'
 
 const SearchAutoComplete = ({
   onChanged,
-  width = 600,
   placeholder = 'search in results',
   debounceWaitMilliseconds = 500,
   searchResults,
   onSelected,
-  clearOnSelect = true,
-  label = '',
-  defaultVal = '',
+  isLoading,
 }: {
   onChanged?: (text: string) => void
-  width?: number
   placeholder?: string
   debounceWaitMilliseconds?: number
   searchResults: DropdownItem[]
-  onSelected: (text: string) => void
-  clearOnSelect?: boolean
+  onSelected: (item: DropdownItem) => void
   label?: string
   defaultVal?: string | null
+  isLoading?: boolean
 }) => {
-  const textRef = React.useRef<HTMLInputElement | null>(null)
-  const [defaultValue, setDefaultValue] = React.useState(defaultVal)
-
+  const inputRef = useRef<HTMLInputElement | null>(null)
+  const options: Option[] = searchResults.map((m) => {
+    return { id: m.value, label: m.text }
+  })
   const raiseChangeEvent = (term: string) => {
     onChanged?.(term)
   }
   const debouncedFn = debounce(raiseChangeEvent, debounceWaitMilliseconds)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDefaultValue(e.currentTarget.value)
     debouncedFn(e.currentTarget.value)
   }
-  const handleSelected = (e: React.SyntheticEvent<Element, Event>, value: string | null) => {
+
+  const handleSelected = (
+    _event: React.SyntheticEvent<Element, Event>,
+    value: Option | null,
+    _reason: AutocompleteChangeReason,
+    _details?: AutocompleteChangeDetails<Option> | undefined,
+  ) => {
     if (value) {
-      onSelected(value)
-    }
-    if (clearOnSelect) {
-      if (textRef.current) {
-        textRef.current.blur()
-      }
+      onSelected({ value: value.id, text: value.label })
     }
   }
 
   return (
     <Autocomplete
-      value={defaultValue}
+      loading={isLoading}
+      noOptionsText={''}
       size='small'
-      id='searchAutoComplete'
-      freeSolo
-      sx={{ width: width, input: { color: CasinoBlue } }}
-      options={searchResults.map((e) => e.text)}
-      autoHighlight
-      onChange={(e, value) => {
-        handleSelected(e, value)
-      }}
+      onChange={handleSelected}
+      disablePortal
+      options={options}
+      sx={{ width: { xs: 260, md: 600 } }}
       renderInput={(params) => (
         <TextField
+          onChange={handleChange}
+          inputRef={inputRef}
           {...params}
-          label={label}
-          sx={{ input: { color: CasinoBlue } }}
-          inputRef={textRef}
           placeholder={placeholder}
           inputProps={{
             ...params.inputProps,
-            color: 'secondary',
-            autoComplete: 'off', // disable autocomplete and autofill
+            color: 'primary',
+            autoComplete: 'off',
           }}
-          onChange={handleChange}
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <>
+                {isLoading ? <CircularProgress color='inherit' size={20} /> : null}
+                {params.InputProps.endAdornment}
+              </>
+            ),
+          }}
         />
       )}
     />

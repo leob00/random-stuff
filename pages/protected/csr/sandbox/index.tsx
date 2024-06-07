@@ -8,13 +8,13 @@ import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import PostBatch from 'components/Organizms/sandbox/PostBatch'
 import { useUserController } from 'hooks/userController'
 import S3Display from 'components/Organizms/files/S3Display'
-import Poller from 'components/Organizms/sandbox/Poller'
 import { sleep } from 'lib/util/timers'
 import ListIteratorLayout from 'components/Organizms/sandbox/ListIteratorLayout'
 import Streamer from 'components/Organizms/sandbox/Streamer'
 import MultiLineChartDisplay from 'components/Organizms/sandbox/MultiLineChartDisplay'
 import Ocr from 'components/Organizms/files/Ocr'
 import OcrLocal from 'components/Organizms/files/OcrLocal'
+import SearchAheadAutoComplete from 'components/Organizms/sandbox/SearchAheadAutoComplete'
 
 const Page = () => {
   const tabs: TabInfo[] = [
@@ -26,7 +26,7 @@ const Page = () => {
       title: 'OCR',
     },
     {
-      title: 'Multi Line Chart',
+      title: 'Auto Complete',
     },
     {
       title: 'Stream',
@@ -78,7 +78,7 @@ const Page = () => {
           {selectedTab === 'OCR' && <OcrLocal />}
           {selectedTab === 'Stream' && <Streamer />}
           {selectedTab === 'Iterator' && <ListIteratorLayout />}
-          {selectedTab === 'Poller' && <Poller />}
+          {selectedTab === 'Auto Complete' && <SearchAheadAutoComplete minChars={0} />}
           {selectedTab === 'Files' && <>{!isLoading && authProfile && <S3Display userProfile={authProfile} />}</>}
           {selectedTab === 'Batch Post' && <PostBatch />}
         </Box>
