@@ -1,7 +1,7 @@
-import { TextField, Autocomplete, AutocompleteChangeReason, AutocompleteChangeDetails, InputAdornment, IconButton } from '@mui/material'
+import { TextField, Autocomplete, AutocompleteChangeReason, AutocompleteChangeDetails } from '@mui/material'
 import { DropdownItem } from 'lib/models/dropdown'
 import { debounce } from 'lodash'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { Option } from 'lib/AutoCompleteOptions'
 import CircularProgress from '@mui/material/CircularProgress'
 
@@ -55,6 +55,7 @@ const SearchAutoComplete = ({
       disablePortal
       options={options}
       sx={{ width: { xs: 260, md: 600 } }}
+      isOptionEqualToValue={(option, value) => option.id === value.id}
       renderInput={(params) => (
         <TextField
           onChange={handleChange}

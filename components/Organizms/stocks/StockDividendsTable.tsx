@@ -4,12 +4,21 @@ import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import dayjs from 'dayjs'
-import { StockDividendItem } from 'lib/backend/api/qln/qlnModels'
 import { DropdownItem } from 'lib/models/dropdown'
 import { sortArray } from 'lib/util/collections'
 import numeral from 'numeral'
 import React from 'react'
 import StockDividendDetails from './dividends/StockDividendDetails'
+
+export interface StockDividendItem {
+  Symbol: string
+  CompanyName: string
+  Amount: number
+  AnnualYield: number
+  ExDate: string | null
+  PaymentDate: string
+  Frequency: string
+}
 
 const StockDividendsTable = ({ data }: { data: StockDividendItem[] }) => {
   const columns = getColumnDef()

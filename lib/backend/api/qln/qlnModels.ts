@@ -54,12 +54,3 @@ export interface SectorIndustry {
   Category: string
   MovingAvg: MovingAvg[]
 }
-export interface StockDividendItem {
-  Symbol: string
-  CompanyName: string
-  Amount: number
-  AnnualYield: number
-  ExDate: string | null
-  PaymentDate: string
-  Frequency: string
-}

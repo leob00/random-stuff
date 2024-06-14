@@ -28,14 +28,16 @@ const JobList = ({ response, onJobSelected }: { response: QlnApiResponse; onJobS
   const jobItems = mapDropdownItems(sortArray(jobs, ['Name'], ['asc']), 'Description', 'Name')
 
   const handleSelectJob = (item: DropdownItem) => {
-    const job = jobs.find((m) => m.Name === item.value)!
-    onJobSelected(job)
+    const job = jobs.find((m) => m.Name === item.value)
+    if (job) {
+      onJobSelected(job)
+    }
   }
 
   return (
     <>
       <Box>
-        <StaticAutoComplete options={jobItems} onSelected={handleSelectJob} disableClearable fullWidth />
+        <StaticAutoComplete options={jobItems} onSelected={handleSelectJob} fullWidth />
       </Box>
       <ScrollableBox scroller={scroller}>
         {pagedItems.map((item) => (
