@@ -4,11 +4,10 @@ import PageHeader from 'components/Atoms/Containers/PageHeader'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import Seo from 'components/Organizms/Seo'
 import StockReportsDropdown from 'components/Organizms/stocks/reports/StockReportsDropdown'
-import StockDividendsTable from 'components/Organizms/stocks/StockDividendsTable'
+import StockDividendsTable, { StockDividendItem } from 'components/Organizms/stocks/StockDividendsTable'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { apiConnection } from 'lib/backend/api/config'
 import { get } from 'lib/backend/api/fetchFunctions'
-import { StockDividendItem } from 'lib/backend/api/qln/qlnModels'
 import React from 'react'
 
 const Page = () => {

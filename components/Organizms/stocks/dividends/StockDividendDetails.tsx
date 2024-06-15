@@ -5,10 +5,9 @@ import dayjs from 'dayjs'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { apiConnection } from 'lib/backend/api/config'
 import { post } from 'lib/backend/api/fetchFunctions'
-import { StockDividendItem } from 'lib/backend/api/qln/qlnModels'
 import numeral from 'numeral'
 import React from 'react'
-import StockDividendsTable from '../StockDividendsTable'
+import { StockDividendItem } from '../StockDividendsTable'
 
 const StockDividendDetails = ({ symbol }: { symbol: string }) => {
   const apiConn = apiConnection().qln
