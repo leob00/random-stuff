@@ -1,4 +1,4 @@
-import { Alert, Box, Typography } from '@mui/material'
+import { Alert, Box, IconButton, Typography } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import CopyableText from 'components/Atoms/Text/CopyableText'
@@ -8,6 +8,7 @@ import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import { getCacheStats, resetStockCache } from 'lib/backend/api/qln/qlnApi'
 import { Claim } from 'lib/backend/auth/userUtil'
+import RefreshIcon from '@mui/icons-material/Refresh'
 import numeral from 'numeral'
 import React from 'react'
 import useSWR, { mutate } from 'swr'
@@ -35,15 +36,24 @@ const CacheSettings = ({ claim }: { claim: Claim }) => {
     setIsLoading(false)
     mutate(mutateKey)
   }
+  const handleRefresh = () => {
+    mutate(mutateKey)
+  }
   return (
     <>
       {isValidating && <BackdropLoader />}
       {error && <ErrorMessage text={'An error occurred while retrieving data.'} />}
       {data && (
         <Box>
-          <Typography variant='h5' pb={2} color='primary'>{`Web Server Settings`}</Typography>
+          <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+            <Typography variant='h5' pb={2} color='primary'>{`Web Server Settings`}</Typography>
+            <Box>
+              <IconButton size='small' color='primary' onClick={handleRefresh}>
+                <RefreshIcon fontSize='small' />
+              </IconButton>
+            </Box>
+          </Box>
           <ReadOnlyField label='address' val={data.WebServerIpAddress} />
-          {/* <Typography>{`Address: ${data.WebServerIpAddress}`}</Typography> */}
           <Box display={'flex'} alignItems={'center'}>
             <CopyableText label='Token:' value={claim.token} />
           </Box>

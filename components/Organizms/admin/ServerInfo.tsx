@@ -18,7 +18,7 @@ const ServerInfo = () => {
     <Box py={2}>
       <CenteredHeader title='Random Stuff' />
       <CenterStack sx={{ py: 2 }}>
-        <InternalLink text='health check' route={'/ssr/healthcheck'} />
+        <InternalLink text='health check' route={'/status'} />
       </CenterStack>
       <HorizontalDivider />
       <CenteredHeader title='Quote Lookup .NET' />

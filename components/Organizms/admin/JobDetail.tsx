@@ -31,7 +31,7 @@ const JobDetails = ({ item, onClose }: { item: Job; onClose: () => void }) => {
           </Stack>
         )}
         {item.Chart && (
-          <Box pt={2} width={{ xs: '95%', md: 'unset' }}>
+          <Box pt={2} width={{ xs: '95%', md: '97%' }}>
             <JobDetailChart data={item.Chart} />
           </Box>
         )}

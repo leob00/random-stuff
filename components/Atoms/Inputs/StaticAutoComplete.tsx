@@ -28,7 +28,12 @@ const StaticAutoComplete = ({
   const selectedOption: Option | undefined = selectedItem ? { id: selectedItem.value, label: selectedItem.text } : undefined
   const inputRef = React.useRef<HTMLInputElement | null>(null)
 
-  const handleSelect = (event: React.SyntheticEvent<Element, Event>, value: Option | null, reason: AutocompleteChangeReason, details?: AutocompleteChangeDetails<Option> | undefined) => {
+  const handleSelect = (
+    event: React.SyntheticEvent<Element, Event>,
+    value: Option | null,
+    reason: AutocompleteChangeReason,
+    details?: AutocompleteChangeDetails<Option> | undefined,
+  ) => {
     const selectedItem = { ...value }
     const item: DropdownItem = {
       value: selectedItem.id!,
@@ -46,7 +51,7 @@ const StaticAutoComplete = ({
       onChange={handleSelect}
       disablePortal
       options={items}
-      sx={{ width: { xs: 260, md: 600 } }}
+      sx={!fullWidth ? { width: { xs: 260, md: 600 } } : {}}
       disableClearable={disableClearable}
       isOptionEqualToValue={(opt, compOpt) => opt.id === compOpt.id}
       fullWidth={fullWidth}

@@ -44,9 +44,6 @@ const Page = () => {
       }
       setUserProfile(p)
       setLoading(false)
-      // const resp = await fetch('/emailTemplates/sendPin.html')
-      // const html = await resp.text()
-      // setEmailTemplate(html)
     }
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
