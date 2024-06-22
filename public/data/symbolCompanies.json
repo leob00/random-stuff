@@ -36,6 +36,10 @@
     "Symbol": "AACT"
   },
   {
+    "Company": "Ares Acquisition Corporation II Redeemable Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50",
+    "Symbol": "AACT.WS"
+  },
+  {
     "Company": "Aadi Bioscience, Inc. Common Stock",
     "Symbol": "AADI"
   },
@@ -146,6 +150,10 @@
   {
     "Company": "Abeona Therapeutics Inc. Common Stock",
     "Symbol": "ABEO"
+  },
+  {
+    "Company": "Absolute Select Value ETF",
+    "Symbol": "ABEQ"
   },
   {
     "Company": "AMBEV S.A.",
@@ -314,6 +322,10 @@
   {
     "Company": "Archer Aviation Inc.",
     "Symbol": "ACHR"
+  },
+  {
+    "Company": "Archer Aviation Inc. Redeemable Warrants, each whole warrant exercisable for one Class A common stock at an exercise price of $11.50",
+    "Symbol": "ACHR.WS"
   },
   {
     "Company": "Achieve Life Sciences, Inc.",
@@ -708,6 +720,10 @@
     "Symbol": "AEVA"
   },
   {
+    "Company": "Aeva Technologies, Inc. Redeemable Warrants, each Warrant to purchase one-fifth (1/5) of a share of Common Stock at an exercise price of $57.50 for each share of Common Stock",
+    "Symbol": "AEVA.WS"
+  },
+  {
     "Company": "AudioEye, Inc. Common Stock",
     "Symbol": "AEYE"
   },
@@ -770,6 +786,10 @@
   {
     "Company": "Aimei Health Technology Co., Ltd Ordinary Share",
     "Symbol": "AFJK"
+  },
+  {
+    "Company": "Aimei Health Technology Co., Ltd Right",
+    "Symbol": "AFJKR"
   },
   {
     "Company": "Aimei Health Technology Co., Ltd Unit",
@@ -890,6 +910,10 @@
   {
     "Company": "Federal Agricultural Mortgage Corporation",
     "Symbol": "AGM"
+  },
+  {
+    "Company": "Federal Agricultural Mortgage Corporation Class A Voting",
+    "Symbol": "AGM.A"
   },
   {
     "Company": "AGM Group Holdings Inc. Class A Ordinary Shares",
@@ -1252,6 +1276,14 @@
     "Symbol": "AKLI"
   },
   {
+    "Company": "Embotelladora Andina S.A. Series A",
+    "Symbol": "AKO.A"
+  },
+  {
+    "Company": "Embotelladora Andina S.A. Series B",
+    "Symbol": "AKO.B"
+  },
+  {
     "Company": "Acadia Realty Trust",
     "Symbol": "AKR"
   },
@@ -1508,6 +1540,10 @@
     "Symbol": "ALUR"
   },
   {
+    "Company": "Allurion Technologies, Inc. Warrants, each whole warrant exercisable to purchase 1.420455 shares of common stock at an exercise price of $8.10 per share of common stock",
+    "Symbol": "ALUR.WS"
+  },
+  {
     "Company": "Autoliv, Inc.",
     "Symbol": "ALV"
   },
@@ -1570,6 +1606,10 @@
   {
     "Company": "Ardagh Metal Packaging S.A.",
     "Symbol": "AMBP"
+  },
+  {
+    "Company": "Ardagh Metal Packaging S.A. Warrants, each exercisable for one Share at an exercise price of $11.50 per share",
+    "Symbol": "AMBP.WS"
   },
   {
     "Company": "AMC ENTERTAINMENT HOLDINGS, INC.",
@@ -1706,6 +1746,10 @@
   {
     "Company": "Amprius Technologies, Inc.",
     "Symbol": "AMPX"
+  },
+  {
+    "Company": "Amprius Technologies, Inc. Warrants to purchase one share of Common Stock at an exercise price of $11.50 per share",
+    "Symbol": "AMPX.WS"
   },
   {
     "Company": "Amplify Energy Corp.",
@@ -1994,6 +2038,10 @@
   {
     "Company": "Ampco-Pittsburgh Corp.",
     "Symbol": "AP"
+  },
+  {
+    "Company": "Ampco-Pittsburgh Corporation Series A Warrants to purchase Shares of common stock",
+    "Symbol": "AP.WS"
   },
   {
     "Company": "APA Corporation Common Stock",
@@ -2734,6 +2782,14 @@
   {
     "Company": "Athena Technology Acquisition Corp. II",
     "Symbol": "ATEK"
+  },
+  {
+    "Company": "Athena Technology Acquisition Corp. II Units, each consisting of one share of Class A common stock, and one-half of one Redeemable Warrant",
+    "Symbol": "ATEK.U"
+  },
+  {
+    "Company": "Athena Technology Acquisition Corp. II Redeemable Warrants",
+    "Symbol": "ATEK.WS"
   },
   {
     "Company": "A10 NETWORKS INC",
@@ -3564,6 +3620,10 @@
     "Symbol": "BARK"
   },
   {
+    "Company": "BARK, Inc. Redeemable Warrants, each whole warrant exercisable for shares of Common Stock at an exercise price of $11.50 per share",
+    "Symbol": "BARK.WS"
+  },
+  {
     "Company": "Couchbase, Inc. Common Stock",
     "Symbol": "BASE"
   },
@@ -3614,6 +3674,10 @@
   {
     "Company": "BigBear.ai Holdings, Inc.",
     "Symbol": "BBAI"
+  },
+  {
+    "Company": "BigBear.ai Holdings, Inc. Redeemable warrants, each full warrant exercisable for one share of common stock at an exercise price of $11.50 per share",
+    "Symbol": "BBAI.WS"
   },
   {
     "Company": "Banco BBVA Argentina S.A.",
@@ -4048,6 +4112,10 @@
     "Symbol": "BELFB"
   },
   {
+    "Company": "BlackRock Long-Term U.S. Equity ETF",
+    "Symbol": "BELT"
+  },
+  {
     "Company": "iShares J.P. Morgan Broad USD Emerging Markets Bond ETF",
     "Symbol": "BEMB"
   },
@@ -4116,6 +4184,14 @@
     "Symbol": "BETZ"
   },
   {
+    "Company": "Brown-Forman Corporation Class A",
+    "Symbol": "BF.A"
+  },
+  {
+    "Company": "Brown-Forman Corporation Class B",
+    "Symbol": "BF.B"
+  },
+  {
     "Company": "Battery Future Acquisition Corp.",
     "Symbol": "BFAC"
   },
@@ -4158,6 +4234,10 @@
   {
     "Company": "Butterfly Network, Inc.",
     "Symbol": "BFLY"
+  },
+  {
+    "Company": "Butterfly Network, Inc. Redeemable Warrants, each whole warrant exercisable for one share of Class A common stock, each at an exercise price of $11.50 per share",
+    "Symbol": "BFLY.WS"
   },
   {
     "Company": "Barron's 400 ETF",
@@ -4270,6 +4350,10 @@
   {
     "Company": "Biglari Holdings Inc. Class B Common Stock",
     "Symbol": "BH"
+  },
+  {
+    "Company": "Biglari Holdings Inc. Class A Common Stock",
+    "Symbol": "BH.A"
   },
   {
     "Company": "Focus Impact BH3 Acquisition Company Class A Common Stock",
@@ -4500,6 +4584,14 @@
     "Symbol": "BITE"
   },
   {
+    "Company": "Bite Acquisition Corp. Units, each consisting of one share of common stock, and one-half of one redeemable warrant",
+    "Symbol": "BITE.U"
+  },
+  {
+    "Company": "Bite Acquisition Corp. Warrants, each whole warrant exercisable for one share of common stock at an exercise price of $11.50",
+    "Symbol": "BITE.WS"
+  },
+  {
     "Company": "Bitfarms Ltd. Common Stock",
     "Symbol": "BITF"
   },
@@ -4612,6 +4704,10 @@
     "Symbol": "BKH"
   },
   {
+    "Company": "Black Hawk Acquisition Corporation Class A Ordinary Shares",
+    "Symbol": "BKHA"
+  },
+  {
     "Company": "Black Hawk Acquisition Corporation Rights",
     "Symbol": "BKHAR"
   },
@@ -4634,6 +4730,10 @@
   {
     "Company": "Bakkt Holdings, Inc.",
     "Symbol": "BKKT"
+  },
+  {
+    "Company": "Bakkt Holdings, Inc Warrants to purchase Class A Common Stock Each Warrant entitles to purchase 1/25th of a share of Class A common stock at an exercise price of $287.50 for one share of Class A Common Stock",
+    "Symbol": "BKKT.WS"
   },
   {
     "Company": "BNY Mellon US Large Cap Core Equity ETF",
@@ -4670,6 +4770,10 @@
   {
     "Company": "BlackSky Technology Inc.",
     "Symbol": "BKSY"
+  },
+  {
+    "Company": "BlackSky Technology Inc. Redeemable Warrants, each whole Warrant exercisable for one share of Class A Common Stock",
+    "Symbol": "BKSY.WS"
   },
   {
     "Company": "BlackRock Income Trust Inc.",
@@ -4840,6 +4944,10 @@
     "Symbol": "BLUA"
   },
   {
+    "Company": "BlueRiver Acquisition Corp. Warrants, each whole warrant exercisable for one Class A Ordinary Share at an exercise price of $11.50",
+    "Symbol": "BLUA.WS"
+  },
+  {
     "Company": "bluebird bio, Inc. Common Stock",
     "Symbol": "BLUE"
   },
@@ -4922,6 +5030,10 @@
   {
     "Company": "BM Technologies, Inc.",
     "Symbol": "BMTX"
+  },
+  {
+    "Company": "BM Technologies, Inc. Warrants, each warrant exercisable for one share of Common Stock at an exercise price of $11.50",
+    "Symbol": "BMTX.WS"
   },
   {
     "Company": "Invesco Bloomberg MVP Multi-factor ETF",
@@ -5034,6 +5146,10 @@
   {
     "Company": "Brookfield Reinsurance Ltd.",
     "Symbol": "BNRE"
+  },
+  {
+    "Company": "Brookfield Reinsurance Ltd. Class A-1 Exchangeable Non-Voting Shares",
+    "Symbol": "BNRE.A"
   },
   {
     "Company": "Brenmiller Energy Ltd Ordinary Shares",
@@ -5312,8 +5428,20 @@
     "Symbol": "BRFS"
   },
   {
+    "Company": "BlackRock High Yield ETF",
+    "Symbol": "BRHY"
+  },
+  {
     "Company": "Bridgford Foods Corp",
     "Symbol": "BRID"
+  },
+  {
+    "Company": "Berkshire Hathaway Inc.",
+    "Symbol": "BRK.A"
+  },
+  {
+    "Company": "BERKSHIRE HATHAWAY Class B",
+    "Symbol": "BRK.B"
   },
   {
     "Company": "BurTech Acquisition Corp. Class A Common Stock",
@@ -7148,6 +7276,10 @@
     "Symbol": "CHE"
   },
   {
+    "Company": "Chenghe Acquisition II Co. Units, each consisting of one Class A ordinary share and one-half of one redeemable warrant",
+    "Symbol": "CHEB.U"
+  },
+  {
     "Company": "The Chef's Warehouse Inc",
     "Symbol": "CHEF"
   },
@@ -7336,6 +7468,10 @@
     "Symbol": "CIG"
   },
   {
+    "Company": "Companhia Energetica De Minas Gerais-CEMIG",
+    "Symbol": "CIG.C"
+  },
+  {
     "Company": "Colliers International Group Inc. Subordinate Voting Shares",
     "Symbol": "CIGI"
   },
@@ -7450,6 +7586,10 @@
   {
     "Company": "Colombier Acquisition Corp. II",
     "Symbol": "CLBR"
+  },
+  {
+    "Company": "Colombier Acquisition Corp. II Warrants, each whole warrant exercisable for one Class A Ordinary Share at an exercise price of $11.50 per share",
+    "Symbol": "CLBR.WS"
   },
   {
     "Company": "Cellebrite DI Ltd. Class A Ordinary Shares",
@@ -7858,6 +7998,14 @@
   {
     "Company": "Concord Acquisition Corp II",
     "Symbol": "CNDA"
+  },
+  {
+    "Company": "Concord Acquisition Corp II Units, each consisting of one share of Class A Common Stock and one-third of one Warrant",
+    "Symbol": "CNDA.U"
+  },
+  {
+    "Company": "Concord Acquisition Corp II Warrants, each whole warrant exercisable for one share of Class A Common Stock at an exercise price of $11.50",
+    "Symbol": "CNDA.WS"
   },
   {
     "Company": "Conduent Incorporated Common Stock",
@@ -8408,6 +8556,14 @@
     "Symbol": "CRCT"
   },
   {
+    "Company": "Crawford & Company Class A",
+    "Symbol": "CRD.A"
+  },
+  {
+    "Company": "Crawford & Company Class B",
+    "Symbol": "CRD.B"
+  },
+  {
     "Company": "Cardiff Oncology, Inc. Common Stock",
     "Symbol": "CRDF"
   },
@@ -8656,6 +8812,10 @@
     "Symbol": "CSLMR"
   },
   {
+    "Company": "CSLM Acquisition Corp. Unit",
+    "Symbol": "CSLMU"
+  },
+  {
     "Company": "CSLM Acquisition Corp. Warrant",
     "Symbol": "CSLMW"
   },
@@ -8880,6 +9040,10 @@
     "Symbol": "CUBI"
   },
   {
+    "Company": "Lionheart Holdings Unit",
+    "Symbol": "CUBWU"
+  },
+  {
     "Company": "Cue Biopharma, Inc.",
     "Symbol": "CUE"
   },
@@ -8946,6 +9110,10 @@
   {
     "Company": "Cenovus Energy Inc.",
     "Symbol": "CVE"
+  },
+  {
+    "Company": "Cenovus Energy Inc. Warrants (each warrant entitles the holder to purchase one common share at an exercise price of C$6.54 per share)",
+    "Symbol": "CVE.WS"
   },
   {
     "Company": "Civeo Corporation",
@@ -9086,6 +9254,10 @@
   {
     "Company": "Clearway Energy, Inc. Class C Common Stock",
     "Symbol": "CWEN"
+  },
+  {
+    "Company": "Clearway Energy, Inc.  Class A Common Stock",
+    "Symbol": "CWEN.A"
   },
   {
     "Company": "Camping World Holdings, Inc.",
@@ -9438,6 +9610,10 @@
   {
     "Company": "Dakota Gold Corp.",
     "Symbol": "DC"
+  },
+  {
+    "Company": "Dakota Gold Corp. Warrants, each warrant exercisable for one Common Share at an exercise price of $2.08",
+    "Symbol": "DC.WS"
   },
   {
     "Company": "Docebo Inc. Common Shares",
@@ -9936,6 +10112,10 @@
     "Symbol": "DHC"
   },
   {
+    "Company": "Diversified Healthcare Trust 5.625% Senior Notes due 2042",
+    "Symbol": "DHCNI"
+  },
+  {
     "Company": "Diversified Healthcare Trust 6.25% Senior Notes Due 2046",
     "Symbol": "DHCNL"
   },
@@ -10276,6 +10456,10 @@
     "Symbol": "DNA"
   },
   {
+    "Company": "Ginkgo Bioworks Holdings, Inc. Warrants, each whole warrant exercisable to purchase one share of Class A Common Stock at an exercise price of $11.50 per share",
+    "Symbol": "DNA.WS"
+  },
+  {
     "Company": "Dun & Bradstreet Holdings, Inc.",
     "Symbol": "DNB"
   },
@@ -10590,6 +10774,10 @@
   {
     "Company": "Diana Shipping, Inc.",
     "Symbol": "DSX"
+  },
+  {
+    "Company": "Diana Shipping Inc. Warrants to Purchase Common Stock (expiring on or about December 14, 2026)",
+    "Symbol": "DSX.WS"
   },
   {
     "Company": "Big Tree Cloud Holdings Limited Ordinary Shares",
@@ -11058,6 +11246,10 @@
   {
     "Company": "Centrais Elétricas Brasileiras S.A.- Eletrobrás American Depositary Shares (Each representing one Common Share)",
     "Symbol": "EBR"
+  },
+  {
+    "Company": "Centrais Elétricas Brasileiras S.A.- Eletrobrás American Depositary Shares (Each representing one Preferred Share)",
+    "Symbol": "EBR.B"
   },
   {
     "Company": "Emergent Biosolutions, Inc.",
@@ -11952,6 +12144,10 @@
     "Symbol": "ENTO"
   },
   {
+    "Company": "ERShares Entrepreneurs ETF",
+    "Symbol": "ENTR"
+  },
+  {
     "Company": "Entera Bio Ltd. Ordinary Shares",
     "Symbol": "ENTX"
   },
@@ -12584,12 +12780,20 @@
     "Symbol": "EVE"
   },
   {
+    "Company": "EVe Mobility Acquisition Corp Redeemable warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50",
+    "Symbol": "EVE.WS"
+  },
+  {
     "Company": "EverQuote, Inc. Class A Common Stock",
     "Symbol": "EVER"
   },
   {
     "Company": "Eve Holding, Inc.",
     "Symbol": "EVEX"
+  },
+  {
+    "Company": "Eve Holding, Inc. Warrants, each exercisable for one share of Common Stock at an exercise price of $11.50 per share",
+    "Symbol": "EVEX.WS"
   },
   {
     "Company": "Eaton Vance Senior Income Trust",
@@ -12692,6 +12896,10 @@
     "Symbol": "EVSB"
   },
   {
+    "Company": "Eaton Vance Short Duration Income ETF",
+    "Symbol": "EVSD"
+  },
+  {
     "Company": "Eaton Vance Short Duration Municipal Income ETF",
     "Symbol": "EVSM"
   },
@@ -12706,6 +12914,10 @@
   {
     "Company": "Vertical Aerospace Ltd.",
     "Symbol": "EVTL"
+  },
+  {
+    "Company": "Vertical Aerospace Ltd. Warrants, each whole warrant exercisable for one ordinary share at an exercise price of $11.50 per share",
+    "Symbol": "EVTL.WS"
   },
   {
     "Company": "Eaton Vance Total Return Bond ETF",
@@ -14268,6 +14480,10 @@
     "Symbol": "FLYX"
   },
   {
+    "Company": "flyExclusive, Inc. Redeemable warrants, each whole warrant exercisable for one Class A common stock at an exercise price of $11.50 per share",
+    "Symbol": "FLYX.WS"
+  },
+  {
     "Company": "iShares Frontier and Select EM ETF",
     "Symbol": "FM"
   },
@@ -14496,6 +14712,10 @@
     "Symbol": "FOA"
   },
   {
+    "Company": "Finance of America Companies Inc. Warrants, each whole warrant exercisable for one Class A Common Stock at an exercise price of $11.50",
+    "Symbol": "FOA.WS"
+  },
+  {
     "Company": "FT Vest U.S. Equity Buffer ETF - October",
     "Symbol": "FOCT"
   },
@@ -14688,6 +14908,10 @@
     "Symbol": "FREY"
   },
   {
+    "Company": "FREYR Battery, Inc. Warrants, each whole warrant exercisable to purchase one Common Stock at an exercise price of $11.50 per share",
+    "Symbol": "FREY.WS"
+  },
+  {
     "Company": "Forge Global Holdings, Inc.",
     "Symbol": "FRGE"
   },
@@ -14806,6 +15030,10 @@
   {
     "Company": "First Savings Financial Group, Inc",
     "Symbol": "FSFG"
+  },
+  {
+    "Company": "Flag Ship Acquisition Corp. Unit",
+    "Symbol": "FSHPU"
   },
   {
     "Company": "Flexible Solutions International, Inc.",
@@ -15436,6 +15664,10 @@
     "Symbol": "GB"
   },
   {
+    "Company": "Global Blue Group Holding AG Warrants exercisable for one Ordinary Share of Global Blue Group Holding AG at a price of $11.50 per share",
+    "Symbol": "GB.WS"
+  },
+  {
     "Company": "Guggenheim Taxable Municipal Bond & Investment Grade Debt Trust",
     "Symbol": "GBAB"
   },
@@ -15554,6 +15786,10 @@
   {
     "Company": "GCT Semiconductor Holding, Inc.",
     "Symbol": "GCTS"
+  },
+  {
+    "Company": "GCT Semiconductor Holding, Inc. Warrants, each whole warrant exercisable for one share of Common Stock at an exercise price of $11.50",
+    "Symbol": "GCTS.WS"
   },
   {
     "Company": "The Gabelli Convertible and Income Securities Fund, Inc.",
@@ -15714,6 +15950,10 @@
   {
     "Company": "Greif, Inc.",
     "Symbol": "GEF"
+  },
+  {
+    "Company": "Greif, Inc. Class B",
+    "Symbol": "GEF.B"
   },
   {
     "Company": "Great Elm Group, Inc. Common Stock",
@@ -16620,6 +16860,10 @@
     "Symbol": "GRABW"
   },
   {
+    "Company": "GRAIL, Inc. Common Stock When Issued",
+    "Symbol": "GRALV"
+  },
+  {
     "Company": "Green Brick Partners, Inc",
     "Symbol": "GRBK"
   },
@@ -16718,6 +16962,14 @@
   {
     "Company": "Gold Royalty Corp.",
     "Symbol": "GROY"
+  },
+  {
+    "Company": "Gold Royalty Corp. Warrants, each exercisable for one common share at an exercise price of $2.25 per share",
+    "Symbol": "GROY.WS"
+  },
+  {
+    "Company": "GRANITE REAL ESTATE INVESTMENT TRUST",
+    "Symbol": "GRP.U"
   },
   {
     "Company": "Invesco S&P MidCap 400 GARP ETF",
@@ -16948,6 +17200,10 @@
     "Symbol": "GTN"
   },
   {
+    "Company": "Gray Television, Inc. Class A",
+    "Symbol": "GTN.A"
+  },
+  {
     "Company": "Invesco Total Return Bond ETF",
     "Symbol": "GTO"
   },
@@ -17038,6 +17294,10 @@
   {
     "Company": "ESS Tech, Inc.",
     "Symbol": "GWH"
+  },
+  {
+    "Company": "ESS Tech, Inc. Warrants to purchase one share of Common Stock at an exercise price of $11.50",
+    "Symbol": "GWH.WS"
   },
   {
     "Company": "GUIDEWIRE SOFTWARE, INC.",
@@ -17408,6 +17668,10 @@
     "Symbol": "HEI"
   },
   {
+    "Company": "HEICO CORP CL A",
+    "Symbol": "HEI.A"
+  },
+  {
     "Company": "Helen Of Troy Ltd",
     "Symbol": "HELE"
   },
@@ -17694,6 +17958,10 @@
   {
     "Company": "Holley Inc.",
     "Symbol": "HLLY"
+  },
+  {
+    "Company": "Holley Inc. Redeemable Warrants, each whole warrant exercisable for one share of Common Stock at an exercise price of $11.50",
+    "Symbol": "HLLY.WS"
   },
   {
     "Company": "Hillman Solutions Corp. Common Stock",
@@ -18276,6 +18544,10 @@
     "Symbol": "HVT"
   },
   {
+    "Company": "Haverty Furniture Companies, Inc. Class A",
+    "Symbol": "HVT.A"
+  },
+  {
     "Company": "Hawthorn Bancshars Inc.",
     "Symbol": "HWBK"
   },
@@ -18310,6 +18582,14 @@
   {
     "Company": "Haymaker Acquisition Corp. 4",
     "Symbol": "HYAC"
+  },
+  {
+    "Company": "Haymaker Acquisition Corp. 4 Units, each consisting one Class A Ordinary Share and one-half of one redeemable Warrant",
+    "Symbol": "HYAC.U"
+  },
+  {
+    "Company": "Haymaker Acquisition Corp. 4 Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50 per share",
+    "Symbol": "HYAC.WS"
   },
   {
     "Company": "New America High Income Fund, Inc.",
@@ -19664,6 +19944,10 @@
     "Symbol": "INDO"
   },
   {
+    "Company": "Indaptus Therapeutics, Inc. Common Stock",
+    "Symbol": "INDP"
+  },
+  {
     "Company": "Pacer Industrial Real Estate ETF",
     "Symbol": "INDS"
   },
@@ -19914,6 +20198,10 @@
   {
     "Company": "IonQ, Inc.",
     "Symbol": "IONQ"
+  },
+  {
+    "Company": "IonQ, Inc. Redeemable warrants, each whole warrant exercisable for one share of Common Stock, each at an exercise price of $11.50 per share",
+    "Symbol": "IONQ.WS"
   },
   {
     "Company": "ioneer Ltd American Depositary Shares",
@@ -20182,6 +20470,10 @@
   {
     "Company": "IRSA Inversiones y Representaciones S.A. Global Depositary Shares",
     "Symbol": "IRS"
+  },
+  {
+    "Company": "IRSA Inversiones y Representaciones S.A. Warrants to purchase Common Shares",
+    "Symbol": "IRS.WS"
   },
   {
     "Company": "Independence Realty Trust Inc.",
@@ -20470,6 +20762,10 @@
   {
     "Company": "Investcorp Europe Acquisition Corp I Class A Ordinary Shares",
     "Symbol": "IVCB"
+  },
+  {
+    "Company": "Investcorp Europe Acquisition Corp I Unit",
+    "Symbol": "IVCBU"
   },
   {
     "Company": "Investcorp Europe Acquisition Corp I Warrant",
@@ -21216,6 +21512,10 @@
     "Symbol": "JOBY"
   },
   {
+    "Company": "Joby Aviation, Inc.  Redeemable Warrants, each whole warrant exercisable for one share of Common Stock at an exercise price of $11.50",
+    "Symbol": "JOBY.WS"
+  },
+  {
     "Company": "St. Joe Company",
     "Symbol": "JOE"
   },
@@ -21832,6 +22132,10 @@
     "Symbol": "KLAC"
   },
   {
+    "Company": "Knowledge Leaders Developed World ETF",
+    "Symbol": "KLDW"
+  },
+  {
     "Company": "WK Kellogg Co",
     "Symbol": "KLG"
   },
@@ -22396,6 +22700,10 @@
     "Symbol": "LANV"
   },
   {
+    "Company": "Lanvin Group Holdings Limited Redeemable Warrants, each whole warrant exercisable for one Ordinary Share at an exercise price of $11.50",
+    "Symbol": "LANV.WS"
+  },
+  {
     "Company": "Innovator Premium Income 15 Buffer ETF - April",
     "Symbol": "LAPR"
   },
@@ -22624,6 +22932,10 @@
     "Symbol": "LEN"
   },
   {
+    "Company": "Lennar Corporation Class B",
+    "Symbol": "LEN.B"
+  },
+  {
     "Company": "LENZ Therapeutics, Inc. Common Stock",
     "Symbol": "LENZ"
   },
@@ -22642,6 +22954,10 @@
   {
     "Company": "The Lion Electric Company",
     "Symbol": "LEV"
+  },
+  {
+    "Company": "The Lion Electric Company Redeemable Warrants, each whole warrant entitles the holder to purchase one Common Share at a price of $11.50 per share",
+    "Symbol": "LEV.WS"
   },
   {
     "Company": "Levi Strauss & Co. Class A Common Stock",
@@ -22710,6 +23026,14 @@
   {
     "Company": "Lucas GC Limited Ordinary Shares",
     "Symbol": "LGCL"
+  },
+  {
+    "Company": "Lions Gate Entertainment Corp. Class A Voting Shares",
+    "Symbol": "LGF.A"
+  },
+  {
+    "Company": "Lions Gate Entertainment Corp. Class B Non-Voting Shares",
+    "Symbol": "LGF.B"
   },
   {
     "Company": "HCM Defender 500 Index ETF",
@@ -22928,6 +23252,10 @@
     "Symbol": "LLAP"
   },
   {
+    "Company": "Terran Orbital Corporation Redeemable Warrants, each whole warrant exercisable for one share of Common Stock at an exercise price of $11.50",
+    "Symbol": "LLAP.WS"
+  },
+  {
     "Company": "Eli Lilly & Co.",
     "Symbol": "LLY"
   },
@@ -22958,6 +23286,10 @@
   {
     "Company": "Lemonade, Inc.",
     "Symbol": "LMND"
+  },
+  {
+    "Company": "Lemonade, Inc. Warrants to purchase Common Stock",
+    "Symbol": "LMND.WS"
   },
   {
     "Company": "Limoneira Co",
@@ -23592,6 +23924,10 @@
     "Symbol": "MACAW"
   },
   {
+    "Company": "Melar Acquisition Corp. I Unit",
+    "Symbol": "MACIU"
+  },
+  {
     "Company": "Merrimack Pharmaceuticals Inc",
     "Symbol": "MACK"
   },
@@ -23894,6 +24230,10 @@
   {
     "Company": "Mountain & Co. I Acquisition Corp. Class A Ordinary Shares",
     "Symbol": "MCAA"
+  },
+  {
+    "Company": "Mountain & Co. I Acquisition Corp. Unit",
+    "Symbol": "MCAAU"
   },
   {
     "Company": "Mountain & Co. I Acquisition Corp. Warrant",
@@ -24628,8 +24968,16 @@
     "Symbol": "MKC"
   },
   {
+    "Company": "McCormick & Company, Incorporated Voting CS",
+    "Symbol": "MKC.V"
+  },
+  {
     "Company": "Markforged Holding Corporation",
     "Symbol": "MKFG"
+  },
+  {
+    "Company": "Markforged Holding Corporation Warrants, each whole warrant exercisable for one share of Common Stock at an exercise price of $11.50",
+    "Symbol": "MKFG.WS"
   },
   {
     "Company": "Markel Group Inc.",
@@ -24654,6 +25002,10 @@
   {
     "Company": "MoneyLion Inc.",
     "Symbol": "ML"
+  },
+  {
+    "Company": "MoneyLion Inc. Warrants, each whole warrant exercisable 1/30th of a share of Class A common stock at an exercise price of $345.00 per whole share",
+    "Symbol": "ML.WS"
   },
   {
     "Company": "Mesa Laboratories Inc",
@@ -24962,6 +25314,10 @@
   {
     "Company": "MidWestOne Financial Group",
     "Symbol": "MOFG"
+  },
+  {
+    "Company": "Moog Inc.",
+    "Symbol": "MOG.A"
   },
   {
     "Company": "Mogo Inc. Common Shares",
@@ -26084,6 +26440,10 @@
     "Symbol": "NE"
   },
   {
+    "Company": "Noble Corporation plc Tranche 1 Warrants",
+    "Symbol": "NE.WS"
+  },
+  {
     "Company": "Nuveen AMT-Free Quality Municipal Income Fund",
     "Symbol": "NEA"
   },
@@ -26196,6 +26556,10 @@
     "Symbol": "NEWTG"
   },
   {
+    "Company": "NewtekOne, Inc. 8.00% Fixed Rate Senior Notes due 2028",
+    "Symbol": "NEWTI"
+  },
+  {
     "Company": "NewtekOne, Inc. 5.75% Notes due 2024",
     "Symbol": "NEWTL"
   },
@@ -26270,6 +26634,10 @@
   {
     "Company": "Enphys Acquisition Corp.",
     "Symbol": "NFYS"
+  },
+  {
+    "Company": "Enphys Acquisition Corp. Redeemable Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50",
+    "Symbol": "NFYS.WS"
   },
   {
     "Company": "NovaGold Resources Inc.",
@@ -26628,6 +26996,10 @@
     "Symbol": "NOTE"
   },
   {
+    "Company": "FiscalNote Holdings, Inc. Warrants to purchase one share of Class A common stock, each at an exercise price of $11.50 per share",
+    "Symbol": "NOTE.WS"
+  },
+  {
     "Company": "Inotiv, Inc. Common Stock",
     "Symbol": "NOTV"
   },
@@ -26714,6 +27086,10 @@
   {
     "Company": "NET Power Inc.",
     "Symbol": "NPWR"
+  },
+  {
+    "Company": "NET Power Inc. Redeemable warrants, each whole warrant exercisable for one share of Class A Common Stock at an exercise price of $11.50",
+    "Symbol": "NPWR.WS"
   },
   {
     "Company": "Nuveen Pennsylvania Quality Municipal Income Fund",
@@ -27078,6 +27454,10 @@
   {
     "Company": "Nuvation Bio Inc.",
     "Symbol": "NUVB"
+  },
+  {
+    "Company": "Nuvation Bio Inc. Redeemable warrants, each whole warrant exercisable for one share of Class A common stock at an exercise price of $11.50",
+    "Symbol": "NUVB.WS"
   },
   {
     "Company": "Nuvalent, Inc. Class A Common Stock",
@@ -27784,6 +28164,10 @@
     "Symbol": "OFS"
   },
   {
+    "Company": "OFS Capital Corporation 4.95% Notes due 2028",
+    "Symbol": "OFSSH"
+  },
+  {
     "Company": "Empire State Realty OP, L.P. Series 60",
     "Symbol": "OGCP"
   },
@@ -28124,6 +28508,10 @@
     "Symbol": "OPFI"
   },
   {
+    "Company": "OppFi Inc. Warrants, each whole warrant exercisable for one share of Class A common stock at an exercise price of $11.50 per share",
+    "Symbol": "OPFI.WS"
+  },
+  {
     "Company": "OpGen, Inc",
     "Symbol": "OPGN"
   },
@@ -28360,6 +28748,14 @@
     "Symbol": "OUST"
   },
   {
+    "Company": "Ouster, Inc. Warrants, every 10 warrants are exercisable for one share of Common Stock at an exercise price of $115 per share of common stock",
+    "Symbol": "OUST.WS"
+  },
+  {
+    "Company": "Ouster, Inc. Warrants, every 10 warrants are exercisable for 0.6153 shares of Common Stock at an exercise price of $140.20 per 0.6153 shares of common stock",
+    "Symbol": "OUST.WS.A"
+  },
+  {
     "Company": "OUTFRONT Media Inc.",
     "Symbol": "OUT"
   },
@@ -28474,6 +28870,10 @@
   {
     "Company": "Occidental Petroleum Corporation",
     "Symbol": "OXY"
+  },
+  {
+    "Company": "Occidental Petroleum Corporation Warrants to Purchase Common Stock",
+    "Symbol": "OXY.WS"
   },
   {
     "Company": "Belpointe PREP, LLC Class A Units",
@@ -28802,6 +29202,10 @@
   {
     "Company": "PETROLEO BRASILEIRO S.A.-PETROBRAS ADS (REP 1 COMMON SHARE)",
     "Symbol": "PBR"
+  },
+  {
+    "Company": "Petroleo Brasileiro S.A.-Petrobras",
+    "Symbol": "PBR.A"
   },
   {
     "Company": "PGIM US Large-Cap Buffer 20 ETF - September",
@@ -29616,6 +30020,10 @@
     "Symbol": "PL"
   },
   {
+    "Company": "Planet Labs PBC Redeemable warrants, each whole warrant exercisable for one share of Class A common stock, each at an exercise price of $11.50 per share",
+    "Symbol": "PL.WS"
+  },
+  {
     "Company": "Photronics Inc",
     "Symbol": "PLAB"
   },
@@ -29668,8 +30076,24 @@
     "Symbol": "PLL"
   },
   {
+    "Company": "Plum Acquisition Corp. I Class A Ordinary Share",
+    "Symbol": "PLMI"
+  },
+  {
+    "Company": "Plum Acquisition Corp. I Warrant",
+    "Symbol": "PLMIW"
+  },
+  {
     "Company": "Plum Acquisition Corp. III Class A Ordinary Shares",
     "Symbol": "PLMJ"
+  },
+  {
+    "Company": "Plum Acquisition Corp. III Unit",
+    "Symbol": "PLMJU"
+  },
+  {
+    "Company": "Plum Acquisition Corp. III Warrant",
+    "Symbol": "PLMJW"
   },
   {
     "Company": "Palomar Holdings, Inc. Common stock",
@@ -30356,6 +30780,10 @@
     "Symbol": "PSFE"
   },
   {
+    "Company": "Paysafe Limited Warrants, exercisable for one Common Share of Paysafe Limited at a price of $138.00 per share",
+    "Symbol": "PSFE.WS"
+  },
+  {
     "Company": "Pacer Swan SOS Fund of Funds ETF",
     "Symbol": "PSFF"
   },
@@ -30866,6 +31294,10 @@
   {
     "Company": "D-Wave Quantum Inc.",
     "Symbol": "QBTS"
+  },
+  {
+    "Company": "D-Wave Quantum Inc. Warrants, each whole warrant exercisable for 1.4541326 shares of Common Stock at an exercise price of $11.50",
+    "Symbol": "QBTS.WS"
   },
   {
     "Company": "FT Vest Nasdaq-100 Conservative Buffer ETF - April",
@@ -31484,6 +31916,10 @@
     "Symbol": "RBOT"
   },
   {
+    "Company": "Vicarious Surgical Inc. Warrants, each whole warrant exercisable for 1/30th of a share of Class A Common Stock at an exercise price of $345.00",
+    "Symbol": "RBOT.WS"
+  },
+  {
     "Company": "Rubrik, Inc.",
     "Symbol": "RBRK"
   },
@@ -31498,6 +31934,10 @@
   {
     "Company": "Red Cat Holdings, Inc. Common Stock",
     "Symbol": "RCAT"
+  },
+  {
+    "Company": "Ready Capital Corporation 6.20% Senior Notes due 2026",
+    "Symbol": "RCB"
   },
   {
     "Company": "Ready Capital Corporation 5.75% Senior Notes due 2026",
@@ -31626,6 +32066,10 @@
   {
     "Company": "Redwire Corporation",
     "Symbol": "RDW"
+  },
+  {
+    "Company": "Redwire Corporation Redeemable Warrants, each whole warrant exercisable for one share of Common Stock at an exercise price of $11.50 per share",
+    "Symbol": "RDW.WS"
   },
   {
     "Company": "Radware Ltd.",
@@ -32478,6 +32922,10 @@
   {
     "Company": "Rigel Resource Acquisition Corp.",
     "Symbol": "RRAC"
+  },
+  {
+    "Company": "Rigel Resource Acquisition Corp Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50 per share",
+    "Symbol": "RRAC.WS"
   },
   {
     "Company": "Red River Bancshares, Inc. Common Stock",
@@ -34304,6 +34752,10 @@
     "Symbol": "SKYH"
   },
   {
+    "Company": "Sky Harbour Group Corporation Warrants, each whole warrant exercisable for one share of Class A common stock at an exercise price of $11.50 per share",
+    "Symbol": "SKYH.WS"
+  },
+  {
     "Company": "SkyWater Technology, Inc. Common Stock",
     "Symbol": "SKYT"
   },
@@ -34644,6 +35096,10 @@
     "Symbol": "SMR"
   },
   {
+    "Company": "NuScale Power Corporation Warrants, each exercisable for one share of Class A Common Stock at an exercise price of $11.50 per share",
+    "Symbol": "SMR.WS"
+  },
+  {
     "Company": "Bushido Capital US Equity ETF",
     "Symbol": "SMRI"
   },
@@ -34856,12 +35312,20 @@
     "Symbol": "SOAR"
   },
   {
+    "Company": "Volato Group, Inc. Redeemable Warrants, each whole warrant exercisable for one share of Class A common stock at an exercise price of $11.50",
+    "Symbol": "SOAR.WS"
+  },
+  {
     "Company": "SOBR Safe, Inc. Common Stock",
     "Symbol": "SOBR"
   },
   {
     "Company": "Sable Offshore Corp.",
     "Symbol": "SOC"
+  },
+  {
+    "Company": "Sable Offshore Corp. Warrants, each whole warrant exercisable for one share of Common Stock at an exercise price of $11.50",
+    "Symbol": "SOC.WS"
   },
   {
     "Company": "Global X Funds Global X Social Media ETF",
@@ -36600,6 +37064,10 @@
     "Symbol": "TCOA"
   },
   {
+    "Company": "Zalatoris Acquisition Corp. Public warrants, each whole public warrant exercisable for one share of Class A Common Stock at an exercise price of $11.50 per share",
+    "Symbol": "TCOA.WS"
+  },
+  {
     "Company": "Trip.com Group Limited American Depositary Shares",
     "Symbol": "TCOM"
   },
@@ -36702,6 +37170,10 @@
   {
     "Company": "Tidewater, Inc.",
     "Symbol": "TDW"
+  },
+  {
+    "Company": "Tidewater Inc.",
+    "Symbol": "TDW.WS"
   },
   {
     "Company": "Teledyne Technologies Incorporated",
@@ -38412,6 +38884,10 @@
     "Symbol": "UHAL"
   },
   {
+    "Company": "U-Haul Holding Company",
+    "Symbol": "UHAL.B"
+  },
+  {
     "Company": "United Homes Group, Inc Class A Common Stock",
     "Symbol": "UHG"
   },
@@ -39048,6 +39524,10 @@
     "Symbol": "UWMC"
   },
   {
+    "Company": "UWM Holdings Corporation Warrants, each exercisable for one share of Class A Common Stock at an exercise price of $11.50 per share",
+    "Symbol": "UWMC.WS"
+  },
+  {
     "Company": "ProShares Ultra Industrials",
     "Symbol": "UXI"
   },
@@ -39098,6 +39578,10 @@
   {
     "Company": "Valaris Limited",
     "Symbol": "VAL"
+  },
+  {
+    "Company": "Valaris Limited Warrants to purchase Common Shares",
+    "Symbol": "VAL.WS"
   },
   {
     "Company": "VALE S.A.",
@@ -39234,6 +39718,14 @@
   {
     "Company": "10X Capital Venture Acquisition Corp. III",
     "Symbol": "VCXB"
+  },
+  {
+    "Company": "10X Capital Venture Acquisition Corp. III Units, each consisting of one Class A ordinary share and one-half of one redeemable warrant",
+    "Symbol": "VCXB.U"
+  },
+  {
+    "Company": "10X Capital Venture Acquisition Corp. III Redeemable warrants, each whole warrant exercisable for one Class A ordinary share, each at an exercise price of $11.50 per share",
+    "Symbol": "VCXB.WS"
   },
   {
     "Company": "Veracyte, Inc.",
@@ -39440,6 +39932,14 @@
     "Symbol": "VHAI"
   },
   {
+    "Company": "Vocodia Holdings Corp. Series A Warrants",
+    "Symbol": "VHAI.WS.A"
+  },
+  {
+    "Company": "Vocodia Holdings Corp. Series B Warrants",
+    "Symbol": "VHAI.WS.B"
+  },
+  {
     "Company": "VirnetX Holding Corporation",
     "Symbol": "VHC"
   },
@@ -39608,12 +40108,20 @@
     "Symbol": "VLD"
   },
   {
+    "Company": "Velo3D, Inc. Redeemable warrants, each Warrant exercisable for 1/35th of a share of Common Stock at an exercise price of $402.50",
+    "Symbol": "VLD.WS"
+  },
+  {
     "Company": "Village Super Market",
     "Symbol": "VLGEA"
   },
   {
     "Company": "Valens Semiconductor Ltd.",
     "Symbol": "VLN"
+  },
+  {
+    "Company": "Valens Semiconductor Ltd. Warrants, each warrant to purchase one-half of one Ordinary Share",
+    "Symbol": "VLN.WS"
   },
   {
     "Company": "Valero Energy Corporation",
@@ -40392,6 +40900,10 @@
     "Symbol": "WBX"
   },
   {
+    "Company": "Wallbox N.V. Warrants, each warrant to purchase one Class A Ordinary Share",
+    "Symbol": "WBX.WS"
+  },
+  {
     "Company": "WisdomTree Cybersecurity Fund",
     "Symbol": "WCBR"
   },
@@ -40494,6 +41006,10 @@
   {
     "Company": "Integrated Wellness Acquisition Corp",
     "Symbol": "WEL"
+  },
+  {
+    "Company": "Integrated Wellness Acquisition Corp Redeemable Warrants",
+    "Symbol": "WEL.WS"
   },
   {
     "Company": "Welltower Inc.",
