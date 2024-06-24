@@ -365,7 +365,8 @@ export interface Company {
   Sector?: string
   Industry?: string
   Ceo?: string
-  LogoBase64?: string
+  LogoRelativePath: string | null
+  IconRelativePath: string | null
 }
 
 export async function getEconCalendar() {

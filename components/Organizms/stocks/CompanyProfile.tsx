@@ -1,30 +1,36 @@
 import { Box, Typography } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import { get } from 'lib/backend/api/fetchFunctions'
+import { useSwrHelper } from 'hooks/useSwrHelper'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { Company, getCompanyProfile } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 
-const CompanyProfile = ({ quote }: { quote: StockQuote }) => {
-  const [isLoading, setIsLoading] = React.useState(true)
-  const [data, setData] = React.useState<Company | null>(null)
-  const [logo, setLogo] = React.useState<string | null>(null)
+interface Model {
+  company: Company | null
+  awsUrl: string | null
+}
 
-  React.useEffect(() => {
-    const fn = async () => {
-      const apiData = await getCompanyProfile([quote.Symbol])
-      if (apiData.length > 0) {
-        const logoUrl = encodeURIComponent(`http://qln-cdn.s3-website-us-east-1.amazonaws.com/companyLogos/${quote.Symbol}.png`)
-        const logoResponse = await fetch(`/api/downloadImage?url=${logoUrl}`)
-        const logoData = await logoResponse.json()
-        setLogo(logoData)
-        setData(apiData[0])
-      }
-      setIsLoading(false)
+const CompanyProfile = ({ quote }: { quote: StockQuote }) => {
+  const mutateKey = `companyLogos-${quote.Symbol}`
+
+  const dataFn = async () => {
+    const result: Model = {
+      company: null,
+      awsUrl: null,
     }
-    fn()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    const apiData = await getCompanyProfile([quote.Symbol])
+    if (apiData.length > 0) {
+      const company = apiData[0]
+      if (company.LogoRelativePath) {
+        result.awsUrl = `http://qln-cdn.s3-website-us-east-1.amazonaws.com/companyImages/${company.LogoRelativePath}`
+      }
+
+      result.company = company
+    }
+    return result
+  }
+  const { data, isLoading } = useSwrHelper(mutateKey, dataFn)
+
   return (
     <Box pb={2} pt={2} minHeight={400}>
       {isLoading ? (
@@ -32,28 +38,28 @@ const CompanyProfile = ({ quote }: { quote: StockQuote }) => {
       ) : (
         <>
           <Box py={2} display={'flex'} gap={2} flexDirection={'column'}>
-            {logo && (
+            {data?.awsUrl && (
               <Box py={2}>
-                <img src={`data:image/png;base64, ${logo}`} alt='company logo' />
+                <img src={`${data.awsUrl}`} alt='company logo' width={275} />
               </Box>
             )}
-            <Typography>{data?.Description}</Typography>
-            {data?.Sector && (
+            {data?.company?.Description && <Typography>{data?.company?.Description}</Typography>}
+            {data?.company?.Sector && (
               <Box display={'flex'} gap={2}>
                 <Typography>Sector:</Typography>
-                <Typography>{data.Sector}</Typography>
+                <Typography>{data.company.Sector}</Typography>
               </Box>
             )}
-            {data?.Industry && (
+            {data?.company?.Industry && (
               <Box display={'flex'} gap={2}>
                 <Typography>Industry:</Typography>
-                <Typography>{data.Industry}</Typography>
+                <Typography>{data.company.Industry}</Typography>
               </Box>
             )}
-            {data?.Ceo && (
+            {data?.company?.Ceo && (
               <Box display={'flex'} gap={2}>
                 <Typography>CEO:</Typography>
-                <Typography>{data.Ceo}</Typography>
+                <Typography>{data.company.Ceo}</Typography>
               </Box>
             )}
           </Box>
