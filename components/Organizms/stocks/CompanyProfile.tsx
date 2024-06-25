@@ -22,7 +22,7 @@ const CompanyProfile = ({ quote }: { quote: StockQuote }) => {
     if (apiData.length > 0) {
       const company = apiData[0]
       if (company.LogoRelativePath) {
-        result.awsUrl = `http://qln-cdn.s3-website-us-east-1.amazonaws.com/companyImages/${company.LogoRelativePath}`
+        result.awsUrl = `https://debqyqoq9od6o.cloudfront.net/companyImages/${company.LogoRelativePath}`
       }
 
       result.company = company
