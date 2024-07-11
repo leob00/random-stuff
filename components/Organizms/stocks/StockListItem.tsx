@@ -85,9 +85,7 @@ const StockListItem = ({
 
       if (showMore) {
         setStockHistory([])
-
         const history = await getStockOrFutureChart(item.Symbol, 90, isStock)
-
         if (isStock) {
           putSearchedStock(item)
         }
