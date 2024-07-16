@@ -24,11 +24,11 @@ const Page = () => {
   const tasksMutateKey = ['/api/edgeGetRandomStuff', id]
   const goalMutateKey = ['/api/edgeGetRandomStuff', token]
 
-  const fetchGoalTasks = async (url: string, enc: string) => {
+  const fetchGoalTasks = async (_: string, enc: string) => {
     const result = await getUserGoalTasks(goalId)
     return result
   }
-  const fetchGoal = async (url: string, enc: string) => {
+  const fetchGoal = async (_: string, enc: string) => {
     const results = await getUserGoals(constructUserGoalsKey(username))
     const result = results.find((m) => m.id === goalId)
     return result
@@ -40,24 +40,16 @@ const Page = () => {
     mutate(goalMutateKey, newGoal, { revalidate: false })
     mutate(tasksMutateKey, newTasks, { revalidate: false })
   }
-  const handleDeleted = async (deletedGoal: UserGoal) => {
-    mutate(tasksMutateKey, [], { revalidate: false })
-  }
 
   return (
     <>
       <Seo pageTitle='Goals' />
       <ResponsiveContainer>
-        {isValidating && <BackdropLoader />}
-        {isLoading && (
-          <>
-            <BackdropLoader />
-          </>
-        )}
+        {isValidating || (isValidating && <BackdropLoader />)}
         {goal && <PageHeader text={`Goal: ${goal.body}`} backButtonRoute={'/protected/csr/goals'} />}
         {goal && tasks && (
           <>
-            <SingleGoalDisplay username={username} goal={goal} tasks={tasks} onMutated={handleMutated} onDeleted={handleDeleted} />
+            <SingleGoalDisplay username={username} goal={goal} tasks={tasks} onMutated={handleMutated} />
           </>
         )}
         <>

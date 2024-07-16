@@ -1,21 +1,36 @@
-import { Stack } from '@mui/material'
+import { Alert, InputAdornment, Stack, TextField, useTheme } from '@mui/material'
 import { UserTask } from 'lib/models/userTasks'
 import React from 'react'
-import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { ControlledFreeTextInput } from './ReactHookForm/ControlledFreeTextInput'
 import { ControlledDateTimePicker } from './ReactHookForm/ControlledDateTimePicker'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import DateAndTimePicker2 from './ReactHookForm/DateAndTimePicker2'
+import { CasinoBlue } from 'components/themes/mainTheme'
+import { register } from 'numeral'
+
+const AddTaskSchema = z.object({
+  name: z.string().min(1),
+  dueDate: z.string().optional().nullable(),
+})
+
+type AddTaskInput = z.infer<typeof AddTaskSchema>
 
 const AddTaskForm = ({ task, onSubmitted }: { task: UserTask; onSubmitted: (data: UserTask) => void }) => {
+  const theme = useTheme()
   const {
     control,
     handleSubmit,
     reset,
+    register,
     formState: { errors },
-  } = useForm<UserTask>()
-  const onSubmit: SubmitHandler<UserTask> = (formData: UserTask) => {
-    const submitData = { ...formData }
+  } = useForm<AddTaskInput>({
+    resolver: zodResolver(AddTaskSchema),
+  })
+  const onSubmit: SubmitHandler<AddTaskInput> = (formData) => {
+    const submitData: UserTask = { ...task, body: formData.name, dueDate: formData.dueDate ?? undefined }
 
     onSubmitted(submitData)
     reset()
@@ -23,8 +38,24 @@ const AddTaskForm = ({ task, onSubmitted }: { task: UserTask; onSubmitted: (data
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Stack direction={'row'} spacing={1}>
-        <ControlledFreeTextInput control={control} fieldName='body' defaultValue={task.body ?? ''} label='' placeholder='new task' required />
-        <ControlledDateTimePicker control={control} fieldName='dueDate' defaultValue={task.dueDate ?? null} placeholder={'due date'} label={'due date'} />
+        <TextField
+          {...register('name')}
+          autoComplete='off'
+          size='small'
+          margin='dense'
+          InputProps={{
+            color: 'secondary',
+            autoComplete: 'off',
+          }}
+          error={!!errors.name?.message}
+        />
+        <Controller
+          name={'dueDate'}
+          control={control}
+          render={({ field: { value, onChange, ...field } }) => (
+            <DateAndTimePicker2 errorMessage={errors.dueDate?.message} value={value} onDateSelected={onChange} {...field} />
+          )}
+        />
         <PrimaryButton text='add' type='submit' size='small' />
       </Stack>
     </form>

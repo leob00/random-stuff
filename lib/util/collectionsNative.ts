@@ -23,7 +23,7 @@ export function getListFromMap<T>(map: Map<string | number, T>): T[] {
   return result
 }
 export function getMapFromArray<T>(array: T[], key: keyof T) {
-  let map = new Map<any, T>()
+  const map = new Map<any, T>()
   array.forEach((item, i) => {
     map.set(item[key], item)
   })

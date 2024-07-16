@@ -1,23 +1,19 @@
 import { Alert, Box, Stack, Typography, TextField, useTheme } from '@mui/material'
 import React from 'react'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import StockSearch from 'components/Atoms/Inputs/StockSearch'
-import { StockQuote } from 'lib/backend/api/models/zModels'
 import { CasinoBlue } from 'components/themes/mainTheme'
-import { getPositiveNegativeColor } from 'components/Organizms/stocks/StockListItem'
 import { DropdownItem } from 'lib/models/dropdown'
 import dayjs from 'dayjs'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { ControlledSelect } from 'components/Molecules/Forms/ReactHookForm/ControlledSelect'
 import { ControlledFreeTextInput } from 'components/Molecules/Forms/ReactHookForm/ControlledFreeTextInput'
-import { ControlledDateTimePicker } from 'components/Molecules/Forms/ReactHookForm/ControlledDateTimePicker'
-import { StockPosition, StockTransaction } from 'lib/backend/api/aws/apiGateway/apiGateway'
+import { StockTransaction } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { TransactionFields } from './AddTransactionForm'
-import { type } from 'os'
+import DateAndTimePicker2 from 'components/Molecules/Forms/ReactHookForm/DateAndTimePicker2'
 
 const checkPrice = (val: any) => {
   if (isNaN(val)) {
@@ -107,7 +103,13 @@ const EditTransactionForm = ({
               defaultValue={transaction.quantity}
             />
             <ControlledFreeTextInput control={control} fieldName='price' defaultValue={transaction.price.toFixed(2)} label='price' placeholder='price' />
-            <ControlledDateTimePicker control={control} fieldName='date' defaultValue={transaction.date} label='' />
+            <Controller
+              name={'date'}
+              control={control}
+              render={({ field: { value, onChange, ...field } }) => (
+                <DateAndTimePicker2 errorMessage={errors.date?.message} value={value} onDateSelected={onChange} {...field} />
+              )}
+            />
           </>
 
           {errors.quantity && <Alert severity={'error'}>{'Please enter a valid quantity'}</Alert>}

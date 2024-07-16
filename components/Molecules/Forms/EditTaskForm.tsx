@@ -66,7 +66,54 @@ const EditTaskForm = ({
   }
 
   return (
-    <form onSubmit={handleFormSubmit}>
+    <>
+      <form onSubmit={handleFormSubmit}>
+        <Box py={2} maxWidth={{ xs: 280, md: 500 }}>
+          <FormTextBox width={'100%'} defaultValue={formInput.body ?? ''} label={'task'} onChanged={handleTitleChanged} error={!valid} />
+        </Box>
+        <Box py={2}>
+          <DateAndTimePicker
+            defaultValue={formInput.dueDate ? dayjs(formInput.dueDate).format() : undefined}
+            onChanged={handleDueDateChange}
+            label={'due date'}
+          />
+        </Box>
+        <Box py={2}>
+          <TextField
+            label='notes'
+            placeholder='notes...'
+            multiline
+            sx={{ width: '100%' }}
+            defaultValue={formInput.notes}
+            onChange={handleNoteChange}
+            inputProps={{ maxLength: 500 }}
+          />
+        </Box>
+        <Box py={2}>
+          <Stack direction={'row'} display={'flex'} justifyContent={'left'} alignItems={'center'}>
+            <SecondaryCheckbox checked={formInput.status != undefined && formInput.status === 'completed'} onChanged={handleCompletedChecked} />
+            {formInput.dateCompleted ? (
+              <Typography variant='body2'>{`completed: ${dayjs(formInput.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography>
+            ) : (
+              <Typography variant='body2'>complete</Typography>
+            )}
+          </Stack>
+        </Box>
+        <Box py={2}>
+          <Stack direction='row' justifyContent='center' alignItems='center' spacing={1}>
+            <Button
+              size='small'
+              onClick={() => {
+                setShowConfirmDelete(true)
+              }}
+            >
+              <Delete color='error' />
+            </Button>
+            <PassiveButton text='cancel' size='small' onClick={handleCancelClick} />
+            <SecondaryButton text='save' type='submit' size='small' />
+          </Stack>
+        </Box>
+      </form>
       <ConfirmDeleteDialog
         show={showConfirmDelete}
         title={'confirm delete'}
@@ -79,52 +126,7 @@ const EditTaskForm = ({
           setShowConfirmDelete(false)
         }}
       />
-      <Box py={2} maxWidth={{ xs: 280, md: 500 }}>
-        <FormTextBox width={'100%'} defaultValue={formInput.body ?? ''} label={'task'} onChanged={handleTitleChanged} error={!valid} />
-      </Box>
-      <Box py={2}>
-        <DateAndTimePicker
-          defaultValue={formInput.dueDate ? dayjs(formInput.dueDate).format() : undefined}
-          onChanged={handleDueDateChange}
-          label={'due date'}
-        />
-      </Box>
-      <Box py={2}>
-        <TextField
-          label='notes'
-          placeholder='notes...'
-          multiline
-          sx={{ width: '100%' }}
-          defaultValue={formInput.notes}
-          onChange={handleNoteChange}
-          inputProps={{ maxLength: 500 }}
-        />
-      </Box>
-      <Box py={2}>
-        <Stack direction={'row'} display={'flex'} justifyContent={'left'} alignItems={'center'}>
-          <SecondaryCheckbox checked={formInput.status != undefined && formInput.status === 'completed'} onChanged={handleCompletedChecked} />
-          {formInput.dateCompleted ? (
-            <Typography variant='body2'>{`completed: ${dayjs(formInput.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography>
-          ) : (
-            <Typography variant='body2'>complete</Typography>
-          )}
-        </Stack>
-      </Box>
-      <Box py={2}>
-        <Stack direction='row' justifyContent='center' alignItems='center' spacing={1}>
-          <Button
-            size='small'
-            onClick={() => {
-              setShowConfirmDelete(true)
-            }}
-          >
-            <Delete color='error' />
-          </Button>
-          <PassiveButton text='cancel' size='small' onClick={handleCancelClick} />
-          <SecondaryButton text='save' type='submit' size='small' />
-        </Stack>
-      </Box>
-    </form>
+    </>
   )
 }
 

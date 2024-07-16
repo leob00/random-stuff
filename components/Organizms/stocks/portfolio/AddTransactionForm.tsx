@@ -1,7 +1,7 @@
 import { Alert, Box, Stack, Typography, TextField, useTheme } from '@mui/material'
 import React from 'react'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
@@ -13,6 +13,7 @@ import { ControlledSelect } from 'components/Molecules/Forms/ReactHookForm/Contr
 import { ControlledFreeTextInput } from 'components/Molecules/Forms/ReactHookForm/ControlledFreeTextInput'
 import { ControlledDateTimePicker } from 'components/Molecules/Forms/ReactHookForm/ControlledDateTimePicker'
 import { StockPosition } from 'lib/backend/api/aws/apiGateway/apiGateway'
+import DateAndTimePicker2 from 'components/Molecules/Forms/ReactHookForm/DateAndTimePicker2'
 
 const checkPrice = (val: any) => {
   if (isNaN(val)) {
@@ -110,7 +111,13 @@ const AddTransactionForm = ({
               label='price'
               placeholder='price'
             />
-            <ControlledDateTimePicker control={control} fieldName='date' defaultValue={dayjs().format()} label='' />
+            <Controller
+              name={'date'}
+              control={control}
+              render={({ field: { value, onChange, ...field } }) => (
+                <DateAndTimePicker2 errorMessage={errors.date?.message} value={value} onDateSelected={onChange} {...field} />
+              )}
+            />
           </>
 
           {errors.quantity && <Alert severity={'error'}>{'Please enter a valid quantity'}</Alert>}

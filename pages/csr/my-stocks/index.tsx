@@ -77,8 +77,10 @@ const Page = () => {
       if (!authProfile) {
         const p = await fetchProfilePassive(900)
         if (!p) {
+          await setProfile(null)
+        } else {
+          await setProfile(p)
         }
-        await setProfile(p)
       }
       setIsLoading(false)
     }

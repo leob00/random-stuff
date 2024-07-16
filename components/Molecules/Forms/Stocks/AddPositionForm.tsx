@@ -1,7 +1,7 @@
 import { Alert, Box, Stack, Typography, TextField, useTheme } from '@mui/material'
 import React from 'react'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { ControlledFreeTextInput } from '../ReactHookForm/ControlledFreeTextInput'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -15,6 +15,7 @@ import { DropdownItem } from 'lib/models/dropdown'
 import dayjs from 'dayjs'
 import { ControlledDateTimePicker } from '../ReactHookForm/ControlledDateTimePicker'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import DateAndTimePicker2 from '../ReactHookForm/DateAndTimePicker2'
 
 const checkPrice = (val: any) => {
   if (isNaN(val)) {
@@ -140,7 +141,13 @@ const AddPositionForm = ({
                 defaultValue={obj.quantity}
               />
               <ControlledFreeTextInput control={control} fieldName='price' defaultValue={selectedQuote.Price.toFixed(2)} label='price' placeholder='price' />
-              <ControlledDateTimePicker control={control} fieldName='date' defaultValue={dayjs().format()} label='' />
+              <Controller
+                name={'date'}
+                control={control}
+                render={({ field: { value, onChange, ...field } }) => (
+                  <DateAndTimePicker2 errorMessage={errors.date?.message} value={value} onDateSelected={onChange} {...field} />
+                )}
+              />
             </>
           )}
 

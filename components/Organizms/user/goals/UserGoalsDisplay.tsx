@@ -19,14 +19,9 @@ import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import UserGoalsList from './UserGoalsList'
-import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
-import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 
 const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoalAndTask[]; username: string }) => {
-  const theme = useTheme()
-  const redColor = theme.palette.mode === 'dark' ? RedDarkMode : CasinoRedTransparent
-
-  const [barChart, setBarchart] = React.useState<BarChart | undefined>(undefined)
+  const [summaryChart, setSummaryChart] = React.useState<BarChart | undefined>(undefined)
   const [showAddGoalForm, setShowAddGoalForm] = React.useState(false)
   const [searchWithinList, setSearchWithinList] = React.useState('')
   const allGoals = goalsAndTasks.flatMap((m) => m.goal)
@@ -65,11 +60,11 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
       labels: ['past due', 'in progress', 'completed'],
       numbers: [pastDue, inProg.length, comp],
     }
-    setBarchart(barChart)
+    setSummaryChart(barChart)
   }
 
   const handleCloseCharts = () => {
-    setBarchart(undefined)
+    setSummaryChart(undefined)
   }
 
   const handleSearchWithinList = (text: string) => {
@@ -87,9 +82,9 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
   return (
     <Box>
       <Box py={2}>
-        {barChart ? (
+        {summaryChart ? (
           <>
-            <GoalsSummary barChart={barChart} goalTasks={goalsAndTasks} username={username} handleCloseSummary={handleCloseCharts} />
+            <GoalsSummary barChart={summaryChart} goalTasks={goalsAndTasks} username={username} handleCloseSummary={handleCloseCharts} />
           </>
         ) : (
           <>
@@ -100,7 +95,6 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
             ) : (
               <Stack display={'flex'} direction={'row'} gap={2} alignItems={'center'}>
                 <SearchWithinList text={`search in ${goalsAndTasks.length} goals`} onChanged={handleSearchWithinList} fullWidth />
-
                 <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
                   <GoalsMenu onShowCharts={handleShowCharts} onAddGoal={handleShowAddGoalForm} />
                 </Stack>
@@ -112,7 +106,7 @@ const UserGoalsDisplay = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoal
           <AddGoalForm goal={{}} onSubmit={handleAddGoal} />
         </FormDialog>
       </Box>
-      <Box>{!barChart && <UserGoalsList data={filteredGoals} onShowEdit={handleShowEditGoal} />}</Box>
+      <Box>{!summaryChart && <UserGoalsList data={filteredGoals} onShowEdit={handleShowEditGoal} />}</Box>
     </Box>
   )
 }

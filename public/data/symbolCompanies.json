@@ -24,6 +24,10 @@
     "Symbol": "AACI"
   },
   {
+    "Company": "Armada Acquisition Corp. I Unit",
+    "Symbol": "AACIU"
+  },
+  {
     "Company": "Armada Acquisition Corp. I Warrant",
     "Symbol": "AACIW"
   },
@@ -740,6 +744,10 @@
     "Symbol": "AFAR"
   },
   {
+    "Company": "Aura FAT Projects Acquisition Corp Unit",
+    "Symbol": "AFARU"
+  },
+  {
     "Company": "Aura FAT Projects Acquisition Corp Warrant",
     "Symbol": "AFARW"
   },
@@ -1110,6 +1118,10 @@
   {
     "Company": "Ainos, Inc. Common Stock",
     "Symbol": "AIMD"
+  },
+  {
+    "Company": "Ainos, Inc. Warrants",
+    "Symbol": "AIMDW"
   },
   {
     "Company": "Albany International Corp Class A",
@@ -1522,6 +1534,10 @@
   {
     "Company": "Altair Engineering Inc. Class A Common Stock",
     "Symbol": "ALTR"
+  },
+  {
+    "Company": "ALT5 Sigma Corporation Common Stock",
+    "Symbol": "ALTS"
   },
   {
     "Company": "Global X Funds Global X Alternative Income ETF",
@@ -2256,6 +2272,10 @@
     "Symbol": "AQST"
   },
   {
+    "Company": "Aquaron Acquisition Corp. Common Stock",
+    "Symbol": "AQU"
+  },
+  {
     "Company": "Aquaron Acquisition Corp. Rights",
     "Symbol": "AQUNR"
   },
@@ -2578,6 +2598,10 @@
   {
     "Company": "A SPAC II Acquisition Corp. Right",
     "Symbol": "ASCBR"
+  },
+  {
+    "Company": "A SPAC II Acquisition Corp. Unit",
+    "Symbol": "ASCBU"
   },
   {
     "Company": "A SPAC II Acquisition Corp. Warrant",
@@ -4788,6 +4812,10 @@
     "Symbol": "BLACU"
   },
   {
+    "Company": "Bellevue Life Sciences Acquisition Corp. Warrant",
+    "Symbol": "BLACW"
+  },
+  {
     "Company": "Blue Bird Corporation Common Stock",
     "Symbol": "BLBD"
   },
@@ -4910,6 +4938,10 @@
   {
     "Company": "BlueRiver Acquisition Corp.",
     "Symbol": "BLUA"
+  },
+  {
+    "Company": "BlueRiver Acquisition Corp. Units, each consisting of one Class A ordinary share, and one-third of a redeemable Warrant to acquire one Class A ordinary shares",
+    "Symbol": "BLUA.U"
   },
   {
     "Company": "BlueRiver Acquisition Corp. Warrants, each whole warrant exercisable for one Class A Ordinary Share at an exercise price of $11.50",
@@ -5340,6 +5372,10 @@
     "Symbol": "BRAC"
   },
   {
+    "Company": "Broad Capital Acquisition Corp Unit",
+    "Symbol": "BRACU"
+  },
+  {
     "Company": "Bragg Gaming Group Inc. Common Shares",
     "Symbol": "BRAG"
   },
@@ -5464,7 +5500,7 @@
     "Symbol": "BROS"
   },
   {
-    "Company": "Valkyrie Bitcoin Fund",
+    "Company": "Coinshares Valkyrie Bitcoin Fund Common Shares of Beneficial Interest",
     "Symbol": "BRRR"
   },
   {
@@ -5944,6 +5980,10 @@
     "Symbol": "BUJAR"
   },
   {
+    "Company": "Bukit Jalil Global Acquisition 1 Ltd. Unit",
+    "Symbol": "BUJAU"
+  },
+  {
     "Company": "Bukit Jalil Global Acquisition 1 Ltd. Warrants",
     "Symbol": "BUJAW"
   },
@@ -6328,10 +6368,6 @@
     "Symbol": "CAML"
   },
   {
-    "Company": "Calamp Corp.",
-    "Symbol": "CAMP"
-  },
-  {
     "Company": "Camtek Ltd",
     "Symbol": "CAMT"
   },
@@ -6680,6 +6716,10 @@
     "Symbol": "CCNEP"
   },
   {
+    "Company": "Financial Investors Trust ALPS/CoreCommodity Natural Resources ETF",
+    "Symbol": "CCNR"
+  },
+  {
     "Company": "Clear Channel Outdoor Holdings, Inc. Common Stock",
     "Symbol": "CCO"
   },
@@ -6742,6 +6782,10 @@
   {
     "Company": "Compass Digital Acquisition Corp. Class A Ordinary Shares",
     "Symbol": "CDAQ"
+  },
+  {
+    "Company": "Compass Digital Acquisition Corp. Unit",
+    "Symbol": "CDAQU"
   },
   {
     "Company": "Compass Digital Acquisition Corp. Warrant",
@@ -7604,7 +7648,7 @@
     "Symbol": "CLDI"
   },
   {
-    "Company": "Calidi Biotherapeutics, Inc. Redeemable Warrants, each whole warrant exercisable for one share of Common Stock at an exercise price of $11.50 per share",
+    "Company": "Calidi Biotherapeutics, Inc. Redeemable Warrants, each whole warrant exercisable for 1/10th of a share of Common Stock at an exercise price of $115.00",
     "Symbol": "CLDI.WS"
   },
   {
@@ -7668,7 +7712,7 @@
     "Symbol": "CLMB"
   },
   {
-    "Company": "Calumet Specialty Products Partners, L.P.",
+    "Company": "Calumet, Inc. Common Stock",
     "Symbol": "CLMT"
   },
   {
@@ -7832,16 +7876,12 @@
     "Symbol": "CMBS"
   },
   {
+    "Company": "EURONAV NV",
+    "Symbol": "CMBT"
+  },
+  {
     "Company": "Commercial Metals Company",
     "Symbol": "CMC"
-  },
-  {
-    "Company": "Capitalworks Emerging Markets Acquisition Corp",
-    "Symbol": "CMCA"
-  },
-  {
-    "Company": "Capitalworks Emerging Markets Acquisition Corp - Warrant",
-    "Symbol": "CMCAW"
   },
   {
     "Company": "VanEck CMCI Commodity Strategy ETF",
@@ -8114,6 +8154,10 @@
   {
     "Company": "Centogene N.V. Common Shares",
     "Symbol": "CNTG"
+  },
+  {
+    "Company": "ConnectM Technology Solutions, Inc. Common Stock",
+    "Symbol": "CNTM"
   },
   {
     "Company": "Context Therapeutics Inc. Common Stock",
@@ -9652,10 +9696,6 @@
     "Symbol": "DCOR"
   },
   {
-    "Company": "Deciphera Pharmaceuticals Inc",
-    "Symbol": "DCPH"
-  },
-  {
     "Company": "DoubleLine Commercial Real Estate ETF",
     "Symbol": "DCRE"
   },
@@ -10448,6 +10488,10 @@
     "Symbol": "DMYY"
   },
   {
+    "Company": "dMY Squared Technology Group, Inc. Units, each consisting of one share of Class A common stock and one-half of one redeemable warrant",
+    "Symbol": "DMYY.U"
+  },
+  {
     "Company": "dMY Squared Technology Group, Inc. Redeemable Warrants, each whole warrant exercisable for one share of Class A common stock at an exercise price of $11.50 per share",
     "Symbol": "DMYY.WS"
   },
@@ -10890,6 +10934,22 @@
   {
     "Company": "Duke Energy Corporation 5.625% Junior Subordinated Debentures due 2078",
     "Symbol": "DUKB"
+  },
+  {
+    "Company": "Ocean Park High Income ETF",
+    "Symbol": "DUKH"
+  },
+  {
+    "Company": "Ocean Park Domestic ETF",
+    "Symbol": "DUKQ"
+  },
+  {
+    "Company": "Ocean Park International ETF",
+    "Symbol": "DUKX"
+  },
+  {
+    "Company": "Ocean Park Diversified Income ETF",
+    "Symbol": "DUKZ"
   },
   {
     "Company": "MicroSectors Gold -3x Inverse Leveraged ETN",
@@ -14936,6 +14996,10 @@
     "Symbol": "FRLA"
   },
   {
+    "Company": "Fortune Rise Acquisition Corporation Units",
+    "Symbol": "FRLAU"
+  },
+  {
     "Company": "Fortune Rise Acquisition Corporation Warrant",
     "Symbol": "FRLAW"
   },
@@ -15094,6 +15158,10 @@
   {
     "Company": "Foster (Lb) Co",
     "Symbol": "FSTR"
+  },
+  {
+    "Company": "FirstSun Capital Bancorp Common Stock",
+    "Symbol": "FSUN"
   },
   {
     "Company": "FirstService Corporation Common Shares",
@@ -17696,6 +17764,10 @@
     "Symbol": "HEI.A"
   },
   {
+    "Company": "VictoryShares Hedged Equity Income ETF",
+    "Symbol": "HEJD"
+  },
+  {
     "Company": "Helen Of Troy Ltd",
     "Symbol": "HELE"
   },
@@ -19224,6 +19296,10 @@
     "Symbol": "ICMB"
   },
   {
+    "Company": "Icon Energy Corp. Common stock",
+    "Symbol": "ICON"
+  },
+  {
     "Company": "iShares Copper and Metals Mining ETF",
     "Symbol": "ICOP"
   },
@@ -19738,6 +19814,10 @@
   {
     "Company": "Illumina Inc",
     "Symbol": "ILMN"
+  },
+  {
+    "Company": "AB International Low Volatility Equity ETF",
+    "Symbol": "ILOW"
   },
   {
     "Company": "Industrial Logistics Properties Trust Common Shares of Beneficial Interest",
@@ -23524,6 +23604,10 @@
     "Symbol": "LPA"
   },
   {
+    "Company": "Launch One Acquisition Corp. Unit",
+    "Symbol": "LPAAU"
+  },
+  {
     "Company": "Lipocine Inc.",
     "Symbol": "LPCN"
   },
@@ -23956,6 +24040,10 @@
     "Symbol": "LYG"
   },
   {
+    "Company": "Cambria Large Cap Shareholder Yield ETF",
+    "Symbol": "LYLD"
+  },
+  {
     "Company": "Lyra Therapeutics, Inc. Common Stock",
     "Symbol": "LYRA"
   },
@@ -24130,6 +24218,10 @@
   {
     "Company": "Mars Acquisition Corp. Ordinary Shares",
     "Symbol": "MARX"
+  },
+  {
+    "Company": "Mars Acquisition Corp. Rights",
+    "Symbol": "MARXR"
   },
   {
     "Company": "TrueShares Structured Outcome (March) ETF",
@@ -24494,6 +24586,10 @@
   {
     "Company": "Medalist Diversified REIT, Inc.",
     "Symbol": "MDRR"
+  },
+  {
+    "Company": "Medalist Diversified REIT, Inc. Series A Cumulative Redeemable Preferred Stock",
+    "Symbol": "MDRRP"
   },
   {
     "Company": "Veradigm Inc",
@@ -25398,6 +25494,10 @@
   {
     "Company": "Moog Inc.",
     "Symbol": "MOG.A"
+  },
+  {
+    "Company": "MOOG INC CL B",
+    "Symbol": "MOG.B"
   },
   {
     "Company": "Mogo Inc. Common Shares",
@@ -27624,7 +27724,7 @@
     "Symbol": "NVDQ"
   },
   {
-    "Company": "Investment Managers Series Trust II Tradr 1.25X NVDA Bear Daily ETF",
+    "Company": "Investment Managers Series Trust II Tradr 1.5X Short NVDA Daily ETF",
     "Symbol": "NVDS"
   },
   {
@@ -27674,6 +27774,10 @@
   {
     "Company": "Nvni Group Limited Ordinary Shares",
     "Symbol": "NVNI"
+  },
+  {
+    "Company": "Nvni Group Limited Warrants",
+    "Symbol": "NVNIW"
   },
   {
     "Company": "enVVeno Medical Corporation Common Stock",
@@ -28118,10 +28222,6 @@
   {
     "Company": "ClearShares OCIO ETF",
     "Symbol": "OCIO"
-  },
-  {
-    "Company": "Ocwen Financial Corp.",
-    "Symbol": "OCN"
   },
   {
     "Company": "Oculis Holding AG Ordinary shares",
@@ -29932,6 +30032,10 @@
     "Symbol": "PHYT"
   },
   {
+    "Company": "Pyrophyte Acquisition Corp. Units, each consisting of one share of Class A common stock and one-half of one redeemable warrant",
+    "Symbol": "PHYT.U"
+  },
+  {
     "Company": "Pyrophyte Acquisition Corp. Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50 per share",
     "Symbol": "PHYT.WS"
   },
@@ -31120,14 +31224,6 @@
     "Symbol": "PUBM"
   },
   {
-    "Company": "Goal Acquisitions Corp. - Unit",
-    "Symbol": "PUCKU"
-  },
-  {
-    "Company": "Goal Acquisitions Corp. - Warrant",
-    "Symbol": "PUCKW"
-  },
-  {
     "Company": "Invesco Exchange-Traded Fund Trust Invesco Dorsey Wright Utilities Momentum ETF",
     "Symbol": "PUI"
   },
@@ -31274,10 +31370,6 @@
   {
     "Company": "Pixelworks Inc",
     "Symbol": "PXLW"
-  },
-  {
-    "Company": "PaxMedica Inc",
-    "Symbol": "PXMD"
   },
   {
     "Company": "Pyxis Tankers Inc. Common Stock",
@@ -31980,10 +32072,6 @@
     "Symbol": "RBCAA"
   },
   {
-    "Company": "Rubicon Technology Inc",
-    "Symbol": "RBCN"
-  },
-  {
     "Company": "RBC Bearings Incorporated 5.00% Series A Mandatory Convertible Preferred Stock",
     "Symbol": "RBCP"
   },
@@ -32010,10 +32098,6 @@
   {
     "Company": "Rubrik, Inc.",
     "Symbol": "RBRK"
-  },
-  {
-    "Company": "Rubicon Technologies Inc",
-    "Symbol": "RBT"
   },
   {
     "Company": "Innovator U.S. Small Cap 10 Buffer ETF - Quarterly",
@@ -32540,10 +32624,6 @@
     "Symbol": "RHTX"
   },
   {
-    "Company": "RiceBran Technologies",
-    "Symbol": "RIBT"
-  },
-  {
     "Company": "RCI Hospitality Holdings, Inc.",
     "Symbol": "RICK"
   },
@@ -33020,6 +33100,10 @@
     "Symbol": "RRAC"
   },
   {
+    "Company": "Rigel Resource Acquisition Corp. Units, each consisting of one Class A ordinary share, and one-half of one redeemable warrant",
+    "Symbol": "RRAC.U"
+  },
+  {
     "Company": "Rigel Resource Acquisition Corp Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50 per share",
     "Symbol": "RRAC.WS"
   },
@@ -33038,10 +33122,6 @@
   {
     "Company": "Red Rock Resorts, Inc. Class A Common Stock",
     "Symbol": "RRR"
-  },
-  {
-    "Company": "Roadrunner Transportation Systems Inc",
-    "Symbol": "RRTS"
   },
   {
     "Company": "Regal Rexnord Corporation",
@@ -33580,7 +33660,7 @@
     "Symbol": "SAR"
   },
   {
-    "Company": "Investment Managers Series Trust II Tradr Short Innovation Daily ETF",
+    "Company": "Investment Managers Series Trust II Tradr 2X Short Innovation Daily ETF",
     "Symbol": "SARK"
   },
   {
@@ -36776,10 +36856,6 @@
     "Symbol": "SWSS"
   },
   {
-    "Company": "Clean Energy Special Situations Corp.  - Unit",
-    "Symbol": "SWSSU"
-  },
-  {
     "Company": "Clean Energy Special Situations Corp.  - Warrant",
     "Symbol": "SWSSW"
   },
@@ -37608,6 +37684,10 @@
     "Symbol": "THCP"
   },
   {
+    "Company": "Thunder Bridge Capital Partners IV, Inc. Unit",
+    "Symbol": "THCPU"
+  },
+  {
     "Company": "Thunder Bridge Capital Partners IV, Inc. Warrant",
     "Symbol": "THCPW"
   },
@@ -37806,6 +37886,10 @@
   {
     "Company": "TLGY Acquisition Corporation Class A Ordinary Share",
     "Symbol": "TLGY"
+  },
+  {
+    "Company": "TLGY Acquisition Corporation Unit",
+    "Symbol": "TLGYU"
   },
   {
     "Company": "TLGY Acquisition Corporation Warrant",
@@ -38480,7 +38564,7 @@
     "Symbol": "TSLP"
   },
   {
-    "Company": "Investment Managers Series Trust II Tradr TSLA Bear Daily ETF",
+    "Company": "Investment Managers Series Trust II Tradr 2X Short TSLA Daily ETF",
     "Symbol": "TSLQ"
   },
   {
@@ -38702,10 +38786,6 @@
   {
     "Company": "Twilio Inc.",
     "Symbol": "TWLO"
-  },
-  {
-    "Company": "Twelve Seas Investment Co II",
-    "Symbol": "TWLV"
   },
   {
     "Company": "Twelve Seas Investment Company II - Warrant",
@@ -40120,10 +40200,6 @@
     "Symbol": "VHT"
   },
   {
-    "Company": "Via Renewables Inc",
-    "Symbol": "VIA"
-  },
-  {
     "Company": "Via Renewables, Inc. 8.75% Series A Fixed-to-Floating Rate Cumulative Redeemable Perpetual Preferred Stock",
     "Symbol": "VIASP"
   },
@@ -40346,6 +40422,10 @@
   {
     "Company": "Valuence Merger Corp. I Class A Ordinary Shares",
     "Symbol": "VMCA"
+  },
+  {
+    "Company": "Valuence Merger Corp. I Unit",
+    "Symbol": "VMCAU"
   },
   {
     "Company": "Valuence Merger Corp. I Warrant",
@@ -40622,6 +40702,10 @@
   {
     "Company": "Vision Sensing Acquisition Corp. Class A Common Stock",
     "Symbol": "VSAC"
+  },
+  {
+    "Company": "Vision Sensing Acquisition Corp. Unit",
+    "Symbol": "VSACU"
   },
   {
     "Company": "Vision Sensing Acquisition Corp. Warrants",
@@ -41686,6 +41770,10 @@
   {
     "Company": "Welsbach Technology Metals Acquisition Corp. one right to receive 1/10th of a share of common stock",
     "Symbol": "WTMAR"
+  },
+  {
+    "Company": "Welsbach Technology Metals Acquisition Corp. Unit",
+    "Symbol": "WTMAU"
   },
   {
     "Company": "WisdomTree Managed Futures Strategy Fund",

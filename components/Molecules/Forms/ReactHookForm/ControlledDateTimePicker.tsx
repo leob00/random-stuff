@@ -5,36 +5,40 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { CasinoBlueTransparent, VeryLightBlue } from 'components/themes/mainTheme'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 
 export const ControlledDateTimePicker = ({
   fieldName,
   control,
-  defaultValue,
+  value,
   placeholder = '',
   label,
   required = false,
   minDate,
+  onDateChanged,
 }: {
   fieldName: string
   control: Control<any, any>
-  defaultValue: string | null
+  value?: string | null
   placeholder?: string
   label: string
   required?: boolean
   minDate?: string
+  onDateChanged: (dt: string | null) => void
 }) => {
-  const theme = useTheme()
+  const handleSelect = (newDate: Dayjs | null) => {
+    onDateChanged(newDate ? dayjs(newDate).format() : null)
+  }
   return (
     <Controller
       name={fieldName}
       control={control}
-      defaultValue={defaultValue ? dayjs(defaultValue) : null}
       rules={{ required: required }}
-      render={({ field }) => (
+      render={({ field: { value, onChange, ...field } }) => (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateTimePicker
-            minDateTime={minDate}
+            value={value ? dayjs(value) : null}
+            minDateTime={minDate ? dayjs(minDate) : undefined}
             {...field}
             slotProps={{
               textField: {
@@ -42,6 +46,7 @@ export const ControlledDateTimePicker = ({
               },
             }}
             label={label}
+            onChange={handleSelect}
           />
         </LocalizationProvider>
       )}

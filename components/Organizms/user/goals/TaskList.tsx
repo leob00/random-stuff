@@ -4,7 +4,6 @@ import { Box, IconButton, Stack, Tooltip, Typography } from '@mui/material'
 import ConfirmDialog from 'components/Atoms/Dialogs/ConfirmDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
-import PageWithGridSkeleton from 'components/Atoms/Skeletons/PageWithGridSkeleton'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import AddTaskForm from 'components/Molecules/Forms/AddTaskForm'
 import EditTaskForm from 'components/Molecules/Forms/EditTaskForm'
@@ -16,7 +15,6 @@ import TaskItem from './TaskItem'
 import { reorderTasks } from './UserGoalsLayout'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import dayjs from 'dayjs'
-import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
@@ -113,7 +111,7 @@ const TaskList = ({
     const itemCopy = { ...item }
     itemCopy.status = checked ? 'completed' : 'in progress'
     const fn = async () => {
-      await handleSaveTask(itemCopy)
+      handleSaveTask(itemCopy)
       onModifyTask(itemCopy)
     }
     setTimeout(() => {

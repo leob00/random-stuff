@@ -11,7 +11,7 @@ import { generateKeyPair } from 'crypto'
 import { UserGoal, UserGoalSettings } from 'lib/models/userTasks'
 import { cloneDeep } from 'lodash'
 import React from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -21,13 +21,24 @@ import { ControlledFreeTextInput } from 'components/Molecules/Forms/ReactHookFor
 import { ControlledDateTimePicker } from 'components/Molecules/Forms/ReactHookForm/ControlledDateTimePicker'
 import ControlledSwitch from 'components/Molecules/Forms/ReactHookForm/ControlledSwitch'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import DateAndTimePicker2 from 'components/Molecules/Forms/ReactHookForm/DateAndTimePicker2'
 
 interface Model {
   goal: UserGoal
   isSaving: boolean
 }
 
-const EditGoal = ({ goal, onSaveGoal, onShowCompletedTasks, onCancelEdit }: { goal: UserGoal; onSaveGoal: (item: UserGoal) => void; onShowCompletedTasks: (show: boolean) => void; onCancelEdit: () => void }) => {
+const EditGoal = ({
+  goal,
+  onSaveGoal,
+  onShowCompletedTasks,
+  onCancelEdit,
+}: {
+  goal: UserGoal
+  onSaveGoal: (item: UserGoal) => void
+  onShowCompletedTasks: (show: boolean) => void
+  onCancelEdit: () => void
+}) => {
   if (!goal.settings) {
     goal.settings = {
       showCompletedTasks: true,
@@ -61,7 +72,13 @@ const EditGoal = ({ goal, onSaveGoal, onShowCompletedTasks, onCancelEdit }: { go
           <ControlledFreeTextInput control={control} defaultValue={model.goal.body ?? ''} fieldName='body' label='' required={true} placeholder='name' />
         </Box>
         <Box py={2}>
-          <ControlledDateTimePicker control={control} defaultValue={model.goal.dueDate ?? ''} fieldName='dueDate' label='due date' placeholder='due date' />
+          <Controller
+            name={'dueDate'}
+            control={control}
+            render={({ field: { value, onChange, ...field } }) => (
+              <DateAndTimePicker2 errorMessage={errors.dueDate?.message} value={value} onDateSelected={onChange} {...field} />
+            )}
+          />
         </Box>
         <Box py={2}>
           <Box display={'flex'} gap={1} alignItems={'center'}>
