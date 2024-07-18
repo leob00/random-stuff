@@ -33,27 +33,24 @@ const Page = () => {
     const result = results.find((m) => m.id === goalId)
     return result
   }
-  const { data: goal, isLoading } = useSWR(goalMutateKey, ([url, enc]) => fetchGoal(url, enc))
-  const { data: tasks, isValidating } = useSWR(tasksMutateKey, ([url, enc]) => fetchGoalTasks(url, enc))
+  const { data: goal, isLoading: loadingGoals } = useSWR(goalMutateKey, ([url, enc]) => fetchGoal(url, enc))
+  const { data: tasks, isValidating: loadingTasks } = useSWR(tasksMutateKey, ([url, enc]) => fetchGoalTasks(url, enc))
 
   const handleMutated = async (newGoal: UserGoal, newTasks: UserTask[]) => {
     mutate(goalMutateKey, newGoal, { revalidate: false })
     mutate(tasksMutateKey, newTasks, { revalidate: false })
   }
+  const isLoading = loadingTasks || loadingGoals
 
   return (
     <>
       <Seo pageTitle='Goals' />
       <ResponsiveContainer>
-        {isValidating || (isValidating && <BackdropLoader />)}
+        {isLoading && <BackdropLoader />}
         {goal && <PageHeader text={`Goal: ${goal.body}`} backButtonRoute={'/protected/csr/goals'} />}
-        {goal && tasks && (
-          <>
-            <SingleGoalDisplay username={username} goal={goal} tasks={tasks} onMutated={handleMutated} />
-          </>
-        )}
+        {goal && tasks && <SingleGoalDisplay username={username} goal={goal} tasks={tasks} onMutated={handleMutated} />}
         <>
-          {!isLoading && !isValidating && !goal && (
+          {!isLoading && !goal && (
             <Box>
               <NoDataFound />
               <CenterStack>

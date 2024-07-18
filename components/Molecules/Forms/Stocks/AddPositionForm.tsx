@@ -13,7 +13,6 @@ import { getPositiveNegativeColor } from 'components/Organizms/stocks/StockListI
 import { ControlledSelect } from '../ReactHookForm/ControlledSelect'
 import { DropdownItem } from 'lib/models/dropdown'
 import dayjs from 'dayjs'
-import { ControlledDateTimePicker } from '../ReactHookForm/ControlledDateTimePicker'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import DateAndTimePicker2 from '../ReactHookForm/DateAndTimePicker2'
 

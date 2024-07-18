@@ -256,6 +256,10 @@
     "Symbol": "ACAB"
   },
   {
+    "Company": "Atlantic Coastal Acquisition Corp. II Unit",
+    "Symbol": "ACABU"
+  },
+  {
     "Company": "Atlantic Coastal Acquisition Corp. II Warrant",
     "Symbol": "ACABW"
   },
@@ -1106,6 +1110,10 @@
   {
     "Company": "AIM ImmunoTech Inc.",
     "Symbol": "AIM"
+  },
+  {
+    "Company": "Aimfinity Investment Corp. I Unit",
+    "Symbol": "AIMAU"
   },
   {
     "Company": "Aimfinity Investment Corp. I Warrant",
@@ -7088,6 +7096,10 @@
     "Symbol": "CFFS"
   },
   {
+    "Company": "CF Acquisition Corp. VII Unit",
+    "Symbol": "CFFSU"
+  },
+  {
     "Company": "CF Acquisition Corp. VII Warrant",
     "Symbol": "CFFSW"
   },
@@ -12092,7 +12104,7 @@
     "Symbol": "EMP"
   },
   {
-    "Company": "EMQQ The Emerging Markets Internet & Ecommerce ETF",
+    "Company": "EMQQ The Emerging Markets Internet ETF",
     "Symbol": "EMQQ"
   },
   {
@@ -14624,7 +14636,7 @@
     "Symbol": "FMNY"
   },
   {
-    "Company": "FMQQ The Next Frontier Internet & Ecommerce ETF",
+    "Company": "FMQQ The Next Frontier Internet ETF",
     "Symbol": "FMQQ"
   },
   {
@@ -20180,7 +20192,7 @@
     "Symbol": "INOV"
   },
   {
-    "Company": "India Internet & Ecommerce ETF",
+    "Company": "INQQ The India Internet ETF",
     "Symbol": "INQQ"
   },
   {
@@ -22610,6 +22622,10 @@
   {
     "Company": "Joint Stock Company Kaspi.kz American Depository Shares",
     "Symbol": "KSPI"
+  },
+  {
+    "Company": "KraneShares Hedgeye Hedged Equity Index ETF",
+    "Symbol": "KSPY"
   },
   {
     "Company": "Kohls Corporation",
@@ -26488,6 +26504,10 @@
     "Symbol": "NBST"
   },
   {
+    "Company": "Newbury Street Acquisition Corporation Units",
+    "Symbol": "NBSTU"
+  },
+  {
     "Company": "Newbury Street Acquisition Corporation Warrants",
     "Symbol": "NBSTW"
   },
@@ -27222,6 +27242,10 @@
   {
     "Company": "Nova Vision Acquisition Corp. Rights",
     "Symbol": "NOVVR"
+  },
+  {
+    "Company": "Nova Vision Acquisition Corp. Unit",
+    "Symbol": "NOVVU"
   },
   {
     "Company": "Nova Vision Acquisition Corp. Warrant",
@@ -30266,6 +30290,10 @@
   {
     "Company": "Plum Acquisition Corp. I Class A Ordinary Share",
     "Symbol": "PLMI"
+  },
+  {
+    "Company": "Plum Acquisition Corp. I Units",
+    "Symbol": "PLMIU"
   },
   {
     "Company": "Plum Acquisition Corp. I Warrant",
@@ -38450,6 +38478,10 @@
   {
     "Company": "TortoiseEcofin Acquisition Corp. III",
     "Symbol": "TRTL"
+  },
+  {
+    "Company": "TortoiseEcofin Acquisition Corp. III Units each consisting of one Class A Ordinary Share, and one-fourth of one redeemable warrant",
+    "Symbol": "TRTL.U"
   },
   {
     "Company": "TortoiseEcofin Acquisition Corp. III Warrant, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50 per share",

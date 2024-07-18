@@ -171,14 +171,6 @@ const TaskList = ({
 
   return (
     <>
-      <ConfirmDialog
-        onCancel={handleNoChangeTaskStatus}
-        show={model.confirmCompleteTask}
-        text={'complete task?'}
-        title={'confirm'}
-        onConfirm={handleYesChangeTaskStatus}
-      />
-
       {model.isLoading ? (
         <BackdropLoader />
       ) : (
@@ -256,6 +248,13 @@ const TaskList = ({
           </ScrollableBox>
         </>
       )}
+      <ConfirmDialog
+        onCancel={handleNoChangeTaskStatus}
+        show={model.confirmCompleteTask}
+        text={'complete task?'}
+        title={'confirm'}
+        onConfirm={handleYesChangeTaskStatus}
+      />
     </>
   )
 }

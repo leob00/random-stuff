@@ -1,15 +1,11 @@
-import { Alert, InputAdornment, Stack, TextField, useTheme } from '@mui/material'
+import { Stack, TextField } from '@mui/material'
 import { UserTask } from 'lib/models/userTasks'
 import React from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { ControlledFreeTextInput } from './ReactHookForm/ControlledFreeTextInput'
-import { ControlledDateTimePicker } from './ReactHookForm/ControlledDateTimePicker'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import DateAndTimePicker2 from './ReactHookForm/DateAndTimePicker2'
-import { CasinoBlue } from 'components/themes/mainTheme'
-import { register } from 'numeral'
 
 const AddTaskSchema = z.object({
   name: z.string().min(1),
@@ -19,7 +15,6 @@ const AddTaskSchema = z.object({
 type AddTaskInput = z.infer<typeof AddTaskSchema>
 
 const AddTaskForm = ({ task, onSubmitted }: { task: UserTask; onSubmitted: (data: UserTask) => void }) => {
-  const theme = useTheme()
   const {
     control,
     handleSubmit,
