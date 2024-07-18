@@ -11604,6 +11604,10 @@
     "Symbol": "EFA"
   },
   {
+    "Company": "Invesco MSCI EAFE Income Advantage ETF",
+    "Symbol": "EFAA"
+  },
+  {
     "Company": "ProShares MSCI EAFE Dividend Growers ETF",
     "Symbol": "EFAD"
   },
@@ -14704,7 +14708,7 @@
     "Symbol": "FNDE"
   },
   {
-    "Company": "Schwab Fundamental International Large Company Index ETF",
+    "Company": "Schwab Fundamental International Equity ETF",
     "Symbol": "FNDF"
   },
   {
@@ -23452,6 +23456,10 @@
     "Symbol": "LMB"
   },
   {
+    "Company": "Direxion Daily Crypto Industry Bull 2X Shares",
+    "Symbol": "LMBO"
+  },
+  {
     "Company": "First Trust Exchange-Traded Fund IV First Trust Low Duration Opportunities ETF",
     "Symbol": "LMBS"
   },
@@ -24120,8 +24128,16 @@
     "Symbol": "MACAW"
   },
   {
+    "Company": "Melar Acquisition Corp. I Class A Ordinary Shares",
+    "Symbol": "MACI"
+  },
+  {
     "Company": "Melar Acquisition Corp. I Unit",
     "Symbol": "MACIU"
+  },
+  {
+    "Company": "Melar Acquisition Corp. I Warrant",
+    "Symbol": "MACIW"
   },
   {
     "Company": "MAG Silver Corp.",
@@ -31728,6 +31744,10 @@
     "Symbol": "QPX"
   },
   {
+    "Company": "Invesco QQQ Income Advantage ETF",
+    "Symbol": "QQA"
+  },
+  {
     "Company": "First Trust NASDAQ-100 Equal Weighted Index Fund",
     "Symbol": "QQEW"
   },
@@ -32374,6 +32394,10 @@
   {
     "Company": "Rekor Systems, Inc. Common Stock",
     "Symbol": "REKR"
+  },
+  {
+    "Company": "Direxion Daily Crypto Industry Bear 1X Shares",
+    "Symbol": "REKT"
   },
   {
     "Company": "Reliance Global Group, Inc. Common Stock",
@@ -33198,6 +33222,10 @@
   {
     "Company": "Invesco S&P 500 Equal Weight ETF",
     "Symbol": "RSP"
+  },
+  {
+    "Company": "Invesco S&P 500 Equal Weight Income Advantage ETF",
+    "Symbol": "RSPA"
   },
   {
     "Company": "Invesco Exchange-Traded Fund Trust Invesco S&P 500 Equal Weight Communication Services ETF",
