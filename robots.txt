@@ -1,2 +1,3 @@
 User-agent: *
 Disallow: /
+Sitemap: https://random-stuff-seven.vercel.app/sitemap.xml

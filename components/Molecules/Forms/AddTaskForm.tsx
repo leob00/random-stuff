@@ -26,7 +26,6 @@ const AddTaskForm = ({ task, onSubmitted }: { task: UserTask; onSubmitted: (data
   })
   const onSubmit: SubmitHandler<AddTaskInput> = (formData) => {
     const submitData: UserTask = { ...task, body: formData.name, dueDate: formData.dueDate ?? undefined }
-
     onSubmitted(submitData)
     reset()
   }
