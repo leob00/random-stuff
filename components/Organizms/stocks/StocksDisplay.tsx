@@ -29,17 +29,7 @@ export const searchWithinResults = (quotes: StockQuote[], text: string) => {
   )
   return result
 }
-const StocksDisplay = ({
-  userProfile,
-  result,
-  onMutated,
-  onCustomSortUpdated,
-}: {
-  userProfile: UserProfile
-  result: StockQuote[]
-  onMutated: (newData: StockQuote[]) => void
-  onCustomSortUpdated: (data?: Sort[]) => void
-}) => {
+const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserProfile; result: StockQuote[]; onMutated: (newData: StockQuote[]) => void }) => {
   const userController = useUserController()
   let map = new Map<string, StockQuote>([])
   map = getMapFromArray(result, 'Symbol')

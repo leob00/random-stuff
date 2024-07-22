@@ -1,46 +1,31 @@
 import { Authenticator } from '@aws-amplify/ui-react'
-
-import React from 'react'
-
+import React, { useEffect } from 'react'
 import { Box, Typography } from '@mui/material'
-
 import CenterStack from 'components/Atoms/CenterStack'
-
 import TabList from 'components/Atoms/Buttons/TabList'
-
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
-
 import { useSearchParams } from 'next/navigation'
-
 import '@aws-amplify/ui-react/styles.css'
-
 import awsExports from 'src/aws-exports'
-
 import { Amplify } from 'aws-amplify'
-
+import { signOut } from 'aws-amplify/auth'
 Amplify.configure(awsExports)
-
 export type AuthMode = 'signIn' | 'signUp' | 'resetPassword'
 
 const LoginLayout = () => {
   const searchParams = useSearchParams()
-
   const ret = searchParams?.get('ret') ?? ''
-
   const defaultTabs: TabInfo[] = [
     {
       title: 'Sign in',
-
       selected: true,
     },
-
     {
       title: 'Create Account',
     },
   ]
 
   const [tabs, setTabs] = React.useState(defaultTabs)
-
   const [selectedTab, setSelectedTab] = React.useState(defaultTabs[0])
 
   const handleSetTab = async (tab: TabInfo) => {
@@ -49,11 +34,16 @@ const LoginLayout = () => {
     })
 
     newTabs[newTabs.findIndex((m) => m.title === tab.title)].selected = true
-
     setTabs(newTabs)
-
     setSelectedTab(tab)
   }
+
+  useEffect(() => {
+    const fn = async () => {
+      await signOut()
+    }
+    fn()
+  }, [])
 
   return (
     <>
@@ -68,7 +58,6 @@ const LoginLayout = () => {
       <Box sx={{ minHeight: 500 }}>
         <>
           {selectedTab.title === 'Sign in' && <Authenticator variation='default' initialState={'signIn'} />}
-
           {selectedTab.title === 'Create Account' && <Authenticator variation='default' initialState={'signUp'} />}
         </>
       </Box>

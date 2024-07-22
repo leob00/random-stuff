@@ -1,16 +1,15 @@
 import { Box, Card, CardContent } from '@mui/material'
 import DangerButton from 'components/Atoms/Buttons/DangerButton'
-import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
 import dayjs from 'dayjs'
 import { Claim } from 'lib/backend/auth/userUtil'
-import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
+import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import React from 'react'
 import CacheSettings from './CacheSettings'
 
 const QlnAdministration = () => {
-  const { claims, saveClaims } = useSessionPersistentStore()
+  const { claims, saveClaims } = useSessionStore()
   let claim = claims.find((m) => m.type === 'qln')
   const isTokenValid = claim && dayjs(claim.tokenExpirationDate).isAfter(dayjs())
 

@@ -6,7 +6,7 @@ import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import { AmplifyUser, getRolesFromAmplifyUser, getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
-import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
+import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import React from 'react'
@@ -26,7 +26,7 @@ const AppUserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark';
   const { ticket, setTicket, setProfile } = useUserController()
   const { clearRoutes, getLastRoute } = useRouteTracker()
 
-  const { claims, saveClaims } = useSessionPersistentStore()
+  const { claims, saveClaims } = useSessionStore()
   const searchParams = useSearchParams()
   const signOut = async () => {
     try {

@@ -20,7 +20,7 @@ interface SessionState {
   saveClaims: (claims: Claim[]) => void
 }
 
-export const useSessionPersistentStore = create(
+export const useSessionStore = create(
   persist<SessionState>(
     (set, get) => ({
       palette: 'dark',

@@ -38,21 +38,23 @@ export interface S3Object {
   message?: string
   fullPath: string
 }
+
+export interface UserStockSettings {
+  defaultView?: 'flat' | 'grouped'
+  customSort?: Sort[]
+  sort?: {
+    grouped: {
+      main: Sort[]
+      inside: Sort[]
+    }
+  }
+}
+
 export interface UserSettings {
-  lastPath?: string
   news?: {
     lastNewsType?: string
   }
-  stocks?: {
-    defaultView?: 'flat' | 'grouped'
-    sort?: {
-      grouped: {
-        main: Sort[]
-        inside: Sort[]
-      }
-    }
-    customSort?: Sort[]
-  }
+  stocks?: UserStockSettings
   folders?: DropdownItem[]
   selectedFolder?: DropdownItem
 }

@@ -22,14 +22,11 @@ const StocksLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const handleMutated = (newData: StockQuote[]) => {
     mutate(mutateKey, newData, { revalidate: false })
   }
-  const handleCustomSortUpdate = (data?: Sort[]) => {}
 
   return (
     <>
       {isMutating && <BackdropLoader />}
-      {stocks && !isMutating && (
-        <StocksDisplay userProfile={userProfile} result={stocks} onMutated={handleMutated} onCustomSortUpdated={handleCustomSortUpdate} />
-      )}
+      {stocks && !isMutating && <StocksDisplay userProfile={userProfile} result={stocks} onMutated={handleMutated} />}
     </>
   )
 }

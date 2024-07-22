@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
+import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { sortArray } from 'lib/util/collections'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import React from 'react'
@@ -14,7 +14,7 @@ export interface Navigation {
 
 export const useRouteTracker = () => {
   const [isLoading, setIsLoading] = React.useState(false)
-  const { routes, saveRoutes } = useSessionPersistentStore((state) => ({
+  const { routes, saveRoutes } = useSessionStore((state) => ({
     routes: state.routes,
     saveRoutes: state.saveRoutes,
   }))

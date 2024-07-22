@@ -1,16 +1,19 @@
 import React from 'react'
-import { ListItemIcon, ListItemText } from '@mui/material'
-import BarChartIcon from '@mui/icons-material/BarChart'
 import ContextMenu, { ContextMenuItem } from './ContextMenu'
 import ContextMenuSummary from './ContextMenuSummary'
 import ContextMenuAdd from './ContextMenuAdd'
+import ContextMenuRefresh from './ContextMenuRefresh'
 
-const GoalsMenu = ({ onShowCharts, onAddGoal }: { onShowCharts: () => void; onAddGoal: () => void }) => {
+const GoalsMenu = ({ onShowCharts, onAddGoal, onRefresh }: { onShowCharts: () => void; onAddGoal: () => void; onRefresh: () => void }) => {
   const handleShowCharts = () => {
     onShowCharts()
   }
 
   const contextMenu: ContextMenuItem[] = [
+    {
+      item: <ContextMenuRefresh />,
+      fn: onRefresh,
+    },
     {
       item: <ContextMenuAdd />,
       fn: onAddGoal,

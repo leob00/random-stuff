@@ -5,7 +5,7 @@ import { get } from 'lib/backend/api/fetchFunctions'
 import { QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import LoginUsernameForm, { UsernameLogin } from 'components/Molecules/Forms/Login/LoginUsernameForm'
-import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
+import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { Claim, QlnUser } from 'lib/backend/auth/userUtil'
 import dayjs from 'dayjs'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
@@ -16,7 +16,7 @@ const QlnUsernameLoginForm = ({ onSuccess }: { onSuccess: (claims: Claim[]) => v
   const [showLoginSuccess, setShowLoginSuccess] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
   const config = apiConnection().qln
-  const { claims, saveClaims } = useSessionPersistentStore()
+  const { claims, saveClaims } = useSessionStore()
   const router = useRouter()
 
   const handleSubmitLogin = async (data: UsernameLogin) => {

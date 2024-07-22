@@ -18,6 +18,7 @@ import ContextMenuPortfolio from 'components/Molecules/Menus/ContextMenuPortfoli
 import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
 import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import { useLocalStore } from 'lib/backend/store/useLocalStore'
 
 const Page = () => {
   const router = useRouter()
@@ -33,6 +34,8 @@ const Page = () => {
   const [selectedTab, setSelectedTab] = React.useState(tab ?? 'Stocks')
   const [isLoading, setIsLoading] = React.useState(true)
   const { authProfile, fetchProfilePassive, setProfile } = useUserController()
+
+  const localStore = useLocalStore()
 
   const handleSelectTab = (tab: TabInfo) => {
     setSelectedTab(tab.title)

@@ -4,12 +4,12 @@ import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLo
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import dayjs from 'dayjs'
 import { useUserController } from 'hooks/userController'
-import { Claim, ClaimType, getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
-import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
+import { Claim, ClaimType } from 'lib/backend/auth/userUtil'
+import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import React, { ReactNode } from 'react'
 
 const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children: ReactNode }) => {
-  const { claims, saveClaims } = useSessionPersistentStore()
+  const { claims, saveClaims } = useSessionStore()
   const { authProfile, fetchProfilePassive, setProfile } = useUserController()
 
   const [isValidating, setIsValidating] = React.useState(true)
@@ -76,7 +76,7 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
       case 'rs':
         return (
           <>
-            <PleaseLogin message='Please login to use this feature' />
+            <PleaseLogin message='Please sign in to use this feature' />
           </>
         )
       case 'qln':

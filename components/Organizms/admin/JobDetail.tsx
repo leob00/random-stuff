@@ -30,6 +30,9 @@ const JobDetails = ({ item, onClose }: { item: Job; onClose: () => void }) => {
             <Typography variant='caption'>{`records processed: ${numeral(item.RecordsProcessed).format('###,###')}`}</Typography>
           </Stack>
         )}
+        <Stack>
+          <Typography variant='caption'>{`disabled: ${item.Disabled ?? 'false'}`}</Typography>
+        </Stack>
         {item.Chart && (
           <Box pt={2} width={{ xs: '95%', md: '97%' }}>
             <JobDetailChart data={item.Chart} />

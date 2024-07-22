@@ -9,7 +9,7 @@ import { mutate } from 'swr'
 import { get } from 'lib/backend/api/fetchFunctions'
 import { apiConnection } from 'lib/backend/api/config'
 import JobList from './JobList'
-import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
+import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
 import { Claim } from 'lib/backend/auth/userUtil'
 import { useSwrHelper } from 'hooks/useSwrHelper'
@@ -24,7 +24,7 @@ const JobsLayout = () => {
   const [isLoadingDetail, setIsLoadingDetail] = React.useState(false)
   const [error, setError] = React.useState(false)
 
-  const { claims, saveClaims } = useSessionPersistentStore()
+  const { claims, saveClaims } = useSessionStore()
   let claim = claims.find((m) => m.type === 'qln')
 
   const { start, stop, pollCounter: counter } = usePolling(pollingIterval, 100)

@@ -10,6 +10,7 @@ import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { useUserController } from 'hooks/userController'
+import { mutate } from 'swr'
 
 export interface UserGoalAndTask {
   goal: UserGoal
@@ -38,12 +39,14 @@ const UserGoalsLayout = () => {
     return result
   }
   const { data: goalsAndTasks, error, isLoading } = useSwrHelper(goalsKey, fetchGoalsData)
-
+  const handleRefresh = () => {
+    mutate(goalsKey)
+  }
   return (
     <>
       {isLoading && <BackdropLoader />}
       {error && <ErrorMessage text='Opps. We encountered and error. Please try refreshing the page.' />}
-      {goalsAndTasks && <UserGoalsDisplay goalsAndTasks={goalsAndTasks} username={username} />}
+      {goalsAndTasks && <UserGoalsDisplay goalsAndTasks={goalsAndTasks} username={username} onRefresh={handleRefresh} />}
     </>
   )
 }

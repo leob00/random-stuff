@@ -1,11 +1,11 @@
 import dayjs from 'dayjs'
 import { useUserController } from 'hooks/userController'
 import { Claim, ClaimType } from 'lib/backend/auth/userUtil'
-import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
+import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import React from 'react'
 
 export const useClaimManager = (claimType: ClaimType) => {
-  const { claims, saveClaims } = useSessionPersistentStore()
+  const { claims, saveClaims } = useSessionStore()
   const claim = claims.find((m) => m.type === claimType)
   const { authProfile, fetchProfilePassive, setProfile } = useUserController()
 

@@ -6,9 +6,9 @@ import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import { AmplifyUser, getRolesFromAmplifyUser, getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
-import { useSessionPersistentStore } from 'lib/backend/store/useSessionStore'
+import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { useSearchParams } from 'next/navigation'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import HeaderMenu from './Molecules/Menus/HeaderMenu'
 import { useRouteTracker } from './Organizms/session/useRouteTracker'
@@ -26,7 +26,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
   const { ticket, setTicket, setProfile } = useUserController()
   const { clearRoutes, getLastRoute } = useRouteTracker()
 
-  const { claims, saveClaims } = useSessionPersistentStore()
+  const { claims, saveClaims } = useSessionStore()
   const searchParams = useSearchParams()
   const signOut = async () => {
     try {
@@ -87,22 +87,24 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
           })
         }
         saveClaims(newClaims)
-        const currentRoute = window.URL.toString()
-        if (currentRoute.includes('signOut')) {
-          const ret = searchParams?.get('ret') ?? ''
-          if (ret.length > 0) {
-            router.push(ret)
-          } else {
-            const lastPath = getLastRoute()
-            if (lastPath.length === 0) {
-              router.push('/')
-              return
-            }
-            router.push(lastPath)
-          }
-        } else {
-          router.push('/')
-        }
+        router.push('/')
+        // const currentRoute = window.URL.toString()
+        // if (currentRoute.includes('signOut')) {
+        //   const ret = searchParams?.get('ret') ?? ''
+        //   console.log('ret: ', decodeURIComponent(ret))
+        //   if (ret.length > 0) {
+        //     router.push(decodeURIComponent(ret))
+        //   } else {
+        //     const lastPath = getLastRoute()
+        //     if (lastPath.length === 0) {
+        //       router.push('/')
+        //       return
+        //     }
+        //     router.push(lastPath)
+        //   }
+        // } else {
+        //   router.push('/')
+        // }
         break
       case 'signedUp':
         const signedUpAttr = await fetchUserAttributes()

@@ -183,6 +183,7 @@ export interface Job {
   Chart?: LineChart
   Executer?: string
   RecordsProcessed?: number
+  Disabled?: boolean
 }
 
 export interface LineChart {
