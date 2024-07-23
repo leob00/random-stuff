@@ -108,7 +108,7 @@ const Page = () => {
           <>
             {selectedTab === 'Stocks' && (
               <>
-                <RequireClaim claimType={'rs'}>{authProfile && <StocksLayout userProfile={authProfile} />}</RequireClaim>
+                <StocksLayout userProfile={authProfile} localStore={localStore} />
               </>
             )}
             {selectedTab === 'Futures' && <FuturesLayout />}

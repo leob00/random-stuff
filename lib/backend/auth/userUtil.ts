@@ -1,4 +1,4 @@
-import { signOut, signIn, getCurrentUser, AuthUser, fetchUserAttributes, FetchUserAttributesOutput } from 'aws-amplify/auth'
+import { signOut, signIn, getCurrentUser, AuthUser, fetchUserAttributes, FetchUserAttributesOutput, fetchAuthSession, SignInOutput } from 'aws-amplify/auth'
 export type ClaimType = 'qln' | 'rs' | 'rs-admin'
 export interface Claim {
   type: ClaimType
@@ -57,22 +57,25 @@ export async function getUserCSR() {
     }
     return result
   } catch (error) {
-    console.error(error)
+    //console.error(error)
     return null
   }
 }
 
 export async function validateUserCSR(username: string, password: string) {
-  //const session = await Auth.userSession()
+  let result: SignInOutput | null = null
+  const session = await fetchAuthSession()
+  console.log(session)
+
   try {
-    const result = await signIn({
+    result = await signIn({
       username: username,
       password: password,
     })
 
     return result
   } catch (err) {
-    console.error('error password validation: ', err)
-    return null
+    console.error('username password validation error: ', err)
+    return result
   }
 }

@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import { UserStockSettings } from '../api/aws/models/apiGatewayModels'
+import { Sort, UserStockSettings } from '../api/aws/models/apiGatewayModels'
 import { StockQuote } from '../api/models/zModels'
 
 export interface StockSettings extends UserStockSettings {
@@ -8,21 +8,33 @@ export interface StockSettings extends UserStockSettings {
   lastRefreshDate?: string
 }
 
-export interface LocalStoreModel {
+export interface LocalStore {
   myStocks: StockSettings
+  saveStockSettings: (stockSettings: StockSettings) => void
+  saveStocks: (stocks: StockQuote[]) => void
+  saveDefaultView: (val?: 'flat' | 'grouped') => void
+  saveCustomSort: (val?: Sort[]) => void
 }
 
 export const useLocalStore = create(
-  persist<LocalStoreModel>(
+  persist<LocalStore>(
     (set, get) => ({
       myStocks: {
         defaultView: 'flat',
         data: [],
       },
-      saveStockSettings: (stockSettings: StockSettings) => set((state) => ({ ...state, stockSettings: stockSettings })),
-      saveStocks: (stocks: StockQuote[]) => {
+      saveStockSettings: (stockSettings) => set((state) => ({ ...state, stockSettings: stockSettings })),
+      saveStocks: (stocks) => {
         const myStocks = get().myStocks
         set({ myStocks: { ...myStocks, data: stocks } })
+      },
+      saveDefaultView: (val) => {
+        const myStocks = get().myStocks
+        set({ myStocks: { ...myStocks, defaultView: val } })
+      },
+      saveCustomSort: (val?: Sort[]) => {
+        const myStocks = get().myStocks
+        set({ myStocks: { ...myStocks, customSort: val } })
       },
       //saveStockSettings(settings) => set((state)=> ({...state, stockSettings: settings})),
 

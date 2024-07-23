@@ -9,31 +9,14 @@ import { DropdownItem } from 'lib/models/dropdown'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import EditableStockList from './EditableStockList'
-import { searchWithinResults, StockLayoutModel } from './StockSearchLayout'
+import { searchWithinResults } from './StockSearchLayout'
 import EditStockGroupForm from 'components/Molecules/Forms/EditStockGroupForm'
 
-const EditList = ({
-  username,
-  data,
-  onPushChanges,
-  onCancelEdit,
-  onReorder,
-  state,
-  setState,
-}: {
-  username: string | null
-  data: StockQuote[]
-  onPushChanges: (quotes: StockQuote[]) => void
-  onCancelEdit: () => void
-  onReorder: (quotes: StockQuote[]) => void
-  state: StockLayoutModel
-  setState: React.Dispatch<StockLayoutModel>
-}) => {
+const EditList = ({ username, data, onPushChanges, onCancelEdit, onReorder }: { username: string | null; data: StockQuote[]; onPushChanges: (quotes: StockQuote[]) => void; onCancelEdit: () => void; onReorder: (quotes: StockQuote[]) => void }) => {
   const [originalData, setOriginalData] = React.useState(data)
   const [filtered, setFiltered] = React.useState(data)
   const [showEditSingleItem, setShowEditSingleItem] = React.useState(false)
   const [editItem, setEditItem] = React.useState<StockQuote | undefined>(undefined)
-  const [isLoading, setIsLoading] = React.useState(false)
 
   const groupSet = new Set(
     data.map((o) => {
@@ -91,26 +74,14 @@ const EditList = ({
           </Button>
         </Box>
       </Box>
-      {isLoading ? (
-        <></>
+      {filtered.length < originalData.length ? (
+        <EditableStockList items={filtered} handleRemoveItem={handleRemoveItem} handleEditSingleItem={handleEditSingleItem} />
       ) : (
-        <>
-          {filtered.length < originalData.length ? (
-            <EditableStockList items={filtered} handleRemoveItem={handleRemoveItem} handleEditSingleItem={handleEditSingleItem} />
-          ) : (
-            <Box>
-              <DraggableList username={username} items={originalData} onPushChanges={onReorder} onEditSingleItem={handleEditSingleItem} />
-            </Box>
-          )}
-        </>
+        <Box>
+          <DraggableList username={username} items={originalData} onPushChanges={onReorder} onEditSingleItem={handleEditSingleItem} />
+        </Box>
       )}
-      <Dialog
-        open={showEditSingleItem}
-        onClose={handleCloseEditSingleItem}
-        aria-labelledby='alert-dialog-title'
-        aria-describedby='alert-dialog-description'
-        maxWidth='lg'
-      >
+      <Dialog open={showEditSingleItem} onClose={handleCloseEditSingleItem} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description' maxWidth='lg'>
         <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>
           <Stack display='flex' direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
             <Box>{editItem?.Company}</Box>

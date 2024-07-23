@@ -1,11 +1,8 @@
-import { Alert, Box, Stack, Typography } from '@mui/material'
+import { Alert, Box, TextField, Typography } from '@mui/material'
 import React from 'react'
-import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { ControlledFreeTextInput } from '../ReactHookForm/ControlledFreeTextInput'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import BoxSkeleton from 'components/Atoms/Skeletons/BoxSkeleton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 
@@ -16,21 +13,10 @@ const UsernameLoginSchema = z.object({
 
 export type UsernameLogin = z.infer<typeof UsernameLoginSchema>
 
-const LoginUsernameForm = ({
-  obj,
-  title = 'Log in',
-  onSubmitted,
-  error,
-}: {
-  obj: UsernameLogin
-  title?: string
-  onSubmitted: (data: UsernameLogin) => void
-  error?: string
-}) => {
+const LoginUsernameForm = ({ title = 'Log in', onSubmitted, error }: { title?: string; onSubmitted: (data: UsernameLogin) => void; error?: string }) => {
   const {
-    control,
+    register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<UsernameLogin>({
     resolver: zodResolver(UsernameLoginSchema),
@@ -46,10 +32,28 @@ const LoginUsernameForm = ({
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box display={'flex'} flexDirection={'column'} gap={2}>
-          <ControlledFreeTextInput control={control} fieldName='username' defaultValue={obj.username} label='' placeholder='email' required />
-          <ControlledFreeTextInput control={control} fieldName='password' defaultValue={obj.username} label='' placeholder='password' type={'password'} />
-          {errors.username && <Alert severity={'error'}>{errors.username?.message}</Alert>}
-          {errors.password && <Alert severity={'error'}>{errors.password?.message}</Alert>}
+          <TextField
+            {...register('username')}
+            size='small'
+            margin='dense'
+            InputProps={{
+              color: 'secondary',
+            }}
+            error={!!errors.username?.message}
+          />
+          <TextField
+            type='password'
+            {...register('password')}
+            size='small'
+            margin='dense'
+            InputProps={{
+              color: 'secondary',
+            }}
+            error={!!errors.username?.message}
+          />
+          {/* <ControlledFreeTextInput control={control} fieldName='password' defaultValue={obj.username} label='' placeholder='password' type={'password'} /> */}
+          {/* {errors.username && <Alert severity={'error'}>{errors.username?.message}</Alert>} */}
+          {/* {errors.password && <Alert severity={'error'}>{errors.password?.message}</Alert>} */}
           {error && <Alert severity={'error'}>{error}</Alert>}
           <HorizontalDivider />
           <Box display={'flex'} justifyContent={'flex-end'}>

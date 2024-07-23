@@ -2,7 +2,7 @@ import { StockQuote } from 'lib/backend/api/models/zModels'
 import { StockLayoutModel } from './StockSearchLayout'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import { Sort, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
-import React from 'react'
+import React, { useState } from 'react'
 import { putUserProfile, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { Box } from '@mui/material'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
@@ -19,20 +19,18 @@ import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import StocksLookup from './StocksLookup'
 import PagedStockTable from './PagedStockTable'
+import { LocalStore } from 'lib/backend/store/useLocalStore'
+import SnackbarWarning from 'components/Atoms/Dialogs/SnackbarWarning'
 
 export const searchWithinResults = (quotes: StockQuote[], text: string) => {
-  const result = quotes.filter(
-    (o) =>
-      o.Symbol.toLowerCase().includes(text.toLowerCase()) ||
-      o.Company.toLowerCase().startsWith(text.toLowerCase()) ||
-      (o.GroupName && o.GroupName.toLowerCase().includes(text.toLowerCase())),
-  )
+  const result = quotes.filter((o) => o.Symbol.toLowerCase().includes(text.toLowerCase()) || o.Company.toLowerCase().startsWith(text.toLowerCase()) || (o.GroupName && o.GroupName.toLowerCase().includes(text.toLowerCase())))
   return result
 }
-const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserProfile; result: StockQuote[]; onMutated: (newData: StockQuote[]) => void }) => {
+const StocksDisplay = ({ userProfile, result, onMutated, localStore }: { userProfile: UserProfile | null; result: StockQuote[]; onMutated: (newData: StockQuote[]) => void; localStore: LocalStore }) => {
+  const [showUserWarning, setShowUserWarning] = useState(userProfile === null)
+
   const userController = useUserController()
-  let map = new Map<string, StockQuote>([])
-  map = getMapFromArray(result, 'Symbol')
+  const map = getMapFromArray(result, 'Symbol')
   const defaultModel: StockLayoutModel = {
     isLoading: false,
     autoCompleteResults: [],
@@ -41,11 +39,11 @@ const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserPr
     stockList: result,
     editList: false,
     successMesage: null,
-    showAsGroup: userProfile.settings?.stocks?.defaultView! === 'grouped' ?? undefined,
+    showAsGroup: userProfile ? userProfile.settings?.stocks?.defaultView! === 'grouped' : localStore.myStocks.defaultView === 'grouped',
   }
 
   const [model, setModel] = React.useReducer((state: StockLayoutModel, newState: StockLayoutModel) => ({ ...state, ...newState }), defaultModel)
-  const customSort = userProfile.settings?.stocks?.customSort
+  const customSort = userProfile ? userProfile.settings?.stocks?.customSort : localStore.myStocks.customSort
   const orderStocks = (list: StockQuote[]) => {
     if (customSort) {
       const ordered = orderBy(
@@ -73,7 +71,7 @@ const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserPr
       stockListMap.set(quote.Symbol, quote)
       const newList = getListFromMap(stockListMap).filter((m) => m.Symbol !== quote.Symbol)
       newList.unshift(quote)
-      putUserStockList(userProfile.username, newList)
+      persistStocks(userProfile, localStore, newList)
       setModel({
         ...model,
         editList: false,
@@ -103,7 +101,7 @@ const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserPr
       newMap.set(item.Symbol, item)
     })
     const newList = Array.from(newMap.values())
-    await putUserStockList(userProfile.username, newList)
+    persistStocks(userProfile, localStore, newList)
     setModel({
       ...model,
       isLoading: false,
@@ -119,7 +117,7 @@ const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserPr
       newMap.set(item.Symbol, item)
     })
     const newList = Array.from(newMap.values())
-    await putUserStockList(userProfile.username, newList)
+    persistStocks(userProfile, localStore, newList)
     setModel({
       ...model,
       isLoading: false,
@@ -131,13 +129,17 @@ const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserPr
   }
 
   const handleShowAsGroup = async (show: boolean) => {
-    const profile = { ...userProfile }
-    if (!profile.settings?.stocks) {
-      profile.settings!.stocks = {}
+    if (userProfile) {
+      const profile = { ...userProfile }
+      if (!profile.settings?.stocks) {
+        profile.settings!.stocks = {}
+      }
+      profile.settings!.stocks!.defaultView = show ? 'grouped' : 'flat'
+      userController.setProfile(profile)
+      putUserProfile(profile)
+    } else {
+      localStore.saveDefaultView(show ? 'grouped' : 'flat')
     }
-    profile.settings!.stocks!.defaultView = show ? 'grouped' : 'flat'
-    userController.setProfile(profile)
-    putUserProfile(profile)
     setModel({ ...model, isLoading: false, showAsGroup: show })
   }
 
@@ -146,10 +148,14 @@ const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserPr
   }
   const handleSubmitCustomSort = (data?: Sort[]) => {
     setModel({ ...model, showCustomSort: false })
-    const newProfile = { ...userProfile }
-    newProfile.settings!.stocks!.customSort = data
-    userController.setProfile(newProfile)
-    putUserProfile(newProfile)
+    if (userProfile) {
+      const newProfile = { ...userProfile }
+      newProfile.settings!.stocks!.customSort = data
+      userController.setProfile(newProfile)
+      putUserProfile(newProfile)
+    } else {
+      localStore.saveCustomSort(data)
+    }
   }
 
   return (
@@ -168,13 +174,7 @@ const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserPr
         <StocksLookup onFound={handleSelectQuote} />
       </Box>
       {model.quoteToAdd ? (
-        <AddQuote
-          stockListMap={model.stockListMap}
-          quote={model.quoteToAdd}
-          handleAddToList={handleAddToList}
-          handleCloseAddQuote={handleCloseAddQuote}
-          scrollIntoView
-        />
+        <AddQuote stockListMap={model.stockListMap} quote={model.quoteToAdd} handleAddToList={handleAddToList} handleCloseAddQuote={handleCloseAddQuote} scrollIntoView />
       ) : (
         <Box>
           {model.isLoading ? (
@@ -183,40 +183,22 @@ const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserPr
             <Box py={2}>
               {model.editList && result.length > 0 ? (
                 <>
-                  <EditList
-                    username={userProfile.username}
-                    data={result}
-                    onCancelEdit={() => setModel({ ...model, editList: false })}
-                    onPushChanges={handleSaveChanges}
-                    onReorder={handleReorderList}
-                    state={model}
-                    setState={setModel}
-                  />
+                  <EditList username={userProfile?.username ?? null} data={result} onCancelEdit={() => setModel({ ...model, editList: false })} onPushChanges={handleSaveChanges} onReorder={handleReorderList} />
                 </>
               ) : (
                 <>
                   {model.showAsGroup ? (
                     <Box>
-                      <GroupedStocksLayout
-                        userProfile={userProfile}
-                        stockList={model.stockList}
-                        onEdit={() => setModel({ ...model, editList: true })}
-                        onShowAsGroup={() => handleShowAsGroup(false)}
-                      />
+                      <GroupedStocksLayout userProfile={userProfile} stockList={model.stockList} onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={() => handleShowAsGroup(false)} />
                     </Box>
                   ) : (
                     <Box>
                       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
                         <Box pl={1}></Box>
-                        <FlatListMenu
-                          onEdit={() => setModel({ ...model, editList: true })}
-                          onShowAsGroup={handleShowAsGroup}
-                          onShowCustomSort={handleShowCustomSort}
-                        />
+                        <FlatListMenu onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={handleShowAsGroup} onShowCustomSort={handleShowCustomSort} />
                       </Box>
                       {customSort && <CustomSortAlert result={customSort} onModify={() => setModel({ ...model, showCustomSort: true })} />}
                       <PagedStockTable data={customSorted} showGroupName={true} />
-                      {/* <PagedStockTable data={customSorted} /> */}
                     </Box>
                   )}
                 </>
@@ -226,16 +208,21 @@ const StocksDisplay = ({ userProfile, result, onMutated }: { userProfile: UserPr
         </Box>
       )}
       <>
-        <FormDialog
-          show={model.showCustomSort ?? false}
-          title={'sort'}
-          onCancel={() => setModel({ ...model, showCustomSort: false })}
-          showActionButtons={false}
-        >
-          <StocksCustomSortForm result={userProfile.settings?.stocks?.customSort} onSubmitted={handleSubmitCustomSort} />
+        <FormDialog show={model.showCustomSort ?? false} title={'sort'} onCancel={() => setModel({ ...model, showCustomSort: false })} showActionButtons={false}>
+          <StocksCustomSortForm result={userProfile?.settings?.stocks?.customSort ?? localStore.myStocks.customSort} onSubmitted={handleSubmitCustomSort} />
         </FormDialog>
       </>
+      {showUserWarning && <SnackbarWarning show={true} text='You are not signed in. All changes will only be saved on your local device.' onClose={() => setShowUserWarning(false)} />}
     </>
   )
 }
+
+async function persistStocks(userProfile: UserProfile | null, localStore: LocalStore, list: StockQuote[]) {
+  if (userProfile) {
+    putUserStockList(userProfile.username, list)
+  } else {
+    localStore.saveStocks(list)
+  }
+}
+
 export default StocksDisplay

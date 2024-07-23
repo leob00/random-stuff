@@ -2264,6 +2264,10 @@
     "Symbol": "AQUNR"
   },
   {
+    "Company": "Aquaron Acquisition Corp. Units",
+    "Symbol": "AQUNU"
+  },
+  {
     "Company": "Global X Clean Water ETF",
     "Symbol": "AQWA"
   },
@@ -3816,7 +3820,7 @@
     "Symbol": "BCAL"
   },
   {
-    "Company": "BYND Cannasoft Enterprises Inc. Common Stock",
+    "Company": "Femto Technologies Inc. Common Stock",
     "Symbol": "BCAN"
   },
   {
@@ -8022,6 +8026,10 @@
   {
     "Company": "Cinemark Holdings, Inc.",
     "Symbol": "CNK"
+  },
+  {
+    "Company": "Collective Mining Ltd.",
+    "Symbol": "CNL"
   },
   {
     "Company": "Core & Main, Inc.",
@@ -22236,6 +22244,10 @@
     "Symbol": "KNGZ"
   },
   {
+    "Company": "AXS Knowledge Leaders ETF",
+    "Symbol": "KNO"
+  },
+  {
     "Company": "KNOT OFFSHORE PARTNERS LP",
     "Symbol": "KNOP"
   },
@@ -24042,6 +24054,10 @@
   {
     "Company": "Maquia Capital Acquisition Corporation Class A Common Stock",
     "Symbol": "MAQC"
+  },
+  {
+    "Company": "Maquia Capital Acquisition Corporation Unit",
+    "Symbol": "MAQCU"
   },
   {
     "Company": "Maquia Capital Acquisition Corporation Warrant",
@@ -31304,6 +31320,10 @@
     "Symbol": "QCAP"
   },
   {
+    "Company": "FT Vest Nasdaq-100 Conservative Buffer ETF - July",
+    "Symbol": "QCJL"
+  },
+  {
     "Company": "First Trust NASDAQ Clean Edge Green Energy Index Fund",
     "Symbol": "QCLN"
   },
@@ -31356,7 +31376,7 @@
     "Symbol": "QDPL"
   },
   {
-    "Company": "Roundhill N-100 0DTE Covered Call Strategy ETF",
+    "Company": "Roundhill Innovation-100 0DTE Covered Call Strategy ETF",
     "Symbol": "QDTE"
   },
   {
@@ -34668,6 +34688,10 @@
     "Symbol": "SIXF"
   },
   {
+    "Company": "Defiance Connective Technologies ETF",
+    "Symbol": "SIXG"
+  },
+  {
     "Company": "ETC 6 Meridian Hedged Equity Index Option ETF",
     "Symbol": "SIXH"
   },
@@ -37328,6 +37352,10 @@
     "Symbol": "TETE"
   },
   {
+    "Company": "Technology & Telecommunication Acquisition Corporation Unit",
+    "Symbol": "TETEU"
+  },
+  {
     "Company": "Technology & Telecommunication Acquisition Corporation Warrant",
     "Symbol": "TETEW"
   },
@@ -38154,6 +38182,10 @@
   {
     "Company": "Tristar Acquisition I Corp.",
     "Symbol": "TRIS"
+  },
+  {
+    "Company": "Tristar Acquisition I Corp. Units, each consisting of one Class A Ordinary Share and one-half of one Redeemable Warrant to purchase one Class A Ordinary Share",
+    "Symbol": "TRIS.U"
   },
   {
     "Company": "Tristar Acquisition I Corp. Redeemable Warrants, each exercisable for one Class A Ordinary Share at an exercise price of $11.50 per share",
@@ -42442,6 +42474,10 @@
   {
     "Company": "Yotta Acquisition Corporation Common Stock",
     "Symbol": "YOTA"
+  },
+  {
+    "Company": "Yotta Acquisition Corporation Right",
+    "Symbol": "YOTAR"
   },
   {
     "Company": "Yotta Acquisition Corporation Unit",

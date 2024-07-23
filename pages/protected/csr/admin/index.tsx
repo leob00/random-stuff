@@ -2,7 +2,7 @@ import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
+import { getUserCSR, userHasRole, validateUserCSR } from 'lib/backend/auth/userUtil'
 import { useRouter } from 'next/router'
 import React from 'react'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
@@ -16,6 +16,7 @@ import ServerInfo from 'components/Organizms/admin/ServerInfo'
 import RequireClaim from 'components/Organizms/user/RequireClaim'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UsersAdmin from 'components/Organizms/admin/users/UsersAdmin'
+import LoginUsernameForm, { UsernameLogin } from 'components/Molecules/Forms/Login/LoginUsernameForm'
 
 const Page = () => {
   const userController = useUserController()
@@ -25,7 +26,7 @@ const Page = () => {
   const [selectedTab, setSelectedTab] = React.useState('Jobs')
   const router = useRouter()
 
-  const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Server' }, { title: 'Api' }, { title: 'Users' }]
+  const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Server' }, { title: 'Api' }, { title: 'Users' }, { title: 'Login Test' }]
 
   React.useEffect(() => {
     const fn = async () => {
@@ -53,11 +54,16 @@ const Page = () => {
     setSelectedTab(tab.title)
   }
 
+  const handleValidateUser = async (submitData: UsernameLogin) => {
+    const result = await validateUserCSR(submitData.username, submitData.password)
+    console.log(result)
+  }
+
   return (
     <>
       <Seo pageTitle='Admin' />
       <ResponsiveContainer>
-        <RequireClaim claimType='rs'>
+        <RequireClaim claimType='rs-admin'>
           {loading ? (
             <BackdropLoader />
           ) : userProfile ? (
@@ -71,6 +77,7 @@ const Page = () => {
                   {selectedTab === 'Api' && <ApiTest />}
                   {selectedTab === 'Server' && <ServerInfo />}
                   {selectedTab === 'Users' && <UsersAdmin userProfile={userProfile} />}
+                  {selectedTab === 'Login Test' && <LoginUsernameForm title='Sin in' onSubmitted={handleValidateUser} />}
                 </>
               </RequireClaim>
             </>
