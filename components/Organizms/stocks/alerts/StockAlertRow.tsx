@@ -103,7 +103,7 @@ const StockAlertRow = ({ sub, username }: { sub: StockAlertSubscription; usernam
                   router.push(`/csr/stocks/details?id=${sub.symbol}&returnUrl=/csr/stocks/alerts`)
                 }}
               >
-                <Typography variant='h5' sx={{ textDecoration: 'underline' }}>{`${sub.company} (${sub.symbol})`}</Typography>
+                <Typography variant='h6'>{`${sub.company} (${sub.symbol})`}</Typography>
               </Clickable>
             </Box>
             <Box>

@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, useTheme } from '@mui/material'
+import { Alert, AlertTitle, Typography, useTheme } from '@mui/material'
 import React from 'react'
 
 const AlertWithHeader = ({ header, text, severity }: { header?: string; text: string; severity: 'warning' | 'info' | 'success' | 'error' }) => {
@@ -20,7 +20,11 @@ const AlertWithHeader = ({ header, text, severity }: { header?: string; text: st
   }
   return (
     <Alert severity={severity}>
-      {header && <AlertTitle color={color}>{header}</AlertTitle>}
+      {header && (
+        <AlertTitle color={color}>
+          <Typography variant='h6'>{header}</Typography>
+        </AlertTitle>
+      )}
       {text}
     </Alert>
   )
