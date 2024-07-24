@@ -9,12 +9,9 @@ const StockChange = ({ item }: { item: StockQuote }) => {
   return (
     <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} pb={2} alignItems={'center'}>
       <Stack direction={'row'} spacing={2} pl={2} sx={{ backgroundColor: 'unset' }} pt={1}>
-        <Typography
-          variant='h5'
-          color={getPositiveNegativeColor(item.Change, theme.palette.mode)}
-        >{`${numeral(item.Price).format('###,###,0.00')}`}</Typography>
-        <Typography variant='h5' color={getPositiveNegativeColor(item.Change, theme.palette.mode)}>{`${item.Change.toFixed(2)}`}</Typography>
-        <Typography variant='h5' color={getPositiveNegativeColor(item.Change, theme.palette.mode)}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
+        <Typography variant='h6' color={getPositiveNegativeColor(item.Change, theme.palette.mode)}>{`${numeral(item.Price).format('###,###,0.00')}`}</Typography>
+        <Typography variant='h6' color={getPositiveNegativeColor(item.Change, theme.palette.mode)}>{`${item.Change.toFixed(2)}`}</Typography>
+        <Typography variant='h6' color={getPositiveNegativeColor(item.Change, theme.palette.mode)}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
       </Stack>
     </Stack>
   )

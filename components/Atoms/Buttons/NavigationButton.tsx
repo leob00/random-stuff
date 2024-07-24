@@ -17,7 +17,7 @@ const NavigationButton = ({ ...props }: PageProps & TypographyProps) => {
     <>
       {isLoading && <BackdropLoader />}
       <Button variant='text' onClick={handleClick}>
-        <Typography variant={props.variant ?? 'h4'}>{props.text}</Typography>
+        <Typography variant={props.variant ?? 'h5'}>{props.text}</Typography>
       </Button>
     </>
   )

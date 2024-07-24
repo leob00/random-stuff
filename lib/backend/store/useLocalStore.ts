@@ -36,16 +36,6 @@ export const useLocalStore = create(
         const myStocks = get().myStocks
         set({ myStocks: { ...myStocks, customSort: val } })
       },
-      //saveStockSettings(settings) => set((state)=> ({...state, stockSettings: settings})),
-
-      // palette: 'dark',
-      // routes: [],
-      // communityStocks: {},
-      // claims: [],
-      // saveRoutes: (routes) => set((state) => ({ ...state, routes: routes, lastRefreshDate: dayjs().format() })),
-      // savePalette: (palette: 'light' | 'dark') => set((state) => ({ ...state, palette: palette })),
-      // saveCommunityStocksSort: (sort) => set((state) => ({ ...state, communityStocks: { defaultSort: sort } })),
-      // saveClaims: (claims) => set((state) => ({ ...state, claims: claims })),
     }),
     {
       name: 'rs-local-store',

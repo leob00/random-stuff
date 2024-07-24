@@ -6,14 +6,13 @@ import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import { siteMap } from './navigation/siteMap'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useRouteTracker } from './session/useRouteTracker'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import GroupedHomeMenu from './navigation/GroupedHomeMenu'
 import CenteredNavigationButton from 'components/Atoms/Buttons/CenteredNavigationButton'
 import { useUserController } from 'hooks/userController'
 import { userHasRole } from 'lib/backend/auth/userUtil'
 
 const HomeMenu = () => {
-  const { routes: recentRoutes, loading } = useRouteTracker()
+  const { allRoutes: recentRoutes } = useRouteTracker()
   const recentHistory = recentRoutes.filter((m) => m.name !== 'home')
   const all = siteMap()
   const [showGroupedMenu, setShowGroupedMenu] = React.useState(recentHistory.length < 4)

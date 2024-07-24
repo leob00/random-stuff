@@ -20,7 +20,7 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
     //font: color,
     color: color,
     a: { color: color },
-    p: { color: color, fontSize: 20, fontWeight: 600 },
+    p: { color: color, fontSize: 28, fontWeight: 400 },
   }))
 
   return (
@@ -38,7 +38,7 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
             display: 'inline-block',
             // wordWrap: 'break-word',
             //color: color,
-            fontWeight: 500,
+            fontWeight: 400,
             //backgroundColor: 'white',
           }}
           //variant='body1'

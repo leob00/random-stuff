@@ -8,6 +8,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import ContextMenuSignIn from './ContextMenuSignIn'
 import ContextMenuSignOut from './ContextMenuSignOut'
+import ContextMenuPortfolio from './ContextMenuPortfolio'
 
 const HeaderMenu = ({ ticket, palette, onLogOutClick, onChangePalette }: { ticket: AmplifyUser | null; palette: 'light' | 'dark'; onLogOutClick: () => void; onChangePalette: (palette: 'light' | 'dark') => void }) => {
   const router = useRouter()
@@ -37,7 +38,7 @@ const HeaderMenu = ({ ticket, palette, onLogOutClick, onChangePalette }: { ticke
   }
   const loggedInMenu: ContextMenuItem[] = [
     {
-      item: <ListItemText primary='dashboard'></ListItemText>,
+      item: <ContextMenuPortfolio text='dashboard' />,
       fn: () => {
         router.push('/protected/csr/dashboard')
       },
@@ -68,7 +69,14 @@ const HeaderMenu = ({ ticket, palette, onLogOutClick, onChangePalette }: { ticke
       fn: () => onLogOutClick(),
     })
   } else {
+    menuItems.push({
+      item: <ContextMenuPortfolio text='dashboard' />,
+      fn: () => {
+        router.push('/protected/csr/dashboard')
+      },
+    })
     menuItems.push(paletteMenuItem)
+
     menuItems.push({
       item: <ContextMenuSignIn />,
       fn: () => router.push('/login'),

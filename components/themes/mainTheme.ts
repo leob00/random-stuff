@@ -1,4 +1,5 @@
 import { createTheme, PaletteOptions, responsiveFontSizes, ThemeOptions } from '@mui/material/styles'
+import { TypographyOptions } from '@mui/material/styles/createTypography'
 import { ResponsiveFontSizesOptions } from '@mui/material/styles/responsiveFontSizes'
 
 export const BlackTransparent: string = '#080808ef'
@@ -67,27 +68,28 @@ const lightPalette: PaletteOptions = {
   },
 }
 
-const themeOptions: ThemeOptions = {
-  typography: {
-    // fontSize: 16, fontFace: Roboto,
-    fontFamily: ['-apple-system', 'Roboto', 'BlinkMacSystemFont', '"Helvetica Neue"', 'Arial', 'sans-serif', '"Apple Color Emoji"'].join(','),
-    fontSize: 18,
-    fontWeightBold: 'bold',
+export const typographyOptions: TypographyOptions = {
+  fontFamily: ['-apple-system', 'Roboto', 'BlinkMacSystemFont', '"Helvetica Neue"', 'Arial', 'sans-serif', '"Apple Color Emoji"'].join(','),
+  fontSize: 18,
+  fontWeightBold: 'bold',
 
-    h1: { fontSize: '3.5rem', fontWeight: 500 }, // hero section title
-    h2: { fontSize: '2.6125rem', fontWeight: 500 }, // other section title
-    h3: { fontSize: '2.115rem', fontWeight: 500 },
-    h4: { fontSize: '1.95rem', fontWeight: 300 },
-    h5: { fontSize: '1.45rem', fontWeight: 200 },
-    h6: { fontSize: '1.2rem', fontWeight: 200 },
-    subtitle1: { fontSize: '1.275rem', fontWeight: 200 },
-    subtitle2: { fontSize: '0.975rem', fontWeight: 200 },
-    body1: { fontSize: '1.175rem', fontWeight: 300, color: Default }, // normal body text
-    body2: { fontSize: '1.08rem', fontWeight: 200, color: Default }, // less important text
-    caption: { fontSize: '0.85rem', fontWeight: 400, color: Default },
-    overline: { fontSize: '0.625rem', fontWeight: 400 },
-    button: { fontSize: '1.0rem', fontWeight: 300, textTransform: 'none' },
-  },
+  h1: { fontSize: '3.5rem', fontWeight: 500 }, // hero section title
+  h2: { fontSize: '2.6125rem', fontWeight: 500 }, // other section title
+  h3: { fontSize: '2.115rem', fontWeight: 500 },
+  h4: { fontSize: '1.85rem', fontWeight: 400 },
+  h5: { fontSize: '1.65rem', fontWeight: 400 },
+  h6: { fontSize: '1.3rem', fontWeight: 400 },
+  subtitle1: { fontSize: '1.275rem', fontWeight: 200 },
+  subtitle2: { fontSize: '0.975rem', fontWeight: 200 },
+  body1: { fontSize: '1.25rem', fontWeight: 300 }, // normal body text
+  body2: { fontSize: '1.04rem', fontWeight: 200 }, // less important text
+  caption: { fontSize: '0.85rem', fontWeight: 400 },
+  overline: { fontSize: '0.625rem', fontWeight: 400 },
+  button: { fontSize: '1.0rem', fontWeight: 300, textTransform: 'none' },
+}
+
+const themeOptions: ThemeOptions = {
+  typography: typographyOptions,
 
   components: {
     MuiContainer: {

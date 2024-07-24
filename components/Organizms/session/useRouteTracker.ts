@@ -19,7 +19,10 @@ export const useRouteTracker = () => {
     saveRoutes: state.saveRoutes,
   }))
 
-  const sitePaths = siteMap().flatMap((m) => m.paths)
+  const sitePathMap = getMapFromArray(
+    siteMap().flatMap((m) => m.paths),
+    'route',
+  )
 
   return {
     loading: isLoading,
@@ -27,11 +30,10 @@ export const useRouteTracker = () => {
       const result = sortArray(routes, ['date'], ['desc'])
       return result.length > 1 ? result[1].path : '/'
     },
-    //routesMap: getMapFromArray(routes, 'path'),
-    routes: sortArray(routes, ['date'], ['desc']),
+    allRoutes: sortArray(routes, ['date'], ['desc']),
+    lastRoute: routes.length > 0 ? routes[0].path : '/',
     addRoute: (url: string) => {
-      const exists = sitePaths.findIndex((m) => m.route === url) > -1
-      if (!exists) {
+      if (!sitePathMap.has(url)) {
         return
       }
       setIsLoading(true)
@@ -46,12 +48,9 @@ export const useRouteTracker = () => {
         path: url,
         name: name,
       })
-      saveRoutes(sortArray(Array.from(routeMap.values()), ['date'], ['desc']))
+      const newRoutes = sortArray(Array.from(routeMap.values()), ['date'], ['desc'])
+      saveRoutes(newRoutes)
       setIsLoading(false)
-    },
-
-    clearRoutes: () => {
-      saveRoutes([])
     },
   }
 }

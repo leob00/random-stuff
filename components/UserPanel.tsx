@@ -7,8 +7,7 @@ import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import { AmplifyUser, getRolesFromAmplifyUser, getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
-import { useSearchParams } from 'next/navigation'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/router'
 import React from 'react'
 import HeaderMenu from './Molecules/Menus/HeaderMenu'
 import { useRouteTracker } from './Organizms/session/useRouteTracker'
@@ -24,31 +23,24 @@ export type HubPayload = {
 const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; onChangePalette: () => void }) => {
   const router = useRouter()
   const { ticket, setTicket, setProfile } = useUserController()
-  const { clearRoutes, getLastRoute } = useRouteTracker()
-
   const { claims, saveClaims } = useSessionStore()
-  const searchParams = useSearchParams()
+
   const signOut = async () => {
     try {
-      await amplifySignOut({ global: true })
+      await amplifySignOut()
     } catch (err) {
       console.log(err)
     }
   }
 
-  const handleNavigationEvent = (payload: HubPayload) => {}
-
   const handleAuthEvent = async (payload: HubPayload) => {
     const newClaims = claims.filter((m) => m.type !== 'rs')
     switch (payload.event) {
       case 'signedOut':
-        console.log('signing out')
         await setTicket(null)
-        const lastRoute = getLastRoute()
         await setProfile(null)
-        clearRoutes()
         saveClaims([])
-        router.push(`/signOut?ret=${encodeURIComponent(lastRoute)}`)
+        router.push('/login')
         break
       case 'signedIn':
         if (ticket) {
@@ -87,24 +79,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
           })
         }
         saveClaims(newClaims)
-        router.push('/')
-        // const currentRoute = window.URL.toString()
-        // if (currentRoute.includes('signOut')) {
-        //   const ret = searchParams?.get('ret') ?? ''
-        //   console.log('ret: ', decodeURIComponent(ret))
-        //   if (ret.length > 0) {
-        //     router.push(decodeURIComponent(ret))
-        //   } else {
-        //     const lastPath = getLastRoute()
-        //     if (lastPath.length === 0) {
-        //       router.push('/')
-        //       return
-        //     }
-        //     router.push(lastPath)
-        //   }
-        // } else {
-        //   router.push('/')
-        // }
+
         break
       case 'signedUp':
         const signedUpAttr = await fetchUserAttributes()
@@ -123,10 +98,8 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
             tokenExpirationSeconds: 6400000,
           })
           saveClaims(newClaims)
-          router.push('/')
-        } else {
-          router.push('/protected/csr/dashboard')
         }
+        router.push('/')
         break
 
       case 'signIn_failure':
@@ -143,7 +116,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
       }
 
       try {
-        let user = await getUserCSR()
+        const user = await getUserCSR()
         await setTicket(user)
       } catch (error) {
         await setTicket(null)
@@ -159,10 +132,6 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
       Hub.listen('auth', (data) => {
         const { payload } = data
         handleAuthEvent(payload)
-      })
-      Hub.listen('navigation', (data) => {
-        const { payload } = data
-        handleNavigationEvent(payload)
       })
     }
     fn()

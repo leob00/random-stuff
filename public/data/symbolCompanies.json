@@ -6968,6 +6968,10 @@
     "Symbol": "CETF"
   },
   {
+    "Company": "21Shares Core Ethereum ETF",
+    "Symbol": "CETH"
+  },
+  {
     "Company": "Cetus Capital Acquisition Corp. Class A Common Stock",
     "Symbol": "CETU"
   },
@@ -9582,6 +9586,10 @@
   {
     "Company": "Dakota Gold Corp. Warrants, each warrant exercisable for one Common Share at an exercise price of $2.08",
     "Symbol": "DC.WS"
+  },
+  {
+    "Company": "Unity Wealth Partners Dynamic Capital Appreciation & Options ETF",
+    "Symbol": "DCAP"
   },
   {
     "Company": "Docebo Inc. Common Shares",
@@ -12608,8 +12616,20 @@
     "Symbol": "ETG"
   },
   {
+    "Company": "Grayscale Ethereum Mini Trust (ETH)",
+    "Symbol": "ETH"
+  },
+  {
+    "Company": "iShares Ethereum Trust ETF",
+    "Symbol": "ETHA"
+  },
+  {
     "Company": "ProShares UltraShort Ether ETF",
     "Symbol": "ETHD"
+  },
+  {
+    "Company": "GRAYSCALE ETHRM TR ETH",
+    "Symbol": "ETHE"
   },
   {
     "Company": "Amplify Etho Climate Leadership U.S. ETF",
@@ -12622,6 +12642,14 @@
   {
     "Company": "2x Ether ETF",
     "Symbol": "ETHU"
+  },
+  {
+    "Company": "VanEck Ethereum ETF",
+    "Symbol": "ETHV"
+  },
+  {
+    "Company": "Bitwise Ethereum ETF",
+    "Symbol": "ETHW"
   },
   {
     "Company": "Eaton Vance Risk - Managed Diversified Equity Income Fund",
@@ -13146,6 +13174,10 @@
   {
     "Company": "Franklin Bitcoin ETF",
     "Symbol": "EZBC"
+  },
+  {
+    "Company": "Franklin Ethereum ETF",
+    "Symbol": "EZET"
   },
   {
     "Company": "EzFill Holdings, Inc. Common Stock",
@@ -13778,6 +13810,10 @@
   {
     "Company": "Forum Energy Technologies, Inc.",
     "Symbol": "FET"
+  },
+  {
+    "Company": "Fidelity Ethereum Fund",
+    "Symbol": "FETH"
   },
   {
     "Company": "FlexShares ESG & Climate US Large Cap Core Index Fund",
@@ -22372,6 +22408,10 @@
     "Symbol": "KPTI"
   },
   {
+    "Company": "Kurv Technology Titans Select ETF",
+    "Symbol": "KQQQ"
+  },
+  {
     "Company": "The Kroger Co.",
     "Symbol": "KR"
   },
@@ -24958,6 +24998,10 @@
   {
     "Company": "Coliseum Acquisition Corp. Class A Ordinary Share",
     "Symbol": "MITA"
+  },
+  {
+    "Company": "Coliseum Acquisition Corp. Unit",
+    "Symbol": "MITAU"
   },
   {
     "Company": "Coliseum Acquisition Corp. Warrant",
@@ -29712,6 +29756,10 @@
     "Symbol": "PGF"
   },
   {
+    "Company": "Primega Group Holdings Limited Ordinary Shares",
+    "Symbol": "PGHL"
+  },
+  {
     "Company": "Invesco Global ex-US High Yield Corporate Bond ETF",
     "Symbol": "PGHY"
   },
@@ -31394,6 +31442,10 @@
   {
     "Company": "Quetta Acquisition Corporation Right",
     "Symbol": "QETAR"
+  },
+  {
+    "Company": "Invesco Galaxy Ethereum ETF",
+    "Symbol": "QETH"
   },
   {
     "Company": "Qifu Technology, Inc. American Depositary Shares",
@@ -38166,6 +38218,10 @@
   {
     "Company": "Trinity Capital Inc. Common Stock",
     "Symbol": "TRIN"
+  },
+  {
+    "Company": "Trinity Capital Inc. 7.875% Notes Due 2029",
+    "Symbol": "TRINI"
   },
   {
     "Company": "Trinity Capital Inc. 7.00% Notes Due 2025",

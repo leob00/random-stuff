@@ -12,7 +12,10 @@ import { useSessionSettings } from 'components/Organizms/session/useSessionSetti
 import Seo from 'components/Organizms/Seo'
 import { Amplify } from 'aws-amplify'
 import amplifyConfig from 'src/amplifyconfiguration.json'
-
+import '@fontsource/roboto/300.css'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/roboto/700.css'
 Amplify.configure(amplifyConfig, { ssr: true })
 
 const getTheme = (mode: 'light' | 'dark') => {

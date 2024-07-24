@@ -24,7 +24,7 @@ export type HubPayload = {
 const AppUserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; onChangePalette: (palette: 'light' | 'dark') => void }) => {
   const router = useRouter()
   const { ticket, setTicket, setProfile } = useUserController()
-  const { clearRoutes, getLastRoute } = useRouteTracker()
+  const { lastRoute } = useRouteTracker()
 
   const { claims, saveClaims } = useSessionStore()
   const searchParams = useSearchParams()
@@ -44,11 +44,9 @@ const AppUserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark';
       case 'signedOut':
         console.log('signing out')
         await setTicket(null)
-        const lastRoute = getLastRoute()
         await setProfile(null)
-        clearRoutes()
         saveClaims([])
-        router.push(`/signOut?ret=${encodeURIComponent(lastRoute)}`)
+        router.push(`/login?ret=${encodeURIComponent(lastRoute)}`)
         break
       case 'signedIn':
         if (ticket) {
@@ -88,22 +86,8 @@ const AppUserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark';
           })
         }
         saveClaims(newClaims)
-        const currentRoute = window.URL.toString()
-        if (currentRoute.includes('signOut')) {
-          const ret = searchParams?.get('ret') ?? ''
-          if (ret.length > 0) {
-            router.push(ret)
-          } else {
-            const lastPath = getLastRoute()
-            if (lastPath.length === 0) {
-              router.push('/')
-              return
-            }
-            router.push(lastPath)
-          }
-        } else {
-          router.push('/')
-        }
+        router.push('/')
+
         break
       case 'signedUp':
         const signedUpAttr = await fetchUserAttributes()
