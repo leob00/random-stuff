@@ -15,7 +15,7 @@ const StockDividendDetails = ({ symbol }: { symbol: string }) => {
       key: symbol,
     }
 
-    const resp = await serverPostFetch(req, '/DividentdPayers')
+    const resp = await serverPostFetch(req, '/DividendPayers')
     const result = resp.Body as StockDividendItem[]
     return result
   }

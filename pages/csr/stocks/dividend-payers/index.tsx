@@ -12,7 +12,7 @@ import React from 'react'
 
 const Page = () => {
   const dataFn = async () => {
-    const resp = await serverGetFetch('/DividentdPayers')
+    const resp = await serverGetFetch('/DividendPayers')
     const result = resp.Body as StockDividendItem[]
     return sortArray(
       result.filter((m) => m.Frequency !== 'one-time'),
