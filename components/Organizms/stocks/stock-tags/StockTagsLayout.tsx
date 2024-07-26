@@ -4,7 +4,7 @@ import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { apiConnection } from 'lib/backend/api/config'
 import { post } from 'lib/backend/api/fetchFunctions'
-import { QlnApiRequest, QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
+import { QlnApiRequest, QlnApiResponse, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 import { DropdownItem } from 'lib/models/dropdown'
 import { orderBy } from 'lodash'
 import React, { useState } from 'react'
@@ -17,7 +17,6 @@ import { useRouter } from 'next/router'
 
 const StockTagsLayout = ({ allTags, selectedTag }: { allTags: string[]; selectedTag?: string | null }) => {
   const router = useRouter()
-  const conn = apiConnection().qln
   const tags = orderBy(allTags)
   const options: DropdownItem[] = tags.map((m) => {
     return {
@@ -31,8 +30,7 @@ const StockTagsLayout = ({ allTags, selectedTag }: { allTags: string[]; selected
     const req: QlnApiRequest = {
       key: selectedItem?.value,
     }
-    const resp = await post(`/api/qln?url=${conn.url}/StockTags`, req)
-    const result = resp as QlnApiResponse
+    const result = await serverPostFetch(req, '/StockTags')
     const quotes = result.Body as StockQuote[]
     return sortArray(quotes, ['MarketCap'], ['desc'])
   }

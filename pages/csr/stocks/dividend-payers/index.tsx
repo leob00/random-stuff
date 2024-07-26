@@ -6,21 +6,24 @@ import Seo from 'components/Organizms/Seo'
 import StockReportsDropdown from 'components/Organizms/stocks/reports/StockReportsDropdown'
 import StockDividendsTable, { StockDividendItem } from 'components/Organizms/stocks/StockDividendsTable'
 import { useSwrHelper } from 'hooks/useSwrHelper'
-import { apiConnection } from 'lib/backend/api/config'
-import { get } from 'lib/backend/api/fetchFunctions'
+import { serverGetFetch } from 'lib/backend/api/qln/qlnApi'
+import { sortArray } from 'lib/util/collections'
 import React from 'react'
 
 const Page = () => {
-  const apiConn = apiConnection().qln
   const dataFn = async () => {
-    const resp = await get(`${apiConn.url}/StockDividends`)
+    const resp = await serverGetFetch('/DividentdPayers')
     const result = resp.Body as StockDividendItem[]
-    return result.filter((m) => m.Frequency !== 'irregular')
+    return sortArray(
+      result.filter((m) => m.Frequency !== 'one-time'),
+      ['AnnualYield'],
+      ['desc'],
+    )
   }
   const { isLoading, data } = useSwrHelper('/api/baseUrl?id=alldividends', dataFn, { revalidateOnFocus: false })
   return (
     <>
-      <Seo pageTitle='Sectors' />
+      <Seo pageTitle='Dividend Payers' />
       {isLoading && <BackdropLoader />}
       <ResponsiveContainer>
         <PageHeader text='Stock Reports' backButtonRoute='/csr/stocks' />

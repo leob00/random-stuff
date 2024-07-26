@@ -413,3 +413,15 @@ export async function getEconDataReportDowJones(startYear: number, endYear: numb
   const result = await getEconDataReport(14, startYear, endYear)
   return result
 }
+
+export async function serverPostFetch(req: QlnApiRequest, endpoint: string) {
+  const resp = await post(`/api/qln?url=${qlnApiBaseUrl}${endpoint}`, req)
+  const result = resp as QlnApiResponse
+  return result
+}
+
+export async function serverGetFetch(endpoint: string) {
+  const resp = await get(`/api/qln?url=${qlnApiBaseUrl}${endpoint}`)
+  const result = resp as QlnApiResponse
+  return result
+}

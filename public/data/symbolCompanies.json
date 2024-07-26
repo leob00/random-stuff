@@ -12628,7 +12628,7 @@
     "Symbol": "ETHD"
   },
   {
-    "Company": "GRAYSCALE ETHRM TR ETH",
+    "Company": "Grayscale Ethereum Trust (ETH)",
     "Symbol": "ETHE"
   },
   {
@@ -17584,6 +17584,10 @@
     "Symbol": "HCVI"
   },
   {
+    "Company": "Hennessy Capital Investment Corp. VI Unit",
+    "Symbol": "HCVIU"
+  },
+  {
     "Company": "Hennessy Capital Investment Corp. VI Warrant",
     "Symbol": "HCVIW"
   },
@@ -21006,6 +21010,10 @@
   {
     "Company": "IX Acquisition Corp. Class A Ordinary Share",
     "Symbol": "IXAQ"
+  },
+  {
+    "Company": "IX Acquisition Corp. Unit",
+    "Symbol": "IXAQU"
   },
   {
     "Company": "IX Acquisition Corp. Warrant",
@@ -29364,6 +29372,10 @@
     "Symbol": "PCT"
   },
   {
+    "Company": "PureCycle Technologies, Inc. Unit",
+    "Symbol": "PCTTU"
+  },
+  {
     "Company": "PureCycle Technologies, Inc. Warrant",
     "Symbol": "PCTTW"
   },
@@ -31578,6 +31590,10 @@
   {
     "Company": "Qomolangma Acquisition Corp. Common Stock",
     "Symbol": "QOMO"
+  },
+  {
+    "Company": "Qomolangma Acquisition Corp. Right",
+    "Symbol": "QOMOR"
   },
   {
     "Company": "Qomolangma Acquisition Corp. Warrant",
@@ -41574,6 +41590,10 @@
   {
     "Company": "Watsco, Inc.",
     "Symbol": "WSO"
+  },
+  {
+    "Company": "Watsco, Inc. Class B",
+    "Symbol": "WSO.B"
   },
   {
     "Company": "Whitestone REIT",
