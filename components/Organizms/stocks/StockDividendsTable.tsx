@@ -33,6 +33,7 @@ const StockDividendsTable = ({ data }: { data: StockDividendItem[] }) => {
 
   const handleCellClick = async (params: GridCellParams, event: MuiEvent, details: GridCallbackDetails) => {
     const item = params.row as StockDividendItem
+
     setSelectedItem(item)
   }
   const handleSearchSelected = (item: DropdownItem) => {

@@ -3,22 +3,23 @@ import CenterStack from 'components/Atoms/CenterStack'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import dayjs from 'dayjs'
 import { useSwrHelper } from 'hooks/useSwrHelper'
-import { apiConnection } from 'lib/backend/api/config'
-import { post } from 'lib/backend/api/fetchFunctions'
 import numeral from 'numeral'
 import React from 'react'
 import { StockDividendItem } from '../StockDividendsTable'
+import { QlnApiRequest, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 
 const StockDividendDetails = ({ symbol }: { symbol: string }) => {
-  const apiConn = apiConnection().qln
   const mutakeKey = `stockdividend-details ${symbol}`
   const dataFn = async () => {
-    const resp = await post(`${apiConn.url}/StockDividends`, { Symbol: symbol })
+    const req: QlnApiRequest = {
+      key: symbol,
+    }
+
+    const resp = await serverPostFetch(req, '/DividentdPayers')
     const result = resp.Body as StockDividendItem[]
     return result
   }
   const { data, isLoading } = useSwrHelper(mutakeKey, dataFn, { revalidateOnFocus: false })
-  console.log(data)
 
   return (
     <Box py={2}>
