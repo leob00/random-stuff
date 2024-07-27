@@ -1,5 +1,12 @@
 import { Box, IconButton, Stack, Typography } from '@mui/material'
-import { CasinoBlackTransparent, CasinoDarkGreenTransparent, CasinoDarkRedTransparent, CasinoLimeTransparent, CasinoOrange, VeryLightBlue } from 'components/themes/mainTheme'
+import {
+  CasinoBlackTransparent,
+  CasinoDarkGreenTransparent,
+  CasinoDarkRedTransparent,
+  CasinoLimeTransparent,
+  CasinoOrange,
+  VeryLightBlue,
+} from 'components/themes/mainTheme'
 
 import { StockHistoryItem, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
@@ -9,7 +16,7 @@ import Close from '@mui/icons-material/Close'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import StockNews from 'components/Organizms/stocks/StockNews'
-import StockEarnings from './StockEarnings'
+import StockEarnings from './earnings/StockEarnings'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { putSearchedStock } from 'lib/backend/csr/nextApiWrapper'
 import CompanyProfile from './CompanyProfile'
@@ -121,7 +128,11 @@ const StockListItem = ({
     <Box key={item.Symbol} py={1}>
       <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
       <Box>
-        {isStock ? <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} /> : <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />}
+        {isStock ? (
+          <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
+        ) : (
+          <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} />
+        )}
         <Box key={`${item.Symbol}${item.Price}`}>
           <StockChange item={item} />
         </Box>

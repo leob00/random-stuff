@@ -23,10 +23,25 @@ import { LocalStore } from 'lib/backend/store/useLocalStore'
 import SnackbarWarning from 'components/Atoms/Dialogs/SnackbarWarning'
 
 export const searchWithinResults = (quotes: StockQuote[], text: string) => {
-  const result = quotes.filter((o) => o.Symbol.toLowerCase().includes(text.toLowerCase()) || o.Company.toLowerCase().startsWith(text.toLowerCase()) || (o.GroupName && o.GroupName.toLowerCase().includes(text.toLowerCase())))
+  const result = quotes.filter(
+    (o) =>
+      o.Symbol.toLowerCase().includes(text.toLowerCase()) ||
+      o.Company.toLowerCase().startsWith(text.toLowerCase()) ||
+      (o.GroupName && o.GroupName.toLowerCase().includes(text.toLowerCase())),
+  )
   return result
 }
-const StocksDisplay = ({ userProfile, result, onMutated, localStore }: { userProfile: UserProfile | null; result: StockQuote[]; onMutated: (newData: StockQuote[]) => void; localStore: LocalStore }) => {
+const StocksDisplay = ({
+  userProfile,
+  result,
+  onMutated,
+  localStore,
+}: {
+  userProfile: UserProfile | null
+  result: StockQuote[]
+  onMutated: (newData: StockQuote[]) => void
+  localStore: LocalStore
+}) => {
   const [showUserWarning, setShowUserWarning] = useState(userProfile === null)
 
   const userController = useUserController()
@@ -36,7 +51,6 @@ const StocksDisplay = ({ userProfile, result, onMutated, localStore }: { userPro
     autoCompleteResults: [],
     searchedStocksMap: new Map<string, StockQuote>([]),
     stockListMap: map,
-    stockList: result,
     editList: false,
     successMesage: null,
     showAsGroup: userProfile ? userProfile.settings?.stocks?.defaultView! === 'grouped' : localStore.myStocks.defaultView === 'grouped',
@@ -64,7 +78,7 @@ const StocksDisplay = ({ userProfile, result, onMutated, localStore }: { userPro
 
   const handleAddToList = async () => {
     const quote = { ...model.quoteToAdd! }
-    let stockList = [...model.stockList]
+    let stockList = [...result]
     let stockListMap = getMapFromArray(stockList, 'Symbol')
     quote.GroupName = quote.Sector ?? 'Unassigned'
     if (!stockListMap.has(quote.Symbol)) {
@@ -77,7 +91,6 @@ const StocksDisplay = ({ userProfile, result, onMutated, localStore }: { userPro
         editList: false,
         showAsGroup: false,
         stockListMap: stockListMap,
-        stockList: newList,
         autoCompleteResults: [],
         quoteToAdd: undefined,
         isLoading: false,
@@ -105,7 +118,6 @@ const StocksDisplay = ({ userProfile, result, onMutated, localStore }: { userPro
     setModel({
       ...model,
       isLoading: false,
-      stockList: newList,
       stockListMap: newMap,
       successMesage: 'Your list has been updated!',
     })
@@ -121,7 +133,6 @@ const StocksDisplay = ({ userProfile, result, onMutated, localStore }: { userPro
     setModel({
       ...model,
       isLoading: false,
-      stockList: newList,
       stockListMap: newMap,
       successMesage: 'Your list has been updated!',
     })
@@ -174,7 +185,13 @@ const StocksDisplay = ({ userProfile, result, onMutated, localStore }: { userPro
         <StocksLookup onFound={handleSelectQuote} />
       </Box>
       {model.quoteToAdd ? (
-        <AddQuote stockListMap={model.stockListMap} quote={model.quoteToAdd} handleAddToList={handleAddToList} handleCloseAddQuote={handleCloseAddQuote} scrollIntoView />
+        <AddQuote
+          stockListMap={model.stockListMap}
+          quote={model.quoteToAdd}
+          handleAddToList={handleAddToList}
+          handleCloseAddQuote={handleCloseAddQuote}
+          scrollIntoView
+        />
       ) : (
         <Box>
           {model.isLoading ? (
@@ -183,19 +200,34 @@ const StocksDisplay = ({ userProfile, result, onMutated, localStore }: { userPro
             <Box py={2}>
               {model.editList && result.length > 0 ? (
                 <>
-                  <EditList username={userProfile?.username ?? null} data={result} onCancelEdit={() => setModel({ ...model, editList: false })} onPushChanges={handleSaveChanges} onReorder={handleReorderList} />
+                  <EditList
+                    username={userProfile?.username ?? null}
+                    data={result}
+                    onCancelEdit={() => setModel({ ...model, editList: false })}
+                    onPushChanges={handleSaveChanges}
+                    onReorder={handleReorderList}
+                  />
                 </>
               ) : (
                 <>
                   {model.showAsGroup ? (
                     <Box>
-                      <GroupedStocksLayout userProfile={userProfile} stockList={model.stockList} onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={() => handleShowAsGroup(false)} />
+                      <GroupedStocksLayout
+                        userProfile={userProfile}
+                        stockList={result}
+                        onEdit={() => setModel({ ...model, editList: true })}
+                        onShowAsGroup={() => handleShowAsGroup(false)}
+                      />
                     </Box>
                   ) : (
                     <Box>
                       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
                         <Box pl={1}></Box>
-                        <FlatListMenu onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={handleShowAsGroup} onShowCustomSort={handleShowCustomSort} />
+                        <FlatListMenu
+                          onEdit={() => setModel({ ...model, editList: true })}
+                          onShowAsGroup={handleShowAsGroup}
+                          onShowCustomSort={handleShowCustomSort}
+                        />
                       </Box>
                       {customSort && <CustomSortAlert result={customSort} onModify={() => setModel({ ...model, showCustomSort: true })} />}
                       <PagedStockTable data={customSorted} showGroupName={true} />
@@ -208,11 +240,22 @@ const StocksDisplay = ({ userProfile, result, onMutated, localStore }: { userPro
         </Box>
       )}
       <>
-        <FormDialog show={model.showCustomSort ?? false} title={'sort'} onCancel={() => setModel({ ...model, showCustomSort: false })} showActionButtons={false}>
+        <FormDialog
+          show={model.showCustomSort ?? false}
+          title={'sort'}
+          onCancel={() => setModel({ ...model, showCustomSort: false })}
+          showActionButtons={false}
+        >
           <StocksCustomSortForm result={userProfile?.settings?.stocks?.customSort ?? localStore.myStocks.customSort} onSubmitted={handleSubmitCustomSort} />
         </FormDialog>
       </>
-      {showUserWarning && <SnackbarWarning show={true} text='You are not signed in. All changes will only be saved on your local device.' onClose={() => setShowUserWarning(false)} />}
+      {showUserWarning && (
+        <SnackbarWarning
+          show={true}
+          text='You are not signed in. All changes will only be saved on your local device.'
+          onClose={() => setShowUserWarning(false)}
+        />
+      )}
     </>
   )
 }

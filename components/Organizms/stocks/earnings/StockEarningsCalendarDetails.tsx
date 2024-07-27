@@ -9,14 +9,14 @@ import CenterStack from 'components/Atoms/CenterStack'
 import { StockEarning } from 'lib/backend/api/qln/qlnApi'
 import numeral from 'numeral'
 import React from 'react'
-import { getPositiveNegativeColor } from './StockListItem'
+import { getPositiveNegativeColor } from '../StockListItem'
 import { Box, Typography } from '@mui/material'
 import { useTheme } from '@mui/material'
 import { getPagedArray } from 'lib/util/collections'
 import Pager from 'components/Atoms/Pager'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import { useRouter } from 'next/router'
-import StockChange from './StockChange'
+import StockChange from '../StockChange'
 import Clickable from 'components/Atoms/Containers/Clickable'
 
 const StockEarningsCalendarDetails = ({
@@ -56,8 +56,8 @@ const StockEarningsCalendarDetails = ({
 
   return (
     <>
-      <Box pl={1}>
-        <TableContainer component={Paper}>
+      <Box>
+        <TableContainer component={Paper} elevation={2}>
           <Table>
             <TableHead>
               <TableRow>
@@ -68,7 +68,7 @@ const StockEarningsCalendarDetails = ({
             </TableHead>
             <TableHead>
               <TableRow>
-                <TableCell>Company</TableCell>
+                <TableCell></TableCell>
                 <TableCell>Actual</TableCell>
                 <TableCell>Estimate</TableCell>
               </TableRow>
@@ -89,12 +89,12 @@ const StockEarningsCalendarDetails = ({
                       </Box>
                       {item.StockQuote && <StockChange item={item.StockQuote} />}
                     </TableCell>
-                    <TableCell>
+                    <TableCell sx={{ verticalAlign: 'top' }}>
                       <Typography
                         color={getPositiveNegativeColor(item.ActualEarnings, theme.palette.mode)}
                       >{`${item.ActualEarnings ? numeral(item.ActualEarnings).format('0.00') : ''}`}</Typography>
                     </TableCell>
-                    <TableCell>
+                    <TableCell sx={{ verticalAlign: 'top' }}>
                       <Typography
                         color={getPositiveNegativeColor(item.EstimatedEarnings, theme.palette.mode)}
                       >{`${item.EstimatedEarnings ? numeral(item.EstimatedEarnings).format('0.00') : ''}`}</Typography>

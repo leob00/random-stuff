@@ -6,7 +6,7 @@ import { StockQuote } from 'lib/backend/api/models/zModels'
 import { getNewsBySymbol, getStockEarnings, getStockQuotes, NewsItem, StockEarning } from 'lib/backend/api/qln/qlnApi'
 import { orderBy } from 'lodash'
 import React from 'react'
-import NewsList from '../news/NewsList'
+import NewsList from '../../news/NewsList'
 import StockEarningsTable from './StockEarningsTable'
 
 const StockEarnings = ({ quote }: { quote: StockQuote }) => {

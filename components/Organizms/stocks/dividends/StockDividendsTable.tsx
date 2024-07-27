@@ -8,7 +8,7 @@ import { DropdownItem } from 'lib/models/dropdown'
 import { sortArray } from 'lib/util/collections'
 import numeral from 'numeral'
 import React from 'react'
-import StockDividendDetails from './dividends/StockDividendDetails'
+import StockDividendDetails from './StockDividendDetails'
 
 export interface StockDividendItem {
   Symbol: string

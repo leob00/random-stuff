@@ -78,14 +78,12 @@ const Page = () => {
   React.useEffect(() => {
     const fn = async () => {
       if (!authProfile) {
-        const p = await fetchProfilePassive(900)
-        if (!p) {
-          await setProfile(null)
-        } else {
-          await setProfile(p)
-        }
+        const fetchedProfile = await fetchProfilePassive(900)
+        await setProfile(fetchedProfile)
+        setIsLoading(false)
+      } else {
+        setIsLoading(false)
       }
-      setIsLoading(false)
     }
     fn()
 
@@ -94,7 +92,7 @@ const Page = () => {
 
   return (
     <>
-      <Seo pageTitle='Stocks' />
+      <Seo pageTitle='My Stocks' />
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
         <BackButton />
         <ContextMenu items={contextMenu} />

@@ -26,7 +26,7 @@ export interface StockLayoutModel {
   autoCompleteResults: DropdownItem[]
   searchedStocksMap: Map<string, SymbolCompany>
   stockListMap: Map<string, StockQuote>
-  stockList: StockQuote[]
+  stockList?: StockQuote[]
   editList: boolean
   quoteToAdd?: StockQuote
   successMesage: string | null
@@ -94,7 +94,7 @@ const StockSearchLayout = () => {
       }
     }
 
-    let stockList = [...model.stockList]
+    let stockList = [...(model.stockList ?? [])]
     let map = model.stockListMap
 
     if (profile) {
@@ -117,7 +117,7 @@ const StockSearchLayout = () => {
 
   const handleAddToList = async () => {
     const quote = { ...model.quoteToAdd! }
-    let stockList = [...model.stockList]
+    let stockList = [...(model.stockList ?? [])]
     let stockListMap = getMapFromArray(stockList, 'Symbol')
     quote.GroupName = quote.Sector ?? 'Unassigned'
     if (!stockListMap.has(quote.Symbol)) {
@@ -247,7 +247,7 @@ const StockSearchLayout = () => {
             </>
           ) : (
             <Box py={2}>
-              {model.editList && model.stockList.length > 0 ? (
+              {model.editList && model.stockList && model.stockList.length > 0 ? (
                 <>
                   <EditList
                     username={model.username ?? null}
@@ -263,7 +263,7 @@ const StockSearchLayout = () => {
                     <Box>
                       <GroupedStocksLayout
                         userProfile={userController.authProfile}
-                        stockList={model.stockList}
+                        stockList={model.stockList ?? []}
                         onEdit={() => setModel({ ...model, editList: true })}
                         onShowAsGroup={() => handleShowAsGroup(false)}
                       />
@@ -274,7 +274,7 @@ const StockSearchLayout = () => {
                         <FlatListMenu onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={handleShowAsGroup} />
                       </Box>
                       <Box display={'flex'} justifyContent={'flex-end'}></Box>
-                      <StockTable stockList={model.stockList} isStock={true} />
+                      <StockTable stockList={model.stockList ?? []} isStock={true} />
                     </Box>
                   )}
                 </>

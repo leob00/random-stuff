@@ -7,7 +7,7 @@ import { StockEarning } from 'lib/backend/api/qln/qlnApi'
 import { DropdownItem } from 'lib/models/dropdown'
 import { orderBy, uniq } from 'lodash'
 import React from 'react'
-import StockEarningsCalendarDetails from '../StockEarningsCalendarDetails'
+import StockEarningsCalendarDetails from './StockEarningsCalendarDetails'
 const filterResult = (items: StockEarning[], dt: string | null) => {
   return orderBy(
     items.filter((m) => m.ReportDate === dt),

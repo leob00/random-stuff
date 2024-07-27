@@ -7752,6 +7752,10 @@
     "Symbol": "CLRCU"
   },
   {
+    "Company": "ClimateRock Warrant",
+    "Symbol": "CLRCW"
+  },
+  {
     "Company": "ClearOne, Inc. (DE) Common Stock",
     "Symbol": "CLRO"
   },
@@ -37934,6 +37938,10 @@
   {
     "Company": "TMT Acquisition Corp Rights",
     "Symbol": "TMTCR"
+  },
+  {
+    "Company": "TMT Acquisition Corp Unit",
+    "Symbol": "TMTCU"
   },
   {
     "Company": "T-Mobile US, Inc.",

@@ -5,8 +5,8 @@ import dayjs from 'dayjs'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import numeral from 'numeral'
 import React from 'react'
-import { StockDividendItem } from '../StockDividendsTable'
 import { QlnApiRequest, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
+import { StockDividendItem } from './StockDividendsTable'
 
 const StockDividendDetails = ({ symbol }: { symbol: string }) => {
   const mutakeKey = `stockdividend-details ${symbol}`
