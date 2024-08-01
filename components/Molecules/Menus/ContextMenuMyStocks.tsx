@@ -3,7 +3,7 @@ import ListItemText from '@mui/material/ListItemText'
 import React from 'react'
 import StackedLineChartIcon from '@mui/icons-material/StackedLineChart'
 
-const ContextMenuPortfolio = ({ text = 'alerts' }: { text?: string }) => {
+const ContextMenuMyStocks = ({ text = 'my stocks' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
@@ -14,4 +14,4 @@ const ContextMenuPortfolio = ({ text = 'alerts' }: { text?: string }) => {
   )
 }
 
-export default ContextMenuPortfolio
+export default ContextMenuMyStocks

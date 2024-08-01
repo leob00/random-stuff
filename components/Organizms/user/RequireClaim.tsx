@@ -4,14 +4,13 @@ import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLo
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import dayjs from 'dayjs'
 import { useUserController } from 'hooks/userController'
-import { Claim, ClaimType } from 'lib/backend/auth/userUtil'
+import { Claim, ClaimType, getUserCSR } from 'lib/backend/auth/userUtil'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import React, { ReactNode } from 'react'
 
 const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children: ReactNode }) => {
   const { claims, saveClaims } = useSessionStore()
-  const { authProfile, fetchProfilePassive, setProfile } = useUserController()
-
+  const { ticket } = useUserController()
   const [isValidating, setIsValidating] = React.useState(true)
   const [validatedClaim, setValidatedClaim] = React.useState(claims.find((m) => m.type === claimType))
 
@@ -21,23 +20,17 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
       let claim = { ...validatedClaim }
       const now = dayjs()
       const expirationSeconds = dayjs(now).diff(now.add(30, 'days'), 'second')
+      let userTicket = ticket ? { ...ticket } : await getUserCSR()
+      if (!userTicket) {
+        setIsValidating(false)
+        return
+      }
+
       if (!claim.token) {
         switch (claimType) {
           case 'rs': {
-            if (!authProfile) {
-              const p = await fetchProfilePassive(60000)
-              if (p) {
-                const newClaim: Claim = {
-                  token: crypto.randomUUID(),
-                  type: 'rs',
-                  tokenExpirationSeconds: expirationSeconds,
-                }
-                setProfile(p)
-                allClaims.push(newClaim)
-                saveClaims(allClaims)
-                setValidatedClaim(newClaim)
-              }
-            } else {
+            const guest = ticket?.roles?.find((m) => m.Name === 'Registered User')
+            if (guest) {
               const newClaim: Claim = {
                 token: crypto.randomUUID(),
                 type: 'rs',
@@ -49,7 +42,18 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
             }
             break
           }
-          case 'qln': {
+          case 'rs-admin': {
+            const admin = ticket?.roles?.find((m) => m.Name === 'Admin')
+            if (admin) {
+              const newClaim: Claim = {
+                token: crypto.randomUUID(),
+                type: 'rs-admin',
+                tokenExpirationSeconds: expirationSeconds,
+              }
+              allClaims.push(newClaim)
+              saveClaims(allClaims)
+              setValidatedClaim(newClaim)
+            }
             break
           }
         }
@@ -72,13 +76,10 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
       saveClaims(userClaims)
       setValidatedClaim(userClaims.find((m) => m.type === 'qln'))
     }
+
     switch (claimType) {
       case 'rs':
-        return (
-          <>
-            <PleaseLogin message='Please sign in to use this feature' />
-          </>
-        )
+        return <PleaseLogin message='Please sign in to use this feature' />
       case 'qln':
         return <QlnUsernameLoginForm onSuccess={handleQlnLogin} />
       case 'rs-admin':

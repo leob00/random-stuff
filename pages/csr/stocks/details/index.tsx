@@ -17,7 +17,7 @@ const Page = () => {
       <Seo pageTitle={`Stock Details: ${id}`} />
       <ResponsiveContainer>
         <BackButton route={returnUrl} />
-        {id && <StockDetailsLayout symbol={id} />}
+        {id && <StockDetailsLayout symbol={id} disableCollapse />}
       </ResponsiveContainer>
     </>
   )

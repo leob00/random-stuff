@@ -13,6 +13,7 @@ import StocksCustomSortForm from './StocksCustomSortForm'
 import { useRouter } from 'next/router'
 import { sortArray } from 'lib/util/collections'
 import ContextMenuRefresh from 'components/Molecules/Menus/ContextMenuRefresh'
+import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
 
 const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; onRefresh: () => void }) => {
   const router = useRouter()
@@ -20,7 +21,6 @@ const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; 
 
   const [showCustomSortForm, setShowCustomSortForm] = React.useState(false)
   const defaultSort = settings.communityStocks?.defaultSort ?? []
-  //console.log('defaultSort: ', defaultSort)
   const [sorter, setSorter] = React.useState(defaultSort)
 
   const sortedData = applySort(data, sorter)
@@ -35,6 +35,10 @@ const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; 
     {
       item: <ContextMenuSort text={'sort'} />,
       fn: () => setShowCustomSortForm(true),
+    },
+    {
+      item: <ContextMenuMyStocks />,
+      fn: () => router.push('/csr/my-stocks'),
     },
     {
       item: <ContextMenuReport text={'reports'} />,

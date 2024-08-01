@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
 import ContextMenuPortfolio from 'components/Molecules/Menus/ContextMenuPortfolio'
+import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
 
 export const stockReportsDropdown: DropdownItem[] = [
   { text: 'Volume Leaders', value: 'volume-leaders' },
@@ -28,7 +29,7 @@ const StockReportsDropdown = ({ selectedValue }: { selectedValue: string }) => {
       },
     },
     {
-      item: <ContextMenuPortfolio text='my stocks' />,
+      item: <ContextMenuMyStocks text='my stocks' />,
       fn: () => {
         router.push('/csr/my-stocks')
       },

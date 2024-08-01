@@ -52,7 +52,6 @@ const StockListItem = ({
   closeOnCollapse = false,
   onClose,
   scrollIntoView = true,
-  showDetailCollapse = true,
   disabled,
 }: {
   item: StockQuote
@@ -62,7 +61,6 @@ const StockListItem = ({
   closeOnCollapse?: boolean
   onClose?: () => void
   scrollIntoView?: boolean
-  showDetailCollapse?: boolean
   disabled?: boolean
 }) => {
   const { authProfile } = useUserController()
@@ -148,7 +146,7 @@ const StockListItem = ({
           <Box>
             <HorizontalDivider />
           </Box>
-          {showDetailCollapse && (
+          {!disabled && (
             <Box display={'flex'} justifyContent={'flex-end'}>
               <IconButton color='default' onClick={handleCollapseClick}>
                 <Close fontSize='small' color={'secondary'} />

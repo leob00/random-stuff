@@ -44,22 +44,9 @@ export const mediaTypes = [
   'video/mpeg',
 ]
 
-// const allowed =
-//   'application/pdf, image/jpeg, image/gif, image/webp image/jpg, image/png, application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.wordprocessingml.document, audio/mpeg, audio/mp4, video/mp4, application/zip'
-
 export const allowed = mediaTypes.join()
 
-const S3FileUploadForm = ({
-  folder,
-  files,
-  onUploaded,
-  isWaiting,
-}: {
-  folder: string
-  files: S3Object[]
-  onUploaded: (item: S3Object) => void
-  isWaiting?: boolean
-}) => {
+const S3FileUploadForm = ({ folder, files, onUploaded, isWaiting }: { folder: string; files: S3Object[]; onUploaded: (item: S3Object) => void; isWaiting?: boolean }) => {
   const [file, setFile] = React.useState<File | undefined>(undefined)
   const [userFilename, setUserFilename] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)

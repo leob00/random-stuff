@@ -3,19 +3,20 @@ import useSWR from 'swr'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import StockListItem from './StockListItem'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import { useSwrHelper } from 'hooks/useSwrHelper'
 
-const StockDetailsLayout = ({ symbol }: { symbol: string }) => {
-  const mutateKey = ['/api/baseRoute', symbol]
-  const fetchData = async (url: string, id: string) => {
-    const result = await getStockQuotes([id])
+const StockDetailsLayout = ({ symbol, disableCollapse = false }: { symbol: string; disableCollapse?: boolean }) => {
+  const mutateKey = `stock-details-${symbol}`
+  const dataFn = async () => {
+    const result = await getStockQuotes([symbol])
     return result
   }
-  const { data: stocks, isLoading, isValidating } = useSWR(mutateKey, ([url, id]) => fetchData(url, symbol))
+  const { data, isLoading } = useSwrHelper(mutateKey, dataFn)
 
   return (
     <>
       {isLoading && <BackdropLoader />}
-      {stocks && stocks.length > 0 && <StockListItem isStock item={stocks[0]} expand scrollIntoView />}
+      {data && data.length > 0 && <StockListItem isStock item={data[0]} expand scrollIntoView disabled={disableCollapse} />}
     </>
   )
 }

@@ -1,4 +1,4 @@
-import Search from '@mui/icons-material/Search'
+import SearchIcon from '@mui/icons-material/Search'
 import SearchOff from '@mui/icons-material/SearchOff'
 import { Box, IconButton, Stack, Tooltip, Typography } from '@mui/material'
 import ConfirmDialog from 'components/Atoms/Dialogs/ConfirmDialog'
@@ -184,7 +184,7 @@ const TaskList = ({
               <Box display={'flex'} alignItems={'center'} gap={2}>
                 <Box>
                   <IconButton size='small' color='primary' onClick={handleToggleSearch}>
-                    {!model.showSearch ? <Search fontSize='small' /> : <SearchOff fontSize='small' />}
+                    {!model.showSearch ? <SearchIcon fontSize='small' /> : <SearchOff fontSize='small' />}
                   </IconButton>
                   {!model.showSearch && (
                     <DefaultTooltip text={'download file'}>
