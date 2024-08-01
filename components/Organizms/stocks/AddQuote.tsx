@@ -33,7 +33,6 @@ const AddQuote = ({
         onClose={handleCloseAddQuote}
         showGroupName={true}
         scrollIntoView={scrollIntoView}
-        showDetailCollapse={false}
       />
       {alreadyExists && showAddToListButton && (
         <CenterStack>

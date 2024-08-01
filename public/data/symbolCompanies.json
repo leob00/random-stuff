@@ -64,6 +64,10 @@
     "Symbol": "AAL"
   },
   {
+    "Company": "AA Mission Acquisition Corp. Units, each consisting of one Class A Ordinary Share and one-half of one redeemable warrant",
+    "Symbol": "AAM.U"
+  },
+  {
     "Company": "Altisource Asset Mgmt Corp",
     "Symbol": "AAMC"
   },
@@ -1216,7 +1220,11 @@
     "Symbol": "AITRR"
   },
   {
-    "Company": "Meta Data Limited American Depositary Shares each representing two (2) Class A Ordinary Shares",
+    "Company": "AI TRANSPORTATION ACQUISITION CORP Unit",
+    "Symbol": "AITRU"
+  },
+  {
+    "Company": "Meta Data Limited American Depositary Shares, each representing ten (10) Class A Ordinary Shares",
     "Symbol": "AIU"
   },
   {
@@ -2876,6 +2884,10 @@
     "Symbol": "ATMCR"
   },
   {
+    "Company": "AlphaTime Acquisition Corp Unit",
+    "Symbol": "ATMCU"
+  },
+  {
     "Company": "AlphaTime Acquisition Corp Warrant",
     "Symbol": "ATMCW"
   },
@@ -3976,6 +3988,10 @@
     "Symbol": "BDGS"
   },
   {
+    "Company": "AAM Brentview Dividend Growth ETF",
+    "Symbol": "BDIV"
+  },
+  {
     "Company": "BlackRock Enhanced Equity Dividend Trust",
     "Symbol": "BDJ"
   },
@@ -4322,6 +4338,10 @@
   {
     "Company": "Focus Impact BH3 Acquisition Company Class A Common Stock",
     "Symbol": "BHAC"
+  },
+  {
+    "Company": "Focus Impact BH3 Acquisition Company Units",
+    "Symbol": "BHACU"
   },
   {
     "Company": "Focus Impact BH3 Acquisition Company Warrants",
@@ -4874,6 +4894,10 @@
   {
     "Company": "Bloomin' Brands, Inc. Common Stock",
     "Symbol": "BLMN"
+  },
+  {
+    "Company": "BloomZ Inc. Ordinary Shares",
+    "Symbol": "BLMZ"
   },
   {
     "Company": "Blend Labs, Inc.",
@@ -5734,6 +5758,10 @@
   {
     "Company": "Bit Digital, Inc. Ordinary Shares",
     "Symbol": "BTBT"
+  },
+  {
+    "Company": "Grayscale Bitcoin Mini Trust (BTC)",
+    "Symbol": "BTC"
   },
   {
     "Company": "T-Rex 2X Long Bitcoin Daily Target ETF",
@@ -6720,6 +6748,10 @@
     "Symbol": "CCTS"
   },
   {
+    "Company": "Cactus Acquisition Corp. 1 Limited Unit",
+    "Symbol": "CCTSU"
+  },
+  {
     "Company": "Cactus Acquisition Corp. 1 Limited Warrant",
     "Symbol": "CCTSW"
   },
@@ -7264,8 +7296,16 @@
     "Symbol": "CHE"
   },
   {
+    "Company": "Chenghe Acquisition II Co.",
+    "Symbol": "CHEB"
+  },
+  {
     "Company": "Chenghe Acquisition II Co. Units, each consisting of one Class A ordinary share and one-half of one redeemable warrant",
     "Symbol": "CHEB.U"
+  },
+  {
+    "Company": "Chenghe Acquisition II Co. Redeemable Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50",
+    "Symbol": "CHEB.WS"
   },
   {
     "Company": "The Chef's Warehouse Inc",
@@ -8246,6 +8286,10 @@
   {
     "Company": "iShares U.S. ETF Trust iShares GSCI Commodity Dynamic Roll Strategy ETF",
     "Symbol": "COMT"
+  },
+  {
+    "Company": "Concentra Group Holdings Parent, Inc.",
+    "Symbol": "CON"
   },
   {
     "Company": "GraniteShares ETF Trust GraniteShares 2x Long COIN Daily ETF",
@@ -10180,6 +10224,10 @@
     "Symbol": "DIOD"
   },
   {
+    "Company": "YieldMax Short NVDA Option Income Strategy ETF",
+    "Symbol": "DIPS"
+  },
+  {
     "Company": "The Walt Disney Company",
     "Symbol": "DIS"
   },
@@ -10830,6 +10878,10 @@
   {
     "Company": "First Trust Alerian Disruptive Technology Real Estate ETF",
     "Symbol": "DTRE"
+  },
+  {
+    "Company": "DT Cloud Star Acquisition Corporation Units",
+    "Symbol": "DTSQU"
   },
   {
     "Company": "Datasea Inc. Common Stock",
@@ -14020,6 +14072,10 @@
     "Symbol": "FIAC"
   },
   {
+    "Company": "Focus Impact Acquisition Corp. Unit",
+    "Symbol": "FIACU"
+  },
+  {
     "Company": "Focus Impact Acquisition Corp. Warrant",
     "Symbol": "FIACW"
   },
@@ -14240,12 +14296,24 @@
     "Symbol": "FLCB"
   },
   {
+    "Company": "Federated Hermes MDT Large Cap Core ETF",
+    "Symbol": "FLCC"
+  },
+  {
+    "Company": "Federated Hermes MDT Large Cap Growth ETF",
+    "Symbol": "FLCG"
+  },
+  {
     "Company": "Franklin FTSE China ETF",
     "Symbol": "FLCH"
   },
   {
     "Company": "Franklin Investment Grade Corporate ETF",
     "Symbol": "FLCO"
+  },
+  {
+    "Company": "Federated Hermes MDT Large Cap Value ETF",
+    "Symbol": "FLCV"
   },
   {
     "Company": "Fidelity Low Duration Bond ETF",
@@ -14628,7 +14696,7 @@
     "Symbol": "FNDB"
   },
   {
-    "Company": "Schwab Fundamental International Small Equity ETF",
+    "Company": "Schwab Fundamental International Small Company Index ETF",
     "Symbol": "FNDC"
   },
   {
@@ -15006,6 +15074,10 @@
   {
     "Company": "FS Bancorp, Inc. Common Stock",
     "Symbol": "FSBW"
+  },
+  {
+    "Company": "Federated Hermes MDT Small Cap Core ETF",
+    "Symbol": "FSCC"
   },
   {
     "Company": "FS Credit Opportunities Corp.",
@@ -15744,6 +15816,10 @@
     "Symbol": "GCAD"
   },
   {
+    "Company": "Goldman Sachs Dynamic California Municipal Income ETF",
+    "Symbol": "GCAL"
+  },
+  {
     "Company": "Greene County Bancorp Inc",
     "Symbol": "GCBC"
   },
@@ -15882,6 +15958,10 @@
   {
     "Company": "Goldenstone Acquisition Limited Rights",
     "Symbol": "GDSTR"
+  },
+  {
+    "Company": "Goldenstone Acquisition Limited Units",
+    "Symbol": "GDSTU"
   },
   {
     "Company": "Goldenstone Acquisition Limited Warrants",
@@ -16168,6 +16248,10 @@
     "Symbol": "GHIX"
   },
   {
+    "Company": "Gores Holdings IX, Inc. Unit",
+    "Symbol": "GHIXU"
+  },
+  {
     "Company": "Gores Holdings IX, Inc. Warrant",
     "Symbol": "GHIXW"
   },
@@ -16206,6 +16290,10 @@
   {
     "Company": "iShares US & Intl High Yield Corp Bond ETF",
     "Symbol": "GHYG"
+  },
+  {
+    "Company": "Nicholas Global Equity and Income ETF",
+    "Symbol": "GIAX"
   },
   {
     "Company": "CGI Inc.",
@@ -16548,6 +16636,10 @@
     "Symbol": "GMM"
   },
   {
+    "Company": "Goldman Sachs Dynamic New York Municipal Income ETF",
+    "Symbol": "GMNY"
+  },
+  {
     "Company": "Cambria Global Momentum ETF",
     "Symbol": "GMOM"
   },
@@ -16558,6 +16650,10 @@
   {
     "Company": "GMS Inc.",
     "Symbol": "GMS"
+  },
+  {
+    "Company": "Goldman Sachs Municipal Income ETF",
+    "Symbol": "GMUB"
   },
   {
     "Company": "Goldman Sachs Community Municipal Bond ETF",
@@ -17250,6 +17346,10 @@
   {
     "Company": "Guggenheim Active Allocation Fund",
     "Symbol": "GUG"
+  },
+  {
+    "Company": "Goldman Sachs Ultra Short Municipal Income ETF",
+    "Symbol": "GUMI"
   },
   {
     "Company": "FlexShares Global Upstream Natural Resources Index Fund",
@@ -20612,6 +20712,10 @@
     "Symbol": "ISRL"
   },
   {
+    "Company": "Israel Acquisitions Corp Unit",
+    "Symbol": "ISRLU"
+  },
+  {
     "Company": "Israel Acquisitions Corp Warrant",
     "Symbol": "ISRLW"
   },
@@ -21756,6 +21860,10 @@
     "Symbol": "JULJ"
   },
   {
+    "Company": "FT Vest U.S. Equity Max Buffer ETF - July",
+    "Symbol": "JULM"
+  },
+  {
     "Company": "PGIM US Large-Cap Buffer 12 ETF - July",
     "Symbol": "JULP"
   },
@@ -21888,6 +21996,10 @@
     "Symbol": "KACLR"
   },
   {
+    "Company": "Kairous Acquisition Corp. Limited Unit",
+    "Symbol": "KACLU"
+  },
+  {
     "Company": "Kairous Acquisition Corp. Limited Warrants",
     "Symbol": "KACLW"
   },
@@ -22002,6 +22114,10 @@
   {
     "Company": "Kensington Capital Acquisition Corp. V Redeemable warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50",
     "Symbol": "KCGI.WS"
+  },
+  {
+    "Company": "KraneShares Sustainable Ultra Short Duration Index ETF",
+    "Symbol": "KCSH"
   },
   {
     "Company": "Kyndryl Holdings, Inc.",
@@ -23260,6 +23376,10 @@
     "Symbol": "LIND"
   },
   {
+    "Company": "Lineage, Inc. Common Stock",
+    "Symbol": "LINE"
+  },
+  {
     "Company": "Interlink Electronics, Inc. Common Stock",
     "Symbol": "LINK"
   },
@@ -23768,6 +23888,10 @@
     "Symbol": "LTL"
   },
   {
+    "Company": "LATAM Airlines Group S.A. American Depositary Shares (each representing two thousand (2,000) shares of Common Stock)",
+    "Symbol": "LTM"
+  },
+  {
     "Company": "PIMCO 15+ Year U.S. TIPS Index Exchange-Traded Fund",
     "Symbol": "LTPZ"
   },
@@ -24150,6 +24274,10 @@
   {
     "Company": "Mars Acquisition Corp. Rights",
     "Symbol": "MARXR"
+  },
+  {
+    "Company": "Mars Acquisition Corp. Unit",
+    "Symbol": "MARXU"
   },
   {
     "Company": "TrueShares Structured Outcome (March) ETF",
@@ -26452,6 +26580,10 @@
     "Symbol": "NCNC"
   },
   {
+    "Company": "noco-noco Inc. Warrant",
+    "Symbol": "NCNCW"
+  },
+  {
     "Company": "nCino, Inc. Common Stock",
     "Symbol": "NCNO"
   },
@@ -26822,6 +26954,10 @@
   {
     "Company": "NioCorp Developments Ltd. Warrant",
     "Symbol": "NIOBW"
+  },
+  {
+    "Company": "NIP Group Inc. American Depositary Shares",
+    "Symbol": "NIPG"
   },
   {
     "Company": "NiSun International Enterprise Development Group Co., Ltd. Class A Common Shares",
@@ -27576,6 +27712,10 @@
     "Symbol": "NUZE"
   },
   {
+    "Company": "Nova Minerals Limited American Depositary Shares",
+    "Symbol": "NVA"
+  },
+  {
     "Company": "NorthView Acquisition Corporation Common Stock",
     "Symbol": "NVAC"
   },
@@ -27586,6 +27726,10 @@
   {
     "Company": "NorthView Acquisition Corporation Warrant",
     "Symbol": "NVACW"
+  },
+  {
+    "Company": "Nova Minerals Limited Warrant",
+    "Symbol": "NVAWW"
   },
   {
     "Company": "Novavax Inc",
@@ -28704,6 +28848,10 @@
     "Symbol": "ORIC"
   },
   {
+    "Company": "Orangekloud Technology Inc. Class A Ordinary Shares",
+    "Symbol": "ORKT"
+  },
+  {
     "Company": "Orla Mining Ltd.",
     "Symbol": "ORLA"
   },
@@ -28722,6 +28870,10 @@
   {
     "Company": "Orrstown Financial Services Inc",
     "Symbol": "ORRF"
+  },
+  {
+    "Company": "OneStream, Inc. Class A Common Stock",
+    "Symbol": "OS"
   },
   {
     "Company": "Old Second Bancorp Inc",
@@ -28760,7 +28912,7 @@
     "Symbol": "OSS"
   },
   {
-    "Company": "Ostin Technology Group Co., Ltd. Ordinary Shares",
+    "Company": "Ostin Technology Group Co., Ltd. Class A Ordinary Shares",
     "Symbol": "OST"
   },
   {
@@ -30016,6 +30168,14 @@
     "Symbol": "PIT"
   },
   {
+    "Company": "Heramba Electric plc Ordinary Shares",
+    "Symbol": "PITA"
+  },
+  {
+    "Company": "Heramba Electric plc Warrants",
+    "Symbol": "PITAW"
+  },
+  {
     "Company": "ShiftPixy, Inc. Common Stock",
     "Symbol": "PIXY"
   },
@@ -30634,6 +30794,10 @@
   {
     "Company": "Pearl Holdings Acquisition Corp Class A Ordinary Shares",
     "Symbol": "PRLH"
+  },
+  {
+    "Company": "Pearl Holdings Acquisition Corp Unit",
+    "Symbol": "PRLHU"
   },
   {
     "Company": "Pearl Holdings Acquisition Corp Warrant",
@@ -31460,6 +31624,10 @@
     "Symbol": "QETAR"
   },
   {
+    "Company": "Quetta Acquisition Corporation Unit",
+    "Symbol": "QETAU"
+  },
+  {
     "Company": "Invesco Galaxy Ethereum ETF",
     "Symbol": "QETH"
   },
@@ -31598,6 +31766,10 @@
   {
     "Company": "Qomolangma Acquisition Corp. Right",
     "Symbol": "QOMOR"
+  },
+  {
+    "Company": "Qomolangma Acquisition Corp. Unit",
+    "Symbol": "QOMOU"
   },
   {
     "Company": "Qomolangma Acquisition Corp. Warrant",
@@ -33634,6 +33806,14 @@
   {
     "Company": "Spirit Airlines, Inc.",
     "Symbol": "SAVE"
+  },
+  {
+    "Company": "AAM Sawgrass US Large Cap Quality Growth ETF",
+    "Symbol": "SAWG"
+  },
+  {
+    "Company": "AAM Sawgrass US Small Cap Quality Growth ETF",
+    "Symbol": "SAWS"
   },
   {
     "Company": "Saratoga Investment Corp. 8.125% Notes due 2027",
@@ -37968,6 +38148,10 @@
     "Symbol": "TNET"
   },
   {
+    "Company": "TNF Pharmaceuticals, Inc. Common Stock",
+    "Symbol": "TNFA"
+  },
+  {
     "Company": "Tango Therapeutics, Inc.",
     "Symbol": "TNGX"
   },
@@ -41584,7 +41768,7 @@
     "Symbol": "WSBF"
   },
   {
-    "Company": "WillScot Mobile Mini Holdings Corp. Class A Common Stock",
+    "Company": "WillScot Holdings Corporation Class A Common Stock",
     "Symbol": "WSC"
   },
   {
