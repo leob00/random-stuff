@@ -74,6 +74,9 @@ const StockSearchLayout = () => {
   }
 
   const handleSelectQuote = async (text: string) => {
+    if (text.length === 0) {
+      return
+    }
     const symbol = text.split(':')[0]
     setModel({ ...model, isLoading: true })
     const quotes = await getStockQuotes([symbol])

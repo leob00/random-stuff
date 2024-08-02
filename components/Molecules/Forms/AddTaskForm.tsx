@@ -24,6 +24,7 @@ const AddTaskForm = ({ task, onSubmitted }: { task: UserTask; onSubmitted: (data
   } = useForm<AddTaskInput>({
     resolver: zodResolver(AddTaskSchema),
     mode: 'onBlur',
+    shouldUnregister: false,
   })
   const onSubmit: SubmitHandler<AddTaskInput> = (formData) => {
     const submitData: UserTask = { ...task, body: formData.name, dueDate: formData.dueDate ?? undefined }

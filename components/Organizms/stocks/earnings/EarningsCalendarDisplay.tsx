@@ -8,6 +8,7 @@ import { orderBy, uniq } from 'lodash'
 import React from 'react'
 import StockEarningsCalendarDetails from './StockEarningsCalendarDetails'
 import SearchIcon from '@mui/icons-material/Search'
+import { useRouter } from 'next/navigation'
 const filterResult = (items: StockEarning[], dt: string | null) => {
   return orderBy(
     items.filter((m) => m.ReportDate === dt),
@@ -16,6 +17,7 @@ const filterResult = (items: StockEarning[], dt: string | null) => {
   )
 }
 const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
+  const router = useRouter()
   const uniqueDates = orderBy(uniq(data.map((m) => m.ReportDate!)))
   const todayEarningsDate = uniqueDates.find((m) => dayjs(m).format('MM/DD/YYYY') === dayjs().format('MM/DD/YYYY'))
   const dateToSelect = getDefaultDateOption(uniqueDates, todayEarningsDate)
@@ -52,6 +54,9 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
       setCurrentPageIndex(1)
     }
   }
+  const handleRedirectToSearch = () => {
+    router.push('/csr/stock-earnings-search')
+  }
 
   return (
     <>
@@ -61,7 +66,7 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
           {dateOptions.length > 0 && <DropdownList options={dateOptions} selectedOption={dateToSelect ?? ''} onOptionSelected={handleDateSelected} fullWidth />}
         </Box>
         <Box justifyContent={'flex-end'}>
-          <IconButton size='small'>
+          <IconButton size='small' onClick={handleRedirectToSearch}>
             <SearchIcon color='primary' fontSize='small' />
           </IconButton>
         </Box>

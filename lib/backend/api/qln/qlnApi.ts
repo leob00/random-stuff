@@ -251,6 +251,17 @@ export async function getStockQuotes(symbols: string[]) {
     return []
   }
 }
+export async function getStockQuote(symbol: string) {
+  const url = `${qlnApiBaseUrl}/Stocks`
+  try {
+    const response = await post(url, symbol)
+    const result = quoteArraySchema.parse(response.Body)
+    return result.length > 0 ? result[0] : null
+  } catch (err) {
+    console.error(err)
+    return null
+  }
+}
 
 export async function getCacheStats(token: string) {
   const response = await get(`${qlnApiBaseUrl}/ServerSettings`, {

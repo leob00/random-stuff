@@ -7,7 +7,6 @@ import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import { DropdownItem } from 'lib/models/dropdown'
 import numeral from 'numeral'
 import React from 'react'
-import StockListItem from './StockListItem'
 import { getSearchAheadTotalCount, searchAheadStocks } from './stockSearcher'
 
 const StocksLookup = ({ onFound }: { onFound: (item: StockQuote) => void }) => {
@@ -16,6 +15,9 @@ const StocksLookup = ({ onFound }: { onFound: (item: StockQuote) => void }) => {
   const [error, setError] = React.useState<string | null>(null)
 
   const handleSearched = async (text: string) => {
+    if (text.length === 0) {
+      return
+    }
     const searchResults = searchAheadStocks(text)
     const autoComp: DropdownItem[] = searchResults.map((e) => {
       return {
@@ -28,6 +30,9 @@ const StocksLookup = ({ onFound }: { onFound: (item: StockQuote) => void }) => {
 
   const handleSelectQuote = async (text: string) => {
     setError(null)
+    if (text.length === 0) {
+      return
+    }
     setIsLoading(true)
     const symbol = text.split(':')[0]
 

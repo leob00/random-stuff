@@ -15,6 +15,7 @@ const StocksAutoComplete = ({
   clearOnSelect = true,
   label = '',
   defaultVal = '',
+  errorMessage,
 }: {
   onChanged?: (text: string) => void
   width?: number
@@ -25,11 +26,11 @@ const StocksAutoComplete = ({
   clearOnSelect?: boolean
   label?: string
   defaultVal?: string | null
+  errorMessage?: string
 }) => {
   const theme = useTheme()
   const color = theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlue
   const textRef = React.useRef<HTMLInputElement | null>(null)
-  const [defaultValue, setDefaultValue] = React.useState(defaultVal)
 
   const raiseChangeEvent = (term: string) => {
     onChanged?.(term)
@@ -37,17 +38,19 @@ const StocksAutoComplete = ({
   const debouncedFn = debounce(raiseChangeEvent, debounceWaitMilliseconds)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDefaultValue(e.currentTarget.value)
     debouncedFn(e.currentTarget.value)
   }
   const handleSelected = (e: React.SyntheticEvent<Element, Event>, value: string | null) => {
     if (value) {
       onSelected(value)
-      if (textRef.current) {
-        textRef.current.value = ''
-        setDefaultValue('')
-        textRef.current.blur()
+      if (clearOnSelect) {
+        if (textRef.current) {
+          textRef.current.value = ''
+          textRef.current.blur()
+        }
       }
+    } else {
+      onSelected('')
     }
   }
 
@@ -55,7 +58,7 @@ const StocksAutoComplete = ({
     <Autocomplete
       autoCorrect={'false'}
       autoComplete={false}
-      value={defaultValue}
+      value={defaultVal}
       size='small'
       id='searchAutoComplete'
       freeSolo
@@ -78,6 +81,8 @@ const StocksAutoComplete = ({
             autoComplete: 'off',
           }}
           onChange={handleChange}
+          error={!!errorMessage}
+          helperText={errorMessage}
         />
       )}
     />

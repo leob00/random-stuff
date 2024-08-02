@@ -500,6 +500,10 @@
     "Symbol": "ADFI"
   },
   {
+    "Company": "Adagio Medical Holdings, Inc Common Stock",
+    "Symbol": "ADGM"
+  },
+  {
     "Company": "Analog Devices, Inc.",
     "Symbol": "ADI"
   },
@@ -1384,8 +1388,16 @@
     "Symbol": "ALEX"
   },
   {
+    "Company": "Centurion Acquisition Corp. Class A Ordinary Shares",
+    "Symbol": "ALF"
+  },
+  {
     "Company": "Centurion Acquisition Corp. Unit",
     "Symbol": "ALFUU"
+  },
+  {
+    "Company": "Centurion Acquisition Corp. Warrant",
+    "Symbol": "ALFUW"
   },
   {
     "Company": "Alamo Group, Inc.",
@@ -2006,6 +2018,10 @@
   {
     "Company": "iShares Core Moderate Allocation ETF",
     "Symbol": "AOM"
+  },
+  {
+    "Company": "Angel Oak Mortgage REIT, Inc. 9.500% Senior Notes due 2029",
+    "Symbol": "AOMN"
   },
   {
     "Company": "Angel Oak Mortgage REIT, Inc.",
@@ -3014,6 +3030,10 @@
   {
     "Company": "AllianzIM U.S. Large Cap Buffer10 Aug ETF",
     "Symbol": "AUGT"
+  },
+  {
+    "Company": "AllianzIM U.S. Equity Buffer15 Uncapped Aug ETF",
+    "Symbol": "AUGU"
   },
   {
     "Company": "AllianzIM U.S. Large Cap Buffer20 Aug ETF",
@@ -8508,6 +8528,10 @@
     "Symbol": "CPS"
   },
   {
+    "Company": "Calamos S&P 500 Structured Alt Protection ETF - August",
+    "Symbol": "CPSA"
+  },
+  {
     "Company": "CPS Technologies Corp. Common Stock",
     "Symbol": "CPSH"
   },
@@ -13708,6 +13732,10 @@
     "Symbol": "FDS"
   },
   {
+    "Company": "Fifth District Bancorp, Inc. Common Stock",
+    "Symbol": "FDSB"
+  },
+  {
     "Company": "First Trust Developed Markets ex-US AlphaDEX Fund",
     "Symbol": "FDT"
   },
@@ -13856,7 +13884,7 @@
     "Symbol": "FER"
   },
   {
-    "Company": "Ferguson plc",
+    "Company": "Ferguson Enterprises Inc.",
     "Symbol": "FERG"
   },
   {
@@ -16948,6 +16976,10 @@
     "Symbol": "GPRE"
   },
   {
+    "Company": "Goldman Sachs Access U.S. Preferred Stock and Hybrid Securities ETF",
+    "Symbol": "GPRF"
+  },
+  {
     "Company": "GEOPARK LIMITED",
     "Symbol": "GPRK"
   },
@@ -18946,6 +18978,10 @@
   {
     "Company": "iShares Gold Strategy ETF",
     "Symbol": "IAUF"
+  },
+  {
+    "Company": "Innovator International Developed Power Buffer ETF - August",
+    "Symbol": "IAUG"
   },
   {
     "Company": "iShares Gold Trust Micro",
@@ -22040,6 +22076,10 @@
     "Symbol": "KARS"
   },
   {
+    "Company": "Innovator US Small Cap Power Buffer ETF - August",
+    "Symbol": "KAUG"
+  },
+  {
     "Company": "Kaival Brands Innovations Group, Inc",
     "Symbol": "KAVL"
   },
@@ -22244,7 +22284,7 @@
     "Symbol": "KHC"
   },
   {
-    "Company": "KraneShares Asia Pacific High Income Bond ETF",
+    "Company": "KraneShares Asia Pacific High Income USD Bond ETF",
     "Symbol": "KHYB"
   },
   {
@@ -22360,7 +22400,7 @@
     "Symbol": "KMI"
   },
   {
-    "Company": "KFA Mount Lucas Managed Futures Index Strategy ETF",
+    "Company": "KraneShares Mount Lucas Managed Futures Index Strategy ETF",
     "Symbol": "KMLM"
   },
   {
@@ -24360,6 +24400,10 @@
     "Symbol": "MAYZ"
   },
   {
+    "Company": "M3-Brigade Acquisition V Corp. Units",
+    "Symbol": "MBAVU"
+  },
+  {
     "Company": "iShares MBS ETF",
     "Symbol": "MBB"
   },
@@ -25190,6 +25234,14 @@
   {
     "Company": "McCormick & Company, Incorporated Voting CS",
     "Symbol": "MKC.V"
+  },
+  {
+    "Company": "MKDWELL Tech Inc. Ordinary Share",
+    "Symbol": "MKDW"
+  },
+  {
+    "Company": "MKDWELL Tech Inc. Warrants",
+    "Symbol": "MKDWW"
   },
   {
     "Company": "Markforged Holding Corporation",
@@ -26432,6 +26484,10 @@
     "Symbol": "NATR"
   },
   {
+    "Company": "Innovator Growth-100 Power Buffer ETF - August",
+    "Symbol": "NAUG"
+  },
+  {
     "Company": "Nautilus Biotechnolgy, Inc. Common Stock",
     "Symbol": "NAUT"
   },
@@ -26466,6 +26522,10 @@
   {
     "Company": "Neuberger Berman Commodity Strategy ETF",
     "Symbol": "NBCM"
+  },
+  {
+    "Company": "Neuberger Berman Core Equity ETF",
+    "Symbol": "NBCR"
   },
   {
     "Company": "Neuberger Berman Carbon Transition & Infrastructure ETF",
@@ -28280,6 +28340,10 @@
     "Symbol": "OCSL"
   },
   {
+    "Company": "Octane All-Cap Value Energy ETF",
+    "Symbol": "OCTA"
+  },
+  {
     "Company": "Innovator Premium Income 10 Barrier ETF - October",
     "Symbol": "OCTD"
   },
@@ -28914,6 +28978,10 @@
   {
     "Company": "Ostin Technology Group Co., Ltd. Class A Ordinary Shares",
     "Symbol": "OST"
+  },
+  {
+    "Company": "OS Therapies Incorporated",
+    "Symbol": "OSTX"
   },
   {
     "Company": "OraSure Technologies Inc",
@@ -34332,6 +34400,10 @@
     "Symbol": "SEF"
   },
   {
+    "Company": "Seaport Entertainment Group Inc.",
+    "Symbol": "SEG"
+  },
+  {
     "Company": "SEI Investments Co",
     "Symbol": "SEIC"
   },
@@ -35278,6 +35350,10 @@
   {
     "Company": "SmartFinancial, Inc.",
     "Symbol": "SMBK"
+  },
+  {
+    "Company": "Summit Midstream Corporation",
+    "Symbol": "SMC"
   },
   {
     "Company": "Themes US Small Cap Cash Flow Champions ETF",
@@ -42826,6 +42902,10 @@
   {
     "Company": "Zapp Electric Vehicles Group Limited Warrant",
     "Symbol": "ZAPPW"
+  },
+  {
+    "Company": "Innovator Equity Defined Protection ETF - 1 Yr August",
+    "Symbol": "ZAUG"
   },
   {
     "Company": "Zhibao Technology Inc. Class A Ordinary Shares",

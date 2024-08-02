@@ -97,6 +97,9 @@ const Page = () => {
   }
 
   const handleSelectQuote = async (text: string) => {
+    if (text.length === 0) {
+      return
+    }
     const symbol = text.split(':')[0]
     setStockSearchResults([])
     setLoadingStock(true)

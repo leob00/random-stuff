@@ -44,6 +44,10 @@ export function siteMap() {
           name: 'stock tags',
           route: '/csr/stocks/stock-tags',
         },
+        {
+          name: 'stock earnings search',
+          route: '/csr/stock-earnings-search',
+        },
       ],
     },
     {

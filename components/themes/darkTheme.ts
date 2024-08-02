@@ -27,7 +27,7 @@ const darkPalette: PaletteOptions = {
     contrastText: CasinoBlackTransparent,
   },
   error: {
-    main: CasinoDarkRedTransparent,
+    main: CasinoOrange,
     contrastText: VeryLightBlue,
   },
   info: {

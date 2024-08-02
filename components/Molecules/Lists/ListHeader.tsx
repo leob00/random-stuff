@@ -14,6 +14,7 @@ const ListHeader = ({
   onAdd,
   addText = 'add',
   underline,
+  disabled,
 }: {
   text: string
   item: any
@@ -23,6 +24,7 @@ const ListHeader = ({
   onAdd?: (item: any) => void
   addText?: string
   underline?: boolean
+  disabled?: boolean
 }) => {
   const showContextMenu = onEdit !== undefined || onDelete !== undefined || onAdd !== undefined
 
@@ -61,16 +63,18 @@ const ListHeader = ({
               <>
                 <Box
                   width={'100%'}
-                  sx={{ cursor: 'pointer' }}
+                  sx={{ cursor: !disabled ? 'pointer' : 'unset' }}
                   onClick={(e) => {
                     onClicked(item)
-                  }}>
+                  }}
+                >
                   <Typography textAlign={'left'} variant='h6' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
                     {text}
                   </Typography>
                 </Box>
               </>
-            }></CardHeader>
+            }
+          ></CardHeader>
         </Card>
         <Box>{showContextMenu && <ContextMenu items={contextMenu} />}</Box>
       </Stack>
