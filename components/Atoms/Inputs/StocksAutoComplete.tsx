@@ -16,6 +16,7 @@ const StocksAutoComplete = ({
   label = '',
   defaultVal = '',
   errorMessage,
+  freesolo = true,
 }: {
   onChanged?: (text: string) => void
   width?: number
@@ -27,6 +28,7 @@ const StocksAutoComplete = ({
   label?: string
   defaultVal?: string | null
   errorMessage?: string
+  freesolo?: boolean
 }) => {
   const theme = useTheme()
   const color = theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlue
@@ -61,7 +63,7 @@ const StocksAutoComplete = ({
       value={defaultVal}
       size='small'
       id='searchAutoComplete'
-      freeSolo
+      freeSolo={freesolo}
       sx={{ width: width, input: { color: color } }}
       options={searchResults.map((e) => e.text)}
       autoHighlight

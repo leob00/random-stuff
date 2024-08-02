@@ -1,16 +1,23 @@
-import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
-import PageHeader from 'components/Atoms/Containers/PageHeader'
 import Seo from 'components/Organizms/Seo'
 import StockEarningsSearchDisplay from 'components/Organizms/stocks/earnings/StockEarningsSearchDisplay'
+import { GetStaticProps, NextPage } from 'next'
 
-const Page = () => {
+interface PageProps {
+  title: string
+}
+export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
+  return {
+    props: {
+      title: 'Stock Earnings Search',
+    },
+  }
+}
+
+const Page: NextPage<PageProps> = ({ title }) => {
   return (
     <>
-      <Seo pageTitle='Stock Earnings Search' />
-      <ResponsiveContainer>
-        <PageHeader text='Earnings Search' backButtonRoute='/csr/my-stocks' />
-        <StockEarningsSearchDisplay />
-      </ResponsiveContainer>
+      <Seo pageTitle={title} />
+      <StockEarningsSearchDisplay />
     </>
   )
 }

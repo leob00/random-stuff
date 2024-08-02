@@ -1,5 +1,5 @@
 import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, TextField } from '@mui/material'
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { Option } from 'lib/AutoCompleteOptions'
 import { DropdownItem } from 'lib/models/dropdown'
 
@@ -10,6 +10,8 @@ const StaticAutoComplete = ({
   selectedItem,
   disableClearable = false,
   fullWidth,
+  onChanged,
+  errorMessage,
 }: {
   options: DropdownItem[]
   placeholder?: string
@@ -17,6 +19,8 @@ const StaticAutoComplete = ({
   selectedItem?: DropdownItem
   disableClearable?: boolean
   fullWidth?: boolean
+  onChanged?: (text: string) => void
+  errorMessage?: string
 }) => {
   const items: Option[] = options.map((m) => {
     return {
@@ -44,6 +48,11 @@ const StaticAutoComplete = ({
     }
     onSelected(item)
   }
+
+  const handleTextChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    onChanged?.(event.target.value)
+  }
+
   return (
     <Autocomplete
       value={selectedOption}
@@ -65,6 +74,9 @@ const StaticAutoComplete = ({
             color: 'secondary',
             autoComplete: 'off',
           }}
+          onChange={handleTextChange}
+          error={!!errorMessage}
+          helperText={errorMessage ?? undefined}
         />
       )}
     />

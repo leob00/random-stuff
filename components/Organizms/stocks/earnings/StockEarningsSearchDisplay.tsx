@@ -8,6 +8,8 @@ import StockEarningsTable from './StockEarningsTable'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import StockListItem from '../StockListItem'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
 
 const StockEarningsSearchDisplay = () => {
   const [isExpanded, setIsExpanded] = useState(true)
@@ -28,29 +30,32 @@ const StockEarningsSearchDisplay = () => {
     setIsLoading(false)
   }
   return (
-    <Box py={2}>
-      <Accordion expanded={isExpanded} onChange={() => setIsExpanded(!isExpanded)}>
-        <AccordionSummary expandIcon={<ExpandMoreIcon fontSize='small' color='primary' />} sx={{ borderBottom: `solid 1px ${CasinoGrayTransparent}` }}>
-          <Typography variant='subtitle1'>search parameters</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Box minHeight={200}>
-            <SearchEarningsForm onSubmitted={handleSearchSubmit} />
-          </Box>
-        </AccordionDetails>
-      </Accordion>
+    <ResponsiveContainer>
       {isLoading && <BackdropLoader />}
-      {stockQuote && (
-        <Box py={2}>
-          <StockListItem item={stockQuote} expand={false} disabled isStock />
-        </Box>
-      )}
-      {searchResults && (
-        <Box py={2}>
-          <StockEarningsTable data={searchResults} />
-        </Box>
-      )}
-    </Box>
+      <PageHeader text='Earnings Search' backButtonRoute='/csr/my-stocks' />
+      <Box py={2}>
+        <Accordion expanded={isExpanded} onChange={() => setIsExpanded(!isExpanded)}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon fontSize='small' color='primary' />} sx={{ borderBottom: `solid 1px ${CasinoGrayTransparent}` }}>
+            <Typography variant='subtitle1'>search parameters</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Box minHeight={200} py={4}>
+              <SearchEarningsForm onSubmitted={handleSearchSubmit} />
+            </Box>
+          </AccordionDetails>
+        </Accordion>
+        {stockQuote && (
+          <Box py={2}>
+            <StockListItem item={stockQuote} expand={false} disabled isStock />
+          </Box>
+        )}
+        {searchResults && (
+          <Box py={2}>
+            <StockEarningsTable data={searchResults} />
+          </Box>
+        )}
+      </Box>
+    </ResponsiveContainer>
   )
 }
 

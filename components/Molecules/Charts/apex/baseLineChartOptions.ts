@@ -269,8 +269,8 @@ function getBaseYAxis(opts: LineChartOptions) {
     labels: {
       style: {
         colors: opts.palette === 'dark' ? [VeryLightBlue] : [DarkBlue],
-        fontWeight: opts.isXSmall ? 300 : 600,
-        fontSize: opts.isXSmall ? '8px' : '15px',
+        fontWeight: opts.isXSmall ? 300 : 400,
+        fontSize: opts.isXSmall ? '10px' : '15px',
       },
       formatter: (val: number) => {
         if (opts.numericFormatter) {

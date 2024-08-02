@@ -36,7 +36,9 @@ const SearchEarningsForm = ({ onSubmitted }: { onSubmitted: (data: EarningsSearc
               <FormStockSearch onSelected={onChange} {...field} val={value} errorMessage={errors?.symbol?.message} />
             )}
           />
-          <HorizontalDivider />
+          <Box pt={6}>
+            <HorizontalDivider />
+          </Box>
           <Box display={'flex'} justifyContent={'flex-end'} pr={4}>
             <PrimaryButton type='submit' text='Search' />
           </Box>

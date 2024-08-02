@@ -13,11 +13,13 @@ const StockSearch = ({
   clearOnSelect = true,
   value,
   errorMessage,
+  freesolo = true,
 }: {
   onSymbolSelected: (quote: StockQuote) => void
   clearOnSelect?: boolean
   value?: string
   errorMessage?: string
+  freesolo?: boolean
 }) => {
   const [results, setResults] = React.useState<DropdownItem[]>([])
   const [isLoading, setIsLoading] = React.useState(false)

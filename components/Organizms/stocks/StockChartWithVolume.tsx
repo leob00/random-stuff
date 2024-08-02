@@ -4,10 +4,8 @@ import { LineChartOptions } from 'components/Molecules/Charts/apex/baseLineChart
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
-import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
 import numeral from 'numeral'
 import React from 'react'
-import StockChartDaysSelect from './StockChartDaysSelect'
 import { stockChartTooltipFormatter } from './stockLineChartOptions'
 interface SyncedChartModel {
   xyValues: XyValues[]

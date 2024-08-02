@@ -10,15 +10,11 @@ import { useUserController } from 'hooks/userController'
 import React from 'react'
 import { useRouter } from 'next/router'
 import TabList from 'components/Atoms/Buttons/TabList'
-import RequireClaim from 'components/Organizms/user/RequireClaim'
 import { Box } from '@mui/material'
-import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
-import ContextMenuAlert from 'components/Molecules/Menus/ContextMenuAlert'
-import ContextMenuPortfolio from 'components/Molecules/Menus/ContextMenuPortfolio'
-import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
-import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
+import ContextMenu from 'components/Molecules/Menus/ContextMenu'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
+import { MyStocksMenu } from 'components/Atoms/Menus/ContextMenus'
 
 const Page = () => {
   const router = useRouter()
@@ -40,40 +36,6 @@ const Page = () => {
   const handleSelectTab = (tab: TabInfo) => {
     setSelectedTab(tab.title)
   }
-  const contextMenu: ContextMenuItem[] = [
-    {
-      item: (
-        <>
-          <ContextMenuPeople text={'community stocks'} />
-        </>
-      ),
-      fn: () => router.push('/csr/community-stocks'),
-    },
-    {
-      item: (
-        <>
-          <ContextMenuPortfolio text={'portfolio'} />
-        </>
-      ),
-      fn: () => router.push('/csr/stocks/stock-porfolios'),
-    },
-    {
-      item: (
-        <>
-          <ContextMenuAlert text='manage alerts' />
-        </>
-      ),
-      fn: () => router.push('/csr/stocks/alerts'),
-    },
-    {
-      item: (
-        <>
-          <ContextMenuReport text='reports' />
-        </>
-      ),
-      fn: () => router.push(`/ssg/stocks/reports/volume-leaders`),
-    },
-  ]
 
   React.useEffect(() => {
     const fn = async () => {
@@ -95,7 +57,7 @@ const Page = () => {
       <Seo pageTitle='My Stocks' />
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
         <BackButton />
-        <ContextMenu items={contextMenu} />
+        <ContextMenu items={MyStocksMenu} />
       </Box>
 
       <ResponsiveContainer>

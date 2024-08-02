@@ -48,6 +48,7 @@ export const OceanBlue = '#295d6f'
 export const OceanBlueTransparent = '#0ba3d631'
 export const RedDarkMode = '#f31d1d'
 export const DarkModeBkg = '#010d20fa'
+export const ErrorRed = '#ce250ec7'
 
 const lightPalette: PaletteOptions = {
   mode: 'light',

@@ -1,5 +1,5 @@
-import StockSearch from 'components/Atoms/Inputs/StockSearch'
-import { StockQuote } from 'lib/backend/api/models/zModels'
+import StaticStockSearch from 'components/Atoms/Inputs/StaticStockSearch'
+import { DropdownItem } from 'lib/models/dropdown'
 import { forwardRef } from 'react'
 
 type Props = {
@@ -11,11 +11,11 @@ type Props = {
 const FormStockSearch = forwardRef<HTMLInputElement, Props>(function FormStockSearch(props: Props, ref) {
   const { onSelected, val, errorMessage } = props
 
-  const handleSelect = (item: StockQuote) => {
-    onSelected(item.Symbol)
+  const handleSelect = (item: DropdownItem) => {
+    onSelected(item.value)
   }
 
-  return <StockSearch onSymbolSelected={handleSelect} clearOnSelect={false} value={val} errorMessage={errorMessage} />
+  return <StaticStockSearch onSymbolSelected={handleSelect} errorMessage={errorMessage} />
 })
 
 export default FormStockSearch
