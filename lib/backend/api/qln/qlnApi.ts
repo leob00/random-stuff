@@ -241,10 +241,12 @@ export async function searchStockQuotes(search: string) {
   return result
 }
 export async function getStockQuotes(symbols: string[]) {
-  const url = `${qlnApiBaseUrl}/Stocks`
+  const req: QlnApiRequest = {
+    key: symbols.join(),
+  }
   try {
-    const response = await post(url, symbols.join())
-    const result = quoteArraySchema.parse(response.Body)
+    const resp = await serverPostFetch(req, '/Stocks')
+    const result = quoteArraySchema.parse(resp.Body)
     return result
   } catch (err) {
     console.error(err)
@@ -252,10 +254,12 @@ export async function getStockQuotes(symbols: string[]) {
   }
 }
 export async function getStockQuote(symbol: string) {
-  const url = `${qlnApiBaseUrl}/Stocks`
+  const req: QlnApiRequest = {
+    key: symbol,
+  }
   try {
-    const response = await post(url, symbol)
-    const result = quoteArraySchema.parse(response.Body)
+    const resp = await serverPostFetch(req, '/Stocks')
+    const result = quoteArraySchema.parse(resp.Body)
     return result.length > 0 ? result[0] : null
   } catch (err) {
     console.error(err)
@@ -432,6 +436,8 @@ export async function serverPostFetch(req: QlnApiRequest, endpoint: string) {
 }
 
 export async function serverGetFetch(endpoint: string) {
+  const url = `/api/qln?url=${qlnApiBaseUrl}${endpoint}`
+  console.log('url: ', url)
   const resp = await get(`/api/qln?url=${qlnApiBaseUrl}${endpoint}`)
   const result = resp as QlnApiResponse
   return result
