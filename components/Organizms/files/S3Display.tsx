@@ -131,8 +131,7 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
 
       {!isLoading && !isWaiting && data && data.length === 0 && (
         <>
-          <HorizontalDivider />
-          <CenterStack sx={{ py: 2 }}>
+          <CenterStack>
             <Alert severity='warning'>This folder is empty.</Alert>
           </CenterStack>
         </>

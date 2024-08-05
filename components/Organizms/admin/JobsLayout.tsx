@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import dayjs from 'dayjs'
-import { getJob, Job, QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
+import { getJob, Job, QlnApiResponse, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import JobDetail from './JobDetail'
@@ -40,8 +40,8 @@ const JobsLayout = () => {
 
   const dataFn = async () => {
     try {
-      const response = await get(apiUrl)
-      if (response.status && response.status !== 200) {
+      const response = await serverGetFetch(`/BatchJobList?Token=${claim?.token ?? ''}`)
+      if (response.ResponseCode && response.ResponseCode !== 'Success') {
         setError(true)
       }
       return response

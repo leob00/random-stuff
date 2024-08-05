@@ -146,13 +146,6 @@ const StockListItem = ({
           <Box>
             <HorizontalDivider />
           </Box>
-          {!disabled && (
-            <Box display={'flex'} justifyContent={'flex-end'}>
-              <IconButton color='default' onClick={handleCollapseClick}>
-                <Close fontSize='small' color={'secondary'} />
-              </IconButton>
-            </Box>
-          )}
           <Box pl={1} sx={{ backgroundColor: 'unset' }} minHeight={{ xs: 300, sm: 600 }}>
             {stockHistory.length > 0 && (
               <>

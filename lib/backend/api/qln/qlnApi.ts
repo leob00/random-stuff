@@ -154,9 +154,13 @@ export const newsTypes: DropdownItem[] = [
     value: 'SpiegelInternational',
   },
   {
-    text: 'Washington Post',
-    value: 'WashingtonPost',
+    text: 'The Onion',
+    value: 'TheOnion',
   },
+  // {
+  //   text: 'Washington Post',
+  //   value: 'WashingtonPost',
+  // },
   {
     text: 'Washington Times',
     value: 'WashingtonTimes',
@@ -328,7 +332,6 @@ export async function getJobs(token: string) {
 
 export async function getJob(token: string, jobName: string) {
   const url = `${qlnApiBaseUrl}/BatchJobDetail`
-
   const response = await get(url, { Token: token, jobName: jobName })
   const result = response.Body as Job
   return result
@@ -343,6 +346,7 @@ export async function getReport(id: StockReportTypes) {
 }
 
 export interface QlnApiResponse {
+  ResponseCode?: string
   RequestId: string
   ResponseId: string
   ResponseDate: string
@@ -437,7 +441,6 @@ export async function serverPostFetch(req: QlnApiRequest, endpoint: string) {
 
 export async function serverGetFetch(endpoint: string) {
   const url = `/api/qln?url=${qlnApiBaseUrl}${endpoint}`
-  console.log('url: ', url)
   const resp = await get(`/api/qln?url=${qlnApiBaseUrl}${endpoint}`)
   const result = resp as QlnApiResponse
   return result
