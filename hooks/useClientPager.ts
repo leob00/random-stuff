@@ -42,7 +42,6 @@ export const useClientPager = <T>(items: T[], pageSize: number) => {
   }
   React.useEffect(() => {
     if (itemTotal !== model.totalNumberOfItems) {
-      //console.log(`model items: ${model.totalNumberOfItems} new total: ${itemTotal}`)
       const newChunks = chunk(allItems, pageSize)
       setModel({ ...model, totalNumberOfItems: itemTotal, totalNumberOfPages: newChunks.length })
     }

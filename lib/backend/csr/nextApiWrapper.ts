@@ -3,26 +3,9 @@ import { DropdownItem } from 'lib/models/dropdown'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
-import {
-  UserNote,
-  LambdaDynamoRequest,
-  UserProfile,
-  LambdaBody,
-  DynamoKeys,
-  CategoryType,
-  LambdaDynamoRequestBatch,
-  EmailMessage,
-  S3Object,
-  Bucket,
-} from '../api/aws/models/apiGatewayModels'
+import { UserNote, LambdaDynamoRequest, UserProfile, LambdaBody, DynamoKeys, CategoryType, LambdaDynamoRequestBatch, EmailMessage, S3Object, Bucket } from '../api/aws/models/apiGatewayModels'
 
-import {
-  constructUserGoalTaksSecondaryKey,
-  constructUserNoteCategoryKey,
-  constructUserNoteTitlesKey,
-  constructUserProfileKey,
-  constructUserSecretSecondaryKey,
-} from '../api/aws/util'
+import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserNoteTitlesKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
 import { get, post, postBody } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { weakEncrypt } from '../encryption/useEncryptor'
@@ -336,14 +319,15 @@ export async function getUserStockList(username: string) {
   return []
 }
 
-export async function getUserSecrets(username: string) {
-  const enc = weakEncrypt(constructUserSecretSecondaryKey(username))
-  const body: SignedRequest = {
-    data: enc,
-  }
-  const result = (await post('/api/searchRandomStuff', body)) as LambdaBody[]
-  return result
-}
+// export async function getUserSecrets(username: string) {
+
+//   const enc = weakEncrypt(constructUserSecretSecondaryKey(username))
+//   const body: SignedRequest = {
+//     data: enc,
+//   }
+//   const result = (await post('/api/searchRandomStuff', body)) as LambdaBody[]
+//   return result
+// }
 
 function encryptBody(req: LambdaDynamoRequest) {
   return weakEncrypt(JSON.stringify(req))

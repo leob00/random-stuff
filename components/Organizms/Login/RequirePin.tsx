@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import { useUserController } from 'hooks/userController'
 import { UserPin, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
-import React, { ReactNode } from 'react'
+import { ReactNode, useEffect, useReducer, useRef } from 'react'
 import EnterPinDialog from './EnterPinDialog'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { Box } from '@mui/material'
@@ -11,136 +11,103 @@ import { CasinoGrayTransparent } from 'components/themes/mainTheme'
 import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import CreatePinDialog from './CreatePinDialog'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import { usePolling } from 'hooks/usePolling'
 dayjs.extend(relativeTime)
 
 interface Model {
   showPinCreate: boolean
   isPinExpired: boolean
   showPinEntry: boolean
-  userProfile: UserProfile | null
-  pollingCounter: number
-  pinExpirationdate: string
+  pinExpirationDate: string
 }
 
-export const needsPinEntry = (minuteDuration: number, logExpiration: boolean = false, pin?: UserPin) => {
-  if (!pin) {
-    return true
-  }
+const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { minuteDuration?: number; enablePolling: boolean; children: ReactNode }) => {
+  const pollingItervalMs = 60000 // 1 minute
+  const { start: startPoller, stop: stopPoller, pollCounter, isStopped } = usePolling(pollingItervalMs, 100, true)
 
-  const expDt = dayjs(pin.lastEnterDate).add(minuteDuration, 'minute')
-  const isExpired = expDt.isBefore(dayjs())
-  if (isExpired) {
-  }
-  return isExpired
-}
-
-const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { minuteDuration?: number; enablePolling?: boolean; children: ReactNode }) => {
-  const timeOutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
-  const userController = useUserController()
-  const profile = userController.authProfile
+  const { authProfile: profile, setProfile, fetchProfilePassive } = useUserController()
 
   const missingPin = profile === null || !profile.pin
 
-  const isPinExpired = missingPin || needsPinEntry(minuteDuration, true, profile?.pin)
+  const isPinExpired = missingPin || needsPinEntry(minuteDuration, profile?.pin)
   const defaultModel: Model = {
     showPinCreate: missingPin,
     isPinExpired: isPinExpired,
     showPinEntry: isPinExpired,
-    userProfile: profile,
-    pollingCounter: 0,
-    pinExpirationdate: !missingPin ? dayjs(profile.pin!.lastEnterDate).add(minuteDuration, 'minutes').format() : dayjs().format(),
+    pinExpirationDate: !missingPin ? dayjs(profile.pin!.lastEnterDate).add(minuteDuration, 'minutes').format() : dayjs().format(),
   }
-  const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
-
-  const startPolling = () => {
-    if (timeOutRef.current) {
-      clearTimeout(timeOutRef.current)
-    }
-    if (model.isPinExpired || !profile || !profile.pin) {
-      return
-    }
-
-    timeOutRef.current = setTimeout(() => {
-      const newModel = { ...model }
-      let newCounter = newModel.pollingCounter
-      if (newCounter >= 50) {
-        newCounter = -1
-      }
-      if (newCounter === -1) {
-        needsPinEntry(minuteDuration, true, newModel.userProfile?.pin)
-        newCounter = 1
-      } else {
-        newCounter += 1
-      }
-      const shouldEnterPin = needsPinEntry(minuteDuration, newCounter === 0 || Math.abs(newCounter % 2) == 1, newModel.userProfile?.pin)
-      newModel.isPinExpired = shouldEnterPin
-      newModel.showPinEntry = shouldEnterPin
-      newModel.pollingCounter = newCounter
-      setModel(newModel)
-    }, 10000)
-  }
+  const [model, setModel] = useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
 
   const handleClosePinEntry = () => {
     setModel({ ...model, showPinEntry: false, showPinCreate: false })
   }
 
-  const handlePinValidated = async (pin: UserPin) => {
-    if (timeOutRef.current) {
-      clearTimeout(timeOutRef.current)
-    }
-    if (!model.userProfile) {
-      return
-    }
-    const newProfile = { ...model.userProfile, pin: pin }
-    userController.setProfile(newProfile)
+  const onExtendPinExp = () => {
+    const expData = dayjs(model.pinExpirationDate)
+  }
 
-    putUserProfile(newProfile)
+  const handlePinValidated = async (pin: UserPin) => {
+    stopPoller()
+
+    const newProfile = { ...profile! }
+
+    newProfile.pin = pin
+    await setProfile(newProfile)
+
+    await putUserProfile(newProfile)
     setModel({
       ...model,
-      userProfile: newProfile,
       showPinEntry: false,
       isPinExpired: false,
       showPinCreate: false,
-      pollingCounter: 50000,
-      pinExpirationdate: dayjs().add(minuteDuration, 'minutes').format(),
+      pinExpirationDate: dayjs().add(minuteDuration, 'minutes').format(),
     })
-    // setTimeout(() => {
-
-    // }, 1000)
+    startPoller()
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fn = async () => {
       const m = { ...model }
-      const p = await userController.fetchProfilePassive()
+      const p = await fetchProfilePassive()
       if (!p) {
+        setProfile(null)
+      }
+      if (!p || m.isPinExpired) {
+        setModel({ ...model, isPinExpired: true, showPinEntry: true })
+        stopPoller()
         return
       }
-      if (m.isPinExpired) {
-        return
-      }
+
       if (enablePolling) {
-        startPolling()
+        if (isStopped) {
+          startPoller()
+        }
+        const newModel = { ...model }
+        const shouldEnterPin = needsPinEntry(minuteDuration, p.pin)
+        newModel.isPinExpired = shouldEnterPin
+        newModel.showPinEntry = shouldEnterPin
+        setModel(newModel)
       } else {
-        const shouldEnterPin = needsPinEntry(minuteDuration, true, m.userProfile?.pin)
-        setModel({ ...model, isPinExpired: shouldEnterPin, showPinEntry: shouldEnterPin, userProfile: p })
+        const shouldEnterPin = needsPinEntry(minuteDuration, p.pin)
+        setModel({ ...model, isPinExpired: shouldEnterPin, showPinEntry: shouldEnterPin })
       }
+      console.log(model.pinExpirationDate)
     }
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [model.pollingCounter])
+  }, [pollCounter])
 
   return (
     <>
-      {model.userProfile ? (
+      {profile ? (
         <>
           {model.showPinCreate ? (
-            <CreatePinDialog show={model.showPinCreate} userProfile={model.userProfile} onConfirm={handlePinValidated} onCancel={handleClosePinEntry} />
+            <CreatePinDialog show={model.showPinCreate} userProfile={profile} onConfirm={handlePinValidated} onCancel={handleClosePinEntry} />
           ) : (
             <>
               {model.showPinEntry ? (
                 <>
-                  <EnterPinDialog show={model.showPinEntry} userProfile={model.userProfile} onConfirm={handlePinValidated} onCancel={handleClosePinEntry} />
+                  <EnterPinDialog show={model.showPinEntry} userProfile={profile} onConfirm={handlePinValidated} onCancel={handleClosePinEntry} />
                 </>
               ) : (
                 <>
@@ -165,5 +132,12 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
     </>
   )
 }
+export const needsPinEntry = (minuteDuration: number, pin?: UserPin) => {
+  if (!pin) {
+    return true
+  }
 
+  const expDt = dayjs(pin.lastEnterDate).add(minuteDuration, 'minute')
+  return expDt.isBefore(dayjs())
+}
 export default RequirePin

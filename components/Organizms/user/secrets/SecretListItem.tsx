@@ -1,81 +1,50 @@
 import Create from '@mui/icons-material/Create'
 import { Box, IconButton, InputAdornment, Stack, TextField, Typography } from '@mui/material'
 import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
-import React from 'react'
-import { SecretViewModel } from './SecretLayout'
+import React, { useState } from 'react'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
+import { UserSecret } from 'lib/backend/api/models/zModels'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
-const SecretListItem = ({ encKey, viewModel, onEdit }: { encKey: string; viewModel: SecretViewModel; onEdit: () => void }) => {
-  const textRef = React.useRef<HTMLInputElement | null>(null)
-  const [model, setModel] = React.useReducer((state: SecretViewModel, newState: SecretViewModel) => ({ ...state, ...newState }), { ...viewModel })
+const SecretListItem = ({ encKey, data, onEdit }: { encKey: string; data: UserSecret; onEdit: () => void }) => {
+  const [isEncrypted, setIsEncrypted] = useState(true)
+  const [isCopied, setIsCopied] = useState(false)
+  const [isEditMode, setIsEditMode] = useState(false)
 
   const handleDecryptCopy = () => {
-    let val = { ...model }.secret
-    if (model.isEncrypted) {
-      val = myDecrypt(encKey, model.secret)
+    let val = { ...data }.secret
+    if (isEncrypted) {
+      val = myDecrypt(encKey, data.secret)
     }
     navigator.clipboard.writeText(val)
-    setModel({ ...model, copied: true })
-    setTimeout(() => {
-      setModel({ ...model, copied: false })
-    }, 3000)
+    setIsEncrypted(!isEncrypted)
+    setIsCopied(true)
   }
 
   const handleEditClick = () => {
-    setModel({ ...model, editMode: true })
+    setIsEditMode(true)
     onEdit()
   }
 
   return (
-    <>
-      <Box py={1}>
-        <Typography>{model.title}</Typography>
+    <Box>
+      <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
+        <Box>
+          <Typography>{data.title}</Typography>
+        </Box>
+        <Box display={'flex'} gap={2}>
+          <IconButton edge='end' onClick={handleDecryptCopy} size='small' color='primary'>
+            <ContentCopyIcon fontSize='small' />
+          </IconButton>
+          <IconButton onClick={handleEditClick} color='primary' size='small'>
+            <Create />
+          </IconButton>
+        </Box>
       </Box>
-      <Stack direction={'row'} alignItems={'center'} pb={3}>
-        <Stack flexGrow={1}>
-          <TextField
-            variant='standard'
-            autoComplete='off'
-            defaultValue={model.secret}
-            //onChange={handleChange}
-            sx={{ borderWidth: 0 }}
-            size='small'
-            placeholder={'secret'}
-            inputRef={textRef}
-            InputProps={{
-              readOnly: !model.editMode,
-              autoComplete: 'off',
-              endAdornment: (
-                <InputAdornment position='end'>
-                  <IconButton edge='end' onClick={handleDecryptCopy} size='small' color='primary'>
-                    <ContentCopyIcon fontSize='small' />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}></TextField>
-        </Stack>
-        <Stack>
-          <Stack pl={2}>
-            <IconButton onClick={handleEditClick} color='primary' size='small'>
-              <Create />
-            </IconButton>
-          </Stack>
-        </Stack>
-      </Stack>
-      <Box>
-        {model.copied && (
-          <SnackbarSuccess
-            show={model.copied}
-            text={'copied!'}
-            duration={2500}
-            onClose={() => {
-              setModel({ ...model, copied: false })
-            }}
-          />
-        )}
-      </Box>
-    </>
+      <HorizontalDivider />
+      {isCopied && <SnackbarSuccess show={isCopied} text={'copied!'} duration={2500} onClose={() => setIsCopied(false)} />}
+    </Box>
   )
 }
 

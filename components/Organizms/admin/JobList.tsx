@@ -13,10 +13,10 @@ import { DropdownItem, mapDropdownItems } from 'lib/models/dropdown'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 
 const JobList = ({ response, onJobSelected }: { response: QlnApiResponse; onJobSelected: (item: Job) => void }) => {
-  const pageSize = 5
   let jobs = response.Body as Job[]
   jobs = sortArray(jobs, ['Status', 'NextRunDate'], ['asc', 'asc'])
 
+  const pageSize = 5
   const { getPagedItems, setPage, pagerModel } = useClientPager(jobs, pageSize)
   const pagedItems = getPagedItems(jobs)
   const scroller = useScrollTop(0)

@@ -2004,6 +2004,10 @@
     "Symbol": "AOGO"
   },
   {
+    "Company": "Arogo Capital Acquisition Corp. Unit",
+    "Symbol": "AOGOU"
+  },
+  {
     "Company": "Arogo Capital Acquisition Corp. Warrant",
     "Symbol": "AOGOW"
   },
@@ -6012,6 +6016,10 @@
     "Symbol": "BURL"
   },
   {
+    "Company": "Nuburu, Inc.",
+    "Symbol": "BURU"
+  },
+  {
     "Company": "Brandes U.S. Value ETF",
     "Symbol": "BUSA"
   },
@@ -9070,6 +9078,10 @@
   {
     "Company": "Innovid Corp.",
     "Symbol": "CTV"
+  },
+  {
+    "Company": "Innovid Corp. Warrants, each whole warrant exercisable for one share of Common Stock at an exercise price of $11.50 per share",
+    "Symbol": "CTV.WS"
   },
   {
     "Company": "Corteva, Inc. Common Stock",
@@ -14344,8 +14356,20 @@
     "Symbol": "FLCV"
   },
   {
+    "Company": "FTAC Emerald Acquisition Corp. Class A Common Stock",
+    "Symbol": "FLD"
+  },
+  {
     "Company": "Fidelity Low Duration Bond ETF",
     "Symbol": "FLDB"
+  },
+  {
+    "Company": "FTAC Emerald Acquisition Corp. Unit",
+    "Symbol": "FLDDU"
+  },
+  {
+    "Company": "FTAC Emerald Acquisition Corp. Warrant",
+    "Symbol": "FLDDW"
   },
   {
     "Company": "Fidelity Low Duration Bond Factor ETF",
@@ -17544,6 +17568,10 @@
     "Symbol": "HAIA"
   },
   {
+    "Company": "Healthcare AI Acquisition Corp. Unit",
+    "Symbol": "HAIAU"
+  },
+  {
     "Company": "Healthcare AI Acquisition Corp. Warrants",
     "Symbol": "HAIAW"
   },
@@ -18338,6 +18366,14 @@
   {
     "Company": "Helmerich & Payne, Inc.",
     "Symbol": "HP"
+  },
+  {
+    "Company": "Helport AI Limited Ordinary Shares",
+    "Symbol": "HPAI"
+  },
+  {
+    "Company": "Helport AI Limited Warrants",
+    "Symbol": "HPAIW"
   },
   {
     "Company": "Hempacco Co., Inc. Common Stock",
@@ -34204,6 +34240,10 @@
     "Symbol": "SCPH"
   },
   {
+    "Company": "Scorpius Holdings, Inc.",
+    "Symbol": "SCPX"
+  },
+  {
     "Company": "Steelcase, Inc.",
     "Symbol": "SCS"
   },
@@ -39004,6 +39044,10 @@
     "Symbol": "TXN"
   },
   {
+    "Company": "TXNM Energy, Inc.",
+    "Symbol": "TXNM"
+  },
+  {
     "Company": "TXO Partners, L.P.",
     "Symbol": "TXO"
   },
@@ -42034,6 +42078,10 @@
   {
     "Company": "Beyond Air, Inc. Common Stock",
     "Symbol": "XAIR"
+  },
+  {
+    "Company": "Xtrackers Artificial Intelligence and Big Data ETF",
+    "Symbol": "XAIX"
   },
   {
     "Company": "FT Vest U.S. Equity Enhance & Moderate Buffer ETF - April",
