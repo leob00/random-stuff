@@ -9,7 +9,7 @@ import BasicBreadcrumbs from '../Navigation/Breadcrumbs'
 const PageHeader = ({ text, backButtonRoute, onBackButtonClick }: { text: string; backButtonRoute?: string; onBackButtonClick?: () => void }) => {
   return (
     <>
-      <Box sx={{ display: { xs: 'none', md: 'unset' } }}>
+      <Box sx={{ display: { xs: 'none', sm: 'unset' } }}>
         <BasicBreadcrumbs />
       </Box>
       <Box sx={{ display: { xs: 'unset', sm: 'none' } }}>

@@ -1,4 +1,4 @@
-export type SiteCategories = 'Stocks' | 'Personal' | 'Admin' | 'Games' | 'General Interest' | 'Utilities' | 'Pictures' | 'Economy' | 'Miscellaneous'
+export type SiteCategories = 'Stocks' | 'Personal' | 'Admin' | 'Games' | 'General Interest' | 'Utilities' | 'Pictures' | 'Economy' | 'Miscellaneous' | 'Reports'
 export type Path = {
   name: string
   route: string
@@ -47,6 +47,35 @@ export function siteMap() {
         {
           name: 'stock earnings search',
           route: '/csr/stock-earnings-search',
+        },
+      ],
+    },
+    {
+      category: 'Reports',
+      paths: [
+        {
+          name: 'volume leaders',
+          route: '/ssg/stocks/reports/volume-leaders',
+        },
+        {
+          name: 'market cap leaders',
+          route: '/ssg/stocks/reports/market-cap-leaders',
+        },
+        {
+          name: 'sectors',
+          route: '/csr/stocks/sectors',
+        },
+        {
+          name: 'industries',
+          route: '/csr/stocks/industries',
+        },
+        {
+          name: 'stock tags',
+          route: '/csr/stocks/stock-tags',
+        },
+        {
+          name: 'dividend payers',
+          route: '/csr/stocks/dividend-payers',
         },
       ],
     },
