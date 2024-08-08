@@ -2,8 +2,8 @@ import dayjs from 'dayjs'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { sortArray } from 'lib/util/collections'
 import { getMapFromArray } from 'lib/util/collectionsNative'
-import React from 'react'
 import { siteMap } from '../navigation/siteMap'
+import { useState } from 'react'
 
 export type NavigationName = 'stocks' | 'goals' | 'home' | 'news' | 'notes' | 'admin'
 export interface Navigation {
@@ -13,7 +13,7 @@ export interface Navigation {
 }
 
 export const useRouteTracker = () => {
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const { routes, saveRoutes } = useSessionStore((state) => ({
     routes: state.routes,
     saveRoutes: state.saveRoutes,

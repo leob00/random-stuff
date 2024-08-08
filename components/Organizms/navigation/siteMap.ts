@@ -54,11 +54,11 @@ export function siteMap() {
       category: 'Economy',
       paths: [
         {
-          name: 'calendar',
+          name: 'econ calendar',
           route: '/csr/economic-calendar',
         },
         {
-          name: 'data',
+          name: 'econ data',
           route: '/csr/economic-data',
         },
       ],
@@ -130,6 +130,10 @@ export function siteMap() {
     {
       category: 'Admin',
       paths: [
+        {
+          name: 'admin',
+          route: '/protected/csr/admin',
+        },
         {
           name: 'sandbox',
           route: '/protected/csr/sandbox',

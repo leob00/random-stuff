@@ -18,6 +18,7 @@ import { getRandomStuff, putRandomStuff } from 'lib/backend/api/aws/apiGateway/a
 import { DropdownItem } from 'lib/models/dropdown'
 import { sortArray } from 'lib/util/collections'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
 dayjs.extend(relativeTime)
 
 const cmsRefreshIntervalSeconds = 86400
@@ -115,7 +116,7 @@ const Recipes: NextPage<{ model: RecipesLayoutModel; fallback: RecipesLayoutMode
     <>
       <Seo pageTitle='Recipes' />
       <ResponsiveContainer>
-        <BackButton />
+        <PageHeader text='Recipes' />
         <SWRConfig value={{ fallback }}>
           <CachedRecipes fallbackData={model} />
         </SWRConfig>

@@ -1,6 +1,7 @@
 import { Box, Container, getInputAdornmentUtilityClass, Typography } from '@mui/material'
 import axios from 'axios'
 import CenterStack from 'components/Atoms/CenterStack'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
 import ImageYRotator from 'components/Atoms/Images/ImageYRotator'
 import RemoteImageFlat from 'components/Atoms/RemoteImageFlat'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
@@ -217,6 +218,7 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
 
   return (
     <Container>
+      <PageHeader text='Coin Flip' />
       <CenterStack sx={{ minHeight: 100 }}>
         <Box>
           <Typography variant='body1' sx={{ textAlign: 'center' }}>

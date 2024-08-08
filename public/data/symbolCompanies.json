@@ -12460,6 +12460,10 @@
     "Symbol": "EQUL"
   },
   {
+    "Company": "EQV Ventures Acquisition Corp. Units, each consisting of one Class A ordinary share and one-third of one redeemable warrant",
+    "Symbol": "EQV.U"
+  },
+  {
     "Company": "Invesco S&P 100 Equal Weight ETF",
     "Symbol": "EQWL"
   },
@@ -13930,6 +13934,10 @@
   {
     "Company": "Fintech Ecosystem Development Corp. Right",
     "Symbol": "FEXDR"
+  },
+  {
+    "Company": "Fintech Ecosystem Development Corp. Units",
+    "Symbol": "FEXDU"
   },
   {
     "Company": "Fintech Ecosystem Development Corp. Warrant",
@@ -20326,6 +20334,10 @@
   {
     "Company": "Integral Acquisition Corporation 1 Class A Common Stock",
     "Symbol": "INTE"
+  },
+  {
+    "Company": "Integral Acquisition Corporation 1 Unit",
+    "Symbol": "INTEU"
   },
   {
     "Company": "Integral Acquisition Corporation 1 Warrants",
@@ -28784,6 +28796,10 @@
     "Symbol": "ONYX"
   },
   {
+    "Company": "Onyx Acquisition Co. I Unit",
+    "Symbol": "ONYXU"
+  },
+  {
     "Company": "Onyx Acquisition Co. I Warrant",
     "Symbol": "ONYXW"
   },
@@ -33458,6 +33474,10 @@
   {
     "Company": "Return Stacked U.S. Stocks & Futures Yield ETF",
     "Symbol": "RSSY"
+  },
+  {
+    "Company": "RDE INC",
+    "Symbol": "RSTN"
   },
   {
     "Company": "Reservoir Media, Inc. Common Stock",
@@ -39204,6 +39224,10 @@
     "Symbol": "UCAR"
   },
   {
+    "Company": "United Community Banks, Inc.",
+    "Symbol": "UCB"
+  },
+  {
     "Company": "United Community Banks Inc.",
     "Symbol": "UCBI"
   },
@@ -41304,6 +41328,10 @@
     "Symbol": "WAVSU"
   },
   {
+    "Company": "Western Acquisition Ventures Corp. Warrant",
+    "Symbol": "WAVSW"
+  },
+  {
     "Company": "Waystar Holding Corp. Common Stock",
     "Symbol": "WAY"
   },
@@ -43106,6 +43134,10 @@
   {
     "Company": "Zalatoris II Acquisition Corp Class A Ordinary Shares",
     "Symbol": "ZLS"
+  },
+  {
+    "Company": "Zalatoris II Acquisition Corp Unit",
+    "Symbol": "ZLSWU"
   },
   {
     "Company": "Zalatoris II Acquisition Corp Warrant",

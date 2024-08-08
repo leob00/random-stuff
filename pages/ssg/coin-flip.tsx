@@ -1,4 +1,5 @@
 import BackButton from 'components/Atoms/Buttons/BackButton'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
 import CoinFlipLayout from 'components/Organizms/CoinFlipLayout'
 import Seo from 'components/Organizms/Seo'
 import { getCoinflipStats } from 'lib/backend/api/aws/apiGateway/apiGateway'
@@ -20,7 +21,7 @@ const Page: NextPage<{ coinflipStats: CoinFlipStats }> = ({ coinflipStats }) => 
   return (
     <>
       <Seo pageTitle='Coin Flip' />
-      <BackButton route={'/'} />
+
       <CoinFlipLayout coinflipStats={coinflipStats} />
     </>
   )

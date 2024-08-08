@@ -1,5 +1,5 @@
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
-import BackToHomeButton from 'components/Atoms/Buttons/BackToHomeButton'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
 import RouletteLayout from 'components/Organizms/roulette/RouletteLayout'
 import Seo from 'components/Organizms/Seo'
 import { getWheelSpinStats } from 'lib/backend/api/aws/apiGateway/apiGateway'
@@ -22,7 +22,7 @@ const Roulette: NextPage<{ spinStats: WheelSpinStats }> = ({ spinStats }) => {
     <>
       <Seo pageTitle={'Roulette'} />
       <ResponsiveContainer>
-        <BackToHomeButton />
+        <PageHeader text='Roulette' />
         <RouletteLayout spinStats={spinStats} />
       </ResponsiveContainer>
     </>

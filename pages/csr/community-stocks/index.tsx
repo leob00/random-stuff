@@ -24,6 +24,7 @@ import { sortArray } from 'lib/util/collections'
 import CommunityStocksWrapper from 'components/Organizms/stocks/CommunityStocksWrapper'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'
 
@@ -136,8 +137,7 @@ const Page = () => {
       <Seo pageTitle={`Community Stocks`} />
 
       <ResponsiveContainer>
-        <BackButton />
-        <CenteredHeader title='Community Stocks' />
+        <PageHeader text='Community Stocks' />
         <Box py={2}>
           <CenterStack>
             <StocksAutoComplete

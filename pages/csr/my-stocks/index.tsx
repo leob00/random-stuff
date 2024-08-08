@@ -15,6 +15,7 @@ import ContextMenu from 'components/Molecules/Menus/ContextMenu'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import { MyStocksMenu } from 'components/Atoms/Menus/ContextMenus'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
 
 const Page = () => {
   const router = useRouter()
@@ -56,11 +57,12 @@ const Page = () => {
     <>
       <Seo pageTitle='My Stocks' />
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-        <BackButton />
+        <Box></Box>
         <ContextMenu items={MyStocksMenu} />
       </Box>
 
       <ResponsiveContainer>
+        <PageHeader text='My Stocks' />
         <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
         {isLoading ? (
           <BackdropLoader />

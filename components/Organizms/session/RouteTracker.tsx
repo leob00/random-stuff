@@ -11,7 +11,7 @@ export const allRouteMap = () => {
   const map = new Map<string, Path>()
   const routes = routeMap.flatMap((m) => m.paths)
   routes.forEach((route) => {
-    map.set(route.name, route)
+    map.set(route.route, route)
   })
 
   // const result = getMapFromArray(
