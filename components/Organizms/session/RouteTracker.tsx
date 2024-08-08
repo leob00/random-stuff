@@ -1,19 +1,32 @@
 'use client'
-import dayjs from 'dayjs'
 import { useRouter } from 'next/router'
 import React, { ReactNode } from 'react'
 import { useRouteTracker } from './useRouteTracker'
-import { siteMap } from '../navigation/siteMap'
+import { Path, siteMap } from '../navigation/siteMap'
 import { getMapFromArray } from 'lib/util/collectionsNative'
+
+const routeMap = siteMap()
+
+export const allRouteMap = () => {
+  const map = new Map<string, Path>()
+  const routes = routeMap.flatMap((m) => m.paths)
+  routes.forEach((route) => {
+    map.set(route.name, route)
+  })
+
+  // const result = getMapFromArray(
+  //   siteMap().flatMap((m) => m.paths),
+  //   'route',
+  // )
+  return map
+}
+const allRoutesMap = allRouteMap()
 
 const RouteTracker = ({ children }: { children: ReactNode }) => {
   const [isClient, setIsClient] = React.useState(false)
   const router = useRouter()
-  const allRouteMap = getMapFromArray(
-    siteMap().flatMap((m) => m.paths),
-    'route',
-  )
-  const { allRoutes: routes, addRoute } = useRouteTracker()
+
+  const { addRoute } = useRouteTracker()
 
   React.useEffect(() => {
     setIsClient(true)
@@ -21,22 +34,9 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
 
   React.useEffect(() => {
     const handleRouteChange = async (url: string, shallow: boolean) => {
-      //TODO: remove after sitemap comparison has been implemented
-      if (allRouteMap.has(url)) {
+      if (allRoutesMap.has(url)) {
         addRoute(url)
       }
-
-      // if (!url.includes('/login' || !url.includes('logoff')) && !url.includes('recipe/') && !url.includes('sectors/') && !url.includes('industries/') && !url.includes('recipes/') && !url.includes('notes/') && !url.includes('economic-data/')) {
-      //   const lastRoute = routes.length > 0 ? routes[0] : undefined
-
-      //   if (lastRoute) {
-      //     const diffInMunutes = dayjs().diff(lastRoute.date, 'minutes')
-      //     if (diffInMunutes > 1) {
-      //       // TODO: consider saving to user profile
-      //     }
-      //   }
-      //   addRoute(url)
-      // }
     }
 
     router.events.on('routeChangeStart', handleRouteChange)

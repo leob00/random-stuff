@@ -1,12 +1,12 @@
 export type SiteCategories = 'Stocks' | 'Personal' | 'Admin' | 'Games' | 'General Interest' | 'Utilities' | 'Pictures' | 'Economy' | 'Miscellaneous'
-type path = {
+export type Path = {
   name: string
   route: string
   isProtected?: boolean
 }
 export interface Paths {
   category: SiteCategories
-  paths: path[]
+  paths: Path[]
   isProtected?: boolean
 }
 

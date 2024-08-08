@@ -1,7 +1,6 @@
 import { Box } from '@mui/material'
 import dayjs from 'dayjs'
 import { getJob, Job, QlnApiResponse, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
-import React from 'react'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import JobDetail from './JobDetail'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
@@ -15,14 +14,15 @@ import { Claim } from 'lib/backend/auth/userUtil'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import { usePolling } from 'hooks/usePolling'
+import { useEffect, useState } from 'react'
 dayjs.extend(relativeTime)
 
 const JobsLayout = () => {
   const config = apiConnection().qln
   const pollingIterval = 8000
-  const [selectedItem, setSelectedItem] = React.useState<Job | null>(null)
-  const [isLoadingDetail, setIsLoadingDetail] = React.useState(false)
-  const [error, setError] = React.useState(false)
+  const [selectedItem, setSelectedItem] = useState<Job | null>(null)
+  const [isLoadingDetail, setIsLoadingDetail] = useState(false)
+  const [error, setError] = useState(false)
 
   const { claims, saveClaims } = useSessionStore()
   let claim = claims.find((m) => m.type === 'qln')
@@ -64,7 +64,7 @@ const JobsLayout = () => {
     start()
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!error) {
       mutate(apiUrl)
     } else {
@@ -76,7 +76,11 @@ const JobsLayout = () => {
   return (
     <Box>
       <>
-        {error && <AlertWithHeader severity='error' header='Error' text='authentication failed' />}
+        {error && (
+          <Box py={2}>
+            <AlertWithHeader severity='error' header='Error' text='authentication failed' />
+          </Box>
+        )}
         {error && <QlnUsernameLoginForm onSuccess={handleLogin} />}
         {isLoadingDetail && <BackdropLoader />}
         {selectedItem && <JobDetail item={selectedItem} onClose={handleClose} />}

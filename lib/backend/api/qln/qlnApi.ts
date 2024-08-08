@@ -347,9 +347,9 @@ export async function getReport(id: StockReportTypes) {
 
 export interface QlnApiResponse {
   ResponseCode?: string
-  RequestId: string
-  ResponseId: string
-  ResponseDate: string
+  RequestId?: string
+  ResponseId?: string
+  ResponseDate?: string
   Body: any
   Errors: Array<{ Code: string; Message: string }>
 }

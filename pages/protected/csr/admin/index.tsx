@@ -17,6 +17,7 @@ import RequireClaim from 'components/Organizms/user/RequireClaim'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UsersAdmin from 'components/Organizms/admin/users/UsersAdmin'
 import LoginUsernameForm, { UsernameLogin } from 'components/Molecules/Forms/Login/LoginUsernameForm'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
 
 const Page = () => {
   const userController = useUserController()
@@ -68,8 +69,7 @@ const Page = () => {
             <BackdropLoader />
           ) : userProfile ? (
             <>
-              <BackButton />
-              <CenteredTitle title='Admin' />
+              <PageHeader text='Admin' />
               <RequireClaim claimType='qln'>
                 <>
                   <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
