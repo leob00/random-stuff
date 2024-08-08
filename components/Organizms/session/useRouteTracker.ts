@@ -26,10 +26,7 @@ export const useRouteTracker = () => {
 
   return {
     loading: isLoading,
-    getLastRoute: () => {
-      const result = sortArray(routes, ['date'], ['desc'])
-      return result.length > 1 ? result[1].path : '/'
-    },
+    previousRoute: routes.length > 1 ? routes[1].path : '/',
     allRoutes: sortArray(routes, ['date'], ['desc']),
     lastRoute: routes.length > 0 ? routes[0].path : '/',
     addRoute: (url: string) => {
