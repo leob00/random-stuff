@@ -1,3 +1,4 @@
+'use client'
 import { Link } from '@mui/material'
 import React from 'react'
 import NLink from 'next/link'

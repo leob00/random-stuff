@@ -1,6 +1,4 @@
-import Typography from '@mui/material/Typography'
-import Breadcrumbs from '@mui/material/Breadcrumbs'
-import Link from '@mui/material/Link'
+'use client'
 import { Box, Divider } from '@mui/material'
 import { Navigation, useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 import { useRouter } from 'next/router'

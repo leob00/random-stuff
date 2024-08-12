@@ -1,5 +1,6 @@
+'use client'
 import { Box } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import BackButton from '../Buttons/BackButton'
 import CenterStack from '../CenterStack'
 import HorizontalDivider from '../Dividers/HorizontalDivider'
@@ -16,7 +17,7 @@ const PageHeader = ({ text, backButtonRoute }: { text: string; backButtonRoute?:
         <BasicBreadcrumbs />
       </Box>
       <Box sx={{ display: { xs: 'unset', sm: 'none' } }}>
-        <Box display={'flex'}>{backButtonRoute ? <BackButton route={backButtonRoute} /> : <BackButton route={previousRoute} />}</Box>
+        <Box display={'flex'}>{backButtonRoute ? <BackButton route={backButtonRoute} /> : <BackButton route={previousRoute.path} />}</Box>
       </Box>
       <CenterStack>
         <CenteredHeader title={text} />

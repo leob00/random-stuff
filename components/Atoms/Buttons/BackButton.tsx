@@ -1,3 +1,4 @@
+'use client'
 import { Button } from '@mui/material'
 import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 import React from 'react'
@@ -14,7 +15,7 @@ const BackButton = ({ route }: { route?: string }) => {
     }
 
     if (!route) {
-      router.push(previousRoute)
+      router.push(previousRoute.path)
       return
     }
   }

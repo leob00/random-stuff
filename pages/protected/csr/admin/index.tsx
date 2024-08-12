@@ -69,9 +69,9 @@ const Page = () => {
             <BackdropLoader />
           ) : userProfile ? (
             <>
-              <PageHeader text='Admin' />
               <RequireClaim claimType='qln'>
                 <>
+                  <PageHeader text='Admin' />
                   <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
                   {selectedTab === 'Jobs' && <JobsLayout />}
                   {selectedTab === 'Api' && <ApiTest />}

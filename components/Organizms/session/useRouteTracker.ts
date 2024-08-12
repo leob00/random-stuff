@@ -1,3 +1,4 @@
+'use client'
 import dayjs from 'dayjs'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { sortArray } from 'lib/util/collections'
@@ -26,7 +27,13 @@ export const useRouteTracker = () => {
 
   return {
     loading: isLoading,
-    previousRoute: routes.length > 1 ? routes[1].path : '/',
+    previousRoute:
+      routes.length > 1
+        ? routes[1]
+        : {
+            name: 'home',
+            path: '/',
+          },
     allRoutes: sortArray(routes, ['date'], ['desc']),
     lastRoute: routes.length > 0 ? routes[0].path : '/',
     addRoute: (url: string) => {

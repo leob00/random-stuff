@@ -59,7 +59,7 @@ const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; 
                     <StaticImage image={logo} title='random things' width={120} height={60} priority={true} />
                   </NLink>
                   <Box pt={2}>
-                    <HeaderLinks ticket={ticket} />
+                    <HeaderLinks />
                   </Box>
                 </Box>
                 <Box pt={'12px'}>
