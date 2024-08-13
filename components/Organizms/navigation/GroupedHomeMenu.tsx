@@ -17,7 +17,7 @@ const GroupedHomeMenu = ({ pathCategories }: { pathCategories: Paths[] }) => {
                 <Box display={'flex'} gap={1} flexWrap={'wrap'}>
                   {category.paths.map((path) => (
                     <Box key={path.route}>
-                      <NavigationButton route={path.route} text={path.name} variant={'h5'} />
+                      <NavigationButton route={path.route} text={path.name} variant={'body1'} />
                     </Box>
                   ))}
                 </Box>

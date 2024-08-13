@@ -29,7 +29,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
     try {
       await amplifySignOut()
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 

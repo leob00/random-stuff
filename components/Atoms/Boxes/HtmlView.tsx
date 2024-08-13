@@ -38,7 +38,7 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
             display: 'inline-block',
             // wordWrap: 'break-word',
             //color: color,
-            fontWeight: 400,
+            fontWeight: 200,
             //backgroundColor: 'white',
           }}
           //variant='body1'

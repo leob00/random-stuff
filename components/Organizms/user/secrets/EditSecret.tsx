@@ -1,6 +1,6 @@
 import { Box, Stack } from '@mui/material'
 import { UserSecret } from 'lib/backend/api/models/zModels'
-import { myDecrypt, myEncrypt } from 'lib/backend/encryption/useEncryptor'
+import { myDecrypt, myEncrypt, weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import React from 'react'
 import { constructUserSecretPrimaryKey } from 'lib/backend/api/aws/util'
 import { deleteRecord, putUserSecret } from 'lib/backend/csr/nextApiWrapper'
@@ -20,6 +20,7 @@ const EditSecret = ({ username, encKey, userSecret, onCancel, onSaved, onDeleted
     showConfirmDelete: false,
     userSecret: { ...userSecret, secret: myDecrypt(encKey, userSecret.secret) },
   }
+  console.log(defaultModel)
   const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
 
   const handleDeleteClick = async () => {

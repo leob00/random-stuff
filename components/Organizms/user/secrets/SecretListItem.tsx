@@ -10,7 +10,6 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 const SecretListItem = ({ encKey, data, onEdit }: { encKey: string; data: UserSecret; onEdit: () => void }) => {
   const [isEncrypted, setIsEncrypted] = useState(true)
   const [isCopied, setIsCopied] = useState(false)
-  const [isEditMode, setIsEditMode] = useState(false)
 
   const handleDecryptCopy = () => {
     let val = { ...data }.secret
@@ -23,7 +22,6 @@ const SecretListItem = ({ encKey, data, onEdit }: { encKey: string; data: UserSe
   }
 
   const handleEditClick = () => {
-    setIsEditMode(true)
     onEdit()
   }
 

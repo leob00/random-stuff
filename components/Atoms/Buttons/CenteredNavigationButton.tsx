@@ -7,7 +7,7 @@ const CenteredNavigationButton = ({ text, route, showDivider = true }: { text: s
   return (
     <>
       <CenterStack sx={{ py: 2 }}>
-        <NavigationButton route={route} text={text} />
+        <NavigationButton route={route} text={text} variant='body1' />
       </CenterStack>
       {showDivider && <HorizontalDivider />}
     </>

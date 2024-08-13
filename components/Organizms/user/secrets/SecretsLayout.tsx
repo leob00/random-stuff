@@ -27,8 +27,8 @@ interface Model {
   showPinEntry: boolean
 }
 
-const SecretsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
-  let encKey: string | null = `${userProfile.id}-${userProfile.username}`
+const SecretsLayout = ({ userProfile, ticket }: { userProfile: UserProfile; ticket: AmplifyUser }) => {
+  let encKey: string | null = `${ticket.id}-${userProfile.username}`
 
   const defaultModel: Model = {
     filter: '',
@@ -47,7 +47,9 @@ const SecretsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
       }
     })
 
-    return sortArray(secrets, ['title'], ['asc'])
+    const result = sortArray(secrets, ['title'], ['asc'])
+
+    return result
   }
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn)
 
@@ -83,29 +85,14 @@ const SecretsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
 
       <>
         {model.createNew ? (
-          <EditSecret
-            username={userProfile.username}
-            encKey={encKey}
-            userSecret={{ title: '', secret: '', salt: getRandomSalt() }}
-            onCancel={handleCancelEdit}
-            onSaved={handleItemSaved}
-            onDeleted={handleItemDeleted}
-          />
+          <EditSecret username={userProfile.username} encKey={encKey} userSecret={{ title: '', secret: '', salt: getRandomSalt() }} onCancel={handleCancelEdit} onSaved={handleItemSaved} onDeleted={handleItemDeleted} />
         ) : (
           <Box pb={3}>
             <PrimaryButton text={'add'} size='small' onClick={handleShowAddNew} />
           </Box>
         )}
         {!model.createNew && (
-          <SecretsTable
-            encKey={encKey}
-            authProfile={userProfile}
-            filter={model.filter}
-            filteredSecrets={filteredSecrets}
-            handleFilterChanged={handleFilterChanged}
-            handleItemDeleted={handleItemDeleted}
-            handleItemSaved={handleItemSaved}
-          />
+          <SecretsTable encKey={encKey} authProfile={userProfile} filter={model.filter} filteredSecrets={filteredSecrets} handleFilterChanged={handleFilterChanged} handleItemDeleted={handleItemDeleted} handleItemSaved={handleItemSaved} />
         )}
       </>
     </RequirePin>
