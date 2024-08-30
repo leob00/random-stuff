@@ -1,4 +1,15 @@
-export type SiteCategories = 'Stocks' | 'Personal' | 'Admin' | 'Games' | 'General Interest' | 'Utilities' | 'Pictures' | 'Economy' | 'Miscellaneous' | 'Reports'
+export type SiteCategories =
+  | 'Stocks'
+  | 'Personal'
+  | 'Admin'
+  | 'Games'
+  | 'General Interest'
+  | 'Utilities'
+  | 'Pictures'
+  | 'Economy'
+  | 'Miscellaneous'
+  | 'Reports'
+  | 'Home'
 export type Path = {
   name: string
   route: string
@@ -12,6 +23,15 @@ export interface Paths {
 
 export function siteMap() {
   const result: Paths[] = [
+    {
+      category: 'Home',
+      paths: [
+        {
+          name: 'home',
+          route: '/',
+        },
+      ],
+    },
     {
       category: 'General Interest',
       paths: [

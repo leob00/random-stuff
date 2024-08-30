@@ -20,7 +20,7 @@ const HomeMenu = () => {
   const isAdmin = userHasRole('Admin', ticket?.roles ?? [])
 
   const adminCategories = isAdmin ? all.filter((m) => m.category === 'Admin') : []
-  const pathCategories = all.filter((m) => m.category !== 'Admin')
+  const pathCategories = all.filter((m) => m.category !== 'Admin' && m.category !== 'Home')
 
   return (
     <Box>
@@ -28,8 +28,8 @@ const HomeMenu = () => {
         sx={{
           mt: 4,
           borderTopWidth: 3,
-        }}>
-        <CenteredHeader title={'Welcome to random stuff'} description={'You came to the right place to view random things. Enjoy!'} />
+        }}
+      >
         <Box display={'flex'} justifyContent={'flex-end'}>
           <Button size='small' aria-haspopup='true' onClick={() => setShowGroupedMenu(!showGroupedMenu)}>
             <MenuIcon color='primary' fontSize='small' />

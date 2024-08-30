@@ -12,6 +12,7 @@ const HeaderLinks = () => {
   useEffect(() => {
     setPrevRoute(previousRoute)
     setIsLoading(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastRoute])
 
   return (
