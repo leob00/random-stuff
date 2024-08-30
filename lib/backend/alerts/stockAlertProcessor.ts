@@ -54,7 +54,7 @@ function processDailyMoveTrigger(trigger: StockAlertTrigger, quote: StockQuote, 
 }
 
 function appendDailyRow(quote: StockQuote, dailyRows: string[]) {
-  const symbolLink = `https://random-stuff-seven.vercel.app/csr/stocks/details?id=${quote.Symbol}`
+  const symbolLink = `https://random-stuff-seven.vercel.app/csr/stocks/details/${quote.Symbol}`
   const tr = '<tr>'
   const td1 = `<td><a href='${symbolLink}'>${quote.Company} (${quote.Symbol})</a></td>`
   const td2 = `<td class="${quote.ChangePercent < 0 ? 'negative' : 'positive'}">${quote.ChangePercent}</td>`

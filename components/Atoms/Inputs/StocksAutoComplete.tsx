@@ -2,8 +2,8 @@ import { TextField, Autocomplete } from '@mui/material'
 import { CasinoBlue, VeryLightBlue } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
 import { debounce } from 'lodash'
-import React from 'react'
 import { useTheme } from '@mui/material'
+import { useRef } from 'react'
 
 const StocksAutoComplete = ({
   onChanged,
@@ -14,7 +14,6 @@ const StocksAutoComplete = ({
   onSelected,
   clearOnSelect = true,
   label = '',
-  defaultVal = '',
   errorMessage,
   freesolo = true,
 }: {
@@ -26,13 +25,12 @@ const StocksAutoComplete = ({
   onSelected: (text: string) => void
   clearOnSelect?: boolean
   label?: string
-  defaultVal?: string | null
   errorMessage?: string
   freesolo?: boolean
 }) => {
   const theme = useTheme()
   const color = theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlue
-  const textRef = React.useRef<HTMLInputElement | null>(null)
+  const textRef = useRef<HTMLInputElement | null>(null)
 
   const raiseChangeEvent = (term: string) => {
     onChanged?.(term)
@@ -60,7 +58,6 @@ const StocksAutoComplete = ({
     <Autocomplete
       autoCorrect={'false'}
       autoComplete={false}
-      value={defaultVal}
       size='small'
       id='searchAutoComplete'
       freeSolo={freesolo}

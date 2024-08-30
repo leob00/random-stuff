@@ -37,6 +37,7 @@ const RemoteImage = ({
           blurDataURL={url}
           onLoad={handleLoaded}
           fill
+          //sizes='100'
         />
       </Box>
     </>

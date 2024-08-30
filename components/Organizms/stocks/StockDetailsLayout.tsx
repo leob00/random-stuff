@@ -1,5 +1,4 @@
 import React from 'react'
-import useSWR from 'swr'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import StockListItem from './StockListItem'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'

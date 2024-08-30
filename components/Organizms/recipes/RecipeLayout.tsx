@@ -10,6 +10,7 @@ import { DropdownItem } from 'lib/models/dropdown'
 import router from 'next/router'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
+import BackButton from 'components/Atoms/Buttons/BackButton'
 
 const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Recipe; autoComplete?: DropdownItem[]; selectedOption?: DropdownItem }) => {
   const baseUrl = '/ssg/recipes/'
@@ -20,12 +21,18 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
   }
   return (
     <>
-      <PageHeader text={''} backButtonRoute={baseUrl} />
-
       <Box>
+        <BackButton route={baseUrl} />
         {autoComplete && (
           <CenterStack sx={{ py: 2 }}>
-            <StaticAutoComplete options={autoComplete} selectedItem={selectedOption} placeholder={`search ${autoComplete.length} recipes`} onSelected={handleSelected} disableClearable fullWidth />
+            <StaticAutoComplete
+              options={autoComplete}
+              selectedItem={selectedOption}
+              placeholder={`search ${autoComplete.length} recipes`}
+              onSelected={handleSelected}
+              disableClearable
+              fullWidth
+            />
           </CenterStack>
         )}
       </Box>

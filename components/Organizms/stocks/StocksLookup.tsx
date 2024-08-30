@@ -9,7 +9,7 @@ import numeral from 'numeral'
 import React from 'react'
 import { getSearchAheadTotalCount, searchAheadStocks } from './stockSearcher'
 
-const StocksLookup = ({ onFound }: { onFound: (item: StockQuote) => void }) => {
+const StocksLookup = ({ onFound, clearOnSelect }: { onFound: (item: StockQuote) => void; clearOnSelect?: boolean }) => {
   const [autocompResults, setAutocompResults] = React.useState<DropdownItem[]>([])
   const [isLoading, setIsLoading] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)
@@ -62,6 +62,7 @@ const StocksLookup = ({ onFound }: { onFound: (item: StockQuote) => void }) => {
             searchResults={autocompResults}
             debounceWaitMilliseconds={500}
             onSelected={handleSelectQuote}
+            clearOnSelect={clearOnSelect}
           />
         </CenterStack>
       </Box>

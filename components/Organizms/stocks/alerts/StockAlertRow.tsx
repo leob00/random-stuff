@@ -100,7 +100,7 @@ const StockAlertRow = ({ sub, username }: { sub: StockAlertSubscription; usernam
             <Box>
               <Clickable
                 onClicked={() => {
-                  router.push(`/csr/stocks/details?id=${sub.symbol}&returnUrl=/csr/stocks/alerts`)
+                  router.push(`/csr/stocks/details/${sub.symbol}?returnUrl=/csr/stocks/alerts`)
                 }}
               >
                 <Typography variant='h6'>{`${sub.company} (${sub.symbol})`}</Typography>

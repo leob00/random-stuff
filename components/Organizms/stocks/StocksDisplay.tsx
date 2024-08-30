@@ -182,7 +182,7 @@ const StocksDisplay = ({
         />
       )}
       <Box py={2}>
-        <StocksLookup onFound={handleSelectQuote} />
+        <StocksLookup onFound={handleSelectQuote} clearOnSelect />
       </Box>
       {model.quoteToAdd ? (
         <AddQuote

@@ -18,7 +18,7 @@ const StockDetailsTab = ({ quote }: { quote: StockQuote }) => {
         {quote.Sector && <ReadOnlyField label={'Sector'} val={quote.Sector} />}
         {quote.Industry && <ReadOnlyField label={'Industry'} val={quote.Industry} />}
         <ReadOnlyField label={'Cap'} val={quote.MarketCapShort} />
-        {quote.PeRatio && <ReadOnlyField label={'P/E'} val={quote.PeRatio} />}
+        <ReadOnlyField label={'P/E'} val={quote.PeRatio ?? 'N/A'} />
         {quote.Volume && <ReadOnlyField label={'Volume'} val={numeral(quote.Volume).format('###,###')} />}
         <ReadOnlyField label={'Date'} val={dayjs(quote.TradeDate).format('MM/DD/YYYY hh:mm a')} />
         {quote.AnnualDividendYield && <ReadOnlyField label={'Annual Yield'} val={`${numeral(quote.AnnualDividendYield).format('0.000')}%`} />}

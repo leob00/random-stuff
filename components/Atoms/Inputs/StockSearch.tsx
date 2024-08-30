@@ -11,15 +11,11 @@ import StocksAutoComplete from './StocksAutoComplete'
 const StockSearch = ({
   onSymbolSelected,
   clearOnSelect = true,
-  value,
   errorMessage,
-  freesolo = true,
 }: {
   onSymbolSelected: (quote: StockQuote) => void
   clearOnSelect?: boolean
-  value?: string
   errorMessage?: string
-  freesolo?: boolean
 }) => {
   const [results, setResults] = React.useState<DropdownItem[]>([])
   const [isLoading, setIsLoading] = React.useState(false)
@@ -60,7 +56,6 @@ const StockSearch = ({
       }
     })
     setResults(autoComp)
-    //setModel({ ...model, autoCompleteResults: autoComp, quoteToAdd: undefined, successMesage: null })
   }
   return (
     <CenterStack>
@@ -72,7 +67,6 @@ const StockSearch = ({
         debounceWaitMilliseconds={500}
         onSelected={handleSelectQuote}
         clearOnSelect={clearOnSelect}
-        defaultVal={value}
         errorMessage={errorMessage}
       />
     </CenterStack>

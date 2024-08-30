@@ -1,4 +1,4 @@
-import { Box, IconButton, Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import {
   CasinoBlackTransparent,
   CasinoDarkGreenTransparent,
@@ -10,9 +10,7 @@ import {
 
 import { StockHistoryItem, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
-import React from 'react'
 import StockChart from 'components/Organizms/stocks/StockChart'
-import Close from '@mui/icons-material/Close'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import StockNews from 'components/Organizms/stocks/StockNews'
@@ -25,8 +23,8 @@ import { useUserController } from 'hooks/userController'
 import TabList from 'components/Atoms/Buttons/TabList'
 import StockChange from './StockChange'
 import StockDetailsTab from './StockDetailsTab'
-
-const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'Earnings' }, { title: 'News' }, { title: 'Profile' }]
+import { useEffect, useRef, useState } from 'react'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'dark' = 'light') => {
   let color = mode === 'light' ? CasinoBlackTransparent : VeryLightBlue
@@ -63,14 +61,33 @@ const StockListItem = ({
   scrollIntoView?: boolean
   disabled?: boolean
 }) => {
-  const { authProfile } = useUserController()
-  const [showMore, setShowMore] = React.useState(expand)
-  const [stockHistory, setStockHistory] = React.useState<StockHistoryItem[]>([])
-  const [selectedTab, setSelectedTab] = React.useState('Details')
-  const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
-  const tabScrollTarget = React.useRef<HTMLSpanElement | null>(null)
+  const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'Earnings' }, { title: 'News' }, { title: 'Profile' }]
+  if (item.AnnualDividendYield) {
+    tabs.push({
+      title: 'Dividends',
+    })
+  }
 
-  React.useEffect(() => {
+  const { authProfile, fetchProfilePassive, setProfile } = useUserController()
+  const [showMore, setShowMore] = useState(expand)
+  const [stockHistory, setStockHistory] = useState<StockHistoryItem[]>([])
+  const [selectedTab, setSelectedTab] = useState('Details')
+  const scrollTarget = useRef<HTMLSpanElement | null>(null)
+  const tabScrollTarget = useRef<HTMLSpanElement | null>(null)
+  const [isLoadingProfile, setIsLoadingProfile] = useState(true)
+
+  useEffect(() => {
+    const fn = async () => {
+      if (!authProfile) {
+        const p = await fetchProfilePassive()
+        setProfile(p)
+      }
+      setIsLoadingProfile(false)
+    }
+    fn()
+  }, [authProfile])
+
+  useEffect(() => {
     const fn = async () => {
       if (showMore && scrollIntoView) {
         if (scrollTarget.current) {
@@ -84,9 +101,7 @@ const StockListItem = ({
         if (isStock) {
           putSearchedStock(item)
         }
-
         setStockHistory(history)
-
         setSelectedTab('Details')
       }
     }
@@ -106,15 +121,7 @@ const StockListItem = ({
     setSelectedTab(tab.title)
   }
 
-  const handleCollapseClick = () => {
-    if (closeOnCollapse) {
-      onClose?.()
-    } else {
-      setShowMore(false)
-    }
-  }
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (tabScrollTarget.current) {
       if (selectedTab !== 'Details') {
         tabScrollTarget.current.scrollIntoView({ behavior: 'smooth' })
@@ -123,57 +130,65 @@ const StockListItem = ({
   }, [selectedTab])
 
   return (
-    <Box key={item.Symbol} py={1}>
-      <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
-      <Box>
-        {isStock ? (
-          <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} disabled={disabled} />
-        ) : (
-          <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} disabled={disabled} />
-        )}
-        <Box key={`${item.Symbol}${item.Price}`}>
-          <StockChange item={item} />
-        </Box>
-        {showGroupName && item.GroupName && (
-          <Stack pl={2}>
-            <Typography variant='caption' color='primary'>{`Group Name: ${item.GroupName}`}</Typography>
-          </Stack>
-        )}
-      </Box>
-      {!showMore && <HorizontalDivider />}
-      {showMore && (
+    <>
+      {isLoadingProfile ? (
+        <BackdropLoader />
+      ) : (
         <>
-          <Box>
-            <HorizontalDivider />
-          </Box>
-          <Box pl={1} sx={{ backgroundColor: 'unset' }} minHeight={{ xs: 300, sm: 600 }}>
-            {stockHistory.length > 0 && (
+          <Box key={item.Symbol} py={1}>
+            <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
+            <Box>
+              {isStock ? (
+                <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} disabled={disabled} />
+              ) : (
+                <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} disabled={disabled} />
+              )}
+              <Box key={`${item.Symbol}${item.Price}`}>
+                <StockChange item={item} />
+              </Box>
+              {showGroupName && item.GroupName && (
+                <Stack pl={2}>
+                  <Typography variant='caption' color='primary'>{`Group Name: ${item.GroupName}`}</Typography>
+                </Stack>
+              )}
+            </Box>
+            {!showMore && <HorizontalDivider />}
+            {showMore && (
               <>
-                <StockChart symbol={item.Symbol} history={stockHistory} isStock={isStock} />
+                <Box>
+                  <HorizontalDivider />
+                </Box>
+                <Box pl={1} sx={{ backgroundColor: 'unset' }} minHeight={{ xs: 300, sm: 600 }}>
+                  {stockHistory.length > 0 && (
+                    <>
+                      <StockChart symbol={item.Symbol} history={stockHistory} isStock={isStock} />
+                    </>
+                  )}
+                </Box>
+                {isStock && (
+                  <>
+                    {authProfile && (
+                      <Box display={'flex'} gap={2} alignItems={'center'}>
+                        <StockSubscibeIcon userProfile={authProfile} quote={item} />
+                      </Box>
+                    )}
+
+                    <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
+                    <Typography ref={tabScrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>
+                    <Box key={item.Symbol}>
+                      {selectedTab === 'Details' && <StockDetailsTab quote={item} />}
+                      {selectedTab === 'News' && <StockNews quote={item} />}
+                      {selectedTab === 'Earnings' && <StockEarnings quote={item} />}
+                      {selectedTab === 'Profile' && <CompanyProfile quote={item} />}
+                    </Box>
+                  </>
+                )}
               </>
             )}
           </Box>
-          {isStock && (
-            <>
-              {authProfile && (
-                <Box display={'flex'} gap={2} alignItems={'center'}>
-                  <StockSubscibeIcon userProfile={authProfile} quote={item} />
-                </Box>
-              )}
-
-              <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
-              <Typography ref={tabScrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>
-              <Box key={item.Symbol}>
-                {selectedTab === 'Details' && <StockDetailsTab quote={item} />}
-                {selectedTab === 'News' && <StockNews quote={item} />}
-                {selectedTab === 'Earnings' && <StockEarnings quote={item} />}
-                {selectedTab === 'Profile' && <CompanyProfile quote={item} />}
-              </Box>
-            </>
-          )}
         </>
       )}
-    </Box>
+    </>
   )
 }
 
