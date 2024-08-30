@@ -9,9 +9,16 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import StockReportDisplay from 'components/Organizms/stocks/StockReportDisplay'
 import StockReportsDropdown, { stockReportsDropdown } from 'components/Organizms/stocks/reports/StockReportsDropdown'
+import { StockQuote } from 'lib/backend/api/models/zModels'
+import { Box } from '@mui/material'
+
+interface Model {
+  type: StockReportTypes
+  items: StockQuote[]
+}
+
 const Page = () => {
   const router = useRouter()
-
   const dropdown = stockReportsDropdown
   const id = String(router.query.slug)
 
@@ -22,7 +29,11 @@ const Page = () => {
 
   const dataFn = async () => {
     const arg = selectedOption?.value.replaceAll('-', '') as StockReportTypes
-    const result = await getReport(arg)
+    const result: Model = {
+      type: arg,
+      items: await getReport(arg),
+    }
+
     return result
   }
 
@@ -35,7 +46,11 @@ const Page = () => {
       <ResponsiveContainer>
         <StockReportsDropdown selectedValue={selectedOption.value} />
         {isLoading && <BackdropLoader />}
-        {data && <StockReportDisplay data={data} />}
+        {data && (
+          <Box py={2}>
+            <StockReportDisplay data={data.items} reportType={data.type} />
+          </Box>
+        )}
       </ResponsiveContainer>
     </>
   )

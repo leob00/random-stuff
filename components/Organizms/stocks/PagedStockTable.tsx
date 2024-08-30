@@ -12,11 +12,13 @@ const PagedStockTable = ({
   showGroupName = false,
   pageSize = 5,
   sort,
+  featuredField,
 }: {
   data: StockQuote[]
   showGroupName?: boolean
   pageSize?: number
   sort?: Sort[]
+  featuredField?: keyof StockQuote
 }) => {
   const { pagerModel, setPage, getPagedItems, reset } = useClientPager(data, pageSize)
   const items = getPagedItems(data)
@@ -35,7 +37,7 @@ const PagedStockTable = ({
   return (
     <>
       <Box minHeight={140 * pageSize}>
-        <StockTable stockList={items} isStock={true} showGroupName={showGroupName} showSummary={false} />
+        <StockTable stockList={items} isStock={true} showGroupName={showGroupName} showSummary={false} featuredField={featuredField} />
       </Box>
       <Pager
         pageCount={pagerModel.totalNumberOfPages}

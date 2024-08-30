@@ -26,6 +26,7 @@ import StockDetailsTab from './StockDetailsTab'
 import { useEffect, useRef, useState } from 'react'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import StockDividendDetails from './dividends/StockDividendDetails'
+import StockField from './StockField'
 
 export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'dark' = 'light') => {
   let color = mode === 'light' ? CasinoBlackTransparent : VeryLightBlue
@@ -50,6 +51,7 @@ const StockListItem = ({
   showGroupName = true,
   scrollIntoView = true,
   disabled,
+  featuredField,
 }: {
   item: StockQuote
   expand?: boolean
@@ -57,6 +59,7 @@ const StockListItem = ({
   showGroupName?: boolean
   scrollIntoView?: boolean
   disabled?: boolean
+  featuredField?: keyof StockQuote
 }) => {
   const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'Earnings' }, { title: 'News' }, { title: 'Profile' }]
   if (item.AnnualDividendYield) {
@@ -142,6 +145,11 @@ const StockListItem = ({
               <Box key={`${item.Symbol}${item.Price}`}>
                 <StockChange item={item} />
               </Box>
+              {featuredField && (
+                <Box pl={2}>
+                  <StockField quote={item} field={featuredField} />
+                </Box>
+              )}
               {showGroupName && item.GroupName && (
                 <Stack pl={2}>
                   <Typography variant='caption' color='primary'>{`Group Name: ${item.GroupName}`}</Typography>

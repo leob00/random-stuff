@@ -13,6 +13,7 @@ const StockTable = ({
   scrollMargin = -10,
   showGroupName = true,
   showSummary = true,
+  featuredField,
 }: {
   stockList: StockQuote[]
   isStock: boolean
@@ -20,13 +21,14 @@ const StockTable = ({
   scrollMargin?: number
   showGroupName?: boolean
   showSummary?: boolean
+  featuredField?: keyof StockQuote
 }) => {
   return (
     <>
       <Box pl={1}>
         {stockList.map((item, index) => (
           <Box key={`${item.Symbol}${item.Price}`}>
-            <StockListItem item={item} isStock={isStock} showGroupName={showGroupName} />
+            <StockListItem item={item} isStock={isStock} showGroupName={showGroupName} featuredField={featuredField} />
           </Box>
         ))}
         {stockList.length > 0 ? (
