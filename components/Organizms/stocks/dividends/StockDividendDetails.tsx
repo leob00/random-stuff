@@ -7,8 +7,12 @@ import numeral from 'numeral'
 import React from 'react'
 import { QlnApiRequest, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 import { StockDividendItem } from './StockDividendsTable'
+import { useClientPager } from 'hooks/useClientPager'
+import Pager from 'components/Atoms/Pager'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
-const StockDividendDetails = ({ symbol }: { symbol: string }) => {
+const StockDividendDetails = ({ symbol, showCompanyName = true }: { symbol: string; showCompanyName?: boolean }) => {
+  const pageSize = 4
   const mutakeKey = `stockdividend-details ${symbol}`
   const dataFn = async () => {
     const req: QlnApiRequest = {
@@ -20,17 +24,25 @@ const StockDividendDetails = ({ symbol }: { symbol: string }) => {
     return result
   }
   const { data, isLoading } = useSwrHelper(mutakeKey, dataFn, { revalidateOnFocus: false })
+  const { pagerModel, setPage, getPagedItems, reset } = useClientPager(data ?? [], pageSize)
+  const items = getPagedItems(data ?? [])
+
+  const handlePaged = (pageNum: number) => {
+    setPage(pageNum)
+  }
 
   return (
-    <Box py={2}>
+    <Box py={2} minHeight={250}>
       {isLoading && <BackdropLoader />}
       {data && (
         <>
-          {data.length > 0 && (
+          {items.length > 0 && (
             <Box display={'flex'} flexDirection={'column'} gap={2}>
-              <CenterStack>
-                <Typography variant='h4'>{`${data[0].CompanyName} (${data[0].Symbol})`}</Typography>
-              </CenterStack>
+              {showCompanyName && (
+                <CenterStack>
+                  <Typography variant='h4'>{`${data[0].CompanyName} (${data[0].Symbol})`}</Typography>
+                </CenterStack>
+              )}
               <CenterStack>
                 <Typography variant='h6'>{`Annual yield: ${data[0].AnnualYield}%`}</Typography>
               </CenterStack>
@@ -48,7 +60,7 @@ const StockDividendDetails = ({ symbol }: { symbol: string }) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {data.map((item) => (
+                  {items.map((item) => (
                     <TableRow key={`${item.Symbol}${item.PaymentDate}`}>
                       <TableCell>{`$${numeral(item.Amount).format('0.000')}`}</TableCell>
                       <TableCell>{dayjs(item.PaymentDate).format('MM/DD/YYYY')}</TableCell>
@@ -60,6 +72,16 @@ const StockDividendDetails = ({ symbol }: { symbol: string }) => {
               </Table>
             </TableContainer>
           </Box>
+          <Pager
+            pageCount={pagerModel.totalNumberOfPages}
+            itemCount={items.length}
+            itemsPerPage={pageSize}
+            onPaged={(pageNum: number) => handlePaged(pageNum)}
+            defaultPageIndex={pagerModel.page}
+            totalItemCount={pagerModel.totalNumberOfItems}
+            showHorizontalDivider={false}
+          ></Pager>
+          <HorizontalDivider />
         </>
       )}
     </Box>

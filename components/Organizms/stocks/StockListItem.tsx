@@ -55,8 +55,6 @@ const StockListItem = ({
   expand?: boolean
   isStock: boolean
   showGroupName?: boolean
-  closeOnCollapse?: boolean
-  onClose?: () => void
   scrollIntoView?: boolean
   disabled?: boolean
 }) => {
@@ -178,7 +176,7 @@ const StockListItem = ({
                       {selectedTab === 'News' && <StockNews quote={item} />}
                       {selectedTab === 'Earnings' && <StockEarnings quote={item} />}
                       {selectedTab === 'Profile' && <CompanyProfile quote={item} />}
-                      {selectedTab === 'Dividends' && <StockDividendDetails symbol={item.Symbol} />}
+                      {selectedTab === 'Dividends' && <StockDividendDetails symbol={item.Symbol} showCompanyName={false} />}
                     </Box>
                   </>
                 )}

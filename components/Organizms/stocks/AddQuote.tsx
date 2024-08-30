@@ -1,7 +1,7 @@
-import { Stack, Box, Typography, Alert } from '@mui/material'
+import { Stack, Box, Typography, Alert, IconButton } from '@mui/material'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
+import Close from '@mui/icons-material/Close'
 import CenterStack from 'components/Atoms/CenterStack'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
@@ -25,15 +25,12 @@ const AddQuote = ({
   const alreadyExists = stockListMap.has(quote.Symbol)
   return (
     <>
-      <StockListItem
-        item={quote}
-        expand={true}
-        isStock={true}
-        closeOnCollapse={true}
-        onClose={handleCloseAddQuote}
-        showGroupName={true}
-        scrollIntoView={scrollIntoView}
-      />
+      <Box display={'flex'} justifyContent={'flex-end'}>
+        <IconButton size='small' onClick={handleCloseAddQuote}>
+          <Close color='primary' fontSize='small' />
+        </IconButton>
+      </Box>
+      <StockListItem item={quote} expand={true} isStock={true} showGroupName={true} scrollIntoView={scrollIntoView} />
       {alreadyExists && showAddToListButton && (
         <CenterStack>
           <Alert severity='success'>
