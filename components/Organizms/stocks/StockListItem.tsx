@@ -25,6 +25,7 @@ import StockChange from './StockChange'
 import StockDetailsTab from './StockDetailsTab'
 import { useEffect, useRef, useState } from 'react'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import StockDividendDetails from './dividends/StockDividendDetails'
 
 export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'dark' = 'light') => {
   let color = mode === 'light' ? CasinoBlackTransparent : VeryLightBlue
@@ -47,8 +48,6 @@ const StockListItem = ({
   expand = false,
   isStock = true,
   showGroupName = true,
-  closeOnCollapse = false,
-  onClose,
   scrollIntoView = true,
   disabled,
 }: {
@@ -85,6 +84,7 @@ const StockListItem = ({
       setIsLoadingProfile(false)
     }
     fn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authProfile])
 
   useEffect(() => {
@@ -105,9 +105,7 @@ const StockListItem = ({
         setSelectedTab('Details')
       }
     }
-
     fn()
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showMore, item.Symbol])
 
@@ -180,6 +178,7 @@ const StockListItem = ({
                       {selectedTab === 'News' && <StockNews quote={item} />}
                       {selectedTab === 'Earnings' && <StockEarnings quote={item} />}
                       {selectedTab === 'Profile' && <CompanyProfile quote={item} />}
+                      {selectedTab === 'Dividends' && <StockDividendDetails symbol={item.Symbol} />}
                     </Box>
                   </>
                 )}

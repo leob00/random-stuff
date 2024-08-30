@@ -32,11 +32,8 @@ const StockDividendDetails = ({ symbol }: { symbol: string }) => {
                 <Typography variant='h4'>{`${data[0].CompanyName} (${data[0].Symbol})`}</Typography>
               </CenterStack>
               <CenterStack>
-                <Typography variant='h5'>{`Annual yield: ${data[0].AnnualYield}%`}</Typography>
+                <Typography variant='h6'>{`Annual yield: ${data[0].AnnualYield}%`}</Typography>
               </CenterStack>
-              {/* <CenterStack>
-                <Typography variant='h5'>{`Amount: $${numeral(data[0].Amount).format('0.000')}`}</Typography>
-              </CenterStack> */}
             </Box>
           )}
           <Box pt={2}>
@@ -45,8 +42,8 @@ const StockDividendDetails = ({ symbol }: { symbol: string }) => {
                 <TableHead>
                   <TableRow>
                     <TableCell>amount</TableCell>
-                    <TableCell>ex date</TableCell>
                     <TableCell>payment date</TableCell>
+                    <TableCell>ex date</TableCell>
                     <TableCell>frequency</TableCell>
                   </TableRow>
                 </TableHead>
@@ -54,8 +51,8 @@ const StockDividendDetails = ({ symbol }: { symbol: string }) => {
                   {data.map((item) => (
                     <TableRow key={`${item.Symbol}${item.PaymentDate}`}>
                       <TableCell>{`$${numeral(item.Amount).format('0.000')}`}</TableCell>
-                      <TableCell>{dayjs(item.ExDate).format('MM/DD/YYYY')}</TableCell>
                       <TableCell>{dayjs(item.PaymentDate).format('MM/DD/YYYY')}</TableCell>
+                      <TableCell>{dayjs(item.ExDate).format('MM/DD/YYYY')}</TableCell>
                       <TableCell>{item.Frequency}</TableCell>
                     </TableRow>
                   ))}

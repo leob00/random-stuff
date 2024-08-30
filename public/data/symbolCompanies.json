@@ -16460,6 +16460,10 @@
     "Symbol": "GIGB"
   },
   {
+    "Company": "GigCapital7 Corp. Unit",
+    "Symbol": "GIGGU"
+  },
+  {
     "Company": "GigaMedia Ltd",
     "Symbol": "GIGM"
   },
@@ -24956,7 +24960,7 @@
     "Symbol": "MEG"
   },
   {
-    "Company": "MainStay CBRE Global Infrastructure Megatrends Term Fund",
+    "Company": "NYLI CBRE Global Infrastructure Megatrends Term Fund",
     "Symbol": "MEGI"
   },
   {
@@ -35716,6 +35720,10 @@
     "Symbol": "SMLF"
   },
   {
+    "Company": "Harbor Active Small Cap ETF",
+    "Symbol": "SMLL"
+  },
+  {
     "Company": "Summit Midstream Partners, LP",
     "Symbol": "SMLP"
   },
@@ -42806,6 +42814,10 @@
   {
     "Company": "Xos, Inc. Warrants",
     "Symbol": "XOSWW"
+  },
+  {
+    "Company": "EntrepreneurShares Series Trust ERShares Private-Public Crossover ETF",
+    "Symbol": "XOVR"
   },
   {
     "Company": "XP Inc. Class A Common Stock",

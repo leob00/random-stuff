@@ -19,6 +19,7 @@ export function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionCacheProv
   const [{ cache, flush }] = React.useState(() => {
     const cache = createCache(options)
     cache.compat = true
+
     const prevInsert = cache.insert
     let inserted: string[] = []
     cache.insert = (...args) => {
