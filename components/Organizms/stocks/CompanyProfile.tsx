@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import RemoteImage from 'components/Atoms/RemoteImage'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { Company, getCompanyProfile } from 'lib/backend/api/qln/qlnApi'
@@ -39,7 +40,10 @@ const CompanyProfile = ({ quote }: { quote: StockQuote }) => {
         <>
           <Box py={2} display={'flex'} gap={2} flexDirection={'column'}>
             {data?.awsUrl && (
-              <Box py={2} sx={{ backgroundColor: 'whitesmoke', borderRadius: '8px' }} width={290} px={1}>
+              // <Box sx={{ backgroundColor: 'whitesmoke', borderRadius: '16px' }} px={2}>
+              //   <RemoteImage url={data.awsUrl} title='' />
+              // </Box>
+              <Box py={2} sx={{ backgroundColor: 'whitesmoke', borderRadius: '8px' }} width={320} px={2}>
                 <img src={`${data.awsUrl}`} alt='company logo' width={275} />
               </Box>
             )}

@@ -61,11 +61,12 @@ const StockListItem = ({
   disabled?: boolean
   featuredField?: keyof StockQuote
 }) => {
-  const tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'Earnings' }, { title: 'News' }, { title: 'Profile' }]
+  let tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'Earnings' }, { title: 'News' }, { title: 'Profile' }]
   if (item.AnnualDividendYield) {
-    tabs.push({
+    const div: TabInfo = {
       title: 'Dividends',
-    })
+    }
+    tabs.splice(2, 0, div)
   }
 
   const { authProfile, fetchProfilePassive, setProfile } = useUserController()

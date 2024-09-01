@@ -43,6 +43,11 @@ const nextConfig = {
         hostname: 'cdn2.thecatapi.com',
         pathname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: 'debqyqoq9od6o.cloudfront.net',
+        pathname: '**',
+      },
     ],
     deviceSizes: [320, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [8, 16, 32, 48, 64, 96, 128, 256, 384],
