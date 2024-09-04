@@ -54,7 +54,7 @@ const StockDividendDetails = ({ symbol, showCompanyName = true }: { symbol: stri
                 <TableHead>
                   <TableRow>
                     <TableCell>amount</TableCell>
-                    <TableCell>payment date</TableCell>
+                    <TableCell>pay date</TableCell>
                     <TableCell>ex date</TableCell>
                     <TableCell>frequency</TableCell>
                   </TableRow>

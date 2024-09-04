@@ -3688,6 +3688,10 @@
     "Symbol": "BAYA"
   },
   {
+    "Company": "Bayview Acquisition Corp Right",
+    "Symbol": "BAYAR"
+  },
+  {
     "Company": "Bayview Acquisition Corp Unit",
     "Symbol": "BAYAU"
   },
@@ -8568,6 +8572,10 @@
     "Symbol": "CPNJ"
   },
   {
+    "Company": "Calamos Nasdaq-100 Structured Alt Protection ETF - September",
+    "Symbol": "CPNS"
+  },
+  {
     "Company": "Pop Culture Group Co., Ltd Class A Ordinary Shares",
     "Symbol": "CPOP"
   },
@@ -8610,6 +8618,10 @@
   {
     "Company": "Consumer Portfolio Services",
     "Symbol": "CPSS"
+  },
+  {
+    "Company": "Calamos S&P 500 Structured Alt Protection ETF - September",
+    "Symbol": "CPST"
   },
   {
     "Company": "Camden Property Trust",
@@ -9210,6 +9222,10 @@
   {
     "Company": "CuriosityStream Inc. Warrant",
     "Symbol": "CURIW"
+  },
+  {
+    "Company": "Currenc Group Inc. Ordinary Shares",
+    "Symbol": "CURR"
   },
   {
     "Company": "Torrid Holdings Inc.",
@@ -20260,7 +20276,7 @@
     "Symbol": "INDE"
   },
   {
-    "Company": "Nifty India Financials ETF",
+    "Company": "Range India Financials ETF",
     "Symbol": "INDF"
   },
   {
@@ -22868,6 +22884,10 @@
     "Symbol": "KSEA"
   },
   {
+    "Company": "Innovator U.S. Small Cap Power Buffer ETF - September",
+    "Symbol": "KSEP"
+  },
+  {
     "Company": "DWS Strategic Municipal Income Trust",
     "Symbol": "KSM"
   },
@@ -23884,8 +23904,16 @@
     "Symbol": "LPA"
   },
   {
+    "Company": "Launch One Acquisition Corp. Class A Ordinary shares",
+    "Symbol": "LPAA"
+  },
+  {
     "Company": "Launch One Acquisition Corp. Unit",
     "Symbol": "LPAAU"
+  },
+  {
+    "Company": "Launch One Acquisition Corp. Warrant",
+    "Symbol": "LPAAW"
   },
   {
     "Company": "Lipocine Inc.",
@@ -25940,6 +25968,10 @@
     "Symbol": "MQ"
   },
   {
+    "Company": "Tradr 2X Long Triple Q Monthly ETF",
+    "Symbol": "MQQQ"
+  },
+  {
     "Company": "Blackrock Muni Yield Quality Fund II, Inc.",
     "Symbol": "MQT"
   },
@@ -27700,6 +27732,10 @@
     "Symbol": "NSCS"
   },
   {
+    "Company": "Innovator Growth-100 Power Buffer ETF - September",
+    "Symbol": "NSEP"
+  },
+  {
     "Company": "National Security Emerging Markets Index ETF",
     "Symbol": "NSI"
   },
@@ -28034,6 +28070,10 @@
   {
     "Company": "Direxion Shares ETF Trust Direxion Daily NVDA Bull 2X Shares",
     "Symbol": "NVDU"
+  },
+  {
+    "Company": "Tradr 1.75X Long NVDA Weekly ETF",
+    "Symbol": "NVDW"
   },
   {
     "Company": "T-Rex 2X Long NVIDIA Daily Target ETF",
@@ -29110,6 +29150,10 @@
   {
     "Company": "Oric Pharmaceuticals, Inc. Common Stock",
     "Symbol": "ORIC"
+  },
+  {
+    "Company": "Oruka Therapeutics, Inc. Common Stock",
+    "Symbol": "ORKA"
   },
   {
     "Company": "Orangekloud Technology Inc. Class A Ordinary Shares",
@@ -32144,6 +32188,10 @@
     "Symbol": "QQQU"
   },
   {
+    "Company": "Tradr 2X Long Triple Q Weekly ETF",
+    "Symbol": "QQQW"
+  },
+  {
     "Company": "Nuveen NASDAQ 100 Dynamic Overwrite Fund - Shares of Beneficial Interest",
     "Symbol": "QQQX"
   },
@@ -34752,6 +34800,10 @@
     "Symbol": "SEPT"
   },
   {
+    "Company": "AllianzIM U.S. Equity Buffer15 Uncapped Sep ETF",
+    "Symbol": "SEPU"
+  },
+  {
     "Company": "AllianzIM U.S. Large Cap Buffer20 Sep ETF",
     "Symbol": "SEPW"
   },
@@ -35220,8 +35272,16 @@
     "Symbol": "SIM"
   },
   {
+    "Company": "SIM Acquisition Corp. I Class A Ordinary Shares",
+    "Symbol": "SIMA"
+  },
+  {
     "Company": "SIM Acquisition Corp. I Unit",
     "Symbol": "SIMAU"
+  },
+  {
+    "Company": "SIM Acquisition Corp. I Warrant",
+    "Symbol": "SIMAW"
   },
   {
     "Company": "Silicon Motion Technology Corporation",
@@ -36140,12 +36200,20 @@
     "Symbol": "SOXL"
   },
   {
+    "Company": "Tradr 2X Long SOXX Monthly ETF",
+    "Symbol": "SOXM"
+  },
+  {
     "Company": "Invesco PHLX Semiconductor ETF",
     "Symbol": "SOXQ"
   },
   {
     "Company": "Direxion Daily Semiconductor Bear 3X Shares",
     "Symbol": "SOXS"
+  },
+  {
+    "Company": "Tradr 2X Long SOXX Weekly ETF",
+    "Symbol": "SOXW"
   },
   {
     "Company": "iShares Semiconductor ETF",
@@ -36544,6 +36612,10 @@
     "Symbol": "SPY"
   },
   {
+    "Company": "Tradr 2X Long SPY Weekly ETF",
+    "Symbol": "SPYB"
+  },
+  {
     "Company": "Simplify US Equity PLUS Convexity ETF",
     "Symbol": "SPYC"
   },
@@ -36558,6 +36630,10 @@
   {
     "Company": "NEOS S&P 500 High Income ETF",
     "Symbol": "SPYI"
+  },
+  {
+    "Company": "Tradr 2X Long SPY Monthly ETF",
+    "Symbol": "SPYM"
   },
   {
     "Company": "Defiance S&P 500 Income Target ETF",
@@ -39052,6 +39128,10 @@
     "Symbol": "TSLT"
   },
   {
+    "Company": "Tradr 1.5X Long TSLA Weekly ETF",
+    "Symbol": "TSLW"
+  },
+  {
     "Company": "Sixth Street Specialty Lending, Inc.",
     "Symbol": "TSLX"
   },
@@ -39464,7 +39544,7 @@
     "Symbol": "UBXG"
   },
   {
-    "Company": "U Power Limited Ordinary Shares",
+    "Company": "U Power Limited Class A Ordinary Shares",
     "Symbol": "UCAR"
   },
   {
@@ -43466,6 +43546,10 @@
   {
     "Company": "USCF Sustainable Commodity Strategy Fund",
     "Symbol": "ZSC"
+  },
+  {
+    "Company": "Innovator Equity Defined Protection ETF - 1 Yr September",
+    "Symbol": "ZSEP"
   },
   {
     "Company": "ProShares UltraShort Silver",
