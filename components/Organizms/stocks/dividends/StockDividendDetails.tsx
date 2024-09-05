@@ -32,7 +32,7 @@ const StockDividendDetails = ({ symbol, showCompanyName = true }: { symbol: stri
   }
 
   return (
-    <Box py={2} minHeight={250}>
+    <Box py={2} minHeight={350}>
       {isLoading && <BackdropLoader />}
       {data && (
         <>

@@ -110,8 +110,8 @@ function getColumnDef() {
       },
     },
     {
-      field: 'ExDate',
-      headerName: 'ex date',
+      field: 'PaymentDate',
+      headerName: 'pay date',
       width: 135,
       editable: false,
       valueGetter: (value, row) => {
@@ -119,8 +119,8 @@ function getColumnDef() {
       },
     },
     {
-      field: 'PaymentDate',
-      headerName: 'pay date',
+      field: 'ExDate',
+      headerName: 'ex date',
       width: 135,
       editable: false,
       valueGetter: (value, row) => {

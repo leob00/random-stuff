@@ -28,7 +28,6 @@ const Page = () => {
       <ResponsiveContainer>
         <PageHeader text='Stock Reports' backButtonRoute='/csr/stocks' />
         <StockReportsDropdown selectedValue='dividend-payers' />
-
         <Box pt={2} pb={8}>
           {data && <StockDividendsTable data={data} />}
         </Box>
