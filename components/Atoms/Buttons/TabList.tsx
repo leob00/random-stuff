@@ -8,11 +8,13 @@ const TabList = ({ tabs, selectedTab, onSetTab }: { tabs: TabInfo[]; selectedTab
   }
 
   return (
-    <Tabs value={selectedTab} onChange={handleChange} variant='scrollable' scrollButtons='auto'>
-      {tabs.map((tab, index) => (
-        <Tab label={tab.title} key={index} />
-      ))}
-    </Tabs>
+    <Box pb={2}>
+      <Tabs value={selectedTab} onChange={handleChange} variant='scrollable' scrollButtons='auto'>
+        {tabs.map((tab, index) => (
+          <Tab label={tab.title} key={index} />
+        ))}
+      </Tabs>
+    </Box>
   )
 }
 

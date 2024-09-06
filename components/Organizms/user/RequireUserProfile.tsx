@@ -6,7 +6,7 @@ import React, { ReactNode } from 'react'
 import RequireUserProfileWrapper from './RequireUserProfileWrapper'
 
 const RequireUserProfile = ({ children }: { children: ReactNode | JSX.Element[] }) => {
-  const { authProfile, setProfile, getProfile } = useUserController()
+  const { authProfile, setProfile, fetchProfilePassive } = useUserController()
   const [isLoading, setIsLoading] = React.useState(true)
   const [profileState, setProfileState] = React.useState(authProfile)
   const defaultState: UserProfileAuth = { userProfile: profileState, setUserProfile: setProfileState }
@@ -14,7 +14,7 @@ const RequireUserProfile = ({ children }: { children: ReactNode | JSX.Element[] 
   React.useEffect(() => {
     let fn = async () => {
       if (!authProfile) {
-        const p = await getProfile()
+        const p = await fetchProfilePassive()
         setProfile(p)
         setProfileState(p)
         defaultState.setUserProfile(p)
@@ -25,7 +25,7 @@ const RequireUserProfile = ({ children }: { children: ReactNode | JSX.Element[] 
     }
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authProfile])
+  }, [authProfile, profileState])
 
   return (
     <>

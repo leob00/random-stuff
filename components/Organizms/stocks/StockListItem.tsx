@@ -177,9 +177,9 @@ const StockListItem = ({
                         <StockSubscibeIcon userProfile={authProfile} quote={item} />
                       </Box>
                     )}
-                    <Box pb={2}>
-                      <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
-                    </Box>
+
+                    <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
+
                     <Typography ref={tabScrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>
                     <Box key={item.Symbol}>
                       {selectedTab === 'Details' && <StockDetailsTab quote={item} />}

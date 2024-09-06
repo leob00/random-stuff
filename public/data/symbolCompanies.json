@@ -2384,6 +2384,10 @@
     "Symbol": "ARE"
   },
   {
+    "Company": "Harbor AlphaEdge Next Generation REITs ETF",
+    "Symbol": "AREA"
+  },
+  {
     "Company": "American Rebel Holdings, Inc. Common Stock",
     "Symbol": "AREB"
   },
@@ -7076,6 +7080,10 @@
     "Symbol": "CERT"
   },
   {
+    "Company": "SPDR Bloomberg Enhanced Roll Yield Commodity Strategy No K-1 ETF",
+    "Symbol": "CERY"
+  },
+  {
     "Company": "Central Securities Corp.",
     "Symbol": "CET"
   },
@@ -8378,6 +8386,10 @@
   {
     "Company": "Concentra Group Holdings Parent, Inc.",
     "Symbol": "CON"
+  },
+  {
+    "Company": "GraniteShares 1x Short COIN Daily ETF",
+    "Symbol": "CONI"
   },
   {
     "Company": "GraniteShares ETF Trust GraniteShares 2x Long COIN Daily ETF",
@@ -12122,6 +12134,10 @@
   {
     "Company": "EMCOR Group, Inc.",
     "Symbol": "EME"
+  },
+  {
+    "Company": "Macquarie Focused Emerging Markets Equity ETF",
+    "Symbol": "EMEQ"
   },
   {
     "Company": "Templeton Emerging Markets Fund",
@@ -16472,6 +16488,10 @@
     "Symbol": "GIFI"
   },
   {
+    "Company": "RDE, Inc. Common Stock",
+    "Symbol": "GIFT"
+  },
+  {
     "Company": "Goldman Sachs Access Investment Grade Corporate Bond ETF",
     "Symbol": "GIGB"
   },
@@ -19056,6 +19076,10 @@
     "Symbol": "HYSA"
   },
   {
+    "Company": "Columbia Short Duration High Yield ETF",
+    "Symbol": "HYSD"
+  },
+  {
     "Company": "BLACKROCK CORPORATE HIGH YIELD FUND INC.",
     "Symbol": "HYT"
   },
@@ -21072,6 +21096,10 @@
     "Symbol": "ITW"
   },
   {
+    "Company": "ProShares Russell 2000 High Income ETF",
+    "Symbol": "ITWO"
+  },
+  {
     "Company": "Invesco Exchange-Traded Self-Indexed Fund Trust Invesco RAFI Strategic US ETF",
     "Symbol": "IUS"
   },
@@ -22480,6 +22508,10 @@
     "Symbol": "KHC"
   },
   {
+    "Company": "Kensington Hedged Premium Income ETF",
+    "Symbol": "KHPI"
+  },
+  {
     "Company": "KraneShares Asia Pacific High Income USD Bond ETF",
     "Symbol": "KHYB"
   },
@@ -23644,7 +23676,7 @@
     "Symbol": "LIT"
   },
   {
-    "Company": "LIGHTINTHEBOX HOLDING CO., LTD.",
+    "Company": "LightInTheBox Holding Co., Ltd. American Depositary Shares, each representing twelve ordinary shares",
     "Symbol": "LITB"
   },
   {
@@ -27276,6 +27308,10 @@
     "Symbol": "NJAN"
   },
   {
+    "Company": "Columbia U.S. High Yield ETF",
+    "Symbol": "NJNK"
+  },
+  {
     "Company": "New Jersey Resources Corp",
     "Symbol": "NJR"
   },
@@ -30728,6 +30764,10 @@
     "Symbol": "PMAR"
   },
   {
+    "Company": "Powell Max Limited Class A Ordinary Shares",
+    "Symbol": "PMAX"
+  },
+  {
     "Company": "Innovator U.S. Equity Power Buffer ETF - May",
     "Symbol": "PMAY"
   },
@@ -31524,8 +31564,16 @@
     "Symbol": "PTH"
   },
   {
+    "Company": "Pheton Holdings Ltd Class A Ordinary Shares",
+    "Symbol": "PTHL"
+  },
+  {
     "Company": "Pacer Trendpilot International ETF",
     "Symbol": "PTIN"
+  },
+  {
+    "Company": "GraniteShares 2x Long PLTR Daily ETF",
+    "Symbol": "PTIR"
   },
   {
     "Company": "Performance Technologies Inc",
@@ -36376,6 +36424,10 @@
     "Symbol": "SPIB"
   },
   {
+    "Company": "SPDR SSGA US Equity Premium Income ETF",
+    "Symbol": "SPIN"
+  },
+  {
     "Company": "SPDR Portfolio TIPS ETF",
     "Symbol": "SPIP"
   },
@@ -39524,6 +39576,10 @@
     "Symbol": "UBR"
   },
   {
+    "Company": "GraniteShares 2x Long UBER Daily ETF",
+    "Symbol": "UBRL"
+  },
+  {
     "Company": "UBS Group AG",
     "Symbol": "UBS"
   },
@@ -40480,6 +40536,10 @@
     "Symbol": "VCEL"
   },
   {
+    "Company": "Vine Hill Capital Investment Corp. Unit",
+    "Symbol": "VCICU"
+  },
+  {
     "Company": "VCI Global Limited Ordinary Share",
     "Symbol": "VCIG"
   },
@@ -40918,6 +40978,10 @@
   {
     "Company": "Village Super Market",
     "Symbol": "VLGEA"
+  },
+  {
+    "Company": "Harbor AlphaEdge Large Cap Value ETF",
+    "Symbol": "VLLU"
   },
   {
     "Company": "Valens Semiconductor Ltd.",
@@ -42532,6 +42596,10 @@
     "Symbol": "XCLR"
   },
   {
+    "Company": "SPDR S&P Emerging Markets ex-China ETF",
+    "Symbol": "XCNY"
+  },
+  {
     "Company": "FundX ETF",
     "Symbol": "XCOR"
   },
@@ -43170,6 +43238,10 @@
   {
     "Company": "YELP INC.",
     "Symbol": "YELP"
+  },
+  {
+    "Company": "Roundhill Ether Covered Call Strategy ETF",
+    "Symbol": "YETH"
   },
   {
     "Company": "YETI Holdings, Inc. Common Stock",
