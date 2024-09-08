@@ -8,7 +8,7 @@ import CenteredHeader from '../Boxes/CenteredHeader'
 import BasicBreadcrumbs from '../Navigation/Breadcrumbs'
 import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 
-const PageHeader = ({ text, backButtonRoute }: { text: string; backButtonRoute?: string }) => {
+const PageHeader = ({ text, backButtonRoute, forceShowBackButton }: { text: string; backButtonRoute?: string; forceShowBackButton?: boolean }) => {
   const { previousRoute } = useRouteTracker()
 
   return (
@@ -16,9 +16,13 @@ const PageHeader = ({ text, backButtonRoute }: { text: string; backButtonRoute?:
       <Box sx={{ display: { xs: 'none', sm: 'unset' } }}>
         <BasicBreadcrumbs />
       </Box>
-      <Box sx={{ display: { xs: 'unset', sm: 'none' } }}>
+      {forceShowBackButton ? (
         <Box display={'flex'}>{backButtonRoute ? <BackButton route={backButtonRoute} /> : <BackButton route={previousRoute.path} />}</Box>
-      </Box>
+      ) : (
+        <Box sx={{ display: { xs: 'unset', sm: 'none' } }}>
+          <Box display={'flex'}>{backButtonRoute ? <BackButton route={backButtonRoute} /> : <BackButton route={previousRoute.path} />}</Box>
+        </Box>
+      )}
       <CenterStack>
         <CenteredHeader title={text} />
       </CenterStack>

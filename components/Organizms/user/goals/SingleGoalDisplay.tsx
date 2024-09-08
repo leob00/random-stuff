@@ -135,8 +135,7 @@ const SingleGoalDisplay = ({
             <Box>
               {goal.stats && !goal.deleteCompletedTasks && (
                 <>
-                  <GoalStats goal={goal} stats={goal.stats} />
-                  <GoalProgressBar completePercent={goal.completePercent ?? 0} />
+                  <GoalStats stats={goal.stats} completePercent={goal.completePercent ?? 0} />
                 </>
               )}
             </Box>

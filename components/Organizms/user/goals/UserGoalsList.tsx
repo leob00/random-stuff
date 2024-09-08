@@ -10,6 +10,8 @@ import { CasinoRedTransparent, RedDarkMode } from 'components/themes/mainTheme'
 import { useClientPager } from 'hooks/useClientPager'
 import { UserGoal } from 'lib/models/userTasks'
 import React from 'react'
+import GoalStats from './GoalStats'
+import GoalProgressBar from './GoalProgressBar'
 
 const UserGoalsList = ({ data, onShowEdit }: { data: UserGoal[]; onShowEdit: (item: UserGoal) => void }) => {
   const pageSize = 5
@@ -34,13 +36,8 @@ const UserGoalsList = ({ data, onShowEdit }: { data: UserGoal[]; onShowEdit: (it
               <Box>
                 <ListHeader text={item.body ?? ''} item={item} onClicked={onShowEdit} />
                 {item.stats && (
-                  <Box pl={2} pb={2}>
-                    <Box>
-                      <ReadOnlyField label={`tasks`} val={`${Number(item.stats.completed) + Number(item.stats.inProgress)}`} />
-                      <ReadOnlyField label={`completed`} val={`${item.stats.completed}`} />
-                      <ReadOnlyField label={`in progress`} val={`${item.stats.inProgress}`} />
-                    </Box>
-                    {item.stats.pastDue > 0 && <Typography variant='body2' pt={1} color={redColor}>{`past due: ${item.stats.pastDue}`}</Typography>}
+                  <Box pl={2} py={1}>
+                    <GoalStats stats={item.stats} completePercent={item.deleteCompletedTasks ? undefined : item.completePercent ?? 0} />
                   </Box>
                 )}
               </Box>

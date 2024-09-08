@@ -19,6 +19,8 @@ import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import UserGoalsList from './UserGoalsList'
+import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
+import { DropdownItem } from 'lib/models/dropdown'
 
 const UserGoalsDisplay = ({ goalsAndTasks, username, onRefresh }: { goalsAndTasks: UserGoalAndTask[]; username: string; onRefresh: () => void }) => {
   const [summaryChart, setSummaryChart] = React.useState<BarChart | undefined>(undefined)
@@ -26,6 +28,13 @@ const UserGoalsDisplay = ({ goalsAndTasks, username, onRefresh }: { goalsAndTask
   const [searchWithinList, setSearchWithinList] = React.useState('')
   const allGoals = goalsAndTasks.flatMap((m) => m.goal)
   const goalsKey = constructUserGoalsKey(username)
+
+  const goalsAutoComplete: DropdownItem[] = allGoals.map((m) => {
+    return {
+      text: m.body ?? '',
+      value: m.id ?? '',
+    }
+  })
 
   const handleAddGoal = async (item: UserGoal) => {
     let newGoals = goalsAndTasks.flatMap((m) => m.goal)
@@ -67,15 +76,17 @@ const UserGoalsDisplay = ({ goalsAndTasks, username, onRefresh }: { goalsAndTask
     setSummaryChart(undefined)
   }
 
-  const handleSearchWithinList = (text: string) => {
-    setSearchWithinList(text)
-  }
-
   const filterGoals = () => {
     if (searchWithinList.length > 0) {
       return allGoals.filter((m) => m.body!.toLowerCase().startsWith(searchWithinList.toLowerCase()))
     }
     return allGoals
+  }
+  const handleSelectGoal = (item: DropdownItem) => {
+    const g = allGoals.find((m) => m.id == item.value)
+    if (g) {
+      handleShowEditGoal(g)
+    }
   }
 
   const filteredGoals = filterGoals()
@@ -95,7 +106,7 @@ const UserGoalsDisplay = ({ goalsAndTasks, username, onRefresh }: { goalsAndTask
               </Box>
             ) : (
               <Stack display={'flex'} direction={'row'} gap={2} alignItems={'center'}>
-                <SearchWithinList text={`search in ${goalsAndTasks.length} goals`} onChanged={handleSearchWithinList} fullWidth />
+                <StaticAutoComplete options={goalsAutoComplete} onSelected={handleSelectGoal} placeholder={`search ${goalsAndTasks.length} goals`} />
                 <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
                   <GoalsMenu onShowCharts={handleShowCharts} onAddGoal={handleShowAddGoalForm} onRefresh={onRefresh} />
                 </Stack>

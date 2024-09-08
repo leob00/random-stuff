@@ -2,36 +2,37 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import { useUserController } from 'hooks/userController'
 import { UserProfileAuth, UserProfileContext } from 'lib/ui/auth/UserProfileContext'
-import React, { ReactNode } from 'react'
+import { ReactNode, useState, useEffect } from 'react'
 import RequireUserProfileWrapper from './RequireUserProfileWrapper'
 
 const RequireUserProfile = ({ children }: { children: ReactNode | JSX.Element[] }) => {
-  const { authProfile, setProfile, fetchProfilePassive } = useUserController()
-  const [isLoading, setIsLoading] = React.useState(true)
-  const [profileState, setProfileState] = React.useState(authProfile)
-  const defaultState: UserProfileAuth = { userProfile: profileState, setUserProfile: setProfileState }
+  const { authProfile, setProfile, getProfile } = useUserController()
+  const [isLoading, setIsLoading] = useState(true)
+  const defaultState: UserProfileAuth = { userProfile: authProfile }
 
-  React.useEffect(() => {
+  useEffect(() => {
     let fn = async () => {
       if (!authProfile) {
-        const p = await fetchProfilePassive()
-        setProfile(p)
-        setProfileState(p)
-        defaultState.setUserProfile(p)
-        setIsLoading(false)
-      } else {
+        if (isLoading) {
+          const p = await getProfile()
+          setProfile(p)
+          //setProfileState(p)
+          //defaultState.setUserProfile(p)
+        }
+      }
+      if (isLoading) {
         setIsLoading(false)
       }
     }
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authProfile, profileState])
+  }, [authProfile, isLoading])
 
   return (
     <>
       {isLoading && <BackdropLoader />}
       <>
-        {!isLoading && !profileState ? (
+        {!isLoading && !authProfile ? (
           <PleaseLogin />
         ) : (
           <>

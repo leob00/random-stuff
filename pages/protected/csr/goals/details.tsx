@@ -47,7 +47,7 @@ const Page = () => {
       <Seo pageTitle='Goals' />
       <ResponsiveContainer>
         {isLoading && <BackdropLoader />}
-        {goal && <PageHeader text={`Goal: ${goal.body}`} backButtonRoute={'/protected/csr/goals'} />}
+        {goal && <PageHeader text={`Goal: ${goal.body}`} backButtonRoute={'/protected/csr/goals'} forceShowBackButton />}
         {goal && tasks && <SingleGoalDisplay username={username} goal={goal} tasks={tasks} onMutated={handleMutated} />}
         <>
           {!isLoading && !goal && (
