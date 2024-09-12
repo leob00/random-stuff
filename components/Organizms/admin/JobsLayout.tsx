@@ -15,10 +15,12 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import { usePolling } from 'hooks/usePolling'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 dayjs.extend(relativeTime)
 
 const JobsLayout = () => {
-  const config = apiConnection().qln
+  const router = useRouter()
   const pollingIterval = 8000
   const [selectedItem, setSelectedItem] = useState<Job | null>(null)
   const [isLoadingDetail, setIsLoadingDetail] = useState(false)
@@ -36,7 +38,7 @@ const JobsLayout = () => {
     start()
   }
 
-  const apiUrl = `${config.url}/BatchJobList?Token=${claim?.token ?? ''}`
+  const listMutateKey = `BatchJobList`
 
   const dataFn = async () => {
     try {
@@ -50,7 +52,7 @@ const JobsLayout = () => {
     }
   }
 
-  const { data } = useSwrHelper<QlnApiResponse>(apiUrl, dataFn)
+  const { data } = useSwrHelper(listMutateKey, dataFn)
 
   const handleItemClicked = async (item: Job) => {
     setIsLoadingDetail(true)
@@ -63,10 +65,12 @@ const JobsLayout = () => {
     setSelectedItem(null)
     start()
   }
-
+  const handleClsseDetail = () => {
+    setSelectedItem(null)
+  }
   useEffect(() => {
     if (!error) {
-      mutate(apiUrl)
+      mutate(listMutateKey)
     } else {
       stop()
     }
@@ -83,7 +87,13 @@ const JobsLayout = () => {
         )}
         {error && <QlnUsernameLoginForm onSuccess={handleLogin} />}
         {isLoadingDetail && <BackdropLoader />}
-        {selectedItem && <JobDetail item={selectedItem} onClose={handleClose} />}
+        {selectedItem && (
+          <>
+            <InfoDialog show={true} title={selectedItem.Description} onCancel={handleClsseDetail} fullScreen={true}>
+              <JobDetail item={selectedItem} />
+            </InfoDialog>
+          </>
+        )}
         {data && claim && <JobList response={data} onJobSelected={handleItemClicked} />}
       </>
     </Box>

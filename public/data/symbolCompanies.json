@@ -4812,7 +4812,7 @@
     "Symbol": "BKSY"
   },
   {
-    "Company": "BlackSky Technology Inc. Redeemable Warrants, each whole Warrant exercisable for one share of Class A Common Stock",
+    "Company": "BlackSky Technology Inc. Redeemable Warrants, each whole Warrant exercisable for one-eighth (1/8th) of a share of Class A Common Stock at an exercise price of $92.00 per whole share",
     "Symbol": "BKSY.WS"
   },
   {
@@ -5210,6 +5210,10 @@
   {
     "Company": "Bank of Nova Scotia",
     "Symbol": "BNS"
+  },
+  {
+    "Company": "Brookfield Wealth Solutions Ltd.",
+    "Symbol": "BNT"
   },
   {
     "Company": "Benitec Biopharma Inc. Common Stock",
@@ -5766,6 +5770,10 @@
   {
     "Company": "Invesco BulletShares 2032 Municipal Bond ETF",
     "Symbol": "BSMW"
+  },
+  {
+    "Company": "Invesco BulletShares 2034 Municipal Bond ETF",
+    "Symbol": "BSMY"
   },
   {
     "Company": "Beacon Selective Risk ETF",
@@ -6370,6 +6378,10 @@
   {
     "Company": "Pacer US Small Cap Cash Cows Growth Leaders ETF",
     "Symbol": "CAFG"
+  },
+  {
+    "Company": "Congress Intermediate Bond ETF",
+    "Symbol": "CAFX"
   },
   {
     "Company": "Conagra Brands, Inc.",
@@ -7472,7 +7484,7 @@
     "Symbol": "CHPT"
   },
   {
-    "Company": "Cheer Holding, Inc. Ordinary Share",
+    "Company": "Cheer Holding, Inc. Class A Ordinary Share",
     "Symbol": "CHR"
   },
   {
@@ -8622,6 +8634,10 @@
   {
     "Company": "Calamos S&P 500 Structured Alt Protection ETF - July",
     "Symbol": "CPSJ"
+  },
+  {
+    "Company": "Calamos Laddered S&P 500 Structured Alt Protection ETF",
+    "Symbol": "CPSL"
   },
   {
     "Company": "Calamos S&P 500 Structured Alt Protection ETF - May",
@@ -9904,6 +9920,10 @@
     "Symbol": "DECK"
   },
   {
+    "Company": "SPDR Galaxy Digital Asset Ecosystem ETF",
+    "Symbol": "DECO"
+  },
+  {
     "Company": "PGIM US Large-Cap Buffer 12 ETF - December",
     "Symbol": "DECP"
   },
@@ -10958,6 +10978,10 @@
   {
     "Company": "Dynatrace, Inc.",
     "Symbol": "DT"
+  },
+  {
+    "Company": "Sparkline International Intangible Value ETF",
+    "Symbol": "DTAN"
   },
   {
     "Company": "DTE Energy Company 2020 Series G 4.375% Junior Subordinated Debentures due 2080",
@@ -12536,6 +12560,10 @@
     "Symbol": "EQLS"
   },
   {
+    "Company": "iShares MSCI Emerging Markets Quality Factor ETF",
+    "Symbol": "EQLT"
+  },
+  {
     "Company": "Equinor ASA American Depositary Shares (Each Representing One Ordinary Share, nominal value NOK 2.50 per share)",
     "Symbol": "EQNR"
   },
@@ -12706,6 +12734,10 @@
   {
     "Company": "Vanguard ESG U.S. Stock ETF",
     "Symbol": "ESGV"
+  },
+  {
+    "Company": "Tuttle Capital Shareholders First Index ETF",
+    "Symbol": "ESGX"
   },
   {
     "Company": "American Century Sustainable Growth ETF",
@@ -13070,6 +13102,10 @@
   {
     "Company": "Eaton Vance Floating-Rate ETF",
     "Symbol": "EVLN"
+  },
+  {
+    "Company": "iShares MSCI Emerging Markets Value Factor ETF",
+    "Symbol": "EVLU"
   },
   {
     "Company": "Evolv Technologies Holdings, Inc. Class A Common Stock",
@@ -16492,12 +16528,20 @@
     "Symbol": "GIFT"
   },
   {
+    "Company": "GigCapital7 Corp. Class A Ordinary Share",
+    "Symbol": "GIG"
+  },
+  {
     "Company": "Goldman Sachs Access Investment Grade Corporate Bond ETF",
     "Symbol": "GIGB"
   },
   {
     "Company": "GigCapital7 Corp. Unit",
     "Symbol": "GIGGU"
+  },
+  {
+    "Company": "GigCapital7 Corp. Warrant",
+    "Symbol": "GIGGW"
   },
   {
     "Company": "GigaMedia Ltd",
@@ -16820,7 +16864,7 @@
     "Symbol": "GMGI"
   },
   {
-    "Company": "Global Mofy Metaerse Limited Ordinary Shares",
+    "Company": "Global Mofy AI Limited Class A Ordinary Shares",
     "Symbol": "GMM"
   },
   {
@@ -17154,6 +17198,10 @@
   {
     "Company": "The Gap, Inc.",
     "Symbol": "GPS"
+  },
+  {
+    "Company": "Hyperscale Data, Inc.",
+    "Symbol": "GPUS"
   },
   {
     "Company": "Natixis Gateway Quality Income ETF",
@@ -17558,6 +17606,10 @@
   {
     "Company": "FlexShares Global Upstream Natural Resources Index Fund",
     "Symbol": "GUNR"
+  },
+  {
+    "Company": "Tuttle Capital Self Defense Index ETF",
+    "Symbol": "GUNZ"
   },
   {
     "Company": "Gulf Resources, Inc. (NV) Common Stock",
@@ -17976,6 +18028,10 @@
     "Symbol": "HEAT"
   },
   {
+    "Company": "SPDR Galaxy Hedged Digital Asset Ecosystem ETF",
+    "Symbol": "HECO"
+  },
+  {
     "Company": "WisdomTree Europe Hedged Equity Fund",
     "Symbol": "HEDJ"
   },
@@ -18092,7 +18148,7 @@
     "Symbol": "HFWA"
   },
   {
-    "Company": "NYLI FTSE International Equity Currency Neutral ETF",
+    "Company": "IQ FTSE International Equity Currency Neutral ETF",
     "Symbol": "HFXI"
   },
   {
@@ -20542,6 +20598,10 @@
   {
     "Company": "INVO BioScience,INC Common Stock",
     "Symbol": "INVO"
+  },
+  {
+    "Company": "Innovex International, Inc.",
+    "Symbol": "INVX"
   },
   {
     "Company": "Innoviz Technologies Ltd. Ordinary shares",
@@ -23456,6 +23516,14 @@
     "Symbol": "LEXXW"
   },
   {
+    "Company": "Stone Ridge 2054 Longevity Income ETF",
+    "Symbol": "LFAN"
+  },
+  {
+    "Company": "Stone Ridge 2059 Longevity Income ETF",
+    "Symbol": "LFAV"
+  },
+  {
     "Company": "Lifecore Biomedical, Inc. Common Stock",
     "Symbol": "LFCR"
   },
@@ -23586,6 +23654,14 @@
   {
     "Company": "Li Auto Inc. American Depositary Shares",
     "Symbol": "LI"
+  },
+  {
+    "Company": "Stone Ridge 2054 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAK"
+  },
+  {
+    "Company": "Stone Ridge 2059 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAT"
   },
   {
     "Company": "Lichen China Limited Class A Ordinary Shares",
@@ -23742,6 +23818,10 @@
   {
     "Company": "Terran Orbital Corporation Redeemable Warrants, each whole warrant exercisable for one share of Common Stock at an exercise price of $11.50",
     "Symbol": "LLAP.WS"
+  },
+  {
+    "Company": "Global X Long-Term Treasury Ladder ETF",
+    "Symbol": "LLDR"
   },
   {
     "Company": "Eli Lilly & Co.",
@@ -24532,7 +24612,7 @@
     "Symbol": "MAR"
   },
   {
-    "Company": "Marathon Digital Holdings, Inc. Common Stock",
+    "Company": "MARA Holdings, Inc. Common Stock",
     "Symbol": "MARA"
   },
   {
@@ -25538,6 +25618,10 @@
   {
     "Company": "Melco Resorts & Entertainment Limited American Depositary Shares",
     "Symbol": "MLCO"
+  },
+  {
+    "Company": "Global X Intermediate-Term Treasury Ladder ETF",
+    "Symbol": "MLDR"
   },
   {
     "Company": "Moolec Science SA Ordinary Shares",
@@ -26836,7 +26920,7 @@
     "Symbol": "NBSM"
   },
   {
-    "Company": "Newbury Street Acquisition Corporation Common Stock",
+    "Company": "NEWBURY STREET ACQ CORP",
     "Symbol": "NBST"
   },
   {
@@ -26844,7 +26928,7 @@
     "Symbol": "NBSTU"
   },
   {
-    "Company": "Newbury Street Acquisition Corporation Warrants",
+    "Company": "NEWBURY STREET ACQ CP WTS",
     "Symbol": "NBSTW"
   },
   {
@@ -27304,6 +27388,10 @@
     "Symbol": "NIVFW"
   },
   {
+    "Company": "Research Affiliates Deletions ETF",
+    "Symbol": "NIXT"
+  },
+  {
     "Company": "Innovator Growth-100 Power Buffer ETF - January",
     "Symbol": "NJAN"
   },
@@ -27382,6 +27470,10 @@
   {
     "Company": "Nuveen Multi-Asset Income Fund",
     "Symbol": "NMAI"
+  },
+  {
+    "Company": "Simplify National Muni Bond ETF",
+    "Symbol": "NMB"
   },
   {
     "Company": "Nuveen Municipal Credit Opportunities Fund",
@@ -29816,6 +29908,10 @@
     "Symbol": "PCEF"
   },
   {
+    "Company": "Polen Capital Emerging Markets ex-China Growth ETF",
+    "Symbol": "PCEM"
+  },
+  {
     "Company": "High Income Securities Fund",
     "Symbol": "PCF"
   },
@@ -30922,6 +31018,10 @@
   {
     "Company": "Polar Power, Inc. Common Stock",
     "Symbol": "POLA"
+  },
+  {
+    "Company": "Andretti Acquisition Corp. II Unit",
+    "Symbol": "POLEU"
   },
   {
     "Company": "Pool Corporation",
@@ -32712,6 +32812,10 @@
     "Symbol": "RDOG"
   },
   {
+    "Company": "Roundhill Small Cap 0DTE Covered Call Strategy ETF",
+    "Symbol": "RDTE"
+  },
+  {
     "Company": "Radius Recycling, Inc. Class A Common Stock",
     "Symbol": "RDUS"
   },
@@ -33170,6 +33274,10 @@
   {
     "Company": "B. Riley Financial, Inc. 5.25% Senior Notes due 2028",
     "Symbol": "RILYZ"
+  },
+  {
+    "Company": "Algorhythm Holdings, Inc. Common Stock",
+    "Symbol": "RIME"
   },
   {
     "Company": "AXS Real Estate Income ETF",
@@ -34126,6 +34234,10 @@
   {
     "Company": "Science Applications International Corporation Common Stock",
     "Symbol": "SAIC"
+  },
+  {
+    "Company": "SAIHEAT Limited Class A Ordinary Shares",
+    "Symbol": "SAIH"
   },
   {
     "Company": "SAI.TECH Global Corporation Warrant",
@@ -35436,6 +35548,14 @@
     "Symbol": "SJB"
   },
   {
+    "Company": "SanJac Alpha Core Plus Bond ETF",
+    "Symbol": "SJCP"
+  },
+  {
+    "Company": "SanJac Alpha Low Duration ETF",
+    "Symbol": "SJLD"
+  },
+  {
     "Company": "The J.M. Smucker Company",
     "Symbol": "SJM"
   },
@@ -35578,6 +35698,10 @@
   {
     "Company": "Solid Power, Inc. Warrant",
     "Symbol": "SLDPW"
+  },
+  {
+    "Company": "Global X Short-Term Treasury Ladder ETF",
+    "Symbol": "SLDR"
   },
   {
     "Company": "Super League Enterprise, Inc. Common Stock",
@@ -37960,6 +38084,10 @@
     "Symbol": "TDTF"
   },
   {
+    "Company": "Trident Digital Tech Holdings Ltd American Depository Shares",
+    "Symbol": "TDTH"
+  },
+  {
     "Company": "FlexShares iBoxx 3-Year Target Duration TIPS Index Fund",
     "Symbol": "TDTT"
   },
@@ -38034,6 +38162,10 @@
   {
     "Company": "Templeton Emerging Markets Income Fund",
     "Symbol": "TEI"
+  },
+  {
+    "Company": "SPDR Galaxy Transformative Tech Accelerators ETF",
+    "Symbol": "TEKX"
   },
   {
     "Company": "TE CONNECTIVITY LTD",
@@ -42590,6 +42722,10 @@
   {
     "Company": "Columbia EM Core ex-China ETF",
     "Symbol": "XCEM"
+  },
+  {
+    "Company": "XCHG Limited American Depositary Share",
+    "Symbol": "XCH"
   },
   {
     "Company": "Global X S&P 500 Collar 95-110 ETF",
