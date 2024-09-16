@@ -185,8 +185,8 @@ const StockListItem = ({
                       {selectedTab === 'Details' && <StockDetailsTab quote={item} />}
                       {selectedTab === 'News' && <StockNews quote={item} />}
                       {selectedTab === 'Earnings' && <StockEarnings quote={item} />}
-                      {selectedTab === 'Profile' && <CompanyProfile quote={item} />}
                       {selectedTab === 'Dividends' && <StockDividendDetails symbol={item.Symbol} showCompanyName={false} />}
+                      {selectedTab === 'Profile' && <CompanyProfile quote={item} />}
                     </Box>
                   </>
                 )}

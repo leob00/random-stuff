@@ -46,7 +46,7 @@ export async function post(url: string, body: any, contentType: string = 'applic
       headers: {
         'Content-Type': contentType,
         'x-api-key': config.aws.key,
-        ApiKey: String(config.qln.key),
+        ApiKey: config.qln.key,
       },
     })
 

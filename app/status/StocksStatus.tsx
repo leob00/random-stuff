@@ -1,12 +1,12 @@
 import { Box } from '@mui/material'
-import { getLatestQuotes } from 'lib/backend/api/qln/qlnApi'
+import { getStockQuotesServer } from 'lib/backend/api/qln/qlnApi'
 import { sleep } from 'lib/util/timers'
 import { StatusResponse } from './statusResponse'
 import StatusCard from './StatusCard'
 
 async function getData() {
   await sleep(2000)
-  const resp = await getLatestQuotes(['MSFT', 'NVDA'])
+  const resp = await getStockQuotesServer(['MSFT', 'NVDA'])
   const result: StatusResponse = {
     success: resp.length === 2,
   }

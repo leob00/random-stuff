@@ -37,7 +37,7 @@ const UserGoalsList = ({ data, onShowEdit }: { data: UserGoal[]; onShowEdit: (it
                 <ListHeader text={item.body ?? ''} item={item} onClicked={onShowEdit} />
                 {item.stats && (
                   <Box pl={2} py={1}>
-                    <GoalStats stats={item.stats} completePercent={item.deleteCompletedTasks ? undefined : item.completePercent ?? 0} />
+                    <GoalStats goal={item} completePercent={item.deleteCompletedTasks ? undefined : item.completePercent ?? 0} />
                   </Box>
                 )}
               </Box>
