@@ -3900,6 +3900,10 @@
     "Symbol": "BCAT"
   },
   {
+    "Company": "Bicara Therapeutics Inc. Common Stock",
+    "Symbol": "BCAX"
+  },
+  {
     "Company": "BCB Bancorp Inc (NJ)",
     "Symbol": "BCBP"
   },
@@ -10180,7 +10184,7 @@
     "Symbol": "DFSV"
   },
   {
-    "Company": "Dimensional U.S. Equity ETF",
+    "Company": "Dimensional U.S. Equity Market ETF",
     "Symbol": "DFUS"
   },
   {
@@ -11256,6 +11260,10 @@
     "Symbol": "DXF"
   },
   {
+    "Company": "Dimensional International Vector Equity ETF",
+    "Symbol": "DXIV"
+  },
+  {
     "Company": "WisdomTree Japan Hedged Equity Fund",
     "Symbol": "DXJ"
   },
@@ -11274,6 +11282,10 @@
   {
     "Company": "Daxor Corporation Common Stock",
     "Symbol": "DXR"
+  },
+  {
+    "Company": "Dimensional US Vector Equity ETF",
+    "Symbol": "DXUV"
   },
   {
     "Company": "Dixie Group Inc",
@@ -12970,6 +12982,14 @@
   {
     "Company": "ProShares UltraShort Euro",
     "Symbol": "EUO"
+  },
+  {
+    "Company": "Eureka Acquisition Corp Class A Ordinary Share",
+    "Symbol": "EURK"
+  },
+  {
+    "Company": "Eureka Acquisition Corp Right",
+    "Symbol": "EURKR"
   },
   {
     "Company": "Eureka Acquisition Corp Unit",
@@ -15680,6 +15700,10 @@
     "Symbol": "FVD"
   },
   {
+    "Company": "Future Vision II Acquisition Corporation Units",
+    "Symbol": "FVNNU"
+  },
+  {
     "Company": "Fiverr International Ltd.",
     "Symbol": "FVRR"
   },
@@ -16810,6 +16834,10 @@
   {
     "Company": "Corning Incorporated",
     "Symbol": "GLW"
+  },
+  {
+    "Company": "Galaxy Payroll Group Limited Ordinary Shares",
+    "Symbol": "GLXG"
   },
   {
     "Company": "GlycoMimetics, Inc.",
@@ -18958,6 +18986,10 @@
   {
     "Company": "Haverty Furniture Companies, Inc. Class A",
     "Symbol": "HVT.A"
+  },
+  {
+    "Company": "Themes US Infrastructure ETF",
+    "Symbol": "HWAY"
   },
   {
     "Company": "Hawthorn Bancshars Inc.",
@@ -23564,7 +23596,7 @@
     "Symbol": "LFVN"
   },
   {
-    "Company": "ReWalk Robotics Ltd",
+    "Company": "Lifeward Ltd. Ordinary Shares",
     "Symbol": "LFWD"
   },
   {
@@ -24822,6 +24854,10 @@
   {
     "Company": "Mercantile Bank Corp",
     "Symbol": "MBWM"
+  },
+  {
+    "Company": "MBX Biosciences, Inc. Common Stock",
+    "Symbol": "MBX"
   },
   {
     "Company": "MOELIS & COMPANY",
@@ -26898,6 +26934,10 @@
   {
     "Company": "Neurocrine Biosciences Inc",
     "Symbol": "NBIX"
+  },
+  {
+    "Company": "Neuberger Berman Japan Equity ETF",
+    "Symbol": "NBJP"
   },
   {
     "Company": "Northeast Bank Common Stock",
@@ -31572,12 +31612,20 @@
     "Symbol": "PSQ"
   },
   {
+    "Company": "Palmer Square CLO Senior Debt ETF",
+    "Symbol": "PSQA"
+  },
+  {
     "Company": "PSQ Holdings, Inc.",
     "Symbol": "PSQH"
   },
   {
     "Company": "PSQ Holdings, Inc. Warrants, each exercisable for one share of Class A common stock at an exercise price of $11.50 per share",
     "Symbol": "PSQH.WS"
+  },
+  {
+    "Company": "Palmer Square Credit Opportunities ETF",
+    "Symbol": "PSQO"
   },
   {
     "Company": "Invesco Active U.S. Real Estate Fund",
@@ -34884,6 +34932,10 @@
     "Symbol": "SEG"
   },
   {
+    "Company": "Solaris Energy Infrastructure, Inc.",
+    "Symbol": "SEI"
+  },
+  {
     "Company": "SEI Investments Co",
     "Symbol": "SEIC"
   },
@@ -35886,6 +35938,10 @@
   {
     "Company": "Defiance Daily Target 2X Long SMCI ETF",
     "Symbol": "SMCX"
+  },
+  {
+    "Company": "YieldMax SMCI Option Income Strategy ETF",
+    "Symbol": "SMCY"
   },
   {
     "Company": "ProShares UltraPro Short MidCap400",
@@ -43562,6 +43618,10 @@
   {
     "Company": "Zimmer Biomet Holdings, Inc.",
     "Symbol": "ZBH"
+  },
+  {
+    "Company": "Zenas BioPharma, Inc. Common Stock",
+    "Symbol": "ZBIO"
   },
   {
     "Company": "Zebra Technologies Corporation",

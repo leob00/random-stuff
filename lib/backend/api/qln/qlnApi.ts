@@ -244,6 +244,22 @@ export async function searchStockQuotes(search: string) {
   const result = quoteArraySchema.parse(response.Body)
   return result
 }
+
+export async function getStockQuotesServer(symbols: string[]) {
+  const req: QlnApiRequest = {
+    key: symbols.join(),
+  }
+  try {
+    const url = `${qlnApiBaseUrl}/Stocks`
+    const resp = await post(url, req)
+    const result = quoteArraySchema.parse(resp.Body)
+    return result
+  } catch (err) {
+    console.error(err)
+    return []
+  }
+}
+
 export async function getStockQuotes(symbols: string[]) {
   const req: QlnApiRequest = {
     key: symbols.join(),

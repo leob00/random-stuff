@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
   }
   let emailMessages: EmailMessage[] = []
   try {
-    emailMessages = await buildStockAlertsForAllUsers()
+    emailMessages = await buildStockAlertsForAllUsers(true)
     for (const email of emailMessages) {
       await sendEmail(email)
     }
