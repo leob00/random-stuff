@@ -177,7 +177,7 @@ export const newsTypes: DropdownItem[] = [
 ]
 
 export interface Job {
-  NextRunDate?: string
+  NextRunDate?: string | null
   Name: string
   Description: string
   StartDate?: string
@@ -361,12 +361,13 @@ export interface QlnApiResponse {
   RequestId?: string
   ResponseId?: string
   ResponseDate?: string
-  ResponseDateEst?: string
+  ResponseDateEst?: string | null
   Body: any
   Errors: Array<{ Code: string; Message: string }>
 }
 export interface QlnApiRequest {
   key?: string
+  body?: any
 }
 
 export async function getFutures() {

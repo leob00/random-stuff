@@ -12,8 +12,11 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   const url = req.nextUrl.searchParams.get('url') as string
-  const body = (await req.json()) as QlnApiRequest
+  const request = (await req.json()) as QlnApiRequest
+  if (request.body) {
+    return NextResponse.json(await postBody(url, 'POST', request.body))
+  }
 
-  const result = await postBody(url, 'POST', body)
+  const result = await postBody(url, 'POST', request)
   return NextResponse.json(result)
 }
