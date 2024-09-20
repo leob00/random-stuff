@@ -7,6 +7,7 @@ import dayjs from 'dayjs'
 import { apiConnection } from '../config'
 import { StockReportTypes } from './qlnModels'
 import { EconDataModel } from 'components/Organizms/econ/EconDataLayout'
+import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 
 const config = apiConnection()
 const qlnApiBaseUrl = config.qln.url
@@ -339,12 +340,6 @@ export async function refreshQuotes(quotes: StockQuote[], username?: string) {
 
   return result
 }
-export async function getJobs(token: string) {
-  const url = `${qlnApiBaseUrl}/BatchJobList`
-  const response = await get(url, { Token: token })
-  const result = response.Body as Job[]
-  return result
-}
 
 export async function getJob(token: string, jobName: string) {
   const url = `${qlnApiBaseUrl}/BatchJobDetail`
@@ -366,6 +361,7 @@ export interface QlnApiResponse {
   RequestId?: string
   ResponseId?: string
   ResponseDate?: string
+  ResponseDateEst?: string
   Body: any
   Errors: Array<{ Code: string; Message: string }>
 }
@@ -456,8 +452,8 @@ export async function serverPostFetch(req: QlnApiRequest, endpoint: string) {
 }
 
 export async function serverGetFetch(endpoint: string) {
-  const url = `/api/qln?url=${qlnApiBaseUrl}${endpoint}`
-  const resp = await get(`/api/qln?url=${qlnApiBaseUrl}${endpoint}`)
+  const url = `/api/qln?url=${qlnApiBaseUrl}${encodeURIComponent(endpoint)}`
+  const resp = await get(`${url}`)
   const result = resp as QlnApiResponse
   return result
 }

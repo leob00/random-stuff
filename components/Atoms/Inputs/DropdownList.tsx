@@ -26,7 +26,6 @@ const DropdownList = ({
       {options.map((item) => (
         <MenuItem key={item.value} value={item.value} selected={selectedOption === opt} color={'primary'} disabled={item.disabled}>
           {item.text}
-          {/* <Typography color='primary'>{item.text}</Typography> */}
         </MenuItem>
       ))}
     </TextField>

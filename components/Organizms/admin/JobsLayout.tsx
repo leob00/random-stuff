@@ -15,12 +15,10 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import { usePolling } from 'hooks/usePolling'
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 dayjs.extend(relativeTime)
 
 const JobsLayout = () => {
-  const router = useRouter()
   const pollingIterval = 8000
   const [selectedItem, setSelectedItem] = useState<Job | null>(null)
   const [isLoadingDetail, setIsLoadingDetail] = useState(false)
@@ -57,15 +55,14 @@ const JobsLayout = () => {
   const handleItemClicked = async (item: Job) => {
     setIsLoadingDetail(true)
     stop()
-    const result = await getJob(claim?.token!, item.Name)
-    setSelectedItem(result)
+
+    const url = `/BatchJobDetail?Token=${claim?.token ?? ''}&jobName=${item.Name}`
+    const newResult = await serverGetFetch(url)
+    setSelectedItem(newResult.Body as Job)
     setIsLoadingDetail(false)
   }
-  const handleClose = () => {
-    setSelectedItem(null)
-    start()
-  }
-  const handleClsseDetail = () => {
+
+  const handleCloseDetail = () => {
     setSelectedItem(null)
   }
   useEffect(() => {
@@ -89,7 +86,7 @@ const JobsLayout = () => {
         {isLoadingDetail && <BackdropLoader />}
         {selectedItem && (
           <>
-            <InfoDialog show={true} title={selectedItem.Description} onCancel={handleClsseDetail} fullScreen={true}>
+            <InfoDialog show={true} title={selectedItem.Description} onCancel={handleCloseDetail} fullScreen={true}>
               <JobDetail item={selectedItem} />
             </InfoDialog>
           </>

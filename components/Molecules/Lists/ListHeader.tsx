@@ -57,7 +57,7 @@ const ListHeader = ({
   return (
     <Box>
       <Stack direction={'row'} flexGrow={1} alignItems={'center'}>
-        <Card sx={{ width: '100%' }} elevation={1}>
+        <Card sx={{ width: '100%', borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} elevation={1}>
           <CardHeader
             title={
               <>

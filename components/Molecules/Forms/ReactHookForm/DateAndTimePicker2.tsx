@@ -12,7 +12,7 @@ type Props = {
   onDateSelected: (arg: string | null) => void
 }
 
-const DateAndTimePicker2 = forwardRef<HTMLInputElement, Props>(function DateAndTimePicker(props: Props, ref) {
+const DateAndTimePicker2 = forwardRef<HTMLInputElement, Props>(function DateAndTimePicker(props: Props, _ref) {
   const { errorMessage, value, minDate, maxDate, onDateSelected } = props
 
   const handleSelect = (dt: dayjs.Dayjs | null) => {

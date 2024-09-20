@@ -29,7 +29,7 @@ const UserGoalsList = ({ data, onShowEdit }: { data: UserGoal[]; onShowEdit: (it
 
   return (
     <>
-      <Box minHeight={240}>
+      <Box minHeight={380}>
         <ScrollableBox scroller={scroller}>
           {pagedItems.map((item, i) => (
             <Box key={item.id}>

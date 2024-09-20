@@ -45,7 +45,13 @@ const AddTaskForm = ({ task, onSubmitted }: { task: UserTask; onSubmitted: (data
           }}
           error={!!errors.name?.message}
         />
-        <Controller name={'dueDate'} control={control} render={({ field: { value, onChange, ...field } }) => <DateAndTimePicker2 errorMessage={errors.dueDate?.message} value={value} onDateSelected={onChange} {...field} />} />
+        <Controller
+          name={'dueDate'}
+          control={control}
+          render={({ field: { value, onChange, ...field } }) => (
+            <DateAndTimePicker2 errorMessage={errors.dueDate?.message} value={value} onDateSelected={onChange} {...field} />
+          )}
+        />
         <PrimaryButton text='add' type='submit' size='small' />
       </Stack>
     </form>

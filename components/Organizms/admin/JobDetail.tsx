@@ -1,12 +1,19 @@
 import { Box, Stack, Typography } from '@mui/material'
-import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import dayjs from 'dayjs'
 import { Job } from 'lib/backend/api/qln/qlnApi'
 import numeral from 'numeral'
 import React from 'react'
 import JobDetailChart from './JobDetailChart'
+import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
+import { useRouter } from 'next/router'
 
 const JobDetails = ({ item }: { item: Job }) => {
+  const router = useRouter()
+
+  const handleManageClick = () => {
+    router.push(`/protected/csr/admin/job/edit/${item.Name}`)
+  }
+
   return (
     <Box>
       {item.StartDate && (
@@ -50,6 +57,9 @@ const JobDetails = ({ item }: { item: Job }) => {
           <Typography variant='caption'>{`message: ${item.LastMessage}`}</Typography>
         </Stack>
       )}
+      <Box py={4}>
+        <SuccessButton text='Manage' onClick={handleManageClick} />
+      </Box>
     </Box>
   )
 }

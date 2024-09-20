@@ -23,7 +23,7 @@ const PageHeader = ({ text, backButtonRoute, forceShowBackButton }: { text: stri
           <Box display={'flex'}>{backButtonRoute ? <BackButton route={backButtonRoute} /> : <BackButton route={previousRoute.path} />}</Box>
         </Box>
       )}
-      <CenterStack>
+      <CenterStack sx={{ py: 2 }}>
         <CenteredHeader title={text} />
       </CenterStack>
       <HorizontalDivider />

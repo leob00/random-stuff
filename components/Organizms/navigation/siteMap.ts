@@ -68,6 +68,10 @@ export function siteMap() {
           name: 'stock earnings search',
           route: '/csr/stock-earnings-search',
         },
+        {
+          name: 'stock sentiment',
+          route: '/csr/stocks/sentiment',
+        },
       ],
     },
     {

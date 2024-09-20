@@ -64,8 +64,16 @@
     "Symbol": "AAL"
   },
   {
+    "Company": "AA Mission Acquisition Corp.",
+    "Symbol": "AAM"
+  },
+  {
     "Company": "AA Mission Acquisition Corp. Units, each consisting of one Class A Ordinary Share and one-half of one redeemable warrant",
     "Symbol": "AAM.U"
+  },
+  {
+    "Company": "AA Mission Acquisition Corp. Warrants, each whole warrant entitles the holder to purchase one Class A ordinary share at a price of $11.50 per share",
+    "Symbol": "AAM.WS"
   },
   {
     "Company": "Altisource Asset Mgmt Corp",
@@ -6840,7 +6848,7 @@
     "Symbol": "CCSO"
   },
   {
-    "Company": "CCSC Technology International Holdings Limited Ordinary Shares",
+    "Company": "CCSC Technology International Holdings Limited Class A Ordinary Shares",
     "Symbol": "CCTG"
   },
   {
@@ -11044,6 +11052,14 @@
     "Symbol": "DTRE"
   },
   {
+    "Company": "DT Cloud Star Acquisition Corporation Ordinary Shares",
+    "Symbol": "DTSQ"
+  },
+  {
+    "Company": "DT Cloud Star Acquisition Corporation Right",
+    "Symbol": "DTSQR"
+  },
+  {
     "Company": "DT Cloud Star Acquisition Corporation Units",
     "Symbol": "DTSQU"
   },
@@ -12438,6 +12454,14 @@
   {
     "Company": "Evolus, Inc. Common Stock",
     "Symbol": "EOLS"
+  },
+  {
+    "Company": "EON Resources Inc.",
+    "Symbol": "EONR"
+  },
+  {
+    "Company": "EON Resources Inc. Warrants, each whole warrant exercisable for three quarters of one share of Class A Common Stock at an exercise price of $11.50 per whole share",
+    "Symbol": "EONR.WS"
   },
   {
     "Company": "Eaton Vance Enhance Equity Income Fund II",
@@ -13932,7 +13956,7 @@
     "Symbol": "FDUS"
   },
   {
-    "Company": "Federated Hermes U.S. Strategic Dividend ETF",
+    "Company": "Federated Hermes U.S. Strategic Dividend ETF",
     "Symbol": "FDV"
   },
   {
@@ -14982,6 +15006,10 @@
   {
     "Company": "Finnovate Acquisition Corp. Class A Ordinary Shares",
     "Symbol": "FNVT"
+  },
+  {
+    "Company": "Finnovate Acquisition Corp. Units",
+    "Symbol": "FNVTU"
   },
   {
     "Company": "Finnovate Acquisition Corp. Warrants",
@@ -16684,6 +16712,10 @@
     "Symbol": "GLBE"
   },
   {
+    "Company": "Pacer MSCI World Industry Advantage ETF",
+    "Symbol": "GLBL"
+  },
+  {
     "Company": "Globus Maritime Limited",
     "Symbol": "GLBS"
   },
@@ -16894,6 +16926,10 @@
   {
     "Company": "Global Mofy AI Limited Class A Ordinary Shares",
     "Symbol": "GMM"
+  },
+  {
+    "Company": "GammaRoad Market Navigation ETF",
+    "Symbol": "GMMA"
   },
   {
     "Company": "Goldman Sachs Dynamic New York Municipal Income ETF",
@@ -17986,6 +18022,10 @@
   {
     "Company": "HCW Biologics Inc. Common Stock",
     "Symbol": "HCWB"
+  },
+  {
+    "Company": "Healthy Choice Wellness Corp.",
+    "Symbol": "HCWC"
   },
   {
     "Company": "Hercules Capital, Inc. 6.25% Notes due 2033",
@@ -21952,6 +21992,10 @@
     "Symbol": "JMIA"
   },
   {
+    "Company": "Janus Henderson Mid Cap Growth Alpha ETF",
+    "Symbol": "JMID"
+  },
+  {
     "Company": "NUVEEN MULTI-MARKET INCOME FUND, INC",
     "Symbol": "JMM"
   },
@@ -22372,6 +22416,10 @@
     "Symbol": "KALV"
   },
   {
+    "Company": "Kairos Pharma, Ltd.",
+    "Symbol": "KAPA"
+  },
+  {
     "Company": "Innovator U.S. Small Cap Power Buffer ETF - April",
     "Symbol": "KAPR"
   },
@@ -22690,6 +22738,14 @@
   {
     "Company": "Direxion Daily Global Clean Energy Bull 2X Shares",
     "Symbol": "KLNE"
+  },
+  {
+    "Company": "Klotho Neurosciences, Inc. Common Stock",
+    "Symbol": "KLTO"
+  },
+  {
+    "Company": "Klotho Neurosciences, Inc. Warrant",
+    "Symbol": "KLTOW"
   },
   {
     "Company": "Kaltura, Inc. Common Stock",
@@ -23548,12 +23604,68 @@
     "Symbol": "LEXXW"
   },
   {
+    "Company": "Stone Ridge 2048 Longevity Income ETF",
+    "Symbol": "LFAE"
+  },
+  {
+    "Company": "Stone Ridge 2049 Longevity Income ETF",
+    "Symbol": "LFAF"
+  },
+  {
+    "Company": "Stone Ridge 2050 Longevity Income ETF",
+    "Symbol": "LFAI"
+  },
+  {
+    "Company": "Stone Ridge 2051 Longevity Income ETF",
+    "Symbol": "LFAJ"
+  },
+  {
+    "Company": "Stone Ridge 2052 Longevity Income ETF",
+    "Symbol": "LFAK"
+  },
+  {
+    "Company": "Stone Ridge 2053 Longevity Income ETF",
+    "Symbol": "LFAL"
+  },
+  {
     "Company": "Stone Ridge 2054 Longevity Income ETF",
     "Symbol": "LFAN"
   },
   {
+    "Company": "Stone Ridge 2055 Longevity Income ETF",
+    "Symbol": "LFAO"
+  },
+  {
+    "Company": "Stone Ridge 2056 Longevity Income ETF",
+    "Symbol": "LFAQ"
+  },
+  {
+    "Company": "Stone Ridge 2057 Longevity Income ETF",
+    "Symbol": "LFAR"
+  },
+  {
+    "Company": "Stone Ridge 2058 Longevity Income ETF",
+    "Symbol": "LFAU"
+  },
+  {
     "Company": "Stone Ridge 2059 Longevity Income ETF",
     "Symbol": "LFAV"
+  },
+  {
+    "Company": "Stone Ridge 2060 Longevity Income ETF",
+    "Symbol": "LFAW"
+  },
+  {
+    "Company": "Stone Ridge 2061 Longevity Income ETF",
+    "Symbol": "LFAX"
+  },
+  {
+    "Company": "Stone Ridge 2062 Longevity Income ETF",
+    "Symbol": "LFAZ"
+  },
+  {
+    "Company": "Stone Ridge 2063 Longevity Income ETF",
+    "Symbol": "LFBB"
   },
   {
     "Company": "Lifecore Biomedical, Inc. Common Stock",
@@ -23688,12 +23800,68 @@
     "Symbol": "LI"
   },
   {
+    "Company": "Stone Ridge 2048 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAB"
+  },
+  {
+    "Company": "Stone Ridge 2049 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAC"
+  },
+  {
+    "Company": "Stone Ridge 2050 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAE"
+  },
+  {
+    "Company": "Stone Ridge 2051 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAF"
+  },
+  {
+    "Company": "Stone Ridge 2052 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAG"
+  },
+  {
+    "Company": "Stone Ridge 2053 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAJ"
+  },
+  {
     "Company": "Stone Ridge 2054 Inflation-Protected Longevity Income ETF",
     "Symbol": "LIAK"
   },
   {
+    "Company": "Stone Ridge 2055 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAM"
+  },
+  {
+    "Company": "Stone Ridge 2056 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAO"
+  },
+  {
+    "Company": "Stone Ridge 2057 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAP"
+  },
+  {
+    "Company": "Stone Ridge 2058 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAQ"
+  },
+  {
     "Company": "Stone Ridge 2059 Inflation-Protected Longevity Income ETF",
     "Symbol": "LIAT"
+  },
+  {
+    "Company": "Stone Ridge 2060 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAU"
+  },
+  {
+    "Company": "Stone Ridge 2061 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAV"
+  },
+  {
+    "Company": "Stone Ridge 2062 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAW"
+  },
+  {
+    "Company": "Stone Ridge 2063 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAX"
   },
   {
     "Company": "Lichen China Limited Class A Ordinary Shares",
@@ -23806,6 +23974,10 @@
   {
     "Company": "LivaNova PLC Ordinary Shares",
     "Symbol": "LIVN"
+  },
+  {
+    "Company": "Intelligent Livermore ETF",
+    "Symbol": "LIVR"
   },
   {
     "Company": "Lixte Biotechnology Holdings, Inc. Common Stock",
@@ -25616,7 +25788,7 @@
     "Symbol": "MKFG"
   },
   {
-    "Company": "Markforged Holding Corporation Warrants, each whole warrant exercisable for one share of Common Stock at an exercise price of $11.50",
+    "Company": "Markforged Holding Corporation Warrants, each whole warrant exercisable to purchase one-tenth (1/10th) of a share of Common Stock at an exercise price of $115.00 per share",
     "Symbol": "MKFG.WS"
   },
   {
@@ -26400,12 +26572,20 @@
     "Symbol": "MSTR"
   },
   {
+    "Company": "T-Rex 2X Long MSTR Daily Target ETF",
+    "Symbol": "MSTU"
+  },
+  {
     "Company": "Defiance Daily Target 1.75x Long MSTR ETF",
     "Symbol": "MSTX"
   },
   {
     "Company": "YieldMax MSTR Option Income Strategy ETF",
     "Symbol": "MSTY"
+  },
+  {
+    "Company": "T-Rex 2X Inverse MSTR Daily Target ETF",
+    "Symbol": "MSTZ"
   },
   {
     "Company": "LHA Market State Alpha Seeker ETF",
@@ -27222,6 +27402,10 @@
   {
     "Company": "NewtekOne, Inc. 8.50% Fixed Rate Senior Notes due 2029",
     "Symbol": "NEWTG"
+  },
+  {
+    "Company": "NewtekOne, Inc. 8.625% Fixed Rate Senior Notes due 2029",
+    "Symbol": "NEWTH"
   },
   {
     "Company": "NewtekOne, Inc. 8.00% Fixed Rate Senior Notes due 2028",
@@ -29726,6 +29910,10 @@
   {
     "Company": "Patrick Industries Inc",
     "Symbol": "PATK"
+  },
+  {
+    "Company": "Pacer Nasdaq International Patent Leaders ETF",
+    "Symbol": "PATN"
   },
   {
     "Company": "Innovator U.S. Equity Power Buffer ETF - August",
@@ -33172,6 +33360,10 @@
     "Symbol": "RFL"
   },
   {
+    "Company": "Innovator U.S. Small Cap Managed Floor ETF",
+    "Symbol": "RFLR"
+  },
+  {
     "Company": "RiverNorth Flexible Municipal Income Fund, Inc.",
     "Symbol": "RFM"
   },
@@ -34288,6 +34480,10 @@
     "Symbol": "SAIH"
   },
   {
+    "Company": "SAIHEAT Limited Warrant",
+    "Symbol": "SAIHW"
+  },
+  {
     "Company": "SAI.TECH Global Corporation Warrant",
     "Symbol": "SAITW"
   },
@@ -34420,8 +34616,16 @@
     "Symbol": "SBBA"
   },
   {
+    "Company": "SBC Medical Group Holdings Incorporated Common Stock",
+    "Symbol": "SBC"
+  },
+  {
     "Company": "Seacoast Banking Corp of Florida",
     "Symbol": "SBCF"
+  },
+  {
+    "Company": "SBC Medical Group Holdings Incorporated Warrants",
+    "Symbol": "SBCWW"
   },
   {
     "Company": "SharpLink Gaming Ltd. Ordinary Shares",
@@ -40804,6 +41008,14 @@
     "Symbol": "VECO"
   },
   {
+    "Company": "Veea Inc. Common Stock",
+    "Symbol": "VEEA"
+  },
+  {
+    "Company": "Veea Inc. Warrant",
+    "Symbol": "VEEAW"
+  },
+  {
     "Company": "Twin Vee PowerCats Co. Common Stock",
     "Symbol": "VEEE"
   },
@@ -43452,6 +43664,10 @@
     "Symbol": "YHGJ"
   },
   {
+    "Company": "YHN Acquisition I Limited Unit",
+    "Symbol": "YHNAU"
+  },
+  {
     "Company": "111, Inc. American Depositary Shares",
     "Symbol": "YI"
   },
@@ -43664,7 +43880,7 @@
     "Symbol": "ZEOWW"
   },
   {
-    "Company": "Zepp Health Corporation",
+    "Company": "Zepp Health Corporation American depositary shares, each representing sixteen Class A ordinary shares",
     "Symbol": "ZEPP"
   },
   {
