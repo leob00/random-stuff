@@ -8,9 +8,9 @@ import { Job } from 'lib/backend/api/qln/qlnApi'
 import { getWorkflowStatusText } from 'lib/util/textUtil'
 import JobInProgress from '../JobInProgress'
 import StopJobDisplay from './StopJobDisplay'
-import JobEditDisplay from './JobEditDisplay'
+import EditJobDisplay from './EditJobDisplay'
 
-const ManageJobLayout = ({ data, mutateKey }: { data: Job; mutateKey: string }) => {
+const ManageJobLayout = ({ data, onSave }: { data: Job; onSave: (item: Job) => void }) => {
   const statusText = getWorkflowStatusText(data.Status)
 
   return (
@@ -25,8 +25,8 @@ const ManageJobLayout = ({ data, mutateKey }: { data: Job; mutateKey: string }) 
         <ReadOnlyField label='last finished' val={data.EndRunDate ? dayjs(data.EndRunDate).format('MM/DD/YYYY hh:mm A') : ''} />
         <ReadOnlyField label='next start' val={data.NextRunDate ? dayjs(data.NextRunDate).format('MM/DD/YYYY hh:mm A') : ''} />
       </Box>
-      {data.Status === 1 && <StopJobDisplay data={data} mutateKey={mutateKey} />}
-      {data.Status === 2 && <JobEditDisplay data={data} mutateKey={mutateKey} />}
+      {data.Status === 1 && <StopJobDisplay data={data} onSave={onSave} />}
+      {data.Status === 2 && <EditJobDisplay data={data} onSave={onSave} />}
     </Box>
   )
 }

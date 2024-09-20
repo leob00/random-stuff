@@ -181,7 +181,7 @@ export interface Job {
   Name: string
   Description: string
   StartDate?: string
-  Status: 1 | 2
+  Status: number
   ProgressPercent?: number
   LastMessage?: string
   EndRunDate?: string

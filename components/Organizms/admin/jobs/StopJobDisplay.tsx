@@ -6,17 +6,12 @@ import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { useState } from 'react'
 import { mutate } from 'swr'
 
-const StopJobDisplay = ({ data, mutateKey }: { data: Job; mutateKey: string }) => {
+const StopJobDisplay = ({ data, onSave }: { data: Job; onSave: (item: Job) => void }) => {
   const [showConfirm, setShowConfirm] = useState(false)
-  const { claims, saveClaims } = useSessionStore()
-  const claim = claims.find((m) => m.type === 'qln')
+  const { claims } = useSessionStore()
   const handleConfirm = async () => {
     setShowConfirm(false)
-    const url = `/BatchJobDetail?Token=${claim?.token ?? ''}`
-    const req: QlnApiRequest = {
-      body: { ...data, Status: 2, NextRunDate: null },
-    }
-    await serverPostFetch(req, url)
+    onSave({ ...data, Status: 2 })
   }
   const handleStop = () => {
     setShowConfirm(true)

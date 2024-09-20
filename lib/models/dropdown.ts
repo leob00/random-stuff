@@ -10,3 +10,8 @@ export function mapDropdownItems<T>(data: T[], text: keyof T, value: keyof T) {
   })
   return result
 }
+export interface DropdownItemNumeric {
+  text: string
+  value: number
+  disabled?: boolean
+}
