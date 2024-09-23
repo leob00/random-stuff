@@ -52,7 +52,7 @@ const GoalStats = ({ goal, completePercent }: { goal: UserGoal; completePercent?
             )}
           </Box>
 
-          {completePercent && (
+          {!!completePercent && (
             <Box py={2}>
               <GoalProgressBar completePercent={completePercent} />
             </Box>
