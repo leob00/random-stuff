@@ -1,17 +1,14 @@
 import { Box } from '@mui/material'
 import DangerButton from 'components/Atoms/Buttons/DangerButton'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
-import { Job, QlnApiRequest, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
-import { useSessionStore } from 'lib/backend/store/useSessionStore'
+import { Job } from 'lib/backend/api/qln/qlnApi'
 import { useState } from 'react'
-import { mutate } from 'swr'
 
 const StopJobDisplay = ({ data, onSave }: { data: Job; onSave: (item: Job) => void }) => {
   const [showConfirm, setShowConfirm] = useState(false)
-  const { claims } = useSessionStore()
-  const handleConfirm = async () => {
+  const handleConfirmStop = async () => {
     setShowConfirm(false)
-    onSave({ ...data, Status: 2 })
+    onSave({ ...data, Status: 2, NextRunDate: null })
   }
   const handleStop = () => {
     setShowConfirm(true)
@@ -26,7 +23,7 @@ const StopJobDisplay = ({ data, onSave }: { data: Job; onSave: (item: Job) => vo
         text={`Are you sure you want to stop ${data.Name}?`}
         show={showConfirm}
         onCancel={() => setShowConfirm(false)}
-        onConfirm={handleConfirm}
+        onConfirm={handleConfirmStop}
       />
     </>
   )

@@ -5,13 +5,17 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import DateAndTimePicker2 from 'components/Molecules/Forms/ReactHookForm/DateAndTimePicker2'
 import FormDropdownListNumeric from 'components/Molecules/Forms/ReactHookForm/FormDropdownListNumeric'
+import dayjs from 'dayjs'
 import { Job } from 'lib/backend/api/qln/qlnApi'
 import { DropdownItemNumeric } from 'lib/models/dropdown'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const JobFormSchema = z.object({
-  nextRunDate: z.string().optional().nullable(),
+  nextRunDate: z
+    .string()
+    .nullable()
+    .refine((val) => !val || dayjs(val).isValid(), { message: 'Invalid Date' }),
   status: z.number(),
   //.refine((val) => !val || val && , { message: 'Folder already exists' }),
 })
@@ -56,37 +60,43 @@ const EditJobDisplay = ({ data, onSave }: { data: Job; onSave: (item: Job) => vo
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box display={'flex'} alignItems={'center'} flexDirection={'row'} gap={1} py={4} justifyContent={'center'}>
-          <Box display={'flex'} alignItems={'center'} flexDirection={'column'} gap={1}>
-            <Box display={'flex'} alignItems={'center'} flexDirection={'row'} gap={2}>
-              <ReadOnlyField label='status' />
+          <Box display={'flex'} alignItems={'center'} flexDirection={'column'} gap={4}>
+            <Box>
               <Controller
                 name={'status'}
                 control={control}
                 render={({ field: { value, onChange, ...field } }) => (
-                  <FormDropdownListNumeric options={jobStatusoptions} value={formValues.status} onOptionSelected={onChange} {...field} />
+                  <FormDropdownListNumeric
+                    minWidth={300}
+                    label='status'
+                    options={jobStatusoptions}
+                    value={formValues.status}
+                    onOptionSelected={onChange}
+                    {...field}
+                  />
+                )}
+              ></Controller>
+            </Box>
+            <Box>
+              <Controller
+                name={'nextRunDate'}
+                control={control}
+                render={({ field: { value, onChange, ...field } }) => (
+                  <DateAndTimePicker2
+                    label={'next run date'}
+                    value={formValues.nextRunDate}
+                    errorMessage={errors.nextRunDate?.message}
+                    onDateSelected={onChange}
+                    {...field}
+                  />
                 )}
               ></Controller>
             </Box>
           </Box>
         </Box>
-        <Box display={'flex'} alignItems={'center'} flexDirection={'row'} gap={1} py={4} justifyContent={'center'}>
-          <Box display={'flex'} alignItems={'center'} flexDirection={'column'} gap={1}>
-            <Box display={'flex'} alignItems={'center'} flexDirection={'row'} gap={2}>
-              <ReadOnlyField label='next run date' />
-              <Box>
-                <Controller
-                  name={'nextRunDate'}
-                  control={control}
-                  render={({ field: { value, onChange, ...field } }) => (
-                    <DateAndTimePicker2 value={formValues.nextRunDate} errorMessage={errors.nextRunDate?.message} onDateSelected={onChange} {...field} />
-                  )}
-                ></Controller>
-              </Box>
-            </Box>
-          </Box>
-        </Box>
+
         <HorizontalDivider />
-        <Box py={2}>
+        <Box py={2} alignItems={'center'} justifyContent={'center'} display={'flex'}>
           <PrimaryButton type='submit' text='save' />
         </Box>
       </form>

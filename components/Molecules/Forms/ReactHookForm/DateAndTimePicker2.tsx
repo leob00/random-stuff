@@ -5,6 +5,7 @@ import dayjs, { Dayjs } from 'dayjs'
 import { forwardRef } from 'react'
 
 type Props = {
+  label?: string
   errorMessage?: string
   value?: string | null
   minDate?: string
@@ -13,7 +14,7 @@ type Props = {
 }
 
 const DateAndTimePicker2 = forwardRef<HTMLInputElement, Props>(function DateAndTimePicker(props: Props, _ref) {
-  const { errorMessage, value, minDate, maxDate, onDateSelected } = props
+  const { label, errorMessage, value, minDate, maxDate, onDateSelected } = props
 
   const handleSelect = (dt: dayjs.Dayjs | null) => {
     if (dt) {
@@ -26,12 +27,14 @@ const DateAndTimePicker2 = forwardRef<HTMLInputElement, Props>(function DateAndT
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateTimePicker
+        label={label}
         value={value ? dayjs(value) : null}
         onChange={handleSelect}
         slotProps={{
           textField: {
             size: 'small',
             error: !!errorMessage,
+            helperText: errorMessage,
           },
         }}
       />

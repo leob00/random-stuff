@@ -30,11 +30,13 @@ const SingleGoalDisplay = ({
   goal,
   tasks,
   onMutated,
+  onAddTask,
 }: {
   username: string
   goal: UserGoal
   tasks: UserTask[]
   onMutated: (goal: UserGoal, tasks: UserTask[]) => void
+  onAddTask?: () => void
 }) => {
   const [goalEditMode, setGoalEditMode] = React.useState(false)
   const [showDeleteGoalConfirm, setShowDeleteGoalConfirm] = React.useState(false)
@@ -45,6 +47,7 @@ const SingleGoalDisplay = ({
 
   const handleAddTask = async (item: UserTask) => {
     //setIsSaving(true)
+    onAddTask?.()
     let newTasks = [...tasks]
     const newGoal = { ...goal }
     newTasks.unshift(item)
@@ -53,6 +56,7 @@ const SingleGoalDisplay = ({
     }
     putUserGoalTasks(username, newGoal.id!, newTasks)
     const resultGoal = await saveGoal(username, newGoal, newTasks)
+
     onMutated(resultGoal, newTasks)
     //setIsSaving(false)
   }

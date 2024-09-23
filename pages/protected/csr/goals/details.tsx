@@ -3,6 +3,7 @@ import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
+import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import Seo from 'components/Organizms/Seo'
@@ -12,7 +13,7 @@ import { getUserGoals, getUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
 import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { useRouter } from 'next/router'
-import React from 'react'
+import { useState } from 'react'
 import useSWR, { mutate } from 'swr'
 
 const Page = () => {
@@ -23,6 +24,8 @@ const Page = () => {
   const username = weakDecrypt(decodeURIComponent(token))
   const tasksMutateKey = ['/api/edgeGetRandomStuff', id]
   const goalMutateKey = ['/api/edgeGetRandomStuff', token]
+
+  const [showAddTaskSuccess, setShowAddTaskSuccess] = useState(false)
 
   const fetchGoalTasks = async (_: string, enc: string) => {
     const result = await getUserGoalTasks(goalId)
@@ -48,7 +51,9 @@ const Page = () => {
       <ResponsiveContainer>
         {isLoading && <BackdropLoader />}
         {goal && <PageHeader text={`Goal: ${goal.body}`} backButtonRoute={'/protected/csr/goals'} forceShowBackButton />}
-        {goal && tasks && <SingleGoalDisplay username={username} goal={goal} tasks={tasks} onMutated={handleMutated} />}
+        {goal && tasks && (
+          <SingleGoalDisplay username={username} goal={goal} tasks={tasks} onMutated={handleMutated} onAddTask={() => setShowAddTaskSuccess(true)} />
+        )}
         <>
           {!isLoading && !goal && (
             <Box>
@@ -61,6 +66,7 @@ const Page = () => {
             </Box>
           )}
         </>
+        {showAddTaskSuccess && <SnackbarSuccess duration={1400} text='task added!' show={showAddTaskSuccess} onClose={() => setShowAddTaskSuccess(false)} />}
       </ResponsiveContainer>
     </>
   )

@@ -8,20 +8,21 @@ type Props = {
   value: number
   label?: string
   fullWidth?: boolean
+  minWidth?: number
   onOptionSelected: (arg: number | null) => void
 }
 
 const FormDropdownListNumeric = forwardRef<HTMLInputElement, Props>(function FormDropdownListNumeric(props: Props, ref) {
-  const { options, label, value, fullWidth, errorMessage, onOptionSelected } = props
+  const { options, label, value, fullWidth, errorMessage, onOptionSelected, minWidth } = props
 
   const handleSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     onOptionSelected(Number(e.target.value))
   }
 
   return (
-    <TextField select value={value} size='small' label={label} color={'primary'} fullWidth={fullWidth} onChange={handleSelect}>
+    <TextField select value={value} size='small' margin='dense' label={label} fullWidth={fullWidth} onChange={handleSelect} sx={{ minWidth: minWidth }}>
       {options.map((item) => (
-        <MenuItem key={item.value} value={`${item.value}`} selected={value === item.value} color={'primary'} disabled={item.disabled}>
+        <MenuItem key={item.value} value={`${item.value}`} selected={value === item.value} disabled={item.disabled}>
           {item.text}
         </MenuItem>
       ))}
