@@ -1,5 +1,5 @@
 export type SiteCategories =
-  | 'Stocks'
+  | 'Markets'
   | 'Personal'
   | 'Admin'
   | 'Games'
@@ -46,26 +46,26 @@ export function siteMap() {
       ],
     },
     {
-      category: 'Stocks',
+      category: 'Markets',
       paths: [
         {
           name: 'my stocks',
           route: '/csr/my-stocks',
         },
         {
-          name: 'community',
+          name: 'community stocks',
           route: '/csr/community-stocks',
         },
         {
-          name: 'porfolios',
-          route: '/csr/stocks/stock-porfolios',
+          name: 'commodities',
+          route: '/csr/commodities',
         },
         {
           name: 'stock tags',
           route: '/csr/stocks/stock-tags',
         },
         {
-          name: 'stock earnings search',
+          name: 'stock earnings',
           route: '/csr/stock-earnings-search',
         },
         {
@@ -106,12 +106,12 @@ export function siteMap() {
     {
       category: 'Economy',
       paths: [
+        // {
+        //   name: 'econ calendar',
+        //   route: '/csr/economic-calendar',
+        // },
         {
-          name: 'econ calendar',
-          route: '/csr/economic-calendar',
-        },
-        {
-          name: 'econ data',
+          name: 'economic indicators',
           route: '/csr/economic-data',
         },
       ],

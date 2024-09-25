@@ -4,7 +4,6 @@ import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import Seo from 'components/Organizms/Seo'
 import EarningsCalendarLayout from 'components/Organizms/stocks/EarningsCalendarLayout'
 import EconCalendarLayout from 'components/Organizms/stocks/EconCalendarLayout'
-import FuturesLayout from 'components/Organizms/stocks/FuturesLayout'
 import StocksLayout from 'components/Organizms/stocks/StocksLayout'
 import { useUserController } from 'hooks/userController'
 import React from 'react'
@@ -16,6 +15,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import { MyStocksMenu } from 'components/Atoms/Menus/ContextMenus'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
+import CommoditiesLayout from 'components/Organizms/stocks/CommoditiesLayout'
 
 const Page = () => {
   const router = useRouter()
@@ -60,7 +60,6 @@ const Page = () => {
         <Box></Box>
         <ContextMenu items={MyStocksMenu} />
       </Box>
-
       <ResponsiveContainer>
         <PageHeader text='My Stocks' />
         <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
@@ -69,7 +68,7 @@ const Page = () => {
         ) : (
           <>
             {selectedTab === 'Stocks' && <StocksLayout userProfile={authProfile} localStore={localStore} />}
-            {selectedTab === 'Commodities' && <FuturesLayout />}
+            {selectedTab === 'Commodities' && <CommoditiesLayout />}
             {selectedTab === 'Earnings' && <EarningsCalendarLayout />}
           </>
         )}

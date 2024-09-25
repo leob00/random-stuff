@@ -98,7 +98,6 @@ const EditJobDisplay = ({ data, onSave }: { data: Job; onSave: (item: Job) => vo
             </Box>
           </Box>
         </Box>
-
         <HorizontalDivider />
         <Box py={2} alignItems={'center'} justifyContent={'center'} display={'flex'}>
           <PrimaryButton type='submit' text='save' />

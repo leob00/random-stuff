@@ -452,9 +452,9 @@ export async function serverPostFetch(req: QlnApiRequest, endpoint: string) {
   return result
 }
 
-export async function serverGetFetch(endpoint: string) {
+export async function serverGetFetch(endpoint: string, params?: any) {
   const url = `/api/qln?url=${qlnApiBaseUrl}${encodeURIComponent(endpoint)}`
-  const resp = await get(`${url}`)
+  const resp = await get(`${url}`, params)
   const result = resp as QlnApiResponse
   return result
 }
