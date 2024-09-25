@@ -23,7 +23,7 @@ const Page = () => {
   const router = useRouter()
   const tab = router.query['tab'] as string | undefined
 
-  const tabs: TabInfo[] = [{ title: 'Stocks' }, { title: 'Futures' }, { title: 'Earnings' }]
+  const tabs: TabInfo[] = [{ title: 'Stocks' }, { title: 'Earnings' }]
   if (tab) {
     tabs[tabs.findIndex((m) => m.title === tab)].selected = true
   } else {

@@ -13,9 +13,6 @@ const Page = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const id = router.query.id
-
-  //console.log('id: ', id, ' startYear: ', startYear, ' endYear: ', endYear)
-
   const key = `economic-data-${id}`
   const dataFn = async () => {
     const startYear = searchParams?.get('startYear') as string
@@ -38,7 +35,7 @@ const Page = () => {
     <>
       <Seo pageTitle='Economic Data' />
       <ResponsiveContainer>
-        <PageHeader text={'Economic Data'} backButtonRoute='/csr/economic-data' />
+        <PageHeader text={'Economic Data'} backButtonRoute='/csr/economic-data' forceShowBackButton />
         {isLoading && <BackdropLoader />}
         {data && (
           <EconDataDetails
