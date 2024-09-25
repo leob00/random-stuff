@@ -6488,6 +6488,10 @@
     "Symbol": "CAPL"
   },
   {
+    "Company": "Cayson Acquisition Corp Unit",
+    "Symbol": "CAPNU"
+  },
+  {
     "Company": "Capricor Therapeutics Inc",
     "Symbol": "CAPR"
   },
@@ -8462,6 +8466,10 @@
   {
     "Company": "ConocoPhillips",
     "Symbol": "COP"
+  },
+  {
+    "Company": "Themes Copper Miners ETF",
+    "Symbol": "COPA"
   },
   {
     "Company": "Sprott Junior Copper Miners ETF",
@@ -13220,7 +13228,7 @@
     "Symbol": "EVTL"
   },
   {
-    "Company": "Vertical Aerospace Ltd. Warrants, each whole warrant exercisable for one ordinary share at an exercise price of $11.50 per share",
+    "Company": "Vertical Aerospace Ltd. Warrants, each whole warrant exercisable for 1/10th of an ordinary share at an exercise price of $115.00 per share",
     "Symbol": "EVTL.WS"
   },
   {
@@ -16742,6 +16750,10 @@
   {
     "Company": "SPDR Gold MiniShares",
     "Symbol": "GLDM"
+  },
+  {
+    "Company": "Global Engine Group Holding Limited Ordinary Shares",
+    "Symbol": "GLE"
   },
   {
     "Company": "VanEck India Growth Leaders ETF",
@@ -22092,7 +22104,7 @@
     "Symbol": "JPEM"
   },
   {
-    "Company": "Nuveen Preferred Securities & Income Opportunities Fund",
+    "Company": "NUVEEN PREFERRED AND INCOME TERM FUND",
     "Symbol": "JPI"
   },
   {
@@ -23916,6 +23928,10 @@
     "Symbol": "LILMW"
   },
   {
+    "Company": "Themes Lithium & Battery Metal Miners ETF",
+    "Symbol": "LIMI"
+  },
+  {
     "Company": "Linde plc Ordinary Share",
     "Symbol": "LIN"
   },
@@ -24932,8 +24948,16 @@
     "Symbol": "MAYZ"
   },
   {
+    "Company": "M3-Brigade Acquisition V Corp. Class A Ordinary shares",
+    "Symbol": "MBAV"
+  },
+  {
     "Company": "M3-Brigade Acquisition V Corp. Units",
     "Symbol": "MBAVU"
+  },
+  {
+    "Company": "M3-Brigade Acquisition V Corp. Warrant",
+    "Symbol": "MBAVW"
   },
   {
     "Company": "iShares MBS ETF",
@@ -26880,6 +26904,42 @@
     "Symbol": "MXL"
   },
   {
+    "Company": "SPDR SSGA My2026 Corporate Bond ETF",
+    "Symbol": "MYCF"
+  },
+  {
+    "Company": "SPDR SSGA My2027 Corporate Bond ETF",
+    "Symbol": "MYCG"
+  },
+  {
+    "Company": "SPDR SSGA My2028 Corporate Bond ETF",
+    "Symbol": "MYCH"
+  },
+  {
+    "Company": "SPDR SSGA My2029 Corporate Bond ETF",
+    "Symbol": "MYCI"
+  },
+  {
+    "Company": "SPDR SSGA My2030 Corporate Bond ETF",
+    "Symbol": "MYCJ"
+  },
+  {
+    "Company": "SPDR SSGA My2031 Corporate Bond ETF",
+    "Symbol": "MYCK"
+  },
+  {
+    "Company": "SPDR SSGA My2032 Corporate Bond ETF",
+    "Symbol": "MYCL"
+  },
+  {
+    "Company": "SPDR SSGA My2033 Corporate Bond ETF",
+    "Symbol": "MYCM"
+  },
+  {
+    "Company": "SPDR SSGA My2034 Corporate Bond ETF",
+    "Symbol": "MYCN"
+  },
+  {
     "Company": "Blackrock Muniyield Fund, Inc.",
     "Symbol": "MYD"
   },
@@ -26906,6 +26966,26 @@
   {
     "Company": "MyMD Pharmaceuticals, Inc. Common Stock (DE)",
     "Symbol": "MYMD"
+  },
+  {
+    "Company": "SPDR SSGA My2026 Municipal Bond ETF",
+    "Symbol": "MYMF"
+  },
+  {
+    "Company": "SPDR SSGA My2027 Municipal Bond ETF",
+    "Symbol": "MYMG"
+  },
+  {
+    "Company": "SPDR SSGA My2028 Municipal Bond ETF",
+    "Symbol": "MYMH"
+  },
+  {
+    "Company": "SPDR SSGA My2029 Municipal Bond ETF",
+    "Symbol": "MYMI"
+  },
+  {
+    "Company": "SPDR SSGA My2030 Municipal Bond ETF",
+    "Symbol": "MYMJ"
   },
   {
     "Company": "BLACKROCK MUNIYIELD NEW YORK QUALITY FUND, INC.",
@@ -31096,6 +31176,10 @@
     "Symbol": "PMAY"
   },
   {
+    "Company": "PIMCO Mortgage-Backed Securities Active Exchange-Traded Fund",
+    "Symbol": "PMBS"
+  },
+  {
     "Company": "PharmaCyte Biotech, Inc. Common Stock",
     "Symbol": "PMCB"
   },
@@ -32636,6 +32720,10 @@
     "Symbol": "QSIG"
   },
   {
+    "Company": "Pacer Metaurus Nasdaq 100 Dividend Multiplier 600 ETF",
+    "Symbol": "QSIX"
+  },
+  {
     "Company": "WisdomTree U.S. SmallCap Quality Growth Fund",
     "Symbol": "QSML"
   },
@@ -34088,6 +34176,10 @@
     "Symbol": "RSSB"
   },
   {
+    "Company": "FT Vest U.S. Equity Equal-Weight Buffer ETF September",
+    "Symbol": "RSSE"
+  },
+  {
     "Company": "Global X Russell 2000 ETF",
     "Symbol": "RSSL"
   },
@@ -34908,6 +35000,10 @@
     "Symbol": "SCNI"
   },
   {
+    "Company": "Scienture Holdings, Inc. Common Stock",
+    "Symbol": "SCNX"
+  },
+  {
     "Company": "ProShares UltraShort Bloomberg Crude Oil",
     "Symbol": "SCO"
   },
@@ -35206,6 +35302,10 @@
   {
     "Company": "SEP Acquisition Corp Warrants",
     "Symbol": "SEPAW"
+  },
+  {
+    "Company": "FT Vest U.S. Equity Max Buffer ETF - September",
+    "Symbol": "SEPM"
   },
   {
     "Company": "PGIM US Large-Cap Buffer 12 ETF - September",
@@ -38676,6 +38776,10 @@
     "Symbol": "THG"
   },
   {
+    "Company": "THOR Index Rotation ETF",
+    "Symbol": "THIR"
+  },
+  {
     "Company": "THOR Low Volatility ETF",
     "Symbol": "THLV"
   },
@@ -39526,6 +39630,10 @@
   {
     "Company": "Tower Semiconductor Ltd",
     "Symbol": "TSEM"
+  },
+  {
+    "Company": "FT Vest Emerging Market Buffer ETF - September",
+    "Symbol": "TSEP"
   },
   {
     "Company": "Taysha Gene Therapies, Inc. Common Stock",
@@ -40414,6 +40522,10 @@
   {
     "Company": "Direxion Daily Uranium Industry Bull 2X Shares",
     "Symbol": "URAA"
+  },
+  {
+    "Company": "Themes Uranium & Nuclear ETF",
+    "Symbol": "URAN"
   },
   {
     "Company": "Defiance Daily Target 2x Long Uranium ETF",
@@ -42858,6 +42970,10 @@
   {
     "Company": "TeraWulf Inc. Common Stock",
     "Symbol": "WULF"
+  },
+  {
+    "Company": "Simplify Wolfe US Equity 150/50 ETF",
+    "Symbol": "WUSA"
   },
   {
     "Company": "Wave Life Sciences Ltd. Ordinary Shares",

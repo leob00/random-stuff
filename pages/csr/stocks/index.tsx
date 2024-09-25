@@ -4,13 +4,11 @@ import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import Seo from 'components/Organizms/Seo'
 import EarningsCalendarLayout from 'components/Organizms/stocks/EarningsCalendarLayout'
 import EconCalendarLayout from 'components/Organizms/stocks/EconCalendarLayout'
-import FuturesLayout from 'components/Organizms/stocks/FuturesLayout'
 import StocksLayout from 'components/Organizms/stocks/StocksLayout'
 import { useUserController } from 'hooks/userController'
 import React from 'react'
 import { useRouter } from 'next/router'
 import TabList from 'components/Atoms/Buttons/TabList'
-import RequireClaim from 'components/Organizms/user/RequireClaim'
 import { Box } from '@mui/material'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuAlert from 'components/Molecules/Menus/ContextMenuAlert'
@@ -19,6 +17,7 @@ import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
 import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
+import CommoditiesLayout from 'components/Organizms/stocks/CommoditiesLayout'
 
 const Page = () => {
   const router = useRouter()
@@ -109,7 +108,7 @@ const Page = () => {
                 <StocksLayout userProfile={authProfile} localStore={localStore} />
               </>
             )}
-            {selectedTab === 'Futures' && <FuturesLayout />}
+            {selectedTab === 'Futures' && <CommoditiesLayout />}
             {selectedTab === 'Events' && <EconCalendarLayout />}
             {selectedTab === 'Earnings' && <EarningsCalendarLayout />}
           </>
