@@ -1,18 +1,13 @@
-import { Box, CssBaseline, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Box, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
 import CenterStack from 'components/Atoms/CenterStack'
-import BasicLineChart from 'components/Atoms/Charts/BasicLineChart'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import { getBaseLineChartOptions, LineChartOptions } from 'components/Molecules/Charts/apex/baseLineChartOptions'
-import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
 import { DropdownItem } from 'lib/models/dropdown'
 import dynamic from 'next/dynamic'
-import numeral from 'numeral'
-import React from 'react'
+import { useEffect, useState } from 'react'
 import StockChartWithVolume from './StockChartWithVolume'
 import { getOptions, mapHistory } from './stockLineChartOptions'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
@@ -30,7 +25,7 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const chartHeight = isXSmall ? 300 : 520
-  const [isLoading, setIsLoading] = React.useState(true)
+  const [isLoading, setIsLoading] = useState(true)
 
   const handleDaysSelected = async (val: string) => {
     setIsLoading(true)
@@ -43,10 +38,10 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
   }
   const chartMap = mapHistory(history, 'Price')
   const priceChartOptions = getOptions(chartMap, history, isXSmall, theme.palette.mode)
-  const [chartOptions, setChartOptions] = React.useState<ApexOptions | null>(priceChartOptions)
-  const [chartData, setChartData] = React.useState(history)
+  const [chartOptions, setChartOptions] = useState<ApexOptions | null>(priceChartOptions)
+  const [chartData, setChartData] = useState(history)
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsLoading(false)
   }, [])
 

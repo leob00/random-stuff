@@ -14,7 +14,7 @@ const CommoditiesLayout = () => {
     return resp
   }
 
-  const { data, isLoading } = useSwrHelper(endPoint, dataFn, { refreshInterval: 60000, revalidateOnFocus: false })
+  const { data, isLoading } = useSwrHelper(endPoint, dataFn, { revalidateOnFocus: false })
 
   return (
     <Box py={2}>
