@@ -33,17 +33,19 @@ const Page = () => {
 
   return (
     <>
-      <Seo pageTitle='Economic Data' />
+      <Seo pageTitle='Economic Indicators' />
       <ResponsiveContainer>
-        <PageHeader text={'Economic Data'} backButtonRoute='/csr/economic-data' forceShowBackButton />
         {isLoading && <BackdropLoader />}
         {data && (
-          <EconDataDetails
-            item={data}
-            onClose={() => {
-              router.push('/csr/economic-data')
-            }}
-          />
+          <>
+            <PageHeader text={data.Title} backButtonRoute='/csr/economic-indicators' forceShowBackButton />
+            <EconDataDetails
+              item={data}
+              onClose={() => {
+                router.push('/csr/economic-indicators')
+              }}
+            />
+          </>
         )}
       </ResponsiveContainer>
     </>

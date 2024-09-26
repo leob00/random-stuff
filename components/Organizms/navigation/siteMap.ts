@@ -112,7 +112,7 @@ export function siteMap() {
         // },
         {
           name: 'economic indicators',
-          route: '/csr/economic-data',
+          route: '/csr/economic-indicators',
         },
       ],
     },

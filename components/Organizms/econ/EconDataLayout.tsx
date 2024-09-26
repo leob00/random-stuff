@@ -39,7 +39,7 @@ const EconDataLayout = () => {
     const endYear = dayjs(item.LastObservationDate!).year()
     const startYear = dayjs(item.LastObservationDate!).subtract(5, 'years').year()
 
-    router.push(`/csr/economic-data/${item.InternalId}?startYear=${startYear}&endYear=${endYear}`)
+    router.push(`/csr/economic-indicators/${item.InternalId}?startYear=${startYear}&endYear=${endYear}`)
   }
 
   const { data, isLoading } = useSwrHelper(mutateListKey, dataFn, { revalidateOnFocus: false })

@@ -1,9 +1,8 @@
 'use client'
 import { useRouter } from 'next/router'
-import React, { ReactNode } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { useRouteTracker } from './useRouteTracker'
 import { Path, siteMap } from '../navigation/siteMap'
-import { getMapFromArray } from 'lib/util/collectionsNative'
 
 const routeMap = siteMap()
 
@@ -13,26 +12,20 @@ export const allRouteMap = () => {
   routes.forEach((route) => {
     map.set(route.route, route)
   })
-
-  // const result = getMapFromArray(
-  //   siteMap().flatMap((m) => m.paths),
-  //   'route',
-  // )
   return map
 }
 const allRoutesMap = allRouteMap()
 
 const RouteTracker = ({ children }: { children: ReactNode }) => {
-  const [isClient, setIsClient] = React.useState(false)
+  const [isClient, setIsClient] = useState(false)
   const router = useRouter()
-
   const { addRoute } = useRouteTracker()
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsClient(true)
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleRouteChange = async (url: string, shallow: boolean) => {
       if (allRoutesMap.has(url)) {
         addRoute(url)

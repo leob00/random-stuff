@@ -6,9 +6,9 @@ import Seo from 'components/Organizms/Seo'
 const Page = () => {
   return (
     <>
-      <Seo pageTitle='Economic Data' />
+      <Seo pageTitle='Economic Indicators' />
       <ResponsiveContainer>
-        <PageHeader text={'Economic Data'} />
+        <PageHeader text={'Economic Indicators'} />
         <EconDataLayout />
       </ResponsiveContainer>
     </>
