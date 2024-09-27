@@ -68,7 +68,7 @@ export function getBaseLineChartOptions(items: XyValues, lineOptions: LineChartO
   }
   let strokeWidth = 2
 
-  if (lineOptions.raw.length > 300) {
+  if (lineOptions.raw.length >= 300) {
     strokeWidth = 1.2
   } else if (lineOptions.raw.length >= 60) {
     strokeWidth = 1.75

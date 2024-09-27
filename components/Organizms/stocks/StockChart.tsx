@@ -40,7 +40,6 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
     const map = mapHistory(result, 'Price')
     const options = getOptions(map, result, isXSmall, theme.palette.mode)
     setChartOptions(options)
-    console.log('options: ', options)
     setIsLoading(false)
   }
 
