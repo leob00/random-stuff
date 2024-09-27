@@ -18,7 +18,6 @@ const StocksLayout = ({ userProfile, localStore }: { userProfile: UserProfile | 
       const resp = await getRecord<StockQuote[]>(mutateKey)
       return resp
     } else {
-      console.log('using local store for my stocks')
       const res = localStore.myStocks.data
       const stockMap = getMapFromArray(res, 'Symbol')
       const latest = await getLatestQuotes(res.map((m) => m.Symbol))

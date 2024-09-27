@@ -11,7 +11,7 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyValues[]; lineOptions: LineChartOptions[]; isLoading: boolean }) => {
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
-  const chartHeight = isXSmall ? 360 : 480
+  const chartHeight = isXSmall ? 300 : 520
   const [allOptions, setAllOptions] = React.useState<ApexOptions[]>([])
 
   const options: ApexOptions[] = xYValues.map((m, i) => getBaseLineChartOptions(m, lineOptions[i]))
@@ -34,7 +34,7 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
             <Box key={item.chart?.id}>
               {item.chart && (
                 <Box mt={index > 0 ? -3 : 0}>
-                  <ReactApexChart options={item} series={item.series} type='area' height={index === 0 ? chartHeight : 160} />
+                  <ReactApexChart key={xYValues.length} options={item} series={item.series} type='area' height={index === 0 ? chartHeight : 160} />
                 </Box>
               )}
             </Box>

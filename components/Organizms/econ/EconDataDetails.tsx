@@ -84,16 +84,6 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
   return (
     <Box p={1}>
       {model.isLoading && <BackdropLoader />}
-      {/* <Box py={2} display='flex' justifyContent={'space-between'} alignItems={'center'}>
-        <Box>
-          <Typography variant='h6'>{item.Title}</Typography>
-        </Box>
-        <Box justifyContent={'flex-end'}>
-          <IconButton size='small' onClick={onClose} color='primary'>
-            <CloseIcon fontSize='small' />
-          </IconButton>
-        </Box>
-      </Box> */}
       <Box minHeight={{ xs: 325, md: 500 }}>
         <EconDataChart chart={model.chart} />
       </Box>

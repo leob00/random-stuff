@@ -1,12 +1,10 @@
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
-import BackButton from 'components/Atoms/Buttons/BackButton'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import Seo from 'components/Organizms/Seo'
 import EarningsCalendarLayout from 'components/Organizms/stocks/EarningsCalendarLayout'
-import EconCalendarLayout from 'components/Organizms/stocks/EconCalendarLayout'
 import StocksLayout from 'components/Organizms/stocks/StocksLayout'
 import { useUserController } from 'hooks/userController'
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import TabList from 'components/Atoms/Buttons/TabList'
 import { Box } from '@mui/material'
@@ -15,7 +13,6 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import { MyStocksMenu } from 'components/Atoms/Menus/ContextMenus'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
-import CommoditiesLayout from 'components/Organizms/stocks/CommoditiesLayout'
 
 const Page = () => {
   const router = useRouter()
@@ -28,8 +25,8 @@ const Page = () => {
     tabs[0].selected = true
   }
 
-  const [selectedTab, setSelectedTab] = React.useState(tab ?? 'Stocks')
-  const [isLoading, setIsLoading] = React.useState(true)
+  const [selectedTab, setSelectedTab] = useState(tab ?? 'Stocks')
+  const [isLoading, setIsLoading] = useState(true)
   const { authProfile, fetchProfilePassive, setProfile } = useUserController()
 
   const localStore = useLocalStore()
@@ -38,7 +35,7 @@ const Page = () => {
     setSelectedTab(tab.title)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fn = async () => {
       if (!authProfile) {
         const fetchedProfile = await fetchProfilePassive(900)

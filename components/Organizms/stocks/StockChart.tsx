@@ -50,7 +50,6 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
       <Box textAlign={'right'} pr={1} py={1}>
         <DropdownList options={stockChartDaySelect} selectedOption={'90'} onOptionSelected={handleDaysSelected} />
       </Box>
-
       <>
         {companyName && (
           <CenterStack>
@@ -59,35 +58,31 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
             </Typography>
           </CenterStack>
         )}
-        {isLoading ? (
-          <></>
-        ) : (
-          <>
-            {isStock ? (
-              <StockChartWithVolume data={chartData} symbol={symbol} isLoading={isLoading} />
-            ) : (
-              <>
-                {chartOptions && (
-                  <Box minHeight={{ xs: 300, sm: chartHeight }} pt={2}>
-                    <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
-                    <Box display='flex' gap={4} pb={4}>
-                      <Box display='flex' gap={1}>
-                        <Typography variant='caption'>start date:</Typography>
-                        <Typography variant='caption'>{dayjs(chartData[0].TradeDate).format('MM/DD/YYYY')}</Typography>
-                      </Box>
-                      {chartData.length > 0 && (
-                        <Box display='flex' gap={1}>
-                          <Typography variant='caption'>end date:</Typography>
-                          <Typography variant='caption'>{dayjs(chartData[chartData.length - 1].TradeDate).format('MM/DD/YYYY')}</Typography>
-                        </Box>
-                      )}
+        <>
+          {isStock ? (
+            <StockChartWithVolume data={chartData} symbol={symbol} isLoading={isLoading} />
+          ) : (
+            <>
+              {chartOptions && (
+                <Box minHeight={{ xs: 300, sm: chartHeight }} pt={2}>
+                  <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' height={chartHeight} />
+                  <Box display='flex' gap={4} pb={4}>
+                    <Box display='flex' gap={1}>
+                      <Typography variant='caption'>start date:</Typography>
+                      <Typography variant='caption'>{dayjs(chartData[0].TradeDate).format('MM/DD/YYYY')}</Typography>
                     </Box>
+                    {chartData.length > 0 && (
+                      <Box display='flex' gap={1}>
+                        <Typography variant='caption'>end date:</Typography>
+                        <Typography variant='caption'>{dayjs(chartData[chartData.length - 1].TradeDate).format('MM/DD/YYYY')}</Typography>
+                      </Box>
+                    )}
                   </Box>
-                )}
-              </>
-            )}
-          </>
-        )}
+                </Box>
+              )}
+            </>
+          )}
+        </>
       </>
     </Box>
   )
