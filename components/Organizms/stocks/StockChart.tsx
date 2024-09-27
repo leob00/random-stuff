@@ -26,20 +26,23 @@ const StockChart = ({ symbol, history, companyName, isStock }: { symbol: string;
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const chartHeight = isXSmall ? 300 : 520
   const [isLoading, setIsLoading] = useState(true)
+  const chartMap = mapHistory(history, 'Price')
+  const priceChartOptions = getOptions(chartMap, history, isXSmall, theme.palette.mode)
+  const [chartOptions, setChartOptions] = useState<ApexOptions | null>(priceChartOptions)
+  const [chartData, setChartData] = useState(history)
 
   const handleDaysSelected = async (val: string) => {
     setIsLoading(true)
+    setChartData([])
+    setChartOptions(null)
     const result = await getStockOrFutureChart(symbol, Number(val), isStock)
     setChartData(result)
     const map = mapHistory(result, 'Price')
     const options = getOptions(map, result, isXSmall, theme.palette.mode)
     setChartOptions(options)
+    console.log('options: ', options)
     setIsLoading(false)
   }
-  const chartMap = mapHistory(history, 'Price')
-  const priceChartOptions = getOptions(chartMap, history, isXSmall, theme.palette.mode)
-  const [chartOptions, setChartOptions] = useState<ApexOptions | null>(priceChartOptions)
-  const [chartData, setChartData] = useState(history)
 
   useEffect(() => {
     setIsLoading(false)

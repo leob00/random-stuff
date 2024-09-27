@@ -66,17 +66,12 @@ export function getBaseLineChartOptions(items: XyValues, lineOptions: LineChartO
   if (lineOptions.changePositiveColor) {
     lineColor = getPositiveNegativeLineColor(lineOptions.palette, items.y)
   }
-  let strokeWidth = 3
-  if (lineOptions.raw.length <= 200) {
-    strokeWidth = 2
-  } else {
-    if (lineOptions.raw.length >= 60) {
-      strokeWidth = 1.75
-    } else if (lineOptions.raw.length >= 10) {
-      strokeWidth = 2
-    } else {
-      strokeWidth = 3.3
-    }
+  let strokeWidth = 2
+
+  if (lineOptions.raw.length > 300) {
+    strokeWidth = 1.2
+  } else if (lineOptions.raw.length >= 60) {
+    strokeWidth = 1.75
   }
 
   const options: ApexOptions = {

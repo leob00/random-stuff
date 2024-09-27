@@ -6,11 +6,11 @@ import { getMapFromArray } from 'lib/util/collectionsNative'
 import { siteMap } from '../navigation/siteMap'
 import { useState } from 'react'
 
-export type NavigationName = 'stocks' | 'goals' | 'home' | 'news' | 'notes' | 'admin'
 export interface Navigation {
   name: string
   path: string
   date: string
+  category?: string
 }
 
 export const useRouteTracker = () => {
@@ -20,7 +20,7 @@ export const useRouteTracker = () => {
     saveRoutes: state.saveRoutes,
   }))
 
-  const sitePathMap = getMapFromArray(
+  const sitePathMapRoutes = getMapFromArray(
     siteMap().flatMap((m) => m.paths),
     'route',
   )
@@ -37,7 +37,7 @@ export const useRouteTracker = () => {
     allRoutes: sortArray(routes, ['date'], ['desc']),
     lastRoute: routes.length > 0 ? routes[0].path : '/',
     addRoute: (url: string) => {
-      if (!sitePathMap.has(url)) {
+      if (!sitePathMapRoutes.has(url)) {
         return
       }
       setIsLoading(true)
@@ -46,7 +46,6 @@ export const useRouteTracker = () => {
       if (name.length == 0) {
         name = 'home'
       }
-
       routeMap.set(url, {
         date: dayjs().format(),
         path: url,

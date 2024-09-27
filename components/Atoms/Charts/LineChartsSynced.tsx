@@ -12,25 +12,18 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const chartHeight = isXSmall ? 300 : 520
-  const [allOptions, setAllOptions] = React.useState<ApexOptions[]>([])
 
   const options: ApexOptions[] = xYValues.map((m, i) => getBaseLineChartOptions(m, lineOptions[i]))
-  React.useEffect(() => {
-    setAllOptions(options)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   return (
     <Box>
       {isLoading ? (
         <>
-          <Box minHeight={chartHeight + 180}>
-            <BackdropLoader />
-          </Box>
+          <BackdropLoader />
         </>
       ) : (
         <>
-          {allOptions.map((item, index) => (
+          {options.map((item, index) => (
             <Box key={item.chart?.id}>
               {item.chart && (
                 <Box mt={index > 0 ? -3 : 0}>

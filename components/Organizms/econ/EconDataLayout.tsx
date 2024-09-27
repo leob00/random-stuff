@@ -33,8 +33,6 @@ const EconDataLayout = () => {
     return resp as EconDataModel
   }
 
-  const [selectedItem, setSelectedItem] = React.useState<EconomicDataItem | null>(null)
-
   const handleItemClicked = async (item: EconomicDataItem) => {
     const endYear = dayjs(item.LastObservationDate!).year()
     const startYear = dayjs(item.LastObservationDate!).subtract(5, 'years').year()
@@ -51,28 +49,18 @@ const EconDataLayout = () => {
       handleItemClicked(ex)
     }
   }
-  const handleCloseDetails = () => {
-    setSelectedItem(null)
-  }
 
   return (
     <Box py={2}>
       {isLoading && <BackdropLoader />}
       {!isLoading && data && data.Body.Items.length === 0 && <NoDataFound />}
       {data && (
-        <>
-          {selectedItem && selectedItem.Chart && (
-            <Box py={2}>
-              <EconDataDetails item={selectedItem} onClose={handleCloseDetails} />
-            </Box>
-          )}
-          <Box py={2} sx={{ display: selectedItem ? 'none' : 'unset' }}>
-            <CenterStack>
-              <StaticAutoComplete options={itemLookup} fullWidth onSelected={handleLoad} placeholder={`search in ${data.Body.Items.length} results`} />
-            </CenterStack>
-            <EconDataTable data={data.Body.Items} handleItemClicked={handleItemClicked} />
-          </Box>
-        </>
+        <Box>
+          <CenterStack>
+            <StaticAutoComplete options={itemLookup} fullWidth onSelected={handleLoad} placeholder={`search in ${data.Body.Items.length} results`} />
+          </CenterStack>
+          <EconDataTable data={data.Body.Items} handleItemClicked={handleItemClicked} />
+        </Box>
       )}
     </Box>
   )
