@@ -3,14 +3,6 @@ import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 
-export const stockChartTooltipFormatter = (val: number, opts: any, raw: any[]) => {
-  if (raw.length === 0) {
-    return ''
-  }
-  const change = raw[opts.dataPointIndex].Change! > 0 ? `+$${raw[opts.dataPointIndex].Change?.toFixed(2)}` : `${raw[opts.dataPointIndex].Change?.toFixed(2)}`
-  return `$${raw[opts.dataPointIndex].Price.toFixed(2)}   ${change}   ${raw[opts.dataPointIndex].ChangePercent}% `
-}
-
 export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: boolean, palette: 'light' | 'dark' = 'light') {
   const options = getBaseLineChartOptions(items, {
     raw: raw,
@@ -39,4 +31,12 @@ export const mapHistory = (items: StockHistoryItem[], yKey: keyof StockHistoryIt
   result.x = items.map((o) => dayjs(o.TradeDate).format('MM/DD/YYYY hh:mm a'))
   result.y = items.map((o) => Number(o[yKey]))
   return result
+}
+
+export const stockChartTooltipFormatter = (val: number, opts: any, raw: any[]) => {
+  if (raw.length === 0) {
+    return `${val}`
+  }
+  const change = raw[opts.dataPointIndex].Change! > 0 ? `+$${raw[opts.dataPointIndex].Change?.toFixed(2)}` : `${raw[opts.dataPointIndex].Change?.toFixed(2)}`
+  return `$${raw[opts.dataPointIndex].Price.toFixed(2)}   ${change}   ${raw[opts.dataPointIndex].ChangePercent}% `
 }

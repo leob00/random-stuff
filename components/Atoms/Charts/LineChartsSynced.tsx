@@ -2,7 +2,7 @@ import { Box, useMediaQuery, useTheme } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
 import { getBaseLineChartOptions, LineChartOptions } from 'components/Molecules/Charts/apex/baseLineChartOptions'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import dynamic from 'next/dynamic'
 import BackdropLoader from '../Loaders/BackdropLoader'
 
