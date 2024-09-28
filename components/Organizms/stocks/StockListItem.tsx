@@ -8,8 +8,7 @@ import {
   VeryLightBlue,
 } from 'components/themes/mainTheme'
 
-import { StockHistoryItem, StockQuote } from 'lib/backend/api/models/zModels'
-import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
+import { StockQuote } from 'lib/backend/api/models/zModels'
 import StockChart from 'components/Organizms/stocks/StockChart'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
@@ -27,22 +26,7 @@ import { useEffect, useRef, useState } from 'react'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import StockDividendDetails from './dividends/StockDividendDetails'
 import StockField from './StockField'
-
-export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'dark' = 'light') => {
-  let color = mode === 'light' ? CasinoBlackTransparent : VeryLightBlue
-
-  if (!val) {
-    return color
-  }
-
-  if (val < 0) {
-    color = mode === 'light' ? CasinoDarkRedTransparent : CasinoOrange
-  } else if (val > 0) {
-    color = mode === 'light' ? CasinoDarkGreenTransparent : CasinoLimeTransparent
-  }
-
-  return color
-}
+import { useSessionStore } from 'lib/backend/store/useSessionStore'
 
 const StockListItem = ({
   item,
@@ -70,12 +54,12 @@ const StockListItem = ({
   }
 
   const { authProfile, fetchProfilePassive, setProfile } = useUserController()
-  const [showMore, setShowMore] = useState(expand)
-  const [stockHistory, setStockHistory] = useState<StockHistoryItem[]>([])
+  const [showMore, setShowMore] = useState(expand ?? false)
   const [selectedTab, setSelectedTab] = useState('Details')
   const scrollTarget = useRef<HTMLSpanElement | null>(null)
   const tabScrollTarget = useRef<HTMLSpanElement | null>(null)
   const [isLoadingProfile, setIsLoadingProfile] = useState(true)
+  const { stocksChart: chartSettings, saveStockChart } = useSessionStore()
 
   useEffect(() => {
     const fn = async () => {
@@ -91,19 +75,16 @@ const StockListItem = ({
 
   useEffect(() => {
     const fn = async () => {
-      if (showMore && scrollIntoView) {
-        if (scrollTarget.current) {
-          scrollTarget.current.scrollIntoView({ behavior: 'smooth' })
-        }
-      }
-
       if (showMore) {
-        setStockHistory([])
-        const history = await getStockOrFutureChart(item.Symbol, 90, isStock)
         if (isStock) {
           putSearchedStock(item)
         }
-        setStockHistory(history)
+        if (scrollIntoView) {
+          if (scrollTarget.current) {
+            scrollTarget.current.scrollIntoView({ behavior: 'smooth' })
+          }
+        }
+
         setSelectedTab('Details')
       }
     }
@@ -111,9 +92,9 @@ const StockListItem = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showMore, item.Symbol])
 
-  const handleCompanyClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | undefined, show: boolean) => {
+  const handleCompanyClick = async () => {
     if (!disabled) {
-      setShowMore(show)
+      setShowMore(!showMore)
     }
   }
 
@@ -135,15 +116,15 @@ const StockListItem = ({
         <BackdropLoader />
       ) : (
         <>
-          <Box key={item.Symbol} py={1}>
+          <Box py={1}>
             <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
             <Box>
               {isStock ? (
-                <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} disabled={disabled} />
+                <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={handleCompanyClick} disabled={disabled} />
               ) : (
-                <ListHeader text={`${item.Company}`} item={item} onClicked={(e) => handleCompanyClick(e, !showMore)} disabled={disabled} />
+                <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} />
               )}
-              <Box key={`${item.Symbol}${item.Price}`}>
+              <Box>
                 <StockChange item={item} />
               </Box>
               {featuredField && (
@@ -152,7 +133,7 @@ const StockListItem = ({
                 </Box>
               )}
               {showGroupName && item.GroupName && (
-                <Stack pl={2}>
+                <Stack pl={2} py={2}>
                   <Typography variant='caption' color='primary'>{`Group Name: ${item.GroupName}`}</Typography>
                 </Stack>
               )}
@@ -164,11 +145,7 @@ const StockListItem = ({
                   <HorizontalDivider />
                 </Box>
                 <Box pl={1} sx={{ backgroundColor: 'unset' }} minHeight={{ xs: 300, sm: 600 }}>
-                  {stockHistory.length > 0 && (
-                    <>
-                      <StockChart symbol={item.Symbol} history={stockHistory} isStock={isStock} />
-                    </>
-                  )}
+                  <StockChart symbol={item.Symbol} isStock={isStock} />
                 </Box>
                 {isStock && (
                   <>
@@ -177,11 +154,9 @@ const StockListItem = ({
                         <StockSubscibeIcon userProfile={authProfile} quote={item} />
                       </Box>
                     )}
-
                     <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
-
                     <Typography ref={tabScrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>
-                    <Box key={item.Symbol}>
+                    <Box>
                       {selectedTab === 'Details' && <StockDetailsTab quote={item} />}
                       {selectedTab === 'News' && <StockNews quote={item} />}
                       {selectedTab === 'Earnings' && <StockEarnings quote={item} />}
@@ -198,5 +173,19 @@ const StockListItem = ({
     </>
   )
 }
+export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'dark' = 'light') => {
+  let color = mode === 'light' ? CasinoBlackTransparent : VeryLightBlue
 
+  if (!val) {
+    return color
+  }
+
+  if (val < 0) {
+    color = mode === 'light' ? CasinoDarkRedTransparent : CasinoOrange
+  } else if (val > 0) {
+    color = mode === 'light' ? CasinoDarkGreenTransparent : CasinoLimeTransparent
+  }
+
+  return color
+}
 export default StockListItem

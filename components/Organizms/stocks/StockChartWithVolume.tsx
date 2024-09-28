@@ -16,59 +16,59 @@ const StockChartWithVolume = ({ symbol, data, isLoading }: { symbol: string; dat
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
 
-  const mapModel = (symbol: string, history: StockHistoryItem[]) => {
-    const newXYValues: XyValues[] = []
-    const opts: LineChartOptions[] = []
-
-    const x = history.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY hh:mm a'))
-    newXYValues.push({
-      x: x,
-      y: history.map((m) => m.Price),
-    })
-    newXYValues.push({
-      x: x,
-      y: history.map((m) => Number(m.Volume)),
-    })
-    opts.push({
-      isXSmall: isXSmall,
-      palette: theme.palette.mode,
-      raw: history,
-      changePositiveColor: true,
-      yLabelPrefix: '$',
-      chartId: `main-chart-${symbol}`,
-      groupName: `stock-chart-${symbol}`,
-      toolTipFormatter: (val: number, opts: any) => {
-        return stockChartTooltipFormatter(val, opts, history)
-      },
-    })
-    opts.push({
-      seriesName: 'Volume',
-      isXSmall: true,
-      palette: theme.palette.mode,
-      raw: history,
-      yLabelPrefix: '',
-      changePositiveColor: false,
-      chartId: `child-chart-${symbol}`,
-      groupName: `stock-chart-${symbol}`,
-      numericFormatter: (num: number) => {
-        return `${numeral(num).format('###,###')}`
-      },
-      enableAxisXTooltip: false,
-    })
-    const result: SyncedChartModel = {
-      xyValues: newXYValues,
-      options: opts,
-    }
-    return result
-  }
-
-  const model = mapModel(symbol, data)
+  const model = mapModel(symbol, data, isXSmall, theme.palette.mode)
 
   return (
     <Box>
       <LineChartsSynced xYValues={model.xyValues} lineOptions={model.options} isLoading={isLoading} />
     </Box>
   )
+}
+
+const mapModel = (symbol: string, history: StockHistoryItem[], isXSmall: boolean, themeMode: 'light' | 'dark') => {
+  const newXYValues: XyValues[] = []
+  const opts: LineChartOptions[] = []
+
+  const x = history.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY hh:mm a'))
+  newXYValues.push({
+    x: x,
+    y: history.map((m) => m.Price),
+  })
+  newXYValues.push({
+    x: x,
+    y: history.map((m) => Number(m.Volume)),
+  })
+  opts.push({
+    isXSmall: isXSmall,
+    palette: themeMode,
+    raw: history,
+    changePositiveColor: true,
+    yLabelPrefix: '$',
+    chartId: `main-chart-${symbol}`,
+    groupName: `stock-chart-${symbol}`,
+    toolTipFormatter: (val: number, opts: any) => {
+      return stockChartTooltipFormatter(val, opts, history)
+    },
+  })
+  opts.push({
+    seriesName: 'Volume',
+    isXSmall: true,
+    palette: themeMode,
+    raw: history,
+    yLabelPrefix: '',
+    changePositiveColor: false,
+    chartId: `child-chart-${symbol}`,
+    groupName: `stock-chart-${symbol}`,
+    numericFormatter: (num: number) => {
+      return `${numeral(num).format('###,###')}`
+    },
+    enableAxisXTooltip: false,
+  })
+  const result: SyncedChartModel = {
+    xyValues: newXYValues,
+    options: opts,
+  }
+  return result
 }
 
 export default StockChartWithVolume

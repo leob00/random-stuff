@@ -226,7 +226,7 @@ function getBaseChart(groupName: string, palette: 'light' | 'dark', chartId?: st
       //opacity: 0.2,
     },
     //background: palette === 'dark' ? 'transparent' : 'transparent',
-    type: 'area',
+    //type: 'area',
     toolbar: {
       show: false,
     },

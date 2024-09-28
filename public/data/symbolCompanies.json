@@ -52,11 +52,11 @@
     "Symbol": "AADR"
   },
   {
-    "Company": "African Agriculture Holdings Inc. Common Stock",
+    "Company": "AFRICAN AGRI HLDGS INC",
     "Symbol": "AAGR"
   },
   {
-    "Company": "African Agriculture Holdings Inc. Warrant",
+    "Company": "AFRICAN AGRI HLDGS WTS",
     "Symbol": "AAGRW"
   },
   {
@@ -4844,6 +4844,10 @@
     "Symbol": "BKUI"
   },
   {
+    "Company": "BKV Corporation",
+    "Symbol": "BKV"
+  },
+  {
     "Company": "BNY Mellon Women's Opportunities ETF",
     "Symbol": "BKWO"
   },
@@ -4934,6 +4938,10 @@
   {
     "Company": "bleuacacia ltd Rights",
     "Symbol": "BLEUR"
+  },
+  {
+    "Company": "bleuacacia ltd Unit",
+    "Symbol": "BLEUU"
   },
   {
     "Company": "bleuacacia ltd Warrants",
@@ -7850,6 +7858,10 @@
   {
     "Company": "BlackRock AAA CLO ETF",
     "Symbol": "CLOA"
+  },
+  {
+    "Company": "VanEck AA-BB CLO ETF",
+    "Symbol": "CLOB"
   },
   {
     "Company": "Themes Cloud Computing ETF",
@@ -17332,6 +17344,10 @@
     "Symbol": "GRDIW"
   },
   {
+    "Company": "Guardian Pharmacy Services, Inc.",
+    "Symbol": "GRDN"
+  },
+  {
     "Company": "Greenidge Generation Holdings Inc. Class A Common",
     "Symbol": "GREE"
   },
@@ -25960,6 +25976,10 @@
     "Symbol": "MMIT"
   },
   {
+    "Company": "Texas Capital Government Money Market ETF",
+    "Symbol": "MMKT"
+  },
+  {
     "Company": "First Trust Multi-Manager Large Growth ETF",
     "Symbol": "MMLG"
   },
@@ -30198,6 +30218,10 @@
   {
     "Company": "PUMA BIOTECHNOLOGY INC",
     "Symbol": "PBYI"
+  },
+  {
+    "Company": "Premium Catering (Holdings) Limited Ordinary Shares",
+    "Symbol": "PC"
   },
   {
     "Company": "Paccar Inc",
@@ -37924,6 +37948,10 @@
     "Symbol": "SWN"
   },
   {
+    "Company": "SWP Growth & Income ETF",
+    "Symbol": "SWP"
+  },
+  {
     "Company": "SpringWorks Therapeutics, Inc. Common Stock",
     "Symbol": "SWTX"
   },
@@ -43880,7 +43908,7 @@
     "Symbol": "YRD"
   },
   {
-    "Company": "FT Vest International Equity Buffer ETF - September",
+    "Company": "FT Vest International Equity Moderate Buffer ETF - September",
     "Symbol": "YSEP"
   },
   {

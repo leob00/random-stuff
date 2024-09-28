@@ -7,7 +7,7 @@ import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import Pager from 'components/Atoms/Pager'
 import { useClientPager } from 'hooks/useClientPager'
 
-const GroupedStockTable = ({ result, userProfile }: { result: StockGroup[]; userProfile?: UserProfile | null }) => {
+const GroupedStockTable = ({ result }: { result: StockGroup[] }) => {
   const pageSize = 10
   const pager = useClientPager(result, 10)
   const displayItems = pager.getPagedItems(result)
@@ -16,10 +16,10 @@ const GroupedStockTable = ({ result, userProfile }: { result: StockGroup[]; user
   }
   return (
     <Box minHeight={650}>
-      <Box display={'flex'} flexDirection={'column'} gap={2}>
-        {displayItems.map((item, index) => (
+      <Box display={'flex'} flexDirection={'column'} gap={1}>
+        {displayItems.map((item) => (
           <Box key={item.groupName}>
-            <GroupedStockItem group={item} userProfile={userProfile} />
+            <GroupedStockItem group={item} />
           </Box>
         ))}
         <>

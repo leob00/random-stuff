@@ -66,10 +66,10 @@ const GroupedStocksLayout = ({
 
   return (
     <Box>
-      <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} pb={2}>
+      <Box display={'flex'} justifyContent={'flex-end'} alignItems={'center'} pb={2}>
         <GroupedListMenu onEdit={onEdit} onShowAsGroup={onShowAsGroup} />
       </Box>
-      <GroupedStockTable result={groupedList} userProfile={userProfile} />
+      <GroupedStockTable result={groupedList} />
     </Box>
   )
 }

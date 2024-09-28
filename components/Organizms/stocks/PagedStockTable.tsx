@@ -3,9 +3,9 @@ import Pager from 'components/Atoms/Pager'
 import { useClientPager } from 'hooks/useClientPager'
 import { Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import React from 'react'
 import StockTable from './StockTable'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
+import { useEffect } from 'react'
 
 const PagedStockTable = ({
   data,
@@ -27,7 +27,7 @@ const PagedStockTable = ({
     scroller.scroll()
     setPage(pageNum)
   }
-  React.useEffect(() => {
+  useEffect(() => {
     if (sort) {
       reset(data)
     }
