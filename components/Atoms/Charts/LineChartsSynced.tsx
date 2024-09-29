@@ -39,7 +39,7 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
             <Box key={index}>
               {item.chart && (
                 <Box mt={index > 0 ? -3 : 0}>
-                  <ReactApexChart key={dayjs().format()} options={item} series={item.series} type='area' height={index === 0 ? chartHeight : 160} />
+                  <ReactApexChart options={item} series={item.series} type='area' height={index === 0 ? chartHeight : 160} />
                 </Box>
               )}
             </Box>

@@ -58,7 +58,6 @@ const StockListItem = ({
   const [selectedTab, setSelectedTab] = useState('Details')
   const scrollTarget = useRef<HTMLSpanElement | null>(null)
   const tabScrollTarget = useRef<HTMLSpanElement | null>(null)
-  const [isLoadingProfile, setIsLoadingProfile] = useState(false)
   const handleCompanyClick = async () => {
     if (!disabled) {
       setShowMore(!showMore)
@@ -68,18 +67,6 @@ const StockListItem = ({
   const handleSelectTab = (tab: TabInfo) => {
     setSelectedTab(tab.title)
   }
-  // useEffect(() => {
-  //   const fn = async () => {
-  //     if (!authProfile) {
-  //       const p = await fetchProfilePassive()
-  //       setProfile(p)
-  //     }
-  //     setIsLoadingProfile(false)
-  //     console.log('authProfile')
-  //   }
-  //   fn()
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [authProfile])
 
   useEffect(() => {
     const fn = async () => {
@@ -110,64 +97,58 @@ const StockListItem = ({
 
   return (
     <>
-      {isLoadingProfile ? (
-        <BackdropLoader />
-      ) : (
-        <>
-          <Box py={1}>
-            <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
-            <Box>
-              {isStock ? (
-                <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={handleCompanyClick} disabled={disabled} />
-              ) : (
-                <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} />
-              )}
-              <Box>
-                <StockChange item={item} />
-              </Box>
-              {featuredField && (
-                <Box pl={2}>
-                  <StockField quote={item} field={featuredField} />
-                </Box>
-              )}
-              {showGroupName && item.GroupName && (
-                <Stack pl={2} py={2}>
-                  <Typography variant='caption' color='primary'>{`Group Name: ${item.GroupName}`}</Typography>
-                </Stack>
-              )}
+      <Box py={1}>
+        <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
+        <Box>
+          {isStock ? (
+            <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={handleCompanyClick} disabled={disabled} />
+          ) : (
+            <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} />
+          )}
+          <Box>
+            <StockChange item={item} />
+          </Box>
+          {featuredField && (
+            <Box pl={2}>
+              <StockField quote={item} field={featuredField} />
             </Box>
-            {!showMore && <HorizontalDivider />}
-            {showMore && (
+          )}
+          {showGroupName && item.GroupName && (
+            <Stack pl={2} py={2}>
+              <Typography variant='caption' color='primary'>{`Group Name: ${item.GroupName}`}</Typography>
+            </Stack>
+          )}
+        </Box>
+        {!showMore && <HorizontalDivider />}
+        {showMore && (
+          <>
+            <Box>
+              <HorizontalDivider />
+            </Box>
+            <Box pl={1} minHeight={{ xs: 300, sm: 600 }}>
+              <StockChart symbol={item.Symbol} isStock={isStock} />
+            </Box>
+            {isStock && (
               <>
-                <Box>
-                  <HorizontalDivider />
-                </Box>
-                <Box pl={1} minHeight={{ xs: 300, sm: 600 }}>
-                  <StockChart symbol={item.Symbol} isStock={isStock} />
-                </Box>
-                {isStock && (
-                  <>
-                    {authProfile && (
-                      <Box display={'flex'} gap={2} alignItems={'center'}>
-                        <StockSubscibeIcon userProfile={authProfile} quote={item} />
-                      </Box>
-                    )}
-                    <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
-                    <Typography ref={tabScrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>
-                    <Box>
-                      {selectedTab === 'Details' && <StockDetailsTab quote={item} />}
-                      {selectedTab === 'News' && <StockNews quote={item} />}
-                      {selectedTab === 'Earnings' && <StockEarnings quote={item} />}
-                      {selectedTab === 'Dividends' && <StockDividendDetails symbol={item.Symbol} showCompanyName={false} />}
-                      {selectedTab === 'Profile' && <CompanyProfile quote={item} />}
-                    </Box>
-                  </>
+                {authProfile && (
+                  <Box display={'flex'} gap={2} alignItems={'center'}>
+                    <StockSubscibeIcon userProfile={authProfile} quote={item} />
+                  </Box>
                 )}
+                <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
+                <Typography ref={tabScrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>
+                <Box>
+                  {selectedTab === 'Details' && <StockDetailsTab quote={item} />}
+                  {selectedTab === 'News' && <StockNews quote={item} />}
+                  {selectedTab === 'Earnings' && <StockEarnings quote={item} />}
+                  {selectedTab === 'Dividends' && <StockDividendDetails symbol={item.Symbol} showCompanyName={false} />}
+                  {selectedTab === 'Profile' && <CompanyProfile quote={item} />}
+                </Box>
               </>
             )}
-          </Box>
-        </>
-      )}
+          </>
+        )}
+      </Box>
     </>
   )
 }
