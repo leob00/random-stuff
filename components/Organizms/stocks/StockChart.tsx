@@ -58,13 +58,11 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
   const handleDaysSelected = (val: number | null) => {
-    //console.log('handleDaysSelected')
-    //setDays(val ?? 90)
-
     saveStockChart({ ...stocksChart, defaultDays: val ?? 90 })
   }
   useEffect(() => {
     mutate(mutateKey)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stocksChart.defaultDays])
 
   return (

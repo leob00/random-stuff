@@ -34,6 +34,7 @@ export interface EconomicDataItem {
   LastObservationDate?: string
   Chart: QlnLineChart | null
   criteria?: EconDataCriteria
+  Priority?: number | null
 }
 
 export interface EconDataCriteria {
