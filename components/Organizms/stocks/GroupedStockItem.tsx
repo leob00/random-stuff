@@ -1,14 +1,13 @@
-import { Box, Paper, Typography, useTheme } from '@mui/material'
-import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
-import { CasinoGrayTransparent, DarkBlue, DarkModeBlue, DarkModeBlueTransparent, VeryLightBlueTransparent } from 'components/themes/mainTheme'
-import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
-import React from 'react'
+import { Box, Typography, useTheme } from '@mui/material'
+import { DarkModeBlue } from 'components/themes/mainTheme'
 import { StockGroup } from './GroupedStocksLayout'
 import { getPositiveNegativeColor } from './StockListItem'
 import StockTable from './StockTable'
+import { useState } from 'react'
 
-const GroupedStockItem = ({ group, userProfile }: { group: StockGroup; userProfile?: UserProfile | null }) => {
-  const [expanded, setExpanded] = React.useState(false)
+const GroupedStockItem = ({ stockGroup }: { stockGroup: StockGroup }) => {
+  const [expanded, setExpanded] = useState(false)
+
   const handleExpandCollapse = () => {
     setExpanded(!expanded)
   }
@@ -26,20 +25,20 @@ const GroupedStockItem = ({ group, userProfile }: { group: StockGroup; userProfi
       >
         <Box>
           <Typography variant='h6' pl={1} color='primary'>
-            {`${!group.groupName || group.groupName.length === 0 ? 'Unassigned' : group.groupName}`}
+            {`${!stockGroup.groupName || stockGroup.groupName.length === 0 ? 'Unassigned' : stockGroup.groupName}`}
           </Typography>
         </Box>
 
         <Box pr={2}>
-          <Typography variant='h6' pl={1} color={getPositiveNegativeColor(group.movingAvg, theme.palette.mode)}>
-            {`${group.movingAvg.toFixed(2)}%`}
+          <Typography variant='h6' pl={1} color={getPositiveNegativeColor(stockGroup.movingAvg, theme.palette.mode)}>
+            {`${stockGroup.movingAvg.toFixed(2)}%`}
           </Typography>
         </Box>
       </Box>
       {expanded && (
         <>
-          <ScrollIntoView enabled={expanded} margin={-20} />
-          <StockTable isStock={true} stockList={group.quotes} key={group.id} showGroupName={false} showSummary={false} scrollIntoView={expanded} />
+          {/* <ScrollIntoView enabled={expanded} margin={-20} /> */}
+          <StockTable isStock={true} stockList={stockGroup.quotes} showGroupName={false} showSummary={false} scrollIntoView={expanded} />
         </>
       )}
     </Box>

@@ -58,20 +58,28 @@ const StockListItem = ({
   const [selectedTab, setSelectedTab] = useState('Details')
   const scrollTarget = useRef<HTMLSpanElement | null>(null)
   const tabScrollTarget = useRef<HTMLSpanElement | null>(null)
-  const [isLoadingProfile, setIsLoadingProfile] = useState(true)
-  const { stocksChart: chartSettings, saveStockChart } = useSessionStore()
-
-  useEffect(() => {
-    const fn = async () => {
-      if (!authProfile) {
-        const p = await fetchProfilePassive()
-        setProfile(p)
-      }
-      setIsLoadingProfile(false)
+  const [isLoadingProfile, setIsLoadingProfile] = useState(false)
+  const handleCompanyClick = async () => {
+    if (!disabled) {
+      setShowMore(!showMore)
     }
-    fn()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authProfile])
+  }
+
+  const handleSelectTab = (tab: TabInfo) => {
+    setSelectedTab(tab.title)
+  }
+  // useEffect(() => {
+  //   const fn = async () => {
+  //     if (!authProfile) {
+  //       const p = await fetchProfilePassive()
+  //       setProfile(p)
+  //     }
+  //     setIsLoadingProfile(false)
+  //     console.log('authProfile')
+  //   }
+  //   fn()
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [authProfile])
 
   useEffect(() => {
     const fn = async () => {
@@ -91,16 +99,6 @@ const StockListItem = ({
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showMore, item.Symbol])
-
-  const handleCompanyClick = async () => {
-    if (!disabled) {
-      setShowMore(!showMore)
-    }
-  }
-
-  const handleSelectTab = (tab: TabInfo) => {
-    setSelectedTab(tab.title)
-  }
 
   useEffect(() => {
     if (tabScrollTarget.current) {
@@ -144,7 +142,7 @@ const StockListItem = ({
                 <Box>
                   <HorizontalDivider />
                 </Box>
-                <Box pl={1} sx={{ backgroundColor: 'unset' }} minHeight={{ xs: 300, sm: 600 }}>
+                <Box pl={1} minHeight={{ xs: 300, sm: 600 }}>
                   <StockChart symbol={item.Symbol} isStock={isStock} />
                 </Box>
                 {isStock && (

@@ -38,7 +38,7 @@ const Page = () => {
   useEffect(() => {
     const fn = async () => {
       if (!authProfile) {
-        const fetchedProfile = await fetchProfilePassive(900)
+        const fetchedProfile = await fetchProfilePassive(1000)
         await setProfile(fetchedProfile)
         setIsLoading(false)
       } else {

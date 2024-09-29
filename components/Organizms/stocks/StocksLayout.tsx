@@ -37,7 +37,7 @@ const StocksLayout = ({ userProfile, localStore }: { userProfile: UserProfile | 
 
   return (
     <>
-      {isLoading && <BackdropLoader />}
+      {/* {isLoading && <BackdropLoader />} */}
       {stocks && <StocksDisplay userProfile={userProfile} result={stocks} onMutated={handleMutated} localStore={localStore} />}
     </>
   )

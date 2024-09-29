@@ -216,6 +216,13 @@ export function getMulitiLineChartOptions(
 
 function getBaseChart(groupName: string, palette: 'light' | 'dark', chartId?: string) {
   const chart: ApexChart = {
+    locales: [
+      {
+        name: 'es',
+      },
+    ],
+    defaultLocale: 'es',
+    type: 'line',
     id: chartId,
     group: groupName,
     dropShadow: {

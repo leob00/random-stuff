@@ -7,6 +7,7 @@ import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import numeral from 'numeral'
 import React from 'react'
 import { stockChartTooltipFormatter } from './stockLineChartOptions'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 interface SyncedChartModel {
   xyValues: XyValues[]
   options: LineChartOptions[]
@@ -20,6 +21,7 @@ const StockChartWithVolume = ({ symbol, data, isLoading }: { symbol: string; dat
 
   return (
     <Box>
+      {/* {isLoading && <BackdropLoader />} */}
       <LineChartsSynced xYValues={model.xyValues} lineOptions={model.options} isLoading={isLoading} />
     </Box>
   )

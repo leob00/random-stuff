@@ -39,34 +39,39 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
   const chartHeight = isXSmall ? 300 : 520
 
   const { stocksChart, saveStockChart } = useSessionStore()
-  const [days, setDays] = useState(stocksChart.defaultDays)
-  const mutateKey = `stock-chart${symbol}${days}${isStock}`
+  //const [days, setDays] = useState(stocksChart.defaultDays)
+
+  const mutateKey = `stock-chart${symbol}`
 
   const dataFn = async () => {
-    const history = await getStockOrFutureChart(symbol, days, isStock)
+    const history = await getStockOrFutureChart(symbol, stocksChart.defaultDays, isStock)
     const map = mapHistory(history, 'Price')
     const options = getOptions(map, history, isXSmall, theme.palette.mode)
     const result: Model = {
       history: history,
       chartOptions: options,
     }
+
     return result
   }
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
   const handleDaysSelected = (val: number | null) => {
-    console.log('handleDaysSelected')
-    setDays(val ?? 90)
-    mutate(mutateKey)
-    //saveStockChart({...stocksChart, defaultDays: days ?? 90})
+    //console.log('handleDaysSelected')
+    //setDays(val ?? 90)
+
+    saveStockChart({ ...stocksChart, defaultDays: val ?? 90 })
   }
+  useEffect(() => {
+    mutate(mutateKey)
+  }, [stocksChart.defaultDays])
 
   return (
     <Box>
-      {isLoading && <BackdropLoader />}
+      {/* {isLoading && <BackdropLoader />} */}
       <Box textAlign={'right'} pr={1} py={1}>
-        <FormDropdownListNumeric options={stockChartDaySelect} value={days} onOptionSelected={handleDaysSelected} />
+        <FormDropdownListNumeric options={stockChartDaySelect} value={stocksChart.defaultDays} onOptionSelected={handleDaysSelected} />
       </Box>
       <>
         {companyName && (
@@ -78,7 +83,9 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
         )}
         <>
           {isStock ? (
-            <>{data && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading} />}</>
+            <>
+              <StockChartWithVolume data={data?.history ?? []} symbol={symbol} isLoading={isLoading} />
+            </>
           ) : (
             <>
               {data && (

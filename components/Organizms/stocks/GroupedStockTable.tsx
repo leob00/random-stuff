@@ -1,9 +1,7 @@
 import { Box } from '@mui/material'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
-import React from 'react'
 import { StockGroup } from './GroupedStocksLayout'
 import GroupedStockItem from './GroupedStockItem'
-import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import Pager from 'components/Atoms/Pager'
 import { useClientPager } from 'hooks/useClientPager'
 
@@ -18,9 +16,7 @@ const GroupedStockTable = ({ result }: { result: StockGroup[] }) => {
     <Box minHeight={650}>
       <Box display={'flex'} flexDirection={'column'} gap={1}>
         {displayItems.map((item) => (
-          <Box key={item.groupName}>
-            <GroupedStockItem group={item} />
-          </Box>
+          <GroupedStockItem key={item.groupName} stockGroup={item} />
         ))}
         <>
           {displayItems.length === 0 && (
