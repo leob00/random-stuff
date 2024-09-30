@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import { Sort, UserStockSettings } from '../api/aws/models/apiGatewayModels'
 import { StockQuote } from '../api/models/zModels'
+import { EconomicDataItem } from '../api/qln/qlnModels'
 
 export interface StockSettings extends UserStockSettings {
   data: StockQuote[]
@@ -14,6 +15,8 @@ export interface LocalStore {
   saveStocks: (stocks: StockQuote[]) => void
   saveDefaultView: (val?: 'flat' | 'grouped') => void
   saveCustomSort: (val?: Sort[]) => void
+  economicIndicators: EconomicDataItem[]
+  saveEconomicIndicators: (val: EconomicDataItem[]) => void
 }
 
 export const useLocalStore = create(
@@ -36,6 +39,8 @@ export const useLocalStore = create(
         const myStocks = get().myStocks
         set({ myStocks: { ...myStocks, customSort: val } })
       },
+      economicIndicators: [],
+      saveEconomicIndicators: (val) => set((state) => ({ ...state, economicIndicators: val })),
     }),
     {
       name: 'rs-local-store',

@@ -11,8 +11,8 @@ import React from 'react'
 const EconDataTable = ({ data, handleItemClicked }: { data: EconomicDataItem[]; handleItemClicked: (item: EconomicDataItem) => void }) => {
   const pageSize = 10
   const pager = useClientPager(data, 10)
-  const sortedLatest = sortArray(data, ['Priority', 'LastObservationDate'], ['asc', 'desc'])
-  const displayItems = pager.getPagedItems(sortedLatest)
+  //const sortedLatest = sortArray(data, ['Priority', 'LastObservationDate'], ['asc', 'desc'])
+  const displayItems = pager.getPagedItems(data)
   const scroller = useScrollTop(0)
 
   const handlePaged = (pageNum: number) => {

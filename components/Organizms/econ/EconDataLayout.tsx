@@ -12,6 +12,11 @@ import { DropdownItem, mapDropdownItems } from 'lib/models/dropdown'
 import EconDataTable from './EconDataTable'
 import CenterStack from 'components/Atoms/CenterStack'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
+import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import DraggableList from './economic-indicators/DraggableList'
+import { useLocalStore } from 'lib/backend/store/useLocalStore'
+import { getMapFromArray } from 'lib/util/collectionsNative'
 dayjs.extend(weekday)
 
 export interface EconDataModel {
@@ -22,13 +27,22 @@ export interface EconDataModel {
 }
 
 const EconDataLayout = () => {
+  const [editMode, setEditMode] = useState(false)
   const router = useRouter()
   const config = apiConnection().qln
   const mutateListKey = `${config.url}/EconReports`
 
+  const { economicIndicators, saveEconomicIndicators } = useLocalStore()
+
   const dataFn = async () => {
     const resp = await get(mutateListKey)
-    return resp as EconDataModel
+    const dbResult = resp as EconDataModel
+    const ei = getMapFromArray(economicIndicators, 'InternalId')
+    dbResult.Body.Items.forEach((item) => {
+      ei.set(item.InternalId, item)
+    })
+    saveEconomicIndicators(Array.from(ei.values()))
+    return dbResult
   }
 
   const handleItemClicked = async (item: EconomicDataItem) => {
@@ -48,6 +62,10 @@ const EconDataLayout = () => {
     }
   }
 
+  const handleReorder = (items: EconomicDataItem[]) => {
+    saveEconomicIndicators(items)
+  }
+
   return (
     <Box py={2}>
       {isLoading && <BackdropLoader />}
@@ -57,7 +75,16 @@ const EconDataLayout = () => {
           <CenterStack>
             <StaticAutoComplete options={itemLookup} fullWidth onSelected={handleLoad} placeholder={`search in ${data.Body.Items.length} results`} />
           </CenterStack>
-          <EconDataTable data={data.Body.Items} handleItemClicked={handleItemClicked} />
+          <Box display={'flex'} justifyContent={'flex-end'} pt={2}>
+            {!editMode ? <LinkButton onClick={() => setEditMode(true)}>edit</LinkButton> : <LinkButton onClick={() => setEditMode(false)}>close</LinkButton>}
+          </Box>
+          {editMode ? (
+            <Box>
+              <DraggableList items={economicIndicators} onPushChanges={handleReorder} />
+            </Box>
+          ) : (
+            <EconDataTable data={economicIndicators} handleItemClicked={handleItemClicked} />
+          )}
         </Box>
       )}
     </Box>
