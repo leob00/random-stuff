@@ -41,7 +41,7 @@ const Page = () => {
     <>
       {isLoading && <BackdropLoader />}
       <ResponsiveContainer>
-        <PageHeader text='' backButtonRoute={backRoute} />
+        <PageHeader text={data?.title ?? ''} backButtonRoute={backRoute} forceShowBackButton />
         <RequireUserProfile>{data && <UserNoteDisplay id={id} data={data} isEdit={!!isEdit} backRoute={backRoute} />}</RequireUserProfile>
       </ResponsiveContainer>
     </>

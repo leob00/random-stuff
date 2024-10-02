@@ -33,9 +33,8 @@ const StockDetailsTab = ({ quote }: { quote: StockQuote }) => {
                 key={tag}
                 onClicked={() => {
                   handleTagClick(tag)
-                }}
-              >
-                <Chip key={tag} variant='outlined' label={tag.length > 50 ? `${tag.substring(0, 35)}...` : tag} />
+                }}>
+                <Chip variant='outlined' label={tag.length > 50 ? `${tag.substring(0, 35)}...` : tag} />
               </Clickable>
             ))}
           </Box>

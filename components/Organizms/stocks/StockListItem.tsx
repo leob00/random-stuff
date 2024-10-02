@@ -1,13 +1,5 @@
 import { Box, Stack, Typography } from '@mui/material'
-import {
-  CasinoBlackTransparent,
-  CasinoDarkGreenTransparent,
-  CasinoDarkRedTransparent,
-  CasinoLimeTransparent,
-  CasinoOrange,
-  VeryLightBlue,
-} from 'components/themes/mainTheme'
-
+import { CasinoBlackTransparent, CasinoDarkGreenTransparent, CasinoDarkRedTransparent, CasinoLimeTransparent, CasinoOrange, VeryLightBlue } from 'components/themes/mainTheme'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import StockChart from 'components/Organizms/stocks/StockChart'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
@@ -23,10 +15,8 @@ import TabList from 'components/Atoms/Buttons/TabList'
 import StockChange from './StockChange'
 import StockDetailsTab from './StockDetailsTab'
 import { useEffect, useRef, useState } from 'react'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import StockDividendDetails from './dividends/StockDividendDetails'
 import StockField from './StockField'
-import { useSessionStore } from 'lib/backend/store/useSessionStore'
 
 const StockListItem = ({
   item,
@@ -53,7 +43,7 @@ const StockListItem = ({
     tabs.splice(2, 0, div)
   }
 
-  const { authProfile, fetchProfilePassive, setProfile } = useUserController()
+  const { authProfile } = useUserController()
   const [showMore, setShowMore] = useState(expand ?? false)
   const [selectedTab, setSelectedTab] = useState('Details')
   const scrollTarget = useRef<HTMLSpanElement | null>(null)
@@ -79,7 +69,6 @@ const StockListItem = ({
             scrollTarget.current.scrollIntoView({ behavior: 'smooth' })
           }
         }
-
         setSelectedTab('Details')
       }
     }
@@ -100,11 +89,7 @@ const StockListItem = ({
       <Box py={1}>
         <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
         <Box>
-          {isStock ? (
-            <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={handleCompanyClick} disabled={disabled} />
-          ) : (
-            <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} />
-          )}
+          {isStock ? <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={handleCompanyClick} disabled={disabled} /> : <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} />}
           <Box>
             <StockChange item={item} />
           </Box>

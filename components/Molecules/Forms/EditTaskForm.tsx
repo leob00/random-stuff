@@ -11,23 +11,14 @@ import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import Delete from '@mui/icons-material/Delete'
 import { getUtcNow } from 'lib/util/dateUtil'
+import DateAndTimePicker2 from './ReactHookForm/DateAndTimePicker2'
 
-const EditTaskForm = ({
-  task,
-  onSubmit,
-  onCancel,
-  onDelete,
-}: {
-  task: UserTask
-  onSubmit: (data: UserTask) => void
-  onCancel: () => void
-  onDelete: (data: UserTask) => void
-}) => {
+const EditTaskForm = ({ task, onSubmit, onCancel, onDelete }: { task: UserTask; onSubmit: (data: UserTask) => void; onCancel: () => void; onDelete: (data: UserTask) => void }) => {
   const [formInput, setFormInput] = React.useReducer((state: UserTask, newState: UserTask) => ({ ...state, ...newState }), task)
   const [valid, setValid] = React.useState(true)
   const [showConfirmDelete, setShowConfirmDelete] = React.useState(false)
 
-  const handleDueDateChange = (dt?: string) => {
+  const handleDueDateChange = (dt: string | null) => {
     setFormInput({ ...formInput, dueDate: dt })
   }
   const handleTitleChanged = (title: string) => {
@@ -72,31 +63,15 @@ const EditTaskForm = ({
           <FormTextBox width={'100%'} defaultValue={formInput.body ?? ''} label={'task'} onChanged={handleTitleChanged} error={!valid} />
         </Box>
         <Box py={2}>
-          <DateAndTimePicker
-            defaultValue={formInput.dueDate ? dayjs(formInput.dueDate).format() : undefined}
-            onChanged={handleDueDateChange}
-            label={'due date'}
-          />
+          <DateAndTimePicker2 value={formInput.dueDate ? dayjs(formInput.dueDate).format() : undefined} onDateSelected={handleDueDateChange} label={'due date'} />
         </Box>
         <Box py={2}>
-          <TextField
-            label='notes'
-            placeholder='notes...'
-            multiline
-            sx={{ width: '100%' }}
-            defaultValue={formInput.notes}
-            onChange={handleNoteChange}
-            inputProps={{ maxLength: 500 }}
-          />
+          <TextField label='notes' placeholder='notes...' multiline sx={{ width: '100%' }} defaultValue={formInput.notes} onChange={handleNoteChange} inputProps={{ maxLength: 500 }} />
         </Box>
         <Box py={2}>
           <Stack direction={'row'} display={'flex'} justifyContent={'left'} alignItems={'center'}>
             <SecondaryCheckbox checked={formInput.status != undefined && formInput.status === 'completed'} onChanged={handleCompletedChecked} />
-            {formInput.dateCompleted ? (
-              <Typography variant='body2'>{`completed: ${dayjs(formInput.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography>
-            ) : (
-              <Typography variant='body2'>complete</Typography>
-            )}
+            {formInput.dateCompleted ? <Typography variant='body2'>{`completed: ${dayjs(formInput.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography> : <Typography variant='body2'>complete</Typography>}
           </Stack>
         </Box>
         <Box py={2}>
@@ -105,8 +80,7 @@ const EditTaskForm = ({
               size='small'
               onClick={() => {
                 setShowConfirmDelete(true)
-              }}
-            >
+              }}>
               <Delete color='error' />
             </Button>
             <PassiveButton text='cancel' size='small' onClick={handleCancelClick} />

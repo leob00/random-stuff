@@ -67,23 +67,7 @@ const StocksAutoComplete = ({
       onChange={(e, value) => {
         handleSelected(e, value)
       }}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label={label}
-          sx={{ input: { color: color } }}
-          inputRef={textRef}
-          placeholder={placeholder}
-          inputProps={{
-            ...params.inputProps,
-            color: 'secondary',
-            autoComplete: 'off',
-          }}
-          onChange={handleChange}
-          error={!!errorMessage}
-          helperText={errorMessage}
-        />
-      )}
+      renderInput={(params) => <TextField {...params} label={label} sx={{ input: { color: color } }} inputRef={textRef} placeholder={placeholder} onChange={handleChange} error={!!errorMessage} helperText={errorMessage} />}
     />
   )
 }

@@ -1,6 +1,5 @@
 import { Box, Card, CardContent, Stack } from '@mui/material'
 import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import React from 'react'
 import { Paths } from './siteMap'

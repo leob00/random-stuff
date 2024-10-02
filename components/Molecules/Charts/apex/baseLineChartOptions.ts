@@ -1,17 +1,5 @@
 import { ApexOptions } from 'apexcharts'
-import {
-  CasinoBlue,
-  CasinoBlueTransparent,
-  CasinoGreen,
-  CasinoLimeTransparent,
-  CasinoRed,
-  DarkBlue,
-  DarkModeBkg,
-  DarkModeBlue,
-  RedDarkMode,
-  VeryLightBlue,
-  VeryLightBlueTransparent,
-} from 'components/themes/mainTheme'
+import { CasinoBlue, CasinoBlueTransparent, CasinoGreen, CasinoLimeTransparent, CasinoRed, DarkBlue, DarkModeBkg, DarkModeBlue, RedDarkMode, VeryLightBlue, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import numeral from 'numeral'
 import { XyValues } from './models/chartModes'
 
@@ -75,6 +63,7 @@ export function getBaseLineChartOptions(items: XyValues, lineOptions: LineChartO
   }
 
   const options: ApexOptions = {
+    chart: { ...getBaseChart(lineOptions.groupName ?? 'group', lineOptions.palette, lineOptions.chartId), zoom: { enabled: false } },
     title: {
       text: lineOptions.seriesName,
       align: 'center',
@@ -96,7 +85,7 @@ export function getBaseLineChartOptions(items: XyValues, lineOptions: LineChartO
       enabled: false,
     },
     fill: lineFill,
-    chart: { ...getBaseChart(lineOptions.groupName ?? 'group', lineOptions.palette, lineOptions.chartId), zoom: { enabled: false } },
+
     grid: getBaseGrid(lineOptions.palette),
     yaxis: getBaseYAxis(lineOptions),
     xaxis: {
@@ -127,15 +116,7 @@ export function getBaseLineChartOptions(items: XyValues, lineOptions: LineChartO
   return options
 }
 
-export function getMulitiLineChartOptions(
-  items: XyValues[],
-  raw: any[],
-  isXSmall: boolean,
-  palette: 'light' | 'dark' = 'light',
-  yLabelPrefix: string = '$',
-  toolTipFormatter?: (val: number, opts: any) => string,
-  changePositiveColor = true,
-) {
+export function getMulitiLineChartOptions(items: XyValues[], raw: any[], isXSmall: boolean, palette: 'light' | 'dark' = 'light', yLabelPrefix: string = '$', toolTipFormatter?: (val: number, opts: any) => string, changePositiveColor = true) {
   const result: ApexOptions = {}
 
   const defaultTooltipFormatter = (val: number, opts: any) => {
@@ -274,6 +255,7 @@ function getBaseYAxis(opts: LineChartOptions) {
         fontWeight: opts.isXSmall ? 300 : 400,
         fontSize: opts.isXSmall ? '10px' : '15px',
       },
+      minWidth: 40,
       formatter: (val: number) => {
         if (opts.numericFormatter) {
           return opts.numericFormatter(val)

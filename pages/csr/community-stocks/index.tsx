@@ -1,10 +1,7 @@
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
-import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { CategoryType } from 'lib/backend/api/aws/models/apiGatewayModels'
-import BackButton from 'components/Atoms/Buttons/BackButton'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
-import React from 'react'
 import { Box } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import StocksAutoComplete from 'components/Atoms/Inputs/StocksAutoComplete'
@@ -25,11 +22,24 @@ import CommunityStocksWrapper from 'components/Organizms/stocks/CommunityStocksW
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
+import { useState } from 'react'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'
+const tabs: TabInfo[] = [
+  {
+    selected: true,
+    title: 'Recent',
+  },
+  {
+    title: 'Winners',
+  },
+  {
+    title: 'Losers',
+  },
+]
 
 const Page = () => {
-  const [selectedTab, setSelectedTab] = React.useState<Tab>('Recent')
+  const [selectedTab, setSelectedTab] = useState<Tab>('Recent')
 
   const searchedStocksKey: CategoryType = 'searched-stocks'
   const mutateKey = `community-stocks`
@@ -48,10 +58,8 @@ const Page = () => {
     return Array.from(stockMap.values())
   }
   const { data: searchedStocks, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
-  const [stockSearchResults, setStockSearchResults] = React.useState<DropdownItem[]>([])
-  const [loadingStock, setLoadingStock] = React.useState(false)
-
-  //console.log('searchedStocks: ', searchedStocks)
+  const [stockSearchResults, setStockSearchResults] = useState<DropdownItem[]>([])
+  const [loadingStock, setLoadingStock] = useState(false)
 
   const winners: StockQuote[] = searchedStocks
     ? sortArray(
@@ -68,23 +76,10 @@ const Page = () => {
       )
     : []
 
-  const tabs: TabInfo[] = [
-    {
-      selected: true,
-      title: 'Recent',
-    },
-    {
-      title: 'Winners',
-    },
-    {
-      title: 'Losers',
-    },
-  ]
-
   const handleSelectTab = (tab: TabInfo) => {
     setSelectedTab(tab.title as Tab)
   }
-  const [selectedStock, setSelectedStock] = React.useState<StockQuote | null>(null)
+  const [selectedStock, setSelectedStock] = useState<StockQuote | null>(null)
 
   const handleSearched = async (text: string) => {
     const searchResults = searchAheadStocks(text)
@@ -129,38 +124,17 @@ const Page = () => {
 
   return (
     <>
-      {isLoading && (
-        <>
-          <BackdropLoader />
-        </>
-      )}
+      {isLoading && <BackdropLoader />}
       <Seo pageTitle={`Community Stocks`} />
-
       <ResponsiveContainer>
         <PageHeader text='Community Stocks' />
         <Box py={2}>
           <CenterStack>
-            <StocksAutoComplete
-              placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}
-              onChanged={handleSearched}
-              searchResults={stockSearchResults}
-              debounceWaitMilliseconds={500}
-              onSelected={handleSelectQuote}
-            />
+            <StocksAutoComplete placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`} onChanged={handleSearched} searchResults={stockSearchResults} debounceWaitMilliseconds={500} onSelected={handleSelectQuote} />
           </CenterStack>
         </Box>
-        {selectedStock && (
-          <AddQuote
-            stockListMap={getMapFromArray(searchedStocks!, 'Symbol')}
-            quote={selectedStock}
-            handleAddToList={handleAddToList}
-            handleCloseAddQuote={handleCloseAddQuote}
-            scrollIntoView
-            showAddToListButton={false}
-          />
-        )}
+        {selectedStock && <AddQuote stockListMap={getMapFromArray(searchedStocks!, 'Symbol')} quote={selectedStock} handleAddToList={handleAddToList} handleCloseAddQuote={handleCloseAddQuote} scrollIntoView showAddToListButton={false} />}
         {!selectedStock && <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />}
-
         {loadingStock && <BackdropLoader />}
         {!selectedStock && (
           <>

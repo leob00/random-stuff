@@ -13,7 +13,7 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 const StockDividendDetails = ({ symbol, showCompanyName = true }: { symbol: string; showCompanyName?: boolean }) => {
   const pageSize = 4
-  const mutakeKey = `stockdividend-details ${symbol}`
+  const mutakeKey = `stockdividend-details-${symbol}`
   const dataFn = async () => {
     const req: QlnApiRequest = {
       key: symbol,
@@ -79,8 +79,7 @@ const StockDividendDetails = ({ symbol, showCompanyName = true }: { symbol: stri
             onPaged={(pageNum: number) => handlePaged(pageNum)}
             defaultPageIndex={pagerModel.page}
             totalItemCount={pagerModel.totalNumberOfItems}
-            showHorizontalDivider={false}
-          ></Pager>
+            showHorizontalDivider={false}></Pager>
           <HorizontalDivider />
         </>
       )}

@@ -34,17 +34,14 @@ interface Model {
 
 const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyName?: string; isStock: boolean }) => {
   const theme = useTheme()
-
+  const { stocksChart, saveStockChart } = useSessionStore()
+  const [days, setDays] = useState(stocksChart.defaultDays)
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const chartHeight = isXSmall ? 300 : 520
-
-  const { stocksChart, saveStockChart } = useSessionStore()
-  //const [days, setDays] = useState(stocksChart.defaultDays)
-
-  const mutateKey = `stock-chart${symbol}`
+  const mutateKey = `stock-chart-${symbol}`
 
   const dataFn = async () => {
-    const history = await getStockOrFutureChart(symbol, stocksChart.defaultDays, isStock)
+    const history = await getStockOrFutureChart(symbol, days, isStock)
     const map = mapHistory(history, 'Price')
     const options = getOptions(map, history, isXSmall, theme.palette.mode)
     const result: Model = {
@@ -58,18 +55,18 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
   const handleDaysSelected = (val: number | null) => {
+    setDays(val!)
     saveStockChart({ ...stocksChart, defaultDays: val ?? 90 })
   }
   useEffect(() => {
     mutate(mutateKey)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [stocksChart.defaultDays])
+  }, [days])
 
   return (
     <Box>
-      {/* {isLoading && <BackdropLoader />} */}
       <Box textAlign={'right'} pr={1} py={1}>
-        <FormDropdownListNumeric options={stockChartDaySelect} value={stocksChart.defaultDays} onOptionSelected={handleDaysSelected} />
+        <FormDropdownListNumeric options={stockChartDaySelect} value={days} onOptionSelected={handleDaysSelected} />
       </Box>
       <>
         {companyName && (
@@ -81,9 +78,7 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
         )}
         <>
           {isStock ? (
-            <>
-              <StockChartWithVolume data={data?.history ?? []} symbol={symbol} isLoading={isLoading} />
-            </>
+            <>{data && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading} />}</>
           ) : (
             <>
               {data && (

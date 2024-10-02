@@ -28,13 +28,17 @@ const DateAndTimePicker2 = forwardRef<HTMLInputElement, Props>(function DateAndT
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateTimePicker
         label={label}
+        minDate={minDate ? dayjs(minDate) : undefined}
+        maxDate={maxDate ? dayjs(maxDate) : undefined}
         value={value ? dayjs(value) : null}
         onChange={handleSelect}
         slotProps={{
+          field: { clearable: true },
           textField: {
             size: 'small',
             error: !!errorMessage,
             helperText: errorMessage,
+            autoCorrect: 'off',
           },
         }}
       />

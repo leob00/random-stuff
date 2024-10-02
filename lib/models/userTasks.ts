@@ -7,7 +7,7 @@ export interface UserTask {
   goalId?: string
   id?: string
   body?: string
-  dueDate?: string
+  dueDate?: string | null
   dateCompleted?: string
   dateCreated?: string
   dateModified?: string

@@ -4,47 +4,37 @@ import { Box, useMediaQuery, useTheme } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
 import { getBaseLineChartOptions, LineChartOptions } from 'components/Molecules/Charts/apex/baseLineChartOptions'
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import React, { useMemo } from 'react'
 import BackdropLoader from '../Loaders/BackdropLoader'
-import dayjs from 'dayjs'
 
 const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyValues[]; lineOptions: LineChartOptions[]; isLoading: boolean }) => {
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const chartHeight = isXSmall ? 300 : 520
 
-  const emptyOptions = getOptions([], [])
-  const options = useMemo(() => {
-    return getOptions(xYValues, lineOptions)
-  }, [xYValues, lineOptions])
+  const options = getOptions(xYValues, lineOptions)
+  options[1].chart!.height = 160
 
   return (
     <Box>
-      {/* {isLoading && <BackdropLoader />} */}
       {isLoading ? (
-        <>
-          {emptyOptions.map((item, index) => (
-            <Box key={index}>
-              {item.chart && (
-                <Box mt={index > 0 ? -3 : 0}>
-                  <ReactApexChart options={item} series={item.series} type='area' height={index === 0 ? chartHeight : 160} />
-                </Box>
-              )}
-            </Box>
-          ))}
-        </>
+        <BackdropLoader />
       ) : (
-        <>
-          {options.map((item, index) => (
-            <Box key={index}>
-              {item.chart && (
-                <Box mt={index > 0 ? -3 : 0}>
-                  <ReactApexChart options={item} series={item.series} type='area' height={index === 0 ? chartHeight : 160} />
-                </Box>
-              )}
-            </Box>
-          ))}
-        </>
+        <Box>
+          <Box height={chartHeight}>
+            <ReactApexChart options={options[0]} series={options[0].series} type='area' height={'100%'} />
+          </Box>
+          <Box height={160}>
+            <ReactApexChart options={options[1]} series={options[1].series} type='area' height={'100%'} />
+          </Box>
+
+          {/* {options.length > 1 && (
+            <>
+              {options.map((item, index) => (
+                <Box key={index}>{item.chart && <ReactApexChart key={options[index].chart?.id} options={item} series={item.series} type='area' />}</Box>
+              ))}
+            </>
+          )} */}
+        </Box>
       )}
     </Box>
   )

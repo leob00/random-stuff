@@ -7,7 +7,6 @@ import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import numeral from 'numeral'
 import React from 'react'
 import { stockChartTooltipFormatter } from './stockLineChartOptions'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 interface SyncedChartModel {
   xyValues: XyValues[]
   options: LineChartOptions[]
@@ -16,12 +15,10 @@ interface SyncedChartModel {
 const StockChartWithVolume = ({ symbol, data, isLoading }: { symbol: string; data: StockHistoryItem[]; isLoading: boolean }) => {
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
-
   const model = mapModel(symbol, data, isXSmall, theme.palette.mode)
 
   return (
     <Box>
-      {/* {isLoading && <BackdropLoader />} */}
       <LineChartsSynced xYValues={model.xyValues} lineOptions={model.options} isLoading={isLoading} />
     </Box>
   )
@@ -48,8 +45,8 @@ const mapModel = (symbol: string, history: StockHistoryItem[], isXSmall: boolean
     yLabelPrefix: '$',
     chartId: `main-chart-${symbol}`,
     groupName: `stock-chart-${symbol}`,
-    toolTipFormatter: (val: number, opts: any) => {
-      return stockChartTooltipFormatter(val, opts, history)
+    toolTipFormatter: (val: number, options: any) => {
+      return stockChartTooltipFormatter(val, options, history)
     },
   })
   opts.push({

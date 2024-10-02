@@ -41,14 +41,13 @@ const ViewNote = ({ selectedNote, onEdit, onCancel, onDelete }: { selectedNote: 
     <>
       <Box sx={{ py: 1 }}>
         <ScrollIntoView enabled={true} />
-        <CenteredHeader title={selectedNote.title} />
         <Box display={'flex'} justifyContent={'flex-end'}>
           <ContextMenu items={menu} />
         </Box>
         <ScrollableBox>
-          <CenterStack>
-            <HtmlView html={selectedNote.body} />
-          </CenterStack>
+          <Box>
+            <HtmlView html={selectedNote.body} textAlign='left' />
+          </Box>
         </ScrollableBox>
         <HorizontalDivider />
         <CenterStack>

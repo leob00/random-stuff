@@ -1,38 +1,27 @@
-import { Box, Typography } from '@mui/material'
-import CenterStack from 'components/Atoms/CenterStack'
+import { Box } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import WarmupBox from 'components/Atoms/WarmupBox'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { getNewsBySymbol, getStockEarnings, getStockQuotes, NewsItem, StockEarning } from 'lib/backend/api/qln/qlnApi'
-import { orderBy } from 'lodash'
+import { serverGetFetch, StockEarning } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
-import NewsList from '../../news/NewsList'
 import StockEarningsTable from './StockEarningsTable'
+import { useSwrHelper } from 'hooks/useSwrHelper'
 
 const StockEarnings = ({ quote }: { quote: StockQuote }) => {
-  const [isLoading, setIsLoading] = React.useState(true)
-  const [data, setData] = React.useState<StockEarning[]>([])
+  const mutateKey = `stock-earnings-${quote.Symbol}`
 
-  React.useEffect(() => {
-    const fn = async () => {
-      const apiData = await getStockEarnings(quote.Symbol)
-      setData(apiData)
-      setIsLoading(false)
-    }
-    fn()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const dataFn = async () => {
+    const endpoint = `/StockEarnings?symbol=${quote.Symbol}`
+    const resp = await serverGetFetch(endpoint)
+    const result = resp.Body as StockEarning[]
+    return result
+  }
+
+  const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
+
   return (
     <Box pb={2} pt={2} minHeight={400}>
-      {isLoading ? (
-        <BackdropLoader />
-      ) : (
-        <>
-          <Box sx={{ py: 2 }}>
-            <StockEarningsTable data={data} />
-          </Box>
-        </>
-      )}
+      {isLoading && <BackdropLoader />}
+      <Box sx={{ py: 2 }}>{data && <StockEarningsTable data={data} />}</Box>
     </Box>
   )
 }

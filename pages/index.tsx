@@ -1,4 +1,5 @@
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
 import HomeMenu from 'components/Organizms/HomeMenu'
 import Seo from 'components/Organizms/Seo'
 import { GetStaticProps, NextPage } from 'next'
@@ -20,7 +21,7 @@ const Page: NextPage<PageProps> = ({ title }) => {
   return (
     <>
       <Seo pageTitle={title} />
-      <CenteredHeader title={'Home'} description={''} />
+      <PageHeader text={'Home'} />
       <HomeMenu />
     </>
   )
