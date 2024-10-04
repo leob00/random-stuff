@@ -5,8 +5,8 @@ export const runtime = 'edge'
 
 export async function GET(req: NextRequest) {
   const url = req.nextUrl.searchParams.get('url') as string
-
-  const result = await get(decodeURIComponent(url))
+  const decodedUrl = decodeURIComponent(url)
+  const result = await get(decodedUrl)
   return NextResponse.json(result)
 }
 

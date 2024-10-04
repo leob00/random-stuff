@@ -36,8 +36,10 @@ const LoginUsernameForm = ({ title = 'Log in', onSubmitted, error }: { title?: s
             {...register('username')}
             size='small'
             margin='dense'
-            InputProps={{
-              color: 'secondary',
+            slotProps={{
+              input: {
+                color: 'secondary',
+              },
             }}
             error={!!errors.username?.message}
           />
@@ -46,14 +48,13 @@ const LoginUsernameForm = ({ title = 'Log in', onSubmitted, error }: { title?: s
             {...register('password')}
             size='small'
             margin='dense'
-            InputProps={{
-              color: 'secondary',
+            slotProps={{
+              input: {
+                color: 'secondary',
+              },
             }}
             error={!!errors.username?.message}
           />
-          {/* <ControlledFreeTextInput control={control} fieldName='password' defaultValue={obj.username} label='' placeholder='password' type={'password'} /> */}
-          {/* {errors.username && <Alert severity={'error'}>{errors.username?.message}</Alert>} */}
-          {/* {errors.password && <Alert severity={'error'}>{errors.password?.message}</Alert>} */}
           {error && <Alert severity={'error'}>{error}</Alert>}
           <HorizontalDivider />
           <Box display={'flex'} justifyContent={'flex-end'}>

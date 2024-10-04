@@ -3,7 +3,6 @@ import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import { useUserController } from 'hooks/userController'
 import { NewsItem, NewsTypeIds, newsTypes } from 'lib/backend/api/qln/qlnApi'
 import { orderBy } from 'lodash'
-import React from 'react'
 import { get } from 'lib/backend/api/fetchFunctions'
 import NewsList from './NewsList'
 import { getUserNoteTitles, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
@@ -13,11 +12,12 @@ import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
+import { useState } from 'react'
 
 const NewsLayout = ({ componentLoader = false }: { componentLoader?: boolean }) => {
   const userController = useUserController()
   const defaultSource: NewsTypeIds = (userController.authProfile?.settings?.news?.lastNewsType as NewsTypeIds) ?? 'GoogleTopStories'
-  const [selectedSource, setSelectedSource] = React.useState<NewsTypeIds>(defaultSource)
+  const [selectedSource, setSelectedSource] = useState<NewsTypeIds>(defaultSource)
 
   const fetchWithId = async (url: string, id: string) => {
     const result = (await get(`${url}?id=${id}`)) as NewsItem[]

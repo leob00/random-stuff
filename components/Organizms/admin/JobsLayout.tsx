@@ -24,14 +24,13 @@ const JobsLayout = () => {
   const [isLoadingDetail, setIsLoadingDetail] = useState(false)
   const [error, setError] = useState(false)
 
-  const { claims, saveClaims } = useSessionStore()
-  let claim = claims.find((m) => m.type === 'qln')
+  const { claims } = useSessionStore()
+  const [claim, setClaim] = useState(claims.find((m) => m.type === 'qln'))
 
   const { start, stop, pollCounter: counter } = usePolling(pollingIterval, 100)
 
   const handleLogin = async (result: Claim[]) => {
-    saveClaims(result)
-    claim = claims.find((m) => m.type === 'qln')
+    setClaim(result.find((m) => m.type === 'qln'))
     setError(false)
     start()
   }

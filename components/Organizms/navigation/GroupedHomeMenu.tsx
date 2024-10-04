@@ -1,7 +1,6 @@
-import { Box, Card, CardContent, Stack } from '@mui/material'
+import { Box, Card, CardContent } from '@mui/material'
 import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
-import React from 'react'
 import { Paths } from './siteMap'
 
 const GroupedHomeMenu = ({ pathCategories }: { pathCategories: Paths[] }) => {

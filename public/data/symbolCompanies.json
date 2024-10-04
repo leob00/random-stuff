@@ -4084,6 +4084,14 @@
     "Symbol": "BDL"
   },
   {
+    "Company": "Baird Medical Investment Holdings Ltd Ordinary Share",
+    "Symbol": "BDMD"
+  },
+  {
+    "Company": "Baird Medical Investment Holdings Ltd Warrant",
+    "Symbol": "BDMDW"
+  },
+  {
     "Company": "Brandywine Realty Trust",
     "Symbol": "BDN"
   },
@@ -7996,6 +8004,10 @@
     "Symbol": "CLX"
   },
   {
+    "Company": "Climb Bio, Inc. Common Stock",
+    "Symbol": "CLYM"
+  },
+  {
     "Company": "Canadian Imperial Bank of Commerce",
     "Symbol": "CM"
   },
@@ -10880,6 +10892,10 @@
     "Symbol": "DQ"
   },
   {
+    "Company": "Roundhill China Dragons ETF",
+    "Symbol": "DRAG"
+  },
+  {
     "Company": "Draco Evolution AI ETF",
     "Symbol": "DRAI"
   },
@@ -11698,6 +11714,22 @@
   {
     "Company": "Virtus Stone Harbor Emerging Markets Income Fund",
     "Symbol": "EDF"
+  },
+  {
+    "Company": "3EDGE Dynamic Fixed Income ETF",
+    "Symbol": "EDGF"
+  },
+  {
+    "Company": "3EDGE Dynamic Hard Assets ETF",
+    "Symbol": "EDGH"
+  },
+  {
+    "Company": "3EDGE Dynamic International Equity ETF",
+    "Symbol": "EDGI"
+  },
+  {
+    "Company": "3EDGE Dynamic US Equity ETF",
+    "Symbol": "EDGU"
   },
   {
     "Company": "Editas Medicine, Inc. Common Stock",
@@ -13438,6 +13470,10 @@
   {
     "Company": "Exelon Corporation",
     "Symbol": "EXC"
+  },
+  {
+    "Company": "Expand Energy Corporation Common Stock",
+    "Symbol": "EXE"
   },
   {
     "Company": "Exelixis Inc",
@@ -15560,6 +15596,10 @@
     "Symbol": "FTCB"
   },
   {
+    "Company": "First Trust New Constructs Core Earnings Leaders ETF",
+    "Symbol": "FTCE"
+  },
+  {
     "Company": "FTC Solar, Inc. Common Stock",
     "Symbol": "FTCI"
   },
@@ -17508,7 +17548,7 @@
     "Symbol": "GROY.WS"
   },
   {
-    "Company": "GRANITE REAL ESTATE INVESTMENT TRUST",
+    "Company": "Granite Real Estate Investment Trust",
     "Symbol": "GRP.U"
   },
   {
@@ -20772,6 +20812,10 @@
     "Symbol": "INUV"
   },
   {
+    "Company": "Innventure, Inc. Common Stock",
+    "Symbol": "INV"
+  },
+  {
     "Company": "Innoviva, Inc. Common Stock",
     "Symbol": "INVA"
   },
@@ -20880,7 +20924,7 @@
     "Symbol": "IPAV"
   },
   {
-    "Company": "Amplify Mobile Payments ETF",
+    "Company": "Amplify Digital Payments ETF",
     "Symbol": "IPAY"
   },
   {
@@ -23908,6 +23952,10 @@
     "Symbol": "LGRO"
   },
   {
+    "Company": "Logility Supply Chain Solutions, Inc. Common Stock",
+    "Symbol": "LGTY"
+  },
+  {
     "Company": "Longeveron Inc. Common Stock",
     "Symbol": "LGVN"
   },
@@ -24002,6 +24050,10 @@
   {
     "Company": "AEye, Inc. Warrant",
     "Symbol": "LIDRW"
+  },
+  {
+    "Company": "Chicago Atlantic BDC, Inc. Common Stock",
+    "Symbol": "LIEN"
   },
   {
     "Company": "Life360, Inc. Common Stock",
@@ -25564,7 +25616,7 @@
     "Symbol": "MFH"
   },
   {
-    "Company": "mF International Limited Ordinary Shares",
+    "Company": "mF International Limited Class A Ordinary Shares",
     "Symbol": "MFI"
   },
   {
@@ -27684,6 +27736,14 @@
     "Symbol": "NFTY"
   },
   {
+    "Company": "Direxion Daily NFLX Bull 2X Shares",
+    "Symbol": "NFXL"
+  },
+  {
+    "Company": "Direxion Daily NFLX Bear 1X Shares",
+    "Symbol": "NFXS"
+  },
+  {
     "Company": "Enphys Acquisition Corp.",
     "Symbol": "NFYS"
   },
@@ -29070,6 +29130,10 @@
   {
     "Company": "OFS Credit Company, Inc. Common Stock",
     "Symbol": "OCCI"
+  },
+  {
+    "Company": "OFS Credit Company, Inc. 7.875% Series F Term Preferred Stock",
+    "Symbol": "OCCIM"
   },
   {
     "Company": "OFS Credit Company, Inc. 5.25% Series E Term Preferred Stock Due 2026",
@@ -35496,7 +35560,7 @@
     "Symbol": "SETH"
   },
   {
-    "Company": "Sprott Energy Transition Materials ETF",
+    "Company": "Sprott Funds Trust Sprott Critical Materials ETF",
     "Symbol": "SETM"
   },
   {
@@ -39092,7 +39156,7 @@
     "Symbol": "TJX"
   },
   {
-    "Company": "Teekay Corporation",
+    "Company": "Teekay Corporation Ltd.",
     "Symbol": "TK"
   },
   {
@@ -39876,8 +39940,16 @@
     "Symbol": "TSME"
   },
   {
+    "Company": "Direxion Daily TSM Bull 2X Shares",
+    "Symbol": "TSMX"
+  },
+  {
     "Company": "YieldMax TSM Option Income Strategy ETF",
     "Symbol": "TSMY"
+  },
+  {
+    "Company": "Direxion Daily TSM Bear 1X Shares",
+    "Symbol": "TSMZ"
   },
   {
     "Company": "Tyson Foods, Inc.",
@@ -42498,6 +42570,10 @@
   {
     "Company": "Waste Connections, Inc.",
     "Symbol": "WCN"
+  },
+  {
+    "Company": "Wellchange Holdings Company Limited Ordinary shares",
+    "Symbol": "WCT"
   },
   {
     "Company": "Walker & Dunlop, Inc.",

@@ -1,8 +1,7 @@
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { apiConnection } from 'lib/backend/api/config'
-import { get } from 'lib/backend/api/fetchFunctions'
-import { QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
+import { serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import LoginUsernameForm, { UsernameLogin } from 'components/Molecules/Forms/Login/LoginUsernameForm'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
@@ -23,8 +22,8 @@ const QlnUsernameLoginForm = ({ onSuccess }: { onSuccess: (claims: Claim[]) => v
     setIsLoading(true)
     setShowLoginSuccess(false)
     setLoginError(undefined)
-    const url = `${config.url}/AuthenticateUsernamePassword`
-    const response = (await get(url, data)) as QlnApiResponse
+    const endpoint = `/AuthenticateUsernamePassword?username=${data.username}&password=${data.password}`
+    const response = await serverGetFetch(endpoint)
     if (response.Errors.length === 0) {
       const body: QlnUser | null = response.Body
       if (body) {

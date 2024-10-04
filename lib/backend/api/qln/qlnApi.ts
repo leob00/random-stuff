@@ -158,13 +158,13 @@ export const newsTypes: DropdownItem[] = [
     text: 'The Onion',
     value: 'TheOnion',
   },
-  // {
-  //   text: 'Washington Post',
-  //   value: 'WashingtonPost',
-  // },
   {
     text: 'Washington Times',
     value: 'WashingtonTimes',
+  },
+  {
+    text: 'Yahoo Finance',
+    value: 'YahooFinance',
   },
   {
     text: 'Yahoo Science',
