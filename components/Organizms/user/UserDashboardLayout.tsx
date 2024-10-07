@@ -1,14 +1,14 @@
-import StockMarketGlance from '../stocks/StockMarketGlance'
-import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
-import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import { Box } from '@mui/material'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import { useRouter } from 'next/navigation'
+import { useLocalStore } from 'lib/backend/store/useLocalStore'
+import WidgetsDisplay from '../widgets/WidgetsDisplay'
 
 const UserDashboardLayout = () => {
-  const scroller = useScrollTop(0)
   const router = useRouter()
+  const { dashboardWidgets } = useLocalStore()
+  const visibleWidgets = dashboardWidgets.filter((m) => m.display)
 
   const onEdit = () => {
     router.push('/protected/csr/dashboard/edit')
@@ -26,9 +26,7 @@ const UserDashboardLayout = () => {
       <Box display={'flex'} justifyContent={'flex-end'}>
         <ContextMenu items={menu} />
       </Box>
-      <ScrollableBox maxHeight={520} scroller={scroller}>
-        <StockMarketGlance />
-      </ScrollableBox>
+      <WidgetsDisplay widgets={visibleWidgets} />
     </Box>
   )
 }

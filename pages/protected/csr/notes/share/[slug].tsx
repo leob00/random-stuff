@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Link, Typography } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import DangerButton from 'components/Atoms/Buttons/DangerButton'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
@@ -84,10 +84,12 @@ const Page = () => {
                 {data.share.viewLink ? (
                   <Box display={'flex'} flexDirection={'column'} gap={4}>
                     <Box display={'flex'} alignItems={'center'} gap={2}>
-                      <CopyableText label='view link:' value={data.share.viewLink.url} />
+                      <CopyableText label='copy view link:' value={data.share.viewLink.url} />
                     </Box>
                     <Box>
-                      <Typography>{data.share.viewLink.url}</Typography>
+                      <Link href={`mailto:name@email.com?subject=Random%20Stuff%20Shared%20Link&body=${encodeURIComponent(data.share.viewLink.url)}`}>
+                        email
+                      </Link>
                     </Box>
                     <Box>
                       <DangerButton text='delete' size='small' onClick={() => setShowConfirmDeleteViewLink(true)} />

@@ -1,9 +1,8 @@
 'use client'
 import DraggableListItem from './DraggableListItem'
-import { DragDropContext, DropResult, PreDragActions, SensorAPI, SnapDragActions } from 'react-beautiful-dnd'
+import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { Box, Typography } from '@mui/material'
 import { getMapFromArray } from 'lib/util/collectionsNative'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenterStack from 'components/Atoms/CenterStack'
 import { StrictModeDroppable } from '../stocks/StrictModeDroppable'
 import { useState } from 'react'
@@ -15,17 +14,14 @@ export type DraggableListProps = {
 }
 
 const DraggableList = ({ items, onPushChanges }: DraggableListProps) => {
-  const [allItems, setAllItems] = useState(items)
-
   const onDragEnd = ({ destination, source }: DropResult) => {
     if (!destination) {
       return
     }
-    const items = [...allItems]
-    const [removed] = items.splice(source.index, 1)
-    items.splice(destination.index, 0, removed)
-    setAllItems(items)
-    const newMap = getMapFromArray(items, 'id')
+    const newItems = [...items]
+    const [removed] = newItems.splice(source.index, 1)
+    newItems.splice(destination.index, 0, removed)
+    const newMap = getMapFromArray(newItems, 'id')
     pushChanges(newMap)
   }
 
@@ -40,10 +36,21 @@ const DraggableList = ({ items, onPushChanges }: DraggableListProps) => {
         id: item.id,
         title: item.title,
         waitToRenderMs: item.waitToRenderMs,
+        display: item.display,
       }
     })
 
     onPushChanges(newList)
+  }
+
+  const handleUpdateShowHide = (item: DashboardWidget, display: boolean) => {
+    const newItem = items.find((m) => m.id === item.id)
+    if (newItem) {
+      const map = getMapFromArray(items, 'id')
+      const toUpdate = { ...map.get(item.id)!, display: display }
+      map.set(item.id, toUpdate)
+      onPushChanges(Array.from(map.values()))
+    }
   }
 
   return (
@@ -59,8 +66,8 @@ const DraggableList = ({ items, onPushChanges }: DraggableListProps) => {
         <StrictModeDroppable droppableId='droppable-dashboard-list'>
           {(provided) => (
             <Box ref={provided.innerRef} {...provided.droppableProps}>
-              {allItems.map((item, index) => (
-                <DraggableListItem item={item} index={index} key={item.id} />
+              {items.map((item, index) => (
+                <DraggableListItem item={item} index={index} key={item.id} onShowHide={handleUpdateShowHide} />
               ))}
               <>{provided.placeholder}</>
             </Box>

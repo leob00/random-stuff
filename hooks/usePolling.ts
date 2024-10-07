@@ -1,10 +1,10 @@
-import React from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export const usePolling = (intervalMilliseconds: number = 3000, restartAfter?: number, stopped?: boolean) => {
-  const [pollCounter, setPollCounter] = React.useState(0)
-  const [isStopped, setIsStopped] = React.useState(stopped ?? false)
-  const [isPaused, setIsPased] = React.useState(stopped ?? false)
-  const timeOutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [pollCounter, setPollCounter] = useState(0)
+  const [isStopped, setIsStopped] = useState(stopped ?? false)
+  const [isPaused, setIsPased] = useState(stopped ?? false)
+  const timeOutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const stop = () => {
     setIsStopped(true)
@@ -20,7 +20,7 @@ export const usePolling = (intervalMilliseconds: number = 3000, restartAfter?: n
     setIsPased(paused)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (timeOutRef.current) {
       clearTimeout(timeOutRef.current)
     }
