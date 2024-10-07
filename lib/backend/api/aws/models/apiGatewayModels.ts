@@ -156,6 +156,16 @@ export interface RandomStuffData {
   dogs: BasicArticle[]
 }
 
+type ShareableLink = {
+  url: string
+  token: string
+}
+
+export type UserNoteShare = {
+  viewLink?: ShareableLink
+  editLink?: ShareableLink
+}
+
 export interface UserNote {
   id?: string
   title: string
@@ -164,4 +174,5 @@ export interface UserNote {
   dateModified: string
   expirationDate?: string
   attachments?: S3Object[]
+  share?: UserNoteShare
 }

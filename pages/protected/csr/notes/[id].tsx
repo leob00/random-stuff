@@ -9,7 +9,6 @@ import { getUserNote } from 'lib/backend/csr/nextApiWrapper'
 import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { useRouter } from 'next/router'
-import React from 'react'
 
 const Page = () => {
   const router = useRouter()

@@ -11,7 +11,7 @@ const Page = () => {
   const [loadingProfile, setLoadingProfile] = useState(true)
   const { authProfile, setProfile, fetchProfilePassive } = useUserController()
 
-  const id = router.query.slug as string
+  const id = router.query.slug as string | undefined
   const returnUrl = router.query['returnUrl'] as string | undefined
 
   useEffect(() => {

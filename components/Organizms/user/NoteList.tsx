@@ -15,12 +15,11 @@ import { useClientPager } from 'hooks/useClientPager'
 import { UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { DropdownItem, mapDropdownItems } from 'lib/models/dropdown'
 import { getExpirationText, getUtcNow } from 'lib/util/dateUtil'
-import numeral from 'numeral'
-import React from 'react'
+import { useState } from 'react'
 
 const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked: (item: UserNote) => void; onAddNote: () => void }) => {
   const scroller = useScrollTop(0)
-  const [searchText, setSearchText] = React.useState('')
+  const [searchText, setSearchText] = useState('')
   const pageSize = 10
   const notesSearch = mapDropdownItems(data, 'title', 'id')
 

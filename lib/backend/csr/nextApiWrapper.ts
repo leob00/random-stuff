@@ -3,9 +3,26 @@ import { DropdownItem } from 'lib/models/dropdown'
 import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
-import { UserNote, LambdaDynamoRequest, UserProfile, LambdaBody, DynamoKeys, CategoryType, LambdaDynamoRequestBatch, EmailMessage, S3Object, Bucket } from '../api/aws/models/apiGatewayModels'
+import {
+  UserNote,
+  LambdaDynamoRequest,
+  UserProfile,
+  LambdaBody,
+  DynamoKeys,
+  CategoryType,
+  LambdaDynamoRequestBatch,
+  EmailMessage,
+  S3Object,
+  Bucket,
+} from '../api/aws/models/apiGatewayModels'
 
-import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserNoteTitlesKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
+import {
+  constructUserGoalTaksSecondaryKey,
+  constructUserNoteCategoryKey,
+  constructUserNoteTitlesKey,
+  constructUserProfileKey,
+  constructUserSecretSecondaryKey,
+} from '../api/aws/util'
 import { get, post, postBody } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { weakEncrypt } from '../encryption/useEncryptor'
@@ -355,7 +372,7 @@ export async function deleteRecord(id: string) {
 }
 
 export async function getRecord<T>(id: DynamoKeys | string): Promise<T> {
-  let result: any = null
+  let result: any | null = null
   try {
     const body = encryptKey(id)
     const data = await post(`/api/getRandomStuffEnc`, body)

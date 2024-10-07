@@ -7,7 +7,6 @@ import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import { AmplifyUser, getRolesFromAmplifyUser, getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
-import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { AuthUser, signOut as amplifySignOut, fetchUserAttributes } from 'aws-amplify/auth'
@@ -27,7 +26,6 @@ const AppUserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark';
   const { lastRoute } = useRouteTracker()
 
   const { claims, saveClaims } = useSessionStore()
-  const searchParams = useSearchParams()
   const signOut = async () => {
     try {
       await amplifySignOut({ global: true })

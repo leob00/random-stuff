@@ -14,9 +14,23 @@ import RecordExpirationWarning from 'components/Atoms/Text/RecordExpirationWarni
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
+import ContextMenuShare from 'components/Molecules/Menus/ContextMenuShare'
+import { useRouter } from 'next/navigation'
+import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 
-const ViewNote = ({ selectedNote, onEdit, onCancel, onDelete }: { selectedNote: UserNote; onEdit: (item: UserNote) => void; onCancel: () => void; onDelete: (note: UserNote) => void }) => {
+const ViewNote = ({
+  selectedNote,
+  onEdit,
+  onCancel,
+  onDelete,
+}: {
+  selectedNote: UserNote
+  onEdit: (item: UserNote) => void
+  onCancel: () => void
+  onDelete: (note: UserNote) => void
+}) => {
   const [showConfirmDelete, setShowConfirmDelete] = React.useState(false)
+  const router = useRouter()
 
   const handleYesDelete = () => {
     setShowConfirmDelete(false)
@@ -30,6 +44,12 @@ const ViewNote = ({ selectedNote, onEdit, onCancel, onDelete }: { selectedNote: 
     {
       item: <ContextMenuEdit />,
       fn: () => onEdit(selectedNote),
+    },
+    {
+      item: <ContextMenuShare />,
+      fn: () => {
+        router.push(`/protected/csr/notes/share/${encodeURIComponent(weakEncrypt(selectedNote.id!))}`)
+      },
     },
     {
       item: <ContextMenuDelete />,

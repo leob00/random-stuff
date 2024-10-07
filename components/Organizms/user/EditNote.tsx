@@ -10,17 +10,17 @@ import EditItemToolbar from 'components/Molecules/EditItemToolbar'
 import dayjs from 'dayjs'
 import { UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { getUtcNow } from 'lib/util/dateUtil'
-import React from 'react'
 import HtmlEditorQuill from '../../Atoms/Inputs/HtmlEditorQuill'
 import { DropdownItem } from 'lib/models/dropdown'
+import { useRef, useState } from 'react'
 
 const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCanceled?: () => void; onSubmitted?: (note: UserNote) => void }) => {
-  const title = React.useRef<HTMLInputElement | null>(null)
-  const [note, setNote] = React.useState(item)
-  const [bodyText, setBodyText] = React.useState(item.body)
-  const [titleError, setTitleError] = React.useState(false)
-  const [showExpForm, setShowExpForm] = React.useState(false)
-  const [editedExpDate, setEditedExpDate] = React.useState<string | undefined>(item.expirationDate)
+  const title = useRef<HTMLInputElement | null>(null)
+  const [note, setNote] = useState(item)
+  const [bodyText, setBodyText] = useState(item.body)
+  const [titleError, setTitleError] = useState(false)
+  const [showExpForm, setShowExpForm] = useState(false)
+  const [editedExpDate, setEditedExpDate] = useState<string | undefined>(item.expirationDate)
 
   const handleCancel = () => {
     onCanceled?.()
@@ -122,7 +122,9 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
       <FormDialog show={showExpForm} onCancel={handleCancelExp} title='Set expiration' onSave={handleSaveExp}>
         <>
           <DropdownList options={expOptions} selectedOption={'3'} onOptionSelected={handleChangeExp} />
-          <CenterStack sx={{ py: 4, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>{editedExpDate && <RecordExpirationWarning expirationDate={editedExpDate} precise={true} />}</CenterStack>
+          <CenterStack sx={{ py: 4, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
+            {editedExpDate && <RecordExpirationWarning expirationDate={editedExpDate} precise={true} />}
+          </CenterStack>
         </>
       </FormDialog>
       <Box sx={{ pt: 2 }} component='form'>
@@ -143,7 +145,19 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
           </Stack>
         </CenterStack>
         <CenterStack sx={{ width: { xs: '100%' } }}>
-          <TextField inputProps={{ maxLength: 150 }} fullWidth inputRef={title} defaultValue={item.title} size='small' label={'title'} placeholder='title' onChange={handleTitleChange} required error={titleError} sx={{ color: 'secondary' }} />
+          <TextField
+            inputProps={{ maxLength: 150 }}
+            fullWidth
+            inputRef={title}
+            defaultValue={item.title}
+            size='small'
+            label={'title'}
+            placeholder='title'
+            onChange={handleTitleChange}
+            required
+            error={titleError}
+            sx={{ color: 'secondary' }}
+          />
         </CenterStack>
         <CenterStack sx={{ py: 2, minHeight: 480, width: { xs: '100%' } }}>
           <HtmlEditorQuill value={bodyText} onChanged={handleBodyChange} />
