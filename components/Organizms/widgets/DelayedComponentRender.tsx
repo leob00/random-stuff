@@ -4,15 +4,12 @@ import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
 import { ReactNode, useEffect, useRef, useState } from 'react'
 
 const DelayedComponentRender = ({ delayMs, children }: { delayMs: number; children: ReactNode | ReactJSXElement[] }) => {
-  const timeOutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    if (timeOutRef.current) {
-      clearTimeout(timeOutRef.current)
-    }
-    timeOutRef.current = setTimeout(() => {
+    setTimeout(() => {
       setIsLoading(false)
+      console.log('rendered in: ', delayMs)
     }, delayMs)
   }, [])
 

@@ -9,13 +9,13 @@ const WidgetsDisplay = ({ widgets }: { widgets: DashboardWidget[] }) => {
     switch (item.id) {
       case 'stock-market-sentiment':
         return (
-          <DelayedComponentRender delayMs={item.waitToRenderMs}>
+          <DelayedComponentRender key={item.id} delayMs={item.waitToRenderMs}>
             <StockMarketGlance />
           </DelayedComponentRender>
         )
       case 'news':
         return (
-          <DelayedComponentRender delayMs={item.waitToRenderMs}>
+          <DelayedComponentRender key={item.id} delayMs={item.waitToRenderMs}>
             <NewsLayout />
           </DelayedComponentRender>
         )

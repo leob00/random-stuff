@@ -4,11 +4,13 @@ import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import { useRouter } from 'next/navigation'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import WidgetsDisplay from '../widgets/WidgetsDisplay'
+import { allWidgets } from '../dashboard/EditDashboard'
 
 const UserDashboardLayout = () => {
   const router = useRouter()
   const { dashboardWidgets } = useLocalStore()
   const visibleWidgets = dashboardWidgets.filter((m) => m.display)
+  const widgets = visibleWidgets.length > 0 ? visibleWidgets : allWidgets.filter((m) => m.display)
 
   const onEdit = () => {
     router.push('/protected/csr/dashboard/edit')
@@ -26,7 +28,7 @@ const UserDashboardLayout = () => {
       <Box display={'flex'} justifyContent={'flex-end'}>
         <ContextMenu items={menu} />
       </Box>
-      <WidgetsDisplay widgets={visibleWidgets} />
+      <WidgetsDisplay widgets={widgets} />
     </Box>
   )
 }

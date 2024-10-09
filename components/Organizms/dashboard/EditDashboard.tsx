@@ -2,7 +2,6 @@ import { Box } from '@mui/material'
 import { type DashboardWidget } from './dashboardModel'
 import DraggableList from './DraggableList'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
-import { sortArray } from 'lib/util/collections'
 import { useMemo } from 'react'
 
 export const allWidgets: DashboardWidget[] = [
@@ -23,6 +22,7 @@ export const allWidgets: DashboardWidget[] = [
 const EditDashboard = () => {
   const { dashboardWidgets, saveDashboardWidgets } = useLocalStore()
   const allAvailabe = [...allWidgets]
+
   const filtered = useMemo(() => {
     const filteredWidgets = [...dashboardWidgets]
     allAvailabe.forEach((m) => {
@@ -34,7 +34,18 @@ const EditDashboard = () => {
   }, [dashboardWidgets])
 
   const handlePushChanges = (items: DashboardWidget[]) => {
-    saveDashboardWidgets(items)
+    const list = [...items]
+    const visibleWidgets = list.filter((m) => m.display)
+    const hiddenWidgets = list.filter((m) => !m.display)
+
+    visibleWidgets.forEach((m, index) => {
+      m.waitToRenderMs = index * 750
+    })
+    hiddenWidgets.forEach((m) => {
+      m.waitToRenderMs = 0
+    })
+    const newItems = [...visibleWidgets, ...hiddenWidgets]
+    saveDashboardWidgets(newItems)
   }
 
   return (

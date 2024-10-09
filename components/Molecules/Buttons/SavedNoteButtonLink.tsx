@@ -1,7 +1,5 @@
 import Check from '@mui/icons-material/Check'
-import Warning from '@mui/icons-material/Warning'
 import { Button, Stack, Typography } from '@mui/material'
-import ExpirationWarningTooltip from 'components/Atoms/Tooltips/ExprationWarningTooltip'
 import router from 'next/router'
 import React from 'react'
 
@@ -21,9 +19,6 @@ const SavedNoteButtonLink = () => {
           saved
         </Typography>
       </Button>
-      <ExpirationWarningTooltip>
-        <Warning fontSize='small' color='primary' />
-      </ExpirationWarningTooltip>
     </Stack>
   )
 }

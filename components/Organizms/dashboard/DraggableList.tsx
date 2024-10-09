@@ -5,12 +5,11 @@ import { Box, Typography } from '@mui/material'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import CenterStack from 'components/Atoms/CenterStack'
 import { StrictModeDroppable } from '../stocks/StrictModeDroppable'
-import { useState } from 'react'
-import { DashboardWidget } from './dashboardModel'
+import { DashboardWidgetWithSettings } from './dashboardModel'
 
 export type DraggableListProps = {
-  items: DashboardWidget[]
-  onPushChanges: (items: DashboardWidget[]) => void
+  items: DashboardWidgetWithSettings[]
+  onPushChanges: (items: DashboardWidgetWithSettings[]) => void
 }
 
 const DraggableList = ({ items, onPushChanges }: DraggableListProps) => {
@@ -25,25 +24,11 @@ const DraggableList = ({ items, onPushChanges }: DraggableListProps) => {
     pushChanges(newMap)
   }
 
-  const pushChanges = (newMap: Map<any, DashboardWidget>) => {
-    const list = Array.from(newMap.values())
-    list.forEach((m, index) => {
-      m.waitToRenderMs = index * 400
-    })
-
-    const newList: DashboardWidget[] = list.map((item) => {
-      return {
-        id: item.id,
-        title: item.title,
-        waitToRenderMs: item.waitToRenderMs,
-        display: item.display,
-      }
-    })
-
-    onPushChanges(newList)
+  const pushChanges = (newMap: Map<any, DashboardWidgetWithSettings>) => {
+    onPushChanges(Array.from(newMap.values()))
   }
 
-  const handleUpdateShowHide = (item: DashboardWidget, display: boolean) => {
+  const handleUpdateShowHide = (item: DashboardWidgetWithSettings, display: boolean) => {
     const newItem = items.find((m) => m.id === item.id)
     if (newItem) {
       const map = getMapFromArray(items, 'id')

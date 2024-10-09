@@ -26,7 +26,7 @@ const darkPalette: PaletteOptions = {
   },
   secondary: {
     main: VeryLightBlue,
-    contrastText: VeryLightBlueTransparent,
+    contrastText: 'white',
   },
   error: {
     main: ErrorRed,

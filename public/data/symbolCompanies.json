@@ -428,7 +428,7 @@
     "Symbol": "ACSI"
   },
   {
-    "Company": "Acasti Pharma, Inc.",
+    "Company": "Acasti Pharma, Inc. Common Stock",
     "Symbol": "ACST"
   },
   {
@@ -3492,6 +3492,10 @@
     "Symbol": "AZN"
   },
   {
+    "Company": "AstraZeneca PLC ADRhedged",
+    "Symbol": "AZNH"
+  },
+  {
     "Company": "AutoZone, Inc.",
     "Symbol": "AZO"
   },
@@ -5720,8 +5724,16 @@
     "Symbol": "BSIG"
   },
   {
+    "Company": "Black Spade Acquisition II Co Class A Ordinary Share",
+    "Symbol": "BSII"
+  },
+  {
     "Company": "Black Spade Acquisition II Co Unit",
     "Symbol": "BSIIU"
+  },
+  {
+    "Company": "Black Spade Acquisition II Co Warrant",
+    "Symbol": "BSIIW"
   },
   {
     "Company": "Invesco BulletShares 2024 High Yield Corporate Bond ETF",
@@ -6138,6 +6150,10 @@
   {
     "Company": "Strive Enhanced Income Short Maturity ETF",
     "Symbol": "BUXX"
+  },
+  {
+    "Company": "KraneShares Man Buyout Beta Index ETF",
+    "Symbol": "BUYO"
   },
   {
     "Company": "Main BuyWrite ETF",
@@ -13480,6 +13496,14 @@
     "Symbol": "EXE"
   },
   {
+    "Company": "Expand Energy Corporation Class A Warrants",
+    "Symbol": "EXEEW"
+  },
+  {
+    "Company": "Expand Energy Corporation Class B Warrants",
+    "Symbol": "EXEEZ"
+  },
+  {
     "Company": "Exelixis Inc",
     "Symbol": "EXEL"
   },
@@ -13740,7 +13764,7 @@
     "Symbol": "FBLG"
   },
   {
-    "Company": "The First Bancshares, Inc.",
+    "Company": "First Bancshares, Inc.",
     "Symbol": "FBMS"
   },
   {
@@ -18360,7 +18384,7 @@
     "Symbol": "HFWA"
   },
   {
-    "Company": "IQ FTSE International Equity Currency Neutral ETF",
+    "Company": "NYLI FTSE International Equity Currency Neutral ETF",
     "Symbol": "HFXI"
   },
   {
@@ -18914,6 +18938,10 @@
   {
     "Company": "HSBC Holdings PLC",
     "Symbol": "HSBC"
+  },
+  {
+    "Company": "HSBC Holdings plc ADRhedged",
+    "Symbol": "HSBH"
   },
   {
     "Company": "Heart Test Laboratories, Inc. Common Stock",
@@ -24420,6 +24448,10 @@
     "Symbol": "LPAAW"
   },
   {
+    "Company": "Launch Two Acquisition Corp. Unit",
+    "Symbol": "LPBBU"
+  },
+  {
     "Company": "Lipocine Inc.",
     "Symbol": "LPCN"
   },
@@ -27888,6 +27920,10 @@
     "Symbol": "NIXX"
   },
   {
+    "Company": "Nixxy, Inc. Warrant",
+    "Symbol": "NIXXW"
+  },
+  {
     "Company": "Innovator Growth-100 Power Buffer ETF - January",
     "Symbol": "NJAN"
   },
@@ -29410,6 +29446,10 @@
   {
     "Company": "Okta, Inc. Class A Common Stock",
     "Symbol": "OKTA"
+  },
+  {
+    "Company": "OnKure Therapeutics, Inc. Class A Common Stock",
+    "Symbol": "OKUR"
   },
   {
     "Company": "OKYO Pharma Limited Ordinary Shares",
@@ -31338,6 +31378,10 @@
   {
     "Company": "Palantir Technologies Inc. Class A Common Stock",
     "Symbol": "PLTR"
+  },
+  {
+    "Company": "YieldMax PLTR Option Income Strategy ETF",
+    "Symbol": "PLTY"
   },
   {
     "Company": "Plug Power Inc.",
@@ -35032,8 +35076,16 @@
     "Symbol": "SBXC.WS"
   },
   {
+    "Company": "SilverBox Corp IV",
+    "Symbol": "SBXD"
+  },
+  {
     "Company": "SilverBox Corp IV Units, each consisting of one Class A ordinary share and one-third of one redeemable warrant",
     "Symbol": "SBXD.U"
+  },
+  {
+    "Company": "SilverBox Corp IV Redeemable warrants, each whole warrant exercisable for one Class A Ordinary Share at an exercise price of $11.50",
+    "Symbol": "SBXD.WS"
   },
   {
     "Company": "InfraCap Small Cap Income ETF",
@@ -35780,6 +35832,10 @@
     "Symbol": "SHE"
   },
   {
+    "Company": "Shell plc ADRhedged",
+    "Symbol": "SHEH"
+  },
+  {
     "Company": "Shell plc American Depositary Shares (Each represents two Ordinary shares)",
     "Symbol": "SHEL"
   },
@@ -36170,6 +36226,10 @@
   {
     "Company": "The Beauty Health Company Class A Common Stock",
     "Symbol": "SKIN"
+  },
+  {
+    "Company": "SKK Holdings Limited Common Stock",
+    "Symbol": "SKK"
   },
   {
     "Company": "Skillz Inc.",
@@ -36806,6 +36866,10 @@
   {
     "Company": "Volato Group, Inc. Redeemable Warrants, each whole warrant exercisable for one share of Class A common stock at an exercise price of $11.50",
     "Symbol": "SOAR.WS"
+  },
+  {
+    "Company": "South Bow Corporation",
+    "Symbol": "SOBO"
   },
   {
     "Company": "SOBR Safe, Inc. Common Stock",
@@ -42574,6 +42638,14 @@
   {
     "Company": "WisdomTree Cloud Computing Fund",
     "Symbol": "WCLD"
+  },
+  {
+    "Company": "First Trust WCM Developing World Equity ETF",
+    "Symbol": "WCME"
+  },
+  {
+    "Company": "First Trust WCM International Equity ETF",
+    "Symbol": "WCMI"
   },
   {
     "Company": "Waste Connections, Inc.",

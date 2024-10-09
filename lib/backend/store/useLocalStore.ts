@@ -3,8 +3,7 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 import { Sort, UserStockSettings } from '../api/aws/models/apiGatewayModels'
 import { StockQuote } from '../api/models/zModels'
 import { EconomicDataItem } from '../api/qln/qlnModels'
-import { DashboardWidget } from 'components/Organizms/dashboard/dashboardModel'
-import { allWidgets } from 'components/Organizms/dashboard/EditDashboard'
+import { DashboardWidgetWithSettings } from 'components/Organizms/dashboard/dashboardModel'
 
 export interface StockSettings extends UserStockSettings {
   data: StockQuote[]
@@ -19,8 +18,8 @@ export interface LocalStore {
   saveCustomSort: (val?: Sort[]) => void
   economicIndicators: EconomicDataItem[]
   saveEconomicIndicators: (val: EconomicDataItem[]) => void
-  dashboardWidgets: DashboardWidget[]
-  saveDashboardWidgets: (items: DashboardWidget[]) => void
+  dashboardWidgets: DashboardWidgetWithSettings[]
+  saveDashboardWidgets: (items: DashboardWidgetWithSettings[]) => void
 }
 
 export const useLocalStore = create(

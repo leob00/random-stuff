@@ -4,9 +4,9 @@ import React from 'react'
 
 const NewsHeadline = ({ item }: { item: NewsItem }) => {
   return (
-    <Box width={'99%'}>
+    <Box>
       {item.Headline && (
-        <Box textAlign={'center'} px={2}>
+        <Box textAlign={'left'} px={2}>
           <Link href={item.Link} target='_blank' sx={{ textDecoration: 'none' }}>
             <Typography variant='h4' dangerouslySetInnerHTML={{ __html: `${item.Headline.replace('Pluralistic: ', '')}` }}></Typography>
           </Link>

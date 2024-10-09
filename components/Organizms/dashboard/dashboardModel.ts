@@ -11,3 +11,7 @@ const DashboardWidgetsSchema = z
   })
   .array()
 export type DashboardWidget = z.infer<typeof DashboardWidgetsSchema.element>
+
+export type DashboardWidgetWithSettings = {
+  settings?: unknown
+} & DashboardWidget
