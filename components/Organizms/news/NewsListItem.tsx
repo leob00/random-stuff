@@ -32,7 +32,7 @@ const NewsListItem = ({
       {!isSmallDevice ? (
         <Box display={'flex'} justifyContent={'flex-start'}>
           <NewsImage item={item} />
-          <Box py={2}>
+          <Box py={1}>
             <NewsHeadline item={item} />
             <NewsDescription item={item} />
           </Box>

@@ -1,21 +1,17 @@
 import { createTheme, PaletteOptions, responsiveFontSizes, ThemeOptions } from '@mui/material'
 import {
   VeryLightBlue,
-  DarkModeBlue,
   CasinoBlueTransparent,
   CasinoBlue,
   rfsOptions,
   CasinoGreenTransparent,
-  CasinoBlackTransparent,
   DarkModePrimary,
-  CasinoDarkRedTransparent,
   CasinoOrange,
   CasinoOrangeTransparent,
   DarkModeBkg,
-  DarkModeRed,
   typographyOptions,
   ErrorRed,
-  VeryLightBlueTransparent,
+  CasinoBlack,
 } from './mainTheme'
 
 const darkPalette: PaletteOptions = {
@@ -26,7 +22,7 @@ const darkPalette: PaletteOptions = {
   },
   secondary: {
     main: VeryLightBlue,
-    contrastText: 'white',
+    contrastText: CasinoBlack,
   },
   error: {
     main: ErrorRed,
