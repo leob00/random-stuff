@@ -7,7 +7,7 @@ const NewsImage = ({ item }: { item: NewsItem }) => {
     <>
       {item.TeaserImageUrl !== undefined && item.TeaserImageUrl.length > 0 && !item.Description!.includes('img') && (
         <Box>
-          <Box pt={1} maxWidth={350} display={'flex'} sx={{ margin: 'auto' }}>
+          <Box pt={1} maxWidth={350} display={'flex'} px={2}>
             <img src={item.TeaserImageUrl} title='' width={getThumbnailSize(item.Source)} style={{ borderRadius: '16px' }} alt={item.TeaserImageUrl} />
           </Box>
         </Box>

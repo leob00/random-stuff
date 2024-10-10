@@ -35,7 +35,7 @@ const NewsList = ({
 }) => {
   const { ticket } = useUserController()
   const theme = useTheme()
-  const isSmallDevice = useMediaQuery(theme.breakpoints.down('md'))
+  const isSmallDevice = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <>
