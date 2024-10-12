@@ -14,7 +14,7 @@ const DelayedComponentRender = ({ delayMs, children }: { delayMs: number; childr
   }, [])
 
   return (
-    <Box minHeight={500}>
+    <Box>
       {isLoading && <CircleLoader />}
       {!isLoading && <Box>{children}</Box>}
     </Box>

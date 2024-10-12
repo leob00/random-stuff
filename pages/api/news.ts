@@ -7,7 +7,7 @@ export const config = {
 }
 
 export default async function handler(req: NextRequest) {
-  const id = (await req.nextUrl.searchParams.get('id')) as NewsTypeIds
+  const id = req.nextUrl.searchParams.get('id') as NewsTypeIds
   let result = await getNewsBySource(id)
   return NextResponse.json(result)
 }

@@ -14,7 +14,15 @@ import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import { useState } from 'react'
 
-const NewsLayout = ({ componentLoader = false }: { componentLoader?: boolean }) => {
+const NewsLayout = ({
+  componentLoader = false,
+  allowSelectType = true,
+  revalidateOnFocus = true,
+}: {
+  componentLoader?: boolean
+  allowSelectType?: boolean
+  revalidateOnFocus?: boolean
+}) => {
   const userController = useUserController()
   const defaultSource: NewsTypeIds = (userController.authProfile?.settings?.news?.lastNewsType as NewsTypeIds) ?? 'GoogleTopStories'
   const [selectedSource, setSelectedSource] = useState<NewsTypeIds>(defaultSource)
@@ -64,20 +72,22 @@ const NewsLayout = ({ componentLoader = false }: { componentLoader?: boolean }) 
 
   return (
     <>
-      <Box py={2}>
-        <Stack display='flex' flexDirection='row' justifyContent={'center'}>
-          <StaticAutoComplete
-            options={newsTypes}
-            placeholder='select source'
-            selectedItem={newsTypes.find((m) => m.value === selectedSource)}
-            onSelected={(item) => {
-              handleNewsSourceSelected(item.value)
-            }}
-            disableClearable
-            fullWidth
-          />
-        </Stack>
-      </Box>
+      {allowSelectType && (
+        <Box py={2}>
+          <Stack display='flex' flexDirection='row' justifyContent={'center'}>
+            <StaticAutoComplete
+              options={newsTypes}
+              placeholder='select source'
+              selectedItem={newsTypes.find((m) => m.value === selectedSource)}
+              onSelected={(item) => {
+                handleNewsSourceSelected(item.value)
+              }}
+              disableClearable
+              fullWidth
+            />
+          </Stack>
+        </Box>
+      )}
       <Box>
         {isLoading ? (
           <>{componentLoader ? <CircleLoader /> : <BackdropLoader />}</>

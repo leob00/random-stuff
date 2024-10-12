@@ -30,12 +30,14 @@ const NewsListItem = ({
   return (
     <Box minHeight={100}>
       {!isSmallDevice ? (
-        <Box display={'flex'} justifyContent={'flex-start'}>
-          <NewsImage item={item} />
-          <Box py={1}>
-            <NewsHeadline item={item} />
-            <NewsDescription item={item} />
+        <Box>
+          <Box display={'flex'} justifyContent={'flex-start'}>
+            <NewsImage item={item} />
+            <Box py={1}>
+              <NewsHeadline item={item} />
+            </Box>
           </Box>
+          <NewsDescription item={item} />
         </Box>
       ) : (
         <NewsListItemMobile item={item} />
@@ -49,7 +51,7 @@ const NewsListItem = ({
       )}
       {ticket && !hideSaveButton && (
         <Box>
-          <Stack py={2}>
+          <Box display={'flex'} justifyContent={'flex-end'} py={2} pr={2}>
             {!item.Saved ? (
               <SaveToNotesButton
                 username={ticket.email}
@@ -65,7 +67,7 @@ const NewsListItem = ({
             ) : (
               <SavedNoteButtonLink />
             )}
-          </Stack>
+          </Box>
         </Box>
       )}
     </Box>

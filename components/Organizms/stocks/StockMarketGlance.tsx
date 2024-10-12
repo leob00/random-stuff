@@ -13,7 +13,7 @@ import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
-const StockMarketGlance = () => {
+const StockMarketGlance = ({ showTitle = true }: { showTitle?: boolean }) => {
   const config = apiConnection().qln
   const apiUrl = `${config.url}/MarketHandshake?loadSentiment=true`
   const dataFn = async () => {
@@ -23,13 +23,13 @@ const StockMarketGlance = () => {
   const { data, isLoading } = useSwrHelper<MarketHandshake>(apiUrl, dataFn)
   return (
     <Box>
-      <Box py={2}>
-        <CenteredHeader title={'stock market sentiment'} />
+      <Box>
+        {showTitle && <CenteredHeader variant='h4' title={'Stock Market Sentiment'} />}
         {isLoading && <BackdropLoader />}
         {data ? (
           <>
             <StockMarketStatsChart data={data.StockStats} />
-            <Box pt={2}>
+            <Box>
               <StockMarketStatus data={data} />
             </Box>
             <CenterStack sx={{ my: 2 }}>

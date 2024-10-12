@@ -5,7 +5,7 @@ import React from 'react'
 
 const StockMarketStatus = ({ data }: { data: MarketHandshake }) => {
   return (
-    <Box my={2}>
+    <Box>
       <CenterStack>
         <Typography variant='caption'>{`${data.IsOpen ? 'U.S markets are open' : 'U.S markets are closed'}`}</Typography>
       </CenterStack>

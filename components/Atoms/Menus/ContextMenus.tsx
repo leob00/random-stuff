@@ -4,7 +4,7 @@ import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
 import ContextMenuPortfolio from 'components/Molecules/Menus/ContextMenuPortfolio'
 import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
 import router from 'next/router'
-export const MyStocksMenu: ContextMenuItem[] = [
+export const myStocksMenu: ContextMenuItem[] = [
   {
     item: (
       <>

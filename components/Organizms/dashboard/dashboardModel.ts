@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
-export const widgetTypes = ['stock-market-sentiment', 'news'] as const
+const widgetTypes = ['stock-market-sentiment', 'news'] as const
+export const WidgetSizesEnum = ['small', 'large'] as const
 
 const DashboardWidgetsSchema = z
   .object({
@@ -8,6 +9,7 @@ const DashboardWidgetsSchema = z
     title: z.string().min(1),
     display: z.boolean(),
     waitToRenderMs: z.number(),
+    widgetSizes: z.enum(WidgetSizesEnum).optional(),
   })
   .array()
 export type DashboardWidget = z.infer<typeof DashboardWidgetsSchema.element>

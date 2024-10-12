@@ -77,21 +77,19 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
                         handleNoteTitleClick(item)
                       }}
                     >
-                      <Typography>{item.title}</Typography>
-                      <Typography variant='caption'>{`${dayjs(item.dateModified).format('MM/DD/YYYY hh:mm A')}`}</Typography>
+                      <Typography variant='body1'>{item.title}</Typography>
                     </Clickable>
                   </Box>
-                  <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
-                    {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
-                      <Button size='small'>
-                        <DefaultTooltip text={getExpirationText(item.expirationDate)}>
-                          <Warning fontSize='small' color='warning' />
-                        </DefaultTooltip>
-                      </Button>
-                    )}
-                  </Stack>
                 </Stack>
               </Box>
+              {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
+                <Box display={'flex'} justifyContent={'flex-end'} gap={1} alignItems={'center'}>
+                  <DefaultTooltip text={getExpirationText(item.expirationDate)}>
+                    <Warning fontSize='small' color='warning' />
+                  </DefaultTooltip>
+                  <Typography variant='caption'>{'expires soon'}</Typography>
+                </Box>
+              )}
               {i < pagedItems.length - 1 && <HorizontalDivider />}
             </Box>
           ))}

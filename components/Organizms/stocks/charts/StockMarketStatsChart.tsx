@@ -17,7 +17,9 @@ const StockMarketStatsChart = ({ data }: { data: StockStats }) => {
   return (
     <>
       <Box width={300} sx={{ margin: 'auto' }}>
-        <BasicPieChart barChart={chartData} title={''} />
+        <Box>
+          <BasicPieChart barChart={chartData} title={''} />
+        </Box>
       </Box>
       <Box py={4}>
         <CenteredReadOnlyField label={'up'} val={`${numeral(data.TotalUpPercent).format('0.00')}%`} labelLength={300} />

@@ -22,8 +22,10 @@ const StocksLayout = ({ userProfile, localStore }: { userProfile: UserProfile | 
       const stockMap = getMapFromArray(res, 'Symbol')
       const latest = await getLatestQuotes(res.map((m) => m.Symbol))
       latest.forEach((item) => {
-        const existing = stockMap.get(item.Symbol)!
-        item.GroupName = existing.GroupName
+        if (stockMap.has(item.Symbol)) {
+          const existing = stockMap.get(item.Symbol)!
+          item.GroupName = existing.GroupName
+        }
       })
       localStore.saveStocks(latest)
       return latest
@@ -37,7 +39,7 @@ const StocksLayout = ({ userProfile, localStore }: { userProfile: UserProfile | 
 
   return (
     <>
-      {/* {isLoading && <BackdropLoader />} */}
+      {isLoading && <BackdropLoader />}
       {stocks && <StocksDisplay userProfile={userProfile} result={stocks} onMutated={handleMutated} localStore={localStore} />}
     </>
   )

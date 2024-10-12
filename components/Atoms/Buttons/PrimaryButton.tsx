@@ -6,15 +6,16 @@ type ButtonAttributes = ButtonProps & {
   text: string
   onClicked?: () => void
   isDisabled?: boolean
+  variant?: 'text' | 'contained' | 'outlined'
 }
-const PrimaryButton: React.FC<ButtonAttributes> = ({ text, isDisabled, onClicked, ...props }) => {
+const PrimaryButton: React.FC<ButtonAttributes> = ({ text, isDisabled, variant, onClicked, ...props }) => {
   const theme = useTheme()
   const handleClick = () => {
     onClicked?.()
   }
   return (
     <Button
-      variant='contained'
+      variant={variant ?? 'contained'}
       color={theme.palette.mode === 'light' ? 'primary' : 'info'}
       onClick={handleClick}
       disabled={isDisabled}

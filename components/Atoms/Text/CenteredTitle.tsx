@@ -1,6 +1,4 @@
 import { Box, Typography } from '@mui/material'
-import { CasinoBlackTransparent, CasinoBlue, CasinoBlueTransparent } from 'components/themes/mainTheme'
-import React from 'react'
 
 const CenteredTitle = ({ title, variant = 'h5' }: { title: string; variant?: 'caption' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' }) => {
   return (
