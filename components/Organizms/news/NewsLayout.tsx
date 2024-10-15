@@ -18,7 +18,7 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 const NewsLayout = ({
   componentLoader = false,
   allowSelectType = true,
-  revalidateOnFocus = true,
+  revalidateOnFocus = false,
 }: {
   componentLoader?: boolean
   allowSelectType?: boolean
@@ -29,7 +29,7 @@ const NewsLayout = ({
   const [selectedSource, setSelectedSource] = useState<NewsTypeIds>(defaultSource)
   const [error, setError] = useState<string | null>(null)
 
-  const mutateKey = `news-${selectedSource}`
+  const mutateKey = `news-${defaultSource}`
 
   const dataFn = async () => {
     setError(null)
@@ -55,8 +55,7 @@ const NewsLayout = ({
     return sorted
   }
 
-  // const { data, isLoading, error } = useSWR(['/api/news', selectedSource], ([url, id]) => fetchWithId(url, id), { revalidateOnFocus: false })
-  const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
+  const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: revalidateOnFocus })
   const scroller = useScrollTop(0)
 
   const saveProfileNewsType = async (newstype: NewsTypeIds) => {
@@ -98,16 +97,13 @@ const NewsLayout = ({
         </Box>
       )}
       <Stack>
-        {isLoading ? (
-          <>{componentLoader ? <CircleLoader /> : <BackdropLoader />}</>
-        ) : (
-          <>
-            {error && <ErrorMessage text='There is an error that occurred. We have been made aware of it. Please try again in a few minutes.' />}
-            <ScrollableBox maxHeight={505} scroller={scroller}>
-              {data && <NewsList newsItems={data} />}
-            </ScrollableBox>
-          </>
-        )}
+        {isLoading && <>{componentLoader ? <CircleLoader /> : <BackdropLoader />}</>}
+        <>
+          {error && <ErrorMessage text='There is an error that occurred. We have been made aware of it. Please try again in a few minutes.' />}
+          <ScrollableBox maxHeight={505} scroller={scroller}>
+            {data && <NewsList newsItems={data} />}
+          </ScrollableBox>
+        </>
       </Stack>
     </>
   )

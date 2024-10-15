@@ -31,7 +31,7 @@ const WidgetsDisplay = ({ widgets }: { widgets: DashboardWidget[] }) => {
               <CenteredHeader variant='h4' title={'News'} />
             </Paper>
             <DelayedComponentRender key={item.id} delayMs={item.waitToRenderMs}>
-              <NewsLayout allowSelectType={true} componentLoader />
+              <NewsLayout allowSelectType={true} componentLoader revalidateOnFocus />
             </DelayedComponentRender>
           </Box>
         )
