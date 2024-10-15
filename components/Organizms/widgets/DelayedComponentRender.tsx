@@ -11,7 +11,7 @@ const DelayedComponentRender = ({ delayMs, children }: { delayMs: number; childr
       setIsLoading(false)
       console.log('rendered in: ', delayMs)
     }, delayMs)
-  }, [])
+  }, [delayMs])
 
   return (
     <Box>

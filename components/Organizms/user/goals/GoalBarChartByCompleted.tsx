@@ -1,15 +1,12 @@
-import ApexBarChart from 'components/Molecules/Charts/apex/ApexBarChart'
 import { ApexBarChartData } from 'components/Molecules/Charts/apex/models/chartModes'
 import { CasinoBlueTransparent, CasinoGreenTransparent, CasinoRedTransparent } from 'components/themes/mainTheme'
 import { orderBy } from 'lodash'
-import React from 'react'
 import { UserGoalAndTask } from './UserGoalsLayout'
-import { Box, useTheme } from '@mui/material'
+import { Box } from '@mui/material'
 import SimpleBarChart2 from 'components/Molecules/Charts/SimpleBarChart2'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 
 const GoalsBarChartByStatus = ({ goalTasks }: { goalTasks: UserGoalAndTask[] }) => {
-  const theme = useTheme()
   let data: ApexBarChartData[] = []
   const gt = orderBy(goalTasks, (e) => e.goal.completePercent, ['desc'])
 

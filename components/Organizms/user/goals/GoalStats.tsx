@@ -1,8 +1,7 @@
-import { Stack, Box, Typography, useTheme } from '@mui/material'
+import { Box, Typography, useTheme } from '@mui/material'
 import { CasinoRedTransparent, RedDarkMode } from 'components/themes/mainTheme'
-import { UserGoal, UserGoalStats } from 'lib/models/userTasks'
-import React from 'react'
 import GoalProgressBar from './GoalProgressBar'
+import { UserGoal } from './goalModels'
 
 const GoalStats = ({ goal, completePercent }: { goal: UserGoal; completePercent?: number }) => {
   const theme = useTheme()

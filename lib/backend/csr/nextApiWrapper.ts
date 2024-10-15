@@ -1,6 +1,5 @@
 import dayjs from 'dayjs'
 import { DropdownItem } from 'lib/models/dropdown'
-import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
 import {
@@ -26,6 +25,7 @@ import {
 import { get, post, postBody } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { weakEncrypt } from '../encryption/useEncryptor'
+import { UserGoal, UserTask } from 'components/Organizms/user/goals/goalModels'
 
 export interface SignedRequest {
   appId?: string

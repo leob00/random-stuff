@@ -6,11 +6,8 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import AddTaskForm from 'components/Molecules/Forms/AddTaskForm'
-import EditTaskForm from 'components/Molecules/Forms/EditTaskForm'
 import { constructUserTaskPk } from 'lib/backend/api/aws/util'
-import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
-import React from 'react'
 import TaskItem from './TaskItem'
 import { reorderTasks } from './UserGoalsLayout'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
@@ -18,6 +15,9 @@ import dayjs from 'dayjs'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
+import { UserTask, UserGoal } from './goalModels'
+import EditTaskForm from './tasks/EditTaskForm'
+import { useReducer } from 'react'
 
 interface TaskModel {
   isLoading: boolean
@@ -47,7 +47,7 @@ const TaskList = ({
   disabled?: boolean
 }) => {
   let defaultTasks = selectedGoal.deleteCompletedTasks ? [...tasks].filter((m) => m.status !== 'completed') : [...tasks]
-  const [model, setModel] = React.useReducer((state: TaskModel, newState: TaskModel) => ({ ...state, ...newState }), {
+  const [model, setModel] = useReducer((state: TaskModel, newState: TaskModel) => ({ ...state, ...newState }), {
     isLoading: false,
     taskList: reorderTasks(defaultTasks),
     confirmCompleteTask: false,
@@ -128,7 +128,7 @@ const TaskList = ({
   }
 
   const handleSearched = (text: string) => {
-    setModel({ ...model, searchTasksText: text })
+    setModel({ ...model, searchTasksText: text, editTask: undefined })
   }
 
   const handleToggleSearch = () => {

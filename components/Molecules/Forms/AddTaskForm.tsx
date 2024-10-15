@@ -1,11 +1,10 @@
 import { Box, Stack, TextField } from '@mui/material'
-import { UserTask } from 'lib/models/userTasks'
-import React from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import DateAndTimePicker2 from './ReactHookForm/DateAndTimePicker2'
+import { UserTask } from 'components/Organizms/user/goals/goalModels'
 
 const AddTaskSchema = z.object({
   name: z

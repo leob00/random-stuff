@@ -1,9 +1,9 @@
-import React from 'react'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs'
 import { DateTimeValidationError, PickerChangeHandlerContext } from '@mui/x-date-pickers'
+import { useEffect, useState } from 'react'
 
 const DateAndTimePicker = ({
   defaultValue,
@@ -16,7 +16,7 @@ const DateAndTimePicker = ({
   onChanged: (value?: string) => void
   disabled?: boolean
 }) => {
-  const [value, setValue] = React.useState<dayjs.Dayjs | undefined | null>(defaultValue !== undefined ? dayjs(defaultValue) : null)
+  const [value, setValue] = useState<dayjs.Dayjs | undefined | null>(defaultValue !== undefined ? dayjs(defaultValue) : null)
 
   const handleChange = (val: dayjs.Dayjs | null, context: PickerChangeHandlerContext<DateTimeValidationError>) => {
     const dt = val
@@ -33,7 +33,7 @@ const DateAndTimePicker = ({
     setValue(null)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     setValue(defaultValue ? dayjs(defaultValue) : null)
   }, [defaultValue])
 

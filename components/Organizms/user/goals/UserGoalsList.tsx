@@ -1,6 +1,5 @@
 import { Box, Typography, useTheme } from '@mui/material'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
-import Clickable from 'components/Atoms/Containers/Clickable'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import Pager from 'components/Atoms/Pager'
@@ -8,10 +7,9 @@ import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { CasinoRedTransparent, RedDarkMode } from 'components/themes/mainTheme'
 import { useClientPager } from 'hooks/useClientPager'
-import { UserGoal } from 'lib/models/userTasks'
-import React from 'react'
 import GoalStats from './GoalStats'
 import GoalProgressBar from './GoalProgressBar'
+import { UserGoal } from './goalModels'
 
 const UserGoalsList = ({ data, onShowEdit }: { data: UserGoal[]; onShowEdit: (item: UserGoal) => void }) => {
   const pageSize = 5

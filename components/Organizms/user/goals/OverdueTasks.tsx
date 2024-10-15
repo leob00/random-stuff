@@ -4,12 +4,11 @@ import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import { RedDarkMode, CasinoRedTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
-import { UserTask } from 'lib/models/userTasks'
 import { sortArray } from 'lib/util/collections'
-import React from 'react'
 import { UserGoalAndTask } from './UserGoalsLayout'
 import { useRouter } from 'next/navigation'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
+import { UserTask } from './goalModels'
 
 const OverdueTasks = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoalAndTask[]; username: string }) => {
   const theme = useTheme()
@@ -22,7 +21,6 @@ const OverdueTasks = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoalAndT
     ['dueDate'],
     ['asc'],
   )
-  const handleCompleteTaskClick = (checked: boolean, task: UserTask) => {}
   const handleTaskClick = (item: UserTask) => {
     const goalId = encodeURIComponent(weakEncrypt(item.goalId!))
     const token = encodeURIComponent(weakEncrypt(username))
@@ -41,7 +39,8 @@ const OverdueTasks = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoalAndT
                     <LinkButton2
                       onClick={() => {
                         handleTaskClick(item)
-                      }}>
+                      }}
+                    >
                       <Typography>{item.body}</Typography>
                     </LinkButton2>
                   </Box>

@@ -1,3 +1,5 @@
+import { z } from 'zod'
+
 export interface UserGoal extends UserTask {
   stats?: UserGoalStats
   deleteCompletedTasks?: boolean

@@ -31,6 +31,7 @@ const EditDashboard = () => {
       }
     })
     return filteredWidgets
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dashboardWidgets])
 
   const handlePushChanges = (items: DashboardWidget[]) => {

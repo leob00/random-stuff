@@ -1,7 +1,4 @@
 import { Box, Button, Stack, TextField, Typography } from '@mui/material'
-import { UserTask } from 'lib/models/userTasks'
-import React from 'react'
-import DateAndTimePicker from 'components/Atoms/Inputs/DateAndTimePicker'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
 import { cloneDeep } from 'lodash'
@@ -11,12 +8,28 @@ import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import Delete from '@mui/icons-material/Delete'
 import { getUtcNow } from 'lib/util/dateUtil'
-import DateAndTimePicker2 from './ReactHookForm/DateAndTimePicker2'
+import DateAndTimePicker2 from '../../../../Molecules/Forms/ReactHookForm/DateAndTimePicker2'
+import { UserTask } from '../goalModels'
+import { useReducer, useState } from 'react'
+import { z } from 'zod'
+const TaskSchema = z.object({
+  title: z.string(),
+})
 
-const EditTaskForm = ({ task, onSubmit, onCancel, onDelete }: { task: UserTask; onSubmit: (data: UserTask) => void; onCancel: () => void; onDelete: (data: UserTask) => void }) => {
-  const [formInput, setFormInput] = React.useReducer((state: UserTask, newState: UserTask) => ({ ...state, ...newState }), task)
-  const [valid, setValid] = React.useState(true)
-  const [showConfirmDelete, setShowConfirmDelete] = React.useState(false)
+const EditTaskForm = ({
+  task,
+  onSubmit,
+  onCancel,
+  onDelete,
+}: {
+  task: UserTask
+  onSubmit: (data: UserTask) => void
+  onCancel: () => void
+  onDelete: (data: UserTask) => void
+}) => {
+  const [formInput, setFormInput] = useReducer((state: UserTask, newState: UserTask) => ({ ...state, ...newState }), task)
+  const [valid, setValid] = useState(true)
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false)
 
   const handleDueDateChange = (dt: string | null) => {
     setFormInput({ ...formInput, dueDate: dt })
@@ -40,7 +53,7 @@ const EditTaskForm = ({ task, onSubmit, onCancel, onDelete }: { task: UserTask; 
     const isValid = formInput.body !== undefined && formInput.body.trim().length > 0 && !formInput.body.includes('  ')
     setValid(isValid)
     if (isValid) {
-      const data = cloneDeep(formInput)
+      const data = { ...formInput }
       setFormInput({ ...formInput, id: undefined, body: undefined })
       onSubmit(data)
     } else {
@@ -63,15 +76,35 @@ const EditTaskForm = ({ task, onSubmit, onCancel, onDelete }: { task: UserTask; 
           <FormTextBox width={'100%'} defaultValue={formInput.body ?? ''} label={'task'} onChanged={handleTitleChanged} error={!valid} />
         </Box>
         <Box py={2}>
-          <DateAndTimePicker2 value={formInput.dueDate ? dayjs(formInput.dueDate).format() : undefined} onDateSelected={handleDueDateChange} label={'due date'} />
+          <DateAndTimePicker2
+            value={formInput.dueDate ? dayjs(formInput.dueDate).format() : undefined}
+            onDateSelected={handleDueDateChange}
+            label={'due date'}
+          />
         </Box>
         <Box py={2}>
-          <TextField label='notes' placeholder='notes...' multiline sx={{ width: '100%' }} defaultValue={formInput.notes} onChange={handleNoteChange} inputProps={{ maxLength: 500 }} />
+          <TextField
+            label='notes'
+            placeholder='notes...'
+            multiline
+            sx={{ width: '100%' }}
+            defaultValue={formInput.notes}
+            onChange={handleNoteChange}
+            slotProps={{
+              input: {
+                autoCorrect: 'off',
+              },
+            }}
+          />
         </Box>
         <Box py={2}>
           <Stack direction={'row'} display={'flex'} justifyContent={'left'} alignItems={'center'}>
-            <SecondaryCheckbox checked={formInput.status != undefined && formInput.status === 'completed'} onChanged={handleCompletedChecked} />
-            {formInput.dateCompleted ? <Typography variant='body2'>{`completed: ${dayjs(formInput.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography> : <Typography variant='body2'>complete</Typography>}
+            {/* <SecondaryCheckbox checked={formInput.status != undefined && formInput.status === 'completed'} onChanged={handleCompletedChecked} /> */}
+            {/* {formInput.dateCompleted ? (
+              <Typography variant='body2'>{`completed: ${dayjs(formInput.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography>
+            ) : (
+              <Typography variant='body2'>complete</Typography>
+            )} */}
           </Stack>
         </Box>
         <Box py={2}>
@@ -80,7 +113,8 @@ const EditTaskForm = ({ task, onSubmit, onCancel, onDelete }: { task: UserTask; 
               size='small'
               onClick={() => {
                 setShowConfirmDelete(true)
-              }}>
+              }}
+            >
               <Delete color='error' />
             </Button>
             <PassiveButton text='cancel' size='small' onClick={handleCancelClick} />

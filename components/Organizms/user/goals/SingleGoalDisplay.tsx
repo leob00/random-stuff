@@ -7,12 +7,10 @@ import dayjs from 'dayjs'
 import { constructUserGoalsKey } from 'lib/backend/api/aws/util'
 import { getUserGoals, putUserGoals, putUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
 import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
-import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { replaceItemInArray } from 'lib/util/collections'
 import { getSecondsFromEpoch } from 'lib/util/dateUtil'
 import { calculatePercentInt } from 'lib/util/numberUtil'
 import { filter, orderBy } from 'lodash'
-import React from 'react'
 import TaskList from './TaskList'
 import { reorderTasks } from './UserGoalsLayout'
 import { ListItemIcon, ListItemText } from '@mui/material'
@@ -23,7 +21,8 @@ import EditGoal from './EditGoal'
 import GoalStats from './GoalStats'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
-import GoalProgressBar from './GoalProgressBar'
+import { UserGoal, UserTask } from './goalModels'
+import { useState } from 'react'
 
 const SingleGoalDisplay = ({
   username,
@@ -38,9 +37,9 @@ const SingleGoalDisplay = ({
   onMutated: (goal: UserGoal, tasks: UserTask[]) => void
   onAddTask?: () => void
 }) => {
-  const [goalEditMode, setGoalEditMode] = React.useState(false)
-  const [showDeleteGoalConfirm, setShowDeleteGoalConfirm] = React.useState(false)
-  const [isSaving, setIsSaving] = React.useState(false)
+  const [goalEditMode, setGoalEditMode] = useState(false)
+  const [showDeleteGoalConfirm, setShowDeleteGoalConfirm] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
   const router = useRouter()
 
   const displayTasks = goal.deleteCompletedTasks ? [...tasks].filter((m) => m.status !== 'completed') : [...tasks]

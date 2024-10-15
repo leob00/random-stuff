@@ -1,12 +1,11 @@
 import { Box, Stack, Switch, Typography, useTheme } from '@mui/material'
 import LinkButton2 from 'components/Atoms/Buttons/LinkButton2'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
 import ListItemContainer from 'components/Molecules/Lists/ListItemContainer'
 import { CasinoRedTransparent, RedDarkMode } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
-import { UserTask } from 'lib/models/userTasks'
-import React from 'react'
+import { UserTask } from './goalModels'
+import { useState } from 'react'
 
 const TaskItem = ({
   task,
@@ -23,7 +22,7 @@ const TaskItem = ({
 }) => {
   const theme = useTheme()
   const redColor = theme.palette.mode === 'dark' ? RedDarkMode : CasinoRedTransparent
-  const [isCompleted, setIsCompleted] = React.useState(task.status === 'completed')
+  const [isCompleted, setIsCompleted] = useState(task.status === 'completed')
 
   const handleChecked = (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
     setIsCompleted(checked)

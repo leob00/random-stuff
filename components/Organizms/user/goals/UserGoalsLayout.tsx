@@ -1,8 +1,6 @@
 import { constructUserGoalsKey } from 'lib/backend/api/aws/util'
 import { getRecord, searchRecords } from 'lib/backend/csr/nextApiWrapper'
-import { UserGoal, UserTask } from 'lib/models/userTasks'
 import { filter, orderBy } from 'lodash'
-import React from 'react'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UserGoalsDisplay from './UserGoalsDisplay'
@@ -11,6 +9,7 @@ import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { useUserController } from 'hooks/userController'
 import { mutate } from 'swr'
+import { UserGoal, UserTask } from './goalModels'
 
 export interface UserGoalAndTask {
   goal: UserGoal

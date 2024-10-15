@@ -6,10 +6,8 @@ import dayjs from 'dayjs'
 import { constructUserGoalPk, constructUserGoalsKey } from 'lib/backend/api/aws/util'
 import { putUserGoals } from 'lib/backend/csr/nextApiWrapper'
 import { getGoalStats } from 'lib/backend/userGoals/userGoalUtil'
-import { UserGoal } from 'lib/models/userTasks'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { orderBy } from 'lodash'
-import React from 'react'
 import { UserGoalAndTask } from './UserGoalsLayout'
 import { BarChart } from 'components/Molecules/Charts/barChartOptions'
 import router from 'next/router'
@@ -21,11 +19,13 @@ import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import UserGoalsList from './UserGoalsList'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import { DropdownItem } from 'lib/models/dropdown'
+import { useState } from 'react'
+import { UserGoal } from './goalModels'
 
 const UserGoalsDisplay = ({ goalsAndTasks, username, onRefresh }: { goalsAndTasks: UserGoalAndTask[]; username: string; onRefresh: () => void }) => {
-  const [summaryChart, setSummaryChart] = React.useState<BarChart | undefined>(undefined)
-  const [showAddGoalForm, setShowAddGoalForm] = React.useState(false)
-  const [searchWithinList, setSearchWithinList] = React.useState('')
+  const [summaryChart, setSummaryChart] = useState<BarChart | undefined>(undefined)
+  const [showAddGoalForm, setShowAddGoalForm] = useState(false)
+  const [searchWithinList, setSearchWithinList] = useState('')
   const allGoals = goalsAndTasks.flatMap((m) => m.goal)
   const goalsKey = constructUserGoalsKey(username)
 

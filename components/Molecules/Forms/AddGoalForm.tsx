@@ -1,13 +1,13 @@
 import { Stack } from '@mui/material'
-import { UserGoal } from 'lib/models/userTasks'
-import React from 'react'
 import DateAndTimePicker from 'components/Atoms/Inputs/DateAndTimePicker'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
+import { UserGoal } from 'components/Organizms/user/goals/goalModels'
+import { useReducer, useState } from 'react'
 
 const EditGoalForm = ({ goal, onSubmit }: { goal: UserGoal; onSubmit: (data: UserGoal) => void }) => {
-  const [formInput, setFormInput] = React.useReducer((state: UserGoal, newState: UserGoal) => ({ ...state, ...newState }), goal)
-  const [valid, setValid] = React.useState(true)
+  const [formInput, setFormInput] = useReducer((state: UserGoal, newState: UserGoal) => ({ ...state, ...newState }), goal)
+  const [valid, setValid] = useState(true)
 
   const handleDueDateChange = (dt?: string) => {
     setFormInput({ ...formInput, dueDate: dt })

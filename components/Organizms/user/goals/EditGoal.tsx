@@ -1,13 +1,13 @@
 import { Box, Stack, Typography } from '@mui/material'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import { UserGoal } from 'lib/models/userTasks'
-import React from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { ControlledFreeTextInput } from 'components/Molecules/Forms/ReactHookForm/ControlledFreeTextInput'
 import ControlledSwitch from 'components/Molecules/Forms/ReactHookForm/ControlledSwitch'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import DateAndTimePicker2 from 'components/Molecules/Forms/ReactHookForm/DateAndTimePicker2'
+import { UserGoal } from './goalModels'
+import { useReducer } from 'react'
 
 interface Model {
   goal: UserGoal
@@ -45,7 +45,7 @@ const EditGoal = ({
     onSaveGoal(newGoal)
   }
 
-  const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), {
+  const [model, setModel] = useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), {
     goal: goal,
     isSaving: false,
   })
