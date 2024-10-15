@@ -12,8 +12,9 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
 
-const StockMarketGlance = ({ showTitle = true }: { showTitle?: boolean }) => {
+const StockMarketGlance = ({ showTitle = true, componentLoader = false }: { showTitle?: boolean; componentLoader?: boolean }) => {
   const config = apiConnection().qln
   const apiUrl = `${config.url}/MarketHandshake?loadSentiment=true`
   const dataFn = async () => {
@@ -25,7 +26,8 @@ const StockMarketGlance = ({ showTitle = true }: { showTitle?: boolean }) => {
     <Box>
       <Box>
         {showTitle && <CenteredHeader variant='h4' title={'Stock Market Sentiment'} />}
-        {isLoading && <BackdropLoader />}
+        {isLoading && <>{componentLoader ? <CircleLoader /> : <BackdropLoader />}</>}
+
         {data ? (
           <>
             <StockMarketStatsChart data={data.StockStats} />

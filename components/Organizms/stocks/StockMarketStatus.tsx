@@ -9,9 +9,9 @@ const StockMarketStatus = ({ data }: { data: MarketHandshake }) => {
       <CenterStack>
         <Typography variant='caption'>{`${data.IsOpen ? 'U.S markets are open' : 'U.S markets are closed'}`}</Typography>
       </CenterStack>
-      <CenterStack>
-        <Typography variant='caption'>{`${data.MarketsOpenClosedMessage}`}</Typography>
-      </CenterStack>
+      <Box display={'flex'} justifyContent={'center'}>
+        <Typography textAlign={'center'} variant='caption'>{`${data.MarketsOpenClosedMessage}`}</Typography>
+      </Box>
     </Box>
   )
 }

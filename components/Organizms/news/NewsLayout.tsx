@@ -1,7 +1,7 @@
 import { Box, Stack } from '@mui/material'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import { useUserController } from 'hooks/userController'
-import { NewsItem, NewsTypeIds, newsTypes } from 'lib/backend/api/qln/qlnApi'
+import { NewsItem, NewsTypeIds, newsTypes, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import { orderBy } from 'lodash'
 import { get } from 'lib/backend/api/fetchFunctions'
 import NewsList from './NewsList'
@@ -13,6 +13,7 @@ import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import { useState } from 'react'
+import { useSwrHelper } from 'hooks/useSwrHelper'
 
 const NewsLayout = ({
   componentLoader = false,
@@ -26,9 +27,15 @@ const NewsLayout = ({
   const userController = useUserController()
   const defaultSource: NewsTypeIds = (userController.authProfile?.settings?.news?.lastNewsType as NewsTypeIds) ?? 'GoogleTopStories'
   const [selectedSource, setSelectedSource] = useState<NewsTypeIds>(defaultSource)
+  const [error, setError] = useState<string | null>(null)
 
-  const fetchWithId = async (url: string, id: string) => {
-    const result = (await get(`${url}?id=${id}`)) as NewsItem[]
+  const mutateKey = `news-${selectedSource}`
+
+  const dataFn = async () => {
+    setError(null)
+    const endPoint = `/NewsBySource?type=${defaultSource}`
+    const response = await serverGetFetch(endPoint)
+    const result = response.Body as NewsItem[]
     const sorted = orderBy(result, ['PublishDate'], ['desc'])
     try {
       if (userController.authProfile) {
@@ -42,12 +49,14 @@ const NewsLayout = ({
         })
       }
     } catch (err) {
+      setError('Oops! Encountered an error. Please try again.')
       console.error(err)
     }
     return sorted
   }
 
-  const { data, isLoading, error } = useSWR(['/api/news', selectedSource], ([url, id]) => fetchWithId(url, id), { revalidateOnFocus: false })
+  // const { data, isLoading, error } = useSWR(['/api/news', selectedSource], ([url, id]) => fetchWithId(url, id), { revalidateOnFocus: false })
+  const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   const scroller = useScrollTop(0)
 
   const saveProfileNewsType = async (newstype: NewsTypeIds) => {
@@ -74,7 +83,7 @@ const NewsLayout = ({
     <>
       {allowSelectType && (
         <Box py={2}>
-          <Stack display='flex' flexDirection='row' justifyContent={'center'}>
+          <Stack display='flex' flexDirection='row' justifyContent={'center'} px={2}>
             <StaticAutoComplete
               options={newsTypes}
               placeholder='select source'
@@ -88,18 +97,18 @@ const NewsLayout = ({
           </Stack>
         </Box>
       )}
-      <Box>
+      <Stack>
         {isLoading ? (
           <>{componentLoader ? <CircleLoader /> : <BackdropLoader />}</>
         ) : (
           <>
             {error && <ErrorMessage text='There is an error that occurred. We have been made aware of it. Please try again in a few minutes.' />}
-            <ScrollableBox maxHeight={600} scroller={scroller}>
+            <ScrollableBox maxHeight={505} scroller={scroller}>
               {data && <NewsList newsItems={data} />}
             </ScrollableBox>
           </>
         )}
-      </Box>
+      </Stack>
     </>
   )
 }

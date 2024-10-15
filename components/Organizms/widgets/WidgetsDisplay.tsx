@@ -3,7 +3,7 @@ import { DashboardWidget } from '../dashboard/dashboardModel'
 import StockMarketGlance from '../stocks/StockMarketGlance'
 import DelayedComponentRender from './DelayedComponentRender'
 import NewsLayout from '../news/NewsLayout'
-import { Box, Paper, Typography } from '@mui/material'
+import { Box, Paper, Stack, Typography } from '@mui/material'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import { CasinoBlackTransparent, CasinoBlueTransparent, DarkModeBkg } from 'components/themes/mainTheme'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
@@ -19,21 +19,21 @@ const WidgetsDisplay = ({ widgets }: { widgets: DashboardWidget[] }) => {
             </Paper>
             <DelayedComponentRender key={item.id} delayMs={item.waitToRenderMs}>
               <ScrollableBox maxHeight={600}>
-                <StockMarketGlance showTitle={false} />
+                <StockMarketGlance showTitle={false} componentLoader />
               </ScrollableBox>
             </DelayedComponentRender>
           </>
         )
       case 'news':
         return (
-          <>
+          <Box>
             <Paper elevation={3}>
               <CenteredHeader variant='h4' title={'News'} />
             </Paper>
             <DelayedComponentRender key={item.id} delayMs={item.waitToRenderMs}>
-              <NewsLayout allowSelectType={false} />
+              <NewsLayout allowSelectType={true} componentLoader />
             </DelayedComponentRender>
-          </>
+          </Box>
         )
     }
   }

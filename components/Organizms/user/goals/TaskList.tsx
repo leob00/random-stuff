@@ -107,7 +107,6 @@ const TaskList = ({
   }
 
   const handleCompleteTaskClick = async (checked: boolean, item: UserTask) => {
-    //setModel({ ...model, isLoading: true })
     const itemCopy = { ...item }
     itemCopy.status = checked ? 'completed' : 'in progress'
     const fn = async () => {

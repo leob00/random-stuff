@@ -223,21 +223,6 @@ export interface SymbolCompany {
   Company: string
 }
 
-export async function getNewsBySource(id: NewsTypeIds) {
-  let params = {
-    type: id,
-  }
-  let resp = (await get(`${qlnApiBaseUrl}/NewsBySource`, params)).Body as NewsItem[]
-  return resp
-}
-export async function getNewsBySymbol(symbol: string) {
-  let params = {
-    symbol: symbol,
-  }
-  let resp = (await get(`${qlnApiBaseUrl}/NewsBySymbol`, params)).Body as NewsItem[]
-  return resp
-}
-
 export async function searchStockQuotes(search: string) {
   const response = await get(`${qlnApiBaseUrl}/StocksAutoComplete`, {
     searchString: search ?? '',

@@ -1,7 +1,6 @@
 import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 import { Box } from '@mui/material'
-import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
-import { ReactNode, useEffect, useRef, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 
 const DelayedComponentRender = ({ delayMs, children }: { delayMs: number; children: ReactNode | ReactJSXElement[] }) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -15,7 +14,7 @@ const DelayedComponentRender = ({ delayMs, children }: { delayMs: number; childr
 
   return (
     <Box>
-      {isLoading && <CircleLoader />}
+      {/* {isLoading && <CircleLoader />} */}
       {!isLoading && <Box>{children}</Box>}
     </Box>
   )
