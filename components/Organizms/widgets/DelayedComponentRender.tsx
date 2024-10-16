@@ -8,7 +8,7 @@ const DelayedComponentRender = ({ delayMs, children }: { delayMs: number; childr
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false)
-      console.log('rendered in: ', delayMs)
+      //console.log('rendered in: ', delayMs)
     }, delayMs)
   }, [delayMs])
 
