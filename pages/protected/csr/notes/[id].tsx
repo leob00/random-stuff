@@ -34,8 +34,6 @@ const Page = () => {
   }
   const { data, isLoading } = useSwrHelper(id, dataFn, { revalidateOnFocus: false })
 
-  //console.log('authProfileContext: ', authProfileContext)
-
   return (
     <>
       {isLoading && <BackdropLoader />}

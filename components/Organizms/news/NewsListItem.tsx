@@ -57,7 +57,7 @@ const NewsListItem = ({
                 username={userProfile.username}
                 note={{
                   title: item.Headline!,
-                  body: `<p style='text-align:center;'><a href='${item.Link}' target='_blank'>view article<a/></p>`,
+                  body: `<div style='margin: auto;'><p style='text-align:center;'><a href='${item.Link}' target='_blank'>view article<a/></p><div>`,
                   dateCreated: getUtcNow().format(),
                   dateModified: getUtcNow().format(),
                   expirationDate: getUtcNow().add(3, 'day').format(),

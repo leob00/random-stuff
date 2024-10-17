@@ -40,7 +40,6 @@ export async function putUserNote(item: UserNote, secondaryKey: string, expirati
     expiration: expiration,
     token: weakEncrypt(`${item.id}`),
   }
-  console.log(req)
   const putRequest: SignedRequest = {
     data: encryptBody(req),
   }

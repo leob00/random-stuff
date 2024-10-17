@@ -53,13 +53,15 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
   return (
     <Box sx={{ py: 2 }}>
       <Box>
+        <Box display={'flex'} justifyContent={'flex-start'}>
+          <Box pb={2}>
+            <PrimaryButton text='add note' size='small' onClick={onAddNote} />
+          </Box>
+        </Box>
         <Box sx={{ pb: 2 }} display={'flex'} justifyContent={'space-between'} alignItems={'center'} gap={2}>
           {/* <SearchWithinList text={`search ${numeral(data.length).format('###,###')} notes`} onChanged={handleSearched} /> */}
           <Box flexGrow={1}>
-            <StaticAutoComplete options={notesSearch} onSelected={handleSearchSelected} fullWidth />
-          </Box>
-          <Box>
-            <PrimaryButton text='add note' size='small' onClick={onAddNote} />
+            <StaticAutoComplete placeholder={`search in ${notesSearch.length} notes`} options={notesSearch} onSelected={handleSearchSelected} fullWidth />
           </Box>
         </Box>
         <HorizontalDivider />

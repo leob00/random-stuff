@@ -125,10 +125,13 @@ export async function putRandomStuffEnc(req: SignedRequest) {
     body: model,
   }
   try {
-    await post(url, postData)
+    const result = await post(url, postData)
+    if (result.errorMessage) {
+      console.error(result)
+    }
     return dynamoRequest
   } catch (error) {
-    console.error('error in putRandomStuff')
+    console.error(`error in putRandomStuffEnc: ${error}`)
     return null
   }
 }

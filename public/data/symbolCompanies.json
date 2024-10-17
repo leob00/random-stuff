@@ -5976,6 +5976,10 @@
     "Symbol": "BTG"
   },
   {
+    "Company": "STKD Bitcoin & Gold ETF",
+    "Symbol": "BTGD"
+  },
+  {
     "Company": "BlackRock Future U.S. Themes ETF",
     "Symbol": "BTHM"
   },
@@ -11900,7 +11904,7 @@
     "Symbol": "EET"
   },
   {
-    "Company": "ProShares Ether ETF",
+    "Company": "ProShares Ether Strategy ETF",
     "Symbol": "EETH"
   },
   {
@@ -18428,7 +18432,7 @@
     "Symbol": "HFWA"
   },
   {
-    "Company": "NYLI FTSE International Equity Currency Neutral ETF",
+    "Company": "IQ FTSE International Equity Currency Neutral ETF",
     "Symbol": "HFXI"
   },
   {
@@ -20438,6 +20442,14 @@
   {
     "Company": "iShares Lithium Miners and Producers ETF",
     "Symbol": "ILIT"
+  },
+  {
+    "Company": "Triller Group Inc. Common Stock",
+    "Symbol": "ILLR"
+  },
+  {
+    "Company": "Triller Group Inc. Warrant",
+    "Symbol": "ILLRW"
   },
   {
     "Company": "Illumina Inc",
@@ -23038,6 +23050,10 @@
   {
     "Company": "Kinder Morgan, Inc.",
     "Symbol": "KMI"
+  },
+  {
+    "Company": "Virtus KAR Mid-Cap ETF",
+    "Symbol": "KMID"
   },
   {
     "Company": "KraneShares Mount Lucas Managed Futures Index Strategy ETF",
@@ -30768,6 +30784,10 @@
     "Symbol": "PEN"
   },
   {
+    "Company": "Penguin Solutions, Inc. Ordinary Shares",
+    "Symbol": "PENG"
+  },
+  {
     "Company": "PENN Entertainment, Inc. Common Stock",
     "Symbol": "PENN"
   },
@@ -31728,7 +31748,7 @@
     "Symbol": "PPH"
   },
   {
-    "Company": "AXS Astoria Inflation Sensitive ETF",
+    "Company": "AXS Astoria Real Assets ETF",
     "Symbol": "PPI"
   },
   {
@@ -32338,6 +32358,10 @@
   {
     "Company": "Pacer Trendpilot US Large Cap ETF",
     "Symbol": "PTLC"
+  },
+  {
+    "Company": "PTL LTD Ordinary Shares",
+    "Symbol": "PTLE"
   },
   {
     "Company": "Portillo's Inc. Class A Common Stock",
@@ -35746,6 +35770,10 @@
   {
     "Company": "FT Vest U.S. Small Cap Moderate Buffer ETF - February",
     "Symbol": "SFEB"
+  },
+  {
+    "Company": "Samfine Creation Holdings Group Limited Ordinary Share",
+    "Symbol": "SFHG"
   },
   {
     "Company": "WisdomTree U.S. Short Term Corporate Bond Fund",
