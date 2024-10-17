@@ -7,10 +7,12 @@ import SavedNoteButtonLink from './SavedNoteButtonLink'
 import { getUtcNow } from 'lib/util/dateUtil'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import { useState } from 'react'
+import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 
 const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note: UserNote; onSaved: (note: UserNote) => void }) => {
   const [saving, setSaving] = useState(false)
   const [saved, setIsSaved] = useState(false)
+  const [noteUrl, setNoteUrl] = useState<string | null>(null)
 
   const handleClick = async () => {
     setSaving(true)
@@ -25,6 +27,7 @@ const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note
     item.expirationDate = expireDt.format()
     await putUserNote(item, constructUserNoteCategoryKey(username), expireSeconds)
     setIsSaved(true)
+    setNoteUrl(`/protected/csr/notes/${encodeURIComponent(weakEncrypt(item.id!))}`)
     onSaved(item)
   }
 
@@ -38,7 +41,7 @@ const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note
         </Stack>
       ) : (
         <Stack fontSize={'small'} justifyContent={'center'} flexDirection={'row'}>
-          <SavedNoteButtonLink />
+          <SavedNoteButtonLink noteRoute={noteUrl} />
         </Stack>
       )}
     </>

@@ -37,16 +37,14 @@ const StockMarketGlance = ({
 
         {data ? (
           <Box>
+            <CenterStack sx={{ mt: -2 }}>
+              <Typography variant='body2'>{`${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} EST`}</Typography>
+            </CenterStack>
             <StockMarketStatsChart data={data.StockStats} />
             <Box>
               <StockMarketStatus data={data} />
             </Box>
-            <CenterStack sx={{ my: 2 }}>
-              <Typography
-                variant='caption'
-                sx={{ fontSize: 10 }}
-              >{`data as of: ${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} (ET)`}</Typography>
-            </CenterStack>
+
             <CenterStack>
               <SiteLink text='sentiment report' href={'/csr/stocks/sentiment'} />
             </CenterStack>

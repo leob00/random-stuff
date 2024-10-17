@@ -57,7 +57,7 @@ const NewsListItem = ({
                 username={userProfile.username}
                 note={{
                   title: item.Headline!,
-                  body: `<div style='margin: auto;'><p style='text-align:center;'><a href='${item.Link}' target='_blank'>view article<a/></p><div>`,
+                  body: `<div><p></p><div style='padding: 20px display: flex; justify-content: center; text-align:center;'><a href='${item.Link}' target='_blank'>view article<a/></div></div>`,
                   dateCreated: getUtcNow().format(),
                   dateModified: getUtcNow().format(),
                   expirationDate: getUtcNow().add(3, 'day').format(),
@@ -65,7 +65,7 @@ const NewsListItem = ({
                 onSaved={handleSaved}
               />
             ) : (
-              <SavedNoteButtonLink />
+              <SavedNoteButtonLink noteRoute={null} />
             )}
           </Box>
         </Box>

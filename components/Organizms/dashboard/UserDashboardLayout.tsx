@@ -4,7 +4,7 @@ import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import { useRouter } from 'next/navigation'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import WidgetsDisplay from '../widgets/WidgetsDisplay'
-import { allWidgets } from '../dashboard/EditDashboard'
+import { allWidgets } from './EditDashboard'
 
 const UserDashboardLayout = () => {
   const router = useRouter()

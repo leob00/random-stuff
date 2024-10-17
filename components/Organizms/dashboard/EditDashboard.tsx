@@ -4,24 +4,12 @@ import DraggableList from './DraggableList'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import { useMemo } from 'react'
 
-export const allWidgets: DashboardWidget[] = [
-  {
-    id: 'stock-market-sentiment',
-    waitToRenderMs: 0,
-    title: 'stock market sentiment',
-    display: true,
-  },
-  {
-    id: 'news',
-    waitToRenderMs: 400,
-    title: 'news',
-    display: false,
-  },
-]
-
 const EditDashboard = () => {
   const { dashboardWidgets, saveDashboardWidgets } = useLocalStore()
   const allAvailabe = [...allWidgets]
+
+  const visible = dashboardWidgets.filter((m) => m.display)
+  //const hidden =
 
   const filtered = useMemo(() => {
     const filteredWidgets = [...dashboardWidgets]
@@ -40,7 +28,7 @@ const EditDashboard = () => {
     const hiddenWidgets = list.filter((m) => !m.display)
 
     visibleWidgets.forEach((m, index) => {
-      m.waitToRenderMs = index * 750
+      m.waitToRenderMs = (index + 1) * 750
     })
     hiddenWidgets.forEach((m) => {
       m.waitToRenderMs = 0
@@ -55,5 +43,20 @@ const EditDashboard = () => {
     </Box>
   )
 }
+
+export const allWidgets: DashboardWidget[] = [
+  {
+    id: 'stock-market-sentiment',
+    waitToRenderMs: 0,
+    title: 'stock market sentiment',
+    display: true,
+  },
+  {
+    id: 'news',
+    waitToRenderMs: 400,
+    title: 'news',
+    display: false,
+  },
+]
 
 export default EditDashboard

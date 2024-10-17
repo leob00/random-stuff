@@ -1,5 +1,5 @@
 import { DashboardWidget } from '../dashboard/dashboardModel'
-import { Box } from '@mui/material'
+import { Box, Paper } from '@mui/material'
 import RenderWidget from './RenderWidget'
 
 const WidgetsDisplay = ({ widgets }: { widgets: DashboardWidget[] }) => {
@@ -8,7 +8,7 @@ const WidgetsDisplay = ({ widgets }: { widgets: DashboardWidget[] }) => {
       {widgets.length > 1 ? (
         <Box display={'flex'} justifyContent={'flex-start'} flexDirection={{ xs: 'column', sm: 'row' }}>
           {widgets.map((item) => (
-            <Box key={item.id} px={1} minHeight={500}>
+            <Box key={item.id} px={1} minHeight={900}>
               <RenderWidget item={item} />
             </Box>
           ))}
@@ -17,10 +17,8 @@ const WidgetsDisplay = ({ widgets }: { widgets: DashboardWidget[] }) => {
         <>
           {widgets.length === 1 && (
             <Box display={'flex'} justifyContent={'center'}>
-              <Box key={widgets[0].id} px={1} minHeight={500}>
-                <Box>
-                  <RenderWidget item={widgets[0]} />
-                </Box>
+              <Box key={widgets[0].id} px={1} minHeight={900}>
+                <RenderWidget item={widgets[0]} />
               </Box>
             </Box>
           )}
