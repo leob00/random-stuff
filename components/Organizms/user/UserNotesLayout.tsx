@@ -5,7 +5,6 @@ import useSWR from 'swr'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UserNotesDisplay from './UserNotesDisplay'
-import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { useUserProfileContext } from 'lib/ui/auth/UserProfileContext'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 

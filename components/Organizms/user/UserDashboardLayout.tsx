@@ -25,7 +25,7 @@ const UserDashboardLayout = () => {
 
   return (
     <Box>
-      <Box display={'flex'} justifyContent={'flex-end'}>
+      <Box display={'flex'} justifyContent={'flex-end'} pb={1}>
         <ContextMenu items={menu} />
       </Box>
       <WidgetsDisplay widgets={widgets} />

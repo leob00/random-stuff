@@ -63,6 +63,7 @@ const JobsLayout = () => {
 
   const handleCloseDetail = () => {
     setSelectedItem(null)
+    start()
   }
   useEffect(() => {
     if (!error) {

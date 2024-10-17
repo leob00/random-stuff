@@ -3,19 +3,20 @@ import { DashboardWidget } from '../dashboard/dashboardModel'
 import WidgetWrapper from './WidgetWrapper'
 import StockMarketGlance from '../stocks/StockMarketGlance'
 import NewsLayout from '../news/NewsLayout'
+import { Box } from '@mui/material'
 
 const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidget; revalidateOnFocus?: boolean }) => {
   return (
     <>
-      <>
-        {item.id === 'news' && (
+      {item.id === 'news' && (
+        <Box minWidth={{ xs: 300, sm: 600, md: 800 }}>
           <WidgetWrapper id={item.id} header={'News'} delayMs={item.waitToRenderMs}>
             <ScrollableBox maxHeight={590}>
               <NewsLayout componentLoader revalidateOnFocus={revalidateOnFocus} />
             </ScrollableBox>
           </WidgetWrapper>
-        )}
-      </>
+        </Box>
+      )}
       {item.id === 'stock-market-sentiment' && (
         <WidgetWrapper id={item.id} header={'Stock Sentiment'} delayMs={item.waitToRenderMs}>
           <ScrollableBox maxHeight={590}>

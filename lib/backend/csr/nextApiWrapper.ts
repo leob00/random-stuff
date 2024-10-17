@@ -40,6 +40,7 @@ export async function putUserNote(item: UserNote, secondaryKey: string, expirati
     expiration: expiration,
     token: weakEncrypt(`${item.id}`),
   }
+  console.log(req)
   const putRequest: SignedRequest = {
     data: encryptBody(req),
   }
@@ -185,14 +186,8 @@ export async function getUserNoteTitles(username: string) {
 
   try {
     const body = encryptKey(key)
-    const data = (await post(`/api/getRandomStuffEnc`, body)) as UserNote[] | null
-
-    if (data) {
-      const parsed = data.filter((e) => {
-        return !e.expirationDate || dayjs(e.expirationDate).isAfter(getUtcNow())
-      })
-      return parsed
-    }
+    const resp = (await post(`/api/getRandomStuffEnc`, body)) as UserNote[] | null
+    return resp ?? []
   } catch (err) {
     console.error(err)
   }

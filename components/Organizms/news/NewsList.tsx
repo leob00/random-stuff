@@ -6,6 +6,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import { useUserController } from 'hooks/userController'
 import { NewsItem, NewsTypeIds } from 'lib/backend/api/qln/qlnApi'
 import NewsListItem from './NewsListItem'
+import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 
 dayjs.extend(relativeTime)
 
@@ -33,7 +34,7 @@ const NewsList = ({
   hideSaveButton?: boolean
   showPublishDate?: boolean
 }) => {
-  const { ticket } = useUserController()
+  const { userProfile } = useProfileValidator()
   const theme = useTheme()
   const isSmallDevice = useMediaQuery(theme.breakpoints.down('sm'))
 
@@ -42,7 +43,13 @@ const NewsList = ({
       {newsItems.length > 0 ? (
         newsItems.map((item, i) => (
           <Box key={`${item.Headline}${item.PublishDate}`} pb={2}>
-            <NewsListItem ticket={ticket} item={item} hideSaveButton={hideSaveButton} showPublishDate={showPublishDate} isSmallDevice={isSmallDevice} />
+            <NewsListItem
+              userProfile={userProfile}
+              item={item}
+              hideSaveButton={hideSaveButton}
+              showPublishDate={showPublishDate}
+              isSmallDevice={isSmallDevice}
+            />
             <HorizontalDivider />
           </Box>
         ))

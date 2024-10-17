@@ -7,21 +7,19 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import { deleteRecord, getUserNoteTitles, putUserNote, putUserNoteTitles } from 'lib/backend/csr/nextApiWrapper'
 import { getUtcNow } from 'lib/util/dateUtil'
-import { useUserController } from 'hooks/userController'
 import { constructUserNoteCategoryKey, constructUserNotePrimaryKey } from 'lib/backend/api/aws/util'
 import { mutate } from 'swr'
 import dayjs from 'dayjs'
-import { useUserProfileContext } from 'lib/ui/auth/UserProfileContext'
+import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 
 const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: UserNote; isEdit: boolean; backRoute: string }) => {
   const router = useRouter()
   const [showSavedToast, setShowSavedToast] = useState(false)
   const [isWaiting, setIsWaiting] = useState(false)
   const [editMode, setEditMode] = useState(isEdit)
-  const userAuth = useUserProfileContext()
 
-  const { authProfile } = useUserController()
-  const username = userAuth.userProfile?.username ?? ''
+  const { userProfile } = useProfileValidator()
+  const username = userProfile?.username ?? ''
 
   const handleCancel = () => {
     router.push(backRoute)
@@ -35,8 +33,8 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
       return
     }
     setIsWaiting(true)
-    deleteRecord(item.id!)
-    const titles = await getUserNoteTitles(authProfile!.username)
+    await deleteRecord(item.id!)
+    const titles = await getUserNoteTitles(username)
     const newTitles = titles.filter((m) => m.id !== item.id)
     await putUserNoteTitles(username, newTitles)
     router.push(backRoute)
@@ -50,7 +48,7 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
     }
 
     putUserNote(item, constructUserNoteCategoryKey(username), item.expirationDate ? Math.floor(dayjs(item.expirationDate).valueOf() / 1000) : undefined)
-    const titles = (await getUserNoteTitles(authProfile!.username)).filter((m) => m.id !== item.id)
+    const titles = (await getUserNoteTitles(userProfile?.username ?? '')).filter((m) => m.id !== item.id)
     titles.unshift({
       id: item.id,
       title: item.title,

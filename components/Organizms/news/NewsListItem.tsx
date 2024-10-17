@@ -8,19 +8,19 @@ import CenterStack from 'components/Atoms/CenterStack'
 import { UserController } from 'hooks/userController'
 import SaveToNotesButton from 'components/Molecules/Buttons/SaveToNotesButton'
 import { getUtcNow } from 'lib/util/dateUtil'
-import { UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { UserNote, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import SavedNoteButtonLink from 'components/Molecules/Buttons/SavedNoteButtonLink'
 import { AmplifyUser } from 'lib/backend/auth/userUtil'
 import NewsListItemMobile from './NewsListItemMobile'
 
 const NewsListItem = ({
-  ticket,
+  userProfile,
   item,
   showPublishDate,
   hideSaveButton,
   isSmallDevice,
 }: {
-  ticket: AmplifyUser | null
+  userProfile: UserProfile | null
   item: NewsItem
   showPublishDate?: boolean
   hideSaveButton: boolean
@@ -49,15 +49,15 @@ const NewsListItem = ({
           </CenterStack>
         </>
       )}
-      {ticket && !hideSaveButton && (
+      {userProfile && !hideSaveButton && (
         <Box>
           <Box display={'flex'} justifyContent={'flex-end'} py={2} pr={2}>
             {!item.Saved ? (
               <SaveToNotesButton
-                username={ticket.email}
+                username={userProfile.username}
                 note={{
                   title: item.Headline!,
-                  body: `${item.Description} <p style='text-align:center;'><a href='${item.Link}' target='_blank'>link<a/></p>`,
+                  body: `<p style='text-align:center;'><a href='${item.Link}' target='_blank'>view article<a/></p>`,
                   dateCreated: getUtcNow().format(),
                   dateModified: getUtcNow().format(),
                   expirationDate: getUtcNow().add(3, 'day').format(),

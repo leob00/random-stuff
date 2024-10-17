@@ -3,21 +3,19 @@ import { constructUserNoteCategoryKey, constructUserNotePrimaryKey } from 'lib/b
 import { getUserNoteTitles, putUserNote, putUserNoteTitles } from 'lib/backend/csr/nextApiWrapper'
 import { UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { orderBy } from 'lodash'
-import React from 'react'
 import SavedNoteButtonLink from './SavedNoteButtonLink'
 import { getUtcNow } from 'lib/util/dateUtil'
-import RollingLinearProgress from 'components/Atoms/Loaders/RollingLinearProgress'
-import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import { useState } from 'react'
 
 const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note: UserNote; onSaved: (note: UserNote) => void }) => {
-  const [saving, setSaving] = React.useState(false)
-  const [saved, setIsSaved] = React.useState(false)
-  const handleClick = async (item: UserNote) => {
+  const [saving, setSaving] = useState(false)
+  const [saved, setIsSaved] = useState(false)
+
+  const handleClick = async () => {
     setSaving(true)
+    const item = { ...note, id: constructUserNotePrimaryKey(username) }
     let noteTitles = await getUserNoteTitles(username)
-    item.id = constructUserNotePrimaryKey(username)
     noteTitles.push({ ...item, body: '' })
     noteTitles = orderBy(noteTitles, ['dateModified'], ['desc'])
     await putUserNoteTitles(username, noteTitles)
@@ -34,7 +32,7 @@ const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note
     <>
       {!saved ? (
         <Stack justifyContent={'center'} direction='row' spacing={2}>
-          <LinkButton onClick={() => handleClick(note)} disabled={saving} underline={!saving}>
+          <LinkButton onClick={handleClick} disabled={saving} underline={!saving}>
             <Typography>{saving ? 'saving...' : 'read later'}</Typography>
           </LinkButton>
         </Stack>
