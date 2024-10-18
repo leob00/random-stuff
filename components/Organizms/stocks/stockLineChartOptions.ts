@@ -1,5 +1,5 @@
-import { getBaseLineChartOptions } from 'components/Molecules/Charts/apex/baseLineChartOptions'
-import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
+import { getBaseLineChartOptions } from 'components/Atoms/Charts/apex/baseLineChartOptions'
+import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 

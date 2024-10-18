@@ -1,11 +1,10 @@
 import { Box, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
 import CenterStack from 'components/Atoms/CenterStack'
-import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
-import { DropdownItem, DropdownItemNumeric } from 'lib/models/dropdown'
+import { DropdownItemNumeric } from 'lib/models/dropdown'
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
 import StockChartWithVolume from './StockChartWithVolume'
@@ -14,7 +13,6 @@ import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import FormDropdownListNumeric from 'components/Molecules/Forms/ReactHookForm/FormDropdownListNumeric'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { mutate } from 'swr'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 export const stockChartDaySelect: DropdownItemNumeric[] = [

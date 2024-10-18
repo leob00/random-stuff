@@ -2,15 +2,14 @@ import { Box, Container, getInputAdornmentUtilityClass, Typography } from '@mui/
 import axios from 'axios'
 import CenterStack from 'components/Atoms/CenterStack'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
-import ImageYRotator from 'components/Atoms/Images/ImageYRotator'
-import RemoteImageFlat from 'components/Atoms/RemoteImageFlat'
-import { BarChart } from 'components/Molecules/Charts/barChartOptions'
+import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import CoinFlipChart from 'components/Molecules/CoinFlipChart'
 import { TransparentGreen, TransparentBlue } from 'components/themes/mainTheme'
 import { CoinFlipStats } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { getRandomInteger } from 'lib/util/numberUtil'
 import { cloneDeep, shuffle } from 'lodash'
-import React from 'react'
+import { useEffect, useReducer, useRef } from 'react'
+import ImageYRotator from 'components/Atoms/Images/ImageYRotator'
 
 type headsTails = 'heads' | 'tails'
 const barChartColors = [TransparentGreen, TransparentBlue]
@@ -99,7 +98,7 @@ function reducer(state: Model, action: ActionType): Model {
   }
 }
 const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => {
-  const defaultStateIntervalRef = React.useRef<NodeJS.Timer | null>(null)
+  const defaultStateIntervalRef = useRef<NodeJS.Timer | null>(null)
   const coins: Coin[] = [
     {
       face: 'heads',
@@ -129,7 +128,7 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
     },
   }
 
-  const [model, dispatch] = React.useReducer(reducer, initialState)
+  const [model, dispatch] = useReducer(reducer, initialState)
 
   const handleFlipClick = async () => {
     let allCoins = cloneDeep(model.allCoins)
@@ -182,7 +181,7 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
     }, 3000)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (defaultStateIntervalRef.current) {
       clearInterval(defaultStateIntervalRef.current)
     }

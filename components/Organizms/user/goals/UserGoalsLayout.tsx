@@ -1,7 +1,7 @@
 import { constructUserGoalsKey } from 'lib/backend/api/aws/util'
 import { getRecord, searchRecords } from 'lib/backend/csr/nextApiWrapper'
 import { filter, orderBy } from 'lodash'
-import { BarChart } from 'components/Molecules/Charts/barChartOptions'
+import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UserGoalsDisplay from './UserGoalsDisplay'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'

@@ -1,9 +1,9 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
-import { getBaseLineChartOptions } from 'components/Molecules/Charts/apex/baseLineChartOptions'
-import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import React from 'react'
+import { getBaseLineChartOptions } from 'components/Atoms/Charts/apex/baseLineChartOptions'
+import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
 import dynamic from 'next/dynamic'
+import { useEffect, useState } from 'react'
 
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
@@ -11,9 +11,9 @@ const MultiLineChart = ({ xYValues, yLabelPrefix = '' }: { xYValues: XyValues[];
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const chartHeight = isXSmall ? 260 : 280
-  const [allOptions, setAllOptions] = React.useState<ApexOptions[]>([])
+  const [allOptions, setAllOptions] = useState<ApexOptions[]>([])
 
-  React.useEffect(() => {
+  useEffect(() => {
     const options: ApexOptions[] = xYValues.map((m, i) =>
       getBaseLineChartOptions(m, {
         raw: [],

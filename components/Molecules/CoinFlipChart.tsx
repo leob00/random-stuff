@@ -1,8 +1,7 @@
 import { Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
-import BasicBarChart from 'components/Atoms/Charts/BasicBarChart'
-import React from 'react'
-import { BarChart } from './Charts/barChartOptions'
+import BasicBarChart from 'components/Atoms/Charts/chartJs/BasicBarChart'
+import { BarChart } from '../Atoms/Charts/chartJs/barChartOptions'
 
 const CoinFlipChart = ({ totalFlips, chart }: { totalFlips: number; chart: BarChart }) => {
   return (

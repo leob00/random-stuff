@@ -3,8 +3,7 @@ import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ImageSpinner from 'components/Atoms/Images/ImageSpinner'
-import { ApexBarChartData } from 'components/Molecules/Charts/apex/models/chartModes'
-import { BarChart } from 'components/Molecules/Charts/barChartOptions'
+import { ApexBarChartData } from 'components/Atoms/Charts/apex/chartModels'
 import RouletteBarChart from 'components/Organizms/roulette/RouletteBarChart'
 import {
   CasinoBlackTransparent,
@@ -24,6 +23,7 @@ import { calculatePercent, getRandomInteger, isEven, isOdd } from 'lib/util/numb
 import { cloneDeep, filter, shuffle } from 'lodash'
 import React from 'react'
 import numeral from 'numeral'
+import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
 
 export interface Model {
   spinSpeed?: number

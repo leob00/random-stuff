@@ -37,7 +37,7 @@ export const data = {
   ],
 }
 
-const MultiDatasetBarchartExmple = () => {
+const MultiDatasetBarchartExample = () => {
   return (
     <>
       <Bar data={data} options={options} />
@@ -45,4 +45,4 @@ const MultiDatasetBarchartExmple = () => {
   )
 }
 
-export default MultiDatasetBarchartExmple
+export default MultiDatasetBarchartExample

@@ -1,10 +1,10 @@
 import { Box, useTheme } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
-import { getBaseLineChartOptions } from 'components/Molecules/Charts/apex/baseLineChartOptions'
-import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
+import { getBaseLineChartOptions } from 'components/Atoms/Charts/apex/baseLineChartOptions'
+import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
 import dynamic from 'next/dynamic'
-import React from 'react'
-import BackdropLoader from '../Loaders/BackdropLoader'
+import BackdropLoader from '../../Loaders/BackdropLoader'
+import { useState, useEffect } from 'react'
 
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
@@ -34,10 +34,10 @@ const BasicLineChart = ({
     chartHeight = 240
   }
 
-  const [chartOptions, setChartOptions] = React.useState<ApexOptions | null>(null)
-  const [isLoading, setIsLoading] = React.useState(true)
+  const [chartOptions, setChartOptions] = useState<ApexOptions | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const opts = getBaseLineChartOptions(xyValues, {
       raw: rawData,
       isXSmall: isXSmall,

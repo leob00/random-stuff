@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic'
 import { Box } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
 import { CasinoBlack, CasinoBlue, CasinoBlueTransparent, CasinoRedTransparent, DarkBlue, DarkBlueTransparent, VeryLightBlue } from 'components/themes/mainTheme'
-import { ApexBarChartData } from './models/chartModes'
+import { ApexBarChartData } from './chartModels'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const ApexBarChart = ({

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartData, ChartOptions } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
 import {
@@ -14,6 +13,7 @@ import {
 import { getRecord } from 'lib/backend/csr/nextApiWrapper'
 import { WheelSpinStats } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { calculatePercent } from 'lib/util/numberUtil'
+import { useEffect, useState } from 'react'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -68,13 +68,13 @@ const MultiDatasetBarchart = () => {
     },
   }
 
-  const [chartData, setChartData] = React.useState<ChartData<'bar', number[], string>>({ datasets: [] })
+  const [chartData, setChartData] = useState<ChartData<'bar', number[], string>>({ datasets: [] })
 
   const getStat = (stat: WheelSpinStats, key: keyof WheelSpinStats) => {
     return stat[key]
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fn = async () => {
       const result = await getRecord<WheelSpinStats>('wheelspin-community')
 

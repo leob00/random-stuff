@@ -1,5 +1,5 @@
 import { ApexOptions } from 'apexcharts'
-import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
+import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
 import {
   CasinoGreen,
   CasinoRed,

@@ -1,12 +1,12 @@
-import { Box, Grid, useTheme } from '@mui/material'
+import { Box, useTheme } from '@mui/material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
-import ApexPieChart from 'components/Molecules/Charts/apex/ApexPieChart'
-import { BarChart } from 'components/Molecules/Charts/barChartOptions'
+import ApexPieChart from 'components/Atoms/Charts/apex/ApexPieChart'
+import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import { sum } from 'lodash'
 import numeral from 'numeral'
-import GoalsBarChartByStatus from './GoalBarChartByCompleted'
 import { UserGoalAndTask } from './UserGoalsLayout'
+import GoalsBarChartByStatus from './GoalBarChartByCompleted'
 
 const GoalCharts = ({ barChart, goalTasks }: { barChart: BarChart; goalTasks: UserGoalAndTask[] }) => {
   const theme = useTheme()

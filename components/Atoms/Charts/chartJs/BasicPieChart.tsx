@@ -1,9 +1,8 @@
 'use client'
-import React from 'react'
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js'
-import { Doughnut, Pie } from 'react-chartjs-2'
-import { BarChart, getBarChartData, getBarChartOptions } from 'components/Molecules/Charts/barChartOptions'
-import { getPieChartData, getPieChartOptions } from 'components/Molecules/Charts/pieChartOptions'
+import { Chart as ChartJS, Tooltip, Legend, ArcElement } from 'chart.js'
+import { Doughnut } from 'react-chartjs-2'
+import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
+import { getPieChartData, getPieChartOptions } from 'components/Atoms/Charts/chartJs/pieChartOptions'
 import { Box, useTheme } from '@mui/material'
 
 ChartJS.register(ArcElement, Tooltip, Legend)

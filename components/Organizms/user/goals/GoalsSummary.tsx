@@ -1,6 +1,6 @@
 import { Box, Stack, Button } from '@mui/material'
 import Close from '@mui/icons-material/Close'
-import { BarChart } from 'components/Molecules/Charts/barChartOptions'
+import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import GoalCharts from './GoalCharts'
 import OverdueTasks from './OverdueTasks'
 import { UserGoalAndTask } from './UserGoalsLayout'

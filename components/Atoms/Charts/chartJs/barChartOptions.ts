@@ -1,12 +1,9 @@
 import { ChartData, ChartOptions } from 'chart.js'
 import {
   CasinoBlue,
-  CasinoBlueTransparent,
   CasinoMoreBlackTransparent,
   CasinoRedTransparent,
   CasinoWhiteTransparent,
-  ChartBackground,
-  DarkBlue,
   VeryLightBlue,
   VeryLightBlueTransparent,
 } from 'components/themes/mainTheme'

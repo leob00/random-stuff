@@ -1,7 +1,6 @@
-import React from 'react'
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
-import { BarChart, getBarChartData, getBarChartOptions } from 'components/Molecules/Charts/barChartOptions'
+import { BarChart, getBarChartData, getBarChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import { useTheme } from '@mui/material'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)

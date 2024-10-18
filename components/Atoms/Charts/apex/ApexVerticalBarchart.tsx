@@ -1,9 +1,8 @@
-import React from 'react'
 import dynamic from 'next/dynamic'
 import { Box } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
-import { CasinoBlack, CasinoBlue, CasinoBlueTransparent, CasinoRedTransparent, DarkBlue, DarkBlueTransparent } from 'components/themes/mainTheme'
-import { ApexBarChartData } from './models/chartModes'
+import { CasinoBlue } from 'components/themes/mainTheme'
+import { ApexBarChartData } from './chartModels'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const ApexVerticalBarchart = ({ data, seriesName, yAxisDecorator = '' }: { data: ApexBarChartData[]; seriesName: string; yAxisDecorator?: string }) => {

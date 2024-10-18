@@ -1,8 +1,7 @@
-import React from 'react'
 import dynamic from 'next/dynamic'
 import { Box, useMediaQuery, useTheme } from '@mui/material'
-import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import { getBaseLineChartOptions } from 'components/Molecules/Charts/apex/baseLineChartOptions'
+import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
+import { getBaseLineChartOptions } from 'components/Atoms/Charts/apex/baseLineChartOptions'
 import { QlnLineChart } from 'lib/backend/api/qln/qlnModels'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 

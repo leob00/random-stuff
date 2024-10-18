@@ -2,9 +2,9 @@ import dynamic from 'next/dynamic'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 import { Box, useMediaQuery, useTheme } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
-import { getBaseLineChartOptions, LineChartOptions } from 'components/Molecules/Charts/apex/baseLineChartOptions'
-import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
-import BackdropLoader from '../Loaders/BackdropLoader'
+import { getBaseLineChartOptions, LineChartOptions } from 'components/Atoms/Charts/apex/baseLineChartOptions'
+import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
+import BackdropLoader from '../../Loaders/BackdropLoader'
 
 const getOptions = (xYValues: XyValues[], lineOptions: LineChartOptions[]) => {
   const result: ApexOptions[] = xYValues.map((m, i) => getBaseLineChartOptions(m, lineOptions[i]))

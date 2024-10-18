@@ -1,10 +1,10 @@
-import { ApexBarChartData } from 'components/Molecules/Charts/apex/models/chartModes'
+import { ApexBarChartData } from 'components/Atoms/Charts/apex/chartModels'
 import { CasinoBlueTransparent, CasinoGreenTransparent, CasinoRedTransparent } from 'components/themes/mainTheme'
 import { orderBy } from 'lodash'
 import { UserGoalAndTask } from './UserGoalsLayout'
 import { Box } from '@mui/material'
-import SimpleBarChart2 from 'components/Molecules/Charts/SimpleBarChart2'
-import { BarChart } from 'components/Molecules/Charts/barChartOptions'
+import SimpleBarChart2 from 'components/Atoms/Charts/chartJs/SimpleBarChart2'
+import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
 
 const GoalsBarChartByStatus = ({ goalTasks }: { goalTasks: UserGoalAndTask[] }) => {
   let data: ApexBarChartData[] = []

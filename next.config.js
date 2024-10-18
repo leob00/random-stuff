@@ -9,14 +9,6 @@ const nextConfig = {
     },
   },
   images: {
-    // domains: [
-    //   'dev-rendomstuff00.pantheonsite.io',
-    //   'images.ctfassets.net',
-    //   'cdn2.thecatapi.com',
-    //   'images.dog.ceo',
-    //   'imgs.xkcd.com',
-    //   'cso88ynaac.execute-api.us-east-1.amazonaws.com',
-    // ],
     remotePatterns: [
       {
         protocol: 'https',
