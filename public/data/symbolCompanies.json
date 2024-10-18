@@ -5912,6 +5912,10 @@
     "Symbol": "BTC"
   },
   {
+    "Company": "NEOS Bitcoin High Income ETF",
+    "Symbol": "BTCI"
+  },
+  {
     "Company": "T-Rex 2X Long Bitcoin Daily Target ETF",
     "Symbol": "BTCL"
   },
@@ -21024,7 +21028,7 @@
     "Symbol": "IPAC"
   },
   {
-    "Company": "Inter Parfums Inc",
+    "Company": "Interparfums, Inc. Common Stock",
     "Symbol": "IPAR"
   },
   {
@@ -27628,6 +27632,10 @@
     "Symbol": "NCZ"
   },
   {
+    "Company": "Ned Davis Research 360 Dynamic Allocation ETF",
+    "Symbol": "NDAA"
+  },
+  {
     "Company": "Nasdaq, Inc. Common Stock",
     "Symbol": "NDAQ"
   },
@@ -29922,6 +29930,10 @@
   {
     "Company": "Oric Pharmaceuticals, Inc. Common Stock",
     "Symbol": "ORIC"
+  },
+  {
+    "Company": "Oriental Rise Holdings Limited Ordinary Shares",
+    "Symbol": "ORIS"
   },
   {
     "Company": "Oruka Therapeutics, Inc. Common Stock",
@@ -37306,6 +37318,10 @@
   {
     "Company": "Invesco S&P 500 High Dividend Low Volatility ETF",
     "Symbol": "SPHD"
+  },
+  {
+    "Company": "Springview Holdings Ltd Class A Ordinary Shares",
+    "Symbol": "SPHL"
   },
   {
     "Company": "Invesco S&P 500 Quality ETF",

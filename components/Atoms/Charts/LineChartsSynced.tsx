@@ -6,6 +6,11 @@ import { getBaseLineChartOptions, LineChartOptions } from 'components/Molecules/
 import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import BackdropLoader from '../Loaders/BackdropLoader'
 
+const getOptions = (xYValues: XyValues[], lineOptions: LineChartOptions[]) => {
+  const result: ApexOptions[] = xYValues.map((m, i) => getBaseLineChartOptions(m, lineOptions[i]))
+  return result
+}
+
 const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyValues[]; lineOptions: LineChartOptions[]; isLoading: boolean }) => {
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
@@ -38,10 +43,6 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
       )}
     </Box>
   )
-}
-const getOptions = (xYValues: XyValues[], lineOptions: LineChartOptions[]) => {
-  const result: ApexOptions[] = xYValues.map((m, i) => getBaseLineChartOptions(m, lineOptions[i]))
-  return result
 }
 
 export default LineChartsSynced

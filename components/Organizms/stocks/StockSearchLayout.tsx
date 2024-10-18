@@ -45,9 +45,9 @@ export const searchWithinResults = (quotes: StockQuote[], text: string) => {
 }
 
 const StockSearchLayout = () => {
-  const userController = useUserController()
+  const { ticket, authProfile, fetchProfilePassive, setProfile } = useUserController()
   const defaultModel: StockLayoutModel = {
-    username: userController.ticket?.email,
+    username: ticket?.email,
     isLoading: true,
     autoCompleteResults: [],
     searchedStocksMap: new Map<string, StockQuote>([]),
@@ -55,7 +55,7 @@ const StockSearchLayout = () => {
     stockList: [],
     editList: false,
     successMesage: null,
-    showAsGroup: userController.authProfile?.settings?.stocks?.defaultView! === 'grouped' ?? undefined,
+    showAsGroup: authProfile?.settings?.stocks?.defaultView === 'grouped',
   }
 
   const [model, setModel] = React.useReducer((state: StockLayoutModel, newState: StockLayoutModel) => ({ ...state, ...newState }), defaultModel)
@@ -86,13 +86,13 @@ const StockSearchLayout = () => {
     }
   }
   const reloadData = async () => {
-    const profile = await userController.fetchProfilePassive()
+    const profile = await fetchProfilePassive()
     if (profile) {
       if (!profile.settings!.stocks) {
         profile.settings!.stocks = {
           defaultView: 'flat',
         }
-        userController.setProfile(profile)
+        setProfile(profile)
         await putUserProfile(profile)
       }
     }
@@ -189,14 +189,14 @@ const StockSearchLayout = () => {
   }
 
   const handleShowAsGroup = async (show: boolean) => {
-    const profile = userController.authProfile
+    const profile = authProfile
     if (profile) {
       setModel({ ...model, isLoading: true })
       if (!profile.settings?.stocks) {
         profile.settings!.stocks = {}
       }
       profile.settings!.stocks!.defaultView = show ? 'grouped' : 'flat'
-      userController.setProfile(profile)
+      setProfile(profile)
       await putUserProfile(profile)
       setModel({ ...model, isLoading: false })
     }
@@ -215,7 +215,7 @@ const StockSearchLayout = () => {
     }
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userController.ticket])
+  }, [ticket])
 
   return (
     <>
@@ -265,7 +265,7 @@ const StockSearchLayout = () => {
                   {model.showAsGroup ? (
                     <Box>
                       <GroupedStocksLayout
-                        userProfile={userController.authProfile}
+                        userProfile={authProfile}
                         stockList={model.stockList ?? []}
                         onEdit={() => setModel({ ...model, editList: true })}
                         onShowAsGroup={() => handleShowAsGroup(false)}

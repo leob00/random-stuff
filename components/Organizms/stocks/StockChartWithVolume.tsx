@@ -5,7 +5,6 @@ import { XyValues } from 'components/Molecules/Charts/apex/models/chartModes'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import numeral from 'numeral'
-import React from 'react'
 import { stockChartTooltipFormatter } from './stockLineChartOptions'
 interface SyncedChartModel {
   xyValues: XyValues[]
