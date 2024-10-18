@@ -12,6 +12,7 @@ import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import { useState } from 'react'
 import { useSwrHelper } from 'hooks/useSwrHelper'
+import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 
 const NewsLayout = ({
   componentLoader = false,
@@ -22,8 +23,9 @@ const NewsLayout = ({
   allowSelectType?: boolean
   revalidateOnFocus?: boolean
 }) => {
-  const userController = useUserController()
-  const defaultSource: NewsTypeIds = (userController.authProfile?.settings?.news?.lastNewsType as NewsTypeIds) ?? 'GoogleTopStories'
+  const { userProfile } = useProfileValidator()
+  const { setProfile, fetchProfilePassive } = useUserController()
+  const defaultSource: NewsTypeIds = (userProfile?.settings?.news?.lastNewsType as NewsTypeIds) ?? 'GoogleTopStories'
   const [selectedSource, setSelectedSource] = useState<NewsTypeIds>(defaultSource)
   const [error, setError] = useState<string | null>(null)
 
@@ -36,8 +38,8 @@ const NewsLayout = ({
     const result = response.Body as NewsItem[]
     const sorted = orderBy(result, ['PublishDate'], ['desc'])
     try {
-      if (userController.authProfile) {
-        const noteTitles = await getUserNoteTitles(userController.authProfile.username)
+      if (userProfile) {
+        const noteTitles = await getUserNoteTitles(userProfile.username)
         noteTitles.forEach((note) => {
           sorted.forEach((newsItem) => {
             if (newsItem.Headline === note.title) {
@@ -60,7 +62,7 @@ const NewsLayout = ({
   const scroller = useScrollTop(0)
 
   const saveProfileNewsType = async (newstype: NewsTypeIds) => {
-    const profile = await userController.fetchProfilePassive()
+    const profile = await fetchProfilePassive()
     if (profile && profile.settings) {
       if (!profile.settings.news) {
         profile.settings.news = {
@@ -68,7 +70,7 @@ const NewsLayout = ({
         }
       }
       profile.settings.news.lastNewsType = newstype
-      userController.setProfile(profile)
+      setProfile(profile)
       putUserProfile(profile)
     }
   }
