@@ -5,12 +5,10 @@ import { NewsItem } from 'lib/backend/api/qln/qlnApi'
 import NewsDescription from './NewsDescription'
 import dayjs from 'dayjs'
 import CenterStack from 'components/Atoms/CenterStack'
-import { UserController } from 'hooks/userController'
 import SaveToNotesButton from 'components/Molecules/Buttons/SaveToNotesButton'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { UserNote, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import SavedNoteButtonLink from 'components/Molecules/Buttons/SavedNoteButtonLink'
-import { AmplifyUser } from 'lib/backend/auth/userUtil'
 import NewsListItemMobile from './NewsListItemMobile'
 
 const NewsListItem = ({
@@ -57,7 +55,7 @@ const NewsListItem = ({
                 username={userProfile.username}
                 note={{
                   title: item.Headline!,
-                  body: `<div><p></p><div style='padding: 20px display: flex; justify-content: center; text-align:center;'><a href='${item.Link}' target='_blank'>view article<a/></div></div>`,
+                  body: `<div><div>source: ${item.sourceDescription ?? ''}</div><div style=''><a href='${item.Link}' target='_blank'>view article<a/></div></div>`,
                   dateCreated: getUtcNow().format(),
                   dateModified: getUtcNow().format(),
                   expirationDate: getUtcNow().add(3, 'day').format(),

@@ -3,10 +3,8 @@ import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import { useUserController } from 'hooks/userController'
 import { NewsItem, NewsTypeIds, newsTypes, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import { orderBy } from 'lodash'
-import { get } from 'lib/backend/api/fetchFunctions'
 import NewsList from './NewsList'
 import { getUserNoteTitles, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
-import useSWR from 'swr'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
@@ -29,11 +27,11 @@ const NewsLayout = ({
   const [selectedSource, setSelectedSource] = useState<NewsTypeIds>(defaultSource)
   const [error, setError] = useState<string | null>(null)
 
-  const mutateKey = `news-${defaultSource}`
+  const mutateKey = `news-${selectedSource}`
 
   const dataFn = async () => {
     setError(null)
-    const endPoint = `/NewsBySource?type=${defaultSource}`
+    const endPoint = `/NewsBySource?type=${selectedSource}`
     const response = await serverGetFetch(endPoint)
     const result = response.Body as NewsItem[]
     const sorted = orderBy(result, ['PublishDate'], ['desc'])
@@ -52,7 +50,10 @@ const NewsLayout = ({
       setError('Oops! Encountered an error. Please try again.')
       console.error(err)
     }
-    return sorted
+
+    return sorted.map((m) => {
+      return { ...m, sourceDescription: newsTypes.find((t) => t.value === m.Source)?.text }
+    })
   }
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: revalidateOnFocus })

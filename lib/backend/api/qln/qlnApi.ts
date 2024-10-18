@@ -7,7 +7,6 @@ import dayjs from 'dayjs'
 import { apiConnection } from '../config'
 import { StockReportTypes } from './qlnModels'
 import { EconDataModel } from 'components/Organizms/econ/EconDataLayout'
-import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 
 const config = apiConnection()
 const qlnApiBaseUrl = config.qln.url
@@ -27,6 +26,7 @@ export interface NewsItem {
   Read?: boolean
   Saved?: boolean
   Rank?: number
+  sourceDescription?: string
 }
 
 export type NewsTypeIds =
