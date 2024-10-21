@@ -8,7 +8,7 @@ const WidgetsDisplay = ({ widgets }: { widgets: DashboardWidget[] }) => {
       {widgets.length > 1 ? (
         <Box display={'flex'} justifyContent={'flex-start'} flexDirection={{ xs: 'column', sm: 'row' }}>
           {widgets.map((item) => (
-            <Box key={item.id} px={1} minHeight={900}>
+            <Box key={item.id} px={1} minHeight={{ xs: 600, sm: 900 }}>
               <RenderWidget item={item} />
             </Box>
           ))}
