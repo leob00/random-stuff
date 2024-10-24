@@ -10,11 +10,13 @@ const SimpleBarChart2 = ({
   barChart,
   yAxisDecorator = '',
   isHorizontal,
+  height,
 }: {
   title: string
   barChart: BarChart
   yAxisDecorator?: string
   isHorizontal?: boolean
+  height?: number
 }) => {
   const theme = useTheme()
   const options = getBarChartOptions(title, barChart, yAxisDecorator, barChart.colors, theme.palette.mode, isHorizontal)
@@ -22,7 +24,7 @@ const SimpleBarChart2 = ({
   const data = getBarChartData(barChart.labels, barChart.numbers, barChart.colors)
   return (
     <Box>
-      <Bar data={data} options={options} />
+      <Bar data={data} options={options} height={height} />
     </Box>
   )
 }

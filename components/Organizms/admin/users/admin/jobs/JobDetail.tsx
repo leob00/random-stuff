@@ -38,14 +38,9 @@ const JobDetails = ({ item }: { item: Job }) => {
       )}
 
       {item.Chart && (
-        <>
-          <Box pb={2} width={{ xs: '95%' }}>
-            <JobPerformanceBarChart data={item} />
-          </Box>
-          {/* <Box pt={2} width={{ xs: '95%' }}>
-            <JobDetailChart data={item.Chart} />
-          </Box> */}
-        </>
+        <Box pb={2}>
+          <JobPerformanceBarChart data={item} />
+        </Box>
       )}
       <Stack>
         <Typography variant='caption'>{`internal name: ${item.Name}`}</Typography>

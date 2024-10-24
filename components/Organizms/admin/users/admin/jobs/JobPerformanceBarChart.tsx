@@ -1,40 +1,49 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material'
 import SimpleBarChart2 from 'components/Atoms/Charts/chartJs/SimpleBarChart2'
 import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
-import { CasinoBlue } from 'components/themes/mainTheme'
+import { CasinoBlue, CasinoBlueTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { JoBLog, Job } from 'lib/backend/api/qln/qlnApi'
+import { sortArray } from 'lib/util/collections'
 import { mean, take } from 'lodash'
 
 const JobPerformanceBarChart = ({ data }: { data: Job }) => {
   const theme = useTheme()
-  const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
+  const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
+  const isLarge = useMediaQuery(theme.breakpoints.up('md'))
   const history = data.Chart?.RawData as JoBLog[]
-  const limit = isXSmall ? 25 : 1000
+  const limit = isXSmall ? 100 : 250
+  let height: number | undefined = undefined
+  if (isXSmall) {
+    height = 400
+  }
+  if (isLarge) {
+    height = 100
+  }
+  let sorted = take(sortArray(history, ['DateCompleted'], ['desc']), limit)
 
-  var days = new Set(history.map((m) => dayjs(m.DateCompleted).format('MM/DD/YYYY')))
-  let values: number[] = []
+  sorted = sortArray(sorted, ['DateCompleted'], ['asc'])
+  const days = new Set(sorted.map((m) => dayjs(m.DateCompleted).format('MM/DD/YYYY')))
 
+  const barChart: BarChart = {
+    colors: [],
+    labels: [],
+    numbers: [],
+  }
   days.forEach((day) => {
-    const d = history.filter((m) => dayjs(m.DateCompleted).format('MM/DD/YYYY') === day)
+    const d = sorted.filter((m) => dayjs(m.DateCompleted).format('MM/DD/YYYY') === day)
     if (d.length > 0) {
       const avgMinutes = mean(d.map((m) => m.TotalMinutes))
-      values.push(avgMinutes)
+      barChart.numbers.push(avgMinutes)
+      barChart.labels.push(day)
+      barChart.colors.push(CasinoBlueTransparent)
     }
   })
-  const labels = Array.from(days)
-  const colors = labels.map((m) => {
-    return CasinoBlue
-  })
-  const barChart: BarChart = {
-    colors: take(colors, limit),
-    labels: take(labels, limit),
-    numbers: take(values, limit),
-  }
+
   return (
     <Box>
       <Box minHeight={200}>
-        <SimpleBarChart2 title='performance in minutes' barChart={barChart} yAxisDecorator='' />
+        <SimpleBarChart2 title='performance in minutes' barChart={barChart} yAxisDecorator='' height={height} />
       </Box>
     </Box>
   )
