@@ -175,6 +175,12 @@ export const newsTypes: DropdownItem[] = [
     value: 'YahooWorld',
   },
 ]
+export type JoBLog = {
+  JobId: number
+  UniqueRecordId: string
+  TotalMinutes: number
+  DateCompleted: string
+}
 
 export interface Job {
   NextRunDate?: string | null

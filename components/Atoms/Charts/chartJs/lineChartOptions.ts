@@ -1,4 +1,5 @@
-import { ChartData, ChartOptions } from 'chart.js'
+import { ChartOptions } from 'chart.js'
+import { LineChart } from './barChartOptions'
 import {
   CasinoBlue,
   CasinoMoreBlackTransparent,
@@ -9,46 +10,9 @@ import {
 } from 'components/themes/mainTheme'
 import { max } from 'lodash'
 
-export interface LineChart {
-  labels: string[]
-  numbers: number[]
-}
-
-export interface BarChart extends LineChart {
-  colors: string[]
-  borderColors?: string[]
-}
-
-export const getBarChartData = (labels: string[], numbers: number[], colors: string[], yAxisDecorator = ''): ChartData<'bar', number[], unknown> => {
-  return {
-    labels: labels,
-
-    datasets: [
-      {
-        borderColor: 'black',
-        borderWidth: 0,
-        data: numbers,
-        backgroundColor: colors,
-        type: 'bar',
-
-        //indexAxis: 'y',
-      },
-    ],
-  }
-}
-
-export const getBarChartOptions = (
-  title: string,
-  data: BarChart,
-  yAxisDecorator = '',
-  colors: string[],
-  palette: 'light' | 'dark',
-  isHorizontal?: boolean,
-): ChartOptions<'bar'> => {
+export const getLineChartOptions = (title: string, data: LineChart, yAxisDecorator = '', palette: 'light' | 'dark'): ChartOptions<'line'> => {
   return {
     responsive: true,
-    maintainAspectRatio: true,
-    indexAxis: isHorizontal ? 'y' : 'x',
     hover: {
       mode: 'nearest',
       intersect: true,
@@ -57,7 +21,7 @@ export const getBarChartOptions = (
       title: {
         display: true,
         text: title,
-        color: palette === 'light' ? CasinoRedTransparent : VeryLightBlue,
+        //color: palette === 'light' ? CasinoRedTransparent : VeryLightBlue,
       },
       legend: {
         display: false,
@@ -71,80 +35,105 @@ export const getBarChartOptions = (
       },
       tooltip: {
         padding: 16,
-        backgroundColor: CasinoMoreBlackTransparent,
-        titleColor: CasinoWhiteTransparent,
+        //backgroundColor: CasinoMoreBlackTransparent,
+        //titleColor: CasinoWhiteTransparent,
         footerAlign: 'center',
         footerSpacing: 2,
         footerMarginTop: 10,
         footerFont: {
           size: 15,
         },
+
         bodyFont: {
           size: 16,
           weight: 'bold',
         },
-        usePointStyle: true,
-        footerColor: 'white',
+        //sePointStyle: true,
+        //footerColor: 'white',
+
         callbacks: {
           title: (tooltipItems) => {
-            return ''
+            return 'title'
           },
           label: (tooltipItems) => {
-            return ` ${[tooltipItems.label]}: ${Number(tooltipItems.formattedValue).toFixed(2)}${yAxisDecorator}`
+            return ` ${[tooltipItems.label]}`
           },
           labelPointStyle: (tooltiipItems) => {
             return {
               pointStyle: 'circle',
               rotation: 0,
-              border: 4,
+              border: 2,
             }
           },
+          afterTitle: (tooltipItems) => {
+            return `after title`
+          },
+          afterLabel: (tooltipItems) => {
+            return `after label`
+          },
+
+          afterBody: (tooltipItems) => {
+            return tooltipItems[0].formattedValue
+          },
           footer: (tooltipItems) => {
-            return ''
-            //return tooltipItems[0].formattedValue
+            //return 'yo'
+            return tooltipItems[0].formattedValue
+          },
+          afterFooter: (tooltipItems) => {
+            return 'after footer'
           },
         },
       },
     },
+    // interaction: {
+    //   mode: 'index',
+    //   intersect: false,
+    // },
     scales: {
       y: {
         ticks: {
           //padding: 2,
           color: palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {
-            size: 10,
-            //weight: '400',
+            size: 12,
           },
+
           // callback(tickValue, index, ticks) {
           //   return `${tickValue}${yAxisDecorator}`
           // },
-          autoSkip: true,
+          //autoSkip: true,
           //stepSize: 20,
           //precision: 1,
           //maxTicksLimit: max(data?.numbers),
         },
         grid: {
-          display: !isHorizontal,
-          //color: VeryLightBlueTransparent,
+          display: true,
+          color: VeryLightBlueTransparent,
           //color: "red"
         },
       },
       x: {
-        display: true,
+        display: false,
 
         ticks: {
-          padding: 0,
+          //precision: 250,
+          //sampleSize: 300,
+          // padding: 20,
+          // autoSkip: true,
+          // maxTicksLimit: 10,
+          //autoSkip: true,
           color: palette === 'light' ? CasinoBlue : VeryLightBlueTransparent,
-          font: {
-            size: 10,
-          },
+          // font: {
+          //   size: 14,
+          //   weight: '600',
+          // },
 
           // textStrokeColor(ctx, options) {
           //   return `${colors[ctx.index]}`
           // },
         },
         grid: {
-          display: false,
+          display: true,
           color: VeryLightBlueTransparent,
           //color: "red"
         },

@@ -11,16 +11,14 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
       {item.id === 'news' && (
         <Box minWidth={{ xs: 300, sm: 600, md: 800 }}>
           <WidgetWrapper id={item.id} header={'News'} delayMs={item.waitToRenderMs}>
-            {/* <ScrollableBox maxHeight={590}> */}
             <NewsLayout componentLoader revalidateOnFocus={revalidateOnFocus} />
-            {/* </ScrollableBox> */}
           </WidgetWrapper>
         </Box>
       )}
       {item.id === 'stock-market-sentiment' && (
         <Box minWidth={300}>
           <WidgetWrapper id={item.id} header={'Stock Sentiment'} delayMs={item.waitToRenderMs}>
-            <ScrollableBox maxHeight={900}>
+            <ScrollableBox maxHeight={1000}>
               <StockMarketGlance showTitle={false} componentLoader revalidateOnFocus={revalidateOnFocus} />
             </ScrollableBox>
           </WidgetWrapper>

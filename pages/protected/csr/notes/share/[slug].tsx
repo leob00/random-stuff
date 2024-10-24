@@ -60,8 +60,6 @@ const Page = () => {
     setShowConfirmDeleteViewLink(false)
   }
 
-  //console.log('authProfileContext: ', authProfileContext)
-
   return (
     <>
       {isLoading && <BackdropLoader />}

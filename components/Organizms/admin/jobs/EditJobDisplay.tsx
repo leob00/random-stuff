@@ -19,7 +19,6 @@ const JobFormSchema = z.object({
     .nullable()
     .refine((val) => !val || dayjs(val).isValid(), { message: 'Invalid Date' }),
   status: z.number(),
-  //.refine((val) => !val || val && , { message: 'Folder already exists' }),
 })
 type JobFields = z.infer<typeof JobFormSchema>
 
@@ -31,7 +30,7 @@ const EditJobDisplay = ({ data, onSave }: { data: Job; onSave: (item: Job) => vo
       value: 1,
     },
     {
-      text: '1 - Completed',
+      text: '2 - Completed',
       value: 2,
     },
   ]

@@ -20,7 +20,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           userFileName = file.originalFilename!
         }
         const resp = await putS3('rs-files', `${user.email}`, `${userFileName}`, file.mimetype!, file.size, rawData)
-        console.log('uploaded mime type: ', file.mimetype)
         if (resp) {
           return res.status(200).json(resp)
         }

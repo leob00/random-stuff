@@ -5,6 +5,7 @@ import numeral from 'numeral'
 import JobDetailChart from './JobDetailChart'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import { useRouter } from 'next/router'
+import JobPerformanceBarChart from './JobPerformanceBarChart'
 
 const JobDetails = ({ item }: { item: Job }) => {
   const router = useRouter()
@@ -35,13 +36,16 @@ const JobDetails = ({ item }: { item: Job }) => {
           <Typography variant='caption'>{`records processed: ${numeral(item.RecordsProcessed).format('###,###')}`}</Typography>
         </Stack>
       )}
-      <Stack>
-        <Typography variant='caption'>{`disabled: ${item.Disabled ?? 'false'}`}</Typography>
-      </Stack>
+
       {item.Chart && (
-        <Box pt={2} width={{ xs: '95%', md: '97%' }}>
-          <JobDetailChart data={item.Chart} />
-        </Box>
+        <>
+          <Box pb={2} width={{ xs: '95%' }}>
+            <JobPerformanceBarChart data={item} />
+          </Box>
+          {/* <Box pt={2} width={{ xs: '95%' }}>
+            <JobDetailChart data={item.Chart} />
+          </Box> */}
+        </>
       )}
       <Stack>
         <Typography variant='caption'>{`internal name: ${item.Name}`}</Typography>

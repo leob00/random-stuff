@@ -1,4 +1,3 @@
-import React from 'react'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import Seo from 'components/Organizms/Seo'
@@ -12,6 +11,8 @@ import ListIteratorLayout from 'components/Organizms/sandbox/ListIteratorLayout'
 import Streamer from 'components/Organizms/sandbox/Streamer'
 import OcrLocal from 'components/Organizms/files/OcrLocal'
 import SearchAheadAutoComplete from 'components/Organizms/sandbox/SearchAheadAutoComplete'
+import { useState, useEffect, startTransition } from 'react'
+import Playground from 'components/Organizms/admin/Playground'
 
 const Page = () => {
   const tabs: TabInfo[] = [
@@ -23,7 +24,7 @@ const Page = () => {
       title: 'OCR',
     },
     {
-      title: 'Auto Complete',
+      title: 'Chart JS',
     },
     {
       title: 'Stream',
@@ -39,11 +40,11 @@ const Page = () => {
       title: 'Batch Post',
     },
   ]
-  const [selectedTab, setSelectedTab] = React.useState(tabs[0].title)
+  const [selectedTab, setSelectedTab] = useState(tabs[0].title)
   const { authProfile, fetchProfilePassive, setProfile } = useUserController()
-  const [isLoading, setIsLoading] = React.useState(true)
+  const [isLoading, setIsLoading] = useState(true)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fn = async () => {
       const newProfile = await fetchProfilePassive()
       if (newProfile) {
@@ -58,7 +59,7 @@ const Page = () => {
   }, [])
 
   const handleSetTab = (tab: TabInfo) => {
-    React.startTransition(() => {
+    startTransition(() => {
       setSelectedTab(tab.title)
     })
   }
@@ -75,7 +76,7 @@ const Page = () => {
           {selectedTab === 'OCR' && <OcrLocal />}
           {selectedTab === 'Stream' && <Streamer />}
           {selectedTab === 'Iterator' && <ListIteratorLayout />}
-          {selectedTab === 'Auto Complete' && <SearchAheadAutoComplete minChars={0} />}
+          {selectedTab === 'Chart JS' && <Playground />}
           {selectedTab === 'Files' && <>{!isLoading && authProfile && <S3Display userProfile={authProfile} />}</>}
           {selectedTab === 'Batch Post' && <PostBatch />}
         </Box>
