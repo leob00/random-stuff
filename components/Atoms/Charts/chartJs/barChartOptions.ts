@@ -81,7 +81,8 @@ export const getBarChartOptions = (
         footerSpacing: 2,
         footerMarginTop: 10,
         footerFont: {
-          size: 15,
+          size: 12,
+          weight: 200,
         },
         bodyFont: {
           size: 16,

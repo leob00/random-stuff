@@ -1,11 +1,12 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material'
 import SimpleBarChart2 from 'components/Atoms/Charts/chartJs/SimpleBarChart2'
-import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
-import { CasinoBlueTransparent } from 'components/themes/mainTheme'
+import { BarChart, getBarChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
+import { CasinoBlueTransparent, CasinoOrangeTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { JoBLog, Job } from 'lib/backend/api/qln/qlnApi'
 import { sortArray } from 'lib/util/collections'
-import { mean, take } from 'lodash'
+import { max, mean, sum, take } from 'lodash'
+import numeral from 'numeral'
 
 const JobPerformanceBarChart = ({ data }: { data: Job }) => {
   const theme = useTheme()
@@ -30,6 +31,7 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
     labels: [],
     numbers: [],
   }
+  const records: number[] = []
   days.forEach((day) => {
     const d = sorted.filter((m) => dayjs(m.DateCompleted).format('MM/DD/YYYY') === day)
     if (d.length > 0) {
@@ -37,13 +39,30 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
       barChart.numbers.push(avgMinutes)
       barChart.labels.push(day)
       barChart.colors.push(CasinoBlueTransparent)
+      records.push(sum(d.map((m) => m.RecordsProcessed)))
     }
   })
+
+  const maxVal = max(barChart.numbers)
+  if (maxVal) {
+    const idx = barChart.numbers.findIndex((m) => m === maxVal)
+    if (idx > -1) {
+      barChart.colors[idx] = CasinoOrangeTransparent
+    }
+  }
+
+  var options = getBarChartOptions('performance in minutes', barChart, ' minutes', barChart.colors, theme.palette.mode)
+  options.plugins!.tooltip!.callbacks = {
+    ...options.plugins!.tooltip?.callbacks,
+    footer: (tooltipItems) => {
+      return `records processed: ${numeral(records[tooltipItems[0].dataIndex]).format('###,###')}`
+    },
+  }
 
   return (
     <Box>
       <Box minHeight={200} px={{ lg: 2 }}>
-        <SimpleBarChart2 title='performance in minutes' barChart={barChart} yAxisDecorator=' minutes' height={height} />
+        <SimpleBarChart2 title='performance in minutes' barChart={barChart} yAxisDecorator=' minutes' height={height} chartOptions={options} />
       </Box>
     </Box>
   )

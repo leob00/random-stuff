@@ -180,6 +180,7 @@ export type JoBLog = {
   UniqueRecordId: string
   TotalMinutes: number
   DateCompleted: string
+  RecordsProcessed: number
 }
 
 export interface Job {
