@@ -57,6 +57,10 @@ export const getBarChartOptions = (
       title: {
         display: true,
         text: title,
+        font: {
+          size: 18,
+          weight: 100,
+        },
         color: palette === 'light' ? CasinoRedTransparent : VeryLightBlue,
       },
       legend: {
@@ -134,7 +138,7 @@ export const getBarChartOptions = (
 
         ticks: {
           padding: 0,
-          color: palette === 'light' ? CasinoBlue : VeryLightBlueTransparent,
+          color: palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {
             size: 10,
           },

@@ -1,5 +1,9 @@
 import useSWR, { mutate } from 'swr'
-export const useSwrHelper = <T>(key: string, dataFn: () => Promise<T>, options?: { revalidateOnFocus?: boolean; refreshInterval?: number }) => {
+export const useSwrHelper = <T>(
+  key: string,
+  dataFn: () => Promise<T>,
+  options?: { revalidateOnFocus?: boolean; refreshInterval?: number; revalidateOnMount?: boolean },
+) => {
   const fetcherFunction = async (_url: string, _key: string) => {
     return dataFn()
   }

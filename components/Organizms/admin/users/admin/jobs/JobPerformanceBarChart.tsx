@@ -1,7 +1,7 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material'
 import SimpleBarChart2 from 'components/Atoms/Charts/chartJs/SimpleBarChart2'
 import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
-import { CasinoBlue, CasinoBlueTransparent } from 'components/themes/mainTheme'
+import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { JoBLog, Job } from 'lib/backend/api/qln/qlnApi'
 import { sortArray } from 'lib/util/collections'
@@ -18,7 +18,7 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
     height = 400
   }
   if (isLarge) {
-    height = 100
+    height = 66
   }
   let sorted = take(sortArray(history, ['DateCompleted'], ['desc']), limit)
 
@@ -42,8 +42,8 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
 
   return (
     <Box>
-      <Box minHeight={200}>
-        <SimpleBarChart2 title='performance in minutes' barChart={barChart} yAxisDecorator='' height={height} />
+      <Box minHeight={200} px={{ lg: 2 }}>
+        <SimpleBarChart2 title='performance in minutes' barChart={barChart} yAxisDecorator=' minutes' height={height} />
       </Box>
     </Box>
   )

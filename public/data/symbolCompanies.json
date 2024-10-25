@@ -1104,6 +1104,10 @@
     "Symbol": "AIFF"
   },
   {
+    "Company": "Fanhua Inc. American Depositary Shares",
+    "Symbol": "AIFU"
+  },
+  {
     "Company": "American International Group, Inc.",
     "Symbol": "AIG"
   },
@@ -1252,6 +1256,10 @@
     "Symbol": "AIV"
   },
   {
+    "Company": "Amplify Bloomberg AI Value Chain ETF",
+    "Symbol": "AIVC"
+  },
+  {
     "Company": "WisdomTree International AI Enhanced Value Fund",
     "Symbol": "AIVI"
   },
@@ -1386,6 +1394,10 @@
   {
     "Company": "Alchemy Investments Acquisition Corp 1 Warrants",
     "Symbol": "ALCYW"
+  },
+  {
+    "Company": "Aldel Financial II Inc. Units",
+    "Symbol": "ALDFU"
   },
   {
     "Company": "Aldeyra Therapeutics, Inc.",
@@ -3584,6 +3596,10 @@
     "Symbol": "BAH"
   },
   {
+    "Company": "iShares A.I. Innovation and Tech Active ETF",
+    "Symbol": "BAI"
+  },
+  {
     "Company": "Braskem S.A. American Depositary Shares (Each representing Two Class A  Preferred Shares)",
     "Symbol": "BAK"
   },
@@ -5632,7 +5648,7 @@
     "Symbol": "BRT"
   },
   {
-    "Company": "BlackRock Total Return ETF",
+    "Company": "BlackRock ETF Trust II iShares Total Return Active ETF",
     "Symbol": "BRTR"
   },
   {
@@ -5726,6 +5742,10 @@
   {
     "Company": "Blue Star Foods Corp. Common Stock",
     "Symbol": "BSFC"
+  },
+  {
+    "Company": "BIOSIG TECHNOLOGIES INC",
+    "Symbol": "BSGM"
   },
   {
     "Company": "BrightSphere Investment Group Inc. Common Stock",
@@ -7944,7 +7964,7 @@
     "Symbol": "CLNR"
   },
   {
-    "Company": "BlackRock ETF Trust II iShares AAA CLO Active ETF",
+    "Company": "BlackRock AAA CLO ETF",
     "Symbol": "CLOA"
   },
   {
@@ -10440,6 +10460,10 @@
     "Symbol": "DHCNL"
   },
   {
+    "Company": "FT Vest U.S. Equity Quarterly 2.5 to 15 Buffer ETF",
+    "Symbol": "DHDG"
+  },
+  {
     "Company": "BNY Mellon High Yield Strategies Fund",
     "Symbol": "DHF"
   },
@@ -12124,6 +12148,10 @@
     "Symbol": "EIG"
   },
   {
+    "Company": "Eagle Point Institutional Income Fund 8.125% Series A Term Preferred Shares Due 2029",
+    "Symbol": "EIIA"
+  },
+  {
     "Company": "Eaton Vance Municipal Bond Fund",
     "Symbol": "EIM"
   },
@@ -12980,6 +13008,10 @@
     "Symbol": "ESMV"
   },
   {
+    "Company": "Essential 40 Stock ETF",
+    "Symbol": "ESN"
+  },
+  {
     "Company": "Essent Group LTD",
     "Symbol": "ESNT"
   },
@@ -13142,6 +13174,10 @@
   {
     "Company": "enCore Energy Corp.",
     "Symbol": "EU"
+  },
+  {
+    "Company": "Select STOXX Europe Aerospace & Defense ETF",
+    "Symbol": "EUAD"
   },
   {
     "Company": "EUDA Health Holdings Limited Ordinary Shares",
@@ -13808,6 +13844,10 @@
     "Symbol": "FBL"
   },
   {
+    "Company": "FB Bancorp, Inc. Common Stock",
+    "Symbol": "FBLA"
+  },
+  {
     "Company": "FibroBiologics, Inc. Common Stock",
     "Symbol": "FBLG"
   },
@@ -14438,6 +14478,10 @@
   {
     "Company": "FGI Industries Ltd. Warrant",
     "Symbol": "FGIWW"
+  },
+  {
+    "Company": "Founder Group Limited Ordinary Shares",
+    "Symbol": "FGL"
   },
   {
     "Company": "First Trust Germany AlphaDEX Fund",
@@ -19008,11 +19052,11 @@
     "Symbol": "HSBH"
   },
   {
-    "Company": "Heart Test Laboratories, Inc. Common Stock",
+    "Company": "HeartSciences Inc. Common Stock",
     "Symbol": "HSCS"
   },
   {
-    "Company": "Heart Test Laboratories, Inc. Warrant",
+    "Company": "HeartSciences Inc. Warrant",
     "Symbol": "HSCSW"
   },
   {
@@ -19220,6 +19264,10 @@
     "Symbol": "HUGE"
   },
   {
+    "Company": "HUHUTECH International Group Inc. Ordinary Shares",
+    "Symbol": "HUHU"
+  },
+  {
     "Company": "Huize Holding Limited American Depositary Shares",
     "Symbol": "HUIZ"
   },
@@ -19238,6 +19286,10 @@
   {
     "Company": "Huntsman Corporation",
     "Symbol": "HUN"
+  },
+  {
+    "Company": "TuHURA Biosciences, Inc. Common Stock",
+    "Symbol": "HURA"
   },
   {
     "Company": "Hurco Cos Inc",
@@ -20764,6 +20816,10 @@
     "Symbol": "ING"
   },
   {
+    "Company": "Ingram Micro Holding Corporation",
+    "Symbol": "INGM"
+  },
+  {
     "Company": "Inogen Inc",
     "Symbol": "INGN"
   },
@@ -21532,15 +21588,15 @@
     "Symbol": "IVAL"
   },
   {
-    "Company": "Investcorp India Acquisition Corp. Class A Ordinary Share",
+    "Company": "Investcorp AI Acquisition Corp. Class A Ordinary Share",
     "Symbol": "IVCA"
   },
   {
-    "Company": "Investcorp India Acquisition Corp. Unit",
+    "Company": "Investcorp AI Acquisition Corp. Unit",
     "Symbol": "IVCAU"
   },
   {
-    "Company": "Investcorp India Acquisition Corp. Warrant",
+    "Company": "Investcorp AI Acquisition Corp. Warrant",
     "Symbol": "IVCAW"
   },
   {
@@ -23638,6 +23694,10 @@
   {
     "Company": "Leatherback Long/Short Alternative Yield ETF",
     "Symbol": "LBAY"
+  },
+  {
+    "Company": "Li Bang International Corporation Inc. Ordinary Shares",
+    "Symbol": "LBGJ"
   },
   {
     "Company": "WHITEWOLF Publicly Listed Private Equity ETF",
@@ -27444,6 +27504,10 @@
     "Symbol": "NAVI"
   },
   {
+    "Company": "NAYA Biosciences, Inc. Common Stock",
+    "Symbol": "NAYA"
+  },
+  {
     "Company": "Nuveen Arizona Quality Municipal Income Fund",
     "Symbol": "NAZ"
   },
@@ -27498,6 +27562,10 @@
   {
     "Company": "NATIONAL BANK HOLDINGS CORP.",
     "Symbol": "NBHC"
+  },
+  {
+    "Company": "Nebius Group N.V. Class A Ordinary Shares",
+    "Symbol": "NBIS"
   },
   {
     "Company": "Neurocrine Biosciences Inc",
@@ -27750,6 +27818,14 @@
   {
     "Company": "Minerva Neurosciences, Inc",
     "Symbol": "NERV"
+  },
+  {
+    "Company": "National Energy Services Reunited Corp. Ordinary Shares",
+    "Symbol": "NESR"
+  },
+  {
+    "Company": "National Energy Services Reunited Corp. Warrant",
+    "Symbol": "NESRW"
   },
   {
     "Company": "Cloudflare, Inc. Class A common stock, par value $0.001 per share",
@@ -29358,6 +29434,10 @@
   {
     "Company": "Innovator Premium Income 30 Barrier ETF - October",
     "Symbol": "OCTJ"
+  },
+  {
+    "Company": "FT Vest U.S. Equity Max Buffer ETF - October",
+    "Symbol": "OCTM"
   },
   {
     "Company": "Eightco Holdings Inc. Common Stock",
@@ -32712,6 +32792,10 @@
     "Symbol": "QCLR"
   },
   {
+    "Company": "FT Vest Nasdaq-100 Conservative Buffer ETF - October",
+    "Symbol": "QCOC"
+  },
+  {
     "Company": "Qualcomm Inc",
     "Symbol": "QCOM"
   },
@@ -34320,6 +34404,10 @@
     "Symbol": "ROL"
   },
   {
+    "Company": "High Roller Technologies, Inc.",
+    "Symbol": "ROLR"
+  },
+  {
     "Company": "ProShares Ultra Technology",
     "Symbol": "ROM"
   },
@@ -34922,6 +35010,10 @@
   {
     "Company": "Safety Insurance Group Inc",
     "Symbol": "SAFT"
+  },
+  {
+    "Company": "SAG Holdings Limited Ordinary Shares",
+    "Symbol": "SAG"
   },
   {
     "Company": "Sage Therapeutics, Inc",
@@ -36620,6 +36712,10 @@
     "Symbol": "SM"
   },
   {
+    "Company": "Amplify Small-Mid Cap Equity ETF",
+    "Symbol": "SMAP"
+  },
+  {
     "Company": "Smartsheet Inc.",
     "Symbol": "SMAR"
   },
@@ -36998,6 +37094,10 @@
   {
     "Company": "Sanofi American Depositary Shares (Each representing one-half of one ordinary share)",
     "Symbol": "SNY"
+  },
+  {
+    "Company": "Synergy CHC Corp. Common Stock",
+    "Symbol": "SNYR"
   },
   {
     "Company": "The Southern Company",
@@ -38976,6 +39076,10 @@
     "Symbol": "TEI"
   },
   {
+    "Company": "iShares Technology Opportunities Active ETF",
+    "Symbol": "TEK"
+  },
+  {
     "Company": "SPDR Galaxy Transformative Tech Accelerators ETF",
     "Symbol": "TEKX"
   },
@@ -39692,7 +39796,7 @@
     "Symbol": "TOON"
   },
   {
-    "Company": "TOP Financial Group Limited Ordinary Shares",
+    "Company": "TOP Financial Group Limited Class A Ordinary Shares",
     "Symbol": "TOP"
   },
   {
@@ -41384,6 +41488,10 @@
     "Symbol": "UXIN"
   },
   {
+    "Company": "FT Vest U.S. Equity Uncapped Accelerator ETF - October",
+    "Symbol": "UXOC"
+  },
+  {
     "Company": "ProShares Ultra Financials",
     "Symbol": "UYG"
   },
@@ -42680,6 +42788,10 @@
     "Symbol": "WAFU"
   },
   {
+    "Company": "Top KingWin Ltd Class A Ordinary Shares",
+    "Symbol": "WAI"
+  },
+  {
     "Company": "Western Alliance Bancorporation",
     "Symbol": "WAL"
   },
@@ -43890,6 +44002,10 @@
   {
     "Company": "Consumer Discretionary Select Sector SPDR Fund",
     "Symbol": "XLY"
+  },
+  {
+    "Company": "Defiance Large Cap ex-Mag 7 ETF",
+    "Symbol": "XMAG"
   },
   {
     "Company": "FT Vest U.S. Equity Enhance & Moderate Buffer ETF - March",
