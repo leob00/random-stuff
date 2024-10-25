@@ -5,7 +5,7 @@ import { CasinoBlueTransparent, CasinoOrangeTransparent } from 'components/theme
 import dayjs from 'dayjs'
 import { JoBLog, Job } from 'lib/backend/api/qln/qlnApi'
 import { sortArray } from 'lib/util/collections'
-import { max, mean, sum, take } from 'lodash'
+import { max, mean, orderBy, sum, take } from 'lodash'
 import numeral from 'numeral'
 
 const JobPerformanceBarChart = ({ data }: { data: Job }) => {
@@ -13,7 +13,7 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const isLarge = useMediaQuery(theme.breakpoints.up('md'))
   const history = data.Chart?.RawData as JoBLog[]
-  const limit = isXSmall ? 100 : 250
+  const limit = isXSmall ? 14 : 30
   let height: number | undefined = undefined
   if (isXSmall) {
     height = 400
@@ -21,10 +21,10 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
   if (isLarge) {
     height = 66
   }
-  let sorted = take(sortArray(history, ['DateCompleted'], ['desc']), limit)
+  let sorted = sortArray(history, ['DateCompleted'], ['desc'])
 
-  sorted = sortArray(sorted, ['DateCompleted'], ['asc'])
-  const days = new Set(sorted.map((m) => dayjs(m.DateCompleted).format('MM/DD/YYYY')))
+  let days = take(Array.from(new Set(sorted.map((m) => dayjs(m.DateCompleted).format('YYYY-MM-DD')))), limit)
+  days = orderBy(days)
 
   const barChart: BarChart = {
     colors: [],
@@ -33,11 +33,11 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
   }
   const records: number[] = []
   days.forEach((day) => {
-    const d = sorted.filter((m) => dayjs(m.DateCompleted).format('MM/DD/YYYY') === day)
+    const d = sorted.filter((m) => dayjs(m.DateCompleted).format('YYYY-MM-DD') === day)
     if (d.length > 0) {
       const avgMinutes = mean(d.map((m) => m.TotalMinutes))
       barChart.numbers.push(avgMinutes)
-      barChart.labels.push(day)
+      barChart.labels.push(dayjs(day).format('MM/DD/YYYY'))
       barChart.colors.push(CasinoBlueTransparent)
       records.push(sum(d.map((m) => m.RecordsProcessed)))
     }
