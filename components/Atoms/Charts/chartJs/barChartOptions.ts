@@ -59,7 +59,7 @@ export const getBarChartOptions = (
         text: title,
         font: {
           size: 18,
-          weight: 100,
+          weight: 200,
         },
         color: palette === 'light' ? CasinoRedTransparent : VeryLightBlue,
       },
