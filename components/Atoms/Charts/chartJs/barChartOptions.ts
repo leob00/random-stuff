@@ -1,9 +1,13 @@
 import { ChartData, ChartOptions } from 'chart.js'
 import {
+  CasinoBlackTransparent,
   CasinoBlue,
   CasinoMoreBlackTransparent,
   CasinoRedTransparent,
   CasinoWhiteTransparent,
+  DarkBlue,
+  DarkModeBlue,
+  DarkModeBlueTransparent,
   VeryLightBlue,
   VeryLightBlueTransparent,
 } from 'components/themes/mainTheme'
@@ -61,7 +65,7 @@ export const getBarChartOptions = (
           size: 18,
           weight: 200,
         },
-        color: palette === 'light' ? CasinoRedTransparent : VeryLightBlue,
+        color: palette === 'light' ? DarkBlue : VeryLightBlue,
       },
       legend: {
         display: false,
@@ -77,19 +81,21 @@ export const getBarChartOptions = (
         padding: 16,
         backgroundColor: CasinoMoreBlackTransparent,
         titleColor: CasinoWhiteTransparent,
-        footerAlign: 'center',
-        footerSpacing: 2,
-        footerMarginTop: 10,
+        footerAlign: 'left',
+        footerSpacing: 10,
+        footerMarginTop: 1,
         footerFont: {
-          size: 12,
           weight: 200,
         },
         bodyFont: {
           size: 16,
           weight: 'bold',
         },
+        bodySpacing: 10,
+        bodyAlign: 'left',
         usePointStyle: true,
-        footerColor: 'white',
+        footerColor: palette === 'light' ? DarkBlue : VeryLightBlue,
+        bodyColor: palette === 'light' ? DarkBlue : VeryLightBlue,
         callbacks: {
           title: (tooltipItems) => {
             return ''

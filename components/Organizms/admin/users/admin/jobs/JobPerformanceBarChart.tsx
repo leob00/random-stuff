@@ -51,18 +51,31 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
     }
   }
 
-  var options = getBarChartOptions('performance in minutes', barChart, ' minutes', barChart.colors, theme.palette.mode)
+  var options = getBarChartOptions('aggregate performance', barChart, ' minutes', barChart.colors, theme.palette.mode)
   options.plugins!.tooltip!.callbacks = {
     ...options.plugins!.tooltip?.callbacks,
-    footer: (tooltipItems) => {
-      return `records processed: ${numeral(records[tooltipItems[0].dataIndex]).format('###,###')}`
+
+    label: (tooltipItems) => {
+      return ` ${dayjs(tooltipItems.label).format('dddd, MMMM D, YYYY')}`
     },
+    afterLabel: (tooltipItems) => {
+      return ` ${tooltipItems.formattedValue} minutes`
+    },
+    beforeFooter: (tooltipItems) => {
+      return ` _________________________`
+    },
+    footer: (tooltipItems) => {
+      return ` records processed: ${numeral(records[tooltipItems[0].dataIndex]).format('###,###')}`
+    },
+    // afterFooter: (tooltipItems) => {
+    //   return `after footer`
+    // },
   }
 
   return (
     <Box>
       <Box minHeight={200} px={{ lg: 2 }}>
-        <SimpleBarChart2 title='performance in minutes' barChart={barChart} yAxisDecorator=' minutes' height={height} chartOptions={options} />
+        <SimpleBarChart2 barChart={barChart} height={height} chartOptions={options} />
       </Box>
     </Box>
   )
