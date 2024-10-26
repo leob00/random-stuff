@@ -776,7 +776,7 @@
     "Symbol": "AFBI"
   },
   {
-    "Company": "AFC Gamma, Inc. Common Stock",
+    "Company": "Advanced Flower Capital Inc. Common Stock",
     "Symbol": "AFCG"
   },
   {
@@ -4152,6 +4152,10 @@
     "Symbol": "BE"
   },
   {
+    "Company": "Bold Eagle Acquisition Corp. Units",
+    "Symbol": "BEAGU"
+  },
+  {
     "Company": "Beam Therapeutics Inc. Common Stock",
     "Symbol": "BEAM"
   },
@@ -5744,7 +5748,7 @@
     "Symbol": "BSFC"
   },
   {
-    "Company": "BIOSIG TECHNOLOGIES INC",
+    "Company": "BioSig Technologies, Inc. Common Stock",
     "Symbol": "BSGM"
   },
   {
@@ -6582,6 +6586,14 @@
   {
     "Company": "CrossAmerica Partners LP Common units representing limited partner interests",
     "Symbol": "CAPL"
+  },
+  {
+    "Company": "Cayson Acquisition Corp Ordinary shares",
+    "Symbol": "CAPN"
+  },
+  {
+    "Company": "Cayson Acquisition Corp Right",
+    "Symbol": "CAPNR"
   },
   {
     "Company": "Cayson Acquisition Corp Unit",
@@ -7492,6 +7504,10 @@
     "Symbol": "CHAA"
   },
   {
+    "Company": "Charlton Aria Acquisition Corporation Units",
+    "Symbol": "CHARU"
+  },
+  {
     "Company": "Roundhill Generative AI & Technology ETF",
     "Symbol": "CHAT"
   },
@@ -7964,7 +7980,7 @@
     "Symbol": "CLNR"
   },
   {
-    "Company": "BlackRock AAA CLO ETF",
+    "Company": "BlackRock ETF Trust II iShares AAA CLO Active ETF",
     "Symbol": "CLOA"
   },
   {
@@ -13136,6 +13152,10 @@
     "Symbol": "ETON"
   },
   {
+    "Company": "T-Rex 2X Inverse Ether Daily Target ETF",
+    "Symbol": "ETQ"
+  },
+  {
     "Company": "Entergy Corporation",
     "Symbol": "ETR"
   },
@@ -13146,6 +13166,10 @@
   {
     "Company": "Etsy, Inc.",
     "Symbol": "ETSY"
+  },
+  {
+    "Company": "T-Rex 2X Long Ether Daily Target ETF",
+    "Symbol": "ETU"
   },
   {
     "Company": "Eaton Vance Tax-Managed Buy-Write Opportunities Fund",
@@ -18480,6 +18504,10 @@
     "Symbol": "HFRO"
   },
   {
+    "Company": "TradersAI Large Cap Equity & Cash ETF",
+    "Symbol": "HFSP"
+  },
+  {
     "Company": "Heritage Financial Corp",
     "Symbol": "HFWA"
   },
@@ -21254,6 +21282,10 @@
   {
     "Company": "iRobot Corporation",
     "Symbol": "IRBT"
+  },
+  {
+    "Company": "Opus Genetics, Inc. Common Stock",
+    "Symbol": "IRD"
   },
   {
     "Company": "Iridium Communications Inc.",
@@ -29244,6 +29276,10 @@
     "Symbol": "OABIW"
   },
   {
+    "Company": "Oaktree Acquisition Corp. III Life Sciences Unit",
+    "Symbol": "OACCU"
+  },
+  {
     "Company": "OneAscent Core Plus Bond ETF",
     "Symbol": "OACP"
   },
@@ -33012,6 +33048,10 @@
     "Symbol": "QNTM"
   },
   {
+    "Company": "iShares Nasdaq-100 ex Top 30 ETF",
+    "Symbol": "QNXT"
+  },
+  {
     "Company": "Qomolangma Acquisition Corp. Common Stock",
     "Symbol": "QOMO"
   },
@@ -33218,6 +33258,10 @@
   {
     "Company": "Innovator Growth Accelerated Plus ETF - October",
     "Symbol": "QTOC"
+  },
+  {
+    "Company": "iShares Nasdaq Top 30 Stocks ETF",
+    "Symbol": "QTOP"
   },
   {
     "Company": "Global X NASDAQ 100 Tail Risk ETF",
@@ -39804,6 +39848,10 @@
     "Symbol": "TOPS"
   },
   {
+    "Company": "iShares Top 20 U.S. Stocks ETF",
+    "Symbol": "TOPT"
+  },
+  {
     "Company": "Toro Corp. Common Stock",
     "Symbol": "TORO"
   },
@@ -40342,6 +40390,10 @@
   {
     "Company": "Tetra Tech Inc",
     "Symbol": "TTEK"
+  },
+  {
+    "Company": "T. Rowe Price Technology ETF",
+    "Symbol": "TTEQ"
   },
   {
     "Company": "TechTarget, Inc.",
