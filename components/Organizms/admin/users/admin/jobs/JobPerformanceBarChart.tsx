@@ -16,7 +16,7 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
   const limit = isXSmall ? 14 : 30
   let height: number | undefined = undefined
   if (isXSmall) {
-    height = 400
+    height = 340
   }
   if (isLarge) {
     height = 66
