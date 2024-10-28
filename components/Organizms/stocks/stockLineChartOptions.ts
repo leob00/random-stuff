@@ -2,6 +2,7 @@ import { getBaseLineChartOptions } from 'components/Atoms/Charts/apex/baseLineCh
 import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
+import { getPositiveNegativeColor } from './StockListItem'
 
 export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: boolean, palette: 'light' | 'dark' = 'light') {
   const options = getBaseLineChartOptions(items, {
@@ -37,6 +38,6 @@ export const stockChartTooltipFormatter = (val: number, opts: any, raw: StockHis
   if (raw.length === 0) {
     return `${val}`
   }
-  const change = raw[opts.dataPointIndex].Change! > 0 ? `+$${raw[opts.dataPointIndex].Change?.toFixed(2)}` : `${raw[opts.dataPointIndex].Change?.toFixed(2)}`
-  return `$${raw[opts.dataPointIndex].Price.toFixed(2)}   ${change}   ${raw[opts.dataPointIndex].ChangePercent}% `
+  const change = raw[opts.dataPointIndex].Change! > 0 ? `+$${raw[opts.dataPointIndex].Change}` : `${raw[opts.dataPointIndex].Change}`
+  return `<p style="color: ${getPositiveNegativeColor(raw[opts.dataPointIndex].Change, 'dark')}">$${raw[opts.dataPointIndex].Price}   ${change}   ${raw[opts.dataPointIndex].ChangePercent}%</p>`
 }

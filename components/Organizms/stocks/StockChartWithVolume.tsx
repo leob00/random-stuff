@@ -44,6 +44,7 @@ const mapModel = (symbol: string, history: StockHistoryItem[], isXSmall: boolean
     yLabelPrefix: '$',
     chartId: `${id}-${symbol}`,
     groupName: `${id}-${symbol}`,
+    enableAxisXTooltip: false,
     toolTipFormatter: (val: number, options: any) => {
       return stockChartTooltipFormatter(val, options, history)
     },

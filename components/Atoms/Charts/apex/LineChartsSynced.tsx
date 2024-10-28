@@ -13,7 +13,7 @@ const getOptions = (xYValues: XyValues[], lineOptions: LineChartOptions[]) => {
 
 const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyValues[]; lineOptions: LineChartOptions[]; isLoading: boolean }) => {
   const theme = useTheme()
-  const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
+  const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const chartHeight = isXSmall ? 300 : 520
 
   const options = getOptions(xYValues, lineOptions)

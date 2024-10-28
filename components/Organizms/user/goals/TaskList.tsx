@@ -18,6 +18,7 @@ import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
 import { UserTask, UserGoal } from './goalModels'
 import EditTaskForm from './tasks/EditTaskForm'
 import { useReducer } from 'react'
+import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 
 interface TaskModel {
   isLoading: boolean
@@ -177,7 +178,6 @@ const TaskList = ({
           <Box pt={1} pb={3}>
             <AddTaskForm task={{}} onSubmitted={handleAddTask} />
           </Box>
-
           <Box py={2}>
             <Stack direction='row' py={'3px'} justifyContent='left' alignItems='left'>
               <Box display={'flex'} alignItems={'center'} gap={2}>
@@ -213,35 +213,34 @@ const TaskList = ({
               <NoDataFound message={'you do not have tasks for this goal'} />
             </Stack>
           )}
+          <>
+            {model.editTask && (
+              <FormDialog title='edit task' show={true} onCancel={() => setModel({ ...model, editTask: undefined })} fullScreen>
+                <EditTaskForm
+                  task={model.editTask}
+                  onSubmit={handleSaveTask}
+                  onCancel={() => {
+                    setModel({ ...model, editTask: undefined, selectedTask: undefined })
+                  }}
+                  onDelete={handleDeleteTask}
+                />
+              </FormDialog>
+            )}
+          </>
           <ScrollableBox maxHeight={400}>
             {filterTasks(model.searchTasksText).map((item, i) => (
               <Box key={item.id}>
-                {model.editTask !== undefined && model.editTask.id === item.id ? (
-                  <Box>
-                    <EditTaskForm
-                      task={model.editTask}
-                      onSubmit={handleSaveTask}
-                      onCancel={() => {
-                        setModel({ ...model, editTask: undefined, selectedTask: undefined })
-                      }}
-                      onDelete={handleDeleteTask}
+                <Box pb={2}>
+                  <Box key={item.id}>
+                    <TaskItem
+                      task={item}
+                      index={i}
+                      taskCount={tasks.length}
+                      handleCompleteTaskClick={handleCompleteTaskClick}
+                      handleTaskClick={handleTaskClick}
                     />
                   </Box>
-                ) : (
-                  <>
-                    <Box pb={2}>
-                      <Box key={item.id}>
-                        <TaskItem
-                          task={item}
-                          index={i}
-                          taskCount={tasks.length}
-                          handleCompleteTaskClick={handleCompleteTaskClick}
-                          handleTaskClick={handleTaskClick}
-                        />
-                      </Box>
-                    </Box>
-                  </>
-                )}
+                </Box>
               </Box>
             ))}
           </ScrollableBox>

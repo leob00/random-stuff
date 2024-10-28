@@ -1,5 +1,12 @@
 import { Box, Stack, Typography } from '@mui/material'
-import { CasinoBlackTransparent, CasinoDarkGreenTransparent, CasinoDarkRedTransparent, CasinoLimeTransparent, CasinoOrange, VeryLightBlue } from 'components/themes/mainTheme'
+import {
+  CasinoBlackTransparent,
+  CasinoDarkGreenTransparent,
+  CasinoDarkRedTransparent,
+  CasinoLimeTransparent,
+  CasinoOrange,
+  VeryLightBlue,
+} from 'components/themes/mainTheme'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import StockChart from 'components/Organizms/stocks/StockChart'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
@@ -89,7 +96,11 @@ const StockListItem = ({
       <Box py={1}>
         <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
         <Box>
-          {isStock ? <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={handleCompanyClick} disabled={disabled} /> : <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} />}
+          {isStock ? (
+            <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={handleCompanyClick} disabled={disabled} />
+          ) : (
+            <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} />
+          )}
           <Box>
             <StockChange item={item} />
           </Box>
@@ -110,7 +121,7 @@ const StockListItem = ({
             <Box>
               <HorizontalDivider />
             </Box>
-            <Box pl={1} minHeight={{ xs: 300, sm: 600 }}>
+            <Box minHeight={{ xs: 300, sm: 600 }}>
               <StockChart symbol={item.Symbol} isStock={isStock} />
             </Box>
             {isStock && (
