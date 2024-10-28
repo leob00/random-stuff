@@ -16,7 +16,7 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
   const limit = isXSmall ? 14 : 30
   let height: number | undefined = undefined
   if (isXSmall) {
-    height = 340
+    height = 240
   }
   if (isLarge) {
     height = 66
@@ -51,7 +51,7 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
     }
   }
 
-  var options = getBarChartOptions('aggregate performance', barChart, ' minutes', barChart.colors, theme.palette.mode)
+  var options = getBarChartOptions('job performance', barChart, ' minutes', barChart.colors, theme.palette.mode)
   options.plugins!.tooltip!.callbacks = {
     ...options.plugins!.tooltip?.callbacks,
 

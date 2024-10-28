@@ -1,18 +1,12 @@
 import { Box } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import CenterStack from 'components/Atoms/CenterStack'
-import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import CenteredParagraph from 'components/Atoms/Text/CenteredParagraph'
 import RequirePin from 'components/Organizms/Login/RequirePin'
 import dayjs from 'dayjs'
-import { useUserController } from 'hooks/userController'
 import { UserSecret, userSecretArraySchema } from 'lib/backend/api/models/zModels'
 import { AmplifyUser } from 'lib/backend/auth/userUtil'
 import { getGuid, myEncrypt } from 'lib/backend/encryption/useEncryptor'
-import React from 'react'
 import EditSecret from './EditSecret'
-import SecretLayout from './SecretLayout'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { mutate } from 'swr'
 import { searchRecords } from 'lib/backend/csr/nextApiWrapper'
@@ -20,6 +14,7 @@ import { constructUserSecretSecondaryKey } from 'lib/backend/api/aws/util'
 import { sortArray } from 'lib/util/collections'
 import SecretsTable from './SecretsTable'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { useReducer } from 'react'
 
 interface Model {
   filter: string
@@ -35,7 +30,7 @@ const SecretsLayout = ({ userProfile, ticket }: { userProfile: UserProfile; tick
     createNew: false,
     showPinEntry: dayjs(userProfile.pin!.lastEnterDate).add(10, 'minutes').isBefore(dayjs()),
   }
-  const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
+  const [model, setModel] = useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
 
   const mutateKey = `user-secrets-${userProfile.username}`
   const dataFn = async () => {
@@ -85,14 +80,29 @@ const SecretsLayout = ({ userProfile, ticket }: { userProfile: UserProfile; tick
 
       <>
         {model.createNew ? (
-          <EditSecret username={userProfile.username} encKey={encKey} userSecret={{ title: '', secret: '', salt: getRandomSalt() }} onCancel={handleCancelEdit} onSaved={handleItemSaved} onDeleted={handleItemDeleted} />
+          <EditSecret
+            username={userProfile.username}
+            encKey={encKey}
+            userSecret={{ title: '', secret: '', salt: getRandomSalt() }}
+            onCancel={handleCancelEdit}
+            onSaved={handleItemSaved}
+            onDeleted={handleItemDeleted}
+          />
         ) : (
           <Box pb={3}>
             <PrimaryButton text={'add'} size='small' onClick={handleShowAddNew} />
           </Box>
         )}
         {!model.createNew && (
-          <SecretsTable encKey={encKey} authProfile={userProfile} filter={model.filter} filteredSecrets={filteredSecrets} handleFilterChanged={handleFilterChanged} handleItemDeleted={handleItemDeleted} handleItemSaved={handleItemSaved} />
+          <SecretsTable
+            encKey={encKey}
+            authProfile={userProfile}
+            filter={model.filter}
+            filteredSecrets={filteredSecrets}
+            handleFilterChanged={handleFilterChanged}
+            handleItemDeleted={handleItemDeleted}
+            handleItemSaved={handleItemSaved}
+          />
         )}
       </>
     </RequirePin>

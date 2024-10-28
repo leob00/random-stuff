@@ -5,10 +5,10 @@ import dayjs from 'dayjs'
 import { StockEarning } from 'lib/backend/api/qln/qlnApi'
 import { DropdownItem } from 'lib/models/dropdown'
 import { orderBy, uniq } from 'lodash'
-import React from 'react'
 import StockEarningsCalendarDetails from './StockEarningsCalendarDetails'
 import SearchIcon from '@mui/icons-material/Search'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 const filterResult = (items: StockEarning[], dt: string | null) => {
   return orderBy(
     items.filter((m) => m.ReportDate === dt),
@@ -21,9 +21,9 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   const uniqueDates = orderBy(uniq(data.map((m) => m.ReportDate!)))
   const todayEarningsDate = uniqueDates.find((m) => dayjs(m).format('MM/DD/YYYY') === dayjs().format('MM/DD/YYYY'))
   const dateToSelect = getDefaultDateOption(uniqueDates, todayEarningsDate)
-  const [selectedDate, setSelectedDate] = React.useState(dateToSelect)
-  const [filteredResults, setFilteredResults] = React.useState(dateToSelect ? filterResult(data, dateToSelect) : [])
-  const [currentPageIndex, setCurrentPageIndex] = React.useState(1)
+  const [selectedDate, setSelectedDate] = useState(dateToSelect)
+  const [filteredResults, setFilteredResults] = useState(dateToSelect ? filterResult(data, dateToSelect) : [])
+  const [currentPageIndex, setCurrentPageIndex] = useState(1)
   const datesMap = new Map<string, StockEarning[]>()
 
   uniqueDates.forEach((item) => {

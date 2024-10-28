@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import { useUserController } from 'hooks/userController'
-import { UserPin, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { UserPin } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { ReactNode, useEffect, useReducer, useRef } from 'react'
 import EnterPinDialog from './EnterPinDialog'
 import relativeTime from 'dayjs/plugin/relativeTime'
