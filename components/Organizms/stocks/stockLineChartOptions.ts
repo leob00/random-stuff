@@ -33,7 +33,7 @@ export const mapHistory = (items: StockHistoryItem[], yKey: keyof StockHistoryIt
   return result
 }
 
-export const stockChartTooltipFormatter = (val: number, opts: any, raw: any[]) => {
+export const stockChartTooltipFormatter = (val: number, opts: any, raw: StockHistoryItem[]) => {
   if (raw.length === 0) {
     return `${val}`
   }

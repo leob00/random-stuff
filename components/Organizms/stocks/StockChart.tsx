@@ -76,7 +76,7 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
         )}
         <>
           {isStock ? (
-            <>{data && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading} />}</>
+            <>{data && data.history.length > 0 && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading} />}</>
           ) : (
             <>
               {data && (

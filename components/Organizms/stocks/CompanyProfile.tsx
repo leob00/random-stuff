@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import { CasinoGrayTransparent, CasinoLightGrayTransparent } from 'components/themes/mainTheme'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { Company, getCompanyProfile } from 'lib/backend/api/qln/qlnApi'
@@ -32,7 +33,7 @@ const CompanyProfile = ({ quote }: { quote: StockQuote }) => {
     }
     return result
   }
-  const { data, isLoading } = useSwrHelper(mutateKey, dataFn)
+  const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
   return (
     <Box pb={2} pt={2} minHeight={400}>
@@ -42,7 +43,7 @@ const CompanyProfile = ({ quote }: { quote: StockQuote }) => {
         <>
           <Box py={2} display={'flex'} gap={2} flexDirection={'column'}>
             {data?.awsUrl && (
-              <Box py={2} sx={{ borderRadius: '8px' }} width={320} px={2}>
+              <Box py={2} sx={{ borderRadius: '8px', backgroundColor: 'whitesmoke' }} width={320} px={2}>
                 <img src={`${data.awsUrl}`} alt='company logo' width={275} />
               </Box>
             )}

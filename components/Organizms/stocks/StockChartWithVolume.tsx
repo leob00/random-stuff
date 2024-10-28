@@ -18,7 +18,7 @@ const StockChartWithVolume = ({ symbol, data, isLoading }: { symbol: string; dat
 
   return (
     <Box>
-      <LineChartsSynced xYValues={model.xyValues} lineOptions={model.options} isLoading={isLoading} />
+      <LineChartsSynced key={symbol} xYValues={model.xyValues} lineOptions={model.options} isLoading={isLoading} />
     </Box>
   )
 }
@@ -26,7 +26,7 @@ const StockChartWithVolume = ({ symbol, data, isLoading }: { symbol: string; dat
 const mapModel = (symbol: string, history: StockHistoryItem[], isXSmall: boolean, themeMode: 'light' | 'dark') => {
   const newXYValues: XyValues[] = []
   const opts: LineChartOptions[] = []
-
+  const id = crypto.randomUUID()
   const x = history.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY hh:mm a'))
   newXYValues.push({
     x: x,
@@ -42,8 +42,8 @@ const mapModel = (symbol: string, history: StockHistoryItem[], isXSmall: boolean
     raw: history,
     changePositiveColor: true,
     yLabelPrefix: '$',
-    chartId: `main-chart-${symbol}`,
-    groupName: `stock-chart-${symbol}`,
+    chartId: `${id}-${symbol}`,
+    groupName: `${id}-${symbol}`,
     toolTipFormatter: (val: number, options: any) => {
       return stockChartTooltipFormatter(val, options, history)
     },
@@ -56,7 +56,7 @@ const mapModel = (symbol: string, history: StockHistoryItem[], isXSmall: boolean
     yLabelPrefix: '',
     changePositiveColor: false,
     chartId: `child-chart-${symbol}`,
-    groupName: `stock-chart-${symbol}`,
+    groupName: `${id}-${symbol}`,
     numericFormatter: (num: number) => {
       return `${numeral(num).format('###,###')}`
     },

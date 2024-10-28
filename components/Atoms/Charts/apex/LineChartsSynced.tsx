@@ -24,22 +24,18 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
       {isLoading ? (
         <BackdropLoader />
       ) : (
-        <Box>
-          <Box height={chartHeight}>
-            <ReactApexChart options={options[0]} series={options[0].series} type='area' height={'100%'} />
-          </Box>
-          <Box height={160}>
-            <ReactApexChart options={options[1]} series={options[1].series} type='area' height={'100%'} />
-          </Box>
-
-          {/* {options.length > 1 && (
-            <>
-              {options.map((item, index) => (
-                <Box key={index}>{item.chart && <ReactApexChart key={options[index].chart?.id} options={item} series={item.series} type='area' />}</Box>
-              ))}
-            </>
-          )} */}
-        </Box>
+        <>
+          {options.length > 1 && (
+            <Box>
+              <Box height={chartHeight}>
+                <ReactApexChart options={options[0]} series={options[0].series} type='area' height={'100%'} />
+              </Box>
+              <Box height={160}>
+                <ReactApexChart options={options[1]} series={options[1].series} type='area' height={'100%'} />
+              </Box>
+            </Box>
+          )}
+        </>
       )}
     </Box>
   )

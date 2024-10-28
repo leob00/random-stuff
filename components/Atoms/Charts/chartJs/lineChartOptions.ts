@@ -1,14 +1,6 @@
 import { ChartOptions } from 'chart.js'
 import { LineChart } from './barChartOptions'
-import {
-  CasinoBlue,
-  CasinoMoreBlackTransparent,
-  CasinoRedTransparent,
-  CasinoWhiteTransparent,
-  VeryLightBlue,
-  VeryLightBlueTransparent,
-} from 'components/themes/mainTheme'
-import { max } from 'lodash'
+import { CasinoBlue, DarkBlue, VeryLightBlue, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 
 export const getLineChartOptions = (title: string, data: LineChart, yAxisDecorator = '', palette: 'light' | 'dark'): ChartOptions<'line'> => {
   return {
@@ -21,7 +13,10 @@ export const getLineChartOptions = (title: string, data: LineChart, yAxisDecorat
       title: {
         display: true,
         text: title,
-        //color: palette === 'light' ? CasinoRedTransparent : VeryLightBlue,
+        color: palette === 'light' ? DarkBlue : VeryLightBlue,
+      },
+      filler: {
+        propagate: false,
       },
       legend: {
         display: false,
@@ -35,8 +30,6 @@ export const getLineChartOptions = (title: string, data: LineChart, yAxisDecorat
       },
       tooltip: {
         padding: 16,
-        //backgroundColor: CasinoMoreBlackTransparent,
-        //titleColor: CasinoWhiteTransparent,
         footerAlign: 'center',
         footerSpacing: 2,
         footerMarginTop: 10,
@@ -48,9 +41,6 @@ export const getLineChartOptions = (title: string, data: LineChart, yAxisDecorat
           size: 16,
           weight: 'bold',
         },
-        //sePointStyle: true,
-        //footerColor: 'white',
-
         callbacks: {
           title: (tooltipItems) => {
             return 'title'
@@ -85,26 +75,16 @@ export const getLineChartOptions = (title: string, data: LineChart, yAxisDecorat
         },
       },
     },
-    // interaction: {
-    //   mode: 'index',
-    //   intersect: false,
-    // },
+    interaction: {
+      intersect: true,
+    },
     scales: {
       y: {
         ticks: {
-          //padding: 2,
           color: palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {
             size: 12,
           },
-
-          // callback(tickValue, index, ticks) {
-          //   return `${tickValue}${yAxisDecorator}`
-          // },
-          //autoSkip: true,
-          //stepSize: 20,
-          //precision: 1,
-          //maxTicksLimit: max(data?.numbers),
         },
         grid: {
           display: true,
@@ -116,26 +96,11 @@ export const getLineChartOptions = (title: string, data: LineChart, yAxisDecorat
         display: false,
 
         ticks: {
-          //precision: 250,
-          //sampleSize: 300,
-          // padding: 20,
-          // autoSkip: true,
-          // maxTicksLimit: 10,
-          //autoSkip: true,
           color: palette === 'light' ? CasinoBlue : VeryLightBlueTransparent,
-          // font: {
-          //   size: 14,
-          //   weight: '600',
-          // },
-
-          // textStrokeColor(ctx, options) {
-          //   return `${colors[ctx.index]}`
-          // },
         },
         grid: {
           display: true,
           color: VeryLightBlueTransparent,
-          //color: "red"
         },
       },
     },
