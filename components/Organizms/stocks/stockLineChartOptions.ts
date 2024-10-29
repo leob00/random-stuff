@@ -10,10 +10,10 @@ export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: b
     isXSmall: isXSmall,
     palette: palette,
     yLabelPrefix: '$',
+    enableAxisXTooltip: false,
     toolTipFormatter: (val: number, opts: any) => {
       return stockChartTooltipFormatter(val, opts, raw)
     },
-
     changePositiveColor: true,
   })
 
@@ -39,5 +39,5 @@ export const stockChartTooltipFormatter = (val: number, opts: any, raw: StockHis
     return `${val}`
   }
   const change = raw[opts.dataPointIndex].Change! > 0 ? `+$${raw[opts.dataPointIndex].Change}` : `${raw[opts.dataPointIndex].Change}`
-  return `<p style="color: ${getPositiveNegativeColor(raw[opts.dataPointIndex].Change, 'dark')}">$${raw[opts.dataPointIndex].Price}   ${change}   ${raw[opts.dataPointIndex].ChangePercent}%</p>`
+  return `<div style="color: ${getPositiveNegativeColor(raw[opts.dataPointIndex].Change, 'dark')}">${raw[opts.dataPointIndex].Price} &nbsp;${change} &nbsp;${raw[opts.dataPointIndex].ChangePercent}%</div>`
 }

@@ -191,14 +191,12 @@ export function getMulitiLineChartOptions(
     chart: { ...getBaseChart('group', palette), zoom: { enabled: false } },
     grid: getBaseGrid(palette),
     yaxis: { ...yAxis, forceNiceScale: true },
-    xaxis: { ...getBaseXAxis(items[items.length - 1].x) },
+    xaxis: { ...getBaseXAxis(items[items.length - 1].x), tooltip: { enabled: false } },
     tooltip: {
       cssClass: 'arrow_box',
       fillSeriesColor: false,
       theme: undefined,
-      marker: {
-        //fillColors: [lineColor],
-      },
+      marker: {},
       style: {
         fontSize: '16px',
       },
@@ -231,10 +229,7 @@ function getBaseChart(groupName: string, palette: 'light' | 'dark', chartId?: st
       top: 16,
       left: 7,
       blur: 10,
-      //opacity: 0.2,
     },
-    //background: palette === 'dark' ? 'transparent' : 'transparent',
-    //type: 'area',
     toolbar: {
       show: false,
     },
@@ -270,6 +265,7 @@ function getBaseYAxis(opts: LineChartOptions) {
     forceNiceScale: true,
 
     labels: {
+      show: true,
       style: {
         colors: opts.palette === 'dark' ? [VeryLightBlue] : [DarkBlue],
         fontWeight: opts.isXSmall ? 300 : 400,
@@ -291,14 +287,17 @@ function getBaseXAxis(categories: string[]) {
   const result: ApexXAxis = {
     labels: {
       show: false,
-      formatter: (val) => {
-        return val
-      },
+      // formatter: (val) => {
+      //   return val
+      // },
     },
     categories: categories,
     axisTicks: { show: false, borderType: 'none', color: 'red' },
     axisBorder: {
       show: false,
+    },
+    tooltip: {
+      enabled: false,
     },
   }
   return result

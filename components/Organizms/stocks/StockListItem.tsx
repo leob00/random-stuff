@@ -4,7 +4,8 @@ import {
   CasinoDarkGreenTransparent,
   CasinoDarkRedTransparent,
   CasinoLimeTransparent,
-  CasinoOrange,
+  DarkModeRed,
+  RedDarkMode,
   VeryLightBlue,
 } from 'components/themes/mainTheme'
 import { StockQuote } from 'lib/backend/api/models/zModels'
@@ -156,7 +157,7 @@ export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'd
   }
 
   if (val < 0) {
-    color = mode === 'light' ? CasinoDarkRedTransparent : CasinoOrange
+    color = mode === 'light' ? CasinoDarkRedTransparent : RedDarkMode
   } else if (val > 0) {
     color = mode === 'light' ? CasinoDarkGreenTransparent : CasinoLimeTransparent
   }

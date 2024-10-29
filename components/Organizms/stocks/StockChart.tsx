@@ -42,6 +42,7 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
     const history = await getStockOrFutureChart(symbol, days, isStock)
     const map = mapHistory(history, 'Price')
     const options = getOptions(map, history, isXSmall, theme.palette.mode)
+
     const result: Model = {
       history: history,
       chartOptions: options,
