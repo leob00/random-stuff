@@ -229,7 +229,9 @@ const StocksDisplay = ({
                           onShowCustomSort={handleShowCustomSort}
                         />
                       </Box>
-                      {customSort && <CustomSortAlert result={customSort} onModify={() => setModel({ ...model, showCustomSort: true })} />}
+                      {customSort && (
+                        <CustomSortAlert result={customSort} onModify={() => setModel({ ...model, showCustomSort: true })} translateDefaultMessage />
+                      )}
                       <PagedStockTable data={customSorted} showGroupName={true} />
                     </Box>
                   )}

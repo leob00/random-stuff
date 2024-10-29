@@ -11,8 +11,6 @@ import { sortArray } from 'lib/util/collections'
 import { useRouter } from 'next/router'
 import { dedup } from 'lib/util/collectionsNative'
 import { excludeFinancialInstruments } from 'lib/ui/stocks/util'
-import React from 'react'
-import StockReportDisplay from 'components/Organizms/stocks/StockReportDisplay'
 import SortableStockContainer from 'components/Organizms/stocks/SortableStockContainer'
 interface Model {
   container: SectorIndustry
