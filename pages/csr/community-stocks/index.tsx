@@ -130,10 +130,25 @@ const Page = () => {
         <PageHeader text='Community Stocks' />
         <Box py={2}>
           <CenterStack>
-            <StocksAutoComplete placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`} onChanged={handleSearched} searchResults={stockSearchResults} debounceWaitMilliseconds={500} onSelected={handleSelectQuote} />
+            <StocksAutoComplete
+              placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}
+              onChanged={handleSearched}
+              searchResults={stockSearchResults}
+              debounceWaitMilliseconds={500}
+              onSelected={handleSelectQuote}
+            />
           </CenterStack>
         </Box>
-        {selectedStock && <AddQuote stockListMap={getMapFromArray(searchedStocks!, 'Symbol')} quote={selectedStock} handleAddToList={handleAddToList} handleCloseAddQuote={handleCloseAddQuote} scrollIntoView showAddToListButton={false} />}
+        {selectedStock && (
+          <AddQuote
+            stockListMap={getMapFromArray(searchedStocks!, 'Symbol')}
+            quote={selectedStock}
+            handleAddToList={handleAddToList}
+            handleCloseAddQuote={handleCloseAddQuote}
+            scrollIntoView
+            showAddToListButton={false}
+          />
+        )}
         {!selectedStock && <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />}
         {loadingStock && <BackdropLoader />}
         {!selectedStock && (
@@ -144,8 +159,8 @@ const Page = () => {
                 {searchedStocks && <CommunityStocksRecentLayout data={searchedStocks} onRefresh={handleRefreshRecent} />}
               </Box>
             )}
-            {selectedTab === 'Winners' && <CommunityStocksWrapper data={winners} />}
-            {selectedTab === 'Losers' && <CommunityStocksWrapper data={losers} />}
+            {selectedTab === 'Winners' && <CommunityStocksWrapper data={winners} onRefresh={handleRefreshRecent} />}
+            {selectedTab === 'Losers' && <CommunityStocksWrapper data={losers} onRefresh={handleRefreshRecent} />}
           </>
         )}
       </ResponsiveContainer>

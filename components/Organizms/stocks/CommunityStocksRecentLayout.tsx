@@ -59,7 +59,9 @@ const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; 
           <ContextMenu items={menu} />
         </Box>
       </Box>
-      {settings.communityStocks?.defaultSort && <CustomSortAlert result={settings.communityStocks?.defaultSort} onModify={() => setShowCustomSortForm(true)} />}
+      {settings.communityStocks?.defaultSort && (
+        <CustomSortAlert result={settings.communityStocks?.defaultSort} onModify={() => setShowCustomSortForm(true)} translateDefaultMessage />
+      )}
       <CommunityStocksLayout data={sortedData} />
       <FormDialog show={showCustomSortForm} title={'sort'} onCancel={() => setShowCustomSortForm(false)} showActionButtons={false}>
         <StocksCustomSortForm result={settings.communityStocks?.defaultSort} onSubmitted={handleCustomSortSubmitted} />
