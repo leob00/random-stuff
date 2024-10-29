@@ -38,6 +38,6 @@ export const stockChartTooltipFormatter = (val: number, opts: any, raw: StockHis
   if (raw.length === 0) {
     return `${val}`
   }
-  const change = raw[opts.dataPointIndex].Change! > 0 ? `+$${raw[opts.dataPointIndex].Change}` : `${raw[opts.dataPointIndex].Change}`
+  const change = raw[opts.dataPointIndex].Change! > 0 ? `+${raw[opts.dataPointIndex].Change}` : `${raw[opts.dataPointIndex].Change}`
   return `<div style="color: ${getPositiveNegativeColor(raw[opts.dataPointIndex].Change, 'dark')}">${raw[opts.dataPointIndex].Price} &nbsp;${change} &nbsp;${raw[opts.dataPointIndex].ChangePercent}%</div>`
 }

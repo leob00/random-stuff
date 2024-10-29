@@ -13,6 +13,7 @@ import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import FormDropdownListNumeric from 'components/Molecules/Forms/ReactHookForm/FormDropdownListNumeric'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { mutate } from 'swr'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 export const stockChartDaySelect: DropdownItemNumeric[] = [
@@ -80,6 +81,7 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
             <>{data && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading} />}</>
           ) : (
             <>
+              {isLoading && <BackdropLoader />}
               {data && (
                 <Box minHeight={{ xs: 300, sm: chartHeight }} pt={2}>
                   <ReactApexChart series={data.chartOptions.series} options={data.chartOptions} type='area' height={chartHeight} />

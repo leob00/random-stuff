@@ -287,9 +287,9 @@ function getBaseXAxis(categories: string[]) {
   const result: ApexXAxis = {
     labels: {
       show: false,
-      // formatter: (val) => {
-      //   return val
-      // },
+      formatter: (val) => {
+        return val
+      },
     },
     categories: categories,
     axisTicks: { show: false, borderType: 'none', color: 'red' },
@@ -297,7 +297,7 @@ function getBaseXAxis(categories: string[]) {
       show: false,
     },
     tooltip: {
-      enabled: false,
+      enabled: true,
     },
   }
   return result
