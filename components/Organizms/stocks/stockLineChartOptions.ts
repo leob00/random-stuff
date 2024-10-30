@@ -3,13 +3,15 @@ import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { getPositiveNegativeColor } from './StockListItem'
+import { sortArray } from 'lib/util/collections'
+import { take } from 'lodash'
 
-export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: boolean, palette: 'light' | 'dark' = 'light') {
+export function getOptions(items: XyValues, raw: StockHistoryItem[], isXSmall: boolean, palette: 'light' | 'dark' = 'light', yLabelPrefix: string = '$') {
   const options = getBaseLineChartOptions(items, {
     raw: raw,
     isXSmall: isXSmall,
     palette: palette,
-    yLabelPrefix: '$',
+    yLabelPrefix: yLabelPrefix ?? '$',
     enableAxisXTooltip: false,
     toolTipFormatter: (val: number, opts: any) => {
       return stockChartTooltipFormatter(val, opts, raw)
@@ -40,4 +42,13 @@ export const stockChartTooltipFormatter = (val: number, opts: any, raw: StockHis
   }
   const change = raw[opts.dataPointIndex].Change! > 0 ? `+${raw[opts.dataPointIndex].Change}` : `${raw[opts.dataPointIndex].Change}`
   return `<div style="color: ${getPositiveNegativeColor(raw[opts.dataPointIndex].Change, 'dark')}">${raw[opts.dataPointIndex].Price} &nbsp;${change} &nbsp;${raw[opts.dataPointIndex].ChangePercent}%</div>`
+}
+
+export const takeLastDays = (history: StockHistoryItem[], days: number) => {
+  const newHistory = history.map((m) => {
+    return { ...m, TradeDate: dayjs(m.TradeDate).format('YYYY-MM-DD') }
+  })
+  const sorted = sortArray(newHistory, ['TradeDate'], ['desc'])
+  const taken = take(sorted, days)
+  return sortArray(taken, ['TradeDate'], ['asc'])
 }

@@ -17,10 +17,12 @@ const StockMarketGlance = ({
   showTitle = true,
   componentLoader = false,
   revalidateOnFocus = false,
+  width = 300,
 }: {
   showTitle?: boolean
   componentLoader?: boolean
   revalidateOnFocus?: boolean
+  width?: number
 }) => {
   const config = apiConnection().qln
   const apiUrl = `${config.url}/MarketHandshake?loadSentiment=true`
@@ -30,14 +32,14 @@ const StockMarketGlance = ({
   }
   const { data, isLoading } = useSwrHelper<MarketHandshake>(apiUrl, dataFn, { revalidateOnFocus: revalidateOnFocus })
   return (
-    <Box>
-      <Box pt={2}>
+    <Box py={2}>
+      <Box>
         {showTitle && <CenteredHeader variant='h4' title={'Stock Market Sentiment'} />}
         {isLoading && <>{componentLoader ? <CircleLoader /> : <BackdropLoader />}</>}
 
         {data ? (
-          <Box>
-            <CenterStack sx={{ mt: -2 }}>
+          <Box maxWidth={width}>
+            <CenterStack sx={{ mt: -1 }}>
               <Typography variant='body2'>{`${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} EST`}</Typography>
             </CenterStack>
             <StockMarketStatsChart data={data.StockStats} />

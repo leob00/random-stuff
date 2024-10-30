@@ -1,14 +1,15 @@
 'use client'
 import React from 'react'
 import CenterStack from '../CenterStack'
+import { Box } from '@mui/material'
 
 const CircleLoader = () => {
   return (
-    <CenterStack sx={{ py: 1 }}>
+    <Box display={'flex'} mt={-10} justifyContent={'center'}>
       <img src={'/images/loaders/blue-ring-expanded.svg'} alt='loader' />
       <img src={'/images/loaders/blue-ring-expanded-delayed.svg'} alt='loader' />
       <img src={'/images/loaders/blue-ring-expanded.svg'} alt='loader' />
-    </CenterStack>
+    </Box>
   )
 }
 

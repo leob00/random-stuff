@@ -11,7 +11,8 @@ const CommoditiesLayout = () => {
   const endPoint = `/Futures`
   const dataFn = async () => {
     const resp = await serverGetFetch(endPoint)
-    return resp
+    const quotes = resp.Body as StockQuote[]
+    return quotes
   }
 
   const { data, isLoading } = useSwrHelper(endPoint, dataFn, { revalidateOnFocus: false })
@@ -22,7 +23,7 @@ const CommoditiesLayout = () => {
       {data && (
         <Box pt={2}>
           <ScrollIntoView enabled={true} margin={-17} />
-          <StockTable stockList={data.Body as StockQuote[]} isStock={false} />
+          <StockTable stockList={data} isStock={false} />
         </Box>
       )}
     </Box>

@@ -7,7 +7,7 @@ import { CasinoRedTransparent, CasinoGreenTransparent, CasinoGrayTransparent } f
 import { StockStats } from 'lib/backend/api/qln/qlnModels'
 import numeral from 'numeral'
 
-const StockMarketStatsChart = ({ data }: { data: StockStats }) => {
+const StockMarketStatsChart = ({ data, width = 300 }: { data: StockStats; width?: number }) => {
   const chartData: BarChart = {
     colors: [CasinoGreenTransparent, CasinoRedTransparent, CasinoGrayTransparent],
     labels: ['up', 'down', 'unchanged'],

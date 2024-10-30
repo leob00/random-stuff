@@ -1,18 +1,6 @@
 import { ApexOptions } from 'apexcharts'
 import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
-import {
-  CasinoGreen,
-  CasinoRed,
-  VeryLightBlueTransparent,
-  DarkBlue,
-  VeryLightBlue,
-  DarkModeBlue,
-  RedDarkMode,
-  CasinoLimeTransparent,
-  CasinoRedTransparent,
-  CasinoBlue,
-  LightBlue,
-} from 'components/themes/mainTheme'
+import { CasinoGreen, CasinoRed, VeryLightBlueTransparent, DarkBlue, VeryLightBlue, DarkModeBlue, RedDarkMode, CasinoLimeTransparent, CasinoRedTransparent, CasinoBlue, LightBlue } from 'components/themes/mainTheme'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 
 export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palette: 'light' | 'dark' = 'light') {
@@ -92,7 +80,7 @@ export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palet
         },
 
         formatter: (val: number) => {
-          return `${val.toFixed(1)} minutes`
+          return `${val}`
         },
       },
     },

@@ -4,6 +4,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import EconDataDetails from 'components/Organizms/econ/EconDataDetails'
 import EconDataLayout from 'components/Organizms/econ/EconDataLayout'
 import Seo from 'components/Organizms/Seo'
+import dayjs from 'dayjs'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { getEconDataReport } from 'lib/backend/api/qln/qlnApi'
 import { useSearchParams } from 'next/navigation'
@@ -13,11 +14,18 @@ const Page = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const id = router.query.id
-  const key = `economic-data-${id}`
+  let startYear = searchParams?.get('startYear') as string | undefined
+  let endYear = searchParams?.get('endYear') as string | undefined
+  if (!startYear) {
+    startYear = dayjs().subtract(5, 'year').year().toString()
+  }
+  if (!endYear) {
+    endYear = dayjs().year().toString()
+  }
+
+  const key = `economic-data-${id}-${startYear}-${endYear}`
   const dataFn = async () => {
-    const startYear = searchParams?.get('startYear') as string
-    const endYear = searchParams?.get('endYear') as string
-    if (id && startYear && endYear) {
+    if (id) {
       const data = await getEconDataReport(Number(id), Number(startYear), Number(endYear))
       data.criteria = {
         id: String(data.InternalId),

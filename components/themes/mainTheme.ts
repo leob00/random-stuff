@@ -94,7 +94,7 @@ const themeOptions: ThemeOptions = {
 
   components: {
     MuiContainer: {
-      styleOverrides: { maxWidthLg: '100%' },
+      styleOverrides: {},
     },
     MuiTooltip: {
       styleOverrides: {

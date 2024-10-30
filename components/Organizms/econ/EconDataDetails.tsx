@@ -1,19 +1,17 @@
-import React from 'react'
-import { Alert, Box, Button, IconButton, Typography } from '@mui/material'
+import { Alert, Box, Button, Typography } from '@mui/material'
 import { EconomicDataItem, QlnLineChart } from 'lib/backend/api/qln/qlnModels'
 import EconDataChart from 'components/Organizms/econ/EconDataChart'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import dayjs from 'dayjs'
 import numeral from 'numeral'
-import CloseIcon from '@mui/icons-material/Close'
 import { DropdownItem } from 'lib/models/dropdown'
-import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import { range } from 'lodash'
 import { apiConnection } from 'lib/backend/api/config'
 import { post } from 'lib/backend/api/fetchFunctions'
 import { EconDataModel } from './EconDataLayout'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UncontrolledDropdownList from 'components/Atoms/Inputs/UncontrolledDropdownList'
+import { useReducer } from 'react'
 
 interface Model {
   startYearOptions: DropdownItem[]
@@ -48,7 +46,7 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
     error: null,
     isLoading: false,
   }
-  const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
+  const [model, setModel] = useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
 
   const loadDetails = async (id: number, yearStart: number, yearEnd: number) => {
     if (yearStart > yearEnd) {
@@ -89,10 +87,7 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
       </Box>
       <Box py={2}>
         <ReadOnlyField label={'value'} val={numeral(model.chart.YValues[model.chart.YValues.length - 1]).format('###,###.0,00')} />
-        <ReadOnlyField
-          label='date range'
-          val={`${dayjs(model.chart.XValues[0]).format('MM/DD/YYYY')} - ${dayjs(model.chart.XValues[model.chart.XValues.length - 1]).format('MM/DD/YYYY')}`}
-        />
+        <ReadOnlyField label='date range' val={`${dayjs(model.chart.XValues[0]).format('MM/DD/YYYY')} - ${dayjs(model.chart.XValues[model.chart.XValues.length - 1]).format('MM/DD/YYYY')}`} />
       </Box>
       <Box display={'flex'} gap={1} alignItems={'center'}>
         <Typography>from:</Typography>
@@ -109,9 +104,7 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
         </Box>
       )}
       <Box py={2}>
-        <Typography variant='caption'>{`data available from ${dayjs(item.FirstObservationDate).format('MM/DD/YYYY')} to ${dayjs(
-          item.LastObservationDate,
-        ).format('MM/DD/YYYY')}`}</Typography>
+        <Typography variant='caption'>{`data available from ${dayjs(item.FirstObservationDate).format('MM/DD/YYYY')} to ${dayjs(item.LastObservationDate).format('MM/DD/YYYY')}`}</Typography>
       </Box>
       <Box py={2}>
         {/* <HtmlView html={item.Notes} text /> */}

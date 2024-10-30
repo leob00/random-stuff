@@ -1,45 +1,76 @@
-import { Box } from '@mui/material'
+import { Box, ListItem, ListItemText } from '@mui/material'
 import { type DashboardWidget } from './dashboardModel'
 import DraggableList from './DraggableList'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
-import { useMemo } from 'react'
+import OnOffSwitch from 'components/Atoms/Inputs/OnOffSwitch'
+import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 
 const EditDashboard = () => {
   const { dashboardWidgets, saveDashboardWidgets } = useLocalStore()
-  const allAvailabe = [...allWidgets]
+  const allAvailableWidgets = [...allWidgets]
 
-  const visible = dashboardWidgets.filter((m) => m.display)
-  //const hidden =
-
-  const filtered = useMemo(() => {
-    const filteredWidgets = [...dashboardWidgets]
-    allAvailabe.forEach((m) => {
-      if (!filteredWidgets.find((w) => w.id === m.id)) {
-        filteredWidgets.push(m)
-      }
-    })
-    return filteredWidgets
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dashboardWidgets])
+  let visibleWidgets = dashboardWidgets.filter((m) => m.display)
+  let hiddenWidgets: DashboardWidget[] = []
+  allAvailableWidgets.forEach((all) => {
+    if (!visibleWidgets.find((m) => m.id === all.id)) {
+      hiddenWidgets.push({ ...all, display: false })
+    }
+  })
+  if (hiddenWidgets.length === 0) {
+    hiddenWidgets = dashboardWidgets.filter((m) => !m.display)
+  }
 
   const handlePushChanges = (items: DashboardWidget[]) => {
-    const list = [...items]
-    const visibleWidgets = list.filter((m) => m.display)
-    const hiddenWidgets = list.filter((m) => !m.display)
+    const newVisibleWidgets = items.filter((m) => m.display)
+    const newHiddenWidgets: DashboardWidget[] = []
+    allAvailableWidgets.forEach((all) => {
+      if (!newVisibleWidgets.find((m) => m.id === all.id)) {
+        newHiddenWidgets.push({ ...all, display: false })
+      }
+    })
 
-    visibleWidgets.forEach((m, index) => {
+    newVisibleWidgets.forEach((m, index) => {
       m.waitToRenderMs = (index + 1) * 750
     })
-    hiddenWidgets.forEach((m) => {
+    newHiddenWidgets.forEach((m) => {
       m.waitToRenderMs = 0
     })
-    const newItems = [...visibleWidgets, ...hiddenWidgets]
+    const newItems = [...newVisibleWidgets, ...newHiddenWidgets]
     saveDashboardWidgets(newItems)
+  }
+
+  const handleUpdateShowHide = (item: DashboardWidget, display: boolean) => {
+    const newItems = [...dashboardWidgets]
+    const idx = newItems.findIndex((m) => m.id === item.id)
+    if (idx > -1) {
+      newItems[idx].display = display
+    } else {
+      newItems.push({ ...item, display: display })
+    }
+    handlePushChanges(newItems)
   }
 
   return (
     <Box>
-      <DraggableList items={filtered} onPushChanges={handlePushChanges} />
+      <CenteredTitle title='visible widgets' />
+      <DraggableList items={visibleWidgets} onPushChanges={handlePushChanges} />
+      <Box>
+        {hiddenWidgets.length > 0 && <CenteredTitle title='available widgets' />}
+        {hiddenWidgets.map((item, index) => (
+          <ListItem id={item.id} key={item.id}>
+            <ListItemText primary={`${item.title}`} secondary={` `} sx={{ mt: -0.5 }} />
+            <Box>
+              <OnOffSwitch
+                label='show'
+                isChecked={item.display}
+                onChanged={(checked) => {
+                  handleUpdateShowHide(item, checked)
+                }}
+              />
+            </Box>
+          </ListItem>
+        ))}
+      </Box>
     </Box>
   )
 }
@@ -47,15 +78,35 @@ const EditDashboard = () => {
 export const allWidgets: DashboardWidget[] = [
   {
     id: 'stock-market-sentiment',
-    waitToRenderMs: 0,
-    title: 'stock market sentiment',
+    waitToRenderMs: 750,
+    title: 'Market Sentiment',
     display: true,
+    size: 'sm',
+    allowSizeChange: true,
   },
   {
     id: 'news',
-    waitToRenderMs: 400,
-    title: 'news',
+    waitToRenderMs: 1500,
+    title: 'News',
     display: false,
+    size: 'md',
+    allowSizeChange: true,
+  },
+  {
+    id: 'snp',
+    waitToRenderMs: 2000,
+    title: 'S&P 500',
+    display: false,
+    size: 'md',
+    allowSizeChange: true,
+  },
+  {
+    id: 'dowjones',
+    waitToRenderMs: 2500,
+    title: 'Dow Jones',
+    display: false,
+    size: 'md',
+    allowSizeChange: true,
   },
 ]
 

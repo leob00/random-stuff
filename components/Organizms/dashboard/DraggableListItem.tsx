@@ -1,18 +1,44 @@
-import { Box, ListItem, ListItemAvatar, ListItemText, Stack } from '@mui/material'
+import { Box, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
 import { Draggable } from 'react-beautiful-dnd'
 import DragIndicator from '@mui/icons-material/DragIndicator'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import { DashboardWidget } from './dashboardModel'
-import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
+import { DashboardWidget, WidgetSize } from './dashboardModel'
 import OnOffSwitch from 'components/Atoms/Inputs/OnOffSwitch'
+import { DropdownItem } from 'lib/models/dropdown'
+import DropdownList from 'components/Atoms/Inputs/DropdownList'
 
 export type DraggableListItemProps = {
   item: DashboardWidget
   index: number
-  onShowHide: (item: DashboardWidget, display: boolean) => void
+  onUpdate: (item: DashboardWidget) => void
+  disableShowHide: boolean
 }
 
-const DraggableListItem = ({ item, index, onShowHide }: DraggableListItemProps) => {
+const DraggableListItem = ({ item, index, onUpdate, disableShowHide }: DraggableListItemProps) => {
+  const onUpdateDisplay = (item: DashboardWidget, checked: boolean) => {
+    const newItem = { ...item, display: checked }
+    onUpdate(newItem)
+  }
+  const onUpdateSize = (item: DashboardWidget, size: WidgetSize) => {
+    const newItem = { ...item, size: size }
+    onUpdate(newItem)
+  }
+
+  const widgetSizeOptions: DropdownItem[] = [
+    {
+      text: 'small',
+      value: 'sm',
+    },
+    {
+      text: 'medium',
+      value: 'md',
+    },
+    {
+      text: 'large',
+      value: 'lg',
+    },
+  ]
+
   return (
     <>
       {/* @ts-expect-error needs to be reviewed */}
@@ -24,13 +50,23 @@ const DraggableListItem = ({ item, index, onShowHide }: DraggableListItemProps) 
                 <DragIndicator />
               </ListItemAvatar>
               <ListItemText primary={`${item.title}`} secondary={` `} sx={{ mt: -0.5 }} />
-              <Stack alignItems={'flex-end'} flexGrow={1} pr={2}></Stack>
               <Box>
                 <OnOffSwitch
                   label='show'
                   isChecked={item.display}
                   onChanged={(checked) => {
-                    onShowHide(item, checked)
+                    onUpdateDisplay(item, checked)
+                  }}
+                  disabled={disableShowHide}
+                />
+              </Box>
+              <Box>
+                <DropdownList
+                  disabled={!item.allowSizeChange}
+                  options={widgetSizeOptions}
+                  selectedOption={item.size ?? ''}
+                  onOptionSelected={(val) => {
+                    onUpdateSize(item, val as WidgetSize)
                   }}
                 />
               </Box>

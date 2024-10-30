@@ -28,14 +28,15 @@ const DraggableList = ({ items, onPushChanges }: DraggableListProps) => {
     onPushChanges(Array.from(newMap.values()))
   }
 
-  const handleUpdateShowHide = (item: DashboardWidgetWithSettings, display: boolean) => {
-    const newItem = items.find((m) => m.id === item.id)
-    if (newItem) {
-      const map = getMapFromArray(items, 'id')
-      const toUpdate = { ...map.get(item.id)!, display: display }
-      map.set(item.id, toUpdate)
-      onPushChanges(Array.from(map.values()))
+  const handleUpdateItem = (item: DashboardWidgetWithSettings) => {
+    const newItems = [...items]
+    const idx = newItems.findIndex((m) => m.id === item.id)
+    if (idx > -1) {
+      newItems[idx] = item
+    } else {
+      newItems.push(item)
     }
+    onPushChanges(newItems)
   }
 
   return (
@@ -52,7 +53,7 @@ const DraggableList = ({ items, onPushChanges }: DraggableListProps) => {
           {(provided) => (
             <Box ref={provided.innerRef} {...provided.droppableProps}>
               {items.map((item, index) => (
-                <DraggableListItem item={item} index={index} key={item.id} onShowHide={handleUpdateShowHide} />
+                <DraggableListItem item={item} index={index} key={item.id} onUpdate={handleUpdateItem} disableShowHide={items.length < 2} />
               ))}
               <>{provided.placeholder}</>
             </Box>

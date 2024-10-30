@@ -14848,6 +14848,10 @@
     "Symbol": "FLFVW"
   },
   {
+    "Company": "Flagstar Financial, Inc.",
+    "Symbol": "FLG"
+  },
+  {
     "Company": "Franklin FTSE United Kingdom ETF",
     "Symbol": "FLGB"
   },
@@ -16596,6 +16600,10 @@
     "Symbol": "GEL"
   },
   {
+    "Company": "Gelteq Limited Ordinary Shares",
+    "Symbol": "GELS"
+  },
+  {
     "Company": "Goldman Sachs ActiveBeta Emerging Markets Equity ETF",
     "Symbol": "GEM"
   },
@@ -16852,7 +16860,7 @@
     "Symbol": "GIFI"
   },
   {
-    "Company": "RDE, Inc. Common Stock",
+    "Company": "Giftify, Inc. Common Stock",
     "Symbol": "GIFT"
   },
   {
@@ -17216,8 +17224,16 @@
     "Symbol": "GMNY"
   },
   {
+    "Company": "GMO International Value ETF",
+    "Symbol": "GMOI"
+  },
+  {
     "Company": "Cambria Global Momentum ETF",
     "Symbol": "GMOM"
+  },
+  {
+    "Company": "GMO US Value ETF",
+    "Symbol": "GMOV"
   },
   {
     "Company": "Global Medical REIT Inc.",
@@ -17594,6 +17610,10 @@
   {
     "Company": "The Gorman-Rupp Company Common Shares",
     "Symbol": "GRC"
+  },
+  {
+    "Company": "Grace Therapeutics, Inc. Common Stock",
+    "Symbol": "GRCE"
   },
   {
     "Company": "GRIID Infrastructure Inc. Common Stock",
@@ -31592,6 +31612,10 @@
     "Symbol": "PLRX"
   },
   {
+    "Company": "Polyrizon Ltd. Ordinary Shares",
+    "Symbol": "PLRZ"
+  },
+  {
     "Company": "Pulse Biosciences, Inc Common Stock (DE)",
     "Symbol": "PLSE"
   },
@@ -31812,8 +31836,16 @@
     "Symbol": "POLA"
   },
   {
+    "Company": "Andretti Acquisition Corp. II Class A Ordinary Shares",
+    "Symbol": "POLE"
+  },
+  {
     "Company": "Andretti Acquisition Corp. II Unit",
     "Symbol": "POLEU"
+  },
+  {
+    "Company": "Andretti Acquisition Corp. II Warrant",
+    "Symbol": "POLEW"
   },
   {
     "Company": "Pool Corporation",
@@ -32984,6 +33016,10 @@
     "Symbol": "QLTA"
   },
   {
+    "Company": "GMO International Quality ETF",
+    "Symbol": "QLTI"
+  },
+  {
     "Company": "GMO U.S. Quality ETF",
     "Symbol": "QLTY"
   },
@@ -33978,6 +34014,10 @@
   {
     "Company": "RGC Resources Inc",
     "Symbol": "RGCO"
+  },
+  {
+    "Company": "Rockefeller Global Equity ETF",
+    "Symbol": "RGEF"
   },
   {
     "Company": "Repligen Corp",
@@ -39632,6 +39672,10 @@
     "Symbol": "TLTM"
   },
   {
+    "Company": "Amplify Bloomberg U.S. Treasury Target High Income ETF",
+    "Symbol": "TLTP"
+  },
+  {
     "Company": "Tradr 1.75X Long TLT Quarterly ETF",
     "Symbol": "TLTQ"
   },
@@ -40646,6 +40690,10 @@
   {
     "Company": "Travelzoo Common Stock",
     "Symbol": "TZOO"
+  },
+  {
+    "Company": "THUMZUP MEDIA CORP",
+    "Symbol": "TZUP"
   },
   {
     "Company": "Unity Software Inc.",
@@ -41692,8 +41740,16 @@
     "Symbol": "VCEL"
   },
   {
+    "Company": "Vine Hill Capital Investment Corp. Class A Ordinary Shares",
+    "Symbol": "VCIC"
+  },
+  {
     "Company": "Vine Hill Capital Investment Corp. Unit",
     "Symbol": "VCICU"
+  },
+  {
+    "Company": "Vine Hill Capital Investment Corp. Warrant",
+    "Symbol": "VCICW"
   },
   {
     "Company": "VCI Global Limited Ordinary Share",

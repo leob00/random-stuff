@@ -8,12 +8,14 @@ const DropdownList = ({
   onOptionSelected,
   label,
   fullWidth,
+  disabled,
 }: {
   options: DropdownItem[]
   selectedOption: string
-  onOptionSelected?: (id: string) => void
+  onOptionSelected?: (val: string) => void
   label?: string
   fullWidth?: boolean
+  disabled?: boolean
 }) => {
   const [opt, setOpt] = React.useState(selectedOption)
   const handleOptionSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +24,7 @@ const DropdownList = ({
   }
 
   return (
-    <TextField select value={opt} onChange={handleOptionSelect} size='small' label={label} color={'primary'} fullWidth={fullWidth}>
+    <TextField select value={opt} onChange={handleOptionSelect} size='small' label={label} color={'primary'} fullWidth={fullWidth} disabled={disabled}>
       {options.map((item) => (
         <MenuItem key={item.value} value={item.value} selected={selectedOption === opt} color={'primary'} disabled={item.disabled}>
           {item.text}
