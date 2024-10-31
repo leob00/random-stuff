@@ -27,8 +27,6 @@ const EconIndexChart = ({ symbol, data, width = 300, days }: { symbol: string; d
   const x = resultHistory.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY'))
   const y = resultHistory.map((m) => m.Price)
 
-  console.log('symbol: ', symbol, ' history: ', resultHistory)
-
   const chartOptions = getOptions({ x: x, y: y }, resultHistory, true, theme.palette.mode, '')
   return (
     <Box>

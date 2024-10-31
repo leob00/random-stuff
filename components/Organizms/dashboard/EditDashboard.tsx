@@ -89,7 +89,7 @@ export const allWidgets: DashboardWidget[] = [
     waitToRenderMs: 1500,
     title: 'News',
     display: false,
-    size: 'md',
+    size: 'sm',
     allowSizeChange: true,
   },
   {
@@ -97,7 +97,7 @@ export const allWidgets: DashboardWidget[] = [
     waitToRenderMs: 2000,
     title: 'S&P 500',
     display: false,
-    size: 'md',
+    size: 'sm',
     allowSizeChange: true,
   },
   {
@@ -105,7 +105,7 @@ export const allWidgets: DashboardWidget[] = [
     waitToRenderMs: 2500,
     title: 'Dow Jones',
     display: false,
-    size: 'md',
+    size: 'sm',
     allowSizeChange: true,
   },
 ]

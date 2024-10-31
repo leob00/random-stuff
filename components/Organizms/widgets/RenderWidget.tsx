@@ -3,7 +3,7 @@ import { DashboardWidget } from '../dashboard/dashboardModel'
 import WidgetWrapper from './WidgetWrapper'
 import StockMarketGlance from '../stocks/StockMarketGlance'
 import NewsLayout from '../news/NewsLayout'
-import { Box } from '@mui/material'
+import { Box, useMediaQuery, useTheme } from '@mui/material'
 import EconIndexWidget from './econ/EconIndexWidget'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 
@@ -13,21 +13,25 @@ type WidgetDimensions = {
 }
 
 const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidget; revalidateOnFocus?: boolean }) => {
+  const theme = useTheme()
+  const isXSmallDevice = useMediaQuery(theme.breakpoints.down('sm'))
+
   const dimension: WidgetDimensions = {
     height: 350,
-    width: 280,
+    width: isXSmallDevice ? 320 : 280,
   }
-  switch (item.size) {
-    case 'md':
-      dimension.height = 400
-      dimension.width = 550
-      break
-    case 'lg':
-      dimension.height = 900
-      dimension.width = 850
-      break
+  if (!isXSmallDevice) {
+    switch (item.size) {
+      case 'md':
+        dimension.height = 400
+        dimension.width = 550
+        break
+      case 'lg':
+        dimension.height = 900
+        dimension.width = 850
+        break
+    }
   }
-
   return (
     <Box minWidth={dimension.width} sx={{ border: `solid ${CasinoBlueTransparent} 1px` }} borderRadius={1}>
       {item.id === 'news' && (
