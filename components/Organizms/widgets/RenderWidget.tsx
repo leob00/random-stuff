@@ -6,6 +6,7 @@ import NewsLayout from '../news/NewsLayout'
 import { Box, useMediaQuery, useTheme } from '@mui/material'
 import EconIndexWidget from './econ/EconIndexWidget'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
+import EconWidget from './econ/EconWidget'
 
 type WidgetDimensions = {
   height: number
@@ -17,8 +18,8 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
   const isXSmallDevice = useMediaQuery(theme.breakpoints.down('sm'))
 
   const dimension: WidgetDimensions = {
-    height: 350,
-    width: isXSmallDevice ? 365 : 280,
+    height: 364,
+    width: isXSmallDevice ? 350 : 280,
   }
   if (!isXSmallDevice) {
     switch (item.size) {
@@ -34,32 +35,40 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
   }
   return (
     <Box minWidth={dimension.width} sx={{ border: `solid ${CasinoBlueTransparent} 1px` }} borderRadius={1}>
-      {item.id === 'news' && (
+      {item.category === 'news' && (
         <Box width={dimension.width}>
-          <WidgetWrapper id={item.id} header={'News'} delayMs={item.waitToRenderMs}>
+          <WidgetWrapper item={item}>
             <NewsLayout componentLoader revalidateOnFocus={revalidateOnFocus} />
           </WidgetWrapper>
         </Box>
       )}
-      {item.id === 'stock-market-sentiment' && (
+      {item.category === 'stock-market-sentiment' && (
         <Box width={dimension.width}>
-          <WidgetWrapper id={item.id} header={item.title} delayMs={item.waitToRenderMs}>
-            <StockMarketGlance showTitle={false} componentLoader revalidateOnFocus={revalidateOnFocus} width={dimension.width} />
+          <WidgetWrapper item={item}>
+            {item.size === 'sm' ? (
+              <ScrollableBox maxHeight={dimension.height}>
+                <StockMarketGlance showTitle={false} componentLoader revalidateOnFocus={revalidateOnFocus} width={dimension.width} />
+              </ScrollableBox>
+            ) : (
+              <>
+                <StockMarketGlance showTitle={false} componentLoader revalidateOnFocus={revalidateOnFocus} width={dimension.width} />
+              </>
+            )}
           </WidgetWrapper>
         </Box>
       )}
       <Box>
-        {item.id === 'snp' && (
+        {item.category === 'econ-ind-index' && (
           <Box>
-            <WidgetWrapper id={item.id} header={item.title} delayMs={item.waitToRenderMs}>
-              <EconIndexWidget itemId={14} symbol={item.title} width={dimension.width} height={dimension.height} />
+            <WidgetWrapper item={item}>
+              <EconIndexWidget itemId={Number(item.internalId)} symbol={item.title} width={dimension.width} height={dimension.height} />
             </WidgetWrapper>
           </Box>
         )}
-        {item.id === 'dowjones' && (
+        {item.category === 'econ-ind' && (
           <Box>
-            <WidgetWrapper id={item.id} header={item.title} delayMs={item.waitToRenderMs}>
-              <EconIndexWidget itemId={15} symbol={item.title} width={dimension.width} height={dimension.height} />
+            <WidgetWrapper item={item}>
+              <EconWidget itemId={Number(item.internalId)} symbol={item.title} width={dimension.width} height={dimension.height} size={item.size} />
             </WidgetWrapper>
           </Box>
         )}

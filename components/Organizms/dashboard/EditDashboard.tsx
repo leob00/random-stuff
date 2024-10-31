@@ -1,9 +1,11 @@
 import { Box, ListItem, ListItemText } from '@mui/material'
 import { type DashboardWidget } from './dashboardModel'
-import DraggableList from './DraggableList'
+import DraggableWidgetList from './DraggableWidgetList'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import OnOffSwitch from 'components/Atoms/Inputs/OnOffSwitch'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import { sortArray } from 'lib/util/collections'
 
 const EditDashboard = () => {
   const { dashboardWidgets, saveDashboardWidgets } = useLocalStore()
@@ -19,6 +21,7 @@ const EditDashboard = () => {
   if (hiddenWidgets.length === 0) {
     hiddenWidgets = dashboardWidgets.filter((m) => !m.display)
   }
+  hiddenWidgets = sortArray(hiddenWidgets, ['title'], ['asc'])
 
   const handlePushChanges = (items: DashboardWidget[]) => {
     const newVisibleWidgets = items.filter((m) => m.display)
@@ -52,24 +55,33 @@ const EditDashboard = () => {
 
   return (
     <Box>
-      <CenteredTitle title='visible widgets' />
-      <DraggableList items={visibleWidgets} onPushChanges={handlePushChanges} />
-      <Box>
-        {hiddenWidgets.length > 0 && <CenteredTitle title='available widgets' />}
-        {hiddenWidgets.map((item, index) => (
-          <ListItem id={item.id} key={item.id}>
-            <ListItemText primary={`${item.title}`} secondary={` `} sx={{ mt: -0.5 }} />
-            <Box>
-              <OnOffSwitch
-                label='show'
-                isChecked={item.display}
-                onChanged={(checked) => {
-                  handleUpdateShowHide(item, checked)
-                }}
-              />
+      <CenteredTitle title='my widgets' />
+      <DraggableWidgetList items={visibleWidgets} onPushChanges={handlePushChanges} />
+      <Box pt={4} pb={8}>
+        <>
+          {hiddenWidgets.length > 0 && (
+            <Box py={2}>
+              <CenteredTitle title='more widgets' />
             </Box>
-          </ListItem>
-        ))}
+          )}
+          {hiddenWidgets.map((item, index) => (
+            <Box key={item.id}>
+              <ListItem id={item.id}>
+                <ListItemText primary={`${item.title}`} secondary={` `} sx={{ mt: -0.5 }} />
+                <Box>
+                  <OnOffSwitch
+                    label='show'
+                    isChecked={item.display}
+                    onChanged={(checked) => {
+                      handleUpdateShowHide(item, checked)
+                    }}
+                  />
+                </Box>
+              </ListItem>
+              <HorizontalDivider />
+            </Box>
+          ))}
+        </>
       </Box>
     </Box>
   )
@@ -78,6 +90,7 @@ const EditDashboard = () => {
 export const allWidgets: DashboardWidget[] = [
   {
     id: 'stock-market-sentiment',
+    category: 'stock-market-sentiment',
     waitToRenderMs: 750,
     title: 'Market Sentiment',
     display: true,
@@ -86,6 +99,7 @@ export const allWidgets: DashboardWidget[] = [
   },
   {
     id: 'news',
+    category: 'news',
     waitToRenderMs: 1500,
     title: 'News',
     display: false,
@@ -93,20 +107,54 @@ export const allWidgets: DashboardWidget[] = [
     allowSizeChange: true,
   },
   {
-    id: 'snp',
-    waitToRenderMs: 2000,
-    title: 'S&P 500',
-    display: false,
-    size: 'sm',
-    allowSizeChange: true,
-  },
-  {
     id: 'dowjones',
+    category: 'econ-ind-index',
     waitToRenderMs: 2500,
     title: 'Dow Jones',
     display: false,
     size: 'sm',
     allowSizeChange: true,
+    internalId: '14',
+  },
+  {
+    id: 'snp',
+    category: 'econ-ind-index',
+    waitToRenderMs: 2000,
+    title: 'S&P 500',
+    display: false,
+    size: 'sm',
+    allowSizeChange: true,
+    internalId: '15',
+  },
+  {
+    id: 'unemployment-rate',
+    category: 'econ-ind',
+    waitToRenderMs: 2000,
+    title: 'Unemployment Rate',
+    display: false,
+    size: 'sm',
+    allowSizeChange: true,
+    internalId: '1',
+  },
+  {
+    id: 'mortgage-rate-30',
+    category: 'econ-ind',
+    waitToRenderMs: 3500,
+    title: '30-Year Fixed Mortgage',
+    display: false,
+    size: 'sm',
+    allowSizeChange: true,
+    internalId: '23',
+  },
+  {
+    id: 'mortgage-rate-15',
+    category: 'econ-ind',
+    waitToRenderMs: 3500,
+    title: '15-Year Fixed Mortgage',
+    display: false,
+    size: 'sm',
+    allowSizeChange: true,
+    internalId: '24',
   },
 ]
 

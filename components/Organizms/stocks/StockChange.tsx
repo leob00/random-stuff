@@ -1,6 +1,6 @@
 import { Stack, Typography, useTheme } from '@mui/material'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import React from 'react'
+
 import { getPositiveNegativeColor } from './StockListItem'
 import numeral from 'numeral'
 

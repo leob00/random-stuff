@@ -1,7 +1,7 @@
 import { Box, Stack, Typography, useTheme } from '@mui/material'
-import StockChange from 'components/Organizms/stocks/StockChange'
 import { getPositiveNegativeColor } from 'components/Organizms/stocks/StockListItem'
-import { getOptions, takeLastDays } from 'components/Organizms/stocks/stockLineChartOptions'
+import { getOptions } from 'components/Organizms/stocks/lineChartOptions'
+import { takeLastDays } from 'components/Organizms/stocks/stockLineChartOptions'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
@@ -10,7 +10,7 @@ import dynamic from 'next/dynamic'
 import numeral from 'numeral'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
-const EconIndexChart = ({ symbol, data, width = 300, days }: { symbol: string; data: EconomicDataItem; width?: number; days?: number }) => {
+const EconChart = ({ symbol, data, width = 300, days }: { symbol: string; data: EconomicDataItem; width?: number; days?: number }) => {
   const history: StockHistoryItem[] = []
   const xValues = data.Chart?.XValues ?? []
   const yValues = data.Chart?.YValues.map((m) => Number(m)) ?? []
@@ -32,18 +32,15 @@ const EconIndexChart = ({ symbol, data, width = 300, days }: { symbol: string; d
 
   const last = resultHistory[resultHistory.length - 1]
 
-  const chartOptions = getOptions({ x: x, y: y }, resultHistory, true, theme.palette.mode, '')
+  const chartOptions = getOptions({ x: x, y: y }, resultHistory, true, theme.palette.mode, false)
   return (
     <Box>
       <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' width={width} />
       <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} alignItems={'center'}>
         <Stack direction={'row'} spacing={2} pl={2} sx={{ backgroundColor: 'unset' }} pt={1}>
-          <Typography
-            variant='h6'
-            color={getPositiveNegativeColor(last.Change, theme.palette.mode)}
-          >{`${numeral(last.Price).format('###,###,0.00')}`}</Typography>
-          <Typography variant='h6' color={getPositiveNegativeColor(last.Change, theme.palette.mode)}>{`${last.Change}`}</Typography>
-          <Typography variant='h6' color={getPositiveNegativeColor(last.Change, theme.palette.mode)}>{`${last.ChangePercent}%`}</Typography>
+          <Typography variant='h6'>{`${numeral(last.Price).format('###,###,0.00')}`}</Typography>
+          <Typography variant='h6'>{`${last.Change}`}</Typography>
+          <Typography variant='h6'>{`${last.ChangePercent}%`}</Typography>
         </Stack>
       </Stack>
       <Box p={2}>
@@ -59,4 +56,4 @@ const EconIndexChart = ({ symbol, data, width = 300, days }: { symbol: string; d
     </Box>
   )
 }
-export default EconIndexChart
+export default EconChart

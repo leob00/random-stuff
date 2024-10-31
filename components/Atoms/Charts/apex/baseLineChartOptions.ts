@@ -213,7 +213,7 @@ export function getMulitiLineChartOptions(
   return options
 }
 
-function getBaseChart(groupName: string, palette: 'light' | 'dark', chartId?: string) {
+export function getBaseChart(groupName: string, palette: 'light' | 'dark', chartId?: string) {
   const chart: ApexChart = {
     locales: [
       {
@@ -241,7 +241,7 @@ function getBaseChart(groupName: string, palette: 'light' | 'dark', chartId?: st
   return chart
 }
 
-function getBaseGrid(palette: 'light' | 'dark') {
+export function getBaseGrid(palette: 'light' | 'dark') {
   const result: ApexGrid = {
     show: true,
     borderColor: palette === 'dark' ? VeryLightBlueTransparent : VeryLightBlueTransparent,

@@ -14,7 +14,7 @@ export type DraggableListItemProps = {
   disableShowHide: boolean
 }
 
-const DraggableListItem = ({ item, index, onUpdate, disableShowHide }: DraggableListItemProps) => {
+const DraggableWidget = ({ item, index, onUpdate, disableShowHide }: DraggableListItemProps) => {
   const onUpdateDisplay = (item: DashboardWidget, checked: boolean) => {
     const newItem = { ...item, display: checked }
     onUpdate(newItem)
@@ -80,4 +80,4 @@ const DraggableListItem = ({ item, index, onUpdate, disableShowHide }: Draggable
   )
 }
 
-export default DraggableListItem
+export default DraggableWidget

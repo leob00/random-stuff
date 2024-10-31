@@ -4,19 +4,22 @@ import StockMarketStatsChart from '../charts/StockMarketStatsChart'
 import { mean } from 'lodash'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import { Box, Stack } from '@mui/material'
 
 const StockSentimentDisplay = ({ data }: { data: StockStats[] }) => {
   return (
     <>
       <CenteredHeader title={'1 Month'} variant='h5' />
-      <StockMarketStatsChart data={getSentiment(data, 30)} />
-      <HorizontalDivider />
-      <CenteredHeader title={'2 Weeks'} variant='h5' />
-      <StockMarketStatsChart data={getSentiment(data, 14)} />
-      <HorizontalDivider />
-      <CenteredHeader title={'1 Week'} variant='h5' />
-      <StockMarketStatsChart data={getSentiment(data, 7)} />
-      <HorizontalDivider />
+      <Stack>
+        <StockMarketStatsChart data={getSentiment(data, 30)} />
+        <HorizontalDivider />
+        <CenteredHeader title={'2 Weeks'} variant='h5' />
+        <StockMarketStatsChart data={getSentiment(data, 14)} />
+        <HorizontalDivider />
+        <CenteredHeader title={'1 Week'} variant='h5' />
+        <StockMarketStatsChart data={getSentiment(data, 7)} />
+        <HorizontalDivider />
+      </Stack>
     </>
   )
 }

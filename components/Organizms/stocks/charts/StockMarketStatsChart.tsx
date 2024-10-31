@@ -17,11 +17,11 @@ const StockMarketStatsChart = ({ data }: { data: StockStats }) => {
   return (
     <>
       <Box sx={{ margin: 'auto' }}>
-        <Box>
+        <Box mt={-2}>
           <BasicPieChart barChart={chartData} title={''} />
         </Box>
       </Box>
-      <Box py={4}>
+      <Box pt={6} pb={2}>
         <CenteredReadOnlyField label={'up'} val={`${numeral(data.TotalUpPercent).format('0.00')}%`} labelLength={300} />
         <CenteredReadOnlyField label={'down'} val={`${numeral(data.TotalDownPercent).format('0.00')}%`} />
         <CenteredReadOnlyField label={'unchanged'} val={`${numeral(data.TotalUnchangedPercent).format('0.00')}%`} />

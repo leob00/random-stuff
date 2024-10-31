@@ -31,18 +31,21 @@ const StockMarketGlance = ({
     return resp.Body as MarketHandshake
   }
   const { data, isLoading } = useSwrHelper<MarketHandshake>(apiUrl, dataFn, { revalidateOnFocus: revalidateOnFocus })
+
   return (
-    <Box py={2}>
+    <Box py={0}>
       <Box>
         {showTitle && <CenteredHeader variant='h4' title={'Stock Market Sentiment'} />}
         {isLoading && <>{componentLoader ? <CircleLoader /> : <BackdropLoader />}</>}
 
         {data ? (
           <Box maxWidth={width}>
-            <CenterStack sx={{ mt: -1 }}>
-              <Typography variant='body2'>{`${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} EST`}</Typography>
-            </CenterStack>
-            <StockMarketStatsChart data={data.StockStats} />
+            <Box display={'flex'} justifyContent={'center'}>
+              <Typography textAlign={'center'} variant='caption'>{`${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} EST`}</Typography>
+            </Box>
+            <Box>
+              <StockMarketStatsChart data={data.StockStats} />
+            </Box>
             <Box>
               <StockMarketStatus data={data} />
             </Box>

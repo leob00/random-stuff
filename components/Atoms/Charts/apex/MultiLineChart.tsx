@@ -13,6 +13,8 @@ const MultiLineChart = ({ xYValues, yLabelPrefix = '' }: { xYValues: XyValues[];
   const chartHeight = isXSmall ? 260 : 280
   const [allOptions, setAllOptions] = useState<ApexOptions[]>([])
 
+  const groupName = crypto.randomUUID()
+
   useEffect(() => {
     const options: ApexOptions[] = xYValues.map((m, i) =>
       getBaseLineChartOptions(m, {
@@ -22,11 +24,13 @@ const MultiLineChart = ({ xYValues, yLabelPrefix = '' }: { xYValues: XyValues[];
         yLabelPrefix: yLabelPrefix,
         changePositiveColor: true,
         seriesName: m.name,
-        groupName: 'multi',
+        groupName: groupName,
         chartId: `chart-${m.name}`,
+        enableAxisXTooltip: false,
       }),
     )
     setAllOptions(options)
+    // console.log(options)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

@@ -1,5 +1,5 @@
 'use client'
-import DraggableListItem from './DraggableListItem'
+import DraggableWidget from './DraggableWidget'
 import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 import { Box, Typography } from '@mui/material'
 import { getMapFromArray } from 'lib/util/collectionsNative'
@@ -12,7 +12,7 @@ export type DraggableListProps = {
   onPushChanges: (items: DashboardWidgetWithSettings[]) => void
 }
 
-const DraggableList = ({ items, onPushChanges }: DraggableListProps) => {
+const DraggableWidgetList = ({ items, onPushChanges }: DraggableListProps) => {
   const onDragEnd = ({ destination, source }: DropResult) => {
     if (!destination) {
       return
@@ -42,9 +42,9 @@ const DraggableList = ({ items, onPushChanges }: DraggableListProps) => {
   return (
     <>
       <Box py={2} display='flex' justifyContent={'space-between'} alignItems={'center'}></Box>
-      <Box py={2}>
+      <Box pb={2}>
         <CenterStack>
-          <Typography variant='caption'>You can reorder your list by dragging and dropping items.</Typography>
+          <Typography variant='body2'>You can reorder your list by dragging and dropping items.</Typography>
         </CenterStack>
       </Box>
       {/* @ts-expect-error needs to be reviewed */}
@@ -53,7 +53,7 @@ const DraggableList = ({ items, onPushChanges }: DraggableListProps) => {
           {(provided) => (
             <Box ref={provided.innerRef} {...provided.droppableProps}>
               {items.map((item, index) => (
-                <DraggableListItem item={item} index={index} key={item.id} onUpdate={handleUpdateItem} disableShowHide={items.length < 2} />
+                <DraggableWidget item={item} index={index} key={item.id} onUpdate={handleUpdateItem} disableShowHide={false} />
               ))}
               <>{provided.placeholder}</>
             </Box>
@@ -63,4 +63,4 @@ const DraggableList = ({ items, onPushChanges }: DraggableListProps) => {
     </>
   )
 }
-export default DraggableList
+export default DraggableWidgetList

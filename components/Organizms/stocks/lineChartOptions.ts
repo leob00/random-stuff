@@ -1,9 +1,22 @@
 import { ApexOptions } from 'apexcharts'
+import { getBaseGrid } from 'components/Atoms/Charts/apex/baseLineChartOptions'
 import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
-import { CasinoGreen, CasinoRed, VeryLightBlueTransparent, DarkBlue, VeryLightBlue, DarkModeBlue, RedDarkMode, CasinoLimeTransparent, CasinoRedTransparent, CasinoBlue, LightBlue } from 'components/themes/mainTheme'
+import theme, {
+  CasinoGreen,
+  CasinoRed,
+  VeryLightBlueTransparent,
+  DarkBlue,
+  VeryLightBlue,
+  DarkModeBlue,
+  RedDarkMode,
+  CasinoLimeTransparent,
+  CasinoRedTransparent,
+  CasinoBlue,
+  LightBlue,
+} from 'components/themes/mainTheme'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 
-export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palette: 'light' | 'dark' = 'light') {
+export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palette: 'light' | 'dark' = 'light', showXTooltip = true) {
   let lineColor = palette === 'dark' ? LightBlue : CasinoBlue
 
   let strokeWidth = 3
@@ -46,7 +59,7 @@ export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palet
       dropShadow: {
         enabled: true,
       },
-      background: palette === 'dark' ? DarkModeBlue : 'transparent',
+      //background: palette === 'dark' ? DarkModeBlue : 'transparent',
       type: 'area',
       toolbar: {
         show: false,
@@ -56,21 +69,7 @@ export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palet
       },
       foreColor: lineColor,
     },
-    grid: {
-      show: true,
-      borderColor: palette === 'dark' ? VeryLightBlueTransparent : VeryLightBlue,
-      strokeDashArray: 1,
-      yaxis: {
-        lines: {
-          show: true,
-        },
-      },
-      xaxis: {
-        lines: {
-          show: false,
-        },
-      },
-    },
+    grid: getBaseGrid(theme.palette.mode),
     yaxis: {
       labels: {
         style: {
@@ -100,6 +99,9 @@ export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palet
       axisBorder: {
         show: false,
         //color: CasinoBlueTransparent,
+      },
+      tooltip: {
+        enabled: showXTooltip,
       },
     },
     tooltip: {

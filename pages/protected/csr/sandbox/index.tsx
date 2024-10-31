@@ -24,7 +24,7 @@ const Page = () => {
       title: 'OCR',
     },
     {
-      title: 'Chart JS',
+      title: 'Charts',
     },
     {
       title: 'Stream',
@@ -76,7 +76,7 @@ const Page = () => {
           {selectedTab === 'OCR' && <OcrLocal />}
           {selectedTab === 'Stream' && <Streamer />}
           {selectedTab === 'Iterator' && <ListIteratorLayout />}
-          {selectedTab === 'Chart JS' && <Playground />}
+          {selectedTab === 'Charts' && <Playground />}
           {selectedTab === 'Files' && <>{!isLoading && authProfile && <S3Display userProfile={authProfile} />}</>}
           {selectedTab === 'Batch Post' && <PostBatch />}
         </Box>

@@ -5,7 +5,7 @@ import { get, post } from '../fetchFunctions'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import dayjs from 'dayjs'
 import { apiConnection } from '../config'
-import { StockReportTypes } from './qlnModels'
+import { EconomicDataItem, StockReportTypes } from './qlnModels'
 import { EconDataModel } from 'components/Organizms/econ/EconDataLayout'
 
 const config = apiConnection()
@@ -436,10 +436,16 @@ export async function getCompanyProfile(symbols: string[]) {
   return result
 }
 
-export async function getEconDataReport(id: number, startYear: number, endYear: number) {
-  const url = `${qlnApiBaseUrl}/EconReports`
-  const resp = (await post(url, { Id: id, StartYear: startYear, EndYear: endYear })) as EconDataModel
-  return resp.Body.Item
+export async function getEconDataReport(id: number, startYear?: number, endYear?: number) {
+  const postBody = {
+    Id: id,
+    StartYear: startYear,
+    EndYear: endYear,
+  }
+
+  const resp = await serverPostFetch({ body: postBody }, '/EconReports')
+  const result = resp.Body.Item as EconomicDataItem
+  return result
 }
 export async function getEconDataReportSnp(startYear: number, endYear: number) {
   const result = await getEconDataReport(15, startYear, endYear)
