@@ -6,7 +6,7 @@ const WidgetsDisplay = ({ widgets }: { widgets: DashboardWidget[] }) => {
   return (
     <Box>
       {widgets.length > 1 ? (
-        <Box display={'flex'} flexDirection={{ xs: 'column', sm: 'row' }} flexWrap={'wrap'}>
+        <Box display={'flex'} flexDirection={{ xs: 'column', sm: 'row' }} flexWrap={'wrap'} justifyContent={{ xs: 'center' }}>
           {widgets.map((item) => (
             <Box key={item.id} px={0.25} py={2} minHeight={450} display={'flex'} justifySelf={'flex-start'}>
               <RenderWidget item={item} />

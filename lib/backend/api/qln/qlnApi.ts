@@ -121,13 +121,17 @@ export const newsTypes: DropdownItem[] = [
     text: 'Hacker News',
     value: 'HackerNews',
   },
-  // {
-  //   text: 'Headlines of Today',
-  //   value: 'HeadlinesOfToday',
-  // },
   {
     text: 'Life Hacker',
     value: 'LifeHacker',
+  },
+  {
+    text: 'MarketWatch Pulse',
+    value: 'MarketWatchPulse',
+  },
+  {
+    text: 'MarketWatch Top Stories',
+    value: 'MarketWatchTopStories',
   },
   {
     text: 'NPR',
@@ -162,18 +166,18 @@ export const newsTypes: DropdownItem[] = [
     text: 'Washington Times',
     value: 'WashingtonTimes',
   },
-  {
-    text: 'Yahoo Finance',
-    value: 'YahooFinance',
-  },
-  {
-    text: 'Yahoo Science',
-    value: 'YahooScience',
-  },
-  {
-    text: 'Yahoo World',
-    value: 'YahooWorld',
-  },
+  // {
+  //   text: 'Yahoo Finance',
+  //   value: 'YahooFinance',
+  // },
+  // {
+  //   text: 'Yahoo Science',
+  //   value: 'YahooScience',
+  // },
+  // {
+  //   text: 'Yahoo World',
+  //   value: 'YahooWorld',
+  // },
 ]
 export type JoBLog = {
   JobId: number

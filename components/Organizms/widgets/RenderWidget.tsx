@@ -18,7 +18,7 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
 
   const dimension: WidgetDimensions = {
     height: 350,
-    width: isXSmallDevice ? 320 : 280,
+    width: isXSmallDevice ? 365 : 280,
   }
   if (!isXSmallDevice) {
     switch (item.size) {
