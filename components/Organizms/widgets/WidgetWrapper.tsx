@@ -1,12 +1,11 @@
-import { Box, Paper, Typography, useMediaQuery, useTheme } from '@mui/material'
-import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
+import { Box, Typography, useTheme } from '@mui/material'
 import { ReactNode } from 'react'
 import DelayedComponentRender from './DelayedComponentRender'
 import { DashboardWidget } from '../dashboard/dashboardModel'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const WidgetWrapper = ({ item, children }: { item: DashboardWidget; children: ReactNode | JSX.Element[] }) => {
   const theme = useTheme()
-  const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
   return (
     <Box>
       <Box py={1}>
@@ -15,7 +14,7 @@ const WidgetWrapper = ({ item, children }: { item: DashboardWidget; children: Re
         </Typography>
       </Box>
       <DelayedComponentRender key={item.id} delayMs={item.waitToRenderMs}>
-        {children}
+        <FadeIn duration={2}>{children}</FadeIn>
       </DelayedComponentRender>
     </Box>
   )

@@ -37,6 +37,7 @@
     "dayjs": "^1.11.10",
     "dotenv": "^16.3.1",
     "formidable": "^3.5.1",
+    "framer-motion": "^11.11.11",
     "next": "^14.1.4",
     "numeral": "^2.0.6",
     "react": "^18.2.0",

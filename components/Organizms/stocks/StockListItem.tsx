@@ -25,6 +25,8 @@ import StockDetailsTab from './StockDetailsTab'
 import { useEffect, useRef, useState } from 'react'
 import StockDividendDetails from './dividends/StockDividendDetails'
 import StockField from './StockField'
+import { motion } from 'framer-motion'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const StockListItem = ({
   item,
@@ -96,26 +98,28 @@ const StockListItem = ({
     <>
       <Box py={1}>
         <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
-        <Box>
-          {isStock ? (
-            <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={handleCompanyClick} disabled={disabled} />
-          ) : (
-            <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} />
-          )}
+        <FadeIn duration={1}>
           <Box>
-            <StockChange item={item} />
-          </Box>
-          {featuredField && (
-            <Box pl={2}>
-              <StockField quote={item} field={featuredField} />
+            {isStock ? (
+              <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={handleCompanyClick} disabled={disabled} />
+            ) : (
+              <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} />
+            )}
+            <Box>
+              <StockChange item={item} />
             </Box>
-          )}
-          {showGroupName && item.GroupName && (
-            <Stack pl={2} py={2}>
-              <Typography variant='caption' color='primary'>{`Group Name: ${item.GroupName}`}</Typography>
-            </Stack>
-          )}
-        </Box>
+            {featuredField && (
+              <Box pl={2}>
+                <StockField quote={item} field={featuredField} />
+              </Box>
+            )}
+            {showGroupName && item.GroupName && (
+              <Stack pl={2} py={2}>
+                <Typography variant='caption' color='primary'>{`Group Name: ${item.GroupName}`}</Typography>
+              </Stack>
+            )}
+          </Box>
+        </FadeIn>
         {!showMore && <HorizontalDivider />}
         {showMore && (
           <>

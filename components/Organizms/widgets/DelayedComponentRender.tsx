@@ -12,12 +12,7 @@ const DelayedComponentRender = ({ delayMs, children }: { delayMs: number; childr
     }, delayMs)
   }, [delayMs])
 
-  return (
-    <Box>
-      {/* {isLoading && <CircleLoader />} */}
-      {!isLoading && <Box>{children}</Box>}
-    </Box>
-  )
+  return <Box>{!isLoading && <Box>{children}</Box>}</Box>
 }
 
 export default DelayedComponentRender

@@ -1,4 +1,4 @@
-import { Box, Card, CardHeader, Paper, Stack, Typography } from '@mui/material'
+import { Box, Card, CardHeader, Stack, Typography } from '@mui/material'
 import React from 'react'
 import ContextMenu, { ContextMenuItem } from '../Menus/ContextMenu'
 import ContextMenuAdd from '../Menus/ContextMenuAdd'
@@ -66,15 +66,13 @@ const ListHeader = ({
                   sx={{ cursor: !disabled ? 'pointer' : 'unset' }}
                   onClick={(e) => {
                     onClicked(item)
-                  }}
-                >
+                  }}>
                   <Typography textAlign={'left'} variant='h6' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
                     {text}
                   </Typography>
                 </Box>
               </>
-            }
-          ></CardHeader>
+            }></CardHeader>
         </Card>
         <Box>{showContextMenu && <ContextMenu items={contextMenu} />}</Box>
       </Stack>

@@ -10,9 +10,9 @@ import S3Display from 'components/Organizms/files/S3Display'
 import ListIteratorLayout from 'components/Organizms/sandbox/ListIteratorLayout'
 import Streamer from 'components/Organizms/sandbox/Streamer'
 import OcrLocal from 'components/Organizms/files/OcrLocal'
-import SearchAheadAutoComplete from 'components/Organizms/sandbox/SearchAheadAutoComplete'
 import { useState, useEffect, startTransition } from 'react'
 import Playground from 'components/Organizms/admin/Playground'
+import Framer from 'components/Organizms/animation/Framer'
 
 const Page = () => {
   const tabs: TabInfo[] = [
@@ -27,13 +27,13 @@ const Page = () => {
       title: 'Charts',
     },
     {
-      title: 'Stream',
+      title: 'Framer',
     },
     {
       title: 'Iterator',
     },
     {
-      title: 'Poller',
+      title: 'Frame',
     },
 
     {
@@ -74,7 +74,7 @@ const Page = () => {
         <Box p={2}>
           {/* {selectedTab === 'Multi Line Chart' && <MultiLineChartDisplay />} */}
           {selectedTab === 'OCR' && <OcrLocal />}
-          {selectedTab === 'Stream' && <Streamer />}
+          {selectedTab === 'Framer' && <Framer />}
           {selectedTab === 'Iterator' && <ListIteratorLayout />}
           {selectedTab === 'Charts' && <Playground />}
           {selectedTab === 'Files' && <>{!isLoading && authProfile && <S3Display userProfile={authProfile} />}</>}

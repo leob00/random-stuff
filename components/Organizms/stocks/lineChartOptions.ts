@@ -1,20 +1,7 @@
 import { ApexOptions } from 'apexcharts'
-import { getBaseGrid } from 'components/Atoms/Charts/apex/baseLineChartOptions'
+import { getBaseGrid, getBaseXAxis } from 'components/Atoms/Charts/apex/baseLineChartOptions'
 import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
-import theme, {
-  CasinoGreen,
-  CasinoRed,
-  VeryLightBlueTransparent,
-  DarkBlue,
-  VeryLightBlue,
-  DarkModeBlue,
-  RedDarkMode,
-  CasinoLimeTransparent,
-  CasinoRedTransparent,
-  CasinoBlue,
-  LightBlue,
-} from 'components/themes/mainTheme'
-import { StockHistoryItem } from 'lib/backend/api/models/zModels'
+import theme, { DarkBlue, VeryLightBlue, DarkModeBlue, CasinoBlue, LightBlue } from 'components/themes/mainTheme'
 
 export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palette: 'light' | 'dark' = 'light', showXTooltip = true) {
   let lineColor = palette === 'dark' ? LightBlue : CasinoBlue
@@ -58,8 +45,10 @@ export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palet
     chart: {
       dropShadow: {
         enabled: true,
+        top: 16,
+        left: 7,
+        blur: 10,
       },
-      //background: palette === 'dark' ? DarkModeBlue : 'transparent',
       type: 'area',
       toolbar: {
         show: false,
@@ -67,15 +56,15 @@ export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palet
       animations: {
         easing: 'easeout',
       },
-      foreColor: lineColor,
+      foreColor: palette === 'dark' ? VeryLightBlue : DarkModeBlue,
     },
     grid: getBaseGrid(theme.palette.mode),
     yaxis: {
       labels: {
         style: {
           colors: palette === 'dark' ? [VeryLightBlue] : [DarkBlue],
-          fontWeight: isXSmall ? 300 : 600,
-          fontSize: isXSmall ? '8px' : '15px',
+          fontWeight: isXSmall ? 300 : 400,
+          fontSize: isXSmall ? '10px' : '15px',
         },
 
         formatter: (val: number) => {
@@ -84,22 +73,7 @@ export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palet
       },
     },
     xaxis: {
-      //type: 'datetime',
-      //max: yAxisDecorator === '%' ? 100 : undefined,
-      labels: {
-        show: false,
-        formatter: (val) => {
-          return val
-        },
-      },
-      //tickAmount: Math.floor(items.x.length / (items.x.length / 12)),
-      categories: items.x,
-      axisTicks: { show: false, borderType: 'none', color: 'red' },
-      //tickAmount: 20,
-      axisBorder: {
-        show: false,
-        //color: CasinoBlueTransparent,
-      },
+      ...getBaseXAxis(items.x),
       tooltip: {
         enabled: showXTooltip,
       },

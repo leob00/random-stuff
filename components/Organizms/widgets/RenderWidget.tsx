@@ -18,8 +18,8 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
   const isXSmallDevice = useMediaQuery(theme.breakpoints.down('sm'))
 
   const dimension: WidgetDimensions = {
-    height: 364,
-    width: isXSmallDevice ? 350 : 280,
+    height: 400,
+    width: isXSmallDevice ? 370 : 280,
   }
   if (!isXSmallDevice) {
     switch (item.size) {
@@ -33,12 +33,13 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
         break
     }
   }
+
   return (
     <Box minWidth={dimension.width} sx={{ border: `solid ${CasinoBlueTransparent} 1px` }} borderRadius={1}>
       {item.category === 'news' && (
         <Box width={dimension.width}>
           <WidgetWrapper item={item}>
-            <NewsLayout componentLoader revalidateOnFocus={revalidateOnFocus} />
+            <NewsLayout suspendLoader revalidateOnFocus={revalidateOnFocus} />
           </WidgetWrapper>
         </Box>
       )}

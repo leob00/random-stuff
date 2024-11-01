@@ -11,6 +11,7 @@ import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import { DropdownItem, mapDropdownItems } from 'lib/models/dropdown'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const JobList = ({ response, onJobSelected }: { response: QlnApiResponse; onJobSelected: (item: Job) => void }) => {
   let jobs = response.Body as Job[]
@@ -42,27 +43,29 @@ const JobList = ({ response, onJobSelected }: { response: QlnApiResponse; onJobS
       <ScrollableBox scroller={scroller}>
         {pagedItems.map((item) => (
           <Box key={item.Name} py={1}>
-            <Paper elevation={item.Status == 1 ? 4 : 0}>
-              <ListHeader text={item.Description} item={item} onClicked={onJobSelected} />
-              {item.Status === 1 ? (
-                <JobInProgress item={item} />
-              ) : (
-                <Box minHeight={50} pt={1} pl={2} pb={1}>
-                  <Box>
-                    {item.EndRunDate && (
-                      <Stack px={1}>
-                        <Typography variant='caption' color='primary'>{`last run: ${dayjs(response.ResponseDateEst).to(dayjs(item.EndRunDate))}`}</Typography>
-                      </Stack>
-                    )}
-                    {item.NextRunDate && (
-                      <Stack px={1}>
-                        <Typography variant='caption' color='primary'>{`next run: ${dayjs(response.ResponseDateEst).to(dayjs(item.NextRunDate))}`}</Typography>
-                      </Stack>
-                    )}
+            <FadeIn>
+              <Paper elevation={item.Status == 1 ? 4 : 0}>
+                <ListHeader text={item.Description} item={item} onClicked={onJobSelected} />
+                {item.Status === 1 ? (
+                  <JobInProgress item={item} />
+                ) : (
+                  <Box minHeight={50} pt={1} pl={2} pb={1}>
+                    <Box>
+                      {item.EndRunDate && (
+                        <Stack px={1}>
+                          <Typography variant='caption' color='primary'>{`last run: ${dayjs(response.ResponseDateEst).to(dayjs(item.EndRunDate))}`}</Typography>
+                        </Stack>
+                      )}
+                      {item.NextRunDate && (
+                        <Stack px={1}>
+                          <Typography variant='caption' color='primary'>{`next run: ${dayjs(response.ResponseDateEst).to(dayjs(item.NextRunDate))}`}</Typography>
+                        </Stack>
+                      )}
+                    </Box>
                   </Box>
-                </Box>
-              )}
-            </Paper>
+                )}
+              </Paper>
+            </FadeIn>
           </Box>
         ))}
       </ScrollableBox>
