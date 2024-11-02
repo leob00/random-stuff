@@ -13,6 +13,7 @@ import { getUtcNow } from 'lib/util/dateUtil'
 import HtmlEditorQuill from '../../Atoms/Inputs/HtmlEditorQuill'
 import { DropdownItem } from 'lib/models/dropdown'
 import { useRef, useState } from 'react'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCanceled?: () => void; onSubmitted?: (note: UserNote) => void }) => {
   const title = useRef<HTMLInputElement | null>(null)
@@ -112,69 +113,70 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
 
   return item ? (
     <>
-      {/* <EditItemToolbar onSave={handleSave} onCancel={handleCancel} /> */}
-      <Box>
-        <CenterStack sx={{ py: 2, gap: 2 }}>
-          <SecondaryButton onClick={handleSave} text='save' sx={{ ml: 3 }} size='small' width={70} />
-          <PassiveButton text={'close'} onClick={handleCancel} size='small' width={70} />
-        </CenterStack>
-      </Box>
-      <FormDialog show={showExpForm} onCancel={handleCancelExp} title='Set expiration' onSave={handleSaveExp}>
-        <>
-          <DropdownList options={expOptions} selectedOption={'3'} onOptionSelected={handleChangeExp} />
-          <CenterStack sx={{ py: 4, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
-            {editedExpDate && <RecordExpirationWarning expirationDate={editedExpDate} precise={true} />}
-          </CenterStack>
-        </>
-      </FormDialog>
-      <Box sx={{ pt: 2 }} component='form'>
-        <CenterStack sx={{ py: 1, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
-          {note.expirationDate && (
-            <CenterStack>
-              <Stack sx={{ py: 4 }} display={'flex'} direction={'row'} justifyItems={'center'}>
-                <Button onClick={handleEditExp}>
-                  <RecordExpirationWarning expirationDate={note.expirationDate} />
-                </Button>
-              </Stack>
-            </CenterStack>
-          )}
-          <Stack display={'flex'} direction={'row'} justifyItems={'center'} alignItems={'center'}>
-            <Typography pl={2}>
-              <OnOffSwitch isChecked={note.expirationDate !== undefined} label={'expiration'} onChanged={handleExpirationChange} />
-            </Typography>
-          </Stack>
-        </CenterStack>
-        <CenterStack sx={{ width: { xs: '100%' } }}>
-          <TextField
-            inputProps={{ maxLength: 150 }}
-            fullWidth
-            inputRef={title}
-            defaultValue={item.title}
-            size='small'
-            label={'title'}
-            placeholder='title'
-            onChange={handleTitleChange}
-            required
-            error={titleError}
-            sx={{ color: 'secondary' }}
-          />
-        </CenterStack>
-        <CenterStack sx={{ py: 2, minHeight: 480, width: { xs: '100%' } }}>
-          <HtmlEditorQuill value={bodyText} onChanged={handleBodyChange} />
-        </CenterStack>
+      <FadeIn>
         <Box>
           <CenterStack sx={{ py: 2, gap: 2 }}>
             <SecondaryButton onClick={handleSave} text='save' sx={{ ml: 3 }} size='small' width={70} />
             <PassiveButton text={'close'} onClick={handleCancel} size='small' width={70} />
           </CenterStack>
         </Box>
-      </Box>
-      {/* {item.attachments && (
+        <FormDialog show={showExpForm} onCancel={handleCancelExp} title='Set expiration' onSave={handleSaveExp}>
+          <>
+            <DropdownList options={expOptions} selectedOption={'3'} onOptionSelected={handleChangeExp} />
+            <CenterStack sx={{ py: 4, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
+              {editedExpDate && <RecordExpirationWarning expirationDate={editedExpDate} precise={true} />}
+            </CenterStack>
+          </>
+        </FormDialog>
+        <Box sx={{ pt: 2 }} component='form'>
+          <CenterStack sx={{ py: 1, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
+            {note.expirationDate && (
+              <CenterStack>
+                <Stack sx={{ py: 4 }} display={'flex'} direction={'row'} justifyItems={'center'}>
+                  <Button onClick={handleEditExp}>
+                    <RecordExpirationWarning expirationDate={note.expirationDate} />
+                  </Button>
+                </Stack>
+              </CenterStack>
+            )}
+            <Stack display={'flex'} direction={'row'} justifyItems={'center'} alignItems={'center'}>
+              <Typography pl={2}>
+                <OnOffSwitch isChecked={note.expirationDate !== undefined} label={'expiration'} onChanged={handleExpirationChange} />
+              </Typography>
+            </Stack>
+          </CenterStack>
+          <CenterStack sx={{ width: { xs: '100%' } }}>
+            <TextField
+              inputProps={{ maxLength: 150 }}
+              fullWidth
+              inputRef={title}
+              defaultValue={item.title}
+              size='small'
+              label={'title'}
+              placeholder='title'
+              onChange={handleTitleChange}
+              required
+              error={titleError}
+              sx={{ color: 'secondary' }}
+            />
+          </CenterStack>
+          <CenterStack sx={{ py: 2, minHeight: 480, width: { xs: '100%' } }}>
+            <HtmlEditorQuill value={bodyText} onChanged={handleBodyChange} />
+          </CenterStack>
+          <Box>
+            <CenterStack sx={{ py: 2, gap: 2 }}>
+              <SecondaryButton onClick={handleSave} text='save' sx={{ ml: 3 }} size='small' width={70} />
+              <PassiveButton text={'close'} onClick={handleCancel} size='small' width={70} />
+            </CenterStack>
+          </Box>
+        </Box>
+        {/* {item.attachments && (
         <Box>
           <CenteredTitle title={'files'} />
           <S3FilesTable data={item.attachments} />
         </Box>
       )} */}
+      </FadeIn>
     </>
   ) : (
     <></>

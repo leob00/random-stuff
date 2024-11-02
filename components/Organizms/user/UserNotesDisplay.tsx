@@ -7,6 +7,7 @@ import React from 'react'
 import NoteList from './NoteList'
 import { useRouter } from 'next/router'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const UserNotesDisplay = ({ noteTitles, username }: { noteTitles: UserNote[]; username: string }) => {
   const router = useRouter()
@@ -30,7 +31,9 @@ const UserNotesDisplay = ({ noteTitles, username }: { noteTitles: UserNote[]; us
   return (
     <>
       {model.isLoading && <BackdropLoader />}
-      <NoteList data={noteTitles} onClicked={handleNoteTitleClick} onAddNote={handleAddNote} />
+      <FadeIn>
+        <NoteList data={noteTitles} onClicked={handleNoteTitleClick} onAddNote={handleAddNote} />
+      </FadeIn>
     </>
   )
 }

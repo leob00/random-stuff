@@ -17,6 +17,7 @@ import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import ContextMenuShare from 'components/Molecules/Menus/ContextMenuShare'
 import { useRouter } from 'next/navigation'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const ViewNote = ({
   selectedNote,
@@ -59,40 +60,42 @@ const ViewNote = ({
 
   return (
     <>
-      <Box sx={{ py: 1 }}>
-        <ScrollIntoView enabled={true} />
-        <Box display={'flex'} justifyContent={'flex-end'}>
-          <ContextMenu items={menu} />
-        </Box>
-        <ScrollableBox>
-          <Box>
-            <HtmlView html={selectedNote.body} textAlign='left' />
+      <FadeIn>
+        <Box sx={{ py: 1 }}>
+          <ScrollIntoView enabled={true} />
+          <Box display={'flex'} justifyContent={'flex-end'}>
+            <ContextMenu items={menu} />
           </Box>
-        </ScrollableBox>
-        <HorizontalDivider />
-        <CenterStack>
-          <Typography variant='body2'>{`created: ${dayjs(selectedNote.dateCreated).format('MM/DD/YYYY hh:mm a')}`}</Typography>
-        </CenterStack>
-        <CenterStack sx={{ pt: 2 }}>
-          <Typography variant='body2'>{`updated: ${dayjs(selectedNote.dateModified).format('MM/DD/YYYY hh:mm a')}`}</Typography>
-        </CenterStack>
-        {selectedNote.expirationDate && (
+          <ScrollableBox>
+            <Box>
+              <HtmlView html={selectedNote.body} textAlign='left' />
+            </Box>
+          </ScrollableBox>
+          <HorizontalDivider />
           <CenterStack>
-            <Stack sx={{ py: 4 }} display={'flex'} direction={'row'} justifyItems={'center'}>
-              <RecordExpirationWarning expirationDate={selectedNote.expirationDate} />
-            </Stack>
+            <Typography variant='body2'>{`created: ${dayjs(selectedNote.dateCreated).format('MM/DD/YYYY hh:mm a')}`}</Typography>
           </CenterStack>
-        )}
-      </Box>
-      <ConfirmDeleteDialog
-        show={showConfirmDelete}
-        title={'confirm delete'}
-        text={'Are you sure you want to delete this note?'}
-        onConfirm={handleYesDelete}
-        onCancel={() => {
-          setShowConfirmDelete(false)
-        }}
-      />
+          <CenterStack sx={{ pt: 2 }}>
+            <Typography variant='body2'>{`updated: ${dayjs(selectedNote.dateModified).format('MM/DD/YYYY hh:mm a')}`}</Typography>
+          </CenterStack>
+          {selectedNote.expirationDate && (
+            <CenterStack>
+              <Stack sx={{ py: 4 }} display={'flex'} direction={'row'} justifyItems={'center'}>
+                <RecordExpirationWarning expirationDate={selectedNote.expirationDate} />
+              </Stack>
+            </CenterStack>
+          )}
+        </Box>
+        <ConfirmDeleteDialog
+          show={showConfirmDelete}
+          title={'confirm delete'}
+          text={'Are you sure you want to delete this note?'}
+          onConfirm={handleYesDelete}
+          onCancel={() => {
+            setShowConfirmDelete(false)
+          }}
+        />
+      </FadeIn>
     </>
   )
 }

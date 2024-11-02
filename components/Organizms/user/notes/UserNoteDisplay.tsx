@@ -67,12 +67,14 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
   return (
     <>
       {isWaiting && <BackdropLoader />}
-      {<SnackbarSuccess show={showSavedToast} text='note saved!' onClose={() => setShowSavedToast(false)} />}
-      {editMode ? (
-        <EditNote item={data} onSubmitted={handleSaveNote} onCanceled={() => setEditMode(false)} />
-      ) : (
-        <ViewNote selectedNote={data} onCancel={handleCancel} onEdit={handleEditNote} onDelete={handleDelete} />
-      )}
+      <>
+        {<SnackbarSuccess show={showSavedToast} text='note saved!' onClose={() => setShowSavedToast(false)} />}
+        {editMode ? (
+          <EditNote item={data} onSubmitted={handleSaveNote} onCanceled={() => setEditMode(false)} />
+        ) : (
+          <ViewNote selectedNote={data} onCancel={handleCancel} onEdit={handleEditNote} onDelete={handleDelete} />
+        )}
+      </>
     </>
   )
 }

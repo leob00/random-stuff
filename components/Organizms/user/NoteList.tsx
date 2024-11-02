@@ -1,5 +1,6 @@
 import Warning from '@mui/icons-material/Warning'
 import { Box, Stack, Button, Typography } from '@mui/material'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
@@ -71,28 +72,30 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
         <Box>
           {pagedItems.map((item, i) => (
             <Box key={item.id}>
-              <Box>
-                <Stack direction='row' py={2}>
-                  <Box pt={1}>
-                    <Clickable
-                      onClicked={() => {
-                        handleNoteTitleClick(item)
-                      }}
-                    >
-                      <Typography variant='body1'>{item.title}</Typography>
-                    </Clickable>
-                  </Box>
-                </Stack>
-              </Box>
-              {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
-                <Box display={'flex'} justifyContent={'flex-end'} gap={1} alignItems={'center'}>
-                  <DefaultTooltip text={getExpirationText(item.expirationDate)}>
-                    <Warning fontSize='small' color='warning' />
-                  </DefaultTooltip>
-                  <Typography variant='caption'>{'expires soon'}</Typography>
+              <FadeIn>
+                <Box>
+                  <Stack direction='row' py={2}>
+                    <Box pt={1}>
+                      <Clickable
+                        onClicked={() => {
+                          handleNoteTitleClick(item)
+                        }}
+                      >
+                        <Typography variant='body1'>{item.title}</Typography>
+                      </Clickable>
+                    </Box>
+                  </Stack>
                 </Box>
-              )}
-              {i < pagedItems.length - 1 && <HorizontalDivider />}
+                {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
+                  <Box display={'flex'} justifyContent={'flex-end'} gap={1} alignItems={'center'}>
+                    <DefaultTooltip text={getExpirationText(item.expirationDate)}>
+                      <Warning fontSize='small' color='warning' />
+                    </DefaultTooltip>
+                    <Typography variant='caption'>{'expires soon'}</Typography>
+                  </Box>
+                )}
+                {i < pagedItems.length - 1 && <HorizontalDivider />}
+              </FadeIn>
             </Box>
           ))}
         </Box>

@@ -23,6 +23,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import { UserGoal, UserTask } from './goalModels'
 import { useState } from 'react'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const SingleGoalDisplay = ({
   username,
@@ -127,41 +128,43 @@ const SingleGoalDisplay = ({
         <EditGoal goal={goal} onSaveGoal={handleModifyGoal} onShowCompletedTasks={() => {}} onCancelEdit={() => setGoalEditMode(false)} />
       ) : (
         <>
-          {goal.deleteCompletedTasks && (
-            <Box py={2}>
-              <Box display={'flex'} alignItems={'center'} gap={1} justifyContent={'center'}>
-                <AlertWithHeader severity='warning' text='completed tasks will be deleted' />
+          <FadeIn>
+            {goal.deleteCompletedTasks && (
+              <Box py={2}>
+                <Box display={'flex'} alignItems={'center'} gap={1} justifyContent={'center'}>
+                  <AlertWithHeader severity='warning' text='completed tasks will be deleted' />
+                </Box>
+              </Box>
+            )}
+            <Box py={2} display='flex' justifyContent='space-between'>
+              <Box>
+                {goal.stats && !goal.deleteCompletedTasks && (
+                  <>
+                    <GoalStats goal={goal} completePercent={goal.completePercent ?? 0} />
+                  </>
+                )}
+              </Box>
+              <Box>
+                <ContextMenu items={contextMenu} />
               </Box>
             </Box>
-          )}
-          <Box py={2} display='flex' justifyContent='space-between'>
-            <Box>
-              {goal.stats && !goal.deleteCompletedTasks && (
-                <>
-                  <GoalStats goal={goal} completePercent={goal.completePercent ?? 0} />
-                </>
-              )}
-            </Box>
-            <Box>
-              <ContextMenu items={contextMenu} />
-            </Box>
-          </Box>
-          <HorizontalDivider />
-          {isSaving && <BackdropLoader />}
-          <TaskList
-            username={username}
-            selectedGoal={goal}
-            tasks={displayTasks}
-            onAddTask={handleAddTask}
-            onDeleteTask={handleDeleteTask}
-            onModifyTask={handleModifyTask}
-          />
-          <ConfirmDeleteDialog
-            show={showDeleteGoalConfirm}
-            text={`Are you sure you want to delete '${goal.body}' and all of its tasks?`}
-            onConfirm={handleDeleteGoal}
-            onCancel={() => setShowDeleteGoalConfirm(false)}
-          />
+            <HorizontalDivider />
+            {isSaving && <BackdropLoader />}
+            <TaskList
+              username={username}
+              selectedGoal={goal}
+              tasks={displayTasks}
+              onAddTask={handleAddTask}
+              onDeleteTask={handleDeleteTask}
+              onModifyTask={handleModifyTask}
+            />
+            <ConfirmDeleteDialog
+              show={showDeleteGoalConfirm}
+              text={`Are you sure you want to delete '${goal.body}' and all of its tasks?`}
+              onConfirm={handleDeleteGoal}
+              onCancel={() => setShowDeleteGoalConfirm(false)}
+            />
+          </FadeIn>
         </>
       )}
     </>

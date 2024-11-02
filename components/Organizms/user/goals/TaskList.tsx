@@ -19,6 +19,7 @@ import { UserTask, UserGoal } from './goalModels'
 import EditTaskForm from './tasks/EditTaskForm'
 import { useReducer } from 'react'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 interface TaskModel {
   isLoading: boolean
@@ -230,17 +231,19 @@ const TaskList = ({
           <ScrollableBox maxHeight={400}>
             {filterTasks(model.searchTasksText).map((item, i) => (
               <Box key={item.id}>
-                <Box pb={2}>
-                  <Box key={item.id}>
-                    <TaskItem
-                      task={item}
-                      index={i}
-                      taskCount={tasks.length}
-                      handleCompleteTaskClick={handleCompleteTaskClick}
-                      handleTaskClick={handleTaskClick}
-                    />
+                <FadeIn>
+                  <Box pb={2}>
+                    <Box key={item.id}>
+                      <TaskItem
+                        task={item}
+                        index={i}
+                        taskCount={tasks.length}
+                        handleCompleteTaskClick={handleCompleteTaskClick}
+                        handleTaskClick={handleTaskClick}
+                      />
+                    </Box>
                   </Box>
-                </Box>
+                </FadeIn>
               </Box>
             ))}
           </ScrollableBox>
