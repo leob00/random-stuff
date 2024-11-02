@@ -10,6 +10,7 @@ import { getUtcNow } from 'lib/util/dateUtil'
 import { UserNote, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import SavedNoteButtonLink from 'components/Molecules/Buttons/SavedNoteButtonLink'
 import NewsListItemMobile from './NewsListItemMobile'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const NewsListItem = ({
   userProfile,
@@ -27,19 +28,23 @@ const NewsListItem = ({
   const handleSaved = async (note: UserNote) => {}
   return (
     <Box minHeight={100}>
-      {!isSmallDevice ? (
+      <FadeIn>
         <Box>
-          <Box display={'flex'} justifyContent={'flex-start'}>
-            <NewsImage item={item} />
-            <Box py={1}>
-              <NewsHeadline item={item} />
+          {!isSmallDevice ? (
+            <Box>
+              <Box display={'flex'} justifyContent={'flex-start'}>
+                <NewsImage item={item} />
+                <Box py={1}>
+                  <NewsHeadline item={item} />
+                </Box>
+              </Box>
+              <NewsDescription item={item} />
             </Box>
-          </Box>
-          <NewsDescription item={item} />
+          ) : (
+            <NewsListItemMobile item={item} />
+          )}
         </Box>
-      ) : (
-        <NewsListItemMobile item={item} />
-      )}
+      </FadeIn>
       {showPublishDate && item.PublishDate && (
         <>
           <CenterStack sx={{ pt: 1 }}>

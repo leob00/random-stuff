@@ -10,6 +10,7 @@ import GroupedHomeMenu from './navigation/GroupedHomeMenu'
 import CenteredNavigationButton from 'components/Atoms/Buttons/CenteredNavigationButton'
 import { useUserController } from 'hooks/userController'
 import { userHasRole } from 'lib/backend/auth/userUtil'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const HomeMenu = () => {
   const { allRoutes: recentRoutes } = useRouteTracker()
@@ -40,7 +41,7 @@ const HomeMenu = () => {
             {showGroupedMenu && (
               <>
                 <GroupedHomeMenu pathCategories={pathCategories} />
-                <>{isAdmin && <GroupedHomeMenu pathCategories={adminCategories} />}</>
+                {isAdmin && <GroupedHomeMenu pathCategories={adminCategories} />}
               </>
             )}
             {!showGroupedMenu && (
@@ -48,7 +49,9 @@ const HomeMenu = () => {
                 <CenteredTitle title={'Recent History'} variant='h4' />
                 {recentHistory.map((item, i) => (
                   <Box key={item.path}>
-                    <CenteredNavigationButton route={item.path} text={item.name} />
+                    <FadeIn>
+                      <CenteredNavigationButton route={item.path} text={item.name} />
+                    </FadeIn>
                   </Box>
                 ))}
               </>

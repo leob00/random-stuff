@@ -5,6 +5,7 @@ import { ApexOptions } from 'apexcharts'
 import { getBaseLineChartOptions, LineChartOptions } from 'components/Atoms/Charts/apex/baseLineChartOptions'
 import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
 import BackdropLoader from '../../Loaders/BackdropLoader'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const getOptions = (xYValues: XyValues[], lineOptions: LineChartOptions[]) => {
   const result: ApexOptions[] = xYValues.map((m, i) => getBaseLineChartOptions(m, lineOptions[i]))
@@ -27,12 +28,14 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
         <>
           {options.length > 1 && (
             <Box>
-              <Box height={chartHeight}>
-                <ReactApexChart options={options[0]} series={options[0].series} type='area' height={'100%'} />
-              </Box>
-              <Box height={160}>
-                <ReactApexChart options={options[1]} series={options[1].series} type='area' height={'100%'} />
-              </Box>
+              <FadeIn>
+                <Box height={chartHeight}>
+                  <ReactApexChart options={options[0]} series={options[0].series} type='area' height={'100%'} />
+                </Box>
+                <Box height={160}>
+                  <ReactApexChart options={options[1]} series={options[1].series} type='area' height={'100%'} />
+                </Box>
+              </FadeIn>
             </Box>
           )}
         </>

@@ -12,6 +12,7 @@ import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const StockMarketGlance = ({
   showTitle = true,
@@ -38,7 +39,7 @@ const StockMarketGlance = ({
         {showTitle && <CenteredHeader variant='h4' title={'Stock Market Sentiment'} />}
         {isLoading && <>{componentLoader ? <CircleLoader /> : <BackdropLoader />}</>}
 
-        {data ? (
+        {data && (
           <Box maxWidth={width}>
             <Box display={'flex'} justifyContent={'center'}>
               <Typography textAlign={'center'} variant='caption'>{`${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} EST`}</Typography>
@@ -54,21 +55,6 @@ const StockMarketGlance = ({
               <SiteLink text='sentiment report' href={'/csr/stocks/sentiment'} />
             </CenterStack>
           </Box>
-        ) : (
-          <>
-            <StockMarketStatsChart
-              data={{
-                DateModified: '',
-                TotalDown: 0,
-                TotalUp: 0,
-                TotalUnchanged: 0,
-                TotalDownPercent: 0,
-                TotalUpPercent: 0,
-                TotalUnchangedPercent: 100,
-                MarketDate: '',
-              }}
-            />
-          </>
         )}
       </Box>
     </Box>

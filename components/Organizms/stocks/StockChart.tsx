@@ -79,31 +79,33 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
         )}
         <>
           {data && (
-            <FadeIn>
-              <Box>
-                {isStock && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading} />}
-                {!isStock && (
-                  <>
-                    {isLoading && <BackdropLoader />}
-                    <Box minHeight={{ xs: 300, sm: chartHeight }} pt={2}>
-                      <ReactApexChart series={data.chartOptions.series} options={data.chartOptions} type='area' height={chartHeight} />
-                      <Box display='flex' gap={4} pb={4}>
-                        <Box display='flex' gap={1}>
-                          <Typography variant='caption'>start date:</Typography>
-                          <Typography variant='caption'>{dayjs(data.history[0].TradeDate).format('MM/DD/YYYY')}</Typography>
-                        </Box>
-                        {data.history.length > 0 && (
-                          <Box display='flex' gap={1}>
-                            <Typography variant='caption'>end date:</Typography>
-                            <Typography variant='caption'>{dayjs(data.history[data.history.length - 1].TradeDate).format('MM/DD/YYYY')}</Typography>
-                          </Box>
-                        )}
+            <Box>
+              {isStock && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading} />}
+              {!isStock && (
+                <>
+                  {isLoading && <BackdropLoader />}
+                  <Box minHeight={{ xs: 300, sm: chartHeight }} pt={2}>
+                    {!isLoading && (
+                      <FadeIn>
+                        <ReactApexChart series={data.chartOptions.series} options={data.chartOptions} type='area' height={chartHeight} />
+                      </FadeIn>
+                    )}
+                    <Box display='flex' gap={4} pb={4}>
+                      <Box display='flex' gap={1}>
+                        <Typography variant='caption'>start date:</Typography>
+                        <Typography variant='caption'>{dayjs(data.history[0].TradeDate).format('MM/DD/YYYY')}</Typography>
                       </Box>
+                      {data.history.length > 0 && (
+                        <Box display='flex' gap={1}>
+                          <Typography variant='caption'>end date:</Typography>
+                          <Typography variant='caption'>{dayjs(data.history[data.history.length - 1].TradeDate).format('MM/DD/YYYY')}</Typography>
+                        </Box>
+                      )}
                     </Box>
-                  </>
-                )}
-              </Box>
-            </FadeIn>
+                  </Box>
+                </>
+              )}
+            </Box>
           )}
         </>
       </>
