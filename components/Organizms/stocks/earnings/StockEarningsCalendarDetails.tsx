@@ -18,6 +18,7 @@ import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import { useRouter } from 'next/router'
 import StockChange from '../StockChange'
 import Clickable from 'components/Atoms/Containers/Clickable'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const StockEarningsCalendarDetails = ({
   data,
@@ -56,72 +57,74 @@ const StockEarningsCalendarDetails = ({
 
   return (
     <>
-      <Box>
-        <TableContainer component={Paper} elevation={2}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell colSpan={4}>
-                  <SearchWithinList onChanged={handleSearched} />
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableHead>
-              <TableRow>
-                <TableCell></TableCell>
-                <TableCell>Actual</TableCell>
-                <TableCell>Estimate</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {pages.length > 0 &&
-                pages[currentPageIndex - 1].items.map((item, index) => (
-                  <TableRow key={item.Symbol}>
-                    <TableCell>
-                      <Box>
-                        <Clickable
-                          onClicked={() => {
-                            router.push(`/csr/stocks/details/${item.Symbol}?returnUrl=/csr/my-stocks?tab=Earnings`)
-                          }}
-                        >
-                          <Typography px={2} variant='h6'>{`${item.StockQuote?.Company} (${item.StockQuote?.Symbol})`}</Typography>
-                        </Clickable>
-                      </Box>
-                      {item.StockQuote && <StockChange item={item.StockQuote} />}
-                    </TableCell>
-                    <TableCell sx={{ verticalAlign: 'top' }}>
-                      <Typography
-                        color={getPositiveNegativeColor(item.ActualEarnings, theme.palette.mode)}
-                      >{`${item.ActualEarnings ? numeral(item.ActualEarnings).format('0.00') : ''}`}</Typography>
-                    </TableCell>
-                    <TableCell sx={{ verticalAlign: 'top' }}>
-                      <Typography
-                        color={getPositiveNegativeColor(item.EstimatedEarnings, theme.palette.mode)}
-                      >{`${item.EstimatedEarnings ? numeral(item.EstimatedEarnings).format('0.00') : ''}`}</Typography>
-                    </TableCell>
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        {pages.length > 0 && (
-          <Box pt={4}>
-            <Pager
-              pageCount={pages.length}
-              itemCount={pages[currentPageIndex - 1].items.length}
-              itemsPerPage={pageSize}
-              onPaged={(pageNum: number) => onPaged(pageNum)}
-              defaultPageIndex={currentPageIndex}
-              totalItemCount={pages.length === 1 ? pages[currentPageIndex - 1].items.length : data.length}
-            ></Pager>
-          </Box>
-        )}
-        {data.length === 0 && (
-          <CenterStack sx={{ py: 4 }}>
-            <Typography variant='body2'>No data found.</Typography>
-          </CenterStack>
-        )}
-      </Box>
+      <FadeIn>
+        <Box>
+          <TableContainer component={Paper} elevation={2}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell colSpan={4}>
+                    <SearchWithinList onChanged={handleSearched} />
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableHead>
+                <TableRow>
+                  <TableCell></TableCell>
+                  <TableCell>Actual</TableCell>
+                  <TableCell>Estimate</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {pages.length > 0 &&
+                  pages[currentPageIndex - 1].items.map((item, index) => (
+                    <TableRow key={item.Symbol}>
+                      <TableCell>
+                        <Box>
+                          <Clickable
+                            onClicked={() => {
+                              router.push(`/csr/stocks/details/${item.Symbol}?returnUrl=/csr/my-stocks?tab=Earnings`)
+                            }}
+                          >
+                            <Typography px={2} variant='h6'>{`${item.StockQuote?.Company} (${item.StockQuote?.Symbol})`}</Typography>
+                          </Clickable>
+                        </Box>
+                        {item.StockQuote && <StockChange item={item.StockQuote} />}
+                      </TableCell>
+                      <TableCell sx={{ verticalAlign: 'top' }}>
+                        <Typography
+                          color={getPositiveNegativeColor(item.ActualEarnings, theme.palette.mode)}
+                        >{`${item.ActualEarnings ? numeral(item.ActualEarnings).format('0.00') : ''}`}</Typography>
+                      </TableCell>
+                      <TableCell sx={{ verticalAlign: 'top' }}>
+                        <Typography
+                          color={getPositiveNegativeColor(item.EstimatedEarnings, theme.palette.mode)}
+                        >{`${item.EstimatedEarnings ? numeral(item.EstimatedEarnings).format('0.00') : ''}`}</Typography>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {pages.length > 0 && (
+            <Box pt={4}>
+              <Pager
+                pageCount={pages.length}
+                itemCount={pages[currentPageIndex - 1].items.length}
+                itemsPerPage={pageSize}
+                onPaged={(pageNum: number) => onPaged(pageNum)}
+                defaultPageIndex={currentPageIndex}
+                totalItemCount={pages.length === 1 ? pages[currentPageIndex - 1].items.length : data.length}
+              ></Pager>
+            </Box>
+          )}
+          {data.length === 0 && (
+            <CenterStack sx={{ py: 4 }}>
+              <Typography variant='body2'>No data found.</Typography>
+            </CenterStack>
+          )}
+        </Box>
+      </FadeIn>
     </>
   )
 }

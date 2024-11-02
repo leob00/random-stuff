@@ -4,6 +4,7 @@ import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
 import { getBaseLineChartOptions } from 'components/Atoms/Charts/apex/baseLineChartOptions'
 import { QlnLineChart } from 'lib/backend/api/qln/qlnModels'
 import { getOptions } from '../stocks/lineChartOptions'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const EconDataChart = ({ chart }: { chart: QlnLineChart }) => {

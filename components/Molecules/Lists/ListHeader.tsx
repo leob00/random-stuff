@@ -4,6 +4,7 @@ import ContextMenu, { ContextMenuItem } from '../Menus/ContextMenu'
 import ContextMenuAdd from '../Menus/ContextMenuAdd'
 import ContextMenuDelete from '../Menus/ContextMenuDelete'
 import ContextMenuEdit from '../Menus/ContextMenuEdit'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const ListHeader = ({
   text,
@@ -56,26 +57,30 @@ const ListHeader = ({
 
   return (
     <Box>
-      <Stack direction={'row'} flexGrow={1} alignItems={'center'}>
-        <Card sx={{ width: '100%', borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} elevation={1}>
-          <CardHeader
-            title={
-              <>
-                <Box
-                  width={'100%'}
-                  sx={{ cursor: !disabled ? 'pointer' : 'unset' }}
-                  onClick={(e) => {
-                    onClicked(item)
-                  }}>
-                  <Typography textAlign={'left'} variant='h6' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
-                    {text}
-                  </Typography>
-                </Box>
-              </>
-            }></CardHeader>
-        </Card>
-        <Box>{showContextMenu && <ContextMenu items={contextMenu} />}</Box>
-      </Stack>
+      <FadeIn>
+        <Stack direction={'row'} flexGrow={1} alignItems={'center'}>
+          <Card sx={{ width: '100%', borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} elevation={1}>
+            <CardHeader
+              title={
+                <>
+                  <Box
+                    width={'100%'}
+                    sx={{ cursor: !disabled ? 'pointer' : 'unset' }}
+                    onClick={(e) => {
+                      onClicked(item)
+                    }}
+                  >
+                    <Typography textAlign={'left'} variant='h6' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
+                      {text}
+                    </Typography>
+                  </Box>
+                </>
+              }
+            ></CardHeader>
+          </Card>
+          <Box>{showContextMenu && <ContextMenu items={contextMenu} />}</Box>
+        </Stack>
+      </FadeIn>
     </Box>
   )
 }

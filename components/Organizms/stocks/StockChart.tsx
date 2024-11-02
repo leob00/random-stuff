@@ -88,20 +88,20 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
                     {!isLoading && (
                       <FadeIn>
                         <ReactApexChart series={data.chartOptions.series} options={data.chartOptions} type='area' height={chartHeight} />
+                        <Box display='flex' gap={4} pb={4}>
+                          <Box display='flex' gap={1}>
+                            <Typography variant='caption'>start date:</Typography>
+                            <Typography variant='caption'>{dayjs(data.history[0].TradeDate).format('MM/DD/YYYY')}</Typography>
+                          </Box>
+                          {data.history.length > 0 && (
+                            <Box display='flex' gap={1}>
+                              <Typography variant='caption'>end date:</Typography>
+                              <Typography variant='caption'>{dayjs(data.history[data.history.length - 1].TradeDate).format('MM/DD/YYYY')}</Typography>
+                            </Box>
+                          )}
+                        </Box>
                       </FadeIn>
                     )}
-                    <Box display='flex' gap={4} pb={4}>
-                      <Box display='flex' gap={1}>
-                        <Typography variant='caption'>start date:</Typography>
-                        <Typography variant='caption'>{dayjs(data.history[0].TradeDate).format('MM/DD/YYYY')}</Typography>
-                      </Box>
-                      {data.history.length > 0 && (
-                        <Box display='flex' gap={1}>
-                          <Typography variant='caption'>end date:</Typography>
-                          <Typography variant='caption'>{dayjs(data.history[data.history.length - 1].TradeDate).format('MM/DD/YYYY')}</Typography>
-                        </Box>
-                      )}
-                    </Box>
                   </Box>
                 </>
               )}

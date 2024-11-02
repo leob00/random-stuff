@@ -12,6 +12,7 @@ import { EconDataModel } from './EconDataLayout'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UncontrolledDropdownList from 'components/Atoms/Inputs/UncontrolledDropdownList'
 import { useReducer } from 'react'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 interface Model {
   startYearOptions: DropdownItem[]
@@ -82,34 +83,47 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
   return (
     <Box p={1}>
       {model.isLoading && <BackdropLoader />}
-      <Box minHeight={{ xs: 325, md: 500 }}>
-        <EconDataChart chart={model.chart} />
-      </Box>
-      <Box py={2}>
-        <ReadOnlyField label={'value'} val={numeral(model.chart.YValues[model.chart.YValues.length - 1]).format('###,###.0,00')} />
-        <ReadOnlyField label='date range' val={`${dayjs(model.chart.XValues[0]).format('MM/DD/YYYY')} - ${dayjs(model.chart.XValues[model.chart.XValues.length - 1]).format('MM/DD/YYYY')}`} />
-      </Box>
-      <Box display={'flex'} gap={1} alignItems={'center'}>
-        <Typography>from:</Typography>
-        <UncontrolledDropdownList options={model.startYearOptions} selectedOption={String(model.selectedStartYear)} onOptionSelected={handleStartYearChange} />
-        <Typography>to:</Typography>
-        <UncontrolledDropdownList options={model.endYearOptions} selectedOption={String(model.selectedEndYear)} onOptionSelected={handleEndYearChange} />
-        <Button onClick={handleReset}>
-          <Typography>reset</Typography>
-        </Button>
-      </Box>
-      {model.error && (
-        <Box py={2}>
-          <Alert severity='error'>{model.error}</Alert>
+      <FadeIn>
+        <Box minHeight={{ xs: 325, md: 500 }}>
+          {!model.isLoading && (
+            <FadeIn>
+              <EconDataChart chart={model.chart} />
+            </FadeIn>
+          )}
         </Box>
-      )}
-      <Box py={2}>
-        <Typography variant='caption'>{`data available from ${dayjs(item.FirstObservationDate).format('MM/DD/YYYY')} to ${dayjs(item.LastObservationDate).format('MM/DD/YYYY')}`}</Typography>
-      </Box>
-      <Box py={2}>
-        {/* <HtmlView html={item.Notes} text /> */}
-        <Typography sx={{ wordWrap: 'break-word' }}>{item.Notes}</Typography>
-      </Box>
+        <Box py={2}>
+          <ReadOnlyField label={'value'} val={numeral(model.chart.YValues[model.chart.YValues.length - 1]).format('###,###.0,00')} />
+          <ReadOnlyField
+            label='date range'
+            val={`${dayjs(model.chart.XValues[0]).format('MM/DD/YYYY')} - ${dayjs(model.chart.XValues[model.chart.XValues.length - 1]).format('MM/DD/YYYY')}`}
+          />
+        </Box>
+        <Box display={'flex'} gap={1} alignItems={'center'}>
+          <Typography>from:</Typography>
+          <UncontrolledDropdownList
+            options={model.startYearOptions}
+            selectedOption={String(model.selectedStartYear)}
+            onOptionSelected={handleStartYearChange}
+          />
+          <Typography>to:</Typography>
+          <UncontrolledDropdownList options={model.endYearOptions} selectedOption={String(model.selectedEndYear)} onOptionSelected={handleEndYearChange} />
+          <Button onClick={handleReset}>
+            <Typography>reset</Typography>
+          </Button>
+        </Box>
+        {model.error && (
+          <Box py={2}>
+            <Alert severity='error'>{model.error}</Alert>
+          </Box>
+        )}
+        <Box py={2}>
+          <Typography variant='caption'>{`data available from ${dayjs(item.FirstObservationDate).format('MM/DD/YYYY')} to ${dayjs(item.LastObservationDate).format('MM/DD/YYYY')}`}</Typography>
+        </Box>
+        <Box py={2}>
+          {/* <HtmlView html={item.Notes} text /> */}
+          <Typography sx={{ wordWrap: 'break-word' }}>{item.Notes}</Typography>
+        </Box>
+      </FadeIn>
     </Box>
   )
 }

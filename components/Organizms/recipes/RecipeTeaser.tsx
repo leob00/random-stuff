@@ -5,6 +5,7 @@ import RemoteImage from 'components/Atoms/RemoteImage'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import React from 'react'
 import NLink from 'next/link'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const RecipeTeaser = ({
   item,
@@ -20,45 +21,47 @@ const RecipeTeaser = ({
   const baseUrl = '/ssg/recipes/'
   const showCardContent = showSummary && showImage
   return (
-    <Card elevation={2}>
-      <CardHeader
-        title={
-          <CenterStack>
-            {clickable ? (
-              <InternalLink text={item.title} route={`${baseUrl}${item.sys.id}`} large />
-            ) : (
-              <>
-                <Typography textAlign={'center'} variant={'h4'}>
-                  {item.title}
-                </Typography>
-              </>
+    <FadeIn>
+      <Card elevation={2}>
+        <CardHeader
+          title={
+            <CenterStack>
+              {clickable ? (
+                <InternalLink text={item.title} route={`${baseUrl}${item.sys.id}`} large />
+              ) : (
+                <>
+                  <Typography textAlign={'center'} variant={'h4'}>
+                    {item.title}
+                  </Typography>
+                </>
+              )}
+            </CenterStack>
+          }
+        />
+        {showCardContent && (
+          <CardContent>
+            {showSummary && item.summary && item.summary.length > 0 && (
+              <Box pb={8}>
+                <Typography textAlign={'center'}>{item.summary}</Typography>
+              </Box>
             )}
-          </CenterStack>
-        }
-      />
-      {showCardContent && (
-        <CardContent>
-          {showSummary && item.summary && item.summary.length > 0 && (
-            <Box pb={8}>
-              <Typography textAlign={'center'}>{item.summary}</Typography>
-            </Box>
-          )}
-          {item.heroImage && showImage && (
-            <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>
-              <Card elevation={4} sx={{ borderRadius: '16px' }}>
-                <NLink href={`${baseUrl}${item.sys.id}`} passHref legacyBehavior as={`${baseUrl}${item.sys.id}`}>
-                  <Link href={`${baseUrl}${item.sys.id}`}>
-                    <Box>
-                      <RemoteImage url={item.heroImage.url} title={item.title} />
-                    </Box>
-                  </Link>
-                </NLink>
-              </Card>
-            </Stack>
-          )}
-        </CardContent>
-      )}
-    </Card>
+            {item.heroImage && showImage && (
+              <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>
+                <Card elevation={4} sx={{ borderRadius: '16px' }}>
+                  <NLink href={`${baseUrl}${item.sys.id}`} passHref legacyBehavior as={`${baseUrl}${item.sys.id}`}>
+                    <Link href={`${baseUrl}${item.sys.id}`}>
+                      <Box>
+                        <RemoteImage url={item.heroImage.url} title={item.title} />
+                      </Box>
+                    </Link>
+                  </NLink>
+                </Card>
+              </Stack>
+            )}
+          </CardContent>
+        )}
+      </Card>
+    </FadeIn>
   )
 }
 
