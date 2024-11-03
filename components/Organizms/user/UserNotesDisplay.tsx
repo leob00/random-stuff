@@ -31,9 +31,7 @@ const UserNotesDisplay = ({ noteTitles, username }: { noteTitles: UserNote[]; us
   return (
     <>
       {model.isLoading && <BackdropLoader />}
-      <FadeIn>
-        <NoteList data={noteTitles} onClicked={handleNoteTitleClick} onAddNote={handleAddNote} />
-      </FadeIn>
+      <NoteList data={noteTitles} onClicked={handleNoteTitleClick} onAddNote={handleAddNote} />
     </>
   )
 }

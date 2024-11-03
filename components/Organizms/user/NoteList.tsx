@@ -94,8 +94,8 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
                     <Typography variant='caption'>{'expires soon'}</Typography>
                   </Box>
                 )}
-                {i < pagedItems.length - 1 && <HorizontalDivider />}
               </FadeIn>
+              {i < pagedItems.length - 1 && <HorizontalDivider />}
             </Box>
           ))}
         </Box>
