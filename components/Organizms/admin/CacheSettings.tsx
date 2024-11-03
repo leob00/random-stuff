@@ -12,6 +12,7 @@ import RefreshIcon from '@mui/icons-material/Refresh'
 import numeral from 'numeral'
 import React from 'react'
 import useSWR, { mutate } from 'swr'
+import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 dayjs.extend(utc)
 
 interface CacheStats {
@@ -62,6 +63,9 @@ const CacheSettings = ({ claim }: { claim: Claim }) => {
           <ReadOnlyField label='stock item count' val={`${numeral(data.StocksCache.ItemCount).format('###,###')}`} />
           <Box>
             <ReadOnlyField label='created' val={`${data.StocksCache.CreateDate ? dayjs(data.StocksCache.CreateDate).format('MM/DD/YYYY hh:mm a') : ''}`} />
+          </Box>
+          <Box py={2}>
+            <SiteLink href='/status' text='status' />
           </Box>
           <Box py={2}>
             {isLoading && <BackdropLoader />}

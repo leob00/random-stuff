@@ -98,7 +98,7 @@ const StockListItem = ({
     <>
       <Box py={1}>
         <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
-        <FadeIn duration={1}>
+        <FadeIn>
           <Box>
             {isStock ? (
               <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={handleCompanyClick} disabled={disabled} />

@@ -5,20 +5,19 @@ import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLo
 import dayjs from 'dayjs'
 import { Claim } from 'lib/backend/auth/userUtil'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
-import React from 'react'
 import CacheSettings from './CacheSettings'
 
-const QlnAdministration = () => {
-  const { claims, saveClaims } = useSessionStore()
-  let claim = claims.find((m) => m.type === 'qln')
-  const isTokenValid = claim && dayjs(claim.tokenExpirationDate).isAfter(dayjs())
-
-  const handleQlnLogin = (newClaims: Claim[]) => {
-    saveClaims(newClaims)
-  }
-  const handleLogOff = () => {
-    saveClaims(claims.filter((m) => m.type !== 'qln'))
-  }
+const QlnAdministration = ({
+  claim,
+  isTokenValid,
+  handleLogOff,
+  handleQlnLogin,
+}: {
+  claim?: Claim
+  isTokenValid: boolean
+  handleLogOff: () => void
+  handleQlnLogin: (claims: Claim[]) => void
+}) => {
   return (
     <Box>
       <Card>

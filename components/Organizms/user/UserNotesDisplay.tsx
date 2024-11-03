@@ -7,7 +7,6 @@ import React from 'react'
 import NoteList from './NoteList'
 import { useRouter } from 'next/router'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
-import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const UserNotesDisplay = ({ noteTitles, username }: { noteTitles: UserNote[]; username: string }) => {
   const router = useRouter()

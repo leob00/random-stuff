@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { ReactNode } from 'react'
 
-const FadeIn = ({ duration = 1, children }: { duration?: number; children: ReactNode | JSX.Element[] }) => {
+const FadeIn = ({ duration = 0.68, children }: { duration?: number; children: ReactNode | JSX.Element[] }) => {
   return (
     <motion.div
       animate={{

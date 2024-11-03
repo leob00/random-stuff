@@ -1,14 +1,11 @@
-import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { getUserCSR, userHasRole, validateUserCSR } from 'lib/backend/auth/userUtil'
 import { useRouter } from 'next/router'
-import React from 'react'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import JobsLayout from 'components/Organizms/admin/JobsLayout'
-import BackButton from 'components/Atoms/Buttons/BackButton'
 import Seo from 'components/Organizms/Seo'
 import ApiTest from 'components/Organizms/admin/ApiTest'
 import TabList from 'components/Atoms/Buttons/TabList'
@@ -18,18 +15,19 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UsersAdmin from 'components/Organizms/admin/users/UsersAdmin'
 import LoginUsernameForm, { UsernameLogin } from 'components/Molecules/Forms/Login/LoginUsernameForm'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
+import { useEffect, useState } from 'react'
 
 const Page = () => {
   const userController = useUserController()
-  const [loading, setLoading] = React.useState(true)
-  const [userProfile, setUserProfile] = React.useState<UserProfile | null>(userController.authProfile)
+  const [loading, setLoading] = useState(true)
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(userController.authProfile)
 
-  const [selectedTab, setSelectedTab] = React.useState('Jobs')
+  const [selectedTab, setSelectedTab] = useState('Jobs')
   const router = useRouter()
 
   const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Server' }, { title: 'Api' }, { title: 'Users' }, { title: 'Login Test' }]
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fn = async () => {
       const loggedInUser = await getUserCSR()
       if (!loggedInUser) {
@@ -74,8 +72,8 @@ const Page = () => {
                   <PageHeader text='Admin' />
                   <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
                   {selectedTab === 'Jobs' && <JobsLayout />}
-                  {selectedTab === 'Api' && <ApiTest />}
                   {selectedTab === 'Server' && <ServerInfo />}
+                  {selectedTab === 'Api' && <ApiTest />}
                   {selectedTab === 'Users' && <UsersAdmin userProfile={userProfile} />}
                   {selectedTab === 'Login Test' && <LoginUsernameForm title='Sin in' onSubmitted={handleValidateUser} />}
                 </>
