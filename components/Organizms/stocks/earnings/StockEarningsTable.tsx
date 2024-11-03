@@ -15,6 +15,7 @@ import { Box, Typography } from '@mui/material'
 import { uniq } from 'lodash'
 import { useTheme } from '@mui/material'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 interface GroupedModel {
   key: string
@@ -54,21 +55,27 @@ const StockEarningsTable = ({ data, showCompany = false }: { data: StockEarning[
                           {item.items.map((subItem, i) => (
                             <TableRow key={i}>
                               <TableCell>
-                                {showCompany ? (
-                                  <Typography>{`${subItem.StockQuote?.Company} (${subItem.StockQuote?.Symbol})`}</Typography>
-                                ) : (
-                                  <Typography>{dayjs(subItem.ReportDate).format('MM/DD/YYYY')}</Typography>
-                                )}
+                                <FadeIn>
+                                  {showCompany ? (
+                                    <Typography>{`${subItem.StockQuote?.Company} (${subItem.StockQuote?.Symbol})`}</Typography>
+                                  ) : (
+                                    <Typography>{dayjs(subItem.ReportDate).format('MM/DD/YYYY')}</Typography>
+                                  )}
+                                </FadeIn>
                               </TableCell>
                               <TableCell>
-                                <Typography color={getPositiveNegativeColor(subItem.ActualEarnings, theme.palette.mode)}>
-                                  {`${subItem.ActualEarnings !== null ? numeral(subItem.ActualEarnings).format('0.00') : ''}`}
-                                </Typography>
+                                <FadeIn>
+                                  <Typography color={getPositiveNegativeColor(subItem.ActualEarnings, theme.palette.mode)}>
+                                    {`${subItem.ActualEarnings !== null ? numeral(subItem.ActualEarnings).format('0.00') : ''}`}
+                                  </Typography>
+                                </FadeIn>
                               </TableCell>
                               <TableCell>
-                                <Typography color={getPositiveNegativeColor(subItem.EstimatedEarnings, theme.palette.mode)}>
-                                  {`${subItem.EstimatedEarnings ? numeral(subItem.EstimatedEarnings).format('0.00') : ''}`}
-                                </Typography>
+                                <FadeIn>
+                                  <Typography color={getPositiveNegativeColor(subItem.EstimatedEarnings, theme.palette.mode)}>
+                                    {`${subItem.EstimatedEarnings ? numeral(subItem.EstimatedEarnings).format('0.00') : ''}`}
+                                  </Typography>
+                                </FadeIn>
                               </TableCell>
                             </TableRow>
                           ))}

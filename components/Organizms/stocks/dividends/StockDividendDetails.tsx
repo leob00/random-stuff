@@ -10,6 +10,7 @@ import { StockDividendItem } from './StockDividendsTable'
 import { useClientPager } from 'hooks/useClientPager'
 import Pager from 'components/Atoms/Pager'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const StockDividendDetails = ({ symbol, showCompanyName = true }: { symbol: string; showCompanyName?: boolean }) => {
   const pageSize = 4
@@ -62,10 +63,26 @@ const StockDividendDetails = ({ symbol, showCompanyName = true }: { symbol: stri
                 <TableBody>
                   {items.map((item) => (
                     <TableRow key={`${item.Symbol}${item.PaymentDate}`}>
-                      <TableCell>{`$${numeral(item.Amount).format('0.000')}`}</TableCell>
-                      <TableCell>{dayjs(item.PaymentDate).format('MM/DD/YYYY')}</TableCell>
-                      <TableCell>{dayjs(item.ExDate).format('MM/DD/YYYY')}</TableCell>
-                      <TableCell>{item.Frequency}</TableCell>
+                      <TableCell>
+                        <FadeIn>
+                          <Typography variant={'body2'}>{`$${numeral(item.Amount).format('0.000')}`}</Typography>
+                        </FadeIn>
+                      </TableCell>
+                      <TableCell>
+                        <FadeIn>
+                          <Typography variant={'body2'}>{dayjs(item.PaymentDate).format('MM/DD/YYYY')}</Typography>
+                        </FadeIn>
+                      </TableCell>
+                      <TableCell>
+                        <FadeIn>
+                          <Typography variant={'body2'}>{dayjs(item.ExDate).format('MM/DD/YYYY')}</Typography>
+                        </FadeIn>
+                      </TableCell>
+                      <TableCell>
+                        <FadeIn>
+                          <Typography variant={'body2'}>{item.Frequency}</Typography>
+                        </FadeIn>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -79,7 +96,8 @@ const StockDividendDetails = ({ symbol, showCompanyName = true }: { symbol: stri
             onPaged={(pageNum: number) => handlePaged(pageNum)}
             defaultPageIndex={pagerModel.page}
             totalItemCount={pagerModel.totalNumberOfItems}
-            showHorizontalDivider={false}></Pager>
+            showHorizontalDivider={false}
+          ></Pager>
           <HorizontalDivider />
         </>
       )}
