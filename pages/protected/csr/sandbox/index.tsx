@@ -18,7 +18,6 @@ const Page = () => {
   const tabs: TabInfo[] = [
     {
       title: 'Files',
-      selected: true,
     },
     {
       title: 'OCR',
@@ -40,7 +39,7 @@ const Page = () => {
       title: 'Batch Post',
     },
   ]
-  const [selectedTab, setSelectedTab] = useState(tabs[0].title)
+  const [selectedTab, setSelectedTab] = useState(tabs[2].title)
   const { authProfile, fetchProfilePassive, setProfile } = useUserController()
   const [isLoading, setIsLoading] = useState(true)
 
@@ -72,12 +71,11 @@ const Page = () => {
         <TabList tabs={tabs} onSetTab={handleSetTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
 
         <Box p={2}>
-          {/* {selectedTab === 'Multi Line Chart' && <MultiLineChartDisplay />} */}
+          {selectedTab === 'Files' && <>{!isLoading && authProfile && <S3Display userProfile={authProfile} />}</>}
           {selectedTab === 'OCR' && <OcrLocal />}
+          {selectedTab === 'Charts' && <Playground />}
           {selectedTab === 'Framer' && <Framer />}
           {selectedTab === 'Iterator' && <ListIteratorLayout />}
-          {selectedTab === 'Charts' && <Playground />}
-          {selectedTab === 'Files' && <>{!isLoading && authProfile && <S3Display userProfile={authProfile} />}</>}
           {selectedTab === 'Batch Post' && <PostBatch />}
         </Box>
       </ResponsiveContainer>

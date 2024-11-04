@@ -5,6 +5,7 @@ import numeral from 'numeral'
 import React from 'react'
 import FileMenu from './FileMenu'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 export const fileSizeDisplay = (bytes: number) => {
   const result = bytes / 1024
   if (result > 1000) {
@@ -31,24 +32,26 @@ const S3FileRow = ({
 }) => {
   return (
     <>
-      <Box px={1} py={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-        <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} gap={1}>
-          {isEditEmode && (
-            <Box>
-              <SecondaryCheckbox
-                onChanged={(isChecked) => {
-                  onSelectFile(isChecked, file)
-                }}
-              />
-            </Box>
-          )}
-          <Typography>{isEditEmode ? file.filename : file.filename.substring(0, file.filename.lastIndexOf('.'))}</Typography>
+      <FadeIn>
+        <Box px={1} py={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+          <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} gap={1}>
+            {isEditEmode && (
+              <Box>
+                <SecondaryCheckbox
+                  onChanged={(isChecked) => {
+                    onSelectFile(isChecked, file)
+                  }}
+                />
+              </Box>
+            )}
+            <Typography>{isEditEmode ? file.filename : file.filename.substring(0, file.filename.lastIndexOf('.'))}</Typography>
 
-          {isEditEmode && file.size !== undefined && <Typography pl={2}>{`${fileSizeDisplay(file.size)}`}</Typography>}
+            {isEditEmode && file.size !== undefined && <Typography pl={2}>{`${fileSizeDisplay(file.size)}`}</Typography>}
+          </Box>
+          <Box>{!isEditEmode && <FileMenu item={file} onView={onViewFile} onDelete={onDelete} onRename={onRename} onMovefile={onMovefile} />}</Box>
         </Box>
-        <Box>{!isEditEmode && <FileMenu item={file} onView={onViewFile} onDelete={onDelete} onRename={onRename} onMovefile={onMovefile} />}</Box>
-      </Box>
-      <HorizontalDivider />
+        <HorizontalDivider />
+      </FadeIn>
     </>
   )
 }
