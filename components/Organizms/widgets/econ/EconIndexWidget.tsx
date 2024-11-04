@@ -25,7 +25,6 @@ const EconIndexWidget = ({ itemId, symbol, width, height }: { itemId: number; sy
   const { data, isLoading } = useSwrHelper(key, dataFn, { revalidateOnFocus: false })
   return (
     <Box py={2} minHeight={height}>
-      {isLoading && <CircleLoader />}
       {data && (
         <Box>
           <EconIndexChart data={data} symbol={symbol} width={width} days={90} />
@@ -35,7 +34,8 @@ const EconIndexWidget = ({ itemId, symbol, width, height }: { itemId: number; sy
               variant='text'
               onClick={() => {
                 router.push(`/csr/economic-indicators/${itemId}`)
-              }}>
+              }}
+            >
               <Typography variant={'body2'}>details &raquo;</Typography>
             </Button>
           </Box>

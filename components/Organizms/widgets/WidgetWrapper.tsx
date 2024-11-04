@@ -5,7 +5,6 @@ import { DashboardWidget } from '../dashboard/dashboardModel'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const WidgetWrapper = ({ item, children }: { item: DashboardWidget; children: ReactNode | JSX.Element[] }) => {
-  const theme = useTheme()
   return (
     <Box>
       <Box py={1}>
@@ -14,7 +13,7 @@ const WidgetWrapper = ({ item, children }: { item: DashboardWidget; children: Re
         </Typography>
       </Box>
       <DelayedComponentRender key={item.id} delayMs={item.waitToRenderMs}>
-        <FadeIn duration={2}>{children}</FadeIn>
+        <FadeIn>{children}</FadeIn>
       </DelayedComponentRender>
     </Box>
   )

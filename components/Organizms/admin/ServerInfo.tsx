@@ -45,7 +45,7 @@ const ServerInfo = () => {
                   <ReadOnlyField label='Database' val='192.99.150.165' />
                 </CenterStack>
                 <CenterStack sx={{ pt: 2 }}>
-                  <CopyableText label='Api url:' value={config.url} showValue />
+                  <CopyableText label='Api url:' value={config.url} />
                 </CenterStack>
                 <CenterStack sx={{ pt: 2 }}>
                   <CopyableText label='Api key:' value={config.key} />
