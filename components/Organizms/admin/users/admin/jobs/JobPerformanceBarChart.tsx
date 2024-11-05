@@ -1,5 +1,5 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material'
-import SimpleBarChart2 from 'components/Atoms/Charts/chartJs/SimpleBarChart2'
+import SimpleBarChart from 'components/Atoms/Charts/chartJs/SimpleBarChart'
 import { BarChart, getBarChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import { CasinoBlueTransparent, CasinoOrangeTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
@@ -81,7 +81,7 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
   return (
     <Box>
       <Box minHeight={200} px={{ lg: 2 }}>
-        <SimpleBarChart2 barChart={barChart} height={height} chartOptions={options} />
+        <SimpleBarChart barChart={barChart} height={height} chartOptions={options} />
       </Box>
     </Box>
   )

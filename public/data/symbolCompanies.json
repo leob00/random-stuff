@@ -1104,7 +1104,7 @@
     "Symbol": "AIFF"
   },
   {
-    "Company": "Fanhua Inc. American Depositary Shares",
+    "Company": "AIX Inc. American Depositary Shares",
     "Symbol": "AIFU"
   },
   {
@@ -3580,6 +3580,10 @@
     "Symbol": "BACK"
   },
   {
+    "Company": "Bleichroeder Acquisition Corp. I Unit",
+    "Symbol": "BACQU"
+  },
+  {
     "Company": "Bridger Aerospace Group Holdings, Inc. Common Stock",
     "Symbol": "BAER"
   },
@@ -4796,6 +4800,10 @@
     "Symbol": "BKDT"
   },
   {
+    "Company": "BNY Mellon Dynamic Value ETF",
+    "Symbol": "BKDV"
+  },
+  {
     "Company": "The Buckle, Inc.",
     "Symbol": "BKE"
   },
@@ -5992,11 +6000,11 @@
     "Symbol": "BTEK"
   },
   {
-    "Company": "Valkyrie ETF Trust II Valkyrie Bitcoin and Ether Strategy ETF",
+    "Company": "Valkyrie ETF Trust II CoinShares Valkyrie Bitcoin and Ether Strategy ETF",
     "Symbol": "BTF"
   },
   {
-    "Company": "Valkyrie Bitcoin Futures Leveraged Strategy ETF",
+    "Company": "Valkyrie ETF Trust II CoinShares Valkyrie Bitcoin Futures Leveraged Strategy ETF",
     "Symbol": "BTFX"
   },
   {
@@ -7980,7 +7988,7 @@
     "Symbol": "CLNR"
   },
   {
-    "Company": "BlackRock AAA CLO ETF",
+    "Company": "BlackRock ETF Trust II iShares AAA CLO Active ETF",
     "Symbol": "CLOA"
   },
   {
@@ -8074,6 +8082,10 @@
   {
     "Company": "CLEANSPARK INC",
     "Symbol": "CLSK"
+  },
+  {
+    "Company": "CleanSpark, Inc. Warrant",
+    "Symbol": "CLSKW"
   },
   {
     "Company": "Cabana Target Leading Sector Moderate ETF",
@@ -8810,6 +8822,10 @@
   {
     "Company": "Calamos S&P 500 Structured Alt Protection ETF - May",
     "Symbol": "CPSM"
+  },
+  {
+    "Company": "Calamos S&P 500 Structured Alt Protection ETF - November",
+    "Symbol": "CPSN"
   },
   {
     "Company": "Calamos S&P 500 Structured Alt Protection ETF - October",
@@ -11736,6 +11752,10 @@
     "Symbol": "ECF"
   },
   {
+    "Company": "Everus Construction Group, Inc.",
+    "Symbol": "ECG"
+  },
+  {
     "Company": "iShares MSCI Chile ETF",
     "Symbol": "ECH"
   },
@@ -13096,7 +13116,7 @@
     "Symbol": "ETG"
   },
   {
-    "Company": "Grayscale Ethereum Mini Trust (ETH)",
+    "Company": "Grayscale Ethereum Mini Trust ETF",
     "Symbol": "ETH"
   },
   {
@@ -13108,7 +13128,7 @@
     "Symbol": "ETHD"
   },
   {
-    "Company": "Grayscale Ethereum Trust (ETH)",
+    "Company": "Grayscale Ethereum Trust ETF",
     "Symbol": "ETHE"
   },
   {
@@ -15400,6 +15420,10 @@
     "Symbol": "FPAG"
   },
   {
+    "Company": "FPA Short Duration Government ETF",
+    "Symbol": "FPAS"
+  },
+  {
     "Company": "FlexShopper, Inc. Common Stock",
     "Symbol": "FPAY"
   },
@@ -16000,6 +16024,14 @@
     "Symbol": "FVD"
   },
   {
+    "Company": "Future Vision II Acquisition Corporation Ordinary shares",
+    "Symbol": "FVN"
+  },
+  {
+    "Company": "Future Vision II Acquisition Corporation Right",
+    "Symbol": "FVNNR"
+  },
+  {
     "Company": "Future Vision II Acquisition Corporation Units",
     "Symbol": "FVNNU"
   },
@@ -16340,7 +16372,7 @@
     "Symbol": "GBR"
   },
   {
-    "Company": "Grayscale Bitcoin Trust (BTC)",
+    "Company": "Grayscale Bitcoin Trust ETF",
     "Symbol": "GBTC"
   },
   {
@@ -16476,7 +16508,7 @@
     "Symbol": "GDMN"
   },
   {
-    "Company": "Western Asset Global Corporate Defined Opportunity Fund Inc.",
+    "Company": "Western Asset Global Corporate Opportunity Fund Inc.",
     "Symbol": "GDO"
   },
   {
@@ -20632,6 +20664,10 @@
     "Symbol": "IMFL"
   },
   {
+    "Company": "CIMG Inc. Common Stock",
+    "Symbol": "IMG"
+  },
+  {
     "Company": "Ingles Markets Inc",
     "Symbol": "IMKTA"
   },
@@ -23228,6 +23264,10 @@
     "Symbol": "KNOP"
   },
   {
+    "Company": "Innovator U.S. Small Cap Power Buffer ETF - November",
+    "Symbol": "KNOV"
+  },
+  {
     "Company": "Fundamentals First ETF",
     "Symbol": "KNOW"
   },
@@ -23788,6 +23828,14 @@
     "Symbol": "LBTYK"
   },
   {
+    "Company": "Liberty Global Ltd. Class A Common Shares Ex-distribution When-Issued",
+    "Symbol": "LBYAV"
+  },
+  {
+    "Company": "Liberty Global Ltd. Class C Common Shares Ex-distribution When-Issued",
+    "Symbol": "LBYKV"
+  },
+  {
     "Company": "LendingClub Corporation",
     "Symbol": "LC"
   },
@@ -24090,6 +24138,10 @@
   {
     "Company": "LifeMD, Inc. 8.875% Series A Cumulative Perpetual Preferred Stock",
     "Symbol": "LFMDP"
+  },
+  {
+    "Company": "F/m Emerald Life Sciences Innovation ETF",
+    "Symbol": "LFSC"
   },
   {
     "Company": "LifeStance Health Group, Inc. Common Stock",
@@ -26960,7 +27012,7 @@
     "Symbol": "MSOS"
   },
   {
-    "Company": "AdvisorShares MSOS 2X Daily ETF",
+    "Company": "AdvisorShares MSOS Daily Leveraged ETF",
     "Symbol": "MSOX"
   },
   {
@@ -27598,6 +27650,10 @@
   {
     "Company": "Neuberger Berman Disrupters ETF",
     "Symbol": "NBDS"
+  },
+  {
+    "Company": "Neuberger Berman Energy Transition & Infrastructure ETF",
+    "Symbol": "NBET"
   },
   {
     "Company": "Neuberger Berman Flexible Credit Income ETF",
@@ -28352,6 +28408,10 @@
     "Symbol": "NNN"
   },
   {
+    "Company": "Innovator Growth-100 Power Buffer ETF - November",
+    "Symbol": "NNOV"
+  },
+  {
     "Company": "NANO-X IMAGING LTD Ordinary Shares",
     "Symbol": "NNOX"
   },
@@ -28748,6 +28808,10 @@
     "Symbol": "NTWK"
   },
   {
+    "Company": "Newbury Street II Acquisition Corp Unit",
+    "Symbol": "NTWOU"
+  },
+  {
     "Company": "Natuzzi, S.p.A",
     "Symbol": "NTZ"
   },
@@ -28922,6 +28986,10 @@
   {
     "Company": "AllianzIM U.S. Large Cap Buffer10 Nov ETF",
     "Symbol": "NVBT"
+  },
+  {
+    "Company": "AllianzIM U.S. Equity Buffer15 Uncapped Nov ETF",
+    "Symbol": "NVBU"
   },
   {
     "Company": "AllianzIM U.S. Large Cap Buffer20 Nov ETF",
@@ -36408,7 +36476,7 @@
     "Symbol": "SINT"
   },
   {
-    "Company": "Touchstone Strategic Income Opportunities ETF",
+    "Company": "Touchstone Strategic Income ETF",
     "Symbol": "SIO"
   },
   {
@@ -37150,6 +37218,10 @@
   {
     "Company": "Synaptogenix, Inc. Common Stock",
     "Symbol": "SNPX"
+  },
+  {
+    "Company": "Sunrise Communications AG American Depositary Shares representing Class A shares When Issued",
+    "Symbol": "SNREV"
   },
   {
     "Company": "Sensei Biotherapeutics, Inc. Common Stock",
@@ -39424,7 +39496,7 @@
     "Symbol": "THIR"
   },
   {
-    "Company": "THOR Low Volatility ETF",
+    "Company": "THOR Equal Weight Low Volatility ETF",
     "Symbol": "THLV"
   },
   {
@@ -39584,7 +39656,7 @@
     "Symbol": "TKC"
   },
   {
-    "Company": "Yoshitsu Co., Ltd American Depositary Shares",
+    "Company": "Tokyo Lifestyle Co., Ltd. American Depositary Shares",
     "Symbol": "TKLF"
   },
   {
@@ -43212,7 +43284,7 @@
     "Symbol": "WFRD"
   },
   {
-    "Company": "Valkyrie Bitcoin Miners ETF",
+    "Company": "Valkyrie ETF Trust II CoinShares Valkyrie Bitcoin Miners ETF",
     "Symbol": "WGMI"
   },
   {
@@ -44228,6 +44300,10 @@
     "Symbol": "XP"
   },
   {
+    "Company": "Roundhill S&P 500 Target 20 Managed Distribution ETF",
+    "Symbol": "XPAY"
+  },
+  {
     "Company": "XPEL, Inc. Common Stock",
     "Symbol": "XPEL"
   },
@@ -44846,6 +44922,10 @@
   {
     "Company": "Zoom Video Communications, Inc. Class A Common Stock",
     "Symbol": "ZM"
+  },
+  {
+    "Company": "Innovator Equity Defined Protection ETF - 1 Yr November",
+    "Symbol": "ZNOV"
   },
   {
     "Company": "Zentalis Pharmaceuticals, Inc. Common Stock",

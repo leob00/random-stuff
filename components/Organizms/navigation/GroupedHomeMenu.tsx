@@ -15,7 +15,7 @@ const GroupedHomeMenu = ({ pathCategories }: { pathCategories: Paths[] }) => {
                 <CenteredTitle title={category.category} variant='h4' />
               </FadeIn>
               <Box display={'flex'} justifyContent={'center'}>
-                <Box display={'flex'} gap={1} flexWrap={'wrap'}>
+                <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
                   {category.paths.map((path) => (
                     <Box key={path.route}>
                       <FadeIn>

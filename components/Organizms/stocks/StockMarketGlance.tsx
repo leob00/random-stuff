@@ -5,14 +5,12 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import { apiConnection } from 'lib/backend/api/config'
 import { get } from 'lib/backend/api/fetchFunctions'
 import { MarketHandshake } from 'lib/backend/api/qln/qlnModels'
-import React from 'react'
 import StockMarketStatsChart from './charts/StockMarketStatsChart'
 import StockMarketStatus from './StockMarketStatus'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
-import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const StockMarketGlance = ({
   showTitle = true,

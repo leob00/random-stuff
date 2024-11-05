@@ -21,12 +21,12 @@ export interface LineChart {
 export interface BarChart extends LineChart {
   colors: string[]
   borderColors?: string[]
+  rawData?: unknown[]
 }
 
-export const getBarChartData = (labels: string[], numbers: number[], colors: string[], yAxisDecorator = ''): ChartData<'bar', number[], unknown> => {
+export const getBarChartData = (labels: string[], numbers: number[], colors: string[]): ChartData<'bar', number[], unknown> => {
   return {
     labels: labels,
-
     datasets: [
       {
         borderColor: 'black',
@@ -34,8 +34,6 @@ export const getBarChartData = (labels: string[], numbers: number[], colors: str
         data: numbers,
         backgroundColor: colors,
         type: 'bar',
-
-        //indexAxis: 'y',
       },
     ],
   }
@@ -112,7 +110,6 @@ export const getBarChartOptions = (
           },
           footer: (tooltipItems) => {
             return ''
-            //return tooltipItems[0].formattedValue
           },
         },
       },
@@ -120,44 +117,28 @@ export const getBarChartOptions = (
     scales: {
       y: {
         ticks: {
-          //padding: 2,
           color: palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {
             size: 10,
-            //weight: '400',
           },
-          // callback(tickValue, index, ticks) {
-          //   return `${tickValue}${yAxisDecorator}`
-          // },
           autoSkip: true,
-          //stepSize: 20,
-          //precision: 1,
-          //maxTicksLimit: max(data?.numbers),
         },
         grid: {
           display: !isHorizontal,
-          //color: VeryLightBlueTransparent,
-          //color: "red"
         },
       },
       x: {
         display: true,
-
         ticks: {
           padding: 0,
           color: palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {
             size: 10,
           },
-
-          // textStrokeColor(ctx, options) {
-          //   return `${colors[ctx.index]}`
-          // },
         },
         grid: {
           display: false,
           color: VeryLightBlueTransparent,
-          //color: "red"
         },
       },
     },

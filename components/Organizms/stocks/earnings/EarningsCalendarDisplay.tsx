@@ -1,4 +1,4 @@
-import { Box, IconButton } from '@mui/material'
+import { Box } from '@mui/material'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import dayjs from 'dayjs'
@@ -6,9 +6,11 @@ import { StockEarning } from 'lib/backend/api/qln/qlnApi'
 import { DropdownItem } from 'lib/models/dropdown'
 import { orderBy, uniq } from 'lodash'
 import StockEarningsCalendarDetails from './StockEarningsCalendarDetails'
-import SearchIcon from '@mui/icons-material/Search'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
+import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
+import ContextMenuPortfolio from 'components/Molecules/Menus/ContextMenuPortfolio'
+import EarningsReport from './EarningsReport'
 const filterResult = (items: StockEarning[], dt: string | null) => {
   return orderBy(
     items.filter((m) => m.ReportDate === dt),
@@ -17,7 +19,6 @@ const filterResult = (items: StockEarning[], dt: string | null) => {
   )
 }
 const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
-  const router = useRouter()
   const uniqueDates = orderBy(uniq(data.map((m) => m.ReportDate!)))
   const todayEarningsDate = uniqueDates.find((m) => dayjs(m).format('MM/DD/YYYY') === dayjs().format('MM/DD/YYYY'))
   const dateToSelect = getDefaultDateOption(uniqueDates, todayEarningsDate)
@@ -25,6 +26,7 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   const [filteredResults, setFilteredResults] = useState(dateToSelect ? filterResult(data, dateToSelect) : [])
   const [currentPageIndex, setCurrentPageIndex] = useState(1)
   const datesMap = new Map<string, StockEarning[]>()
+  const [showReport, setShowReport] = useState(false)
 
   uniqueDates.forEach((item) => {
     datesMap.set(
@@ -54,30 +56,47 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
       setCurrentPageIndex(1)
     }
   }
-  const handleRedirectToSearch = () => {
-    router.push('/csr/stock-earnings-search')
-  }
+  const menu: ContextMenuItem[] = [
+    {
+      fn: () => {
+        setShowReport(!showReport)
+      },
+      item: <ContextMenuPortfolio text={`${showReport ? 'view grid' : 'view report'}`} />,
+    },
+  ]
 
   return (
     <>
       <ScrollIntoView enabled={true} margin={-15} />
-      <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} gap={2}>
+      <Box display={'flex'} justifyContent={'space-between'} alignItems={'flex-start'}>
         <Box width={{ xs: '90%', md: '60%' }}>
-          {dateOptions.length > 0 && <DropdownList options={dateOptions} selectedOption={dateToSelect ?? ''} onOptionSelected={handleDateSelected} fullWidth />}
+          {!showReport && (
+            <Box>
+              <Box>
+                {dateOptions.length > 0 && (
+                  <DropdownList options={dateOptions} selectedOption={dateToSelect ?? ''} onOptionSelected={handleDateSelected} fullWidth />
+                )}
+              </Box>
+              <Box px={1}>
+                <SiteLink href='/csr/stock-earnings-search' text='advanced search' />
+              </Box>
+            </Box>
+          )}
         </Box>
-        <Box justifyContent={'flex-end'}>
-          <IconButton size='small' onClick={handleRedirectToSearch}>
-            <SearchIcon color='primary' fontSize='small' />
-          </IconButton>
+        <Box>
+          <ContextMenu items={menu} />
         </Box>
       </Box>
-      <Box py={2}>
-        {selectedDate && (
-          <Box pt={1}>
-            <StockEarningsCalendarDetails data={filteredResults} currentPageIndex={currentPageIndex} onPaged={handlePaged} onSearched={handleSearched} />
-          </Box>
-        )}
-      </Box>
+      {!showReport && (
+        <Box py={2}>
+          {selectedDate && (
+            <Box pt={1}>
+              <StockEarningsCalendarDetails data={filteredResults} currentPageIndex={currentPageIndex} onPaged={handlePaged} onSearched={handleSearched} />
+            </Box>
+          )}
+        </Box>
+      )}
+      {showReport && <EarningsReport data={data} />}
     </>
   )
 }

@@ -9,7 +9,7 @@ const BasicBarChart = ({ title, barChart, yAxisDecorator = '' }: { title: string
   const theme = useTheme()
   const options = getBarChartOptions(title, barChart, yAxisDecorator, barChart.colors, theme.palette.mode)
 
-  const data = getBarChartData(barChart.labels, barChart.numbers, barChart.colors, yAxisDecorator)
+  const data = getBarChartData(barChart.labels, barChart.numbers, barChart.colors)
   return (
     <>
       <Bar data={data} options={options} />

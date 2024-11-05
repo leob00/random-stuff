@@ -57,20 +57,24 @@ export function siteMap() {
           route: '/csr/community-stocks',
         },
         {
+          name: 'stock sentiment',
+          route: '/csr/stocks/sentiment',
+        },
+        {
           name: 'commodities',
           route: '/csr/commodities',
         },
         {
-          name: 'stock tags',
-          route: '/csr/stocks/stock-tags',
-        },
-        {
-          name: 'stock earnings',
+          name: 'earnings search',
           route: '/csr/stock-earnings-search',
         },
         {
-          name: 'stock sentiment',
-          route: '/csr/stocks/sentiment',
+          name: 'earnings calendar',
+          route: '/csr/stocks/earnings-calendar',
+        },
+        {
+          name: 'stock tags',
+          route: '/csr/stocks/stock-tags',
         },
       ],
     },

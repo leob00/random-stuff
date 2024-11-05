@@ -1,12 +1,20 @@
 import React from 'react'
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js'
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartData, ChartOptions } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
 import { getRandomInteger } from 'lib/util/numberUtil'
-import { CasinoBlackTransparent, CasinoRedTransparent } from 'components/themes/mainTheme'
+import { CasinoGreenTransparent, CasinoRedTransparent } from 'components/themes/mainTheme'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
-export const options = {
+const options: ChartOptions<'bar'> = {
+  scales: {
+    x: {
+      stacked: true,
+    },
+    y: {
+      stacked: true,
+    },
+  },
   responsive: true,
   plugins: {
     legend: {
@@ -21,7 +29,7 @@ export const options = {
 
 const labels = ['red / black', 'zero / double 0']
 
-export const data = {
+const data: ChartData<'bar', number[], unknown> = {
   labels,
   datasets: [
     {
@@ -32,7 +40,7 @@ export const data = {
     {
       label: 'zero / double zero',
       data: labels.map(() => getRandomInteger(0, 1000)),
-      backgroundColor: CasinoBlackTransparent,
+      backgroundColor: CasinoGreenTransparent,
     },
   ],
 }

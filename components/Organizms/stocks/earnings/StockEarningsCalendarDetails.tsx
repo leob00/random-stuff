@@ -4,11 +4,9 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
 import CenterStack from 'components/Atoms/CenterStack'
 import { StockEarning } from 'lib/backend/api/qln/qlnApi'
 import numeral from 'numeral'
-import React from 'react'
 import { getPositiveNegativeColor } from '../StockListItem'
 import { Box, Typography } from '@mui/material'
 import { useTheme } from '@mui/material'
@@ -19,6 +17,7 @@ import { useRouter } from 'next/router'
 import StockChange from '../StockChange'
 import Clickable from 'components/Atoms/Containers/Clickable'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import { useState } from 'react'
 
 const StockEarningsCalendarDetails = ({
   data,
@@ -33,7 +32,7 @@ const StockEarningsCalendarDetails = ({
 }) => {
   const theme = useTheme()
   const pageSize = 10
-  const [searchWithinList, setSearchWithinList] = React.useState('')
+  const [searchWithinList, setSearchWithinList] = useState('')
   const router = useRouter()
 
   const filterList = () => {
@@ -51,14 +50,10 @@ const StockEarningsCalendarDetails = ({
     setSearchWithinList(text)
   }
 
-  React.useEffect(() => {
-    //setPages(getPagedArray(filterList(data), pageSize))
-  }, [searchWithinList])
-
   return (
     <>
       <Box>
-        <TableContainer component={Paper} elevation={2}>
+        <TableContainer>
           <Table>
             <TableHead>
               <TableRow>

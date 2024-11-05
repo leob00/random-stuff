@@ -3,7 +3,7 @@ import { CasinoBlueTransparent, CasinoGreenTransparent, CasinoRedTransparent } f
 import { orderBy } from 'lodash'
 import { UserGoalAndTask } from './UserGoalsLayout'
 import { Box } from '@mui/material'
-import SimpleBarChart2 from 'components/Atoms/Charts/chartJs/SimpleBarChart2'
+import SimpleBarChart from 'components/Atoms/Charts/chartJs/SimpleBarChart'
 import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
 
 const GoalsBarChartByStatus = ({ goalTasks }: { goalTasks: UserGoalAndTask[] }) => {
@@ -38,8 +38,7 @@ const GoalsBarChartByStatus = ({ goalTasks }: { goalTasks: UserGoalAndTask[] }) 
 
   return (
     <Box>
-      <SimpleBarChart2 title='' barChart={barChart} yAxisDecorator='%' isHorizontal />
-      {/* <ApexBarChart data={data} horizontal seriesName='completed' yAxisDecorator='%' palette={theme.palette.mode} /> */}
+      <SimpleBarChart title='' barChart={barChart} yAxisDecorator='%' isHorizontal />
     </Box>
   )
 }

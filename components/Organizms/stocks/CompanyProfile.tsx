@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { CasinoGrayTransparent, CasinoLightGrayTransparent } from 'components/themes/mainTheme'
 import { useSwrHelper } from 'hooks/useSwrHelper'
@@ -37,38 +38,48 @@ const CompanyProfile = ({ quote }: { quote: StockQuote }) => {
 
   return (
     <Box pb={2} pt={2} minHeight={400}>
-      {isLoading ? (
-        <BackdropLoader />
-      ) : (
-        <>
-          <Box py={2} display={'flex'} gap={2} flexDirection={'column'}>
-            {data?.awsUrl && (
-              <Box py={2} sx={{ borderRadius: '8px', backgroundColor: 'whitesmoke' }} width={320} px={2}>
-                <img src={`${data.awsUrl}`} alt='company logo' width={275} />
-              </Box>
-            )}
-            {data?.company?.Description && <Typography>{data?.company?.Description}</Typography>}
-            {data?.company?.Sector && (
+      {isLoading && <BackdropLoader />}
+
+      <Box py={2} display={'flex'} gap={2} flexDirection={'column'}>
+        {data?.awsUrl && (
+          <FadeIn>
+            <Box py={2} sx={{ borderRadius: '8px', backgroundColor: 'whitesmoke' }} width={320} px={2}>
+              <img src={`${data.awsUrl}`} alt='company logo' width={275} />
+            </Box>
+          </FadeIn>
+        )}
+        <Box>
+          {data?.company?.Description && (
+            <FadeIn>
+              <Typography>{data?.company?.Description}</Typography>
+            </FadeIn>
+          )}
+          {data?.company?.Sector && (
+            <FadeIn>
               <Box display={'flex'} gap={2}>
                 <Typography>Sector:</Typography>
                 <Typography>{data.company.Sector}</Typography>
               </Box>
-            )}
-            {data?.company?.Industry && (
+            </FadeIn>
+          )}
+          {data?.company?.Industry && (
+            <FadeIn>
               <Box display={'flex'} gap={2}>
                 <Typography>Industry:</Typography>
                 <Typography>{data.company.Industry}</Typography>
               </Box>
-            )}
-            {data?.company?.Ceo && (
+            </FadeIn>
+          )}
+          {data?.company?.Ceo && (
+            <FadeIn>
               <Box display={'flex'} gap={2}>
                 <Typography>CEO:</Typography>
                 <Typography>{data.company.Ceo}</Typography>
               </Box>
-            )}
-          </Box>
-        </>
-      )}
+            </FadeIn>
+          )}
+        </Box>
+      </Box>
     </Box>
   )
 }
