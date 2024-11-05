@@ -29,9 +29,6 @@ const EarningsReport = ({ data }: { data: StockEarning[] }) => {
     ['ReportDate'],
     ['asc'],
   )
-  //   const up = reported.filter((m) => m.ActualEarnings! > 0)
-  //   const down = reported.filter((m) => m.ActualEarnings! < 0)
-  //   const unchanged = reported.filter((m) => m.ActualEarnings! === 0)
   const days = new Set(reported.map((m) => m.ReportDate))
 
   const chartData: BarChart[] = [
@@ -95,6 +92,10 @@ const EarningsReport = ({ data }: { data: StockEarning[] }) => {
           bottom: 50,
           top: 10,
         },
+        font: {
+          size: 18,
+          weight: 300,
+        },
         display: true,
         text: 'Earnings: positive / negative',
         color: theme.palette.mode === 'light' ? CasinoBlue : VeryLightBlue,
@@ -130,8 +131,13 @@ const EarningsReport = ({ data }: { data: StockEarning[] }) => {
             return ` ${[tooltipItems.label]}`
           },
           afterLabel: (tooltipItems) => {
-            return `${tooltipItems.dataset.label} ${Number(tooltipItems.formattedValue).toFixed(2)}%`
+            let result = `${tooltipItems.dataset.label}: `
+            if (tooltipItems.datasetIndex === 0) {
+              return `${result}${reported.filter((m) => dayjs(m.ReportDate).format('MM/DD/YYYY') === tooltipItems.label && m.ActualEarnings! > 0).length} (${Number(tooltipItems.formattedValue).toFixed(2)}%)`
+            }
+            return `${result}${reported.filter((m) => dayjs(m.ReportDate).format('MM/DD/YYYY') === tooltipItems.label && m.ActualEarnings! < 0).length} (${Number(tooltipItems.formattedValue).toFixed(2)}%)`
           },
+
           labelPointStyle: (tooltiipItems) => {
             return {
               pointStyle: 'circle',
@@ -141,6 +147,7 @@ const EarningsReport = ({ data }: { data: StockEarning[] }) => {
           },
           footer: (tooltipItems) => {
             return ''
+            //return `${tooltipItems[0].datasetIndex}`
             //return tooltipItems[0].formattedValue
           },
         },
