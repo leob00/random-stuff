@@ -1,5 +1,5 @@
 import { ChartData, ChartOptions } from 'chart.js'
-import { CasinoMoreBlackTransparent, CasinoWhiteTransparent, DarkBlue, VeryLightBlue } from 'components/themes/mainTheme'
+import { CasinoBlue, CasinoMoreBlackTransparent, CasinoWhiteTransparent, DarkBlue, VeryLightBlue } from 'components/themes/mainTheme'
 
 export interface BarChart {
   labels: string[]
@@ -27,7 +27,6 @@ export const getPieChartOptions = (title: string, palette: 'light' | 'dark'): Ch
   return {
     responsive: true,
     rotation: 180,
-
     hover: {
       mode: 'nearest',
       intersect: true,
@@ -37,6 +36,11 @@ export const getPieChartOptions = (title: string, palette: 'light' | 'dark'): Ch
       title: {
         display: true,
         text: title,
+        color: palette === 'light' ? CasinoBlue : VeryLightBlue,
+        font: {
+          size: 18,
+          weight: 300,
+        },
       },
       legend: {
         display: true,
@@ -51,7 +55,7 @@ export const getPieChartOptions = (title: string, palette: 'light' | 'dark'): Ch
       tooltip: {
         padding: 16,
         backgroundColor: CasinoMoreBlackTransparent,
-        titleColor: CasinoWhiteTransparent,
+        titleColor: VeryLightBlue,
         footerAlign: 'center',
         footerSpacing: 2,
         footerMarginTop: 10,
@@ -63,7 +67,8 @@ export const getPieChartOptions = (title: string, palette: 'light' | 'dark'): Ch
           weight: 'bold',
         },
         usePointStyle: true,
-        footerColor: 'white',
+        footerColor: VeryLightBlue,
+        bodyColor: VeryLightBlue,
         callbacks: {
           title: (tooltipItems) => {
             return ''

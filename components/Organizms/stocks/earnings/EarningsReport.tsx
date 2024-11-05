@@ -1,26 +1,25 @@
 import { Box, useTheme } from '@mui/material'
 import { ChartData, ChartOptions } from 'chart.js'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
+import CenterStack from 'components/Atoms/CenterStack'
 import BarChartStacked from 'components/Atoms/Charts/chartJs/BarChartStacked'
 import BasicPieChart from 'components/Atoms/Charts/chartJs/BasicPieChart'
-import MultiDatasetBarchartExample from 'components/Atoms/Charts/chartJs/MultiDatasetBarchartExample'
-import SimpleBarChart from 'components/Atoms/Charts/chartJs/SimpleBarChart'
-import { BarChart, getBarChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
+import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
+import { getPieChartOptions } from 'components/Atoms/Charts/chartJs/pieChartOptions'
+import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import {
   CasinoBlue,
-  CasinoBlueTransparent,
-  CasinoGrayTransparent,
   CasinoGreenTransparent,
   CasinoMoreBlackTransparent,
   CasinoRedTransparent,
   CasinoWhiteTransparent,
   DarkBlue,
   VeryLightBlue,
-  VeryLightBlueTransparent,
 } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockEarning } from 'lib/backend/api/qln/qlnApi'
 import { sortArray } from 'lib/util/collections'
-import { calculatePercent, getRandomInteger } from 'lib/util/numberUtil'
+import { calculatePercent } from 'lib/util/numberUtil'
 
 const EarningsReport = ({ data }: { data: StockEarning[] }) => {
   const theme = useTheme()
@@ -30,6 +29,15 @@ const EarningsReport = ({ data }: { data: StockEarning[] }) => {
     ['asc'],
   )
   const days = new Set(reported.map((m) => m.ReportDate))
+  const up = reported.filter((m) => m.ActualEarnings! > 0)
+  const down = reported.filter((m) => m.ActualEarnings! < 0)
+
+  const pieChart: BarChart = {
+    colors: [CasinoGreenTransparent, CasinoRedTransparent],
+    labels: ['positive', 'negative'],
+    borderColors: [CasinoGreenTransparent, CasinoRedTransparent],
+    numbers: [calculatePercent(up.length, reported.length), calculatePercent(down.length, reported.length)],
+  }
 
   const chartData: BarChart[] = [
     {
@@ -107,7 +115,7 @@ const EarningsReport = ({ data }: { data: StockEarning[] }) => {
       tooltip: {
         padding: 16,
         backgroundColor: CasinoMoreBlackTransparent,
-        titleColor: CasinoWhiteTransparent,
+        titleColor: VeryLightBlue,
         footerAlign: 'left',
         footerSpacing: 10,
         footerMarginTop: 1,
@@ -121,8 +129,8 @@ const EarningsReport = ({ data }: { data: StockEarning[] }) => {
         bodySpacing: 10,
         bodyAlign: 'left',
         usePointStyle: true,
-        footerColor: theme.palette.mode === 'light' ? DarkBlue : VeryLightBlue,
-        bodyColor: theme.palette.mode === 'light' ? DarkBlue : VeryLightBlue,
+        footerColor: VeryLightBlue,
+        bodyColor: VeryLightBlue,
         callbacks: {
           title: (tooltipItems) => {
             return ''
@@ -180,9 +188,28 @@ const EarningsReport = ({ data }: { data: StockEarning[] }) => {
   }
 
   return (
-    <Box py={2}>
-      <BarChartStacked data={chartDataset} options={chartOptions} />
-    </Box>
+    <>
+      <Box py={2}>
+        <FadeIn>
+          <BarChartStacked data={chartDataset} options={chartOptions} />
+        </FadeIn>
+      </Box>
+      <Box py={2}>
+        <CenterStack>
+          <ReadOnlyField
+            label='date range'
+            val={`${reported.length > 0 ? `${dayjs(reported[0].ReportDate!).format('MM/DD/YYYY')} - ${dayjs(reported[reported.length - 1].ReportDate!).format('MM/DD/YYYY')}` : 'N/A'}`}
+          />
+        </CenterStack>
+      </Box>
+      <Box py={2} display={'flex'} justifyContent={'center'}>
+        <Box>
+          <FadeIn>
+            <BasicPieChart barChart={pieChart} title='Positive / negative totals' />
+          </FadeIn>
+        </Box>
+      </Box>
+    </>
   )
 }
 

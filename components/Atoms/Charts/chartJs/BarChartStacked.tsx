@@ -3,13 +3,16 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 import { Bar } from 'react-chartjs-2'
 import { getRandomInteger } from 'lib/util/numberUtil'
 import { CasinoGreenTransparent, CasinoRedTransparent } from 'components/themes/mainTheme'
+import { useMediaQuery, useTheme } from '@mui/material'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const BarChartStacked = ({ data, options }: { data: ChartData<'bar', number[], unknown>; options: ChartOptions<'bar'> }) => {
+  const theme = useTheme()
+  const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   return (
     <>
-      <Bar data={data} options={options} />
+      <Bar data={data} options={options} height={isXSmall ? 300 : 100} />
     </>
   )
 }

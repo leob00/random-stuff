@@ -9,8 +9,8 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 const EarningsCalendarLayout = () => {
   const mutateKey = 'RecentEarnings'
   const dataFn = async () => {
-    const result = await serverGetFetch('/RecentEarnings')
-    return result
+    const resp = await serverGetFetch('/RecentEarnings')
+    return resp.Body as StockEarning[]
   }
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
@@ -18,8 +18,8 @@ const EarningsCalendarLayout = () => {
   return (
     <Box py={2}>
       {isLoading && <BackdropLoader />}
-      {!isLoading && data && data.Body.length === 0 && <NoDataFound />}
-      {data && data.Body.length > 0 && <EarningsCalendarDisplay data={data.Body as StockEarning[]} />}
+      {!isLoading && data && data.length === 0 && <NoDataFound />}
+      {data && data.length > 0 && <EarningsCalendarDisplay data={data} />}
     </Box>
   )
 }
