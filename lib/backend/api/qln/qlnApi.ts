@@ -166,18 +166,18 @@ export const newsTypes: DropdownItem[] = [
     text: 'Washington Times',
     value: 'WashingtonTimes',
   },
-  // {
-  //   text: 'Yahoo Finance',
-  //   value: 'YahooFinance',
-  // },
-  // {
-  //   text: 'Yahoo Science',
-  //   value: 'YahooScience',
-  // },
-  // {
-  //   text: 'Yahoo World',
-  //   value: 'YahooWorld',
-  // },
+  {
+    text: 'Yahoo Finance',
+    value: 'YahooFinance',
+  },
+  {
+    text: 'Yahoo Science',
+    value: 'YahooScience',
+  },
+  {
+    text: 'Yahoo World',
+    value: 'YahooWorld',
+  },
 ]
 export type JoBLog = {
   JobId: number
@@ -393,6 +393,8 @@ export interface StockEarning {
   EstimatedEarnings?: number | null
   ReportDate?: string | null
   StockQuote?: StockQuote
+  Year?: number
+  Quarter?: number
 }
 
 export interface Company {

@@ -20,6 +20,7 @@ import dayjs from 'dayjs'
 import { StockEarning } from 'lib/backend/api/qln/qlnApi'
 import { sortArray } from 'lib/util/collections'
 import { calculatePercent } from 'lib/util/numberUtil'
+import PositiveNegativePieChart from './PositiveNegativePieChart'
 
 const EarningsReport = ({ data }: { data: StockEarning[] }) => {
   const theme = useTheme()
@@ -29,15 +30,6 @@ const EarningsReport = ({ data }: { data: StockEarning[] }) => {
     ['asc'],
   )
   const days = new Set(reported.map((m) => m.ReportDate))
-  const up = reported.filter((m) => m.ActualEarnings! > 0)
-  const down = reported.filter((m) => m.ActualEarnings! < 0)
-
-  const pieChart: BarChart = {
-    colors: [CasinoGreenTransparent, CasinoRedTransparent],
-    labels: ['positive', 'negative'],
-    borderColors: [CasinoGreenTransparent, CasinoRedTransparent],
-    numbers: [calculatePercent(up.length, reported.length), calculatePercent(down.length, reported.length)],
-  }
 
   const chartData: BarChart[] = [
     {
@@ -153,11 +145,6 @@ const EarningsReport = ({ data }: { data: StockEarning[] }) => {
               border: 4,
             }
           },
-          footer: (tooltipItems) => {
-            return ''
-            //return `${tooltipItems[0].datasetIndex}`
-            //return tooltipItems[0].formattedValue
-          },
         },
       },
     },
@@ -205,7 +192,7 @@ const EarningsReport = ({ data }: { data: StockEarning[] }) => {
       <Box py={2} display={'flex'} justifyContent={'center'}>
         <Box>
           <FadeIn>
-            <BasicPieChart barChart={pieChart} title='Positive / negative totals' />
+            <PositiveNegativePieChart reported={reported} />
           </FadeIn>
         </Box>
       </Box>
