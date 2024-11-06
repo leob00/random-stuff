@@ -12392,6 +12392,10 @@
     "Symbol": "EMCR"
   },
   {
+    "Company": "Xtrackers MSCI Emerging Markets Climate Selection ETF",
+    "Symbol": "EMCS"
+  },
+  {
     "Company": "Western Asset Emerging Markets Debt Fund, Inc",
     "Symbol": "EMD"
   },
@@ -24164,7 +24168,7 @@
     "Symbol": "LFWD"
   },
   {
-    "Company": "Linkage Global Inc Ordinary Shares",
+    "Company": "Linkage Global Inc Class A Ordinary Shares",
     "Symbol": "LGCB"
   },
   {
@@ -25210,6 +25214,10 @@
   {
     "Company": "Madison Aggregate Bond ETF",
     "Symbol": "MAGG"
+  },
+  {
+    "Company": "Magnera Corporation",
+    "Symbol": "MAGN"
   },
   {
     "Company": "Roundhill Daily Inverse Magnificent Seven ETF",

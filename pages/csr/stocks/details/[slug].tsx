@@ -1,5 +1,6 @@
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import BackButton from 'components/Atoms/Buttons/BackButton'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
 import Seo from 'components/Organizms/Seo'
 import StockDetailsLayout from 'components/Organizms/stocks/StockDetailsLayout'
 import { useUserController } from 'hooks/userController'
@@ -12,7 +13,6 @@ const Page = () => {
   const { authProfile, setProfile, fetchProfilePassive } = useUserController()
 
   const id = router.query.slug as string | undefined
-  const returnUrl = router.query['returnUrl'] as string | undefined
 
   useEffect(() => {
     const fn = async () => {
@@ -30,7 +30,7 @@ const Page = () => {
     <>
       <Seo pageTitle={`Stock Details: ${id}`} />
       <ResponsiveContainer>
-        <BackButton route={returnUrl} />
+        <PageHeader text='' />
         {id && !loadingProfile && <StockDetailsLayout symbol={id} disableCollapse />}
       </ResponsiveContainer>
     </>

@@ -10,7 +10,7 @@ import { useState } from 'react'
 import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuPortfolio from 'components/Molecules/Menus/ContextMenuPortfolio'
-import EarningsReport from './EarningsReport'
+import RecentEarningsReport from './RecentEarningsReport'
 const filterResult = (items: StockEarning[], dt: string | null) => {
   return orderBy(
     items.filter((m) => m.ReportDate === dt),
@@ -26,7 +26,6 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   const [filteredResults, setFilteredResults] = useState(dateToSelect ? filterResult(data, dateToSelect) : [])
   const [currentPageIndex, setCurrentPageIndex] = useState(1)
   const datesMap = new Map<string, StockEarning[]>()
-  const [showReport, setShowReport] = useState(false)
 
   uniqueDates.forEach((item) => {
     datesMap.set(
@@ -56,47 +55,32 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
       setCurrentPageIndex(1)
     }
   }
-  const menu: ContextMenuItem[] = [
-    {
-      fn: () => {
-        setShowReport(!showReport)
-      },
-      item: <ContextMenuPortfolio text={`${showReport ? 'view grid' : 'view report'}`} />,
-    },
-  ]
 
   return (
     <>
       <ScrollIntoView enabled={true} margin={-15} />
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'flex-start'}>
         <Box width={{ xs: '90%', md: '60%' }}>
-          {!showReport && (
+          <Box>
             <Box>
-              <Box>
-                {dateOptions.length > 0 && (
-                  <DropdownList options={dateOptions} selectedOption={dateToSelect ?? ''} onOptionSelected={handleDateSelected} fullWidth />
-                )}
-              </Box>
-              <Box px={1}>
-                <SiteLink href='/csr/stock-earnings-search' text='advanced search' />
-              </Box>
+              {dateOptions.length > 0 && (
+                <DropdownList options={dateOptions} selectedOption={dateToSelect ?? ''} onOptionSelected={handleDateSelected} fullWidth />
+              )}
             </Box>
-          )}
-        </Box>
-        <Box>
-          <ContextMenu items={menu} />
+            <Box px={1} display={'flex'} gap={2} py={1} alignItems={'center'}>
+              <SiteLink href='/csr/stock-earnings-search' text='advanced search' />|
+              <SiteLink href='/csr/stocks/earnings-reports' text='reports' />
+            </Box>
+          </Box>
         </Box>
       </Box>
-      {!showReport && (
-        <Box py={2}>
-          {selectedDate && (
-            <Box pt={1}>
-              <StockEarningsCalendarDetails data={filteredResults} currentPageIndex={currentPageIndex} onPaged={handlePaged} onSearched={handleSearched} />
-            </Box>
-          )}
-        </Box>
-      )}
-      {showReport && <EarningsReport data={data} />}
+      <Box py={2}>
+        {selectedDate && (
+          <Box pt={1}>
+            <StockEarningsCalendarDetails data={filteredResults} currentPageIndex={currentPageIndex} onPaged={handlePaged} onSearched={handleSearched} />
+          </Box>
+        )}
+      </Box>
     </>
   )
 }

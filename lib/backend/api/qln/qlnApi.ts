@@ -397,6 +397,15 @@ export interface StockEarning {
   Quarter?: number
 }
 
+export interface StockEarningAggregate {
+  Year: number
+  Quarter: number
+  RecordCount: number
+  PositiveCount: number
+  NegativeCount: number
+  NeutralCount: number
+}
+
 export interface Company {
   Symbol: string
   CompanyName?: string

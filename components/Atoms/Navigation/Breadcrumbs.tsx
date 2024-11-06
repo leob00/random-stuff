@@ -13,6 +13,7 @@ export const BasicBreadcrumbs = () => {
   const router = useRouter()
   const { lastRoute, allRoutes } = useRouteTracker()
   const [routes, setRoutes] = useState<Path[]>([])
+  const currentRoute = router.asPath
 
   useEffect(() => {
     const result = getRoutes(allRoutes)
@@ -25,7 +26,7 @@ export const BasicBreadcrumbs = () => {
       {routes.map((route, index) => (
         <Box key={route.route} display={'flex'} alignItems={'center'} gap={2}>
           <LinkButton
-            disabled={index === routes.length - 1}
+            disabled={route.route === currentRoute}
             onClick={() => {
               router.push(route.route)
             }}

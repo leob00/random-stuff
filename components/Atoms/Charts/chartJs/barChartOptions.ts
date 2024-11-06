@@ -144,3 +144,96 @@ export const getBarChartOptions = (
     },
   }
 }
+
+export function getStackedBarChartOptions(palette: 'light' | 'dark'): ChartOptions<'bar'> {
+  const result: ChartOptions<'bar'> = {
+    scales: {
+      x: {
+        stacked: true,
+        ticks: {
+          color: palette === 'light' ? CasinoBlue : VeryLightBlue,
+          font: {
+            size: 11,
+          },
+        },
+      },
+      y: {
+        stacked: true,
+        ticks: {
+          color: palette === 'light' ? CasinoBlue : VeryLightBlue,
+          font: {
+            size: 11,
+          },
+          callback: (tickValue, index, ticks) => {
+            return `${tickValue}%`
+          },
+        },
+      },
+    },
+    indexAxis: 'x',
+    responsive: true,
+    plugins: {
+      title: {
+        padding: {
+          bottom: 50,
+          top: 10,
+        },
+        font: {
+          size: 18,
+          weight: 300,
+        },
+        display: true,
+        text: 'Earnings: positive / negative',
+        color: palette === 'light' ? CasinoBlue : VeryLightBlue,
+      },
+      legend: {
+        display: false,
+        position: 'top' as const,
+      },
+      tooltip: {
+        padding: 16,
+        backgroundColor: CasinoMoreBlackTransparent,
+        titleColor: VeryLightBlue,
+        footerAlign: 'left',
+        footerSpacing: 10,
+        footerMarginTop: 1,
+        footerFont: {
+          weight: 200,
+        },
+        bodyFont: {
+          size: 16,
+          weight: 'bold',
+        },
+        bodySpacing: 10,
+        bodyAlign: 'left',
+        usePointStyle: true,
+        footerColor: VeryLightBlue,
+        bodyColor: VeryLightBlue,
+        callbacks: {
+          title: (tooltipItems) => {
+            return ''
+          },
+          label: (tooltipItems) => {
+            return ` ${[tooltipItems.label]}`
+          },
+          // afterLabel: (tooltipItems) => {
+          //   let result = `${tooltipItems.dataset.label}: `
+          //   if (tooltipItems.datasetIndex === 0) {
+          //     return `${result}${reported.filter((m) => dayjs(m.ReportDate).format('MM/DD/YYYY') === tooltipItems.label && m.ActualEarnings! > 0).length} (${Number(tooltipItems.formattedValue).toFixed(2)}%)`
+          //   }
+          //   return `${result}${reported.filter((m) => dayjs(m.ReportDate).format('MM/DD/YYYY') === tooltipItems.label && m.ActualEarnings! < 0).length} (${Number(tooltipItems.formattedValue).toFixed(2)}%)`
+          // },
+
+          labelPointStyle: (tooltiipItems) => {
+            return {
+              pointStyle: 'circle',
+              rotation: 0,
+              border: 4,
+            }
+          },
+        },
+      },
+    },
+  }
+  return result
+}

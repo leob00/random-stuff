@@ -73,6 +73,10 @@ export function siteMap() {
           route: '/csr/stocks/earnings-calendar',
         },
         {
+          name: 'earnings report',
+          route: '/csr/stocks/earnings-reports',
+        },
+        {
           name: 'stock tags',
           route: '/csr/stocks/stock-tags',
         },
