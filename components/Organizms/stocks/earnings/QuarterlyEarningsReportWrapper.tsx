@@ -2,8 +2,7 @@ import { Box } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import { useSwrHelper } from 'hooks/useSwrHelper'
-import { StockEarning, StockEarningAggregate, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
-import RecentEarningsReport from './RecentEarningsReport'
+import { StockEarningAggregate, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import QuarterlyEarningsReport from './QuarterlyEarningsReport'
 
 const QuarterlyEarningsReportWrapper = () => {
@@ -19,7 +18,7 @@ const QuarterlyEarningsReportWrapper = () => {
       {isLoading && <BackdropLoader />}
       <Box py={2}>
         {!isLoading && data && data.length === 0 && <NoDataFound />}
-        {data && data.length > 0 && <QuarterlyEarningsReport data={data} />}
+        {data && data.length > 0 && <QuarterlyEarningsReport data={data} mutateKey={mutateKey} />}
       </Box>
     </>
   )

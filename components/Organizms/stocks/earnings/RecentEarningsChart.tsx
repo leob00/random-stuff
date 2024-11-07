@@ -4,7 +4,7 @@ import { ChartData, ChartOptions, plugins } from 'chart.js'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import CenterStack from 'components/Atoms/CenterStack'
 import BarChartStacked from 'components/Atoms/Charts/chartJs/BarChartStacked'
-import { BarChart, getStackedBarChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
+import { BarChart, getMultiDatasetBarChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import { CasinoBlue, CasinoGreenTransparent, CasinoMoreBlackTransparent, CasinoRedTransparent, VeryLightBlue } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
@@ -43,7 +43,7 @@ const RecentEarningsChart = ({ reported }: { reported: StockEarning[] }) => {
     chartData[1].numbers.push(calculatePercent(down.length, dayData.length))
     chartData[1].rawData!.push({ ...dayData })
   })
-  const chartOptions = { ...getStackedBarChartOptions(theme.palette.mode) }
+  const chartOptions = { ...getMultiDatasetBarChartOptions(theme.palette.mode, false) }
   chartOptions.plugins!.tooltip!.callbacks = {
     title: (tooltipItems) => {
       return ''

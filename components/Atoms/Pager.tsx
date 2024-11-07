@@ -1,5 +1,3 @@
-// import ArrowBackIos from '@mui/icons-material/ArrowBackIos'
-// import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos'
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
 import FirstPageIcon from '@mui/icons-material/FirstPage'
@@ -75,11 +73,6 @@ const Pager = ({
     onPaged(idx)
   }
 
-  // useEffect(() => {
-  //   const newMessage = getDisplayMessage(pageCount)
-  //   setDisplayMessage(newMessage)
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [pageCount, pageIndex, itemCount])
   return (
     <Box pt={1}>
       {showHorizontalDivider && <HorizontalDivider />}

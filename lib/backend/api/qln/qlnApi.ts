@@ -406,6 +406,11 @@ export interface StockEarningAggregate {
   NeutralCount: number
 }
 
+export interface DateRangeFilter {
+  startDate: string
+  endDate: string
+}
+
 export interface Company {
   Symbol: string
   CompanyName?: string

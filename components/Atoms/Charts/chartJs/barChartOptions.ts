@@ -145,11 +145,11 @@ export const getBarChartOptions = (
   }
 }
 
-export function getStackedBarChartOptions(palette: 'light' | 'dark'): ChartOptions<'bar'> {
+export function getMultiDatasetBarChartOptions(palette: 'light' | 'dark', stacked: boolean): ChartOptions<'bar'> {
   const result: ChartOptions<'bar'> = {
     scales: {
       x: {
-        stacked: true,
+        stacked: stacked,
         ticks: {
           color: palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {
@@ -158,7 +158,7 @@ export function getStackedBarChartOptions(palette: 'light' | 'dark'): ChartOptio
         },
       },
       y: {
-        stacked: true,
+        stacked: stacked,
         ticks: {
           color: palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {
@@ -195,8 +195,8 @@ export function getStackedBarChartOptions(palette: 'light' | 'dark'): ChartOptio
         backgroundColor: CasinoMoreBlackTransparent,
         titleColor: VeryLightBlue,
         footerAlign: 'left',
-        footerSpacing: 10,
-        footerMarginTop: 1,
+        footerSpacing: 8,
+        footerMarginTop: 4,
         footerFont: {
           weight: 200,
         },
