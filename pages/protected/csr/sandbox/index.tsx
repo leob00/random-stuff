@@ -71,7 +71,7 @@ const Page = () => {
         <TabList tabs={tabs} onSetTab={handleSetTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
 
         <Box p={2}>
-          {selectedTab === 'Files' && <>{!isLoading && authProfile && <S3Display userProfile={authProfile} />}</>}
+          {selectedTab === 'Files' && <>{!isLoading && authProfile && <S3Display />}</>}
           {selectedTab === 'OCR' && <OcrLocal />}
           {selectedTab === 'Charts' && <Playground />}
           {selectedTab === 'Framer' && <Framer />}
