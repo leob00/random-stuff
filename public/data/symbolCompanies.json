@@ -5940,7 +5940,7 @@
     "Symbol": "BTBT"
   },
   {
-    "Company": "Grayscale Bitcoin Mini Trust (BTC)",
+    "Company": "Grayscale Bitcoin Mini Trust ETF",
     "Symbol": "BTC"
   },
   {
@@ -31426,6 +31426,10 @@
   {
     "Company": "Invesco Exchange-Traded Fund Trust II Invesco Dorsey Wright Emerging Markets Momentum ETF",
     "Symbol": "PIE"
+  },
+  {
+    "Company": "Principal International Equity ETF",
+    "Symbol": "PIEQ"
   },
   {
     "Company": "ClearShares Piton Intermediate Fixed Income ETF",

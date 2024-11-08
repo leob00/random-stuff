@@ -35,6 +35,7 @@ const FormDialog = ({
       aria-describedby='alert-dialog-description'
       maxWidth='lg'
       fullScreen={fullScreen}
+      PaperProps={{ elevation: 0 }}
     >
       <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>
         <Stack display='flex' direction={'row'} justifyContent={'space-between'} alignItems={'center'}>

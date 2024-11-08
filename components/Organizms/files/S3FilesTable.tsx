@@ -11,6 +11,7 @@ import S3FileRow from './S3FileRow'
 import S3FilesTableHeader from './S3FilesTableHeader'
 import S3FileCommandDialogs from './S3FileCommandDialogs'
 import { useUserController } from 'hooks/userController'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const S3FilesTable = ({
   s3Controller,
@@ -198,15 +199,17 @@ const S3FilesTable = ({
       />
       {results.map((item) => (
         <Box key={item.fullPath} py={1}>
-          <S3FileRow
-            isEditEmode={uiState.isEditEmode}
-            file={item}
-            onSelectFile={handleSelectFile}
-            onViewFile={handleViewFile}
-            onDelete={handleDelete}
-            onRename={handleOnRename}
-            onMovefile={handleMoveSingleFile}
-          />
+          <FadeIn>
+            <S3FileRow
+              isEditEmode={uiState.isEditEmode}
+              file={item}
+              onSelectFile={handleSelectFile}
+              onViewFile={handleViewFile}
+              onDelete={handleDelete}
+              onRename={handleOnRename}
+              onMovefile={handleMoveSingleFile}
+            />
+          </FadeIn>
         </Box>
       ))}
       <S3FileCommandDialogs

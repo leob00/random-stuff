@@ -2,7 +2,6 @@ import { Alert, Box } from '@mui/material'
 import { Bucket, S3Object, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { DropdownItem } from 'lib/models/dropdown'
 import { sortArray } from 'lib/util/collections'
-import React from 'react'
 import { mutate } from 'swr'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
@@ -16,22 +15,35 @@ import FolderActions from './FolderActions'
 import S3FolderDropDown from './S3FolderDropDown'
 import { useS3Controller } from 'hooks/s3/useS3Controller'
 import { useUserController } from 'hooks/userController'
+import { useState } from 'react'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 function sortFolders(items?: DropdownItem[]) {
   const result = items ?? []
   return sortArray(result, ['text'], ['asc'])
 }
 
-const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
+const S3Display = () => {
   const bucketName: Bucket = 'rs-files'
-  const userFolders = sortFolders(userProfile.settings?.folders)
-  const lastFolder = userProfile.settings?.selectedFolder
-  const stateSelectedFolder = lastFolder ?? (userFolders.length > 0 ? userFolders[0] : getDefaultFolders(userProfile)[0])
+  const { authProfile } = useUserController()
+  const userProfile = { ...authProfile! }
+  const userFolders = sortFolders(userProfile?.settings?.folders)
+  const lastFolder = userProfile?.settings?.selectedFolder
+  const stateSelectedFolder =
+    lastFolder ??
+    (userFolders.length > 0
+      ? userFolders[0]
+      : getDefaultFolders(
+          userProfile ?? {
+            id: 'guest',
+            username: 'guest',
+          },
+        )[0])
 
-  const [selectedFolder, setSelectedFolder] = React.useState(stateSelectedFolder)
-  const [allFolders, setAllFolders] = React.useState(userFolders)
-  const [showTopUploadForm, setShowTopUploadForm] = React.useState(false)
-  const [isWaiting, setIsWaiting] = React.useState(false)
+  const [selectedFolder, setSelectedFolder] = useState(stateSelectedFolder)
+  const [allFolders, setAllFolders] = useState(userFolders)
+  const [showTopUploadForm, setShowTopUploadForm] = useState(false)
+  const [isWaiting, setIsWaiting] = useState(false)
   const mutateKeyBase = `/api/baseRoute?id=s3FileList`
   const mutateKey = `${mutateKeyBase}${selectedFolder.value}`
   const s3Controller = useS3Controller()
@@ -42,10 +54,10 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
     return sortArray(result, ['filename'], ['asc'])
   }
 
-  const { data, isLoading, error } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
+  const { data: files, isLoading, error } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
   const handleUploaded = async (item: S3Object) => {
-    const dataCopy = [...data!]
+    const dataCopy = [...files!]
 
     if (!dataCopy.find((m) => m.filename.toLowerCase() === item.filename.toLowerCase())) {
       dataCopy.push(item)
@@ -58,7 +70,9 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
     setShowTopUploadForm(false)
     const newSelectedFolder = allFolders.find((m) => m.value === id)!
     setSelectedFolder(newSelectedFolder)
-    setProfile({ ...userProfile, settings: { ...userProfile.settings, selectedFolder: newSelectedFolder } })
+    const newProfile = { ...userProfile, settings: { ...userProfile.settings, selectedFolder: newSelectedFolder } }
+    setProfile(newProfile)
+    putUserProfile(newProfile)
     mutate(`${mutateKeyBase}${id}`)
   }
   const handleFolderAdd = async (name: string) => {
@@ -95,18 +109,18 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
     await handleFolderSelected(folder.value)
   }
   return (
-    <>
+    <Box minHeight={500}>
       {isLoading && <BackdropLoader />}
       {isWaiting && <BackdropLoader />}
       {error && <ErrorMessage text={'Opps! An error has occured. Please try refreshing the page.'} />}
 
       <Box display={'flex'} alignItems={'center'}>
         <S3FolderDropDown folders={allFolders} folder={selectedFolder} onFolderSelected={handleFolderSelected} />
-        {data && (
+        {files && (
           <FolderActions
             folders={allFolders}
             onFolderAdded={handleFolderAdd}
-            items={data}
+            items={files}
             selectedFolder={selectedFolder}
             onFolderDeleted={handleFolderDelete}
             onShowTopUploadForm={(show: boolean) => setShowTopUploadForm(show)}
@@ -114,22 +128,22 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
         )}
       </Box>
       {showTopUploadForm && (
-        <Box pt={2}>{data && <S3FileUploadForm files={data} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />}</Box>
+        <Box pt={2}>{files && <S3FileUploadForm files={files} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />}</Box>
       )}
       <Box py={3}>
-        {data && (
+        {files && (
           <S3FilesTable
             s3Controller={s3Controller}
             folder={selectedFolder}
             allFolders={allFolders}
-            data={data}
+            data={files}
             onReloadFolder={handleReloadFolder}
             onLocalDataMutate={handleFilesMutated}
           />
         )}
       </Box>
 
-      {!isLoading && !isWaiting && data && data.length === 0 && (
+      {!isLoading && !isWaiting && files && files.length === 0 && (
         <>
           <CenterStack>
             <Alert severity='warning'>This folder is empty.</Alert>
@@ -137,11 +151,11 @@ const S3Display = ({ userProfile }: { userProfile: UserProfile }) => {
         </>
       )}
       <Box pt={2}>
-        {data && !showTopUploadForm && !isLoading && (
-          <S3FileUploadForm files={data} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />
+        {files && !showTopUploadForm && !isLoading && (
+          <S3FileUploadForm files={files} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />
         )}
       </Box>
-    </>
+    </Box>
   )
 }
 

@@ -32,10 +32,19 @@ const S3FileRow = ({
 }) => {
   return (
     <>
-      <FadeIn>
+      {!isEditEmode ? (
         <Box px={1} py={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-          <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} gap={1}>
-            {isEditEmode && (
+          <FadeIn>
+            <Typography>{file.filename.substring(0, file.filename.lastIndexOf('.'))}</Typography>
+          </FadeIn>
+          <FadeIn>
+            <FileMenu item={file} onView={onViewFile} onDelete={onDelete} onRename={onRename} onMovefile={onMovefile} />
+          </FadeIn>
+        </Box>
+      ) : (
+        <FadeIn>
+          <Box px={1} py={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+            <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'} gap={1}>
               <Box>
                 <SecondaryCheckbox
                   onChanged={(isChecked) => {
@@ -43,15 +52,21 @@ const S3FileRow = ({
                   }}
                 />
               </Box>
+              <FadeIn>
+                <Typography>{file.filename}</Typography>
+              </FadeIn>
+            </Box>
+            {file.size && (
+              <Box display={'flex'} justifyContent={'flex-end'}>
+                <FadeIn>
+                  <Typography variant='caption' pl={2}>{`${fileSizeDisplay(file.size)}`}</Typography>
+                </FadeIn>
+              </Box>
             )}
-            <Typography>{isEditEmode ? file.filename : file.filename.substring(0, file.filename.lastIndexOf('.'))}</Typography>
-
-            {isEditEmode && file.size !== undefined && <Typography pl={2}>{`${fileSizeDisplay(file.size)}`}</Typography>}
           </Box>
-          <Box>{!isEditEmode && <FileMenu item={file} onView={onViewFile} onDelete={onDelete} onRename={onRename} onMovefile={onMovefile} />}</Box>
-        </Box>
-        <HorizontalDivider />
-      </FadeIn>
+        </FadeIn>
+      )}
+      <HorizontalDivider />
     </>
   )
 }

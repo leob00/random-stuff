@@ -84,10 +84,14 @@ export const newsTypes: DropdownItem[] = [
     text: 'Canada Global News',
     value: 'CanadaGlobalNews',
   },
-  // {
-  //   text: 'Daily Telegraph',
-  //   value: 'DailyTelegraph',
-  // },
+  {
+    text: 'Fox News Latest Headlines',
+    value: 'FoxNewsLatest',
+  },
+  {
+    text: 'Fox News World',
+    value: 'FoxNewsWorld',
+  },
   {
     text: 'France 24',
     value: 'France24',

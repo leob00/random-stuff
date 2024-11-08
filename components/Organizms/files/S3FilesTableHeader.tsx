@@ -1,4 +1,4 @@
-import { Box, IconButton } from '@mui/material'
+import { Box, IconButton, Paper } from '@mui/material'
 import { S3DisplayState } from 'hooks/s3/useS3DisplayState'
 import React from 'react'
 import EditIcon from '@mui/icons-material/Edit'
@@ -9,6 +9,7 @@ import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/Context
 import ContextMenuMove from 'components/Molecules/Menus/ContextMenuMove'
 import ContextMenuDelete from 'components/Molecules/Menus/ContextMenuDelete'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const S3FilesTableHeader = ({
   uiState,
@@ -43,15 +44,14 @@ const S3FilesTableHeader = ({
   ]
 
   return (
-    <Box pb={2}>
+    <Box>
       <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
         <Box display={'flex'} alignItems={'center'} gap={2}>
-          {itemCount > 0 && (
-            <IconButton color='primary' size='small' onClick={onSetEditMode}>
-              {uiState.isEditEmode ? <EditOffIcon fontSize='small' /> : <EditIcon fontSize='small' />}
-            </IconButton>
+          {!uiState.isEditEmode && itemCount > 3 && (
+            <FadeIn>
+              <SearchWithinList onChanged={handleSearchWithinListChanged} />
+            </FadeIn>
           )}
-          {!uiState.isEditEmode && itemCount > 3 && <SearchWithinList onChanged={handleSearchWithinListChanged} />}
           {uiState.isEditEmode && uiState.selectedItems.length > 0 && (
             <Box>
               <ContextMenu items={multiFileCommands} />
@@ -66,8 +66,17 @@ const S3FilesTableHeader = ({
           </Box>
         )}
       </Box>
-      <Box py={2}>
+      <Box pt={2}>
         <HorizontalDivider />
+      </Box>
+      <Box>
+        {itemCount > 0 && (
+          <Box display={'flex'} justifyContent={'flex-end'}>
+            <IconButton color='primary' size='small' onClick={onSetEditMode}>
+              {uiState.isEditEmode ? <EditOffIcon fontSize='small' /> : <EditIcon fontSize='small' elevation={2} />}
+            </IconButton>
+          </Box>
+        )}
       </Box>
     </Box>
   )
