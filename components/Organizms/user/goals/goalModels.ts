@@ -1,3 +1,4 @@
+import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { z } from 'zod'
 
 export interface UserGoal extends UserTask {
@@ -10,12 +11,13 @@ export interface UserTask {
   id?: string
   body?: string
   dueDate?: string | null
-  dateCompleted?: string
+  dateCompleted?: string | null
   dateCreated?: string
   dateModified?: string
   status?: 'completed' | 'in progress' | 'deferred'
   completePercent?: number
   notes?: string
+  files?: S3Object[]
 }
 
 export interface UserGoalStats {

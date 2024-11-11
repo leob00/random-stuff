@@ -604,6 +604,10 @@
     "Symbol": "ADTX"
   },
   {
+    "Company": "Aduro Clean Technologies Inc. Common Stock",
+    "Symbol": "ADUR"
+  },
+  {
     "Company": "Addus HomeCare Corp.",
     "Symbol": "ADUS"
   },
@@ -2750,6 +2754,10 @@
   {
     "Company": "Academy Sports and Outdoors, Inc.",
     "Symbol": "ASO"
+  },
+  {
+    "Company": "A SPAC III Acquisition Corp. Unit",
+    "Symbol": "ASPCU"
   },
   {
     "Company": "ASP Isotopes Inc. Common Stock",
@@ -5660,7 +5668,7 @@
     "Symbol": "BRT"
   },
   {
-    "Company": "BlackRock ETF Trust II iShares Total Return Active ETF",
+    "Company": "BlackRock Total Return ETF",
     "Symbol": "BRTR"
   },
   {
@@ -7988,7 +7996,7 @@
     "Symbol": "CLNR"
   },
   {
-    "Company": "BlackRock ETF Trust II iShares AAA CLO Active ETF",
+    "Company": "BlackRock AAA CLO ETF",
     "Symbol": "CLOA"
   },
   {
@@ -10194,6 +10202,10 @@
   {
     "Company": "Xtrackers Russell US Multifactor ETF",
     "Symbol": "DEUS"
+  },
+  {
+    "Company": "DevvStream Corp. Common Stock",
+    "Symbol": "DEVS"
   },
   {
     "Company": "WisdomTree Global High Dividend Fund",
@@ -17732,6 +17744,10 @@
     "Symbol": "GRNT"
   },
   {
+    "Company": "FundStrat Granny Shots US Large Cap ETF",
+    "Symbol": "GRNY"
+  },
+  {
     "Company": "Grom Social Enterprises Inc. Common Stock",
     "Symbol": "GROM"
   },
@@ -17902,6 +17918,10 @@
   {
     "Company": "Gotham Enhanced 500 ETF",
     "Symbol": "GSPY"
+  },
+  {
+    "Company": "GSR III Acquisition Corp. Unit",
+    "Symbol": "GSRTU"
   },
   {
     "Company": "GS ActiveBeta U.S. Small Cap Equity ETF",
@@ -23926,6 +23946,22 @@
   {
     "Company": "COHEN & STEERS LIMITED DURATION PREFERRED AND INCOME FUND INC",
     "Symbol": "LDP"
+  },
+  {
+    "Company": "iShares iBonds 1-5 Year Corporate Ladder ETF",
+    "Symbol": "LDRC"
+  },
+  {
+    "Company": "Shares iBonds 1-5 Year High Yield and Income Ladder ETF",
+    "Symbol": "LDRH"
+  },
+  {
+    "Company": "iShares iBonds 1-5 Year TIPS Ladder ETF",
+    "Symbol": "LDRI"
+  },
+  {
+    "Company": "iShares iBonds 1-5 Year Treasury Ladder ETF",
+    "Symbol": "LDRT"
   },
   {
     "Company": "First Trust Low Duration Strategic Focus ETF",
@@ -31032,6 +31068,10 @@
     "Symbol": "PEPG"
   },
   {
+    "Company": "Parametric Equity Plus ETF",
+    "Symbol": "PEPS"
+  },
+  {
     "Company": "Perfect Corp.",
     "Symbol": "PERF"
   },
@@ -37656,6 +37696,10 @@
     "Symbol": "SPLV"
   },
   {
+    "Company": "Sound Point Meridian Capital, Inc. 8.00% Series A Preferred Shares Due 2029",
+    "Symbol": "SPMA"
+  },
+  {
     "Company": "SPDR Portfolio Mortgage Backed Bond ETF",
     "Symbol": "SPMB"
   },
@@ -43460,6 +43504,10 @@
     "Symbol": "WKSPW"
   },
   {
+    "Company": "Willow Lane Acquisition Corp. Unit",
+    "Symbol": "WLACU"
+  },
+  {
     "Company": "Willdan Group, Inc.",
     "Symbol": "WLDN"
   },
@@ -44602,6 +44650,14 @@
   {
     "Company": "Yunhong Green CTI Ltd. Common Stock",
     "Symbol": "YHGJ"
+  },
+  {
+    "Company": "YHN Acquisition I Limited Ordinary Shares",
+    "Symbol": "YHNA"
+  },
+  {
+    "Company": "YHN Acquisition I Limited Right",
+    "Symbol": "YHNAR"
   },
   {
     "Company": "YHN Acquisition I Limited Unit",

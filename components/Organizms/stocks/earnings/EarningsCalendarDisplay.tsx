@@ -68,7 +68,7 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
               )}
             </Box>
             <Box px={1} display={'flex'} gap={2} py={1} alignItems={'center'}>
-              <SiteLink href='/csr/stock-earnings-search' text='advanced search' />|
+              <SiteLink href='/csr/stocks/stock-earnings-search' text='advanced search' />|
               <SiteLink href='/csr/stocks/earnings-reports' text='reports' />
             </Box>
           </Box>

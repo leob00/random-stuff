@@ -12,6 +12,13 @@ import DateAndTimePicker2 from '../../../../Molecules/Forms/ReactHookForm/DateAn
 import { UserTask } from '../goalModels'
 import { useReducer, useState } from 'react'
 import { z } from 'zod'
+import S3FileUploadForm from 'components/Molecules/Forms/S3FileUploadForm'
+import { Bucket, S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { useUserController } from 'hooks/userController'
+import { sortArray } from 'lib/util/collections'
+import S3FilesTable from 'components/Organizms/files/S3FilesTable'
+import { DropdownItem } from 'lib/models/dropdown'
+import { useS3Controller } from 'hooks/s3/useS3Controller'
 const TaskSchema = z.object({
   title: z.string(),
 })
@@ -27,22 +34,29 @@ const EditTaskForm = ({
   onCancel: () => void
   onDelete: (data: UserTask) => void
 }) => {
+  const { authProfile } = useUserController()
   const [formInput, setFormInput] = useReducer((state: UserTask, newState: UserTask) => ({ ...state, ...newState }), task)
   const [valid, setValid] = useState(true)
   const [showConfirmDelete, setShowConfirmDelete] = useState(false)
 
+  const s3Controller = useS3Controller()
+  const bucket: Bucket = 'rs-files'
+  const folder = `${authProfile!.username}/user-tasks/${task.id}`
+  const allFolders: DropdownItem[] = [
+    {
+      text: 'tasks folder',
+      value: folder,
+    },
+  ]
+
   const handleDueDateChange = (dt: string | null) => {
     setFormInput({ ...formInput, dueDate: dt })
   }
+  const handleDateCompletedChange = (dt: string | null) => {
+    setFormInput({ ...formInput, dateCompleted: dt })
+  }
   const handleTitleChanged = (title: string) => {
     setFormInput({ ...formInput, body: title })
-  }
-
-  const handleCompletedChecked = (checked: boolean) => {
-    const status = checked ? 'completed' : 'in progress'
-    const dateCompleted = checked ? getUtcNow().format() : undefined
-
-    setFormInput({ ...formInput, status: status, dateCompleted: dateCompleted })
   }
 
   const handleCancelClick = () => {
@@ -69,6 +83,22 @@ const EditTaskForm = ({
     setFormInput({ ...formInput, notes: event.target.value })
   }
 
+  const handleUploaded = (file: S3Object) => {
+    const newFiles = formInput.files ?? []
+    newFiles.push(file)
+    setFormInput({ ...formInput, files: sortArray(newFiles, ['filename'], ['asc']) })
+  }
+
+  const handleReloadFolder = async (f: DropdownItem) => {}
+
+  const handleFileMutate = (f: DropdownItem, files: S3Object[]) => {
+    if (files.length > 0) {
+      setFormInput({ ...formInput, files: sortArray(files, ['filename'], ['asc']) })
+    } else {
+      setFormInput({ ...formInput, files: undefined })
+    }
+  }
+
   return (
     <>
       <form onSubmit={handleFormSubmit}>
@@ -80,6 +110,13 @@ const EditTaskForm = ({
             value={formInput.dueDate ? dayjs(formInput.dueDate).format() : undefined}
             onDateSelected={handleDueDateChange}
             label={'due date'}
+          />
+        </Box>
+        <Box py={2}>
+          <DateAndTimePicker2
+            value={formInput.dateCompleted ? dayjs(formInput.dueDate).format() : undefined}
+            onDateSelected={handleDateCompletedChange}
+            label={'completed date'}
           />
         </Box>
         <Box py={2}>
@@ -98,15 +135,20 @@ const EditTaskForm = ({
           />
         </Box>
         <Box py={2}>
-          <Stack direction={'row'} display={'flex'} justifyContent={'left'} alignItems={'center'}>
-            {/* <SecondaryCheckbox checked={formInput.status != undefined && formInput.status === 'completed'} onChanged={handleCompletedChecked} /> */}
-            {/* {formInput.dateCompleted ? (
-              <Typography variant='body2'>{`completed: ${dayjs(formInput.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography>
-            ) : (
-              <Typography variant='body2'>complete</Typography>
-            )} */}
-          </Stack>
+          <Stack direction={'row'} display={'flex'} justifyContent={'left'} alignItems={'center'}></Stack>
         </Box>
+
+        {formInput.files && formInput.files.length > 0 && (
+          <S3FilesTable
+            allFolders={allFolders}
+            folder={{ text: 'tasks-folder', value: folder }}
+            data={formInput.files ?? []}
+            s3Controller={s3Controller}
+            onLocalDataMutate={handleFileMutate}
+            onReloadFolder={handleReloadFolder}
+          />
+        )}
+        <S3FileUploadForm files={formInput.files ?? []} folder={folder} onUploaded={handleUploaded} />
         <Box py={2}>
           <Stack direction='row' justifyContent='center' alignItems='center' spacing={1}>
             <Button
@@ -122,6 +164,7 @@ const EditTaskForm = ({
           </Stack>
         </Box>
       </form>
+
       <ConfirmDeleteDialog
         show={showConfirmDelete}
         title={'confirm delete'}

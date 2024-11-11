@@ -24,6 +24,7 @@ import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import { UserGoal, UserTask } from './goalModels'
 import { useState } from 'react'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import { deleteS3Object } from 'lib/backend/api/aws/apiGateway/s3/s3functions'
 
 const SingleGoalDisplay = ({
   username,
@@ -66,6 +67,11 @@ const SingleGoalDisplay = ({
       newTasks = newTasks.filter((m) => m.status !== 'completed')
     }
     putUserGoalTasks(username, goal.id!, newTasks)
+    if (item.files && item.files.length > 0) {
+      for (let f of item.files) {
+        await deleteS3Object(f.bucket, f.fullPath)
+      }
+    }
     const resultGoal = await saveGoal(username, goal, newTasks)
     onMutated(resultGoal, newTasks)
   }

@@ -76,14 +76,14 @@ const TaskList = ({
       item.id = constructUserTaskPk(username)
     }
     if (item.status && item.status === 'completed') {
-      item.dateCompleted = getUtcNow().format()
+      item.dateCompleted = !item.dateCompleted ? getUtcNow().format() : item.dateCompleted
       item.status = 'completed'
     } else {
-      item.dateCompleted = undefined
       item.status = 'in progress'
     }
     item.dateModified = getUtcNow().format()
     let tasksCopy = model.taskList.filter((e) => e.id !== item.id)
+
     tasksCopy.push(item)
     if (selectedGoal.deleteCompletedTasks) {
       tasksCopy = tasksCopy.filter((m) => m.status !== 'completed')

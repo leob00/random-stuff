@@ -14,7 +14,6 @@ import {
   LambdaDynamoRequest,
   LambdaDynamoRequestBatch,
   LambdaResponse,
-  PresignedUrlPost,
   RandomStuffPut,
   S3Object,
   WheelSpinStats,
@@ -262,56 +261,6 @@ export async function putS3(bucket: Bucket, prefix: string, filename: string, mi
     }
     if (response.status === 413) {
       result.message = 'File is too large'
-    }
-
-    return result
-  } catch (error) {
-    console.error('error in putS3: ', error)
-    return null
-  }
-}
-// TODO: not implemented
-export async function putS3Large(bucket: Bucket, filename: string, fullPath: string, signedUrl: PresignedUrlPost, mimeType: string, fileStream: any) {
-  try {
-    //const url = `${signedUrl.url}?Content-Type=${signedUrl.fields['Content-Type']}&key=/${signedUrl.fields.key}&AWSAccessKeyId=${signedUrl.fields.AWSAccessKeyId}&x-amz-security-token=${signedUrl.fields['x-amz-security-token']}&policy=${signedUrl.fields.policy}&signature=${signedUrl.fields.signature}`
-    // const req: RequestInfo = {
-    //   url: signedUrl.url,
-    //   formData: body,
-    //   headers: {}
-    // }
-    const formData = new FormData()
-
-    // formData.append('Content-Type', signedUrl.fields['Content-Type'])
-    //
-    Object.entries({ ...signedUrl.fields }).forEach(([key, value]) => {
-      formData.append(key, value)
-    })
-    // formData.append('key', signedUrl.fields.key)
-    // formData.append('Content-Type', signedUrl.fields['Content-Type'])
-    // formData.append('AWSAccessKeyId', signedUrl.fields.AWSAccessKeyId)
-    // formData.append('policy', signedUrl.fields.policy)
-    // formData.append('key', signedUrl.fields.key)
-    // formData.append('signature', signedUrl.fields.signature)
-    // formData.append('x-amz-security-token', signedUrl.fields['x-amz-security-token'])
-    formData.append('file', fileStream)
-    const response = await fetch(signedUrl.url, {
-      method: 'POST',
-      body: formData,
-
-      //headers: {signedUrl.},
-      headers: { 'Content-Type': 'multipart/form-data' },
-    })
-    const result: S3Object = {
-      bucket: bucket,
-      prefix: `${fullPath.substring(fullPath.lastIndexOf('/'))}`,
-      filename: filename,
-      fullPath: `${fullPath}`,
-    }
-    if (response.status === 413) {
-      result.message = 'File is too large'
-    }
-    if (response.status !== 200) {
-      console.log('response: ', response.statusText)
     }
 
     return result

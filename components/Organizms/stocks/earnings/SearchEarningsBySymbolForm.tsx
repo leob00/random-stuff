@@ -11,7 +11,7 @@ const EarningsSearchSchema = z.object({
 
 export type EarningsSearchFields = z.infer<typeof EarningsSearchSchema>
 
-const SearchEarningsForm = ({ onSubmitted }: { onSubmitted: (data: EarningsSearchFields) => void }) => {
+const SearchEarningsBySymbolForm = ({ onSubmitted }: { onSubmitted: (data: EarningsSearchFields) => void }) => {
   const {
     control,
     handleSubmit,
@@ -48,4 +48,4 @@ const SearchEarningsForm = ({ onSubmitted }: { onSubmitted: (data: EarningsSearc
   )
 }
 
-export default SearchEarningsForm
+export default SearchEarningsBySymbolForm

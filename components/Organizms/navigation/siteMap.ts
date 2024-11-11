@@ -66,7 +66,7 @@ export function siteMap() {
         },
         {
           name: 'earnings search',
-          route: '/csr/stock-earnings-search',
+          route: '/csr/stocks/stock-earnings-search',
         },
         {
           name: 'earnings calendar',

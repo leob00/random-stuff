@@ -41,6 +41,7 @@ const S3Display = () => {
         )[0])
 
   const [selectedFolder, setSelectedFolder] = useState(stateSelectedFolder)
+
   const [allFolders, setAllFolders] = useState(userFolders)
   const [showTopUploadForm, setShowTopUploadForm] = useState(false)
   const [isWaiting, setIsWaiting] = useState(false)
