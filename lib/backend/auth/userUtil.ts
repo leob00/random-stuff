@@ -32,7 +32,7 @@ export function userHasRole(role: RoleTypes, roles?: Role[]) {
   return roles.map((item) => item.Name).includes(role)
 }
 
-export function getRolesFromAmplifyUser(user: AuthUser, attributes: FetchUserAttributesOutput) {
+export function getRolesFromAmplifyUser(attributes: FetchUserAttributesOutput) {
   const roleAttr = attributes['custom:roles'] as string | undefined
   let roles: Role[] = []
   if (roleAttr) {
@@ -51,9 +51,9 @@ export async function getUserCSR() {
     const user = await getCurrentUser()
     const attributes = await fetchUserAttributes()
     const result: AmplifyUser = {
-      id: String(user.username),
-      email: String(attributes.email),
-      roles: getRolesFromAmplifyUser(user, attributes),
+      id: user.username,
+      email: attributes.email ?? '',
+      roles: getRolesFromAmplifyUser(attributes),
     }
     return result
   } catch (error) {

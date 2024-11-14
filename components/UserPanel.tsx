@@ -8,11 +8,10 @@ import { AmplifyUser, getRolesFromAmplifyUser, getUserCSR, userHasRole } from 'l
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { useRouter } from 'next/router'
-import React from 'react'
 import HeaderMenu from './Molecules/Menus/HeaderMenu'
-import { useRouteTracker } from './Organizms/session/useRouteTracker'
 import { AuthUser, signOut as amplifySignOut, fetchUserAttributes } from 'aws-amplify/auth'
 import { Hub } from 'aws-amplify/utils'
+import { useEffect } from 'react'
 
 export type HubPayload = {
   event: string
@@ -51,7 +50,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
         const user: AmplifyUser = {
           id: payloadTicket.username,
           email: String(attr.email),
-          roles: getRolesFromAmplifyUser(payloadTicket, attr),
+          roles: getRolesFromAmplifyUser(attr),
         }
         await setTicket(user)
 
@@ -109,7 +108,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     let fn = async () => {
       if (ticket) {
         return
@@ -127,7 +126,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ticket])
 
-  React.useEffect(() => {
+  useEffect(() => {
     let fn = async () => {
       Hub.listen('auth', (data) => {
         const { payload } = data

@@ -12,7 +12,7 @@ const NoDataFound = ({
   return (
     <>
       <Box p={4} textAlign='center'>
-        <Typography>{message}</Typography>
+        <Typography variant='caption'>{message}</Typography>
       </Box>
       {showDivider && <HorizontalDivider />}
     </>

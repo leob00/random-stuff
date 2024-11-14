@@ -43,7 +43,7 @@ const RecentEarningsChart = ({ reported }: { reported: StockEarning[] }) => {
     chartData[1].numbers.push(calculatePercent(down.length, dayData.length))
     chartData[1].rawData!.push({ ...dayData })
   })
-  const chartOptions = { ...getMultiDatasetBarChartOptions(theme.palette.mode, false) }
+  const chartOptions = { ...getMultiDatasetBarChartOptions(theme.palette.mode, false, true) }
   chartOptions.plugins!.tooltip!.callbacks = {
     title: (tooltipItems) => {
       return ''
@@ -92,10 +92,7 @@ const RecentEarningsChart = ({ reported }: { reported: StockEarning[] }) => {
       </Box>
       <Box py={2}>
         <CenterStack>
-          <ReadOnlyField
-            label='date range'
-            val={`${reported.length > 0 ? `${dayjs(reported[0].ReportDate!).format('MM/DD/YYYY')} - ${dayjs(reported[reported.length - 1].ReportDate!).format('MM/DD/YYYY')}` : 'N/A'}`}
-          />
+          <ReadOnlyField label='date range' val={`${reported.length > 0 ? `${dayjs(reported[0].ReportDate!).format('MM/DD/YYYY')} - ${dayjs(reported[reported.length - 1].ReportDate!).format('MM/DD/YYYY')}` : 'N/A'}`} />
         </CenterStack>
       </Box>
     </>

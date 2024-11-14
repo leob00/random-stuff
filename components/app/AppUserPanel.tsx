@@ -56,7 +56,7 @@ const AppUserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark';
         const user: AmplifyUser = {
           id: payloadTicket.username,
           email: String(attr.email),
-          roles: getRolesFromAmplifyUser(payloadTicket, attr),
+          roles: getRolesFromAmplifyUser(attr),
         }
         await setTicket(user)
 

@@ -7,11 +7,11 @@ import { AmplifyUser, getRolesFromAmplifyUser, getUserCSR, userHasRole } from 'l
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { useRouter } from 'next/navigation'
-import React from 'react'
 import { AuthUser, signOut as amplifySignOut, fetchUserAttributes } from 'aws-amplify/auth'
 import { Hub } from 'aws-amplify/utils'
 import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 import HeaderMenu from 'components/Molecules/Menus/HeaderMenu'
+import { useEffect } from 'react'
 
 export type HubPayload = {
   event: string
@@ -37,6 +37,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
   const handleNavigationEvent = (payload: HubPayload) => {}
 
   const handleAuthEvent = async (payload: HubPayload) => {
+    console.log('auth event: ', payload)
     const newClaims = claims.filter((m) => m.type !== 'rs')
     switch (payload.event) {
       case 'signedOut':
@@ -47,15 +48,12 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
         router.push(retUrl)
         break
       case 'signedIn':
-        if (ticket) {
-          return
-        }
         const payloadTicket = payload.data! as AuthUser
         const attr = await fetchUserAttributes()
         const user: AmplifyUser = {
           id: payloadTicket.username,
           email: String(attr.email),
-          roles: getRolesFromAmplifyUser(payloadTicket, attr),
+          roles: getRolesFromAmplifyUser(attr),
         }
         await setTicket(user)
 
@@ -83,7 +81,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
           })
         }
         saveClaims(newClaims)
-        router.push('/')
+        router.push(lastRoute)
 
         break
       case 'signedUp':
@@ -116,7 +114,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     let fn = async () => {
       if (ticket) {
         return
@@ -134,7 +132,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ticket])
 
-  React.useEffect(() => {
+  useEffect(() => {
     let fn = async () => {
       Hub.listen('auth', (data) => {
         const { payload } = data

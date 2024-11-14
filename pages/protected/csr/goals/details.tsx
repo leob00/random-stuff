@@ -25,8 +25,6 @@ const Page = () => {
   const tasksMutateKey = ['/api/edgeGetRandomStuff', id]
   const goalMutateKey = ['/api/edgeGetRandomStuff', token]
 
-  const [showAddTaskSuccess, setShowAddTaskSuccess] = useState(false)
-
   const fetchGoalTasks = async (_: string, enc: string) => {
     const result = await getUserGoalTasks(goalId)
     return result
@@ -51,9 +49,7 @@ const Page = () => {
       <ResponsiveContainer>
         {isLoading && <BackdropLoader />}
         {goal && <PageHeader text={`Goal: ${goal.body}`} backButtonRoute={'/protected/csr/goals'} forceShowBackButton />}
-        {goal && tasks && (
-          <SingleGoalDisplay username={username} goal={goal} tasks={tasks} onMutated={handleMutated} onAddTask={() => setShowAddTaskSuccess(true)} />
-        )}
+        {goal && tasks && <SingleGoalDisplay username={username} goal={goal} tasks={tasks} onMutated={handleMutated} />}
         <>
           {!isLoading && !goal && (
             <Box>
@@ -66,7 +62,6 @@ const Page = () => {
             </Box>
           )}
         </>
-        {showAddTaskSuccess && <SnackbarSuccess duration={1400} text='task added!' show={showAddTaskSuccess} onClose={() => setShowAddTaskSuccess(false)} />}
       </ResponsiveContainer>
     </>
   )

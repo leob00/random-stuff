@@ -20,6 +20,7 @@ const S3FilesTable = ({
   allFolders,
   onReloadFolder,
   onLocalDataMutate,
+  showTableHeader = true,
 }: {
   s3Controller: S3Controller
   data: S3Object[]
@@ -27,6 +28,7 @@ const S3FilesTable = ({
   allFolders: DropdownItem[]
   onReloadFolder: (targetFolder: DropdownItem) => Promise<void>
   onLocalDataMutate: (folder: DropdownItem, files: S3Object[]) => void
+  showTableHeader?: boolean
 }) => {
   const [isWaiting, setIsWaiting] = React.useState(false)
   const [searchWithinList, setSearchWithinList] = React.useState('')
@@ -188,27 +190,21 @@ const S3FilesTable = ({
   return (
     <>
       {isWaiting && <BackdropLoader />}
-      <S3FilesTableHeader
-        uiState={uiState}
-        itemCount={data.length}
-        onShowMoveFilesDialog={handleShowMoveItemsDialog}
-        onSetEditMode={handleSetEditMode}
-        onShowDeleteFilesDialog={handleShowDeleteFilesDialog}
-        onRefresh={handleRefresh}
-        handleSearchWithinListChanged={handleSearchWithinListChanged}
-      />
+      {showTableHeader && (
+        <S3FilesTableHeader
+          uiState={uiState}
+          itemCount={data.length}
+          onShowMoveFilesDialog={handleShowMoveItemsDialog}
+          onSetEditMode={handleSetEditMode}
+          onShowDeleteFilesDialog={handleShowDeleteFilesDialog}
+          onRefresh={handleRefresh}
+          handleSearchWithinListChanged={handleSearchWithinListChanged}
+        />
+      )}
       {results.map((item) => (
         <Box key={item.fullPath} py={1}>
           <FadeIn>
-            <S3FileRow
-              isEditEmode={uiState.isEditEmode}
-              file={item}
-              onSelectFile={handleSelectFile}
-              onViewFile={handleViewFile}
-              onDelete={handleDelete}
-              onRename={handleOnRename}
-              onMovefile={handleMoveSingleFile}
-            />
+            <S3FileRow isEditEmode={uiState.isEditEmode} file={item} onSelectFile={handleSelectFile} onViewFile={handleViewFile} onDelete={handleDelete} onRename={handleOnRename} onMovefile={handleMoveSingleFile} />
           </FadeIn>
         </Box>
       ))}

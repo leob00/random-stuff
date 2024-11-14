@@ -10,7 +10,7 @@ import numeral from 'numeral'
 import { sum } from 'lodash'
 import BasicPieChart from 'components/Atoms/Charts/chartJs/BasicPieChart'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
-import { getDateRangeForPreviousQuarter, getDateRangeForQuarter } from 'lib/util/dateUtil'
+import { getDateRangeForQuarter } from 'lib/util/dateUtil'
 import dayjs from 'dayjs'
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
@@ -25,7 +25,7 @@ const QuarterlyEarningsReport = ({ data, mutateKey }: { data: StockEarningAggreg
     return `${m.Year} - Q${m.Quarter}`
   })
 
-  const chartOptions = getMultiDatasetBarChartOptions(theme.palette.mode, false)
+  const chartOptions = getMultiDatasetBarChartOptions(theme.palette.mode, false, true)
   chartOptions.plugins!.tooltip!.callbacks = {
     title: (tooltipItems) => {
       return ''
@@ -80,9 +80,6 @@ const QuarterlyEarningsReport = ({ data, mutateKey }: { data: StockEarningAggreg
   }
   const startDate = data.length > 0 ? getDateRangeForQuarter(data[0].Year, data[0].Quarter).startDate : null
   const endDate = data.length > 0 ? getDateRangeForQuarter(data[data.length - 1].Year, data[data.length - 1].Quarter).endDate : null
-
-  // console.log('startDate: ', startDate)
-  // console.log('end DateRange: ', getDateRangeForQuarter(data[data.length - 1].Year, data[data.length - 1].Quarter).endDate)
 
   const handlePreviousClick = async () => {
     if (startDate && endDate && data.length > 0) {
@@ -172,11 +169,7 @@ const QuarterlyEarningsReport = ({ data, mutateKey }: { data: StockEarningAggreg
           <Button variant='text' disabled={!startDate} onClick={handlePreviousClick}>
             <KeyboardArrowLeft />
           </Button>
-          <Button
-            variant='text'
-            disabled={!endDate || (dayjs(endDate).year() == dayjs().year() && dayjs(endDate).quarter() === dayjs().quarter())}
-            onClick={handleNextClick}
-          >
+          <Button variant='text' disabled={!endDate || (dayjs(endDate).year() == dayjs().year() && dayjs(endDate).quarter() === dayjs().quarter())} onClick={handleNextClick}>
             <KeyboardArrowRight />
           </Button>
         </Box>

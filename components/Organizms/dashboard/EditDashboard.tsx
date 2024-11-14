@@ -6,6 +6,7 @@ import OnOffSwitch from 'components/Atoms/Inputs/OnOffSwitch'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { sortArray } from 'lib/util/collections'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const EditDashboard = () => {
   const { dashboardWidgets, saveDashboardWidgets } = useLocalStore()
@@ -66,18 +67,20 @@ const EditDashboard = () => {
           )}
           {hiddenWidgets.map((item, index) => (
             <Box key={item.id}>
-              <ListItem id={item.id}>
-                <ListItemText primary={`${item.title}`} secondary={` `} sx={{ mt: -0.5 }} />
-                <Box>
-                  <OnOffSwitch
-                    label='show'
-                    isChecked={item.display}
-                    onChanged={(checked) => {
-                      handleUpdateShowHide(item, checked)
-                    }}
-                  />
-                </Box>
-              </ListItem>
+              <FadeIn>
+                <ListItem id={item.id}>
+                  <ListItemText primary={`${item.title}`} secondary={` `} sx={{ mt: -0.5 }} />
+                  <Box>
+                    <OnOffSwitch
+                      label='show'
+                      isChecked={item.display}
+                      onChanged={(checked) => {
+                        handleUpdateShowHide(item, checked)
+                      }}
+                    />
+                  </Box>
+                </ListItem>
+              </FadeIn>
               <HorizontalDivider />
             </Box>
           ))}

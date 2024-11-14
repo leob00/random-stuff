@@ -6,6 +6,7 @@ import { DashboardWidget, WidgetSize } from './dashboardModel'
 import OnOffSwitch from 'components/Atoms/Inputs/OnOffSwitch'
 import { DropdownItem } from 'lib/models/dropdown'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 export type DraggableListItemProps = {
   item: DashboardWidget
@@ -45,33 +46,34 @@ const DraggableWidget = ({ item, index, onUpdate, disableShowHide }: DraggableLi
       <Draggable draggableId={item.id} index={index} key={item.id}>
         {(provided, snapshot) => (
           <>
-            <ListItem id={item.id} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-              <ListItemAvatar>
-                <DragIndicator />
-              </ListItemAvatar>
-              <ListItemText primary={`${item.title}`} secondary={` `} sx={{ mt: -0.5 }} />
-              <Box>
-                <OnOffSwitch
-                  label='show'
-                  isChecked={item.display}
-                  onChanged={(checked) => {
-                    onUpdateDisplay(item, checked)
-                  }}
-                  disabled={disableShowHide}
-                />
-              </Box>
-              <Box>
-                <DropdownList
-                  disabled={!item.allowSizeChange}
-                  options={widgetSizeOptions}
-                  selectedOption={item.size ?? ''}
-                  onOptionSelected={(val) => {
-                    onUpdateSize(item, val as WidgetSize)
-                  }}
-                />
-              </Box>
-            </ListItem>
-
+            <FadeIn>
+              <ListItem id={item.id} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                <ListItemAvatar>
+                  <DragIndicator />
+                </ListItemAvatar>
+                <ListItemText primary={`${item.title}`} secondary={` `} sx={{ mt: -0.5 }} />
+                <Box>
+                  <OnOffSwitch
+                    label='show'
+                    isChecked={item.display}
+                    onChanged={(checked) => {
+                      onUpdateDisplay(item, checked)
+                    }}
+                    disabled={disableShowHide}
+                  />
+                </Box>
+                <Box>
+                  <DropdownList
+                    disabled={!item.allowSizeChange}
+                    options={widgetSizeOptions}
+                    selectedOption={item.size ?? ''}
+                    onOptionSelected={(val) => {
+                      onUpdateSize(item, val as WidgetSize)
+                    }}
+                  />
+                </Box>
+              </ListItem>
+            </FadeIn>
             <HorizontalDivider />
           </>
         )}

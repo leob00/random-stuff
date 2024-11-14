@@ -1,20 +1,24 @@
 import { Authenticator } from '@aws-amplify/ui-react'
-import React, { useEffect } from 'react'
-import { Box, Typography } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { Alert, Box, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import TabList from 'components/Atoms/Buttons/TabList'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import '@aws-amplify/ui-react/styles.css'
 import { useAuthenticator } from '@aws-amplify/ui-react'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/router'
 import { useRouteTracker } from '../session/useRouteTracker'
+import { AuthUser } from 'aws-amplify/auth'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 export type AuthMode = 'signIn' | 'signUp' | 'resetPassword'
 
 const LoginLayout = () => {
   const router = useRouter()
+  const currentPath = router.asPath
 
-  const { authStatus, signOut, toSignIn, toSignUp, toForgotPassword, isPending } = useAuthenticator((context) => [context.authStatus])
+  const { authStatus, toSignIn, toSignUp, isPending, user } = useAuthenticator((context) => [context.authStatus])
+  const [initialUserState, setInitialUserState] = useState<AuthUser | undefined>(user)
   const { lastRoute } = useRouteTracker()
 
   const defaultTabs: TabInfo[] = [
@@ -26,7 +30,7 @@ const LoginLayout = () => {
     },
   ]
 
-  const [selectedTab, setSelectedTab] = React.useState(defaultTabs[0])
+  const [selectedTab, setSelectedTab] = useState(defaultTabs[0])
 
   const handleSetTab = async (tab: TabInfo) => {
     switch (tab.title) {
@@ -41,11 +45,11 @@ const LoginLayout = () => {
   }
 
   useEffect(() => {
-    if (authStatus === 'authenticated') {
+    if (!initialUserState && !!user && authStatus === 'authenticated') {
       router.push(lastRoute)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authStatus])
+  }, [user, authStatus])
 
   return (
     <>
@@ -58,7 +62,26 @@ const LoginLayout = () => {
           <Box sx={{ paddingLeft: { lg: 40 } }}>
             <TabList tabs={defaultTabs} onSetTab={handleSetTab} selectedTab={defaultTabs.findIndex((m) => m.title === selectedTab.title)} />
           </Box>
-          <Authenticator key={'signIn'} variation='default' />
+          <Authenticator variation='default'></Authenticator>
+        </>
+      )}
+      {authStatus === 'authenticated' && (
+        <>
+          <CenterStack sx={{ py: 2 }}>
+            <FadeIn>
+              <Alert severity='success' title='You are signed in.'>
+                You are signed in.
+              </Alert>
+            </FadeIn>
+          </CenterStack>
+          {/* <CenterStack sx={{ py: 2 }}>
+            <PrimaryButton
+              text='Sign out'
+              onClick={() => {
+                signOut()
+              }}
+            />
+          </CenterStack> */}
         </>
       )}
     </>

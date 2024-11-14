@@ -1,6 +1,5 @@
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import dayjs from 'dayjs'
@@ -25,30 +24,29 @@ import { UserGoal, UserTask } from './goalModels'
 import { useState } from 'react'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { deleteS3Object } from 'lib/backend/api/aws/apiGateway/s3/s3functions'
+import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 
 const SingleGoalDisplay = ({
   username,
   goal,
   tasks,
   onMutated,
-  onAddTask,
 }: {
   username: string
   goal: UserGoal
   tasks: UserTask[]
   onMutated: (goal: UserGoal, tasks: UserTask[]) => void
-  onAddTask?: () => void
 }) => {
   const [goalEditMode, setGoalEditMode] = useState(false)
   const [showDeleteGoalConfirm, setShowDeleteGoalConfirm] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
+  const [snackbarText, setSnackbarText] = useState<string | null>(null)
   const router = useRouter()
 
   const displayTasks = goal.deleteCompletedTasks ? [...tasks].filter((m) => m.status !== 'completed') : [...tasks]
 
   const handleAddTask = async (item: UserTask) => {
-    //setIsSaving(true)
-    onAddTask?.()
+    setSnackbarText('task added')
     let newTasks = [...tasks]
     const newGoal = { ...goal }
     newTasks.unshift(item)
@@ -76,6 +74,12 @@ const SingleGoalDisplay = ({
     onMutated(resultGoal, newTasks)
   }
   const handleModifyTask = async (item: UserTask) => {
+    if (item.status === 'completed') {
+      setSnackbarText('task completed')
+    } else {
+      setSnackbarText('task modified')
+    }
+
     let newTasks = [...tasks]
     replaceItemInArray(item, newTasks, 'id', item.id!)
     if (goal.deleteCompletedTasks) {
@@ -131,48 +135,43 @@ const SingleGoalDisplay = ({
   return (
     <>
       {goalEditMode ? (
-        <EditGoal goal={goal} onSaveGoal={handleModifyGoal} onShowCompletedTasks={() => {}} onCancelEdit={() => setGoalEditMode(false)} />
+        <FadeIn>
+          <EditGoal goal={goal} onSaveGoal={handleModifyGoal} onShowCompletedTasks={() => {}} onCancelEdit={() => setGoalEditMode(false)} />
+        </FadeIn>
       ) : (
         <>
-          <FadeIn>
-            {goal.deleteCompletedTasks && (
-              <Box py={2}>
-                <Box display={'flex'} alignItems={'center'} gap={1} justifyContent={'center'}>
-                  <AlertWithHeader severity='warning' text='completed tasks will be deleted' />
-                </Box>
-              </Box>
-            )}
-            <Box py={2} display='flex' justifyContent='space-between'>
-              <Box>
-                {goal.stats && !goal.deleteCompletedTasks && (
-                  <>
-                    <GoalStats goal={goal} completePercent={goal.completePercent ?? 0} />
-                  </>
-                )}
-              </Box>
-              <Box>
-                <ContextMenu items={contextMenu} />
-              </Box>
+          <Box py={2} display='flex' justifyContent='space-between'>
+            <Box>
+              {goal.stats && !goal.deleteCompletedTasks && (
+                <>
+                  <GoalStats goal={goal} completePercent={goal.completePercent ?? 0} />
+                </>
+              )}
             </Box>
-            <HorizontalDivider />
-            {isSaving && <BackdropLoader />}
-            <TaskList
-              username={username}
-              selectedGoal={goal}
-              tasks={displayTasks}
-              onAddTask={handleAddTask}
-              onDeleteTask={handleDeleteTask}
-              onModifyTask={handleModifyTask}
-            />
-            <ConfirmDeleteDialog
-              show={showDeleteGoalConfirm}
-              text={`Are you sure you want to delete '${goal.body}' and all of its tasks?`}
-              onConfirm={handleDeleteGoal}
-              onCancel={() => setShowDeleteGoalConfirm(false)}
-            />
-          </FadeIn>
+            <Box>
+              <ContextMenu items={contextMenu} />
+            </Box>
+          </Box>
+          <HorizontalDivider />
+          {isSaving && <BackdropLoader />}
+
+          <TaskList
+            username={username}
+            selectedGoal={goal}
+            tasks={displayTasks}
+            onAddTask={handleAddTask}
+            onDeleteTask={handleDeleteTask}
+            onModifyTask={handleModifyTask}
+          />
+          <ConfirmDeleteDialog
+            show={showDeleteGoalConfirm}
+            text={`Are you sure you want to delete '${goal.body}' and all of its tasks?`}
+            onConfirm={handleDeleteGoal}
+            onCancel={() => setShowDeleteGoalConfirm(false)}
+          />
         </>
       )}
+      {snackbarText && <SnackbarSuccess duration={1400} text={snackbarText} show={!!snackbarText} onClose={() => setSnackbarText(null)} />}
     </>
   )
 }

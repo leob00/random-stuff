@@ -31,9 +31,6 @@ const Page = () => {
     {
       title: 'Iterator',
     },
-    {
-      title: 'Frame',
-    },
 
     {
       title: 'Batch Post',

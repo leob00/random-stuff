@@ -2,7 +2,6 @@
 import { AppBar, Container, Toolbar, useScrollTrigger, Box, useTheme } from '@mui/material'
 import NLink from 'next/link'
 import { useEffect, useState } from 'react'
-import React from 'react'
 import UserPanel from './UserPanel'
 import { DarkMode } from './themes/DarkMode'
 import logo from '/public/images/logo-with-text-blue-small.png'
@@ -29,7 +28,7 @@ const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; 
   const handleChangeLightMode = () => {
     onSetColorMode()
   }
-  React.useEffect(() => {
+  useEffect(() => {
     let fn = async () => {
       if (ticket) {
         return

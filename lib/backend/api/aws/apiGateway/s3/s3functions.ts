@@ -61,7 +61,7 @@ export async function renameS3Object(bucket: Bucket, oldPath: string, newPath: s
     })
     return result
   } catch (err) {
-    console.error('error occurred in postDelete: ', err)
+    console.error('error occurred in postBody: ', err)
   }
   return null
 }

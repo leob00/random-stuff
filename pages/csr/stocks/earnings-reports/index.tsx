@@ -3,6 +3,7 @@ import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import Seo from 'components/Organizms/Seo'
+import AnnualEarningsReportWrapper from 'components/Organizms/stocks/earnings/AnnualEarningsReportWrapper'
 import QuarterlyEarningsReportWrapper from 'components/Organizms/stocks/earnings/QuarterlyEarningsReportWrapper'
 import RecentEarningsReportWrapper from 'components/Organizms/stocks/earnings/RecentEarningsReportWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
@@ -19,6 +20,10 @@ const Page = () => {
     {
       text: 'quarterly',
       value: 'quarterly',
+    },
+    {
+      text: 'annual',
+      value: 'annual',
     },
   ]
 
@@ -37,6 +42,7 @@ const Page = () => {
         </Box>
         {selectedReport === 'recent-earnings' && <RecentEarningsReportWrapper />}
         {selectedReport === 'quarterly' && <QuarterlyEarningsReportWrapper />}
+        {selectedReport === 'annual' && <AnnualEarningsReportWrapper />}
       </ResponsiveContainer>
     </>
   )

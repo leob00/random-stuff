@@ -1,16 +1,5 @@
 import { ChartData, ChartOptions } from 'chart.js'
-import {
-  CasinoBlackTransparent,
-  CasinoBlue,
-  CasinoMoreBlackTransparent,
-  CasinoRedTransparent,
-  CasinoWhiteTransparent,
-  DarkBlue,
-  DarkModeBlue,
-  DarkModeBlueTransparent,
-  VeryLightBlue,
-  VeryLightBlueTransparent,
-} from 'components/themes/mainTheme'
+import { CasinoBlackTransparent, CasinoBlue, CasinoMoreBlackTransparent, CasinoRedTransparent, CasinoWhiteTransparent, DarkBlue, DarkModeBlue, DarkModeBlueTransparent, VeryLightBlue, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import { max } from 'lodash'
 
 export interface LineChart {
@@ -39,14 +28,7 @@ export const getBarChartData = (labels: string[], numbers: number[], colors: str
   }
 }
 
-export const getBarChartOptions = (
-  title: string,
-  data: BarChart,
-  yAxisDecorator = '',
-  colors: string[],
-  palette: 'light' | 'dark',
-  isHorizontal?: boolean,
-): ChartOptions<'bar'> => {
+export const getBarChartOptions = (title: string, data: BarChart, yAxisDecorator = '', colors: string[], palette: 'light' | 'dark', isHorizontal?: boolean): ChartOptions<'bar'> => {
   return {
     responsive: true,
     maintainAspectRatio: true,
@@ -145,7 +127,7 @@ export const getBarChartOptions = (
   }
 }
 
-export function getMultiDatasetBarChartOptions(palette: 'light' | 'dark', stacked: boolean): ChartOptions<'bar'> {
+export function getMultiDatasetBarChartOptions(palette: 'light' | 'dark', stacked: boolean, showLegend: boolean = false, title?: string): ChartOptions<'bar'> {
   const result: ChartOptions<'bar'> = {
     scales: {
       x: {
@@ -182,13 +164,16 @@ export function getMultiDatasetBarChartOptions(palette: 'light' | 'dark', stacke
           size: 18,
           weight: 300,
         },
-        display: true,
-        text: 'Earnings: positive / negative',
+        display: !!title,
+        text: title ?? '',
         color: palette === 'light' ? CasinoBlue : VeryLightBlue,
       },
       legend: {
-        display: false,
+        display: showLegend,
         position: 'top' as const,
+        labels: {
+          color: palette === 'light' ? CasinoBlue : VeryLightBlue,
+        },
       },
       tooltip: {
         padding: 16,

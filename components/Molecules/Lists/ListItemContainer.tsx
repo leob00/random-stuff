@@ -4,7 +4,7 @@ import React, { ReactNode } from 'react'
 
 const ListItemContainer = ({ children }: { children: ReactNode | JSX.Element[] }) => {
   const theme = useTheme()
-  return <Stack sx={{ backgroundColor: theme.palette.mode === 'dark' ? DarkBlue : ChartBackground }}>{children}</Stack>
+  return <Stack>{children}</Stack>
 }
 
 export default ListItemContainer

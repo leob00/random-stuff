@@ -22,7 +22,7 @@ export async function getUserSSR(context: GetServerSidePropsContext<ParsedUrlQue
     const result: AmplifyUser = {
       id: user.username,
       email: userAttributes.email ?? '',
-      roles: await getRolesFromAmplifyUser(user, userAttributes),
+      roles: await getRolesFromAmplifyUser(userAttributes),
     }
     return result
   } catch (err) {
@@ -44,7 +44,7 @@ export async function getUserSSRApi(req: NextApiRequest, res: NextApiResponse) {
     const result: AmplifyUser = {
       id: user.username,
       email: userAttributes.email ?? '',
-      roles: await getRolesFromAmplifyUser(user, userAttributes),
+      roles: await getRolesFromAmplifyUser(userAttributes),
     }
     return result
   } catch (err) {

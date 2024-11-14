@@ -13,12 +13,13 @@ import { UserTask } from '../goalModels'
 import { useReducer, useState } from 'react'
 import { z } from 'zod'
 import S3FileUploadForm from 'components/Molecules/Forms/S3FileUploadForm'
-import { Bucket, S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { useUserController } from 'hooks/userController'
 import { sortArray } from 'lib/util/collections'
 import S3FilesTable from 'components/Organizms/files/S3FilesTable'
 import { DropdownItem } from 'lib/models/dropdown'
 import { useS3Controller } from 'hooks/s3/useS3Controller'
+import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 const TaskSchema = z.object({
   title: z.string(),
 })
@@ -40,7 +41,6 @@ const EditTaskForm = ({
   const [showConfirmDelete, setShowConfirmDelete] = useState(false)
 
   const s3Controller = useS3Controller()
-  const bucket: Bucket = 'rs-files'
   const folder = `${authProfile!.username}/user-tasks/${task.id}`
   const allFolders: DropdownItem[] = [
     {
@@ -64,12 +64,13 @@ const EditTaskForm = ({
   }
 
   const trySubmit = () => {
-    const isValid = formInput.body !== undefined && formInput.body.trim().length > 0 && !formInput.body.includes('  ')
-    setValid(isValid)
-    if (isValid) {
+    const isFormValid = formInput.body !== undefined && formInput.body.trim().length > 0 && !formInput.body.includes('  ')
+
+    if (isFormValid) {
       const data = { ...formInput }
       setFormInput({ ...formInput, id: undefined, body: undefined })
       onSubmit(data)
+      setValid(true)
     } else {
       setValid(false)
     }
@@ -100,53 +101,57 @@ const EditTaskForm = ({
   }
 
   return (
-    <>
+    <Box>
       <form onSubmit={handleFormSubmit}>
-        <Box py={2} maxWidth={{ xs: 280, md: 500 }}>
-          <FormTextBox width={'100%'} defaultValue={formInput.body ?? ''} label={'task'} onChanged={handleTitleChanged} error={!valid} />
+        <Box display={'flex'} justifyContent={'center'}>
+          <Box minWidth={{ md: 800 }}>
+            <Box py={2} maxWidth={{ xs: 280, md: 500 }}>
+              <FormTextBox width={'100%'} defaultValue={formInput.body ?? ''} label={'task'} onChanged={handleTitleChanged} error={!valid} />
+            </Box>
+            <Box py={2}>
+              <DateAndTimePicker2
+                value={formInput.dueDate ? dayjs(formInput.dueDate).format() : undefined}
+                onDateSelected={handleDueDateChange}
+                label={'due date'}
+              />
+            </Box>
+            <Box py={2}>
+              <DateAndTimePicker2
+                value={formInput.dateCompleted ? dayjs(formInput.dueDate).format() : undefined}
+                onDateSelected={handleDateCompletedChange}
+                label={'completed date'}
+              />
+            </Box>
+            <Box py={2}>
+              <TextField
+                label='notes'
+                placeholder='notes...'
+                multiline
+                sx={{ width: '100%' }}
+                defaultValue={formInput.notes}
+                onChange={handleNoteChange}
+                slotProps={{
+                  input: {
+                    autoCorrect: 'off',
+                  },
+                }}
+              />
+            </Box>
+          </Box>
         </Box>
-        <Box py={2}>
-          <DateAndTimePicker2
-            value={formInput.dueDate ? dayjs(formInput.dueDate).format() : undefined}
-            onDateSelected={handleDueDateChange}
-            label={'due date'}
-          />
-        </Box>
-        <Box py={2}>
-          <DateAndTimePicker2
-            value={formInput.dateCompleted ? dayjs(formInput.dueDate).format() : undefined}
-            onDateSelected={handleDateCompletedChange}
-            label={'completed date'}
-          />
-        </Box>
-        <Box py={2}>
-          <TextField
-            label='notes'
-            placeholder='notes...'
-            multiline
-            sx={{ width: '100%' }}
-            defaultValue={formInput.notes}
-            onChange={handleNoteChange}
-            slotProps={{
-              input: {
-                autoCorrect: 'off',
-              },
-            }}
-          />
-        </Box>
-        <Box py={2}>
-          <Stack direction={'row'} display={'flex'} justifyContent={'left'} alignItems={'center'}></Stack>
-        </Box>
-
         {formInput.files && formInput.files.length > 0 && (
-          <S3FilesTable
-            allFolders={allFolders}
-            folder={{ text: 'tasks-folder', value: folder }}
-            data={formInput.files ?? []}
-            s3Controller={s3Controller}
-            onLocalDataMutate={handleFileMutate}
-            onReloadFolder={handleReloadFolder}
-          />
+          <>
+            <CenteredHeader title='files' />
+            <S3FilesTable
+              allFolders={allFolders}
+              folder={{ text: 'tasks-folder', value: folder }}
+              data={formInput.files ?? []}
+              s3Controller={s3Controller}
+              onLocalDataMutate={handleFileMutate}
+              onReloadFolder={handleReloadFolder}
+              showTableHeader={false}
+            />
+          </>
         )}
         <S3FileUploadForm files={formInput.files ?? []} folder={folder} onUploaded={handleUploaded} />
         <Box py={2}>
@@ -164,7 +169,6 @@ const EditTaskForm = ({
           </Stack>
         </Box>
       </form>
-
       <ConfirmDeleteDialog
         show={showConfirmDelete}
         title={'confirm delete'}
@@ -177,7 +181,7 @@ const EditTaskForm = ({
           setShowConfirmDelete(false)
         }}
       />
-    </>
+    </Box>
   )
 }
 
