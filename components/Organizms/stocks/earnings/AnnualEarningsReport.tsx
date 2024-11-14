@@ -55,9 +55,9 @@ const AnnualEarningsReport = ({ apiData, mutateKey }: { apiData: StockEarningAgg
     afterLabel: (tooltipItems) => {
       let result = `${tooltipItems.dataset.label}: `
       if (tooltipItems.datasetIndex === 0) {
-        return `${result}${numeral(dataResult[tooltipItems.dataIndex].negative).format('###,###')} (${Number(tooltipItems.formattedValue).toFixed(2)}%)`
+        return `${result}${numeral(dataResult[tooltipItems.dataIndex].positive).format('###,###')} (${Number(tooltipItems.formattedValue).toFixed(2)}%)`
       }
-      return `${result}${numeral(dataResult[tooltipItems.dataIndex].positive).format('###,###')} (${Number(tooltipItems.formattedValue).toFixed(2)}%)`
+      return `${result}${numeral(dataResult[tooltipItems.dataIndex].negative).format('###,###')} (${Number(tooltipItems.formattedValue).toFixed(2)}%)`
     },
     beforeFooter: (tooltipItems) => {
       return `___________________________`
