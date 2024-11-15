@@ -1,17 +1,16 @@
-import { Alert, Box, Button, Paper, Typography } from '@mui/material'
+import { Alert, Box } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
-import React from 'react'
 import { styled } from '@mui/material/styles'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import S3UploadInput from 'components/Organizms/files/S3UploadInput'
-import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { renameS3File } from 'lib/backend/csr/nextApiWrapper'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import FileUploadButton from 'components/Atoms/Buttons/FileUploadButton'
 import { allSupportedFileTypes } from 'lib/backend/files/fileTypes'
+import { FormEvent, useState } from 'react'
 
 export const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -46,16 +45,26 @@ export const mediaTypes = [
 
 export const allowed = mediaTypes.join()
 
-const S3FileUploadForm = ({ folder, files, onUploaded, isWaiting }: { folder: string; files: S3Object[]; onUploaded: (item: S3Object) => void; isWaiting?: boolean }) => {
-  const [file, setFile] = React.useState<File | undefined>(undefined)
-  const [userFilename, setUserFilename] = React.useState('')
-  const [isLoading, setIsLoading] = React.useState(false)
-  const [error, setError] = React.useState<string | null>(null)
-  const [warning, setWarning] = React.useState<string | null>(null)
+const S3FileUploadForm = ({
+  folder,
+  files,
+  onUploaded,
+  isWaiting,
+}: {
+  folder: string
+  files: S3Object[]
+  onUploaded: (item: S3Object) => void
+  isWaiting?: boolean
+}) => {
+  const [file, setFile] = useState<File | undefined>(undefined)
+  const [userFilename, setUserFilename] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [warning, setWarning] = useState<string | null>(null)
 
   const maxFileSize = 10000000
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setWarning(null)
     if (file) {

@@ -67,8 +67,8 @@ const TaskItem = ({
           </FadeIn>
         </Box>
       </ListItemContainer>
-
-      {index < taskCount - 1 && <HorizontalDivider />}
+      <HorizontalDivider />
+      {/* {index < taskCount - 1 && <HorizontalDivider />} */}
     </>
   )
 }

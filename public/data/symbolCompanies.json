@@ -216,6 +216,14 @@
     "Symbol": "ABOS"
   },
   {
+    "Company": "Abpro Holdings, Inc Common Stock",
+    "Symbol": "ABP"
+  },
+  {
+    "Company": "Abpro Holdings, Inc. Warrant",
+    "Symbol": "ABPWW"
+  },
+  {
     "Company": "Arbor Realty Trust, Inc.",
     "Symbol": "ABR"
   },
@@ -394,6 +402,10 @@
   {
     "Company": "Ascent Industries Co. Common Stock",
     "Symbol": "ACNT"
+  },
+  {
+    "Company": "Alpha Cognition Inc. Common Stock",
+    "Symbol": "ACOG"
   },
   {
     "Company": "Aclarion, Inc. Common Stock",
@@ -4556,6 +4568,10 @@
     "Symbol": "BHRB"
   },
   {
+    "Company": "BioHarvest Sciences Inc. Common Stock",
+    "Symbol": "BHST"
+  },
+  {
     "Company": "BlackRock Virginia Muni Bond Trust",
     "Symbol": "BHV"
   },
@@ -5668,7 +5684,7 @@
     "Symbol": "BRT"
   },
   {
-    "Company": "BlackRock Total Return ETF",
+    "Company": "BlackRock ETF Trust II iShares Total Return Active ETF",
     "Symbol": "BRTR"
   },
   {
@@ -9102,6 +9118,10 @@
   {
     "Company": "CrowdStrike Holdings, Inc. Class A Common Stock",
     "Symbol": "CRWD"
+  },
+  {
+    "Company": "GraniteShares 2x Long CRWD Daily ETF",
+    "Symbol": "CRWL"
   },
   {
     "Company": "Crown Crafts Inc",
@@ -20108,7 +20128,7 @@
     "Symbol": "ICOW"
   },
   {
-    "Company": "BlackRock Ultra Short-Term Bond ETF",
+    "Company": "iShares Ultra Short-Term Bond Active ETF",
     "Symbol": "ICSH"
   },
   {
@@ -21612,6 +21632,10 @@
     "Symbol": "ITDI"
   },
   {
+    "Company": "iShares LifePath Target Date 2070 ETF",
+    "Symbol": "ITDJ"
+  },
+  {
     "Company": "Amplify BlueStar Israel Technology ETF",
     "Symbol": "ITEQ"
   },
@@ -22040,6 +22064,10 @@
     "Symbol": "IZRL"
   },
   {
+    "Company": "Invizyne Technologies Inc. Common Stock",
+    "Symbol": "IZTC"
+  },
+  {
     "Company": "Jacobs Solutions Inc.",
     "Symbol": "J"
   },
@@ -22388,6 +22416,10 @@
     "Symbol": "JIG"
   },
   {
+    "Company": "Janus Henderson Income ETF",
+    "Symbol": "JIII"
+  },
+  {
     "Company": "J.Jill, Inc. Common Stock",
     "Symbol": "JILL"
   },
@@ -22544,7 +22576,7 @@
     "Symbol": "JPEM"
   },
   {
-    "Company": "NUVEEN PREFERRED AND INCOME TERM FUND",
+    "Company": "Nuveen Preferred Securities & Income Opportunities Fund",
     "Symbol": "JPI"
   },
   {
@@ -26340,7 +26372,7 @@
     "Symbol": "MKTX"
   },
   {
-    "Company": "MACKENZIE REALTY CAPITAL",
+    "Company": "MacKenzie Realty Capital, Inc. Common Stock",
     "Symbol": "MKZR"
   },
   {
@@ -26520,7 +26552,7 @@
     "Symbol": "MMYT"
   },
   {
-    "Company": "IQ ARB Merger Arbitrage ETF",
+    "Company": "NYLI Merger Arbitrage ETF",
     "Symbol": "MNA"
   },
   {
@@ -27286,6 +27318,10 @@
   {
     "Company": "BLACKROCK MUNIHOLDINGS NEW JERSEY QUALITY FUND, INC.",
     "Symbol": "MUJ"
+  },
+  {
+    "Company": "GraniteShares 2x Long MU Daily ETF",
+    "Symbol": "MULL"
   },
   {
     "Company": "Mullen Automotive, Inc. Common Stock",
@@ -30550,6 +30586,10 @@
   {
     "Company": "Pacer Lunt MidCap Multi-Factor Alternator ETF",
     "Symbol": "PAMC"
+  },
+  {
+    "Company": "PAMT CORP Common Stock",
+    "Symbol": "PAMT"
   },
   {
     "Company": "Pangaea Logistics Solutions Ltd.",
@@ -37284,6 +37324,10 @@
     "Symbol": "SNPX"
   },
   {
+    "Company": "Sunrise Communications AG American Depositary Shares representing Class A shares",
+    "Symbol": "SNRE"
+  },
+  {
     "Company": "Sunrise Communications AG American Depositary Shares representing Class A shares When Issued",
     "Symbol": "SNREV"
   },
@@ -39824,6 +39868,10 @@
     "Symbol": "TLTW"
   },
   {
+    "Company": "Telix Pharmaceuticals Limited American Depositary Shares",
+    "Symbol": "TLX"
+  },
+  {
     "Company": "Tilly's Inc.",
     "Symbol": "TLYS"
   },
@@ -40510,6 +40558,10 @@
   {
     "Company": "Thrivent Small-Mid Cap ESG ETF",
     "Symbol": "TSME"
+  },
+  {
+    "Company": "GraniteShares 2x Long TSM Daily ETF",
+    "Symbol": "TSMU"
   },
   {
     "Company": "Direxion Daily TSM Bull 2X Shares",

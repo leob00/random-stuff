@@ -6,15 +6,15 @@ import dayjs from 'dayjs'
 import { useUserController } from 'hooks/userController'
 import { Claim, ClaimType, getUserCSR } from 'lib/backend/auth/userUtil'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
-import React, { ReactNode } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 
 const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children: ReactNode }) => {
   const { claims, saveClaims } = useSessionStore()
   const { ticket } = useUserController()
-  const [isValidating, setIsValidating] = React.useState(true)
-  const [validatedClaim, setValidatedClaim] = React.useState(claims.find((m) => m.type === claimType))
+  const [isValidating, setIsValidating] = useState(true)
+  const [validatedClaim, setValidatedClaim] = useState(claims.find((m) => m.type === claimType))
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fn = async () => {
       const allClaims = [...claims]
       let claim = { ...validatedClaim }

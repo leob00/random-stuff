@@ -11,6 +11,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import SearchEarningsByDatesForm, { EarningsSearchDateFields } from './SearchEarningsByDatesForm'
+import SearchBySymbolAccordion from './SearchBySymbolAccordion'
 
 const StockEarningsSearchDisplay = () => {
   const [isBySymbolExpanded, setIsBySymbolExpanded] = useState(false)
@@ -53,16 +54,7 @@ const StockEarningsSearchDisplay = () => {
       {isLoading && <BackdropLoader />}
       <PageHeader text='Earnings Search' backButtonRoute='/csr/my-stocks' />
       <Box py={2} flexDirection={'column'} gap={2} display={'flex'}>
-        <Accordion expanded={isBySymbolExpanded} onChange={() => setIsBySymbolExpanded(!isBySymbolExpanded)}>
-          <AccordionSummary expandIcon={<ExpandMoreIcon fontSize='small' color='primary' />} sx={{ borderBottom: `solid 1px ${CasinoGrayTransparent}` }}>
-            <Typography variant='subtitle1'>by symbol</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Box minHeight={200} py={4}>
-              <SearchEarningsBySymbolForm onSubmitted={handleSearchSubmitSearchBySymbol} />
-            </Box>
-          </AccordionDetails>
-        </Accordion>
+        <SearchBySymbolAccordion handelSubmit={handleSearchSubmitSearchBySymbol} />
         <>
           {stockQuote && (
             <Box py={2}>

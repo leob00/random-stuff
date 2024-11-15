@@ -16,6 +16,7 @@ import UsersAdmin from 'components/Organizms/admin/users/UsersAdmin'
 import LoginUsernameForm, { UsernameLogin } from 'components/Molecules/Forms/Login/LoginUsernameForm'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { useEffect, useState } from 'react'
+import DataQualityStart from 'components/Organizms/admin/data-quality/DataQualityStart'
 
 const Page = () => {
   const userController = useUserController()
@@ -25,7 +26,7 @@ const Page = () => {
   const [selectedTab, setSelectedTab] = useState('Jobs')
   const router = useRouter()
 
-  const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Server' }, { title: 'Api' }, { title: 'Users' }, { title: 'Login Test' }]
+  const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Server' }, { title: 'Api' }, { title: 'Users' }, { title: 'Data Quality' }]
 
   useEffect(() => {
     const fn = async () => {
@@ -75,7 +76,7 @@ const Page = () => {
                   {selectedTab === 'Server' && <ServerInfo />}
                   {selectedTab === 'Api' && <ApiTest />}
                   {selectedTab === 'Users' && <UsersAdmin userProfile={userProfile} />}
-                  {selectedTab === 'Login Test' && <LoginUsernameForm title='Sin in' onSubmitted={handleValidateUser} />}
+                  {selectedTab === 'Data Quality' && <DataQualityStart />}
                 </>
               </RequireClaim>
             </>

@@ -21,7 +21,7 @@ type Model = {
   recordCount: number
 }
 
-const AnnualEarningsReport = ({ apiData, mutateKey }: { apiData: StockEarningAggregate[]; mutateKey: string }) => {
+const AnnualEarningsReport = ({ apiData }: { apiData: StockEarningAggregate[] }) => {
   const theme = useTheme()
 
   const startDate = apiData.length > 0 ? getDateRangeForQuarter(apiData[0].Year, apiData[0].Quarter).startDate : null

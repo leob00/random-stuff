@@ -1,4 +1,4 @@
-import { Box, Button, Stack, TextField, Typography } from '@mui/material'
+import { Box, Button, IconButton, Stack, TextField, Typography } from '@mui/material'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
 import { cloneDeep } from 'lodash'
@@ -20,6 +20,9 @@ import S3FilesTable from 'components/Organizms/files/S3FilesTable'
 import { DropdownItem } from 'lib/models/dropdown'
 import { useS3Controller } from 'hooks/s3/useS3Controller'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
+import AttachFileIcon from '@mui/icons-material/AttachFile'
+import FormDialog from 'components/Atoms/Dialogs/FormDialog'
+import CenterStack from 'components/Atoms/CenterStack'
 const TaskSchema = z.object({
   title: z.string(),
 })
@@ -31,7 +34,7 @@ const EditTaskForm = ({
   onDelete,
 }: {
   task: UserTask
-  onSubmit: (data: UserTask) => void
+  onSubmit: (data: UserTask, closeEdit?: boolean) => void
   onCancel: () => void
   onDelete: (data: UserTask) => void
 }) => {
@@ -39,7 +42,7 @@ const EditTaskForm = ({
   const [formInput, setFormInput] = useReducer((state: UserTask, newState: UserTask) => ({ ...state, ...newState }), task)
   const [valid, setValid] = useState(true)
   const [showConfirmDelete, setShowConfirmDelete] = useState(false)
-
+  const [showUpload, setShowUpload] = useState(false)
   const s3Controller = useS3Controller()
   const folder = `${authProfile!.username}/user-tasks/${task.id}`
   const allFolders: DropdownItem[] = [
@@ -87,7 +90,10 @@ const EditTaskForm = ({
   const handleUploaded = (file: S3Object) => {
     const newFiles = formInput.files ?? []
     newFiles.push(file)
-    setFormInput({ ...formInput, files: sortArray(newFiles, ['filename'], ['asc']) })
+    const newTask = { ...formInput, files: sortArray(newFiles, ['filename'], ['asc']) }
+    setFormInput(newTask)
+    setShowUpload(false)
+    onSubmit(newTask, false)
   }
 
   const handleReloadFolder = async (f: DropdownItem) => {}
@@ -153,7 +159,7 @@ const EditTaskForm = ({
             />
           </>
         )}
-        <S3FileUploadForm files={formInput.files ?? []} folder={folder} onUploaded={handleUploaded} />
+
         <Box py={2}>
           <Stack direction='row' justifyContent='center' alignItems='center' spacing={1}>
             <Button
@@ -169,6 +175,19 @@ const EditTaskForm = ({
           </Stack>
         </Box>
       </form>
+      <Box py={2}>
+        <CenterStack>
+          <IconButton color='primary' size='small' onClick={() => setShowUpload(true)}>
+            <AttachFileIcon fontSize='small'></AttachFileIcon>
+          </IconButton>
+          <Typography variant='body2'>attach a file</Typography>
+        </CenterStack>
+      </Box>
+      {showUpload && (
+        <FormDialog show={showUpload} title='file upload' onCancel={() => setShowUpload(false)} fullScreen>
+          <S3FileUploadForm files={formInput.files ?? []} folder={folder} onUploaded={handleUploaded} />
+        </FormDialog>
+      )}
       <ConfirmDeleteDialog
         show={showConfirmDelete}
         title={'confirm delete'}

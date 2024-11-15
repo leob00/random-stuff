@@ -73,7 +73,7 @@ const SingleGoalDisplay = ({
     const resultGoal = await saveGoal(username, goal, newTasks)
     onMutated(resultGoal, newTasks)
   }
-  const handleModifyTask = async (item: UserTask) => {
+  const handleModifyTask = async (item: UserTask, closeEdit: boolean = false) => {
     if (item.status === 'completed') {
       setSnackbarText('task completed')
     } else {

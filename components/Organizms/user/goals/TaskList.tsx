@@ -23,6 +23,7 @@ import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { deleteS3Object } from 'lib/backend/api/aws/apiGateway/s3/s3functions'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import TaskListHeader from './tasks/TaskListHeader'
+import { postDelete } from 'lib/backend/api/fetchFunctions'
 
 export interface TaskModel {
   isLoading: boolean
@@ -47,7 +48,7 @@ const TaskList = ({
   selectedGoal: UserGoal
   tasks: UserTask[]
   onAddTask: (item: UserTask) => void
-  onModifyTask: (item: UserTask) => void
+  onModifyTask: (item: UserTask, closeEdit?: boolean) => void
   onDeleteTask: (item: UserTask) => void
   disabled?: boolean
 }) => {
@@ -74,7 +75,7 @@ const TaskList = ({
   const handleTaskClick = (item: UserTask) => {
     setModel({ ...model, editTask: item })
   }
-  const handleSaveTask = async (item: UserTask) => {
+  const handleSaveTask = async (item: UserTask, closeEdit: boolean = true) => {
     if (!item.id) {
       item.id = constructUserTaskPk(username)
     }
@@ -93,15 +94,15 @@ const TaskList = ({
       if (item.status === 'completed') {
         if (item.files && item.files.length > 0) {
           for (let f of item.files) {
-            await deleteS3Object(f.bucket, f.fullPath)
+            postDelete('/api/s3', f)
           }
         }
       }
     }
     const reordered = reorderTasks(tasksCopy)
 
-    setModel({ ...model, isLoading: false, editTask: undefined, selectedTask: undefined, taskList: reordered })
-    onModifyTask(item)
+    setModel({ ...model, isLoading: false, editTask: closeEdit ? undefined : item, selectedTask: closeEdit ? undefined : item, taskList: reordered })
+    onModifyTask(item, closeEdit)
   }
 
   const handleYesChangeTaskStatus = () => {}

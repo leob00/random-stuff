@@ -204,7 +204,15 @@ const S3FilesTable = ({
       {results.map((item) => (
         <Box key={item.fullPath} py={1}>
           <FadeIn>
-            <S3FileRow isEditEmode={uiState.isEditEmode} file={item} onSelectFile={handleSelectFile} onViewFile={handleViewFile} onDelete={handleDelete} onRename={handleOnRename} onMovefile={handleMoveSingleFile} />
+            <S3FileRow
+              isEditEmode={uiState.isEditEmode}
+              file={item}
+              onSelectFile={handleSelectFile}
+              onViewFile={handleViewFile}
+              onDelete={handleDelete}
+              onRename={handleOnRename}
+              onMovefile={handleMoveSingleFile}
+            />
           </FadeIn>
         </Box>
       ))}

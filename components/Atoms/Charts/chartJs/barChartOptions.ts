@@ -1,5 +1,16 @@
 import { ChartData, ChartOptions } from 'chart.js'
-import { CasinoBlackTransparent, CasinoBlue, CasinoMoreBlackTransparent, CasinoRedTransparent, CasinoWhiteTransparent, DarkBlue, DarkModeBlue, DarkModeBlueTransparent, VeryLightBlue, VeryLightBlueTransparent } from 'components/themes/mainTheme'
+import {
+  CasinoBlackTransparent,
+  CasinoBlue,
+  CasinoMoreBlackTransparent,
+  CasinoRedTransparent,
+  CasinoWhiteTransparent,
+  DarkBlue,
+  DarkModeBlue,
+  DarkModeBlueTransparent,
+  VeryLightBlue,
+  VeryLightBlueTransparent,
+} from 'components/themes/mainTheme'
 import { max } from 'lodash'
 
 export interface LineChart {
@@ -28,7 +39,14 @@ export const getBarChartData = (labels: string[], numbers: number[], colors: str
   }
 }
 
-export const getBarChartOptions = (title: string, data: BarChart, yAxisDecorator = '', colors: string[], palette: 'light' | 'dark', isHorizontal?: boolean): ChartOptions<'bar'> => {
+export const getBarChartOptions = (
+  title: string,
+  data: BarChart,
+  yAxisDecorator = '',
+  colors: string[],
+  palette: 'light' | 'dark',
+  isHorizontal?: boolean,
+): ChartOptions<'bar'> => {
   return {
     responsive: true,
     maintainAspectRatio: true,
@@ -129,6 +147,9 @@ export const getBarChartOptions = (title: string, data: BarChart, yAxisDecorator
 
 export function getMultiDatasetBarChartOptions(palette: 'light' | 'dark', stacked: boolean, showLegend: boolean = false, title?: string): ChartOptions<'bar'> {
   const result: ChartOptions<'bar'> = {
+    animation: {
+      easing: 'easeInOutExpo',
+    },
     scales: {
       x: {
         stacked: stacked,
@@ -154,6 +175,7 @@ export function getMultiDatasetBarChartOptions(palette: 'light' | 'dark', stacke
     },
     indexAxis: 'x',
     responsive: true,
+    //aspectRatio: 3,
     plugins: {
       title: {
         padding: {
@@ -170,8 +192,10 @@ export function getMultiDatasetBarChartOptions(palette: 'light' | 'dark', stacke
       },
       legend: {
         display: showLegend,
-        position: 'top' as const,
+        fullSize: true,
+        position: 'top',
         labels: {
+          padding: 8,
           color: palette === 'light' ? CasinoBlue : VeryLightBlue,
         },
       },
@@ -201,14 +225,6 @@ export function getMultiDatasetBarChartOptions(palette: 'light' | 'dark', stacke
           label: (tooltipItems) => {
             return ` ${[tooltipItems.label]}`
           },
-          // afterLabel: (tooltipItems) => {
-          //   let result = `${tooltipItems.dataset.label}: `
-          //   if (tooltipItems.datasetIndex === 0) {
-          //     return `${result}${reported.filter((m) => dayjs(m.ReportDate).format('MM/DD/YYYY') === tooltipItems.label && m.ActualEarnings! > 0).length} (${Number(tooltipItems.formattedValue).toFixed(2)}%)`
-          //   }
-          //   return `${result}${reported.filter((m) => dayjs(m.ReportDate).format('MM/DD/YYYY') === tooltipItems.label && m.ActualEarnings! < 0).length} (${Number(tooltipItems.formattedValue).toFixed(2)}%)`
-          // },
-
           labelPointStyle: (tooltiipItems) => {
             return {
               pointStyle: 'circle',

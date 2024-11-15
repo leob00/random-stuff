@@ -12,7 +12,7 @@ const BarChartStacked = ({ data, options }: { data: ChartData<'bar', number[], u
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   return (
     <>
-      <Bar data={data} options={options} height={isXSmall ? 300 : 100} />
+      <Bar data={data} options={options} height={isXSmall ? 240 : 100} />
     </>
   )
 }

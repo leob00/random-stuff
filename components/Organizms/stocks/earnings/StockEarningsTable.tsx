@@ -71,7 +71,6 @@ const StockEarningsTable = ({ data, showCompany = false }: { data: StockEarning[
       }
     })
   })
-  console.log(annualData)
 
   return (
     <>
@@ -133,7 +132,7 @@ const StockEarningsTable = ({ data, showCompany = false }: { data: StockEarning[
             </Table>
           </TableContainer>
         )}
-        {showChart && <AnnualEarningsReport apiData={annualData} mutateKey='x' />}
+        {showChart && <AnnualEarningsReport apiData={annualData} />}
         {data.length === 0 && <NoDataFound />}
       </Box>
     </>
