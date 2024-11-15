@@ -21,28 +21,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (!userFileName || userFileName.length === 0) {
           userFileName = file.originalFilename!
         }
-        const prefix = fields.prefix![0]
-        const fullPath = `${prefix}/${userFileName}`
 
-        //const presignedUrl = JSON.parse(presignedUrlResp) as string
-        //const presignedUrlResp = await getS3ObjectPresignedUrlForWrite('rs-files', fullPath, 1000, file.mimetype!)
-
-        //const resp = await putS3('rs-files', `${user.email}`, `${userFileName}`, file.mimetype!, rawData)
-        // TODO: not working yet
-        //const presignedUrlResp = await getS3ObjectPresignedUrlForWrite('rs-files', fullPath, 1000, file.mimetype!)
-
-        //const resp = await putS3Large('rs-files', userFileName, fullPath, presignedUrlResp!, file.mimetype!, file.filepath!)
+        //console.log('uploading file mime type: ', file.mimetype)
 
         const resp = await putS3('rs-files', `${user.email}`, `${userFileName}`, file.mimetype!, file.size, rawData)
-        if (resp) {
-          return res.status(200).json(resp)
-        }
+        //console.log('resp: ', resp)
         if (resp) {
           return res.status(200).json(resp)
         }
       }
       return res.status(500).json({ message: `failed to put object to S3` })
     } catch (err) {
+      console.error('error in upload file: ', err)
       return res.status(500).json({ message: `internal server error: ${err}` })
     }
   } else {
