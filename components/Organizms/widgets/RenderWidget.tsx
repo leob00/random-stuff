@@ -8,7 +8,7 @@ import EconIndexWidget from './econ/EconIndexWidget'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import EconWidget from './econ/EconWidget'
 
-type WidgetDimensions = {
+export type WidgetDimensions = {
   height: number
   width: number
 }

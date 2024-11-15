@@ -1,6 +1,5 @@
 import React from 'react'
-import styled from '@emotion/styled'
-import { useMediaQuery, Box, useTheme } from '@mui/material'
+import { useMediaQuery, Box, useTheme, styled } from '@mui/material'
 import { CasinoBlue, DarkBlue } from 'components/themes/mainTheme'
 const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'left' | 'center' | 'right' }) => {
   const theme = useTheme()
@@ -20,7 +19,7 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
     //font: color,
     color: color,
     a: { color: color },
-    p: { color: color, fontSize: 28, fontWeight: 400 },
+    p: { color: color, fontSize: 18 },
   }))
 
   return (
@@ -43,7 +42,8 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
           }}
           //variant='body1'
           color='primary'
-          dangerouslySetInnerHTML={{ __html: text }}></StyledBox>
+          dangerouslySetInnerHTML={{ __html: text }}
+        ></StyledBox>
       ) : (
         <></>
       )}

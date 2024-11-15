@@ -44,8 +44,8 @@ const S3Display = () => {
   const [allFolders, setAllFolders] = useState(userFolders)
   const [showTopUploadForm, setShowTopUploadForm] = useState(false)
   const [isWaiting, setIsWaiting] = useState(false)
-  const mutateKeyBase = `/api/baseRoute?id=s3FileList`
-  const mutateKey = `${mutateKeyBase}${selectedFolder.value}`
+
+  const mutateKey = `s3-files-${selectedFolder.value}`
   const s3Controller = useS3Controller()
   const { setProfile } = useUserController()
 
@@ -57,13 +57,7 @@ const S3Display = () => {
   const { data: files, isLoading, error } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
   const handleUploaded = async (item: S3Object) => {
-    const dataCopy = [...files!]
-
-    if (!dataCopy.find((m) => m.filename.toLowerCase() === item.filename.toLowerCase())) {
-      dataCopy.push(item)
-    }
-    const sorted = sortArray(dataCopy, ['filename'], ['asc'])
-    handleFilesMutated(selectedFolder, sorted)
+    await handleReloadFolder(selectedFolder)
   }
 
   const handleFolderSelected = async (id: string) => {
@@ -73,7 +67,7 @@ const S3Display = () => {
     const newProfile = { ...userProfile, settings: { ...userProfile.settings, selectedFolder: newSelectedFolder } }
     setProfile(newProfile)
     putUserProfile(newProfile)
-    mutate(`${mutateKeyBase}${id}`)
+    mutate(mutateKey)
   }
   const handleFolderAdd = async (name: string) => {
     setIsWaiting(true)
@@ -94,7 +88,7 @@ const S3Display = () => {
     setAllFolders(newFolders)
     setSelectedFolder(newFolders[0])
     setIsWaiting(false)
-    mutate(`${mutateKeyBase}${newFolders[0].value}`)
+    mutate(mutateKey)
   }
 
   const handleReloadFolder = async (targetFolder: DropdownItem) => {
@@ -105,7 +99,7 @@ const S3Display = () => {
   }
   const handleFilesMutated = async (folder: DropdownItem, files: S3Object[]) => {
     setShowTopUploadForm(false)
-    mutate(`${mutateKeyBase}${folder.value}`, files, { revalidate: false })
+    //mutate(`${mutateKeyBase}${folder.value}`, files, { revalidate: false })
     await handleFolderSelected(folder.value)
   }
   return (
@@ -116,10 +110,32 @@ const S3Display = () => {
 
       <Box display={'flex'} alignItems={'center'}>
         <S3FolderDropDown folders={allFolders} folder={selectedFolder} onFolderSelected={handleFolderSelected} />
-        {files && <FolderActions folders={allFolders} onFolderAdded={handleFolderAdd} items={files} selectedFolder={selectedFolder} onFolderDeleted={handleFolderDelete} onShowTopUploadForm={(show: boolean) => setShowTopUploadForm(show)} />}
+        {files && (
+          <FolderActions
+            folders={allFolders}
+            onFolderAdded={handleFolderAdd}
+            items={files}
+            selectedFolder={selectedFolder}
+            onFolderDeleted={handleFolderDelete}
+            onShowTopUploadForm={(show: boolean) => setShowTopUploadForm(show)}
+          />
+        )}
       </Box>
-      {showTopUploadForm && <Box pt={2}>{files && <S3FileUploadForm files={files} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />}</Box>}
-      <Box py={3}>{files && <S3FilesTable s3Controller={s3Controller} folder={selectedFolder} allFolders={allFolders} data={files} onReloadFolder={handleReloadFolder} onLocalDataMutate={handleFilesMutated} />}</Box>
+      {showTopUploadForm && (
+        <Box pt={2}>{files && <S3FileUploadForm files={files} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />}</Box>
+      )}
+      <Box py={3}>
+        {files && (
+          <S3FilesTable
+            s3Controller={s3Controller}
+            folder={selectedFolder}
+            allFolders={allFolders}
+            data={files}
+            onReloadFolder={handleReloadFolder}
+            onLocalDataMutate={handleFilesMutated}
+          />
+        )}
+      </Box>
 
       {!isLoading && !isWaiting && files && files.length === 0 && (
         <>
@@ -128,7 +144,11 @@ const S3Display = () => {
           </CenterStack>
         </>
       )}
-      <Box pt={2}>{files && !showTopUploadForm && !isLoading && <S3FileUploadForm files={files} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />}</Box>
+      <Box pt={2}>
+        {files && !showTopUploadForm && !isLoading && (
+          <S3FileUploadForm files={files} folder={selectedFolder.value} onUploaded={handleUploaded} isWaiting={isLoading} />
+        )}
+      </Box>
     </Box>
   )
 }

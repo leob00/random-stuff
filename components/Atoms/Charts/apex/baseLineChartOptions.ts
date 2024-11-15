@@ -1,5 +1,17 @@
 import { ApexOptions } from 'apexcharts'
-import { CasinoBlue, CasinoBlueTransparent, CasinoGreen, CasinoLimeTransparent, CasinoRed, DarkBlue, DarkModeBkg, DarkModeBlue, RedDarkMode, VeryLightBlue, VeryLightBlueTransparent } from 'components/themes/mainTheme'
+import {
+  CasinoBlue,
+  CasinoBlueTransparent,
+  CasinoGreen,
+  CasinoLimeTransparent,
+  CasinoRed,
+  DarkBlue,
+  DarkModeBkg,
+  DarkModeBlue,
+  RedDarkMode,
+  VeryLightBlue,
+  VeryLightBlueTransparent,
+} from 'components/themes/mainTheme'
 import numeral from 'numeral'
 import { XyValues } from './chartModels'
 
@@ -15,6 +27,7 @@ export type LineChartOptions = {
   chartId?: string
   numericFormatter?: (num: number) => string
   enableAxisXTooltip?: boolean
+  reverseColor?: boolean
 }
 
 const lineFill: ApexFill = {
@@ -37,6 +50,16 @@ export function getPositiveNegativeLineColor(palette: 'light' | 'dark' = 'light'
   return lineColor
 }
 
+export function getPositiveNegativeLineColorReverse(palette: 'light' | 'dark' = 'light', items: number[]) {
+  let lineColor = palette === 'dark' ? RedDarkMode : CasinoRed
+  if (items.length > 0) {
+    if (items[0] > items[items.length - 1]) {
+      lineColor = palette === 'dark' ? CasinoLimeTransparent : CasinoGreen
+    }
+  }
+  return lineColor
+}
+
 export function getBaseLineChartOptions(items: XyValues, lineOptions: LineChartOptions) {
   const defaultTooltipFormatter = (val: number, opts: any) => {
     if (lineOptions.numericFormatter) {
@@ -47,12 +70,11 @@ export function getBaseLineChartOptions(items: XyValues, lineOptions: LineChartO
 
   const selectedTooltipFormatter = lineOptions.toolTipFormatter ?? defaultTooltipFormatter
   let lineColor = lineOptions.palette === 'dark' ? CasinoBlue : CasinoBlueTransparent
-  if (lineOptions.changePositiveColor) {
-    lineColor = lineOptions.palette === 'dark' ? CasinoLimeTransparent : CasinoGreen
-  }
 
   if (lineOptions.changePositiveColor) {
-    lineColor = getPositiveNegativeLineColor(lineOptions.palette, items.y)
+    lineColor = !lineOptions.reverseColor
+      ? getPositiveNegativeLineColor(lineOptions.palette, items.y)
+      : getPositiveNegativeLineColorReverse(lineOptions.palette, items.y)
   }
   let strokeWidth = 2
 
@@ -116,7 +138,15 @@ export function getBaseLineChartOptions(items: XyValues, lineOptions: LineChartO
   return options
 }
 
-export function getMulitiLineChartOptions(items: XyValues[], raw: any[], isXSmall: boolean, palette: 'light' | 'dark' = 'light', yLabelPrefix: string = '$', toolTipFormatter?: (val: number, opts: any) => string, changePositiveColor = true) {
+export function getMulitiLineChartOptions(
+  items: XyValues[],
+  raw: any[],
+  isXSmall: boolean,
+  palette: 'light' | 'dark' = 'light',
+  yLabelPrefix: string = '$',
+  toolTipFormatter?: (val: number, opts: any) => string,
+  changePositiveColor = true,
+) {
   const result: ApexOptions = {}
 
   const defaultTooltipFormatter = (val: number, opts: any) => {

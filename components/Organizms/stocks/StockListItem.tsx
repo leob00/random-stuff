@@ -168,4 +168,21 @@ export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'd
 
   return color
 }
+
+export const getPositiveNegativeColorReverse = (val?: number | null, mode: 'light' | 'dark' = 'light') => {
+  let color = mode === 'light' ? CasinoBlackTransparent : VeryLightBlue
+
+  if (!val) {
+    return color
+  }
+
+  if (val > 0) {
+    color = mode === 'light' ? CasinoDarkRedTransparent : RedDarkMode
+  } else if (val < 0) {
+    color = mode === 'light' ? CasinoDarkGreenTransparent : CasinoLimeTransparent
+  }
+
+  return color
+}
+
 export default StockListItem
