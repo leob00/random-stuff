@@ -15,14 +15,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (files.file) {
         const file = files.file![0]
         let rawData = fs.readFileSync(file.filepath!)
-        //const fileStream = fs.createReadStream(file.filepath!)
 
         let userFileName = fields.userFilename![0]
         if (!userFileName || userFileName.length === 0) {
           userFileName = file.originalFilename!
         }
-
-        //console.log('uploading file mime type: ', file.mimetype)
 
         const resp = await putS3('rs-files', `${user.email}`, `${userFileName}`, file.mimetype!, file.size, rawData)
         //console.log('resp: ', resp)
