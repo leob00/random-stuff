@@ -36,19 +36,9 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
   }
   if (!isXSmallDevice) {
     if (isLargeDevice) {
-      dimension.height = 900
-      dimension.width = 850
+      dimension.height = 500
+      dimension.width = 1200
     }
-    //  switch (item.size) {
-    //    case 'md':
-    //      dimension.height = 400
-    //      dimension.width = 550
-    //      break
-    //    case 'lg':
-    //      dimension.height = 900
-    //      dimension.width = 850
-    //      break
-    //  }
   }
 
   const itemChart = item.Chart ?? { RawData: [], XValues: [], YValues: [] }
