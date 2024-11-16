@@ -16,11 +16,12 @@ import { reverseColor } from '../widgets/econ/EconWidget'
 interface Model {
   startYearOptions: DropdownItem[]
   endYearOptions: DropdownItem[]
-  chart: QlnLineChart
+  // chart: QlnLineChart
   selectedStartYear: number
   selectedEndYear: number
   error: string | null
   isLoading: boolean
+  item: EconomicDataItem
 }
 const config = apiConnection().qln
 
@@ -41,7 +42,6 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
     }
   }
 
-  const itemChart = item.Chart ?? { RawData: [], XValues: [], YValues: [] }
   const startYear = dayjs(item.FirstObservationDate!).year()
   const endYear = dayjs(item.LastObservationDate!).year()
   const allYears = range(startYear, endYear + 1)
@@ -56,11 +56,11 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
   const defaultModel: Model = {
     startYearOptions: startYearOptions,
     endYearOptions: endYearOptions,
-    chart: itemChart,
     selectedStartYear: item.criteria!.startYear,
     selectedEndYear: item.criteria!.endYear,
     error: null,
     isLoading: false,
+    item: item,
   }
   const [model, setModel] = useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
 
@@ -81,7 +81,7 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
       EndYear: yearEnd,
     })) as EconDataModel
     const result = resp.Body.Item
-    setModel({ ...model, error: null, chart: result.Chart!, isLoading: false, selectedStartYear: yearStart, selectedEndYear: yearEnd })
+    setModel({ ...model, error: null, item: result, isLoading: false, selectedStartYear: yearStart, selectedEndYear: yearEnd })
   }
 
   const handleStartYearChange = async (val: string) => {
@@ -101,7 +101,7 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
       {model.isLoading && <BackdropLoader />}
       <Box display={'flex'} justifyContent={'center'} py={2}>
         <Box py={2} minHeight={dimension.height} px={1}>
-          <EconChart symbol={item.Title} data={item} width={dimension.width} height={dimension.height} reverseColor={shouldReverseColor} />
+          <EconChart symbol={item.Title} data={model.item} width={dimension.width} height={dimension.height} reverseColor={shouldReverseColor} />
         </Box>
       </Box>
       <Box display={'flex'} justifyContent={'center'}>
