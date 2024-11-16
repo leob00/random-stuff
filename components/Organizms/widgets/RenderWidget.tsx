@@ -25,11 +25,11 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
     switch (item.size) {
       case 'md':
         dimension.height = 400
-        dimension.width = 550
+        dimension.width = 560
         break
       case 'lg':
         dimension.height = 900
-        dimension.width = 850
+        dimension.width = 1138
         break
     }
   }
