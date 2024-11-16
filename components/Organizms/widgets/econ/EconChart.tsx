@@ -1,21 +1,21 @@
 import { Box, Stack, Typography, useMediaQuery, useTheme } from '@mui/material'
-import { getPositiveNegativeColor, getPositiveNegativeColorReverse } from 'components/Organizms/stocks/StockListItem'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 import { calculateStockMovePercent } from 'lib/util/numberUtil'
 import dynamic from 'next/dynamic'
 import EconChangeHeader from './EconChangeHeader'
-import { getOptions, takeLastDays } from 'components/Organizms/stocks/stockLineChartOptions'
+import { getOptions } from 'components/Organizms/stocks/stockLineChartOptions'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const EconChart = ({
   symbol,
   data,
   width = 300,
-  height,
   days,
+  height,
   reverseColor,
+  isExtraSmall = true,
 }: {
   symbol: string
   data: EconomicDataItem
@@ -23,14 +23,14 @@ const EconChart = ({
   days?: number
   height?: number
   reverseColor?: boolean
+  isExtraSmall?: boolean
 }) => {
   const theme = useTheme()
-  const isXsmall = useMediaQuery(theme.breakpoints.down('md'))
+  const isXsmall = isExtraSmall ?? useMediaQuery(theme.breakpoints.down('md'))
   const xValues = data.Chart?.XValues ?? []
   const yValues = data.Chart?.YValues.map((m) => Number(m)) ?? []
   const history = mapEconChartToStockHistory(symbol, xValues, yValues)
 
-  //const resultHistory = days ? takeLastDays(history, days) : history
   const x = history.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY'))
   const y = history.map((m) => m.Price)
 

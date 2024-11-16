@@ -7,6 +7,7 @@ import { Box, useMediaQuery, useTheme } from '@mui/material'
 import EconIndexWidget from './econ/EconIndexWidget'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import EconWidget from './econ/EconWidget'
+import { useBestFitWidth } from 'hooks/ui/useBestFitWidth'
 
 export type WidgetDimensions = {
   height: number
@@ -16,7 +17,8 @@ export type WidgetDimensions = {
 const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidget; revalidateOnFocus?: boolean }) => {
   const theme = useTheme()
   const isXSmallDevice = useMediaQuery(theme.breakpoints.down('sm'))
-
+  const isSmallDevice = useMediaQuery(theme.breakpoints.down('md'))
+  // const { dimension } = useBestFitWidth(item.size)
   const dimension: WidgetDimensions = {
     height: 400,
     width: isXSmallDevice ? 370 : 280,
@@ -24,12 +26,10 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
   if (!isXSmallDevice) {
     switch (item.size) {
       case 'md':
-        dimension.height = 400
-        dimension.width = 560
+        dimension.width = isSmallDevice ? 300 : 560
         break
       case 'lg':
-        dimension.height = 900
-        dimension.width = 1138
+        dimension.width = isSmallDevice ? 600 : 1138
         break
     }
   }

@@ -37,8 +37,10 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
   }
   if (!isXSmallDevice) {
     if (isLargeDevice) {
-      dimension.height = 500
-      dimension.width = 1200
+      dimension.height = 560
+      dimension.width = 1100
+    } else {
+      dimension.width = 680
     }
   }
 
@@ -101,7 +103,14 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
       {model.isLoading && <BackdropLoader />}
       <Box display={'flex'} justifyContent={'center'} py={2}>
         <Box py={2} minHeight={dimension.height} px={1}>
-          <EconChart symbol={item.Title} data={model.item} width={dimension.width} height={dimension.height} reverseColor={shouldReverseColor} />
+          <EconChart
+            symbol={item.Title}
+            data={model.item}
+            width={dimension.width}
+            height={dimension.height}
+            reverseColor={shouldReverseColor}
+            isExtraSmall={isXSmallDevice}
+          />
         </Box>
       </Box>
       <Box display={'flex'} justifyContent={'center'}>
