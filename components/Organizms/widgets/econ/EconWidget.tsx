@@ -23,12 +23,14 @@ const EconWidget = ({ itemId, symbol, width, height, size }: { itemId: number; s
 
     return data
   }
+
+  const shouldReverseColor = reverseColor(itemId)
   const { data, isLoading } = useSwrHelper(key, dataFn, { revalidateOnFocus: false })
   return (
     <Box py={2} minHeight={height}>
       {data && (
         <Box>
-          <EconChart data={data} symbol={symbol} width={width} days={90} />
+          <EconChart data={data} symbol={symbol} width={width} days={90} reverseColor={shouldReverseColor} />
           <HorizontalDivider />
           <Box py={1} px={2}>
             <Button
@@ -44,6 +46,12 @@ const EconWidget = ({ itemId, symbol, width, height, size }: { itemId: number; s
       )}
     </Box>
   )
+}
+
+export function reverseColor(itemId: number) {
+  const positiveIsGood = [11, 14, 15, 41]
+  const reverseColor = !positiveIsGood.includes(itemId)
+  return reverseColor
 }
 
 export default EconWidget

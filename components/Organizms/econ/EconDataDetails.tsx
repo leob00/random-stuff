@@ -1,8 +1,6 @@
 import { Alert, Box, Button, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { EconomicDataItem, QlnLineChart } from 'lib/backend/api/qln/qlnModels'
-import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import dayjs from 'dayjs'
-import numeral from 'numeral'
 import { DropdownItem } from 'lib/models/dropdown'
 import { range } from 'lodash'
 import { apiConnection } from 'lib/backend/api/config'
@@ -13,6 +11,7 @@ import UncontrolledDropdownList from 'components/Atoms/Inputs/UncontrolledDropdo
 import { useReducer } from 'react'
 import EconChart from '../widgets/econ/EconChart'
 import { WidgetDimensions } from '../widgets/RenderWidget'
+import { reverseColor } from '../widgets/econ/EconWidget'
 
 interface Model {
   startYearOptions: DropdownItem[]
@@ -27,6 +26,7 @@ const config = apiConnection().qln
 
 const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: () => void }) => {
   const theme = useTheme()
+
   const isXSmallDevice = useMediaQuery(theme.breakpoints.down('sm'))
   const isLargeDevide = useMediaQuery(theme.breakpoints.up('md'))
 
@@ -97,38 +97,35 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
   const handleReset = () => {
     setModel(defaultModel)
   }
-
-  const reverseColor = item.InternalId !== 14 && item.InternalId !== 15
+  const shouldReverseColor = reverseColor(item.InternalId)
 
   return (
     <Box py={2}>
       {model.isLoading && <BackdropLoader />}
       <Box display={'flex'} justifyContent={'center'} py={2} minHeight={dimension.height}>
-        <EconChart symbol={item.Title} data={item} width={dimension.width} height={dimension.height} reverseColor={reverseColor} />
+        <EconChart symbol={item.Title} data={item} width={dimension.width} height={dimension.height} reverseColor={shouldReverseColor} />
       </Box>
-
-      <Box py={2}>
-        <ReadOnlyField label={'value'} val={numeral(model.chart.YValues[model.chart.YValues.length - 1]).format('###,###.0,00')} />
-        <ReadOnlyField
-          label='date range'
-          val={`${dayjs(model.chart.XValues[0]).format('MM/DD/YYYY')} - ${dayjs(model.chart.XValues[model.chart.XValues.length - 1]).format('MM/DD/YYYY')}`}
-        />
-      </Box>
-      <Box display={'flex'} gap={1} alignItems={'center'}>
-        <Typography>from:</Typography>
-        <UncontrolledDropdownList options={model.startYearOptions} selectedOption={String(model.selectedStartYear)} onOptionSelected={handleStartYearChange} />
-        <Typography>to:</Typography>
-        <UncontrolledDropdownList options={model.endYearOptions} selectedOption={String(model.selectedEndYear)} onOptionSelected={handleEndYearChange} />
-        <Button onClick={handleReset}>
-          <Typography>reset</Typography>
-        </Button>
+      <Box display={'flex'} justifyContent={'center'}>
+        <Box display={'flex'} gap={1} alignItems={'center'}>
+          <Typography>from:</Typography>
+          <UncontrolledDropdownList
+            options={model.startYearOptions}
+            selectedOption={String(model.selectedStartYear)}
+            onOptionSelected={handleStartYearChange}
+          />
+          <Typography>to:</Typography>
+          <UncontrolledDropdownList options={model.endYearOptions} selectedOption={String(model.selectedEndYear)} onOptionSelected={handleEndYearChange} />
+          <Button onClick={handleReset} size='small'>
+            <Typography>reset</Typography>
+          </Button>
+        </Box>
       </Box>
       {model.error && (
         <Box py={2}>
           <Alert severity='error'>{model.error}</Alert>
         </Box>
       )}
-      <Box py={2}>
+      <Box py={2} textAlign={'center'}>
         <Typography variant='caption'>{`data available from ${dayjs(item.FirstObservationDate).format('MM/DD/YYYY')} to ${dayjs(item.LastObservationDate).format('MM/DD/YYYY')}`}</Typography>
       </Box>
       <Box py={2}>

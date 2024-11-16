@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, useTheme } from '@mui/material'
+import { Box, Stack, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { getPositiveNegativeColor, getPositiveNegativeColorReverse } from 'components/Organizms/stocks/StockListItem'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
@@ -25,18 +25,18 @@ const EconChart = ({
   reverseColor?: boolean
 }) => {
   const theme = useTheme()
-
+  const isXsmall = useMediaQuery(theme.breakpoints.down('md'))
   const xValues = data.Chart?.XValues ?? []
   const yValues = data.Chart?.YValues.map((m) => Number(m)) ?? []
   const history = mapEconChartToStockHistory(symbol, xValues, yValues)
 
-  const resultHistory = days ? takeLastDays(history, days) : history
-  const x = resultHistory.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY'))
-  const y = resultHistory.map((m) => m.Price)
+  //const resultHistory = days ? takeLastDays(history, days) : history
+  const x = history.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY'))
+  const y = history.map((m) => m.Price)
 
-  const last = resultHistory[resultHistory.length - 1]
+  const last = history[history.length - 1]
 
-  const chartOptions = getOptions({ x: x, y: y }, resultHistory, true, theme.palette.mode, '', reverseColor)
+  const chartOptions = getOptions({ x: x, y: y }, history, isXsmall, theme.palette.mode, '', reverseColor)
   return (
     <Box>
       <EconChangeHeader last={last} reverseColor={reverseColor} />
