@@ -28,20 +28,27 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
   const theme = useTheme()
 
   const isXSmallDevice = useMediaQuery(theme.breakpoints.down('sm'))
-  const isLargeDevide = useMediaQuery(theme.breakpoints.up('md'))
+  const isLargeDevice = useMediaQuery(theme.breakpoints.up('md'))
 
   const dimension: WidgetDimensions = {
     height: 400,
     width: isXSmallDevice ? 370 : 280,
   }
-
   if (!isXSmallDevice) {
-    dimension.height = 450
-    dimension.width = 800
-  }
-  if (!isLargeDevide) {
-    dimension.height = 1200
-    dimension.width = 1200
+    if (isLargeDevice) {
+      dimension.height = 900
+      dimension.width = 850
+    }
+    //  switch (item.size) {
+    //    case 'md':
+    //      dimension.height = 400
+    //      dimension.width = 550
+    //      break
+    //    case 'lg':
+    //      dimension.height = 900
+    //      dimension.width = 850
+    //      break
+    //  }
   }
 
   const itemChart = item.Chart ?? { RawData: [], XValues: [], YValues: [] }
@@ -102,8 +109,10 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
   return (
     <Box py={2}>
       {model.isLoading && <BackdropLoader />}
-      <Box display={'flex'} justifyContent={'center'} py={2} minHeight={dimension.height}>
-        <EconChart symbol={item.Title} data={item} width={dimension.width} height={dimension.height} reverseColor={shouldReverseColor} />
+      <Box display={'flex'} justifyContent={'center'} py={2}>
+        <Box py={2} minHeight={dimension.height} px={1}>
+          <EconChart symbol={item.Title} data={item} width={dimension.width} height={dimension.height} reverseColor={shouldReverseColor} />
+        </Box>
       </Box>
       <Box display={'flex'} justifyContent={'center'}>
         <Box display={'flex'} gap={1} alignItems={'center'}>
