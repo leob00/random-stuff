@@ -26,7 +26,8 @@ const EconChart = ({
   isExtraSmall?: boolean
 }) => {
   const theme = useTheme()
-  const isXsmall = isExtraSmall ?? useMediaQuery(theme.breakpoints.down('md'))
+  const isXSmallDevice = useMediaQuery(theme.breakpoints.down('md'))
+  const isXsmall = isExtraSmall ?? isXSmallDevice
   const xValues = data.Chart?.XValues ?? []
   const yValues = data.Chart?.YValues.map((m) => Number(m)) ?? []
   const history = mapEconChartToStockHistory(symbol, xValues, yValues)
