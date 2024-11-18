@@ -20,7 +20,7 @@ const JobsLayout = () => {
   const pollingIterval = 8000
   const [selectedItem, setSelectedItem] = useState<Job | null>(null)
   const [isLoadingDetail, setIsLoadingDetail] = useState(false)
-  const [error, setError] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const { claims } = useSessionStore()
   const [claim, setClaim] = useState(claims.find((m) => m.type === 'qln'))
@@ -29,7 +29,7 @@ const JobsLayout = () => {
 
   const handleLogin = async (result: Claim[]) => {
     setClaim(result.find((m) => m.type === 'qln'))
-    setError(false)
+    setError('unable to find claim for qln admin')
     start()
   }
 
@@ -39,11 +39,11 @@ const JobsLayout = () => {
     try {
       const response = await serverGetFetch(`/BatchJobList?Token=${claim?.token ?? ''}`)
       if (response.ResponseCode && response.ResponseCode !== 'Success') {
-        setError(true)
+        setError('failed getting batch job list')
       }
       return response
     } catch (err) {
-      throw new Error('not authenticated')
+      setError('not authenticated')
     }
   }
 

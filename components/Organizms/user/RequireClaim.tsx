@@ -6,6 +6,7 @@ import dayjs from 'dayjs'
 import { useUserController } from 'hooks/userController'
 import { Claim, ClaimType, getUserCSR } from 'lib/backend/auth/userUtil'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
+import { getUtcNow } from 'lib/util/dateUtil'
 import { ReactNode, useEffect, useState } from 'react'
 
 const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children: ReactNode }) => {
@@ -17,16 +18,16 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
   useEffect(() => {
     const fn = async () => {
       const allClaims = [...claims]
-      let claim = { ...validatedClaim }
-      const now = dayjs()
+      const now = getUtcNow()
       const expirationSeconds = dayjs(now).diff(now.add(30, 'days'), 'second')
-      let userTicket = ticket ? { ...ticket } : await getUserCSR()
+      let userTicket = ticket ? ticket : await getUserCSR()
       if (!userTicket) {
         setIsValidating(false)
+        setValidatedClaim(undefined)
         return
       }
 
-      if (!claim.token) {
+      if (validatedClaim && !validatedClaim.token) {
         switch (claimType) {
           case 'rs': {
             const guest = ticket?.roles?.find((m) => m.Name === 'Registered User')
@@ -59,8 +60,10 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
         }
       } else {
         if (claimType === 'qln') {
-          if (dayjs().isAfter(claim.tokenExpirationDate!)) {
-            setValidatedClaim(undefined)
+          if (validatedClaim) {
+            if (dayjs().isAfter(validatedClaim.tokenExpirationDate!)) {
+              setValidatedClaim(undefined)
+            }
           }
         }
       }

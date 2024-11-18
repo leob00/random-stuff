@@ -1212,7 +1212,7 @@
     "Symbol": "AIRI"
   },
   {
-    "Company": "Montana Technologies Corporation Class A Common Stock",
+    "Company": "AirJoule Technologies Corporation Class A Common Stock",
     "Symbol": "AIRJ"
   },
   {
@@ -10232,6 +10232,10 @@
     "Symbol": "DEW"
   },
   {
+    "Company": "Dimensional Emerging Markets ex China Core Equity ETF",
+    "Symbol": "DEXC"
+  },
+  {
     "Company": "Dimensional U.S. Core Equity 2 ETF",
     "Symbol": "DFAC"
   },
@@ -12000,7 +12004,7 @@
     "Symbol": "EET"
   },
   {
-    "Company": "ProShares Ether Strategy ETF",
+    "Company": "ProShares Ether ETF",
     "Symbol": "EETH"
   },
   {
@@ -19232,6 +19236,10 @@
     "Symbol": "HSPOW"
   },
   {
+    "Company": "Horizon Space Acquisition II Corp. Units",
+    "Symbol": "HSPTU"
+  },
+  {
     "Company": "Hartford AAA CLO ETF",
     "Symbol": "HSRT"
   },
@@ -25750,6 +25758,14 @@
   {
     "Company": "Victory Portfolios II VictoryShares THB Mid Cap ETF",
     "Symbol": "MDCP"
+  },
+  {
+    "Company": "Medicus Pharma Ltd. Common Stock",
+    "Symbol": "MDCX"
+  },
+  {
+    "Company": "Medicus Pharma Ltd. Warrant",
+    "Symbol": "MDCXW"
   },
   {
     "Company": "First Trust Indxx Medical Devices ETF",
@@ -38456,6 +38472,10 @@
     "Symbol": "STRW"
   },
   {
+    "Company": "Stance Sustainable Beta ETF",
+    "Symbol": "STSB"
+  },
+  {
     "Company": "Sharps Technology Inc. Common Stock",
     "Symbol": "STSS"
   },
@@ -40594,6 +40614,10 @@
   {
     "Company": "TSR Inc. New",
     "Symbol": "TSRI"
+  },
+  {
+    "Company": "TSS, Inc. Common Stock",
+    "Symbol": "TSSI"
   },
   {
     "Company": "2seventy bio, Inc. Common Stock",
