@@ -1,8 +1,10 @@
 import { signOut, signIn, getCurrentUser, AuthUser, fetchUserAttributes, FetchUserAttributesOutput, fetchAuthSession, SignInOutput } from 'aws-amplify/auth'
+import dayjs from 'dayjs'
+import { getUtcNow } from 'lib/util/dateUtil'
 export type ClaimType = 'qln' | 'rs' | 'rs-admin'
 export interface Claim {
   type: ClaimType
-  token: string
+  token?: string
   tokenExpirationDate?: string
   tokenExpirationSeconds: number
 }

@@ -1,7 +1,7 @@
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import { useUserController } from 'hooks/userController'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { getUserCSR, userHasRole, validateUserCSR } from 'lib/backend/auth/userUtil'
+import { Claim, getUserCSR, userHasRole, validateUserCSR } from 'lib/backend/auth/userUtil'
 import { useRouter } from 'next/router'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
@@ -18,41 +18,48 @@ import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { useEffect, useState } from 'react'
 import DataQualityStart from 'components/Organizms/admin/data-quality/DataQualityStart'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
+import useQlnAdmin from 'hooks/auth/useQlnAdmin'
+import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
+import { useSessionStore } from 'lib/backend/store/useSessionStore'
 
 const Page = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
   const [selectedTab, setSelectedTab] = useState('Jobs')
+  const { saveClaims } = useSessionStore()
   const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Server' }, { title: 'Api' }, { title: 'Users' }, { title: 'Data Quality' }]
+
+  const { claim: adminClaim, isValidating: isValidatingAdmin } = useQlnAdmin()
 
   const handleSelectTab = (tab: TabInfo) => {
     setSelectedTab(tab.title)
   }
 
+  const handleQlnLogin = (claims: Claim[]) => {
+    saveClaims(claims)
+  }
+  console.log('adminClaim: ', adminClaim)
   return (
     <>
       <Seo pageTitle='Admin' />
       <ResponsiveContainer>
-        <RequireClaim claimType='rs-admin'>
-          {isValidatingProfile ? (
-            <BackdropLoader />
-          ) : userProfile ? (
-            <>
-              <RequireClaim claimType='qln'>
-                <>
-                  <PageHeader text='Admin' />
-                  <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
-                  {selectedTab === 'Jobs' && <JobsLayout />}
-                  {selectedTab === 'Server' && <ServerInfo />}
-                  {selectedTab === 'Api' && <ApiTest />}
-                  {selectedTab === 'Users' && <UsersAdmin userProfile={userProfile} />}
-                  {selectedTab === 'Data Quality' && <DataQualityStart />}
-                </>
-              </RequireClaim>
-            </>
-          ) : (
-            <PleaseLogin />
-          )}
-        </RequireClaim>
+        {isValidatingProfile || (isValidatingAdmin && <BackdropLoader />)}
+        <PageHeader text='Admin' />
+        {/* <RequireClaim claimType='rs-admin'> */}
+        {!isValidatingAdmin && adminClaim ? (
+          <>
+            <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
+            {selectedTab === 'Jobs' && <JobsLayout userClaim={adminClaim} />}
+            {selectedTab === 'Server' && <ServerInfo />}
+            {selectedTab === 'Api' && <ApiTest />}
+            {selectedTab === 'Users' && <>{userProfile && <UsersAdmin userProfile={userProfile} />}</>}
+            {selectedTab === 'Data Quality' && <DataQualityStart />}
+          </>
+        ) : (
+          <>
+            <QlnUsernameLoginForm onSuccess={handleQlnLogin} />
+          </>
+        )}
+        {/* </RequireClaim> */}
       </ResponsiveContainer>
     </>
   )

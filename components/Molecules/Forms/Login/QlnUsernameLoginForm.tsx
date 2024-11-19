@@ -2,18 +2,18 @@ import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { apiConnection } from 'lib/backend/api/config'
 import { serverGetFetch } from 'lib/backend/api/qln/qlnApi'
-import React from 'react'
 import LoginUsernameForm, { UsernameLogin } from 'components/Molecules/Forms/Login/LoginUsernameForm'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { Claim, QlnUser } from 'lib/backend/auth/userUtil'
 import dayjs from 'dayjs'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 const QlnUsernameLoginForm = ({ onSuccess }: { onSuccess: (claims: Claim[]) => void }) => {
-  const [loginError, setLoginError] = React.useState<string | undefined>(undefined)
-  const [showLoginSuccess, setShowLoginSuccess] = React.useState(false)
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [loginError, setLoginError] = useState<string | undefined>(undefined)
+  const [showLoginSuccess, setShowLoginSuccess] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const config = apiConnection().qln
   const { claims, saveClaims } = useSessionStore()
   const router = useRouter()

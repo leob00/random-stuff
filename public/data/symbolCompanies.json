@@ -3612,6 +3612,10 @@
     "Symbol": "BAERW"
   },
   {
+    "Company": "Brown Advisory Flexible Equity ETF",
+    "Symbol": "BAFE"
+  },
+  {
     "Company": "BayFirst Financial Corp. Common Stock",
     "Symbol": "BAFN"
   },
@@ -4598,6 +4602,10 @@
   {
     "Company": "Inspire 100 ETF",
     "Symbol": "BIBL"
+  },
+  {
+    "Company": "BlackRock International Dividend ETF",
+    "Symbol": "BIDD"
   },
   {
     "Company": "Baidu, Inc.",
@@ -6756,7 +6764,7 @@
     "Symbol": "CB"
   },
   {
-    "Company": "Colony Bankcorp Inc",
+    "Company": "Colony Bankcorp Inc.",
     "Symbol": "CBAN"
   },
   {
@@ -10844,6 +10852,10 @@
     "Symbol": "DMLP"
   },
   {
+    "Company": "Damon Inc. Common Stock",
+    "Symbol": "DMN"
+  },
+  {
     "Company": "Western Asset Mortgage Opportunity Fund Inc.",
     "Symbol": "DMO"
   },
@@ -14578,6 +14590,10 @@
   {
     "Company": "First Hawaiian, Inc. Common Stock",
     "Symbol": "FHB"
+  },
+  {
+    "Company": "FT Vest U.S. Equity Quarterly Dynamic Buffer ETF",
+    "Symbol": "FHDG"
   },
   {
     "Company": "Fidelity Hedged Equity ETF",
@@ -19524,6 +19540,10 @@
     "Symbol": "HYBL"
   },
   {
+    "Company": "TCW High Yield Bond ETF",
+    "Symbol": "HYBX"
+  },
+  {
     "Company": "VanEck High Yield Muni ETF",
     "Symbol": "HYD"
   },
@@ -20378,6 +20398,10 @@
   {
     "Company": "IGC Pharma, Inc.",
     "Symbol": "IGC"
+  },
+  {
+    "Company": "TCW Corporate Bond ETF",
+    "Symbol": "IGCB"
   },
   {
     "Company": "VOYA GLOBAL EQUITY DIVIDEND AND PREMIUM OPPORTUNITY FUND",
@@ -26568,7 +26592,7 @@
     "Symbol": "MMYT"
   },
   {
-    "Company": "NYLI Merger Arbitrage ETF",
+    "Company": "IQ ARB Merger Arbitrage ETF",
     "Symbol": "MNA"
   },
   {
@@ -27358,6 +27382,10 @@
   {
     "Company": "MURPHY USA INC.",
     "Symbol": "MUSA"
+  },
+  {
+    "Company": "TCW Multisector Credit Income ETF",
+    "Symbol": "MUSE"
   },
   {
     "Company": "American Century Multisector Income ETF",
@@ -28590,6 +28618,10 @@
   {
     "Company": "Sunnova Energy International Inc.",
     "Symbol": "NOVA"
+  },
+  {
+    "Company": "FT Vest U.S. Equity Max Buffer ETF - November",
+    "Symbol": "NOVM"
   },
   {
     "Company": "PGIM US Large-Cap Buffer 12 ETF - November",
@@ -33252,6 +33284,10 @@
     "Symbol": "QMMY"
   },
   {
+    "Company": "FT Vest Nasdaq-100 Moderate Buffer ETF - November",
+    "Symbol": "QMNV"
+  },
+  {
     "Company": "Alpha Architect U.S. Quantitative Momentum ETF",
     "Symbol": "QMOM"
   },
@@ -36914,6 +36950,10 @@
   {
     "Company": "Soleno Therapeutics, Inc. Common Stock",
     "Symbol": "SLNO"
+  },
+  {
+    "Company": "TCW Senior Loan ETF",
+    "Symbol": "SLNZ"
   },
   {
     "Company": "Simulations Plus, Inc.",

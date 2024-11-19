@@ -16,14 +16,15 @@ import { useEffect, useState } from 'react'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 dayjs.extend(relativeTime)
 
-const JobsLayout = () => {
+const JobsLayout = ({ userClaim }: { userClaim: Claim }) => {
   const pollingIterval = 8000
   const [selectedItem, setSelectedItem] = useState<Job | null>(null)
   const [isLoadingDetail, setIsLoadingDetail] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const { claims } = useSessionStore()
-  const [claim, setClaim] = useState(claims.find((m) => m.type === 'qln'))
+  const [claim, setClaim] = useState<Claim | undefined>(userClaim)
+  console.log('claim: ', claim)
 
   const { start, stop, pollCounter: counter } = usePolling(pollingIterval, 100)
 

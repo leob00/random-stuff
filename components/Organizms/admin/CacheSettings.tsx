@@ -26,14 +26,14 @@ interface CacheStats {
 const CacheSettings = ({ claim }: { claim: Claim }) => {
   const mutateKey = ['/api/baseRoute', claim.token]
   const fetchData = async (url: string, id: string) => {
-    const response = await getCacheStats(claim.token)
+    const response = await getCacheStats(claim.token ?? '')
     return response.Body as CacheStats
   }
-  const { data, isValidating, error } = useSWR(mutateKey, ([url, id]) => fetchData(url, claim.token))
+  const { data, isValidating, error } = useSWR(mutateKey, ([url, id]) => fetchData(url ?? '', claim.token ?? ''))
   const [isLoading, setIsLoading] = React.useState(false)
   const handleResetCache = async () => {
     setIsLoading(true)
-    await resetStockCache(claim.token)
+    await resetStockCache(claim.token ?? '')
     setIsLoading(false)
     mutate(mutateKey)
   }
@@ -56,7 +56,7 @@ const CacheSettings = ({ claim }: { claim: Claim }) => {
           </Box>
           <ReadOnlyField label='address' val={data.WebServerIpAddress} />
           <Box display={'flex'} alignItems={'center'}>
-            <CopyableText label='Token:' value={claim.token} />
+            <CopyableText label='Token:' value={claim.token ?? ''} />
           </Box>
           <ReadOnlyField label='Token Expiration Date' val={`${dayjs(claim.tokenExpirationDate).format('MM/DD/YYYY hh:mm a')}`} />
           <Typography variant='h5' py={2} color='primary'>{`Cache`}</Typography>
