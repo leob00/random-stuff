@@ -9,14 +9,13 @@ export default function useQlnAdmin() {
   const { claims, saveClaims } = useSessionStore()
   const [isValidating, setIsValidating] = useState(true)
   const [validatedClaim, setValidatedClaim] = useState<Claim | undefined>(claims.find((m) => m.type === 'qln'))
-  const { ticket } = useUserController()
-  const [userTicket, setUserTicket] = useState(ticket)
+  const { ticket, setTicket } = useUserController()
 
   const validateClaim = async (claimType: ClaimType) => {
     let newClaims = [...claims]
     if (newClaims.length === 0) {
-      if (userTicket) {
-        newClaims = mapRolesToClaims(userTicket.roles)
+      if (ticket) {
+        newClaims = mapRolesToClaims(ticket.roles)
         saveClaims(newClaims)
       }
     }
@@ -25,7 +24,11 @@ export default function useQlnAdmin() {
       if (claim) {
         if (dayjs().isBefore(claim.tokenExpirationDate!)) {
           setValidatedClaim(claim)
+        } else {
+          setValidatedClaim(undefined)
         }
+      } else {
+        setValidatedClaim(undefined)
       }
     }
     setIsValidating(false)
@@ -33,21 +36,10 @@ export default function useQlnAdmin() {
 
   useEffect(() => {
     const fn = async () => {
-      if (!ticket) {
-        const newTicket = await getUserCSR()
-        setUserTicket(newTicket)
-      }
-      fn()
-    }
-  }, [ticket])
-
-  useEffect(() => {
-    if (userTicket) {
       validateClaim('qln')
-    } else {
-      setIsValidating(false)
     }
-  }, [userTicket])
+    fn()
+  }, [ticket, claims])
 
   return {
     isValidating,

@@ -399,6 +399,7 @@ export interface StockEarning {
   StockQuote?: StockQuote
   Year?: number
   Quarter?: number
+  RecordId?: number
 }
 
 export interface StockEarningAggregate {

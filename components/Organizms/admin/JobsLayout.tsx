@@ -22,15 +22,12 @@ const JobsLayout = ({ userClaim }: { userClaim: Claim }) => {
   const [isLoadingDetail, setIsLoadingDetail] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const { claims } = useSessionStore()
   const [claim, setClaim] = useState<Claim | undefined>(userClaim)
-  console.log('claim: ', claim)
 
   const { start, stop, pollCounter: counter } = usePolling(pollingIterval, 100)
 
   const handleLogin = async (result: Claim[]) => {
     setClaim(result.find((m) => m.type === 'qln'))
-    setError('unable to find claim for qln admin')
     start()
   }
 

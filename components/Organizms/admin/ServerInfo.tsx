@@ -37,7 +37,7 @@ const ServerInfo = () => {
               <Box py={2}>
                 <Typography variant='h5' pb={2} color='primary'>{`Configuration`}</Typography>
                 <CenterStack sx={{ pt: 1 }}>
-                  <Link href={'https://server6.m6.net:8443/'} style={{ fontSize: 'smaller' }}>
+                  <Link target='_blank' href={'https://server6.m6.net:8443/'} style={{ fontSize: 'smaller' }}>
                     Web Server Administration
                   </Link>
                 </CenterStack>

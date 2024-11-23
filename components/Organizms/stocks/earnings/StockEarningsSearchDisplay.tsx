@@ -54,7 +54,7 @@ const StockEarningsSearchDisplay = () => {
       {isLoading && <BackdropLoader />}
       <PageHeader text='Earnings Search' backButtonRoute='/csr/my-stocks' />
       <Box py={2} flexDirection={'column'} gap={2} display={'flex'}>
-        <SearchBySymbolAccordion handelSubmit={handleSearchSubmitSearchBySymbol} />
+        <SearchBySymbolAccordion isExpanded={isBySymbolExpanded} setIsExpanded={setIsBySymbolExpanded} handelSubmit={handleSearchSubmitSearchBySymbol} />
         <>
           {stockQuote && (
             <Box py={2}>

@@ -27,6 +27,16 @@ export function myEncryptBase64(passPhrase: string, data: string) {
 
 const encryptKeys = new Map<string, string>()
 
+export function weakEncryptBase64(data: string) {
+  if (!encryptKeys.has(data)) {
+    const result = CryptoJS.AES.encrypt(data, config.key, CryptoJS.enc.Base64).toString()
+    encryptKeys.set(data, result)
+    return result
+  } else {
+    return encryptKeys.get(data)!
+  }
+}
+
 export function weakEncrypt(data: string) {
   if (!encryptKeys.has(data)) {
     const result = CryptoJS.AES.encrypt(data, config.key, CryptoJS.enc.Utf8).toString()

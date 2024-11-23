@@ -21,6 +21,7 @@ import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import useQlnAdmin from 'hooks/auth/useQlnAdmin'
 import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
+import { Box } from '@mui/material'
 
 const Page = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
@@ -37,29 +38,26 @@ const Page = () => {
   const handleQlnLogin = (claims: Claim[]) => {
     saveClaims(claims)
   }
-  console.log('adminClaim: ', adminClaim)
   return (
     <>
       <Seo pageTitle='Admin' />
       <ResponsiveContainer>
-        {isValidatingProfile || (isValidatingAdmin && <BackdropLoader />)}
         <PageHeader text='Admin' />
-        {/* <RequireClaim claimType='rs-admin'> */}
-        {!isValidatingAdmin && adminClaim ? (
-          <>
-            <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
-            {selectedTab === 'Jobs' && <JobsLayout userClaim={adminClaim} />}
-            {selectedTab === 'Server' && <ServerInfo />}
-            {selectedTab === 'Api' && <ApiTest />}
-            {selectedTab === 'Users' && <>{userProfile && <UsersAdmin userProfile={userProfile} />}</>}
-            {selectedTab === 'Data Quality' && <DataQualityStart />}
-          </>
-        ) : (
-          <>
-            <QlnUsernameLoginForm onSuccess={handleQlnLogin} />
-          </>
-        )}
-        {/* </RequireClaim> */}
+        <RequireClaim claimType='rs-admin'>
+          {isValidatingProfile || (isValidatingAdmin && <BackdropLoader />)}
+          {!isValidatingAdmin && !!adminClaim && (
+            <>
+              <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
+              {selectedTab === 'Jobs' && <JobsLayout userClaim={adminClaim} />}
+              {selectedTab === 'Server' && <ServerInfo />}
+              {selectedTab === 'Api' && <ApiTest />}
+              {selectedTab === 'Users' && <>{userProfile && <UsersAdmin userProfile={userProfile} />}</>}
+              {selectedTab === 'Data Quality' && <DataQualityStart />}
+            </>
+          )}
+        </RequireClaim>
+
+        <>{!isValidatingAdmin && !adminClaim && <QlnUsernameLoginForm onSuccess={handleQlnLogin} />}</>
       </ResponsiveContainer>
     </>
   )

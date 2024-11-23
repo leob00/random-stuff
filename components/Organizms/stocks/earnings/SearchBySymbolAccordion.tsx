@@ -2,16 +2,26 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '
 import { CasinoGrayTransparent } from 'components/themes/mainTheme'
 import SearchEarningsBySymbolForm, { EarningsSearchFields } from './SearchEarningsBySymbolForm'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { useState } from 'react'
 
-const SearchBySymbolAccordion = ({ handelSubmit }: { handelSubmit: (item: EarningsSearchFields) => void }) => {
-  const [isExpanded, setIsExpanded] = useState(true)
+const SearchBySymbolAccordion = ({
+  handelSubmit,
+  isExpanded,
+  setIsExpanded,
+}: {
+  handelSubmit: (item: EarningsSearchFields) => void
+  isExpanded: boolean
+  setIsExpanded: (isExpanded: boolean) => void
+}) => {
   const handleSearchSubmitSearchBySymbol = (item: EarningsSearchFields) => {
-    setIsExpanded(false)
     handelSubmit(item)
   }
   return (
-    <Accordion expanded={isExpanded}>
+    <Accordion
+      expanded={isExpanded}
+      onChange={(e, expanded) => {
+        setIsExpanded(expanded)
+      }}
+    >
       <AccordionSummary expandIcon={<ExpandMoreIcon fontSize='small' color='primary' />} sx={{ borderBottom: `solid 1px ${CasinoGrayTransparent}` }}>
         <Typography variant='subtitle1'>by symbol</Typography>
       </AccordionSummary>

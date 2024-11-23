@@ -376,6 +376,10 @@
     "Symbol": "ACIW"
   },
   {
+    "Company": "TCW AAA CLO ETF",
+    "Symbol": "ACLO"
+  },
+  {
     "Company": "Axcelis Technologies Inc",
     "Symbol": "ACLS"
   },
@@ -1216,7 +1220,7 @@
     "Symbol": "AIRJ"
   },
   {
-    "Company": "Montana Technologies Corporation Warrant",
+    "Company": "AirJoule Technologies Corporation Warrant",
     "Symbol": "AIRJW"
   },
   {
@@ -3648,6 +3652,10 @@
     "Symbol": "BALY"
   },
   {
+    "Company": "Bally's Corporation",
+    "Symbol": "BALY.T"
+  },
+  {
     "Company": "Brookfield Asset Management Ltd.",
     "Symbol": "BAM"
   },
@@ -4618,6 +4626,10 @@
   {
     "Company": "BigCommerce Holdings, Inc. Series 1 Common Stock",
     "Symbol": "BIGC"
+  },
+  {
+    "Company": "YieldMax Target 12 Big 50 Option Income ETF",
+    "Symbol": "BIGY"
   },
   {
     "Company": "BlackRock Innovation and Growth Term Trust",
@@ -7672,7 +7684,7 @@
     "Symbol": "CHRD"
   },
   {
-    "Company": "Chromocell Therapeutics Corporation",
+    "Company": "Channel Therapeutics Corporation",
     "Symbol": "CHRO"
   },
   {
@@ -11600,6 +11612,10 @@
     "Symbol": "DYNT"
   },
   {
+    "Company": "Dynamix Corporation Unit",
+    "Symbol": "DYNXU"
+  },
+  {
     "Company": "SGI Dynamic Tactical ETF",
     "Symbol": "DYTA"
   },
@@ -13828,6 +13844,10 @@
     "Symbol": "FAF"
   },
   {
+    "Company": "First Trust Bloomberg Artificial Intelligence ETF",
+    "Symbol": "FAI"
+  },
+  {
     "Company": "Cambria Global Tail Risk ETF",
     "Symbol": "FAIL"
   },
@@ -14296,6 +14316,10 @@
     "Symbol": "FE"
   },
   {
+    "Company": "Fidelity Enhanced U.S. All-Cap Equity ETF",
+    "Symbol": "FEAC"
+  },
+  {
     "Company": "5E Advanced Materials, Inc. Common Stock",
     "Symbol": "FEAM"
   },
@@ -14362,6 +14386,10 @@
   {
     "Company": "First Trust Emerging Markets Local Currency Bond ETF",
     "Symbol": "FEMB"
+  },
+  {
+    "Company": "Fidelity Enhanced Emerging Markets ETF",
+    "Symbol": "FEMR"
   },
   {
     "Company": "First Trust Emerging Markets Small Cap AlphaDEX Fund",
@@ -14464,8 +14492,20 @@
     "Symbol": "FFC"
   },
   {
+    "Company": "Fidelity Fundamental Developed International ETF",
+    "Symbol": "FFDI"
+  },
+  {
     "Company": "FT Vest U.S. Equity Buffer ETF - February",
     "Symbol": "FFEB"
+  },
+  {
+    "Company": "Fidelity Fundamental Emerging Markets ETF",
+    "Symbol": "FFEM"
+  },
+  {
+    "Company": "Fidelity Fundamental Global ex-U.S. ETF",
+    "Symbol": "FFGX"
   },
   {
     "Company": "Flushing Financial Corp",
@@ -14718,6 +14758,14 @@
   {
     "Company": "FTAI Infrastructure Inc. Common Stock",
     "Symbol": "FIP"
+  },
+  {
+    "Company": "FIRE Funds Income Target ETF",
+    "Symbol": "FIRI"
+  },
+  {
+    "Company": "FIRE Funds Wealth Builder ETF",
+    "Symbol": "FIRS"
   },
   {
     "Company": "Fidelity National Information Services, Inc.",
@@ -20156,7 +20204,7 @@
     "Symbol": "ICOW"
   },
   {
-    "Company": "iShares Ultra Short-Term Bond Active ETF",
+    "Company": "BlackRock Ultra Short-Term Bond ETF",
     "Symbol": "ICSH"
   },
   {
@@ -22608,7 +22656,7 @@
     "Symbol": "JPEM"
   },
   {
-    "Company": "Nuveen Preferred Securities & Income Opportunities Fund",
+    "Company": "NUVEEN PREFERRED AND INCOME TERM FUND",
     "Symbol": "JPI"
   },
   {
@@ -28580,6 +28628,10 @@
     "Symbol": "NODK"
   },
   {
+    "Company": "CO2 Energy Transition Corp. Unit",
+    "Symbol": "NOEMU"
+  },
+  {
     "Company": "Northern Oil and Gas, Inc.",
     "Symbol": "NOG"
   },
@@ -32300,7 +32352,7 @@
     "Symbol": "PRLHW"
   },
   {
-    "Company": "Perimeter Solutions, SA",
+    "Company": "Perimeter Solutions, Inc.",
     "Symbol": "PRM"
   },
   {
@@ -34554,6 +34606,14 @@
   {
     "Company": "The RMR Group Inc. Class A Common Stock",
     "Symbol": "RMR"
+  },
+  {
+    "Company": "Real Messenger Corporation Ordinary Shares",
+    "Symbol": "RMSG"
+  },
+  {
+    "Company": "Real Messenger Corporation Warrants",
+    "Symbol": "RMSGW"
   },
   {
     "Company": "Royce Micro-Cap Trust Inc",
@@ -37056,6 +37116,10 @@
     "Symbol": "SMBK"
   },
   {
+    "Company": "Schwab Mortgage-Backed Securities ETF",
+    "Symbol": "SMBS"
+  },
+  {
     "Company": "Summit Midstream Corporation",
     "Symbol": "SMC"
   },
@@ -37560,7 +37624,7 @@
     "Symbol": "SOR"
   },
   {
-    "Company": "SOS Limited American Depositary Shares, each representing ten (10) Class A Ordinary Shares",
+    "Company": "SOS Limited American Depositary Shares, one hundred and fifty (150) Class A Ordinary Shares",
     "Symbol": "SOS"
   },
   {
@@ -38606,6 +38670,10 @@
   {
     "Company": "SUNOCO L.P.",
     "Symbol": "SUN"
+  },
+  {
+    "Company": "SUNation Energy, Inc. Common Stock",
+    "Symbol": "SUNE"
   },
   {
     "Company": "Sunrise Realty Trust, Inc. Common Stock",
@@ -41440,6 +41508,10 @@
     "Symbol": "UPS"
   },
   {
+    "Company": "Aptus Large Cap Upside ETF",
+    "Symbol": "UPSD"
+  },
+  {
     "Company": "Upstart Holdings, Inc. Common stock",
     "Symbol": "UPST"
   },
@@ -42034,6 +42106,10 @@
   {
     "Company": "Vanguard Core Bond ETF",
     "Symbol": "VCRB"
+  },
+  {
+    "Company": "Vanguard Core Tax-Exempt Bond ETF",
+    "Symbol": "VCRM"
   },
   {
     "Company": "Vacasa, Inc. Class A Common Stock",
@@ -42826,6 +42902,10 @@
   {
     "Company": "VictoryShares Dividend Accelerator ETF",
     "Symbol": "VSDA"
+  },
+  {
+    "Company": "Vanguard Short Duration Tax-Exempt Bond ETF",
+    "Symbol": "VSDM"
   },
   {
     "Company": "VSE Corp",

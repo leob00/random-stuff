@@ -16,16 +16,18 @@ const ListHeader = ({
   addText = 'add',
   underline,
   disabled,
+  elevation = 1,
 }: {
   text: string
   item: any
-  onClicked: (item: any) => void
+  onClicked?: (item: any) => void
   onEdit?: (item: any) => void
   onDelete?: (item: any) => void
   onAdd?: (item: any) => void
   addText?: string
   underline?: boolean
   disabled?: boolean
+  elevation?: number
 }) => {
   const showContextMenu = onEdit !== undefined || onDelete !== undefined || onAdd !== undefined
 
@@ -59,7 +61,7 @@ const ListHeader = ({
     <Box>
       <FadeIn>
         <Stack direction={'row'} flexGrow={1} alignItems={'center'}>
-          <Card sx={{ width: '100%', borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} elevation={1}>
+          <Card sx={{ width: '100%', borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} elevation={elevation}>
             <CardHeader
               title={
                 <>
@@ -67,7 +69,7 @@ const ListHeader = ({
                     width={'100%'}
                     sx={{ cursor: !disabled ? 'pointer' : 'unset' }}
                     onClick={(e) => {
-                      onClicked(item)
+                      onClicked?.(item)
                     }}
                   >
                     <Typography textAlign={'left'} variant='h6' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
