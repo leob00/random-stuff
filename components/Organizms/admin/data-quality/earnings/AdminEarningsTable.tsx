@@ -1,17 +1,16 @@
 import { Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
-import { StockEarning, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
+import { StockEarning, serverDeleteFetch, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 import { AdminEarningsModel } from './AdminEarningsWrapper'
-import { Dispatch, Fragment } from 'react'
+import { Dispatch, Fragment, useState } from 'react'
 import FormDatePicker from 'components/Molecules/Forms/ReactHookForm/FormDatePicker'
 import FormNumericTextField from 'components/Molecules/Forms/ReactHookForm/FormNumericTextField'
 import numeral from 'numeral'
 import dayjs from 'dayjs'
-import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
-import FadeIn from 'components/Atoms/Animations/FadeIn'
-import { weakEncrypt, weakEncryptBase64 } from 'lib/backend/encryption/useEncryptor'
-import { sum } from 'lodash'
+import { weakEncryptBase64 } from 'lib/backend/encryption/useEncryptor'
+import ConfirmDialog from 'components/Atoms/Dialogs/ConfirmDialog'
+import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 
 type Model = {
   year: number
@@ -22,6 +21,7 @@ type Model = {
 const AdminEarningsTable = ({ model, setModel, onRefresh }: { model: AdminEarningsModel; setModel: Dispatch<AdminEarningsModel>; onRefresh: () => void }) => {
   const { claims } = useSessionStore()
   const claim = claims.find((m) => m.type === 'qln')
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false)
   const results: Model[] = []
   const years = Array.from(new Set(model.searchResults.map((m) => m.Year!)))
   years.forEach((year) => {
@@ -58,7 +58,7 @@ const AdminEarningsTable = ({ model, setModel, onRefresh }: { model: AdminEarnin
     if (model.selectedItem) {
       if (claim) {
         const body: StockEarning[] = [{ ...model.selectedItem }]
-        const response = await serverPostFetch(
+        await serverPostFetch(
           {
             body: body,
           },
@@ -69,6 +69,24 @@ const AdminEarningsTable = ({ model, setModel, onRefresh }: { model: AdminEarnin
       }
     }
   }
+
+  const handleYesDelete = async () => {
+    setShowConfirmDelete(false)
+    if (model.selectedItem) {
+      if (claim) {
+        const body: StockEarning[] = [{ ...model.selectedItem }]
+        await serverDeleteFetch(
+          {
+            body: body,
+          },
+          `/AdminEarnings?Token=${claim.token}`,
+        )
+
+        onRefresh()
+      }
+    }
+  }
+
   const handleAdd = (year: number) => {
     const dt = dayjs(new Date(year, 0, 1)).format()
     if (model.stockQuote) {
@@ -86,54 +104,54 @@ const AdminEarningsTable = ({ model, setModel, onRefresh }: { model: AdminEarnin
   }
 
   return (
-    <TableContainer>
-      <Table>
-        <TableHead>
-          <TableRow sx={{ borderBottom: `solid ${CasinoBlueTransparent} 1px` }}>
-            <TableCell>
-              <Box pb={2}>
-                <Typography>Report Date</Typography>
-              </Box>
-            </TableCell>
-            <TableCell>Actual</TableCell>
-            <TableCell>Estimated</TableCell>
-            <TableCell></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {results.map((yearItem) => (
-            <Fragment key={yearItem.recordHash}>
-              <TableRow>
-                <TableCell colSpan={10} sx={{ borderBottom: 'none' }}>
-                  <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                    <Box>
-                      <Typography variant='h6' fontWeight={600}>
-                        {yearItem.year}
-                      </Typography>
+    <>
+      <TableContainer>
+        <Table>
+          <TableHead>
+            <TableRow sx={{ borderBottom: `solid ${CasinoBlueTransparent} 1px` }}>
+              <TableCell>
+                <Box pb={2}>
+                  <Typography>Report Date</Typography>
+                </Box>
+              </TableCell>
+              <TableCell>Actual</TableCell>
+              <TableCell>Estimated</TableCell>
+              <TableCell></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {results.map((yearItem) => (
+              <Fragment key={yearItem.recordHash}>
+                <TableRow>
+                  <TableCell colSpan={10} sx={{ borderBottom: 'none' }}>
+                    <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                      <Box>
+                        <Typography variant='h6' fontWeight={600}>
+                          {yearItem.year}
+                        </Typography>
+                      </Box>
+                      <Box>
+                        <Button
+                          size='small'
+                          onClick={() => {
+                            handleAdd(yearItem.year)
+                          }}
+                        >
+                          add
+                        </Button>
+                      </Box>
                     </Box>
-                    <Box>
-                      <Button
-                        size='small'
-                        onClick={() => {
-                          handleAdd(yearItem.year)
-                        }}
-                      >
-                        add
-                      </Button>
-                    </Box>
-                  </Box>
-                </TableCell>
-              </TableRow>
-              {yearItem.searchResults.map((item) => (
-                <TableRow
-                  key={`${item.RecordId}-${item.ReportDate}-${item.ActualEarnings}`}
-                  sx={{
-                    border: model.selectedItem && model.selectedItem.RecordId === item.RecordId ? `solid ${CasinoBlueTransparent} 1px` : 'unset',
-                  }}
-                >
-                  {model.selectedItem && model.selectedItem.RecordId === item.RecordId ? (
-                    <>
-                      <FadeIn>
+                  </TableCell>
+                </TableRow>
+                {yearItem.searchResults.map((item) => (
+                  <TableRow
+                    key={`${item.RecordId}-${item.ReportDate}-${item.ActualEarnings}`}
+                    sx={{
+                      border: model.selectedItem && model.selectedItem.RecordId === item.RecordId ? `solid ${CasinoBlueTransparent} 1px` : 'unset',
+                    }}
+                  >
+                    {model.selectedItem && model.selectedItem.RecordId === item.RecordId ? (
+                      <>
                         <TableCell sx={{ borderBottom: 'none', borderTop: 'none' }}>
                           <Box py={1} pl={1}>
                             <FormDatePicker value={item.ReportDate ?? null} onDateSelected={handleUpdateDate} />
@@ -141,42 +159,40 @@ const AdminEarningsTable = ({ model, setModel, onRefresh }: { model: AdminEarnin
                         </TableCell>
                         <TableCell sx={{ borderBottom: 'none' }}>
                           <FormNumericTextField
-                            value={item.ActualEarnings ? numeral(item.ActualEarnings).format('0,0.000') : ''}
+                            value={item.ActualEarnings !== undefined && item.ActualEarnings !== null ? numeral(item.ActualEarnings).format('0,0.000') : ''}
                             onChanged={handleUpdateActual}
                           />
                         </TableCell>
                         <TableCell sx={{ borderBottom: 'none' }}>
                           <FormNumericTextField
-                            value={item.EstimatedEarnings ? numeral(item.EstimatedEarnings).format('0,0.000') : ''}
+                            value={
+                              item.EstimatedEarnings !== undefined && item.EstimatedEarnings !== null ? numeral(item.EstimatedEarnings).format('0,0.000') : ''
+                            }
                             onChanged={handleUpdateEstimated}
                           />
                         </TableCell>
-                      </FadeIn>
-                    </>
-                  ) : (
-                    <>
-                      <TableCell>
-                        <Box py={1} pl={1}>
-                          <FadeIn>
+                      </>
+                    ) : (
+                      <>
+                        <TableCell>
+                          <Box py={1} pl={1}>
                             <Typography>{dayjs(item.ReportDate).format('MM/DD/YYYY')}</Typography>
-                          </FadeIn>
-                        </Box>
-                      </TableCell>
-                      <TableCell>
-                        <FadeIn>
-                          <Typography>{item.ActualEarnings ? numeral(item.ActualEarnings).format('0,0.000') : ''}</Typography>
-                        </FadeIn>
-                      </TableCell>
-                      <TableCell>
-                        <FadeIn>
-                          <Typography>{item.EstimatedEarnings ? numeral(item.EstimatedEarnings).format('0,0.000') : ''}</Typography>
-                        </FadeIn>
-                      </TableCell>
-                    </>
-                  )}
+                          </Box>
+                        </TableCell>
+                        <TableCell>
+                          <Typography>
+                            {item.ActualEarnings !== undefined && item.ActualEarnings !== null ? numeral(item.ActualEarnings).format('0,0.000') : ''}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography>
+                            {item.EstimatedEarnings !== undefined && item.EstimatedEarnings !== null ? numeral(item.EstimatedEarnings).format('0,0.000') : ''}
+                          </Typography>
+                        </TableCell>
+                      </>
+                    )}
 
-                  <TableCell sx={{ borderBottom: model.selectedItem && model.selectedItem.RecordId === item.RecordId ? 'none' : 'default' }}>
-                    <FadeIn>
+                    <TableCell sx={{ borderBottom: model.selectedItem && model.selectedItem.RecordId === item.RecordId ? 'none' : 'default' }}>
                       {!model.selectedItem || model.selectedItem.RecordId !== item.RecordId ? (
                         <Button
                           size='small'
@@ -199,79 +215,31 @@ const AdminEarningsTable = ({ model, setModel, onRefresh }: { model: AdminEarnin
                           >
                             save
                           </Button>
+                          <Button size='small' onClick={() => setShowConfirmDelete(true)}>
+                            delete
+                          </Button>
                         </Box>
                       )}
-                    </FadeIn>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </Fragment>
-          ))}
-
-          {/* {model.selectedItem && model.selectedItem.RecordId === item.RecordId ? (
-                <>
-                  <TableCell>
-                    <Box py={1} pl={1}>
-                      <FormDatePicker value={item.ReportDate ?? null} onDateSelected={handleUpdateDate} />
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    <FormNumericTextField value={item.ActualEarnings ? numeral(item.ActualEarnings).format('0,0.000') : ''} onChanged={handleUpdateActual} />
-                  </TableCell>
-                  <TableCell>
-                    <FormNumericTextField
-                      value={item.EstimatedEarnings ? numeral(item.EstimatedEarnings).format('0,0.000') : ''}
-                      onChanged={handleUpdateEstimated}
-                    />
-                  </TableCell>
-                </>
-              ) : (
-                <>
-                  <TableCell>
-                    <Box py={1} pl={1}>
-                      <Typography>{dayjs(item.ReportDate).format('MM/DD/YYYY')}</Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    <Typography>{item.ActualEarnings ? numeral(item.ActualEarnings).format('0,0.000') : ''}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography>{item.EstimatedEarnings ? numeral(item.EstimatedEarnings).format('0,0.000') : ''}</Typography>
-                  </TableCell>
-                </>
-              )}
-
-              <TableCell>
-                {!model.selectedItem || model.selectedItem.RecordId !== item.RecordId ? (
-                  <Button
-                    size='small'
-                    onClick={() => {
-                      handleSetSelectedItem(item)
-                    }}
-                  >
-                    edit
-                  </Button>
-                ) : (
-                  <Box display={'flex'} flexDirection={'row'} gap={1}>
-                    <Button size='small' onClick={handleCancelSelectedItem}>
-                      cancel
-                    </Button>
-                    <Button
-                      size='small'
-                      onClick={() => {
-                        handleSaveSelectedItem()
-                      }}
-                    >
-                      save
-                    </Button>
-                  </Box>
-                )}
-              </TableCell>
-            </TableRow> */}
-          {/* ))} */}
-        </TableBody>
-      </Table>
-    </TableContainer>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </Fragment>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      {showConfirmDelete && (
+        <ConfirmDeleteDialog
+          show={showConfirmDelete}
+          onCancel={() => setShowConfirmDelete(false)}
+          title='Delete Earning'
+          text='Are you sure you want to delete this record?'
+          onConfirm={() => {
+            handleYesDelete()
+          }}
+        ></ConfirmDeleteDialog>
+      )}
+    </>
   )
 }
 

@@ -6728,6 +6728,10 @@
     "Symbol": "CASI"
   },
   {
+    "Company": "Heritage Distilling Holding Company, Inc. Common Stock",
+    "Symbol": "CASK"
+  },
+  {
     "Company": "Cass Information Systems Inc",
     "Symbol": "CASS"
   },
@@ -8764,7 +8768,7 @@
     "Symbol": "CPAY"
   },
   {
-    "Company": "Campbell Soup Company Common Stock",
+    "Company": "The Campbell's Company Common Stock",
     "Symbol": "CPB"
   },
   {
@@ -12362,6 +12366,10 @@
   {
     "Company": "Companhia Paranaense de Energia - COPEL American Depositary Shares (each representing four (4) Common Shares)",
     "Symbol": "ELPC"
+  },
+  {
+    "Company": "Elong Power Holding Limited Class A Ordinary Shares",
+    "Symbol": "ELPW"
   },
   {
     "Company": "iShares ESG Advanced Investment Grade Corporate Bond ETF",
@@ -27248,6 +27256,10 @@
     "Symbol": "MSVX"
   },
   {
+    "Company": "Ming Shing Group Holdings Limited Ordinary Shares",
+    "Symbol": "MSW"
+  },
+  {
     "Company": "ArcelorMittal",
     "Symbol": "MT"
   },
@@ -41596,6 +41608,10 @@
     "Symbol": "USAC"
   },
   {
+    "Company": "Atlas America Fund",
+    "Symbol": "USAF"
+  },
+  {
     "Company": "Pacer American Energy Independence ETF",
     "Symbol": "USAI"
   },
@@ -45310,6 +45326,10 @@
   {
     "Company": "Zevia PBC",
     "Symbol": "ZVIA"
+  },
+  {
+    "Company": "Volatility Premium Plus ETF",
+    "Symbol": "ZVOL"
   },
   {
     "Company": "Zevra Therapeutics, Inc. Common Stock",

@@ -36,16 +36,14 @@ const AdminEarningsWrapper = () => {
   }
 
   const [model, setModel] = useReducer((state: AdminEarningsModel, newState: AdminEarningsModel) => ({ ...state, ...newState }), defaultModel)
-  const handelSubmit = async (item: EarningsSearchFields) => {
-    setModel({ ...model, error: null, isLoading: true, selectedItem: null })
-    const quotes = await getStockQuotes([item.symbol])
-    if (quotes.length > 0) {
-      const endpoint = `/StockEarnings?symbol=${quotes[0].Symbol}`
+  const handelSubmit = async (item: StockQuote) => {
+    if (item.Symbol.length > 0) {
+      setModel({ ...model, error: null, isLoading: true, selectedItem: null })
+
+      const endpoint = `/StockEarnings?symbol=${item.Symbol}`
       const resp = await serverGetFetch(endpoint)
       const searchResults = resp.Body as StockEarning[]
-      setModel({ ...model, stockQuote: quotes[0], isSearchExpanded: false, isLoading: false, searchResults: searchResults })
-    } else {
-      setModel({ ...model, error: `unable to load quote: ${item.symbol}`, isLoading: false, searchResults: [] })
+      setModel({ ...model, stockQuote: item, isSearchExpanded: false, isLoading: false, searchResults: searchResults })
     }
   }
   const handleRefresh = async () => {

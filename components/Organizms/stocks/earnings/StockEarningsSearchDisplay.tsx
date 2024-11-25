@@ -20,16 +20,18 @@ const StockEarningsSearchDisplay = () => {
   const [stockQuote, setStockQuote] = useState<StockQuote | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleSearchSubmitSearchBySymbol = async (data: EarningsSearchFields) => {
-    setIsLoading(true)
-    const earnResp = await serverGetFetch(`/StockEarnings?symbol=${data.symbol}`)
-    const earnings = earnResp.Body as StockEarning[]
-    const quote = await getStockQuote(data.symbol)
-    setStockQuote(quote)
-    setSearchResults(earnings)
-    setIsBySymbolExpanded(false)
-    setIsByDateExpanded(false)
-    setIsLoading(false)
+  const handleSearchSubmitSearchBySymbol = async (data: StockQuote) => {
+    if (data.Symbol.length > 0) {
+      setIsLoading(true)
+      const earnResp = await serverGetFetch(`/StockEarnings?symbol=${data.Symbol}`)
+      const earnings = earnResp.Body as StockEarning[]
+      const quote = await getStockQuote(data.Symbol)
+      setStockQuote(quote)
+      setSearchResults(earnings)
+      setIsBySymbolExpanded(false)
+      setIsByDateExpanded(false)
+      setIsLoading(false)
+    }
   }
   const handleSearchSubmitSearchByDates = async (data: EarningsSearchDateFields) => {
     setIsLoading(true)

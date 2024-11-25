@@ -14,7 +14,7 @@ const Page = () => {
 
   const reports: DropdownItem[] = [
     {
-      text: 'recent',
+      text: 'weekly',
       value: 'recent-earnings',
     },
     {

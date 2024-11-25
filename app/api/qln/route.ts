@@ -20,3 +20,14 @@ export async function POST(req: NextRequest) {
   const result = await postBody(url, 'POST', request)
   return NextResponse.json(result)
 }
+
+export async function DELETE(req: NextRequest) {
+  const url = req.nextUrl.searchParams.get('url') as string
+  const request = (await req.json()) as QlnApiRequest
+  if (request.body) {
+    return NextResponse.json(await postBody(url, 'DELETE', request.body))
+  }
+
+  const result = await postBody(url, 'DELETE', request)
+  return NextResponse.json(result)
+}

@@ -1,7 +1,7 @@
 import { getUserStockList, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
 import { quoteArraySchema, StockQuote } from '../models/zModels'
-import { get, post } from '../fetchFunctions'
+import { get, post, postBody } from '../fetchFunctions'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import dayjs from 'dayjs'
 import { apiConnection } from '../config'
@@ -479,6 +479,11 @@ export async function getEconDataReportDowJones(startYear: number, endYear: numb
 
 export async function serverPostFetch(req: QlnApiRequest, endpoint: string) {
   const resp = await post(`/api/qln?url=${qlnApiBaseUrl}${endpoint}`, req)
+  const result = resp as QlnApiResponse
+  return result
+}
+export async function serverDeleteFetch(req: QlnApiRequest, endpoint: string) {
+  const resp = await postBody(`/api/qln?url=${qlnApiBaseUrl}${endpoint}`, 'DELETE', req)
   const result = resp as QlnApiResponse
   return result
 }

@@ -28,7 +28,7 @@ const ServerInfo = () => {
       <Box py={2} minHeight={400}>
         <Box py={2}>
           <FadeIn>
-            <QlnAdministration claim={claim} isTokenValid={isTokenValid ?? false} handleLogOff={handleLogOff} handleQlnLogin={handleQlnLogin} />
+            <QlnAdministration claim={claim} handleLogOff={handleLogOff} />
           </FadeIn>
         </Box>
         <FadeIn>
