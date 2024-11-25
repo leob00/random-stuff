@@ -14,7 +14,7 @@ const BasicPieChart = ({ title, barChart }: { title: string; barChart: BarChart 
   const data = getPieChartData(barChart.labels, barChart.numbers, barChart.colors, barChart.borderColors)
   return (
     <Box>
-      <Doughnut data={data} options={options} width={400} />
+      <Doughnut data={data} options={options} width={350} />
     </Box>
   )
 }
