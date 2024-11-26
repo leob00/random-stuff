@@ -3,6 +3,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import dayjs from 'dayjs'
+import { mapRolesToClaims } from 'hooks/auth/authHelper'
 import { useUserController } from 'hooks/userController'
 import { Claim, ClaimType, getUserCSR } from 'lib/backend/auth/userUtil'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
@@ -17,52 +18,67 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
 
   useEffect(() => {
     const fn = async () => {
+      if (validatedClaim) {
+        setIsValidating(false)
+        return
+      }
       const allClaims = [...claims]
       const now = getUtcNow()
       const expirationSeconds = dayjs(now).diff(now.add(30, 'days'), 'second')
-      let userTicket = ticket ? ticket : await getUserCSR()
+
+      let userTicket = ticket
+      if (!userTicket) {
+        setIsValidating(true)
+        userTicket = await getUserCSR()
+      }
       if (!userTicket) {
         setIsValidating(false)
         setValidatedClaim(undefined)
         return
       }
-
-      if (validatedClaim && !validatedClaim.token) {
-        switch (claimType) {
-          case 'rs': {
-            const guest = ticket?.roles?.find((m) => m.Name === 'Registered User')
-            if (guest) {
-              const newClaim: Claim = {
-                token: crypto.randomUUID(),
-                type: 'rs',
-                tokenExpirationSeconds: expirationSeconds,
-              }
-              allClaims.push(newClaim)
-              saveClaims(allClaims)
-              setValidatedClaim(newClaim)
-            }
-            break
-          }
-          case 'rs-admin': {
-            const admin = ticket?.roles?.find((m) => m.Name === 'Admin')
-            if (admin) {
-              const newClaim: Claim = {
-                token: crypto.randomUUID(),
-                type: 'rs-admin',
-                tokenExpirationSeconds: expirationSeconds,
-              }
-              allClaims.push(newClaim)
-              saveClaims(allClaims)
-              setValidatedClaim(newClaim)
-            }
-            break
-          }
-        }
+      const newClaims = mapRolesToClaims(userTicket.roles)
+      const newCl = newClaims.find((m) => m.type === claimType)
+      if (newCl) {
+        setValidatedClaim({ ...newCl, tokenExpirationSeconds: expirationSeconds })
+        setIsValidating(false)
       } else {
-        if (claimType === 'qln') {
-          if (validatedClaim) {
-            if (dayjs().isAfter(validatedClaim.tokenExpirationDate!)) {
-              setValidatedClaim(undefined)
+        if (validatedClaim && !validatedClaim.token) {
+          switch (claimType) {
+            case 'rs': {
+              const guest = ticket?.roles?.find((m) => m.Name === 'Registered User')
+              if (guest) {
+                const newClaim: Claim = {
+                  token: crypto.randomUUID(),
+                  type: 'rs',
+                  tokenExpirationSeconds: expirationSeconds,
+                }
+                allClaims.push(newClaim)
+                saveClaims(allClaims)
+                setValidatedClaim(newClaim)
+              }
+              break
+            }
+            case 'rs-admin': {
+              const admin = ticket?.roles?.find((m) => m.Name === 'Admin')
+              if (admin) {
+                const newClaim: Claim = {
+                  token: crypto.randomUUID(),
+                  type: 'rs-admin',
+                  tokenExpirationSeconds: expirationSeconds,
+                }
+                allClaims.push(newClaim)
+                saveClaims(allClaims)
+                setValidatedClaim(newClaim)
+              }
+              break
+            }
+          }
+        } else {
+          if (claimType === 'qln') {
+            if (validatedClaim) {
+              if (dayjs().isAfter(validatedClaim.tokenExpirationDate!)) {
+                setValidatedClaim(undefined)
+              }
             }
           }
         }
