@@ -46,6 +46,7 @@ export const getBarChartOptions = (
   colors: string[],
   palette: 'light' | 'dark',
   isHorizontal?: boolean,
+  showXvalues?: boolean,
 ): ChartOptions<'bar'> => {
   return {
     responsive: true,
@@ -128,7 +129,7 @@ export const getBarChartOptions = (
         },
       },
       x: {
-        display: true,
+        display: showXvalues ?? true,
         ticks: {
           padding: 0,
           color: palette === 'light' ? CasinoBlue : VeryLightBlue,
