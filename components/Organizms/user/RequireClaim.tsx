@@ -42,44 +42,34 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
         setValidatedClaim({ ...newCl, tokenExpirationSeconds: expirationSeconds })
         setIsValidating(false)
       } else {
-        if (validatedClaim && !validatedClaim.token) {
-          switch (claimType) {
-            case 'rs': {
-              const guest = ticket?.roles?.find((m) => m.Name === 'Registered User')
-              if (guest) {
-                const newClaim: Claim = {
-                  token: crypto.randomUUID(),
-                  type: 'rs',
-                  tokenExpirationSeconds: expirationSeconds,
-                }
-                allClaims.push(newClaim)
-                saveClaims(allClaims)
-                setValidatedClaim(newClaim)
+        switch (claimType) {
+          case 'rs': {
+            const guest = ticket?.roles?.find((m) => m.Name === 'Registered User')
+            if (guest) {
+              const newClaim: Claim = {
+                token: crypto.randomUUID(),
+                type: 'rs',
+                tokenExpirationSeconds: expirationSeconds,
               }
-              break
+              allClaims.push(newClaim)
+              saveClaims(allClaims)
+              setValidatedClaim(newClaim)
             }
-            case 'rs-admin': {
-              const admin = ticket?.roles?.find((m) => m.Name === 'Admin')
-              if (admin) {
-                const newClaim: Claim = {
-                  token: crypto.randomUUID(),
-                  type: 'rs-admin',
-                  tokenExpirationSeconds: expirationSeconds,
-                }
-                allClaims.push(newClaim)
-                saveClaims(allClaims)
-                setValidatedClaim(newClaim)
-              }
-              break
-            }
+            break
           }
-        } else {
-          if (claimType === 'qln') {
-            if (validatedClaim) {
-              if (dayjs().isAfter(validatedClaim.tokenExpirationDate!)) {
-                setValidatedClaim(undefined)
+          case 'rs-admin': {
+            const admin = ticket?.roles?.find((m) => m.Name === 'Admin')
+            if (admin) {
+              const newClaim: Claim = {
+                token: crypto.randomUUID(),
+                type: 'rs-admin',
+                tokenExpirationSeconds: expirationSeconds,
               }
+              allClaims.push(newClaim)
+              saveClaims(allClaims)
+              setValidatedClaim(newClaim)
             }
+            break
           }
         }
       }
