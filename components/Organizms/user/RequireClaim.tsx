@@ -10,7 +10,7 @@ import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ReactNode, useEffect, useState } from 'react'
 
-const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children: ReactNode }) => {
+const RequireClaim = ({ claimType, children }: { claimType: 'rs' | 'rs-admin'; children: ReactNode }) => {
   const { claims, saveClaims } = useSessionStore()
   const { ticket } = useUserController()
   const [isValidating, setIsValidating] = useState(true)
@@ -89,8 +89,6 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
     switch (claimType) {
       case 'rs':
         return <PleaseLogin message='Please sign in to use this feature' />
-      case 'qln':
-        return <QlnUsernameLoginForm onSuccess={handleQlnLogin} />
       case 'rs-admin':
         return (
           <Box>

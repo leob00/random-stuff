@@ -48,6 +48,9 @@ export interface UserStockSettings {
       inside: Sort[]
     }
   }
+  earnings?: {
+    display: 'table' | 'chart'
+  }
 }
 
 export interface UserSettings {

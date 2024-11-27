@@ -39,6 +39,7 @@ const LoginUsernameForm = ({ title = 'Log in', onSubmitted, error }: { title?: s
             slotProps={{
               input: {
                 color: 'secondary',
+                autoComplete: 'username',
               },
             }}
             error={!!errors.username?.message}
@@ -51,6 +52,7 @@ const LoginUsernameForm = ({ title = 'Log in', onSubmitted, error }: { title?: s
             slotProps={{
               input: {
                 color: 'secondary',
+                autoComplete: 'current-password',
               },
             }}
             error={!!errors.username?.message}

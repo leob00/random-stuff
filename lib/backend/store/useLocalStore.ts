@@ -28,7 +28,11 @@ export const useLocalStore = create(
       myStocks: {
         defaultView: 'flat',
         data: [],
+        earnings: {
+          display: 'chart',
+        },
       },
+
       saveStockSettings: (stockSettings) => set((state) => ({ ...state, stockSettings: stockSettings })),
       saveStocks: (stocks) => {
         const myStocks = get().myStocks

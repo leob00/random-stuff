@@ -4,32 +4,35 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
-import CenterStack from 'components/Atoms/CenterStack'
 import dayjs from 'dayjs'
 import { StockEarning, StockEarningAggregate } from 'lib/backend/api/qln/qlnApi'
 import numeral from 'numeral'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { getPositiveNegativeColor } from '../StockListItem'
 import { Box, Button, Typography } from '@mui/material'
-import { sum, uniq } from 'lodash'
+import { uniq } from 'lodash'
 import { useTheme } from '@mui/material'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
-import RecentEarningsReport from './RecentEarningsReport'
-import AnnualEarningsReport from './AnnualEarningsReport'
 import { sortArray } from 'lib/util/collections'
-import QuarterlyEarningsReport from './QuarterlyEarningsReport'
+import StockEarningsByYearBarChart from './StockEarningsByYearBarChart'
+import { useLocalStore } from 'lib/backend/store/useLocalStore'
+import quarterOfYear from 'dayjs/plugin/quarterOfYear'
+dayjs.extend(quarterOfYear)
 
-interface GroupedModel {
+export interface StockEarningsGroup {
   key: number
   items: StockEarning[]
 }
 
 const StockEarningsTable = ({ data, showCompany = false }: { data: StockEarning[]; showCompany?: boolean }) => {
   const theme = useTheme()
-  const yearsGroup: GroupedModel[] = []
-  const [showChart, setShowChart] = useState(false)
+  const yearsGroup: StockEarningsGroup[] = []
+  const { myStocks, saveStockSettings } = useLocalStore()
+  const earningSettingsStored = { ...myStocks }.earnings ?? {
+    display: 'table',
+  }
+  const [earningSettings, setEarningSettings] = useState(earningSettingsStored)
 
   const years = uniq(data.filter((f) => f.ReportDate).map((m) => dayjs(m.ReportDate).year()))
   years.forEach((year) => {
@@ -39,17 +42,6 @@ const StockEarningsTable = ({ data, showCompany = false }: { data: StockEarning[
     })
   })
   const sortedYears = sortArray(yearsGroup, ['key'], ['asc'])
-
-  // const annualData: StockEarningAggregate[] = sortedYears.map((m, i) => {
-  //   return {
-  //     NegativeCount: m.items.filter((i) => i.ActualEarnings && i.ActualEarnings < 0).length,
-  //     PositiveCount: m.items.filter((i) => i.ActualEarnings && i.ActualEarnings > 0).length,
-  //     NeutralCount: m.items.filter((i) => i.ActualEarnings && i.ActualEarnings == 0).length,
-  //     Quarter: i,
-  //     RecordCount: m.items.length,
-  //     Year: Number(m.key),
-  //   }
-  // })
 
   const annualData: StockEarningAggregate[] = []
   sortedYears.forEach((year) => {
@@ -71,14 +63,21 @@ const StockEarningsTable = ({ data, showCompany = false }: { data: StockEarning[
       }
     })
   })
+  const handleToggleChartTableView = () => {
+    const newMyStocks = { ...myStocks }
 
+    const newSettings = { ...newMyStocks, earings: { ...earningSettings, dispaly: earningSettings.display === 'chart' ? 'table' : 'chart' } }
+
+    saveStockSettings(newSettings)
+    setEarningSettings({ display: earningSettings.display === 'chart' ? 'table' : 'chart' })
+  }
   return (
     <>
       <Box pl={1}>
         <Box display={'flex'} justifyContent={'flex-end'}>
-          <Button onClick={() => setShowChart(!showChart)}>{showChart ? 'view table' : 'view chart'}</Button>
+          <Button onClick={handleToggleChartTableView}>{earningSettings.display === 'chart' ? 'view table' : 'view chart'}</Button>
         </Box>
-        {!showChart && (
+        {earningSettings.display === 'table' && (
           <TableContainer>
             <Table>
               <TableBody>
@@ -132,7 +131,7 @@ const StockEarningsTable = ({ data, showCompany = false }: { data: StockEarning[
             </Table>
           </TableContainer>
         )}
-        {showChart && <AnnualEarningsReport apiData={annualData} />}
+        {earningSettings.display === 'chart' && <StockEarningsByYearBarChart data={data} />}
         {data.length === 0 && <NoDataFound />}
       </Box>
     </>
