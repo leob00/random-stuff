@@ -28,11 +28,12 @@ export interface StockEarningsGroup {
 const StockEarningsTable = ({ data, showCompany = false }: { data: StockEarning[]; showCompany?: boolean }) => {
   const theme = useTheme()
   const yearsGroup: StockEarningsGroup[] = []
-  const { myStocks, saveStockSettings } = useLocalStore()
-  const earningSettingsStored = { ...myStocks }.earnings ?? {
+  const { stockSettings, saveStockSettings } = useLocalStore()
+  const earningSettings = stockSettings.earnings ?? {
     display: 'table',
   }
-  const [earningSettings, setEarningSettings] = useState(earningSettingsStored)
+
+  //const [earningSettings, setEarningSettings] = useState(earningSettingsStored)
 
   const years = uniq(data.filter((f) => f.ReportDate).map((m) => dayjs(m.ReportDate).year()))
   years.forEach((year) => {
@@ -64,12 +65,16 @@ const StockEarningsTable = ({ data, showCompany = false }: { data: StockEarning[
     })
   })
   const handleToggleChartTableView = () => {
-    const newMyStocks = { ...myStocks }
+    //newStockSettings.earnings = {  display: 'chart'} }
 
-    const newSettings = { ...newMyStocks, earings: { ...earningSettings, dispaly: earningSettings.display === 'chart' ? 'table' : 'chart' } }
-
-    saveStockSettings(newSettings)
-    setEarningSettings({ display: earningSettings.display === 'chart' ? 'table' : 'chart' })
+    saveStockSettings({
+      ...stockSettings,
+      data: [],
+      earnings: {
+        display: stockSettings.earnings?.display === 'chart' ? 'table' : 'chart',
+      },
+    })
+    //setEarningSettings({ display: earningSettings.display === 'chart' ? 'table' : 'chart' })
   }
   return (
     <>

@@ -4,6 +4,7 @@ import { Sort, UserStockSettings } from '../api/aws/models/apiGatewayModels'
 import { StockQuote } from '../api/models/zModels'
 import { EconomicDataItem } from '../api/qln/qlnModels'
 import { DashboardWidgetWithSettings } from 'components/Organizms/dashboard/dashboardModel'
+import { User } from 'lib/auth'
 
 export interface StockSettings extends UserStockSettings {
   data: StockQuote[]
@@ -12,6 +13,7 @@ export interface StockSettings extends UserStockSettings {
 
 export interface LocalStore {
   myStocks: StockSettings
+  stockSettings: UserStockSettings
   saveStockSettings: (stockSettings: StockSettings) => void
   saveStocks: (stocks: StockQuote[]) => void
   saveDefaultView: (val?: 'flat' | 'grouped') => void
@@ -28,12 +30,15 @@ export const useLocalStore = create(
       myStocks: {
         defaultView: 'flat',
         data: [],
+      },
+      stockSettings: {
+        defaultView: 'flat',
         earnings: {
           display: 'chart',
         },
       },
 
-      saveStockSettings: (stockSettings) => set((state) => ({ ...state, stockSettings: stockSettings })),
+      saveStockSettings: (stockSettings: UserStockSettings) => set((state) => ({ ...state, stockSettings: stockSettings })),
       saveStocks: (stocks) => {
         const myStocks = get().myStocks
         set({ myStocks: { ...myStocks, data: stocks } })
