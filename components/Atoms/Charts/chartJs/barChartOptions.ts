@@ -146,7 +146,13 @@ export const getBarChartOptions = (
   }
 }
 
-export function getMultiDatasetBarChartOptions(palette: 'light' | 'dark', stacked: boolean, showLegend: boolean = false, title?: string): ChartOptions<'bar'> {
+export function getMultiDatasetBarChartOptions(
+  palette: 'light' | 'dark',
+  stacked: boolean,
+  showLegend: boolean = false,
+  title?: string,
+  ySuffix?: string,
+): ChartOptions<'bar'> {
   const result: ChartOptions<'bar'> = {
     animation: {
       easing: 'easeInOutExpo',
@@ -169,7 +175,7 @@ export function getMultiDatasetBarChartOptions(palette: 'light' | 'dark', stacke
             size: 11,
           },
           callback: (tickValue, index, ticks) => {
-            return `${tickValue}%`
+            return `${tickValue}${ySuffix ?? '%'}`
           },
         },
       },
