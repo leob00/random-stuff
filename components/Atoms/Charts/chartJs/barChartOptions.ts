@@ -50,6 +50,9 @@ export const getBarChartOptions = (
 ): ChartOptions<'bar'> => {
   return {
     responsive: true,
+    animation: {
+      easing: 'linear',
+    },
     maintainAspectRatio: true,
     indexAxis: isHorizontal ? 'y' : 'x',
     hover: {
@@ -117,15 +120,16 @@ export const getBarChartOptions = (
     },
     scales: {
       y: {
+        grid: {
+          color: VeryLightBlueTransparent,
+          drawTicks: false,
+        },
         ticks: {
           color: palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {
             size: 10,
           },
           autoSkip: true,
-        },
-        grid: {
-          display: !isHorizontal,
         },
       },
       x: {
@@ -138,8 +142,8 @@ export const getBarChartOptions = (
           },
         },
         grid: {
-          display: false,
-          color: VeryLightBlueTransparent,
+          color: CasinoBlue,
+          drawTicks: true,
         },
       },
     },
@@ -155,25 +159,32 @@ export function getMultiDatasetBarChartOptions(
 ): ChartOptions<'bar'> {
   const result: ChartOptions<'bar'> = {
     animation: {
-      easing: 'easeInOutExpo',
+      easing: 'linear',
     },
     scales: {
       x: {
-        stacked: stacked,
+        grid: {
+          color: CasinoBlue,
+          drawTicks: true,
+        },
         ticks: {
           color: palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {
-            size: 11,
+            size: 12,
           },
         },
       },
       y: {
-        stacked: stacked,
+        grid: {
+          color: VeryLightBlueTransparent,
+          drawTicks: false,
+        },
         ticks: {
           color: palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {
             size: 11,
           },
+
           callback: (tickValue, index, ticks) => {
             return `${tickValue}${ySuffix ?? '%'}`
           },
@@ -182,7 +193,6 @@ export function getMultiDatasetBarChartOptions(
     },
     indexAxis: 'x',
     responsive: true,
-    //aspectRatio: 3,
     plugins: {
       title: {
         padding: {

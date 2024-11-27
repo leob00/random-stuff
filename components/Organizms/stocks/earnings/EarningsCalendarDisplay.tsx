@@ -11,6 +11,7 @@ import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuPortfolio from 'components/Molecules/Menus/ContextMenuPortfolio'
 import RecentEarningsReport from './RecentEarningsReport'
+import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
 const filterResult = (items: StockEarning[], dt: string | null) => {
   return orderBy(
     items.filter((m) => m.ReportDate === dt),
@@ -68,8 +69,7 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
               )}
             </Box>
             <Box px={1} display={'flex'} gap={2} py={1} alignItems={'center'}>
-              {/* <SiteLink href='/csr/stocks/stock-earnings-search' text='advanced search' />| */}
-              <SiteLink href='/csr/stocks/earnings-reports' text='reports' />
+              <NavigationButton route={'/csr/stocks/earnings-reports'} text={'reports'} variant='body2' />
             </Box>
           </Box>
         </Box>

@@ -101,7 +101,6 @@ const Page = () => {
     setLoadingStock(true)
     setSelectedStock(null)
     const quotes = await getStockQuotes([symbol])
-    setLoadingStock(false)
     if (quotes.length > 0) {
       const quote = quotes[0]
       setSelectedStock(quote)
@@ -109,6 +108,7 @@ const Page = () => {
       newData.unshift(quote)
       mutate(mutateKey, newData, { revalidate: false })
     }
+    setLoadingStock(false)
   }
 
   const handleAddToList = (quote: StockQuote) => {

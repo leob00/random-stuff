@@ -1,7 +1,7 @@
 import { Box, useTheme } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { StockEarningAggregate } from 'lib/backend/api/qln/qlnApi'
-import { CasinoGreenTransparent, CasinoRedTransparent } from 'components/themes/mainTheme'
+import { CasinoBlue, CasinoGreenTransparent, CasinoRedTransparent, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import { BarChart, getMultiDatasetBarChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import { ChartData } from 'chart.js'
 import { calculatePercent } from 'lib/util/numberUtil'
@@ -65,6 +65,14 @@ const AnnualEarningsReport = ({ apiData }: { apiData: StockEarningAggregate[] })
     footer: (tooltipItems) => {
       return ` total records: ${numeral(dataResult[tooltipItems[0].dataIndex].recordCount).format('###,###')}`
     },
+  }
+  chartOptions.scales!.y!.grid = {
+    color: VeryLightBlueTransparent,
+    drawTicks: false,
+  }
+  chartOptions.scales!.x!.grid = {
+    color: CasinoBlue,
+    drawTicks: true,
   }
 
   const chartDataset: ChartData<'bar', number[], unknown> = {

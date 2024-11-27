@@ -7,7 +7,7 @@ import { getMultiDatasetBarChartOptions } from 'components/Atoms/Charts/chartJs/
 import { ChartData } from 'chart.js'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import BarChartStacked from 'components/Atoms/Charts/chartJs/BarChartStacked'
-import { CasinoBlueTransparent, CasinoOrangeTransparent } from 'components/themes/mainTheme'
+import { CasinoBlue, CasinoBlueTransparent, CasinoOrangeTransparent, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import numeral from 'numeral'
 
 type Model = {
@@ -41,8 +41,6 @@ const StockEarningsByYearBarChart = ({ data }: { data: StockEarning[] }) => {
   })
   const actuals = chartData.map((m) => m.actual)
   const estimated = chartData.map((m) => m.estimated)
-  const totalAct = sum(actuals)
-  const totalEst = sum(estimated)
 
   const labels = sortedYears.map((m) => m.key)
 
@@ -64,6 +62,11 @@ const StockEarningsByYearBarChart = ({ data }: { data: StockEarning[] }) => {
     footer: (tooltipItems) => {
       return ` total records: ${numeral(chartData[tooltipItems[0].dataIndex].recordCount).format('###,###')}`
     },
+  }
+
+  chartOptions.scales!.y!.ticks = { ...chartOptions.scales!.y!.ticks, precision: 0.5 }
+  chartOptions.scales!.y!.ticks!.callback = (tickValue, index, ticks) => {
+    return `$${numeral(tickValue).format('0.00')}`
   }
   const chartDataset: ChartData<'bar', number[], unknown> = {
     labels: labels,

@@ -1,4 +1,5 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 import SimpleBarChart from 'components/Atoms/Charts/chartJs/SimpleBarChart'
 import { BarChart, getBarChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import { CasinoBlueTransparent, CasinoOrangeTransparent } from 'components/themes/mainTheme'
@@ -80,9 +81,11 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
 
   return (
     <Box>
-      <Box minHeight={200} px={{ lg: 2 }}>
-        <SimpleBarChart barChart={barChart} height={height} chartOptions={options} />
-      </Box>
+      <FadeIn>
+        <Box minHeight={200} px={{ lg: 2 }}>
+          <SimpleBarChart barChart={barChart} height={height} chartOptions={options} />
+        </Box>
+      </FadeIn>
     </Box>
   )
 }
