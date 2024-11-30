@@ -44,7 +44,7 @@ const StockEarningsByYearBarChart = ({ data }: { data: StockEarning[] }) => {
 
   const labels = sortedYears.map((m) => m.key)
 
-  const chartOptions = getMultiDatasetBarChartOptions(theme.palette.mode, false, true, '', '')
+  const chartOptions = { ...getMultiDatasetBarChartOptions(theme.palette.mode, false, true) }
   chartOptions.plugins!.tooltip!.callbacks = {
     title: (tooltipItems) => {
       return ''
@@ -64,7 +64,7 @@ const StockEarningsByYearBarChart = ({ data }: { data: StockEarning[] }) => {
     },
   }
 
-  chartOptions.scales!.y!.ticks = { ...chartOptions.scales!.y!.ticks, precision: 0.5 }
+  //chartOptions.scales!.y!.ticks = { ...chartOptions.scales!.y!.ticks, precision: 0.5 }
   chartOptions.scales!.y!.ticks!.callback = (tickValue, index, ticks) => {
     return `$${numeral(tickValue).format('0.00')}`
   }

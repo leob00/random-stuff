@@ -114,11 +114,17 @@
 .veryLightBlue {
   color: #b5d7fc67;
 }
-.veryLightBlueSemiTransparent {
-  color: #b5d7fcdc;
+.veryLightBlueOpaqueLight {
+  color: #2387f3e3;
 }
 .veryLightBlueTransparent {
   color: #92c7fcbb;
+}
+.veryLightBlueOpaque {
+  color: #226db90e;
+}
+.veryLightBlueOpaqueLight {
+  color: #5ba9f70e;
 }
 .veryLightTransparent {
   color: #d6e7f821;

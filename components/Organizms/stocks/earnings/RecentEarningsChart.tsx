@@ -92,7 +92,10 @@ const RecentEarningsChart = ({ reported }: { reported: StockEarning[] }) => {
       </Box>
       <Box py={2}>
         <CenterStack>
-          <ReadOnlyField label='date range' val={`${reported.length > 0 ? `${dayjs(reported[0].ReportDate!).format('MM/DD/YYYY')} - ${dayjs(reported[reported.length - 1].ReportDate!).format('MM/DD/YYYY')}` : 'N/A'}`} />
+          <ReadOnlyField
+            label='date range'
+            val={`${reported.length > 0 ? `${dayjs(reported[0].ReportDate!).format('MM/DD/YYYY')} - ${dayjs(reported[reported.length - 1].ReportDate!).format('MM/DD/YYYY')}` : 'N/A'}`}
+          />
         </CenterStack>
       </Box>
     </>

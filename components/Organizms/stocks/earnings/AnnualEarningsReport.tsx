@@ -66,14 +66,6 @@ const AnnualEarningsReport = ({ apiData }: { apiData: StockEarningAggregate[] })
       return ` total records: ${numeral(dataResult[tooltipItems[0].dataIndex].recordCount).format('###,###')}`
     },
   }
-  chartOptions.scales!.y!.grid = {
-    color: VeryLightBlueTransparent,
-    drawTicks: false,
-  }
-  chartOptions.scales!.x!.grid = {
-    color: CasinoBlue,
-    drawTicks: true,
-  }
 
   const chartDataset: ChartData<'bar', number[], unknown> = {
     labels: labels,

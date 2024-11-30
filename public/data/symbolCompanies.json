@@ -5608,6 +5608,10 @@
     "Symbol": "BRHY"
   },
   {
+    "Company": "BrilliA Inc",
+    "Symbol": "BRIA"
+  },
+  {
     "Company": "Bridgford Foods Corp",
     "Symbol": "BRID"
   },
@@ -7532,6 +7536,10 @@
     "Symbol": "CGSM"
   },
   {
+    "Company": "Creative Global Technology Holdings Limited Ordinary Shares",
+    "Symbol": "CGTL"
+  },
+  {
     "Company": "Cognition Therapeutics, Inc. Common Stock",
     "Symbol": "CGTX"
   },
@@ -7558,6 +7566,14 @@
   {
     "Company": "Catcha Investment Corp",
     "Symbol": "CHAA"
+  },
+  {
+    "Company": "Charlton Aria Acquisition Corporation Class A Ordinary Shares",
+    "Symbol": "CHAR"
+  },
+  {
+    "Company": "Charlton Aria Acquisition Corporation Rights",
+    "Symbol": "CHARR"
   },
   {
     "Company": "Charlton Aria Acquisition Corporation Units",
@@ -12616,6 +12632,10 @@
     "Symbol": "ENFR"
   },
   {
+    "Company": "Enlightify Inc.",
+    "Symbol": "ENFY"
+  },
+  {
     "Company": "ENGlobal Corp",
     "Symbol": "ENG"
   },
@@ -13842,6 +13862,10 @@
   {
     "Company": "First Trust Multi Cap Value AlphaDEX Fund",
     "Symbol": "FAB"
+  },
+  {
+    "Company": "FACT II Acquisition Corp. Unit",
+    "Symbol": "FACTU"
   },
   {
     "Company": "First Trust Multi Cap Growth AlphaDEX Fund",
@@ -16700,6 +16724,10 @@
     "Symbol": "GE"
   },
   {
+    "Company": "Revelyst, Inc.",
+    "Symbol": "GEAR"
+  },
+  {
     "Company": "Great Elm Capital. Corp. Common Stock",
     "Symbol": "GECC"
   },
@@ -17846,6 +17874,10 @@
   {
     "Company": "FundStrat Granny Shots US Large Cap ETF",
     "Symbol": "GRNY"
+  },
+  {
+    "Company": "Brazil Potash Corp.",
+    "Symbol": "GRO"
   },
   {
     "Company": "Grom Social Enterprises Inc. Common Stock",
@@ -25612,6 +25644,10 @@
     "Symbol": "MBIN"
   },
   {
+    "Company": "Merchants Bancorp Depositary Shares, Each Representing a 1/40thInterest in a Share of 7.25% Fixed Rate Series E Non-CumulativePerpetual Preferred Stock, without par value",
+    "Symbol": "MBINL"
+  },
+  {
     "Company": "Merchants Bancorp Depositary Shares, Each Representing a 1/40th Interest in a Share of 8.25% Fixed-Rate Reset Series D Non-Cumulative Perpetual Preferred Stock",
     "Symbol": "MBINM"
   },
@@ -26648,7 +26684,7 @@
     "Symbol": "MMYT"
   },
   {
-    "Company": "IQ ARB Merger Arbitrage ETF",
+    "Company": "NYLI Merger Arbitrage ETF",
     "Symbol": "MNA"
   },
   {
@@ -27452,7 +27488,7 @@
     "Symbol": "MUSI"
   },
   {
-    "Company": "MUSQ Global Music Industry ETF",
+    "Company": "MUSQ Global Music Industry Index ETF",
     "Symbol": "MUSQ"
   },
   {
@@ -32126,6 +32162,10 @@
   {
     "Company": "Andretti Acquisition Corp. II Warrant",
     "Symbol": "POLEW"
+  },
+  {
+    "Company": "Pony AI Inc. American Depositary Shares",
+    "Symbol": "PONY"
   },
   {
     "Company": "Pool Corporation",
@@ -42212,6 +42252,10 @@
     "Symbol": "VEMY"
   },
   {
+    "Company": "Venu Holding Corporation",
+    "Symbol": "VENU"
+  },
+  {
     "Company": "VEON Ltd. ADS",
     "Symbol": "VEON"
   },
@@ -44100,6 +44144,10 @@
     "Symbol": "WY"
   },
   {
+    "Company": "Wing Yip Food Holdings Group Limited American Depositary Shares",
+    "Symbol": "WYHG"
+  },
+  {
     "Company": "Wynn Resorts Ltd",
     "Symbol": "WYNN"
   },
@@ -45212,7 +45260,7 @@
     "Symbol": "ZLSWW"
   },
   {
-    "Company": "Zoom Video Communications, Inc. Class A Common Stock",
+    "Company": "Zoom Communications, Inc. Class A Common Stock",
     "Symbol": "ZM"
   },
   {

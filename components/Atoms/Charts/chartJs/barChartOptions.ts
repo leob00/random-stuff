@@ -9,6 +9,8 @@ import {
   DarkModeBlue,
   DarkModeBlueTransparent,
   VeryLightBlue,
+  VeryLightBlueOpaque,
+  VeryLightBlueOpaqueLight,
   VeryLightBlueTransparent,
 } from 'components/themes/mainTheme'
 import { max } from 'lodash'
@@ -121,7 +123,7 @@ export const getBarChartOptions = (
     scales: {
       y: {
         grid: {
-          color: VeryLightBlueTransparent,
+          color: VeryLightBlueOpaqueLight,
           drawTicks: false,
         },
         ticks: {
@@ -164,7 +166,7 @@ export function getMultiDatasetBarChartOptions(
     scales: {
       x: {
         grid: {
-          color: CasinoBlue,
+          color: VeryLightBlueOpaque,
           drawTicks: true,
         },
         ticks: {
@@ -176,7 +178,7 @@ export function getMultiDatasetBarChartOptions(
       },
       y: {
         grid: {
-          color: VeryLightBlueTransparent,
+          color: VeryLightBlueOpaqueLight,
           drawTicks: false,
         },
         ticks: {
