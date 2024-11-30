@@ -144,7 +144,7 @@ export const getBarChartOptions = (
           },
         },
         grid: {
-          color: CasinoBlue,
+          color: VeryLightBlueOpaqueLight,
           drawTicks: true,
         },
       },
