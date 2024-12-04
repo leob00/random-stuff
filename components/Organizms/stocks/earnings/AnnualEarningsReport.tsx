@@ -44,7 +44,7 @@ const AnnualEarningsReport = ({ apiData }: { apiData: StockEarningAggregate[] })
 
   const dataResult = Array.from(yearMap.values())
 
-  const chartOptions = getMultiDatasetBarChartOptions(theme.palette.mode, false, true)
+  const chartOptions = getMultiDatasetBarChartOptions({ palette: theme.palette.mode, showLegend: true })
   chartOptions.plugins!.tooltip!.callbacks = {
     title: (tooltipItems) => {
       return ''

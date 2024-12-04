@@ -1,4 +1,4 @@
-import BackButton from 'components/Atoms/Buttons/BackButton'
+import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import CoinFlipLayout from 'components/Organizms/CoinFlipLayout'
 import Seo from 'components/Organizms/Seo'
@@ -21,8 +21,10 @@ const Page: NextPage<{ coinflipStats: CoinFlipStats }> = ({ coinflipStats }) => 
   return (
     <>
       <Seo pageTitle='Coin Flip' />
-
-      <CoinFlipLayout coinflipStats={coinflipStats} />
+      <ResponsiveContainer>
+        <PageHeader text='Coin Flip' />
+        <CoinFlipLayout coinflipStats={coinflipStats} />
+      </ResponsiveContainer>
     </>
   )
 }

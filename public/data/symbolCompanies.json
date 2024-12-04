@@ -3604,6 +3604,14 @@
     "Symbol": "BACK"
   },
   {
+    "Company": "Bleichroeder Acquisition Corp. I Class A Ordinary Shares",
+    "Symbol": "BACQ"
+  },
+  {
+    "Company": "Bleichroeder Acquisition Corp. I Right",
+    "Symbol": "BACQR"
+  },
+  {
     "Company": "Bleichroeder Acquisition Corp. I Unit",
     "Symbol": "BACQU"
   },
@@ -6932,8 +6940,16 @@
     "Symbol": "CCIF"
   },
   {
+    "Company": "Cohen Circle Acquisition Corp. I Class A Ordinary Shares",
+    "Symbol": "CCIR"
+  },
+  {
     "Company": "Cohen Circle Acquisition Corp. I Unit",
     "Symbol": "CCIRU"
+  },
+  {
+    "Company": "Cohen Circle Acquisition Corp. I Warrant",
+    "Symbol": "CCIRW"
   },
   {
     "Company": "Churchill Capital Corp IX Ordinary Shares",
@@ -8836,6 +8852,10 @@
     "Symbol": "CPNJ"
   },
   {
+    "Company": "Calamos Nasdaq-100 Structured Alt Protection ETF - December",
+    "Symbol": "CPNQ"
+  },
+  {
     "Company": "Calamos Nasdaq-100 Structured Alt Protection ETF - September",
     "Symbol": "CPNS"
   },
@@ -8870,6 +8890,10 @@
   {
     "Company": "Calamos S&P 500 Structured Alt Protection ETF - August",
     "Symbol": "CPSA"
+  },
+  {
+    "Company": "Calamos S&P 500 Structured Alt Protection ETF - December",
+    "Symbol": "CPSD"
   },
   {
     "Company": "CPS Technologies Corp. Common Stock",
@@ -10190,6 +10214,10 @@
   {
     "Company": "AllianzIM U.S. Large Cap Buffer10 Dec ETF",
     "Symbol": "DECT"
+  },
+  {
+    "Company": "AllianzIM U.S. Equity Buffer15 Uncapped Dec ETF",
+    "Symbol": "DECU"
   },
   {
     "Company": "AllianzIM U.S. Large Cap Buffer20 Dec ETF",
@@ -14000,7 +14028,7 @@
     "Symbol": "FBLG"
   },
   {
-    "Company": "First Bancshares, Inc.",
+    "Company": "The First Bancshares, Inc.",
     "Symbol": "FBMS"
   },
   {
@@ -22696,7 +22724,7 @@
     "Symbol": "JPEM"
   },
   {
-    "Company": "NUVEEN PREFERRED AND INCOME TERM FUND",
+    "Company": "Nuveen Preferred Securities & Income Opportunities Fund",
     "Symbol": "JPI"
   },
   {
@@ -23130,6 +23158,10 @@
   {
     "Company": "Kyndryl Holdings, Inc.",
     "Symbol": "KD"
+  },
+  {
+    "Company": "Innovator U.S. Small Cap Power Buffer ETF - December",
+    "Symbol": "KDEC"
   },
   {
     "Company": "KraneShares S&P Pan Asia Dividend Aristocrats Index ETF",
@@ -24896,8 +24928,16 @@
     "Symbol": "LPAAW"
   },
   {
+    "Company": "Launch Two Acquisition Corp. Class A Ordinary Shares",
+    "Symbol": "LPBB"
+  },
+  {
     "Company": "Launch Two Acquisition Corp. Unit",
     "Symbol": "LPBBU"
+  },
+  {
+    "Company": "Launch Two Acquisition Corp. Warrant",
+    "Symbol": "LPBBW"
   },
   {
     "Company": "Lipocine Inc.",
@@ -27408,6 +27448,10 @@
     "Symbol": "MTUS"
   },
   {
+    "Company": "MetaVia Inc. Common Stock",
+    "Symbol": "MTVA"
+  },
+  {
     "Company": "The Manitowoc Company, Inc.",
     "Symbol": "MTW"
   },
@@ -28042,6 +28086,10 @@
   {
     "Company": "Nasdaq, Inc. Common Stock",
     "Symbol": "NDAQ"
+  },
+  {
+    "Company": "Innovator Growth-100 Power Buffer ETF - December",
+    "Symbol": "NDEC"
   },
   {
     "Company": "Global X India Active ETF",
@@ -33954,6 +34002,14 @@
   {
     "Company": "Arcus Biosciences, Inc.",
     "Symbol": "RCUS"
+  },
+  {
+    "Company": "Rising Dragon Acquisition Corp. Ordinary Shares",
+    "Symbol": "RDAC"
+  },
+  {
+    "Company": "Rising Dragon Acquisition Corp. Rights",
+    "Symbol": "RDACR"
   },
   {
     "Company": "Rising Dragon Acquisition Corp. Unit",
@@ -45126,6 +45182,10 @@
   {
     "Company": "Ziff Davis, Inc. Common Stock",
     "Symbol": "ZD"
+  },
+  {
+    "Company": "Innovator Equity Defined Protection ETF - 1 Yr December",
+    "Symbol": "ZDEK"
   },
   {
     "Company": "Zedge, Inc.",

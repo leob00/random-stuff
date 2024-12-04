@@ -5,15 +5,14 @@ const FadeIn = ({ duration = 0.68, children }: { duration?: number; children: Re
   return (
     <motion.div
       animate={{
-        opacity: [0.1, 0.2, 0.3, 0.4, 0.5, 0.8, 1],
-        scale: [0.5, 1],
+        opacity: [0, 0.1, 0.2, 0.3, 0.5, 0.8, 1],
+        scale: [0.25, 0.75, 1],
       }}
       transition={{ duration: duration }}
       initial={{
         opacity: 0,
         rotate: '0deg',
-      }}
-    >
+      }}>
       {children}
     </motion.div>
   )

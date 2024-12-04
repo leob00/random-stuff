@@ -61,7 +61,7 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
     }
   }
 
-  var options = getBarChartOptions(`Job performance in${minutesOrSeconds}`, barChart, minutesOrSeconds, barChart.colors, theme.palette.mode, false, false)
+  var options = getBarChartOptions(`Job performance in${minutesOrSeconds}`, minutesOrSeconds, theme.palette.mode, false, false)
   options.plugins!.tooltip!.callbacks = {
     ...options.plugins!.tooltip?.callbacks,
 
@@ -81,11 +81,11 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
 
   return (
     <Box>
-      <FadeIn>
-        <Box minHeight={200} px={{ lg: 2 }}>
+      <Box minHeight={200} px={{ lg: 2 }}>
+        <FadeIn>
           <SimpleBarChart barChart={barChart} height={height} chartOptions={options} />
-        </Box>
-      </FadeIn>
+        </FadeIn>
+      </Box>
     </Box>
   )
 }

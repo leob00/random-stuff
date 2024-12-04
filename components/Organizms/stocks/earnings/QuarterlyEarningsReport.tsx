@@ -25,7 +25,7 @@ const QuarterlyEarningsReport = ({ data, mutateKey }: { data: StockEarningAggreg
     return `${m.Year} - Q${m.Quarter}`
   })
 
-  const chartOptions = getMultiDatasetBarChartOptions(theme.palette.mode, false, true)
+  const chartOptions = getMultiDatasetBarChartOptions({ palette: theme.palette.mode, showLegend: true })
   chartOptions.plugins!.tooltip!.callbacks = {
     title: (tooltipItems) => {
       return ''

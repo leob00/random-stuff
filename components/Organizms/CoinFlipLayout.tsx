@@ -10,6 +10,7 @@ import { getRandomInteger } from 'lib/util/numberUtil'
 import { cloneDeep, shuffle } from 'lodash'
 import { useEffect, useReducer, useRef } from 'react'
 import ImageYRotator from 'components/Atoms/Images/ImageYRotator'
+import RemoteImageFlat from 'components/Atoms/RemoteImageFlat'
 
 type headsTails = 'heads' | 'tails'
 const barChartColors = [TransparentGreen, TransparentBlue]
@@ -216,8 +217,7 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
   }, [model.isLoading, model.currentFace.face])
 
   return (
-    <Container>
-      <PageHeader text='Coin Flip' />
+    <Box>
       <CenterStack sx={{ minHeight: 100 }}>
         <Box>
           <Typography variant='body1' sx={{ textAlign: 'center' }}>
@@ -228,40 +228,37 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
           </Typography>
         </Box>
       </CenterStack>
-      <CenterStack sx={{ minHeight: 120 }}>
-        <Box>
-          {model.defaultState && (
-            <Box sx={{ cursor: 'pointer' }}>
-              <ImageYRotator imageUrl={model.currentFace.imageUrl} height={100} width={100} speed={6} onClicked={handleFlipClick} />
+      <Box>
+        {model.defaultState && (
+          <Box sx={{ cursor: 'pointer' }}>
+            <ImageYRotator imageUrl={model.currentFace.imageUrl} height={200} width={200} speed={6} onClicked={handleFlipClick} clickable />
+          </Box>
+        )}
+        {model.isLoading && (
+          <Box display={'flex'} justifyContent={'center'}>
+            {/* <ImageYRotator imageUrl={model.currentFace.imageUrl} height={200} width={100} speed={1} /> */}
+            <RemoteImageFlat title='image' url={model.currentFace.imageUrl} width={200} height={200} />
+          </Box>
+        )}
+        {model.flippedCoin && (
+          <>
+            <Box sx={{ cursor: 'pointer !important' }}>
+              <ImageYRotator imageUrl={model.flippedCoin.imageUrl} height={200} width={200} speed={3} onClicked={handleFlipClick} clickable />
             </Box>
-          )}
-          {model.isLoading && (
-            <>
+            <CenterStack sx={{ minHeight: 36 }}>
               <Box>
-                <ImageYRotator imageUrl={model.currentFace.imageUrl} height={100} width={100} speed={1} />
+                <Typography variant='h4'>{`${model.flippedCoin.face}!`}</Typography>
               </Box>
-            </>
-          )}
-          {model.flippedCoin && (
-            <>
-              <Box sx={{ cursor: 'pointer !important' }}>
-                <ImageYRotator imageUrl={model.flippedCoin.imageUrl} height={100} width={100} speed={0} onClicked={handleFlipClick} />
-              </Box>
-              <CenterStack sx={{ minHeight: 36 }}>
-                <Box>
-                  <Typography variant='h4'>{`${model.flippedCoin.face}!`}</Typography>
-                </Box>
-              </CenterStack>
-            </>
-          )}
-        </Box>
-      </CenterStack>
+            </CenterStack>
+          </>
+        )}
+      </Box>
       {model.runningChart && <CoinFlipChart totalFlips={model.runningChart.numbers[0] + model.runningChart.numbers[1]} chart={model.runningChart} />}
       <CenterStack sx={{ paddingTop: 2 }}>
         <Typography variant='h5'>Community Flips</Typography>
       </CenterStack>
       {model.communityChart && <CoinFlipChart totalFlips={model.communityChart.numbers[0] + model.communityChart.numbers[1]} chart={model.communityChart} />}
-    </Container>
+    </Box>
   )
 }
 

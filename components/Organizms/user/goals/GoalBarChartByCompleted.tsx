@@ -5,7 +5,6 @@ import { UserGoalAndTask } from './UserGoalsLayout'
 import { Box, useMediaQuery, useTheme } from '@mui/material'
 import SimpleBarChart from 'components/Atoms/Charts/chartJs/SimpleBarChart'
 import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
-import { Height } from '@mui/icons-material'
 
 const GoalsBarChartByStatus = ({ goalTasks }: { goalTasks: UserGoalAndTask[] }) => {
   let data: ApexBarChartData[] = []
@@ -44,7 +43,7 @@ const GoalsBarChartByStatus = ({ goalTasks }: { goalTasks: UserGoalAndTask[] }) 
     height = 240
   }
   if (isLarge) {
-    height = 240
+    height = 320
   }
 
   return (

@@ -3,7 +3,6 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { useUserController } from 'hooks/userController'
 import { NewsItem, NewsTypeIds } from 'lib/backend/api/qln/qlnApi'
 import NewsListItem from './NewsListItem'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
@@ -25,15 +24,7 @@ export const getThumbnailSize = (source?: string) => {
   }
 }
 
-const NewsList = ({
-  newsItems,
-  hideSaveButton = false,
-  showPublishDate = false,
-}: {
-  newsItems: NewsItem[]
-  hideSaveButton?: boolean
-  showPublishDate?: boolean
-}) => {
+const NewsList = ({ newsItems, hideSaveButton = false, showPublishDate = false }: { newsItems: NewsItem[]; hideSaveButton?: boolean; showPublishDate?: boolean }) => {
   const { userProfile } = useProfileValidator()
   const theme = useTheme()
   const isSmallDevice = useMediaQuery(theme.breakpoints.down('sm'))
@@ -43,13 +34,7 @@ const NewsList = ({
       {newsItems.length > 0 ? (
         newsItems.map((item, i) => (
           <Box key={`${item.Headline}${item.PublishDate}`} pb={2}>
-            <NewsListItem
-              userProfile={userProfile}
-              item={item}
-              hideSaveButton={hideSaveButton}
-              showPublishDate={showPublishDate}
-              isSmallDevice={isSmallDevice}
-            />
+            <NewsListItem userProfile={userProfile} item={item} hideSaveButton={hideSaveButton} showPublishDate={showPublishDate} isSmallDevice={isSmallDevice} />
             <HorizontalDivider />
           </Box>
         ))

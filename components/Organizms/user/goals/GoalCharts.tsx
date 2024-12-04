@@ -7,18 +7,21 @@ import { sum } from 'lodash'
 import numeral from 'numeral'
 import { UserGoalAndTask } from './UserGoalsLayout'
 import GoalsBarChartByStatus from './GoalBarChartByCompleted'
+import BasicPieChart from 'components/Atoms/Charts/chartJs/BasicPieChart'
 
 const GoalCharts = ({ barChart, goalTasks }: { barChart: BarChart; goalTasks: UserGoalAndTask[] }) => {
-  const theme = useTheme()
   return (
     <>
       <Box pb={2}>
         <CenteredTitle title={`Goal Completion`} />
-        <GoalsBarChartByStatus goalTasks={goalTasks} />
+        <Box>
+          <GoalsBarChartByStatus goalTasks={goalTasks} />
+        </Box>
         <HorizontalDivider />
-        <CenteredTitle title={`All ${numeral(sum(barChart.numbers)).format('###,###')} Tasks By Status`} />
-        <Box minHeight={200}>
-          <ApexPieChart x={barChart.labels} y={barChart.numbers} colors={barChart.colors} palette={theme.palette.mode} />
+        <Box display={'flex'} justifyContent={'center'} alignItems={'center'} pt={3}>
+          <Box>
+            <BasicPieChart barChart={barChart} title={`${numeral(sum(barChart.numbers)).format('###,###')} Tasks By Status`} />
+          </Box>
         </Box>
       </Box>
     </>

@@ -1,12 +1,12 @@
 import { useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
-import { ChartData, ChartOptions, plugins } from 'chart.js'
+import { ChartData } from 'chart.js'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import CenterStack from 'components/Atoms/CenterStack'
 import BarChartStacked from 'components/Atoms/Charts/chartJs/BarChartStacked'
 import { BarChart, getMultiDatasetBarChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
-import { CasinoBlue, CasinoGreenTransparent, CasinoMoreBlackTransparent, CasinoRedTransparent, VeryLightBlue } from 'components/themes/mainTheme'
+import { CasinoGreenTransparent, CasinoRedTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { StockEarning } from 'lib/backend/api/qln/qlnApi'
 import { calculatePercent } from 'lib/util/numberUtil'
@@ -43,7 +43,7 @@ const RecentEarningsChart = ({ reported }: { reported: StockEarning[] }) => {
     chartData[1].numbers.push(calculatePercent(down.length, dayData.length))
     chartData[1].rawData!.push({ ...dayData })
   })
-  const chartOptions = { ...getMultiDatasetBarChartOptions(theme.palette.mode, false, true) }
+  const chartOptions = { ...getMultiDatasetBarChartOptions({ palette: theme.palette.mode, showLegend: true }) }
   chartOptions.plugins!.tooltip!.callbacks = {
     title: (tooltipItems) => {
       return ''
@@ -92,10 +92,7 @@ const RecentEarningsChart = ({ reported }: { reported: StockEarning[] }) => {
       </Box>
       <Box py={2}>
         <CenterStack>
-          <ReadOnlyField
-            label='date range'
-            val={`${reported.length > 0 ? `${dayjs(reported[0].ReportDate!).format('MM/DD/YYYY')} - ${dayjs(reported[reported.length - 1].ReportDate!).format('MM/DD/YYYY')}` : 'N/A'}`}
-          />
+          <ReadOnlyField label='date range' val={`${reported.length > 0 ? `${dayjs(reported[0].ReportDate!).format('MM/DD/YYYY')} - ${dayjs(reported[reported.length - 1].ReportDate!).format('MM/DD/YYYY')}` : 'N/A'}`} />
         </CenterStack>
       </Box>
     </>

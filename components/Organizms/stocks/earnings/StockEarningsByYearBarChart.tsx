@@ -44,7 +44,7 @@ const StockEarningsByYearBarChart = ({ data }: { data: StockEarning[] }) => {
 
   const labels = sortedYears.map((m) => m.key)
 
-  const chartOptions = { ...getMultiDatasetBarChartOptions(theme.palette.mode, false, true) }
+  const chartOptions = { ...getMultiDatasetBarChartOptions({ palette: theme.palette.mode, showLegend: true }) }
   chartOptions.plugins!.tooltip!.callbacks = {
     title: (tooltipItems) => {
       return ''

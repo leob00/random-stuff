@@ -41,15 +41,7 @@ export const getBarChartData = (labels: string[], numbers: number[], colors: str
   }
 }
 
-export const getBarChartOptions = (
-  title: string,
-  data: BarChart,
-  yAxisDecorator = '',
-  colors: string[],
-  palette: 'light' | 'dark',
-  isHorizontal?: boolean,
-  showXvalues?: boolean,
-): ChartOptions<'bar'> => {
+export const getBarChartOptions = (title: string, yAxisDecorator = '', palette: 'light' | 'dark', isHorizontal?: boolean, showXvalues?: boolean): ChartOptions<'bar'> => {
   return {
     responsive: true,
     animation: {
@@ -129,7 +121,7 @@ export const getBarChartOptions = (
         ticks: {
           color: palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {
-            size: 10,
+            size: 12,
           },
           autoSkip: true,
         },
@@ -140,7 +132,7 @@ export const getBarChartOptions = (
           padding: 0,
           color: palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {
-            size: 10,
+            size: 12,
           },
         },
         grid: {
@@ -152,13 +144,14 @@ export const getBarChartOptions = (
   }
 }
 
-export function getMultiDatasetBarChartOptions(
-  palette: 'light' | 'dark',
-  stacked: boolean,
-  showLegend: boolean = false,
-  title?: string,
-  ySuffix?: string,
-): ChartOptions<'bar'> {
+export type BarchartSettings = {
+  palette: 'light' | 'dark'
+  showLegend: boolean
+  title?: string
+  ySuffix?: string
+}
+
+export function getMultiDatasetBarChartOptions(settings: BarchartSettings): ChartOptions<'bar'> {
   const result: ChartOptions<'bar'> = {
     animation: {
       easing: 'linear',
@@ -170,7 +163,7 @@ export function getMultiDatasetBarChartOptions(
           drawTicks: true,
         },
         ticks: {
-          color: palette === 'light' ? CasinoBlue : VeryLightBlue,
+          color: settings.palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {
             size: 12,
           },
@@ -182,13 +175,13 @@ export function getMultiDatasetBarChartOptions(
           drawTicks: false,
         },
         ticks: {
-          color: palette === 'light' ? CasinoBlue : VeryLightBlue,
+          color: settings.palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {
             size: 11,
           },
 
           callback: (tickValue, index, ticks) => {
-            return `${tickValue}${ySuffix ?? '%'}`
+            return `${tickValue}${settings.ySuffix ?? '%'}`
           },
         },
       },
@@ -205,17 +198,17 @@ export function getMultiDatasetBarChartOptions(
           size: 18,
           weight: 300,
         },
-        display: !!title,
-        text: title ?? '',
-        color: palette === 'light' ? CasinoBlue : VeryLightBlue,
+        display: !!settings.title,
+        text: settings.title ?? '',
+        color: settings.palette === 'light' ? CasinoBlue : VeryLightBlue,
       },
       legend: {
-        display: showLegend,
+        display: settings.showLegend,
         fullSize: true,
         position: 'top',
         labels: {
           padding: 8,
-          color: palette === 'light' ? CasinoBlue : VeryLightBlue,
+          color: settings.palette === 'light' ? CasinoBlue : VeryLightBlue,
         },
       },
       tooltip: {

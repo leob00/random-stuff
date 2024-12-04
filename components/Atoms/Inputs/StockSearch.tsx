@@ -43,7 +43,6 @@ const StockSearch = ({
     setIsLoading(false)
   }
   const handleSearched = (text: string) => {
-    console.log('text: ', text)
     if (text.length === 0) {
       setResults([])
       return

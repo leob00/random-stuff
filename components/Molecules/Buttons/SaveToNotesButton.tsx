@@ -9,7 +9,7 @@ import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import { useState } from 'react'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 
-const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note: UserNote; onSaved: (note: UserNote) => void }) => {
+const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note: UserNote; onSaved?: (note: UserNote) => void }) => {
   const [saving, setSaving] = useState(false)
   const [saved, setIsSaved] = useState(false)
   const [noteUrl, setNoteUrl] = useState<string | null>(null)
@@ -28,7 +28,7 @@ const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note
     await putUserNote(item, constructUserNoteCategoryKey(username), expireSeconds)
     setIsSaved(true)
     setNoteUrl(`/protected/csr/notes/${encodeURIComponent(weakEncrypt(item.id!))}`)
-    onSaved(item)
+    onSaved?.(item)
   }
 
   return (
