@@ -15,7 +15,17 @@ import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import { getDefaultSubscription, saveTrigger } from 'lib/ui/alerts/stockAlertHelper'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 
-const StockSubscibeIcon = ({ userProfile, quote, size = 'small', onClicked }: { userProfile: UserProfile; quote: StockQuote; size?: 'small' | 'medium' | 'large'; onClicked?: () => void }) => {
+const StockSubscibeIcon = ({
+  userProfile,
+  quote,
+  size = 'small',
+  onClicked,
+}: {
+  userProfile: UserProfile
+  quote: StockQuote
+  size?: 'small' | 'medium' | 'large'
+  onClicked?: () => void
+}) => {
   const [showAlertEdit, setShowAlertEdit] = React.useState(false)
   const [snackbarMessage, setSnackBarMessage] = React.useState<string | null>(null)
   const subscriptionId = constructStockAlertsSubPrimaryKey(userProfile.username, quote.Symbol)
@@ -26,7 +36,7 @@ const StockSubscibeIcon = ({ userProfile, quote, size = 'small', onClicked }: { 
     return response
   }
 
-  const { data, isLoading } = useSwrHelper<StockAlertSubscription>(subscriptionId, dataFunc)
+  const { data, isLoading } = useSwrHelper<StockAlertSubscription>(subscriptionId, dataFunc, { revalidateOnFocus: false })
 
   const hasActiveTriggers = data ? data.triggers.filter((m) => m.enabled).length > 0 : false
 
