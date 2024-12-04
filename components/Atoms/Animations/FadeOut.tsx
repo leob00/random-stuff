@@ -1,16 +1,16 @@
 import { motion } from 'framer-motion'
 import { ReactNode } from 'react'
 
-const FadeIn = ({ duration = 0.68, children }: { duration?: number; children: ReactNode | JSX.Element[] }) => {
+const FadeOut = ({ duration = 0.68, children }: { duration?: number; children: ReactNode | JSX.Element[] }) => {
   return (
     <motion.div
       animate={{
-        opacity: [0, 0.5, 0.8, 1],
-        scale: [0, 1],
+        opacity: [1, 0.8, 0.5, 0.5, 0.2, 0.1, 0], //[1, 0.8, 0.5, 0.5, 0.2, 0.1, 0],
+        scale: [1, 0],
       }}
       transition={{ duration: duration }}
       initial={{
-        opacity: 0,
+        opacity: 1,
         scale: 1,
         rotate: '0deg',
       }}
@@ -20,4 +20,4 @@ const FadeIn = ({ duration = 0.68, children }: { duration?: number; children: Re
   )
 }
 
-export default FadeIn
+export default FadeOut

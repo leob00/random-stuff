@@ -1,9 +1,13 @@
-import { Box, Typography } from '@mui/material'
+import { Box, IconButton, ListItemIcon, ListItemText, Typography } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import CenterStack from 'components/Atoms/CenterStack'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
+import CachedIcon from '@mui/icons-material/Cached'
+import { useEffect, useState } from 'react'
+import FadeInTest from './FadeInTest'
+import FadeOutTest from './FadeOutTest'
 
 const Framer = () => {
   return (
@@ -11,14 +15,8 @@ const Framer = () => {
       <CenteredTitle title='Framer Examples' />
       <HorizontalDivider />
       <Box py={2}>
-        <CenterStack>
-          <Typography>Fade in</Typography>
-        </CenterStack>
-        <Box py={2}>
-          <FadeIn>
-            <ListHeader item={null} text='testing header fade in' onClicked={() => {}} />
-          </FadeIn>
-        </Box>
+        <FadeInTest />
+        <FadeOutTest />
       </Box>
     </Box>
   )

@@ -17,6 +17,7 @@ const ListHeader = ({
   underline,
   disabled,
   elevation = 1,
+  fadeIn = true,
 }: {
   text: string
   item: any
@@ -28,6 +29,7 @@ const ListHeader = ({
   underline?: boolean
   disabled?: boolean
   elevation?: number
+  fadeIn?: boolean
 }) => {
   const showContextMenu = onEdit !== undefined || onDelete !== undefined || onAdd !== undefined
 
@@ -57,32 +59,42 @@ const ListHeader = ({
     })
   }
 
+  const ListHeaderContent = () => {
+    return (
+      <Stack direction={'row'} flexGrow={1} alignItems={'center'}>
+        <Card sx={{ width: '100%', borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} elevation={elevation}>
+          <CardHeader
+            title={
+              <>
+                <Box
+                  width={'100%'}
+                  sx={{ cursor: !disabled ? 'pointer' : 'unset' }}
+                  onClick={(e) => {
+                    onClicked?.(item)
+                  }}
+                >
+                  <Typography textAlign={'left'} variant='h6' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
+                    {text}
+                  </Typography>
+                </Box>
+              </>
+            }
+          ></CardHeader>
+        </Card>
+        <Box>{showContextMenu && <ContextMenu items={contextMenu} />}</Box>
+      </Stack>
+    )
+  }
+
   return (
     <Box>
-      <FadeIn>
-        <Stack direction={'row'} flexGrow={1} alignItems={'center'}>
-          <Card sx={{ width: '100%', borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} elevation={elevation}>
-            <CardHeader
-              title={
-                <>
-                  <Box
-                    width={'100%'}
-                    sx={{ cursor: !disabled ? 'pointer' : 'unset' }}
-                    onClick={(e) => {
-                      onClicked?.(item)
-                    }}
-                  >
-                    <Typography textAlign={'left'} variant='h6' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
-                      {text}
-                    </Typography>
-                  </Box>
-                </>
-              }
-            ></CardHeader>
-          </Card>
-          <Box>{showContextMenu && <ContextMenu items={contextMenu} />}</Box>
-        </Stack>
-      </FadeIn>
+      {fadeIn ? (
+        <FadeIn>
+          <ListHeaderContent />
+        </FadeIn>
+      ) : (
+        <ListHeaderContent />
+      )}
     </Box>
   )
 }

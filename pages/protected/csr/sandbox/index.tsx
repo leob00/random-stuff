@@ -12,7 +12,7 @@ import Streamer from 'components/Organizms/sandbox/Streamer'
 import OcrLocal from 'components/Organizms/files/OcrLocal'
 import { useState, useEffect, startTransition } from 'react'
 import Playground from 'components/Organizms/admin/Playground'
-import Framer from 'components/Organizms/animation/Framer'
+import Framer from 'components/Organizms/sandbox/Framer'
 
 const Page = () => {
   const tabs: TabInfo[] = [
@@ -42,13 +42,11 @@ const Page = () => {
 
   useEffect(() => {
     const fn = async () => {
-      const newProfile = await fetchProfilePassive()
-      if (newProfile) {
+      if (!authProfile) {
+        const newProfile = await fetchProfilePassive()
         await setProfile(newProfile)
-        setIsLoading(false)
-      } else {
-        setIsLoading(false)
       }
+      setIsLoading(false)
     }
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
