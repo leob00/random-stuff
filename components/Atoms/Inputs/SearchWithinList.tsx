@@ -45,6 +45,7 @@ const SearchWithinList = ({
   }
   return (
     <TextField
+      margin='dense'
       autoComplete='off'
       defaultValue={defaultValue}
       disabled={disabled}
@@ -54,20 +55,21 @@ const SearchWithinList = ({
       size='small'
       placeholder={text}
       inputRef={textRef}
-      InputProps={{
-        //color: 'secondary',
-        spellCheck: false,
-        autoComplete: 'off',
-        endAdornment:
-          search.length > 0 ? (
-            <InputAdornment position='end'>
-              <IconButton edge='end' onClick={handleClear} color={'secondary'}>
-                <Close />
-              </IconButton>
-            </InputAdornment>
-          ) : (
-            <></>
-          ),
+      slotProps={{
+        input: {
+          spellCheck: false,
+          autoComplete: 'off',
+          endAdornment:
+            search.length > 0 ? (
+              <InputAdornment position='end'>
+                <IconButton edge='end' onClick={handleClear} color={'secondary'}>
+                  <Close />
+                </IconButton>
+              </InputAdornment>
+            ) : (
+              <></>
+            ),
+        },
       }}
       fullWidth={fullWidth}
     ></TextField>

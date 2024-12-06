@@ -8,7 +8,7 @@ import CenterStack from 'components/Atoms/CenterStack'
 import { StockEarning } from 'lib/backend/api/qln/qlnApi'
 import numeral from 'numeral'
 import { getPositiveNegativeColor } from '../StockListItem'
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Checkbox, Typography } from '@mui/material'
 import { useTheme } from '@mui/material'
 import { getPagedArray } from 'lib/util/collections'
 import Pager from 'components/Atoms/Pager'
@@ -18,6 +18,7 @@ import StockChange from '../StockChange'
 import Clickable from 'components/Atoms/Containers/Clickable'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { useState } from 'react'
+import NoDataFound from 'components/Atoms/Text/NoDataFound'
 
 const StockEarningsCalendarDetails = ({
   data,
@@ -57,20 +58,29 @@ const StockEarningsCalendarDetails = ({
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell colSpan={4}>
+                <TableCell>
                   <SearchWithinList onChanged={handleSearched} />
+                </TableCell>
+                <TableCell>
+                  <Box display={'flex'} alignItems={'center'}>
+                    <Box>
+                      <Checkbox size='small' />
+                    </Box>
+                    <Box>Actual</Box>
+                  </Box>
+                </TableCell>
+                <TableCell>
+                  <Box display={'flex'} alignItems={'center'}>
+                    <Box>
+                      <Checkbox size='small' />
+                    </Box>
+                    <Box>Estimate</Box>
+                  </Box>
                 </TableCell>
               </TableRow>
             </TableHead>
-            <TableHead>
-              <TableRow>
-                <TableCell></TableCell>
-                <TableCell>Actual</TableCell>
-                <TableCell>Estimate</TableCell>
-              </TableRow>
-            </TableHead>
             <TableBody>
-              {pages.length > 0 &&
+              {pages.length > 0 ? (
                 pages[currentPageIndex - 1].items.map((item, index) => (
                   <TableRow key={item.Symbol}>
                     <TableCell>
@@ -102,11 +112,20 @@ const StockEarningsCalendarDetails = ({
                       </FadeIn>
                     </TableCell>
                   </TableRow>
-                ))}
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={100}>
+                    <FadeIn>
+                      <NoDataFound message='no results' />
+                    </FadeIn>
+                  </TableCell>
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </TableContainer>
-        {pages.length > 0 && (
+        {pages.length > 1 && (
           <Box pt={4}>
             <Pager
               pageCount={pages.length}

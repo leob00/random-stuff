@@ -1,8 +1,8 @@
 import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import Seo from 'components/Organizms/Seo'
 import EarningsCalendarDisplay from 'components/Organizms/stocks/earnings/EarningsCalendarDisplay'
 
@@ -23,10 +23,10 @@ const Page = () => {
       {isLoading && <BackdropLoader />}
       <ResponsiveContainer>
         <PageHeader text='Earnings Calendar' />
-        <Box py={2}>
-          {!isLoading && data && data.length === 0 && <NoDataFound />}
-          {data && data.length > 0 && <EarningsCalendarDisplay data={data} />}
+        <Box px={1} display={'flex'} pt={1} justifyContent={'flex-end'} alignItems={'center'}>
+          <NavigationButton route={'/csr/stocks/earnings-reports'} text={'reports'} variant='body2' />
         </Box>
+        <Box py={2}>{data && data.length > 0 && <EarningsCalendarDisplay data={data} />}</Box>
       </ResponsiveContainer>
     </>
   )

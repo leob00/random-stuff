@@ -7,11 +7,6 @@ import { DropdownItem } from 'lib/models/dropdown'
 import { orderBy, uniq } from 'lodash'
 import StockEarningsCalendarDetails from './StockEarningsCalendarDetails'
 import { useState } from 'react'
-import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
-import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
-import ContextMenuPortfolio from 'components/Molecules/Menus/ContextMenuPortfolio'
-import RecentEarningsReport from './RecentEarningsReport'
-import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
 const filterResult = (items: StockEarning[], dt: string | null) => {
   return orderBy(
     items.filter((m) => m.ReportDate === dt),
@@ -59,7 +54,7 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
 
   return (
     <>
-      <ScrollIntoView enabled={true} margin={-15} />
+      <ScrollIntoView enabled={true} />
       <Box display={'flex'} justifyContent={'space-between'} alignItems={'flex-start'}>
         <Box width={{ xs: '90%', md: '60%' }}>
           <Box>
@@ -67,9 +62,6 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
               {dateOptions.length > 0 && (
                 <DropdownList options={dateOptions} selectedOption={dateToSelect ?? ''} onOptionSelected={handleDateSelected} fullWidth />
               )}
-            </Box>
-            <Box px={1} display={'flex'} gap={2} py={1} alignItems={'center'}>
-              <NavigationButton route={'/csr/stocks/earnings-reports'} text={'reports'} variant='body2' />
             </Box>
           </Box>
         </Box>
