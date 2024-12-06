@@ -17,7 +17,7 @@ import { useRouter } from 'next/router'
 import StockChange from '../StockChange'
 import Clickable from 'components/Atoms/Containers/Clickable'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 
 const StockEarningsCalendarDetails = ({
@@ -34,21 +34,38 @@ const StockEarningsCalendarDetails = ({
   const theme = useTheme()
   const pageSize = 10
   const [searchWithinList, setSearchWithinList] = useState('')
+  const [filterActual, setFilterActual] = useState(false)
+  const [filterEstimate, setFilterEstimate] = useState(false)
   const router = useRouter()
 
   const filterList = () => {
-    if (searchWithinList.length === 0) {
-      return [...data]
+    let result = [...data]
+    if (searchWithinList.length > 0) {
+      result = result.filter(
+        (f) =>
+          f.Symbol.toLowerCase().startsWith(searchWithinList.toLowerCase()) || f.StockQuote?.Company.toLowerCase().includes(searchWithinList.toLowerCase()),
+      )
     }
-    return data.filter(
-      (f) => f.Symbol.toLowerCase().startsWith(searchWithinList.toLowerCase()) || f.StockQuote?.Company.toLowerCase().includes(searchWithinList.toLowerCase()),
-    )
+    if (filterActual) {
+      result = result.filter((m) => !!m.ActualEarnings)
+    }
+    if (filterEstimate) {
+      result = result.filter((m) => !!m.EstimatedEarnings)
+    }
+    return result
   }
   const pages = getPagedArray(filterList(), pageSize)
 
   const handleSearched = (text: string) => {
     onSearched()
     setSearchWithinList(text)
+  }
+
+  const handleFilterActual = (event: ChangeEvent<HTMLInputElement>, checked: boolean) => {
+    setFilterActual(checked)
+  }
+  const handleFilterEstimate = (event: ChangeEvent<HTMLInputElement>, checked: boolean) => {
+    setFilterEstimate(checked)
   }
 
   return (
@@ -64,7 +81,7 @@ const StockEarningsCalendarDetails = ({
                 <TableCell>
                   <Box display={'flex'} alignItems={'center'}>
                     <Box>
-                      <Checkbox size='small' />
+                      <Checkbox size='small' onChange={handleFilterActual} />
                     </Box>
                     <Box>Actual</Box>
                   </Box>
@@ -72,7 +89,7 @@ const StockEarningsCalendarDetails = ({
                 <TableCell>
                   <Box display={'flex'} alignItems={'center'}>
                     <Box>
-                      <Checkbox size='small' />
+                      <Checkbox size='small' onChange={handleFilterEstimate} />
                     </Box>
                     <Box>Estimate</Box>
                   </Box>
