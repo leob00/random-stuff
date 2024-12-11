@@ -42,13 +42,13 @@ const StocksAutoComplete = ({
   }
   const handleSelected = (e: React.SyntheticEvent<Element, Event>, value: string | null) => {
     if (value) {
-      onSelected(value)
       if (clearOnSelect) {
         if (textRef.current) {
           textRef.current.value = ''
           textRef.current.blur()
         }
       }
+      onSelected(value)
     } else {
       onSelected('')
     }
@@ -67,7 +67,18 @@ const StocksAutoComplete = ({
       onChange={(e, value) => {
         handleSelected(e, value)
       }}
-      renderInput={(params) => <TextField {...params} label={label} sx={{ input: { color: color } }} inputRef={textRef} placeholder={placeholder} onChange={handleChange} error={!!errorMessage} helperText={errorMessage} />}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={label}
+          sx={{ input: { color: color } }}
+          inputRef={textRef}
+          placeholder={placeholder}
+          onChange={handleChange}
+          error={!!errorMessage}
+          helperText={errorMessage}
+        />
+      )}
     />
   )
 }

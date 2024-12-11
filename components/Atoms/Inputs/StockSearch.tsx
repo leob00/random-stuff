@@ -3,10 +3,10 @@ import { StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import { DropdownItem } from 'lib/models/dropdown'
 import numeral from 'numeral'
-import React from 'react'
 import CenterStack from '../CenterStack'
 import BackdropLoader from '../Loaders/BackdropLoader'
 import StocksAutoComplete from './StocksAutoComplete'
+import { useState } from 'react'
 
 const StockSearch = ({
   onSymbolSelected,
@@ -17,20 +17,12 @@ const StockSearch = ({
   clearOnSelect?: boolean
   errorMessage?: string
 }) => {
-  const [results, setResults] = React.useState<DropdownItem[]>([])
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [results, setResults] = useState<DropdownItem[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+  const searchAheadCount = `${numeral(getSearchAheadTotalCount()).format('###,###')}`
 
   const handleSelectQuote = async (text: string) => {
     if (text.length === 0) {
-      onSymbolSelected({
-        Symbol: '',
-        Company: '',
-        Price: 0,
-        Change: 0,
-        ChangePercent: 0,
-        TradeDate: '',
-        AnnualDividendYield: null,
-      })
       return
     }
     const symbol = text.split(':')[0]
@@ -60,13 +52,14 @@ const StockSearch = ({
     <CenterStack>
       {isLoading && <BackdropLoader />}
       <StocksAutoComplete
-        placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}
+        placeholder={`search ${searchAheadCount} stocks`}
         onChanged={handleSearched}
         searchResults={results}
         debounceWaitMilliseconds={500}
         onSelected={handleSelectQuote}
         clearOnSelect={clearOnSelect}
         errorMessage={errorMessage}
+        freesolo
       />
     </CenterStack>
   )

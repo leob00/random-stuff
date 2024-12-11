@@ -62,9 +62,11 @@ const StockEarningsCalendarDetails = ({
   }
 
   const handleFilterActual = (event: ChangeEvent<HTMLInputElement>, checked: boolean) => {
+    onPaged(1)
     setFilterActual(checked)
   }
   const handleFilterEstimate = (event: ChangeEvent<HTMLInputElement>, checked: boolean) => {
+    onPaged(1)
     setFilterEstimate(checked)
   }
 
@@ -100,7 +102,7 @@ const StockEarningsCalendarDetails = ({
               {pages.length > 0 ? (
                 pages[currentPageIndex - 1].items.map((item, index) => (
                   <TableRow key={item.Symbol}>
-                    <TableCell>
+                    <TableCell sx={{ minWidth: '80%' }}>
                       <FadeIn>
                         <Box>
                           <Clickable

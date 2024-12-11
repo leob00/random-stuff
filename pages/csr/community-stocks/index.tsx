@@ -3,12 +3,7 @@ import { StockQuote } from 'lib/backend/api/models/zModels'
 import { CategoryType } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import { Box } from '@mui/material'
-import CenterStack from 'components/Atoms/CenterStack'
-import StocksAutoComplete from 'components/Atoms/Inputs/StocksAutoComplete'
-import { getSearchAheadTotalCount, searchAheadStocks } from 'components/Organizms/stocks/stockSearcher'
-import numeral from 'numeral'
-import { DropdownItem } from 'lib/models/dropdown'
-import { getLatestQuotes, getStockQuotes } from 'lib/backend/api/qln/qlnApi'
+import { getLatestQuotes } from 'lib/backend/api/qln/qlnApi'
 import AddQuote from 'components/Organizms/stocks/AddQuote'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import { searchRecords } from 'lib/backend/csr/nextApiWrapper'
@@ -23,6 +18,11 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { useState } from 'react'
+import StockSearch from 'components/Atoms/Inputs/StockSearch'
+import StockListItem from 'components/Organizms/stocks/StockListItem'
+import FormDialog from 'components/Atoms/Dialogs/FormDialog'
+import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'
 const tabs: TabInfo[] = [
@@ -58,8 +58,6 @@ const Page = () => {
     return Array.from(stockMap.values())
   }
   const { data: searchedStocks, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
-  const [stockSearchResults, setStockSearchResults] = useState<DropdownItem[]>([])
-  const [loadingStock, setLoadingStock] = useState(false)
 
   const winners: StockQuote[] = searchedStocks
     ? sortArray(
@@ -81,45 +79,20 @@ const Page = () => {
   }
   const [selectedStock, setSelectedStock] = useState<StockQuote | null>(null)
 
-  const handleSearched = async (text: string) => {
-    const searchResults = searchAheadStocks(text)
-    const autoComp: DropdownItem[] = searchResults.map((e) => {
-      return {
-        text: `${e.Symbol}: ${e.Company}`,
-        value: e.Symbol,
-      }
-    })
-    setStockSearchResults(autoComp)
+  const handleSelectQuote = (quote: StockQuote) => {
+    setSelectedStock(quote)
   }
 
-  const handleSelectQuote = async (text: string) => {
-    if (text.length === 0) {
-      return
-    }
-    const symbol = text.split(':')[0]
-    setStockSearchResults([])
-    setLoadingStock(true)
-    setSelectedStock(null)
-    const quotes = await getStockQuotes([symbol])
-    if (quotes.length > 0) {
-      const quote = quotes[0]
-      setSelectedStock(quote)
-      const newData = [...searchedStocks!].filter((m) => m.Symbol !== quote.Symbol)
-      newData.unshift(quote)
-      mutate(mutateKey, newData, { revalidate: false })
-    }
-    setLoadingStock(false)
-  }
-
-  const handleAddToList = (quote: StockQuote) => {
-    mutate(mutateKey)
-  }
-
-  const handleCloseAddQuote = () => {
-    setSelectedStock(null)
-  }
   const handleRefreshRecent = () => {
     mutate(mutateKey)
+  }
+  const handleCloseQuoteDialog = () => {
+    if (selectedStock) {
+      const newCopy = searchedStocks!.filter((m) => m.Symbol !== selectedStock.Symbol)
+      newCopy.unshift(selectedStock)
+      mutate(mutateKey, newCopy, { revalidate: false })
+    }
+    setSelectedStock(null)
   }
 
   return (
@@ -129,28 +102,14 @@ const Page = () => {
       <ResponsiveContainer>
         <PageHeader text='Community Stocks' />
         <Box py={2}>
-          <CenterStack>
-            <StocksAutoComplete
-              placeholder={`search ${numeral(getSearchAheadTotalCount()).format('###,###')} stocks`}
-              onChanged={handleSearched}
-              searchResults={stockSearchResults}
-              debounceWaitMilliseconds={500}
-              onSelected={handleSelectQuote}
-            />
-          </CenterStack>
+          <StockSearch onSymbolSelected={handleSelectQuote} clearOnSelect />
         </Box>
         {selectedStock && (
-          <AddQuote
-            stockListMap={getMapFromArray(searchedStocks!, 'Symbol')}
-            quote={selectedStock}
-            handleAddToList={handleAddToList}
-            handleCloseAddQuote={handleCloseAddQuote}
-            scrollIntoView
-            showAddToListButton={false}
-          />
+          <InfoDialog title='' show={!!selectedStock} fullScreen onCancel={handleCloseQuoteDialog}>
+            <StockListItem item={selectedStock} expand scrollIntoView isStock disabled />
+          </InfoDialog>
         )}
         {!selectedStock && <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />}
-        {loadingStock && <BackdropLoader />}
         {!selectedStock && (
           <>
             {selectedTab === 'Recent' && (
