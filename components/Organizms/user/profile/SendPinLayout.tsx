@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 import { formatEmail } from 'lib/ui/mailUtil'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 
-const SendPinLayout = ({ ticket, profile }: { ticket: AmplifyUser; profile: UserProfile }) => {
+const SendPinLayout = ({ profile }: { profile: UserProfile }) => {
   const [emailSent, setEmailSent] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
   const router = useRouter()

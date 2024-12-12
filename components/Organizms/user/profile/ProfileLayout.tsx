@@ -10,12 +10,13 @@ import { useUserController } from 'hooks/userController'
 import { UserPin, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import React from 'react'
 import VerifyEmail from './VerifyEmail'
-import useSWR from 'swr'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
-import { get } from 'lib/backend/api/fetchFunctions'
 import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import { useSwrHelper } from 'hooks/useSwrHelper'
+import { getEmailVerificationStatus } from './profileHelper'
+import ValidateFromEmailDialog from 'components/Organizms/Login/ValidateFromEmailDialog'
 
 const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const [showPasswordEntry, setShowPasswordEntry] = React.useState(false)
@@ -23,12 +24,10 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const [showPinChangedMessage, setShowPinChangedMessage] = React.useState(false)
   const { setProfile } = useUserController()
   const key = constructUserProfileKey(userProfile.username)
-  const emailVerified = userProfile.emailVerified ?? false
 
-  const fetcherFn = async (_url: string, _key: string) => {
-    const response: { VerificationAttributes: any } = await get('/api/ses')
-
-    const result = { ...userProfile, emailVerified: response.VerificationAttributes[userProfile.username]['VerificationStatus'] === 'Success' }
+  const fetcherFn = async () => {
+    const verified = await getEmailVerificationStatus(userProfile)
+    const result = { ...userProfile, emailVerified: verified }
     if (userProfile.emailVerified !== result.emailVerified) {
       setProfile(result)
       await putUserProfile(result)
@@ -36,14 +35,8 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
 
     return result
   }
-  const {
-    data: validatedProfile,
-    isLoading,
-    isValidating,
-  } = useSWR(key, ([url, key]) => fetcherFn(url, key), {
-    revalidateOnFocus: !emailVerified,
-    revalidateIfStale: !emailVerified,
-    revalidateOnReconnect: !emailVerified,
+  const { data: validatedProfile, isLoading } = useSwrHelper(key, fetcherFn, {
+    revalidateOnFocus: !userProfile.emailVerified,
   })
 
   const handleChangePinClick = () => {
@@ -68,13 +61,11 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     <>
       <>
         {isLoading && <BackdropLoader />}
-        {isValidating && <BackdropLoader />}
         <SnackbarSuccess show={showPinChangedMessage} text={'Your pin has been updated!'} onClose={() => setShowPinChangedMessage(false)} />
         <CenteredHeader title={`Profile`} />
         <HorizontalDivider />
         {validatedProfile && (
           <>
-            <CenterStack sx={{ py: 2 }}>{!showPasswordEntry && !showPinEntry && <PrimaryButton text={`${validatedProfile.pin ? 'reset pin' : 'create a pin'}`} onClicked={handleChangePinClick} />}</CenterStack>
             <Box py={4}>
               <CenterStack>Settings</CenterStack>
               {!validatedProfile.emailVerified ? (
@@ -87,7 +78,13 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                 </CenterStack>
               )}
             </Box>
-            <ReEnterPasswordDialog show={showPasswordEntry} title='Login' text='Please enter your password so you can set your pin.' userProfile={validatedProfile} onConfirm={handlePasswordValidated} onCancel={handleCancelChangePin} />
+            <CenterStack sx={{ py: 2 }}>
+              {!showPasswordEntry && !showPinEntry && (
+                <PrimaryButton text={`${validatedProfile.pin ? 'reset pin' : 'create a pin'}`} onClicked={handleChangePinClick} />
+              )}
+            </CenterStack>
+            <ValidateFromEmailDialog show={showPasswordEntry} onSuccess={handlePasswordValidated} onClose={() => setShowPasswordEntry(false)} />
+
             <CreatePinDialog show={showPinEntry} userProfile={validatedProfile} onCancel={handleCancelChangePin} onConfirm={handlePinChanged} />
           </>
         )}

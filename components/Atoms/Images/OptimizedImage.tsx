@@ -20,7 +20,7 @@ const OptimizedImage = ({
 }) => {
   //const imageRef = React.useRef<HTMLImageElement | null>(null)
   const hiddenImageRef = React.useRef<HTMLImageElement | null>(null)
-  const [calcSize, setCalcSize] = React.useState<ImageSize | undefined>(undefined)
+  const [calcSize, setCalcSize] = React.useState<ImageSize | undefined>(imageSize)
 
   const handleLoaded = () => {}
   const handleHiddenImageLoaded = () => {
@@ -33,18 +33,20 @@ const OptimizedImage = ({
       //console.log('newSize: ', newSize)
     }
   }
-  React.useEffect(() => {
-    if (calcSize) {
-      setCalcSize(undefined)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url])
 
   return (
     <>
       <Stack direction='row' justifyContent='center' sx={{ my: 2 }}>
         <Box sx={{ display: { xs: 'none', sm: 'none', md: 'none', lg: 'unset' } }}>
-          <img ref={hiddenImageRef} src={url} alt={title} onLoad={handleHiddenImageLoaded} style={{ borderRadius: '16px' }} />
+          <img
+            ref={hiddenImageRef}
+            height={calcSize?.height}
+            width={calcSize?.width}
+            src={url}
+            alt={title}
+            onLoad={handleHiddenImageLoaded}
+            style={{ borderRadius: '16px' }}
+          />
         </Box>
         <Box sx={{ display: { xs: 'unset', sm: 'unset', md: 'unset', lg: 'none' } }}>
           <img ref={hiddenImageRef} src={url} width={350} height={400} alt={title} onLoad={handleHiddenImageLoaded} style={{ borderRadius: '16px' }} />

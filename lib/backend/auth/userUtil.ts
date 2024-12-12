@@ -1,6 +1,16 @@
-import { signOut, signIn, getCurrentUser, AuthUser, fetchUserAttributes, FetchUserAttributesOutput, fetchAuthSession, SignInOutput } from 'aws-amplify/auth'
-import dayjs from 'dayjs'
-import { getUtcNow } from 'lib/util/dateUtil'
+import {
+  signOut,
+  signIn,
+  getCurrentUser,
+  AuthUser,
+  fetchUserAttributes,
+  FetchUserAttributesOutput,
+  fetchAuthSession,
+  SignInOutput,
+  sendUserAttributeVerificationCode,
+  confirmUserAttribute,
+  ConfirmUserAttributeInput,
+} from 'aws-amplify/auth'
 export type ClaimType = 'qln' | 'rs' | 'rs-admin'
 export interface Claim {
   type: ClaimType
@@ -80,4 +90,26 @@ export async function validateUserCSR(username: string, password: string) {
     console.error('username password validation error: ', err)
     return result
   }
+}
+
+export async function sendEmailVerificationCode() {
+  const result = await sendUserAttributeVerificationCode({
+    userAttributeKey: 'email',
+  })
+  return result
+}
+export async function verifyEmailVerificationCode(code: string) {
+  let result = false
+  const payload: ConfirmUserAttributeInput = {
+    userAttributeKey: 'email',
+    confirmationCode: code,
+  }
+  try {
+    await confirmUserAttribute(payload)
+    result = true
+  } catch (err) {
+    result = false
+  }
+  return result
+  // return result
 }

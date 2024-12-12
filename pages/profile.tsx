@@ -8,21 +8,21 @@ import { getUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import CenterStack from 'components/Atoms/CenterStack'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import { useSwrHelper } from 'hooks/useSwrHelper'
 
 const Profile = () => {
   const { authProfile } = useUserController()
   const key = constructUserProfileKey(authProfile?.username ?? 'user-profile')
-  const fetcherFn = async (url: string, key: string) => {
+  const fetcherFn = async () => {
     const response = (await getUserProfile(authProfile?.username ?? 'user-profile')) as UserProfile | null
     return response
   }
 
-  const { data, isLoading, isValidating } = useSWR(key, ([url, key]) => fetcherFn(url, key))
+  const { data, isLoading } = useSwrHelper(key, fetcherFn)
 
   return (
     <Container>
       {isLoading && <BackdropLoader />}
-      {isValidating && <BackdropLoader />}
       <CenterStack>yo!</CenterStack>
       {data && <Typography variant='h6'>hello, {data.username}</Typography>}
     </Container>

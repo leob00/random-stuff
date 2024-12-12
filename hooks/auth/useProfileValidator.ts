@@ -7,6 +7,7 @@ export const useProfileValidator = () => {
 
   const validate = async () => {
     if (!authProfile) {
+      setIsValidating(true)
       const p = await fetchProfilePassive()
       await setProfile(p)
     }

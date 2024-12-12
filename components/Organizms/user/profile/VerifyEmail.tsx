@@ -4,16 +4,18 @@ import CenterStack from 'components/Atoms/CenterStack'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { postBody } from 'lib/backend/api/fetchFunctions'
-import React from 'react'
+import { useState } from 'react'
 
 const VerifyEmail = ({ userProfile }: { userProfile: UserProfile }) => {
-  const [instructions, setInstructions] = React.useState<string>('Please click the Verify button and check your email to complete verification.')
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [instructions, setInstructions] = useState<string>('Please click the Verify button and check your email to complete verification.')
+  const [isLoading, setIsLoading] = useState(false)
+  const [showButton, setShowButton] = useState(true)
   const handleVerifyEmail = async () => {
     setIsLoading(true)
     setInstructions('Please go to your email and find the instructions on how to proceed.')
     await postBody('/api/ses', 'PUT', { key: userProfile.username })
     setIsLoading(false)
+    setShowButton(false)
   }
   return (
     <>
@@ -27,9 +29,11 @@ const VerifyEmail = ({ userProfile }: { userProfile: UserProfile }) => {
         <Typography p={2}>{instructions}</Typography>
       </CenterStack>
       <CenterStack>
-        <Box py={2}>
-          <PrimaryButton text='Verify' onClick={handleVerifyEmail} />
-        </Box>
+        {showButton && (
+          <Box py={2}>
+            <PrimaryButton text='Verify' onClick={handleVerifyEmail} />
+          </Box>
+        )}
       </CenterStack>
     </>
   )

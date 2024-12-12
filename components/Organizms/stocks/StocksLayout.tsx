@@ -15,10 +15,15 @@ const StocksLayout = ({ userProfile, localStore }: { userProfile: UserProfile | 
 
   const fetchData = async () => {
     if (userProfile) {
-      const resp = await getRecord<StockQuote[]>(mutateKey)
-      return resp
+      const resp = await getRecord<StockQuote[] | null>(mutateKey)
+      return resp ?? []
     } else {
-      const res = localStore.myStocks.data
+      let res: StockQuote[] = []
+      if (localStore.myStocks?.data) {
+        res = localStore.myStocks.data
+      } else {
+        localStore.saveStocks([])
+      }
       const stockMap = getMapFromArray(res, 'Symbol')
       const latest = await getLatestQuotes(res.map((m) => m.Symbol))
       latest.forEach((item) => {
@@ -36,7 +41,6 @@ const StocksLayout = ({ userProfile, localStore }: { userProfile: UserProfile | 
   const handleMutated = (newData: StockQuote[]) => {
     mutate(mutateKey, newData, { revalidate: false })
   }
-
   return (
     <>
       {isLoading && <BackdropLoader />}

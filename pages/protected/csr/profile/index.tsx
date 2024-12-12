@@ -1,29 +1,15 @@
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ProfileLayout from 'components/Organizms/user/profile/ProfileLayout'
-import { useUserController } from 'hooks/userController'
-import React from 'react'
+import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 
 const Page = () => {
-  const { authProfile, setProfile, fetchProfilePassive } = useUserController()
-  const [isLoading, setIsLoading] = React.useState(false)
+  const { userProfile, isValidating } = useProfileValidator()
 
-  React.useEffect(() => {
-    const fn = async () => {
-      if (!authProfile) {
-        const p = await fetchProfilePassive()
-        setProfile(p)
-        setIsLoading(false)
-      }
-    }
-
-    fn()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authProfile])
   return (
     <>
       <>
-        {isLoading && <BackdropLoader />}
-        {authProfile && <ProfileLayout userProfile={authProfile} />}
+        {isValidating && <BackdropLoader />}
+        {userProfile && <ProfileLayout userProfile={userProfile} />}
       </>
     </>
   )

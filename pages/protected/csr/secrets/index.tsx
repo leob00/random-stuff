@@ -29,12 +29,13 @@ const Page = () => {
 
   useEffect(() => {
     const fn = async () => {
-      if (!authProfile) {
-        const p = await fetchProfilePassive()
-        if (p !== null && !p.pin) {
-          setShowCreatePin(true)
-        }
-        setProfile(p)
+      let profile = authProfile ?? null
+      if (!profile) {
+        profile = await fetchProfilePassive()
+        setProfile(profile)
+      }
+      if (profile && !profile?.pin) {
+        setShowCreatePin(true)
       }
       setLoading(false)
     }
@@ -60,7 +61,12 @@ const Page = () => {
                         <SecretsLayout userProfile={authProfile} ticket={ticket} />
                       </Box>
                     )}
-                    <Snackbar open={showCreatePinAlert} autoHideDuration={3000} onClose={handleCloseCreatePinAlert} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                    <Snackbar
+                      open={showCreatePinAlert}
+                      autoHideDuration={3000}
+                      onClose={handleCloseCreatePinAlert}
+                      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                    >
                       <Alert onClose={handleCloseCreatePinAlert} severity='success' sx={{ width: '100%' }}>
                         Login succeeded. Thank you!
                       </Alert>

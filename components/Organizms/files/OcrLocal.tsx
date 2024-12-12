@@ -11,6 +11,7 @@ import ImagePreview from 'components/Atoms/Images/ImagePreview'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import { getFileSizeText, getImageSize } from 'lib/util/numberUtil'
 import CopyableText from 'components/Atoms/Text/CopyableText'
+import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 
 const OcrLocal = () => {
   const [text, setText] = React.useState<string | null>(null)
@@ -21,7 +22,7 @@ const OcrLocal = () => {
 
   const handleSelectFile = async (file: File) => {
     setSelectedFile(file)
-    //console.log(file)
+    console.log(file)
   }
 
   const handleExtractText = async () => {
@@ -54,7 +55,9 @@ const OcrLocal = () => {
     <Box>
       {isLoading && <BackdropLoader />}
       <CenterStack>
-        <Typography>Select an image to process.</Typography>
+        <Typography pb={2} variant='body2'>
+          Select an image to process.
+        </Typography>
       </CenterStack>
       <FileUploadButton file={selectedFile} onFileSelected={handleSelectFile} accept={supportedOcrImageTypes} />
       {selectedFile && (
@@ -68,14 +71,24 @@ const OcrLocal = () => {
           </CenterStack>
         </Box>
       )}
-      <Box minHeight={50}>{progress > 0 && <LinearProgress variant='determinate' value={progress} color='info' />}</Box>
+
+      <Box minHeight={50}>
+        {progress > 0 && (
+          <>
+            <LinearProgress variant='determinate' value={progress} color='info' />
+          </>
+        )}
+      </Box>
       {text && text.length > 0 && (
-        <Box display={'flex'} justifyContent={'flex-end'} alignItems={'center'}>
-          <Typography variant='body2'>copy:</Typography>
-          <CopyableText label='' value={text} showValue={false} />
+        <Box>
+          <Box display={'flex'} justifyContent={'flex-end'} alignItems={'center'}>
+            <Typography variant='body2'>copy:</Typography>
+            <CopyableText label='' value={text} showValue={false} />
+          </Box>
+          <TextField label='' placeholder='text...' multiline rows={10} sx={{ width: '100%' }} value={text ?? ''} />
         </Box>
       )}
-      <TextField label='' placeholder='text...' multiline rows={10} sx={{ width: '100%' }} value={text ?? ''} inputProps={{}} />
+
       <SnackbarSuccess show={showSuccess} text={'text extracted!'} onClose={() => setShowSuccess(false)} />
     </Box>
   )

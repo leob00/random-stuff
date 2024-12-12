@@ -4,12 +4,12 @@ import CenterStack from 'components/Atoms/CenterStack'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { validateUserCSR } from 'lib/backend/auth/userUtil'
-import React from 'react'
+import { useState } from 'react'
 
 const ReEnterPassword = ({ userProfile, onSuccess }: { userProfile: UserProfile; onSuccess: () => void }) => {
-  const [password, setPassword] = React.useState('')
-  const [error, setError] = React.useState('')
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -42,7 +42,8 @@ const ReEnterPassword = ({ userProfile, onSuccess }: { userProfile: UserProfile;
             placeholder={''}
             InputProps={{
               autoComplete: 'off',
-            }}></TextField>
+            }}
+          ></TextField>
         </CenterStack>
         <Box height={84}>
           {error.length > 0 && (

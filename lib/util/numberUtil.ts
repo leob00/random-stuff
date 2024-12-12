@@ -49,7 +49,11 @@ export function getImageSize(fileSize: number) {
     width: 350,
     height: 400,
   }
-  if (fileSize > 35000) {
+  if (fileSize > 5000) {
+    return result
+  }
+
+  if (fileSize > 50000) {
     return result
   } else {
     return undefined
