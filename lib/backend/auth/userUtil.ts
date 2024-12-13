@@ -1,8 +1,6 @@
 import {
-  signOut,
   signIn,
   getCurrentUser,
-  AuthUser,
   fetchUserAttributes,
   FetchUserAttributesOutput,
   fetchAuthSession,
@@ -106,6 +104,7 @@ export async function verifyEmailVerificationCode(code: string) {
   }
   try {
     await confirmUserAttribute(payload)
+
     result = true
   } catch (err) {
     result = false
