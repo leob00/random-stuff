@@ -17,6 +17,8 @@ import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { getEmailVerificationStatus } from './profileHelper'
 import ValidateFromEmailDialog from 'components/Organizms/Login/ValidateFromEmailDialog'
+import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
+import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 
 const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const [showPasswordEntry, setShowPasswordEntry] = React.useState(false)
@@ -67,15 +69,17 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
         {validatedProfile && (
           <>
             <Box py={4}>
-              <CenterStack>Settings</CenterStack>
               {!validatedProfile.emailVerified ? (
-                <VerifyEmail userProfile={validatedProfile} />
+                <Box>
+                  <VerifyEmail userProfile={validatedProfile} />
+                </Box>
               ) : (
-                <CenterStack>
-                  <Box py={2}>
-                    <Alert severity='success'>Email verified</Alert>
-                  </Box>
-                </CenterStack>
+                <Box py={2}>
+                  <Typography py={2} textAlign={'center'}>{`email: ${validatedProfile.username}`}</Typography>
+                  <CenterStack>
+                    <AlertWithHeader severity='success' header={``} text='verified' />
+                  </CenterStack>
+                </Box>
               )}
             </Box>
             <CenterStack sx={{ py: 2 }}>
