@@ -3,7 +3,7 @@ import { CasinoBlue, VeryLightBlue } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
 import { debounce } from 'lodash'
 import { useTheme } from '@mui/material'
-import { useRef } from 'react'
+import { MutableRefObject, useRef, useState } from 'react'
 
 const StocksAutoComplete = ({
   onChanged,
@@ -31,6 +31,7 @@ const StocksAutoComplete = ({
   const theme = useTheme()
   const color = theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlue
   const textRef = useRef<HTMLInputElement | null>(null)
+  const [selectedVal, setSelectedVal] = useState('')
 
   const raiseChangeEvent = (term: string) => {
     onChanged?.(term)
@@ -38,14 +39,16 @@ const StocksAutoComplete = ({
   const debouncedFn = debounce(raiseChangeEvent, debounceWaitMilliseconds)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedVal(e.currentTarget.value)
     debouncedFn(e.currentTarget.value)
   }
-  const handleSelected = (e: React.SyntheticEvent<Element, Event>, value: string | null) => {
+  const handleSelected = (value: string | null) => {
     if (value) {
       if (clearOnSelect) {
         if (textRef.current) {
           textRef.current.value = ''
           textRef.current.blur()
+          setSelectedVal('')
         }
       }
       onSelected(value)
@@ -53,19 +56,21 @@ const StocksAutoComplete = ({
       onSelected('')
     }
   }
+  const options = searchResults.map((e) => e.text)
 
   return (
     <Autocomplete
+      value={selectedVal}
       autoCorrect={'false'}
       autoComplete={false}
       size='small'
       id='searchAutoComplete'
       freeSolo={freesolo}
       sx={{ width: width, input: { color: color } }}
-      options={searchResults.map((e) => e.text)}
+      options={options}
       autoHighlight
-      onChange={(e, value) => {
-        handleSelected(e, value)
+      onChange={(_, value) => {
+        handleSelected(value)
       }}
       renderInput={(params) => (
         <TextField
