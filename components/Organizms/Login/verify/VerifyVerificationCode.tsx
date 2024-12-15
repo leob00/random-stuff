@@ -29,7 +29,7 @@ const VerifyVerificationCode = ({ onSuccess }: { onSuccess: () => void }) => {
   return (
     <Box py={2}>
       {isLoading && <BackdropLoader />}
-
+      <Typography>Please enter your temprorary code from the email.</Typography>
       <CenterStack>
         <TextField margin='dense' size='small' placeholder='code' onChange={handleCodeChange}></TextField>
       </CenterStack>

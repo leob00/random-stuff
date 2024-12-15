@@ -13,21 +13,20 @@ import ServerInfo from 'components/Organizms/admin/ServerInfo'
 import RequireClaim from 'components/Organizms/user/RequireClaim'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UsersAdmin from 'components/Organizms/admin/users/UsersAdmin'
-import LoginUsernameForm, { UsernameLogin } from 'components/Molecules/Forms/Login/LoginUsernameForm'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
-import { useEffect, useState } from 'react'
 import DataQualityStart from 'components/Organizms/admin/data-quality/DataQualityStart'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import useQlnAdmin from 'hooks/auth/useQlnAdmin'
 import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
-import { Box } from '@mui/material'
+import { useState } from 'react'
+import ApiStream from 'components/Organizms/admin/stream/ApiStream'
 
 const Page = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
   const [selectedTab, setSelectedTab] = useState('Jobs')
   const { saveClaims } = useSessionStore()
-  const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Server' }, { title: 'Api' }, { title: 'Users' }, { title: 'Data Quality' }]
+  const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Server' }, { title: 'Api Stream' }, { title: 'Users' }, { title: 'Data Quality' }]
 
   const { claim: adminClaim, isValidating: isValidatingAdmin } = useQlnAdmin()
 
@@ -50,7 +49,7 @@ const Page = () => {
               <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
               {selectedTab === 'Jobs' && <JobsLayout userClaim={adminClaim} />}
               {selectedTab === 'Server' && <ServerInfo />}
-              {selectedTab === 'Api' && <ApiTest />}
+              {selectedTab === 'Api Stream' && <ApiStream />}
               {selectedTab === 'Users' && <>{userProfile && <UsersAdmin userProfile={userProfile} />}</>}
               {selectedTab === 'Data Quality' && <DataQualityStart />}
             </>

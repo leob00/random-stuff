@@ -3,7 +3,6 @@ import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
-import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import Seo from 'components/Organizms/Seo'
@@ -13,7 +12,6 @@ import { constructUserGoalsKey } from 'lib/backend/api/aws/util'
 import { getUserGoals, getUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
 import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
 import useSWR, { mutate } from 'swr'
 
 const Page = () => {
@@ -34,8 +32,8 @@ const Page = () => {
     const result = results.find((m) => m.id === goalId)
     return result
   }
-  const { data: goal, isLoading: loadingGoals } = useSWR(goalMutateKey, ([url, enc]) => fetchGoal(url, enc))
-  const { data: tasks, isValidating: loadingTasks } = useSWR(tasksMutateKey, ([url, enc]) => fetchGoalTasks(url, enc))
+  const { data: goal, isLoading: loadingGoals } = useSWR(goalMutateKey, ([url, enc]) => fetchGoal(url, enc), { revalidateOnFocus: false })
+  const { data: tasks, isValidating: loadingTasks } = useSWR(tasksMutateKey, ([url, enc]) => fetchGoalTasks(url, enc), { revalidateOnFocus: false })
 
   const handleMutated = async (newGoal: UserGoal, newTasks: UserTask[]) => {
     mutate(goalMutateKey, newGoal, { revalidate: false })

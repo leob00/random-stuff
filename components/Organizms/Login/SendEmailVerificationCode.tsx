@@ -19,10 +19,12 @@ const SendEmailVerificationCode = ({ onSent }: { onSent: () => void }) => {
     <Box py={2}>
       {isLoading && <BackdropLoader />}
       <Box py={2}>
-        <Typography textAlign={'center'}>{`We need to verify that it is really you. Please click 'send' and check your email for instructions`}</Typography>
+        <Typography
+          textAlign={'center'}
+        >{`We need to verify that it is really you. Please click 'send' and check your email for your temporary validation code.`}</Typography>
       </Box>
       <CenterStack>
-        <SuccessButton text='send' onClick={handleSendVerificationConde} />
+        <SuccessButton text='send' disabled={isLoading} onClick={handleSendVerificationConde} />
       </CenterStack>
     </Box>
   )

@@ -59,6 +59,9 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     setShowPinChangedMessage(true)
     setShowPinEntry(false)
   }
+  const handleClosePasswordEntry = () => {
+    setShowPasswordEntry(false)
+  }
   return (
     <>
       <>
@@ -87,7 +90,7 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                 <PrimaryButton text={`${validatedProfile.pin ? 'reset pin' : 'create a pin'}`} onClicked={handleChangePinClick} />
               )}
             </CenterStack>
-            <ValidateFromEmailDialog show={showPasswordEntry} onSuccess={handlePasswordValidated} onClose={() => setShowPasswordEntry(false)} />
+            {showPasswordEntry && <ValidateFromEmailDialog show={showPasswordEntry} onSuccess={handlePasswordValidated} onClose={handleClosePasswordEntry} />}
 
             <CreatePinDialog show={showPinEntry} userProfile={validatedProfile} onCancel={handleCancelChangePin} onConfirm={handlePinChanged} />
           </>

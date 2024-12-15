@@ -91,7 +91,6 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
         const shouldEnterPin = needsPinEntry(minuteDuration, p.pin)
         setModel({ ...model, isPinExpired: shouldEnterPin, showPinEntry: shouldEnterPin })
       }
-      console.log(model.pinExpirationDate)
     }
     fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
