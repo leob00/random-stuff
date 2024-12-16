@@ -19,6 +19,10 @@ export class StreamingResponse extends Response {
       headers: {
         ...init?.headers,
       },
+      // headers: {
+      //   'Content-Type': 'text/event-stream',
+      //   'X-Content-Type-Options': 'nosniff',
+      // },
     })
   }
 }

@@ -12,12 +12,12 @@ async function* fetchItems(): AsyncGenerator<Item, void, unknown> {
     await sleep(1000)
     yield {
       key: `key${i}`,
-      value: `value${i}`,
+      value: `value - ${i + 1}`,
     }
   }
 }
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   const stream = makeStream(fetchItems())
   const response = new StreamingResponse(stream)
   return response

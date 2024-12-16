@@ -20,7 +20,7 @@ const ListHeader = ({
   fadeIn = true,
 }: {
   text: string
-  item: any
+  item?: any
   onClicked?: (item: any) => void
   onEdit?: (item: any) => void
   onDelete?: (item: any) => void

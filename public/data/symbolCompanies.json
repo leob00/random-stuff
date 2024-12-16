@@ -172,8 +172,16 @@
     "Symbol": "ABEV"
   },
   {
+    "Company": "Abacus FCF Leaders ETF",
+    "Symbol": "ABFL"
+  },
+  {
     "Company": "Asbury Automotive Group, Inc.",
     "Symbol": "ABG"
+  },
+  {
+    "Company": "Abacus Tactical High Yield ETF",
+    "Symbol": "ABHY"
   },
   {
     "Company": "ARCA biopharma, Inc.",
@@ -182,6 +190,14 @@
   {
     "Company": "Abacus Life, Inc. Class A Common Stock",
     "Symbol": "ABL"
+  },
+  {
+    "Company": "Abacus FCF Real Assets Leaders ETF",
+    "Symbol": "ABLD"
+  },
+  {
+    "Company": "Abacus FCF International Leaders ETF",
+    "Symbol": "ABLG"
   },
   {
     "Company": "Abacus Life, Inc. 9.875% Fixed Rate Senior Notes due 2028",
@@ -214,6 +230,10 @@
   {
     "Company": "Acumen Pharmaceuticals, Inc. Common Stock",
     "Symbol": "ABOS"
+  },
+  {
+    "Company": "Abacus FCF Innovation Leaders ETF",
+    "Symbol": "ABOT"
   },
   {
     "Company": "Abpro Holdings, Inc Common Stock",
@@ -1436,8 +1456,16 @@
     "Symbol": "ALCYW"
   },
   {
+    "Company": "Aldel Financial II Inc. Class A Ordinary Shares",
+    "Symbol": "ALDF"
+  },
+  {
     "Company": "Aldel Financial II Inc. Units",
     "Symbol": "ALDFU"
+  },
+  {
+    "Company": "Aldel Financial II Inc. Warrants",
+    "Symbol": "ALDFW"
   },
   {
     "Company": "Aldeyra Therapeutics, Inc.",
@@ -2350,6 +2378,10 @@
   {
     "Company": "AquaBounty Technologies, Inc.",
     "Symbol": "AQB"
+  },
+  {
+    "Company": "iShares MSCI Global Quality Factor ETF",
+    "Symbol": "AQLT"
   },
   {
     "Company": "Aqua Metals, Inc. Common Stock",
@@ -3370,6 +3402,10 @@
   {
     "Company": "AvePoint, Inc. Warrant",
     "Symbol": "AVPTW"
+  },
+  {
+    "Company": "Anteris Technologies Global Corp. Common Stock",
+    "Symbol": "AVR"
   },
   {
     "Company": "Avantis Real Estate ETF",
@@ -4458,6 +4494,10 @@
   {
     "Company": "BGC Group, Inc. Class A Common Stock",
     "Symbol": "BGC"
+  },
+  {
+    "Company": "Bahl & Gaynor Dividend ETF",
+    "Symbol": "BGDV"
   },
   {
     "Company": "Big 5 Sporting Goods Corp",
@@ -9848,6 +9888,10 @@
     "Symbol": "CXM"
   },
   {
+    "Company": "Teucrium 2x Daily Corn ETF",
+    "Symbol": "CXRN"
+  },
+  {
     "Company": "WisdomTree Trust WisdomTree China ex-State-Owned Enterprises Fund",
     "Symbol": "CXSE"
   },
@@ -11208,6 +11252,10 @@
     "Symbol": "DRD"
   },
   {
+    "Company": "Roman DBDR Acquisition Corp. II Unit",
+    "Symbol": "DRDBU"
+  },
+  {
     "Company": "DiamondRock Hospitality Company",
     "Symbol": "DRH"
   },
@@ -12204,6 +12252,10 @@
     "Symbol": "EFC"
   },
   {
+    "Company": "Harbor Osmosis International Resource Efficient ETF",
+    "Symbol": "EFFI"
+  },
+  {
     "Company": "iShares MSCI EAFE Growth ETF",
     "Symbol": "EFG"
   },
@@ -12694,6 +12746,10 @@
   {
     "Company": "Entergy Mississippi, LLC First Mortgage Bonds, 4.90% Series due October 1, 2066",
     "Symbol": "EMP"
+  },
+  {
+    "Company": "Efficient Market Portfolio Plus ETF",
+    "Symbol": "EMPB"
   },
   {
     "Company": "EMQQ The Emerging Markets Internet ETF",
@@ -25316,6 +25372,10 @@
     "Symbol": "LUCD"
   },
   {
+    "Company": "Lucky Strike Entertainment Corporation",
+    "Symbol": "LUCK"
+  },
+  {
     "Company": "Innovative Eyewear, Inc. Common Stock",
     "Symbol": "LUCY"
   },
@@ -26702,6 +26762,10 @@
   {
     "Company": "Mesa Laboratories Inc",
     "Symbol": "MLAB"
+  },
+  {
+    "Company": "Mountain Lake Acquisition Corp. Units",
+    "Symbol": "MLACU"
   },
   {
     "Company": "Melco Resorts & Entertainment Limited American Depositary Shares",
@@ -29188,6 +29252,10 @@
     "Symbol": "NTBL"
   },
   {
+    "Company": "NETCLASS TECHNOLOGY INC Class A Ordinary Shares",
+    "Symbol": "NTCL"
+  },
+  {
     "Company": "Netscout Systems Inc",
     "Symbol": "NTCT"
   },
@@ -29474,6 +29542,10 @@
   {
     "Company": "Direxion Daily NVDA Bear 1X Shares",
     "Symbol": "NVDD"
+  },
+  {
+    "Company": "Leverage Shares 2X Long NVDA Daily ETF",
+    "Symbol": "NVDG"
   },
   {
     "Company": "GraniteShares ETF Trust GraniteShares 2x Long NVDA Daily ETF",
@@ -32560,6 +32632,10 @@
     "Symbol": "PRCH"
   },
   {
+    "Company": "Parnassus Core Select ETF",
+    "Symbol": "PRCS"
+  },
+  {
     "Company": "PROCEPT BioRobotics Corporation Common Stock",
     "Symbol": "PRCT"
   },
@@ -32770,6 +32846,10 @@
   {
     "Company": "Privia Health Group, Inc. Common Stock",
     "Symbol": "PRVA"
+  },
+  {
+    "Company": "Parnassus Value Select ETF",
+    "Symbol": "PRVS"
   },
   {
     "Company": "ParaZero Technologies Ltd. Ordinary Shares",
@@ -36048,6 +36128,10 @@
     "Symbol": "SCDS"
   },
   {
+    "Company": "Bahl & Gaynor Small Cap Dividend ETF",
+    "Symbol": "SCDV"
+  },
+  {
     "Company": "Schwab U.S Small- Cap ETF",
     "Symbol": "SCHA"
   },
@@ -37462,6 +37546,10 @@
   {
     "Company": "Super Micro Computer, Inc. Common Stock",
     "Symbol": "SMCI"
+  },
+  {
+    "Company": "GraniteShares 2x Long SMCI Daily ETF",
+    "Symbol": "SMCL"
   },
   {
     "Company": "Hilton Small-MidCap Opportunity ETF",
@@ -40988,6 +41076,10 @@
     "Symbol": "TSLA"
   },
   {
+    "Company": "Leverage Shares 2X Long TSLA Daily ETF",
+    "Symbol": "TSLG"
+  },
+  {
     "Company": "Innovator Hedged TSLA Strategy ETF",
     "Symbol": "TSLH"
   },
@@ -41094,6 +41186,10 @@
   {
     "Company": "FCF International Quality ETF",
     "Symbol": "TTAI"
+  },
+  {
+    "Company": "ServiceTitan, Inc. Class A Common Stock",
+    "Symbol": "TTAN"
   },
   {
     "Company": "Toro Company (The)",
@@ -44450,6 +44546,10 @@
   {
     "Company": "Wolverine World Wide, Inc.",
     "Symbol": "WWW"
+  },
+  {
+    "Company": "Teucrium 2x Daily Wheat ETF",
+    "Symbol": "WXET"
   },
   {
     "Company": "Weyerhaeuser Company",
