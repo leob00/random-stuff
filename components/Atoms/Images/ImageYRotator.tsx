@@ -20,14 +20,14 @@ const StyledSpinner = styled.div`
 
 const ImageYRotator = ({
   imageUrl,
-  speed,
+  duration = 30,
   width,
   height,
   clickable,
   onClicked,
 }: {
   imageUrl: string
-  speed?: number
+  duration?: number
   width?: number
   height?: number
   clickable?: boolean
@@ -39,11 +39,14 @@ const ImageYRotator = ({
   return (
     <>
       <Box sx={{ cursor: clickable ? 'pointer' : 'default' }} onClick={handleClick}>
-        {/* <StyledSpinner className={`${speed}`}>
-          <RemoteImageFlat title='image' url={imageUrl} width={width} height={height} onClicked={handleClick} />
-        </StyledSpinner> */}
         <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
-          <motion.img style={{ height: height, width: width }} src={imageUrl} alt='rotating image' animate={{ rotate: 360 }} transition={{ duration: 25 }} />
+          <motion.img
+            style={{ height: height, width: width }}
+            src={imageUrl}
+            alt='rotating image'
+            animate={{ rotate: 360 }}
+            transition={{ duration: duration, repeat: Infinity }}
+          />
         </Box>
       </Box>
     </>

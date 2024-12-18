@@ -5,6 +5,7 @@ import numeral from 'numeral'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import { useRouter } from 'next/router'
 import JobPerformanceBarChart from './JobPerformanceBarChart'
+import CopyableText from 'components/Atoms/Text/CopyableText'
 
 const JobDetails = ({ item }: { item: Job }) => {
   const router = useRouter()
@@ -41,13 +42,16 @@ const JobDetails = ({ item }: { item: Job }) => {
           <JobPerformanceBarChart data={item} />
         </Box>
       )}
-      <Stack>
-        <Typography variant='caption'>{`internal name: ${item.Name}`}</Typography>
-      </Stack>
+      <Box display={'flex'}>
+        <CopyableText variant='caption' label='internal name:' value={item.Name} showValue />
+      </Box>
       {item.Executer && (
-        <Stack>
-          <Typography variant='caption'>{`executer: ${item.Executer.substring(item.Executer.lastIndexOf('.') + 1)}`}</Typography>
-        </Stack>
+        // <Stack>
+        //   <Typography variant='caption'>{`executer: ${item.Executer.substring(item.Executer.lastIndexOf('.') + 1)}`}</Typography>
+        // </Stack>
+        <Box display={'flex'}>
+          <CopyableText variant='caption' label='executer:' value={`${item.Executer.substring(item.Executer.lastIndexOf('.') + 1)}`} showValue />
+        </Box>
       )}
       {item.LastMessage && (
         <Stack>

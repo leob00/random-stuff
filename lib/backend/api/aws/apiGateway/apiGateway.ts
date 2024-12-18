@@ -3,21 +3,7 @@ import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { apiConnection } from '../../config'
 import { get, post, postBody } from 'lib/backend/api/fetchFunctions'
 import { StockAlertSubscription, StockQuote } from '../../models/zModels'
-import {
-  BasicArticle,
-  Bucket,
-  CategoryType,
-  CoinFlipStats,
-  DynamoKeys,
-  EmailMessage,
-  LambdaBody,
-  LambdaDynamoRequest,
-  LambdaDynamoRequestBatch,
-  LambdaResponse,
-  RandomStuffPut,
-  S3Object,
-  WheelSpinStats,
-} from '../models/apiGatewayModels'
+import { BasicArticle, Bucket, CategoryType, CoinFlipStats, DynamoKeys, EmailMessage, LambdaBody, LambdaDynamoRequest, LambdaDynamoRequestBatch, LambdaResponse, RandomStuffPut, S3Object, WheelSpinStats } from '../models/apiGatewayModels'
 import { constructStockAlertsSubSecondaryKey } from '../util'
 
 const connection = apiConnection().aws
@@ -207,13 +193,6 @@ export async function deleteRandomStuff(key: string) {
   return { status: 'success' }
 }
 
-export async function getCoinflipStats() {
-  let result = await getRandomStuff('coinflip-community')
-  if (result) {
-    return result as CoinFlipStats
-  }
-  return null
-}
 export async function getWheelSpinStats() {
   let item: WheelSpinStats = {
     total: 0,
@@ -237,9 +216,6 @@ export async function sendEmail(message: EmailMessage) {
   return response.body
 }
 
-export async function putCoinflipStats(data: CoinFlipStats) {
-  await putRandomStuff('coinflip-community', 'random', data)
-}
 export async function putWheelSpinStats(data: WheelSpinStats) {
   await putRandomStuff('wheelspin-community', 'random', data)
 }

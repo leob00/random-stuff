@@ -118,6 +118,7 @@ export const getBarChartOptions = (title: string, yAxisDecorator = '', palette: 
           color: VeryLightBlueOpaqueLight,
           drawTicks: false,
         },
+
         ticks: {
           color: palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {

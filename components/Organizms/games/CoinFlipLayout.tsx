@@ -1,22 +1,22 @@
-import { Box, Container, getInputAdornmentUtilityClass, Typography } from '@mui/material'
-import axios from 'axios'
+import { Box, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
-import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import CoinFlipChart from 'components/Molecules/CoinFlipChart'
-import { TransparentGreen, TransparentBlue } from 'components/themes/mainTheme'
+import { TransparentGreen, TransparentBlue, CasinoBlue, CasinoOrange, CasinoOrangeTransparent, CasinoBlueTransparent } from 'components/themes/mainTheme'
 import { CoinFlipStats } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { getRandomInteger } from 'lib/util/numberUtil'
-import { cloneDeep, shuffle } from 'lodash'
+import { shuffle, sum } from 'lodash'
 import { useEffect, useReducer, useRef } from 'react'
 import ImageYRotator from 'components/Atoms/Images/ImageYRotator'
 import RemoteImageFlat from 'components/Atoms/RemoteImageFlat'
+import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
+import ImageXRotator from 'components/Atoms/Images/ImageXRotator'
 
 type headsTails = 'heads' | 'tails'
-const barChartColors = [TransparentGreen, TransparentBlue]
+const barChartColors = [CasinoOrangeTransparent, CasinoBlueTransparent]
 const barChartLabels = ['heads', 'tails']
 
-export interface Coin {
+interface Coin {
   face: headsTails
   imageUrl: string
 }
@@ -34,62 +34,75 @@ interface Model {
   defaultState?: boolean
   isLoading?: boolean
   flippedCoin?: Coin
-  allCoins: Coin[]
+  allCoins?: Coin[]
   runningChart?: BarChart
   coinflipStats?: CoinFlipStats
   communityChart?: BarChart
-  currentFace: Coin
+  currentFace?: Coin
 }
 
-type ActionTypes = 'toss' | 'flipped' | 'update-community-stats' | 'default'
+type ActionTypes = 'toss' | 'flipped' | 'update-community-stats' | 'default' | 'animateFlip'
 
 interface ActionType {
   type: ActionTypes
   payload: Model
 }
 
-function reducer(state: Model, action: ActionType): Model {
+function reducer(state: Model, action: ActionType) {
   switch (action.type) {
     case 'default':
       return { ...state, defaultState: true, currentFace: action.payload.currentFace, isLoading: false, flippedCoin: undefined }
     case 'toss':
       return {
         ...state,
-        allCoins: action.payload.allCoins,
         isLoading: true,
+        flippedCoin: undefined,
+        defaultState: false,
+      }
+    case 'animateFlip':
+      return {
+        ...state,
         flippedCoin: undefined,
         defaultState: false,
         currentFace: action.payload.currentFace,
       }
     case 'flipped':
-      let currentState = { ...state }
-      if (currentState.runningChart && currentState.coinflipStats) {
+      const runningChart = { ...state.runningChart! }
+      let heads = runningChart.numbers[0]
+      let tails = runningChart.numbers[1]
+
+      if (runningChart) {
         switch (action.payload.flippedCoin?.face) {
           case 'heads':
-            currentState.runningChart.numbers[0] = currentState.runningChart.numbers[0] + 1
-            currentState.coinflipStats.heads += 1
+            heads = heads + 1
             break
           case 'tails':
-            currentState.runningChart.numbers[1] = currentState.runningChart.numbers[1] + 1
-            currentState.coinflipStats.tails += 1
+            tails = tails + 1
             break
           default:
             break
         }
+        runningChart.numbers = [heads, tails]
+      }
+      const chart: BarChart = {
+        labels: ['heads', 'tails'],
+        numbers: [action.payload.coinflipStats?.heads ?? 0, action.payload.coinflipStats?.tails ?? 0],
+        colors: barChartColors,
       }
       return {
         ...state,
         allCoins: action.payload.allCoins,
         isLoading: false,
         flippedCoin: action.payload.flippedCoin,
-        runningChart: currentState.runningChart,
-        coinflipStats: currentState.coinflipStats,
+        runningChart: runningChart,
         defaultState: false,
+        coinflipStats: action.payload.coinflipStats,
+        communityChart: chart,
       }
     case 'update-community-stats': {
-      let chart: BarChart = {
+      const chart: BarChart = {
         labels: ['heads', 'tails'],
-        numbers: [action.payload.coinflipStats?.heads as number, action.payload.coinflipStats?.tails as number],
+        numbers: [action.payload.coinflipStats?.heads ?? 0, action.payload.coinflipStats?.tails ?? 0],
         colors: barChartColors,
       }
       return { ...state, coinflipStats: action.payload.coinflipStats, communityChart: chart }
@@ -132,52 +145,49 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
   const [model, dispatch] = useReducer(reducer, initialState)
 
   const handleFlipClick = async () => {
-    let allCoins = cloneDeep(model.allCoins)
-    let shuffled = shuffle(allCoins)
+    let allCoins = [...(model.allCoins ?? [])]
     dispatch({
       type: 'toss',
       payload: {
-        currentFace: shuffled[0],
-        allCoins: shuffled,
         flippedCoin: undefined,
         isLoading: true,
+        allCoins: allCoins,
+        currentFace: undefined,
       },
     })
+    const dbResult = await getRecord<CoinFlipStats>('coinflip-community')
     const iterations = getRandomInteger(100, 150)
+    let shuffled = shuffle(allCoins)
     for (let i = 0; i <= iterations; i++) {
       shuffled = shuffle(shuffled)
     }
     const flipped = shuffled[0]
-    let coinStats = cloneDeep(model.coinflipStats)!
-    if (flipped.face === 'heads') {
-      coinStats.heads += 1
-    }
-    if (flipped.face === 'tails') {
-      coinStats.tails += 1
-    }
-
     const postFn = async () => {
-      let result = (await (await axios.put('/api/incrementCoinFlip', flipped)).data) as CoinFlipStats
-      dispatch({
-        type: 'update-community-stats',
-        payload: {
-          currentFace: flipped,
-          allCoins: allCoins,
-          coinflipStats: result,
-          defaultState: false,
-        },
-      })
-    }
+      switch (flipped.face) {
+        case 'heads':
+          dbResult.heads++
+          break
+        case 'tails':
+          dbResult.tails++
+          break
+      }
 
-    setTimeout(() => {
+      putRecord('coinflip-community', 'random', dbResult)
+
       dispatch({
         type: 'flipped',
         payload: {
           currentFace: flipped,
           allCoins: allCoins,
+          coinflipStats: dbResult,
+          defaultState: false,
           flippedCoin: flipped,
+          isLoading: false,
         },
       })
+    }
+
+    setTimeout(() => {
       postFn()
     }, 3000)
   }
@@ -189,8 +199,8 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
     if (model.isLoading) {
       defaultStateIntervalRef.current = setInterval(() => {
         const currentFace: Coin = {
-          face: model.currentFace.face,
-          imageUrl: model.currentFace.imageUrl,
+          face: model.currentFace?.face ?? 'heads',
+          imageUrl: model.currentFace?.imageUrl ?? getImage('heads'),
         }
         if (currentFace.face === 'heads') {
           currentFace.face = 'tails'
@@ -201,63 +211,78 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
         }
 
         dispatch({
-          type: 'toss',
+          type: 'animateFlip',
           payload: {
             currentFace: currentFace,
             allCoins: model.allCoins,
           },
         })
-      }, 300)
-    } else {
-      if (defaultStateIntervalRef.current) {
-        clearInterval(defaultStateIntervalRef.current)
-      }
+      }, 100)
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [model.isLoading, model.currentFace.face])
+  }, [model.isLoading, model.currentFace?.face])
 
   return (
     <Box>
       <CenterStack sx={{ minHeight: 100 }}>
         <Box>
-          <Typography variant='body1' sx={{ textAlign: 'center' }}>
-            This is your chance to flip a coin if you do not have one.
-          </Typography>
           <Typography variant='body2' sx={{ textAlign: 'center', paddingTop: 2 }}>
-            Call out your prediction and press the coin to flip.
+            {model.isLoading ? 'flipping...' : 'Call out your prediction and press the coin to flip.'}
           </Typography>
         </Box>
       </CenterStack>
-      <Box>
+      <Box py={2} minHeight={320}>
         {model.defaultState && (
           <Box sx={{ cursor: 'pointer' }}>
-            <ImageYRotator imageUrl={model.currentFace.imageUrl} height={200} width={200} speed={6} onClicked={handleFlipClick} clickable />
+            <ImageYRotator imageUrl={model.currentFace?.imageUrl ?? getImage('heads')} height={200} width={200} onClicked={handleFlipClick} clickable />
           </Box>
         )}
         {model.isLoading && (
-          <Box display={'flex'} justifyContent={'center'}>
-            {/* <ImageYRotator imageUrl={model.currentFace.imageUrl} height={200} width={100} speed={1} /> */}
-            <RemoteImageFlat title='image' url={model.currentFace.imageUrl} width={200} height={200} />
-          </Box>
-        )}
-        {model.flippedCoin && (
-          <>
-            <Box sx={{ cursor: 'pointer !important' }}>
-              <ImageYRotator imageUrl={model.flippedCoin.imageUrl} height={200} width={200} speed={3} onClicked={handleFlipClick} clickable />
+          <Box>
+            <Box display={'flex'} justifyContent={'center'}>
+              <ImageXRotator
+                imageUrl={model.currentFace?.imageUrl ?? getImage('heads')}
+                duration={0.25}
+                height={200}
+                width={200}
+                onClicked={handleFlipClick}
+                clickable
+              />
             </Box>
-            <CenterStack sx={{ minHeight: 36 }}>
-              <Box>
-                <Typography variant='h4'>{`${model.flippedCoin.face}!`}</Typography>
+            <CenterStack>
+              <Box pt={2}>
+                <Typography variant='caption'>{`flipping...`}</Typography>
               </Box>
             </CenterStack>
-          </>
+          </Box>
         )}
+        <Box py={2}>
+          {model.flippedCoin && (
+            <Box>
+              <Box sx={{ cursor: 'pointer !important' }}>
+                <ImageYRotator imageUrl={model.flippedCoin.imageUrl} height={200} width={200} duration={35} onClicked={handleFlipClick} clickable />
+              </Box>
+              <CenterStack sx={{ minHeight: 36 }}>
+                <Box pt={2}>
+                  <Typography variant='h3'>{`${model.flippedCoin.face}!`}</Typography>
+                </Box>
+              </CenterStack>
+            </Box>
+          )}
+        </Box>
       </Box>
-      {model.runningChart && <CoinFlipChart totalFlips={model.runningChart.numbers[0] + model.runningChart.numbers[1]} chart={model.runningChart} />}
-      <CenterStack sx={{ paddingTop: 2 }}>
-        <Typography variant='h5'>Community Flips</Typography>
-      </CenterStack>
-      {model.communityChart && <CoinFlipChart totalFlips={model.communityChart.numbers[0] + model.communityChart.numbers[1]} chart={model.communityChart} />}
+      {model.runningChart && (
+        <Box pt={2}>
+          <CoinFlipChart totalFlips={sum(model.runningChart.numbers)} chart={model.runningChart} />
+        </Box>
+      )}
+      <Box pt={4}>
+        <CenterStack sx={{ paddingTop: 2 }}>
+          <Typography variant='h5'>Community Flips</Typography>
+        </CenterStack>
+        {model.communityChart && <CoinFlipChart totalFlips={sum(model.communityChart.numbers)} chart={model.communityChart} />}
+      </Box>
     </Box>
   )
 }
