@@ -5,8 +5,9 @@ import { NewsItem, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import { orderBy } from 'lodash'
 import NewsList from '../news/NewsList'
 import { useSwrHelper } from 'hooks/useSwrHelper'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 
-const StockNews = ({ quote }: { quote: StockQuote }) => {
+const StockNews = ({ quote, profile }: { quote: StockQuote; profile: UserProfile | null }) => {
   const mutateKey = `stock-news-${quote.Symbol}`
 
   const dataFn = async () => {
@@ -22,7 +23,7 @@ const StockNews = ({ quote }: { quote: StockQuote }) => {
   return (
     <Box pb={2} pt={2} minHeight={400}>
       {isLoading && <BackdropLoader />}
-      {data && <NewsList newsItems={data} hideSaveButton={true} showPublishDate={true} />}
+      {data && <NewsList newsItems={data} userProfile={profile} hideSaveButton={profile === null} showPublishDate={true} />}
     </Box>
   )
 }

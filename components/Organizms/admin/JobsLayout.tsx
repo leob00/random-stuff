@@ -17,7 +17,7 @@ import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 dayjs.extend(relativeTime)
 
 const JobsLayout = ({ userClaim }: { userClaim: Claim }) => {
-  const pollingIterval = 8000
+  const pollingIterval = 6000
   const [selectedItem, setSelectedItem] = useState<Job | null>(null)
   const [isLoadingDetail, setIsLoadingDetail] = useState(false)
   const [error, setError] = useState<string | null>(null)

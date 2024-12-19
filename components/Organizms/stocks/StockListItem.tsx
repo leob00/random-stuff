@@ -25,7 +25,6 @@ import StockDetailsTab from './StockDetailsTab'
 import { useEffect, useRef, useState } from 'react'
 import StockDividendDetails from './dividends/StockDividendDetails'
 import StockField from './StockField'
-import { motion } from 'framer-motion'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const StockListItem = ({
@@ -140,7 +139,7 @@ const StockListItem = ({
                 <Typography ref={tabScrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>
                 <Box>
                   {selectedTab === 'Details' && <StockDetailsTab quote={item} />}
-                  {selectedTab === 'News' && <StockNews quote={item} />}
+                  {selectedTab === 'News' && <StockNews quote={item} profile={authProfile} />}
                   {selectedTab === 'Earnings' && <StockEarnings quote={item} />}
                   {selectedTab === 'Dividends' && <StockDividendDetails symbol={item.Symbol} showCompanyName={false} />}
                   {selectedTab === 'Profile' && <CompanyProfile quote={item} />}

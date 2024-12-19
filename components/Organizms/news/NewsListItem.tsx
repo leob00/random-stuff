@@ -9,7 +9,19 @@ import SavedNoteButtonLink from 'components/Molecules/Buttons/SavedNoteButtonLin
 import NewsListItemMobile from './NewsListItemMobile'
 import NewListItemDesktop from './NewListItemDesktop'
 
-const NewsListItem = ({ userProfile, item, showPublishDate, hideSaveButton, isSmallDevice }: { userProfile: UserProfile | null; item: NewsItem; showPublishDate?: boolean; hideSaveButton: boolean; isSmallDevice: boolean }) => {
+const NewsListItem = ({
+  userProfile,
+  item,
+  showPublishDate,
+  hideSaveButton,
+  isSmallDevice,
+}: {
+  userProfile: UserProfile | null
+  item: NewsItem
+  showPublishDate?: boolean
+  hideSaveButton: boolean
+  isSmallDevice: boolean
+}) => {
   const noteToSave: UserNote = {
     title: item.Headline!,
     body: `<div><div>source: ${item.sourceDescription ?? ''}</div><div style=''><a href='${item.Link}' target='_blank'>view article<a/></div></div>`,
@@ -22,11 +34,9 @@ const NewsListItem = ({ userProfile, item, showPublishDate, hideSaveButton, isSm
     <Box minHeight={100}>
       <Box>{!isSmallDevice ? <NewListItemDesktop item={item} /> : <NewsListItemMobile item={item} />}</Box>
       {showPublishDate && item.PublishDate && (
-        <>
-          <CenterStack sx={{ pt: 1 }}>
-            <Typography variant='caption'>{`published: ${dayjs(item.PublishDate).fromNow()}`}</Typography>
-          </CenterStack>
-        </>
+        <Box py={2} px={2}>
+          <Typography variant='caption'>{`published: ${dayjs(item.PublishDate).fromNow()}`}</Typography>
+        </Box>
       )}
       {userProfile && !hideSaveButton && (
         <Box>

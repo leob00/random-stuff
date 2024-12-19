@@ -155,13 +155,17 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
         currentFace: undefined,
       },
     })
-    const dbResult = await getRecord<CoinFlipStats>('coinflip-community')
-    const iterations = getRandomInteger(100, 150)
     let shuffled = shuffle(allCoins)
-    for (let i = 0; i <= iterations; i++) {
-      shuffled = shuffle(shuffled)
+    while (model.isLoading) {
+      const iterations = getRandomInteger(100, 150)
+      for (let i = 0; i <= iterations; i++) {
+        shuffled = shuffle(shuffled)
+      }
     }
     const flipped = shuffled[0]
+
+    const dbResult = await getRecord<CoinFlipStats>('coinflip-community')
+
     const postFn = async () => {
       switch (flipped.face) {
         case 'heads':
@@ -187,9 +191,12 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
       })
     }
 
-    setTimeout(() => {
-      postFn()
-    }, 3000)
+    setTimeout(
+      () => {
+        postFn()
+      },
+      getRandomInteger(3000, 3600),
+    )
   }
 
   useEffect(() => {
@@ -241,14 +248,7 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
         {model.isLoading && (
           <Box>
             <Box display={'flex'} justifyContent={'center'}>
-              <ImageXRotator
-                imageUrl={model.currentFace?.imageUrl ?? getImage('heads')}
-                duration={0.25}
-                height={200}
-                width={200}
-                onClicked={handleFlipClick}
-                clickable
-              />
+              <ImageXRotator imageUrl={model.currentFace?.imageUrl ?? getImage('heads')} duration={0.25} height={200} width={200} clickable={false} />
             </Box>
             <CenterStack>
               <Box pt={2}>

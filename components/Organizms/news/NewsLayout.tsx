@@ -14,7 +14,17 @@ import { useState } from 'react'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 
-const NewsLayout = ({ componentLoader = false, allowSelectType = true, revalidateOnFocus = false, suspendLoader = false }: { componentLoader?: boolean; allowSelectType?: boolean; revalidateOnFocus?: boolean; suspendLoader?: boolean }) => {
+const NewsLayout = ({
+  componentLoader = false,
+  allowSelectType = true,
+  revalidateOnFocus = false,
+  suspendLoader = false,
+}: {
+  componentLoader?: boolean
+  allowSelectType?: boolean
+  revalidateOnFocus?: boolean
+  suspendLoader?: boolean
+}) => {
   const { userProfile } = useProfileValidator()
   const { setProfile, fetchProfilePassive } = useUserController()
   const defaultSource: NewsTypeIds = (userProfile?.settings?.news?.lastNewsType as NewsTypeIds) ?? 'GoogleTopStories'
@@ -96,7 +106,7 @@ const NewsLayout = ({ componentLoader = false, allowSelectType = true, revalidat
         <>
           {error && <ErrorMessage text='There is an error that occurred. We have been made aware of it. Please try again in a few minutes.' />}
           <ScrollableBox maxHeight={505} scroller={scroller}>
-            {data && <NewsList newsItems={data} />}
+            {data && <NewsList newsItems={data} userProfile={userProfile} />}
           </ScrollableBox>
         </>
       </Stack>

@@ -6,6 +6,8 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import { NewsItem, NewsTypeIds } from 'lib/backend/api/qln/qlnApi'
 import NewsListItem from './NewsListItem'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
+import { profile } from 'console'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 dayjs.extend(relativeTime)
 
@@ -24,8 +26,17 @@ export const getThumbnailSize = (source?: string) => {
   }
 }
 
-const NewsList = ({ newsItems, hideSaveButton = false, showPublishDate = false }: { newsItems: NewsItem[]; hideSaveButton?: boolean; showPublishDate?: boolean }) => {
-  const { userProfile } = useProfileValidator()
+const NewsList = ({
+  newsItems,
+  userProfile,
+  hideSaveButton = false,
+  showPublishDate = false,
+}: {
+  newsItems: NewsItem[]
+  userProfile: UserProfile | null
+  hideSaveButton?: boolean
+  showPublishDate?: boolean
+}) => {
   const theme = useTheme()
   const isSmallDevice = useMediaQuery(theme.breakpoints.down('sm'))
 
@@ -34,7 +45,13 @@ const NewsList = ({ newsItems, hideSaveButton = false, showPublishDate = false }
       {newsItems.length > 0 ? (
         newsItems.map((item, i) => (
           <Box key={`${item.Headline}${item.PublishDate}`} pb={2}>
-            <NewsListItem userProfile={userProfile} item={item} hideSaveButton={hideSaveButton} showPublishDate={showPublishDate} isSmallDevice={isSmallDevice} />
+            <NewsListItem
+              userProfile={userProfile}
+              item={item}
+              hideSaveButton={hideSaveButton}
+              showPublishDate={showPublishDate}
+              isSmallDevice={isSmallDevice}
+            />
             <HorizontalDivider />
           </Box>
         ))
