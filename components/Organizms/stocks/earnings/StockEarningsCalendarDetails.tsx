@@ -54,7 +54,8 @@ const StockEarningsCalendarDetails = ({
     }
     return result
   }
-  const pages = getPagedArray(filterList(), pageSize)
+  const filtered = filterList()
+  const pages = getPagedArray(filtered, pageSize)
 
   const handleSearched = (text: string) => {
     onSearched()
@@ -152,11 +153,11 @@ const StockEarningsCalendarDetails = ({
               itemsPerPage={pageSize}
               onPaged={(pageNum: number) => onPaged(pageNum)}
               defaultPageIndex={currentPageIndex}
-              totalItemCount={pages.length === 1 ? pages[currentPageIndex - 1].items.length : data.length}
+              totalItemCount={pages.length === 1 ? pages[currentPageIndex - 1].items.length : filtered.length}
             ></Pager>
           </Box>
         )}
-        {data.length === 0 && (
+        {filtered.length === 0 && (
           <CenterStack sx={{ py: 4 }}>
             <Typography variant='body2'>No data found.</Typography>
           </CenterStack>
