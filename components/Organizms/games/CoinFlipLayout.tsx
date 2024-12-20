@@ -245,7 +245,7 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
             <ImageYRotator imageUrl={model.currentFace?.imageUrl ?? getImage('heads')} height={200} width={200} onClicked={handleFlipClick} clickable />
           </Box>
         )}
-        {model.isLoading && (
+        {model.isLoading ? (
           <Box>
             <Box display={'flex'} justifyContent={'center'}>
               <ImageXRotator imageUrl={model.currentFace?.imageUrl ?? getImage('heads')} duration={0.25} height={200} width={200} clickable={false} />
@@ -256,21 +256,22 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
               </Box>
             </CenterStack>
           </Box>
-        )}
-        <Box py={2}>
-          {model.flippedCoin && (
-            <Box>
-              <Box sx={{ cursor: 'pointer !important' }}>
-                <ImageYRotator imageUrl={model.flippedCoin.imageUrl} height={200} width={200} duration={35} onClicked={handleFlipClick} clickable />
-              </Box>
-              <CenterStack sx={{ minHeight: 36 }}>
-                <Box pt={2}>
-                  <Typography variant='h3'>{`${model.flippedCoin.face}!`}</Typography>
+        ) : (
+          <Box py={2}>
+            {model.flippedCoin && (
+              <Box>
+                <Box sx={{ cursor: 'pointer !important' }}>
+                  <ImageYRotator imageUrl={model.flippedCoin.imageUrl} height={200} width={200} duration={35} onClicked={handleFlipClick} clickable />
                 </Box>
-              </CenterStack>
-            </Box>
-          )}
-        </Box>
+                <CenterStack sx={{ minHeight: 36 }}>
+                  <Box pt={2}>
+                    <Typography variant='h3'>{`${model.flippedCoin.face}!`}</Typography>
+                  </Box>
+                </CenterStack>
+              </Box>
+            )}
+          </Box>
+        )}
       </Box>
       {model.runningChart && (
         <Box pt={2}>
