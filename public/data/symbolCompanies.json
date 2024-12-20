@@ -12012,6 +12012,10 @@
     "Symbol": "ECCF"
   },
   {
+    "Company": "Eagle Point Credit Company Inc. 7.75% Notes due 2030",
+    "Symbol": "ECCU"
+  },
+  {
     "Company": "Eagle Point Credit Company Inc. 5.375% Notes due 2029",
     "Symbol": "ECCV"
   },
@@ -12290,6 +12294,10 @@
   {
     "Company": "Ellington Financial Inc. Common Stock",
     "Symbol": "EFC"
+  },
+  {
+    "Company": "Harbor Osmosis Emerging Markets Resource Efficient ETF",
+    "Symbol": "EFFE"
   },
   {
     "Company": "Harbor Osmosis International Resource Efficient ETF",
@@ -15756,6 +15764,10 @@
     "Symbol": "FOVL"
   },
   {
+    "Company": "Pacer Solactive Whitney Future of Warfare ETF",
+    "Symbol": "FOWF"
+  },
+  {
     "Company": "Fox Corporation Class B Common Stock",
     "Symbol": "FOX"
   },
@@ -16570,6 +16582,10 @@
   {
     "Company": "Gladstone Investment Corporation",
     "Symbol": "GAIN"
+  },
+  {
+    "Company": "Gladstone Investment Corporation 7.875% Notes due 2030",
+    "Symbol": "GAINI"
   },
   {
     "Company": "Gladstone Investment Corporation 8.00% Notes due 2028",
@@ -18294,6 +18310,14 @@
   {
     "Company": "Gotham Enhanced 500 ETF",
     "Symbol": "GSPY"
+  },
+  {
+    "Company": "GSR III Acquisition Corp. Ordinary Shares",
+    "Symbol": "GSRT"
+  },
+  {
+    "Company": "GSR III Acquisition Corp. Right",
+    "Symbol": "GSRTR"
   },
   {
     "Company": "GSR III Acquisition Corp. Unit",
@@ -25348,6 +25372,10 @@
     "Symbol": "LSDI"
   },
   {
+    "Company": "Leishen Energy Holding Co., Ltd. Ordinary Shares",
+    "Symbol": "LSE"
+  },
+  {
     "Company": "Landsea Homes Corporation Common Stock",
     "Symbol": "LSEA"
   },
@@ -28248,6 +28276,10 @@
     "Symbol": "NBGR"
   },
   {
+    "Company": "Neuberger Berman Growth ETF",
+    "Symbol": "NBGX"
+  },
+  {
     "Company": "Neuberger Berman Municipal Fund Inc.",
     "Symbol": "NBH"
   },
@@ -29166,6 +29198,10 @@
   {
     "Company": "National Presto Industries, Inc.",
     "Symbol": "NPK"
+  },
+  {
+    "Company": "NPK International Inc.",
+    "Symbol": "NPKI"
   },
   {
     "Company": "Enpro Inc.",
@@ -31828,7 +31864,7 @@
     "Symbol": "PFM"
   },
   {
-    "Company": "Performant Healthcare, Inc. Common Stock",
+    "Company": "Performant Financial Corporation",
     "Symbol": "PFMT"
   },
   {
@@ -34072,6 +34108,10 @@
     "Symbol": "QTOP"
   },
   {
+    "Company": "North Square RCIM Tax-Advantaged Preferred and Income Securities ETF",
+    "Symbol": "QTPI"
+  },
+  {
     "Company": "Global X NASDAQ 100 Tail Risk ETF",
     "Symbol": "QTR"
   },
@@ -34334,6 +34374,10 @@
   {
     "Company": "Ready Capital Corporation 5.75% Senior Notes due 2026",
     "Symbol": "RCC"
+  },
+  {
+    "Company": "Ready Capital Corporation 9.00% Senior Notes due 2029",
+    "Symbol": "RCD"
   },
   {
     "Company": "Avita Medical, Inc. Common Stock",
