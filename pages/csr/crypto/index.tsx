@@ -8,7 +8,7 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 
-const index = () => {
+const Page = () => {
   const mutateKey = 'cryptos-all'
 
   const dataFn = async () => {
@@ -30,4 +30,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Page
