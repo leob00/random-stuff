@@ -64,10 +64,6 @@ export function siteMap() {
           name: 'commodities',
           route: '/csr/commodities',
         },
-        // {
-        //   name: 'earnings search',
-        //   route: '/csr/stocks/stock-earnings-search',
-        // },
         {
           name: 'earnings calendar',
           route: '/csr/stocks/earnings-calendar',
@@ -76,6 +72,10 @@ export function siteMap() {
           name: 'earnings report',
           route: '/csr/stocks/earnings-reports',
         },
+        // {
+        //   name: 'crypto',
+        //   route: '/csr/crypto',
+        // },
         {
           name: 'stock tags',
           route: '/csr/stocks/stock-tags',

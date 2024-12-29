@@ -69,11 +69,6 @@ const StaticAutoComplete = ({
           inputRef={inputRef}
           {...params}
           placeholder={placeholder}
-          inputProps={{
-            ...params.inputProps,
-            color: 'secondary',
-            autoComplete: 'off',
-          }}
           onChange={handleTextChange}
           error={!!errorMessage}
           helperText={errorMessage ?? undefined}

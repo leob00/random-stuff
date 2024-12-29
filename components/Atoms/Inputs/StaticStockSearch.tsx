@@ -1,12 +1,12 @@
 import { getSearchAheadTotalCount, searchAheadStocks } from 'components/Organizms/stocks/stockSearcher'
 import { DropdownItem } from 'lib/models/dropdown'
 import numeral from 'numeral'
-import React from 'react'
 import CenterStack from '../CenterStack'
 import StaticAutoComplete from './StaticAutoComplete'
+import { useState } from 'react'
 
 const StaticStockSearch = ({ onSymbolSelected, errorMessage }: { onSymbolSelected: (item: DropdownItem) => void; errorMessage?: string }) => {
-  const [results, setResults] = React.useState<DropdownItem[]>([])
+  const [results, setResults] = useState<DropdownItem[]>([])
 
   const handleSelectQuote = async (item: DropdownItem) => {
     onSymbolSelected(item)

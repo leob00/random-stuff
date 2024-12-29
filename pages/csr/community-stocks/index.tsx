@@ -4,7 +4,6 @@ import { CategoryType } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import { Box } from '@mui/material'
 import { getLatestQuotes } from 'lib/backend/api/qln/qlnApi'
-import AddQuote from 'components/Organizms/stocks/AddQuote'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import { searchRecords } from 'lib/backend/csr/nextApiWrapper'
 import { mutate } from 'swr'
@@ -20,9 +19,7 @@ import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { useState } from 'react'
 import StockSearch from 'components/Atoms/Inputs/StockSearch'
 import StockListItem from 'components/Organizms/stocks/StockListItem'
-import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
-import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'
 const tabs: TabInfo[] = [
@@ -42,7 +39,7 @@ const Page = () => {
   const [selectedTab, setSelectedTab] = useState<Tab>('Recent')
 
   const searchedStocksKey: CategoryType = 'searched-stocks'
-  const mutateKey = `community-stocks`
+  const mutateKey = `searched-stocks`
 
   const dataFn = async () => {
     const searchedStocksResult = await searchRecords(searchedStocksKey)

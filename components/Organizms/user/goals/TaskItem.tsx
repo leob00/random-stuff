@@ -29,13 +29,6 @@ const TaskItem = ({
     setIsCompleted(checked)
     const newTask = { ...task }
     newTask.status = checked ? 'completed' : newTask.status
-
-    handleCompleteTaskClick(checked, newTask)
-  }
-  const handleCheckTask = (checked: boolean) => {
-    setIsCompleted(checked)
-    const newTask = { ...task }
-    newTask.status = checked ? 'completed' : newTask.status
     handleCompleteTaskClick(checked, newTask)
   }
 
@@ -44,31 +37,37 @@ const TaskItem = ({
       <ListItemContainer>
         <Box p={2}>
           <FadeIn>
-            <Stack direction='row' justifyContent='left' alignItems='left'>
-              <LinkButton2
-                onClick={() => {
-                  handleTaskClick(task)
-                }}
-              >
-                <Typography textAlign={'left'} variant='subtitle1'>
-                  {`${task.body && task.body.length > 0 ? task.body : 'not set'}`}
-                </Typography>
-              </LinkButton2>
-              <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-                <Switch color={isCompleted ? 'success' : 'default'} checked={isCompleted} onChange={handleChecked} />
+            <Box>
+              <Stack direction='row' justifyContent='left' alignItems='left'>
+                <LinkButton2
+                  onClick={() => {
+                    handleTaskClick(task)
+                  }}
+                >
+                  <Typography textAlign={'left'} variant='subtitle1'>
+                    {`${task.body && task.body.length > 0 ? task.body : 'not set'}`}
+                  </Typography>
+                </LinkButton2>
+                <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
+                  <Switch color={isCompleted ? 'success' : 'default'} checked={isCompleted} onChange={handleChecked} />
+                </Stack>
               </Stack>
-            </Stack>
-            {task.dueDate && (
-              <Typography variant='body2' color={task.status !== 'completed' && dayjs().isAfter(task.dueDate) ? redColor : 'unset'}>{`due: ${dayjs(
-                task.dueDate,
-              ).format('MM/DD/YYYY hh:mm A')}`}</Typography>
-            )}
-            {task.dateCompleted && <Typography variant='body2'>{`completed: ${dayjs(task.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
+              {task.dueDate && (
+                <Typography variant='body2' color={task.status !== 'completed' && dayjs().isAfter(task.dueDate) ? redColor : 'unset'}>{`due: ${dayjs(
+                  task.dueDate,
+                ).format('MM/DD/YYYY hh:mm A')}`}</Typography>
+              )}
+              {task.dateCompleted && <Typography variant='body2'>{`completed: ${dayjs(task.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
+              {task.files && task.files.length > 0 && (
+                <Box>
+                  <Typography variant='caption'>{`files: ${task.files.length}`}</Typography>
+                </Box>
+              )}
+            </Box>
           </FadeIn>
         </Box>
       </ListItemContainer>
       <HorizontalDivider />
-      {/* {index < taskCount - 1 && <HorizontalDivider />} */}
     </>
   )
 }

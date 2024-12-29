@@ -20,14 +20,13 @@ export type DynamoKeys =
   | 'coinflip-community'
   | 'wheelspin-community'
   | 'site-stats'
-  | 'community-stocks'
   | 'user-stock_list'
   | 'stockportfolio'
   | 'email-template[stock-alert]'
   | 'stocks-daily-market-sentiment'
   | 'stocks-monthly-market-sentiment'
 
-export type CategoryType = 'animals' | 'random' | 'userProfile' | 'community-stocks' | 'searched-stocks' | 'user-stock_list' | string
+export type CategoryType = 'animals' | 'random' | 'userProfile' | 'searched-stocks' | 'user-stock_list' | string
 
 export interface S3Object {
   bucket: Bucket
