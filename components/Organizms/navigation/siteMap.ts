@@ -72,10 +72,10 @@ export function siteMap() {
           name: 'earnings report',
           route: '/csr/stocks/earnings-reports',
         },
-        // {
-        //   name: 'crypto',
-        //   route: '/csr/crypto',
-        // },
+        {
+          name: 'crypto',
+          route: '/csr/crypto',
+        },
         {
           name: 'stock tags',
           route: '/csr/stocks/stock-tags',
