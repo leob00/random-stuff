@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Alert, Box } from '@mui/material'
 import JsonView from 'components/Atoms/Boxes/JsonView'
 import CenterStack from 'components/Atoms/CenterStack'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
@@ -9,11 +9,15 @@ import { StockQuote } from 'lib/backend/api/models/zModels'
 import { DropdownItem } from 'lib/models/dropdown'
 import numeral from 'numeral'
 import StockChange from '../stocks/StockChange'
+import { sortArray } from 'lib/util/collections'
+import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 
 const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile: UserProfile | null }) => {
-  const searchOptions: DropdownItem[] = data.map((m) => {
+  const filtered = filterCryptos(data)
+
+  const searchOptions: DropdownItem[] = filtered.map((m) => {
     return {
-      text: `${m.Symbol}: ${m.Company}`,
+      text: `${m.Company}`,
       value: m.Symbol,
     }
   })
@@ -34,16 +38,27 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
           onChanged={() => {}}
         />
       </CenterStack>
+      <Box pt={2}>
+        <CenterStack>
+          <AlertWithHeader severity='warning' text='prices are delayed by a day.' />
+        </CenterStack>
+      </Box>
       <Box py={2}>
-        {data.map((item) => (
+        {filtered.map((item) => (
           <Box key={item.Symbol} py={1}>
-            <ListHeader text={`${item.Symbol} : ${item.Company}`} />
+            <ListHeader text={`${item.Company}`} />
             <StockChange item={item} />
           </Box>
         ))}
       </Box>
     </Box>
   )
+}
+
+function filterCryptos(data: StockQuote[]) {
+  const displaySymbols = ['X:BTCUSD', 'X:ETHUSD', 'X:LTCUSD', 'X:XMRUSD', 'X:NEOUSD', 'X:XRPUSD', 'X:RONINUSD', 'X:SOLUSD', 'X:USDTUSD', 'X:XAUTUSD']
+  const result = data.filter((m) => displaySymbols.includes(m.Symbol))
+  return sortArray(result, ['Company'], ['asc'])
 }
 
 export default CryptosDisplay
