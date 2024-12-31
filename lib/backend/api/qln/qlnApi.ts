@@ -478,7 +478,7 @@ export async function getEconDataReportDowJones(startYear: number, endYear: numb
 }
 
 export async function serverPostFetch(req: QlnApiRequest, endpoint: string) {
-  const resp = await post(`/api/qln?url=${qlnApiBaseUrl}${endpoint}`, req)
+  const resp = await postBody(`/api/qln?url=${qlnApiBaseUrl}${endpoint}`, 'POST', req)
   const result = resp as QlnApiResponse
   return result
 }
