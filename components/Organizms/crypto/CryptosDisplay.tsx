@@ -13,6 +13,8 @@ import { useState } from 'react'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import StockChartWithVolume from '../stocks/StockChartWithVolume'
+import StockChartDaySelect from '../stocks/StockChartDaySelect'
+import { useLocalStore } from 'lib/backend/store/useLocalStore'
 
 interface DetailsModel {
   Details: StockQuote
@@ -24,6 +26,9 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
   const [isLoading, setIsLoading] = useState(false)
   const [details, setDetails] = useState<DetailsModel | null>(null)
 
+  const { cryptoSettings, saveCryptoSettings } = useLocalStore()
+  const [selectedDays, setSelectedDays] = useState(cryptoSettings?.chartSelectedDays ?? 30)
+
   const searchOptions: DropdownItem[] = filtered.map((m) => {
     return {
       text: `${m.Company}`,
@@ -31,14 +36,21 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
     }
   })
 
-  const loadDetails = async (quote: StockQuote) => {
+  const loadDetails = async (quote: StockQuote, days: number) => {
     setIsLoading(true)
-    const resp = await serverPostFetch({ body: { key: quote.Symbol, HistoryDays: 30 } }, '/Crypto')
+    const resp = await serverPostFetch({ body: { key: quote.Symbol, HistoryDays: days } }, '/Crypto')
     setIsLoading(false)
     const result = resp.Body as DetailsModel
-    result.History = sortArray(result.History, ['TradeDate'], ['asc'])
     result.Details.Company = filtered.find((m) => m.Symbol === result.Details.Symbol)!.Company
     setDetails(result)
+  }
+
+  const handleDaysSelected = async (arg: number) => {
+    setSelectedDays(arg)
+    saveCryptoSettings({ ...cryptoSettings, chartSelectedDays: arg })
+    if (details) {
+      await loadDetails(details?.Details, arg)
+    }
   }
 
   return (
@@ -57,7 +69,7 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
                 <ListHeader
                   text={`${item.Company}`}
                   onClicked={() => {
-                    loadDetails(item)
+                    loadDetails(item, selectedDays)
                   }}
                 />
                 <StockChange item={item} />
@@ -71,6 +83,7 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
           <FadeIn>
             <StockChange item={details.Details} />
           </FadeIn>
+          <StockChartDaySelect selectedDays={selectedDays} onSelected={handleDaysSelected} />
           <StockChartWithVolume data={details.History} symbol={details.Details.Symbol} isLoading={isLoading} />
         </InfoDialog>
       )}

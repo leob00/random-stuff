@@ -15,17 +15,8 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import { mutate } from 'swr'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import StockChartDaySelect from './StockChartDaySelect'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
-
-export const stockChartDaySelect: DropdownItemNumeric[] = [
-  { text: '1 week', value: 7 },
-  { text: '1 month', value: 30 },
-  { text: '3 months', value: 90 },
-  { text: '6 months', value: 180 },
-  { text: '1 year', value: 365 },
-  { text: '3 year', value: 1095 },
-  { text: '5 year', value: 1825 },
-]
 
 interface Model {
   history: StockHistoryItem[]
@@ -66,9 +57,7 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
 
   return (
     <Box>
-      <Box textAlign={'right'} pr={1} py={1}>
-        <FormDropdownListNumeric options={stockChartDaySelect} value={days} onOptionSelected={handleDaysSelected} />
-      </Box>
+      <StockChartDaySelect selectedDays={days} onSelected={handleDaysSelected} />
       <>
         {companyName && (
           <CenterStack>

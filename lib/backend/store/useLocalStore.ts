@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import { Sort, UserStockSettings } from '../api/aws/models/apiGatewayModels'
+import { CryptoSettings, Sort, UserStockSettings } from '../api/aws/models/apiGatewayModels'
 import { StockQuote } from '../api/models/zModels'
 import { EconomicDataItem } from '../api/qln/qlnModels'
 import { DashboardWidgetWithSettings } from 'components/Organizms/dashboard/dashboardModel'
@@ -22,6 +22,8 @@ export interface LocalStore {
   saveEconomicIndicators: (val: EconomicDataItem[]) => void
   dashboardWidgets: DashboardWidgetWithSettings[]
   saveDashboardWidgets: (items: DashboardWidgetWithSettings[]) => void
+  cryptoSettings: CryptoSettings | null
+  saveCryptoSettings: (items: CryptoSettings) => void
 }
 
 export const useLocalStore = create(
@@ -55,6 +57,8 @@ export const useLocalStore = create(
       saveEconomicIndicators: (val) => set((state) => ({ ...state, economicIndicators: val })),
       dashboardWidgets: [],
       saveDashboardWidgets: (val) => set((state) => ({ ...state, dashboardWidgets: val })),
+      cryptoSettings: null,
+      saveCryptoSettings: (cryptoSettings: CryptoSettings) => set((state) => ({ ...state, cryptoSettings: cryptoSettings })),
     }),
     {
       name: 'rs-local-store',

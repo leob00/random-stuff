@@ -38,9 +38,13 @@ export interface S3Object {
   fullPath: string
 }
 
-export interface UserStockSettings {
-  defaultView?: 'flat' | 'grouped'
+interface StockSettingsBase {
   customSort?: Sort[]
+  chartSelectedDays?: number
+}
+
+export type UserStockSettings = StockSettingsBase & {
+  defaultView?: 'flat' | 'grouped'
   sort?: {
     grouped: {
       main: Sort[]
@@ -51,6 +55,8 @@ export interface UserStockSettings {
     display: 'table' | 'chart'
   }
 }
+
+export type CryptoSettings = StockSettingsBase & {}
 
 export interface UserSettings {
   news?: {

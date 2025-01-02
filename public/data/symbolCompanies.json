@@ -4368,7 +4368,7 @@
     "Symbol": "BEP"
   },
   {
-    "Company": "Brookfield Renewable Corporation Class A Subordinate Voting Shares",
+    "Company": "Brookfield Renewable Corporation Class A Exchangeable Subordinate Voting Shares",
     "Symbol": "BEPC"
   },
   {
@@ -4804,7 +4804,7 @@
     "Symbol": "BIP"
   },
   {
-    "Company": "Brookfield Infrastructure Corporation Class A Subordinate Voting Shares",
+    "Company": "Brookfield Infrastructure Corporation Class A Exchangeable Subordinate Voting Shares",
     "Symbol": "BIPC"
   },
   {
@@ -5722,6 +5722,10 @@
   {
     "Company": "Bridgford Foods Corp",
     "Symbol": "BRID"
+  },
+  {
+    "Company": "FIS Bright Portfolios Focused Equity ETF",
+    "Symbol": "BRIF"
   },
   {
     "Company": "Berkshire Hathaway Inc.",
@@ -8848,6 +8852,10 @@
     "Symbol": "COPX"
   },
   {
+    "Company": "Tweedy, Browne Insider + Value ETF",
+    "Symbol": "COPY"
+  },
+  {
     "Company": "Cencora, Inc.",
     "Symbol": "COR"
   },
@@ -10352,6 +10360,10 @@
     "Symbol": "DECK"
   },
   {
+    "Company": "FT Vest U.S. Equity Max Buffer ETF - December",
+    "Symbol": "DECM"
+  },
+  {
     "Company": "SPDR Galaxy Digital Asset Ecosystem ETF",
     "Symbol": "DECO"
   },
@@ -10384,7 +10396,7 @@
     "Symbol": "DEEF"
   },
   {
-    "Company": "Roundhill Acquirers Deep Value ETF",
+    "Company": "Acquirers Deep Value ETF",
     "Symbol": "DEEP"
   },
   {
@@ -12400,6 +12412,18 @@
     "Symbol": "EGF"
   },
   {
+    "Company": "NestYield Visionary ETF",
+    "Symbol": "EGGQ"
+  },
+  {
+    "Company": "NestYield Total Return Guard ETF",
+    "Symbol": "EGGS"
+  },
+  {
+    "Company": "NestYield Dynamic Income Shield ETF",
+    "Symbol": "EGGY"
+  },
+  {
     "Company": "8x8, Inc. Common Stock",
     "Symbol": "EGHT"
   },
@@ -12540,7 +12564,7 @@
     "Symbol": "ELA"
   },
   {
-    "Company": "Elevai Labs, Inc. Common Stock",
+    "Company": "PMGC Holdings Inc. Common Stock",
     "Symbol": "ELAB"
   },
   {
@@ -14144,6 +14168,10 @@
     "Symbol": "FARO"
   },
   {
+    "Company": "Frontier Asset Absolute Return ETF",
+    "Symbol": "FARX"
+  },
+  {
     "Company": "Direxion Daily Financial Bull 3x Shares",
     "Symbol": "FAS"
   },
@@ -14298,6 +14326,10 @@
   {
     "Company": "First Community Bankshares, Inc. (VA)",
     "Symbol": "FCBC"
+  },
+  {
+    "Company": "Frontier Asset Core Bond ETF",
+    "Symbol": "FCBD"
   },
   {
     "Company": "First Community Corp",
@@ -14616,6 +14648,10 @@
     "Symbol": "FEDU"
   },
   {
+    "Company": "First Eagle Global Equity ETF",
+    "Symbol": "FEGE"
+  },
+  {
     "Company": "FlexShares ESG & Climate Investment Grade Corporate Core Index Fund",
     "Symbol": "FEIG"
   },
@@ -14674,6 +14710,10 @@
   {
     "Company": "Fidelity MSCI Energy Index ETF",
     "Symbol": "FENY"
+  },
+  {
+    "Company": "First Eagle Overseas Equity ETF",
+    "Symbol": "FEOE"
   },
   {
     "Company": "First Trust Europe AlphaDEX Fund",
@@ -14888,6 +14928,10 @@
     "Symbol": "FGN"
   },
   {
+    "Company": "Frontier Asset Global Small Cap Equity ETF",
+    "Symbol": "FGSM"
+  },
+  {
     "Company": "First Hawaiian, Inc. Common Stock",
     "Symbol": "FHB"
   },
@@ -15002,6 +15046,10 @@
   {
     "Company": "Angel Oak Financial Strategies Income Term Trust",
     "Symbol": "FINS"
+  },
+  {
+    "Company": "Frontier Asset Total International Equity ETF",
+    "Symbol": "FINT"
   },
   {
     "Company": "FinVolution Group American depositary shares, each representing five Class A ordinary shares",
@@ -15166,6 +15214,10 @@
   {
     "Company": "Federated Hermes MDT Large Cap Core ETF",
     "Symbol": "FLCC"
+  },
+  {
+    "Company": "Frontier Asset U.S. Large Cap Equity ETF",
+    "Symbol": "FLCE"
   },
   {
     "Company": "Federated Hermes MDT Large Cap Growth ETF",
@@ -15706,6 +15758,10 @@
   {
     "Company": "Fonar Corporation",
     "Symbol": "FONR"
+  },
+  {
+    "Company": "Frontier Asset Opportunistic Credit ETF",
+    "Symbol": "FOPC"
   },
   {
     "Company": "Forestar Group Inc.",
@@ -19128,6 +19184,10 @@
     "Symbol": "HISF"
   },
   {
+    "Company": "Health In Tech, Inc. Class A Common Stock",
+    "Symbol": "HIT"
+  },
+  {
     "Company": "High Tide Inc. Common Shares",
     "Symbol": "HITI"
   },
@@ -20618,6 +20678,10 @@
   {
     "Company": "Amplify CWP International Enhanced Dividend Income ETF",
     "Symbol": "IDVO"
+  },
+  {
+    "Company": "The Opal International Dividend Income ETF",
+    "Symbol": "IDVZ"
   },
   {
     "Company": "VanEck Indonesia Index ETF",
@@ -23230,6 +23294,10 @@
   {
     "Company": "Jaws Mustang Acquisition Corp. Redeemable Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50",
     "Symbol": "JWSM.WS"
+  },
+  {
+    "Company": "JX Luxventure Limited Common Stock",
+    "Symbol": "JXG"
   },
   {
     "Company": "iShares Global Utilities ETF",
@@ -28608,6 +28676,10 @@
     "Symbol": "NEUE"
   },
   {
+    "Company": "Neuphoria Therapeutics Inc. Common Stock",
+    "Symbol": "NEUP"
+  },
+  {
     "Company": "New Pacific Metals Corp.",
     "Symbol": "NEWP"
   },
@@ -29464,8 +29536,16 @@
     "Symbol": "NTWK"
   },
   {
+    "Company": "Newbury Street II Acquisition Corp Class A Ordinary Shares",
+    "Symbol": "NTWO"
+  },
+  {
     "Company": "Newbury Street II Acquisition Corp Unit",
     "Symbol": "NTWOU"
+  },
+  {
+    "Company": "Newbury Street II Acquisition Corp Warrant",
+    "Symbol": "NTWOW"
   },
   {
     "Company": "Natuzzi, S.p.A",
@@ -30568,6 +30648,10 @@
     "Symbol": "ONDS"
   },
   {
+    "Company": "OneConstruction Group Limited Ordinary Shares",
+    "Symbol": "ONEG"
+  },
+  {
     "Company": "SPDR Russell 1000 Momentum Focus ETF",
     "Symbol": "ONEO"
   },
@@ -30946,6 +31030,14 @@
   {
     "Company": "Ouster, Inc. Warrants, every 10 warrants are exercisable for 0.6153 shares of Common Stock at an exercise price of $140.20 per 0.6153 shares of common stock",
     "Symbol": "OUST.WS.A"
+  },
+  {
+    "Company": "Ouster, Inc. Warrants",
+    "Symbol": "OUSTW"
+  },
+  {
+    "Company": "Ouster, Inc. Warrants",
+    "Symbol": "OUSTZ"
   },
   {
     "Company": "OUTFRONT Media Inc.",
@@ -31612,6 +31704,10 @@
     "Symbol": "PDP"
   },
   {
+    "Company": "Pearl Diver Credit Company Inc. 8.00% Series A Preferred Stock Due 2029",
+    "Symbol": "PDPA"
+  },
+  {
     "Company": "Precision Drilling Corporation",
     "Symbol": "PDS"
   },
@@ -32022,6 +32118,10 @@
   {
     "Company": "BiomX Inc. Units each consisting of one share of common stock and one Warrant entitling the holder to purchase one-half of a share of common stock",
     "Symbol": "PHGE.U"
+  },
+  {
+    "Company": "Park Ha Biological Technology Co., Ltd. Ordinary Shares",
+    "Symbol": "PHH"
   },
   {
     "Company": "PLDT Inc.",
@@ -33128,6 +33228,10 @@
     "Symbol": "PSIL"
   },
   {
+    "Company": "Power Solutions International, Inc. Common Stock",
+    "Symbol": "PSIX"
+  },
+  {
     "Company": "SPDR ICE Preferred Securities ETF",
     "Symbol": "PSK"
   },
@@ -34224,7 +34328,7 @@
     "Symbol": "RA"
   },
   {
-    "Company": "VanEck Inflation Allocation ETF",
+    "Company": "VanEck Real Assets ETF",
     "Symbol": "RAAX"
   },
   {
@@ -35482,6 +35586,10 @@
   {
     "Company": "Return Stacked Bonds & Futures Yield ETF",
     "Symbol": "RSBY"
+  },
+  {
+    "Company": "FT Vest U.S. Equity Equal Weight Buffer ETF - December",
+    "Symbol": "RSDE"
   },
   {
     "Company": "Rareview Systematic Equity ETF",
@@ -38736,6 +38844,10 @@
     "Symbol": "SQM"
   },
   {
+    "Company": "FT Vest U.S. Equity Quarterly Max Buffer ETF",
+    "Symbol": "SQMX"
+  },
+  {
     "Company": "Sequans Communications S.A. American Depositary Shares (each representing ten (10) Ordinary Shares)",
     "Symbol": "SQNS"
   },
@@ -39432,7 +39544,7 @@
     "Symbol": "SWIM"
   },
   {
-    "Company": "Solowin Holdings Ordinary Share",
+    "Company": "Solowin Holdings Class A Ordinary Share",
     "Symbol": "SWIN"
   },
   {
@@ -39712,6 +39824,14 @@
     "Symbol": "TATT"
   },
   {
+    "Company": "Tavia Acquisition Corp. Ordinary Shares",
+    "Symbol": "TAVI"
+  },
+  {
+    "Company": "Tavia Acquisition Corp. Right",
+    "Symbol": "TAVIR"
+  },
+  {
     "Company": "Tavia Acquisition Corp. Unit",
     "Symbol": "TAVIU"
   },
@@ -39952,8 +40072,16 @@
     "Symbol": "TD"
   },
   {
+    "Company": "Translational Development Acquisition Corp. Units",
+    "Symbol": "TDACU"
+  },
+  {
     "Company": "TERADATA CORPORATION",
     "Symbol": "TDC"
+  },
+  {
+    "Company": "FT Vest Emerging Markets Buffer ETF - December",
+    "Symbol": "TDEC"
   },
   {
     "Company": "Templeton Dragon Fund",
@@ -40952,7 +41080,7 @@
     "Symbol": "TPYP"
   },
   {
-    "Company": "Tortoise Power and Energy Infrastructure Fund, Inc.",
+    "Company": "Tortoise Power and Energy Infrastructure Fund",
     "Symbol": "TPZ"
   },
   {
@@ -43888,6 +44016,10 @@
     "Symbol": "WANT"
   },
   {
+    "Company": "U.S. Global Technology and Aerospace & Defense ETF",
+    "Symbol": "WAR"
+  },
+  {
     "Company": "Washington Trust Bancorp Inc",
     "Symbol": "WASH"
   },
@@ -44346,6 +44478,10 @@
   {
     "Company": "Worksport, Ltd. Warrant",
     "Symbol": "WKSPW"
+  },
+  {
+    "Company": "Willow Lane Acquisition Corp. Class A Ordinary Shares",
+    "Symbol": "WLAC"
   },
   {
     "Company": "Willow Lane Acquisition Corp. Unit",
@@ -45438,6 +45574,10 @@
   {
     "Company": "Xylo Technologies Ltd. American Depositary Shares",
     "Symbol": "XYLO"
+  },
+  {
+    "Company": "Youxin Technology Ltd Class A Ordinary shares",
+    "Symbol": "YAAS"
   },
   {
     "Company": "Yalla Group Limited American Depositary Shares, each representing one Class A Ordinary Share",
