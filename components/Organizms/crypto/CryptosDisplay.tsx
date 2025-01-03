@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Typography, useTheme } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
@@ -7,7 +7,7 @@ import StockChange from '../stocks/StockChange'
 import { sortArray } from 'lib/util/collections'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
-import { serverPostFetch } from 'lib/backend/api/qln/qlnApi'
+import { DateRange, DateRangeFilter, HistoricalAggregate, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 import { useState } from 'react'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
@@ -16,16 +16,21 @@ import StockChartDaySelect from '../stocks/StockChartDaySelect'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import dayjs from 'dayjs'
+import { calculateStockMovePercent } from 'lib/util/numberUtil'
+import { getPositiveNegativeColor } from '../stocks/StockListItem'
 
 interface DetailsModel {
   Details: StockQuote
   History: StockQuote[]
+  AvailableDates: DateRange
+  Aggregate: HistoricalAggregate
 }
 
 const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile: UserProfile | null }) => {
   const filtered = filterCryptos(data)
   const [isLoading, setIsLoading] = useState(false)
   const [details, setDetails] = useState<DetailsModel | null>(null)
+  const theme = useTheme()
 
   const { cryptoSettings, saveCryptoSettings } = useLocalStore()
   const [selectedDays, setSelectedDays] = useState(cryptoSettings?.chartSelectedDays ?? 30)
@@ -51,11 +56,6 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
     <>
       <Box py={2}>
         {isLoading && <BackdropLoader />}
-        <Box pt={2}>
-          <CenterStack>
-            <AlertWithHeader severity='warning' text='prices are delayed by a day.' />
-          </CenterStack>
-        </Box>
         <Box py={2}>
           {filtered.map((item) => (
             <Box key={item.Symbol} py={1}>
@@ -80,7 +80,26 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
               <ReadOnlyField label='Date' val={`${dayjs(details.Details.TradeDate).format('MM/DD/YYYY')}`} variant='caption' />
             </Box>
           </FadeIn>
-          <StockChartDaySelect selectedDays={selectedDays} onSelected={handleDaysSelected} />
+          <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+            <Box display={'flex'} justifyContent={'center'} flexGrow={1}>
+              {!isLoading && (
+                <Box display={'flex'} gap={1} alignItems={'center'} justifyContent={'center'}>
+                  <Typography variant='h6'>{`Moving avg:`}</Typography>
+
+                  <FadeIn>
+                    <Typography
+                      variant='h5'
+                      fontWeight={600}
+                      color={getPositiveNegativeColor(details.Aggregate.Percentage, theme.palette.mode)}
+                    >{`${details.Aggregate.Percentage}%`}</Typography>
+                  </FadeIn>
+                </Box>
+              )}
+            </Box>
+            <Box>
+              <StockChartDaySelect selectedDays={selectedDays} onSelected={handleDaysSelected} availableDates={details.AvailableDates} />
+            </Box>
+          </Box>
           <StockChartWithVolume data={details.History} symbol={details.Details.Symbol} isLoading={isLoading} />
         </InfoDialog>
       )}

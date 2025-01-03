@@ -1,8 +1,7 @@
-import { Box, Typography, useTheme } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { Variant } from '@mui/material/styles/createTypography'
 
 const ReadOnlyField = ({ label, val, labelLength, variant }: { label?: string; val?: string | null | number; labelLength?: number; variant?: Variant }) => {
-  const theme = useTheme()
   return (
     <Box>
       <Box display={'flex'} flexDirection={'row'} gap={2} py={1}>

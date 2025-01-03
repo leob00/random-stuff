@@ -16,8 +16,11 @@ const StockChange = ({ item }: { item: StockQuote }) => {
         <Typography
           variant='h6'
           color={getPositiveNegativeColor(item.Change, theme.palette.mode)}
-        >{`${numeral(item.Change).format('###,###,0.000')}`}</Typography>
-        <Typography variant='h6' color={getPositiveNegativeColor(item.Change, theme.palette.mode)}>{`${item.ChangePercent.toFixed(2)}%`}</Typography>
+        >{`${numeral(item.Change).format('###,###,0.00')}`}</Typography>
+        <Typography
+          variant='h6'
+          color={getPositiveNegativeColor(item.Change, theme.palette.mode)}
+        >{`${numeral(item.ChangePercent).format('###,###,0.00')}%`}</Typography>
       </Stack>
     </Stack>
   )

@@ -381,7 +381,7 @@ export interface QlnApiRequest {
 export async function getFutures() {
   const url = `${qlnApiBaseUrl}/Futures`
   const response = await get(url)
-  const result = response.Body as StockQuote[]
+  const result = response.Body.History as StockQuote[]
   return result
 }
 
@@ -414,6 +414,15 @@ export interface StockEarningAggregate {
 export interface DateRangeFilter {
   startDate: string
   endDate: string
+}
+export interface DateRange {
+  StartDate: string
+  EndDate: string
+}
+export interface HistoricalAggregate {
+  Days: number
+  Change: number
+  Percentage: number
 }
 
 export interface Company {
