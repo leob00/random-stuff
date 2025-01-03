@@ -1,20 +1,19 @@
-import { Box, Stack, Typography, useTheme } from '@mui/material'
-import React from 'react'
+import { Box, Typography, useTheme } from '@mui/material'
+import { Variant } from '@mui/material/styles/createTypography'
 
-const ReadOnlyField = ({ label, val, labelLength }: { label?: string; val?: string | null | number; labelLength?: number }) => {
+const ReadOnlyField = ({ label, val, labelLength, variant }: { label?: string; val?: string | null | number; labelLength?: number; variant?: Variant }) => {
   const theme = useTheme()
-  const textColor = theme.palette.primary.main
   return (
     <Box>
       <Box display={'flex'} flexDirection={'row'} gap={2} py={1}>
-        {label !== undefined && (
+        {label && (
           <Box textAlign={'right'} minWidth={labelLength ?? undefined}>
-            <Typography variant={'body2'} color={'primary'}>{`${label}:`}</Typography>
+            <Typography variant={variant ?? 'body2'} color={'primary'}>{`${label}:`}</Typography>
           </Box>
         )}
-        {val !== undefined && (
+        {val && (
           <Box>
-            <Typography variant={'body2'} color={'primary'}>
+            <Typography variant={variant ?? 'body2'} color={'primary'}>
               {val}
             </Typography>
           </Box>

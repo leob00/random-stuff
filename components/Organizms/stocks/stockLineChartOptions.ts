@@ -5,6 +5,7 @@ import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { getPositiveNegativeColor, getPositiveNegativeColorReverse } from './StockListItem'
 import { sortArray } from 'lib/util/collections'
 import { take } from 'lodash'
+import numeral from 'numeral'
 
 export function getOptions(
   items: XyValues,
@@ -48,11 +49,14 @@ export const stockChartTooltipFormatter = (val: number, opts: any, raw: StockHis
   if (raw.length === 0) {
     return `${val}`
   }
-  const change = raw[opts.dataPointIndex].Change! > 0 ? `+${raw[opts.dataPointIndex].Change}` : `${raw[opts.dataPointIndex].Change}`
+  const change =
+    raw[opts.dataPointIndex].Change! > 0
+      ? `+${numeral(raw[opts.dataPointIndex].Change).format('###,###,0.000')}`
+      : `${numeral(raw[opts.dataPointIndex].Change).format('###,###,0.000')}`
   const color = reverseColor
     ? getPositiveNegativeColorReverse(raw[opts.dataPointIndex].Change, 'dark')
     : getPositiveNegativeColor(raw[opts.dataPointIndex].Change, 'dark')
-  return `<div style="color: ${color}">${raw[opts.dataPointIndex].Price} &nbsp;${change} &nbsp;${raw[opts.dataPointIndex].ChangePercent}%</div>`
+  return `<div style="color: ${color}">${numeral(raw[opts.dataPointIndex].Price).format('###,###,0.00')} &nbsp;${change} &nbsp;${numeral(raw[opts.dataPointIndex].ChangePercent).format('###,###,0.000')}%</div>`
 }
 
 export const takeLastDays = (history: StockHistoryItem[], days: number) => {

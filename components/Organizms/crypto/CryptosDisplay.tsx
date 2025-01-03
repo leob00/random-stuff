@@ -3,7 +3,6 @@ import CenterStack from 'components/Atoms/CenterStack'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { DropdownItem } from 'lib/models/dropdown'
 import StockChange from '../stocks/StockChange'
 import { sortArray } from 'lib/util/collections'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
@@ -15,6 +14,8 @@ import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import StockChartWithVolume from '../stocks/StockChartWithVolume'
 import StockChartDaySelect from '../stocks/StockChartDaySelect'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
+import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
+import dayjs from 'dayjs'
 
 interface DetailsModel {
   Details: StockQuote
@@ -28,13 +29,6 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
 
   const { cryptoSettings, saveCryptoSettings } = useLocalStore()
   const [selectedDays, setSelectedDays] = useState(cryptoSettings?.chartSelectedDays ?? 30)
-
-  const searchOptions: DropdownItem[] = filtered.map((m) => {
-    return {
-      text: `${m.Company}`,
-      value: m.Symbol,
-    }
-  })
 
   const loadDetails = async (quote: StockQuote, days: number) => {
     setIsLoading(true)
@@ -82,6 +76,9 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
         <InfoDialog show={!!details} title={details.Details.Company} onCancel={() => setDetails(null)}>
           <FadeIn>
             <StockChange item={details.Details} />
+            <Box px={2}>
+              <ReadOnlyField label='Date' val={`${dayjs(details.Details.TradeDate).format('MM/DD/YYYY')}`} variant='caption' />
+            </Box>
           </FadeIn>
           <StockChartDaySelect selectedDays={selectedDays} onSelected={handleDaysSelected} />
           <StockChartWithVolume data={details.History} symbol={details.Details.Symbol} isLoading={isLoading} />
