@@ -20,6 +20,7 @@ import { HistoricalAggregate } from 'lib/backend/api/qln/qlnApi'
 import { getPositiveNegativeColor } from './StockListItem'
 import FadeOut from 'components/Atoms/Animations/FadeOut'
 import HistoricalAggregateDisplay from './HistoricalAggregateDisplay'
+import { sleep } from 'lib/util/timers'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 interface Model {
@@ -35,6 +36,7 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const chartHeight = isXSmall ? 300 : 520
   const mutateKey = `stock-chart-${symbol}`
+  const [isWaiting, setIsWaiting] = useState(false)
 
   const dataFn = async () => {
     const response = await getStockOrFutureChart(symbol, days, isStock)
@@ -52,12 +54,20 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
-  const handleDaysSelected = (val: number | null) => {
-    setDays(val!)
+  const handleDaysSelected = async (val: number) => {
+    setIsWaiting(true)
+    await sleep(1000)
     saveStockChart({ ...stocksChart, defaultDays: val ?? 90 })
+    setDays(val)
   }
+
   useEffect(() => {
-    mutate(mutateKey)
+    const fn = async () => {
+      mutate(mutateKey)
+      await sleep(1000)
+      setIsWaiting(false)
+    }
+    fn()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [days])
 
@@ -76,13 +86,13 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
         <>
           {data && (
             <Box>
-              {data.aggregate && <HistoricalAggregateDisplay aggregate={data.aggregate} isLoading={isLoading} />}
-              {isStock && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading} />}
+              {data.aggregate && <HistoricalAggregateDisplay aggregate={data.aggregate} isLoading={isWaiting} />}
+              {isStock && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading || isWaiting} />}
               {!isStock && (
                 <>
                   {isLoading && <BackdropLoader />}
                   <Box minHeight={{ xs: 300, sm: chartHeight }} pt={2}>
-                    {!isLoading && (
+                    {!isLoading && !isWaiting && (
                       <FadeIn>
                         <ReactApexChart series={data.chartOptions.series} options={data.chartOptions} type='area' height={chartHeight} />
                         <Box display='flex' gap={4} pb={4}>

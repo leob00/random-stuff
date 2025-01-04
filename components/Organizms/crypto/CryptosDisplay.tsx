@@ -31,7 +31,6 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
   const filtered = filterCryptos(data)
   const [isLoading, setIsLoading] = useState(false)
   const [details, setDetails] = useState<DetailsModel | null>(null)
-  const theme = useTheme()
 
   const { cryptoSettings, saveCryptoSettings } = useLocalStore()
   const [selectedDays, setSelectedDays] = useState(cryptoSettings?.chartSelectedDays ?? 30)
@@ -95,7 +94,19 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
 }
 
 function filterCryptos(data: StockQuote[]) {
-  const displaySymbols = ['X:BTCUSD', 'X:ETHUSD', 'X:LTCUSD', 'X:XMRUSD', 'X:NEOUSD', 'X:XRPUSD', 'X:RONINUSD', 'X:SOLUSD', 'X:USDTUSD', 'X:XAUTUSD']
+  const displaySymbols = [
+    'X:BTCUSD',
+    'X:ETHUSD',
+    'X:LTCUSD',
+    'X:XMRUSD',
+    'X:NEOUSD',
+    'X:XRPUSD',
+    'X:RONINUSD',
+    'X:SOLUSD',
+    'X:USDTUSD',
+    'X:XAUTUSD',
+    'X:AVAXUSD',
+  ]
   const result = data.filter((m) => displaySymbols.includes(m.Symbol))
   return sortArray(result, ['Company'], ['asc'])
 }

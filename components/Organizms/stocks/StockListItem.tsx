@@ -4,7 +4,6 @@ import {
   CasinoDarkGreenTransparent,
   CasinoDarkRedTransparent,
   CasinoLimeTransparent,
-  DarkModeRed,
   RedDarkMode,
   VeryLightBlue,
 } from 'components/themes/mainTheme'
