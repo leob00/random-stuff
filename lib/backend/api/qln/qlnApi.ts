@@ -174,10 +174,10 @@ export const newsTypes: DropdownItem[] = [
     text: 'Yahoo Finance',
     value: 'YahooFinance',
   },
-  {
-    text: 'Yahoo Science',
-    value: 'YahooScience',
-  },
+  // {
+  //   text: 'Yahoo Science',
+  //   value: 'YahooScience',
+  // },
   {
     text: 'Yahoo World',
     value: 'YahooWorld',

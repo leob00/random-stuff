@@ -18,6 +18,7 @@ import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import dayjs from 'dayjs'
 import { calculateStockMovePercent } from 'lib/util/numberUtil'
 import { getPositiveNegativeColor } from '../stocks/StockListItem'
+import HistoricalAggregateDisplay from '../stocks/HistoricalAggregateDisplay'
 
 interface DetailsModel {
   Details: StockQuote
@@ -80,26 +81,12 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
               <ReadOnlyField label='Date' val={`${dayjs(details.Details.TradeDate).format('MM/DD/YYYY')}`} variant='caption' />
             </Box>
           </FadeIn>
-          <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-            <Box display={'flex'} justifyContent={'center'} flexGrow={1}>
-              {!isLoading && (
-                <Box display={'flex'} gap={1} alignItems={'center'} justifyContent={'center'}>
-                  <Typography variant='h6'>{`Moving avg:`}</Typography>
 
-                  <FadeIn>
-                    <Typography
-                      variant='h5'
-                      fontWeight={600}
-                      color={getPositiveNegativeColor(details.Aggregate.Percentage, theme.palette.mode)}
-                    >{`${details.Aggregate.Percentage}%`}</Typography>
-                  </FadeIn>
-                </Box>
-              )}
-            </Box>
-            <Box>
-              <StockChartDaySelect selectedDays={selectedDays} onSelected={handleDaysSelected} availableDates={details.AvailableDates} />
-            </Box>
+          <Box>
+            <StockChartDaySelect selectedDays={selectedDays} onSelected={handleDaysSelected} availableDates={details.AvailableDates} />
           </Box>
+          {details.Aggregate && <HistoricalAggregateDisplay aggregate={details.Aggregate} isLoading={isLoading} />}
+
           <StockChartWithVolume data={details.History} symbol={details.Details.Symbol} isLoading={isLoading} />
         </InfoDialog>
       )}

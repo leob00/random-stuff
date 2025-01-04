@@ -16,11 +16,16 @@ import { mutate } from 'swr'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import StockChartDaySelect from './StockChartDaySelect'
+import { HistoricalAggregate } from 'lib/backend/api/qln/qlnApi'
+import { getPositiveNegativeColor } from './StockListItem'
+import FadeOut from 'components/Atoms/Animations/FadeOut'
+import HistoricalAggregateDisplay from './HistoricalAggregateDisplay'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 interface Model {
   history: StockHistoryItem[]
   chartOptions: ApexOptions
+  aggregate: HistoricalAggregate
 }
 
 const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyName?: string; isStock: boolean }) => {
@@ -32,12 +37,13 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
   const mutateKey = `stock-chart-${symbol}`
 
   const dataFn = async () => {
-    const history = await getStockOrFutureChart(symbol, days, isStock)
-    const map = mapHistory(history, 'Price')
-    const options = getOptions(map, history, isXSmall, theme.palette.mode)
+    const response = await getStockOrFutureChart(symbol, days, isStock)
+    const map = mapHistory(response.History, 'Price')
+    const options = getOptions(map, response.History, isXSmall, theme.palette.mode)
 
     const result: Model = {
-      history: history,
+      history: response.History,
+      aggregate: response.Aggregate,
       chartOptions: options,
     }
 
@@ -58,6 +64,7 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
   return (
     <Box>
       <StockChartDaySelect selectedDays={days} onSelected={handleDaysSelected} />
+
       <>
         {companyName && (
           <CenterStack>
@@ -69,6 +76,7 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
         <>
           {data && (
             <Box>
+              {data.aggregate && <HistoricalAggregateDisplay aggregate={data.aggregate} isLoading={isLoading} />}
               {isStock && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading} />}
               {!isStock && (
                 <>
