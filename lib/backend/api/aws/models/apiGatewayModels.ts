@@ -183,4 +183,5 @@ export interface UserNote {
   expirationDate?: string
   attachments?: S3Object[]
   share?: UserNoteShare
+  files?: S3Object[]
 }

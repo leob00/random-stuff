@@ -81,7 +81,7 @@ const S3FileUploadForm = ({
       data.append('userFilename', userFilename)
       data.append('prefix', folder)
       setError(null)
-      const resp = await fetch('/api/s3uploadPresignedUrl', {
+      const resp = await fetch('/api/s3upload', {
         method: 'POST',
         body: data,
       })

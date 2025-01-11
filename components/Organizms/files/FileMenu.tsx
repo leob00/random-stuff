@@ -12,12 +12,14 @@ const FileMenu = ({
   onDelete,
   onRename,
   onMovefile,
+  showMoveFile,
 }: {
   item: S3Object
   onView: (item: S3Object) => void
   onDelete: (item: S3Object) => void
   onMovefile: (item: S3Object) => void
   onRename?: (item: S3Object) => void
+  showMoveFile: boolean
 }) => {
   const menu: ContextMenuItem[] = []
   if (!item.isFolder) {
@@ -30,10 +32,12 @@ const FileMenu = ({
     item: <ContextMenuEdit text={'rename'} />,
     fn: () => onRename?.(item),
   })
-  menu.push({
-    item: <ContextMenuMove text={'move'} />,
-    fn: () => onMovefile(item),
-  })
+  if (showMoveFile) {
+    menu.push({
+      item: <ContextMenuMove text={'move'} />,
+      fn: () => onMovefile(item),
+    })
+  }
   menu.push({
     item: <ContextMenuDelete text={'delete'} />,
     fn: () => onDelete(item),

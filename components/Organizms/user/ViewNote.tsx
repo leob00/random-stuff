@@ -2,35 +2,39 @@ import { Box, Stack, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import dayjs from 'dayjs'
-import React from 'react'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import ContextMenuDelete from 'components/Molecules/Menus/ContextMenuDelete'
 import ContextMenuClose from 'components/Molecules/Menus/ContextMenuClose'
-import { UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { S3Object, UserNote, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import RecordExpirationWarning from 'components/Atoms/Text/RecordExpirationWarning'
-import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import ContextMenuShare from 'components/Molecules/Menus/ContextMenuShare'
 import { useRouter } from 'next/navigation'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import { useState } from 'react'
+import S3ManageFiles from '../files/S3ManageFiles'
 
 const ViewNote = ({
+  userProfile,
   selectedNote,
   onEdit,
   onCancel,
   onDelete,
+  onFilesChanged,
 }: {
+  userProfile: UserProfile
   selectedNote: UserNote
   onEdit: (item: UserNote) => void
   onCancel: () => void
   onDelete: (note: UserNote) => void
+  onFilesChanged: (files: S3Object[]) => void
 }) => {
-  const [showConfirmDelete, setShowConfirmDelete] = React.useState(false)
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false)
   const router = useRouter()
 
   const handleYesDelete = () => {
@@ -57,6 +61,7 @@ const ViewNote = ({
       fn: () => setShowConfirmDelete(true),
     },
   ]
+  const folder = `${userProfile!.username}/user-notes/${selectedNote.id}`
 
   return (
     <>
@@ -86,6 +91,9 @@ const ViewNote = ({
             </CenterStack>
           )}
         </Box>
+        {!selectedNote.expirationDate && (
+          <S3ManageFiles displayName='note files' folderPath={folder} files={selectedNote.files} onFilesMutated={onFilesChanged} />
+        )}
         <ConfirmDeleteDialog
           show={showConfirmDelete}
           title={'confirm delete'}

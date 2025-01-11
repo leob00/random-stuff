@@ -21,6 +21,7 @@ const S3FileRow = ({
   onDelete,
   onRename,
   onMovefile,
+  showMoveFile = true,
 }: {
   file: S3Object
   isEditEmode: boolean
@@ -29,6 +30,7 @@ const S3FileRow = ({
   onDelete: (item: S3Object) => void
   onRename: (item: S3Object) => void
   onMovefile: (item: S3Object) => void
+  showMoveFile?: boolean
 }) => {
   return (
     <>
@@ -38,7 +40,7 @@ const S3FileRow = ({
             <Typography>{file.filename.substring(0, file.filename.lastIndexOf('.'))}</Typography>
           </FadeIn>
           <FadeIn>
-            <FileMenu item={file} onView={onViewFile} onDelete={onDelete} onRename={onRename} onMovefile={onMovefile} />
+            <FileMenu item={file} showMoveFile={showMoveFile} onView={onViewFile} onDelete={onDelete} onRename={onRename} onMovefile={onMovefile} />
           </FadeIn>
         </Box>
       ) : (

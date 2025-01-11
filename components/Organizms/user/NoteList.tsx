@@ -1,13 +1,11 @@
 import Warning from '@mui/icons-material/Warning'
-import { Box, Stack, Button, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
-import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import Clickable from 'components/Atoms/Containers/Clickable'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import Pager from 'components/Atoms/Pager'
 import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
@@ -17,6 +15,7 @@ import { UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { DropdownItem, mapDropdownItems } from 'lib/models/dropdown'
 import { getExpirationText, getUtcNow } from 'lib/util/dateUtil'
 import { useState } from 'react'
+import AttachFileIcon from '@mui/icons-material/AttachFile'
 
 const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked: (item: UserNote) => void; onAddNote: () => void }) => {
   const scroller = useScrollTop(0)
@@ -37,9 +36,6 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
     onClicked(item)
   }
 
-  const handleSearched = (text: string) => {
-    setSearchText(text)
-  }
   const handleSearchSelected = (item: DropdownItem) => {
     const note = data.find((m) => m.id === item.value)!
     onClicked(note)
@@ -67,7 +63,6 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
         </Box>
         <HorizontalDivider />
       </Box>
-
       <ScrollableBox scroller={scroller}>
         <Box>
           {pagedItems.map((item, i) => (
@@ -83,6 +78,14 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
                       >
                         <Typography variant='body1'>{item.title}</Typography>
                       </Clickable>
+                      {item.files && item.files.length > 0 && (
+                        <Box display={'flex'} gap={1} alignItems={'center'}>
+                          <Typography variant='body2' pt={1}>
+                            <AttachFileIcon fontSize='inherit' />
+                          </Typography>
+                          <Typography variant='caption'>{`files: ${item.files.length}`}</Typography>
+                        </Box>
+                      )}
                     </Box>
                   </Stack>
                 </Box>

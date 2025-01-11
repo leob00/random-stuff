@@ -11,6 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   interface Arg extends S3Object {
     expiration?: number
   }
+  // get presigned url
   if (req.method === 'POST') {
     const postArgs: Arg = req.body
     const response = await getS3ObjectPresignedUrl(postArgs.bucket, postArgs.fullPath, postArgs.expiration!)

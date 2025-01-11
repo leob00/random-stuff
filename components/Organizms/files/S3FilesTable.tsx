@@ -3,7 +3,6 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { postDelete } from 'lib/backend/api/fetchFunctions'
 import { getPresignedUrl, renameS3File } from 'lib/backend/csr/nextApiWrapper'
-import React from 'react'
 import { DropdownItem } from 'lib/models/dropdown'
 import { S3Controller } from 'hooks/s3/useS3Controller'
 import { sleep } from 'lib/util/timers'
@@ -12,6 +11,8 @@ import S3FilesTableHeader from './S3FilesTableHeader'
 import S3FileCommandDialogs from './S3FileCommandDialogs'
 import { useUserController } from 'hooks/userController'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import { useState } from 'react'
+import NoDataFound from 'components/Atoms/Text/NoDataFound'
 
 const S3FilesTable = ({
   s3Controller,
@@ -21,17 +22,19 @@ const S3FilesTable = ({
   onReloadFolder,
   onLocalDataMutate,
   showTableHeader = true,
+  allowMoveFile,
 }: {
   s3Controller: S3Controller
   data: S3Object[]
   folder: DropdownItem
   allFolders: DropdownItem[]
-  onReloadFolder: (targetFolder: DropdownItem) => Promise<void>
+  onReloadFolder?: (targetFolder: DropdownItem) => Promise<void>
   onLocalDataMutate: (folder: DropdownItem, files: S3Object[]) => void
   showTableHeader?: boolean
+  allowMoveFile: boolean
 }) => {
-  const [isWaiting, setIsWaiting] = React.useState(false)
-  const [searchWithinList, setSearchWithinList] = React.useState('')
+  const [isWaiting, setIsWaiting] = useState(false)
+  const [searchWithinList, setSearchWithinList] = useState('')
   const targetFolders = allFolders.filter((m) => m.text !== folder.text)
   const { uiState, dispatch, uiDefaultState } = s3Controller
   const { authProfile, setProfile } = useUserController()
@@ -78,18 +81,23 @@ const S3FilesTable = ({
   }
 
   const handleRenameFile = async (newfilename: string) => {
-    const selectedItem = uiState.selectedItem
-    if (selectedItem) {
-      dispatch({ type: 'reset', payload: uiDefaultState })
-      const oldPath = selectedItem.fullPath
-      const newPath = `${selectedItem.fullPath.substring(0, selectedItem.fullPath.lastIndexOf('/'))}/${newfilename}`
+    const newItem = { ...uiState.selectedItem! }
+    if (newItem) {
+      const oldPath = newItem.fullPath
+      const newPath = `${newItem.fullPath.substring(0, newItem.fullPath.lastIndexOf('/'))}/${newfilename}`
       if (oldPath !== newPath) {
+        newItem.fullPath = newPath
+        newItem.filename = newfilename
         setIsWaiting(true)
-        await renameS3File(selectedItem.bucket, oldPath, newPath)
+        await renameS3File(newItem.bucket, oldPath, newPath)
         setIsWaiting(false)
       }
+      const newFiles = data.filter((m) => m.filename !== uiState.selectedItem!.filename)
+      dispatch({ type: 'update', payload: { ...uiState, selectedItem: newItem, showRenameFileDialog: false } })
       setSearchWithinList('')
-      onReloadFolder(folder)
+      newFiles.unshift(newItem)
+      onLocalDataMutate(folder, newFiles)
+      onReloadFolder?.(folder)
     }
   }
 
@@ -136,7 +144,7 @@ const S3FilesTable = ({
         await sleep(500)
       }
       setIsWaiting(false)
-      onReloadFolder(folder)
+      onReloadFolder?.(folder)
     }
   }
   const handleConfirmDeleteFiles = async () => {
@@ -156,7 +164,7 @@ const S3FilesTable = ({
     }
 
     setIsWaiting(false)
-    await onReloadFolder(folder)
+    await onReloadFolder?.(folder)
   }
 
   const handleSetEditMode = () => {
@@ -184,7 +192,7 @@ const S3FilesTable = ({
     dispatch({ type: 'update', payload: { ...uiState, targetFolder: targetFolders[0], showMoveFilesDialog: true } })
   }
   const handleRefresh = () => {
-    onReloadFolder(folder)
+    onReloadFolder?.(folder)
   }
 
   return (
@@ -201,6 +209,7 @@ const S3FilesTable = ({
           handleSearchWithinListChanged={handleSearchWithinListChanged}
         />
       )}
+      {results.length === 0 && <NoDataFound message='no data' />}
       {results.map((item) => (
         <Box key={item.fullPath} py={1}>
           <FadeIn>
@@ -212,6 +221,7 @@ const S3FilesTable = ({
               onDelete={handleDelete}
               onRename={handleOnRename}
               onMovefile={handleMoveSingleFile}
+              showMoveFile={allowMoveFile}
             />
           </FadeIn>
         </Box>

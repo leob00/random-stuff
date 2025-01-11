@@ -1,4 +1,3 @@
-import PageHeader from 'components/Atoms/Containers/PageHeader'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { notesReducer, UserNotesModel } from 'components/reducers/notesReducer'
 import { UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'

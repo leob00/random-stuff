@@ -133,6 +133,7 @@ const S3Display = () => {
             data={files}
             onReloadFolder={handleReloadFolder}
             onLocalDataMutate={handleFilesMutated}
+            allowMoveFile
           />
         )}
       </Box>

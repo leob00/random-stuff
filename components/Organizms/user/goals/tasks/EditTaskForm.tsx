@@ -20,6 +20,7 @@ import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import AttachFileIcon from '@mui/icons-material/AttachFile'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import CenterStack from 'components/Atoms/CenterStack'
+import S3ManageFiles from 'components/Organizms/files/S3ManageFiles'
 const TaskSchema = z.object({
   title: z.string(),
 })
@@ -39,8 +40,7 @@ const EditTaskForm = ({
   const [formInput, setFormInput] = useReducer((state: UserTask, newState: UserTask) => ({ ...state, ...newState }), task)
   const [valid, setValid] = useState(true)
   const [showConfirmDelete, setShowConfirmDelete] = useState(false)
-  const [showUpload, setShowUpload] = useState(false)
-  const s3Controller = useS3Controller()
+
   const folder = `${authProfile!.username}/user-tasks/${task.id}`
   const allFolders: DropdownItem[] = [
     {
@@ -89,18 +89,15 @@ const EditTaskForm = ({
     newFiles.push(file)
     const newTask = { ...formInput, files: sortArray(newFiles, ['filename'], ['asc']) }
     setFormInput(newTask)
-    setShowUpload(false)
     onSubmit(newTask, false)
   }
 
   const handleReloadFolder = async (f: DropdownItem) => {}
 
-  const handleFileMutate = (f: DropdownItem, files: S3Object[]) => {
-    if (files.length > 0) {
-      setFormInput({ ...formInput, files: sortArray(files, ['filename'], ['asc']) })
-    } else {
-      setFormInput({ ...formInput, files: undefined })
-    }
+  const handleFileMutate = (files: S3Object[]) => {
+    const newTask = { ...formInput, files: sortArray(files, ['filename'], ['asc']) }
+    setFormInput(newTask)
+    onSubmit(newTask, false)
   }
 
   return (
@@ -142,7 +139,7 @@ const EditTaskForm = ({
             </Box>
           </Box>
         </Box>
-        {formInput.files && formInput.files.length > 0 && (
+        {/* {formInput.files && formInput.files.length > 0 && (
           <>
             <CenteredHeader title='files' />
             <S3FilesTable
@@ -155,36 +152,24 @@ const EditTaskForm = ({
               showTableHeader={false}
             />
           </>
-        )}
-
-        <Box py={2}>
-          <Stack direction='row' justifyContent='center' alignItems='center' spacing={1}>
-            <Button
-              size='small'
-              onClick={() => {
-                setShowConfirmDelete(true)
-              }}
-            >
-              <Delete color='error' />
-            </Button>
-            <PassiveButton text='cancel' size='small' onClick={handleCancelClick} />
-            <SecondaryButton text='save' type='submit' size='small' />
-          </Stack>
-        </Box>
+        )} */}
       </form>
+
       <Box py={2}>
-        <CenterStack>
-          <IconButton color='primary' size='small' onClick={() => setShowUpload(true)}>
-            <AttachFileIcon fontSize='small'></AttachFileIcon>
-          </IconButton>
-          <Typography variant='body2'>attach a file</Typography>
-        </CenterStack>
+        <Stack direction='row' justifyContent='center' alignItems='center' spacing={1}>
+          <Button
+            size='small'
+            onClick={() => {
+              setShowConfirmDelete(true)
+            }}
+          >
+            <Delete color='error' />
+          </Button>
+          <PassiveButton text='cancel' size='small' onClick={handleCancelClick} />
+          <SecondaryButton text='save' type='submit' size='small' />
+        </Stack>
       </Box>
-      {showUpload && (
-        <FormDialog show={showUpload} title='file upload' onCancel={() => setShowUpload(false)} fullScreen>
-          <S3FileUploadForm files={formInput.files ?? []} folder={folder} onUploaded={handleUploaded} />
-        </FormDialog>
-      )}
+      <S3ManageFiles displayName='note files' folderPath={folder} files={formInput.files} onFilesMutated={handleFileMutate} />
       <ConfirmDeleteDialog
         show={showConfirmDelete}
         title={'confirm delete'}

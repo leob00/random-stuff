@@ -1,4 +1,4 @@
-import { UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { S3Object, UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
 import EditNote from '../EditNote'
 import ViewNote from '../ViewNote'
 import { useState } from 'react'
@@ -11,14 +11,17 @@ import { constructUserNoteCategoryKey, constructUserNotePrimaryKey } from 'lib/b
 import { mutate } from 'swr'
 import dayjs from 'dayjs'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
+import { sortArray } from 'lib/util/collections'
+import { postBody, postDelete } from 'lib/backend/api/fetchFunctions'
+import { sleep } from 'lib/util/timers'
 
 const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: UserNote; isEdit: boolean; backRoute: string }) => {
   const router = useRouter()
-  const [showSavedToast, setShowSavedToast] = useState(false)
+  const [toastText, setToastText] = useState<string | null>(null)
   const [isWaiting, setIsWaiting] = useState(false)
   const [editMode, setEditMode] = useState(isEdit)
 
-  const { userProfile } = useProfileValidator()
+  const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
   const username = userProfile?.username ?? ''
 
   const handleCancel = () => {
@@ -33,7 +36,16 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
       return
     }
     setIsWaiting(true)
+    if (item.files) {
+      for (let f of item.files) {
+        await postDelete('/api/s3', f)
+        setToastText(`deleted file: ${f.filename}`)
+        await sleep(1000)
+      }
+    }
+
     await deleteRecord(item.id!)
+    setToastText(`deleted note: ${item.title}`)
     const titles = await getUserNoteTitles(username)
     const newTitles = titles.filter((m) => m.id !== item.id)
     await putUserNoteTitles(username, newTitles)
@@ -47,7 +59,6 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
       item.dateCreated = now
     }
     const category = constructUserNoteCategoryKey(username)
-    console.log(category)
     await putUserNote(item, category, item.expirationDate ? Math.floor(dayjs(item.expirationDate).valueOf() / 1000) : undefined)
     const titles = await getUserNoteTitles(username)
     const newTitles = titles.filter((m) => m.id !== item.id)
@@ -58,23 +69,38 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
       dateCreated: now,
       dateModified: now,
       expirationDate: item.expirationDate,
+      files: item.files,
     })
     await putUserNoteTitles(username, newTitles)
     mutate(id, item, { revalidate: false })
-    setShowSavedToast(true)
+    setToastText(`note saved: ${item.title}`)
+  }
+  const handleFilesChanged = async (files: S3Object[]) => {
+    const newFiles = sortArray(files, ['filename'], ['asc'])
+    const newNote = { ...data, files: newFiles }
+    await handleSaveNote(newNote)
   }
 
   return (
     <>
       {isWaiting && <BackdropLoader />}
-      <>
-        {<SnackbarSuccess show={showSavedToast} text='note saved!' onClose={() => setShowSavedToast(false)} />}
-        {editMode ? (
-          <EditNote item={data} onSubmitted={handleSaveNote} onCanceled={() => setEditMode(false)} />
-        ) : (
-          <ViewNote selectedNote={data} onCancel={handleCancel} onEdit={handleEditNote} onDelete={handleDelete} />
-        )}
-      </>
+      {!isValidatingProfile && userProfile && (
+        <>
+          {toastText && <SnackbarSuccess show={!!toastText} text={toastText} onClose={() => setToastText(null)} />}
+          {editMode ? (
+            <EditNote item={data} onSubmitted={handleSaveNote} onCanceled={() => setEditMode(false)} />
+          ) : (
+            <ViewNote
+              selectedNote={data}
+              onCancel={handleCancel}
+              onEdit={handleEditNote}
+              onDelete={handleDelete}
+              userProfile={userProfile}
+              onFilesChanged={handleFilesChanged}
+            />
+          )}
+        </>
+      )}
     </>
   )
 }
