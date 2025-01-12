@@ -22,6 +22,7 @@ const S3FileRow = ({
   onRename,
   onMovefile,
   showMoveFile = true,
+  showFileAttributes,
 }: {
   file: S3Object
   isEditEmode: boolean
@@ -31,6 +32,7 @@ const S3FileRow = ({
   onRename: (item: S3Object) => void
   onMovefile: (item: S3Object) => void
   showMoveFile?: boolean
+  showFileAttributes?: boolean
 }) => {
   return (
     <>
@@ -38,7 +40,13 @@ const S3FileRow = ({
         <Box px={1} py={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
           <FadeIn>
             <Typography>{file.filename.substring(0, file.filename.lastIndexOf('.'))}</Typography>
+            {showFileAttributes && file.size && (
+              <FadeIn>
+                <Typography variant='caption'>{`size: ${fileSizeDisplay(file.size)}`}</Typography>
+              </FadeIn>
+            )}
           </FadeIn>
+
           <FadeIn>
             <FileMenu item={file} showMoveFile={showMoveFile} onView={onViewFile} onDelete={onDelete} onRename={onRename} onMovefile={onMovefile} />
           </FadeIn>
@@ -58,7 +66,7 @@ const S3FileRow = ({
                 <Typography>{file.filename}</Typography>
               </FadeIn>
             </Box>
-            {file.size && (
+            {showFileAttributes && file.size && (
               <Box display={'flex'} justifyContent={'flex-end'}>
                 <FadeIn>
                   <Typography variant='caption' pl={2}>{`${fileSizeDisplay(file.size)}`}</Typography>

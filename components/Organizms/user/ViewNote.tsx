@@ -61,7 +61,7 @@ const ViewNote = ({
       fn: () => setShowConfirmDelete(true),
     },
   ]
-  const folder = `${userProfile!.username}/user-notes/${selectedNote.id}`
+  const folderPath = `${userProfile!.username}/user-notes/${selectedNote.id}`
 
   return (
     <>
@@ -76,13 +76,7 @@ const ViewNote = ({
               <HtmlView html={selectedNote.body} textAlign='left' />
             </Box>
           </ScrollableBox>
-          <HorizontalDivider />
-          <CenterStack>
-            <Typography variant='body2'>{`created: ${dayjs(selectedNote.dateCreated).format('MM/DD/YYYY hh:mm a')}`}</Typography>
-          </CenterStack>
-          <CenterStack sx={{ pt: 2 }}>
-            <Typography variant='body2'>{`updated: ${dayjs(selectedNote.dateModified).format('MM/DD/YYYY hh:mm a')}`}</Typography>
-          </CenterStack>
+
           {selectedNote.expirationDate && (
             <CenterStack>
               <Stack sx={{ py: 4 }} display={'flex'} direction={'row'} justifyItems={'center'}>
@@ -92,18 +86,25 @@ const ViewNote = ({
           )}
         </Box>
         {!selectedNote.expirationDate && (
-          <S3ManageFiles displayName='note files' folderPath={folder} files={selectedNote.files} onFilesMutated={onFilesChanged} />
+          <S3ManageFiles displayName='note files' folderPath={folderPath} files={selectedNote.files} onFilesMutated={onFilesChanged} />
         )}
-        <ConfirmDeleteDialog
-          show={showConfirmDelete}
-          title={'confirm delete'}
-          text={'Are you sure you want to delete this note?'}
-          onConfirm={handleYesDelete}
-          onCancel={() => {
-            setShowConfirmDelete(false)
-          }}
-        />
+        <HorizontalDivider />
+        <Box>
+          <Typography variant='caption'>{`created: ${dayjs(selectedNote.dateCreated).format('MM/DD/YYYY hh:mm a')}`}</Typography>
+        </Box>
+        <Box>
+          <Typography variant='caption'>{`updated: ${dayjs(selectedNote.dateModified).format('MM/DD/YYYY hh:mm a')}`}</Typography>
+        </Box>
       </FadeIn>
+      <ConfirmDeleteDialog
+        show={showConfirmDelete}
+        title={'confirm delete'}
+        text={'Are you sure you want to delete this note?'}
+        onConfirm={handleYesDelete}
+        onCancel={() => {
+          setShowConfirmDelete(false)
+        }}
+      />
     </>
   )
 }

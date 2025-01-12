@@ -12,7 +12,7 @@ import { mutate } from 'swr'
 import dayjs from 'dayjs'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import { sortArray } from 'lib/util/collections'
-import { postBody, postDelete } from 'lib/backend/api/fetchFunctions'
+import { postDelete } from 'lib/backend/api/fetchFunctions'
 import { sleep } from 'lib/util/timers'
 
 const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: UserNote; isEdit: boolean; backRoute: string }) => {
@@ -52,6 +52,7 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
     router.push(backRoute)
   }
   const handleSaveNote = async (item: UserNote) => {
+    setIsWaiting(true)
     const now = getUtcNow().format()
     item.dateModified = now
     if (!item.id) {
@@ -72,8 +73,16 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
       files: item.files,
     })
     await putUserNoteTitles(username, newTitles)
+    setIsWaiting(false)
     mutate(id, item, { revalidate: false })
     setToastText(`note saved: ${item.title}`)
+  }
+  const handleCancelEdit = () => {
+    if (data.title.length === 0) {
+      router.push(backRoute)
+    } else {
+      setEditMode(false)
+    }
   }
   const handleFilesChanged = async (files: S3Object[]) => {
     const newFiles = sortArray(files, ['filename'], ['asc'])
@@ -88,7 +97,7 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
         <>
           {toastText && <SnackbarSuccess show={!!toastText} text={toastText} onClose={() => setToastText(null)} />}
           {editMode ? (
-            <EditNote item={data} onSubmitted={handleSaveNote} onCanceled={() => setEditMode(false)} />
+            <EditNote item={data} onSubmitted={handleSaveNote} onCanceled={handleCancelEdit} />
           ) : (
             <ViewNote
               selectedNote={data}

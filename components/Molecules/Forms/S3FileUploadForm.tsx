@@ -99,12 +99,13 @@ const S3FileUploadForm = ({
           const result = { ...respData, fullPath: newPath, prefix: newPath.substring(0, newPath.lastIndexOf('/') + 1) }
           onUploaded(result)
         }
-        setIsLoading(false)
         setUserFilename('')
         setFile(undefined)
       } catch (err) {
         setError('Oops! Encountered an error. Please try again')
         setFile(undefined)
+      } finally {
+        setIsLoading(false)
       }
     } else {
       setError('Please select a file!')

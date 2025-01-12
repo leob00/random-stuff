@@ -23,6 +23,7 @@ const S3FilesTable = ({
   onLocalDataMutate,
   showTableHeader = true,
   allowMoveFile,
+  showFileAttributes,
 }: {
   s3Controller: S3Controller
   data: S3Object[]
@@ -32,6 +33,7 @@ const S3FilesTable = ({
   onLocalDataMutate: (folder: DropdownItem, files: S3Object[]) => void
   showTableHeader?: boolean
   allowMoveFile: boolean
+  showFileAttributes?: boolean
 }) => {
   const [isWaiting, setIsWaiting] = useState(false)
   const [searchWithinList, setSearchWithinList] = useState('')
@@ -222,6 +224,7 @@ const S3FilesTable = ({
               onRename={handleOnRename}
               onMovefile={handleMoveSingleFile}
               showMoveFile={allowMoveFile}
+              showFileAttributes={showFileAttributes}
             />
           </FadeIn>
         </Box>

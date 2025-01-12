@@ -2,25 +2,28 @@ import { Alert, Box, Link, Stack, Typography } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
-import React from 'react'
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload'
+import { useRef } from 'react'
 
 const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string; filename: string; onCancel: () => void }) => {
-  const signedUrlRef = React.useRef<HTMLAnchorElement | null>(null)
+  const signedUrlRef = useRef<HTMLAnchorElement | null>(null)
   const previewImageExtenstions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.svg', '.webp']
+  const previewVideoExtenstions = ['.mpeg', '.mp4']
+  const previewAudioExtenstions = ['.mp3']
   const ext = filename.substring(filename.lastIndexOf('.')).toLowerCase()
-  const isAudio = ext.includes('.mp3')
+  const isVideo = previewVideoExtenstions.includes(ext)
+  const isAudio = previewAudioExtenstions.includes(ext)
   const isImage = previewImageExtenstions.includes(ext)
   return (
     <FormDialog title='View file' show={true} onCancel={onCancel} fullScreen>
       <>
         <Stack>
           <Stack py={2} flexDirection={'row'} justifyContent={'center'}>
-            <Alert color='success'>
+            {/* <Alert color='success'>
               <Typography variant='caption' textAlign={'center'}>
                 This secure link will expire in a few minutes.
               </Typography>
-            </Alert>
+            </Alert> */}
           </Stack>
         </Stack>
         <CenterStack sx={{ py: 2 }}>{filename}</CenterStack>
@@ -36,6 +39,16 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
                 <source src={signedUrl} type='audio/ogg' />
                 Your browser does not support the audio element.
               </audio>
+            </Box>{' '}
+          </CenterStack>
+        )}
+        {isVideo && (
+          <CenterStack sx={{ pt: 2 }}>
+            <Box>
+              <video controls width='250'>
+                <source src={signedUrl} type='video/webm' />
+                Your browser does not support the video element.
+              </video>
             </Box>{' '}
           </CenterStack>
         )}

@@ -17,6 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const response = await getS3ObjectPresignedUrl(postArgs.bucket, postArgs.fullPath, postArgs.expiration!)
     return res.status(200).json(response)
   }
+  // list objects
   if (req.method === 'GET') {
     const getArgs: Arg = {
       bucket: String(req.query['bucket']) as Bucket,
@@ -27,6 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const response = await listS3Objects(getArgs.bucket, getArgs.prefix)
     return res.status(200).json(response)
   }
+  // delete file
   if (req.method === 'DELETE') {
     const deleteArgs: Arg = {
       bucket: String(req.query['bucket']) as Bucket,
@@ -38,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const response = await deleteS3Object(deleteArgs.bucket, deleteArgs.fullPath)
     return res.status(202).json(response)
   }
-
+  // rename file
   if (req.method === 'PATCH') {
     const patchArgs = req.body
     const response = await renameS3Object(patchArgs.bucket, patchArgs.oldPath, patchArgs.newPath)

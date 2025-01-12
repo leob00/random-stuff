@@ -21,7 +21,6 @@ export async function getS3ObjectPresignedUrlForWrite(bucket: string, fullPath: 
   try {
     const body = { bucket: bucket, fullPath: fullPath, contentType: contentType, expiration: expirationInSeconds }
     const result = await post(url, body)
-    //console.log(result.body)
     return JSON.parse(result.body) as PresignedUrlPost
   } catch (err) {
     console.error('error occurred in presignedurl: ', err)

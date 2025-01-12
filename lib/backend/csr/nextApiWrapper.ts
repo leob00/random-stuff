@@ -467,7 +467,7 @@ export async function getS3File(bucketName: Bucket, prefix: string, fileName: st
   return result
 }
 
-export async function getPresignedUrl(bucket: Bucket, fullPath: string, expiration: number = 600) {
+export async function getPresignedUrl(bucket: Bucket, fullPath: string, expiration: number = 3600) {
   const params = { bucket: bucket, fullPath: fullPath, expiration: expiration }
   const url = JSON.parse(await postBody(`/api/s3`, 'POST', params)) as string
   return url

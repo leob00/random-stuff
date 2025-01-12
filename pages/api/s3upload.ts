@@ -27,6 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           return res.status(200).json(resp)
         }
       }
+      console.error(`failed to put object to S3! Body: ${req.body}`)
       return res.status(500).json({ message: `failed to put object to S3` })
     } catch (err) {
       console.error('error in upload file: ', err)
