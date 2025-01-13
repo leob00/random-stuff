@@ -13,6 +13,7 @@ import { useUserController } from 'hooks/userController'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { useState } from 'react'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
+import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 
 const S3FilesTable = ({
   s3Controller,
@@ -64,8 +65,9 @@ const S3FilesTable = ({
     if (uiState.itemToDelete) {
       const item = { ...uiState.itemToDelete }
       setIsWaiting(true)
-      dispatch({ type: 'reset', payload: uiDefaultState })
+
       await postDelete('/api/s3', item)
+      dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: `deleting file: ${item.filename}` } })
       setIsWaiting(false)
       onLocalDataMutate(
         folder,
@@ -243,6 +245,15 @@ const S3FilesTable = ({
         onSelectTargetFolder={handleSelectTargetFolder}
         onMoveItemsToFolder={handleMoveItemsToFolder}
       />
+      {uiState.snackbarSuccessMessage && (
+        <SnackbarSuccess
+          show={!!uiState.snackbarSuccessMessage}
+          text={uiState.snackbarSuccessMessage}
+          onClose={() => {
+            dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: null } })
+          }}
+        />
+      )}
     </>
   )
 }

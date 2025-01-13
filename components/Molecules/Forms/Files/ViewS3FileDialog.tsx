@@ -1,4 +1,4 @@
-import { Alert, Box, Link, Stack, Typography } from '@mui/material'
+import { Alert, Box, Link, Stack } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
@@ -8,8 +8,8 @@ import { useRef } from 'react'
 const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string; filename: string; onCancel: () => void }) => {
   const signedUrlRef = useRef<HTMLAnchorElement | null>(null)
   const previewImageExtenstions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.svg', '.webp']
-  const previewVideoExtenstions = ['.mpeg', '.mp4']
-  const previewAudioExtenstions = ['.mp3']
+  const previewVideoExtenstions = ['.mpeg']
+  const previewAudioExtenstions = ['.mp3', 'mp4', '.m4a']
   const ext = filename.substring(filename.lastIndexOf('.')).toLowerCase()
   const isVideo = previewVideoExtenstions.includes(ext)
   const isAudio = previewAudioExtenstions.includes(ext)
@@ -17,15 +17,6 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
   return (
     <FormDialog title='View file' show={true} onCancel={onCancel} fullScreen>
       <>
-        <Stack>
-          <Stack py={2} flexDirection={'row'} justifyContent={'center'}>
-            {/* <Alert color='success'>
-              <Typography variant='caption' textAlign={'center'}>
-                This secure link will expire in a few minutes.
-              </Typography>
-            </Alert> */}
-          </Stack>
-        </Stack>
         <CenterStack sx={{ py: 2 }}>{filename}</CenterStack>
         <CenterStack sx={{ py: 2 }}>
           <Link rel='noreferrer' ref={signedUrlRef} href={signedUrl} target={'_blank'}>

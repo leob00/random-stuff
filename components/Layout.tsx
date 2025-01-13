@@ -7,7 +7,7 @@ import { Analytics } from '@vercel/analytics/react'
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <Analytics />
+      {/* <Analytics /> */}
       <Box>
         <RouteTracker>
           <Container sx={{ marginTop: 2, minHeight: 760, paddingBottom: 4 }}>{children}</Container>

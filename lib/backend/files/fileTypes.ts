@@ -1,6 +1,8 @@
 type VideoTypes = 'audio/mp3' | 'video/mp4' | 'video/mpeg'
 type ImageTypes = 'image/avif' | 'image/gif' | 'image/jpeg' | 'image/png' | 'image/svg+xml' | 'image/webp'
 type SuportedFileTypes =
+  | 'audio/m4a'
+  | 'audio/mp4'
   | 'audio/mp3'
   | 'application/pdf'
   | 'application/msword'
@@ -22,6 +24,8 @@ const imageTypes: ImageTypes[] = ['image/avif', 'image/gif', 'image/jpeg', 'imag
 
 const supportedFileTypes: SuportedFileTypes[] = [
   'audio/mp3',
+  'audio/m4a',
+  'audio/mp4',
   'application/pdf',
   'application/msword',
   'application/vnd.ms-powerpoint',

@@ -26,6 +26,8 @@ export const VisuallyHiddenInput = styled('input')({
 
 export const mediaTypes = [
   'audio/mp3',
+  'audio/m4a',
+  'audio/mp4',
   'application/pdf',
   'application/msword',
   'application/vnd.ms-powerpoint',
