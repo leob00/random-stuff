@@ -80,12 +80,13 @@ const S3FileUploadForm = ({
       data.append('file', file)
       data.append('userFilename', userFilename)
       data.append('prefix', folder)
-      setError(null)
-      const resp = await fetch('/api/s3upload', {
-        method: 'POST',
-        body: data,
-      })
       try {
+        setError(null)
+        const resp = await fetch('/api/s3upload', {
+          method: 'POST',
+          body: data,
+        })
+
         const respData = (await resp.json()) as S3Object
         if (respData.message) {
           setError(respData.message)
@@ -95,13 +96,19 @@ const S3FileUploadForm = ({
         const oldPath = respData.fullPath
         const newPath = `${folder}${respData.fullPath.substring(respData.fullPath.lastIndexOf('/'))}`
         const renameResp = await renameS3File(respData.bucket, oldPath, newPath)
+        if (renameResp.errorMessage) {
+          setError('Upload failed. Please try again')
+          return
+        }
         if (renameResp.statusCode === 200) {
           const result = { ...respData, fullPath: newPath, prefix: newPath.substring(0, newPath.lastIndexOf('/') + 1) }
           onUploaded(result)
         }
+
         setUserFilename('')
         setFile(undefined)
       } catch (err) {
+        console.error(err)
         setError('Oops! Encountered an error. Please try again')
         setFile(undefined)
       } finally {

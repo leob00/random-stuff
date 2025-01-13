@@ -10048,7 +10048,7 @@
     "Symbol": "CZWI"
   },
   {
-    "Company": "Dominion Energy, Inc Common Stock",
+    "Company": "Dominion Energy, Inc.",
     "Symbol": "D"
   },
   {
@@ -10316,7 +10316,7 @@
     "Symbol": "DDC"
   },
   {
-    "Company": "3D Systems Corporation",
+    "Company": "3D Systems Corp",
     "Symbol": "DDD"
   },
   {
@@ -14292,7 +14292,7 @@
     "Symbol": "FBLG"
   },
   {
-    "Company": "The First Bancshares, Inc.",
+    "Company": "First Bancshares, Inc.",
     "Symbol": "FBMS"
   },
   {
@@ -18508,11 +18508,11 @@
     "Symbol": "GTLS"
   },
   {
-    "Company": "Gray Television, Inc.",
+    "Company": "Gray Media, Inc.",
     "Symbol": "GTN"
   },
   {
-    "Company": "Gray Television, Inc. Class A",
+    "Company": "Gray Media, Inc. Class A",
     "Symbol": "GTN.A"
   },
   {
@@ -19092,7 +19092,7 @@
     "Symbol": "HFWA"
   },
   {
-    "Company": "NYLI FTSE International Equity Currency Neutral ETF",
+    "Company": "IQ FTSE International Equity Currency Neutral ETF",
     "Symbol": "HFXI"
   },
   {
@@ -19972,7 +19972,7 @@
     "Symbol": "HXL"
   },
   {
-    "Company": "Hyster-Yale, Inc.",
+    "Company": "HYSTER-YALE MATERIALS HANDLING, INC",
     "Symbol": "HY"
   },
   {
@@ -20620,7 +20620,7 @@
     "Symbol": "ICOW"
   },
   {
-    "Company": "iShares Ultra Short-Term Bond Active ETF",
+    "Company": "BlackRock Ultra Short-Term Bond ETF",
     "Symbol": "ICSH"
   },
   {
@@ -22996,7 +22996,7 @@
     "Symbol": "JMBS"
   },
   {
-    "Company": "JPMorgan Small & Mid Cap Enhanced Equity ETF",
+    "Company": "JPMorgan Market Expansion Enhanced Equity ETF",
     "Symbol": "JMEE"
   },
   {
@@ -25668,7 +25668,7 @@
     "Symbol": "LUMO"
   },
   {
-    "Company": "Luna Innovations Incorporated",
+    "Company": "LUNA INNOVATIONS INC",
     "Symbol": "LUNA"
   },
   {
@@ -26880,6 +26880,10 @@
     "Symbol": "MILN"
   },
   {
+    "Company": "Mint Incorporation Limited Class A Ordinary Shares",
+    "Symbol": "MIMI"
+  },
+  {
     "Company": "MFS Intermediate Income Trust",
     "Symbol": "MIN"
   },
@@ -27212,7 +27216,7 @@
     "Symbol": "MMYT"
   },
   {
-    "Company": "NYLI Merger Arbitrage ETF",
+    "Company": "IQ ARB Merger Arbitrage ETF",
     "Symbol": "MNA"
   },
   {
@@ -33856,7 +33860,7 @@
     "Symbol": "QABA"
   },
   {
-    "Company": "NYLI Hedge Multi-Strategy Tracker ETF",
+    "Company": "IQ Hedge Multi-Strategy Tracker ETF",
     "Symbol": "QAI"
   },
   {
@@ -36480,7 +36484,7 @@
     "Symbol": "SBS"
   },
   {
-    "Company": "Southside Bancshares, Inc.",
+    "Company": "Southside Bancshares Inc",
     "Symbol": "SBSI"
   },
   {
@@ -37688,7 +37692,7 @@
     "Symbol": "SKIN"
   },
   {
-    "Company": "SKK Holdings Limited Common Stock",
+    "Company": "SKK Holdings Limited Ordinary Shares",
     "Symbol": "SKK"
   },
   {
@@ -37720,7 +37724,7 @@
     "Symbol": "SKX"
   },
   {
-    "Company": "Champion Homes, Inc.",
+    "Company": "Skyline Champion Corporation Common Stock",
     "Symbol": "SKY"
   },
   {
