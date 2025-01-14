@@ -23,6 +23,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
   const [showExpForm, setShowExpForm] = useState(false)
   const [editedExpDate, setEditedExpDate] = useState<string | undefined>(item.expirationDate)
   const [showFileDeleteWarning, setShowFileDeleteWarning] = useState(false)
+  const [isEditingText, setIsEditingText] = useState(false)
 
   const handleCancel = () => {
     onCanceled?.()
@@ -164,7 +165,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
               </CenterStack>
               <CenterStack sx={{ width: { xs: '100%' } }}>
                 <TextField
-                  slotProps={{ htmlInput: { maxLength: 12 } }}
+                  slotProps={{ htmlInput: { maxLength: 100 } }}
                   fullWidth
                   inputRef={title}
                   defaultValue={item.title}
@@ -177,9 +178,35 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
                   sx={{ color: 'secondary' }}
                 />
               </CenterStack>
-              <CenterStack sx={{ py: 2, minHeight: 500, width: { xs: '100%' } }}>
-                <HtmlEditorQuill value={bodyText} onChanged={handleBodyChange} />
-              </CenterStack>
+              <Box sx={{ py: 2, minHeight: 500, width: { xs: '100%' } }}>
+                {!isEditingText ? (
+                  <HtmlEditorQuill value={bodyText} onChanged={handleBodyChange} />
+                ) : (
+                  <Box>
+                    <TextField
+                      label='notes'
+                      placeholder='notes...'
+                      rows={14}
+                      multiline
+                      sx={{ width: '100%' }}
+                      value={bodyText}
+                      onChange={(event) => {
+                        handleBodyChange(event.target.value)
+                      }}
+                      slotProps={{
+                        input: {
+                          autoCorrect: 'off',
+                        },
+                      }}
+                    />
+                  </Box>
+                )}
+              </Box>
+              <Box>
+                <Button onClick={() => setIsEditingText(!isEditingText)}>
+                  <Typography variant='body2'>{isEditingText ? 'edit html' : 'edit raw text'}</Typography>
+                </Button>
+              </Box>
               <Box>
                 <CenterStack sx={{ py: 2, gap: 2 }}>
                   <SecondaryButton onClick={handleSave} text='save' sx={{ ml: 3 }} size='small' width={70} />

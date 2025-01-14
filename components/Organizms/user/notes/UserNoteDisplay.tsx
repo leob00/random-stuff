@@ -53,6 +53,7 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
   }
   const handleSaveNote = async (item: UserNote) => {
     setIsWaiting(true)
+    setToastText(`saving note: ${item.title}`)
     const now = getUtcNow().format()
     item.dateModified = now
     if (!item.id) {
@@ -74,8 +75,8 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
     })
     await putUserNoteTitles(username, newTitles)
     setIsWaiting(false)
+    setToastText(`saved note: ${item.title}`)
     mutate(id, item, { revalidate: false })
-    setToastText(`note saved: ${item.title}`)
   }
   const handleCancelEdit = () => {
     if (data.title.length === 0) {
