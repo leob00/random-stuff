@@ -11,6 +11,8 @@ import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import FileUploadButton from 'components/Atoms/Buttons/FileUploadButton'
 import { allSupportedFileTypes } from 'lib/backend/files/fileTypes'
 import { FormEvent, useState } from 'react'
+import ModalProgress from 'components/Atoms/Loaders/ModalProgress'
+import { sleep } from 'lib/util/timers'
 
 export const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -27,7 +29,6 @@ export const VisuallyHiddenInput = styled('input')({
 export const mediaTypes = [
   'audio/mp3',
   'audio/m4a',
-  'audio/mp4',
   'application/pdf',
   'application/msword',
   'application/vnd.ms-powerpoint',
@@ -48,6 +49,12 @@ export const mediaTypes = [
 
 export const allowed = mediaTypes.join()
 
+type FileProgress = {
+  show: boolean
+  progress: number
+  message?: string
+}
+
 const S3FileUploadForm = ({
   folder,
   files,
@@ -64,16 +71,22 @@ const S3FileUploadForm = ({
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [warning, setWarning] = useState<string | null>(null)
+  const [fileProgress, setFileProgress] = useState<FileProgress | null>(null)
 
   const maxFileSize = 10000000
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setWarning(null)
+    const progress: FileProgress = {
+      progress: 50,
+      show: true,
+      message: 'uploading...',
+    }
+
     if (file) {
       if (file.size > maxFileSize) {
         setError(`file cannot exceed ${maxFileSize / 1000000} MB`)
-
         return
       }
       setIsLoading(true)
@@ -90,21 +103,29 @@ const S3FileUploadForm = ({
         })
 
         const respData = (await resp.json()) as S3Object
+
         if (respData.message) {
           setError(respData.message)
           return
         }
 
+        setFileProgress(progress)
         const oldPath = respData.fullPath
         const newPath = `${folder}${respData.fullPath.substring(respData.fullPath.lastIndexOf('/'))}`
         const renameResp = await renameS3File(respData.bucket, oldPath, newPath)
         if (renameResp.errorMessage) {
           setError('Upload failed. Please try again')
+          setFileProgress(null)
           return
         }
         if (renameResp.statusCode === 200) {
           const result = { ...respData, fullPath: newPath, prefix: newPath.substring(0, newPath.lastIndexOf('/') + 1) }
+          progress.progress = 100
+          progress.message = 'uploaded'
           onUploaded(result)
+          setFileProgress(progress)
+          await sleep(500)
+          setFileProgress(null)
         }
 
         setUserFilename('')
@@ -163,6 +184,7 @@ const S3FileUploadForm = ({
           {error && <ErrorMessage text={error} />}
         </>
       </form>
+      {fileProgress && <ModalProgress isOpen={!!fileProgress} progressPercent={fileProgress.progress} message={fileProgress.message} />}
     </>
   )
 }

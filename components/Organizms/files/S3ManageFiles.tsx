@@ -72,7 +72,7 @@ const S3ManageFiles = ({
           />
         </>
       )}
-      <Box py={2}>
+      <Box py={2} display={'flex'} justifyContent={'center'} alignContent={'center'}>
         <S3AttachFileButton onClicked={() => setShowUpload(true)} />
       </Box>
       {showUpload && (

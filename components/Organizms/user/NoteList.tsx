@@ -1,5 +1,5 @@
 import Warning from '@mui/icons-material/Warning'
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Button, Stack, Typography } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
@@ -71,19 +71,24 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
                 <Box>
                   <Stack direction='row' py={2}>
                     <Box pt={1}>
-                      <Clickable
-                        onClicked={() => {
+                      <Button
+                        fullWidth
+                        onClick={() => {
                           handleNoteTitleClick(item)
                         }}
                       >
-                        <Typography variant='body1'>{item.title}</Typography>
-                      </Clickable>
+                        <Typography variant='h5'>{item.title}</Typography>
+                      </Button>
                       {item.files && item.files.length > 0 && (
                         <Box display={'flex'} gap={1} alignItems={'center'}>
-                          <Typography variant='body2' pt={1}>
-                            <AttachFileIcon fontSize='inherit' />
-                          </Typography>
-                          <Typography variant='caption'>{`files: ${item.files.length}`}</Typography>
+                          <Box>
+                            <Typography variant='body2' pt={1} pl={1}>
+                              <AttachFileIcon fontSize='inherit' />
+                            </Typography>
+                          </Box>
+                          <Box>
+                            <Typography variant='caption'>{`files: ${item.files.length}`}</Typography>
+                          </Box>
                         </Box>
                       )}
                     </Box>

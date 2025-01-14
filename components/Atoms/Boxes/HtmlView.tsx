@@ -1,11 +1,11 @@
 import React from 'react'
 import { useMediaQuery, Box, useTheme, styled } from '@mui/material'
-import { CasinoBlue, DarkBlue } from 'components/themes/mainTheme'
+import { CasinoBlue, DarkBlue, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'left' | 'center' | 'right' }) => {
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const darkColor = theme.palette.mode === 'dark' ? '#90caf9' : DarkBlue
-  const color = theme.palette.mode === 'dark' ? '#90caf9' : CasinoBlue
+  //const color = theme.palette.mode === 'dark' ? '#90caf9' : CasinoBlue
   const text = html.replaceAll('font color="#6f6f6f"', `font color="${darkColor}"`)
 
   const StyledBox = styled(Box)(() => ({
@@ -17,9 +17,9 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
     },
     //div: { backgroundColor: 'unset' },
     //font: color,
-    color: color,
-    a: { color: color },
-    p: { color: color, fontSize: 18 },
+    color: theme.palette.primary.main,
+    a: { color: theme.palette.primary.main },
+    p: { color: theme.palette.primary.main, fontSize: 20 },
   }))
 
   return (
@@ -32,8 +32,9 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
           justifyItems={textAlign}
           sx={{
             borderRadius: '16px',
+            //border: `solid ${theme.palette.primary.main} 1px`,
             padding: 2,
-            maxWidth: { xs: '95%', md: '98%' },
+            width: { xs: '100%', md: '98%' },
             display: 'inline-block',
             // wordWrap: 'break-word',
             //color: color,
@@ -41,7 +42,7 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
             //backgroundColor: 'white',
           }}
           //variant='body1'
-          color='primary'
+          //color='primary'
           dangerouslySetInnerHTML={{ __html: text }}
         ></StyledBox>
       ) : (

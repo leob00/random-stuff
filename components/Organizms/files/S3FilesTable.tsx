@@ -65,9 +65,9 @@ const S3FilesTable = ({
     if (uiState.itemToDelete) {
       const item = { ...uiState.itemToDelete }
       setIsWaiting(true)
-
-      await postDelete('/api/s3', item)
       dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: `deleting file: ${item.filename}` } })
+      await postDelete('/api/s3', item)
+      dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: null } })
       setIsWaiting(false)
       onLocalDataMutate(
         folder,

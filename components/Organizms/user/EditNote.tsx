@@ -13,11 +13,9 @@ import HtmlEditorQuill from '../../Atoms/Inputs/HtmlEditorQuill'
 import { DropdownItem } from 'lib/models/dropdown'
 import { useRef, useState } from 'react'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
-import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import StopWarningDialog from 'components/Atoms/Dialogs/StopWarningDialog'
-import DangerButton from 'components/Atoms/Buttons/DangerButton'
 
-const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCanceled?: () => void; onSubmitted?: (note: UserNote) => void }) => {
+const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCanceled?: () => void; onSubmitted: (note: UserNote) => void }) => {
   const title = useRef<HTMLInputElement | null>(null)
   const [note, setNote] = useState(item)
   const [bodyText, setBodyText] = useState(item.body)
@@ -39,7 +37,10 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
     noteCopy.title = title.current ? title.current.value : ''
     noteCopy.body = bodyText.replace('<br>', '')
     noteCopy.body = noteCopy.body.replace('<p class="ql-align-justify"></p>', '<p>')
-    onSubmitted?.(noteCopy)
+    if (!noteCopy.dateCreated) {
+      noteCopy.dateCreated = dayjs().format()
+    }
+    onSubmitted(noteCopy)
   }
 
   const handleTitleChange = () => {
@@ -176,7 +177,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
                   sx={{ color: 'secondary' }}
                 />
               </CenterStack>
-              <CenterStack sx={{ py: 2, minHeight: 480, width: { xs: '100%' } }}>
+              <CenterStack sx={{ py: 2, minHeight: 500, width: { xs: '100%' } }}>
                 <HtmlEditorQuill value={bodyText} onChanged={handleBodyChange} />
               </CenterStack>
               <Box>

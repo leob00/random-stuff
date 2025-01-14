@@ -84,16 +84,6 @@ const EditTaskForm = ({
     setFormInput({ ...formInput, notes: event.target.value })
   }
 
-  const handleUploaded = (file: S3Object) => {
-    const newFiles = formInput.files ?? []
-    newFiles.push(file)
-    const newTask = { ...formInput, files: sortArray(newFiles, ['filename'], ['asc']) }
-    setFormInput(newTask)
-    onSubmit(newTask, false)
-  }
-
-  const handleReloadFolder = async (f: DropdownItem) => {}
-
   const handleFileMutate = (files: S3Object[]) => {
     const newTask = { ...formInput, files: sortArray(files, ['filename'], ['asc']) }
     setFormInput(newTask)
@@ -109,18 +99,10 @@ const EditTaskForm = ({
               <FormTextBox width={'100%'} defaultValue={formInput.body ?? ''} label={'task'} onChanged={handleTitleChanged} error={!valid} />
             </Box>
             <Box py={2}>
-              <DateAndTimePicker2
-                value={formInput.dueDate ? dayjs(formInput.dueDate).format() : undefined}
-                onDateSelected={handleDueDateChange}
-                label={'due date'}
-              />
+              <DateAndTimePicker2 value={formInput.dueDate} onDateSelected={handleDueDateChange} label={'due date'} />
             </Box>
             <Box py={2}>
-              <DateAndTimePicker2
-                value={formInput.dateCompleted ? dayjs(formInput.dueDate).format() : undefined}
-                onDateSelected={handleDateCompletedChange}
-                label={'completed date'}
-              />
+              <DateAndTimePicker2 value={formInput.dateCompleted} onDateSelected={handleDateCompletedChange} label={'completed date'} />
             </Box>
             <Box py={2}>
               <TextField
@@ -139,36 +121,22 @@ const EditTaskForm = ({
             </Box>
           </Box>
         </Box>
-        {/* {formInput.files && formInput.files.length > 0 && (
-          <>
-            <CenteredHeader title='files' />
-            <S3FilesTable
-              allFolders={allFolders}
-              folder={{ text: 'tasks-folder', value: folder }}
-              data={formInput.files ?? []}
-              s3Controller={s3Controller}
-              onLocalDataMutate={handleFileMutate}
-              onReloadFolder={handleReloadFolder}
-              showTableHeader={false}
-            />
-          </>
-        )} */}
-      </form>
 
-      <Box py={2}>
-        <Stack direction='row' justifyContent='center' alignItems='center' spacing={1}>
-          <Button
-            size='small'
-            onClick={() => {
-              setShowConfirmDelete(true)
-            }}
-          >
-            <Delete color='error' />
-          </Button>
-          <PassiveButton text='cancel' size='small' onClick={handleCancelClick} />
-          <SecondaryButton text='save' type='submit' size='small' />
-        </Stack>
-      </Box>
+        <Box py={2}>
+          <Stack direction='row' justifyContent='center' alignItems='center' spacing={1}>
+            <Button
+              size='small'
+              onClick={() => {
+                setShowConfirmDelete(true)
+              }}
+            >
+              <Delete color='error' />
+            </Button>
+            <PassiveButton text='cancel' size='small' onClick={handleCancelClick} />
+            <SecondaryButton text='save' type='submit' size='small' />
+          </Stack>
+        </Box>
+      </form>
       <S3ManageFiles displayName='note files' folderPath={folder} files={formInput.files} onFilesMutated={handleFileMutate} />
       <ConfirmDeleteDialog
         show={showConfirmDelete}

@@ -71,12 +71,9 @@ const ViewNote = ({
           <Box display={'flex'} justifyContent={'flex-end'}>
             <ContextMenu items={menu} />
           </Box>
-          <ScrollableBox>
-            <Box>
-              <HtmlView html={selectedNote.body} textAlign='left' />
-            </Box>
+          <ScrollableBox maxHeight={500}>
+            <HtmlView html={selectedNote.body} textAlign='left' />
           </ScrollableBox>
-
           {selectedNote.expirationDate && (
             <CenterStack>
               <Stack sx={{ py: 4 }} display={'flex'} direction={'row'} justifyItems={'center'}>
@@ -89,12 +86,16 @@ const ViewNote = ({
           <S3ManageFiles displayName='note files' folderPath={folderPath} files={selectedNote.files} onFilesMutated={onFilesChanged} />
         )}
         <HorizontalDivider />
-        <Box>
-          <Typography variant='caption'>{`created: ${dayjs(selectedNote.dateCreated).format('MM/DD/YYYY hh:mm a')}`}</Typography>
-        </Box>
-        <Box>
-          <Typography variant='caption'>{`updated: ${dayjs(selectedNote.dateModified).format('MM/DD/YYYY hh:mm a')}`}</Typography>
-        </Box>
+        {selectedNote.dateCreated && (
+          <Box>
+            <Typography variant='caption'>{`created: ${dayjs(selectedNote.dateCreated).format('MM/DD/YYYY hh:mm a')}`}</Typography>
+          </Box>
+        )}
+        {selectedNote.dateModified && (
+          <Box>
+            <Typography variant='caption'>{`updated: ${dayjs(selectedNote.dateModified).format('MM/DD/YYYY hh:mm a')}`}</Typography>
+          </Box>
+        )}
       </FadeIn>
       <ConfirmDeleteDialog
         show={showConfirmDelete}

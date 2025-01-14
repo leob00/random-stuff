@@ -55,10 +55,10 @@ export const ErrorRed = '#ce250ec7'
 const lightPalette: PaletteOptions = {
   mode: 'light',
   primary: {
-    main: DarkModeBlueTransparent,
+    main: DarkModeBkg,
   },
   secondary: {
-    main: CasinoBlue,
+    main: DarkBlue,
   },
   error: {
     main: CasinoDarkRedTransparent,

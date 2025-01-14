@@ -1,5 +1,5 @@
 import AttachFileIcon from '@mui/icons-material/AttachFile'
-import { IconButton, Typography } from '@mui/material'
+import { Button, IconButton, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 const S3AttachFileButton = ({ onClicked }: { onClicked: () => void }) => {
   return (
@@ -7,7 +7,9 @@ const S3AttachFileButton = ({ onClicked }: { onClicked: () => void }) => {
       <IconButton color='primary' size='small' onClick={onClicked}>
         <AttachFileIcon fontSize='small'></AttachFileIcon>
       </IconButton>
-      <Typography variant='body2'>attach a file</Typography>
+      <Button onClick={onClicked}>
+        <Typography variant='body2'>attach a file</Typography>
+      </Button>
     </CenterStack>
   )
 }
