@@ -14,6 +14,8 @@ import { DropdownItem } from 'lib/models/dropdown'
 import { useRef, useState } from 'react'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import StopWarningDialog from 'components/Atoms/Dialogs/StopWarningDialog'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 
 const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCanceled?: () => void; onSubmitted: (note: UserNote) => void }) => {
   const title = useRef<HTMLInputElement | null>(null)
@@ -134,8 +136,8 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
           <FadeIn>
             <Box>
               <CenterStack sx={{ py: 2, gap: 2 }}>
-                <SecondaryButton onClick={handleSave} text='save' sx={{ ml: 3 }} size='small' width={70} />
-                <PassiveButton text={'close'} onClick={handleCancel} size='small' width={70} />
+                <SuccessButton onClick={handleSave} text='save' sx={{ ml: 3 }} size='small' />
+                <PassiveButton text={'close'} onClick={handleCancel} size='small' />
               </CenterStack>
             </Box>
             <FormDialog show={showExpForm} onCancel={handleCancelExp} title='Set expiration' onSave={handleSaveExp}>
@@ -209,8 +211,8 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
               </Box>
               <Box>
                 <CenterStack sx={{ py: 2, gap: 2 }}>
-                  <SecondaryButton onClick={handleSave} text='save' sx={{ ml: 3 }} size='small' width={70} />
-                  <PassiveButton text={'close'} onClick={handleCancel} size='small' width={70} />
+                  <SuccessButton onClick={handleSave} text='save' sx={{ ml: 3 }} size='small' />
+                  <PassiveButton text={'close'} onClick={handleCancel} size='small' />
                 </CenterStack>
               </Box>
             </Box>

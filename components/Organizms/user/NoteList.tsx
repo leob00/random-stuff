@@ -16,12 +16,13 @@ import { DropdownItem, mapDropdownItems } from 'lib/models/dropdown'
 import { getExpirationText, getUtcNow } from 'lib/util/dateUtil'
 import { useState } from 'react'
 import AttachFileIcon from '@mui/icons-material/AttachFile'
+import { sortArray } from 'lib/util/collections'
 
 const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked: (item: UserNote) => void; onAddNote: () => void }) => {
   const scroller = useScrollTop(0)
   const [searchText, setSearchText] = useState('')
   const pageSize = 10
-  const notesSearch = mapDropdownItems(data, 'title', 'id')
+  const notesSearch = sortArray(mapDropdownItems(data, 'title', 'id'), ['text'], ['asc'])
 
   const filterResults = () => {
     if (searchText.length > 0) {
