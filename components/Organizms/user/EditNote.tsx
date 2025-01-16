@@ -16,6 +16,7 @@ import FadeIn from 'components/Atoms/Animations/FadeIn'
 import StopWarningDialog from 'components/Atoms/Dialogs/StopWarningDialog'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
+import EditNoteButtons from './notes/EditNoteButtons'
 
 const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCanceled?: () => void; onSubmitted: (note: UserNote) => void }) => {
   const title = useRef<HTMLInputElement | null>(null)
@@ -25,7 +26,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
   const [showExpForm, setShowExpForm] = useState(false)
   const [editedExpDate, setEditedExpDate] = useState<string | undefined>(item.expirationDate)
   const [showFileDeleteWarning, setShowFileDeleteWarning] = useState(false)
-  const [isEditingText, setIsEditingText] = useState(false)
+  const [isEditingText, setIsEditingText] = useState(item.body.length === 0)
 
   const handleCancel = () => {
     onCanceled?.()
@@ -36,10 +37,15 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
       setTitleError(true)
       return
     }
-    const noteCopy = { ...note }
+
+    if (isEditingText) {
+      setIsEditingText(false)
+      return
+    }
+
+    const noteCopy = { ...note, title: title.current ? title.current.value : '', body: bodyText }
     noteCopy.title = title.current ? title.current.value : ''
-    noteCopy.body = bodyText.replace('<br>', '')
-    noteCopy.body = noteCopy.body.replace('<p class="ql-align-justify"></p>', '<p>')
+
     if (!noteCopy.dateCreated) {
       noteCopy.dateCreated = dayjs().format()
     }
@@ -96,33 +102,6 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
     setShowExpForm(true)
   }
 
-  const expOptions: DropdownItem[] = [
-    {
-      text: '1 day',
-      value: '1',
-    },
-    {
-      text: '2 days',
-      value: '2',
-    },
-    {
-      text: '3 days',
-      value: '3',
-    },
-    {
-      text: '5 days',
-      value: '5',
-    },
-    {
-      text: '10 days',
-      value: '10',
-    },
-    {
-      text: '1 month',
-      value: '30',
-    },
-  ]
-
   const handleCloseFileDeleteWarning = () => {
     setShowFileDeleteWarning(false)
     setNote({ ...note, expirationDate: undefined })
@@ -134,12 +113,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
       {item ? (
         <>
           <FadeIn>
-            <Box>
-              <CenterStack sx={{ py: 2, gap: 2 }}>
-                <SuccessButton onClick={handleSave} text='save' sx={{ ml: 3 }} size='small' />
-                <PassiveButton text={'close'} onClick={handleCancel} size='small' />
-              </CenterStack>
-            </Box>
+            <EditNoteButtons isEditingText={isEditingText} handleSave={handleSave} handleCancel={handleCancel} />
             <FormDialog show={showExpForm} onCancel={handleCancelExp} title='Set expiration' onSave={handleSaveExp}>
               <>
                 <DropdownList options={expOptions} selectedOption={'3'} onOptionSelected={handleChangeExp} />
@@ -165,56 +139,53 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
                   </Typography>
                 </Stack>
               </CenterStack>
-              <CenterStack sx={{ width: { xs: '100%' } }}>
-                <TextField
-                  slotProps={{ htmlInput: { maxLength: 100 } }}
-                  fullWidth
-                  inputRef={title}
-                  defaultValue={item.title}
-                  size='small'
-                  label={'title'}
-                  placeholder='title'
-                  onChange={handleTitleChange}
-                  required
-                  error={titleError}
-                  sx={{ color: 'secondary' }}
-                />
-              </CenterStack>
-              <Box sx={{ py: 2, minHeight: 500, width: { xs: '100%' } }}>
-                {!isEditingText ? (
-                  <HtmlEditorQuill value={bodyText} onChanged={handleBodyChange} />
-                ) : (
-                  <Box>
-                    <TextField
-                      label='notes'
-                      placeholder='notes...'
-                      rows={14}
-                      multiline
-                      sx={{ width: '100%' }}
-                      value={bodyText}
-                      onChange={(event) => {
-                        handleBodyChange(event.target.value)
-                      }}
-                      slotProps={{
-                        input: {
-                          autoCorrect: 'off',
-                        },
-                      }}
-                    />
-                  </Box>
-                )}
+              <Box display={'flex'} flexDirection={'column'} gap={2} minHeight={400}>
+                <CenterStack sx={{ width: { xs: '100%' } }}>
+                  <TextField
+                    slotProps={{ htmlInput: { maxLength: 100 } }}
+                    fullWidth
+                    inputRef={title}
+                    defaultValue={item.title}
+                    size='small'
+                    label={'title'}
+                    placeholder='title'
+                    onChange={handleTitleChange}
+                    required
+                    error={titleError}
+                    sx={{ color: 'secondary' }}
+                  />
+                </CenterStack>
+                <Box sx={{ width: { xs: '100%' } }}>
+                  {!isEditingText ? (
+                    <HtmlEditorQuill value={bodyText} onChanged={handleBodyChange} />
+                  ) : (
+                    <Box>
+                      <TextField
+                        label='notes'
+                        placeholder='notes...'
+                        rows={13}
+                        multiline
+                        sx={{ width: '100%' }}
+                        value={bodyText}
+                        onChange={(event) => {
+                          handleBodyChange(event.target.value)
+                        }}
+                        slotProps={{
+                          input: {
+                            autoCorrect: 'off',
+                          },
+                        }}
+                      />
+                    </Box>
+                  )}
+                </Box>
               </Box>
               <Box>
                 <Button onClick={() => setIsEditingText(!isEditingText)}>
                   <Typography variant='body2'>{isEditingText ? 'edit html' : 'edit raw text'}</Typography>
                 </Button>
               </Box>
-              <Box>
-                <CenterStack sx={{ py: 2, gap: 2 }}>
-                  <SuccessButton onClick={handleSave} text='save' sx={{ ml: 3 }} size='small' />
-                  <PassiveButton text={'close'} onClick={handleCancel} size='small' />
-                </CenterStack>
-              </Box>
+              <EditNoteButtons isEditingText={isEditingText} handleSave={handleSave} handleCancel={handleCancel} />
             </Box>
           </FadeIn>
         </>
@@ -236,5 +207,31 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
     </>
   )
 }
+const expOptions: DropdownItem[] = [
+  {
+    text: '1 day',
+    value: '1',
+  },
+  {
+    text: '2 days',
+    value: '2',
+  },
+  {
+    text: '3 days',
+    value: '3',
+  },
+  {
+    text: '5 days',
+    value: '5',
+  },
+  {
+    text: '10 days',
+    value: '10',
+  },
+  {
+    text: '1 month',
+    value: '30',
+  },
+]
 
 export default EditNote
