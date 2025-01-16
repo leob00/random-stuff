@@ -1,11 +1,11 @@
 import { Typography } from '@mui/material'
-import React from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 
 const ScrollIntoView = ({ enabled = true, margin = -14 }: { enabled?: boolean; margin?: number }) => {
-  const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
-  const [scrollIntoView, setScrollIntoView] = React.useState(enabled)
-  const id = React.useId()
-  React.useEffect(() => {
+  const scrollTarget = useRef<HTMLSpanElement | null>(null)
+  const [scrollIntoView, setScrollIntoView] = useState(enabled)
+  const id = useId()
+  useEffect(() => {
     if (scrollIntoView) {
       if (scrollTarget.current) {
         scrollTarget.current.scrollIntoView({ behavior: 'smooth' })

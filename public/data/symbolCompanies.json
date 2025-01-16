@@ -2640,6 +2640,10 @@
     "Symbol": "ARM"
   },
   {
+    "Company": "Leverage Shares 2X Long ARM Daily ETF",
+    "Symbol": "ARMG"
+  },
+  {
     "Company": "ARAMARK",
     "Symbol": "ARMK"
   },
@@ -2830,6 +2834,10 @@
   {
     "Company": "Virtus AlphaSimplex Managed Futures ETF",
     "Symbol": "ASMF"
+  },
+  {
+    "Company": "Leverage Shares 2X Long ASML Daily ETF",
+    "Symbol": "ASMG"
   },
   {
     "Company": "ASML Holding NV",
@@ -5368,6 +5376,10 @@
     "Symbol": "BNDI"
   },
   {
+    "Company": "SPDRS BARCLAYS AGGREGATE BD ETF",
+    "Symbol": "BNDS"
+  },
+  {
     "Company": "Vanguard Total World Bond ETF",
     "Symbol": "BNDW"
   },
@@ -6600,6 +6612,14 @@
     "Symbol": "BZ"
   },
   {
+    "Company": "Blaize Holdings, Inc. Common Stock",
+    "Symbol": "BZAI"
+  },
+  {
+    "Company": "Blaize Holdings, Inc. Warrants",
+    "Symbol": "BZAIW"
+  },
+  {
     "Company": "BuzzFeed, Inc. Class A Common Stock",
     "Symbol": "BZFD"
   },
@@ -6866,6 +6886,10 @@
   {
     "Company": "First Trust Exchange-Traded Fund II First Trust S-Network Future Vehicles & Technology ETF",
     "Symbol": "CARZ"
+  },
+  {
+    "Company": "Simplify China A Shares PLUS Income ETF",
+    "Symbol": "CAS"
   },
   {
     "Company": "Pathward Financial, Inc. Common Stock",
@@ -8622,6 +8646,10 @@
   {
     "Company": "Canadian Natural Resources Limited",
     "Symbol": "CNQ"
+  },
+  {
+    "Company": "Core Natural Resources, Inc.",
+    "Symbol": "CNR"
   },
   {
     "Company": "SPDR S&P Kensho Clean Power ETF",
@@ -17144,6 +17172,10 @@
     "Symbol": "GENC"
   },
   {
+    "Company": "Genter Capital Dividend Income ETF",
+    "Symbol": "GEND"
+  },
+  {
     "Company": "Genetic Technologies Ltd.",
     "Symbol": "GENE"
   },
@@ -17162,6 +17194,10 @@
   {
     "Company": "Genter Capital Taxable Quality Intermediate ETF",
     "Symbol": "GENT"
+  },
+  {
+    "Company": "Genter Capital International Dividend ETF",
+    "Symbol": "GENW"
   },
   {
     "Company": "The GEO Group, Inc.",
@@ -19092,7 +19128,7 @@
     "Symbol": "HFWA"
   },
   {
-    "Company": "IQ FTSE International Equity Currency Neutral ETF",
+    "Company": "NYLI FTSE International Equity Currency Neutral ETF",
     "Symbol": "HFXI"
   },
   {
@@ -19278,6 +19314,10 @@
   {
     "Company": "Humankind US Stock ETF",
     "Symbol": "HKND"
+  },
+  {
+    "Company": "Hong Kong Pharma Digital Technology Holdings Limited Ordinary shares",
+    "Symbol": "HKPD"
   },
   {
     "Company": "Hecla Mining Company",
@@ -20620,7 +20660,7 @@
     "Symbol": "ICOW"
   },
   {
-    "Company": "BlackRock Ultra Short-Term Bond ETF",
+    "Company": "iShares Ultra Short-Term Bond Active ETF",
     "Symbol": "ICSH"
   },
   {
@@ -22546,6 +22586,10 @@
   {
     "Company": "iShares U.S. Real Estate ETF",
     "Symbol": "IYR"
+  },
+  {
+    "Company": "NEOS Real Estate High Income ETF",
+    "Symbol": "IYRI"
   },
   {
     "Company": "iShares U.S. Transportation ETF",
@@ -24770,6 +24814,10 @@
   {
     "Company": "VanEck Long/Flat Trend ETF",
     "Symbol": "LFEQ"
+  },
+  {
+    "Company": "YieldMax Crypto Industry & Tech Portfolio Option Income ETF",
+    "Symbol": "LFGY"
   },
   {
     "Company": "Leafly Holdings, Inc. Common Stock",
@@ -31044,6 +31092,10 @@
     "Symbol": "ORN"
   },
   {
+    "Company": "Militia Long/Short Equity ETF",
+    "Symbol": "ORR"
+  },
+  {
     "Company": "Orrstown Financial Services Inc",
     "Symbol": "ORRF"
   },
@@ -32582,6 +32634,10 @@
   {
     "Company": "Plum Acquisition Corp. III Warrant",
     "Symbol": "PLMJW"
+  },
+  {
+    "Company": "Plum Acquisition Corp. IV Unit",
+    "Symbol": "PLMKU"
   },
   {
     "Company": "Palomar Holdings, Inc. Common stock",
@@ -34516,6 +34572,14 @@
     "Symbol": "RAND"
   },
   {
+    "Company": "Range Capital Acquisition Corp. Ordinary Shares",
+    "Symbol": "RANG"
+  },
+  {
+    "Company": "Range Capital Acquisition Corp. Rights",
+    "Symbol": "RANGR"
+  },
+  {
     "Company": "Range Capital Acquisition Corp. Units",
     "Symbol": "RANGU"
   },
@@ -35192,6 +35256,10 @@
     "Symbol": "RHTX"
   },
   {
+    "Company": "Ribbon Acquisition Corp Unit",
+    "Symbol": "RIBBU"
+  },
+  {
     "Company": "RCI Hospitality Holdings, Inc.",
     "Symbol": "RICK"
   },
@@ -35512,6 +35580,10 @@
     "Symbol": "RNST"
   },
   {
+    "Company": "Rein Therapeutics, Inc. Common Stock",
+    "Symbol": "RNTX"
+  },
+  {
     "Company": "ReNew Energy Global plc Class A Ordinary Shares",
     "Symbol": "RNW"
   },
@@ -35798,6 +35870,10 @@
   {
     "Company": "Rockefeller U.S. Small-Mid Cap ETF",
     "Symbol": "RSMC"
+  },
+  {
+    "Company": "Relative Strength Managed Volatility Strategy ETF",
+    "Symbol": "RSMV"
   },
   {
     "Company": "Invesco S&P 500 Equal Weight ETF",
@@ -37922,6 +37998,10 @@
   {
     "Company": "iShares MSCI Global Silver and Metals Miners ETF",
     "Symbol": "SLVP"
+  },
+  {
+    "Company": "Sprott Silver Miners & Physical Silver ETF",
+    "Symbol": "SLVR"
   },
   {
     "Company": "VanEck Steel ETF",
@@ -41628,6 +41708,10 @@
     "Symbol": "TSME"
   },
   {
+    "Company": "Leverage Shares 2X Long TSM Daily ETF",
+    "Symbol": "TSMG"
+  },
+  {
     "Company": "GraniteShares 2x Long TSM Daily ETF",
     "Symbol": "TSMU"
   },
@@ -42154,6 +42238,10 @@
   {
     "Company": "Innovator U.S. Equity Ultra Buffer ETF - February",
     "Symbol": "UFEB"
+  },
+  {
+    "Company": "Uni-Fuels Holdings Limited Class A Ordinary Shares",
+    "Symbol": "UFG"
   },
   {
     "Company": "UNIFI, Inc. New",

@@ -1,5 +1,4 @@
 import { ListItemIcon, ListItemText } from '@mui/material'
-import React from 'react'
 import Close from '@mui/icons-material/Close'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 

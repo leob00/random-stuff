@@ -1,12 +1,18 @@
-import { Box } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import dayjs from 'dayjs'
-import { StockEarning } from 'lib/backend/api/qln/qlnApi'
+import { StockEarning, getStockQuote } from 'lib/backend/api/qln/qlnApi'
 import { DropdownItem } from 'lib/models/dropdown'
 import { orderBy, uniq } from 'lodash'
 import StockEarningsCalendarDetails from './StockEarningsCalendarDetails'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { StockQuote } from 'lib/backend/api/models/zModels'
+import CloseIconButton from 'components/Atoms/Buttons/CloseIconButton'
+import StockListItem from '../StockListItem'
+import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
+import BackButton from 'components/Atoms/Buttons/BackButton'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 const filterResult = (items: StockEarning[], dt: string | null) => {
   return orderBy(
     items.filter((m) => m.ReportDate === dt),
@@ -21,7 +27,9 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   const [selectedDate, setSelectedDate] = useState(dateToSelect)
   const [filteredResults, setFilteredResults] = useState(dateToSelect ? filterResult(data, dateToSelect) : [])
   const [currentPageIndex, setCurrentPageIndex] = useState(1)
+  const [selectedQuote, setSelectedQuote] = useState<StockQuote | null>(null)
   const datesMap = new Map<string, StockEarning[]>()
+  const [isLoading, setIsLoading] = useState(false)
 
   uniqueDates.forEach((item) => {
     datesMap.set(
@@ -52,27 +60,67 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
     }
   }
 
+  const handleSymbolClicked = async (symbol: string) => {
+    setIsLoading(true)
+    const quote = await getStockQuote(symbol)
+    setSelectedQuote(quote)
+    setIsLoading(false)
+  }
+
   return (
     <>
-      <ScrollIntoView enabled={true} />
-      <Box display={'flex'} justifyContent={'space-between'} alignItems={'flex-start'}>
-        <Box width={{ xs: '90%', md: '60%' }}>
-          <Box>
+      {isLoading && <BackdropLoader />}
+      {selectedQuote && (
+        <Box>
+          <Box py={2}>
+            <ScrollIntoView />
+            <Box py={2}>
+              <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+                <Button variant='text' onClick={() => setSelectedQuote(null)} color='primary'>
+                  &#8592; back
+                </Button>
+                <CloseIconButton
+                  onClicked={() => {
+                    setSelectedQuote(null)
+                  }}
+                />
+              </Box>
+            </Box>
             <Box>
-              {dateOptions.length > 0 && (
-                <DropdownList options={dateOptions} selectedOption={dateToSelect ?? ''} onOptionSelected={handleDateSelected} fullWidth />
-              )}
+              <StockListItem item={selectedQuote} isStock expand disabled scrollIntoView={false} />
             </Box>
           </Box>
         </Box>
-      </Box>
-      <Box py={2}>
-        {selectedDate && (
-          <Box pt={1}>
-            <StockEarningsCalendarDetails data={filteredResults} currentPageIndex={currentPageIndex} onPaged={handlePaged} onSearched={handleSearched} />
+      )}
+      {!selectedQuote && (
+        <>
+          <ScrollIntoView />
+          <Box display={'flex'} justifyContent={'space-between'} alignItems={'flex-start'}>
+            <Box width={{ xs: '90%', md: '60%' }}>
+              <Box>
+                <Box>
+                  {dateOptions.length > 0 && (
+                    <DropdownList options={dateOptions} selectedOption={dateToSelect ?? ''} onOptionSelected={handleDateSelected} fullWidth />
+                  )}
+                </Box>
+              </Box>
+            </Box>
           </Box>
-        )}
-      </Box>
+          <Box py={2}>
+            {selectedDate && (
+              <Box pt={1}>
+                <StockEarningsCalendarDetails
+                  data={filteredResults}
+                  currentPageIndex={currentPageIndex}
+                  onPaged={handlePaged}
+                  onSearched={handleSearched}
+                  onItemClicked={handleSymbolClicked}
+                />
+              </Box>
+            )}
+          </Box>
+        </>
+      )}
     </>
   )
 }
