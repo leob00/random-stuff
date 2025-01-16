@@ -42,10 +42,6 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
     setModel({ ...model, showPinEntry: false, showPinCreate: false })
   }
 
-  const onExtendPinExp = () => {
-    const expData = dayjs(model.pinExpirationDate)
-  }
-
   const handlePinValidated = async (pin: UserPin) => {
     stopPoller()
 

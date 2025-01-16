@@ -1,6 +1,5 @@
 import { Box } from '@mui/material'
 import { UserSecret } from 'lib/backend/api/models/zModels'
-import React from 'react'
 import SecretListItem from './SecretListItem'
 
 const SecretLayout = ({ encKey, userSecret, onEdit }: { encKey: string; userSecret: UserSecret; onEdit: (item: UserSecret) => void }) => {

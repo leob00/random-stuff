@@ -1,12 +1,12 @@
 import { Box, Stack } from '@mui/material'
 import { UserSecret } from 'lib/backend/api/models/zModels'
 import { myDecrypt, myEncrypt, weakDecrypt } from 'lib/backend/encryption/useEncryptor'
-import React from 'react'
 import { constructUserSecretPrimaryKey } from 'lib/backend/api/aws/util'
 import { deleteRecord, putUserSecret } from 'lib/backend/csr/nextApiWrapper'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import SecretInputForm from './SecretInputForm'
+import { useReducer } from 'react'
 
 interface Model {
   isLoading: boolean
@@ -14,14 +14,27 @@ interface Model {
   showConfirmDelete: boolean
 }
 
-const EditSecret = ({ username, encKey, userSecret, onCancel, onSaved, onDeleted }: { username: string; encKey: string; userSecret: UserSecret; onCancel: () => void; onSaved?: (item: UserSecret) => void; onDeleted: (id: string) => void }) => {
+const EditSecret = ({
+  username,
+  encKey,
+  userSecret,
+  onCancel,
+  onSaved,
+  onDeleted,
+}: {
+  username: string
+  encKey: string
+  userSecret: UserSecret
+  onCancel: () => void
+  onSaved?: (item: UserSecret) => void
+  onDeleted: (id: string) => void
+}) => {
   const defaultModel: Model = {
     isLoading: false,
     showConfirmDelete: false,
     userSecret: { ...userSecret, secret: myDecrypt(encKey, userSecret.secret) },
   }
-  console.log(defaultModel)
-  const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
+  const [model, setModel] = useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
 
   const handleDeleteClick = async () => {
     setModel({ ...model, showConfirmDelete: true })
@@ -49,7 +62,12 @@ const EditSecret = ({ username, encKey, userSecret, onCancel, onSaved, onDeleted
 
   return (
     <Box>
-      <ConfirmDeleteDialog show={model.showConfirmDelete} text={`Are you sure you want to delete ${model.userSecret.title}?`} onCancel={() => setModel({ ...model, showConfirmDelete: false })} onConfirm={handleYesDelete} />
+      <ConfirmDeleteDialog
+        show={model.showConfirmDelete}
+        text={`Are you sure you want to delete ${model.userSecret.title}?`}
+        onCancel={() => setModel({ ...model, showConfirmDelete: false })}
+        onConfirm={handleYesDelete}
+      />
       <Stack>
         {model.isLoading ? (
           <BackdropLoader />

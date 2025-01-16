@@ -1,11 +1,10 @@
 import { Box, IconButton } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import SecretLayout from './SecretLayout'
 import { UserSecret } from 'lib/backend/api/models/zModels'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
-import CenteredParagraph from 'components/Atoms/Text/CenteredParagraph'
 import EditSecret from './EditSecret'
 import Close from '@mui/icons-material/Close'
 import { useClientPager } from 'hooks/useClientPager'
@@ -95,7 +94,14 @@ const SecretsTable = ({
               </Box>
             </Box>
           </Box>
-          <EditSecret encKey={encKey} onCancel={handleCancelEdit} userSecret={editItem} onDeleted={handleDeleted} username={authProfile.username} onSaved={handlSaved} />
+          <EditSecret
+            encKey={encKey}
+            onCancel={handleCancelEdit}
+            userSecret={editItem}
+            onDeleted={handleDeleted}
+            username={authProfile.username}
+            onSaved={handlSaved}
+          />
         </>
       )}
     </>

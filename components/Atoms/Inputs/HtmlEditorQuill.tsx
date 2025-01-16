@@ -32,7 +32,7 @@ const HtmlEditorQuill = ({ value, onChanged }: { value: string; onChanged: (text
   }))
   return (
     <>
-      <QuillNoSSRWrapper style={{ height: 280, width: '100%' }} defaultValue={value} value={value} onChange={(e) => onChanged(e)} />
+      <QuillNoSSRWrapper style={{ height: 280, width: '100%' }} value={value} onChange={(e) => onChanged(e)} />
     </>
   )
 }
