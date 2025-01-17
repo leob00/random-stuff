@@ -11,6 +11,7 @@ import { sortArray } from 'lib/util/collections'
 import S3AttachFileButton from './S3AttachFileButton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ProgressDrawer from 'components/Atoms/Drawers/ProgressDrawer'
+import { sleep } from 'lib/util/timers'
 
 const S3ManageFiles = ({
   displayName,
@@ -41,6 +42,7 @@ const S3ManageFiles = ({
     const newFiles = await getS3Files('rs-files', folderPath)
     const sorted = sortArray(newFiles, ['filename'], ['asc'])
     onFilesMutated(sorted)
+    await sleep(250)
     setShowUpload(false)
     setProgressText(null)
   }

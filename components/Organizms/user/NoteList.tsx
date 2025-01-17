@@ -17,6 +17,7 @@ import { getExpirationText, getUtcNow } from 'lib/util/dateUtil'
 import { useState } from 'react'
 import AttachFileIcon from '@mui/icons-material/AttachFile'
 import { sortArray } from 'lib/util/collections'
+import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 
 const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked: (item: UserNote) => void; onAddNote: () => void }) => {
   const scroller = useScrollTop(0)
@@ -53,7 +54,7 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
       <Box>
         <Box display={'flex'} justifyContent={'flex-start'}>
           <Box pb={2}>
-            <PrimaryButton text='add note' size='small' onClick={onAddNote} />
+            <SuccessButton text='Create...' size='small' onClick={onAddNote} />
           </Box>
         </Box>
         <Box sx={{ pb: 2 }} display={'flex'} justifyContent={'space-between'} alignItems={'center'} gap={2}>

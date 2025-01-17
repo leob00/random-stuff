@@ -145,7 +145,6 @@ const S3FileUploadForm = ({
 
   return (
     <>
-      {/* {isLoading && <BackdropLoader />} */}
       <form method='post' encType='multipart/form-data' onSubmit={handleSubmit}>
         <>
           <Box flexDirection={'column'} gap={1} display={'flex'} alignItems={'center'} py={2}>

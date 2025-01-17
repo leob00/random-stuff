@@ -55,7 +55,6 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
     router.push(backRoute)
   }
   const handleSaveNote = async (item: UserNote) => {
-    //setIsWaiting(true)
     setShowSaveDrawer(true)
     setToastText(`saving note: ${item.title}`)
     const now = getUtcNow().format()
@@ -104,14 +103,16 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
           {editMode ? (
             <EditNote item={data} onSubmitted={handleSaveNote} onCanceled={handleCancelEdit} />
           ) : (
-            <ViewNote
-              selectedNote={data}
-              onCancel={handleCancel}
-              onEdit={handleEditNote}
-              onDelete={handleDelete}
-              userProfile={userProfile}
-              onFilesChanged={handleFilesChanged}
-            />
+            <>
+              <ViewNote
+                selectedNote={data}
+                onCancel={handleCancel}
+                onEdit={handleEditNote}
+                onDelete={handleDelete}
+                userProfile={userProfile}
+                onFilesChanged={handleFilesChanged}
+              />
+            </>
           )}
         </>
       )}

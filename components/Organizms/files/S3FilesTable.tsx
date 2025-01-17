@@ -13,7 +13,6 @@ import { useUserController } from 'hooks/userController'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { useState } from 'react'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
-import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import ProgressDrawer from 'components/Atoms/Drawers/ProgressDrawer'
 
 const S3FilesTable = ({
@@ -42,7 +41,7 @@ const S3FilesTable = ({
   const targetFolders = allFolders.filter((m) => m.text !== folder.text)
   const { uiState, dispatch, uiDefaultState } = s3Controller
   const { authProfile, setProfile } = useUserController()
-  const [showFileProgress, setShowFileProgress] = useState(false)
+  const [progressText, setProgressText] = useState<string | null>(null)
   const filterList = (items: S3Object[]) => {
     if (searchWithinList.length === 0) {
       return [...items]
@@ -53,28 +52,30 @@ const S3FilesTable = ({
   const results = filterList(data)
 
   const handleViewFile = async (item: S3Object) => {
-    setShowFileProgress(true)
+    setProgressText(`loading ${item.filename}`)
     dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: 'loading file...' } })
     const url = await getPresignedUrl(item.bucket, item.fullPath)
     setProfile({ ...authProfile!, settings: { ...authProfile!.settings, selectedFolder: folder } })
     dispatch({ type: 'update', payload: { ...uiState, signedUrl: url, selectedItem: item, snackbarSuccessMessage: null } })
-    setShowFileProgress(false)
+    setProgressText(null)
   }
   const handleDelete = async (item: S3Object) => {
     dispatch({ type: 'update', payload: { ...uiState, itemToDelete: item } })
   }
   const handleConfirmDelete = async () => {
     if (uiState.itemToDelete) {
-      setShowFileProgress(true)
+      setProgressText(`deleting: ${uiState.itemToDelete.filename}`)
       const item = { ...uiState.itemToDelete }
       dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: `deleting file: ${item.filename}` } })
       await postDelete('/api/s3', item)
       dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: null } })
-      setShowFileProgress(false)
+
       onLocalDataMutate(
         folder,
         [...data].filter((m) => m.fullPath !== item.fullPath),
       )
+      await sleep(250)
+      setProgressText(null)
     }
   }
 
@@ -92,12 +93,13 @@ const S3FilesTable = ({
       const oldPath = newItem.fullPath
       const newPath = `${newItem.fullPath.substring(0, newItem.fullPath.lastIndexOf('/'))}/${newfilename}`
       if (oldPath !== newPath) {
+        setProgressText(`renaming ${newItem.filename} to: ${newfilename}`)
         newItem.fullPath = newPath
         newItem.filename = newfilename
-        setShowFileProgress(true)
+
         dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: 'processing...' } })
         await renameS3File(newItem.bucket, oldPath, newPath)
-        setShowFileProgress(false)
+        setProgressText(null)
       }
       const newFiles = data.filter((m) => m.filename !== uiState.selectedItem!.filename)
       dispatch({ type: 'update', payload: { ...uiState, selectedItem: newItem, showRenameFileDialog: false } })
@@ -132,7 +134,7 @@ const S3FilesTable = ({
 
   const handleMoveItemsToFolder = async () => {
     if (uiState.targetFolder) {
-      setShowFileProgress(true)
+      setProgressText(`moving files...`)
       const selectedItems = [...uiState.selectedItems]
       const targetFolder = { ...uiState.targetFolder }
       dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: 'processing...' } })
@@ -150,13 +152,13 @@ const S3FilesTable = ({
         }
         await sleep(500)
       }
-      setShowFileProgress(false)
+      setProgressText(null)
       onReloadFolder?.(folder)
     }
   }
   const handleConfirmDeleteFiles = async () => {
     const selectedItems = [...uiState.selectedItems]
-    setShowFileProgress(true)
+    setProgressText(`removing ${selectedItems.length} files...`)
 
     dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: 'processing...' } })
     for (const f of selectedItems) {
@@ -171,7 +173,7 @@ const S3FilesTable = ({
       await sleep(500)
     }
 
-    setShowFileProgress(false)
+    setProgressText(null)
     await onReloadFolder?.(folder)
   }
 
@@ -257,7 +259,7 @@ const S3FilesTable = ({
           }}
         />
       )} */}
-      {showFileProgress && <ProgressDrawer isOpen={showFileProgress} message={uiState.snackbarSuccessMessage} />}
+      {!!progressText && <ProgressDrawer isOpen={!!progressText} message={progressText} />}
     </>
   )
 }
