@@ -66,7 +66,7 @@ const S3FileUploadForm = ({
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [warning, setWarning] = useState<string | null>(null)
-  const [showFileProgress, setShowFileProgress] = useState(false)
+  const [progressText, setProgressText] = useState<string | null>(null)
 
   const maxFileSize = 10000000
 
@@ -81,11 +81,12 @@ const S3FileUploadForm = ({
         return
       }
       setIsLoading(true)
-      setShowFileProgress(true)
+
       const data = new FormData()
       data.append('file', file)
       data.append('userFilename', userFilename)
       data.append('prefix', folder)
+      setProgressText(`uploading ${userFilename}`)
       try {
         const resp = await fetch('/api/s3upload', {
           method: 'POST',
@@ -104,14 +105,14 @@ const S3FileUploadForm = ({
         const renameResp = await renameS3File(respData.bucket, oldPath, newPath)
         if (renameResp.errorMessage) {
           setError('Upload failed. Please try again')
-          setShowFileProgress(false)
+          setProgressText(null)
           return
         }
         if (renameResp.statusCode === 200) {
           const result = { ...respData, fullPath: newPath, prefix: newPath.substring(0, newPath.lastIndexOf('/') + 1) }
           onUploaded(result)
           await sleep(500)
-          setShowFileProgress(false)
+          setProgressText(null)
         }
 
         setUserFilename('')
@@ -120,7 +121,7 @@ const S3FileUploadForm = ({
         console.error(err)
         setError('Oops! Encountered an error. Please try again')
         setFile(undefined)
-        setShowFileProgress(false)
+        setProgressText(null)
       } finally {
         setIsLoading(false)
       }
@@ -144,7 +145,7 @@ const S3FileUploadForm = ({
 
   return (
     <>
-      {isLoading && <BackdropLoader />}
+      {/* {isLoading && <BackdropLoader />} */}
       <form method='post' encType='multipart/form-data' onSubmit={handleSubmit}>
         <>
           <Box flexDirection={'column'} gap={1} display={'flex'} alignItems={'center'} py={2}>
@@ -170,7 +171,7 @@ const S3FileUploadForm = ({
           {error && <ErrorMessage text={error} />}
         </>
       </form>
-      {showFileProgress && <ProgressDrawer isOpen={showFileProgress} message={'uploading...'} />}
+      {!!progressText && <ProgressDrawer isOpen={!!progressText} message={progressText} />}
     </>
   )
 }

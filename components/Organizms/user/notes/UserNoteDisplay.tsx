@@ -3,8 +3,6 @@ import EditNote from '../EditNote'
 import ViewNote from '../ViewNote'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import { deleteRecord, getUserNoteTitles, putUserNote, putUserNoteTitles } from 'lib/backend/csr/nextApiWrapper'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { constructUserNoteCategoryKey, constructUserNotePrimaryKey } from 'lib/backend/api/aws/util'
@@ -19,7 +17,6 @@ import ProgressDrawer from 'components/Atoms/Drawers/ProgressDrawer'
 const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: UserNote; isEdit: boolean; backRoute: string }) => {
   const router = useRouter()
   const [toastText, setToastText] = useState<string | null>(null)
-  const [isWaiting, setIsWaiting] = useState(false)
   const [editMode, setEditMode] = useState(isEdit)
   const [showSaveDrawer, setShowSaveDrawer] = useState(false)
 
@@ -37,21 +34,23 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
       router.push(backRoute)
       return
     }
-    setIsWaiting(true)
+    setToastText(`deleting note: ${item.title}`)
     setShowSaveDrawer(true)
     if (item.files) {
       for (let f of item.files) {
         await postDelete('/api/s3', f)
         setToastText(`deleted file: ${f.filename}`)
-        await sleep(1000)
+        await sleep(750)
       }
     }
 
     await deleteRecord(item.id!)
-    setToastText(`deleted note: ${item.title}`)
+
     const titles = await getUserNoteTitles(username)
     const newTitles = titles.filter((m) => m.id !== item.id)
     await putUserNoteTitles(username, newTitles)
+    setToastText(`note deleted!`)
+    await sleep(250)
     setShowSaveDrawer(false)
     router.push(backRoute)
   }
@@ -79,12 +78,10 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
       files: item.files,
     })
     await putUserNoteTitles(username, newTitles)
-    setIsWaiting(false)
     setToastText(`note saved!`)
-    setTimeout(() => {
-      setShowSaveDrawer(false)
-      mutate(id, item, { revalidate: false })
-    }, 1000)
+    await sleep(250)
+    setShowSaveDrawer(false)
+    mutate(id, item, { revalidate: false })
   }
   const handleCancelEdit = () => {
     if (data.title.length === 0) {
@@ -101,7 +98,6 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
 
   return (
     <>
-      {isWaiting && <BackdropLoader />}
       {!isValidatingProfile && userProfile && (
         <>
           {/* {toastText && <SnackbarSuccess show={!!toastText} text={toastText} onClose={() => setToastText(null)} />} */}

@@ -37,7 +37,7 @@ const S3FilesTable = ({
   allowMoveFile: boolean
   showFileAttributes?: boolean
 }) => {
-  const [isWaiting, setIsWaiting] = useState(false)
+  //const [isWaiting, setIsWaiting] = useState(false)
   const [searchWithinList, setSearchWithinList] = useState('')
   const targetFolders = allFolders.filter((m) => m.text !== folder.text)
   const { uiState, dispatch, uiDefaultState } = s3Controller
@@ -53,11 +53,12 @@ const S3FilesTable = ({
   const results = filterList(data)
 
   const handleViewFile = async (item: S3Object) => {
-    setIsWaiting(true)
+    setShowFileProgress(true)
+    dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: 'loading file...' } })
     const url = await getPresignedUrl(item.bucket, item.fullPath)
     setProfile({ ...authProfile!, settings: { ...authProfile!.settings, selectedFolder: folder } })
-    dispatch({ type: 'update', payload: { ...uiState, signedUrl: url, selectedItem: item } })
-    setIsWaiting(false)
+    dispatch({ type: 'update', payload: { ...uiState, signedUrl: url, selectedItem: item, snackbarSuccessMessage: null } })
+    setShowFileProgress(false)
   }
   const handleDelete = async (item: S3Object) => {
     dispatch({ type: 'update', payload: { ...uiState, itemToDelete: item } })
@@ -66,11 +67,9 @@ const S3FilesTable = ({
     if (uiState.itemToDelete) {
       setShowFileProgress(true)
       const item = { ...uiState.itemToDelete }
-      setIsWaiting(true)
       dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: `deleting file: ${item.filename}` } })
       await postDelete('/api/s3', item)
       dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: null } })
-      setIsWaiting(false)
       setShowFileProgress(false)
       onLocalDataMutate(
         folder,
@@ -95,9 +94,10 @@ const S3FilesTable = ({
       if (oldPath !== newPath) {
         newItem.fullPath = newPath
         newItem.filename = newfilename
-        setIsWaiting(true)
+        setShowFileProgress(true)
+        dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: 'processing...' } })
         await renameS3File(newItem.bucket, oldPath, newPath)
-        setIsWaiting(false)
+        setShowFileProgress(false)
       }
       const newFiles = data.filter((m) => m.filename !== uiState.selectedItem!.filename)
       dispatch({ type: 'update', payload: { ...uiState, selectedItem: newItem, showRenameFileDialog: false } })
@@ -132,10 +132,10 @@ const S3FilesTable = ({
 
   const handleMoveItemsToFolder = async () => {
     if (uiState.targetFolder) {
-      setIsWaiting(true)
+      setShowFileProgress(true)
       const selectedItems = [...uiState.selectedItems]
       const targetFolder = { ...uiState.targetFolder }
-      dispatch({ type: 'reset', payload: uiDefaultState })
+      dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: 'processing...' } })
       for (const f of selectedItems) {
         const oldPath = f.fullPath
         const newPath = `${targetFolder.value}/${f.filename}`
@@ -150,15 +150,15 @@ const S3FilesTable = ({
         }
         await sleep(500)
       }
-      setIsWaiting(false)
+      setShowFileProgress(false)
       onReloadFolder?.(folder)
     }
   }
   const handleConfirmDeleteFiles = async () => {
     const selectedItems = [...uiState.selectedItems]
-    setIsWaiting(true)
+    setShowFileProgress(true)
 
-    dispatch({ type: 'reset', payload: uiDefaultState })
+    dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: 'processing...' } })
     for (const f of selectedItems) {
       const resp = await postDelete('/api/s3', f)
       if (resp.statusCode === 200) {
@@ -171,7 +171,7 @@ const S3FilesTable = ({
       await sleep(500)
     }
 
-    setIsWaiting(false)
+    setShowFileProgress(false)
     await onReloadFolder?.(folder)
   }
 
@@ -205,7 +205,6 @@ const S3FilesTable = ({
 
   return (
     <>
-      {isWaiting && <BackdropLoader />}
       {showTableHeader && (
         <S3FilesTableHeader
           uiState={uiState}

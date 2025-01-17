@@ -5,13 +5,12 @@ import { DropdownItem } from 'lib/models/dropdown'
 import { useS3Controller } from 'hooks/s3/useS3Controller'
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { useState } from 'react'
-import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import S3FileUploadForm from 'components/Molecules/Forms/S3FileUploadForm'
 import { getS3Files } from 'lib/backend/csr/nextApiWrapper'
 import { sortArray } from 'lib/util/collections'
 import S3AttachFileButton from './S3AttachFileButton'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import ProgressDrawer from 'components/Atoms/Drawers/ProgressDrawer'
 
 const S3ManageFiles = ({
   displayName,
@@ -25,7 +24,7 @@ const S3ManageFiles = ({
   onFilesMutated: (item: S3Object[]) => void
 }) => {
   const [showUpload, setShowUpload] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [progressText, setProgressText] = useState<string | null>(null)
   const s3Controller = useS3Controller()
   const allFolders: DropdownItem[] = [
     {
@@ -38,18 +37,18 @@ const S3ManageFiles = ({
   }
 
   const handleUploaded = async (item: S3Object) => {
-    setShowUpload(false)
-    setIsLoading(true)
+    setProgressText(`uploading ${item.filename}`)
     const newFiles = await getS3Files('rs-files', folderPath)
     const sorted = sortArray(newFiles, ['filename'], ['asc'])
     onFilesMutated(sorted)
-    setIsLoading(false)
+    setShowUpload(false)
+    setProgressText(null)
   }
 
   return (
     <Box py={2}>
-      {isLoading && <BackdropLoader />}
-      {files && files.length > 0 && (
+      {!!progressText && <ProgressDrawer isOpen={!!progressText} message={progressText} />}
+      {!showUpload && files && files.length > 0 && (
         <>
           <CenteredHeader variant='h4' title='files' />
           <HorizontalDivider />
@@ -71,12 +70,12 @@ const S3ManageFiles = ({
         </>
       )}
       <Box py={2} display={'flex'} justifyContent={'center'} alignContent={'center'}>
-        <S3AttachFileButton onClicked={() => setShowUpload(true)} />
+        <S3AttachFileButton onClicked={() => setShowUpload(!showUpload)} />
       </Box>
       {showUpload && (
-        <FormDialog show={showUpload} title='file upload' onCancel={() => setShowUpload(false)} fullScreen>
-          <S3FileUploadForm files={files ?? []} folder={folderPath} onUploaded={handleUploaded} />
-        </FormDialog>
+        // <FormDialog show={showUpload} title='file upload' onCancel={() => setShowUpload(false)} fullScreen>
+        <S3FileUploadForm files={files ?? []} folder={folderPath} onUploaded={handleUploaded} />
+        // </FormDialog>
       )}
     </Box>
   )
