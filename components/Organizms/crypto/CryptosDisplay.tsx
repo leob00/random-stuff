@@ -52,6 +52,10 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
     }
   }
 
+  const handleItemClick = async (item: StockQuote) => {
+    loadDetails(item, selectedDays)
+  }
+
   return (
     <>
       <Box py={2}>
@@ -63,7 +67,7 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
                 <ListHeader
                   text={`${item.Company}`}
                   onClicked={() => {
-                    loadDetails(item, selectedDays)
+                    handleItemClick(item)
                   }}
                 />
                 <StockChange item={item} />
