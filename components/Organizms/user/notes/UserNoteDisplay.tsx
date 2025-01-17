@@ -14,12 +14,14 @@ import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import { sortArray } from 'lib/util/collections'
 import { postDelete } from 'lib/backend/api/fetchFunctions'
 import { sleep } from 'lib/util/timers'
+import ProgressDrawer from 'components/Atoms/Drawers/ProgressDrawer'
 
 const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: UserNote; isEdit: boolean; backRoute: string }) => {
   const router = useRouter()
   const [toastText, setToastText] = useState<string | null>(null)
   const [isWaiting, setIsWaiting] = useState(false)
   const [editMode, setEditMode] = useState(isEdit)
+  const [showSaveDrawer, setShowSaveDrawer] = useState(false)
 
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
   const username = userProfile?.username ?? ''
@@ -36,6 +38,7 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
       return
     }
     setIsWaiting(true)
+    setShowSaveDrawer(true)
     if (item.files) {
       for (let f of item.files) {
         await postDelete('/api/s3', f)
@@ -49,10 +52,12 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
     const titles = await getUserNoteTitles(username)
     const newTitles = titles.filter((m) => m.id !== item.id)
     await putUserNoteTitles(username, newTitles)
+    setShowSaveDrawer(false)
     router.push(backRoute)
   }
   const handleSaveNote = async (item: UserNote) => {
-    setIsWaiting(true)
+    //setIsWaiting(true)
+    setShowSaveDrawer(true)
     setToastText(`saving note: ${item.title}`)
     const now = getUtcNow().format()
     item.dateModified = now
@@ -75,8 +80,11 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
     })
     await putUserNoteTitles(username, newTitles)
     setIsWaiting(false)
-    setToastText(`saved note: ${item.title}`)
-    mutate(id, item, { revalidate: false })
+    setToastText(`note saved!`)
+    setTimeout(() => {
+      setShowSaveDrawer(false)
+      mutate(id, item, { revalidate: false })
+    }, 1000)
   }
   const handleCancelEdit = () => {
     if (data.title.length === 0) {
@@ -96,7 +104,7 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
       {isWaiting && <BackdropLoader />}
       {!isValidatingProfile && userProfile && (
         <>
-          {toastText && <SnackbarSuccess show={!!toastText} text={toastText} onClose={() => setToastText(null)} />}
+          {/* {toastText && <SnackbarSuccess show={!!toastText} text={toastText} onClose={() => setToastText(null)} />} */}
           {editMode ? (
             <EditNote item={data} onSubmitted={handleSaveNote} onCanceled={handleCancelEdit} />
           ) : (
@@ -111,6 +119,7 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
           )}
         </>
       )}
+      {showSaveDrawer && <ProgressDrawer isOpen={showSaveDrawer} message={toastText} />}
     </>
   )
 }

@@ -70,29 +70,29 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
             <Box key={item.id}>
               <FadeIn>
                 <Box>
-                  <Stack direction='row' py={2}>
-                    <Box pt={1}>
-                      <Button
-                        fullWidth
-                        onClick={() => {
-                          handleNoteTitleClick(item)
-                        }}
-                      >
-                        <Typography variant='h5'>{item.title}</Typography>
-                      </Button>
-                      {item.files && item.files.length > 0 && (
-                        <Box display={'flex'} gap={1} alignItems={'center'}>
-                          <Box>
-                            <Typography variant='body2' pt={1} pl={1}>
-                              <AttachFileIcon fontSize='inherit' />
-                            </Typography>
-                          </Box>
-                          <Box>
-                            <Typography variant='caption'>{`files: ${item.files.length}`}</Typography>
-                          </Box>
+                  <Stack py={1}>
+                    <Button
+                      fullWidth
+                      onClick={() => {
+                        handleNoteTitleClick(item)
+                      }}
+                    >
+                      <Typography py={1} textAlign={'left'} width={'inherit'} variant='h5'>
+                        {item.title}
+                      </Typography>
+                    </Button>
+                    {item.files && item.files.length > 0 && (
+                      <Box display={'flex'} gap={1} alignItems={'center'}>
+                        <Box>
+                          <Typography variant='body2' pt={1} pl={1}>
+                            <AttachFileIcon fontSize='inherit' />
+                          </Typography>
                         </Box>
-                      )}
-                    </Box>
+                        <Box>
+                          <Typography variant='caption'>{`files: ${item.files.length}`}</Typography>
+                        </Box>
+                      </Box>
+                    )}
                   </Stack>
                 </Box>
                 {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (

@@ -14,6 +14,7 @@ import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { useState } from 'react'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
+import ProgressDrawer from 'components/Atoms/Drawers/ProgressDrawer'
 
 const S3FilesTable = ({
   s3Controller,
@@ -41,7 +42,7 @@ const S3FilesTable = ({
   const targetFolders = allFolders.filter((m) => m.text !== folder.text)
   const { uiState, dispatch, uiDefaultState } = s3Controller
   const { authProfile, setProfile } = useUserController()
-
+  const [showFileProgress, setShowFileProgress] = useState(false)
   const filterList = (items: S3Object[]) => {
     if (searchWithinList.length === 0) {
       return [...items]
@@ -63,12 +64,14 @@ const S3FilesTable = ({
   }
   const handleConfirmDelete = async () => {
     if (uiState.itemToDelete) {
+      setShowFileProgress(true)
       const item = { ...uiState.itemToDelete }
       setIsWaiting(true)
       dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: `deleting file: ${item.filename}` } })
       await postDelete('/api/s3', item)
       dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: null } })
       setIsWaiting(false)
+      setShowFileProgress(false)
       onLocalDataMutate(
         folder,
         [...data].filter((m) => m.fullPath !== item.fullPath),
@@ -154,6 +157,7 @@ const S3FilesTable = ({
   const handleConfirmDeleteFiles = async () => {
     const selectedItems = [...uiState.selectedItems]
     setIsWaiting(true)
+
     dispatch({ type: 'reset', payload: uiDefaultState })
     for (const f of selectedItems) {
       const resp = await postDelete('/api/s3', f)
@@ -245,7 +249,7 @@ const S3FilesTable = ({
         onSelectTargetFolder={handleSelectTargetFolder}
         onMoveItemsToFolder={handleMoveItemsToFolder}
       />
-      {uiState.snackbarSuccessMessage && (
+      {/* {uiState.snackbarSuccessMessage && (
         <SnackbarSuccess
           show={!!uiState.snackbarSuccessMessage}
           text={uiState.snackbarSuccessMessage}
@@ -253,7 +257,8 @@ const S3FilesTable = ({
             dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: null } })
           }}
         />
-      )}
+      )} */}
+      {showFileProgress && <ProgressDrawer isOpen={showFileProgress} message={uiState.snackbarSuccessMessage} />}
     </>
   )
 }

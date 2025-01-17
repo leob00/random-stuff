@@ -1,6 +1,5 @@
 import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
-import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
@@ -14,8 +13,6 @@ import { DropdownItem } from 'lib/models/dropdown'
 import { useRef, useState } from 'react'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import StopWarningDialog from 'components/Atoms/Dialogs/StopWarningDialog'
-import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import EditNoteButtons from './notes/EditNoteButtons'
 
 const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCanceled?: () => void; onSubmitted: (note: UserNote) => void }) => {

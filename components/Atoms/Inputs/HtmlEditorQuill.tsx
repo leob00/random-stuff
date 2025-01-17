@@ -28,11 +28,11 @@ const HtmlEditorQuill = ({ value, onChanged }: { value: string; onChanged: (text
     p: { color: color, fontSize: 20 },
     borderRadius: '16px',
     border: `solid ${VeryLightBlueTransparent} 1px`,
-    minHeight: 500,
+    minHeight: 480,
   }))
   return (
     <>
-      <QuillNoSSRWrapper style={{ height: 280, width: '100%' }} value={value} onChange={(e) => onChanged(e)} />
+      <QuillNoSSRWrapper style={{ height: 260, width: '100%' }} value={value} onChange={(e) => onChanged(e)} />
     </>
   )
 }
