@@ -3,7 +3,21 @@ import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { apiConnection } from '../../config'
 import { get, post, postBody } from 'lib/backend/api/fetchFunctions'
 import { StockAlertSubscription, StockQuote } from '../../models/zModels'
-import { BasicArticle, Bucket, CategoryType, CoinFlipStats, DynamoKeys, EmailMessage, LambdaBody, LambdaDynamoRequest, LambdaDynamoRequestBatch, LambdaResponse, RandomStuffPut, S3Object, WheelSpinStats } from '../models/apiGatewayModels'
+import {
+  BasicArticle,
+  Bucket,
+  CategoryType,
+  CoinFlipStats,
+  DynamoKeys,
+  EmailMessage,
+  LambdaBody,
+  LambdaDynamoRequest,
+  LambdaDynamoRequestBatch,
+  LambdaResponse,
+  RandomStuffPut,
+  S3Object,
+  WheelSpinStats,
+} from '../models/apiGatewayModels'
 import { constructStockAlertsSubSecondaryKey } from '../util'
 
 const connection = apiConnection().aws
@@ -234,6 +248,7 @@ export async function putS3(bucket: Bucket, prefix: string, filename: string, mi
       filename: filename,
       fullPath: `${prefix}/${filename}`,
       size: fileSize,
+      mimeType: mimeType,
     }
     if (response.status === 413) {
       result.message = 'File is too large'

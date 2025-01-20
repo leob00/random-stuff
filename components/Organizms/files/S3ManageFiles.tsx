@@ -39,11 +39,12 @@ const S3ManageFiles = ({
 
   const handleUploaded = async (item: S3Object) => {
     setProgressText(`uploading ${item.filename}`)
+    setShowUpload(false)
     const newFiles = await getS3Files('rs-files', folderPath)
     const sorted = sortArray(newFiles, ['filename'], ['asc'])
     onFilesMutated(sorted)
     await sleep(250)
-    setShowUpload(false)
+
     setProgressText(null)
   }
 
@@ -74,11 +75,7 @@ const S3ManageFiles = ({
       <Box py={2} display={'flex'} justifyContent={'center'} alignContent={'center'}>
         <S3AttachFileButton onClicked={() => setShowUpload(!showUpload)} />
       </Box>
-      {showUpload && (
-        // <FormDialog show={showUpload} title='file upload' onCancel={() => setShowUpload(false)} fullScreen>
-        <S3FileUploadForm files={files ?? []} folder={folderPath} onUploaded={handleUploaded} />
-        // </FormDialog>
-      )}
+      {showUpload && <S3FileUploadForm files={files ?? []} folder={folderPath} onUploaded={handleUploaded} />}
     </Box>
   )
 }

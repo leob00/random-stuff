@@ -250,15 +250,6 @@ const S3FilesTable = ({
         onSelectTargetFolder={handleSelectTargetFolder}
         onMoveItemsToFolder={handleMoveItemsToFolder}
       />
-      {/* {uiState.snackbarSuccessMessage && (
-        <SnackbarSuccess
-          show={!!uiState.snackbarSuccessMessage}
-          text={uiState.snackbarSuccessMessage}
-          onClose={() => {
-            dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: null } })
-          }}
-        />
-      )} */}
       {!!progressText && <ProgressDrawer isOpen={!!progressText} message={progressText} />}
     </>
   )

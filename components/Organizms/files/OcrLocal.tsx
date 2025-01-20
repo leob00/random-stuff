@@ -5,20 +5,20 @@ import CenterStack from 'components/Atoms/CenterStack'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { supportedOcrImageTypes } from 'lib/backend/files/fileTypes'
-import React from 'react'
 import { createWorker } from 'tesseract.js'
 import ImagePreview from 'components/Atoms/Images/ImagePreview'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import { getFileSizeText, getImageSize } from 'lib/util/numberUtil'
 import CopyableText from 'components/Atoms/Text/CopyableText'
 import ProgressBar from 'components/Atoms/Progress/ProgressBar'
+import { useState } from 'react'
 
 const OcrLocal = () => {
-  const [text, setText] = React.useState<string | null>(null)
-  const [selectedFile, setSelectedFile] = React.useState<File | undefined>(undefined)
-  const [progress, setProgress] = React.useState(0)
-  const [isLoading, setIsLoading] = React.useState(false)
-  const [showSuccess, setShowSuccess] = React.useState(false)
+  const [text, setText] = useState<string | null>(null)
+  const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined)
+  const [progress, setProgress] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
 
   const handleSelectFile = async (file: File) => {
     setSelectedFile(file)

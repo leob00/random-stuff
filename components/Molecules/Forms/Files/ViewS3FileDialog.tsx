@@ -4,6 +4,7 @@ import CenterStack from 'components/Atoms/CenterStack'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload'
 import { useRef } from 'react'
+import AudioPlayer from 'components/Atoms/Media/AudioPlayer'
 
 const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string; filename: string; onCancel: () => void }) => {
   const signedUrlRef = useRef<HTMLAnchorElement | null>(null)
@@ -26,10 +27,7 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
         {isAudio && (
           <CenterStack sx={{ pt: 2 }}>
             <Box>
-              <audio controls>
-                <source src={signedUrl} type='audio/ogg' />
-                Your browser does not support the audio element.
-              </audio>
+              <AudioPlayer source={signedUrl} />
             </Box>{' '}
           </CenterStack>
         )}

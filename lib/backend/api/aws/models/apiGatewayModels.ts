@@ -36,6 +36,7 @@ export interface S3Object {
   size?: number
   message?: string
   fullPath: string
+  mimeType?: string
 }
 
 interface StockSettingsBase {

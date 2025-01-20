@@ -64,7 +64,7 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
       item.dateCreated = now
     }
     const category = constructUserNoteCategoryKey(username)
-    await putUserNote(item, category, item.expirationDate ? Math.floor(dayjs(item.expirationDate).valueOf() / 1000) : undefined)
+    putUserNote(item, category, item.expirationDate ? Math.floor(dayjs(item.expirationDate).valueOf() / 1000) : undefined)
     const titles = await getUserNoteTitles(username)
     const newTitles = titles.filter((m) => m.id !== item.id)
     newTitles.unshift({
@@ -76,7 +76,7 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
       expirationDate: item.expirationDate,
       files: item.files,
     })
-    await putUserNoteTitles(username, newTitles)
+    putUserNoteTitles(username, newTitles)
     setToastText(`note saved!`)
     await sleep(250)
     setShowSaveDrawer(false)
