@@ -1,39 +1,47 @@
-import { useEffect, useRef } from 'react'
+import { Box, useMediaQuery, useTheme } from '@mui/material'
+import { useEffect, useRef, useState } from 'react'
+import CenterStack from '../CenterStack'
+import SuccessButton from '../Buttons/SuccessButton'
 
 const AudioPlayer = ({ source }: { source: string }) => {
-  const audioRef = useRef<HTMLAudioElement | null>(null)
+  const playerRef = useRef<HTMLAudioElement | null>(null)
+  const theme = useTheme()
+  const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
+  const [showCustomControls, setShowCustomControls] = useState(isXSmall)
 
-  //   useEffect(() => {
-  //     let callback: unknown
-  //     let click: unknown
-  //     if (audioRef.current) {
-  //       const progress = function () {
-  //         audioRef.current!.removeEventListener('canplaythrough', progress, false)
-  //         if (callback) {
-  //           callback = true
-  //         }
-  //       }
-  //       audioRef.current.addEventListener('canplaythrough', progress, false)
-  //       audioRef.current.addEventListener('canplaythrough', progress, false)
-  //       try {
-  //         audioRef.current.play()
-  //       } catch (e) {
-  //         callback = function () {
-  //           callback = false
-  //           audioRef.current!.play()
-  //         }
-  //       }
-  //     audioRef.current!.addEventListener('touchstart', )
+  const handlePlay = () => {
+    if (playerRef.current) {
+      playerRef.current.muted = false
+      if (playerRef.current.paused) {
+        playerRef.current.play()
+        setShowCustomControls(false)
+      }
+    }
+  }
 
-  //     }
-  //   }, [0])
+  useEffect(() => {
+    if (playerRef.current) {
+      if (isXSmall) {
+        playerRef.current.muted = true
+      }
+    }
+  }, [])
 
   return (
-    <audio controls>
-      <source src={source} type='audio/mpeg3' />
-      <source src={source} type='audio/ogg' />
-      Your browser does not support the audio element.
-    </audio>
+    <>
+      <Box display={showCustomControls ? 'none' : 'unset'}>
+        <audio controls ref={playerRef} onPlay={handlePlay} preload='auto'>
+          <source src={source} type='audio/mpeg' />
+          <source src={source} type='audio/ogg' />
+          Your browser does not support the audio element.
+        </audio>
+      </Box>
+      {showCustomControls && (
+        <CenterStack sx={{ py: 2 }}>
+          <SuccessButton text='play' onClick={handlePlay} />
+        </CenterStack>
+      )}
+    </>
   )
 }
 

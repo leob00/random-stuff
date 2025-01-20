@@ -131,9 +131,13 @@ const S3FileUploadForm = ({
   }
   const handleFileSelected = (f: File) => {
     setFile(f)
+
     if (files.find((m) => m.filename.toLowerCase() === f.name.toLowerCase())) {
       setWarning(`${f.name} already exists and will be overwritten`)
+    } else {
+      setWarning(null)
     }
+
     setUserFilename(f.name)
   }
   const handleSelected = (fileName: string) => {

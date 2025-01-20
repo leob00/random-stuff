@@ -100,7 +100,7 @@ const ViewNote = ({
       <ConfirmDeleteDialog
         show={showConfirmDelete}
         title={'confirm delete'}
-        text={'Are you sure you want to delete this note?'}
+        text={'Are you sure you want to remove this note?'}
         onConfirm={handleYesDelete}
         onCancel={() => {
           setShowConfirmDelete(false)

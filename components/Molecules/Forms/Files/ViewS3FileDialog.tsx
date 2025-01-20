@@ -19,11 +19,7 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
     <FormDialog title='View file' show={true} onCancel={onCancel} fullScreen>
       <>
         <CenterStack sx={{ py: 2 }}>{filename}</CenterStack>
-        <CenterStack sx={{ py: 2 }}>
-          <Link rel='noreferrer' ref={signedUrlRef} href={signedUrl} target={'_blank'}>
-            <PrimaryButton text={'download file'} onClick={onCancel} startIcon={<CloudDownloadIcon />} />
-          </Link>
-        </CenterStack>
+
         {isAudio && (
           <CenterStack sx={{ pt: 2 }}>
             <Box>
@@ -49,6 +45,11 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
           </CenterStack>
         )}
       </>
+      <CenterStack sx={{ py: 8 }}>
+        <Link rel='noreferrer' ref={signedUrlRef} href={signedUrl} target={'_blank'}>
+          <PrimaryButton text={'download'} onClick={onCancel} startIcon={<CloudDownloadIcon />} />
+        </Link>
+      </CenterStack>
     </FormDialog>
   )
 }
