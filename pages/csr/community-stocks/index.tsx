@@ -20,6 +20,7 @@ import { useState } from 'react'
 import StockSearch from 'components/Atoms/Inputs/StockSearch'
 import StockListItem from 'components/Organizms/stocks/StockListItem'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
+import FullStockDetail from 'components/Organizms/stocks/FullStockDetail'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'
 const tabs: TabInfo[] = [
@@ -101,11 +102,7 @@ const Page = () => {
         <Box py={2}>
           <StockSearch onSymbolSelected={handleSelectQuote} clearOnSelect />
         </Box>
-        {selectedStock && (
-          <InfoDialog title='' show={!!selectedStock} fullScreen onCancel={handleCloseQuoteDialog}>
-            <StockListItem item={selectedStock} expand scrollIntoView isStock disabled />
-          </InfoDialog>
-        )}
+        {selectedStock && <FullStockDetail item={selectedStock} onClose={handleCloseQuoteDialog} />}
         {!selectedStock && <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />}
         {!selectedStock && (
           <>
