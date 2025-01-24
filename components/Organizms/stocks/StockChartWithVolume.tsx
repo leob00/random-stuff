@@ -7,6 +7,7 @@ import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import numeral from 'numeral'
 import { stockChartTooltipFormatter } from './stockLineChartOptions'
 import { getPagedArray } from 'lib/util/collections'
+import { shrinkList } from './lineChartOptions'
 interface SyncedChartModel {
   xyValues: XyValues[]
   options: LineChartOptions[]
@@ -29,68 +30,37 @@ const mapModel = (symbol: string, history: StockHistoryItem[], isXSmall: boolean
   const opts: LineChartOptions[] = []
   const id = crypto.randomUUID()
 
-  let chunkSize = history.length
-  if (chunkSize > 1000) {
-    chunkSize = 20
-  }
-  if (chunkSize > 500) {
-    chunkSize = 10
-  }
-  if (chunkSize > 220) {
-    chunkSize = 5
-  }
-  if (chunkSize > 100) {
-    chunkSize = 2
-  }
-  const chunks = getPagedArray(history, chunkSize)
+  let shrunkHistory = shrinkList(history, 60)
 
-  let dateValues: string[] = []
-  let priceValues: number[] = []
-  let volumeValues: number[] = []
-  if (chunks.length > 1) {
-    chunks.forEach((chunk, i) => {
-      if (i === 0) {
-        dateValues.push(dayjs(chunk.items[0].TradeDate).format('MM/DD/YYYY hh:mm a'))
-        priceValues.push(chunk.items[0].Price)
-        volumeValues.push(chunk.items[0].Volume ?? 0)
-      } else {
-        dateValues.push(dayjs(chunk.items[chunk.items.length - 1].TradeDate).format('MM/DD/YYYY hh:mm a'))
-        priceValues.push(chunk.items[chunk.items.length - 1].Price)
-        volumeValues.push(chunk.items[chunk.items.length - 1].Volume ?? 0)
-      }
-    })
-  } else {
-    dateValues = history.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY hh:mm a'))
-    priceValues = history.map((m) => m.Price)
-    volumeValues = history.map((m) => m.Volume ?? 0)
-  }
-
+  const x = shrunkHistory.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY hh:mm a'))
+  const priceValues = shrunkHistory.map((m) => m.Price)
+  const volumeValues = shrunkHistory.map((m) => m.Volume ?? 0)
   newXYValues.push({
-    x: dateValues,
+    x: x,
     y: priceValues,
   })
   newXYValues.push({
-    x: dateValues,
+    x: x,
     y: volumeValues,
   })
   opts.push({
     isXSmall: isXSmall,
     palette: themeMode,
-    raw: history,
+    raw: shrunkHistory,
     changePositiveColor: true,
     yLabelPrefix: '$',
     chartId: `${id}-${symbol}`,
     groupName: `${id}-${symbol}`,
     enableAxisXTooltip: false,
     toolTipFormatter: (val: number, options: any) => {
-      return stockChartTooltipFormatter(val, options, history)
+      return stockChartTooltipFormatter(val, options, shrunkHistory)
     },
   })
   opts.push({
     seriesName: 'Volume',
     isXSmall: true,
     palette: themeMode,
-    raw: history,
+    raw: shrunkHistory,
     yLabelPrefix: '',
     changePositiveColor: false,
     chartId: `child-chart-${symbol}`,

@@ -2,6 +2,7 @@ import { ApexOptions } from 'apexcharts'
 import { getBaseGrid, getBaseXAxis } from 'components/Atoms/Charts/apex/baseLineChartOptions'
 import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
 import theme, { DarkBlue, VeryLightBlue, DarkModeBlue, CasinoBlue, LightBlue } from 'components/themes/mainTheme'
+import { getPagedArray } from 'lib/util/collections'
 
 export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palette: 'light' | 'dark' = 'light', showXTooltip = true) {
   let lineColor = palette === 'dark' ? LightBlue : CasinoBlue
@@ -99,4 +100,30 @@ export function getOptions(items: XyValues, raw: any[], isXSmall: boolean, palet
     },
   }
   return options
+}
+
+export function shrinkList<T>(array: T[], maxItems: number) {
+  if (array.length <= maxItems) {
+    return [...array]
+  }
+
+  const chunkSize = Math.floor(array.length / maxItems)
+
+  const chunks = getPagedArray(array, chunkSize)
+  let result: T[] = []
+  if (chunks.length > 1) {
+    chunks.forEach((chunk, i) => {
+      if (i === 0) {
+        result.push(chunk.items[0])
+        if (chunk.items.length > 1) {
+          result.push(chunk.items[chunk.items.length - 1])
+        }
+      } else {
+        result.push(chunk.items[chunk.items.length - 1])
+      }
+    })
+  } else {
+    result = [...array]
+  }
+  return result
 }

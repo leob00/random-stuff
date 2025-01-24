@@ -21,6 +21,7 @@ import { getPositiveNegativeColor } from './StockListItem'
 import FadeOut from 'components/Atoms/Animations/FadeOut'
 import HistoricalAggregateDisplay from './HistoricalAggregateDisplay'
 import { sleep } from 'lib/util/timers'
+import { shrinkList } from './lineChartOptions'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 interface Model {
@@ -40,11 +41,12 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
 
   const dataFn = async () => {
     const response = await getStockOrFutureChart(symbol, days, isStock)
-    const map = mapHistory(response.History, 'Price')
-    const options = getOptions(map, response.History, isXSmall, theme.palette.mode)
+    const history = shrinkList(response.History, 60)
+    const map = mapHistory(history, 'Price')
+    const options = getOptions(map, history, isXSmall, theme.palette.mode)
 
     const result: Model = {
-      history: response.History,
+      history: history,
       aggregate: response.Aggregate,
       chartOptions: options,
     }
