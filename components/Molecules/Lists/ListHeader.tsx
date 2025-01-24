@@ -1,5 +1,4 @@
 import { Box, Card, CardHeader, Stack, Typography, styled, useTheme } from '@mui/material'
-import React from 'react'
 import ContextMenu, { ContextMenuItem } from '../Menus/ContextMenu'
 import ContextMenuAdd from '../Menus/ContextMenuAdd'
 import ContextMenuDelete from '../Menus/ContextMenuDelete'
