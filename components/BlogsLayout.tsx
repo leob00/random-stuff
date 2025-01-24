@@ -1,6 +1,6 @@
 import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, Box, Link, Stack, TextField, Typography } from '@mui/material'
 import { BlogCollection, BlogItem } from 'lib/models/cms/contentful/blog'
-import { getPagedItems, PagedCollection, pageItems } from 'lib/util/collections'
+import { getPagedItems, PagedCollection } from 'lib/util/collections'
 import NLink from 'next/link'
 import React, { useEffect, useState } from 'react'
 import Pager from './Atoms/Pager'

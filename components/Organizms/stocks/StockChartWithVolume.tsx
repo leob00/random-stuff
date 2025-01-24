@@ -6,6 +6,7 @@ import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import numeral from 'numeral'
 import { stockChartTooltipFormatter } from './stockLineChartOptions'
+import { getPagedArray } from 'lib/util/collections'
 interface SyncedChartModel {
   xyValues: XyValues[]
   options: LineChartOptions[]
@@ -27,14 +28,50 @@ const mapModel = (symbol: string, history: StockHistoryItem[], isXSmall: boolean
   const newXYValues: XyValues[] = []
   const opts: LineChartOptions[] = []
   const id = crypto.randomUUID()
-  const x = history.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY hh:mm a'))
+
+  let chunkSize = history.length
+  if (chunkSize > 1000) {
+    chunkSize = 20
+  }
+  if (chunkSize > 500) {
+    chunkSize = 10
+  }
+  if (chunkSize > 220) {
+    chunkSize = 5
+  }
+  if (chunkSize > 100) {
+    chunkSize = 2
+  }
+  const chunks = getPagedArray(history, chunkSize)
+
+  let dateValues: string[] = []
+  let priceValues: number[] = []
+  let volumeValues: number[] = []
+  if (chunks.length > 1) {
+    chunks.forEach((chunk, i) => {
+      if (i === 0) {
+        dateValues.push(dayjs(chunk.items[0].TradeDate).format('MM/DD/YYYY hh:mm a'))
+        priceValues.push(chunk.items[0].Price)
+        volumeValues.push(chunk.items[0].Volume ?? 0)
+      } else {
+        dateValues.push(dayjs(chunk.items[chunk.items.length - 1].TradeDate).format('MM/DD/YYYY hh:mm a'))
+        priceValues.push(chunk.items[chunk.items.length - 1].Price)
+        volumeValues.push(chunk.items[chunk.items.length - 1].Volume ?? 0)
+      }
+    })
+  } else {
+    dateValues = history.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY hh:mm a'))
+    priceValues = history.map((m) => m.Price)
+    volumeValues = history.map((m) => m.Volume ?? 0)
+  }
+
   newXYValues.push({
-    x: x,
-    y: history.map((m) => m.Price),
+    x: dateValues,
+    y: priceValues,
   })
   newXYValues.push({
-    x: x,
-    y: history.map((m) => Number(m.Volume)),
+    x: dateValues,
+    y: volumeValues,
   })
   opts.push({
     isXSmall: isXSmall,

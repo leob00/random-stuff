@@ -22,7 +22,7 @@ const RecipeTeaser = ({
   const showCardContent = showSummary && showImage
   return (
     <FadeIn>
-      <Card elevation={2}>
+      <Card elevation={0}>
         <CardHeader
           title={
             <CenterStack>
