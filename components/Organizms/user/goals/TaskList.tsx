@@ -184,67 +184,68 @@ const TaskList = ({
   return (
     <>
       {model.isLoading && <BackdropLoader />}
-      <>
-        <Box pt={1} pb={3}>
-          <FadeIn>
-            <AddTaskForm task={{}} onSubmitted={handleAddTask} />
-          </FadeIn>
-        </Box>
+      {model.editTask && (
+        // <FormDialog title='edit task' show={true} onCancel={() => setModel({ ...model, editTask: undefined })} fullScreen>
+        <EditTaskForm
+          task={model.editTask}
+          onSubmit={handleSaveTask}
+          onCancel={() => {
+            setModel({ ...model, editTask: undefined, selectedTask: undefined })
+          }}
+          onDelete={handleDeleteTask}
+        />
+        // </FormDialog>
+      )}
+      {!model.editTask && (
+        <>
+          <Box pt={1} pb={3}>
+            <FadeIn>
+              <AddTaskForm task={{}} onSubmitted={handleAddTask} />
+            </FadeIn>
+          </Box>
 
-        {model.taskList.length === 0 && (
-          <Stack direction={'row'} justifyContent={'center'} minHeight={200}>
-            <NoDataFound message={`${selectedGoal.body} tasks: 0`} />
-          </Stack>
-        )}
-        {model.taskList.length > 0 && (
-          <Box minHeight={100}>
-            <Box py={2}>
-              <TaskListHeader
-                model={model}
-                handleDownloadToFile={handleDownloadToFile}
-                handleSearched={handleSearched}
-                handleToggleSearch={handleToggleSearch}
-              />
-            </Box>
-            {filterTasks(model.searchTasksText).map((item, i) => (
-              <Box key={item.id}>
-                <Box pb={2}>
-                  <Box key={item.id}>
-                    <TaskItem
-                      task={item}
-                      index={i}
-                      taskCount={tasks.length}
-                      handleCompleteTaskClick={handleCompleteTaskClick}
-                      handleTaskClick={handleTaskClick}
-                    />
+          {model.taskList.length === 0 && (
+            <Stack direction={'row'} justifyContent={'center'} minHeight={200}>
+              <NoDataFound message={`${selectedGoal.body} tasks: 0`} />
+            </Stack>
+          )}
+          {model.taskList.length > 0 && (
+            <Box minHeight={100}>
+              <Box py={2}>
+                <TaskListHeader
+                  model={model}
+                  handleDownloadToFile={handleDownloadToFile}
+                  handleSearched={handleSearched}
+                  handleToggleSearch={handleToggleSearch}
+                />
+              </Box>
+              {filterTasks(model.searchTasksText).map((item, i) => (
+                <Box key={item.id}>
+                  <Box pb={2}>
+                    <Box key={item.id}>
+                      <TaskItem
+                        task={item}
+                        index={i}
+                        taskCount={tasks.length}
+                        handleCompleteTaskClick={handleCompleteTaskClick}
+                        handleTaskClick={handleTaskClick}
+                      />
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
-            ))}
-          </Box>
-        )}
-        {selectedGoal.deleteCompletedTasks && (
-          <Box py={2}>
-            <Box display={'flex'} alignItems={'center'} gap={1} justifyContent={'center'}>
-              <AlertWithHeader severity='warning' text='completed tasks will be deleted' />
+              ))}
             </Box>
-          </Box>
-        )}
-      </>
-      <>
-        {model.editTask && (
-          <FormDialog title='edit task' show={true} onCancel={() => setModel({ ...model, editTask: undefined })} fullScreen>
-            <EditTaskForm
-              task={model.editTask}
-              onSubmit={handleSaveTask}
-              onCancel={() => {
-                setModel({ ...model, editTask: undefined, selectedTask: undefined })
-              }}
-              onDelete={handleDeleteTask}
-            />
-          </FormDialog>
-        )}
-      </>
+          )}
+          {selectedGoal.deleteCompletedTasks && (
+            <Box pt={8}>
+              <Box display={'flex'} alignItems={'center'} gap={1} justifyContent={'center'}>
+                <AlertWithHeader severity='warning' text='completed tasks will be deleted' />
+              </Box>
+            </Box>
+          )}
+        </>
+      )}
+
       <ConfirmDialog
         onCancel={handleNoChangeTaskStatus}
         show={model.confirmCompleteTask}

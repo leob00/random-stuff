@@ -23,7 +23,7 @@ const Page = () => {
     <ResponsiveContainer>
       <Box minHeight={500}>
         <PageHeader text='Cryptos' />
-        {isLoading || (profileLoading && <BackdropLoader />)}
+        {(isLoading || profileLoading) && <BackdropLoader />}
         {data && !profileLoading && <CryptosDisplay data={data} userProfile={userProfile} />}
       </Box>
     </ResponsiveContainer>

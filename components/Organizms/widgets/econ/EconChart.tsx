@@ -7,7 +7,8 @@ import dynamic from 'next/dynamic'
 import EconChangeHeader from './EconChangeHeader'
 import { getOptions } from 'components/Organizms/stocks/stockLineChartOptions'
 import { shrinkList } from 'components/Organizms/stocks/lineChartOptions'
-const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false, loading: () => <BackdropLoader /> })
 
 const EconChart = ({
   symbol,

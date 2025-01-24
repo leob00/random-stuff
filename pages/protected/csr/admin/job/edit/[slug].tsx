@@ -30,11 +30,12 @@ const Page = () => {
 
   const onSave = async (item: Job) => {
     const url = `/BatchJobDetail?Token=${claim?.token ?? ''}`
+    const newItem = { ...item, NexRunDate: item.NextRunDate === 'Invalid Date' ? null : item.NextRunDate }
     const req: QlnApiRequest = {
-      body: item,
+      body: newItem,
     }
-    mutate(mutateKey, item, { revalidate: false })
-    serverPostFetch(req, url)
+    mutate(mutateKey, newItem, { revalidate: false })
+    await serverPostFetch(req, url)
   }
 
   useEffect(() => {

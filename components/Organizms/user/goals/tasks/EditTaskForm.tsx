@@ -1,29 +1,17 @@
-import { Box, Button, IconButton, Stack, TextField, Typography } from '@mui/material'
+import { Box, Button, Stack, TextField } from '@mui/material'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import FormTextBox from 'components/Atoms/Inputs/FormTextBox'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
-import dayjs from 'dayjs'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import Delete from '@mui/icons-material/Delete'
 import DateAndTimePicker2 from '../../../../Molecules/Forms/ReactHookForm/DateAndTimePicker2'
 import { UserTask } from '../goalModels'
 import { useReducer, useState } from 'react'
-import { z } from 'zod'
-import S3FileUploadForm from 'components/Molecules/Forms/S3FileUploadForm'
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { useUserController } from 'hooks/userController'
 import { sortArray } from 'lib/util/collections'
-import S3FilesTable from 'components/Organizms/files/S3FilesTable'
 import { DropdownItem } from 'lib/models/dropdown'
-import { useS3Controller } from 'hooks/s3/useS3Controller'
-import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
-import AttachFileIcon from '@mui/icons-material/AttachFile'
-import FormDialog from 'components/Atoms/Dialogs/FormDialog'
-import CenterStack from 'components/Atoms/CenterStack'
 import S3ManageFiles from 'components/Organizms/files/S3ManageFiles'
-const TaskSchema = z.object({
-  title: z.string(),
-})
 
 const EditTaskForm = ({
   task,

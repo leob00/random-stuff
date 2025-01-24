@@ -16,7 +16,7 @@ const HomeMenu = () => {
   const { allRoutes: recentRoutes } = useRouteTracker()
   const recentHistory = recentRoutes.filter((m) => m.name !== 'home')
   const all = siteMap()
-  const [showGroupedMenu, setShowGroupedMenu] = React.useState(recentHistory.length < 4)
+  const [showDefaultMenu, setShowDefaultMenu] = React.useState(recentHistory.length < 4)
   const { ticket } = useUserController()
   const isAdmin = userHasRole('Admin', ticket?.roles ?? [])
 
@@ -32,19 +32,19 @@ const HomeMenu = () => {
         }}
       >
         <Box display={'flex'} justifyContent={'flex-end'}>
-          <Button size='small' aria-haspopup='true' onClick={() => setShowGroupedMenu(!showGroupedMenu)}>
+          <Button size='small' aria-haspopup='true' onClick={() => setShowDefaultMenu(!showDefaultMenu)}>
             <MenuIcon color='primary' fontSize='small' />
           </Button>
         </Box>
         <Box pb={8}>
           <Box py={2}>
-            {showGroupedMenu && (
+            {showDefaultMenu && (
               <>
                 <GroupedHomeMenu pathCategories={pathCategories} />
                 {isAdmin && <GroupedHomeMenu pathCategories={adminCategories} />}
               </>
             )}
-            {!showGroupedMenu && (
+            {!showDefaultMenu && (
               <>
                 <CenteredTitle title={'Recent History'} variant='h4' />
                 {recentHistory.map((item, i) => (

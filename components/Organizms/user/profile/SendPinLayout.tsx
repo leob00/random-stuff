@@ -45,8 +45,8 @@ const SendPinLayout = ({ profile }: { profile: UserProfile }) => {
         {!emailSent ? (
           <>
             <Box py={2}>
-              <Typography>
-                {`We can send your your pin via email. The sender address will appear as 'alertsender@quotelookup.net' Please be sure to check your spam folders
+              <Typography textAlign={'center'}>
+                {`We can send your your pin via email. The sender address will appear as 'alertsender@quotelookup.net'. Please be sure to check your spam folders
                 if you don't find the email in your inbox.`}
               </Typography>
             </Box>

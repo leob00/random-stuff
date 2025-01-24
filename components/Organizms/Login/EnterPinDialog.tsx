@@ -8,8 +8,8 @@ import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { UserPin, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
-import React from 'react'
 import router from 'next/router'
+import { useEffect, useState } from 'react'
 const EnterPinDialog = ({
   show,
   userProfile,
@@ -21,8 +21,8 @@ const EnterPinDialog = ({
   onConfirm: (userPin: UserPin) => void
   onCancel: () => void
 }) => {
-  const [error, setError] = React.useState('')
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleClose = async () => {
     onCancel()
@@ -47,7 +47,7 @@ const EnterPinDialog = ({
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     setError('')
   }, [])
 
@@ -57,7 +57,7 @@ const EnterPinDialog = ({
         <Dialog open={show} onClose={handleClose} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
           <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>
             <Stack display='flex' direction={'row'}>
-              <Stack flexGrow={1}>{'Enter pin'}</Stack>
+              <Stack flexGrow={1}>{'Pin'}</Stack>
               <Stack>
                 <Button onClick={handleClose} sx={{ pl: 8 }}>
                   <Close />
@@ -71,7 +71,7 @@ const EnterPinDialog = ({
             </DialogContentText>
             <Box py={2}>
               <Box>
-                <Typography component={'div'}>{`You will be asked to enter your pin periodically to make sure your account is protected.`}</Typography>
+                <Typography component={'div'}>{`You will be asked to enter your pin periodically to make sure your data is protected.`}</Typography>
               </Box>
             </Box>
             <Box py={2}>

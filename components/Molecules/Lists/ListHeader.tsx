@@ -1,10 +1,12 @@
-import { Box, Card, CardHeader, Stack, Typography } from '@mui/material'
+import { Box, Card, CardHeader, Stack, Typography, styled, useTheme } from '@mui/material'
 import React from 'react'
 import ContextMenu, { ContextMenuItem } from '../Menus/ContextMenu'
 import ContextMenuAdd from '../Menus/ContextMenuAdd'
 import ContextMenuDelete from '../Menus/ContextMenuDelete'
 import ContextMenuEdit from '../Menus/ContextMenuEdit'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import { CasinoBlue, VeryLightBlue } from 'components/themes/mainTheme'
+import ListHeaderStack from './ListHeaderStack'
 
 const ListHeader = ({
   text,
@@ -32,7 +34,7 @@ const ListHeader = ({
   fadeIn?: boolean
 }) => {
   const showContextMenu = onEdit !== undefined || onDelete !== undefined || onAdd !== undefined
-
+  const theme = useTheme()
   const contextMenu: ContextMenuItem[] = []
   if (onEdit) {
     contextMenu.push({
@@ -59,30 +61,55 @@ const ListHeader = ({
     })
   }
 
+  const StyledBox = styled(Stack)`
+    & .MuiStack-root {
+      //border-radius: 20px;
+      background-color: transparent;
+      //border: solid 1px ${theme.palette.primary.main};
+    }
+    & .MuiCardHeader-root {
+      //background-color: red;
+      //border-radius: 28px;
+    }
+    &:hover {
+      border: solid 1px ${theme.palette.primary.main};
+      border-radius: 6px;
+      padding: 1px;
+      //elevation: 0px;
+    }
+  `
+
   const ListHeaderContent = () => {
     return (
-      <Stack direction={'row'} flexGrow={1} alignItems={'center'}>
-        <Card sx={{ width: '100%', borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }} elevation={elevation}>
-          <CardHeader
-            title={
-              <>
-                <Box
-                  width={'100%'}
-                  sx={{ cursor: !disabled ? 'pointer' : 'unset' }}
-                  onClick={(e) => {
-                    onClicked?.(item)
-                  }}
-                >
-                  <Typography textAlign={'left'} variant='h6' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
-                    {text}
-                  </Typography>
-                </Box>
-              </>
-            }
-          ></CardHeader>
-        </Card>
-        <Box>{showContextMenu && <ContextMenu items={contextMenu} />}</Box>
-      </Stack>
+      <>
+        {!disabled ? (
+          <StyledBox>
+            <ListHeaderStack
+              contextMenu={contextMenu}
+              item={item}
+              text={text}
+              disabled={disabled}
+              elevation={elevation}
+              onClicked={onClicked}
+              showContextMenu={showContextMenu}
+              underline={underline}
+            />
+          </StyledBox>
+        ) : (
+          <>
+            <ListHeaderStack
+              contextMenu={contextMenu}
+              item={item}
+              text={text}
+              disabled={disabled}
+              elevation={elevation}
+              onClicked={onClicked}
+              showContextMenu={showContextMenu}
+              underline={underline}
+            />
+          </>
+        )}
+      </>
     )
   }
 
