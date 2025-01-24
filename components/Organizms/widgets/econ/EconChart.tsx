@@ -6,6 +6,7 @@ import { calculateStockMovePercent } from 'lib/util/numberUtil'
 import dynamic from 'next/dynamic'
 import EconChangeHeader from './EconChangeHeader'
 import { getOptions } from 'components/Organizms/stocks/stockLineChartOptions'
+import { shrinkList } from 'components/Organizms/stocks/lineChartOptions'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const EconChart = ({
@@ -69,7 +70,8 @@ export function mapEconChartToStockHistory(symbol: string, xValues: string[], yV
     }
     history.push(h)
   })
-  return history
+  const result = shrinkList(history, 60)
+  return result
 }
 
 export default EconChart
