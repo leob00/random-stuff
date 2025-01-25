@@ -11,6 +11,7 @@ import CenteredNavigationButton from 'components/Atoms/Buttons/CenteredNavigatio
 import { useUserController } from 'hooks/userController'
 import { userHasRole } from 'lib/backend/auth/userUtil'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 
 const HomeMenu = () => {
   const { allRoutes: recentRoutes } = useRouteTracker()
@@ -39,10 +40,10 @@ const HomeMenu = () => {
         <Box pb={8}>
           <Box py={2}>
             {showDefaultMenu && (
-              <>
+              <ScrollableBox maxHeight={700}>
                 <GroupedHomeMenu pathCategories={pathCategories} />
                 {isAdmin && <GroupedHomeMenu pathCategories={adminCategories} />}
-              </>
+              </ScrollableBox>
             )}
             {!showDefaultMenu && (
               <>

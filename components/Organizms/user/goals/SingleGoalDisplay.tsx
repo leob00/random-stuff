@@ -19,12 +19,12 @@ import { useRouter } from 'next/router'
 import EditGoal from './EditGoal'
 import GoalStats from './GoalStats'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import { UserGoal, UserTask } from './goalModels'
 import { useState } from 'react'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
-import { deleteS3Object } from 'lib/backend/api/aws/apiGateway/s3/s3functions'
-import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
+
+import ProgressDrawer from 'components/Atoms/Drawers/ProgressDrawer'
+import { postDelete } from 'lib/backend/api/fetchFunctions'
 
 const SingleGoalDisplay = ({
   username,
@@ -55,7 +55,7 @@ const SingleGoalDisplay = ({
     }
     putUserGoalTasks(username, newGoal.id!, newTasks)
     const resultGoal = await saveGoal(username, newGoal, newTasks)
-
+    setSnackbarText(null)
     onMutated(resultGoal, newTasks)
     //setIsSaving(false)
   }
@@ -67,10 +67,12 @@ const SingleGoalDisplay = ({
     putUserGoalTasks(username, goal.id!, newTasks)
     if (item.files && item.files.length > 0) {
       for (let f of item.files) {
-        await deleteS3Object(f.bucket, f.fullPath)
+        await postDelete('/api/s3', f)
+        setSnackbarText(`deleted ${f.filename}`)
       }
     }
     const resultGoal = await saveGoal(username, goal, newTasks)
+    setSnackbarText(null)
     onMutated(resultGoal, newTasks)
   }
   const handleModifyTask = async (item: UserTask, closeEdit: boolean = false) => {
@@ -89,16 +91,23 @@ const SingleGoalDisplay = ({
 
     putUserGoalTasks(username, item.goalId!, newTasks)
     const resultGoal = await saveGoal(username, goal, newTasks)
-
+    setSnackbarText(null)
     onMutated(resultGoal, newTasks)
   }
 
   const handleDeleteGoal = async () => {
     setShowDeleteGoalConfirm(false)
-    let goals = await getUserGoals(constructUserGoalsKey(username))
+    setSnackbarText(null)
+    const files = tasks.filter((m) => !!m.files).flatMap((f) => f.files!)
+    for (let f of files) {
+      await postDelete('/api/s3', f)
+      setSnackbarText(`deleted ${f.filename}`)
+    }
+    const goals = await getUserGoals(constructUserGoalsKey(username))
     const newGoals = goals.filter((m) => m.id !== goal.id)
     await putUserGoals(constructUserGoalsKey(username), newGoals)
     await putUserGoalTasks(username, goal.id!, [], getSecondsFromEpoch())
+    setSnackbarText(`deleted goal: ${goal.body}`)
     router.push('/protected/csr/goals')
   }
 
@@ -171,7 +180,7 @@ const SingleGoalDisplay = ({
           />
         </>
       )}
-      {snackbarText && <SnackbarSuccess duration={1400} text={snackbarText} show={!!snackbarText} onClose={() => setSnackbarText(null)} />}
+      {snackbarText && <ProgressDrawer message={snackbarText} isOpen={!!snackbarText} />}
     </>
   )
 }
