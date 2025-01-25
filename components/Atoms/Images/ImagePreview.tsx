@@ -12,9 +12,9 @@ const ImagePreview = ({ url, imageSize }: { url: string; imageSize?: ImageSize }
           <OptimizedImage url={url} title='' imageSize={imageSize} />
         </Box>
       </CenterStack>
-      <Box>
+      {/* <Box>
         <TextExtractor url={url} />
-      </Box>
+      </Box> */}
     </Box>
   )
 }
