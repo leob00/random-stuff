@@ -7,13 +7,13 @@ import { useRef } from 'react'
 import AudioPlayer from 'components/Atoms/Media/AudioPlayer'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ImagePreview from 'components/Atoms/Images/ImagePreview'
+import PdfViewer from './PdfViewer'
 
 const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string; filename: string; onCancel: () => void }) => {
   const signedUrlRef = useRef<HTMLAnchorElement | null>(null)
   const previewImageExtenstions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.svg', '.webp']
   const previewVideoExtenstions = ['.mpeg']
   const previewAudioExtenstions = ['.mp3', 'mp4', '.m4a']
-  const previewTextExtenstions = ['.txt', '.csv', '.json', '.html']
   const ext = filename.substring(filename.lastIndexOf('.')).toLowerCase()
   const isVideo = previewVideoExtenstions.includes(ext)
   const isAudio = previewAudioExtenstions.includes(ext)
@@ -42,11 +42,7 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
           </CenterStack>
         )}
         {isImage && <ImagePreview url={signedUrl} />}
-        {isPdf && (
-          <CenterStack sx={{ pt: 2 }}>
-            <iframe style={{ border: 'none' }} src={signedUrl} width={275} height={500} />
-          </CenterStack>
-        )}
+        {isPdf && <PdfViewer url={signedUrl} />}
       </>
 
       <CenterStack sx={{ py: 8 }}>
