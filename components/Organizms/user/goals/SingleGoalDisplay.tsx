@@ -25,6 +25,7 @@ import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 import ProgressDrawer from 'components/Atoms/Drawers/ProgressDrawer'
 import { postDelete } from 'lib/backend/api/fetchFunctions'
+import { sleep } from 'lib/util/timers'
 
 const SingleGoalDisplay = ({
   username,
@@ -46,7 +47,7 @@ const SingleGoalDisplay = ({
   const displayTasks = goal.deleteCompletedTasks ? [...tasks].filter((m) => m.status !== 'completed') : [...tasks]
 
   const handleAddTask = async (item: UserTask) => {
-    setSnackbarText('task added')
+    setSnackbarText('task added!')
     let newTasks = [...tasks]
     const newGoal = { ...goal }
     newTasks.unshift(item)
@@ -55,8 +56,10 @@ const SingleGoalDisplay = ({
     }
     putUserGoalTasks(username, newGoal.id!, newTasks)
     const resultGoal = await saveGoal(username, newGoal, newTasks)
-    setSnackbarText(null)
     onMutated(resultGoal, newTasks)
+    await sleep(250)
+    setSnackbarText(null)
+
     //setIsSaving(false)
   }
   const handleDeleteTask = async (item: UserTask) => {
@@ -72,12 +75,14 @@ const SingleGoalDisplay = ({
       }
     }
     const resultGoal = await saveGoal(username, goal, newTasks)
-    setSnackbarText(null)
+
     onMutated(resultGoal, newTasks)
+    await sleep(250)
+    setSnackbarText(null)
   }
   const handleModifyTask = async (item: UserTask, closeEdit: boolean = false) => {
     if (item.status === 'completed') {
-      setSnackbarText('task completed')
+      setSnackbarText('task completed!')
     } else {
       setSnackbarText('task modified')
     }
@@ -91,8 +96,10 @@ const SingleGoalDisplay = ({
 
     putUserGoalTasks(username, item.goalId!, newTasks)
     const resultGoal = await saveGoal(username, goal, newTasks)
-    setSnackbarText(null)
+
     onMutated(resultGoal, newTasks)
+    await sleep(250)
+    setSnackbarText(null)
   }
 
   const handleDeleteGoal = async () => {
