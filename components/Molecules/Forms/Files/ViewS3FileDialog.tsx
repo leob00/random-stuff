@@ -18,7 +18,7 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
   const isVideo = previewVideoExtenstions.includes(ext)
   const isAudio = previewAudioExtenstions.includes(ext)
   const isImage = previewImageExtenstions.includes(ext)
-  const isText = previewTextExtenstions.includes(ext)
+  const isPdf = ext.includes('.pdf')
   return (
     <FormDialog title='View file' show={true} onCancel={onCancel} fullScreen>
       <>
@@ -46,6 +46,11 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
             <Stack width={{ xs: 275, md: 600 }}>
               <img style={{ maxWidth: '100%', borderRadius: '12px' }} src={signedUrl} alt='preview image' />
             </Stack>
+          </CenterStack>
+        )}
+        {isPdf && (
+          <CenterStack sx={{ pt: 2 }}>
+            <iframe style={{ border: 'none' }} src={signedUrl} width={275} height={500} />
           </CenterStack>
         )}
       </>
