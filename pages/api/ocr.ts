@@ -1,7 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getUserSSRApi } from 'lib/backend/server-side/serverSideAuth'
 import { getTextFromImage } from 'lib/backend/api/fileApi'
-
+export const config = {
+  api: {
+    responseLimit: false,
+  },
+}
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const user = await getUserSSRApi(req, res)
   if (!user) {

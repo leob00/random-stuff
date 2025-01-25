@@ -10,7 +10,6 @@ import ImagePreview from 'components/Atoms/Images/ImagePreview'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import { getFileSizeText, getImageSize } from 'lib/util/numberUtil'
 import CopyableText from 'components/Atoms/Text/CopyableText'
-import ProgressBar from 'components/Atoms/Progress/ProgressBar'
 import { useState } from 'react'
 
 const OcrLocal = () => {

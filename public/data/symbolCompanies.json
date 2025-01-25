@@ -4384,6 +4384,10 @@
     "Symbol": "BENFW"
   },
   {
+    "Company": "Horizon Landmark ETF",
+    "Symbol": "BENJ"
+  },
+  {
     "Company": "Brookfield Renewable Partners L.P.",
     "Symbol": "BEP"
   },
@@ -8244,7 +8248,7 @@
     "Symbol": "CLNR"
   },
   {
-    "Company": "BlackRock AAA CLO ETF",
+    "Company": "BlackRock ETF Trust II iShares AAA CLO Active ETF",
     "Symbol": "CLOA"
   },
   {
@@ -8798,6 +8802,10 @@
   {
     "Company": "Coca-Cola Consolidated, Inc. Common Stock",
     "Symbol": "COKE"
+  },
+  {
+    "Company": "Columbus Acquisition Corp Unit",
+    "Symbol": "COLAU"
   },
   {
     "Company": "Columbia Banking Systems Inc",
@@ -15240,6 +15248,10 @@
     "Symbol": "FIXD"
   },
   {
+    "Company": "FolioBeyond Enhanced Fixed Income Premium ETF",
+    "Symbol": "FIXP"
+  },
+  {
     "Company": "Procure Disaster Recovery Strategy ETF",
     "Symbol": "FIXT"
   },
@@ -17196,6 +17208,10 @@
     "Symbol": "GEMD"
   },
   {
+    "Company": "Pacific North of South EM Equity Active ETF",
+    "Symbol": "GEME"
+  },
+  {
     "Company": "Gen Digital Inc. Common Stock",
     "Symbol": "GEN"
   },
@@ -18160,6 +18176,10 @@
     "Symbol": "GPS"
   },
   {
+    "Company": "YieldMax AI & Tech Portfolio Option Income ETF",
+    "Symbol": "GPTY"
+  },
+  {
     "Company": "Hyperscale Data, Inc.",
     "Symbol": "GPUS"
   },
@@ -18894,6 +18914,10 @@
   {
     "Company": "HBT Financial, Inc. Common Stock",
     "Symbol": "HBT"
+  },
+  {
+    "Company": "Horizon Expedition Plus ETF",
+    "Symbol": "HBTA"
   },
   {
     "Company": "HCA Healthcare, Inc.",
@@ -29056,6 +29080,10 @@
     "Symbol": "NHTC"
   },
   {
+    "Company": "Nuveen High Yield Municipal Income ETF",
+    "Symbol": "NHYM"
+  },
+  {
     "Company": "NiSource Inc.",
     "Symbol": "NI"
   },
@@ -29846,6 +29874,10 @@
   {
     "Company": "Nuveen ESG Mid-Cap Growth ETF",
     "Symbol": "NUMG"
+  },
+  {
+    "Company": "Nuveen Municipal Income ETF",
+    "Symbol": "NUMI"
   },
   {
     "Company": "Nuveen ESG Mid-Cap Value ETF",
@@ -37816,6 +37848,10 @@
     "Symbol": "SJW"
   },
   {
+    "Company": "Skyline Builders Group Holding Limited Class A Ordinary Shares",
+    "Symbol": "SKBL"
+  },
+  {
     "Company": "Skeena Resources Limited",
     "Symbol": "SKE"
   },
@@ -42096,6 +42132,10 @@
     "Symbol": "TXUE"
   },
   {
+    "Company": "Thornburg International Growth Fund ETF",
+    "Symbol": "TXUG"
+  },
+  {
     "Company": "TRI-Continental Corporation",
     "Symbol": "TY"
   },
@@ -43446,6 +43486,10 @@
   {
     "Company": "Vanguard U.S. Value Factor ETF",
     "Symbol": "VFVA"
+  },
+  {
+    "Company": "Venture Global, Inc.",
+    "Symbol": "VG"
   },
   {
     "Company": "Verde Clean Fuels, Inc. Class A Common Stock",
@@ -45540,6 +45584,10 @@
     "Symbol": "XIDE"
   },
   {
+    "Company": "Franklin International Dividend Multiplier Index ETF",
+    "Symbol": "XIDV"
+  },
+  {
     "Company": "FT Vest U.S. Equity Buffer & Premium Income ETF - June",
     "Symbol": "XIJN"
   },
@@ -45922,6 +45970,10 @@
   {
     "Company": "BondBloxx Bloomberg Twenty Year Target Duration US Treasury ETF",
     "Symbol": "XTWY"
+  },
+  {
+    "Company": "Franklin US Dividend Multiplier Index ETF",
+    "Symbol": "XUDV"
   },
   {
     "Company": "Innovator Uncapped Accelerated U.S. Equity ETF",

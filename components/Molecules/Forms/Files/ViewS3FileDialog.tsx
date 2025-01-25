@@ -1,4 +1,4 @@
-import { Alert, Box, Link, Stack } from '@mui/material'
+import { Box, Link } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
@@ -6,7 +6,7 @@ import CloudDownloadIcon from '@mui/icons-material/CloudDownload'
 import { useRef } from 'react'
 import AudioPlayer from 'components/Atoms/Media/AudioPlayer'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import HtmlView from 'components/Atoms/Boxes/HtmlView'
+import ImagePreview from 'components/Atoms/Images/ImagePreview'
 
 const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string; filename: string; onCancel: () => void }) => {
   const signedUrlRef = useRef<HTMLAnchorElement | null>(null)
@@ -41,13 +41,7 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
             </Box>{' '}
           </CenterStack>
         )}
-        {isImage && (
-          <CenterStack sx={{ pt: 2 }}>
-            <Stack width={{ xs: 275, md: 600 }}>
-              <img style={{ maxWidth: '100%', borderRadius: '12px' }} src={signedUrl} alt='preview image' />
-            </Stack>
-          </CenterStack>
-        )}
+        {isImage && <ImagePreview url={signedUrl} />}
         {isPdf && (
           <CenterStack sx={{ pt: 2 }}>
             <iframe style={{ border: 'none' }} src={signedUrl} width={275} height={500} />
@@ -57,7 +51,7 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
 
       <CenterStack sx={{ py: 8 }}>
         <Link rel='noreferrer' ref={signedUrlRef} href={signedUrl} target={'_blank'}>
-          <PrimaryButton text={'download'} onClick={onCancel} startIcon={<CloudDownloadIcon />} />
+          <PrimaryButton text={'download file'} onClick={onCancel} startIcon={<CloudDownloadIcon />} />
         </Link>
       </CenterStack>
     </FormDialog>

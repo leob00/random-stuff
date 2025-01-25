@@ -25,7 +25,7 @@ const AudioPlayer = ({ source }: { source: string }) => {
         playerRef.current.muted = true
       }
     }
-  }, [])
+  }, [isXSmall])
 
   return (
     <>
