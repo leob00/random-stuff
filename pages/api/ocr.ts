@@ -12,6 +12,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(403).json({ message: 'unauthorized' })
   }
   const url = String(req.query['url'])
-  const text = await getTextFromImage(url)
-  return res.status(200).json(text)
+  const result = await getTextFromImage(url)
+  return res.status(200).json(result.text)
 }

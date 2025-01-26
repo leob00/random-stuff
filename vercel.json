@@ -1,11 +1,4 @@
 {
-  "functions": {
-    "pages/api/ocr.ts": {
-      "includeFiles": "node_modules/tesseract.js-core/tesseract-core-simd.wasm",
-      "memory": 1024,
-      "maxDuration": 10
-    }
-  },
   "crons": [
     {
       "path": "/api/cron/stockAlerts",

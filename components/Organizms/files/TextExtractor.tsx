@@ -15,8 +15,9 @@ const TextExtractor = ({ url }: { url: string }) => {
     setIsLoading(true)
     try {
       const fileResp = await fetch(`/api/ocr?url=${encodeURIComponent(url)}`)
-      const result = (await fileResp.json()) as Tesseract.Page
-      setText(result.text)
+      //const result = (await fileResp.json()) as Tesseract.Page
+      const result = (await fileResp.json()) as string
+      setText(result)
       setIsLoading(false)
       setProgress(0)
     } catch (err) {
