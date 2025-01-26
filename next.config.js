@@ -22,11 +22,6 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'images.ctfassets.net',
-        pathname: '**',
-      },
-      {
-        protocol: 'https',
         hostname: 'cso88ynaac.execute-api.us-east-1.amazonaws.com',
         pathname: '**',
       },

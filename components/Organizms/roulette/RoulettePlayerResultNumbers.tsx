@@ -21,7 +21,7 @@ const RoulettePlayerResultNumbers = ({ data }: { data: RouletteNumber[] }) => {
                 borderRadius={'50%'}
                 p={2}
                 textAlign='center'
-                width={60}
+                width={68}
               >
                 <Typography variant='h5' sx={{ color: translateCasinoColor(item.color) }}>
                   {item.value}

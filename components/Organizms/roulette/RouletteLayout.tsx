@@ -15,6 +15,7 @@ import React from 'react'
 import numeral from 'numeral'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import RoulettePlayerResultNumbers from './RoulettePlayerResultNumbers'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 interface Model {
   spinSpeed?: number
@@ -310,7 +311,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       )}
       {model.playerResults.length > 0 && <RoulettePlayerResultNumbers data={model.playerResults} />}
       <Box sx={{ minHeight: 80 }}>
-        <CenterStack sx={{ my: 2 }}>
+        {/* <CenterStack sx={{ my: 2 }}>
           <SecondaryButton
             text={model.isSimulationRunning ? 'running...' : 'run simulation'}
             isDisabled={false}
@@ -318,7 +319,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
             disabled={model.isSpinning}
             width={170}
           />
-        </CenterStack>
+        </CenterStack> */}
         <CenterStack sx={{ minHeight: 50 }}>
           {!model.isSpinning && model.playerResults.length > 0 && (
             <LinkButton
@@ -330,13 +331,13 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
             </LinkButton>
           )}
         </CenterStack>
-        <CenterStack>
+        {/* <CenterStack>
           <Box sx={{ width: '80%', textAlign: 'center' }}>
             <LinearProgress variant='determinate' value={model.simulationCounter} />
           </Box>
-        </CenterStack>
+        </CenterStack> */}
       </Box>
-
+      <HorizontalDivider />
       <Box my={1}>
         <Box>
           <RouletteBarChart

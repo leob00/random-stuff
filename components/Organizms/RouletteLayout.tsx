@@ -382,7 +382,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     <Box>
       <CenteredHeader title={'This is your chance to spin the wheel!'} description={'press the wheel to spin or run simulation of 100 turns.'} />
       <Box sx={{ minHeight: 80 }}>
-        <CenterStack sx={{ my: 2 }}>
+        {/* <CenterStack sx={{ my: 2 }}>
           <SecondaryButton
             text={model.isSimulationRunning ? 'running...' : 'run simultaion'}
             isDisabled={false}
@@ -395,7 +395,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
           <Box sx={{ width: '80%', textAlign: 'center' }}>
             <LinearProgress variant='determinate' value={simulationCounter} />
           </Box>
-        </CenterStack>
+        </CenterStack> */}
       </Box>
       <CenterStack sx={{ minHeight: 280 }}>
         <ImageSpinner
