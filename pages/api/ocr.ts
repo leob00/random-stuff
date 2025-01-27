@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { getUserSSRApi } from 'lib/backend/server-side/serverSideAuth'
 import { getTextFromImage } from 'lib/backend/api/fileApi'
 export const config = {
+  maxDuration: 15,
   api: {
     responseLimit: false,
   },

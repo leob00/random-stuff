@@ -8,6 +8,7 @@ import AudioPlayer from 'components/Atoms/Media/AudioPlayer'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ImagePreview from 'components/Atoms/Images/ImagePreview'
 import PdfViewer from './PdfViewer'
+import HtmlView from 'components/Atoms/Boxes/HtmlView'
 
 const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string; filename: string; onCancel: () => void }) => {
   const signedUrlRef = useRef<HTMLAnchorElement | null>(null)
@@ -19,6 +20,7 @@ const ViewS3FileDialog = ({ signedUrl, filename, onCancel }: { signedUrl: string
   const isAudio = previewAudioExtenstions.includes(ext)
   const isImage = previewImageExtenstions.includes(ext)
   const isPdf = ext.includes('.pdf')
+  const isText = ext.includes('.txt')
   return (
     <FormDialog title='View file' show={true} onCancel={onCancel} fullScreen>
       <>
