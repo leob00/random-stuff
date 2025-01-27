@@ -1,7 +1,6 @@
 import { Box } from '@mui/material'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { serverGetFetch } from 'lib/backend/api/qln/qlnApi'
-import React from 'react'
 import StockTable from './StockTable'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
@@ -23,7 +22,7 @@ const CommoditiesLayout = () => {
       {data && (
         <Box pt={2}>
           <ScrollIntoView enabled={true} margin={-17} />
-          <StockTable stockList={data} isStock={false} />
+          <StockTable stockList={data} isStock={false} showSummary />
         </Box>
       )}
     </Box>
