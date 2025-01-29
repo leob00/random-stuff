@@ -44,7 +44,7 @@ export async function getUserSSRApi(req: NextApiRequest, res: NextApiResponse) {
     const result: AmplifyUser = {
       id: user.username,
       email: userAttributes.email ?? '',
-      roles: await getRolesFromAmplifyUser(userAttributes),
+      roles: getRolesFromAmplifyUser(userAttributes),
     }
     return result
   } catch (err) {

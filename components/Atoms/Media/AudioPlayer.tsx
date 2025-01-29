@@ -2,12 +2,13 @@ import { Box, useMediaQuery, useTheme } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import CenterStack from '../CenterStack'
 import SuccessButton from '../Buttons/SuccessButton'
+import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 
 const AudioPlayer = ({ source }: { source: string }) => {
   const playerRef = useRef<HTMLAudioElement | null>(null)
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
-  const [showCustomControls, setShowCustomControls] = useState(isXSmall)
+  const [showCustomControls, setShowCustomControls] = useState(true)
 
   const handlePlay = () => {
     if (playerRef.current) {
@@ -28,7 +29,7 @@ const AudioPlayer = ({ source }: { source: string }) => {
   }, [isXSmall])
 
   return (
-    <>
+    <Box minHeight={150}>
       <Box display={showCustomControls ? 'none' : 'unset'}>
         <audio controls ref={playerRef} onPlay={handlePlay} preload='auto'>
           <source src={source} type='audio/mpeg' />
@@ -38,10 +39,10 @@ const AudioPlayer = ({ source }: { source: string }) => {
       </Box>
       {showCustomControls && (
         <CenterStack sx={{ py: 2 }}>
-          <SuccessButton text='play' onClick={handlePlay} />
+          <SuccessButton text='play' onClick={handlePlay} startIcon={<PlayArrowIcon />} />
         </CenterStack>
       )}
-    </>
+    </Box>
   )
 }
 
