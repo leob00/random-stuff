@@ -2,6 +2,7 @@ import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import Seo from 'components/Organizms/Seo'
 import CryptosDisplay from 'components/Organizms/crypto/CryptosDisplay'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import { useSwrHelper } from 'hooks/useSwrHelper'
@@ -21,6 +22,7 @@ const Page = () => {
 
   return (
     <ResponsiveContainer>
+      <Seo pageTitle='Cryptos' />
       <Box minHeight={500}>
         <PageHeader text='Cryptos' />
         {(isLoading || profileLoading) && <BackdropLoader />}

@@ -13,9 +13,11 @@ import OcrLocal from 'components/Organizms/files/OcrLocal'
 import { useState, useEffect, startTransition } from 'react'
 import Playground from 'components/Organizms/admin/Playground'
 import Framer from 'components/Organizms/sandbox/Framer'
+import ApiStream from 'components/Organizms/admin/stream/ApiStream'
 
 const Page = () => {
   const tabs: TabInfo[] = [
+    { title: 'Api Stream' },
     {
       title: 'Files',
     },
@@ -66,6 +68,7 @@ const Page = () => {
         <TabList tabs={tabs} onSetTab={handleSetTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
 
         <Box p={2}>
+          {selectedTab === 'Api Stream' && <ApiStream />}
           {selectedTab === 'Files' && <>{!isLoading && authProfile && <S3Display />}</>}
           {selectedTab === 'OCR' && <OcrLocal />}
           {selectedTab === 'Charts' && <Playground />}

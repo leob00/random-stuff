@@ -14,7 +14,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // get presigned url
   if (req.method === 'POST') {
     const postArgs: Arg = req.body
-    const response = await getS3ObjectPresignedUrl(postArgs.bucket, postArgs.fullPath, postArgs.expiration!)
+    const response = (await getS3ObjectPresignedUrl(postArgs.bucket, postArgs.fullPath, postArgs.expiration!)) as string
+
+    //console.log('response: ', response)
     return res.status(200).json(response)
   }
   // list objects

@@ -6,7 +6,7 @@ import CommoditiesLayout from 'components/Organizms/stocks/CommoditiesLayout'
 const index = () => {
   return (
     <>
-      <Seo pageTitle='My Stocks' />
+      <Seo pageTitle='Commodities' />
       <ResponsiveContainer>
         <PageHeader text='Commodities' />
         <CommoditiesLayout />

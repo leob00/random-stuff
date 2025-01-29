@@ -112,6 +112,14 @@
     "Symbol": "AAPD"
   },
   {
+    "Company": "Ascentage Pharma Group International American Depository Shares",
+    "Symbol": "AAPG"
+  },
+  {
+    "Company": "Ascentage Pharma Group International American Depository Shares When Issued",
+    "Symbol": "AAPGV"
+  },
+  {
     "Company": "Apple Inc.",
     "Symbol": "AAPL"
   },
@@ -236,7 +244,7 @@
     "Symbol": "ABOS"
   },
   {
-    "Company": "Abacus FCF Innovation Leaders ETF",
+    "Company": "Abacus FCF ETF Trust",
     "Symbol": "ABOT"
   },
   {
@@ -330,6 +338,10 @@
   {
     "Company": "Acco Brands Corporation",
     "Symbol": "ACCO"
+  },
+  {
+    "Company": "ACCESS Newswire Inc.",
+    "Symbol": "ACCS"
   },
   {
     "Company": "ProFrac Holding Corp. Class A Common Stock",
@@ -798,6 +810,10 @@
   {
     "Company": "Aeva Technologies, Inc. Redeemable Warrants, each Warrant to purchase one-fifth (1/5) of a share of Common Stock at an exercise price of $57.50 for each share of Common Stock",
     "Symbol": "AEVA.WS"
+  },
+  {
+    "Company": "Aeva Technologies, Inc. Warrants",
+    "Symbol": "AEVAW"
   },
   {
     "Company": "AudioEye, Inc. Common Stock",
@@ -1762,6 +1778,10 @@
   {
     "Company": "Advanced Micro Devices",
     "Symbol": "AMD"
+  },
+  {
+    "Company": "Leverage Shares 2X Long AMD Daily ETF",
+    "Symbol": "AMDG"
   },
   {
     "Company": "GraniteShares 2x Long AMD Daily ETF",
@@ -5224,6 +5244,10 @@
     "Symbol": "BLND"
   },
   {
+    "Company": "EASTSIDE DISTILLING , INC.",
+    "Symbol": "BLNE"
+  },
+  {
     "Company": "Blink Charging Co. Common Stock",
     "Symbol": "BLNK"
   },
@@ -7152,7 +7176,7 @@
     "Symbol": "CCLDO"
   },
   {
-    "Company": "CareCloud, Inc. 11% Series A Cumulative Redeemable Perpetual Preferred Stock",
+    "Company": "CareCloud, Inc. 8.75% Series A Cumulative Redeemable Perpetual Preferred Stock",
     "Symbol": "CCLDP"
   },
   {
@@ -11112,6 +11136,10 @@
     "Symbol": "DMA"
   },
   {
+    "Company": "Drugs Made In America Acquisition Corp. Units",
+    "Symbol": "DMAAU"
+  },
+  {
     "Company": "DiaMedica Therapeutics Inc. Common Stock",
     "Symbol": "DMAC"
   },
@@ -11832,7 +11860,7 @@
     "Symbol": "DXD"
   },
   {
-    "Company": "Dunxin Financial Holdings Limited American Depositary Shares, each representing four hundred and eighty (480) Ordinary Shares",
+    "Company": "Eason Technology Limited American Depositary Shares (each representing sixty-thousand (60,000) Ordinary Shares)",
     "Symbol": "DXF"
   },
   {
@@ -14284,12 +14312,20 @@
     "Symbol": "FAT"
   },
   {
+    "Company": "FAT Brands Inc. Class A Common Stock Ex-distribution When-Issued",
+    "Symbol": "FATAV"
+  },
+  {
     "Company": "FAT Brands Inc. Class B Common Stock",
     "Symbol": "FATBB"
   },
   {
     "Company": "FAT Brands Inc. 8.25% Series B Cumulative Preferred Stock",
     "Symbol": "FATBP"
+  },
+  {
+    "Company": "FAT Brands Inc. Class B Common Stock Ex-distribution When-Issued",
+    "Symbol": "FATBV"
   },
   {
     "Company": "FAT Brands Inc. Warrant",
@@ -15714,6 +15750,10 @@
   {
     "Company": "Foremost Clean Energy Ltd. Warrant",
     "Symbol": "FMSTW"
+  },
+  {
+    "Company": "Femto Technologies Inc. Common Stock",
+    "Symbol": "FMTO"
   },
   {
     "Company": "FOMENTO ECONOMICO MEXICANO, S.A.B. DE C.V.",
@@ -17826,6 +17866,10 @@
   {
     "Company": "Golden Matrix Group, Inc. Common Stock",
     "Symbol": "GMGI"
+  },
+  {
+    "Company": "Gamehaus Holdings Inc. Class A Ordinary Shares",
+    "Symbol": "GMHS"
   },
   {
     "Company": "Global Mofy AI Limited Class A Ordinary Shares",
@@ -23604,7 +23648,7 @@
     "Symbol": "KBSX"
   },
   {
-    "Company": "KraneShares 90% KWEB Defined Outcome January 2026 ETF",
+    "Company": "KraneShares 90% KWEB Defined Outcome January 2027 ETF",
     "Symbol": "KBUF"
   },
   {
@@ -23872,7 +23916,7 @@
     "Symbol": "KLIC"
   },
   {
-    "Company": "KraneShares China Internet and Covered Call Strategy ETF",
+    "Company": "KraneShares KWEB Covered Call Strategy ETF",
     "Symbol": "KLIP"
   },
   {
@@ -24096,7 +24140,7 @@
     "Symbol": "KPOP"
   },
   {
-    "Company": "KraneShares 100% KWEB Defined Outcome January 2026 ETF",
+    "Company": "KraneShares 100% KWEB Defined Outcome January 2027 ETF",
     "Symbol": "KPRO"
   },
   {
@@ -24462,6 +24506,10 @@
   {
     "Company": "Innovator Premium Income 15 Buffer ETF - April",
     "Symbol": "LAPR"
+  },
+  {
+    "Company": "Lithium Argentina AG",
+    "Symbol": "LAR"
   },
   {
     "Company": "Landmark Bancorp Inc",
@@ -25566,6 +25614,10 @@
   {
     "Company": "SPDR MarketAxess Investment Grade 400 Corporate Bond ETF",
     "Symbol": "LQIG"
+  },
+  {
+    "Company": "PEO AlphaQuest Thematic PE ETF",
+    "Symbol": "LQPE"
   },
   {
     "Company": "LQR House Inc. Common Stock",
@@ -30938,6 +30990,10 @@
   {
     "Company": "SPDR Russell 1000 Yield Focus ETF",
     "Symbol": "ONEY"
+  },
+  {
+    "Company": "TrueShares Seasonality Laddered Buffered ETF",
+    "Symbol": "ONEZ"
   },
   {
     "Company": "Onfolio Holdings Inc. Common Stock",
@@ -37292,6 +37348,10 @@
     "Symbol": "SFBS"
   },
   {
+    "Company": "Smithfield Foods, Inc. Common Stock",
+    "Symbol": "SFD"
+  },
+  {
     "Company": "FT Vest U.S. Small Cap Moderate Buffer ETF - February",
     "Symbol": "SFEB"
   },
@@ -38874,6 +38934,14 @@
   {
     "Company": "Suburban Propane Partners L P",
     "Symbol": "SPH"
+  },
+  {
+    "Company": "Shepherd Ave Capital Acquisition Corporation Class A Ordinary shares",
+    "Symbol": "SPHA"
+  },
+  {
+    "Company": "Shepherd Ave Capital Acquisition Corporation Right",
+    "Symbol": "SPHAR"
   },
   {
     "Company": "Shepherd Ave Capital Acquisition Corporation Unit",
@@ -42070,6 +42138,10 @@
   {
     "Company": "Taiwan Fund, Inc.",
     "Symbol": "TWN"
+  },
+  {
+    "Company": "Twin Hospitality Group Inc. Class A Common Stock When-Issued",
+    "Symbol": "TWNPV"
   },
   {
     "Company": "Two Harbors Investment Corp.",

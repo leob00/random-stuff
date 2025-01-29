@@ -4,7 +4,7 @@ import CloseIconButton from 'components/Atoms/Buttons/CloseIconButton'
 import StockListItem from './StockListItem'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 
-const FullStockDetail = ({ item, onClose }: { item: StockQuote; onClose: () => void }) => {
+const FullStockDetail = ({ item, onClose, isStock }: { item: StockQuote; onClose: () => void; isStock?: boolean }) => {
   return (
     <Box py={2}>
       <ScrollIntoView />

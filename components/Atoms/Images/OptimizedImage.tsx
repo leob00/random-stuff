@@ -1,7 +1,6 @@
-import React from 'react'
-import NImage from 'next/image'
 import { Box, Stack } from '@mui/material'
 import { ImageSize } from 'lib/backend/files/fileTypes'
+import { useRef, useState } from 'react'
 
 const OptimizedImage = ({
   url,
@@ -19,15 +18,15 @@ const OptimizedImage = ({
   imageSize?: ImageSize
 }) => {
   //const imageRef = React.useRef<HTMLImageElement | null>(null)
-  const hiddenImageRef = React.useRef<HTMLImageElement | null>(null)
-  const [calcSize, setCalcSize] = React.useState<ImageSize | undefined>(imageSize)
+  const hiddenImageRef = useRef<HTMLImageElement | null>(null)
+  const [calcSize, setCalcSize] = useState<ImageSize | undefined>(imageSize)
 
   const handleLoaded = () => {}
   const handleHiddenImageLoaded = () => {
     if (hiddenImageRef.current) {
       const newSize: ImageSize = {
-        height: hiddenImageRef.current.naturalHeight,
-        width: hiddenImageRef.current.naturalWidth,
+        height: hiddenImageRef.current.naturalHeight > 1000 ? hiddenImageRef.current.naturalHeight / 2 : hiddenImageRef.current.naturalHeight,
+        width: hiddenImageRef.current.naturalWidth > 1000 ? hiddenImageRef.current.naturalWidth / 2 : hiddenImageRef.current.naturalWidth,
       }
       setCalcSize(newSize)
       //console.log('newSize: ', newSize)

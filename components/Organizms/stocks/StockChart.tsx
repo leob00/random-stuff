@@ -58,7 +58,7 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
 
   const handleDaysSelected = async (val: number) => {
     setIsWaiting(true)
-    await sleep(1000)
+    await sleep(500)
     saveStockChart({ ...stocksChart, defaultDays: val ?? 90 })
     setDays(val)
   }
@@ -66,7 +66,7 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
   useEffect(() => {
     const fn = async () => {
       mutate(mutateKey)
-      await sleep(1000)
+      await sleep(500)
       setIsWaiting(false)
     }
     fn()

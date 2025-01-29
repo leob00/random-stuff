@@ -18,8 +18,6 @@ import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { useState } from 'react'
 import StockSearch from 'components/Atoms/Inputs/StockSearch'
-import StockListItem from 'components/Organizms/stocks/StockListItem'
-import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import FullStockDetail from 'components/Organizms/stocks/FullStockDetail'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'

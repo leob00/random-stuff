@@ -25,9 +25,16 @@ export async function get(url: string, params?: any) {
       },
     })
     if (resp.status !== 200) {
-      console.error('authentication failed')
+      if (resp.status === 403) {
+        console.error('authentication failed')
+        return {
+          ResponseCode: 'error',
+        }
+      }
+      console.error('internal server error')
+
       return {
-        ResponseCode: 'error',
+        ResponseCode: 'server error',
       }
     }
     const data = await resp.json()
