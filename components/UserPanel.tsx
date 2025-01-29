@@ -22,7 +22,7 @@ export type HubPayload = {
 const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; onChangePalette: () => void }) => {
   const router = useRouter()
   const { ticket, setTicket, setProfile } = useUserController()
-  const { claims, saveClaims } = useSessionStore()
+  const { claims, saveClaims, saveRoutes } = useSessionStore()
 
   const signOut = async () => {
     try {
@@ -39,6 +39,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
         await setTicket(null)
         await setProfile(null)
         saveClaims([])
+        saveRoutes([])
         router.push('/login')
         break
       case 'signedIn':

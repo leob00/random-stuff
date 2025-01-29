@@ -1,6 +1,6 @@
 'use client'
 import { Box, Divider } from '@mui/material'
-import { Navigation, useRouteTracker } from 'components/Organizms/session/useRouteTracker'
+import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 import { useRouter } from 'next/router'
 import { allRouteMap } from 'components/Organizms/session/RouteTracker'
 import { Path } from 'components/Organizms/navigation/siteMap'
@@ -8,6 +8,7 @@ import LinkButton from '../Buttons/LinkButton'
 import { useEffect, useState } from 'react'
 import { take } from 'lodash'
 import { sortArray } from 'lib/util/collections'
+import { Navigation } from 'components/Organizms/session/useSessionSettings'
 
 export const BasicBreadcrumbs = () => {
   const router = useRouter()
@@ -47,7 +48,7 @@ function getRoutes(allRoutes: Navigation[]) {
   nav.forEach((p) => {
     if (map.has(p.path)) {
       const r = map.get(p.path)!
-      routes.push({ name: r.name, route: r.route })
+      routes.push({ name: r.name, route: r.path })
     }
   })
 

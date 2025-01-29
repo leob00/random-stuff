@@ -3,14 +3,15 @@ import { useRouter } from 'next/router'
 import { ReactNode, useEffect, useState } from 'react'
 import { useRouteTracker } from './useRouteTracker'
 import { Path, siteMap } from '../navigation/siteMap'
+import { Navigation } from './useSessionSettings'
 
 const routeMap = siteMap()
 
 export const allRouteMap = () => {
-  const map = new Map<string, Path>()
+  const map = new Map<string, Navigation>()
   const routes = routeMap.flatMap((m) => m.paths)
   routes.forEach((route) => {
-    map.set(route.route, route)
+    map.set(route.path, route)
   })
   return map
 }

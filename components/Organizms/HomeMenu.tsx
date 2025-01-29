@@ -1,23 +1,23 @@
 'use client'
 import { Box, Button } from '@mui/material'
-import React from 'react'
-import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import { siteMap } from './navigation/siteMap'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useRouteTracker } from './session/useRouteTracker'
 import GroupedHomeMenu from './navigation/GroupedHomeMenu'
-import CenteredNavigationButton from 'components/Atoms/Buttons/CenteredNavigationButton'
 import { useUserController } from 'hooks/userController'
 import { userHasRole } from 'lib/backend/auth/userUtil'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
+import { useState } from 'react'
+import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 const HomeMenu = () => {
   const { allRoutes: recentRoutes } = useRouteTracker()
   const recentHistory = recentRoutes.filter((m) => m.name !== 'home')
   const all = siteMap()
-  const [showDefaultMenu, setShowDefaultMenu] = React.useState(recentHistory.length < 4)
+  const [showDefaultMenu, setShowDefaultMenu] = useState(recentHistory.length < 2)
   const { ticket } = useUserController()
   const isAdmin = userHasRole('Admin', ticket?.roles ?? [])
 
@@ -41,7 +41,7 @@ const HomeMenu = () => {
           <Box py={2}>
             {showDefaultMenu && (
               <ScrollableBox maxHeight={700}>
-                <GroupedHomeMenu pathCategories={pathCategories} />
+                <GroupedHomeMenu pathCategories={pathCategories} recentRoutes={recentRoutes} />
                 {isAdmin && <GroupedHomeMenu pathCategories={adminCategories} />}
               </ScrollableBox>
             )}
@@ -50,9 +50,12 @@ const HomeMenu = () => {
                 <CenteredTitle title={'Recent History'} variant='h4' />
                 {recentHistory.map((item, i) => (
                   <Box key={item.path}>
-                    <FadeIn>
-                      <CenteredNavigationButton route={item.path} text={item.name} />
-                    </FadeIn>
+                    <Box display={'flex'} justifyContent={'center'} py={2}>
+                      <FadeIn>
+                        <NavigationButton path={item.path} name={item.name} category={item.category} variant='h6' />
+                      </FadeIn>
+                    </Box>
+                    <HorizontalDivider />
                   </Box>
                 ))}
               </>

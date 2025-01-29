@@ -1,6 +1,5 @@
 import { Box } from '@mui/material'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
-import JsonView from 'components/Atoms/Boxes/JsonView'
 import CopyableText from 'components/Atoms/Text/CopyableText'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 

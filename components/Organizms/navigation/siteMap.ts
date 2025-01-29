@@ -1,3 +1,5 @@
+import { Navigation } from '../session/useSessionSettings'
+
 export type SiteCategories =
   | 'Markets'
   | 'Personal'
@@ -17,7 +19,7 @@ export type Path = {
 }
 export interface Paths {
   category: SiteCategories
-  paths: Path[]
+  paths: Navigation[]
   isProtected?: boolean
 }
 
@@ -28,7 +30,8 @@ export function siteMap() {
       paths: [
         {
           name: 'home',
-          route: '/',
+          path: '/',
+          category: 'Home',
         },
       ],
     },
@@ -37,11 +40,13 @@ export function siteMap() {
       paths: [
         {
           name: 'news',
-          route: '/csr/news',
+          path: '/csr/news',
+          category: 'General Interest',
         },
         {
           name: 'recipes',
-          route: '/ssg/recipes',
+          path: '/ssg/recipes',
+          category: 'General Interest',
         },
       ],
     },
@@ -50,35 +55,38 @@ export function siteMap() {
       paths: [
         {
           name: 'my stocks',
-          route: '/csr/my-stocks',
+          path: '/csr/my-stocks',
+          category: 'Markets',
         },
         {
           name: 'community stocks',
-          route: '/csr/community-stocks',
+          path: '/csr/community-stocks',
+          category: 'Markets',
         },
         {
           name: 'stock sentiment',
-          route: '/csr/stocks/sentiment',
-        },
-        {
-          name: 'commodities',
-          route: '/csr/commodities',
+          path: '/csr/stocks/sentiment',
+          category: 'Markets',
         },
         {
           name: 'earnings calendar',
-          route: '/csr/stocks/earnings-calendar',
+          path: '/csr/stocks/earnings-calendar',
+          category: 'Markets',
         },
         {
           name: 'earnings report',
-          route: '/csr/stocks/earnings-reports',
+          path: '/csr/stocks/earnings-reports',
+          category: 'Markets',
+        },
+        {
+          name: 'commodities',
+          path: '/csr/commodities',
+          category: 'Markets',
         },
         {
           name: 'crypto',
-          route: '/csr/crypto',
-        },
-        {
-          name: 'stock tags',
-          route: '/csr/stocks/stock-tags',
+          path: '/csr/crypto',
+          category: 'Markets',
         },
       ],
     },
@@ -87,40 +95,43 @@ export function siteMap() {
       paths: [
         {
           name: 'volume leaders',
-          route: '/ssg/stocks/reports/volume-leaders',
+          path: '/ssg/stocks/reports/volume-leaders',
+          category: 'Reports',
         },
         {
           name: 'market cap leaders',
-          route: '/ssg/stocks/reports/market-cap-leaders',
+          path: '/ssg/stocks/reports/market-cap-leaders',
+          category: 'Reports',
         },
         {
           name: 'sectors',
-          route: '/csr/stocks/sectors',
+          path: '/csr/stocks/sectors',
+          category: 'Reports',
         },
         {
           name: 'industries',
-          route: '/csr/stocks/industries',
+          path: '/csr/stocks/industries',
+          category: 'Reports',
         },
         {
           name: 'stock tags',
-          route: '/csr/stocks/stock-tags',
+          path: '/csr/stocks/stock-tags',
+          category: 'Reports',
         },
         {
           name: 'dividend payers',
-          route: '/csr/stocks/dividend-payers',
+          path: '/csr/stocks/dividend-payers',
+          category: 'Reports',
         },
       ],
     },
     {
       category: 'Economy',
       paths: [
-        // {
-        //   name: 'econ calendar',
-        //   route: '/csr/economic-calendar',
-        // },
         {
           name: 'economic indicators',
-          route: '/csr/economic-indicators',
+          path: '/csr/economic-indicators',
+          category: 'Economy',
         },
       ],
     },
@@ -129,22 +140,26 @@ export function siteMap() {
       paths: [
         {
           name: 'goals',
-          route: '/protected/csr/goals',
+          path: '/protected/csr/goals',
+          category: 'Economy',
           isProtected: true,
         },
         {
           name: 'notes',
-          route: '/protected/csr/notes',
+          path: '/protected/csr/notes',
+          category: 'Economy',
           isProtected: true,
         },
         {
           name: 'dashboard',
-          route: '/protected/csr/dashboard',
+          path: '/protected/csr/dashboard',
+          category: 'Economy',
           isProtected: true,
         },
         {
           name: 'secrets',
-          route: '/protected/csr/secrets',
+          path: '/protected/csr/secrets',
+          category: 'Economy',
           isProtected: true,
         },
       ],
@@ -154,11 +169,13 @@ export function siteMap() {
       paths: [
         {
           name: 'coin flip',
-          route: '/ssg/coin-flip',
+          path: '/ssg/coin-flip',
+          category: 'Games',
         },
         {
           name: 'roulette',
-          route: '/ssg/roulette',
+          path: '/ssg/roulette',
+          category: 'Games',
         },
       ],
     },
@@ -167,11 +184,13 @@ export function siteMap() {
       paths: [
         {
           name: 'calculator',
-          route: '/csr/calculator',
+          path: '/csr/calculator',
+          category: 'Games',
         },
         {
           name: 'extract text from image',
-          route: '/csr/files/extract-text-from-image',
+          path: '/csr/files/extract-text-from-image',
+          category: 'Games',
         },
       ],
     },
@@ -180,11 +199,13 @@ export function siteMap() {
       paths: [
         {
           name: 'dogs',
-          route: '/ssg/dogs',
+          path: '/ssg/dogs',
+          category: 'Pictures',
         },
         {
           name: 'cats',
-          route: '/ssg/cats',
+          path: '/ssg/cats',
+          category: 'Pictures',
         },
       ],
     },
@@ -193,15 +214,21 @@ export function siteMap() {
       paths: [
         {
           name: 'admin',
-          route: '/protected/csr/admin',
+          path: '/protected/csr/admin',
+          category: 'Admin',
+          isProtected: true,
         },
         {
           name: 'sandbox',
-          route: '/protected/csr/sandbox',
+          path: '/protected/csr/sandbox',
+          category: 'Admin',
+          isProtected: true,
         },
         {
           name: 'status',
-          route: '/status',
+          path: '/status',
+          category: 'Admin',
+          isProtected: true,
         },
       ],
     },

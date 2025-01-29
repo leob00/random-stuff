@@ -3,15 +3,16 @@ import dayjs from 'dayjs'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { sortArray } from 'lib/util/collections'
 import { getMapFromArray } from 'lib/util/collectionsNative'
-import { siteMap } from '../navigation/siteMap'
+import { SiteCategories, siteMap } from '../navigation/siteMap'
 import { useState } from 'react'
 
-export interface Navigation {
-  name: string
-  path: string
-  date: string
-  category?: string
-}
+// export interface Navigation {
+//   name: string
+//   path: string
+//   date?: string
+//   category: SiteCategories
+//   isProtected?: boolean
+// }
 
 export const useRouteTracker = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -22,7 +23,7 @@ export const useRouteTracker = () => {
 
   const sitePathMapRoutes = getMapFromArray(
     siteMap().flatMap((m) => m.paths),
-    'route',
+    'path',
   )
 
   return {
@@ -41,6 +42,7 @@ export const useRouteTracker = () => {
         return
       }
       setIsLoading(true)
+      const ex = sitePathMapRoutes.get(url)!
       const routeMap = getMapFromArray(routes, 'path')
       let name = url.substring(url.lastIndexOf('/') + 1).replaceAll('-', ' ')
       if (name.length == 0) {
@@ -50,6 +52,7 @@ export const useRouteTracker = () => {
         date: dayjs().format(),
         path: url,
         name: name,
+        category: ex.category,
       })
       const newRoutes = sortArray(Array.from(routeMap.values()), ['date'], ['desc'])
       saveRoutes(newRoutes)

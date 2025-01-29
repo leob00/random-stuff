@@ -41,7 +41,7 @@ const Page = () => {
         <PageHeader text='Earnings Report' />
         <Box display={'flex'} justifyContent={'space-between'} pt={2}>
           <Box>
-            <NavigationButton route={'/csr/stocks/earnings-calendar'} text={'earnings calendar'} variant='body2' />
+            <NavigationButton path={'/csr/stocks/earnings-calendar'} name={'earnings calendar'} category='Reports' variant='body2' />
           </Box>
           <Box>
             <DropdownList options={reports} selectedOption={selectedReport} onOptionSelected={handleReportSelect} />

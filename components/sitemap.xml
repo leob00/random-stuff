@@ -2,22 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://random-stuff-seven.vercel.app</loc>
-    <lastmod>2024-12-29</lastmod>
+    <lastmod>2025-01-29</lastmod>
   </url>
   <url>
     <loc>https://random-stuff-seven.vercel.app/ssg/recipes</loc>
-    <lastmod>2024-12-29</lastmod>
+    <lastmod>2025-01-29</lastmod>
   </url>
   <url>
     <loc>https://random-stuff-seven.vercel.app/csr/news</loc>
-    <lastmod>2024-12-29</lastmod>
+    <lastmod>2025-01-29</lastmod>
   </url>
    <url>
-    <loc>https://random-stuff-seven.vercel.app//csr/stocks</loc>
-    <lastmod>2024-12-29</lastmod>
+    <loc>https://random-stuff-seven.vercel.app/csr/stocks</loc>
+    <lastmod>2025-01-29</lastmod>
   </url>
    <url>
-    <loc>https://random-stuff-seven.vercel.app//csr/crypto</loc>
-    <lastmod>2024-12-29</lastmod>
+    <loc>https://random-stuff-seven.vercel.app/csr/crypto</loc>
+    <lastmod>2025-01-29</lastmod>
+  </url>
+   <url>
+    <loc>https://random-stuff-seven.vercel.app/csr/commodities</loc>
+    <lastmod>2025-01-29</lastmod>
   </url>
 </urlset>
