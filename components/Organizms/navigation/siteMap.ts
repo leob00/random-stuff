@@ -12,11 +12,7 @@ export type SiteCategories =
   | 'Miscellaneous'
   | 'Reports'
   | 'Home'
-export type Path = {
-  name: string
-  route: string
-  isProtected?: boolean
-}
+
 export interface Paths {
   category: SiteCategories
   paths: Navigation[]

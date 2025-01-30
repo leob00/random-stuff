@@ -2,7 +2,7 @@
 import { useRouter } from 'next/router'
 import { ReactNode, useEffect, useState } from 'react'
 import { useRouteTracker } from './useRouteTracker'
-import { Path, siteMap } from '../navigation/siteMap'
+import { siteMap } from '../navigation/siteMap'
 import { Navigation } from './useSessionSettings'
 
 const routeMap = siteMap()

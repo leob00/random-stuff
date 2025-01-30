@@ -15060,6 +15060,10 @@
     "Symbol": "FGM"
   },
   {
+    "Company": "FG Merger II Corp. Unit",
+    "Symbol": "FGMCU"
+  },
+  {
     "Company": "F&G Annuities & Life, Inc. 7.950% Senior Notes due 2053",
     "Symbol": "FGN"
   },
@@ -16840,7 +16844,7 @@
     "Symbol": "GAME"
   },
   {
-    "Company": "Amplify Video Game Tech ETF",
+    "Company": "Amplify Video Game Leaders ETF",
     "Symbol": "GAMR"
   },
   {
@@ -18996,7 +19000,7 @@
     "Symbol": "HCOM"
   },
   {
-    "Company": "Amplify Cash Flow High Income ETF",
+    "Company": "Amplify ETF Trust Amplify COWS Covered Call ETF",
     "Symbol": "HCOW"
   },
   {
@@ -24804,6 +24808,10 @@
     "Symbol": "LEN.B"
   },
   {
+    "Company": "Sarmaya Thematic ETF",
+    "Symbol": "LENS"
+  },
+  {
     "Company": "LENZ Therapeutics, Inc. Common Stock",
     "Symbol": "LENZ"
   },
@@ -26676,7 +26684,7 @@
     "Symbol": "MEGI"
   },
   {
-    "Company": "Magic Empire Global Limited Ordinary Shares",
+    "Company": "Magic Empire Global Limited Class A Ordinary Shares",
     "Symbol": "MEGL"
   },
   {
@@ -27918,6 +27926,10 @@
   {
     "Company": "Motorola Solutions, Inc. New",
     "Symbol": "MSI"
+  },
+  {
+    "Company": "MSC Income Fund, Inc.",
+    "Symbol": "MSIF"
   },
   {
     "Company": "Morgan Stanley Pathway Large Cap Equity ETF",
@@ -43162,6 +43174,10 @@
   {
     "Company": "UWM Holdings Corporation Warrants, each exercisable for one share of Class A Common Stock at an exercise price of $11.50 per share",
     "Symbol": "UWMC.WS"
+  },
+  {
+    "Company": "Roundhill Uranium ETF",
+    "Symbol": "UX"
   },
   {
     "Company": "ProShares Ultra Industrials",
