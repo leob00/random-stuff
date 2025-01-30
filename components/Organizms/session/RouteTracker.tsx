@@ -4,6 +4,8 @@ import { ReactNode, useEffect, useState } from 'react'
 import { useRouteTracker } from './useRouteTracker'
 import { siteMap } from '../navigation/siteMap'
 import { Navigation } from './useSessionSettings'
+import { LinearProgress } from '@mui/material'
+import { sleep } from 'lib/util/timers'
 
 const routeMap = siteMap()
 
@@ -19,6 +21,7 @@ const allRoutesMap = allRouteMap()
 
 const RouteTracker = ({ children }: { children: ReactNode }) => {
   const [isClient, setIsClient] = useState(false)
+  const [showTransition, setShowTransition] = useState(false)
   const router = useRouter()
   const { addRoute } = useRouteTracker()
 
@@ -27,21 +30,36 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
   }, [])
 
   useEffect(() => {
+    //
     const handleRouteChange = async (url: string, shallow: boolean) => {
       if (allRoutesMap.has(url)) {
         addRoute(url)
       }
+
+      setShowTransition(true)
     }
 
     router.events.on('routeChangeStart', handleRouteChange)
 
     return () => {
       router.events.off('routeChangeStart', handleRouteChange)
+      sleep(1000).then(() => {
+        setShowTransition(false)
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router])
 
-  return <>{isClient && <>{children}</>}</>
+  return (
+    <>
+      {isClient && (
+        <>
+          {showTransition && <LinearProgress variant='indeterminate' />}
+          {children}
+        </>
+      )}
+    </>
+  )
 }
 
 export default RouteTracker
