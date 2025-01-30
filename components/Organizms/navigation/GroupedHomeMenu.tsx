@@ -1,15 +1,41 @@
 import { Box, Typography } from '@mui/material'
 import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
-import { Paths } from './siteMap'
+import { Paths, SiteCategories } from './siteMap'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import { Navigation } from '../session/useSessionSettings'
+import { useEffect, useState } from 'react'
+import { useRouteTracker } from '../session/useRouteTracker'
 
 const GroupedHomeMenu = ({ pathCategories, recentRoutes }: { pathCategories: Paths[]; recentRoutes?: Navigation[] }) => {
+  const [paths, setPaths] = useState(pathCategories)
+
+  useEffect(() => {
+    if (recentRoutes && recentRoutes.length > 0) {
+      const noneHome = recentRoutes.filter((m) => m.path !== '/')
+      if (noneHome.length > 0) {
+        const newPaths = new Map<SiteCategories, Paths>()
+        noneHome.forEach((cat) => {
+          const ex = pathCategories.find((m) => m.category === cat.category)
+          if (ex) {
+            newPaths.set(ex.category, ex)
+          }
+        })
+        pathCategories.forEach((p) => {
+          if (!newPaths.has(p.category)) {
+            newPaths.set(p.category, p)
+          }
+        })
+
+        setPaths(Array.from(newPaths.values()))
+      }
+    }
+  }, [recentRoutes])
+
   return (
     <Box display={'flex'} flexDirection={{ xs: 'column', md: 'row' }} flexWrap={'wrap'} justifyContent={{ xs: 'center' }} gap={1} py={1}>
-      {pathCategories.map((category) => (
+      {paths.map((category) => (
         <Box key={category.category} px={0.25} py={2} border={`solid 1px ${CasinoBlueTransparent}`} minWidth={250} borderRadius={1}>
           <Box pb={2}>
             <FadeIn>

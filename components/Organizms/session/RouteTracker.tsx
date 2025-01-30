@@ -30,7 +30,6 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
   }, [])
 
   useEffect(() => {
-    //
     const handleRouteChange = async (url: string, shallow: boolean) => {
       if (allRoutesMap.has(url)) {
         addRoute(url)

@@ -16,7 +16,6 @@ export type SiteCategories =
 export interface Paths {
   category: SiteCategories
   paths: Navigation[]
-  isProtected?: boolean
 }
 
 export function siteMap() {
@@ -137,25 +136,25 @@ export function siteMap() {
         {
           name: 'goals',
           path: '/protected/csr/goals',
-          category: 'Economy',
+          category: 'Personal',
           isProtected: true,
         },
         {
           name: 'notes',
           path: '/protected/csr/notes',
-          category: 'Economy',
+          category: 'Personal',
           isProtected: true,
         },
         {
           name: 'dashboard',
           path: '/protected/csr/dashboard',
-          category: 'Economy',
+          category: 'Personal',
           isProtected: true,
         },
         {
           name: 'secrets',
           path: '/protected/csr/secrets',
-          category: 'Economy',
+          category: 'Personal',
           isProtected: true,
         },
       ],
@@ -181,12 +180,12 @@ export function siteMap() {
         {
           name: 'calculator',
           path: '/csr/calculator',
-          category: 'Games',
+          category: 'Utilities',
         },
         {
           name: 'extract text from image',
           path: '/csr/files/extract-text-from-image',
-          category: 'Games',
+          category: 'Utilities',
         },
       ],
     },

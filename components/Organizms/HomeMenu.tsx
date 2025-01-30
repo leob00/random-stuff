@@ -22,7 +22,7 @@ const HomeMenu = () => {
   const isAdmin = userHasRole('Admin', ticket?.roles ?? [])
 
   const adminCategories = isAdmin ? all.filter((m) => m.category === 'Admin') : []
-  const pathCategories = all.filter((m) => m.category !== 'Admin' && m.category !== 'Home')
+  const allPaths = all.filter((m) => m.category !== 'Admin' && m.category !== 'Home')
 
   return (
     <Box>
@@ -41,7 +41,7 @@ const HomeMenu = () => {
           <Box py={2}>
             {showDefaultMenu && (
               <ScrollableBox maxHeight={700}>
-                <GroupedHomeMenu pathCategories={pathCategories} recentRoutes={recentRoutes} />
+                <GroupedHomeMenu pathCategories={allPaths} recentRoutes={recentRoutes} />
                 {isAdmin && <GroupedHomeMenu pathCategories={adminCategories} />}
               </ScrollableBox>
             )}
