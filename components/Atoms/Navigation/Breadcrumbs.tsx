@@ -12,10 +12,13 @@ import { Navigation } from 'components/Organizms/session/useSessionSettings'
 
 export const BasicBreadcrumbs = () => {
   const router = useRouter()
-  const { lastRoute, allRoutes } = useRouteTracker()
-  const [routes, setRoutes] = useState<Path[]>([])
+  const { lastRoute, allRoutes, addRoute } = useRouteTracker()
+  const [routes, setRoutes] = useState<Navigation[]>([])
   const currentRoute = router.asPath
-
+  const handleClick = (route: Navigation) => {
+    addRoute(route.path)
+    router.push(route.path)
+  }
   useEffect(() => {
     const result = getRoutes(allRoutes)
     setRoutes(result)
@@ -25,11 +28,11 @@ export const BasicBreadcrumbs = () => {
   return (
     <Box display={'flex'} gap={2}>
       {routes.map((route, index) => (
-        <Box key={route.route} display={'flex'} alignItems={'center'} gap={2}>
+        <Box key={route.path} display={'flex'} alignItems={'center'} gap={2}>
           <LinkButton
-            disabled={route.route === currentRoute}
+            disabled={route.path === currentRoute}
             onClick={() => {
-              router.push(route.route)
+              handleClick(route)
             }}
           >
             {route.name}
@@ -44,11 +47,11 @@ export const BasicBreadcrumbs = () => {
 function getRoutes(allRoutes: Navigation[]) {
   const nav = sortArray(take(allRoutes, 5), ['date'], ['asc'])
   const map = allRouteMap()
-  const routes: Path[] = []
+  const routes: Navigation[] = []
   nav.forEach((p) => {
     if (map.has(p.path)) {
       const r = map.get(p.path)!
-      routes.push({ name: r.name, route: r.path })
+      routes.push({ name: r.name, path: r.path, category: p.category, isProtected: p.isProtected })
     }
   })
 
