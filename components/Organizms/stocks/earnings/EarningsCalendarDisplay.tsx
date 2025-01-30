@@ -10,6 +10,8 @@ import { useState } from 'react'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import FullStockDetail from '../FullStockDetail'
+import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
+import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 const filterResult = (items: StockEarning[], dt: string | null) => {
   return orderBy(
     items.filter((m) => m.ReportDate === dt),
@@ -27,6 +29,7 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   const [selectedQuote, setSelectedQuote] = useState<StockQuote | null>(null)
   const datesMap = new Map<string, StockEarning[]>()
   const [isLoading, setIsLoading] = useState(false)
+  const scroller = useScrollTop(0)
 
   uniqueDates.forEach((item) => {
     datesMap.set(
@@ -44,12 +47,12 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
 
   const handleDateSelected = (dt: string) => {
     setSelectedDate(dt)
-    setCurrentPageIndex(1)
-
+    handlePaged(1)
     setFilteredResults(filterResult(data, dt))
   }
   const handlePaged = (pageNum: number) => {
     setCurrentPageIndex(pageNum)
+    scroller.scroll()
   }
   const handleSearched = () => {
     if (currentPageIndex > 1) {
@@ -67,26 +70,36 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   return (
     <>
       {isLoading && <BackdropLoader />}
-      {selectedQuote && <FullStockDetail item={selectedQuote} onClose={() => setSelectedQuote(null)} />}
-      {!selectedQuote && (
-        <>
-          <ScrollIntoView />
-          <Box display={'flex'} justifyContent={'space-between'} alignItems={'flex-start'}>
-            <Box width={{ xs: '90%', md: '60%' }}>
+      <Box sx={{ display: !!selectedQuote ? 'none' : 'unset' }}>
+        <ScrollIntoView />
+        <Box display={'flex'} justifyContent={'space-between'} alignItems={'flex-start'}>
+          <Box width={{ xs: '90%', md: '60%' }}>
+            <Box>
               <Box>
-                <Box>{dateOptions.length > 0 && <DropdownList options={dateOptions} selectedOption={dateToSelect ?? ''} onOptionSelected={handleDateSelected} fullWidth />}</Box>
+                {dateOptions.length > 0 && (
+                  <DropdownList options={dateOptions} selectedOption={dateToSelect ?? ''} onOptionSelected={handleDateSelected} fullWidth />
+                )}
               </Box>
             </Box>
           </Box>
-          <Box py={2}>
-            {selectedDate && (
-              <Box pt={1}>
-                <StockEarningsCalendarDetails data={filteredResults} currentPageIndex={currentPageIndex} onPaged={handlePaged} onSearched={handleSearched} onItemClicked={handleSymbolClicked} />
-              </Box>
-            )}
-          </Box>
-        </>
-      )}
+        </Box>
+        <Box py={2}>
+          {selectedDate && (
+            <Box pt={1}>
+              <ScrollableBox scroller={scroller}>
+                <StockEarningsCalendarDetails
+                  data={filteredResults}
+                  currentPageIndex={currentPageIndex}
+                  onPaged={handlePaged}
+                  onSearched={handleSearched}
+                  onItemClicked={handleSymbolClicked}
+                />
+              </ScrollableBox>
+            </Box>
+          )}
+        </Box>
+      </Box>
+      {selectedQuote && <FullStockDetail item={selectedQuote} onClose={() => setSelectedQuote(null)} />}
     </>
   )
 }
