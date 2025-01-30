@@ -29,7 +29,6 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   const [selectedQuote, setSelectedQuote] = useState<StockQuote | null>(null)
   const datesMap = new Map<string, StockEarning[]>()
   const [isLoading, setIsLoading] = useState(false)
-  const scroller = useScrollTop(0)
 
   uniqueDates.forEach((item) => {
     datesMap.set(
@@ -52,7 +51,6 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   }
   const handlePaged = (pageNum: number) => {
     setCurrentPageIndex(pageNum)
-    scroller.scroll()
   }
   const handleSearched = () => {
     if (currentPageIndex > 1) {
@@ -86,15 +84,13 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
         <Box py={2}>
           {selectedDate && (
             <Box pt={1}>
-              <ScrollableBox scroller={scroller}>
-                <StockEarningsCalendarDetails
-                  data={filteredResults}
-                  currentPageIndex={currentPageIndex}
-                  onPaged={handlePaged}
-                  onSearched={handleSearched}
-                  onItemClicked={handleSymbolClicked}
-                />
-              </ScrollableBox>
+              <StockEarningsCalendarDetails
+                data={filteredResults}
+                currentPageIndex={currentPageIndex}
+                onPaged={handlePaged}
+                onSearched={handleSearched}
+                onItemClicked={handleSymbolClicked}
+              />
             </Box>
           )}
         </Box>

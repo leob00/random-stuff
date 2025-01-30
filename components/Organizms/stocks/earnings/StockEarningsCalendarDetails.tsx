@@ -16,8 +16,10 @@ import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import StockChange from '../StockChange'
 import Clickable from 'components/Atoms/Containers/Clickable'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
+import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
+import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 
 const StockEarningsCalendarDetails = ({
   data,
@@ -37,6 +39,7 @@ const StockEarningsCalendarDetails = ({
   const [searchWithinList, setSearchWithinList] = useState('')
   const [filterActual, setFilterActual] = useState(false)
   const [filterEstimate, setFilterEstimate] = useState(false)
+  const scroller = useScrollTop(0)
 
   const filterList = () => {
     let result = [...data]
@@ -62,111 +65,120 @@ const StockEarningsCalendarDetails = ({
     setSearchWithinList(text)
   }
 
-  const handleFilterActual = (event: ChangeEvent<HTMLInputElement>, checked: boolean) => {
+  const handlePaged = (pageNum: number) => {
+    scroller.scroll()
     onPaged(1)
+  }
+
+  const handleFilterActual = (event: ChangeEvent<HTMLInputElement>, checked: boolean) => {
     setFilterActual(checked)
   }
   const handleFilterEstimate = (event: ChangeEvent<HTMLInputElement>, checked: boolean) => {
-    onPaged(1)
+    handlePaged(1)
     setFilterEstimate(checked)
   }
 
   const handleItemClick = async (symbol: string) => {
     onItemClicked?.(symbol)
   }
+  useEffect(() => {
+    scroller.scroll()
+  }, [data])
 
   return (
     <>
-      <Box>
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <SearchWithinList onChanged={handleSearched} />
-                </TableCell>
-                <TableCell>
-                  <Box display={'flex'} alignItems={'center'}>
-                    <Box>
-                      <Checkbox size='small' onChange={handleFilterActual} />
+      <ScrollableBox scroller={scroller}>
+        <Box>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    <SearchWithinList onChanged={handleSearched} />
+                  </TableCell>
+                  <TableCell>
+                    <Box display={'flex'} alignItems={'center'}>
+                      <Box>
+                        <Checkbox size='small' onChange={handleFilterActual} />
+                      </Box>
+                      <Box>Actual</Box>
                     </Box>
-                    <Box>Actual</Box>
-                  </Box>
-                </TableCell>
-                <TableCell>
-                  <Box display={'flex'} alignItems={'center'}>
-                    <Box>
-                      <Checkbox size='small' onChange={handleFilterEstimate} />
+                  </TableCell>
+                  <TableCell>
+                    <Box display={'flex'} alignItems={'center'}>
+                      <Box>
+                        <Checkbox size='small' onChange={handleFilterEstimate} />
+                      </Box>
+                      <Box>Estimate</Box>
                     </Box>
-                    <Box>Estimate</Box>
-                  </Box>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {pages.length > 0 ? (
-                pages[currentPageIndex - 1].items.map((item, index) => (
-                  <TableRow key={item.Symbol}>
-                    <TableCell sx={{ minWidth: '80%' }}>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {pages.length > 0 ? (
+                  pages[currentPageIndex - 1].items.map((item, index) => (
+                    <TableRow key={item.Symbol}>
+                      <TableCell sx={{ minWidth: '80%' }}>
+                        <FadeIn>
+                          <Box>
+                            <Clickable
+                              onClicked={() => {
+                                handleItemClick(item.Symbol)
+                              }}
+                            >
+                              <Typography px={2} variant='h6'>{`${item.StockQuote?.Company} (${item.StockQuote?.Symbol})`}</Typography>
+                            </Clickable>
+                          </Box>
+                          {item.StockQuote && <StockChange item={item.StockQuote} />}
+                        </FadeIn>
+                      </TableCell>
+                      <TableCell sx={{ verticalAlign: 'top' }}>
+                        <FadeIn>
+                          <Typography color={getPositiveNegativeColor(item.ActualEarnings, theme.palette.mode)}>
+                            {`${item.ActualEarnings ? numeral(item.ActualEarnings).format('0.00') : ''}`}
+                          </Typography>
+                        </FadeIn>
+                      </TableCell>
+                      <TableCell sx={{ verticalAlign: 'top' }}>
+                        <FadeIn>
+                          <Typography
+                            color={getPositiveNegativeColor(item.EstimatedEarnings, theme.palette.mode)}
+                          >{`${item.EstimatedEarnings ? numeral(item.EstimatedEarnings).format('0.00') : ''}`}</Typography>
+                        </FadeIn>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={100}>
                       <FadeIn>
-                        <Box>
-                          <Clickable
-                            onClicked={() => {
-                              handleItemClick(item.Symbol)
-                            }}
-                          >
-                            <Typography px={2} variant='h6'>{`${item.StockQuote?.Company} (${item.StockQuote?.Symbol})`}</Typography>
-                          </Clickable>
-                        </Box>
-                        {item.StockQuote && <StockChange item={item.StockQuote} />}
-                      </FadeIn>
-                    </TableCell>
-                    <TableCell sx={{ verticalAlign: 'top' }}>
-                      <FadeIn>
-                        <Typography color={getPositiveNegativeColor(item.ActualEarnings, theme.palette.mode)}>
-                          {`${item.ActualEarnings ? numeral(item.ActualEarnings).format('0.00') : ''}`}
-                        </Typography>
-                      </FadeIn>
-                    </TableCell>
-                    <TableCell sx={{ verticalAlign: 'top' }}>
-                      <FadeIn>
-                        <Typography
-                          color={getPositiveNegativeColor(item.EstimatedEarnings, theme.palette.mode)}
-                        >{`${item.EstimatedEarnings ? numeral(item.EstimatedEarnings).format('0.00') : ''}`}</Typography>
+                        <NoDataFound message='no results' />
                       </FadeIn>
                     </TableCell>
                   </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={100}>
-                    <FadeIn>
-                      <NoDataFound message='no results' />
-                    </FadeIn>
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        {pages.length > 1 && (
-          <Box pt={4}>
-            <Pager
-              pageCount={pages.length}
-              itemCount={pages[currentPageIndex - 1].items.length}
-              itemsPerPage={pageSize}
-              onPaged={(pageNum: number) => onPaged(pageNum)}
-              defaultPageIndex={currentPageIndex}
-              totalItemCount={pages.length === 1 ? pages[currentPageIndex - 1].items.length : filtered.length}
-            ></Pager>
-          </Box>
-        )}
-        {filtered.length === 0 && (
-          <CenterStack sx={{ py: 4 }}>
-            <Typography variant='body2'>No data found.</Typography>
-          </CenterStack>
-        )}
-      </Box>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {pages.length > 1 && (
+            <Box pt={4}>
+              <Pager
+                pageCount={pages.length}
+                itemCount={pages[currentPageIndex - 1].items.length}
+                itemsPerPage={pageSize}
+                onPaged={(pageNum: number) => handlePaged(pageNum)}
+                defaultPageIndex={currentPageIndex}
+                totalItemCount={pages.length === 1 ? pages[currentPageIndex - 1].items.length : filtered.length}
+              ></Pager>
+            </Box>
+          )}
+          {filtered.length === 0 && (
+            <CenterStack sx={{ py: 4 }}>
+              <Typography variant='body2'>No data found.</Typography>
+            </CenterStack>
+          )}
+        </Box>
+      </ScrollableBox>
     </>
   )
 }

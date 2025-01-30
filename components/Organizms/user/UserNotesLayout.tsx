@@ -4,16 +4,17 @@ import useSWR from 'swr'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UserNotesDisplay from './UserNotesDisplay'
-import { useUserProfileContext } from 'lib/ui/auth/UserProfileContext'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { getUtcNow } from 'lib/util/dateUtil'
 import dayjs from 'dayjs'
+import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 
 const UserNotesLayout = () => {
-  const { userProfile } = useUserProfileContext()
+  const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
   const username = userProfile!.username
   const enc = encodeURIComponent(weakEncrypt(constructUserNoteTitlesKey(username)))
   const mutateKey = ['/api/baseRoute', enc]
+
   const fetchData = async (url: string, enc: string) => {
     const result = await getUserNoteTitles(username)
     const utcNow = getUtcNow()
@@ -27,7 +28,7 @@ const UserNotesLayout = () => {
       {isLoading && <BackdropLoader />}
       <PageHeader text={'Notes'} />
 
-      {data && <UserNotesDisplay username={username} noteTitles={data} />}
+      {data && !isValidatingProfile && <UserNotesDisplay username={username} noteTitles={data} />}
     </>
   )
 }
