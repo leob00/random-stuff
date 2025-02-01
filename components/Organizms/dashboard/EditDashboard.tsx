@@ -159,6 +159,15 @@ export const allWidgets: DashboardWidget[] = [
     allowSizeChange: true,
     internalId: '24',
   },
+  {
+    id: 'earnings-calendar',
+    category: 'earnings',
+    waitToRenderMs: 4500,
+    title: 'Earnings Calendar',
+    display: false,
+    size: 'sm',
+    allowSizeChange: true,
+  },
 ]
 
 export default EditDashboard

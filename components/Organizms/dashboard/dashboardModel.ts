@@ -3,13 +3,23 @@ import { z } from 'zod'
 const WidgetSizesEnum = ['sm', 'md', 'lg'] as const
 const WidgetSizeEnumSchema = z.enum(WidgetSizesEnum)
 
-const widgetCategories = ['stock-market-sentiment', 'news', 'econ-ind-index', 'econ-ind'] as const
+const widgetCategories = ['stock-market-sentiment', 'news', 'econ-ind-index', 'econ-ind', 'earnings'] as const
+const widgetids = [
+  'stock-market-sentiment',
+  'news',
+  'dowjones',
+  'snp',
+  'unemployment-rate',
+  'mortgage-rate-30',
+  'mortgage-rate-15',
+  'earnings-calendar',
+] as const
 
 export type WidgetSize = z.infer<typeof WidgetSizeEnumSchema>
 
 const DashboardWidgetsSchema = z
   .object({
-    id: z.string(), // does not matter what is, but must be unique
+    id: z.enum(widgetids), // does not matter what is, but must be unique
     internalId: z.string().optional(),
     title: z.string().min(1),
     display: z.boolean(),

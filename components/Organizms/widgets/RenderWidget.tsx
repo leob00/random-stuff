@@ -8,6 +8,8 @@ import EconIndexWidget from './econ/EconIndexWidget'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import EconWidget from './econ/EconWidget'
 import { useBestFitWidth } from 'hooks/ui/useBestFitWidth'
+import EarningsCalendarLayout from '../stocks/EarningsCalendarLayout'
+import EarningsCalendarWidget from './stocks/earnings/EarningsCalendarWidget'
 
 export type WidgetDimensions = {
   height: number
@@ -18,7 +20,6 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
   const theme = useTheme()
   const isXSmallDevice = useMediaQuery(theme.breakpoints.down('sm'))
   const isSmallDevice = useMediaQuery(theme.breakpoints.down('md'))
-  // const { dimension } = useBestFitWidth(item.size)
   const dimension: WidgetDimensions = {
     height: 400,
     width: isXSmallDevice ? 370 : 280,
@@ -36,14 +37,14 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
 
   return (
     <Box minWidth={dimension.width} sx={{ border: `solid ${CasinoBlueTransparent} 1px` }} borderRadius={1}>
-      {item.category === 'news' && (
+      {item.id === 'news' && (
         <Box width={dimension.width}>
           <WidgetWrapper item={item}>
             <NewsLayout suspendLoader revalidateOnFocus={revalidateOnFocus} />
           </WidgetWrapper>
         </Box>
       )}
-      {item.category === 'stock-market-sentiment' && (
+      {item.id === 'stock-market-sentiment' && (
         <Box width={dimension.width}>
           <WidgetWrapper item={item}>
             {item.size === 'sm' ? (
@@ -69,7 +70,14 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
         {item.category === 'econ-ind' && (
           <Box>
             <WidgetWrapper item={item}>
-              <EconWidget itemId={Number(item.internalId)} symbol={item.title} width={dimension.width} height={dimension.height} size={item.size} />
+              <EconWidget itemId={Number(item.internalId)} symbol={item.title} width={dimension.width} height={dimension.height} />
+            </WidgetWrapper>
+          </Box>
+        )}
+        {item.id === 'earnings-calendar' && (
+          <Box>
+            <WidgetWrapper item={item}>
+              <EarningsCalendarWidget width={dimension.width} height={dimension.height} size={item.size} />
             </WidgetWrapper>
           </Box>
         )}

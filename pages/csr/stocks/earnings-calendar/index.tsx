@@ -1,5 +1,6 @@
 import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
@@ -23,6 +24,8 @@ const Page = () => {
       {isLoading && <BackdropLoader />}
       <ResponsiveContainer>
         <PageHeader text='Earnings Calendar' />
+        <ScrollIntoView />
+
         <Box px={1} display={'flex'} pt={1} justifyContent={'flex-end'} alignItems={'center'}>
           <NavigationButton path={'/csr/stocks/earnings-reports'} name={'reports'} category='Reports' variant='body2' />
         </Box>

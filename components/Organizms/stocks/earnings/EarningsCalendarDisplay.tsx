@@ -10,19 +10,11 @@ import { useState } from 'react'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import FullStockDetail from '../FullStockDetail'
-import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
-import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
-const filterResult = (items: StockEarning[], dt: string | null) => {
-  return orderBy(
-    items.filter((m) => m.ReportDate === dt),
-    ['StockQuote.Company'],
-    ['asc'],
-  )
-}
+import { filterResult, getDefaultDateOption } from './earningsCalendar'
+
 const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   const uniqueDates = orderBy(uniq(data.map((m) => m.ReportDate!)))
-  const todayEarningsDate = uniqueDates.find((m) => dayjs(m).format('MM/DD/YYYY') === dayjs().format('MM/DD/YYYY'))
-  const dateToSelect = getDefaultDateOption(uniqueDates, todayEarningsDate)
+  const dateToSelect = getDefaultDateOption(data)
   const [selectedDate, setSelectedDate] = useState(dateToSelect)
   const [filteredResults, setFilteredResults] = useState(dateToSelect ? filterResult(data, dateToSelect) : [])
   const [currentPageIndex, setCurrentPageIndex] = useState(1)
@@ -98,23 +90,6 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
       {selectedQuote && <FullStockDetail item={selectedQuote} onClose={() => setSelectedQuote(null)} />}
     </>
   )
-}
-
-const getDefaultDateOption = (dates: string[], todayDate?: string) => {
-  let result = null
-  if (todayDate) {
-    return todayDate
-  }
-
-  if (dates.length > 0) {
-    const past = dates.filter((m) => dayjs(m).isBefore(dayjs()))
-    if (past.length > 0) {
-      return past[past.length - 1]
-    }
-    return dates[dates.length - 1]
-  }
-  //uniqueDates.length > 0 ? (todayDate ? todayDate : uniqueDates[0]) : null
-  return result
 }
 
 export default EarningsCalendarDisplay

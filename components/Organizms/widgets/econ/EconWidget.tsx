@@ -8,7 +8,7 @@ import { WidgetSize } from 'components/Organizms/dashboard/dashboardModel'
 import EconChart from './EconChart'
 import { useRouter } from 'next/router'
 
-const EconWidget = ({ itemId, symbol, width, height, size }: { itemId: number; symbol: string; width: number; height: number; size: WidgetSize }) => {
+const EconWidget = ({ itemId, symbol, width, height, size }: { itemId: number; symbol: string; width: number; height: number; size?: WidgetSize }) => {
   const router = useRouter()
   const startYear = dayjs().subtract(1, 'year').year()
   const endYear = dayjs().year()
@@ -25,7 +25,7 @@ const EconWidget = ({ itemId, symbol, width, height, size }: { itemId: number; s
   }
 
   const shouldReverseColor = reverseColor(itemId)
-  const { data, isLoading } = useSwrHelper(key, dataFn, { revalidateOnFocus: false })
+  const { data } = useSwrHelper(key, dataFn, { revalidateOnFocus: false })
   return (
     <Box py={2} minHeight={height}>
       {data && (

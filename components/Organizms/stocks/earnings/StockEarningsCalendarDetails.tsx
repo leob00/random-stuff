@@ -20,6 +20,8 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
+import StockEarningsNumberDisplay from './StockEarningsNumberDisplay'
+import StockEarningsCompanyDisplay from './StockEarningsCompanyDisplay'
 
 const StockEarningsCalendarDetails = ({
   data,
@@ -119,32 +121,22 @@ const StockEarningsCalendarDetails = ({
                   pages[currentPageIndex - 1].items.map((item, index) => (
                     <TableRow key={item.Symbol}>
                       <TableCell sx={{ minWidth: '80%' }}>
-                        <FadeIn>
-                          <Box>
-                            <Clickable
-                              onClicked={() => {
-                                handleItemClick(item.Symbol)
-                              }}
-                            >
-                              <Typography px={2} variant='h6'>{`${item.StockQuote?.Company} (${item.StockQuote?.Symbol})`}</Typography>
-                            </Clickable>
-                          </Box>
-                          {item.StockQuote && <StockChange item={item.StockQuote} />}
-                        </FadeIn>
+                        <Box>
+                          <Clickable
+                            onClicked={() => {
+                              handleItemClick(item.Symbol)
+                            }}
+                          >
+                            <StockEarningsCompanyDisplay item={item} />
+                          </Clickable>
+                        </Box>
+                        {item.StockQuote && <StockChange item={item.StockQuote} />}
                       </TableCell>
                       <TableCell sx={{ verticalAlign: 'top' }}>
-                        <FadeIn>
-                          <Typography color={getPositiveNegativeColor(item.ActualEarnings, theme.palette.mode)}>
-                            {`${item.ActualEarnings ? numeral(item.ActualEarnings).format('0.00') : ''}`}
-                          </Typography>
-                        </FadeIn>
+                        <StockEarningsNumberDisplay num={item.ActualEarnings} />
                       </TableCell>
                       <TableCell sx={{ verticalAlign: 'top' }}>
-                        <FadeIn>
-                          <Typography
-                            color={getPositiveNegativeColor(item.EstimatedEarnings, theme.palette.mode)}
-                          >{`${item.EstimatedEarnings ? numeral(item.EstimatedEarnings).format('0.00') : ''}`}</Typography>
-                        </FadeIn>
+                        <StockEarningsNumberDisplay num={item.EstimatedEarnings} />
                       </TableCell>
                     </TableRow>
                   ))

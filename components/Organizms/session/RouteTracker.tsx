@@ -4,7 +4,7 @@ import { ReactNode, useEffect, useState } from 'react'
 import { useRouteTracker } from './useRouteTracker'
 import { siteMap } from '../navigation/siteMap'
 import { Navigation } from './useSessionSettings'
-import { LinearProgress } from '@mui/material'
+import { Box, LinearProgress, Stack, Typography } from '@mui/material'
 import { sleep } from 'lib/util/timers'
 
 const routeMap = siteMap()
@@ -24,24 +24,25 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
   const [showTransition, setShowTransition] = useState(false)
   const router = useRouter()
   const { addRoute } = useRouteTracker()
-
+  const handleRouteStart = async (url: string, shallow: boolean) => {
+    //console.log('starting route: ', url)
+    if (allRoutesMap.has(url)) {
+      setShowTransition(true)
+      addRoute(url)
+    }
+  }
+  const handleRouteEnd = async (url: string, shallow: boolean) => {
+    console.log('ending route: ', url)
+  }
   useEffect(() => {
     setIsClient(true)
   }, [])
 
   useEffect(() => {
-    const handleRouteChange = async (url: string, shallow: boolean) => {
-      if (allRoutesMap.has(url)) {
-        addRoute(url)
-      }
-
-      setShowTransition(true)
-    }
-
-    router.events.on('routeChangeStart', handleRouteChange)
+    router.events.on('routeChangeStart', handleRouteStart)
 
     return () => {
-      router.events.off('routeChangeStart', handleRouteChange)
+      router.events.off('routeChangeComplete', handleRouteEnd)
       sleep(1000).then(() => {
         setShowTransition(false)
       })
@@ -50,14 +51,16 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
   }, [router])
 
   return (
-    <>
-      {isClient && (
-        <>
-          {showTransition && <LinearProgress variant='indeterminate' />}
-          {children}
-        </>
-      )}
-    </>
+    <Box>
+      <Box minHeight={10}>
+        {showTransition && (
+          <Box>
+            <LinearProgress variant='indeterminate' />
+          </Box>
+        )}
+        {children}
+      </Box>
+    </Box>
   )
 }
 

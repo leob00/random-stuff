@@ -6,6 +6,7 @@ import ContextMenuEdit from '../Menus/ContextMenuEdit'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { CasinoBlue, VeryLightBlue } from 'components/themes/mainTheme'
 import ListHeaderStack from './ListHeaderStack'
+import HoverEffect from './HoverEffect'
 
 const ListHeader = ({
   text,
@@ -60,29 +61,11 @@ const ListHeader = ({
     })
   }
 
-  const StyledBox = styled(Stack)`
-    & .MuiStack-root {
-      //border-radius: 20px;
-      background-color: transparent;
-      //border: solid 1px ${theme.palette.primary.main};
-    }
-    & .MuiCardHeader-root {
-      //background-color: red;
-      //border-radius: 28px;
-    }
-    &:hover {
-      border: solid 1px ${theme.palette.primary.main};
-      border-radius: 6px;
-      padding: 1px;
-      //elevation: 0px;
-    }
-  `
-
   const ListHeaderContent = () => {
     return (
       <>
         {!disabled ? (
-          <StyledBox>
+          <HoverEffect>
             <ListHeaderStack
               contextMenu={contextMenu}
               item={item}
@@ -93,7 +76,7 @@ const ListHeader = ({
               showContextMenu={showContextMenu}
               underline={underline}
             />
-          </StyledBox>
+          </HoverEffect>
         ) : (
           <>
             <ListHeaderStack

@@ -4,16 +4,13 @@ import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import { useRouter } from 'next/navigation'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import WidgetsDisplay from '../widgets/WidgetsDisplay'
-import { allWidgets } from './EditDashboard'
 import CenterStack from 'components/Atoms/CenterStack'
-import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 
 const UserDashboardLayout = () => {
   const router = useRouter()
   const { dashboardWidgets } = useLocalStore()
   const visibleWidgets = dashboardWidgets.filter((m) => m.display)
-  //const widgets = visibleWidgets.length > 0 ? visibleWidgets : allWidgets.filter((m) => m.display)
 
   const onEdit = () => {
     router.push('/protected/csr/dashboard/edit')
@@ -48,7 +45,7 @@ const UserDashboardLayout = () => {
           </Box>
         </Box>
       )}
-      <WidgetsDisplay widgets={visibleWidgets} />
+      {!!visibleWidgets && visibleWidgets.length > 0 && <WidgetsDisplay widgets={visibleWidgets} />}
     </Box>
   )
 }
