@@ -6,11 +6,14 @@ import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import WidgetsDisplay from '../widgets/WidgetsDisplay'
 import CenterStack from 'components/Atoms/CenterStack'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import { useEffect, useState } from 'react'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 const UserDashboardLayout = () => {
   const router = useRouter()
   const { dashboardWidgets } = useLocalStore()
   const visibleWidgets = dashboardWidgets.filter((m) => m.display)
+  const [isLoading, setIsLoading] = useState(true)
 
   const onEdit = () => {
     router.push('/protected/csr/dashboard/edit')
@@ -22,30 +25,38 @@ const UserDashboardLayout = () => {
       item: <ContextMenuEdit />,
     },
   ]
+  useEffect(() => {
+    setIsLoading(false)
+  }, [])
 
   return (
     <Box>
-      <Box display={'flex'} justifyContent={'flex-end'} pb={1}>
-        <ContextMenu items={menu} />
-      </Box>
-      {visibleWidgets.length === 0 && (
-        <Box>
-          <CenterStack>
-            <Typography>You currently do not have any widgets set up.</Typography>
-          </CenterStack>
-          <Box py={2}>
-            <CenterStack>
-              <PrimaryButton
-                text='edit widgets'
-                onClick={() => {
-                  router.push('/protected/csr/dashboard/edit')
-                }}
-              />
-            </CenterStack>
+      {isLoading && <BackdropLoader />}
+      {!isLoading && (
+        <>
+          <Box display={'flex'} justifyContent={'flex-end'} pb={1}>
+            <ContextMenu items={menu} />
           </Box>
-        </Box>
+          {visibleWidgets.length === 0 && (
+            <Box>
+              <CenterStack>
+                <Typography>You currently do not have any widgets set up.</Typography>
+              </CenterStack>
+              <Box py={2}>
+                <CenterStack>
+                  <PrimaryButton
+                    text='edit widgets'
+                    onClick={() => {
+                      router.push('/protected/csr/dashboard/edit')
+                    }}
+                  />
+                </CenterStack>
+              </Box>
+            </Box>
+          )}
+          {!!visibleWidgets && visibleWidgets.length > 0 && <WidgetsDisplay widgets={visibleWidgets} />}
+        </>
       )}
-      {!!visibleWidgets && visibleWidgets.length > 0 && <WidgetsDisplay widgets={visibleWidgets} />}
     </Box>
   )
 }

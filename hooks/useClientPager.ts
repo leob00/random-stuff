@@ -1,5 +1,5 @@
-import React from 'react'
 import { chunk } from 'lodash'
+import { useEffect, useReducer } from 'react'
 
 interface PagerModel {
   page: number
@@ -20,7 +20,7 @@ const getDefaultModel = (items: unknown[], pageSize: number) => {
 export const useClientPager = <T>(items: T[], pageSize: number) => {
   let itemTotal = items.length
   let allItems = [...items]
-  const [model, setModel] = React.useReducer((state: PagerModel, newState: PagerModel) => ({ ...state, ...newState }), getDefaultModel(items, pageSize))
+  const [model, setModel] = useReducer((state: PagerModel, newState: PagerModel) => ({ ...state, ...newState }), getDefaultModel(items, pageSize))
 
   const getPagedItems = <T>(data: T[]) => {
     const newChunks = chunk(data, pageSize)
@@ -40,7 +40,7 @@ export const useClientPager = <T>(items: T[], pageSize: number) => {
     const newChunks = chunk(data, pageSize)
     setModel({ ...model, page: 1, totalNumberOfPages: newChunks.length, totalNumberOfItems: data.length })
   }
-  React.useEffect(() => {
+  useEffect(() => {
     if (itemTotal !== model.totalNumberOfItems) {
       const newChunks = chunk(allItems, pageSize)
       setModel({ ...model, totalNumberOfItems: itemTotal, totalNumberOfPages: newChunks.length })
@@ -48,6 +48,7 @@ export const useClientPager = <T>(items: T[], pageSize: number) => {
   }, [itemTotal])
 
   return {
+    allItems,
     pagerModel: model,
     setPage,
     reset,

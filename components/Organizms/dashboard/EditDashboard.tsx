@@ -7,12 +7,14 @@ import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { sortArray } from 'lib/util/collections'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import { useEffect, useState } from 'react'
 
 const EditDashboard = () => {
   const { dashboardWidgets, saveDashboardWidgets } = useLocalStore()
   const allAvailableWidgets = [...allWidgets]
+  const [isLoading, setIsLoading] = useState(true)
 
-  let visibleWidgets = dashboardWidgets.filter((m) => m.display)
+  const visibleWidgets = dashboardWidgets.filter((m) => !!m.display)
   let hiddenWidgets: DashboardWidget[] = []
   allAvailableWidgets.forEach((all) => {
     if (!visibleWidgets.find((m) => m.id === all.id)) {
@@ -54,39 +56,47 @@ const EditDashboard = () => {
     handlePushChanges(newItems)
   }
 
+  useEffect(() => {
+    setIsLoading(false)
+  }, [])
+
   return (
-    <Box>
-      <CenteredTitle title='my widgets' />
-      <DraggableWidgetList items={visibleWidgets} onPushChanges={handlePushChanges} />
-      <Box pt={4} pb={8}>
-        <>
-          {hiddenWidgets.length > 0 && (
-            <Box py={2}>
-              <CenteredTitle title='more widgets' />
-            </Box>
-          )}
-          {hiddenWidgets.map((item, index) => (
-            <Box key={item.id}>
-              <FadeIn>
-                <ListItem id={item.id}>
-                  <ListItemText primary={`${item.title}`} secondary={` `} sx={{ mt: -0.5 }} />
-                  <Box>
-                    <OnOffSwitch
-                      label='show'
-                      isChecked={item.display}
-                      onChanged={(checked) => {
-                        handleUpdateShowHide(item, checked)
-                      }}
-                    />
-                  </Box>
-                </ListItem>
-              </FadeIn>
-              <HorizontalDivider />
-            </Box>
-          ))}
-        </>
-      </Box>
-    </Box>
+    <>
+      {!isLoading && (
+        <Box>
+          <CenteredTitle title='my widgets' />
+          <DraggableWidgetList items={visibleWidgets} onPushChanges={handlePushChanges} />
+          <Box pt={4} pb={8}>
+            <>
+              {hiddenWidgets.length > 0 && (
+                <Box py={2}>
+                  <CenteredTitle title='more widgets' />
+                  {hiddenWidgets.map((item, index) => (
+                    <Box key={item.id}>
+                      <FadeIn>
+                        <ListItem id={item.id}>
+                          <ListItemText primary={`${item.title}`} secondary={` `} sx={{ mt: -0.5 }} />
+                          <Box>
+                            <OnOffSwitch
+                              label='show'
+                              isChecked={item.display}
+                              onChanged={(checked) => {
+                                handleUpdateShowHide(item, checked)
+                              }}
+                            />
+                          </Box>
+                        </ListItem>
+                      </FadeIn>
+                      <HorizontalDivider />
+                    </Box>
+                  ))}
+                </Box>
+              )}
+            </>
+          </Box>
+        </Box>
+      )}
+    </>
   )
 }
 

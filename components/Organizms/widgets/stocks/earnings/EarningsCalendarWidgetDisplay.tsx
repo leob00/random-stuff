@@ -5,14 +5,15 @@ import dayjs from 'dayjs'
 import { StockEarning, getStockQuote } from 'lib/backend/api/qln/qlnApi'
 import { DropdownItem } from 'lib/models/dropdown'
 import { orderBy, uniq } from 'lodash'
-import StockEarningsCalendarDetails from './StockEarningsCalendarDetails'
 import { useState } from 'react'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import FullStockDetail from '../FullStockDetail'
-import { filterResult, getDefaultDateOption } from './earningsCalendar'
+import { filterResult, getDefaultDateOption } from 'components/Organizms/stocks/earnings/earningsCalendar'
+import StockEarningsCalendarDetails from 'components/Organizms/stocks/earnings/StockEarningsCalendarDetails'
+import FullStockDetail from 'components/Organizms/stocks/FullStockDetail'
+import { useRouter } from 'next/navigation'
 
-const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
+const EarningsCalendarWidgetDisplay = ({ data }: { data: StockEarning[] }) => {
   const uniqueDates = orderBy(uniq(data.map((m) => m.ReportDate!)))
   const dateToSelect = getDefaultDateOption(data)
   const [selectedDate, setSelectedDate] = useState(dateToSelect)
@@ -22,6 +23,7 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   const datesMap = new Map<string, StockEarning[]>()
   const [isLoading, setIsLoading] = useState(false)
 
+  const router = useRouter()
   uniqueDates.forEach((item) => {
     datesMap.set(
       item!,
@@ -51,10 +53,11 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   }
 
   const handleSymbolClicked = async (symbol: string) => {
-    setIsLoading(true)
-    const quote = await getStockQuote(symbol)
-    setSelectedQuote(quote)
-    setIsLoading(false)
+    //setIsLoading(true)
+    //const quote = await getStockQuote(symbol)
+    //setSelectedQuote(quote)
+    //setIsLoading(false)
+    router.push(`/csr/stocks/details/${symbol}`)
   }
 
   return (
@@ -82,6 +85,8 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
                 onPaged={handlePaged}
                 onSearched={handleSearched}
                 onItemClicked={handleSymbolClicked}
+                showHeader={false}
+                pageSize={3}
               />
             </Box>
           )}
@@ -92,4 +97,4 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   )
 }
 
-export default EarningsCalendarDisplay
+export default EarningsCalendarWidgetDisplay

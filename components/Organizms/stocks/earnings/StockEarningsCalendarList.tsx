@@ -48,6 +48,9 @@ const StockEarningsCalendarList = ({ data }: { data: StockEarning[] }) => {
 
   const handlePaged = (pageNum: number) => {
     setPage(pageNum)
+
+    const newPagedItems = getPagedItems(filtered)
+    setModel({ ...model, earnings: newPagedItems })
     scroller.scroll()
   }
 
@@ -93,10 +96,10 @@ const StockEarningsCalendarList = ({ data }: { data: StockEarning[] }) => {
     }
   }
 
-  useEffect(() => {
-    setModel({ ...model, isLoading: false })
-    reset(model.earnings)
-  }, [])
+  // useEffect(() => {
+  //   setModel({ ...model, isLoading: false })
+  //   //reset(model.earnings)
+  // }, [])
 
   return (
     <>
@@ -118,18 +121,14 @@ const StockEarningsCalendarList = ({ data }: { data: StockEarning[] }) => {
                   }}
                 >
                   <StockEarningsCompanyDisplay item={item} />
-                  {item.StockQuote && (
-                    <FadeIn>
-                      <StockChange item={item.StockQuote} />
-                    </FadeIn>
-                  )}
+                  {item.StockQuote && <StockChange item={item.StockQuote} />}
                 </Clickable>
               </HoverEffect>
             </Box>
           ))}
           <Pager
             pageCount={pagerModel.totalNumberOfPages}
-            itemCount={model.earnings.length}
+            itemCount={pagedItems.length}
             itemsPerPage={pageSize}
             onPaged={(pageNum: number) => handlePaged(pageNum)}
             defaultPageIndex={pagerModel.page}

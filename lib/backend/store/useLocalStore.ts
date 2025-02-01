@@ -4,7 +4,6 @@ import { CryptoSettings, Sort, UserStockSettings } from '../api/aws/models/apiGa
 import { StockQuote } from '../api/models/zModels'
 import { EconomicDataItem } from '../api/qln/qlnModels'
 import { DashboardWidgetWithSettings } from 'components/Organizms/dashboard/dashboardModel'
-import { User } from 'lib/auth'
 
 export interface StockSettings extends UserStockSettings {
   data: StockQuote[]

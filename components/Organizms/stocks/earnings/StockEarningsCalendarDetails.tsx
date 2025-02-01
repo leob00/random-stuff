@@ -6,10 +6,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import CenterStack from 'components/Atoms/CenterStack'
 import { StockEarning } from 'lib/backend/api/qln/qlnApi'
-import numeral from 'numeral'
-import { getPositiveNegativeColor } from '../StockListItem'
 import { Box, Checkbox, Typography } from '@mui/material'
-import { useTheme } from '@mui/material'
 import { getPagedArray } from 'lib/util/collections'
 import Pager from 'components/Atoms/Pager'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
@@ -29,15 +26,17 @@ const StockEarningsCalendarDetails = ({
   onPaged,
   onSearched,
   onItemClicked,
+  showHeader = true,
+  pageSize = 10,
 }: {
   data: StockEarning[]
   currentPageIndex: number
   onPaged: (pageNum: number) => void
   onSearched: () => void
   onItemClicked?: (symbol: string) => void
+  showHeader?: boolean
+  pageSize?: number
 }) => {
-  const theme = useTheme()
-  const pageSize = 10
   const [searchWithinList, setSearchWithinList] = useState('')
   const [filterActual, setFilterActual] = useState(false)
   const [filterEstimate, setFilterEstimate] = useState(false)
@@ -69,7 +68,7 @@ const StockEarningsCalendarDetails = ({
 
   const handlePaged = (pageNum: number) => {
     scroller.scroll()
-    onPaged(1)
+    onPaged(pageNum)
   }
 
   const handleFilterActual = (event: ChangeEvent<HTMLInputElement>, checked: boolean) => {
@@ -93,29 +92,31 @@ const StockEarningsCalendarDetails = ({
         <Box>
           <TableContainer>
             <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    <SearchWithinList onChanged={handleSearched} />
-                  </TableCell>
-                  <TableCell>
-                    <Box display={'flex'} alignItems={'center'}>
-                      <Box>
-                        <Checkbox size='small' onChange={handleFilterActual} />
+              {showHeader && (
+                <TableHead>
+                  <TableRow>
+                    <TableCell>
+                      <SearchWithinList onChanged={handleSearched} />
+                    </TableCell>
+                    <TableCell>
+                      <Box display={'flex'} alignItems={'center'}>
+                        <Box>
+                          <Checkbox size='small' onChange={handleFilterActual} />
+                        </Box>
+                        <Box>Actual</Box>
                       </Box>
-                      <Box>Actual</Box>
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    <Box display={'flex'} alignItems={'center'}>
-                      <Box>
-                        <Checkbox size='small' onChange={handleFilterEstimate} />
+                    </TableCell>
+                    <TableCell>
+                      <Box display={'flex'} alignItems={'center'}>
+                        <Box>
+                          <Checkbox size='small' onChange={handleFilterEstimate} />
+                        </Box>
+                        <Box>Estimate</Box>
                       </Box>
-                      <Box>Estimate</Box>
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+              )}
               <TableBody>
                 {pages.length > 0 ? (
                   pages[currentPageIndex - 1].items.map((item, index) => (
