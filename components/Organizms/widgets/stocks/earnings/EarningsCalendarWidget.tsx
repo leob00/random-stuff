@@ -6,7 +6,6 @@ import StockEarningsCalendarDetails from 'components/Organizms/stocks/earnings/S
 import StockEarningsCalendarList from 'components/Organizms/stocks/earnings/StockEarningsCalendarList'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { StockEarning, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
-import { orderBy } from 'lodash'
 import { useRouter } from 'next/navigation'
 
 const EarningsCalendarWidget = ({ width, height, size }: { width: number; height: number; size: WidgetSize }) => {

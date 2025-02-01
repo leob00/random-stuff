@@ -4040,6 +4040,10 @@
     "Symbol": "BBN"
   },
   {
+    "Company": "Beta Bionics, Inc. Common Stock",
+    "Symbol": "BBNX"
+  },
+  {
     "Company": "Virtus LifeSci Biotech Products ETF",
     "Symbol": "BBP"
   },
@@ -4174,6 +4178,10 @@
   {
     "Company": "Brainstorm Cell Therapeutics Inc.",
     "Symbol": "BCLI"
+  },
+  {
+    "Company": "iShares BBB-B CLO Active ETF",
+    "Symbol": "BCLO"
   },
   {
     "Company": "BayCom Corp Common Stock",
@@ -8272,7 +8280,7 @@
     "Symbol": "CLNR"
   },
   {
-    "Company": "BlackRock ETF Trust II iShares AAA CLO Active ETF",
+    "Company": "BlackRock AAA CLO ETF",
     "Symbol": "CLOA"
   },
   {
@@ -9448,6 +9456,10 @@
     "Symbol": "CSA"
   },
   {
+    "Company": "Cloudastructure, Inc. Class A Common Stock",
+    "Symbol": "CSAI"
+  },
+  {
     "Company": "Cosan S.A. American Depositary Shares (each representing four Common Shares)",
     "Symbol": "CSAN"
   },
@@ -9894,6 +9906,10 @@
   {
     "Company": "Carvana Co.",
     "Symbol": "CVNA"
+  },
+  {
+    "Company": "YieldMax CVNA Option Income Strategy ETF",
+    "Symbol": "CVNY"
   },
   {
     "Company": "Chicago Rivet & Machine Co.",
@@ -21672,6 +21688,10 @@
     "Symbol": "INQQ"
   },
   {
+    "Company": "Infinity Natural Resources, Inc.",
+    "Symbol": "INR"
+  },
+  {
     "Company": "BlackRock ETF Trust iShares U.S. Industry Rotation Active ETF",
     "Symbol": "INRO"
   },
@@ -22742,6 +22762,10 @@
   {
     "Company": "Jack in the Box Inc.",
     "Symbol": "JACK"
+  },
+  {
+    "Company": "Jackson Acquisition Company II",
+    "Symbol": "JACS"
   },
   {
     "Company": "Jackson Acquisition Company II Units, each consisting of one Class A ordinary share and one right to acquire one-tenth (1/10) of one Class A ordinary share",
@@ -27442,6 +27466,10 @@
   {
     "Company": "Monro, Inc. Common Stock",
     "Symbol": "MNRO"
+  },
+  {
+    "Company": "Grayscale Bitcoin Miners ETF",
+    "Symbol": "MNRS"
   },
   {
     "Company": "MainStreet Bancshares, Inc. Common Stock",
@@ -36328,6 +36356,10 @@
     "Symbol": "RWTO"
   },
   {
+    "Company": "Redwood Trust, Inc. 9.125% Senior Notes Due 2030",
+    "Symbol": "RWTP"
+  },
+  {
     "Company": "SPDR Dow Jones  International Real Estate ETF",
     "Symbol": "RWX"
   },
@@ -39920,6 +39952,10 @@
     "Symbol": "SVC"
   },
   {
+    "Company": "Stellar V Capital Corp. Unit",
+    "Symbol": "SVCCU"
+  },
+  {
     "Company": "Silvaco Group, Inc. Common Stock",
     "Symbol": "SVCO"
   },
@@ -42150,6 +42186,10 @@
   {
     "Company": "Taiwan Fund, Inc.",
     "Symbol": "TWN"
+  },
+  {
+    "Company": "Twin Hospitality Group Inc. Class A Common Stock",
+    "Symbol": "TWNP"
   },
   {
     "Company": "Twin Hospitality Group Inc. Class A Common Stock When-Issued",
