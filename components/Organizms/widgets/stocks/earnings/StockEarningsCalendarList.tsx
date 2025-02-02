@@ -17,6 +17,7 @@ import StockChange from 'components/Organizms/stocks/StockChange'
 import { getPagedArray } from 'lib/util/collections'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import { getPositiveNegativeColor } from 'components/Organizms/stocks/StockListItem'
+import { PageState, encryptPageState } from 'hooks/ui/page-state/pageStateUtil'
 
 type Model = {
   isLoading?: boolean
@@ -30,7 +31,7 @@ type Model = {
 const StockEarningsCalendarList = ({ data, maxHeight }: { data: StockEarning[]; maxHeight?: number }) => {
   const uniqueDates = orderBy(uniq(data.map((m) => m.ReportDate!)))
   const dateToSelect = getDefaultDateOption(data)
-  const filtered = orderBy(filterResult(data, dateToSelect), ['StockQuote.MarketCap'], ['desc'])
+  const filtered = filterResult(data, dateToSelect)
   const pageSize = 10
   const { getPagedItems, setPage, pagerModel, reset } = useClientPager(filtered, pageSize)
   const pagedItems = getPagedItems(filtered)
@@ -57,7 +58,17 @@ const StockEarningsCalendarList = ({ data, maxHeight }: { data: StockEarning[]; 
   }
 
   const handleClicked = async (item: string) => {
-    router.push(`/csr/stocks/details/${item}`)
+    const pageState: PageState = {
+      route: '/csr/stocks/earnings-calendar',
+      args: [
+        {
+          key: 'dt',
+          value: model.selectedDate ?? '',
+        },
+      ],
+    }
+    const state = encryptPageState(pageState)
+    router.push(`/csr/stocks/details/${item}?state=${state}`)
   }
   const handleBackClick = () => {
     if (model.selectedDate) {

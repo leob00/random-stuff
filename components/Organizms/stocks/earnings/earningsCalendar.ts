@@ -22,7 +22,7 @@ export const getDefaultDateOption = (data: StockEarning[], todayDate?: string) =
 export const filterResult = (items: StockEarning[], dt: string | null) => {
   return orderBy(
     items.filter((m) => m.ReportDate === dt),
-    ['StockQuote.Company'],
-    ['asc'],
+    ['StockQuote.MarketCap'],
+    ['desc'],
   )
 }
