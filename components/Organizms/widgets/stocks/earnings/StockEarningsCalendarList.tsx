@@ -1,20 +1,22 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Typography, useTheme } from '@mui/material'
 import { StockEarning } from 'lib/backend/api/qln/qlnApi'
-import { filterResult, getDefaultDateOption } from './earningsCalendar'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
-import StockEarningsCompanyDisplay from './StockEarningsCompanyDisplay'
-import StockChange from '../StockChange'
 import { useClientPager } from 'hooks/useClientPager'
 import Pager from 'components/Atoms/Pager'
-import { orderBy, uniq } from 'lodash'
-import { useEffect, useReducer } from 'react'
-import FadeIn from 'components/Atoms/Animations/FadeIn'
+import { max, orderBy, uniq } from 'lodash'
+import { useReducer } from 'react'
 import Clickable from 'components/Atoms/Containers/Clickable'
 import { useRouter } from 'next/navigation'
 import HoverEffect from 'components/Molecules/Lists/HoverEffect'
 import dayjs from 'dayjs'
 import ArrowLeftButton from 'components/Atoms/Buttons/ArrowLeftButton'
 import ArrowRightButton from 'components/Atoms/Buttons/ArrowRightButton'
+import { filterResult, getDefaultDateOption } from 'components/Organizms/stocks/earnings/earningsCalendar'
+import StockEarningsCompanyDisplay from 'components/Organizms/stocks/earnings/StockEarningsCompanyDisplay'
+import StockChange from 'components/Organizms/stocks/StockChange'
+import { getPagedArray } from 'lib/util/collections'
+import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
+import { getPositiveNegativeColor } from 'components/Organizms/stocks/StockListItem'
 
 type Model = {
   isLoading?: boolean
@@ -25,15 +27,16 @@ type Model = {
   earnings: StockEarning[]
 }
 
-const StockEarningsCalendarList = ({ data }: { data: StockEarning[] }) => {
+const StockEarningsCalendarList = ({ data, maxHeight }: { data: StockEarning[]; maxHeight?: number }) => {
   const uniqueDates = orderBy(uniq(data.map((m) => m.ReportDate!)))
   const dateToSelect = getDefaultDateOption(data)
   const filtered = orderBy(filterResult(data, dateToSelect), ['StockQuote.MarketCap'], ['desc'])
-  const pageSize = 3
+  const pageSize = 10
   const { getPagedItems, setPage, pagerModel, reset } = useClientPager(filtered, pageSize)
   const pagedItems = getPagedItems(filtered)
   const scroller = useScrollTop(0)
   const router = useRouter()
+  const theme = useTheme()
 
   const defaultModel: Model = {
     allDates: uniqueDates,
@@ -48,9 +51,8 @@ const StockEarningsCalendarList = ({ data }: { data: StockEarning[] }) => {
 
   const handlePaged = (pageNum: number) => {
     setPage(pageNum)
-
-    const newPagedItems = getPagedItems(filtered)
-    setModel({ ...model, earnings: newPagedItems })
+    const newPagedItems = getPagedArray(filtered, pageSize)
+    setModel({ ...model, earnings: newPagedItems[pageNum - 1].items })
     scroller.scroll()
   }
 
@@ -72,7 +74,8 @@ const StockEarningsCalendarList = ({ data }: { data: StockEarning[] }) => {
           nextButtonDisabled: newIdx >= model.allDates.length - 1,
           earnings: newPagedItems,
         })
-        handlePaged(1)
+        setPage(1)
+        scroller.scroll()
       }
     }
   }
@@ -83,49 +86,75 @@ const StockEarningsCalendarList = ({ data }: { data: StockEarning[] }) => {
         const newIdx = idx + 1
         const newDt = model.allDates[newIdx]
         const newData = orderBy(filterResult(data, newDt), ['StockQuote.MarketCap'], ['desc'])
-        const newPagedItems = getPagedItems(newData)
+        const newPagedItems = getPagedArray(newData, pageSize)
         setModel({
           ...model,
           selectedDate: newDt,
           nextButtonDisabled: newIdx >= model.allDates.length - 1,
           backButtonDisabled: newIdx === 0,
-          earnings: newPagedItems,
+          earnings: newPagedItems[0].items,
         })
-        handlePaged(1)
+        setPage(1)
+        scroller.scroll()
       }
     }
   }
-
-  // useEffect(() => {
-  //   setModel({ ...model, isLoading: false })
-  //   //reset(model.earnings)
-  // }, [])
 
   return (
     <>
       <>
         <Box>
           {!!model.selectedDate && (
-            <Box pb={4} my={-1} display={'flex'} justifyContent={'center'} gap={1} alignItems={'center'}>
+            <Box pb={4} display={'flex'} justifyContent={'center'} gap={1} alignItems={'center'}>
               <ArrowLeftButton disabled={model.backButtonDisabled} onClicked={handleBackClick} />
               <Typography variant='caption'>{dayjs(model.selectedDate).format('MM/DD/YYYY')}</Typography>
               <ArrowRightButton disabled={model.nextButtonDisabled} onClicked={handleNextClick} />
             </Box>
           )}
-          {model.earnings.map((item) => (
-            <Box key={item.Symbol} pb={4} px={1}>
-              <HoverEffect>
-                <Clickable
-                  onClicked={() => {
-                    handleClicked(item.Symbol)
-                  }}
-                >
-                  <StockEarningsCompanyDisplay item={item} />
-                  {item.StockQuote && <StockChange item={item.StockQuote} />}
-                </Clickable>
-              </HoverEffect>
-            </Box>
-          ))}
+          <ScrollableBox scroller={scroller} maxHeight={maxHeight}>
+            {model.earnings.map((item) => (
+              <Box key={item.Symbol} pb={4} px={1}>
+                <Box display={'flex'} justifyContent={'space-between'}>
+                  <HoverEffect>
+                    <Clickable
+                      onClicked={() => {
+                        handleClicked(item.Symbol)
+                      }}
+                    >
+                      <Box>
+                        <StockEarningsCompanyDisplay item={item} />
+                        {item.StockQuote && <StockChange item={item.StockQuote} />}
+                      </Box>
+                    </Clickable>
+                  </HoverEffect>
+                  <Box display={'flex'} pr={2} gap={2}>
+                    <Box display={'flex'} flexDirection={'column'}>
+                      <Typography variant='caption'>Actual</Typography>
+                      <Typography textAlign={'right'} variant='caption' color={getPositiveNegativeColor(item.ActualEarnings, theme.palette.mode)}>
+                        {item.ActualEarnings}
+                      </Typography>
+                    </Box>
+                    <Box display={'flex'} flexDirection={'column'}>
+                      <Typography variant='caption'>Estimate</Typography>
+                      <Typography textAlign={'right'} variant='caption' color={getPositiveNegativeColor(item.EstimatedEarnings, theme.palette.mode)}>
+                        {item.EstimatedEarnings}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Box>
+                {/* <HoverEffect>
+                  <Clickable
+                    onClicked={() => {
+                      handleClicked(item.Symbol)
+                    }}
+                  >
+                    <StockEarningsCompanyDisplay item={item} />
+                    {item.StockQuote && <StockChange item={item.StockQuote} />}
+                  </Clickable>
+                </HoverEffect> */}
+              </Box>
+            ))}
+          </ScrollableBox>
           <Pager
             pageCount={pagerModel.totalNumberOfPages}
             itemCount={pagedItems.length}

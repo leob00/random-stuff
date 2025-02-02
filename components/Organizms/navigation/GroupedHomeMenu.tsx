@@ -31,7 +31,7 @@ const GroupedHomeMenu = ({ pathCategories, recentRoutes }: { pathCategories: Pat
         setPaths(Array.from(newPaths.values()))
       }
     }
-  }, [recentRoutes])
+  }, [recentRoutes, pathCategories])
 
   return (
     <Box display={'flex'} flexDirection={{ xs: 'column', md: 'row' }} flexWrap={'wrap'} justifyContent={{ xs: 'center' }} gap={1} py={1}>

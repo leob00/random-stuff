@@ -26,16 +26,18 @@ const StockEarningsCalendarDetails = ({
   onPaged,
   onSearched,
   onItemClicked,
-  showHeader = true,
+  showFilters = true,
   pageSize = 10,
+  maxHeight,
 }: {
   data: StockEarning[]
   currentPageIndex: number
   onPaged: (pageNum: number) => void
   onSearched: () => void
   onItemClicked?: (symbol: string) => void
-  showHeader?: boolean
+  showFilters?: boolean
   pageSize?: number
+  maxHeight?: number
 }) => {
   const [searchWithinList, setSearchWithinList] = useState('')
   const [filterActual, setFilterActual] = useState(false)
@@ -88,35 +90,28 @@ const StockEarningsCalendarDetails = ({
 
   return (
     <>
-      <ScrollableBox scroller={scroller}>
+      <ScrollableBox scroller={scroller} maxHeight={maxHeight}>
         <Box>
           <TableContainer>
             <Table>
-              {showHeader && (
-                <TableHead>
-                  <TableRow>
-                    <TableCell>
-                      <SearchWithinList onChanged={handleSearched} />
-                    </TableCell>
-                    <TableCell>
-                      <Box display={'flex'} alignItems={'center'}>
-                        <Box>
-                          <Checkbox size='small' onChange={handleFilterActual} />
-                        </Box>
-                        <Box>Actual</Box>
-                      </Box>
-                    </TableCell>
-                    <TableCell>
-                      <Box display={'flex'} alignItems={'center'}>
-                        <Box>
-                          <Checkbox size='small' onChange={handleFilterEstimate} />
-                        </Box>
-                        <Box>Estimate</Box>
-                      </Box>
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-              )}
+              <TableHead>
+                <TableRow>
+                  <TableCell>{showFilters && <SearchWithinList onChanged={handleSearched} />}</TableCell>
+                  <TableCell>
+                    <Box display={'flex'} alignItems={'center'}>
+                      <Box>{showFilters && <Checkbox size='small' onChange={handleFilterActual} />}</Box>
+                      <Box>Actual</Box>
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    <Box display={'flex'} alignItems={'center'}>
+                      <Box>{showFilters && <Checkbox size='small' onChange={handleFilterEstimate} />}</Box>
+                      <Box>Estimate</Box>
+                    </Box>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+
               <TableBody>
                 {pages.length > 0 ? (
                   pages[currentPageIndex - 1].items.map((item, index) => (
@@ -153,18 +148,7 @@ const StockEarningsCalendarDetails = ({
               </TableBody>
             </Table>
           </TableContainer>
-          {pages.length > 1 && (
-            <Box pt={4}>
-              <Pager
-                pageCount={pages.length}
-                itemCount={pages[currentPageIndex - 1].items.length}
-                itemsPerPage={pageSize}
-                onPaged={(pageNum: number) => handlePaged(pageNum)}
-                defaultPageIndex={currentPageIndex}
-                totalItemCount={pages.length === 1 ? pages[currentPageIndex - 1].items.length : filtered.length}
-              ></Pager>
-            </Box>
-          )}
+
           {filtered.length === 0 && (
             <CenterStack sx={{ py: 4 }}>
               <Typography variant='body2'>No data found.</Typography>
@@ -172,6 +156,18 @@ const StockEarningsCalendarDetails = ({
           )}
         </Box>
       </ScrollableBox>
+      {pages.length > 1 && (
+        <Box pt={4}>
+          <Pager
+            pageCount={pages.length}
+            itemCount={pages[currentPageIndex - 1].items.length}
+            itemsPerPage={pageSize}
+            onPaged={(pageNum: number) => handlePaged(pageNum)}
+            defaultPageIndex={currentPageIndex}
+            totalItemCount={pages.length === 1 ? pages[currentPageIndex - 1].items.length : filtered.length}
+          ></Pager>
+        </Box>
+      )}
     </>
   )
 }
