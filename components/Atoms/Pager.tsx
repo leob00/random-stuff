@@ -1,10 +1,10 @@
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft'
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight'
-import FirstPageIcon from '@mui/icons-material/FirstPage'
-import LastPageIcon from '@mui/icons-material/LastPage'
-import { Box, Button, Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import numeral from 'numeral'
 import HorizontalDivider from './Dividers/HorizontalDivider'
+import ArrowLeftButton from './Buttons/ArrowLeftButton'
+import ArrowRightButton from './Buttons/ArrowRightButton'
+import ArrowFirstPageButton from './Buttons/ArrowFirstPageButton'
+import ArrowLastPageButton from './Buttons/ArrowLastPageButton'
 
 const Pager = ({
   pageCount,
@@ -55,21 +55,17 @@ const Pager = ({
 
   const handlePreviousClick = () => {
     let idx = pageIndex - 1
-    //setPageIndex(idx)
     onPaged(idx)
   }
   const handleNextClick = () => {
     let idx = pageIndex + 1
-    //setPageIndex(idx)
     onPaged(idx)
   }
   const handleFirstPageClick = () => {
-    //setPageIndex(1)
     onPaged(1)
   }
   const handleLastPageClick = () => {
     let idx = pageCount
-    //setPageIndex(idx)
     onPaged(idx)
   }
 
@@ -78,24 +74,16 @@ const Pager = ({
       {showHorizontalDivider && <HorizontalDivider />}
       {showPageText && (
         <Stack>
-          <Typography sx={{ textAlign: 'center' }} variant='caption'>
+          <Typography textAlign='center' variant='caption'>
             {displayMessage}
           </Typography>
         </Stack>
       )}
       <Box sx={{ textAlign: 'center', my: 1 }}>
-        <Button variant='text' disabled={pageIndex <= 1} onClick={handleFirstPageClick}>
-          <FirstPageIcon />
-        </Button>
-        <Button variant='text' disabled={pageIndex <= 1} onClick={handlePreviousClick}>
-          <KeyboardArrowLeft />
-        </Button>
-        <Button variant='text' onClick={handleNextClick} disabled={pageIndex === pageCount}>
-          <KeyboardArrowRight />
-        </Button>
-        <Button variant='text' disabled={pageIndex === pageCount} onClick={handleLastPageClick}>
-          <LastPageIcon />
-        </Button>
+        <ArrowFirstPageButton disabled={pageIndex <= 1} onClicked={handleFirstPageClick} />
+        <ArrowLeftButton disabled={pageIndex <= 1} onClicked={handlePreviousClick} />
+        <ArrowRightButton onClicked={handleNextClick} disabled={pageIndex === pageCount} />
+        <ArrowLastPageButton disabled={pageIndex === pageCount} onClicked={handleLastPageClick} />
       </Box>
     </Box>
   )

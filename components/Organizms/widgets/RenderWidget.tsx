@@ -7,8 +7,6 @@ import { Box, useMediaQuery, useTheme } from '@mui/material'
 import EconIndexWidget from './econ/EconIndexWidget'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import EconWidget from './econ/EconWidget'
-import { useBestFitWidth } from 'hooks/ui/useBestFitWidth'
-import EarningsCalendarLayout from '../stocks/EarningsCalendarLayout'
 import EarningsCalendarWidget from './stocks/earnings/EarningsCalendarWidget'
 
 export type WidgetDimensions = {

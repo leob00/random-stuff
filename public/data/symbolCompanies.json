@@ -144,6 +144,10 @@
     "Symbol": "AAT"
   },
   {
+    "Company": "EA Series Trust Alpha Architect Global Factor Equity ETF",
+    "Symbol": "AAVM"
+  },
+  {
     "Company": "iShares MSCI All Country Asia ex Japan ETF",
     "Symbol": "AAXJ"
   },
@@ -9144,6 +9148,10 @@
     "Symbol": "CPSD"
   },
   {
+    "Company": "Calamos S&P 500 Structured Alt Protection ETF - February",
+    "Symbol": "CPSF"
+  },
+  {
     "Company": "CPS Technologies Corp. Common Stock",
     "Symbol": "CPSH"
   },
@@ -11424,8 +11432,16 @@
     "Symbol": "DRD"
   },
   {
+    "Company": "Roman DBDR Acquisition Corp. II Ordinary shares",
+    "Symbol": "DRDB"
+  },
+  {
     "Company": "Roman DBDR Acquisition Corp. II Unit",
     "Symbol": "DRDBU"
+  },
+  {
+    "Company": "Roman DBDR Acquisition Corp. II Warrants",
+    "Symbol": "DRDBW"
   },
   {
     "Company": "DiamondRock Hospitality Company",
@@ -14780,6 +14796,10 @@
     "Symbol": "FEBT"
   },
   {
+    "Company": "AllianzIM U.S. Equity Buffer15 Uncapped Feb ETF",
+    "Symbol": "FEBU"
+  },
+  {
     "Company": "AllianzIM U.S. Large Cap Buffer20 Feb ETF",
     "Symbol": "FEBW"
   },
@@ -17006,6 +17026,10 @@
   {
     "Company": "Goldman Sachs U.S. Large Cap Buffer 1 ETF",
     "Symbol": "GBXA"
+  },
+  {
+    "Company": "Goldman Sachs U.S. Large Cap Buffer 2 ETF",
+    "Symbol": "GBXB"
   },
   {
     "Company": "Gabelli Commercial Aerospace and Defense ETF",
@@ -19912,7 +19936,7 @@
     "Symbol": "HTBK"
   },
   {
-    "Company": "Caravelle International Group Ordinary Shares",
+    "Company": "High-Trend International Group Class A Ordinary Shares",
     "Symbol": "HTCO"
   },
   {
@@ -23820,6 +23844,10 @@
     "Symbol": "KF"
   },
   {
+    "Company": "Innovator U.S. Small Cap Power Buffer ETF - February",
+    "Symbol": "KFEB"
+  },
+  {
     "Company": "Kentucky First Federal Bancorp",
     "Symbol": "KFFB"
   },
@@ -26304,6 +26332,10 @@
     "Symbol": "MAYZ"
   },
   {
+    "Company": "Maze Therapeutics, Inc. Common Stock",
+    "Symbol": "MAZE"
+  },
+  {
     "Company": "M3-Brigade Acquisition V Corp. Class A Ordinary shares",
     "Symbol": "MBAV"
   },
@@ -27256,6 +27288,14 @@
     "Symbol": "MLAB"
   },
   {
+    "Company": "Mountain Lake Acquisition Corp. Class A Ordinary Shares",
+    "Symbol": "MLAC"
+  },
+  {
+    "Company": "Mountain Lake Acquisition Corp. Right",
+    "Symbol": "MLACR"
+  },
+  {
     "Company": "Mountain Lake Acquisition Corp. Units",
     "Symbol": "MLACU"
   },
@@ -28156,6 +28196,10 @@
     "Symbol": "MTSI"
   },
   {
+    "Company": "Metsera, Inc. Common Stock",
+    "Symbol": "MTSR"
+  },
+  {
     "Company": "Matterport, Inc. Class A Common Stock",
     "Symbol": "MTTR"
   },
@@ -29054,6 +29098,10 @@
   {
     "Company": "New Fortress Energy Inc. Class A Common Stock",
     "Symbol": "NFE"
+  },
+  {
+    "Company": "Innovator Growth-100 Power Buffer ETF - February",
+    "Symbol": "NFEB"
   },
   {
     "Company": "National Fuel Gas Co.",
@@ -32228,6 +32276,10 @@
     "Symbol": "PEV"
   },
   {
+    "Company": "Pacer PE/VC ETF",
+    "Symbol": "PEVC"
+  },
+  {
     "Company": "ProShares Global Listed Private Equity ETF",
     "Symbol": "PEX"
   },
@@ -32836,8 +32888,16 @@
     "Symbol": "PLMJW"
   },
   {
+    "Company": "Plum Acquisition Corp. IV Class A Ordinary Shares",
+    "Symbol": "PLMK"
+  },
+  {
     "Company": "Plum Acquisition Corp. IV Unit",
     "Symbol": "PLMKU"
+  },
+  {
+    "Company": "Plum Acquisition Corp. IV Warrants",
+    "Symbol": "PLMKW"
   },
   {
     "Company": "Palomar Holdings, Inc. Common stock",
@@ -32954,6 +33014,10 @@
   {
     "Company": "PIMCO MUNICIPAL INCOME FUND COMMON SHARES OF BENEFICIAL INTERST",
     "Symbol": "PMF"
+  },
+  {
+    "Company": "PGIM S&P 500 Max Buffer ETF - February",
+    "Symbol": "PMFB"
   },
   {
     "Company": "PGIM Municipal Income Opportunities ETF",
@@ -33978,6 +34042,10 @@
   {
     "Company": "Quanta Services, Inc.",
     "Symbol": "PWR"
+  },
+  {
+    "Company": "TCW Transform Systems ETF",
+    "Symbol": "PWRD"
   },
   {
     "Company": "Pacer WealthShield ETF",
@@ -35812,6 +35880,10 @@
     "Symbol": "ROAM"
   },
   {
+    "Company": "T-Rex 2X Long HOOD Daily Target ETF",
+    "Symbol": "ROBN"
+  },
+  {
     "Company": "ROBO Global Robotics & Automation Index ETF",
     "Symbol": "ROBO"
   },
@@ -36650,10 +36722,6 @@
   {
     "Company": "Cassava Sciences, Inc.",
     "Symbol": "SAVA"
-  },
-  {
-    "Company": "Spirit Airlines, Inc.",
-    "Symbol": "SAVE"
   },
   {
     "Company": "AAM Sawgrass US Large Cap Quality Growth ETF",
@@ -41944,7 +42012,7 @@
     "Symbol": "TSM"
   },
   {
-    "Company": "Thrivent Small-Mid Cap ESG ETF",
+    "Company": "Thrivent Small-Mid Cap Equity ETF",
     "Symbol": "TSME"
   },
   {
@@ -45716,6 +45784,10 @@
     "Symbol": "XIDV"
   },
   {
+    "Company": "XPLR Infrastructure, LP",
+    "Symbol": "XIFR"
+  },
+  {
     "Company": "FT Vest U.S. Equity Buffer & Premium Income ETF - June",
     "Symbol": "XIJN"
   },
@@ -46220,6 +46292,10 @@
     "Symbol": "YFFI"
   },
   {
+    "Company": "Yields For You Strategy A ETF",
+    "Symbol": "YFYA"
+  },
+  {
     "Company": "Simplify Gold Strategy PLUS Income ETF",
     "Symbol": "YGLD"
   },
@@ -46490,6 +46566,10 @@
   {
     "Company": "Olympic Steel, Inc.",
     "Symbol": "ZEUS"
+  },
+  {
+    "Company": "Innovator Equity Defined Protection ETF - 1 Yr February",
+    "Symbol": "ZFEB"
   },
   {
     "Company": "ZILLOW GROUP INC CLASS A",
