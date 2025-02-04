@@ -11,26 +11,36 @@ import { useRouteTracker } from '../session/useRouteTracker'
 const GroupedHomeMenu = ({ pathCategories, recentRoutes }: { pathCategories: Paths[]; recentRoutes?: Navigation[] }) => {
   const [paths, setPaths] = useState(pathCategories)
 
+  // const pathCatMap = new Map<SiteCategories, Navigation[]>()
+  // pathCategories.forEach((path)=> {
+  //   pathCatMap.set(path.category, path.paths)
+  // })
+
   useEffect(() => {
+    const newPathCats = new Map<SiteCategories, Paths>()
     if (recentRoutes && recentRoutes.length > 0) {
       const noneHome = recentRoutes.filter((m) => m.path !== '/')
       if (noneHome.length > 0) {
-        const newPaths = new Map<SiteCategories, Paths>()
         noneHome.forEach((cat) => {
           const ex = pathCategories.find((m) => m.category === cat.category)
           if (ex) {
-            newPaths.set(ex.category, ex)
+            newPathCats.set(ex.category, ex)
           }
         })
         pathCategories.forEach((p) => {
-          if (!newPaths.has(p.category)) {
-            newPaths.set(p.category, p)
+          if (!newPathCats.has(p.category)) {
+            newPathCats.set(p.category, p)
           }
         })
-
-        setPaths(Array.from(newPaths.values()))
       }
     }
+    pathCategories.forEach((path) => {
+      if (!newPathCats.has(path.category)) {
+        newPathCats.set(path.category, path)
+      }
+    })
+
+    setPaths(Array.from(newPathCats.values()))
   }, [recentRoutes, pathCategories])
 
   return (
