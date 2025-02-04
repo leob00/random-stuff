@@ -125,20 +125,18 @@ const StockEarningsCalendarList = ({ data, maxHeight }: { data: StockEarning[]; 
           <ScrollableBox scroller={scroller} maxHeight={maxHeight}>
             {model.earnings.map((item) => (
               <Box key={item.Symbol} pb={4} px={1}>
-                <Box display={'flex'} justifyContent={'space-between'}>
-                  <HoverEffect>
-                    <Clickable
-                      onClicked={() => {
-                        handleClicked(item.Symbol)
-                      }}
-                    >
-                      <Box>
-                        <StockEarningsCompanyDisplay item={item} />
-                        {item.StockQuote && <StockChange item={item.StockQuote} />}
-                      </Box>
-                    </Clickable>
-                  </HoverEffect>
-                  <Box display={'flex'} pr={2} gap={2}>
+                <Box display={'flex'} justifyContent={'space-between'} alignItems={'flex-start'}>
+                  <Clickable
+                    onClicked={() => {
+                      handleClicked(item.Symbol)
+                    }}
+                  >
+                    <Box>
+                      <StockEarningsCompanyDisplay item={item} />
+                      {item.StockQuote && <StockChange item={item.StockQuote} />}
+                    </Box>
+                  </Clickable>
+                  <Box display={'flex'} pr={2} gap={2} pt={'4px'}>
                     <Box display={'flex'} flexDirection={'column'}>
                       <Typography variant='caption'>Actual</Typography>
                       <Typography textAlign={'right'} variant='caption' color={getPositiveNegativeColor(item.ActualEarnings, theme.palette.mode)}>

@@ -27,10 +27,10 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
   if (!isXSmallDevice) {
     switch (item.size) {
       case 'md':
-        dimension.width = isSmallDevice ? 300 : 560
+        dimension.width = isSmallDevice ? 300 : 520
         break
       case 'lg':
-        dimension.width = isSmallDevice ? 600 : 1138
+        dimension.width = isSmallDevice ? 600 : 1080
         break
     }
   }
