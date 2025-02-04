@@ -46,7 +46,7 @@ const Page = () => {
     const result: StockQuote[] = sorted.map((m) => {
       return JSON.parse(m.data)
     })
-    const stockMap = getMapFromArray(result, 'Symbol')
+    const stockMap = new Map<string, StockQuote>()
     const latest = await getLatestQuotes(result.map((m) => m.Symbol))
     latest.forEach((item) => {
       stockMap.set(item.Symbol, item)
