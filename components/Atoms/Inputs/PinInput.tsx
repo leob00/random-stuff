@@ -1,13 +1,13 @@
 import { Alert, Box, TextField, Typography } from '@mui/material'
-import React from 'react'
 import CenterStack from '../CenterStack'
+import { useEffect, useRef, useState } from 'react'
 
 const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: (text: string) => void }) => {
-  const pin1Ref = React.useRef<HTMLInputElement | null>(null)
-  const pin2Ref = React.useRef<HTMLInputElement | null>(null)
-  const pin3Ref = React.useRef<HTMLInputElement | null>(null)
-  const pin4Ref = React.useRef<HTMLInputElement | null>(null)
-  const [error, setError] = React.useState('')
+  const pin1Ref = useRef<HTMLInputElement | null>(null)
+  const pin2Ref = useRef<HTMLInputElement | null>(null)
+  const pin3Ref = useRef<HTMLInputElement | null>(null)
+  const pin4Ref = useRef<HTMLInputElement | null>(null)
+  const [error, setError] = useState('')
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     if (e.target.value.length > 0) {
@@ -101,7 +101,7 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
       }
     }
   }
-  React.useEffect(() => {
+  useEffect(() => {
     if (pin1Ref.current && setFocus) {
       pin1Ref.current.focus()
     }

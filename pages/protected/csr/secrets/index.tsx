@@ -5,12 +5,14 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import CreatePinDialog from 'components/Organizms/Login/CreatePinDialog'
 import SecretsLayout from 'components/Organizms/user/secrets/SecretsLayout'
+import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import { useUserController } from 'hooks/userController'
 import { UserPin } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { useEffect, useState } from 'react'
 
 const Page = () => {
   const { authProfile, ticket, setProfile, fetchProfilePassive } = useUserController()
+  // const {userProfile} = useProfileValidator()
   const [loading, setLoading] = useState(true)
   const [showCreatePin, setShowCreatePin] = useState(false)
   const [showCreatePinAlert, setShowCreatePinAlert] = useState(false)

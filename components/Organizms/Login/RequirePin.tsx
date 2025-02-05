@@ -45,9 +45,7 @@ const RequirePin = ({ minuteDuration = 5, enablePolling = true, children }: { mi
   const handlePinValidated = async (pin: UserPin) => {
     stopPoller()
 
-    const newProfile = { ...profile! }
-
-    newProfile.pin = pin
+    const newProfile = { ...profile!, pin: pin }
     await setProfile(newProfile)
 
     await putUserProfile(newProfile)

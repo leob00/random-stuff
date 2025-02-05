@@ -15,6 +15,7 @@ import { sortArray } from 'lib/util/collections'
 import SecretsTable from './SecretsTable'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { useReducer } from 'react'
+import { useUserController } from 'hooks/userController'
 
 interface Model {
   filter: string
@@ -23,7 +24,8 @@ interface Model {
 }
 
 const SecretsLayout = ({ userProfile, ticket }: { userProfile: UserProfile; ticket: AmplifyUser }) => {
-  let encKey: string | null = `${ticket.id}-${userProfile.username}`
+  const encKey: string | null = `${ticket.id}-${userProfile.username}`
+  const { setProfile } = useUserController()
 
   const defaultModel: Model = {
     filter: '',
@@ -46,7 +48,7 @@ const SecretsLayout = ({ userProfile, ticket }: { userProfile: UserProfile; tick
 
     return result
   }
-  const { data, isLoading } = useSwrHelper(mutateKey, dataFn)
+  const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
   const handleItemSaved = async () => {
     mutate(mutateKey)
