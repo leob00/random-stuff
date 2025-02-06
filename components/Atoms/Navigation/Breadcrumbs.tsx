@@ -3,40 +3,48 @@ import { Box, Divider } from '@mui/material'
 import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 import { useRouter } from 'next/router'
 import LinkButton from '../Buttons/LinkButton'
-import { useEffect, useState } from 'react'
 import { take } from 'lodash'
 import { sortArray } from 'lib/util/collections'
 import { Navigation } from 'components/Organizms/session/useSessionSettings'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import { flatSiteMap } from 'components/Organizms/navigation/siteMap'
+import FadeIn from '../Animations/FadeIn'
 
 export const BasicBreadcrumbs = () => {
   const router = useRouter()
-  const { lastRoute, allRoutes, addRoute } = useRouteTracker()
-  const [routes, setRoutes] = useState<Navigation[]>([])
+  const { allRoutes, addRoute } = useRouteTracker()
+  const routes = getRoutes(allRoutes)
   const currentRoute = router.asPath
   const handleClick = (route: Navigation) => {
     addRoute(route.path)
     router.push(route.path)
   }
-  useEffect(() => {
-    const result = getRoutes(allRoutes)
-    setRoutes(result)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lastRoute])
 
   return (
     <Box display={'flex'} gap={2}>
       {routes.map((route, index) => (
         <Box key={route.path} display={'flex'} alignItems={'center'} gap={2}>
-          <LinkButton
-            disabled={route.path === currentRoute}
-            onClick={() => {
-              handleClick(route)
-            }}
-          >
-            {route.name}
-          </LinkButton>
+          {route.path === currentRoute ? (
+            <LinkButton
+              disabled
+              onClick={() => {
+                handleClick(route)
+              }}
+            >
+              {route.name}
+            </LinkButton>
+          ) : (
+            <FadeIn>
+              <LinkButton
+                onClick={() => {
+                  handleClick(route)
+                }}
+              >
+                {route.name}
+              </LinkButton>
+            </FadeIn>
+          )}
+
           {index < routes.length - 1 && <Divider orientation='vertical' sx={{ height: '10px' }} />}
         </Box>
       ))}
