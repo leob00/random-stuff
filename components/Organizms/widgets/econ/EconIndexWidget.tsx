@@ -24,21 +24,10 @@ const EconIndexWidget = ({ itemId, symbol, width, height }: { itemId: number; sy
   }
   const { data, isLoading } = useSwrHelper(key, dataFn, { revalidateOnFocus: false })
   return (
-    <Box py={2} minHeight={height}>
+    <Box minHeight={height} width={width}>
       {data && (
-        <Box>
+        <Box minHeight={height} width={width}>
           <EconIndexChart data={data} symbol={symbol} width={width} days={90} />
-          <HorizontalDivider />
-          <Box py={1} px={2}>
-            <Button
-              variant='text'
-              onClick={() => {
-                router.push(`/csr/economic-indicators/${itemId}`)
-              }}
-            >
-              <Typography variant={'body2'}>details &raquo;</Typography>
-            </Button>
-          </Box>
         </Box>
       )}
     </Box>

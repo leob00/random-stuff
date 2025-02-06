@@ -8,6 +8,8 @@ import EconIndexWidget from './econ/EconIndexWidget'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import EconWidget from './econ/EconWidget'
 import EarningsCalendarWidget from './stocks/earnings/EarningsCalendarWidget'
+import WidgetFooter from './WidgetFooter'
+import StockMarketGlanceWidget from './stocks/sentiment/StockMarketGlanceWidget'
 
 export type WidgetDimensions = {
   height: number
@@ -45,15 +47,15 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
       {item.id === 'stock-market-sentiment' && (
         <Box width={dimension.width}>
           <WidgetWrapper item={item}>
-            {item.size === 'sm' ? (
-              <ScrollableBox maxHeight={dimension.height}>
-                <StockMarketGlance showTitle={false} componentLoader revalidateOnFocus={revalidateOnFocus} width={dimension.width} />
-              </ScrollableBox>
-            ) : (
-              <>
-                <StockMarketGlance showTitle={false} componentLoader revalidateOnFocus={revalidateOnFocus} width={dimension.width} />
-              </>
-            )}
+            <StockMarketGlanceWidget
+              showTitle={false}
+              componentLoader
+              revalidateOnFocus={revalidateOnFocus}
+              width={dimension.width}
+              height={dimension.height}
+            />
+
+            <WidgetFooter detailsUrl='/csr/stocks/sentiment' />
           </WidgetWrapper>
         </Box>
       )}
@@ -62,6 +64,7 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
           <Box>
             <WidgetWrapper item={item}>
               <EconIndexWidget itemId={Number(item.internalId)} symbol={item.title} width={dimension.width} height={dimension.height} />
+              <WidgetFooter detailsUrl={`/csr/economic-indicators/${item.id}`} />
             </WidgetWrapper>
           </Box>
         )}
@@ -76,6 +79,7 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
           <Box>
             <WidgetWrapper item={item}>
               <EarningsCalendarWidget width={dimension.width} height={dimension.height} size={item.size} />
+              <WidgetFooter detailsUrl={'/csr/stocks/earnings-calendar'} />
             </WidgetWrapper>
           </Box>
         )}

@@ -10,8 +10,10 @@ const StockSentimentDisplay = ({ data }: { data: StockStats[] }) => {
   return (
     <>
       <CenteredHeader title={'1 Month'} variant='h5' />
-      <Stack>
-        <StockMarketStatsChart data={getSentiment(data, 30)} />
+      <Box>
+        <Box>
+          <StockMarketStatsChart data={getSentiment(data, 30)} />
+        </Box>
         <HorizontalDivider />
         <CenteredHeader title={'2 Weeks'} variant='h5' />
         <StockMarketStatsChart data={getSentiment(data, 14)} />
@@ -19,7 +21,7 @@ const StockSentimentDisplay = ({ data }: { data: StockStats[] }) => {
         <CenteredHeader title={'1 Week'} variant='h5' />
         <StockMarketStatsChart data={getSentiment(data, 7)} />
         <HorizontalDivider />
-      </Stack>
+      </Box>
     </>
   )
 }

@@ -1,10 +1,22 @@
 import { Box, Typography } from '@mui/material'
 import { Variant } from '@mui/material/styles/createTypography'
 
-const ReadOnlyField = ({ label, val, labelLength, variant }: { label?: string; val?: string | null | number; labelLength?: number; variant?: Variant }) => {
+const ReadOnlyField = ({
+  label,
+  val,
+  labelLength,
+  variant,
+  py = 1,
+}: {
+  label?: string
+  val?: string | null | number
+  labelLength?: number
+  variant?: Variant
+  py?: number
+}) => {
   return (
     <Box>
-      <Box display={'flex'} flexDirection={'row'} gap={2} py={1}>
+      <Box display={'flex'} flexDirection={'row'} gap={2} py={py}>
         {label && (
           <Box textAlign={'right'} minWidth={labelLength ?? undefined}>
             <Typography variant={variant ?? 'body2'} color={'primary'}>{`${label}:`}</Typography>

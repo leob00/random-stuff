@@ -7,17 +7,13 @@ const EarningsCalendarWidgetDisplay = ({ data, maxHeight }: { data: StockEarning
   const dateToSelect = getDefaultDateOption(data)
 
   return (
-    <>
-      <Box>
-        <Box py={2}>
-          {dateToSelect && (
-            <Box>
-              <StockEarningsCalendarList data={data} maxHeight={maxHeight} />
-            </Box>
-          )}
+    <Box>
+      {dateToSelect && (
+        <Box>
+          <StockEarningsCalendarList data={data} maxHeight={maxHeight} />
         </Box>
-      </Box>
-    </>
+      )}
+    </Box>
   )
 }
 

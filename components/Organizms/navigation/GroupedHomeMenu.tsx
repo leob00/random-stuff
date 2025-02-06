@@ -6,40 +6,28 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import { Navigation } from '../session/useSessionSettings'
 import { useEffect, useState } from 'react'
-import { useRouteTracker } from '../session/useRouteTracker'
 
 const GroupedHomeMenu = ({ pathCategories, recentRoutes }: { pathCategories: Paths[]; recentRoutes?: Navigation[] }) => {
   const [paths, setPaths] = useState(pathCategories)
 
-  // const pathCatMap = new Map<SiteCategories, Navigation[]>()
-  // pathCategories.forEach((path)=> {
-  //   pathCatMap.set(path.category, path.paths)
-  // })
-
   useEffect(() => {
     const newPathCats = new Map<SiteCategories, Paths>()
-    if (recentRoutes && recentRoutes.length > 0) {
-      const noneHome = recentRoutes.filter((m) => m.path !== '/')
-      if (noneHome.length > 0) {
-        noneHome.forEach((cat) => {
-          const ex = pathCategories.find((m) => m.category === cat.category)
-          if (ex) {
-            newPathCats.set(ex.category, ex)
-          }
-        })
-        pathCategories.forEach((p) => {
-          if (!newPathCats.has(p.category)) {
-            newPathCats.set(p.category, p)
-          }
-        })
+    const allRecentPaths = recentRoutes ? recentRoutes.filter((m) => m.path !== '/') : []
+    allRecentPaths.forEach((path) => {
+      const ex = pathCategories.find((m) => m.category === path.category)
+      if (ex) {
+        const n = ex.paths.filter((m) => m.path !== path.path)
+        n.unshift(path)
+        newPathCats.set(ex.category, { ...ex, paths: n })
       }
-    }
+    })
+
     pathCategories.forEach((path) => {
       if (!newPathCats.has(path.category)) {
         newPathCats.set(path.category, path)
       }
     })
-
+    console.log(Array.from(newPathCats.values()))
     setPaths(Array.from(newPathCats.values()))
   }, [recentRoutes, pathCategories])
 
