@@ -3024,7 +3024,7 @@
     "Symbol": "ATGE"
   },
   {
-    "Company": "Alpha Technology Group Limited Ordinary Shares",
+    "Company": "Alpha Technology Group Limited Class A Ordinary Shares",
     "Symbol": "ATGL"
   },
   {
@@ -7068,12 +7068,20 @@
     "Symbol": "CBT"
   },
   {
+    "Company": "Calamos Bitcoin 80 Series Structured Alt Protection ETF - January",
+    "Symbol": "CBTJ"
+  },
+  {
     "Company": "Community Financial System, Inc.",
     "Symbol": "CBU"
   },
   {
     "Company": "Cibus, Inc. Class A Common Stock",
     "Symbol": "CBUS"
+  },
+  {
+    "Company": "Calamos Bitcoin 90 Series Structured Alt Protection ETF - January",
+    "Symbol": "CBXJ"
   },
   {
     "Company": "CBIZ, Inc.",
@@ -8142,6 +8150,10 @@
   {
     "Company": "China Jo-Jo Drugstores, Inc. (Cayman Islands) Ordinary Shares",
     "Symbol": "CJJD"
+  },
+  {
+    "Company": "Callan JMB Inc. Common Stock",
+    "Symbol": "CJMB"
   },
   {
     "Company": "Checkpoint Therapeutics, Inc. Common Stock",
@@ -9552,6 +9564,14 @@
     "Symbol": "CSMD"
   },
   {
+    "Company": "Cohen & Steers Natural Resources Active ETF",
+    "Symbol": "CSNR"
+  },
+  {
+    "Company": "Cohen & Steers Preferred and Income Opportunities Active ETF",
+    "Symbol": "CSPF"
+  },
+  {
     "Company": "CSP Inc.",
     "Symbol": "CSPI"
   },
@@ -9562,6 +9582,10 @@
   {
     "Company": "Centerspace",
     "Symbol": "CSR"
+  },
+  {
+    "Company": "Cohen & Steers Real Estate Active ETF",
+    "Symbol": "CSRE"
   },
   {
     "Company": "Chicken Soup for the Soul Entertainment, Inc. Class A Common Stock",
@@ -10320,7 +10344,7 @@
     "Symbol": "DBMF"
   },
   {
-    "Company": "DoubleLine Opportunistic Bond ETF",
+    "Company": "DoubleLine Opportunistic Core Bond ETF",
     "Symbol": "DBND"
   },
   {
@@ -12068,7 +12092,7 @@
     "Symbol": "EARN"
   },
   {
-    "Company": "Xtrackers MSCI EAFE ESG Leaders Equity ETF",
+    "Company": "Xtrackers MSCI EAFE Selection Equity ETF",
     "Symbol": "EASG"
   },
   {
@@ -16040,6 +16064,10 @@
     "Symbol": "FOXXW"
   },
   {
+    "Company": "Simplify Currency Strategy ETF",
+    "Symbol": "FOXY"
+  },
+  {
     "Company": "First Trust Asia Pacific ex-Japan AlphaDEX Fund",
     "Symbol": "FPA"
   },
@@ -17924,6 +17952,10 @@
     "Symbol": "GMMA"
   },
   {
+    "Company": "iShares Government Money Market ETF",
+    "Symbol": "GMMF"
+  },
+  {
     "Company": "Goldman Sachs Dynamic New York Municipal Income ETF",
     "Symbol": "GMNY"
   },
@@ -19012,6 +19044,10 @@
     "Symbol": "HCA"
   },
   {
+    "Company": "Hauchen AI Parking Management Technology Holding Co., Ltd. Ordinary Shares",
+    "Symbol": "HCAI"
+  },
+  {
     "Company": "Health Catalyst, Inc Common Stock",
     "Symbol": "HCAT"
   },
@@ -19900,6 +19936,14 @@
     "Symbol": "HSPOW"
   },
   {
+    "Company": "Horizon Space Acquisition II Corp. Ordinary share",
+    "Symbol": "HSPT"
+  },
+  {
+    "Company": "Horizon Space Acquisition II Corp. Right",
+    "Symbol": "HSPTR"
+  },
+  {
     "Company": "Horizon Space Acquisition II Corp. Units",
     "Symbol": "HSPTU"
   },
@@ -20114,6 +20158,10 @@
   {
     "Company": "HUYA Inc.",
     "Symbol": "HUYA"
+  },
+  {
+    "Company": "AdvisorShares HVAC and Industrials ETF",
+    "Symbol": "HVAC"
   },
   {
     "Company": "Hennessy Capital Investment Corp. VII Unit",
@@ -23584,6 +23632,10 @@
     "Symbol": "JXN"
   },
   {
+    "Company": "Janus Henderson Transformational Growth ETF",
+    "Symbol": "JXX"
+  },
+  {
     "Company": "Jayud Global Logistics Limited Class A Ordinary Shares",
     "Symbol": "JYD"
   },
@@ -23764,6 +23816,10 @@
     "Symbol": "KDEC"
   },
   {
+    "Company": "PLUS Korea Defense Industry Index ETF",
+    "Symbol": "KDEF"
+  },
+  {
     "Company": "KraneShares S&P Pan Asia Dividend Aristocrats Index ETF",
     "Symbol": "KDIV"
   },
@@ -23850,6 +23906,10 @@
   {
     "Company": "Kentucky First Federal Bancorp",
     "Symbol": "KFFB"
+  },
+  {
+    "Company": "K&F Growth Acquisition Corp. II Unit",
+    "Symbol": "KFIIU"
   },
   {
     "Company": "Kforce Inc.",
@@ -24732,7 +24792,7 @@
     "Symbol": "LCW.WS"
   },
   {
-    "Company": "Stone Ridge 2035 Term Income ETF",
+    "Company": "LifeX 2035 Term Income ETF",
     "Symbol": "LDDR"
   },
   {
@@ -24740,7 +24800,7 @@
     "Symbol": "LDEM"
   },
   {
-    "Company": "Stone Ridge 2040 Term Income ETF",
+    "Company": "LifeX 2040 Term Income ETF",
     "Symbol": "LDER"
   },
   {
@@ -24768,7 +24828,7 @@
     "Symbol": "LDRI"
   },
   {
-    "Company": "Stone Ridge 2045 Term Income ETF",
+    "Company": "LifeX 2045 Term Income ETF",
     "Symbol": "LDRR"
   },
   {
@@ -26136,7 +26196,7 @@
     "Symbol": "MAGQ"
   },
   {
-    "Company": "Listed Funds Trust Roundhill Magnificent Seven ETF",
+    "Company": "Roundhill Magnificent Seven ETF",
     "Symbol": "MAGS"
   },
   {
@@ -32964,6 +33024,10 @@
     "Symbol": "PLUS"
   },
   {
+    "Company": "Plutus Financial Group Limited Ordinary Shares",
+    "Symbol": "PLUT"
+  },
+  {
     "Company": "Protalix BioTherapeutics, Inc. Common Stock",
     "Symbol": "PLX"
   },
@@ -33034,6 +33098,10 @@
   {
     "Company": "Putnam Managed Municipal Income",
     "Symbol": "PMM"
+  },
+  {
+    "Company": "iShares Prime Money Market ETF",
+    "Symbol": "PMMF"
   },
   {
     "Company": "ProMIS Neurosciences Inc. Common Shares (ON)",
@@ -36910,6 +36978,10 @@
   {
     "Company": "Southern Copper Corporation",
     "Symbol": "SCCO"
+  },
+  {
+    "Company": "Schwab Core Bond ETF",
+    "Symbol": "SCCR"
   },
   {
     "Company": "LMP Capital and Income Fund, Inc.",
@@ -41324,6 +41396,10 @@
     "Symbol": "TMAT"
   },
   {
+    "Company": "Thornburg Multi Sector Bond ETF",
+    "Symbol": "TMB"
+  },
+  {
     "Company": "TMC the metals company Inc. Common Stock",
     "Symbol": "TMC"
   },
@@ -41630,6 +41706,10 @@
   {
     "Company": "TIMOTHY PLAN US LARGE/MID CAP CORE ENHANCED ETF",
     "Symbol": "TPLE"
+  },
+  {
+    "Company": "Thornburg Core Plus Bond ETF",
+    "Symbol": "TPLS"
   },
   {
     "Company": "Timothy Plan Market Neutral ETF",
@@ -42744,6 +42824,10 @@
     "Symbol": "UMBF"
   },
   {
+    "Company": "UMB Financial Corporation Depositary Shares, each representing a 1/400th of 7.00% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock",
+    "Symbol": "UMBFP"
+  },
+  {
     "Company": "United Microelectronic Corp.",
     "Symbol": "UMC"
   },
@@ -43148,7 +43232,7 @@
     "Symbol": "USSE"
   },
   {
-    "Company": "Xtrackers MSCI USA ESG Leaders Equity ETF",
+    "Company": "Xtrackers MSCI USA Selection Equity ETF",
     "Symbol": "USSG"
   },
   {

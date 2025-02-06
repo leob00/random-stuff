@@ -17,7 +17,7 @@ const StockMarketStatsChart = ({ data }: { data: StockStats }) => {
   }
 
   return (
-    <Box mt={-5}>
+    <Box>
       <Box sx={{ margin: 'auto' }}>
         <BasicPieChart barChart={chartData} title={''} />
       </Box>

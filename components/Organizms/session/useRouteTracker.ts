@@ -3,16 +3,8 @@ import dayjs from 'dayjs'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { sortArray } from 'lib/util/collections'
 import { getMapFromArray } from 'lib/util/collectionsNative'
-import { SiteCategories, siteMap } from '../navigation/siteMap'
+import { flatSiteMap } from '../navigation/siteMap'
 import { useState } from 'react'
-
-// export interface Navigation {
-//   name: string
-//   path: string
-//   date?: string
-//   category: SiteCategories
-//   isProtected?: boolean
-// }
 
 export const useRouteTracker = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -21,10 +13,7 @@ export const useRouteTracker = () => {
     saveRoutes: state.saveRoutes,
   }))
 
-  const sitePathMapRoutes = getMapFromArray(
-    siteMap().flatMap((m) => m.paths),
-    'path',
-  )
+  const sitePathMapRoutes = getMapFromArray(flatSiteMap, 'path')
 
   return {
     loading: isLoading,
@@ -42,20 +31,24 @@ export const useRouteTracker = () => {
         return
       }
       setIsLoading(true)
-      const ex = sitePathMapRoutes.get(url)!
-      const routeMap = getMapFromArray(routes, 'path')
-      let name = url.substring(url.lastIndexOf('/') + 1).replaceAll('-', ' ')
-      if (name.length == 0) {
-        name = 'home'
+      const found = sitePathMapRoutes.get(url)
+      if (found) {
+        const routeMap = getMapFromArray(routes, 'path')
+        routeMap.set(url, {
+          date: dayjs().format(),
+          path: found.path,
+          name: found.name,
+          category: found.category,
+        })
+        const newRoutes = sortArray(Array.from(routeMap.values()), ['date'], ['desc'])
+        saveRoutes(newRoutes)
       }
-      routeMap.set(url, {
-        date: dayjs().format(),
-        path: url,
-        name: name,
-        category: ex.category,
-      })
-      const newRoutes = sortArray(Array.from(routeMap.values()), ['date'], ['desc'])
-      saveRoutes(newRoutes)
+
+      // let name = url.substring(url.lastIndexOf('/') + 1).replaceAll('-', ' ')
+      // if (name.length == 0) {
+      //   name = 'home'
+      // }
+
       setIsLoading(false)
     },
   }

@@ -58,7 +58,7 @@ const StockEarningsCalendarList = ({ data, maxHeight }: { data: StockEarning[]; 
 
   const handleClicked = async (item: string) => {
     const pageState: PageState = {
-      route: '/csr/stocks/earnings-calendar',
+      route: '/protected/csr/dashboard',
       args: [
         {
           key: 'dt',
@@ -150,16 +150,6 @@ const StockEarningsCalendarList = ({ data, maxHeight }: { data: StockEarning[]; 
                     </Box>
                   </Box>
                 </Box>
-                {/* <HoverEffect>
-                  <Clickable
-                    onClicked={() => {
-                      handleClicked(item.Symbol)
-                    }}
-                  >
-                    <StockEarningsCompanyDisplay item={item} />
-                    {item.StockQuote && <StockChange item={item.StockQuote} />}
-                  </Clickable>
-                </HoverEffect> */}
               </Box>
             ))}
           </ScrollableBox>

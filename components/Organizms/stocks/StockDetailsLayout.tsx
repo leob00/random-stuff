@@ -10,7 +10,7 @@ const StockDetailsLayout = ({ symbol, disableCollapse = false }: { symbol: strin
     const result = await getStockQuotes([symbol])
     return result
   }
-  const { data, isLoading } = useSwrHelper(mutateKey, dataFn)
+  const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
   return (
     <>

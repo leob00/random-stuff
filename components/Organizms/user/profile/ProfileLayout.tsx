@@ -17,7 +17,6 @@ import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { getEmailVerificationStatus } from './profileHelper'
 import ValidateFromEmailDialog from 'components/Organizms/Login/ValidateFromEmailDialog'
-import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 
 const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {

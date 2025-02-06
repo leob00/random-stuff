@@ -2,12 +2,13 @@
 import { Box, Divider } from '@mui/material'
 import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 import { useRouter } from 'next/router'
-import { allRouteMap } from 'components/Organizms/session/RouteTracker'
 import LinkButton from '../Buttons/LinkButton'
 import { useEffect, useState } from 'react'
 import { take } from 'lodash'
 import { sortArray } from 'lib/util/collections'
 import { Navigation } from 'components/Organizms/session/useSessionSettings'
+import { getMapFromArray } from 'lib/util/collectionsNative'
+import { flatSiteMap } from 'components/Organizms/navigation/siteMap'
 
 export const BasicBreadcrumbs = () => {
   const router = useRouter()
@@ -45,7 +46,7 @@ export const BasicBreadcrumbs = () => {
 
 function getRoutes(allRoutes: Navigation[]) {
   const nav = sortArray(take(allRoutes, 5), ['date'], ['asc'])
-  const map = allRouteMap()
+  const map = getMapFromArray(flatSiteMap, 'path')
   const routes: Navigation[] = []
   nav.forEach((p) => {
     if (map.has(p.path)) {

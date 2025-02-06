@@ -86,7 +86,7 @@ const StockEarningsCalendarDetails = ({
   }
   useEffect(() => {
     scroller.scroll()
-  }, [data])
+  }, [data, scroller])
 
   return (
     <>

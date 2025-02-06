@@ -1,4 +1,4 @@
-import { Box, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
+import { Box, ListItem, ListItemAvatar, ListItemText, useMediaQuery, useTheme } from '@mui/material'
 import { Draggable } from 'react-beautiful-dnd'
 import DragIndicator from '@mui/icons-material/DragIndicator'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
@@ -16,6 +16,8 @@ export type DraggableListItemProps = {
 }
 
 const DraggableWidget = ({ item, index, onUpdate, disableShowHide }: DraggableListItemProps) => {
+  const theme = useTheme()
+  const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const onUpdateDisplay = (item: DashboardWidget, checked: boolean) => {
     const newItem = { ...item, display: checked }
     onUpdate(newItem)
@@ -62,16 +64,18 @@ const DraggableWidget = ({ item, index, onUpdate, disableShowHide }: DraggableLi
                     disabled={disableShowHide}
                   />
                 </Box>
-                <Box>
-                  <DropdownList
-                    disabled={!item.allowSizeChange}
-                    options={widgetSizeOptions}
-                    selectedOption={item.size ?? ''}
-                    onOptionSelected={(val) => {
-                      onUpdateSize(item, val as WidgetSize)
-                    }}
-                  />
-                </Box>
+                {!isXSmall && (
+                  <Box>
+                    <DropdownList
+                      disabled={!item.allowSizeChange}
+                      options={widgetSizeOptions}
+                      selectedOption={item.size ?? ''}
+                      onOptionSelected={(val) => {
+                        onUpdateSize(item, val as WidgetSize)
+                      }}
+                    />
+                  </Box>
+                )}
               </ListItem>
             </FadeIn>
             <HorizontalDivider />

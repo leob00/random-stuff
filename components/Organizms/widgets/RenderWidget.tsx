@@ -1,7 +1,5 @@
-import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import { DashboardWidget } from '../dashboard/dashboardModel'
 import WidgetWrapper from './WidgetWrapper'
-import StockMarketGlance from '../stocks/StockMarketGlance'
 import NewsLayout from '../news/NewsLayout'
 import { Box, useMediaQuery, useTheme } from '@mui/material'
 import EconIndexWidget from './econ/EconIndexWidget'
@@ -47,14 +45,7 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
       {item.id === 'stock-market-sentiment' && (
         <Box width={dimension.width}>
           <WidgetWrapper item={item}>
-            <StockMarketGlanceWidget
-              showTitle={false}
-              componentLoader
-              revalidateOnFocus={revalidateOnFocus}
-              width={dimension.width}
-              height={dimension.height}
-            />
-
+            <StockMarketGlanceWidget showTitle={false} revalidateOnFocus={revalidateOnFocus} width={dimension.width} height={dimension.height} />
             <WidgetFooter detailsUrl='/csr/stocks/sentiment' />
           </WidgetWrapper>
         </Box>
@@ -72,6 +63,7 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
           <Box>
             <WidgetWrapper item={item}>
               <EconWidget itemId={Number(item.internalId)} symbol={item.title} width={dimension.width} height={dimension.height} />
+              <WidgetFooter detailsUrl={`/csr/economic-indicators/${item.internalId}`} />
             </WidgetWrapper>
           </Box>
         )}

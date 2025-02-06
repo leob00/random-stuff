@@ -25,15 +25,8 @@ const Page = () => {
   const id = router.query.slug as string | undefined
 
   const handleBacklClick = (item: PageState) => {
-    //const prevState = encryptPageState(item)
-    if (item.route === '/csr/stocks/earnings-calendar') {
-      const encState = encryptPageState(item)
-
-      router.push(`${item.route}?state=${encState}`)
-
-      //const newRoute = `/csr/stocks/details/${id}?state=`
-      //const newState = {...item, route: `/csr/stocks/details/${id}?state=`}
-    }
+    const encState = encryptPageState(item)
+    router.push(`${item.route}?state=${encState}`)
   }
 
   useEffect(() => {

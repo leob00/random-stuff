@@ -2,31 +2,21 @@
 import { useRouter } from 'next/router'
 import { ReactNode, useEffect, useState } from 'react'
 import { useRouteTracker } from './useRouteTracker'
-import { siteMap } from '../navigation/siteMap'
 import { Navigation } from './useSessionSettings'
 import { Box, LinearProgress, Stack, Typography } from '@mui/material'
 import { sleep } from 'lib/util/timers'
-
-const routeMap = siteMap()
-
-export const allRouteMap = () => {
-  const map = new Map<string, Navigation>()
-  const routes = routeMap.flatMap((m) => m.paths)
-  routes.forEach((route) => {
-    map.set(route.path, route)
-  })
-  return map
-}
-const allRoutesMap = allRouteMap()
+import { flatSiteMap } from '../navigation/siteMap'
+import { getMapFromArray } from 'lib/util/collectionsNative'
 
 const RouteTracker = ({ children }: { children: ReactNode }) => {
+  const sitePathMapRoutes = getMapFromArray(flatSiteMap, 'path')
   const [isClient, setIsClient] = useState(false)
   const [showTransition, setShowTransition] = useState(false)
   const router = useRouter()
   const { addRoute } = useRouteTracker()
   const handleRouteStart = async (url: string, shallow: boolean) => {
     //console.log('starting route: ', url)
-    if (allRoutesMap.has(url)) {
+    if (sitePathMapRoutes.has(url)) {
       setShowTransition(true)
       addRoute(url)
     }
