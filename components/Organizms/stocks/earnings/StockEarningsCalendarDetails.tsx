@@ -86,7 +86,8 @@ const StockEarningsCalendarDetails = ({
   }
   useEffect(() => {
     scroller.scroll()
-  }, [data, scroller])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
 
   return (
     <>
