@@ -64,7 +64,7 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
           <Box>
             <WidgetWrapper item={item}>
               <EconIndexWidget itemId={Number(item.internalId)} symbol={item.title} width={dimension.width} height={dimension.height} />
-              <WidgetFooter detailsUrl={`/csr/economic-indicators/${item.id}`} />
+              <WidgetFooter detailsUrl={`/csr/economic-indicators/${item.internalId}`} />
             </WidgetWrapper>
           </Box>
         )}

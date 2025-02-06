@@ -27,7 +27,6 @@ const GroupedHomeMenu = ({ pathCategories, recentRoutes }: { pathCategories: Pat
         newPathCats.set(path.category, path)
       }
     })
-    console.log(Array.from(newPathCats.values()))
     setPaths(Array.from(newPathCats.values()))
   }, [recentRoutes, pathCategories])
 
