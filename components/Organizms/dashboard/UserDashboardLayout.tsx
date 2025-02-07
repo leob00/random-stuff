@@ -8,31 +8,45 @@ import CenterStack from 'components/Atoms/CenterStack'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { useEffect, useState } from 'react'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import ContextMenuRefresh from 'components/Molecules/Menus/ContextMenuRefresh'
+import { useSwrHelper } from 'hooks/useSwrHelper'
+import { mutate } from 'swr'
+import { sleep } from 'lib/util/timers'
 
 const UserDashboardLayout = () => {
   const router = useRouter()
   const { dashboardWidgets } = useLocalStore()
-  const visibleWidgets = dashboardWidgets.filter((m) => m.display)
-  const [isLoading, setIsLoading] = useState(true)
+
+  const mutatkeKey = 'user-dashboard'
+  const dataFn = async () => {
+    const result = dashboardWidgets.filter((m) => m.display)
+    await sleep(1000)
+    return result
+  }
+
+  const { data: visibleWidgets, isLoading } = useSwrHelper(mutatkeKey, dataFn, { revalidateOnFocus: false })
 
   const onEdit = () => {
     router.push('/protected/csr/dashboard/edit')
   }
+  const onRefresh = () => {
+    mutate(mutatkeKey)
+  }
 
   const menu: ContextMenuItem[] = [
+    {
+      fn: onRefresh,
+      item: <ContextMenuRefresh />,
+    },
     {
       fn: onEdit,
       item: <ContextMenuEdit />,
     },
   ]
-  useEffect(() => {
-    setIsLoading(false)
-  }, [])
 
   return (
     <Box>
-      {isLoading && <BackdropLoader />}
-      {!isLoading && (
+      {visibleWidgets && !isLoading && (
         <>
           <Box display={'flex'} justifyContent={'flex-end'} pb={1}>
             <ContextMenu items={menu} />

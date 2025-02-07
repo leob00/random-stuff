@@ -16,6 +16,7 @@ const GoalsSummary = ({
   goalTasks: UserGoalAndTask[]
   handleCloseSummary: () => void
 }) => {
+  const filtered = goalTasks.filter((m) => !m.goal.deleteCompletedTasks)
   return (
     <>
       <Box pt={2}>
@@ -25,8 +26,8 @@ const GoalsSummary = ({
           </Button>
         </Stack>
       </Box>
-      <OverdueTasks goalsAndTasks={goalTasks} username={username} />
-      <GoalCharts barChart={barChart} goalTasks={goalTasks} />
+      <OverdueTasks goalsAndTasks={filtered} username={username} />
+      <GoalCharts barChart={barChart} goalTasks={filtered} />
     </>
   )
 }

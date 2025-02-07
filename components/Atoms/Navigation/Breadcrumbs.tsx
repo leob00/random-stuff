@@ -9,46 +9,57 @@ import { Navigation } from 'components/Organizms/session/useSessionSettings'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import { flatSiteMap } from 'components/Organizms/navigation/siteMap'
 import FadeIn from '../Animations/FadeIn'
+import { useEffect, useState } from 'react'
 
 export const BasicBreadcrumbs = () => {
   const router = useRouter()
   const { allRoutes, addRoute } = useRouteTracker()
   const routes = getRoutes(allRoutes)
   const currentRoute = router.asPath
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [])
+
   const handleClick = (route: Navigation) => {
     addRoute(route.path)
     router.push(route.path)
   }
 
   return (
-    <Box display={'flex'} gap={2}>
-      {routes.map((route, index) => (
-        <Box key={route.path} display={'flex'} alignItems={'center'} gap={2}>
-          {route.path === currentRoute ? (
-            <LinkButton
-              disabled
-              onClick={() => {
-                handleClick(route)
-              }}
-            >
-              {route.name}
-            </LinkButton>
-          ) : (
-            <FadeIn>
-              <LinkButton
-                onClick={() => {
-                  handleClick(route)
-                }}
-              >
-                {route.name}
-              </LinkButton>
-            </FadeIn>
-          )}
+    <>
+      {!isLoading && (
+        <Box display={'flex'} gap={2}>
+          {routes.map((route, index) => (
+            <Box key={route.path} display={'flex'} alignItems={'center'} gap={2}>
+              {route.path === currentRoute ? (
+                <LinkButton
+                  disabled
+                  onClick={() => {
+                    handleClick(route)
+                  }}
+                >
+                  {route.name}
+                </LinkButton>
+              ) : (
+                <FadeIn>
+                  <LinkButton
+                    onClick={() => {
+                      handleClick(route)
+                    }}
+                  >
+                    {route.name}
+                  </LinkButton>
+                </FadeIn>
+              )}
 
-          {index < routes.length - 1 && <Divider orientation='vertical' sx={{ height: '10px' }} />}
+              {index < routes.length - 1 && <Divider orientation='vertical' sx={{ height: '10px' }} />}
+            </Box>
+          ))}
         </Box>
-      ))}
-    </Box>
+      )}
+    </>
   )
 }
 
@@ -59,7 +70,7 @@ function getRoutes(allRoutes: Navigation[]) {
   nav.forEach((p) => {
     if (map.has(p.path)) {
       const r = map.get(p.path)!
-      routes.push({ name: r.name, path: r.path, category: p.category, isProtected: p.isProtected })
+      routes.push(r)
     }
   })
 

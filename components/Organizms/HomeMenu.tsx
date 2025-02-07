@@ -8,31 +8,36 @@ import { useUserController } from 'hooks/userController'
 import { userHasRole } from 'lib/backend/auth/userUtil'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import { flatSiteMap } from './navigation/siteMap'
+import { Navigation } from './session/useSessionSettings'
+import { useSwrHelper } from 'hooks/useSwrHelper'
+
+type Model = {
+  isAdmin: boolean
+  recentRoutes: Navigation[]
+}
 
 const HomeMenu = () => {
   const { allRoutes: recentRoutes } = useRouteTracker()
   const recentHistory = recentRoutes.filter((m) => m.name !== 'home')
-  const all = [...flatSiteMap]
   const [showDefaultMenu, setShowDefaultMenu] = useState(recentHistory.length < 4)
   const { ticket } = useUserController()
-  const isAdmin = userHasRole('Admin', ticket?.roles ?? [])
 
-  const adminCategories = isAdmin ? all.filter((m) => m.category === 'Admin') : []
-  const allPaths = all.filter((m) => m.category !== 'Admin' && m.category !== 'Home')
+  const mutateKey = 'route-tracker'
 
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    setIsLoading(false)
-  }, [])
-
+  const fn = async () => {
+    const result: Model = {
+      isAdmin: userHasRole('Admin', ticket?.roles ?? []),
+      recentRoutes: recentHistory,
+    }
+    return result
+  }
+  const { data } = useSwrHelper(mutateKey, fn, { revalidateOnFocus: false })
   return (
     <Box>
-      {!isLoading && (
+      {data && (
         <Box
           sx={{
             mt: 4,
@@ -46,15 +51,14 @@ const HomeMenu = () => {
           </Box>
           <Box pb={8}>
             <Box py={2}>
-              {showDefaultMenu && (
+              {showDefaultMenu ? (
                 <ScrollableBox maxHeight={700}>
-                  <GroupedHomeMenu recentRoutes={recentHistory} isAdmin={isAdmin} />
+                  <GroupedHomeMenu recentRoutes={data.recentRoutes} isAdmin={data.isAdmin} />
                 </ScrollableBox>
-              )}
-              {!showDefaultMenu && (
+              ) : (
                 <>
                   <CenteredTitle title={'Recent History'} variant='h4' />
-                  {recentHistory.map((item, i) => (
+                  {data.recentRoutes.map((item, i) => (
                     <Box key={item.path}>
                       <Box display={'flex'} justifyContent={'center'} py={2}>
                         <FadeIn>

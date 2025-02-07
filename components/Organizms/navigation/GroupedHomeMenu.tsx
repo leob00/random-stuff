@@ -1,15 +1,12 @@
 import { Box, Typography } from '@mui/material'
 import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
-import { Paths, SiteCategories, flatSiteMap } from './siteMap'
+import { Paths, flatSiteMap } from './siteMap'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import { Navigation } from '../session/useSessionSettings'
-import { useEffect, useState } from 'react'
 
 const GroupedHomeMenu = ({ recentRoutes, isAdmin }: { recentRoutes: Navigation[]; isAdmin?: boolean }) => {
-  // const [paths, setPaths] = useState(pathCategories)
-
   const all = flatSiteMap.filter((m) => m.category !== 'Home')
   const reorderedMap = new Map<string, Navigation>()
   recentRoutes.forEach((route) => {
@@ -41,26 +38,6 @@ const GroupedHomeMenu = ({ recentRoutes, isAdmin }: { recentRoutes: Navigation[]
       paths: reorderedPaths.filter((m) => m.category === cat),
     })
   })
-
-  // useEffect(() => {
-  //   const newPathCats = new Map<SiteCategories, Paths>()
-  //   const allRecentPaths = recentRoutes ? recentRoutes.filter((m) => m.path !== '/') : []
-  //   allRecentPaths.forEach((path) => {
-  //     const ex = pathCategories.find((m) => m.category === path.category)
-  //     if (ex) {
-  //       const n = ex.paths.filter((m) => m.path !== path.path)
-  //       n.unshift(path)
-  //       newPathCats.set(ex.category, { ...ex, paths: n })
-  //     }
-  //   })
-
-  //   pathCategories.forEach((path) => {
-  //     if (!newPathCats.has(path.category)) {
-  //       newPathCats.set(path.category, path)
-  //     }
-  //   })
-  //   setPaths(Array.from(newPathCats.values()))
-  // }, [recentRoutes, pathCategories])
 
   return (
     <Box>

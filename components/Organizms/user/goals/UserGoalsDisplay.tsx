@@ -59,7 +59,9 @@ const UserGoalsDisplay = ({ goalsAndTasks, username, onRefresh }: { goalsAndTask
   }
 
   const handleShowCharts = async () => {
-    const tasks = goalsAndTasks.flatMap((m) => m.tasks)
+    const filtered = goalsAndTasks.filter((m) => !m.goal.deleteCompletedTasks)
+
+    const tasks = filtered.flatMap((m) => m.tasks)
     const inProg = tasks.filter((e) => e.status !== 'completed')
     const comp = tasks.filter((e) => e.status === 'completed').length
     const pastDue = inProg.filter((e) => e.dueDate !== undefined && dayjs(e.dueDate).isBefore(dayjs())).length

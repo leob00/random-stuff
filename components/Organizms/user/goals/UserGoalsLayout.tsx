@@ -37,7 +37,7 @@ const UserGoalsLayout = () => {
     const result = mapGoalTasks(goalsData, tasks)
     return result
   }
-  const { data: goalsAndTasks, error, isLoading } = useSwrHelper(goalsKey, fetchGoalsData)
+  const { data: goalsAndTasks, error, isLoading } = useSwrHelper(goalsKey, fetchGoalsData, { revalidateOnFocus: false })
   const handleRefresh = () => {
     mutate(goalsKey)
   }
