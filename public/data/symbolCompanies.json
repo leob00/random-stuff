@@ -13292,6 +13292,10 @@
     "Symbol": "EPV"
   },
   {
+    "Company": "EPWK Holdings Ltd. Class A Ordinary Shares",
+    "Symbol": "EPWK"
+  },
+  {
     "Company": "Equillium, Inc. Common Stock",
     "Symbol": "EQ"
   },
@@ -14410,6 +14414,10 @@
   {
     "Company": "Fidelity Blue Chip Value ETF",
     "Symbol": "FBCV"
+  },
+  {
+    "Company": "FBS Global Limited Ordinary Shares",
+    "Symbol": "FBGL"
   },
   {
     "Company": "Fortune Brands Innovations, Inc.",
@@ -19044,7 +19052,7 @@
     "Symbol": "HCA"
   },
   {
-    "Company": "Hauchen AI Parking Management Technology Holding Co., Ltd. Ordinary Shares",
+    "Company": "Huachen AI Parking Management Technology Holding Co., Ltd. Ordinary Shares",
     "Symbol": "HCAI"
   },
   {
@@ -20162,6 +20170,14 @@
   {
     "Company": "AdvisorShares HVAC and Industrials ETF",
     "Symbol": "HVAC"
+  },
+  {
+    "Company": "Hennessy Capital Investment Corp. VII Ordinary Shares",
+    "Symbol": "HVII"
+  },
+  {
+    "Company": "Hennessy Capital Investment Corp. VII Rights",
+    "Symbol": "HVIIR"
   },
   {
     "Company": "Hennessy Capital Investment Corp. VII Unit",
@@ -34268,6 +34284,10 @@
     "Symbol": "QBER"
   },
   {
+    "Company": "Innovator Uncapped Bitcoin 20 Floor ETF - Quarterly",
+    "Symbol": "QBF"
+  },
+  {
     "Company": "Invesco Top QQQ ETF",
     "Symbol": "QBIG"
   },
@@ -37288,6 +37308,10 @@
     "Symbol": "SDSTW"
   },
   {
+    "Company": "YieldMax S&P 500 0DTE Covered Call Strategy ETF",
+    "Symbol": "SDTY"
+  },
+  {
     "Company": "FT Vest SMID Rising Dividend Achievers Target Income ETF",
     "Symbol": "SDVD"
   },
@@ -39880,6 +39904,10 @@
     "Symbol": "STRA"
   },
   {
+    "Company": "MicroStrategy Incorporated 8.00% Series A Perpetual Strike Preferred Stock",
+    "Symbol": "STRK"
+  },
+  {
     "Company": "Sterling Infrastructure, Inc. Common Stock",
     "Symbol": "STRL"
   },
@@ -42158,6 +42186,10 @@
   {
     "Company": "FCF International Quality ETF",
     "Symbol": "TTAI"
+  },
+  {
+    "Company": "Titan America SA",
+    "Symbol": "TTAM"
   },
   {
     "Company": "ServiceTitan, Inc. Class A Common Stock",

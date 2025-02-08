@@ -2,6 +2,9 @@ import { Box, Typography } from '@mui/material'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
+import { post } from 'lib/backend/api/fetchFunctions'
+import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
+import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import { useEffect, useState } from 'react'
 
 export async function* streamingFetch(input: RequestInfo | URL, init?: RequestInit) {
@@ -44,10 +47,24 @@ const ApiStream = () => {
     asyncFetch()
   }
 
+  const handleTestApi = async () => {
+    const key = 'searched-stocks[Z]'
+    const url = `/api/aws/dynamo/item`
+    const enc = weakEncrypt(key)
+    const body: SignedRequest = {
+      data: enc,
+    }
+    const data = await post(url, body)
+    console.log('data: ', data)
+  }
+
   return (
     <Box py={2}>
       <CenterStack>
         <SuccessButton text='Start stream' onClick={handleStartStream} />
+      </CenterStack>
+      <CenterStack sx={{ py: 4 }}>
+        <SuccessButton text='Api Test' onClick={handleTestApi} />
       </CenterStack>
       {data.map((chunk, index) => (
         <Box key={index} py={1}>

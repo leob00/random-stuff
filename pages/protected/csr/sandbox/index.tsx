@@ -38,7 +38,7 @@ const Page = () => {
       title: 'Batch Post',
     },
   ]
-  const [selectedTab, setSelectedTab] = useState(tabs[1].title)
+  const [selectedTab, setSelectedTab] = useState(tabs[0].title)
   const { authProfile, fetchProfilePassive, setProfile } = useUserController()
   const [isLoading, setIsLoading] = useState(true)
 

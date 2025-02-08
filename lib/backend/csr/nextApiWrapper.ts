@@ -26,6 +26,7 @@ import { get, post, postBody } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { weakEncrypt } from '../encryption/useEncryptor'
 import { UserGoal, UserTask } from 'components/Organizms/user/goals/goalModels'
+import { RandomStuffDynamoItem } from 'app/serverActions/aws/dynamo/dynamo'
 
 export interface SignedRequest {
   appId?: string
@@ -154,7 +155,7 @@ export async function getUserProfile(username: string) {
 
   try {
     const body = encryptKey(key)
-    const data = await post(`/api/getRandomStuffEnc`, body)
+    const data = await getRecord<UserProfile>(key)
 
     if (data) {
       let parsed = data as UserProfile
@@ -369,7 +370,9 @@ export async function getRecord<T>(id: DynamoKeys | string): Promise<T> {
   let result: any | null = null
   try {
     const body = encryptKey(id)
-    const data = await post(`/api/getRandomStuffEnc`, body)
+
+    const resp = (await post(`/api/aws/dynamo/item`, body)) as RandomStuffDynamoItem
+    const data = JSON.parse(resp.data) as T
     if (data) {
       return data as T
     } else {
