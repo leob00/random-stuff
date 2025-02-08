@@ -26,7 +26,7 @@ import { get, post, postBody } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { weakEncrypt } from '../encryption/useEncryptor'
 import { UserGoal, UserTask } from 'components/Organizms/user/goals/goalModels'
-import { RandomStuffDynamoItem } from 'app/serverActions/aws/dynamo/dynamo'
+import { type RandomStuffDynamoItem } from 'app/serverActions/aws/dynamo/dynamo'
 
 export interface SignedRequest {
   appId?: string
@@ -44,7 +44,7 @@ export async function putUserNote(item: UserNote, secondaryKey: string, expirati
   const putRequest: SignedRequest = {
     data: encryptBody(req),
   }
-  await post(`/api/putRandomStuff`, putRequest)
+  await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
 }
 
 export async function putSearchedStock(item: StockQuote) {
@@ -62,7 +62,7 @@ export async function putSearchedStock(item: StockQuote) {
   const putRequest: SignedRequest = {
     data: encryptBody(req),
   }
-  await post(`/api/putRandomStuff`, putRequest)
+  await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
 }
 
 export async function expireUserNote(item: UserNote) {
@@ -77,7 +77,7 @@ export async function expireUserNote(item: UserNote) {
   const putRequest: SignedRequest = {
     data: encryptBody(req),
   }
-  await post(`/api/putRandomStuff`, putRequest)
+  await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
 }
 export async function deleteUserNote(item: UserNote) {
   let req = {
@@ -100,7 +100,7 @@ export async function putUserProfile(item: UserProfile) {
   const putRequest: SignedRequest = {
     data: encryptBody(req),
   }
-  await post(`/api/putRandomStuff`, putRequest)
+  await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
 }
 
 export async function putUserNoteTitles(username: string, item: UserNote[]) {
@@ -115,15 +115,7 @@ export async function putUserNoteTitles(username: string, item: UserNote[]) {
   const putRequest: SignedRequest = {
     data: encryptBody(req),
   }
-  await post(`/api/putRandomStuff`, putRequest)
-}
-
-// todo: this neeeds to be secured
-export async function getUserNotes(username: string) {
-  let categoryKey = constructUserNoteCategoryKey(username)
-  let response = (await get(`/api/searchRandomStuff?id=${categoryKey}`)) as LambdaBody[]
-  let notes: UserNote[] = response.map((item) => JSON.parse(item.data))
-  return notes
+  await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
 }
 
 export const getDefaultFolders = (userProfile: UserProfile) => {
@@ -154,7 +146,6 @@ export async function getUserProfile(username: string) {
   const key = constructUserProfileKey(username)
 
   try {
-    const body = encryptKey(key)
     const data = await getRecord<UserProfile>(key)
 
     if (data) {
@@ -185,8 +176,7 @@ export async function getUserNoteTitles(username: string) {
   const key = constructUserNoteTitlesKey(username)
 
   try {
-    const body = encryptKey(key)
-    const resp = (await post(`/api/getRandomStuffEnc`, body)) as UserNote[] | null
+    const resp = await getRecord<UserNote[]>(key)
     return resp ?? []
   } catch (err) {
     console.error(err)
@@ -198,8 +188,7 @@ export async function getUserNote(id: string) {
   let result: UserNote | null = null
 
   try {
-    const body = encryptKey(id)
-    const data = await post(`/api/getRandomStuffEnc`, body)
+    const data = await getRecord<UserNote>(id)
     if (data) {
       result = data
 
@@ -223,8 +212,7 @@ export async function getUserGoals(id: string) {
   let result: UserGoal[] = []
 
   try {
-    const body = encryptKey(id)
-    const data = await post(`/api/getRandomStuffEnc`, body)
+    const data = await getRecord<UserGoal[]>(id)
     if (data) {
       result = data
       return result
@@ -262,8 +250,7 @@ export async function getUserGoalTasks(goalId: string) {
   let result: UserTask[] = []
 
   try {
-    const body = encryptKey(goalId)
-    const data = await post(`/api/getRandomStuffEnc`, body)
+    const data = await getRecord<UserTask[]>(goalId)
     if (data) {
       result = data
 
@@ -286,7 +273,7 @@ export async function putUserGoals(id: string, data: UserGoal[], expiration: num
   const putRequest: SignedRequest = {
     data: encryptBody(req),
   }
-  await post(`/api/putRandomStuff`, putRequest)
+  await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
 }
 export async function putUserGoalTasks(username: string, goalId: string, data: UserTask[], expiration: number = 0) {
   let req: LambdaDynamoRequest = {
@@ -299,7 +286,7 @@ export async function putUserGoalTasks(username: string, goalId: string, data: U
   const putRequest: SignedRequest = {
     data: encryptBody(req),
   }
-  await post(`/api/putRandomStuff`, putRequest)
+  await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
 }
 
 export async function putUserStockList(username: string, data: StockQuote[]) {
@@ -314,13 +301,13 @@ export async function putUserStockList(username: string, data: StockQuote[]) {
   const putRequest: SignedRequest = {
     data: encryptBody(req),
   }
-  await post(`/api/putRandomStuff`, putRequest)
+  await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
 }
 
 export async function getUserStockList(username: string) {
   try {
     const body = encryptKey(`user-stock_list[${username}]`)
-    const data = await post(`/api/getRandomStuffEnc`, body)
+    const data = await post(`/api/aws/dynamo/item`, body)
     if (data) {
       const result = quoteArraySchema.parse(data)
       return result
@@ -330,16 +317,6 @@ export async function getUserStockList(username: string) {
   }
   return []
 }
-
-// export async function getUserSecrets(username: string) {
-
-//   const enc = weakEncrypt(constructUserSecretSecondaryKey(username))
-//   const body: SignedRequest = {
-//     data: enc,
-//   }
-//   const result = (await post('/api/searchRandomStuff', body)) as LambdaBody[]
-//   return result
-// }
 
 function encryptBody(req: LambdaDynamoRequest) {
   return weakEncrypt(JSON.stringify(req))
@@ -356,7 +333,7 @@ export async function putUserSecret(item: UserSecret, username: string, expirati
   const putRequest: SignedRequest = {
     data: encryptBody(req),
   }
-  await post(`/api/putRandomStuff`, putRequest)
+  await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
 }
 
 export async function deleteRecord(id: string) {
@@ -383,12 +360,12 @@ export async function getRecord<T>(id: DynamoKeys | string): Promise<T> {
     return result
   }
 }
-export async function searchRecords(id: DynamoKeys | CategoryType | string): Promise<LambdaBody[]> {
+export async function searchRecords(id: DynamoKeys | CategoryType | string): Promise<RandomStuffDynamoItem[]> {
   const enc = weakEncrypt(id)
   const body: SignedRequest = {
     data: enc,
   }
-  const result = (await post('/api/searchRandomStuff', body)) as LambdaBody[]
+  const result = (await post('/api/aws/dynamo/items', body)) as RandomStuffDynamoItem[]
   return result
 }
 
@@ -403,13 +380,13 @@ export async function putRecord(id: DynamoKeys | string, category: string, item:
   const putRequest: SignedRequest = {
     data: encryptBody(req),
   }
-  await post(`/api/putRandomStuff`, putRequest)
+  await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
 }
 export async function putRecordsBatch(batch: LambdaDynamoRequestBatch) {
   const putRequest: SignedRequest = {
     data: weakEncrypt(JSON.stringify(batch)),
   }
-  await post(`/api/putRandomStuffBatch`, putRequest)
+  await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
 }
 export async function deleteRecordsBatch(items: string[]) {
   const putRequest: SignedRequest = {

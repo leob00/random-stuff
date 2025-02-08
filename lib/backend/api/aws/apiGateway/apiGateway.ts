@@ -19,6 +19,7 @@ import {
   WheelSpinStats,
 } from '../models/apiGatewayModels'
 import { constructStockAlertsSubSecondaryKey } from '../util'
+import { searchItems } from 'app/serverActions/aws/dynamo/dynamo'
 
 const connection = apiConnection().aws
 const apiGatewayUrl = connection.url
@@ -74,8 +75,9 @@ export async function getRandomStuff(key: DynamoKeys | string) {
 export async function searchRandomStuffBySecIndex(search: CategoryType | string) {
   const url = `${apiGatewayUrl}/searchrandomstuff`
   try {
-    let result = await post(url, { key: search })
-    return result.body as LambdaBody[]
+    const result = await searchItems(search)
+
+    return result
   } catch (err) {
     console.error('error occurred in searchRandomStuffBySecIndex: ', err)
   }

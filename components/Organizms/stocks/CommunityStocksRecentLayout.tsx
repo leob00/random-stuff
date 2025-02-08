@@ -5,7 +5,6 @@ import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
 import ContextMenuSort from 'components/Molecules/Menus/ContextMenuSort'
 import { Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import React from 'react'
 import { useSessionSettings } from '../session/useSessionSettings'
 import CommunityStocksLayout from './CommunityStocksLayout'
 import CustomSortAlert from './CustomSortAlert'
@@ -14,14 +13,15 @@ import { useRouter } from 'next/router'
 import { sortArray } from 'lib/util/collections'
 import ContextMenuRefresh from 'components/Molecules/Menus/ContextMenuRefresh'
 import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
+import { useState } from 'react'
 
 const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; onRefresh: () => void }) => {
   const router = useRouter()
   const settings = useSessionSettings()
 
-  const [showCustomSortForm, setShowCustomSortForm] = React.useState(false)
+  const [showCustomSortForm, setShowCustomSortForm] = useState(false)
   const defaultSort = settings.communityStocks?.defaultSort ?? []
-  const [sorter, setSorter] = React.useState(defaultSort)
+  const [sorter, setSorter] = useState(defaultSort)
 
   const sortedData = applySort(data, sorter)
 

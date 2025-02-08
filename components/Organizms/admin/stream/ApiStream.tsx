@@ -48,8 +48,8 @@ const ApiStream = () => {
   }
 
   const handleTestApi = async () => {
-    const key = 'searched-stocks[Z]'
-    const url = `/api/aws/dynamo/item`
+    const key = 'searched-stocks'
+    const url = `/api/aws/dynamo/items`
     const enc = weakEncrypt(key)
     const body: SignedRequest = {
       data: enc,
