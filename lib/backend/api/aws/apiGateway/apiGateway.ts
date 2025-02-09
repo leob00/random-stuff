@@ -195,20 +195,6 @@ export async function putRandomStuffBatchEnc(req: SignedRequest) {
   }
 }
 
-export async function deleteRandomStuff(key: string) {
-  const url = `${apiGatewayUrl}/deleterandomstuff`
-  let params = {
-    key: key,
-  }
-  try {
-    let resp = await post(url, params)
-    return resp
-  } catch (error) {
-    console.error('error in deleteRandomStuff', error)
-  }
-  return { status: 'success' }
-}
-
 export async function getWheelSpinStats() {
   let item: WheelSpinStats = {
     total: 0,

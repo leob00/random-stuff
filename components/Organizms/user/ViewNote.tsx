@@ -67,7 +67,6 @@ const ViewNote = ({
     <>
       <FadeIn>
         <Box sx={{ py: 1 }}>
-          <ScrollIntoView enabled={true} />
           <Box display={'flex'} justifyContent={'flex-end'}>
             <ContextMenu items={menu} />
           </Box>

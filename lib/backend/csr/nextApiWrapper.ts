@@ -79,12 +79,6 @@ export async function expireUserNote(item: UserNote) {
   }
   await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
 }
-export async function deleteUserNote(item: UserNote) {
-  let req = {
-    key: item.id,
-  }
-  await post(`/api/deleteRandomStuff`, req)
-}
 
 export async function putUserProfile(item: UserProfile) {
   const cat = 'userProfile'
@@ -337,10 +331,11 @@ export async function putUserSecret(item: UserSecret, username: string, expirati
 }
 
 export async function deleteRecord(id: string) {
-  let req = {
-    key: id,
+  const req: SignedRequest = {
+    data: weakEncrypt(id),
   }
-  await post(`/api/deleteRandomStuff`, req)
+
+  await postBody(`/api/aws/dynamo/item`, 'DELETE', req)
 }
 
 export async function getRecord<T>(id: DynamoKeys | string): Promise<T> {

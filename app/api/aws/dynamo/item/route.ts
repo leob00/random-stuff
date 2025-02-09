@@ -1,4 +1,4 @@
-import { type RandomStuffItemRequest, getItem, RandomStuffDynamoItem, putItem } from 'app/serverActions/aws/dynamo/dynamo'
+import { type RandomStuffItemRequest, getItem, RandomStuffDynamoItem, putItem, deleteItem } from 'app/serverActions/aws/dynamo/dynamo'
 import dayjs from 'dayjs'
 import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
@@ -38,4 +38,13 @@ export async function PUT(request: NextRequest) {
   }
   await putItem(body)
   return NextResponse.json(body)
+}
+export async function DELETE(request: NextRequest) {
+  const enc = (await request.json()) as SignedRequest
+  const id = weakDecrypt(enc.data)
+  if (!id || id.length === 0) {
+    return new Response(JSON.stringify({ message: 'validation failed' }), { status: 403 })
+  }
+  const result = await deleteItem(id)
+  return NextResponse.json(result)
 }
