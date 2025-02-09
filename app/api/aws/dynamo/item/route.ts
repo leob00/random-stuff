@@ -2,6 +2,7 @@ import { type RandomStuffItemRequest, getItem, RandomStuffDynamoItem, putItem, d
 import dayjs from 'dayjs'
 import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
+import { getUtcNow } from 'lib/util/dateUtil'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
@@ -34,7 +35,7 @@ export async function PUT(request: NextRequest) {
     data: dynamoRequest.data,
     count: Array.isArray(dynamoRequest.data) ? dynamoRequest.data.length : 1,
     expiration: dynamoRequest.expiration,
-    last_modified: dayjs().format(),
+    last_modified: getUtcNow().format(),
   }
   await putItem(body)
   return NextResponse.json(body)
