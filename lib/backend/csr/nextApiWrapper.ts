@@ -2,26 +2,9 @@ import dayjs from 'dayjs'
 import { DropdownItem } from 'lib/models/dropdown'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
-import {
-  UserNote,
-  LambdaDynamoRequest,
-  UserProfile,
-  LambdaBody,
-  DynamoKeys,
-  CategoryType,
-  LambdaDynamoRequestBatch,
-  EmailMessage,
-  S3Object,
-  Bucket,
-} from '../api/aws/models/apiGatewayModels'
+import { UserNote, LambdaDynamoRequest, UserProfile, LambdaBody, DynamoKeys, CategoryType, LambdaDynamoRequestBatch, EmailMessage, S3Object, Bucket } from '../api/aws/models/apiGatewayModels'
 
-import {
-  constructUserGoalTaksSecondaryKey,
-  constructUserNoteCategoryKey,
-  constructUserNoteTitlesKey,
-  constructUserProfileKey,
-  constructUserSecretSecondaryKey,
-} from '../api/aws/util'
+import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserNoteTitlesKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
 import { get, post, postBody } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { weakEncrypt } from '../encryption/useEncryptor'
@@ -442,9 +425,8 @@ export async function getS3File(bucketName: Bucket, prefix: string, fileName: st
   return result
 }
 
-export async function getPresignedUrl(bucket: Bucket, fullPath: string, expiration: number = 3600) {
-  const params = { bucket: bucket, fullPath: fullPath, expiration: expiration }
-  const url = JSON.parse(await postBody(`/api/s3`, 'POST', params)) as string
+export async function getPresignedUrl(item: S3Object) {
+  const url = (await postBody(`/api/aws/s3/item/presign`, 'POST', item)) as string
   return url
 }
 

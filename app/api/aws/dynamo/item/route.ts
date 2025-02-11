@@ -1,5 +1,4 @@
 import { type RandomStuffItemRequest, getItem, RandomStuffDynamoItem, putItem, deleteItem } from 'app/serverActions/aws/dynamo/dynamo'
-import dayjs from 'dayjs'
 import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { getUtcNow } from 'lib/util/dateUtil'

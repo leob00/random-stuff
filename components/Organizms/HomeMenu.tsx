@@ -52,9 +52,7 @@ const HomeMenu = () => {
           <Box pb={8}>
             <Box py={2}>
               {showDefaultMenu ? (
-                <ScrollableBox maxHeight={700}>
-                  <GroupedHomeMenu recentRoutes={data.recentRoutes} isAdmin={data.isAdmin} />
-                </ScrollableBox>
+                <GroupedHomeMenu recentRoutes={data.recentRoutes} isAdmin={data.isAdmin} />
               ) : (
                 <>
                   <CenteredTitle title={'Recent History'} variant='h4' />

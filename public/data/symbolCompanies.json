@@ -4384,6 +4384,10 @@
     "Symbol": "BEEZ"
   },
   {
+    "Company": "Rareview 2x Bull Cryptocurrency & Precious Metals ETF",
+    "Symbol": "BEGS"
+  },
+  {
     "Company": "KE Holdings Inc. American Depositary Shares (each representing three Class A Ordinary Shares)",
     "Symbol": "BEKE"
   },
@@ -12536,6 +12540,10 @@
     "Symbol": "EFSH"
   },
   {
+    "Company": "Eagle Financial Services Inc Common Stock",
+    "Symbol": "EFSI"
+  },
+  {
     "Company": "Eaton Vance Floating-Rate Income Trust",
     "Symbol": "EFT"
   },
@@ -19432,6 +19440,10 @@
     "Symbol": "HIMS"
   },
   {
+    "Company": "iShares High Yield Muni Active ETF",
+    "Symbol": "HIMU"
+  },
+  {
     "Company": "Himax Technologies, Inc.",
     "Symbol": "HIMX"
   },
@@ -24984,15 +24996,15 @@
     "Symbol": "LEXXW"
   },
   {
-    "Company": "Stone Ridge 2048 Longevity Income ETF",
+    "Company": "LifeX 2048 Longevity Income ETF",
     "Symbol": "LFAE"
   },
   {
-    "Company": "Stone Ridge 2049 Longevity Income ETF",
+    "Company": "LifeX 2049 Longevity Income ETF",
     "Symbol": "LFAF"
   },
   {
-    "Company": "Stone Ridge 2050 Longevity Income ETF",
+    "Company": "LifeX 2050 Longevity Income ETF",
     "Symbol": "LFAI"
   },
   {
@@ -25208,15 +25220,15 @@
     "Symbol": "LI"
   },
   {
-    "Company": "Stone Ridge 2048 Inflation-Protected Longevity Income ETF",
+    "Company": "LifeX 2048 Inflation-Protected Longevity Income ETF",
     "Symbol": "LIAB"
   },
   {
-    "Company": "Stone Ridge 2049 Inflation-Protected Longevity Income ETF",
+    "Company": "LifeX 2049 Inflation-Protected Longevity Income ETF",
     "Symbol": "LIAC"
   },
   {
-    "Company": "Stone Ridge 2050 Inflation-Protected Longevity Income ETF",
+    "Company": "LifeX 2050 Inflation-Protected Longevity Income ETF",
     "Symbol": "LIAE"
   },
   {
@@ -27946,6 +27958,10 @@
   {
     "Company": "Marathon Oil Corporation",
     "Symbol": "MRO"
+  },
+  {
+    "Company": "Millrose Properties, Inc.",
+    "Symbol": "MRP"
   },
   {
     "Company": "Toews Agility Shares Managed Risk ETF",
@@ -31358,6 +31374,10 @@
   {
     "Company": "Oracle Corp",
     "Symbol": "ORCL"
+  },
+  {
+    "Company": "Defiance Daily Target 2X Long ORCL ETF",
+    "Symbol": "ORCX"
   },
   {
     "Company": "Origin Materials, Inc. Common Stock",
@@ -37888,6 +37908,10 @@
     "Symbol": "SHYL"
   },
   {
+    "Company": "iShares High Yield Muni Income Active ETF",
+    "Symbol": "SHYM"
+  },
+  {
     "Company": "SI-BONE, Inc. Common Stock",
     "Symbol": "SIBN"
   },
@@ -38006,6 +38030,10 @@
   {
     "Company": "Touchstone Strategic Income ETF",
     "Symbol": "SIO"
+  },
+  {
+    "Company": "Sionna Therapeutics, Inc. Common Stock",
+    "Symbol": "SION"
   },
   {
     "Company": "Sirius XM Holdings,  Inc",

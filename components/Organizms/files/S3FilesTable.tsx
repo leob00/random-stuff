@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { postDelete } from 'lib/backend/api/fetchFunctions'
+import { postBody, postDelete } from 'lib/backend/api/fetchFunctions'
 import { getPresignedUrl, renameS3File } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
 import { S3Controller } from 'hooks/s3/useS3Controller'
@@ -54,7 +54,7 @@ const S3FilesTable = ({
   const handleViewFile = async (item: S3Object) => {
     setProgressText(`loading ${item.filename}`)
     dispatch({ type: 'update', payload: { ...uiState, snackbarSuccessMessage: 'loading file...' } })
-    const url = await getPresignedUrl(item.bucket, item.fullPath)
+    const url = await getPresignedUrl(item)
     setProfile({ ...authProfile!, settings: { ...authProfile!.settings, selectedFolder: folder } })
     dispatch({ type: 'update', payload: { ...uiState, signedUrl: url, selectedItem: item, snackbarSuccessMessage: null } })
     setProgressText(null)
@@ -67,7 +67,7 @@ const S3FilesTable = ({
       setProgressText(`deleting: ${uiState.itemToDelete.filename}`)
       const item = { ...uiState.itemToDelete }
       dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: `deleting file: ${item.filename}` } })
-      await postDelete('/api/s3', item)
+      await postBody('/api/aws/s3/item', 'DELETE', item)
       dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: null } })
 
       onLocalDataMutate(
