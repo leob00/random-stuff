@@ -1,6 +1,5 @@
 import { Alert, Box } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import { styled } from '@mui/material/styles'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
@@ -26,29 +25,6 @@ export const VisuallyHiddenInput = styled('input')({
   whiteSpace: 'nowrap',
   width: 1,
 })
-
-export const mediaTypes = [
-  'audio/mp3',
-  'audio/m4a',
-  'application/pdf',
-  'application/msword',
-  'application/vnd.ms-powerpoint',
-  'application/mspowerpoint',
-  'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-  'application/x-zip-compressed',
-  'image/avif',
-  'image/gif',
-  'image/jpeg',
-  'image/png',
-  'image/svg+xml',
-  'image/webp',
-  'video/mp4',
-  'video/mpeg',
-]
-
-export const allowed = mediaTypes.join()
 
 const S3FileUploadForm = ({
   folder,

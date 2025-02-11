@@ -1,11 +1,12 @@
 import { Box, Button, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
-import { allowed, VisuallyHiddenInput } from 'components/Molecules/Forms/S3FileUploadForm'
+import { VisuallyHiddenInput } from 'components/Molecules/Forms/S3FileUploadForm'
 import React from 'react'
 import S3UploadInput from '../files/S3UploadInput'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
+import { allSupportedFileTypes } from 'lib/backend/files/fileTypes'
 
 const UploadLargeFile = () => {
   const [file, setFile] = React.useState<File | null>(null)
@@ -26,7 +27,7 @@ const UploadLargeFile = () => {
       <Box flexDirection={'column'} gap={1} display={'flex'} alignItems={'center'} py={2}>
         <Button color='info' component='label' variant='contained'>
           <Typography>{`${file ? '...change file' : '...upload a file'}`}</Typography>
-          <VisuallyHiddenInput type='file' onChange={handleFileSelected} accept={allowed} />
+          <VisuallyHiddenInput type='file' onChange={handleFileSelected} accept={allSupportedFileTypes} />
         </Button>
       </Box>
       {file && (

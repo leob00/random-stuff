@@ -1,4 +1,5 @@
 import { DynamoDBClient, GetItemCommand, QueryCommand, PutItemCommand, PutItemCommandInput, DeleteItemCommand, DeleteItemInput } from '@aws-sdk/client-dynamodb'
+import { getAwsCredentials } from 'app/api/aws/awsHelper'
 
 export type RandomStuffDynamoItem = {
   count?: number
@@ -27,10 +28,7 @@ export async function getItem(key: string) {
     TableName: 'randomStuff',
   }
   const db = new DynamoDBClient({
-    credentials: {
-      accessKeyId: String(process.env.AWS_ACCESS_KEY_ID),
-      secretAccessKey: String(process.env.AWS_ACCESS_KEY_SECRET),
-    },
+    credentials: getAwsCredentials(),
   })
   const command = new GetItemCommand(params)
   const response = await db.send(command)
@@ -66,10 +64,7 @@ export async function searchItems(category: string) {
     },
   }
   const db = new DynamoDBClient({
-    credentials: {
-      accessKeyId: String(process.env.AWS_ACCESS_KEY_ID),
-      secretAccessKey: String(process.env.AWS_ACCESS_KEY_SECRET),
-    },
+    credentials: getAwsCredentials(),
   })
   const command = new QueryCommand(params)
   const response = await db.send(command)
@@ -113,10 +108,7 @@ export async function putItem(item: RandomStuffDynamoItem) {
     },
   }
   const db = new DynamoDBClient({
-    credentials: {
-      accessKeyId: String(process.env.AWS_ACCESS_KEY_ID),
-      secretAccessKey: String(process.env.AWS_ACCESS_KEY_SECRET),
-    },
+    credentials: getAwsCredentials(),
   })
   const command = new PutItemCommand(params)
   const resp = (await db.send(command)).$metadata
@@ -132,10 +124,7 @@ export async function deleteItem(key: string) {
     },
   }
   const db = new DynamoDBClient({
-    credentials: {
-      accessKeyId: String(process.env.AWS_ACCESS_KEY_ID),
-      secretAccessKey: String(process.env.AWS_ACCESS_KEY_SECRET),
-    },
+    credentials: getAwsCredentials(),
   })
   const command = new DeleteItemCommand(params)
   const resp = (await db.send(command)).$metadata

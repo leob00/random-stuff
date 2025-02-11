@@ -14,6 +14,8 @@
     "@aws-amplify/adapter-nextjs": "^1.0.24",
     "@aws-amplify/ui-react": "^6.1.6",
     "@aws-sdk/client-dynamodb": "^3.744.0",
+    "@aws-sdk/client-s3": "^3.744.0",
+    "@aws-sdk/types": "^3.734.0",
     "@aws-sdk/util-credentials": "^3.56.0",
     "@contentful/rich-text-react-renderer": "^15.12.1",
     "@emotion/cache": "^11.13.1",

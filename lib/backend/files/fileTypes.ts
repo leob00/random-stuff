@@ -19,6 +19,8 @@ type SuportedFileTypes =
   | 'image/webp'
   | 'video/mp4'
   | 'video/mpeg'
+  | 'text/csv'
+  | 'application/json'
 
 const imageTypes: ImageTypes[] = ['image/avif', 'image/gif', 'image/jpeg', 'image/png', 'image/svg+xml', 'image/webp']
 
@@ -41,6 +43,8 @@ const supportedFileTypes: SuportedFileTypes[] = [
   'image/webp',
   'video/mp4',
   'video/mpeg',
+  'text/csv',
+  'application/json',
 ]
 
 export const allSupportedFileTypes = supportedFileTypes.join()
