@@ -1,12 +1,12 @@
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
+import JsonView from 'components/Atoms/Boxes/JsonView'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
-import { post, postBody } from 'lib/backend/api/fetchFunctions'
-import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
+import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { getS3Files } from 'lib/backend/csr/nextApiWrapper'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
-import { get } from 'lodash'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export async function* streamingFetch(input: RequestInfo | URL, init?: RequestInit) {
   const response = await fetch(input, init)
@@ -28,6 +28,7 @@ export async function* streamingFetch(input: RequestInfo | URL, init?: RequestIn
 
 const ApiStream = () => {
   const [data, setData] = useState<any[]>([])
+  const [testApiResult, setTestApiResult] = useState<S3Object[] | null>(null)
 
   const asyncFetch = async () => {
     setData([])
@@ -45,17 +46,19 @@ const ApiStream = () => {
   }
 
   const handleStartStream = () => {
+    setTestApiResult(null)
     asyncFetch()
   }
 
   const handleTestApi = async () => {
+    setTestApiResult(null)
+    setData([])
     const key = 'leo_bel@hotmail.com/music/'
     const url = `/api/aws/s3/items`
     const enc = weakEncrypt(key)
-    const body: SignedRequest = {
-      data: enc,
-    }
-    const data = await postBody(url, 'POST', body)
+
+    const result = await getS3Files('rs-files', 'leo_bel@hotmail.com/music/')
+    setTestApiResult(result)
     console.log('data: ', data)
   }
 
@@ -71,8 +74,8 @@ const ApiStream = () => {
         <Box key={index} py={1}>
           <ListHeader text={`${chunk.value}`} fadeIn />
         </Box>
-        //<Typography key={index}>{`Received chunk ${index} - ${chunk.value}`}</Typography>
       ))}
+      {testApiResult && <JsonView obj={testApiResult} />}
     </Box>
   )
 }

@@ -35,7 +35,7 @@ const apiOptions: DropdownItem[] = [
   },
   {
     text: 'user stock lists',
-    value: '/api/searchRandomStuff',
+    value: '/api/aws/dynamo/items',
   },
   {
     text: 'upload',
@@ -51,7 +51,7 @@ const ApiTest = () => {
   const handleApiSelected = async (url: string) => {
     setIsLoading(true)
     let req = url
-    if (req.includes('searchRandomStuff')) {
+    if (req.includes('api/aws/dynamo/items')) {
       const enc = myEncrypt(config.key, `user-stock_list`)
       const body: SignedRequest = {
         data: enc,

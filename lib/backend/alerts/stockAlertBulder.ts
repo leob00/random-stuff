@@ -1,19 +1,20 @@
-import { getRandomStuff, searchRandomStuffBySecIndex, updateSubscriptions } from 'lib/backend/api/aws/apiGateway/apiGateway'
+import { getRandomStuff, updateSubscriptions } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { UserProfile, DynamoKeys, EmailMessage } from '../api/aws/models/apiGatewayModels'
 import { constructStockAlertsSubSecondaryKey } from '../api/aws/util'
 import { StockAlertSubscription, StockAlertSubscriptionWithMessage } from '../api/models/zModels'
 import { getStockQuotes, getStockQuotesServer } from '../api/qln/qlnApi'
 import { processAlertTriggers } from './stockAlertProcessor'
+import { searchItems } from 'app/serverActions/aws/dynamo/dynamo'
 
 export async function buildStockAlertsForAllUsers(userServer: boolean) {
-  const profileResponse = await searchRandomStuffBySecIndex('userProfile')
+  const profileResponse = await searchItems('userProfile')
   const profiles = profileResponse.map((m) => JSON.parse(m.data) as UserProfile)
   const users = profiles.map((m) => m.username)
 
   const symbols = new Set<string>([])
   const userSubMap = new Map<string, StockAlertSubscriptionWithMessage>()
   for (const username of users) {
-    const subResp = await searchRandomStuffBySecIndex(constructStockAlertsSubSecondaryKey(username))
+    const subResp = await searchItems(constructStockAlertsSubSecondaryKey(username))
     const subs = subResp.map((m) => JSON.parse(m.data) as StockAlertSubscription)
     if (subs.length > 0) {
       userSubMap.set(username, {

@@ -10,7 +10,6 @@ import GradientContainer from './Atoms/Boxes/GradientContainer'
 import { useUserController } from 'hooks/userController'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
 import HeaderLinks from './HeaderLinks'
-//
 const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; onSetColorMode: () => void }) => {
   const [elevationEffect, setElevationEffect] = useState(false)
   const theme = useTheme()
@@ -55,7 +54,7 @@ const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; 
               <Box display={'flex'} justifyContent={'space-between'}>
                 <Box display='flex' gap={{ xs: 1, sm: 2 }}>
                   <NLink href='/' passHref>
-                    <StaticImage image={logo} title='random things' width={120} height={60} priority={true} />
+                    <StaticImage image={logo} title='random things' width={120} height={60} priority />
                   </NLink>
                   <Box pt={2}>
                     <HeaderLinks />

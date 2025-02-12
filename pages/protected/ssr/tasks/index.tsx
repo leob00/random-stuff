@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { AmplifyUser } from 'lib/backend/auth/userUtil'
-import { searchRandomStuffBySecIndex } from 'lib/backend/api/aws/apiGateway/apiGateway'
+import { searchItems } from 'app/serverActions/aws/dynamo/dynamo'
 
 interface PageProps {
   user: AmplifyUser
@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const amplifyUser = await getUserSSR(context)
   let result: LambdaBody[] | undefined = undefined
   if (amplifyUser) {
-    result = await searchRandomStuffBySecIndex('random')
+    result = await searchItems('random')
   }
   return {
     props: {

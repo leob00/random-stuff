@@ -72,17 +72,6 @@ export async function getRandomStuff(key: DynamoKeys | string) {
 
   return null
 }
-export async function searchRandomStuffBySecIndex(search: CategoryType | string) {
-  const url = `${apiGatewayUrl}/searchrandomstuff`
-  try {
-    const result = await searchItems(search)
-
-    return result
-  } catch (err) {
-    console.error('error occurred in searchRandomStuffBySecIndex: ', err)
-  }
-  return []
-}
 
 export async function putRandomStuff(type: DynamoKeys, category: CategoryType, data: any, expiration?: number) {
   const url = `${apiGatewayUrl}/randomstuff`

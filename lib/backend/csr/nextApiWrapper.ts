@@ -218,29 +218,7 @@ export async function getUserGoals(id: string) {
   }
   return result
 }
-export async function getUserTasksLambaBody(username: string) {
-  const enc = weakEncrypt(`user-goal-tasks[${username}]`)
-  const body: SignedRequest = {
-    data: enc,
-  }
 
-  const result = (await post('/api/searchRandomStuff', body)) as LambdaBody[]
-  return result
-}
-
-export async function getUserTasks(username: string) {
-  const enc = weakEncrypt(`user-goal-tasks[${username}]`)
-  const body: SignedRequest = {
-    data: enc,
-  }
-  const result = (await post('/api/searchRandomStuff', body)) as LambdaBody[]
-  const tasks: UserTask[] = []
-  result.forEach((g) => {
-    const m = JSON.parse(g.data) as unknown as UserTask[]
-    tasks.push(...m)
-  })
-  return tasks
-}
 export async function getUserGoalTasks(goalId: string) {
   let result: UserTask[] = []
 
