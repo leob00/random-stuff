@@ -9,7 +9,7 @@ import { Amplify } from 'aws-amplify'
 import amplifyConfig from 'src/amplifyconfiguration.json'
 Amplify.configure(amplifyConfig, { ssr: true })
 export const { runWithAmplifyServerContext } = createServerRunner({
-  config,
+  config: amplifyConfig,
 })
 
 export async function getUserSSR(context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>) {

@@ -24,7 +24,7 @@ import { useState } from 'react'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 import ProgressDrawer from 'components/Atoms/Drawers/ProgressDrawer'
-import { postDelete } from 'lib/backend/api/fetchFunctions'
+import { postBody, postDelete } from 'lib/backend/api/fetchFunctions'
 import { sleep } from 'lib/util/timers'
 
 const SingleGoalDisplay = ({
@@ -70,7 +70,7 @@ const SingleGoalDisplay = ({
     putUserGoalTasks(username, goal.id!, newTasks)
     if (item.files && item.files.length > 0) {
       for (let f of item.files) {
-        await postDelete('/api/s3', f)
+        await postBody('/api/aws/s3/item', 'DELETE', f)
         setSnackbarText(`deleted ${f.filename}`)
       }
     }

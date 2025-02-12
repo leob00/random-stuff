@@ -2,9 +2,27 @@ import dayjs from 'dayjs'
 import { DropdownItem } from 'lib/models/dropdown'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
-import { UserNote, LambdaDynamoRequest, UserProfile, LambdaBody, DynamoKeys, CategoryType, LambdaDynamoRequestBatch, EmailMessage, S3Object, Bucket } from '../api/aws/models/apiGatewayModels'
+import {
+  UserNote,
+  LambdaDynamoRequest,
+  UserProfile,
+  LambdaBody,
+  DynamoKeys,
+  CategoryType,
+  LambdaDynamoRequestBatch,
+  EmailMessage,
+  S3Object,
+  Bucket,
+  S3Folder,
+} from '../api/aws/models/apiGatewayModels'
 
-import { constructUserGoalTaksSecondaryKey, constructUserNoteCategoryKey, constructUserNoteTitlesKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
+import {
+  constructUserGoalTaksSecondaryKey,
+  constructUserNoteCategoryKey,
+  constructUserNoteTitlesKey,
+  constructUserProfileKey,
+  constructUserSecretSecondaryKey,
+} from '../api/aws/util'
 import { get, post, postBody } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { weakEncrypt } from '../encryption/useEncryptor'
@@ -404,8 +422,16 @@ const buildFilesAndFolders = (items: S3Object[]) => {
 }
 
 export async function getS3Files(bucketName: Bucket, prefix: string) {
-  const response = await get('/api/s3', { bucket: bucketName, prefix: prefix })
-  const result = JSON.parse(response) as S3Key[]
+  const folder: S3Folder = {
+    bucket: bucketName,
+    prefix: prefix,
+  }
+  const signedRequest: SignedRequest = {
+    data: weakEncrypt(JSON.stringify(folder)),
+  }
+
+  const response = await postBody('/api/aws/s3/items', 'POST', signedRequest)
+  const result = response as S3Key[]
   const files: S3Object[] = result.map((m) => {
     return {
       bucket: bucketName,

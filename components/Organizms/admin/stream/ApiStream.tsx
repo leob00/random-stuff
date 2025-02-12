@@ -2,9 +2,10 @@ import { Box, Typography } from '@mui/material'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
-import { post } from 'lib/backend/api/fetchFunctions'
+import { post, postBody } from 'lib/backend/api/fetchFunctions'
 import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
+import { get } from 'lodash'
 import { useEffect, useState } from 'react'
 
 export async function* streamingFetch(input: RequestInfo | URL, init?: RequestInit) {
@@ -48,13 +49,13 @@ const ApiStream = () => {
   }
 
   const handleTestApi = async () => {
-    const key = 'searched-stocks'
-    const url = `/api/aws/dynamo/items`
+    const key = 'leo_bel@hotmail.com/music/'
+    const url = `/api/aws/s3/items`
     const enc = weakEncrypt(key)
     const body: SignedRequest = {
       data: enc,
     }
-    const data = await post(url, body)
+    const data = await postBody(url, 'POST', body)
     console.log('data: ', data)
   }
 

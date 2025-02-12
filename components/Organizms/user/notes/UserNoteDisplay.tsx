@@ -10,7 +10,6 @@ import { mutate } from 'swr'
 import dayjs from 'dayjs'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import { sortArray } from 'lib/util/collections'
-import { postDelete } from 'lib/backend/api/fetchFunctions'
 import { sleep } from 'lib/util/timers'
 import ProgressDrawer from 'components/Atoms/Drawers/ProgressDrawer'
 
@@ -38,7 +37,7 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
     setShowSaveDrawer(true)
     if (item.files) {
       for (let f of item.files) {
-        await postDelete('/api/s3', f)
+        await postBody('/api/aws/s3/item', 'DELETE', f)
         setToastText(`deleted file: ${f.filename}`)
         await sleep(750)
       }
@@ -122,3 +121,6 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
 }
 
 export default UserNoteDisplay
+function postBody(arg0: string, arg1: string, f: S3Object) {
+  throw new Error('Function not implemented.')
+}

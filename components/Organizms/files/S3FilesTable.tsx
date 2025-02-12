@@ -162,7 +162,7 @@ const S3FilesTable = ({
 
     dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: 'processing...' } })
     for (const f of selectedItems) {
-      const resp = await postDelete('/api/s3', f)
+      const resp = await postBody('/api/aws/s3/item', 'DELETE', f)
       if (resp.statusCode === 200) {
         onLocalDataMutate(
           folder,

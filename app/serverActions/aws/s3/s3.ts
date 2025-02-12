@@ -1,4 +1,14 @@
-import { S3Client, PutObjectCommand, PutObjectCommandInput, DeleteObjectCommand, DeleteObjectCommandInput, GetObjectCommand, GetObjectCommandInput } from '@aws-sdk/client-s3'
+import {
+  S3Client,
+  PutObjectCommand,
+  PutObjectCommandInput,
+  DeleteObjectCommand,
+  DeleteObjectCommandInput,
+  GetObjectCommand,
+  GetObjectCommandInput,
+  ListObjectsCommand,
+  ListObjectsCommandInput,
+} from '@aws-sdk/client-s3'
 import { getAwsCredentials } from 'app/api/aws/awsHelper'
 import { Bucket, S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
@@ -46,4 +56,20 @@ export async function getPresignedUrl(item: S3Object) {
   const command = new GetObjectCommand(params)
   const url = await getSignedUrl(s3Client, command)
   return url
+}
+
+export async function listObjects(bucket: Bucket, prefix: string) {
+  let folder = prefix
+
+  if (!folder.endsWith('/')) {
+    folder = `${folder}/`
+  }
+  const params: ListObjectsCommandInput = {
+    Bucket: bucket,
+    Prefix: folder,
+  }
+
+  const command = new ListObjectsCommand(params)
+  const result = (await s3Client.send(command)).Contents
+  return result
 }

@@ -28,6 +28,11 @@ export type DynamoKeys =
 
 export type CategoryType = 'animals' | 'random' | 'userProfile' | 'searched-stocks' | 'user-stock_list' | string
 
+export interface S3Folder {
+  bucket: Bucket
+  prefix: string
+}
+
 export interface S3Object {
   bucket: Bucket
   prefix: string
