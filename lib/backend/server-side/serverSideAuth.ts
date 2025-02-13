@@ -58,11 +58,11 @@ export async function getUserSSRApi(req: NextApiRequest, res: NextApiResponse) {
 export async function getUserSSRAppRouteApi(req: NextRequest, res: NextResponse) {
   try {
     const user = await runWithAmplifyServerContext({
-      nextServerContext: { request: req, response: res },
+      nextServerContext: { request: await req, response: await res },
       operation: (contextSpec) => getCurrentUser(contextSpec),
     })
     const userAttributes = await runWithAmplifyServerContext({
-      nextServerContext: { request: req, response: res },
+      nextServerContext: { request: await req, response: await res },
       operation: (contextSpec) => fetchUserAttributes(contextSpec),
     })
     const result: AmplifyUser = {

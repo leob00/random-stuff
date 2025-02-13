@@ -992,6 +992,10 @@
     "Symbol": "AGGY"
   },
   {
+    "Company": "Aureus Greenway Holdings Inc. Common Stock",
+    "Symbol": "AGH"
+  },
+  {
     "Company": "Alamos Gold Inc. Class A Common Shares",
     "Symbol": "AGI"
   },
@@ -1784,6 +1788,10 @@
     "Symbol": "AMD"
   },
   {
+    "Company": "Direxion Daily AMD Bear 1X Shares",
+    "Symbol": "AMDD"
+  },
+  {
     "Company": "Leverage Shares 2X Long AMD Daily ETF",
     "Symbol": "AMDG"
   },
@@ -1982,6 +1990,10 @@
   {
     "Company": "ETRACS Alerian MLP Index ETN Series B due July 18, 2042",
     "Symbol": "AMUB"
+  },
+  {
+    "Company": "Direxion Daily AMD Bull 2X Shares",
+    "Symbol": "AMUU"
   },
   {
     "Company": "American Woodmark Corp",
@@ -3050,6 +3062,10 @@
   {
     "Company": "ATIF Holdings Limited Ordinary Shares",
     "Symbol": "ATIF"
+  },
+  {
+    "Company": "Archimedes Tech SPAC Partners II Co. Unit",
+    "Symbol": "ATIIU"
   },
   {
     "Company": "ATI Physical Therapy, Inc.",
@@ -8300,7 +8316,7 @@
     "Symbol": "CLNR"
   },
   {
-    "Company": "BlackRock AAA CLO ETF",
+    "Company": "BlackRock ETF Trust II iShares AAA CLO Active ETF",
     "Symbol": "CLOA"
   },
   {
@@ -12788,6 +12804,10 @@
     "Symbol": "ELLO"
   },
   {
+    "Company": "Elm Market Navigator ETF",
+    "Symbol": "ELM"
+  },
+  {
     "Company": "Electromed, Inc.",
     "Symbol": "ELMD"
   },
@@ -14188,6 +14208,10 @@
     "Symbol": "EXOD"
   },
   {
+    "Company": "eXoZymes Inc. Common Stock",
+    "Symbol": "EXOZ"
+  },
+  {
     "Company": "Eagle Materials, Inc.",
     "Symbol": "EXP"
   },
@@ -15134,6 +15158,14 @@
   {
     "Company": "First Trust Germany AlphaDEX Fund",
     "Symbol": "FGM"
+  },
+  {
+    "Company": "FG Merger II Corp. Common stock",
+    "Symbol": "FGMC"
+  },
+  {
+    "Company": "FG Merger II Corp. Rights",
+    "Symbol": "FGMCR"
   },
   {
     "Company": "FG Merger II Corp. Unit",
@@ -18540,7 +18572,7 @@
     "Symbol": "GS"
   },
   {
-    "Company": "Globalstar, Inc.",
+    "Company": "Globalstar, Inc. Common Stock",
     "Symbol": "GSAT"
   },
   {
@@ -18656,7 +18688,7 @@
     "Symbol": "GSSC"
   },
   {
-    "Company": "Goldman Sachs Access Ultra Short Bond ETF",
+    "Company": "Goldman Sachs Ultra Short Bond ETF",
     "Symbol": "GSST"
   },
   {
@@ -25020,27 +25052,27 @@
     "Symbol": "LFAL"
   },
   {
-    "Company": "Stone Ridge 2054 Longevity Income ETF",
+    "Company": "LifeX 2054 Longevity Income ETF",
     "Symbol": "LFAN"
   },
   {
-    "Company": "Stone Ridge 2055 Longevity Income ETF",
+    "Company": "LifeX 2055 Longevity Income ETF",
     "Symbol": "LFAO"
   },
   {
-    "Company": "Stone Ridge 2056 Longevity Income ETF",
+    "Company": "LifeX 2056 Longevity Income ETF",
     "Symbol": "LFAQ"
   },
   {
-    "Company": "Stone Ridge 2057 Longevity Income ETF",
+    "Company": "LifeX 2057 Longevity Income ETF",
     "Symbol": "LFAR"
   },
   {
-    "Company": "Stone Ridge 2058 Longevity Income ETF",
+    "Company": "LifeX 2058 Longevity Income ETF",
     "Symbol": "LFAU"
   },
   {
-    "Company": "Stone Ridge 2059 Longevity Income ETF",
+    "Company": "LifeX 2059 Longevity Income ETF",
     "Symbol": "LFAV"
   },
   {
@@ -25244,15 +25276,15 @@
     "Symbol": "LIAJ"
   },
   {
-    "Company": "Stone Ridge 2054 Inflation-Protected Longevity Income ETF",
+    "Company": "LifeX 2054 Inflation-Protected Longevity Income ETF",
     "Symbol": "LIAK"
   },
   {
-    "Company": "Stone Ridge 2055 Inflation-Protected Longevity Income ETF",
+    "Company": "LifeX 2055 Inflation-Protected Longevity Income ETF",
     "Symbol": "LIAM"
   },
   {
-    "Company": "Stone Ridge 2056 Inflation-Protected Longevity Income ETF",
+    "Company": "LifeX 2056 Inflation-Protected Longevity Income ETF",
     "Symbol": "LIAO"
   },
   {
@@ -25260,11 +25292,11 @@
     "Symbol": "LIAP"
   },
   {
-    "Company": "Stone Ridge 2058 Inflation-Protected Longevity Income ETF",
+    "Company": "LifeX 2058 Inflation-Protected Longevity Income ETF",
     "Symbol": "LIAQ"
   },
   {
-    "Company": "Stone Ridge 2059 Inflation-Protected Longevity Income ETF",
+    "Company": "LifeX 2059 Inflation-Protected Longevity Income ETF",
     "Symbol": "LIAT"
   },
   {
@@ -30882,6 +30914,10 @@
   {
     "Company": "Osisko Development Corp. Warrant expiring 5/27/2027",
     "Symbol": "ODVWZ"
+  },
+  {
+    "Company": "Odysight.ai Inc. Common Stock",
+    "Symbol": "ODYS"
   },
   {
     "Company": "Orion S.A.",
@@ -43552,6 +43588,10 @@
     "Symbol": "VBFC"
   },
   {
+    "Company": "Vanguard 0-3 Month Treasury Bill ETF",
+    "Symbol": "VBIL"
+  },
+  {
     "Company": "VBI Vaccines, Inc. New Common Stock (Canada)",
     "Symbol": "VBIV"
   },
@@ -43874,6 +43914,10 @@
   {
     "Company": "Vanguard Information Technology ETF",
     "Symbol": "VGT"
+  },
+  {
+    "Company": "Vanguard Ultra-Short Treasury ETF",
+    "Symbol": "VGUS"
   },
   {
     "Company": "Vista Gold Corp.",

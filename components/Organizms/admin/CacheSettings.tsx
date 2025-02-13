@@ -1,8 +1,7 @@
-import { Alert, Box, IconButton, Typography } from '@mui/material'
+import { Box, IconButton, Typography } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import CopyableText from 'components/Atoms/Text/CopyableText'
-import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
@@ -11,8 +10,9 @@ import { Claim } from 'lib/backend/auth/userUtil'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import numeral from 'numeral'
 import React from 'react'
-import useSWR, { mutate } from 'swr'
+import { mutate } from 'swr'
 import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
+import { useSwrHelper } from 'hooks/useSwrHelper'
 dayjs.extend(utc)
 
 interface CacheStats {
@@ -24,17 +24,14 @@ interface CacheStats {
 }
 
 const CacheSettings = ({ claim }: { claim: Claim }) => {
-  const mutateKey = ['/api/baseRoute', claim.token]
-  const fetchData = async (url: string, id: string) => {
+  const mutateKey = `qln-case-stats`
+  const fetchData = async () => {
     const response = await getCacheStats(claim.token ?? '')
     return response.Body as CacheStats
   }
-  const { data, isValidating, error } = useSWR(mutateKey, ([url, id]) => fetchData(url ?? '', claim.token ?? ''))
-  const [isLoading, setIsLoading] = React.useState(false)
+  const { data, isLoading } = useSwrHelper(mutateKey, fetchData, { revalidateOnFocus: false })
   const handleResetCache = async () => {
-    setIsLoading(true)
     await resetStockCache(claim.token ?? '')
-    setIsLoading(false)
     mutate(mutateKey)
   }
   const handleRefresh = () => {
@@ -42,8 +39,7 @@ const CacheSettings = ({ claim }: { claim: Claim }) => {
   }
   return (
     <>
-      {isValidating && <BackdropLoader />}
-      {error && <ErrorMessage text={'An error occurred while retrieving data.'} />}
+      {isLoading && <BackdropLoader />}
       {data && (
         <Box>
           <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>

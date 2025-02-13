@@ -7,7 +7,7 @@ import { searchRecords } from 'lib/backend/csr/nextApiWrapper'
 import React from 'react'
 
 const UsersAdmin = ({ userProfile }: { userProfile: UserProfile }) => {
-  const key = '/api/baseRoute?id=userProfile'
+  const key = `user-profile-${userProfile.id}`
 
   const dataFn = async () => {
     const resp = await searchRecords('userProfile')
