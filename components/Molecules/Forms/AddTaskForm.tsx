@@ -1,4 +1,4 @@
-import { Box, Stack, TextField } from '@mui/material'
+import { Box, Stack, TextField, Typography } from '@mui/material'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { z } from 'zod'
@@ -34,37 +34,41 @@ const AddTaskForm = ({ task, onSubmitted }: { task: UserTask; onSubmitted: (data
     reset()
   }
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Box display={'flex'} gap={1} alignItems={'flex-start'} py={1}>
-        <Box>
-          <TextField
-            {...register('name')}
-            autoComplete='off'
-            size='small'
-            slotProps={{
-              input: {
-                color: 'secondary',
-                autoComplete: 'off',
-              },
-            }}
-            helperText={errors.name?.message}
-            error={!!errors.name?.message}
-          />
+    <Box>
+      <Typography px={1} pb={4} pt={1}>
+        tasks
+      </Typography>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Box display={'flex'} gap={1} alignItems={'flex-start'} py={1}>
+          <Box>
+            <TextField
+              {...register('name')}
+              autoComplete='off'
+              size='small'
+              slotProps={{
+                input: {
+                  autoComplete: 'off',
+                },
+              }}
+              helperText={errors.name?.message}
+              error={!!errors.name?.message}
+            />
+          </Box>
+          <Box>
+            <Controller
+              name={'dueDate'}
+              control={control}
+              render={({ field: { value, onChange, ...field } }) => (
+                <DateAndTimePicker2 errorMessage={errors.dueDate?.message} value={value} onDateSelected={onChange} {...field} placeHolder='due date' />
+              )}
+            />
+          </Box>
+          <Box pt={0.5}>
+            <PrimaryButton text='add' type='submit' size='small' />
+          </Box>
         </Box>
-        <Box>
-          <Controller
-            name={'dueDate'}
-            control={control}
-            render={({ field: { value, onChange, ...field } }) => (
-              <DateAndTimePicker2 errorMessage={errors.dueDate?.message} value={value} onDateSelected={onChange} {...field} />
-            )}
-          />
-        </Box>
-        <Box pt={0.5}>
-          <PrimaryButton text='add' type='submit' size='small' />
-        </Box>
-      </Box>
-    </form>
+      </form>
+    </Box>
   )
 }
 

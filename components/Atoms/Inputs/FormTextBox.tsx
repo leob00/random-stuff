@@ -11,6 +11,7 @@ const FormTextBox = ({
   disabled = false,
   width = 250,
   maxLength = 2500,
+  placeHolder,
 }: {
   defaultValue: string
   label: string
@@ -21,6 +22,7 @@ const FormTextBox = ({
   disabled?: boolean
   width?: number | string
   maxLength?: number
+  placeHolder?: string
 }) => {
   const [textError, setTextError] = React.useState(error)
   const [val, setVal] = React.useState(defaultValue)
@@ -48,7 +50,7 @@ const FormTextBox = ({
       defaultValue={val}
       size='small'
       label={label}
-      placeholder={label}
+      placeholder={placeHolder}
       onChange={handleTextChange}
       required={required}
       error={textError}

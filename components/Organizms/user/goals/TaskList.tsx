@@ -173,7 +173,7 @@ const TaskList = ({
   }
 
   return (
-    <>
+    <Box minHeight={800}>
       {model.isLoading && <BackdropLoader />}
       {model.editTask && (
         // <FormDialog title='edit task' show={true} onCancel={() => setModel({ ...model, editTask: undefined })} fullScreen>
@@ -201,7 +201,7 @@ const TaskList = ({
             </Stack>
           )}
           {model.taskList.length > 0 && (
-            <Box minHeight={100}>
+            <Box minHeight={450}>
               <Box py={2}>
                 <TaskListHeader
                   model={model}
@@ -244,7 +244,7 @@ const TaskList = ({
         title={'confirm'}
         onConfirm={handleYesChangeTaskStatus}
       />
-    </>
+    </Box>
   )
 }
 

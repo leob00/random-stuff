@@ -98,7 +98,6 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
     <>
       {!isValidatingProfile && userProfile && (
         <>
-          {/* {toastText && <SnackbarSuccess show={!!toastText} text={toastText} onClose={() => setToastText(null)} />} */}
           {editMode ? (
             <EditNote item={data} onSubmitted={handleSaveNote} onCanceled={handleCancelEdit} />
           ) : (

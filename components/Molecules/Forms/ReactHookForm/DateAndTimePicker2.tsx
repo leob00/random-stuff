@@ -10,14 +10,16 @@ type Props = {
   value?: string | null
   minDate?: string
   maxDate?: string
+  placeHolder?: string
   onDateSelected: (arg: string | null) => void
 }
 
 const DateAndTimePicker2 = forwardRef<HTMLInputElement, Props>(function DateAndTimePicker(props: Props, _ref) {
-  const { label, errorMessage, value, minDate, maxDate, onDateSelected } = props
+  const { label, errorMessage, value, minDate, maxDate, placeHolder, onDateSelected } = props
 
   const handleSelect = (dt: dayjs.Dayjs | null) => {
     if (dt) {
+      console.log(dt)
       onDateSelected(dayjs(dt).format())
     } else {
       onDateSelected(null)
@@ -35,6 +37,7 @@ const DateAndTimePicker2 = forwardRef<HTMLInputElement, Props>(function DateAndT
         slotProps={{
           field: { clearable: true },
           textField: {
+            placeholder: placeHolder,
             size: 'small',
             error: !!errorMessage,
             helperText: errorMessage,
