@@ -38,6 +38,7 @@ const CommunityStocksWrapper = ({ data, onRefresh }: { data?: StockQuote[]; onRe
       <Box display={'flex'} justifyContent={'flex-end'}>
         <ContextMenu items={menu} />
       </Box>
+
       <CommunityStocksLayout data={data} />
     </Box>
   )

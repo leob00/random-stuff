@@ -4,7 +4,6 @@ import { CategoryType } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import { Box } from '@mui/material'
 import { getLatestQuotes } from 'lib/backend/api/qln/qlnApi'
-import { getMapFromArray } from 'lib/util/collectionsNative'
 import { searchRecords } from 'lib/backend/csr/nextApiWrapper'
 import { mutate } from 'swr'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
@@ -14,11 +13,11 @@ import TabList from 'components/Atoms/Buttons/TabList'
 import { sortArray } from 'lib/util/collections'
 import CommunityStocksWrapper from 'components/Organizms/stocks/CommunityStocksWrapper'
 import { useSwrHelper } from 'hooks/useSwrHelper'
-import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { useState } from 'react'
 import StockSearch from 'components/Atoms/Inputs/StockSearch'
 import FullStockDetail from 'components/Organizms/stocks/FullStockDetail'
+import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'
 const tabs: TabInfo[] = [
@@ -100,14 +99,18 @@ const Page = () => {
         <Box py={2}>
           <StockSearch onSymbolSelected={handleSelectQuote} clearOnSelect />
         </Box>
+        <ScrollIntoView margin={-8} enabled />
         {selectedStock && <FullStockDetail item={selectedStock} onClose={handleCloseQuoteDialog} />}
         {!selectedStock && <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />}
         {!selectedStock && (
           <>
             {selectedTab === 'Recent' && (
               <Box>
-                <ScrollIntoView margin={-20} enabled />
-                {searchedStocks && <CommunityStocksRecentLayout data={searchedStocks} onRefresh={handleRefreshRecent} />}
+                {searchedStocks && (
+                  <>
+                    <CommunityStocksRecentLayout data={searchedStocks} onRefresh={handleRefreshRecent} />
+                  </>
+                )}
               </Box>
             )}
             {selectedTab === 'Winners' && <CommunityStocksWrapper data={winners} onRefresh={handleRefreshRecent} />}

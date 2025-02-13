@@ -21,7 +21,7 @@ const CommoditiesLayout = () => {
       {isLoading && <BackdropLoader />}
       {data && (
         <Box pt={2}>
-          <ScrollIntoView enabled={true} margin={-17} />
+          <ScrollIntoView enabled />
           <StockTable stockList={data} isStock={false} showSummary />
         </Box>
       )}

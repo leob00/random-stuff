@@ -68,19 +68,22 @@ export async function searchItems(category: string) {
   })
   const command = new QueryCommand(params)
   const response = await db.send(command)
-  const items = response.Items!
-  const result: RandomStuffDynamoItem[] = items.map((item) => {
-    return {
-      key: item['key'].S!,
-      category: item['category'].S,
-      data: item['data'].S!,
-      count: Number(item['count'].N),
-      expiration: Number(item['expiration'].N),
-      last_modified: item['last_modified'].S,
-    }
-  })
+  if (response.Items) {
+    const items = response.Items!
+    const result: RandomStuffDynamoItem[] = items.map((item) => {
+      return {
+        key: item['key'].S!,
+        category: item['category'].S,
+        data: item['data'].S!,
+        count: Number(item['count'].N),
+        expiration: Number(item['expiration'].N),
+        last_modified: item['last_modified'].S,
+      }
+    })
 
-  return result
+    return result
+  }
+  return []
 }
 
 export async function putItem(item: RandomStuffDynamoItem) {
