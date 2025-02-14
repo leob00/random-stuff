@@ -40,11 +40,10 @@ const SingleGoalDisplay = ({
 }) => {
   const [goalEditMode, setGoalEditMode] = useState(false)
   const [showDeleteGoalConfirm, setShowDeleteGoalConfirm] = useState(false)
-  const [isSaving, setIsSaving] = useState(false)
   const [snackbarText, setSnackbarText] = useState<string | null>(null)
   const router = useRouter()
 
-  const displayTasks = goal.deleteCompletedTasks ? [...tasks].filter((m) => m.status !== 'completed') : [...tasks]
+  const displayTasks = goal.deleteCompletedTasks ? tasks.filter((m) => m.status !== 'completed') : [...tasks]
 
   const handleAddTask = async (item: UserTask) => {
     setSnackbarText('task added!')
@@ -169,8 +168,6 @@ const SingleGoalDisplay = ({
             </Box>
           </Box>
           <HorizontalDivider />
-          {isSaving && <BackdropLoader />}
-
           <TaskList
             username={username}
             selectedGoal={goal}

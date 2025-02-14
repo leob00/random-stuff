@@ -12,6 +12,7 @@ import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import { sortArray } from 'lib/util/collections'
 import { sleep } from 'lib/util/timers'
 import ProgressDrawer from 'components/Atoms/Drawers/ProgressDrawer'
+import { postBody } from 'lib/backend/api/fetchFunctions'
 
 const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: UserNote; isEdit: boolean; backRoute: string }) => {
   const router = useRouter()
@@ -120,6 +121,3 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
 }
 
 export default UserNoteDisplay
-function postBody(arg0: string, arg1: string, f: S3Object) {
-  throw new Error('Function not implemented.')
-}
