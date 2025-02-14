@@ -106,7 +106,7 @@ const SingleGoalDisplay = ({
     setSnackbarText(null)
     const files = tasks.filter((m) => !!m.files).flatMap((f) => f.files!)
     for (let f of files) {
-      await postDelete('/api/s3', f)
+      await postBody('/api/aws/s3/item', 'DELETE', f)
       setSnackbarText(`deleted ${f.filename}`)
     }
     const goals = await getUserGoals(constructUserGoalsKey(username))

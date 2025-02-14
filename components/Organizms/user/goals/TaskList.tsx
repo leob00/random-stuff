@@ -14,7 +14,7 @@ import { useReducer } from 'react'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import TaskListHeader from './tasks/TaskListHeader'
-import { postDelete } from 'lib/backend/api/fetchFunctions'
+import { postBody } from 'lib/backend/api/fetchFunctions'
 
 export interface TaskModel {
   isLoading: boolean
@@ -84,8 +84,8 @@ const TaskList = ({
       tasksCopy = tasksCopy.filter((m) => m.status !== 'completed')
       if (item.status === 'completed') {
         if (item.files && item.files.length > 0) {
-          for (let f of item.files) {
-            postDelete('/api/s3', f)
+          for (const f of item.files) {
+            await postBody('/api/aws/s3/item', 'DELETE', f)
           }
         }
       }
