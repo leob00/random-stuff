@@ -321,8 +321,10 @@ export async function getRecord<T>(id: DynamoKeys | string): Promise<T> {
   let result: any | null = null
   try {
     const body = encryptKey(id)
-
-    const resp = (await post(`/api/aws/dynamo/item`, body)) as RandomStuffDynamoItem
+    const resp = await postBody('/api/aws/dynamo/item', 'POST', body)
+    if (resp.data.length === 0) {
+      return null as T
+    }
     const data = JSON.parse(resp.data) as T
     if (data) {
       return data as T

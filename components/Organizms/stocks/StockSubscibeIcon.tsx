@@ -32,11 +32,11 @@ const StockSubscibeIcon = ({
   const router = useRouter()
 
   const dataFunc = async () => {
-    const response = await getRecord<StockAlertSubscription>(subscriptionId)
+    const response = await getRecord<StockAlertSubscription | null>(subscriptionId)
     return response
   }
 
-  const { data, isLoading } = useSwrHelper<StockAlertSubscription>(subscriptionId, dataFunc, { revalidateOnFocus: false })
+  const { data, isLoading } = useSwrHelper(subscriptionId, dataFunc, { revalidateOnFocus: false })
 
   const hasActiveTriggers = data ? data.triggers.filter((m) => m.enabled).length > 0 : false
 
