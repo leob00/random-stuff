@@ -14,7 +14,7 @@ const FormTextBox = ({
   placeHolder,
 }: {
   defaultValue: string
-  label: string
+  label?: string
   required?: boolean
   error?: boolean
   onChanged?: (text: string) => void

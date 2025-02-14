@@ -84,17 +84,16 @@ const EditTaskForm = ({
         <Box display={'flex'} justifyContent={'center'}>
           <Box minWidth={{ md: 800 }}>
             <Box py={2} maxWidth={{ xs: 280, md: 500 }}>
-              <FormTextBox width={'100%'} defaultValue={formInput.body ?? ''} label={'task'} onChanged={handleTitleChanged} error={!valid} />
+              <FormTextBox width={'100%'} defaultValue={formInput.body ?? ''} placeHolder='task name' onChanged={handleTitleChanged} error={!valid} />
             </Box>
             <Box py={2}>
-              <DateAndTimePicker2 value={formInput.dueDate} onDateSelected={handleDueDateChange} label={'due date'} />
+              <DateAndTimePicker2 value={formInput.dueDate} onDateSelected={handleDueDateChange} placeHolder={'due date'} />
             </Box>
             <Box py={2}>
-              <DateAndTimePicker2 value={formInput.dateCompleted} onDateSelected={handleDateCompletedChange} label={'completed date'} />
+              <DateAndTimePicker2 value={formInput.dateCompleted} onDateSelected={handleDateCompletedChange} placeHolder={'completed date'} />
             </Box>
             <Box py={2}>
               <TextField
-                label='notes'
                 placeholder='notes...'
                 multiline
                 sx={{ width: '100%' }}
