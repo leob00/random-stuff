@@ -24,7 +24,7 @@ export async function getUserSSR(context: GetServerSidePropsContext<ParsedUrlQue
     const result: AmplifyUser = {
       id: user.username,
       email: userAttributes.email ?? '',
-      roles: await getRolesFromAmplifyUser(userAttributes),
+      roles: getRolesFromAmplifyUser(userAttributes),
     }
     return result
   } catch (err) {

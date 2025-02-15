@@ -8,6 +8,8 @@ import {
   GetObjectCommandInput,
   ListObjectsCommand,
   ListObjectsCommandInput,
+  CopyObjectCommand,
+  CopyObjectCommandInput,
 } from '@aws-sdk/client-s3'
 import { getAwsCredentials } from 'app/api/aws/awsHelper'
 import { Bucket, S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
@@ -72,4 +74,18 @@ export async function listObjects(bucket: Bucket, prefix: string) {
   const command = new ListObjectsCommand(params)
   const result = (await s3Client.send(command)).Contents
   return result
+}
+
+export async function copyItem(oldItem: S3Object, newPath: string) {
+  const oldFullPath = !oldItem.fullPath.startsWith('/') ? oldItem.fullPath : oldItem.fullPath.substring(1)
+  const newFullPath = !newPath.startsWith('/') ? newPath : newPath.substring(1)
+  const params: CopyObjectCommandInput = {
+    Bucket: oldItem.bucket,
+    Key: newFullPath,
+    CopySource: `${oldItem.bucket}/${oldFullPath}`,
+  }
+
+  const command = new CopyObjectCommand(params)
+  const resp = (await s3Client.send(command)).$metadata
+  return resp
 }
