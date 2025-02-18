@@ -109,10 +109,13 @@ const S3FilesTable = ({
       setError('file already exists. Please choose another name')
       return
     }
+    dispatch({ type: 'update', payload: { ...uiState, selectedItem: null, showRenameFileDialog: false } })
+    setProgressText(`renaming file to: ${newfilename}`)
     await postBody('/api/aws/s3/item/rename', 'POST', { oldItem: oldItem, newPath: newPath })
     const newFiles = await getS3Files(oldItem.bucket, folder.value)
     setSearchWithinList('')
-    dispatch({ type: 'update', payload: { ...uiState, showRenameFileDialog: false } })
+    setProgressText(null)
+
     onLocalDataMutate(folder, newFiles)
   }
 

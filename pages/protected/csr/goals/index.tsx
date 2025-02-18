@@ -3,7 +3,6 @@ import PageHeader from 'components/Atoms/Containers/PageHeader'
 import Seo from 'components/Organizms/Seo'
 import RequireUserProfile from 'components/Organizms/user/RequireUserProfile'
 import UserGoalsLayout from 'components/Organizms/user/goals/UserGoalsLayout'
-import React from 'react'
 
 const Page = () => {
   return (

@@ -43,7 +43,6 @@ const UserGoalsLayout = () => {
   }
   return (
     <>
-      {isLoading && <BackdropLoader />}
       {error && <ErrorMessage text='Opps. We encountered and error. Please try refreshing the page.' />}
       {goalsAndTasks && <UserGoalsDisplay goalsAndTasks={goalsAndTasks} username={username} onRefresh={handleRefresh} />}
     </>

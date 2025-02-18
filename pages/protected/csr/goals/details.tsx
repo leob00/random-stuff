@@ -8,12 +8,13 @@ import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import Seo from 'components/Organizms/Seo'
 import SingleGoalDisplay from 'components/Organizms/user/goals/SingleGoalDisplay'
 import { UserGoal, UserTask } from 'components/Organizms/user/goals/goalModels'
+import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { constructUserGoalsKey } from 'lib/backend/api/aws/util'
 import { getUserGoals, getUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
 import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { useRouter } from 'next/router'
-import useSWR, { mutate } from 'swr'
+import { mutate } from 'swr'
 
 const Page = () => {
   const router = useRouter()
@@ -23,6 +24,8 @@ const Page = () => {
   const username = weakDecrypt(decodeURIComponent(token))
   const tasksMutateKey = `goal-tasks-${goalId}`
   const goalMutateKey = `goal-${goalId}`
+
+  const { userProfile, isValidating: validatingProfile } = useProfileValidator()
 
   const fetchGoalTasks = async () => {
     const result = await getUserGoalTasks(goalId)
@@ -46,11 +49,14 @@ const Page = () => {
     <>
       <Seo pageTitle='Goals' />
       <ResponsiveContainer>
-        {isLoading && <BackdropLoader />}
-        {goal && <PageHeader text={`Goal: ${goal.body}`} backButtonRoute={'/protected/csr/goals'} forceShowBackButton />}
-        {goal && tasks && <SingleGoalDisplay username={username} goal={goal} tasks={tasks} onMutated={handleMutated} />}
+        {userProfile && (
+          <>
+            {goal && <PageHeader text={`Goal: ${goal.body}`} backButtonRoute={'/protected/csr/goals'} forceShowBackButton />}
+            {goal && tasks && <SingleGoalDisplay username={username} goal={goal} tasks={tasks} onMutated={handleMutated} />}
+          </>
+        )}
         <>
-          {!isLoading && !goal && (
+          {!isLoading && !validatingProfile && !goal && (
             <Box>
               <NoDataFound />
               <CenterStack>
