@@ -2816,6 +2816,14 @@
     "Symbol": "ASBA"
   },
   {
+    "Company": "Aspire Biopharma Holdings, Inc. Common Stock",
+    "Symbol": "ASBP"
+  },
+  {
+    "Company": "Aspire Biopharma Holdings, Inc. Warrant",
+    "Symbol": "ASBPW"
+  },
+  {
     "Company": "ARDMORE SHIPPING CORPORATION",
     "Symbol": "ASC"
   },
@@ -6364,6 +6372,10 @@
     "Symbol": "BTU"
   },
   {
+    "Company": "BlackRock Technology and Private Equity Term Trust",
+    "Symbol": "BTX"
+  },
+  {
     "Company": "BlackRock Credit Allocation Income Trust",
     "Symbol": "BTZ"
   },
@@ -8570,6 +8582,10 @@
   {
     "Company": "CompoSecure, Inc. Class A Common Stock",
     "Symbol": "CMPO"
+  },
+  {
+    "Company": "CompoSecure, Inc. Class A Common Stock Ex-distribution When-Issued",
+    "Symbol": "CMPOV"
   },
   {
     "Company": "CompoSecure, Inc. Warrant",
@@ -14352,6 +14368,10 @@
     "Symbol": "EZPW"
   },
   {
+    "Company": "Franklin Crypto Index ETF",
+    "Symbol": "EZPZ"
+  },
+  {
     "Company": "iShare MSCI Eurozone ETF of ISHARES INC.",
     "Symbol": "EZU"
   },
@@ -17148,6 +17168,10 @@
     "Symbol": "GBTG"
   },
   {
+    "Company": "Sprott Active Gold & Silver Miners ETF",
+    "Symbol": "GBUG"
+  },
+  {
     "Company": "Goldman Sachs Future Consumer Equity ETF",
     "Symbol": "GBUY"
   },
@@ -19698,6 +19722,10 @@
   {
     "Company": "Hartford Municipal Opportunities ETF",
     "Symbol": "HMOP"
+  },
+  {
+    "Company": "Heidmar Maritime Holdings Corp. Common Stock",
+    "Symbol": "HMR"
   },
   {
     "Company": "HomeStreet, Inc.",
@@ -32964,6 +32992,10 @@
     "Symbol": "PIO"
   },
   {
+    "Company": "Invesco SteelPath MLP & Energy Infrastructure ETF",
+    "Symbol": "PIPE"
+  },
+  {
     "Company": "Piper Sandler Companies",
     "Symbol": "PIPR"
   },
@@ -35806,6 +35838,10 @@
   {
     "Company": "Robert Half Inc.",
     "Symbol": "RHI"
+  },
+  {
+    "Company": "Resolute Holdings Management Common Stock Ex-distribution When-Issued",
+    "Symbol": "RHLDV"
   },
   {
     "Company": "Ryman Hospitality Properties, Inc",

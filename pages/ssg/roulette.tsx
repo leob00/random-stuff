@@ -9,25 +9,7 @@ import { GetStaticProps, NextPage } from 'next'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const resp = await getItem('wheelspin-community')
-  const emptyResult: WheelSpinStats = {
-    black: 0,
-    doubleZero: 0,
-    even: 0,
-    odd: 0,
-    red: 0,
-    total: 0,
-    zero: 0,
-  }
-  if (resp.data.length === 0) {
-    await putItem({
-      key: 'wheelspin-community',
-      category: 'random',
-      data: emptyResult,
-      count: 0,
-      expiration: 0,
-      last_modified: getUtcNow().format(),
-    })
-  }
+
   const result: WheelSpinStats =
     resp.data.length > 0
       ? (JSON.parse(resp.data) as WheelSpinStats)

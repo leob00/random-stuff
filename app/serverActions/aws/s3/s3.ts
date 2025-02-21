@@ -11,11 +11,11 @@ import {
   CopyObjectCommand,
   CopyObjectCommandInput,
 } from '@aws-sdk/client-s3'
-import { getAwsCredentials } from 'app/api/aws/awsHelper'
 import { Bucket, S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
+import { awsCreds } from 'app/api/aws/awsHelper'
 
-const s3Client = new S3Client({ region: 'us-east-1', credentials: getAwsCredentials() })
+const s3Client = new S3Client({ region: 'us-east-1', credentials: awsCreds })
 export async function putItem(bucket: Bucket, prefix: string, filename: string, mimeType: string, fileSize: number, body: any) {
   const params: PutObjectCommandInput = {
     Bucket: bucket,
