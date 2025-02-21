@@ -2172,7 +2172,7 @@
     "Symbol": "ANY"
   },
   {
-    "Company": "iShares Core Aggressive Allocation ETF",
+    "Company": "iShares Core 80/20 Aggressive Allocation ETF",
     "Symbol": "AOA"
   },
   {
@@ -2204,7 +2204,7 @@
     "Symbol": "AOK"
   },
   {
-    "Company": "iShares Core Moderate Allocation ETF",
+    "Company": "iShares Core 40/60 Moderate Allocation ETF",
     "Symbol": "AOM"
   },
   {
@@ -4820,7 +4820,7 @@
     "Symbol": "BIBL"
   },
   {
-    "Company": "BlackRock International Dividend ETF",
+    "Company": "iShares International Dividend Active ETF",
     "Symbol": "BIDD"
   },
   {
@@ -12140,19 +12140,19 @@
     "Symbol": "EALT"
   },
   {
-    "Company": "iShares ESG Aware Aggressive Allocation ETF",
+    "Company": "iShares ESG Aware 80/20 Aggressive Allocation ETF",
     "Symbol": "EAOA"
   },
   {
-    "Company": "iShares ESG Aware Conservative Allocation ETF",
+    "Company": "iShares ESG Aware 30/70 Conservative Allocation ETF",
     "Symbol": "EAOK"
   },
   {
-    "Company": "iShares ESG Aware Moderate Allocation ETF",
+    "Company": "iShares ESG Aware 40/60 Moderate Allocation ETF",
     "Symbol": "EAOM"
   },
   {
-    "Company": "iShares ESG Aware Growth Allocation ETF",
+    "Company": "iShares ESG Aware 60/40 Balanced Allocation ETF",
     "Symbol": "EAOR"
   },
   {
@@ -15564,7 +15564,7 @@
     "Symbol": "FLDDU"
   },
   {
-    "Company": "FTAC EMERALD ACQ WTS",
+    "Company": "Fold Holdings, Inc. Warrant",
     "Symbol": "FLDDW"
   },
   {
@@ -18752,7 +18752,7 @@
     "Symbol": "GSSC"
   },
   {
-    "Company": "Goldman Sachs Access Ultra Short Bond ETF",
+    "Company": "Goldman Sachs Ultra Short Bond ETF",
     "Symbol": "GSST"
   },
   {
@@ -41636,7 +41636,7 @@
     "Symbol": "TLTM"
   },
   {
-    "Company": "Amplify Bloomberg U.S. Treasury Target High Income ETF",
+    "Company": "Amplify Bloomberg U.S. Treasury 12% Premium Income ETF",
     "Symbol": "TLTP"
   },
   {
@@ -46192,11 +46192,11 @@
     "Symbol": "XJAN"
   },
   {
-    "Company": "iShares ESG Screened S&P Mid-Cap ETF",
+    "Company": "iShares ESG Select Screened S&P Mid-Cap ETF",
     "Symbol": "XJH"
   },
   {
-    "Company": "iShares ESG Screened S&P Small-Cap ETF",
+    "Company": "iShares ESG Select Screened S&P Small-Cap ETF",
     "Symbol": "XJR"
   },
   {
@@ -46564,7 +46564,7 @@
     "Symbol": "XVOL"
   },
   {
-    "Company": "iShares ESG Screened S&P 500 ETF",
+    "Company": "iShares ESG Select Screened S&P 500 ETF",
     "Symbol": "XVV"
   },
   {
