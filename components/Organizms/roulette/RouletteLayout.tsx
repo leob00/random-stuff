@@ -1,6 +1,5 @@
-import { Box, LinearProgress, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
-import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ImageSpinner from 'components/Atoms/Images/ImageSpinner'
 import RouletteBarChart from 'components/Organizms/roulette/RouletteBarChart'
@@ -11,11 +10,11 @@ import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
 import { getWheel, RouletteNumber, RouletteWheel } from 'lib/backend/roulette/wheel'
 import { getRandomInteger, isEven, isOdd } from 'lib/util/numberUtil'
 import { cloneDeep, filter, shuffle } from 'lodash'
-import React from 'react'
 import numeral from 'numeral'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import RoulettePlayerResultNumbers from './RoulettePlayerResultNumbers'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import { useEffect, useReducer, useRef } from 'react'
 
 interface Model {
   spinSpeed?: number
@@ -41,17 +40,19 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     isSpinning: false,
     simulationJustFinished: false,
   }
-  const [model, setModel] = React.useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
-  const timeOutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [model, setModel] = useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
+  const timeOutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const loadCommunityStats = async () => {
-    let cs = await getRecord<WheelSpinStats>('wheelspin-community')
-    if (cs) {
-      let m = {
+    let resp = await getRecord<WheelSpinStats>('wheelspin-community')
+    if (resp) {
+      const m = {
         ...model,
-        communityChart: cs,
+        communityChart: resp,
       }
       setModel(m)
+    } else {
+      setModel(defaultModel)
     }
   }
 
@@ -130,32 +131,32 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     return stats
   }
   const finishSpin = async (pickedNum: RouletteNumber, playerResults: RouletteNumber[]) => {
-    const spinStats = await getRecord<WheelSpinStats>('wheelspin-community')
+    const spinStatsResp = await getRecord<WheelSpinStats>('wheelspin-community')
 
     switch (pickedNum.color) {
       case 'black':
-        spinStats.black += 1
+        spinStatsResp.black += 1
         break
       case 'red':
-        spinStats.red += 1
+        spinStatsResp.red += 1
         break
       case 'zero':
-        spinStats.zero += 1
+        spinStatsResp.zero += 1
         break
       case 'doubleZero':
-        spinStats.doubleZero += 1
+        spinStatsResp.doubleZero += 1
         break
     }
     if (pickedNum.color !== 'zero' && pickedNum.color !== 'doubleZero') {
       if (isEven(parseInt(pickedNum.value))) {
-        spinStats.even += 1
+        spinStatsResp.even += 1
       }
       if (isOdd(parseInt(pickedNum.value))) {
-        spinStats.odd += 1
+        spinStatsResp.odd += 1
       }
     }
-    spinStats.total = spinStats.red + spinStats.black + spinStats.zero + spinStats.doubleZero
-    putRecord('wheelspin-community', 'random', spinStats)
+    spinStatsResp.total = spinStatsResp.red + spinStatsResp.black + spinStatsResp.zero + spinStatsResp.doubleZero
+    putRecord('wheelspin-community', 'random', spinStatsResp)
     setModel({
       ...model,
       spinSpeed: defaultSpinSpeed,
@@ -165,10 +166,9 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       result: pickedNum,
       playerResults: playerResults,
       playerChart: mapPlayerChart(playerResults),
-      communityChart: spinStats,
+      communityChart: spinStatsResp,
       simulationJustFinished: false,
     })
-    return spinStats
   }
 
   const handleSpin = async () => {
@@ -195,7 +195,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     spin()
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (timeOutRef.current) {
       clearInterval(timeOutRef.current)
     }
@@ -222,7 +222,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [model.simulationCounter, model.isSimulationRunning])
 
-  React.useEffect(() => {
+  useEffect(() => {
     const communityFn = async () => {
       await loadCommunityStats()
     }

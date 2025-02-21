@@ -1,6 +1,6 @@
 import React from 'react'
 import NImage from 'next/image'
-import { Box } from '@mui/material'
+import { Box, Paper } from '@mui/material'
 
 const RemoteImage = ({
   url,
@@ -13,8 +13,8 @@ const RemoteImage = ({
 }: {
   url: string
   title: string
-  width?: number
-  height?: number
+  width?: number | string
+  height?: number | string
   style?: React.CSSProperties
   onLoaded?: () => void
   priority?: boolean
@@ -26,9 +26,9 @@ const RemoteImage = ({
   }
   return (
     <>
-      <Box sx={{ position: 'relative', height: { height }, width: { width }, borderRadius: '16px' }}>
+      <Paper sx={{ position: 'relative', width: width, height: height, borderRadius: '16px' }} elevation={4}>
         <NImage
-          style={style ? style : { borderRadius: '16px' }}
+          style={style ? style : { borderRadius: '16px', objectFit: 'cover' }}
           src={url}
           alt={title}
           placeholder='blur'
@@ -37,9 +37,9 @@ const RemoteImage = ({
           blurDataURL={url}
           onLoad={handleLoaded}
           fill
-          //sizes='100'
+          sizes='100vw'
         />
-      </Box>
+      </Paper>
     </>
   )
 }

@@ -12,7 +12,7 @@ import { get } from 'lib/backend/api/fetchFunctions'
 import Seo from 'components/Organizms/Seo'
 import { BasicArticle } from 'lib/backend/api/aws/models/apiGatewayModels'
 
-const cmsRefreshIntervalSeconds = 3600
+const cmsRefreshIntervalSeconds = 360000
 
 const fetcherFn = async (url: string) => {
   let response = await get(url)

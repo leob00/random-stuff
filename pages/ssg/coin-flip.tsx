@@ -1,13 +1,14 @@
+import { getItem } from 'app/serverActions/aws/dynamo/dynamo'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import Seo from 'components/Organizms/Seo'
 import CoinFlipLayout from 'components/Organizms/games/CoinFlipLayout'
-import { getRandomStuff } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { CoinFlipStats } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { GetStaticProps, NextPage } from 'next'
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const result = (await getRandomStuff('coinflip-community')) as CoinFlipStats
+  const resp = await getItem('coinflip-community')
+  const result = JSON.parse(resp.data) as CoinFlipStats
 
   return {
     props: {

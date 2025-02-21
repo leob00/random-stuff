@@ -5,7 +5,7 @@ export type RandomStuffDynamoItem = {
   count?: number
   key: string
   category?: string
-  data: string
+  data: any
   last_modified?: string
   expiration?: number
 }
@@ -19,6 +19,10 @@ export type RandomStuffItemRequest = {
 }
 
 export async function getItem(key: string) {
+  const emptyResult: RandomStuffDynamoItem = {
+    key: key,
+    data: '',
+  }
   const params = {
     Key: {
       key: {
@@ -31,23 +35,25 @@ export async function getItem(key: string) {
     credentials: getAwsCredentials(),
   })
   const command = new GetItemCommand(params)
-  const response = await db.send(command)
-  if (response.Item) {
-    const item = response.Item
-    const result: RandomStuffDynamoItem = {
-      data: item['data'].S!,
-      category: item['category'].S,
-      count: Number(item['count'].N),
-      expiration: Number(item['expiration'].N),
-      key: item['key'].S!,
-      last_modified: item['last_modified'].S,
+  try {
+    const response = await db.send(command)
+    if (response.Item) {
+      const item = response.Item
+      const result: RandomStuffDynamoItem = {
+        data: item['data'].S!,
+        category: item['category'].S,
+        count: Number(item['count'].N),
+        expiration: Number(item['expiration'].N),
+        key: item['key'].S!,
+        last_modified: item['last_modified'].S,
+      }
+      return result
     }
-    return result
+  } catch (err) {
+    console.error(`unable to get dynamo item by key: ${key}`)
+    return emptyResult
   }
-  const emptyResult: RandomStuffDynamoItem = {
-    key: key,
-    data: '',
-  }
+
   return emptyResult
 }
 

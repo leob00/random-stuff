@@ -19,7 +19,7 @@ import {
   WheelSpinStats,
 } from '../models/apiGatewayModels'
 import { constructStockAlertsSubSecondaryKey } from '../util'
-import { searchItems } from 'app/serverActions/aws/dynamo/dynamo'
+import { getItem, putItem, searchItems } from 'app/serverActions/aws/dynamo/dynamo'
 
 const connection = apiConnection().aws
 const apiGatewayUrl = connection.url
@@ -54,75 +54,6 @@ export async function getAnimals(type: DynamoKeys) {
   } catch (err) {
     console.error(`error in getAnimals: ${type} `, JSON.stringify(response))
     return []
-  }
-}
-
-export async function getRandomStuff(key: DynamoKeys | string) {
-  const url = `${apiGatewayUrl}/randomstuff?key=${key}`
-  let result: LambdaResponse | null = null
-  try {
-    result = (await get(url)) as LambdaResponse
-    if (result.body && result.body.data) {
-      let data = JSON.parse(result.body.data)
-      return data
-    }
-  } catch (err) {
-    console.error('error in getRandomStuff: ', err)
-  }
-
-  return null
-}
-
-export async function putRandomStuff(type: DynamoKeys, category: CategoryType, data: any, expiration?: number) {
-  const url = `${apiGatewayUrl}/randomstuff`
-  const model: RandomStuffPut = {
-    key: type,
-    data: data,
-    category: category,
-    expiration: expiration ?? 0,
-  }
-  const postData = {
-    body: model,
-  }
-  try {
-    await post(url, postData)
-  } catch (error) {
-    console.error('error in putRandomStuff')
-  }
-}
-export async function putRandomStuffEnc(req: SignedRequest) {
-  const decryptedString = weakDecrypt(req.data)
-  const dynamoRequest = JSON.parse(decryptedString) as LambdaDynamoRequest
-  if (!dynamoRequest) {
-    console.error('putRandomStuffEnc: signed request validation failed')
-    return null
-  }
-  const id = weakDecrypt(dynamoRequest.token!)
-  if (dynamoRequest.id !== id) {
-    console.error('token validation failed')
-    return null
-  }
-
-  const url = `${apiGatewayUrl}/randomstuff`
-
-  const model: RandomStuffPut = {
-    key: dynamoRequest.id,
-    data: dynamoRequest.data,
-    category: dynamoRequest.category,
-    expiration: dynamoRequest.expiration ?? 0,
-  }
-  const postData = {
-    body: model,
-  }
-  try {
-    const result = await post(url, postData)
-    if (result.errorMessage) {
-      console.error(result)
-    }
-    return dynamoRequest
-  } catch (error) {
-    console.error(`error in putRandomStuffEnc: ${error}`)
-    return null
   }
 }
 
@@ -184,58 +115,10 @@ export async function putRandomStuffBatchEnc(req: SignedRequest) {
   }
 }
 
-export async function getWheelSpinStats() {
-  let item: WheelSpinStats = {
-    total: 0,
-    red: 0,
-    black: 0,
-    zero: 0,
-    doubleZero: 0,
-    odd: 0,
-    even: 0,
-  }
-  try {
-    let result = (await getRandomStuff('wheelspin-community')) as WheelSpinStats
-    return result
-  } catch (err) {}
-  return item
-}
-
 export async function sendEmail(message: EmailMessage) {
   const url = `${apiGatewayUrl}/sendemail`
   const response = (await post(url, message)) as LambdaResponse
   return response.body
-}
-
-export async function putWheelSpinStats(data: WheelSpinStats) {
-  await putRandomStuff('wheelspin-community', 'random', data)
-}
-
-export async function putS3(bucket: Bucket, prefix: string, filename: string, mimeType: string, fileSize: number, body: any) {
-  const url = `${apiGatewayUrl}/s3Direct/${bucket}/${prefix}/${filename}`
-  try {
-    const response = await fetch(url, {
-      method: 'PUT',
-      body: body,
-      headers: { 'x-api-key': connection.key, 'Content-Type': mimeType },
-    })
-    const result: S3Object = {
-      bucket: bucket,
-      prefix: `${prefix}`,
-      filename: filename,
-      fullPath: `${prefix}/${filename}`,
-      size: fileSize,
-      mimeType: mimeType,
-    }
-    if (response.status === 413) {
-      result.message = 'File is too large'
-    }
-
-    return result
-  } catch (error) {
-    console.error('error in putS3: ', error)
-    return null
-  }
 }
 
 export async function getSesAttributes(username: string) {

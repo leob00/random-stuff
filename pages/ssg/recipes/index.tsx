@@ -9,14 +9,14 @@ import RecipesLayout from 'components/Organizms/recipes/RecipesLayout'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import { SiteStats } from 'lib/backend/api/aws/models/apiGatewayModels'
 import dayjs from 'dayjs'
-import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Seo from 'components/Organizms/Seo'
-import { getRandomStuff, putRandomStuff } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { DropdownItem } from 'lib/models/dropdown'
 import { sortArray } from 'lib/util/collections'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
+import { getItem, putItem } from 'app/serverActions/aws/dynamo/dynamo'
+import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
 dayjs.extend(relativeTime)
 
 const cmsRefreshIntervalSeconds = 86400
@@ -64,12 +64,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
     return { value: item.sys.id, text: item.title }
   })
   options = sortArray(options, ['text'], ['asc'])
-  const stats = (await getRandomStuff(siteStatsKey)) as SiteStats
+  const statsRep = await getItem(siteStatsKey)
+  const stats = JSON.parse(statsRep.data) as SiteStats
   const needsRefresh = dayjs(stats.recipes.lastRefreshDate).add(featuredRecipesExpirationMinutes, 'minute').isBefore(dayjs())
   if (needsRefresh) {
     stats.recipes.featured = newData
     stats.recipes.lastRefreshDate = dayjs().format()
-    await putRandomStuff(siteStatsKey, siteStatsKey, stats)
+    await putItem({
+      key: siteStatsKey,
+      category: siteStatsKey,
+      data: JSON.stringify(stats),
+    })
   }
   const featured = needsRefresh ? newData : stats.recipes.featured
 

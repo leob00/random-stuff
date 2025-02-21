@@ -1,10 +1,10 @@
-import { getRandomStuff, updateSubscriptions } from 'lib/backend/api/aws/apiGateway/apiGateway'
+import { updateSubscriptions } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { UserProfile, DynamoKeys, EmailMessage } from '../api/aws/models/apiGatewayModels'
 import { constructStockAlertsSubSecondaryKey } from '../api/aws/util'
 import { StockAlertSubscription, StockAlertSubscriptionWithMessage } from '../api/models/zModels'
 import { getStockQuotes, getStockQuotesServer } from '../api/qln/qlnApi'
 import { processAlertTriggers } from './stockAlertProcessor'
-import { searchItems } from 'app/serverActions/aws/dynamo/dynamo'
+import { getItem, searchItems } from 'app/serverActions/aws/dynamo/dynamo'
 
 export async function buildStockAlertsForAllUsers(userServer: boolean) {
   const profileResponse = await searchItems('userProfile')
@@ -28,7 +28,8 @@ export async function buildStockAlertsForAllUsers(userServer: boolean) {
   }
   const quotes = userServer ? await getStockQuotesServer(Array.from(symbols.values())) : await getStockQuotes(Array.from(symbols.values()))
   const templateKey: DynamoKeys = 'email-template[stock-alert]'
-  const template = (await getRandomStuff(templateKey)) as string
+  const templateResp = await getItem(templateKey)
+  const template = templateResp.data as string
 
   const emailMessages: EmailMessage[] = []
 
