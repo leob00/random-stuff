@@ -30,10 +30,10 @@ const CsvPreview = ({ url }: { url: string }) => {
     const lines = text.split('\n')
 
     if (lines.length > 0) {
-      result.columns = lines[0].split('",').map((m) => m.replaceAll('"', ''))
+      result.columns = lines[0].split(',').map((m) => m.replaceAll('"', ''))
       lines.forEach((line, index) => {
         if (index > 0) {
-          const values = line.split('",').map((m) => m.replaceAll('"', ''))
+          const values = line.split(',').map((m) => m.replaceAll('"', ''))
           const parsed: string[] = []
           const row: Row = {
             index: index,

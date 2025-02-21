@@ -20,6 +20,7 @@ import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import { DropdownItem } from 'lib/models/dropdown'
 import { useState } from 'react'
 import { UserGoal } from './goalModels'
+import { sortArray } from 'lib/util/collections'
 
 const UserGoalsDisplay = ({ goalsAndTasks, username, onRefresh }: { goalsAndTasks: UserGoalAndTask[]; username: string; onRefresh: () => void }) => {
   const [summaryChart, setSummaryChart] = useState<BarChart | undefined>(undefined)
@@ -28,7 +29,7 @@ const UserGoalsDisplay = ({ goalsAndTasks, username, onRefresh }: { goalsAndTask
   const allGoals = goalsAndTasks.flatMap((m) => m.goal)
   const goalsKey = constructUserGoalsKey(username)
 
-  const goalsAutoComplete: DropdownItem[] = allGoals.map((m) => {
+  const goalsAutoComplete: DropdownItem[] = sortArray(allGoals, ['body'], ['asc']).map((m) => {
     return {
       text: m.body ?? '',
       value: m.id ?? '',

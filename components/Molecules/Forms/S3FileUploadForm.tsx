@@ -26,17 +26,24 @@ export const VisuallyHiddenInput = styled('input')({
   width: 1,
 })
 
-const S3FileUploadForm = ({ folder, files, onUploaded, isWaiting }: { folder: string; files: S3Object[]; onUploaded: (item: S3Object) => void; isWaiting?: boolean }) => {
+const S3FileUploadForm = ({
+  folder,
+  files,
+  onUploaded,
+  isWaiting,
+}: {
+  folder: string
+  files: S3Object[]
+  onUploaded: (item: S3Object) => void
+  isWaiting?: boolean
+}) => {
   const [file, setFile] = useState<File | undefined>(undefined)
   const [userFilename, setUserFilename] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [warning, setWarning] = useState<string | null>(null)
   const [progressText, setProgressText] = useState<string | null>(null)
 
   const maxFileSize = 10000000
-
-  console.log('folder: ', folder)
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -48,7 +55,6 @@ const S3FileUploadForm = ({ folder, files, onUploaded, isWaiting }: { folder: st
         setError(`file cannot exceed ${maxFileSize / 1000000} MB`)
         return
       }
-      setIsLoading(true)
 
       const data = new FormData()
       data.append('file', file)
@@ -71,21 +77,6 @@ const S3FileUploadForm = ({ folder, files, onUploaded, isWaiting }: { folder: st
         await sleep(500)
         setProgressText(null)
 
-        // const oldPath = respData.fullPath
-        // const newPath = `${folder}${respData.fullPath.substring(respData.fullPath.lastIndexOf('/'))}`
-        // const renameResp = await renameS3File(respData.bucket, oldPath, newPath)
-        // if (renameResp.errorMessage) {
-        //   setError('Upload failed. Please try again')
-        //   setProgressText(null)
-        //   return
-        // }
-        // if (renameResp.statusCode === 200) {
-        //   const result = { ...respData, fullPath: newPath, prefix: newPath.substring(0, newPath.lastIndexOf('/') + 1) }
-        //   onUploaded(result)
-        //   await sleep(500)
-        //   setProgressText(null)
-        // }
-
         setUserFilename('')
         setFile(undefined)
       } catch (err) {
@@ -93,8 +84,6 @@ const S3FileUploadForm = ({ folder, files, onUploaded, isWaiting }: { folder: st
         setError('Oops! Encountered an error. Please try again')
         setFile(undefined)
         setProgressText(null)
-      } finally {
-        setIsLoading(false)
       }
     } else {
       setError('Please select a file!')

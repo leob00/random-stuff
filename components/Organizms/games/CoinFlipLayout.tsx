@@ -265,7 +265,7 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
                 </Box>
                 <CenterStack sx={{ minHeight: 36 }}>
                   <Box pt={2}>
-                    <Typography variant='h3'>{`${model.flippedCoin.face}!`}</Typography>
+                    <Typography variant='h3'>{`${model.flippedCoin.face}`}</Typography>
                   </Box>
                 </CenterStack>
               </Box>

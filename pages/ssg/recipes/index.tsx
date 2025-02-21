@@ -17,6 +17,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { getItem, putItem } from 'app/serverActions/aws/dynamo/dynamo'
 import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
+import { getUtcNow } from 'lib/util/dateUtil'
 dayjs.extend(relativeTime)
 
 const cmsRefreshIntervalSeconds = 86400
@@ -73,7 +74,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
     await putItem({
       key: siteStatsKey,
       category: siteStatsKey,
-      data: JSON.stringify(stats),
+      data: stats,
+      count: 1,
+      expiration: 0,
+      last_modified: getUtcNow().format(),
     })
   }
   const featured = needsRefresh ? newData : stats.recipes.featured

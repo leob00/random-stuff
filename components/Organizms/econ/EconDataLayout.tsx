@@ -17,6 +17,7 @@ import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import DraggableList from './economic-indicators/DraggableList'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import { getMapFromArray } from 'lib/util/collectionsNative'
+import { sortArray } from 'lib/util/collections'
 dayjs.extend(weekday)
 
 export interface EconDataModel {
@@ -42,6 +43,7 @@ const EconDataLayout = () => {
       ei.set(item.InternalId, item)
     })
     saveEconomicIndicators(Array.from(ei.values()))
+    dbResult.Body.Items = sortArray(dbResult.Body.Items, ['LastObservationDate'], ['desc'])
     return dbResult
   }
 

@@ -11,7 +11,7 @@ const StaticImage = ({
   style,
   priority,
 }: {
-  image: StaticImageData
+  image: StaticImageData | string
   title: string
   width?: number
   height?: number
