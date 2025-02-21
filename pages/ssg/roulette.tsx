@@ -4,7 +4,6 @@ import PageHeader from 'components/Atoms/Containers/PageHeader'
 import RouletteLayout from 'components/Organizms/roulette/RouletteLayout'
 import Seo from 'components/Organizms/Seo'
 import { WheelSpinStats } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { getUtcNow } from 'lib/util/dateUtil'
 import { GetStaticProps, NextPage } from 'next'
 
 export const getStaticProps: GetStaticProps = async (context) => {

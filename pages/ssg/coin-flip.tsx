@@ -8,7 +8,13 @@ import { GetStaticProps, NextPage } from 'next'
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const resp = await getItem('coinflip-community')
-  const result = JSON.parse(resp.data) as CoinFlipStats
+  const result: CoinFlipStats =
+    resp.data.length > 0
+      ? (JSON.parse(resp.data) as CoinFlipStats)
+      : {
+          heads: 0,
+          tails: 0,
+        }
 
   return {
     props: {
