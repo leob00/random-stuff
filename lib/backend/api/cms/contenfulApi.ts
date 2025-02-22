@@ -1,3 +1,4 @@
+import { sleep } from 'lib/util/timers'
 import { BlogResponse, BlogTypes } from '../../../models/cms/contentful/blog'
 import { Recipe, RecipeCollection, RecipesResponse } from '../../../models/cms/contentful/recipe'
 import { apiConnection } from '../config'
@@ -67,10 +68,11 @@ export async function getAllRecipes(): Promise<RecipeCollection> {
 
 const getRecipes = async (query: string) => {
   let body = { query: query }
-  let resp = await post(url, body)
-  let data = resp as RecipesResponse
-  let collection = data.data.recipeCollection
+  const resp = await post(url, body)
 
+  const data = resp as RecipesResponse
+  const collection = data.data.recipeCollection
+  await sleep(250)
   return collection
 }
 

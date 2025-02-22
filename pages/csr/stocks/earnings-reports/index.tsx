@@ -13,22 +13,6 @@ import { useState } from 'react'
 
 const Page = () => {
   const [selectedReport, setSelectedReport] = useState('recent-earnings')
-
-  const reports: DropdownItem[] = [
-    {
-      text: 'weekly',
-      value: 'recent-earnings',
-    },
-    {
-      text: 'quarterly',
-      value: 'quarterly',
-    },
-    {
-      text: 'annual',
-      value: 'annual',
-    },
-  ]
-
   const handleReportSelect = (val: string) => {
     setSelectedReport(val)
   }
@@ -54,5 +38,18 @@ const Page = () => {
     </>
   )
 }
-
+const reports: DropdownItem[] = [
+  {
+    text: 'weekly',
+    value: 'recent-earnings',
+  },
+  {
+    text: 'quarterly',
+    value: 'quarterly',
+  },
+  {
+    text: 'annual',
+    value: 'annual',
+  },
+]
 export default Page

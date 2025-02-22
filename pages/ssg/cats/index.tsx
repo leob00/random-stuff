@@ -21,10 +21,8 @@ const fetcherFn = async (url: string) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  if (!isBrowser()) {
-    await buildRandomAnimals('cats')
-  }
-  let data = await getAnimals('cats')
+  await buildRandomAnimals('cats')
+  const data = await getAnimals('cats')
   return {
     props: {
       articles: shuffle(data),
@@ -41,7 +39,7 @@ const Cached = ({ fallbackData }: { fallbackData: BasicArticle[] }) => {
     fallbackData: fallbackData,
     refreshInterval: cmsRefreshIntervalSeconds,
     revalidateOnFocus: false,
-    revalidateOnReconnect: true,
+    revalidateOnReconnect: false,
   })
   if (error) {
     return <ArticlesLayout articles={fallbackData} />

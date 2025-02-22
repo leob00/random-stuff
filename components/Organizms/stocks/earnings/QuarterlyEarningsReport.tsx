@@ -25,7 +25,7 @@ const QuarterlyEarningsReport = ({ data, mutateKey }: { data: StockEarningAggreg
     return `${m.Year} - Q${m.Quarter}`
   })
 
-  const chartOptions = getMultiDatasetBarChartOptions({ palette: theme.palette.mode, showLegend: true })
+  const chartOptions = { ...getMultiDatasetBarChartOptions({ palette: theme.palette.mode, showLegend: true }) }
   chartOptions.plugins!.tooltip!.callbacks = {
     title: (tooltipItems) => {
       return ''
@@ -169,7 +169,11 @@ const QuarterlyEarningsReport = ({ data, mutateKey }: { data: StockEarningAggreg
           <Button variant='text' disabled={!startDate} onClick={handlePreviousClick}>
             <KeyboardArrowLeft />
           </Button>
-          <Button variant='text' disabled={!endDate || (dayjs(endDate).year() == dayjs().year() && dayjs(endDate).quarter() === dayjs().quarter())} onClick={handleNextClick}>
+          <Button
+            variant='text'
+            disabled={!endDate || (dayjs(endDate).year() == dayjs().year() && dayjs(endDate).quarter() === dayjs().quarter())}
+            onClick={handleNextClick}
+          >
             <KeyboardArrowRight />
           </Button>
         </Box>

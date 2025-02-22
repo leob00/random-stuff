@@ -1,5 +1,4 @@
 import { Box } from '@mui/material'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { DateRangeFilter, StockEarningAggregate, serverGetFetch, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
@@ -21,7 +20,6 @@ const AnnualEarningsReportWrapper = () => {
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   return (
     <>
-      {isLoading && <BackdropLoader />}
       <Box py={2}>
         {!isLoading && data && data.length === 0 && <NoDataFound />}
         {data && data.length > 0 && <AnnualEarningsReport apiData={data} />}

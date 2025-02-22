@@ -20,10 +20,8 @@ const fetcherFn = async (url: string) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  if (!isBrowser()) {
-    await buildRandomAnimals('dogs')
-  }
-  let data = await getAnimals('dogs')
+  await buildRandomAnimals('dogs')
+  const data = await getAnimals('dogs')
 
   return {
     props: {
@@ -42,7 +40,7 @@ const Cached = ({ fallbackData }: { fallbackData: BasicArticle[] }) => {
     fallbackData: fallbackData,
     refreshInterval: cmsRefreshIntervalSeconds,
     revalidateOnFocus: false,
-    revalidateOnReconnect: true,
+    revalidateOnReconnect: false,
   })
   if (error) {
     console.error('error occured', error)

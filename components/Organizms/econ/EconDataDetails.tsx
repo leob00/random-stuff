@@ -58,7 +58,7 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
   const defaultModel: Model = {
     startYearOptions: startYearOptions,
     endYearOptions: endYearOptions,
-    selectedStartYear: item.criteria!.startYear,
+    selectedStartYear: item.criteria!.startYear < startYear ? startYear : item.criteria?.startYear!,
     selectedEndYear: item.criteria!.endYear,
     error: null,
     isLoading: false,

@@ -5,6 +5,7 @@ import RemoteImage from 'components/Atoms/RemoteImage'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import NLink from 'next/link'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import RecipeImage from './RecipeImage'
 
 const RecipeTeaser = ({
   item,
@@ -50,13 +51,11 @@ const RecipeTeaser = ({
           )}
           {item.heroImage && showImage && (
             <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>
-              {/* <Card elevation={4} sx={{ borderRadius: '16px' }}> */}
               <NLink href={`${baseUrl}${item.sys.id}`} passHref legacyBehavior as={`${baseUrl}${item.sys.id}`}>
                 <Link href={`${baseUrl}${item.sys.id}`}>
-                  <RemoteImage url={item.heroImage.url} title={item.title} width={450} height={500} />
+                  <RecipeImage recipe={item} width={380} height={430} />
                 </Link>
               </NLink>
-              {/* </Card> */}
             </Stack>
           )}
         </CardContent>
