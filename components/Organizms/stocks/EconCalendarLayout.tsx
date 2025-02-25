@@ -7,8 +7,8 @@ import { get } from 'lib/backend/api/fetchFunctions'
 import { EconCalendarItem, QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
 import React from 'react'
 import useSWR, { Fetcher } from 'swr'
-import weekday from 'dayjs/plugin/weekday'
 import EconCalendarDisplay from './EconCalendarDisplay'
+import weekday from 'dayjs/plugin/weekday'
 dayjs.extend(weekday)
 
 interface Model {

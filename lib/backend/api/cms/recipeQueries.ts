@@ -18,6 +18,11 @@ export const recipeQuery = (id: string) => {
         height
         width
       }
+      recipeTagsCollection {
+        items {
+          name
+        }
+      }   
   }
 }`
   return result
@@ -40,7 +45,11 @@ export const getAllRecipesQuery = (skip: number) => {
         height
         width
       }
-
+      recipeTagsCollection {
+        items {
+          name
+        }
+      }       
     }
   }
 }`

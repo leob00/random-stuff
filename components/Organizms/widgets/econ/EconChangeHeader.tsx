@@ -10,8 +10,8 @@ const EconChangeHeader = ({ last, reverseColor = false }: { last: StockHistoryIt
     <Stack direction={'row'} spacing={1} sx={{ minWidth: '25%' }} alignItems={'center'}>
       <Stack direction={'row'} spacing={2} pl={2} sx={{ backgroundColor: 'unset' }} pt={1}>
         <Typography variant='h6' color={color}>{`${numeral(last.Price).format('###,###,0.00')}`}</Typography>
-        <Typography variant='h6' color={color}>{`${last.Change}`}</Typography>
-        <Typography variant='h6' color={color}>{`${last.ChangePercent}%`}</Typography>
+        <Typography variant='h6' color={color}>{`${numeral(last.Change).format('###,###,0.00')}`}</Typography>
+        <Typography variant='h6' color={color}>{`${numeral(last.ChangePercent).format('###,###,0.00')}%`}</Typography>
       </Stack>
     </Stack>
   )

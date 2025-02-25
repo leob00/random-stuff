@@ -11,6 +11,9 @@ export interface HeroImage {
   height: number
   width: number
 }
+export interface RecipeTag {
+  name: string
+}
 
 export interface Recipe {
   sys: System
@@ -19,6 +22,7 @@ export interface Recipe {
   richBody: RichText
   heroImage: HeroImage
   summaryNotes?: string
+  recipeTags?: RecipeTag[]
 }
 export interface RichText {
   json: Document

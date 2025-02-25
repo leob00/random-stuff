@@ -12,7 +12,19 @@ import EconChangeHeader from './EconChangeHeader'
 import { mapEconChartToStockHistory } from './EconChart'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
-const EconIndexChart = ({ symbol, data, width = 300, days }: { symbol: string; data: EconomicDataItem; width?: number; days?: number }) => {
+const EconIndexChart = ({
+  symbol,
+  data,
+  width = 300,
+  days,
+  showDateSummary = true,
+}: {
+  symbol: string
+  data: EconomicDataItem
+  width?: number
+  days?: number
+  showDateSummary?: boolean
+}) => {
   const theme = useTheme()
 
   const xValues = data.Chart?.XValues ?? []
@@ -29,16 +41,23 @@ const EconIndexChart = ({ symbol, data, width = 300, days }: { symbol: string; d
     <Box>
       <EconChangeHeader last={last} />
       <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' width={width} />
-      <Box px={2}>
-        <Box display='flex' gap={1}>
-          <Typography variant='caption'>start date:</Typography>
-          <Typography variant='caption'>{x[0]}</Typography>
-        </Box>
-        <Box display='flex' gap={1}>
-          <Typography variant='caption'>end date:</Typography>
-          <Typography variant='caption'>{x[x.length - 1]}</Typography>
-        </Box>
-      </Box>
+      {showDateSummary && (
+        <>
+          (
+          <Box px={2}>
+            <Box display='flex' gap={1}>
+              <Typography variant='caption'>start date:</Typography>
+              <Typography variant='caption'>{x[0]}</Typography>
+            </Box>
+
+            <Box display='flex' gap={1}>
+              <Typography variant='caption'>end date:</Typography>
+              <Typography variant='caption'>{x[x.length - 1]}</Typography>
+            </Box>
+          </Box>
+          )
+        </>
+      )}
     </Box>
   )
 }

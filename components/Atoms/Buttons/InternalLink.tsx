@@ -1,31 +1,25 @@
-import React from 'react'
 import NLink from 'next/link'
 import Link from '@mui/material/Link'
 import { Typography } from '@mui/material'
-import RollingLinearProgress from '../Loaders/RollingLinearProgress'
+import { useState } from 'react'
+import FadeIn from '../Animations/FadeIn'
 
 const InternalLink = ({ route, text, large = false }: { route: string; text: string; large?: boolean }) => {
-  const [isLoading, setIsLoading] = React.useState(false)
   return (
     <>
-      {isLoading ? (
-        <RollingLinearProgress width={48} height={48} />
-      ) : (
+      <FadeIn>
         <NLink href={route} passHref legacyBehavior>
           <Link
             //color='info'
             sx={{ textDecoration: 'none' }}
             p={1}
-            onClick={() => {
-              setIsLoading(true)
-            }}
           >
-            <Typography textAlign={'center'} variant={`${large ? 'h4' : 'h5'}`}>
+            <Typography textAlign={'center'} variant={`${large ? 'h3' : 'h5'}`}>
               {text}
             </Typography>
           </Link>
         </NLink>
-      )}
+      </FadeIn>
     </>
   )
 }

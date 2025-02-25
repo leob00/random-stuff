@@ -23,7 +23,7 @@ dayjs.extend(relativeTime)
 const cmsRefreshIntervalSeconds = 86400
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
 const featuredRecipesExpirationMinutes = 1440
-
+const featuredLength = 10
 const siteStatsKey = 'site-stats'
 
 interface RecipesLayoutModel {
@@ -36,7 +36,7 @@ const fetcherFn = async (url: string) => {
   const result = resp.data as RecipeCollection
   const allItems = result.items
 
-  let newData = take(shuffle(allItems), 5)
+  let newData = take(shuffle(allItems), featuredLength)
   const stats = await getRecord<SiteStats>(siteStatsKey)
   const expirationDate = dayjs(stats.recipes.lastRefreshDate).add(featuredRecipesExpirationMinutes, 'minute')
   const needsRefresh = expirationDate.isBefore(dayjs())
@@ -60,7 +60,7 @@ const fetcherFn = async (url: string) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const result = await getAllRecipes()
-  const newData = take(shuffle(result.items), 5)
+  const newData = take(shuffle(result.items), featuredLength)
   let options: DropdownItem[] = result.items.map((item) => {
     return { value: item.sys.id, text: item.title }
   })

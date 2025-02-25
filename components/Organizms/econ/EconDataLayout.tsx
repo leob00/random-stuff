@@ -4,7 +4,6 @@ import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import dayjs from 'dayjs'
 import { apiConnection } from 'lib/backend/api/config'
 import { get } from 'lib/backend/api/fetchFunctions'
-import weekday from 'dayjs/plugin/weekday'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
@@ -18,7 +17,6 @@ import DraggableList from './economic-indicators/DraggableList'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import { sortArray } from 'lib/util/collections'
-dayjs.extend(weekday)
 
 export interface EconDataModel {
   Body: {

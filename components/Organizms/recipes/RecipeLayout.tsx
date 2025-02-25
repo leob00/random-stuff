@@ -39,8 +39,11 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
         )}
       </Box>
       <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>
-        <RemoteImage url={article.heroImage.url} title={article.title} />
+        <FadeIn>
+          <RemoteImage url={article.heroImage.url} title={article.title} />
+        </FadeIn>
       </Stack>
+
       <Box px={2}>{documentToReactComponents(article.richBody.json)}</Box>
     </>
   )

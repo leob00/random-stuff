@@ -12,6 +12,7 @@ const StaticAutoComplete = ({
   fullWidth,
   onChanged,
   errorMessage,
+  freeSolo = false,
 }: {
   options: DropdownItem[]
   placeholder?: string
@@ -21,6 +22,7 @@ const StaticAutoComplete = ({
   fullWidth?: boolean
   onChanged?: (text: string) => void
   errorMessage?: string
+  freeSolo?: boolean
 }) => {
   const items: Option[] = options.map((m) => {
     return {
@@ -38,15 +40,17 @@ const StaticAutoComplete = ({
     reason: AutocompleteChangeReason,
     details?: AutocompleteChangeDetails<Option> | undefined,
   ) => {
-    const selectedItem = { ...value }
-    const item: DropdownItem = {
-      value: selectedItem.id!,
-      text: selectedItem.label!,
+    if (value) {
+      const selectedItem = { ...value }
+      const item: DropdownItem = {
+        value: selectedItem.id!,
+        text: selectedItem.label!,
+      }
+      if (inputRef.current) {
+        inputRef.current.blur()
+      }
+      onSelected(item)
     }
-    if (inputRef.current) {
-      inputRef.current.blur()
-    }
-    onSelected(item)
   }
 
   const handleTextChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -55,6 +59,7 @@ const StaticAutoComplete = ({
 
   return (
     <Autocomplete
+      //freeSolo={freeSolo}
       value={selectedOption}
       size='small'
       onChange={handleSelect}

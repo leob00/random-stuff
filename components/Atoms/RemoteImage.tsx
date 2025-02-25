@@ -1,6 +1,7 @@
 import React from 'react'
 import NImage from 'next/image'
 import { Box, Paper } from '@mui/material'
+import FadeIn from './Animations/FadeIn'
 
 const RemoteImage = ({
   url,

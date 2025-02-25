@@ -19,48 +19,42 @@ const RecipeTeaser = ({
   showImage?: boolean
 }) => {
   const baseUrl = '/ssg/recipes/'
-  const showCardContent = showSummary && showImage
 
   return (
-    <Card elevation={0}>
-      <CardHeader
-        title={
-          <CenterStack>
-            {clickable ? (
-              <FadeIn>
-                <InternalLink text={item.title} route={`${baseUrl}${item.sys.id}`} large />
-              </FadeIn>
-            ) : (
-              <FadeIn>
-                <Typography textAlign={'center'} variant={'h4'}>
-                  {item.title}
-                </Typography>
-              </FadeIn>
-            )}
-          </CenterStack>
-        }
-      />
-      {showCardContent && (
-        <CardContent>
-          {showSummary && item.summary && item.summary.length > 0 && (
-            <Box pb={8}>
-              <FadeIn>
-                <Typography textAlign={'center'}>{item.summary}</Typography>
-              </FadeIn>
-            </Box>
-          )}
-          {item.heroImage && showImage && (
-            <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>
-              <NLink href={`${baseUrl}${item.sys.id}`} passHref legacyBehavior as={`${baseUrl}${item.sys.id}`}>
-                <Link href={`${baseUrl}${item.sys.id}`}>
-                  <RecipeImage recipe={item} width={380} height={430} />
-                </Link>
-              </NLink>
-            </Stack>
-          )}
-        </CardContent>
-      )}
-    </Card>
+    <Box>
+      <CenterStack>
+        {clickable ? (
+          <FadeIn>
+            <InternalLink text={item.title} route={`${baseUrl}${item.sys.id}`} large />
+          </FadeIn>
+        ) : (
+          <FadeIn>
+            <Typography textAlign={'center'} variant={'h4'}>
+              {item.title}
+            </Typography>
+          </FadeIn>
+        )}
+      </CenterStack>
+      <Box>
+        {/* <CardContent> */}
+        {showSummary && item.summary && item.summary.length > 0 && (
+          <Box pb={8}>
+            <FadeIn>
+              <Typography textAlign={'center'}>{item.summary}</Typography>
+            </FadeIn>
+          </Box>
+        )}
+        {item.heroImage && showImage && (
+          <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>
+            <NLink href={`${baseUrl}${item.sys.id}`} passHref legacyBehavior as={`${baseUrl}${item.sys.id}`}>
+              <Link href={`${baseUrl}${item.sys.id}`}>
+                <RecipeImage recipe={item} width={380} height={430} />
+              </Link>
+            </NLink>
+          </Stack>
+        )}
+      </Box>
+    </Box>
   )
 }
 

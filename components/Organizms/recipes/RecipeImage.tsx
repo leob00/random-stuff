@@ -1,4 +1,5 @@
 import { Stack } from '@mui/material'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 import RemoteImage from 'components/Atoms/RemoteImage'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 

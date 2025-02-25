@@ -2396,7 +2396,7 @@
     "Symbol": "APRJ"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 12 ETF - April",
+    "Company": "PGIM S&P 500 Buffer 12 ETF - April",
     "Symbol": "APRP"
   },
   {
@@ -3272,7 +3272,7 @@
     "Symbol": "AUGM"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 12 ETF - August",
+    "Company": "PGIM S&P 500 Buffer 12 ETF - August",
     "Symbol": "AUGP"
   },
   {
@@ -5520,11 +5520,11 @@
     "Symbol": "BNJ"
   },
   {
-    "Company": "MicroSectorsTM U.S. Big Banks Index -3X Inverse Leveraged ETNs",
+    "Company": "MicroSectors U.S. Big Banks -3x Inverse Leveraged ETNs due February 17, 2045",
     "Symbol": "BNKD"
   },
   {
-    "Company": "MicroSectorsTM U.S. Big Banks Index 3X Leveraged ETNs",
+    "Company": "MicroSectors U.S. Big Banks 3x Leveraged ETNs due February 17, 2045",
     "Symbol": "BNKU"
   },
   {
@@ -6416,7 +6416,7 @@
     "Symbol": "BUFM"
   },
   {
-    "Company": "PGIM Laddered Fund of Buffer 12 ETF",
+    "Company": "PGIM Laddered S&P 500 Buffer 12 ETF",
     "Symbol": "BUFP"
   },
   {
@@ -10592,7 +10592,7 @@
     "Symbol": "DECO"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 12 ETF - December",
+    "Company": "PGIM S&P 500 Buffer 12 ETF - December",
     "Symbol": "DECP"
   },
   {
@@ -14924,11 +14924,15 @@
     "Symbol": "FEAT"
   },
   {
+    "Company": "FT Vest U.S. Equity Max Buffer ETF - February",
+    "Symbol": "FEBM"
+  },
+  {
     "Company": "Fenbo Holdings Limited Ordinary Shares",
     "Symbol": "FEBO"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 12 ETF - February",
+    "Company": "PGIM S&P 500 Buffer 12 ETF - February",
     "Symbol": "FEBP"
   },
   {
@@ -16002,6 +16006,10 @@
   {
     "Company": "Fidelity National Financial, Inc.",
     "Symbol": "FNF"
+  },
+  {
+    "Company": "MicroSectors FANG+ 3x Leveraged ETNs due February 17, 2045",
+    "Symbol": "FNGB"
   },
   {
     "Company": "MicroSectors FANG+ Index -3X Inverse Leveraged ETNs due January 8, 2038",
@@ -18864,6 +18872,10 @@
     "Symbol": "GTO"
   },
   {
+    "Company": "Invesco Short Duration Total Return Bond ETF",
+    "Symbol": "GTOS"
+  },
+  {
     "Company": "WisdomTree Target Range Fund",
     "Symbol": "GTR"
   },
@@ -20114,6 +20126,10 @@
   {
     "Company": "Hartford Schroders Tax-Aware Bond ETF",
     "Symbol": "HTAB"
+  },
+  {
+    "Company": "HomeTrust Bancshares, Inc.",
+    "Symbol": "HTB"
   },
   {
     "Company": "HomeTrust Bancshares, Inc. Common Stock",
@@ -22328,6 +22344,10 @@
     "Symbol": "IRMD"
   },
   {
+    "Company": "Invesco Rochester High Yield Municipal ETF",
+    "Symbol": "IROC"
+  },
+  {
     "Company": "Iron Horse Acquisitions Corp. Common Stock",
     "Symbol": "IROH"
   },
@@ -23044,7 +23064,7 @@
     "Symbol": "JANM"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 12 ETF - January",
+    "Company": "PGIM S&P 500 Buffer 12 ETF - January",
     "Symbol": "JANP"
   },
   {
@@ -23684,7 +23704,7 @@
     "Symbol": "JULM"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 12 ETF - July",
+    "Company": "PGIM S&P 500 Buffer 12 ETF - July",
     "Symbol": "JULP"
   },
   {
@@ -23716,7 +23736,7 @@
     "Symbol": "JUNM"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 12 ETF - June",
+    "Company": "PGIM S&P 500 Buffer 12 ETF - June",
     "Symbol": "JUNP"
   },
   {
@@ -26532,6 +26552,10 @@
     "Symbol": "MAV"
   },
   {
+    "Company": "Matrix Advisors Value ETF",
+    "Symbol": "MAVF"
+  },
+  {
     "Company": "MediaAlpha, Inc.",
     "Symbol": "MAX"
   },
@@ -26552,7 +26576,7 @@
     "Symbol": "MAYAU"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 12 ETF - May",
+    "Company": "PGIM S&P 500 Buffer 12 ETF - May",
     "Symbol": "MAYP"
   },
   {
@@ -28052,7 +28076,7 @@
     "Symbol": "MRCC"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 12 ETF - March",
+    "Company": "PGIM S&P 500 Buffer 12 ETF - March",
     "Symbol": "MRCP"
   },
   {
@@ -29856,7 +29880,7 @@
     "Symbol": "NOVM"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 12 ETF - November",
+    "Company": "PGIM S&P 500 Buffer 12 ETF - November",
     "Symbol": "NOVP"
   },
   {
@@ -29980,11 +30004,11 @@
     "Symbol": "NRG"
   },
   {
-    "Company": "MicroSectors US Big Oil -3x Inverse Leveraged ETN",
+    "Company": "MicroSectors U.S. Big Oil -3x Inverse Leveraged ETNs due February 17, 2045",
     "Symbol": "NRGD"
   },
   {
-    "Company": "MicroSectors US Big Oil 3x Leveraged ETN",
+    "Company": "MicroSectors U.S. Big Oil 3x Leveraged ETNs due February 17, 2045",
     "Symbol": "NRGU"
   },
   {
@@ -30996,7 +31020,7 @@
     "Symbol": "OCTO"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 12 ETF - October",
+    "Company": "PGIM S&P 500 Buffer 12 ETF - October",
     "Symbol": "OCTP"
   },
   {
@@ -32096,11 +32120,11 @@
     "Symbol": "PBA"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 20 ETF - April",
+    "Company": "PGIM S&P 500 Buffer 20 ETF - April",
     "Symbol": "PBAP"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 20 ETF - August",
+    "Company": "PGIM S&P 500 Buffer 20 ETF - August",
     "Symbol": "PBAU"
   },
   {
@@ -32116,7 +32140,7 @@
     "Symbol": "PBDC"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 20 ETF - December",
+    "Company": "PGIM S&P 500 Buffer 20 ETF - December",
     "Symbol": "PBDE"
   },
   {
@@ -32128,11 +32152,11 @@
     "Symbol": "PBF"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 20 ETF - February",
+    "Company": "PGIM S&P 500 Buffer 20 ETF - February",
     "Symbol": "PBFB"
   },
   {
-    "Company": "PGIM Laddered Fund of Buffer 20 ETF",
+    "Company": "PGIM Laddered S&P 500 Buffer 20 ETF",
     "Symbol": "PBFR"
   },
   {
@@ -32156,15 +32180,15 @@
     "Symbol": "PBJ"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 20 ETF - January",
+    "Company": "PGIM S&P 500 Buffer 20 ETF - January",
     "Symbol": "PBJA"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 20 ETF - July",
+    "Company": "PGIM S&P 500 Buffer 20 ETF - July",
     "Symbol": "PBJL"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 20 ETF - June",
+    "Company": "PGIM S&P 500 Buffer 20 ETF - June",
     "Symbol": "PBJN"
   },
   {
@@ -32176,7 +32200,7 @@
     "Symbol": "PBM"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 20 ETF - March",
+    "Company": "PGIM S&P 500 Buffer 20 ETF - March",
     "Symbol": "PBMR"
   },
   {
@@ -32184,15 +32208,15 @@
     "Symbol": "PBMWW"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 20 ETF - May",
+    "Company": "PGIM S&P 500 Buffer 20 ETF - May",
     "Symbol": "PBMY"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 20 ETF - November",
+    "Company": "PGIM S&P 500 Buffer 20 ETF - November",
     "Symbol": "PBNV"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 20 ETF - October",
+    "Company": "PGIM S&P 500 Buffer 20 ETF - October",
     "Symbol": "PBOC"
   },
   {
@@ -32216,7 +32240,7 @@
     "Symbol": "PBR.A"
   },
   {
-    "Company": "PGIM US Large-Cap Buffer 20 ETF - September",
+    "Company": "PGIM S&P 500 Buffer 20 ETF - September",
     "Symbol": "PBSE"
   },
   {
@@ -34760,6 +34784,10 @@
     "Symbol": "QMCO"
   },
   {
+    "Company": "FT Vest Nasdaq-100 Moderate Buffer ETF - February",
+    "Symbol": "QMFE"
+  },
+  {
     "Company": "WisdomTree U.S. MidCap Quality Growth Fund",
     "Symbol": "QMID"
   },
@@ -34870,6 +34898,10 @@
   {
     "Company": "Pacer Nasdaq 100 Top 50 Cash Cows Growth Leaders ETF",
     "Symbol": "QQQG"
+  },
+  {
+    "Company": "NEOS Nasdaq-100 Hedged Equity Income ETF",
+    "Symbol": "QQQH"
   },
   {
     "Company": "NEOS Nasdaq 100 High Income ETF",
@@ -35082,6 +35114,18 @@
   {
     "Company": "QVC, Inc. 6.375% Senior Secured Notes due 2067",
     "Symbol": "QVCD"
+  },
+  {
+    "Company": "QVC Group, Inc. Series A Common Stock",
+    "Symbol": "QVCGA"
+  },
+  {
+    "Company": "QVC Group, Inc. Series B Common Stock",
+    "Symbol": "QVCGB"
+  },
+  {
+    "Company": "QVC Group, Inc. 8.0% Fixed Rate Cumulative Redeemable Preferred Stock",
+    "Symbol": "QVCGP"
   },
   {
     "Company": "Invesco S&P 500 QVM Multi-factor ETF",
@@ -38952,6 +38996,10 @@
     "Symbol": "SNDA"
   },
   {
+    "Company": "Sandisk Corporation Common Stock",
+    "Symbol": "SNDK"
+  },
+  {
     "Company": "Sandisk Corporation Common Stock When-Issued",
     "Symbol": "SNDKV"
   },
@@ -42428,6 +42476,10 @@
     "Symbol": "TSPA"
   },
   {
+    "Company": "Twin Oak Active Opportunities ETF",
+    "Symbol": "TSPX"
+  },
+  {
     "Company": "TappAlpha SPY Growth & Daily Income ETF",
     "Symbol": "TSPY"
   },
@@ -45364,6 +45416,10 @@
     "Symbol": "WGO"
   },
   {
+    "Company": "Wellgistics Health, Inc. Common Stock",
+    "Symbol": "WGRX"
+  },
+  {
     "Company": "GeneDx Holdings Corp. Class A Common Stock",
     "Symbol": "WGS"
   },
@@ -46786,6 +46842,10 @@
   {
     "Company": "Full Truck Alliance Co. Ltd. American Depositary Shares (each representing 20 Class A Ordinary Shares)",
     "Symbol": "YMM"
+  },
+  {
+    "Company": "YOKE Core ETF",
+    "Symbol": "YOKE"
   },
   {
     "Company": "AdvisorShares Pure Cannabis ETF",

@@ -1,10 +1,8 @@
-import { Box, Button, Typography } from '@mui/material'
-import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
+import { Box, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { getEconDataReport } from 'lib/backend/api/qln/qlnApi'
 import EconIndexChart from './EconIndexChart'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { useRouter } from 'next/router'
 
 const EconIndexWidget = ({ itemId, symbol, width, height }: { itemId: number; symbol: string; width: number; height: number }) => {
@@ -22,12 +20,24 @@ const EconIndexWidget = ({ itemId, symbol, width, height }: { itemId: number; sy
 
     return data
   }
-  const { data, isLoading } = useSwrHelper(key, dataFn, { revalidateOnFocus: false })
+  const { data } = useSwrHelper(key, dataFn, { revalidateOnFocus: false })
   return (
     <Box minHeight={height} width={width}>
       {data && (
         <Box minHeight={height} width={width}>
-          <EconIndexChart data={data} symbol={symbol} width={width} days={90} />
+          <EconIndexChart data={data} symbol={symbol} width={width} days={90} showDateSummary={false} />
+          {data.LastObservationDate && (
+            <Box mt={-4}>
+              <Box display={'flex'} alignItems={'center'} gap={1} justifyContent={'center'}>
+                <Typography variant='caption' fontSize={'10pt'}>
+                  last modified:
+                </Typography>
+                <Typography variant='h6' textAlign={'center'}>
+                  {`${dayjs(data.LastObservationDate).format('MM/DD/YYYY')}`}
+                </Typography>
+              </Box>
+            </Box>
+          )}
         </Box>
       )}
     </Box>
