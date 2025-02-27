@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
 import useSWR, { SWRConfig } from 'swr'
 import axios from 'axios'
-import { getAllRecipes } from 'lib/backend/api/cms/contenfulApi'
+import { getAllRecipes, getFeaturedRecipes, getRecipeSearchItems } from 'lib/backend/api/cms/contenfulApi'
 import { shuffle, take } from 'lodash'
 import { Recipe, RecipeCollection } from 'lib/models/cms/contentful/recipe'
 import RecipesLayout from 'components/Organizms/recipes/RecipesLayout'
@@ -16,15 +16,17 @@ import { sortArray } from 'lib/util/collections'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { getItem, putItem } from 'app/serverActions/aws/dynamo/dynamo'
-import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
 import { getUtcNow } from 'lib/util/dateUtil'
+import CenterStack from 'components/Atoms/CenterStack'
+import RecipesSearch from 'components/Organizms/recipes/RecipesSearch'
+import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
 dayjs.extend(relativeTime)
 
 const cmsRefreshIntervalSeconds = 86400
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
-const featuredRecipesExpirationMinutes = 1440
 const featuredLength = 10
 const siteStatsKey = 'site-stats'
+const featuredRecipesExpirationMinutes = 720 // 12 hours
 
 interface RecipesLayoutModel {
   autoComplete: DropdownItem[]
@@ -61,10 +63,7 @@ const fetcherFn = async (url: string) => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const result = await getAllRecipes()
   const newData = take(shuffle(result.items), featuredLength)
-  let options: DropdownItem[] = result.items.map((item) => {
-    return { value: item.sys.id, text: item.title }
-  })
-  options = sortArray(options, ['text'], ['asc'])
+
   const statsRep = await getItem(siteStatsKey)
   const stats = JSON.parse(statsRep.data) as SiteStats
   const needsRefresh = dayjs(stats.recipes.lastRefreshDate).add(featuredRecipesExpirationMinutes, 'minute').isBefore(dayjs())
@@ -81,7 +80,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
     })
   }
   const featured = needsRefresh ? newData : stats.recipes.featured
-
+  //todo: implement
+  //const options = await getRecipeSearchItems(result.items)
+  const options: DropdownItem[] = result.items.map((m) => {
+    return {
+      text: m.title,
+      value: m.sys.id,
+    }
+  })
   const model: RecipesLayoutModel = {
     featured: featured,
     autoComplete: options,
@@ -124,6 +130,9 @@ const Recipes: NextPage<{ model: RecipesLayoutModel; fallback: RecipesLayoutMode
       <Seo pageTitle='Recipes' />
       <ResponsiveContainer>
         <PageHeader text='Recipes' />
+        <CenterStack sx={{ pt: 2 }}>
+          <RecipesSearch autoComplete={model.autoComplete} />
+        </CenterStack>
         <SWRConfig value={{ fallback }}>
           <CachedRecipes fallbackData={model} />
         </SWRConfig>

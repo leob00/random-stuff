@@ -8,6 +8,7 @@ import EconWidget from './econ/EconWidget'
 import EarningsCalendarWidget from './stocks/earnings/EarningsCalendarWidget'
 import WidgetFooter from './WidgetFooter'
 import StockMarketGlanceWidget from './stocks/sentiment/StockMarketGlanceWidget'
+import FeaturedRecipesWidget from './recipes/FeaturedRecipesWidget'
 
 export type WidgetDimensions = {
   height: number
@@ -72,6 +73,14 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
             <WidgetWrapper item={item}>
               <EarningsCalendarWidget width={dimension.width} height={dimension.height} size={item.size} />
               <WidgetFooter detailsUrl={'/csr/stocks/earnings-calendar'} />
+            </WidgetWrapper>
+          </Box>
+        )}
+        {item.id === 'featured-recipes' && (
+          <Box>
+            <WidgetWrapper item={item}>
+              <FeaturedRecipesWidget width={dimension.width} height={dimension.height} size={item.size} />
+              <WidgetFooter detailsUrl={'/ssg/recipes'} />
             </WidgetWrapper>
           </Box>
         )}

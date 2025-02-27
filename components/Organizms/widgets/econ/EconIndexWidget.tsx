@@ -25,19 +25,14 @@ const EconIndexWidget = ({ itemId, symbol, width, height }: { itemId: number; sy
     <Box minHeight={height} width={width}>
       {data && (
         <Box minHeight={height} width={width}>
-          <EconIndexChart data={data} symbol={symbol} width={width} days={90} showDateSummary={false} />
           {data.LastObservationDate && (
-            <Box mt={-4}>
+            <Box>
               <Box display={'flex'} alignItems={'center'} gap={1} justifyContent={'center'}>
-                <Typography variant='caption' fontSize={'10pt'}>
-                  last modified:
-                </Typography>
-                <Typography variant='h6' textAlign={'center'}>
-                  {`${dayjs(data.LastObservationDate).format('MM/DD/YYYY')}`}
-                </Typography>
+                <Typography variant='body2' fontWeight={400} textAlign={'center'}>{`${dayjs(data.LastObservationDate).format('MM/DD/YYYY')}`}</Typography>
               </Box>
             </Box>
           )}
+          <EconIndexChart data={data} symbol={symbol} width={width} days={90} showDateSummary={false} />
         </Box>
       )}
     </Box>

@@ -178,6 +178,15 @@ export const allWidgets: DashboardWidget[] = [
     size: 'sm',
     allowSizeChange: true,
   },
+  {
+    id: 'featured-recipes',
+    category: 'food',
+    waitToRenderMs: 500,
+    title: 'Featured Recipes',
+    display: false,
+    size: 'md',
+    allowSizeChange: true,
+  },
 ]
 
 export default EditDashboard

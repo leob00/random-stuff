@@ -41,7 +41,13 @@ export const getBarChartData = (labels: string[], numbers: number[], colors: str
   }
 }
 
-export const getBarChartOptions = (title: string, yAxisDecorator = '', palette: 'light' | 'dark', isHorizontal?: boolean, showXvalues?: boolean): ChartOptions<'bar'> => {
+export const getBarChartOptions = (
+  title: string,
+  yAxisDecorator = '',
+  palette: 'light' | 'dark',
+  isHorizontal?: boolean,
+  showXvalues?: boolean,
+): ChartOptions<'bar'> => {
   return {
     responsive: true,
     animation: {

@@ -15,14 +15,18 @@ export interface RecipeTag {
   name: string
 }
 
+interface RecipeTagsCollection {
+  items: RecipeTag[]
+}
+
 export interface Recipe {
   sys: System
   title: string
-  summary: string
+  summary: string | null
   richBody: RichText
   heroImage: HeroImage
   summaryNotes?: string
-  recipeTags?: RecipeTag[]
+  recipeTagsCollection: RecipeTagsCollection
 }
 export interface RichText {
   json: Document

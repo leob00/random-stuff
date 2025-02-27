@@ -4,7 +4,7 @@ import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { useState } from 'react'
 import PrevNextPager from 'components/Atoms/Paging/PrevNextPager'
 
-const FeaturedRecipesDisplay = ({ featured }: { featured: Recipe[] }) => {
+const FeaturedRecipesDisplay = ({ featured, imageWidth, imageHeight }: { featured: Recipe[]; imageWidth?: number; imageHeight?: number }) => {
   const [selectedIndex, setSelectedIndex] = useState(0)
 
   const handlePrevClick = () => {
@@ -19,7 +19,7 @@ const FeaturedRecipesDisplay = ({ featured }: { featured: Recipe[] }) => {
   }
   return (
     <Box>
-      <RecipeTeaser item={featured[selectedIndex]} showSummary={false} showImage />
+      <RecipeTeaser item={featured[selectedIndex]} showSummary={false} showImage imageWidth={imageWidth} imageHeight={imageHeight} />
       <PrevNextPager itemCount={featured.length} handleNextClick={handleNextClick} handlePrevClick={handlePrevClick} selectedIndex={selectedIndex} />
     </Box>
   )

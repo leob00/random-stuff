@@ -43,6 +43,13 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
           <RemoteImage url={article.heroImage.url} title={article.title} />
         </FadeIn>
       </Stack>
+      {article.summary && (
+        <Box py={2}>
+          <FadeIn>
+            <Typography textAlign={'center'}>{article.summary}</Typography>
+          </FadeIn>
+        </Box>
+      )}
 
       <Box px={2}>{documentToReactComponents(article.richBody.json)}</Box>
     </>

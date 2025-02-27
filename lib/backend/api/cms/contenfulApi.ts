@@ -4,6 +4,12 @@ import { Recipe, RecipeCollection, RecipesResponse } from '../../../models/cms/c
 import { apiConnection } from '../config'
 import { post } from '../fetchFunctions'
 import { getAllRecipesQuery, recipeQuery } from './recipeQueries'
+import { getItem, putItem } from 'app/serverActions/aws/dynamo/dynamo'
+import { SiteStats } from '../aws/models/apiGatewayModels'
+import dayjs from 'dayjs'
+import { getUtcNow } from 'lib/util/dateUtil'
+import { DropdownItem } from 'lib/models/dropdown'
+import { sortArray } from 'lib/util/collections'
 
 const config = apiConnection().contentful
 
@@ -64,6 +70,45 @@ export async function getAllRecipes(): Promise<RecipeCollection> {
     items: Array.from(recipesMap.values()),
   }
   return result
+}
+export async function getRecipeSearchItems(recipes: Recipe[]) {
+  let options: DropdownItem[] = recipes.map((item) => {
+    return { value: item.sys.id, text: item.title }
+  })
+  const itemsWithTags = recipes.filter((m) => m.recipeTagsCollection.items.length > 0)
+  const allTags = new Set(itemsWithTags.flatMap((m) => m.recipeTagsCollection.items).map((t) => t.name))
+  Array.from(allTags).forEach((tag) => {
+    options.push({
+      text: tag,
+      value: `tag:${tag}`,
+    })
+  })
+  options = sortArray(options, ['text'], ['asc'])
+
+  return options
+}
+
+export async function getFeaturedRecipes(existingFeatured: Recipe[]) {
+  const siteStatsKey = 'site-stats'
+  const featuredRecipesExpirationMinutes = 720 // 12 hours
+
+  const statsRep = await getItem(siteStatsKey)
+  const stats = JSON.parse(statsRep.data) as SiteStats
+  const needsRefresh = dayjs(stats.recipes.lastRefreshDate).add(featuredRecipesExpirationMinutes, 'minute').isBefore(dayjs())
+  if (needsRefresh) {
+    stats.recipes.featured = [...existingFeatured]
+    stats.recipes.lastRefreshDate = dayjs().format()
+    await putItem({
+      key: siteStatsKey,
+      category: siteStatsKey,
+      data: stats,
+      count: 1,
+      expiration: 0,
+      last_modified: getUtcNow().format(),
+    })
+  }
+  const featured = needsRefresh ? existingFeatured : stats.recipes.featured
+  return featured
 }
 
 const getRecipes = async (query: string) => {

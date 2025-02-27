@@ -18,6 +18,7 @@ const EconChart = ({
   height,
   reverseColor,
   isExtraSmall = true,
+  showDateSummary = true,
 }: {
   symbol: string
   data: EconomicDataItem
@@ -26,6 +27,7 @@ const EconChart = ({
   height?: number
   reverseColor?: boolean
   isExtraSmall?: boolean
+  showDateSummary?: boolean
 }) => {
   const theme = useTheme()
   const isXSmallDevice = useMediaQuery(theme.breakpoints.down('md'))
@@ -44,16 +46,18 @@ const EconChart = ({
     <Box>
       <EconChangeHeader last={last} reverseColor={reverseColor} />
       <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' width={width} height={height} />
-      <Box px={2}>
-        <Box display='flex' gap={1}>
-          <Typography variant='caption'>start date:</Typography>
-          <Typography variant='caption'>{x[0]}</Typography>
+      {showDateSummary && (
+        <Box px={2}>
+          <Box display='flex' gap={1}>
+            <Typography variant='caption'>start date:</Typography>
+            <Typography variant='caption'>{x[0]}</Typography>
+          </Box>
+          <Box display='flex' gap={1}>
+            <Typography variant='caption'>end date:</Typography>
+            <Typography variant='caption'>{x[x.length - 1]}</Typography>
+          </Box>
         </Box>
-        <Box display='flex' gap={1}>
-          <Typography variant='caption'>end date:</Typography>
-          <Typography variant='caption'>{x[x.length - 1]}</Typography>
-        </Box>
-      </Box>
+      )}
     </Box>
   )
 }

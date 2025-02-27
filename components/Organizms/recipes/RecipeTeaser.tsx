@@ -12,29 +12,35 @@ const RecipeTeaser = ({
   clickable = true,
   showSummary = true,
   showImage = true,
+  imageWidth = 380,
+  imageHeight = 430,
 }: {
   item: Recipe
   clickable?: boolean
   showSummary?: boolean
   showImage?: boolean
+  imageWidth?: number
+  imageHeight?: number
 }) => {
   const baseUrl = '/ssg/recipes/'
 
   return (
     <Box>
-      <CenterStack>
-        {clickable ? (
-          <FadeIn>
-            <InternalLink text={item.title} route={`${baseUrl}${item.sys.id}`} large />
-          </FadeIn>
-        ) : (
-          <FadeIn>
-            <Typography textAlign={'center'} variant={'h4'}>
-              {item.title}
-            </Typography>
-          </FadeIn>
-        )}
-      </CenterStack>
+      <Box>
+        <CenterStack>
+          {clickable ? (
+            <FadeIn>
+              <InternalLink text={item.title} route={`${baseUrl}${item.sys.id}`} />
+            </FadeIn>
+          ) : (
+            <FadeIn>
+              <Typography textAlign={'center'} variant={'h5'}>
+                {item.title}
+              </Typography>
+            </FadeIn>
+          )}
+        </CenterStack>
+      </Box>
       <Box>
         {/* <CardContent> */}
         {showSummary && item.summary && item.summary.length > 0 && (
@@ -48,7 +54,7 @@ const RecipeTeaser = ({
           <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>
             <NLink href={`${baseUrl}${item.sys.id}`} passHref legacyBehavior as={`${baseUrl}${item.sys.id}`}>
               <Link href={`${baseUrl}${item.sys.id}`}>
-                <RecipeImage recipe={item} width={380} height={430} />
+                <RecipeImage recipe={item} width={imageWidth} height={imageHeight} />
               </Link>
             </NLink>
           </Stack>

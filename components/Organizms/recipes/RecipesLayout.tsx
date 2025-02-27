@@ -13,15 +13,6 @@ const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: Drop
 
   return (
     <Box py={2}>
-      <CenterStack>
-        <StaticAutoComplete
-          options={autoComplete}
-          placeholder={`search ${autoComplete.length} recipes`}
-          onSelected={handleSelected}
-          fullWidth
-          disableClearable={false}
-        />
-      </CenterStack>
       <CenterStack sx={{ pt: 2 }}>
         <Typography variant='h4'>{'Featured Recipes'}</Typography>
       </CenterStack>

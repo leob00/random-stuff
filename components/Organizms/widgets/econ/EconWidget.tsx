@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { getEconDataReport } from 'lib/backend/api/qln/qlnApi'
@@ -24,10 +24,17 @@ const EconWidget = ({ itemId, symbol, width, height, size }: { itemId: number; s
   const shouldReverseColor = reverseColor(itemId)
   const { data } = useSwrHelper(key, dataFn, { revalidateOnFocus: false })
   return (
-    <Box py={2} minHeight={height}>
+    <Box minHeight={height}>
       {data && (
         <Box>
-          <EconChart data={data} symbol={symbol} width={width} days={90} reverseColor={shouldReverseColor} />
+          {data.LastObservationDate && (
+            <Box>
+              <Box display={'flex'} alignItems={'center'} gap={1} justifyContent={'center'}>
+                <Typography variant='body2' fontWeight={400} textAlign={'center'}>{`${dayjs(data.LastObservationDate).format('MM/DD/YYYY')}`}</Typography>
+              </Box>
+            </Box>
+          )}
+          <EconChart data={data} symbol={symbol} width={width} days={90} reverseColor={shouldReverseColor} showDateSummary={false} />
         </Box>
       )}
     </Box>

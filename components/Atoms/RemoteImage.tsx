@@ -14,8 +14,8 @@ const RemoteImage = ({
 }: {
   url: string
   title: string
-  width?: number | string
-  height?: number | string
+  width?: number
+  height?: number
   style?: React.CSSProperties
   onLoaded?: () => void
   priority?: boolean
@@ -33,11 +33,10 @@ const RemoteImage = ({
           src={url}
           alt={title}
           placeholder='blur'
-          //height={height}
-          //width={width}
+          height={height}
+          width={width}
           blurDataURL={url}
           onLoad={handleLoaded}
-          fill
           sizes='100vw'
         />
       </Paper>

@@ -3,7 +3,7 @@ import { z } from 'zod'
 const WidgetSizesEnum = ['sm', 'md', 'lg'] as const
 const WidgetSizeEnumSchema = z.enum(WidgetSizesEnum)
 
-const widgetCategories = ['stock-market-sentiment', 'news', 'econ-ind-index', 'econ-ind', 'earnings'] as const
+const widgetCategories = ['stock-market-sentiment', 'news', 'econ-ind-index', 'econ-ind', 'earnings', 'food'] as const
 const widgetids = [
   'stock-market-sentiment',
   'news',
@@ -13,6 +13,7 @@ const widgetids = [
   'mortgage-rate-30',
   'mortgage-rate-15',
   'earnings-calendar',
+  'featured-recipes',
 ] as const
 
 export type WidgetSize = z.infer<typeof WidgetSizeEnumSchema>
