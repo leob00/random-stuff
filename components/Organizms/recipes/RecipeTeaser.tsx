@@ -25,7 +25,7 @@ const RecipeTeaser = ({
   const baseUrl = '/ssg/recipes/'
 
   return (
-    <Box>
+    <Box px={1}>
       <Box>
         <CenterStack>
           {clickable ? (

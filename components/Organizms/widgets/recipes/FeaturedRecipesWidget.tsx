@@ -17,7 +17,7 @@ const FeaturedRecipesWidget = ({ width, height, size }: { width: number; height:
     return resp.recipes.featured
   }
   const imageSize = {
-    width: isXSmall ? 100 : 280,
+    width: isXSmall ? 100 : 190,
     height: 240,
   }
   if (isXSmall) {
