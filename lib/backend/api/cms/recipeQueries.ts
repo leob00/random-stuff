@@ -20,6 +20,7 @@ export const recipeQuery = (id: string) => {
       }
       recipeTagsCollection {
         items {
+          id
           name
         }
       }   
@@ -47,6 +48,7 @@ export const getAllRecipesQuery = (skip: number) => {
       }
       recipeTagsCollection {
         items {
+          id
           name
         }
       }       

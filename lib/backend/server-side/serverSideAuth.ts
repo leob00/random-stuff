@@ -28,7 +28,7 @@ export async function getUserSSR(context: GetServerSidePropsContext<ParsedUrlQue
     }
     return result
   } catch (err) {
-    console.log('getUserSSR:: user is not logged in')
+    console.error('getUserSSR:: user is not logged in')
     return null
   }
 }
@@ -50,7 +50,7 @@ export async function getUserSSRApi(req: NextApiRequest, res: NextApiResponse) {
     }
     return result
   } catch (err) {
-    console.log('getUserSSRApi:: user is not logged in')
+    console.error('getUserSSRApi:: user is not logged in')
     return null
   }
 }
@@ -78,7 +78,7 @@ export async function getUserSSRAppRouteApi(req: NextRequest, res: NextResponse)
     }
     return result
   } catch (err) {
-    console.log('getUserSSRApi:: user is not logged in')
+    console.error('getUserSSRApi:: user is not logged in')
     return null
   }
 }

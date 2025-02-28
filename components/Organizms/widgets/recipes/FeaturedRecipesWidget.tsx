@@ -17,14 +17,14 @@ const FeaturedRecipesWidget = ({ width, height, size }: { width: number; height:
     return resp.recipes.featured
   }
   const imageSize = {
-    width: isXSmall ? 100 : 190,
+    width: 190,
     height: 240,
   }
   if (isXSmall) {
-    imageSize.width = 100
+    imageSize.width = 220
   }
 
-  const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
+  const { data } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   return (
     <>
       <Box minHeight={height} width={width}>

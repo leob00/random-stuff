@@ -12,6 +12,7 @@ export interface HeroImage {
   width: number
 }
 export interface RecipeTag {
+  id: string
   name: string
 }
 
