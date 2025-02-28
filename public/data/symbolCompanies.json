@@ -5400,6 +5400,10 @@
     "Symbol": "BMEZ"
   },
   {
+    "Company": "Basel Medical Group Ltd Ordinary Shares",
+    "Symbol": "BMGL"
+  },
+  {
     "Company": "Badger Meter, Inc.",
     "Symbol": "BMI"
   },
@@ -11266,6 +11270,14 @@
   {
     "Company": "Destra Multi-Alternative Fund",
     "Symbol": "DMA"
+  },
+  {
+    "Company": "Drugs Made In America Acquisition Corp. Ordinary Shares",
+    "Symbol": "DMAA"
+  },
+  {
+    "Company": "Drugs Made In America Acquisition Corp. Rights",
+    "Symbol": "DMAAR"
   },
   {
     "Company": "Drugs Made In America Acquisition Corp. Units",
@@ -19456,7 +19468,7 @@
     "Symbol": "HFWA"
   },
   {
-    "Company": "IQ FTSE International Equity Currency Neutral ETF",
+    "Company": "NYLI FTSE International Equity Currency Neutral ETF",
     "Symbol": "HFXI"
   },
   {
@@ -19552,7 +19564,7 @@
     "Symbol": "HIFS"
   },
   {
-    "Company": "The Hartford Financial Services Group, Inc.",
+    "Company": "The Hartford Insurance Group, Inc.",
     "Symbol": "HIG"
   },
   {
@@ -21996,7 +22008,7 @@
     "Symbol": "INTG"
   },
   {
-    "Company": "Intelligent Group Limited Ordinary Shares",
+    "Company": "Intelligent Group Limited Class A Ordinary Shares",
     "Symbol": "INTJ"
   },
   {
@@ -35176,6 +35188,10 @@
     "Symbol": "RA"
   },
   {
+    "Company": "SMI 3Fourteen REAL Asset Allocation ETF",
+    "Symbol": "RAA"
+  },
+  {
     "Company": "VanEck Real Assets ETF",
     "Symbol": "RAAX"
   },
@@ -35302,6 +35318,10 @@
   {
     "Company": "RBC Bearings Incorporated 5.00% Series A Mandatory Convertible Preferred Stock",
     "Symbol": "RBCP"
+  },
+  {
+    "Company": "F/m Ultrashort Treasury Inflation-Protected Security (TIPS) ETF",
+    "Symbol": "RBIL"
   },
   {
     "Company": "Rhinebeck Bancorp, Inc. Common Stock",
@@ -40064,6 +40084,10 @@
     "Symbol": "STAI"
   },
   {
+    "Company": "STAK Inc. Ordinary Shares",
+    "Symbol": "STAK"
+  },
+  {
     "Company": "Macquarie Tax-Free USA Short Term ETF",
     "Symbol": "STAX"
   },
@@ -41232,6 +41256,10 @@
     "Symbol": "TEMP"
   },
   {
+    "Company": "Touchstone Sands Capital Emerging Markets ex-China Growth ETF",
+    "Symbol": "TEMX"
+  },
+  {
     "Company": "Tsakos Energy Navigation Ltd.",
     "Symbol": "TEN"
   },
@@ -42108,6 +42136,10 @@
     "Symbol": "TQQQ"
   },
   {
+    "Company": "GraniteShares YieldBOOST QQQ ETF",
+    "Symbol": "TQQY"
+  },
+  {
     "Company": "Tootsie Roll Industries, Inc.",
     "Symbol": "TR"
   },
@@ -42152,7 +42184,7 @@
     "Symbol": "TRGP"
   },
   {
-    "Company": "Thomson Reuters Corporation",
+    "Company": "Thomson Reuters Corporation Common Shares",
     "Symbol": "TRI"
   },
   {
@@ -46902,6 +46934,10 @@
   {
     "Company": "Yatsen Holding Limited American Depositary Shares, each representing twenty (20) Class A Ordinary Shares",
     "Symbol": "YSG"
+  },
+  {
+    "Company": "GraniteShares YieldBOOST SPY ETF",
+    "Symbol": "YSPY"
   },
   {
     "Company": "YSX Tech. Co., Ltd Class A Ordinary Shares",

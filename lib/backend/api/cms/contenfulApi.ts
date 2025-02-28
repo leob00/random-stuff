@@ -9,7 +9,6 @@ import { SiteStats } from '../aws/models/apiGatewayModels'
 import dayjs from 'dayjs'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { DropdownItem } from 'lib/models/dropdown'
-import { sortArray } from 'lib/util/collections'
 
 const config = apiConnection().contentful
 
@@ -83,7 +82,6 @@ export async function getRecipeSearchItems(recipes: Recipe[]) {
       value: `tag:${tag}`,
     })
   })
-  options = sortArray(options, ['text'], ['asc'])
 
   return options
 }
