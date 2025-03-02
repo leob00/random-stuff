@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
 import useSWR, { SWRConfig } from 'swr'
 import axios from 'axios'
-import { getAllRecipes, getFeaturedRecipes, getRecipeSearchItems } from 'lib/backend/api/cms/contenfulApi'
+import { getAllRecipes, getFeaturedRecipes, getRecipeTagOptions } from 'lib/backend/api/cms/contenfulApi'
 import { shuffle, take } from 'lodash'
 import { Recipe, RecipeCollection } from 'lib/models/cms/contentful/recipe'
 import RecipesLayout from 'components/Organizms/recipes/RecipesLayout'
@@ -53,6 +53,7 @@ const fetcherFn = async (url: string) => {
     return { value: item.sys.id, text: item.title }
   })
   options = sortArray(options, ['text'], ['asc'])
+
   const model: RecipesLayoutModel = {
     featured: featured,
     autoComplete: options,
@@ -80,17 +81,19 @@ export const getStaticProps: GetStaticProps = async (context) => {
     })
   }
   const featured = needsRefresh ? newData : stats.recipes.featured
-  //todo: implement
-  //const options = await getRecipeSearchItems(result.items)
+
   const options: DropdownItem[] = result.items.map((m) => {
     return {
       text: m.title,
       value: m.sys.id,
     }
   })
+  const recipeTagOptions = await getRecipeTagOptions(result.items)
+
+  const newOptions = [...options, ...recipeTagOptions]
   const model: RecipesLayoutModel = {
     featured: featured,
-    autoComplete: options,
+    autoComplete: sortArray(newOptions, ['text'], ['asc']),
   }
 
   return {

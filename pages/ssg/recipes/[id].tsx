@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import useSWR, { SWRConfig, unstable_serialize, Fetcher } from 'swr'
 import axios, { AxiosRequestConfig } from 'axios'
-import { getAllRecipes, getRecipe } from 'lib/backend/api/cms/contenfulApi'
+import { getAllRecipes, getRecipe, getRecipeTagOptions } from 'lib/backend/api/cms/contenfulApi'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import Seo from 'components/Organizms/Seo'
@@ -40,7 +40,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
   let options: DropdownItem[] = recipeCollection.items.map((item) => {
     return { value: item.sys.id, text: item.title }
   })
-  options = sortArray(options, ['text'], ['asc'])
+  const recipeTagOptions = await getRecipeTagOptions(recipeCollection.items)
+
+  const newOptions = [...options, ...recipeTagOptions]
 
   return {
     props: {
@@ -48,7 +50,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         [unstable_serialize(['api', 'recipe', id])]: article,
       },
       article,
-      options,
+      options: sortArray(newOptions, ['text'], ['asc']),
     },
     revalidate: cmsRefreshIntervalSeconds,
   }

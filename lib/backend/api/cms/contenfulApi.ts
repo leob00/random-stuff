@@ -1,6 +1,6 @@
 import { sleep } from 'lib/util/timers'
 import { BlogResponse, BlogTypes } from '../../../models/cms/contentful/blog'
-import { Recipe, RecipeCollection, RecipesResponse } from '../../../models/cms/contentful/recipe'
+import { Recipe, RecipeCollection, RecipeTag, RecipesResponse } from '../../../models/cms/contentful/recipe'
 import { apiConnection } from '../config'
 import { post } from '../fetchFunctions'
 import { getAllRecipesQuery, recipeQuery } from './recipeQueries'
@@ -70,20 +70,22 @@ export async function getAllRecipes(): Promise<RecipeCollection> {
   }
   return result
 }
-export async function getRecipeSearchItems(recipes: Recipe[]) {
-  let options: DropdownItem[] = recipes.map((item) => {
-    return { value: item.sys.id, text: item.title }
+export async function getRecipeTagOptions(recipes: Recipe[]) {
+  const itemsWithTags = recipes.filter((m) => m.recipeTagsCollection.items.length > 0).flatMap((t) => t.recipeTagsCollection.items)
+  const tagMap = new Map<string, RecipeTag>()
+  itemsWithTags.forEach((tag) => {
+    if (tag.id) {
+      tagMap.set(tag.id, tag)
+    }
   })
-  const itemsWithTags = recipes.filter((m) => m.recipeTagsCollection.items.length > 0)
-  const allTags = new Set(itemsWithTags.flatMap((m) => m.recipeTagsCollection.items).map((t) => t.name))
-  Array.from(allTags).forEach((tag) => {
-    options.push({
-      text: tag,
-      value: `tag:${tag}`,
-    })
+  const result: DropdownItem[] = Array.from(tagMap.values()).map((m) => {
+    return {
+      text: m.name,
+      value: `tag:${m.id}`,
+    }
   })
 
-  return options
+  return result
 }
 
 export async function getFeaturedRecipes(existingFeatured: Recipe[]) {

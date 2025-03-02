@@ -13,29 +13,28 @@ import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import RemoteImage from 'components/Atoms/RemoteImage'
+import RecipesSearch from './RecipesSearch'
 
 const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Recipe; autoComplete?: DropdownItem[]; selectedOption?: DropdownItem }) => {
   const baseUrl = '/ssg/recipes/'
   const scroller = useScrollTop(0)
   const handleSelected = (item: DropdownItem) => {
     scroller.scroll()
-    router.push(`${baseUrl}${item.value}`)
+    if (item.value.includes('tag:')) {
+    } else {
+      router.push(`${baseUrl}${item.value}`)
+    }
   }
   return (
     <>
       <Box>
-        <BackButton route={baseUrl} />
+        <Box py={2}>
+          <BackButton route={baseUrl} />
+        </Box>
         {autoComplete && (
-          <CenterStack sx={{ py: 2 }}>
-            <StaticAutoComplete
-              options={autoComplete}
-              selectedItem={selectedOption}
-              placeholder={`search ${autoComplete.length} recipes`}
-              onSelected={handleSelected}
-              disableClearable
-              fullWidth
-            />
-          </CenterStack>
+          <Box py={2}>
+            <RecipesSearch autoComplete={autoComplete} />
+          </Box>
         )}
       </Box>
       <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>

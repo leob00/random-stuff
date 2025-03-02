@@ -7,10 +7,6 @@ import { DropdownItem } from 'lib/models/dropdown'
 import FeaturedRecipesDisplay from './FeaturedRecipesDisplay'
 
 const RecipesLayout = ({ autoComplete, baseUrl, featured }: { autoComplete: DropdownItem[]; baseUrl: string; featured: Recipe[] }) => {
-  const handleSelected = (item: DropdownItem) => {
-    router.push(`${baseUrl}${item.value}`)
-  }
-
   return (
     <Box py={2}>
       <CenterStack sx={{ pt: 2 }}>

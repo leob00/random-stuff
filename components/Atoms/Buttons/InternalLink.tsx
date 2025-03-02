@@ -14,7 +14,7 @@ const InternalLink = ({ route, text, large = false }: { route: string; text: str
             sx={{ textDecoration: 'none' }}
             p={1}
           >
-            <Typography textAlign={'center'} variant={`${large ? 'h3' : 'h5'}`}>
+            <Typography textAlign={'center'} variant={`${large ? 'h3' : 'h6'}`}>
               {text}
             </Typography>
           </Link>

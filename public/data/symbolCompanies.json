@@ -5648,7 +5648,7 @@
     "Symbol": "BOLT"
   },
   {
-    "Company": "Bon Natural Life Limited Ordinary Shares",
+    "Company": "Bon Natural Life Limited Class A Ordinary Shares",
     "Symbol": "BON"
   },
   {
@@ -8360,7 +8360,7 @@
     "Symbol": "CLNR"
   },
   {
-    "Company": "BlackRock AAA CLO ETF",
+    "Company": "BlackRock ETF Trust II iShares AAA CLO Active ETF",
     "Symbol": "CLOA"
   },
   {
@@ -12228,6 +12228,10 @@
     "Symbol": "EBF"
   },
   {
+    "Company": "The RBB Fund Trust Longview Advantage ETF",
+    "Symbol": "EBI"
+  },
+  {
     "Company": "Harbor AlphaEdge Small Cap Earners ETF",
     "Symbol": "EBIT"
   },
@@ -14118,6 +14122,10 @@
   {
     "Company": "VanEck Environmental Services ETF",
     "Symbol": "EVX"
+  },
+  {
+    "Company": "Eaton Vance High Income Municipal ETF",
+    "Symbol": "EVYM"
   },
   {
     "Company": "Edwards Lifesciences Corp",
@@ -16662,6 +16670,10 @@
   {
     "Company": "Flotek Industries, Inc.",
     "Symbol": "FTK"
+  },
+  {
+    "Company": "First Trust Small Cap BuyWrite Income ETF",
+    "Symbol": "FTKI"
   },
   {
     "Company": "FitLife Brands, Inc. Common Stock",
@@ -26160,6 +26172,10 @@
     "Symbol": "LUCYW"
   },
   {
+    "Company": "Luda Technology Group Limited",
+    "Symbol": "LUD"
+  },
+  {
     "Company": "lululemon athletica inc.",
     "Symbol": "LULU"
   },
@@ -26342,6 +26358,10 @@
   {
     "Company": "Lifezone Metals Limited Warrants, each whole warrant exercisable for one Ordinary Share at an exercise price of $11.50",
     "Symbol": "LZM.WS"
+  },
+  {
+    "Company": "LZ Technology Holdings Limited Class B Ordinary Shares",
+    "Symbol": "LZMH"
   },
   {
     "Company": "Macy's Inc.",
@@ -33752,6 +33772,10 @@
     "Symbol": "PRIM"
   },
   {
+    "Company": "SPDR SSGA Apollo IG Public & Private Credit ETF",
+    "Symbol": "PRIV"
+  },
+  {
     "Company": "Park National Corporation",
     "Symbol": "PRK"
   },
@@ -35196,6 +35220,10 @@
     "Symbol": "RAAX"
   },
   {
+    "Company": "Rithm Acquisition Corp Units, each consists of one Class A Ordinary Share and one-third of one redeemable Warrant",
+    "Symbol": "RAC.U"
+  },
+  {
     "Company": "Ferrari N.V.",
     "Symbol": "RACE"
   },
@@ -35390,6 +35418,10 @@
   {
     "Company": "RENN Fund Inc.",
     "Symbol": "RCG"
+  },
+  {
+    "Company": "RockCreek Global Equality ETF",
+    "Symbol": "RCGE"
   },
   {
     "Company": "Rogers Communications, Inc.",
@@ -42016,6 +42048,10 @@
     "Symbol": "TOUS"
   },
   {
+    "Company": "JLens 500 Jewish Advocacy U.S. ETF",
+    "Symbol": "TOV"
+  },
+  {
     "Company": "Theriva Biologics, Inc.",
     "Symbol": "TOVX"
   },
@@ -45398,6 +45434,10 @@
   {
     "Company": "Wetouch Technology Inc. Common Stock",
     "Symbol": "WETH"
+  },
+  {
+    "Company": "Webus International Limited Ordinary Shares",
+    "Symbol": "WETO"
   },
   {
     "Company": "WEX Inc.",

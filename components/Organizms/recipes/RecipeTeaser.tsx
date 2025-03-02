@@ -34,7 +34,7 @@ const RecipeTeaser = ({
             </FadeIn>
           ) : (
             <FadeIn>
-              <Typography textAlign={'center'} variant={'h5'}>
+              <Typography textAlign={'center'} variant={'h6'}>
                 {item.title}
               </Typography>
             </FadeIn>

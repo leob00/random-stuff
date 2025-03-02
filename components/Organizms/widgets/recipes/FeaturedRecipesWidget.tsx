@@ -17,11 +17,12 @@ const FeaturedRecipesWidget = ({ width, height, size }: { width: number; height:
     return resp.recipes.featured
   }
   const imageSize = {
-    width: 190,
-    height: 240,
+    width: 220,
+    height: 220,
   }
   if (isXSmall) {
     imageSize.width = 220
+    imageSize.height = 220
   }
 
   const { data } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
