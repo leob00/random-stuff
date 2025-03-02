@@ -12,22 +12,22 @@ const RecipeSmallTeaser = ({ item, imageWidth = 380, imageHeight = 430 }: { item
 
   return (
     <Box px={1}>
-      <Box display={'flex'} justifyContent={'center'} maxWidth={imageWidth} minHeight={130}>
+      <Box display={'flex'} justifyContent={'center'} maxWidth={imageWidth}>
         <FadeIn>
-          <Box>
+          <Box minHeight={130}>
             <InternalLink text={item.title} route={`${baseUrl}${item.sys.id}`} />
           </Box>
         </FadeIn>
       </Box>
       <Box>
         {item.heroImage && (
-          <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>
+          <Box display={'flex'}>
             <NLink href={`${baseUrl}${item.sys.id}`} passHref legacyBehavior as={`${baseUrl}${item.sys.id}`}>
               <Link href={`${baseUrl}${item.sys.id}`}>
                 <RecipeImage recipe={item} width={imageWidth} height={imageHeight} />
               </Link>
             </NLink>
-          </Stack>
+          </Box>
         )}
       </Box>
     </Box>
