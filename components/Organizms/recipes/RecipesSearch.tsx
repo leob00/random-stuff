@@ -7,7 +7,6 @@ const RecipesSearch = ({ autoComplete }: { autoComplete: DropdownItem[] }) => {
     if (item.value.includes('tag:')) {
       const split = item.value.split(':')
       router.push(`/ssg/recipes/tag/${split[1]}`)
-      console.log('tag: ', split[1])
     } else {
       router.push(`/ssg/recipes/${item.value}`)
     }

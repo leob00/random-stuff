@@ -1,18 +1,12 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import useSWR, { SWRConfig, unstable_serialize, Fetcher } from 'swr'
-import axios, { AxiosRequestConfig } from 'axios'
-import { getAllRecipes, getRecipe, getRecipeTagOptions } from 'lib/backend/api/cms/contenfulApi'
+import { getAllRecipes, getRecipeTagOptions } from 'lib/backend/api/cms/contenfulApi'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import Seo from 'components/Organizms/Seo'
-import RecipeLayout from 'components/Organizms/recipes/RecipeLayout'
-import { sortArray } from 'lib/util/collections'
 import { DropdownItem } from 'lib/models/dropdown'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { Box } from '@mui/material'
-import RecipeTeaser from 'components/Organizms/recipes/RecipeTeaser'
-import { VeryLightBlue, VeryLightBlueTransparent } from 'components/themes/mainTheme'
+import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import RecipeSmallTeaser from 'components/Organizms/recipes/RecipeSmallTeaser'
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -58,8 +52,10 @@ const Page: NextPage<{ id: string; tag: DropdownItem; data: Recipe[] }> = ({ id,
         <Box pt={2}>
           <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
             {data.map((item) => (
-              <Box key={item.sys.id} sx={{ border: `solid 1px ${VeryLightBlueTransparent}`, borderRadius: '8px' }} pb={2}>
-                <RecipeSmallTeaser item={item} imageHeight={160} imageWidth={140} />
+              <Box key={item.sys.id}>
+                <Box sx={{ border: `solid 1px ${VeryLightBlueTransparent}`, borderRadius: '8px' }} pb={2}>
+                  <RecipeSmallTeaser id={id} item={item} imageHeight={160} imageWidth={140} />
+                </Box>
               </Box>
             ))}
           </Box>

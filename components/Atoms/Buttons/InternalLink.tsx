@@ -9,11 +9,7 @@ const InternalLink = ({ route, text, large = false }: { route: string; text: str
     <>
       <FadeIn>
         <NLink href={route} passHref legacyBehavior>
-          <Link
-            //color='info'
-            sx={{ textDecoration: 'none' }}
-            p={1}
-          >
+          <Link sx={{ textDecoration: 'none' }} p={1}>
             <Typography textAlign={'center'} variant={`${large ? 'h3' : 'h6'}`}>
               {text}
             </Typography>

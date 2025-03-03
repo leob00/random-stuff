@@ -2,34 +2,26 @@ import { Box, Stack, Typography } from '@mui/material'
 import React from 'react'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
-import PageHeader from 'components/Atoms/Containers/PageHeader'
 import RecipeTeaser from './RecipeTeaser'
-import CenterStack from 'components/Atoms/CenterStack'
-import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import { DropdownItem } from 'lib/models/dropdown'
-import router from 'next/router'
-import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
-import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
-import RemoteImage from 'components/Atoms/RemoteImage'
 import RecipesSearch from './RecipesSearch'
+import { useSearchParams } from 'next/navigation'
+import RecipeTagsList from './RecipeTagsList'
 
 const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Recipe; autoComplete?: DropdownItem[]; selectedOption?: DropdownItem }) => {
   const baseUrl = '/ssg/recipes/'
-  const scroller = useScrollTop(0)
-  const handleSelected = (item: DropdownItem) => {
-    scroller.scroll()
-    if (item.value.includes('tag:')) {
-    } else {
-      router.push(`${baseUrl}${item.value}`)
-    }
-  }
+  const ret = useSearchParams()?.get('ret')
+  const backUrl = ret ? ret : baseUrl
+
+  const tags = article.recipeTagsCollection.items ?? []
+
   return (
     <>
       <Box>
         <Box py={2}>
-          <BackButton route={baseUrl} />
+          <BackButton route={backUrl} />
         </Box>
         {autoComplete && (
           <Box py={2}>
@@ -38,9 +30,7 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
         )}
       </Box>
       <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>
-        <FadeIn>
-          <RemoteImage url={article.heroImage.url} title={article.title} />
-        </FadeIn>
+        <RecipeTeaser item={article} clickable={false} showSummary={false} />
       </Stack>
       {article.summary && (
         <Box py={2}>
@@ -49,7 +39,7 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
           </FadeIn>
         </Box>
       )}
-
+      <RecipeTagsList tags={tags} />
       <Box px={2}>{documentToReactComponents(article.richBody.json)}</Box>
     </>
   )

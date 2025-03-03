@@ -1,7 +1,6 @@
-import { Box, Card, CardContent, CardHeader, Link, Stack, Typography } from '@mui/material'
+import { Box, Link, Stack, Typography } from '@mui/material'
 import InternalLink from 'components/Atoms/Buttons/InternalLink'
 import CenterStack from 'components/Atoms/CenterStack'
-import RemoteImage from 'components/Atoms/RemoteImage'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import NLink from 'next/link'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
@@ -34,7 +33,7 @@ const RecipeTeaser = ({
             </FadeIn>
           ) : (
             <FadeIn>
-              <Typography textAlign={'center'} variant={'h6'}>
+              <Typography textAlign={'center'} variant={'h6'} py={2}>
                 {item.title}
               </Typography>
             </FadeIn>
@@ -42,7 +41,6 @@ const RecipeTeaser = ({
         </CenterStack>
       </Box>
       <Box>
-        {/* <CardContent> */}
         {showSummary && item.summary && item.summary.length > 0 && (
           <Box pb={8}>
             <FadeIn>
