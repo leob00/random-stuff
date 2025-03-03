@@ -56,7 +56,7 @@ const Page: NextPage<{ id: string; tag: DropdownItem; data: Recipe[] }> = ({ id,
       <ResponsiveContainer>
         <PageHeader text={tag ? `${tag.text}` : ''} backButtonRoute='/ssg/recipes' />
         <Box pt={2}>
-          <Box display={'flex'} gap={1} flexWrap={'wrap'}>
+          <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
             {data.map((item) => (
               <Box key={item.sys.id} sx={{ border: `solid 1px ${VeryLightBlueTransparent}`, borderRadius: '8px' }} pb={2}>
                 <RecipeSmallTeaser item={item} imageHeight={160} imageWidth={140} />
