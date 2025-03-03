@@ -10,8 +10,8 @@ const RecipeTagsList = ({ tags }: { tags: RecipeTag[] }) => {
   }
   return (
     <>
-      <Box display={'flex'} gap={2} flexWrap={'wrap'} flexDirection={{ xs: 'column', sm: 'row' }} alignItems={'center'}>
-        {tags.length > 0 && <Typography variant={'body2'} color={'primary'}>{`tags:`}</Typography>}
+      <Box display={'flex'} gap={2} flexWrap={'wrap'} alignItems={'center'}>
+        {tags.length > 0 && <Typography variant={'body2'} color={'primary'}>{`categories:`}</Typography>}
 
         {tags.map((tag) => (
           <Box key={tag.id}>

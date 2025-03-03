@@ -8,6 +8,11 @@ import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { Box } from '@mui/material'
 import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import RecipeSmallTeaser from 'components/Organizms/recipes/RecipeSmallTeaser'
+import RecipesSearch from 'components/Organizms/recipes/RecipesSearch'
+import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
+import router from 'next/router'
+import { sortAlerts } from 'lib/ui/alerts/stockAlertHelper'
+import { sortArray } from 'lib/util/collections'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const allRecipes = await getAllRecipes()
@@ -39,17 +44,36 @@ export const getStaticProps: GetStaticProps = async (context) => {
       id: id,
       tag: tag,
       data: result,
+      allTags: sortArray(tags, ['text'], ['asc']),
     },
   }
 }
 
-const Page: NextPage<{ id: string; tag: DropdownItem; data: Recipe[] }> = ({ id, tag, data }) => {
+const Page: NextPage<{ id: string; tag: DropdownItem; data: Recipe[]; allTags: DropdownItem[] }> = ({ id, tag, data, allTags }) => {
+  const handleSelected = (item: DropdownItem) => {
+    if (item.value.includes('tag:')) {
+      const split = item.value.split(':')
+      router.push(`/ssg/recipes/tag/${split[1]}`)
+    } else {
+      router.push(`/ssg/recipes/${item.value}`)
+    }
+  }
   return (
     <Box py={2}>
-      <Seo pageTitle={`Recipe: ${id}`} />
+      <Seo pageTitle={`Recipe Category: ${id}`} />
       <ResponsiveContainer>
-        <PageHeader text={tag ? `${tag.text}` : ''} backButtonRoute='/ssg/recipes' />
+        <PageHeader text={tag ? `Recipe Category: ${tag.text}` : ''} backButtonRoute='/ssg/recipes' />
         <Box pt={2}>
+          <Box py={2} px={10}>
+            <StaticAutoComplete
+              options={allTags}
+              placeholder={`search by ${allTags.length} categories`}
+              onSelected={handleSelected}
+              fullWidth
+              disableClearable={false}
+              selectedItem={tag}
+            />{' '}
+          </Box>
           <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
             {data.map((item) => (
               <Box key={item.sys.id}>
