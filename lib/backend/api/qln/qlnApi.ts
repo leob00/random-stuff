@@ -153,7 +153,6 @@ export const newsTypes: DropdownItem[] = [
     text: 'Raw Story',
     value: 'RawStory',
   },
-
   {
     text: 'Sky News',
     value: 'SkyNews',
@@ -162,17 +161,29 @@ export const newsTypes: DropdownItem[] = [
     text: 'Spiegel International',
     value: 'SpiegelInternational',
   },
-  // {
-  //   text: 'The Hill - Administration',
-  //   value: 'TheHillAdministration',
-  // },
+  {
+    text: 'The Guardian',
+    value: 'TheGuardian',
+  },
+  {
+    text: 'The Hill - Administration',
+    value: 'TheHillAdministration',
+  },
   {
     text: 'The Hill - All News',
     value: 'TheHillAllNews',
   },
   {
+    text: 'The Hill - Lobbying',
+    value: 'TheHillLobbying',
+  },
+  {
     text: 'The Onion',
     value: 'TheOnion',
+  },
+  {
+    text: 'Washington Post',
+    value: 'WashingtonPost',
   },
   {
     text: 'Washington Times',
