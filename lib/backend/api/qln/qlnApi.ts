@@ -162,6 +162,14 @@ export const newsTypes: DropdownItem[] = [
     text: 'Spiegel International',
     value: 'SpiegelInternational',
   },
+  // {
+  //   text: 'The Hill - Administration',
+  //   value: 'TheHillAdministration',
+  // },
+  {
+    text: 'The Hill - All News',
+    value: 'TheHillAllNews',
+  },
   {
     text: 'The Onion',
     value: 'TheOnion',

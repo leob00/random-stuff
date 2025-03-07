@@ -51,7 +51,8 @@ const HomeMenu = () => {
           </Box>
           <Box pb={8}>
             <Box py={2}>
-              {showDefaultMenu ? (
+              <GroupedHomeMenu recentRoutes={data.recentRoutes} isAdmin={data.isAdmin} />
+              {/* {showDefaultMenu ? (
                 <GroupedHomeMenu recentRoutes={data.recentRoutes} isAdmin={data.isAdmin} />
               ) : (
                 <>
@@ -67,7 +68,7 @@ const HomeMenu = () => {
                     </Box>
                   ))}
                 </>
-              )}
+              )} */}
             </Box>
           </Box>
         </Box>

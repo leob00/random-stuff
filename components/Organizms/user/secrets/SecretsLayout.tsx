@@ -25,7 +25,6 @@ interface Model {
 
 const SecretsLayout = ({ userProfile, ticket }: { userProfile: UserProfile; ticket: AmplifyUser }) => {
   const encKey: string | null = `${ticket.id}-${userProfile.username}`
-  const { setProfile } = useUserController()
 
   const defaultModel: Model = {
     filter: '',

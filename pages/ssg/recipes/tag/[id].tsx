@@ -8,10 +8,8 @@ import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { Box } from '@mui/material'
 import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import RecipeSmallTeaser from 'components/Organizms/recipes/RecipeSmallTeaser'
-import RecipesSearch from 'components/Organizms/recipes/RecipesSearch'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import router from 'next/router'
-import { sortAlerts } from 'lib/ui/alerts/stockAlertHelper'
 import { sortArray } from 'lib/util/collections'
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -43,7 +41,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       id: id,
       tag: tag,
-      data: result,
+      data: sortArray(result, ['title'], ['asc']),
       allTags: sortArray(tags, ['text'], ['asc']),
     },
   }
