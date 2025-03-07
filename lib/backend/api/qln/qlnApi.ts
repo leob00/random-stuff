@@ -182,6 +182,10 @@ export const newsTypes: DropdownItem[] = [
     value: 'TheOnion',
   },
   {
+    text: 'UN - Top Stories',
+    value: 'UNWorld',
+  },
+  {
     text: 'Washington Post',
     value: 'WashingtonPost',
   },
@@ -193,10 +197,6 @@ export const newsTypes: DropdownItem[] = [
     text: 'Yahoo Finance',
     value: 'YahooFinance',
   },
-  // {
-  //   text: 'Yahoo Science',
-  //   value: 'YahooScience',
-  // },
   {
     text: 'Yahoo World',
     value: 'YahooWorld',
