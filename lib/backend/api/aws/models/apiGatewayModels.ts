@@ -159,12 +159,6 @@ export interface BasicArticle {
   summary?: string
 }
 
-export interface EmailMessage {
-  to: string
-  subject: string
-  html: string
-}
-
 export interface RandomStuffData {
   cats: BasicArticle[]
   dogs: BasicArticle[]

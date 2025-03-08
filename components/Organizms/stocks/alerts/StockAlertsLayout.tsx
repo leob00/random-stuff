@@ -5,7 +5,7 @@ import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useAlertsController } from 'hooks/stocks/alerts/useAlertsController'
 import { processAlertTriggers } from 'lib/backend/alerts/stockAlertProcessor'
-import { DynamoKeys, EmailMessage, LambdaDynamoRequest, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { DynamoKeys, LambdaDynamoRequest, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { constructStockAlertsSubPrimaryKey, constructStockAlertsSubSecondaryKey } from 'lib/backend/api/aws/util'
 import { StockAlertSubscription, StockAlertSubscriptionWithMessage, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
@@ -13,7 +13,6 @@ import { getRecord, putRecord, putRecordsBatch, searchRecords, sendEmailFromClie
 import { getDefaultSubscription, sortAlerts } from 'lib/ui/alerts/stockAlertHelper'
 import { formatEmail } from 'lib/ui/mailUtil'
 import { uniq } from 'lodash'
-import React from 'react'
 import StocksLookup from '../StocksLookup'
 import EmailPreview from './EmailPreview'
 import StockAlertRow from './StockAlertRow'
@@ -21,16 +20,20 @@ import StockSubscriptionForm from './StockSubscriptionForm'
 import { saveTrigger } from 'lib/ui/alerts/stockAlertHelper'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import TableHeaderWithSearchWithinList from 'components/Atoms/Tables/TableHeaderWithSearchWithinList'
+import { EmailMessage } from 'app/serverActions/aws/ses/ses'
+import { useState } from 'react'
 
 const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const alertsSearchhKey = constructStockAlertsSubSecondaryKey(userProfile.username)
-  const [searchFilter, setSearchFilter] = React.useState('')
-  const [showAddAlert, setShowAddAlert] = React.useState(false)
+  const [searchFilter, setSearchFilter] = useState('')
+  const [showAddAlert, setShowAddAlert] = useState(false)
 
   const filterRecords = (data: StockAlertSubscriptionWithMessage): StockAlertSubscriptionWithMessage => {
     const result = { ...data }
     if (searchFilter.length > 0) {
-      result.subscriptions = result.subscriptions.filter((m) => m.symbol.toLowerCase().startsWith(searchFilter.toLowerCase()) || m.company.toLowerCase().startsWith(searchFilter.toLowerCase()))
+      result.subscriptions = result.subscriptions.filter(
+        (m) => m.symbol.toLowerCase().startsWith(searchFilter.toLowerCase()) || m.company.toLowerCase().startsWith(searchFilter.toLowerCase()),
+      )
     }
     return result
   }
@@ -45,10 +48,10 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   }
 
   const { data, isLoading, isAdmin, mutate, setIsLoading } = useAlertsController<StockAlertSubscriptionWithMessage>(alertsSearchhKey, dataFn)
-  const [emailMessage, setEmailMessage] = React.useState<EmailMessage | null>(null)
-  const [successMesssage, setSuccessMessage] = React.useState<string | null>(null)
-  const [quote, setQuote] = React.useState<StockQuote | null>(null)
-  const [editSub, setEditSub] = React.useState<StockAlertSubscription | null>(null)
+  const [emailMessage, setEmailMessage] = useState<EmailMessage | null>(null)
+  const [successMesssage, setSuccessMessage] = useState<string | null>(null)
+  const [quote, setQuote] = useState<StockQuote | null>(null)
+  const [editSub, setEditSub] = useState<StockAlertSubscription | null>(null)
 
   const handleGenerateAlerts = async () => {
     setIsLoading(true)
@@ -62,7 +65,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
 
     const template = await formatEmail('/emailTemplates/stockAlertSubscriptionEmailTemplate.html', new Map<string, string>())
     const templateKey: DynamoKeys = 'email-template[stock-alert]'
-    putRecord(templateKey, 'email-template', template)
+    //putRecord(templateKey, 'email-template', template)
     const result = processAlertTriggers(userProfile.username, dataCopy, quotes, template)
     result.subscriptions = sortAlerts(result.subscriptions)
 
@@ -84,7 +87,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const handleSendEmail = async () => {
     if (emailMessage) {
       setIsLoading(true)
-      await sendEmailFromClient({ ...emailMessage })
+      await sendEmailFromClient({ ...emailMessage, from: 'alertsender@quotelookup.net' })
       const newData = { ...data }
 
       newData.subscriptions!.forEach((sub) => {

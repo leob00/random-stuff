@@ -1,4 +1,3 @@
-import dayjs from 'dayjs'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import { StockAlertSubscriptionWithMessage, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 
@@ -26,6 +25,7 @@ export function processAlertTriggers(
 
   if (dailyRows.length > 0) {
     subscription.message = {
+      from: 'alertsender@quotelookup.net',
       to: username,
       subject: 'Random Stuff - Stock Alerts',
       html: htmlTemplate.replaceAll('{dailyData}', dailyRows.join('')),

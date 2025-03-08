@@ -3,14 +3,14 @@ import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import InternalLink from 'components/Atoms/Buttons/InternalLink'
 import CenterStack from 'components/Atoms/CenterStack'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import { EmailMessage, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { AmplifyUser } from 'lib/backend/auth/userUtil'
 import { sendEmailFromClient } from 'lib/backend/csr/nextApiWrapper'
 import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
 import React from 'react'
 import { useRouter } from 'next/router'
 import { formatEmail } from 'lib/ui/mailUtil'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { EmailMessage } from 'app/serverActions/aws/ses/ses'
 
 const SendPinLayout = ({ profile }: { profile: UserProfile }) => {
   const [emailSent, setEmailSent] = React.useState(false)
@@ -30,6 +30,7 @@ const SendPinLayout = ({ profile }: { profile: UserProfile }) => {
 
     const html = await formatEmail('/emailTemplates/sendPin.html', replaceValues)
     const message: EmailMessage = {
+      from: 'alertsender@quotelookup.net',
       to: profile.username,
       subject: 'your pin',
       html: html,

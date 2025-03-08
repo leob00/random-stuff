@@ -33,8 +33,6 @@ export async function getItem(key: string) {
   }
   const db = new DynamoDBClient({
     credentials: awsCreds,
-
-    //region: 'us-east-1',
   })
   const command = new GetItemCommand(params)
   try {

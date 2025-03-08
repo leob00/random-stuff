@@ -1,12 +1,11 @@
 import { Box, Card, CardContent, Typography } from '@mui/material'
+import { EmailMessage } from 'app/serverActions/aws/ses/ses'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
-import { EmailMessage } from 'lib/backend/api/aws/models/apiGatewayModels'
-import React from 'react'
 
 const EmailPreview = ({ emailMessage, onClose, onSend }: { emailMessage: EmailMessage; onClose: () => void; onSend: () => void }) => {
   return (

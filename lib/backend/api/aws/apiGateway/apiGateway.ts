@@ -3,23 +3,9 @@ import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { apiConnection } from '../../config'
 import { get, post, postBody } from 'lib/backend/api/fetchFunctions'
 import { StockAlertSubscription, StockQuote } from '../../models/zModels'
-import {
-  BasicArticle,
-  Bucket,
-  CategoryType,
-  CoinFlipStats,
-  DynamoKeys,
-  EmailMessage,
-  LambdaBody,
-  LambdaDynamoRequest,
-  LambdaDynamoRequestBatch,
-  LambdaResponse,
-  RandomStuffPut,
-  S3Object,
-  WheelSpinStats,
-} from '../models/apiGatewayModels'
+import { BasicArticle, DynamoKeys, LambdaDynamoRequest, LambdaDynamoRequestBatch, LambdaResponse, RandomStuffPut } from '../models/apiGatewayModels'
 import { constructStockAlertsSubSecondaryKey } from '../util'
-import { getItem, putItem, searchItems } from 'app/serverActions/aws/dynamo/dynamo'
+import { EmailMessage } from 'app/serverActions/aws/ses/ses'
 
 const connection = apiConnection().aws
 const apiGatewayUrl = connection.url
@@ -115,11 +101,11 @@ export async function putRandomStuffBatchEnc(req: SignedRequest) {
   }
 }
 
-export async function sendEmail(message: EmailMessage) {
-  const url = `${apiGatewayUrl}/sendemail`
-  const response = (await post(url, message)) as LambdaResponse
-  return response.body
-}
+// export async function sendEmail(message: EmailMessage) {
+//   const url = `${apiGatewayUrl}/sendemail`
+//   const response = (await post(url, message)) as LambdaResponse
+//   return response.body
+// }
 
 export async function getSesAttributes(username: string) {
   const response = (await postBody(`${apiGatewayUrl}/ses`, 'POST', { key: username })) as LambdaResponse

@@ -1,5 +1,5 @@
+import { EmailMessage } from 'app/serverActions/aws/ses/ses'
 import { z } from 'zod'
-import { EmailMessage } from '../aws/models/apiGatewayModels'
 
 export const quoteHistorySchema = z
   .object({

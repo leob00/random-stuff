@@ -1,10 +1,11 @@
 import { updateSubscriptions } from 'lib/backend/api/aws/apiGateway/apiGateway'
-import { UserProfile, DynamoKeys, EmailMessage } from '../api/aws/models/apiGatewayModels'
+import { UserProfile, DynamoKeys } from '../api/aws/models/apiGatewayModels'
 import { constructStockAlertsSubSecondaryKey } from '../api/aws/util'
 import { StockAlertSubscription, StockAlertSubscriptionWithMessage } from '../api/models/zModels'
 import { getStockQuotes, getStockQuotesServer } from '../api/qln/qlnApi'
 import { processAlertTriggers } from './stockAlertProcessor'
 import { getItem, searchItems } from 'app/serverActions/aws/dynamo/dynamo'
+import { EmailMessage } from 'app/serverActions/aws/ses/ses'
 
 export async function buildStockAlertsForAllUsers(userServer: boolean) {
   const profileResponse = await searchItems('userProfile')

@@ -1,4 +1,3 @@
-import dayjs from 'dayjs'
 import { DropdownItem } from 'lib/models/dropdown'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
@@ -10,7 +9,6 @@ import {
   DynamoKeys,
   CategoryType,
   LambdaDynamoRequestBatch,
-  EmailMessage,
   S3Object,
   Bucket,
   S3Folder,
@@ -28,6 +26,7 @@ import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { weakEncrypt } from '../encryption/useEncryptor'
 import { UserGoal, UserTask } from 'components/Organizms/user/goals/goalModels'
 import { type RandomStuffDynamoItem } from 'app/serverActions/aws/dynamo/dynamo'
+import { EmailMessage } from 'app/serverActions/aws/ses/ses'
 
 export interface SignedRequest {
   appId?: string
@@ -377,7 +376,7 @@ export async function getCommunityStocks() {
 }
 
 export async function sendEmailFromClient(item: EmailMessage) {
-  await post(`/api/sendEmail`, item)
+  await postBody(`/api/aws/ses/sendEmail`, 'POST', item)
 }
 
 // S3
