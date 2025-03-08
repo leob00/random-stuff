@@ -22,7 +22,7 @@ import RecipesSearch from 'components/Organizms/recipes/RecipesSearch'
 import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
 dayjs.extend(relativeTime)
 
-const cmsRefreshIntervalSeconds = 86400
+const cmsRefreshIntervalSeconds = 21600 // 6 hours
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
 const featuredLength = 10
 const siteStatsKey = 'site-stats'

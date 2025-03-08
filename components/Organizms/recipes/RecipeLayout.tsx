@@ -9,6 +9,7 @@ import FadeIn from 'components/Atoms/Animations/FadeIn'
 import RecipesSearch from './RecipesSearch'
 import { useSearchParams } from 'next/navigation'
 import RecipeTagsList from './RecipeTagsList'
+import CenterStack from 'components/Atoms/CenterStack'
 
 const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Recipe; autoComplete?: DropdownItem[]; selectedOption?: DropdownItem }) => {
   const baseUrl = '/ssg/recipes/'
@@ -24,9 +25,9 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
           <BackButton route={backUrl} />
         </Box>
         {autoComplete && (
-          <Box py={2}>
+          <CenterStack sx={{ pt: 2 }}>
             <RecipesSearch autoComplete={autoComplete} />
-          </Box>
+          </CenterStack>
         )}
       </Box>
       <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>

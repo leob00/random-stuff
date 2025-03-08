@@ -1,15 +1,14 @@
 import { TextField, Autocomplete } from '@mui/material'
 import { CasinoBlue, VeryLightBlue } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
-import { debounce } from 'lodash'
+import { debounce, take } from 'lodash'
 import { useTheme } from '@mui/material'
 import { useRef, useState } from 'react'
 
-const StocksAutoComplete = ({
-  onChanged,
+const StaticAutoCompleteFreeSolo = ({
   width = 600,
   placeholder = 'search in results',
-  debounceWaitMilliseconds = 250,
+  debounceWaitMilliseconds = 450,
   searchResults,
   onSelected,
   clearOnSelect = true,
@@ -17,12 +16,11 @@ const StocksAutoComplete = ({
   errorMessage,
   freesolo = true,
 }: {
-  onChanged?: (text: string) => void
   width?: number
   placeholder?: string
   debounceWaitMilliseconds?: number
   searchResults: DropdownItem[]
-  onSelected: (text: string) => void
+  onSelected: (item: DropdownItem) => void
   clearOnSelect?: boolean
   label?: string
   errorMessage?: string
@@ -32,9 +30,19 @@ const StocksAutoComplete = ({
   const color = theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlue
   const textRef = useRef<HTMLInputElement | null>(null)
   const [selectedVal, setSelectedVal] = useState('')
+  const [filtered, setFiltered] = useState<DropdownItem[]>([])
+
+  const handleSearched = (text: string) => {
+    const found = take(
+      searchResults.filter((m) => m.text.toLowerCase().includes(text.toLowerCase())),
+      10,
+    )
+    setFiltered(found)
+    // console.log('found: ', found.length)
+  }
 
   const raiseChangeEvent = (term: string) => {
-    onChanged?.(term)
+    handleSearched(term)
   }
   const debouncedFn = debounce(raiseChangeEvent, debounceWaitMilliseconds)
 
@@ -51,12 +59,13 @@ const StocksAutoComplete = ({
           setSelectedVal('')
         }
       }
-      onSelected(value)
-    } else {
-      onSelected('')
+      const item = filtered.find((m) => m.text.toLowerCase() === value.toLowerCase())
+      if (item) {
+        onSelected(item)
+      }
     }
   }
-  const options = searchResults.map((e) => e.text)
+  const options = filtered.map((e) => e.text)
 
   return (
     <Autocomplete
@@ -88,4 +97,4 @@ const StocksAutoComplete = ({
   )
 }
 
-export default StocksAutoComplete
+export default StaticAutoCompleteFreeSolo

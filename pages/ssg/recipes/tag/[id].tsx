@@ -11,6 +11,7 @@ import RecipeSmallTeaser from 'components/Organizms/recipes/RecipeSmallTeaser'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import router from 'next/router'
 import { sortArray } from 'lib/util/collections'
+import CenterStack from 'components/Atoms/CenterStack'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const allRecipes = await getAllRecipes()
@@ -62,15 +63,19 @@ const Page: NextPage<{ id: string; tag: DropdownItem; data: Recipe[]; allTags: D
       <ResponsiveContainer>
         <PageHeader text={tag ? `Recipe Category: ${tag.text}` : ''} backButtonRoute='/ssg/recipes' />
         <Box pt={2}>
-          <Box py={2} px={10}>
-            <StaticAutoComplete
-              options={allTags}
-              placeholder={`search by ${allTags.length} categories`}
-              onSelected={handleSelected}
-              fullWidth
-              disableClearable={false}
-              selectedItem={tag}
-            />{' '}
+          <Box py={2}>
+            <CenterStack>
+              <Box width={400}>
+                <StaticAutoComplete
+                  options={allTags}
+                  placeholder={`search by ${allTags.length} categories`}
+                  onSelected={handleSelected}
+                  fullWidth
+                  disableClearable={false}
+                  selectedItem={tag}
+                />
+              </Box>
+            </CenterStack>
           </Box>
           <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
             {data.map((item) => (

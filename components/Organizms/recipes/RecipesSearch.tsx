@@ -1,6 +1,9 @@
+import { Box } from '@mui/material'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
+import StaticAutoCompleteFreeSolo from 'components/Atoms/Inputs/StaticAutoCompleteFreeSolo'
 import { DropdownItem } from 'lib/models/dropdown'
 import router from 'next/router'
+import numeral from 'numeral'
 
 const RecipesSearch = ({ autoComplete }: { autoComplete: DropdownItem[] }) => {
   const handleSelected = (item: DropdownItem) => {
@@ -12,13 +15,14 @@ const RecipesSearch = ({ autoComplete }: { autoComplete: DropdownItem[] }) => {
     }
   }
   return (
-    <StaticAutoComplete
-      options={autoComplete}
-      placeholder={`search ${autoComplete.length} recipes`}
-      onSelected={handleSelected}
-      fullWidth
-      disableClearable={false}
-    />
+    <Box>
+      <StaticAutoCompleteFreeSolo
+        onSelected={handleSelected}
+        searchResults={autoComplete}
+        clearOnSelect
+        placeholder={`search ${numeral(autoComplete.length).format('###,###')} recipes`}
+      />
+    </Box>
   )
 }
 
