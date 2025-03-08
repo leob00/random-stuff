@@ -6,7 +6,6 @@ import { useTheme } from '@mui/material'
 import { useRef, useState } from 'react'
 
 const StaticAutoCompleteFreeSolo = ({
-  width = 600,
   placeholder = 'search in results',
   debounceWaitMilliseconds = 450,
   searchResults,
@@ -14,7 +13,6 @@ const StaticAutoCompleteFreeSolo = ({
   clearOnSelect = true,
   label = '',
   errorMessage,
-  freesolo = true,
 }: {
   width?: number
   placeholder?: string
@@ -24,7 +22,6 @@ const StaticAutoCompleteFreeSolo = ({
   clearOnSelect?: boolean
   label?: string
   errorMessage?: string
-  freesolo?: boolean
 }) => {
   const theme = useTheme()
   const color = theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlue
@@ -74,8 +71,8 @@ const StaticAutoCompleteFreeSolo = ({
       autoComplete={false}
       size='small'
       id='searchAutoComplete'
-      freeSolo={freesolo}
-      sx={{ width: width, input: { color: color } }}
+      freeSolo
+      sx={{ width: { xs: 300, sm: 600 }, input: { color: color } }}
       options={options}
       autoHighlight
       onChange={(_, value) => {

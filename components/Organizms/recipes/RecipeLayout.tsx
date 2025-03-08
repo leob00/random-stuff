@@ -10,6 +10,8 @@ import RecipesSearch from './RecipesSearch'
 import { useSearchParams } from 'next/navigation'
 import RecipeTagsList from './RecipeTagsList'
 import CenterStack from 'components/Atoms/CenterStack'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
+import RecipeImage from './RecipeImage'
 
 const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Recipe; autoComplete?: DropdownItem[]; selectedOption?: DropdownItem }) => {
   const baseUrl = '/ssg/recipes/'
@@ -20,19 +22,13 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
 
   return (
     <>
-      <Box>
-        <Box py={2}>
-          <BackButton route={backUrl} />
-        </Box>
-        {autoComplete && (
-          <CenterStack sx={{ pt: 2 }}>
-            <RecipesSearch autoComplete={autoComplete} />
-          </CenterStack>
-        )}
+      <PageHeader text={article.title} backButtonRoute={backUrl} />
+      <Box py={1}>
+        <BackButton route={backUrl} />
       </Box>
-      <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>
-        <RecipeTeaser item={article} clickable={false} showSummary={false} />
-      </Stack>
+      <Box py={2}>
+        <RecipeTagsList tags={tags} />
+      </Box>
       {article.summary && (
         <Box py={2}>
           <FadeIn>
@@ -40,7 +36,9 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
           </FadeIn>
         </Box>
       )}
-      <RecipeTagsList tags={tags} />
+      <Box>
+        <RecipeImage recipe={article} width={220} height={220} />
+      </Box>
       <Box px={2}>{documentToReactComponents(article.richBody.json)}</Box>
     </>
   )

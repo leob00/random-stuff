@@ -8,10 +8,11 @@ import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { Box } from '@mui/material'
 import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import RecipeSmallTeaser from 'components/Organizms/recipes/RecipeSmallTeaser'
-import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import router from 'next/router'
 import { sortArray } from 'lib/util/collections'
 import CenterStack from 'components/Atoms/CenterStack'
+import StaticAutoCompleteFreeSolo from 'components/Atoms/Inputs/StaticAutoCompleteFreeSolo'
+import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const allRecipes = await getAllRecipes()
@@ -65,22 +66,13 @@ const Page: NextPage<{ id: string; tag: DropdownItem; data: Recipe[]; allTags: D
         <Box pt={2}>
           <Box py={2}>
             <CenterStack>
-              <Box width={400}>
-                <StaticAutoComplete
-                  options={allTags}
-                  placeholder={`search by ${allTags.length} categories`}
-                  onSelected={handleSelected}
-                  fullWidth
-                  disableClearable={false}
-                  selectedItem={tag}
-                />
-              </Box>
+              <StaticAutoComplete onSelected={handleSelected} options={allTags} placeholder={`search by ${allTags.length} categories`} />
             </CenterStack>
           </Box>
           <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
             {data.map((item) => (
               <Box key={item.sys.id}>
-                <Box sx={{ border: `solid 1px ${VeryLightBlueTransparent}`, borderRadius: '8px' }} pb={2}>
+                <Box pb={2}>
                   <RecipeSmallTeaser id={id} item={item} imageHeight={160} imageWidth={140} />
                 </Box>
               </Box>

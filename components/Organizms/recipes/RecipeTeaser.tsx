@@ -13,6 +13,7 @@ const RecipeTeaser = ({
   showImage = true,
   imageWidth = 380,
   imageHeight = 430,
+  showTitle = true,
 }: {
   item: Recipe
   clickable?: boolean
@@ -20,25 +21,28 @@ const RecipeTeaser = ({
   showImage?: boolean
   imageWidth?: number
   imageHeight?: number
+  showTitle?: boolean
 }) => {
   const baseUrl = '/ssg/recipes/'
 
   return (
     <Box px={1}>
       <Box>
-        <CenterStack>
-          {clickable ? (
-            <FadeIn>
-              <InternalLink text={item.title} route={`${baseUrl}${item.sys.id}`} />
-            </FadeIn>
-          ) : (
-            <FadeIn>
-              <Typography textAlign={'center'} variant={'h6'} py={2}>
-                {item.title}
-              </Typography>
-            </FadeIn>
-          )}
-        </CenterStack>
+        {showTitle && (
+          <CenterStack>
+            {clickable ? (
+              <FadeIn>
+                <InternalLink text={item.title} route={`${baseUrl}${item.sys.id}`} />
+              </FadeIn>
+            ) : (
+              <FadeIn>
+                <Typography textAlign={'center'} variant={'h6'} py={2}>
+                  {item.title}
+                </Typography>
+              </FadeIn>
+            )}
+          </CenterStack>
+        )}
       </Box>
       <Box>
         {showSummary && item.summary && item.summary.length > 0 && (
