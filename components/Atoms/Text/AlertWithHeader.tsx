@@ -1,7 +1,7 @@
 import { Alert, AlertTitle, Typography, useTheme } from '@mui/material'
 import React from 'react'
 
-const AlertWithHeader = ({ header, text, severity }: { header?: string; text: string; severity: 'warning' | 'info' | 'success' | 'error' }) => {
+const AlertWithHeader = ({ header, text, severity }: { header?: string; text?: string; severity: 'warning' | 'info' | 'success' | 'error' }) => {
   const theme = useTheme()
   let color = theme.palette.primary.dark
   switch (severity) {
@@ -19,13 +19,15 @@ const AlertWithHeader = ({ header, text, severity }: { header?: string; text: st
       break
   }
   return (
-    <Alert severity={severity}>
+    <Alert severity={severity} sx={{ backgroundColor: 'transparent' }}>
       {header && (
         <AlertTitle color={color}>
-          <Typography variant='h6'>{header}</Typography>
+          <Typography variant='h6' mt={-0.5}>
+            {header}
+          </Typography>
         </AlertTitle>
       )}
-      {text}
+      {text && <>{text}</>}
     </Alert>
   )
 }

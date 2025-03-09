@@ -101,20 +101,6 @@ export async function putRandomStuffBatchEnc(req: SignedRequest) {
   }
 }
 
-// export async function sendEmail(message: EmailMessage) {
-//   const url = `${apiGatewayUrl}/sendemail`
-//   const response = (await post(url, message)) as LambdaResponse
-//   return response.body
-// }
-
-export async function getSesAttributes(username: string) {
-  const response = (await postBody(`${apiGatewayUrl}/ses`, 'POST', { key: username })) as LambdaResponse
-  return response.body
-}
-export async function sendSesEmailVerification(username: string) {
-  const response = await postBody(`${apiGatewayUrl}/ses`, 'PUT', { key: username })
-}
-
 export async function updateSubscriptions(items: StockAlertSubscription[], username: string) {
   const records: LambdaDynamoRequest[] = items.map((m) => {
     return {

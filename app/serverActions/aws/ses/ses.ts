@@ -1,4 +1,4 @@
-import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses'
+import { SESClient, SendEmailCommand, VerifyEmailIdentityCommand, GetIdentityVerificationAttributesCommand } from '@aws-sdk/client-ses'
 import { awsCreds } from 'app/api/aws/awsHelper'
 
 export type EmailMessage = {
@@ -54,4 +54,28 @@ export async function sendEmail(message: EmailMessage) {
     }
     throw caught
   }
+}
+
+export async function verifyEmailIdentity(email: string) {
+  const client = new SESClient({
+    credentials: awsCreds,
+  })
+  const command = new VerifyEmailIdentityCommand({ EmailAddress: email })
+  try {
+    return (await client.send(command)).$metadata
+  } catch (err) {
+    console.log('Failed to verify email identity.', err)
+    return err
+  }
+}
+
+export async function getSesVerificationAttributes(email: string) {
+  const client = new SESClient({
+    credentials: awsCreds,
+  })
+  const command = new GetIdentityVerificationAttributesCommand({
+    Identities: [email],
+  })
+  const response = await client.send(command)
+  return response
 }

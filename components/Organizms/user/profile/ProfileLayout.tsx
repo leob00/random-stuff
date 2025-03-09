@@ -77,10 +77,12 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                 </Box>
               ) : (
                 <Box py={2}>
-                  <Typography py={2} textAlign={'center'}>{`email: ${validatedProfile.username}`}</Typography>
-                  <CenterStack>
-                    <AlertWithHeader severity='success' header={``} text='verified' />
-                  </CenterStack>
+                  <Box>
+                    {/* <Typography py={2} textAlign={'center'}>{`email: ${validatedProfile.username}`}</Typography> */}
+                    <AlertWithHeader severity='success' header={`${validatedProfile.username}`} text='' />
+                  </Box>
+
+                  <CenterStack></CenterStack>
                 </Box>
               )}
             </Box>

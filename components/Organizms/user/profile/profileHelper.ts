@@ -1,7 +1,7 @@
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { get } from 'lib/backend/api/fetchFunctions'
+import { postBody } from 'lib/backend/api/fetchFunctions'
 export async function getEmailVerificationStatus(userProfile: UserProfile) {
-  const response: { VerificationAttributes: any } = await get('/api/ses')
+  const response = await postBody('/api/aws/ses/verificationStatus', 'POST', userProfile.username)
   let verified = false
   try {
     if (response.VerificationAttributes[userProfile.username]['VerificationStatus'] === 'Success') {

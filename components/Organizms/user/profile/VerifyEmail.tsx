@@ -13,7 +13,7 @@ const VerifyEmail = ({ userProfile }: { userProfile: UserProfile }) => {
   const handleVerifyEmail = async () => {
     setIsLoading(true)
     setInstructions('Please go to your email and find the instructions on how to proceed.')
-    await postBody('/api/ses', 'PUT', { key: userProfile.username })
+    await postBody('/api/aws/ses/sendVerificationEmail', 'POST', userProfile.username)
     setIsLoading(false)
     setShowButton(false)
   }
