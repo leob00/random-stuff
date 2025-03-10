@@ -10,7 +10,7 @@ import { sortArray } from 'lib/util/collections'
 import { DropdownItem } from 'lib/models/dropdown'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
-const cmsRefreshIntervalSeconds = 86400
+const cmsRefreshIntervalSeconds = 21600 // 6 hours
 const fetcherFn = async (url: string, id: string) => {
   let config: AxiosRequestConfig = {
     params: {

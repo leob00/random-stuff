@@ -26,7 +26,7 @@ const cmsRefreshIntervalSeconds = 21600 // 6 hours
 const cmsRefreshIntervalMs = cmsRefreshIntervalSeconds * 1000
 const featuredLength = 10
 const siteStatsKey = 'site-stats'
-const featuredRecipesExpirationMinutes = 720 // 12 hours
+const featuredRecipesExpirationMinutes = 360 // 6 hours
 
 interface RecipesLayoutModel {
   autoComplete: DropdownItem[]
