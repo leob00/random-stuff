@@ -6,12 +6,10 @@ import Seo from 'components/Organizms/Seo'
 import { DropdownItem } from 'lib/models/dropdown'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { Box } from '@mui/material'
-import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import RecipeSmallTeaser from 'components/Organizms/recipes/RecipeSmallTeaser'
 import router from 'next/router'
 import { sortArray } from 'lib/util/collections'
 import CenterStack from 'components/Atoms/CenterStack'
-import StaticAutoCompleteFreeSolo from 'components/Atoms/Inputs/StaticAutoCompleteFreeSolo'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -26,7 +24,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+type PageProps = {
+  id: string
+  tag?: DropdownItem
+  data: Recipe[]
+  allTags: DropdownItem[]
+}
+
+export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
   const id = context.params?.id as string
   const recipeCollection = await getAllRecipes()
   const filtered = recipeCollection.items.filter((m) => m.recipeTagsCollection.items.length > 0)
@@ -49,7 +54,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-const Page: NextPage<{ id: string; tag: DropdownItem; data: Recipe[]; allTags: DropdownItem[] }> = ({ id, tag, data, allTags }) => {
+const Page: NextPage<PageProps> = (pageProps) => {
   const handleSelected = (item: DropdownItem) => {
     if (item.value.includes('tag:')) {
       const split = item.value.split(':')
@@ -60,20 +65,20 @@ const Page: NextPage<{ id: string; tag: DropdownItem; data: Recipe[]; allTags: D
   }
   return (
     <Box py={2}>
-      <Seo pageTitle={`Recipe Category: ${id}`} />
+      <Seo pageTitle={`Recipe Category: ${pageProps.id}`} />
       <ResponsiveContainer>
-        <PageHeader text={tag ? `Recipe Category: ${tag.text}` : ''} backButtonRoute='/ssg/recipes' />
+        <PageHeader text={pageProps.tag ? `Recipe Category: ${pageProps.tag.text}` : ''} backButtonRoute='/ssg/recipes' />
         <Box pt={2}>
           <Box py={2}>
             <CenterStack>
-              <StaticAutoComplete onSelected={handleSelected} options={allTags} placeholder={`search by ${allTags.length} categories`} />
+              <StaticAutoComplete onSelected={handleSelected} options={pageProps.allTags} placeholder={`search by ${pageProps.allTags.length} categories`} />
             </CenterStack>
           </Box>
           <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
-            {data.map((item) => (
+            {pageProps.data.map((item) => (
               <Box key={item.sys.id}>
                 <Box pb={2}>
-                  <RecipeSmallTeaser id={id} item={item} imageHeight={160} imageWidth={140} />
+                  <RecipeSmallTeaser id={pageProps.id} item={item} imageHeight={160} imageWidth={140} />
                 </Box>
               </Box>
             ))}

@@ -14,7 +14,7 @@ export function getExpirateDateFromSeconds(epochSeconds: number) {
 }
 
 export function getExpirationText(expirationDate: string, precise: boolean = false) {
-  const defaultText = 'will expire '
+  const defaultText = 'expires '
   let message = `${defaultText} on ${dayjs(expirationDate).format('MM/DD/YYYY hh:mm a')}`
   const now = getUtcNow()
   const expDt = dayjs(expirationDate)

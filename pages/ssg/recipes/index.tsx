@@ -38,13 +38,15 @@ const fetcherFn = async (url: string) => {
   const result = resp.data as RecipeCollection
   const allItems = result.items
 
-  let newData = take(shuffle(allItems), featuredLength)
+  const newData = take(shuffle(allItems), featuredLength)
   const stats = await getRecord<SiteStats>(siteStatsKey)
-  const expirationDate = dayjs(stats.recipes.lastRefreshDate).add(featuredRecipesExpirationMinutes, 'minute')
-  const needsRefresh = expirationDate.isBefore(dayjs())
+
+  const now = getUtcNow()
+  const expirationDate = now.add(featuredRecipesExpirationMinutes, 'minute')
+  const needsRefresh = expirationDate.isBefore(now)
   if (needsRefresh) {
     stats.recipes.featured = newData
-    stats.recipes.lastRefreshDate = dayjs().format()
+    stats.recipes.lastRefreshDate = now.format()
     await putRecord(siteStatsKey, siteStatsKey, stats)
   }
   const featured = needsRefresh ? newData : stats.recipes.featured

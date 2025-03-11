@@ -26,9 +26,7 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
       <Box py={1}>
         <BackButton route={backUrl} />
       </Box>
-      <Box py={2}>
-        <RecipeTagsList tags={tags} />
-      </Box>
+
       {article.summary && (
         <Box py={2}>
           <FadeIn>
@@ -36,8 +34,12 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
           </FadeIn>
         </Box>
       )}
-      <Box>
+
+      <Box display={'flex'}>
         <RecipeImage recipe={article} width={220} height={220} />
+      </Box>
+      <Box py={2}>
+        <RecipeTagsList tags={tags} />
       </Box>
       <Box px={2}>{documentToReactComponents(article.richBody.json)}</Box>
     </>

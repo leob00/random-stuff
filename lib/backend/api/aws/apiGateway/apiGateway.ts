@@ -4,8 +4,9 @@ import { apiConnection } from '../../config'
 import { get, post, postBody } from 'lib/backend/api/fetchFunctions'
 import { StockAlertSubscription, StockQuote } from '../../models/zModels'
 import { BasicArticle, DynamoKeys, LambdaDynamoRequest, LambdaDynamoRequestBatch, LambdaResponse, RandomStuffPut } from '../models/apiGatewayModels'
-import { constructStockAlertsSubSecondaryKey } from '../util'
+import { constructStockAlertsSubPrimaryKey, constructStockAlertsSubSecondaryKey } from '../util'
 import { EmailMessage } from 'app/serverActions/aws/ses/ses'
+import { RandomStuffDynamoItem, putItems } from 'app/serverActions/aws/dynamo/dynamo'
 
 const connection = apiConnection().aws
 const apiGatewayUrl = connection.url
@@ -99,18 +100,6 @@ export async function putRandomStuffBatchEnc(req: SignedRequest) {
     console.error('error in putRandomStuff')
     return null
   }
-}
-
-export async function updateSubscriptions(items: StockAlertSubscription[], username: string) {
-  const records: LambdaDynamoRequest[] = items.map((m) => {
-    return {
-      id: m.id,
-      category: constructStockAlertsSubSecondaryKey(username),
-      data: m,
-      expiration: 0,
-    }
-  })
-  await putRandomStuffBatch(records)
 }
 
 export type StockPositionType = 'short' | 'long'

@@ -1,11 +1,23 @@
-import { updateSubscriptions } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { UserProfile, DynamoKeys } from '../api/aws/models/apiGatewayModels'
-import { constructStockAlertsSubSecondaryKey } from '../api/aws/util'
+import { constructStockAlertsSubPrimaryKey, constructStockAlertsSubSecondaryKey } from '../api/aws/util'
 import { StockAlertSubscription, StockAlertSubscriptionWithMessage } from '../api/models/zModels'
 import { getStockQuotes, getStockQuotesServer } from '../api/qln/qlnApi'
 import { processAlertTriggers } from './stockAlertProcessor'
-import { getItem, searchItems } from 'app/serverActions/aws/dynamo/dynamo'
+import { RandomStuffDynamoItem, getItem, putItems, searchItems } from 'app/serverActions/aws/dynamo/dynamo'
 import { EmailMessage } from 'app/serverActions/aws/ses/ses'
+
+async function updateSubscriptions(items: StockAlertSubscription[], username: string) {
+  const records: RandomStuffDynamoItem[] = items.map((m) => {
+    return {
+      id: m.id,
+      category: constructStockAlertsSubSecondaryKey(username),
+      data: m,
+      expiration: 0,
+      key: constructStockAlertsSubPrimaryKey(username, m.symbol),
+    }
+  })
+  await putItems(records)
+}
 
 export async function buildStockAlertsForAllUsers(userServer: boolean) {
   const profileResponse = await searchItems('userProfile')

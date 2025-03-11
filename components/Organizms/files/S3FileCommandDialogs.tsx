@@ -44,7 +44,7 @@ const S3FileCommandDialogs = ({
         />
       )}
       {uiState.signedUrl && uiState.selectedItem && (
-        <ViewS3FileDialog onCancel={onCancelViewFile} signedUrl={uiState.signedUrl} filename={uiState.selectedItem.filename} />
+        <ViewS3FileDialog onCancel={onCancelViewFile} signedUrl={uiState.signedUrl} s3Object={uiState.selectedItem} />
       )}
       {uiState.showRenameFileDialog && uiState.selectedItem && (
         <RenameFileDialog filename={uiState.selectedItem.filename} onCancel={onCloseRenameFileDialog} onSubmitted={onRenameFile} />

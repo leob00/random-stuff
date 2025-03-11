@@ -6944,7 +6944,7 @@
     "Symbol": "CAPR"
   },
   {
-    "Company": "CAPSTONE THERAPEUTICS",
+    "Company": "Capstone Holding Corp. Common Stock",
     "Symbol": "CAPS"
   },
   {
@@ -13620,6 +13620,10 @@
     "Symbol": "ESEA"
   },
   {
+    "Company": "Euroseas Ltd. Ex-Distribution When Issued",
+    "Symbol": "ESEAV"
+  },
+  {
     "Company": "FlexShares STOXX US ESG Select Index Fund",
     "Symbol": "ESG"
   },
@@ -15162,6 +15166,14 @@
   {
     "Company": "First Trust Enhanced Equity Income Fund.",
     "Symbol": "FFA"
+  },
+  {
+    "Company": "Faraday Future Intelligent Electric Inc. Common Stock",
+    "Symbol": "FFAI"
+  },
+  {
+    "Company": "Faraday Future Intelligent Electric Inc. Warrant",
+    "Symbol": "FFAIW"
   },
   {
     "Company": "First Financial Bancorp",
@@ -26688,6 +26700,14 @@
     "Symbol": "MAXN"
   },
   {
+    "Company": "Maywood Acquisition Corp. Class A Ordinary Shares",
+    "Symbol": "MAYA"
+  },
+  {
+    "Company": "Maywood Acquisition Corp. Right",
+    "Symbol": "MAYAR"
+  },
+  {
     "Company": "Maywood Acquisition Corp. Unit",
     "Symbol": "MAYAU"
   },
@@ -26946,6 +26966,10 @@
   {
     "Company": "Monarch Casino & Resort Inc",
     "Symbol": "MCRI"
+  },
+  {
+    "Company": "Micropolis Holding Company",
+    "Symbol": "MCRP"
   },
   {
     "Company": "The Marcus Corporation",
@@ -28176,6 +28200,10 @@
     "Symbol": "MRAD"
   },
   {
+    "Company": "GraniteShares 2x Long MARA Daily ETF",
+    "Symbol": "MRAL"
+  },
+  {
     "Company": "Everspin Technologies, Inc",
     "Symbol": "MRAM"
   },
@@ -28726,6 +28754,10 @@
   {
     "Company": "Microvision Inc",
     "Symbol": "MVIS"
+  },
+  {
+    "Company": "GraniteShares 2x Long MRVL Daily ETF",
+    "Symbol": "MVLL"
   },
   {
     "Company": "MV Oil Trust",
@@ -36076,6 +36108,14 @@
     "Symbol": "RHTX"
   },
   {
+    "Company": "Ribbon Acquisition Corp Class A Ordinary Shares",
+    "Symbol": "RIBB"
+  },
+  {
+    "Company": "Ribbon Acquisition Corp Rights",
+    "Symbol": "RIBBR"
+  },
+  {
     "Company": "Ribbon Acquisition Corp Unit",
     "Symbol": "RIBBU"
   },
@@ -37142,6 +37182,10 @@
   {
     "Company": "Strategas Global Policy Opportunities ETF",
     "Symbol": "SAGP"
+  },
+  {
+    "Company": "SAGTEC GLOBAL LIMITED Ordinary shares",
+    "Symbol": "SAGT"
   },
   {
     "Company": "Sonic Automotive, Inc.",
@@ -39286,6 +39330,10 @@
   {
     "Company": "Synovus Financial Corp.",
     "Symbol": "SNV"
+  },
+  {
+    "Company": "SANUWAVE Health, Inc. Common Stock",
+    "Symbol": "SNWV"
   },
   {
     "Company": "TD SYNNEX Corporation",
@@ -46212,6 +46260,10 @@
     "Symbol": "X"
   },
   {
+    "Company": "Longevity Health Holdings, Inc. Common Stock",
+    "Symbol": "XAGE"
+  },
+  {
     "Company": "Beyond Air, Inc. Common Stock",
     "Symbol": "XAIR"
   },
@@ -46672,7 +46724,7 @@
     "Symbol": "XOMO"
   },
   {
-    "Company": "BondBloxx Bloomberg One Year Target Duration US Treasury ETF",
+    "Company": "BondBloxx Bloomberg One Year Target Duration US Treasury ETF",
     "Symbol": "XONE"
   },
   {
@@ -46804,7 +46856,7 @@
     "Symbol": "XSVM"
   },
   {
-    "Company": "BondBloxx Bloomberg Seven Year Target Duration US Treasury ETF",
+    "Company": "BondBloxx Bloomberg Seven Year Target Duration US Treasury ETF",
     "Symbol": "XSVN"
   },
   {
@@ -46868,11 +46920,11 @@
     "Symbol": "XTRE"
   },
   {
-    "Company": "BondBloxx Bloomberg Two Year Target Duration US Treasury ETF",
+    "Company": "BondBloxx Bloomberg Two Year Target Duration US Treasury ETF",
     "Symbol": "XTWO"
   },
   {
-    "Company": "BondBloxx Bloomberg Twenty Year Target Duration US Treasury ETF",
+    "Company": "BondBloxx Bloomberg Twenty Year Target Duration US Treasury ETF",
     "Symbol": "XTWY"
   },
   {
