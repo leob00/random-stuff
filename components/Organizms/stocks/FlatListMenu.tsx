@@ -9,8 +9,17 @@ import ContextMenuSort from 'components/Molecules/Menus/ContextMenuSort'
 import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
 import ContextMenuAlert from 'components/Molecules/Menus/ContextMenuAlert'
 import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
+import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
 
-const FlatListMenu = ({ onEdit, onShowAsGroup, onShowCustomSort }: { onEdit: () => void; onShowAsGroup?: (show: boolean) => void; onShowCustomSort?: () => void }) => {
+const FlatListMenu = ({
+  onEdit,
+  onShowAsGroup,
+  onShowCustomSort,
+}: {
+  onEdit: () => void
+  onShowAsGroup?: (show: boolean) => void
+  onShowCustomSort?: () => void
+}) => {
   const router = useRouter()
   const handleClick = (event: 'edit' | 'showAsGroup' | 'customSort') => {
     switch (event) {
@@ -61,14 +70,14 @@ const FlatListMenu = ({ onEdit, onShowAsGroup, onShowCustomSort }: { onEdit: () 
       ),
       fn: () => router.push('/csr/community-stocks'),
     },
-    {
-      item: (
-        <>
-          <ContextMenuPortfolio text={'portfolio'} />
-        </>
-      ),
-      fn: () => router.push('/csr/stocks/stock-porfolios'),
-    },
+    // {
+    //   item: (
+    //     <>
+    //       <ContextMenuPortfolio text={'portfolio'} />
+    //     </>
+    //   ),
+    //   fn: () => router.push('/csr/stocks/stock-porfolios'),
+    // },
     {
       item: (
         <>
@@ -84,6 +93,10 @@ const FlatListMenu = ({ onEdit, onShowAsGroup, onShowCustomSort }: { onEdit: () 
         </>
       ),
       fn: () => router.push(`/ssg/stocks/reports/volume-leaders`),
+    },
+    {
+      item: <ContextMenuEarnings text={'earnings calendar'} />,
+      fn: () => router.push('/csr/stocks/earnings-calendar'),
     },
   ]
 

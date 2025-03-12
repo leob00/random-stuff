@@ -5,7 +5,7 @@ import PagedStockTable from './PagedStockTable'
 const CommunityStocksLayout = ({ data }: { data: StockQuote[]; pageSize?: number }) => {
   return (
     <Box py={1}>
-      <PagedStockTable data={data} />
+      <PagedStockTable data={data} pageSize={10} scrollOnPageChange />
     </Box>
   )
 }

@@ -14,6 +14,7 @@ import { sortArray } from 'lib/util/collections'
 import ContextMenuRefresh from 'components/Molecules/Menus/ContextMenuRefresh'
 import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
 import { useState } from 'react'
+import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
 
 const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; onRefresh: () => void }) => {
   const router = useRouter()
@@ -43,6 +44,10 @@ const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; 
     {
       item: <ContextMenuReport text={'reports'} />,
       fn: () => router.push('/ssg/stocks/reports/volume-leaders'),
+    },
+    {
+      item: <ContextMenuEarnings text={'earnings calendar'} />,
+      fn: () => router.push('/csr/stocks/earnings-calendar'),
     },
   ]
   const handleCustomSortSubmitted = (sort?: Sort[]) => {

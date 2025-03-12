@@ -70,7 +70,7 @@ const Pager = ({
   }
 
   return (
-    <Box pt={1}>
+    <Box>
       {showHorizontalDivider && <HorizontalDivider />}
       {showPageText && (
         <Stack>
@@ -79,7 +79,7 @@ const Pager = ({
           </Typography>
         </Stack>
       )}
-      <Box sx={{ textAlign: 'center', my: 1 }}>
+      <Box textAlign={'center'} pt={1}>
         <ArrowFirstPageButton disabled={pageIndex <= 1} onClicked={handleFirstPageClick} />
         <ArrowLeftButton disabled={pageIndex <= 1} onClicked={handlePreviousClick} />
         <ArrowRightButton onClicked={handleNextClick} disabled={pageIndex === pageCount} />
