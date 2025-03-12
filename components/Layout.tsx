@@ -2,7 +2,9 @@ import { ReactNode } from 'react'
 import { Box, Container } from '@mui/material'
 import Footer from './Footer'
 import RouteTracker from './Organizms/session/RouteTracker'
-
+import amplifyConfig from 'src/amplifyconfiguration.json'
+import { Amplify } from 'aws-amplify'
+Amplify.configure(amplifyConfig, { ssr: true })
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <>

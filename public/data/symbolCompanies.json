@@ -6852,7 +6852,7 @@
     "Symbol": "CALC"
   },
   {
-    "Company": "Pacer US Small Cap Cash Cows 100 ETF",
+    "Company": "Pacer US Small Cap Cash Cows ETF",
     "Symbol": "CALF"
   },
   {
@@ -7460,7 +7460,7 @@
     "Symbol": "CDW"
   },
   {
-    "Company": "Simplify High Yield PLUS Credit Hedge ETF",
+    "Company": "Simplify High Yield ETF",
     "Symbol": "CDX"
   },
   {
@@ -7860,7 +7860,7 @@
     "Symbol": "CGSM"
   },
   {
-    "Company": "Creative Global Technology Holdings Limited Ordinary Shares",
+    "Company": "Creative Global Technology Holdings Limited Class A Ordinary Shares",
     "Symbol": "CGTL"
   },
   {
@@ -8380,7 +8380,7 @@
     "Symbol": "CLNR"
   },
   {
-    "Company": "BlackRock ETF Trust II iShares AAA CLO Active ETF",
+    "Company": "BlackRock AAA CLO ETF",
     "Symbol": "CLOA"
   },
   {
@@ -10660,7 +10660,7 @@
     "Symbol": "DEEF"
   },
   {
-    "Company": "Acquirers Deep Value ETF",
+    "Company": "Acquirers Small and Micro Deep Value ETF",
     "Symbol": "DEEP"
   },
   {
@@ -12794,6 +12794,10 @@
   {
     "Company": "Western Asset Global High Income Fund, Inc",
     "Symbol": "EHI"
+  },
+  {
+    "Company": "Euroholdings Ltd. Common Stock When Issued",
+    "Symbol": "EHLDV"
   },
   {
     "Company": "Even Herd Long Short ETF",
@@ -31988,6 +31992,10 @@
     "Symbol": "OWLT"
   },
   {
+    "Company": "Bitwise Bitcoin Standard Corporations ETF",
+    "Symbol": "OWNB"
+  },
+  {
     "Company": "CCM Affordable Housing MBS ETF",
     "Symbol": "OWNS"
   },
@@ -34820,6 +34828,10 @@
     "Symbol": "QDVO"
   },
   {
+    "Company": "DailyDelta Q100 Downside Option Strategy ETF",
+    "Symbol": "QDWN"
+  },
+  {
     "Company": "SPDR MSCI EAFE StrategicFactors ETF",
     "Symbol": "QEFA"
   },
@@ -35266,6 +35278,10 @@
   {
     "Company": "ETRACS 2x Leveraged MSCI US Quality Factor TR ETN",
     "Symbol": "QULL"
+  },
+  {
+    "Company": "DailyDelta Q100 Upside Option Strategy ETF",
+    "Symbol": "QUP"
   },
   {
     "Company": "uniQure N.V.",
@@ -39322,6 +39338,10 @@
   {
     "Company": "Sentage Holdings Inc. Class A Ordinary Shares",
     "Symbol": "SNTG"
+  },
+  {
+    "Company": "MRP SynthEquity ETF",
+    "Symbol": "SNTH"
   },
   {
     "Company": "Senti Biosciences, Inc. Common Stock",
@@ -46264,6 +46284,10 @@
     "Symbol": "XAGE"
   },
   {
+    "Company": "Longevity Health Holdings, Inc. Warrant",
+    "Symbol": "XAGEW"
+  },
+  {
     "Company": "Beyond Air, Inc. Common Stock",
     "Symbol": "XAIR"
   },
@@ -46492,7 +46516,7 @@
     "Symbol": "XHLD"
   },
   {
-    "Company": "BondBloxx Bloomberg Six Month Target Duration US Treasury ETF",
+    "Company": "BondBloxx Bloomberg Six Month Target Duration US Treasury ETF",
     "Symbol": "XHLF"
   },
   {

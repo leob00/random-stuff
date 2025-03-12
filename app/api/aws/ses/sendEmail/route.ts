@@ -5,5 +5,5 @@ export async function POST(request: NextRequest) {
   const data = (await request.json()) as EmailMessage
 
   const result = await sendEmail(data)
-  return NextResponse.json(result)
+  return NextResponse.json(data)
 }

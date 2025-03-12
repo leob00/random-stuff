@@ -1,9 +1,10 @@
+import { putItems } from 'app/serverActions/aws/dynamo/dynamoBatch'
 import { UserProfile, DynamoKeys } from '../api/aws/models/apiGatewayModels'
 import { constructStockAlertsSubPrimaryKey, constructStockAlertsSubSecondaryKey } from '../api/aws/util'
 import { StockAlertSubscription, StockAlertSubscriptionWithMessage } from '../api/models/zModels'
 import { getStockQuotes, getStockQuotesServer } from '../api/qln/qlnApi'
 import { processAlertTriggers } from './stockAlertProcessor'
-import { RandomStuffDynamoItem, getItem, putItems, searchItems } from 'app/serverActions/aws/dynamo/dynamo'
+import { RandomStuffDynamoItem, getItem, searchItems } from 'app/serverActions/aws/dynamo/dynamo'
 import { EmailMessage } from 'app/serverActions/aws/ses/ses'
 
 async function updateSubscriptions(items: StockAlertSubscription[], username: string) {

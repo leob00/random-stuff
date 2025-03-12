@@ -4,7 +4,6 @@ import Seo from 'components/Organizms/Seo'
 import { Box } from '@mui/material'
 import TabList from 'components/Atoms/Buttons/TabList'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
-import PostBatch from 'components/Organizms/sandbox/PostBatch'
 import { useUserController } from 'hooks/userController'
 import S3Display from 'components/Organizms/files/S3Display'
 import ListIteratorLayout from 'components/Organizms/sandbox/ListIteratorLayout'
@@ -31,10 +30,6 @@ const Page = () => {
     },
     {
       title: 'Iterator',
-    },
-
-    {
-      title: 'Batch Post',
     },
   ]
   const [selectedTab, setSelectedTab] = useState(tabs[0].title)
@@ -73,7 +68,6 @@ const Page = () => {
           {selectedTab === 'Charts' && <Playground />}
           {selectedTab === 'Framer' && <Framer />}
           {selectedTab === 'Iterator' && <ListIteratorLayout />}
-          {selectedTab === 'Batch Post' && <PostBatch />}
         </Box>
       </ResponsiveContainer>
     </>

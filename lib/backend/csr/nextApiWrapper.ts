@@ -357,12 +357,7 @@ export async function putRecord(id: DynamoKeys | string, category: string, item:
   }
   await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
 }
-export async function putRecordsBatch(batch: LambdaDynamoRequestBatch) {
-  const putRequest: SignedRequest = {
-    data: weakEncrypt(JSON.stringify(batch)),
-  }
-  await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
-}
+
 export async function deleteRecordsBatch(items: string[]) {
   const putRequest: SignedRequest = {
     data: weakEncrypt(JSON.stringify(items)),
@@ -437,4 +432,19 @@ export async function ocrImage(url: string) {
   console.log(resp)
   const result = resp as Tesseract.Page
   return result
+}
+
+export async function putRandomStuffBatch(data: RandomStuffDynamoItem[]) {
+  const url = `/api/aws/dynamo/items/putBatch`
+
+  const signedRequest: SignedRequest = {
+    data: weakEncrypt(JSON.stringify(data)),
+  }
+
+  try {
+    await postBody(url, 'POST', signedRequest)
+  } catch (error) {
+    console.error('error in putRandomStuff')
+    return null
+  }
 }

@@ -1,5 +1,5 @@
-import { deleteItem, listObjects } from 'app/serverActions/aws/s3/s3'
-import { Bucket, S3Folder, S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { listObjects } from 'app/serverActions/aws/s3/s3'
+import { S3Folder } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { S3Key, SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { getUserSSRAppRouteApi } from 'lib/backend/server-side/serverSideAuth'

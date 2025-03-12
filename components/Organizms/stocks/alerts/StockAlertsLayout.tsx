@@ -9,7 +9,7 @@ import { DynamoKeys, LambdaDynamoRequest, UserProfile } from 'lib/backend/api/aw
 import { constructStockAlertsSubPrimaryKey, constructStockAlertsSubSecondaryKey } from 'lib/backend/api/aws/util'
 import { StockAlertSubscription, StockAlertSubscriptionWithMessage, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
-import { getRecord, putRecord, putRecordsBatch, searchRecords, sendEmailFromClient } from 'lib/backend/csr/nextApiWrapper'
+import { getRecord, putRandomStuffBatch, putRecord, searchRecords, sendEmailFromClient } from 'lib/backend/csr/nextApiWrapper'
 import { getDefaultSubscription, sortAlerts } from 'lib/ui/alerts/stockAlertHelper'
 import { formatEmail } from 'lib/ui/mailUtil'
 import { uniq } from 'lodash'
@@ -22,6 +22,8 @@ import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import TableHeaderWithSearchWithinList from 'components/Atoms/Tables/TableHeaderWithSearchWithinList'
 import { EmailMessage } from 'app/serverActions/aws/ses/ses'
 import { useState } from 'react'
+import { RandomStuffDynamoItem } from 'app/serverActions/aws/dynamo/dynamo'
+import { getUtcNow } from 'lib/util/dateUtil'
 
 const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const alertsSearchhKey = constructStockAlertsSubSecondaryKey(userProfile.username)
@@ -64,7 +66,6 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     const quotes = await getStockQuotes(uniq(dataCopy.subscriptions.map((m) => m.symbol)))
 
     const template = await formatEmail('/emailTemplates/stockAlertSubscriptionEmailTemplate.html', new Map<string, string>())
-    const templateKey: DynamoKeys = 'email-template[stock-alert]'
     //putRecord(templateKey, 'email-template', template)
     const result = processAlertTriggers(userProfile.username, dataCopy, quotes, template)
     result.subscriptions = sortAlerts(result.subscriptions)
@@ -77,7 +78,17 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
         }
       })
     })
-    // putRecordsBatch(batch)
+    const batch: RandomStuffDynamoItem[] = result.subscriptions.map((m) => {
+      return {
+        data: m,
+        key: constructStockAlertsSubPrimaryKey(userProfile.username, m.symbol),
+        category: constructStockAlertsSubSecondaryKey(userProfile.username),
+        count: 1,
+        expiration: 0,
+        last_modified: getUtcNow().format(),
+      }
+    })
+    //await putRandomStuffBatch(batch)
 
     setEmailMessage(result.message ?? null)
     setSuccessMessage(`messages generated: ${newItems.length}`)
@@ -97,15 +108,18 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           }
         })
       })
-      const records: LambdaDynamoRequest[] = newData.subscriptions!.map((m) => {
+      const records: RandomStuffDynamoItem[] = newData.subscriptions!.map((m) => {
         return {
           id: m.id,
           category: alertsSearchhKey,
           data: m,
           expiration: 0,
+          key: constructStockAlertsSubPrimaryKey(userProfile.username, m.symbol),
+          count: 1,
+          last_modified: getUtcNow().format(),
         }
       })
-      await putRecordsBatch({ records: records })
+      await putRandomStuffBatch(records)
       setEmailMessage(null)
       setIsLoading(false)
       mutate(alertsSearchhKey)

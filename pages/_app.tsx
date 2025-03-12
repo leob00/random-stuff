@@ -15,8 +15,6 @@ import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
-import amplifyConfig from 'src/amplifyconfiguration.json'
-Amplify.configure(amplifyConfig, { ssr: true })
 
 const getTheme = (mode: 'light' | 'dark') => {
   return mode === 'dark' ? darkTheme : theme
