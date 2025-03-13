@@ -14,10 +14,14 @@ export async function GET(req: NextRequest) {
   try {
     emailMessages = await buildStockAlertsForAllUsers(true)
     for (const email of emailMessages) {
-      await sendEmail(email)
+      try {
+        await sendEmail(email)
+      } catch (err) {
+        console.error(`/api/cron/stockAlerts error: ${err}`)
+      }
     }
   } catch (err) {
-    console.error(`/api/cron/stockAlerts error: ${JSON.stringify(err)}`)
+    console.error(`/api/cron/stockAlerts error: ${err}`)
     NextResponse.json({ status: 'failed' })
   }
 

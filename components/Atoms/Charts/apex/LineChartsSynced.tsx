@@ -4,8 +4,9 @@ import { Box, useMediaQuery, useTheme } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
 import { getBaseLineChartOptions, LineChartOptions } from 'components/Atoms/Charts/apex/baseLineChartOptions'
 import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
-import BackdropLoader from '../../Loaders/BackdropLoader'
+
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import FadeOut from 'components/Atoms/Animations/FadeOut'
 
 const getOptions = (xYValues: XyValues[], lineOptions: LineChartOptions[]) => {
   const result: ApexOptions[] = xYValues.map((m, i) => getBaseLineChartOptions(m, lineOptions[i]))
@@ -23,7 +24,9 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
   return (
     <Box>
       {isLoading ? (
-        <BackdropLoader />
+        <FadeOut>
+          <Box height={chartHeight}></Box>
+        </FadeOut>
       ) : (
         <>
           {options.length > 1 && (

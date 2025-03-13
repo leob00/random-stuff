@@ -1208,6 +1208,18 @@
     "Symbol": "AIFD"
   },
   {
+    "Company": "Aifeex Nexus Acquisition Corporation Class A Ordinary Shares",
+    "Symbol": "AIFE"
+  },
+  {
+    "Company": "Aifeex Nexus Acquisition Corporation Right",
+    "Symbol": "AIFER"
+  },
+  {
+    "Company": "Aifeex Nexus Acquisition Corporation Unit",
+    "Symbol": "AIFEU"
+  },
+  {
     "Company": "Firefly Neuroscience, Inc. Common Stock",
     "Symbol": "AIFF"
   },
@@ -22200,6 +22212,10 @@
     "Symbol": "IONS"
   },
   {
+    "Company": "Defiance Daily Target 2X Long IONQ ETF",
+    "Symbol": "IONX"
+  },
+  {
     "Company": "iShares Global 100 ETF",
     "Symbol": "IOO"
   },
@@ -24016,6 +24032,10 @@
     "Symbol": "KBA"
   },
   {
+    "Company": "KraneShares 2x Long BABA Daily ETF",
+    "Symbol": "KBAB"
+  },
+  {
     "Company": "Kayne Anderson BDC, Inc.",
     "Symbol": "KBDC"
   },
@@ -24534,6 +24554,10 @@
   {
     "Company": "Koss Corp",
     "Symbol": "KOSS"
+  },
+  {
+    "Company": "KraneShares 2x Long PDD Daily ETF",
+    "Symbol": "KPDD"
   },
   {
     "Company": "Katapult Holdings, Inc. Common Stock",

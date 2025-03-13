@@ -88,7 +88,7 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
               {isStock && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading || isWaiting} />}
               {!isStock && (
                 <>
-                  {isLoading && <BackdropLoader />}
+                  {/* {isLoading && <BackdropLoader />} */}
                   <Box minHeight={{ xs: 300, sm: chartHeight }} pt={2}>
                     {!isLoading && !isWaiting && (
                       <FadeIn>
