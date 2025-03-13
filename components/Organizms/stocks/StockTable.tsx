@@ -28,7 +28,7 @@ const StockTable = ({
       <Box pl={1}>
         {stockList.map((item) => (
           <Box key={`${item.Symbol}`}>
-            <StockListItem item={item} isStock={isStock} showGroupName={showGroupName} featuredField={featuredField} />
+            <StockListItem item={item} isStock={isStock} showGroupName={showGroupName} featuredField={featuredField} scrollIntoView />
           </Box>
         ))}
         {stockList.length > 0 ? (

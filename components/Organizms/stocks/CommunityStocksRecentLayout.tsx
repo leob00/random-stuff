@@ -15,6 +15,8 @@ import ContextMenuRefresh from 'components/Molecules/Menus/ContextMenuRefresh'
 import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
 import { useState } from 'react'
 import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
+import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
+import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
 
 const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; onRefresh: () => void }) => {
   const router = useRouter()

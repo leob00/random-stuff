@@ -118,12 +118,12 @@ const StockListItem = ({
             )}
           </Box>
         </FadeIn>
-        {!showMore && <HorizontalDivider />}
+        <Box>
+          <HorizontalDivider />
+        </Box>
+
         {showMore && (
           <>
-            <Box>
-              <HorizontalDivider />
-            </Box>
             <Box minHeight={{ xs: 300, sm: 600 }}>
               <StockChart symbol={item.Symbol} isStock={isStock} />
             </Box>

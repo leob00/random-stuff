@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Scroller } from './useScrollTop'
 import { Box, Typography } from '@mui/material'
 
-const ScrollTop = ({ scroller }: { scroller: Scroller }) => {
-  const scrollTarget = React.useRef<HTMLSpanElement | null>(null)
+const ScrollTop = ({ scroller, marginTop = 2 }: { scroller: Scroller; marginTop?: number }) => {
+  const scrollTarget = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     if (scroller.id) {
@@ -14,7 +14,11 @@ const ScrollTop = ({ scroller }: { scroller: Scroller }) => {
     }
   }, [scroller.id])
 
-  return <Typography ref={scrollTarget} mt={-2}></Typography>
+  return (
+    <Box pt={1} sx={{ position: 'absolute', mt: marginTop }}>
+      <Box ref={scrollTarget}></Box>
+    </Box>
+  )
 }
 
 export default ScrollTop

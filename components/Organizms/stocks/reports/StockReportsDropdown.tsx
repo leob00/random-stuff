@@ -68,7 +68,7 @@ const StockReportsDropdown = ({ selectedValue }: { selectedValue: string }) => {
       <Box display={'flex'} justifyContent={'space-between'}>
         <Box></Box>
         <Box display={'flex'}>
-          <StaticAutoComplete options={stockReportsDropdown} selectedItem={selectedOption} onSelected={handleReportSelected} />
+          <StaticAutoComplete options={stockReportsDropdown} selectedItem={selectedOption} onSelected={handleReportSelected} disableClearable />
         </Box>
         <Box display={'flex'} justifyContent={'flex-end'}>
           <ContextMenu items={menu} />

@@ -6,7 +6,6 @@ import { StockQuote } from 'lib/backend/api/models/zModels'
 import StockTable from './StockTable'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import { useEffect } from 'react'
-import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 
 const PagedStockTable = ({
   data,
@@ -16,6 +15,7 @@ const PagedStockTable = ({
   featuredField,
   scrollOnPageChange = false,
   showTopPager = false,
+  onPageChanged,
 }: {
   data: StockQuote[]
   showGroupName?: boolean
@@ -24,6 +24,7 @@ const PagedStockTable = ({
   featuredField?: keyof StockQuote
   scrollOnPageChange?: boolean
   showTopPager?: boolean
+  onPageChanged?: (pageNum?: number) => void
 }) => {
   const { pagerModel, setPage, getPagedItems, reset } = useClientPager(data, pageSize)
   const items = getPagedItems(data)
@@ -31,6 +32,7 @@ const PagedStockTable = ({
   const handlePaged = (pageNum: number) => {
     scroller.scroll()
     setPage(pageNum)
+    onPageChanged?.(pageNum)
   }
   useEffect(() => {
     if (sort) {
@@ -53,13 +55,8 @@ const PagedStockTable = ({
             showHorizontalDivider={false}
           ></Pager>
         )}
-        {scrollOnPageChange ? (
-          <ScrollableBox scroller={scroller}>
-            <StockTable stockList={items} isStock={true} showGroupName={showGroupName} showSummary={false} featuredField={featuredField} />
-          </ScrollableBox>
-        ) : (
-          <StockTable stockList={items} isStock={true} showGroupName={showGroupName} showSummary={false} featuredField={featuredField} />
-        )}
+
+        <StockTable stockList={items} isStock={true} showGroupName={showGroupName} showSummary={false} featuredField={featuredField} />
       </Box>
       <Pager
         pageCount={pagerModel.totalNumberOfPages}

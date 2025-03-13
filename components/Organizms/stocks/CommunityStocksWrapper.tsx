@@ -8,6 +8,7 @@ import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
 import { useRouter } from 'next/navigation'
 import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
 import { Box } from '@mui/material'
+import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
 
 const CommunityStocksWrapper = ({ data, onRefresh }: { data?: StockQuote[]; onRefresh: () => void }) => {
   const router = useRouter()
@@ -27,6 +28,10 @@ const CommunityStocksWrapper = ({ data, onRefresh }: { data?: StockQuote[]; onRe
     {
       item: <ContextMenuReport text={'reports'} />,
       fn: () => router.push('/ssg/stocks/reports/volume-leaders'),
+    },
+    {
+      item: <ContextMenuEarnings text={'earnings calendar'} />,
+      fn: () => router.push('/csr/stocks/earnings-calendar'),
     },
   ]
 

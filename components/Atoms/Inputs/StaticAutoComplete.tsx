@@ -1,5 +1,5 @@
 import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, TextField } from '@mui/material'
-import React, { ChangeEvent } from 'react'
+import { ChangeEvent, useRef } from 'react'
 import { Option } from 'lib/AutoCompleteOptions'
 import { DropdownItem } from 'lib/models/dropdown'
 
@@ -12,7 +12,6 @@ const StaticAutoComplete = ({
   fullWidth,
   onChanged,
   errorMessage,
-  freeSolo = false,
 }: {
   options: DropdownItem[]
   placeholder?: string
@@ -22,7 +21,6 @@ const StaticAutoComplete = ({
   fullWidth?: boolean
   onChanged?: (text: string) => void
   errorMessage?: string
-  freeSolo?: boolean
 }) => {
   const items: Option[] = options.map((m) => {
     return {
@@ -32,14 +30,9 @@ const StaticAutoComplete = ({
   })
 
   const selectedOption: Option | undefined = selectedItem ? { id: selectedItem.value, label: selectedItem.text } : undefined
-  const inputRef = React.useRef<HTMLInputElement | null>(null)
+  const inputRef = useRef<HTMLInputElement | null>(null)
 
-  const handleSelect = (
-    event: React.SyntheticEvent<Element, Event>,
-    value: Option | null,
-    reason: AutocompleteChangeReason,
-    details?: AutocompleteChangeDetails<Option> | undefined,
-  ) => {
+  const handleSelect = (value: Option | null) => {
     if (value) {
       const selectedItem = { ...value }
       const item: DropdownItem = {
@@ -58,28 +51,32 @@ const StaticAutoComplete = ({
   }
 
   return (
-    <Autocomplete
-      //freeSolo={freeSolo}
-      value={selectedOption}
-      size='small'
-      onChange={handleSelect}
-      disablePortal
-      options={items}
-      sx={!fullWidth ? { width: { xs: 260, md: 600 } } : {}}
-      disableClearable={disableClearable}
-      isOptionEqualToValue={(opt, compOpt) => opt.id === compOpt.id}
-      fullWidth={fullWidth}
-      renderInput={(params) => (
-        <TextField
-          inputRef={inputRef}
-          {...params}
-          placeholder={placeholder}
-          onChange={handleTextChange}
-          error={!!errorMessage}
-          helperText={errorMessage ?? undefined}
-        />
-      )}
-    />
+    <>
+      <Autocomplete
+        //freeSolo={freeSolo}
+        value={selectedOption}
+        size='small'
+        onChange={(e, opt) => {
+          handleSelect(opt)
+        }}
+        disablePortal
+        options={items}
+        sx={!fullWidth ? { width: { xs: 260, md: 600 } } : {}}
+        disableClearable={disableClearable}
+        isOptionEqualToValue={(opt, compOpt) => opt.id === compOpt.id}
+        fullWidth={fullWidth}
+        renderInput={(params) => (
+          <TextField
+            inputRef={inputRef}
+            {...params}
+            placeholder={placeholder}
+            onChange={handleTextChange}
+            error={!!errorMessage}
+            helperText={errorMessage ?? undefined}
+          />
+        )}
+      />
+    </>
   )
 }
 

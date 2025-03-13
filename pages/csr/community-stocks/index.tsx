@@ -99,7 +99,6 @@ const Page = () => {
         <Box py={2}>
           <StockSearch onSymbolSelected={handleSelectQuote} clearOnSelect />
         </Box>
-        <ScrollIntoView margin={0} enabled />
         {selectedStock && <FullStockDetail item={selectedStock} onClose={handleCloseQuoteDialog} />}
         {!selectedStock && <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />}
         {!selectedStock && (
