@@ -6,6 +6,7 @@ import { getStockQuotes, getStockQuotesServer } from '../api/qln/qlnApi'
 import { processAlertTriggers } from './stockAlertProcessor'
 import { RandomStuffDynamoItem, getItem, searchItems } from 'app/serverActions/aws/dynamo/dynamo'
 import { EmailMessage } from 'app/serverActions/aws/ses/ses'
+import { getUtcNow } from 'lib/util/dateUtil'
 
 async function updateSubscriptions(items: StockAlertSubscription[], username: string) {
   const records: RandomStuffDynamoItem[] = items.map((m) => {
@@ -15,6 +16,8 @@ async function updateSubscriptions(items: StockAlertSubscription[], username: st
       data: m,
       expiration: 0,
       key: constructStockAlertsSubPrimaryKey(username, m.symbol),
+      count: 1,
+      last_modified: getUtcNow().format(),
     }
   })
   await putItems(records)
