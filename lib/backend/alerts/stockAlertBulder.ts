@@ -1,12 +1,13 @@
 import { putItems } from 'app/serverActions/aws/dynamo/dynamoBatch'
 import { UserProfile, DynamoKeys } from '../api/aws/models/apiGatewayModels'
 import { constructStockAlertsSubPrimaryKey, constructStockAlertsSubSecondaryKey } from '../api/aws/util'
-import { StockAlertSubscription, StockAlertSubscriptionWithMessage } from '../api/models/zModels'
+import { StockAlertSubscription, StockAlertSubscriptionWithMessage, StockQuote } from '../api/models/zModels'
 import { getStockQuotes, getStockQuotesServer } from '../api/qln/qlnApi'
 import { processAlertTriggers } from './stockAlertProcessor'
 import { RandomStuffDynamoItem, getItem, searchItems } from 'app/serverActions/aws/dynamo/dynamo'
 import { EmailMessage } from 'app/serverActions/aws/ses/ses'
 import { getUtcNow } from 'lib/util/dateUtil'
+import { getMapFromArray } from 'lib/util/collectionsNative'
 
 async function updateSubscriptions(items: StockAlertSubscription[], username: string) {
   const records: RandomStuffDynamoItem[] = items.map((m) => {
@@ -54,7 +55,9 @@ export async function buildStockAlertsForAllUsers(userServer: boolean) {
     const userSub = userSubMap.get(username)
     if (userSub) {
       const newSub = { ...userSub }
-      const subWithMessage = processAlertTriggers(username, newSub, quotes, template)
+      const quoteMap = getMapFromArray<StockQuote>(quotes, 'Symbol')
+      const subWithMessage = processAlertTriggers(username, newSub, quoteMap, template)
+
       if (subWithMessage.message) {
         emailMessages.push(subWithMessage.message)
       }

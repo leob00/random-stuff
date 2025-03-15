@@ -2,7 +2,6 @@
 import { useRouter } from 'next/router'
 import { ReactNode, useEffect, useState } from 'react'
 import { useRouteTracker } from './useRouteTracker'
-import { Navigation } from './useSessionSettings'
 import { Box, LinearProgress, Stack, Typography } from '@mui/material'
 import { sleep } from 'lib/util/timers'
 import { flatSiteMap } from '../navigation/siteMap'

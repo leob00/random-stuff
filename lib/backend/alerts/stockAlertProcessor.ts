@@ -1,15 +1,28 @@
 import { getMapFromArray } from 'lib/util/collectionsNative'
-import { StockAlertSubscriptionWithMessage, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
+import { StockAlertSubscription, StockAlertSubscriptionWithMessage, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
+import { sortArray } from 'lib/util/collections'
 
 export function processAlertTriggers(
   username: string,
   subscription: StockAlertSubscriptionWithMessage,
-  quotes: StockQuote[],
+  quoteMap: Map<any, StockQuote>,
   htmlTemplate: string,
 ): StockAlertSubscriptionWithMessage {
   const dailyRows: string[] = []
-  const quoteMap = getMapFromArray<StockQuote>(quotes, 'Symbol')
-  subscription.subscriptions.forEach((sub) => {
+  const sortedSubMap = new Map<string, StockAlertSubscription>()
+  const subscriptionsMap = getMapFromArray(subscription.subscriptions, 'symbol')
+
+  const sortedQuotes = sortArray(Array.from(quoteMap.values()), ['ChangePercent'], ['desc'])
+  sortedQuotes.forEach((quote) => {
+    if (!sortedSubMap.has(quote.Symbol)) {
+      const found = subscriptionsMap.get(quote.Symbol)
+      if (found) {
+        sortedSubMap.set(quote.Symbol, found)
+      }
+    }
+  })
+  const sortedSubs = Array.from(sortedSubMap.values())
+  sortedSubs.forEach((sub) => {
     sub.triggers.forEach((trigger) => {
       if (trigger.enabled) {
         switch (trigger.typeId) {

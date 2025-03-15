@@ -1,7 +1,7 @@
 import { DashboardWidget } from '../dashboard/dashboardModel'
 import WidgetWrapper from './WidgetWrapper'
 import NewsLayout from '../news/NewsLayout'
-import { Box, useMediaQuery, useTheme } from '@mui/material'
+import { Box } from '@mui/material'
 import EconIndexWidget from './econ/EconIndexWidget'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import EconWidget from './econ/EconWidget'
@@ -9,6 +9,7 @@ import EarningsCalendarWidget from './stocks/earnings/EarningsCalendarWidget'
 import WidgetFooter from './WidgetFooter'
 import StockMarketGlanceWidget from './stocks/sentiment/StockMarketGlanceWidget'
 import FeaturedRecipesWidget from './recipes/FeaturedRecipesWidget'
+import { useViewPortSize } from 'hooks/ui/useViewportSize'
 
 export type WidgetDimensions = {
   height: number
@@ -16,20 +17,24 @@ export type WidgetDimensions = {
 }
 
 const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidget; revalidateOnFocus?: boolean }) => {
-  const theme = useTheme()
-  const isXSmallDevice = useMediaQuery(theme.breakpoints.down('sm'))
-  const isSmallDevice = useMediaQuery(theme.breakpoints.down('md'))
+  const { viewPortSize: size } = useViewPortSize()
+
   const dimension: WidgetDimensions = {
     height: 400,
-    width: isXSmallDevice ? 370 : 280,
+    width: size === 'xs' ? 370 : 280,
   }
-  if (!isXSmallDevice) {
+  switch (size) {
+    case 'xs':
+      break
+  }
+
+  if (size !== 'xs') {
     switch (item.size) {
       case 'md':
-        dimension.width = isSmallDevice ? 300 : 520
+        dimension.width = size === 'sm' ? 300 : 520
         break
       case 'lg':
-        dimension.width = isSmallDevice ? 600 : 1080
+        dimension.width = size === 'sm' ? 600 : 1080
         break
     }
   }

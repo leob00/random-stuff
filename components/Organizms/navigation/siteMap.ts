@@ -79,6 +79,11 @@ export const flatSiteMap: Navigation[] = [
     category: 'Markets',
   },
   {
+    name: 'stock alerts',
+    path: '/csr/stocks/alerts',
+    category: 'Markets',
+  },
+  {
     name: 'crypto',
     path: '/csr/crypto',
     category: 'Markets',
