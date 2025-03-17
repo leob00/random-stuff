@@ -216,7 +216,7 @@
     "Symbol": "ABIO"
   },
   {
-    "Company": "Abacus Life, Inc. Class A Common Stock",
+    "Company": "Abacus Global Management, Inc. Class A Common Stock",
     "Symbol": "ABL"
   },
   {
@@ -228,11 +228,11 @@
     "Symbol": "ABLG"
   },
   {
-    "Company": "Abacus Life, Inc. 9.875% Fixed Rate Senior Notes due 2028",
+    "Company": "Abacus Global Management, Inc. 9.875% Fixed Rate Senior Notes due 2028",
     "Symbol": "ABLLL"
   },
   {
-    "Company": "Abacus Life, Inc. Warrant",
+    "Company": "Abacus Global Management, Inc. Warrant",
     "Symbol": "ABLLW"
   },
   {
@@ -1816,6 +1816,10 @@
     "Symbol": "AMBP.WS"
   },
   {
+    "Company": "Amber International Holding Limited American Depositary Shares",
+    "Symbol": "AMBR"
+  },
+  {
     "Company": "AMC ENTERTAINMENT HOLDINGS, INC.",
     "Symbol": "AMC"
   },
@@ -2728,6 +2732,10 @@
     "Symbol": "ARMG"
   },
   {
+    "Company": "Arm Holdings PLC ADRhedged",
+    "Symbol": "ARMH"
+  },
+  {
     "Company": "ARAMARK",
     "Symbol": "ARMK"
   },
@@ -2934,6 +2942,10 @@
   {
     "Company": "Leverage Shares 2X Long ASML Daily ETF",
     "Symbol": "ASMG"
+  },
+  {
+    "Company": "ASML Holding NV ADRhedged",
+    "Symbol": "ASMH"
   },
   {
     "Company": "ASML Holding NV",
@@ -5340,7 +5352,7 @@
     "Symbol": "BLND"
   },
   {
-    "Company": "EASTSIDE DISTILLING , INC.",
+    "Company": "Beeline Holdings, Inc. Common Stock",
     "Symbol": "BLNE"
   },
   {
@@ -5398,6 +5410,10 @@
   {
     "Company": "Innovator U.S. Equity Buffer ETF - March",
     "Symbol": "BMAR"
+  },
+  {
+    "Company": "REX Bitcoin Corporate Treasury Convertible Bond ETF",
+    "Symbol": "BMAX"
   },
   {
     "Company": "Innovator U.S. Equity Buffer ETF - May",
@@ -8392,7 +8408,7 @@
     "Symbol": "CLNR"
   },
   {
-    "Company": "BlackRock AAA CLO ETF",
+    "Company": "BlackRock ETF Trust II iShares AAA CLO Active ETF",
     "Symbol": "CLOA"
   },
   {
@@ -8942,6 +8958,10 @@
   {
     "Company": "Cohu Inc",
     "Symbol": "COHU"
+  },
+  {
+    "Company": "Leverage Shares 2X Long COIN Daily ETF",
+    "Symbol": "COIG"
   },
   {
     "Company": "Coinbase Global, Inc. Class A Common Stock",
@@ -12236,7 +12256,7 @@
     "Symbol": "EAOR"
   },
   {
-    "Company": "Innovator Emerging Markets Power Buffer ETF  April",
+    "Company": "Innovator Emerging Markets Power Buffer ETF - April",
     "Symbol": "EAPR"
   },
   {
@@ -12884,7 +12904,7 @@
     "Symbol": "EJH"
   },
   {
-    "Company": "Innovator Emerging Markets Power Buffer ETF  July",
+    "Company": "Innovator Emerging Markets Power Buffer ETF - July",
     "Symbol": "EJUL"
   },
   {
@@ -19684,6 +19704,10 @@
     "Symbol": "HIMX"
   },
   {
+    "Company": "Defiance Daily Target 2X Long HIMS ETF",
+    "Symbol": "HIMZ"
+  },
+  {
     "Company": "Western Asset High Income Opportunity Fund, Inc.",
     "Symbol": "HIO"
   },
@@ -21576,7 +21600,7 @@
     "Symbol": "IIPR"
   },
   {
-    "Company": "Innovator International Developed Power Buffer ETF  January",
+    "Company": "Innovator International Developed Power Buffer ETF - January",
     "Symbol": "IJAN"
   },
   {
@@ -21604,7 +21628,7 @@
     "Symbol": "IJT"
   },
   {
-    "Company": "Innovator International Developed Power Buffer ETF  July",
+    "Company": "Innovator International Developed Power Buffer ETF - July",
     "Symbol": "IJUL"
   },
   {
@@ -22554,6 +22578,10 @@
   {
     "Company": "Inspire Small/Mid Cap ETF",
     "Symbol": "ISMD"
+  },
+  {
+    "Company": "iShares Managed Futures Active ETF",
+    "Symbol": "ISMF"
   },
   {
     "Company": "iSpecimen Inc. Common Stock",
@@ -23872,6 +23900,10 @@
     "Symbol": "JUNZ"
   },
   {
+    "Company": "JPMorgan U.S. Research Enhanced Large Cap ETF",
+    "Symbol": "JUSA"
+  },
+  {
     "Company": "Goldman Sachs JUST U.S. Large Cap Equity ETF",
     "Symbol": "JUST"
   },
@@ -24210,6 +24242,14 @@
   {
     "Company": "Kentucky First Federal Bancorp",
     "Symbol": "KFFB"
+  },
+  {
+    "Company": "K&F Growth Acquisition Corp. II Class A Ordinary shares",
+    "Symbol": "KFII"
+  },
+  {
+    "Company": "K&F Growth Acquisition Corp. II Rights",
+    "Symbol": "KFIIR"
   },
   {
     "Company": "K&F Growth Acquisition Corp. II Unit",
@@ -24768,7 +24808,7 @@
     "Symbol": "KTTAW"
   },
   {
-    "Company": "Kuke Music Holding Limited American Depositary Shares, each representing one Ordinary Share",
+    "Company": "Kuke Music Holding Limited American Depositary Shares (each representing ten (10) Class A Ordinary Shares)",
     "Symbol": "KUKE"
   },
   {
@@ -28832,6 +28872,10 @@
     "Symbol": "MWG"
   },
   {
+    "Company": "Marwynn Holdings, Inc. Common stock",
+    "Symbol": "MWYN"
+  },
+  {
     "Company": "Magnachip Semiconductor Corp.",
     "Symbol": "MX"
   },
@@ -29790,10 +29834,6 @@
   {
     "Company": "NKGen Biotech, Inc. Warrants",
     "Symbol": "NKGNW"
-  },
-  {
-    "Company": "Nikola Corporation Common Stock",
-    "Symbol": "NKLA"
   },
   {
     "Company": "National Bankshares Inc/VA",
@@ -33780,7 +33820,7 @@
     "Symbol": "PPH"
   },
   {
-    "Company": "AXS Astoria Real Assets ETF",
+    "Company": "Investment Managers Series Trust II Astoria Real Assets ETF",
     "Symbol": "PPI"
   },
   {
@@ -36292,6 +36332,10 @@
     "Symbol": "RKLB"
   },
   {
+    "Company": "Defiance Daily Target 2X Long RKLB ETF",
+    "Symbol": "RKLX"
+  },
+  {
     "Company": "Rocket Companies, Inc.",
     "Symbol": "RKT"
   },
@@ -37566,6 +37610,10 @@
   {
     "Company": "Bahl & Gaynor Small Cap Dividend ETF",
     "Symbol": "SCDV"
+  },
+  {
+    "Company": "Sterling Capital Enhanced Core Bond ETF",
+    "Symbol": "SCEC"
   },
   {
     "Company": "Schwab U.S Small- Cap ETF",
@@ -39956,6 +40004,10 @@
     "Symbol": "SPUS"
   },
   {
+    "Company": "Innovator Equity Premium Income - Daily PutWrite ETF",
+    "Symbol": "SPUT"
+  },
+  {
     "Company": "Direxion Daily S&P 500 Bull 2X Shares",
     "Symbol": "SPUU"
   },
@@ -40414,6 +40466,10 @@
   {
     "Company": "Stagwell Inc. Class A Common Stock",
     "Symbol": "STGW"
+  },
+  {
+    "Company": "STMicroelectronics NV ADRhedged",
+    "Symbol": "STHH"
   },
   {
     "Company": "Star Holdings Shares of Beneficial Interest",
@@ -41110,6 +41166,10 @@
   {
     "Company": "American Century Diversified Municipal Bond ETF",
     "Symbol": "TAXF"
+  },
+  {
+    "Company": "BondBloxx IR+M Tax-Aware ETF for Massachusetts Residents",
+    "Symbol": "TAXM"
   },
   {
     "Company": "BondBloxx IR+M Tax Aware Short Duration ETF",
@@ -42112,6 +42172,10 @@
     "Symbol": "TMFX"
   },
   {
+    "Company": "Toyota Motor Corporation ADRhedged",
+    "Symbol": "TMH"
+  },
+  {
     "Company": "Taylor Morrison Home Corporation Common Stock",
     "Symbol": "TMHC"
   },
@@ -43092,6 +43156,10 @@
     "Symbol": "TXUG"
   },
   {
+    "Company": "BondBloxx IR+M Tax-Aware Intermediate Duration ETF",
+    "Symbol": "TXXI"
+  },
+  {
     "Company": "TRI-Continental Corporation",
     "Symbol": "TY"
   },
@@ -43742,6 +43810,14 @@
   {
     "Company": "Universal Stainless & Alloy",
     "Symbol": "USAP"
+  },
+  {
+    "Company": "USA Rare Earth, Inc. Class A Common Stock",
+    "Symbol": "USAR"
+  },
+  {
+    "Company": "USA Rare Earth, Inc. Warrant",
+    "Symbol": "USARW"
   },
   {
     "Company": "Americas Gold and Silver Corporation",
@@ -46540,7 +46616,7 @@
     "Symbol": "XHLD"
   },
   {
-    "Company": "BondBloxx Bloomberg Six Month Target Duration US Treasury ETF",
+    "Company": "BondBloxx Bloomberg Six Month Target Duration US Treasury ETF",
     "Symbol": "XHLF"
   },
   {
