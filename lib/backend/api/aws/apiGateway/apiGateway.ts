@@ -14,33 +14,6 @@ export async function hello(name: string) {
   return data as LambdaResponse
 }
 
-export async function putAnimals(type: DynamoKeys, data: BasicArticle[]) {
-  const url = `${apiGatewayUrl}/animals`
-  let model: RandomStuffPut = {
-    key: type,
-    data: data,
-    category: 'animals',
-  }
-  let postData = {
-    body: model,
-  }
-  let articles = postData.body.data as BasicArticle[]
-  await post(url, postData)
-}
-
-export async function getAnimals(type: DynamoKeys) {
-  const url = `${apiGatewayUrl}/animals?key=${type}`
-  let response: LambdaResponse | null = null
-  try {
-    response = (await get(url)) as LambdaResponse
-    let data = JSON.parse(response.body.data) as BasicArticle[]
-    return data
-  } catch (err) {
-    console.error(`error in getAnimals: ${type} `, JSON.stringify(response))
-    return []
-  }
-}
-
 export async function deleteRandomStuffBatch(req: SignedRequest) {
   const decryptedString = weakDecrypt(req.data)
   const items = JSON.parse(decryptedString) as string[]

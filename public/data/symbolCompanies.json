@@ -8976,6 +8976,14 @@
     "Symbol": "COKE"
   },
   {
+    "Company": "Columbus Acquisition Corp Ordinary Shares",
+    "Symbol": "COLA"
+  },
+  {
+    "Company": "Columbus Acquisition Corp Rights",
+    "Symbol": "COLAR"
+  },
+  {
     "Company": "Columbus Acquisition Corp Unit",
     "Symbol": "COLAU"
   },
@@ -11016,6 +11024,10 @@
     "Symbol": "DGX"
   },
   {
+    "Company": "Digi Power X Inc. Subordinate Voting Shares",
+    "Symbol": "DGXX"
+  },
+  {
     "Company": "DB Gold Short ETN due February 15, 2038",
     "Symbol": "DGZ"
   },
@@ -12826,6 +12838,10 @@
   {
     "Company": "Western Asset Global High Income Fund, Inc",
     "Symbol": "EHI"
+  },
+  {
+    "Company": "Euroholdings Ltd. Common Stock",
+    "Symbol": "EHLD"
   },
   {
     "Company": "Euroholdings Ltd. Common Stock When Issued",
@@ -19312,6 +19328,10 @@
     "Symbol": "HBTA"
   },
   {
+    "Company": "Fortuna Hedged Bitcoin Fund",
+    "Symbol": "HBTC"
+  },
+  {
     "Company": "HCA Healthcare, Inc.",
     "Symbol": "HCA"
   },
@@ -19580,7 +19600,7 @@
     "Symbol": "HFWA"
   },
   {
-    "Company": "NYLI FTSE International Equity Currency Neutral ETF",
+    "Company": "IQ FTSE International Equity Currency Neutral ETF",
     "Symbol": "HFXI"
   },
   {
@@ -19990,6 +20010,10 @@
   {
     "Company": "HOOKIPA Pharma Inc. Common Stock",
     "Symbol": "HOOK"
+  },
+  {
+    "Company": "Defiance Daily Target 2X Long HOOD ETF",
+    "Symbol": "HOOX"
   },
   {
     "Company": "Hope Bancorp, Inc.",
@@ -21746,6 +21770,10 @@
   {
     "Company": "iShares Morningstar Mid-Cap Value ETF",
     "Symbol": "IMCV"
+  },
+  {
+    "Company": "Invesco Managed Futures Strategy ETF",
+    "Symbol": "IMF"
   },
   {
     "Company": "Invesco International Developed Dynamic Multifactor ETF",
@@ -24392,6 +24420,10 @@
     "Symbol": "KLNE"
   },
   {
+    "Company": "Kalaris Therapeutics, Inc. Common Stock",
+    "Symbol": "KLRS"
+  },
+  {
     "Company": "Klotho Neurosciences, Inc. Common Stock",
     "Symbol": "KLTO"
   },
@@ -25858,6 +25890,10 @@
   {
     "Company": "Lockheed Martin Corp.",
     "Symbol": "LMT"
+  },
+  {
+    "Company": "iShares Long-Term National Muni Bond ETF",
+    "Symbol": "LMUB"
   },
   {
     "Company": "Lincoln National Corp.",
@@ -29060,6 +29096,10 @@
     "Symbol": "NAD"
   },
   {
+    "Company": "Niagen Bioscience, Inc. Common Stock",
+    "Symbol": "NAGE"
+  },
+  {
     "Company": "Natural Alternatives International Inc.",
     "Symbol": "NAII"
   },
@@ -30840,6 +30880,10 @@
     "Symbol": "NWSA"
   },
   {
+    "Company": "Newton Golf Company, Inc. Common Stock",
+    "Symbol": "NWTG"
+  },
+  {
     "Company": "NWTN Inc. Class B Ordinary Shares",
     "Symbol": "NWTN"
   },
@@ -31620,7 +31664,7 @@
     "Symbol": "ONIT"
   },
   {
-    "Company": "Orion Office REIT Inc.",
+    "Company": "Orion Properties Inc.",
     "Symbol": "ONL"
   },
   {
@@ -35234,6 +35278,10 @@
   {
     "Company": "QuantumScape Corporation",
     "Symbol": "QS"
+  },
+  {
+    "Company": "Quartzsea Acquisition Corporation Units",
+    "Symbol": "QSEAU"
   },
   {
     "Company": "QuantaSing Group Limited American Depositary Shares",
@@ -45876,6 +45924,10 @@
     "Symbol": "WHTX"
   },
   {
+    "Company": "Whitehawk Therapeutics, Inc. Common Stock",
+    "Symbol": "WHWK"
+  },
+  {
     "Company": "Western Asset Inflation-Linked Income Fund",
     "Symbol": "WIA"
   },
@@ -46576,7 +46628,7 @@
     "Symbol": "XFINW"
   },
   {
-    "Company": "BondBloxx Bloomberg Five Year Target Duration US Treasury ETF",
+    "Company": "BondBloxx Bloomberg Five Year Target Duration US Treasury ETF",
     "Symbol": "XFIV"
   },
   {

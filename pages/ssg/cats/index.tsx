@@ -3,14 +3,12 @@ import type { GetStaticProps, NextPage } from 'next'
 import ArticlesLayout from 'components/Organizms/ArticlesLayout'
 import { shuffle } from 'lodash'
 import { buildRandomAnimals } from 'lib/backend/api/randomAnimalsApi'
-import { isBrowser } from 'lib/util/system'
-import { getAnimals } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import useSWR, { SWRConfig } from 'swr'
 import { Container } from '@mui/material'
-import Header from 'next/head'
 import { get } from 'lib/backend/api/fetchFunctions'
 import Seo from 'components/Organizms/Seo'
 import { BasicArticle } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { getItem } from 'app/serverActions/aws/dynamo/dynamo'
 
 const cmsRefreshIntervalSeconds = 360000
 
@@ -22,7 +20,9 @@ const fetcherFn = async (url: string) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   await buildRandomAnimals('cats')
-  const data = await getAnimals('cats')
+  const resp = await getItem('cats')
+
+  const data = JSON.parse(resp.data) as BasicArticle[]
   return {
     props: {
       articles: shuffle(data),
