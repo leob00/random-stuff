@@ -1,7 +1,7 @@
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
-import dayjs, { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 import { forwardRef } from 'react'
 
 type Props = {
@@ -19,7 +19,6 @@ const DateAndTimePicker2 = forwardRef<HTMLInputElement, Props>(function DateAndT
 
   const handleSelect = (dt: dayjs.Dayjs | null) => {
     if (dt) {
-      console.log(dt)
       onDateSelected(dayjs(dt).format())
     } else {
       onDateSelected(null)

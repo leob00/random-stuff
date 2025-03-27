@@ -6,7 +6,7 @@ import { createServerRunner } from '@aws-amplify/adapter-nextjs'
 import { NextRequest, NextResponse } from 'next/server'
 import { Amplify } from 'aws-amplify'
 import amplifyConfig from 'src/amplifyconfiguration.json'
-// Amplify.configure(amplifyConfig, { ssr: true })
+Amplify.configure(amplifyConfig, { ssr: true })
 export const { runWithAmplifyServerContext } = createServerRunner({
   config: amplifyConfig,
 })
@@ -56,6 +56,7 @@ export async function getUserSSRApi(req: NextApiRequest, res: NextApiResponse) {
 }
 
 export async function getUserSSRAppRouteApi(req: NextRequest, res: NextResponse) {
+  Amplify.configure(amplifyConfig, { ssr: true })
   try {
     const user = await runWithAmplifyServerContext({
       nextServerContext: { request: req, response: res },
