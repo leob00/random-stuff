@@ -55,8 +55,19 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
   const handleDaysSelected = async (val: number) => {
     setIsWaiting(true)
     await sleep(500)
-    saveStockChart({ ...stocksChart, defaultDays: val ?? 90 })
-    setDays(val)
+    let days = val
+    if (days === 0) {
+      let now = dayjs()
+      const jan1 = new Date(now.year(), 0, 1)
+      const startDate = dayjs(jan1)
+      const dayDiff = now.diff(startDate, 'day')
+      days = dayDiff
+      setDays(0)
+      saveStockChart({ ...stocksChart, defaultDays: 0 })
+      return
+    }
+    saveStockChart({ ...stocksChart, defaultDays: days })
+    setDays(days)
   }
 
   useEffect(() => {
