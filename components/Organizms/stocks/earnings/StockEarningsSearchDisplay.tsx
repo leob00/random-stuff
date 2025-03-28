@@ -2,9 +2,8 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { useState } from 'react'
 import { CasinoGrayTransparent } from 'components/themes/mainTheme'
-import SearchEarningsBySymbolForm, { EarningsSearchFields } from './SearchEarningsBySymbolForm'
 import { StockEarning, getStockQuote, serverGetFetch, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
-import StockEarningsTable from './StockEarningsTable'
+import StockEarningsDisplay from './StockEarningsDisplay'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import StockListItem from '../StockListItem'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
@@ -78,7 +77,7 @@ const StockEarningsSearchDisplay = () => {
       <Box>
         {searchResults && (
           <Box py={2}>
-            <StockEarningsTable data={searchResults} showCompany />
+            <StockEarningsDisplay data={searchResults} showCompany />
           </Box>
         )}
       </Box>

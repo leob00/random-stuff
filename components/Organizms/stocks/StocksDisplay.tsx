@@ -88,7 +88,7 @@ const StocksDisplay = ({
       persistStocks(userProfile, localStore, newList)
       setModel({
         ...model,
-        editList: false,
+        editList: true,
         showAsGroup: false,
         stockListMap: stockListMap,
         autoCompleteResults: [],
@@ -119,6 +119,7 @@ const StocksDisplay = ({
       ...model,
       isLoading: false,
       stockListMap: newMap,
+
       successMesage: 'Your list has been updated!',
     })
     onMutated(newList)
@@ -202,7 +203,7 @@ const StocksDisplay = ({
                 <>
                   <EditList
                     username={userProfile?.username ?? null}
-                    data={result}
+                    data={Array.from(model.stockListMap.values())}
                     onCancelEdit={() => setModel({ ...model, editList: false })}
                     onPushChanges={handleSaveChanges}
                     onReorder={handleReorderList}

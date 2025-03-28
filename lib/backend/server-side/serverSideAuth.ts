@@ -6,6 +6,7 @@ import { createServerRunner } from '@aws-amplify/adapter-nextjs'
 import { NextRequest, NextResponse } from 'next/server'
 import { Amplify } from 'aws-amplify'
 import amplifyConfig from 'src/amplifyconfiguration.json'
+import { cookies } from 'next/headers'
 Amplify.configure(amplifyConfig, { ssr: true })
 export const { runWithAmplifyServerContext } = createServerRunner({
   config: amplifyConfig,
@@ -59,14 +60,14 @@ export async function getUserSSRAppRouteApi(req: NextRequest, res: NextResponse)
   Amplify.configure(amplifyConfig, { ssr: true })
   try {
     const user = await runWithAmplifyServerContext({
-      nextServerContext: { request: req, response: res },
+      nextServerContext: { cookies }, // { request: req, response: res },
       operation: async (contextSpec) => {
         const res = await getCurrentUser(contextSpec)
         return res
       },
     })
     const userAttributes = await runWithAmplifyServerContext({
-      nextServerContext: { request: req, response: res },
+      nextServerContext: { cookies }, // { request: req, response: res },
       operation: async (contextSpec) => {
         const attr = await fetchUserAttributes(contextSpec)
         return attr

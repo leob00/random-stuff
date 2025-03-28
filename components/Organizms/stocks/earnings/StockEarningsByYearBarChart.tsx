@@ -1,13 +1,13 @@
 import { Box, useTheme } from '@mui/material'
 import { StockEarning } from 'lib/backend/api/qln/qlnApi'
-import { StockEarningsGroup } from './StockEarningsTable'
+import { StockEarningsGroup } from './StockEarningsDisplay'
 import { sum } from 'lodash'
 import { sortArray } from 'lib/util/collections'
 import { getMultiDatasetBarChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import { ChartData } from 'chart.js'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import BarChartStacked from 'components/Atoms/Charts/chartJs/BarChartStacked'
-import { CasinoBlue, CasinoBlueTransparent, CasinoOrangeTransparent, VeryLightBlueTransparent } from 'components/themes/mainTheme'
+import { CasinoBlueTransparent, CasinoOrangeTransparent } from 'components/themes/mainTheme'
 import numeral from 'numeral'
 
 type Model = {
@@ -20,7 +20,6 @@ const StockEarningsByYearBarChart = ({ data }: { data: StockEarning[] }) => {
   const theme = useTheme()
   const yearsGroup: StockEarningsGroup[] = []
   const allYears = Array.from(new Set(data.map((m) => m.Year!)))
-  //const years = uniq(data.filter((f) => f.ReportDate).map((m) => dayjs(m.ReportDate).year()))
   allYears.forEach((year) => {
     yearsGroup.push({
       key: year,
@@ -72,14 +71,14 @@ const StockEarningsByYearBarChart = ({ data }: { data: StockEarning[] }) => {
     labels: labels,
     datasets: [
       {
-        label: 'actual',
-        data: actuals,
-        backgroundColor: CasinoBlueTransparent,
-      },
-      {
         label: 'estimated',
         data: estimated,
         backgroundColor: CasinoOrangeTransparent,
+      },
+      {
+        label: 'actual',
+        data: actuals,
+        backgroundColor: CasinoBlueTransparent,
       },
     ],
   }

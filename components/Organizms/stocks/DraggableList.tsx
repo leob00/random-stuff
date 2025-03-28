@@ -18,17 +18,17 @@ import AutoCompleteSolo from 'components/Atoms/Inputs/AutoCompleteSolo'
 import CenterStack from 'components/Atoms/CenterStack'
 
 export type DraggableListProps = {
-  username: string | null
   items: StockQuote[]
   onPushChanges: (quotes: StockQuote[]) => void
   onEditSingleItem: (quote: StockQuote) => void
+  isLoading: boolean
 }
 
 export interface SelectableQuote extends StockQuote {
   selected?: boolean
 }
 
-const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: DraggableListProps) => {
+const DraggableList = ({ items, onPushChanges, onEditSingleItem, isLoading }: DraggableListProps) => {
   const [deleteItem, setDeleteItem] = React.useState<StockQuote | null>(null)
   const [showConfirmDelete, setShowConfirmDelete] = React.useState(false)
   const [showConfirmDeleteMulti, setShowConfirmDeleteMulti] = React.useState(false)
@@ -37,7 +37,6 @@ const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: Dra
   const [map, setMap] = React.useState(itemMap)
   const [selectedItems, setSelectedItems] = React.useState(selecteableItems.filter((item) => item.selected))
   const [showMultiMenu, setShowMultiMenu] = React.useState(true)
-  const [showGroupNameDialog, setShowGroupNameDialog] = React.useState(false)
   const [allStocks, setAllStocks] = React.useState(items)
 
   const handleRemoveQuote = (symbol: string) => {
@@ -113,9 +112,6 @@ const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: Dra
   const handleShowConfirmDeleteMulti = () => {
     setShowConfirmDeleteMulti(true)
   }
-  const handleShowGroupNameForm = () => {
-    setShowGroupNameDialog(true)
-  }
 
   const handleCheckItem = (symbol: string, checked: boolean) => {
     const quote = map.get(symbol)!
@@ -127,17 +123,6 @@ const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: Dra
   }
 
   const contextMenu: ContextMenuItem[] = [
-    {
-      item: (
-        <>
-          <ListItemIcon>
-            <DriveFileRenameOutlineIcon color='primary' fontSize='small' />
-          </ListItemIcon>
-          <ListItemText primary='add to list'></ListItemText>
-        </>
-      ),
-      fn: handleShowGroupNameForm,
-    },
     {
       item: <ContextMenuDelete />,
       fn: handleShowConfirmDeleteMulti,
@@ -171,9 +156,10 @@ const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: Dra
             <Box ref={provided.innerRef} {...provided.droppableProps}>
               {allStocks.map((item, index) => (
                 <DraggableListItem
+                  isLoading={isLoading}
                   item={item}
                   index={index}
-                  key={item.Symbol}
+                  key={`${item.Symbol}${item.GroupName}`}
                   onRemoveItem={() => {
                     handleShowConfirmDelete(item)
                   }}
@@ -188,9 +174,7 @@ const DraggableList = ({ username, items, onPushChanges, onEditSingleItem }: Dra
           )}
         </StrictModeDroppable>
       </DragDropContext>
-      <FormDialog show={showGroupNameDialog} title={'assign to group'} onSave={() => {}} onCancel={() => setShowGroupNameDialog(false)}>
-        <></>
-      </FormDialog>
+
       <ConfirmDeleteDialog
         show={showConfirmDelete}
         text={`Are you sure you want to remove ${deleteItem?.Company}?`}

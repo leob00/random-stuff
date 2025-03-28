@@ -11,7 +11,6 @@ import { getStockQuotes, SymbolCompany } from 'lib/backend/api/qln/qlnApi'
 import { getUserStockList, putUserProfile, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
-import React from 'react'
 import AddQuote from './AddQuote'
 import EditList from './EditList'
 import FlatListMenu from './FlatListMenu'
@@ -19,6 +18,7 @@ import GroupedStocksLayout from './GroupedStocksLayout'
 import StockTable from './StockTable'
 import { getSearchAheadTotalCount, searchAheadStocks } from './stockSearcher'
 import numeral from 'numeral'
+import { useEffect, useReducer } from 'react'
 
 export interface StockLayoutModel {
   username?: string | null
@@ -58,7 +58,7 @@ const StockSearchLayout = () => {
     showAsGroup: authProfile?.settings?.stocks?.defaultView === 'grouped',
   }
 
-  const [model, setModel] = React.useReducer((state: StockLayoutModel, newState: StockLayoutModel) => ({ ...state, ...newState }), defaultModel)
+  const [model, setModel] = useReducer((state: StockLayoutModel, newState: StockLayoutModel) => ({ ...state, ...newState }), defaultModel)
 
   const handleSearched = async (text: string) => {
     const searchResults = searchAheadStocks(text)
@@ -209,7 +209,7 @@ const StockSearchLayout = () => {
     await reloadData()
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fn = async () => {
       await reloadData()
     }

@@ -13,39 +13,45 @@ export type DraggableListItemProps = {
   onRemoveItem: (id: string) => void
   onCheckItem: (checked: boolean) => void
   onEdit: (item: StockQuote) => void
+  isLoading: boolean
 }
 
-const DraggableListItem = ({ item, index, onRemoveItem, onCheckItem, onEdit }: DraggableListItemProps) => {
+const DraggableListItem = ({ item, index, onRemoveItem, onCheckItem, onEdit, isLoading }: DraggableListItemProps) => {
   const handleRemoveItem = (id: string) => {
     onRemoveItem(id)
   }
 
   return (
     <>
-      {/* @ts-expect-error needs to be reviewed */}
-      <Draggable draggableId={item.Symbol} index={index} key={item.Symbol}>
-        {(provided, snapshot) => (
-          <>
-            <ListItem
-              id={item.Symbol}
-              ref={provided.innerRef}
-              {...provided.draggableProps}
-              {...provided.dragHandleProps}
-              // className={snapshot.isDragging ? classes.draggingListItem : ''}
-            >
-              {/* <SecondaryCheckbox onChanged={onCheckItem} checked={item.selected} /> */}
-              <ListItemAvatar>
-                <DragIndicator />
-              </ListItemAvatar>
-              <ListItemText primary={`${item.Company} (${item.Symbol})`} secondary={`Group name: ${item.GroupName ?? ''}`} />
-              <Stack alignItems={'flex-end'} flexGrow={1} pr={2}>
-                <SingleItemMenu onEdelete={handleRemoveItem} quote={item} onEdit={onEdit} />
-              </Stack>
-            </ListItem>
-            <HorizontalDivider />
-          </>
-        )}
-      </Draggable>
+      {!isLoading && (
+        <>
+          {/* @ts-expect-error needs to be reviewed */}
+
+          <Draggable draggableId={item.Symbol} index={index} key={item.Symbol}>
+            {(provided, snapshot) => (
+              <>
+                <ListItem
+                  id={item.Symbol}
+                  ref={provided.innerRef}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  // className={snapshot.isDragging ? classes.draggingListItem : ''}
+                >
+                  {/* <SecondaryCheckbox onChanged={onCheckItem} checked={item.selected} /> */}
+                  <ListItemAvatar>
+                    <DragIndicator />
+                  </ListItemAvatar>
+                  <ListItemText primary={`${item.Company} (${item.Symbol})`} secondary={`Group name: ${item.GroupName ?? ''}`} />
+                  <Stack alignItems={'flex-end'} flexGrow={1} pr={2}>
+                    <SingleItemMenu onEdelete={handleRemoveItem} quote={item} onEdit={onEdit} />
+                  </Stack>
+                </ListItem>
+                <HorizontalDivider />
+              </>
+            )}
+          </Draggable>
+        </>
+      )}
     </>
   )
 }
