@@ -1,7 +1,7 @@
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { getUserSSRAppRouteApi } from 'lib/backend/server-side/serverSideAuth'
 import { NextRequest, NextResponse } from 'next/server'
 import { getPresignedUrl } from 'app/serverActions/aws/s3/s3'
+import { getUserSSRAppRouteApi } from 'app/serverActions/auth/user'
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const user = await getUserSSRAppRouteApi(req, res)

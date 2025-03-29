@@ -1,6 +1,6 @@
+import { getUserSSRAppRouteApi } from 'app/serverActions/auth/user'
 import { copyItem, deleteItem } from 'app/serverActions/aws/s3/s3'
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { getUserSSRAppRouteApi } from 'lib/backend/server-side/serverSideAuth'
 import { NextRequest, NextResponse } from 'next/server'
 
 type Payload = {
