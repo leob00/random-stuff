@@ -1,23 +1,20 @@
-import Warning from '@mui/icons-material/Warning'
 import { Box, Button, Stack, Typography } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
-import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import Clickable from 'components/Atoms/Containers/Clickable'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import Pager from 'components/Atoms/Pager'
-import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
 import dayjs from 'dayjs'
 import { useClientPager } from 'hooks/useClientPager'
 import { UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { DropdownItem, mapDropdownItems } from 'lib/models/dropdown'
-import { getExpirationText, getUtcNow } from 'lib/util/dateUtil'
+import { getUtcNow } from 'lib/util/dateUtil'
 import { useState } from 'react'
 import AttachFileIcon from '@mui/icons-material/AttachFile'
 import { sortArray } from 'lib/util/collections'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
+import RecordExpirationWarning from 'components/Atoms/Text/RecordExpirationWarning'
 
 const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked: (item: UserNote) => void; onAddNote: () => void }) => {
   const scroller = useScrollTop(0)
@@ -33,7 +30,7 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
   }
 
   const filtered = filterResults()
-  const { pagerModel, setPage, getPagedItems, reset } = useClientPager(filtered, pageSize)
+  const { pagerModel, setPage, getPagedItems } = useClientPager(filtered, pageSize)
   const handleNoteTitleClick = (item: UserNote) => {
     onClicked(item)
   }
@@ -98,10 +95,8 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
                 </Box>
                 {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
                   <Box display={'flex'} justifyContent={'flex-end'} gap={1} alignItems={'center'}>
-                    <DefaultTooltip text={getExpirationText(item.expirationDate)}>
-                      <Warning fontSize='small' color='warning' />
-                    </DefaultTooltip>
-                    <Typography variant='caption'>{'expires soon'}</Typography>
+                    {/* <Warning fontSize='small' color='warning' /> */}
+                    <RecordExpirationWarning expirationDate={item.expirationDate} />
                   </Box>
                 )}
               </FadeIn>

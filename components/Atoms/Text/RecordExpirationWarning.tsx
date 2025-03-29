@@ -1,5 +1,4 @@
 import { getExpirationText } from 'lib/util/dateUtil'
-import React from 'react'
 import AlertWithHeader from './AlertWithHeader'
 
 const RecordExpirationWarning = ({ expirationDate, precise = false }: { expirationDate: string; precise?: boolean }) => {
