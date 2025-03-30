@@ -5,13 +5,13 @@ import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useAlertsController } from 'hooks/stocks/alerts/useAlertsController'
 import { processAlertTriggers } from 'lib/backend/alerts/stockAlertProcessor'
-import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { DynamoKeys, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { constructStockAlertsSubPrimaryKey, constructStockAlertsSubSecondaryKey } from 'lib/backend/api/aws/util'
 import { StockAlertSubscription, StockAlertSubscriptionWithMessage, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
-import { getRecord, putRandomStuffBatch, searchRecords, sendEmailFromClient } from 'lib/backend/csr/nextApiWrapper'
+import { getDynamoItem, getRecord, putRandomStuffBatch, putRecord, searchRecords, sendEmailFromClient } from 'lib/backend/csr/nextApiWrapper'
 import { getDefaultSubscription, sortAlerts } from 'lib/ui/alerts/stockAlertHelper'
-import { formatEmail } from 'lib/ui/mailUtil'
+import { EmailTemplateUrls, formatEmail, getTemplate } from 'lib/ui/mailUtil'
 import { uniq } from 'lodash'
 import StocksLookup from '../StocksLookup'
 import EmailPreview from './EmailPreview'
@@ -65,6 +65,8 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     setShowAddAlert(false)
     const dataCopy = { ...data! }
     const quotes = await getStockQuotes(uniq(dataCopy.subscriptions.map((m) => m.symbol)))
+    const rawTemplate = await getTemplate('/emailTemplates/stockAlertSubscriptionEmailTemplate.html')
+    const templateKey: DynamoKeys = 'email-template[stock-alert]'
 
     const template = await formatEmail('/emailTemplates/stockAlertSubscriptionEmailTemplate.html', new Map<string, string>())
     const quoteMap = getMapFromArray<StockQuote>(quotes, 'Symbol')

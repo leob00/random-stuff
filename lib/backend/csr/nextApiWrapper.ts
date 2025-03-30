@@ -335,6 +335,19 @@ export async function getRecord<T>(id: DynamoKeys | string): Promise<T> {
     return result
   }
 }
+export async function getDynamoItem(id: DynamoKeys): Promise<RandomStuffDynamoItem> {
+  let result: any | null = null
+  try {
+    const body = encryptKey(id)
+    const resp = await postBody('/api/aws/dynamo/item', 'POST', body)
+
+    result = resp.data as RandomStuffDynamoItem
+    return result
+  } catch (err) {
+    console.error(err)
+    return result
+  }
+}
 export async function searchRecords(id: DynamoKeys | CategoryType | string): Promise<RandomStuffDynamoItem[]> {
   const enc = weakEncrypt(id)
   const body: SignedRequest = {
