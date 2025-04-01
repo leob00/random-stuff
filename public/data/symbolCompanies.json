@@ -2216,7 +2216,7 @@
     "Symbol": "ANY"
   },
   {
-    "Company": "iShares Core 80/20 Aggressive Allocation ETF",
+    "Company": "iShares Core Aggressive Allocation ETF",
     "Symbol": "AOA"
   },
   {
@@ -10392,7 +10392,7 @@
     "Symbol": "DAL"
   },
   {
-    "Company": "First Trust DorseyWright DALI 1 ETF",
+    "Company": "First Trust Exchange-Traded Fund VI First Trust Dorsey Wright DALI Equity ETF",
     "Symbol": "DALI"
   },
   {
@@ -21216,7 +21216,7 @@
     "Symbol": "ICAD"
   },
   {
-    "Company": "InfraCap Equity Income Fund ETF",
+    "Company": "Infrastructure Capital Equity Income ETF",
     "Symbol": "ICAP"
   },
   {
@@ -23816,6 +23816,10 @@
     "Symbol": "JOUT"
   },
   {
+    "Company": "JOYY Inc. American Depositary Shares",
+    "Symbol": "JOYY"
+  },
+  {
     "Company": "Matthews Japan Active ETF",
     "Symbol": "JPAN"
   },
@@ -23832,7 +23836,7 @@
     "Symbol": "JPEM"
   },
   {
-    "Company": "Nuveen Preferred Securities & Income Opportunities Fund",
+    "Company": "NUVEEN PREFERRED AND INCOME TERM FUND",
     "Symbol": "JPI"
   },
   {
@@ -27160,6 +27164,10 @@
     "Symbol": "MCHP"
   },
   {
+    "Company": "Microchip Technology Incorporated Depositary Shares Each Representing a 1/20th Interest in a Share of 7.50% Series A Mandatory Convertible Preferred Stock",
+    "Symbol": "MCHPP"
+  },
+  {
     "Company": "Matthews China Discovery Active ETF",
     "Symbol": "MCHS"
   },
@@ -27334,10 +27342,6 @@
   {
     "Company": "SPDR S&P 400 Mid Cap Value ETF (based on S&P MidCap 400 Value Index--symbol: MGD)",
     "Symbol": "MDYV"
-  },
-  {
-    "Company": "23andMe Holding Co. Class A Common Stock",
-    "Symbol": "ME"
   },
   {
     "Company": "iShares Short Maturity Municipal Bond Active ETF",
@@ -28100,7 +28104,7 @@
     "Symbol": "MMYT"
   },
   {
-    "Company": "NYLI Merger Arbitrage ETF",
+    "Company": "IQ ARB Merger Arbitrage ETF",
     "Symbol": "MNA"
   },
   {
@@ -37772,7 +37776,7 @@
     "Symbol": "SBXD.WS"
   },
   {
-    "Company": "InfraCap Small Cap Income ETF",
+    "Company": "Infrastructure Capital Small Cap Income ETF",
     "Symbol": "SCAP"
   },
   {
@@ -42052,7 +42056,7 @@
     "Symbol": "THEQ"
   },
   {
-    "Company": "First Financial Corp/Indiana",
+    "Company": "First Financial Corporation Common Stock",
     "Symbol": "THFF"
   },
   {
@@ -44406,6 +44410,10 @@
   {
     "Company": "ProShares Ultra Materials",
     "Symbol": "UYM"
+  },
+  {
+    "Company": "UY Scuti Acquisition Corp. Units",
+    "Symbol": "UYSCU"
   },
   {
     "Company": "United States Cellular Corporation 6.250% Senior Notes due 2069",
@@ -46844,7 +46852,7 @@
     "Symbol": "XFINW"
   },
   {
-    "Company": "BondBloxx Bloomberg Five Year Target Duration US Treasury ETF",
+    "Company": "BondBloxx Bloomberg Five Year Target Duration US Treasury ETF",
     "Symbol": "XFIV"
   },
   {
