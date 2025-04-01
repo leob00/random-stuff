@@ -88,7 +88,7 @@ const RequireClaim = ({ claimType, children }: { claimType: 'rs' | 'rs-admin'; c
 
     switch (claimType) {
       case 'rs':
-        return <PleaseLogin message='Please sign in to use this feature' />
+        return <PleaseLogin />
       case 'rs-admin':
         return (
           <Box>

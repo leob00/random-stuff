@@ -1656,7 +1656,7 @@
     "Symbol": "ALMS"
   },
   {
-    "Company": "AELUMA INC",
+    "Company": "Aeluma, Inc. Common Stock",
     "Symbol": "ALMU"
   },
   {
@@ -2946,6 +2946,10 @@
   {
     "Company": "ASLAN Pharmaceuticals Limited American Depositary Shares",
     "Symbol": "ASLN"
+  },
+  {
+    "Company": "Allspring Special Large Value ETF",
+    "Symbol": "ASLV"
   },
   {
     "Company": "Avino Silver & Gold Mines Ltd. (Canada)",
@@ -7520,7 +7524,7 @@
     "Symbol": "CDW"
   },
   {
-    "Company": "Simplify High Yield PLUS Credit Hedge ETF",
+    "Company": "Simplify High Yield ETF",
     "Symbol": "CDX"
   },
   {
@@ -7762,6 +7766,10 @@
   {
     "Company": "Citizens Financial Group, Inc.",
     "Symbol": "CFG"
+  },
+  {
+    "Company": "Cambria Fixed Income Trend ETF",
+    "Symbol": "CFIT"
   },
   {
     "Company": "Confluent, Inc. Class A Common Stock",
@@ -8412,7 +8420,7 @@
     "Symbol": "CLLS"
   },
   {
-    "Company": "Cornerstone Strategic Value Fund",
+    "Company": "Cornerstone Strategic Investment Fund, Inc.",
     "Symbol": "CLM"
   },
   {
@@ -9642,6 +9650,10 @@
   {
     "Company": "Crown Crafts Inc",
     "Symbol": "CRWS"
+  },
+  {
+    "Company": "CoreWeave, Inc. Class A Common Stock",
+    "Symbol": "CRWV"
   },
   {
     "Company": "VictoryShares US Small Cap Volatility Wtd ETF",
@@ -18066,6 +18078,10 @@
   {
     "Company": "Glen Burnie Bancorp",
     "Symbol": "GLBZ"
+  },
+  {
+    "Company": "GlacierShares Nasdaq Iceland ETF",
+    "Symbol": "GLCR"
   },
   {
     "Company": "SPDR Gold Trust, SPDR Gold Shares",
@@ -29500,6 +29516,10 @@
     "Symbol": "NCSM"
   },
   {
+    "Company": "Intercont (Cayman) Limited Ordinary shares",
+    "Symbol": "NCT"
+  },
+  {
     "Company": "The9 Limited American Depository Shares representing three class A ordinary shares",
     "Symbol": "NCTY"
   },
@@ -30030,6 +30050,10 @@
   {
     "Company": "Innovator Growth-100 Power Buffer ETF - March",
     "Symbol": "NMAR"
+  },
+  {
+    "Company": "Newsmax, Inc.",
+    "Symbol": "NMAX"
   },
   {
     "Company": "Simplify National Muni Bond ETF",
@@ -37648,7 +37672,7 @@
     "Symbol": "SBEV"
   },
   {
-    "Company": "Splash Beverage Group, Inc. Warrants to purchase one whole share of Common Stock at an exercise price of $4.60",
+    "Company": "Splash Beverage Group, Inc. Warrants to purchase 1/40th of a share of Common Stock at an exercise price of $184.00",
     "Symbol": "SBEV.WS"
   },
   {
@@ -42022,6 +42046,10 @@
   {
     "Company": "iShares MSCI Thailand ETF",
     "Symbol": "THD"
+  },
+  {
+    "Company": "T. Rowe Price Hedged Equity ETF",
+    "Symbol": "THEQ"
   },
   {
     "Company": "First Financial Corp/Indiana",

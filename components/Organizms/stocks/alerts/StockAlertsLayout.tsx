@@ -65,8 +65,6 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     setShowAddAlert(false)
     const dataCopy = { ...data! }
     const quotes = await getStockQuotes(uniq(dataCopy.subscriptions.map((m) => m.symbol)))
-    const rawTemplate = await getTemplate('/emailTemplates/stockAlertSubscriptionEmailTemplate.html')
-    const templateKey: DynamoKeys = 'email-template[stock-alert]'
 
     const template = await formatEmail('/emailTemplates/stockAlertSubscriptionEmailTemplate.html', new Map<string, string>())
     const quoteMap = getMapFromArray<StockQuote>(quotes, 'Symbol')

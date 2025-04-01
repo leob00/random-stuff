@@ -1,26 +1,9 @@
 import { DropdownItem } from 'lib/models/dropdown'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
-import {
-  UserNote,
-  LambdaDynamoRequest,
-  UserProfile,
-  LambdaBody,
-  DynamoKeys,
-  CategoryType,
-  LambdaDynamoRequestBatch,
-  S3Object,
-  Bucket,
-  S3Folder,
-} from '../api/aws/models/apiGatewayModels'
+import { UserNote, LambdaDynamoRequest, UserProfile, DynamoKeys, CategoryType, S3Object, Bucket, S3Folder } from '../api/aws/models/apiGatewayModels'
 
-import {
-  constructUserGoalTaksSecondaryKey,
-  constructUserNoteCategoryKey,
-  constructUserNoteTitlesKey,
-  constructUserProfileKey,
-  constructUserSecretSecondaryKey,
-} from '../api/aws/util'
+import { constructUserGoalTaksSecondaryKey, constructUserNoteTitlesKey, constructUserProfileKey, constructUserSecretSecondaryKey } from '../api/aws/util'
 import { get, post, postBody } from '../api/fetchFunctions'
 import { quoteArraySchema, StockQuote, UserSecret } from '../api/models/zModels'
 import { weakEncrypt } from '../encryption/useEncryptor'
@@ -34,12 +17,15 @@ export interface SignedRequest {
 }
 
 export async function putUserNote(item: UserNote, secondaryKey: string, expiration: number = 0) {
-  let req: LambdaDynamoRequest = {
-    id: item.id!,
+  let req: RandomStuffDynamoItem = {
+    key: item.id!,
     category: secondaryKey,
     data: item,
     expiration: expiration,
     token: weakEncrypt(`${item.id}`),
+    count: 1,
+    format: 'json',
+    last_modified: getUtcNow().format(),
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),
@@ -52,12 +38,15 @@ export async function putSearchedStock(item: StockQuote) {
   const expireDt = now.add(14, 'day')
   const expireSeconds = Math.floor(expireDt.valueOf() / 1000)
   const stock = { ...item, groupName: undefined }
-  let req: LambdaDynamoRequest = {
-    id: `searched-stocks[${stock.Symbol}]`,
+  let req: RandomStuffDynamoItem = {
+    key: `searched-stocks[${stock.Symbol}]`,
     category: 'searched-stocks',
     data: stock,
     expiration: expireSeconds,
     token: weakEncrypt(`searched-stocks[${stock.Symbol}]`),
+    count: 1,
+    format: 'json',
+    last_modified: getUtcNow().format(),
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),
@@ -67,12 +56,15 @@ export async function putSearchedStock(item: StockQuote) {
 
 export async function expireUserNote(item: UserNote) {
   const unixNowSeconds = Math.floor(getUtcNow().valueOf() / 1000)
-  let req: LambdaDynamoRequest = {
-    id: item.id!,
+  let req: RandomStuffDynamoItem = {
+    key: item.id!,
     category: 'expired',
     data: item,
     expiration: unixNowSeconds,
     token: weakEncrypt(`${item.id}`),
+    count: 1,
+    format: 'json',
+    last_modified: getUtcNow().format(),
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),
@@ -84,12 +76,15 @@ export async function putUserProfile(item: UserProfile) {
   const cat = 'userProfile'
   item.secKey = undefined
 
-  let req: LambdaDynamoRequest = {
-    id: item.id,
+  let req: RandomStuffDynamoItem = {
+    key: item.id,
     category: cat,
     data: item,
     expiration: 0,
     token: weakEncrypt(`${item.id}`),
+    count: 1,
+    format: 'json',
+    last_modified: getUtcNow().format(),
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),
@@ -99,12 +94,15 @@ export async function putUserProfile(item: UserProfile) {
 
 export async function putUserNoteTitles(username: string, item: UserNote[]) {
   const id = constructUserNoteTitlesKey(username)
-  let req: LambdaDynamoRequest = {
-    id: id,
+  let req: RandomStuffDynamoItem = {
+    key: id,
     category: 'user-note-titles',
     data: item,
     expiration: 0,
     token: weakEncrypt(id),
+    count: 1,
+    format: 'json',
+    last_modified: getUtcNow().format(),
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),
@@ -235,12 +233,15 @@ export async function getUserGoalTasks(goalId: string) {
 }
 
 export async function putUserGoals(id: string, data: UserGoal[], expiration: number = 0) {
-  let req: LambdaDynamoRequest = {
-    id: id,
+  const req: RandomStuffDynamoItem = {
+    key: id,
     category: 'user-goals',
     data: data,
     expiration: expiration,
     token: weakEncrypt(`${id}`),
+    count: 1,
+    format: 'json',
+    last_modified: getUtcNow().format(),
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),
@@ -248,12 +249,15 @@ export async function putUserGoals(id: string, data: UserGoal[], expiration: num
   await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
 }
 export async function putUserGoalTasks(username: string, goalId: string, data: UserTask[], expiration: number = 0) {
-  let req: LambdaDynamoRequest = {
-    id: goalId,
+  let req: RandomStuffDynamoItem = {
+    key: goalId,
     category: constructUserGoalTaksSecondaryKey(username),
     data: data,
     expiration: expiration,
     token: weakEncrypt(`${goalId}`),
+    count: 1,
+    format: 'json',
+    last_modified: getUtcNow().format(),
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),
@@ -263,12 +267,15 @@ export async function putUserGoalTasks(username: string, goalId: string, data: U
 
 export async function putUserStockList(username: string, data: StockQuote[]) {
   const id = `user-stock_list[${username}]`
-  let req: LambdaDynamoRequest = {
-    id: `user-stock_list[${username}]`,
+  let req: RandomStuffDynamoItem = {
+    key: `user-stock_list[${username}]`,
     category: 'user-stock_list',
     data: data,
     expiration: 0,
     token: weakEncrypt(`${id}`),
+    count: 1,
+    format: 'json',
+    last_modified: getUtcNow().format(),
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),
@@ -290,17 +297,20 @@ export async function getUserStockList(username: string) {
   return []
 }
 
-function encryptBody(req: LambdaDynamoRequest) {
+function encryptBody(req: RandomStuffDynamoItem) {
   return weakEncrypt(JSON.stringify(req))
 }
 
 export async function putUserSecret(item: UserSecret, username: string, expiration: number = 0) {
-  let req: LambdaDynamoRequest = {
-    id: item.id!,
+  let req: RandomStuffDynamoItem = {
+    key: item.id!,
     category: constructUserSecretSecondaryKey(username),
     data: item,
     expiration: expiration,
     token: weakEncrypt(`${item.id}`),
+    count: 1,
+    format: 'json',
+    last_modified: getUtcNow().format(),
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),
@@ -357,13 +367,14 @@ export async function searchRecords(id: DynamoKeys | CategoryType | string): Pro
   return result
 }
 
-export async function putRecord(id: DynamoKeys | string, category: string, item: any) {
-  let req: LambdaDynamoRequest = {
-    id: id,
+export async function putRecord(id: string | DynamoKeys, category: string, item: any, format: 'json' | 'string' = 'json') {
+  let req: RandomStuffDynamoItem = {
+    key: id,
     category: category,
     data: item,
     token: weakEncrypt(`${id}`),
     expiration: 0,
+    format: format,
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),

@@ -41,8 +41,9 @@ export async function putItems(items: RandomStuffDynamoItem[]) {
     }
 
     const command = new BatchWriteItemCommand(params)
-    const resp = (await db.send(command)).$metadata.httpStatusCode
-    console.log(`status: ${resp} put ${chunk.length} records`)
+    const resp = (await db.send(command)).$metadata
+    return resp
+    // console.log(`status: ${resp} put ${chunk.length} records`)
   }
 
   return 'success'

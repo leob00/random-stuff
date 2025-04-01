@@ -55,7 +55,6 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
           </Box>
         </Box>
         <Box sx={{ pb: 2 }} display={'flex'} justifyContent={'space-between'} alignItems={'center'} gap={2}>
-          {/* <SearchWithinList text={`search ${numeral(data.length).format('###,###')} notes`} onChanged={handleSearched} /> */}
           <Box flexGrow={1}>
             <StaticAutoComplete placeholder={`search in ${notesSearch.length} notes`} options={notesSearch} onSelected={handleSearchSelected} fullWidth />
           </Box>
@@ -93,9 +92,8 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
                     )}
                   </Stack>
                 </Box>
-                {item.expirationDate && dayjs(item.expirationDate).diff(getUtcNow(), 'day') < 2 && (
+                {item.expirationDate && (
                   <Box display={'flex'} justifyContent={'flex-end'} gap={1} alignItems={'center'}>
-                    {/* <Warning fontSize='small' color='warning' /> */}
                     <RecordExpirationWarning expirationDate={item.expirationDate} />
                   </Box>
                 )}

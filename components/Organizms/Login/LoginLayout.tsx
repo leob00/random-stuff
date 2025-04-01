@@ -13,9 +13,8 @@ import { AuthUser } from 'aws-amplify/auth'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 export type AuthMode = 'signIn' | 'signUp' | 'resetPassword'
 
-const LoginLayout = () => {
+const LoginLayout = ({ defaultTab = 'Sign in' }: { defaultTab?: 'Sign in' | 'Create Account' }) => {
   const router = useRouter()
-  const currentPath = router.asPath
 
   const { authStatus, toSignIn, toSignUp, isPending, user } = useAuthenticator((context) => [context.authStatus])
   const [initialUserState, setInitialUserState] = useState<AuthUser | undefined>(user)
@@ -30,7 +29,7 @@ const LoginLayout = () => {
     },
   ]
 
-  const [selectedTab, setSelectedTab] = useState(defaultTabs[0])
+  const [selectedTab, setSelectedTab] = useState(defaultTabs.find((m) => m.title === defaultTab))
 
   const handleSetTab = async (tab: TabInfo) => {
     switch (tab.title) {
@@ -46,6 +45,7 @@ const LoginLayout = () => {
 
   useEffect(() => {
     if (!initialUserState && !!user && authStatus === 'authenticated') {
+      setInitialUserState(user)
       router.push(lastRoute)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -60,9 +60,9 @@ const LoginLayout = () => {
             <Typography variant='body1'>Please sign in to use advanced features such as keeping notes, saving tasks, and managing stocks.</Typography>
           </CenterStack>
           <Box sx={{ paddingLeft: { lg: 40 } }}>
-            <TabList tabs={defaultTabs} onSetTab={handleSetTab} selectedTab={defaultTabs.findIndex((m) => m.title === selectedTab.title)} />
+            <TabList tabs={defaultTabs} onSetTab={handleSetTab} selectedTab={defaultTabs.findIndex((m) => m.title === selectedTab?.title)} />
           </Box>
-          <Authenticator variation='default'></Authenticator>
+          <Authenticator variation='default' initialState={defaultTab === 'Sign in' ? 'signIn' : 'signUp'}></Authenticator>
         </>
       )}
       {authStatus === 'authenticated' && (
@@ -74,14 +74,6 @@ const LoginLayout = () => {
               </Alert>
             </FadeIn>
           </CenterStack>
-          {/* <CenterStack sx={{ py: 2 }}>
-            <PrimaryButton
-              text='Sign out'
-              onClick={() => {
-                signOut()
-              }}
-            />
-          </CenterStack> */}
         </>
       )}
     </>

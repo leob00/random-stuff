@@ -113,6 +113,7 @@ export interface LambdaDynamoRequest {
   data: any
   expiration: number
   token?: string
+  format?: 'json' | 'string'
 }
 
 export interface LambdaDynamoRequestBatch {

@@ -8,15 +8,18 @@ export type RandomStuffDynamoItem = {
   data: any
   last_modified?: string
   expiration?: number
-}
-
-export type RandomStuffItemRequest = {
-  id: string
-  category: string
-  data: any
-  expiration: number
+  format?: 'json' | 'string'
   token?: string
 }
+
+// export type RandomStuffItemRequest = {
+//   id: string
+//   category: string
+//   data: any
+//   expiration: number
+//   token?: string
+//   format?: 'json' | 'string'
+// }
 
 export async function getItem(key: string) {
   const emptyResult: RandomStuffDynamoItem = {
@@ -104,7 +107,7 @@ export async function putItem(item: RandomStuffDynamoItem) {
         S: item.category!,
       },
       data: {
-        S: JSON.stringify(item.data),
+        S: !!item.format && item.format === 'string' ? item.data : JSON.stringify(item.data),
       },
       count: {
         N: String(item.count),
