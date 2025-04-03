@@ -3,8 +3,10 @@ import {
   CasinoBlue,
   CasinoBlueTransparent,
   CasinoGreen,
+  CasinoGreenTransparent,
   CasinoLimeTransparent,
   CasinoRed,
+  CasinoRedTransparent,
   DarkBlue,
   DarkModeBkg,
   DarkModeBlue,
@@ -41,20 +43,20 @@ const lineFill: ApexFill = {
 }
 
 export function getPositiveNegativeLineColor(palette: 'light' | 'dark' = 'light', items: number[]) {
-  let lineColor = palette === 'dark' ? CasinoLimeTransparent : CasinoGreen
+  let lineColor = palette === 'dark' ? CasinoLimeTransparent : CasinoGreenTransparent
   if (items.length > 0) {
     if (items[0] > items[items.length - 1]) {
-      lineColor = palette === 'dark' ? RedDarkMode : CasinoRed
+      lineColor = palette === 'dark' ? RedDarkMode : CasinoRedTransparent
     }
   }
   return lineColor
 }
 
 export function getPositiveNegativeLineColorReverse(palette: 'light' | 'dark' = 'light', items: number[]) {
-  let lineColor = palette === 'dark' ? RedDarkMode : CasinoRed
+  let lineColor = palette === 'dark' ? RedDarkMode : CasinoRedTransparent
   if (items.length > 0) {
     if (items[0] > items[items.length - 1]) {
-      lineColor = palette === 'dark' ? CasinoLimeTransparent : CasinoGreen
+      lineColor = palette === 'dark' ? CasinoLimeTransparent : CasinoGreenTransparent
     }
   }
   return lineColor
@@ -155,9 +157,9 @@ export function getMulitiLineChartOptions(
 
   const selectedTooltipFormatter = toolTipFormatter ?? defaultTooltipFormatter
   let lineColor = palette === 'dark' ? CasinoBlue : CasinoBlueTransparent
-  if (changePositiveColor) {
-    lineColor = palette === 'dark' ? CasinoLimeTransparent : CasinoGreen
-  }
+  // if (changePositiveColor) {
+  //   lineColor = palette === 'dark' ? CasinoLimeTransparent : CasinoGreen
+  // }
 
   if (changePositiveColor) {
     lineColor = getPositiveNegativeLineColor(palette, items[0].y)

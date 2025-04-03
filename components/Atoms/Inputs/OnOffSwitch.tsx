@@ -1,4 +1,4 @@
-import { FormControlLabel, Switch } from '@mui/material'
+import { FormControlLabel, Switch, Typography } from '@mui/material'
 import React from 'react'
 
 const OnOffSwitch = ({
@@ -18,7 +18,7 @@ const OnOffSwitch = ({
   return (
     <FormControlLabel
       control={<Switch size='small' onChange={handleChange} color={isChecked ? 'success' : 'secondary'} disabled={disabled} checked={isChecked} />}
-      label={label}
+      label={<Typography variant='body2'>{label}</Typography>}
     />
   )
 }

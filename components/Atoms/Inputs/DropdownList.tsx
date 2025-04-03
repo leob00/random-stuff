@@ -11,7 +11,7 @@ const DropdownList = ({
   disabled,
 }: {
   options: DropdownItem[]
-  selectedOption: string
+  selectedOption?: string
   onOptionSelected?: (val: string) => void
   label?: string
   fullWidth?: boolean

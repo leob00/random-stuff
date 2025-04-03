@@ -12,26 +12,27 @@ import { getPorfolioIdFromKey, getUsernameFromKey } from 'lib/backend/api/portfo
 import { deleteRecord, deleteRecordsBatch, putRecord, searchRecords } from 'lib/backend/csr/nextApiWrapper'
 import { sortArray } from 'lib/util/collections'
 import React from 'react'
-import useSWR, { mutate } from 'swr'
+import { mutate } from 'swr'
 import StockPortfolioListItem from './StockPortfolioListItem'
+import { useSwrHelper } from 'hooks/useSwrHelper'
 
 const StockPortfolioLayout = () => {
   const { ticket } = useUserController()
   const username = ticket?.email
   const [showAddPortfolio, setShowAddPortfolio] = React.useState(false)
   const portfolioSecKey = constructDynamoKey('stockportfolio', username!)
-  const portfoliosMutateKey = ['/api/baseRoute', portfolioSecKey]
+  const portfoliosMutateKey = `user-portfolio=${portfolioSecKey}`
   const [deletedPortfolio, setDeletedPortfolio] = React.useState<StockPortfolio | null>(null)
   const [isMutating, setIsMutating] = React.useState(false)
 
-  const fetcherFn = async (url: string, key: string) => {
+  const datFn = async () => {
     const response = sortArray(await searchRecords(portfolioSecKey), ['last_modified'], ['desc'])
     const result = response.map((m) => JSON.parse(m.data) as StockPortfolio)
     const sorted = sortArray(result, ['name'], ['asc'])
     return sorted
   }
 
-  const { data, isLoading, isValidating } = useSWR(portfoliosMutateKey, ([url, key]) => fetcherFn(url, key))
+  const { data, isLoading } = useSwrHelper(portfoliosMutateKey, datFn)
 
   const handleAddPortfolio = async (data: PorfolioFields) => {
     const item: StockPortfolio = {
@@ -93,7 +94,6 @@ const StockPortfolioLayout = () => {
       <Box py={2}>
         {isMutating && <BackdropLoader />}
         {isLoading && <BackdropLoader />}
-        {isValidating && <BackdropLoader />}
         {!showAddPortfolio && (
           <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
             <Box></Box>
@@ -108,7 +108,7 @@ const StockPortfolioLayout = () => {
           <>
             {data && (
               <Box>
-                {data.length === 0 && !isValidating && (
+                {data.length === 0 && !isLoading && (
                   <Box py={4}>
                     <CenterStack>
                       <PrimaryButton text={'create a new portfolio'} onClick={() => setShowAddPortfolio(true)} />

@@ -58,7 +58,7 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
     setBodyText(text)
   }
 
-  const handleExpirationChange = (checked: boolean) => {
+  const handleShowExpirationChange = (checked: boolean) => {
     if (!checked) {
       setNote({ ...note, expirationDate: undefined })
       setEditedExpDate(undefined)
@@ -70,8 +70,6 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
       }
       setEditedExpDate(getUtcNow().add(3, 'day').add(1, 'minute').format())
       setShowExpForm(true)
-
-      //setNote({ ...note, expirationDate: getUtcNow().add(3, 'day').format() })
     }
   }
   const handleCancelExp = () => {
@@ -83,7 +81,9 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
   }
   const handleSaveExp = () => {
     const dt = editedExpDate ? editedExpDate : getUtcNow().add(3, 'day').add(1, 'minute').format()
-    setNote({ ...note, expirationDate: dt })
+    const newNote = { ...note, expirationDate: dt }
+    setNote(newNote)
+    onSubmitted(newNote)
     setShowExpForm(false)
   }
 
@@ -111,31 +111,22 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
         <>
           <FadeIn>
             <EditNoteButtons isEditingText={isEditingText} handleSave={handleSave} handleCancel={handleCancel} />
-            <FormDialog show={showExpForm} onCancel={handleCancelExp} title='Set expiration' onSave={handleSaveExp}>
-              <>
-                <DropdownList options={expOptions} selectedOption={'3'} onOptionSelected={handleChangeExp} />
-                <CenterStack sx={{ py: 4, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
-                  {editedExpDate && <RecordExpirationWarning expirationDate={editedExpDate} precise={true} />}
-                </CenterStack>
-              </>
-            </FormDialog>
+
             <Box sx={{ pt: 2 }} component='form'>
-              <CenterStack sx={{ py: 1, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
-                {note.expirationDate && (
-                  <CenterStack>
-                    <Stack sx={{ py: 4 }} display={'flex'} direction={'row'} justifyItems={'center'}>
-                      <Button onClick={handleEditExp}>
-                        <RecordExpirationWarning expirationDate={note.expirationDate} />
-                      </Button>
-                    </Stack>
-                  </CenterStack>
-                )}
-                <Stack display={'flex'} direction={'row'} justifyItems={'center'} alignItems={'center'}>
-                  <Typography pl={2}>
-                    <OnOffSwitch isChecked={!!note.expirationDate && !showFileDeleteWarning} label={'expiration'} onChanged={handleExpirationChange} />
-                  </Typography>
-                </Stack>
-              </CenterStack>
+              <Box display={'flex'} justifyContent={'space-between'} gap={1} alignItems={'center'} py={2}>
+                <Box flexGrow={1}>
+                  <Box display={'flex'} justifyContent={'flex-end'}>
+                    <OnOffSwitch isChecked={!!note.expirationDate && !showFileDeleteWarning} label={'expiration'} onChanged={handleShowExpirationChange} />
+                  </Box>
+                </Box>
+                <Box>
+                  {note.expirationDate && (
+                    <Button onClick={handleEditExp} variant='outlined'>
+                      <RecordExpirationWarning expirationDate={note.expirationDate} />
+                    </Button>
+                  )}
+                </Box>
+              </Box>
               <Box display={'flex'} flexDirection={'column'} gap={2} minHeight={400}>
                 <CenterStack sx={{ width: { xs: '100%' } }}>
                   <TextField
@@ -200,6 +191,16 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
             </Box>
           </StopWarningDialog>
         </>
+      )}
+      {showExpForm && (
+        <FormDialog show={showExpForm} onCancel={handleCancelExp} title='Set expiration' onSave={handleSaveExp}>
+          <>
+            <DropdownList options={expOptions} selectedOption={'3'} onOptionSelected={handleChangeExp} />
+            <CenterStack sx={{ py: 4, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>
+              {editedExpDate && <RecordExpirationWarning expirationDate={editedExpDate} precise={true} />}
+            </CenterStack>
+          </>
+        </FormDialog>
       )}
     </>
   )

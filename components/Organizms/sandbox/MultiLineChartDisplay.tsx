@@ -29,7 +29,7 @@ const MultiLineChartDisplay = () => {
     return xyVaues
   }
 
-  const econChartMutateKey = `/api/baseRoute?id=DJSNP`
+  const econChartMutateKey = `chart-DJSNP`
 
   const { data: econData, isLoading } = useSwrHelper(econChartMutateKey, econChartFn, { revalidateOnFocus: false })
 
@@ -40,7 +40,6 @@ const MultiLineChartDisplay = () => {
         {econData && (
           <>
             <MultiLineChart xYValues={econData} yLabelPrefix={''} />
-            {/* <ComparisonLineChart xYValues={econData} yLabelPrefix={''} /> */}
           </>
         )}
       </Box>
