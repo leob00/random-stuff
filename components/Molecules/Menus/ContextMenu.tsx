@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react'
 import { Menu, Button, MenuList, MenuItem, Typography, Box } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import { DarkMode } from 'components/themes/DarkMode'
+import { useState } from 'react'
 
 export interface ContextMenuItem {
   fn: (arg?: unknown) => void
@@ -9,7 +9,7 @@ export interface ContextMenuItem {
 }
 
 const ContextMenu = ({ items }: { items: ContextMenuItem[] }) => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
 
   const handleShowMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -32,7 +32,7 @@ const ContextMenu = ({ items }: { items: ContextMenuItem[] }) => {
       </Button>
       <DarkMode>
         <Menu
-          //id='basic-menu'
+          id='basic-menu'
           sx={{}}
           anchorEl={anchorEl}
           open={open}

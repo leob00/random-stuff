@@ -375,6 +375,7 @@ export async function putRecord(id: string | DynamoKeys, category: string, item:
     token: weakEncrypt(`${id}`),
     expiration: 0,
     format: format,
+    count: Array.isArray(item) ? Array.from(item).length : 1,
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),
