@@ -9,6 +9,8 @@ import PagedStockTable from './PagedStockTable'
 import StocksCustomSortForm from './StocksCustomSortForm'
 import { useState } from 'react'
 import { Sort, StockQuoteSort } from 'lib/backend/api/models/collections'
+import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
+import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
 
 const SortableStockContainer = ({ data, defaultSort }: { data: StockQuote[]; defaultSort?: StockQuoteSort[] }) => {
   const [showSortForm, setShowSortForm] = useState(false)
@@ -29,15 +31,21 @@ const SortableStockContainer = ({ data, defaultSort }: { data: StockQuote[]; def
       sort.map((m) => m.direction),
     )
   }
+  const scroller = useScrollTop(0)
+
+  const handlePageChange = () => {
+    scroller.scroll()
+  }
   return (
     <>
-      <ScrollIntoView enabled={true} margin={-28} />
+      {/* <ScrollIntoView enabled={true} margin={-28} /> */}
+      <ScrollTop scroller={scroller} marginTop={-2} />
       <Box display='flex' justifyContent={'space-between'}>
         <Box flexGrow={1}>
           <CustomSortAlert result={sort} onModify={() => setShowSortForm(true)} translateDefaultMessage />
         </Box>
       </Box>
-      <PagedStockTable data={sortData()} pageSize={5} sort={sort} featuredField={featuredField} />
+      <PagedStockTable data={sortData()} pageSize={10} sort={sort} featuredField={featuredField} scrollOnPageChange onPageChanged={handlePageChange} />
       <FormDialog title='sort' show={showSortForm} onCancel={() => setShowSortForm(false)}>
         <StocksCustomSortForm result={sort} onSubmitted={handleSortChange} required />
       </FormDialog>

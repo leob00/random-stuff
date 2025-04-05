@@ -23,9 +23,9 @@ const StockReportDisplay = ({ data, reportType }: { data: StockQuote[]; reportTy
 
   return (
     <>
-      <ScrollIntoView enabled={true} margin={-28} />
-      <ScrollTop scroller={scroller} marginTop={-12} />
-      <PagedStockTable key={reportType} data={data} pageSize={5} featuredField={field} scrollOnPageChange onPageChanged={handlePageChange} scrollInside />
+      {/* <ScrollIntoView enabled={true} margin={-28} /> */}
+      <ScrollTop scroller={scroller} marginTop={-22} />
+      <PagedStockTable key={reportType} data={data} pageSize={10} featuredField={field} scrollOnPageChange onPageChanged={handlePageChange} />
     </>
   )
 }
