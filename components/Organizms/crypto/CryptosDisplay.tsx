@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockQuote } from 'lib/backend/api/models/zModels'
@@ -15,6 +15,9 @@ import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import dayjs from 'dayjs'
 import HistoricalAggregateDisplay from '../stocks/HistoricalAggregateDisplay'
+import CloseIconButton from 'components/Atoms/Buttons/CloseIconButton'
+import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
+import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 
 interface DetailsModel {
   Details: StockQuote
@@ -30,6 +33,7 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
 
   const { cryptoSettings, saveCryptoSettings } = useLocalStore()
   const [selectedDays, setSelectedDays] = useState(cryptoSettings?.chartSelectedDays ?? 30)
+  const scroller = useScrollTop(0)
 
   const loadDetails = async (quote: StockQuote, days: number) => {
     setIsLoading(true)
@@ -38,6 +42,7 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
     const result = resp.Body as DetailsModel
     result.Details.Company = filtered.find((m) => m.Symbol === result.Details.Symbol)!.Company
     setDetails(result)
+    scroller.scroll()
   }
 
   const handleDaysSelected = async (arg: number) => {
@@ -54,40 +59,66 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
 
   return (
     <>
-      <Box py={2}>
-        {isLoading && <BackdropLoader />}
+      {isLoading && <BackdropLoader />}
+      {!details && (
         <Box py={2}>
-          {filtered.map((item) => (
-            <Box key={item.Symbol} py={1}>
-              <FadeIn>
-                <ListHeader
-                  text={`${item.Company}`}
-                  onClicked={() => {
-                    handleItemClick(item)
-                  }}
-                />
-                <StockChange item={item} />
-              </FadeIn>
-            </Box>
-          ))}
+          <Box py={2}>
+            {filtered.map((item) => (
+              <Box key={item.Symbol} py={1}>
+                <FadeIn>
+                  <ListHeader
+                    text={`${item.Company}`}
+                    onClicked={() => {
+                      handleItemClick(item)
+                    }}
+                  />
+                  <StockChange item={item} />
+                </FadeIn>
+              </Box>
+            ))}
+          </Box>
         </Box>
-      </Box>
+      )}
       {details && (
-        <InfoDialog show={!!details} title={details.Details.Company} onCancel={() => setDetails(null)}>
+        <Box py={2}>
+          <ScrollTop scroller={scroller} marginTop={-18} />
+          <Box display={'flex'} justifyContent={'space-between'}>
+            <Box>
+              <Typography variant='h5'>{details.Details.Company}</Typography>
+            </Box>
+
+            <Box display={'flex'} justifyContent={'flex-end'}>
+              <CloseIconButton onClicked={() => setDetails(null)} />
+            </Box>
+          </Box>
           <FadeIn>
             <StockChange item={details.Details} />
             <Box px={2}>
               <ReadOnlyField label='Date' val={`${dayjs(details.Details.TradeDate).format('MM/DD/YYYY')}`} variant='caption' />
             </Box>
           </FadeIn>
-
           <Box>
             <StockChartDaySelect selectedDays={selectedDays} onSelected={handleDaysSelected} availableDates={details.AvailableDates} />
           </Box>
           {details.Aggregate && <HistoricalAggregateDisplay aggregate={details.Aggregate} isLoading={isLoading} />}
 
           <StockChartWithVolume data={details.History} symbol={details.Details.Symbol} isLoading={isLoading} />
-        </InfoDialog>
+
+          {/* <InfoDialog show={!!details} title={details.Details.Company} onCancel={() => setDetails(null)}>
+            <FadeIn>
+              <StockChange item={details.Details} />
+              <Box px={2}>
+                <ReadOnlyField label='Date' val={`${dayjs(details.Details.TradeDate).format('MM/DD/YYYY')}`} variant='caption' />
+              </Box>
+            </FadeIn>
+            <Box>
+              <StockChartDaySelect selectedDays={selectedDays} onSelected={handleDaysSelected} availableDates={details.AvailableDates} />
+            </Box>
+            {details.Aggregate && <HistoricalAggregateDisplay aggregate={details.Aggregate} isLoading={isLoading} />}
+
+            <StockChartWithVolume data={details.History} symbol={details.Details.Symbol} isLoading={isLoading} />
+          </InfoDialog> */}
+        </Box>
       )}
     </>
   )
