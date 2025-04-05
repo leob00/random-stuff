@@ -1,5 +1,4 @@
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useTheme } from '@mui/material'
-import { Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { SectorIndustry } from 'lib/backend/api/qln/qlnModels'
 import { sortArray } from 'lib/util/collections'
 import numeral from 'numeral'
@@ -10,6 +9,7 @@ import Clickable from 'components/Atoms/Containers/Clickable'
 import { useRouter } from 'next/router'
 import Pager from 'components/Atoms/Pager'
 import { useClientPager } from 'hooks/useClientPager'
+import { Sort } from 'lib/backend/api/models/collections'
 
 interface MovingAverage {
   Id: string

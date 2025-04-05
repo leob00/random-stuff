@@ -1,8 +1,7 @@
 import { Box, Alert, Button, AlertTitle } from '@mui/material'
-import { Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { SortableStockKeys } from 'lib/backend/api/models/zModels'
-import React from 'react'
 import CheckIcon from '@mui/icons-material/Check'
+import { Sort } from 'lib/backend/api/models/collections'
 
 const CustomSortAlert = ({
   result,

@@ -17,6 +17,7 @@ export async function POST(request: NextRequest) {
 
 export async function PUT(request: NextRequest, response: NextResponse) {
   const enc = (await request.json()) as SignedRequest
+  // authenticate
   // const user = getUserSSRAppRouteApi(request, response)
   // if (!user) {
   //   return new Response(JSON.stringify('unauthorized'), { status: 403 })

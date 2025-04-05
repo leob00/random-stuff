@@ -1,13 +1,13 @@
-import { Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { DropdownItem } from 'lib/models/dropdown'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import React from 'react'
 import ControlledSwitch from 'components/Molecules/Forms/ReactHookForm/ControlledSwitch'
 import { Box, Stack } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { ControlledSelect } from 'components/Molecules/Forms/ReactHookForm/ControlledSelect'
-import { SortableStockKeys } from 'lib/backend/api/models/zModels'
+import { SortableStockKeys, StockQuote } from 'lib/backend/api/models/zModels'
+import { type StockQuoteSort } from 'lib/backend/api/models/collections'
+import { useState } from 'react'
 interface FormInput {
   selectField: string
   selectDirection: 'asc' | 'desc'
@@ -20,7 +20,15 @@ type ExtractKeys<T> = NonNullable<
 >
 
 type Keys = keyof SortableStockKeys & {}
-const StocksCustomSortForm = ({ result, onSubmitted, required = false }: { result?: Sort[]; onSubmitted: (data?: Sort[]) => void; required?: boolean }) => {
+const StocksCustomSortForm = ({
+  result,
+  onSubmitted,
+  required = false,
+}: {
+  result?: StockQuoteSort[]
+  onSubmitted: (data?: StockQuoteSort[]) => void
+  required?: boolean
+}) => {
   type Option = {
     text: string
     value: Keys
@@ -52,8 +60,8 @@ const StocksCustomSortForm = ({ result, onSubmitted, required = false }: { resul
     { text: 'ascending', value: 'asc' },
     { text: 'descending', value: 'desc' },
   ]
-  const [data, setData] = React.useState(result)
-  const [isMutating, setIsMutating] = React.useState(false)
+  const [data, setData] = useState(result)
+  const [isMutating, setIsMutating] = useState(false)
 
   const {
     control,
@@ -61,14 +69,16 @@ const StocksCustomSortForm = ({ result, onSubmitted, required = false }: { resul
     formState: { errors },
   } = useForm<FormInput>()
   const onSubmit: SubmitHandler<FormInput> = (formData: FormInput) => {
-    const newSort: Sort[] | undefined = formData.onOff ? [{ key: formData.selectField, direction: formData.selectDirection }] : undefined
+    const newSort: StockQuoteSort[] | undefined = formData.onOff
+      ? [{ key: formData.selectField as keyof StockQuote, direction: formData.selectDirection }]
+      : undefined
     setIsMutating(true)
     setData(newSort)
     onSubmitted(newSort)
   }
   const handleOnOffChanged = (val: boolean) => {
     if (val) {
-      const newData: Sort[] = [
+      const newData: StockQuoteSort[] = [
         {
           key: 'Symbol',
           direction: 'asc',

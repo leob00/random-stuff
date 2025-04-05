@@ -2,19 +2,21 @@ import { Box } from '@mui/material'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import ContextMenuSort from 'components/Molecules/Menus/ContextMenuSort'
-import { Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { orderBy } from 'lodash'
-import React from 'react'
 import CustomSortAlert from './CustomSortAlert'
 import PagedStockTable from './PagedStockTable'
 import StocksCustomSortForm from './StocksCustomSortForm'
+import { useState } from 'react'
+import { Sort, StockQuoteSort } from 'lib/backend/api/models/collections'
 
-const SortableStockContainer = ({ data, defaultSort }: { data: StockQuote[]; defaultSort?: Sort[] }) => {
-  const [showSortForm, setShowSortForm] = React.useState(false)
-  const [sort, setSort] = React.useState<Sort[]>(defaultSort ?? [{ key: 'MarketCap', direction: 'desc' }])
+const SortableStockContainer = ({ data, defaultSort }: { data: StockQuote[]; defaultSort?: StockQuoteSort[] }) => {
+  const [showSortForm, setShowSortForm] = useState(false)
+  const defSort = defaultSort ?? [{ key: 'MarketCap', direction: 'desc' }]
+  const [sort, setSort] = useState<StockQuoteSort[]>(defSort)
+  const featuredField = defSort.some((m) => m.key === 'MarketCap') ? 'MarketCapShort' : undefined
 
-  const handleSortChange = (newSort?: Sort[]) => {
+  const handleSortChange = (newSort?: StockQuoteSort[]) => {
     setShowSortForm(false)
     if (newSort) {
       setSort(newSort)
@@ -35,7 +37,7 @@ const SortableStockContainer = ({ data, defaultSort }: { data: StockQuote[]; def
           <CustomSortAlert result={sort} onModify={() => setShowSortForm(true)} translateDefaultMessage />
         </Box>
       </Box>
-      <PagedStockTable data={sortData()} pageSize={5} sort={sort} />
+      <PagedStockTable data={sortData()} pageSize={5} sort={sort} featuredField={featuredField} />
       <FormDialog title='sort' show={showSortForm} onCancel={() => setShowSortForm(false)}>
         <StocksCustomSortForm result={sort} onSubmitted={handleSortChange} required />
       </FormDialog>

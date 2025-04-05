@@ -1,12 +1,12 @@
 import dayjs from 'dayjs'
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import { Sort } from '../api/aws/models/apiGatewayModels'
 import { Claim } from '../auth/userUtil'
 import { Navigation } from 'components/Organizms/session/useSessionSettings'
+import { StockQuoteSort } from '../api/models/collections'
 
 interface CommunityStocksSettings {
-  defaultSort?: Sort[]
+  defaultSort?: StockQuoteSort[]
 }
 
 export interface StockChartSettings {
@@ -21,7 +21,7 @@ interface SessionState {
   stocksChart: StockChartSettings
   saveRoutes: (routes: Navigation[]) => void
   savePalette: (palette: 'light' | 'dark') => void
-  saveCommunityStocksSort: (sort?: Sort[]) => void
+  saveCommunityStocksSort: (sort?: StockQuoteSort[]) => void
   saveClaims: (claims: Claim[]) => void
   saveStockChart: (settings: StockChartSettings) => void
 }

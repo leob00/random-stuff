@@ -3,7 +3,6 @@ import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
 import ContextMenuSort from 'components/Molecules/Menus/ContextMenuSort'
-import { Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { useSessionSettings } from '../session/useSessionSettings'
 import CommunityStocksLayout from './CommunityStocksLayout'
@@ -15,6 +14,7 @@ import ContextMenuRefresh from 'components/Molecules/Menus/ContextMenuRefresh'
 import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
 import { useState } from 'react'
 import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
+import { StockQuoteSort } from 'lib/backend/api/models/collections'
 
 const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; onRefresh: () => void }) => {
   const router = useRouter()
@@ -50,7 +50,7 @@ const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; 
       fn: () => router.push('/csr/stocks/earnings-calendar'),
     },
   ]
-  const handleCustomSortSubmitted = (sort?: Sort[]) => {
+  const handleCustomSortSubmitted = (sort?: StockQuoteSort[]) => {
     settings.saveCommunityStocksSort(sort)
     setShowCustomSortForm(false)
     setSorter(sort ?? [])
@@ -75,7 +75,7 @@ const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; 
   )
 }
 
-function applySort(data: StockQuote[], sort: Sort[]) {
+function applySort(data: StockQuote[], sort: StockQuoteSort[]) {
   if (sort.length === 0) {
     return data
   }

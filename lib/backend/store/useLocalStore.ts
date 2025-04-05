@@ -1,9 +1,10 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import { CryptoSettings, Sort, UserStockSettings } from '../api/aws/models/apiGatewayModels'
+import { CryptoSettings, UserStockSettings } from '../api/aws/models/apiGatewayModels'
 import { StockQuote } from '../api/models/zModels'
 import { EconomicDataItem } from '../api/qln/qlnModels'
 import { DashboardWidgetWithSettings } from 'components/Organizms/dashboard/dashboardModel'
+import { StockQuoteSort } from '../api/models/collections'
 
 export interface StockSettings extends UserStockSettings {
   data: StockQuote[]
@@ -16,7 +17,7 @@ export interface LocalStore {
   saveStockSettings: (stockSettings: StockSettings) => void
   saveStocks: (stocks: StockQuote[]) => void
   saveDefaultView: (val?: 'flat' | 'grouped') => void
-  saveCustomSort: (val?: Sort[]) => void
+  saveCustomSort: (val?: StockQuoteSort[]) => void
   economicIndicators: EconomicDataItem[]
   saveEconomicIndicators: (val: EconomicDataItem[]) => void
   dashboardWidgets: DashboardWidgetWithSettings[]
@@ -48,7 +49,7 @@ export const useLocalStore = create(
         const myStocks = get().myStocks
         set({ myStocks: { ...myStocks, defaultView: val } })
       },
-      saveCustomSort: (val?: Sort[]) => {
+      saveCustomSort: (val?: StockQuoteSort[]) => {
         const myStocks = get().myStocks
         set({ myStocks: { ...myStocks, customSort: val } })
       },

@@ -1,5 +1,6 @@
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { DropdownItem } from 'lib/models/dropdown'
+import { Sort, StockQuoteSort } from '../../models/collections'
 
 export interface PresignedUrlPost {
   url: string
@@ -45,7 +46,7 @@ export interface S3Object {
 }
 
 interface StockSettingsBase {
-  customSort?: Sort[]
+  customSort?: StockQuoteSort[]
   chartSelectedDays?: number
 }
 
@@ -85,12 +86,6 @@ export interface UserProfile {
 export interface UserPin {
   pin: string
   lastEnterDate: string
-}
-export type SortDirection = 'asc' | 'desc'
-
-export type Sort = {
-  key: string
-  direction: 'asc' | 'desc'
 }
 
 export interface SiteStats {

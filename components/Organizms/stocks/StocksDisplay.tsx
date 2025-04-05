@@ -1,8 +1,7 @@
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { StockLayoutModel } from './StockSearchLayout'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
-import { Sort, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
-import React, { useState } from 'react'
+import { useReducer, useState } from 'react'
 import { putUserProfile, putUserStockList } from 'lib/backend/csr/nextApiWrapper'
 import { Box } from '@mui/material'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
@@ -21,6 +20,8 @@ import StocksLookup from './StocksLookup'
 import PagedStockTable from './PagedStockTable'
 import { LocalStore } from 'lib/backend/store/useLocalStore'
 import SnackbarWarning from 'components/Atoms/Dialogs/SnackbarWarning'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { StockQuoteSort } from 'lib/backend/api/models/collections'
 
 export const searchWithinResults = (quotes: StockQuote[], text: string) => {
   const result = quotes.filter(
@@ -56,7 +57,7 @@ const StocksDisplay = ({
     showAsGroup: userProfile ? userProfile.settings?.stocks?.defaultView! === 'grouped' : localStore.myStocks.defaultView === 'grouped',
   }
 
-  const [model, setModel] = React.useReducer((state: StockLayoutModel, newState: StockLayoutModel) => ({ ...state, ...newState }), defaultModel)
+  const [model, setModel] = useReducer((state: StockLayoutModel, newState: StockLayoutModel) => ({ ...state, ...newState }), defaultModel)
   const customSort = userProfile ? userProfile.settings?.stocks?.customSort : localStore.myStocks.customSort
   const orderStocks = (list: StockQuote[]) => {
     if (customSort) {
@@ -158,7 +159,7 @@ const StocksDisplay = ({
   const handleShowCustomSort = () => {
     setModel({ ...model, showCustomSort: true })
   }
-  const handleSubmitCustomSort = (data?: Sort[]) => {
+  const handleSubmitCustomSort = (data?: StockQuoteSort[]) => {
     setModel({ ...model, showCustomSort: false })
     if (userProfile) {
       const newProfile = { ...userProfile }

@@ -1,11 +1,12 @@
 import { Box } from '@mui/material'
 import Pager from 'components/Atoms/Pager'
 import { useClientPager } from 'hooks/useClientPager'
-import { Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import StockTable from './StockTable'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import { useEffect } from 'react'
+import { StockQuoteSort } from 'lib/backend/api/models/collections'
+import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 
 const PagedStockTable = ({
   data,
@@ -13,24 +14,28 @@ const PagedStockTable = ({
   pageSize = 5,
   sort,
   featuredField,
-  scrollOnPageChange = false,
+  scrollOnPageChange = true,
   showTopPager = false,
   onPageChanged,
+  scrollInside = false,
 }: {
   data: StockQuote[]
   showGroupName?: boolean
   pageSize?: number
-  sort?: Sort[]
+  sort?: StockQuoteSort[]
   featuredField?: keyof StockQuote
   scrollOnPageChange?: boolean
   showTopPager?: boolean
   onPageChanged?: (pageNum?: number) => void
+  scrollInside?: boolean
 }) => {
   const { pagerModel, setPage, getPagedItems, reset } = useClientPager(data, pageSize)
   const items = getPagedItems(data)
   const scroller = useScrollTop(0)
   const handlePaged = (pageNum: number) => {
-    scroller.scroll()
+    if (scrollOnPageChange) {
+      scroller.scroll()
+    }
     setPage(pageNum)
     onPageChanged?.(pageNum)
   }
@@ -55,8 +60,13 @@ const PagedStockTable = ({
             showHorizontalDivider={false}
           ></Pager>
         )}
-
-        <StockTable stockList={items} isStock={true} showGroupName={showGroupName} showSummary={false} featuredField={featuredField} />
+        {scrollInside ? (
+          <ScrollableBox scroller={scroller}>
+            <StockTable stockList={items} isStock={true} showGroupName={showGroupName} showSummary={false} featuredField={featuredField} />
+          </ScrollableBox>
+        ) : (
+          <StockTable stockList={items} isStock={true} showGroupName={showGroupName} showSummary={false} featuredField={featuredField} />
+        )}
       </Box>
       <Pager
         pageCount={pagerModel.totalNumberOfPages}

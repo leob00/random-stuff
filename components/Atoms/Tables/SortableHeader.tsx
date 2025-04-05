@@ -2,8 +2,9 @@ import { Box, Button, IconButton, TableCell, Typography } from '@mui/material'
 import React from 'react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import { Sort } from 'lib/backend/api/aws/models/apiGatewayModels'
+
 import SwapVertIcon from '@mui/icons-material/SwapVert'
+import { Sort } from 'lib/backend/api/models/collections'
 
 const SortableHeaderCell = ({
   fieldName,
