@@ -5372,6 +5372,10 @@
     "Symbol": "BLIN"
   },
   {
+    "Company": "BeLive Holdings Ordinary Share",
+    "Symbol": "BLIV"
+  },
+  {
     "Company": "Blackrock, Inc.",
     "Symbol": "BLK"
   },
@@ -5568,7 +5572,7 @@
     "Symbol": "BNDI"
   },
   {
-    "Company": "Infrastructure Capital Bond Income ETF",
+    "Company": "SPDRS BARCLAYS AGGREGATE BD ETF",
     "Symbol": "BNDS"
   },
   {
@@ -8472,7 +8476,7 @@
     "Symbol": "CLNR"
   },
   {
-    "Company": "BlackRock ETF Trust II iShares AAA CLO Active ETF",
+    "Company": "BlackRock AAA CLO ETF",
     "Symbol": "CLOA"
   },
   {
@@ -9586,6 +9590,10 @@
   {
     "Company": "CorMedix Inc.",
     "Symbol": "CRMD"
+  },
+  {
+    "Company": "Leverage Shares 2X Long CRM Daily ETF",
+    "Symbol": "CRMG"
   },
   {
     "Company": "Critical Metals Corp. Ordinary Shares",
@@ -10776,7 +10784,7 @@
     "Symbol": "DEEF"
   },
   {
-    "Company": "Acquirers Small and Micro Deep Value ETF",
+    "Company": "Roundhill Acquirers Deep Value ETF",
     "Symbol": "DEEP"
   },
   {
@@ -19832,7 +19840,7 @@
     "Symbol": "HIFS"
   },
   {
-    "Company": "The Hartford Insurance Group, Inc.",
+    "Company": "The Hartford Financial Services Group, Inc.",
     "Symbol": "HIG"
   },
   {
@@ -26294,6 +26302,10 @@
   {
     "Company": "LPL Financial Holdings Inc.",
     "Symbol": "LPLA"
+  },
+  {
+    "Company": "Long Pond Real Estate Select ETF",
+    "Symbol": "LPRE"
   },
   {
     "Company": "Open Lending Corporation Common Stock",
@@ -35014,6 +35026,10 @@
   {
     "Company": "PolyPid Ltd. Ordinary Shares",
     "Symbol": "PYPD"
+  },
+  {
+    "Company": "Leverage Shares 2X Long PYPL Daily ETF",
+    "Symbol": "PYPG"
   },
   {
     "Company": "PayPal Holdings, Inc. Common Stock",
@@ -46696,6 +46712,10 @@
     "Symbol": "WTO"
   },
   {
+    "Company": "WisdomTree Equity Premium Income Fund",
+    "Symbol": "WTPI"
+  },
+  {
     "Company": "WisdomTree New Economy Real Estate Fund",
     "Symbol": "WTRE"
   },
@@ -47526,6 +47546,10 @@
   {
     "Company": "Block, Inc.",
     "Symbol": "XYZ"
+  },
+  {
+    "Company": "Leverage Shares 2X Long XYZ Daily ETF",
+    "Symbol": "XYZG"
   },
   {
     "Company": "YieldMax XYZ Option Income Strategy ETF",

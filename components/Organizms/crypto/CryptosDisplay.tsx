@@ -8,9 +8,8 @@ import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { DateRange, HistoricalAggregate, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 import { useState } from 'react'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import StockChartWithVolume from '../stocks/StockChartWithVolume'
-import StockChartDaySelect from '../stocks/StockChartDaySelect'
+import StockChartDaySelect, { getYearToDateDays } from '../stocks/StockChartDaySelect'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import dayjs from 'dayjs'
@@ -37,7 +36,8 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
 
   const loadDetails = async (quote: StockQuote, days: number) => {
     setIsLoading(true)
-    const resp = await serverPostFetch({ body: { key: quote.Symbol, HistoryDays: days } }, '/Crypto')
+    const histDays = days === 0 ? getYearToDateDays() : days
+    const resp = await serverPostFetch({ body: { key: quote.Symbol, HistoryDays: histDays } }, '/Crypto')
     setIsLoading(false)
     const result = resp.Body as DetailsModel
     result.Details.Company = filtered.find((m) => m.Symbol === result.Details.Symbol)!.Company
@@ -84,9 +84,10 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
           <ScrollTop scroller={scroller} marginTop={-18} />
           <Box display={'flex'} justifyContent={'space-between'}>
             <Box>
-              <Typography variant='h5'>{details.Details.Company}</Typography>
+              <Typography px={2} variant='h5'>
+                {details.Details.Company}
+              </Typography>
             </Box>
-
             <Box display={'flex'} justifyContent={'flex-end'}>
               <CloseIconButton onClicked={() => setDetails(null)} />
             </Box>
@@ -101,23 +102,7 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
             <StockChartDaySelect selectedDays={selectedDays} onSelected={handleDaysSelected} availableDates={details.AvailableDates} />
           </Box>
           {details.Aggregate && <HistoricalAggregateDisplay aggregate={details.Aggregate} isLoading={isLoading} />}
-
           <StockChartWithVolume data={details.History} symbol={details.Details.Symbol} isLoading={isLoading} />
-
-          {/* <InfoDialog show={!!details} title={details.Details.Company} onCancel={() => setDetails(null)}>
-            <FadeIn>
-              <StockChange item={details.Details} />
-              <Box px={2}>
-                <ReadOnlyField label='Date' val={`${dayjs(details.Details.TradeDate).format('MM/DD/YYYY')}`} variant='caption' />
-              </Box>
-            </FadeIn>
-            <Box>
-              <StockChartDaySelect selectedDays={selectedDays} onSelected={handleDaysSelected} availableDates={details.AvailableDates} />
-            </Box>
-            {details.Aggregate && <HistoricalAggregateDisplay aggregate={details.Aggregate} isLoading={isLoading} />}
-
-            <StockChartWithVolume data={details.History} symbol={details.Details.Symbol} isLoading={isLoading} />
-          </InfoDialog> */}
         </Box>
       )}
     </>

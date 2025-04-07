@@ -34,7 +34,7 @@ export const stockChartDaySelect: DropdownItemNumeric[] = [
   { text: '1 month', value: 30 },
   { text: '3 months', value: 90 },
   { text: '6 months', value: 180 },
-  { text: 'year to date', value: 0 },
+  { text: 'YTD', value: 0 },
   { text: '1 year', value: 365 },
   { text: '3 year', value: 1095 },
   { text: '5 year', value: 1825 },
@@ -54,15 +54,21 @@ export function getstockChartDays() {
     { text: '5 year', value: 1825 },
   ]
   let now = dayjs()
-  const jan1 = new Date(now.year(), 0, 1)
-  const jan1StartDt = dayjs(jan1)
-  const ytdDays = now.diff(jan1StartDt, 'day')
+  const ytdDays = getYearToDateDays()
   shortTerm.push({
     text: 'YTD',
     value: ytdDays,
   })
   result = [...shortTerm, ...longTerm]
   return result
+}
+
+export function getYearToDateDays() {
+  let now = dayjs()
+  const jan1 = new Date(now.year(), 0, 1)
+  const jan1StartDt = dayjs(jan1)
+  const ytdDays = now.diff(jan1StartDt, 'day')
+  return ytdDays
 }
 
 export default StockChartDaySelect
