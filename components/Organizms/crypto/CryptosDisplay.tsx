@@ -102,7 +102,12 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
             <StockChartDaySelect selectedDays={selectedDays} onSelected={handleDaysSelected} availableDates={details.AvailableDates} />
           </Box>
           {details.Aggregate && <HistoricalAggregateDisplay aggregate={details.Aggregate} isLoading={isLoading} />}
-          <StockChartWithVolume data={details.History} symbol={details.Details.Symbol} isLoading={isLoading} />
+          <StockChartWithVolume
+            key={`${details.Details.Symbol}-${selectedDays}`}
+            data={details.History}
+            symbol={details.Details.Symbol}
+            isLoading={isLoading}
+          />
         </Box>
       )}
     </>
