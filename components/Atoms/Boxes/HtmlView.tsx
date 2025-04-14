@@ -4,7 +4,6 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const darkColor = theme.palette.mode === 'dark' ? '#90caf9' : DarkBlue
-  //const color = theme.palette.mode === 'dark' ? '#90caf9' : CasinoBlue
   const text = html.replaceAll('font color="#6f6f6f"', `font color="${darkColor}"`)
 
   const StyledBox = styled(Box)(() => ({
@@ -14,10 +13,10 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
       marginTop: 1,
       margin: 'auto',
     },
-    //div: { backgroundColor: 'unset' },
+    div: { a: { color: theme.palette.primary.main, target: '_blank', rel: 'noopener noreferrer' } },
     //font: color,
     color: theme.palette.primary.main,
-    a: { color: theme.palette.primary.main, target: '_blank' },
+    a: { color: theme.palette.primary.main, target: '_blank', rel: 'noopener noreferrer' },
     p: { color: theme.palette.primary.main, fontSize: 20 },
   }))
 

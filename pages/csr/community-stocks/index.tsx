@@ -17,8 +17,6 @@ import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { useState } from 'react'
 import StockSearch from 'components/Atoms/Inputs/StockSearch'
 import FullStockDetail from 'components/Organizms/stocks/FullStockDetail'
-import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
-import { symbol } from 'zod'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'
 const tabs: TabInfo[] = [
