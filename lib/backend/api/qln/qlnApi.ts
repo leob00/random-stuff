@@ -6,7 +6,6 @@ import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import dayjs from 'dayjs'
 import { apiConnection } from '../config'
 import { EconomicDataItem, StockReportTypes } from './qlnModels'
-import { EconDataModel } from 'components/Organizms/econ/EconDataLayout'
 
 const config = apiConnection()
 const qlnApiBaseUrl = config.qln.url

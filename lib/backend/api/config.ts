@@ -4,7 +4,6 @@ export type ApiConfig = {
 }
 
 type Config = {
-  aws: ApiConfig
   qln: ApiConfig
   internal: ApiConfig & { appId: string }
   contentful: ApiConfig & { spaceId: string }
@@ -16,10 +15,7 @@ export function apiConnection() {
       url: String(process.env.NEXT_PUBLIC_QLN_API_URL),
       key: String(process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY),
     },
-    aws: {
-      url: String(process.env.NEXT_PUBLIC_AWS_API_GATEWAY_URL),
-      key: String(process.env.AWS_API_GATEWAY_KEY),
-    },
+
     contentful: {
       url: String(process.env.CONTENTFUL_GRAPH_BASE_URL),
       key: String(process.env.CONTENTFUL_ACCESS_TOKEN),
