@@ -1336,10 +1336,6 @@
     "Symbol": "ALC"
   },
   {
-    "Company": "Alternus Clean Energy, Inc. Class A Common Stock",
-    "Symbol": "ALCE"
-  },
-  {
     "Company": "Alico Inc",
     "Symbol": "ALCO"
   },
@@ -1984,7 +1980,7 @@
     "Symbol": "ANY"
   },
   {
-    "Company": "iShares Core Aggressive Allocation ETF",
+    "Company": "iShares Core 80/20 Aggressive Allocation ETF",
     "Symbol": "AOA"
   },
   {
@@ -2826,6 +2822,10 @@
   {
     "Company": "Autohome Inc. American Depositary Shares, each representing four Class A Ordinary Shares",
     "Symbol": "ATHM"
+  },
+  {
+    "Company": "Aether Holdings, Inc. Common Stock",
+    "Symbol": "ATHR"
   },
   {
     "Company": "Athene Holding Ltd. 7.250% Fixed-Rate Reset Junior Subordinated Debentures due 2064",
@@ -6172,10 +6172,6 @@
     "Symbol": "BYNO"
   },
   {
-    "Company": "byNordic Acquisition Corporation Units",
-    "Symbol": "BYNOU"
-  },
-  {
     "Company": "byNordic Acquisition Corporation Warrant",
     "Symbol": "BYNOW"
   },
@@ -7484,6 +7480,10 @@
     "Symbol": "CII"
   },
   {
+    "Company": "TIANCI INTERNATIONAL INC",
+    "Symbol": "CIIT"
+  },
+  {
     "Company": "Credit Suisse Asset Management Income Fund Inc.",
     "Symbol": "CIK"
   },
@@ -7688,7 +7688,7 @@
     "Symbol": "CLNR"
   },
   {
-    "Company": "BlackRock AAA CLO ETF",
+    "Company": "BlackRock ETF Trust II iShares AAA CLO Active ETF",
     "Symbol": "CLOA"
   },
   {
@@ -9076,14 +9076,6 @@
     "Symbol": "CTSO"
   },
   {
-    "Company": "Innovid Corp.",
-    "Symbol": "CTV"
-  },
-  {
-    "Company": "Innovid Corp. Warrants, each whole warrant exercisable for one share of Common Stock at an exercise price of $11.50 per share",
-    "Symbol": "CTV.WS"
-  },
-  {
     "Company": "Corteva, Inc. Common Stock",
     "Symbol": "CTVA"
   },
@@ -9130,6 +9122,10 @@
   {
     "Company": "Culp, Inc.",
     "Symbol": "CULP"
+  },
+  {
+    "Company": "Cuprina Holdings (Cayman) Limited Class A Ordinary Shares",
+    "Symbol": "CUPR"
   },
   {
     "Company": "Curbline Properties Corp.",
@@ -11212,10 +11208,6 @@
     "Symbol": "DYCQR"
   },
   {
-    "Company": "DT Cloud Acquisition Corporation Unit",
-    "Symbol": "DYCQU"
-  },
-  {
     "Company": "IDX Dynamic Fixed Income ETF",
     "Symbol": "DYFI"
   },
@@ -11988,6 +11980,10 @@
     "Symbol": "ELF"
   },
   {
+    "Company": "ALPS Electrification Infrastructure ETF",
+    "Symbol": "ELFY"
+  },
+  {
     "Company": "Direxion Daily LLY Bull 2X Shares",
     "Symbol": "ELIL"
   },
@@ -12238,6 +12234,10 @@
   {
     "Company": "Enbridge, Inc",
     "Symbol": "ENB"
+  },
+  {
+    "Company": "Cambria Endowment Style ETF",
+    "Symbol": "ENDW"
   },
   {
     "Company": "Enfusion, Inc.",
@@ -13022,18 +13022,6 @@
   {
     "Company": "EVgo Inc. Warrants",
     "Symbol": "EVGOW"
-  },
-  {
-    "Company": "Evergreen Corporation Class A Ordinary Share",
-    "Symbol": "EVGR"
-  },
-  {
-    "Company": "Evergreen Corporation Unit",
-    "Symbol": "EVGRU"
-  },
-  {
-    "Company": "Evergreen Corporation Warrant",
-    "Symbol": "EVGRW"
   },
   {
     "Company": "Evolent Health, Inc Class A Common Stock",
@@ -15564,10 +15552,6 @@
     "Symbol": "FTII"
   },
   {
-    "Company": "FutureTech II Acquisition Corp. Unit",
-    "Symbol": "FTIIU"
-  },
-  {
     "Company": "FutureTech II Acquisition Corp. Warrant",
     "Symbol": "FTIIW"
   },
@@ -16868,7 +16852,7 @@
     "Symbol": "GLW"
   },
   {
-    "Company": "Galaxy Payroll Group Limited Ordinary Shares",
+    "Company": "Galaxy Payroll Group Limited Class A Ordinary Shares",
     "Symbol": "GLXG"
   },
   {
@@ -19028,10 +19012,6 @@
     "Symbol": "HYAC.WS"
   },
   {
-    "Company": "New America High Income Fund, Inc.",
-    "Symbol": "HYB"
-  },
-  {
     "Company": "iShares BB Rated Corporate Bond ETF",
     "Symbol": "HYBB"
   },
@@ -20672,6 +20652,10 @@
     "Symbol": "IOT"
   },
   {
+    "Company": "iOThree Limited Ordinary Shares",
+    "Symbol": "IOTR"
+  },
+  {
     "Company": "Iovance Biotherapeutics, Inc. Common Stock",
     "Symbol": "IOVA"
   },
@@ -21458,10 +21442,6 @@
   {
     "Company": "ARK Israel Innovative Technology ETF",
     "Symbol": "IZRL"
-  },
-  {
-    "Company": "Invizyne Technologies Inc. Common Stock",
-    "Symbol": "IZTC"
   },
   {
     "Company": "Jacobs Solutions Inc.",
@@ -24852,6 +24832,10 @@
     "Symbol": "MAZE"
   },
   {
+    "Company": "MasterBeef Group Ordinary Shares",
+    "Symbol": "MB"
+  },
+  {
     "Company": "M3-Brigade Acquisition V Corp. Class A Ordinary shares",
     "Symbol": "MBAV"
   },
@@ -26226,10 +26210,6 @@
   {
     "Company": "Murano Global Investments PLC Warrants",
     "Symbol": "MRNOW"
-  },
-  {
-    "Company": "Marinus Pharmaceuticals, Inc",
-    "Symbol": "MRNS"
   },
   {
     "Company": "YieldMax MRNA Option Income Strategy ETF",
@@ -28770,10 +28750,6 @@
   {
     "Company": "Oak Woods Acquisition Corporation Right",
     "Symbol": "OAKUR"
-  },
-  {
-    "Company": "Oak Woods Acquisition Corporation Unit",
-    "Symbol": "OAKUU"
   },
   {
     "Company": "Oak Woods Acquisition Corporation Warrant",
@@ -33024,6 +33000,10 @@
     "Symbol": "RBLX"
   },
   {
+    "Company": "Robin Energy Ltd. Common Stock When Issued",
+    "Symbol": "RBNEV"
+  },
+  {
     "Company": "Vicarious Surgical Inc.",
     "Symbol": "RBOT"
   },
@@ -33988,10 +33968,6 @@
     "Symbol": "ROG"
   },
   {
-    "Company": "Retail Opportunity Investments Corp.",
-    "Symbol": "ROIC"
-  },
-  {
     "Company": "Hartford Multifactor International Small Company ETF",
     "Symbol": "ROIS"
   },
@@ -34548,7 +34524,7 @@
     "Symbol": "RZLV"
   },
   {
-    "Company": "Rezolve AI Limited Warrants",
+    "Company": "Rezolve AI PLC Warrants",
     "Symbol": "RZLVW"
   },
   {
@@ -37544,10 +37520,6 @@
     "Symbol": "STAA"
   },
   {
-    "Company": "Staffing 360 Solutions, Inc. Common Stock (DE)",
-    "Symbol": "STAF"
-  },
-  {
     "Company": "STAG INDUSTRIAL, INC.",
     "Symbol": "STAG"
   },
@@ -37834,10 +37806,6 @@
   {
     "Company": "Sun Communities, Inc",
     "Symbol": "SUI"
-  },
-  {
-    "Company": "Summit Materials, Inc. Class A Common Stock",
-    "Symbol": "SUM"
   },
   {
     "Company": "SUNOCO L.P.",
@@ -39360,6 +39328,10 @@
     "Symbol": "TORO"
   },
   {
+    "Company": "Toro Corp. Common Stock Ex-distribution When Issued",
+    "Symbol": "TOROV"
+  },
+  {
     "Company": "Toast, Inc.",
     "Symbol": "TOST"
   },
@@ -39902,10 +39874,6 @@
   {
     "Company": "TITAN PHARMACEUTICAL INC",
     "Symbol": "TTNP"
-  },
-  {
-    "Company": "T2 Biosystems, Inc",
-    "Symbol": "TTOO"
   },
   {
     "Company": "Tile Shop Holdings, Inc.",
@@ -43332,7 +43300,7 @@
     "Symbol": "XHLD"
   },
   {
-    "Company": "BondBloxx Bloomberg Six Month Target Duration US Treasury ETF",
+    "Company": "BondBloxx Bloomberg Six Month Target Duration US Treasury ETF",
     "Symbol": "XHLF"
   },
   {

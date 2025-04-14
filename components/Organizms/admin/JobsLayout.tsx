@@ -6,7 +6,6 @@ import JobDetail from './users/admin/jobs/JobDetail'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { mutate } from 'swr'
 import JobList from './JobList'
-import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
 import { Claim } from 'lib/backend/auth/userUtil'
 import { useSwrHelper } from 'hooks/useSwrHelper'
@@ -28,6 +27,7 @@ const JobsLayout = ({ userClaim }: { userClaim: Claim }) => {
 
   const handleLogin = async (result: Claim[]) => {
     setClaim(result.find((m) => m.type === 'qln'))
+    setError(null)
     start()
   }
 

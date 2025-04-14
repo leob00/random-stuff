@@ -18,6 +18,7 @@ import { useState } from 'react'
 import StockSearch from 'components/Atoms/Inputs/StockSearch'
 import FullStockDetail from 'components/Organizms/stocks/FullStockDetail'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
+import { symbol } from 'zod'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'
 const tabs: TabInfo[] = [
@@ -47,8 +48,13 @@ const Page = () => {
     })
     const stockMap = new Map<string, StockQuote>()
     const latest = await getLatestQuotes(result.map((m) => m.Symbol))
-    latest.forEach((item) => {
-      stockMap.set(item.Symbol, item)
+    result.forEach((item) => {
+      const found = latest.find((m) => m.Symbol === item.Symbol)
+      if (found) {
+        stockMap.set(item.Symbol, found)
+      } else {
+        stockMap.set(item.Symbol, item)
+      }
     })
     return Array.from(stockMap.values())
   }

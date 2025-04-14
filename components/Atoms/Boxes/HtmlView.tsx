@@ -1,6 +1,5 @@
-import React from 'react'
 import { useMediaQuery, Box, useTheme, styled } from '@mui/material'
-import { CasinoBlue, DarkBlue, VeryLightBlueTransparent } from 'components/themes/mainTheme'
+import { DarkBlue } from 'components/themes/mainTheme'
 const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'left' | 'center' | 'right' }) => {
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
@@ -18,7 +17,7 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
     //div: { backgroundColor: 'unset' },
     //font: color,
     color: theme.palette.primary.main,
-    a: { color: theme.palette.primary.main },
+    a: { color: theme.palette.primary.main, target: '_blank' },
     p: { color: theme.palette.primary.main, fontSize: 20 },
   }))
 

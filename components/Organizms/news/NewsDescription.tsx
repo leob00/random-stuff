@@ -2,7 +2,6 @@ import { Box } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
 import { NewsItem, NewsTypeIds } from 'lib/backend/api/qln/qlnApi'
-import React from 'react'
 
 const NewsDescription = ({ item }: { item: NewsItem }) => {
   const alignLeft = true //item.Source!.includes('Google') || item.Source?.includes('TheDaily')

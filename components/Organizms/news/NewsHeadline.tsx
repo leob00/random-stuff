@@ -1,7 +1,6 @@
 import { Box, Card, CardHeader, Link, Typography } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { NewsItem } from 'lib/backend/api/qln/qlnApi'
-import React from 'react'
 
 const NewsHeadline = ({ item }: { item: NewsItem }) => {
   return (
