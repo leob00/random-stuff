@@ -1,12 +1,21 @@
-import React from 'react'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { Box, IconButton, Typography, TypographyOwnProps, TypographyPropsVariantOverrides, useTheme } from '@mui/material'
 import SnackbarSuccess from '../Dialogs/SnackbarSuccess'
-import ReadOnlyField from './ReadOnlyField'
-import { Variant } from '@mui/material/styles/createTypography'
+import { TypographyVariant } from '@mui/material/styles/createTypography'
+import { useState } from 'react'
 
-const CopyableText = ({ label, value, showValue = false, variant = 'body1' }: { label: string; value: string; showValue?: boolean; variant?: Variant }) => {
-  const [showCopyConfirm, setShowCopyConfirm] = React.useState(false)
+const CopyableText = ({
+  label,
+  value,
+  showValue = false,
+  variant = 'body1',
+}: {
+  label: string
+  value: string
+  showValue?: boolean
+  variant?: TypographyVariant
+}) => {
+  const [showCopyConfirm, setShowCopyConfirm] = useState(false)
   const theme = useTheme()
   const textColor = theme.palette.primary.main
   const handleCopyItem = (item: string) => {

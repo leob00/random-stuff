@@ -1,11 +1,10 @@
 import NLink from 'next/link'
 import Link from '@mui/material/Link'
 import { Typography } from '@mui/material'
-import { useState } from 'react'
 import FadeIn from '../Animations/FadeIn'
-import { Variant } from '@mui/material/styles/createTypography'
+import { TypographyVariant } from '@mui/material/styles/createTypography'
 
-const InternalLink = ({ route, text, large = false, variant }: { route: string; text: string; large?: boolean; variant?: Variant }) => {
+const InternalLink = ({ route, text, large = false, variant }: { route: string; text: string; large?: boolean; variant?: TypographyVariant }) => {
   return (
     <>
       <FadeIn>

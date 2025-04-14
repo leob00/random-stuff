@@ -1,5 +1,4 @@
 import { Alert, Snackbar } from '@mui/material'
-import React from 'react'
 
 const SnackbarSuccess = ({ show, text, duration = 3000, onClose }: { show: boolean; text: string; duration?: number; onClose: () => void }) => {
   return (

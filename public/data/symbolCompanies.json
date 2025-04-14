@@ -5980,6 +5980,18 @@
     "Symbol": "BULD"
   },
   {
+    "Company": "Webull Corporation Class A Ordinary Shares",
+    "Symbol": "BULL"
+  },
+  {
+    "Company": "Webull Corporation Warrants",
+    "Symbol": "BULLW"
+  },
+  {
+    "Company": "Webull Corporation Incentive Warrant",
+    "Symbol": "BULLZ"
+  },
+  {
     "Company": "MicroSectors FANG & Innovation 3x Leveraged ETN",
     "Symbol": "BULZ"
   },
@@ -6872,7 +6884,7 @@
     "Symbol": "CDW"
   },
   {
-    "Company": "Simplify High Yield ETF",
+    "Company": "Simplify High Yield PLUS Credit Hedge ETF",
     "Symbol": "CDX"
   },
   {
@@ -7480,7 +7492,7 @@
     "Symbol": "CII"
   },
   {
-    "Company": "TIANCI INTERNATIONAL INC",
+    "Company": "Tianci International, Inc. Common Stock",
     "Symbol": "CIIT"
   },
   {
@@ -7660,7 +7672,7 @@
     "Symbol": "CLLS"
   },
   {
-    "Company": "Cornerstone Strategic Value Fund",
+    "Company": "Cornerstone Strategic Investment Fund, Inc.",
     "Symbol": "CLM"
   },
   {
@@ -7688,7 +7700,7 @@
     "Symbol": "CLNR"
   },
   {
-    "Company": "BlackRock ETF Trust II iShares AAA CLO Active ETF",
+    "Company": "BlackRock AAA CLO ETF",
     "Symbol": "CLOA"
   },
   {
@@ -9832,7 +9844,7 @@
     "Symbol": "DEEF"
   },
   {
-    "Company": "Acquirers Small and Micro Deep Value ETF",
+    "Company": "Roundhill Acquirers Deep Value ETF",
     "Symbol": "DEEP"
   },
   {
@@ -18224,7 +18236,7 @@
     "Symbol": "HIFS"
   },
   {
-    "Company": "The Hartford Financial Services Group, Inc.",
+    "Company": "The Hartford Insurance Group, Inc.",
     "Symbol": "HIG"
   },
   {
@@ -43300,7 +43312,7 @@
     "Symbol": "XHLD"
   },
   {
-    "Company": "BondBloxx Bloomberg Six Month Target Duration US Treasury ETF",
+    "Company": "BondBloxx Bloomberg Six Month Target Duration US Treasury ETF",
     "Symbol": "XHLF"
   },
   {

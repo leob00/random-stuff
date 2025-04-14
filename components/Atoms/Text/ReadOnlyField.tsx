@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material'
-import { Variant } from '@mui/material/styles/createTypography'
+import { TypographyVariant } from '@mui/material/styles/createTypography'
 
 const ReadOnlyField = ({
   label,
@@ -11,7 +11,7 @@ const ReadOnlyField = ({
   label?: string
   val?: string | null | number
   labelLength?: number
-  variant?: Variant
+  variant?: TypographyVariant
   py?: number
 }) => {
   return (

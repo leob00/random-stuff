@@ -1,5 +1,4 @@
-import { createTheme, PaletteOptions, responsiveFontSizes, ThemeOptions } from '@mui/material/styles'
-import { TypographyOptions } from '@mui/material/styles/createTypography'
+import { createTheme, PaletteOptions, responsiveFontSizes, ThemeOptions, TypographyVariantsOptions } from '@mui/material/styles'
 import { ResponsiveFontSizesOptions } from '@mui/material/styles/responsiveFontSizes'
 
 export const BlackTransparent: string = '#080808ef'
@@ -71,7 +70,7 @@ const lightPalette: PaletteOptions = {
   },
 }
 
-export const typographyOptions: TypographyOptions = {
+export const typographyOptions: TypographyVariantsOptions = {
   fontFamily: ['-apple-system', 'Roboto', 'BlinkMacSystemFont', '"Helvetica Neue"', 'Arial', 'sans-serif', '"Apple Color Emoji"'].join(','),
   fontSize: 18,
   fontWeightBold: 'bold',
