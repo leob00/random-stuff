@@ -25,7 +25,7 @@ const CopyableText = ({
 
   return (
     <>
-      <Box display={'flex'} alignContent={'center'}>
+      <Box display={'flex'} alignItems={'center'}>
         <Box>
           <Typography variant={variant} pr={2} color={textColor}>{`${label}`}</Typography>
         </Box>

@@ -87,10 +87,10 @@ const EditTaskForm = ({
               <FormTextBox width={'100%'} defaultValue={formInput.body ?? ''} placeHolder='task name' onChanged={handleTitleChanged} error={!valid} />
             </Box>
             <Box py={2}>
-              <DateAndTimePicker2 value={formInput.dueDate} onDateSelected={handleDueDateChange} placeHolder={'due date'} />
+              <DateAndTimePicker2 value={formInput.dueDate} onDateSelected={handleDueDateChange} placeHolder={'due date'} clearable />
             </Box>
             <Box py={2}>
-              <DateAndTimePicker2 value={formInput.dateCompleted} onDateSelected={handleDateCompletedChange} placeHolder={'completed date'} />
+              <DateAndTimePicker2 value={formInput.dateCompleted} onDateSelected={handleDateCompletedChange} placeHolder={'completed date'} clearable />
             </Box>
             <Box py={2}>
               <TextField

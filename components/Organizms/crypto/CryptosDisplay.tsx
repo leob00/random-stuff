@@ -46,10 +46,14 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
   }
 
   const handleDaysSelected = async (arg: number) => {
+    let days = arg
+    if (days === -1) {
+      days = getYearToDateDays()
+    }
     setSelectedDays(arg)
     saveCryptoSettings({ ...cryptoSettings, chartSelectedDays: arg })
     if (details) {
-      await loadDetails(details?.Details, arg)
+      await loadDetails(details?.Details, days)
     }
   }
 

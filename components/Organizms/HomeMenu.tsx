@@ -12,6 +12,7 @@ import StaticAutoCompleteFreeSolo from 'components/Atoms/Inputs/StaticAutoComple
 import { DropdownItem } from 'lib/models/dropdown'
 import { flatSiteMap } from './navigation/siteMap'
 import { useRouter } from 'next/navigation'
+import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 
 type Model = {
   isAdmin: boolean
@@ -56,7 +57,7 @@ const HomeMenu = () => {
           }}
         >
           <Box display={'flex'} justifyContent={'center'}>
-            <StaticAutoCompleteFreeSolo searchResults={searchItems} onSelected={handleSelected} placeholder='search' />
+            <StaticAutoComplete options={searchItems} onSelected={handleSelected} placeholder='search' />
           </Box>
           <Box pb={8}>
             <Box py={2}>

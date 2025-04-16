@@ -91,6 +91,7 @@ const EditJobDisplay = ({ data, onSave }: { data: Job; onSave: (item: Job) => vo
                     errorMessage={errors.nextRunDate?.message}
                     onDateSelected={onChange}
                     {...field}
+                    clearable
                   />
                 )}
               ></Controller>

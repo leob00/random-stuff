@@ -1,6 +1,5 @@
 import UncontrolledDropdownList from 'components/Atoms/Inputs/UncontrolledDropdownList'
 import { DropdownItem } from 'lib/models/dropdown'
-import React from 'react'
 
 export const stockChartDaySelect: DropdownItem[] = [
   { text: '1 week', value: '7' },

@@ -16,7 +16,7 @@ const ReadOnlyField = ({
 }) => {
   return (
     <Box>
-      <Box display={'flex'} flexDirection={'row'} gap={2} py={py}>
+      <Box display={'flex'} flexDirection={'row'} gap={2} py={py} alignItems={'center'}>
         {label && (
           <Box textAlign={'right'} minWidth={labelLength ?? undefined}>
             <Typography variant={variant ?? 'body2'} color={'primary'}>{`${label}:`}</Typography>
@@ -24,7 +24,7 @@ const ReadOnlyField = ({
         )}
         {val && (
           <Box>
-            <Typography variant={variant ?? 'body2'} color={'primary'}>
+            <Typography variant={variant ?? 'body1'} color={'primary'}>
               {val}
             </Typography>
           </Box>

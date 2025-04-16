@@ -53,11 +53,9 @@ export function getstockChartDays() {
     { text: '3 year', value: 1095 },
     { text: '5 year', value: 1825 },
   ]
-  let now = dayjs()
-  const ytdDays = getYearToDateDays()
   shortTerm.push({
     text: 'YTD',
-    value: ytdDays,
+    value: -1,
   })
   result = [...shortTerm, ...longTerm]
   return result

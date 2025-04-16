@@ -6,7 +6,7 @@ import NLink from 'next/link'
 const SiteLink = ({ text, href }: { text: string; href: string }) => {
   return (
     <NLink href={href} passHref legacyBehavior>
-      <Link href={href} style={{ fontSize: 'smaller' }}>
+      <Link href={href} style={{ fontSize: 'small' }}>
         {text}
       </Link>
     </NLink>

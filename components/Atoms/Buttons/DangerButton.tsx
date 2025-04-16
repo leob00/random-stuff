@@ -13,7 +13,7 @@ const DangerButton: React.FC<ButtonAttributes> = ({ text, isDisabled, onClicked,
   }
   const theme = useTheme()
   return (
-    <Button variant='contained' color={'error'} onClick={handleClick} disabled={isDisabled} {...props} sx={{ width: width }}>
+    <Button variant='contained' color={'error'} onClick={handleClick} disabled={isDisabled} {...props} sx={{ minWidth: width }}>
       {`${text}`}
     </Button>
   )
