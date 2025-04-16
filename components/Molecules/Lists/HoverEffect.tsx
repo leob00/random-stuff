@@ -13,7 +13,7 @@ const HoverEffect = ({ children }: { children: ReactNode | JSX.Element[] }) => {
     }
     &:hover {
       border: solid 0.05px ${theme.palette.primary.main};
-      border-radius: 4px;
+      border-radius: 6px;
       padding: 1px;
     }
   `

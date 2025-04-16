@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 import DelayedComponentRender from './DelayedComponentRender'
 import { DashboardWidget } from '../dashboard/dashboardModel'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 const WidgetWrapper = ({ item, children }: { item: DashboardWidget; children: ReactNode | JSX.Element[] }) => {
   return (
@@ -11,6 +12,7 @@ const WidgetWrapper = ({ item, children }: { item: DashboardWidget; children: Re
         <Typography variant={'h6'} sx={{ textAlign: 'center' }} fontWeight={500}>
           {item.title}
         </Typography>
+        <HorizontalDivider />
       </Box>
       <DelayedComponentRender key={item.id} delayMs={item.waitToRenderMs}>
         <FadeIn>{children}</FadeIn>

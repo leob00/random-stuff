@@ -99,9 +99,9 @@ const StockListItem = ({
         <FadeIn>
           <Box>
             {isStock ? (
-              <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={handleCompanyClick} disabled={disabled} />
+              <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={handleCompanyClick} disabled={disabled} elevation={0} />
             ) : (
-              <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} />
+              <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} elevation={0} />
             )}
             <Box>
               <StockChange item={item} />
@@ -118,7 +118,7 @@ const StockListItem = ({
             )}
           </Box>
         </FadeIn>
-        <Box>
+        <Box pt={1}>
           <HorizontalDivider />
         </Box>
 

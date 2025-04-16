@@ -21,26 +21,19 @@ const ListHeaderStack = ({
   underline?: boolean
 }) => {
   return (
-    <Stack direction={'row'} flexGrow={1} alignItems={'center'}>
-      <Card sx={{ width: '100%', borderBottomRightRadius: 0 }} elevation={elevation}>
-        <CardHeader
-          title={
-            <>
-              <Box
-                width={'100%'}
-                sx={{ cursor: !disabled ? 'pointer' : 'unset' }}
-                onClick={(e) => {
-                  onClicked?.(item)
-                }}
-              >
-                <Typography textAlign={'left'} variant='h6' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
-                  {text}
-                </Typography>
-              </Box>
-            </>
-          }
-        ></CardHeader>
-      </Card>
+    <Stack direction={'row'} flexGrow={1}>
+      <Box
+        px={2}
+        width={'100%'}
+        sx={{ cursor: !disabled ? 'pointer' : 'unset' }}
+        onClick={(e) => {
+          onClicked?.(item)
+        }}
+      >
+        <Typography textAlign={'left'} variant='h6' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
+          {text}
+        </Typography>
+      </Box>
       <Box>{showContextMenu && <ContextMenu items={contextMenu} />}</Box>
     </Stack>
   )
