@@ -13,6 +13,7 @@ import { DropdownItem } from 'lib/models/dropdown'
 import { flatSiteMap } from './navigation/siteMap'
 import { useRouter } from 'next/navigation'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
+import { sortArray } from 'lib/util/collections'
 
 type Model = {
   isAdmin: boolean
@@ -39,9 +40,13 @@ const HomeMenu = () => {
   }
   const { data } = useSwrHelper(mutateKey, fn, { revalidateOnFocus: false })
 
-  const searchItems: DropdownItem[] = allRoutes.map((m) => {
-    return { text: m.name, value: m.path }
-  })
+  const searchItems: DropdownItem[] = sortArray(
+    allRoutes.map((m) => {
+      return { text: m.name, value: m.path }
+    }),
+    ['text'],
+    ['asc'],
+  )
 
   const handleSelected = (item: DropdownItem) => {
     router.push(item.value)

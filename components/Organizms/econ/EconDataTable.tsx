@@ -1,6 +1,7 @@
 import { Box } from '@mui/material'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import Pager from 'components/Atoms/Pager'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { useClientPager } from 'hooks/useClientPager'
@@ -26,6 +27,7 @@ const EconDataTable = ({ data, handleItemClicked }: { data: EconomicDataItem[]; 
           {displayItems.map((item, i) => (
             <Box key={item.InternalId} py={1}>
               <ListHeader text={item.Title} item={item} onClicked={handleItemClicked} />
+              <HorizontalDivider />
             </Box>
           ))}
         </Box>

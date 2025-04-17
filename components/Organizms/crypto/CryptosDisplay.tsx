@@ -17,6 +17,7 @@ import HistoricalAggregateDisplay from '../stocks/HistoricalAggregateDisplay'
 import CloseIconButton from 'components/Atoms/Buttons/CloseIconButton'
 import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 interface DetailsModel {
   Details: StockQuote
@@ -78,6 +79,7 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
                   />
                   <StockChange item={item} />
                 </FadeIn>
+                <HorizontalDivider />
               </Box>
             ))}
           </Box>

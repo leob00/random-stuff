@@ -19,6 +19,7 @@ import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import StockEarningsNumberDisplay from './StockEarningsNumberDisplay'
 import StockEarningsCompanyDisplay from './StockEarningsCompanyDisplay'
+import HoverEffect from 'components/Molecules/Lists/HoverEffect'
 
 const StockEarningsCalendarDetails = ({
   data,
@@ -119,13 +120,15 @@ const StockEarningsCalendarDetails = ({
                     <TableRow key={item.Symbol}>
                       <TableCell sx={{ minWidth: '80%' }}>
                         <Box>
-                          <Clickable
-                            onClicked={() => {
-                              handleItemClick(item.Symbol)
-                            }}
-                          >
-                            <StockEarningsCompanyDisplay item={item} />
-                          </Clickable>
+                          <HoverEffect>
+                            <Clickable
+                              onClicked={() => {
+                                handleItemClick(item.Symbol)
+                              }}
+                            >
+                              <StockEarningsCompanyDisplay item={item} />
+                            </Clickable>
+                          </HoverEffect>
                         </Box>
                         {item.StockQuote && <StockChange item={item.StockQuote} />}
                       </TableCell>

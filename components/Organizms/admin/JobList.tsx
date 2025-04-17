@@ -12,6 +12,7 @@ import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import { DropdownItem, mapDropdownItems } from 'lib/models/dropdown'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 const JobList = ({ response, onJobSelected }: { response: QlnApiResponse; onJobSelected: (item: Job) => void }) => {
   let jobs = response.Body as Job[]
@@ -44,7 +45,7 @@ const JobList = ({ response, onJobSelected }: { response: QlnApiResponse; onJobS
         {pagedItems.map((item) => (
           <Box key={item.Name} py={1}>
             <FadeIn>
-              <Paper elevation={item.Status == 1 ? 4 : 0}>
+              <Box>
                 <ListHeader text={item.Description} item={item} onClicked={onJobSelected} />
                 {item.Status === 1 ? (
                   <JobInProgress item={item} />
@@ -58,14 +59,18 @@ const JobList = ({ response, onJobSelected }: { response: QlnApiResponse; onJobS
                       )}
                       {item.NextRunDate && (
                         <Stack px={1}>
-                          <Typography variant='caption' color='primary'>{`next run: ${dayjs(response.ResponseDateEst).to(dayjs(item.NextRunDate))}`}</Typography>
+                          <Typography
+                            variant='caption'
+                            color='primary'
+                          >{`next run: ${dayjs(response.ResponseDateEst).to(dayjs(item.NextRunDate))}`}</Typography>
                         </Stack>
                       )}
                     </Box>
                   </Box>
                 )}
-              </Paper>
+              </Box>
             </FadeIn>
+            <HorizontalDivider />
           </Box>
         ))}
       </ScrollableBox>
