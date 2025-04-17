@@ -1,4 +1,5 @@
 import { Box } from '@mui/material'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { useSwrHelper } from 'hooks/useSwrHelper'
@@ -25,9 +26,9 @@ const UsersAdmin = ({ userProfile }: { userProfile: UserProfile }) => {
           {data.map((item) => (
             <Box key={item.id} py={1}>
               <ListHeader text={item.username} item={item} onClicked={() => {}} />
+              <HorizontalDivider />
             </Box>
           ))}
-          {/* <JsonView obj={data} /> */}
         </Box>
       )}
     </Box>
