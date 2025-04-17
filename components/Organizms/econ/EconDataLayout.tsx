@@ -36,24 +36,26 @@ const EconDataLayout = () => {
   const dataFn = async () => {
     const resp = await get(mutateListKey)
     const dbResult = resp as EconDataModel
-    const ei = getMapFromArray(economicIndicators, 'InternalId')
+    const stateIndicators = getMapFromArray(economicIndicators, 'InternalId')
     dbResult.Body.Items.forEach((item) => {
-      ei.set(item.InternalId, item)
+      stateIndicators.set(item.InternalId, item)
     })
-    saveEconomicIndicators(Array.from(ei.values()))
-    dbResult.Body.Items = sortArray(dbResult.Body.Items, ['LastObservationDate'], ['desc'])
+    const result = Array.from(stateIndicators.values())
+    saveEconomicIndicators(result)
+    //dbResult.Body.Items = sortArray(dbResult.Body.Items, ['LastObservationDate'], ['desc'])
+    dbResult.Body.Items = result
     return dbResult
-  }
-
-  const handleItemClicked = async (item: EconomicDataItem) => {
-    const endYear = dayjs(item.LastObservationDate!).year()
-    const startYear = dayjs(item.LastObservationDate!).subtract(5, 'years').year()
-
-    router.push(`/csr/economic-indicators/${item.InternalId}?startYear=${startYear}&endYear=${endYear}`)
   }
 
   const { data, isLoading } = useSwrHelper(mutateListKey, dataFn, { revalidateOnFocus: false })
   const itemLookup: DropdownItem[] = data ? mapDropdownItems(data.Body.Items, 'Title', 'InternalId') : []
+
+  const handleItemClicked = async (item: EconomicDataItem) => {
+    const endYear = dayjs(item.LastObservationDate!).year()
+    const startYear = dayjs(item.LastObservationDate!).subtract(10, 'years').year()
+
+    router.push(`/csr/economic-indicators/${item.InternalId}?startYear=${startYear}&endYear=${endYear}`)
+  }
 
   const handleLoad = (item: DropdownItem) => {
     const ex = data?.Body.Items.find((m) => m.InternalId === Number(item.value))

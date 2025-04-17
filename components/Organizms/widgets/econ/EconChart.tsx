@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Box, Typography, useMediaQuery, useTheme } from '@mui/material'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
@@ -8,6 +8,8 @@ import EconChangeHeader from './EconChangeHeader'
 import { getOptions } from 'components/Organizms/stocks/stockLineChartOptions'
 import { shrinkList } from 'components/Organizms/stocks/lineChartOptions'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
+import numeral from 'numeral'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false, loading: () => <BackdropLoader /> })
 
 const EconChart = ({
@@ -40,21 +42,29 @@ const EconChart = ({
   const y = history.map((m) => m.Price)
 
   const last = history[history.length - 1]
+  const first = history[0]
+  const change = last.Price - first.Price
+  const movePerc = calculateStockMovePercent(first.Price, change)
 
   const chartOptions = getOptions({ x: x, y: y }, history, isXsmall, theme.palette.mode, '', reverseColor)
   return (
     <Box>
-      <EconChangeHeader last={last} reverseColor={reverseColor} />
-      <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' width={width} height={height} />
+      <Box display={'flex'} gap={1} alignItems={'center'} pl={2}>
+        <Typography variant='body2'>last: </Typography>
+        <EconChangeHeader last={last} reverseColor={reverseColor} />
+      </Box>
+      <Box pt={2}>
+        <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' width={width} height={height} />
+      </Box>
       {showDateSummary && (
         <Box px={2}>
-          <Box display='flex' gap={1}>
-            <Typography variant='caption'>start date:</Typography>
-            <Typography variant='caption'>{x[0]}</Typography>
+          <Box display={'flex'} gap={4}>
+            <ReadOnlyField label='start date' val={x[0]} />
+            <ReadOnlyField label='end date' val={x[x.length - 1]} />
           </Box>
-          <Box display='flex' gap={1}>
-            <Typography variant='caption'>end date:</Typography>
-            <Typography variant='caption'>{x[x.length - 1]}</Typography>
+          <Box display={'flex'} gap={4}>
+            <ReadOnlyField label='change' val={`${change > 0 ? '+' + numeral(change).format('###,###,0.00') : numeral(change).format('###,###,0.00')}`} />
+            <ReadOnlyField label='' val={`${numeral(movePerc).format('###,###,0.000')}%`} />
           </Box>
         </Box>
       )}

@@ -1,5 +1,5 @@
 'use client'
-import { Box, Divider } from '@mui/material'
+import { Box, Divider, useTheme } from '@mui/material'
 import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 import { useRouter } from 'next/router'
 import LinkButton from '../Buttons/LinkButton'
@@ -10,8 +10,10 @@ import { getMapFromArray } from 'lib/util/collectionsNative'
 import { flatSiteMap } from 'components/Organizms/navigation/siteMap'
 import FadeIn from '../Animations/FadeIn'
 import { useEffect, useState } from 'react'
+import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 
 export const BasicBreadcrumbs = () => {
+  const theme = useTheme()
   const router = useRouter()
   const { allRoutes, addRoute } = useRouteTracker()
   const routes = getRoutes(allRoutes)
@@ -23,8 +25,8 @@ export const BasicBreadcrumbs = () => {
   }, [])
 
   const handleClick = (route: Navigation) => {
-    addRoute(route.path)
     router.push(route.path)
+    addRoute(route.path)
   }
 
   return (
@@ -54,7 +56,11 @@ export const BasicBreadcrumbs = () => {
                 </FadeIn>
               )}
 
-              {index < routes.length - 1 && <Divider orientation='vertical' sx={{ height: '10px' }} />}
+              {index < routes.length - 1 && (
+                <>
+                  <Divider color={theme.palette.primary.main} orientation='vertical' sx={{ height: '10px' }} />
+                </>
+              )}
             </Box>
           ))}
         </Box>
@@ -64,7 +70,7 @@ export const BasicBreadcrumbs = () => {
 }
 
 function getRoutes(allRoutes: Navigation[]) {
-  const nav = sortArray(take(allRoutes, 5), ['date'], ['asc'])
+  const nav = sortArray(take(allRoutes, 6), ['date'], ['asc'])
   const map = getMapFromArray(flatSiteMap, 'path')
   const routes: Navigation[] = []
   nav.forEach((p) => {

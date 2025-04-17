@@ -83,7 +83,7 @@ export const typographyOptions: TypographyVariantsOptions = {
   h6: { fontSize: '1.3rem' },
   subtitle1: { fontSize: '1.275rem', fontWeight: 200 },
   subtitle2: { fontSize: '0.975rem', fontWeight: 200 },
-  body1: { fontSize: '1.08rem', fontWeight: 400 }, // normal body text
+  body1: { fontSize: '1.2rem', fontWeight: 400 }, // normal body text
   body2: { fontSize: '1.08rem', fontWeight: 200 }, // less important text
   caption: { fontSize: '0.85rem' },
   overline: { fontSize: '0.625rem', fontWeight: 400 },

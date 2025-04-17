@@ -7,12 +7,13 @@ import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { useClientPager } from 'hooks/useClientPager'
 import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 import { sortArray } from 'lib/util/collections'
-import React from 'react'
+import EconChangeHeader from '../widgets/econ/EconChangeHeader'
+import { reverseColor } from '../widgets/econ/EconWidget'
+import EconLastPrevChange from '../widgets/econ/EconLastPrevChange'
 
 const EconDataTable = ({ data, handleItemClicked }: { data: EconomicDataItem[]; handleItemClicked: (item: EconomicDataItem) => void }) => {
   const pageSize = 10
   const pager = useClientPager(data, 10)
-  //const sortedLatest = sortArray(data, ['Priority', 'LastObservationDate'], ['asc', 'desc'])
   const displayItems = pager.getPagedItems(data)
   const scroller = useScrollTop(0)
 
@@ -27,6 +28,7 @@ const EconDataTable = ({ data, handleItemClicked }: { data: EconomicDataItem[]; 
           {displayItems.map((item, i) => (
             <Box key={item.InternalId} py={1}>
               <ListHeader text={item.Title} item={item} onClicked={handleItemClicked} />
+              <EconLastPrevChange item={item} />
               <HorizontalDivider />
             </Box>
           ))}

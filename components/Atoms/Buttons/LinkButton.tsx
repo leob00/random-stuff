@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { Button, ButtonProps } from '@mui/material'
+import { Button, ButtonProps, Typography } from '@mui/material'
 
 const LinkButton = ({
   children,
@@ -14,13 +14,12 @@ const LinkButton = ({
   disabled?: boolean
   underline?: boolean
 }) => {
-  //const color = props.color
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     onClick(e)
   }
   return (
     <Button disabled={disabled} {...props} color={'secondary'} variant='text' onClick={handleClick} sx={{ textDecoration: underline ? 'underline' : 'unset' }}>
-      {children}
+      <Typography variant='body2'>{children}</Typography>
     </Button>
   )
 }
