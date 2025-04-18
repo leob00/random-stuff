@@ -376,6 +376,7 @@ export async function putRecord(id: string | DynamoKeys, category: string, item:
     expiration: 0,
     format: format,
     count: Array.isArray(item) ? Array.from(item).length : 1,
+    last_modified: getUtcNow().format(),
   }
   const putRequest: SignedRequest = {
     data: encryptBody(req),
