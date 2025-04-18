@@ -62,7 +62,7 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
         <HorizontalDivider />
       </Box>
       <ScrollableBox scroller={scroller}>
-        <Box>
+        <Box minHeight={300}>
           {pagedItems.map((item, i) => (
             <Box key={item.id}>
               <FadeIn>

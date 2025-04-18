@@ -13,6 +13,7 @@ export interface MarketHandshake {
   IsOpen: boolean
   MarketsOpenClosedMessage: string
   Message: string
+  HolidayName: string | null
   StockStats: StockStats
 }
 

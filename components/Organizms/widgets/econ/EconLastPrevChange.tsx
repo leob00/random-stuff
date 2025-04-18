@@ -4,7 +4,6 @@ import { calculateStockMovePercent } from 'lib/util/numberUtil'
 import EconChangeHeader from './EconChangeHeader'
 import { reverseColor } from './EconWidget'
 import { Box } from '@mui/material'
-import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const EconLastPrevChange = ({ item }: { item: EconomicDataItem }) => {
   const historyItem: StockHistoryItem = {

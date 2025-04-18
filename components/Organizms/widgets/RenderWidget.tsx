@@ -20,7 +20,7 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
   const { viewPortSize: size } = useViewPortSize()
 
   const dimension: WidgetDimensions = {
-    height: 400,
+    height: 450,
     width: size === 'xs' ? 370 : 280,
   }
   switch (size) {

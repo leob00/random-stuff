@@ -44,7 +44,7 @@ const EconChart = ({
   const last = history[history.length - 1]
   const first = history[0]
   const change = last.Price - first.Price
-  const movePerc = calculateStockMovePercent(first.Price, change)
+  const movePerc = calculateStockMovePercent(last.Price, change)
 
   const chartOptions = getOptions({ x: x, y: y }, history, isXsmall, theme.palette.mode, '', reverseColor)
   return (
