@@ -2,7 +2,6 @@ import { ListItem, ListItemAvatar, ListItemText, Stack } from '@mui/material'
 import { Draggable } from 'react-beautiful-dnd'
 import DragIndicator from '@mui/icons-material/DragIndicator'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import SecondaryCheckbox from 'components/Atoms/Inputs/SecondaryCheckbox'
 import { SelectableQuote } from './DraggableList'
 import SingleItemMenu from './SingleItemMenu'
 import { StockQuote } from 'lib/backend/api/models/zModels'
@@ -25,19 +24,10 @@ const DraggableListItem = ({ item, index, onRemoveItem, onCheckItem, onEdit, isL
     <>
       {!isLoading && (
         <>
-          {/* @ts-expect-error needs to be reviewed */}
-
           <Draggable draggableId={item.Symbol} index={index} key={item.Symbol}>
             {(provided, snapshot) => (
               <>
-                <ListItem
-                  id={item.Symbol}
-                  ref={provided.innerRef}
-                  {...provided.draggableProps}
-                  {...provided.dragHandleProps}
-                  // className={snapshot.isDragging ? classes.draggingListItem : ''}
-                >
-                  {/* <SecondaryCheckbox onChanged={onCheckItem} checked={item.selected} /> */}
+                <ListItem id={item.Symbol} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                   <ListItemAvatar>
                     <DragIndicator />
                   </ListItemAvatar>

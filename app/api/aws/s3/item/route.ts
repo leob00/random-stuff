@@ -3,8 +3,8 @@ import { deleteItem } from 'app/serverActions/aws/s3/s3'
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function DELETE(req: NextRequest, res: NextResponse) {
-  const user = await getUserSSRAppRouteApi(req, res)
+export async function DELETE(req: NextRequest) {
+  const user = await getUserSSRAppRouteApi()
   if (!user) {
     return new Response(JSON.stringify('unauthorized'), { status: 403 })
   }

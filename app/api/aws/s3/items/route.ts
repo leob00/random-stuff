@@ -5,8 +5,8 @@ import { S3Key, SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function POST(req: NextRequest, res: NextResponse) {
-  const user = await getUserSSRAppRouteApi(req, res)
+export async function POST(req: NextRequest) {
+  const user = await getUserSSRAppRouteApi()
   if (!user) {
     return new Response(JSON.stringify('unauthorized'), { status: 403 })
   }

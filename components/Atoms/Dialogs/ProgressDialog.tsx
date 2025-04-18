@@ -15,7 +15,7 @@ const ProgressDialog = ({
   showActionButtons = true,
   fullScreen,
 }: {
-  children: ReactNode | JSX.Element
+  children: ReactNode | React.JSX.Element
   title: string
   show: boolean
   onCancel?: () => void

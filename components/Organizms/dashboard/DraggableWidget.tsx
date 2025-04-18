@@ -44,7 +44,6 @@ const DraggableWidget = ({ item, index, onUpdate, disableShowHide }: DraggableLi
 
   return (
     <>
-      {/* @ts-expect-error needs to be reviewed */}
       <Draggable draggableId={item.id} index={index} key={item.id}>
         {(provided, snapshot) => (
           <>

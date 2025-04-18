@@ -3,13 +3,12 @@ import { fetchUserAttributes, getCurrentUser } from 'aws-amplify/auth/server'
 import { Amplify } from 'aws-amplify'
 import amplifyConfig from 'src/amplifyconfiguration.json'
 import { cookies } from 'next/headers'
-import { NextRequest, NextResponse } from 'next/server'
 import { AmplifyUser, getRolesFromAmplifyUser } from 'lib/backend/auth/userUtil'
 Amplify.configure(amplifyConfig, { ssr: true })
 export const { runWithAmplifyServerContext } = createServerRunner({
   config: amplifyConfig,
 })
-export async function getUserSSRAppRouteApi(req: NextRequest, res: NextResponse) {
+export async function getUserSSRAppRouteApi() {
   Amplify.configure(amplifyConfig, { ssr: true })
   try {
     const user = await runWithAmplifyServerContext({

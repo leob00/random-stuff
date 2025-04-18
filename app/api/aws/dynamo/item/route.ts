@@ -1,8 +1,6 @@
-import { getUserSSRAppRouteApi } from 'app/serverActions/auth/user'
 import { getItem, type RandomStuffDynamoItem, putItem, deleteItem } from 'app/serverActions/aws/dynamo/dynamo'
 import { SignedRequest } from 'lib/backend/csr/nextApiWrapper'
 import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
-import { getUtcNow } from 'lib/util/dateUtil'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
@@ -15,7 +13,7 @@ export async function POST(request: NextRequest) {
   return NextResponse.json(result)
 }
 
-export async function PUT(request: NextRequest, response: NextResponse) {
+export async function PUT(request: NextRequest) {
   const enc = (await request.json()) as SignedRequest
   // authenticate
   // const user = getUserSSRAppRouteApi(request, response)

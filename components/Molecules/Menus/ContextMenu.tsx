@@ -2,10 +2,11 @@ import { Menu, Button, MenuList, MenuItem, Typography, Box } from '@mui/material
 import MenuIcon from '@mui/icons-material/Menu'
 import { DarkMode } from 'components/themes/DarkMode'
 import { useState } from 'react'
+import React from 'react'
 
 export interface ContextMenuItem {
   fn: (arg?: unknown) => void
-  item: JSX.Element[] | JSX.Element
+  item: React.JSX.Element[] | React.JSX.Element
 }
 
 const ContextMenu = ({ items }: { items: ContextMenuItem[] }) => {

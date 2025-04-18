@@ -1,18 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   modularizeImports: {
     '@mui/icons-material': {
       transform: '@mui/icons-material/{{member}}',
     },
   },
-  experimental: {
-    turbo: {},
-    serverComponentsExternalPackages: ['tesseract.js'],
-    outputFileTracingIncludes: {
-      '/api/**/*': ['./node_modules/**/*.wasm', './node_modules/**/*.proto'],
-    },
+  serverExternalPackages: ['tesseract.js'],
+  outputFileTracingIncludes: {
+    '/api/**/*': ['./node_modules/**/*.wasm', './node_modules/**/*.proto'],
   },
   images: {
     remotePatterns: [

@@ -240,7 +240,7 @@
     "Symbol": "ABOS"
   },
   {
-    "Company": "Abacus FCF ETF Trust",
+    "Company": "Abacus FCF Innovation Leaders ETF",
     "Symbol": "ABOT"
   },
   {
@@ -652,11 +652,15 @@
     "Symbol": "ADX"
   },
   {
+    "Company": "Addex Therapeutics Ltd American Depositary Shares",
+    "Symbol": "ADXN"
+  },
+  {
     "Company": "Ameren Corporation",
     "Symbol": "AEE"
   },
   {
-    "Company": "abrdn Emerging Markets Equity Income Fund, Inc.",
+    "Company": "abrdn Emerging Markets ex-China Fund, Inc.",
     "Symbol": "AEF"
   },
   {
@@ -1992,7 +1996,7 @@
     "Symbol": "AOHY"
   },
   {
-    "Company": "iShares Core Conservative Allocation ETF",
+    "Company": "iShares Core 30/70 Conservative Allocation ETF",
     "Symbol": "AOK"
   },
   {
@@ -2012,7 +2016,7 @@
     "Symbol": "AON"
   },
   {
-    "Company": "iShares Core Growth Allocation ETF",
+    "Company": "iShares Core 60/40 Balanced Allocation ETF",
     "Symbol": "AOR"
   },
   {
@@ -5044,7 +5048,7 @@
     "Symbol": "BNDI"
   },
   {
-    "Company": "SPDRS BARCLAYS AGGREGATE BD ETF",
+    "Company": "Infrastructure Capital Bond Income ETF",
     "Symbol": "BNDS"
   },
   {
@@ -7636,7 +7640,7 @@
     "Symbol": "CLLS"
   },
   {
-    "Company": "Cornerstone Strategic Value Fund",
+    "Company": "Cornerstone Strategic Investment Fund, Inc.",
     "Symbol": "CLM"
   },
   {
@@ -7664,7 +7668,7 @@
     "Symbol": "CLNR"
   },
   {
-    "Company": "BlackRock AAA CLO ETF",
+    "Company": "BlackRock ETF Trust II iShares AAA CLO Active ETF",
     "Symbol": "CLOA"
   },
   {
@@ -9700,7 +9704,7 @@
     "Symbol": "DDC"
   },
   {
-    "Company": "3D Systems Corp",
+    "Company": "3D Systems Corporation",
     "Symbol": "DDD"
   },
   {
@@ -9808,7 +9812,7 @@
     "Symbol": "DEEF"
   },
   {
-    "Company": "Roundhill Acquirers Deep Value ETF",
+    "Company": "Acquirers Small and Micro Deep Value ETF",
     "Symbol": "DEEP"
   },
   {
@@ -11176,6 +11180,10 @@
     "Symbol": "DYAI"
   },
   {
+    "Company": "DT Cloud Acquisition Corporation Ordinary Shares",
+    "Symbol": "DYCQ"
+  },
+  {
     "Company": "DT Cloud Acquisition Corporation Right",
     "Symbol": "DYCQR"
   },
@@ -11778,6 +11786,10 @@
   {
     "Company": "8x8, Inc. Common Stock",
     "Symbol": "EGHT"
+  },
+  {
+    "Company": "Global X S&P 500 U.S. Revenue Leaders ETF",
+    "Symbol": "EGLE"
   },
   {
     "Company": "Eldorado Gold Corporation",
@@ -14184,6 +14196,10 @@
     "Symbol": "FGF"
   },
   {
+    "Company": "Fundamental Global Inc. 8.00% Cumulative Preferred Stock",
+    "Symbol": "FGFPP"
+  },
+  {
     "Company": "FGI Industries Ltd. Ordinary Shares",
     "Symbol": "FGI"
   },
@@ -14454,6 +14470,10 @@
   {
     "Company": "Foot Locker, Inc.",
     "Symbol": "FL"
+  },
+  {
+    "Company": "Global X S&P 500 U.S. Market Leaders Top 50 ETF",
+    "Symbol": "FLAG"
   },
   {
     "Company": "AllianzIM U.S. Equity 6 Month Floor5 Apr/Oct ETF",
@@ -21100,6 +21120,10 @@
     "Symbol": "IVAL"
   },
   {
+    "Company": "Investcorp AI Acquisition Corp. Class A Ordinary Share",
+    "Symbol": "IVCA"
+  },
+  {
     "Company": "Investcorp AI Acquisition Corp. Warrant",
     "Symbol": "IVCAW"
   },
@@ -21784,7 +21808,7 @@
     "Symbol": "JMBS"
   },
   {
-    "Company": "JPMorgan Market Expansion Enhanced Equity ETF",
+    "Company": "JPMorgan Small & Mid Cap Enhanced Equity ETF",
     "Symbol": "JMEE"
   },
   {
@@ -23400,6 +23424,10 @@
     "Symbol": "LEXX"
   },
   {
+    "Company": "Lexaria Bioscience Corp. Warrant",
+    "Symbol": "LEXXW"
+  },
+  {
     "Company": "LifeX 2048 Longevity Income ETF",
     "Symbol": "LFAE"
   },
@@ -24832,6 +24860,10 @@
     "Symbol": "MBNE"
   },
   {
+    "Company": "Medallion Bank Fixed-to-Floating Rate Non-Cumulative Perpetual Preferred Stock, Series F",
+    "Symbol": "MBNKP"
+  },
+  {
     "Company": "Microbot Medical, Inc. Common Stock",
     "Symbol": "MBOT"
   },
@@ -25574,6 +25606,10 @@
   {
     "Company": "MKDWELL Tech Inc. Ordinary Share",
     "Symbol": "MKDW"
+  },
+  {
+    "Company": "MKDWELL Tech Inc. Warrants",
+    "Symbol": "MKDWW"
   },
   {
     "Company": "Markforged Holding Corporation",
@@ -32104,7 +32140,7 @@
     "Symbol": "QABA"
   },
   {
-    "Company": "IQ Hedge Multi-Strategy Tracker ETF",
+    "Company": "NYLI Hedge Multi-Strategy Tracker ETF",
     "Symbol": "QAI"
   },
   {
@@ -34396,7 +34432,7 @@
     "Symbol": "RZLT"
   },
   {
-    "Company": "Rezolve AI Limited Ordinary Shares",
+    "Company": "Rezolve AI PLC Ordinary Shares",
     "Symbol": "RZLV"
   },
   {
@@ -35884,7 +35920,7 @@
     "Symbol": "SKX"
   },
   {
-    "Company": "Skyline Champion Corporation Common Stock",
+    "Company": "Champion Homes, Inc.",
     "Symbol": "SKY"
   },
   {
@@ -38696,7 +38732,7 @@
     "Symbol": "THEQ"
   },
   {
-    "Company": "First Financial Corp/Indiana",
+    "Company": "First Financial Corporation Common Stock",
     "Symbol": "THFF"
   },
   {
@@ -39182,6 +39218,10 @@
   {
     "Company": "TOP Financial Group Limited Class A Ordinary Shares",
     "Symbol": "TOP"
+  },
+  {
+    "Company": "iShares S&P 500 3% Capped ETF",
+    "Symbol": "TOPC"
   },
   {
     "Company": "Toppoint Holdings Inc.",
@@ -39830,6 +39870,10 @@
   {
     "Company": "Tevogen Bio Holdings Inc. Warrant",
     "Symbol": "TVGNW"
+  },
+  {
+    "Company": "Tvardi Therapeutics, Inc. Common Stock",
+    "Symbol": "TVRD"
   },
   {
     "Company": "Travere Therapeutics, Inc. Common Stock",

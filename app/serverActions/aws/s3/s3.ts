@@ -12,8 +12,8 @@ import {
   CopyObjectCommandInput,
 } from '@aws-sdk/client-s3'
 import { Bucket, S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { awsCreds } from 'app/api/aws/awsHelper'
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 
 const s3Client = new S3Client({ region: 'us-east-1', credentials: awsCreds })
 export async function putItem(bucket: Bucket, prefix: string, filename: string, mimeType: string, fileSize: number, body: any) {
@@ -56,7 +56,9 @@ export async function getPresignedUrl(item: S3Object) {
   }
 
   const command = new GetObjectCommand(params)
-  const url = await getSignedUrl(s3Client, command)
+  const client = new S3Client({ region: 'us-east-1', credentials: awsCreds })
+  // @ts-ignore
+  const url = await getSignedUrl(client, command)
   return url
 }
 

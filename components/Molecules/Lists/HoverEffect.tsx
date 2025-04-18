@@ -1,7 +1,7 @@
 import { Stack, styled, useTheme } from '@mui/material'
 import React, { ReactNode } from 'react'
 
-const HoverEffect = ({ children }: { children: ReactNode | JSX.Element[] }) => {
+const HoverEffect = ({ children }: { children: ReactNode | React.JSX.Element[] }) => {
   const theme = useTheme()
   const StyledBox = styled(Stack)`
     & .MuiStack-root {

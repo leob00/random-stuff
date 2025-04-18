@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getPresignedUrl } from 'app/serverActions/aws/s3/s3'
 import { getUserSSRAppRouteApi } from 'app/serverActions/auth/user'
 
-export async function POST(req: NextRequest, res: NextResponse) {
-  const user = await getUserSSRAppRouteApi(req, res)
+export async function POST(req: NextRequest) {
+  const user = await getUserSSRAppRouteApi()
   if (!user) {
     return NextResponse.json('unauthorized', { status: 403 })
   }

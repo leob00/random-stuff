@@ -149,7 +149,6 @@ const DraggableList = ({ items, onPushChanges, onEditSingleItem, isLoading }: Dr
           </Typography>
         </CenterStack>
       </Box>
-      {/* @ts-expect-error needs to be reviewed */}
       <DragDropContext onDragEnd={onDragEnd}>
         <StrictModeDroppable droppableId='droppable-list'>
           {(provided) => (

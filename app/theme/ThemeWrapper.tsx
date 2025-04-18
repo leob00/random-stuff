@@ -3,8 +3,9 @@ import AppLayout from 'components/app/AppLayout'
 import { ReactNode, useEffect, useState } from 'react'
 import ThemeRegistry from './ThemeRegistry'
 import { useSessionSettings } from 'components/Organizms/session/useSessionSettings'
+import React from 'react'
 
-const ThemeWrapper = ({ children }: { children: ReactNode | JSX.Element[] }) => {
+const ThemeWrapper = ({ children }: { children: ReactNode | React.JSX.Element[] }) => {
   const { palette, savePalette } = useSessionSettings()
   // console.log('palette: ', palette)
   const handleChangeTheme = async (mode: 'light' | 'dark') => {

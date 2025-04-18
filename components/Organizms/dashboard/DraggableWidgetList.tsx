@@ -47,7 +47,6 @@ const DraggableWidgetList = ({ items, onPushChanges }: DraggableListProps) => {
           <Typography variant='body2'>You can reorder your list by dragging and dropping items.</Typography>
         </CenterStack>
       </Box>
-      {/* @ts-expect-error needs to be reviewed */}
       <DragDropContext onDragEnd={onDragEnd}>
         <StrictModeDroppable droppableId='droppable-dashboard-list'>
           {(provided) => (

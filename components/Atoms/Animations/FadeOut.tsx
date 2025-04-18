@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
+import React from 'react'
 import { ReactNode } from 'react'
 
-const FadeOut = ({ duration = 0.9, children }: { duration?: number; children: ReactNode | JSX.Element[] }) => {
+const FadeOut = ({ duration = 0.9, children }: { duration?: number; children: ReactNode | React.JSX.Element[] }) => {
   return (
     <motion.div
       animate={{

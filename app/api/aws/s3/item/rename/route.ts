@@ -8,8 +8,8 @@ type Payload = {
   newPath: string
 }
 
-export async function POST(req: NextRequest, res: NextResponse) {
-  const user = await getUserSSRAppRouteApi(req, res)
+export async function POST(req: NextRequest) {
+  const user = await getUserSSRAppRouteApi()
   if (!user) {
     return NextResponse.json('unauthorized', { status: 403 })
   }

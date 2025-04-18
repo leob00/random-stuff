@@ -61,7 +61,6 @@ const DraggableList = ({ items, onPushChanges }: DraggableListProps) => {
           <Typography variant='caption'>You can reorder your list by dragging and dropping items.</Typography>
         </CenterStack>
       </Box>
-      {/* @ts-expect-error needs to be reviewed */}
       <DragDropContext onDragEnd={onDragEnd}>
         <StrictModeDroppable droppableId='droppable-econ-list'>
           {(provided) => (

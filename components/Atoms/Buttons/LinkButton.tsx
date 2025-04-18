@@ -8,7 +8,7 @@ const LinkButton = ({
   disabled,
   underline,
 }: {
-  children: ReactNode | JSX.Element[]
+  children: ReactNode | React.JSX.Element[]
   onClick: (e?: React.MouseEvent<HTMLButtonElement>) => void
   props?: ButtonProps
   disabled?: boolean
