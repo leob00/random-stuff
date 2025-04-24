@@ -15,6 +15,7 @@ const RecentEarningsReportWrapper = () => {
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   return (
     <>
+      {isLoading && <BackdropLoader />}
       <Box py={2}>
         {!isLoading && data && data.length === 0 && <NoDataFound />}
         {data && data.length > 0 && <RecentEarningsReport data={data} />}

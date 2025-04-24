@@ -16,7 +16,7 @@ const HistoricalAggregateDisplay = ({ aggregate, isLoading }: { aggregate: Histo
         <Box display={'flex'} gap={2}>
           <Typography variant='h5' fontWeight={600} color={color}>{`$${numeral(aggregate.Change).format('###,###,0.00')}`}</Typography>
           <Typography variant='h5' fontWeight={600} color={color}>{``}</Typography>
-          <Typography variant='h5' fontWeight={600} color={color}>{`${aggregate.Percentage}%`}</Typography>
+          <Typography variant='h5' fontWeight={600} color={color}>{`${numeral(aggregate.Percentage).format('###,###,0.000')}%`}</Typography>
         </Box>
       </Box>
     )

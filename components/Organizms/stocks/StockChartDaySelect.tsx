@@ -3,6 +3,7 @@ import FormDropdownListNumeric from 'components/Molecules/Forms/ReactHookForm/Fo
 import dayjs from 'dayjs'
 import { DateRange } from 'lib/backend/api/qln/qlnApi'
 import { DropdownItemNumeric } from 'lib/models/dropdown'
+import { max } from 'lodash'
 
 const StockChartDaySelect = ({
   selectedDays,
@@ -19,12 +20,20 @@ const StockChartDaySelect = ({
     }
   }
   const options: DropdownItemNumeric[] = availableDates
-    ? stockChartDaySelect.filter((m) => m.value <= dayjs().diff(dayjs(availableDates.StartDate), 'days'))
+    ? stockChartDaySelect.filter((m) => m.value <= dayjs(availableDates.EndDate).diff(dayjs(availableDates.StartDate), 'days'))
     : getstockChartDays()
+
+  let daysToSelect = selectedDays
+  if (!!availableDates) {
+    const maxDays = max(options.map((m) => m.value))!
+    if (selectedDays > maxDays) {
+      daysToSelect = options[options.length - 1].value
+    }
+  }
 
   return (
     <Box textAlign={'right'} pr={1} py={1}>
-      <FormDropdownListNumeric options={options} value={selectedDays} onOptionSelected={handleDaysSelected} />
+      <FormDropdownListNumeric options={options} value={daysToSelect} onOptionSelected={handleDaysSelected} />
     </Box>
   )
 }

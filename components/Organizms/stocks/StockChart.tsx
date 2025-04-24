@@ -14,7 +14,7 @@ import { mutate } from 'swr'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import StockChartDaySelect, { getYearToDateDays } from './StockChartDaySelect'
-import { HistoricalAggregate } from 'lib/backend/api/qln/qlnApi'
+import { DateRange, HistoricalAggregate } from 'lib/backend/api/qln/qlnApi'
 import HistoricalAggregateDisplay from './HistoricalAggregateDisplay'
 import { sleep } from 'lib/util/timers'
 import { shrinkList } from './lineChartOptions'
@@ -24,18 +24,19 @@ interface Model {
   history: StockHistoryItem[]
   chartOptions: ApexOptions
   aggregate: HistoricalAggregate
+  availableDates?: DateRange | null
 }
 
 const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyName?: string; isStock: boolean }) => {
   const theme = useTheme()
-  const { stocksChart, saveStockChart } = useSessionStore()
+  const { stocksChart: stockChartSettings, saveStockChart } = useSessionStore()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const chartHeight = isXSmall ? 300 : 520
   const mutateKey = `stock-chart-${symbol}`
   const [isWaiting, setIsWaiting] = useState(false)
 
   const dataFn = async () => {
-    let days = stocksChart.defaultDays
+    let days = stockChartSettings.defaultDays
     if (days === -1) {
       days = getYearToDateDays()
     }
@@ -49,6 +50,7 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
       history: history,
       aggregate: response.Aggregate,
       chartOptions: options,
+      availableDates: response.AvailableDates,
     }
 
     return result
@@ -62,19 +64,21 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
     let days = val
     if (val === -1) {
       days = getYearToDateDays()
-      saveStockChart({ ...stocksChart, defaultDays: -1 })
+      saveStockChart({ ...stockChartSettings, defaultDays: -1 })
       mutate(mutateKey)
       setIsWaiting(false)
       return
     }
-    saveStockChart({ ...stocksChart, defaultDays: days })
+    saveStockChart({ ...stockChartSettings, defaultDays: days })
     mutate(mutateKey)
     setIsWaiting(false)
   }
 
   return (
     <Box>
-      <StockChartDaySelect selectedDays={stocksChart.defaultDays} onSelected={handleDaysSelected} />
+      {data && (
+        <StockChartDaySelect selectedDays={stockChartSettings.defaultDays} onSelected={handleDaysSelected} availableDates={data.availableDates ?? undefined} />
+      )}
 
       <>
         {companyName && (

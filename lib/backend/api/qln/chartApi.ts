@@ -1,9 +1,10 @@
 import { StockHistoryItem, quoteHistorySchema } from '../models/zModels'
-import { HistoricalAggregate, serverGetFetch } from './qlnApi'
+import { DateRange, HistoricalAggregate, serverGetFetch } from './qlnApi'
 
 export type StockChartApiResponse = {
   History: StockHistoryItem[]
   Aggregate: HistoricalAggregate
+  AvailableDates: DateRange | null
 }
 
 export async function getStockOrFutureChart(symbol: string, days?: number, isStock = true) {
@@ -12,6 +13,7 @@ export async function getStockOrFutureChart(symbol: string, days?: number, isSto
   const apiResult: StockChartApiResponse = {
     Aggregate: resp.Body.Aggregate as HistoricalAggregate,
     History: quoteHistorySchema.parse(resp.Body.History),
+    AvailableDates: resp.Body.AvailableDates ? (resp.Body.AvailableDates as DateRange) : null,
   }
 
   return apiResult

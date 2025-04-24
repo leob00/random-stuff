@@ -441,6 +441,7 @@ export interface HistoricalAggregate {
   Days: number
   Change: number
   Percentage: number
+  AvailableDates: DateRange | null
 }
 
 export interface Company {
