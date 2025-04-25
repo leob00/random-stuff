@@ -37,7 +37,7 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
 
   const loadDetails = async (quote: StockQuote, days: number) => {
     setIsLoading(true)
-    const histDays = days === 0 ? getYearToDateDays() : days
+    const histDays = days === -1 || days === 0 ? getYearToDateDays() : days
     const resp = await serverPostFetch({ body: { key: quote.Symbol, HistoryDays: histDays } }, '/Crypto')
     setIsLoading(false)
     const result = resp.Body as DetailsModel

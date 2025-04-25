@@ -1,6 +1,5 @@
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import { apiConnection } from 'lib/backend/api/config'
 import { serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import LoginUsernameForm, { UsernameLogin } from 'components/Molecules/Forms/Login/LoginUsernameForm'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
@@ -14,7 +13,6 @@ const QlnUsernameLoginForm = ({ onSuccess }: { onSuccess: (claims: Claim[]) => v
   const [loginError, setLoginError] = useState<string | undefined>(undefined)
   const [showLoginSuccess, setShowLoginSuccess] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const config = apiConnection().qln
   const { claims, saveClaims } = useSessionStore()
   const router = useRouter()
 
