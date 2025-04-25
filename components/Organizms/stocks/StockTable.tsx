@@ -5,10 +5,11 @@ import dayjs from 'dayjs'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import StockListItem from './StockListItem'
+import { MarketCategory } from 'lib/backend/api/qln/chartApi'
 
 const StockTable = ({
   stockList,
-  isStock,
+  marketCategory,
   scrollIntoView,
   scrollMargin = -10,
   showGroupName = true,
@@ -16,7 +17,7 @@ const StockTable = ({
   featuredField,
 }: {
   stockList: StockQuote[]
-  isStock: boolean
+  marketCategory: MarketCategory
   scrollIntoView?: boolean
   scrollMargin?: number
   showGroupName?: boolean
@@ -28,7 +29,7 @@ const StockTable = ({
       <Box pl={1}>
         {stockList.map((item) => (
           <Box key={`${item.Symbol}`}>
-            <StockListItem item={item} isStock={isStock} showGroupName={showGroupName} featuredField={featuredField} scrollIntoView />
+            <StockListItem item={item} marketCategory={marketCategory} showGroupName={showGroupName} featuredField={featuredField} scrollIntoView />
           </Box>
         ))}
         {stockList.length > 0 ? (

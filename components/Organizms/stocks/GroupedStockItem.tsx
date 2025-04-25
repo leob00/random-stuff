@@ -39,7 +39,7 @@ const GroupedStockItem = ({ stockGroup }: { stockGroup: StockGroup }) => {
         {expanded && (
           <>
             {/* <ScrollIntoView enabled={expanded} margin={-20} /> */}
-            <StockTable isStock={true} stockList={stockGroup.quotes} showGroupName={false} showSummary={false} scrollIntoView={expanded} />
+            <StockTable marketCategory={'stocks'} stockList={stockGroup.quotes} showGroupName={false} showSummary={false} scrollIntoView={expanded} />
           </>
         )}
       </FadeIn>

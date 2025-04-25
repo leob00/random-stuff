@@ -62,10 +62,10 @@ const PagedStockTable = ({
         )}
         {scrollInside ? (
           <ScrollableBox scroller={scroller}>
-            <StockTable stockList={items} isStock={true} showGroupName={showGroupName} showSummary={false} featuredField={featuredField} />
+            <StockTable stockList={items} marketCategory={'stocks'} showGroupName={showGroupName} showSummary={false} featuredField={featuredField} />
           </ScrollableBox>
         ) : (
-          <StockTable stockList={items} isStock={true} showGroupName={showGroupName} showSummary={false} featuredField={featuredField} />
+          <StockTable stockList={items} marketCategory={'stocks'} showGroupName={showGroupName} showSummary={false} featuredField={featuredField} />
         )}
       </Box>
       <Pager

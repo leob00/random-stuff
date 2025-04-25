@@ -3,7 +3,7 @@ import { ApexOptions } from 'apexcharts'
 import CenterStack from 'components/Atoms/CenterStack'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
-import { getStockOrFutureChart } from 'lib/backend/api/qln/chartApi'
+import { getMarketChart, getStockOrFutureChart, MarketCategory } from 'lib/backend/api/qln/chartApi'
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
 import StockChartWithVolume from './StockChartWithVolume'
@@ -27,7 +27,7 @@ interface Model {
   availableDates?: DateRange | null
 }
 
-const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyName?: string; isStock: boolean }) => {
+const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; companyName?: string; marketCategory: MarketCategory }) => {
   const theme = useTheme()
   const { stocksChart: stockChartSettings, saveStockChart } = useSessionStore()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
@@ -41,7 +41,7 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
       days = getYearToDateDays()
     }
 
-    const response = await getStockOrFutureChart(symbol, days, isStock)
+    const response = await getMarketChart(symbol, marketCategory, days)
     const history = shrinkList(response.History, 60)
     const map = mapHistory(history, 'Price')
     const options = getOptions(map, history, isXSmall, theme.palette.mode)
@@ -92,8 +92,8 @@ const StockChart = ({ symbol, companyName, isStock }: { symbol: string; companyN
           {data && (
             <Box>
               {data.aggregate && <HistoricalAggregateDisplay aggregate={data.aggregate} isLoading={isWaiting} />}
-              {isStock && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading || isWaiting} />}
-              {!isStock && (
+              {marketCategory == 'stocks' && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading || isWaiting} />}
+              {!(marketCategory == 'stocks') && (
                 <>
                   {/* {isLoading && <BackdropLoader />} */}
                   <Box minHeight={{ xs: 300, sm: chartHeight }} pt={2}>

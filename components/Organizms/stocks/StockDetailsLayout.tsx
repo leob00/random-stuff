@@ -15,7 +15,7 @@ const StockDetailsLayout = ({ symbol, disableCollapse = false }: { symbol: strin
   return (
     <>
       {isLoading && <BackdropLoader />}
-      {data && data.length > 0 && <StockListItem isStock item={data[0]} expand scrollIntoView disabled={disableCollapse} />}
+      {data && data.length > 0 && <StockListItem marketCategory='stocks' item={data[0]} expand scrollIntoView disabled={disableCollapse} />}
     </>
   )
 }

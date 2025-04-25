@@ -17,7 +17,7 @@ const FullStockDetail = ({ item, onClose, isStock }: { item: StockQuote; onClose
         </Box>
       </Box>
       <Box>
-        <StockListItem key={item.Symbol} item={item} isStock expand disabled scrollIntoView={false} />
+        <StockListItem key={item.Symbol} item={item} marketCategory='stocks' expand disabled scrollIntoView={false} />
       </Box>
     </Box>
   )

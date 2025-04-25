@@ -25,11 +25,12 @@ import { useEffect, useRef, useState } from 'react'
 import StockDividendDetails from './dividends/StockDividendDetails'
 import StockField from './StockField'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import { MarketCategory } from 'lib/backend/api/qln/chartApi'
 
 const StockListItem = ({
   item,
   expand = false,
-  isStock = true,
+  marketCategory,
   showGroupName = true,
   scrollIntoView = true,
   disabled,
@@ -37,7 +38,7 @@ const StockListItem = ({
 }: {
   item: StockQuote
   expand?: boolean
-  isStock: boolean
+  marketCategory: MarketCategory
   showGroupName?: boolean
   scrollIntoView?: boolean
   disabled?: boolean
@@ -56,6 +57,7 @@ const StockListItem = ({
   const [selectedTab, setSelectedTab] = useState('Details')
   const scrollTarget = useRef<HTMLSpanElement | null>(null)
   const tabScrollTarget = useRef<HTMLSpanElement | null>(null)
+  const isStock = marketCategory === 'stocks'
   const handleCompanyClick = async () => {
     if (!disabled) {
       setShowMore(!showMore)
@@ -98,7 +100,7 @@ const StockListItem = ({
         <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
         <FadeIn>
           <Box>
-            {isStock ? (
+            {marketCategory === 'stocks' ? (
               <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={handleCompanyClick} disabled={disabled} elevation={0} />
             ) : (
               <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} elevation={0} />
@@ -125,7 +127,7 @@ const StockListItem = ({
         {showMore && (
           <>
             <Box minHeight={{ xs: 300, sm: 600 }}>
-              <StockChart symbol={item.Symbol} isStock={isStock} />
+              <StockChart symbol={item.Symbol} marketCategory={marketCategory} />
             </Box>
             {isStock && (
               <>

@@ -1,6 +1,5 @@
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { StockAlertSubscription, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 import React from 'react'
 import StockListItem from '../StockListItem'
@@ -34,7 +33,7 @@ const StockSubscriptionForm = ({
     <FormDialog title={'Alerts'} show={show} onCancel={onClose}>
       <>
         <Box>
-          <StockListItem isStock={true} item={quote} disabled showGroupName={false} />
+          <StockListItem marketCategory={'stocks'} item={quote} disabled showGroupName={false} />
         </Box>
         {sub.triggers.map((trigger, i) => (
           <Box key={trigger.typeId}>{renderForm(trigger, i)}</Box>

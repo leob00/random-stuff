@@ -30,7 +30,7 @@ const AddQuote = ({
           <Close color='primary' fontSize='small' />
         </IconButton>
       </Box>
-      <StockListItem item={quote} expand={true} isStock={true} showGroupName={true} scrollIntoView={scrollIntoView} />
+      <StockListItem item={quote} expand={true} marketCategory={'stocks'} showGroupName={true} scrollIntoView={scrollIntoView} />
       {alreadyExists && showAddToListButton && (
         <CenterStack>
           <Alert severity='success'>

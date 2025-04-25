@@ -5168,6 +5168,14 @@
     "Symbol": "BOE"
   },
   {
+    "Company": "Direxion Daily BA Bear 1X Shares",
+    "Symbol": "BOED"
+  },
+  {
+    "Company": "Direxion Daily BA Bull 2X Shares",
+    "Symbol": "BOEU"
+  },
+  {
     "Company": "BranchOut Food Inc. Common Stock",
     "Symbol": "BOF"
   },
@@ -5812,7 +5820,7 @@
     "Symbol": "BTOC"
   },
   {
-    "Company": "Bit Origin Limited Ordinary Shares",
+    "Company": "Bit Origin Limited Class A Ordinary Shares",
     "Symbol": "BTOG"
   },
   {
@@ -16876,6 +16884,10 @@
     "Symbol": "GMET"
   },
   {
+    "Company": "T-REX 2X Long GME Daily Target ETF",
+    "Symbol": "GMEU"
+  },
+  {
     "Company": "SPDR S&P Emerging Asia Pacific ETF",
     "Symbol": "GMF"
   },
@@ -17572,7 +17584,7 @@
     "Symbol": "GTN"
   },
   {
-    "Company": "Gray Media, Inc. Class A",
+    "Company": "Gray Television, Inc. Class A",
     "Symbol": "GTN.A"
   },
   {
@@ -22374,6 +22386,10 @@
   {
     "Company": "Kelly Services Inc",
     "Symbol": "KELYA"
+  },
+  {
+    "Company": "Kelly Services Inc",
+    "Symbol": "KELYB"
   },
   {
     "Company": "KraneShares Dynamic Emerging Markets Strategy ETF",
@@ -27870,6 +27886,10 @@
   {
     "Company": "SERVICENOW, INC.",
     "Symbol": "NOW"
+  },
+  {
+    "Company": "New Providence Acquisition Corp. III Units",
+    "Symbol": "NPACU"
   },
   {
     "Company": "Northpointe Bancshares, Inc.",
@@ -36460,6 +36480,10 @@
     "Symbol": "SNOA"
   },
   {
+    "Company": "T-REX 2X Long SNOW Daily Target ETF",
+    "Symbol": "SNOU"
+  },
+  {
     "Company": "FT Vest U.S. Small Cap Moderate Buffer ETF - November",
     "Symbol": "SNOV"
   },
@@ -41488,6 +41512,10 @@
     "Symbol": "VIVK"
   },
   {
+    "Company": "VivoSim Labs, Inc. Common Stock",
+    "Symbol": "VIVS"
+  },
+  {
     "Company": "ProShares VIX Mid-Term Futures ETF",
     "Symbol": "VIXM"
   },
@@ -42620,6 +42648,10 @@
     "Symbol": "WLAC"
   },
   {
+    "Company": "Willow Lane Acquisition Corp. Unit",
+    "Symbol": "WLACU"
+  },
+  {
     "Company": "Willow Lane Acquisition Corp. Warrants",
     "Symbol": "WLACW"
   },
@@ -43450,6 +43482,10 @@
   {
     "Company": "YieldMax XOM Option Income Strategy ETF",
     "Symbol": "XOMO"
+  },
+  {
+    "Company": "Direxion Daily XOM Bull 2X Shares",
+    "Symbol": "XOMX"
   },
   {
     "Company": "BondBloxx Bloomberg One Year Target Duration US Treasury ETF",

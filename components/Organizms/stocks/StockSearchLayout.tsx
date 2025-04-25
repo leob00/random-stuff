@@ -277,7 +277,7 @@ const StockSearchLayout = () => {
                         <FlatListMenu onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={handleShowAsGroup} />
                       </Box>
                       <Box display={'flex'} justifyContent={'flex-end'}></Box>
-                      <StockTable stockList={model.stockList ?? []} isStock={true} />
+                      <StockTable stockList={model.stockList ?? []} marketCategory={'stocks'} />
                     </Box>
                   )}
                 </>

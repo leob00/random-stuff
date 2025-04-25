@@ -22,7 +22,7 @@ const CommoditiesLayout = () => {
       {data && (
         <Box pt={2}>
           <ScrollIntoView enabled />
-          <StockTable stockList={data} isStock={false} showSummary />
+          <StockTable stockList={data} marketCategory='commodities' showSummary />
         </Box>
       )}
     </Box>

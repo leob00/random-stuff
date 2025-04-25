@@ -59,7 +59,7 @@ const StockEarningsSearchDisplay = () => {
         <>
           {stockQuote && (
             <Box py={2}>
-              <StockListItem item={stockQuote} expand={false} disabled isStock />
+              <StockListItem item={stockQuote} expand={false} disabled marketCategory='stocks' />
             </Box>
           )}
         </>
