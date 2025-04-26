@@ -60,16 +60,12 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
 
   const handleDaysSelected = async (val: number) => {
     setIsWaiting(true)
-    await sleep(650)
     let days = val
     if (val === -1) {
       days = getYearToDateDays()
-      saveStockChart({ ...stockChartSettings, defaultDays: -1 })
-      mutate(mutateKey)
-      setIsWaiting(false)
-      return
     }
-    saveStockChart({ ...stockChartSettings, defaultDays: days })
+    saveStockChart({ ...stockChartSettings, defaultDays: val === -1 ? val : days })
+    await sleep(650)
     mutate(mutateKey)
     setIsWaiting(false)
   }

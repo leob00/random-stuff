@@ -5,6 +5,7 @@ export type StockChartApiResponse = {
   History: StockHistoryItem[]
   Aggregate: HistoricalAggregate
   AvailableDates: DateRange | null
+  Name?: string | null
 }
 
 export type MarketCategory = 'stocks' | 'commodities' | 'crypto'

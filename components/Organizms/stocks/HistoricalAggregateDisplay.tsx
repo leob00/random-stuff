@@ -27,7 +27,7 @@ const HistoricalAggregateDisplay = ({ aggregate, isLoading }: { aggregate: Histo
       <Box>
         {!isLoading ? (
           <Box>
-            <FadeIn duration={0.5}>{MovingAvgDisplay()}</FadeIn>
+            <FadeIn duration={0.75}>{MovingAvgDisplay()}</FadeIn>
           </Box>
         ) : (
           <Box>
