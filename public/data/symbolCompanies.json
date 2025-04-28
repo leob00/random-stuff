@@ -2172,6 +2172,10 @@
     "Symbol": "APPS"
   },
   {
+    "Company": "Tradr 2X Long APP Daily ETF",
+    "Symbol": "APPX"
+  },
+  {
     "Company": "Innovator Premium Income 10 Barrier ETF - April",
     "Symbol": "APRD"
   },
@@ -3966,6 +3970,10 @@
   {
     "Company": "BriaCell Therapeutics Corp. Warrant",
     "Symbol": "BCTXW"
+  },
+  {
+    "Company": "BriaCell Therapeutics Corp. Warrant",
+    "Symbol": "BCTXZ"
   },
   {
     "Company": "Bancreek U.S. Large Cap ETF",
@@ -7234,6 +7242,10 @@
   {
     "Company": "Chagee Holdings Limited American Depositary Shares",
     "Symbol": "CHA"
+  },
+  {
+    "Company": "Crane Harbor Acquistion Corp. Units",
+    "Symbol": "CHACU"
   },
   {
     "Company": "Charlton Aria Acquisition Corporation Class A Ordinary Shares",
@@ -15544,14 +15556,6 @@
     "Symbol": "FTIF"
   },
   {
-    "Company": "FutureTech II Acquisition Corp. Class A Common Stock",
-    "Symbol": "FTII"
-  },
-  {
-    "Company": "FutureTech II Acquisition Corp. Warrant",
-    "Symbol": "FTIIW"
-  },
-  {
     "Company": "Flotek Industries, Inc.",
     "Symbol": "FTK"
   },
@@ -16684,10 +16688,6 @@
     "Symbol": "GLACR"
   },
   {
-    "Company": "Global Lights Acquisition Corp Unit",
-    "Symbol": "GLACU"
-  },
-  {
     "Company": "Gladstone Capital Corp",
     "Symbol": "GLAD"
   },
@@ -17584,7 +17584,7 @@
     "Symbol": "GTN"
   },
   {
-    "Company": "Gray Television, Inc. Class A",
+    "Company": "Gray Media, Inc. Class A",
     "Symbol": "GTN.A"
   },
   {
@@ -17932,10 +17932,6 @@
     "Symbol": "HCOW"
   },
   {
-    "Company": "HashiCorp, Inc. Class A Common Stock",
-    "Symbol": "HCP"
-  },
-  {
     "Company": "Hartford Core Bond ETF",
     "Symbol": "HCRB"
   },
@@ -18164,7 +18160,7 @@
     "Symbol": "HFWA"
   },
   {
-    "Company": "NYLI FTSE International Equity Currency Neutral ETF",
+    "Company": "IQ FTSE International Equity Currency Neutral ETF",
     "Symbol": "HFXI"
   },
   {
@@ -20680,6 +20676,10 @@
     "Symbol": "IPB"
   },
   {
+    "Company": "Inflection Point Acquisition Corp. III Units",
+    "Symbol": "IPCXU"
+  },
+  {
     "Company": "Professional Diversity Network, Inc.",
     "Symbol": "IPDN"
   },
@@ -21948,7 +21948,7 @@
     "Symbol": "JPEM"
   },
   {
-    "Company": "Nuveen Preferred Securities & Income Opportunities Fund",
+    "Company": "NUVEEN PREFERRED AND INCOME TERM FUND",
     "Symbol": "JPI"
   },
   {
@@ -23770,10 +23770,6 @@
   {
     "Company": "Lichen China Limited Class A Ordinary Shares",
     "Symbol": "LICN"
-  },
-  {
-    "Company": "Li-Cycle Holdings Corp.",
-    "Symbol": "LICY"
   },
   {
     "Company": "AEye, Inc. Class A Common Stock",
@@ -25868,7 +25864,7 @@
     "Symbol": "MMYT"
   },
   {
-    "Company": "IQ ARB Merger Arbitrage ETF",
+    "Company": "NYLI Merger Arbitrage ETF",
     "Symbol": "MNA"
   },
   {
@@ -30696,6 +30692,10 @@
     "Symbol": "PHO"
   },
   {
+    "Company": "Phoenix Asia Holdings Limited Ordinary Shares",
+    "Symbol": "PHOE"
+  },
+  {
     "Company": "Phreesia, Inc.",
     "Symbol": "PHR"
   },
@@ -30996,6 +30996,10 @@
     "Symbol": "PLTD"
   },
   {
+    "Company": "Leverage Shares 2X Long PLTR Daily ETF",
+    "Symbol": "PLTG"
+  },
+  {
     "Company": "Playtika Holding Corp. Common Stock",
     "Symbol": "PLTK"
   },
@@ -31286,10 +31290,6 @@
   {
     "Company": "AMMO, Inc. 8.75% Series A Cumulative Redeemable Perpetual Preferred Stock",
     "Symbol": "POWWP"
-  },
-  {
-    "Company": "The Meet Kevin Pricing Power ETF",
-    "Symbol": "PP"
   },
   {
     "Company": "Invesco Aerospace & Defense ETF",
@@ -32214,6 +32214,10 @@
   {
     "Company": "D-Wave Quantum Inc. Warrants, each whole warrant exercisable for 1.4541326 shares of Common Stock at an exercise price of $11.50",
     "Symbol": "QBTS.WS"
+  },
+  {
+    "Company": "Tradr 2X Long QBTS Daily ETF",
+    "Symbol": "QBTX"
   },
   {
     "Company": "Innovator Nasdaq-100 10 Buffer ETF Quarterly",
@@ -37376,12 +37380,16 @@
     "Symbol": "SSD"
   },
   {
-    "Company": "Day Hagan/Ned Davis Research Smart Sector Fixed Income ETF",
+    "Company": "Day Hagan Smart Sector Fixed Income ETF",
     "Symbol": "SSFI"
   },
   {
     "Company": "ProShares UltraShort Semiconductors",
     "Symbol": "SSG"
+  },
+  {
+    "Company": "SS Innovations International Inc. Common Stock",
+    "Symbol": "SSII"
   },
   {
     "Company": "Strata Skin Sciences, Inc. Common Stock",
@@ -37440,11 +37448,11 @@
     "Symbol": "SSTK"
   },
   {
-    "Company": "Day Hagan Ned Davis Research Smart Sector ETF",
+    "Company": "Day Hagan Smart Sector ETF",
     "Symbol": "SSUS"
   },
   {
-    "Company": "Day Hagan/Ned Davis Research Smart Sector International ETF",
+    "Company": "Day Hagan Smart Sector International ETF",
     "Symbol": "SSXU"
   },
   {

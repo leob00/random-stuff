@@ -30,9 +30,13 @@ const ListHeaderStack = ({
           onClicked?.(item)
         }}
       >
-        <Typography textAlign={'left'} variant='h6' color='primary' sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}>
-          {text}
-        </Typography>
+        <Typography
+          textAlign={'left'}
+          variant='h6'
+          color='primary'
+          sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}
+          dangerouslySetInnerHTML={{ __html: text }}
+        ></Typography>
       </Box>
       <Box>{showContextMenu && <ContextMenu items={contextMenu} />}</Box>
     </Stack>

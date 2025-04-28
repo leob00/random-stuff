@@ -1,32 +1,48 @@
 import { Box } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import dayjs from 'dayjs'
-import { apiConnection } from 'lib/backend/api/config'
-import { get } from 'lib/backend/api/fetchFunctions'
-import { EconCalendarItem, QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
-import React from 'react'
-import useSWR, { Fetcher } from 'swr'
+import { DateRange, EconCalendarItem, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 import EconCalendarDisplay from './EconCalendarDisplay'
 import weekday from 'dayjs/plugin/weekday'
+import { useSwrHelper } from 'hooks/useSwrHelper'
+import { useState } from 'react'
+import { mutate } from 'swr'
+import { sortArray } from 'lib/util/collections'
 dayjs.extend(weekday)
 
-interface Model {
-  date: string
-  items: EconCalendarItem[]
+export interface EconCalendarBody {
+  Items: EconCalendarItem[]
+  AvailableDates: DateRange
 }
-const config = apiConnection().qln
-const apiUrl = `${config.url}/EconCalendar`
-const fetcher: Fetcher<QlnApiResponse> = (url: string) => get(url)
 
 const EconCalendarLayout = () => {
-  const { data, isLoading, isValidating } = useSWR(apiUrl, fetcher, { refreshInterval: 60000, revalidateOnFocus: false })
-  const isWaiting = isLoading || isValidating
+  const [selectedDate, setSelectedDate] = useState(dayjs(dayjs().format('MM/DD/YYYY')).format())
+  const [availableDates, setAvailableDates] = useState<DateRange | null>(null)
+  const mutateKey = `econ-calendar-${selectedDate}`
+  var dataFn = async () => {
+    const endPoint = '/EconCalendarSearch'
+    const filter = {
+      StartDate: dayjs(selectedDate).format(),
+      EndDate: dayjs(selectedDate).add(1, 'days').format(),
+    }
+    const resp = await serverPostFetch({ body: filter }, endPoint)
+    const result = resp.Body as EconCalendarBody
+    if (!availableDates) {
+      setAvailableDates(result.AvailableDates)
+    }
+    return { ...result, Items: sortArray(result.Items, ['EventDate'], ['asc']) }
+  }
+  const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
+
+  const handleDateSelected = (dt: string) => {
+    setSelectedDate(dayjs(dt).format())
+    mutate(mutateKey)
+  }
+
   return (
     <Box py={2}>
-      {isWaiting && <BackdropLoader />}
-      {!isWaiting && data && data.Body.length === 0 && <NoDataFound />}
-      {data && <EconCalendarDisplay apiResult={data} />}
+      {isLoading && <BackdropLoader />}
+      {availableDates && <EconCalendarDisplay apiResult={data} selectedDate={selectedDate} onChangeDate={handleDateSelected} availableDates={availableDates} />}
     </Box>
   )
 }

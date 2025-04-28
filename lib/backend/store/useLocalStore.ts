@@ -5,10 +5,14 @@ import { StockQuote } from '../api/models/zModels'
 import { EconomicDataItem } from '../api/qln/qlnModels'
 import { DashboardWidgetWithSettings } from 'components/Organizms/dashboard/dashboardModel'
 import { StockQuoteSort } from '../api/models/collections'
+import { EconCalendarFilter } from 'components/Organizms/stocks/EconCalendarDisplay'
 
 export interface StockSettings extends UserStockSettings {
   data: StockQuote[]
   lastRefreshDate?: string
+}
+export type EconCalendarSettings = {
+  filter?: EconCalendarFilter
 }
 
 export interface LocalStore {
@@ -24,6 +28,8 @@ export interface LocalStore {
   saveDashboardWidgets: (items: DashboardWidgetWithSettings[]) => void
   cryptoSettings: CryptoSettings | null
   saveCryptoSettings: (items: CryptoSettings) => void
+  econCalendarSettings?: EconCalendarSettings
+  setEconCalendarSettings: (item: EconCalendarSettings) => void
 }
 
 export const useLocalStore = create(
@@ -59,6 +65,7 @@ export const useLocalStore = create(
       saveDashboardWidgets: (val) => set((state) => ({ ...state, dashboardWidgets: val })),
       cryptoSettings: null,
       saveCryptoSettings: (cryptoSettings: CryptoSettings) => set((state) => ({ ...state, cryptoSettings: cryptoSettings })),
+      setEconCalendarSettings: (settings: EconCalendarSettings) => set((state) => ({ ...state, econCalendarSettings: settings })),
     }),
     {
       name: 'rs-local-store',

@@ -404,10 +404,15 @@ export async function getFutures() {
 }
 
 export interface EconCalendarItem {
+  RecordId: string
+  TypeId: string
   EventDate: string
-  Name: string
-  Description: string | null
-  Url: string | null
+  Actual: number | null
+  Consensus: number | null
+  Previous: number | null
+  TypeName: string
+  TypeDescription: string
+  Country: string
 }
 export interface StockEarning {
   Symbol: string

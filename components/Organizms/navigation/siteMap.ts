@@ -124,6 +124,11 @@ export const flatSiteMap: Navigation[] = [
     category: 'Economy',
   },
   {
+    name: 'economic calendar',
+    path: '/csr/economic-calendar',
+    category: 'Economy',
+  },
+  {
     name: 'goals',
     path: '/protected/csr/goals',
     category: 'Personal',
