@@ -14,6 +14,7 @@ import { DropdownItem } from 'lib/models/dropdown'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
+import { sortArray } from 'lib/util/collections'
 
 dayjs.extend(isSameOrAfter)
 
@@ -44,7 +45,7 @@ const EconCalendarDisplay = ({
     }
   })
 
-  const countryDropdown = [{ text: 'All', value: 'all' }, ...countryOptions]
+  const countryDropdown = [{ text: 'All', value: 'all' }, ...sortArray(countryOptions, ['text'], ['asc'])]
 
   const filteredItems = filterItems(apiResult?.Items ?? [], econCalendarSettings?.filter)
 
