@@ -29,15 +29,16 @@ const EconCalendarDisplay = ({
   selectedDate,
   onChangeDate,
   availableDates,
+  availableCountries,
 }: {
   apiResult?: EconCalendarBody
   selectedDate: string
   onChangeDate: (dt: string) => void
   availableDates: DateRange
+  availableCountries: string[]
 }) => {
   const { econCalendarSettings, setEconCalendarSettings } = useLocalStore()
-  const countries = new Set(apiResult?.Items.flatMap((m) => m.Country))
-  const availableCountries = Array.from(countries.values())
+
   const countryOptions: DropdownItem[] = availableCountries.map((m) => {
     return {
       text: m,
@@ -75,7 +76,15 @@ const EconCalendarDisplay = ({
           disabled={dayjs(selectedDate).format('MM/DD/YYYY') === dayjs(availableDates.StartDate).format('MM/DD/YYYY')}
           onClicked={handleBackClick}
         />
-        <Typography>{dayjs(selectedDate).format('MM/DD/YYYY')}</Typography>
+        <Box display={'flex'} flexDirection={'column'} textAlign={'center'}>
+          <Box>
+            <Typography variant='caption'>{dayjs(selectedDate).format('dddd')}</Typography>
+          </Box>
+          <Box>
+            <Typography>{dayjs(selectedDate).format('MM/DD/YYYY')}</Typography>
+          </Box>
+        </Box>
+
         <ArrowRightButton
           disabled={dayjs(selectedDate).format('MM/DD/YYYY') === dayjs(availableDates.EndDate).format('MM/DD/YYYY')}
           onClicked={handleNextClick}
@@ -89,7 +98,7 @@ const EconCalendarDisplay = ({
               <StaticAutoComplete
                 disableClearable
                 options={countryDropdown}
-                selectedItem={countryDropdown.find((m) => m.value === econCalendarSettings?.filter?.country) ?? countryDropdown[0]}
+                selectedItem={countryDropdown.find((m) => m.value === econCalendarSettings?.filter?.country)}
                 onSelected={handleFilterByCountry}
               />
             )}
@@ -163,9 +172,7 @@ const filterItems = (items: EconCalendarItem[], filter?: EconCalendarFilter | nu
       result = items.filter((m) => m.Country === filter.country)
     }
   }
-  if (result.length === 0) {
-    return [...items]
-  }
+
   return result
 }
 

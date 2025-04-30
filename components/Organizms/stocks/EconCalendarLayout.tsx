@@ -13,6 +13,7 @@ dayjs.extend(weekday)
 export interface EconCalendarBody {
   Items: EconCalendarItem[]
   AvailableDates: DateRange
+  AvailableCountries?: string[]
 }
 
 const EconCalendarLayout = () => {
@@ -42,7 +43,15 @@ const EconCalendarLayout = () => {
   return (
     <Box py={2}>
       {isLoading && <BackdropLoader />}
-      {availableDates && <EconCalendarDisplay apiResult={data} selectedDate={selectedDate} onChangeDate={handleDateSelected} availableDates={availableDates} />}
+      {availableDates && (
+        <EconCalendarDisplay
+          apiResult={data}
+          selectedDate={selectedDate}
+          onChangeDate={handleDateSelected}
+          availableDates={availableDates}
+          availableCountries={data?.AvailableCountries ?? []}
+        />
+      )}
     </Box>
   )
 }
