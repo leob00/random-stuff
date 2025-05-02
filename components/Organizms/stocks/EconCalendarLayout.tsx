@@ -19,6 +19,7 @@ export interface EconCalendarBody {
 const EconCalendarLayout = () => {
   const [selectedDate, setSelectedDate] = useState(dayjs(dayjs().format('MM/DD/YYYY')).format())
   const [availableDates, setAvailableDates] = useState<DateRange | null>(null)
+  const [availableCountries, setAvailableCountries] = useState<string[] | null>(null)
   const mutateKey = `econ-calendar-${selectedDate}`
   var dataFn = async () => {
     const endPoint = '/EconCalendarSearch'
@@ -30,6 +31,9 @@ const EconCalendarLayout = () => {
     const result = resp.Body as EconCalendarBody
     if (!availableDates) {
       setAvailableDates(result.AvailableDates)
+    }
+    if (!availableCountries) {
+      setAvailableCountries(result.AvailableCountries ?? [])
     }
     return { ...result, Items: sortArray(result.Items, ['EventDate'], ['asc']) }
   }
@@ -43,13 +47,13 @@ const EconCalendarLayout = () => {
   return (
     <Box py={2}>
       {isLoading && <BackdropLoader />}
-      {availableDates && (
+      {availableDates && availableCountries && (
         <EconCalendarDisplay
           apiResult={data}
           selectedDate={selectedDate}
           onChangeDate={handleDateSelected}
           availableDates={availableDates}
-          availableCountries={data?.AvailableCountries ?? []}
+          availableCountries={availableCountries ?? []}
         />
       )}
     </Box>

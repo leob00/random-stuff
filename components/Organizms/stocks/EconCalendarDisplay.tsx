@@ -9,12 +9,14 @@ import ArrowRightButton from 'components/Atoms/Buttons/ArrowRightButton'
 import { DateRange, EconCalendarItem } from 'lib/backend/api/qln/qlnApi'
 import FilterListAltIcon from '@mui/icons-material/FilterListAlt'
 import FilterListOffIcon from '@mui/icons-material/FilterListOff'
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { DropdownItem } from 'lib/models/dropdown'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import { sortArray } from 'lib/util/collections'
+import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
+import HtmlView from 'components/Atoms/Boxes/HtmlView'
 
 dayjs.extend(isSameOrAfter)
 
@@ -50,13 +52,21 @@ const EconCalendarDisplay = ({
 
   const filteredItems = filterItems(apiResult?.Items ?? [], econCalendarSettings?.filter)
 
+  const [selectedItem, setSelectedItem] = useState<EconCalendarItem | null>(null)
+
   const handleBackClick = () => {
     onChangeDate(dayjs(selectedDate).subtract(1, 'days').format())
   }
   const handleNextClick = () => {
     onChangeDate(dayjs(selectedDate).add(1, 'days').format())
   }
-  const handleShowDetails = (item: EconCalendarItem) => {}
+  const handleShowDetails = (item: EconCalendarItem) => {
+    if (!!selectedItem && selectedItem.RecordId === item.RecordId) {
+      setSelectedItem(null)
+      return
+    }
+    setSelectedItem(item)
+  }
 
   const handleFilterByCountry = (item: DropdownItem) => {
     setEconCalendarSettings({ ...econCalendarSettings, filter: { country: item.value ?? undefined } })
@@ -128,6 +138,7 @@ const EconCalendarDisplay = ({
           </Box>
         </Box>
       </Box>
+
       <ScrollableBox maxHeight={640}>
         <Table>
           <TableHead>
@@ -140,22 +151,43 @@ const EconCalendarDisplay = ({
           {apiResult && (
             <TableBody>
               {filteredItems.map((item) => (
-                <TableRow key={item.RecordId}>
-                  <TableCell>
-                    <ListHeader
-                      text={item.TypeName}
-                      onClicked={() => {
-                        handleShowDetails(item)
-                      }}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant='caption'>{`${dayjs(item.EventDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant='caption'>{item.Country}</Typography>
-                  </TableCell>
-                </TableRow>
+                <Fragment key={item.RecordId}>
+                  <TableRow>
+                    <TableCell sx={{ borderBottom: !!selectedItem && selectedItem.RecordId === item.RecordId ? 'none' : 'unset' }}>
+                      <Box>
+                        <ListHeader
+                          text={item.TypeName}
+                          onClicked={() => {
+                            handleShowDetails(item)
+                          }}
+                        />
+                      </Box>
+                    </TableCell>
+                    <TableCell sx={{ borderBottom: !!selectedItem && selectedItem.RecordId === item.RecordId ? 'none' : 'unset' }}>
+                      <Typography variant='caption'>{`${dayjs(item.EventDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>
+                    </TableCell>
+                    <TableCell valign='top' align='left' sx={{ borderBottom: !!selectedItem && selectedItem.RecordId === item.RecordId ? 'none' : 'unset' }}>
+                      <Typography variant='caption'>{item.Country}</Typography>
+                    </TableCell>
+                  </TableRow>
+                  {!!selectedItem && selectedItem.RecordId === item.RecordId && (
+                    <TableRow>
+                      <TableCell colSpan={10}>
+                        {!!item.Actual && (
+                          <Box pl={2} display={'flex'} gap={4} alignItems={'center'}>
+                            <ReadOnlyField label='actual' val={item.Actual} />
+                            <ReadOnlyField label='consensus' val={item.Consensus} />
+                            <ReadOnlyField label='previous' val={item.Previous} />
+                          </Box>
+                        )}
+
+                        <Box>
+                          <HtmlView html={selectedItem.TypeDescription.replaceAll('&amp;lt;BR/&amp;gt;&amp;lt;BR/&amp;gt;', ' ')} textAlign='left' />
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </Fragment>
               ))}
             </TableBody>
           )}

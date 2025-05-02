@@ -38,8 +38,10 @@ const ContextMenu = ({ items }: { items: ContextMenuItem[] }) => {
           anchorEl={anchorEl}
           open={open}
           onClose={handleCloseMenu}
-          MenuListProps={{
-            'aria-labelledby': 'basic-button',
+          slotProps={{
+            root: {
+              'aria-labelledby': 'basic-button',
+            },
           }}
           anchorOrigin={{
             vertical: 'top',
