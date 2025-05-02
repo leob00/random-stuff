@@ -173,14 +173,11 @@ const EconCalendarDisplay = ({
                   {!!selectedItem && selectedItem.RecordId === item.RecordId && (
                     <TableRow>
                       <TableCell colSpan={10}>
-                        {!!item.Actual && (
-                          <Box pl={2} display={'flex'} gap={4} alignItems={'center'}>
-                            <ReadOnlyField label='actual' val={item.Actual} />
-                            <ReadOnlyField label='consensus' val={item.Consensus} />
-                            <ReadOnlyField label='previous' val={item.Previous} />
-                          </Box>
-                        )}
-
+                        <Box pl={2} display={'flex'} gap={4} alignItems={'center'}>
+                          <ReadOnlyField label='actual' val={selectedItem.Actual} />
+                          <ReadOnlyField label='consensus' val={selectedItem.Consensus} />
+                          <ReadOnlyField label='previous' val={selectedItem.Previous} />
+                        </Box>
                         <Box>
                           <HtmlView html={selectedItem.TypeDescription.replaceAll('&amp;lt;BR/&amp;gt;&amp;lt;BR/&amp;gt;', ' ')} textAlign='left' />
                         </Box>
