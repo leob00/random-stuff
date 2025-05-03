@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { buildStockAlertsForAllUsers } from 'lib/backend/alerts/stockAlertBulder'
 import { EmailMessage, sendEmail } from 'app/serverActions/aws/ses/ses'
+import dayjs from 'dayjs'
+import weekday from 'dayjs/plugin/weekday'
+dayjs.extend(weekday)
 
 export async function GET(req: NextRequest) {
   const authHeader = req.headers.get('authorization')
@@ -10,19 +13,23 @@ export async function GET(req: NextRequest) {
       status: 401,
     })
   }
+
   let emailMessages: EmailMessage[] = []
-  try {
-    emailMessages = await buildStockAlertsForAllUsers(true)
-    for (const email of emailMessages) {
-      try {
-        await sendEmail(email)
-      } catch (err) {
-        console.error(`/api/cron/stockAlerts error: ${err}`)
+  const isWeekend = dayjs().weekday() === 6 || dayjs().weekday() === 7
+  if (!isWeekend) {
+    try {
+      emailMessages = await buildStockAlertsForAllUsers(true)
+      for (const email of emailMessages) {
+        try {
+          await sendEmail(email)
+        } catch (err) {
+          console.error(`/api/cron/stockAlerts error: ${err}`)
+        }
       }
+    } catch (err) {
+      console.error(`/api/cron/stockAlerts error: ${err}`)
+      NextResponse.json({ status: 'failed' })
     }
-  } catch (err) {
-    console.error(`/api/cron/stockAlerts error: ${err}`)
-    NextResponse.json({ status: 'failed' })
   }
 
   return NextResponse.json({ status: 'success', messagesSent: emailMessages.length })

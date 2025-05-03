@@ -1,13 +1,14 @@
 import { Box } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import dayjs from 'dayjs'
 import { DateRange, EconCalendarItem, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 import EconCalendarDisplay from './EconCalendarDisplay'
-import weekday from 'dayjs/plugin/weekday'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { useState } from 'react'
 import { mutate } from 'swr'
 import { sortArray } from 'lib/util/collections'
+import dayjs from 'dayjs'
+
+import weekday from 'dayjs/plugin/weekday'
 dayjs.extend(weekday)
 
 export interface EconCalendarBody {
