@@ -413,6 +413,9 @@ export interface EconCalendarItem {
   TypeName: string
   TypeDescription: string
   Country: string
+  ActualUnits: string | null
+  ConsensusUnits: string | null
+  PreviousUnits: string | null
 }
 export interface StockEarning {
   Symbol: string

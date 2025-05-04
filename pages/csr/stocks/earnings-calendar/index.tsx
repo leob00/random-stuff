@@ -25,9 +25,8 @@ const Page = () => {
       <ResponsiveContainer>
         <PageHeader text='Earnings Calendar' />
         <ScrollIntoView />
-
-        <Box px={1} display={'flex'} pt={1} justifyContent={'flex-end'} alignItems={'center'}>
-          <NavigationButton path={'/csr/stocks/earnings-reports'} name={'reports'} category='Reports' variant='body2' />
+        <Box px={1} display={'flex'} pt={1} justifyContent={'flex-start'} alignItems={'center'}>
+          <NavigationButton path={'/csr/stocks/earnings-reports'} name={'earnings reports'} category='Reports' variant='body2' />
         </Box>
         <Box py={2}>{data && data.length > 0 && <EarningsCalendarDisplay data={data} />}</Box>
       </ResponsiveContainer>

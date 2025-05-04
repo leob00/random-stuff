@@ -22,9 +22,9 @@ const Page = () => {
 
   return (
     <ResponsiveContainer>
-      <Seo pageTitle='Cryptos' />
+      <Seo pageTitle='Crypto' />
       <Box minHeight={500}>
-        <PageHeader text='Cryptos' />
+        <PageHeader text='Crypto' />
         {(isLoading || profileLoading) && <BackdropLoader />}
         {data && !profileLoading && <CryptosDisplay data={data} userProfile={userProfile} />}
       </Box>

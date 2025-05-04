@@ -27,6 +27,7 @@ const EconCalendarLayout = () => {
     const filter = {
       StartDate: dayjs(selectedDate).format(),
       EndDate: dayjs(selectedDate).add(1, 'days').format(),
+      LoadLookupValues: !availableCountries,
     }
     const resp = await serverPostFetch({ body: filter }, endPoint)
     const result = resp.Body as EconCalendarBody

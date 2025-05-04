@@ -17,6 +17,7 @@ import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import { sortArray } from 'lib/util/collections'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
+import numeral from 'numeral'
 
 dayjs.extend(isSameOrAfter)
 
@@ -153,7 +154,7 @@ const EconCalendarDisplay = ({
               {filteredItems.map((item) => (
                 <Fragment key={item.RecordId}>
                   <TableRow>
-                    <TableCell sx={{ borderBottom: !!selectedItem && selectedItem.RecordId === item.RecordId ? 'none' : 'unset' }}>
+                    <TableCell valign='top' sx={{ borderBottom: !!selectedItem && selectedItem.RecordId === item.RecordId ? 'none' : 'unset' }}>
                       <Box>
                         <ListHeader
                           text={item.TypeName}
@@ -163,7 +164,7 @@ const EconCalendarDisplay = ({
                         />
                       </Box>
                     </TableCell>
-                    <TableCell sx={{ borderBottom: !!selectedItem && selectedItem.RecordId === item.RecordId ? 'none' : 'unset' }}>
+                    <TableCell valign='top' sx={{ borderBottom: !!selectedItem && selectedItem.RecordId === item.RecordId ? 'none' : 'unset' }}>
                       <Typography variant='caption'>{`${dayjs(item.EventDate).format('MM/DD/YYYY hh:mm A')}`}</Typography>
                     </TableCell>
                     <TableCell valign='top' align='left' sx={{ borderBottom: !!selectedItem && selectedItem.RecordId === item.RecordId ? 'none' : 'unset' }}>
@@ -174,9 +175,13 @@ const EconCalendarDisplay = ({
                     <TableRow>
                       <TableCell colSpan={10}>
                         <Box pl={2} display={'flex'} gap={4} alignItems={'center'}>
-                          <ReadOnlyField label='actual' val={selectedItem.Actual} />
-                          <ReadOnlyField label='consensus' val={selectedItem.Consensus} />
-                          <ReadOnlyField label='previous' val={selectedItem.Previous} />
+                          {!!selectedItem.Actual && <ReadOnlyField label='actual' val={translateDetailValue(selectedItem.Actual, selectedItem.ActualUnits)} />}
+                          {!!selectedItem.Consensus && (
+                            <ReadOnlyField label='consensus' val={translateDetailValue(selectedItem.Consensus, selectedItem.ConsensusUnits)} />
+                          )}
+                          {!!selectedItem.Previous && (
+                            <ReadOnlyField label='previous' val={translateDetailValue(selectedItem.Previous, selectedItem.PreviousUnits)} />
+                          )}
                         </Box>
                         <Box>
                           <HtmlView html={selectedItem.TypeDescription.replaceAll('&amp;lt;BR/&amp;gt;&amp;lt;BR/&amp;gt;', ' ')} textAlign='left' />
@@ -192,6 +197,23 @@ const EconCalendarDisplay = ({
       </ScrollableBox>
     </Box>
   )
+}
+
+const translateDetailValue = (num: number | null, units: string | null) => {
+  if (!num && !units) {
+    return ''
+  }
+  if (!!units) {
+    switch (units) {
+      case 'thousand':
+        return `${numeral(num! * 1000).format('###,###')}`
+      case 'percent':
+        return `${num}%`
+      default:
+        return `${num} ${units}`
+    }
+  }
+  return `${num}`
 }
 
 const filterItems = (items: EconCalendarItem[], filter?: EconCalendarFilter | null) => {
