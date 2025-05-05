@@ -51,9 +51,7 @@ const EconCalendarDisplay = ({
   })
 
   const countryDropdown = [{ text: 'All', value: 'all' }, ...sortArray(countryOptions, ['text'], ['asc'])]
-
   const filteredItems = filterItems(apiResult?.Items ?? [], econCalendarSettings?.filter)
-
   const [selectedItem, setSelectedItem] = useState<EconCalendarItem | null>(null)
 
   const handleBackClick = () => {
@@ -195,9 +193,11 @@ export const translateDetailValue = (num: number | null, units: string | null) =
   if (!!units) {
     switch (units) {
       case 'thousand':
-        return `${numeral(num! * 1000).format('###,###')}`
+        return `${numeral(num! * 1000).format('0,0')}`
       case 'percent':
-        return `${num}%`
+        return `${numeral(num).format('0,0.00')}%`
+      case 'trillion':
+        return `${numeral(num).format('0,0.00')} ${units}`
       default:
         return `${num} ${units}`
     }

@@ -105,6 +105,9 @@
 .casinoOrangeTransparent {
   color: #d45309bb;
 }
+.casinoOrangeTransparentOpaque {
+  color: #d453098f;
+}
 .errorRed {
   color: #ce250ec7;
 }

@@ -884,6 +884,10 @@
     "Symbol": "AGG"
   },
   {
+    "Company": "Astoria Dynamic Core US Fixed Income ETF",
+    "Symbol": "AGGA"
+  },
+  {
     "Company": "Simplify Aggregate Bond ETF",
     "Symbol": "AGGH"
   },
@@ -1514,10 +1518,6 @@
   {
     "Company": "Pacer Lunt Large Cap Alternator ETF",
     "Symbol": "ALTL"
-  },
-  {
-    "Company": "Arcadium Lithium plc",
-    "Symbol": "ALTM"
   },
   {
     "Company": "Alto Ingredients, Inc. Common Stock",
@@ -2274,10 +2274,6 @@
   {
     "Company": "Aquaron Acquisition Corp. Rights",
     "Symbol": "AQUNR"
-  },
-  {
-    "Company": "Aquaron Acquisition Corp. Units",
-    "Symbol": "AQUNU"
   },
   {
     "Company": "Global X Clean Water ETF",
@@ -7564,10 +7560,6 @@
     "Symbol": "CJET"
   },
   {
-    "Company": "China Jo-Jo Drugstores, Inc. (Cayman Islands) Ordinary Shares",
-    "Symbol": "CJJD"
-  },
-  {
     "Company": "Callan JMB Inc. Common Stock",
     "Symbol": "CJMB"
   },
@@ -8718,10 +8710,6 @@
   {
     "Company": "Comstock Resources, Inc.",
     "Symbol": "CRK"
-  },
-  {
-    "Company": "Crown Electrokinetics Corp. Common Stock",
-    "Symbol": "CRKN"
   },
   {
     "Company": "Charles River Laboratories International, Inc.",
@@ -23832,6 +23820,10 @@
     "Symbol": "LIMN"
   },
   {
+    "Company": "Liminatus Pharma, Inc. Warrants",
+    "Symbol": "LIMNW"
+  },
+  {
     "Company": "Linde plc Ordinary Share",
     "Symbol": "LIN"
   },
@@ -26724,10 +26716,6 @@
     "Symbol": "MVPL"
   },
   {
-    "Company": "Amplify Thematic All-Stars ETF",
-    "Symbol": "MVPS"
-  },
-  {
     "Company": "ETRACS Monthly Pay 1.5X Leveraged Mortgage REIT ETN",
     "Symbol": "MVRL"
   },
@@ -27646,14 +27634,6 @@
   {
     "Company": "Nike, Inc.",
     "Symbol": "NKE"
-  },
-  {
-    "Company": "NKGen Biotech, Inc. Common Stock",
-    "Symbol": "NKGN"
-  },
-  {
-    "Company": "NKGen Biotech, Inc. Warrants",
-    "Symbol": "NKGNW"
   },
   {
     "Company": "National Bankshares Inc/VA",
@@ -31240,10 +31220,6 @@
     "Symbol": "PNRG"
   },
   {
-    "Company": "Pinstripes Holdings, Inc.",
-    "Symbol": "PNST"
-  },
-  {
     "Company": "The Pennant Group, Inc. Common Stock",
     "Symbol": "PNTG"
   },
@@ -32686,10 +32662,6 @@
   {
     "Company": "Restaurant Brands International Inc.",
     "Symbol": "QSR"
-  },
-  {
-    "Company": "Amplify BlackSwan Tech & Treasury ETF",
-    "Symbol": "QSWN"
   },
   {
     "Company": "Innovator Growth Accelerated Plus ETF - April",
@@ -44266,10 +44238,6 @@
   {
     "Company": "Innovator Equity Defined Protection ETF - 1 Yr October",
     "Symbol": "ZOCT"
-  },
-  {
-    "Company": "Zomedica Corp.",
-    "Symbol": "ZOM"
   },
   {
     "Company": "CleanCore Solutions Inc.",
