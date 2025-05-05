@@ -3,6 +3,7 @@ import { buildStockAlertsForAllUsers } from 'lib/backend/alerts/stockAlertBulder
 import { EmailMessage, sendEmail } from 'app/serverActions/aws/ses/ses'
 import dayjs from 'dayjs'
 import weekday from 'dayjs/plugin/weekday'
+import { getUtcNow } from 'lib/util/dateUtil'
 dayjs.extend(weekday)
 
 export async function GET(req: NextRequest) {
@@ -15,7 +16,8 @@ export async function GET(req: NextRequest) {
   }
 
   let emailMessages: EmailMessage[] = []
-  const isWeekend = dayjs().weekday() === 6 || dayjs().weekday() === 7
+  const now = getUtcNow()
+  const isWeekend = now.weekday() === 6 || now.weekday() === 7
   if (!isWeekend) {
     try {
       emailMessages = await buildStockAlertsForAllUsers(true)

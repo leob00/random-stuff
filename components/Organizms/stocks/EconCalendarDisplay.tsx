@@ -18,6 +18,7 @@ import { sortArray } from 'lib/util/collections'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
 import numeral from 'numeral'
+import EconCalendarDetail from '../econCalendar/EconCalendarDetail'
 
 dayjs.extend(isSameOrAfter)
 
@@ -95,7 +96,6 @@ const EconCalendarDisplay = ({
             <Typography>{dayjs(selectedDate).format('MM/DD/YYYY')}</Typography>
           </Box>
         </Box>
-
         <ArrowRightButton
           disabled={dayjs(selectedDate).format('MM/DD/YYYY') === dayjs(availableDates.EndDate).format('MM/DD/YYYY')}
           onClicked={handleNextClick}
@@ -174,18 +174,7 @@ const EconCalendarDisplay = ({
                   {!!selectedItem && selectedItem.RecordId === item.RecordId && (
                     <TableRow>
                       <TableCell colSpan={10}>
-                        <Box pl={2} display={'flex'} gap={4} alignItems={'center'}>
-                          {!!selectedItem.Actual && <ReadOnlyField label='actual' val={translateDetailValue(selectedItem.Actual, selectedItem.ActualUnits)} />}
-                          {!!selectedItem.Consensus && (
-                            <ReadOnlyField label='consensus' val={translateDetailValue(selectedItem.Consensus, selectedItem.ConsensusUnits)} />
-                          )}
-                          {!!selectedItem.Previous && (
-                            <ReadOnlyField label='previous' val={translateDetailValue(selectedItem.Previous, selectedItem.PreviousUnits)} />
-                          )}
-                        </Box>
-                        <Box>
-                          <HtmlView html={selectedItem.TypeDescription.replaceAll('&amp;lt;BR/&amp;gt;&amp;lt;BR/&amp;gt;', ' ')} textAlign='left' />
-                        </Box>
+                        <EconCalendarDetail selectedItem={selectedItem} />
                       </TableCell>
                     </TableRow>
                   )}
@@ -199,7 +188,7 @@ const EconCalendarDisplay = ({
   )
 }
 
-const translateDetailValue = (num: number | null, units: string | null) => {
+export const translateDetailValue = (num: number | null, units: string | null) => {
   if (!num && !units) {
     return ''
   }
