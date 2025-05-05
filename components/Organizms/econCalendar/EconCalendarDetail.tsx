@@ -12,12 +12,12 @@ const EconCalendarDetail = ({ selectedItem }: { selectedItem: EconCalendarItem }
   const theme = useTheme()
   let colors = [CasinoBlue, CasinoBlue]
   const chartOptions = { ...getBarChartOptions('', '', theme.palette.mode) }
-  //   chartOptions.plugins!.tooltip!.callbacks = {
+  //     chartOptions.plugins!.tooltip!.callbacks = {
   //       afterLabel: (tooltipItems) => {
-  //         const result = `${tooltipItems.dataset.label}: `
-  //          return `${result}${translateDetailValue}`
-  //       }
-  //   }
+  //         const result = `${tooltipItems.parsed.y}: `
+  //         return `${result}${translateDetailValue(result as unknown as number)}`
+  //       },
+  //     }
   if (!!selectedItem.Actual && !!selectedItem.Previous) {
     const gain = selectedItem.Actual - selectedItem.Previous
     const loss = selectedItem.Previous - selectedItem.Actual
@@ -33,6 +33,21 @@ const EconCalendarDetail = ({ selectedItem }: { selectedItem: EconCalendarItem }
     labels: ['actual', 'previous'],
     numbers: [selectedItem.Actual ?? 0, selectedItem.Previous ?? 0],
   }
+
+  chartOptions.plugins!.tooltip!.callbacks = {
+    label: (tooltipItem) => {
+      if (tooltipItem.dataIndex === 0) {
+        const translatedAct = translateDetailValue(selectedItem.Actual, selectedItem.ActualUnits)
+        return `${translatedAct}`
+      }
+      if (tooltipItem.dataIndex === 1) {
+        const translatedPrev = translateDetailValue(selectedItem.Previous, selectedItem.PreviousUnits)
+        return `${translatedPrev}`
+      }
+      return `${tooltipItem.formattedValue}`
+    },
+  }
+
   return (
     <>
       <Box pl={2} display={'flex'} gap={4} alignItems={'center'}>
