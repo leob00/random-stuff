@@ -1,11 +1,9 @@
 import { Box, Typography } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import { CasinoGrayTransparent, CasinoLightGrayTransparent } from 'components/themes/mainTheme'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { Company, getCompanyProfile } from 'lib/backend/api/qln/qlnApi'
-import React from 'react'
 
 interface Model {
   company: Company | null

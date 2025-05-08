@@ -17,6 +17,7 @@ import {
 } from 'components/themes/mainTheme'
 import numeral from 'numeral'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
+import NoDataFound from 'components/Atoms/Text/NoDataFound'
 
 type Model = EconCalendarItem & {
   changeFromPrevious?: number
@@ -59,6 +60,8 @@ const EconCalendarDetail = ({ selectedItem }: { selectedItem: EconCalendarItem }
     },
   }
 
+  const noData = !selectedItem.Actual && !selectedItem.TypeDescription && !selectedItem.Consensus
+
   return (
     <>
       <Box pl={2} display={'flex'} gap={4} alignItems={'center'}>
@@ -77,6 +80,7 @@ const EconCalendarDetail = ({ selectedItem }: { selectedItem: EconCalendarItem }
       <Box>
         <HtmlView html={item.TypeDescription.replaceAll('&amp;lt;BR/&amp;gt;&amp;lt;BR/&amp;gt;', ' ')} textAlign='left' />
       </Box>
+      {noData && <NoDataFound message='no additional information is currently available' />}
     </>
   )
 }
