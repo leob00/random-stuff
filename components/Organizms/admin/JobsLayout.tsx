@@ -16,13 +16,11 @@ import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 dayjs.extend(relativeTime)
 
 const JobsLayout = ({ userClaim }: { userClaim: Claim }) => {
-  const pollingIterval = 6000
+  const pollingIterval = 7000
   const [selectedItem, setSelectedItem] = useState<Job | null>(null)
   const [isLoadingDetail, setIsLoadingDetail] = useState(false)
   const [error, setError] = useState<string | null>(null)
-
   const [claim, setClaim] = useState<Claim | undefined>(userClaim)
-
   const { start, stop, pollCounter: counter } = usePolling(pollingIterval, 100)
 
   const handleLogin = async (result: Claim[]) => {

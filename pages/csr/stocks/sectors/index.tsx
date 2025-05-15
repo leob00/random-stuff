@@ -7,18 +7,17 @@ import Seo from 'components/Organizms/Seo'
 import StockReportsDropdown from 'components/Organizms/stocks/reports/StockReportsDropdown'
 import SectorsTable from 'components/Organizms/stocks/SectorsTable'
 import { useSwrHelper } from 'hooks/useSwrHelper'
-import { apiConnection } from 'lib/backend/api/config'
-import { get } from 'lib/backend/api/fetchFunctions'
+import { serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import { SectorIndustry } from 'lib/backend/api/qln/qlnModels'
 import React from 'react'
 
 const Page = () => {
-  const apiConn = apiConnection().qln
+  const mutateKey = 'all-sectors'
   const dataFn = async () => {
-    const resp = await get(`${apiConn.url}/Sectors`)
+    const resp = await serverGetFetch(`/Sectors`)
     return resp.Body as SectorIndustry[]
   }
-  const { isLoading, data } = useSwrHelper('/api/baseUrl?id=sectors', dataFn, { revalidateOnFocus: false })
+  const { isLoading, data } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   return (
     <>
       <Seo pageTitle='Sectors' />

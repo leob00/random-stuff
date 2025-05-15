@@ -7,7 +7,6 @@ import numeral from 'numeral'
 
 const HistoricalAggregateDisplay = ({ aggregate, isLoading }: { aggregate: HistoricalAggregate; isLoading: boolean }) => {
   const theme = useTheme()
-  const isPositive = aggregate.Change > 0
   const color = getPositiveNegativeColor(aggregate.Change, theme.palette.mode)
 
   const MovingAvgDisplay = () => {

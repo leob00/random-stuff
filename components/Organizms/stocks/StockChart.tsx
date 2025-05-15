@@ -87,11 +87,10 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
         <>
           {data && (
             <Box>
-              {data.aggregate && <HistoricalAggregateDisplay aggregate={data.aggregate} isLoading={isWaiting} />}
-              {marketCategory == 'stocks' && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading || isWaiting} />}
-              {!(marketCategory == 'stocks') && (
+              {data.aggregate && !isLoading && <HistoricalAggregateDisplay aggregate={data.aggregate} isLoading={isWaiting} />}
+              {marketCategory === 'stocks' && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading || isWaiting} />}
+              {marketCategory !== 'stocks' && (
                 <>
-                  {/* {isLoading && <BackdropLoader />} */}
                   <Box minHeight={{ xs: 300, sm: chartHeight }} pt={2}>
                     {!isLoading && !isWaiting && (
                       <FadeIn>

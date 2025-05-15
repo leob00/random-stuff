@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import { TypographyVariant } from '@mui/material/styles/createTypography'
+import { useViewPortSize } from 'hooks/ui/useViewportSize'
 
 const ReadOnlyField = ({
   label,
@@ -14,9 +15,17 @@ const ReadOnlyField = ({
   variant?: TypographyVariant
   py?: number
 }) => {
+  const { viewPortSize } = useViewPortSize()
+
   return (
     <Box>
-      <Box display={'flex'} flexDirection={'row'} gap={2} py={py} alignItems={'center'}>
+      <Box
+        display={'flex'}
+        flexDirection={'row'}
+        gap={2}
+        py={py}
+        alignItems={viewPortSize === 'xs' && !!val && val?.toString().length > 20 ? 'flex-start' : 'center'}
+      >
         {label && (
           <Box textAlign={'right'} minWidth={labelLength ?? undefined}>
             <Typography variant={variant ?? 'body2'} color={'primary'}>{`${label}:`}</Typography>

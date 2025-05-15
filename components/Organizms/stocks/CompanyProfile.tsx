@@ -3,7 +3,7 @@ import FadeIn from 'components/Atoms/Animations/FadeIn'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { Company, getCompanyProfile } from 'lib/backend/api/qln/qlnApi'
+import { Company, getCompanyProfile, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 
 interface Model {
   company: Company | null
@@ -18,7 +18,7 @@ const CompanyProfile = ({ quote }: { quote: StockQuote }) => {
       company: null,
       awsUrl: null,
     }
-    const apiData = await getCompanyProfile([quote.Symbol])
+    const apiData = (await (await serverGetFetch(`/CompanyDetails?symbols=${[quote.Symbol]}`)).Body) as Company[]
     if (apiData.length > 0) {
       const company = apiData[0]
       if (company.IconRelativePath && !company.LogoRelativePath) {
@@ -40,11 +40,9 @@ const CompanyProfile = ({ quote }: { quote: StockQuote }) => {
 
       <Box py={2} display={'flex'} gap={2} flexDirection={'column'}>
         {data?.awsUrl && (
-          <FadeIn>
-            <Box py={2} sx={{ borderRadius: '8px', backgroundColor: 'whitesmoke' }} width={320} px={2}>
-              <img src={`${data.awsUrl}`} alt='company logo' width={275} />
-            </Box>
-          </FadeIn>
+          <Box py={2} sx={{ borderRadius: '8px', backgroundColor: 'whitesmoke' }} width={320} px={2}>
+            <img src={`${data.awsUrl}`} alt='company logo' width={275} />
+          </Box>
         )}
         <Box>
           {data?.company?.Description && (
