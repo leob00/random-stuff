@@ -10,6 +10,7 @@ import { shrinkList } from 'components/Organizms/stocks/lineChartOptions'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import numeral from 'numeral'
+import { getPositiveNegativeColor, getPositiveNegativeColorReverse } from 'components/Organizms/stocks/StockListItem'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false, loading: () => <BackdropLoader /> })
 
 const EconChart = ({
@@ -47,6 +48,8 @@ const EconChart = ({
   const movePerc = calculateStockMovePercent(last.Price, change)
 
   const chartOptions = getOptions({ x: x, y: y }, history, isXsmall, theme.palette.mode, '', reverseColor)
+  const color = reverseColor ? getPositiveNegativeColorReverse(last.Change, theme.palette.mode) : getPositiveNegativeColor(last.Change, theme.palette.mode)
+
   return (
     <Box>
       <Box display={'flex'} gap={1} alignItems={'center'} pl={2}>
@@ -62,9 +65,17 @@ const EconChart = ({
             <ReadOnlyField label='start date' val={x[0]} />
             <ReadOnlyField label='end date' val={x[x.length - 1]} />
           </Box>
-          <Box display={'flex'} gap={4}>
-            <ReadOnlyField label='change' val={`${change > 0 ? '+' + numeral(change).format('###,###,0.00') : numeral(change).format('###,###,0.00')}`} />
-            <ReadOnlyField label='' val={`${numeral(movePerc).format('###,###,0.000')}%`} />
+          <Box display={'flex'} gap={4} alignItems={'center'}>
+            {/* <Typography variant='body2' color='primary'>
+              change:
+            </Typography> */}
+
+            <ReadOnlyField
+              label='change'
+              val={`${change > 0 ? '+' + numeral(change).format('###,###,0.00') : numeral(change).format('###,###,0.00')}`}
+              color={color}
+            />
+            <ReadOnlyField label='' val={`${numeral(movePerc).format('###,###,0.000')}%`} color={color} />
           </Box>
         </Box>
       )}
@@ -77,10 +88,10 @@ export function mapEconChartToStockHistory(symbol: string, xValues: string[], yV
   xValues.forEach((x, index) => {
     const change = index === 0 ? 0 : yValues[index] - yValues[index - 1]
     const h: StockHistoryItem = {
-      Price: Number(yValues[index].toFixed(3)),
+      Price: Number(yValues[index]),
       Symbol: symbol,
       TradeDate: dayjs(x).format('YYYY-MM-DD'),
-      Change: Number(change.toFixed(3)),
+      Change: Number(change),
       ChangePercent: index === 0 ? 0 : calculateStockMovePercent(yValues[index], change),
     }
     history.push(h)

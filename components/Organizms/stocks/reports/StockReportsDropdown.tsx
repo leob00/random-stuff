@@ -18,6 +18,7 @@ export const stockReportsDropdown: DropdownItem[] = [
   { text: 'Industries', value: 'industries' },
   { text: 'Dividend Payers', value: 'dividend-payers' },
   { text: 'Stock Tags', value: 'stock-tags' },
+  { text: 'Indices and ETFs', value: 'indicesAndEtfs' },
 ]
 
 const StockReportsDropdown = ({ selectedValue }: { selectedValue: string }) => {

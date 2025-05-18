@@ -8,12 +8,14 @@ const ReadOnlyField = ({
   labelLength,
   variant,
   py = 1,
+  color,
 }: {
   label?: string
   val?: string | null | number
   labelLength?: number
   variant?: TypographyVariant
   py?: number
+  color?: string
 }) => {
   const { viewPortSize } = useViewPortSize()
 
@@ -31,9 +33,9 @@ const ReadOnlyField = ({
             <Typography variant={variant ?? 'body2'} color={'primary'}>{`${label}:`}</Typography>
           </Box>
         )}
-        {val && (
+        {!!val && (
           <Box>
-            <Typography variant={variant ?? 'body1'} color={'primary'}>
+            <Typography variant={variant ?? 'body1'} color={color ?? 'primary'}>
               {val}
             </Typography>
           </Box>

@@ -18,6 +18,8 @@ import { DateRange, HistoricalAggregate } from 'lib/backend/api/qln/qlnApi'
 import HistoricalAggregateDisplay from './HistoricalAggregateDisplay'
 import { sleep } from 'lib/util/timers'
 import { shrinkList } from './lineChartOptions'
+import { MovingAvg } from 'lib/backend/api/qln/qlnModels'
+import MovingAvgValues from './movingAvg/MovingAvgValues'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 interface Model {
@@ -25,6 +27,7 @@ interface Model {
   chartOptions: ApexOptions
   aggregate: HistoricalAggregate
   availableDates?: DateRange | null
+  movingAvg?: MovingAvg[] | null
 }
 
 const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; companyName?: string; marketCategory: MarketCategory }) => {
@@ -51,6 +54,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
       aggregate: response.Aggregate,
       chartOptions: options,
       availableDates: response.AvailableDates,
+      movingAvg: response.MovingAvg,
     }
 
     return result
@@ -89,25 +93,32 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
             <Box>
               {data.aggregate && !isLoading && <HistoricalAggregateDisplay aggregate={data.aggregate} isLoading={isWaiting} />}
               {marketCategory === 'stocks' && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading || isWaiting} />}
+              {data.movingAvg && (
+                <Box py={2}>
+                  <MovingAvgValues values={data.movingAvg} startAt={7} />
+                </Box>
+              )}
               {marketCategory !== 'stocks' && (
                 <>
                   <Box minHeight={{ xs: 300, sm: chartHeight }} pt={2}>
                     {!isLoading && !isWaiting && (
-                      <FadeIn>
-                        <ReactApexChart series={data.chartOptions.series} options={data.chartOptions} type='area' height={chartHeight} />
-                        <Box display='flex' gap={4} pb={4}>
-                          <Box display='flex' gap={1}>
-                            <Typography variant='caption'>start date:</Typography>
-                            <Typography variant='caption'>{dayjs(data.history[0].TradeDate).format('MM/DD/YYYY')}</Typography>
-                          </Box>
-                          {data.history.length > 0 && (
+                      <>
+                        <FadeIn>
+                          <ReactApexChart series={data.chartOptions.series} options={data.chartOptions} type='area' height={chartHeight} />
+                          <Box display='flex' gap={4} pb={4}>
                             <Box display='flex' gap={1}>
-                              <Typography variant='caption'>end date:</Typography>
-                              <Typography variant='caption'>{dayjs(data.history[data.history.length - 1].TradeDate).format('MM/DD/YYYY')}</Typography>
+                              <Typography variant='caption'>start date:</Typography>
+                              <Typography variant='caption'>{dayjs(data.history[0].TradeDate).format('MM/DD/YYYY')}</Typography>
                             </Box>
-                          )}
-                        </Box>
-                      </FadeIn>
+                            {data.history.length > 0 && (
+                              <Box display='flex' gap={1}>
+                                <Typography variant='caption'>end date:</Typography>
+                                <Typography variant='caption'>{dayjs(data.history[data.history.length - 1].TradeDate).format('MM/DD/YYYY')}</Typography>
+                              </Box>
+                            )}
+                          </Box>
+                        </FadeIn>
+                      </>
                     )}
                   </Box>
                 </>

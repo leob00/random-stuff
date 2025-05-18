@@ -1,11 +1,13 @@
 import { StockHistoryItem, quoteHistorySchema } from '../models/zModels'
 import { DateRange, HistoricalAggregate, QlnApiResponse, serverGetFetch, serverPostFetch } from './qlnApi'
+import { MovingAvg } from './qlnModels'
 
 export type StockChartApiResponse = {
   History: StockHistoryItem[]
   Aggregate: HistoricalAggregate
   AvailableDates: DateRange | null
   Name?: string | null
+  MovingAvg?: MovingAvg[] | null
 }
 
 export type MarketCategory = 'stocks' | 'commodities' | 'crypto'
@@ -42,6 +44,7 @@ export async function getMarketChart(symbol: string, marketCategory: MarketCateg
     Aggregate: resp.Body.Aggregate as HistoricalAggregate,
     History: quoteHistorySchema.parse(resp.Body.History),
     AvailableDates: resp.Body.AvailableDates ? (resp.Body.AvailableDates as DateRange) : null,
+    MovingAvg: resp.Body.MovingAvg ? (resp.Body.MovingAvg as MovingAvg[]) : null,
   }
 
   return apiResult

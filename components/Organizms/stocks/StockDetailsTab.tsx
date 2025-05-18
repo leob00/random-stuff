@@ -1,9 +1,11 @@
 import { Box, Chip, Typography } from '@mui/material'
+import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 import Clickable from 'components/Atoms/Containers/Clickable'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import dayjs from 'dayjs'
 import { StockQuote } from 'lib/backend/api/models/zModels'
+import { toCamelCase } from 'lib/util/textUtil'
 import { useRouter } from 'next/router'
 import numeral from 'numeral'
 
@@ -12,6 +14,7 @@ const StockDetailsTab = ({ quote }: { quote: StockQuote }) => {
   const handleTagClick = (tag: string) => {
     router.push(`/csr/stocks/stock-tags?id=${encodeURIComponent(tag)}`)
   }
+  const sector = quote.Sector
   return (
     <Box pb={2} pt={2}>
       <Box>
@@ -20,8 +23,15 @@ const StockDetailsTab = ({ quote }: { quote: StockQuote }) => {
         {quote.Volume && <ReadOnlyField label={'Volume'} val={numeral(quote.Volume).format('###,###')} />}
         <ReadOnlyField label={'Date'} val={dayjs(quote.TradeDate).format('MM/DD/YYYY hh:mm a')} />
         {quote.AnnualDividendYield && <ReadOnlyField label={'Annual Yield'} val={`${numeral(quote.AnnualDividendYield).format('0.000')}%`} />}
-        {quote.Sector && <ReadOnlyField label={'Sector'} val={quote.Sector} />}
-        {quote.Industry && <ReadOnlyField label={'Industry'} val={quote.Industry} />}
+        {sector && (
+          <Box display={'flex'} gap={1} alignItems={'center'} py={1}>
+            <Typography variant='body2' color={'primary'}>
+              Sector:
+            </Typography>
+            <SiteLink variant='body1' href={`/csr/stocks/sectors/${quote.SectorId}`} text={sector} />
+          </Box>
+        )}
+        {/* {quote.Industry && <ReadOnlyField label={'Industry'} val={quote.Industry} />} */}
       </Box>
 
       {quote.Tags && quote.Tags.length > 0 && (

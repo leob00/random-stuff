@@ -494,13 +494,13 @@ export async function getCompanyProfile(symbols: string[]) {
 }
 
 export async function getEconDataReport(id: number, startYear?: number, endYear?: number) {
-  const postBody = {
+  const req = {
     Id: id,
     StartYear: startYear,
     EndYear: endYear,
   }
 
-  const resp = await serverPostFetch({ body: postBody }, '/EconReports')
+  const resp = await serverPostFetch({ body: req }, '/EconReports')
   const result = resp.Body.Item as EconomicDataItem
   return result
 }

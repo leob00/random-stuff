@@ -13,3 +13,16 @@ export function getWorkflowStatusText(status: number | null) {
       return ''
   }
 }
+
+export function toCamelCase(val?: string | null) {
+  if (!!val && val.length > 0) {
+    const split = val.split(/[,;-\s]+/)
+    let result = ''
+
+    split.forEach((i) => {
+      result = `${result} ${i.substring(0, 1).toUpperCase()}${i.substring(1).toLowerCase()}`
+    })
+    return result
+  }
+  return val
+}

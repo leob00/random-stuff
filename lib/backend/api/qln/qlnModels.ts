@@ -17,7 +17,7 @@ export interface MarketHandshake {
   StockStats: StockStats
 }
 
-export type StockReportTypes = 'marketcapleaders' | 'volumeleaders'
+export type StockReportTypes = 'marketcapleaders' | 'volumeleaders' | 'indicesAndEtfs'
 
 export type QlnLineChart = {
   XValues: string[]

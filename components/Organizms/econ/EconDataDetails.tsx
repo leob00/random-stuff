@@ -1,5 +1,5 @@
 import { Alert, Box, Button, Typography, useMediaQuery, useTheme } from '@mui/material'
-import { EconomicDataItem, QlnLineChart } from 'lib/backend/api/qln/qlnModels'
+import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 import dayjs from 'dayjs'
 import { DropdownItem } from 'lib/models/dropdown'
 import { range } from 'lodash'
@@ -137,7 +137,6 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
         <Typography variant='caption'>{`data available from ${dayjs(item.FirstObservationDate).format('MM/DD/YYYY')} to ${dayjs(item.LastObservationDate).format('MM/DD/YYYY')}`}</Typography>
       </Box>
       <Box py={2}>
-        {/* <HtmlView html={item.Notes} text /> */}
         <Typography sx={{ wordWrap: 'break-word' }}>{item.Notes}</Typography>
       </Box>
     </Box>
