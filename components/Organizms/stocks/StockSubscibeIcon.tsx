@@ -1,6 +1,5 @@
-import { Box, Button, IconButton } from '@mui/material'
+import { Box, Button, IconButton, Typography } from '@mui/material'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
-import React from 'react'
 import NotificationsOffIcon from '@mui/icons-material/NotificationsOff'
 import NotificationAddIcon from '@mui/icons-material/NotificationAdd'
 import { mutate } from 'swr'
@@ -14,6 +13,8 @@ import StockSubscriptionForm from './alerts/StockSubscriptionForm'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import { getDefaultSubscription, saveTrigger } from 'lib/ui/alerts/stockAlertHelper'
 import { useSwrHelper } from 'hooks/useSwrHelper'
+import { useState } from 'react'
+import CheckIcon from '@mui/icons-material/Check'
 
 const StockSubscibeIcon = ({
   userProfile,
@@ -26,8 +27,8 @@ const StockSubscibeIcon = ({
   size?: 'small' | 'medium' | 'large'
   onClicked?: () => void
 }) => {
-  const [showAlertEdit, setShowAlertEdit] = React.useState(false)
-  const [snackbarMessage, setSnackBarMessage] = React.useState<string | null>(null)
+  const [showAlertEdit, setShowAlertEdit] = useState(false)
+  const [snackbarMessage, setSnackBarMessage] = useState<string | null>(null)
   const subscriptionId = constructStockAlertsSubPrimaryKey(userProfile.username, quote.Symbol)
   const router = useRouter()
 
@@ -59,31 +60,36 @@ const StockSubscibeIcon = ({
   return (
     <Box>
       {isLoading && <BackdropLoader />}
-      <StockSubscriptionForm show={showAlertEdit} sub={selectedSub} quote={quote} onClose={() => setShowAlertEdit(false)} onSave={handleSaveTrigger} />
 
-      <Box display={'flex'} gap={2} alignItems={'center'}>
-        <Box>
-          {!data && (
-            <IconButton size='small' color='info' onClick={handleEditAlerts}>
-              <NotificationAddIcon fontSize={size} />
-            </IconButton>
-          )}
-          {hasActiveTriggers && (
-            <IconButton size='small' color='success' onClick={handleEditAlerts}>
-              <NotificationsIcon fontSize={size} />
-            </IconButton>
-          )}
-          {data && !hasActiveTriggers && (
-            <IconButton size='small' color='success' onClick={handleEditAlerts}>
-              <NotificationsOffIcon fontSize={size} />
-            </IconButton>
-          )}
+      <Box>
+        <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
+          <Box>
+            {!data && (
+              <IconButton size='small' color='info' onClick={handleEditAlerts}>
+                <NotificationAddIcon fontSize={size} />
+              </IconButton>
+            )}
+            {hasActiveTriggers && (
+              <IconButton size='small' color='success' onClick={handleEditAlerts}>
+                <NotificationsIcon fontSize={size} />
+                <CheckIcon fontSize={size} />
+              </IconButton>
+            )}
+            {data && !hasActiveTriggers && (
+              <IconButton size='small' color='success' onClick={handleEditAlerts}>
+                <NotificationsOffIcon fontSize={size} />
+              </IconButton>
+            )}
+          </Box>
+          <Box>
+            <Button onClick={() => router.push('/csr/stocks/alerts')}>
+              <Typography variant='body2'>manage alerts</Typography>
+            </Button>
+          </Box>
         </Box>
-        <Box>
-          <Button onClick={() => router.push('/csr/stocks/alerts')}>manage all alerts</Button>
-        </Box>
+        {snackbarMessage && <SnackbarSuccess show={!!snackbarMessage} text={snackbarMessage} duration={1000} onClose={() => setSnackBarMessage(null)} />}
+        <StockSubscriptionForm show={showAlertEdit} sub={selectedSub} quote={quote} onClose={() => setShowAlertEdit(false)} onSave={handleSaveTrigger} />
       </Box>
-      {snackbarMessage && <SnackbarSuccess show={!!snackbarMessage} text={snackbarMessage} duration={1000} onClose={() => setSnackBarMessage(null)} />}
     </Box>
   )
 }

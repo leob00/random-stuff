@@ -5,11 +5,12 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import dayjs from 'dayjs'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { toCamelCase } from 'lib/util/textUtil'
 import { useRouter } from 'next/router'
 import numeral from 'numeral'
+import StockSubscibeIcon from './StockSubscibeIcon'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 
-const StockDetailsTab = ({ quote }: { quote: StockQuote }) => {
+const StockDetailsTab = ({ quote, authProfile }: { quote: StockQuote; authProfile: UserProfile | null }) => {
   const router = useRouter()
   const handleTagClick = (tag: string) => {
     router.push(`/csr/stocks/stock-tags?id=${encodeURIComponent(tag)}`)
@@ -51,6 +52,7 @@ const StockDetailsTab = ({ quote }: { quote: StockQuote }) => {
           </Box>
         </Box>
       )}
+
       <Box pt={2}>
         <HorizontalDivider />
       </Box>

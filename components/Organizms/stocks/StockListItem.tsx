@@ -26,6 +26,7 @@ import StockDividendDetails from './dividends/StockDividendDetails'
 import StockField from './StockField'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { MarketCategory } from 'lib/backend/api/qln/chartApi'
+import HoverEffect from 'components/Molecules/Lists/HoverEffect'
 
 const StockListItem = ({
   item,
@@ -132,14 +133,14 @@ const StockListItem = ({
             {isStock && (
               <>
                 {authProfile && (
-                  <Box display={'flex'} gap={2} alignItems={'center'}>
-                    <StockSubscibeIcon userProfile={authProfile} quote={item} />
+                  <Box display={'flex'} gap={2}>
+                    <StockSubscibeIcon userProfile={authProfile} quote={item} size='medium' />
                   </Box>
                 )}
                 <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
                 <Typography ref={tabScrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>
                 <Box>
-                  {selectedTab === 'Details' && <StockDetailsTab quote={item} />}
+                  {selectedTab === 'Details' && <StockDetailsTab quote={item} authProfile={authProfile} />}
                   {selectedTab === 'News' && <StockNews quote={item} profile={authProfile} />}
                   {selectedTab === 'Earnings' && <StockEarnings quote={item} />}
                   {selectedTab === 'Dividends' && <StockDividendDetails symbol={item.Symbol} showCompanyName={false} />}

@@ -8,20 +8,24 @@ const MovingAvgValues = ({ values, startAt = 0 }: { values: MovingAvg[]; startAt
   const theme = useTheme()
   return (
     <>
-      <CenterStack>
-        <Typography>moving average</Typography>
+      <CenterStack sx={{ pb: 2 }}>
+        <Typography variant='body2'>moving average</Typography>
       </CenterStack>
-      <Box display={'flex'} gap={2} alignItems={'center'} justifyContent={{ sx: 'flex-start', sm: 'center' }} flexWrap={'wrap'}>
-        {values
-          .filter((m) => m.UnitValue >= startAt)
-          .map((item) => (
-            <Box key={item.UnitValue}>
-              <Typography variant='caption'>{`${item.UnitValue} day`}</Typography>
-              <Typography
-                color={getPositiveNegativeColor(item.CurrentValue, theme.palette.mode)}
-              >{`${numeral(item.CurrentValue).format('###,###,0.00')}%`}</Typography>
-            </Box>
-          ))}
+      <Box sx={{ overflowX: 'auto', scrollbarWidth: 'none' }}>
+        <Box>
+          <Box display={'flex'} gap={2} alignItems={'center'} justifyContent={{ sx: 'flex-start', sm: 'center' }}>
+            {values
+              .filter((m) => m.UnitValue >= startAt)
+              .map((item) => (
+                <Box key={item.UnitValue}>
+                  <Typography variant='caption'>{`${item.UnitValue} day`}</Typography>
+                  <Typography
+                    color={getPositiveNegativeColor(item.CurrentValue, theme.palette.mode)}
+                  >{`${numeral(item.CurrentValue).format('###,###,0.00')}%`}</Typography>
+                </Box>
+              ))}
+          </Box>
+        </Box>
       </Box>
     </>
   )
