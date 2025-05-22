@@ -54,6 +54,10 @@ const StocksCustomSortForm = ({
       value: 'MarketCap',
       text: 'market cap',
     },
+    {
+      value: 'Volume',
+      text: 'volume',
+    },
   ]
 
   let directionOptions: DropdownItem[] = [

@@ -2,6 +2,7 @@ import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import Seo from 'components/Organizms/Seo'
+import StockReportsDropdown from 'components/Organizms/stocks/reports/StockReportsDropdown'
 import StockTagsLayout from 'components/Organizms/stocks/stock-tags/StockTagsLayout'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { apiConnection } from 'lib/backend/api/config'
@@ -27,7 +28,8 @@ const Page = () => {
       <Seo pageTitle='Stock Tags' />
       <ResponsiveContainer>
         {isLoading && <BackdropLoader />}
-        <PageHeader text='Stock Tags' />
+        <PageHeader text='Stock Reports' />
+        <StockReportsDropdown selectedValue={'stock-tags'} />
         {data && <StockTagsLayout key={selectedTag} allTags={data} selectedTag={selectedTag} />}
       </ResponsiveContainer>
     </>

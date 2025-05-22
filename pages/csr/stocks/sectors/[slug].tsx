@@ -13,6 +13,7 @@ import { dedup } from 'lib/util/collectionsNative'
 import { excludeFinancialInstruments } from 'lib/ui/stocks/util'
 import SortableStockContainer from 'components/Organizms/stocks/SortableStockContainer'
 import MovingAvgValues from 'components/Organizms/stocks/movingAvg/MovingAvgValues'
+import NoDataFound from 'components/Atoms/Text/NoDataFound'
 interface Model {
   container: SectorIndustry
   quotes: StockQuote[]
@@ -41,13 +42,22 @@ const Page = () => {
     <ResponsiveContainer>
       {isLoading && <BackdropLoader />}
       {data && (
-        <Box>
-          <PageHeader text={`${data.container.Name}`} backButtonRoute={'/csr/stocks/sectors'} />
-          <Box py={2}>
-            <MovingAvgValues values={data.container.MovingAvg} />
-            <SortableStockContainer data={data.quotes} />
-          </Box>
-        </Box>
+        <>
+          {data.quotes.length > 0 ? (
+            <Box>
+              <PageHeader text={`${data.container.Name}`} backButtonRoute={'/csr/stocks/sectors'} />
+              <Box py={2}>
+                <MovingAvgValues values={data.container.MovingAvg} />
+                <SortableStockContainer data={data.quotes} />
+              </Box>
+            </Box>
+          ) : (
+            <>
+              <PageHeader text={``} backButtonRoute={'/csr/stocks/sectors'} />
+              <NoDataFound />
+            </>
+          )}
+        </>
       )}
     </ResponsiveContainer>
   )

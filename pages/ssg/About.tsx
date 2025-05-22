@@ -1,8 +1,6 @@
-import React from 'react'
 import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
-import { Container, Paper, Box, Typography, Stack } from '@mui/material'
-import logo from '/public/images/logo-with-text-blue-small.png'
+import { Paper, Box, Typography, Stack } from '@mui/material'
 import StaticImage from 'components/Atoms/StaticImage'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import Seo from 'components/Organizms/Seo'
@@ -24,7 +22,7 @@ const About: NextPage<{ data: any }> = ({ data }) => {
           <Paper sx={{ p: 1 }}>
             <Box sx={{ align: 'center', my: 1 }}>
               <Stack direction='row' justifyContent='center' my={2}>
-                <StaticImage image={logo} title='about us' height={220} width={340} />
+                <StaticImage image={'/images/logo-with-text-blue-small.png'} title='about us' height={220} width={340} />
               </Stack>
             </Box>
             <Box sx={{ align: 'center', my: 2 }}>

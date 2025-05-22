@@ -4,7 +4,6 @@ import NLink from 'next/link'
 import { useEffect, useState } from 'react'
 import UserPanel from './UserPanel'
 import { DarkMode } from './themes/DarkMode'
-import logo from '../public/images/logo-with-text-blue-small.png'
 import StaticImage from './Atoms/StaticImage'
 import GradientContainer from './Atoms/Boxes/GradientContainer'
 import { useUserController } from 'hooks/userController'
@@ -54,7 +53,7 @@ const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; 
               <Box display={'flex'} justifyContent={'space-between'}>
                 <Box display='flex' gap={{ xs: 1, sm: 2 }}>
                   <NLink href='/' passHref>
-                    <StaticImage image={logo} title='random things' width={120} height={60} priority />
+                    <StaticImage image={'/images/logo-with-text-blue-small.png'} title='random things' width={120} height={60} priority />
                   </NLink>
                   <Box pt={2}>
                     <HeaderLinks />

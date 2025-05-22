@@ -100,9 +100,11 @@ const Page = () => {
       <Seo pageTitle={`Community Stocks`} />
       <ResponsiveContainer>
         <PageHeader text='Community Stocks' />
-        <Box py={2}>
-          <StockSearch onSymbolSelected={handleSelectQuote} clearOnSelect />
-        </Box>
+        {!selectedStock && (
+          <Box py={2}>
+            <StockSearch onSymbolSelected={handleSelectQuote} clearOnSelect />
+          </Box>
+        )}
         {selectedStock && <FullStockDetail item={selectedStock} onClose={handleCloseQuoteDialog} />}
         {!selectedStock && <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />}
         {!selectedStock && (

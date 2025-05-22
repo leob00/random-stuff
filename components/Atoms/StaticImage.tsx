@@ -11,7 +11,7 @@ const StaticImage = ({
   style,
   priority,
 }: {
-  image: StaticImageData | string
+  image: string
   title: string
   width?: number
   height?: number
@@ -21,7 +21,16 @@ const StaticImage = ({
   return (
     <>
       <Box sx={{ position: 'relative', height: { height }, width: { width }, my: 1, borderRadius: '16px' }}>
-        <NImage style={style ? style : { borderRadius: '16px' }} height={height} width={width} src={image} alt={title} placeholder='blur' priority={priority} />
+        <NImage
+          style={style ? style : { borderRadius: '16px' }}
+          height={height}
+          width={width}
+          src={image}
+          alt={title}
+          placeholder='blur'
+          priority={priority}
+          blurDataURL={image}
+        />
       </Box>
     </>
   )

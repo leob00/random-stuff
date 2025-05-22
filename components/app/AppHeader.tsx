@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import React from 'react'
 import UserPanel from './UserPanel'
 import { DarkMode } from 'components/themes/DarkMode'
-import logo from '/public/images/logo-with-text-blue-small.png'
 import StaticImage from 'components/Atoms/StaticImage'
 import GradientContainer from 'components/Atoms/Boxes/GradientContainer'
 import { useUserController } from 'hooks/userController'
@@ -58,7 +57,7 @@ const AppHeader = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark
               <Box display={'flex'} justifyContent={'space-between'}>
                 <Box display='flex' gap={{ xs: 1, sm: 2 }}>
                   <NLink href='/' passHref>
-                    <StaticImage image={logo} title='random things' width={120} height={60} priority={true} />
+                    <StaticImage image={'/images/logo-with-text-blue-small.png'} title='random things' width={120} height={60} priority={true} />
                   </NLink>
                   <Box pt={2}>
                     <HeaderLinks />

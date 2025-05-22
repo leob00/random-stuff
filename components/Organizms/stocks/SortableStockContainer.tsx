@@ -1,22 +1,28 @@
 import { Box } from '@mui/material'
-import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
-import ContextMenuSort from 'components/Molecules/Menus/ContextMenuSort'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { orderBy } from 'lodash'
 import CustomSortAlert from './CustomSortAlert'
 import PagedStockTable from './PagedStockTable'
 import StocksCustomSortForm from './StocksCustomSortForm'
 import { useState } from 'react'
-import { Sort, StockQuoteSort } from 'lib/backend/api/models/collections'
+import { StockQuoteSort } from 'lib/backend/api/models/collections'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
 
-const SortableStockContainer = ({ data, defaultSort }: { data: StockQuote[]; defaultSort?: StockQuoteSort[] }) => {
+const SortableStockContainer = ({
+  data,
+  defaultSort,
+  featuredField,
+}: {
+  data: StockQuote[]
+  defaultSort?: StockQuoteSort[]
+  featuredField?: keyof StockQuote
+}) => {
   const [showSortForm, setShowSortForm] = useState(false)
   const defSort = defaultSort ?? [{ key: 'MarketCap', direction: 'desc' }]
   const [sort, setSort] = useState<StockQuoteSort[]>(defSort)
-  const featuredField = defSort.some((m) => m.key === 'MarketCap') ? 'MarketCapShort' : undefined
+  let fieldToFeature = defSort.some((m) => m.key === 'MarketCap') ? 'MarketCapShort' : !!featuredField ? featuredField : 'MarketCapShort'
 
   const handleSortChange = (newSort?: StockQuoteSort[]) => {
     setShowSortForm(false)
@@ -45,7 +51,7 @@ const SortableStockContainer = ({ data, defaultSort }: { data: StockQuote[]; def
           <CustomSortAlert result={sort} onModify={() => setShowSortForm(true)} translateDefaultMessage />
         </Box>
       </Box>
-      <PagedStockTable data={sortData()} pageSize={10} sort={sort} featuredField={featuredField} scrollOnPageChange onPageChanged={handlePageChange} />
+      <PagedStockTable data={sortData()} pageSize={10} sort={sort} featuredField={fieldToFeature} scrollOnPageChange onPageChanged={handlePageChange} />
       <FormDialog title='sort' show={showSortForm} onCancel={() => setShowSortForm(false)}>
         <StocksCustomSortForm result={sort} onSubmitted={handleSortChange} required />
       </FormDialog>

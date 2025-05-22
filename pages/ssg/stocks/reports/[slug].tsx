@@ -19,12 +19,12 @@ interface Model {
 
 const Page = () => {
   const router = useRouter()
-  const dropdown = stockReportsDropdown
+
   const id = String(router.query.slug)
 
-  let selectedOption = dropdown.find((m) => m.value === id)
+  let selectedOption = stockReportsDropdown.find((m) => m.value === id)
   if (!selectedOption) {
-    selectedOption = dropdown[0]
+    selectedOption = stockReportsDropdown[0]
   }
 
   const dataFn = async () => {
