@@ -60,7 +60,6 @@ const StockSubscibeIcon = ({
   return (
     <Box>
       {isLoading && <BackdropLoader />}
-
       <Box>
         <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
           <Box>
