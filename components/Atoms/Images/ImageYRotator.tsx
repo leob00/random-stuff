@@ -1,7 +1,4 @@
-import React from 'react'
 import styled from '@emotion/styled'
-import CenterStack from '../CenterStack'
-import RemoteImageFlat from '../RemoteImageFlat'
 import { motion } from 'framer-motion'
 import { Box } from '@mui/material'
 

@@ -4,7 +4,6 @@ import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import Pager from 'components/Atoms/Pager'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
-import { CasinoRedTransparent, RedDarkMode } from 'components/themes/mainTheme'
 import { useClientPager } from 'hooks/useClientPager'
 import GoalStats from './GoalStats'
 import { UserGoal } from './goalModels'
@@ -12,7 +11,6 @@ import { UserGoal } from './goalModels'
 const UserGoalsList = ({ data, onShowEdit }: { data: UserGoal[]; onShowEdit: (item: UserGoal) => void }) => {
   const pageSize = 5
   const theme = useTheme()
-  const redColor = theme.palette.mode === 'dark' ? RedDarkMode : CasinoRedTransparent
   const scroller = useScrollTop(0)
 
   const { pagerModel, setPage, getPagedItems, reset } = useClientPager(data, pageSize)

@@ -9832,6 +9832,10 @@
     "Symbol": "DEFI"
   },
   {
+    "Company": "Aptus Deferred Income ETF",
+    "Symbol": "DEFR"
+  },
+  {
     "Company": "Defi Technologies, Inc.",
     "Symbol": "DEFT"
   },
@@ -40902,6 +40906,10 @@
   {
     "Company": "USANA Health Sciences Inc",
     "Symbol": "USNA"
+  },
+  {
+    "Company": "Amplify Samsung U.S. Natural Gas Infrastructure ETF",
+    "Symbol": "USNG"
   },
   {
     "Company": "Xtrackers Net Zero Pathway Paris Aligned US Equity ETF",

@@ -374,10 +374,10 @@ export async function getJob(token: string, jobName: string) {
   return result
 }
 
-export async function getReport(id: StockReportTypes) {
+export async function getReport(id: StockReportTypes, take = 100) {
   const url = `${qlnApiBaseUrl}/StockReports`
 
-  const response = await get(url, { id: id })
+  const response = await get(url, { id: id, take: take })
   const result = response.Body as StockQuote[]
   return result
 }

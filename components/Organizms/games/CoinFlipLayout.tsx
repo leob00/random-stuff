@@ -155,12 +155,10 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
         currentFace: undefined,
       },
     })
-    let shuffled = shuffle(allCoins)
-    while (model.isLoading) {
-      const iterations = getRandomInteger(100, 150)
-      for (let i = 0; i <= iterations; i++) {
-        shuffled = shuffle(shuffled)
-      }
+    let shuffled = [...allCoins]
+    const iterations = getRandomInteger(100, 150)
+    for (let i = 0; i <= iterations; i++) {
+      shuffled = shuffle(shuffled)
     }
     const flipped = shuffled[0]
 
@@ -177,7 +175,6 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
       }
 
       putRecord('coinflip-community', 'random', dbResult)
-
       dispatch({
         type: 'flipped',
         payload: {
@@ -265,7 +262,7 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
                 </Box>
                 <CenterStack sx={{ minHeight: 36 }}>
                   <Box pt={2}>
-                    <Typography variant='h3'>{`${model.flippedCoin.face}`}</Typography>
+                    <Typography variant='h3'>{`${model.flippedCoin.face}!!!`}</Typography>
                   </Box>
                 </CenterStack>
               </Box>

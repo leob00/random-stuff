@@ -29,6 +29,10 @@ const Page = () => {
 
   const dataFn = async () => {
     const arg = selectedOption?.value.replaceAll('-', '') as StockReportTypes
+    let take = 100
+    if (arg === 'indicesAndEtfs') {
+      take = 2000
+    }
     const result: Model = {
       type: arg,
       items: await getReport(arg),

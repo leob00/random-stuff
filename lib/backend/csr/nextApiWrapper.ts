@@ -246,7 +246,9 @@ export async function putUserGoals(id: string, data: UserGoal[], expiration: num
   const putRequest: SignedRequest = {
     data: encryptBody(req),
   }
-  await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
+  if (navigator.onLine) {
+    await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
+  }
 }
 export async function putUserGoalTasks(username: string, goalId: string, data: UserTask[], expiration: number = 0) {
   let req: RandomStuffDynamoItem = {

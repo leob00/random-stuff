@@ -1,5 +1,5 @@
 import { constructUserGoalsKey } from 'lib/backend/api/aws/util'
-import { getRecord, searchRecords } from 'lib/backend/csr/nextApiWrapper'
+import { getRecord, putUserGoals, searchRecords } from 'lib/backend/csr/nextApiWrapper'
 import { filter, orderBy } from 'lodash'
 import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
@@ -30,11 +30,11 @@ const UserGoalsLayout = () => {
   const goalsKey = constructUserGoalsKey(username)
 
   const fetchGoalsData = async () => {
-    const goalsResp = getRecord<UserGoal[]>(goalsKey)
+    const goalsResp = (await getRecord<UserGoal[]>(goalsKey)) ?? []
     const tasksResp = await searchRecords(`user-goal-tasks[${username}]`)
     const [goalsData, tasksData] = await Promise.all([goalsResp, tasksResp])
     const tasks = tasksData.flatMap((m) => JSON.parse(m.data) as UserTask)
-    const result = mapGoalTasks(goalsData, tasks)
+    const result = mapGoalTasks(goalsKey, goalsData, tasks)
     return result
   }
   const { data: goalsAndTasks, error, isLoading } = useSwrHelper(goalsKey, fetchGoalsData, { revalidateOnFocus: false })
@@ -48,11 +48,23 @@ const UserGoalsLayout = () => {
     </>
   )
 }
-const mapGoalTasks = (goals: UserGoal[], tasks: UserTask[]) => {
+const mapGoalTasks = (goalsKey: string, goals: UserGoal[], tasks: UserTask[]) => {
   const goalsAndTasks: UserGoalAndTask[] = []
   const goalsCopy = [...goals]
+  // run this if you lose data remember to delete goals item and uncomment putUserGoals
+  // tasks.forEach((task) => {
+  //   const ex = goalsCopy.find((m) => m.goalId == task.goalId)
+  //   if (!ex) {
+  //     goalsCopy.push({
+  //       id: task.goalId,
+  //       goalId: task.goalId,
+  //       body: task.goalId,
+  //     })
+  //   }
+  // })
+
   goalsCopy.forEach((goal) => {
-    const goalTasks = [...tasks].filter((e) => e.goalId === goal.id)
+    const goalTasks = tasks.filter((e) => e.goalId === goal.id)
     goal.stats = getGoalStats(goalTasks)
 
     if (!goal.completePercent) {
@@ -63,6 +75,7 @@ const mapGoalTasks = (goals: UserGoal[], tasks: UserTask[]) => {
       tasks: goalTasks,
     })
   })
+  //putUserGoals(goalsKey, goalsCopy)
   return goalsAndTasks
 }
 export function reorderTasks(list: UserTask[]) {
