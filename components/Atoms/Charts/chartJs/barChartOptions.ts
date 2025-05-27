@@ -52,6 +52,7 @@ export const getBarChartOptions = (
     responsive: true,
     animation: {
       easing: 'linear',
+      duration: 1500,
     },
     maintainAspectRatio: true,
     indexAxis: isHorizontal ? 'y' : 'x',
