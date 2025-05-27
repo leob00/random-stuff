@@ -32,6 +32,10 @@
     "Symbol": "AACG"
   },
   {
+    "Company": "Armada Acquisition Corp. II Units",
+    "Symbol": "AACIU"
+  },
+  {
     "Company": "Ares Acquisition Corporation II",
     "Symbol": "AACT"
   },
@@ -800,10 +804,6 @@
     "Symbol": "AFJKR"
   },
   {
-    "Company": "Aimei Health Technology Co., Ltd Unit",
-    "Symbol": "AFJKU"
-  },
-  {
     "Company": "VanEck Africa Index ETF",
     "Symbol": "AFK"
   },
@@ -1092,7 +1092,7 @@
     "Symbol": "AIFF"
   },
   {
-    "Company": "AIFU Inc. American Depositary Shares",
+    "Company": "AIFU Inc. Class A Ordinary Share",
     "Symbol": "AIFU"
   },
   {
@@ -1526,10 +1526,6 @@
   {
     "Company": "Alto Ingredients, Inc. Common Stock",
     "Symbol": "ALTO"
-  },
-  {
-    "Company": "Altair Engineering Inc. Class A Common Stock",
-    "Symbol": "ALTR"
   },
   {
     "Company": "ALT5 Sigma Corporation Common Stock",
@@ -2408,10 +2404,6 @@
     "Symbol": "ARKB"
   },
   {
-    "Company": "ARK 21Shares Active On-Chain Bitcoin Strategy ETF",
-    "Symbol": "ARKC"
-  },
-  {
     "Company": "ARK 21Shares Blockchain and Digital Economy Innovation ETF",
     "Symbol": "ARKD"
   },
@@ -2450,10 +2442,6 @@
   {
     "Company": "ARK Space Exploration & Innovation ETF",
     "Symbol": "ARKX"
-  },
-  {
-    "Company": "ARK 21Shares Active Bitcoin Ethereum Strategy ETF",
-    "Symbol": "ARKY"
   },
   {
     "Company": "ARK 21Shares Active Ethereum Futures Strategy ETF",
@@ -3492,10 +3480,6 @@
     "Symbol": "BAC"
   },
   {
-    "Company": "IMAC Holdings, Inc. Common Stock",
-    "Symbol": "BACK"
-  },
-  {
     "Company": "Bleichroeder Acquisition Corp. I Class A Ordinary Shares",
     "Symbol": "BACQ"
   },
@@ -3678,10 +3662,6 @@
   {
     "Company": "Bayview Acquisition Corp Right",
     "Symbol": "BAYAR"
-  },
-  {
-    "Company": "Bayview Acquisition Corp Unit",
-    "Symbol": "BAYAU"
   },
   {
     "Company": "BlackBerry Limited",
@@ -4112,7 +4092,7 @@
     "Symbol": "BEEM"
   },
   {
-    "Company": "Mobile Infrastructure Corporation",
+    "Company": "Mobile Infrastructure Corporation Common Stock",
     "Symbol": "BEEP"
   },
   {
@@ -4424,10 +4404,6 @@
     "Symbol": "BHFAP"
   },
   {
-    "Company": "Benson Hill, Inc.",
-    "Symbol": "BHIL"
-  },
-  {
     "Company": "BLACKROCK CORE BD TR",
     "Symbol": "BHK"
   },
@@ -4694,10 +4670,6 @@
   {
     "Company": "Brookdale Senior Living, Inc.",
     "Symbol": "BKD"
-  },
-  {
-    "Company": "Brookdale Senior Living Inc. 7.00% Tangible Equity Units",
-    "Symbol": "BKDT"
   },
   {
     "Company": "BNY Mellon Dynamic Value ETF",
@@ -5154,6 +5126,10 @@
   {
     "Company": "SonicShares Global Shipping ETF",
     "Symbol": "BOAT"
+  },
+  {
+    "Company": "CORE16 Best of Breed Premier Index ETF",
+    "Symbol": "BOBP"
   },
   {
     "Company": "Boston Omaha Corporation",
@@ -9422,14 +9398,6 @@
   {
     "Company": "CryoPort, Inc. Common Stock",
     "Symbol": "CYRX"
-  },
-  {
-    "Company": "Cyclo Therapeutics, Inc. Common Stock",
-    "Symbol": "CYTH"
-  },
-  {
-    "Company": "Cyclo Therapeutics, Inc. Warrant",
-    "Symbol": "CYTHW"
   },
   {
     "Company": "Cytokinetics Inc.",
@@ -15580,6 +15548,10 @@
     "Symbol": "FTRI"
   },
   {
+    "Company": "FAST TRACK GROUP Ordinary shares",
+    "Symbol": "FTRK"
+  },
+  {
     "Company": "Fortis Inc. Common Shares",
     "Symbol": "FTS"
   },
@@ -16214,18 +16186,6 @@
   {
     "Company": "GDS Holdings Limited ADS",
     "Symbol": "GDS"
-  },
-  {
-    "Company": "Goldenstone Acquisition Limited Common Stock",
-    "Symbol": "GDST"
-  },
-  {
-    "Company": "Goldenstone Acquisition Limited Rights",
-    "Symbol": "GDSTR"
-  },
-  {
-    "Company": "Goldenstone Acquisition Limited Warrants",
-    "Symbol": "GDSTW"
   },
   {
     "Company": "CytoMed Therapeutics Limited Ordinary Shares",
@@ -18412,6 +18372,10 @@
     "Symbol": "HNDL"
   },
   {
+    "Company": "Hinge Health, Inc.",
+    "Symbol": "HNGE"
+  },
+  {
     "Company": "HNI Corporation",
     "Symbol": "HNI"
   },
@@ -18730,10 +18694,6 @@
   {
     "Company": "Horizon Space Acquisition I Corp. Right",
     "Symbol": "HSPOR"
-  },
-  {
-    "Company": "Horizon Space Acquisition I Corp. Unit",
-    "Symbol": "HSPOU"
   },
   {
     "Company": "Horizon Space Acquisition I Corp. Warrant",
@@ -19182,10 +19142,6 @@
   {
     "Company": "IAC Inc. Common Stock",
     "Symbol": "IAC"
-  },
-  {
-    "Company": "IAC Inc. Common Stock Ex-distribution When-Issued",
-    "Symbol": "IACVV"
   },
   {
     "Company": "VOYA ASIA PACIFIC HIGH DIVIDEND EQUITY INCOME FUND",
@@ -19670,6 +19626,10 @@
   {
     "Company": "Innovator International Developed Power Buffer ETF - December",
     "Symbol": "IDEC"
+  },
+  {
+    "Company": "iShares Defense Industrials Active ETF",
+    "Symbol": "IDEF"
   },
   {
     "Company": "iShares Core MSCI International Developed Markets ETF",
@@ -24972,6 +24932,10 @@
     "Symbol": "MBNE"
   },
   {
+    "Company": "Medallion Bank Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series G, par value $1.00 per share",
+    "Symbol": "MBNKO"
+  },
+  {
     "Company": "Medallion Bank Fixed-to-Floating Rate Non-Cumulative Perpetual Preferred Stock, Series F",
     "Symbol": "MBNKP"
   },
@@ -26008,6 +25972,10 @@
     "Symbol": "MNTL"
   },
   {
+    "Company": "MNTN, Inc.",
+    "Symbol": "MNTN"
+  },
+  {
     "Company": "Momentus Inc. Class A Common Stock",
     "Symbol": "MNTS"
   },
@@ -26688,6 +26656,10 @@
     "Symbol": "MUNI"
   },
   {
+    "Company": "Vanguard New York Tax-Exempt Bond ETF",
+    "Symbol": "MUNY"
+  },
+  {
     "Company": "Murphy Oil Corp.",
     "Symbol": "MUR"
   },
@@ -26986,6 +26958,14 @@
   {
     "Company": "Northern Dynasty Minerals, Ltd.",
     "Symbol": "NAK"
+  },
+  {
+    "Company": "Kindly MD, Inc. Common Stock",
+    "Symbol": "NAKA"
+  },
+  {
+    "Company": "Kindly MD, Inc. Warrants",
+    "Symbol": "NAKAW"
   },
   {
     "Company": "Jinxin Technology Holding Company American Depositary Shares",
@@ -29804,6 +29784,10 @@
     "Symbol": "OXY.WS"
   },
   {
+    "Company": "Oyster Enterprises II Acquisition Corp Units",
+    "Symbol": "OYSEU"
+  },
+  {
     "Company": "Belpointe PREP, LLC Class A Units",
     "Symbol": "OZ"
   },
@@ -30180,6 +30164,10 @@
     "Symbol": "PC"
   },
   {
+    "Company": "ProCap Acquisition Corp Unit",
+    "Symbol": "PCAPU"
+  },
+  {
     "Company": "Paccar Inc",
     "Symbol": "PCAR"
   },
@@ -30422,6 +30410,10 @@
   {
     "Company": "Invesco Leisure and Entertainment ETF",
     "Symbol": "PEJ"
+  },
+  {
+    "Company": "Pelican Acquisition Corporation Unit",
+    "Symbol": "PELIU"
   },
   {
     "Company": "Putnam Emerging Markets ex-China ETF",
@@ -36816,6 +36808,10 @@
     "Symbol": "SOTK"
   },
   {
+    "Company": "Soulpower Acquisition Corporation",
+    "Symbol": "SOUL"
+  },
+  {
     "Company": "Soulpower Acquisition Corporation Units, each consisting of one Class A ordinary share and one right",
     "Symbol": "SOUL.U"
   },
@@ -37956,10 +37952,6 @@
     "Symbol": "SVIIR"
   },
   {
-    "Company": "Spring Valley Acquisition Corp. II Unit",
-    "Symbol": "SVIIU"
-  },
-  {
     "Company": "Spring Valley Acquisition Corp. II Warrant",
     "Symbol": "SVIIW"
   },
@@ -38178,6 +38170,10 @@
   {
     "Company": "Pacer CFRA- Stoval Equal Weight Seasonal Rotation ETF",
     "Symbol": "SZNE"
+  },
+  {
+    "Company": "Sizzle Acquisition Corp. II Class A ordinary shares",
+    "Symbol": "SZZL"
   },
   {
     "Company": "Sizzle Acquisition Corp. II Unit",
@@ -41016,10 +41012,6 @@
     "Symbol": "UTRE"
   },
   {
-    "Company": "Vesper US Large Cap Short-Term Reversal Strategy ETF",
-    "Symbol": "UTRN"
-  },
-  {
     "Company": "UTStarcom Holdings Corp Ordinary Shares (Cayman Islands)",
     "Symbol": "UTSI"
   },
@@ -42116,6 +42108,10 @@
     "Symbol": "VTEI"
   },
   {
+    "Company": "Vanguard Long-Term Tax-Exempt Bond ETF",
+    "Symbol": "VTEL"
+  },
+  {
     "Company": "Vanguard Short-Term Tax-Exempt Bond ETF",
     "Symbol": "VTES"
   },
@@ -42656,10 +42652,6 @@
     "Symbol": "WHLRD"
   },
   {
-    "Company": "Wheeler Real Estate Investment Trust, Inc. 7.00% Senior Subordinated Convertible Notes Due 2031",
-    "Symbol": "WHLRL"
-  },
-  {
     "Company": "Wheeler Real Estate Investment Trust, Inc. Preferred Stock",
     "Symbol": "WHLRP"
   },
@@ -43010,6 +43002,10 @@
   {
     "Company": "Wintrust Financial Corporation Fixed-to-Floating Rate Non-Cumulative Perpetual Preferred Stock, Series D",
     "Symbol": "WTFCM"
+  },
+  {
+    "Company": "Wintrust Financial Corporation Depositary Shares, Each Representing a 1/1,000th Interest in a Share of 7.875% Fixed-Rate Reset Non-Cumulative Perpetual Preferred StocK",
+    "Symbol": "WTFCN"
   },
   {
     "Company": "Wintrust Financial Corporation Depositary Shares, Each Representing a 1/1,000th Interest in a Share of 6.875% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series E",
@@ -43692,6 +43688,14 @@
     "Symbol": "XRMI"
   },
   {
+    "Company": "Volatility Shares Trust XRP ETF",
+    "Symbol": "XRPI"
+  },
+  {
+    "Company": "Volatility Shares Trust XRP 2X ETF",
+    "Symbol": "XRPT"
+  },
+  {
     "Company": "SPDR S&P Retail ETF",
     "Symbol": "XRT"
   },
@@ -43944,7 +43948,7 @@
     "Symbol": "YFFI"
   },
   {
-    "Company": "Yields For You Strategy A ETF",
+    "Company": "Yields for You Income Strategy A ETF",
     "Symbol": "YFYA"
   },
   {
