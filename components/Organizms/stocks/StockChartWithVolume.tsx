@@ -30,7 +30,7 @@ const mapModel = (symbol: string, history: StockHistoryItem[], isXSmall: boolean
   const opts: LineChartOptions[] = []
   const id = crypto.randomUUID()
 
-  let shrunkHistory = shrinkList(history, 60)
+  const shrunkHistory = shrinkList(history, 60)
 
   const x = shrunkHistory.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY hh:mm a'))
   const priceValues = shrunkHistory.map((m) => m.Price)

@@ -22,7 +22,7 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
   options[1].chart!.height = 160
 
   return (
-    <Box>
+    <Box minHeight={chartHeight + 160}>
       {isLoading ? (
         <FadeOut>
           <Box height={chartHeight}></Box>
