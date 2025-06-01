@@ -88,7 +88,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
             </Typography>
           </CenterStack>
         )}
-        <>
+        <Box height={chartHeight + 190}>
           {data && (
             <Box>
               {data.aggregate && !isLoading && <HistoricalAggregateDisplay aggregate={data.aggregate} isLoading={isWaiting} />}
@@ -102,7 +102,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
                 <>
                   <Box minHeight={{ xs: 300, sm: chartHeight }} pt={2}>
                     {!isLoading && !isWaiting && (
-                      <>
+                      <Box>
                         <FadeIn>
                           <ReactApexChart series={data.chartOptions.series} options={data.chartOptions} type='area' height={chartHeight} />
                           <Box display='flex' gap={4} pb={4}>
@@ -118,14 +118,14 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
                             )}
                           </Box>
                         </FadeIn>
-                      </>
+                      </Box>
                     )}
                   </Box>
                 </>
               )}
             </Box>
           )}
-        </>
+        </Box>
       </>
     </Box>
   )

@@ -6,7 +6,6 @@ import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import numeral from 'numeral'
 import { stockChartTooltipFormatter } from './stockLineChartOptions'
-import { getPagedArray } from 'lib/util/collections'
 import { shrinkList } from './lineChartOptions'
 interface SyncedChartModel {
   xyValues: XyValues[]
@@ -49,7 +48,7 @@ const mapModel = (symbol: string, history: StockHistoryItem[], isXSmall: boolean
     raw: shrunkHistory,
     changePositiveColor: true,
     yLabelPrefix: '$',
-    chartId: `${id}-${symbol}`,
+    chartId: `parent-chart-${id}-${symbol}`,
     groupName: `${id}-${symbol}`,
     enableAxisXTooltip: false,
     toolTipFormatter: (val: number, options: any) => {
