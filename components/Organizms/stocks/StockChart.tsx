@@ -88,7 +88,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
             </Typography>
           </CenterStack>
         )}
-        <Box height={chartHeight + 190}>
+        <Box minHeight={chartHeight + 190}>
           {data && (
             <Box>
               {data.aggregate && !isLoading && <HistoricalAggregateDisplay aggregate={data.aggregate} isLoading={isWaiting} />}

@@ -22,17 +22,17 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
   options[1].chart!.height = 160
 
   return (
-    <Box height={chartHeight + 190}>
+    <Box minHeight={chartHeight + 190}>
       {isLoading ? (
         <FadeOut>
-          <Box height={chartHeight + 160}></Box>
+          <Box minHeight={chartHeight + 160}></Box>
         </FadeOut>
       ) : (
         <>
           {options.length > 1 && (
-            <Box>
+            <Box minHeight={chartHeight + options[1].chart!.height}>
               <FadeIn>
-                <Box height={chartHeight}>
+                <Box minHeight={chartHeight}>
                   <ReactApexChart options={options[0]} series={options[0].series} type='area' height={'100%'} />
                 </Box>
                 <Box height={160}>
