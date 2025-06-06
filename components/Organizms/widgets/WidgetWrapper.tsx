@@ -16,7 +16,7 @@ const WidgetWrapper = ({ item, children }: { item: DashboardWidget; children: Re
         <HorizontalDivider />
       </Box>
       <DelayedComponentRender key={item.id} delayMs={item.waitToRenderMs}>
-        <FadeIn>{children}</FadeIn>
+        {children}
       </DelayedComponentRender>
     </Box>
   )

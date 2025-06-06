@@ -4,6 +4,7 @@ import { WidgetSize } from 'components/Organizms/dashboard/dashboardModel'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { StockEarning, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import EarningsCalendarWidgetDisplay from './EarningsCalendarWidgetDisplay'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const EarningsCalendarWidget = ({ width, height, size }: { width: number; height: number; size: WidgetSize }) => {
   const mutateKey = 'RecentEarnings'
@@ -17,6 +18,7 @@ const EarningsCalendarWidget = ({ width, height, size }: { width: number; height
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   return (
     <>
+      {isLoading && <ComponentLoader />}
       <Box minHeight={height} width={width}>
         {data && (
           <FadeIn>

@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { getEconDataReport } from 'lib/backend/api/qln/qlnApi'
 import EconIndexChart from './EconIndexChart'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const EconIndexWidget = ({ itemId, symbol, width, height }: { itemId: number; symbol: string; width: number; height: number }) => {
   const startYear = dayjs().subtract(1, 'year').year()
@@ -18,9 +19,10 @@ const EconIndexWidget = ({ itemId, symbol, width, height }: { itemId: number; sy
 
     return data
   }
-  const { data } = useSwrHelper(key, dataFn, { revalidateOnFocus: false })
+  const { data, isLoading } = useSwrHelper(key, dataFn, { revalidateOnFocus: false })
   return (
     <Box minHeight={height} width={width}>
+      {isLoading && <ComponentLoader />}
       {data && (
         <Box minHeight={height} width={width}>
           {data.LastObservationDate && (

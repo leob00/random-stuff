@@ -1,6 +1,4 @@
 'use client'
-import React from 'react'
-import CenterStack from '../CenterStack'
 import { Box } from '@mui/material'
 
 const CircleLoader = () => {
