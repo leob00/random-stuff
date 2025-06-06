@@ -10,6 +10,7 @@ import WidgetFooter from './WidgetFooter'
 import StockMarketGlanceWidget from './stocks/sentiment/StockMarketGlanceWidget'
 import FeaturedRecipesWidget from './recipes/FeaturedRecipesWidget'
 import { useViewPortSize } from 'hooks/ui/useViewportSize'
+import NewsLayoutWrapper from '../news/NewsLayoutWrapper'
 
 export type WidgetDimensions = {
   height: number
@@ -44,7 +45,7 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
       {item.id === 'news' && (
         <Box width={dimension.width}>
           <WidgetWrapper item={item}>
-            <NewsLayout suspendLoader revalidateOnFocus={revalidateOnFocus} />
+            <NewsLayoutWrapper suspendLoader revalidateOnFocus={revalidateOnFocus} />
           </WidgetWrapper>
         </Box>
       )}

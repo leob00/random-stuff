@@ -1,6 +1,7 @@
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { DropdownItem } from 'lib/models/dropdown'
 import { Sort, StockQuoteSort } from '../../models/collections'
+import { NewsTypeIds } from '../../qln/qlnApi'
 
 export interface PresignedUrlPost {
   url: string
@@ -26,8 +27,9 @@ export type DynamoKeys =
   | 'email-template[stock-alert]'
   | 'stocks-daily-market-sentiment'
   | 'stocks-monthly-market-sentiment'
+  | (string & {})
 
-export type CategoryType = 'animals' | 'random' | 'userProfile' | 'searched-stocks' | 'user-stock_list' | string
+export type CategoryType = 'animals' | 'random' | 'userProfile' | 'searched-stocks' | 'user-stock_list' | (string & {})
 
 export interface S3Folder {
   bucket: Bucket
@@ -67,7 +69,7 @@ export type CryptoSettings = StockSettingsBase & {}
 
 export interface UserSettings {
   news?: {
-    lastNewsType?: string
+    lastNewsType?: NewsTypeIds
   }
   stocks?: UserStockSettings
   folders?: DropdownItem[]

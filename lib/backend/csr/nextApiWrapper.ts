@@ -328,7 +328,7 @@ export async function deleteRecord(id: string) {
   await postBody(`/api/aws/dynamo/item`, 'DELETE', req)
 }
 
-export async function getRecord<T>(id: DynamoKeys | string): Promise<T> {
+export async function getRecord<T>(id: DynamoKeys): Promise<T> {
   let result: any | null = null
   try {
     const body = encryptKey(id)
@@ -360,7 +360,7 @@ export async function getDynamoItem(id: DynamoKeys): Promise<RandomStuffDynamoIt
     return result
   }
 }
-export async function searchRecords(id: DynamoKeys | CategoryType | string): Promise<RandomStuffDynamoItem[]> {
+export async function searchRecords(id: DynamoKeys | CategoryType): Promise<RandomStuffDynamoItem[]> {
   const enc = weakEncrypt(id)
   const body: SignedRequest = {
     data: enc,
@@ -391,11 +391,6 @@ export async function deleteRecordsBatch(items: string[]) {
     data: weakEncrypt(JSON.stringify(items)),
   }
   await post(`/api/deleteRandomStuffBatch`, putRequest)
-}
-
-export async function getCommunityStocks() {
-  var result = await getRecord<StockQuote[]>('community-stocks')
-  return result
 }
 
 export async function sendEmailFromClient(item: EmailMessage) {

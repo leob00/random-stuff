@@ -12,9 +12,10 @@ import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import { useState } from 'react'
 import { useSwrHelper } from 'hooks/useSwrHelper'
-import { useProfileValidator } from 'hooks/auth/useProfileValidator'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 const NewsLayout = ({
+  userProfile,
   componentLoader = false,
   allowSelectType = true,
   revalidateOnFocus = false,
@@ -24,10 +25,11 @@ const NewsLayout = ({
   allowSelectType?: boolean
   revalidateOnFocus?: boolean
   suspendLoader?: boolean
+  userProfile: UserProfile | null
 }) => {
-  const { userProfile } = useProfileValidator()
-  const { setProfile, fetchProfilePassive } = useUserController()
-  const defaultSource: NewsTypeIds = (userProfile?.settings?.news?.lastNewsType as NewsTypeIds) ?? 'GoogleTopStories'
+  const { setProfile } = useUserController()
+  const defaultSource: NewsTypeIds = userProfile?.settings?.news?.lastNewsType ?? 'GoogleTopStories'
+
   const [selectedSource, setSelectedSource] = useState<NewsTypeIds>(defaultSource)
   const [error, setError] = useState<string | null>(null)
 
@@ -64,16 +66,17 @@ const NewsLayout = ({
   const scroller = useScrollTop(0)
 
   const saveProfileNewsType = async (newstype: NewsTypeIds) => {
-    const profile = await fetchProfilePassive()
-    if (profile && profile.settings) {
-      if (!profile.settings.news) {
-        profile.settings.news = {
+    // const profile = await fetchProfilePassive()
+    if (userProfile && userProfile.settings) {
+      if (!userProfile.settings.news) {
+        userProfile.settings.news = {
           lastNewsType: selectedSource,
         }
       }
-      profile.settings.news.lastNewsType = newstype
-      setProfile(profile)
-      putUserProfile(profile)
+
+      userProfile.settings.news = { ...userProfile.settings.news, lastNewsType: newstype }
+      setProfile(userProfile)
+      putUserProfile(userProfile)
     }
   }
   const handleNewsSourceSelected = async (id: string) => {
@@ -88,6 +91,7 @@ const NewsLayout = ({
       {allowSelectType && (
         <Box py={2}>
           {isLoading && !suspendLoader && <>{componentLoader ? <CircleLoader /> : <BackdropLoader />}</>}
+
           <Stack display='flex' flexDirection='row' justifyContent={'center'} px={2}>
             <StaticAutoComplete
               options={newsTypes}
