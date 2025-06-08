@@ -6,6 +6,8 @@ import { EconomicDataItem } from '../api/qln/qlnModels'
 import { DashboardWidgetWithSettings } from 'components/Organizms/dashboard/dashboardModel'
 import { StockQuoteSort } from '../api/models/collections'
 import { EconCalendarFilter } from 'components/Organizms/stocks/EconCalendarDisplay'
+import { NewsTypeIds } from '../api/qln/qlnApi'
+import { Settings } from '@mui/icons-material'
 
 export interface StockSettings extends UserStockSettings {
   data: StockQuote[]
@@ -13,6 +15,9 @@ export interface StockSettings extends UserStockSettings {
 }
 export type EconCalendarSettings = {
   filter?: EconCalendarFilter
+}
+export type NewsSettings = {
+  newsSource: NewsTypeIds
 }
 
 export interface LocalStore {
@@ -30,6 +35,8 @@ export interface LocalStore {
   saveCryptoSettings: (items: CryptoSettings) => void
   econCalendarSettings?: EconCalendarSettings
   setEconCalendarSettings: (item: EconCalendarSettings) => void
+  newsSettings: NewsSettings
+  setNewsSettings: (item: NewsSettings) => void
 }
 
 export const useLocalStore = create(
@@ -44,6 +51,9 @@ export const useLocalStore = create(
         earnings: {
           display: 'chart',
         },
+      },
+      newsSettings: {
+        newsSource: 'GoogleTopStories',
       },
 
       saveStockSettings: (stockSettings: UserStockSettings) => set((state) => ({ ...state, stockSettings: stockSettings })),
@@ -66,6 +76,7 @@ export const useLocalStore = create(
       cryptoSettings: null,
       saveCryptoSettings: (cryptoSettings: CryptoSettings) => set((state) => ({ ...state, cryptoSettings: cryptoSettings })),
       setEconCalendarSettings: (settings: EconCalendarSettings) => set((state) => ({ ...state, econCalendarSettings: settings })),
+      setNewsSettings: (settings: NewsSettings) => set((state) => ({ ...state, newsSettings: settings })),
     }),
     {
       name: 'rs-local-store',

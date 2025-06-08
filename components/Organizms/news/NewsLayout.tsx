@@ -13,6 +13,7 @@ import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import { useState } from 'react'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { useLocalStore } from 'lib/backend/store/useLocalStore'
 
 const NewsLayout = ({
   userProfile,
@@ -28,7 +29,8 @@ const NewsLayout = ({
   userProfile: UserProfile | null
 }) => {
   const { setProfile } = useUserController()
-  const defaultSource: NewsTypeIds = userProfile?.settings?.news?.lastNewsType ?? 'GoogleTopStories'
+  const { newsSettings, setNewsSettings } = useLocalStore()
+  const defaultSource: NewsTypeIds = userProfile?.settings?.news?.lastNewsType ?? newsSettings.newsSource
 
   const [selectedSource, setSelectedSource] = useState<NewsTypeIds>(defaultSource)
   const [error, setError] = useState<string | null>(null)
@@ -66,7 +68,6 @@ const NewsLayout = ({
   const scroller = useScrollTop(0)
 
   const saveProfileNewsType = async (newstype: NewsTypeIds) => {
-    // const profile = await fetchProfilePassive()
     if (userProfile && userProfile.settings) {
       if (!userProfile.settings.news) {
         userProfile.settings.news = {
@@ -77,6 +78,7 @@ const NewsLayout = ({
       userProfile.settings.news = { ...userProfile.settings.news, lastNewsType: newstype }
       setProfile(userProfile)
       putUserProfile(userProfile)
+      setNewsSettings({ ...newsSettings, newsSource: newstype })
     }
   }
   const handleNewsSourceSelected = async (id: string) => {
