@@ -1,20 +1,13 @@
 import { ApexOptions } from 'apexcharts'
 import {
   CasinoBlack,
-  CasinoBlackTransparent,
   CasinoBlue,
   CasinoBlueTransparent,
-  CasinoGreen,
   CasinoGreenTransparent,
-  CasinoLightGrayTransparent,
   CasinoLimeTransparent,
-  CasinoRed,
   CasinoRedTransparent,
   DarkBlue,
-  DarkBlueTransparent,
-  DarkModeBkg,
   DarkModeBlue,
-  DarkModeBlueTransparent,
   RedDarkMode,
   VeryLightBlue,
   VeryLightBlueTransparent,
@@ -263,7 +256,7 @@ export function getBaseGrid(palette: 'light' | 'dark') {
   const result: ApexGrid = {
     show: true,
     borderColor: palette === 'dark' ? VeryLightBlueTransparent : VeryLightBlueTransparent,
-    strokeDashArray: 3,
+    strokeDashArray: 0,
     yaxis: {
       lines: {
         show: true,
@@ -305,8 +298,11 @@ export function getBaseXAxis(categories: string[]) {
   const result: ApexXAxis = {
     labels: {
       show: false,
-      formatter: (val) => {
-        return val
+      formatter: (val, timestamp, opts) => {
+        if (categories[0] === val || categories[categories.length - 1] === val) {
+          return val
+        }
+        return ''
       },
     },
     categories: categories,
