@@ -7,6 +7,7 @@ import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import numeral from 'numeral'
 import { stockChartTooltipFormatter } from './stockLineChartOptions'
 import { shrinkList } from './lineChartOptions'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 interface SyncedChartModel {
   xyValues: XyValues[]
   options: LineChartOptions[]

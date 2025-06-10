@@ -7,6 +7,7 @@ import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
 
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import FadeOut from 'components/Atoms/Animations/FadeOut'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const getOptions = (xYValues: XyValues[], lineOptions: LineChartOptions[]) => {
   const result: ApexOptions[] = xYValues.map((m, i) => getBaseLineChartOptions(m, lineOptions[i]))
@@ -22,11 +23,9 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
   options[1].chart!.height = 160
 
   return (
-    <Box minHeight={chartHeight + 190}>
+    <Box height={chartHeight + 190}>
       {isLoading ? (
-        <FadeOut>
-          <Box minHeight={chartHeight + 160}></Box>
-        </FadeOut>
+        <Box minHeight={chartHeight + 160}></Box>
       ) : (
         <>
           {options.length > 1 && (

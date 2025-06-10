@@ -20,6 +20,7 @@ import { sleep } from 'lib/util/timers'
 import { shrinkList } from './lineChartOptions'
 import { MovingAvg } from 'lib/backend/api/qln/qlnModels'
 import MovingAvgValues from './movingAvg/MovingAvgValues'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 interface Model {
@@ -76,6 +77,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
 
   return (
     <Box>
+      {isLoading || (isWaiting && <ComponentLoader />)}
       {data && (
         <StockChartDaySelect selectedDays={stockChartSettings.defaultDays} onSelected={handleDaysSelected} availableDates={data.availableDates ?? undefined} />
       )}

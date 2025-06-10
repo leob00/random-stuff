@@ -2,6 +2,7 @@ import { ChartData, ChartOptions } from 'chart.js'
 import {
   CasinoBlackTransparent,
   CasinoBlue,
+  CasinoBlueTransparent,
   CasinoMoreBlackTransparent,
   CasinoRedTransparent,
   CasinoWhiteTransparent,
@@ -39,6 +40,40 @@ export const getBarChartData = (labels: string[], numbers: number[], colors: str
       },
     ],
   }
+}
+
+interface MultiSeriesChartData {
+  labels: string[]
+  datasets: {
+    label: string
+    data: number[]
+    type: 'bar' | 'line'
+    backgroundColor?: string
+    borderColor?: string
+  }[]
+}
+
+export const getBarLineChartConfig = (labels: string[], numbers: number[], colors: string[]) => {
+  const result: MultiSeriesChartData = {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Bar',
+        borderColor: 'black',
+        data: numbers,
+        backgroundColor: colors[0],
+        type: 'bar' as const,
+      },
+      {
+        label: 'Line',
+        backgroundColor: colors[0],
+        borderColor: CasinoBlueTransparent,
+        data: numbers,
+        type: 'line' as const,
+      },
+    ],
+  }
+  return result
 }
 
 export const getBarChartOptions = (

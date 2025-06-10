@@ -1,7 +1,8 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import BarAndLineChart from 'components/Atoms/Charts/chartJs/BarAndLineChart'
 import SimpleBarChart from 'components/Atoms/Charts/chartJs/SimpleBarChart'
-import { BarChart, getBarChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
+import { BarChart, getBarChartData, getBarChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import { CasinoBlueTransparent, CasinoOrangeTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { JoBLog, Job } from 'lib/backend/api/qln/qlnApi'
@@ -22,7 +23,7 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
   if (isLarge) {
     height = 66
   }
-  let sorted = sortArray(history, ['DateCompleted'], ['desc'])
+  const sorted = sortArray(history, ['DateCompleted'], ['desc'])
 
   let days = take(Array.from(new Set(sorted.map((m) => dayjs(m.DateCompleted).format('YYYY-MM-DD')))), limit)
   days = orderBy(days)
@@ -83,7 +84,8 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
     <Box>
       <Box minHeight={200} px={{ lg: 2 }}>
         <FadeIn>
-          <SimpleBarChart barChart={barChart} height={height} chartOptions={options} />
+          {/* <SimpleBarChart barChart={barChart} chartOptions={options} height={height} /> */}
+          <BarAndLineChart barChart={barChart} chartOptions={options} height={height} />
         </FadeIn>
       </Box>
     </Box>
