@@ -43,7 +43,6 @@ const Page = () => {
               <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
               {selectedTab === 'Jobs' && <JobsLayout userClaim={adminClaim} />}
               {selectedTab === 'Server' && <ServerInfo />}
-
               {selectedTab === 'Users' && <>{userProfile && <UsersAdmin userProfile={userProfile} />}</>}
               {selectedTab === 'Data Quality' && <DataQualityStart />}
             </>

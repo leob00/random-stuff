@@ -12,6 +12,7 @@ import { useState, useEffect, startTransition } from 'react'
 import Playground from 'components/Organizms/admin/Playground'
 import Framer from 'components/Organizms/sandbox/Framer'
 import ApiStream from 'components/Organizms/admin/stream/ApiStream'
+import DragAndDrop from 'components/Organizms/sandbox/DragAndDrop'
 
 const Page = () => {
   const tabs: TabInfo[] = [
@@ -30,6 +31,9 @@ const Page = () => {
     },
     {
       title: 'Iterator',
+    },
+    {
+      title: 'Drag & Drop',
     },
   ]
   const [selectedTab, setSelectedTab] = useState(tabs[0].title)
@@ -68,6 +72,7 @@ const Page = () => {
           {selectedTab === 'Charts' && <Playground />}
           {selectedTab === 'Framer' && <Framer />}
           {selectedTab === 'Iterator' && <ListIteratorLayout />}
+          {selectedTab === 'Drag & Drop' && <DragAndDrop />}
         </Box>
       </ResponsiveContainer>
     </>

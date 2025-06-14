@@ -13,10 +13,9 @@ import CenterStack from 'components/Atoms/CenterStack'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
-import DraggableList from './economic-indicators/DraggableList'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import { getMapFromArray } from 'lib/util/collectionsNative'
-import { sortArray } from 'lib/util/collections'
+import DraggableEconList, { SortableEconDataItem } from './economic-indicators/DraggableEconList'
 
 export interface EconDataModel {
   Body: {
@@ -42,8 +41,8 @@ const EconDataLayout = () => {
     })
     const result = Array.from(stateIndicators.values())
     saveEconomicIndicators(result)
-    //dbResult.Body.Items = sortArray(dbResult.Body.Items, ['LastObservationDate'], ['desc'])
-    dbResult.Body.Items = result
+    const sortableItems = mapToSortable(result)
+    dbResult.Body.Items = sortableItems
     return dbResult
   }
 
@@ -68,6 +67,8 @@ const EconDataLayout = () => {
     saveEconomicIndicators(items)
   }
 
+  const sortableItems = mapToSortable(economicIndicators)
+
   return (
     <Box py={2}>
       {isLoading && <BackdropLoader />}
@@ -82,7 +83,7 @@ const EconDataLayout = () => {
           </Box>
           {editMode ? (
             <Box>
-              <DraggableList items={economicIndicators} onPushChanges={handleReorder} />
+              <DraggableEconList items={sortableItems} onPushChanges={handleReorder} />
             </Box>
           ) : (
             <EconDataTable data={economicIndicators} handleItemClicked={handleItemClicked} />
@@ -91,6 +92,28 @@ const EconDataLayout = () => {
       )}
     </Box>
   )
+}
+
+const mapToSortable = (items: EconomicDataItem[]) => {
+  const sortableItems: SortableEconDataItem[] = items.map((m) => {
+    return {
+      InternalId: m.InternalId,
+      Chart: m.Chart,
+      Notes: m.Notes,
+      Title: m.Title,
+      Units: m.Units,
+      Value: m.Value,
+      id: String(m.InternalId),
+      title: m.Title,
+      criteria: m.criteria,
+      FirstObservationDate: m.FirstObservationDate,
+      LastObservationDate: m.LastObservationDate,
+      PreviousObservationDate: m.PreviousObservationDate,
+      PreviousValue: m.PreviousValue,
+      Priority: m.Priority,
+    }
+  })
+  return sortableItems
 }
 
 export default EconDataLayout

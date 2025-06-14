@@ -1,6 +1,5 @@
 'use client'
 import { Box } from '@mui/material'
-import React, { useEffect, useState } from 'react'
 import BackButton from '../Buttons/BackButton'
 import CenterStack from '../CenterStack'
 import HorizontalDivider from '../Dividers/HorizontalDivider'

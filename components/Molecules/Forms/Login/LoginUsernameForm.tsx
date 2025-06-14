@@ -13,7 +13,17 @@ const UsernameLoginSchema = z.object({
 
 export type UsernameLogin = z.infer<typeof UsernameLoginSchema>
 
-const LoginUsernameForm = ({ title = 'Log in', onSubmitted, error }: { title?: string; onSubmitted: (data: UsernameLogin) => void; error?: string }) => {
+const LoginUsernameForm = ({
+  title = 'Log in',
+  onSubmitted,
+  error,
+  isLoading,
+}: {
+  title?: string
+  onSubmitted: (data: UsernameLogin) => void
+  error?: string
+  isLoading?: boolean
+}) => {
   const {
     register,
     handleSubmit,
@@ -21,6 +31,7 @@ const LoginUsernameForm = ({ title = 'Log in', onSubmitted, error }: { title?: s
   } = useForm<UsernameLogin>({
     resolver: zodResolver(UsernameLoginSchema),
   })
+
   const onSubmit: SubmitHandler<UsernameLogin> = (formData: UsernameLogin) => {
     const submitData = { ...formData }
     onSubmitted(submitData)
@@ -60,7 +71,7 @@ const LoginUsernameForm = ({ title = 'Log in', onSubmitted, error }: { title?: s
           {error && <Alert severity={'error'}>{error}</Alert>}
           <HorizontalDivider />
           <Box display={'flex'} justifyContent={'flex-end'}>
-            <PrimaryButton text='log in' type='submit' size='small' />
+            <PrimaryButton loading={isLoading} text='log in' type='submit' size='small' />
           </Box>
         </Box>
       </form>

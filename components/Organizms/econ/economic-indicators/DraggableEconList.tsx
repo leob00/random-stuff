@@ -1,17 +1,23 @@
 'use client'
-import { DndContext, PointerSensor, useSensor, useSensors, DragStartEvent, DragEndEvent, TouchSensor, closestCenter } from '@dnd-kit/core'
+import { DndContext, PointerSensor, useSensor, useSensors, DragEndEvent, TouchSensor, closestCenter } from '@dnd-kit/core'
 import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortable'
 import { Box, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
-import { DashboardWidgetWithSettings } from './dashboardModel'
-import DraggableWidget from './DraggableWidget'
+import DraggableListItem from 'components/Organizms/dashboard/DraggableListItem'
+import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
+import DraggableEconListItem from './DraggableEconListItem'
 
-export type DraggableListProps = {
-  items: DashboardWidgetWithSettings[]
-  onPushChanges: (items: DashboardWidgetWithSettings[]) => void
+export type SortableEconDataItem = {
+  id: string
+  title: string
+} & EconomicDataItem
+
+export type DraggableEconListProps = {
+  items: SortableEconDataItem[]
+  onPushChanges: (items: EconomicDataItem[]) => void
 }
 
-const DraggableWidgetList = ({ items, onPushChanges }: DraggableListProps) => {
+const DraggableEconList = ({ items, onPushChanges }: DraggableEconListProps) => {
   const sensors = useSensors(useSensor(PointerSensor), useSensor(TouchSensor))
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -29,20 +35,9 @@ const DraggableWidgetList = ({ items, onPushChanges }: DraggableListProps) => {
     const overIndex = items.findIndex((item) => item.id === over.id)
 
     if (activeIndex !== overIndex) {
-      const newItems = arrayMove<DashboardWidgetWithSettings>(items, activeIndex, overIndex)
+      const newItems = arrayMove(items, activeIndex, overIndex)
       onPushChanges(newItems)
     }
-  }
-
-  const handleUpdateItem = (item: DashboardWidgetWithSettings) => {
-    const newItems = [...items]
-    const idx = newItems.findIndex((m) => m.id === item.id)
-    if (idx > -1) {
-      newItems[idx] = item
-    } else {
-      newItems.push(item)
-    }
-    onPushChanges(newItems)
   }
 
   return (
@@ -56,11 +51,11 @@ const DraggableWidgetList = ({ items, onPushChanges }: DraggableListProps) => {
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={items} strategy={rectSortingStrategy}>
           {items.map((item) => (
-            <DraggableWidget key={item.id} item={item} onUpdate={handleUpdateItem} />
+            <DraggableEconListItem key={item.id} item={item} />
           ))}
         </SortableContext>
       </DndContext>
     </>
   )
 }
-export default DraggableWidgetList
+export default DraggableEconList

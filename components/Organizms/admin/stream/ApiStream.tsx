@@ -15,7 +15,9 @@ export async function* streamingFetch(input: RequestInfo | URL, init?: RequestIn
   if (reader) {
     for (;;) {
       const { done, value } = await reader.read()
-      if (done) break
+      if (done) {
+        break
+      }
 
       try {
         yield decoder.decode(value)
@@ -29,6 +31,7 @@ export async function* streamingFetch(input: RequestInfo | URL, init?: RequestIn
 const ApiStream = () => {
   const [data, setData] = useState<any[]>([])
   const [testApiResult, setTestApiResult] = useState<S3Object[] | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const asyncFetch = async () => {
     setData([])
@@ -43,10 +46,12 @@ const ApiStream = () => {
         console.warn(e)
       }
     }
+    setIsLoading(false)
   }
 
   const handleStartStream = () => {
     setTestApiResult(null)
+    setIsLoading(true)
     asyncFetch()
   }
 
@@ -65,7 +70,7 @@ const ApiStream = () => {
   return (
     <Box py={2}>
       <CenterStack>
-        <SuccessButton text='Start stream' onClick={handleStartStream} />
+        <SuccessButton text='Start stream' onClick={handleStartStream} loading={isLoading} />
       </CenterStack>
       <CenterStack sx={{ py: 4 }}>
         <SuccessButton text='Api Test' onClick={handleTestApi} />

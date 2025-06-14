@@ -1,6 +1,6 @@
 import { MenuItem, TextField, Typography } from '@mui/material'
 import { DropdownItem } from 'lib/models/dropdown'
-import React from 'react'
+import { useState } from 'react'
 
 const DropdownList = ({
   options,
@@ -17,7 +17,7 @@ const DropdownList = ({
   fullWidth?: boolean
   disabled?: boolean
 }) => {
-  const [opt, setOpt] = React.useState(selectedOption)
+  const [opt, setOpt] = useState(selectedOption)
   const handleOptionSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     setOpt(e.target.value)
     onOptionSelected?.(e.target.value)

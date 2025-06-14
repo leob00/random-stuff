@@ -50,7 +50,7 @@ const QlnUsernameLoginForm = ({ onSuccess }: { onSuccess: (claims: Claim[]) => v
     <>
       {isLoading && <BackdropLoader />}
       <FormDialog show={!showLoginSuccess} title={'Log in'} onCancel={() => router.push('/protected/csr/dashboard')}>
-        <LoginUsernameForm onSubmitted={handleSubmitLogin} title={'Admin Login'} error={loginError} />
+        <LoginUsernameForm onSubmitted={handleSubmitLogin} title={'Admin Login'} error={loginError} isLoading={isLoading} />
       </FormDialog>
       {showLoginSuccess && (
         <>

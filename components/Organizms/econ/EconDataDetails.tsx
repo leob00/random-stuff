@@ -27,7 +27,6 @@ const config = apiConnection().qln
 
 const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: () => void }) => {
   const theme = useTheme()
-
   const isXSmallDevice = useMediaQuery(theme.breakpoints.down('sm'))
   const isLargeDevice = useMediaQuery(theme.breakpoints.up('md'))
 

@@ -23,7 +23,7 @@ const EarningsCalendarWidget = ({ width, height, size }: { width: number; height
         {data && (
           <FadeIn>
             <Box>
-              <EarningsCalendarWidgetDisplay data={data} maxHeight={200} />
+              <EarningsCalendarWidgetDisplay data={data} maxHeight={358} />
             </Box>
           </FadeIn>
         )}

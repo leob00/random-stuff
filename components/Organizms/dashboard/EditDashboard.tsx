@@ -1,4 +1,4 @@
-import { Box, ListItem, ListItemText } from '@mui/material'
+import { Box, Button, ListItem, ListItemText, Typography } from '@mui/material'
 import { type DashboardWidget } from './dashboardModel'
 import DraggableWidgetList from './DraggableWidgetList'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
@@ -8,11 +8,13 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { sortArray } from 'lib/util/collections'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { useEffect, useState } from 'react'
+import EditableWidgetList from './EditableWidgetList'
 
 const EditDashboard = () => {
   const { dashboardWidgets, saveDashboardWidgets } = useLocalStore()
   const allAvailableWidgets = [...allWidgets]
   const [isLoading, setIsLoading] = useState(true)
+  const [showReorder, setShowReorder] = useState(false)
 
   const visibleWidgets = dashboardWidgets.filter((m) => !!m.display)
   let hiddenWidgets: DashboardWidget[] = []
@@ -65,7 +67,16 @@ const EditDashboard = () => {
       {!isLoading && (
         <Box>
           <CenteredTitle title='my widgets' />
-          <DraggableWidgetList items={visibleWidgets} onPushChanges={handlePushChanges} />
+          <Box py={2} display={'flex'} justifyContent={'flex-end'}>
+            <Button onClick={() => setShowReorder(!showReorder)}>
+              <Typography>{!showReorder ? 'reorder' : 'close'}</Typography>
+            </Button>
+          </Box>
+          {showReorder ? (
+            <DraggableWidgetList items={visibleWidgets} onPushChanges={handlePushChanges} />
+          ) : (
+            <EditableWidgetList items={visibleWidgets} onPushChanges={handlePushChanges} />
+          )}
           <Box pt={4} pb={8}>
             <>
               {hiddenWidgets.length > 0 && (

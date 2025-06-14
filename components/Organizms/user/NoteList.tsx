@@ -21,7 +21,7 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
   const [searchText, setSearchText] = useState('')
   const pageSize = 10
   const notesSearch = sortArray(mapDropdownItems(data, 'title', 'id'), ['text'], ['asc'])
-
+  const [isLoading, setIsLoading] = useState(false)
   const filterResults = () => {
     if (searchText.length > 0) {
       return data.filter((m) => m.title.toLowerCase().includes(searchText.toLowerCase()))
@@ -32,6 +32,7 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
   const filtered = filterResults()
   const { pagerModel, setPage, getPagedItems } = useClientPager(filtered, pageSize)
   const handleNoteTitleClick = (item: UserNote) => {
+    setIsLoading(true)
     onClicked(item)
   }
 
@@ -51,7 +52,7 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
       <Box>
         <Box display={'flex'} justifyContent={'flex-start'}>
           <Box pb={2}>
-            <SuccessButton text='Create...' size='small' onClick={onAddNote} />
+            <SuccessButton text='Create...' size='small' onClick={onAddNote} loading={isLoading} />
           </Box>
         </Box>
         <Box sx={{ pb: 2 }} display={'flex'} justifyContent={'space-between'} alignItems={'center'} gap={2}>
