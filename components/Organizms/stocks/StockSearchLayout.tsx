@@ -253,7 +253,6 @@ const StockSearchLayout = () => {
               {model.editList && model.stockList && model.stockList.length > 0 ? (
                 <>
                   <EditList
-                    username={model.username ?? null}
                     data={model.stockList}
                     onCancelEdit={() => setModel({ ...model, editList: false })}
                     onPushChanges={handleSaveChanges}

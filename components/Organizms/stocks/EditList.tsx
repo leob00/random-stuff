@@ -1,7 +1,7 @@
 import { Box, Button, Dialog, DialogContent, DialogContentText, DialogTitle, IconButton, Stack, Typography } from '@mui/material'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import DraggableList from './DraggableList'
+import DraggableList from './EditableStockListNew'
 import Close from '@mui/icons-material/Close'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
@@ -11,15 +11,16 @@ import EditableStockList from './EditableStockList'
 import { searchWithinResults } from './StockSearchLayout'
 import EditStockGroupForm from 'components/Molecules/Forms/EditStockGroupForm'
 import { useState } from 'react'
+import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import DraggableStockList from './my-stocks/DraggableStockList'
+import EditableStockListNew from './EditableStockListNew'
 
 const EditList = ({
-  username,
   data,
   onPushChanges,
   onCancelEdit,
   onReorder,
 }: {
-  username: string | null
   data: StockQuote[]
   onPushChanges: (quotes: StockQuote[]) => void
   onCancelEdit: () => void
@@ -29,6 +30,7 @@ const EditList = ({
   const [filtered, setFiltered] = useState(data)
   const [editItem, setEditItem] = useState<StockQuote | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [showReorder, setShowReorder] = useState(false)
 
   const groupSet = new Set(
     data.map((o) => {
@@ -81,11 +83,11 @@ const EditList = ({
   return (
     <>
       <Box>
-        <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-          <Box>
+        <Box>
+          {/* <Box>
             <SearchWithinList onChanged={handleSearched} />
-          </Box>
-          <Box>
+          </Box> */}
+          <Box display={'flex'} justifyContent={'flex-end'}>
             <Button size='small' color='primary' onClick={onCancelEdit}>
               <Close fontSize='small' color='primary' />
             </Button>
@@ -94,7 +96,24 @@ const EditList = ({
         {filtered.length < originalData.length && !isLoading ? (
           <EditableStockList items={filtered} handleRemoveItem={handleRemoveItem} handleEditSingleItem={handleEditSingleItem} />
         ) : (
-          <Box>{!isLoading && <DraggableList items={filtered} onPushChanges={onReorder} onEditSingleItem={handleEditSingleItem} isLoading={isLoading} />}</Box>
+          <Box>
+            {!isLoading && (
+              <>
+                <Box display={'flex'} justifyContent={'flex-end'} pt={2}>
+                  {!showReorder ? (
+                    <LinkButton onClick={() => setShowReorder(true)}>reorder</LinkButton>
+                  ) : (
+                    <LinkButton onClick={() => setShowReorder(false)}>close</LinkButton>
+                  )}
+                </Box>
+                {showReorder ? (
+                  <DraggableStockList items={data} onPushChanges={onReorder} />
+                ) : (
+                  <EditableStockListNew items={data} onPushChanges={onReorder} onEditSingleItem={handleEditSingleItem} isLoading={isLoading} />
+                )}
+              </>
+            )}
+          </Box>
         )}
         {editItem && (
           <Dialog

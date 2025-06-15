@@ -23,13 +23,7 @@ const Page = () => {
       </Box>
       <ResponsiveContainer>
         <PageHeader text='My Stocks' />
-        {isValidatingProfile ? (
-          <BackdropLoader />
-        ) : (
-          <>
-            <StocksLayout userProfile={userProfile} localStore={localStore} />
-          </>
-        )}
+        {isValidatingProfile ? <BackdropLoader /> : <StocksLayout userProfile={userProfile} localStore={localStore} />}
       </ResponsiveContainer>
     </>
   )

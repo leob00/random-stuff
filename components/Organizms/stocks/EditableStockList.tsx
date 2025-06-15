@@ -1,8 +1,8 @@
 import { Box, ListItemText, Stack } from '@mui/material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import React from 'react'
 import SingleItemMenu from './SingleItemMenu'
+import { useState } from 'react'
 
 const EditableStockList = ({
   items,
@@ -13,6 +13,7 @@ const EditableStockList = ({
   handleRemoveItem: (id: string) => void
   handleEditSingleItem: (quote: StockQuote) => void
 }) => {
+  const [showReorder, setShowReorder] = useState(false)
   return (
     <Box pt={4}>
       <HorizontalDivider />

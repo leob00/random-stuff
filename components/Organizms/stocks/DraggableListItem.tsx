@@ -2,7 +2,7 @@ import { ListItem, ListItemAvatar, ListItemText, Stack } from '@mui/material'
 import { Draggable } from 'react-beautiful-dnd'
 import DragIndicator from '@mui/icons-material/DragIndicator'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import { SelectableQuote } from './DraggableList'
+import { SelectableQuote } from './EditableStockListNew'
 import SingleItemMenu from './SingleItemMenu'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 

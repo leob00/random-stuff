@@ -183,9 +183,11 @@ const StocksDisplay = ({
           }}
         />
       )}
-      <Box py={2}>
-        <StocksLookup onFound={handleSelectQuote} clearOnSelect />
-      </Box>
+      {!model.quoteToAdd && (
+        <Box py={2}>
+          <StocksLookup onFound={handleSelectQuote} clearOnSelect />
+        </Box>
+      )}
       {model.quoteToAdd ? (
         <AddQuote
           stockListMap={model.stockListMap}
@@ -203,7 +205,6 @@ const StocksDisplay = ({
               {model.editList && result.length > 0 ? (
                 <>
                   <EditList
-                    username={userProfile?.username ?? null}
                     data={Array.from(model.stockListMap.values())}
                     onCancelEdit={() => setModel({ ...model, editList: false })}
                     onPushChanges={handleSaveChanges}
