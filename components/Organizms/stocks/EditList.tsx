@@ -1,19 +1,17 @@
 import { Box, Button, Dialog, DialogContent, DialogContentText, DialogTitle, IconButton, Stack, Typography } from '@mui/material'
-import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import DraggableList from './EditableStockListNew'
 import Close from '@mui/icons-material/Close'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
-import EditableStockList from './EditableStockList'
 import { searchWithinResults } from './StockSearchLayout'
 import EditStockGroupForm from 'components/Molecules/Forms/EditStockGroupForm'
 import { useState } from 'react'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
-import DraggableStockList from './my-stocks/DraggableStockList'
 import EditableStockListNew from './EditableStockListNew'
+import { getSortablePropsFromArray, SortableItem } from 'components/dnd/dndUtil'
+import DragAndDropSort from 'components/dnd/DragAndDropSort'
 
 const EditList = ({
   data,
@@ -79,6 +77,11 @@ const EditList = ({
     setOriginalData(newQuotes)
     onPushChanges(newQuotes)
   }
+  const sortedItems = getSortablePropsFromArray(data, 'Symbol', 'Company')
+
+  const handleReorder = (records: SortableItem[]) => {
+    onReorder(records.flatMap((m) => m.data) as StockQuote[])
+  }
 
   return (
     <>
@@ -94,7 +97,7 @@ const EditList = ({
           </Box>
         </Box>
         {filtered.length < originalData.length && !isLoading ? (
-          <EditableStockList items={filtered} handleRemoveItem={handleRemoveItem} handleEditSingleItem={handleEditSingleItem} />
+          <EditableStockListNew items={data} onPushChanges={onReorder} onEditSingleItem={handleEditSingleItem} isLoading={isLoading} />
         ) : (
           <Box>
             {!isLoading && (
@@ -107,7 +110,7 @@ const EditList = ({
                   )}
                 </Box>
                 {showReorder ? (
-                  <DraggableStockList items={data} onPushChanges={onReorder} />
+                  <DragAndDropSort items={sortedItems} onPushChanges={handleReorder} />
                 ) : (
                   <EditableStockListNew items={data} onPushChanges={onReorder} onEditSingleItem={handleEditSingleItem} isLoading={isLoading} />
                 )}

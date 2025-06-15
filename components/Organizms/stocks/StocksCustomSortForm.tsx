@@ -19,7 +19,7 @@ type ExtractKeys<T> = NonNullable<
   }[keyof T]
 >
 
-type Keys = keyof SortableStockKeys & {}
+type Keys = keyof SortableStockKeys
 const StocksCustomSortForm = ({
   result,
   onSubmitted,
@@ -78,6 +78,7 @@ const StocksCustomSortForm = ({
       : undefined
     setIsMutating(true)
     setData(newSort)
+
     onSubmitted(newSort)
   }
   const handleOnOffChanged = (val: boolean) => {

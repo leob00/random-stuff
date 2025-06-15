@@ -47,10 +47,9 @@ const EditableStockListNew = ({ items, onPushChanges, onEditSingleItem, isLoadin
   return (
     <>
       <Box py={2} display='flex' justifyContent={'space-between'} alignItems={'center'}></Box>
-      <HorizontalDivider />
       <Box py={2}>
         <CenterStack>
-          <Typography variant='caption'>You can edit each item by using its corresponding menu.</Typography>
+          <Typography variant='body2'>You can edit each item by using its corresponding menu.</Typography>
         </CenterStack>
       </Box>
 

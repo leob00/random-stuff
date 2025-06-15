@@ -1,6 +1,5 @@
 import { Box, Button, ListItem, ListItemText, Typography } from '@mui/material'
 import { type DashboardWidget } from './dashboardModel'
-import DraggableWidgetList from './DraggableWidgetList'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import OnOffSwitch from 'components/Atoms/Inputs/OnOffSwitch'
 import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
@@ -10,8 +9,10 @@ import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { useEffect, useState } from 'react'
 import EditableWidgetList from './EditableWidgetList'
 import { getSortablePropsFromArray, SortableItem } from 'components/dnd/dndUtil'
+import DragAndDropSort from 'components/dnd/DragAndDropSort'
+import CloseIconButton from 'components/Atoms/Buttons/CloseIconButton'
 
-const EditDashboard = () => {
+const EditDashboard = ({ onClose }: { onClose?: () => void }) => {
   const { dashboardWidgets, saveDashboardWidgets } = useLocalStore()
   const allAvailableWidgets = [...allWidgets]
   const [isLoading, setIsLoading] = useState(true)
@@ -60,24 +61,31 @@ const EditDashboard = () => {
     const itemsToUpdate = getSortablePropsFromArray(newItems, 'id', 'title')
     handlePushChanges(itemsToUpdate)
   }
+  const sortableItems = getSortablePropsFromArray(visibleWidgets, 'id', 'title')
+
+  const handleClose = () => {
+    onClose?.()
+  }
 
   useEffect(() => {
     setIsLoading(false)
   }, [])
-  const sortableItems = getSortablePropsFromArray(visibleWidgets, 'id', 'title')
 
   return (
     <>
       {!isLoading && (
         <Box>
           <CenteredTitle title='my widgets' />
+          <Box display={'flex'} justifyContent={'flex-end'}>
+            <CloseIconButton onClicked={handleClose} />
+          </Box>
           <Box py={2} display={'flex'} justifyContent={'flex-end'}>
             <Button onClick={() => setShowReorder(!showReorder)}>
               <Typography>{!showReorder ? 'reorder' : 'close'}</Typography>
             </Button>
           </Box>
           {showReorder ? (
-            <DraggableWidgetList items={sortableItems} onPushChanges={handlePushChanges} />
+            <DragAndDropSort items={sortableItems} onPushChanges={handlePushChanges} />
           ) : (
             <EditableWidgetList items={visibleWidgets} onPushChanges={handlePushChanges} />
           )}

@@ -15,8 +15,8 @@ import { useState } from 'react'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import { getMapFromArray } from 'lib/util/collectionsNative'
-import DraggableEconList from './economic-indicators/DraggableEconList'
 import { getSortablePropsFromArray, SortableItem } from 'components/dnd/dndUtil'
+import DragAndDropSort from 'components/dnd/DragAndDropSort'
 
 export interface EconDataModel {
   Body: {
@@ -82,7 +82,7 @@ const EconDataLayout = () => {
           </Box>
           {editMode ? (
             <Box>
-              <DraggableEconList items={sortableItems} onPushChanges={handleReorder} />
+              <DragAndDropSort items={sortableItems} onPushChanges={handleReorder} />
             </Box>
           ) : (
             <EconDataTable data={economicIndicators} handleItemClicked={handleItemClicked} />
