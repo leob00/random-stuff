@@ -1,4 +1,4 @@
-import { CSSProperties, forwardRef, HTMLAttributes } from 'react'
+import { CSSProperties, ForwardedRef, HTMLAttributes } from 'react'
 import { TItem } from './DragAndDrop'
 import { Box } from '@mui/material'
 
@@ -6,9 +6,10 @@ type Props = {
   item: TItem
   isOpacityEnabled?: boolean
   isDragging?: boolean
+  ref: ForwardedRef<HTMLDivElement>
 } & HTMLAttributes<HTMLDivElement>
 
-const Item = forwardRef<HTMLDivElement, Props>(({ item, isOpacityEnabled, isDragging, style, ...props }, ref) => {
+const Item = ({ item, isOpacityEnabled, isDragging, style, ref, ...props }: Props) => {
   const styles: CSSProperties = {
     opacity: isOpacityEnabled ? '0.4' : '1',
     cursor: isDragging ? 'grabbing' : 'grab',
@@ -31,6 +32,6 @@ const Item = forwardRef<HTMLDivElement, Props>(({ item, isOpacityEnabled, isDrag
       />
     </Box>
   )
-})
+}
 Item.displayName = 'Item'
 export default Item

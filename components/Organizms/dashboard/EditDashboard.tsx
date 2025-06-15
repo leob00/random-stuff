@@ -9,6 +9,7 @@ import { sortArray } from 'lib/util/collections'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { useEffect, useState } from 'react'
 import EditableWidgetList from './EditableWidgetList'
+import { getSortablePropsFromArray, SortableItem } from 'components/dnd/dndUtil'
 
 const EditDashboard = () => {
   const { dashboardWidgets, saveDashboardWidgets } = useLocalStore()
@@ -28,8 +29,9 @@ const EditDashboard = () => {
   }
   hiddenWidgets = sortArray(hiddenWidgets, ['title'], ['asc'])
 
-  const handlePushChanges = (items: DashboardWidget[]) => {
-    const newVisibleWidgets = items.filter((m) => m.display)
+  const handlePushChanges = (items: SortableItem[]) => {
+    const newWidgets = items.flatMap((m) => m.data as DashboardWidget[])
+    const newVisibleWidgets = newWidgets.filter((m) => m.display)
     const newHiddenWidgets: DashboardWidget[] = []
     allAvailableWidgets.forEach((all) => {
       if (!newVisibleWidgets.find((m) => m.id === all.id)) {
@@ -55,12 +57,14 @@ const EditDashboard = () => {
     } else {
       newItems.push({ ...item, display: display })
     }
-    handlePushChanges(newItems)
+    const itemsToUpdate = getSortablePropsFromArray(newItems, 'id', 'title')
+    handlePushChanges(itemsToUpdate)
   }
 
   useEffect(() => {
     setIsLoading(false)
   }, [])
+  const sortableItems = getSortablePropsFromArray(visibleWidgets, 'id', 'title')
 
   return (
     <>
@@ -73,7 +77,7 @@ const EditDashboard = () => {
             </Button>
           </Box>
           {showReorder ? (
-            <DraggableWidgetList items={visibleWidgets} onPushChanges={handlePushChanges} />
+            <DraggableWidgetList items={sortableItems} onPushChanges={handlePushChanges} />
           ) : (
             <EditableWidgetList items={visibleWidgets} onPushChanges={handlePushChanges} />
           )}

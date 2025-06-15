@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { DndContext, DragOverlay, PointerSensor, useSensor, useSensors, DragStartEvent, DragEndEvent, TouchSensor, closestCenter } from '@dnd-kit/core'
 import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortable'
 import SortableItem from './SortableItem'
@@ -101,28 +101,18 @@ export default function DragAndDrop() {
     const itemIds = items.map((item) => item.id)
     alert(itemIds)
   }
-
+  const itemRef = useRef<HTMLDivElement>(null)
   return (
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragCancel={handleDragCancel}>
       <SortableContext items={items} strategy={rectSortingStrategy}>
-        <Box
-          flexDirection={'column'}
-          py={2}
-          // style={{
-          //   display: 'grid',
-          //   gridTemplateColumns: `repeat(4, 1fr)`,
-          //   gridGap: 16,
-          //   maxWidth: '800px',
-          //   margin: '16px auto 48px',
-          // }}
-        >
+        <Box>
           {items.map((item) => (
             <SortableItem key={item.id} item={item} />
           ))}
         </Box>
       </SortableContext>
       <DragOverlay adjustScale style={{ transformOrigin: '0 0 ' }}>
-        {activeItem ? <Item item={activeItem} isDragging /> : null}
+        {activeItem ? <Item item={activeItem} isDragging ref={itemRef} /> : null}
       </DragOverlay>
     </DndContext>
   )

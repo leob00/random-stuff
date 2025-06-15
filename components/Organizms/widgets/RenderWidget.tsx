@@ -24,10 +24,6 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
     height: 450,
     width: size === 'xs' ? 370 : 280,
   }
-  switch (size) {
-    case 'xs':
-      break
-  }
 
   if (size !== 'xs') {
     switch (item.size) {
@@ -35,7 +31,7 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
         dimension.width = size === 'sm' ? 300 : 520
         break
       case 'lg':
-        dimension.width = size === 'sm' ? 600 : 1080
+        dimension.width = size === 'sm' ? 600 : 808
         break
     }
   }

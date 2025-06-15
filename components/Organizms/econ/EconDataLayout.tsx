@@ -15,7 +15,8 @@ import { useState } from 'react'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import { getMapFromArray } from 'lib/util/collectionsNative'
-import DraggableEconList, { SortableEconDataItem } from './economic-indicators/DraggableEconList'
+import DraggableEconList from './economic-indicators/DraggableEconList'
+import { getSortablePropsFromArray, SortableItem } from 'components/dnd/dndUtil'
 
 export interface EconDataModel {
   Body: {
@@ -41,8 +42,7 @@ const EconDataLayout = () => {
     })
     const result = Array.from(stateIndicators.values())
     saveEconomicIndicators(result)
-    const sortableItems = mapToSortable(result)
-    dbResult.Body.Items = sortableItems
+    dbResult.Body.Items = result
     return dbResult
   }
 
@@ -52,7 +52,6 @@ const EconDataLayout = () => {
   const handleItemClicked = async (item: EconomicDataItem) => {
     const endYear = dayjs(item.LastObservationDate!).year()
     const startYear = dayjs(item.LastObservationDate!).subtract(10, 'years').year()
-
     router.push(`/csr/economic-indicators/${item.InternalId}?startYear=${startYear}&endYear=${endYear}`)
   }
 
@@ -63,11 +62,11 @@ const EconDataLayout = () => {
     }
   }
 
-  const handleReorder = (items: EconomicDataItem[]) => {
-    saveEconomicIndicators(items)
+  const handleReorder = (items: SortableItem[]) => {
+    saveEconomicIndicators(items.flatMap((m) => m.data as EconomicDataItem[]))
   }
 
-  const sortableItems = mapToSortable(economicIndicators)
+  const sortableItems = getSortablePropsFromArray<EconomicDataItem>(economicIndicators, 'InternalId', 'Title')
 
   return (
     <Box py={2}>
@@ -92,28 +91,6 @@ const EconDataLayout = () => {
       )}
     </Box>
   )
-}
-
-const mapToSortable = (items: EconomicDataItem[]) => {
-  const sortableItems: SortableEconDataItem[] = items.map((m) => {
-    return {
-      InternalId: m.InternalId,
-      Chart: m.Chart,
-      Notes: m.Notes,
-      Title: m.Title,
-      Units: m.Units,
-      Value: m.Value,
-      id: String(m.InternalId),
-      title: m.Title,
-      criteria: m.criteria,
-      FirstObservationDate: m.FirstObservationDate,
-      LastObservationDate: m.LastObservationDate,
-      PreviousObservationDate: m.PreviousObservationDate,
-      PreviousValue: m.PreviousValue,
-      Priority: m.Priority,
-    }
-  })
-  return sortableItems
 }
 
 export default EconDataLayout

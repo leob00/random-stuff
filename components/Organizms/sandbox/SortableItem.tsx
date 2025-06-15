@@ -3,6 +3,7 @@ import { CSS } from '@dnd-kit/utilities'
 import { HTMLAttributes } from 'react'
 import { TItem } from './DragAndDrop'
 import Item from './Item'
+import { Box } from '@mui/material'
 
 type Props = {
   item: TItem
@@ -18,7 +19,11 @@ const SortableItem = ({ item, ...props }: Props) => {
     transition: transition || undefined,
   }
 
-  return <Item item={item} ref={setNodeRef} style={styles} isOpacityEnabled={isDragging} {...props} {...attributes} {...listeners} />
+  return (
+    <Box display={'flex'} flexDirection={'column'} py={1}>
+      <Item item={item} ref={setNodeRef} style={styles} isOpacityEnabled={isDragging} {...props} {...attributes} {...listeners} />
+    </Box>
+  )
 }
 
 export default SortableItem

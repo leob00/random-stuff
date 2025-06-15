@@ -6,10 +6,11 @@ import OnOffSwitch from 'components/Atoms/Inputs/OnOffSwitch'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
 import { DropdownItem } from 'lib/models/dropdown'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import { getSortablePropsFromArray, SortableItem } from 'components/dnd/dndUtil'
 
 export type DraggableListProps = {
   items: DashboardWidgetWithSettings[]
-  onPushChanges: (items: DashboardWidgetWithSettings[]) => void
+  onPushChanges: (items: SortableItem[]) => void
   disableShowHide?: boolean
 }
 
@@ -25,7 +26,8 @@ const DraggableWidgetList = ({ items, onPushChanges, disableShowHide }: Draggabl
     } else {
       newItems.push(item)
     }
-    onPushChanges(newItems)
+    const sortableItems = getSortablePropsFromArray(newItems, 'id', 'title')
+    onPushChanges(sortableItems)
   }
 
   const onUpdateDisplay = (item: DashboardWidget, checked: boolean) => {

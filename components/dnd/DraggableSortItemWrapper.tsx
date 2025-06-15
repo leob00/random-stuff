@@ -1,14 +1,15 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { HTMLAttributes } from 'react'
-import { SortableEconDataItem } from './DraggableEconList'
-import DraggableListItem from 'components/Organizms/dashboard/DraggableListItem'
+import { SortableItem } from 'components/dnd/dndUtil'
+import DraggableListItem from './DraggableListItem'
 
 type Props = {
-  item: SortableEconDataItem
+  item: SortableItem
+  isDragging?: boolean
 } & HTMLAttributes<HTMLDivElement>
 
-const DraggableEconListItem = ({ item, ...props }: Props) => {
+const DraggableSortItemWrapper = ({ item, ...props }: Props) => {
   const { attributes, isDragging, listeners, setNodeRef, transform, transition } = useSortable({
     id: item.id,
   })
@@ -32,4 +33,4 @@ const DraggableEconListItem = ({ item, ...props }: Props) => {
   )
 }
 
-export default DraggableEconListItem
+export default DraggableSortItemWrapper

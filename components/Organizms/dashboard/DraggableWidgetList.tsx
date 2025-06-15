@@ -5,10 +5,12 @@ import { Box, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import { DashboardWidgetWithSettings } from './dashboardModel'
 import DraggableWidget from './DraggableWidget'
+import DraggableSortItemWrapper from 'components/dnd/DraggableSortItemWrapper'
+import { SortableItem } from 'components/dnd/dndUtil'
 
 export type DraggableListProps = {
-  items: DashboardWidgetWithSettings[]
-  onPushChanges: (items: DashboardWidgetWithSettings[]) => void
+  items: SortableItem[]
+  onPushChanges: (items: SortableItem[]) => void
 }
 
 const DraggableWidgetList = ({ items, onPushChanges }: DraggableListProps) => {
@@ -29,20 +31,9 @@ const DraggableWidgetList = ({ items, onPushChanges }: DraggableListProps) => {
     const overIndex = items.findIndex((item) => item.id === over.id)
 
     if (activeIndex !== overIndex) {
-      const newItems = arrayMove<DashboardWidgetWithSettings>(items, activeIndex, overIndex)
+      const newItems = arrayMove(items, activeIndex, overIndex)
       onPushChanges(newItems)
     }
-  }
-
-  const handleUpdateItem = (item: DashboardWidgetWithSettings) => {
-    const newItems = [...items]
-    const idx = newItems.findIndex((m) => m.id === item.id)
-    if (idx > -1) {
-      newItems[idx] = item
-    } else {
-      newItems.push(item)
-    }
-    onPushChanges(newItems)
   }
 
   return (
@@ -56,7 +47,7 @@ const DraggableWidgetList = ({ items, onPushChanges }: DraggableListProps) => {
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={items} strategy={rectSortingStrategy}>
           {items.map((item) => (
-            <DraggableWidget key={item.id} item={item} onUpdate={handleUpdateItem} />
+            <DraggableSortItemWrapper key={item.id} item={item} />
           ))}
         </SortableContext>
       </DndContext>
