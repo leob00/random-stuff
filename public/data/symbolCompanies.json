@@ -1188,6 +1188,10 @@
     "Symbol": "AIRL"
   },
   {
+    "Company": "AIRO Group Holdings, Inc. Common Stock",
+    "Symbol": "AIRO"
+  },
+  {
     "Company": "First Trust RBA American Industrial Renaissance ETF",
     "Symbol": "AIRR"
   },
@@ -3452,6 +3456,10 @@
     "Symbol": "BAC"
   },
   {
+    "Company": "Blue Acquisition Corp. Unit",
+    "Symbol": "BACCU"
+  },
+  {
     "Company": "Bleichroeder Acquisition Corp. I Class A Ordinary Shares",
     "Symbol": "BACQ"
   },
@@ -5148,6 +5156,10 @@
     "Symbol": "BOED"
   },
   {
+    "Company": "Leverage Shares 2X Long BA Daily ETF",
+    "Symbol": "BOEG"
+  },
+  {
     "Company": "Direxion Daily BA Bull 2X Shares",
     "Symbol": "BOEU"
   },
@@ -5474,6 +5486,10 @@
   {
     "Company": "Direxion Daily MSCI Brazil Bull 2X Shares",
     "Symbol": "BRZU"
+  },
+  {
+    "Company": "BEST SPAC I Acquisition Corp. Unit",
+    "Symbol": "BSAAU"
   },
   {
     "Company": "Banco Santander-Chile",
@@ -7430,6 +7446,10 @@
   {
     "Company": "Calamos Convertible and High Income Fund",
     "Symbol": "CHY"
+  },
+  {
+    "Company": "Chime Financial, Inc. Class A Common Stock",
+    "Symbol": "CHYM"
   },
   {
     "Company": "The Cigna Group",
@@ -21544,6 +21564,10 @@
     "Symbol": "JBND"
   },
   {
+    "Company": "JBS N.V.",
+    "Symbol": "JBS"
+  },
+  {
     "Company": "John B. Sanfilippo & SON",
     "Symbol": "JBSS"
   },
@@ -22646,6 +22670,10 @@
   {
     "Company": "Virtus KAR Mid-Cap ETF",
     "Symbol": "KMID"
+  },
+  {
+    "Company": "KraneShares 2x Long MELI Daily ETF",
+    "Symbol": "KMLI"
   },
   {
     "Company": "KraneShares Mount Lucas Managed Futures Index Strategy ETF",
@@ -29644,6 +29672,10 @@
     "Symbol": "OTEX"
   },
   {
+    "Company": "Blue Owl Technology Finance Corp.",
+    "Symbol": "OTF"
+  },
+  {
     "Company": "Otis Worldwide Corporation",
     "Symbol": "OTIS"
   },
@@ -31252,6 +31284,10 @@
     "Symbol": "PMTV"
   },
   {
+    "Company": "PennyMac Mortgage Investment Trust 9.00% Senior Notes due 2030",
+    "Symbol": "PMTW"
+  },
+  {
     "Company": "PMV Pharmaceuticals, Inc",
     "Symbol": "PMVP"
   },
@@ -32684,6 +32720,10 @@
     "Symbol": "QQQY"
   },
   {
+    "Company": "ProShares Ultra Top QQQ",
+    "Symbol": "QQUP"
+  },
+  {
     "Company": "Pacer Cash COWZ 100-Nasdaq 100 Rotator ETF",
     "Symbol": "QQWZ"
   },
@@ -33284,7 +33324,7 @@
     "Symbol": "RDZNW"
   },
   {
-    "Company": "Tidal ETF Trust Intelligent Real Estate ETF",
+    "Company": "Tidal Trust I Intelligent Real Estate ETF",
     "Symbol": "REAI"
   },
   {
@@ -35666,6 +35706,10 @@
   {
     "Company": "Star Group, L.P. Common Units Representing Limited Partner Interest",
     "Symbol": "SGU"
+  },
+  {
+    "Company": "Schwab Government Money Market ETF",
+    "Symbol": "SGVT"
   },
   {
     "Company": "ProShares Short S&P500",
@@ -40024,6 +40068,10 @@
     "Symbol": "TURB"
   },
   {
+    "Company": "T. Rowe Price Natural Resource ETF",
+    "Symbol": "TURF"
+  },
+  {
     "Company": "180 Degree Capital Corp.",
     "Symbol": "TURN"
   },
@@ -40602,6 +40650,10 @@
   {
     "Company": "UMB Financial Corp",
     "Symbol": "UMBF"
+  },
+  {
+    "Company": "UMB Financial Corporation Depositary Shares Each Representing a 1/400th Interest in a Share of 7.750% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series B",
+    "Symbol": "UMBFO"
   },
   {
     "Company": "UMB Financial Corporation Depositary Shares, each representing a 1/400th of 7.00% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock",
@@ -41264,6 +41316,14 @@
     "Symbol": "VANI"
   },
   {
+    "Company": "CEA Industries Inc. Common Stock",
+    "Symbol": "VAPE"
+  },
+  {
+    "Company": "CEA Industries Inc. Warrant",
+    "Symbol": "VAPEW"
+  },
+  {
     "Company": "INNOVATE Corp.",
     "Symbol": "VATE"
   },
@@ -41870,6 +41930,10 @@
   {
     "Company": "Vontier Corporation",
     "Symbol": "VNT"
+  },
+  {
+    "Company": "Vantage Corp",
+    "Symbol": "VNTG"
   },
   {
     "Company": "Vanguard Mid-Cap ETF",

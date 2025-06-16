@@ -41,6 +41,24 @@ export const getBarChartData = (labels: string[], numbers: number[], colors: str
     ],
   }
 }
+export const getLineChartData = (labels: string[], numbers: number[], colors: string[]): ChartData<'line', number[], unknown> => {
+  return {
+    labels: labels,
+    datasets: [
+      {
+        borderColor: CasinoBlue,
+        borderWidth: 2,
+        data: numbers,
+        backgroundColor: colors,
+        type: 'line',
+        animation: {
+          easing: 'linear',
+        },
+        tension: 0.2,
+      },
+    ],
+  }
+}
 
 interface MultiSeriesChartData {
   labels: string[]
@@ -83,6 +101,117 @@ export const getBarChartOptions = (
   isHorizontal?: boolean,
   showXvalues?: boolean,
 ): ChartOptions<'bar'> => {
+  return {
+    responsive: true,
+    animation: {
+      easing: 'linear',
+      duration: 1500,
+    },
+    maintainAspectRatio: true,
+    indexAxis: isHorizontal ? 'y' : 'x',
+    hover: {
+      mode: 'nearest',
+      intersect: true,
+    },
+    plugins: {
+      title: {
+        display: true,
+        text: title,
+        font: {
+          size: 18,
+          weight: 200,
+        },
+        color: palette === 'light' ? DarkBlue : VeryLightBlue,
+      },
+      legend: {
+        display: false,
+        labels: {
+          color: palette === 'light' ? 'rgba(203, 241, 247, 0.932)' : VeryLightBlueTransparent,
+        },
+        title: {
+          display: true,
+          color: palette === 'light' ? 'rgba(203, 241, 247, 0.932)' : VeryLightBlueTransparent,
+        },
+      },
+      tooltip: {
+        padding: 16,
+        backgroundColor: CasinoMoreBlackTransparent,
+        titleColor: CasinoWhiteTransparent,
+        footerAlign: 'left',
+        footerSpacing: 10,
+        footerMarginTop: 1,
+        footerFont: {
+          weight: 200,
+        },
+        bodyFont: {
+          size: 16,
+          weight: 'bold',
+        },
+        bodySpacing: 10,
+        bodyAlign: 'left',
+        usePointStyle: true,
+        footerColor: palette === 'light' ? DarkBlue : VeryLightBlue,
+        bodyColor: palette === 'light' ? DarkBlue : VeryLightBlue,
+        callbacks: {
+          title: (tooltipItems) => {
+            return ''
+          },
+          label: (tooltipItems) => {
+            return ` ${[tooltipItems.label]}: ${Number(tooltipItems.formattedValue).toFixed(2)}${yAxisDecorator}`
+          },
+          labelPointStyle: (tooltiipItems) => {
+            return {
+              pointStyle: 'circle',
+              rotation: 0,
+              border: 4,
+            }
+          },
+          footer: (tooltipItems) => {
+            return ''
+          },
+        },
+      },
+    },
+    scales: {
+      y: {
+        grid: {
+          color: VeryLightBlueOpaqueLight,
+          drawTicks: false,
+        },
+
+        ticks: {
+          color: palette === 'light' ? CasinoBlue : VeryLightBlue,
+          font: {
+            size: 12,
+          },
+          autoSkip: true,
+        },
+      },
+      x: {
+        display: showXvalues ?? true,
+        ticks: {
+          padding: 0,
+          color: palette === 'light' ? CasinoBlue : VeryLightBlue,
+          font: {
+            size: 12,
+          },
+        },
+        grid: {
+          color: VeryLightBlueOpaqueLight,
+          drawTicks: true,
+        },
+      },
+    },
+  }
+}
+
+export const getLineChartOptions = (
+  title: string,
+  yAxisDecorator = '',
+  palette: 'light' | 'dark',
+  isHorizontal?: boolean,
+  showXvalues?: boolean,
+): ChartOptions<'line'> => {
   return {
     responsive: true,
     animation: {

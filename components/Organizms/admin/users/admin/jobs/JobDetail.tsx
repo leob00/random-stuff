@@ -6,6 +6,7 @@ import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import { useRouter } from 'next/router'
 import JobPerformanceBarChart from './JobPerformanceBarChart'
 import CopyableText from 'components/Atoms/Text/CopyableText'
+import JobPerformanceLineChart from './JobPerformanceLineChart'
 
 const JobDetails = ({ item }: { item: Job }) => {
   const router = useRouter()
@@ -39,7 +40,7 @@ const JobDetails = ({ item }: { item: Job }) => {
 
       {item.Chart && (
         <Box pb={2}>
-          <JobPerformanceBarChart data={item} />
+          <JobPerformanceLineChart data={item} />
         </Box>
       )}
       <Box display={'flex'}>
