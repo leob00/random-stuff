@@ -1,4 +1,4 @@
-import { Box, Stack, TextField, Typography } from '@mui/material'
+import { Box, TextField, Typography } from '@mui/material'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { z } from 'zod'
@@ -54,7 +54,7 @@ const AddTaskForm = ({ task, onSubmitted }: { task: UserTask; onSubmitted: (data
               error={!!errors.name?.message}
             />
           </Box>
-          <Box>
+          <Box sx={{ display: { xs: 'none', sm: 'unset' } }}>
             <Controller
               name={'dueDate'}
               control={control}

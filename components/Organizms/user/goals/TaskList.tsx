@@ -176,7 +176,6 @@ const TaskList = ({
     <Box minHeight={800}>
       {model.isLoading && <BackdropLoader />}
       {model.editTask && (
-        // <FormDialog title='edit task' show={true} onCancel={() => setModel({ ...model, editTask: undefined })} fullScreen>
         <EditTaskForm
           task={model.editTask}
           onSubmit={handleSaveTask}
@@ -185,7 +184,6 @@ const TaskList = ({
           }}
           onDelete={handleDeleteTask}
         />
-        // </FormDialog>
       )}
       {!model.editTask && (
         <>
