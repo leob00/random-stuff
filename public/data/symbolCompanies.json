@@ -7924,10 +7924,6 @@
     "Symbol": "CMRE"
   },
   {
-    "Company": "Chimerix, Inc.",
-    "Symbol": "CMRX"
-  },
-  {
     "Company": "CMS Energy Corporation",
     "Symbol": "CMS"
   },
@@ -12256,10 +12252,6 @@
     "Symbol": "ENDW"
   },
   {
-    "Company": "Enfusion, Inc.",
-    "Symbol": "ENFN"
-  },
-  {
     "Company": "Alerian Energy Infrastructure ETF",
     "Symbol": "ENFR"
   },
@@ -12358,10 +12350,6 @@
   {
     "Company": "Eaton Vance New York Municipal Bond Fund",
     "Symbol": "ENX"
-  },
-  {
-    "Company": "Enzo Biochem, Inc.",
-    "Symbol": "ENZ"
   },
   {
     "Company": "iShares Trust iShares MSCI New Zealand ETF",
@@ -12998,10 +12986,6 @@
   {
     "Company": "Eventide US Market ETF",
     "Symbol": "EUSM"
-  },
-  {
-    "Company": "Mast Global Battery Recycling & Production ETF",
-    "Symbol": "EV"
   },
   {
     "Company": "Direxion Daily Electric and Autonomous Vehicles Bull 2X Shares",
@@ -14966,10 +14950,6 @@
   {
     "Company": "Fabrinet",
     "Symbol": "FN"
-  },
-  {
-    "Company": "Paragon 28, Inc.",
-    "Symbol": "FNA"
   },
   {
     "Company": "F.N.B. Corp",
@@ -20716,8 +20696,16 @@
     "Symbol": "IPO"
   },
   {
+    "Company": "Dune Acquisition Corporation II Class A Ordinary Shares",
+    "Symbol": "IPOD"
+  },
+  {
     "Company": "Dune Acquisition Corporation II Units",
     "Symbol": "IPODU"
+  },
+  {
+    "Company": "Dune Acquisition Corporation II Warrants",
+    "Symbol": "IPODW"
   },
   {
     "Company": "Renaissance International IPO ETF",
@@ -26616,6 +26604,10 @@
     "Symbol": "MTR"
   },
   {
+    "Company": "Invesco International Growth Focus ETF",
+    "Symbol": "MTRA"
+  },
+  {
     "Company": "Materion Corporation",
     "Symbol": "MTRN"
   },
@@ -30472,6 +30464,14 @@
     "Symbol": "PEJ"
   },
   {
+    "Company": "Pelican Acquisition Corporation Ordinary Shares",
+    "Symbol": "PELI"
+  },
+  {
+    "Company": "Pelican Acquisition Corporation Right",
+    "Symbol": "PELIR"
+  },
+  {
     "Company": "Pelican Acquisition Corporation Unit",
     "Symbol": "PELIU"
   },
@@ -32634,6 +32634,10 @@
   {
     "Company": "Invesco QQQ Income Advantage ETF",
     "Symbol": "QQA"
+  },
+  {
+    "Company": "ProShares UltraShort Top QQQ",
+    "Symbol": "QQDN"
   },
   {
     "Company": "First Trust NASDAQ-100 Equal Weighted Index Fund",
@@ -38224,10 +38228,6 @@
     "Symbol": "SYPR"
   },
   {
-    "Company": "Syra Health Corp. Class A Common Stock",
-    "Symbol": "SYRA"
-  },
-  {
     "Company": "Spyre Therapeutics, Inc. Common Stock",
     "Symbol": "SYRE"
   },
@@ -38872,6 +38872,10 @@
     "Symbol": "TFLR"
   },
   {
+    "Company": "T. Rowe Price Financials ETF",
+    "Symbol": "TFNS"
+  },
+  {
     "Company": "Triple Flag Precious Metals Corp.",
     "Symbol": "TFPM"
   },
@@ -39294,6 +39298,10 @@
   {
     "Company": "Tencent Music Entertainment Group American Depositary Shares, each representing two Class A Ordinary Shares",
     "Symbol": "TME"
+  },
+  {
+    "Company": "T. Rowe Price Health Care ETF",
+    "Symbol": "TMED"
   },
   {
     "Company": "iShares Transition-Enabling Metals ETF",

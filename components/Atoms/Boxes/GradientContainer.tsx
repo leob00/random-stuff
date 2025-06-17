@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react'
+'use client'
+import { ReactNode } from 'react'
 import styled from '@emotion/styled'
 import { Box, useTheme } from '@mui/material'
 const Gradient = styled.div`

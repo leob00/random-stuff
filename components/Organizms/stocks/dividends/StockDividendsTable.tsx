@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { DataGrid, GridCallbackDetails, GridCellParams, GridColDef, MuiEvent } from '@mui/x-data-grid'
+import { DataGrid, GridCallbackDetails, GridCellParams, GridColDef } from '@mui/x-data-grid'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
@@ -31,7 +31,7 @@ const StockDividendsTable = ({ data }: { data: StockDividendItem[] }) => {
     }
   })
 
-  const handleCellClick = async (params: GridCellParams, event: MuiEvent, details: GridCallbackDetails) => {
+  const handleCellClick = async (params: GridCellParams) => {
     const item = params.row as StockDividendItem
 
     setSelectedItem(item)

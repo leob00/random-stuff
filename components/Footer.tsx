@@ -1,3 +1,4 @@
+'use client'
 import { Box, Container, Divider, Stack, Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import GradientContainer from './Atoms/Boxes/GradientContainer'

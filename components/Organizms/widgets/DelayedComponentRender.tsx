@@ -1,8 +1,7 @@
-import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 import { Box } from '@mui/material'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactElement, ReactNode, useEffect, useState } from 'react'
 
-const DelayedComponentRender = ({ delayMs, children }: { delayMs: number; children: ReactNode | ReactJSXElement[] }) => {
+const DelayedComponentRender = ({ delayMs, children }: { delayMs: number; children: ReactNode | ReactElement[] }) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {

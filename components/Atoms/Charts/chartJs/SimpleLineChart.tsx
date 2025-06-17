@@ -1,9 +1,9 @@
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartOptions, ChartData } from 'chart.js'
-import { Bar, Line } from 'react-chartjs-2'
-import { BarChart, getBarChartData, getBarChartOptions, getLineChartData, getLineChartOptions } from './barChartOptions'
+import { Chart as ChartJS, LineController, LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend, ChartOptions } from 'chart.js'
+import { Line } from 'react-chartjs-2'
+import { BarChart, getLineChartData, getLineChartOptions } from './barChartOptions'
 import { Box, useTheme } from '@mui/material'
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
+ChartJS.register(CategoryScale, LinearScale, LineController, LineElement, PointElement, Title, Tooltip, Legend)
 
 const SimpleLineChart = ({
   title,

@@ -1,3 +1,4 @@
+'use client'
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { ThemeProvider } from '@emotion/react'
@@ -7,14 +8,13 @@ import { useEffect } from 'react'
 import Header from 'components/Header'
 import darkTheme from 'components/themes/darkTheme'
 import theme from 'components/themes/mainTheme'
-import React from 'react'
 import { useSessionSettings } from 'components/Organizms/session/useSessionSettings'
 import Seo from 'components/Organizms/Seo'
-import { Amplify } from 'aws-amplify'
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
+import React from 'react'
 
 const getTheme = (mode: 'light' | 'dark') => {
   return mode === 'dark' ? darkTheme : theme
