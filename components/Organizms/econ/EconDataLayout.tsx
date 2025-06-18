@@ -66,7 +66,7 @@ const EconDataLayout = () => {
     saveEconomicIndicators(items.flatMap((m) => m.data as EconomicDataItem[]))
   }
 
-  const sortableItems = getSortablePropsFromArray<EconomicDataItem>(economicIndicators, 'InternalId', 'Title')
+  const sortableItems = getSortablePropsFromArray(economicIndicators, 'InternalId', 'Title')
 
   return (
     <Box py={2}>

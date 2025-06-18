@@ -11,7 +11,7 @@ type ExtractExample = 'a' | 'b' | 1 | 2
 type Strings = Extract<ExtractExample, 'a' | 'b'>
 
 // prettify example
-type ComplexTye = {
+type ComplexType = {
   a: string
   b: number
 }

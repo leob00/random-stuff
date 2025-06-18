@@ -205,13 +205,7 @@ export const getBarChartOptions = (
   }
 }
 
-export const getLineChartOptions = (
-  title: string,
-  yAxisDecorator = '',
-  palette: 'light' | 'dark',
-  isHorizontal?: boolean,
-  showXvalues?: boolean,
-): ChartOptions<'line'> => {
+export const getLineChartOptions = (title: string, yAxisDecorator = '', palette: 'light' | 'dark', showXvalues?: boolean): ChartOptions<'line'> => {
   return {
     responsive: true,
     animation: {
@@ -219,7 +213,6 @@ export const getLineChartOptions = (
       duration: 1500,
     },
     maintainAspectRatio: true,
-    indexAxis: isHorizontal ? 'y' : 'x',
     hover: {
       mode: 'nearest',
       intersect: true,
@@ -307,6 +300,7 @@ export const getLineChartOptions = (
             size: 12,
           },
         },
+
         grid: {
           color: VeryLightBlueOpaqueLight,
           drawTicks: true,

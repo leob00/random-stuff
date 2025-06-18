@@ -66,10 +66,6 @@ const EconChart = ({
             <ReadOnlyField label='end date' val={x[x.length - 1]} />
           </Box>
           <Box display={'flex'} gap={4} alignItems={'center'}>
-            {/* <Typography variant='body2' color='primary'>
-              change:
-            </Typography> */}
-
             <ReadOnlyField
               label='change'
               val={`${change > 0 ? '+' + numeral(change).format('###,###,0.00') : numeral(change).format('###,###,0.00')}`}

@@ -12,6 +12,7 @@ import { useReducer } from 'react'
 import EconChart from '../widgets/econ/EconChart'
 import { WidgetDimensions } from '../widgets/RenderWidget'
 import { reverseColor } from '../widgets/econ/EconWidget'
+import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 
 interface Model {
   startYearOptions: DropdownItem[]
@@ -133,7 +134,7 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
         </Box>
       )}
       <Box py={2} textAlign={'center'}>
-        <Typography variant='caption'>{`data available from ${dayjs(item.FirstObservationDate).format('MM/DD/YYYY')} to ${dayjs(item.LastObservationDate).format('MM/DD/YYYY')}`}</Typography>
+        <Typography variant='caption'>{`data available from ${dayjs(item.FirstObservationDate).format('MM/DD/YYYY')} to ${dayjs(item.LastObservationDate).format('MM/DD/YYYY')} on a ${item.Frequency} basis.`}</Typography>
       </Box>
       <Box py={2}>
         <Typography sx={{ wordWrap: 'break-word' }}>{item.Notes}</Typography>

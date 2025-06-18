@@ -2,12 +2,13 @@ import { Box, useMediaQuery, useTheme } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import SimpleLineChart from 'components/Atoms/Charts/chartJs/SimpleLineChart'
 import { BarChart, getLineChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
-import { CasinoBlueTransparent, CasinoOrangeTransparent } from 'components/themes/mainTheme'
+import { CasinoBlueTransparent, CasinoGreen, CasinoOrangeTransparent, CasinoRed } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { JoBLog, Job } from 'lib/backend/api/qln/qlnApi'
 import { sortArray } from 'lib/util/collections'
 import { max, mean, orderBy, sum, take } from 'lodash'
 import numeral from 'numeral'
+import { min } from 'lodash'
 
 const JobPerformanceLineChart = ({ data }: { data: Job }) => {
   const theme = useTheme()
@@ -61,7 +62,7 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
     }
   }
 
-  var options = getLineChartOptions(`Job performance in${minutesOrSeconds}`, minutesOrSeconds, theme.palette.mode, false, false)
+  var options = getLineChartOptions(`Job performance in${minutesOrSeconds}`, minutesOrSeconds, theme.palette.mode, false)
   options.plugins!.tooltip!.callbacks = {
     ...options.plugins!.tooltip?.callbacks,
 
@@ -76,6 +77,33 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
     },
     footer: (tooltipItems) => {
       return ` records processed: ${numeral(records[tooltipItems[0].dataIndex]).format('###,###')}`
+    },
+  }
+  const minNum = min(barChart.numbers)
+  const minNumIdx = barChart.numbers.findIndex((m) => m === minNum)
+  const maxNum = max(barChart.numbers)
+  const maxNumIdx = barChart.numbers.findIndex((m) => m === maxNum)
+
+  options.plugins!.annotation = {
+    annotations: {
+      line1: {
+        type: 'point',
+        xValue: minNumIdx,
+        yValue: minNum,
+        borderColor: CasinoGreen,
+        borderWidth: 3,
+        backgroundColor: CasinoBlueTransparent,
+        pointStyle: 'circle',
+      },
+      line2: {
+        type: 'point',
+        xValue: maxNumIdx,
+        yValue: maxNum,
+        borderColor: CasinoRed,
+        borderWidth: 3,
+        backgroundColor: CasinoBlueTransparent,
+        pointStyle: 'circle',
+      },
     },
   }
 

@@ -38,6 +38,7 @@ export interface EconomicDataItem {
   Priority?: number | null
   PreviousObservationDate?: string | null
   PreviousValue?: number | null
+  Frequency?: string | null
 }
 
 export interface EconDataCriteria {

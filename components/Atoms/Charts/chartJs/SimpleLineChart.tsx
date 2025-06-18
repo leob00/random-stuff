@@ -2,26 +2,25 @@ import { Chart as ChartJS, LineController, LineElement, PointElement, LinearScal
 import { Line } from 'react-chartjs-2'
 import { BarChart, getLineChartData, getLineChartOptions } from './barChartOptions'
 import { Box, useTheme } from '@mui/material'
+import annotationPlugin from 'chartjs-plugin-annotation'
 
-ChartJS.register(CategoryScale, LinearScale, LineController, LineElement, PointElement, Title, Tooltip, Legend)
+ChartJS.register(annotationPlugin, CategoryScale, LinearScale, LineController, LineElement, PointElement, Title, Tooltip, Legend)
 
 const SimpleLineChart = ({
   title,
   barChart,
   yAxisDecorator = '',
-  isHorizontal,
   height,
   chartOptions,
 }: {
   title?: string
   barChart: BarChart
   yAxisDecorator?: string
-  isHorizontal?: boolean
   height?: number
   chartOptions?: ChartOptions<'line'>
 }) => {
   const theme = useTheme()
-  const options = chartOptions ?? getLineChartOptions(title ?? '', yAxisDecorator, theme.palette.mode, isHorizontal)
+  const options = chartOptions ?? getLineChartOptions(title ?? '', yAxisDecorator, theme.palette.mode)
   const data = getLineChartData(barChart.labels, barChart.numbers, barChart.colors)
 
   return (
