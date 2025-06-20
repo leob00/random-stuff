@@ -2,7 +2,19 @@ import { Box, useMediaQuery, useTheme } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import SimpleLineChart from 'components/Atoms/Charts/chartJs/SimpleLineChart'
 import { BarChart, getLineChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
-import { CasinoBlueTransparent, CasinoGreen, CasinoOrangeTransparent, CasinoRed } from 'components/themes/mainTheme'
+import {
+  CasinoBlueTransparent,
+  CasinoGrayTransparent,
+  CasinoGreen,
+  CasinoOrangeTransparent,
+  CasinoRed,
+  DarkGreen,
+  DarkModeRed,
+  LightBlue,
+  VeryLightBlue,
+  VeryLightBlueOpaque,
+  VeryLightBlueTransparent,
+} from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { JoBLog, Job } from 'lib/backend/api/qln/qlnApi'
 import { sortArray } from 'lib/util/collections'
@@ -62,7 +74,13 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
     }
   }
 
-  var options = getLineChartOptions(`Job performance in${minutesOrSeconds}`, minutesOrSeconds, theme.palette.mode, false)
+  var options = getLineChartOptions(
+    { labels: barChart.labels, numbers: barChart.numbers },
+    `Job performance in${minutesOrSeconds}`,
+    minutesOrSeconds,
+    theme.palette.mode,
+    false,
+  )
   options.plugins!.tooltip!.callbacks = {
     ...options.plugins!.tooltip?.callbacks,
 
@@ -83,6 +101,7 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
   const minNumIdx = barChart.numbers.findIndex((m) => m === minNum)
   const maxNum = max(barChart.numbers)
   const maxNumIdx = barChart.numbers.findIndex((m) => m === maxNum)
+  const avg = mean(barChart.numbers)
 
   options.plugins!.annotation = {
     annotations: {
@@ -90,19 +109,27 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
         type: 'point',
         xValue: minNumIdx,
         yValue: minNum,
-        borderColor: CasinoGreen,
+        borderColor: DarkGreen,
         borderWidth: 3,
-        backgroundColor: CasinoBlueTransparent,
+        backgroundColor: DarkGreen,
         pointStyle: 'circle',
       },
       line2: {
         type: 'point',
         xValue: maxNumIdx,
         yValue: maxNum,
-        borderColor: CasinoRed,
+        borderColor: DarkModeRed,
         borderWidth: 3,
-        backgroundColor: CasinoBlueTransparent,
+        backgroundColor: DarkModeRed,
         pointStyle: 'circle',
+      },
+      line3: {
+        type: 'line',
+        yMin: avg,
+        yMax: avg,
+        borderColor: VeryLightBlueTransparent,
+        borderDash: [barChart.colors.length - 1 * 22],
+        borderWidth: 2,
       },
     },
   }

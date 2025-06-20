@@ -14,7 +14,7 @@ import {
   VeryLightBlueOpaqueLight,
   VeryLightBlueTransparent,
 } from 'components/themes/mainTheme'
-import { max } from 'lodash'
+import { max, min } from 'lodash'
 
 export interface LineChart {
   labels: string[]
@@ -49,12 +49,13 @@ export const getLineChartData = (labels: string[], numbers: number[], colors: st
         borderColor: CasinoBlue,
         borderWidth: 2,
         data: numbers,
-        backgroundColor: colors,
+        backgroundColor: CasinoBlue,
         type: 'line',
         animation: {
           easing: 'linear',
         },
         tension: 0.2,
+        pointStyle: 'circle',
       },
     ],
   }
@@ -205,7 +206,13 @@ export const getBarChartOptions = (
   }
 }
 
-export const getLineChartOptions = (title: string, yAxisDecorator = '', palette: 'light' | 'dark', showXvalues?: boolean): ChartOptions<'line'> => {
+export const getLineChartOptions = (
+  lineChartData: LineChart,
+  title: string,
+  yAxisDecorator = '',
+  palette: 'light' | 'dark',
+  showXvalues?: boolean,
+): ChartOptions<'line'> => {
   return {
     responsive: true,
     animation: {
@@ -282,7 +289,8 @@ export const getLineChartOptions = (title: string, yAxisDecorator = '', palette:
           color: VeryLightBlueOpaqueLight,
           drawTicks: false,
         },
-
+        min: 0, // Math.floor(min(lineChartData.numbers)!),
+        max: Math.ceil(max(lineChartData.numbers)!) + 8,
         ticks: {
           color: palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {
@@ -395,6 +403,7 @@ export function getMultiDatasetBarChartOptions(settings: BarchartSettings): Char
         bodySpacing: 10,
         bodyAlign: 'left',
         usePointStyle: true,
+
         footerColor: VeryLightBlue,
         bodyColor: VeryLightBlue,
         callbacks: {
