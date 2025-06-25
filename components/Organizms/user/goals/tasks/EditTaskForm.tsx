@@ -30,12 +30,6 @@ const EditTaskForm = ({
   const [showConfirmDelete, setShowConfirmDelete] = useState(false)
 
   const folder = `${authProfile!.username}/user-tasks/${task.id}`
-  const allFolders: DropdownItem[] = [
-    {
-      text: 'tasks folder',
-      value: folder,
-    },
-  ]
 
   const handleDueDateChange = (dt: string | null) => {
     setFormInput({ ...formInput, dueDate: dt })

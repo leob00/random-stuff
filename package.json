@@ -13,6 +13,7 @@
     "downloadandbuild": "npx ts-node --project tsconfig-dev.json lib/backend/node/downloadAnimals.ts | next build"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.54.0",
     "@aws-amplify/adapter-nextjs": "^1.6.3",
     "@aws-amplify/ui-react": "^6.9.1",
     "@aws-sdk/client-dynamodb": "^3.788.0",

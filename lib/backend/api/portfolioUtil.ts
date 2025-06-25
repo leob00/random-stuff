@@ -1,4 +1,4 @@
-import { findTextBetweenBrackets } from 'lib/util/string.util'
+import { findTextBetweenBrackets } from 'lib/util/stringUtil'
 
 export function getUsernameFromKey(key: string) {
   return findTextBetweenBrackets(key)[0][1]

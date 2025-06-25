@@ -15,12 +15,13 @@ import useQlnAdmin from 'hooks/auth/useQlnAdmin'
 import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { useState } from 'react'
+import AnthropicChatBot from 'components/ai/AnthropicChatBot'
 
 const Page = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
   const [selectedTab, setSelectedTab] = useState('Jobs')
   const { saveClaims } = useSessionStore()
-  const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Server' }, { title: 'Users' }, { title: 'Data Quality' }]
+  const tabs: TabInfo[] = [{ title: 'Jobs', selected: true }, { title: 'Server' }, { title: 'Users' }, { title: 'Data Quality' }, { title: 'AI' }]
 
   const { claim: adminClaim, isValidating: isValidatingAdmin } = useQlnAdmin()
 
@@ -45,6 +46,7 @@ const Page = () => {
               {selectedTab === 'Server' && <ServerInfo />}
               {selectedTab === 'Users' && <>{userProfile && <UsersAdmin userProfile={userProfile} />}</>}
               {selectedTab === 'Data Quality' && <DataQualityStart />}
+              {selectedTab === 'AI' && <AnthropicChatBot />}
             </>
           )}
         </RequireClaim>
