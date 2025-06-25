@@ -48,7 +48,9 @@ export async function POST(request: NextRequest) {
             }
             if (chunk.type === 'message_delta') {
               const usage = chunk.usage
-              controller.enqueue(new TextEncoder().encode(`usage: ${JSON.stringify({ usage })}\n\n`))
+              if (usage) {
+                controller.enqueue(new TextEncoder().encode(`usage: ${JSON.stringify({ usage })}\n\n`))
+              }
             }
           }
 

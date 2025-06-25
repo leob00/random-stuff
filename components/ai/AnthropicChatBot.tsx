@@ -22,7 +22,6 @@ const AnthropicChatBot = () => {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [currentResponse, setCurrentResponse] = useState('')
   const abortControllerRef = useRef<AbortController | null>(null)
 
   const streamChatResponse = async (message: string) => {
@@ -54,7 +53,7 @@ const AnthropicChatBot = () => {
       if (reader) {
         const decoder = new TextDecoder()
         let accumulatedResponse = ''
-        let messages: Message[] = []
+        let responseMessages: Message[] = []
         while (true) {
           const { done, value } = await reader.read()
           if (done) {
@@ -67,7 +66,7 @@ const AnthropicChatBot = () => {
             if (line.startsWith('usage: ')) {
               const usageData = JSON.parse(line.slice(7))
               if (usageData.usage) {
-                messages.push({
+                responseMessages.push({
                   role: 'assistant',
                   content: '',
                   timestamp: dayjs().format(),
@@ -83,16 +82,16 @@ const AnthropicChatBot = () => {
                   accumulatedResponse = `${accumulatedResponse}${data.text.text}`
                 } else if (data.done) {
                   // Stream completed - add final message
-                  messages.push({
+                  responseMessages.push({
                     role: 'assistant',
                     content: accumulatedResponse,
                     timestamp: dayjs().format(),
                   })
                   //setMessages((prev) => [...prev, assistantMessage])
 
-                  setCurrentResponse('')
+                  //setCurrentResponse('')
                   setIsLoading(false)
-                  //return
+                  return
                 } else if (data.error) {
                   throw new Error(data.error)
                 }
@@ -101,7 +100,7 @@ const AnthropicChatBot = () => {
               }
             }
           }
-          setMessages((prev) => [...prev, ...messages])
+          setMessages((prev) => [...prev, ...responseMessages])
         }
       }
     } catch (error: any) {
@@ -116,7 +115,7 @@ const AnthropicChatBot = () => {
         }
         setMessages((prev) => [...prev, errorMessage])
       }
-      setCurrentResponse('')
+      //setCurrentResponse('')
       setIsLoading(false)
     }
   }
@@ -135,6 +134,7 @@ const AnthropicChatBot = () => {
       abortControllerRef.current.abort()
     }
   }
+  console.log('messages: ', messages)
 
   return (
     <>
@@ -144,7 +144,7 @@ const AnthropicChatBot = () => {
         <Box>
           {messages.map((msg, index) => (
             <Box key={index}>
-              {!msg.usage && (
+              {msg.content && (
                 <Box>
                   <Box display={'flex'} alignItems={'center'} gap={2} py={1}>
                     <Typography
@@ -163,7 +163,9 @@ const AnthropicChatBot = () => {
                 </Box>
               )}
               {msg.usage && (
-                <Box>{/* <ReadOnlyField variant='caption' label='output tokens' val={`${numeral(msg.usage.output_tokens).format('###,###')}`} /> */}</Box>
+                <Box>
+                  <ReadOnlyField variant='caption' label='output tokens' val={`${numeral(msg.usage.output_tokens).format('###,###')}`} />
+                </Box>
               )}
             </Box>
           ))}
