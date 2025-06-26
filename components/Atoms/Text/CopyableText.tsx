@@ -9,11 +9,13 @@ const CopyableText = ({
   value,
   showValue = false,
   variant = 'body1',
+  labelColor,
 }: {
   label: string
   value: string
   showValue?: boolean
   variant?: TypographyVariant
+  labelColor?: TypographyOwnProps['color']
 }) => {
   const [showCopyConfirm, setShowCopyConfirm] = useState(false)
   const theme = useTheme()
@@ -25,13 +27,13 @@ const CopyableText = ({
 
   return (
     <>
-      <Box display={'flex'} alignItems={'center'}>
+      <Box display={'flex'} alignItems={'flex-start'}>
         <Box>
-          <Typography variant={variant} pr={2} color={textColor}>{`${label}`}</Typography>
+          <Typography variant={variant} pr={2} color={labelColor ?? textColor}>{`${label}`}</Typography>
         </Box>
         {showValue && (
           <Box>
-            <Typography variant={variant} pr={2} color={textColor}>{`${value}`}</Typography>
+            <Typography variant={variant} pr={2} color={labelColor ?? textColor}>{`${value}`}</Typography>
           </Box>
         )}
         <IconButton size='small' onClick={() => handleCopyItem(value)}>

@@ -30,7 +30,7 @@ const ReadOnlyField = ({
       >
         {label && (
           <Box textAlign={'right'} minWidth={labelLength ?? undefined}>
-            <Typography variant={variant ?? 'body2'} color={'primary'}>{`${label}:`}</Typography>
+            <Typography variant={variant ?? 'body2'} color={color ?? 'primary'}>{`${label}:`}</Typography>
           </Box>
         )}
         {!!val && (

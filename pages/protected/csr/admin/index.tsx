@@ -15,7 +15,7 @@ import useQlnAdmin from 'hooks/auth/useQlnAdmin'
 import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { useState } from 'react'
-import AnthropicChatBot from 'components/ai/AnthropicChatBot'
+import AnthropicChatBot from 'components/ai/anthropic/AnthropicChatBot'
 
 const Page = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()

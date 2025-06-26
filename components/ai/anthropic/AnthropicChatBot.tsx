@@ -5,30 +5,31 @@ import DangerButton from 'components/Atoms/Buttons/DangerButton'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
+import CopyableText from 'components/Atoms/Text/CopyableText'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
-import { CasinoBlue, CasinoGrayTransparent, CasinoGreen, CasinoRed } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import numeral from 'numeral'
 import { useState, useRef } from 'react'
+import { useChatbotColors } from '../aihelper'
+import { CasinoGrayTransparent } from 'components/themes/mainTheme'
 
-interface Message {
-  role: string
+export interface AnthropicChatbotMessage {
+  role: 'user' | 'assistant' | 'error'
   content: string
   timestamp: string
   usage?: Anthropic.Messages.MessageDeltaUsage
 }
 
 const AnthropicChatBot = () => {
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<AnthropicChatbotMessage[]>([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [currentResponseText, setCurrentResponseText] = useState('')
   const abortControllerRef = useRef<AbortController | null>(null)
+  const { getColor } = useChatbotColors()
 
   const streamChatResponse = async (message: string) => {
-    // Add user message to chat
-    const userMessage: Message = { role: 'user', content: message, timestamp: dayjs().format() }
-    // const newMessages = [...messages]
-    // newMessages.push(userMessage)
+    const userMessage: AnthropicChatbotMessage = { role: 'user', content: message, timestamp: dayjs().format() }
     setMessages((prev) => [...prev, userMessage])
     setIsLoading(true)
 
@@ -53,7 +54,9 @@ const AnthropicChatBot = () => {
       if (reader) {
         const decoder = new TextDecoder()
         let accumulatedResponse = ''
-        let responseMessages: Message[] = []
+        let responseMessages: AnthropicChatbotMessage[] = []
+        let usage: Anthropic.Messages.MessageDeltaUsage | undefined = undefined
+
         while (true) {
           const { done, value } = await reader.read()
           if (done) {
@@ -66,13 +69,9 @@ const AnthropicChatBot = () => {
             if (line.startsWith('usage: ')) {
               const usageData = JSON.parse(line.slice(7))
               if (usageData.usage) {
-                responseMessages.push({
-                  role: 'assistant',
-                  content: '',
-                  timestamp: dayjs().format(),
-                  usage: usageData.usage,
-                })
-                break
+                if (!usage) {
+                  usage = usageData.usage
+                }
               }
             }
             if (line.startsWith('data: ')) {
@@ -80,16 +79,16 @@ const AnthropicChatBot = () => {
                 const data = JSON.parse(line.slice(6))
                 if (data.text) {
                   accumulatedResponse = `${accumulatedResponse}${data.text.text}`
+                  setCurrentResponseText(accumulatedResponse)
                 } else if (data.done) {
                   // Stream completed - add final message
                   responseMessages.push({
                     role: 'assistant',
                     content: accumulatedResponse,
                     timestamp: dayjs().format(),
+                    usage: usage,
                   })
-                  //setMessages((prev) => [...prev, assistantMessage])
-
-                  //setCurrentResponse('')
+                  setMessages((prev) => [...prev, ...responseMessages])
                   setIsLoading(false)
                   return
                 } else if (data.error) {
@@ -100,7 +99,6 @@ const AnthropicChatBot = () => {
               }
             }
           }
-          setMessages((prev) => [...prev, ...responseMessages])
         }
       }
     } catch (error: any) {
@@ -108,14 +106,15 @@ const AnthropicChatBot = () => {
         console.log('Request was cancelled')
       } else {
         console.error('Streaming error:', error)
-        const errorMessage: Message = {
+        const errorMessage: AnthropicChatbotMessage = {
           role: 'error',
           content: `Error: ${error.message}`,
           timestamp: dayjs().format(),
         }
         setMessages((prev) => [...prev, errorMessage])
       }
-      //setCurrentResponse('')
+    } finally {
+      setCurrentResponseText('')
       setIsLoading(false)
     }
   }
@@ -126,6 +125,7 @@ const AnthropicChatBot = () => {
 
     const messageToSend = input.trim()
     setInput('')
+    setCurrentResponseText('')
     await streamChatResponse(messageToSend)
   }
 
@@ -134,54 +134,44 @@ const AnthropicChatBot = () => {
       abortControllerRef.current.abort()
     }
   }
-  console.log('messages: ', messages)
 
   return (
     <>
       <Box display={'flex'} flexDirection={'column'} gap={2}>
-        {/* Chat Messages */}
-        {/* <Box>{messages.length === 0 && !currentResponse && <Typography>Start a conversation...</Typography>}</Box> */}
         <Box>
           {messages.map((msg, index) => (
             <Box key={index}>
               {msg.content && (
                 <Box>
-                  <Box display={'flex'} alignItems={'center'} gap={2} py={1}>
-                    <Typography
-                      variant='caption'
-                      color={msg.role === 'user' ? CasinoGrayTransparent : msg.role === 'error' ? CasinoRed : CasinoGrayTransparent}
-                    >
-                      {msg.role === 'user' ? 'You: ' : msg.role === 'error' ? 'Error' : 'AI: '}
-                    </Typography>
-                    <Typography variant='caption' color={CasinoGrayTransparent}>
-                      {dayjs(msg.timestamp).format('MM/DD/YYYY hh:mm A')}
-                    </Typography>
+                  <Box display={'flex'} alignItems={'center'} gap={2} py={1} color={getColor(msg.role)}>
+                    <Typography variant='caption'>{msg.role === 'user' ? 'You: ' : msg.role === 'error' ? 'Error' : 'AI: '}</Typography>
+                    <Typography variant='caption'>{dayjs(msg.timestamp).format('MM/DD/YYYY hh:mm A')}</Typography>
                   </Box>
                   <Box>
-                    <Typography>{msg.content}</Typography>
+                    {msg.content.includes('```') ? (
+                      <pre>
+                        <code>{<CopyableText label='' value={msg.content.replaceAll('```', '')} showValue />}</code>
+                      </pre>
+                    ) : (
+                      <>
+                        <CopyableText label='' value={msg.content} showValue labelColor={getColor(msg.role)} />
+                      </>
+                    )}
                   </Box>
                 </Box>
               )}
               {msg.usage && (
                 <Box>
-                  <ReadOnlyField variant='caption' label='output tokens' val={`${numeral(msg.usage.output_tokens).format('###,###')}`} />
+                  <ReadOnlyField
+                    color={CasinoGrayTransparent}
+                    variant='caption'
+                    label='output tokens'
+                    val={`${numeral(msg.usage.output_tokens).format('###,###')}`}
+                  />
                 </Box>
               )}
             </Box>
           ))}
-          {/* Current streaming response */}
-          {/* {currentResponse && (
-            <div className='mb-4'>
-              <div className='flex items-center gap-2 mb-1'>
-                <span className='px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800'>Claude</span>
-                <span className='text-xs text-gray-500'>typing...</span>
-              </div>
-              <div className='p-3 rounded-lg bg-white border-l-4 border-green-400'>
-                <div className='whitespace-pre-wrap'>{currentResponse}</div>
-                <div className='inline-block w-2 h-4 bg-green-500 animate-pulse ml-1'></div>
-              </div>
-            </div>
-          )} */}
         </Box>
 
         <Box>
@@ -203,36 +193,25 @@ const AnthropicChatBot = () => {
             ) : (
               <Box>
                 <ScrollIntoView />
-                {/* <TextField
-                  disabled={isLoading}
-                  placeholder='typing...'
-                  multiline
-                  rows={4}
-                  sx={{ width: '100%' }}
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  slotProps={{
-                    input: {
-                      autoCorrect: 'off',
-                    },
-                  }}
-                /> */}
+                <Box minHeight={100}>{currentResponseText && <Typography>{currentResponseText}</Typography>}</Box>
               </Box>
             )}
 
             <Box>
               {isLoading ? (
                 <Box>
-                  <Box>
-                    <ComponentLoader />
-                    <CenterStack>
-                      <Typography py={8}>thinking...</Typography>
-                    </CenterStack>
-                  </Box>
-                  <Box>
-                    <DangerButton text='stop' type='button' onClick={handleStop}>
-                      Stop
-                    </DangerButton>
+                  <Box display={'flex'} justifyContent={'center'}>
+                    <Box display={'flex'} flexDirection={'column'} gap={1}>
+                      <ComponentLoader pt={14} />
+                      <CenterStack>
+                        <Typography py={8}>thinking...</Typography>
+                      </CenterStack>
+                      <Box>
+                        <DangerButton text='stop' type='button' onClick={handleStop}>
+                          Stop
+                        </DangerButton>
+                      </Box>
+                    </Box>
                   </Box>
                 </Box>
               ) : (
@@ -249,7 +228,5 @@ const AnthropicChatBot = () => {
     </>
   )
 }
-
-function addDataMessage(line: string, messages: Message[]) {}
 
 export default AnthropicChatBot

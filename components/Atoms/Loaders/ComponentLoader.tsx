@@ -1,11 +1,11 @@
 'use client'
 
-import { Box } from '@mui/material'
+import { Box, BoxProps } from '@mui/material'
 
-const ComponentLoader = () => {
+const ComponentLoader = ({ ...props }: BoxProps) => {
   return (
     <Box display={'flex'} justifyContent={'center'}>
-      <Box sx={{ margin: 'auto', position: 'absolute', marginLeft: 'auto', marginRight: 'auto' }} height={300} pt={20} pb={20}>
+      <Box {...props} sx={{ margin: 'auto', position: 'absolute', marginLeft: 'auto', marginRight: 'auto' }} height={300}>
         <img src={'/images/loaders/dots.svg'} alt='compoenet loader' />
       </Box>
     </Box>
