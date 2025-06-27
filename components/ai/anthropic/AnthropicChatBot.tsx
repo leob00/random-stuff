@@ -12,6 +12,7 @@ import numeral from 'numeral'
 import { useState, useRef } from 'react'
 import { useChatbotColors } from '../aihelper'
 import { CasinoGrayTransparent } from 'components/themes/mainTheme'
+import ChatBotMessage from '../ChatBotMessage'
 
 export interface AnthropicChatbotMessage {
   role: 'user' | 'assistant' | 'error'
@@ -47,7 +48,17 @@ const AnthropicChatBot = () => {
       })
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        const text = await response.text()
+        setIsLoading(false)
+        setMessages((prev) => [
+          ...prev,
+          {
+            content: JSON.parse(text).error,
+            role: 'error',
+            timestamp: dayjs().format(),
+          },
+        ])
+        return
       }
 
       const reader = response.body?.getReader()
@@ -141,25 +152,7 @@ const AnthropicChatBot = () => {
         <Box>
           {messages.map((msg, index) => (
             <Box key={index}>
-              {msg.content && (
-                <Box>
-                  <Box display={'flex'} alignItems={'center'} gap={2} py={1} color={getColor(msg.role)}>
-                    <Typography variant='caption'>{msg.role === 'user' ? 'You: ' : msg.role === 'error' ? 'Error' : 'AI: '}</Typography>
-                    <Typography variant='caption'>{dayjs(msg.timestamp).format('MM/DD/YYYY hh:mm A')}</Typography>
-                  </Box>
-                  <Box>
-                    {msg.content.includes('```') ? (
-                      <pre>
-                        <code>{<CopyableText label='' value={msg.content.replaceAll('```', '')} showValue />}</code>
-                      </pre>
-                    ) : (
-                      <>
-                        <CopyableText label='' value={msg.content} showValue labelColor={getColor(msg.role)} />
-                      </>
-                    )}
-                  </Box>
-                </Box>
-              )}
+              {msg.content && <ChatBotMessage msg={msg} />}
               {msg.usage && (
                 <Box>
                   <ReadOnlyField

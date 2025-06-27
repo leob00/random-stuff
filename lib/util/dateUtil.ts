@@ -98,3 +98,12 @@ export function getDateRangeForPreviousQuarter(year: number, quarter: number) {
   }
   return range
 }
+
+export function getUnixExpSecondsFromDate(date: string) {
+  const seconds = Math.ceil(dayjs(date).valueOf() / 1000)
+  return seconds
+}
+
+export const getDateOnly = (dateString: string) => {
+  return dayjs(dateString).startOf('day')
+}

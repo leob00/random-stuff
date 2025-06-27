@@ -9,11 +9,14 @@ const anthropic = new Anthropic({
 export async function POST(request: NextRequest) {
   const user = await getUserSSRAppRouteApi()
   if (!user) {
-    return new Response(JSON.stringify({ error: 'Unauthorized. Please sign in.' }), { status: 403 })
+    return new Response(JSON.stringify({ error: 'Please sign in.' }), { status: 401 })
   }
-  //   if (user && user.roles && !!user.roles.find((m) => m.Name == 'Admin')) {
-  //     return new Response(JSON.stringify({ error: 'This feature is only available to certain users.' }), { status: 403 })
-  //   }
+  if (user && user.roles) {
+    const found = user.roles.find((m) => m.Name === 'AnthropicAiChat')
+    if (!found) {
+      return new Response(JSON.stringify({ error: 'This feature is only available to power users.' }), { status: 403 })
+    }
+  }
   try {
     const { message, model = 'claude-3-5-sonnet-20241022' } = await request.json()
 

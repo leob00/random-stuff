@@ -29,7 +29,7 @@ export interface QlnUser {
   TokenExpirationSeconds: number
 }
 
-export type RoleTypes = 'Registered User' | 'Admin'
+export type RoleTypes = 'Registered User' | 'Admin' | 'AnthropicAiChat'
 
 export interface Role {
   Name: RoleTypes

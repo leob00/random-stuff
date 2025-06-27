@@ -1,15 +1,5 @@
 import { useTheme } from '@mui/material'
-import {
-  CasinoBlue,
-  CasinoDarkGreenTransparent,
-  CasinoGreen,
-  CasinoRed,
-  CasinoYellowTransparent,
-  DarkBlue,
-  DarkGreen,
-  DarkModeRed,
-  VeryLightBlue,
-} from 'components/themes/mainTheme'
+import { CasinoBlue, CasinoGreen, DarkModeRed, ErrorRed, VeryLightBlue } from 'components/themes/mainTheme'
 
 export type ChatbotRole = 'user' | 'assistant' | 'error'
 
@@ -28,7 +18,7 @@ export const useChatbotColors = () => {
         color = mode === 'light' ? CasinoGreen : VeryLightBlue
         break
       case 'error':
-        color = mode === 'light' ? DarkModeRed : CasinoRed
+        color = mode === 'light' ? DarkModeRed : ErrorRed
         break
     }
 

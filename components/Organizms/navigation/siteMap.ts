@@ -39,6 +39,11 @@ export const flatSiteMap: Navigation[] = [
     path: '/',
   },
   {
+    name: 'chat with AI',
+    path: '/csr/ai/anthropic',
+    category: 'General Interest',
+  },
+  {
     name: 'news',
     path: '/csr/news',
     category: 'General Interest',

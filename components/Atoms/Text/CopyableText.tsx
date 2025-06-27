@@ -28,9 +28,11 @@ const CopyableText = ({
   return (
     <>
       <Box display={'flex'} alignItems={'flex-start'}>
-        <Box>
-          <Typography variant={variant} pr={2} color={labelColor ?? textColor}>{`${label}`}</Typography>
-        </Box>
+        {label && (
+          <Box>
+            <Typography variant={variant} pr={2} color={labelColor ?? textColor}>{`${label}`}</Typography>
+          </Box>
+        )}
         {showValue && (
           <Box>
             <Typography variant={variant} pr={2} color={labelColor ?? textColor}>{`${value}`}</Typography>
