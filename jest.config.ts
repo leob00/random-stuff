@@ -1,19 +1,19 @@
 import type { Config } from 'jest'
-
 const config: Config = {
+  preset: 'ts-jest',
   verbose: true,
   collectCoverage: true,
   collectCoverageFrom: ['*__tests__*/*.{ts,tsx}'],
   coverageDirectory: 'coverage',
   testEnvironment: 'jsdom',
-  transform: { '\\.[jt]sx?$': 'babel-jest' },
+  transform: {
+    '^.+\\.(ts|tsx)$': 'babel-jest',
+  },
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  moduleNameMapper: {
+    '^components/(.*)$': '<rootDir>/components/$1',
+  },
 }
 
 export default config
-
-// module.exports = {
-//   collectCoverage: true,
-//   collectCoverageFrom: ['*__tests__*/*.{ts,tsx}'],
-//   coverageDirectory: 'coverage',
-//   testEnvironment: 'jsdom',
-// }

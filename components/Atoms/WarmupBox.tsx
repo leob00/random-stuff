@@ -11,7 +11,7 @@ const WarmupBox = ({ text }: { text?: string }) => {
     message: text ?? getRandomLoaderText(),
   }
   const [model, dispatch] = useReducer(warmupReducer, defaultModel)
-  const intervalRef = React.useRef<NodeJS.Timer | null>(null)
+  const intervalRef = React.useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     if (text) {

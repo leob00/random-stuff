@@ -112,7 +112,7 @@ function reducer(state: Model, action: ActionType) {
   }
 }
 const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => {
-  const defaultStateIntervalRef = useRef<NodeJS.Timer | null>(null)
+  const defaultStateIntervalRef = useRef<NodeJS.Timeout | null>(null)
   const coins: Coin[] = [
     {
       face: 'heads',
