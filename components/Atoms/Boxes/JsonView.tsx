@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
-import { Prettify } from 'lib/util/objects'
 import React from 'react'
 import CenterStack from '../CenterStack'
+import { Prettify } from 'lib/util/tsUtil'
 
 const JsonView = ({ obj }: { obj: Prettify<any> | string }) => {
   return (

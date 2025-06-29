@@ -7,4 +7,8 @@ describe('stringUtil Tests', () => {
     expect(result[0]).toBe('toyota')
     expect(result[1]).toBe('honda')
   })
+  test('extractBracketValues no result', () => {
+    const result = extractBracketValues('something')
+    expect(result.length).toBe(0)
+  })
 })

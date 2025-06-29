@@ -41,3 +41,25 @@ const lg: DogInfo = {
   name: 'lg',
   age: 12,
 }
+
+type ExtractExample2 = 'a' | 'b' | 1 | 2
+type Strings2 = Extract<ExtractExample2, 'a' | 'b'>
+
+// prettify example
+type ComplexType2 = {
+  a: string
+  b: number
+}
+
+// mapped types
+type User = {
+  id: string
+  name: string
+  age: number
+}
+
+type UserTransformed = {
+  [K in keyof User]: {
+    type: K
+  }
+}

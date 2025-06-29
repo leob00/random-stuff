@@ -1,9 +1,9 @@
 import type { Config } from 'jest'
 const config: Config = {
   preset: 'ts-jest',
-  verbose: true,
+  verbose: false,
   collectCoverage: true,
-  collectCoverageFrom: ['*__tests__*/*.{ts,tsx}'],
+  collectCoverageFrom: ['lib/util/**/*.{ts,tsx}', '!lib/util/tsUtil.ts', '!lib/util/timers.ts'],
   coverageDirectory: 'coverage',
   testEnvironment: 'jsdom',
   transform: {
