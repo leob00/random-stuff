@@ -13,13 +13,8 @@ import { useState, useRef } from 'react'
 import { useChatbotColors } from '../aihelper'
 import { CasinoGrayTransparent } from 'components/themes/mainTheme'
 import ChatBotMessage from '../ChatBotMessage'
-
-export interface AnthropicChatbotMessage {
-  role: 'user' | 'assistant' | 'error'
-  content: string
-  timestamp: string
-  usage?: Anthropic.Messages.MessageDeltaUsage
-}
+import { postBody } from 'lib/backend/api/fetchFunctions'
+import { AnthropicChatbotMessage } from 'app/api/ai/anthropic/route'
 
 const AnthropicChatBot = () => {
   const [messages, setMessages] = useState<AnthropicChatbotMessage[]>([])
@@ -43,7 +38,7 @@ const AnthropicChatBot = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({ userMessage }),
         signal: abortControllerRef.current.signal,
       })
 
@@ -154,7 +149,13 @@ const AnthropicChatBot = () => {
             <Box key={index}>
               {msg.content && <ChatBotMessage msg={msg} />}
               {msg.usage && (
-                <Box>
+                <Box display={'flex'} flexDirection={'row'} gap={2}>
+                  <ReadOnlyField
+                    color={CasinoGrayTransparent}
+                    variant='caption'
+                    label='input tokens'
+                    val={`${numeral(msg.usage.input_tokens).format('###,###')}`}
+                  />
                   <ReadOnlyField
                     color={CasinoGrayTransparent}
                     variant='caption'

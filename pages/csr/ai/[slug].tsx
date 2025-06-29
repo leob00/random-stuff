@@ -31,6 +31,7 @@ const Page = () => {
       setIsLoading(false)
     }
     fn()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ticket, hasRole])
 
   const handleActivate = async () => {

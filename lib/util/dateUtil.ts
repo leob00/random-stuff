@@ -7,6 +7,8 @@ export function getUtcNow() {
   return dayjs().utc()
 }
 
+type Quarter = 1 | 2 | 3 | (number & {})
+
 export function getExpirateDateFromSeconds(epochSeconds: number) {
   const ticks = dayjs(Math.floor(epochSeconds * 1000))
   const result = dayjs(ticks)
@@ -41,11 +43,12 @@ export function getSecondsFromEpoch() {
   return seconds
 }
 
-export function getDateRangeForQuarter(year: number, quarter: number) {
+export function getDateRangeForQuarter(year: number, quarter: Quarter) {
   const result: DateRangeFilter = {
     startDate: dayjs().format(),
     endDate: dayjs().format(),
   }
+  // Date months are 0 based!
   switch (quarter) {
     case 1:
       result.startDate = dayjs(new Date(year, 0, 1)).format()
@@ -53,7 +56,7 @@ export function getDateRangeForQuarter(year: number, quarter: number) {
       break
     case 2:
       result.startDate = dayjs(new Date(year, 3, 1)).format()
-      result.endDate = dayjs(new Date(year, 5, 30)).format()
+      result.endDate = dayjs(new Date(year, 4, 30)).format()
       break
     case 3:
       result.startDate = dayjs(new Date(year, 6, 1)).format()
@@ -67,14 +70,14 @@ export function getDateRangeForQuarter(year: number, quarter: number) {
   return result
 }
 
-export function getDateRangeForPreviousQuarter(year: number, quarter: number) {
+export function getDateRangeForPreviousQuarter(year: number, quarter: Quarter) {
   const startRange = getDateRangeForQuarter(year, quarter)
   let newStartDate = dayjs(startRange.startDate)
   let newEndDate = dayjs(startRange.endDate)
   let startYear = newStartDate.year()
-  let startQ = newStartDate.quarter()
+  let startQ = newStartDate.quarter() as Quarter
   let endYear = newEndDate.year()
-  let endQ = newEndDate.quarter()
+  let endQ = newEndDate.quarter() as Quarter
 
   if (startQ === 1) {
     startYear = startYear - 1
@@ -90,8 +93,8 @@ export function getDateRangeForPreviousQuarter(year: number, quarter: number) {
     endQ = endQ - 1
   }
 
-  const startDt = getDateRangeForQuarter(startYear, startQ).startDate
-  const endDt = getDateRangeForQuarter(endYear, endQ).endDate
+  const startDt = getDateRangeForQuarter(startYear, startQ as Quarter).startDate
+  const endDt = getDateRangeForQuarter(endYear, endQ as Quarter).endDate
   const range: DateRangeFilter = {
     startDate: startDt,
     endDate: endDt,

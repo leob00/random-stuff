@@ -10,7 +10,8 @@
     "start": "next start",
     "lint": "next lint",
     "download": "npx ts-node --project tsconfig-dev.json lib/backend/node/downloadAnimals.ts | npx ts-node --project tsconfig-dev.json lib/backend/node/downloadSymbolCompanies.ts",
-    "downloadandbuild": "npx ts-node --project tsconfig-dev.json lib/backend/node/downloadAnimals.ts | next build"
+    "downloadandbuild": "npx ts-node --project tsconfig-dev.json lib/backend/node/downloadAnimals.ts | next build",
+    "test": "jest"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.54.0",
@@ -65,10 +66,14 @@
   },
   "devDependencies": {
     "@aws-sdk/types": "3.775.0",
+    "@babel/preset-typescript": "^7.27.1",
     "@contentful/rich-text-types": "^15.12.1",
     "@svgr/webpack": "8.1.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
     "@types/crypto-js": "4.2.2",
     "@types/formidable": "3.4.5",
+    "@types/jest": "^30.0.0",
     "@types/lodash": "^4.14.182",
     "@types/node": "17.0.24",
     "@types/numeral": "2.0.5",
@@ -77,6 +82,8 @@
     "encoding": "0.1.13",
     "eslint": "9.24.0",
     "eslint-config-next": "15.3.1",
+    "jest": "^30.0.3",
+    "jest-environment-jsdom": "^30.0.2",
     "prettier": "3.2.5",
     "ts-node": "10.9.2",
     "typescript": "5.8.3"

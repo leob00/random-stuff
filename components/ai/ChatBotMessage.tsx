@@ -1,8 +1,8 @@
 import { Box, Typography } from '@mui/material'
 import CopyableText from 'components/Atoms/Text/CopyableText'
-import { AnthropicChatbotMessage } from './anthropic/AnthropicChatBot'
 import { useChatbotColors } from './aihelper'
 import dayjs from 'dayjs'
+import { AnthropicChatbotMessage } from 'app/api/ai/anthropic/route'
 
 const ChatBotMessage = ({ msg }: { msg: AnthropicChatbotMessage }) => {
   const { getColor } = useChatbotColors()

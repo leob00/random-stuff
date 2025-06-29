@@ -2,6 +2,17 @@ import Anthropic from '@anthropic-ai/sdk'
 import { getUserSSRAppRouteApi } from 'app/serverActions/auth/user'
 import { NextRequest } from 'next/server'
 
+export interface AnthropicChatbotMessage {
+  role: 'user' | 'assistant' | 'error'
+  content: string
+  timestamp: string
+  usage?: Anthropic.Messages.MessageDeltaUsage
+}
+
+type AnthropicRequest = {
+  userMessage: AnthropicChatbotMessage
+}
+
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 })
@@ -18,7 +29,16 @@ export async function POST(request: NextRequest) {
     }
   }
   try {
-    const { message, model = 'claude-3-5-sonnet-20241022' } = await request.json()
+    const r = (await request.json()) as AnthropicRequest
+
+    type RequestBody = {
+      message: string
+      model: string
+    }
+
+    const req: RequestBody = { message: r.userMessage.content, model: 'claude-3-5-sonnet-20241022' }
+
+    const { message, model = 'claude-3-5-sonnet-20241022' } = req
 
     if (!message) {
       return new Response(JSON.stringify({ error: 'Message is required' }), { status: 400, headers: { 'Content-Type': 'application/json' } })
@@ -41,7 +61,11 @@ export async function POST(request: NextRequest) {
           })
 
           // Process the stream
+          let apiUsage: Anthropic.Messages.Usage | undefined = undefined
           for await (const chunk of messageStream) {
+            if (chunk.type === 'message_start') {
+              apiUsage = chunk.message.usage
+            }
             if (chunk.type === 'content_block_delta') {
               const text = chunk.delta
               if (text) {
@@ -49,11 +73,16 @@ export async function POST(request: NextRequest) {
                 controller.enqueue(new TextEncoder().encode(`data: ${JSON.stringify({ text })}\n\n`))
               }
             }
+
             if (chunk.type === 'message_delta') {
-              const usage = chunk.usage
+              const usage = { ...chunk.usage, input_tokens: apiUsage?.input_tokens ?? 0 }
+
               if (usage) {
                 controller.enqueue(new TextEncoder().encode(`usage: ${JSON.stringify({ usage })}\n\n`))
               }
+            }
+            if (chunk.type === 'message_stop') {
+              //todo: implement saving usage
             }
           }
 

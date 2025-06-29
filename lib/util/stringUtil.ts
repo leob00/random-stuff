@@ -3,7 +3,7 @@ export function findTextBetweenBrackets(text: string) {
   const matches = Array.from(text.matchAll(regEx))
   return matches
 }
-function extractBracketValues(str: string) {
+export function extractBracketValues(str: string) {
   const regex = /\[(.*?)\]/g
   const matches = str.match(regex)
   if (!matches) {
