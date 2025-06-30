@@ -1,5 +1,3 @@
-import { Prettify } from 'lib/util/objects'
-
 export type SortableItem = {
   id: string
   title: string
