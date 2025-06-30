@@ -13,6 +13,7 @@ const config: Config = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {
     '^components/(.*)$': '<rootDir>/components/$1',
+    '^hooks/(.*)$': '<rootDir>/hooks/$1',
   },
 }
 

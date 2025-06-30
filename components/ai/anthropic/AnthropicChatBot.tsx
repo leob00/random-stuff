@@ -5,16 +5,13 @@ import DangerButton from 'components/Atoms/Buttons/DangerButton'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
-import CopyableText from 'components/Atoms/Text/CopyableText'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import dayjs from 'dayjs'
 import numeral from 'numeral'
 import { useState, useRef } from 'react'
-import { useChatbotColors } from '../aihelper'
 import { CasinoGrayTransparent } from 'components/themes/mainTheme'
-import ChatBotMessage from '../ChatBotMessage'
-import { postBody } from 'lib/backend/api/fetchFunctions'
 import { AnthropicChatbotMessage } from 'app/api/ai/anthropic/route'
+import ChatBotMessage from 'components/ai//ChatBotMessage'
 
 const AnthropicChatBot = () => {
   const [messages, setMessages] = useState<AnthropicChatbotMessage[]>([])
@@ -22,7 +19,6 @@ const AnthropicChatBot = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [currentResponseText, setCurrentResponseText] = useState('')
   const abortControllerRef = useRef<AbortController | null>(null)
-  const { getColor } = useChatbotColors()
 
   const streamChatResponse = async (message: string) => {
     const userMessage: AnthropicChatbotMessage = { role: 'user', content: message, timestamp: dayjs().format() }

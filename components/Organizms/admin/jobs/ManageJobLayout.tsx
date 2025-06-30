@@ -5,10 +5,10 @@ import CenteredTitle from 'components/Atoms/Text/CenteredTitle'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import dayjs from 'dayjs'
 import { Job } from 'lib/backend/api/qln/qlnApi'
-import { getWorkflowStatusText } from 'lib/util/textUtil'
 import JobInProgress from '../JobInProgress'
 import StopJobDisplay from './StopJobDisplay'
 import EditJobDisplay from './EditJobDisplay'
+import { getWorkflowStatusText } from 'lib/util/stringUtil'
 
 const ManageJobLayout = ({ data, onSave }: { data: Job; onSave: (item: Job) => void }) => {
   const statusText = getWorkflowStatusText(data.Status)
