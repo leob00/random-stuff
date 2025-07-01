@@ -19,7 +19,7 @@ const fetcherFn = async (url: string) => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  await buildRandomAnimals('dogs')
+  //await buildRandomAnimals('dogs')
   const resp = await getItem('dogs')
   const data = JSON.parse(resp.data) as BasicArticle[]
 

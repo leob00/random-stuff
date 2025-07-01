@@ -20,6 +20,10 @@ export type RandomStuffDynamoItem = {
 //   token?: string
 //   format?: 'json' | 'string'
 // }
+const db = new DynamoDBClient({
+  region: 'us-east-1',
+  credentials: awsCreds,
+})
 
 export async function getItem(key: string) {
   const emptyResult: RandomStuffDynamoItem = {
@@ -34,9 +38,7 @@ export async function getItem(key: string) {
     },
     TableName: 'randomStuff',
   }
-  const db = new DynamoDBClient({
-    credentials: awsCreds,
-  })
+
   const command = new GetItemCommand(params)
   try {
     const response = await db.send(command)
@@ -72,10 +74,7 @@ export async function searchItems(category: string) {
       ':value': { S: category },
     },
   }
-  const db = new DynamoDBClient({
-    credentials: awsCreds,
-    //region: 'us-east-1',
-  })
+
   const command = new QueryCommand(params)
   const response = await db.send(command)
   if (response.Items) {
@@ -120,10 +119,6 @@ export async function putItem(item: RandomStuffDynamoItem) {
       },
     },
   }
-  const db = new DynamoDBClient({
-    credentials: awsCreds,
-    //region: 'us-east-1',
-  })
   const command = new PutItemCommand(params)
   const resp = (await db.send(command)).$metadata
   return resp
@@ -137,10 +132,6 @@ export async function deleteItem(key: string) {
       },
     },
   }
-  const db = new DynamoDBClient({
-    credentials: awsCreds,
-    //region: 'us-east-1',
-  })
   const command = new DeleteItemCommand(params)
   const resp = (await db.send(command)).$metadata
   return resp

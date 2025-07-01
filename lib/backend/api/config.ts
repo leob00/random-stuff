@@ -13,9 +13,8 @@ export function apiConnection() {
   const result: Config = {
     qln: {
       url: String(process.env.NEXT_PUBLIC_QLN_API_URL),
-      key: String(process.env.NEXT_PUBLIC_QLN_API_PUBLIC_KEY),
+      key: String(process.env.NEXT_QLN_API_PUBLIC_KEY),
     },
-
     contentful: {
       url: String(process.env.CONTENTFUL_GRAPH_BASE_URL),
       key: String(process.env.CONTENTFUL_ACCESS_TOKEN),

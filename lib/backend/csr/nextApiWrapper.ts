@@ -365,7 +365,7 @@ export async function searchRecords(id: DynamoKeys | CategoryType): Promise<Rand
   const body: SignedRequest = {
     data: enc,
   }
-  const result = (await post('/api/aws/dynamo/items', body)) as RandomStuffDynamoItem[]
+  const result = (await postBody('/api/aws/dynamo/items', 'POST', body)) as RandomStuffDynamoItem[]
   return result
 }
 
