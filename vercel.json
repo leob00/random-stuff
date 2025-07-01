@@ -1,5 +1,4 @@
 {
-  "ignore": ["**/__snapshots__/**", "**/*.snap"],
   "crons": [
     {
       "path": "/api/cron/stockAlerts",
