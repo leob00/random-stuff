@@ -1,8 +1,7 @@
 import { render } from '@testing-library/react'
-import { AnthropicChatbotMessage } from 'app/api/ai/anthropic/route'
-import React from 'react'
 import dayjs from 'dayjs'
 import ChatBotMessage from '../ChatBotMessage'
+import { AnthropicChatbotMessage } from 'lib/backend/api/models/antropic'
 describe('AnthropicChatbotMessage component', () => {
   it('matches the snapshot', () => {
     const msg: AnthropicChatbotMessage = {
@@ -14,7 +13,6 @@ describe('AnthropicChatbotMessage component', () => {
         output_tokens: 100,
         cache_creation_input_tokens: 0,
         cache_read_input_tokens: 0,
-        server_tool_use: null,
       },
     }
     const { container } = render(<ChatBotMessage msg={msg} />)

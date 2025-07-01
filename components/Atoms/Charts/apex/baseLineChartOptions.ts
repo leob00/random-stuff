@@ -299,10 +299,7 @@ export function getBaseXAxis(categories: string[]) {
     labels: {
       show: false,
       formatter: (val, timestamp, opts) => {
-        if (categories[0] === val || categories[categories.length - 1] === val) {
-          return val
-        }
-        return ''
+        return val
       },
     },
     categories: categories,

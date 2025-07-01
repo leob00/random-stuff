@@ -8004,10 +8004,6 @@
     "Symbol": "CMI"
   },
   {
-    "Company": "Cumulus Media Inc. Class A Common Stock",
-    "Symbol": "CMLS"
-  },
-  {
     "Company": "Chemomab Therapeutics Ltd. American Depositary Share",
     "Symbol": "CMMB"
   },
@@ -10474,6 +10470,10 @@
   {
     "Company": "Madison Dividend Value ETF",
     "Symbol": "DIVL"
+  },
+  {
+    "Company": "Horizon Dividend Income ETF",
+    "Symbol": "DIVN"
   },
   {
     "Company": "Amplify CWP Enhanced Dividend Income ETF",
@@ -14496,6 +14496,10 @@
     "Symbol": "FIGS"
   },
   {
+    "Company": "FIGX Capital Acquisition Corp. Units",
+    "Symbol": "FIGXU"
+  },
+  {
     "Company": "Fidelis Insurance Holdings Limited",
     "Symbol": "FIHL"
   },
@@ -15258,6 +15262,10 @@
   {
     "Company": "Forrester Research Inc",
     "Symbol": "FORR"
+  },
+  {
+    "Company": "Formula Systems 1985 Ltd",
+    "Symbol": "FORTY"
   },
   {
     "Company": "Fossil Group, Inc.",
@@ -18804,7 +18812,7 @@
     "Symbol": "HRTG"
   },
   {
-    "Company": "Tema ETF Trust Tema GLP-1, Obesity & Cardiometabolic ETF",
+    "Company": "Tema ETF Trust Tema Heart & Health ETF",
     "Symbol": "HRTS"
   },
   {
@@ -19966,6 +19974,10 @@
   {
     "Company": "iShares International Developed Real Estate ETF",
     "Symbol": "IFGL"
+  },
+  {
+    "Company": "VictoryShares International Free Cash Flow ETF",
+    "Symbol": "IFLO"
   },
   {
     "Company": "The India Fund, Inc.",
@@ -22604,6 +22616,10 @@
     "Symbol": "KELYA"
   },
   {
+    "Company": "Kelly Services Inc",
+    "Symbol": "KELYB"
+  },
+  {
     "Company": "KraneShares Dynamic Emerging Markets Strategy ETF",
     "Symbol": "KEM"
   },
@@ -23458,6 +23474,10 @@
   {
     "Company": "Liberty Global Ltd. Class A Common Shares",
     "Symbol": "LBTYA"
+  },
+  {
+    "Company": "Liberty Global Ltd. Class B Common Shares",
+    "Symbol": "LBTYB"
   },
   {
     "Company": "Liberty Global Ltd. Class C Common Shares",
@@ -28560,10 +28580,6 @@
     "Symbol": "NURE"
   },
   {
-    "Company": "NeuroMetrix, Inc. Common Stock",
-    "Symbol": "NURO"
-  },
-  {
     "Company": "NuSkin Enterprises, Inc.",
     "Symbol": "NUS"
   },
@@ -32516,6 +32532,10 @@
     "Symbol": "QAT"
   },
   {
+    "Company": "ProShares Nasdaq-100 Dynamic Buffer ETF",
+    "Symbol": "QB"
+  },
+  {
     "Company": "TrueShares Quarterly Bear Hedge ETF",
     "Symbol": "QBER"
   },
@@ -35816,6 +35836,10 @@
     "Symbol": "SFST"
   },
   {
+    "Company": "Horizon Managed Risk ETF",
+    "Symbol": "SFTY"
+  },
+  {
     "Company": "Shengfeng Development Limited Class A Ordinary Shares",
     "Symbol": "SFWL"
   },
@@ -37348,10 +37372,6 @@
     "Symbol": "SPLG"
   },
   {
-    "Company": "STEEL PARTNERS HOLDINGS L.P.",
-    "Symbol": "SPLP"
-  },
-  {
     "Company": "Invesco S&P 500 Low Volatility ETF",
     "Symbol": "SPLV"
   },
@@ -37998,6 +38018,10 @@
   {
     "Company": "SPDR DoubleLine Short Duration Total Return Tactical ETF",
     "Symbol": "STOT"
+  },
+  {
+    "Company": "Horizon Core Equity ETF",
+    "Symbol": "STOX"
   },
   {
     "Company": "PIMCO 1-5 Year U.S. TIPS Index Exchange-Traded Fund",
@@ -43224,7 +43248,7 @@
     "Symbol": "WOLF"
   },
   {
-    "Company": "Impact Shares YWCA Womens Empowerment ETF",
+    "Company": "Impact Shares Womens Empowerment ETF Trading",
     "Symbol": "WOMN"
   },
   {
@@ -44410,6 +44434,10 @@
   {
     "Company": "AdvisorShares Pure Cannabis ETF",
     "Symbol": "YOLO"
+  },
+  {
+    "Company": "Yorkville Acquisition Corp. Unit",
+    "Symbol": "YORKU"
   },
   {
     "Company": "York Water Co",

@@ -1,13 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { getUserSSRAppRouteApi } from 'app/serverActions/auth/user'
+import { AnthropicChatbotMessage } from 'lib/backend/api/models/antropic'
 import { NextRequest } from 'next/server'
-
-export interface AnthropicChatbotMessage {
-  role: 'user' | 'assistant' | 'error'
-  content: string
-  timestamp: string
-  usage?: Anthropic.Messages.MessageDeltaUsage
-}
 
 type AnthropicRequest = {
   userMessage: AnthropicChatbotMessage

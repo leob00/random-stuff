@@ -3,6 +3,20 @@ const nextConfig = {
   experimental: {
     forceSwcTransforms: true,
   },
+  output: 'standalone',
+  //productionBrowserSourceMaps: false,
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.externals = config.externals || []
+      config.module.rules.push({
+        test: /\.snap$/,
+        use: 'ignore-loader',
+      })
+    }
+    return config
+  },
+  excludeDefaultMomentLocales: true,
+  productionBrowserSourceMaps: false,
   reactStrictMode: true,
   modularizeImports: {
     '@mui/icons-material': {

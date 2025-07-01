@@ -10,8 +10,8 @@ import dayjs from 'dayjs'
 import numeral from 'numeral'
 import { useState, useRef } from 'react'
 import { CasinoGrayTransparent } from 'components/themes/mainTheme'
-import { AnthropicChatbotMessage } from 'app/api/ai/anthropic/route'
 import ChatBotMessage from 'components/ai//ChatBotMessage'
+import { AnthropicChatbotMessage } from 'lib/backend/api/models/antropic'
 
 const AnthropicChatBot = () => {
   const [messages, setMessages] = useState<AnthropicChatbotMessage[]>([])
