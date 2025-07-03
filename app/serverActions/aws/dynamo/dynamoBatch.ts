@@ -2,11 +2,13 @@ import { DynamoDBClient, BatchWriteItemCommand, BatchWriteItemInput } from '@aws
 import { awsCreds } from 'app/api/aws/awsHelper'
 import { RandomStuffDynamoItem } from './dynamo'
 import { chunk } from 'lodash'
+
+const db = new DynamoDBClient({
+  region: 'us-east-1',
+  credentials: awsCreds,
+})
+
 export async function putItems(items: RandomStuffDynamoItem[]) {
-  const db = new DynamoDBClient({
-    credentials: awsCreds,
-    //region: 'us-east-1',
-  })
   const chunks = chunk(items, 25)
   for (const chunk of chunks) {
     const params: BatchWriteItemInput = {

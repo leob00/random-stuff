@@ -2,8 +2,6 @@ import { Box } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import dayjs from 'dayjs'
-import { apiConnection } from 'lib/backend/api/config'
-import { get } from 'lib/backend/api/fetchFunctions'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
@@ -17,6 +15,7 @@ import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import { getSortablePropsFromArray, SortableItem } from 'components/dnd/dndUtil'
 import DragAndDropSort from 'components/dnd/DragAndDropSort'
+import { serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 
 export interface EconDataModel {
   Body: {
@@ -28,13 +27,12 @@ export interface EconDataModel {
 const EconDataLayout = () => {
   const [editMode, setEditMode] = useState(false)
   const router = useRouter()
-  const config = apiConnection().qln
-  const mutateListKey = `${config.url}/EconReports`
+  const mutateListKey = `economic-indicators-list`
 
   const { economicIndicators, saveEconomicIndicators } = useLocalStore()
 
   const dataFn = async () => {
-    const resp = await get(mutateListKey)
+    const resp = await serverGetFetch('/EconReports')
     const dbResult = resp as EconDataModel
     const stateIndicators = getMapFromArray(economicIndicators, 'InternalId')
     dbResult.Body.Items.forEach((item) => {

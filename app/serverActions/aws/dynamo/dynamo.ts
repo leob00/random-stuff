@@ -12,14 +12,6 @@ export type RandomStuffDynamoItem = {
   token?: string
 }
 
-// export type RandomStuffItemRequest = {
-//   id: string
-//   category: string
-//   data: any
-//   expiration: number
-//   token?: string
-//   format?: 'json' | 'string'
-// }
 const db = new DynamoDBClient({
   region: 'us-east-1',
   credentials: awsCreds,
