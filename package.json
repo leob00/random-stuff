@@ -11,7 +11,8 @@
     "lint": "next lint",
     "download": "npx ts-node --project tsconfig-dev.json lib/backend/node/downloadAnimals.ts | npx ts-node --project tsconfig-dev.json lib/backend/node/downloadSymbolCompanies.ts",
     "downloadandbuild": "npx ts-node --project tsconfig-dev.json lib/backend/node/downloadAnimals.ts | next build",
-    "test": "jest"
+    "test": "jest",
+    "build-docker": "ts-node build/docker/generate-config-files.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.54.0",
@@ -92,7 +93,6 @@
     "jest-environment-jsdom": "^30.0.2",
     "prettier": "3.2.5",
     "ts-jest": "^29.4.0",
-    "ts-node": "10.9.2",
     "typescript": "^5.8.3"
   },
   "resolutions": {
