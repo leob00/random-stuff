@@ -5128,6 +5128,10 @@
     "Symbol": "BNDX"
   },
   {
+    "Company": "Horizon Core Bond ETF",
+    "Symbol": "BNDY"
+  },
+  {
     "Company": "Barnes & Noble Education, Inc",
     "Symbol": "BNED"
   },
@@ -6022,22 +6026,6 @@
   {
     "Company": "BlackRock Utilities, Infrastructure & Power Opportunities Trust",
     "Symbol": "BUI"
-  },
-  {
-    "Company": "Bukit Jalil Global Acquisition 1 Ltd. Ordinary Shares",
-    "Symbol": "BUJA"
-  },
-  {
-    "Company": "Bukit Jalil Global Acquisition 1 Ltd. Rights",
-    "Symbol": "BUJAR"
-  },
-  {
-    "Company": "Bukit Jalil Global Acquisition 1 Ltd. Unit",
-    "Symbol": "BUJAU"
-  },
-  {
-    "Company": "Bukit Jalil Global Acquisition 1 Ltd. Warrants",
-    "Symbol": "BUJAW"
   },
   {
     "Company": "Pacer US Cash Cows Growth ETF",
@@ -8222,10 +8210,6 @@
   {
     "Company": "Connect Biopharma Holdings Limited American Depositary Shares",
     "Symbol": "CNTB"
-  },
-  {
-    "Company": "ConnectM Technology Solutions, Inc. Common Stock",
-    "Symbol": "CNTM"
   },
   {
     "Company": "Context Therapeutics Inc. Common Stock",
@@ -11518,10 +11502,6 @@
   {
     "Company": "Brinker International, Inc.",
     "Symbol": "EAT"
-  },
-  {
-    "Company": "VegTech Food Innovation & Climate ETF",
-    "Symbol": "EATV"
   },
   {
     "Company": "AdvisorShares Restaurant ETF",
@@ -17244,10 +17224,6 @@
     "Symbol": "GOGO"
   },
   {
-    "Company": "Barrick Gold Corp.",
-    "Symbol": "GOLD"
-  },
-  {
     "Company": "Acushnet Holdings Corp.",
     "Symbol": "GOLF"
   },
@@ -18328,6 +18304,10 @@
     "Symbol": "HERO"
   },
   {
+    "Company": "Herzfeld Credit Income Fund, Inc. Common Stock",
+    "Symbol": "HERZ"
+  },
+  {
     "Company": "Hess Corporation",
     "Symbol": "HES"
   },
@@ -19350,6 +19330,10 @@
   {
     "Company": "Hycroft Mining Holding Corporation Warrant",
     "Symbol": "HYMCW"
+  },
+  {
+    "Company": "Hyperion DeFi, Inc. Common Stock",
+    "Symbol": "HYPD"
   },
   {
     "Company": "Hyperfine, Inc. Class A Common Stock",
@@ -20672,7 +20656,7 @@
     "Symbol": "INKT"
   },
   {
-    "Company": "INLIF LIMITED Ordinary Shares",
+    "Company": "INLIF LIMITED Class A Ordinary Shares",
     "Symbol": "INLF"
   },
   {
@@ -21416,14 +21400,6 @@
     "Symbol": "IVAL"
   },
   {
-    "Company": "Investcorp AI Acquisition Corp. Class A Ordinary Share",
-    "Symbol": "IVCA"
-  },
-  {
-    "Company": "Investcorp AI Acquisition Corp. Warrant",
-    "Symbol": "IVCAW"
-  },
-  {
     "Company": "Iveda Solutions, Inc. Common Stock",
     "Symbol": "IVDA"
   },
@@ -21908,7 +21884,7 @@
     "Symbol": "JDVI"
   },
   {
-    "Company": "JIADE LIMITED Common stock",
+    "Company": "JIADE LIMITED Class A Ordinary Shares",
     "Symbol": "JDZG"
   },
   {
@@ -23964,14 +23940,6 @@
     "Symbol": "LGDX"
   },
   {
-    "Company": "Lions Gate Entertainment Corp. Class A Voting Shares",
-    "Symbol": "LGF.A"
-  },
-  {
-    "Company": "Lions Gate Entertainment Corp. Class B Non-Voting Shares",
-    "Symbol": "LGF.B"
-  },
-  {
     "Company": "HCM Defender 500 Index ETF",
     "Symbol": "LGH"
   },
@@ -25030,6 +24998,10 @@
   {
     "Company": "Monarch Ambassador Income Index ETF",
     "Symbol": "MAMB"
+  },
+  {
+    "Company": "MaxsMaking Inc. Class A Ordinary Shares",
+    "Symbol": "MAMK"
   },
   {
     "Company": "Massimo Group Common Stock",
@@ -27036,7 +27008,7 @@
     "Symbol": "MUU"
   },
   {
-    "Company": "McEwen Mining Inc.",
+    "Company": "McEwen Inc.",
     "Symbol": "MUX"
   },
   {
@@ -32412,10 +32384,6 @@
     "Symbol": "PTMN"
   },
   {
-    "Company": "Palatin Technologies, Inc.",
-    "Symbol": "PTN"
-  },
-  {
     "Company": "Pitanium Limited Class A Ordinary shares",
     "Symbol": "PTNM"
   },
@@ -36476,10 +36444,6 @@
     "Symbol": "SJT"
   },
   {
-    "Company": "SJW Group Common Stock",
-    "Symbol": "SJW"
-  },
-  {
     "Company": "Skyline Builders Group Holding Limited Class A Ordinary Shares",
     "Symbol": "SKBL"
   },
@@ -36994,10 +36958,6 @@
   {
     "Company": "Synchronoss Technologies Inc Common Stock",
     "Symbol": "SNCR"
-  },
-  {
-    "Company": "Synchronoss Technologies, Inc. 8.375% Senior Notes due 2026",
-    "Symbol": "SNCRL"
   },
   {
     "Company": "Sun Country Airlines Holdings, Inc. Common Stock",
@@ -42504,10 +42464,6 @@
     "Symbol": "VRMEW"
   },
   {
-    "Company": "Veren Inc.",
-    "Symbol": "VRN"
-  },
-  {
     "Company": "Verona Pharma plc",
     "Symbol": "VRNA"
   },
@@ -43102,6 +43058,10 @@
   {
     "Company": "The Wendy's Company",
     "Symbol": "WEN"
+  },
+  {
+    "Company": "Wen Acquisition Corp Class A Ordinary Shares",
+    "Symbol": "WENN"
   },
   {
     "Company": "Wen Acquisition Corp Unit",
@@ -44734,14 +44694,6 @@
   {
     "Company": "Zebra Technologies Corporation",
     "Symbol": "ZBRA"
-  },
-  {
-    "Company": "Zoomcar Holdings, Inc. Common Stock",
-    "Symbol": "ZCAR"
-  },
-  {
-    "Company": "Zoomcar Holdings, Inc. Warrants",
-    "Symbol": "ZCARW"
   },
   {
     "Company": "Zhongchao Inc. Class A Ordinary Shares",

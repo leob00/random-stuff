@@ -9,6 +9,7 @@ import React, { Suspense } from 'react'
 import useSWR, { Fetcher, SWRConfig } from 'swr'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const request = context.req.cookies
   let article: BasicArticle = {
     title: 'Status: OK',
     imagePath: '',

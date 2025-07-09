@@ -4,7 +4,7 @@ import StocksStatus from './StocksStatus'
 import { Box } from '@mui/material'
 import NewsStatus from './NewsStatus'
 
-export const dynamic = 'force-dynamic' // disable cache
+//export const dynamic = 'force-dynamic' // disable cache
 export default async function Page() {
   return (
     <>

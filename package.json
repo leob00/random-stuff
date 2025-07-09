@@ -12,7 +12,8 @@
     "download": "npx ts-node --project tsconfig-dev.json lib/backend/node/downloadAnimals.ts | npx ts-node --project tsconfig-dev.json lib/backend/node/downloadSymbolCompanies.ts",
     "downloadandbuild": "npx ts-node --project tsconfig-dev.json lib/backend/node/downloadAnimals.ts | next build",
     "test": "jest",
-    "build-docker": "ts-node build/docker/generate-config-files.ts"
+    "build-docker": "ts-node build/docker/generate-config-files.ts | docker build --secret id=CRON_SECRET,src=build/docker/config/CRON_SECRET.txt --secret id=NEXT_PUBLIC_APP_ID,src=build/docker/config/NEXT_PUBLIC_APP_ID.txt --secret id=NEXT_PUBLIC_QLN_API_URL,src=build/docker/config/NEXT_PUBLIC_QLN_API_URL.txt --secret id=NEXT_PUBLIC_API_TOKEN,src=build/docker/config/NEXT_PUBLIC_API_TOKEN.txt --secret id=NEXT_QLN_API_PUBLIC_KEY,src=build/docker/config/NEXT_QLN_API_PUBLIC_KEY.txt --secret id=CONTENTFUL_GRAPH_BASE_URL,src=build/docker/config/CONTENTFUL_GRAPH_BASE_URL.txt --secret id=CONTENTFUL_ACCESS_TOKEN,src=build/docker/config/CONTENTFUL_ACCESS_TOKEN.txt --secret id=CONTENTFUL_SPACE_ID,src=build/docker/config/CONTENTFUL_SPACE_ID.txt --secret id=AWS_ACCESS_KEY_ID,src=build/docker/config/AWS_ACCESS_KEY_ID.txt --secret id=AWS_ACCESS_KEY_SECRET,src=build/docker/config/AWS_ACCESS_KEY_SECRET.txt --secret id=ANTHROPIC_API_KEY,src=build/docker/config/ANTHROPIC_API_KEY.txt -t random-stuff .",
+    "run-docker": "docker run -d --name random-stuff-container -p 3000:3000 random-stuff"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.54.0",
