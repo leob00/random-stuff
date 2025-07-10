@@ -3,15 +3,14 @@ import { ApexOptions } from 'apexcharts'
 import CenterStack from 'components/Atoms/CenterStack'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
-import { getMarketChart, getStockOrFutureChart, MarketCategory } from 'lib/backend/api/qln/chartApi'
+import { getMarketChart, MarketCategory } from 'lib/backend/api/qln/chartApi'
 import dynamic from 'next/dynamic'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import StockChartWithVolume from './StockChartWithVolume'
 import { getOptions, mapHistory } from './stockLineChartOptions'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { mutate } from 'swr'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import StockChartDaySelect, { getYearToDateDays } from './StockChartDaySelect'
 import { DateRange, HistoricalAggregate } from 'lib/backend/api/qln/qlnApi'
@@ -107,7 +106,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
                       <Box>
                         <FadeIn>
                           <ReactApexChart series={data.chartOptions.series} options={data.chartOptions} type='area' height={chartHeight} />
-                          <Box display='flex' gap={4} pb={4}>
+                          <Box display='flex' gap={4} pb={4} justifyContent={'center'}>
                             <Box display='flex' gap={1}>
                               <Typography variant='caption'>start date:</Typography>
                               <Typography variant='caption'>{dayjs(data.history[0].TradeDate).format('MM/DD/YYYY')}</Typography>

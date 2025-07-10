@@ -4,4 +4,12 @@ build container:
 docker build -t random-stuff .
 run container:
 docker run -d --name random-stuff-container -p 3000:3000 random-stuff
+clear all:
+docker system prune
+restart docker desktop:
+ps: restart-service *docker*
+shut down wsl (run as admin):
+wsl --shutdown 
+
+
 

@@ -1,13 +1,14 @@
 var fs = require('fs')
 var https = require('https')
 var _ = require('lodash')
-
+var dotenv = require('dotenv')
+dotenv.config()
 interface SymbolCompany {
   Symbol: string
   Company: string
 }
 const getSymbolCompanies = async () => {
-  var url = 'https://api.quotelookup.net/api/StockSymbols?apiKey=e9032947cc9f17a7c4c82976f5a1db892485017ecc3aec6832a5fe9e24e6d469'
+  var url = `https://api.quotelookup.net/api/StockSymbols?apiKey=${process.env.NEXT_QLN_API_PUBLIC_KEY}`
   https
     .get(url, (res: any) => {
       let body = ''
@@ -19,12 +20,13 @@ const getSymbolCompanies = async () => {
         try {
           let response = JSON.parse(body)
           const records = response.Body as SymbolCompany[]
-          const ordered = _.orderBy(records, ['Sumbol'], ['asc'])
+          const ordered = _.orderBy(records, ['Symbol'], ['asc'])
           fs.writeFile('public/data/symbolCompanies.json', JSON.stringify(ordered, null, 2), (err: string) => {
             if (err) {
               console.error(err)
             }
           })
+          console.info(`dowloaded ${ordered.length} companies`)
         } catch (error: any) {
           console.error(error.message)
         }

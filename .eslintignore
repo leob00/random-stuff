@@ -1,2 +1,5 @@
 # .eslintignore
-**/*.snap
+**/*.test.ts
+**/*.spec.ts
+**/__tests__/**
+**/__snapshots__/**

@@ -9,7 +9,7 @@ const nextConfig = {
     if (!isServer) {
       config.externals = config.externals || []
       config.module.rules.push({
-        test: /\.snap$/,
+        test: /\.(test|spec)\.(ts)x?$/,
         use: 'ignore-loader',
       })
     }

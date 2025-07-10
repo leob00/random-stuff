@@ -1508,6 +1508,10 @@
     "Symbol": "ALOT"
   },
   {
+    "Company": "Allspring LT Large Core ETF",
+    "Symbol": "ALRG"
+  },
+  {
     "Company": "Alarm.com Holdings, Inc.",
     "Symbol": "ALRM"
   },
@@ -1946,6 +1950,10 @@
   {
     "Company": "Annexon, Inc. Common Stock",
     "Symbol": "ANNX"
+  },
+  {
+    "Company": "Rich Sparkle Holdings Limited Ordinary Shares",
+    "Symbol": "ANPA"
   },
   {
     "Company": "Alto Neuroscience Inc.",
@@ -3062,6 +3070,10 @@
   {
     "Company": "Global X Adaptive U.S. Factor ETF",
     "Symbol": "AUSF"
+  },
+  {
+    "Company": "Allspring Ultra Short Municipal ETF",
+    "Symbol": "AUSM"
   },
   {
     "Company": "Austin Gold Corp.",
@@ -6672,6 +6684,10 @@
     "Symbol": "CBTJ"
   },
   {
+    "Company": "Calamos Bitcoin 80 Series Structured Alt Protection ETF - July",
+    "Symbol": "CBTY"
+  },
+  {
     "Company": "Community Financial System, Inc.",
     "Symbol": "CBU"
   },
@@ -6686,6 +6702,10 @@
   {
     "Company": "Calamos Bitcoin 90 Series Structured Alt Protection ETF - January",
     "Symbol": "CBXJ"
+  },
+  {
+    "Company": "Calamos Bitcoin 90 Series Structured Alt Protection ETF - July",
+    "Symbol": "CBXY"
   },
   {
     "Company": "CBIZ, Inc.",
@@ -6728,8 +6748,16 @@
     "Symbol": "CCCS"
   },
   {
+    "Company": "Churchill Capital Corp X Class A Ordinary Shares",
+    "Symbol": "CCCX"
+  },
+  {
     "Company": "Churchill Capital Corp X Unit",
     "Symbol": "CCCXU"
+  },
+  {
+    "Company": "Churchill Capital Corp X Warrants",
+    "Symbol": "CCCXW"
   },
   {
     "Company": "Calamos Dynamic Convertible & Income Fund",
@@ -16548,6 +16576,10 @@
     "Symbol": "GEO"
   },
   {
+    "Company": "WisdomTree GeoAlpha Opportunities Fund",
+    "Symbol": "GEOA"
+  },
+  {
     "Company": "Geospace Technologies Corporation Common Stock",
     "Symbol": "GEOS"
   },
@@ -22772,6 +22804,10 @@
     "Symbol": "KGEI"
   },
   {
+    "Company": "Kurv Gold Enhanced Income ETF",
+    "Symbol": "KGLD"
+  },
+  {
     "Company": "KraneShares MSCI China Clean Technology Index ETF",
     "Symbol": "KGRN"
   },
@@ -26698,6 +26734,10 @@
   {
     "Company": "Madison Square Garden Sports Corp.",
     "Symbol": "MSGS"
+  },
+  {
+    "Company": "Masonglory Limited Ordinary Shares",
+    "Symbol": "MSGY"
   },
   {
     "Company": "Motorola Solutions, Inc. New",
@@ -35764,6 +35804,10 @@
     "Symbol": "SEG"
   },
   {
+    "Company": "Lottery.com, Inc. Common Stock",
+    "Symbol": "SEGG"
+  },
+  {
     "Company": "Solaris Energy Infrastructure, Inc.",
     "Symbol": "SEI"
   },
@@ -37672,6 +37716,10 @@
     "Symbol": "SPXL"
   },
   {
+    "Company": "Azoria 500 Meritocracy ETF",
+    "Symbol": "SPXM"
+  },
+  {
     "Company": "ProShares S&P 500 Ex-Financials ETF",
     "Symbol": "SPXN"
   },
@@ -39562,6 +39610,10 @@
   {
     "Company": "iShares 10-20 Year Treasury Bond ETF",
     "Symbol": "TLH"
+  },
+  {
+    "Company": "Ten-League International Holdings Limited Ordinary Shares",
+    "Symbol": "TLIH"
   },
   {
     "Company": "PT Telekomunikasi Indonesia",
@@ -42084,7 +42136,7 @@
     "Symbol": "VIK"
   },
   {
-    "Company": "Vinci Partners Investments Ltd. Class A Common Shares",
+    "Company": "Vinci Compass Investments Ltd. Class A Common Shares",
     "Symbol": "VINP"
   },
   {
@@ -43066,6 +43118,10 @@
   {
     "Company": "Wen Acquisition Corp Unit",
     "Symbol": "WENNU"
+  },
+  {
+    "Company": "Wen Acquisition Corp Warrant",
+    "Symbol": "WENNW"
   },
   {
     "Company": "Werner Enterprises Inc",

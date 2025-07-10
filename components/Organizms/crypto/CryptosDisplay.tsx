@@ -22,6 +22,7 @@ function filterCryptos(data: StockQuote[]) {
     'X:USDTUSD',
     'X:XAUTUSD',
     'X:AVAXUSD',
+    'X:DOGEUSD',
   ]
   const result = data.filter((m) => displaySymbols.includes(m.Symbol))
   return sortArray(result, ['Company'], ['asc'])
