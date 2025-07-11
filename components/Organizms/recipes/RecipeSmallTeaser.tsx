@@ -14,11 +14,9 @@ const RecipeSmallTeaser = ({ id, item, imageWidth = 380, imageHeight = 430 }: { 
       <Box pt={2}>
         {item.heroImage && (
           <Box display={'flex'}>
-            <NLink href={`${baseUrl}${item.sys.id}?ret=/ssg/recipes/tag/${id}`} passHref legacyBehavior>
-              <Link>
-                <RecipeImage recipe={item} width={imageWidth} height={imageHeight} />
-              </Link>
-            </NLink>
+            <Link href={`${baseUrl}${item.sys.id}?ret=/ssg/recipes/tag/${id}`} component={NLink}>
+              <RecipeImage recipe={item} width={imageWidth} height={imageHeight} />
+            </Link>
           </Box>
         )}
       </Box>

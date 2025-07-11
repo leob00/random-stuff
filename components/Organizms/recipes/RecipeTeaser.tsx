@@ -54,11 +54,9 @@ const RecipeTeaser = ({
         )}
         {item.heroImage && showImage && (
           <Stack direction='row' justifyContent='center' sx={{ marginBottom: 1 }}>
-            <NLink href={`${baseUrl}${item.sys.id}`} passHref legacyBehavior as={`${baseUrl}${item.sys.id}`}>
-              <Link href={`${baseUrl}${item.sys.id}`}>
-                <RecipeImage recipe={item} width={imageWidth} height={imageHeight} />
-              </Link>
-            </NLink>
+            <Link href={`${baseUrl}${item.sys.id}`} component={NLink}>
+              <RecipeImage recipe={item} width={imageWidth} height={imageHeight} />
+            </Link>
           </Stack>
         )}
       </Box>

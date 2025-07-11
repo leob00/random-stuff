@@ -2612,6 +2612,10 @@
     "Symbol": "ASC"
   },
   {
+    "Company": "Allspring SMID Core ETF",
+    "Symbol": "ASCE"
+  },
+  {
     "Company": "Global X FTSE Southeast Asia ETF",
     "Symbol": "ASEA"
   },
@@ -2906,6 +2910,10 @@
   {
     "Company": "AlphaTime Acquisition Corp Right",
     "Symbol": "ATMCR"
+  },
+  {
+    "Company": "AlphaTime Acquisition Corp Unit",
+    "Symbol": "ATMCU"
   },
   {
     "Company": "AlphaTime Acquisition Corp Warrant",
@@ -6654,6 +6662,10 @@
   {
     "Company": "VanEck China Bond ETF",
     "Symbol": "CBON"
+  },
+  {
+    "Company": "Calamos Bitcoin Structured Alt Protection ETF - July",
+    "Symbol": "CBOY"
   },
   {
     "Company": "CBRE GROUP, INC.",
@@ -10658,6 +10670,10 @@
   {
     "Company": "Deluxe Corporation",
     "Symbol": "DLX"
+  },
+  {
+    "Company": "Delixy Holdings Limited Ordinary Shares",
+    "Symbol": "DLXY"
   },
   {
     "Company": "DoubleLine Yield Opportunities Fund",
@@ -15012,6 +15028,10 @@
     "Symbol": "FLX"
   },
   {
+    "Company": "Horizon Flexible Income ETF",
+    "Symbol": "FLXN"
+  },
+  {
     "Company": "TCW Flexible Income ETF",
     "Symbol": "FLXR"
   },
@@ -17786,6 +17806,10 @@
   {
     "Company": "Gores Holdings X, Inc. Warrants",
     "Symbol": "GTENW"
+  },
+  {
+    "Company": "Globa Terra Acquisition Corporation Units",
+    "Symbol": "GTERU"
   },
   {
     "Company": "Gates Industrial Corporation plc",
@@ -25068,7 +25092,7 @@
     "Symbol": "MAPSW"
   },
   {
-    "Company": "Marriot International Class A Common Stock",
+    "Company": "Marriott International Class A Common Stock",
     "Symbol": "MAR"
   },
   {
@@ -33326,6 +33350,10 @@
   {
     "Company": "SMI 3Fourteen REAL Asset Allocation ETF",
     "Symbol": "RAA"
+  },
+  {
+    "Company": "Reckoner Leveraged AAA CLO ETF",
+    "Symbol": "RAAA"
   },
   {
     "Company": "Real Asset Acquisition Corp. Class A Ordinary Share",
@@ -42080,6 +42108,10 @@
     "Symbol": "VGUS"
   },
   {
+    "Company": "Vanguard Government Securities Active ETF",
+    "Symbol": "VGVT"
+  },
+  {
     "Company": "Vista Gold Corp.",
     "Symbol": "VGZ"
   },
@@ -42692,6 +42724,10 @@
     "Symbol": "VTEX"
   },
   {
+    "Company": "Vanguard Total Treasury ETF",
+    "Symbol": "VTG"
+  },
+  {
     "Company": "Vistagen Therapeutics, Inc. Common Stock",
     "Symbol": "VTGN"
   },
@@ -42722,6 +42758,10 @@
   {
     "Company": "Bristow Group Inc.",
     "Symbol": "VTOL"
+  },
+  {
+    "Company": "Vanguard Total Inflation-Protection Securities ETF",
+    "Symbol": "VTP"
   },
   {
     "Company": "Ventas, Inc.",
@@ -44158,6 +44198,10 @@
   {
     "Company": "FT Vest U.S. Equity Enhance & Moderate Buffer ETF - October",
     "Symbol": "XOCT"
+  },
+  {
+    "Company": "iShares S&P 500 ex S&P 100 ETF",
+    "Symbol": "XOEF"
   },
   {
     "Company": "Exxon Mobil Corporation",

@@ -31,7 +31,6 @@ export function calculateStockMovePercent(price: number, change: number) {
     return 0
   }
   const startPrice = change > 0 ? price - change : price + Math.abs(change)
-  //let result = Number(((variable * 100) / total).toFixed(3))
   const result = calculatePercent(change, startPrice)
 
   return result

@@ -1,7 +1,7 @@
 import { get, postBody } from 'lib/backend/api/fetchFunctions'
 import { QlnApiRequest } from 'lib/backend/api/qln/qlnApi'
 import { NextRequest, NextResponse } from 'next/server'
-export const runtime = 'edge'
+//export const runtime = 'edge'
 
 export async function GET(req: NextRequest) {
   const url = req.nextUrl.searchParams.get('url') as string

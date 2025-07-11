@@ -36,7 +36,6 @@ const Page = () => {
   const [selectedTab, setSelectedTab] = useState<Tab>('Recent')
 
   const searchedStocksKey: CategoryType = 'searched-stocks'
-  const mutateKey = `searched-stocks`
 
   const dataFn = async () => {
     const searchedStocksResult = await searchRecords(searchedStocksKey)
@@ -56,7 +55,7 @@ const Page = () => {
     })
     return Array.from(stockMap.values())
   }
-  const { data: searchedStocks, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
+  const { data: searchedStocks, isLoading } = useSwrHelper(searchedStocksKey, dataFn, { revalidateOnFocus: true })
 
   const winners: StockQuote[] = searchedStocks
     ? sortArray(
@@ -83,13 +82,13 @@ const Page = () => {
   }
 
   const handleRefreshRecent = () => {
-    mutate(mutateKey)
+    mutate(searchedStocksKey)
   }
   const handleCloseQuoteDialog = () => {
     if (selectedStock) {
       const newCopy = searchedStocks!.filter((m) => m.Symbol !== selectedStock.Symbol)
       newCopy.unshift(selectedStock)
-      mutate(mutateKey, newCopy, { revalidate: false })
+      mutate(searchedStocksKey, newCopy, { revalidate: false })
     }
     setSelectedStock(null)
   }

@@ -5,7 +5,7 @@ docker build -t random-stuff .
 run container:
 docker run -d --name random-stuff-container -p 3000:3000 random-stuff
 clear all:
-docker system prune
+docker system prune --all --volumes --force
 restart docker desktop:
 ps: restart-service *docker*
 shut down wsl (run as admin):

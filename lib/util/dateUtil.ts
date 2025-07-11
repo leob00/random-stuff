@@ -9,15 +9,9 @@ export function getUtcNow() {
 
 type Quarter = 1 | 2 | 3 | (number & {})
 
-export function getExpirateDateFromSeconds(epochSeconds: number) {
-  const ticks = dayjs(Math.floor(epochSeconds * 1000))
-  const result = dayjs(ticks)
-  return result
-}
-
 export function getExpirationText(expirationDate: string, precise: boolean = false) {
-  const defaultText = 'expires '
-  let message = `${defaultText} on ${dayjs(expirationDate).format('MM/DD/YYYY hh:mm a')}`
+  const defaultText = 'expires'
+  let message = `${defaultText} on ${dayjs(expirationDate).format('MM/DD/YYYY hh:mm A')}`
   const now = getUtcNow()
   const expDt = dayjs(expirationDate)
   if (!precise) {
@@ -68,38 +62,6 @@ export function getDateRangeForQuarter(year: number, quarter: Quarter) {
       break
   }
   return result
-}
-
-export function getDateRangeForPreviousQuarter(year: number, quarter: Quarter) {
-  const startRange = getDateRangeForQuarter(year, quarter)
-  let newStartDate = dayjs(startRange.startDate)
-  let newEndDate = dayjs(startRange.endDate)
-  let startYear = newStartDate.year()
-  let startQ = newStartDate.quarter() as Quarter
-  let endYear = newEndDate.year()
-  let endQ = newEndDate.quarter() as Quarter
-
-  if (startQ === 1) {
-    startYear = startYear - 1
-    startQ = 4
-  } else {
-    startQ = startQ - 1
-  }
-
-  if (endQ === 1) {
-    endYear = endYear - 1
-    endQ = 4
-  } else {
-    endQ = endQ - 1
-  }
-
-  const startDt = getDateRangeForQuarter(startYear, startQ as Quarter).startDate
-  const endDt = getDateRangeForQuarter(endYear, endQ as Quarter).endDate
-  const range: DateRangeFilter = {
-    startDate: startDt,
-    endDate: endDt,
-  }
-  return range
 }
 
 export function getUnixExpSecondsFromDate(date: string) {
