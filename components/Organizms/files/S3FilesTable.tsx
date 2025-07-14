@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { postBody, postDelete } from 'lib/backend/api/fetchFunctions'
+import { postBody } from 'lib/backend/api/fetchFunctions'
 import { getPresignedUrl, getS3Files } from 'lib/backend/csr/nextApiWrapper'
 import { DropdownItem } from 'lib/models/dropdown'
 import { S3Controller } from 'hooks/s3/useS3Controller'

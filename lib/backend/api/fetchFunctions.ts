@@ -63,15 +63,12 @@ export async function post(url: string, body: any, contentType: string = 'applic
   }
 }
 
-export async function postBody(url: string, method: 'PATCH' | 'POST' | 'DELETE' | 'PUT', body: any) {
+export async function postBody(url: string, method: 'PATCH' | 'POST' | 'DELETE' | 'PUT', body: any, headers?: HeadersInit) {
   try {
     const resp = await fetch(url, {
       method: method,
       body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json',
-        ApiKey: String(config.qln.key),
-      },
+      headers: { ...headers, 'Content-Type': 'application/json' },
     })
 
     const data = await resp.json()

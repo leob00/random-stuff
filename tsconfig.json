@@ -23,5 +23,5 @@
     ]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "lib/backend/node/*.ts", "lib/backend/node/fileUtil.ts", "**/*.test.ts", "**/__snapshots__/**", "**/*.spec.ts"]
+  "exclude": ["node_modules", "lib/backend/node/*.ts", "lib/backend/node/fileUtil.ts", "**/__snapshots__/**", "**/*.spec.ts"]
 }

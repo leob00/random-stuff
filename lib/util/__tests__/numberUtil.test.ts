@@ -44,10 +44,10 @@ describe('numberUtil Tests', () => {
   })
   test('getImageSize - 5000', () => {
     const result = getImageSize(5001)
-    expect(result.width).toBe(350)
+    expect(result?.width).toBe(350)
   })
   test('getImageSize - 50001', () => {
     const result = getImageSize(50001)
-    expect(result.width).toBe(350)
+    expect(result?.width).toBe(350)
   })
 })

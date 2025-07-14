@@ -1,7 +1,8 @@
+const isTurbopack = process.env.TURBOPACK === '1'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    forceSwcTransforms: true,
+    forceSwcTransforms: !isTurbopack ? true : undefined,
   },
   output: 'standalone',
   //productionBrowserSourceMaps: false,
