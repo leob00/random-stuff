@@ -36,6 +36,16 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
 
   options[0].grid = { ...options[0].grid }
   options[1].chart!.height = 160
+  options[1].xaxis! = { ...options[1].xaxis, type: 'datetime', axisTicks: { show: false, borderType: 'none', color: VeryLightBlue } }
+  options[1].xaxis!.labels = {
+    ...options[1].xaxis!.labels,
+    show: false,
+    formatter: (val, timestamp, opts) => {
+      return dayjs(val).format('MM/DD/YYYY')
+    },
+    offsetX: 8,
+    offsetY: 2,
+  }
 
   return (
     <Box height={chartHeight + 190}>
