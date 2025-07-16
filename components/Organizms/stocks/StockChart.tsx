@@ -53,11 +53,17 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
     options.xaxis.labels = {
       ...options.xaxis!.labels,
       show: true,
+      rotate: 340,
+      rotateAlways: true,
       formatter: (val, timestamp, opts) => {
         return dayjs(val).format('YYYY-MM-DD')
       },
-      offsetX: 8,
-      offsetY: 2,
+      offsetX: 4,
+      offsetY: 16,
+
+      style: {
+        fontSize: '9px',
+      },
     }
 
     const result: Model = {

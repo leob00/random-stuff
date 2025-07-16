@@ -281,7 +281,7 @@ function getBaseYAxis(opts: LineChartOptions) {
       style: {
         colors: opts.palette === 'dark' ? [VeryLightBlue] : [DarkBlue],
         fontWeight: opts.isXSmall ? 300 : 400,
-        fontSize: opts.isXSmall ? '10px' : '15px',
+        fontSize: opts.isXSmall ? '10px' : '12px',
       },
       minWidth: 40,
       formatter: (val: number) => {

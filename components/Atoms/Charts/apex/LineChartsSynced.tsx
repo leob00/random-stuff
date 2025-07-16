@@ -23,15 +23,22 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
 
   const options = getOptions(xYValues, lineOptions)
 
-  options[0].xaxis! = { ...options[0].xaxis, type: 'datetime', axisTicks: { show: true, borderType: 'none', color: VeryLightBlue } }
+  options[0].xaxis! = { ...options[0].xaxis, type: 'datetime', axisTicks: { show: true, borderType: 'none', color: VeryLightBlue, offsetY: 1 } }
   options[0].xaxis!.labels = {
     ...options[0].xaxis!.labels,
     show: true,
+    rotate: 340,
+    rotateAlways: true,
+
     formatter: (val, timestamp, opts) => {
-      return dayjs(val).format('MM/DD/YYYY')
+      return dayjs(val).format('YYYY-MM-DD')
     },
-    offsetX: 8,
-    offsetY: 2,
+    offsetX: 4,
+    offsetY: 16,
+
+    style: {
+      fontSize: '9px',
+    },
   }
 
   options[0].grid = { ...options[0].grid }
