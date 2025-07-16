@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import HeaderMenu from './Molecules/Menus/HeaderMenu'
 import { AuthUser, signOut as amplifySignOut, fetchUserAttributes } from 'aws-amplify/auth'
 import { Hub } from 'aws-amplify/utils'
+import { useRouteTracker } from './Organizms/session/useRouteTracker'
 import { useEffect } from 'react'
 
 export type HubPayload = {
@@ -22,7 +23,8 @@ export type HubPayload = {
 const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; onChangePalette: () => void }) => {
   const router = useRouter()
   const { ticket, setTicket, setProfile } = useUserController()
-  const { claims, saveClaims, saveRoutes } = useSessionStore()
+  const { claims, saveClaims } = useSessionStore()
+  const { lastRoute } = useRouteTracker()
 
   const signOut = async () => {
     try {
@@ -39,8 +41,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
         await setTicket(null)
         await setProfile(null)
         saveClaims([])
-        saveRoutes([])
-        router.push('/login')
+        router.push(`/login?ret=${encodeURIComponent(router.asPath)}`)
         break
       case 'signedIn':
         if (ticket) {

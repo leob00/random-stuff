@@ -7,6 +7,7 @@ import {
   CasinoLimeTransparent,
   CasinoRedTransparent,
   DarkBlue,
+  DarkGreen,
   DarkModeBlue,
   RedDarkMode,
   VeryLightBlue,
@@ -14,6 +15,7 @@ import {
 } from 'components/themes/mainTheme'
 import numeral from 'numeral'
 import { XyValues } from './chartModels'
+import dayjs from 'dayjs'
 
 export type LineChartOptions = {
   raw: any[]
@@ -34,27 +36,27 @@ const lineFill: ApexFill = {
   type: 'gradient',
   gradient: {
     shadeIntensity: 4,
-    opacityFrom: 0.9,
+    opacityFrom: 0.6,
     opacityTo: 0.1,
     stops: [10, 99, 100],
   },
 }
 
 export function getPositiveNegativeLineColor(palette: 'light' | 'dark' = 'light', items: number[]) {
-  let lineColor = palette === 'dark' ? CasinoLimeTransparent : CasinoGreenTransparent
+  let lineColor = palette === 'dark' ? CasinoLimeTransparent : DarkGreen
   if (items.length > 0) {
     if (items[0] > items[items.length - 1]) {
-      lineColor = palette === 'dark' ? RedDarkMode : CasinoRedTransparent
+      lineColor = palette === 'dark' ? RedDarkMode : RedDarkMode
     }
   }
   return lineColor
 }
 
 export function getPositiveNegativeLineColorReverse(palette: 'light' | 'dark' = 'light', items: number[]) {
-  let lineColor = palette === 'dark' ? RedDarkMode : CasinoRedTransparent
+  let lineColor = palette === 'dark' ? RedDarkMode : RedDarkMode
   if (items.length > 0) {
     if (items[0] > items[items.length - 1]) {
-      lineColor = palette === 'dark' ? CasinoLimeTransparent : CasinoGreenTransparent
+      lineColor = palette === 'dark' ? CasinoLimeTransparent : DarkGreen
     }
   }
   return lineColor
@@ -274,7 +276,6 @@ export function getBaseGrid(palette: 'light' | 'dark') {
 function getBaseYAxis(opts: LineChartOptions) {
   const result: ApexYAxis = {
     forceNiceScale: true,
-
     labels: {
       show: true,
       style: {
@@ -299,7 +300,7 @@ export function getBaseXAxis(categories: string[]) {
     labels: {
       show: false,
       formatter: (val, timestamp, opts) => {
-        return val
+        return dayjs(val).format('MM/DD/YYYY')
       },
     },
     categories: categories,

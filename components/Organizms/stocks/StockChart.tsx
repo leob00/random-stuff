@@ -20,6 +20,7 @@ import { shrinkList } from './lineChartOptions'
 import { MovingAvg } from 'lib/backend/api/qln/qlnModels'
 import MovingAvgValues from './movingAvg/MovingAvgValues'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
+import { VeryLightBlue } from 'components/themes/mainTheme'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 interface Model {
@@ -48,6 +49,16 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
     const history = shrinkList(response.History, 60)
     const map = mapHistory(history, 'Price')
     const options = getOptions(map, history, isXSmall, theme.palette.mode)
+    options.xaxis = { ...options.xaxis, type: 'datetime', axisTicks: { show: true, borderType: 'none', color: VeryLightBlue } }
+    options.xaxis.labels = {
+      ...options.xaxis!.labels,
+      show: true,
+      formatter: (val, timestamp, opts) => {
+        return dayjs(val).format('YYYY-MM-DD')
+      },
+      offsetX: 8,
+      offsetY: 2,
+    }
 
     const result: Model = {
       history: history,
@@ -106,7 +117,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
                       <Box>
                         <FadeIn>
                           <ReactApexChart series={data.chartOptions.series} options={data.chartOptions} type='area' height={chartHeight} />
-                          <Box display='flex' gap={4} pb={4} justifyContent={'center'}>
+                          {/* <Box display='flex' gap={4} pb={4} justifyContent={'center'}>
                             <Box display='flex' gap={1}>
                               <Typography variant='caption'>start date:</Typography>
                               <Typography variant='caption'>{dayjs(data.history[0].TradeDate).format('MM/DD/YYYY')}</Typography>
@@ -117,7 +128,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
                                 <Typography variant='caption'>{dayjs(data.history[data.history.length - 1].TradeDate).format('MM/DD/YYYY')}</Typography>
                               </Box>
                             )}
-                          </Box>
+                          </Box> */}
                         </FadeIn>
                       </Box>
                     )}

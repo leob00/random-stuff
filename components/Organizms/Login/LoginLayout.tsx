@@ -8,17 +8,15 @@ import '@aws-amplify/ui-react/styles.css'
 import { useAuthenticator } from '@aws-amplify/ui-react'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useRouter } from 'next/router'
-import { useRouteTracker } from '../session/useRouteTracker'
 import { AuthUser } from 'aws-amplify/auth'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 export type AuthMode = 'signIn' | 'signUp' | 'resetPassword'
 
-const LoginLayout = ({ defaultTab = 'Sign in' }: { defaultTab?: 'Sign in' | 'Create Account' }) => {
+const LoginLayout = ({ defaultTab = 'Sign in', returnUrl }: { defaultTab?: 'Sign in' | 'Create Account'; returnUrl?: string }) => {
   const router = useRouter()
 
   const { authStatus, toSignIn, toSignUp, isPending, user } = useAuthenticator((context) => [context.authStatus])
   const [initialUserState, setInitialUserState] = useState<AuthUser | undefined>(user)
-  const { lastRoute } = useRouteTracker()
 
   const defaultTabs: TabInfo[] = [
     {
@@ -46,7 +44,11 @@ const LoginLayout = ({ defaultTab = 'Sign in' }: { defaultTab?: 'Sign in' | 'Cre
   useEffect(() => {
     if (!initialUserState && !!user && authStatus === 'authenticated') {
       setInitialUserState(user)
-      router.push(lastRoute)
+      if (returnUrl) {
+        router.push(returnUrl)
+      } else {
+        router.push('/')
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, authStatus])

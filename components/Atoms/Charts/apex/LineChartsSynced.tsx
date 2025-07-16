@@ -8,6 +8,8 @@ import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import FadeOut from 'components/Atoms/Animations/FadeOut'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
+import dayjs from 'dayjs'
+import { CasinoBlackTransparent, VeryLightBlue } from 'components/themes/mainTheme'
 
 const getOptions = (xYValues: XyValues[], lineOptions: LineChartOptions[]) => {
   const result: ApexOptions[] = xYValues.map((m, i) => getBaseLineChartOptions(m, lineOptions[i]))
@@ -20,6 +22,19 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
   const chartHeight = isXSmall ? 300 : 520
 
   const options = getOptions(xYValues, lineOptions)
+
+  options[0].xaxis! = { ...options[0].xaxis, type: 'datetime', axisTicks: { show: true, borderType: 'none', color: VeryLightBlue } }
+  options[0].xaxis!.labels = {
+    ...options[0].xaxis!.labels,
+    show: true,
+    formatter: (val, timestamp, opts) => {
+      return dayjs(val).format('MM/DD/YYYY')
+    },
+    offsetX: 8,
+    offsetY: 2,
+  }
+
+  options[0].grid = { ...options[0].grid }
   options[1].chart!.height = 160
 
   return (
@@ -34,7 +49,7 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
                 <Box minHeight={chartHeight}>
                   <ReactApexChart options={options[0]} series={options[0].series} type='area' height={'100%'} />
                 </Box>
-                <Box height={160}>
+                <Box height={160} pt={2}>
                   <ReactApexChart options={options[1]} series={options[1].series} type='area' height={'100%'} />
                 </Box>
               </FadeIn>

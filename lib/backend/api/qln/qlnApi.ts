@@ -327,44 +327,11 @@ export async function resetStockCache(token: string) {
   return response
 }
 
-export async function getUserStockListLatest(username: string) {
-  const stockList = await getUserStockList(username)
-  const latestQuotes = await getLatestQuotes(stockList.map((o) => o.Symbol))
-  const slMap = new Map<string, StockQuote>()
-  stockList.map((o) => slMap.set(o.Symbol, o))
-  latestQuotes.forEach((latest) => {
-    slMap.set(latest.Symbol, latest)
-  })
-  const result: StockQuote[] = []
-  slMap.forEach((sl) => {
-    result.push(sl)
-  })
-  return result
-}
 export async function getLatestQuotes(symbols: string[]) {
   if (symbols.length === 0) {
     return []
   }
   return await getStockQuotes(symbols)
-}
-
-export async function refreshQuotes(quotes: StockQuote[], username?: string) {
-  const map = getMapFromArray(quotes, 'Symbol')
-  const symbols = quotes.map((o) => o.Symbol)
-  const latest = await getLatestQuotes(symbols)
-  latest.forEach((item) => {
-    map.set(item.Symbol, item)
-  })
-
-  const result: StockQuote[] = getListFromMap(map)
-  if (username) {
-    if (result.length > 0 && quotes.length > 0 && dayjs(result[0].TradeDate).isAfter(dayjs(quotes[0].TradeDate))) {
-      console.error(`Quotes are stale.`)
-      putUserStockList(username, result)
-    }
-  }
-
-  return result
 }
 
 export async function getJob(token: string, jobName: string) {

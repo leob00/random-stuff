@@ -1,6 +1,6 @@
 'use client'
-import { Container, CssBaseline, ThemeProvider } from '@mui/material'
-import React, { ReactNode, Suspense } from 'react'
+import { Container } from '@mui/material'
+import { ReactNode } from 'react'
 //import '../../styles/globals.css'
 import Footer from 'components/Footer'
 import AppHeader from './AppHeader'
