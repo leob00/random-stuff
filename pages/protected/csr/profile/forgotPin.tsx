@@ -1,7 +1,5 @@
-import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import WarmupBox from 'components/Atoms/WarmupBox'
-import PleaseLogin from 'components/Molecules/PleaseLogin'
 import SendPinLayout from 'components/Organizms/user/profile/SendPinLayout'
 import VerifyEmail from 'components/Organizms/user/profile/VerifyEmail'
 import { getEmailVerificationStatus } from 'components/Organizms/user/profile/profileHelper'

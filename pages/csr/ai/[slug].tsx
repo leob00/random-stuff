@@ -5,6 +5,7 @@ import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
+import PleaseLogin from 'components/Molecules/PleaseLogin'
 import Seo from 'components/Organizms/Seo'
 import { useUserController } from 'hooks/userController'
 import { postBody } from 'lib/backend/api/fetchFunctions'
@@ -59,11 +60,17 @@ const Page = () => {
           <AnthropicChatBot />
         ) : (
           <Box py={8}>
-            <CenterStack>
-              <Typography>
-                <SuccessButton text='activate' onClick={handleActivate} />
-              </Typography>
-            </CenterStack>
+            {ticket ? (
+              <CenterStack>
+                <Typography>
+                  <SuccessButton text='activate' onClick={handleActivate} />
+                </Typography>
+              </CenterStack>
+            ) : (
+              <>
+                <PleaseLogin />
+              </>
+            )}
           </Box>
         )}
       </ResponsiveContainer>

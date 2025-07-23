@@ -11,6 +11,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import numeral from 'numeral'
 import { getPositiveNegativeColor, getPositiveNegativeColorReverse } from 'components/Organizms/stocks/StockListItem'
+import { VeryLightBlue } from 'components/themes/mainTheme'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false, loading: () => <BackdropLoader /> })
 
 const EconChart = ({
@@ -48,6 +49,23 @@ const EconChart = ({
   const movePerc = calculateStockMovePercent(last.Price, change)
 
   const chartOptions = getOptions({ x: x, y: y }, history, isXsmall, theme.palette.mode, '', reverseColor)
+  chartOptions.xaxis = { ...chartOptions.xaxis, type: 'datetime', axisTicks: { show: true, borderType: 'none', color: VeryLightBlue } }
+  chartOptions.xaxis.labels = {
+    ...chartOptions.xaxis!.labels,
+    show: true,
+    rotate: 340,
+    rotateAlways: true,
+    formatter: (val, timestamp, opts) => {
+      return dayjs(val).format('YYYY-MM-DD')
+    },
+    offsetX: 4,
+    offsetY: 16,
+
+    style: {
+      fontSize: '9px',
+    },
+  }
+
   const color = reverseColor ? getPositiveNegativeColorReverse(last.Change, theme.palette.mode) : getPositiveNegativeColor(last.Change, theme.palette.mode)
 
   return (

@@ -9,7 +9,7 @@ import { shuffle, sum } from 'lodash'
 import { useEffect, useReducer, useRef } from 'react'
 import ImageYRotator from 'components/Atoms/Images/ImageYRotator'
 import RemoteImageFlat from 'components/Atoms/RemoteImageFlat'
-import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
+import { getDynamoItemData, putRecord } from 'lib/backend/csr/nextApiWrapper'
 import ImageXRotator from 'components/Atoms/Images/ImageXRotator'
 
 type headsTails = 'heads' | 'tails'
@@ -162,7 +162,7 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
     }
     const flipped = shuffled[0]
 
-    const dbResult = await getRecord<CoinFlipStats>('coinflip-community')
+    const dbResult = await getDynamoItemData<CoinFlipStats>('coinflip-community')
 
     const postFn = async () => {
       switch (flipped.face) {

@@ -41,7 +41,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
         await setTicket(null)
         await setProfile(null)
         saveClaims([])
-        router.push(`/login?ret=${encodeURIComponent(router.asPath)}`)
+        router.push(`/login?ret=${encodeURIComponent(lastRoute)}`)
         break
       case 'signedIn':
         if (ticket) {

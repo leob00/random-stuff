@@ -10,7 +10,7 @@ import {
   CasinoRed,
   CasinoRedTransparent,
 } from 'components/themes/mainTheme'
-import { getRecord } from 'lib/backend/csr/nextApiWrapper'
+import { getDynamoItemData } from 'lib/backend/csr/nextApiWrapper'
 import { WheelSpinStats } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { calculatePercent } from 'lib/util/numberUtil'
 import { useEffect, useState } from 'react'
@@ -76,7 +76,7 @@ const MultiDatasetBarchart = () => {
 
   useEffect(() => {
     const fn = async () => {
-      const result = await getRecord<WheelSpinStats>('wheelspin-community')
+      const result = await getDynamoItemData<WheelSpinStats>('wheelspin-community')
 
       const data: ChartData<'bar', number[], string> = {
         labels: [''],

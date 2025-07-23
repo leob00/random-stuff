@@ -4,16 +4,15 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { searchRecords } from 'lib/backend/csr/nextApiWrapper'
+import { searchDynamoItemsByCategory, searchDynamoItemsDataByCategory } from 'lib/backend/csr/nextApiWrapper'
 import React from 'react'
 
 const UsersAdmin = ({ userProfile }: { userProfile: UserProfile }) => {
   const key = `user-profile-${userProfile.id}`
 
   const dataFn = async () => {
-    const resp = await searchRecords('userProfile')
-    const result = resp.map((m) => JSON.parse(m.data) as UserProfile)
-    return result
+    const resp = await searchDynamoItemsDataByCategory<UserProfile>('userProfile')
+    return resp
   }
 
   const { isLoading, data } = useSwrHelper(key, dataFn)

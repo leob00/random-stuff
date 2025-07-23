@@ -3,7 +3,7 @@ import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import NotificationsOffIcon from '@mui/icons-material/NotificationsOff'
 import NotificationAddIcon from '@mui/icons-material/NotificationAdd'
 import { mutate } from 'swr'
-import { getRecord } from 'lib/backend/csr/nextApiWrapper'
+import { getDynamoItemData } from 'lib/backend/csr/nextApiWrapper'
 import { constructStockAlertsSubPrimaryKey } from 'lib/backend/api/aws/util'
 import { StockAlertSubscription, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 import NotificationsIcon from '@mui/icons-material/Notifications'
@@ -33,7 +33,7 @@ const StockSubscibeIcon = ({
   const router = useRouter()
 
   const dataFunc = async () => {
-    const response = await getRecord<StockAlertSubscription | null>(subscriptionId)
+    const response = await getDynamoItemData<StockAlertSubscription | null>(subscriptionId)
     return response
   }
 

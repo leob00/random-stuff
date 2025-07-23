@@ -92,7 +92,7 @@ const RequireClaim = ({ claimType, children }: { claimType: 'rs' | 'rs-admin'; c
       case 'rs-admin':
         return (
           <Box>
-            <PleaseLogin message='Please login to use this feature' />
+            <PleaseLogin />
           </Box>
         )
     }

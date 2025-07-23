@@ -4,7 +4,7 @@ import { CategoryType } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import { Box } from '@mui/material'
 import { getLatestQuotes } from 'lib/backend/api/qln/qlnApi'
-import { searchRecords } from 'lib/backend/csr/nextApiWrapper'
+import { searchDynamoItemsByCategory } from 'lib/backend/csr/nextApiWrapper'
 import { mutate } from 'swr'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import CommunityStocksRecentLayout from 'components/Organizms/stocks/CommunityStocksRecentLayout'
@@ -38,7 +38,7 @@ const Page = () => {
   const searchedStocksKey: CategoryType = 'searched-stocks'
 
   const dataFn = async () => {
-    const searchedStocksResult = await searchRecords(searchedStocksKey)
+    const searchedStocksResult = await searchDynamoItemsByCategory(searchedStocksKey)
     const sorted = sortArray(searchedStocksResult, ['last_modified'], ['desc'])
     const result: StockQuote[] = sorted.map((m) => {
       return JSON.parse(m.data)

@@ -19,7 +19,7 @@ import { getItem, putItem } from 'app/serverActions/aws/dynamo/dynamo'
 import { getUtcNow } from 'lib/util/dateUtil'
 import CenterStack from 'components/Atoms/CenterStack'
 import RecipesSearch from 'components/Organizms/recipes/RecipesSearch'
-import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
+import { getDynamoItemData, putRecord } from 'lib/backend/csr/nextApiWrapper'
 dayjs.extend(relativeTime)
 
 const cmsRefreshIntervalSeconds = 21600 // 6 hours
@@ -39,7 +39,7 @@ const fetcherFn = async (url: string) => {
   const allItems = result.items
 
   const newData = take(shuffle(allItems), featuredLength)
-  const stats = await getRecord<SiteStats>(siteStatsKey)
+  const stats = await getDynamoItemData<SiteStats>(siteStatsKey)
 
   const now = getUtcNow()
   const expirationDate = now.add(featuredRecipesExpirationMinutes, 'minute')

@@ -8,7 +8,7 @@ import dayjs from 'dayjs'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { SiteStats } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { get } from 'lib/backend/api/fetchFunctions'
-import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
+import { getDynamoItemData, putRecord } from 'lib/backend/csr/nextApiWrapper'
 import { RecipeCollection } from 'lib/models/cms/contentful/recipe'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { shuffle, take } from 'lodash'
@@ -21,7 +21,7 @@ const FeaturedRecipesWidget = ({ width, height, size }: { width: number; height:
   const siteStatsKey = 'site-stats'
 
   const dataFn = async () => {
-    let resp = await getRecord<SiteStats | null>(siteStatsKey)
+    let resp = await getDynamoItemData<SiteStats | null>(siteStatsKey)
     if (!resp) {
       resp = {
         recipes: {

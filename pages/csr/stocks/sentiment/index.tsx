@@ -8,12 +8,12 @@ import StockSentimentDisplay from 'components/Organizms/stocks/sentiment/StockSe
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { DynamoKeys } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockStats } from 'lib/backend/api/qln/qlnModels'
-import { getRecord } from 'lib/backend/csr/nextApiWrapper'
+import { getDynamoItemData } from 'lib/backend/csr/nextApiWrapper'
 
 const Page = () => {
   const monthlyKey: DynamoKeys = 'stocks-monthly-market-sentiment'
   const dataFn = async () => {
-    const record = await getRecord<StockStats[]>(monthlyKey)
+    const record = await getDynamoItemData<StockStats[]>(monthlyKey)
     return record
   }
   const { data, isLoading } = useSwrHelper(monthlyKey, dataFn)

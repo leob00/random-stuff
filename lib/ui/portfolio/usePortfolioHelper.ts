@@ -4,7 +4,7 @@ import { constructDynamoKey, constructStockPositionSecondaryKey } from 'lib/back
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { getPorfolioIdFromKey, getUsernameFromKey } from 'lib/backend/api/portfolioUtil'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
-import { deleteRecord, putRecord, searchRecords } from 'lib/backend/csr/nextApiWrapper'
+import { deleteRecord, putRecord, searchDynamoItemsByCategory } from 'lib/backend/csr/nextApiWrapper'
 import { sortArray } from 'lib/util/collections'
 import { sum } from 'lodash'
 import React from 'react'
@@ -71,7 +71,7 @@ export const usePortfolioHelper = (portfolio: StockPortfolio) => {
 
   const loadPositions = async () => {
     const searchKey = constructStockPositionSecondaryKey(username, portfolioId)
-    const records = (await searchRecords(searchKey)).map((m) => JSON.parse(m.data) as StockPosition)
+    const records = (await searchDynamoItemsByCategory(searchKey)).map((m) => JSON.parse(m.data) as StockPosition)
     const symbols = new Set(records.map((m) => m.stockSymbol))
     const newMap = new Map<string, StockQuote>()
     const symbolsToDownload = Array.from(symbols)

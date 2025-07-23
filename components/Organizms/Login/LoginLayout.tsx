@@ -10,6 +10,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useRouter } from 'next/router'
 import { AuthUser } from 'aws-amplify/auth'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 export type AuthMode = 'signIn' | 'signUp' | 'resetPassword'
 
 const LoginLayout = ({ defaultTab = 'Sign in', returnUrl }: { defaultTab?: 'Sign in' | 'Create Account'; returnUrl?: string }) => {
@@ -42,6 +43,14 @@ const LoginLayout = ({ defaultTab = 'Sign in', returnUrl }: { defaultTab?: 'Sign
   }
 
   useEffect(() => {
+    if (user) {
+      if (returnUrl) {
+        router.push(returnUrl)
+      } else {
+        router.push('/')
+      }
+      return
+    }
     if (!initialUserState && !!user && authStatus === 'authenticated') {
       setInitialUserState(user)
       if (returnUrl) {
@@ -69,11 +78,9 @@ const LoginLayout = ({ defaultTab = 'Sign in', returnUrl }: { defaultTab?: 'Sign
       )}
       {authStatus === 'authenticated' && (
         <>
-          <CenterStack sx={{ py: 2 }}>
+          <CenterStack sx={{ py: 8 }}>
             <FadeIn>
-              <Alert severity='success' title='You are signed in.'>
-                You are signed in.
-              </Alert>
+              <AlertWithHeader severity='success' header='welcome!' text='' />
             </FadeIn>
           </CenterStack>
         </>

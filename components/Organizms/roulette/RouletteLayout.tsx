@@ -6,7 +6,7 @@ import RouletteBarChart from 'components/Organizms/roulette/RouletteBarChart'
 import { CasinoWhiteTransparent } from 'components/themes/mainTheme'
 import { WheelSpinStats } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { translateCasinoColor } from 'lib/backend/charts/barChartMapper'
-import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
+import { getDynamoItemData, putRecord } from 'lib/backend/csr/nextApiWrapper'
 import { getWheel, RouletteNumber, RouletteWheel } from 'lib/backend/roulette/wheel'
 import { getRandomInteger, isEven, isOdd } from 'lib/util/numberUtil'
 import { cloneDeep, filter, shuffle } from 'lodash'
@@ -44,7 +44,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
   const timeOutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const loadCommunityStats = async () => {
-    let resp = await getRecord<WheelSpinStats>('wheelspin-community')
+    let resp = await getDynamoItemData<WheelSpinStats>('wheelspin-community')
     if (resp) {
       const m = {
         ...model,
@@ -131,7 +131,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     return stats
   }
   const finishSpin = async (pickedNum: RouletteNumber, playerResults: RouletteNumber[]) => {
-    const spinStatsResp = await getRecord<WheelSpinStats>('wheelspin-community')
+    const spinStatsResp = await getDynamoItemData<WheelSpinStats>('wheelspin-community')
 
     switch (pickedNum.color) {
       case 'black':

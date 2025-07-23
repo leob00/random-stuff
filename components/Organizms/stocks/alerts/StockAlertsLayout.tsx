@@ -9,9 +9,9 @@ import { DynamoKeys, UserProfile } from 'lib/backend/api/aws/models/apiGatewayMo
 import { constructStockAlertsSubPrimaryKey, constructStockAlertsSubSecondaryKey } from 'lib/backend/api/aws/util'
 import { StockAlertSubscription, StockAlertSubscriptionWithMessage, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
-import { getDynamoItem, getRecord, putRandomStuffBatch, putRecord, searchRecords, sendEmailFromClient } from 'lib/backend/csr/nextApiWrapper'
+import { getDynamoItemData, putRandomStuffBatch, searchDynamoItemsByCategory, sendEmailFromClient } from 'lib/backend/csr/nextApiWrapper'
 import { getDefaultSubscription, sortAlerts } from 'lib/ui/alerts/stockAlertHelper'
-import { EmailTemplateUrls, formatEmail, getTemplate } from 'lib/ui/mailUtil'
+import { formatEmail } from 'lib/ui/mailUtil'
 import { uniq } from 'lodash'
 import StocksLookup from '../StocksLookup'
 import EmailPreview from './EmailPreview'
@@ -42,7 +42,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   }
 
   const dataFn = async () => {
-    const response = await searchRecords(alertsSearchhKey)
+    const response = await searchDynamoItemsByCategory(alertsSearchhKey)
     const subs = response.map((m) => JSON.parse(m.data) as StockAlertSubscription)
     const model: StockAlertSubscriptionWithMessage = {
       subscriptions: sortAlerts(subs),
@@ -121,7 +121,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const handleQuoteLoaded = async (item: StockQuote) => {
     setIsLoading(true)
     const id = constructStockAlertsSubPrimaryKey(userProfile.username, item.Symbol)
-    let sub = await getRecord<StockAlertSubscription>(id)
+    let sub = await getDynamoItemData<StockAlertSubscription>(id)
     if (!sub) {
       sub = getDefaultSubscription(userProfile, item, sub)
     }

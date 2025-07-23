@@ -8,14 +8,14 @@ import { getLatestQuotes } from 'lib/backend/api/qln/qlnApi'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { mutate } from 'swr'
-import { getRecord } from 'lib/backend/csr/nextApiWrapper'
+import { getDynamoItemData } from 'lib/backend/csr/nextApiWrapper'
 
 const StocksLayout = ({ userProfile, localStore }: { userProfile: UserProfile | null; localStore: LocalStore }) => {
   const mutateKey = `user-stock_list[${userProfile?.username ?? 'public'}]`
 
   const fetchData = async () => {
     if (userProfile) {
-      const resp = await getRecord<StockQuote[] | null>(mutateKey)
+      const resp = await getDynamoItemData<StockQuote[] | null>(mutateKey)
       return resp ?? []
     } else {
       let res: StockQuote[] = []

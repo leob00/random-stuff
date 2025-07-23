@@ -9,7 +9,7 @@ import { getGuid, myEncrypt } from 'lib/backend/encryption/useEncryptor'
 import EditSecret from './EditSecret'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { mutate } from 'swr'
-import { searchRecords } from 'lib/backend/csr/nextApiWrapper'
+import { searchDynamoItemsByCategory } from 'lib/backend/csr/nextApiWrapper'
 import { constructUserSecretSecondaryKey } from 'lib/backend/api/aws/util'
 import { sortArray } from 'lib/util/collections'
 import SecretsTable from './SecretsTable'
@@ -35,7 +35,7 @@ const SecretsLayout = ({ userProfile, ticket }: { userProfile: UserProfile; tick
 
   const mutateKey = `user-secrets-${userProfile.username}`
   const dataFn = async () => {
-    const dbresult = await searchRecords(constructUserSecretSecondaryKey(userProfile.username))
+    const dbresult = await searchDynamoItemsByCategory(constructUserSecretSecondaryKey(userProfile.username))
     const secrets = userSecretArraySchema.parse(dbresult.map((item) => JSON.parse(item.data)))
     secrets.forEach((item) => {
       if (!item.salt) {

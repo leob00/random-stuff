@@ -17,11 +17,13 @@ const RouteTracker = ({ children }: { children: ReactNode }) => {
     //console.log('starting route: ', url)
     if (sitePathMapRoutes.has(url)) {
       setShowTransition(true)
-      addRoute(url)
+      if (!url.includes('/login')) {
+        addRoute(url)
+      }
     }
   }
   const handleRouteEnd = async (url: string, shallow: boolean) => {
-    console.log('ending route: ', url)
+    //console.log('ending route: ', url)
   }
   useEffect(() => {
     setIsClient(true)

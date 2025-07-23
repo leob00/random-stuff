@@ -7,7 +7,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { getRecord } from 'lib/backend/csr/nextApiWrapper'
+import { getDynamoItemData } from 'lib/backend/csr/nextApiWrapper'
 import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/router'
@@ -31,7 +31,7 @@ const Page = () => {
       dateCreated: '',
       dateModified: '',
     }
-    result = (await getRecord<UserNote | null>(id)) ?? result
+    result = (await getDynamoItemData<UserNote | null>(id)) ?? result
 
     if (result.share) {
       if (result.share.viewLink?.token !== decryptedId) {

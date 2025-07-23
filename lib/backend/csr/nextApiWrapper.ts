@@ -54,24 +54,6 @@ export async function putSearchedStock(item: StockQuote) {
   await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
 }
 
-export async function expireUserNote(item: UserNote) {
-  const unixNowSeconds = Math.floor(getUtcNow().valueOf() / 1000)
-  let req: RandomStuffDynamoItem = {
-    key: item.id!,
-    category: 'expired',
-    data: item,
-    expiration: unixNowSeconds,
-    token: weakEncrypt(`${item.id}`),
-    count: 1,
-    format: 'json',
-    last_modified: getUtcNow().format(),
-  }
-  const putRequest: SignedRequest = {
-    data: encryptBody(req),
-  }
-  await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
-}
-
 export async function putUserProfile(item: UserProfile) {
   const cat = 'userProfile'
   item.secKey = undefined
@@ -138,7 +120,7 @@ export async function getUserProfile(username: string) {
   const key = constructUserProfileKey(username)
 
   try {
-    const data = await getRecord<UserProfile>(key)
+    const data = await getDynamoItemData<UserProfile>(key)
 
     if (data) {
       let parsed = data as UserProfile
@@ -168,7 +150,7 @@ export async function getUserNoteTitles(username: string) {
   const key = constructUserNoteTitlesKey(username)
 
   try {
-    const resp = await getRecord<UserNote[]>(key)
+    const resp = await getDynamoItemData<UserNote[]>(key)
     return resp ?? []
   } catch (err) {
     console.error(err)
@@ -180,7 +162,7 @@ export async function getUserNote(id: string) {
   let result: UserNote | null = null
 
   try {
-    const data = await getRecord<UserNote>(id)
+    const data = await getDynamoItemData<UserNote>(id)
     if (data) {
       result = data
 
@@ -204,7 +186,7 @@ export async function getUserGoals(id: string) {
   let result: UserGoal[] = []
 
   try {
-    const data = await getRecord<UserGoal[]>(id)
+    const data = await getDynamoItemData<UserGoal[]>(id)
     if (data) {
       result = data
       return result
@@ -220,7 +202,7 @@ export async function getUserGoalTasks(goalId: string) {
   let result: UserTask[] = []
 
   try {
-    const data = await getRecord<UserTask[]>(goalId)
+    const data = await getDynamoItemData<UserTask[]>(goalId)
     if (data) {
       result = data
 
@@ -328,7 +310,7 @@ export async function deleteRecord(id: string) {
   await postBody(`/api/aws/dynamo/item`, 'DELETE', req)
 }
 
-export async function getRecord<T>(id: DynamoKeys): Promise<T> {
+export async function getDynamoItemData<T>(id: DynamoKeys): Promise<T> {
   let result: any | null = null
   try {
     const body = encryptKey(id)
@@ -347,8 +329,8 @@ export async function getRecord<T>(id: DynamoKeys): Promise<T> {
     return result
   }
 }
-export async function getDynamoItem(id: DynamoKeys): Promise<RandomStuffDynamoItem> {
-  let result: any | null = null
+export async function getDynamoItem(id: DynamoKeys) {
+  let result: RandomStuffDynamoItem | null = null
   try {
     const body = encryptKey(id)
     const resp = await postBody('/api/aws/dynamo/item', 'POST', body)
@@ -360,13 +342,44 @@ export async function getDynamoItem(id: DynamoKeys): Promise<RandomStuffDynamoIt
     return result
   }
 }
-export async function searchRecords(id: DynamoKeys | CategoryType): Promise<RandomStuffDynamoItem[]> {
+export async function searchDynamoItemsByCategory(id: DynamoKeys | CategoryType) {
   const enc = weakEncrypt(id)
   const body: SignedRequest = {
     data: enc,
   }
   const result = (await postBody('/api/aws/dynamo/items', 'POST', body)) as RandomStuffDynamoItem[]
   return result
+}
+export async function searchDynamoItemsDataByCategory<T>(id: CategoryType): Promise<T[]> {
+  const enc = weakEncrypt(id)
+  const body: SignedRequest = {
+    data: enc,
+  }
+  const dbResult = (await postBody('/api/aws/dynamo/items', 'POST', body)) as RandomStuffDynamoItem[]
+
+  const results: T[] = []
+  dbResult.forEach((m) => {
+    results.push(JSON.parse(m.data) as T)
+  })
+  return results
+  //return dbResult
+  // let result: any | null = null
+  // try {
+  //   const body = encryptKey(id)
+  //   const resp = await postBody('/api/aws/dynamo/item', 'POST', body)
+  //   if (resp.data.length === 0) {
+  //     return null as T
+  //   }
+  //   const data = JSON.parse(resp.data) as T
+  //   if (data) {
+  //     return data as T
+  //   } else {
+  //     return result
+  //   }
+  // } catch (err) {
+  //   console.error(err)
+  //   return result
+  // }
 }
 
 export async function putRecord(id: string | DynamoKeys, category: string, item: any, format: 'json' | 'string' = 'json') {

@@ -13,7 +13,7 @@ import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { constructUserNoteCategoryKey } from 'lib/backend/api/aws/util'
-import { getRecord, putUserNote } from 'lib/backend/csr/nextApiWrapper'
+import { getDynamoItemData, putUserNote } from 'lib/backend/csr/nextApiWrapper'
 import { getGuid, weakDecrypt, weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
@@ -30,7 +30,7 @@ const Page = () => {
   const [showConfirmDeleteViewLink, setShowConfirmDeleteViewLink] = useState(false)
 
   const dataFn = async () => {
-    const result = await getRecord<UserNote | null>(id)
+    const result = await getDynamoItemData<UserNote | null>(id)
     if (!result) {
       setError('Sorry!!! We are unable to find your note note...')
     }

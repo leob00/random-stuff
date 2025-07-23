@@ -9,7 +9,7 @@ import { useUserController } from 'hooks/userController'
 import { StockPortfolio, StockPosition } from 'lib/backend/api/aws/apiGateway/apiGateway'
 import { constructDynamoKey, constructStockPositionSecondaryKey } from 'lib/backend/api/aws/util'
 import { getPorfolioIdFromKey, getUsernameFromKey } from 'lib/backend/api/portfolioUtil'
-import { deleteRecord, deleteRecordsBatch, putRecord, searchRecords } from 'lib/backend/csr/nextApiWrapper'
+import { deleteRecord, deleteRecordsBatch, putRecord, searchDynamoItemsByCategory } from 'lib/backend/csr/nextApiWrapper'
 import { sortArray } from 'lib/util/collections'
 import React from 'react'
 import { mutate } from 'swr'
@@ -26,7 +26,7 @@ const StockPortfolioLayout = () => {
   const [isMutating, setIsMutating] = React.useState(false)
 
   const datFn = async () => {
-    const response = sortArray(await searchRecords(portfolioSecKey), ['last_modified'], ['desc'])
+    const response = sortArray(await searchDynamoItemsByCategory(portfolioSecKey), ['last_modified'], ['desc'])
     const result = response.map((m) => JSON.parse(m.data) as StockPortfolio)
     const sorted = sortArray(result, ['name'], ['asc'])
     return sorted
@@ -60,7 +60,7 @@ const StockPortfolioLayout = () => {
       const username = getUsernameFromKey(item.id)
       const portfolioId = getPorfolioIdFromKey(item.id)
       const searchKey = constructStockPositionSecondaryKey(username, portfolioId)
-      const records = (await searchRecords(searchKey)).map((m) => JSON.parse(m.data) as StockPosition)
+      const records = (await searchDynamoItemsByCategory(searchKey)).map((m) => JSON.parse(m.data) as StockPosition)
       const ids = records.map((m) => m.id)
       deleteRecordsBatch(ids)
       // TODO: refactor to batch delete records

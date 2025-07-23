@@ -17,7 +17,7 @@ import {
 } from 'components/themes/mainTheme'
 import { WheelSpinStats } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { translateCasinoColor } from 'lib/backend/charts/barChartMapper'
-import { getRecord, putRecord } from 'lib/backend/csr/nextApiWrapper'
+import { getDynamoItemData, putRecord } from 'lib/backend/csr/nextApiWrapper'
 import { getWheel, RouletteNumber, RouletteWheel } from 'lib/backend/roulette/wheel'
 import { calculatePercent, getRandomInteger, isEven, isOdd } from 'lib/util/numberUtil'
 import { cloneDeep, filter, shuffle } from 'lodash'
@@ -152,7 +152,7 @@ export function reducer(state: Model, action: ActionType): Model {
 const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
   const defaultSpinSpeed = 40
   const loadCommunityStats = async () => {
-    let cs = await getRecord<WheelSpinStats>('wheelspin-community')
+    let cs = await getDynamoItemData<WheelSpinStats>('wheelspin-community')
     if (cs) {
       let m = {
         ...model,
@@ -299,7 +299,7 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
     let playerChart = mapPlayerChart(playerResults)
 
     const updateCommunity = async () => {
-      const spinStats = await getRecord<WheelSpinStats>('wheelspin-community')
+      const spinStats = await getDynamoItemData<WheelSpinStats>('wheelspin-community')
 
       switch (pickedNum.color) {
         case 'black':

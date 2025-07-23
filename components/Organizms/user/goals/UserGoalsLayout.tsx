@@ -1,5 +1,5 @@
 import { constructUserGoalsKey } from 'lib/backend/api/aws/util'
-import { getRecord, putUserGoals, searchRecords } from 'lib/backend/csr/nextApiWrapper'
+import { getDynamoItemData, putUserGoals, searchDynamoItemsByCategory } from 'lib/backend/csr/nextApiWrapper'
 import { filter, orderBy } from 'lodash'
 import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
@@ -30,8 +30,8 @@ const UserGoalsLayout = () => {
   const goalsKey = constructUserGoalsKey(username)
 
   const fetchGoalsData = async () => {
-    const goalsResp = (await getRecord<UserGoal[]>(goalsKey)) ?? []
-    const tasksResp = await searchRecords(`user-goal-tasks[${username}]`)
+    const goalsResp = (await getDynamoItemData<UserGoal[]>(goalsKey)) ?? []
+    const tasksResp = await searchDynamoItemsByCategory(`user-goal-tasks[${username}]`)
     const [goalsData, tasksData] = await Promise.all([goalsResp, tasksResp])
     const tasks = tasksData.flatMap((m) => JSON.parse(m.data) as UserTask)
     const result = mapGoalTasks(goalsKey, goalsData, tasks)
