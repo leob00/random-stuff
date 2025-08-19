@@ -11,6 +11,7 @@ import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
 export const stockReportsDropdown: DropdownItem[] = [
   { text: 'Volume Leaders', value: 'volume-leaders' },
   { text: 'Market Cap Leaders', value: 'market-cap-leaders' },
+  { text: 'Top Movers', value: 'topmvgavg' },
   { text: 'Sectors', value: 'sectors' },
   { text: 'Industries', value: 'industries' },
   { text: 'Dividend Payers', value: 'dividend-payers' },

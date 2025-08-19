@@ -9,18 +9,31 @@ import { useState } from 'react'
 import { StockQuoteSort } from 'lib/backend/api/models/collections'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
+import { StockReportTypes } from 'lib/backend/api/qln/qlnModels'
 
 const SortableStockContainer = ({
   data,
   defaultSort,
   featuredField,
+  reportType,
 }: {
   data: StockQuote[]
   defaultSort?: StockQuoteSort[]
   featuredField?: keyof StockQuote
+  reportType?: StockReportTypes
 }) => {
   const [showSortForm, setShowSortForm] = useState(false)
-  const defSort = defaultSort ?? [{ key: 'MarketCap', direction: 'desc' }]
+  let defSort: StockQuoteSort[] = []
+  if (defaultSort) {
+    defSort = defaultSort
+  } else {
+    if (reportType === 'topmvgavg') {
+      //defSort = [{key: 'ChangePercent', direction: 'desc'}]
+    } else {
+      defSort = defaultSort ?? [{ key: 'MarketCap', direction: 'desc' }]
+    }
+  }
+
   const [sort, setSort] = useState<StockQuoteSort[]>(defSort)
   let fieldToFeature = defSort.some((m) => m.key === 'MarketCap') ? 'MarketCapShort' : !!featuredField ? featuredField : 'MarketCapShort'
 

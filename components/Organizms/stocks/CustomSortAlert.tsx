@@ -30,6 +30,9 @@ const CustomSortAlert = ({
 
     return `sorted by: ${resultField} (${direction})`
   }
+  if (result.length === 0) {
+    return <></>
+  }
   return (
     <Box py={2}>
       <Alert

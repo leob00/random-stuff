@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import Seo from 'components/Organizms/Seo'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
-import { getReport, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
+import { getReport, serverGetFetch, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 import { StockReportTypes } from 'lib/backend/api/qln/qlnModels'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
@@ -28,17 +28,35 @@ const Page = () => {
   }
 
   const dataFn = async () => {
-    const arg = selectedOption?.value.replaceAll('-', '') as StockReportTypes
+    const reportName = selectedOption?.value.replaceAll('-', '') as StockReportTypes
+    const result: Model = {
+      type: reportName,
+      items: [],
+    }
     let take = 100
-    if (arg === 'indicesAndEtfs') {
+    if (reportName === 'indicesAndEtfs') {
       take = 2000
     }
-    const report = await serverGetFetch(`/StockReports?id=${arg}&take=100`)
-    let stocks = report.Body as StockQuote[]
-    const result: Model = {
-      type: arg,
-      items: stocks, //await getReport(arg),
+    let days = 30
+    if (reportName === 'topmvgavg') {
+      days = 1
+      const resp = await serverPostFetch(
+        {
+          body: {
+            Take: 100,
+            Days: 1,
+            MarketCap: {
+              Items: ['mega'],
+            },
+          },
+        },
+        `/StockMovingAvg`,
+      )
+      result.items = resp.Body as StockQuote[]
+      return result
     }
+    const report = await serverGetFetch(`/StockReports?id=${reportName}&take=${take}&days=${days}`)
+    result.items = report.Body as StockQuote[]
 
     return result
   }
