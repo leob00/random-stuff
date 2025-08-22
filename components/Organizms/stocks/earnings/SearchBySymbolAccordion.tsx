@@ -1,8 +1,6 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material'
 import { CasinoGrayTransparent } from 'components/themes/mainTheme'
-import SearchEarningsBySymbolForm, { EarningsSearchFields } from './SearchEarningsBySymbolForm'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import StocksAutoComplete from 'components/Atoms/Inputs/StocksAutoComplete'
 import StockSearch from 'components/Atoms/Inputs/StockSearch'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 

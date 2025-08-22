@@ -4,13 +4,35 @@ import { sortArray } from 'lib/util/collections'
 import StockTable from '../stocks/StockTable'
 import { Box } from '@mui/material'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
+import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
+import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
+import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
+import router from 'next/router'
+import ContextMenuCommodities from 'components/Molecules/Menus/ContextMenuCommodities'
 
 const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile: UserProfile | null }) => {
   const result = filterCryptos(data)
+  const menu: ContextMenuItem[] = [
+    {
+      item: <ContextMenuMyStocks />,
+      fn: () => router.push('/csr/my-stocks'),
+    },
+    {
+      item: <ContextMenuPeople text={'community stocks'} />,
+      fn: () => router.push('/csr/community-stocks'),
+    },
+    {
+      item: <ContextMenuCommodities text={'commodities'} />,
+      fn: () => router.push('/csr/commodities'),
+    },
+  ]
 
   return (
     <Box>
       <ScrollIntoView enabled />
+      <Box display={'flex'} justifyContent={'flex-end'}>
+        <ContextMenu items={menu} />
+      </Box>
       <StockTable stockList={result} marketCategory='crypto' showSummary />
     </Box>
   )

@@ -15,6 +15,8 @@ import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
 import { useState } from 'react'
 import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
 import { StockQuoteSort } from 'lib/backend/api/models/collections'
+import ContextMenuCrypto from 'components/Molecules/Menus/ContextMenuCrypto'
+import ContextMenuCommodities from 'components/Molecules/Menus/ContextMenuCommodities'
 
 const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; onRefresh: () => void }) => {
   const router = useRouter()
@@ -48,6 +50,14 @@ const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; 
     {
       item: <ContextMenuEarnings text={'earnings calendar'} />,
       fn: () => router.push('/csr/stocks/earnings-calendar'),
+    },
+    {
+      item: <ContextMenuCommodities text={'commodities'} />,
+      fn: () => router.push('/csr/commodities'),
+    },
+    {
+      item: <ContextMenuCrypto text={'crypto'} />,
+      fn: () => router.push('/csr/crypto'),
     },
   ]
   const handleCustomSortSubmitted = (sort?: StockQuoteSort[]) => {

@@ -76,6 +76,10 @@
     "Symbol": "AAM"
   },
   {
+    "Company": "AA Mission Acquisition Corp. Units, each consisting of one Class A Ordinary Share and one-half of one redeemable warrant",
+    "Symbol": "AAM.U"
+  },
+  {
     "Company": "AA Mission Acquisition Corp. Warrants, each whole warrant entitles the holder to purchase one Class A ordinary share at a price of $11.50 per share",
     "Symbol": "AAM.WS"
   },
@@ -916,7 +920,7 @@
     "Symbol": "AGG"
   },
   {
-    "Company": "Astoria Dynamic Core US Fixed Income ETF",
+    "Company": "EA Series Trust EA Astoria Dynamic Core US Fixed Income ETF",
     "Symbol": "AGGA"
   },
   {
@@ -1672,10 +1676,6 @@
     "Symbol": "AMDL"
   },
   {
-    "Company": "GraniteShares 1x Short AMD Daily ETF",
-    "Symbol": "AMDS"
-  },
-  {
     "Company": "Roundhill AMD WeeklyPay ETF",
     "Symbol": "AMDW"
   },
@@ -1992,7 +1992,7 @@
     "Symbol": "ANSS"
   },
   {
-    "Company": "Antalpha Platform Holding Company ordinary shares",
+    "Company": "Antalpha Platform Holding Company Class A Ordinary Shares",
     "Symbol": "ANTA"
   },
   {
@@ -3948,8 +3948,16 @@
     "Symbol": "BCAL"
   },
   {
+    "Company": "D. Boral ARC Acquisition I Corp. Class A Ordinary Shares",
+    "Symbol": "BCAR"
+  },
+  {
     "Company": "D. Boral ARC Acquisition I Corp. Units",
     "Symbol": "BCARU"
+  },
+  {
+    "Company": "D. Boral ARC Acquisition I Corp. Warrant",
+    "Symbol": "BCARW"
   },
   {
     "Company": "BlackRock Capital Allocation Term Trust",
@@ -5404,7 +5412,7 @@
     "Symbol": "BOTJ"
   },
   {
-    "Company": "Themes Robotics & Automation ETF",
+    "Company": "Themes ETF Trust Themes Humanoid Robotics ETF",
     "Symbol": "BOTT"
   },
   {
@@ -9984,6 +9992,10 @@
     "Symbol": "DBEZ"
   },
   {
+    "Company": "DIGITAL BRANDS GROUP INC",
+    "Symbol": "DBGI"
+  },
+  {
     "Company": "Designer Brands Inc.",
     "Symbol": "DBI"
   },
@@ -11622,6 +11634,10 @@
   {
     "Company": "DT Cloud Acquisition Corporation Right",
     "Symbol": "DYCQR"
+  },
+  {
+    "Company": "DT Cloud Acquisition Corporation Unit",
+    "Symbol": "DYCQU"
   },
   {
     "Company": "IDX Dynamic Fixed Income ETF",
@@ -13276,6 +13292,14 @@
     "Symbol": "ETHW"
   },
   {
+    "Company": "ETHZilla Corporation Common Stock",
+    "Symbol": "ETHZ"
+  },
+  {
+    "Company": "ETHZilla Corporation Warrant",
+    "Symbol": "ETHZW"
+  },
+  {
     "Company": "Eaton Vance Risk - Managed Diversified Equity Income Fund",
     "Symbol": "ETJ"
   },
@@ -14780,8 +14804,16 @@
     "Symbol": "FIGS"
   },
   {
+    "Company": "FIGX Capital Acquisition Corp. Class A Ordinary Share",
+    "Symbol": "FIGX"
+  },
+  {
     "Company": "FIGX Capital Acquisition Corp. Units",
     "Symbol": "FIGXU"
+  },
+  {
+    "Company": "FIGX Capital Acquisition Corp. Warrant",
+    "Symbol": "FIGXW"
   },
   {
     "Company": "Fidelis Insurance Holdings Limited",
@@ -15358,10 +15390,6 @@
   {
     "Company": "MarketDesk Focused U.S. Momentum ETF",
     "Symbol": "FMTM"
-  },
-  {
-    "Company": "Femto Technologies Inc. Common Stock",
-    "Symbol": "FMTO"
   },
   {
     "Company": "Fidelity Municipal Bond Opportunities ETF",
@@ -18192,10 +18220,6 @@
     "Symbol": "GXDW"
   },
   {
-    "Company": "Global X MSCI Colombia ETF",
-    "Symbol": "GXG"
-  },
-  {
     "Company": "Global X Investment Grade Corporate Bond ETF",
     "Symbol": "GXIG"
   },
@@ -18748,6 +18772,10 @@
     "Symbol": "HIMX"
   },
   {
+    "Company": "Defiance Leveraged Long Income HIMS ETF",
+    "Symbol": "HIMY"
+  },
+  {
     "Company": "Defiance Daily Target 2X Long HIMS ETF",
     "Symbol": "HIMZ"
   },
@@ -19022,6 +19050,10 @@
   {
     "Company": "Leverage Shares 2X Long HOOD Daily ETF",
     "Symbol": "HOOG"
+  },
+  {
+    "Company": "Defiance Leveraged Long Income HOOD ETF",
+    "Symbol": "HOOI"
   },
   {
     "Company": "HOOKIPA Pharma Inc. Common Stock",
@@ -22328,6 +22360,10 @@
     "Symbol": "JHAC"
   },
   {
+    "Company": "Janus Henderson Global Artificial Intelligence ETF",
+    "Symbol": "JHAI"
+  },
+  {
     "Company": "John Hancock Corporate Bond ETF",
     "Symbol": "JHCB"
   },
@@ -22362,6 +22398,10 @@
   {
     "Company": "John Hancock International High Dividend ETF",
     "Symbol": "JHID"
+  },
+  {
+    "Company": "John Hancock Global Senior Loan ETF",
+    "Symbol": "JHLN"
   },
   {
     "Company": "John Hancock Mortgage-Backed Securities ETF",
@@ -22550,6 +22590,10 @@
   {
     "Company": "Johnson Outdoors Inc",
     "Symbol": "JOUT"
+  },
+  {
+    "Company": "JPMorgan Equity and Options Total Return ETF",
+    "Symbol": "JOYT"
   },
   {
     "Company": "JOYY Inc. American Depositary Shares",
@@ -23518,10 +23562,6 @@
   {
     "Company": "Kronos Worldwide, Inc.",
     "Symbol": "KRO"
-  },
-  {
-    "Company": "Kronos Bio, Inc. Common Stock",
-    "Symbol": "KRON"
   },
   {
     "Company": "Global X AgTech & Food Innovation ETF",
@@ -24888,6 +24928,10 @@
     "Symbol": "LQTI"
   },
   {
+    "Company": "Tradr 2X Long LRCX Daily ETF",
+    "Symbol": "LRCU"
+  },
+  {
     "Company": "Lam Research Corp",
     "Symbol": "LRCX"
   },
@@ -25766,6 +25810,10 @@
   {
     "Company": "MDB Capital Holdings, LLC Class A common",
     "Symbol": "MDBH"
+  },
+  {
+    "Company": "Tradr 2X Long MDB Daily ETF",
+    "Symbol": "MDBX"
   },
   {
     "Company": "Medicus Pharma Ltd. Common Stock",
@@ -27346,6 +27394,10 @@
   {
     "Company": "Mullen Automotive, Inc. Common Stock",
     "Symbol": "MULN"
+  },
+  {
+    "Company": "Northern Trust 2030 Tax-Exempt Distributing Ladder ETF",
+    "Symbol": "MUNA"
   },
   {
     "Company": "PIMCO Intermediate Municipal Bond Active Exchange-Traded Fund",
@@ -31456,6 +31508,10 @@
     "Symbol": "PG"
   },
   {
+    "Company": "Pantages Capital Acquisition Corporation Class A Ordinary Shares",
+    "Symbol": "PGAC"
+  },
+  {
     "Company": "Pantages Capital Acquisition Corporation Right",
     "Symbol": "PGACR"
   },
@@ -31602,10 +31658,6 @@
   {
     "Company": "Pharvaris N.V. Ordinary Shares",
     "Symbol": "PHVS"
-  },
-  {
-    "Company": "PHX Minerals Inc.",
-    "Symbol": "PHX"
   },
   {
     "Company": "Putnam ESG High Yield ETF",
@@ -31878,6 +31930,10 @@
   {
     "Company": "Pulse Biosciences, Inc Common Stock (DE)",
     "Symbol": "PLSE"
+  },
+  {
+    "Company": "Defiance Leveraged Long Income PLTR ETF",
+    "Symbol": "PLT"
   },
   {
     "Company": "Direxion Daily PLTR Bear 1X Shares",
@@ -33674,6 +33730,10 @@
   {
     "Company": "QuickLogic Corp",
     "Symbol": "QUIK"
+  },
+  {
+    "Company": "Zacks Quality International ETF",
+    "Symbol": "QUIZ"
   },
   {
     "Company": "ETRACS 2x Leveraged MSCI US Quality Factor TR ETN",
@@ -36560,6 +36620,10 @@
     "Symbol": "SGRP"
   },
   {
+    "Company": "SMART Earnings Growth 30 ETF",
+    "Symbol": "SGRT"
+  },
+  {
     "Company": "Surgery Partners, Inc. Common Stock",
     "Symbol": "SGRY"
   },
@@ -37100,6 +37164,10 @@
     "Symbol": "SLI"
   },
   {
+    "Company": "Amplify SILJ Covered Call ETF",
+    "Symbol": "SLJY"
+  },
+  {
     "Company": "SLM Corporation",
     "Symbol": "SLM"
   },
@@ -37254,6 +37322,10 @@
   {
     "Company": "Summit Midstream Corporation",
     "Symbol": "SMC"
+  },
+  {
+    "Company": "Defiance Leveraged Long + Income SMCI ETF",
+    "Symbol": "SMCC"
   },
   {
     "Company": "Themes US Small Cap Cash Flow Champions ETF",
@@ -38708,6 +38780,10 @@
     "Symbol": "STRM"
   },
   {
+    "Company": "SMART Trend 25 ETF",
+    "Symbol": "STRN"
+  },
+  {
     "Company": "Sutro Biopharma, Inc.",
     "Symbol": "STRO"
   },
@@ -39756,7 +39832,7 @@
     "Symbol": "TFII"
   },
   {
-    "Company": "Triumph Financial, Inc. Common Stock",
+    "Company": "Triumph Financial, Inc.",
     "Symbol": "TFIN"
   },
   {
@@ -42452,6 +42528,10 @@
     "Symbol": "VEL"
   },
   {
+    "Company": "Velo3D, Inc. Common stock",
+    "Symbol": "VELO"
+  },
+  {
     "Company": "Virtus Stone Harbor Emerging Markets High Yield Bond ETF",
     "Symbol": "VEMY"
   },
@@ -43494,10 +43574,6 @@
   {
     "Company": "Walgreens Boots Alliance, Inc",
     "Symbol": "WBA"
-  },
-  {
-    "Company": "WisdomTree Battery Value Chain and Innovation Fund",
-    "Symbol": "WBAT"
   },
   {
     "Company": "Warner Bros. Discovery, Inc. Series A Common Stock",
@@ -45226,6 +45302,10 @@
   {
     "Company": "Full Truck Alliance Co. Ltd. American Depositary Shares (each representing 20 Class A Ordinary Shares)",
     "Symbol": "YMM"
+  },
+  {
+    "Company": "Yimutian Inc. American Depositary Shares",
+    "Symbol": "YMT"
   },
   {
     "Company": "Horizon Digital Frontier ETF",

@@ -77,7 +77,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
     return result
   }
 
-  const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
+  const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: true })
 
   const handleDaysSelected = async (val: number) => {
     setIsWaiting(true)

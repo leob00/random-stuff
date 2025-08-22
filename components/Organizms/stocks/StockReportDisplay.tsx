@@ -25,10 +25,6 @@ const StockReportDisplay = ({ data, reportType }: { data: StockQuote[]; reportTy
 
   const scroller = useScrollTop(0)
 
-  const handlePageChange = () => {
-    scroller.scroll()
-  }
-
   return (
     <>
       <ScrollTop scroller={scroller} marginTop={-22} />
