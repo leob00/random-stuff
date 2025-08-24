@@ -20,6 +20,10 @@ const StockField = ({ quote, field }: { quote: StockQuote; field: keyof StockQuo
     case 'MarketCapShort':
       item.label = 'cap'
       item.val = quote.MarketCapShort ?? ''
+      break
+    case 'MovingAvgDays':
+      ;((item.label = 'days'), (item.val = quote.MovingAvgDays?.toString() ?? ''))
+      break
   }
 
   return <ReadOnlyField label={item.label} val={item.val} />

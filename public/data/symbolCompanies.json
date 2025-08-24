@@ -1676,6 +1676,10 @@
     "Symbol": "AMDL"
   },
   {
+    "Company": "Defiance Leveraged Long + Income AMD ETF",
+    "Symbol": "AMDU"
+  },
+  {
     "Company": "Roundhill AMD WeeklyPay ETF",
     "Symbol": "AMDW"
   },
@@ -3598,6 +3602,10 @@
   {
     "Company": "iShares A.I. Innovation and Tech Active ETF",
     "Symbol": "BAI"
+  },
+  {
+    "Company": "Leverage Shares 2X Long BBAI Daily ETF",
+    "Symbol": "BAIG"
   },
   {
     "Company": "Braskem S.A. American Depositary Shares (Each representing Two Class A  Preferred Shares)",
@@ -7228,6 +7236,10 @@
     "Symbol": "CEP"
   },
   {
+    "Company": "Cantor Equity Partners IV, Inc. Class A Ordinary Shares",
+    "Symbol": "CEPF"
+  },
+  {
     "Company": "REX Crypto Equity Premium Income ETF",
     "Symbol": "CEPI"
   },
@@ -9992,7 +10004,7 @@
     "Symbol": "DBEZ"
   },
   {
-    "Company": "DIGITAL BRANDS GROUP INC",
+    "Company": "Digital Brands Group, Inc. Common Stock",
     "Symbol": "DBGI"
   },
   {
@@ -11518,10 +11530,6 @@
   {
     "Company": "Invesco Exchange-Traded Fund Trust II Invesco Dorsey Wright SmallCap Momentum ETF",
     "Symbol": "DWAS"
-  },
-  {
-    "Company": "Arrow Investments Trust Arrow DWA Tactical ETF",
-    "Symbol": "DWAT"
   },
   {
     "Company": "AdvisorShares Dorsey Wright FSM All Cap World ETF",
@@ -13330,6 +13338,10 @@
   {
     "Company": "Entergy Corporation",
     "Symbol": "ETR"
+  },
+  {
+    "Company": "Elite Express Holding Inc. Class A Common Stock",
+    "Symbol": "ETS"
   },
   {
     "Company": "Etsy, Inc.",
@@ -15452,10 +15464,6 @@
     "Symbol": "FNF"
   },
   {
-    "Company": "MicroSectors FANG+ 3x Leveraged ETNs due February 17, 2045",
-    "Symbol": "FNGB"
-  },
-  {
     "Company": "MicroSectors FANG+ Index -3X Inverse Leveraged ETNs due January 8, 2038",
     "Symbol": "FNGD"
   },
@@ -16824,7 +16832,7 @@
     "Symbol": "GERN"
   },
   {
-    "Company": "Guess?, Inc.",
+    "Company": "Guess, Inc.",
     "Symbol": "GES"
   },
   {
@@ -17198,6 +17206,10 @@
   {
     "Company": "Global Engine Group Holding Limited Class A Ordinary Shares",
     "Symbol": "GLE"
+  },
+  {
+    "Company": "Leverage Shares 2X Long GLXY Daily ETF",
+    "Symbol": "GLGG"
   },
   {
     "Company": "GCI Liberty, Inc. Series A GCI Group Common Stock",
@@ -18452,10 +18464,6 @@
     "Symbol": "HCMT"
   },
   {
-    "Company": "Hartford Schroders Commodity Strategy ETF",
-    "Symbol": "HCOM"
-  },
-  {
     "Company": "Amplify ETF Trust Amplify COWS Covered Call ETF",
     "Symbol": "HCOW"
   },
@@ -18854,10 +18862,6 @@
   {
     "Company": "Herbalife Ltd.",
     "Symbol": "HLF"
-  },
-  {
-    "Company": "Hartford Longevity Economy ETF",
-    "Symbol": "HLGE"
   },
   {
     "Company": "Houlihan Lokey, Inc.",
@@ -27400,6 +27404,10 @@
     "Symbol": "MUNA"
   },
   {
+    "Company": "Northern Trust 2055 Tax-Exempt Distributing Ladder ETF",
+    "Symbol": "MUND"
+  },
+  {
     "Company": "PIMCO Intermediate Municipal Bond Active Exchange-Traded Fund",
     "Symbol": "MUNI"
   },
@@ -28874,10 +28882,6 @@
   {
     "Company": "Nuveen Sustainable Core ETF",
     "Symbol": "NSCR"
-  },
-  {
-    "Company": "Nuveen Small Cap Select ETF",
-    "Symbol": "NSCS"
   },
   {
     "Company": "Innovator Growth-100 Power Buffer ETF - September",
@@ -34968,10 +34972,6 @@
     "Symbol": "ROCK"
   },
   {
-    "Company": "Hartford Multifactor Diversified International ETF",
-    "Symbol": "RODE"
-  },
-  {
     "Company": "Hartford Multifactor Developed Markets (ex-US) ETF",
     "Symbol": "RODM"
   },
@@ -34982,10 +34982,6 @@
   {
     "Company": "Rogers Corporation",
     "Symbol": "ROG"
-  },
-  {
-    "Company": "Hartford Multifactor International Small Company ETF",
-    "Symbol": "ROIS"
   },
   {
     "Company": "Roivant Sciences Ltd. Common Shares",
@@ -37244,6 +37240,10 @@
     "Symbol": "SLSR"
   },
   {
+    "Company": "YieldMax Ultra Short Option Income Strategy ETF",
+    "Symbol": "SLTY"
+  },
+  {
     "Company": "iShares Silver Trust",
     "Symbol": "SLV"
   },
@@ -39384,6 +39384,10 @@
     "Symbol": "TAXF"
   },
   {
+    "Company": "Northern Trust Intermediate Tax-Exempt Bond ETF",
+    "Symbol": "TAXI"
+  },
+  {
     "Company": "BondBloxx IR+M Tax-Aware ETF for Massachusetts Residents",
     "Symbol": "TAXM"
   },
@@ -40104,6 +40108,10 @@
     "Symbol": "TIP"
   },
   {
+    "Company": "Northern Trust 2055 Inflation-Linked Distributing Ladder ETF",
+    "Symbol": "TIPD"
+  },
+  {
     "Company": "Tiptree Inc. Common Stock",
     "Symbol": "TIPT"
   },
@@ -40818,6 +40826,10 @@
   {
     "Company": "Trupanion, Inc.",
     "Symbol": "TRUP"
+  },
+  {
+    "Company": "VanEck Technology TruSector ETF",
+    "Symbol": "TRUT"
   },
   {
     "Company": "The Travelers Companies, Inc.",
@@ -43126,10 +43138,6 @@
   {
     "Company": "VerifyMe, Inc. Common Stock",
     "Symbol": "VRME"
-  },
-  {
-    "Company": "VerifyMe, Inc. Warrant",
-    "Symbol": "VRMEW"
   },
   {
     "Company": "Verona Pharma plc",

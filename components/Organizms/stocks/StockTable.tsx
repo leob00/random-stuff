@@ -3,7 +3,6 @@ import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import CenterStack from 'components/Atoms/CenterStack'
 import dayjs from 'dayjs'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import React from 'react'
 import StockListItem from './StockListItem'
 import { MarketCategory } from 'lib/backend/api/qln/chartApi'
 
@@ -15,6 +14,7 @@ const StockTable = ({
   showGroupName = true,
   showSummary = true,
   featuredField,
+  showMovingAvgOnly = false,
 }: {
   stockList: StockQuote[]
   marketCategory: MarketCategory
@@ -23,13 +23,21 @@ const StockTable = ({
   showGroupName?: boolean
   showSummary?: boolean
   featuredField?: keyof StockQuote
+  showMovingAvgOnly?: boolean
 }) => {
   return (
     <>
       <Box pl={1}>
         {stockList.map((item) => (
           <Box key={`${item.Symbol}`}>
-            <StockListItem item={item} marketCategory={marketCategory} showGroupName={showGroupName} featuredField={featuredField} scrollIntoView />
+            <StockListItem
+              item={item}
+              marketCategory={marketCategory}
+              showGroupName={showGroupName}
+              featuredField={featuredField}
+              showMovingAvgOnly={showMovingAvgOnly}
+              scrollIntoView
+            />
           </Box>
         ))}
         {stockList.length > 0 ? (

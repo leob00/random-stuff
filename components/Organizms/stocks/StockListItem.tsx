@@ -28,6 +28,7 @@ import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { MarketCategory } from 'lib/backend/api/qln/chartApi'
 import HoverEffect from 'components/Molecules/Lists/HoverEffect'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
+import StockChangeNumberDisplay from './StockChangeNumberDisplay'
 
 const StockListItem = ({
   item,
@@ -37,6 +38,7 @@ const StockListItem = ({
   scrollIntoView = true,
   disabled,
   featuredField,
+  showMovingAvgOnly = false,
 }: {
   item: StockQuote
   expand?: boolean
@@ -45,6 +47,7 @@ const StockListItem = ({
   scrollIntoView?: boolean
   disabled?: boolean
   featuredField?: keyof StockQuote
+  showMovingAvgOnly?: boolean
 }) => {
   let tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'Earnings' }, { title: 'News' }, { title: 'Profile' }]
   if (item.AnnualDividendYield) {
@@ -108,7 +111,16 @@ const StockListItem = ({
               <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} elevation={0} />
             )}
             <Box>
-              <StockChange item={item} />
+              {showMovingAvgOnly ? (
+                <Box pl={2}>
+                  <StockChangeNumberDisplay value={item.MovingAvg ?? 0} endSymbol='%' />
+                  <Box>
+                    <StockField quote={item} field={'MovingAvgDays'} />
+                  </Box>
+                </Box>
+              ) : (
+                <StockChange item={item} />
+              )}
             </Box>
             {featuredField && (
               <Box pl={2}>

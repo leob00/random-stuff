@@ -7,6 +7,8 @@ import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
 import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
+import ContextMenuCommodities from 'components/Molecules/Menus/ContextMenuCommodities'
+import ContextMenuCrypto from 'components/Molecules/Menus/ContextMenuCrypto'
 
 export const stockReportsDropdown: DropdownItem[] = [
   { text: 'Volume Leaders', value: 'volume-leaders' },
@@ -39,6 +41,14 @@ const StockReportsDropdown = ({ selectedValue }: { selectedValue: string }) => {
     {
       item: <ContextMenuEarnings text={'earnings calendar'} />,
       fn: () => router.push('/csr/stocks/earnings-calendar'),
+    },
+    {
+      item: <ContextMenuCommodities text={'commodities'} />,
+      fn: () => router.push('/csr/commodities'),
+    },
+    {
+      item: <ContextMenuCrypto text={'crypto'} />,
+      fn: () => router.push('/csr/crypto'),
     },
   ]
 

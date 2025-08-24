@@ -4,7 +4,11 @@ import { StockMovingAvgFilter, StockMovingAvgFilterSchema } from './stockMovingA
 import { zodResolver } from '@hookform/resolvers/zod'
 import FormDropdownListNumeric from 'components/Molecules/Forms/ReactHookForm/FormDropdownListNumeric'
 import { DropdownItemNumeric } from 'lib/models/dropdown'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import { useLocalStore } from 'lib/backend/store/useLocalStore'
 const StockMovingAvgFilterForm = ({ onSubmitted }: { onSubmitted: (item: StockMovingAvgFilter) => void }) => {
+  const { stockReportSettings, setStockMovingAvgFilter } = useLocalStore()
+
   const {
     control,
     handleSubmit,
@@ -15,28 +19,56 @@ const StockMovingAvgFilterForm = ({ onSubmitted }: { onSubmitted: (item: StockMo
   } = useForm<StockMovingAvgFilter>({
     resolver: zodResolver(StockMovingAvgFilterSchema),
     mode: 'onSubmit',
-    shouldUnregister: false,
+    defaultValues: stockReportSettings.topMovingAvg.filter,
   })
 
   const formValues = watch()
-  const takeOptions: DropdownItemNumeric[] = [{ text: '1', value: 1 }]
+  const takeOptions: DropdownItemNumeric[] = [
+    { text: '5', value: 5 },
+    { text: '10', value: 10 },
+    { text: '25', value: 25 },
+    { text: '100', value: 100 },
+  ]
+
+  const daysOptions: DropdownItemNumeric[] = [
+    { text: '1', value: 1 },
+    { text: '7', value: 7 },
+    { text: '30', value: 30 },
+    { text: '90', value: 90 },
+    { text: '180', value: 180 },
+    { text: '365', value: 365 },
+  ]
 
   const onSubmit: SubmitHandler<StockMovingAvgFilter> = (formData) => {
-    onSubmitted(formData)
+    const submitData = { ...formData }
+    setStockMovingAvgFilter(submitData)
+    onSubmitted(submitData)
   }
   return (
     <Box py={2}>
-      <Box display={'flex'} flexDirection={'column'} gap={2}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Controller
-            name={'take'}
-            control={control}
-            render={({ field: { value, onChange, ...field } }) => (
-              <FormDropdownListNumeric minWidth={300} label='status' options={takeOptions} value={formValues.take} onOptionSelected={onChange} {...field} />
-            )}
-          ></Controller>
-        </form>
-      </Box>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Box display={'flex'} flexDirection={'column'} gap={2}>
+          <Box display={'flex'} flexDirection={'column'} gap={1}>
+            <Controller
+              name={'take'}
+              control={control}
+              render={({ field: { value, onChange, ...field } }) => (
+                <FormDropdownListNumeric minWidth={300} label='take' options={takeOptions} value={formValues.take} onOptionSelected={onChange} {...field} />
+              )}
+            ></Controller>
+            <Controller
+              name={'days'}
+              control={control}
+              render={({ field: { value, onChange, ...field } }) => (
+                <FormDropdownListNumeric minWidth={300} label='days' options={daysOptions} value={formValues.days} onOptionSelected={onChange} {...field} />
+              )}
+            ></Controller>
+          </Box>
+          <Box py={2} display={'flex'} justifyContent={'flex-end'} pr={1}>
+            <PrimaryButton type='submit' text='Apply' />
+          </Box>
+        </Box>
+      </form>
     </Box>
   )
 }

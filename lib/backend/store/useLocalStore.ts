@@ -7,7 +7,7 @@ import { DashboardWidgetWithSettings } from 'components/Organizms/dashboard/dash
 import { StockQuoteSort } from '../api/models/collections'
 import { EconCalendarFilter } from 'components/Organizms/stocks/EconCalendarDisplay'
 import { NewsTypeIds } from '../api/qln/qlnApi'
-import { Settings } from '@mui/icons-material'
+import { StockMovingAvgFilter } from 'components/Organizms/stocks/reports/stockMovingAvgFilter'
 
 export interface StockSettings extends UserStockSettings {
   data: StockQuote[]
@@ -18,6 +18,12 @@ export type EconCalendarSettings = {
 }
 export type NewsSettings = {
   newsSource: NewsTypeIds
+}
+
+export type StockReportSettings = {
+  topMovingAvg: {
+    filter: StockMovingAvgFilter
+  }
 }
 
 export interface LocalStore {
@@ -37,6 +43,10 @@ export interface LocalStore {
   setEconCalendarSettings: (item: EconCalendarSettings) => void
   newsSettings: NewsSettings
   setNewsSettings: (item: NewsSettings) => void
+  stockReportSettings: StockReportSettings
+  setStockMovingAvgFilter: (filter: StockMovingAvgFilter) => void
+  //stockTopMovingAvgFilter?: StockMovingAvgFilter
+  getStockTopMovingAvgFilter: () => StockMovingAvgFilter
 }
 
 export const useLocalStore = create(
@@ -54,6 +64,14 @@ export const useLocalStore = create(
       },
       newsSettings: {
         newsSource: 'GoogleTopStories',
+      },
+      stockReportSettings: {
+        topMovingAvg: {
+          filter: {
+            take: 100,
+            days: 1,
+          },
+        },
       },
 
       saveStockSettings: (stockSettings: UserStockSettings) => set((state) => ({ ...state, stockSettings: stockSettings })),
@@ -77,6 +95,15 @@ export const useLocalStore = create(
       saveCryptoSettings: (cryptoSettings: CryptoSettings) => set((state) => ({ ...state, cryptoSettings: cryptoSettings })),
       setEconCalendarSettings: (settings: EconCalendarSettings) => set((state) => ({ ...state, econCalendarSettings: settings })),
       setNewsSettings: (settings: NewsSettings) => set((state) => ({ ...state, newsSettings: settings })),
+      getStockTopMovingAvgFilter: () => {
+        const movingAvgFilter = get().stockReportSettings.topMovingAvg.filter
+        return movingAvgFilter
+      },
+      stockTopMovingAvgFilter: { days: 1, take: 100 },
+
+      setStockMovingAvgFilter: (filter: StockMovingAvgFilter) => {
+        set((state) => ({ ...state, stockReportSettings: { ...state.stockReportSettings, topMovingAvg: { filter: filter } } }))
+      },
     }),
     {
       name: 'rs-local-store',
