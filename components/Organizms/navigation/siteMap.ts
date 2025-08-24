@@ -10,7 +10,7 @@ export type SiteCategories =
   | 'Pictures'
   | 'Economy'
   | 'Miscellaneous'
-  | 'Reports'
+  | 'Stock Reports'
   | 'Home'
 
 export interface Paths {
@@ -96,32 +96,37 @@ export const flatSiteMap: Navigation[] = [
   {
     name: 'volume leaders',
     path: '/ssg/stocks/reports/volume-leaders',
-    category: 'Reports',
+    category: 'Stock Reports',
   },
   {
     name: 'market cap leaders',
     path: '/ssg/stocks/reports/market-cap-leaders',
-    category: 'Reports',
+    category: 'Stock Reports',
+  },
+  {
+    name: 'top movers',
+    path: '/ssg/stocks/reports/topmvgavg',
+    category: 'Stock Reports',
   },
   {
     name: 'sectors',
     path: '/csr/stocks/sectors',
-    category: 'Reports',
+    category: 'Stock Reports',
   },
   {
     name: 'industries',
     path: '/csr/stocks/industries',
-    category: 'Reports',
+    category: 'Stock Reports',
   },
   {
     name: 'stock tags',
     path: '/csr/stocks/stock-tags',
-    category: 'Reports',
+    category: 'Stock Reports',
   },
   {
     name: 'dividend payers',
     path: '/csr/stocks/dividend-payers',
-    category: 'Reports',
+    category: 'Stock Reports',
   },
   {
     name: 'economic indicators',

@@ -6,6 +6,7 @@ import FormDropdownListNumeric from 'components/Molecules/Forms/ReactHookForm/Fo
 import { DropdownItemNumeric } from 'lib/models/dropdown'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
+import ControlledSwitch from 'components/Molecules/Forms/ReactHookForm/ControlledSwitch'
 const StockMovingAvgFilterForm = ({ onSubmitted }: { onSubmitted: (item: StockMovingAvgFilter) => void }) => {
   const { stockReportSettings, setStockMovingAvgFilter } = useLocalStore()
 
@@ -15,6 +16,7 @@ const StockMovingAvgFilterForm = ({ onSubmitted }: { onSubmitted: (item: StockMo
     reset,
     register,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<StockMovingAvgFilter>({
     resolver: zodResolver(StockMovingAvgFilterSchema),
@@ -55,14 +57,41 @@ const StockMovingAvgFilterForm = ({ onSubmitted }: { onSubmitted: (item: StockMo
               render={({ field: { value, onChange, ...field } }) => (
                 <FormDropdownListNumeric minWidth={300} label='take' options={takeOptions} value={formValues.take} onOptionSelected={onChange} {...field} />
               )}
-            ></Controller>
+            />
             <Controller
               name={'days'}
               control={control}
               render={({ field: { value, onChange, ...field } }) => (
                 <FormDropdownListNumeric minWidth={300} label='days' options={daysOptions} value={formValues.days} onOptionSelected={onChange} {...field} />
               )}
-            ></Controller>
+            />
+            <ControlledSwitch
+              control={control}
+              fieldName='includeMegaCap'
+              label='include mega cap'
+              defaultValue={formValues.includeMegaCap === undefined ? true : formValues.includeMegaCap}
+              onChanged={(val: boolean) => {
+                setValue('includeMegaCap', val)
+              }}
+            />
+            <ControlledSwitch
+              control={control}
+              fieldName='includeLargeCap'
+              label='include large cap'
+              defaultValue={formValues.includeLargeCap ?? false}
+              onChanged={(val: boolean) => {
+                setValue('includeLargeCap', val)
+              }}
+            />
+            <ControlledSwitch
+              control={control}
+              fieldName='includeMidCap'
+              label='include mid cap'
+              defaultValue={formValues.includeMidCap ?? false}
+              onChanged={(val: boolean) => {
+                setValue('includeMidCap', val)
+              }}
+            />
           </Box>
           <Box py={2} display={'flex'} justifyContent={'flex-end'} pr={1}>
             <PrimaryButton type='submit' text='Apply' />

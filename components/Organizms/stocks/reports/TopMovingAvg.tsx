@@ -13,33 +13,61 @@ import { mutate } from 'swr'
 
 const mutateKey = 'topmvgavg'
 
+type PostBody = {
+  body: {
+    Take: number
+    Days: number
+    MarketCap: {
+      Items: string[]
+    }
+  }
+}
+
 const TopMovingAvg = () => {
   const [isFilterExpanded, setIsFilterExpanded] = useState(false)
   const { getStockTopMovingAvgFilter, setStockMovingAvgFilter } = useLocalStore()
 
   const dataFn = async () => {
     const filter = getStockTopMovingAvgFilter()
-    const resp = await serverPostFetch(
-      {
-        body: {
-          Take: filter.take,
-          Days: filter.days,
-          MarketCap: {
-            Items: ['mega'],
-          },
+    const body: PostBody = {
+      body: {
+        Take: filter.take,
+        Days: filter.days,
+        MarketCap: {
+          Items: [],
         },
       },
-      `/StockMovingAvg`,
-    )
+    }
+    const isEmptyMarketCap = !filter.includeMegaCap && !filter.includeLargeCap && !filter.includeMidCap && !filter.includeSmallCap
+    if (filter.includeMegaCap) {
+      body.body.MarketCap.Items.push('mega')
+    }
+    if (filter.includeLargeCap) {
+      body.body.MarketCap.Items.push('large')
+    }
+    if (filter.includeMidCap) {
+      body.body.MarketCap.Items.push('mid')
+    }
+    if (filter.includeSmallCap) {
+      body.body.MarketCap.Items.push('small')
+    }
+    if (isEmptyMarketCap) {
+      body.body.MarketCap.Items.push('mega')
+    }
+    const resp = await serverPostFetch(body, `/StockMovingAvg`)
     const result = resp.Body as StockQuote[]
 
     return result
   }
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
-  const handleSubmit = (item: StockMovingAvgFilter) => {
+  const handleSubmit = (filter: StockMovingAvgFilter) => {
     setIsFilterExpanded(false)
-    setStockMovingAvgFilter(item)
+    const isEmptyMarketCap = !filter.includeMegaCap && !filter.includeLargeCap && !filter.includeMidCap && !filter.includeSmallCap
+    if (isEmptyMarketCap) {
+      filter.includeMegaCap = true
+    }
+    setStockMovingAvgFilter(filter)
     mutate(mutateKey)
   }
 

@@ -70,6 +70,10 @@ export const useLocalStore = create(
           filter: {
             take: 100,
             days: 1,
+            includeMegaCap: true,
+            includeLargeCap: false,
+            includeMidCap: false,
+            includeSmallCap: false,
           },
         },
       },
