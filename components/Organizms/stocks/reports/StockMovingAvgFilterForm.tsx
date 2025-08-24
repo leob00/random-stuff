@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { StockMovingAvgFilter, StockMovingAvgFilterSchema } from './stockMovingAvgFilter'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -7,6 +7,7 @@ import { DropdownItemNumeric } from 'lib/models/dropdown'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import ControlledSwitch from 'components/Molecules/Forms/ReactHookForm/ControlledSwitch'
+import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 const StockMovingAvgFilterForm = ({ onSubmitted }: { onSubmitted: (item: StockMovingAvgFilter) => void }) => {
   const { stockReportSettings, setStockMovingAvgFilter } = useLocalStore()
 
@@ -26,10 +27,13 @@ const StockMovingAvgFilterForm = ({ onSubmitted }: { onSubmitted: (item: StockMo
 
   const formValues = watch()
   const takeOptions: DropdownItemNumeric[] = [
+    { text: '1', value: 1 },
     { text: '5', value: 5 },
     { text: '10', value: 10 },
     { text: '25', value: 25 },
     { text: '100', value: 100 },
+    { text: '250', value: 250 },
+    { text: '500', value: 500 },
   ]
 
   const daysOptions: DropdownItemNumeric[] = [
@@ -46,6 +50,7 @@ const StockMovingAvgFilterForm = ({ onSubmitted }: { onSubmitted: (item: StockMo
     setStockMovingAvgFilter(submitData)
     onSubmitted(submitData)
   }
+  console.log(errors)
   return (
     <Box py={2}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -65,6 +70,7 @@ const StockMovingAvgFilterForm = ({ onSubmitted }: { onSubmitted: (item: StockMo
                 <FormDropdownListNumeric minWidth={300} label='days' options={daysOptions} value={formValues.days} onOptionSelected={onChange} {...field} />
               )}
             />
+            <Typography variant='h6'>Market Cap</Typography>
             <ControlledSwitch
               control={control}
               fieldName='includeMegaCap'
@@ -92,6 +98,16 @@ const StockMovingAvgFilterForm = ({ onSubmitted }: { onSubmitted: (item: StockMo
                 setValue('includeMidCap', val)
               }}
             />
+            <ControlledSwitch
+              control={control}
+              fieldName='includeSmallCap'
+              label='include small cap'
+              defaultValue={formValues.includeSmallCap ?? false}
+              onChanged={(val: boolean) => {
+                setValue('includeSmallCap', val)
+              }}
+            />
+            {errors.includeMegaCap?.message && <ErrorMessage text={errors.includeMegaCap.message} />}
           </Box>
           <Box py={2} display={'flex'} justifyContent={'flex-end'} pr={1}>
             <PrimaryButton type='submit' text='Apply' />

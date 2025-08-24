@@ -67,14 +67,16 @@ const PagedStockTable = ({
             <StockTable stockList={items} marketCategory={'stocks'} showGroupName={showGroupName} showSummary={false} featuredField={featuredField} />
           </ScrollableBox>
         ) : (
-          <StockTable
-            stockList={items}
-            marketCategory={'stocks'}
-            showGroupName={showGroupName}
-            showSummary={false}
-            featuredField={featuredField}
-            showMovingAvgOnly={showMovingAvgOnly}
-          />
+          <Box minHeight={300}>
+            <StockTable
+              stockList={items}
+              marketCategory={'stocks'}
+              showGroupName={showGroupName}
+              showSummary={false}
+              featuredField={featuredField}
+              showMovingAvgOnly={showMovingAvgOnly}
+            />
+          </Box>
         )}
       </Box>
       <Pager
