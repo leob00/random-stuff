@@ -82,6 +82,7 @@ const Page = () => {
   }
 
   const handleRefreshRecent = () => {
+    setSelectedStock(null)
     mutate(searchedStocksKey)
   }
   const handleCloseQuoteDialog = () => {

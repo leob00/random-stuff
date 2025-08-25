@@ -6936,6 +6936,10 @@
     "Symbol": "CCIF"
   },
   {
+    "Company": "Cohen Circle Acquisition Corp. II Class A Ordinary Shares",
+    "Symbol": "CCII"
+  },
+  {
     "Company": "Cohen Circle Acquisition Corp. II Unit",
     "Symbol": "CCIIU"
   },
@@ -13426,6 +13430,10 @@
   {
     "Company": "Eventide US Market ETF",
     "Symbol": "EUSM"
+  },
+  {
+    "Company": "EQV Ventures Acquisition Corp. II",
+    "Symbol": "EVAC"
   },
   {
     "Company": "EQV Ventures Acquisition Corp. II Units, each unit consists of one Class A ordinary share and one-third of one redeemable warrant",
@@ -26944,10 +26952,6 @@
     "Symbol": "MRGR"
   },
   {
-    "Company": "MARIN SOFTWARE INCORPORATED",
-    "Symbol": "MRIN"
-  },
-  {
     "Company": "Merck & Co., Inc.",
     "Symbol": "MRK"
   },
@@ -37816,7 +37820,7 @@
     "Symbol": "SOR"
   },
   {
-    "Company": "Top Win International Limited Ordinary Shares",
+    "Company": "AsiaStrategy Ordinary Shares",
     "Symbol": "SORA"
   },
   {
@@ -39372,6 +39376,10 @@
     "Symbol": "TAXM"
   },
   {
+    "Company": "Northern Trust Short-Term Tax-Exempt Bond ETF",
+    "Symbol": "TAXS"
+  },
+  {
     "Company": "BondBloxx IR+M Tax Aware Short Duration ETF",
     "Symbol": "TAXX"
   },
@@ -40794,6 +40802,10 @@
   {
     "Company": "TransUnion",
     "Symbol": "TRU"
+  },
+  {
+    "Company": "VanEck Consumer Discretionary TruSector ETF",
+    "Symbol": "TRUD"
   },
   {
     "Company": "TrueCar, Inc.",
@@ -42946,6 +42958,10 @@
   {
     "Company": "Vendome Acquisition Corporation I Unit",
     "Symbol": "VNMEU"
+  },
+  {
+    "Company": "Vendome Acquisition Corporation I Warrant",
+    "Symbol": "VNMEW"
   },
   {
     "Company": "Vornado Realty Trust",
@@ -45586,6 +45602,10 @@
   {
     "Company": "Innovator Equity Defined Protection ETF - 1 Yr May",
     "Symbol": "ZMAY"
+  },
+  {
+    "Company": "Zeta Network Group Class A Ordinary Shares",
+    "Symbol": "ZNB"
   },
   {
     "Company": "Innovator Equity Defined Protection ETF - 1 Yr November",

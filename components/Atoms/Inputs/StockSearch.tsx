@@ -7,6 +7,10 @@ import CenterStack from '../CenterStack'
 import BackdropLoader from '../Loaders/BackdropLoader'
 import StocksAutoComplete from './StocksAutoComplete'
 import { useState } from 'react'
+import { Box } from '@mui/material'
+import LinkButton2 from '../Buttons/LinkButton2'
+import LinkButton from '../Buttons/LinkButton'
+import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 
 const StockSearch = ({
   onSymbolSelected,
@@ -49,19 +53,26 @@ const StockSearch = ({
     setResults(autoComp)
   }
   return (
-    <CenterStack>
-      {isLoading && <BackdropLoader />}
-      <StocksAutoComplete
-        placeholder={`search ${searchAheadCount} stocks`}
-        onChanged={handleSearched}
-        searchResults={results}
-        debounceWaitMilliseconds={500}
-        onSelected={handleSelectQuote}
-        clearOnSelect={clearOnSelect}
-        errorMessage={errorMessage}
-        freesolo
-      />
-    </CenterStack>
+    <Box>
+      <CenterStack>
+        {isLoading && <BackdropLoader />}
+        <StocksAutoComplete
+          placeholder={`search ${searchAheadCount} stocks`}
+          onChanged={handleSearched}
+          searchResults={results}
+          debounceWaitMilliseconds={500}
+          onSelected={handleSelectQuote}
+          clearOnSelect={clearOnSelect}
+          errorMessage={errorMessage}
+          freesolo
+        />
+      </CenterStack>
+      <Box maxWidth={{ xs: '100%', sm: '86%', md: '79%', lg: '75%' }}>
+        <Box display={'flex'} justifyContent={'flex-end'}>
+          <SiteLink text={'advanced search'} href='/csr/stocks/advanced-search' />
+        </Box>
+      </Box>
+    </Box>
   )
 }
 
