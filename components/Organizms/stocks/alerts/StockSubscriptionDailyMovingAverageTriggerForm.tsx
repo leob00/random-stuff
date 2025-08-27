@@ -1,18 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Alert, Box, Typography, Button, Stack } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import CenterStack from 'components/Atoms/CenterStack'
-import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import { ControlledFreeTextInput } from 'components/Molecules/Forms/ReactHookForm/ControlledFreeTextInput'
 import { ControlledNumberInput } from 'components/Molecules/Forms/ReactHookForm/ControlledNumberInput'
 import ControlledSwitch from 'components/Molecules/Forms/ReactHookForm/ControlledSwitch'
 import { StockAlertTrigger, stockAlertTriggerSchema, StockQuote } from 'lib/backend/api/models/zModels'
-import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import NotificationsIcon from '@mui/icons-material/Notifications'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import StockListItem from '../StockListItem'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 const StockSubscriptionDailyMovingAverageTriggerForm = ({
   trigger,
@@ -40,7 +36,7 @@ const StockSubscriptionDailyMovingAverageTriggerForm = ({
     onSave(submitData)
   }
 
-  const [formData, setFormData] = React.useState(trigger)
+  const [formData, setFormData] = useState(trigger)
 
   const handleEnabledChange = (val: boolean) => {
     setFormData({ ...formData, enabled: val })

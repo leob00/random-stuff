@@ -240,7 +240,13 @@ const StockSearchLayout = () => {
         </CenterStack>
       </Box>
       {model.quoteToAdd ? (
-        <AddQuote stockListMap={model.stockListMap} quote={model.quoteToAdd} handleAddToList={handleAddToList} handleCloseAddQuote={handleCloseAddQuote} />
+        <AddQuote
+          stockListMap={model.stockListMap}
+          quote={model.quoteToAdd}
+          handleAddToList={handleAddToList}
+          handleCloseAddQuote={handleCloseAddQuote}
+          userProfile={authProfile}
+        />
       ) : (
         <Box>
           {model.isLoading ? (
@@ -276,7 +282,7 @@ const StockSearchLayout = () => {
                         <FlatListMenu onEdit={() => setModel({ ...model, editList: true })} onShowAsGroup={handleShowAsGroup} />
                       </Box>
                       <Box display={'flex'} justifyContent={'flex-end'}></Box>
-                      <StockTable stockList={model.stockList ?? []} marketCategory={'stocks'} />
+                      <StockTable stockList={model.stockList ?? []} marketCategory={'stocks'} userProfile={authProfile} />
                     </Box>
                   )}
                 </>

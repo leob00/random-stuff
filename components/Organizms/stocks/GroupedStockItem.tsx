@@ -1,13 +1,13 @@
 import { Box, Card, CardContent, CardHeader, Typography, useTheme } from '@mui/material'
-import { DarkModeBlue } from 'components/themes/mainTheme'
 import { StockGroup } from './GroupedStocksLayout'
 import { getPositiveNegativeColor } from './StockListItem'
 import StockTable from './StockTable'
 import { useState } from 'react'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import Clickable from 'components/Atoms/Containers/Clickable'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 
-const GroupedStockItem = ({ stockGroup }: { stockGroup: StockGroup }) => {
+const GroupedStockItem = ({ stockGroup, userProfile }: { stockGroup: StockGroup; userProfile: UserProfile | null }) => {
   const [expanded, setExpanded] = useState(false)
 
   const handleExpandCollapse = () => {
@@ -39,7 +39,14 @@ const GroupedStockItem = ({ stockGroup }: { stockGroup: StockGroup }) => {
         {expanded && (
           <>
             {/* <ScrollIntoView enabled={expanded} margin={-20} /> */}
-            <StockTable marketCategory={'stocks'} stockList={stockGroup.quotes} showGroupName={false} showSummary={false} scrollIntoView={expanded} />
+            <StockTable
+              marketCategory={'stocks'}
+              stockList={stockGroup.quotes}
+              showGroupName={false}
+              showSummary={false}
+              scrollIntoView={expanded}
+              userProfile={userProfile}
+            />
           </>
         )}
       </FadeIn>

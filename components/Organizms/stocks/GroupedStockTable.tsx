@@ -4,8 +4,9 @@ import { StockGroup } from './GroupedStocksLayout'
 import GroupedStockItem from './GroupedStockItem'
 import Pager from 'components/Atoms/Pager'
 import { useClientPager } from 'hooks/useClientPager'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 
-const GroupedStockTable = ({ result }: { result: StockGroup[] }) => {
+const GroupedStockTable = ({ result, userProfile }: { result: StockGroup[]; userProfile: UserProfile | null }) => {
   const pageSize = 10
   const pager = useClientPager(result, 10)
   const displayItems = pager.getPagedItems(result)
@@ -16,7 +17,7 @@ const GroupedStockTable = ({ result }: { result: StockGroup[] }) => {
     <Box minHeight={650}>
       <Box display={'flex'} flexDirection={'column'} gap={1}>
         {displayItems.map((item) => (
-          <GroupedStockItem key={item.groupName} stockGroup={item} />
+          <GroupedStockItem key={item.groupName} stockGroup={item} userProfile={userProfile} />
         ))}
         <>
           {displayItems.length === 0 && (

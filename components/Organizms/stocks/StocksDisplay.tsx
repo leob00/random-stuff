@@ -195,6 +195,7 @@ const StocksDisplay = ({
           handleAddToList={handleAddToList}
           handleCloseAddQuote={handleCloseAddQuote}
           scrollIntoView
+          userProfile={userController.authProfile}
         />
       ) : (
         <Box>

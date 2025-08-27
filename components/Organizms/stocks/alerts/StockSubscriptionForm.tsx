@@ -5,6 +5,7 @@ import React from 'react'
 import StockListItem from '../StockListItem'
 import StockSubscriptionDailyMovingAverageTriggerForm from './StockSubscriptionDailyMovingAverageTriggerForm'
 import StockSubscriptionPriceTargetTriggerForm from './StockSubscriptionPriceTargetTriggerForm'
+import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 
 const StockSubscriptionForm = ({
   show,
@@ -19,6 +20,7 @@ const StockSubscriptionForm = ({
   onSave: (trigger: StockAlertTrigger) => void
   onClose: () => void
 }) => {
+  const { userProfile, isValidating } = useProfileValidator()
   const renderForm = (trigger: StockAlertTrigger, index: number) => {
     switch (trigger.typeId) {
       case 'dailyPercentMove':
@@ -32,9 +34,7 @@ const StockSubscriptionForm = ({
   return (
     <FormDialog title={'Alerts'} show={show} onCancel={onClose}>
       <>
-        <Box>
-          <StockListItem marketCategory={'stocks'} item={quote} disabled showGroupName={false} />
-        </Box>
+        <Box>{!isValidating && <StockListItem marketCategory={'stocks'} item={quote} disabled showGroupName={false} userProfile={userProfile} />}</Box>
         {sub.triggers.map((trigger, i) => (
           <Box key={trigger.typeId}>{renderForm(trigger, i)}</Box>
         ))}

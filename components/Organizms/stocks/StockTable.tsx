@@ -5,6 +5,8 @@ import dayjs from 'dayjs'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import StockListItem from './StockListItem'
 import { MarketCategory } from 'lib/backend/api/qln/chartApi'
+import { useProfileValidator } from 'hooks/auth/useProfileValidator'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 const StockTable = ({
   stockList,
@@ -15,6 +17,7 @@ const StockTable = ({
   showSummary = true,
   featuredField,
   showMovingAvgOnly = false,
+  userProfile,
 }: {
   stockList: StockQuote[]
   marketCategory: MarketCategory
@@ -24,6 +27,7 @@ const StockTable = ({
   showSummary?: boolean
   featuredField?: keyof StockQuote
   showMovingAvgOnly?: boolean
+  userProfile: UserProfile | null
 }) => {
   return (
     <>
@@ -36,6 +40,7 @@ const StockTable = ({
               showGroupName={showGroupName}
               featuredField={featuredField}
               showMovingAvgOnly={showMovingAvgOnly}
+              userProfile={userProfile}
               scrollIntoView
             />
           </Box>

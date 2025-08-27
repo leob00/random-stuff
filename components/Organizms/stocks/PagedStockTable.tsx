@@ -7,6 +7,7 @@ import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import { useEffect } from 'react'
 import { StockQuoteSort } from 'lib/backend/api/models/collections'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
+import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 
 const PagedStockTable = ({
   data,
@@ -34,6 +35,7 @@ const PagedStockTable = ({
   const { pagerModel, setPage, getPagedItems, reset } = useClientPager(data, pageSize)
   const items = getPagedItems(data)
   const scroller = useScrollTop(0)
+  const { userProfile, isValidating } = useProfileValidator()
   const handlePaged = (pageNum: number) => {
     if (scrollOnPageChange) {
       scroller.scroll()
@@ -50,8 +52,45 @@ const PagedStockTable = ({
 
   return (
     <>
-      <Box>
-        {showTopPager && (
+      {!isValidating && (
+        <>
+          <Box>
+            {showTopPager && (
+              <Pager
+                pageCount={pagerModel.totalNumberOfPages}
+                itemCount={items.length}
+                itemsPerPage={pageSize}
+                onPaged={(pageNum: number) => handlePaged(pageNum)}
+                defaultPageIndex={pagerModel.page}
+                totalItemCount={pagerModel.totalNumberOfItems}
+                showHorizontalDivider={false}
+              ></Pager>
+            )}
+            {scrollInside ? (
+              <ScrollableBox scroller={scroller}>
+                <StockTable
+                  stockList={items}
+                  marketCategory={'stocks'}
+                  showGroupName={showGroupName}
+                  showSummary={false}
+                  featuredField={featuredField}
+                  userProfile={userProfile}
+                />
+              </ScrollableBox>
+            ) : (
+              <Box minHeight={300}>
+                <StockTable
+                  stockList={items}
+                  marketCategory={'stocks'}
+                  showGroupName={showGroupName}
+                  showSummary={false}
+                  featuredField={featuredField}
+                  showMovingAvgOnly={showMovingAvgOnly}
+                  userProfile={userProfile}
+                />
+              </Box>
+            )}
+          </Box>
           <Pager
             pageCount={pagerModel.totalNumberOfPages}
             itemCount={items.length}
@@ -61,33 +100,8 @@ const PagedStockTable = ({
             totalItemCount={pagerModel.totalNumberOfItems}
             showHorizontalDivider={false}
           ></Pager>
-        )}
-        {scrollInside ? (
-          <ScrollableBox scroller={scroller}>
-            <StockTable stockList={items} marketCategory={'stocks'} showGroupName={showGroupName} showSummary={false} featuredField={featuredField} />
-          </ScrollableBox>
-        ) : (
-          <Box minHeight={300}>
-            <StockTable
-              stockList={items}
-              marketCategory={'stocks'}
-              showGroupName={showGroupName}
-              showSummary={false}
-              featuredField={featuredField}
-              showMovingAvgOnly={showMovingAvgOnly}
-            />
-          </Box>
-        )}
-      </Box>
-      <Pager
-        pageCount={pagerModel.totalNumberOfPages}
-        itemCount={items.length}
-        itemsPerPage={pageSize}
-        onPaged={(pageNum: number) => handlePaged(pageNum)}
-        defaultPageIndex={pagerModel.page}
-        totalItemCount={pagerModel.totalNumberOfItems}
-        showHorizontalDivider={false}
-      ></Pager>
+        </>
+      )}
     </>
   )
 }

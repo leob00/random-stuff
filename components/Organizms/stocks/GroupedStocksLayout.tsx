@@ -1,6 +1,5 @@
 import { Box } from '@mui/material'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import React from 'react'
 import { mean } from 'lodash'
 import GroupedListMenu from './GroupedListMenu'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
@@ -69,7 +68,7 @@ const GroupedStocksLayout = ({
       <Box display={'flex'} justifyContent={'flex-end'} alignItems={'center'} pb={2}>
         <GroupedListMenu onEdit={onEdit} onShowAsGroup={onShowAsGroup} />
       </Box>
-      <GroupedStockTable result={groupedList} />
+      <GroupedStockTable result={groupedList} userProfile={userController.authProfile} />
     </Box>
   )
 }

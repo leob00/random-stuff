@@ -4,8 +4,8 @@ import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import Close from '@mui/icons-material/Close'
 import CenterStack from 'components/Atoms/CenterStack'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import React from 'react'
 import StockListItem from './StockListItem'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 const AddQuote = ({
   quote,
@@ -14,6 +14,7 @@ const AddQuote = ({
   handleCloseAddQuote,
   scrollIntoView = true,
   showAddToListButton = true,
+  userProfile,
 }: {
   quote: StockQuote
   stockListMap: Map<string, StockQuote>
@@ -21,6 +22,7 @@ const AddQuote = ({
   handleCloseAddQuote: () => void
   scrollIntoView?: boolean
   showAddToListButton?: boolean
+  userProfile: UserProfile | null
 }) => {
   const alreadyExists = stockListMap.has(quote.Symbol)
   return (
@@ -30,7 +32,7 @@ const AddQuote = ({
           <Close color='primary' fontSize='small' />
         </IconButton>
       </Box>
-      <StockListItem item={quote} expand={true} marketCategory={'stocks'} showGroupName={true} scrollIntoView={scrollIntoView} />
+      <StockListItem item={quote} expand={true} marketCategory={'stocks'} showGroupName={true} scrollIntoView={scrollIntoView} userProfile={userProfile} />
       {alreadyExists && showAddToListButton && (
         <CenterStack>
           <Alert severity='success'>

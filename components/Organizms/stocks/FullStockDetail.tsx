@@ -3,8 +3,10 @@ import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import CloseIconButton from 'components/Atoms/Buttons/CloseIconButton'
 import StockListItem from './StockListItem'
 import { StockQuote } from 'lib/backend/api/models/zModels'
+import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 
 const FullStockDetail = ({ item, onClose, isStock }: { item: StockQuote; onClose: () => void; isStock?: boolean }) => {
+  const { userProfile, isValidating } = useProfileValidator()
   return (
     <Box py={2}>
       <ScrollIntoView />
@@ -17,7 +19,9 @@ const FullStockDetail = ({ item, onClose, isStock }: { item: StockQuote; onClose
         </Box>
       </Box>
       <Box>
-        <StockListItem key={item.Symbol} item={item} marketCategory='stocks' expand disabled scrollIntoView={false} />
+        {!isValidating && (
+          <StockListItem key={item.Symbol} item={item} marketCategory='stocks' expand disabled scrollIntoView={false} userProfile={userProfile} />
+        )}
       </Box>
     </Box>
   )

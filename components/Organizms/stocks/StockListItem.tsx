@@ -17,7 +17,6 @@ import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { putSearchedStock } from 'lib/backend/csr/nextApiWrapper'
 import CompanyProfile from './CompanyProfile'
 import StockSubscibeIcon from './StockSubscibeIcon'
-import { useUserController } from 'hooks/userController'
 import TabList from 'components/Atoms/Buttons/TabList'
 import StockChange from './StockChange'
 import StockDetailsTab from './StockDetailsTab'
@@ -26,9 +25,8 @@ import StockDividendDetails from './dividends/StockDividendDetails'
 import StockField from './StockField'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { MarketCategory } from 'lib/backend/api/qln/chartApi'
-import HoverEffect from 'components/Molecules/Lists/HoverEffect'
-import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import StockChangeNumberDisplay from './StockChangeNumberDisplay'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 const StockListItem = ({
   item,
@@ -39,6 +37,7 @@ const StockListItem = ({
   disabled,
   featuredField,
   showMovingAvgOnly = false,
+  userProfile,
 }: {
   item: StockQuote
   expand?: boolean
@@ -48,6 +47,7 @@ const StockListItem = ({
   disabled?: boolean
   featuredField?: keyof StockQuote
   showMovingAvgOnly?: boolean
+  userProfile: UserProfile | null
 }) => {
   let tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'Earnings' }, { title: 'News' }, { title: 'Profile' }]
   if (item.AnnualDividendYield) {
@@ -57,7 +57,6 @@ const StockListItem = ({
     tabs.splice(2, 0, div)
   }
 
-  const { userProfile, isValidating } = useProfileValidator()
   const [showMore, setShowMore] = useState(expand ?? false)
   const [selectedTab, setSelectedTab] = useState('Details')
   const scrollTarget = useRef<HTMLSpanElement | null>(null)
@@ -145,7 +144,7 @@ const StockListItem = ({
             </Box>
             {isStock && (
               <>
-                {userProfile && !isValidating && (
+                {userProfile && (
                   <Box display={'flex'} gap={2}>
                     <StockSubscibeIcon userProfile={userProfile} quote={item} size='medium' />
                   </Box>

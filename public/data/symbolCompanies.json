@@ -3760,10 +3760,6 @@
     "Symbol": "BAYAR"
   },
   {
-    "Company": "Bayview Acquisition Corp Unit",
-    "Symbol": "BAYAU"
-  },
-  {
     "Company": "BlackBerry Limited",
     "Symbol": "BB"
   },
@@ -4026,6 +4022,10 @@
   {
     "Company": "abrdn Bloomberg All Commodity Strategy K-1 Free ETF",
     "Symbol": "BCI"
+  },
+  {
+    "Company": "BCP Investment Corporation Common Stock",
+    "Symbol": "BCIC"
   },
   {
     "Company": "Bancreek International Large Cap ETF",
@@ -6942,6 +6942,10 @@
   {
     "Company": "Cohen Circle Acquisition Corp. II Unit",
     "Symbol": "CCIIU"
+  },
+  {
+    "Company": "Cohen Circle Acquisition Corp. II Warrant",
+    "Symbol": "CCIIW"
   },
   {
     "Company": "Cohen Circle Acquisition Corp. I Class A Ordinary Shares",
@@ -13440,6 +13444,10 @@
     "Symbol": "EVAC.U"
   },
   {
+    "Company": "EQV Ventures Acquisition Corp. II Redeemable Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50 per share",
+    "Symbol": "EVAC.WS"
+  },
+  {
     "Company": "Direxion Daily Electric and Autonomous Vehicles Bull 2X Shares",
     "Symbol": "EVAV"
   },
@@ -14646,10 +14654,6 @@
   {
     "Company": "F&G Annuities & Life, Inc.",
     "Symbol": "FG"
-  },
-  {
-    "Company": "First Trust Specialty Finance and Financial Opportunities Fund",
-    "Symbol": "FGB"
   },
   {
     "Company": "FIRST GUARANTY BANCSHARES INC",
@@ -17148,6 +17152,10 @@
     "Symbol": "GK"
   },
   {
+    "Company": "Scharf Global Opportunity ETF",
+    "Symbol": "GKAT"
+  },
+  {
     "Company": "Glaukos Corporation",
     "Symbol": "GKOS"
   },
@@ -18836,10 +18844,6 @@
     "Symbol": "HIYS"
   },
   {
-    "Company": "Innovator Premium Income 9 Buffer ETF - July",
-    "Symbol": "HJUL"
-  },
-  {
     "Company": "AMTD Digital Inc. American Depositary Shares (every five of which represent two Class A Ordinary Shares)",
     "Symbol": "HKD"
   },
@@ -18990,14 +18994,6 @@
   {
     "Company": "Hooker Furnishings Corporation Common Stock",
     "Symbol": "HOFT"
-  },
-  {
-    "Company": "Hall of Fame Resort & Entertainment Company Common Stock",
-    "Symbol": "HOFV"
-  },
-  {
-    "Company": "Hall of Fame Resort & Entertainment Company Warrant",
-    "Symbol": "HOFVW"
   },
   {
     "Company": "Harley-Davidson, Inc.",
@@ -19276,16 +19272,16 @@
     "Symbol": "HSON"
   },
   {
+    "Company": "Hudson Global, Inc. 10% Series A Cumulative Perpetual Preferred Stock",
+    "Symbol": "HSONP"
+  },
+  {
     "Company": "Horizon Space Acquisition I Corp. Ordinary Shares",
     "Symbol": "HSPO"
   },
   {
     "Company": "Horizon Space Acquisition I Corp. Right",
     "Symbol": "HSPOR"
-  },
-  {
-    "Company": "Horizon Space Acquisition I Corp. Unit",
-    "Symbol": "HSPOU"
   },
   {
     "Company": "Horizon Space Acquisition I Corp. Warrant",
@@ -22936,6 +22932,10 @@
     "Symbol": "KARS"
   },
   {
+    "Company": "Scharf ETF",
+    "Symbol": "KAT"
+  },
+  {
     "Company": "Innovator US Small Cap Power Buffer ETF - August",
     "Symbol": "KAUG"
   },
@@ -23716,16 +23716,8 @@
     "Symbol": "KW"
   },
   {
-    "Company": "KWESST Micro Systems Inc. Common Stock",
-    "Symbol": "KWE"
-  },
-  {
     "Company": "KraneShares CSI China Internet ETF",
     "Symbol": "KWEB"
-  },
-  {
-    "Company": "KWESST Micro Systems Inc. warrant",
-    "Symbol": "KWESW"
   },
   {
     "Company": "K Wave Media, Ltd. Ordinary Shares",
@@ -33148,6 +33140,10 @@
     "Symbol": "QAI"
   },
   {
+    "Company": "SEI DBi Multi-Strategy Alternative ETF",
+    "Symbol": "QALT"
+  },
+  {
     "Company": "Xtrackers Russell 1000 US Quality at a Reasonable Price ETF",
     "Symbol": "QARP"
   },
@@ -35846,6 +35842,10 @@
   {
     "Company": "Star Bulk Carriers Corp.",
     "Symbol": "SBLK"
+  },
+  {
+    "Company": "StableX Technologies, Inc. Common Stock",
+    "Symbol": "SBLX"
   },
   {
     "Company": "Columbia Short Duration Bond ETF",
@@ -39354,6 +39354,10 @@
   {
     "Company": "Tavia Acquisition Corp. Right",
     "Symbol": "TAVIR"
+  },
+  {
+    "Company": "Tavia Acquisition Corp. Unit",
+    "Symbol": "TAVIU"
   },
   {
     "Company": "Cambria Tax Aware ETF",
@@ -42956,6 +42960,10 @@
     "Symbol": "VNM"
   },
   {
+    "Company": "Vendome Acquisition Corporation I Class A Ordinary Shares",
+    "Symbol": "VNME"
+  },
+  {
     "Company": "Vendome Acquisition Corporation I Unit",
     "Symbol": "VNMEU"
   },
@@ -43652,7 +43660,7 @@
     "Symbol": "WCPB"
   },
   {
-    "Company": "Wellchange Holdings Company Limited Ordinary shares",
+    "Company": "Wellchange Holdings Company Limited Class A Ordinary shares",
     "Symbol": "WCT"
   },
   {

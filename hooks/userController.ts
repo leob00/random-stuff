@@ -17,8 +17,11 @@ export const useUserController = () => {
   }))
 
   const fetchProfile = async () => {
+    if (authProfile) {
+      return { ...authProfile }
+    }
     const user = await getUserCSR()
-    if (user !== null) {
+    if (user) {
       const profile = (await getUserProfile(user.email)) as UserProfile
 
       if (profile) {

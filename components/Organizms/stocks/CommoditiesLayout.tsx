@@ -10,6 +10,7 @@ import router from 'next/router'
 import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
 import ContextMenuCrypto from 'components/Molecules/Menus/ContextMenuCrypto'
 import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
+import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 
 const CommoditiesLayout = () => {
   const endPoint = `/Futures`
@@ -35,20 +36,24 @@ const CommoditiesLayout = () => {
       fn: () => router.push('/csr/crypto'),
     },
   ]
-
+  const { userProfile, isValidating } = useProfileValidator()
   return (
-    <Box py={2}>
-      {isLoading && <BackdropLoader />}
-      {data && (
-        <Box pt={2}>
-          <ScrollIntoView enabled />
-          <Box display={'flex'} justifyContent={'flex-end'}>
-            <ContextMenu items={menu} />
-          </Box>
-          <StockTable stockList={data} marketCategory='commodities' showSummary />
+    <>
+      {!isValidating && (
+        <Box py={2}>
+          {isLoading && <BackdropLoader />}
+          {data && (
+            <Box pt={2}>
+              <ScrollIntoView enabled />
+              <Box display={'flex'} justifyContent={'flex-end'}>
+                <ContextMenu items={menu} />
+              </Box>
+              <StockTable stockList={data} marketCategory='commodities' showSummary userProfile={userProfile} />
+            </Box>
+          )}
         </Box>
       )}
-    </Box>
+    </>
   )
 }
 

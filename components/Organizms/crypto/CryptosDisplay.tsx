@@ -33,7 +33,7 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
       <Box display={'flex'} justifyContent={'flex-end'}>
         <ContextMenu items={menu} />
       </Box>
-      <StockTable stockList={result} marketCategory='crypto' showSummary />
+      <StockTable stockList={result} marketCategory='crypto' showSummary userProfile={userProfile} />
     </Box>
   )
 }
