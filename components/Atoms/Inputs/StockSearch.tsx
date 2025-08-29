@@ -8,18 +8,18 @@ import BackdropLoader from '../Loaders/BackdropLoader'
 import StocksAutoComplete from './StocksAutoComplete'
 import { useState } from 'react'
 import { Box } from '@mui/material'
-import LinkButton2 from '../Buttons/LinkButton2'
-import LinkButton from '../Buttons/LinkButton'
 import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 
 const StockSearch = ({
   onSymbolSelected,
   clearOnSelect = true,
   errorMessage,
+  showAdvSearch = false,
 }: {
   onSymbolSelected: (quote: StockQuote) => void
   clearOnSelect?: boolean
   errorMessage?: string
+  showAdvSearch?: boolean
 }) => {
   const [results, setResults] = useState<DropdownItem[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -67,11 +67,13 @@ const StockSearch = ({
           freesolo
         />
       </CenterStack>
-      <Box maxWidth={{ xs: '100%', sm: '86%', md: '79%', lg: '75%' }}>
-        <Box display={'flex'} justifyContent={'flex-end'}>
-          <SiteLink text={'advanced search'} href='/csr/stocks/advanced-search' />
+      {showAdvSearch && (
+        <Box maxWidth={{ xs: '98%', sm: '86%', md: '79%', lg: '75%' }}>
+          <Box display={'flex'} justifyContent={'flex-end'}>
+            <SiteLink text={'advanced search'} href='/csr/stocks/advanced-search' />
+          </Box>
         </Box>
-      </Box>
+      )}
     </Box>
   )
 }

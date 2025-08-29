@@ -7,7 +7,17 @@ import CenteredHeader from '../Boxes/CenteredHeader'
 import BasicBreadcrumbs from '../Navigation/Breadcrumbs'
 import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 
-const PageHeader = ({ text, backButtonRoute, forceShowBackButton }: { text: string; backButtonRoute?: string; forceShowBackButton?: boolean }) => {
+const PageHeader = ({
+  text,
+  backButtonRoute,
+  forceShowBackButton,
+  generateBackButton = false,
+}: {
+  text: string
+  backButtonRoute?: string
+  forceShowBackButton?: boolean
+  generateBackButton?: boolean
+}) => {
   const { previousRoute } = useRouteTracker()
 
   return (

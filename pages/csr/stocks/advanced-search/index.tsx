@@ -1,3 +1,4 @@
+import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import CenterStack from 'components/Atoms/CenterStack'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
@@ -13,6 +14,7 @@ const index = () => {
         <CenterStack>
           <AlertWithHeader severity='warning' header='This feature is currently under development.' text='' />
         </CenterStack>
+        <Box></Box>
       </ResponsiveContainer>
     </>
   )

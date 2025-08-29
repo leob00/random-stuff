@@ -1144,6 +1144,14 @@
     "Symbol": "AII"
   },
   {
+    "Company": "Robo.ai Inc. Class B Ordinary Shares",
+    "Symbol": "AIIO"
+  },
+  {
+    "Company": "Robo.ai Inc. Warrant",
+    "Symbol": "AIIOW"
+  },
+  {
     "Company": "AIM ImmunoTech Inc.",
     "Symbol": "AIM"
   },
@@ -1378,6 +1386,10 @@
   {
     "Company": "Alchemy Investments Acquisition Corp 1 Class A Ordinary Shares",
     "Symbol": "ALCY"
+  },
+  {
+    "Company": "Alchemy Investments Acquisition Corp 1 Units",
+    "Symbol": "ALCYU"
   },
   {
     "Company": "Alchemy Investments Acquisition Corp 1 Warrants",
@@ -2090,6 +2102,14 @@
   {
     "Company": "APA Corporation Common Stock",
     "Symbol": "APA"
+  },
+  {
+    "Company": "A Paradise Acquisition Corp. Class A Ordinary Shares",
+    "Symbol": "APAD"
+  },
+  {
+    "Company": "A Paradise Acquisition Corp. Rights",
+    "Symbol": "APADR"
   },
   {
     "Company": "A Paradise Acquisition Corp. Unit",
@@ -9520,6 +9540,10 @@
     "Symbol": "CURV"
   },
   {
+    "Company": "Curanex Pharmaceuticals Inc Common Stock",
+    "Symbol": "CURX"
+  },
+  {
     "Company": "Invesco MSCI Global Timber ETF",
     "Symbol": "CUT"
   },
@@ -13284,6 +13308,14 @@
     "Symbol": "ETHE"
   },
   {
+    "Company": "Dynamix Corporation Class A Ordinary Shares",
+    "Symbol": "ETHM"
+  },
+  {
+    "Company": "Dynamix Corporation Warrant",
+    "Symbol": "ETHMW"
+  },
+  {
     "Company": "Amplify Etho Climate Leadership U.S. ETF",
     "Symbol": "ETHO"
   },
@@ -13414,6 +13446,10 @@
   {
     "Company": "Eureka Acquisition Corp Class A Ordinary Share",
     "Symbol": "EURK"
+  },
+  {
+    "Company": "Eureka Acquisition Corp Right",
+    "Symbol": "EURKR"
   },
   {
     "Company": "Eureka Acquisition Corp Unit",
@@ -23492,6 +23528,10 @@
     "Symbol": "KOSS"
   },
   {
+    "Company": "CSLM Digital Asset Acquisition Corp III Units",
+    "Symbol": "KOYNU"
+  },
+  {
     "Company": "KraneShares 2x Long PDD Daily ETF",
     "Symbol": "KPDD"
   },
@@ -25670,6 +25710,10 @@
   {
     "Company": "Malibu Boats, Inc. Class A",
     "Symbol": "MBUU"
+  },
+  {
+    "Company": "M3-Brigade Acquisition VI Corp. Units",
+    "Symbol": "MBVIU"
   },
   {
     "Company": "Mercantile Bank Corp",
@@ -28166,6 +28210,10 @@
   {
     "Company": "NewtekOne, Inc. 8.00% Fixed Rate Senior Notes due 2028",
     "Symbol": "NEWTI"
+  },
+  {
+    "Company": "NewtekOne, Inc. Depositary Shares, Non-Cumulative Perpetual Preferred Stock, Series B",
+    "Symbol": "NEWTP"
   },
   {
     "Company": "NewtekOne, Inc. 5.50% Notes Due 2026",
@@ -38888,6 +38936,10 @@
     "Symbol": "SUI"
   },
   {
+    "Company": "Sui Group Holdings Limited Common Stock",
+    "Symbol": "SUIG"
+  },
+  {
     "Company": "SUNOCO L.P.",
     "Symbol": "SUN"
   },
@@ -41902,6 +41954,10 @@
   {
     "Company": "Uranium Royalty Corp. Common Stock",
     "Symbol": "UROY"
+  },
+  {
+    "Company": "ProShares Ultra S&P 500 Equal Weight",
+    "Symbol": "URSP"
   },
   {
     "Company": "iShares MSCI World ETF",
