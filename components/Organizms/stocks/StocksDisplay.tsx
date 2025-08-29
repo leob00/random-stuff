@@ -16,12 +16,12 @@ import StocksCustomSortForm from './StocksCustomSortForm'
 import CustomSortAlert from './CustomSortAlert'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import StocksLookup from './StocksLookup'
 import PagedStockTable from './PagedStockTable'
 import { LocalStore } from 'lib/backend/store/useLocalStore'
 import SnackbarWarning from 'components/Atoms/Dialogs/SnackbarWarning'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockQuoteSort } from 'lib/backend/api/models/collections'
+import StockSearch from 'components/Atoms/Inputs/StockSearch'
 
 export const searchWithinResults = (quotes: StockQuote[], text: string) => {
   const result = quotes.filter(
@@ -185,7 +185,7 @@ const StocksDisplay = ({
       )}
       {!model.quoteToAdd && (
         <Box py={2}>
-          <StocksLookup onFound={handleSelectQuote} clearOnSelect />
+          <StockSearch onSymbolSelected={handleSelectQuote} clearOnSelect />
         </Box>
       )}
       {model.quoteToAdd ? (

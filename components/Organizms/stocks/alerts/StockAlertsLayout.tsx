@@ -5,7 +5,7 @@ import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useAlertsController } from 'hooks/stocks/alerts/useAlertsController'
 import { processAlertTriggers } from 'lib/backend/alerts/stockAlertProcessor'
-import { DynamoKeys, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { constructStockAlertsSubPrimaryKey, constructStockAlertsSubSecondaryKey } from 'lib/backend/api/aws/util'
 import { StockAlertSubscription, StockAlertSubscriptionWithMessage, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
@@ -13,7 +13,6 @@ import { getDynamoItemData, putRandomStuffBatch, searchDynamoItemsByCategory, se
 import { getDefaultSubscription, sortAlerts } from 'lib/ui/alerts/stockAlertHelper'
 import { formatEmail } from 'lib/ui/mailUtil'
 import { uniq } from 'lodash'
-import StocksLookup from '../StocksLookup'
 import EmailPreview from './EmailPreview'
 import StockAlertRow from './StockAlertRow'
 import StockSubscriptionForm from './StockSubscriptionForm'
@@ -25,6 +24,7 @@ import { useState } from 'react'
 import { RandomStuffDynamoItem } from 'app/serverActions/aws/dynamo/dynamo'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { getMapFromArray } from 'lib/util/collectionsNative'
+import StockSearch from 'components/Atoms/Inputs/StockSearch'
 
 const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const alertsSearchhKey = constructStockAlertsSubSecondaryKey(userProfile.username)
@@ -184,7 +184,7 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
       )}
       {successMesssage && <SnackbarSuccess show={!!successMesssage} text={successMesssage} duration={3000} onClose={() => setSuccessMessage(null)} />}
       <FormDialog title='add alert' show={showAddAlert} onCancel={handleHideAddAlert}>
-        <StocksLookup onFound={handleQuoteLoaded} />
+        <StockSearch onSymbolSelected={handleQuoteLoaded} clearOnSelect />
       </FormDialog>
     </Box>
   )
