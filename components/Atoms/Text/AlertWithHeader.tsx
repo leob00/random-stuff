@@ -8,7 +8,7 @@ const AlertWithHeader = ({ header, text, severity }: { header?: string; text?: s
       color = theme.palette.mode === 'dark' ? theme.palette.info.dark : theme.palette.info.light
       break
     case 'warning':
-      color = theme.palette.mode === 'dark' ? theme.palette.warning.dark : theme.palette.warning.light
+      color = theme.palette.mode === 'dark' ? theme.palette.warning.light : theme.palette.warning.dark
       break
     case 'success':
       color = theme.palette.success.light
@@ -18,7 +18,7 @@ const AlertWithHeader = ({ header, text, severity }: { header?: string; text?: s
       break
   }
   return (
-    <Alert severity={severity} sx={{ backgroundColor: 'transparent' }}>
+    <Alert severity={severity} sx={{ '& .MuiAlert-icon': { color: color }, backgroundColor: 'transparent' }}>
       {header && (
         <AlertTitle color={color}>
           <Typography variant='h6' mt={-0.5}>

@@ -66,6 +66,7 @@ export const quoteArraySchema = z
     AnnualDividendYield: z.number().nullable(),
     Tags: z.string().array().nullable().optional(),
     MovingAvg: z.number().nullable().optional(),
+    MovingAvgChange: z.number().nullable().optional(),
     MovingAvgDays: z.number().nullable().optional(),
   })
   .array()

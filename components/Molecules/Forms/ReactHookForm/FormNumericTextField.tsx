@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 import { type FilledInputProps, type InputBaseComponentProps, type InputProps, type OutlinedInputProps, type SxProps, TextField } from '@mui/material'
 import { NumericFormat } from 'react-number-format'
 
-type DPProps = {
+type Props = {
   id?: string
   size?: 'small' | 'medium'
   InputProps?: Partial<FilledInputProps> | Partial<OutlinedInputProps> | Partial<InputProps> | undefined
@@ -16,7 +16,7 @@ type DPProps = {
   placeholder?: string
 }
 
-const FormNumericTextField = forwardRef<HTMLInputElement, DPProps>(function FormNumericTextField(props: DPProps) {
+const FormNumericTextField = forwardRef<HTMLInputElement, Props>(function FormNumericTextField(props: Props) {
   const { id, size, sx, fullwidth, onChanged, value, label, errorMessage, placeholder } = props
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

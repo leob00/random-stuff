@@ -55,7 +55,12 @@ const TopMovingAvg = () => {
       body.body.MarketCap.Items.push('mega')
     }
     const resp = await serverPostFetch(body, `/StockMovingAvg`)
-    const result = resp.Body as StockQuote[]
+    let result = resp.Body as StockQuote[]
+    if (filter.days > 1) {
+      result = result.map((m) => {
+        return { ...m, Change: m.MovingAvgChange ?? 0, ChangePercent: m.MovingAvg ?? 0 }
+      })
+    }
 
     return result
   }

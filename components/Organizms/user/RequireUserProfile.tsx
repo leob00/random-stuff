@@ -4,7 +4,6 @@ import { UserProfileAuth, UserProfileContext } from 'lib/ui/auth/UserProfileCont
 import { ReactNode } from 'react'
 import RequireUserProfileWrapper from './RequireUserProfileWrapper'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
-import React from 'react'
 
 const RequireUserProfile = ({ children }: { children: ReactNode | React.JSX.Element[] }) => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()

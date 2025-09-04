@@ -69,6 +69,10 @@ const lightPalette: PaletteOptions = {
   success: {
     main: CasinoGreenTransparent,
   },
+  warning: {
+    main: CasinoOrange,
+    contrastText: 'yellow',
+  },
 }
 
 export const typographyOptions: TypographyVariantsOptions = {

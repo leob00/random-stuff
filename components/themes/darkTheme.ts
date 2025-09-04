@@ -37,7 +37,7 @@ const darkPalette: PaletteOptions = {
     contrastText: VeryLightBlue,
   },
   warning: {
-    main: CasinoOrangeTransparent,
+    main: CasinoOrange,
     contrastText: VeryLightBlue,
   },
 

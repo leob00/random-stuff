@@ -15,7 +15,11 @@ export const useProfileValidator = () => {
   }
 
   useEffect(() => {
-    validate()
+    if (!authProfile) {
+      validate()
+    } else {
+      setIsValidating(false)
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authProfile])

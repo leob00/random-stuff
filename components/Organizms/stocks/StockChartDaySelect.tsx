@@ -19,14 +19,25 @@ const StockChartDaySelect = ({
       onSelected(arg)
     }
   }
-  const options: DropdownItemNumeric[] = availableDates
+  let options: DropdownItemNumeric[] = availableDates
     ? getstockChartDays().filter((m) => m.value <= 0 || m.value <= dayjs(availableDates.EndDate).diff(dayjs(availableDates.StartDate), 'days'))
     : getstockChartDays()
 
+  if (availableDates) {
+    const startDate = dayjs(availableDates.StartDate)
+    if (startDate > dayjs(new Date(startDate.year(), 0, 3))) {
+      options = options.filter((m) => m.value > -1)
+    }
+  }
+
   let daysToSelect = selectedDays
-  if (!!availableDates) {
-    const maxDays = max(options.map((m) => m.value))!
+  if (availableDates) {
+    const optionDays = options.map((m) => m.value)
+    const maxDays = max(optionDays)!
     if (selectedDays > 0 && selectedDays > maxDays) {
+      daysToSelect = options[options.length - 1].value
+    }
+    if (!optionDays.includes(selectedDays)) {
       daysToSelect = options[options.length - 1].value
     }
   }
