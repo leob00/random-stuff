@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import FormDropdownListNumeric from 'components/Molecules/Forms/ReactHookForm/FormDropdownListNumeric'
@@ -8,6 +8,14 @@ import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import ControlledSwitch from 'components/Molecules/Forms/ReactHookForm/ControlledSwitch'
 import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import { StockMovingAvgFilter, StockMovingAvgFilterSchema } from '../reports/stockMovingAvgFilter'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { CasinoGrayTransparent } from 'components/themes/mainTheme'
+import { StockAdvancedSearchFilter, StockAdvancedSearchFilterSchema, StockMarketCapFilter } from './advancedSearchFilter'
+import FormNumericTextField from 'components/Molecules/Forms/ReactHookForm/FormNumericTextField'
+import FormNumericTextField2 from 'components/Molecules/Forms/ReactHookForm/FormNumericTextField2'
+import JsonPreview from 'components/Molecules/Forms/Files/JsonPreview'
+import JsonView from 'components/Atoms/Boxes/JsonView'
+import { error } from 'console'
 const AdvancedSearchFilterForm = ({ onSubmitted }: { onSubmitted: (item: StockMovingAvgFilter) => void }) => {
   const { stockReportSettings, setStockMovingAvgFilter } = useLocalStore()
 
@@ -19,13 +27,29 @@ const AdvancedSearchFilterForm = ({ onSubmitted }: { onSubmitted: (item: StockMo
     watch,
     setValue,
     formState: { errors },
-  } = useForm<StockMovingAvgFilter>({
-    resolver: zodResolver(StockMovingAvgFilterSchema),
-    mode: 'onSubmit',
-    defaultValues: stockReportSettings.topMovingAvg.filter,
+  } = useForm<StockAdvancedSearchFilter>({
+    resolver: zodResolver(StockAdvancedSearchFilterSchema),
+    mode: 'onTouched',
+    defaultValues: {
+      marketCap: {
+        includeMegaCap: false,
+        includeLargeCap: false,
+        includeMidCap: false,
+        includeSmallCap: false,
+      },
+      take: 1,
+      movingAvg: {
+        days: 0,
+      },
+    },
   })
 
   const formValues = watch()
+  const hasMarkeCapFilter =
+    formValues.marketCap?.includeMegaCap ||
+    formValues.marketCap?.includeLargeCap ||
+    formValues.marketCap?.includeMidCap ||
+    formValues.marketCap?.includeSmallCap
   const takeOptions: DropdownItemNumeric[] = [
     { text: '1', value: 1 },
     { text: '5', value: 5 },
@@ -37,6 +61,7 @@ const AdvancedSearchFilterForm = ({ onSubmitted }: { onSubmitted: (item: StockMo
   ]
 
   const daysOptions: DropdownItemNumeric[] = [
+    { text: 'select', value: 0 },
     { text: '1', value: 1 },
     { text: '7', value: 7 },
     { text: '30', value: 30 },
@@ -45,12 +70,20 @@ const AdvancedSearchFilterForm = ({ onSubmitted }: { onSubmitted: (item: StockMo
     { text: '365', value: 365 },
   ]
 
-  const onSubmit: SubmitHandler<StockMovingAvgFilter> = (formData) => {
-    const submitData = { ...formData }
-    setStockMovingAvgFilter(submitData)
-    onSubmitted(submitData)
+  const setMarketCapField = (fieldName: keyof StockMarketCapFilter, val: boolean) => {
+    let newValues = { ...formValues.marketCap }
+
+    newValues[fieldName] = val
+    setValue('marketCap', newValues)
   }
-  console.log(errors)
+
+  const onSubmit: SubmitHandler<StockAdvancedSearchFilter> = (formData) => {
+    const submitData = { ...formData }
+    console.log(submitData)
+    //setStockMovingAvgFilter(submitData)
+    //onSubmitted(submitData)
+  }
+  //console.log(errors)
   return (
     <Box py={2}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -63,52 +96,112 @@ const AdvancedSearchFilterForm = ({ onSubmitted }: { onSubmitted: (item: StockMo
                 <FormDropdownListNumeric minWidth={300} label='take' options={takeOptions} value={formValues.take} onOptionSelected={onChange} {...field} />
               )}
             />
-            <Controller
-              name={'days'}
-              control={control}
-              render={({ field: { value, onChange, ...field } }) => (
-                <FormDropdownListNumeric minWidth={300} label='days' options={daysOptions} value={formValues.days} onOptionSelected={onChange} {...field} />
-              )}
-            />
-            <Typography variant='h6'>Market Cap</Typography>
-            <ControlledSwitch
-              control={control}
-              fieldName='includeMegaCap'
-              label='include mega cap'
-              defaultValue={formValues.includeMegaCap === undefined ? true : formValues.includeMegaCap}
-              onChanged={(val: boolean) => {
-                setValue('includeMegaCap', val)
-              }}
-            />
-            <ControlledSwitch
-              control={control}
-              fieldName='includeLargeCap'
-              label='include large cap'
-              defaultValue={formValues.includeLargeCap ?? false}
-              onChanged={(val: boolean) => {
-                setValue('includeLargeCap', val)
-              }}
-            />
-            <ControlledSwitch
-              control={control}
-              fieldName='includeMidCap'
-              label='include mid cap'
-              defaultValue={formValues.includeMidCap ?? false}
-              onChanged={(val: boolean) => {
-                setValue('includeMidCap', val)
-              }}
-            />
-            <ControlledSwitch
-              control={control}
-              fieldName='includeSmallCap'
-              label='include small cap'
-              defaultValue={formValues.includeSmallCap ?? false}
-              onChanged={(val: boolean) => {
-                setValue('includeSmallCap', val)
-              }}
-            />
-            {errors.includeMegaCap?.message && <ErrorMessage text={errors.includeMegaCap.message} />}
+
+            <Accordion defaultExpanded>
+              <AccordionSummary expandIcon={<ExpandMoreIcon fontSize='small' color='primary' />} sx={{ borderTop: `solid 1px ${CasinoGrayTransparent}` }}>
+                <Typography variant='h6'>Market Cap</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Box display={'flex'} flexDirection={'column'} gap={1}>
+                  <ControlledSwitch
+                    control={control}
+                    fieldName='marketCap.includeMegaCap'
+                    label='include mega cap'
+                    defaultValue={formValues.marketCap.includeMegaCap ?? false}
+                    onChanged={(val: boolean) => {
+                      setMarketCapField('includeMegaCap', val)
+                    }}
+                  />
+                  <ControlledSwitch
+                    control={control}
+                    fieldName='marketCap.includeLargeCap'
+                    label='include large cap'
+                    defaultValue={formValues.marketCap?.includeLargeCap ?? false}
+                    onChanged={(val: boolean) => {
+                      setMarketCapField('includeLargeCap', val)
+                    }}
+                  />
+                  <ControlledSwitch
+                    control={control}
+                    fieldName='marketCap.includeMidCap'
+                    label='include mid cap'
+                    defaultValue={formValues.marketCap?.includeMidCap ?? false}
+                    onChanged={(val: boolean) => {
+                      setMarketCapField('includeMidCap', val)
+                    }}
+                  />
+                  <ControlledSwitch
+                    control={control}
+                    fieldName='marketCap.includeSmallCap'
+                    label='include small cap'
+                    defaultValue={formValues.marketCap?.includeSmallCap ?? false}
+                    onChanged={(val: boolean) => {
+                      setMarketCapField('includeSmallCap', val)
+                    }}
+                  />
+                </Box>
+              </AccordionDetails>
+            </Accordion>
           </Box>
+          <Accordion defaultExpanded>
+            <AccordionSummary expandIcon={<ExpandMoreIcon fontSize='small' color='primary' />} sx={{ borderTop: `solid 1px ${CasinoGrayTransparent}` }}>
+              <Typography variant='h6'>Moving Average</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Box display={'flex'} flexDirection={'column'} gap={1}>
+                <Controller
+                  name={'movingAvg.days'}
+                  control={control}
+                  render={({ field: { value, onChange, ...field } }) => (
+                    <FormDropdownListNumeric
+                      minWidth={300}
+                      label='days'
+                      options={daysOptions}
+                      value={formValues.movingAvg?.days ?? 0}
+                      onOptionSelected={onChange}
+                      {...field}
+                      errorMessage={errors.movingAvg?.days?.message}
+                    />
+                  )}
+                />
+                <Controller
+                  name={'movingAvg.from'}
+                  control={control}
+                  render={({ field: { value, onChange, ...field } }) => (
+                    <FormNumericTextField2
+                      placeholder='from'
+                      //label='from'
+                      value={formValues.movingAvg?.from}
+                      onChanged={(val?: number) => {
+                        setValue('movingAvg.from', val)
+                      }}
+                      {...field}
+                      errorMessage={errors.movingAvg?.from?.message}
+                    />
+                  )}
+                />
+                <Controller
+                  name={'movingAvg.to'}
+                  control={control}
+                  render={({ field: { value, onChange, ...field } }) => (
+                    <FormNumericTextField2
+                      placeholder='to'
+                      //label='from'
+                      value={formValues.movingAvg?.to}
+                      onChanged={(val?: number) => {
+                        setValue('movingAvg.to', val)
+                      }}
+                      {...field}
+                      errorMessage={errors.movingAvg?.to?.message}
+                    />
+                  )}
+                />
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+          <Box>{(errors.marketCap || errors.movingAvg) && <JsonView obj={errors} />}</Box>
+          <Box>{!errors?.root && <JsonView obj={formValues} />}</Box>
+
           <Box py={2} display={'flex'} justifyContent={'flex-end'} pr={1}>
             <PrimaryButton type='submit' text='Apply' />
           </Box>

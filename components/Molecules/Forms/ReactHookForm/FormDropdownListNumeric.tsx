@@ -20,7 +20,17 @@ const FormDropdownListNumeric = forwardRef<HTMLInputElement, Props>(function For
   }
 
   return (
-    <TextField select value={value} size='small' margin='dense' label={label} fullWidth={fullWidth} onChange={handleSelect} sx={{ minWidth: minWidth }}>
+    <TextField
+      select
+      value={value}
+      size='small'
+      margin='dense'
+      label={label}
+      fullWidth={fullWidth}
+      onChange={handleSelect}
+      sx={{ minWidth: minWidth }}
+      error={!!errorMessage}
+    >
       {options.map((item) => (
         <MenuItem key={item.value} value={`${item.value}`} selected={value === item.value} disabled={item.disabled}>
           {item.text}

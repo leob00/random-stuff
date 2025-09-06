@@ -10,7 +10,7 @@ export const StockMovingAvgFilterSchema = z
     includeSmallCap: z.boolean().optional(),
   })
   .refine((arg) => !!arg.includeLargeCap || !!arg.includeMegaCap || !!arg.includeMidCap || !!arg.includeSmallCap, {
-    message: 'please select at leat one market cap filter.',
+    message: 'please select at least one market cap filter.',
     path: ['includeMegaCap'],
   })
 

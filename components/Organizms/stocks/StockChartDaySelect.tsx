@@ -25,7 +25,7 @@ const StockChartDaySelect = ({
 
   if (availableDates) {
     const startDate = dayjs(availableDates.StartDate)
-    if (startDate > dayjs(new Date(startDate.year(), 0, 3))) {
+    if (startDate.isAfter(dayjs(new Date(dayjs().year(), 0, 3)))) {
       options = options.filter((m) => m.value > -1)
     }
   }

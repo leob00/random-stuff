@@ -1,28 +1,36 @@
 import { forwardRef } from 'react'
 import { type FilledInputProps, type InputBaseComponentProps, type InputProps, type OutlinedInputProps, type SxProps, TextField } from '@mui/material'
 import { NumericFormat } from 'react-number-format'
+import numeral from 'numeral'
 
 type Props = {
   id?: string
   size?: 'small' | 'medium'
   InputProps?: Partial<FilledInputProps> | Partial<OutlinedInputProps> | Partial<InputProps> | undefined
   inputProps?: InputBaseComponentProps | undefined
-  sx?: SxProps
   fullwidth?: boolean
-  onChanged: (e: string) => void
-  value?: string
+  onChanged: (e?: number) => void
+  value?: number
   label?: string
   errorMessage?: string
   placeholder?: string
 }
 
-const FormNumericTextField = forwardRef<HTMLInputElement, Props>(function FormNumericTextField(props: Props) {
-  const { id, size, sx, fullwidth, onChanged, value, label, errorMessage, placeholder } = props
+const FormNumericTextField2 = forwardRef<HTMLInputElement, Props>(function FormNumericTextField(props: Props, ref) {
+  const { id, size, fullwidth, onChanged, value, label, errorMessage, placeholder } = props
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value !== '.') {
-      onChanged(e.target.value)
-    }
+    const num = numeral(e.target.value)
+    console.log(num.value())
+    console.log(e.target.value)
+    // if (e.target.value.includes('.')) {
+    //   onChanged(Number(e.target.value))
+    //   return
+    // }
+    // if (e.target.value.trim().length > 0) {
+    //   onChanged(Number(e.target.value))
+    // }
+    onChanged(num.value() ?? undefined)
   }
 
   return (
@@ -32,7 +40,6 @@ const FormNumericTextField = forwardRef<HTMLInputElement, Props>(function FormNu
       size={size}
       id={id}
       data-testid={id}
-      label={label}
       value={value}
       onChange={(e) => handleChange(e)}
       slotProps={{
@@ -41,9 +48,9 @@ const FormNumericTextField = forwardRef<HTMLInputElement, Props>(function FormNu
           size: 'small',
           error: !!errorMessage,
           autoCorrect: 'off',
+          label: label,
         },
       }}
-      sx={sx}
       error={!!errorMessage}
       helperText={errorMessage}
       fullWidth={fullwidth}
@@ -52,4 +59,4 @@ const FormNumericTextField = forwardRef<HTMLInputElement, Props>(function FormNu
   )
 })
 
-export default FormNumericTextField
+export default FormNumericTextField2
