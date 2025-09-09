@@ -5,23 +5,26 @@ import FormDropdownListNumeric from 'components/Molecules/Forms/ReactHookForm/Fo
 import { DropdownItemNumeric } from 'lib/models/dropdown'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
-import ControlledSwitch from 'components/Molecules/Forms/ReactHookForm/ControlledSwitch'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { CasinoGrayTransparent } from 'components/themes/mainTheme'
-import { StockAdvancedSearchFilter, StockAdvancedSearchFilterSchema, StockMarketCapFilter } from './advancedSearchFilter'
+import { StockAdvancedSearchFilter, StockAdvancedSearchFilterSchema } from './advancedSearchFilter'
 import FormNumericTextField2 from 'components/Molecules/Forms/ReactHookForm/FormNumericTextField2'
-import JsonView from 'components/Atoms/Boxes/JsonView'
-import userAdvancedSearchUi from './stockAdvancedSearchUi'
 import MarketCapSearch from './sections/MarketCapSearch'
-import useAdvancedSearchUi from './stockAdvancedSearchUi'
-import StockTable from '../StockTable'
+import useAdvancedSearchUi, { AdvancedSearchUiController } from './stockAdvancedSearchUi'
 import PagedStockTable from '../PagedStockTable'
+import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
+import { hasMovingAvgFilter } from './stocksAdvancedSearch'
+import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
+import MovingAvgSearch from './sections/MovingAvgSearch'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
-const AdvancedSearchFilterForm = ({ onSubmitted }: { onSubmitted: (item: StockAdvancedSearchFilter) => void }) => {
-  const { stockReportSettings, setStockMovingAvgFilter } = useLocalStore()
-
-  const controller = useAdvancedSearchUi()
-
+const AdvancedSearchFilterForm = ({
+  onSubmitted,
+  controller,
+}: {
+  onSubmitted: (item: StockAdvancedSearchFilter) => void
+  controller: AdvancedSearchUiController
+}) => {
   const {
     control,
     handleSubmit,
@@ -59,31 +62,15 @@ const AdvancedSearchFilterForm = ({ onSubmitted }: { onSubmitted: (item: StockAd
     { text: '500', value: 500 },
   ]
 
-  const daysOptions: DropdownItemNumeric[] = [
-    { text: 'select', value: 0 },
-    { text: '1', value: 1 },
-    { text: '7', value: 7 },
-    { text: '30', value: 30 },
-    { text: '90', value: 90 },
-    { text: '180', value: 180 },
-    { text: '365', value: 365 },
-  ]
-
-  const setMarketCapField = (fieldName: keyof StockMarketCapFilter, val: boolean) => {
-    let newValues = { ...formValues.marketCap }
-    newValues[fieldName] = val
-    setValue('marketCap', newValues)
-  }
-
-  const onSubmit: SubmitHandler<StockAdvancedSearchFilter> = (formData) => {
+  const onSubmit: SubmitHandler<StockAdvancedSearchFilter> = async (formData) => {
     const submitData = { ...formData }
-    //console.log(submitData)
-    //setStockMovingAvgFilter(submitData)
+    scroller.scroll()
     onSubmitted(submitData)
-    controller.collapseAll()
-    controller.executeSearch(submitData)
   }
-  console.log(controller.model.results)
+  const scroller = useScrollTop(0)
+  const handlePageChange = () => {
+    scroller.scroll()
+  }
   return (
     <Box py={2}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -98,74 +85,26 @@ const AdvancedSearchFilterForm = ({ onSubmitted }: { onSubmitted: (item: StockAd
             />
           </Box>
           <MarketCapSearch controller={controller} form={control} formValues={formValues} setValue={setValue} />
-          <Accordion
-            expanded={controller.model.expandMovingAvg}
-            onChange={(e, expanded) => {
-              controller.setModel({ ...controller.model, expandMovingAvg: expanded })
-            }}
-          >
-            <AccordionSummary expandIcon={<ExpandMoreIcon fontSize='small' color='primary' />} sx={{ borderTop: `solid 1px ${CasinoGrayTransparent}` }}>
-              <Typography variant='h6'>Moving Average</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Box display={'flex'} flexDirection={'column'} gap={1}>
-                <Controller
-                  name={'movingAvg.days'}
-                  control={control}
-                  render={({ field: { value, onChange, ...field } }) => (
-                    <FormDropdownListNumeric
-                      minWidth={300}
-                      label='days'
-                      options={daysOptions}
-                      value={formValues.movingAvg?.days ?? 0}
-                      onOptionSelected={onChange}
-                      {...field}
-                      errorMessage={errors.movingAvg?.days?.message}
-                    />
-                  )}
-                />
-                <Box display={'flex'} gap={2}>
-                  <Controller
-                    name={'movingAvg.from'}
-                    control={control}
-                    render={({ field: { value, onChange, ...field } }) => (
-                      <FormNumericTextField2
-                        //placeholder='from'
-                        label='from %'
-                        size='small'
-                        value={formValues.movingAvg?.from}
-                        onChanged={(val?: number) => {
-                          setValue('movingAvg.from', val)
-                        }}
-                        {...field}
-                        errorMessage={errors.movingAvg?.from?.message}
-                      />
-                    )}
-                  />
-                  <Controller
-                    name={'movingAvg.to'}
-                    control={control}
-                    render={({ field: { value, onChange, ...field } }) => (
-                      <FormNumericTextField2
-                        label='to %'
-                        value={formValues.movingAvg?.to}
-                        onChanged={(val?: number) => {
-                          setValue('movingAvg.to', val)
-                        }}
-                        {...field}
-                        errorMessage={errors.movingAvg?.to?.message}
-                      />
-                    )}
-                  />
-                </Box>
-              </Box>
-            </AccordionDetails>
-          </Accordion>
-          {/* <Box>{(errors.marketCap || errors.movingAvg) && <JsonView obj={errors} />}</Box> */}
-          {controller.model.showResults && <PagedStockTable data={controller.model.results} />}
+          <MovingAvgSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
+          {controller.model.isLoading && <BackdropLoader />}
+          {controller.model.showResults && (
+            <>
+              <Typography textAlign={'center'} variant='h6' pt={2}>
+                search results
+              </Typography>
+              <ScrollTop scroller={scroller} />
+              <PagedStockTable
+                data={controller.model.results}
+                pageSize={5}
+                onPageChanged={handlePageChange}
+                showMovingAvgOnly={hasMovingAvgFilter(formValues)}
+                scrollOnPageChange
+              />
+            </>
+          )}
 
           <Box py={2} display={'flex'} justifyContent={'flex-end'} pr={1}>
-            <PrimaryButton type='submit' text='Apply' />
+            <PrimaryButton type='submit' text='Search' loading={controller.model.isLoading} />
           </Box>
         </Box>
       </form>
