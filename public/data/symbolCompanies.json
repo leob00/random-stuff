@@ -7976,10 +7976,6 @@
     "Symbol": "CLBR"
   },
   {
-    "Company": "Colombier Acquisition Corp. II Units, each consisting of one Class A ordinary share and one-third of one redeemable warrant",
-    "Symbol": "CLBR.U"
-  },
-  {
     "Company": "Colombier Acquisition Corp. II Warrants, each whole warrant exercisable for one Class A Ordinary Share at an exercise price of $11.50 per share",
     "Symbol": "CLBR.WS"
   },
@@ -8364,7 +8360,7 @@
     "Symbol": "CNEY"
   },
   {
-    "Company": "CNFinance Holdings Limited American Depositary Shares, each representing twenty (20) Ordinary Shares",
+    "Company": "CNFinance Holdings Limited American Depositary Shares, each representing two hundred (200) Ordinary Shares",
     "Symbol": "CNF"
   },
   {
@@ -10994,10 +10990,6 @@
   {
     "Company": "dMY Squared Technology Group, Inc.",
     "Symbol": "DMYY"
-  },
-  {
-    "Company": "dMY Squared Technology Group, Inc. Units, each consisting of one share of Class A common stock and one-half of one redeemable warrant",
-    "Symbol": "DMYY.U"
   },
   {
     "Company": "dMY Squared Technology Group, Inc. Redeemable Warrants, each whole warrant exercisable for one share of Class A common stock at an exercise price of $11.50 per share",
@@ -13834,10 +13826,6 @@
   {
     "Company": "Expand Energy Corporation Class C Warrants",
     "Symbol": "EXEEL"
-  },
-  {
-    "Company": "Expand Energy Corporation Class B Warrants",
-    "Symbol": "EXEEZ"
   },
   {
     "Company": "Exelixis Inc",
@@ -24408,6 +24396,10 @@
     "Symbol": "LIAB"
   },
   {
+    "Company": "LifeX 2050 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAE"
+  },
+  {
     "Company": "LifeX 2053 Inflation-Protected Longevity Income ETF",
     "Symbol": "LIAJ"
   },
@@ -24418,10 +24410,6 @@
   {
     "Company": "LifeX 2056 Inflation-Protected Longevity Income ETF",
     "Symbol": "LIAO"
-  },
-  {
-    "Company": "LifeX 2058 Inflation-Protected Longevity Income ETF",
-    "Symbol": "LIAQ"
   },
   {
     "Company": "LifeX 2061 Inflation-Protected Longevity Income ETF",
@@ -26296,10 +26284,6 @@
     "Symbol": "MIND"
   },
   {
-    "Company": "Minim, Inc. Common Stock",
-    "Symbol": "MINM"
-  },
-  {
     "Company": "Mairs & Power Minnesota Municipal Bond ETF",
     "Symbol": "MINN"
   },
@@ -28106,6 +28090,10 @@
   {
     "Company": "Nabors Energy Transition Corp. II Class A Ordinary Shares",
     "Symbol": "NETD"
+  },
+  {
+    "Company": "Nabors Energy Transition Corp. II Unit",
+    "Symbol": "NETDU"
   },
   {
     "Company": "Nabors Energy Transition Corp. II Warrant",
@@ -31492,6 +31480,10 @@
     "Symbol": "PGACR"
   },
   {
+    "Company": "Pantages Capital Acquisition Corporation Unit",
+    "Symbol": "PGACU"
+  },
+  {
     "Company": "Peapack-Gladstone Financial Corp",
     "Symbol": "PGC"
   },
@@ -34178,10 +34170,6 @@
   {
     "Company": "YieldMax R2000 0DTE Covered Strategy ETF",
     "Symbol": "RDTY"
-  },
-  {
-    "Company": "Radius Recycling, Inc. Class A Common Stock",
-    "Symbol": "RDUS"
   },
   {
     "Company": "FT Vest Rising Dividend Achievers Target Income ETF",
@@ -37680,6 +37668,10 @@
     "Symbol": "SOC"
   },
   {
+    "Company": "Solarius Capital Acquisition Corp. Class A Ordinary Share",
+    "Symbol": "SOCA"
+  },
+  {
     "Company": "Solarius Capital Acquisition Corp. Units",
     "Symbol": "SOCAU"
   },
@@ -38508,6 +38500,10 @@
     "Symbol": "SSL"
   },
   {
+    "Company": "Sono Group N.V. Ordinary Shares",
+    "Symbol": "SSM"
+  },
+  {
     "Company": "SS&C Technologies Inc",
     "Symbol": "SSNC"
   },
@@ -38768,7 +38764,7 @@
     "Symbol": "STRR"
   },
   {
-    "Company": "Star Equity Holdings, Inc. Series A Cumulative Perpetual Preferred Stock",
+    "Company": "Star Equity Holdings, Inc. 10% Series A Cumulative Perpetual Preferred Stock",
     "Symbol": "STRRP"
   },
   {
@@ -41430,10 +41426,6 @@
   {
     "Company": "ProShares Ultra 20+ Year Treasury",
     "Symbol": "UBT"
-  },
-  {
-    "Company": "Unity Biotechnology, Inc. Common Stock",
-    "Symbol": "UBX"
   },
   {
     "Company": "U-BX Technology Ltd. Ordinary Shares",

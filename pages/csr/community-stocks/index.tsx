@@ -102,7 +102,7 @@ const Page = () => {
         <PageHeader text='Community Stocks' />
         {!selectedStock && (
           <Box py={2}>
-            <StockSearch onSymbolSelected={handleSelectQuote} clearOnSelect />
+            <StockSearch onSymbolSelected={handleSelectQuote} clearOnSelect showAdvSearch />
           </Box>
         )}
         {selectedStock && <FullStockDetail item={selectedStock} onClose={handleCloseQuoteDialog} />}

@@ -71,7 +71,7 @@ const lightPalette: PaletteOptions = {
   },
   warning: {
     main: CasinoOrange,
-    contrastText: 'yellow',
+    //contrastText: 'yellow',
   },
 }
 

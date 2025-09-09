@@ -6,6 +6,8 @@ import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import dayjs from 'dayjs'
 import { apiConnection } from '../config'
 import { EconomicDataItem, StockReportTypes } from './qlnModels'
+import { StockAdvancedSearchFilter } from 'components/Organizms/stocks/advanced-search/advancedSearchFilter'
+import { hasMarketCapFilter } from 'components/Organizms/stocks/advanced-search/stocksAdvancedSearch'
 
 const config = apiConnection()
 const qlnApiBaseUrl = config.qln.url
@@ -495,5 +497,56 @@ export async function serverGetFetch(endpoint: string) {
   const url = `/api/qln?url=${qlnApiBaseUrl}${encodeURIComponent(endpoint)}`
   const resp = await get(`${url}`)
   const result = resp as QlnApiResponse
+  return result
+}
+
+interface StockAdvancedSearchPostModel {
+  Take: number
+  MarketCap: {
+    Items: string[]
+  } | null
+  MovingAvg: {
+    Days: number
+    From: number | null
+    To: number | null
+  } | null
+}
+
+export async function executeStockAdvancedSearch(filter: StockAdvancedSearchFilter) {
+  const postBody: StockAdvancedSearchPostModel = {
+    Take: filter.take,
+    MarketCap: null,
+    MovingAvg: null,
+  }
+  if (hasMarketCapFilter(filter)) {
+    postBody.MarketCap = {
+      Items: [],
+    }
+    if (filter.marketCap.includeMegaCap) {
+      postBody.MarketCap.Items.push('mega')
+    }
+    if (filter.marketCap.includeLargeCap) {
+      postBody.MarketCap.Items.push('large')
+    }
+    if (filter.marketCap.includeMidCap) {
+      postBody.MarketCap.Items.push('mid')
+    }
+    if (filter.marketCap.includeSmallCap) {
+      postBody.MarketCap.Items.push('small')
+    }
+  }
+  if (filter.movingAvg.days && filter.movingAvg.days > 0) {
+    postBody.MovingAvg = {
+      Days: filter.movingAvg.days,
+      From: filter.movingAvg.from ?? null,
+      To: filter.movingAvg.to ?? null,
+    }
+  }
+  const result = await serverPostFetch(
+    {
+      body: postBody,
+    },
+    '/StockAdvancedSearch',
+  )
   return result
 }

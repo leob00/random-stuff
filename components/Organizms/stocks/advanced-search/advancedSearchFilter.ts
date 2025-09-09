@@ -7,7 +7,16 @@ const StockMarketCapFilterSchema = z.object({
   includeSmallCap: z.boolean().optional(),
 })
 export type StockMarketCapFilter = z.infer<typeof StockMarketCapFilterSchema>
-const checkMovingAvg = (days?: number, start?: number, end?: number) => {
+const checkMovingAvg = (start?: number, end?: number) => {
+  if (start && end) {
+    if (start > end) {
+      return false
+    }
+  }
+  return true
+}
+
+const checkMovingAvgDays = (days: number, start?: number, end?: number) => {
   if (start || end) {
     if (!days) {
       return false
@@ -21,9 +30,13 @@ const StockMovingAvgFilterSchema = z
     from: z.number().optional(),
     to: z.number().optional(),
   })
-  .refine((arg) => checkMovingAvg(arg.days, arg.from, arg.to), {
-    message: 'please select a day.',
+  .refine((arg) => checkMovingAvgDays(arg.days ?? 0, arg.from, arg.to), {
+    message: `please select days`,
     path: ['days'],
+  })
+  .refine((arg) => checkMovingAvg(arg.from, arg.to), {
+    message: `must be greater than or equal to 'from'`,
+    path: ['to'],
   })
 
 export const StockAdvancedSearchFilterSchema = z.object({

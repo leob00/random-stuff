@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     if (palette !== colorMode) {
-      savePalette(colorMode)
+      //savePalette(colorMode)
       setColorMode(palette)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

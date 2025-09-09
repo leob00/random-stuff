@@ -30,6 +30,7 @@ const FormDropdownListNumeric = forwardRef<HTMLInputElement, Props>(function For
       onChange={handleSelect}
       sx={{ minWidth: minWidth }}
       error={!!errorMessage}
+      helperText={errorMessage}
     >
       {options.map((item) => (
         <MenuItem key={item.value} value={`${item.value}`} selected={value === item.value} disabled={item.disabled}>
