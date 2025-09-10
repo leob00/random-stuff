@@ -7,7 +7,7 @@ import dayjs from 'dayjs'
 import { apiConnection } from '../config'
 import { EconomicDataItem, StockReportTypes } from './qlnModels'
 import { StockAdvancedSearchFilter } from 'components/Organizms/stocks/advanced-search/advancedSearchFilter'
-import { hasMarketCapFilter } from 'components/Organizms/stocks/advanced-search/stocksAdvancedSearch'
+import { getMarketCapFilters, hasMarketCapFilter, hasMovingAvgFilter, hasPeFilter } from 'components/Organizms/stocks/advanced-search/stocksAdvancedSearch'
 
 const config = apiConnection()
 const qlnApiBaseUrl = config.qln.url
@@ -499,17 +499,21 @@ export async function serverGetFetch(endpoint: string) {
   const result = resp as QlnApiResponse
   return result
 }
+type StocksSearchNumericRangeFilter = {
+  From: number | null
+  To: number | null
+}
+type MovingAvgDaysFilter = {
+  Days: number
+} & StocksSearchNumericRangeFilter
 
-interface StockAdvancedSearchPostModel {
+type StockAdvancedSearchPostModel = {
   Take: number
   MarketCap: {
     Items: string[]
   } | null
-  MovingAvg: {
-    Days: number
-    From: number | null
-    To: number | null
-  } | null
+  MovingAvg: MovingAvgDaysFilter | null
+  PeRatio: StocksSearchNumericRangeFilter | null
 }
 
 export async function executeStockAdvancedSearch(filter: StockAdvancedSearchFilter) {
@@ -517,31 +521,27 @@ export async function executeStockAdvancedSearch(filter: StockAdvancedSearchFilt
     Take: filter.take,
     MarketCap: null,
     MovingAvg: null,
+    PeRatio: null,
   }
-  if (hasMarketCapFilter(filter)) {
+  if (hasMarketCapFilter(filter.marketCap)) {
     postBody.MarketCap = {
-      Items: [],
-    }
-    if (filter.marketCap.includeMegaCap) {
-      postBody.MarketCap.Items.push('mega')
-    }
-    if (filter.marketCap.includeLargeCap) {
-      postBody.MarketCap.Items.push('large')
-    }
-    if (filter.marketCap.includeMidCap) {
-      postBody.MarketCap.Items.push('mid')
-    }
-    if (filter.marketCap.includeSmallCap) {
-      postBody.MarketCap.Items.push('small')
+      Items: getMarketCapFilters(filter.marketCap),
     }
   }
-  if (filter.movingAvg.days && filter.movingAvg.days > 0) {
+  if (hasMovingAvgFilter(filter.movingAvg)) {
     postBody.MovingAvg = {
-      Days: filter.movingAvg.days,
+      Days: filter.movingAvg.days ?? 1,
       From: filter.movingAvg.from ?? null,
       To: filter.movingAvg.to ?? null,
     }
   }
+  if (hasPeFilter(filter.peRatio)) {
+    postBody.PeRatio = {
+      From: filter.peRatio.from ?? null,
+      To: filter.peRatio.to ?? null,
+    }
+  }
+
   const result = await serverPostFetch(
     {
       body: postBody,

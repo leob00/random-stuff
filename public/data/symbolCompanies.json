@@ -1156,10 +1156,6 @@
     "Symbol": "AIFER"
   },
   {
-    "Company": "Aifeex Nexus Acquisition Corporation Unit",
-    "Symbol": "AIFEU"
-  },
-  {
     "Company": "Firefly Neuroscience, Inc. Common Stock",
     "Symbol": "AIFF"
   },
@@ -3362,10 +3358,6 @@
   {
     "Company": "AvePoint, Inc. Class A Common Stock",
     "Symbol": "AVPT"
-  },
-  {
-    "Company": "AvePoint, Inc. Warrant",
-    "Symbol": "AVPTW"
   },
   {
     "Company": "Anteris Technologies Global Corp. Common Stock",
@@ -13204,14 +13196,6 @@
     "Symbol": "ESGLW"
   },
   {
-    "Company": "Enstar Group Limited Depository Shares 7.00% Perpetual Non-Cumulative Preference Shares, Series E",
-    "Symbol": "ESGRO"
-  },
-  {
-    "Company": "Enstar Group Limited Depositary Shares Each Representing 1/1000th of an interest in Preference Shares",
-    "Symbol": "ESGRP"
-  },
-  {
     "Company": "iShares Trust iShares ESG Aware MSCI USA ETF",
     "Symbol": "ESGU"
   },
@@ -14166,10 +14150,6 @@
   {
     "Company": "Falcon's Beyond Global, Inc. Warrants",
     "Symbol": "FBYDW"
-  },
-  {
-    "Company": "First Trust Brazil AlphaDEX Fund",
-    "Symbol": "FBZ"
   },
   {
     "Company": "Franklin Covey Company",
@@ -18774,10 +18754,6 @@
   {
     "Company": "Hartford Strategic Income ETF",
     "Symbol": "HFSI"
-  },
-  {
-    "Company": "TradersAI Large Cap Equity & Cash ETF",
-    "Symbol": "HFSP"
   },
   {
     "Company": "Heritage Financial Corp",
@@ -25660,6 +25636,18 @@
     "Symbol": "MCFT"
   },
   {
+    "Company": "Yorkville Acquisition Corp. Class A Ordinary Share",
+    "Symbol": "MCGA"
+  },
+  {
+    "Company": "Yorkville Acquisition Corp. Unit",
+    "Symbol": "MCGAU"
+  },
+  {
+    "Company": "Yorkville Acquisition Corp. Warrant",
+    "Symbol": "MCGAW"
+  },
+  {
     "Company": "Matthews China Active ETF",
     "Symbol": "MCH"
   },
@@ -30678,6 +30666,10 @@
   {
     "Company": "Pyrophyte Acquisition Corp. II Units, each consisting of one Class A ordinary share and one-half of one redeemable warrant",
     "Symbol": "PAII.U"
+  },
+  {
+    "Company": "Pyrophyte Acquisition Corp. II Warrants, each whole warrant exercisable for one Class A Ordinary Share at an exercise price of $11.50 per share",
+    "Symbol": "PAII.WS"
   },
   {
     "Company": "Proficient Auto Logistics, Inc. Common Stock",
@@ -36364,6 +36356,10 @@
     "Symbol": "SENS"
   },
   {
+    "Company": "Shelton Equity Premium Income ETF",
+    "Symbol": "SEPI"
+  },
+  {
     "Company": "FT Vest U.S. Equity Max Buffer ETF - September",
     "Symbol": "SEPM"
   },
@@ -37676,6 +37672,10 @@
     "Symbol": "SOCAU"
   },
   {
+    "Company": "Solarius Capital Acquisition Corp. Warrant",
+    "Symbol": "SOCAW"
+  },
+  {
     "Company": "Global X Funds Global X Social Media ETF",
     "Symbol": "SOCL"
   },
@@ -37800,7 +37800,7 @@
     "Symbol": "SORA"
   },
   {
-    "Company": "SOS Limited American Depositary Shares, one hundred and fifty (150) Class A Ordinary Shares",
+    "Company": "SOS Limited",
     "Symbol": "SOS"
   },
   {
@@ -37946,6 +37946,14 @@
   {
     "Company": "Special Opportunities Fund, Inc.",
     "Symbol": "SPE"
+  },
+  {
+    "Company": "Silver Pegasus Acquisition Corp Class A Ordinary Shares",
+    "Symbol": "SPEG"
+  },
+  {
+    "Company": "Silver Pegasus Acquisition Corp Rights",
+    "Symbol": "SPEGR"
   },
   {
     "Company": "Silver Pegasus Acquisition Corp Unit",
@@ -40204,6 +40212,10 @@
     "Symbol": "TLN"
   },
   {
+    "Company": "Talon Capital Corp. Units",
+    "Symbol": "TLNCU"
+  },
+  {
     "Company": "Talphera, Inc. Common Stock",
     "Symbol": "TLPH"
   },
@@ -42338,10 +42350,6 @@
   {
     "Company": "Voyager Acquisition Corp Class A Ordinary Shares",
     "Symbol": "VACH"
-  },
-  {
-    "Company": "Voyager Acquisition Corp Unit",
-    "Symbol": "VACHU"
   },
   {
     "Company": "Voyager Acquisition Corp Warrants",

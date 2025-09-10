@@ -110,7 +110,7 @@ const StockListItem = ({
               <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} elevation={0} />
             )}
             <Box>
-              <StockChange item={item} />
+              <StockChange item={item} showMovingAvg={showMovingAvgOnly} />
               {showMovingAvgOnly && (
                 <Box pl={2}>
                   {/* <StockChangeNumberDisplay value={item.MovingAvg ?? 0} endSymbol='%' /> */}

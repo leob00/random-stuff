@@ -185,7 +185,7 @@ const StocksDisplay = ({
       )}
       {!model.quoteToAdd && (
         <Box py={2}>
-          <StockSearch onSymbolSelected={handleSelectQuote} clearOnSelect />
+          <StockSearch onSymbolSelected={handleSelectQuote} clearOnSelect showAdvSearch />
         </Box>
       )}
       {model.quoteToAdd ? (

@@ -1,29 +1,28 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import FormDropdownListNumeric from 'components/Molecules/Forms/ReactHookForm/FormDropdownListNumeric'
 import { DropdownItemNumeric } from 'lib/models/dropdown'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import { useLocalStore } from 'lib/backend/store/useLocalStore'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { CasinoGrayTransparent } from 'components/themes/mainTheme'
 import { StockAdvancedSearchFilter, StockAdvancedSearchFilterSchema } from './advancedSearchFilter'
-import FormNumericTextField2 from 'components/Molecules/Forms/ReactHookForm/FormNumericTextField2'
 import MarketCapSearch from './sections/MarketCapSearch'
-import useAdvancedSearchUi, { AdvancedSearchUiController } from './stockAdvancedSearchUi'
+import { AdvancedSearchUiController } from './stockAdvancedSearchUi'
 import PagedStockTable from '../PagedStockTable'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
-import { hasMovingAvgFilter } from './stocksAdvancedSearch'
+import { hasMovingAvgFilter, summarizeFilter } from './stocksAdvancedSearch'
 import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
 import MovingAvgSearch from './sections/MovingAvgSearch'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import PeRatioSearch from './sections/PeRatioSearch'
 
 const AdvancedSearchFilterForm = ({
   onSubmitted,
   controller,
+  filter,
 }: {
   onSubmitted: (item: StockAdvancedSearchFilter) => void
   controller: AdvancedSearchUiController
+  filter: StockAdvancedSearchFilter
 }) => {
   const {
     control,
@@ -36,18 +35,7 @@ const AdvancedSearchFilterForm = ({
   } = useForm<StockAdvancedSearchFilter>({
     resolver: zodResolver(StockAdvancedSearchFilterSchema),
     mode: 'onChange',
-    defaultValues: {
-      marketCap: {
-        includeMegaCap: false,
-        includeLargeCap: false,
-        includeMidCap: false,
-        includeSmallCap: false,
-      },
-      take: 100,
-      movingAvg: {
-        days: 0,
-      },
-    },
+    defaultValues: filter,
   })
 
   const formValues = watch()
@@ -64,13 +52,9 @@ const AdvancedSearchFilterForm = ({
 
   const onSubmit: SubmitHandler<StockAdvancedSearchFilter> = async (formData) => {
     const submitData = { ...formData }
-    scroller.scroll()
     onSubmitted(submitData)
   }
-  const scroller = useScrollTop(0)
-  const handlePageChange = () => {
-    scroller.scroll()
-  }
+
   return (
     <Box py={2}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -86,23 +70,8 @@ const AdvancedSearchFilterForm = ({
           </Box>
           <MarketCapSearch controller={controller} form={control} formValues={formValues} setValue={setValue} />
           <MovingAvgSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
+          <PeRatioSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
           {controller.model.isLoading && <BackdropLoader />}
-          {controller.model.showResults && (
-            <>
-              <Typography textAlign={'center'} variant='h6' pt={2}>
-                search results
-              </Typography>
-              <ScrollTop scroller={scroller} />
-              <PagedStockTable
-                data={controller.model.results}
-                pageSize={5}
-                onPageChanged={handlePageChange}
-                showMovingAvgOnly={hasMovingAvgFilter(formValues)}
-                scrollOnPageChange
-              />
-            </>
-          )}
-
           <Box py={2} display={'flex'} justifyContent={'flex-end'} pr={1}>
             <PrimaryButton type='submit' text='Search' loading={controller.model.isLoading} />
           </Box>

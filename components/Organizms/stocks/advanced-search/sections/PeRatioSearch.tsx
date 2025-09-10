@@ -3,14 +3,15 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { AdvancedSearchUiController } from '../stockAdvancedSearchUi'
 import { CasinoGrayTransparent } from 'components/themes/mainTheme'
 import { Control, Controller, FieldErrors, UseFormSetValue } from 'react-hook-form'
-import { StockAdvancedSearchFilter, StockMarketCapFilter, StockMovingAvgFilter } from '../advancedSearchFilter'
+import { StockAdvancedSearchFilter, StockMarketCapFilter, StockMovingAvgFilter, NumberRangeFilter } from '../advancedSearchFilter'
 import ControlledSwitch from 'components/Molecules/Forms/ReactHookForm/ControlledSwitch'
 import FormNumericTextField2 from 'components/Molecules/Forms/ReactHookForm/FormNumericTextField2'
 import FormDropdownListNumeric from 'components/Molecules/Forms/ReactHookForm/FormDropdownListNumeric'
 import { DropdownItemNumeric } from 'lib/models/dropdown'
-import { hasMovingAvgFilter } from '../stocksAdvancedSearch'
+import { hasPeFilter } from '../stocksAdvancedSearch'
 import CheckIcon from '@mui/icons-material/Check'
-const MovingAvgSearch = ({
+
+const PeRatioSearch = ({
   controller,
   form,
   formValues,
@@ -23,86 +24,60 @@ const MovingAvgSearch = ({
   setValue: UseFormSetValue<StockAdvancedSearchFilter>
   errors: FieldErrors<StockAdvancedSearchFilter>
 }) => {
-  const daysOptions: DropdownItemNumeric[] = [
-    { text: 'select', value: 0 },
-    { text: '1', value: 1 },
-    { text: '7', value: 7 },
-    { text: '30', value: 30 },
-    { text: '90', value: 90 },
-    { text: '180', value: 180 },
-    { text: '365', value: 365 },
-  ]
-
-  const setFieldValue = (fieldName: keyof StockMovingAvgFilter, val?: number | null) => {
-    let newValues = { ...formValues.movingAvg }
+  const setFieldValue = (fieldName: keyof NumberRangeFilter, val?: number | null) => {
+    let newValues = { ...formValues.peRatio }
     newValues[fieldName] = val ?? undefined
-    setValue('movingAvg', newValues)
-    const newFilter = { ...controller.model.filter, movingAvg: newValues }
+    setValue('peRatio', newValues)
+    const newFilter = { ...controller.model.filter, peRatio: newValues }
     controller.setModel({ ...controller.model, filter: newFilter })
   }
-  const hasFilter = hasMovingAvgFilter(formValues.movingAvg)
+  const hasFilter = hasPeFilter(formValues.peRatio)
+
   return (
     <Accordion
-      expanded={controller.model.expandMovingAvg}
+      expanded={controller.model.expandPeRatio}
       onChange={(e, expanded) => {
-        controller.setModel({ ...controller.model, expandMovingAvg: expanded })
+        controller.setModel({ ...controller.model, expandPeRatio: expanded })
       }}
     >
       <AccordionSummary expandIcon={<ExpandMoreIcon fontSize='small' color='primary' />} sx={{ borderTop: `solid 1px ${CasinoGrayTransparent}` }}>
         <Box display={'flex'} gap={1} alignItems={'center'}>
-          <Typography variant='h6'>Moving Average</Typography>
+          <Typography variant='h6'>P/E Ratio</Typography>
           {hasFilter && <CheckIcon fontSize='small' />}
         </Box>
       </AccordionSummary>
       <AccordionDetails>
         <Box display={'flex'} flexDirection={'column'} gap={1}>
-          <Controller
-            name={'movingAvg.days'}
-            control={form}
-            render={({ field: { value, onChange, ...field } }) => (
-              <FormDropdownListNumeric
-                minWidth={300}
-                label='days'
-                options={daysOptions}
-                value={formValues.movingAvg.days ?? 0}
-                onOptionSelected={(arg) => {
-                  setFieldValue('days', arg ?? 0)
-                }}
-                {...field}
-                errorMessage={errors.movingAvg?.days?.message}
-              />
-            )}
-          />
           <Box display={'flex'} gap={2}>
             <Controller
-              name={'movingAvg.from'}
+              name={'peRatio.from'}
               control={form}
               render={({ field: { value, onChange, ...field } }) => (
                 <FormNumericTextField2
                   //placeholder='from'
-                  label='from %'
+                  label='from'
                   size='small'
-                  value={formValues.movingAvg.from}
+                  value={formValues.peRatio.from}
                   onChanged={(val?: number) => {
                     setFieldValue('from', val)
                   }}
                   {...field}
-                  errorMessage={errors.movingAvg?.from?.message}
+                  errorMessage={errors.peRatio?.from?.message}
                 />
               )}
             />
             <Controller
-              name={'movingAvg.to'}
+              name={'peRatio.to'}
               control={form}
               render={({ field: { value, onChange, ...field } }) => (
                 <FormNumericTextField2
-                  label='to %'
-                  value={formValues.movingAvg.to}
+                  label='to'
+                  value={formValues.peRatio.to}
                   onChanged={(val?: number) => {
                     setFieldValue('to', val)
                   }}
                   {...field}
-                  errorMessage={errors.movingAvg?.to?.message}
+                  errorMessage={errors.peRatio?.to?.message}
                 />
               )}
             />
@@ -113,4 +88,4 @@ const MovingAvgSearch = ({
   )
 }
 
-export default MovingAvgSearch
+export default PeRatioSearch

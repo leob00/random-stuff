@@ -5,6 +5,8 @@ import { CasinoGrayTransparent } from 'components/themes/mainTheme'
 import { Control, UseFormSetValue } from 'react-hook-form'
 import { StockAdvancedSearchFilter, StockMarketCapFilter } from '../advancedSearchFilter'
 import ControlledSwitch from 'components/Molecules/Forms/ReactHookForm/ControlledSwitch'
+import CheckIcon from '@mui/icons-material/Check'
+import { hasMarketCapFilter } from '../stocksAdvancedSearch'
 
 const MarketCapSearch = ({
   controller,
@@ -21,7 +23,10 @@ const MarketCapSearch = ({
     let newValues = { ...formValues.marketCap }
     newValues[fieldName] = val
     setValue('marketCap', newValues)
+    const newFilter = { ...controller.model.filter, marketCap: newValues }
+    controller.setModel({ ...controller.model, filter: newFilter })
   }
+  const hasFilter = hasMarketCapFilter(formValues.marketCap)
   return (
     <Accordion
       expanded={controller.model.expandMarketCap}
@@ -30,7 +35,10 @@ const MarketCapSearch = ({
       }}
     >
       <AccordionSummary expandIcon={<ExpandMoreIcon fontSize='small' color='primary' />} sx={{ borderTop: `solid 1px ${CasinoGrayTransparent}` }}>
-        <Typography variant='h6'>Market Cap</Typography>
+        <Box display={'flex'} gap={1} alignItems={'center'}>
+          <Typography variant='h6'>Market Cap</Typography>
+          {hasFilter && <CheckIcon fontSize='small' />}
+        </Box>
       </AccordionSummary>
       <AccordionDetails>
         <Box display={'flex'} flexDirection={'column'} gap={1}>

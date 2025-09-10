@@ -32,15 +32,7 @@ const FormNumericTextField2 = forwardRef<HTMLInputElement, Props>(function FormN
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const num = numeral(e.target.value)
-    console.log(num.value())
-    console.log(e.target.value)
-    // if (e.target.value.includes('.')) {
-    //   onChanged(Number(e.target.value))
-    //   return
-    // }
-    // if (e.target.value.trim().length > 0) {
-    //   onChanged(Number(e.target.value))
-    // }
+
     onChanged(num.value() ?? undefined)
   }
 
