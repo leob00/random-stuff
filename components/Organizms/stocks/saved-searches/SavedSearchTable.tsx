@@ -1,0 +1,168 @@
+import { Box } from '@mui/material'
+import { hasMovingAvgFilter, StockSavedSearch } from '../advanced-search/stocksAdvancedSearch'
+import Clickable from 'components/Atoms/Containers/Clickable'
+import ListHeader from 'components/Molecules/Lists/ListHeader'
+import { useState } from 'react'
+import { StockQuote } from 'lib/backend/api/models/zModels'
+import { executeStockAdvancedSearch } from 'lib/backend/api/qln/qlnApi'
+import PagedStockTable from '../PagedStockTable'
+import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
+import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
+import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
+import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
+import useAdvancedSearchUi from '../advanced-search/stockAdvancedSearchUi'
+import { StockAdvancedSearchFilter } from '../advanced-search/advancedSearchFilter'
+import CloseIconButton from 'components/Atoms/Buttons/CloseIconButton'
+import AdvancedSearchFilterForm from '../advanced-search/AdvancedSearchFilterForm'
+import ContextMenuDelete from 'components/Molecules/Menus/ContextMenuDelete'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
+
+type UiModel = {
+  results: StockQuote[]
+  editMode?: boolean
+  confirmDelete?: boolean
+} & StockSavedSearch
+
+const SavedSearchTable = ({
+  data,
+  onRefresh,
+  onDeleteItem,
+}: {
+  data: StockSavedSearch[]
+  onRefresh?: () => void
+  onDeleteItem: (item: StockSavedSearch) => void
+}) => {
+  const [selectedItem, setSelectedItem] = useState<UiModel | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const scroller = useScrollTop(0)
+  const handlePageChange = () => {
+    scroller.scroll()
+  }
+  const controller = useAdvancedSearchUi(selectedItem?.filter)
+
+  const handleClick = async (item: StockSavedSearch) => {
+    if (!selectedItem) {
+      setIsLoading(true)
+      const newItem: UiModel = { ...item, results: [] }
+      const result = await executeStockAdvancedSearch(newItem.filter)
+      newItem.results = result.Body as StockQuote[]
+      setSelectedItem(newItem)
+    } else {
+      setSelectedItem(null)
+    }
+    setIsLoading(false)
+  }
+  const handleEditClick = (item: StockSavedSearch) => {
+    controller.setModel({ ...controller.model, filter: item.filter })
+    setSelectedItem({ filter: item.filter, name: item.name, id: item.id, results: [], editMode: true })
+  }
+  const handleDeleteClick = (item: StockSavedSearch) => {
+    controller.setModel({ ...controller.model, filter: item.filter })
+    setSelectedItem({ filter: item.filter, name: item.name, id: item.id, results: [], editMode: true, confirmDelete: true })
+  }
+
+  const menuItems: ContextMenuItem[] = [
+    {
+      item: <ContextMenuEdit text='edit' />,
+      fn: () => {
+        if (selectedItem) {
+          handleEditClick(selectedItem)
+        }
+      },
+    },
+    {
+      item: <ContextMenuDelete />,
+      fn: () => {
+        if (selectedItem) {
+          handleDeleteClick(selectedItem)
+        }
+      },
+    },
+  ]
+
+  const handleSaved = () => {
+    setSelectedItem(null)
+    onRefresh?.()
+  }
+  const handleDelete = async () => {
+    if (selectedItem) {
+      onDeleteItem({ id: selectedItem.id, name: selectedItem.name, filter: selectedItem.filter })
+    }
+    setSelectedItem(null)
+  }
+
+  return (
+    <Box>
+      {isLoading && <BackdropLoader />}
+      <Box>
+        {data.map((item) => (
+          <Box key={item.id}>
+            <Box display={'flex'} justifyContent={'space-between'}>
+              <Box py={1}>
+                <Clickable
+                  onClicked={() => {
+                    handleClick(item)
+                  }}
+                >
+                  <ListHeader text={item.name} />
+                </Clickable>
+              </Box>
+              {selectedItem && selectedItem.id === item.id && (
+                <Box>
+                  <ContextMenu items={menuItems} />
+                </Box>
+              )}
+            </Box>
+            {selectedItem && selectedItem.id === item.id && (
+              <Box py={2}>
+                {!selectedItem.editMode && (
+                  <Box>
+                    <ScrollTop scroller={scroller} />
+                    <PagedStockTable
+                      data={selectedItem.results}
+                      pageSize={5}
+                      onPageChanged={handlePageChange}
+                      showMovingAvgOnly={hasMovingAvgFilter(selectedItem.filter.movingAvg)}
+                      scrollOnPageChange
+                    />
+                  </Box>
+                )}
+                {selectedItem.editMode && (
+                  <Box>
+                    <Box display={'flex'} justifyContent={'flex-end'} pr={2}>
+                      <CloseIconButton
+                        onClicked={() => {
+                          setSelectedItem(null)
+                        }}
+                      />
+                    </Box>
+                    <AdvancedSearchFilterForm
+                      onSubmitted={() => {}}
+                      controller={controller}
+                      filter={selectedItem.filter}
+                      onSaved={handleSaved}
+                      showSubmitButton={false}
+                    />
+                  </Box>
+                )}
+              </Box>
+            )}
+          </Box>
+        ))}
+      </Box>
+      {selectedItem && selectedItem.confirmDelete && (
+        <ConfirmDeleteDialog
+          show={true}
+          text={`are you sure you want to remove ${selectedItem.name} ?`}
+          onConfirm={handleDelete}
+          onCancel={() => {
+            setSelectedItem({ ...selectedItem, confirmDelete: false })
+          }}
+        />
+      )}
+    </Box>
+  )
+}
+
+export default SavedSearchTable

@@ -86,3 +86,9 @@ export function summarizeFilter(filter: StockAdvancedSearchFilter) {
   }
   return result
 }
+
+export type StockSavedSearch = {
+  id?: string
+  name: string
+  filter: StockAdvancedSearchFilter
+}

@@ -8,13 +8,11 @@ import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import { hasMovingAvgFilter, summarizeFilter } from './stocksAdvancedSearch'
 import PagedStockTable from '../PagedStockTable'
+import { useState } from 'react'
+import SavedSearchDisplay from '../saved-searches/SavedSearchDisplay'
+import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 
 const AdvancedSearchDisplay = () => {
-  const tabs: TabInfo[] = [
-    {
-      title: 'search',
-    },
-  ]
   const filter: StockAdvancedSearchFilter = {
     marketCap: {
       includeMegaCap: false,
@@ -28,43 +26,62 @@ const AdvancedSearchDisplay = () => {
     },
     peRatio: {},
   }
+  const [selectedTab, setSelectedTab] = useState(0)
   const controller = useAdvancedSearchUi(filter)
-  const handleSetTab = (tab: TabInfo) => {}
+  const { executeSearch, model } = controller
+  const handleSetTab = (tab: TabInfo) => {
+    setSelectedTab(tabs.findIndex((m) => m.title === tab.title))
+  }
   const scroller = useScrollTop(0)
   const handlePageChange = () => {
     scroller.scroll()
   }
-  const filterSummary = summarizeFilter(controller.model.filter)
+  const filterSummary = summarizeFilter(model.filter)
   const handleSubmit = async (filter: StockAdvancedSearchFilter) => {
-    await controller.executeSearch(filter)
+    await executeSearch(filter)
     scroller.scroll()
+  }
+
+  const tabs: TabInfo[] = [
+    {
+      title: 'search',
+    },
+  ]
+  if (model.allowSave) {
+    tabs.push({ title: 'saved searches' })
   }
 
   return (
     <Box>
-      <TabList tabs={tabs} selectedTab={0} onSetTab={handleSetTab} />
-      <AdvancedSearchFilterForm onSubmitted={handleSubmit} controller={controller} filter={filter} />
-      {controller.model.showResults && (
+      <TabList tabs={tabs} selectedTab={selectedTab} onSetTab={handleSetTab} />
+      {selectedTab === 0 && (
         <>
-          <ScrollTop scroller={scroller} marginTop={-12} />
-          <Box display={'flex'} flexDirection={'column'} gap={2}>
-            <Typography textAlign={'center'} variant='h6' pt={2}>
-              search results
-            </Typography>
-            <Typography textAlign={'center'} py={2}>
-              {filterSummary}
-            </Typography>
-          </Box>
-
-          <PagedStockTable
-            data={controller.model.results}
-            pageSize={5}
-            onPageChanged={handlePageChange}
-            showMovingAvgOnly={hasMovingAvgFilter(controller.model.filter.movingAvg)}
-            scrollOnPageChange
-          />
+          <AdvancedSearchFilterForm onSubmitted={handleSubmit} controller={controller} filter={model.filter} />
+          {model.showResults && (
+            <>
+              <ScrollTop scroller={scroller} marginTop={-12} />
+              <Box display={'flex'} flexDirection={'column'} gap={2}>
+                <Typography textAlign={'center'} variant='h6' pt={2}>
+                  search results
+                </Typography>
+                <Box>
+                  <Typography textAlign={'center'} py={2}>
+                    {filterSummary}
+                  </Typography>
+                </Box>
+              </Box>
+              <PagedStockTable
+                data={model.results}
+                pageSize={5}
+                onPageChanged={handlePageChange}
+                showMovingAvgOnly={hasMovingAvgFilter(model.filter.movingAvg)}
+                scrollOnPageChange
+              />
+            </>
+          )}
         </>
       )}
+      {selectedTab === 1 && <SavedSearchDisplay />}
     </Box>
   )
 }

@@ -1,5 +1,5 @@
 import { TextField } from '@mui/material'
-import React from 'react'
+import { useRef, useState } from 'react'
 
 const FormTextBox = ({
   defaultValue,
@@ -24,9 +24,9 @@ const FormTextBox = ({
   maxLength?: number
   placeHolder?: string
 }) => {
-  const [textError, setTextError] = React.useState(error)
-  const [val, setVal] = React.useState(defaultValue)
-  const textRef = React.useRef<HTMLInputElement | null>(null)
+  const [textError, setTextError] = useState(error)
+  const [val, setVal] = useState(defaultValue)
+  const textRef = useRef<HTMLInputElement | null>(null)
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.currentTarget.value
     if (required) {
@@ -44,7 +44,11 @@ const FormTextBox = ({
   }
   return (
     <TextField
-      inputProps={{ maxLength: maxLength }}
+      slotProps={{
+        htmlInput: {
+          maxLength: maxLength,
+        },
+      }}
       fullWidth={false}
       inputRef={textRef}
       defaultValue={val}

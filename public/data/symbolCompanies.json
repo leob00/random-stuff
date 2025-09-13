@@ -416,6 +416,10 @@
     "Symbol": "ACIW"
   },
   {
+    "Company": "VistaShares Target 15 ACKtivist Distribution ETF",
+    "Symbol": "ACKY"
+  },
+  {
     "Company": "American Century Large Cap Equity ETF",
     "Symbol": "ACLC"
   },
@@ -1038,6 +1042,10 @@
   {
     "Company": "AGNC Investment Corp. Depositary Shares Each Representing a 1/1,000th Interest in a Share of 6.125% Series F Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock",
     "Symbol": "AGNCP"
+  },
+  {
+    "Company": "AGNC Investment Corp. 8.75% Series H Fixed-Rate Cumulative Redeemable Preferred Stock",
+    "Symbol": "AGNCZ"
   },
   {
     "Company": "Global X Funds Global X Aging Population ETF",
@@ -2218,6 +2226,10 @@
   {
     "Company": "Allspring Core Plus ETF",
     "Symbol": "APLU"
+  },
+  {
+    "Company": "Tradr 2X Long APLD Daily ETF",
+    "Symbol": "APLX"
   },
   {
     "Company": "YieldMax AAPL Option Income Strategy ETF",
@@ -5176,6 +5188,10 @@
     "Symbol": "BLZE"
   },
   {
+    "Company": "Trailblazer Acquisition Corp. Unit",
+    "Symbol": "BLZRU"
+  },
+  {
     "Company": "Banco Macro S.A.",
     "Symbol": "BMA"
   },
@@ -5654,6 +5670,10 @@
   {
     "Company": "Bruker Corporation",
     "Symbol": "BRKR"
+  },
+  {
+    "Company": "Bruker Corporation 6.375% Mandatory Convertible Preferred Stock, Series A",
+    "Symbol": "BRKRP"
   },
   {
     "Company": "Direxion Daily BRKB Bull 2X Shares",
@@ -6650,10 +6670,6 @@
   {
     "Company": "Cayson Acquisition Corp Right",
     "Symbol": "CAPNR"
-  },
-  {
-    "Company": "Cayson Acquisition Corp Unit",
-    "Symbol": "CAPNU"
   },
   {
     "Company": "Capricor Therapeutics Inc",
@@ -8534,6 +8550,10 @@
   {
     "Company": "Cohu Inc",
     "Symbol": "COHU"
+  },
+  {
+    "Company": "ProShares Ultra COIN",
+    "Symbol": "COIA"
   },
   {
     "Company": "Leverage Shares 2X Long COIN Daily ETF",
@@ -10984,6 +11004,10 @@
     "Symbol": "DMYY"
   },
   {
+    "Company": "dMY Squared Technology Group, Inc. Units, each consisting of one share of Class A common stock and one-half of one redeemable warrant",
+    "Symbol": "DMYY.U"
+  },
+  {
     "Company": "dMY Squared Technology Group, Inc. Redeemable Warrants, each whole warrant exercisable for one share of Class A common stock at an exercise price of $11.50 per share",
     "Symbol": "DMYY.WS"
   },
@@ -12992,7 +13016,7 @@
     "Symbol": "EPSB"
   },
   {
-    "Company": "Epsium Enterprise Limited Ordinary Shares",
+    "Company": "Epsium Enterprise Limited Class A Ordinary Shares",
     "Symbol": "EPSM"
   },
   {
@@ -14772,11 +14796,11 @@
     "Symbol": "FGN"
   },
   {
-    "Company": "Fundamental Global Inc. Common Stock",
+    "Company": "FG Nexus Inc. Common Stock",
     "Symbol": "FGNX"
   },
   {
-    "Company": "Fundamental Global Inc. 8.00% Cumulative Preferred Stock",
+    "Company": "FG Nexus Inc. 8.00% Cumulative Preferred Stock",
     "Symbol": "FGNXP"
   },
   {
@@ -17422,6 +17446,10 @@
   {
     "Company": "T-REX 2X Long GME Daily Target ETF",
     "Symbol": "GMEU"
+  },
+  {
+    "Company": "YieldMax GME Option Income Strategy ETF",
+    "Symbol": "GMEY"
   },
   {
     "Company": "SPDR S&P Emerging Asia Pacific ETF",
@@ -20244,6 +20272,10 @@
     "Symbol": "ICOW"
   },
   {
+    "Company": "Tweedy, Browne International Insider + Value ETF",
+    "Symbol": "ICPY"
+  },
+  {
     "Company": "iShares Ultra Short Duration Bond Active ETF",
     "Symbol": "ICSH"
   },
@@ -22624,6 +22656,10 @@
     "Symbol": "JOB"
   },
   {
+    "Company": "Tradr 2X Long JOBY Daily ETF",
+    "Symbol": "JOBX"
+  },
+  {
     "Company": "Joby Aviation, Inc.",
     "Symbol": "JOBY"
   },
@@ -23284,6 +23320,10 @@
     "Symbol": "KLAC"
   },
   {
+    "Company": "Klarna Group plc",
+    "Symbol": "KLAR"
+  },
+  {
     "Company": "KinderCare Learning Companies, Inc.",
     "Symbol": "KLC"
   },
@@ -23726,6 +23766,10 @@
   {
     "Company": "Keen Vision Acquisition Corporation Ordinary Shares",
     "Symbol": "KVAC"
+  },
+  {
+    "Company": "Keen Vision Acquisition Corporation Units",
+    "Symbol": "KVACU"
   },
   {
     "Company": "Keen Vision Acquisition Corporation Warrant",
@@ -24396,6 +24440,10 @@
     "Symbol": "LIAX"
   },
   {
+    "Company": "LifeX 2064 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAY"
+  },
+  {
     "Company": "LifeX 2065 Inflation-Protected Longevity Income ETF",
     "Symbol": "LIBD"
   },
@@ -24874,10 +24922,6 @@
   {
     "Company": "Lead Real Estate Co., Ltd American Depositary Shares",
     "Symbol": "LRE"
-  },
-  {
-    "Company": "Logan Ridge Finance Corporation Common Stock",
-    "Symbol": "LRFC"
   },
   {
     "Company": "AB US Large Cap Strategic Equities ETF",
@@ -25950,6 +25994,10 @@
   {
     "Company": "Direxion Daily META Bear 1X Shares",
     "Symbol": "METD"
+  },
+  {
+    "Company": "Sprott Active Metals & Miners ETF",
+    "Symbol": "METL"
   },
   {
     "Company": "Direxion Daily META Bull 2X Shares",
@@ -27340,6 +27388,10 @@
     "Symbol": "MUNA"
   },
   {
+    "Company": "Northern Trust 2035 Tax-Exempt Distributing Ladder ETF",
+    "Symbol": "MUNB"
+  },
+  {
     "Company": "Northern Trust 2045 Tax-Exempt Distributing Ladder ETF",
     "Symbol": "MUNC"
   },
@@ -28000,6 +28052,10 @@
     "Symbol": "NEAR"
   },
   {
+    "Company": "Tradr 2X Long NBIS Daily ETF",
+    "Symbol": "NEBX"
+  },
+  {
     "Company": "Northeast Community Bancorp, Inc.",
     "Symbol": "NECB"
   },
@@ -28608,10 +28664,6 @@
     "Symbol": "NOEMR"
   },
   {
-    "Company": "CO2 Energy Transition Corp. Unit",
-    "Symbol": "NOEMU"
-  },
-  {
     "Company": "CO2 Energy Transition Corp. Warrant",
     "Symbol": "NOEMW"
   },
@@ -29156,6 +29208,10 @@
     "Symbol": "NVDA"
   },
   {
+    "Company": "ProShares Ultra NVDA",
+    "Symbol": "NVDB"
+  },
+  {
     "Company": "Direxion Daily NVDA Bear 1X Shares",
     "Symbol": "NVDD"
   },
@@ -29274,6 +29330,10 @@
   {
     "Company": "Navitas Semiconductor Corporation Common Stock",
     "Symbol": "NVTS"
+  },
+  {
+    "Company": "Tradr 2X Long NVTS Daily ETF",
+    "Symbol": "NVTX"
   },
   {
     "Company": "Nuvve Holding Corp. Common Stock",
@@ -30276,8 +30336,16 @@
     "Symbol": "ORIC"
   },
   {
+    "Company": "Origin Investment Corp I Ordinary Shares",
+    "Symbol": "ORIQ"
+  },
+  {
     "Company": "Origin Investment Corp I Units",
     "Symbol": "ORIQU"
+  },
+  {
+    "Company": "Origin Investment Corp I Warrant",
+    "Symbol": "ORIQW"
   },
   {
     "Company": "Oriental Rise Holdings Limited Ordinary Shares",
@@ -30664,6 +30732,10 @@
     "Symbol": "PAI"
   },
   {
+    "Company": "Pyrophyte Acquisition Corp. II",
+    "Symbol": "PAII"
+  },
+  {
     "Company": "Pyrophyte Acquisition Corp. II Units, each consisting of one Class A ordinary share and one-half of one redeemable warrant",
     "Symbol": "PAII.U"
   },
@@ -31036,6 +31108,10 @@
     "Symbol": "PCK"
   },
   {
+    "Company": "PGIM Corporate Bond 10+ Year ETF",
+    "Symbol": "PCL"
+  },
+  {
     "Company": "PicoCELA Inc. American Depositary Shares",
     "Symbol": "PCLA"
   },
@@ -31070,6 +31146,10 @@
   {
     "Company": "Pacira BioSciences, Inc. Common Stock",
     "Symbol": "PCRX"
+  },
+  {
+    "Company": "PGIM Corporate Bond 0-5 Year ETF",
+    "Symbol": "PCS"
   },
   {
     "Company": "Processa Pharmaceuticals, Inc. Common",
@@ -31852,10 +31932,6 @@
     "Symbol": "PLMK"
   },
   {
-    "Company": "Plum Acquisition Corp. IV Unit",
-    "Symbol": "PLMKU"
-  },
-  {
     "Company": "Plum Acquisition Corp. IV Warrants",
     "Symbol": "PLMKW"
   },
@@ -31894,6 +31970,10 @@
   {
     "Company": "Defiance Leveraged Long Income PLTR ETF",
     "Symbol": "PLT"
+  },
+  {
+    "Company": "ProShares Ultra PLTR",
+    "Symbol": "PLTA"
   },
   {
     "Company": "Direxion Daily PLTR Bear 1X Shares",
@@ -31962,10 +32042,6 @@
   {
     "Company": "Philip Morris International Inc.",
     "Symbol": "PM"
-  },
-  {
-    "Company": "PGIM S&P 500 Max Buffer ETF - April",
-    "Symbol": "PMAP"
   },
   {
     "Company": "Innovator U.S. Equity Power Buffer ETF - March",
@@ -32186,6 +32262,10 @@
   {
     "Company": "Andretti Acquisition Corp. II Warrant",
     "Symbol": "POLEW"
+  },
+  {
+    "Company": "Tradr 2X Long PONY Daily ETF",
+    "Symbol": "PONX"
   },
   {
     "Company": "Pony AI Inc. American Depositary Shares",
@@ -32482,6 +32562,10 @@
   {
     "Company": "Prudential Financial, Inc. 5.625% Junior Subordinated Notes due 2058",
     "Symbol": "PRS"
+  },
+  {
+    "Company": "State Street Short Duration IG Public & Private Credit ETF",
+    "Symbol": "PRSD"
   },
   {
     "Company": "Peraso, Inc. Common Stock",
@@ -34188,6 +34272,10 @@
     "Symbol": "RDY"
   },
   {
+    "Company": "YieldMax RDDT Option Income Strategy ETF",
+    "Symbol": "RDYY"
+  },
+  {
     "Company": "Roadzen, Inc. Ordinary Shares",
     "Symbol": "RDZN"
   },
@@ -34308,7 +34396,7 @@
     "Symbol": "REMX"
   },
   {
-    "Company": "Renovaro Inc. Common Stock",
+    "Company": "Lunai Bioworks Inc. Common Stock",
     "Symbol": "RENB"
   },
   {
@@ -37408,6 +37496,10 @@
     "Symbol": "SMOG"
   },
   {
+    "Company": "Symmetry Panoramic Sector Momentum ETF",
+    "Symbol": "SMOM"
+  },
+  {
     "Company": "VanEck Morningstar SMID Moat ETF",
     "Symbol": "SMOT"
   },
@@ -38670,6 +38762,10 @@
   {
     "Company": "Columbia Seligman Premium Technology Growth Fund, Inc.",
     "Symbol": "STK"
+  },
+  {
+    "Company": "Sol Strategies Inc. Common Shares",
+    "Symbol": "STKE"
   },
   {
     "Company": "Steakholder Foods Ltd. American Depositary Shares",
@@ -40936,6 +41032,10 @@
     "Symbol": "TSLG"
   },
   {
+    "Company": "ProShares Ultra TSLA",
+    "Symbol": "TSLI"
+  },
+  {
     "Company": "Direxion Shares ETF Trust Direxion Daily TSLA Bull 2X Shares",
     "Symbol": "TSLL"
   },
@@ -41710,10 +41810,6 @@
   {
     "Company": "UMB Financial Corporation Depositary Shares Each Representing a 1/400th Interest in a Share of 7.750% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series B",
     "Symbol": "UMBFO"
-  },
-  {
-    "Company": "UMB Financial Corporation Depositary Shares, each representing a 1/400th of 7.00% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock",
-    "Symbol": "UMBFP"
   },
   {
     "Company": "United Microelectronic Corp.",
@@ -43096,6 +43192,10 @@
     "Symbol": "VOYG"
   },
   {
+    "Company": "Tradr 2X Long VOYG Daily ETF",
+    "Symbol": "VOYX"
+  },
+  {
     "Company": "Virtus Private Credit Strategy ETF",
     "Symbol": "VPC"
   },
@@ -44248,16 +44348,8 @@
     "Symbol": "WTFC"
   },
   {
-    "Company": "Wintrust Financial Corporation Fixed-to-Floating Rate Non-Cumulative Perpetual Preferred Stock, Series D",
-    "Symbol": "WTFCM"
-  },
-  {
     "Company": "Wintrust Financial Corporation Depositary Shares, Each Representing a 1/1,000th Interest in a Share of 7.875% Fixed-Rate Reset Non-Cumulative Perpetual Preferred StocK",
     "Symbol": "WTFCN"
-  },
-  {
-    "Company": "Wintrust Financial Corporation Depositary Shares, Each Representing a 1/1,000th Interest in a Share of 6.875% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series E",
-    "Symbol": "WTFCP"
   },
   {
     "Company": "Wintergreen Acquisition Corp. Ordinary Shares",
@@ -45550,6 +45642,10 @@
   {
     "Company": "ZILLOW GROUP INC CLASS A",
     "Symbol": "ZG"
+  },
+  {
+    "Company": "Zenta Group Company Limited Ordinary Shares",
+    "Symbol": "ZGM"
   },
   {
     "Company": "Ermenegildo Zegna N.V.",

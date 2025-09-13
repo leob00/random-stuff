@@ -10,6 +10,8 @@ import { weakEncrypt } from '../encryption/useEncryptor'
 import { UserGoal, UserTask } from 'components/Organizms/user/goals/goalModels'
 import { type RandomStuffDynamoItem } from 'app/serverActions/aws/dynamo/dynamo'
 import { EmailMessage } from 'app/serverActions/aws/ses/ses'
+import { sortArray } from 'lib/util/collections'
+import { StockSavedSearch } from 'components/Organizms/stocks/advanced-search/stocksAdvancedSearch'
 
 export interface SignedRequest {
   appId?: string
@@ -362,24 +364,6 @@ export async function searchDynamoItemsDataByCategory<T>(id: CategoryType): Prom
     results.push(JSON.parse(m.data) as T)
   })
   return results
-  //return dbResult
-  // let result: any | null = null
-  // try {
-  //   const body = encryptKey(id)
-  //   const resp = await postBody('/api/aws/dynamo/item', 'POST', body)
-  //   if (resp.data.length === 0) {
-  //     return null as T
-  //   }
-  //   const data = JSON.parse(resp.data) as T
-  //   if (data) {
-  //     return data as T
-  //   } else {
-  //     return result
-  //   }
-  // } catch (err) {
-  //   console.error(err)
-  //   return result
-  // }
 }
 
 export async function putRecord(id: string | DynamoKeys, category: string, item: any, format: 'json' | 'string' = 'json') {
@@ -483,4 +467,16 @@ export async function putRandomStuffBatch(data: RandomStuffDynamoItem[]) {
     console.error('error in putRandomStuff')
     return null
   }
+}
+
+export async function getSavedStockSearches(userProfile: UserProfile) {
+  if (!userProfile) {
+    return []
+  }
+  const resp = await searchDynamoItemsByCategory(`stock-saved-search[${userProfile.username}]`)
+  const sorted = sortArray(resp, ['last_modified'], ['desc'])
+  const result = sorted.map((m) => {
+    return JSON.parse(m.data) as StockSavedSearch
+  })
+  return result
 }
