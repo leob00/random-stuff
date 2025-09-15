@@ -17,6 +17,8 @@ import AdvancedSearchFilterForm from '../advanced-search/AdvancedSearchFilterFor
 import ContextMenuDelete from 'components/Molecules/Menus/ContextMenuDelete'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
+import { SelectField } from '@aws-amplify/ui-react'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 type UiModel = {
   results: StockQuote[]
@@ -114,6 +116,7 @@ const SavedSearchTable = ({
                 </Box>
               )}
             </Box>
+            <HorizontalDivider />
             {selectedItem && selectedItem.id === item.id && (
               <Box py={2}>
                 {!selectedItem.editMode && (
@@ -143,6 +146,7 @@ const SavedSearchTable = ({
                       filter={selectedItem.filter}
                       onSaved={handleSaved}
                       showSubmitButton={false}
+                      savedSearchId={selectedItem.id}
                     />
                   </Box>
                 )}

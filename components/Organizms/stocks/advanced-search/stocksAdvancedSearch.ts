@@ -35,35 +35,40 @@ export function getMarketCapFilters(filter: StockMarketCapFilter) {
   return result
 }
 
-export function summarizeFilter(filter: StockAdvancedSearchFilter) {
-  let result = `top ${filter.take} `
+export function getFilterCount(filter: StockAdvancedSearchFilter) {
+  let result = 0
   const hasMarketCap = hasMarketCapFilter(filter.marketCap)
   const hasMovingsAv = hasMovingAvgFilter(filter.movingAvg)
   const hasPe = hasPeFilter(filter.peRatio)
-  const hasAnyFilter = hasMovingsAv || hasMovingAvgFilter || hasPe
-  let filterCount = 0
   if (hasMarketCap) {
-    filterCount++
+    result++
   }
   if (hasMovingsAv) {
-    filterCount++
+    result++
   }
   if (hasPe) {
-    filterCount++
+    result++
   }
+  return result
+}
+
+export function summarizeFilter(filter: StockAdvancedSearchFilter) {
+  let result = `top ${filter.take} market cap leaders`
+  const filterCount = getFilterCount(filter)
+  const hasMarketCap = hasMarketCapFilter(filter.marketCap)
+  const hasMovingsAv = hasMovingAvgFilter(filter.movingAvg)
+  const hasPe = hasPeFilter(filter.peRatio)
+  const hasAnyFilter = filterCount > 0
 
   if (!hasAnyFilter) {
-    result = `${result} stocks by market cap`
     return result
   }
 
   if (hasMarketCap) {
-    result = `${result} ${getMarketCapFilters(filter.marketCap).join(', ')} cap stocks `
-  } else {
-    result = `${result} stocks`
+    result = `top ${filter.take} ${getMarketCapFilters(filter.marketCap).join(', ')} cap stocks `
   }
   if (hasMovingsAv) {
-    result = `${result} with ${filter.movingAvg.days} day moving average  `
+    result = `${result} with ${filter.movingAvg.days} day moving average `
     if (filter.movingAvg.from && filter.movingAvg.to) {
       result = `${result} between ${filter.movingAvg.from}% and ${filter.movingAvg.to}% `
     } else if (filter.movingAvg.from) {

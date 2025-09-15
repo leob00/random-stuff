@@ -17,10 +17,11 @@ interface Model {
 
 export default function useAdvancedSearchUi(filter?: StockAdvancedSearchFilter) {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
+
   const defaultModel: Model = {
     expandMarketCap: true,
-    expandMovingAvg: true,
-    expandPeRatio: true,
+    expandMovingAvg: false,
+    expandPeRatio: false,
     showResults: false,
     isLoading: isValidatingProfile,
     results: [],

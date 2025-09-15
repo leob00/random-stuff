@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import FormDropdownListNumeric from 'components/Molecules/Forms/ReactHookForm/FormDropdownListNumeric'
@@ -15,7 +15,6 @@ import { useState } from 'react'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import SaveStockSearchForm from '../saved-searches/SaveStockSearchForm'
 import { summarizeFilter } from './stocksAdvancedSearch'
-import { useUserController } from 'hooks/userController'
 
 const AdvancedSearchFilterForm = ({
   onSubmitted,
@@ -23,12 +22,14 @@ const AdvancedSearchFilterForm = ({
   filter,
   onSaved,
   showSubmitButton = true,
+  savedSearchId,
 }: {
   onSubmitted: (item: StockAdvancedSearchFilter) => void
   controller: AdvancedSearchUiController
   filter: StockAdvancedSearchFilter
   onSaved?: () => void
   showSubmitButton?: boolean
+  savedSearchId?: string
 }) => {
   const {
     control,
@@ -66,6 +67,7 @@ const AdvancedSearchFilterForm = ({
   const handleShowSaveForm = () => {
     setShowSaveForm(true)
   }
+  const filterSummary = summarizeFilter(filter)
 
   return (
     <>
@@ -85,12 +87,16 @@ const AdvancedSearchFilterForm = ({
             <MovingAvgSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
             <PeRatioSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
             {controller.model.isLoading && <BackdropLoader />}
+            {!showSubmitButton && <Typography textAlign={'center'}>{filterSummary}</Typography>}
             <Box py={2} display={'flex'} justifyContent={'flex-end'} pr={1} gap={1}>
               {controller.model.allowSave && (
-                <Box display={'flex'} justifyContent={'center'}>
-                  <SuccessButton text='save' onClick={handleShowSaveForm} />
+                <Box>
+                  <Box display={'flex'}>
+                    <SuccessButton text='save' onClick={handleShowSaveForm} />
+                  </Box>
                 </Box>
               )}
+
               {showSubmitButton && <PrimaryButton type='submit' text='search' loading={controller.model.isLoading} />}
             </Box>
           </Box>
@@ -99,7 +105,7 @@ const AdvancedSearchFilterForm = ({
       {showSaveForm && (
         <InfoDialog title='save search' show={showSaveForm} onCancel={() => setShowSaveForm(false)} fullScreen={false}>
           <SaveStockSearchForm
-            savedSearch={{ name: summarizeFilter(controller.model.filter), filter: filter }}
+            savedSearch={{ name: filterSummary, filter: filter, id: savedSearchId }}
             onClose={() => {
               setShowSaveForm(false)
               onSaved?.()

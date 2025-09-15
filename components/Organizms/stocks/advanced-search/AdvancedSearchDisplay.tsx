@@ -10,7 +10,6 @@ import { hasMovingAvgFilter, summarizeFilter } from './stocksAdvancedSearch'
 import PagedStockTable from '../PagedStockTable'
 import { useState } from 'react'
 import SavedSearchDisplay from '../saved-searches/SavedSearchDisplay'
-import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 
 const AdvancedSearchDisplay = () => {
   const filter: StockAdvancedSearchFilter = {
@@ -61,9 +60,6 @@ const AdvancedSearchDisplay = () => {
             <>
               <ScrollTop scroller={scroller} marginTop={-12} />
               <Box display={'flex'} flexDirection={'column'} gap={2}>
-                <Typography textAlign={'center'} variant='h6' pt={2}>
-                  search results
-                </Typography>
                 <Box>
                   <Typography textAlign={'center'} py={2}>
                     {filterSummary}

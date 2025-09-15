@@ -24,15 +24,18 @@ const SaveStockSearchForm = ({ savedSearch, onClose }: { savedSearch: StockSaved
     const newRecord: StockSavedSearch = {
       name: name,
       filter: savedSearch.filter,
+      id: savedSearch.id,
     }
     if (authProfile) {
       setIsLoading(true)
-      const all = await getSavedStockSearches(authProfile)
-      const existing = all.find((m) => m.name === name)
-      if (!existing) {
-        newRecord.id = crypto.randomUUID()
-      } else {
-        newRecord.id = existing.id
+      if (!newRecord.id) {
+        const all = await getSavedStockSearches(authProfile)
+        const existing = all.find((m) => m.name === name)
+        if (!existing) {
+          newRecord.id = crypto.randomUUID()
+        } else {
+          newRecord.id = existing.id
+        }
       }
       await putRecord(`stock-saved-search[${authProfile.username}][${newRecord.id}]`, `stock-saved-search[${authProfile.username}]`, newRecord)
 
