@@ -67,7 +67,7 @@ const AdvancedSearchFilterForm = ({
   const handleShowSaveForm = () => {
     setShowSaveForm(true)
   }
-  const filterSummary = summarizeFilter(filter)
+  const filterSummary = summarizeFilter(formValues)
 
   return (
     <>
@@ -105,7 +105,7 @@ const AdvancedSearchFilterForm = ({
       {showSaveForm && (
         <InfoDialog title='save search' show={showSaveForm} onCancel={() => setShowSaveForm(false)} fullScreen={false}>
           <SaveStockSearchForm
-            savedSearch={{ name: filterSummary, filter: filter, id: savedSearchId }}
+            savedSearch={{ name: filterSummary, filter: formValues, id: savedSearchId }}
             onClose={() => {
               setShowSaveForm(false)
               onSaved?.()
