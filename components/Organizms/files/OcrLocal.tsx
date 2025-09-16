@@ -61,7 +61,7 @@ const OcrLocal = () => {
       <FileUploadButton file={selectedFile} onFileSelected={handleSelectFile} accept={supportedOcrImageTypes} />
       {selectedFile && (
         <Box>
-          <ImagePreview url={URL.createObjectURL(selectedFile)} imageSize={getImageSize(selectedFile.size)} />
+          <ImagePreview url={URL.createObjectURL(selectedFile)} imageSize={getImageSize(selectedFile.size)} hideTextExtract />
           <CenterStack>
             <ReadOnlyField label='size' val={getFileSizeText(selectedFile.size)} />
           </CenterStack>
