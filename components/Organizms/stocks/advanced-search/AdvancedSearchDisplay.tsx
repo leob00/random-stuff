@@ -62,7 +62,7 @@ const AdvancedSearchDisplay = () => {
               <Box display={'flex'} flexDirection={'column'} gap={2}>
                 <Box>
                   <Typography textAlign={'center'} py={2}>
-                    {filterSummary}
+                    {filterSummary.summary}
                   </Typography>
                 </Box>
               </Box>

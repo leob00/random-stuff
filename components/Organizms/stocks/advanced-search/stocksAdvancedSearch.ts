@@ -2,16 +2,16 @@ import { NumberRangeFilter, StockAdvancedSearchFilter, StockMarketCapFilter, Sto
 
 export function hasMarketCapFilter(filter: StockMarketCapFilter) {
   const result = filter.includeMegaCap || filter.includeLargeCap || filter.includeMidCap || filter.includeSmallCap
-  return result
+  return !!result
 }
 
 export function hasMovingAvgFilter(filter: StockMovingAvgFilter) {
   const result = !!filter.days
-  return result
+  return !!result
 }
 export function hasPeFilter(filter: NumberRangeFilter) {
   const result = filter.from || filter.to
-  return result
+  return !!result
 }
 
 export function getMarketCapFilters(filter: StockMarketCapFilter) {
@@ -52,41 +52,55 @@ export function getFilterCount(filter: StockAdvancedSearchFilter) {
   return result
 }
 
-export function summarizeFilter(filter: StockAdvancedSearchFilter) {
-  let result = `top ${filter.take} market cap leaders`
-  const filterCount = getFilterCount(filter)
-  const hasMarketCap = hasMarketCapFilter(filter.marketCap)
-  const hasMovingsAv = hasMovingAvgFilter(filter.movingAvg)
-  const hasPe = hasPeFilter(filter.peRatio)
-  const hasAnyFilter = filterCount > 0
+export type StoockFilterSummary = {
+  filterCount: number
+  hasMarketCap: boolean
+  hasMovingAverage: boolean
+  hasPeRatio: boolean
+  summary: string
+}
 
-  if (!hasAnyFilter) {
+export function summarizeFilter(filter: StockAdvancedSearchFilter) {
+  const result: StoockFilterSummary = {
+    hasMarketCap: hasMarketCapFilter(filter.marketCap),
+    hasMovingAverage: hasMovingAvgFilter(filter.movingAvg),
+    hasPeRatio: hasPeFilter(filter.peRatio),
+    filterCount: getFilterCount(filter),
+    summary: `top ${filter.take} market cap leaders`,
+  }
+
+  if (result.filterCount === 0) {
     return result
   }
 
-  if (hasMarketCap) {
-    result = `top ${filter.take} ${getMarketCapFilters(filter.marketCap).join(', ')} cap stocks `
+  if (result.hasMarketCap) {
+    result.summary = `top ${filter.take} ${getMarketCapFilters(filter.marketCap).join(', ')} cap stocks `
   }
-  if (hasMovingsAv) {
-    result = `${result} by ${filter.movingAvg.days} day moving average `
+  if (result.hasMovingAverage) {
+    result.summary = `${result.summary} by ${filter.movingAvg.days} day moving average `
     if (filter.movingAvg.from && filter.movingAvg.to) {
-      result = `${result} between ${filter.movingAvg.from}% and ${filter.movingAvg.to}% `
+      result.summary = `${result.summary} between ${filter.movingAvg.from}% and ${filter.movingAvg.to}% `
     } else if (filter.movingAvg.from) {
-      result = `${result} greater than or equal to ${filter.movingAvg.from}% `
+      result.summary = `${result.summary} greater than or equal to ${filter.movingAvg.from}% `
     } else if (filter.movingAvg.to) {
-      result = `${result} less than or equal to ${filter.movingAvg.to}% `
+      result.summary = `${result.summary} less than or equal to ${filter.movingAvg.to}% `
     }
   }
-  if (filterCount > 2) {
-    result = `${result} and `
+  if (result.filterCount > 2) {
+    result.summary = `${result.summary} and `
   }
-  if (hasPe) {
+  if (result.hasPeRatio) {
     if (filter.peRatio.from && filter.peRatio.to) {
-      result = `${result} P/E between ${filter.peRatio.from} and ${filter.peRatio.to} `
+      result.summary = `${result.summary} P/E between ${filter.peRatio.from} and ${filter.peRatio.to} `
     } else if (filter.peRatio.from) {
-      result = `${result} P/E greater than or equal to ${filter.peRatio.from} `
+      result.summary = `${result.summary} P/E greater than or equal to ${filter.peRatio.from} `
     } else if (filter.peRatio.to) {
-      result = `${result} P/E less than or equal to ${filter.peRatio.to} `
+      result.summary = `${result.summary} P/E less than or equal to ${filter.peRatio.to} `
+    }
+  }
+  if (result.filterCount === 1) {
+    if (result.hasMarketCap) {
+      result.summary = `${result.summary} by market cap`
     }
   }
   return result

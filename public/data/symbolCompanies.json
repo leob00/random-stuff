@@ -1996,6 +1996,10 @@
     "Symbol": "ANGO"
   },
   {
+    "Company": "Angel Studios, Inc.",
+    "Symbol": "ANGX"
+  },
+  {
     "Company": "Anika Therapeutics Inc",
     "Symbol": "ANIK"
   },
@@ -2042,10 +2046,6 @@
   {
     "Company": "Agriculture & Natural Solutions Acquisition Corporation Warrant",
     "Symbol": "ANSCW"
-  },
-  {
-    "Company": "Ansys Inc",
-    "Symbol": "ANSS"
   },
   {
     "Company": "Antalpha Platform Holding Company Class A Ordinary Shares",
@@ -2836,7 +2836,7 @@
     "Symbol": "ASRV"
   },
   {
-    "Company": "Asset Entities Inc. Class B Common Stock",
+    "Company": "Strive, Inc. Class A Common Stock",
     "Symbol": "ASST"
   },
   {
@@ -4104,10 +4104,6 @@
     "Symbol": "BCIM"
   },
   {
-    "Company": "Brainstorm Cell Therapeutics Inc.",
-    "Symbol": "BCLI"
-  },
-  {
     "Company": "iShares BBB-B CLO Active ETF",
     "Symbol": "BCLO"
   },
@@ -4236,8 +4232,16 @@
     "Symbol": "BDVG"
   },
   {
+    "Company": "iShares Disciplined Volatility Equity Active ETF",
+    "Symbol": "BDVL"
+  },
+  {
     "Company": "Becton, Dickinson and Co.",
     "Symbol": "BDX"
+  },
+  {
+    "Company": "iShares Dynamic Equity Active ETF",
+    "Symbol": "BDYN"
   },
   {
     "Company": "Bloom Energy Corporation",
@@ -4522,6 +4526,14 @@
   {
     "Company": "BGM Group Ltd. Class A Ordinary Shares",
     "Symbol": "BGM"
+  },
+  {
+    "Company": "Bio Green Med Solution, Inc. Common Stock",
+    "Symbol": "BGMS"
+  },
+  {
+    "Company": "Bio Green Med Solution, Inc. 6% Convertible Preferred Stock",
+    "Symbol": "BGMSP"
   },
   {
     "Company": "Blackrock Energy and Resources Trust",
@@ -5508,14 +5520,6 @@
     "Symbol": "BOW"
   },
   {
-    "Company": "Bowen Acquisition Corp Ordinary Shares",
-    "Symbol": "BOWN"
-  },
-  {
-    "Company": "Bowen Acquisition Corp Rights",
-    "Symbol": "BOWNR"
-  },
-  {
     "Company": "BOX, INC.",
     "Symbol": "BOX"
   },
@@ -5546,10 +5550,6 @@
   {
     "Company": "Grayscale Bitcoin Premium Income ETF",
     "Symbol": "BPI"
-  },
-  {
-    "Company": "Blueprint Medicines Corporation",
-    "Symbol": "BPMC"
   },
   {
     "Company": "Popular Inc",
@@ -5606,6 +5606,10 @@
   {
     "Company": "Brady Corporation",
     "Symbol": "BRC"
+  },
+  {
+    "Company": "Black Rock Coffee Bar, Inc. Class A Common Stock",
+    "Symbol": "BRCB"
   },
   {
     "Company": "BRC Inc.",
@@ -6516,7 +6520,7 @@
     "Symbol": "CAAP"
   },
   {
-    "Company": "China Automotive Systems, Inc.",
+    "Company": "China Automotive Systems, Inc. Ordinary Share",
     "Symbol": "CAAS"
   },
   {
@@ -7452,14 +7456,6 @@
     "Symbol": "CGBL"
   },
   {
-    "Company": "Crown LNG Holdings Limited Ordinary Shares",
-    "Symbol": "CGBS"
-  },
-  {
-    "Company": "Crown LNG Holdings Limited Warrants",
-    "Symbol": "CGBSW"
-  },
-  {
     "Company": "Canopy Growth Corporation Common Shares",
     "Symbol": "CGC"
   },
@@ -7816,10 +7812,6 @@
     "Symbol": "CHWY"
   },
   {
-    "Company": "ChampionX Corporation",
-    "Symbol": "CHX"
-  },
-  {
     "Company": "Calamos Convertible and High Income Fund",
     "Symbol": "CHY"
   },
@@ -7978,14 +7970,6 @@
   {
     "Company": "Columbia Financial, Inc. Common Stock",
     "Symbol": "CLBK"
-  },
-  {
-    "Company": "Colombier Acquisition Corp. II",
-    "Symbol": "CLBR"
-  },
-  {
-    "Company": "Colombier Acquisition Corp. II Warrants, each whole warrant exercisable for one Class A Ordinary Share at an exercise price of $11.50 per share",
-    "Symbol": "CLBR.WS"
   },
   {
     "Company": "Cellebrite DI Ltd. Class A Ordinary Shares",
@@ -10688,7 +10672,7 @@
     "Symbol": "DHX"
   },
   {
-    "Company": "Credit Suisse High Yield Bond Fund",
+    "Company": "Credit Suisse High Yield Credit Fund",
     "Symbol": "DHY"
   },
   {
@@ -11618,10 +11602,6 @@
   {
     "Company": "AdvisorShares Dorsey Wright FSM All Cap World ETF",
     "Symbol": "DWAW"
-  },
-  {
-    "Company": "Arrow DWA Country Rotation ETF",
-    "Symbol": "DWCR"
   },
   {
     "Company": "Davis Select Worldwide ETF",
@@ -14052,10 +14032,6 @@
     "Symbol": "FATBP"
   },
   {
-    "Company": "FAT Brands Inc. Warrant",
-    "Symbol": "FATBW"
-  },
-  {
     "Company": "Fate Therapeutics, Inc.",
     "Symbol": "FATE"
   },
@@ -14900,6 +14876,10 @@
     "Symbol": "FIGB"
   },
   {
+    "Company": "Figure Technology Solutions, Inc. Class A Common Stock",
+    "Symbol": "FIGR"
+  },
+  {
     "Company": "FIGS, Inc.",
     "Symbol": "FIGS"
   },
@@ -15618,6 +15598,10 @@
   {
     "Company": "Cohen & Steers Closed End Opportunity Fund",
     "Symbol": "FOF"
+  },
+  {
+    "Company": "Hang Feng Technology Innovation Co., Ltd. Ordinary Shares",
+    "Symbol": "FOFO"
   },
   {
     "Company": "Amicus Therapeutics, Inc",
@@ -16816,6 +16800,10 @@
     "Symbol": "GECC"
   },
   {
+    "Company": "Great Elm Capital Corp. 7.75% Notes Due 2030",
+    "Symbol": "GECCG"
+  },
+  {
     "Company": "Great Elm Capital Corp. 8.125% Notes Due 2029",
     "Symbol": "GECCH"
   },
@@ -16870,6 +16858,10 @@
   {
     "Company": "Pacific North of South EM Equity Active ETF",
     "Symbol": "GEME"
+  },
+  {
+    "Company": "Gemini Space Station, Inc. Class A Common Stock",
+    "Symbol": "GEMI"
   },
   {
     "Company": "Gen Digital Inc. Common Stock",
@@ -18728,10 +18720,6 @@
     "Symbol": "HERZ"
   },
   {
-    "Company": "Hess Corporation",
-    "Symbol": "HES"
-  },
-  {
     "Company": "Hess Midstream LP Class A Share representing a limited partner Interest",
     "Symbol": "HESM"
   },
@@ -20198,10 +20186,6 @@
   {
     "Company": "Amplify Online Retail ETF",
     "Symbol": "IBUY"
-  },
-  {
-    "Company": "Icad Inc",
-    "Symbol": "ICAD"
   },
   {
     "Company": "Infrastructure Capital Equity Income ETF",
@@ -21786,6 +21770,10 @@
   {
     "Company": "VanEck Intermediate Muni ETF",
     "Symbol": "ITM"
+  },
+  {
+    "Company": "Tema International Durable Quality ETF",
+    "Symbol": "ITOL"
   },
   {
     "Company": "iTeos Therapeutics, Inc. Common Stock",
@@ -24000,6 +23988,10 @@
     "Symbol": "LBRT"
   },
   {
+    "Company": "LB Pharmaceuticals Inc Common Stock",
+    "Symbol": "LBRX"
+  },
+  {
     "Company": "Liberty Global Ltd. Class A Common Shares",
     "Symbol": "LBTYA"
   },
@@ -24368,6 +24360,10 @@
     "Symbol": "LGLV"
   },
   {
+    "Company": "Legence Corp. Class A Common stock",
+    "Symbol": "LGN"
+  },
+  {
     "Company": "Ligand Pharmaceuticals Inc.",
     "Symbol": "LGND"
   },
@@ -24542,6 +24538,10 @@
   {
     "Company": "Sprott Lithium Miners ETF",
     "Symbol": "LITP"
+  },
+  {
+    "Company": "Lite Strategy, Inc. Common Stock",
+    "Symbol": "LITS"
   },
   {
     "Company": "Live Ventures Inc",
@@ -26456,6 +26456,10 @@
     "Symbol": "MLACU"
   },
   {
+    "Company": "Mount Logan Capital Inc. Common Stock",
+    "Symbol": "MLCI"
+  },
+  {
     "Company": "Melco Resorts & Entertainment Limited American Depositary Shares",
     "Symbol": "MLCO"
   },
@@ -28122,10 +28126,6 @@
   {
     "Company": "National Energy Services Reunited Corp. Ordinary Shares",
     "Symbol": "NESR"
-  },
-  {
-    "Company": "National Energy Services Reunited Corp. Warrant",
-    "Symbol": "NESRW"
   },
   {
     "Company": "Cloudflare, Inc. Class A common stock, par value $0.001 per share",
@@ -30080,8 +30080,16 @@
     "Symbol": "ONC"
   },
   {
+    "Company": "1RT Acquisition Corp. Class A Ordinary Share",
+    "Symbol": "ONCH"
+  },
+  {
     "Company": "1RT Acquisition Corp. Units",
     "Symbol": "ONCHU"
+  },
+  {
+    "Company": "1RT Acquisition Corp. Warrant",
+    "Symbol": "ONCHW"
   },
   {
     "Company": "Onconetix, Inc. Common Stock",
@@ -30304,6 +30312,10 @@
     "Symbol": "ORA"
   },
   {
+    "Company": "Eightco Holdings Inc. Common Stock",
+    "Symbol": "ORBS"
+  },
+  {
     "Company": "Orchid Island Capital, Inc.",
     "Symbol": "ORC"
   },
@@ -30450,6 +30462,10 @@
   {
     "Company": "Blue Owl Technology Finance Corp.",
     "Symbol": "OTF"
+  },
+  {
+    "Company": "OTG Acquisition Corp. I Unit",
+    "Symbol": "OTGAU"
   },
   {
     "Company": "OTG Latin America ETF",
@@ -33984,6 +34000,10 @@
     "Symbol": "RATE"
   },
   {
+    "Company": "RACWI US ETF",
+    "Symbol": "RAUS"
+  },
+  {
     "Company": "Rave Restaurant Group, Inc.",
     "Symbol": "RAVE"
   },
@@ -34170,10 +34190,6 @@
   {
     "Company": "Rising Dragon Acquisition Corp. Rights",
     "Symbol": "RDACR"
-  },
-  {
-    "Company": "Rising Dragon Acquisition Corp. Unit",
-    "Symbol": "RDACU"
   },
   {
     "Company": "Republic Digital Acquisition Company Class A Ordinary Shares",
@@ -38204,6 +38220,10 @@
     "Symbol": "SPR"
   },
   {
+    "Company": "Spruce Biosciences, Inc. Common Stock",
+    "Symbol": "SPRB"
+  },
+  {
     "Company": "SciSparc Ltd. Ordinary Shares",
     "Symbol": "SPRC"
   },
@@ -38504,10 +38524,6 @@
     "Symbol": "SRLN"
   },
   {
-    "Company": "SRM Entertainment, Inc. Common Stock",
-    "Symbol": "SRM"
-  },
-  {
     "Company": "Calamos Antetokounmpo Global Sustainable Equities ETF",
     "Symbol": "SROI"
   },
@@ -38726,6 +38742,10 @@
   {
     "Company": "SRH Total Return Fund, Inc.",
     "Symbol": "STEW"
+  },
+  {
+    "Company": "Streamex Corp. Common Stock",
+    "Symbol": "STEX"
   },
   {
     "Company": "Star Fashion Culture Holdings Limited Class A Ordinary Shares",
@@ -39282,6 +39302,10 @@
   {
     "Company": "Sysco Corporation",
     "Symbol": "SYY"
+  },
+  {
+    "Company": "Lazard US Systematic Small Cap Equity ETF",
+    "Symbol": "SYZ"
   },
   {
     "Company": "ProShares UltraShort Consumer Staples",
@@ -42832,6 +42856,10 @@
     "Symbol": "VHT"
   },
   {
+    "Company": "Via Transportation, Inc.",
+    "Symbol": "VIA"
+  },
+  {
     "Company": "Via Renewables, Inc. 8.75% Series A Fixed-to-Floating Rate Cumulative Redeemable Perpetual Preferred Stock",
     "Symbol": "VIASP"
   },
@@ -43748,6 +43776,10 @@
     "Symbol": "WBX"
   },
   {
+    "Company": "WarCap Unconstrained Equity ETF",
+    "Symbol": "WCAP"
+  },
+  {
     "Company": "WisdomTree Cybersecurity Fund",
     "Symbol": "WCBR"
   },
@@ -43788,6 +43820,10 @@
     "Symbol": "WD"
   },
   {
+    "Company": "WisdomTree Asia Defense Fund",
+    "Symbol": "WDAF"
+  },
+  {
     "Company": "Workday, Inc. Class A Common Stock",
     "Symbol": "WDAY"
   },
@@ -43802,6 +43838,10 @@
   {
     "Company": "Wd-40 Co",
     "Symbol": "WDFC"
+  },
+  {
+    "Company": "WisdomTree Global Defense Fund",
+    "Symbol": "WDGF"
   },
   {
     "Company": "Waterdrop Inc. American Depositary Shares (each representing the right to receive 10 Class A Ordinary Shares)",
@@ -45846,10 +45886,6 @@
   {
     "Company": "Zevra Therapeutics, Inc. Common Stock",
     "Symbol": "ZVRA"
-  },
-  {
-    "Company": "ZyVersa Therapeutics, Inc. Common Stock",
-    "Symbol": "ZVSA"
   },
   {
     "Company": "Zurn Elkay Water Solutions Corporation",

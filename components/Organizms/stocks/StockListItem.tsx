@@ -23,9 +23,7 @@ import StockDetailsTab from './StockDetailsTab'
 import { useEffect, useRef, useState } from 'react'
 import StockDividendDetails from './dividends/StockDividendDetails'
 import StockField from './StockField'
-import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { MarketCategory } from 'lib/backend/api/qln/chartApi'
-import StockChangeNumberDisplay from './StockChangeNumberDisplay'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 const StockListItem = ({
@@ -102,36 +100,34 @@ const StockListItem = ({
     <>
       <Box py={1}>
         <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
-        <FadeIn>
+        <Box>
+          {marketCategory === 'stocks' ? (
+            <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={handleCompanyClick} disabled={disabled} elevation={0} fadeIn={false} />
+          ) : (
+            <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} elevation={0} fadeIn={false} />
+          )}
           <Box>
-            {marketCategory === 'stocks' ? (
-              <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={handleCompanyClick} disabled={disabled} elevation={0} />
-            ) : (
-              <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} elevation={0} />
-            )}
-            <Box>
-              <StockChange item={item} showMovingAvg={showMovingAvgOnly} />
-              {showMovingAvgOnly && (
-                <Box pl={2}>
-                  {/* <StockChangeNumberDisplay value={item.MovingAvg ?? 0} endSymbol='%' /> */}
-                  <Box>
-                    <StockField quote={item} field={'MovingAvgDays'} />
-                  </Box>
-                </Box>
-              )}
-            </Box>
-            {featuredField && (
+            <StockChange item={item} showMovingAvg={showMovingAvgOnly} />
+            {showMovingAvgOnly && (
               <Box pl={2}>
-                <StockField quote={item} field={featuredField} />
+                {/* <StockChangeNumberDisplay value={item.MovingAvg ?? 0} endSymbol='%' /> */}
+                <Box>
+                  <StockField quote={item} field={'MovingAvgDays'} />
+                </Box>
               </Box>
             )}
-            {showGroupName && item.GroupName && (
-              <Stack pl={2} py={2}>
-                <Typography variant='caption' color='primary'>{`Group Name: ${item.GroupName}`}</Typography>
-              </Stack>
-            )}
           </Box>
-        </FadeIn>
+          {featuredField && (
+            <Box pl={2}>
+              <StockField quote={item} field={featuredField} />
+            </Box>
+          )}
+          {showGroupName && item.GroupName && (
+            <Stack pl={2} py={2}>
+              <Typography variant='caption' color='primary'>{`Group Name: ${item.GroupName}`}</Typography>
+            </Stack>
+          )}
+        </Box>
         <Box pt={1}>
           <HorizontalDivider />
         </Box>

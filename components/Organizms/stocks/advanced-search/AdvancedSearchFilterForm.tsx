@@ -87,7 +87,7 @@ const AdvancedSearchFilterForm = ({
             <MovingAvgSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
             <PeRatioSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
             {controller.model.isLoading && <BackdropLoader />}
-            {!showSubmitButton && <Typography textAlign={'center'}>{filterSummary}</Typography>}
+            {!showSubmitButton && <Typography textAlign={'center'}>{filterSummary.summary}</Typography>}
             <Box py={2} display={'flex'} justifyContent={'flex-end'} pr={1} gap={1}>
               {controller.model.allowSave && (
                 <Box>
@@ -105,7 +105,7 @@ const AdvancedSearchFilterForm = ({
       {showSaveForm && (
         <InfoDialog title='save search' show={showSaveForm} onCancel={() => setShowSaveForm(false)} fullScreen={false}>
           <SaveStockSearchForm
-            savedSearch={{ name: filterSummary, filter: formValues, id: savedSearchId }}
+            savedSearch={{ name: filterSummary.summary, filter: formValues, id: savedSearchId }}
             onClose={() => {
               setShowSaveForm(false)
               onSaved?.()
