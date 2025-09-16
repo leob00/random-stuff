@@ -68,7 +68,7 @@ export function summarizeFilter(filter: StockAdvancedSearchFilter) {
     result = `top ${filter.take} ${getMarketCapFilters(filter.marketCap).join(', ')} cap stocks `
   }
   if (hasMovingsAv) {
-    result = `${result} with ${filter.movingAvg.days} day moving average `
+    result = `${result} by ${filter.movingAvg.days} day moving average `
     if (filter.movingAvg.from && filter.movingAvg.to) {
       result = `${result} between ${filter.movingAvg.from}% and ${filter.movingAvg.to}% `
     } else if (filter.movingAvg.from) {
