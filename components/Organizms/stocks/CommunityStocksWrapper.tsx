@@ -1,6 +1,5 @@
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import React from 'react'
 import CommunityStocksLayout from './CommunityStocksLayout'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuRefresh from 'components/Molecules/Menus/ContextMenuRefresh'
@@ -9,6 +8,8 @@ import { useRouter } from 'next/navigation'
 import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
 import { Box } from '@mui/material'
 import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
+import ContextMenuCommodities from 'components/Molecules/Menus/ContextMenuCommodities'
+import ContextMenuCrypto from 'components/Molecules/Menus/ContextMenuCrypto'
 
 const CommunityStocksWrapper = ({ data, onRefresh }: { data?: StockQuote[]; onRefresh: () => void }) => {
   const router = useRouter()
@@ -32,6 +33,14 @@ const CommunityStocksWrapper = ({ data, onRefresh }: { data?: StockQuote[]; onRe
     {
       item: <ContextMenuEarnings text={'earnings calendar'} />,
       fn: () => router.push('/csr/stocks/earnings-calendar'),
+    },
+    {
+      item: <ContextMenuCommodities text={'commodities'} />,
+      fn: () => router.push('/csr/commodities'),
+    },
+    {
+      item: <ContextMenuCrypto text={'crypto'} />,
+      fn: () => router.push('/csr/crypto'),
     },
   ]
 

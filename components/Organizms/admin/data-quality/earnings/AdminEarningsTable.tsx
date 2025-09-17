@@ -154,7 +154,7 @@ const AdminEarningsTable = ({ model, setModel, onRefresh }: { model: AdminEarnin
                       <>
                         <TableCell sx={{ borderBottom: 'none', borderTop: 'none' }}>
                           <Box py={1} pl={1}>
-                            <FormDatePicker value={item.ReportDate ?? null} onDateSelected={handleUpdateDate} />
+                            <FormDatePicker value={model.selectedItem.ReportDate ?? null} onDateSelected={handleUpdateDate} />
                           </Box>
                         </TableCell>
                         <TableCell sx={{ borderBottom: 'none' }}>
