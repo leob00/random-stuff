@@ -15,6 +15,7 @@ import { useState } from 'react'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import SaveStockSearchForm from '../saved-searches/SaveStockSearchForm'
 import { summarizeFilter } from './stocksAdvancedSearch'
+import AnnualYieldSearch from './sections/AnnualYieldSearch'
 
 const AdvancedSearchFilterForm = ({
   onSubmitted,
@@ -86,6 +87,7 @@ const AdvancedSearchFilterForm = ({
             <MarketCapSearch controller={controller} form={control} formValues={formValues} setValue={setValue} />
             <MovingAvgSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
             <PeRatioSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
+            <AnnualYieldSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
             {controller.model.isLoading && <BackdropLoader />}
             {!showSubmitButton && <Typography textAlign={'center'}>{filterSummary.summary}</Typography>}
             <Box py={2} display={'flex'} justifyContent={'flex-end'} pr={1} gap={1}>

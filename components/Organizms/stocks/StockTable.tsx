@@ -14,9 +14,9 @@ const StockTable = ({
   scrollMargin = -10,
   showGroupName = true,
   showSummary = true,
-  featuredField,
   showMovingAvgOnly = false,
   userProfile,
+  featuredFields,
 }: {
   stockList: StockQuote[]
   marketCategory: MarketCategory
@@ -24,9 +24,9 @@ const StockTable = ({
   scrollMargin?: number
   showGroupName?: boolean
   showSummary?: boolean
-  featuredField?: keyof StockQuote
   showMovingAvgOnly?: boolean
   userProfile: UserProfile | null
+  featuredFields?: Array<keyof StockQuote>
 }) => {
   return (
     <>
@@ -37,9 +37,9 @@ const StockTable = ({
               item={item}
               marketCategory={marketCategory}
               showGroupName={showGroupName}
-              featuredField={featuredField}
               showMovingAvgOnly={showMovingAvgOnly}
               userProfile={userProfile}
+              featuredFields={featuredFields}
               scrollIntoView
             />
           </Box>

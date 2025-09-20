@@ -3,15 +3,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { AdvancedSearchUiController } from '../stockAdvancedSearchUi'
 import { CasinoGrayTransparent } from 'components/themes/mainTheme'
 import { Control, Controller, FieldErrors, UseFormSetValue } from 'react-hook-form'
-import { StockAdvancedSearchFilter, StockMarketCapFilter, StockMovingAvgFilter, NumberRangeFilter } from '../advancedSearchFilter'
-import ControlledSwitch from 'components/Molecules/Forms/ReactHookForm/ControlledSwitch'
+import { StockAdvancedSearchFilter, NumberRangeFilter } from '../advancedSearchFilter'
 import FormNumericTextField2 from 'components/Molecules/Forms/ReactHookForm/FormNumericTextField2'
-import FormDropdownListNumeric from 'components/Molecules/Forms/ReactHookForm/FormDropdownListNumeric'
-import { DropdownItemNumeric } from 'lib/models/dropdown'
-import { hasNumberRangeFilter } from '../stocksAdvancedSearch'
 import CheckIcon from '@mui/icons-material/Check'
+import { hasNumberRangeFilter } from '../stocksAdvancedSearch'
 
-const PeRatioSearch = ({
+const AnnualYieldSearch = ({
   controller,
   form,
   formValues,
@@ -25,24 +22,24 @@ const PeRatioSearch = ({
   errors: FieldErrors<StockAdvancedSearchFilter>
 }) => {
   const setFieldValue = (fieldName: keyof NumberRangeFilter, val?: number | null) => {
-    let newValues = { ...formValues.peRatio }
+    let newValues = { ...formValues.annualYield }
     newValues[fieldName] = val ?? undefined
-    setValue('peRatio', newValues)
-    const newFilter = { ...controller.model.filter, peRatio: newValues }
+    setValue('annualYield', newValues)
+    const newFilter = { ...controller.model.filter, annualYield: newValues }
     controller.setModel({ ...controller.model, filter: newFilter })
   }
-  const hasFilter = hasNumberRangeFilter(formValues.peRatio)
+  const hasFilter = hasNumberRangeFilter(formValues.annualYield)
 
   return (
     <Accordion
-      expanded={controller.model.expandPeRatio}
+      expanded={controller.model.expandAnnualYield}
       onChange={(e, expanded) => {
-        controller.setModel({ ...controller.model, expandPeRatio: expanded })
+        controller.setModel({ ...controller.model, expandAnnualYield: expanded })
       }}
     >
       <AccordionSummary expandIcon={<ExpandMoreIcon fontSize='small' color='primary' />} sx={{ borderTop: `solid 1px ${CasinoGrayTransparent}` }}>
         <Box display={'flex'} gap={1} alignItems={'center'}>
-          <Typography variant='h6'>P/E Ratio</Typography>
+          <Typography variant='h6'>Annual Dividend Yield</Typography>
           {hasFilter && <CheckIcon fontSize='small' />}
         </Box>
       </AccordionSummary>
@@ -50,34 +47,34 @@ const PeRatioSearch = ({
         <Box display={'flex'} flexDirection={'column'} gap={1}>
           <Box display={'flex'} gap={2}>
             <Controller
-              name={'peRatio.from'}
+              name={'annualYield.from'}
               control={form}
               render={({ field: { value, onChange, ...field } }) => (
                 <FormNumericTextField2
                   //placeholder='from'
                   label='from'
                   size='small'
-                  value={formValues.peRatio.from}
+                  value={formValues.annualYield?.from}
                   onChanged={(val?: number) => {
                     setFieldValue('from', val)
                   }}
                   {...field}
-                  errorMessage={errors.peRatio?.from?.message}
+                  errorMessage={errors.annualYield?.from?.message}
                 />
               )}
             />
             <Controller
-              name={'peRatio.to'}
+              name={'annualYield.to'}
               control={form}
               render={({ field: { value, onChange, ...field } }) => (
                 <FormNumericTextField2
                   label='to'
-                  value={formValues.peRatio.to}
+                  value={formValues.annualYield?.to}
                   onChanged={(val?: number) => {
                     setFieldValue('to', val)
                   }}
                   {...field}
-                  errorMessage={errors.peRatio?.to?.message}
+                  errorMessage={errors.annualYield?.to?.message}
                 />
               )}
             />
@@ -88,4 +85,4 @@ const PeRatioSearch = ({
   )
 }
 
-export default PeRatioSearch
+export default AnnualYieldSearch

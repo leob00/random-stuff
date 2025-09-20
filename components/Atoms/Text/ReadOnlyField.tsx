@@ -7,35 +7,27 @@ const ReadOnlyField = ({
   val,
   labelLength,
   variant,
-  py = 1,
   color,
 }: {
   label?: string
   val?: string | null | number
   labelLength?: number
   variant?: TypographyVariant
-  py?: number
   color?: string
 }) => {
   const { viewPortSize } = useViewPortSize()
 
   return (
     <Box>
-      <Box
-        display={'flex'}
-        flexDirection={'row'}
-        gap={2}
-        py={py}
-        alignItems={viewPortSize === 'xs' && !!val && val?.toString().length > 20 ? 'flex-start' : 'center'}
-      >
+      <Box display={'flex'} flexDirection={'row'} gap={1} alignItems={viewPortSize === 'xs' && !!val && val?.toString().length > 20 ? 'flex-start' : 'center'}>
         {label && (
-          <Box textAlign={'right'} minWidth={labelLength ?? undefined}>
+          <Box display={'flex'} textAlign={'right'} minWidth={labelLength ?? undefined}>
             <Typography variant={variant ?? 'body2'} color={color ?? 'primary'}>{`${label}:`}</Typography>
           </Box>
         )}
-        {!!val && (
+        {val && (
           <Box>
-            <Typography variant={variant ?? 'body1'} color={color ?? 'primary'}>
+            <Typography variant={variant ?? 'body2'} color={color ?? 'primary'} sx={{ fontWeight: 'bold' }}>
               {val}
             </Typography>
           </Box>

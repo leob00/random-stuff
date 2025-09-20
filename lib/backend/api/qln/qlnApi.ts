@@ -7,7 +7,12 @@ import dayjs from 'dayjs'
 import { apiConnection } from '../config'
 import { EconomicDataItem, StockReportTypes } from './qlnModels'
 import { StockAdvancedSearchFilter } from 'components/Organizms/stocks/advanced-search/advancedSearchFilter'
-import { getMarketCapFilters, hasMarketCapFilter, hasMovingAvgFilter, hasPeFilter } from 'components/Organizms/stocks/advanced-search/stocksAdvancedSearch'
+import {
+  getMarketCapFilters,
+  hasMarketCapFilter,
+  hasMovingAvgFilter,
+  hasNumberRangeFilter,
+} from 'components/Organizms/stocks/advanced-search/stocksAdvancedSearch'
 
 const config = apiConnection()
 const qlnApiBaseUrl = config.qln.url
@@ -130,10 +135,10 @@ export const newsTypes: DropdownItem[] = [
     text: 'Life Hacker',
     value: 'LifeHacker',
   },
-  {
-    text: 'MarketWatch Pulse',
-    value: 'MarketWatchPulse',
-  },
+  // {
+  //   text: 'MarketWatch Pulse',
+  //   value: 'MarketWatchPulse',
+  // },
   {
     text: 'MarketWatch Top Stories',
     value: 'MarketWatchTopStories',
@@ -182,10 +187,10 @@ export const newsTypes: DropdownItem[] = [
     text: 'The Onion',
     value: 'TheOnion',
   },
-  {
-    text: 'UN - Top Stories',
-    value: 'UNWorld',
-  },
+  // problem with encoding{
+  //   text: 'UN - Top Stories',
+  //   value: 'UNWorld',
+  // },
   {
     text: 'Washington Post',
     value: 'WashingtonPost',
@@ -514,6 +519,7 @@ type StockAdvancedSearchPostModel = {
   } | null
   MovingAvg: MovingAvgDaysFilter | null
   PeRatio: StocksSearchNumericRangeFilter | null
+  AnnualYield: StocksSearchNumericRangeFilter | null
 }
 
 export async function executeStockAdvancedSearch(filter: StockAdvancedSearchFilter) {
@@ -522,6 +528,7 @@ export async function executeStockAdvancedSearch(filter: StockAdvancedSearchFilt
     MarketCap: null,
     MovingAvg: null,
     PeRatio: null,
+    AnnualYield: null,
   }
   if (hasMarketCapFilter(filter.marketCap)) {
     postBody.MarketCap = {
@@ -535,10 +542,18 @@ export async function executeStockAdvancedSearch(filter: StockAdvancedSearchFilt
       To: filter.movingAvg.to ?? null,
     }
   }
-  if (hasPeFilter(filter.peRatio)) {
+  if (hasNumberRangeFilter(filter.peRatio)) {
     postBody.PeRatio = {
       From: filter.peRatio.from ?? null,
       To: filter.peRatio.to ?? null,
+    }
+  }
+  if (filter.annualYield) {
+    if (hasNumberRangeFilter(filter.annualYield)) {
+      postBody.AnnualYield = {
+        From: filter.annualYield.from ?? null,
+        To: filter.annualYield.to ?? null,
+      }
     }
   }
 

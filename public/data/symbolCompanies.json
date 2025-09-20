@@ -916,6 +916,10 @@
     "Symbol": "AFRM"
   },
   {
+    "Company": "T-REX 2X Long AFRM Daily Target ETF",
+    "Symbol": "AFRU"
+  },
+  {
     "Company": "abrdn Focused U.S. Small Cap Active ETF",
     "Symbol": "AFSC"
   },
@@ -1906,6 +1910,10 @@
   {
     "Company": "America Movil S.A.B de C.V American Depositary Shares (each representing the right to receive twenty (20) Series B Shares)",
     "Symbol": "AMX"
+  },
+  {
+    "Company": "GraniteShares YieldBOOST AMD ETF",
+    "Symbol": "AMYY"
   },
   {
     "Company": "InfraCap MLP ETF",
@@ -3532,6 +3540,10 @@
     "Symbol": "AXTI"
   },
   {
+    "Company": "T-REX 2X Long AXON Daily Target ETF",
+    "Symbol": "AXUP"
+  },
+  {
     "Company": "Acuity Inc.",
     "Symbol": "AYI"
   },
@@ -3574,6 +3586,10 @@
   {
     "Company": "Azitra Inc",
     "Symbol": "AZTR"
+  },
+  {
+    "Company": "GraniteShares YieldBoost AMZN ETF",
+    "Symbol": "AZYY"
   },
   {
     "Company": "AZZ Inc.",
@@ -4974,6 +4990,10 @@
   {
     "Company": "Booking Holdings Inc. Common Stock",
     "Symbol": "BKNG"
+  },
+  {
+    "Company": "T-REX 2X Long BKNG Daily Target ETF",
+    "Symbol": "BKNU"
   },
   {
     "Company": "Baker Hughes Company",
@@ -7152,6 +7172,10 @@
     "Symbol": "CDEI"
   },
   {
+    "Company": "City Different Investments Global Equity ETF",
+    "Symbol": "CDIG"
+  },
+  {
     "Company": "Cardio Diagnostics Holdings Inc. Common stock",
     "Symbol": "CDIO"
   },
@@ -7684,6 +7708,10 @@
     "Symbol": "CHEB.WS"
   },
   {
+    "Company": "Chenghe Acquisition III Co. Units",
+    "Symbol": "CHECU"
+  },
+  {
     "Company": "The Chef's Warehouse Inc",
     "Symbol": "CHEF"
   },
@@ -7730,6 +7758,10 @@
   {
     "Company": "China Natural Resources, Inc.",
     "Symbol": "CHNR"
+  },
+  {
+    "Company": "ChowChow Cloud International Holdings Limited",
+    "Symbol": "CHOW"
   },
   {
     "Company": "ChampionsGate Acquisition Corporation Class A Ordinary Share",
@@ -8142,6 +8174,10 @@
   {
     "Company": "Catalyst Bancorp, Inc. Common Stock",
     "Symbol": "CLST"
+  },
+  {
+    "Company": "Tradr 2X Long CLSK Daily ETF",
+    "Symbol": "CLSX"
   },
   {
     "Company": "Clarivate Plc",
@@ -9054,6 +9090,10 @@
   {
     "Company": "Simplify Opportunistic Income ETF",
     "Symbol": "CRDT"
+  },
+  {
+    "Company": "Tradr 2X Long CRDO Daily ETF",
+    "Symbol": "CRDU"
   },
   {
     "Company": "Cre8 Enterprise Limited Class A Ordinary Shares",
@@ -10756,6 +10796,10 @@
     "Symbol": "DIVD"
   },
   {
+    "Company": "Dana Concentrated Dividend ETF",
+    "Symbol": "DIVE"
+  },
+  {
     "Company": "Invesco S&P 500 High Dividend Growers ETF",
     "Symbol": "DIVG"
   },
@@ -11454,6 +11498,10 @@
   {
     "Company": "MicroSectors Gold -3x Inverse Leveraged ETN",
     "Symbol": "DULL"
+  },
+  {
+    "Company": "Dana Unconstrained Equity ETF",
+    "Symbol": "DUNK"
   },
   {
     "Company": "Fangdd Network Group Ltd. Class A Ordinary Shares",
@@ -12808,6 +12856,10 @@
     "Symbol": "ENPH"
   },
   {
+    "Company": "Tradr 2X Long ENPH Daily ETF",
+    "Symbol": "ENPX"
+  },
+  {
     "Company": "Energizer Holdings, Inc",
     "Symbol": "ENR"
   },
@@ -14002,10 +14054,6 @@
   {
     "Company": "Farmer Bros Co",
     "Symbol": "FARM"
-  },
-  {
-    "Company": "Faro Technologies Inc",
-    "Symbol": "FARO"
   },
   {
     "Company": "Frontier Asset Absolute Return ETF",
@@ -16600,10 +16648,6 @@
     "Symbol": "GBUG"
   },
   {
-    "Company": "Goldman Sachs Future Consumer Equity ETF",
-    "Symbol": "GBUY"
-  },
-  {
     "Company": "The Greenbrier Companies, Inc.",
     "Symbol": "GBX"
   },
@@ -17948,7 +17992,7 @@
     "Symbol": "GRVY"
   },
   {
-    "Company": "TCW Compounders ETF",
+    "Company": "TCW ETF Trust TCW Durable Growth ETF",
     "Symbol": "GRW"
   },
   {
@@ -17998,10 +18042,6 @@
   {
     "Company": "Goldman Sachs Equal Weight U.S. Large Cap Equity ETF",
     "Symbol": "GSEW"
-  },
-  {
-    "Company": "Goldman Sachs Future Planet Equity ETF",
-    "Symbol": "GSFP"
   },
   {
     "Company": "iShares S&P  GSCI Commodity-Indexed Trust",
@@ -18106,6 +18146,10 @@
   {
     "Company": "Goldman Sachs MarketBeta U.S. Equity ETF",
     "Symbol": "GSUS"
+  },
+  {
+    "Company": "Tradr 2X Long GS Daily ETF",
+    "Symbol": "GSX"
   },
   {
     "Company": "Invesco Ultra Short Duration ETF",
@@ -20534,6 +20578,10 @@
   {
     "Company": "iShares Global Infrastructure ETF",
     "Symbol": "IGF"
+  },
+  {
+    "Company": "AB International Growth ETF",
+    "Symbol": "IGGY"
   },
   {
     "Company": "ProShares Investment Grade-Interest Rate Hedged",
@@ -23256,10 +23304,6 @@
     "Symbol": "KIM"
   },
   {
-    "Company": "Nextdoor Holdings, Inc.",
-    "Symbol": "KIND"
-  },
-  {
     "Company": "Kingstone Companies, Inc.",
     "Symbol": "KINS"
   },
@@ -23482,10 +23526,6 @@
   {
     "Company": "Coca-Cola Company",
     "Symbol": "KO"
-  },
-  {
-    "Company": "FIS Knights of Columbus Global Belief ETF",
-    "Symbol": "KOCG"
   },
   {
     "Company": "Innovator U.S. Small Cap Power Buffer ETF - October",
@@ -23734,6 +23774,10 @@
   {
     "Company": "Pasithea Therapeutics Corp. Warrants",
     "Symbol": "KTTAW"
+  },
+  {
+    "Company": "T-REX 2X Long KTOS Daily Target ETF",
+    "Symbol": "KTUP"
   },
   {
     "Company": "Kuke Music Holding Limited American Depositary Shares (each representing ten (10) Class A Ordinary Shares)",
@@ -25496,10 +25540,6 @@
     "Symbol": "MAYAR"
   },
   {
-    "Company": "Maywood Acquisition Corp. Unit",
-    "Symbol": "MAYAU"
-  },
-  {
     "Company": "FT Vest U.S. Equity Max Buffer ETF - May",
     "Symbol": "MAYM"
   },
@@ -26390,6 +26430,10 @@
   {
     "Company": "Majestic Ideal Holdings Ltd Ordinary Shares",
     "Symbol": "MJID"
+  },
+  {
+    "Company": "MUFG Japan Small Cap Active ETF",
+    "Symbol": "MJSC"
   },
   {
     "Company": "MKAM ETF",
@@ -27584,6 +27628,10 @@
     "Symbol": "MYCN"
   },
   {
+    "Company": "SPDR SSGA My2035 Corporate Bond ETF",
+    "Symbol": "MYCO"
+  },
+  {
     "Company": "Blackrock Muniyield Fund, Inc.",
     "Symbol": "MYD"
   },
@@ -28358,6 +28406,10 @@
   {
     "Company": "Virtus Equity & Convertible Income Fund",
     "Symbol": "NIE"
+  },
+  {
+    "Company": "NEOS MSCI EAFE High Income ETF",
+    "Symbol": "NIHI"
   },
   {
     "Company": "Sprott Nickel Miners ETF",
@@ -33130,6 +33182,10 @@
   {
     "Company": "Invesco Exchange-Traded Fund Trust Invesco Dorsey Wright Energy Momentum ETF",
     "Symbol": "PXI"
+  },
+  {
+    "Company": "T-REX 2X Long UPXI Daily Target ETF",
+    "Symbol": "PXIU"
   },
   {
     "Company": "Invesco Oil & Gas Services ETF",
@@ -38456,7 +38512,7 @@
     "Symbol": "SQMX"
   },
   {
-    "Company": "Sequans Communications S.A. American Depositary Shares (each representing ten (10) Ordinary Shares)",
+    "Company": "Sequans Communications S.A. American Depositary Shares (each representing one hundred (100) Ordinary Shares)",
     "Symbol": "SQNS"
   },
   {
@@ -38926,6 +38982,10 @@
   {
     "Company": "Shattuck Labs, Inc. Common Stock",
     "Symbol": "STTK"
+  },
+  {
+    "Company": "StubHub Holdings, Inc.",
+    "Symbol": "STUB"
   },
   {
     "Company": "Stevanato Group S.p.A.",
@@ -41180,6 +41240,10 @@
     "Symbol": "TTD"
   },
   {
+    "Company": "T-REX 2X Long TTD Daily Target ETF",
+    "Symbol": "TTDU"
+  },
+  {
     "Company": "TotalEnergies SE",
     "Symbol": "TTE"
   },
@@ -41914,6 +41978,10 @@
   {
     "Company": "Unity Bancorp",
     "Symbol": "UNTY"
+  },
+  {
+    "Company": "Tradr 2X Long U Daily ETF",
+    "Symbol": "UNX"
   },
   {
     "Company": "Innovator U.S. Equity Ultra Buffer ETF - October",
@@ -42794,6 +42862,10 @@
   {
     "Company": "Verde Clean Fuels, Inc. Warrant",
     "Symbol": "VGASW"
+  },
+  {
+    "Company": "Vanguard High-Yield Active ETF",
+    "Symbol": "VGHY"
   },
   {
     "Company": "VIRTUS GLOBAL MULTI-SECTOR INCOME FUND",
@@ -43738,6 +43810,10 @@
   {
     "Company": "Warner Bros. Discovery, Inc. Series A Common Stock",
     "Symbol": "WBD"
+  },
+  {
+    "Company": "WaterBridge Infrastructure LLC",
+    "Symbol": "WBI"
   },
   {
     "Company": "WBI BullBear Value 3000 ETF",

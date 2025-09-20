@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import dayjs from 'dayjs'
 import { Job, QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
@@ -11,7 +11,6 @@ import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import { DropdownItem, mapDropdownItems } from 'lib/models/dropdown'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
-import FadeIn from 'components/Atoms/Animations/FadeIn'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 const JobList = ({ response, onJobSelected }: { response: QlnApiResponse; onJobSelected: (item: Job) => void }) => {
@@ -44,32 +43,27 @@ const JobList = ({ response, onJobSelected }: { response: QlnApiResponse; onJobS
       <ScrollableBox scroller={scroller}>
         {pagedItems.map((item) => (
           <Box key={item.Name} py={1}>
-            <FadeIn>
-              <Box>
-                <ListHeader text={item.Description} item={item} onClicked={onJobSelected} />
-                {item.Status === 1 ? (
-                  <JobInProgress item={item} />
-                ) : (
-                  <Box minHeight={50} pt={1} pl={2} pb={1}>
-                    <Box>
-                      {item.EndRunDate && (
-                        <Stack px={1}>
-                          <Typography variant='caption' color='primary'>{`last run: ${dayjs(response.ResponseDateEst).to(dayjs(item.EndRunDate))}`}</Typography>
-                        </Stack>
-                      )}
-                      {item.NextRunDate && (
-                        <Stack px={1}>
-                          <Typography
-                            variant='caption'
-                            color='primary'
-                          >{`next run: ${dayjs(response.ResponseDateEst).to(dayjs(item.NextRunDate))}`}</Typography>
-                        </Stack>
-                      )}
-                    </Box>
+            <Box>
+              <ListHeader text={item.Description} item={item} onClicked={onJobSelected} fadeIn={false} />
+              {item.Status === 1 ? (
+                <JobInProgress item={item} />
+              ) : (
+                <Box minHeight={50} pt={1} pl={2} pb={1}>
+                  <Box>
+                    {item.EndRunDate && (
+                      <Stack px={1}>
+                        <Typography variant='caption' color='primary'>{`last run: ${dayjs(response.ResponseDateEst).to(dayjs(item.EndRunDate))}`}</Typography>
+                      </Stack>
+                    )}
+                    {item.NextRunDate && (
+                      <Stack px={1}>
+                        <Typography variant='caption' color='primary'>{`next run: ${dayjs(response.ResponseDateEst).to(dayjs(item.NextRunDate))}`}</Typography>
+                      </Stack>
+                    )}
                   </Box>
-                )}
-              </Box>
-            </FadeIn>
+                </Box>
+              )}
+            </Box>
             <HorizontalDivider />
           </Box>
         ))}

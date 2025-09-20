@@ -6,10 +6,10 @@ import { StockAdvancedSearchFilter } from './advancedSearchFilter'
 import useAdvancedSearchUi from './stockAdvancedSearchUi'
 import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
-import { hasMovingAvgFilter, summarizeFilter } from './stocksAdvancedSearch'
-import PagedStockTable from '../PagedStockTable'
+import { summarizeFilter } from './stocksAdvancedSearch'
 import { useState } from 'react'
 import SavedSearchDisplay from '../saved-searches/SavedSearchDisplay'
+import SearchResultsTable from './results/SearchResultsTable'
 
 const AdvancedSearchDisplay = () => {
   const filter: StockAdvancedSearchFilter = {
@@ -24,6 +24,7 @@ const AdvancedSearchDisplay = () => {
       days: 0,
     },
     peRatio: {},
+    annualYield: {},
   }
   const [selectedTab, setSelectedTab] = useState(0)
   const controller = useAdvancedSearchUi(filter)
@@ -66,13 +67,7 @@ const AdvancedSearchDisplay = () => {
                   </Typography>
                 </Box>
               </Box>
-              <PagedStockTable
-                data={model.results}
-                pageSize={5}
-                onPageChanged={handlePageChange}
-                showMovingAvgOnly={hasMovingAvgFilter(model.filter.movingAvg)}
-                scrollOnPageChange
-              />
+              <SearchResultsTable data={model.results} pageSize={5} onPageChanged={handlePageChange} filterSummary={filterSummary} />
             </>
           )}
         </>

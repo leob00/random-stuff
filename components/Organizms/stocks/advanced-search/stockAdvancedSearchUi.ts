@@ -8,6 +8,7 @@ interface Model {
   expandMarketCap: boolean
   expandMovingAvg: boolean
   expandPeRatio: boolean
+  expandAnnualYield: boolean
   showResults: boolean
   isLoading: boolean
   results: StockQuote[]
@@ -22,6 +23,7 @@ export default function useAdvancedSearchUi(filter?: StockAdvancedSearchFilter) 
     expandMarketCap: true,
     expandMovingAvg: false,
     expandPeRatio: false,
+    expandAnnualYield: false,
     showResults: false,
     isLoading: isValidatingProfile,
     results: [],
@@ -37,6 +39,7 @@ export default function useAdvancedSearchUi(filter?: StockAdvancedSearchFilter) 
         days: 0,
       },
       peRatio: {},
+      annualYield: {},
     },
     allowSave: userProfile !== null,
   }

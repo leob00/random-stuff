@@ -35,7 +35,11 @@ const SortableStockContainer = ({
   }
 
   const [sort, setSort] = useState<StockQuoteSort[]>(defSort)
-  let fieldToFeature = defSort.some((m) => m.key === 'MarketCap') ? 'MarketCapShort' : !!featuredField ? featuredField : 'MarketCapShort'
+  let fieldToFeature: Array<keyof StockQuote> = defSort.some((m) => m.key === 'MarketCap')
+    ? ['MarketCapShort']
+    : !!featuredField
+      ? [featuredField]
+      : ['MarketCapShort']
 
   const handleSortChange = (newSort?: StockQuoteSort[]) => {
     setShowSortForm(false)
@@ -64,7 +68,7 @@ const SortableStockContainer = ({
           <CustomSortAlert result={sort} onModify={() => setShowSortForm(true)} translateDefaultMessage />
         </Box>
       </Box>
-      <PagedStockTable data={sortData()} pageSize={10} sort={sort} featuredField={fieldToFeature} scrollOnPageChange onPageChanged={handlePageChange} />
+      <PagedStockTable data={sortData()} pageSize={10} sort={sort} featuredFields={fieldToFeature} scrollOnPageChange onPageChanged={handlePageChange} />
       <FormDialog title='sort' show={showSortForm} onCancel={() => setShowSortForm(false)}>
         <StocksCustomSortForm result={sort} onSubmitted={handleSortChange} required />
       </FormDialog>

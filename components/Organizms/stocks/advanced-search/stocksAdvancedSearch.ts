@@ -9,7 +9,10 @@ export function hasMovingAvgFilter(filter: StockMovingAvgFilter) {
   const result = !!filter.days
   return !!result
 }
-export function hasPeFilter(filter: NumberRangeFilter) {
+export function hasNumberRangeFilter(filter?: NumberRangeFilter | null) {
+  if (!filter) {
+    return false
+  }
   const result = filter.from || filter.to
   return !!result
 }
@@ -39,7 +42,8 @@ export function getFilterCount(filter: StockAdvancedSearchFilter) {
   let result = 0
   const hasMarketCap = hasMarketCapFilter(filter.marketCap)
   const hasMovingsAv = hasMovingAvgFilter(filter.movingAvg)
-  const hasPe = hasPeFilter(filter.peRatio)
+  const hasPe = hasNumberRangeFilter(filter.peRatio)
+  const hasYield = hasNumberRangeFilter(filter.annualYield ?? {})
   if (hasMarketCap) {
     result++
   }
@@ -52,19 +56,21 @@ export function getFilterCount(filter: StockAdvancedSearchFilter) {
   return result
 }
 
-export type StoockFilterSummary = {
+export type StockFilterSummary = {
   filterCount: number
   hasMarketCap: boolean
   hasMovingAverage: boolean
   hasPeRatio: boolean
+  hasAnnualYield: boolean
   summary: string
 }
 
 export function summarizeFilter(filter: StockAdvancedSearchFilter) {
-  const result: StoockFilterSummary = {
+  const result: StockFilterSummary = {
     hasMarketCap: hasMarketCapFilter(filter.marketCap),
     hasMovingAverage: hasMovingAvgFilter(filter.movingAvg),
-    hasPeRatio: hasPeFilter(filter.peRatio),
+    hasPeRatio: hasNumberRangeFilter(filter.peRatio),
+    hasAnnualYield: hasNumberRangeFilter(filter.annualYield ?? {}),
     filterCount: getFilterCount(filter),
     summary: `top ${filter.take} market cap leaders`,
   }
@@ -98,6 +104,22 @@ export function summarizeFilter(filter: StockAdvancedSearchFilter) {
       result.summary = `${result.summary} P/E less than or equal to ${filter.peRatio.to} `
     }
   }
+
+  if (result.hasAnnualYield) {
+    if (result.hasMovingAverage) {
+      result.summary = `${result.summary.trim()}, `
+    }
+    if (filter.annualYield) {
+      if (filter.annualYield.from && filter.annualYield.to) {
+        result.summary = `${result.summary} annual dividend yield between ${filter.annualYield.from} and ${filter.annualYield.to} `
+      } else if (filter.annualYield.from) {
+        result.summary = `${result.summary} annual dividend yield greater than or equal to ${filter.annualYield.from} `
+      } else if (filter.annualYield.to) {
+        result.summary = `${result.summary} annual dividend yield less than or equal to ${filter.annualYield.to} `
+      }
+    }
+  }
+
   if (result.filterCount === 1) {
     if (result.hasMarketCap) {
       result.summary = `${result.summary} by market cap`

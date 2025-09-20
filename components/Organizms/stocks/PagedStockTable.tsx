@@ -14,23 +14,23 @@ const PagedStockTable = ({
   showGroupName = false,
   pageSize = 5,
   sort,
-  featuredField,
   scrollOnPageChange = true,
   showTopPager = false,
   onPageChanged,
   scrollInside = false,
   showMovingAvgOnly = false,
+  featuredFields,
 }: {
   data: StockQuote[]
   showGroupName?: boolean
   pageSize?: number
   sort?: StockQuoteSort[]
-  featuredField?: keyof StockQuote
   scrollOnPageChange?: boolean
   showTopPager?: boolean
   onPageChanged?: (pageNum?: number) => void
   scrollInside?: boolean
   showMovingAvgOnly?: boolean
+  featuredFields?: Array<keyof StockQuote>
 }) => {
   const { pagerModel, setPage, getPagedItems, reset } = useClientPager(data, pageSize)
   const items = getPagedItems(data)
@@ -73,8 +73,8 @@ const PagedStockTable = ({
                   marketCategory={'stocks'}
                   showGroupName={showGroupName}
                   showSummary={false}
-                  featuredField={featuredField}
                   userProfile={userProfile}
+                  featuredFields={featuredFields}
                 />
               </ScrollableBox>
             ) : (
@@ -84,9 +84,9 @@ const PagedStockTable = ({
                   marketCategory={'stocks'}
                   showGroupName={showGroupName}
                   showSummary={false}
-                  featuredField={featuredField}
                   showMovingAvgOnly={showMovingAvgOnly}
                   userProfile={userProfile}
+                  featuredFields={featuredFields}
                 />
               </Box>
             )}

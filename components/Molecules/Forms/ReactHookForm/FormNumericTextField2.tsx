@@ -20,7 +20,7 @@ type Props = {
   //inputProps?: InputBaseComponentProps | undefined
   fullwidth?: boolean
   onChanged: (e?: number) => void
-  value?: number
+  value?: number | null
   label?: string
   errorMessage?: string
   placeholder?: string

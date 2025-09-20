@@ -1,11 +1,10 @@
 import { Box } from '@mui/material'
-import { hasMovingAvgFilter, StockSavedSearch } from '../advanced-search/stocksAdvancedSearch'
+import { StockSavedSearch, StockFilterSummary, summarizeFilter } from '../advanced-search/stocksAdvancedSearch'
 import Clickable from 'components/Atoms/Containers/Clickable'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { useState } from 'react'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { executeStockAdvancedSearch } from 'lib/backend/api/qln/qlnApi'
-import PagedStockTable from '../PagedStockTable'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
@@ -17,13 +16,15 @@ import AdvancedSearchFilterForm from '../advanced-search/AdvancedSearchFilterFor
 import ContextMenuDelete from 'components/Molecules/Menus/ContextMenuDelete'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
-import { SelectField } from '@aws-amplify/ui-react'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import SearchResultsTable from '../advanced-search/results/SearchResultsTable'
 
 type UiModel = {
   results: StockQuote[]
   editMode?: boolean
   confirmDelete?: boolean
+  filterSummary?: StockFilterSummary
+  filter: StockAdvancedSearchFilter
 } & StockSavedSearch
 
 const SavedSearchTable = ({
@@ -46,7 +47,7 @@ const SavedSearchTable = ({
   const handleClick = async (item: StockSavedSearch) => {
     if (!selectedItem) {
       setIsLoading(true)
-      const newItem: UiModel = { ...item, results: [] }
+      const newItem: UiModel = { ...item, results: [], filter: item.filter, filterSummary: summarizeFilter(item.filter) }
       const result = await executeStockAdvancedSearch(newItem.filter)
       newItem.results = result.Body as StockQuote[]
       setSelectedItem(newItem)
@@ -122,13 +123,7 @@ const SavedSearchTable = ({
                 {!selectedItem.editMode && (
                   <Box>
                     <ScrollTop scroller={scroller} />
-                    <PagedStockTable
-                      data={selectedItem.results}
-                      pageSize={5}
-                      onPageChanged={handlePageChange}
-                      showMovingAvgOnly={hasMovingAvgFilter(selectedItem.filter.movingAvg)}
-                      scrollOnPageChange
-                    />
+                    <SearchResultsTable data={selectedItem.results} pageSize={5} onPageChanged={handlePageChange} filterSummary={selectedItem.filterSummary} />
                   </Box>
                 )}
                 {selectedItem.editMode && (

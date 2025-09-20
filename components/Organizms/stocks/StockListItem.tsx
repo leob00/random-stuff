@@ -25,6 +25,7 @@ import StockDividendDetails from './dividends/StockDividendDetails'
 import StockField from './StockField'
 import { MarketCategory } from 'lib/backend/api/qln/chartApi'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
+import StockFields from './advanced-search/results/StockFields'
 
 const StockListItem = ({
   item,
@@ -33,9 +34,9 @@ const StockListItem = ({
   showGroupName = true,
   scrollIntoView = true,
   disabled,
-  featuredField,
   showMovingAvgOnly = false,
   userProfile,
+  featuredFields,
 }: {
   item: StockQuote
   expand?: boolean
@@ -43,9 +44,9 @@ const StockListItem = ({
   showGroupName?: boolean
   scrollIntoView?: boolean
   disabled?: boolean
-  featuredField?: keyof StockQuote
   showMovingAvgOnly?: boolean
   userProfile: UserProfile | null
+  featuredFields?: Array<keyof StockQuote>
 }) => {
   let tabs: TabInfo[] = [{ title: 'Details', selected: true }, { title: 'Earnings' }, { title: 'News' }, { title: 'Profile' }]
   if (item.AnnualDividendYield) {
@@ -108,20 +109,10 @@ const StockListItem = ({
           )}
           <Box>
             <StockChange item={item} showMovingAvg={showMovingAvgOnly} />
-            {showMovingAvgOnly && (
-              <Box pl={2}>
-                {/* <StockChangeNumberDisplay value={item.MovingAvg ?? 0} endSymbol='%' /> */}
-                <Box>
-                  <StockField quote={item} field={'MovingAvgDays'} />
-                </Box>
-              </Box>
-            )}
-          </Box>
-          {featuredField && (
-            <Box pl={2}>
-              <StockField quote={item} field={featuredField} />
+            <Box pl={2} display={'flex'} flexDirection={'column'}>
+              {featuredFields && <StockFields fields={featuredFields} quote={item} />}
             </Box>
-          )}
+          </Box>
           {showGroupName && item.GroupName && (
             <Stack pl={2} py={2}>
               <Typography variant='caption' color='primary'>{`Group Name: ${item.GroupName}`}</Typography>
