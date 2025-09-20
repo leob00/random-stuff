@@ -14,6 +14,7 @@ const StockChartDaySelect = ({
   onSelected: (arg: number) => void
   availableDates?: DateRange
 }) => {
+  let daysToSelect = selectedDays
   const handleDaysSelected = (arg: number | null) => {
     if (arg !== null) {
       onSelected(arg)
@@ -28,9 +29,12 @@ const StockChartDaySelect = ({
     if (startDate.isAfter(dayjs(new Date(dayjs().year(), 0, 3)))) {
       options = options.filter((m) => m.value > -1)
     }
+    if (options.length === 0) {
+      const daysDiff = dayjs(availableDates.EndDate).diff(dayjs(availableDates.StartDate), 'days')
+      options.push({ text: `${daysDiff} days`, value: daysDiff })
+    }
   }
 
-  let daysToSelect = selectedDays
   if (availableDates) {
     const optionDays = options.map((m) => m.value)
     const maxDays = max(optionDays)!

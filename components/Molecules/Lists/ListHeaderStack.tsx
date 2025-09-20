@@ -1,10 +1,9 @@
-import { Box, Card, CardHeader, Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import ContextMenu, { ContextMenuItem } from '../Menus/ContextMenu'
 
 const ListHeaderStack = ({
   text,
   item,
-  elevation,
   disabled,
   onClicked,
   contextMenu,
@@ -13,7 +12,6 @@ const ListHeaderStack = ({
 }: {
   text: string
   item: any
-  elevation?: number
   disabled?: boolean
   onClicked?: (item: unknown) => void
   contextMenu: ContextMenuItem[]

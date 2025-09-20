@@ -53,6 +53,9 @@ export function getFilterCount(filter: StockAdvancedSearchFilter) {
   if (hasPe) {
     result++
   }
+  if (hasYield) {
+    result++
+  }
   return result
 }
 
@@ -72,18 +75,22 @@ export function summarizeFilter(filter: StockAdvancedSearchFilter) {
     hasPeRatio: hasNumberRangeFilter(filter.peRatio),
     hasAnnualYield: hasNumberRangeFilter(filter.annualYield ?? {}),
     filterCount: getFilterCount(filter),
-    summary: `top ${filter.take} market cap leaders`,
+    summary: `top ${filter.take} stocks`,
   }
 
   if (result.filterCount === 0) {
     return result
   }
 
+  if (result.filterCount > 0) {
+    result.summary = `${result.summary} - `
+  }
+
   if (result.hasMarketCap) {
     result.summary = `top ${filter.take} ${getMarketCapFilters(filter.marketCap).join(', ')} cap stocks `
   }
   if (result.hasMovingAverage) {
-    result.summary = `${result.summary} by ${filter.movingAvg.days} day moving average `
+    result.summary = `${result.summary.trim()} by ${filter.movingAvg.days} day moving average `
     if (filter.movingAvg.from && filter.movingAvg.to) {
       result.summary = `${result.summary} between ${filter.movingAvg.from}% and ${filter.movingAvg.to}% `
     } else if (filter.movingAvg.from) {

@@ -7,6 +7,7 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import SavedSearchTable from './SavedSearchTable'
 import { mutate } from 'swr'
 import { StockSavedSearch } from '../advanced-search/stocksAdvancedSearch'
+import StockTableSkeleton from '../StockTableSkeleton'
 
 const SavedSearchDisplay = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
@@ -25,16 +26,23 @@ const SavedSearchDisplay = () => {
     await deleteRecord(`stock-saved-search[${userProfile?.username}][${item.id}]`)
     mutate(mutateKey)
   }
+  const isWaiting = isValidatingProfile || isLoading
 
   return (
     <Box>
-      {isValidatingProfile || (isLoading && <CircleLoader />)}
+      {isWaiting && (
+        <>
+          <CircleLoader />
+        </>
+      )}
       {userProfile ? (
         <Box>
-          {data && (
+          {data ? (
             <Box>
               <SavedSearchTable data={data} onRefresh={onRefresh} onDeleteItem={handleDeleteItem} />
             </Box>
+          ) : (
+            <StockTableSkeleton />
           )}
         </Box>
       ) : (

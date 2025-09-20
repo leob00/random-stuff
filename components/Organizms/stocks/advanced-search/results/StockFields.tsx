@@ -41,7 +41,7 @@ const StockFields = ({ quote, fields }: { quote: StockQuote; fields: Array<keyof
   const items = fields.map((m) => mapStockField(m, quote)).filter((f) => !!f.label)
 
   return (
-    <Box pl={1}>
+    <Box>
       <Box display={'flex'} gap={1}>
         <Box flexDirection={'column'}>
           {items.map((field) => (

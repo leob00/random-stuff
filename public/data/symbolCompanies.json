@@ -732,6 +732,10 @@
     "Symbol": "AEBI"
   },
   {
+    "Company": "Anfield Energy Inc. Common Shares",
+    "Symbol": "AEC"
+  },
+  {
     "Company": "Ameren Corporation",
     "Symbol": "AEE"
   },
@@ -5616,6 +5620,10 @@
     "Symbol": "BRAZ"
   },
   {
+    "Company": "BRBI BR Partners S.A. ADSs",
+    "Symbol": "BRBI"
+  },
+  {
     "Company": "BellRing Brands, Inc.",
     "Symbol": "BRBR"
   },
@@ -5970,6 +5978,10 @@
   {
     "Company": "Invesco BulletShares 2034 Municipal Bond ETF",
     "Symbol": "BSMY"
+  },
+  {
+    "Company": "Invesco BulletShares 2035 Municipal Bond ETF",
+    "Symbol": "BSMZ"
   },
   {
     "Company": "Beacon Selective Risk ETF",
@@ -7932,6 +7944,10 @@
     "Symbol": "CIMO"
   },
   {
+    "Company": "Chimera Investment Corporation 8.875% Senior Notes due 2030",
+    "Symbol": "CIMP"
+  },
+  {
     "Company": "Cincinnati Financial Corp",
     "Symbol": "CINF"
   },
@@ -8766,6 +8782,10 @@
   {
     "Company": "Costco Wholesale Corp",
     "Symbol": "COST"
+  },
+  {
+    "Company": "Leverage Shares 2X Long COST Daily ETF",
+    "Symbol": "COTG"
   },
   {
     "Company": "COTY INC",
@@ -11116,6 +11136,10 @@
     "Symbol": "DOGZ"
   },
   {
+    "Company": "REX-Osprey DOGE ETF",
+    "Symbol": "DOJE"
+  },
+  {
     "Company": "WisdomTree International LargeCap Dividend Fund",
     "Symbol": "DOL"
   },
@@ -13386,6 +13410,10 @@
   {
     "Company": "Grayscale Ethereum Trust ETF",
     "Symbol": "ETHE"
+  },
+  {
+    "Company": "Defiance Leveraged Long Income Ethereum ETF",
+    "Symbol": "ETHI"
   },
   {
     "Company": "Dynamix Corporation Class A Ordinary Shares",
@@ -16776,6 +16804,10 @@
     "Symbol": "GDL"
   },
   {
+    "Company": "Grayscale CoinDesk Crypto 5 ETF",
+    "Symbol": "GDLC"
+  },
+  {
     "Company": "Gadsden Dynamic Multi-Asset ETF",
     "Symbol": "GDMA"
   },
@@ -17746,6 +17778,10 @@
   {
     "Company": "GP-Act III Acquisition Corp. Class A Ordinary Share",
     "Symbol": "GPAT"
+  },
+  {
+    "Company": "GP-Act III Acquisition Corp. Units",
+    "Symbol": "GPATU"
   },
   {
     "Company": "GP-Act III Acquisition Corp. Warrants",
@@ -23596,8 +23632,16 @@
     "Symbol": "KOSS"
   },
   {
+    "Company": "CSLM Digital Asset Acquisition Corp III Class A Ordinary Shares",
+    "Symbol": "KOYN"
+  },
+  {
     "Company": "CSLM Digital Asset Acquisition Corp III Units",
     "Symbol": "KOYNU"
+  },
+  {
+    "Company": "CSLM Digital Asset Acquisition Corp III Warrants",
+    "Symbol": "KOYNW"
   },
   {
     "Company": "KraneShares 2x Long PDD Daily ETF",
@@ -23976,6 +24020,10 @@
     "Symbol": "LASR"
   },
   {
+    "Company": "Galata Acquisition Corp. II Units",
+    "Symbol": "LATAU"
+  },
+  {
     "Company": "Laureate Education, Inc. Common Stock",
     "Symbol": "LAUR"
   },
@@ -24132,7 +24180,7 @@
     "Symbol": "LCUT"
   },
   {
-    "Company": "LifeX 2035 Term Income ETF",
+    "Company": "LifeX 2035 Income Bucket ETF",
     "Symbol": "LDDR"
   },
   {
@@ -24308,6 +24356,10 @@
     "Symbol": "LFAO"
   },
   {
+    "Company": "LifeX 2065 Longevity Income ETF",
+    "Symbol": "LFBE"
+  },
+  {
     "Company": "Lifecore Biomedical, Inc. Common Stock",
     "Symbol": "LFCR"
   },
@@ -24466,6 +24518,10 @@
   {
     "Company": "LifeX 2054 Inflation-Protected Longevity Income ETF",
     "Symbol": "LIAK"
+  },
+  {
+    "Company": "LifeX 2055 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAM"
   },
   {
     "Company": "LifeX 2056 Inflation-Protected Longevity Income ETF",
@@ -25416,6 +25472,10 @@
     "Symbol": "MANH"
   },
   {
+    "Company": "Man Active Income ETF",
+    "Symbol": "MANI"
+  },
+  {
     "Company": "MANCHESTER UNITED PLC",
     "Symbol": "MANU"
   },
@@ -26306,6 +26366,10 @@
   {
     "Company": "Meihua International Medical Technologies Co., Ltd. Ordinary Shares",
     "Symbol": "MHUA"
+  },
+  {
+    "Company": "Man Active High Yield ETF",
+    "Symbol": "MHY"
   },
   {
     "Company": "NFT Limited",
@@ -27674,6 +27738,10 @@
   {
     "Company": "SPDR SSGA My2030 Municipal Bond ETF",
     "Symbol": "MYMJ"
+  },
+  {
+    "Company": "SPDR SSGA My2031 Municipal Bond ETF",
+    "Symbol": "MYMK"
   },
   {
     "Company": "BLACKROCK MUNIYIELD NEW YORK QUALITY FUND, INC.",
@@ -29054,6 +29122,10 @@
   {
     "Company": "WisdomTree International Efficient Core Fund",
     "Symbol": "NTSI"
+  },
+  {
+    "Company": "Netskope, Inc. Class A Common Stock",
+    "Symbol": "NTSK"
   },
   {
     "Company": "NetSTREIT Corp.",
@@ -32064,6 +32136,10 @@
     "Symbol": "PLTR"
   },
   {
+    "Company": "Platinum Analytics Cayman Limited Class A Ordinary Shares",
+    "Symbol": "PLTS"
+  },
+  {
     "Company": "Direxion Daily PLTR Bull 2X Shares",
     "Symbol": "PLTU"
   },
@@ -33052,6 +33128,10 @@
     "Symbol": "PTRB"
   },
   {
+    "Company": "Pattern Group Inc. Series A Common Stock",
+    "Symbol": "PTRN"
+  },
+  {
     "Company": "PIMCO Corporate & Income Opportunity Fund",
     "Symbol": "PTY"
   },
@@ -33510,6 +33590,10 @@
   {
     "Company": "ProShares Ultra QQQ",
     "Symbol": "QLD"
+  },
+  {
+    "Company": "Defiance Nasdaq 100 LightningSpread Income ETF",
+    "Symbol": "QLDY"
   },
   {
     "Company": "Qualigen Therapeutics, Inc. Common Stock",
@@ -43412,7 +43496,7 @@
     "Symbol": "VS"
   },
   {
-    "Company": "TCTM Kids IT Education Inc. American Depositary Shares",
+    "Company": "VisionSys AI Inc American Depositary Shares",
     "Symbol": "VSA"
   },
   {
@@ -45208,6 +45292,10 @@
     "Symbol": "XRPI"
   },
   {
+    "Company": "REX-Osprey XRP ETF",
+    "Symbol": "XRPR"
+  },
+  {
     "Company": "Volatility Shares Trust XRP 2X ETF",
     "Symbol": "XRPT"
   },
@@ -45446,6 +45534,10 @@
   {
     "Company": "YD Bio Limited Warrants",
     "Symbol": "YDESW"
+  },
+  {
+    "Company": "Yueda Digital Holding Class A Ordinary Share",
+    "Symbol": "YDKG"
   },
   {
     "Company": "AB Ultra Short Income ETF",
