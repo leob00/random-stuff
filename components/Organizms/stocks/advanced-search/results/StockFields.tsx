@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material'
+import dayjs from 'dayjs'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import numeral from 'numeral'
 
@@ -28,11 +29,16 @@ export function mapStockField(field: keyof StockQuote, quote: StockQuote) {
       break
     case 'PeRatio':
       item.label = 'p/e'
-      item.val = `${quote.PeRatio}`
+      item.val = `${quote.PeRatio ?? 'N/A'}`
       break
     case 'AnnualDividendYield':
       item.label = 'yield'
       item.val = quote.AnnualDividendYield ? `${quote.AnnualDividendYield}%` : ''
+      break
+    case 'TradeDate':
+      item.label = 'date'
+      item.val = dayjs(quote.TradeDate).format('MM/DD/YYYY')
+      break
   }
   return item
 }
@@ -45,17 +51,19 @@ const StockFields = ({ quote, fields }: { quote: StockQuote; fields: Array<keyof
       <Box display={'flex'} gap={1}>
         <Box flexDirection={'column'}>
           {items.map((field) => (
-            <Box key={field.label} flexDirection={'column'}>
-              <Typography variant='body2' textAlign={'right'}>{`${field.label}:`}</Typography>
+            <Box key={field.label} flexDirection={'column'} py={0.3}>
+              {field.val && <Typography variant='body2' textAlign={'right'}>{`${field.label}:`}</Typography>}
             </Box>
           ))}
         </Box>
         <Box flexDirection={'column'}>
           {items.map((field) => (
-            <Box key={field.label} flexDirection={'column'}>
-              <Typography variant='body2' textAlign={'left'} fontWeight={'bold'}>
-                {field.val}
-              </Typography>
+            <Box key={field.label} flexDirection={'column'} py={0.3}>
+              {field.val && (
+                <Typography variant='body2' textAlign={'left'} fontWeight={'bold'}>
+                  {field.val}
+                </Typography>
+              )}
             </Box>
           ))}
         </Box>

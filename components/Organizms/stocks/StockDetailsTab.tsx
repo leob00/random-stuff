@@ -2,13 +2,10 @@ import { Box, Chip, Typography } from '@mui/material'
 import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 import Clickable from 'components/Atoms/Containers/Clickable'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
-import dayjs from 'dayjs'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { useRouter } from 'next/router'
-import numeral from 'numeral'
-import StockSubscibeIcon from './StockSubscibeIcon'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
+import StockFields from './advanced-search/results/StockFields'
 
 const StockDetailsTab = ({ quote, authProfile }: { quote: StockQuote; authProfile: UserProfile | null }) => {
   const router = useRouter()
@@ -19,15 +16,11 @@ const StockDetailsTab = ({ quote, authProfile }: { quote: StockQuote; authProfil
   return (
     <Box pb={2} pt={2}>
       <Box>
-        <ReadOnlyField label={'Cap'} val={quote.MarketCapShort} />
-        <ReadOnlyField label={'P/E'} val={quote.PeRatio ?? 'N/A'} />
-        {quote.Volume && <ReadOnlyField label={'Volume'} val={numeral(quote.Volume).format('###,###')} />}
-        <ReadOnlyField label={'Date'} val={dayjs(quote.TradeDate).format('MM/DD/YYYY hh:mm a')} />
-        {quote.AnnualDividendYield && <ReadOnlyField label={'Annual Yield'} val={`${numeral(quote.AnnualDividendYield).format('0.000')}%`} />}
+        <StockFields fields={['MarketCapShort', 'PeRatio', 'Volume', 'TradeDate', 'AnnualDividendYield']} quote={quote} />
         {sector && (
           <Box display={'flex'} gap={1} alignItems={'center'} py={1}>
             <Typography variant='body2' color={'primary'}>
-              Sector:
+              sector:
             </Typography>
             <SiteLink variant='body1' href={`/csr/stocks/sectors/${quote.SectorId}`} text={sector} />
           </Box>
