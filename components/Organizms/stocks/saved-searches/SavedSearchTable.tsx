@@ -102,7 +102,7 @@ const SavedSearchTable = ({
         {data.map((item) => (
           <Box key={item.id}>
             <Box display={'flex'} justifyContent={'space-between'}>
-              <Box py={1}>
+              <Box py={1} width={'90%'}>
                 <Clickable
                   onClicked={() => {
                     handleClick(item)
@@ -111,11 +111,9 @@ const SavedSearchTable = ({
                   <ListHeader text={item.name} />
                 </Clickable>
               </Box>
-              {selectedItem && selectedItem.id === item.id && (
-                <Box>
-                  <ContextMenu items={menuItems} />
-                </Box>
-              )}
+              <Box display={'flex'} justifyContent={'flex-end'}>
+                {selectedItem && selectedItem.id === item.id && <ContextMenu items={menuItems} />}
+              </Box>
             </Box>
             <HorizontalDivider />
             {selectedItem && selectedItem.id === item.id && (

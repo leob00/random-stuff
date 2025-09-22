@@ -21,6 +21,8 @@ import { MovingAvg } from 'lib/backend/api/qln/qlnModels'
 import MovingAvgValues from './movingAvg/MovingAvgValues'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import { VeryLightBlue } from 'components/themes/mainTheme'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import FadeOut from 'components/Atoms/Animations/FadeOut'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 interface Model {
@@ -86,14 +88,14 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
       days = getYearToDateDays()
     }
     saveStockChart({ ...stockChartSettings, defaultDays: val === -1 ? val : days })
-    await sleep(650)
-    mutate(mutateKey)
+    const results = await dataFn()
+    mutate(mutateKey, results)
     setIsWaiting(false)
   }
 
   return (
     <Box>
-      {isLoading || (isWaiting && <ComponentLoader />)}
+      {/* {isLoading || (isWaiting && <BackdropLoader />)} */}
       {data && (
         <StockChartDaySelect selectedDays={stockChartSettings.defaultDays} onSelected={handleDaysSelected} availableDates={data.availableDates ?? undefined} />
       )}
@@ -106,12 +108,13 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
             </Typography>
           </CenterStack>
         )}
-        <Box minHeight={chartHeight + 190}>
+        <Box minHeight={chartHeight + 60}>
           {data && (
             <Box>
-              {data.aggregate && !isLoading && <HistoricalAggregateDisplay aggregate={data.aggregate} isLoading={isWaiting} />}
+              {data.aggregate && !isLoading && <HistoricalAggregateDisplay aggregate={data.aggregate} />}
+
               {marketCategory === 'stocks' && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading || isWaiting} />}
-              {data.movingAvg && (
+              {data.movingAvg && data.movingAvg.length > 0 && (
                 <Box py={2}>
                   <MovingAvgValues values={data.movingAvg} startAt={7} />
                 </Box>
@@ -123,18 +126,6 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
                       <Box>
                         <FadeIn>
                           <ReactApexChart series={data.chartOptions.series} options={data.chartOptions} type='area' height={chartHeight} />
-                          {/* <Box display='flex' gap={4} pb={4} justifyContent={'center'}>
-                            <Box display='flex' gap={1}>
-                              <Typography variant='caption'>start date:</Typography>
-                              <Typography variant='caption'>{dayjs(data.history[0].TradeDate).format('MM/DD/YYYY')}</Typography>
-                            </Box>
-                            {data.history.length > 0 && (
-                              <Box display='flex' gap={1}>
-                                <Typography variant='caption'>end date:</Typography>
-                                <Typography variant='caption'>{dayjs(data.history[data.history.length - 1].TradeDate).format('MM/DD/YYYY')}</Typography>
-                              </Box>
-                            )}
-                          </Box> */}
                         </FadeIn>
                       </Box>
                     )}

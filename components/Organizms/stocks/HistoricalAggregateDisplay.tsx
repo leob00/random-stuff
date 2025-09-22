@@ -2,10 +2,9 @@ import { Box, Typography, useTheme } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { HistoricalAggregate } from 'lib/backend/api/qln/qlnApi'
 import { getPositiveNegativeColor } from './StockListItem'
-import FadeOut from 'components/Atoms/Animations/FadeOut'
 import numeral from 'numeral'
 
-const HistoricalAggregateDisplay = ({ aggregate, isLoading }: { aggregate: HistoricalAggregate; isLoading: boolean }) => {
+const HistoricalAggregateDisplay = ({ aggregate }: { aggregate: HistoricalAggregate }) => {
   const theme = useTheme()
   const color = getPositiveNegativeColor(aggregate.Change, theme.palette.mode)
 

@@ -64,7 +64,7 @@ const lightPalette: PaletteOptions = {
     main: CasinoDarkRedTransparent,
   },
   info: {
-    main: CasinoBlueTransparent,
+    main: CasinoBlue,
   },
   success: {
     main: CasinoGreenTransparent,

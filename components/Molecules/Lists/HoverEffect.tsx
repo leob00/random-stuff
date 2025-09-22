@@ -9,16 +9,15 @@ const HoverEffect = ({ children }: { children: ReactNode | React.JSX.Element[] }
       border-radius: 8px;
       padding: 1px;
     }
-    & .MuiCardHeader-root {
-      //background-color: red;
-      //border-radius: 28px;
+    &.MuiTypography-root {
+      color: ${theme.palette.info.main};
     }
     &:hover {
       //border: solid 0.05px ${theme.palette.primary.contrastText};
       border-radius: 6px;
       //padding: 1px;
       background-color: ${theme.palette.info.main};
-      color: ${theme.palette.info.main};
+      color: ${theme.palette.primary.main};
     }
   `
   return <StyledBox>{children}</StyledBox>

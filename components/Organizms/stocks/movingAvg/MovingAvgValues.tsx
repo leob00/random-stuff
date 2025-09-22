@@ -13,7 +13,7 @@ const MovingAvgValues = ({ values, startAt = 0 }: { values: MovingAvg[]; startAt
       </CenterStack>
       <Box sx={{ overflowX: 'auto', scrollbarWidth: 'none' }}>
         <Box>
-          <Box display={'flex'} gap={2} alignItems={'center'} justifyContent={{ sx: 'flex-start', sm: 'center' }}>
+          <Box display={'flex'} gap={{ xs: 2, sm: 3, md: 4 }} alignItems={'center'} justifyContent={{ sx: 'flex-start', sm: 'center' }}>
             {values
               .filter((m) => m.UnitValue >= startAt)
               .map((item) => (
