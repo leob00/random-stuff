@@ -1,7 +1,5 @@
 import { Box, Tab, Tabs, useTheme } from '@mui/material'
-import React from 'react'
 import { TabInfo } from './TabButtonList'
-import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 
 const TabList = ({ tabs, selectedTab, onSetTab }: { tabs: TabInfo[]; selectedTab: number; onSetTab: (tab: TabInfo) => void }) => {
   const theme = useTheme()
@@ -32,16 +30,7 @@ const TabList = ({ tabs, selectedTab, onSetTab }: { tabs: TabInfo[]; selectedTab
         }}
       >
         {tabs.map((tab, index) => (
-          <Tab
-            label={tab.title}
-            key={index}
-            color='red'
-            sx={{
-              '&.Mui-selected': {
-                color: theme.palette.info.main,
-              },
-            }}
-          />
+          <Tab label={tab.title} key={index} color='red' />
         ))}
       </Tabs>
     </Box>
