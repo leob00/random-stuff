@@ -20,6 +20,7 @@ const ListHeader = ({
   disabled,
   elevation = 1,
   fadeIn = true,
+  selected,
 }: {
   text: string
   item?: any
@@ -32,6 +33,7 @@ const ListHeader = ({
   disabled?: boolean
   elevation?: number
   fadeIn?: boolean
+  selected?: boolean
 }) => {
   const showContextMenu = onEdit !== undefined || onDelete !== undefined || onAdd !== undefined
   const theme = useTheme()
@@ -74,6 +76,7 @@ const ListHeader = ({
               onClicked={onClicked}
               showContextMenu={showContextMenu}
               underline={underline}
+              selected={selected}
             />
           </HoverEffect>
         ) : (
@@ -86,6 +89,7 @@ const ListHeader = ({
               onClicked={onClicked}
               showContextMenu={showContextMenu}
               underline={underline}
+              selected={selected}
             />
           </>
         )}

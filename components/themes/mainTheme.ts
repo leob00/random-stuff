@@ -55,7 +55,8 @@ export const ErrorRed = '#ce250ec7'
 const lightPalette: PaletteOptions = {
   mode: 'light',
   primary: {
-    main: DarkModeBkg,
+    main: CasinoBlue,
+    contrastText: VeryLightBlue,
   },
   secondary: {
     main: DarkBlue,

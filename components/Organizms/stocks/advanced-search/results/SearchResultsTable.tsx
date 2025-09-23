@@ -48,13 +48,22 @@ const SearchResultsTable = ({
     onPageChanged?.(pageNum)
   }
 
+  const showMovingAvgOnly = featuredFields.includes('MovingAvg') && items.some((m) => m.MovingAvgDays && m.MovingAvgDays > 1)
+
   return (
     <>
       {!isValidating && (
         <>
           <Box>
             <Box minHeight={300}>
-              <StockTable stockList={items} marketCategory={'stocks'} showSummary={false} userProfile={userProfile} featuredFields={featuredFields} />
+              <StockTable
+                stockList={items}
+                marketCategory={'stocks'}
+                showSummary={false}
+                userProfile={userProfile}
+                featuredFields={featuredFields}
+                showMovingAvgOnly={showMovingAvgOnly}
+              />
             </Box>
           </Box>
           <Pager

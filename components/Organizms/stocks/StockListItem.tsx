@@ -103,9 +103,25 @@ const StockListItem = ({
         <Typography ref={scrollTarget} sx={{ position: 'absolute', mt: -12 }}></Typography>
         <Box>
           {marketCategory === 'stocks' ? (
-            <ListHeader text={`${item.Company} (${item.Symbol})`} item={item} onClicked={handleCompanyClick} disabled={disabled} elevation={0} fadeIn={false} />
+            <ListHeader
+              text={`${item.Company} (${item.Symbol})`}
+              item={item}
+              onClicked={handleCompanyClick}
+              disabled={disabled}
+              elevation={0}
+              fadeIn={false}
+              selected={showMore}
+            />
           ) : (
-            <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} elevation={0} fadeIn={false} />
+            <ListHeader
+              text={`${item.Company}`}
+              item={item}
+              onClicked={handleCompanyClick}
+              disabled={disabled}
+              elevation={0}
+              fadeIn={false}
+              selected={showMore}
+            />
           )}
           <Box>
             <StockChange item={item} showMovingAvg={showMovingAvgOnly} />

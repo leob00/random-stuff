@@ -16,7 +16,7 @@ const StockDetailsTab = ({ quote, authProfile }: { quote: StockQuote; authProfil
   return (
     <Box pb={2} pt={2}>
       <Box>
-        <StockFields fields={['MarketCapShort', 'PeRatio', 'Volume', 'TradeDate', 'AnnualDividendYield']} quote={quote} />
+        <StockFields fields={['MarketCapShort', 'PeRatio', 'Volume', 'AnnualDividendYield', 'TradeDate']} quote={quote} />
         {sector && (
           <Box display={'flex'} gap={1} alignItems={'center'} py={1}>
             <Typography variant='body2' color={'primary'}>

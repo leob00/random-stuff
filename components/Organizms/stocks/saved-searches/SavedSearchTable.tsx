@@ -108,7 +108,7 @@ const SavedSearchTable = ({
                     handleClick(item)
                   }}
                 >
-                  <ListHeader text={item.name} />
+                  <ListHeader text={item.name} selected={selectedItem !== null && selectedItem.id === item.id} />
                 </Clickable>
               </Box>
               <Box display={'flex'} justifyContent={'flex-end'}>
