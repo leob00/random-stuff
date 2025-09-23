@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material'
+import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 import dayjs from 'dayjs'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import numeral from 'numeral'
@@ -39,6 +40,10 @@ export function mapStockField(field: keyof StockQuote, quote: StockQuote) {
       item.label = 'date'
       item.val = dayjs(quote.TradeDate).format('MM/DD/YYYY hh:mm A')
       break
+    case 'Sector':
+      item.label = 'sector'
+      item.val = quote.Sector ?? ''
+      break
   }
   return item
 }
@@ -60,9 +65,14 @@ const StockFields = ({ quote, fields }: { quote: StockQuote; fields: Array<keyof
           {items.map((field) => (
             <Box key={field.label} flexDirection={'column'} py={0.3}>
               {field.val && (
-                <Typography variant='body2' textAlign={'left'} fontWeight={'bold'}>
-                  {field.val}
-                </Typography>
+                <>
+                  {field.label === 'sector' && <SiteLink variant='body1' href={`/csr/stocks/sectors/${quote.SectorId}`} text={field.val} />}
+                  {field.label !== 'sector' && (
+                    <Typography variant='body2' textAlign={'left'} fontWeight={'bold'}>
+                      {field.val}
+                    </Typography>
+                  )}
+                </>
               )}
             </Box>
           ))}

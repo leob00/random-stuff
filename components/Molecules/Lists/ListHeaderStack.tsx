@@ -32,8 +32,9 @@ const ListHeaderStack = ({
       color: ${theme.palette.info.contrastText};
     }
   `
-  return selected ? (
-    <StyledBox>
+
+  const Header = () => {
+    return (
       <Stack direction={'row'} flexGrow={1}>
         <Box
           px={2}
@@ -53,30 +54,10 @@ const ListHeaderStack = ({
         </Box>
         <Box>{showContextMenu && <ContextMenu items={contextMenu} />}</Box>
       </Stack>
-    </StyledBox>
-  ) : (
-    <>
-      <Stack direction={'row'} flexGrow={1}>
-        <Box
-          px={2}
-          width={'100%'}
-          sx={{ cursor: !disabled ? 'pointer' : 'unset' }}
-          onClick={(e) => {
-            onClicked?.(item)
-          }}
-        >
-          <Typography
-            textAlign={'left'}
-            variant='h6'
-            color='primary'
-            sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}
-            dangerouslySetInnerHTML={{ __html: text }}
-          ></Typography>
-        </Box>
-        <Box>{showContextMenu && <ContextMenu items={contextMenu} />}</Box>
-      </Stack>
-    </>
-  )
+    )
+  }
+
+  return selected ? <StyledBox>{Header()}</StyledBox> : <>{Header()}</>
 }
 
 export default ListHeaderStack

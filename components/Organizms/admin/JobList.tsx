@@ -13,7 +13,7 @@ import { DropdownItem, mapDropdownItems } from 'lib/models/dropdown'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
-const JobList = ({ response, onJobSelected }: { response: QlnApiResponse; onJobSelected: (item: Job) => void }) => {
+const JobList = ({ response, onJobSelected, selectedItem }: { response: QlnApiResponse; onJobSelected: (item: Job) => void; selectedItem: Job | null }) => {
   let jobs = response.Body as Job[]
   jobs = sortArray(jobs, ['Status', 'NextRunDate'], ['asc', 'asc'])
 
@@ -44,7 +44,14 @@ const JobList = ({ response, onJobSelected }: { response: QlnApiResponse; onJobS
         {pagedItems.map((item) => (
           <Box key={item.Name} py={1}>
             <Box>
-              <ListHeader text={item.Description} item={item} onClicked={onJobSelected} fadeIn={false} />
+              <ListHeader
+                text={item.Description}
+                item={item}
+                onClicked={onJobSelected}
+                fadeIn={false}
+                selected={selectedItem !== null && selectedItem.Name === item.Name}
+              />
+
               {item.Status === 1 ? (
                 <JobInProgress item={item} />
               ) : (

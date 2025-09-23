@@ -83,7 +83,7 @@ const JobsLayout = ({ userClaim }: { userClaim: Claim }) => {
             <JobDetail item={selectedItem} />
           </InfoDialog>
         )}
-        {data && claim && <JobList response={data} onJobSelected={handleItemClicked} />}
+        {data && claim && <JobList response={data} onJobSelected={handleItemClicked} selectedItem={selectedItem} />}
       </>
     </Box>
   )

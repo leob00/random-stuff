@@ -1,5 +1,6 @@
 import { Box, Tab, Tabs, useTheme } from '@mui/material'
 import { TabInfo } from './TabButtonList'
+import HorizontalDivider from '../Dividers/HorizontalDivider'
 
 const TabList = ({ tabs, selectedTab, onSetTab }: { tabs: TabInfo[]; selectedTab: number; onSetTab: (tab: TabInfo) => void }) => {
   const theme = useTheme()
