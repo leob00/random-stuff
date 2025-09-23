@@ -10,6 +10,7 @@ import { CasinoGreenTransparent, CasinoRedTransparent } from 'components/themes/
 import dayjs from 'dayjs'
 import { StockEarning } from 'lib/backend/api/qln/qlnApi'
 import { calculatePercent } from 'lib/util/numberUtil'
+import numeral from 'numeral'
 
 const RecentEarningsChart = ({ reported }: { reported: StockEarning[] }) => {
   const days = new Set(reported.map((m) => m.ReportDate))
@@ -58,6 +59,12 @@ const RecentEarningsChart = ({ reported }: { reported: StockEarning[] }) => {
       }
       return `${result}${reported.filter((m) => dayjs(m.ReportDate).format('MM/DD/YYYY') === tooltipItems.label && m.ActualEarnings! < 0).length} (${Number(tooltipItems.formattedValue).toFixed(2)}%)`
     },
+    beforeFooter: (tooltipItems) => {
+      return `___________________________`
+    },
+    footer: (tooltipItems) => {
+      return ` total records: ${numeral(reported.filter((m) => dayjs(m.ReportDate).format('MM/DD/YYYY') === tooltipItems[0].label).length).format('###,###')}`
+    },
   }
 
   const chartDataset: ChartData<'bar', number[], unknown> = {
@@ -92,7 +99,10 @@ const RecentEarningsChart = ({ reported }: { reported: StockEarning[] }) => {
       </Box>
       <Box py={2}>
         <CenterStack>
-          <ReadOnlyField label='date range' val={`${reported.length > 0 ? `${dayjs(reported[0].ReportDate!).format('MM/DD/YYYY')} - ${dayjs(reported[reported.length - 1].ReportDate!).format('MM/DD/YYYY')}` : 'N/A'}`} />
+          <ReadOnlyField
+            label='date range'
+            val={`${reported.length > 0 ? `${dayjs(reported[0].ReportDate!).format('MM/DD/YYYY')} - ${dayjs(reported[reported.length - 1].ReportDate!).format('MM/DD/YYYY')}` : 'N/A'}`}
+          />
         </CenterStack>
       </Box>
     </>
