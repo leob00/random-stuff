@@ -2148,10 +2148,6 @@
     "Symbol": "AP"
   },
   {
-    "Company": "Ampco-Pittsburgh Corporation Series A Warrants to purchase Shares of common stock",
-    "Symbol": "AP.WS"
-  },
-  {
     "Company": "APA Corporation Common Stock",
     "Symbol": "APA"
   },
@@ -8040,10 +8036,6 @@
     "Symbol": "CLDI"
   },
   {
-    "Company": "Direxion Daily Cloud Computing Bull 2X Shares",
-    "Symbol": "CLDL"
-  },
-  {
     "Company": "CHATHAM LODGING TRUST",
     "Symbol": "CLDT"
   },
@@ -9574,10 +9566,6 @@
   {
     "Company": "CUSTOMERS BANCORP INC",
     "Symbol": "CUBI"
-  },
-  {
-    "Company": "Lionheart Holdings Unit",
-    "Symbol": "CUBWU"
   },
   {
     "Company": "Lionheart Holdings Warrant",
@@ -11408,10 +11396,6 @@
     "Symbol": "DTB"
   },
   {
-    "Company": "Solo Brands, Inc.",
-    "Symbol": "DTC"
-  },
-  {
     "Company": "Davis Commodities Limited Class A Ordinary Shares",
     "Symbol": "DTCK"
   },
@@ -12536,10 +12520,6 @@
     "Symbol": "ELDN"
   },
   {
-    "Company": "Elevation Oncology, Inc. Common stock",
-    "Symbol": "ELEV"
-  },
-  {
     "Company": "e.l.f. Beauty, Inc.",
     "Symbol": "ELF"
   },
@@ -13354,10 +13334,6 @@
   {
     "Company": "Essex Property Trust, Inc",
     "Symbol": "ESS"
-  },
-  {
-    "Company": "ESSA Bancorp, Inc.",
-    "Symbol": "ESSA"
   },
   {
     "Company": "Establishment Labs Holdings Inc.",
@@ -24348,10 +24324,6 @@
     "Symbol": "LFAF"
   },
   {
-    "Company": "LifeX 2053 Longevity Income ETF",
-    "Symbol": "LFAL"
-  },
-  {
     "Company": "LifeX 2055 Longevity Income ETF",
     "Symbol": "LFAO"
   },
@@ -24522,10 +24494,6 @@
   {
     "Company": "LifeX 2055 Inflation-Protected Longevity Income ETF",
     "Symbol": "LIAM"
-  },
-  {
-    "Company": "LifeX 2056 Inflation-Protected Longevity Income ETF",
-    "Symbol": "LIAO"
   },
   {
     "Company": "LifeX 2061 Inflation-Protected Longevity Income ETF",
@@ -30320,10 +30288,6 @@
     "Symbol": "OOSP"
   },
   {
-    "Company": "Direxion Daily Travel & Vacation Bull 2X Shares",
-    "Symbol": "OOTO"
-  },
-  {
     "Company": "OceanPal Inc. Common Stock",
     "Symbol": "OP"
   },
@@ -36012,10 +35976,6 @@
     "Symbol": "SBEV"
   },
   {
-    "Company": "Splash Beverage Group, Inc. Warrants to purchase 1/40th of a share of Common Stock at an exercise price of $184.00",
-    "Symbol": "SBEV.WS"
-  },
-  {
     "Company": "SB Financial Group, Inc.",
     "Symbol": "SBFG"
   },
@@ -40164,10 +40124,6 @@
     "Symbol": "TGHL"
   },
   {
-    "Company": "Triumph Group, Inc.",
-    "Symbol": "TGI"
-  },
-  {
     "Company": "Treasure Global Inc. Common Stock",
     "Symbol": "TGL"
   },
@@ -40890,10 +40846,6 @@
   {
     "Company": "Thornburg Core Plus Bond ETF",
     "Symbol": "TPLS"
-  },
-  {
-    "Company": "Timothy Plan Market Neutral ETF",
-    "Symbol": "TPMN"
   },
   {
     "Company": "Direxion Daily Transportation Bull 3X Shares",
@@ -42866,10 +42818,6 @@
   {
     "Company": "Veru Inc.",
     "Symbol": "VERU"
-  },
-  {
-    "Company": "Verve Therapeutics, Inc. Common Stock",
-    "Symbol": "VERV"
   },
   {
     "Company": "Vertex, Inc. Class A Common Stock",
