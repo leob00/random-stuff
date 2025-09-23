@@ -37,7 +37,7 @@ export function mapStockField(field: keyof StockQuote, quote: StockQuote) {
       break
     case 'TradeDate':
       item.label = 'date'
-      item.val = dayjs(quote.TradeDate).format('MM/DD/YYYY')
+      item.val = dayjs(quote.TradeDate).format('MM/DD/YYYY hh:mm A')
       break
   }
   return item
