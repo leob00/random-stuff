@@ -45,15 +45,18 @@ const SavedSearchTable = ({
   const controller = useAdvancedSearchUi(selectedItem?.filter)
 
   const handleClick = async (item: StockSavedSearch) => {
-    if (!selectedItem) {
+    if (!selectedItem || selectedItem.id !== item.id) {
       setIsLoading(true)
       const newItem: UiModel = { ...item, results: [], filter: item.filter, filterSummary: summarizeFilter(item.filter) }
       const result = await executeStockAdvancedSearch(newItem.filter)
       newItem.results = result.Body as StockQuote[]
       setSelectedItem(newItem)
+      scroller.scroll(0)
     } else {
       setSelectedItem(null)
+      scroller.scroll()
     }
+
     setIsLoading(false)
   }
   const handleEditClick = (item: StockSavedSearch) => {

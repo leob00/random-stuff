@@ -38,7 +38,7 @@ const UserNoteDisplay = ({ id, data, isEdit, backRoute }: { id: string; data: Us
     setShowSaveDrawer(true)
     if (item.files) {
       for (let f of item.files) {
-        await postBody('/api/aws/s3/item', 'DELETE', f)
+        await postBody('/api/aws/s3/item/delete', 'DELETE', f)
         setToastText(`deleted file: ${f.filename}`)
         await sleep(750)
       }

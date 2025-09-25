@@ -1,4 +1,4 @@
-import { weakDecrypt, weakEncrypt } from 'lib/backend/encryption/useEncryptor'
+import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {

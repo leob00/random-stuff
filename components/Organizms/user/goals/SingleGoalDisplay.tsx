@@ -68,7 +68,7 @@ const SingleGoalDisplay = ({
     putUserGoalTasks(username, goal.id!, newTasks)
     if (item.files && item.files.length > 0) {
       for (let f of item.files) {
-        await postBody('/api/aws/s3/item', 'DELETE', f)
+        await postBody('/api/aws/s3/item/delete', 'DELETE', f)
         setSnackbarText(`deleted ${f.filename}`)
       }
     }

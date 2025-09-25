@@ -85,7 +85,7 @@ const TaskList = ({
       if (item.status === 'completed') {
         if (item.files && item.files.length > 0) {
           for (const f of item.files) {
-            await postBody('/api/aws/s3/item', 'DELETE', f)
+            await postBody('/api/aws/s3/item/delete', 'DELETE', f)
           }
         }
       }

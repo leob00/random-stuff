@@ -43,6 +43,7 @@ const JobList = ({
     const job = jobs.find((m) => m.Name === item.value)
     if (job) {
       onJobSelected(job)
+      scroller.scroll()
     }
   }
 
@@ -86,7 +87,11 @@ const JobList = ({
                         <Typography variant='caption' color='primary'>{`next run: ${dayjs(response.ResponseDateEst).to(dayjs(item.NextRunDate))}`}</Typography>
                       </Stack>
                     )}
-                    {selectedItem !== null && selectedItem.Name === item.Name && <JobDetail item={selectedItem} />}
+                    {selectedItem !== null && selectedItem.Name === item.Name && (
+                      <>
+                        <JobDetail item={selectedItem} />
+                      </>
+                    )}
                   </Box>
                 </Box>
               </>

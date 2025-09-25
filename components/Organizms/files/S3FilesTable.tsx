@@ -75,7 +75,7 @@ const S3FilesTable = ({
       setProgressText(`deleting: ${uiState.itemToDelete.filename}`)
       const item = { ...uiState.itemToDelete }
       dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: `deleting file: ${item.filename}` } })
-      await postBody('/api/aws/s3/item', 'DELETE', item)
+      await postBody('/api/aws/s3/item/delete', 'DELETE', item)
       dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: null } })
 
       onLocalDataMutate(
@@ -151,7 +151,7 @@ const S3FilesTable = ({
 
     dispatch({ type: 'reset', payload: { ...uiDefaultState, snackbarSuccessMessage: 'processing...' } })
     for (const f of selectedItems) {
-      const resp = await postBody('/api/aws/s3/item', 'DELETE', f)
+      const resp = await postBody('/api/aws/s3/item/delete', 'DELETE', f)
       if (resp.statusCode === 200) {
         onLocalDataMutate(
           folder,

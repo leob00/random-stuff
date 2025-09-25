@@ -10,6 +10,7 @@ import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import StockTable from '../../StockTable'
 import { StockAdvancedSearchFilter } from '../advancedSearchFilter'
 import { StockFilterSummary } from '../stocksAdvancedSearch'
+import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 
 const SearchResultsTable = ({
   data,
@@ -54,6 +55,8 @@ const SearchResultsTable = ({
     <>
       {!isValidating && (
         <>
+          <ScrollIntoView margin={-24} />
+
           <Box>
             <Box minHeight={300}>
               <StockTable
