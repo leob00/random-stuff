@@ -45,14 +45,19 @@ const JobsLayout = ({ userClaim }: { userClaim: Claim }) => {
 
   const { data } = useSwrHelper(listMutateKey, dataFn)
 
-  const handleItemClicked = async (item: Job) => {
-    setIsLoadingDetail(true)
-    stop()
+  const handleItemClicked = async (item: Job | null) => {
+    if (item) {
+      setIsLoadingDetail(true)
+      stop()
 
-    const url = `/BatchJobDetail?Token=${claim?.token ?? ''}&jobName=${item.Name}`
-    const newResult = await serverGetFetch(url)
-    setSelectedItem(newResult.Body as Job)
-    setIsLoadingDetail(false)
+      const url = `/BatchJobDetail?Token=${claim?.token ?? ''}&jobName=${item.Name}`
+      const newResult = await serverGetFetch(url)
+      setSelectedItem(newResult.Body as Job)
+      setIsLoadingDetail(false)
+    } else {
+      setSelectedItem(null)
+      start()
+    }
   }
 
   const handleCloseDetail = () => {

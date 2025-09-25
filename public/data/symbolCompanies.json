@@ -4820,6 +4820,10 @@
     "Symbol": "BITI"
   },
   {
+    "Company": "Tuttle Capital IBIT 0DTE Covered Call ETF",
+    "Symbol": "BITK"
+  },
+  {
     "Company": "ProShares Bitcoin ETF",
     "Symbol": "BITO"
   },
@@ -7804,6 +7808,10 @@
     "Symbol": "CHRD"
   },
   {
+    "Company": "Global X S&P 500 Christian Values ETF",
+    "Symbol": "CHRI"
+  },
+  {
     "Company": "Coherus Oncology, Inc. Common Stock",
     "Symbol": "CHRS"
   },
@@ -8296,7 +8304,7 @@
     "Symbol": "CMP"
   },
   {
-    "Company": "CompoSecure, Inc. Class A Common Stock",
+    "Company": "CompoSecure, Inc.",
     "Symbol": "CMPO"
   },
   {
@@ -9566,6 +9574,10 @@
   {
     "Company": "CUSTOMERS BANCORP INC",
     "Symbol": "CUBI"
+  },
+  {
+    "Company": "Lionheart Holdings Unit",
+    "Symbol": "CUBWU"
   },
   {
     "Company": "Lionheart Holdings Warrant",
@@ -10912,6 +10924,10 @@
     "Symbol": "DKUP"
   },
   {
+    "Company": "FT Vest U.S. Equity Dual Directional Buffer ETF - August",
+    "Symbol": "DLAG"
+  },
+  {
     "Company": "Dolby Laboratories, Inc.Class A",
     "Symbol": "DLB"
   },
@@ -11436,6 +11452,10 @@
     "Symbol": "DTIL"
   },
   {
+    "Company": "DTE Energy Company 2025 Series H 6.25% Junior Subordinated Debentures due 2085",
+    "Symbol": "DTK"
+  },
+  {
     "Company": "DT Midstream, Inc.",
     "Symbol": "DTM"
   },
@@ -11450,6 +11470,10 @@
   {
     "Company": "DT Cloud Star Acquisition Corporation Right",
     "Symbol": "DTSQR"
+  },
+  {
+    "Company": "DT Cloud Star Acquisition Corporation Units",
+    "Symbol": "DTSQU"
   },
   {
     "Company": "Datasea Inc. Common Stock",
@@ -11778,6 +11802,10 @@
   {
     "Company": "Dyne Therapeutics, Inc. Common Stock",
     "Symbol": "DYN"
+  },
+  {
+    "Company": "Hartford Dynamic Bond ETF",
+    "Symbol": "DYNB"
   },
   {
     "Company": "iShares U.S. Equity Factor Rotation Active ETF",
@@ -18388,6 +18416,10 @@
     "Symbol": "GXIG"
   },
   {
+    "Company": "Global X U.S. 500 ETF",
+    "Symbol": "GXLC"
+  },
+  {
     "Company": "GXO Logistics, Inc.",
     "Symbol": "GXO"
   },
@@ -18608,8 +18640,16 @@
     "Symbol": "HCM"
   },
   {
+    "Company": "HCM III Acquisition Corp. Class A Ordinary Share",
+    "Symbol": "HCMA"
+  },
+  {
     "Company": "HCM III Acquisition Corp. Units",
     "Symbol": "HCMAU"
+  },
+  {
+    "Company": "HCM III Acquisition Corp. Warrants",
+    "Symbol": "HCMAW"
   },
   {
     "Company": "Direxion HCM Tactical Enhanced US ETF",
@@ -18974,6 +19014,10 @@
   {
     "Company": "Invesco High Yield Select ETF",
     "Symbol": "HIYS"
+  },
+  {
+    "Company": "YieldMax HIMS Option Income Strategy ETF",
+    "Symbol": "HIYY"
   },
   {
     "Company": "AMTD Digital Inc. American Depositary Shares (every five of which represent two Class A Ordinary Shares)",
@@ -19810,6 +19854,10 @@
   {
     "Company": "Hycroft Mining Holding Corporation Warrants",
     "Symbol": "HYMCL"
+  },
+  {
+    "Company": "Golden Eagle Dynamic Hypergrowth ETF",
+    "Symbol": "HYP"
   },
   {
     "Company": "Hyperion DeFi, Inc. Common Stock",
@@ -20784,10 +20832,6 @@
     "Symbol": "IJUN"
   },
   {
-    "Company": "Ikena Oncology, Inc. Common Stock",
-    "Symbol": "IKNA"
-  },
-  {
     "Company": "Inhibikase Therapeutics, Inc. Common Stock",
     "Symbol": "IKT"
   },
@@ -21486,6 +21530,10 @@
   {
     "Company": "Century Therapeutics, Inc. Common Stock",
     "Symbol": "IPSC"
+  },
+  {
+    "Company": "Heritage Distilling Holding Company, Inc. Common Stock",
+    "Symbol": "IPST"
   },
   {
     "Company": "iPower, Inc. Common Stock",
@@ -24324,6 +24372,10 @@
     "Symbol": "LFAF"
   },
   {
+    "Company": "LifeX 2050 Longevity Income ETF",
+    "Symbol": "LFAI"
+  },
+  {
     "Company": "LifeX 2055 Longevity Income ETF",
     "Symbol": "LFAO"
   },
@@ -24334,6 +24386,10 @@
   {
     "Company": "Lifecore Biomedical, Inc. Common Stock",
     "Symbol": "LFCR"
+  },
+  {
+    "Company": "LifeX Durable Income ETF",
+    "Symbol": "LFDR"
   },
   {
     "Company": "VanEck Long/Flat Trend ETF",
@@ -24494,6 +24550,10 @@
   {
     "Company": "LifeX 2055 Inflation-Protected Longevity Income ETF",
     "Symbol": "LIAM"
+  },
+  {
+    "Company": "LifeX 2060 Inflation-Protected Longevity Income ETF",
+    "Symbol": "LIAU"
   },
   {
     "Company": "LifeX 2061 Inflation-Protected Longevity Income ETF",
@@ -24890,6 +24950,10 @@
   {
     "Company": "Launch Two Acquisition Corp. Class A Ordinary Shares",
     "Symbol": "LPBB"
+  },
+  {
+    "Company": "Launch Two Acquisition Corp. Unit",
+    "Symbol": "LPBBU"
   },
   {
     "Company": "Launch Two Acquisition Corp. Warrant",
@@ -25566,6 +25630,10 @@
   {
     "Company": "Maywood Acquisition Corp. Right",
     "Symbol": "MAYAR"
+  },
+  {
+    "Company": "Maywood Acquisition Corp. Unit",
+    "Symbol": "MAYAU"
   },
   {
     "Company": "FT Vest U.S. Equity Max Buffer ETF - May",
@@ -26640,6 +26708,10 @@
     "Symbol": "MMI"
   },
   {
+    "Company": "MFS Active Mid Cap ETF",
+    "Symbol": "MMID"
+  },
+  {
     "Company": "NYLI MacKay Muni Insured ETF",
     "Symbol": "MMIN"
   },
@@ -27336,7 +27408,7 @@
     "Symbol": "MTEKW"
   },
   {
-    "Company": "Mingteng International Corporation Inc. Ordinary Shares",
+    "Company": "Mingteng International Corporation Inc. Class A Ordinary Shares",
     "Symbol": "MTEN"
   },
   {
@@ -27416,6 +27488,10 @@
     "Symbol": "MTX"
   },
   {
+    "Company": "GraniteShares YieldBOOST MSTR ETF",
+    "Symbol": "MTYY"
+  },
+  {
     "Company": "MasTec, Inc.",
     "Symbol": "MTZ"
   },
@@ -27454,10 +27530,6 @@
   {
     "Company": "GraniteShares 2x Long MU Daily ETF",
     "Symbol": "MULL"
-  },
-  {
-    "Company": "Mullen Automotive, Inc. Common Stock",
-    "Symbol": "MULN"
   },
   {
     "Company": "Franklin Multisector Income ETF",
@@ -28424,6 +28496,10 @@
     "Symbol": "NHTC"
   },
   {
+    "Company": "Nuveen High Yield Corporate Bond ETF",
+    "Symbol": "NHYB"
+  },
+  {
     "Company": "Nuveen High Yield Municipal Income ETF",
     "Symbol": "NHYM"
   },
@@ -28970,6 +29046,10 @@
   {
     "Company": "Norfolk Southern Corp.",
     "Symbol": "NSC"
+  },
+  {
+    "Company": "Nuveen Securitized Income ETF",
+    "Symbol": "NSCI"
   },
   {
     "Company": "Nuveen Sustainable Core ETF",
@@ -29594,6 +29674,10 @@
   {
     "Company": "Next Technology Holding Inc. Ordinary Shares",
     "Symbol": "NXTT"
+  },
+  {
+    "Company": "Nuveen International Aggregate Bond ETF",
+    "Symbol": "NXUS"
   },
   {
     "Company": "NextNRG, Inc. Common Stock",
@@ -31244,6 +31328,10 @@
     "Symbol": "PCQ"
   },
   {
+    "Company": "Simplify VettaFi Private Credit Strategy ETF",
+    "Symbol": "PCR"
+  },
+  {
     "Company": "Putnam ESG Core Bond ETF",
     "Symbol": "PCRB"
   },
@@ -32146,6 +32234,10 @@
   {
     "Company": "Plymouth Industrial REIT, Inc.",
     "Symbol": "PLYM"
+  },
+  {
+    "Company": "GraniteShares YieldBOOST PLTR ETF",
+    "Symbol": "PLYY"
   },
   {
     "Company": "Philip Morris International Inc.",
@@ -33178,10 +33270,6 @@
   {
     "Company": "Prestige Wealth Inc. Class A Ordinary Shares",
     "Symbol": "PWM"
-  },
-  {
-    "Company": "Penns Woods Bancorp Inc",
-    "Symbol": "PWOD"
   },
   {
     "Company": "Perella Weinberg Partners Class A Common Stock",
@@ -34600,6 +34688,10 @@
     "Symbol": "RFAIR"
   },
   {
+    "Company": "RF Acquisition Corp II Unit",
+    "Symbol": "RFAIU"
+  },
+  {
     "Company": "RiverFront Dynamic Core Income",
     "Symbol": "RFCI"
   },
@@ -34736,7 +34828,7 @@
     "Symbol": "RHI"
   },
   {
-    "Company": "Resolute Holdings Management Common Stock",
+    "Company": "Resolute Holdings Management, Inc.",
     "Symbol": "RHLD"
   },
   {
@@ -36752,10 +36844,6 @@
     "Symbol": "SGLY"
   },
   {
-    "Company": "Sigmatron International Inc",
-    "Symbol": "SGMA"
-  },
-  {
     "Company": "Sigma Lithium Corporation Common Shares",
     "Symbol": "SGML"
   },
@@ -37054,6 +37142,10 @@
   {
     "Company": "SIM Acquisition Corp. I Class A Ordinary Shares",
     "Symbol": "SIMA"
+  },
+  {
+    "Company": "SIM Acquisition Corp. I Unit",
+    "Symbol": "SIMAU"
   },
   {
     "Company": "SIM Acquisition Corp. I Warrant",
@@ -42948,7 +43040,7 @@
     "Symbol": "VGZ"
   },
   {
-    "Company": "VirnetX Holding Corporation",
+    "Company": "VirnetX Holding Corp Common Stock",
     "Symbol": "VHC"
   },
   {
@@ -45300,7 +45392,7 @@
     "Symbol": "XSW"
   },
   {
-    "Company": "iShares Exponential Technologies ETF",
+    "Company": "iShares Trust iShares Future Exponential Technologies ETF",
     "Symbol": "XT"
   },
   {

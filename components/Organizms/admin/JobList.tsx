@@ -21,7 +21,7 @@ const JobList = ({
   setSelectedItem,
 }: {
   response: QlnApiResponse
-  onJobSelected: (item: Job) => void
+  onJobSelected: (item: Job | null) => void
   selectedItem: Job | null
   setSelectedItem: Dispatch<SetStateAction<Job | null>>
 }) => {
@@ -49,6 +49,7 @@ const JobList = ({
   const handleJobClick = (job: Job) => {
     if (job.Name === selectedItem?.Name) {
       setSelectedItem(null)
+      onJobSelected(null)
       return
     }
     onJobSelected(job)
