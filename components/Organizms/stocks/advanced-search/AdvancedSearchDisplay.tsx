@@ -10,6 +10,7 @@ import { summarizeFilter } from './stocksAdvancedSearch'
 import { useState } from 'react'
 import SavedSearchDisplay from '../saved-searches/SavedSearchDisplay'
 import SearchResultsTable from './results/SearchResultsTable'
+import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 
 const AdvancedSearchDisplay = () => {
   const filter: StockAdvancedSearchFilter = {
@@ -67,6 +68,7 @@ const AdvancedSearchDisplay = () => {
                   </Typography>
                 </Box>
               </Box>
+              <ScrollIntoView />
               <SearchResultsTable data={model.results} pageSize={5} onPageChanged={handlePageChange} filterSummary={filterSummary} />
             </>
           )}

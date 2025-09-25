@@ -33,7 +33,7 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
     height = 240
   }
   if (isLarge) {
-    height = 66
+    height = 100
   }
   const sorted = sortArray(history, ['DateCompleted'], ['desc'])
 

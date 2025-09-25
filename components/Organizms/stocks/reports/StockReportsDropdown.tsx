@@ -9,6 +9,7 @@ import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
 import ContextMenuCommodities from 'components/Molecules/Menus/ContextMenuCommodities'
 import ContextMenuCrypto from 'components/Molecules/Menus/ContextMenuCrypto'
+import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 
 export const stockReportsDropdown: DropdownItem[] = [
   { text: 'Volume Leaders', value: 'volume-leaders' },
@@ -81,6 +82,11 @@ const StockReportsDropdown = ({ selectedValue }: { selectedValue: string }) => {
         </Box>
         <Box display={'flex'} justifyContent={'flex-end'}>
           <ContextMenu items={menu} />
+        </Box>
+      </Box>
+      <Box maxWidth={{ xs: '75%', sm: '67%', md: '79%', lg: '73%' }}>
+        <Box display={'flex'} justifyContent={'flex-end'}>
+          <SiteLink text={'advanced search'} href='/csr/stocks/advanced-search' />
         </Box>
       </Box>
     </Box>

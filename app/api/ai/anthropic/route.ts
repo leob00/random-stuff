@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
 
     const req: RequestBody = { message: r.userMessage.content, model: 'claude-3-5-sonnet-20241022' }
 
-    const { message, model = 'claude-3-5-sonnet-20241022' } = req
+    const { message, model = 'claude-sonnet-4-20250514' } = req
 
     if (!message) {
       return new Response(JSON.stringify({ error: 'Message is required' }), { status: 400, headers: { 'Content-Type': 'application/json' } })
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
         try {
           const messageStream = await anthropic.messages.create({
             model: model,
-            max_tokens: 4096,
+            max_tokens: 1000,
             messages: [
               {
                 role: 'user',

@@ -78,12 +78,12 @@ const JobsLayout = ({ userClaim }: { userClaim: Claim }) => {
         )}
         {error && <QlnUsernameLoginForm onSuccess={handleLogin} />}
         {isLoadingDetail && <BackdropLoader />}
-        {selectedItem && (
-          <InfoDialog show={true} title={selectedItem.Description} onCancel={handleCloseDetail} fullScreen={true}>
+        {/* {selectedItem && (
+          <InfoDialog show={true} title={selectedItem.Description} onCancel={handleCloseDetail} fullScreen>
             <JobDetail item={selectedItem} />
           </InfoDialog>
-        )}
-        {data && claim && <JobList response={data} onJobSelected={handleItemClicked} selectedItem={selectedItem} />}
+        )} */}
+        {data && claim && <JobList response={data} onJobSelected={handleItemClicked} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />}
       </>
     </Box>
   )

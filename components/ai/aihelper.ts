@@ -15,7 +15,7 @@ export const useChatbotColors = () => {
         color = CasinoBlue
         break
       case 'assistant':
-        color = mode === 'light' ? CasinoGreen : VeryLightBlue
+        color = mode === 'light' ? CasinoGreen : theme.palette.info.contrastText
         break
       case 'error':
         color = mode === 'light' ? DarkModeRed : ErrorRed

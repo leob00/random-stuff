@@ -1,5 +1,6 @@
 import { Stack, styled, useTheme } from '@mui/material'
-import { CasinoBlackTransparent, CasinoBlueTransparent, DarkModeBlueTransparent } from 'components/themes/mainTheme'
+import { DarkModeBlueTransparent } from 'components/themes/mainTheme'
+import { isMobileDevice } from 'lib/ui/agent/agentUtil'
 import { ReactNode } from 'react'
 
 const HoverEffect = ({ children }: { children: ReactNode | React.JSX.Element[] }) => {
@@ -19,7 +20,9 @@ const HoverEffect = ({ children }: { children: ReactNode | React.JSX.Element[] }
       color: ${theme.palette.info.contrastText};
     }
   `
-  return <StyledBox>{children}</StyledBox>
+  const isMobile = isMobileDevice()
+
+  return <>{!isMobile ? <StyledBox>{children}</StyledBox> : <>{children}</>}</>
 }
 
 export default HoverEffect

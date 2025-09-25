@@ -145,19 +145,23 @@ const AnthropicChatBot = () => {
             <Box key={index}>
               {msg.content && <ChatBotMessage msg={msg} />}
               {msg.usage && (
-                <Box display={'flex'} flexDirection={'row'} gap={2}>
-                  <ReadOnlyField
-                    color={CasinoGrayTransparent}
-                    variant='caption'
-                    label='input tokens'
-                    val={`${numeral(msg.usage.input_tokens).format('###,###')}`}
-                  />
-                  <ReadOnlyField
-                    color={CasinoGrayTransparent}
-                    variant='caption'
-                    label='output tokens'
-                    val={`${numeral(msg.usage.output_tokens).format('###,###')}`}
-                  />
+                <Box display={'flex'} flexDirection={'row'} gap={2} alignItems={'center'}>
+                  <Box display={'flex'} gap={1} alignItems={'center'}>
+                    <Typography color={CasinoGrayTransparent} variant='caption'>
+                      input tokens:
+                    </Typography>
+                    <Typography color={CasinoGrayTransparent} variant='caption' fontWeight={'bold'}>
+                      {`${numeral(msg.usage.input_tokens).format('###,###')}`}
+                    </Typography>
+                  </Box>
+                  <Box display={'flex'} gap={1} alignItems={'center'}>
+                    <Typography color={CasinoGrayTransparent} variant='caption'>
+                      output tokens:
+                    </Typography>
+                    <Typography color={CasinoGrayTransparent} variant='caption' fontWeight={'bold'}>
+                      {`${numeral(msg.usage.output_tokens).format('###,###')}`}
+                    </Typography>
+                  </Box>
                 </Box>
               )}
             </Box>

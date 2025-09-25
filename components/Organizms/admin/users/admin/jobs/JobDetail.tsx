@@ -7,6 +7,9 @@ import { useRouter } from 'next/router'
 import JobPerformanceBarChart from './JobPerformanceBarChart'
 import CopyableText from 'components/Atoms/Text/CopyableText'
 import JobPerformanceLineChart from './JobPerformanceLineChart'
+import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import KeyValueList from 'components/Molecules/Lists/KeyValueList'
 
 const JobDetails = ({ item }: { item: Job }) => {
   const router = useRouter()
@@ -15,52 +18,47 @@ const JobDetails = ({ item }: { item: Job }) => {
     router.push(`/protected/csr/admin/job/edit/${item.Name}`)
   }
 
+  const keyValues = new Map<string, string>()
+
+  if (item.StartDate) {
+    keyValues.set('start', `${dayjs(item.StartDate).format('MM/DD/YYYY hh:mm a')}`)
+  }
+  if (item.EndRunDate) {
+    keyValues.set('end', `${dayjs(item.EndRunDate).format('MM/DD/YYYY hh:mm a')}`)
+  }
+  if (item.NextRunDate) {
+    keyValues.set('next run', `${dayjs(item.NextRunDate).format('MM/DD/YYYY hh:mm a')}`)
+  }
+  if (item.RecordsProcessed && item.RecordsProcessed > 0) {
+    keyValues.set('records processed', `${numeral(item.RecordsProcessed).format('###,###')}`)
+  }
+
   return (
     <Box>
-      {item.StartDate && (
-        <Stack>
-          <Typography variant='caption'>{`started: ${dayjs(item.StartDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
-        </Stack>
-      )}
-      {item.EndRunDate && (
-        <Stack>
-          <Typography variant='caption'>{`ended: ${dayjs(item.EndRunDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
-        </Stack>
-      )}
-      {item.NextRunDate && (
-        <Stack>
-          <Typography variant='caption'>{`next run: ${dayjs(item.NextRunDate).format('MM/DD/YYYY hh:mm a')}`}</Typography>
-        </Stack>
-      )}
-      {item.RecordsProcessed !== undefined && item.RecordsProcessed > 0 && (
-        <Stack>
-          <Typography variant='caption'>{`records processed: ${numeral(item.RecordsProcessed).format('###,###')}`}</Typography>
-        </Stack>
-      )}
-
-      {item.Chart && (
-        <Box pb={2}>
-          <JobPerformanceLineChart data={item} />
-        </Box>
-      )}
-      <Box display={'flex'}>
-        <CopyableText variant='caption' label='internal name:' value={item.Name} showValue />
-      </Box>
-      {item.Executer && (
-        // <Stack>
-        //   <Typography variant='caption'>{`executer: ${item.Executer.substring(item.Executer.lastIndexOf('.') + 1)}`}</Typography>
-        // </Stack>
+      <KeyValueList map={keyValues} />
+      <Box py={2}>
+        <HorizontalDivider />
+        {item.Chart && (
+          <Box pb={2}>
+            <JobPerformanceLineChart data={item} />
+          </Box>
+        )}
         <Box display={'flex'}>
-          <CopyableText variant='caption' label='executer:' value={`${item.Executer.substring(item.Executer.lastIndexOf('.') + 1)}`} showValue />
+          <CopyableText variant='caption' label='internal name:' value={item.Name} showValue />
         </Box>
-      )}
-      {item.LastMessage && (
-        <Stack>
-          <Typography variant='caption'>{`message: ${item.LastMessage}`}</Typography>
-        </Stack>
-      )}
-      <Box py={4}>
-        <SuccessButton text='Manage' onClick={handleManageClick} />
+        {item.Executer && (
+          <Box display={'flex'}>
+            <CopyableText variant='caption' label='executer:' value={`${item.Executer.substring(item.Executer.lastIndexOf('.') + 1)}`} showValue />
+          </Box>
+        )}
+        {item.LastMessage && (
+          <Stack>
+            <Typography variant='caption'>{`message: ${item.LastMessage}`}</Typography>
+          </Stack>
+        )}
+        <Box py={4}>
+          <SuccessButton text='Manage' onClick={handleManageClick} />
+        </Box>
       </Box>
     </Box>
   )
