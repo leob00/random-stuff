@@ -68,7 +68,6 @@ const AdvancedSearchDisplay = () => {
                   </Typography>
                 </Box>
               </Box>
-              <ScrollIntoView />
               <SearchResultsTable data={model.results} pageSize={5} onPageChanged={handlePageChange} filterSummary={filterSummary} />
             </>
           )}

@@ -62,7 +62,6 @@ const S3FilesTable = ({
       setProgressText(null)
       return
     }
-    //setProfile({ ...authProfile!, settings: { ...authProfile!.settings, selectedFolder: folder } })
     dispatch({ type: 'update', payload: { ...uiState, signedUrl: resp, selectedItem: item, snackbarSuccessMessage: null } })
     setProgressText(null)
   }

@@ -8,8 +8,8 @@ const ImagePreview = ({ url, imageSize, hideTextExtract = false }: { url: string
   return (
     <Box>
       <CenterStack>
-        <Box sx={{ borderRadius: '16px', paddingTop: '4px' }}>
-          <OptimizedImage url={url} title='' imageSize={imageSize} />
+        <Box sx={{ borderRadius: '16px', paddingTop: '4px' }} minHeight={{ xs: 300, md: 600 }}>
+          <OptimizedImage url={url} title='' />
         </Box>
       </CenterStack>
       {!hideTextExtract && (

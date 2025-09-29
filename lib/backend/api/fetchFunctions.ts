@@ -24,7 +24,7 @@ export async function get(url: string, params?: any) {
       },
     })
     if (resp.status !== 200) {
-      if (resp.status === 403) {
+      if (resp.status === 403 || resp.status === 401) {
         console.error('authentication failed')
         return {
           ResponseCode: 'error',
