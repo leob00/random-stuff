@@ -98,7 +98,6 @@ export const typographyOptions: TypographyVariantsOptions = {
 
 const themeOptions: ThemeOptions = {
   typography: typographyOptions,
-
   components: {
     MuiContainer: {
       styleOverrides: {},

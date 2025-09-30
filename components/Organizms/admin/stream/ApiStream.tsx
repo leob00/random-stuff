@@ -59,9 +59,6 @@ const ApiStream = () => {
     setTestApiResult(null)
     setData([])
     const key = 'leo_bel@hotmail.com/music/'
-    const url = `/api/aws/s3/items`
-    const enc = weakEncrypt(key)
-
     const result = await getS3Files('rs-files', 'leo_bel@hotmail.com/music/')
     setTestApiResult(result)
     console.log('data: ', data)

@@ -480,3 +480,17 @@ export async function getSavedStockSearches(userProfile: UserProfile) {
   })
   return result
 }
+
+export async function serverWeakEncrypt(val: string) {
+  const result = (await postBody('/api/app/encrypt', 'POST', val)) as string
+  return result
+}
+export async function serverWeakDecrypt(val: string) {
+  const result = (await postBody('/api/app/decrypt', 'POST', val)) as string
+  return result
+}
+
+export async function getUserSecrets() {
+  const result = (await postBody('/api/aws/user/secrets/items', 'POST', {})) as UserSecret[]
+  return result
+}

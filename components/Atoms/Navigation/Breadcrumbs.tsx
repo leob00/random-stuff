@@ -3,23 +3,34 @@ import { Box, Divider, useTheme } from '@mui/material'
 import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 import { useRouter } from 'next/router'
 import LinkButton from '../Buttons/LinkButton'
-import { take } from 'lodash'
 import { sortArray } from 'lib/util/collections'
 import { Navigation } from 'components/Organizms/session/useSessionSettings'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import { flatSiteMap } from 'components/Organizms/navigation/siteMap'
 import FadeIn from '../Animations/FadeIn'
 import { useEffect, useState } from 'react'
-import { CasinoBlueTransparent } from 'components/themes/mainTheme'
+import { useViewPortSize } from 'hooks/ui/useViewportSize'
+import { take } from 'lodash'
 
 export const BasicBreadcrumbs = () => {
   const theme = useTheme()
   const router = useRouter()
   const { allRoutes, addRoute } = useRouteTracker()
-  const routes = getRoutes(allRoutes)
+  const { viewPortSize } = useViewPortSize()
+  let take = 8
+  if (viewPortSize === 'xs') {
+    take = 3
+  }
+  if (viewPortSize === 'sm') {
+    take = 4
+  }
+  if (viewPortSize === 'md') {
+    take = 6
+  }
+
+  const routes = getRoutes(allRoutes, take)
   const currentRoute = router.asPath
   const [isLoading, setIsLoading] = useState(true)
-
   useEffect(() => {
     setIsLoading(false)
   }, [])
@@ -32,45 +43,47 @@ export const BasicBreadcrumbs = () => {
   return (
     <>
       {!isLoading && (
-        <Box display={'flex'} gap={2}>
-          {routes.map((route, index) => (
-            <Box key={route.path} display={'flex'} alignItems={'center'} gap={2}>
-              {route.path === currentRoute ? (
-                <LinkButton
-                  disabled
-                  onClick={() => {
-                    handleClick(route)
-                  }}
-                >
-                  {route.name}
-                </LinkButton>
-              ) : (
-                <FadeIn>
+        <Box sx={{ overflowX: 'auto', scrollbarWidth: 'none' }}>
+          <Box display={'flex'} gap={2} alignItems={'flex-start'}>
+            {routes.map((route, index) => (
+              <Box key={route.path} display={'flex'} alignItems={'center'} gap={2}>
+                {route.path === currentRoute ? (
                   <LinkButton
+                    disabled
                     onClick={() => {
                       handleClick(route)
                     }}
                   >
                     {route.name}
                   </LinkButton>
-                </FadeIn>
-              )}
+                ) : (
+                  <FadeIn>
+                    <LinkButton
+                      onClick={() => {
+                        handleClick(route)
+                      }}
+                    >
+                      {route.name}
+                    </LinkButton>
+                  </FadeIn>
+                )}
 
-              {index < routes.length - 1 && (
-                <>
-                  <Divider color={theme.palette.primary.main} orientation='vertical' sx={{ height: '10px' }} />
-                </>
-              )}
-            </Box>
-          ))}
+                {index < routes.length - 1 && (
+                  <>
+                    <Divider color={theme.palette.primary.main} orientation='vertical' sx={{ height: '10px' }} />
+                  </>
+                )}
+              </Box>
+            ))}
+          </Box>
         </Box>
       )}
     </>
   )
 }
 
-function getRoutes(allRoutes: Navigation[]) {
-  const nav = sortArray(take(allRoutes, 6), ['date'], ['asc'])
+function getRoutes(allRoutes: Navigation[], takeTop = 8) {
+  const nav = sortArray(take(allRoutes, takeTop), ['date'], ['asc'])
   const map = getMapFromArray(flatSiteMap, 'path')
   const routes: Navigation[] = []
   nav.forEach((p) => {

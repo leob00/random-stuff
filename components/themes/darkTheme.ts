@@ -107,5 +107,5 @@ const darkThemeOptions: ThemeOptions = {
     // },
   },
 }
-const darkTheme = responsiveFontSizes(createTheme({ ...darkThemeOptions, palette: darkPalette }), rfsOptions)
+const darkTheme = responsiveFontSizes(createTheme({ ...darkThemeOptions, palette: darkPalette, colorSchemes: { dark: true } }), rfsOptions)
 export default darkTheme

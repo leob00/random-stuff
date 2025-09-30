@@ -8,8 +8,13 @@ export function useViewPortSize() {
   const isSmall = useMediaQuery(theme.breakpoints.down('md'))
   const isMedium = useMediaQuery(theme.breakpoints.down('lg'))
   const isLarge = useMediaQuery(theme.breakpoints.down('xl'))
-  const windowWidth = window.innerWidth
-  const windowHeight = window.innerHeight
+  let windowWidth = 500
+  let windowHeight = 500
+  if (typeof window !== 'undefined') {
+    windowWidth = window.innerWidth
+    windowHeight = window.innerHeight
+  }
+
   useEffect(() => {
     if (isXSmall) {
       setSize('xs')

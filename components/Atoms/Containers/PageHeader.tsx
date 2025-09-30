@@ -22,15 +22,17 @@ const PageHeader = ({
 
   return (
     <>
-      <Box sx={{ display: { xs: 'none', sm: 'unset' } }}>
-        <BasicBreadcrumbs />
-      </Box>
+      {/* <Box sx={{ display: { xs: 'none', sm: 'unset' } }}> */}
+      <BasicBreadcrumbs />
+      {/* </Box> */}
       {forceShowBackButton ? (
         <Box display={'flex'}>{backButtonRoute ? <BackButton route={backButtonRoute} /> : <BackButton route={previousRoute.path} />}</Box>
       ) : (
-        <Box sx={{ display: { xs: 'unset', sm: 'none' } }}>
+        <>
+          {/* <Box sx={{ display: { xs: 'unset', sm: 'none' } }}>
           <Box display={'flex'}>{backButtonRoute ? <BackButton route={backButtonRoute} /> : <BackButton route={previousRoute.path} />}</Box>
-        </Box>
+        </Box> */}
+        </>
       )}
       <CenterStack sx={{ py: 2 }}>
         <CenteredHeader title={text} />

@@ -18,6 +18,7 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import { getEmailVerificationStatus } from './profileHelper'
 import ValidateFromEmailDialog from 'components/Organizms/Login/ValidateFromEmailDialog'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
+import PageHeader from 'components/Atoms/Containers/PageHeader'
 
 const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const [showPasswordEntry, setShowPasswordEntry] = React.useState(false)
@@ -66,8 +67,7 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
       <>
         {isLoading && <BackdropLoader />}
         <SnackbarSuccess show={showPinChangedMessage} text={'Your pin has been updated!'} onClose={() => setShowPinChangedMessage(false)} />
-        <CenteredHeader title={`Profile`} />
-        <HorizontalDivider />
+        <PageHeader text='Profile' />
         {validatedProfile && (
           <>
             <Box py={4}>

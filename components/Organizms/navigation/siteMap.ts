@@ -94,6 +94,11 @@ export const flatSiteMap: Navigation[] = [
     category: 'Markets',
   },
   {
+    name: 'advanced search',
+    path: '/csr/stocks/advanced-search',
+    category: 'Markets',
+  },
+  {
     name: 'volume leaders',
     path: '/ssg/stocks/reports/volume-leaders',
     category: 'Stock Reports',

@@ -11,7 +11,7 @@ const SecretListItem = ({ encKey, data, onEdit }: { encKey: string; data: UserSe
   const [isEncrypted, setIsEncrypted] = useState(true)
   const [isCopied, setIsCopied] = useState(false)
 
-  const handleDecryptCopy = () => {
+  const handleDecryptCopy = async () => {
     let val = { ...data }.secret
     if (isEncrypted) {
       val = myDecrypt(encKey, data.secret)

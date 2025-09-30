@@ -3,19 +3,17 @@ import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import RequirePin from 'components/Organizms/Login/RequirePin'
 import dayjs from 'dayjs'
-import { UserSecret, userSecretArraySchema } from 'lib/backend/api/models/zModels'
+import { UserSecret } from 'lib/backend/api/models/zModels'
 import { AmplifyUser } from 'lib/backend/auth/userUtil'
 import { getGuid, myEncrypt } from 'lib/backend/encryption/useEncryptor'
 import EditSecret from './EditSecret'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { mutate } from 'swr'
-import { searchDynamoItemsByCategory } from 'lib/backend/csr/nextApiWrapper'
-import { constructUserSecretSecondaryKey } from 'lib/backend/api/aws/util'
+import { getUserSecrets } from 'lib/backend/csr/nextApiWrapper'
 import { sortArray } from 'lib/util/collections'
 import SecretsTable from './SecretsTable'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { useReducer } from 'react'
-import { useUserController } from 'hooks/userController'
 
 interface Model {
   filter: string
@@ -35,8 +33,7 @@ const SecretsLayout = ({ userProfile, ticket }: { userProfile: UserProfile; tick
 
   const mutateKey = `user-secrets-${userProfile.username}`
   const dataFn = async () => {
-    const dbresult = await searchDynamoItemsByCategory(constructUserSecretSecondaryKey(userProfile.username))
-    const secrets = userSecretArraySchema.parse(dbresult.map((item) => JSON.parse(item.data)))
+    const secrets = await getUserSecrets()
     secrets.forEach((item) => {
       if (!item.salt) {
         item.salt = getRandomSalt()
