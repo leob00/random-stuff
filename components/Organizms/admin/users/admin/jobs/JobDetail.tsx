@@ -32,7 +32,7 @@ const JobDetails = ({ item }: { item: Job }) => {
   }
 
   return (
-    <Box>
+    <Box py={2}>
       <KeyValueList map={keyValues} />
       <Box py={2}>
         <HorizontalDivider />

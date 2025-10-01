@@ -6,7 +6,7 @@ import { deleteRecord, putUserSecret } from 'lib/backend/csr/nextApiWrapper'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import SecretInputForm from './SecretInputForm'
-import { useReducer } from 'react'
+import { useEffect, useReducer } from 'react'
 
 interface Model {
   isLoading: boolean
@@ -21,6 +21,7 @@ const EditSecret = ({
   onCancel,
   onSaved,
   onDeleted,
+  isNew,
 }: {
   username: string
   encKey: string
@@ -28,12 +29,14 @@ const EditSecret = ({
   onCancel: () => void
   onSaved?: (item: UserSecret) => void
   onDeleted: (id: string) => void
+  isNew?: boolean
 }) => {
   const defaultModel: Model = {
     isLoading: false,
     showConfirmDelete: false,
     userSecret: { ...userSecret, secret: myDecrypt(encKey, userSecret.secret) },
   }
+
   const [model, setModel] = useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
 
   const handleDeleteClick = async () => {

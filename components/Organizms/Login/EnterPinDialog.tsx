@@ -7,9 +7,10 @@ import WarmupBox from 'components/Atoms/WarmupBox'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { UserPin, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
+import { validateUserPin } from 'lib/backend/csr/nextApiWrapper'
 import router from 'next/router'
 import { useEffect, useState } from 'react'
+
 const EnterPinDialog = ({
   show,
   userProfile,
@@ -30,10 +31,9 @@ const EnterPinDialog = ({
 
   const handleSetPin = async (text: string) => {
     if (text.length === 4) {
-      const decryptedPin = myDecrypt(`${userProfile.id}${userProfile.username}`, userProfile.pin!.pin)
-      if (decryptedPin === text) {
-        const updatedPin = { ...userProfile.pin! }
-        updatedPin.lastEnterDate = dayjs().format()
+      const isValid = await validateUserPin(text)
+      if (isValid) {
+        const updatedPin = { ...userProfile.pin!, lastEnterDate: dayjs().format() }
         setError('')
         setIsLoading(true)
         onConfirm(updatedPin)

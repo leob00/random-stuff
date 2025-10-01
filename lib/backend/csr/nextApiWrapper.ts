@@ -494,3 +494,14 @@ export async function getUserSecrets() {
   const result = (await postBody('/api/aws/user/secrets/items', 'POST', {})) as UserSecret[]
   return result
 }
+
+export async function validateUserPin(pin: string) {
+  const result = await postBody('/api/user/pin/validate', 'POST', pin)
+  return result
+}
+
+export async function decryptUserSecret(secret: UserSecret) {
+  const result = (await postBody('/api/aws/user/secrets/items', 'POST', {})) as UserSecret
+  console.log('result: ', result)
+  return result
+}

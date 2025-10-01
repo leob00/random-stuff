@@ -71,12 +71,13 @@ export async function postBody(url: string, method: 'PATCH' | 'POST' | 'DELETE' 
       headers: { ...headers, 'Content-Type': 'application/json' },
     })
 
-    const data = await resp.json()
-    if (!data) {
-      return resp
-    } else {
-      return data
+    if (!resp.ok) {
+      console.error(`error in ${method}: status code: `, resp.statusText)
+      return null
     }
+
+    const data = await resp.json()
+    return data
   } catch (err) {
     console.error(`error in ${method}: `, err)
     return null

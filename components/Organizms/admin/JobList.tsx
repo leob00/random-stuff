@@ -13,6 +13,7 @@ import { DropdownItem, mapDropdownItems } from 'lib/models/dropdown'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import JobDetail from './users/admin/jobs/JobDetail'
+import CloseIconButton from 'components/Atoms/Buttons/CloseIconButton'
 
 const JobList = ({
   response,
@@ -60,55 +61,69 @@ const JobList = ({
       <Stack sx={{ pt: 2 }}>
         <StaticAutoComplete options={jobItems} onSelected={handleSelectJob} fullWidth />
       </Stack>
-      <ScrollableBox scroller={scroller}>
-        {pagedItems.map((item) => (
-          <Box key={item.Name} py={1}>
-            <Box>
-              <ListHeader
-                text={item.Description}
-                item={item}
-                onClicked={() => {
-                  handleJobClick(item)
-                }}
-                fadeIn={false}
-                selected={selectedItem !== null && selectedItem.Name === item.Name}
-              />
-              <>
-                {item.Status === 1 && <JobInProgress item={item} />}
-                <Box pt={1} pl={2} pb={1}>
-                  <Box>
-                    {item.EndRunDate && (
-                      <Stack px={1}>
-                        <Typography variant='caption' color='primary'>{`last run: ${dayjs(response.ResponseDateEst).to(dayjs(item.EndRunDate))}`}</Typography>
-                      </Stack>
-                    )}
-                    {item.NextRunDate && (
-                      <Stack px={1}>
-                        <Typography variant='caption' color='primary'>{`next run: ${dayjs(response.ResponseDateEst).to(dayjs(item.NextRunDate))}`}</Typography>
-                      </Stack>
-                    )}
-                    {selectedItem !== null && selectedItem.Name === item.Name && (
-                      <>
-                        <JobDetail item={selectedItem} />
-                      </>
-                    )}
-                  </Box>
-                </Box>
-              </>
-            </Box>
-            <HorizontalDivider />
+      {selectedItem && (
+        <>
+          <Box display={'flex'} justifyContent={'space-between'} py={2} alignItems={'center'}>
+            <Typography variant='h5'>{selectedItem.Description}</Typography>
+            <CloseIconButton onClicked={() => setSelectedItem(null)} />
           </Box>
-        ))}
-      </ScrollableBox>
-      <Pager
-        pageCount={pagerModel.totalNumberOfPages}
-        itemCount={pagedItems.length}
-        itemsPerPage={pageSize}
-        onPaged={(pageNum: number) => handlePaged(pageNum)}
-        defaultPageIndex={pagerModel.page}
-        totalItemCount={pagerModel.totalNumberOfItems}
-        showHorizontalDivider={false}
-      />
+          <JobDetail item={selectedItem} />
+        </>
+      )}
+      {!selectedItem && (
+        <>
+          <ScrollableBox scroller={scroller}>
+            {pagedItems.map((item) => (
+              <Box key={item.Name} py={1}>
+                <Box>
+                  <ListHeader
+                    text={item.Description}
+                    item={item}
+                    onClicked={() => {
+                      handleJobClick(item)
+                    }}
+                    fadeIn={false}
+                    //selected={selectedItem !== null && selectedItem.Name === item.Name}
+                  />
+                  <>
+                    {item.Status === 1 && <JobInProgress item={item} />}
+                    <Box pt={1} pl={2} pb={1}>
+                      <Box>
+                        {item.EndRunDate && (
+                          <Stack px={1}>
+                            <Typography
+                              variant='caption'
+                              color='primary'
+                            >{`last run: ${dayjs(response.ResponseDateEst).to(dayjs(item.EndRunDate))}`}</Typography>
+                          </Stack>
+                        )}
+                        {item.NextRunDate && (
+                          <Stack px={1}>
+                            <Typography
+                              variant='caption'
+                              color='primary'
+                            >{`next run: ${dayjs(response.ResponseDateEst).to(dayjs(item.NextRunDate))}`}</Typography>
+                          </Stack>
+                        )}
+                      </Box>
+                    </Box>
+                  </>
+                </Box>
+                <HorizontalDivider />
+              </Box>
+            ))}
+          </ScrollableBox>
+          <Pager
+            pageCount={pagerModel.totalNumberOfPages}
+            itemCount={pagedItems.length}
+            itemsPerPage={pageSize}
+            onPaged={(pageNum: number) => handlePaged(pageNum)}
+            defaultPageIndex={pagerModel.page}
+            totalItemCount={pagerModel.totalNumberOfItems}
+            showHorizontalDivider={false}
+          />
+        </>
+      )}
     </>
   )
 }

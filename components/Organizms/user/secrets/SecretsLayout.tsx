@@ -27,22 +27,25 @@ const SecretsLayout = ({ userProfile, ticket }: { userProfile: UserProfile; tick
   const defaultModel: Model = {
     filter: '',
     createNew: false,
-    showPinEntry: dayjs(userProfile.pin!.lastEnterDate).add(10, 'minutes').isBefore(dayjs()),
+    showPinEntry: !userProfile.pin || dayjs(userProfile.pin!.lastEnterDate).add(10, 'minutes').isBefore(dayjs()),
   }
   const [model, setModel] = useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
 
   const mutateKey = `user-secrets-${userProfile.username}`
+
   const dataFn = async () => {
-    const secrets = await getUserSecrets()
-    secrets.forEach((item) => {
-      if (!item.salt) {
-        item.salt = getRandomSalt()
-      }
-    })
+    if (!defaultModel.showPinEntry) {
+      const secrets = await getUserSecrets()
+      secrets.forEach((item) => {
+        if (!item.salt) {
+          item.salt = getRandomSalt()
+        }
+      })
 
-    const result = sortArray(secrets, ['title'], ['asc'])
-
-    return result
+      const result = sortArray(secrets, ['title'], ['asc'])
+      return result
+    }
+    return []
   }
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
@@ -85,6 +88,7 @@ const SecretsLayout = ({ userProfile, ticket }: { userProfile: UserProfile; tick
             onCancel={handleCancelEdit}
             onSaved={handleItemSaved}
             onDeleted={handleItemDeleted}
+            isNew
           />
         ) : (
           <Box pb={3}>

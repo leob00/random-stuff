@@ -1,12 +1,9 @@
 import { getUserSSRAppRouteApi } from 'app/serverActions/auth/user'
 import { getItem, searchItems } from 'app/serverActions/aws/dynamo/dynamo'
-import { listObjects } from 'app/serverActions/aws/s3/s3'
-import { S3Folder, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { constructUserProfileKey, constructUserSecretSecondaryKey } from 'lib/backend/api/aws/util'
 import { userSecretArraySchema } from 'lib/backend/api/models/zModels'
 import { withAuth } from 'lib/backend/api/with-auth'
-import { S3Key, SignedRequest } from 'lib/backend/csr/nextApiWrapper'
-import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { NextRequest, NextResponse } from 'next/server'
 
 const handler = async (req: NextRequest) => {
