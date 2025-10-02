@@ -501,7 +501,7 @@ export async function validateUserPin(pin: string) {
 }
 
 export async function decryptUserSecret(secret: UserSecret) {
-  const result = (await postBody('/api/aws/user/secrets/items', 'POST', {})) as UserSecret
-  console.log('result: ', result)
+  const result = (await postBody('/api/aws/user/secrets/item/decrypt', 'POST', secret)) as UserSecret
+  //console.log('result: ', result)
   return result
 }

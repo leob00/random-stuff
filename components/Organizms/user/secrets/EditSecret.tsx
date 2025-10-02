@@ -1,12 +1,11 @@
-import { Box, Stack } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import { UserSecret } from 'lib/backend/api/models/zModels'
-import { myDecrypt, myEncrypt, weakDecrypt } from 'lib/backend/encryption/useEncryptor'
+import { myEncrypt } from 'lib/backend/encryption/useEncryptor'
 import { constructUserSecretPrimaryKey } from 'lib/backend/api/aws/util'
 import { deleteRecord, putUserSecret } from 'lib/backend/csr/nextApiWrapper'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import SecretInputForm from './SecretInputForm'
-import { useEffect, useReducer } from 'react'
+import { useReducer } from 'react'
 
 interface Model {
   isLoading: boolean
@@ -21,7 +20,7 @@ const EditSecret = ({
   onCancel,
   onSaved,
   onDeleted,
-  isNew,
+  isDecrypted = false,
 }: {
   username: string
   encKey: string
@@ -29,12 +28,12 @@ const EditSecret = ({
   onCancel: () => void
   onSaved?: (item: UserSecret) => void
   onDeleted: (id: string) => void
-  isNew?: boolean
+  isDecrypted?: boolean
 }) => {
   const defaultModel: Model = {
     isLoading: false,
     showConfirmDelete: false,
-    userSecret: { ...userSecret, secret: myDecrypt(encKey, userSecret.secret) },
+    userSecret: { ...userSecret, secret: userSecret.secret },
   }
 
   const [model, setModel] = useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
@@ -72,13 +71,28 @@ const EditSecret = ({
         onConfirm={handleYesDelete}
       />
       <Stack>
-        {model.isLoading ? (
-          <BackdropLoader />
-        ) : (
-          <>
+        <>
+          {isDecrypted ? (
             <SecretInputForm currentValues={model.userSecret} onSubmitted={onSubmitted} onCancel={onCancel} onDelete={handleDeleteClick} />
-          </>
-        )}
+          ) : (
+            <Box>
+              <Box display={'flex'} gap={1}>
+                <Box flexDirection={'column'} py={0.3}>
+                  <Typography variant='body2' textAlign={'right'}>
+                    {'secret:'}
+                  </Typography>
+                </Box>
+                <Box flexDirection={'column'}>
+                  <Box flexDirection={'column'} py={0.3}>
+                    <Typography variant='body2' textAlign={'left'} fontWeight={'bold'}>
+                      {model.userSecret.secret}
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+          )}
+        </>
       </Stack>
     </Box>
   )

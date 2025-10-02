@@ -6,16 +6,24 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import { UserSecret } from 'lib/backend/api/models/zModels'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import { decryptUserSecret } from 'lib/backend/csr/nextApiWrapper'
+import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
 const SecretListItem = ({ encKey, data, onEdit }: { encKey: string; data: UserSecret; onEdit: () => void }) => {
   const [isEncrypted, setIsEncrypted] = useState(true)
   const [isCopied, setIsCopied] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleDecryptCopy = async () => {
     let val = { ...data }.secret
     if (isEncrypted) {
-      val = myDecrypt(encKey, data.secret)
+      //val = myDecrypt(encKey, data.secret)
+      setIsLoading(true)
+      const result = await decryptUserSecret(data)
+      val = result.secret
     }
+    setIsLoading(false)
+
     navigator.clipboard.writeText(val)
     setIsEncrypted(!isEncrypted)
     setIsCopied(true)
@@ -27,6 +35,7 @@ const SecretListItem = ({ encKey, data, onEdit }: { encKey: string; data: UserSe
 
   return (
     <Box>
+      {isLoading && <BackdropLoader />}
       <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
         <Box>
           <Typography>{data.title}</Typography>

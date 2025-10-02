@@ -79,7 +79,7 @@ const SecretsLayout = ({ userProfile, ticket }: { userProfile: UserProfile; tick
     <RequirePin minuteDuration={8} enablePolling>
       <>{isLoading && <BackdropLoader />}</>
 
-      <>
+      <Box minHeight={500}>
         {model.createNew ? (
           <EditSecret
             username={userProfile.username}
@@ -88,14 +88,14 @@ const SecretsLayout = ({ userProfile, ticket }: { userProfile: UserProfile; tick
             onCancel={handleCancelEdit}
             onSaved={handleItemSaved}
             onDeleted={handleItemDeleted}
-            isNew
+            isDecrypted
           />
         ) : (
           <Box pb={3}>
             <PrimaryButton text={'add'} size='small' onClick={handleShowAddNew} />
           </Box>
         )}
-        {!model.createNew && (
+        {!model.createNew && !isLoading && (
           <SecretsTable
             encKey={encKey}
             authProfile={userProfile}
@@ -106,7 +106,7 @@ const SecretsLayout = ({ userProfile, ticket }: { userProfile: UserProfile; tick
             handleItemSaved={handleItemSaved}
           />
         )}
-      </>
+      </Box>
     </RequirePin>
   )
 }

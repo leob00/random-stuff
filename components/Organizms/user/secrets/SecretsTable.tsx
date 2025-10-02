@@ -2,7 +2,6 @@ import { Box, IconButton } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
 import { useState } from 'react'
-import SecretLayout from './SecretLayout'
 import { UserSecret } from 'lib/backend/api/models/zModels'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import EditSecret from './EditSecret'
@@ -10,6 +9,8 @@ import Close from '@mui/icons-material/Close'
 import { useClientPager } from 'hooks/useClientPager'
 import Pager from 'components/Atoms/Pager'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
+import SecretListItem from './SecretListItem'
+import { decryptUserSecret } from 'lib/backend/csr/nextApiWrapper'
 
 const SecretsTable = ({
   encKey,
@@ -29,8 +30,9 @@ const SecretsTable = ({
   handleItemSaved: () => void
 }) => {
   const [editItem, setEditItem] = useState<UserSecret | null>(null)
-  const handleEdit = (item: UserSecret) => {
-    setEditItem(item)
+  const handleEdit = async (item: UserSecret) => {
+    const dec = await decryptUserSecret(item)
+    setEditItem(dec)
   }
 
   const handleCancelEdit = () => {
@@ -66,7 +68,13 @@ const SecretsTable = ({
             <Box minHeight={264}>
               {pagedItems.map((item) => (
                 <Box key={item.id}>
-                  <SecretLayout encKey={encKey} userSecret={item} onEdit={handleEdit} />
+                  <SecretListItem
+                    encKey={encKey}
+                    data={item}
+                    onEdit={() => {
+                      handleEdit(item)
+                    }}
+                  />
                 </Box>
               ))}
               {pagedItems.length === 0 && <NoDataFound message='No data found that matched your criteria.' />}
@@ -101,6 +109,7 @@ const SecretsTable = ({
             onDeleted={handleDeleted}
             username={authProfile.username}
             onSaved={handlSaved}
+            isDecrypted
           />
         </>
       )}
