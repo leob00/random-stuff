@@ -96,6 +96,7 @@ const StockListItem = ({
       }
     }
   }, [selectedTab])
+  const decimalPlaces = item.Price < 1 ? 3 : 2
 
   return (
     <>
@@ -124,7 +125,7 @@ const StockListItem = ({
             />
           )}
           <Box>
-            <StockChange item={item} showMovingAvg={showMovingAvgOnly} />
+            <StockChange item={item} showMovingAvg={showMovingAvgOnly} changeDecimalPlaces={decimalPlaces} />
             <Box pl={2} display={'flex'} flexDirection={'column'}>
               {featuredFields && <StockFields fields={featuredFields} quote={item} />}
             </Box>
