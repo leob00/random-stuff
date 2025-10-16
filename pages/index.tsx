@@ -1,9 +1,7 @@
-import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import HomeMenu from 'components/Organizms/HomeMenu'
 import Seo from 'components/Organizms/Seo'
 import { GetStaticProps, NextPage } from 'next'
-import React from 'react'
 
 interface PageProps {
   title: string

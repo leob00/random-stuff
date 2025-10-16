@@ -1,10 +1,9 @@
-import { Box, Card, CardHeader, Stack, Typography, styled, useTheme } from '@mui/material'
-import ContextMenu, { ContextMenuItem } from '../Menus/ContextMenu'
+import { Box } from '@mui/material'
+import { ContextMenuItem } from '../Menus/ContextMenu'
 import ContextMenuAdd from '../Menus/ContextMenuAdd'
 import ContextMenuDelete from '../Menus/ContextMenuDelete'
 import ContextMenuEdit from '../Menus/ContextMenuEdit'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
-import { CasinoBlue, VeryLightBlue } from 'components/themes/mainTheme'
 import ListHeaderStack from './ListHeaderStack'
 import HoverEffect from './HoverEffect'
 
@@ -36,7 +35,6 @@ const ListHeader = ({
   selected?: boolean
 }) => {
   const showContextMenu = onEdit !== undefined || onDelete !== undefined || onAdd !== undefined
-  const theme = useTheme()
   const contextMenu: ContextMenuItem[] = []
   if (onEdit) {
     contextMenu.push({

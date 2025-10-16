@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   if (!user.roles?.includes(roleToAdd)) {
     if (user.roles) {
       user.roles = [...user.roles, { ...roleToAdd }]
-      const result = await updateUserRoles(user.email, user.roles.map((r) => r.Name).join(','))
+      await updateUserRoles(user.email, user.roles.map((r) => r.Name).join(','))
       return NextResponse.json(user)
     }
   }

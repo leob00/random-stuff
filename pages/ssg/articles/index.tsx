@@ -1,4 +1,3 @@
-import React from 'react'
 import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
 import { Button, Container } from '@mui/material'

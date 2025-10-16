@@ -16,11 +16,13 @@ const SortableStockContainer = ({
   defaultSort,
   featuredField,
   reportType,
+  enableSortChange = true,
 }: {
   data: StockQuote[]
   defaultSort?: StockQuoteSort[]
   featuredField?: keyof StockQuote
   reportType?: StockReportTypes
+  enableSortChange?: boolean
 }) => {
   const [showSortForm, setShowSortForm] = useState(false)
   let defSort: StockQuoteSort[] = []
@@ -61,11 +63,10 @@ const SortableStockContainer = ({
   }
   return (
     <>
-      {/* <ScrollIntoView enabled={true} margin={-28} /> */}
       <ScrollTop scroller={scroller} marginTop={-2} />
       <Box display='flex' justifyContent={'space-between'}>
         <Box flexGrow={1}>
-          <CustomSortAlert result={sort} onModify={() => setShowSortForm(true)} translateDefaultMessage />
+          <CustomSortAlert result={sort} onModify={() => setShowSortForm(true)} translateDefaultMessage enableSortChange={enableSortChange} />
         </Box>
       </Box>
       <PagedStockTable data={sortData()} pageSize={10} sort={sort} featuredFields={fieldToFeature} scrollOnPageChange onPageChanged={handlePageChange} />

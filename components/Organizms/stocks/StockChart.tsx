@@ -15,14 +15,10 @@ import FadeIn from 'components/Atoms/Animations/FadeIn'
 import StockChartDaySelect, { getYearToDateDays } from './StockChartDaySelect'
 import { DateRange, HistoricalAggregate } from 'lib/backend/api/qln/qlnApi'
 import HistoricalAggregateDisplay from './HistoricalAggregateDisplay'
-import { sleep } from 'lib/util/timers'
 import { shrinkList } from './lineChartOptions'
 import { MovingAvg } from 'lib/backend/api/qln/qlnModels'
 import MovingAvgValues from './movingAvg/MovingAvgValues'
-import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import { VeryLightBlue } from 'components/themes/mainTheme'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import FadeOut from 'components/Atoms/Animations/FadeOut'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 interface Model {

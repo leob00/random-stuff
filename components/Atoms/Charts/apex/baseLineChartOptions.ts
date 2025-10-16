@@ -1,11 +1,9 @@
 import { ApexOptions } from 'apexcharts'
 import {
-  CasinoBlack,
+  CasinoBlackTransparent,
   CasinoBlue,
   CasinoBlueTransparent,
-  CasinoGreenTransparent,
   CasinoLimeTransparent,
-  CasinoRedTransparent,
   DarkBlue,
   DarkGreen,
   DarkModeBlue,
@@ -241,7 +239,7 @@ export function getBaseChart(groupName: string, palette: 'light' | 'dark', chart
       top: 2,
       left: 1,
       blur: 1,
-      color: CasinoBlack,
+      color: CasinoBlackTransparent,
     },
     toolbar: {
       show: false,

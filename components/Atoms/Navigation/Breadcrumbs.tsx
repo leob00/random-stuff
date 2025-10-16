@@ -44,7 +44,7 @@ export const BasicBreadcrumbs = () => {
     <>
       {!isLoading && (
         <Box sx={{ overflowX: 'auto', scrollbarWidth: 'none' }}>
-          <Box display={'flex'} gap={2} alignItems={'flex-start'}>
+          <Box display={'flex'} gap={2}>
             {routes.map((route, index) => (
               <Box key={route.path} display={'flex'} alignItems={'center'} gap={2}>
                 {route.path === currentRoute ? (
@@ -69,9 +69,9 @@ export const BasicBreadcrumbs = () => {
                 )}
 
                 {index < routes.length - 1 && (
-                  <>
+                  <Box display='flex' justifyContent={'flex-start'}>
                     <Divider color={theme.palette.primary.main} orientation='vertical' sx={{ height: '10px' }} />
-                  </>
+                  </Box>
                 )}
               </Box>
             ))}

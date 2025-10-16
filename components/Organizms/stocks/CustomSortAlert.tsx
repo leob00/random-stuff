@@ -7,10 +7,12 @@ const CustomSortAlert = ({
   result,
   onModify,
   translateDefaultMessage = false,
+  enableSortChange = true,
 }: {
   result: Sort[]
   onModify: () => void
   translateDefaultMessage?: boolean
+  enableSortChange?: boolean
 }) => {
   const translateSort = (sort: Sort) => {
     let direction = `${sort.direction === 'desc' ? 'descending' : 'ascending'}`
@@ -39,9 +41,13 @@ const CustomSortAlert = ({
         icon={<CheckIcon fontSize='inherit' />}
         severity='info'
         action={
-          <Button color='primary' size='small' onClick={onModify}>
-            modify
-          </Button>
+          <>
+            {enableSortChange && (
+              <Button color='primary' size='small' onClick={onModify}>
+                modify
+              </Button>
+            )}
+          </>
         }
       >
         <AlertTitle>{translateDefaultMessage ? translateSort(result[0]) : 'sorted'}</AlertTitle>

@@ -96,7 +96,7 @@ const StockListItem = ({
       }
     }
   }, [selectedTab])
-  const decimalPlaces = item.Price < 1 ? 3 : 2
+  const decimalPlaces = item.Price <= 1 ? 3 : 2
 
   return (
     <>

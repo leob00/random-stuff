@@ -366,7 +366,7 @@ export async function searchDynamoItemsDataByCategory<T>(id: CategoryType): Prom
   return results
 }
 
-export async function putRecord(id: string | DynamoKeys, category: string, item: any, format: 'json' | 'string' = 'json') {
+export async function putRecord(id: DynamoKeys, category: string, item: any, format: 'json' | 'string' = 'json') {
   let req: RandomStuffDynamoItem = {
     key: id,
     category: category,
@@ -504,4 +504,9 @@ export async function decryptUserSecret(secret: UserSecret) {
   const result = (await postBody('/api/aws/user/secrets/item/decrypt', 'POST', secret)) as UserSecret
   //console.log('result: ', result)
   return result
+}
+
+export async function getUsers() {
+  const resp = await postBody('/api/aws/admin/users', 'POST', {})
+  return resp
 }

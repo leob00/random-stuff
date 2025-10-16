@@ -28,7 +28,7 @@ const StockReportDisplay = ({ data, reportType }: { data: StockQuote[]; reportTy
   return (
     <>
       <ScrollTop scroller={scroller} marginTop={-22} />
-      <SortableStockContainer key={reportType} data={data} defaultSort={defaultSort} featuredField={field} reportType={reportType} />
+      <SortableStockContainer key={reportType} data={data} defaultSort={defaultSort} featuredField={field} reportType={reportType} enableSortChange={false} />
     </>
   )
 }
