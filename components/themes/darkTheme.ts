@@ -19,6 +19,7 @@ const darkPalette: PaletteOptions = {
 
   primary: {
     main: '#90caf9',
+    contrastText: VeryLightBlue,
   },
   secondary: {
     main: VeryLightBlue,

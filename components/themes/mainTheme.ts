@@ -56,10 +56,10 @@ const lightPalette: PaletteOptions = {
   mode: 'light',
   primary: {
     main: CasinoBlue,
-    contrastText: VeryLightBlue,
+    contrastText: SoftWhite,
   },
   secondary: {
-    main: DarkBlue,
+    main: CasinoBlue,
   },
   error: {
     main: CasinoDarkRedTransparent,

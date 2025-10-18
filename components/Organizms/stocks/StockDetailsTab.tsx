@@ -4,15 +4,13 @@ import Clickable from 'components/Atoms/Containers/Clickable'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { useRouter } from 'next/router'
-import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import StockFields from './advanced-search/results/StockFields'
 
-const StockDetailsTab = ({ quote, authProfile }: { quote: StockQuote; authProfile: UserProfile | null }) => {
+const StockDetailsTab = ({ quote }: { quote: StockQuote }) => {
   const router = useRouter()
   const handleTagClick = (tag: string) => {
     router.push(`/csr/stocks/stock-tags?id=${encodeURIComponent(tag)}`)
   }
-  const sector = quote.Sector
   return (
     <Box pb={2} pt={2}>
       <Box>

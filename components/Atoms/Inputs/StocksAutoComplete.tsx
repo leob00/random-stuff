@@ -1,5 +1,5 @@
 import { TextField, Autocomplete } from '@mui/material'
-import { CasinoBlue, VeryLightBlue } from 'components/themes/mainTheme'
+import { CasinoBlue, CasinoBlueTransparent, VeryLightBlue } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
 import { debounce } from 'lodash'
 import { useTheme } from '@mui/material'
@@ -66,7 +66,7 @@ const StocksAutoComplete = ({
       size='small'
       id='searchAutoComplete'
       freeSolo={freesolo}
-      sx={{ width: width, input: { color: color } }}
+      sx={{ width: width }}
       options={options}
       autoHighlight
       onChange={(_, value) => {
@@ -76,7 +76,11 @@ const StocksAutoComplete = ({
         <TextField
           {...params}
           label={label}
-          sx={{ input: { color: color } }}
+          sx={{
+            fieldset: {
+              borderColor: CasinoBlueTransparent, // Default border color
+            },
+          }}
           inputRef={textRef}
           placeholder={placeholder}
           onChange={handleChange}

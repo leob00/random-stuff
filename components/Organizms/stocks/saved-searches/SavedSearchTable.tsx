@@ -118,7 +118,9 @@ const SavedSearchTable = ({
                 {selectedItem && selectedItem.id === item.id && <ContextMenu items={menuItems} />}
               </Box>
             </Box>
-            <HorizontalDivider />
+            {!selectedItem && <HorizontalDivider />}
+            {selectedItem && selectedItem.id !== item.id && <HorizontalDivider />}
+
             {selectedItem && selectedItem.id === item.id && (
               <Box py={2}>
                 {!selectedItem.editMode && (

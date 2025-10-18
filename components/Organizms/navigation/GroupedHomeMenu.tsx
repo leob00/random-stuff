@@ -1,28 +1,51 @@
-import { Box, Typography } from '@mui/material'
+'use client'
+import { Box, Typography, useTheme } from '@mui/material'
 import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
 import { Paths, flatSiteMap } from './siteMap'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import { CasinoBlueTransparent } from 'components/themes/mainTheme'
+import { CasinoBlue, CasinoBlueTransparent, DarkModeBlueTransparent } from 'components/themes/mainTheme'
 import { Navigation } from '../session/useSessionSettings'
+import HoverEffect from 'components/Molecules/Lists/HoverEffect'
 
 const GroupedHomeMenu = ({ all, recentRoutes, isAdmin }: { all: Navigation[]; recentRoutes: Navigation[]; isAdmin?: boolean }) => {
   const reorderedPaths = getOrderedPaths(all, recentRoutes, isAdmin ?? false)
   const pathCategories = getPathCategories(reorderedPaths)
+  const theme = useTheme()
 
   return (
     <Box>
       <Box display={'flex'} flexDirection={{ xs: 'column', md: 'row' }} flexWrap={'wrap'} justifyContent={{ xs: 'center' }} gap={1} py={1}>
         {pathCategories.map((category) => (
-          <Box key={category.category} px={0.25} py={2} border={`solid 1px ${CasinoBlueTransparent}`} minWidth={250} borderRadius={1}>
-            <Box pb={2}>
+          <Box
+            key={category.category}
+            //px={0.25}
+            //py={2}
+            minWidth={250}
+          >
+            <Box
+              pb={2}
+              sx={{ backgroundColor: DarkModeBlueTransparent }}
+              borderRadius={1}
+              display={'flex'}
+              justifyContent={'center'}
+              pt={2}
+              borderLeft={`solid 1px ${CasinoBlueTransparent}`}
+              borderRight={`solid 1px ${CasinoBlueTransparent}`}
+              //borderBottom={`solid 1px ${CasinoBlueTransparent}`}
+            >
               <FadeIn>
-                <Typography variant={'h5'} sx={{ textAlign: 'center' }} fontWeight={500}>
+                <Typography variant={'h5'} sx={{ textAlign: 'center' }} fontWeight={500} color={theme.palette.primary.contrastText}>
                   {category.category}
                 </Typography>
               </FadeIn>
             </Box>
-            <Box>
+            <Box
+              mt={-0.3}
+              borderLeft={`solid 1px ${CasinoBlueTransparent}`}
+              borderRight={`solid 1px ${CasinoBlueTransparent}`}
+              borderBottom={`solid 1px ${CasinoBlueTransparent}`}
+            >
               {category.paths.map((path, i) => (
                 <Box key={path.path}>
                   <Box display={'flex'} justifyContent={'center'} py={2}>
@@ -30,7 +53,7 @@ const GroupedHomeMenu = ({ all, recentRoutes, isAdmin }: { all: Navigation[]; re
                       <NavigationButton path={path.path} name={path.name} category={path.category} variant={'h6'} />
                     </FadeIn>
                   </Box>
-                  {i < category.paths.length - 1 && <HorizontalDivider />}
+                  {/* {i < category.paths.length - 1 && <HorizontalDivider />} */}
                 </Box>
               ))}
             </Box>

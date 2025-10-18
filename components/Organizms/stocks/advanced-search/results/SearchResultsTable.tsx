@@ -18,7 +18,7 @@ const SearchResultsTable = ({
   onPageChanged?: (pageNum?: number) => void
   filterSummary?: StockFilterSummary
 }) => {
-  const { pagerModel, setPage, getPagedItems, reset } = useClientPager(data, pageSize)
+  const { pagerModel, setPage, getPagedItems } = useClientPager(data, pageSize)
   const items = getPagedItems(data)
   const { userProfile, isValidating } = useProfileValidator()
   let featuredFields: Array<keyof StockQuote> = []

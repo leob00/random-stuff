@@ -496,8 +496,16 @@
     "Symbol": "ACRV"
   },
   {
+    "Company": "American Century Small Cap Growth Insights ETF",
+    "Symbol": "ACSG"
+  },
+  {
     "Company": "American Customer Satisfaction ETF",
     "Symbol": "ACSI"
+  },
+  {
+    "Company": "American Century Small Cap Value Insights ETF",
+    "Symbol": "ACSV"
   },
   {
     "Company": "Enact Holdings, Inc. Common Stock",
@@ -2300,6 +2308,10 @@
     "Symbol": "APPX"
   },
   {
+    "Company": "Aptus April Buffer ETF",
+    "Symbol": "APRB"
+  },
+  {
     "Company": "Aprea Therapeutics, Inc. Common stock",
     "Symbol": "APRE"
   },
@@ -3700,7 +3712,7 @@
     "Symbol": "BAK"
   },
   {
-    "Company": "iShares Advantage Large Cap Income ETF",
+    "Company": "iShares U.S. Large Cap Premium Income Active ETF",
     "Symbol": "BALI"
   },
   {
@@ -4216,8 +4228,16 @@
     "Symbol": "BDC"
   },
   {
+    "Company": "BTC Development Corp. Class A Ordinary Shares",
+    "Symbol": "BDCI"
+  },
+  {
     "Company": "BTC Development Corp. Unit",
     "Symbol": "BDCIU"
+  },
+  {
+    "Company": "BTC Development Corp. Warrant",
+    "Symbol": "BDCIW"
   },
   {
     "Company": "ETRACS Quarterly Pay 1.5x Leveraged MarketVector BDC Liquid Index ETN due June 10, 2050",
@@ -7212,10 +7232,6 @@
     "Symbol": "CCRN"
   },
   {
-    "Company": "iShares Commodity Curve Carry Strategy ETF",
-    "Symbol": "CCRV"
-  },
-  {
     "Company": "CENTURY COMMUNITIES, INC.",
     "Symbol": "CCS"
   },
@@ -9250,10 +9266,6 @@
   {
     "Company": "Freightos Limited Warrant expiring 1/23/2028",
     "Symbol": "CRGOW"
-  },
-  {
-    "Company": "CARGO Therapeutics, Inc. Common Stock",
-    "Symbol": "CRGX"
   },
   {
     "Company": "Crescent Energy Company",
@@ -14144,12 +14156,20 @@
     "Symbol": "EZM"
   },
   {
+    "Company": "AlphaDroid Broad Markets Momentum ETF",
+    "Symbol": "EZMO"
+  },
+  {
     "Company": "Ezcorp Inc",
     "Symbol": "EZPW"
   },
   {
     "Company": "Franklin Crypto Index ETF",
     "Symbol": "EZPZ"
+  },
+  {
+    "Company": "AlphaDroid Defensive Sector Rotation ETF",
+    "Symbol": "EZRO"
   },
   {
     "Company": "iShare MSCI Eurozone ETF of ISHARES INC.",
@@ -15882,10 +15902,6 @@
   {
     "Company": "Shift4 Payments, Inc.",
     "Symbol": "FOUR"
-  },
-  {
-    "Company": "iShares Focused Value Factor ETF",
-    "Symbol": "FOVL"
   },
   {
     "Company": "Pacer Solactive Whitney Future of Warfare ETF",
@@ -19984,10 +20000,6 @@
     "Symbol": "HYGH"
   },
   {
-    "Company": "iShares Inflation Hedged High Yield Bond ETF",
-    "Symbol": "HYGI"
-  },
-  {
     "Company": "FlexShares High Yield Value-Scored Bond Index Fund",
     "Symbol": "HYGV"
   },
@@ -20574,10 +20586,6 @@
   {
     "Company": "T Stamp Inc. Class A Common Stock",
     "Symbol": "IDAI"
-  },
-  {
-    "Company": "iShares Future Cloud 5G and Tech ETF",
-    "Symbol": "IDAT"
   },
   {
     "Company": "InterDigital, Inc.",
@@ -22304,10 +22312,6 @@
     "Symbol": "IWS"
   },
   {
-    "Company": "iShares MSCI Water Management Multisector ETF",
-    "Symbol": "IWTR"
-  },
-  {
     "Company": "iShares Russell 3000 ETF",
     "Symbol": "IWV"
   },
@@ -22466,6 +22470,10 @@
   {
     "Company": "Jamf Holding Corp. Common Stock",
     "Symbol": "JAMF"
+  },
+  {
+    "Company": "Aptus January Buffer ETF",
+    "Symbol": "JANB"
   },
   {
     "Company": "Innovator Premium Income 20 Barrier ETF - January",
@@ -23144,6 +23152,10 @@
     "Symbol": "JUCY"
   },
   {
+    "Company": "Aptus July Buffer ETF",
+    "Symbol": "JULB"
+  },
+  {
     "Company": "Innovator Premium Income 20 Barrier ETF - July",
     "Symbol": "JULH"
   },
@@ -23582,6 +23594,10 @@
   {
     "Company": "Innovator U.S. Small Cap Power Buffer ETF - January",
     "Symbol": "KJAN"
+  },
+  {
+    "Company": "KraneShares 2x Long JD Daily ETF",
+    "Symbol": "KJD"
   },
   {
     "Company": "Innovator U.S. Small Cap Power Buffer ETF - July",
@@ -24976,6 +24992,10 @@
     "Symbol": "LMNR"
   },
   {
+    "Company": "Defiance Daily Target 2x Long LMND ETF",
+    "Symbol": "LMNX"
+  },
+  {
     "Company": "Lockheed Martin Corp.",
     "Symbol": "LMT"
   },
@@ -25056,7 +25076,7 @@
     "Symbol": "LOB"
   },
   {
-    "Company": "LOBO EV TECHNOLOGIES LTD. Ordinary shares",
+    "Company": "LOBO TECHNOLOGIES LTD. Class A Ordinary Shares",
     "Symbol": "LOBO"
   },
   {
@@ -28456,6 +28476,10 @@
     "Symbol": "NEGG"
   },
   {
+    "Company": "Nelson Select ETF",
+    "Symbol": "NELS"
+  },
+  {
     "Company": "Newmont Corporation",
     "Symbol": "NEM"
   },
@@ -30984,6 +31008,10 @@
     "Symbol": "OWL"
   },
   {
+    "Company": "OBOOK Holdings Inc. Class A Common Shares",
+    "Symbol": "OWLS"
+  },
+  {
     "Company": "Owlet, Inc.",
     "Symbol": "OWLT"
   },
@@ -31546,6 +31574,10 @@
   {
     "Company": "Polen Focus Growth ETF",
     "Symbol": "PCLG"
+  },
+  {
+    "Company": "Pictet Cleaner Planet ETF",
+    "Symbol": "PCLN"
   },
   {
     "Company": "VIRTUS SEIX AAA Private Credit CLO ETF",
@@ -32826,6 +32858,10 @@
   {
     "Company": "PGIM Nasdaq-100 Buffer 12 ETF - July",
     "Symbol": "PQJL"
+  },
+  {
+    "Company": "Pictet AI Enhanced International Equity ETF",
+    "Symbol": "PQNT"
   },
   {
     "Company": "PGIM Nasdaq-100 Buffer 12 ETF - October",
@@ -34352,7 +34388,7 @@
     "Symbol": "RAA"
   },
   {
-    "Company": "Reckoner Leveraged AAA CLO ETF",
+    "Company": "Reckoner Yield Enhanced AAA CLO ETF",
     "Symbol": "RAAA"
   },
   {
@@ -36984,6 +37020,10 @@
     "Symbol": "SETM"
   },
   {
+    "Company": "Aptera Motors Corp. Class B Common Stock",
+    "Symbol": "SEV"
+  },
+  {
     "Company": "Seven Hills Realty Trust Common Stock",
     "Symbol": "SEVN"
   },
@@ -37674,6 +37714,10 @@
   {
     "Company": "SL Green Realty Corp.",
     "Symbol": "SLG"
+  },
+  {
+    "Company": "Smart Logistics Global Limited Ordinary Shares",
+    "Symbol": "SLGB"
   },
   {
     "Company": "Sol-Gel Technologies Ltd. Ordinary Shares",
@@ -38696,7 +38740,7 @@
     "Symbol": "SPR"
   },
   {
-    "Company": "SPRUCE BIOSCIENCES INC",
+    "Company": "Spruce Biosciences, Inc. Common Stock",
     "Symbol": "SPRB"
   },
   {
@@ -39330,10 +39374,6 @@
   {
     "Company": "PIMCO 1-5 Year U.S. TIPS Index Exchange-Traded Fund",
     "Symbol": "STPZ"
-  },
-  {
-    "Company": "Sitio Royalties Corp.",
-    "Symbol": "STR"
   },
   {
     "Company": "Strategic Education, Inc. Common Stock",
@@ -40152,6 +40192,10 @@
     "Symbol": "TCBX"
   },
   {
+    "Company": "TechCreate Group Ltd.",
+    "Symbol": "TCGL"
+  },
+  {
     "Company": "iShares MSCI China Multisector Tech ETF",
     "Symbol": "TCHI"
   },
@@ -40170,6 +40214,10 @@
   {
     "Company": "Trip.com Group Limited American Depositary Shares",
     "Symbol": "TCOM"
+  },
+  {
+    "Company": "TransCanada PipeLines Limited 6.250% Junior Subordinated Notes due 2085",
+    "Symbol": "TCPA"
   },
   {
     "Company": "Thrivent Core Plus Bond ETF",
@@ -40466,10 +40514,6 @@
   {
     "Company": "Triumph Financial, Inc.",
     "Symbol": "TFIN"
-  },
-  {
-    "Company": "Triumph Financial, Inc. Depositary Shares, Each Representing a 1/40th Interest in a Share of 7.125% Series C Fixed-Rate Non-Cumulative Perpetual Preferred Stock",
-    "Symbol": "TFINP"
   },
   {
     "Company": "Innovator 20+ Year Treasury Bond 5 Floor ETF - July",
@@ -41254,10 +41298,6 @@
   {
     "Company": "TIMOTHY PLAN HIGH DIVIDEND STOCK ENHANCED ETF",
     "Symbol": "TPHE"
-  },
-  {
-    "Company": "TPI Composites, Inc. Common Stock",
-    "Symbol": "TPIC"
   },
   {
     "Company": "Timothy Plan International ETF",
@@ -46360,7 +46400,7 @@
     "Symbol": "ZMAY"
   },
   {
-    "Company": "F/m Callable Tax-Free Municipal ETF",
+    "Company": "The RBB Fund, Inc. F/m Ultrashort Tax-Free Municipal ETF",
     "Symbol": "ZMUN"
   },
   {
