@@ -1,4 +1,5 @@
 import { MenuItem, TextField, Typography } from '@mui/material'
+import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
 import { useState } from 'react'
 
@@ -24,7 +25,21 @@ const DropdownList = ({
   }
 
   return (
-    <TextField select value={opt} onChange={handleOptionSelect} size='small' label={label} color={'primary'} fullWidth={fullWidth} disabled={disabled}>
+    <TextField
+      select
+      value={opt}
+      onChange={handleOptionSelect}
+      size='small'
+      label={label}
+      color={'primary'}
+      fullWidth={fullWidth}
+      disabled={disabled}
+      sx={{
+        fieldset: {
+          borderColor: CasinoBlueTransparent, // Default border color
+        },
+      }}
+    >
       {options.map((item) => (
         <MenuItem key={item.value} value={item.value} selected={selectedOption === opt} color={'primary'} disabled={item.disabled}>
           {item.text}

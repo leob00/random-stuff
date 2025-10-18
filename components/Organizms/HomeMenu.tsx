@@ -23,7 +23,6 @@ type Model = {
 const HomeMenu = () => {
   const { allRoutes: recentRoutes } = useRouteTracker()
   const recentHistory = recentRoutes.filter((m) => m.name !== 'home')
-  const [showDefaultMenu, setShowDefaultMenu] = useState(recentHistory.length < 4)
   const { ticket } = useUserController()
   const allRoutes = flatSiteMap.filter((m) => m.category !== 'Home')
   const router = useRouter()
@@ -31,7 +30,6 @@ const HomeMenu = () => {
   const mutateKey = 'route-tracker'
 
   const fn = async () => {
-    const isAdmin = userHasRole('Admin', ticket?.roles ?? [])
     const result: Model = {
       isAdmin: userHasRole('Admin', ticket?.roles ?? []),
       recentRoutes: recentHistory,

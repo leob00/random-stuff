@@ -55,7 +55,7 @@ export const ErrorRed = '#ce250ec7'
 const lightPalette: PaletteOptions = {
   mode: 'light',
   primary: {
-    main: CasinoBlue,
+    main: DarkBlue,
     contrastText: SoftWhite,
   },
   secondary: {
@@ -77,7 +77,8 @@ const lightPalette: PaletteOptions = {
 }
 
 export const typographyOptions: TypographyVariantsOptions = {
-  fontFamily: ['-apple-system', 'Roboto', 'BlinkMacSystemFont', '"Helvetica Neue"', 'Arial', 'sans-serif', '"Apple Color Emoji"'].join(','),
+  //fontFamily: ['-apple-system', 'Roboto', 'BlinkMacSystemFont', '"Helvetica Neue"', 'Arial', 'sans-serif', '"Apple Color Emoji"'].join(','),
+  fontFamily: ['-apple-system', 'Roboto', 'Tahoma', 'BlinkMacSystemFont', '"Helvetica Neue"', 'Arial', 'sans-serif', '"Apple Color Emoji"'].join(','),
   fontSize: 18,
   fontWeightBold: 'bold',
 
@@ -90,7 +91,7 @@ export const typographyOptions: TypographyVariantsOptions = {
   subtitle1: { fontSize: '1.275rem', fontWeight: 200 },
   subtitle2: { fontSize: '0.975rem', fontWeight: 200 },
   body1: { fontSize: '1.2rem', fontWeight: 400 }, // normal body text
-  body2: { fontSize: '1.08rem', fontWeight: 200 }, // less important text
+  body2: { fontSize: '1.09rem', fontWeight: 400 }, // less important text
   caption: { fontSize: '0.85rem' },
   overline: { fontSize: '0.625rem', fontWeight: 400 },
   button: { fontSize: '1.0rem', fontWeight: 300, textTransform: 'none' },

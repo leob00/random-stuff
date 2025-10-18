@@ -2,6 +2,7 @@ import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, Text
 import { ChangeEvent, useRef } from 'react'
 import { Option } from 'lib/AutoCompleteOptions'
 import { DropdownItem } from 'lib/models/dropdown'
+import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 
 const StaticAutoComplete = ({
   options,
@@ -73,6 +74,11 @@ const StaticAutoComplete = ({
             onChange={handleTextChange}
             error={!!errorMessage}
             helperText={errorMessage ?? undefined}
+            sx={{
+              fieldset: {
+                borderColor: CasinoBlueTransparent, // Default border color
+              },
+            }}
           />
         )}
       />

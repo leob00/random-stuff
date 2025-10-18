@@ -1,12 +1,10 @@
 'use client'
 import { Box, Typography, useTheme } from '@mui/material'
 import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
-import { Paths, flatSiteMap } from './siteMap'
+import { Paths } from './siteMap'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import { CasinoBlue, CasinoBlueTransparent, DarkModeBlueTransparent } from 'components/themes/mainTheme'
+import { CasinoBlueTransparent, DarkModeBlueTransparent } from 'components/themes/mainTheme'
 import { Navigation } from '../session/useSessionSettings'
-import HoverEffect from 'components/Molecules/Lists/HoverEffect'
 
 const GroupedHomeMenu = ({ all, recentRoutes, isAdmin }: { all: Navigation[]; recentRoutes: Navigation[]; isAdmin?: boolean }) => {
   const reorderedPaths = getOrderedPaths(all, recentRoutes, isAdmin ?? false)
@@ -26,7 +24,7 @@ const GroupedHomeMenu = ({ all, recentRoutes, isAdmin }: { all: Navigation[]; re
             <Box
               pb={2}
               sx={{ backgroundColor: DarkModeBlueTransparent }}
-              borderRadius={1}
+              borderRadius={'6px 6px 0 0'}
               display={'flex'}
               justifyContent={'center'}
               pt={2}
@@ -45,6 +43,7 @@ const GroupedHomeMenu = ({ all, recentRoutes, isAdmin }: { all: Navigation[]; re
               borderLeft={`solid 1px ${CasinoBlueTransparent}`}
               borderRight={`solid 1px ${CasinoBlueTransparent}`}
               borderBottom={`solid 1px ${CasinoBlueTransparent}`}
+              borderRadius={'0 0 6px 6px'}
             >
               {category.paths.map((path, i) => (
                 <Box key={path.path}>

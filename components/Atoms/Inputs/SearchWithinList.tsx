@@ -1,6 +1,6 @@
 import Close from '@mui/icons-material/Close'
 import { TextField, InputAdornment, IconButton, useTheme } from '@mui/material'
-import { CasinoBlue, VeryLightBlue } from 'components/themes/mainTheme'
+import { CasinoBlue, CasinoBlueTransparent, VeryLightBlue } from 'components/themes/mainTheme'
 import { debounce } from 'lodash'
 import React from 'react'
 
@@ -50,7 +50,12 @@ const SearchWithinList = ({
       defaultValue={defaultValue}
       disabled={disabled}
       id='searchWithinList'
-      sx={{ width: !fullWidth ? width : undefined, input: { color: theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlue } }}
+      sx={{
+        width: !fullWidth ? width : undefined,
+        fieldset: {
+          borderColor: CasinoBlueTransparent, // Default border color
+        },
+      }}
       onChange={handleChange}
       size='small'
       placeholder={text}
