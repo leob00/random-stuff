@@ -50,7 +50,7 @@ const Page = () => {
       <ResponsiveContainer>
         {userProfile && (
           <>
-            {goal && <PageHeader text={`Goal: ${goal.body}`} backButtonRoute={'/protected/csr/goals'} forceShowBackButton />}
+            {goal && <PageHeader text={`Goal: ${goal.body}`} />}
             {goal && tasks && <SingleGoalDisplay username={username} goal={goal} tasks={tasks} onMutated={handleMutated} />}
           </>
         )}
@@ -58,11 +58,6 @@ const Page = () => {
           {!isLoading && !validatingProfile && !goal && (
             <Box>
               <NoDataFound />
-              <CenterStack>
-                <Box display={'flex'}>
-                  <BackButton route='/protected/csr/goals' />
-                </Box>
-              </CenterStack>
             </Box>
           )}
         </>

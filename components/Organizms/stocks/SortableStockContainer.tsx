@@ -64,11 +64,13 @@ const SortableStockContainer = ({
   return (
     <>
       <ScrollTop scroller={scroller} marginTop={-2} />
-      <Box display='flex' justifyContent={'space-between'}>
-        <Box flexGrow={1}>
-          <CustomSortAlert result={sort} onModify={() => setShowSortForm(true)} translateDefaultMessage enableSortChange={enableSortChange} />
+      {enableSortChange && (
+        <Box display='flex' justifyContent={'space-between'}>
+          <Box flexGrow={1}>
+            <CustomSortAlert result={sort} onModify={() => setShowSortForm(true)} translateDefaultMessage enableSortChange={enableSortChange} />
+          </Box>
         </Box>
-      </Box>
+      )}
       <PagedStockTable data={sortData()} pageSize={10} sort={sort} featuredFields={fieldToFeature} scrollOnPageChange onPageChanged={handlePageChange} />
       <FormDialog title='sort' show={showSortForm} onCancel={() => setShowSortForm(false)}>
         <StocksCustomSortForm result={sort} onSubmitted={handleSortChange} required />

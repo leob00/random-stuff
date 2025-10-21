@@ -161,7 +161,7 @@ const TransactionsTable = ({
     await updatePosition(movePosition!)
     setMovePosition(null)
     onModifiedTransaction()
-    router.push('/csr/waitandredirect?id=csr/stocks/stock-porfolios')
+    router.push('/csr/stocks/stock-porfolios')
   }
   const portfolioDropdown: DropdownItem[] = allPortfolios.map((m) => {
     return { text: m.name, value: m.id }

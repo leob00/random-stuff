@@ -166,7 +166,6 @@ const SingleGoalDisplay = ({
               <ContextMenu items={contextMenu} />
             </Box>
           </Box>
-          <HorizontalDivider />
           <TaskList
             username={username}
             selectedGoal={goal}
