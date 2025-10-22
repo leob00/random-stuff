@@ -136,9 +136,11 @@ const StockListItem = ({
             </Stack>
           )}
         </Box>
-        <Box pt={1}>
-          <HorizontalDivider />
-        </Box>
+        {!showMore && (
+          <Box pt={1}>
+            <HorizontalDivider />
+          </Box>
+        )}
 
         {showMore && (
           <>

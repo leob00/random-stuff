@@ -48,7 +48,7 @@ const StockChartDaySelect = ({
 
   return (
     <Box textAlign={'right'} pr={1} py={1}>
-      <FormDropdownListNumeric options={options} value={daysToSelect} onOptionSelected={handleDaysSelected} />
+      <FormDropdownListNumeric options={options} value={daysToSelect} onOptionSelected={handleDaysSelected} minWidth={140} />
     </Box>
   )
 }
