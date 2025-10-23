@@ -5,22 +5,19 @@ import { Paths } from './siteMap'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { CasinoBlueTransparent, DarkModeBlueTransparent } from 'components/themes/mainTheme'
 import { Navigation } from '../session/useSessionSettings'
+import { chunk } from 'lodash'
 
 const GroupedHomeMenu = ({ all, recentRoutes, isAdmin }: { all: Navigation[]; recentRoutes: Navigation[]; isAdmin?: boolean }) => {
   const reorderedPaths = getOrderedPaths(all, recentRoutes, isAdmin ?? false)
   const pathCategories = getPathCategories(reorderedPaths)
+
   const theme = useTheme()
 
   return (
     <Box>
       <Box display={'flex'} flexDirection={{ xs: 'column', md: 'row' }} flexWrap={'wrap'} justifyContent={{ xs: 'center' }} gap={1} py={1}>
         {pathCategories.map((category) => (
-          <Box
-            key={category.category}
-            //px={0.25}
-            //py={2}
-            minWidth={250}
-          >
+          <Box key={category.category} minWidth={250}>
             <Box
               pb={2}
               sx={{ backgroundColor: DarkModeBlueTransparent }}
@@ -40,21 +37,28 @@ const GroupedHomeMenu = ({ all, recentRoutes, isAdmin }: { all: Navigation[]; re
             </Box>
             <Box
               mt={-0.3}
+              pb={2}
               borderLeft={`solid 1px ${CasinoBlueTransparent}`}
               borderRight={`solid 1px ${CasinoBlueTransparent}`}
               borderBottom={`solid 1px ${CasinoBlueTransparent}`}
               borderRadius={'0 0 6px 6px'}
             >
-              {category.paths.map((path, i) => (
-                <Box key={path.path}>
-                  <Box display={'flex'} justifyContent={'center'} py={2}>
-                    <FadeIn>
-                      <NavigationButton path={path.path} name={path.name} category={path.category} variant={'h6'} />
-                    </FadeIn>
+              <Box pt={2} px={1}>
+                {category.chunkedPaths.map((chunk, i) => (
+                  <Box key={i} display={'flex'} flexDirection={category.paths.length > 2 ? 'row' : 'column'} justifyContent={'space-evenly'}>
+                    {chunk.map((path, i) => (
+                      <Box key={path.path}>
+                        <Box display={'flex'} justifyContent={'center'}>
+                          <FadeIn>
+                            <NavigationButton path={path.path} name={path.name} category={path.category} variant={'h6'} />
+                          </FadeIn>
+                        </Box>
+                        {/* {i < category.paths.length - 1 && <HorizontalDivider />} */}
+                      </Box>
+                    ))}{' '}
                   </Box>
-                  {/* {i < category.paths.length - 1 && <HorizontalDivider />} */}
-                </Box>
-              ))}
+                ))}
+              </Box>
             </Box>
           </Box>
         ))}
@@ -94,6 +98,10 @@ function getPathCategories(paths: Navigation[]) {
     pathCategories.push({
       category: cat,
       paths: paths.filter((m) => m.category === cat),
+      chunkedPaths: chunk(
+        paths.filter((m) => m.category === cat),
+        2,
+      ),
     })
   })
   return pathCategories

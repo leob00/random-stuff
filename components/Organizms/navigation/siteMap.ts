@@ -1,3 +1,4 @@
+import { chunk } from 'lodash'
 import { Navigation } from '../session/useSessionSettings'
 
 export type SiteCategories =
@@ -16,6 +17,7 @@ export type SiteCategories =
 export interface Paths {
   category: SiteCategories
   paths: Navigation[]
+  chunkedPaths: Navigation[][]
 }
 
 export function pathsByCategory() {
@@ -26,6 +28,10 @@ export function pathsByCategory() {
     result.push({
       category: cat,
       paths: all.filter((m) => m.category === cat),
+      chunkedPaths: chunk(
+        all.filter((m) => m.category === cat),
+        2,
+      ),
     })
   })
 

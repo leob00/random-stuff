@@ -1,5 +1,4 @@
 import { Box } from '@mui/material'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import dayjs from 'dayjs'
@@ -205,7 +204,9 @@ const saveGoal = async (username: string, goal: UserGoal, newTasks: UserTask[]) 
   let existingGoals = await getUserGoals(constructUserGoalsKey(username))
   replaceItemInArray(goalCopy, existingGoals, 'id', goalCopy.id!)
   existingGoals = orderBy(existingGoals, ['dateModified'], ['desc'])
-  putUserGoals(constructUserGoalsKey(username), existingGoals)
+  if (existingGoals.length > 0) {
+    putUserGoals(constructUserGoalsKey(username), existingGoals)
+  }
   return goalCopy
 }
 

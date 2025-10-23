@@ -1,5 +1,5 @@
 'use client'
-import { ThemeProvider } from '@mui/material/styles'
+import { Theme, ThemeProvider, ThemeProviderProps } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import darkTheme from 'components/themes/darkTheme'
 import lightThme from 'components/themes/mainTheme'
@@ -9,11 +9,11 @@ export const getTheme = (mode: 'light' | 'dark') => {
   return mode === 'dark' ? darkTheme : lightThme
 }
 
-export default function ThemeRegistry({ colorMode, children }: { colorMode: 'light' | 'dark'; children: React.ReactNode }) {
+export default function ThemeRegistry({ theme, children }: { theme: Theme; children: React.ReactNode }) {
   return (
     <AppRouterCacheProvider>
-      <ThemeProvider key={colorMode} theme={getTheme(colorMode)}>
-        <CssBaseline />
+      <CssBaseline />
+      <ThemeProvider theme={theme}>
         <>{children}</>
       </ThemeProvider>
     </AppRouterCacheProvider>

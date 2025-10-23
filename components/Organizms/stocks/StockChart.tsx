@@ -18,7 +18,8 @@ import HistoricalAggregateDisplay from './HistoricalAggregateDisplay'
 import { shrinkList } from './lineChartOptions'
 import { MovingAvg } from 'lib/backend/api/qln/qlnModels'
 import MovingAvgValues from './movingAvg/MovingAvgValues'
-import { VeryLightBlue } from 'components/themes/mainTheme'
+import { CasinoBlueTransparent, VeryLightBlue } from 'components/themes/mainTheme'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 interface Model {

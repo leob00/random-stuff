@@ -10,7 +10,6 @@ import { UserGoal } from './goalModels'
 
 const UserGoalsList = ({ data, onShowEdit }: { data: UserGoal[]; onShowEdit: (item: UserGoal) => void }) => {
   const pageSize = 5
-  const theme = useTheme()
   const scroller = useScrollTop(0)
 
   const { pagerModel, setPage, getPagedItems, reset } = useClientPager(data, pageSize)
