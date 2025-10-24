@@ -3,6 +3,7 @@ import { StockAdvancedSearchFilter } from './advancedSearchFilter'
 import { executeStockAdvancedSearch } from 'lib/backend/api/qln/qlnApi'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
+import { sortArray } from 'lib/util/collections'
 
 interface Model {
   expandMarketCap: boolean
@@ -58,7 +59,10 @@ export default function useAdvancedSearchUi(filter?: StockAdvancedSearchFilter) 
   const executeSearch = async (filter: StockAdvancedSearchFilter) => {
     setModel({ ...model, isLoading: true, expandMarketCap: false, expandMovingAvg: false, expandPeRatio: false, expandSymbols: false, filter: filter })
     const result = await executeStockAdvancedSearch(filter)
-    const stocks = result.Body as StockQuote[]
+    let stocks = result.Body as StockQuote[]
+    if (filter.symbols && filter.symbols.length > 0) {
+      stocks = sortArray(stocks, ['Symbol'], ['asc'])
+    }
     setModel({
       ...model,
       isLoading: false,

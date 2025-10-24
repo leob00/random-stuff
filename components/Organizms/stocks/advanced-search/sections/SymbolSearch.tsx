@@ -75,7 +75,11 @@ const SymbolSearch = ({
           </Typography>
           <StockSearch onSymbolSelected={handleAddSymbol} showAdvSearch={false} clearOnSelect />
         </Box>
-        {formValues.symbols && <DeletableChipList values={formValues.symbols} onDelete={handleDelete} />}
+        {formValues.symbols && (
+          <Box py={2}>
+            <DeletableChipList values={formValues.symbols} onDelete={handleDelete} />
+          </Box>
+        )}
         {/* <Box display={'flex'} flexDirection={'column'} gap={1}>
           <Box display={'flex'} gap={2}>
             <Controller

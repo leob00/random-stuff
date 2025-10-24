@@ -534,6 +534,11 @@ export async function executeStockAdvancedSearch(filter: StockAdvancedSearchFilt
   }
   if (filter.symbols) {
     postBody.Symbols = filter.symbols
+    postBody.MovingAvg = {
+      Days: 1,
+      From: null,
+      To: null,
+    }
   } else {
     if (hasMarketCapFilter(filter.marketCap)) {
       postBody.MarketCap = {
