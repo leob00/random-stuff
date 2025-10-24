@@ -25,13 +25,6 @@ const SymbolSearch = ({
   setValue: UseFormSetValue<StockAdvancedSearchFilter>
   errors: FieldErrors<StockAdvancedSearchFilter>
 }) => {
-  const setFieldValue = (fieldName: keyof NumberRangeFilter, val?: number | null) => {
-    let newValues = { ...formValues.annualYield }
-    newValues[fieldName] = val ?? undefined
-    setValue('annualYield', newValues)
-    const newFilter = { ...controller.model.filter, annualYield: newValues }
-    controller.setModel({ ...controller.model, filter: newFilter })
-  }
   const hasFilter = formValues.symbols && formValues.symbols.length > 0
 
   const handleAddSymbol = (quote: StockQuote) => {

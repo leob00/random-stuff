@@ -18,6 +18,7 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchResultsTable from '../advanced-search/results/SearchResultsTable'
+import { sortArray } from 'lib/util/collections'
 
 type UiModel = {
   results: StockQuote[]
@@ -50,6 +51,9 @@ const SavedSearchTable = ({
       const newItem: UiModel = { ...item, results: [], filter: item.filter, filterSummary: summarizeFilter(item.filter) }
       const result = await executeStockAdvancedSearch(newItem.filter)
       newItem.results = result.Body as StockQuote[]
+      if (newItem.filter.symbols && newItem.filter.symbols.length > 0) {
+        newItem.results = sortArray(newItem.results, ['Symbol'], ['asc'])
+      }
       setSelectedItem(newItem)
       scroller.scroll(0)
     } else {
