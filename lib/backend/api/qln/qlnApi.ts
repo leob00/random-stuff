@@ -520,6 +520,7 @@ type StockAdvancedSearchPostModel = {
   MovingAvg: MovingAvgDaysFilter | null
   PeRatio: StocksSearchNumericRangeFilter | null
   AnnualYield: StocksSearchNumericRangeFilter | null
+  Symbols: string[] | null
 }
 
 export async function executeStockAdvancedSearch(filter: StockAdvancedSearchFilter) {
@@ -529,30 +530,35 @@ export async function executeStockAdvancedSearch(filter: StockAdvancedSearchFilt
     MovingAvg: null,
     PeRatio: null,
     AnnualYield: null,
+    Symbols: null,
   }
-  if (hasMarketCapFilter(filter.marketCap)) {
-    postBody.MarketCap = {
-      Items: getMarketCapFilters(filter.marketCap),
+  if (filter.symbols) {
+    postBody.Symbols = filter.symbols
+  } else {
+    if (hasMarketCapFilter(filter.marketCap)) {
+      postBody.MarketCap = {
+        Items: getMarketCapFilters(filter.marketCap),
+      }
     }
-  }
-  if (hasMovingAvgFilter(filter.movingAvg)) {
-    postBody.MovingAvg = {
-      Days: filter.movingAvg.days ?? 1,
-      From: filter.movingAvg.from ?? null,
-      To: filter.movingAvg.to ?? null,
+    if (hasMovingAvgFilter(filter.movingAvg)) {
+      postBody.MovingAvg = {
+        Days: filter.movingAvg.days ?? 1,
+        From: filter.movingAvg.from ?? null,
+        To: filter.movingAvg.to ?? null,
+      }
     }
-  }
-  if (hasNumberRangeFilter(filter.peRatio)) {
-    postBody.PeRatio = {
-      From: filter.peRatio.from ?? null,
-      To: filter.peRatio.to ?? null,
+    if (hasNumberRangeFilter(filter.peRatio)) {
+      postBody.PeRatio = {
+        From: filter.peRatio.from ?? null,
+        To: filter.peRatio.to ?? null,
+      }
     }
-  }
-  if (filter.annualYield) {
-    if (hasNumberRangeFilter(filter.annualYield)) {
-      postBody.AnnualYield = {
-        From: filter.annualYield.from ?? null,
-        To: filter.annualYield.to ?? null,
+    if (filter.annualYield) {
+      if (hasNumberRangeFilter(filter.annualYield)) {
+        postBody.AnnualYield = {
+          From: filter.annualYield.from ?? null,
+          To: filter.annualYield.to ?? null,
+        }
       }
     }
   }

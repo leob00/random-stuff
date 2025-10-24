@@ -16,6 +16,7 @@ import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import SaveStockSearchForm from '../saved-searches/SaveStockSearchForm'
 import { summarizeFilter } from './stocksAdvancedSearch'
 import AnnualYieldSearch from './sections/AnnualYieldSearch'
+import SymbolSearch from './sections/SymbolSearch'
 
 const AdvancedSearchFilterForm = ({
   onSubmitted,
@@ -35,8 +36,6 @@ const AdvancedSearchFilterForm = ({
   const {
     control,
     handleSubmit,
-    reset,
-    register,
     watch,
     setValue,
     formState: { errors },
@@ -88,6 +87,7 @@ const AdvancedSearchFilterForm = ({
             <MovingAvgSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
             <PeRatioSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
             <AnnualYieldSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
+            <SymbolSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
             {controller.model.isLoading && <BackdropLoader />}
             {!showSubmitButton && <Typography textAlign={'center'}>{filterSummary.summary}</Typography>}
             <Box py={2} display={'flex'} justifyContent={'flex-end'} pr={1} gap={1}>

@@ -78,6 +78,11 @@ export function summarizeFilter(filter: StockAdvancedSearchFilter) {
     summary: `top ${filter.take} stocks`,
   }
 
+  if (filter.symbols) {
+    result.summary = 'my stock list'
+    return result
+  }
+
   if (result.filterCount === 0) {
     return result
   }

@@ -9,6 +9,7 @@ interface Model {
   expandMovingAvg: boolean
   expandPeRatio: boolean
   expandAnnualYield: boolean
+  expandSymbols: boolean
   showResults: boolean
   isLoading: boolean
   results: StockQuote[]
@@ -24,8 +25,10 @@ export default function useAdvancedSearchUi(filter?: StockAdvancedSearchFilter) 
     expandMovingAvg: false,
     expandPeRatio: false,
     expandAnnualYield: false,
+    expandSymbols: false,
     showResults: false,
     isLoading: isValidatingProfile,
+
     results: [],
     filter: filter ?? {
       marketCap: {
@@ -53,7 +56,7 @@ export default function useAdvancedSearchUi(filter?: StockAdvancedSearchFilter) 
   }, [isValidatingProfile, userProfile])
 
   const executeSearch = async (filter: StockAdvancedSearchFilter) => {
-    setModel({ ...model, isLoading: true, expandMarketCap: false, expandMovingAvg: false, expandPeRatio: false, filter: filter })
+    setModel({ ...model, isLoading: true, expandMarketCap: false, expandMovingAvg: false, expandPeRatio: false, expandSymbols: false, filter: filter })
     const result = await executeStockAdvancedSearch(filter)
     const stocks = result.Body as StockQuote[]
     setModel({
@@ -64,6 +67,7 @@ export default function useAdvancedSearchUi(filter?: StockAdvancedSearchFilter) 
       expandMarketCap: false,
       expandMovingAvg: false,
       expandPeRatio: false,
+      expandSymbols: false,
       filter: filter,
     })
   }

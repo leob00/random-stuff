@@ -6,8 +6,6 @@ import { get } from 'lib/backend/api/fetchFunctions'
 import { MarketHandshake } from 'lib/backend/api/qln/qlnModels'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import StockMarketStatsChart from 'components/Organizms/stocks/charts/StockMarketStatsChart'
-import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
@@ -43,7 +41,6 @@ const StockMarketGlanceWidget = ({
                   <Alert severity='info' sx={{ backgroundColor: 'transparent' }}>
                     <Typography variant='caption'>{`U.S markets are closed for ${data.HolidayName}`}</Typography>
                   </Alert>
-                  {/* <AlertWithHeader severity='info' text={`U.S markets are closed for ${data.HolidayName}`} /> */}
                 </>
               )}
               <Typography textAlign={'center'} variant='caption'>{`${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} EST`}</Typography>

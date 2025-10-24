@@ -55,7 +55,7 @@ const GroupedHomeMenu = ({ all, recentRoutes, isAdmin }: { all: Navigation[]; re
                         </Box>
                         {/* {i < category.paths.length - 1 && <HorizontalDivider />} */}
                       </Box>
-                    ))}{' '}
+                    ))}
                   </Box>
                 ))}
               </Box>

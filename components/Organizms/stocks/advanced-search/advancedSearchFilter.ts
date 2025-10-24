@@ -57,6 +57,7 @@ export const StockAdvancedSearchFilterSchema = z.object({
   movingAvg: StockMovingAvgFilterSchema,
   peRatio: NumberRangeFilterSchema,
   annualYield: NumberRangeFilterSchema.optional().nullable(),
+  symbols: z.string().array().optional(),
 })
 
 export type StockAdvancedSearchFilter = z.infer<typeof StockAdvancedSearchFilterSchema>
