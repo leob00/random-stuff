@@ -1,11 +1,16 @@
 'use client'
 import { CssBaseline, ThemeProvider, Container } from '@mui/material'
-import { getTheme } from 'app/theme/ThemeRegistry'
 import Footer from 'components/Footer'
 import Header from 'components/Header'
 import AppRouteTracker from 'components/Organizms/session/AppRouteTracker'
 import { useSessionSettings } from 'components/Organizms/session/useSessionSettings'
 import { ReactNode } from 'react'
+import darkTheme from './darkTheme'
+import mainTheme from './mainTheme'
+
+export const getTheme = (mode: 'light' | 'dark') => {
+  return mode === 'dark' ? darkTheme : mainTheme
+}
 
 const StyledRoot = ({ children }: { children: ReactNode }) => {
   const { palette, savePalette } = useSessionSettings()

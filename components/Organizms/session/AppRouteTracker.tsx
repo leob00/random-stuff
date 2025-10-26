@@ -13,6 +13,7 @@ const AppRouteTracker = ({ children }: { children: ReactNode }) => {
     if (path) {
       addRoute(path)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [path])
 
   return (

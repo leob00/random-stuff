@@ -1,6 +1,4 @@
 import { Metadata } from 'next'
-import ThemeWrapper from './theme/ThemeWrapper'
-import { Suspense } from 'react'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import StyledRoot from 'components/themes/StyledRoot'
 
