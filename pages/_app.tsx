@@ -21,7 +21,7 @@ const getTheme = (mode: 'light' | 'dark') => {
 }
 function MyApp({ Component, pageProps }: AppProps) {
   const { palette, savePalette } = useSessionSettings()
-  //console.log(palette)
+
   const [colorMode, setColorMode] = React.useState<'light' | 'dark'>('dark')
 
   useEffect(() => {

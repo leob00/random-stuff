@@ -1,7 +1,6 @@
 'use client'
 import { Box, Divider, useTheme } from '@mui/material'
 import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
-import { useRouter } from 'next/router'
 import LinkButton from '../Buttons/LinkButton'
 import { sortArray } from 'lib/util/collections'
 import { Navigation } from 'components/Organizms/session/useSessionSettings'
@@ -11,10 +10,12 @@ import FadeIn from '../Animations/FadeIn'
 import { useEffect, useState } from 'react'
 import { useViewPortSize } from 'hooks/ui/useViewportSize'
 import { take } from 'lodash'
+import { usePathname } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 export const BasicBreadcrumbs = () => {
-  const theme = useTheme()
   const router = useRouter()
+  const theme = useTheme()
   const { allRoutes, addRoute } = useRouteTracker()
   const { viewPortSize } = useViewPortSize()
   let take = 8
@@ -29,7 +30,7 @@ export const BasicBreadcrumbs = () => {
   }
 
   const routes = getRoutes(allRoutes, take)
-  const currentRoute = router.asPath
+  const currentRoute = usePathname()
   const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
     setIsLoading(false)

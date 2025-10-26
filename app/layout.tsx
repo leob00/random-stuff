@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import ThemeWrapper from './theme/ThemeWrapper'
 import { Suspense } from 'react'
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
+import StyledRoot from 'components/themes/StyledRoot'
 
 export const metadata: Metadata = {
   title: 'Random Stuff',
@@ -19,9 +21,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en'>
       <body>
-        <Suspense>
+        <AppRouterCacheProvider>
+          <StyledRoot>{children}</StyledRoot>
+        </AppRouterCacheProvider>
+        {/* <Suspense>
           <ThemeWrapper>{children}</ThemeWrapper>
-        </Suspense>
+        </Suspense> */}
       </body>
     </html>
   )

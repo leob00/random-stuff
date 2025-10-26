@@ -1,21 +1,25 @@
 'use client'
-
-import React from 'react'
-import { usePathname } from 'next/navigation'
+import { ReactNode, useEffect } from 'react'
 import { useRouteTracker } from './useRouteTracker'
+import { Box } from '@mui/material'
+import { usePathname } from 'next/navigation'
 
-const AppRouteTracker = () => {
-  const { allRoutes: routes, addRoute } = useRouteTracker()
-  const pathname = usePathname()
+const AppRouteTracker = ({ children }: { children: ReactNode }) => {
+  const path = usePathname()
 
-  React.useEffect(() => {
-    if (pathname) {
-      addRoute(pathname)
+  const { addRoute } = useRouteTracker()
+
+  useEffect(() => {
+    if (path) {
+      addRoute(path)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname])
+  }, [path])
 
-  return <></>
+  return (
+    <Box>
+      <Box minHeight={250}>{children}</Box>
+    </Box>
+  )
 }
 
 export default AppRouteTracker

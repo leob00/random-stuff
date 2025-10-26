@@ -7,12 +7,12 @@ import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import { AmplifyUser, getRolesFromAmplifyUser, getUserCSR, userHasRole } from 'lib/backend/auth/userUtil'
 import { getUserProfile, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
-import { useRouter } from 'next/router'
 import HeaderMenu from './Molecules/Menus/HeaderMenu'
 import { AuthUser, signOut as amplifySignOut, fetchUserAttributes } from 'aws-amplify/auth'
 import { Hub } from 'aws-amplify/utils'
 import { useRouteTracker } from './Organizms/session/useRouteTracker'
 import { useEffect } from 'react'
+import router from 'next/router'
 
 export type HubPayload = {
   event: string
@@ -21,7 +21,6 @@ export type HubPayload = {
 }
 
 const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; onChangePalette: () => void }) => {
-  const router = useRouter()
   const { ticket, setTicket, setProfile } = useUserController()
   const { claims, saveClaims } = useSessionStore()
   const { lastRoute } = useRouteTracker()
