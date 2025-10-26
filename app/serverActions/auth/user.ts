@@ -1,9 +1,9 @@
 import { createServerRunner } from '@aws-amplify/adapter-nextjs'
 import { fetchUserAttributes, getCurrentUser } from 'aws-amplify/auth/server'
-import { Amplify } from 'aws-amplify'
 import amplifyConfig from 'src/amplifyconfiguration.json'
 import { cookies } from 'next/headers'
 import { AmplifyUser, getRolesFromAmplifyUser } from 'lib/backend/auth/userUtil'
+import { Amplify } from 'aws-amplify'
 Amplify.configure(amplifyConfig, { ssr: true })
 export const { runWithAmplifyServerContext } = createServerRunner({
   config: amplifyConfig,

@@ -9,6 +9,10 @@ import {
   confirmUserAttribute,
   ConfirmUserAttributeInput,
 } from 'aws-amplify/auth'
+import { Amplify } from 'aws-amplify'
+import amplifyConfig from 'src/amplifyconfiguration.json'
+Amplify.configure(amplifyConfig, { ssr: true })
+
 export type ClaimType = 'qln' | 'rs' | 'rs-admin'
 export interface Claim {
   type: ClaimType

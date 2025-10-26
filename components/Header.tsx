@@ -8,10 +8,11 @@ import StaticImage from './Atoms/StaticImage'
 import GradientContainer from './Atoms/Boxes/GradientContainer'
 import { useUserController } from 'hooks/userController'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
+import { getTheme } from './themes/StyledRoot'
 
 const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; onSetColorMode: () => void }) => {
   const [elevationEffect, setElevationEffect] = useState(false)
-  const theme = useTheme()
+  const theme = getTheme(colorTheme)
   const { ticket, setTicket } = useUserController()
 
   const bodyScrolled = useScrollTrigger({
