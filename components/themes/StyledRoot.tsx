@@ -7,6 +7,10 @@ import { useSessionSettings } from 'components/Organizms/session/useSessionSetti
 import { ReactNode, useEffect, useState } from 'react'
 import darkTheme from './darkTheme'
 import mainTheme from './mainTheme'
+import '@fontsource/roboto/300.css'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/roboto/700.css'
 
 export const getTheme = (mode: 'light' | 'dark') => {
   return mode === 'dark' ? darkTheme : mainTheme
