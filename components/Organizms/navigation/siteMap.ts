@@ -22,6 +22,16 @@ export type PathNames =
   | 'recipes'
   | 'volume leaders'
   | 'markect cap leaders'
+  | 'sectors'
+  | 'industries'
+  | 'top movers'
+  | 'dividend payers'
+  | 'calculator'
+  | 'coin flip'
+  | 'roulette'
+  | 'dogs'
+  | 'cats'
+  | 'extract text from image'
   | (string & {})
 
 export type SiteCategories =
@@ -153,11 +163,11 @@ export const flatSiteMap: Navigation[] = [
     path: '/csr/stocks/industries',
     category: 'Stock Reports',
   },
-  {
-    name: 'stock tags',
-    path: '/csr/stocks/stock-tags',
-    category: 'Stock Reports',
-  },
+  // {
+  //   name: 'stock tags',
+  //   path: '/csr/stocks/stock-tags',
+  //   category: 'Stock Reports',
+  // },
   {
     name: 'dividend payers',
     path: '/csr/stocks/dividend-payers',

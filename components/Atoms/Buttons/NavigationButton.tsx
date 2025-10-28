@@ -1,8 +1,6 @@
 'use client'
 import { Button, Typography, TypographyProps } from '@mui/material'
 import { useRouter } from 'next/navigation'
-import BackdropLoader from '../Loaders/BackdropLoader'
-import { useState } from 'react'
 import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 import { Navigation } from 'components/Organizms/session/useSessionSettings'
 import { PathNames } from 'components/Organizms/navigation/siteMap'
@@ -26,7 +24,15 @@ import OutdoorGrillIcon from '@mui/icons-material/OutdoorGrill'
 import AssessmentIcon from '@mui/icons-material/Assessment'
 import LeaderboardIcon from '@mui/icons-material/Leaderboard'
 import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh'
-
+import ConstructionIcon from '@mui/icons-material/Construction'
+import BuildIcon from '@mui/icons-material/Build'
+import MultipleStopIcon from '@mui/icons-material/MultipleStop'
+import PaidIcon from '@mui/icons-material/Paid'
+import CalculateIcon from '@mui/icons-material/Calculate'
+import AnimationIcon from '@mui/icons-material/Animation'
+import CasinoIcon from '@mui/icons-material/Casino'
+import PetsIcon from '@mui/icons-material/Pets'
+import GradientIcon from '@mui/icons-material/Gradient'
 type PagePros = {
   disabled?: boolean
 } & Navigation &
@@ -75,6 +81,26 @@ const NavigationButton = ({ ...props }: PagePros) => {
         return <BrightnessHighIcon />
       case 'market cap leaders':
         return <LeaderboardIcon />
+      case 'sectors':
+        return <ConstructionIcon />
+      case 'industries':
+        return <BuildIcon />
+      case 'top movers':
+        return <MultipleStopIcon />
+      case 'dividend payers':
+        return <PaidIcon />
+      case 'calculator':
+        return <CalculateIcon />
+      case 'coin flip':
+        return <AnimationIcon />
+      case 'roulette':
+        return <CasinoIcon />
+      case 'dogs':
+        return <PetsIcon />
+      case 'cats':
+        return <PetsIcon />
+      case 'extract text from image':
+        return <GradientIcon />
       default:
         return <></>
     }
@@ -82,17 +108,13 @@ const NavigationButton = ({ ...props }: PagePros) => {
 
   const { addRoute } = useRouteTracker()
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     addRoute(props.path)
-    setIsLoading(true)
     router.push(props.path)
   }
   return (
     <>
-      {isLoading && <BackdropLoader />}
-
-      <Button variant='text' onClick={handleClick} startIcon={renderIcon(props.name)} disabled={props.disabled}>
+      <Button variant='text' size='small' onClick={handleClick} startIcon={renderIcon(props.name)} disabled={props.disabled}>
         <Typography variant={props.variant ?? 'h5'}>{props.name}</Typography>
       </Button>
     </>

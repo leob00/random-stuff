@@ -45,7 +45,7 @@ const GroupedHomeMenu = ({ all, recentRoutes, isAdmin }: { all: Navigation[]; re
             >
               <Box pt={2} px={1}>
                 {category.chunkedPaths.map((chunk, i) => (
-                  <Box key={i} display={'flex'} flexDirection={category.paths.length > 2 ? 'row' : 'column'} justifyContent={'space-evenly'}>
+                  <Box key={i} display={'flex'} flexDirection={category.paths.length > 2 ? 'row' : 'column'} justifyContent={'space-between'} gap={2}>
                     {chunk.map((path, i) => (
                       <Box key={path.path}>
                         <Box display={'flex'} justifyContent={'center'}>
