@@ -1,5 +1,5 @@
 'use client'
-import { Button, Typography, TypographyProps } from '@mui/material'
+import { Box, Button, Typography, TypographyProps } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 import { Navigation } from 'components/Organizms/session/useSessionSettings'
@@ -47,7 +47,7 @@ const NavigationButton = ({ ...props }: PagePros) => {
         return <StackedLineChartIcon />
       case 'earnings calendar':
         return <RequestQuoteIcon />
-      case 'stock sentiment':
+      case 'sentiment':
         return <SentimentVerySatisfiedIcon />
       case 'earnings report':
         return <ShowChartIcon />
@@ -69,17 +69,17 @@ const NavigationButton = ({ ...props }: PagePros) => {
         return <CurrencyBitcoinIcon />
       case 'commodities':
         return <OilBarrelIcon />
-      case 'economic calendar':
+      case 'calendar':
         return <EventIcon />
-      case 'economic indicators':
+      case 'indicators':
         return <AssessmentIcon />
       case 'news':
         return <NewspaperIcon />
       case 'recipes':
         return <OutdoorGrillIcon />
-      case 'volume leaders':
+      case 'volume':
         return <BrightnessHighIcon />
-      case 'market cap leaders':
+      case 'market cap':
         return <LeaderboardIcon />
       case 'sectors':
         return <ConstructionIcon />
@@ -113,11 +113,11 @@ const NavigationButton = ({ ...props }: PagePros) => {
     router.push(props.path)
   }
   return (
-    <>
+    <Box>
       <Button variant='text' size='small' onClick={handleClick} startIcon={renderIcon(props.name)} disabled={props.disabled}>
         <Typography variant={props.variant ?? 'h5'}>{props.name}</Typography>
       </Button>
-    </>
+    </Box>
   )
 }
 

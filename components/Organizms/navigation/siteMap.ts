@@ -5,7 +5,7 @@ export type PathNames =
   | 'community stocks'
   | 'my stocks'
   | 'earnings calendar'
-  | 'stock sentiment'
+  | 'sentiment'
   | 'earnings report'
   | 'stock alerts'
   | 'advanced search'
@@ -16,8 +16,8 @@ export type PathNames =
   | 'chat with AI'
   | 'crypto'
   | 'commodities'
-  | 'economic calendar'
-  | 'economic indicators'
+  | 'calendar'
+  | 'indicators'
   | 'news'
   | 'recipes'
   | 'volume leaders'
@@ -104,7 +104,7 @@ export const flatSiteMap: Navigation[] = [
     category: 'Stocks',
   },
   {
-    name: 'stock sentiment',
+    name: 'sentiment',
     path: '/csr/stocks/sentiment',
     category: 'Stocks',
   },
@@ -139,12 +139,12 @@ export const flatSiteMap: Navigation[] = [
     category: 'Stocks',
   },
   {
-    name: 'volume leaders',
+    name: 'volume',
     path: '/ssg/stocks/reports/volume-leaders',
     category: 'Stock Reports',
   },
   {
-    name: 'market cap leaders',
+    name: 'market cap',
     path: '/ssg/stocks/reports/market-cap-leaders',
     category: 'Stock Reports',
   },
@@ -174,12 +174,12 @@ export const flatSiteMap: Navigation[] = [
     category: 'Stock Reports',
   },
   {
-    name: 'economic indicators',
+    name: 'indicators',
     path: '/csr/economic-indicators',
     category: 'Markets',
   },
   {
-    name: 'economic calendar',
+    name: 'calendar',
     path: '/csr/economic-calendar',
     category: 'Markets',
   },
