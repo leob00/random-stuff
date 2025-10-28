@@ -22,9 +22,7 @@ const PageHeader = ({
 
   return (
     <>
-      {/* <Box sx={{ display: { xs: 'none', sm: 'unset' } }}> */}
       <BasicBreadcrumbs />
-      {/* </Box> */}
       {forceShowBackButton ? (
         <Box display={'flex'}>{backButtonRoute ? <BackButton route={backButtonRoute} /> : <BackButton route={previousRoute.path} />}</Box>
       ) : (

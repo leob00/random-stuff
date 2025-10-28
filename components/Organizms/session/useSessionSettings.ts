@@ -8,6 +8,7 @@ export interface Navigation {
   date?: string
   category: SiteCategories
   isProtected?: boolean
+  breadcrumbName?: string
 }
 
 export const useSessionSettings = () => {

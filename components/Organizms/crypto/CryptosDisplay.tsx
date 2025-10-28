@@ -6,9 +6,9 @@ import { Box } from '@mui/material'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
-import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
 import router from 'next/router'
 import ContextMenuCommodities from 'components/Molecules/Menus/ContextMenuCommodities'
+import ContextMenuAllStocks from 'components/Molecules/Menus/ContextMenuAllStocks'
 
 const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile: UserProfile | null }) => {
   const result = filterCryptos(data)
@@ -18,7 +18,7 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
       fn: () => router.push('/csr/my-stocks'),
     },
     {
-      item: <ContextMenuPeople text={'community stocks'} />,
+      item: <ContextMenuAllStocks text={'stocks'} />,
       fn: () => router.push('/csr/community-stocks'),
     },
     {

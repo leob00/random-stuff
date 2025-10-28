@@ -97,9 +97,9 @@ const Page = () => {
   return (
     <>
       {isLoading && <BackdropLoader />}
-      <Seo pageTitle={`Community Stocks`} />
+      <Seo pageTitle={`Stocks`} />
       <ResponsiveContainer>
-        <PageHeader text='Community Stocks' />
+        <PageHeader text='Stocks' />
         {!selectedStock && (
           <Box py={2}>
             <StockSearch onSymbolSelected={handleSelectQuote} clearOnSelect showAdvSearch />

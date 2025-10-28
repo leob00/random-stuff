@@ -5,6 +5,7 @@ import { sortArray } from 'lib/util/collections'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import { flatSiteMap } from '../navigation/siteMap'
 import { useState } from 'react'
+import { Navigation } from './useSessionSettings'
 
 export const useRouteTracker = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -14,7 +15,7 @@ export const useRouteTracker = () => {
   }))
 
   const sitePathMapRoutes = getMapFromArray(flatSiteMap, 'path')
-
+  const resultRoutes: Navigation[] = routes.length > 0 ? sortArray(routes, ['date'], ['desc']) : [{ category: 'Home', name: 'home', path: '/' }]
   return {
     loading: isLoading,
     previousRoute:
@@ -24,7 +25,8 @@ export const useRouteTracker = () => {
             name: 'home',
             path: '/',
           },
-    allRoutes: sortArray(routes, ['date'], ['desc']),
+    allRoutes: resultRoutes,
+
     lastRoute: routes.length > 0 ? routes[0].path : '/',
     addRoute: (url: string) => {
       if (!sitePathMapRoutes.has(url)) {

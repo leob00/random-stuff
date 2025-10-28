@@ -2,13 +2,13 @@ import { chunk } from 'lodash'
 import { Navigation } from '../session/useSessionSettings'
 
 export type PathNames =
-  | 'all stocks'
+  | 'stocks'
   | 'my stocks'
   | 'earnings calendar'
   | 'sentiment'
   | 'earnings report'
   | 'stock alerts'
-  | 'advanced search'
+  | 'search'
   | 'goals'
   | 'notes'
   | 'dashboard'
@@ -35,7 +35,7 @@ export type PathNames =
   | (string & {})
 
 export type SiteCategories =
-  | 'Stocks'
+  | 'Stock Market'
   | 'Markets'
   | 'Personal'
   | 'Admin'
@@ -96,27 +96,28 @@ export const flatSiteMap: Navigation[] = [
   {
     name: 'my stocks',
     path: '/csr/my-stocks',
-    category: 'Stocks',
+    category: 'Stock Market',
   },
   {
-    name: 'all stocks',
+    name: 'stocks',
     path: '/csr/community-stocks',
-    category: 'Stocks',
+    category: 'Stock Market',
   },
   {
     name: 'sentiment',
     path: '/csr/stocks/sentiment',
-    category: 'Stocks',
+    category: 'Stock Market',
+    breadcrumbName: 'stock sentiment',
   },
   {
     name: 'earnings calendar',
     path: '/csr/stocks/earnings-calendar',
-    category: 'Stocks',
+    category: 'Stock Market',
   },
   {
     name: 'earnings report',
     path: '/csr/stocks/earnings-reports',
-    category: 'Stocks',
+    category: 'Stock Market',
   },
   {
     name: 'commodities',
@@ -126,7 +127,7 @@ export const flatSiteMap: Navigation[] = [
   {
     name: 'stock alerts',
     path: '/csr/stocks/alerts',
-    category: 'Stocks',
+    category: 'Stock Market',
   },
   {
     name: 'crypto',
@@ -134,24 +135,28 @@ export const flatSiteMap: Navigation[] = [
     category: 'Markets',
   },
   {
-    name: 'advanced search',
+    name: 'search',
     path: '/csr/stocks/advanced-search',
-    category: 'Stocks',
+    category: 'Stock Market',
+    breadcrumbName: 'stock search',
   },
   {
     name: 'volume',
     path: '/ssg/stocks/reports/volume-leaders',
     category: 'Stock Reports',
+    breadcrumbName: 'volume leaders',
   },
   {
     name: 'market cap',
     path: '/ssg/stocks/reports/market-cap-leaders',
     category: 'Stock Reports',
+    breadcrumbName: 'market cap leaders',
   },
   {
     name: 'top movers',
     path: '/ssg/stocks/reports/topmvgavg',
     category: 'Stock Reports',
+    breadcrumbName: 'top stock movers',
   },
   {
     name: 'sectors',

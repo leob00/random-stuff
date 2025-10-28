@@ -9,6 +9,7 @@ import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
 import ContextMenuAlert from 'components/Molecules/Menus/ContextMenuAlert'
 import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
 import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
+import ContextMenuAllStocks from 'components/Molecules/Menus/ContextMenuAllStocks'
 
 const GroupedListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShowAsGroup?: (show: boolean) => void }) => {
   const router = useRouter()
@@ -44,7 +45,7 @@ const GroupedListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShow
       fn: () => handleShowGrouped(false),
     },
     {
-      item: <ContextMenuPeople text={'community stocks'} />,
+      item: <ContextMenuAllStocks text={'stocks'} />,
       fn: () => router.push('/csr/community-stocks'),
     },
     // {

@@ -9,8 +9,8 @@ import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/Context
 import router from 'next/router'
 import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
 import ContextMenuCrypto from 'components/Molecules/Menus/ContextMenuCrypto'
-import ContextMenuPeople from 'components/Molecules/Menus/ContextMenuPeople'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
+import ContextMenuAllStocks from 'components/Molecules/Menus/ContextMenuAllStocks'
 
 const CommoditiesLayout = () => {
   const endPoint = `/Futures`
@@ -28,7 +28,7 @@ const CommoditiesLayout = () => {
       fn: () => router.push('/csr/my-stocks'),
     },
     {
-      item: <ContextMenuPeople text={'community stocks'} />,
+      item: <ContextMenuAllStocks text={'stocks'} />,
       fn: () => router.push('/csr/community-stocks'),
     },
     {

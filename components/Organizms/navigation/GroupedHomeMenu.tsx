@@ -15,9 +15,9 @@ const GroupedHomeMenu = ({ all, recentRoutes, isAdmin }: { all: Navigation[]; re
 
   return (
     <Box>
-      <Box display={'flex'} flexDirection={{ xs: 'column', md: 'row' }} flexWrap={'wrap'} justifyContent={'center'} gap={2}>
+      <Box display={'flex'} flexDirection={{ xs: 'column', sm: 'row' }} flexWrap={'wrap'} justifyContent={'center'} gap={1}>
         {pathCategories.map((category) => (
-          <Box key={category.category} minWidth={250}>
+          <Box key={category.category} minWidth={{ xs: 350, sm: 250 }}>
             <Box
               sx={{ backgroundColor: DarkModeBlueTransparent }}
               borderRadius={'6px 6px 0 0'}
@@ -36,18 +36,19 @@ const GroupedHomeMenu = ({ all, recentRoutes, isAdmin }: { all: Navigation[]; re
             </Box>
             <Box
               //mt={-0.3}
+              minHeight={{ sm: 250 }}
               pb={2}
               borderLeft={`solid 1px ${CasinoBlueTransparent}`}
               borderRight={`solid 1px ${CasinoBlueTransparent}`}
               borderBottom={`solid 1px ${CasinoBlueTransparent}`}
               borderRadius={'0 0 6px 6px'}
             >
-              <Box pt={2} px={1}>
+              <Box pt={2}>
                 {category.chunkedPaths.map((chunk, i) => (
                   <Box key={i} display={'flex'} flexDirection={category.paths.length > 1 ? 'row' : 'column'} justifyContent={'space-between'} gap={{ sm: 4 }}>
                     {chunk.map((path, i) => (
                       <Box key={path.path}>
-                        <Box display={'flex'} py={{ xs: 0.8 }}>
+                        <Box display={'flex'} py={{ xs: 0.8 }} px={{ xs: 0.5, sm: 2 }}>
                           <FadeIn>
                             <NavigationButton path={path.path} name={path.name} category={path.category} variant={'h6'} />
                           </FadeIn>
