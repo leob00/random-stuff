@@ -12,6 +12,7 @@ import { useViewPortSize } from 'hooks/ui/useViewportSize'
 import { take } from 'lodash'
 import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation'
+import NavigationButton from '../Buttons/NavigationButton'
 
 export const BasicBreadcrumbs = () => {
   const router = useRouter()
@@ -66,6 +67,7 @@ export const BasicBreadcrumbs = () => {
                     >
                       {route.name}
                     </LinkButton>
+                    {/* <NavigationButton category={route.category} name={route.name} path={route.path} /> */}
                   </FadeIn>
                 )}
 

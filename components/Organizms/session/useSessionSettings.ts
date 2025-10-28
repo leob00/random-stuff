@@ -1,9 +1,9 @@
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
-import { SiteCategories } from '../navigation/siteMap'
+import { PathNames, SiteCategories } from '../navigation/siteMap'
 
 export type NavigationName = 'stocks' | 'goals' | 'home' | 'news' | 'notes' | 'admin'
 export interface Navigation {
-  name: string
+  name: PathNames
   path: string
   date?: string
   category: SiteCategories

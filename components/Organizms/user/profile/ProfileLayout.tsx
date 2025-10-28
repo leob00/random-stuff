@@ -1,14 +1,9 @@
-import { Alert, Box, Typography } from '@mui/material'
-import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
-import LinkButton from 'components/Atoms/Buttons/LinkButton'
+import { Box } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CreatePinDialog from 'components/Organizms/Login/CreatePinDialog'
-import ReEnterPasswordDialog from 'components/Organizms/Login/ReEnterPasswordDialog'
 import { useUserController } from 'hooks/userController'
 import { UserPin, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
-import React from 'react'
 import VerifyEmail from './VerifyEmail'
 import { constructUserProfileKey } from 'lib/backend/api/aws/util'
 import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
@@ -19,11 +14,12 @@ import { getEmailVerificationStatus } from './profileHelper'
 import ValidateFromEmailDialog from 'components/Organizms/Login/ValidateFromEmailDialog'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
+import { useState } from 'react'
 
 const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
-  const [showPasswordEntry, setShowPasswordEntry] = React.useState(false)
-  const [showPinEntry, setShowPinEntry] = React.useState(false)
-  const [showPinChangedMessage, setShowPinChangedMessage] = React.useState(false)
+  const [showPasswordEntry, setShowPasswordEntry] = useState(false)
+  const [showPinEntry, setShowPinEntry] = useState(false)
+  const [showPinChangedMessage, setShowPinChangedMessage] = useState(false)
   const { setProfile } = useUserController()
   const key = constructUserProfileKey(userProfile.username)
 

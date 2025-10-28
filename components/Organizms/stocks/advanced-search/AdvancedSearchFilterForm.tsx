@@ -89,7 +89,7 @@ const AdvancedSearchFilterForm = ({
             <AnnualYieldSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
             <SymbolSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
             {controller.model.isLoading && <BackdropLoader />}
-            {!showSubmitButton && <Typography textAlign={'center'}>{filterSummary.summary}</Typography>}
+            {/* {!showSubmitButton && <Typography textAlign={'center'}>{filterSummary.summary}</Typography>} */}
             <Box py={2} display={'flex'} justifyContent={'flex-end'} pr={1} gap={1}>
               {controller.model.allowSave && (
                 <Box>

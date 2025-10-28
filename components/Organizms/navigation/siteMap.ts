@@ -1,7 +1,31 @@
 import { chunk } from 'lodash'
 import { Navigation } from '../session/useSessionSettings'
 
+export type PathNames =
+  | 'community stocks'
+  | 'my stocks'
+  | 'earnings calendar'
+  | 'stock sentiment'
+  | 'earnings report'
+  | 'stock alerts'
+  | 'advanced search'
+  | 'goals'
+  | 'notes'
+  | 'dashboard'
+  | 'secrets'
+  | 'chat with AI'
+  | 'crypto'
+  | 'commodities'
+  | 'economic calendar'
+  | 'economic indicators'
+  | 'news'
+  | 'recipes'
+  | 'volume leaders'
+  | 'markect cap leaders'
+  | (string & {})
+
 export type SiteCategories =
+  | 'Stocks'
   | 'Markets'
   | 'Personal'
   | 'Admin'
@@ -62,27 +86,27 @@ export const flatSiteMap: Navigation[] = [
   {
     name: 'my stocks',
     path: '/csr/my-stocks',
-    category: 'Markets',
+    category: 'Stocks',
   },
   {
     name: 'community stocks',
     path: '/csr/community-stocks',
-    category: 'Markets',
+    category: 'Stocks',
   },
   {
     name: 'stock sentiment',
     path: '/csr/stocks/sentiment',
-    category: 'Markets',
+    category: 'Stocks',
   },
   {
     name: 'earnings calendar',
     path: '/csr/stocks/earnings-calendar',
-    category: 'Markets',
+    category: 'Stocks',
   },
   {
     name: 'earnings report',
     path: '/csr/stocks/earnings-reports',
-    category: 'Markets',
+    category: 'Stocks',
   },
   {
     name: 'commodities',
@@ -92,7 +116,7 @@ export const flatSiteMap: Navigation[] = [
   {
     name: 'stock alerts',
     path: '/csr/stocks/alerts',
-    category: 'Markets',
+    category: 'Stocks',
   },
   {
     name: 'crypto',
@@ -102,7 +126,7 @@ export const flatSiteMap: Navigation[] = [
   {
     name: 'advanced search',
     path: '/csr/stocks/advanced-search',
-    category: 'Markets',
+    category: 'Stocks',
   },
   {
     name: 'volume leaders',
@@ -142,12 +166,12 @@ export const flatSiteMap: Navigation[] = [
   {
     name: 'economic indicators',
     path: '/csr/economic-indicators',
-    category: 'Economy',
+    category: 'Markets',
   },
   {
     name: 'economic calendar',
     path: '/csr/economic-calendar',
-    category: 'Economy',
+    category: 'Markets',
   },
   {
     name: 'goals',

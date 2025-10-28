@@ -10,7 +10,7 @@ const Page = () => {
     <>
       <>
         {isValidating && <BackdropLoader />}
-        {userProfile && !isValidating ? <ProfileLayout userProfile={userProfile} /> : <PleaseLogin />}
+        {!isValidating && userProfile ? <ProfileLayout userProfile={userProfile} /> : <PleaseLogin />}
       </>
     </>
   )

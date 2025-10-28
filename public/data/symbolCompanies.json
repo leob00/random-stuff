@@ -908,6 +908,10 @@
     "Symbol": "AFJKR"
   },
   {
+    "Company": "Aimei Health Technology Co., Ltd Unit",
+    "Symbol": "AFJKU"
+  },
+  {
     "Company": "VanEck Africa Index ETF",
     "Symbol": "AFK"
   },
@@ -3496,6 +3500,10 @@
     "Symbol": "AVXL"
   },
   {
+    "Company": "Defiance Daily Target 2x Long AVAV ETF",
+    "Symbol": "AVXX"
+  },
+  {
     "Company": "Avery Dennison Corp.",
     "Symbol": "AVY"
   },
@@ -3912,7 +3920,7 @@
     "Symbol": "BBAX"
   },
   {
-    "Company": "ONEFUND Trust CYBER HORNET S&P 500 and Bitcoin 75/25 Strategy ETF75/25 Strategy ETF",
+    "Company": "CYBER HORNET Trust CYBER HORNET S&P 500 and Bitcoin 75/25 Strategy ETF75/25 Strategy ETF",
     "Symbol": "BBB"
   },
   {
@@ -7542,10 +7550,6 @@
   {
     "Company": "Central Securities Corp.",
     "Symbol": "CET"
-  },
-  {
-    "Company": "21Shares Core Ethereum ETF",
-    "Symbol": "CETH"
   },
   {
     "Company": "CEMTREX INC.",
@@ -17028,7 +17032,7 @@
     "Symbol": "GDL"
   },
   {
-    "Company": "GRAYSCALE DIGITAL LG CAP",
+    "Company": "Grayscale CoinDesk Crypto 5 ETF",
     "Symbol": "GDLC"
   },
   {
@@ -17578,6 +17582,10 @@
   {
     "Company": "SPDR Gold Trust, SPDR Gold Shares",
     "Symbol": "GLD"
+  },
+  {
+    "Company": "IDX Alternative FIAT ETF",
+    "Symbol": "GLDB"
   },
   {
     "Company": "Great Lakes Dredge & Dock Corporation",
@@ -24276,6 +24284,10 @@
     "Symbol": "LAES"
   },
   {
+    "Company": "LaFayette Acquisition Corp. Unit",
+    "Symbol": "LAFAU"
+  },
+  {
     "Company": "Lakeland Industries Inc",
     "Symbol": "LAKE"
   },
@@ -27214,10 +27226,6 @@
   {
     "Company": "VictoryShares WestEnd U.S. Sector ETF",
     "Symbol": "MODL"
-  },
-  {
-    "Company": "ModivCare Inc. Common Stock",
-    "Symbol": "MODV"
   },
   {
     "Company": "MidWestOne Financial Group",
@@ -44426,10 +44434,6 @@
   {
     "Company": "Weibo Corporation",
     "Symbol": "WB"
-  },
-  {
-    "Company": "Walgreens Boots Alliance, Inc",
-    "Symbol": "WBA"
   },
   {
     "Company": "Warner Bros. Discovery, Inc. Series A Common Stock",

@@ -1,16 +1,17 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import NotificationsIcon from '@mui/icons-material/Notifications'
 
-const ContextMenuAlert = ({ text = 'alerts' }: { text?: string }) => {
+import DashboardIcon from '@mui/icons-material/Dashboard'
+
+const ContextMenuDashboard = ({ text = 'alerts' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <NotificationsIcon fontSize='small' />
+        <DashboardIcon fontSize='small' />
       </ListItemIcon>
       <ListItemText primary={text} />
     </>
   )
 }
 
-export default ContextMenuAlert
+export default ContextMenuDashboard

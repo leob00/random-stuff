@@ -7,8 +7,8 @@ import AdvancedSearchDisplay from 'components/Organizms/stocks/advanced-search/A
 const index = () => {
   return (
     <>
-      <Seo pageTitle={`Stock Advanced Search`} />
-      <PageHeader text='Stock Advanced Search' />
+      <Seo pageTitle={`Stocks Advanced Search`} />
+      <PageHeader text='Stocks Advanced Search' />
       <ResponsiveContainer>
         <Box py={2}>
           <AdvancedSearchDisplay />
