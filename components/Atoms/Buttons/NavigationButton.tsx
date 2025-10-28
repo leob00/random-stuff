@@ -41,7 +41,7 @@ type PagePros = {
 const NavigationButton = ({ ...props }: PagePros) => {
   const renderIcon = (item: PathNames) => {
     switch (item) {
-      case 'community stocks':
+      case 'all stocks':
         return <BarChartIcon />
       case 'my stocks':
         return <StackedLineChartIcon />
@@ -99,7 +99,7 @@ const NavigationButton = ({ ...props }: PagePros) => {
         return <PetsIcon />
       case 'cats':
         return <PetsIcon />
-      case 'extract text from image':
+      case 'image text':
         return <GradientIcon />
       default:
         return <></>

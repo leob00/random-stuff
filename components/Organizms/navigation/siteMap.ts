@@ -2,7 +2,7 @@ import { chunk } from 'lodash'
 import { Navigation } from '../session/useSessionSettings'
 
 export type PathNames =
-  | 'community stocks'
+  | 'all stocks'
   | 'my stocks'
   | 'earnings calendar'
   | 'sentiment'
@@ -31,7 +31,7 @@ export type PathNames =
   | 'roulette'
   | 'dogs'
   | 'cats'
-  | 'extract text from image'
+  | 'image text'
   | (string & {})
 
 export type SiteCategories =
@@ -99,7 +99,7 @@ export const flatSiteMap: Navigation[] = [
     category: 'Stocks',
   },
   {
-    name: 'community stocks',
+    name: 'all stocks',
     path: '/csr/community-stocks',
     category: 'Stocks',
   },
@@ -223,7 +223,7 @@ export const flatSiteMap: Navigation[] = [
     category: 'Utilities',
   },
   {
-    name: 'extract text from image',
+    name: 'image text',
     path: '/csr/files/extract-text-from-image',
     category: 'Utilities',
   },
