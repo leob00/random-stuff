@@ -1,7 +1,6 @@
-import React from 'react'
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartData, ChartOptions } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
-import { CasinoBlack, CasinoBlackTransparent, CasinoBlue, CasinoGreen, CasinoOrange, CasinoRed } from 'components/themes/mainTheme'
+import { CasinoBlack, CasinoBlue, CasinoGreen, CasinoOrange, CasinoRed } from 'components/themes/mainTheme'
 import { WheelSpinStats } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { calculatePercent } from 'lib/util/numberUtil'
 import numeral from 'numeral'

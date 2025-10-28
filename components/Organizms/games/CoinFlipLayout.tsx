@@ -271,7 +271,7 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
         )}
       </Box>
       {model.runningChart && (
-        <Box pt={2}>
+        <Box>
           <CoinFlipChart totalFlips={sum(model.runningChart.numbers)} chart={model.runningChart} />
         </Box>
       )}
@@ -279,7 +279,7 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
         <CenterStack sx={{ paddingTop: 2 }}>
           <Typography variant='h5'>Community Flips</Typography>
         </CenterStack>
-        {model.communityChart && <CoinFlipChart totalFlips={sum(model.communityChart.numbers)} chart={model.communityChart} />}
+        <Box>{model.communityChart && <CoinFlipChart totalFlips={sum(model.communityChart.numbers)} chart={model.communityChart} />}</Box>
       </Box>
     </Box>
   )

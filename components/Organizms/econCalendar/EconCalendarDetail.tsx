@@ -5,18 +5,8 @@ import { EconCalendarItem } from 'lib/backend/api/qln/qlnApi'
 import HtmlView from 'components/Atoms/Boxes/HtmlView'
 import SimpleBarChart from 'components/Atoms/Charts/chartJs/SimpleBarChart'
 import { BarChart, getBarChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
-import {
-  CasinoBlue,
-  CasinoBlueTransparent,
-  CasinoGrayTransparent,
-  CasinoOrangeTransparent,
-  CasinoOrangeTransparentOpaque,
-  VeryLightBlueOpaque,
-  VeryLightBlueOpaqueLight,
-  VeryLightBlueTransparent,
-} from 'components/themes/mainTheme'
+import { CasinoBlue, CasinoOrangeTransparentOpaque, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import numeral from 'numeral'
-import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 
 type Model = EconCalendarItem & {

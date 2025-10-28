@@ -1,8 +1,7 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import BarAndLineChart from 'components/Atoms/Charts/chartJs/BarAndLineChart'
-import SimpleBarChart from 'components/Atoms/Charts/chartJs/SimpleBarChart'
-import { BarChart, getBarChartData, getBarChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
+import { BarChart, getBarChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import { CasinoBlueTransparent, CasinoOrangeTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { JoBLog, Job } from 'lib/backend/api/qln/qlnApi'
@@ -12,10 +11,11 @@ import numeral from 'numeral'
 
 const JobPerformanceBarChart = ({ data }: { data: Job }) => {
   const theme = useTheme()
+  const history = data.Chart?.RawData as JoBLog[]
+
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const isLarge = useMediaQuery(theme.breakpoints.up('md'))
-  const history = data.Chart?.RawData as JoBLog[]
-  const limit = isXSmall ? 14 : 30
+
   let height: number | undefined = undefined
   if (isXSmall) {
     height = 240
@@ -24,7 +24,7 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
     height = 66
   }
   const sorted = sortArray(history, ['DateCompleted'], ['desc'])
-
+  const limit = isXSmall ? 14 : 30
   let days = take(Array.from(new Set(sorted.map((m) => dayjs(m.DateCompleted).format('YYYY-MM-DD')))), limit)
   days = orderBy(days)
 
