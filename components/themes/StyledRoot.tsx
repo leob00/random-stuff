@@ -33,6 +33,7 @@ const StyledRoot = ({ children }: { children: ReactNode }) => {
       setTheme(getTheme(palette))
       setIsLoading(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [palette])
 
   return (
