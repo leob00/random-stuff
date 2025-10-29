@@ -8,7 +8,11 @@ import { Navigation } from '../session/useSessionSettings'
 import { chunk } from 'lodash'
 
 const GroupedHomeMenu = ({ all, recentRoutes, isAdmin }: { all: Navigation[]; recentRoutes: Navigation[]; isAdmin?: boolean }) => {
-  const reorderedPaths = getOrderedPaths(all, recentRoutes, isAdmin ?? false)
+  const reorderedPaths = getOrderedPaths(
+    all.filter((m) => !m.hideFromHomeMenu),
+    recentRoutes,
+    isAdmin ?? false,
+  )
   const pathCategories = getPathCategories(reorderedPaths)
 
   const theme = useTheme()
@@ -26,7 +30,6 @@ const GroupedHomeMenu = ({ all, recentRoutes, isAdmin }: { all: Navigation[]; re
               py={1}
               borderLeft={`solid 1px ${CasinoBlueTransparent}`}
               borderRight={`solid 1px ${CasinoBlueTransparent}`}
-              //borderBottom={`solid 1px ${CasinoBlueTransparent}`}
             >
               <FadeIn>
                 <Typography variant={'h5'} sx={{ textAlign: 'center' }} fontWeight={500} color={theme.palette.primary.contrastText}>
@@ -35,8 +38,7 @@ const GroupedHomeMenu = ({ all, recentRoutes, isAdmin }: { all: Navigation[]; re
               </FadeIn>
             </Box>
             <Box
-              //mt={-0.3}
-              minHeight={{ sm: 250 }}
+              minHeight={{ sm: 190 }}
               pb={2}
               borderLeft={`solid 1px ${CasinoBlueTransparent}`}
               borderRight={`solid 1px ${CasinoBlueTransparent}`}
@@ -45,10 +47,10 @@ const GroupedHomeMenu = ({ all, recentRoutes, isAdmin }: { all: Navigation[]; re
             >
               <Box pt={2}>
                 {category.chunkedPaths.map((chunk, i) => (
-                  <Box key={i} display={'flex'} flexDirection={category.paths.length > 1 ? 'row' : 'column'} justifyContent={'space-between'} gap={{ sm: 4 }}>
+                  <Box key={i} display={'flex'} flexDirection={category.paths.length > 1 ? 'row' : 'column'} justifyContent={'space-between'} gap={{ sm: 1 }}>
                     {chunk.map((path, i) => (
                       <Box key={path.path}>
-                        <Box display={'flex'} py={{ xs: 0.8 }} px={{ xs: 0.5, sm: 2 }}>
+                        <Box display={'flex'} py={{ xs: 0.8 }} px={{ xs: 1, sm: 2 }}>
                           <FadeIn>
                             <NavigationButton path={path.path} name={path.name} category={path.category} variant={'h6'} />
                           </FadeIn>

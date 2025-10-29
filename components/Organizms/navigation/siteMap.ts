@@ -118,6 +118,7 @@ export const flatSiteMap: Navigation[] = [
     name: 'earnings report',
     path: '/csr/stocks/earnings-reports',
     category: 'Stock Market',
+    hideFromHomeMenu: true,
   },
   {
     name: 'commodities',
@@ -182,11 +183,13 @@ export const flatSiteMap: Navigation[] = [
     name: 'indicators',
     path: '/csr/economic-indicators',
     category: 'Markets',
+    breadcrumbName: 'economic indicators',
   },
   {
     name: 'calendar',
     path: '/csr/economic-calendar',
     category: 'Markets',
+    breadcrumbName: 'economic calendar',
   },
   {
     name: 'goals',

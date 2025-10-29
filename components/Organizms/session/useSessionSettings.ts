@@ -9,6 +9,7 @@ export interface Navigation {
   category: SiteCategories
   isProtected?: boolean
   breadcrumbName?: string
+  hideFromHomeMenu?: boolean
 }
 
 export const useSessionSettings = () => {

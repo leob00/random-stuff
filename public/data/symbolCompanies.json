@@ -988,10 +988,6 @@
     "Symbol": "AGEN"
   },
   {
-    "Company": "Agrify Corporation Common Stock",
-    "Symbol": "AGFY"
-  },
-  {
     "Company": "iShares Core U.S. Aggregate Bond ETF",
     "Symbol": "AGG"
   },
@@ -1414,6 +1410,10 @@
   {
     "Company": "Acadia Realty Trust",
     "Symbol": "AKR"
+  },
+  {
+    "Company": "Akre Focus ETF",
+    "Symbol": "AKRE"
   },
   {
     "Company": "Akero Therapeutics, Inc. Common Stock",
@@ -4740,10 +4740,6 @@
     "Symbol": "BHK"
   },
   {
-    "Company": "Berkshire Hills Bancorp, Inc.",
-    "Symbol": "BHLB"
-  },
-  {
     "Company": "Bluerock Homes Trust, Inc.",
     "Symbol": "BHM"
   },
@@ -5176,14 +5172,6 @@
     "Symbol": "BLD"
   },
   {
-    "Company": "Blade Air Mobility, Inc. Class A Common Stock",
-    "Symbol": "BLDE"
-  },
-  {
-    "Company": "Blade Air Mobility, Inc. Warrants",
-    "Symbol": "BLDEW"
-  },
-  {
     "Company": "Cambria Global Real Estate ETF",
     "Symbol": "BLDG"
   },
@@ -5266,6 +5254,10 @@
   {
     "Company": "BioLineRX Ltd",
     "Symbol": "BLRX"
+  },
+  {
+    "Company": "Leverage Shares 2X Long BLSH Daily ETF",
+    "Symbol": "BLSG"
   },
   {
     "Company": "Bullish",
@@ -5386,6 +5378,10 @@
   {
     "Company": "BlackRock 2037 Municipal Target Term Trust",
     "Symbol": "BMN"
+  },
+  {
+    "Company": "Leverage Shares 2X Long BMNR Daily ETF",
+    "Symbol": "BMNG"
   },
   {
     "Company": "BitMine Immersion Technologies, Inc.",
@@ -5772,10 +5768,6 @@
     "Symbol": "BRCE"
   },
   {
-    "Company": "Bridge Investment Group Holdings Inc.",
-    "Symbol": "BRDG"
-  },
-  {
     "Company": "Brera Holdings PLC Class B Ordinary Shares",
     "Symbol": "BREA"
   },
@@ -5830,10 +5822,6 @@
   {
     "Company": "Direxion Daily BRKB Bear 1X Shares",
     "Symbol": "BRKD"
-  },
-  {
-    "Company": "Brookline Bancorp Inc",
-    "Symbol": "BRKL"
   },
   {
     "Company": "Bruker Corporation",
@@ -6630,10 +6618,6 @@
   {
     "Company": "Beyond Meat, Inc. Common Stock",
     "Symbol": "BYND"
-  },
-  {
-    "Company": "Beyond, Inc.",
-    "Symbol": "BYON"
   },
   {
     "Company": "Principal Real Estate Active Opportunities ETF",
@@ -11780,7 +11764,7 @@
     "Symbol": "DVDN"
   },
   {
-    "Company": "WEBs Defined Volatility XLI ETF",
+    "Company": "WEBs ETF Trust WEBs Industrials XLI Defined Volatility ETF",
     "Symbol": "DVIN"
   },
   {
@@ -11804,11 +11788,11 @@
     "Symbol": "DVOL"
   },
   {
-    "Company": "WEBs Defined Volatility QQQ ETF",
+    "Company": "WEBs ETF Trust WEBs QQQ Defined Volatility ETF",
     "Symbol": "DVQQ"
   },
   {
-    "Company": "WEBs Defined Volatility XLRE ETF",
+    "Company": "WEBs ETF Trust WEBs Real Estate XLRE Defined Volatility ETF",
     "Symbol": "DVRE"
   },
   {
@@ -11816,43 +11800,43 @@
     "Symbol": "DVS"
   },
   {
-    "Company": "WEBs Defined Volatility SPY ETF",
+    "Company": "WEBs ETF Trust WEBs SPY Defined Volatility ETF",
     "Symbol": "DVSP"
   },
   {
-    "Company": "WEBS Defined Volatility XLU ETF",
+    "Company": "WEBs ETF Trust WEBs Utilities XLU Defined Volatility ETF",
     "Symbol": "DVUT"
   },
   {
-    "Company": "WEBs Defined Volatility XLB ETF",
+    "Company": "WEBs ETF Trust WEBs Materials XLB Defined Volatility ETF",
     "Symbol": "DVXB"
   },
   {
-    "Company": "WEBs Defined Volatility XLC ETF",
+    "Company": "WEBs ETF Trust WEBs Communication Services XLC Defined Volatility ETF",
     "Symbol": "DVXC"
   },
   {
-    "Company": "WEBs Defined Volatility XLE ETF",
+    "Company": "WEBs ETF Trust WEBs Energy XLE Defined Volatility ETF",
     "Symbol": "DVXE"
   },
   {
-    "Company": "WEBs Defined Volatility XLF ETF",
+    "Company": "WEBs ETF Trust WEBs Financial XLF Defined Volatility ETF",
     "Symbol": "DVXF"
   },
   {
-    "Company": "WEBs Defined Volatility XLK ETF",
+    "Company": "WEBs ETF Trust WEBs Technology XLK Defined Volatility ETF",
     "Symbol": "DVXK"
   },
   {
-    "Company": "WEBs Defined Volatility XLP ETF",
+    "Company": "WEBs ETF Trust WEBs Consumer Staples XLP Defined Volatility ETF",
     "Symbol": "DVXP"
   },
   {
-    "Company": "WEBs Defined Volatility XLV ETF",
+    "Company": "WEBs ETF Trust WEBs Health Care XLV Defined Volatility ETF",
     "Symbol": "DVXV"
   },
   {
-    "Company": "WEBs Defined Volatility XLY ETF",
+    "Company": "WEBs ETF Trust WEBs Consumer Discretionary XLY Defined Volatility ETF",
     "Symbol": "DVXY"
   },
   {
@@ -12924,6 +12908,10 @@
     "Symbol": "EMISU"
   },
   {
+    "Company": "Lazard Emerging Markets Opportunities ETF",
+    "Symbol": "EMKT"
+  },
+  {
     "Company": "Eastern Company",
     "Symbol": "EML"
   },
@@ -13118,10 +13106,6 @@
   {
     "Company": "Enovix Corporation Common Stock",
     "Symbol": "ENVX"
-  },
-  {
-    "Company": "Enovix Corporation Warrant",
-    "Symbol": "ENVXW"
   },
   {
     "Company": "Eaton Vance New York Municipal Bond Fund",
@@ -13786,10 +13770,6 @@
   {
     "Company": "iShares ESG Advanced Total USD Bond Market ETF",
     "Symbol": "EUSB"
-  },
-  {
-    "Company": "Eventide US Market ETF",
-    "Symbol": "EUSM"
   },
   {
     "Company": "EQV Ventures Acquisition Corp. II",
@@ -15128,10 +15108,6 @@
     "Symbol": "FIBK"
   },
   {
-    "Company": "iShares U.S. Fixed Income Balanced Risk Systematic ETF",
-    "Symbol": "FIBR"
-  },
-  {
     "Company": "Fair Isaac Corporation",
     "Symbol": "FICO"
   },
@@ -15658,10 +15634,6 @@
   {
     "Company": "flyExclusive, Inc. Redeemable warrants, each whole warrant exercisable for one Class A common stock at an exercise price of $11.50 per share",
     "Symbol": "FLYX.WS"
-  },
-  {
-    "Company": "Spirit Aviation Holdings, Inc.",
-    "Symbol": "FLYY"
   },
   {
     "Company": "Fidelity Magellan ETF",
@@ -16328,6 +16300,10 @@
     "Symbol": "FTC"
   },
   {
+    "Company": "Franklin California Municipal Income ETF",
+    "Symbol": "FTCA"
+  },
+  {
     "Company": "First Trust Core Investment Grade ETF",
     "Symbol": "FTCB"
   },
@@ -16420,8 +16396,24 @@
     "Symbol": "FTLS"
   },
   {
+    "Company": "Franklin Municipal High Yield ETF",
+    "Symbol": "FTMH"
+  },
+  {
+    "Company": "Franklin Short-Term Municipal Income ETF",
+    "Symbol": "FTMS"
+  },
+  {
+    "Company": "Franklin Municipal Income ETF",
+    "Symbol": "FTMU"
+  },
+  {
     "Company": "Fortinet, Inc.",
     "Symbol": "FTNT"
+  },
+  {
+    "Company": "Franklin New York Municipal Income ETF",
+    "Symbol": "FTNY"
   },
   {
     "Company": "First Trust Exchange-Traded Fund VI First Trust Hedged BuyWrite Income ETF",
@@ -17032,7 +17024,7 @@
     "Symbol": "GDL"
   },
   {
-    "Company": "Grayscale CoinDesk Crypto 5 ETF",
+    "Company": "GRAYSCALE DIGITAL LG CAP",
     "Symbol": "GDLC"
   },
   {
@@ -17494,6 +17486,14 @@
   {
     "Company": "Global Interactive Technologies, Inc. Common Stock",
     "Symbol": "GITS"
+  },
+  {
+    "Company": "GigCapital8 Corp. Class A Ordinary Shares",
+    "Symbol": "GIW"
+  },
+  {
+    "Company": "GigCapital8 Corp. Rights",
+    "Symbol": "GIWWR"
   },
   {
     "Company": "GigCapital8 Corp. Units",
@@ -19380,10 +19380,6 @@
     "Symbol": "HMR"
   },
   {
-    "Company": "HomeStreet, Inc.",
-    "Symbol": "HMST"
-  },
-  {
     "Company": "Harmony Gold Mining Company Limited",
     "Symbol": "HMY"
   },
@@ -20800,10 +20796,6 @@
     "Symbol": "IEP"
   },
   {
-    "Company": "Lazard International Dynamic Equity ETF",
-    "Symbol": "IEQ"
-  },
-  {
     "Company": "IES Holdings, Inc. Common Stock",
     "Symbol": "IESC"
   },
@@ -22154,10 +22146,6 @@
   {
     "Company": "Tema International Durable Quality ETF",
     "Symbol": "ITOL"
-  },
-  {
-    "Company": "iTeos Therapeutics, Inc. Common Stock",
-    "Symbol": "ITOS"
   },
   {
     "Company": "iShares Core S&P Total U.S. Stock Market ETF",
@@ -24844,10 +24832,6 @@
     "Symbol": "LIAU"
   },
   {
-    "Company": "LifeX 2061 Inflation-Protected Longevity Income ETF",
-    "Symbol": "LIAV"
-  },
-  {
     "Company": "LifeX 2063 Inflation-Protected Longevity Income ETF",
     "Symbol": "LIAX"
   },
@@ -27324,8 +27308,16 @@
     "Symbol": "MPC"
   },
   {
+    "Company": "Leverage Shares 2X Long MP Daily ETF",
+    "Symbol": "MPG"
+  },
+  {
     "Company": "Defiance Daily Target 2X Long MP ETF",
     "Symbol": "MPL"
+  },
+  {
+    "Company": "MapLight Therapeutics, Inc. Common Stock",
+    "Symbol": "MPLT"
   },
   {
     "Company": "MPLX LP",
@@ -28334,6 +28326,10 @@
   {
     "Company": "NATIONAL BANK HOLDINGS CORP.",
     "Symbol": "NBHC"
+  },
+  {
+    "Company": "Leverage Shares 2X Long NBIS Daily ETF",
+    "Symbol": "NBIG"
   },
   {
     "Company": "GraniteShares 2x Long NBIS Daily ETF",
@@ -30780,10 +30776,6 @@
     "Symbol": "OPK"
   },
   {
-    "Company": "Old Point Financial Corp",
-    "Symbol": "OPOF"
-  },
-  {
     "Company": "RiverNorth/DoubleLine Strategic Opportunity Fund, Inc.",
     "Symbol": "OPP"
   },
@@ -32480,10 +32472,6 @@
     "Symbol": "PLG"
   },
   {
-    "Company": "Piedmont Lithium Inc. Common Stock",
-    "Symbol": "PLL"
-  },
-  {
     "Company": "Plum Acquisition Corp. IV Class A Ordinary Shares",
     "Symbol": "PLMK"
   },
@@ -32882,10 +32870,6 @@
   {
     "Company": "Invesco Aerospace & Defense ETF",
     "Symbol": "PPA"
-  },
-  {
-    "Company": "Pacific Premier Bancorp Inc",
-    "Symbol": "PPBI"
   },
   {
     "Company": "Purple Biotech Ltd. American Depositary Shares",
@@ -43404,10 +43388,6 @@
     "Symbol": "VERA"
   },
   {
-    "Company": "Verb Technology Company, Inc. Common Stock",
-    "Symbol": "VERB"
-  },
-  {
     "Company": "Veritone, Inc. Common Stock",
     "Symbol": "VERI"
   },
@@ -46622,9 +46602,5 @@
   {
     "Company": "ZYNEX INC",
     "Symbol": "ZYXI"
-  },
-  {
-    "Company": "Cyber Hornet S&P 500 and Bitcoin 75/25 Strategy ETF",
-    "Symbol": "ZZZ"
   }
 ]

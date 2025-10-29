@@ -311,15 +311,6 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
       )}
       {model.playerResults.length > 0 && <RoulettePlayerResultNumbers data={model.playerResults} />}
       <Box sx={{ minHeight: 80 }}>
-        {/* <CenterStack sx={{ my: 2 }}>
-          <SecondaryButton
-            text={model.isSimulationRunning ? 'running...' : 'run simulation'}
-            isDisabled={false}
-            onClicked={handleRunSimulation}
-            disabled={model.isSpinning}
-            width={170}
-          />
-        </CenterStack> */}
         <CenterStack sx={{ minHeight: 50 }}>
           {!model.isSpinning && model.playerResults.length > 0 && (
             <LinkButton
@@ -331,11 +322,6 @@ const RouletteLayout = ({ spinStats }: { spinStats: WheelSpinStats }) => {
             </LinkButton>
           )}
         </CenterStack>
-        {/* <CenterStack>
-          <Box sx={{ width: '80%', textAlign: 'center' }}>
-            <LinearProgress variant='determinate' value={model.simulationCounter} />
-          </Box>
-        </CenterStack> */}
       </Box>
       <HorizontalDivider />
       <Box my={1}>

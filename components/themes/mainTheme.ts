@@ -43,6 +43,7 @@ export const DarkModePrimary = '#90caf9'
 export const DarkModeBlueTransparent = '#2f4e8dee'
 export const Default = CasinoBlue
 export const CasinoBlack = '#131212fa'
+export const CasinoBlackDarkMode = '#2c2929fa'
 export const White = '#ffffff'
 export const SoftWhite = '#fcfcfcf1'
 export const ChartBackground = '#c2dffa3d'

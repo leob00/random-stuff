@@ -1,4 +1,4 @@
-import { Typography, Box } from '@mui/material'
+import { Typography, Box, useTheme } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import { ChartBackground, CasinoBlueTransparent } from 'components/themes/mainTheme'
 import { translateCasinoColor } from 'lib/backend/charts/barChartMapper'
@@ -6,6 +6,9 @@ import { RouletteNumber } from 'lib/backend/roulette/wheel'
 import React from 'react'
 
 const RoulettePlayerResultNumbers = ({ data }: { data: RouletteNumber[] }) => {
+  const theme = useTheme()
+  let bkgColor = theme.palette.mode === 'dark' ? theme.palette.primary.contrastText : ChartBackground
+
   return (
     <>
       <CenterStack sx={{ my: 1 }}>
@@ -15,14 +18,7 @@ const RoulettePlayerResultNumbers = ({ data }: { data: RouletteNumber[] }) => {
         <Box display={'flex'} gap={1} flexWrap={'wrap'} alignItems={'center'}>
           {data.map((item, index) => (
             <Box key={index} display={'flex'}>
-              <Box
-                bgcolor={ChartBackground}
-                border={index === 0 ? `1px solid ${CasinoBlueTransparent}` : 'unset'}
-                borderRadius={'50%'}
-                p={2}
-                textAlign='center'
-                width={68}
-              >
+              <Box bgcolor={bkgColor} border={`1px solid ${CasinoBlueTransparent}`} borderRadius={'50%'} p={2} textAlign='center' width={68}>
                 <Typography variant='h5' sx={{ color: translateCasinoColor(item.color) }}>
                   {item.value}
                 </Typography>
