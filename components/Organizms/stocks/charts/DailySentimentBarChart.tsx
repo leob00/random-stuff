@@ -9,6 +9,8 @@ import SimpleLineChart from 'components/Atoms/Charts/chartJs/SimpleLineChart'
 import { max } from 'lodash'
 import { callback } from 'chart.js/dist/helpers/helpers.core'
 import numeral from 'numeral'
+import { CasinoGrayTransparent, CasinoGreenTransparent, CasinoRedTransparent } from 'components/themes/mainTheme'
+import StockMarketStatsChart from './StockMarketStatsChart'
 
 const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
   const theme = useTheme()
@@ -17,7 +19,7 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
   })
   const bar: BarChart = {
     colors: colors,
-    labels: data.map((m) => dayjs(m.MarketDate).format('YYYY-MM-DD')),
+    labels: data.map((m) => dayjs(m.MarketDate).format('MM/DD/YYYY')),
     numbers: data.map((m) => m.TotalUpPercent),
   }
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
@@ -86,9 +88,15 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
       },
     },
   }
+  const lastRecord = data[data.length - 1]
+
   return (
     <Box>
-      <Typography></Typography>
+      <Typography textAlign={'center'}>{dayjs(lastRecord.MarketDate).format('MM/DD/YYYY')}</Typography>
+      <Box mt={-4}>
+        <StockMarketStatsChart data={lastRecord} />
+      </Box>
+      <Typography pt={4} textAlign={'center'}>{`Sentiment History`}</Typography>
       <SimpleBarChart barChart={bar} chartOptions={barchartOptions} height={height} />
       <SimpleLineChart barChart={bar} chartOptions={lineChartOptions} height={height} />
     </Box>

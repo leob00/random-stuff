@@ -1,21 +1,15 @@
 import { ChartData, ChartOptions } from 'chart.js'
 import {
-  CasinoBlackTransparent,
   CasinoBlue,
   CasinoBlueTransparent,
   CasinoMoreBlackTransparent,
-  CasinoRedTransparent,
-  CasinoWhiteTransparent,
   DarkBlue,
-  DarkModeBlue,
-  DarkModeBlueTransparent,
   VeryLightBlue,
   VeryLightBlueOpaque,
   VeryLightBlueOpaqueLight,
   VeryLightBlueTransparent,
 } from 'components/themes/mainTheme'
-import { max, min } from 'lodash'
-import numeral from 'numeral'
+import { max } from 'lodash'
 
 export interface LineChart {
   labels: string[]
@@ -128,17 +122,17 @@ export const getBarChartOptions = (
       legend: {
         display: false,
         labels: {
-          color: palette === 'light' ? 'rgba(203, 241, 247, 0.932)' : VeryLightBlueTransparent,
+          color: palette === 'light' ? 'rgba(203, 241, 247, 0.932)' : VeryLightBlue,
         },
         title: {
           display: true,
-          color: palette === 'light' ? 'rgba(203, 241, 247, 0.932)' : VeryLightBlueTransparent,
+          color: palette === 'light' ? 'rgba(203, 241, 247, 0.932)' : VeryLightBlue,
         },
       },
       tooltip: {
         padding: 16,
         backgroundColor: CasinoMoreBlackTransparent,
-        titleColor: CasinoWhiteTransparent,
+        titleColor: VeryLightBlue,
         footerAlign: 'left',
         footerSpacing: 10,
         footerMarginTop: 1,
@@ -152,8 +146,9 @@ export const getBarChartOptions = (
         bodySpacing: 10,
         bodyAlign: 'left',
         usePointStyle: true,
-        footerColor: palette === 'light' ? DarkBlue : VeryLightBlue,
-        bodyColor: palette === 'light' ? DarkBlue : VeryLightBlue,
+        footerColor: palette === 'light' ? VeryLightBlue : VeryLightBlue,
+        bodyColor: palette === 'light' ? VeryLightBlue : VeryLightBlue,
+        mode: 'nearest',
         callbacks: {
           title: (tooltipItems) => {
             return ''
@@ -164,8 +159,8 @@ export const getBarChartOptions = (
           labelPointStyle: (tooltiipItems) => {
             return {
               pointStyle: 'circle',
-              rotation: 0,
-              border: 4,
+              rotation: 180,
+              border: 0,
             }
           },
           footer: (tooltipItems) => {
@@ -182,7 +177,7 @@ export const getBarChartOptions = (
         },
 
         ticks: {
-          color: palette === 'light' ? CasinoBlue : VeryLightBlue,
+          color: palette === 'light' ? DarkBlue : VeryLightBlue,
           font: {
             size: 12,
           },
@@ -196,7 +191,7 @@ export const getBarChartOptions = (
         display: showXvalues ?? true,
         ticks: {
           padding: 0,
-          color: palette === 'light' ? CasinoBlue : VeryLightBlue,
+          color: palette === 'light' ? DarkBlue : VeryLightBlue,
           font: {
             size: 12,
           },
@@ -251,7 +246,7 @@ export const getLineChartOptions = (
       tooltip: {
         padding: 16,
         backgroundColor: CasinoMoreBlackTransparent,
-        titleColor: CasinoWhiteTransparent,
+        titleColor: VeryLightBlue,
         footerAlign: 'left',
         footerSpacing: 10,
         footerMarginTop: 1,
@@ -265,8 +260,8 @@ export const getLineChartOptions = (
         bodySpacing: 10,
         bodyAlign: 'left',
         usePointStyle: true,
-        footerColor: palette === 'light' ? DarkBlue : VeryLightBlue,
-        bodyColor: palette === 'light' ? DarkBlue : VeryLightBlue,
+        footerColor: palette === 'light' ? VeryLightBlue : VeryLightBlue,
+        bodyColor: palette === 'light' ? VeryLightBlue : VeryLightBlue,
         callbacks: {
           title: (tooltipItems) => {
             return ''
@@ -296,7 +291,7 @@ export const getLineChartOptions = (
         min: 0, // Math.floor(min(lineChartData.numbers)!),
         max: Math.ceil(max(lineChartData.numbers)!) + 8,
         ticks: {
-          color: palette === 'light' ? CasinoBlue : VeryLightBlue,
+          color: palette === 'light' ? DarkBlue : VeryLightBlue,
           font: {
             size: 12,
           },
@@ -307,7 +302,7 @@ export const getLineChartOptions = (
         display: showXvalues ?? true,
         ticks: {
           padding: 0,
-          color: palette === 'light' ? CasinoBlue : VeryLightBlue,
+          color: palette === 'light' ? DarkBlue : VeryLightBlue,
           font: {
             size: 12,
           },
