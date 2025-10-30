@@ -180,6 +180,7 @@ export const getBarChartOptions = (
           color: VeryLightBlueOpaqueLight,
           drawTicks: false,
         },
+
         ticks: {
           color: palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {

@@ -6,6 +6,9 @@ import { getPositiveNegativeColor } from '../StockListItem'
 import dayjs from 'dayjs'
 import SimpleBarChart from 'components/Atoms/Charts/chartJs/SimpleBarChart'
 import SimpleLineChart from 'components/Atoms/Charts/chartJs/SimpleLineChart'
+import { max } from 'lodash'
+import { callback } from 'chart.js/dist/helpers/helpers.core'
+import numeral from 'numeral'
 
 const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
   const theme = useTheme()
@@ -25,14 +28,69 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
     height = 240
   }
   if (isLarge) {
-    height = 320
+    height = 90
   }
-  const options = getBarChartOptions('', '%', theme.palette.mode)
+  const barchartOptions = getBarChartOptions('', '%', theme.palette.mode)
+  //barchartOptions.scales!.y!.max = 100
+  barchartOptions.plugins!.tooltip! = {
+    ...barchartOptions.plugins?.tooltip,
+    callbacks: {
+      title: (tooltipItems) => {
+        return ''
+      },
+      label: (tooltipItems) => {
+        return ` ${tooltipItems.label}`
+      },
+      beforeBody: () => {
+        return ''
+      },
+      afterLabel: (tooltipItems) => {
+        return ' '
+      },
+      beforeFooter: (tooltipItems) => {
+        return ` up: ${numeral(data[tooltipItems[0].dataIndex].TotalUpPercent).format('0.00')}%`
+      },
+      footer: (tooltipItems) => {
+        return ` down: ${numeral(data[tooltipItems[0].dataIndex].TotalDownPercent).format('0.00')}%`
+      },
+      afterFooter: (tooltipItems) => {
+        return ` unchanged: ${numeral(data[tooltipItems[0].dataIndex].TotalUnchangedPercent).format('0.00')}%`
+      },
+    },
+  }
+
+  const lineChartOptions = getLineChartOptions({ labels: bar.labels, numbers: bar.numbers }, '', '%', theme.palette.mode, true)
+  lineChartOptions.plugins!.tooltip! = {
+    ...lineChartOptions.plugins?.tooltip,
+    callbacks: {
+      title: (tooltipItems) => {
+        return ''
+      },
+      label: (tooltipItems) => {
+        return ` ${tooltipItems.label}`
+      },
+      beforeBody: () => {
+        return ''
+      },
+      afterLabel: (tooltipItems) => {
+        return ' '
+      },
+      beforeFooter: (tooltipItems) => {
+        return ` up: ${numeral(data[tooltipItems[0].dataIndex].TotalUpPercent).format('0.00')}%`
+      },
+      footer: (tooltipItems) => {
+        return ` down: ${numeral(data[tooltipItems[0].dataIndex].TotalDownPercent).format('0.00')}%`
+      },
+      afterFooter: (tooltipItems) => {
+        return ` unchanged: ${numeral(data[tooltipItems[0].dataIndex].TotalUnchangedPercent).format('0.00')}%`
+      },
+    },
+  }
   return (
     <Box>
       <Typography></Typography>
-      <SimpleBarChart barChart={bar} chartOptions={options} height={height} />
-      <SimpleLineChart barChart={bar} chartOptions={getLineChartOptions({ labels: bar.labels, numbers: bar.numbers }, '', '%', theme.palette.mode, true)} />
+      <SimpleBarChart barChart={bar} chartOptions={barchartOptions} height={height} />
+      <SimpleLineChart barChart={bar} chartOptions={lineChartOptions} height={height} />
     </Box>
   )
 }
