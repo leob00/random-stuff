@@ -9,6 +9,7 @@ import GradientContainer from './Atoms/Boxes/GradientContainer'
 import { useUserController } from 'hooks/userController'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
 import { getTheme } from './themes/StyledRoot'
+import SiteLink from './app/server/Atoms/Links/SiteLink'
 
 const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; onSetColorMode: () => void }) => {
   const [elevationEffect, setElevationEffect] = useState(false)
@@ -52,10 +53,11 @@ const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; 
           <Toolbar>
             <Container sx={{ width: '100%', py: 1 }}>
               <Box display={'flex'} justifyContent={'space-between'}>
-                <Box display='flex' gap={{ xs: 1, sm: 2 }}>
+                <Box display='flex' gap={{ xs: 1, sm: 2 }} alignItems={'center'}>
                   <NLink href='/' passHref>
                     <StaticImage image={'/images/logo-with-text-blue-small.png'} title='random things' width={120} height={60} priority />
                   </NLink>
+                  <SiteLink href='/' text='home' />
                 </Box>
                 <Box pt={'12px'}>
                   <Box display={'flex'} justifyContent={'flex-end'} flexDirection={'row-reverse'}>

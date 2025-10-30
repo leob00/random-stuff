@@ -33,6 +33,7 @@ import AnimationIcon from '@mui/icons-material/Animation'
 import CasinoIcon from '@mui/icons-material/Casino'
 import PetsIcon from '@mui/icons-material/Pets'
 import GradientIcon from '@mui/icons-material/Gradient'
+import PersonIcon from '@mui/icons-material/Person'
 type PagePros = {
   disabled?: boolean
 } & Navigation &
@@ -116,6 +117,8 @@ export const renderIcon = (item: PathNames) => {
       return <PetsIcon />
     case 'image text':
       return <GradientIcon />
+    case 'profile':
+      return <PersonIcon />
     default:
       return <></>
   }

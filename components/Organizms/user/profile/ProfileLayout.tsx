@@ -1,4 +1,5 @@
-import { Box } from '@mui/material'
+'use client'
+import { Box, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import CreatePinDialog from 'components/Organizms/Login/CreatePinDialog'
@@ -62,8 +63,6 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     <>
       <>
         {isLoading && <BackdropLoader />}
-        <SnackbarSuccess show={showPinChangedMessage} text={'Your pin has been updated!'} onClose={() => setShowPinChangedMessage(false)} />
-        <PageHeader text='Profile' />
         {validatedProfile && (
           <>
             <Box py={4}>
@@ -73,12 +72,12 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                 </Box>
               ) : (
                 <Box py={2}>
-                  <Box>
-                    {/* <Typography py={2} textAlign={'center'}>{`email: ${validatedProfile.username}`}</Typography> */}
-                    <AlertWithHeader severity='success' header={`${validatedProfile.username}`} text='' />
+                  <Box display={'flex'} gap={1} alignItems={'center'}>
+                    <Typography variant='body2'>email:</Typography>
+                    <Box mt={1}>
+                      <AlertWithHeader severity='success' header={`${validatedProfile.username}`} text='' />
+                    </Box>
                   </Box>
-
-                  <CenterStack></CenterStack>
                 </Box>
               )}
             </Box>
@@ -93,6 +92,7 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
           </>
         )}
       </>
+      <SnackbarSuccess show={showPinChangedMessage} text={'Your pin has been updated!'} onClose={() => setShowPinChangedMessage(false)} />
     </>
   )
 }

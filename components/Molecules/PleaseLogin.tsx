@@ -1,7 +1,7 @@
+'use client'
 import { Box } from '@mui/material'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
-import { useState } from 'react'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import { useRouter } from 'next/router'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'

@@ -57,7 +57,7 @@ const HeaderMenu = ({
     {
       item: <ListItemText primary='profile'></ListItemText>,
       fn: () => {
-        router.push('/protected/csr/profile')
+        router.push('/account/profile')
       },
     },
   ]

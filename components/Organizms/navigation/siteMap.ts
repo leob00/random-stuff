@@ -32,6 +32,7 @@ export type PathNames =
   | 'dogs'
   | 'cats'
   | 'image text'
+  | 'profile'
   | (string & {})
 
 export type SiteCategories =
@@ -47,6 +48,7 @@ export type SiteCategories =
   | 'Miscellaneous'
   | 'Stock Reports'
   | 'Home'
+  | 'Account'
 
 export interface Paths {
   category: SiteCategories
@@ -261,6 +263,12 @@ export const flatSiteMap: Navigation[] = [
     name: 'status',
     path: '/status',
     category: 'Admin',
+    isProtected: true,
+  },
+  {
+    name: 'profile',
+    path: '/account/profile',
+    category: 'Account',
     isProtected: true,
   },
 ]

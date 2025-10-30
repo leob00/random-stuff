@@ -53,6 +53,13 @@ export async function getItem(key: string) {
 
   return emptyResult
 }
+export async function getItemData<T>(key: string) {
+  const item = await getItem(key)
+  if (item.data) {
+    return JSON.parse(item.data) as T
+  }
+  return null
+}
 
 export async function searchItems(category: string) {
   const params = {
