@@ -15,6 +15,7 @@ import {
   VeryLightBlueTransparent,
 } from 'components/themes/mainTheme'
 import { max, min } from 'lodash'
+import numeral from 'numeral'
 
 export interface LineChart {
   labels: string[]
@@ -179,13 +180,15 @@ export const getBarChartOptions = (
           color: VeryLightBlueOpaqueLight,
           drawTicks: false,
         },
-
         ticks: {
           color: palette === 'light' ? CasinoBlue : VeryLightBlue,
           font: {
             size: 12,
           },
           autoSkip: true,
+          callback: function (value) {
+            return `${value}${yAxisDecorator}`
+          },
         },
       },
       x: {

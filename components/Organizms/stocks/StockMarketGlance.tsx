@@ -17,11 +17,13 @@ const StockMarketGlance = ({
   componentLoader = false,
   revalidateOnFocus = false,
   width = 300,
+  showFooter = true,
 }: {
   showTitle?: boolean
   componentLoader?: boolean
   revalidateOnFocus?: boolean
   width?: number
+  showFooter?: boolean
 }) => {
   const config = apiConnection().qln
   const apiUrl = `${config.url}/MarketHandshake?loadSentiment=true`
@@ -45,13 +47,17 @@ const StockMarketGlance = ({
             <Box>
               <StockMarketStatsChart data={data.StockStats} />
             </Box>
-            <Box>
-              <StockMarketStatus data={data} />
-            </Box>
+            {showFooter && (
+              <>
+                <Box>
+                  <StockMarketStatus data={data} />
+                </Box>
 
-            <CenterStack>
-              <SiteLink text='sentiment report' href={'/csr/stocks/sentiment'} />
-            </CenterStack>
+                <CenterStack>
+                  <SiteLink text='sentiment report' href={'/csr/stocks/sentiment'} />
+                </CenterStack>
+              </>
+            )}
           </Box>
         )}
       </Box>

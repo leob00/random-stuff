@@ -39,73 +39,6 @@ type PagePros = {
   TypographyProps
 
 const NavigationButton = ({ ...props }: PagePros) => {
-  const renderIcon = (item: PathNames) => {
-    switch (item) {
-      case 'stocks':
-        return <BarChartIcon />
-      case 'my stocks':
-        return <StackedLineChartIcon />
-      case 'earnings calendar':
-        return <RequestQuoteIcon />
-      case 'sentiment':
-        return <SentimentVerySatisfiedIcon />
-      case 'earnings report':
-        return <ShowChartIcon />
-      case 'stock alerts':
-        return <NotificationsIcon />
-      case 'search':
-        return <SearchIcon />
-      case 'goals':
-        return <FlagIcon />
-      case 'notes':
-        return <NoteIcon />
-      case 'dashboard':
-        return <DashboardIcon />
-      case 'secrets':
-        return <KeyIcon />
-      case 'chat with AI':
-        return <AutoAwesomeIcon />
-      case 'crypto':
-        return <CurrencyBitcoinIcon />
-      case 'commodities':
-        return <OilBarrelIcon />
-      case 'calendar':
-        return <EventIcon />
-      case 'indicators':
-        return <AssessmentIcon />
-      case 'news':
-        return <NewspaperIcon />
-      case 'recipes':
-        return <OutdoorGrillIcon />
-      case 'volume':
-        return <BrightnessHighIcon />
-      case 'market cap':
-        return <LeaderboardIcon />
-      case 'sectors':
-        return <ConstructionIcon />
-      case 'industries':
-        return <BuildIcon />
-      case 'top movers':
-        return <MultipleStopIcon />
-      case 'dividend payers':
-        return <PaidIcon />
-      case 'calculator':
-        return <CalculateIcon />
-      case 'coin flip':
-        return <AnimationIcon />
-      case 'roulette':
-        return <CasinoIcon />
-      case 'dogs':
-        return <PetsIcon />
-      case 'cats':
-        return <PetsIcon />
-      case 'image text':
-        return <GradientIcon />
-      default:
-        return <></>
-    }
-  }
-
   const { addRoute } = useRouteTracker()
   const router = useRouter()
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -119,6 +52,73 @@ const NavigationButton = ({ ...props }: PagePros) => {
       </Button>
     </Box>
   )
+}
+
+export const renderIcon = (item: PathNames) => {
+  switch (item) {
+    case 'stocks':
+      return <BarChartIcon />
+    case 'my stocks':
+      return <StackedLineChartIcon />
+    case 'earnings calendar':
+      return <RequestQuoteIcon />
+    case 'sentiment':
+      return <SentimentVerySatisfiedIcon />
+    case 'earnings report':
+      return <ShowChartIcon />
+    case 'stock alerts':
+      return <NotificationsIcon />
+    case 'search':
+      return <SearchIcon />
+    case 'goals':
+      return <FlagIcon />
+    case 'notes':
+      return <NoteIcon />
+    case 'dashboard':
+      return <DashboardIcon />
+    case 'secrets':
+      return <KeyIcon />
+    case 'chat with AI':
+      return <AutoAwesomeIcon />
+    case 'crypto':
+      return <CurrencyBitcoinIcon />
+    case 'commodities':
+      return <OilBarrelIcon />
+    case 'calendar':
+      return <EventIcon />
+    case 'indicators':
+      return <AssessmentIcon />
+    case 'news':
+      return <NewspaperIcon />
+    case 'recipes':
+      return <OutdoorGrillIcon />
+    case 'volume':
+      return <BrightnessHighIcon />
+    case 'market cap':
+      return <LeaderboardIcon />
+    case 'sectors':
+      return <ConstructionIcon />
+    case 'industries':
+      return <BuildIcon />
+    case 'top movers':
+      return <MultipleStopIcon />
+    case 'dividend payers':
+      return <PaidIcon />
+    case 'calculator':
+      return <CalculateIcon />
+    case 'coin flip':
+      return <AnimationIcon />
+    case 'roulette':
+      return <CasinoIcon />
+    case 'dogs':
+      return <PetsIcon />
+    case 'cats':
+      return <PetsIcon />
+    case 'image text':
+      return <GradientIcon />
+    default:
+      return <></>
+  }
 }
 
 export default NavigationButton

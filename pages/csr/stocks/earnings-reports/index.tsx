@@ -3,6 +3,7 @@ import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'
+import StockMarketMenu from 'components/Molecules/Menus/StockMarketMenu'
 import Seo from 'components/Organizms/Seo'
 import AnnualEarningsReportWrapper from 'components/Organizms/stocks/earnings/AnnualEarningsReportWrapper'
 import QuarterlyEarningsReportWrapper from 'components/Organizms/stocks/earnings/QuarterlyEarningsReportWrapper'
@@ -22,6 +23,9 @@ const Page = () => {
 
       <ResponsiveContainer>
         <PageHeader text='Earnings Report' />
+        <Box display={'flex'} justifyContent={'flex-end'}>
+          <StockMarketMenu />
+        </Box>
         <Box display={'flex'} justifyContent={'space-between'} pt={2}>
           <Box>
             <NavigationButton path={'/csr/stocks/earnings-calendar'} name={'earnings calendar'} category='Stock Reports' variant='body2' />

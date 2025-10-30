@@ -2,7 +2,6 @@ import { Box } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import { StockEarning, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
-import React from 'react'
 import EarningsCalendarDisplay from './earnings/EarningsCalendarDisplay'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 

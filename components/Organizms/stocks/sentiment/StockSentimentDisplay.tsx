@@ -1,18 +1,17 @@
 import { StockStats } from 'lib/backend/api/qln/qlnModels'
-import React from 'react'
 import StockMarketStatsChart from '../charts/StockMarketStatsChart'
 import { mean } from 'lodash'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import { Box, Stack } from '@mui/material'
+import { Box } from '@mui/material'
 
 const StockSentimentDisplay = ({ data }: { data: StockStats[] }) => {
   return (
     <>
-      <CenteredHeader title={'1 Month'} variant='h5' />
+      <CenteredHeader title={'1 Week'} variant='h5' />
       <Box>
         <Box mt={-5}>
-          <StockMarketStatsChart data={getSentiment(data, 30)} />
+          <StockMarketStatsChart data={getSentiment(data, 7)} />
         </Box>
         <HorizontalDivider />
         <CenteredHeader title={'2 Weeks'} variant='h5' />
@@ -20,9 +19,9 @@ const StockSentimentDisplay = ({ data }: { data: StockStats[] }) => {
           <StockMarketStatsChart data={getSentiment(data, 14)} />
         </Box>
         <HorizontalDivider />
-        <CenteredHeader title={'1 Week'} variant='h5' />
+        <CenteredHeader title={'1 Month'} variant='h5' />
         <Box mt={-5}>
-          <StockMarketStatsChart data={getSentiment(data, 7)} />
+          <StockMarketStatsChart data={getSentiment(data, 30)} />
         </Box>
         <HorizontalDivider />
       </Box>
