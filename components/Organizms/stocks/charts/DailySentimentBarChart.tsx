@@ -2,20 +2,18 @@
 import { Box, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { BarChart, getBarChartOptions, getLineChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import { StockStats } from 'lib/backend/api/qln/qlnModels'
-import { getPositiveNegativeColor } from '../StockListItem'
 import dayjs from 'dayjs'
 import SimpleBarChart from 'components/Atoms/Charts/chartJs/SimpleBarChart'
 import SimpleLineChart from 'components/Atoms/Charts/chartJs/SimpleLineChart'
-import { max } from 'lodash'
-import { callback } from 'chart.js/dist/helpers/helpers.core'
 import numeral from 'numeral'
-import { CasinoGrayTransparent, CasinoGreenTransparent, CasinoRedTransparent } from 'components/themes/mainTheme'
 import StockMarketStatsChart from './StockMarketStatsChart'
+import { useMarketColors } from 'components/themes/marketColors'
 
 const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
   const theme = useTheme()
+  const { chart } = useMarketColors()
   const colors = data.map((m) => {
-    return getPositiveNegativeColor(m.TotalUpPercent >= 50 ? 1 : -1)
+    return m.TotalUpPercent >= 50 ? chart.positiveColor : chart.negativeColor
   })
   const bar: BarChart = {
     colors: colors,
@@ -33,7 +31,6 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
     height = 90
   }
   const barchartOptions = getBarChartOptions('', '%', theme.palette.mode)
-  //barchartOptions.scales!.y!.max = 100
   barchartOptions.plugins!.tooltip! = {
     ...barchartOptions.plugins?.tooltip,
     callbacks: {

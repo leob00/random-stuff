@@ -8,10 +8,12 @@ import { StockStats } from 'lib/backend/api/qln/qlnModels'
 import numeral from 'numeral'
 import CenterStack from 'components/Atoms/CenterStack'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
+import { useMarketColors } from 'components/themes/marketColors'
 
 const StockMarketStatsChart = ({ data }: { data: StockStats }) => {
+  const { chart } = useMarketColors()
   const chartData: BarChart = {
-    colors: [CasinoGreenTransparent, CasinoRedTransparent, CasinoGrayTransparent],
+    colors: [chart.positiveColor, chart.negativeColor, chart.unchangedColor],
     labels: ['up', 'down', 'unchanged'],
     numbers: [data.TotalUpPercent, data.TotalDownPercent, data.TotalUnchangedPercent],
   }

@@ -3,7 +3,9 @@ import {
   CasinoBlackTransparent,
   CasinoDarkGreenTransparent,
   CasinoDarkRedTransparent,
+  CasinoGreen,
   CasinoLimeTransparent,
+  DarkModeBkg,
   RedDarkMode,
   VeryLightBlue,
 } from 'components/themes/mainTheme'
@@ -172,7 +174,7 @@ const StockListItem = ({
   )
 }
 export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'dark' = 'light') => {
-  let color = mode === 'light' ? CasinoBlackTransparent : VeryLightBlue
+  let color = mode === 'light' ? DarkModeBkg : VeryLightBlue
 
   if (!val) {
     return color
@@ -181,7 +183,7 @@ export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'd
   if (val < 0) {
     color = mode === 'light' ? CasinoDarkRedTransparent : RedDarkMode
   } else if (val > 0) {
-    color = mode === 'light' ? CasinoDarkGreenTransparent : CasinoLimeTransparent
+    color = mode === 'light' ? CasinoGreen : CasinoLimeTransparent
   }
 
   return color
@@ -197,7 +199,7 @@ export const getPositiveNegativeColorReverse = (val?: number | null, mode: 'ligh
   if (val > 0) {
     color = mode === 'light' ? CasinoDarkRedTransparent : RedDarkMode
   } else if (val < 0) {
-    color = mode === 'light' ? CasinoDarkGreenTransparent : CasinoLimeTransparent
+    color = mode === 'light' ? CasinoGreen : CasinoLimeTransparent
   }
 
   return color
