@@ -25,13 +25,13 @@ const StockMarketStatsChart = ({ data }: { data: StockStats }) => {
       </Box>
       <Box>
         <CenterStack sx={{ pt: 1 }}>
-          <ReadOnlyField variant='caption' label='up' val={`${numeral(data.TotalUpPercent).format('0.00')}%`} />
+          <ReadOnlyField variant='caption' label='up' val={`${numeral(data.TotalUpPercent).format('0.000')}%`} />
         </CenterStack>
         <CenterStack>
-          <ReadOnlyField variant='caption' label='down' val={`${numeral(data.TotalDownPercent).format('0.00')}%`} />
+          <ReadOnlyField variant='caption' label='down' val={`${numeral(data.TotalDownPercent).format('0.000')}%`} />
         </CenterStack>
         <CenterStack>
-          <ReadOnlyField variant='caption' label='unchanged' val={`${numeral(data.TotalUnchangedPercent).format('0.00')}%`} />
+          <ReadOnlyField variant='caption' label='unchanged' val={`${numeral(data.TotalUnchangedPercent).format('0.000')}%`} />
         </CenterStack>
       </Box>
     </Box>

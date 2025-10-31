@@ -47,13 +47,13 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
         return ' '
       },
       beforeFooter: (tooltipItems) => {
-        return ` up: ${numeral(data[tooltipItems[0].dataIndex].TotalUpPercent).format('0.00')}%`
+        return ` up: ${numeral(data[tooltipItems[0].dataIndex].TotalUpPercent).format('0.000')}%`
       },
       footer: (tooltipItems) => {
-        return ` down: ${numeral(data[tooltipItems[0].dataIndex].TotalDownPercent).format('0.00')}%`
+        return ` down: ${numeral(data[tooltipItems[0].dataIndex].TotalDownPercent).format('0.000')}%`
       },
       afterFooter: (tooltipItems) => {
-        return ` unchanged: ${numeral(data[tooltipItems[0].dataIndex].TotalUnchangedPercent).format('0.00')}%`
+        return ` unchanged: ${numeral(data[tooltipItems[0].dataIndex].TotalUnchangedPercent).format('0.000')}%`
       },
     },
   }
@@ -75,13 +75,13 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
         return ' '
       },
       beforeFooter: (tooltipItems) => {
-        return ` up: ${numeral(data[tooltipItems[0].dataIndex].TotalUpPercent).format('0.00')}%`
+        return ` up: ${numeral(data[tooltipItems[0].dataIndex].TotalUpPercent).format('0.000')}%`
       },
       footer: (tooltipItems) => {
-        return ` down: ${numeral(data[tooltipItems[0].dataIndex].TotalDownPercent).format('0.00')}%`
+        return ` down: ${numeral(data[tooltipItems[0].dataIndex].TotalDownPercent).format('0.000')}%`
       },
       afterFooter: (tooltipItems) => {
-        return ` unchanged: ${numeral(data[tooltipItems[0].dataIndex].TotalUnchangedPercent).format('0.00')}%`
+        return ` unchanged: ${numeral(data[tooltipItems[0].dataIndex].TotalUnchangedPercent).format('0.000')}%`
       },
     },
   }
