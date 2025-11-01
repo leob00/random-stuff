@@ -3,7 +3,9 @@ import {
   CasinoBlackTransparent,
   CasinoDarkGreenTransparent,
   CasinoDarkRedTransparent,
+  CasinoGrayTransparent,
   CasinoGreen,
+  CasinoLightGrayTransparent,
   CasinoLimeTransparent,
   DarkModeBkg,
   RedDarkMode,
@@ -174,7 +176,7 @@ const StockListItem = ({
   )
 }
 export const getPositiveNegativeColor = (val?: number | null, mode: 'light' | 'dark' = 'light') => {
-  let color = mode === 'light' ? DarkModeBkg : VeryLightBlue
+  let color = mode === 'light' ? CasinoGrayTransparent : CasinoLightGrayTransparent
 
   if (!val) {
     return color

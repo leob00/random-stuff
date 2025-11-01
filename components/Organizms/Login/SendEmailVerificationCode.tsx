@@ -19,11 +19,15 @@ const SendEmailVerificationCode = ({ onSent }: { onSent: () => void }) => {
   return (
     <Box py={2} border={`solid 1px ${VeryLightBlue}`} borderRadius={'16px'} minHeight={500}>
       {isLoading && <BackdropLoader />}
+      <CenterStack>
+        <Typography variant='h3'>Multi factor authentication</Typography>
+      </CenterStack>
       <Box py={2} px={4}>
-        <Typography
-          textAlign={'center'}
-        >{`We need to verify that it is really you. Please click 'send' and check your email for your temporary validation code.`}</Typography>
+        <Typography textAlign={'center'}>{`Please click 'send' to get an authnorisation code to continue to the next step.`}</Typography>
       </Box>
+      <CenterStack>
+        <Typography variant='caption'>please look for an email from from no-reply@verificationemail.com and be sure to check your spam folders.</Typography>
+      </CenterStack>
       <CenterStack sx={{ py: 4 }}>
         <SuccessButton text='send' disabled={isLoading} onClick={handleSendVerificationConde} />
       </CenterStack>

@@ -6,48 +6,28 @@ import CreatePinDialog from 'components/Organizms/Login/CreatePinDialog'
 import { useUserController } from 'hooks/userController'
 import { UserPin, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import VerifyEmail from './VerifyEmail'
-import { constructUserProfileKey } from 'lib/backend/api/aws/util'
-import { putUserProfile } from 'lib/backend/csr/nextApiWrapper'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import { useSwrHelper } from 'hooks/useSwrHelper'
-import { getEmailVerificationStatus } from './profileHelper'
 import ValidateFromEmailDialog from 'components/Organizms/Login/ValidateFromEmailDialog'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
-import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { useState } from 'react'
+import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 
 const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
-  const [showPasswordEntry, setShowPasswordEntry] = useState(false)
+  const [showPinChangeEntry, setShowPinChangeEntry] = useState(false)
   const [showPinEntry, setShowPinEntry] = useState(false)
   const [showPinChangedMessage, setShowPinChangedMessage] = useState(false)
   const { setProfile } = useUserController()
-  const key = constructUserProfileKey(userProfile.username)
-
-  const fetcherFn = async () => {
-    const verified = await getEmailVerificationStatus(userProfile)
-    const result = { ...userProfile, emailVerified: verified }
-    if (userProfile.emailVerified !== result.emailVerified) {
-      setProfile(result)
-      await putUserProfile(result)
-    }
-
-    return result
-  }
-  const { data: validatedProfile, isLoading } = useSwrHelper(key, fetcherFn, {
-    revalidateOnFocus: !userProfile.emailVerified,
-  })
 
   const handleChangePinClick = () => {
-    setShowPasswordEntry(true)
+    setShowPinChangeEntry(true)
   }
 
   const handlePasswordValidated = () => {
-    setShowPasswordEntry(false)
+    setShowPinChangeEntry(false)
     setShowPinEntry(true)
   }
   const handleCancelChangePin = async () => {
-    setShowPasswordEntry(false)
+    setShowPinChangeEntry(false)
     setShowPinEntry(false)
   }
   const handlePinChanged = async (pin: UserPin) => {
@@ -57,40 +37,46 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     setShowPinEntry(false)
   }
   const handleClosePasswordEntry = () => {
-    setShowPasswordEntry(false)
+    setShowPinChangeEntry(false)
   }
   return (
     <>
       <>
-        {isLoading && <BackdropLoader />}
-        {validatedProfile && (
-          <>
-            <Box py={4}>
-              {!validatedProfile.emailVerified ? (
-                <Box>
-                  <VerifyEmail userProfile={validatedProfile} />
+        <Box py={4}>
+          {!userProfile.emailVerified ? (
+            <Box>
+              <VerifyEmail userProfile={userProfile} />
+            </Box>
+          ) : (
+            <Box py={2}>
+              <Box display={'flex'} gap={1} alignItems={'center'}>
+                <Typography width={80} variant='body2' textAlign={'right'}>
+                  email:
+                </Typography>
+                <Box mt={1}>
+                  <AlertWithHeader severity='success' header={`${userProfile.username}`} text='' />
                 </Box>
-              ) : (
-                <Box py={2}>
-                  <Box display={'flex'} gap={1} alignItems={'center'}>
-                    <Typography variant='body2'>email:</Typography>
-                    <Box mt={1}>
-                      <AlertWithHeader severity='success' header={`${validatedProfile.username}`} text='' />
-                    </Box>
-                  </Box>
+              </Box>
+              {userProfile.pin && (
+                <Box display={'flex'} gap={1} alignItems={'center'}>
+                  <Typography textAlign={'right'} width={80} variant='body2'>
+                    pin:
+                  </Typography>
+                  <AlertWithHeader severity='success' header={``} text='' />
+                  {!showPinChangeEntry && !showPinEntry && (
+                    <>
+                      <SuccessButton size='small' text={`${userProfile.pin ? 'reset' : 'create a pin'}`} onClicked={handleChangePinClick} />
+                    </>
+                  )}
                 </Box>
               )}
             </Box>
-            <CenterStack sx={{ py: 2 }}>
-              {!showPasswordEntry && !showPinEntry && (
-                <PrimaryButton text={`${validatedProfile.pin ? 'reset pin' : 'create a pin'}`} onClicked={handleChangePinClick} />
-              )}
-            </CenterStack>
-            {showPasswordEntry && <ValidateFromEmailDialog show={showPasswordEntry} onSuccess={handlePasswordValidated} onClose={handleClosePasswordEntry} />}
+          )}
+        </Box>
+        <CenterStack sx={{ py: 2 }}></CenterStack>
+        {showPinChangeEntry && <ValidateFromEmailDialog show={showPinChangeEntry} onSuccess={handlePasswordValidated} onClose={handleClosePasswordEntry} />}
 
-            <CreatePinDialog show={showPinEntry} userProfile={validatedProfile} onCancel={handleCancelChangePin} onConfirm={handlePinChanged} />
-          </>
-        )}
+        <CreatePinDialog show={showPinEntry} userProfile={userProfile} onCancel={handleCancelChangePin} onConfirm={handlePinChanged} />
       </>
       <SnackbarSuccess show={showPinChangedMessage} text={'Your pin has been updated!'} onClose={() => setShowPinChangedMessage(false)} />
     </>

@@ -37,7 +37,7 @@ export type PathNames =
 
 export type SiteCategories =
   | 'Stock Market'
-  | 'Markets'
+  | 'Other Assets'
   | 'Personal'
   | 'Admin'
   | 'Games'
@@ -125,7 +125,7 @@ export const flatSiteMap: Navigation[] = [
   {
     name: 'commodities',
     path: '/csr/commodities',
-    category: 'Markets',
+    category: 'Other Assets',
   },
   {
     name: 'stock alerts',
@@ -135,7 +135,7 @@ export const flatSiteMap: Navigation[] = [
   {
     name: 'crypto',
     path: '/csr/crypto',
-    category: 'Markets',
+    category: 'Other Assets',
   },
   {
     name: 'search',
@@ -184,13 +184,13 @@ export const flatSiteMap: Navigation[] = [
   {
     name: 'indicators',
     path: '/csr/economic-indicators',
-    category: 'Markets',
+    category: 'Economy',
     breadcrumbName: 'economic indicators',
   },
   {
     name: 'calendar',
     path: '/csr/economic-calendar',
-    category: 'Markets',
+    category: 'Economy',
     breadcrumbName: 'economic calendar',
   },
   {

@@ -18,6 +18,7 @@ import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import CommoditiesLayout from 'components/Organizms/stocks/CommoditiesLayout'
+import ContextMenuAllStocks from 'components/Molecules/Menus/ContextMenuAllStocks'
 
 const Page = () => {
   const router = useRouter()
@@ -43,7 +44,7 @@ const Page = () => {
     {
       item: (
         <>
-          <ContextMenuPeople text={'community stocks'} />
+          <ContextMenuAllStocks />
         </>
       ),
       fn: () => router.push('/csr/community-stocks'),

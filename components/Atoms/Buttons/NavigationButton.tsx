@@ -34,6 +34,7 @@ import CasinoIcon from '@mui/icons-material/Casino'
 import PetsIcon from '@mui/icons-material/Pets'
 import GradientIcon from '@mui/icons-material/Gradient'
 import PersonIcon from '@mui/icons-material/Person'
+import QueryStatsIcon from '@mui/icons-material/QueryStats'
 type PagePros = {
   disabled?: boolean
 } & Navigation &
@@ -88,7 +89,7 @@ export const renderIcon = (item: PathNames) => {
     case 'calendar':
       return <EventIcon />
     case 'indicators':
-      return <AssessmentIcon />
+      return <QueryStatsIcon />
     case 'news':
       return <NewspaperIcon />
     case 'recipes':

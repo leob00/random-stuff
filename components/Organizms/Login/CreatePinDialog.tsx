@@ -81,8 +81,8 @@ const CreatePinDialog = ({
           </DialogContentText>
           <Box py={2}>
             <Typography>
-              You will be asked to enter your pin occasionally to make sure your data is protected. Please try not to forget your pin! But if you do, you will
-              need to reset it through an email confirmation... which is a hassle.
+              You will be asked to enter your pin occasionally to make sure your data is protected. Please try not to forget your pin, but if you do, you will
+              need can reset it by going to the account page from the main menu.
             </Typography>
           </Box>
           <Box py={2}>

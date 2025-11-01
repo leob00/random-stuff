@@ -4,8 +4,8 @@ import { CasinoGreen, CasinoRed, CasinoRedTransparent, CasinoRedTransparentChart
 
 export const useMarketColors = () => {
   const theme = useTheme()
-  const chartPositiveColor = CasinoGreen //getPositiveNegativeColor(1, theme.palette.mode)
-  const chartNegativeColor = theme.palette.mode === 'dark' ? CasinoRedTransparentChart : CasinoRed //getPositiveNegativeColor(-1, theme.palette.mode)
+  const chartPositiveColor = CasinoGreen
+  const chartNegativeColor = theme.palette.mode === 'dark' ? CasinoRedTransparentChart : CasinoRed
   const chartUnchangedColor = getPositiveNegativeColor(0, theme.palette.mode)
 
   return {

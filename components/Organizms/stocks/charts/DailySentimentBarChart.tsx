@@ -31,6 +31,7 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
     height = 90
   }
   const barchartOptions = getBarChartOptions('', '%', theme.palette.mode)
+  //barchartOptions.scales!.y!.max = 100
   barchartOptions.plugins!.tooltip! = {
     ...barchartOptions.plugins?.tooltip,
     callbacks: {
