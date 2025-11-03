@@ -6,14 +6,16 @@ import CreatePinDialog from 'components/Organizms/Login/CreatePinDialog'
 import { useUserController } from 'hooks/userController'
 import { UserPin, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import VerifyEmail from './VerifyEmail'
-import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import ValidateFromEmailDialog from 'components/Organizms/Login/ValidateFromEmailDialog'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import { useState } from 'react'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
+import ResetPasswordLayout from './ResetPasswordLayout'
+import WarningButton from 'components/Atoms/Buttons/WarningButton'
 
 const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const [showPinChangeEntry, setShowPinChangeEntry] = useState(false)
+  const [showResetPassword, setShowResetPassword] = useState(false)
   const [showPinEntry, setShowPinEntry] = useState(false)
   const [showPinChangedMessage, setShowPinChangedMessage] = useState(false)
   const { setProfile } = useUserController()
@@ -22,7 +24,7 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     setShowPinChangeEntry(true)
   }
 
-  const handlePasswordValidated = () => {
+  const handleVerificationCodeValidated = () => {
     setShowPinChangeEntry(false)
     setShowPinEntry(true)
   }
@@ -39,45 +41,62 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const handleClosePasswordEntry = () => {
     setShowPinChangeEntry(false)
   }
+
+  const handleCodeVerifiedPasswordChange = () => {}
+
+  const handlePasswordChangeSuccess = () => {}
   return (
     <>
-      <>
-        <Box py={4}>
-          {!userProfile.emailVerified ? (
-            <Box>
-              <VerifyEmail userProfile={userProfile} />
-            </Box>
-          ) : (
-            <Box py={2}>
-              <Box display={'flex'} gap={1} alignItems={'center'}>
-                <Typography width={80} variant='body2' textAlign={'right'}>
-                  email:
-                </Typography>
-                <Box mt={1}>
-                  <AlertWithHeader severity='success' header={`${userProfile.username}`} text='' />
-                </Box>
+      {showResetPassword && (
+        <ResetPasswordLayout userProfile={userProfile} onSuccess={handlePasswordChangeSuccess} onCodeVerified={handleCodeVerifiedPasswordChange} />
+      )}
+      {!showResetPassword && (
+        <>
+          <Box py={4}>
+            {!userProfile.emailVerified ? (
+              <Box>
+                <VerifyEmail userProfile={userProfile} />
               </Box>
-              {userProfile.pin && (
+            ) : (
+              <Box display={'flex'} flexDirection={'column'} gap={2}>
                 <Box display={'flex'} gap={1} alignItems={'center'}>
-                  <Typography textAlign={'right'} width={80} variant='body2'>
-                    pin:
+                  <Typography width={100} variant='body2' textAlign={'right'}>
+                    email:
+                  </Typography>
+                  <Box mt={1}>
+                    <AlertWithHeader severity='success' header={`${userProfile.username}`} text='' />
+                  </Box>
+                </Box>
+                {userProfile.pin && (
+                  <Box display={'flex'} gap={1} alignItems={'center'}>
+                    <Typography textAlign={'right'} width={100} variant='body2'>
+                      pin:
+                    </Typography>
+                    <AlertWithHeader severity='success' header={``} text='' />
+                    {!showPinChangeEntry && !showPinEntry && (
+                      <>
+                        <SuccessButton size='small' text={`${userProfile.pin ? 'reset' : 'create a pin'}`} onClicked={handleChangePinClick} />
+                      </>
+                    )}
+                  </Box>
+                )}
+                {/* <Box display={'flex'} gap={1} alignItems={'center'}>
+                  <Typography textAlign={'right'} width={100} variant='body2'>
+                    password:
                   </Typography>
                   <AlertWithHeader severity='success' header={``} text='' />
-                  {!showPinChangeEntry && !showPinEntry && (
-                    <>
-                      <SuccessButton size='small' text={`${userProfile.pin ? 'reset' : 'create a pin'}`} onClicked={handleChangePinClick} />
-                    </>
-                  )}
-                </Box>
-              )}
-            </Box>
+                  <WarningButton size='small' text={'reset'} onClick={() => setShowResetPassword(true)} />
+                </Box> */}
+              </Box>
+            )}
+          </Box>
+          <CenterStack sx={{ py: 2 }}></CenterStack>
+          {showPinChangeEntry && (
+            <ValidateFromEmailDialog show={showPinChangeEntry} onSuccess={handleVerificationCodeValidated} onClose={handleClosePasswordEntry} />
           )}
-        </Box>
-        <CenterStack sx={{ py: 2 }}></CenterStack>
-        {showPinChangeEntry && <ValidateFromEmailDialog show={showPinChangeEntry} onSuccess={handlePasswordValidated} onClose={handleClosePasswordEntry} />}
-
-        <CreatePinDialog show={showPinEntry} userProfile={userProfile} onCancel={handleCancelChangePin} onConfirm={handlePinChanged} />
-      </>
+        </>
+      )}
+      <CreatePinDialog show={showPinEntry} userProfile={userProfile} onCancel={handleCancelChangePin} onConfirm={handlePinChanged} />
       <SnackbarSuccess show={showPinChangedMessage} text={'Your pin has been updated!'} onClose={() => setShowPinChangedMessage(false)} />
     </>
   )

@@ -1,6 +1,4 @@
 import { Button, ButtonProps } from '@mui/material'
-import React from 'react'
-import { useTheme } from '@mui/material'
 
 type ButtonAttributes = ButtonProps & {
   text: string
@@ -9,7 +7,6 @@ type ButtonAttributes = ButtonProps & {
   loading?: boolean
 }
 const SuccessButton: React.FC<ButtonAttributes> = ({ text, isDisabled, onClicked, ...props }) => {
-  const theme = useTheme()
   const handleClick = () => {
     onClicked?.()
   }

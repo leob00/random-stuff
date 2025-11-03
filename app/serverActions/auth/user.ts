@@ -32,7 +32,7 @@ export async function getUserSSRAppRouteApi() {
     }
     return result
   } catch (err) {
-    console.error('getUserSSRApi:: user is not logged in')
+    console.error('getUserSSRAppRouteApi:: user is not logged in')
     return null
   }
 }

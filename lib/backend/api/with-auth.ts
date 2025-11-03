@@ -9,6 +9,7 @@ export function withAuth(handler: Handler): Handler {
     if (!user) {
       return NextResponse.json('unauthorized', { status: 401 })
     }
+    req.headers.append('rs-cred', JSON.stringify(user))
 
     return handler(req)
   }

@@ -30,7 +30,7 @@ export async function updateUserRoles(username: string, rolesValue: string) {
   }
 }
 
-export async function getUserPool() {
+export async function listCognitoUsers() {
   const command = new ListUsersCommand({
     UserPoolId: 'us-east-1_z9KjmhXvD',
   })

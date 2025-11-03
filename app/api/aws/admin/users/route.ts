@@ -1,16 +1,21 @@
-import { getUserSSRAppRouteApi } from 'app/serverActions/auth/user'
-import { getUserPool } from 'app/serverActions/aws/cognito/cognito'
-import { getItem, searchItems } from 'app/serverActions/aws/dynamo/dynamo'
-import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { constructUserProfileKey, constructUserSecretSecondaryKey } from 'lib/backend/api/aws/util'
-import { userSecretArraySchema } from 'lib/backend/api/models/zModels'
+import { listCognitoUsers } from 'app/serverActions/aws/cognito/cognito'
 import { withAuth } from 'lib/backend/api/with-auth'
 import { NextRequest, NextResponse } from 'next/server'
+import { AmplifyUser, userHasRole } from 'lib/backend/auth/userUtil'
 
 const handler = async (req: NextRequest) => {
-  const result = await getUserPool()
-  console.log(result)
+  const rsCred = req.headers.get('rs-cred')
+  if (!rsCred) {
+    return NextResponse.json('unauthorized', { status: 401 })
+  }
+  if (rsCred) {
+    const user = JSON.parse(rsCred) as AmplifyUser
+    if (!userHasRole('Admin', user.roles)) {
+      return NextResponse.json('insuffiscient role', { status: 403 })
+    }
+  }
 
+  const result = await listCognitoUsers()
   return NextResponse.json(result)
 }
 

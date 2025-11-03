@@ -81,11 +81,6 @@ const RequireClaim = ({ claimType, children }: { claimType: 'rs' | 'rs-admin'; c
   }, [validatedClaim])
 
   const RenderChallenge = () => {
-    const handleQlnLogin = (userClaims: Claim[]) => {
-      saveClaims(userClaims)
-      setValidatedClaim(userClaims.find((m) => m.type === 'qln'))
-    }
-
     switch (claimType) {
       case 'rs':
         return <PleaseLogin />

@@ -72,6 +72,7 @@ export async function verifyEmailIdentity(email: string) {
 export async function getSesVerificationAttributes(email: string) {
   const client = new SESClient({
     credentials: awsCreds,
+    region: 'us-east-1',
   })
   const command = new GetIdentityVerificationAttributesCommand({
     Identities: [email],

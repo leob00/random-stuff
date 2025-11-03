@@ -1,12 +1,13 @@
-import { Alert, Box, TextField, Typography } from '@mui/material'
+import { Box, TextField, Typography } from '@mui/material'
+import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import { verifyEmailVerificationCode } from 'lib/backend/auth/userUtil'
-import { ChangeEventHandler, useState } from 'react'
+import { useState } from 'react'
 
-const VerifyVerificationCode = ({ onSuccess }: { onSuccess: () => void }) => {
+const VerifyVerificationCode = ({ onSuccess }: { onSuccess: (verificationCode?: string) => void }) => {
   const [code, setCode] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isVerified, setIsVerified] = useState(false)
@@ -21,7 +22,7 @@ const VerifyVerificationCode = ({ onSuccess }: { onSuccess: () => void }) => {
     setIsVerified(result)
     setIsLoading(false)
     if (result) {
-      onSuccess()
+      onSuccess(code)
     } else {
       setError('unable to verify code')
     }

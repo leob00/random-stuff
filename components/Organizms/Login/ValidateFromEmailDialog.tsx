@@ -4,20 +4,20 @@ import SendEmailVerificationCode from './SendEmailVerificationCode'
 import { useState } from 'react'
 import VerifyVerificationCode from './verify/VerifyVerificationCode'
 
-const ValidateFromEmailDialog = ({ show, onSuccess, onClose }: { show: boolean; onSuccess: () => void; onClose: () => void }) => {
+const ValidateFromEmailDialog = ({ show, onSuccess, onClose }: { show: boolean; onSuccess: (code?: string) => void; onClose: () => void }) => {
   const [showVerifyCode, setShowVerifyCode] = useState(false)
   const handleSent = () => {
     setShowVerifyCode(true)
   }
-  const handleSuccess = () => {
+  const handleSuccess = (code?: string) => {
     setShowVerifyCode(false)
-    onSuccess()
+    onSuccess(code)
   }
 
   return (
     <Box>
       <InfoDialog show={show} title='Email verification' fullScreen={true} onCancel={onClose}>
-        {!showVerifyCode && <SendEmailVerificationCode onSent={handleSent} />}
+        {!showVerifyCode && <SendEmailVerificationCode onSent={handleSent} onCancel={() => {}} />}
         {showVerifyCode && <VerifyVerificationCode onSuccess={handleSuccess} />}
       </InfoDialog>
     </Box>
