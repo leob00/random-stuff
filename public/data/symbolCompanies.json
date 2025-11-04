@@ -10416,6 +10416,10 @@
     "Symbol": "DDFL"
   },
   {
+    "Company": "Innovator Equity Dual Directional 15 Buffer ETF - November",
+    "Symbol": "DDFN"
+  },
+  {
     "Company": "Innovator Equity Dual Directional 15 Buffer ETF - October",
     "Symbol": "DDFO"
   },
@@ -10458,6 +10462,10 @@
   {
     "Company": "Innovator Equity Dual Directional 10 Buffer ETF - July",
     "Symbol": "DDTL"
+  },
+  {
+    "Company": "Innovator Equity Dual Directional 10 Buffer ETF - November",
+    "Symbol": "DDTN"
   },
   {
     "Company": "Innovator Equity Dual Directional 10 Buffer ETF - October",
@@ -12872,6 +12880,10 @@
     "Symbol": "EMBD"
   },
   {
+    "Company": "Embraer S.A. American Depositary Shares (Each representing Four Common Shares)",
+    "Symbol": "EMBJ"
+  },
+  {
     "Company": "VanEck Emerging Markets Bond ETF",
     "Symbol": "EMBX"
   },
@@ -13778,6 +13790,10 @@
   {
     "Company": "iShares MSCI Europe Financials ETF",
     "Symbol": "EUFN"
+  },
+  {
+    "Company": "iShares Euro High Yield Corporate Bond USD Hedged ETF",
+    "Symbol": "EUHY"
   },
   {
     "Company": "ProShares Trust Short MSCI Emerging Markets",
@@ -16496,6 +16512,10 @@
     "Symbol": "FTV"
   },
   {
+    "Company": "EQV Ventures Acquisition Corp.",
+    "Symbol": "FTW"
+  },
+  {
     "Company": "Strive Natural Resources and Security ETF",
     "Symbol": "FTWO"
   },
@@ -17064,7 +17084,7 @@
     "Symbol": "GDL"
   },
   {
-    "Company": "GRAYSCALE DIGITAL LG CAP",
+    "Company": "Grayscale CoinDesk Crypto 5 ETF",
     "Symbol": "GDLC"
   },
   {
@@ -31036,8 +31056,16 @@
     "Symbol": "OTF"
   },
   {
+    "Company": "OTG Acquisition Corp. I Class A Ordinary Share",
+    "Symbol": "OTGA"
+  },
+  {
     "Company": "OTG Acquisition Corp. I Unit",
     "Symbol": "OTGAU"
+  },
+  {
+    "Company": "OTG Acquisition Corp. I Warrants",
+    "Symbol": "OTGAW"
   },
   {
     "Company": "OTG Latin America ETF",
@@ -32728,6 +32756,10 @@
     "Symbol": "PMNT"
   },
   {
+    "Company": "PGIM S&P 500 Max Buffer ETF - November",
+    "Symbol": "PMNV"
+  },
+  {
     "Company": "Putnam Municipal Opportunities Trust",
     "Symbol": "PMO"
   },
@@ -32988,7 +33020,7 @@
     "Symbol": "PQAP"
   },
   {
-    "Company": "Principal Spectrum Tax-Advantaged Dividend Active ETF",
+    "Company": "Principal Spectrum Preferred and Income ETF",
     "Symbol": "PQDI"
   },
   {
@@ -33802,6 +33834,10 @@
   {
     "Company": "Papa John's International Inc",
     "Symbol": "PZZA"
+  },
+  {
+    "Company": "Qnity Electronics, Inc.",
+    "Symbol": "Q"
   },
   {
     "Company": "First Trust NASDAQ ABA Community Bank Index Fund",

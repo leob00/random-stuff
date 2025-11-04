@@ -42,14 +42,18 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     setShowPinChangeEntry(false)
   }
 
-  const handleCodeVerifiedPasswordChange = () => {}
+  const handleCancelPasswordChange = () => {
+    setShowResetPassword(false)
+    setShowPinChangeEntry(false)
+  }
 
-  const handlePasswordChangeSuccess = () => {}
+  const handlePasswordChangeSuccess = () => {
+    setShowResetPassword(false)
+    setShowPinChangeEntry(false)
+  }
   return (
     <>
-      {showResetPassword && (
-        <ResetPasswordLayout userProfile={userProfile} onSuccess={handlePasswordChangeSuccess} onCodeVerified={handleCodeVerifiedPasswordChange} />
-      )}
+      {showResetPassword && <ResetPasswordLayout userProfile={userProfile} onSuccess={handlePasswordChangeSuccess} onCancel={handleCancelPasswordChange} />}
       {!showResetPassword && (
         <>
           <Box py={4}>
@@ -80,13 +84,13 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                     )}
                   </Box>
                 )}
-                {/* <Box display={'flex'} gap={1} alignItems={'center'}>
+                <Box display={'flex'} gap={1} alignItems={'center'}>
                   <Typography textAlign={'right'} width={100} variant='body2'>
                     password:
                   </Typography>
                   <AlertWithHeader severity='success' header={``} text='' />
                   <WarningButton size='small' text={'reset'} onClick={() => setShowResetPassword(true)} />
-                </Box> */}
+                </Box>
               </Box>
             )}
           </Box>
