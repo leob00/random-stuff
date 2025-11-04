@@ -3,7 +3,7 @@ import { Chart as ChartJS, Tooltip, Legend, ArcElement } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
 import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import { getPieChartData, getPieChartOptions } from 'components/Atoms/Charts/chartJs/pieChartOptions'
-import { Box, useMediaQuery, useTheme } from '@mui/material'
+import { Box, useTheme } from '@mui/material'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 

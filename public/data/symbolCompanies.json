@@ -320,10 +320,6 @@
     "Symbol": "ABXB"
   },
   {
-    "Company": "Associated Capital Group, Inc.",
-    "Symbol": "AC"
-  },
-  {
     "Company": "Arcosa, Inc. Common Stock",
     "Symbol": "ACA"
   },
@@ -1610,6 +1606,10 @@
   {
     "Company": "AstroNova, Inc. Common Stock",
     "Symbol": "ALOT"
+  },
+  {
+    "Company": "ALPS Group Inc Ordinary Share",
+    "Symbol": "ALPS"
   },
   {
     "Company": "Allspring LT Large Core ETF",
@@ -3708,15 +3708,15 @@
     "Symbol": "BACCU"
   },
   {
-    "Company": "Bleichroeder Acquisition Corp. I Class A Ordinary Shares",
+    "Company": "Inflection Point Acquisition Corp. IV Class A Ordinary Shares",
     "Symbol": "BACQ"
   },
   {
-    "Company": "Bleichroeder Acquisition Corp. I Right",
+    "Company": "Inflection Point Acquisition Corp. IV Right",
     "Symbol": "BACQR"
   },
   {
-    "Company": "Bleichroeder Acquisition Corp. I Unit",
+    "Company": "Inflection Point Acquisition Corp. IV Unit",
     "Symbol": "BACQU"
   },
   {
@@ -4684,6 +4684,10 @@
     "Symbol": "BGSF"
   },
   {
+    "Company": "Boyd Group Services Inc.",
+    "Symbol": "BGSI"
+  },
+  {
     "Company": "BlackRock Floating Rate Income Trust",
     "Symbol": "BGT"
   },
@@ -4812,7 +4816,7 @@
     "Symbol": "BIIB"
   },
   {
-    "Company": "SPDR Bloomberg 1-3 Month T-Bill ETF",
+    "Company": "State Street SPDR Bloomberg 1-3 Month T-Bill ETF",
     "Symbol": "BIL"
   },
   {
@@ -4828,7 +4832,7 @@
     "Symbol": "BILL"
   },
   {
-    "Company": "SPDR Bloomberg 3-12 Month T-Bill ETF",
+    "Company": "State Street SPDR Bloomberg 3-12 Month T-Bill ETF",
     "Symbol": "BILS"
   },
   {
@@ -5328,8 +5332,16 @@
     "Symbol": "BLZE"
   },
   {
+    "Company": "Trailblazer Acquisition Corp. Class A Ordinary Shares",
+    "Symbol": "BLZR"
+  },
+  {
     "Company": "Trailblazer Acquisition Corp. Unit",
     "Symbol": "BLZRU"
+  },
+  {
+    "Company": "Trailblazer Acquisition Corp. Warrant",
+    "Symbol": "BLZRW"
   },
   {
     "Company": "Banco Macro S.A.",
@@ -7140,6 +7152,10 @@
     "Symbol": "CCBG"
   },
   {
+    "Company": "CCC Intelligent Solutions Holdings Inc. Common Stock",
+    "Symbol": "CCC"
+  },
+  {
     "Company": "C4 Therapeutics, Inc.",
     "Symbol": "CCCC"
   },
@@ -8624,7 +8640,7 @@
     "Symbol": "CNR"
   },
   {
-    "Company": "SPDR S&P Kensho Clean Power ETF",
+    "Company": "State Street SPDR S&P Kensho Clean Power ETF",
     "Symbol": "CNRG"
   },
   {
@@ -9940,7 +9956,7 @@
     "Symbol": "CWAN"
   },
   {
-    "Company": "SPDR Bloomberg Convertible Securities ETF",
+    "Company": "State Street SPDR Bloomberg Convertible Securities ETF",
     "Symbol": "CWB"
   },
   {
@@ -10832,7 +10848,7 @@
     "Symbol": "DGS"
   },
   {
-    "Company": "SPDR Global Dow ETF (based on The Global Dow)",
+    "Company": "State Street SPDR Global Dow ETF",
     "Symbol": "DGT"
   },
   {
@@ -12468,7 +12484,7 @@
     "Symbol": "EFG"
   },
   {
-    "Company": "SPDR S&P 500 ESG ETF",
+    "Company": "State Street SPDR S&P 500 ESG ETF",
     "Symbol": "EFIV"
   },
   {
@@ -12908,7 +12924,7 @@
     "Symbol": "EMGF"
   },
   {
-    "Company": "SPDR Bloomberg Emerging Markets USD Bond ETF",
+    "Company": "State Street SPDR Bloomberg Emerging Markets USD Bond ETF",
     "Symbol": "EMHC"
   },
   {
@@ -13004,7 +13020,7 @@
     "Symbol": "EMSF"
   },
   {
-    "Company": "SPDR DoubleLine Emerging Markets Fixed Income ETF",
+    "Company": "State Street DoubleLine Emerging Markets Fixed Income ETF",
     "Symbol": "EMTL"
   },
   {
@@ -13496,7 +13512,7 @@
     "Symbol": "ESI"
   },
   {
-    "Company": "SPDR S&P SmallCap 600 ESG ETF",
+    "Company": "State Street SPDR S&P SmallCap 600 ESG ETF",
     "Symbol": "ESIX"
   },
   {
@@ -13792,7 +13808,7 @@
     "Symbol": "EUSA"
   },
   {
-    "Company": "iShares ESG Advanced Total USD Bond Market ETF",
+    "Company": "iShares ESG Advanced Universal USD Bond ETF",
     "Symbol": "EUSB"
   },
   {
@@ -15248,7 +15264,7 @@
     "Symbol": "FISK"
   },
   {
-    "Company": "SPDR SSGA Fixed Income Sector Rotation ETF",
+    "Company": "State Street Fixed Income Sector Rotation ETF",
     "Symbol": "FISR"
   },
   {
@@ -15268,7 +15284,7 @@
     "Symbol": "FITBP"
   },
   {
-    "Company": "SPDR S&P Kensho Future Security ETF",
+    "Company": "State Street SPDR S&P Kensho Future Security ETF",
     "Symbol": "FITE"
   },
   {
@@ -15556,7 +15572,7 @@
     "Symbol": "FLRG"
   },
   {
-    "Company": "SPDR Bloomberg Investment Grade Floating Rate ETF",
+    "Company": "State Street SPDR Bloomberg Investment Grade Floating Rate ETF",
     "Symbol": "FLRN"
   },
   {
@@ -16796,7 +16812,7 @@
     "Symbol": "GAINZ"
   },
   {
-    "Company": "SPDR SSgA Global Allocation ETF of SSgA Active Trust",
+    "Company": "State Street Global Allocation ETF",
     "Symbol": "GAL"
   },
   {
@@ -18768,7 +18784,7 @@
     "Symbol": "HAFN"
   },
   {
-    "Company": "SPDR S&P Kensho Smart Mobility ETF",
+    "Company": "State Street SPDR S&P Kensho Smart Mobility ETF",
     "Symbol": "HAIL"
   },
   {
@@ -19736,10 +19752,6 @@
     "Symbol": "HSMV"
   },
   {
-    "Company": "Hudson Global, Inc.",
-    "Symbol": "HSON"
-  },
-  {
     "Company": "Horizon Space Acquisition I Corp. Ordinary Shares",
     "Symbol": "HSPO"
   },
@@ -20056,7 +20068,7 @@
     "Symbol": "HYBI"
   },
   {
-    "Company": "SPDR Blackstone High Income ETF",
+    "Company": "State Street Blackstone High Income ETF",
     "Symbol": "HYBL"
   },
   {
@@ -20140,7 +20152,7 @@
     "Symbol": "HYLS"
   },
   {
-    "Company": "SPDR Nuveen ICE High Yield Municipal Bond ETF",
+    "Company": "State Street SPDR Nuveen ICE High Yield Municipal Bond ETF",
     "Symbol": "HYMB"
   },
   {
@@ -21484,7 +21496,7 @@
     "Symbol": "INHD"
   },
   {
-    "Company": "SPDR SSgA Income Allocation ETF of SSgA Active Trust",
+    "Company": "State Street Income Allocation ETF",
     "Symbol": "INKM"
   },
   {
@@ -22224,7 +22236,7 @@
     "Symbol": "IUS"
   },
   {
-    "Company": "iShares Core Total USD Bond Market ETF",
+    "Company": "iShares Trust iShares Core Universal USD Bond ETF",
     "Symbol": "IUSB"
   },
   {
@@ -23036,7 +23048,7 @@
     "Symbol": "JNJ"
   },
   {
-    "Company": "SPDR Bloomberg High Yield Bond ETF",
+    "Company": "State Street SPDR Bloomberg High Yield Bond ETF",
     "Symbol": "JNK"
   },
   {
@@ -23428,7 +23440,7 @@
     "Symbol": "KBDC"
   },
   {
-    "Company": "SPDR S&P Bank ETF",
+    "Company": "State Street SPDR S&P Bank ETF",
     "Symbol": "KBE"
   },
   {
@@ -23480,7 +23492,7 @@
     "Symbol": "KCCA"
   },
   {
-    "Company": "SPDR S&P Capital Markets ETF",
+    "Company": "State Street SPDR S&P Capital Markets ETF",
     "Symbol": "KCE"
   },
   {
@@ -23664,7 +23676,7 @@
     "Symbol": "KIDZW"
   },
   {
-    "Company": "SPDR S&P Insurance ETF",
+    "Company": "State Street SPDR S&P Insurance ETF",
     "Symbol": "KIE"
   },
   {
@@ -23924,7 +23936,7 @@
     "Symbol": "KOLD"
   },
   {
-    "Company": "SPDR S&P Kensho New Economies Composite ETF",
+    "Company": "State Street SPDR S&P Kensho New Economies Composite ETF",
     "Symbol": "KOMP"
   },
   {
@@ -24016,7 +24028,7 @@
     "Symbol": "KRC"
   },
   {
-    "Company": "SPDR S&P Regional Banking ETF",
+    "Company": "State Street SPDR S&P Regional Banking ETF",
     "Symbol": "KRE"
   },
   {
@@ -24246,6 +24258,10 @@
   {
     "Company": "Kyivstar Group Ltd. Warrant expiring 8/14/2030",
     "Symbol": "KYIVW"
+  },
+  {
+    "Company": "Kurv High Income ETF",
+    "Symbol": "KYLD"
   },
   {
     "Company": "Kymera Therapeutics, Inc. Common Stock",
@@ -24796,7 +24812,7 @@
     "Symbol": "LGL.WS"
   },
   {
-    "Company": "SPDR SSGA US Large Cap Low Volatility Index ETF",
+    "Company": "State Street SPDR US Large Cap Low Volatility Index ETF",
     "Symbol": "LGLV"
   },
   {
@@ -25360,7 +25376,7 @@
     "Symbol": "LQDW"
   },
   {
-    "Company": "SPDR MarketAxess Investment Grade 400 Corporate Bond ETF",
+    "Company": "State Street SPDR MarketAxess Investment Grade 400 Corporate Bond ETF",
     "Symbol": "LQIG"
   },
   {
@@ -26064,11 +26080,11 @@
     "Symbol": "MBLY"
   },
   {
-    "Company": "SPDR Nuveen Municipal Bond ETF",
+    "Company": "State Street Nuveen Municipal Bond ETF",
     "Symbol": "MBND"
   },
   {
-    "Company": "SPDR Nuveen Municipal Bond ESG ETF",
+    "Company": "State Street Nuveen Municipal Bond ESG ETF",
     "Symbol": "MBNE"
   },
   {
@@ -26352,11 +26368,11 @@
     "Symbol": "MDY"
   },
   {
-    "Company": "SPDR S&P 400 Mid Cap Growth ETF (Based on S&P MidCap 400 Growth Index--symbol MUV)",
+    "Company": "State Street SPDR S&P 400 Mid Cap Growth ETF",
     "Symbol": "MDYG"
   },
   {
-    "Company": "SPDR S&P 400 Mid Cap Value ETF (based on S&P MidCap 400 Value Index--symbol: MGD)",
+    "Company": "State Street SPDR S&P 400 Mid Cap Value ETF",
     "Symbol": "MDYV"
   },
   {
@@ -27104,7 +27120,7 @@
     "Symbol": "MMT"
   },
   {
-    "Company": "SPDR S&P 1500 Momentum Tilt ETF",
+    "Company": "State Street SPDR S&P 1500 Momentum Tilt ETF",
     "Symbol": "MMTM"
   },
   {
@@ -28448,6 +28464,10 @@
     "Symbol": "NCDL"
   },
   {
+    "Company": "NewcelX Ltd. Ordinary Shares",
+    "Symbol": "NCEL"
+  },
+  {
     "Company": "New Century Logistics (BVI) Limited Ordinary Shares",
     "Symbol": "NCEW"
   },
@@ -29048,6 +29068,10 @@
     "Symbol": "NMB"
   },
   {
+    "Company": "NovaTide Flexible Allocation ETF",
+    "Symbol": "NMBL"
+  },
+  {
     "Company": "Nuveen Municipal Credit Opportunities Fund",
     "Symbol": "NMCO"
   },
@@ -29222,6 +29246,10 @@
   {
     "Company": "Nuveen Missouri Quality Municipal Income Fund",
     "Symbol": "NOM"
+  },
+  {
+    "Company": "NOMADAR Corp. Class A Common Stock",
+    "Symbol": "NOMA"
   },
   {
     "Company": "Nomad Foods Limited",
@@ -30092,7 +30120,7 @@
     "Symbol": "NZF"
   },
   {
-    "Company": "SPDR MSCI USA Climate Paris Aligned ETF",
+    "Company": "SPDR Series Trust State Street SPDR MSCI USA Climate Paris Aligned ETF",
     "Symbol": "NZUS"
   },
   {
@@ -30196,7 +30224,7 @@
     "Symbol": "OBLG"
   },
   {
-    "Company": "SPDR Loomis Sayles Opportunistic Bond ETF",
+    "Company": "State Street Loomis Sayles Opportunistic Bond ETF",
     "Symbol": "OBND"
   },
   {
@@ -30652,7 +30680,7 @@
     "Symbol": "ONEG"
   },
   {
-    "Company": "SPDR Russell 1000 Momentum Focus ETF",
+    "Company": "State Street SPDR Russell 1000 Momentum Focus ETF",
     "Symbol": "ONEO"
   },
   {
@@ -30660,7 +30688,7 @@
     "Symbol": "ONEQ"
   },
   {
-    "Company": "SPDR Russell 1000 Low Volatility ETF",
+    "Company": "State Street SPDR Russell 1000 Low Volatility Focus ETF",
     "Symbol": "ONEV"
   },
   {
@@ -30668,7 +30696,7 @@
     "Symbol": "ONEW"
   },
   {
-    "Company": "SPDR Russell 1000 Yield Focus ETF",
+    "Company": "State Street SPDR Russell 1000 Yield Focus ETF",
     "Symbol": "ONEY"
   },
   {
@@ -33352,7 +33380,7 @@
     "Symbol": "PSIX"
   },
   {
-    "Company": "SPDR ICE Preferred Securities ETF",
+    "Company": "State Street SPDR ICE Preferred Securities ETF",
     "Symbol": "PSK"
   },
   {
@@ -34140,7 +34168,7 @@
     "Symbol": "QQA"
   },
   {
-    "Company": "ProShares UltraShort Top QQQ",
+    "Company": "ProShares Trust ProShares UltraShort QQQ Mega",
     "Symbol": "QQDN"
   },
   {
@@ -34228,7 +34256,7 @@
     "Symbol": "QQQY"
   },
   {
-    "Company": "ProShares Ultra Top QQQ",
+    "Company": "ProShares Trust ProShares Ultra QQQ Mega",
     "Symbol": "QQUP"
   },
   {
@@ -34412,7 +34440,7 @@
     "Symbol": "QURE"
   },
   {
-    "Company": "SPDR MSCI USA StrategicFactors ETF",
+    "Company": "State Street SPDR MSCI USA StrategicFactors ETF",
     "Symbol": "QUS"
   },
   {
@@ -35448,7 +35476,7 @@
     "Symbol": "RLX"
   },
   {
-    "Company": "SPDR SSgA Multi-Asset Real Return ETF of SSgA Active Trust",
+    "Company": "State Street Multi-Asset Real Return ETF",
     "Symbol": "RLY"
   },
   {
@@ -35660,7 +35688,7 @@
     "Symbol": "ROK"
   },
   {
-    "Company": "SPDR S&P Kensho Final Frontiers ETF",
+    "Company": "State Street SPDR S&P Kensho Final Frontiers ETF",
     "Symbol": "ROKT"
   },
   {
@@ -36116,7 +36144,7 @@
     "Symbol": "RWO"
   },
   {
-    "Company": "SPDR Dow Jones REIT ETF",
+    "Company": "State Street SPDR Dow Jones REIT ETF",
     "Symbol": "RWR"
   },
   {
@@ -36928,7 +36956,7 @@
     "Symbol": "SDVY"
   },
   {
-    "Company": "SPDR S&P Dividend ETF",
+    "Company": "State Street SPDR S&P Dividend ETF",
     "Symbol": "SDY"
   },
   {
@@ -37336,7 +37364,7 @@
     "Symbol": "SHDG"
   },
   {
-    "Company": "SPDR MSCI USA Gender Diversity ETF",
+    "Company": "State Street SPDR MSCI USA Gender Diversity ETF",
     "Symbol": "SHE"
   },
   {
@@ -37380,7 +37408,7 @@
     "Symbol": "SHLS"
   },
   {
-    "Company": "SPDR Nuveen ICE Short Term Municipal Bond ETF",
+    "Company": "State Street SPDR Nuveen ICE Short Term Municipal Bond ETF",
     "Symbol": "SHM"
   },
   {
@@ -37576,7 +37604,7 @@
     "Symbol": "SIMO"
   },
   {
-    "Company": "SPDR S&P Kensho Intelligent Structures ETF",
+    "Company": "State Street SPDR S&P Kensho Intelligent Structures ETF",
     "Symbol": "SIMS"
   },
   {
@@ -37684,7 +37712,7 @@
     "Symbol": "SJM"
   },
   {
-    "Company": "SPDR Bloomberg Short Term High Yield Bond ETF",
+    "Company": "State Street SPDR Bloomberg Short Term High Yield Bond ETF",
     "Symbol": "SJNK"
   },
   {
@@ -37964,11 +37992,11 @@
     "Symbol": "SLXNW"
   },
   {
-    "Company": "SPDR S&P 600 Small Cap Growth ETF (based on S&P SmallCap 600 Growth Index--symbol: CKG)",
+    "Company": "State Street SPDR S&P 600 Small Cap Growth ETF",
     "Symbol": "SLYG"
   },
   {
-    "Company": "SPDR S&P 600 Small Cap Value ETF (based on S&P SmallCap 600 Value Index symbol--CVK)",
+    "Company": "State Street SPDR S&P 600 Small Cap Value ETF",
     "Symbol": "SLYV"
   },
   {
@@ -38108,7 +38136,7 @@
     "Symbol": "SMLR"
   },
   {
-    "Company": "SPDR SSGA US Small Cap Low Volatility Index ETF",
+    "Company": "State Street SPDR US Small Cap Low Volatility Index ETF",
     "Symbol": "SMLV"
   },
   {
@@ -38600,7 +38628,7 @@
     "Symbol": "SOYB"
   },
   {
-    "Company": "SPDR Portfolio Aggregate Bond ETF",
+    "Company": "State Street SPDR Portfolio Aggregate Bond ETF",
     "Symbol": "SPAB"
   },
   {
@@ -38624,7 +38652,7 @@
     "Symbol": "SPBC"
   },
   {
-    "Company": "SPDR Portfolio Corporate Bond ETF",
+    "Company": "State Street SPDR Portfolio Corporate Bond ETF",
     "Symbol": "SPBO"
   },
   {
@@ -38672,7 +38700,7 @@
     "Symbol": "SPD"
   },
   {
-    "Company": "SPDR Portfolio S&P Sector Neutral Dividend ETF",
+    "Company": "State Street SPDR Portfolio S&P Sector Neutral Dividend ETF",
     "Symbol": "SPDG"
   },
   {
@@ -38760,19 +38788,19 @@
     "Symbol": "SPHR"
   },
   {
-    "Company": "SPDR Portfolio High Yield Bond ETF",
+    "Company": "State Street SPDR Portfolio High Yield Bond ETF",
     "Symbol": "SPHY"
   },
   {
-    "Company": "SPDR Portfolio Intermediate Term Corporate Bond ETF",
+    "Company": "State Street SPDR Portfolio Intermediate Term Corporate Bond ETF",
     "Symbol": "SPIB"
   },
   {
-    "Company": "SPDR SSGA US Equity Premium Income ETF",
+    "Company": "State Street US Equity Premium Income ETF",
     "Symbol": "SPIN"
   },
   {
-    "Company": "SPDR Portfolio TIPS ETF",
+    "Company": "State Street SPDR Portfolio TIPS ETF",
     "Symbol": "SPIP"
   },
   {
@@ -38792,7 +38820,7 @@
     "Symbol": "SPKLW"
   },
   {
-    "Company": "SPDR Portfolio Long Term Corporate Bond ETF",
+    "Company": "State Street SPDR Portfolio Long Term Corporate Bond ETF",
     "Symbol": "SPLB"
   },
   {
@@ -38808,7 +38836,7 @@
     "Symbol": "SPMA"
   },
   {
-    "Company": "SPDR Portfolio Mortgage Backed Bond ETF",
+    "Company": "State Street SPDR Portfolio Mortgage Backed Bond ETF",
     "Symbol": "SPMB"
   },
   {
@@ -38816,7 +38844,7 @@
     "Symbol": "SPMC"
   },
   {
-    "Company": "SPDR Portfolio S&P 400 Mid Cap ETF",
+    "Company": "State Street SPDR Portfolio S&P 400 Mid Cap ETF",
     "Symbol": "SPMD"
   },
   {
@@ -38860,7 +38888,7 @@
     "Symbol": "SPR"
   },
   {
-    "Company": "SPRUCE BIOSCIENCES INC",
+    "Company": "Spruce Biosciences, Inc. Common Stock",
     "Symbol": "SPRB"
   },
   {
@@ -38888,7 +38916,7 @@
     "Symbol": "SPRY"
   },
   {
-    "Company": "SPDR Portfolio Short Term Corporate Bond ETF",
+    "Company": "State Street SPDR Portfolio Short Term Corporate Bond ETF",
     "Symbol": "SPSB"
   },
   {
@@ -38900,7 +38928,7 @@
     "Symbol": "SPSK"
   },
   {
-    "Company": "SPDR Portfolio S&P 600 Small Cap ETF",
+    "Company": "State Street SPDR Portfolio S&P 600 Small Cap ETF",
     "Symbol": "SPSM"
   },
   {
@@ -38908,7 +38936,7 @@
     "Symbol": "SPT"
   },
   {
-    "Company": "SPDR Portfolio Treasury ETF",
+    "Company": "State Street SPDR Portfolio Treasury ETF",
     "Symbol": "SPTB"
   },
   {
@@ -38916,15 +38944,15 @@
     "Symbol": "SPTE"
   },
   {
-    "Company": "SPDR Portfolio Intermediate Term Treasury ETF",
+    "Company": "State Street SPDR Portfolio Intermediate Term Treasury ETF",
     "Symbol": "SPTI"
   },
   {
-    "Company": "SPDR Portfolio Long Term Treasury ETF",
+    "Company": "State Street SPDR Portfolio Long Term Treasury ETF",
     "Symbol": "SPTL"
   },
   {
-    "Company": "SPDR Portfolio S&P 1500 Composite Stock Market ETF",
+    "Company": "State Street SPDR Portfolio S&P 1500 Composite Stock Market ETF",
     "Symbol": "SPTM"
   },
   {
@@ -38932,7 +38960,7 @@
     "Symbol": "SPTN"
   },
   {
-    "Company": "SPDR Portfolio Short Term Treasury ETF",
+    "Company": "State Street SPDR Portfolio Short Term Treasury ETF",
     "Symbol": "SPTS"
   },
   {
@@ -39036,11 +39064,11 @@
     "Symbol": "SPYC"
   },
   {
-    "Company": "SPDR Portfolio S&P 500 High Dividend ETF",
+    "Company": "State Street SPDR Portfolio S&P 500 High Dividend ETF",
     "Symbol": "SPYD"
   },
   {
-    "Company": "SPDR Portfolio S&P 500 Growth ETF",
+    "Company": "State Street SPDR Portfolio S&P 500 Growth ETF",
     "Symbol": "SPYG"
   },
   {
@@ -39050,6 +39078,10 @@
   {
     "Company": "NEOS S&P 500 High Income ETF",
     "Symbol": "SPYI"
+  },
+  {
+    "Company": "State Street SPDR Portfolio S&P 500 ETF",
+    "Symbol": "SPYM"
   },
   {
     "Company": "Tradr 2X Long SPY Quarterly ETF",
@@ -39064,11 +39096,11 @@
     "Symbol": "SPYU"
   },
   {
-    "Company": "SPDR Portfolio S&P 500 Value ETF",
+    "Company": "State Street SPDR Portfolio S&P 500 Value ETF",
     "Symbol": "SPYV"
   },
   {
-    "Company": "SPDR S&P 500 Fossil Fuel Free ETF",
+    "Company": "State Street SPDR S&P 500 Fossil Fuel Reserves Free ETF",
     "Symbol": "SPYX"
   },
   {
@@ -39164,7 +39196,7 @@
     "Symbol": "SRL"
   },
   {
-    "Company": "SPDR Blackstone Senior Loan ETF",
+    "Company": "State Street Blackstone Senior Loan ETF",
     "Symbol": "SRLN"
   },
   {
@@ -39488,7 +39520,7 @@
     "Symbol": "STOK"
   },
   {
-    "Company": "SPDR DoubleLine Short Duration Total Return Tactical ETF",
+    "Company": "State Street DoubleLine Short Duration Total Return Tactical ETF",
     "Symbol": "STOT"
   },
   {
@@ -40628,7 +40660,7 @@
     "Symbol": "TFC"
   },
   {
-    "Company": "SPDR Nuveen ICE Municipal Bond ETF",
+    "Company": "State Street SPDR Nuveen ICE Municipal Bond ETF",
     "Symbol": "TFI"
   },
   {
@@ -40932,7 +40964,7 @@
     "Symbol": "TIPT"
   },
   {
-    "Company": "SPDR Bloomberg 1-10 Year TIPS ETF",
+    "Company": "State Street SPDR Bloomberg 1-10 Year TIPS ETF",
     "Symbol": "TIPX"
   },
   {
@@ -41360,7 +41392,7 @@
     "Symbol": "TOT"
   },
   {
-    "Company": "SSgA Active ETF Trust SPDR DoubleLine Total Return Tactical ETF",
+    "Company": "State Street DoubleLine Total Return Tactical ETF",
     "Symbol": "TOTL"
   },
   {
@@ -42528,12 +42560,16 @@
     "Symbol": "ULS"
   },
   {
-    "Company": "SPDR SSgA Ultra Short Term Bond ETF of SSgA Active Trust",
+    "Company": "State Street Ultra Short Term Bond ETF",
     "Symbol": "ULST"
   },
   {
     "Company": "Ulta Beauty, Inc. Common Stock",
     "Symbol": "ULTA"
+  },
+  {
+    "Company": "REX IncomeMax Option Strategy ETF",
+    "Symbol": "ULTI"
   },
   {
     "Company": "YieldMax Ultra Option Income Strategy ETF",
@@ -43744,7 +43780,7 @@
     "Symbol": "VLTO"
   },
   {
-    "Company": "SPDR S&P 1500 Value Tilt ETF",
+    "Company": "State Street SPDR S&P 1500 Value Tilt ETF",
     "Symbol": "VLU"
   },
   {
@@ -45280,7 +45316,7 @@
     "Symbol": "XAPR"
   },
   {
-    "Company": "SPDR S&P Aerospace & Defense ETF",
+    "Company": "State Street SPDR S&P Aerospace & Defense ETF",
     "Symbol": "XAR"
   },
   {
@@ -45300,7 +45336,7 @@
     "Symbol": "XBB"
   },
   {
-    "Company": "SPDR S&P Biotech ETF",
+    "Company": "State Street SPDR S&P Biotech ETF",
     "Symbol": "XBI"
   },
   {
@@ -45424,7 +45460,7 @@
     "Symbol": "XERS"
   },
   {
-    "Company": "SPDR S&P Oil & Gas  Equipment & Services ETF",
+    "Company": "State Street SPDR S&P Oil & Gas Equipment & Services ETF",
     "Symbol": "XES"
   },
   {
@@ -45456,11 +45492,11 @@
     "Symbol": "XGN"
   },
   {
-    "Company": "SPDR S&P Homebuilders ETF",
+    "Company": "State Street SPDR S&P Homebuilders ETF",
     "Symbol": "XHB"
   },
   {
-    "Company": "SPDR S&P Health Care Equipment ETF",
+    "Company": "State Street SPDR S&P Health Care Equipment ETF",
     "Symbol": "XHE"
   },
   {
@@ -45480,7 +45516,7 @@
     "Symbol": "XHR"
   },
   {
-    "Company": "SPDR S&P Health Care Services ETF",
+    "Company": "State Street SPDR S&P Health Care Services ETF",
     "Symbol": "XHS"
   },
   {
@@ -45536,7 +45572,7 @@
     "Symbol": "XISE"
   },
   {
-    "Company": "SPDR FactSet Innovative Technology ETF",
+    "Company": "State Street SPDR FactSet Innovative Technology ETF",
     "Symbol": "XITK"
   },
   {
@@ -45632,7 +45668,7 @@
     "Symbol": "XLSI"
   },
   {
-    "Company": "SPDR SSGA US Sector Rotation ETF",
+    "Company": "State Street US Sector Rotation ETF",
     "Symbol": "XLSR"
   },
   {
@@ -45672,7 +45708,7 @@
     "Symbol": "XMAY"
   },
   {
-    "Company": "SPDR S&P Metals & Mining ETF",
+    "Company": "State Street SPDR S&P Metals & Mining ETF",
     "Symbol": "XME"
   },
   {
@@ -45716,7 +45752,7 @@
     "Symbol": "XNOV"
   },
   {
-    "Company": "SPDR NYSE Technology ETF",
+    "Company": "State Street SPDR NYSE Technology ETF",
     "Symbol": "XNTK"
   },
   {
@@ -45760,7 +45796,7 @@
     "Symbol": "XONE"
   },
   {
-    "Company": "SPDR S&P Oil & Gas Exploration & Production ETF",
+    "Company": "State Street SPDR S&P Oil & Gas Exploration & Production ETF",
     "Symbol": "XOP"
   },
   {
@@ -45796,7 +45832,7 @@
     "Symbol": "XPEV"
   },
   {
-    "Company": "SPDR S&P Pharmaceuticals ETF",
+    "Company": "State Street SPDR S&P Pharmaceuticals ETF",
     "Symbol": "XPH"
   },
   {
@@ -45872,7 +45908,7 @@
     "Symbol": "XRPT"
   },
   {
-    "Company": "SPDR S&P Retail ETF",
+    "Company": "State Street SPDR S&P Retail ETF",
     "Symbol": "XRT"
   },
   {
@@ -45884,7 +45920,7 @@
     "Symbol": "XRX"
   },
   {
-    "Company": "SPDR S&P Semiconductor ETF",
+    "Company": "State Street SPDR S&P Semiconductor ETF",
     "Symbol": "XSD"
   },
   {
@@ -45920,7 +45956,7 @@
     "Symbol": "XSVN"
   },
   {
-    "Company": "SPDR S&P Software & Services ETF",
+    "Company": "State Street SPDR S&P Software & Services ETF",
     "Symbol": "XSW"
   },
   {
@@ -45952,7 +45988,7 @@
     "Symbol": "XTKG"
   },
   {
-    "Company": "SPDR S&P Telecom ETF",
+    "Company": "State Street SPDR S&P Telecom ETF",
     "Symbol": "XTL"
   },
   {
@@ -45960,7 +45996,7 @@
     "Symbol": "XTLB"
   },
   {
-    "Company": "SPDR S&P Transportation ETF",
+    "Company": "State Street SPDR S&P Transportation ETF",
     "Symbol": "XTN"
   },
   {

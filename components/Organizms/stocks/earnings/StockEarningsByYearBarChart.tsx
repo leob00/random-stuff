@@ -63,10 +63,10 @@ const StockEarningsByYearBarChart = ({ data }: { data: StockEarning[] }) => {
     },
   }
 
-  //chartOptions.scales!.y!.ticks = { ...chartOptions.scales!.y!.ticks, precision: 0.5 }
   chartOptions.scales!.y!.ticks!.callback = (tickValue, index, ticks) => {
     return `$${numeral(tickValue).format('0.00')}`
   }
+
   const chartDataset: ChartData<'bar', number[], unknown> = {
     labels: labels,
     datasets: [

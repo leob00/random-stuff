@@ -76,10 +76,10 @@ export const getPieChartOptions = (title: string, palette: 'light' | 'dark'): Ch
           label: (tooltipItem) => {
             return ` ${tooltipItem.label}: ${tooltipItem.formattedValue}%`
           },
-          labelPointStyle: (tooltiipItems) => {
+          labelPointStyle: (tooltipItems) => {
             return {
               pointStyle: 'circle',
-              rotation: 0,
+              rotation: 180,
               border: 0,
             }
           },

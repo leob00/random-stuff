@@ -156,7 +156,7 @@ export const getBarChartOptions = (
           label: (tooltipItems) => {
             return ` ${[tooltipItems.label]}: ${Number(tooltipItems.formattedValue).toFixed(2)}${yAxisDecorator}`
           },
-          labelPointStyle: (tooltiipItems) => {
+          labelPointStyle: (tooltipItems) => {
             return {
               pointStyle: 'circle',
               rotation: 180,

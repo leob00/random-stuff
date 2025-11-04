@@ -29,7 +29,7 @@ const StockSentimentDisplay = ({ data }: { data: StockStats[] }) => {
   )
 }
 
-function getSentiment(data: StockStats[], days: number) {
+export function getSentiment(data: StockStats[], days: number) {
   const all = [...data]
   const items = all.slice(0, days)
   const upAvg = mean(items.map((m) => m.TotalUpPercent))

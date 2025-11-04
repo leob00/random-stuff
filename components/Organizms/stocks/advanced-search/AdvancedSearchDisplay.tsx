@@ -35,7 +35,7 @@ const AdvancedSearchDisplay = () => {
   }
   const scroller = useScrollTop(0)
   const handlePageChange = () => {
-    scroller.scroll()
+    scroller.scroll(-100)
   }
   const filterSummary = summarizeFilter(model.filter)
   const handleSubmit = async (filter: StockAdvancedSearchFilter) => {
@@ -59,8 +59,7 @@ const AdvancedSearchDisplay = () => {
         <>
           <AdvancedSearchFilterForm onSubmitted={handleSubmit} controller={controller} filter={model.filter} />
           {model.showResults && (
-            <>
-              <ScrollTop scroller={scroller} marginTop={-12} />
+            <Box>
               <Box display={'flex'} flexDirection={'column'} gap={2}>
                 <Box>
                   <Typography textAlign={'center'} py={2}>
@@ -68,8 +67,9 @@ const AdvancedSearchDisplay = () => {
                   </Typography>
                 </Box>
               </Box>
+              <ScrollTop scroller={scroller} marginTop={-100} />
               <SearchResultsTable data={model.results} pageSize={5} onPageChanged={handlePageChange} filterSummary={filterSummary} />
-            </>
+            </Box>
           )}
         </>
       )}

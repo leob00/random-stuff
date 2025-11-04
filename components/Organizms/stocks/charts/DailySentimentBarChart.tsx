@@ -6,7 +6,6 @@ import dayjs from 'dayjs'
 import SimpleBarChart from 'components/Atoms/Charts/chartJs/SimpleBarChart'
 import SimpleLineChart from 'components/Atoms/Charts/chartJs/SimpleLineChart'
 import numeral from 'numeral'
-import StockMarketStatsChart from './StockMarketStatsChart'
 import { useMarketColors } from 'components/themes/marketColors'
 
 const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
@@ -86,14 +85,9 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
       },
     },
   }
-  const lastRecord = data[data.length - 1]
 
   return (
     <Box>
-      <Typography textAlign={'center'}>{dayjs(lastRecord.MarketDate).format('MM/DD/YYYY')}</Typography>
-      <Box mt={-4}>
-        <StockMarketStatsChart data={lastRecord} />
-      </Box>
       <Typography pt={4} textAlign={'center'}>{`Sentiment History`}</Typography>
       <SimpleBarChart barChart={bar} chartOptions={barchartOptions} height={height} />
       <SimpleLineChart barChart={bar} chartOptions={lineChartOptions} height={height} />

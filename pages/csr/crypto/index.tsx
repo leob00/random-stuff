@@ -2,6 +2,7 @@ import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import Seo from 'components/Organizms/Seo'
 import CryptosDisplay from 'components/Organizms/crypto/CryptosDisplay'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
@@ -26,6 +27,9 @@ const Page = () => {
       <Box minHeight={500}>
         <PageHeader text='Crypto' />
         {(isLoading || profileLoading) && <BackdropLoader />}
+        <Box py={2} display={'flex'} justifyContent={'center'}>
+          <AlertWithHeader severity='warning' header='' text='prices are delayed by one day' />
+        </Box>
         {data && !profileLoading && <CryptosDisplay data={data} userProfile={userProfile} />}
       </Box>
     </ResponsiveContainer>

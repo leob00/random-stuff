@@ -58,8 +58,7 @@ const ApiStream = () => {
   const handleTestApi = async () => {
     setTestApiResult(null)
     setData([])
-    const key = 'leo_bel@hotmail.com/music/'
-    const result = await getS3Files('rs-files', 'leo_bel@hotmail.com/music/')
+    const result = await getS3Files('rs-files', 'email@test.com/music/')
     setTestApiResult(result)
     console.log('data: ', data)
   }
