@@ -39,10 +39,5 @@ async function getData() {
 }
 export default async function UserProfileView() {
   const data = await getData()
-  return (
-    <Box py={1}>
-      {data.ticket && data.userProfile && <ProfileLayout userProfile={data.userProfile} />}
-      {!data.ticket || (!data.userProfile && <PleaseLogin />)}
-    </Box>
-  )
+  return <Box py={1}>{data.ticket && data.userProfile ? <ProfileLayout userProfile={data.userProfile} /> : <PleaseLogin />}</Box>
 }

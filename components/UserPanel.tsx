@@ -12,7 +12,7 @@ import { AuthUser, signOut as amplifySignOut, fetchUserAttributes } from 'aws-am
 import { Hub } from 'aws-amplify/utils'
 import { useRouteTracker } from './Organizms/session/useRouteTracker'
 import { useEffect } from 'react'
-import router from 'next/router'
+import { useRouter } from 'next/navigation'
 
 export type HubPayload = {
   event: string
@@ -24,7 +24,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
   const { ticket, setTicket, setProfile } = useUserController()
   const { claims, saveClaims } = useSessionStore()
   const { lastRoute } = useRouteTracker()
-
+  const router = useRouter()
   const signOut = async () => {
     try {
       await amplifySignOut()

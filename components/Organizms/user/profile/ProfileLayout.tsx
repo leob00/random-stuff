@@ -12,12 +12,16 @@ import { useState } from 'react'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import ResetPasswordLayout from './ResetPasswordLayout'
 import WarningButton from 'components/Atoms/Buttons/WarningButton'
+import DangerButton from 'components/Atoms/Buttons/DangerButton'
+import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
+import { signOutUser } from 'lib/backend/auth/userUtil'
 
 const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const [showPinChangeEntry, setShowPinChangeEntry] = useState(false)
   const [showResetPassword, setShowResetPassword] = useState(false)
   const [showPinEntry, setShowPinEntry] = useState(false)
   const [showPinChangedMessage, setShowPinChangedMessage] = useState(false)
+  const [showSignOutDialog, setShowSignOutDialog] = useState(false)
   const { setProfile } = useUserController()
 
   const handleChangePinClick = () => {
@@ -51,6 +55,19 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     setShowResetPassword(false)
     setShowPinChangeEntry(false)
   }
+
+  const handleShowSignoutWarning = () => {
+    setShowSignOutDialog(true)
+  }
+
+  const handleSignOut = async () => {
+    try {
+      await signOutUser()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <>
       {showResetPassword && <ResetPasswordLayout userProfile={userProfile} onSuccess={handlePasswordChangeSuccess} onCancel={handleCancelPasswordChange} />}
@@ -91,6 +108,9 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                   <AlertWithHeader severity='success' header={``} text='' />
                   <WarningButton size='small' text={'reset'} onClick={() => setShowResetPassword(true)} />
                 </Box>
+                <Box pt={12}>
+                  <DangerButton size='small' text={'sign out'} onClick={handleShowSignoutWarning} />
+                </Box>
               </Box>
             )}
           </Box>
@@ -102,6 +122,14 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
       )}
       <CreatePinDialog show={showPinEntry} userProfile={userProfile} onCancel={handleCancelChangePin} onConfirm={handlePinChanged} />
       <SnackbarSuccess show={showPinChangedMessage} text={'Your pin has been updated!'} onClose={() => setShowPinChangedMessage(false)} />
+      {showSignOutDialog && (
+        <ConfirmDeleteDialog
+          show={showSignOutDialog}
+          text='Are you sure you want to sign out?'
+          onCancel={() => setShowSignOutDialog(false)}
+          onConfirm={handleSignOut}
+        />
+      )}
     </>
   )
 }

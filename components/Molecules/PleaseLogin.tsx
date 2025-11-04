@@ -3,15 +3,16 @@ import { Box } from '@mui/material'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
-import { useRouter } from 'next/router'
+import { usePathname, useRouter } from 'next/navigation'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import WarningMessage from 'components/Atoms/Text/WarningMessage'
 
 const PleaseLogin = ({ message = 'please sign in or sign up to use this feature.' }: { message?: string }) => {
   const router = useRouter()
+  const path = usePathname() ?? ''
 
   const handleSignInClick = async () => {
-    router.push(`/login?ret=${encodeURIComponent(router.asPath)}`)
+    router.push(`/login?ret=${encodeURIComponent(path)}`)
   }
   const handleSignUpClick = async () => {
     router.push('/register')

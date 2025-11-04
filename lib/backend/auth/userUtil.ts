@@ -8,6 +8,7 @@ import {
   sendUserAttributeVerificationCode,
   confirmUserAttribute,
   ConfirmUserAttributeInput,
+  signOut,
 } from 'aws-amplify/auth'
 import { Amplify } from 'aws-amplify'
 import amplifyConfig from 'src/amplifyconfiguration.json'
@@ -115,4 +116,12 @@ export async function verifyEmailVerificationCode(code: string) {
   }
   return result
   // return result
+}
+
+export async function signOutUser() {
+  try {
+    await signOut({ global: true })
+  } catch (error) {
+    console.error('Error performing global sign out:', error)
+  }
 }

@@ -4,6 +4,7 @@ import amplifyConfig from 'src/amplifyconfiguration.json'
 import { cookies } from 'next/headers'
 import { AmplifyUser, getRolesFromAmplifyUser } from 'lib/backend/auth/userUtil'
 import { Amplify } from 'aws-amplify'
+import { signOut } from 'aws-amplify/auth'
 Amplify.configure(amplifyConfig, { ssr: true })
 export const { runWithAmplifyServerContext } = createServerRunner({
   config: amplifyConfig,
@@ -32,7 +33,7 @@ export async function getUserSSRAppRouteApi() {
     }
     return result
   } catch (err) {
-    console.error('getUserSSRAppRouteApi:: user is not logged in')
+    console.log('getUserSSRAppRouteApi:: user is not logged in')
     return null
   }
 }
