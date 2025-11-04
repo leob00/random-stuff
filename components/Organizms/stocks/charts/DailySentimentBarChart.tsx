@@ -7,17 +7,19 @@ import SimpleBarChart from 'components/Atoms/Charts/chartJs/SimpleBarChart'
 import SimpleLineChart from 'components/Atoms/Charts/chartJs/SimpleLineChart'
 import numeral from 'numeral'
 import { useMarketColors } from 'components/themes/marketColors'
+import { take } from 'lodash'
 
 const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
+  const result = take(data, 12)
   const theme = useTheme()
   const { chart } = useMarketColors()
-  const colors = data.map((m) => {
+  const colors = result.map((m) => {
     return m.TotalUpPercent >= 50 ? chart.positiveColor : chart.negativeColor
   })
   const bar: BarChart = {
     colors: colors,
-    labels: data.map((m) => dayjs(m.MarketDate).format('MM/DD/YYYY')),
-    numbers: data.map((m) => m.TotalUpPercent),
+    labels: result.map((m) => dayjs(m.MarketDate).format('MM/DD/YYYY')),
+    numbers: result.map((m) => m.TotalUpPercent),
   }
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const isLarge = useMediaQuery(theme.breakpoints.up('md'))
@@ -47,13 +49,13 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
         return ' '
       },
       beforeFooter: (tooltipItems) => {
-        return ` up: ${numeral(data[tooltipItems[0].dataIndex].TotalUpPercent).format('0.000')}%`
+        return ` up: ${numeral(result[tooltipItems[0].dataIndex].TotalUpPercent).format('0.000')}%`
       },
       footer: (tooltipItems) => {
-        return ` down: ${numeral(data[tooltipItems[0].dataIndex].TotalDownPercent).format('0.000')}%`
+        return ` down: ${numeral(result[tooltipItems[0].dataIndex].TotalDownPercent).format('0.000')}%`
       },
       afterFooter: (tooltipItems) => {
-        return ` unchanged: ${numeral(data[tooltipItems[0].dataIndex].TotalUnchangedPercent).format('0.000')}%`
+        return ` unchanged: ${numeral(result[tooltipItems[0].dataIndex].TotalUnchangedPercent).format('0.000')}%`
       },
     },
   }
@@ -75,13 +77,13 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
         return ' '
       },
       beforeFooter: (tooltipItems) => {
-        return ` up: ${numeral(data[tooltipItems[0].dataIndex].TotalUpPercent).format('0.000')}%`
+        return ` up: ${numeral(result[tooltipItems[0].dataIndex].TotalUpPercent).format('0.000')}%`
       },
       footer: (tooltipItems) => {
-        return ` down: ${numeral(data[tooltipItems[0].dataIndex].TotalDownPercent).format('0.000')}%`
+        return ` down: ${numeral(result[tooltipItems[0].dataIndex].TotalDownPercent).format('0.000')}%`
       },
       afterFooter: (tooltipItems) => {
-        return ` unchanged: ${numeral(data[tooltipItems[0].dataIndex].TotalUnchangedPercent).format('0.000')}%`
+        return ` unchanged: ${numeral(result[tooltipItems[0].dataIndex].TotalUnchangedPercent).format('0.000')}%`
       },
     },
   }

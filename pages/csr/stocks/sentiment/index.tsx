@@ -22,7 +22,7 @@ const Page = () => {
     const resp = await searchDynamoItemsByCategory(key)
     const result: StockStats[] = resp.map((item) => JSON.parse(item.data) as StockStats)
 
-    const sorted = take(sortArray(result, ['MarketDate'], ['desc']), 12)
+    const sorted = sortArray(result, ['MarketDate'], ['desc'])
     const agg = await getDynamoItemData<StockStats[]>('stocks-monthly-market-sentiment')
     const model = {
       history: sortArray(sorted, ['MarketDate'], ['asc']),
