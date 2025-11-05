@@ -9,7 +9,7 @@ import { getCacheStats, resetStockCache } from 'lib/backend/api/qln/qlnApi'
 import { Claim } from 'lib/backend/auth/userUtil'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import numeral from 'numeral'
-import React from 'react'
+import React, { useState } from 'react'
 import { mutate } from 'swr'
 import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 import { useSwrHelper } from 'hooks/useSwrHelper'
@@ -26,7 +26,6 @@ interface CacheStats {
 }
 
 const CacheSettings = ({ claim }: { claim: Claim }) => {
-  const theme = useTheme()
   const mutateKey = `qln-case-stats`
 
   const fetchData = async () => {
@@ -34,9 +33,12 @@ const CacheSettings = ({ claim }: { claim: Claim }) => {
     return response.Body as CacheStats
   }
   const { data, isLoading } = useSwrHelper(mutateKey, fetchData, { revalidateOnFocus: false })
+  const [isWaiting, setIswaiting] = useState(false)
   const handleResetCache = async () => {
+    setIswaiting(true)
     await resetStockCache(claim.token ?? '')
     mutate(mutateKey)
+    setIswaiting(false)
   }
   const handleRefresh = () => {
     mutate(mutateKey)
@@ -69,8 +71,7 @@ const CacheSettings = ({ claim }: { claim: Claim }) => {
             </Box>
 
             <Box py={2}>
-              {isLoading && <BackdropLoader />}
-              <PrimaryButton text='Reset' onClick={handleResetCache} disabled={isLoading} />
+              <PrimaryButton text='Reset' onClick={handleResetCache} loading={isLoading || isWaiting} />
             </Box>
           </Box>
         </Box>
