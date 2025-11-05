@@ -4480,6 +4480,10 @@
     "Symbol": "BESF"
   },
   {
+    "Company": "Beta Technologies, Inc.",
+    "Symbol": "BETA"
+  },
+  {
     "Company": "ProShares Bitcoin & Ether Equal Weight ETF",
     "Symbol": "BETE"
   },
@@ -14136,6 +14140,10 @@
     "Symbol": "EXEEL"
   },
   {
+    "Company": "Expand Energy Corporation Class A Warrants",
+    "Symbol": "EXEEW"
+  },
+  {
     "Company": "Expand Energy Corporation Class B Warrants",
     "Symbol": "EXEEZ"
   },
@@ -15368,10 +15376,6 @@
     "Symbol": "FKWL"
   },
   {
-    "Company": "Foot Locker, Inc.",
-    "Symbol": "FL"
-  },
-  {
     "Company": "Global X S&P 500 U.S. Market Leaders Top 50 ETF",
     "Symbol": "FLAG"
   },
@@ -16514,6 +16518,10 @@
   {
     "Company": "EQV Ventures Acquisition Corp.",
     "Symbol": "FTW"
+  },
+  {
+    "Company": "EQV Ventures Acquisition Redeemable warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50 per share",
+    "Symbol": "FTW.WS"
   },
   {
     "Company": "Strive Natural Resources and Security ETF",
@@ -21982,10 +21990,6 @@
   {
     "Company": "Iron Horse Acquisitions Corp. Right",
     "Symbol": "IROHR"
-  },
-  {
-    "Company": "Iron Horse Acquisitions Corp. Unit",
-    "Symbol": "IROHU"
   },
   {
     "Company": "Iron Horse Acquisitions Corp. Warrant",
@@ -46314,18 +46318,6 @@
   {
     "Company": "AdvisorShares Pure Cannabis ETF",
     "Symbol": "YOLO"
-  },
-  {
-    "Company": "Yorkville Acquisition Corp. Class A Ordinary Share",
-    "Symbol": "YORK"
-  },
-  {
-    "Company": "Yorkville Acquisition Corp. Unit",
-    "Symbol": "YORKU"
-  },
-  {
-    "Company": "Yorkville Acquisition Corp. Warrant",
-    "Symbol": "YORKW"
   },
   {
     "Company": "York Water Co",

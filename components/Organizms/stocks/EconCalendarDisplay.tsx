@@ -3,7 +3,6 @@ import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import dayjs from 'dayjs'
 import { EconCalendarBody } from './EconCalendarLayout'
-import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import ArrowLeftButton from 'components/Atoms/Buttons/ArrowLeftButton'
 import ArrowRightButton from 'components/Atoms/Buttons/ArrowRightButton'
 import { DateRange, EconCalendarItem } from 'lib/backend/api/qln/qlnApi'
@@ -15,12 +14,8 @@ import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import { sortArray } from 'lib/util/collections'
-import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
-import HtmlView from 'components/Atoms/Boxes/HtmlView'
 import numeral from 'numeral'
 import EconCalendarDetail from '../econCalendar/EconCalendarDetail'
-
-dayjs.extend(isSameOrAfter)
 
 export type EconCalendarFilter = {
   startDate?: string

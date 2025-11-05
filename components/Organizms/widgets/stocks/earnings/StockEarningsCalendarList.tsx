@@ -8,8 +8,6 @@ import { useReducer } from 'react'
 import Clickable from 'components/Atoms/Containers/Clickable'
 import { useRouter } from 'next/navigation'
 import dayjs from 'dayjs'
-import ArrowLeftButton from 'components/Atoms/Buttons/ArrowLeftButton'
-import ArrowRightButton from 'components/Atoms/Buttons/ArrowRightButton'
 import { filterResult, getDefaultDateOption } from 'components/Organizms/stocks/earnings/earningsCalendar'
 import StockEarningsCompanyDisplay from 'components/Organizms/stocks/earnings/StockEarningsCompanyDisplay'
 import StockChange from 'components/Organizms/stocks/StockChange'
@@ -17,6 +15,7 @@ import { getPagedArray } from 'lib/util/collections'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import { getPositiveNegativeColor } from 'components/Organizms/stocks/StockListItem'
 import { PageState, encryptPageState } from 'hooks/ui/page-state/pageStateUtil'
+import BackForwardPager from 'components/Molecules/Buttons/BackForwardPager'
 
 type Model = {
   isLoading?: boolean
@@ -115,10 +114,14 @@ const StockEarningsCalendarList = ({ data, maxHeight }: { data: StockEarning[]; 
       <>
         <Box>
           {!!model.selectedDate && (
-            <Box pb={4} display={'flex'} justifyContent={'center'} gap={1} alignItems={'center'}>
-              <ArrowLeftButton disabled={model.backButtonDisabled} onClicked={handleBackClick} />
-              <Typography variant='caption'>{dayjs(model.selectedDate).format('MM/DD/YYYY')}</Typography>
-              <ArrowRightButton disabled={model.nextButtonDisabled} onClicked={handleNextClick} />
+            <Box pb={2}>
+              <BackForwardPager
+                backButtonDisabled={model.backButtonDisabled}
+                middleText={dayjs(model.selectedDate).format('MM/DD/YYYY')}
+                nextButtonDisabled={model.nextButtonDisabled}
+                handleBackClick={handleBackClick}
+                handleNextClick={handleNextClick}
+              />
             </Box>
           )}
           <ScrollableBox scroller={scroller} maxHeight={maxHeight}>

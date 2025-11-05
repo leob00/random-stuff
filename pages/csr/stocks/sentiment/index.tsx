@@ -14,7 +14,6 @@ import { CategoryType } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockStats } from 'lib/backend/api/qln/qlnModels'
 import { getDynamoItemData, searchDynamoItemsByCategory } from 'lib/backend/csr/nextApiWrapper'
 import { sortArray } from 'lib/util/collections'
-import { take } from 'lodash'
 
 const Page = () => {
   const key: CategoryType = 'stock-reports[daily-sentiment]'

@@ -6,26 +6,26 @@ interface PagerModel {
   totalNumberOfPages: number
   totalNumberOfItems: number
 }
-const getDefaultModel = (items: unknown[], pageSize: number) => {
+const getDefaultModel = (items: unknown[], pageSize: number, setLastPage?: boolean) => {
   const chunks = chunk(items, pageSize)
 
   const defaultModel: PagerModel = {
-    page: 1,
+    page: setLastPage ? chunks.length : 1,
     totalNumberOfPages: chunks.length,
     totalNumberOfItems: items.length,
   }
   return defaultModel
 }
 
-export const useClientPager = <T>(items: T[], pageSize: number) => {
+export const useClientPager = <T>(items: T[], pageSize: number, setLastPage?: boolean) => {
   let itemTotal = items.length
   let allItems = [...items]
-  const [model, setModel] = useReducer((state: PagerModel, newState: PagerModel) => ({ ...state, ...newState }), getDefaultModel(items, pageSize))
+  const [model, setModel] = useReducer((state: PagerModel, newState: PagerModel) => ({ ...state, ...newState }), getDefaultModel(items, pageSize, setLastPage))
 
-  const getPagedItems = <T>(data: T[]) => {
+  const getPagedItems = <T>(data: T[], pageNum?: number) => {
     const newChunks = chunk(data, pageSize)
     if (model.totalNumberOfPages !== newChunks.length) {
-      setModel({ ...model, page: 1, totalNumberOfPages: newChunks.length, totalNumberOfItems: data.length })
+      setModel({ ...model, page: pageNum ?? 1, totalNumberOfPages: newChunks.length, totalNumberOfItems: data.length })
       return newChunks.length > 0 ? newChunks[0] : []
     }
     return newChunks.length > 0 ? newChunks[model.page - 1] : []

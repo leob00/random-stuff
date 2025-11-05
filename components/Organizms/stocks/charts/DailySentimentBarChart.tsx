@@ -8,23 +8,61 @@ import SimpleLineChart from 'components/Atoms/Charts/chartJs/SimpleLineChart'
 import numeral from 'numeral'
 import { useMarketColors } from 'components/themes/marketColors'
 import { take } from 'lodash'
+import { sortArray } from 'lib/util/collections'
+import { useClientPager } from 'hooks/useClientPager'
+import { useMemo, useState } from 'react'
+import BackForwardPager from 'components/Molecules/Buttons/BackForwardPager'
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+dayjs.extend(isSameOrBefore)
 
 const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
-  const result = take(data, 12)
+  const limit = 10
+  interface PagingModel {
+    backButtonDisabled: boolean
+    middleText: string
+    nextButtonDisabled: boolean
+    results: StockStats[]
+  }
+  const { pagerModel, getPagedItems, allItems, setPage } = useClientPager(data, limit, true)
+  const [firstLoad, setFirstLoad] = useState(true)
+
+  const model = useMemo(() => {
+    const result: PagingModel = {
+      backButtonDisabled: pagerModel.page <= 1,
+      nextButtonDisabled: pagerModel.page >= pagerModel.totalNumberOfPages,
+      middleText: '',
+      results: [],
+    }
+    // last page
+    if (pagerModel.page === pagerModel.totalNumberOfPages) {
+      const sorted = take(sortArray(data, ['MarketDate'], ['desc']), limit)
+      let results = sortArray(sorted, ['MarketDate'], ['asc'])
+      result.results = results
+      result.middleText = `${dayjs(results[0].MarketDate).format('MM/DD/YYYY')} - ${dayjs(results[results.length - 1].MarketDate).format('MM/DD/YYYY')}`
+      return result
+    }
+    const pagedItems = getPagedItems(allItems, pagerModel.page)
+    result.results = pagedItems
+    result.middleText = `${dayjs(pagedItems[0].MarketDate).format('MM/DD/YYYY')} - ${dayjs(pagedItems[pagedItems.length - 1].MarketDate).format('MM/DD/YYYY')}`
+
+    return result
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pagerModel.page])
+
   const theme = useTheme()
   const { chart } = useMarketColors()
-  const colors = result.map((m) => {
+  const colors = model.results.map((m) => {
     return m.TotalUpPercent >= 50 ? chart.positiveColor : chart.negativeColor
   })
   const bar: BarChart = {
     colors: colors,
-    labels: result.map((m) => dayjs(m.MarketDate).format('MM/DD/YYYY')),
-    numbers: result.map((m) => m.TotalUpPercent),
+    labels: model.results.map((m) => dayjs(m.MarketDate).format('MM/DD/YYYY')),
+    numbers: model.results.map((m) => m.TotalUpPercent),
   }
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const isLarge = useMediaQuery(theme.breakpoints.up('md'))
 
-  let height: number | undefined = undefined
+  let height = 90
   if (isXSmall) {
     height = 240
   }
@@ -49,13 +87,13 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
         return ' '
       },
       beforeFooter: (tooltipItems) => {
-        return ` up: ${numeral(result[tooltipItems[0].dataIndex].TotalUpPercent).format('0.000')}%`
+        return ` up: ${numeral(model.results[tooltipItems[0].dataIndex].TotalUpPercent).format('0.000')}%`
       },
       footer: (tooltipItems) => {
-        return ` down: ${numeral(result[tooltipItems[0].dataIndex].TotalDownPercent).format('0.000')}%`
+        return ` down: ${numeral(model.results[tooltipItems[0].dataIndex].TotalDownPercent).format('0.000')}%`
       },
       afterFooter: (tooltipItems) => {
-        return ` unchanged: ${numeral(result[tooltipItems[0].dataIndex].TotalUnchangedPercent).format('0.000')}%`
+        return ` unchanged: ${numeral(model.results[tooltipItems[0].dataIndex].TotalUnchangedPercent).format('0.000')}%`
       },
     },
   }
@@ -77,22 +115,42 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
         return ' '
       },
       beforeFooter: (tooltipItems) => {
-        return ` up: ${numeral(result[tooltipItems[0].dataIndex].TotalUpPercent).format('0.000')}%`
+        return ` up: ${numeral(model.results[tooltipItems[0].dataIndex].TotalUpPercent).format('0.000')}%`
       },
       footer: (tooltipItems) => {
-        return ` down: ${numeral(result[tooltipItems[0].dataIndex].TotalDownPercent).format('0.000')}%`
+        return ` down: ${numeral(model.results[tooltipItems[0].dataIndex].TotalDownPercent).format('0.000')}%`
       },
       afterFooter: (tooltipItems) => {
-        return ` unchanged: ${numeral(result[tooltipItems[0].dataIndex].TotalUnchangedPercent).format('0.000')}%`
+        return ` unchanged: ${numeral(model.results[tooltipItems[0].dataIndex].TotalUnchangedPercent).format('0.000')}%`
       },
     },
+  }
+
+  const handleBackClick = () => {
+    const newPageNum = pagerModel.page - 1
+    if (newPageNum < pagerModel.totalNumberOfPages) {
+      setPage(newPageNum)
+    }
+  }
+  const handleNextClick = () => {
+    const newPageNum = pagerModel.page + 1
+    if (newPageNum <= pagerModel.totalNumberOfPages) {
+      setPage(newPageNum)
+    }
   }
 
   return (
     <Box>
       <Typography pt={4} textAlign={'center'}>{`Sentiment History`}</Typography>
+      <BackForwardPager
+        backButtonDisabled={model.backButtonDisabled}
+        nextButtonDisabled={model.nextButtonDisabled}
+        middleText={model.middleText}
+        handleBackClick={handleBackClick}
+        handleNextClick={handleNextClick}
+      />
       <SimpleBarChart barChart={bar} chartOptions={barchartOptions} height={height} />
-      <SimpleLineChart barChart={bar} chartOptions={lineChartOptions} height={height} />
+      <SimpleLineChart barChart={bar} chartOptions={lineChartOptions} height={height / 2} />
     </Box>
   )
 }
