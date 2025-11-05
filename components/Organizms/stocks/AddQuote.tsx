@@ -6,6 +6,7 @@ import CenterStack from 'components/Atoms/CenterStack'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import StockListItem from './StockListItem'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
+import CloseIconButton from 'components/Atoms/Buttons/CloseIconButton'
 
 const AddQuote = ({
   quote,
@@ -27,10 +28,8 @@ const AddQuote = ({
   const alreadyExists = stockListMap.has(quote.Symbol)
   return (
     <>
-      <Box display={'flex'} justifyContent={'flex-end'}>
-        <IconButton size='small' onClick={handleCloseAddQuote}>
-          <Close color='primary' fontSize='small' />
-        </IconButton>
+      <Box display={'flex'} justifyContent={'flex-end'} py={1}>
+        <CloseIconButton onClicked={handleCloseAddQuote} />
       </Box>
       <StockListItem item={quote} expand={true} marketCategory={'stocks'} showGroupName={true} scrollIntoView={scrollIntoView} userProfile={userProfile} />
       {alreadyExists && showAddToListButton && (

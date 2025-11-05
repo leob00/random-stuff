@@ -6,6 +6,7 @@ import React, { ReactNode } from 'react'
 import PassiveButton from '../Buttons/PassiveButton'
 import SecondaryButton from '../Buttons/SecondaryButton'
 import HorizontalDivider from '../Dividers/HorizontalDivider'
+import WarningButton from '../Buttons/WarningButton'
 
 const StopWarningDialog = ({
   children,
@@ -15,7 +16,7 @@ const StopWarningDialog = ({
   onSave,
   fullScreen = true,
 }: {
-  children: ReactNode
+  children?: ReactNode
   title: string
   show: boolean
   onCancel?: () => void
@@ -36,9 +37,8 @@ const StopWarningDialog = ({
         maxWidth='lg'
         fullWidth
         fullScreen={fullScreen}
-        PaperProps={{ elevation: 0 }}
       >
-        <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: theme.palette.error.dark, color: 'white' }}>
+        <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: theme.palette.warning.dark, color: 'white' }}>
           <Stack display='flex' direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
             <Box>{title}</Box>
             <Box sx={{ marginRight: -2 }}>
@@ -52,12 +52,12 @@ const StopWarningDialog = ({
         </DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-description' sx={{ pt: 3 }} color='primary'></DialogContentText>
-          {children}
+          {children && <>{children}</>}
         </DialogContent>
         <HorizontalDivider />
         <DialogActions sx={{ pt: 1, pb: 2 }}>
-          {onSave && <SecondaryButton text={'save'} size='small' width={80} onClick={onSave} />}
-          <PassiveButton onClick={handleClose} text={'close'} size='small' width={80} />
+          {onSave && <WarningButton text={'continue'} size='small' onClick={onSave} />}
+          <PassiveButton onClick={handleClose} text={'cancel'} size='small' width={80} />
         </DialogActions>
       </Dialog>
     </Box>

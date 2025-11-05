@@ -45,6 +45,7 @@ const Page = () => {
     <>
       <Seo pageTitle={`Stock Details: ${id}`} />
       <ResponsiveContainer>
+        <PageHeader text='' />
         {pageState ? (
           <Button
             variant='text'
@@ -56,7 +57,7 @@ const Page = () => {
             &#8592; back
           </Button>
         ) : (
-          <PageHeader text='' />
+          <></>
         )}
 
         {id && !loadingProfile && <StockDetailsLayout symbol={id} disableCollapse />}

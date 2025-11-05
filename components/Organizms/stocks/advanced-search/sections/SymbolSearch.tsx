@@ -2,15 +2,14 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { AdvancedSearchUiController } from '../stockAdvancedSearchUi'
 import { CasinoGrayTransparent } from 'components/themes/mainTheme'
-import { Control, Controller, FieldErrors, UseFormSetValue } from 'react-hook-form'
-import { StockAdvancedSearchFilter, NumberRangeFilter } from '../advancedSearchFilter'
-import FormNumericTextField2 from 'components/Molecules/Forms/ReactHookForm/FormNumericTextField2'
+import { Control, FieldErrors, UseFormSetValue } from 'react-hook-form'
+import { StockAdvancedSearchFilter } from '../advancedSearchFilter'
 import CheckIcon from '@mui/icons-material/Check'
-import { hasNumberRangeFilter } from '../stocksAdvancedSearch'
 import StockSearch from 'components/Atoms/Inputs/StockSearch'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { orderBy } from 'lodash'
 import DeletableChipList from 'components/Atoms/Inputs/DeletableChipList'
+import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 
 const SymbolSearch = ({
   controller,
@@ -63,9 +62,13 @@ const SymbolSearch = ({
       </AccordionSummary>
       <AccordionDetails>
         <Box>
-          <Typography py={2} variant='body2'>
-            Using this filter will override other filters. The symbols filter is best used if you want to create a stock watch list.
-          </Typography>
+          <Box display={'flex'} justifyContent={'center'}>
+            <AlertWithHeader
+              severity='warning'
+              header='Using this filter may override other filters'
+              text=' The symbols filter is best used if you want to create a stock watch list.'
+            />
+          </Box>
           <StockSearch onSymbolSelected={handleAddSymbol} showAdvSearch={false} clearOnSelect />
         </Box>
         {formValues.symbols && (
