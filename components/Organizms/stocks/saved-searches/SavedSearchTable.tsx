@@ -5,8 +5,6 @@ import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { useState } from 'react'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { executeStockAdvancedSearch } from 'lib/backend/api/qln/qlnApi'
-import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
-import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
 import useAdvancedSearchUi from '../advanced-search/stockAdvancedSearchUi'
@@ -19,6 +17,9 @@ import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import SearchResultsTable from '../advanced-search/results/SearchResultsTable'
 import { sortArray } from 'lib/util/collections'
+import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
+import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
+import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
 
 type UiModel = {
   results: StockQuote[]
@@ -39,12 +40,10 @@ const SavedSearchTable = ({
 }) => {
   const [selectedItem, setSelectedItem] = useState<UiModel | null>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const scroller = useScrollTop(0)
-  const handlePageChange = () => {
-    scroller.scroll()
-  }
-  const controller = useAdvancedSearchUi(selectedItem?.filter)
 
+  const handlePageChange = () => {}
+  const controller = useAdvancedSearchUi(selectedItem?.filter)
+  const scroller = useScrollTop(0)
   const handleClick = async (item: StockSavedSearch) => {
     if (!selectedItem || selectedItem.id !== item.id) {
       setIsLoading(true)
@@ -55,10 +54,10 @@ const SavedSearchTable = ({
         newItem.results = sortArray(newItem.results, ['Symbol'], ['asc'])
       }
       setSelectedItem(newItem)
-      scroller.scroll(0)
+      scroller.scroll()
     } else {
       setSelectedItem(null)
-      scroller.scroll()
+      //scroller.scroll(-100)
     }
 
     setIsLoading(false)
@@ -126,33 +125,35 @@ const SavedSearchTable = ({
             {selectedItem && selectedItem.id !== item.id && <HorizontalDivider />}
 
             {selectedItem && selectedItem.id === item.id && (
-              <Box py={2}>
-                {!selectedItem.editMode && (
-                  <Box>
-                    <ScrollTop scroller={scroller} />
-                    <SearchResultsTable data={selectedItem.results} pageSize={5} onPageChanged={handlePageChange} filterSummary={selectedItem.filterSummary} />
-                  </Box>
-                )}
-                {selectedItem.editMode && (
-                  <Box>
-                    <Box display={'flex'} justifyContent={'flex-end'} pr={2}>
-                      <CloseIconButton
-                        onClicked={() => {
-                          setSelectedItem(null)
-                        }}
+              <>
+                <Box py={2}>
+                  {!selectedItem.editMode && (
+                    <Box>
+                      {/* <ScrollTop scroller={scroller} marginTop={-18} /> */}
+                      <SearchResultsTable data={selectedItem.results} onPageChanged={handlePageChange} filterSummary={selectedItem.filterSummary} />
+                    </Box>
+                  )}
+                  {selectedItem.editMode && (
+                    <Box>
+                      <Box display={'flex'} justifyContent={'flex-end'} pr={2}>
+                        <CloseIconButton
+                          onClicked={() => {
+                            setSelectedItem(null)
+                          }}
+                        />
+                      </Box>
+                      <AdvancedSearchFilterForm
+                        onSubmitted={() => {}}
+                        controller={controller}
+                        filter={selectedItem.filter}
+                        onSaved={handleSaved}
+                        showSubmitButton={false}
+                        savedSearchId={selectedItem.id}
                       />
                     </Box>
-                    <AdvancedSearchFilterForm
-                      onSubmitted={() => {}}
-                      controller={controller}
-                      filter={selectedItem.filter}
-                      onSaved={handleSaved}
-                      showSubmitButton={false}
-                      savedSearchId={selectedItem.id}
-                    />
-                  </Box>
-                )}
-              </Box>
+                  )}
+                </Box>
+              </>
             )}
           </Box>
         ))}

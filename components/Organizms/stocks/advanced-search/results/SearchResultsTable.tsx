@@ -1,26 +1,23 @@
 import { Box } from '@mui/material'
-import Pager from 'components/Atoms/Pager'
-import { useClientPager } from 'hooks/useClientPager'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
-import StockTable from '../../StockTable'
 import { StockFilterSummary } from '../stocksAdvancedSearch'
-import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
+import PagedStockTable from '../../PagedStockTable'
+import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
+import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 
 const SearchResultsTable = ({
   data,
-  pageSize = 5,
   onPageChanged,
   filterSummary,
 }: {
   data: StockQuote[]
-  pageSize?: number
   onPageChanged?: (pageNum?: number) => void
   filterSummary?: StockFilterSummary
 }) => {
-  const { pagerModel, setPage, getPagedItems } = useClientPager(data, pageSize)
-  const items = getPagedItems(data)
-  const { userProfile, isValidating } = useProfileValidator()
+  const { isValidating } = useProfileValidator()
+  const scroller = useScrollTop(0)
+
   let featuredFields: Array<keyof StockQuote> = []
   if (filterSummary) {
     if (filterSummary.hasMarketCap) {
@@ -39,32 +36,29 @@ const SearchResultsTable = ({
     }
   }
 
-  const handlePaged = (pageNum: number) => {
-    setPage(pageNum)
+  const handlePaged = (pageNum?: number) => {
+    // setPage(pageNum ?? 1)
     onPageChanged?.(pageNum)
+    scroller.scroll()
   }
 
-  const showMovingAvgOnly = featuredFields.includes('MovingAvg') && items.some((m) => m.MovingAvgDays && m.MovingAvgDays > 1)
+  const showMovingAvgOnly = featuredFields.includes('MovingAvg') && data.some((m) => m.MovingAvgDays && m.MovingAvgDays > 1)
 
   return (
     <>
       {!isValidating && (
         <>
-          <ScrollIntoView margin={-24} />
-
           <Box>
-            <Box minHeight={300}>
-              <StockTable
-                stockList={items}
-                marketCategory={'stocks'}
-                showSummary={false}
-                userProfile={userProfile}
-                featuredFields={featuredFields}
-                showMovingAvgOnly={showMovingAvgOnly}
-              />
-            </Box>
+            <ScrollTop scroller={scroller} marginTop={-22} />
+            <PagedStockTable
+              data={data}
+              featuredFields={featuredFields}
+              showMovingAvgOnly={showMovingAvgOnly}
+              onPageChanged={handlePaged}
+              //scrollOnPageChange
+            />
           </Box>
-          <Pager
+          {/* <Pager
             pageCount={pagerModel.totalNumberOfPages}
             itemCount={items.length}
             itemsPerPage={pageSize}
@@ -72,7 +66,7 @@ const SearchResultsTable = ({
             defaultPageIndex={pagerModel.page}
             totalItemCount={pagerModel.totalNumberOfItems}
             showHorizontalDivider={false}
-          ></Pager>
+          ></Pager> */}
         </>
       )}
     </>

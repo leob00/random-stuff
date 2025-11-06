@@ -10,6 +10,7 @@ import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
 import ContextMenuCommodities from 'components/Molecules/Menus/ContextMenuCommodities'
 import ContextMenuCrypto from 'components/Molecules/Menus/ContextMenuCrypto'
 import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
+import ContextMenuAllStocks from 'components/Molecules/Menus/ContextMenuAllStocks'
 
 export const stockReportsDropdown: DropdownItem[] = [
   { text: 'Volume Leaders', value: 'volume-leaders' },
@@ -28,7 +29,7 @@ const StockReportsDropdown = ({ selectedValue }: { selectedValue: string }) => {
 
   const menu: ContextMenuItem[] = [
     {
-      item: <ContextMenuPeople text='community stocks' />,
+      item: <ContextMenuAllStocks />,
       fn: () => {
         router.push('/csr/community-stocks')
       },
