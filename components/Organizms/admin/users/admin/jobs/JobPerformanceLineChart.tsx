@@ -2,19 +2,7 @@ import { Box, useMediaQuery, useTheme } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import SimpleLineChart from 'components/Atoms/Charts/chartJs/SimpleLineChart'
 import { BarChart, getLineChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
-import {
-  CasinoBlueTransparent,
-  CasinoGrayTransparent,
-  CasinoGreen,
-  CasinoOrangeTransparent,
-  CasinoRed,
-  DarkGreen,
-  DarkModeRed,
-  LightBlue,
-  VeryLightBlue,
-  VeryLightBlueOpaque,
-  VeryLightBlueTransparent,
-} from 'components/themes/mainTheme'
+import { CasinoBlueTransparent, CasinoOrangeTransparent, DarkGreen, DarkModeRed, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { JoBLog, Job } from 'lib/backend/api/qln/qlnApi'
 import { sortArray } from 'lib/util/collections'

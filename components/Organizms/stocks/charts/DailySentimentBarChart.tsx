@@ -7,12 +7,13 @@ import SimpleBarChart from 'components/Atoms/Charts/chartJs/SimpleBarChart'
 import SimpleLineChart from 'components/Atoms/Charts/chartJs/SimpleLineChart'
 import numeral from 'numeral'
 import { useMarketColors } from 'components/themes/marketColors'
-import { take } from 'lodash'
+import { max, mean, min, take } from 'lodash'
 import { sortArray } from 'lib/util/collections'
 import { useClientPager } from 'hooks/useClientPager'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import BackForwardPager from 'components/Molecules/Buttons/BackForwardPager'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 dayjs.extend(isSameOrBefore)
 
 const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
@@ -24,7 +25,6 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
     results: StockStats[]
   }
   const { pagerModel, getPagedItems, allItems, setPage } = useClientPager(data, limit, true)
-  const [firstLoad, setFirstLoad] = useState(true)
 
   const model = useMemo(() => {
     const result: PagingModel = {
@@ -70,7 +70,6 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
     height = 90
   }
   const barchartOptions = getBarChartOptions('', '%', theme.palette.mode)
-  //barchartOptions.scales!.y!.max = 100
   barchartOptions.plugins!.tooltip! = {
     ...barchartOptions.plugins?.tooltip,
     callbacks: {
@@ -78,7 +77,7 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
         return ''
       },
       label: (tooltipItems) => {
-        return ` ${tooltipItems.label}`
+        return ` ${dayjs(tooltipItems.label).format('dddd')}, ${tooltipItems.label}`
       },
       beforeBody: () => {
         return ''
@@ -106,7 +105,7 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
         return ''
       },
       label: (tooltipItems) => {
-        return ` ${tooltipItems.label}`
+        return ` ${dayjs(tooltipItems.label).format('dddd')}, ${tooltipItems.label}`
       },
       beforeBody: () => {
         return ''
@@ -122,6 +121,42 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
       },
       afterFooter: (tooltipItems) => {
         return ` unchanged: ${numeral(model.results[tooltipItems[0].dataIndex].TotalUnchangedPercent).format('0.000')}%`
+      },
+    },
+  }
+  const minNum = min(bar.numbers)
+  const minNumIdx = bar.numbers.findIndex((m) => m === minNum)
+  const maxNum = max(bar.numbers)
+  const maxNumIdx = bar.numbers.findIndex((m) => m === maxNum)
+  const avg = mean(bar.numbers)
+
+  lineChartOptions.plugins!.annotation = {
+    annotations: {
+      line1: {
+        type: 'point',
+        xValue: minNumIdx,
+        yValue: minNum,
+        borderColor: chart.negativeColor,
+        borderWidth: 3,
+        backgroundColor: chart.negativeColor,
+        pointStyle: 'circle',
+      },
+      line2: {
+        type: 'point',
+        xValue: maxNumIdx,
+        yValue: maxNum,
+        borderColor: chart.positiveColor,
+        borderWidth: 3,
+        backgroundColor: chart.positiveColor,
+        pointStyle: 'circle',
+      },
+      line3: {
+        type: 'line',
+        yMin: avg,
+        yMax: avg,
+        borderColor: CasinoBlueTransparent,
+        borderDash: [bar.labels.length / 2],
+        borderWidth: 1,
       },
     },
   }
@@ -150,7 +185,7 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
         handleNextClick={handleNextClick}
       />
       <SimpleBarChart barChart={bar} chartOptions={barchartOptions} height={height} />
-      <SimpleLineChart barChart={bar} chartOptions={lineChartOptions} height={height / 2} />
+      <SimpleLineChart barChart={bar} chartOptions={lineChartOptions} height={height - 5} />
     </Box>
   )
 }

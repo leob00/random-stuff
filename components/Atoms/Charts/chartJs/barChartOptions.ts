@@ -3,13 +3,15 @@ import {
   CasinoBlue,
   CasinoBlueTransparent,
   CasinoMoreBlackTransparent,
+  CasinoRed,
   DarkBlue,
+  TooltipBkg,
   VeryLightBlue,
   VeryLightBlueOpaque,
   VeryLightBlueOpaqueLight,
   VeryLightBlueTransparent,
 } from 'components/themes/mainTheme'
-import { max } from 'lodash'
+import { max, min } from 'lodash'
 
 export interface LineChart {
   labels: string[]
@@ -131,7 +133,7 @@ export const getBarChartOptions = (
       },
       tooltip: {
         padding: 16,
-        backgroundColor: CasinoMoreBlackTransparent,
+        backgroundColor: TooltipBkg,
         titleColor: VeryLightBlue,
         footerAlign: 'left',
         footerSpacing: 10,
@@ -156,11 +158,13 @@ export const getBarChartOptions = (
           label: (tooltipItems) => {
             return ` ${[tooltipItems.label]}: ${Number(tooltipItems.formattedValue).toFixed(2)}${yAxisDecorator}`
           },
-          labelPointStyle: (tooltipItems) => {
+          labelPointStyle: (context) => {
             return {
               pointStyle: 'circle',
               rotation: 180,
+              borderColor: 'rgba(0,0,0,0)',
               border: 0,
+              backgroundColor: context.dataset.backgroundColor,
             }
           },
           footer: (tooltipItems) => {
@@ -182,6 +186,7 @@ export const getBarChartOptions = (
             size: 12,
           },
           autoSkip: true,
+          padding: 8,
           callback: function (value) {
             return `${value}${yAxisDecorator}`
           },
@@ -193,7 +198,7 @@ export const getBarChartOptions = (
           padding: 0,
           color: palette === 'light' ? DarkBlue : VeryLightBlue,
           font: {
-            size: 12,
+            size: 11,
           },
         },
         grid: {
@@ -218,7 +223,10 @@ export const getLineChartOptions = (
       easing: 'linear',
       duration: 1500,
     },
-    maintainAspectRatio: true,
+    // layout: {
+    //   autoPadding: true,
+    // },
+    //maintainAspectRatio: true,
     hover: {
       mode: 'nearest',
       intersect: true,
@@ -288,24 +296,43 @@ export const getLineChartOptions = (
           color: VeryLightBlueOpaqueLight,
           drawTicks: false,
         },
-        min: 0, // Math.floor(min(lineChartData.numbers)!),
-        max: Math.ceil(max(lineChartData.numbers)!) + 8,
+        // min: 0, // Math.floor(min(lineChartData.numbers)!),
+        //max: Math.ceil(max(lineChartData.numbers)!) + 8,
+        suggestedMax: Math.ceil(max(lineChartData.numbers)!) + 8,
+        suggestedMin: min(lineChartData.numbers)! > 0 ? min(lineChartData.numbers)! - 1 : Math.floor(min(lineChartData.numbers)! - 9),
         ticks: {
+          align: 'start',
           color: palette === 'light' ? DarkBlue : VeryLightBlue,
           font: {
             size: 12,
           },
+          padding: 12,
           autoSkip: true,
+          callback: function (value) {
+            return `${value}${yAxisDecorator}`
+          },
         },
       },
       x: {
         display: showXvalues ?? true,
         ticks: {
-          padding: 0,
+          //align: 'end',
+          padding: 20,
           color: palette === 'light' ? DarkBlue : VeryLightBlue,
+          autoSkip: true,
+          maxRotation: 45,
+          minRotation: 0,
+          autoSkipPadding: 4,
           font: {
-            size: 12,
+            size: 11,
           },
+          // callback(tickValue, index, ticks) {
+          //   if (index % 2 === 0) {
+          //     return lineChartData.labels[index]
+          //   }
+
+          //   return ''
+          // },
         },
 
         grid: {

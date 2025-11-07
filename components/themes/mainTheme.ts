@@ -21,7 +21,8 @@ export const CasinoGreenTransparent = '#008000bb'
 export const CasinoLimeTransparent = '#44f70de7'
 export const CasinoDarkGreenTransparent = '#00421abb'
 export const CasinoRedTransparent = '#830707bb'
-export const CasinoRedTransparentChart = '#610606dc'
+export const CasinoRedTransparentChart = '#c90202ab'
+export const CasinoRedTransparentChartLight = '#831414f8'
 export const CasinoDarkRedTransparent = '#701524cc'
 export const DarkModeRed = '#cc0d0df8'
 export const CasinoPinkTransparent = '#830707b2'
@@ -52,6 +53,8 @@ export const OceanBlue = '#295d6f'
 export const OceanBlueTransparent = '#0ba3d631'
 export const RedDarkMode = '#f31d1d'
 export const DarkModeBkg = '#010d20fa'
+export const TooltipBkg = '#030311e8'
+
 export const ErrorRed = '#ce250ec7'
 
 const lightPalette: PaletteOptions = {
