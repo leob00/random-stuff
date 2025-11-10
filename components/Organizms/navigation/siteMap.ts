@@ -16,6 +16,7 @@ export type PathNames =
   | 'chat with AI'
   | 'crypto'
   | 'commodities'
+  | 'treasuries'
   | 'calendar'
   | 'indicators'
   | 'news'
@@ -37,7 +38,7 @@ export type PathNames =
 
 export type SiteCategories =
   | 'Stock Market'
-  | 'Other Assets'
+  | 'Other Markets'
   | 'Personal'
   | 'Admin'
   | 'Games'
@@ -122,20 +123,26 @@ export const flatSiteMap: Navigation[] = [
     category: 'Stock Market',
     hideFromHomeMenu: true,
   },
-  {
-    name: 'commodities',
-    path: '/csr/commodities',
-    category: 'Other Assets',
-  },
+
   {
     name: 'stock alerts',
     path: '/csr/stocks/alerts',
     category: 'Stock Market',
   },
   {
+    name: 'commodities',
+    path: '/csr/commodities',
+    category: 'Other Markets',
+  },
+  {
     name: 'crypto',
     path: '/csr/crypto',
-    category: 'Other Assets',
+    category: 'Other Markets',
+  },
+  {
+    name: 'treasuries',
+    path: '/market/treasuries',
+    category: 'Other Markets',
   },
   {
     name: 'search',

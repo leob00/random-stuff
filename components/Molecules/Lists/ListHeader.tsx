@@ -17,9 +17,9 @@ const ListHeader = ({
   addText = 'add',
   underline,
   disabled,
-  elevation = 1,
   fadeIn = true,
   selected,
+  outlined,
 }: {
   text: string
   item?: any
@@ -30,9 +30,9 @@ const ListHeader = ({
   addText?: string
   underline?: boolean
   disabled?: boolean
-  elevation?: number
   fadeIn?: boolean
   selected?: boolean
+  outlined?: boolean
 }) => {
   const showContextMenu = onEdit !== undefined || onDelete !== undefined || onAdd !== undefined
   const contextMenu: ContextMenuItem[] = []
@@ -75,6 +75,7 @@ const ListHeader = ({
               showContextMenu={showContextMenu}
               underline={underline}
               selected={selected}
+              outlined={outlined}
             />
           </HoverEffect>
         ) : (

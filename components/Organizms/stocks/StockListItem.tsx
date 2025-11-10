@@ -113,20 +113,11 @@ const StockListItem = ({
               item={item}
               onClicked={handleCompanyClick}
               disabled={disabled}
-              elevation={0}
               fadeIn={false}
               selected={showMore}
             />
           ) : (
-            <ListHeader
-              text={`${item.Company}`}
-              item={item}
-              onClicked={handleCompanyClick}
-              disabled={disabled}
-              elevation={0}
-              fadeIn={false}
-              selected={showMore}
-            />
+            <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} fadeIn={false} selected={showMore} />
           )}
           <Box>
             <StockChange item={item} showMovingAvg={showMovingAvgOnly} changeDecimalPlaces={decimalPlaces} />

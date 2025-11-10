@@ -21,7 +21,6 @@ import OilBarrelIcon from '@mui/icons-material/OilBarrel'
 import EventIcon from '@mui/icons-material/Event'
 import NewspaperIcon from '@mui/icons-material/Newspaper'
 import OutdoorGrillIcon from '@mui/icons-material/OutdoorGrill'
-import AssessmentIcon from '@mui/icons-material/Assessment'
 import LeaderboardIcon from '@mui/icons-material/Leaderboard'
 import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh'
 import ConstructionIcon from '@mui/icons-material/Construction'
@@ -35,6 +34,7 @@ import PetsIcon from '@mui/icons-material/Pets'
 import GradientIcon from '@mui/icons-material/Gradient'
 import PersonIcon from '@mui/icons-material/Person'
 import QueryStatsIcon from '@mui/icons-material/QueryStats'
+import RedeemIcon from '@mui/icons-material/Redeem'
 type PagePros = {
   disabled?: boolean
 } & Navigation &
@@ -86,6 +86,8 @@ export const renderIcon = (item: PathNames) => {
       return <CurrencyBitcoinIcon />
     case 'commodities':
       return <OilBarrelIcon />
+    case 'treasuries':
+      return <RedeemIcon />
     case 'calendar':
       return <EventIcon />
     case 'indicators':

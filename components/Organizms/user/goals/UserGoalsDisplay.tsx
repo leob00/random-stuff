@@ -95,6 +95,8 @@ const UserGoalsDisplay = ({ goalsAndTasks, username, onRefresh }: { goalsAndTask
 
   return (
     <Box>
+      <Box>{!summaryChart && <UserGoalsList data={filteredGoals} onShowEdit={handleShowEditGoal} />}</Box>
+
       <Box py={2}>
         {summaryChart ? (
           <>
@@ -120,7 +122,6 @@ const UserGoalsDisplay = ({ goalsAndTasks, username, onRefresh }: { goalsAndTask
           <AddGoalForm goal={{}} onSubmit={handleAddGoal} />
         </FormDialog>
       </Box>
-      <Box>{!summaryChart && <UserGoalsList data={filteredGoals} onShowEdit={handleShowEditGoal} />}</Box>
     </Box>
   )
 }

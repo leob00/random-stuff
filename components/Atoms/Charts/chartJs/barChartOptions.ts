@@ -46,7 +46,6 @@ export const getLineChartData = (labels: string[], numbers: number[], colors: st
         borderColor: CasinoBlue,
         borderWidth: 2,
         data: numbers,
-        backgroundColor: CasinoBlue,
         type: 'line',
         animation: {
           easing: 'linear',

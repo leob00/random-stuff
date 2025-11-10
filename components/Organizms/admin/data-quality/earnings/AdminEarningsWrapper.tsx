@@ -63,7 +63,7 @@ const AdminEarningsWrapper = () => {
         {model.stockQuote && (
           <Box py={2} display={'flex'} flexDirection={'column'} gap={1}>
             {model.error && <AlertWithHeader severity='error' text={model.error} header='Error' />}
-            <ListHeader item={model.stockQuote} onClicked={() => {}} disabled text={`${model.stockQuote.Company} (${model.stockQuote.Symbol})`} elevation={0} />
+            <ListHeader item={model.stockQuote} onClicked={() => {}} disabled text={`${model.stockQuote.Company} (${model.stockQuote.Symbol})`} />
             <StockChange item={model.stockQuote} />
           </Box>
         )}

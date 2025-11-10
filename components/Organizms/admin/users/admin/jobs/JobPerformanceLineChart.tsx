@@ -28,7 +28,7 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
   let days = take(Array.from(new Set(sorted.map((m) => dayjs(m.DateCompleted).format('YYYY-MM-DD')))), limit)
   days = orderBy(days)
 
-  const barChart: BarChart = {
+  const lineChart: BarChart = {
     colors: [],
     labels: [],
     numbers: [],
@@ -44,26 +44,26 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
     if (d.length > 0) {
       const avgMinutes = mean(d.map((m) => m.TotalMinutes))
       if (allMinutesAvg < 1) {
-        barChart.numbers.push(avgMinutes * 60)
+        lineChart.numbers.push(avgMinutes * 60)
       } else {
-        barChart.numbers.push(avgMinutes)
+        lineChart.numbers.push(avgMinutes)
       }
-      barChart.labels.push(dayjs(day).format('MM/DD/YYYY'))
-      barChart.colors.push(CasinoBlueTransparent)
+      lineChart.labels.push(dayjs(day).format('MM/DD/YYYY'))
+      lineChart.colors.push(CasinoBlueTransparent)
       records.push(sum(d.map((m) => m.RecordsProcessed)))
     }
   })
 
-  const maxVal = max(barChart.numbers)
+  const maxVal = max(lineChart.numbers)
   if (maxVal) {
-    const idx = barChart.numbers.findIndex((m) => m === maxVal)
+    const idx = lineChart.numbers.findIndex((m) => m === maxVal)
     if (idx > -1) {
-      barChart.colors[idx] = CasinoOrangeTransparent
+      lineChart.colors[idx] = CasinoOrangeTransparent
     }
   }
 
   var options = getLineChartOptions(
-    { labels: barChart.labels, numbers: barChart.numbers },
+    { labels: lineChart.labels, numbers: lineChart.numbers },
     `Job performance in${minutesOrSeconds}`,
     minutesOrSeconds,
     theme.palette.mode,
@@ -85,11 +85,11 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
       return ` records processed: ${numeral(records[tooltipItems[0].dataIndex]).format('###,###')}`
     },
   }
-  const minNum = min(barChart.numbers)
-  const minNumIdx = barChart.numbers.findIndex((m) => m === minNum)
-  const maxNum = max(barChart.numbers)
-  const maxNumIdx = barChart.numbers.findIndex((m) => m === maxNum)
-  const avg = mean(barChart.numbers)
+  const minNum = min(lineChart.numbers)
+  const minNumIdx = lineChart.numbers.findIndex((m) => m === minNum)
+  const maxNum = max(lineChart.numbers)
+  const maxNumIdx = lineChart.numbers.findIndex((m) => m === maxNum)
+  const avg = mean(lineChart.numbers)
 
   options.plugins!.annotation = {
     annotations: {
@@ -116,7 +116,7 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
         yMin: avg,
         yMax: avg,
         borderColor: VeryLightBlueTransparent,
-        borderDash: [barChart.colors.length - 1 * 22],
+        borderDash: [lineChart.colors.length - 1 * 22],
         borderWidth: 2,
       },
     },
@@ -126,7 +126,7 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
     <Box>
       <Box minHeight={200} px={{ lg: 2 }}>
         <FadeIn>
-          <SimpleLineChart barChart={barChart} chartOptions={options} height={height} />
+          <SimpleLineChart barChart={lineChart} chartOptions={options} height={height} />
         </FadeIn>
       </Box>
     </Box>

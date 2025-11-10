@@ -27,7 +27,7 @@ const UserGoalsList = ({ data, onShowEdit }: { data: UserGoal[]; onShowEdit: (it
           {pagedItems.map((item, i) => (
             <Box key={item.id}>
               <Box>
-                <ListHeader text={item.body ?? ''} item={item} onClicked={onShowEdit} />
+                <ListHeader text={item.body ?? ''} item={item} onClicked={onShowEdit} fadeIn={false} />
                 {item.stats && (
                   <Box py={1}>
                     <GoalStats goal={item} completePercent={item.deleteCompletedTasks ? undefined : (item.completePercent ?? 0)} />

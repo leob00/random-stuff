@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 import { DropdownItem } from 'lib/models/dropdown'
 import { range } from 'lodash'
 import { apiConnection } from 'lib/backend/api/config'
-import { post } from 'lib/backend/api/fetchFunctions'
+import { post, postBody } from 'lib/backend/api/fetchFunctions'
 import { EconDataModel } from './EconDataLayout'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UncontrolledDropdownList from 'components/Atoms/Inputs/UncontrolledDropdownList'
@@ -13,6 +13,7 @@ import EconChart from '../widgets/econ/EconChart'
 import { WidgetDimensions } from '../widgets/RenderWidget'
 import { reverseColor } from '../widgets/econ/EconWidget'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
+import { getEconDataReport, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 
 interface Model {
   startYearOptions: DropdownItem[]
@@ -24,7 +25,6 @@ interface Model {
   isLoading: boolean
   item: EconomicDataItem
 }
-const config = apiConnection().qln
 
 const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: () => void }) => {
   const theme = useTheme()
@@ -76,14 +76,9 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
       return
     }
     setModel({ ...model, isLoading: true })
-    const url = `${config.url}/EconReports`
-    const resp = (await post(url, {
-      Id: id,
-      StartYear: yearStart,
-      EndYear: yearEnd,
-    })) as EconDataModel
-    const result = resp.Body.Item
-    setModel({ ...model, error: null, item: result, isLoading: false, selectedStartYear: yearStart, selectedEndYear: yearEnd })
+    const resp = await getEconDataReport(id, yearStart, yearEnd)
+
+    setModel({ ...model, error: null, item: resp, isLoading: false, selectedStartYear: yearStart, selectedEndYear: yearEnd })
   }
 
   const handleStartYearChange = async (val: string) => {

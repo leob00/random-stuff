@@ -11,6 +11,7 @@ const ListHeaderStack = ({
   showContextMenu,
   underline,
   selected,
+  outlined,
 }: {
   text: string
   item: any
@@ -20,6 +21,7 @@ const ListHeaderStack = ({
   showContextMenu?: boolean
   underline?: boolean
   selected?: boolean
+  outlined?: boolean
 }) => {
   const theme = useTheme()
   const StyledBox = styled(Stack)`
@@ -35,7 +37,7 @@ const ListHeaderStack = ({
 
   const Header = () => {
     return (
-      <Stack direction={'row'} flexGrow={1}>
+      <Stack direction={'row'} flexGrow={1} sx={{ border: outlined ? `solid 1px ${DarkModeBlueTransparent}` : 'unset' }}>
         <Box
           px={2}
           width={'100%'}

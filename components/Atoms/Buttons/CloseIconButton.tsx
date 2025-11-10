@@ -15,9 +15,9 @@ const CloseIconButton = ({ onClicked }: { onClicked: () => void }) => {
         sx={{ borderRadius: 140 }}
         onClick={handleClicked}
         endIcon={
-          <IconButton size='small' onClick={handleClicked} color='primary'>
-            <CancelIcon fontSize='small' />
-          </IconButton>
+          // <IconButton size='small' onClick={handleClicked} color='primary'>
+          <CancelIcon fontSize='small' />
+          // </IconButton>
         }
       >
         <Typography pl={1} variant='body2'>

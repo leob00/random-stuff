@@ -1,6 +1,9 @@
+import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+import CloseIconButton from 'components/Atoms/Buttons/CloseIconButton'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
 import EconDataDetails from 'components/Organizms/econ/EconDataDetails'
 import Seo from 'components/Organizms/Seo'
 import dayjs from 'dayjs'
@@ -15,6 +18,10 @@ const Page = () => {
   const id = router.query.id
   let startYear = searchParams?.get('startYear') as string | undefined
   let endYear = searchParams?.get('endYear') as string | undefined
+  let ret = searchParams?.get('ret') as string | undefined
+  if (ret) {
+    ret = decodeURIComponent(ret)
+  }
   if (!startYear) {
     startYear = dayjs().subtract(5, 'year').year().toString()
   }
@@ -38,20 +45,26 @@ const Page = () => {
   }
   const { data, isLoading } = useSwrHelper(key, dataFn, { revalidateOnFocus: false })
 
+  const handleCoseClick = () => {
+    if (ret) {
+      router.push(ret)
+    } else {
+      router.push('/csr/economic-indicators')
+    }
+  }
+
   return (
     <>
       <Seo pageTitle='Economic Indicators' />
       <ResponsiveContainer>
-        {isLoading && <BackdropLoader />}
+        {isLoading && <CircleLoader />}
         {data && (
           <>
-            <PageHeader text={data.Title} backButtonRoute='/csr/economic-indicators' forceShowBackButton />
-            <EconDataDetails
-              item={data}
-              onClose={() => {
-                router.push('/csr/economic-indicators')
-              }}
-            />
+            <PageHeader text={data.Title} backButtonRoute='/csr/economic-indicators' />
+            <Box py={2} display={'flex'} justifyContent={'flex-end'}>
+              <CloseIconButton onClicked={handleCoseClick} />
+            </Box>
+            <EconDataDetails item={data} onClose={handleCoseClick} />
           </>
         )}
       </ResponsiveContainer>
