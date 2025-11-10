@@ -4,7 +4,6 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import { getEconDataReport } from 'lib/backend/api/qln/qlnApi'
 import { WidgetSize } from 'components/Organizms/dashboard/dashboardModel'
 import EconChart from './EconChart'
-import { useRouter } from 'next/router'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const EconWidget = ({ itemId, symbol, width, height, size }: { itemId: number; symbol: string; width: number; height: number; size?: WidgetSize }) => {

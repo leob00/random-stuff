@@ -1,3 +1,4 @@
+'use client'
 import { Box, Typography, useMediaQuery, useTheme } from '@mui/material'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
@@ -56,7 +57,7 @@ const EconChart = ({
     rotate: 340,
     rotateAlways: true,
     formatter: (val, timestamp, opts) => {
-      return dayjs(val).format('YYYY-MM-DD')
+      return dayjs(val).format('MM/DD/YYYY')
     },
     offsetX: 4,
     offsetY: 16,

@@ -1,9 +1,9 @@
 import { Box } from '@mui/material'
-import JsonView from 'components/Atoms/Boxes/JsonView'
 import { EconDataModel } from 'components/Organizms/econ/EconDataLayout'
 import { apiConnection } from 'lib/backend/api/config'
 import { get } from 'lib/backend/api/fetchFunctions'
-import TreasuriesTable from './TreasuriesTable'
+import TreasuriesDisplay from './TreasuriesDisplay'
+import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 
 const ids = [
   13, // 3 year
@@ -16,7 +16,19 @@ const getData = async () => {
   const url = `${config.url}/EconReports`
   const resp = await get(url)
   const dbResult = resp as EconDataModel
-  const result = dbResult.Body.Items.filter((m) => ids.includes(m.InternalId))
+  const econData = dbResult.Body.Items
+  const result: EconomicDataItem[] = []
+  ids.forEach((id) => {
+    const item = econData.find((m) => m.InternalId === id)
+    if (item) {
+      result.push({ ...item })
+    }
+  })
+  result[0].Title = '3-year'
+  result[1].Title = '5-year'
+  result[2].Title = '30-year'
+
+  //const result = dbResult.Body.Items.filter((m) => ids.includes(m.InternalId))
 
   return result
 }
@@ -27,7 +39,7 @@ export default async function TreasuriesView() {
     <Box>
       {data && (
         <Box>
-          <TreasuriesTable data={data} />
+          <TreasuriesDisplay data={data} />
         </Box>
       )}
     </Box>

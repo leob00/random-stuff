@@ -1,19 +1,16 @@
+'use client'
 import { Alert, Box, Button, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 import dayjs from 'dayjs'
 import { DropdownItem } from 'lib/models/dropdown'
 import { range } from 'lodash'
-import { apiConnection } from 'lib/backend/api/config'
-import { post, postBody } from 'lib/backend/api/fetchFunctions'
-import { EconDataModel } from './EconDataLayout'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UncontrolledDropdownList from 'components/Atoms/Inputs/UncontrolledDropdownList'
 import { useReducer } from 'react'
 import EconChart from '../widgets/econ/EconChart'
 import { WidgetDimensions } from '../widgets/RenderWidget'
 import { reverseColor } from '../widgets/econ/EconWidget'
-import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
-import { getEconDataReport, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
+import { getEconDataReport } from 'lib/backend/api/qln/qlnApi'
 
 interface Model {
   startYearOptions: DropdownItem[]
@@ -96,18 +93,6 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
   return (
     <Box py={2}>
       {model.isLoading && <BackdropLoader />}
-      <Box display={'flex'} justifyContent={'center'} py={2}>
-        <Box py={2} minHeight={dimension.height} px={1}>
-          <EconChart
-            symbol={item.Title}
-            data={model.item}
-            width={dimension.width}
-            height={dimension.height}
-            reverseColor={shouldReverseColor}
-            isExtraSmall={isXSmallDevice}
-          />
-        </Box>
-      </Box>
       <Box display={'flex'} justifyContent={'center'}>
         <Box display={'flex'} gap={1} alignItems={'center'}>
           <Typography>from:</Typography>
@@ -128,6 +113,19 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
           <Alert severity='error'>{model.error}</Alert>
         </Box>
       )}
+      <Box display={'flex'} justifyContent={'center'} py={2}>
+        <Box py={2} minHeight={dimension.height} px={1}>
+          <EconChart
+            symbol={item.Title}
+            data={model.item}
+            width={dimension.width}
+            height={dimension.height}
+            reverseColor={shouldReverseColor}
+            isExtraSmall={isXSmallDevice}
+          />
+        </Box>
+      </Box>
+
       <Box py={2} textAlign={'center'}>
         <Typography variant='caption'>{`data available from ${dayjs(item.FirstObservationDate).format('MM/DD/YYYY')} to ${dayjs(item.LastObservationDate).format('MM/DD/YYYY')} on a ${item.Frequency} basis.`}</Typography>
       </Box>

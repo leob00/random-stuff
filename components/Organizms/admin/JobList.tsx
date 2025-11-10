@@ -56,6 +56,12 @@ const JobList = ({
     }
     onJobSelected(job)
   }
+
+  const handleCloseDetails = () => {
+    setSelectedItem(null)
+    onJobSelected(null)
+  }
+
   return (
     <>
       <Stack sx={{ pt: 2 }}>
@@ -65,7 +71,7 @@ const JobList = ({
         <>
           <Box display={'flex'} justifyContent={'space-between'} py={2} alignItems={'center'}>
             <Typography variant='h5'>{selectedItem.Description}</Typography>
-            <CloseIconButton onClicked={() => setSelectedItem(null)} />
+            <CloseIconButton onClicked={handleCloseDetails} />
           </Box>
           <JobDetail item={selectedItem} />
         </>

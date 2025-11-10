@@ -1,4 +1,5 @@
 'use client'
+import '../../styles/globals.css'
 import { CssBaseline, ThemeProvider, Container } from '@mui/material'
 import Footer from 'components/Footer'
 import Header from 'components/Header'
