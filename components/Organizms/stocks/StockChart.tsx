@@ -54,13 +54,13 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
       rotate: 340,
       rotateAlways: true,
       formatter: (val, timestamp, opts) => {
-        return dayjs(val).format('YYYY-MM-DD')
+        return dayjs(val).format('MM/DD/YYYY')
       },
       offsetX: 4,
       offsetY: 16,
 
       style: {
-        fontSize: '9px',
+        fontSize: '10px',
       },
     }
 
