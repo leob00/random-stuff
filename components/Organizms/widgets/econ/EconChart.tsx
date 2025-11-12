@@ -63,7 +63,7 @@ const EconChart = ({
     offsetY: 16,
 
     style: {
-      fontSize: '9px',
+      fontSize: '10px',
     },
   }
 
