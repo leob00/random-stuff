@@ -1,10 +1,32 @@
 import { ChartOptions } from 'chart.js'
 import { LineChart } from './barChartOptions'
-import { CasinoBlue, DarkBlue, VeryLightBlue, VeryLightBlueTransparent } from 'components/themes/mainTheme'
+import {
+  CasinoBlue,
+  CasinoMoreBlackTransparent,
+  DarkBlue,
+  VeryLightBlue,
+  VeryLightBlueOpaqueLight,
+  VeryLightBlueTransparent,
+} from 'components/themes/mainTheme'
+import { max, min } from 'lodash'
 
-export const getLineChartOptions = (title: string, data: LineChart, yAxisDecorator = '', palette: 'light' | 'dark'): ChartOptions<'line'> => {
+export const getLineChartOptions = (
+  lineChartData: LineChart,
+  title: string,
+  yAxisDecorator = '',
+  palette: 'light' | 'dark',
+  showXvalues?: boolean,
+): ChartOptions<'line'> => {
   return {
     responsive: true,
+    animation: {
+      easing: 'linear',
+      duration: 1500,
+    },
+    // layout: {
+    //   autoPadding: true,
+    // },
+    //maintainAspectRatio: true,
     hover: {
       mode: 'nearest',
       intersect: true,
@@ -13,10 +35,11 @@ export const getLineChartOptions = (title: string, data: LineChart, yAxisDecorat
       title: {
         display: true,
         text: title,
+        font: {
+          size: 18,
+          weight: 200,
+        },
         color: palette === 'light' ? DarkBlue : VeryLightBlue,
-      },
-      filler: {
-        propagate: false,
       },
       legend: {
         display: false,
@@ -30,77 +53,92 @@ export const getLineChartOptions = (title: string, data: LineChart, yAxisDecorat
       },
       tooltip: {
         padding: 16,
-        footerAlign: 'center',
-        footerSpacing: 2,
-        footerMarginTop: 10,
+        backgroundColor: CasinoMoreBlackTransparent,
+        titleColor: VeryLightBlue,
+        footerAlign: 'left',
+        footerSpacing: 10,
+        footerMarginTop: 1,
         footerFont: {
-          size: 15,
+          weight: 200,
         },
-
         bodyFont: {
           size: 16,
           weight: 'bold',
         },
+        bodySpacing: 10,
+        bodyAlign: 'left',
+        usePointStyle: true,
+        footerColor: palette === 'light' ? VeryLightBlue : VeryLightBlue,
+        bodyColor: palette === 'light' ? VeryLightBlue : VeryLightBlue,
         callbacks: {
           title: (tooltipItems) => {
-            return 'title'
+            return ''
           },
           label: (tooltipItems) => {
-            return ` ${[tooltipItems.label]}`
+            return ` ${[tooltipItems.label]}: ${Number(tooltipItems.formattedValue).toFixed(2)}${yAxisDecorator}`
           },
           labelPointStyle: (tooltiipItems) => {
             return {
               pointStyle: 'circle',
               rotation: 0,
-              border: 2,
+              border: 4,
             }
           },
-          afterTitle: (tooltipItems) => {
-            return `after title`
-          },
-          afterLabel: (tooltipItems) => {
-            return `after label`
-          },
-
-          afterBody: (tooltipItems) => {
-            return tooltipItems[0].formattedValue
-          },
           footer: (tooltipItems) => {
-            //return 'yo'
-            return tooltipItems[0].formattedValue
-          },
-          afterFooter: (tooltipItems) => {
-            return 'after footer'
+            return ''
           },
         },
       },
-    },
-    interaction: {
-      intersect: true,
     },
     scales: {
       y: {
+        grid: {
+          color: VeryLightBlueOpaqueLight,
+          drawTicks: false,
+        },
+        // min: 0, // Math.floor(min(lineChartData.numbers)!),
+        //max: Math.ceil(max(lineChartData.numbers)!) + 8,
+        suggestedMax: Math.ceil(max(lineChartData.numbers)!) + 8,
+        suggestedMin: min(lineChartData.numbers)! > 0 ? min(lineChartData.numbers)! - 1 : Math.floor(min(lineChartData.numbers)! - 9),
         ticks: {
-          color: palette === 'light' ? CasinoBlue : VeryLightBlue,
+          align: 'start',
+          color: palette === 'light' ? DarkBlue : VeryLightBlue,
           font: {
             size: 12,
           },
-        },
-        grid: {
-          display: true,
-          color: VeryLightBlueTransparent,
-          //color: "red"
+          padding: 12,
+          autoSkip: true,
+          callback: function (value) {
+            return `${value}${yAxisDecorator}`
+          },
         },
       },
       x: {
-        display: false,
-
+        display: showXvalues ?? true,
+        type: 'category',
         ticks: {
-          color: palette === 'light' ? CasinoBlue : VeryLightBlueTransparent,
+          //align: 'end',
+          padding: 20,
+          color: palette === 'light' ? DarkBlue : VeryLightBlue,
+          autoSkip: true,
+          maxRotation: 45,
+          minRotation: 0,
+          autoSkipPadding: 4,
+          font: {
+            size: 11,
+          },
+          // callback(tickValue, index, ticks) {
+          //   if (index % 2 === 0) {
+          //     return lineChartData.labels[index]
+          //   }
+
+          //   return ''
+          // },
         },
+
         grid: {
-          display: true,
-          color: VeryLightBlueTransparent,
+          color: VeryLightBlueOpaqueLight,
+          drawTicks: true,
         },
       },
     },

@@ -1,8 +1,9 @@
 import { Chart as ChartJS, LineController, LineElement, PointElement, LinearScale, CategoryScale, Title, Tooltip, Legend, ChartOptions } from 'chart.js'
 import { Line } from 'react-chartjs-2'
-import { BarChart, getLineChartData, getLineChartOptions, LineChart } from './barChartOptions'
+import { BarChart, getLineChartData, LineChart } from './barChartOptions'
 import { Box, useTheme } from '@mui/material'
 import annotationPlugin from 'chartjs-plugin-annotation'
+import { getLineChartOptions } from './lineChartOptions'
 
 ChartJS.register(annotationPlugin, CategoryScale, LinearScale, LineController, LineElement, PointElement, Title, Tooltip, Legend)
 

@@ -1,7 +1,7 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import SimpleLineChart from 'components/Atoms/Charts/chartJs/SimpleLineChart'
-import { BarChart, getLineChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
+import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import { CasinoBlueTransparent, CasinoOrangeTransparent, DarkGreen, DarkModeRed, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { JoBLog, Job } from 'lib/backend/api/qln/qlnApi'
@@ -9,6 +9,7 @@ import { sortArray } from 'lib/util/collections'
 import { max, mean, orderBy, sum, take } from 'lodash'
 import numeral from 'numeral'
 import { min } from 'lodash'
+import { getLineChartOptions } from 'components/Atoms/Charts/chartJs/lineChartOptions'
 
 const JobPerformanceLineChart = ({ data }: { data: Job }) => {
   const theme = useTheme()

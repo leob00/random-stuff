@@ -1,6 +1,6 @@
 'use client'
 import { Box, Typography, useMediaQuery, useTheme } from '@mui/material'
-import { BarChart, getBarChartOptions, getLineChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
+import { BarChart, getBarChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import { StockStats } from 'lib/backend/api/qln/qlnModels'
 import dayjs from 'dayjs'
 import SimpleBarChart from 'components/Atoms/Charts/chartJs/SimpleBarChart'
@@ -14,6 +14,7 @@ import { useMemo } from 'react'
 import BackForwardPager from 'components/Molecules/Buttons/BackForwardPager'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
+import { getLineChartOptions } from 'components/Atoms/Charts/chartJs/lineChartOptions'
 dayjs.extend(isSameOrBefore)
 
 const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {

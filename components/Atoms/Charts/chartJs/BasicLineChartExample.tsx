@@ -60,7 +60,7 @@ const BasicLineChartExample = () => {
     ],
   }
 
-  const opts = getLineChartOptions('Title Example', values, undefined, theme.palette.mode)
+  const opts = getLineChartOptions(values, 'Title Example', '', theme.palette.mode)
   return (
     <>
       <Line data={data} options={opts} />
