@@ -17,6 +17,7 @@ import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
 import { StockQuoteSort } from 'lib/backend/api/models/collections'
 import ContextMenuCrypto from 'components/Molecules/Menus/ContextMenuCrypto'
 import ContextMenuCommodities from 'components/Molecules/Menus/ContextMenuCommodities'
+import ContextMenuStockSentiment from 'components/Molecules/Menus/ContextMenuStockSentiment'
 
 const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; onRefresh: () => void }) => {
   const router = useRouter()
@@ -42,6 +43,10 @@ const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; 
     {
       item: <ContextMenuMyStocks />,
       fn: () => router.push('/csr/my-stocks'),
+    },
+    {
+      item: <ContextMenuStockSentiment />,
+      fn: () => router.push('/csr/stocks/sentiment'),
     },
     {
       item: <ContextMenuReport text={'reports'} />,

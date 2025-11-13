@@ -1,15 +1,12 @@
 import dynamic from 'next/dynamic'
-const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 import { Box, useMediaQuery, useTheme } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
 import { getBaseLineChartOptions, LineChartOptions } from 'components/Atoms/Charts/apex/baseLineChartOptions'
 import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
-
 import FadeIn from 'components/Atoms/Animations/FadeIn'
-import FadeOut from 'components/Atoms/Animations/FadeOut'
-import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import dayjs from 'dayjs'
-import { CasinoBlackTransparent, VeryLightBlue } from 'components/themes/mainTheme'
+import { VeryLightBlue } from 'components/themes/mainTheme'
+const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const getOptions = (xYValues: XyValues[], lineOptions: LineChartOptions[]) => {
   const result: ApexOptions[] = xYValues.map((m, i) => getBaseLineChartOptions(m, lineOptions[i]))
@@ -18,7 +15,7 @@ const getOptions = (xYValues: XyValues[], lineOptions: LineChartOptions[]) => {
 
 const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyValues[]; lineOptions: LineChartOptions[]; isLoading: boolean }) => {
   const theme = useTheme()
-  const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
+  const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const chartHeight = isXSmall ? 300 : 520
 
   const options = getOptions(xYValues, lineOptions)
@@ -66,7 +63,7 @@ const LineChartsSynced = ({ xYValues, lineOptions, isLoading }: { xYValues: XyVa
                 <Box minHeight={chartHeight}>
                   <ReactApexChart options={options[0]} series={options[0].series} type='area' height={'100%'} />
                 </Box>
-                <Box height={160} pt={2}>
+                <Box height={200} pt={2}>
                   <ReactApexChart options={options[1]} series={options[1].series} type='area' height={'100%'} />
                 </Box>
               </FadeIn>

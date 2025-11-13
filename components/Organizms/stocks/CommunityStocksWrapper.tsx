@@ -10,6 +10,7 @@ import { Box } from '@mui/material'
 import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
 import ContextMenuCommodities from 'components/Molecules/Menus/ContextMenuCommodities'
 import ContextMenuCrypto from 'components/Molecules/Menus/ContextMenuCrypto'
+import ContextMenuStockSentiment from 'components/Molecules/Menus/ContextMenuStockSentiment'
 
 const CommunityStocksWrapper = ({ data, onRefresh }: { data?: StockQuote[]; onRefresh: () => void }) => {
   const router = useRouter()
@@ -21,10 +22,13 @@ const CommunityStocksWrapper = ({ data, onRefresh }: { data?: StockQuote[]; onRe
         onRefresh()
       },
     },
-
     {
       item: <ContextMenuMyStocks />,
       fn: () => router.push('/csr/my-stocks'),
+    },
+    {
+      item: <ContextMenuStockSentiment />,
+      fn: () => router.push('/csr/stocks/sentiment'),
     },
     {
       item: <ContextMenuReport text={'reports'} />,

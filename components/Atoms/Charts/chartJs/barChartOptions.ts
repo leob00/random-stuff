@@ -192,6 +192,7 @@ export const getBarChartOptions = (
         },
       },
       x: {
+        type: 'category',
         display: showXvalues ?? true,
         ticks: {
           padding: 0,
@@ -199,6 +200,7 @@ export const getBarChartOptions = (
           font: {
             size: 11,
           },
+          autoSkip: true,
         },
         grid: {
           color: VeryLightBlueOpaqueLight,
@@ -314,6 +316,7 @@ export const getLineChartOptions = (
       },
       x: {
         display: showXvalues ?? true,
+        type: 'category',
         ticks: {
           //align: 'end',
           padding: 20,

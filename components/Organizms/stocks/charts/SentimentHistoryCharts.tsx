@@ -16,7 +16,7 @@ import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 dayjs.extend(isSameOrBefore)
 
-const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
+const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
   const limit = 10
   interface PagingModel {
     backButtonDisabled: boolean
@@ -190,4 +190,4 @@ const DailySentimentBarChart = ({ data }: { data: StockStats[] }) => {
   )
 }
 
-export default DailySentimentBarChart
+export default SentimentHistoryCharts
