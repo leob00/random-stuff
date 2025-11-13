@@ -7,8 +7,9 @@ import numeral from 'numeral'
 import CenterStack from 'components/Atoms/CenterStack'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import { useMarketColors } from 'components/themes/marketColors'
+import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 
-const StockMarketStatsChart = ({ data }: { data: StockStats }) => {
+const StockMarketStatsChart = ({ data, title }: { data: StockStats; title?: string }) => {
   const { chart } = useMarketColors()
   const chartData: BarChart = {
     colors: [chart.positiveColor, chart.negativeColor, chart.unchangedColor],
@@ -18,19 +19,22 @@ const StockMarketStatsChart = ({ data }: { data: StockStats }) => {
 
   return (
     <Box>
-      <Box sx={{ margin: 'auto' }}>
-        <BasicPieChart barChart={chartData} title={''} />
-      </Box>
-      <Box>
-        <CenterStack sx={{ pt: 1 }}>
-          <ReadOnlyField variant='caption' label='up' val={`${numeral(data.TotalUpPercent).format('0.000')}%`} />
-        </CenterStack>
-        <CenterStack>
-          <ReadOnlyField variant='caption' label='down' val={`${numeral(data.TotalDownPercent).format('0.000')}%`} />
-        </CenterStack>
-        <CenterStack>
-          <ReadOnlyField variant='caption' label='unchanged' val={`${numeral(data.TotalUnchangedPercent).format('0.000')}%`} />
-        </CenterStack>
+      {title && <CenteredHeader title={title} variant='h5' />}
+      <Box mt={-6}>
+        <Box sx={{ margin: 'auto' }}>
+          <BasicPieChart barChart={chartData} title={''} />
+        </Box>
+        <Box>
+          <CenterStack sx={{ pt: 1 }}>
+            <ReadOnlyField variant='caption' label='up' val={`${numeral(data.TotalUpPercent).format('0.000')}%`} />
+          </CenterStack>
+          <CenterStack>
+            <ReadOnlyField variant='caption' label='down' val={`${numeral(data.TotalDownPercent).format('0.000')}%`} />
+          </CenterStack>
+          <CenterStack>
+            <ReadOnlyField variant='caption' label='unchanged' val={`${numeral(data.TotalUnchangedPercent).format('0.000')}%`} />
+          </CenterStack>
+        </Box>
       </Box>
     </Box>
   )

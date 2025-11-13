@@ -1,9 +1,9 @@
 import { ChartOptions } from 'chart.js'
 import { LineChart } from './barChartOptions'
 import {
-  CasinoBlue,
   CasinoMoreBlackTransparent,
   DarkBlue,
+  TooltipBkg,
   VeryLightBlue,
   VeryLightBlueOpaqueLight,
   VeryLightBlueTransparent,
@@ -53,7 +53,7 @@ export const getLineChartOptions = (
       },
       tooltip: {
         padding: 16,
-        backgroundColor: CasinoMoreBlackTransparent,
+        backgroundColor: TooltipBkg,
         titleColor: VeryLightBlue,
         footerAlign: 'left',
         footerSpacing: 10,

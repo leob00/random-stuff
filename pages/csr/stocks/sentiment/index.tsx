@@ -88,16 +88,23 @@ const Page = () => {
               </>
             )}
             <SentimentHistoryCharts data={data.history} />
-            <Box pt={4}>
+            <Box pt={4} display={'flex'} justifyContent={'center'}>
               <HorizontalDivider />
-              <CenteredHeader title={`${data.history.length} Days`} variant='h5' />
-              <Box mt={-4}>
-                <StockMarketStatsChart data={getSentiment(data.history, data.history.length)} />
+              <Box display={'flex'} flexDirection={'row'} gap={1} flexWrap={'wrap'}>
+                <Box>
+                  <StockMarketStatsChart title={`${data.history.length} Days`} data={getSentiment(data.history, data.history.length)} />
+                </Box>
+                <Box>
+                  <StockMarketStatsChart title={`${1} Week`} data={getSentiment(data.aggregates, 7)} />
+                </Box>
+                <Box>
+                  <StockMarketStatsChart title={`${1} Month`} data={getSentiment(data.aggregates, 30)} />
+                </Box>
               </Box>
             </Box>
           </Box>
         )}
-        <Box pt={4}>{data && data.aggregates && <StockSentimentDisplay data={data.aggregates} />}</Box>
+        {/* <Box pt={4}>{data && data.aggregates && <StockSentimentDisplay data={data.aggregates} />}</Box> */}
       </ResponsiveContainer>
     </>
   )

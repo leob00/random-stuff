@@ -8,7 +8,7 @@ const Playground = () => {
   return (
     <Box py={2}>
       <BasicLineChartExample />
-      <MultiLineChartDisplay />
+      {/* <MultiLineChartDisplay /> */}
     </Box>
   )
 }

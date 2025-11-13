@@ -7,7 +7,7 @@ import { Box } from '@mui/material'
 
 const StockSentimentDisplay = ({ data }: { data: StockStats[] }) => {
   return (
-    <>
+    <Box>
       <CenteredHeader title={'1 Week'} variant='h5' />
       <Box>
         <Box mt={-5}>
@@ -25,7 +25,7 @@ const StockSentimentDisplay = ({ data }: { data: StockStats[] }) => {
         </Box>
         <HorizontalDivider />
       </Box>
-    </>
+    </Box>
   )
 }
 

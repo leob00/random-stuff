@@ -1,17 +1,13 @@
-import { ChartData, ChartOptions } from 'chart.js'
+import { ChartData, ChartOptions, ScriptableContext } from 'chart.js'
 import {
   CasinoBlue,
   CasinoBlueTransparent,
-  CasinoMoreBlackTransparent,
-  CasinoRed,
   DarkBlue,
   TooltipBkg,
   VeryLightBlue,
   VeryLightBlueOpaque,
   VeryLightBlueOpaqueLight,
-  VeryLightBlueTransparent,
 } from 'components/themes/mainTheme'
-import { max, min } from 'lodash'
 
 export interface LineChart {
   labels: string[]
@@ -53,6 +49,14 @@ export const getLineChartData = (labels: string[], numbers: number[], colors: st
         tension: 0.2,
         pointStyle: 'circle',
         pointBackgroundColor: CasinoBlue,
+        backgroundColor: (context: ScriptableContext<'line'>) => {
+          const ctx = context.chart.ctx
+          const gradient = ctx.createLinearGradient(10, 10, 10, 500)
+          gradient.addColorStop(0, CasinoBlueTransparent)
+          gradient.addColorStop(1, VeryLightBlueOpaque)
+          return gradient
+        },
+        fill: true,
       },
     ],
   }
@@ -282,7 +286,7 @@ export function getMultiDatasetBarChartOptions(settings: BarchartSettings): Char
       },
       tooltip: {
         padding: 16,
-        backgroundColor: CasinoMoreBlackTransparent,
+        backgroundColor: TooltipBkg,
         titleColor: VeryLightBlue,
         footerAlign: 'left',
         footerSpacing: 8,
