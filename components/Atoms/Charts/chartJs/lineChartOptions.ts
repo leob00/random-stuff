@@ -23,6 +23,7 @@ export const getLineChartOptions = (
       easing: 'linear',
       duration: 1500,
     },
+    //maintainAspectRatio: true,
     // layout: {
     //   autoPadding: true,
     // },
@@ -121,7 +122,7 @@ export const getLineChartOptions = (
           padding: 20,
           color: palette === 'light' ? DarkBlue : VeryLightBlue,
           autoSkip: true,
-          maxRotation: 45,
+          maxRotation: 20,
           minRotation: 0,
           autoSkipPadding: 4,
           font: {

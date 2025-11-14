@@ -186,7 +186,7 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
         handleNextClick={handleNextClick}
       />
       <SimpleBarChart barChart={bar} chartOptions={barchartOptions} height={height} />
-      <SimpleLineChart barChart={bar} chartOptions={lineChartOptions} height={height - 5} />
+      <SimpleLineChart barChart={bar} chartOptions={lineChartOptions} height={height} />
     </Box>
   )
 }

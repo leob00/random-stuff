@@ -46,7 +46,7 @@ export const getLineChartData = (labels: string[], numbers: number[], colors: st
         animation: {
           easing: 'linear',
         },
-        tension: 0.2,
+        tension: 0.4,
         pointStyle: 'circle',
         pointBackgroundColor: CasinoBlue,
         backgroundColor: (context: ScriptableContext<'line'>) => {

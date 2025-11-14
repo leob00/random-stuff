@@ -13,11 +13,14 @@ export const getPieChartData = (labels: string[], numbers: number[], colors: str
     datasets: [
       {
         borderColor: borderColors,
-        borderWidth: borderColors && borderColors.length > 0 ? 1 : 0,
+        borderWidth: 0,
         data: numbers,
         backgroundColor: colors,
         type: 'doughnut',
         indexAxis: 'x',
+        animation: {
+          easing: 'linear',
+        },
       },
     ],
   }
@@ -52,6 +55,7 @@ export const getPieChartOptions = (title: string, palette: 'light' | 'dark'): Ch
           color: CasinoWhiteTransparent,
         },
       },
+
       tooltip: {
         padding: 16,
         backgroundColor: CasinoMoreBlackTransparent,
@@ -90,26 +94,5 @@ export const getPieChartOptions = (title: string, palette: 'light' | 'dark'): Ch
         },
       },
     },
-
-    /* scales: {
-      y: {
-        ticks: {
-          color: DarkBlue,
-          autoSkip: true,
-          //stepSize: 1,
-          precision: 1,
-          maxTicksLimit: max(data?.numbers),
-        },
-      },
-      x: {
-        display: true,
-        ticks: {
-          color: DarkBlue,
-        },
-        grid: {
-          //color: "red"
-        },
-      },
-    }, */
   }
 }
