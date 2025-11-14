@@ -63,13 +63,7 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
     }
   }
 
-  var options = getLineChartOptions(
-    { labels: lineChart.labels, numbers: lineChart.numbers },
-    `Job performance in${minutesOrSeconds}`,
-    minutesOrSeconds,
-    theme.palette.mode,
-    false,
-  )
+  var options = getLineChartOptions({ labels: lineChart.labels, numbers: lineChart.numbers }, `Job performance`, minutesOrSeconds, theme.palette.mode, false)
   options.plugins!.tooltip!.callbacks = {
     ...options.plugins!.tooltip?.callbacks,
 

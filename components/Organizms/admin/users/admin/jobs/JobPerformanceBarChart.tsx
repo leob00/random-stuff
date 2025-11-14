@@ -62,7 +62,7 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
     }
   }
 
-  var options = getBarChartOptions(`Job performance in${minutesOrSeconds}`, minutesOrSeconds, theme.palette.mode, false, false)
+  var options = getBarChartOptions(`Job performance`, minutesOrSeconds, theme.palette.mode, false, false)
   options.plugins!.tooltip!.callbacks = {
     ...options.plugins!.tooltip?.callbacks,
 

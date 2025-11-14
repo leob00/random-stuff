@@ -90,7 +90,7 @@ const Page = () => {
             <SentimentHistoryCharts data={data.history} />
             <Box pt={4} display={'flex'} justifyContent={'center'}>
               <HorizontalDivider />
-              <Box display={'flex'} flexDirection={'row'} gap={1} flexWrap={'wrap'}>
+              <Box display={'flex'} flexDirection={'row'} gap={1} flexWrap={'wrap'} justifyContent={{ xs: 'center' }}>
                 <Box>
                   <StockMarketStatsChart title={`${data.history.length} Days`} data={getSentiment(data.history, data.history.length)} />
                 </Box>

@@ -109,7 +109,7 @@ export const getBarChartOptions = (
       easing: 'linear',
       duration: 1500,
     },
-    maintainAspectRatio: true,
+    //maintainAspectRatio: true,
     indexAxis: isHorizontal ? 'y' : 'x',
     hover: {
       mode: 'nearest',

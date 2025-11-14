@@ -1,13 +1,6 @@
 import { ChartOptions } from 'chart.js'
 import { LineChart } from './barChartOptions'
-import {
-  CasinoMoreBlackTransparent,
-  DarkBlue,
-  TooltipBkg,
-  VeryLightBlue,
-  VeryLightBlueOpaqueLight,
-  VeryLightBlueTransparent,
-} from 'components/themes/mainTheme'
+import { DarkBlue, TooltipBkg, VeryLightBlue, VeryLightBlueOpaqueLight, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import { max, min } from 'lodash'
 
 export const getLineChartOptions = (
@@ -23,11 +16,6 @@ export const getLineChartOptions = (
       easing: 'linear',
       duration: 1500,
     },
-    //maintainAspectRatio: true,
-    // layout: {
-    //   autoPadding: true,
-    // },
-    //maintainAspectRatio: true,
     hover: {
       mode: 'nearest',
       intersect: true,
@@ -97,8 +85,6 @@ export const getLineChartOptions = (
           color: VeryLightBlueOpaqueLight,
           drawTicks: false,
         },
-        // min: 0, // Math.floor(min(lineChartData.numbers)!),
-        //max: Math.ceil(max(lineChartData.numbers)!) + 8,
         suggestedMax: Math.ceil(max(lineChartData.numbers)!) + 8,
         suggestedMin: min(lineChartData.numbers)! > 0 ? min(lineChartData.numbers)! - 1 : Math.floor(min(lineChartData.numbers)! - 9),
         ticks: {
@@ -115,26 +101,30 @@ export const getLineChartOptions = (
         },
       },
       x: {
+        min: lineChartData.labels[0],
         display: showXvalues ?? true,
         type: 'category',
+        // time: {
+        //   unit: 'day',
+        //   displayFormats: {
+        //     day: 'MM/DD/YYYY',
+        //   },
+        // },
         ticks: {
-          //align: 'end',
+          //source: 'data',
           padding: 20,
           color: palette === 'light' ? DarkBlue : VeryLightBlue,
-          autoSkip: true,
-          maxRotation: 20,
-          minRotation: 0,
-          autoSkipPadding: 4,
+
           font: {
             size: 11,
           },
-          // callback(tickValue, index, ticks) {
-          //   if (index % 2 === 0) {
-          //     return lineChartData.labels[index]
-          //   }
+          callback(tickValue, index, ticks) {
+            if (index % 2 !== 0) {
+              return lineChartData.labels[index]
+            }
 
-          //   return ''
-          // },
+            return ''
+          },
         },
 
         grid: {
