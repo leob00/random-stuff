@@ -63,13 +63,17 @@ const SymbolSearch = ({
       <AccordionDetails>
         <Box>
           <Box display={'flex'} justifyContent={'center'}>
-            <AlertWithHeader
-              severity='warning'
-              header='Using this filter may override other filters'
-              text=' The symbols filter is best used if you want to create a stock watch list.'
-            />
+            <Box py={2}>
+              <AlertWithHeader
+                severity='warning'
+                header='Using the symbols filter may override other filters'
+                text=' This filter is most applicable for creating a stock watch list.'
+              />
+            </Box>
           </Box>
-          <StockSearch onSymbolSelected={handleAddSymbol} showAdvSearch={false} clearOnSelect />
+          <Box py={2}>
+            <StockSearch onSymbolSelected={handleAddSymbol} showAdvSearch={false} clearOnSelect />
+          </Box>
         </Box>
         {formValues.symbols && (
           <Box py={2}>

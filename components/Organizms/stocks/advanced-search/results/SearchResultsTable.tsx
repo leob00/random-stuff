@@ -5,7 +5,6 @@ import { StockFilterSummary } from '../stocksAdvancedSearch'
 import PagedStockTable from '../../PagedStockTable'
 import ScrollTop from 'components/Atoms/Boxes/ScrollTop'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
-import { useEffect } from 'react'
 
 const SearchResultsTable = ({
   data,

@@ -24,12 +24,12 @@ const CommoditiesLayout = () => {
 
   const menu: ContextMenuItem[] = [
     {
-      item: <ContextMenuMyStocks />,
-      fn: () => router.push('/csr/my-stocks'),
-    },
-    {
       item: <ContextMenuAllStocks text={'stocks'} />,
       fn: () => router.push('/csr/community-stocks'),
+    },
+    {
+      item: <ContextMenuMyStocks />,
+      fn: () => router.push('/csr/my-stocks'),
     },
     {
       item: <ContextMenuCrypto text={'crypto'} />,

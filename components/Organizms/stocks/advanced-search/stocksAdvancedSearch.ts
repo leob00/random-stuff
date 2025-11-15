@@ -1,11 +1,21 @@
 import { NumberRangeFilter, StockAdvancedSearchFilter, StockMarketCapFilter, StockMovingAvgFilter } from './advancedSearchFilter'
 
-export function hasMarketCapFilter(filter: StockMarketCapFilter) {
+export function hasMarketCapFilter(filter?: StockMarketCapFilter) {
+  if (!filter) {
+    return false
+  }
+
   const result = filter.includeMegaCap || filter.includeLargeCap || filter.includeMidCap || filter.includeSmallCap
-  return !!result
+  if (!result) {
+    return false
+  }
+  return result
 }
 
-export function hasMovingAvgFilter(filter: StockMovingAvgFilter) {
+export function hasMovingAvgFilter(filter?: StockMovingAvgFilter) {
+  if (!filter) {
+    return false
+  }
   const result = !!filter.days
   return !!result
 }
@@ -15,6 +25,36 @@ export function hasNumberRangeFilter(filter?: NumberRangeFilter | null) {
   }
   const result = filter.from || filter.to
   return !!result
+}
+
+export function hasSymbolsFilter(filter?: string[]) {
+  if (!filter) {
+    return false
+  }
+  return filter.length > 0
+}
+
+export function hasAnyFilter(filter?: StockAdvancedSearchFilter) {
+  if (!filter) {
+    return false
+  }
+  if (hasMarketCapFilter(filter.marketCap)) {
+    return true
+  }
+  if (hasMovingAvgFilter(filter.movingAvg)) {
+    return true
+  }
+  if (hasNumberRangeFilter(filter.annualYield)) {
+    return true
+  }
+  if (hasNumberRangeFilter(filter.peRatio)) {
+    return true
+  }
+  if (hasSymbolsFilter(filter.symbols)) {
+    return true
+  }
+
+  return false
 }
 
 export function getMarketCapFilters(filter: StockMarketCapFilter) {

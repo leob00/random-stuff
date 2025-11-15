@@ -35,6 +35,9 @@ import GradientIcon from '@mui/icons-material/Gradient'
 import PersonIcon from '@mui/icons-material/Person'
 import QueryStatsIcon from '@mui/icons-material/QueryStats'
 import RedeemIcon from '@mui/icons-material/Redeem'
+import SignalWifiStatusbar4BarIcon from '@mui/icons-material/SignalWifiStatusbar4Bar'
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount'
+import CarpenterIcon from '@mui/icons-material/Carpenter'
 type PagePros = {
   disabled?: boolean
 } & Navigation &
@@ -122,6 +125,12 @@ export const renderIcon = (item: PathNames) => {
       return <GradientIcon />
     case 'profile':
       return <PersonIcon />
+    case 'admin':
+      return <SupervisorAccountIcon />
+    case 'status':
+      return <SignalWifiStatusbar4BarIcon />
+    case 'sandbox':
+      return <CarpenterIcon />
     default:
       return <></>
   }

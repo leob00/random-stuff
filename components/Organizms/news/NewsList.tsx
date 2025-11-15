@@ -5,8 +5,6 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { NewsItem, NewsTypeIds } from 'lib/backend/api/qln/qlnApi'
 import NewsListItem from './NewsListItem'
-import { useProfileValidator } from 'hooks/auth/useProfileValidator'
-import { profile } from 'console'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 dayjs.extend(relativeTime)
@@ -18,9 +16,7 @@ export const getThumbnailSize = (source?: string) => {
   const s = source as NewsTypeIds
   switch (s) {
     case 'CBSWorld':
-      return 80
-    case 'SkyNews':
-      return 120
+      return 110
     default:
       return 300
   }

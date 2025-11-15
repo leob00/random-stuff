@@ -4,6 +4,7 @@ import { executeStockAdvancedSearch } from 'lib/backend/api/qln/qlnApi'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import { sortArray } from 'lib/util/collections'
+import { hasAnyFilter, hasMarketCapFilter, hasNumberRangeFilter, hasSymbolsFilter } from './stocksAdvancedSearch'
 
 interface Model {
   expandMarketCap: boolean
@@ -22,11 +23,11 @@ export default function useAdvancedSearchUi(filter?: StockAdvancedSearchFilter) 
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
 
   const defaultModel: Model = {
-    expandMarketCap: true,
-    expandMovingAvg: false,
-    expandPeRatio: false,
-    expandAnnualYield: false,
-    expandSymbols: false,
+    expandMarketCap: hasMarketCapFilter(filter?.marketCap) || !hasAnyFilter(filter),
+    expandMovingAvg: hasNumberRangeFilter(filter?.movingAvg),
+    expandPeRatio: hasNumberRangeFilter(filter?.peRatio),
+    expandAnnualYield: hasNumberRangeFilter(filter?.annualYield),
+    expandSymbols: hasSymbolsFilter(filter?.symbols),
     showResults: false,
     isLoading: isValidatingProfile,
 
