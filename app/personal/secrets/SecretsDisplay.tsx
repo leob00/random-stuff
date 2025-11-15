@@ -11,11 +11,14 @@ import { getUtcNow } from 'lib/util/dateUtil'
 import dayjs from 'dayjs'
 import { usePathname, useRouter } from 'next/navigation'
 import { getUserSecrets } from 'lib/backend/csr/nextApiWrapper'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import EditSecret from 'components/Organizms/user/secrets/EditSecret'
 
 const SecretsDisplay = ({ data }: { data: SecretsUiModel }) => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
   const [filter, setFilter] = useState('')
   const [allResults, setAllResults] = useState(data.results)
+  const [showCreateNew, setShowCreateNew] = useState(false)
   const router = useRouter()
   const pathName = usePathname()
 
@@ -48,14 +51,39 @@ const SecretsDisplay = ({ data }: { data: SecretsUiModel }) => {
       {!userProfile && !isValidatingProfile && <PleaseLogin />}
       {userProfile && (
         <>
-          <SecretsTable
-            authProfile={userProfile}
-            filter={filter}
-            filteredSecrets={results}
-            handleItemSaved={handleRevalidate}
-            handleItemDeleted={handleRevalidate}
-            handleFilterChanged={handleFilterChanged}
-          />
+          {!showCreateNew && (
+            <>
+              <Box pb={3}>
+                <PrimaryButton text={'Create...'} size='small' onClick={() => setShowCreateNew(true)} />
+              </Box>
+              <SecretsTable
+                authProfile={userProfile}
+                filter={filter}
+                filteredSecrets={results}
+                handleItemSaved={handleRevalidate}
+                handleItemDeleted={handleRevalidate}
+                handleFilterChanged={handleFilterChanged}
+              />
+            </>
+          )}
+          <>
+            {showCreateNew && (
+              <EditSecret
+                username={userProfile.username}
+                userSecret={{ title: '', secret: '', salt: undefined }}
+                onCancel={() => setShowCreateNew(false)}
+                onSaved={() => {
+                  setShowCreateNew(false)
+                  handleRevalidate()
+                }}
+                onDeleted={() => {
+                  setShowCreateNew(false)
+                  handleRevalidate()
+                }}
+                isDecrypted
+              />
+            )}
+          </>
         </>
       )}
     </Box>
