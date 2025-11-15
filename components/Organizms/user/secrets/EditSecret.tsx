@@ -1,8 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material'
 import { UserSecret } from 'lib/backend/api/models/zModels'
-import { myEncrypt } from 'lib/backend/encryption/useEncryptor'
-import { constructUserSecretPrimaryKey } from 'lib/backend/api/aws/util'
-import { deleteRecord, putUserSecret } from 'lib/backend/csr/nextApiWrapper'
+import { deleteRecord, encryptUserSecret, putUserSecret } from 'lib/backend/csr/nextApiWrapper'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import SecretInputForm from './SecretInputForm'
 import { useReducer } from 'react'
@@ -15,7 +13,6 @@ interface Model {
 
 const EditSecret = ({
   username,
-  encKey,
   userSecret,
   onCancel,
   onSaved,
@@ -23,7 +20,6 @@ const EditSecret = ({
   isDecrypted = false,
 }: {
   username: string
-  encKey: string
   userSecret: UserSecret
   onCancel: () => void
   onSaved?: (item: UserSecret) => void
@@ -53,13 +49,10 @@ const EditSecret = ({
   const onSubmitted = async (data: UserSecret) => {
     setModel({ ...model, isLoading: true })
 
-    if (!data.id) {
-      data.id = constructUserSecretPrimaryKey(username)
-    }
-    data.secret = myEncrypt(encKey, data.secret)
-    await putUserSecret(data, username)
+    const result = await encryptUserSecret(data)
+    await putUserSecret(result, username)
 
-    onSaved?.(data)
+    onSaved?.(result)
   }
 
   return (

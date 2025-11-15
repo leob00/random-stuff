@@ -14,16 +14,16 @@ import { reorderTasks } from './UserGoalsLayout'
 import { ListItemIcon, ListItemText } from '@mui/material'
 import Delete from '@mui/icons-material/Delete'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import EditGoal from './EditGoal'
 import GoalStats from './GoalStats'
 import { UserGoal, UserTask } from './goalModels'
 import { useState } from 'react'
-import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 import ProgressDrawer from 'components/Atoms/Drawers/ProgressDrawer'
 import { postBody, postDelete } from 'lib/backend/api/fetchFunctions'
 import { sleep } from 'lib/util/timers'
+import CloseIconButton from 'components/Atoms/Buttons/CloseIconButton'
 
 const SingleGoalDisplay = ({
   username,
@@ -145,14 +145,19 @@ const SingleGoalDisplay = ({
     },
   ]
 
+  const handleClose = () => {
+    router.push('/protected/csr/goals')
+  }
+
   return (
     <>
       {goalEditMode ? (
-        <FadeIn>
-          <EditGoal goal={goal} onSaveGoal={handleModifyGoal} onShowCompletedTasks={() => {}} onCancelEdit={() => setGoalEditMode(false)} />
-        </FadeIn>
+        <EditGoal goal={goal} onSaveGoal={handleModifyGoal} onShowCompletedTasks={() => {}} onCancelEdit={() => setGoalEditMode(false)} />
       ) : (
         <>
+          <Box display={'flex'} justifyContent={'flex-end'}>
+            <CloseIconButton onClicked={handleClose} />
+          </Box>
           <Box py={2} display='flex' justifyContent='space-between'>
             <Box>
               {goal.stats && !goal.deleteCompletedTasks && (

@@ -502,7 +502,10 @@ export async function validateUserPin(pin: string) {
 
 export async function decryptUserSecret(secret: UserSecret) {
   const result = (await postBody('/api/aws/user/secrets/item/decrypt', 'POST', secret)) as UserSecret
-  //console.log('result: ', result)
+  return result
+}
+export async function encryptUserSecret(secret: UserSecret) {
+  const result = (await postBody('/api/aws/user/secrets/item/encrypt', 'POST', secret)) as UserSecret
   return result
 }
 

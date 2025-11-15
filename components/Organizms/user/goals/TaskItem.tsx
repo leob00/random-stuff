@@ -6,7 +6,6 @@ import { CasinoRedTransparent, RedDarkMode } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { UserTask } from './goalModels'
 import { useState } from 'react'
-import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 const TaskItem = ({
   task,
@@ -36,35 +35,33 @@ const TaskItem = ({
     <>
       <ListItemContainer>
         <Box p={2}>
-          <FadeIn>
-            <Box>
-              <Stack direction='row' justifyContent='left' alignItems='left'>
-                <LinkButton2
-                  onClick={() => {
-                    handleTaskClick(task)
-                  }}
-                >
-                  <Typography textAlign={'left'} variant='subtitle1'>
-                    {`${task.body && task.body.length > 0 ? task.body : 'not set'}`}
-                  </Typography>
-                </LinkButton2>
-                <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-                  <Switch color={isCompleted ? 'success' : 'default'} checked={isCompleted} onChange={handleChecked} />
-                </Stack>
+          <Box>
+            <Stack direction='row' justifyContent='left' alignItems='left'>
+              <LinkButton2
+                onClick={() => {
+                  handleTaskClick(task)
+                }}
+              >
+                <Typography textAlign={'left'} variant='subtitle1'>
+                  {`${task.body && task.body.length > 0 ? task.body : 'not set'}`}
+                </Typography>
+              </LinkButton2>
+              <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
+                <Switch color={isCompleted ? 'success' : 'default'} checked={isCompleted} onChange={handleChecked} />
               </Stack>
-              {task.dueDate && (
-                <Typography variant='body2' color={task.status !== 'completed' && dayjs().isAfter(task.dueDate) ? redColor : 'unset'}>{`due: ${dayjs(
-                  task.dueDate,
-                ).format('MM/DD/YYYY hh:mm A')}`}</Typography>
-              )}
-              {task.dateCompleted && <Typography variant='body2'>{`completed: ${dayjs(task.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
-              {task.files && task.files.length > 0 && (
-                <Box>
-                  <Typography variant='caption'>{`files: ${task.files.length}`}</Typography>
-                </Box>
-              )}
-            </Box>
-          </FadeIn>
+            </Stack>
+            {task.dueDate && (
+              <Typography variant='body2' color={task.status !== 'completed' && dayjs().isAfter(task.dueDate) ? redColor : 'unset'}>{`due: ${dayjs(
+                task.dueDate,
+              ).format('MM/DD/YYYY hh:mm A')}`}</Typography>
+            )}
+            {task.dateCompleted && <Typography variant='body2'>{`completed: ${dayjs(task.dateCompleted).format('MM/DD/YYYY hh:mm A')}`}</Typography>}
+            {task.files && task.files.length > 0 && (
+              <Box>
+                <Typography variant='caption'>{`files: ${task.files.length}`}</Typography>
+              </Box>
+            )}
+          </Box>
         </Box>
       </ListItemContainer>
       <HorizontalDivider />

@@ -60,7 +60,7 @@ const Page = () => {
                   <>
                     {authProfile.pin && (
                       <Box py={2}>
-                        <SecretsLayout userProfile={authProfile} ticket={ticket} />
+                        <SecretsLayout userProfile={authProfile} />
                       </Box>
                     )}
                     <Snackbar

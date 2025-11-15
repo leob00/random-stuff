@@ -21,9 +21,7 @@ interface Model {
   showPinEntry: boolean
 }
 
-const SecretsLayout = ({ userProfile, ticket }: { userProfile: UserProfile; ticket: AmplifyUser }) => {
-  const encKey: string | null = `${ticket.id}-${userProfile.username}`
-
+const SecretsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const defaultModel: Model = {
     filter: '',
     createNew: false,
@@ -83,7 +81,6 @@ const SecretsLayout = ({ userProfile, ticket }: { userProfile: UserProfile; tick
         {model.createNew ? (
           <EditSecret
             username={userProfile.username}
-            encKey={encKey}
             userSecret={{ title: '', secret: '', salt: getRandomSalt() }}
             onCancel={handleCancelEdit}
             onSaved={handleItemSaved}
@@ -92,12 +89,11 @@ const SecretsLayout = ({ userProfile, ticket }: { userProfile: UserProfile; tick
           />
         ) : (
           <Box pb={3}>
-            <PrimaryButton text={'add'} size='small' onClick={handleShowAddNew} />
+            <PrimaryButton text={'Create...'} size='small' onClick={handleShowAddNew} />
           </Box>
         )}
         {!model.createNew && !isLoading && (
           <SecretsTable
-            encKey={encKey}
             authProfile={userProfile}
             filter={model.filter}
             filteredSecrets={filteredSecrets}

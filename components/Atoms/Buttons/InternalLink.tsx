@@ -1,3 +1,4 @@
+'use client'
 import NLink from 'next/link'
 import { Link, Typography } from '@mui/material'
 import FadeIn from '../Animations/FadeIn'

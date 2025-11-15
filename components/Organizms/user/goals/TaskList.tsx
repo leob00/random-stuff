@@ -11,7 +11,6 @@ import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { UserTask, UserGoal } from './goalModels'
 import EditTaskForm from './tasks/EditTaskForm'
 import { useReducer } from 'react'
-import FadeIn from 'components/Atoms/Animations/FadeIn'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import TaskListHeader from './tasks/TaskListHeader'
 import { postBody } from 'lib/backend/api/fetchFunctions'
@@ -188,9 +187,7 @@ const TaskList = ({
       {!model.editTask && (
         <>
           <Box pt={1} pb={3}>
-            <FadeIn>
-              <AddTaskForm task={{}} onSubmitted={handleAddTask} />
-            </FadeIn>
+            <AddTaskForm task={{}} onSubmitted={handleAddTask} />
           </Box>
 
           {model.taskList.length === 0 && (

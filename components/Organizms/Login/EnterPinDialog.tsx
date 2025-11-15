@@ -1,14 +1,16 @@
+'use client'
 import Close from '@mui/icons-material/Close'
 import { Box, Dialog, DialogTitle, Stack, Button, DialogContent, DialogContentText, Typography, Alert } from '@mui/material'
+import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 import InternalLink from 'components/Atoms/Buttons/InternalLink'
 import CenterStack from 'components/Atoms/CenterStack'
 import PinInput from 'components/Atoms/Inputs/PinInput'
 import WarmupBox from 'components/Atoms/WarmupBox'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
-import dayjs from 'dayjs'
 import { UserPin, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { validateUserPin } from 'lib/backend/csr/nextApiWrapper'
-import router from 'next/router'
+import { getUtcNow } from 'lib/util/dateUtil'
+import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 const EnterPinDialog = ({
@@ -24,7 +26,7 @@ const EnterPinDialog = ({
 }) => {
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-
+  const asPath = usePathname()
   const handleClose = async () => {
     onCancel()
   }
@@ -33,7 +35,7 @@ const EnterPinDialog = ({
     if (text.length === 4) {
       const isValid = await validateUserPin(text)
       if (isValid) {
-        const updatedPin = { ...userProfile.pin!, lastEnterDate: dayjs().format() }
+        const updatedPin = { ...userProfile.pin!, lastEnterDate: getUtcNow().format() }
         setError('')
         setIsLoading(true)
         onConfirm(updatedPin)
@@ -93,7 +95,7 @@ const EnterPinDialog = ({
               </Box>
               <Box display={'flex'} gap={2} justifyContent={'center'}>
                 <Box>
-                  <InternalLink text='forgot pin' route={`/protected/csr/profile/forgotPin?id=${router.asPath}`}></InternalLink>
+                  <InternalLink text='forgot pin' route={`/account/profile`} />
                 </Box>
               </Box>
             </Box>

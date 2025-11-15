@@ -35,9 +35,6 @@ const AddTaskForm = ({ task, onSubmitted }: { task: UserTask; onSubmitted: (data
   }
   return (
     <Box>
-      <Typography px={1} pb={4} pt={1}>
-        tasks
-      </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box display={'flex'} gap={1} alignItems={'flex-start'} py={1}>
           <Box>
@@ -64,7 +61,7 @@ const AddTaskForm = ({ task, onSubmitted }: { task: UserTask; onSubmitted: (data
             />
           </Box>
           <Box pt={0.5}>
-            <PrimaryButton text='add' type='submit' size='small' />
+            <PrimaryButton text='Add Task' type='submit' size='small' />
           </Box>
         </Box>
       </form>

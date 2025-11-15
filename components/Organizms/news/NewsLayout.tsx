@@ -14,6 +14,7 @@ import { useState } from 'react'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
+import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 
 const NewsLayout = ({
   userProfile,
@@ -44,6 +45,9 @@ const NewsLayout = ({
     const result = response.Body as NewsItem[]
     const sorted = orderBy(result, ['PublishDate'], ['desc'])
     try {
+      if (response.Errors.length > 0) {
+        setError(response.Errors[0].Message)
+      }
       if (userProfile) {
         const noteTitles = await getUserNoteTitles(userProfile.username)
         noteTitles.forEach((note) => {
@@ -110,7 +114,12 @@ const NewsLayout = ({
       )}
       <Stack>
         <>
-          {error && <ErrorMessage text='There is an error that occurred. We have been made aware of it. Please try again in a few minutes.' />}
+          {error && (
+            <>
+              {/* <AlertWithHeader severity='error' header={error} text={'We have been made aware of it. Please try again later.'} /> */}
+              <ErrorMessage text={`${error} We have been made aware of it. Please try again later.`} />
+            </>
+          )}
           <ScrollableBox maxHeight={505} scroller={scroller}>
             {data && <NewsList newsItems={data} userProfile={userProfile} />}
           </ScrollableBox>

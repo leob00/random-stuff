@@ -5,15 +5,14 @@ import { useState } from 'react'
 import { UserSecret } from 'lib/backend/api/models/zModels'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import EditSecret from './EditSecret'
-import Close from '@mui/icons-material/Close'
 import { useClientPager } from 'hooks/useClientPager'
 import Pager from 'components/Atoms/Pager'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import SecretListItem from './SecretListItem'
 import { decryptUserSecret } from 'lib/backend/csr/nextApiWrapper'
+import CloseIconButton from 'components/Atoms/Buttons/CloseIconButton'
 
 const SecretsTable = ({
-  encKey,
   authProfile,
   filteredSecrets,
   filter,
@@ -21,7 +20,6 @@ const SecretsTable = ({
   handleItemDeleted,
   handleItemSaved,
 }: {
-  encKey: string
   authProfile: UserProfile
   filteredSecrets: UserSecret[]
   filter: string
@@ -69,7 +67,6 @@ const SecretsTable = ({
               {pagedItems.map((item) => (
                 <Box key={item.id}>
                   <SecretListItem
-                    encKey={encKey}
                     data={item}
                     onEdit={() => {
                       handleEdit(item)
@@ -95,15 +92,12 @@ const SecretsTable = ({
         <>
           <Box>
             <Box py={2}>
-              <Box textAlign={'right'}>
-                <IconButton color='primary' onClick={() => setEditItem(null)}>
-                  <Close fontSize='small' />
-                </IconButton>
+              <Box display={'flex'} justifyContent={'flex-end'}>
+                <CloseIconButton onClicked={() => setEditItem(null)} />
               </Box>
             </Box>
           </Box>
           <EditSecret
-            encKey={encKey}
             onCancel={handleCancelEdit}
             userSecret={editItem}
             onDeleted={handleDeleted}

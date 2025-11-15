@@ -9,7 +9,7 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { decryptUserSecret } from 'lib/backend/csr/nextApiWrapper'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 
-const SecretListItem = ({ encKey, data, onEdit }: { encKey: string; data: UserSecret; onEdit: () => void }) => {
+const SecretListItem = ({ data, onEdit }: { data: UserSecret; onEdit: () => void }) => {
   const [isEncrypted, setIsEncrypted] = useState(true)
   const [isCopied, setIsCopied] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -17,7 +17,6 @@ const SecretListItem = ({ encKey, data, onEdit }: { encKey: string; data: UserSe
   const handleDecryptCopy = async () => {
     let val = { ...data }.secret
     if (isEncrypted) {
-      //val = myDecrypt(encKey, data.secret)
       setIsLoading(true)
       const result = await decryptUserSecret(data)
       val = result.secret
