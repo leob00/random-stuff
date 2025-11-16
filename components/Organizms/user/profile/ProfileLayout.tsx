@@ -15,6 +15,7 @@ import WarningButton from 'components/Atoms/Buttons/WarningButton'
 import DangerButton from 'components/Atoms/Buttons/DangerButton'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import { signOutUser } from 'lib/backend/auth/userUtil'
+import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 
 const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const [showPinChangeEntry, setShowPinChangeEntry] = useState(false)
@@ -96,7 +97,7 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                     <AlertWithHeader severity='success' header={``} text='' />
                     {!showPinChangeEntry && !showPinEntry && (
                       <>
-                        <SuccessButton size='small' text={`${userProfile.pin ? 'reset' : 'create a pin'}`} onClicked={handleChangePinClick} />
+                        <SecondaryButton size='small' text={`${userProfile.pin ? 'reset' : 'create a pin'}`} onClicked={handleChangePinClick} />
                       </>
                     )}
                   </Box>
@@ -106,7 +107,7 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                     password:
                   </Typography>
                   <AlertWithHeader severity='success' header={``} text='' />
-                  <WarningButton size='small' text={'reset'} onClick={() => setShowResetPassword(true)} />
+                  <SecondaryButton size='small' text={'reset'} onClick={() => setShowResetPassword(true)} />
                 </Box>
                 <Box pt={12}>
                   <DangerButton size='small' text={'sign out'} onClick={handleShowSignoutWarning} />

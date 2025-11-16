@@ -17,7 +17,7 @@ const ValidateFromEmailDialog = ({ show, onSuccess, onClose }: { show: boolean; 
   return (
     <Box>
       <InfoDialog show={show} title='Email verification' fullScreen={true} onCancel={onClose}>
-        {!showVerifyCode && <SendEmailVerificationCode onSent={handleSent} onCancel={() => {}} />}
+        {!showVerifyCode && <SendEmailVerificationCode onSent={handleSent} onCancel={onClose} />}
         {showVerifyCode && <VerifyVerificationCode onSuccess={handleSuccess} />}
       </InfoDialog>
     </Box>

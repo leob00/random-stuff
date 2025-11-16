@@ -49,9 +49,11 @@ const SendEmailVerificationCode = ({ onSent, onCancel, passwordReset = false }: 
       <Box py={2} px={4}>
         <Typography textAlign={'center'}>{`Please click 'send' to get an verification code to continue to the next step.`}</Typography>
       </Box>
-      <CenterStack>
-        <Typography variant='caption'>please look for an email from from no-reply@verificationemail.com and be sure to check your spam folders.</Typography>
-      </CenterStack>
+      <Box display={'flex'} justifyContent={'center'}>
+        <Typography textAlign={'center'} variant='caption'>
+          please look for an email from from no-reply@verificationemail.com and be sure to check your spam folders.
+        </Typography>
+      </Box>
       <Box py={4}>{error && <ErrorMessage text={error} />}</Box>
       <Box py={4} display={'flex'} justifyContent={'center'} gap={2}>
         <SecondaryButton text='cancel' onClick={onCancel} />
