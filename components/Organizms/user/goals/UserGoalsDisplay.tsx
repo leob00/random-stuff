@@ -10,7 +10,6 @@ import { getUtcNow } from 'lib/util/dateUtil'
 import { orderBy } from 'lodash'
 import { UserGoalAndTask } from './UserGoalsLayout'
 import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
-import router from 'next/router'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import GoalsSummary from 'components/Organizms/user/goals/GoalsSummary'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
@@ -21,6 +20,7 @@ import { DropdownItem } from 'lib/models/dropdown'
 import { useState } from 'react'
 import { UserGoal } from './goalModels'
 import { sortArray } from 'lib/util/collections'
+import { useRouter } from 'next/navigation'
 
 const UserGoalsDisplay = ({ goalsAndTasks, username, onRefresh }: { goalsAndTasks: UserGoalAndTask[]; username: string; onRefresh: () => void }) => {
   const [summaryChart, setSummaryChart] = useState<BarChart | undefined>(undefined)
@@ -28,6 +28,7 @@ const UserGoalsDisplay = ({ goalsAndTasks, username, onRefresh }: { goalsAndTask
   const [searchWithinList, setSearchWithinList] = useState('')
   const allGoals = goalsAndTasks.flatMap((m) => m.goal)
   const goalsKey = constructUserGoalsKey(username)
+  const router = useRouter()
 
   const goalsAutoComplete: DropdownItem[] = sortArray(allGoals, ['body'], ['asc']).map((m) => {
     return {
@@ -95,7 +96,19 @@ const UserGoalsDisplay = ({ goalsAndTasks, username, onRefresh }: { goalsAndTask
 
   return (
     <Box>
-      <Box>{!summaryChart && <UserGoalsList data={filteredGoals} onShowEdit={handleShowEditGoal} />}</Box>
+      <Box>
+        {!summaryChart && (
+          <>
+            <Stack display={'flex'} direction={'row'} gap={2} alignItems={'center'} py={2}>
+              <StaticAutoComplete options={goalsAutoComplete} onSelected={handleSelectGoal} placeholder={`search ${goalsAndTasks.length} goals`} />
+              <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
+                <GoalsMenu onShowCharts={handleShowCharts} onAddGoal={handleShowAddGoalForm} onRefresh={onRefresh} />
+              </Stack>
+            </Stack>
+            <UserGoalsList data={filteredGoals} onShowEdit={handleShowEditGoal} />
+          </>
+        )}
+      </Box>
 
       <Box py={2}>
         {summaryChart ? (
@@ -109,12 +122,7 @@ const UserGoalsDisplay = ({ goalsAndTasks, username, onRefresh }: { goalsAndTask
                 <PrimaryButton text={`add a goal`} onClick={handleShowAddGoalForm}></PrimaryButton>
               </Box>
             ) : (
-              <Stack display={'flex'} direction={'row'} gap={2} alignItems={'center'}>
-                <StaticAutoComplete options={goalsAutoComplete} onSelected={handleSelectGoal} placeholder={`search ${goalsAndTasks.length} goals`} />
-                <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'flex-end'}>
-                  <GoalsMenu onShowCharts={handleShowCharts} onAddGoal={handleShowAddGoalForm} onRefresh={onRefresh} />
-                </Stack>
-              </Stack>
+              <></>
             )}
           </>
         )}
