@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material'
-import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
@@ -11,17 +11,17 @@ import ContextMenuCrypto from 'components/Molecules/Menus/ContextMenuCrypto'
 import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
 import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
 import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
-import ContextMenuStockSentiment from 'components/Molecules/Menus/ContextMenuStockSentiment'
 import Seo from 'components/Organizms/Seo'
 import SentimentHistoryCharts from 'components/Organizms/stocks/charts/SentimentHistoryCharts'
 import StockMarketStatsChart from 'components/Organizms/stocks/charts/StockMarketStatsChart'
-import StockSentimentDisplay, { getSentiment } from 'components/Organizms/stocks/sentiment/StockSentimentDisplay'
+import { getSentiment } from 'components/Organizms/stocks/sentiment/StockSentimentDisplay'
 import dayjs from 'dayjs'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { CategoryType } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockStats } from 'lib/backend/api/qln/qlnModels'
 import { getDynamoItemData, searchDynamoItemsByCategory } from 'lib/backend/csr/nextApiWrapper'
 import { sortArray } from 'lib/util/collections'
+import { take } from 'lodash'
 import { useRouter } from 'next/navigation'
 
 const Page = () => {
@@ -73,10 +73,8 @@ const Page = () => {
       <Seo pageTitle='Stock Sentiment' />
       {isLoading && <BackdropLoader />}
       <ResponsiveContainer>
-        <PageHeader text='Stock Market Sentiment' />
-        <Box display={'flex'} justifyContent={'flex-end'}>
-          <ContextMenu items={menu} />
-        </Box>
+        <PageHeader text='Stock Market Sentiment' menu={menu} />
+
         {data && data.history && (
           <Box>
             {lastRecord && (
@@ -88,17 +86,23 @@ const Page = () => {
               </>
             )}
             <SentimentHistoryCharts data={data.history} />
+            <HorizontalDivider />
+            <Typography pt={4} textAlign={'center'} variant='h5'>{`Aggregates`}</Typography>
             <Box pt={4} display={'flex'} justifyContent={'center'}>
-              <HorizontalDivider />
               <Box display={'flex'} flexDirection={'row'} gap={1} flexWrap={'wrap'} justifyContent={{ xs: 'center' }}>
                 <Box>
-                  <StockMarketStatsChart title={`${data.history.length} Days`} data={getSentiment(data.history, data.history.length)} />
-                </Box>
-                <Box>
-                  <StockMarketStatsChart title={`${1} Week`} data={getSentiment(data.aggregates, 7)} />
+                  <FadeIn>
+                    <StockMarketStatsChart title={`${data.history.length} Days`} data={getSentiment(data.history, data.history.length)} />
+                  </FadeIn>
                 </Box>
                 <Box>
                   <StockMarketStatsChart title={`${1} Month`} data={getSentiment(data.aggregates, 30)} />
+                </Box>
+                <Box>
+                  <StockMarketStatsChart title={`2 Weeks`} data={getSentiment(data.history, 14)} />
+                </Box>
+                <Box>
+                  <StockMarketStatsChart title={`${1} Week`} data={getSentiment(data.aggregates, 7)} />
                 </Box>
               </Box>
             </Box>

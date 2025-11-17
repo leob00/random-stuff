@@ -13,6 +13,7 @@ import { Hub } from 'aws-amplify/utils'
 import { useRouteTracker } from './Organizms/session/useRouteTracker'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { postBody } from 'lib/backend/api/fetchFunctions'
 
 export type HubPayload = {
   event: string
@@ -48,10 +49,16 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
         }
         const payloadTicket = payload.data! as AuthUser
         const attr = await fetchUserAttributes()
+        const roles = getRolesFromAmplifyUser(attr)
+        const regRole = roles.find((m) => m.Name === 'Registered User')
+        if (!regRole) {
+          roles.push({ Name: 'Registered User' })
+          postBody('/api/aws/user/activateRole', 'POST', { Name: 'Registered User' })
+        }
         const user: AmplifyUser = {
           id: payloadTicket.username,
           email: String(attr.email),
-          roles: getRolesFromAmplifyUser(attr),
+          roles: roles,
         }
         await setTicket(user)
 
@@ -85,12 +92,20 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
         const signedUpAttr = await fetchUserAttributes()
         const newUser = { email: String(signedUpAttr.email) }
         const existingProfile = (await getUserProfile(newUser.email)) as UserProfile | null
+        const signUpRoles = getRolesFromAmplifyUser(signedUpAttr)
         if (!existingProfile) {
           const newProfile: UserProfile = {
             id: constructUserProfileKey(newUser.email),
             username: newUser.email,
           }
           await putUserProfile(newProfile)
+          const attr = await fetchUserAttributes()
+          const roles = getRolesFromAmplifyUser(attr)
+          const regRole = roles.find((m) => m.Name === 'Registered User')
+          if (!regRole) {
+            signUpRoles.push({ Name: 'Registered User' })
+            postBody('/api/aws/user/activateRole', 'POST', { Name: 'Registered User' })
+          }
           setProfile(newProfile)
           newClaims.push({
             token: crypto.randomUUID(),

@@ -40,6 +40,7 @@ const ListHeaderStack = ({
       <Stack direction={'row'} flexGrow={1} sx={{ border: outlined ? `solid 1px ${DarkModeBlueTransparent}` : 'unset' }}>
         <Box
           px={2}
+          py={1}
           width={'100%'}
           sx={{ cursor: !disabled ? 'pointer' : 'unset' }}
           onClick={(e) => {
@@ -49,6 +50,7 @@ const ListHeaderStack = ({
           <Typography
             textAlign={'left'}
             variant='h6'
+            fontWeight={'bold'}
             color='primary'
             sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}
             dangerouslySetInnerHTML={{ __html: text }}

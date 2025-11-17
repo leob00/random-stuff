@@ -1,6 +1,5 @@
 'use client'
 import { Box, Typography } from '@mui/material'
-import CenterStack from 'components/Atoms/CenterStack'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import CreatePinDialog from 'components/Organizms/Login/CreatePinDialog'
 import { useUserController } from 'hooks/userController'
@@ -9,32 +8,34 @@ import VerifyEmail from './VerifyEmail'
 import ValidateFromEmailDialog from 'components/Organizms/Login/ValidateFromEmailDialog'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import { useState } from 'react'
-import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 import ResetPasswordLayout from './ResetPasswordLayout'
-import WarningButton from 'components/Atoms/Buttons/WarningButton'
 import DangerButton from 'components/Atoms/Buttons/DangerButton'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import { signOutUser } from 'lib/backend/auth/userUtil'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import SignOutIcon from '@mui/icons-material/Logout'
+import { useRouter } from 'next/dist/client/components/navigation'
 
 const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
-  const [showPinChangeEntry, setShowPinChangeEntry] = useState(false)
+  const [showPinChange, setShowPinChange] = useState(false)
   const [showResetPassword, setShowResetPassword] = useState(false)
   const [showPinEntry, setShowPinEntry] = useState(false)
   const [showPinChangedMessage, setShowPinChangedMessage] = useState(false)
   const [showSignOutDialog, setShowSignOutDialog] = useState(false)
   const { setProfile } = useUserController()
+  const router = useRouter()
 
   const handleChangePinClick = () => {
-    setShowPinChangeEntry(true)
+    setShowPinChange(true)
   }
 
   const handleVerificationCodeValidated = () => {
-    setShowPinChangeEntry(false)
+    setShowPinChange(false)
     setShowPinEntry(true)
   }
   const handleCancelChangePin = async () => {
-    setShowPinChangeEntry(false)
+    setShowPinChange(false)
     setShowPinEntry(false)
   }
   const handlePinChanged = async (pin: UserPin) => {
@@ -44,17 +45,17 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     setShowPinEntry(false)
   }
   const handleClosePasswordEntry = () => {
-    setShowPinChangeEntry(false)
+    setShowPinChange(false)
   }
 
   const handleCancelPasswordChange = () => {
     setShowResetPassword(false)
-    setShowPinChangeEntry(false)
+    setShowPinChange(false)
   }
 
   const handlePasswordChangeSuccess = () => {
     setShowResetPassword(false)
-    setShowPinChangeEntry(false)
+    setShowPinChange(false)
   }
 
   const handleShowSignoutWarning = () => {
@@ -64,6 +65,7 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const handleSignOut = async () => {
     try {
       await signOutUser()
+      router.push('/login')
     } catch (error) {
       console.error(error)
     }
@@ -95,7 +97,7 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                       pin:
                     </Typography>
                     <AlertWithHeader severity='success' header={``} text='' />
-                    {!showPinChangeEntry && !showPinEntry && (
+                    {!showPinChange && !showPinEntry && (
                       <>
                         <SecondaryButton size='small' text={`${userProfile.pin ? 'reset' : 'create a pin'}`} onClicked={handleChangePinClick} />
                       </>
@@ -110,15 +112,15 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
                   <SecondaryButton size='small' text={'reset'} onClick={() => setShowResetPassword(true)} />
                 </Box>
                 <Box pt={12}>
-                  <DangerButton size='small' text={'sign out'} onClick={handleShowSignoutWarning} />
+                  <HorizontalDivider />
+                  <Box py={2} display={'flex'} justifyContent={'flex-end'}>
+                    <DangerButton size='small' text={'sign out'} onClick={handleShowSignoutWarning} endIcon={<SignOutIcon />} />
+                  </Box>
                 </Box>
               </Box>
             )}
           </Box>
-          <CenterStack sx={{ py: 2 }}></CenterStack>
-          {showPinChangeEntry && (
-            <ValidateFromEmailDialog show={showPinChangeEntry} onSuccess={handleVerificationCodeValidated} onClose={handleClosePasswordEntry} />
-          )}
+          {showPinChange && <ValidateFromEmailDialog show={showPinChange} onSuccess={handleVerificationCodeValidated} onClose={handleClosePasswordEntry} />}
         </>
       )}
       <CreatePinDialog show={showPinEntry} userProfile={userProfile} onCancel={handleCancelChangePin} onConfirm={handlePinChanged} />
@@ -126,6 +128,7 @@ const ProfileLayout = ({ userProfile }: { userProfile: UserProfile }) => {
       {showSignOutDialog && (
         <ConfirmDeleteDialog
           show={showSignOutDialog}
+          title='Warning'
           text='Are you sure you want to sign out?'
           onCancel={() => setShowSignOutDialog(false)}
           onConfirm={handleSignOut}

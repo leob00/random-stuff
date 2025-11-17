@@ -177,7 +177,7 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
 
   return (
     <Box>
-      <Typography pt={4} textAlign={'center'}>{`Sentiment History`}</Typography>
+      <Typography pt={4} textAlign={'center'} variant='h5'>{`Sentiment History`}</Typography>
       <BackForwardPager
         backButtonDisabled={model.backButtonDisabled}
         nextButtonDisabled={model.nextButtonDisabled}

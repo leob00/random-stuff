@@ -2,6 +2,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 import { Bar } from 'react-chartjs-2'
 import { BarChart, getBarChartData, getBarChartOptions } from './barChartOptions'
 import { Box, useTheme } from '@mui/material'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -26,7 +27,9 @@ const SimpleBarChart = ({
 
   return (
     <Box>
-      <Bar data={data} options={options} height={height} />
+      <FadeIn>
+        <Bar data={data} options={options} height={height} />
+      </FadeIn>
     </Box>
   )
 }

@@ -17,6 +17,14 @@ import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { useState } from 'react'
 import StockSearch from 'components/Atoms/Inputs/StockSearch'
 import FullStockDetail from 'components/Organizms/stocks/FullStockDetail'
+import { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
+import ContextMenuCommodities from 'components/Molecules/Menus/ContextMenuCommodities'
+import ContextMenuCrypto from 'components/Molecules/Menus/ContextMenuCrypto'
+import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
+import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
+import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
+import ContextMenuStockSentiment from 'components/Molecules/Menus/ContextMenuStockSentiment'
+import router from 'next/router'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'
 const tabs: TabInfo[] = [
@@ -94,12 +102,39 @@ const Page = () => {
     setSelectedStock(null)
   }
 
+  const menu: ContextMenuItem[] = [
+    {
+      item: <ContextMenuMyStocks />,
+      fn: () => router.push('/csr/my-stocks'),
+    },
+    {
+      item: <ContextMenuStockSentiment />,
+      fn: () => router.push('/csr/stocks/sentiment'),
+    },
+    {
+      item: <ContextMenuReport text={'reports'} />,
+      fn: () => router.push('/ssg/stocks/reports/volume-leaders'),
+    },
+    {
+      item: <ContextMenuEarnings text={'earnings calendar'} />,
+      fn: () => router.push('/csr/stocks/earnings-calendar'),
+    },
+    {
+      item: <ContextMenuCommodities text={'commodities'} />,
+      fn: () => router.push('/csr/commodities'),
+    },
+    {
+      item: <ContextMenuCrypto text={'crypto'} />,
+      fn: () => router.push('/csr/crypto'),
+    },
+  ]
+
   return (
     <>
       {isLoading && <BackdropLoader />}
       <Seo pageTitle={`Stocks`} />
       <ResponsiveContainer>
-        <PageHeader text='Stocks' />
+        <PageHeader text='Stocks' menu={menu} />
         {!selectedStock && (
           <Box py={2}>
             <StockSearch onSymbolSelected={handleSelectQuote} clearOnSelect showAdvSearch />

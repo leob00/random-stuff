@@ -22,20 +22,6 @@ const CommoditiesLayout = () => {
 
   const { data, isLoading } = useSwrHelper(endPoint, dataFn, { revalidateOnFocus: false })
 
-  const menu: ContextMenuItem[] = [
-    {
-      item: <ContextMenuAllStocks text={'stocks'} />,
-      fn: () => router.push('/csr/community-stocks'),
-    },
-    {
-      item: <ContextMenuMyStocks />,
-      fn: () => router.push('/csr/my-stocks'),
-    },
-    {
-      item: <ContextMenuCrypto text={'crypto'} />,
-      fn: () => router.push('/csr/crypto'),
-    },
-  ]
   const { userProfile, isValidating } = useProfileValidator()
   return (
     <>
@@ -45,9 +31,7 @@ const CommoditiesLayout = () => {
           {data && (
             <Box pt={2}>
               <ScrollIntoView enabled />
-              <Box display={'flex'} justifyContent={'flex-end'}>
-                <ContextMenu items={menu} />
-              </Box>
+
               <StockTable stockList={data} marketCategory='commodities' showSummary userProfile={userProfile} />
             </Box>
           )}

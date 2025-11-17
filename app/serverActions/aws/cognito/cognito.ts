@@ -33,6 +33,11 @@ export async function updateUserRoles(username: string, rolesValue: string) {
 export async function listCognitoUsers() {
   const command = new ListUsersCommand({
     UserPoolId: 'us-east-1_z9KjmhXvD',
+    AttributesToGet: [
+      'email', // Standard attribute
+      'sub',
+      'custom:roles', // Custom attribute
+    ],
   })
 
   try {

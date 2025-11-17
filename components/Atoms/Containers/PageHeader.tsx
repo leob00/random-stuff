@@ -6,37 +6,41 @@ import HorizontalDivider from '../Dividers/HorizontalDivider'
 import CenteredHeader from '../Boxes/CenteredHeader'
 import BasicBreadcrumbs from '../Navigation/Breadcrumbs'
 import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
+import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
+import { Context } from '@dnd-kit/sortable/dist/components'
 
 const PageHeader = ({
   text,
   backButtonRoute,
   forceShowBackButton,
   generateBackButton = false,
+  menu,
 }: {
   text: string
   backButtonRoute?: string
   forceShowBackButton?: boolean
   generateBackButton?: boolean
+  menu?: ContextMenuItem[]
 }) => {
   const { previousRoute } = useRouteTracker()
 
   return (
-    <>
+    <Box pb={4}>
       <BasicBreadcrumbs />
-      {forceShowBackButton ? (
+      {forceShowBackButton && (
         <Box display={'flex'}>{backButtonRoute ? <BackButton route={backButtonRoute} /> : <BackButton route={previousRoute.path} />}</Box>
-      ) : (
-        <>
-          {/* <Box sx={{ display: { xs: 'unset', sm: 'none' } }}>
-          <Box display={'flex'}>{backButtonRoute ? <BackButton route={backButtonRoute} /> : <BackButton route={previousRoute.path} />}</Box>
-        </Box> */}
-        </>
       )}
-      <CenterStack sx={{ py: 2 }}>
-        <CenteredHeader title={text} />
-      </CenterStack>
+      <Box display={'flex'} alignItems={'center'} pt={4} pb={2}>
+        <Box flexGrow={1}>
+          <CenteredHeader title={text} />
+        </Box>
+        <Box>
+          <Box>{menu && <ContextMenu items={menu} />}</Box>
+        </Box>
+      </Box>
+
       <HorizontalDivider />
-    </>
+    </Box>
   )
 }
 

@@ -19,6 +19,7 @@ import { Box, useTheme } from '@mui/material'
 import annotationPlugin from 'chartjs-plugin-annotation'
 import { getLineChartOptions } from './lineChartOptions'
 import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm'
+import FadeIn from 'components/Atoms/Animations/FadeIn'
 
 ChartJS.register(
   annotationPlugin,
@@ -58,7 +59,9 @@ const SimpleLineChart = ({
 
   return (
     <Box>
-      <Line data={data} options={options} height={height} />
+      <FadeIn>
+        <Line data={data} options={options} height={height} />
+      </FadeIn>
     </Box>
   )
 }
