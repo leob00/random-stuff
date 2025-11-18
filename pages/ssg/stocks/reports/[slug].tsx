@@ -1,4 +1,3 @@
-import React from 'react'
 import { useRouter } from 'next/router'
 import Seo from 'components/Organizms/Seo'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
@@ -8,6 +7,7 @@ import StockReportsDropdown, { stockReportsDropdown } from 'components/Organizms
 import { Box } from '@mui/material'
 import TopMovingAvg from 'components/Organizms/stocks/reports/TopMovingAvg'
 import StockReportsWrapper from 'components/Organizms/stocks/reports/StockReportsWrapper'
+import StockMarketPageContextMenu from 'components/Molecules/Menus/StockMarketPageContextMenu'
 
 const Page = () => {
   const router = useRouter()
@@ -22,7 +22,9 @@ const Page = () => {
   return (
     <>
       <Seo pageTitle={`Stock reports - ${selectedOption.text}`} />
-      <PageHeader text='Stock Reports' backButtonRoute='/csr/stocks' />
+      <PageHeader text='Stock Reports'>
+        <StockMarketPageContextMenu />
+      </PageHeader>
       <ResponsiveContainer>
         <StockReportsDropdown selectedValue={selectedOption.value} />
 

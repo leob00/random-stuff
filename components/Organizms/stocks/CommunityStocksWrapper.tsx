@@ -3,14 +3,8 @@ import { StockQuote } from 'lib/backend/api/models/zModels'
 import CommunityStocksLayout from './CommunityStocksLayout'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuRefresh from 'components/Molecules/Menus/ContextMenuRefresh'
-import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
 import { useRouter } from 'next/navigation'
-import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
 import { Box } from '@mui/material'
-import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
-import ContextMenuCommodities from 'components/Molecules/Menus/ContextMenuCommodities'
-import ContextMenuCrypto from 'components/Molecules/Menus/ContextMenuCrypto'
-import ContextMenuStockSentiment from 'components/Molecules/Menus/ContextMenuStockSentiment'
 
 const CommunityStocksWrapper = ({ data, onRefresh }: { data?: StockQuote[]; onRefresh: () => void }) => {
   const router = useRouter()
@@ -21,30 +15,6 @@ const CommunityStocksWrapper = ({ data, onRefresh }: { data?: StockQuote[]; onRe
       fn: () => {
         onRefresh()
       },
-    },
-    {
-      item: <ContextMenuMyStocks />,
-      fn: () => router.push('/csr/my-stocks'),
-    },
-    {
-      item: <ContextMenuStockSentiment />,
-      fn: () => router.push('/csr/stocks/sentiment'),
-    },
-    {
-      item: <ContextMenuReport text={'reports'} />,
-      fn: () => router.push('/ssg/stocks/reports/volume-leaders'),
-    },
-    {
-      item: <ContextMenuEarnings text={'earnings calendar'} />,
-      fn: () => router.push('/csr/stocks/earnings-calendar'),
-    },
-    {
-      item: <ContextMenuCommodities text={'commodities'} />,
-      fn: () => router.push('/csr/commodities'),
-    },
-    {
-      item: <ContextMenuCrypto text={'crypto'} />,
-      fn: () => router.push('/csr/crypto'),
     },
   ]
 

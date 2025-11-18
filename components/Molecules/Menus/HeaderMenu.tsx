@@ -10,6 +10,8 @@ import ContextMenuSignIn from './ContextMenuSignIn'
 import ContextMenuSignOut from './ContextMenuSignOut'
 import ContextMenuPortfolio from './ContextMenuPortfolio'
 import ContextMenuDashboard from './ContextMenuDashboard'
+import ContextMenuProfile from './ContextMenuProfile'
+import ContextMenuAdmin from './ContextMenuAdmin'
 
 const HeaderMenu = ({
   ticket,
@@ -55,7 +57,7 @@ const HeaderMenu = ({
       },
     },
     {
-      item: <ListItemText primary='profile'></ListItemText>,
+      item: <ContextMenuProfile />,
       fn: () => {
         router.push('/account/profile')
       },
@@ -68,7 +70,7 @@ const HeaderMenu = ({
     const isAdmin = userHasRole('Admin', ticket.roles)
     if (isAdmin) {
       menuItems.push({
-        item: <ListItemText primary='admin'></ListItemText>,
+        item: <ContextMenuAdmin />,
         fn: () => {
           router.push('/protected/csr/admin')
         },

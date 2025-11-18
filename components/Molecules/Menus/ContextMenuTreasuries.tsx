@@ -1,15 +1,15 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import RequestQuoteIcon from '@mui/icons-material/RequestQuote'
-const ContextMenuEarnings = ({ text = 'earnings' }: { text?: string }) => {
+import RedeemIcon from '@mui/icons-material/Redeem'
+const ContextMenuTreasuries = ({ text = 'treasuries' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <RequestQuoteIcon fontSize='small' />
+        <RedeemIcon fontSize='small' />
       </ListItemIcon>
       <ListItemText primary={text} />
     </>
   )
 }
 
-export default ContextMenuEarnings
+export default ContextMenuTreasuries

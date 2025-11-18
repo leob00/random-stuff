@@ -7,7 +7,7 @@ import CenteredHeader from '../Boxes/CenteredHeader'
 import BasicBreadcrumbs from '../Navigation/Breadcrumbs'
 import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
-import { Context } from '@dnd-kit/sortable/dist/components'
+import { ReactNode } from 'react'
 
 const PageHeader = ({
   text,
@@ -15,12 +15,14 @@ const PageHeader = ({
   forceShowBackButton,
   generateBackButton = false,
   menu,
+  children,
 }: {
   text: string
   backButtonRoute?: string
   forceShowBackButton?: boolean
   generateBackButton?: boolean
   menu?: ContextMenuItem[]
+  children?: ReactNode
 }) => {
   const { previousRoute } = useRouteTracker()
 
@@ -34,9 +36,7 @@ const PageHeader = ({
         <Box flexGrow={1}>
           <CenteredHeader title={text} />
         </Box>
-        <Box>
-          <Box>{menu && <ContextMenu items={menu} />}</Box>
-        </Box>
+        <Box>{children ? children : <Box>{menu && <ContextMenu items={menu} />}</Box>}</Box>
       </Box>
 
       <HorizontalDivider />

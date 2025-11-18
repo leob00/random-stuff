@@ -1,10 +1,9 @@
 import { Button } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
-import BackButton from 'components/Atoms/Buttons/BackButton'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
+import StockMarketPageContextMenu from 'components/Molecules/Menus/StockMarketPageContextMenu'
 import Seo from 'components/Organizms/Seo'
 import StockDetailsLayout from 'components/Organizms/stocks/StockDetailsLayout'
-import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import { PageState, decryptPageState, encryptPageState } from 'hooks/ui/page-state/pageStateUtil'
 import { useUserController } from 'hooks/userController'
 import { useSearchParams } from 'next/navigation'
@@ -45,7 +44,9 @@ const Page = () => {
     <>
       <Seo pageTitle={`Stock Details: ${id}`} />
       <ResponsiveContainer>
-        <PageHeader text='' />
+        <PageHeader text={`${id}`}>
+          <StockMarketPageContextMenu />
+        </PageHeader>
         {pageState ? (
           <Button
             variant='text'

@@ -1,7 +1,7 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin'
-const ContextMenuCrypto = ({ text = 'reports' }: { text?: string }) => {
+const ContextMenuCrypto = ({ text = 'crypto' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>

@@ -5,6 +5,7 @@ import { useState } from 'react'
 import React from 'react'
 
 export interface ContextMenuItem {
+  route?: string
   fn: (arg?: unknown) => void
   item: React.JSX.Element[] | React.JSX.Element
 }

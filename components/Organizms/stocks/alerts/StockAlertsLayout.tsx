@@ -25,6 +25,7 @@ import { RandomStuffDynamoItem } from 'app/serverActions/aws/dynamo/dynamo'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import StockSearch from 'components/Atoms/Inputs/StockSearch'
+import StockMarketPageContextMenu from 'components/Molecules/Menus/StockMarketPageContextMenu'
 
 const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const alertsSearchhKey = constructStockAlertsSubSecondaryKey(userProfile.username)
@@ -158,7 +159,9 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
 
   return (
     <Box py={2}>
-      <PageHeader text='Stock Alerts' backButtonRoute='/csr/stocks' />
+      <PageHeader text='Stock Alerts'>
+        <StockMarketPageContextMenu />
+      </PageHeader>
       {quote && editSub && <StockSubscriptionForm show={true} onClose={handleCloseEditForm} onSave={handleSaveTriger} quote={quote} sub={editSub} />}
       {isLoading && <BackdropLoader />}
       {data && (

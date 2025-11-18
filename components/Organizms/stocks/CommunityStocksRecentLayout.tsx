@@ -1,26 +1,18 @@
 import { Box } from '@mui/material'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
-import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
 import ContextMenuSort from 'components/Molecules/Menus/ContextMenuSort'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { useSessionSettings } from '../session/useSessionSettings'
 import CommunityStocksLayout from './CommunityStocksLayout'
 import CustomSortAlert from './CustomSortAlert'
 import StocksCustomSortForm from './StocksCustomSortForm'
-import { useRouter } from 'next/router'
 import { sortArray } from 'lib/util/collections'
 import ContextMenuRefresh from 'components/Molecules/Menus/ContextMenuRefresh'
-import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
 import { useState } from 'react'
-import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
 import { StockQuoteSort } from 'lib/backend/api/models/collections'
-import ContextMenuCrypto from 'components/Molecules/Menus/ContextMenuCrypto'
-import ContextMenuCommodities from 'components/Molecules/Menus/ContextMenuCommodities'
-import ContextMenuStockSentiment from 'components/Molecules/Menus/ContextMenuStockSentiment'
 
 const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; onRefresh: () => void }) => {
-  const router = useRouter()
   const settings = useSessionSettings()
 
   const [showCustomSortForm, setShowCustomSortForm] = useState(false)
@@ -39,30 +31,6 @@ const CommunityStocksRecentLayout = ({ data, onRefresh }: { data: StockQuote[]; 
     {
       item: <ContextMenuSort text={'sort'} />,
       fn: () => setShowCustomSortForm(true),
-    },
-    {
-      item: <ContextMenuMyStocks />,
-      fn: () => router.push('/csr/my-stocks'),
-    },
-    {
-      item: <ContextMenuStockSentiment />,
-      fn: () => router.push('/csr/stocks/sentiment'),
-    },
-    {
-      item: <ContextMenuReport text={'reports'} />,
-      fn: () => router.push('/ssg/stocks/reports/volume-leaders'),
-    },
-    {
-      item: <ContextMenuEarnings text={'earnings calendar'} />,
-      fn: () => router.push('/csr/stocks/earnings-calendar'),
-    },
-    {
-      item: <ContextMenuCommodities text={'commodities'} />,
-      fn: () => router.push('/csr/commodities'),
-    },
-    {
-      item: <ContextMenuCrypto text={'crypto'} />,
-      fn: () => router.push('/csr/crypto'),
     },
   ]
   const handleCustomSortSubmitted = (sort?: StockQuoteSort[]) => {

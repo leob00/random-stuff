@@ -8,6 +8,7 @@ import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import { myStocksMenu } from 'components/Atoms/Menus/ContextMenus'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
+import StockMarketPageContextMenu from 'components/Molecules/Menus/StockMarketPageContextMenu'
 
 const Page = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
@@ -16,13 +17,11 @@ const Page = () => {
   return (
     <>
       <Seo pageTitle='My Stocks' />
-      <Box display={'flex'} justifyContent={'flex-end'} alignItems={'center'}>
-        <Box>
-          <ContextMenu items={myStocksMenu} />
-        </Box>
-      </Box>
+
       <ResponsiveContainer>
-        <PageHeader text='My Stocks' />
+        <PageHeader text='My Stocks'>
+          <StockMarketPageContextMenu />
+        </PageHeader>
         {isValidatingProfile ? <BackdropLoader /> : <StocksLayout userProfile={userProfile} localStore={localStore} />}
       </ResponsiveContainer>
     </>

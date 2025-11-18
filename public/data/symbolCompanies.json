@@ -256,6 +256,10 @@
     "Symbol": "ABNB"
   },
   {
+    "Company": "Leverage Shares 2x Long ABNB Daily ETF",
+    "Symbol": "ABNG"
+  },
+  {
     "Company": "YieldMax ABNB Option Income Strategy ETF",
     "Symbol": "ABNY"
   },
@@ -378,6 +382,10 @@
   {
     "Company": "Arch Capital Group Ltd. Depositary Shares Each Representing 1/1,000th Interest in a Share of 5.45% Non-Cumulative Preferred Shares, Series F",
     "Symbol": "ACGLO"
+  },
+  {
+    "Company": "American Century Large Cap Growth ETF",
+    "Symbol": "ACGR"
   },
   {
     "Company": "Acadia Healthcare Company, Inc.",
@@ -2100,10 +2108,6 @@
     "Symbol": "ANTA"
   },
   {
-    "Company": "AirNet Technology Inc. Ordinary Share",
-    "Symbol": "ANTE"
-  },
-  {
     "Company": "AN2 Therapeutics, Inc. Common Stock",
     "Symbol": "ANTX"
   },
@@ -2388,8 +2392,16 @@
     "Symbol": "APXM"
   },
   {
+    "Company": "Apex Treasury Corporation Class A Ordinary Share",
+    "Symbol": "APXT"
+  },
+  {
     "Company": "Apex Treasury Corporation Units",
     "Symbol": "APXTU"
+  },
+  {
+    "Company": "Apex Treasury Corporation Warrants",
+    "Symbol": "APXTW"
   },
   {
     "Company": "Apyx Medical Corporation Common Stock",
@@ -4000,6 +4012,14 @@
     "Symbol": "BBH"
   },
   {
+    "Company": "BBH SELECT LARGE CAP ETF",
+    "Symbol": "BBHL"
+  },
+  {
+    "Company": "BBH SELECT MID CAP ETF",
+    "Symbol": "BBHM"
+  },
+  {
     "Company": "JPMorgan BetaBuilders USD High Yield Corporate Bond ETF",
     "Symbol": "BBHY"
   },
@@ -4590,6 +4610,10 @@
   {
     "Company": "Biofrontera Inc. Common Stock",
     "Symbol": "BFRI"
+  },
+  {
+    "Company": "Biofrontera Inc. Warrants",
+    "Symbol": "BFRIW"
   },
   {
     "Company": "Innovator Equity Managed 100 Buffer ETF",
@@ -6848,7 +6872,7 @@
     "Symbol": "CANF"
   },
   {
-    "Company": "Cango Inc. American Depositary Shares,  each representing two (2) Class A Ordinary Shares",
+    "Company": "Cango Inc.",
     "Symbol": "CANG"
   },
   {
@@ -8490,6 +8514,10 @@
   {
     "Company": "Chipotle Mexican Grill, Inc.",
     "Symbol": "CMG"
+  },
+  {
+    "Company": "Leverage Shares 2X Long CMG Daily ETF",
+    "Symbol": "CMGG"
   },
   {
     "Company": "Cummins Inc.",
@@ -11338,10 +11366,6 @@
   {
     "Company": "dMY Squared Technology Group, Inc.",
     "Symbol": "DMYY"
-  },
-  {
-    "Company": "dMY Squared Technology Group, Inc. Units, each consisting of one share of Class A common stock and one-half of one redeemable warrant",
-    "Symbol": "DMYY.U"
   },
   {
     "Company": "dMY Squared Technology Group, Inc. Redeemable Warrants, each whole warrant exercisable for one share of Class A common stock at an exercise price of $11.50 per share",
@@ -14368,14 +14392,6 @@
     "Symbol": "FAAR"
   },
   {
-    "Company": "DigiAsia Corp. Ordinary Shares",
-    "Symbol": "FAAS"
-  },
-  {
-    "Company": "DigiAsia Corp. Warrant",
-    "Symbol": "FAASW"
-  },
-  {
     "Company": "First Trust Multi Cap Value AlphaDEX Fund",
     "Symbol": "FAB"
   },
@@ -14672,8 +14688,16 @@
     "Symbol": "FCPT"
   },
   {
+    "Company": "FutureCrest Acquisition Corp.",
+    "Symbol": "FCRS"
+  },
+  {
     "Company": "FutureCrest Acquisition Corp. Units, each consisting of one Class A ordinary share and one-quarter of one redeemable warrant",
     "Symbol": "FCRS.U"
+  },
+  {
+    "Company": "FutureCrest Acquisition Corp. Redeemable warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50",
+    "Symbol": "FCRS.WS"
   },
   {
     "Company": "Crescent Capital BDC, Inc. 5.00% Notes due 2026",
@@ -16792,6 +16816,10 @@
     "Symbol": "FWD"
   },
   {
+    "Company": "Forward Industries, Inc. Common Stock",
+    "Symbol": "FWDI"
+  },
+  {
     "Company": "Liberty Media Corporation Series A Liberty Formula One Common Stock",
     "Symbol": "FWONA"
   },
@@ -17040,6 +17068,10 @@
     "Symbol": "GBFH"
   },
   {
+    "Company": "Gabelli High Income ETF",
+    "Symbol": "GBHI"
+  },
+  {
     "Company": "Goldman Sachs Access Treasury 0-1 Year ETF",
     "Symbol": "GBIL"
   },
@@ -17208,7 +17240,7 @@
     "Symbol": "GDL"
   },
   {
-    "Company": "Grayscale CoinDesk Crypto 5 ETF",
+    "Company": "GRAYSCALE DIGITAL LG CAP",
     "Symbol": "GDLC"
   },
   {
@@ -18528,6 +18560,10 @@
     "Symbol": "GSG"
   },
   {
+    "Company": "Goldman Sachs Growth Opportunities ETF",
+    "Symbol": "GSGO"
+  },
+  {
     "Company": "Goosehead Insurance, Inc. Class A Common Stock",
     "Symbol": "GSHD"
   },
@@ -18588,7 +18624,7 @@
     "Symbol": "GSM"
   },
   {
-    "Company": "Grayscale Solana Trust ETF",
+    "Company": "GRAYSCALE SOLANA TRUST",
     "Symbol": "GSOL"
   },
   {
@@ -18780,6 +18816,10 @@
     "Symbol": "GUSA"
   },
   {
+    "Company": "Goldman Sachs Enhanced U.S. Equity ETF",
+    "Symbol": "GUSE"
+  },
+  {
     "Company": "Direxion Daily S&P Oil & Gas Exp. & Prod. Bull 2X Shares",
     "Symbol": "GUSH"
   },
@@ -18814,6 +18854,10 @@
   {
     "Company": "Goldman Sachs Hedge Industry VIP ETF",
     "Symbol": "GVIP"
+  },
+  {
+    "Company": "Goldman Sachs Value Opportunities ETF",
+    "Symbol": "GVLE"
   },
   {
     "Company": "Gotham 1000 Value ETF",
@@ -27480,10 +27524,6 @@
     "Symbol": "MOS"
   },
   {
-    "Company": "VanEck Morningstar ESG Moat ETF",
-    "Symbol": "MOTE"
-  },
-  {
     "Company": "VanEck Morningstar Global Wide Moat ETF",
     "Symbol": "MOTG"
   },
@@ -28796,6 +28836,10 @@
     "Symbol": "NEMD"
   },
   {
+    "Company": "Leverage Shares 2x Long NEM Daily ETF",
+    "Symbol": "NEMG"
+  },
+  {
     "Company": "New England Realty Associates Limited Partnership",
     "Symbol": "NEN"
   },
@@ -28850,6 +28894,10 @@
   {
     "Company": "Nabors Energy Transition Corp. II Warrant",
     "Symbol": "NETDW"
+  },
+  {
+    "Company": "Leverage Shares 2X Long NET Daily ETF",
+    "Symbol": "NETG"
   },
   {
     "Company": "Colterpoint Net Lease Real Estate ETF",
@@ -29826,6 +29874,10 @@
   {
     "Company": "Nuveen ESG Emerging Markets Equity ETF",
     "Symbol": "NUEM"
+  },
+  {
+    "Company": "Leverage Shares 2X Long NU Daily ETF",
+    "Symbol": "NUG"
   },
   {
     "Company": "Nuveen Growth Opportunities ETF",
@@ -34156,6 +34208,10 @@
     "Symbol": "QEMM"
   },
   {
+    "Company": "Quetta Acquisition Corporation Common Stock",
+    "Symbol": "QETA"
+  },
+  {
     "Company": "Quetta Acquisition Corporation Right",
     "Symbol": "QETAR"
   },
@@ -35528,10 +35584,6 @@
     "Symbol": "RIME"
   },
   {
-    "Company": "AXS Real Estate Income ETF",
-    "Symbol": "RINC"
-  },
-  {
     "Company": "ProShares Inflation Expectations ETF",
     "Symbol": "RINF"
   },
@@ -36756,6 +36808,10 @@
     "Symbol": "SBTU"
   },
   {
+    "Company": "Leverage Shares 2X Long SBUX Daily ETF",
+    "Symbol": "SBU"
+  },
+  {
     "Company": "Starbucks Corp",
     "Symbol": "SBUX"
   },
@@ -37272,7 +37328,7 @@
     "Symbol": "SENEB"
   },
   {
-    "Company": "Senseonics Holdings, Inc.",
+    "Company": "Senseonics Holdings, Inc. Common Stock",
     "Symbol": "SENS"
   },
   {
@@ -39064,6 +39120,10 @@
     "Symbol": "SPNT"
   },
   {
+    "Company": "Leverage Shares 2X Long SPOT Daily ETF",
+    "Symbol": "SPOG"
+  },
+  {
     "Company": "Spok Holdings, Inc",
     "Symbol": "SPOK"
   },
@@ -40028,6 +40088,10 @@
     "Symbol": "SVREW"
   },
   {
+    "Company": "OceanPal Inc. Common Stock",
+    "Symbol": "SVRN"
+  },
+  {
     "Company": "Savers Value Village, Inc.",
     "Symbol": "SVV"
   },
@@ -40832,6 +40896,10 @@
     "Symbol": "TER"
   },
   {
+    "Company": "Leverage Shares 2X Long TER Daily ETF",
+    "Symbol": "TERG"
+  },
+  {
     "Company": "Terns Pharmaceuticals, Inc. Common Stock",
     "Symbol": "TERN"
   },
@@ -41456,6 +41524,10 @@
     "Symbol": "TMV"
   },
   {
+    "Company": "Thrivent Mid Cap Value ETF",
+    "Symbol": "TMVE"
+  },
+  {
     "Company": "Direxion Daily Small Cap Bull 3x Shares",
     "Symbol": "TNA"
   },
@@ -41942,6 +42014,10 @@
   {
     "Company": "Tractor Supply Co",
     "Symbol": "TSCO"
+  },
+  {
+    "Company": "Thrivent Small Cap Value ETF",
+    "Symbol": "TSCV"
   },
   {
     "Company": "GraniteShares ETF Trust GraniteShares 2x Short TSLA Daily ETF",
@@ -44366,6 +44442,10 @@
   {
     "Company": "VictoryShares US Multi-Factor Minimum Volatility ETF",
     "Symbol": "VSMV"
+  },
+  {
+    "Company": "VanEck Solana ETF Shares of Beneficial Interest",
+    "Symbol": "VSOL"
   },
   {
     "Company": "Vanguard FTSE All-World EX-US Small-Cap Index Fund",

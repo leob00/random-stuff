@@ -4,13 +4,7 @@ import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
-import ContextMenuAllStocks from 'components/Molecules/Menus/ContextMenuAllStocks'
-import ContextMenuCommodities from 'components/Molecules/Menus/ContextMenuCommodities'
-import ContextMenuCrypto from 'components/Molecules/Menus/ContextMenuCrypto'
-import ContextMenuEarnings from 'components/Molecules/Menus/ContextMenuEarnings'
-import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
-import ContextMenuReport from 'components/Molecules/Menus/ContextMenuReport'
+import StockMarketPageContextMenu from 'components/Molecules/Menus/StockMarketPageContextMenu'
 import Seo from 'components/Organizms/Seo'
 import SentimentHistoryCharts from 'components/Organizms/stocks/charts/SentimentHistoryCharts'
 import StockMarketStatsChart from 'components/Organizms/stocks/charts/StockMarketStatsChart'
@@ -21,8 +15,6 @@ import { CategoryType } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockStats } from 'lib/backend/api/qln/qlnModels'
 import { getDynamoItemData, searchDynamoItemsByCategory } from 'lib/backend/csr/nextApiWrapper'
 import { sortArray } from 'lib/util/collections'
-import { take } from 'lodash'
-import { useRouter } from 'next/navigation'
 
 const Page = () => {
   const key: CategoryType = 'stock-reports[daily-sentiment]'
@@ -40,40 +32,15 @@ const Page = () => {
   }
   const { data, isLoading } = useSwrHelper(key, dataFn, { revalidateOnFocus: false, revalidateOnMount: true })
   const lastRecord = data ? data.history[data.history.length - 1] : null
-  const router = useRouter()
 
-  const menu: ContextMenuItem[] = [
-    {
-      item: <ContextMenuAllStocks />,
-      fn: () => router.push('/csr/community-stocks'),
-    },
-    {
-      item: <ContextMenuMyStocks />,
-      fn: () => router.push('/csr/my-stocks'),
-    },
-    {
-      item: <ContextMenuReport text={'reports'} />,
-      fn: () => router.push('/ssg/stocks/reports/volume-leaders'),
-    },
-    {
-      item: <ContextMenuEarnings text={'earnings calendar'} />,
-      fn: () => router.push('/csr/stocks/earnings-calendar'),
-    },
-    {
-      item: <ContextMenuCommodities text={'commodities'} />,
-      fn: () => router.push('/csr/commodities'),
-    },
-    {
-      item: <ContextMenuCrypto text={'crypto'} />,
-      fn: () => router.push('/csr/crypto'),
-    },
-  ]
   return (
     <>
       <Seo pageTitle='Stock Sentiment' />
       {isLoading && <BackdropLoader />}
       <ResponsiveContainer>
-        <PageHeader text='Stock Market Sentiment' menu={menu} />
+        <PageHeader text='Stock Market Sentiment'>
+          <StockMarketPageContextMenu />
+        </PageHeader>
 
         {data && data.history && (
           <Box>

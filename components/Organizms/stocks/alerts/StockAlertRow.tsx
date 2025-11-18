@@ -1,4 +1,4 @@
-import { Alert, Box, Button, TableCell, TableRow, Typography } from '@mui/material'
+import { Alert, Box, TableCell, TableRow, Typography } from '@mui/material'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
@@ -15,8 +15,8 @@ import React from 'react'
 import { mutate } from 'swr'
 import StockSubscriptionForm from './StockSubscriptionForm'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import Clickable from 'components/Atoms/Containers/Clickable'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
+import ListHeader from 'components/Molecules/Lists/ListHeader'
 dayjs.extend(customParseFormat)
 
 const StockAlertRow = ({ sub, username }: { sub: StockAlertSubscription; username: string }) => {
@@ -97,21 +97,27 @@ const StockAlertRow = ({ sub, username }: { sub: StockAlertSubscription; usernam
           {error && <Alert severity='error'>{error}</Alert>}
           {quote && editSub && <StockSubscriptionForm show={true} onClose={handleClose} onSave={handleSave} quote={quote} sub={editSub} />}
           <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-            <Box>
-              <Clickable
+            <Box flexGrow={1}>
+              <ListHeader
+                text={`${sub.company} (${sub.symbol})`}
+                onClicked={() => {
+                  router.push(`/csr/stocks/details/${sub.symbol}?returnUrl=/csr/stocks/alerts`)
+                }}
+              />
+              {/* <Clickable
                 onClicked={() => {
                   router.push(`/csr/stocks/details/${sub.symbol}?returnUrl=/csr/stocks/alerts`)
                 }}
               >
                 <Typography variant='h5'>{`${sub.company} (${sub.symbol})`}</Typography>
-              </Clickable>
+              </Clickable> */}
             </Box>
             <Box>
               <ContextMenu items={menuItems} />
             </Box>
           </Box>
           {sub.triggers.map((trigger) => (
-            <Box key={trigger.typeId} pt={1} display={'flex'} gap={1} flexDirection={'column'}>
+            <Box key={trigger.typeId} pt={1} display={'flex'} gap={1} flexDirection={'column'} pl={2}>
               <Box>
                 <Typography variant='body2'>{`${trigger.typeDescription}`}</Typography>
               </Box>
