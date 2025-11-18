@@ -68,29 +68,35 @@ const EconChart = ({
   }
 
   const color = reverseColor ? getPositiveNegativeColorReverse(last.Change, theme.palette.mode) : getPositiveNegativeColor(last.Change, theme.palette.mode)
+  const movePercColor = reverseColor ? getPositiveNegativeColorReverse(movePerc, theme.palette.mode) : getPositiveNegativeColor(movePerc, theme.palette.mode)
 
   return (
     <Box>
       <Box display={'flex'} gap={1} alignItems={'center'} pl={2}>
-        <Typography variant='body2'>last: </Typography>
+        {/* <Typography width={42} textAlign={'right'} variant='body2'>
+          last:{' '}
+        </Typography> */}
         <EconChangeHeader last={last} reverseColor={reverseColor} />
       </Box>
+      {showDateSummary && (
+        <Box display={'flex'} gap={4} alignItems={'center'} pt={4} justifyContent={'center'}>
+          <ReadOnlyField
+            //variant='h6'
+            label='change'
+            val={`${change > 0 ? '+' + numeral(change).format('###,###,0.00') : numeral(change).format('###,###,0.00')}`}
+            color={movePercColor}
+          />
+          <ReadOnlyField label='' val={`${numeral(movePerc).format('###,###,0.000')}%`} color={movePercColor} />
+        </Box>
+      )}
       <Box pt={2}>
         <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' width={width} height={height} />
       </Box>
       {showDateSummary && (
-        <Box px={2}>
+        <Box px={2} display={'flex'} justifyContent={'center'}>
           <Box display={'flex'} gap={4}>
             <ReadOnlyField label='start date' val={x[0]} />
             <ReadOnlyField label='end date' val={x[x.length - 1]} />
-          </Box>
-          <Box display={'flex'} gap={4} alignItems={'center'}>
-            <ReadOnlyField
-              label='change'
-              val={`${change > 0 ? '+' + numeral(change).format('###,###,0.00') : numeral(change).format('###,###,0.00')}`}
-              color={color}
-            />
-            <ReadOnlyField label='' val={`${numeral(movePerc).format('###,###,0.000')}%`} color={color} />
           </Box>
         </Box>
       )}
