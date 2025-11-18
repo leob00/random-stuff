@@ -6724,6 +6724,10 @@
     "Symbol": "CABO"
   },
   {
+    "Company": "Caring Brands, Inc. Common Stock",
+    "Symbol": "CABR"
+  },
+  {
     "Company": "Camden National Corporation",
     "Symbol": "CAC"
   },
@@ -10234,6 +10238,10 @@
   {
     "Company": "DallasNews Corporation Series A Common Stock",
     "Symbol": "DALN"
+  },
+  {
+    "Company": "Defiance Daily Target 2X Short AMD ETF",
+    "Symbol": "DAMD"
   },
   {
     "Company": "Dana Incorporated",
@@ -18524,6 +18532,10 @@
     "Symbol": "GSHD"
   },
   {
+    "Company": "Gesher Acquisition Corp. II Class A Ordinary Shares",
+    "Symbol": "GSHR"
+  },
+  {
     "Company": "Gesher Acquisition Corp. II Warrants",
     "Symbol": "GSHRW"
   },
@@ -18576,7 +18588,7 @@
     "Symbol": "GSM"
   },
   {
-    "Company": "GRAYSCALE SOLANA TRUST",
+    "Company": "Grayscale Solana Trust ETF",
     "Symbol": "GSOL"
   },
   {
@@ -19538,10 +19550,6 @@
   {
     "Company": "Hilton Worldwide Holdings Inc.",
     "Symbol": "HLT"
-  },
-  {
-    "Company": "HilleVax, Inc. Common Stock",
-    "Symbol": "HLVX"
   },
   {
     "Company": "Helix Energy Solutions Group, Inc.",
@@ -31870,6 +31878,10 @@
   {
     "Company": "Polen Focus Growth ETF",
     "Symbol": "PCLG"
+  },
+  {
+    "Company": "Pictet Cleaner Planet ETF",
+    "Symbol": "PCLN"
   },
   {
     "Company": "VIRTUS SEIX AAA Private Credit CLO ETF",
@@ -45294,6 +45306,10 @@
   {
     "Company": "WSFS Financial Corp",
     "Symbol": "WSFS"
+  },
+  {
+    "Company": "WeShop Holdings Limited Class A Ordinary Shares",
+    "Symbol": "WSHP"
   },
   {
     "Company": "Williams-Sonoma, Inc.",

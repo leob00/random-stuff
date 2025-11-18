@@ -1,24 +1,11 @@
 import { useTheme } from '@mui/material'
 import { getPositiveNegativeColor } from 'components/Organizms/stocks/StockListItem'
-import {
-  CasinoDarkGreenTransparent,
-  CasinoDarkRedTransparent,
-  CasinoGreen,
-  CasinoGreenTransparent,
-  CasinoLightPinkTransparent,
-  CasinoPinkTransparent,
-  CasinoRed,
-  CasinoRedTransparent,
-  CasinoRedTransparentChart,
-  CasinoRedTransparentChartLight,
-  ErrorRed,
-  RedDarkMode,
-} from './mainTheme'
+import { CasinoDarkGreenTransparent, CasinoGreenTransparent, CasinoGreenTransparentChart, CasinoPinkTransparent, CasinoRedTransparentChart } from './mainTheme'
 
 export const useMarketColors = () => {
   const theme = useTheme()
-  const chartPositiveColor = theme.palette.mode === 'dark' ? CasinoGreenTransparent : CasinoDarkGreenTransparent
-  const chartNegativeColor = theme.palette.mode === 'dark' ? CasinoRedTransparentChart : CasinoPinkTransparent
+  const chartPositiveColor = theme.palette.mode === 'dark' ? CasinoGreenTransparentChart : CasinoGreenTransparentChart
+  const chartNegativeColor = theme.palette.mode === 'dark' ? CasinoRedTransparentChart : CasinoRedTransparentChart
   const chartUnchangedColor = getPositiveNegativeColor(0, theme.palette.mode)
 
   const getPositiveNegativeChartColor = (val?: number) => {

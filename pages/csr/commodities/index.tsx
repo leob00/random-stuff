@@ -8,7 +8,7 @@ import Seo from 'components/Organizms/Seo'
 import CommoditiesLayout from 'components/Organizms/stocks/CommoditiesLayout'
 import { useRouter } from 'next/navigation'
 
-const index = () => {
+const Page = () => {
   const router = useRouter()
   const menu: ContextMenuItem[] = [
     {
@@ -35,4 +35,4 @@ const index = () => {
   )
 }
 
-export default index
+export default Page

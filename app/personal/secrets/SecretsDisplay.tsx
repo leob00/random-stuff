@@ -44,6 +44,7 @@ const SecretsDisplay = ({ data }: { data: SecretsUiModel }) => {
         router.push(`/account/profile/pin/validate?target=${encodeURIComponent(pathName ?? '')}`)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pollCounter])
 
   return (
