@@ -7,6 +7,7 @@ import ContextMenuAllStocks from './ContextMenuAllStocks'
 import ContextMenuMyStocks from './ContextMenuMyStocks'
 import ContextMenuCrypto from './ContextMenuCrypto'
 import ContextMenuTreasuries from './ContextMenuTreasuries'
+import ContextMenuCommodities from './ContextMenuCommodities'
 
 const OtherMarketsPageContextMenu = () => {
   const pathName = usePathname()
@@ -28,6 +29,11 @@ const OtherMarketsPageContextMenu = () => {
         item: <ContextMenuCrypto />,
         route: '/csr/crypto',
         fn: () => router.push('/csr/crypto'),
+      },
+      {
+        item: <ContextMenuCommodities />,
+        route: '/csr/commodities',
+        fn: () => router.push('/csr/commodities'),
       },
       {
         item: <ContextMenuTreasuries />,
