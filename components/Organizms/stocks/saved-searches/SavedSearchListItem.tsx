@@ -15,6 +15,7 @@ import { executeStockAdvancedSearch } from 'lib/backend/api/qln/qlnApi'
 import { sortArray } from 'lib/util/collections'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
+import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 
 const SavedSearchListItem = ({
   item,
@@ -99,7 +100,7 @@ const SavedSearchListItem = ({
           </Box>
         </Box>
 
-        {selectedItem && (
+        {selectedItem && !editMode && (
           <Box>
             {selectedItem && results && <ScrollIntoView margin={-24} />}
             <SearchResultsTable data={results} onPageChanged={handlePageChange} />
@@ -107,9 +108,10 @@ const SavedSearchListItem = ({
         )}
         {selectedItem && editMode && (
           <Box>
-            <Box display={'flex'} justifyContent={'flex-end'} pr={2}>
+            <Box display={'flex'} justifyContent={'flex-end'} py={2}>
               <CloseIconButton onClicked={handleCancelEdit} />
             </Box>
+            <HorizontalDivider />
             <AdvancedSearchFilterForm
               onSubmitted={() => {}}
               controller={controller}

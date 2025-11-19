@@ -1,7 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import { NewsItem } from 'lib/backend/api/qln/qlnApi'
 import dayjs from 'dayjs'
-import CenterStack from 'components/Atoms/CenterStack'
 import SaveToNotesButton from 'components/Molecules/Buttons/SaveToNotesButton'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { UserNote, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
