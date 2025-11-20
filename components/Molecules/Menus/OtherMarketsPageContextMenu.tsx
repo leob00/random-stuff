@@ -1,5 +1,4 @@
 'use client'
-import { useMediaQuery } from '@mui/material'
 import { usePathname, useRouter } from 'next/navigation'
 import { useMemo } from 'react'
 import ContextMenu, { ContextMenuItem } from './ContextMenu'
@@ -16,16 +15,6 @@ const OtherMarketsPageContextMenu = () => {
   const menu = useMemo(() => {
     const result: ContextMenuItem[] = [
       {
-        item: <ContextMenuAllStocks text={'stocks'} />,
-        route: '/csr/community-stocks',
-        fn: () => router.push('/csr/community-stocks'),
-      },
-      {
-        item: <ContextMenuMyStocks />,
-        route: '/csr/my-stocks',
-        fn: () => router.push('/csr/my-stocks'),
-      },
-      {
         item: <ContextMenuCrypto />,
         route: '/csr/crypto',
         fn: () => router.push('/csr/crypto'),
@@ -40,8 +29,19 @@ const OtherMarketsPageContextMenu = () => {
         route: '/market/treasuries',
         fn: () => router.push('/market/treasuries'),
       },
+      {
+        item: <ContextMenuAllStocks text={'stocks'} />,
+        route: '/csr/community-stocks',
+        fn: () => router.push('/csr/community-stocks'),
+      },
+      {
+        item: <ContextMenuMyStocks />,
+        route: '/csr/my-stocks',
+        fn: () => router.push('/csr/my-stocks'),
+      },
     ]
     return result.filter((m) => m.route !== pathName)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathName])
 
   return <ContextMenu items={menu} />

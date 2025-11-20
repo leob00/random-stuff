@@ -45,18 +45,9 @@ const StockMarketPageContextMenu = () => {
         fn: () => router.push('/csr/stocks/alerts'),
         route: '/csr/stocks/alerts',
       },
-      // {
-      //   item: <ContextMenuCommodities text={'commodities'} />,
-      //   fn: () => router.push('/csr/commodities'),
-      //   route: '/csr/commodities',
-      // },
-      // {
-      //   item: <ContextMenuCrypto text={'crypto'} />,
-      //   fn: () => router.push('/csr/crypto'),
-      //   route: '/csr/crypto',
-      // },
     ]
     return result.filter((m) => m.route !== pathName)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathName])
 
   return <ContextMenu items={menu} />
