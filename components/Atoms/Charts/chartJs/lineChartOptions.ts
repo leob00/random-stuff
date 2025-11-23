@@ -25,6 +25,69 @@ export const getLineChartOptions = (
       mode: 'nearest',
       intersect: true,
     },
+
+    scales: {
+      y: {
+        grid: {
+          color: VeryLightBlueOpaqueLight,
+          drawTicks: false,
+        },
+        suggestedMax: Math.ceil(max(lineChartData.numbers)!) + 0.1,
+        suggestedMin: min(lineChartData.numbers)! > 0 ? min(lineChartData.numbers)! - 1 : Math.floor(min(lineChartData.numbers)! - 3),
+        ticks: {
+          align: 'start',
+          color: palette === 'light' ? DarkBlue : VeryLightBlue,
+          font: {
+            size: !isExtraSmall ? 11 : 10,
+          },
+          padding: !isExtraSmall ? 20 : 8,
+          autoSkip: true,
+          callback: function (value) {
+            return `${numeral(value).format('###,### 0.00')}${yAxisDecorator}`
+          },
+        },
+      },
+      x: {
+        min: lineChartData.labels[0],
+        max: lineChartData.labels[lineChartData.labels.length - 1],
+        display: showXvalues ?? true,
+        type: 'category',
+
+        // time: {
+        //   unit: 'day',
+        //   displayFormats: {
+        //     day: 'MM/DD/YYYY',
+        //   },
+        // },
+        ticks: {
+          //source: 'data',
+          align: !isExtraSmall ? 'start' : 'inner',
+          maxTicksLimit: 7,
+          padding: !isExtraSmall ? 20 : 8,
+          color: palette === 'light' ? DarkBlue : VeryLightBlue,
+          //minRotation: isExtraSmall ? 1 : 0,
+          font: {
+            size: !isExtraSmall ? 11 : 12,
+          },
+          callback(tickValue, index, ticks) {
+            if (showXvalues) {
+              if (isExtraSmall) {
+                if (index === 0 || index === lineChartData.labels.length - 1) {
+                  return lineChartData.labels[index]
+                }
+              } else {
+                return lineChartData.labels[index]
+              }
+            }
+          },
+        },
+
+        grid: {
+          color: VeryLightBlueOpaqueLight,
+          drawTicks: true,
+        },
+      },
+    },
     plugins: {
       title: {
         display: true,
@@ -82,62 +145,6 @@ export const getLineChartOptions = (
           footer: (tooltipItems) => {
             return ''
           },
-        },
-      },
-    },
-    scales: {
-      y: {
-        grid: {
-          color: VeryLightBlueOpaqueLight,
-          drawTicks: false,
-        },
-        suggestedMax: Math.ceil(max(lineChartData.numbers)!),
-        suggestedMin: min(lineChartData.numbers)! > 0 ? min(lineChartData.numbers)! - 1 : Math.floor(min(lineChartData.numbers)! - 3),
-        ticks: {
-          align: 'start',
-          color: palette === 'light' ? DarkBlue : VeryLightBlue,
-          font: {
-            size: !isExtraSmall ? 12 : 10,
-          },
-          padding: !isExtraSmall ? 12 : 10,
-          autoSkip: true,
-          callback: function (value) {
-            return `${numeral(value).format('###,### 0.00')}${yAxisDecorator}`
-          },
-        },
-      },
-      x: {
-        min: lineChartData.labels[0],
-        max: lineChartData.labels[lineChartData.labels.length - 1],
-        display: showXvalues ?? true,
-        type: 'category',
-        // time: {
-        //   unit: 'day',
-        //   displayFormats: {
-        //     day: 'MM/DD/YYYY',
-        //   },
-        // },
-        ticks: {
-          //source: 'data',
-          maxTicksLimit: 20,
-          padding: 16,
-          color: palette === 'light' ? DarkBlue : VeryLightBlue,
-
-          font: {
-            size: 11,
-          },
-          callback(tickValue, index, ticks) {
-            if (showXvalues) {
-              return lineChartData.labels[index]
-            }
-
-            return ''
-          },
-        },
-
-        grid: {
-          color: VeryLightBlueOpaqueLight,
-          drawTicks: true,
         },
       },
     },

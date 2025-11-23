@@ -4,11 +4,9 @@ import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 import { calculateStockMovePercent } from 'lib/util/numberUtil'
-import dynamic from 'next/dynamic'
 import EconChangeHeader from './EconChangeHeader'
 import { getOptions } from 'components/Organizms/stocks/stockLineChartOptions'
 import { shrinkList } from 'components/Organizms/stocks/lineChartOptions'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import numeral from 'numeral'
 import { getPositiveNegativeColor, getPositiveNegativeColorReverse } from 'components/Organizms/stocks/StockListItem'
@@ -16,23 +14,16 @@ import { VeryLightBlue } from 'components/themes/mainTheme'
 import { getLineChartOptions } from 'components/Atoms/Charts/chartJs/lineChartOptions'
 import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import ChartJsTimeSeriesLineChart, { TimeSeriesLineChartModel } from 'components/Organizms/stocks/charts/ChartJsTimeSeriesLineChart'
-const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false, loading: () => <BackdropLoader /> })
 
 const EconChart = ({
   symbol,
   data,
-  width = 300,
-  days,
-  height,
   reverseColor,
   isExtraSmall = false,
   showDateSummary = true,
 }: {
   symbol: string
   data: EconomicDataItem
-  width?: number
-  days?: number
-  height?: number
   reverseColor?: boolean
   isExtraSmall?: boolean
   showDateSummary?: boolean
@@ -72,13 +63,13 @@ const EconChart = ({
 
   const movePercColor = reverseColor ? getPositiveNegativeColorReverse(movePerc, theme.palette.mode) : getPositiveNegativeColor(movePerc, theme.palette.mode)
 
-  const bar: BarChart = {
+  const lineChart: BarChart = {
     labels: x,
     numbers: y,
     colors: [movePercColor],
   }
 
-  const lineChartOptions = getLineChartOptions({ labels: bar.labels, numbers: bar.numbers }, '', '', theme.palette.mode, !isExtraSmall, isExtraSmall)
+  const lineChartOptions = getLineChartOptions({ labels: x, numbers: y }, '', '', theme.palette.mode, true, isExtraSmall)
   lineChartOptions.plugins!.tooltip!.callbacks = {
     ...lineChartOptions.plugins!.tooltip!.callbacks,
     label: (tooltipItems) => {
@@ -109,7 +100,7 @@ const EconChart = ({
   }
 
   const tsModel: TimeSeriesLineChartModel = {
-    chartData: bar,
+    chartData: lineChart,
     chartOptions: lineChartOptions,
     reverseColor: reverseColor,
   }
@@ -166,7 +157,7 @@ export function mapEconChartToStockHistory(symbol: string, xValues: string[], yV
     }
     history.push(h)
   })
-  const result = shrinkList(history, isXSmall ? 8 : 60)
+  const result = shrinkList(history, isXSmall ? 8 : 30)
   return result
 }
 

@@ -10,6 +10,7 @@ import { max, mean, orderBy, sum, take } from 'lodash'
 import numeral from 'numeral'
 import { min } from 'lodash'
 import { getLineChartOptions } from 'components/Atoms/Charts/chartJs/lineChartOptions'
+import ChartJsTimeSeriesLineChart, { TimeSeriesLineChartModel } from 'components/Organizms/stocks/charts/ChartJsTimeSeriesLineChart'
 
 const JobPerformanceLineChart = ({ data }: { data: Job }) => {
   const theme = useTheme()
@@ -80,48 +81,50 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
       return ` records processed: ${numeral(records[tooltipItems[0].dataIndex]).format('###,###')}`
     },
   }
-  const minNum = min(lineChart.numbers)
-  const minNumIdx = lineChart.numbers.findIndex((m) => m === minNum)
-  const maxNum = max(lineChart.numbers)
-  const maxNumIdx = lineChart.numbers.findIndex((m) => m === maxNum)
-  const avg = mean(lineChart.numbers)
 
-  options.plugins!.annotation = {
-    annotations: {
-      line1: {
-        type: 'point',
-        xValue: minNumIdx,
-        yValue: minNum,
-        borderColor: DarkGreen,
-        borderWidth: 3,
-        backgroundColor: DarkGreen,
-        pointStyle: 'circle',
-      },
-      line2: {
-        type: 'point',
-        xValue: maxNumIdx,
-        yValue: maxNum,
-        borderColor: DarkModeRed,
-        borderWidth: 3,
-        backgroundColor: DarkModeRed,
-        pointStyle: 'circle',
-      },
-      line3: {
-        type: 'line',
-        yMin: avg,
-        yMax: avg,
-        borderColor: VeryLightBlueTransparent,
-        borderDash: [lineChart.colors.length - 1 * 22],
-        borderWidth: 2,
-      },
-    },
+  const chartModel: TimeSeriesLineChartModel = {
+    chartData: lineChart,
+    chartOptions: options,
+    reverseColor: true,
   }
+
+  // options.plugins!.annotation = {
+  //   annotations: {
+  //     line1: {
+  //       type: 'point',
+  //       xValue: minNumIdx,
+  //       yValue: minNum,
+  //       borderColor: DarkGreen,
+  //       borderWidth: 3,
+  //       backgroundColor: DarkGreen,
+  //       pointStyle: 'circle',
+  //     },
+  //     line2: {
+  //       type: 'point',
+  //       xValue: maxNumIdx,
+  //       yValue: maxNum,
+  //       borderColor: DarkModeRed,
+  //       borderWidth: 3,
+  //       backgroundColor: DarkModeRed,
+  //       pointStyle: 'circle',
+  //     },
+  //     line3: {
+  //       type: 'line',
+  //       yMin: avg,
+  //       yMax: avg,
+  //       borderColor: VeryLightBlueTransparent,
+  //       borderDash: [lineChart.colors.length - 1 * 22],
+  //       borderWidth: 2,
+  //     },
+  //   },
+  // }
 
   return (
     <Box>
       <Box minHeight={200} px={{ lg: 2 }}>
         <FadeIn>
-          <SimpleLineChart barChart={lineChart} chartOptions={options} height={height} />
+          {/* <SimpleLineChart barChart={lineChart} chartOptions={options} height={height} /> */}
+          <ChartJsTimeSeriesLineChart data={chartModel} />
         </FadeIn>
       </Box>
     </Box>
