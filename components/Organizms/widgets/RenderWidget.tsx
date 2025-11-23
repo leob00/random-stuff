@@ -57,7 +57,8 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
         {item.category === 'econ-ind-index' && (
           <Box>
             <WidgetWrapper item={item}>
-              <EconIndexWidget itemId={Number(item.internalId)} symbol={item.title} width={dimension.width} height={dimension.height} />
+              {/* <EconIndexWidget itemId={Number(item.internalId)} symbol={item.title} width={dimension.width} height={dimension.height} /> */}
+              <EconWidget itemId={Number(item.internalId)} symbol={item.title} width={dimension.width} height={dimension.height} size={item.size} />
               <WidgetFooter detailsUrl={`/csr/economic-indicators/${item.internalId}`} />
             </WidgetWrapper>
           </Box>
@@ -65,7 +66,7 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
         {item.category === 'econ-ind' && (
           <Box>
             <WidgetWrapper item={item}>
-              <EconWidget itemId={Number(item.internalId)} symbol={item.title} width={dimension.width} height={dimension.height} />
+              <EconWidget itemId={Number(item.internalId)} symbol={item.title} width={dimension.width} height={dimension.height} size={item.size} />
               <WidgetFooter detailsUrl={`/csr/economic-indicators/${item.internalId}`} />
             </WidgetWrapper>
           </Box>

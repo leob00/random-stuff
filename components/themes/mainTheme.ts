@@ -55,7 +55,7 @@ export const OceanBlue = '#295d6f'
 export const OceanBlueTransparent = '#0ba3d631'
 export const RedDarkMode = '#f31d1d'
 export const DarkModeBkg = '#010d20fa'
-export const TooltipBkg = '#02021de1'
+export const TooltipBkg = '#000713ee'
 
 export const ErrorRed = '#ce250ec7'
 

@@ -15,7 +15,7 @@ import {
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 import { BarChart, getLineChartData, LineChart } from './barChartOptions'
-import { Box, useTheme } from '@mui/material'
+import { Box, useMediaQuery, useTheme } from '@mui/material'
 import annotationPlugin from 'chartjs-plugin-annotation'
 import { getLineChartOptions } from './lineChartOptions'
 import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm'
@@ -50,6 +50,17 @@ const SimpleLineChart = ({
   chartOptions?: ChartOptions<'line'>
 }) => {
   const theme = useTheme()
+  const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
+  const isLarge = useMediaQuery(theme.breakpoints.up('md'))
+  let hgt = height
+  if (!hgt) {
+    if (isXSmall) {
+      hgt = 240
+    }
+    if (isLarge) {
+      hgt = 90
+    }
+  }
   const lineChart: LineChart = {
     labels: barChart.labels,
     numbers: barChart.numbers,
@@ -60,7 +71,7 @@ const SimpleLineChart = ({
   return (
     <Box>
       <FadeIn>
-        <Line data={data} options={options} height={height} />
+        <Line data={data} options={options} height={hgt} />
       </FadeIn>
     </Box>
   )

@@ -39,16 +39,17 @@ export const getLineChartData = (labels: string[], numbers: number[], colors: st
     labels: labels,
     datasets: [
       {
-        borderColor: CasinoBlue,
-        borderWidth: 1.5,
+        borderColor: colors ?? CasinoBlue,
+        borderWidth: 1.8,
         data: numbers,
         type: 'line',
         animation: {
           easing: 'linear',
         },
-        tension: 0.4,
+        tension: 0.6,
         pointStyle: 'circle',
-        pointBackgroundColor: CasinoBlue,
+        pointBorderWidth: 0,
+        pointBackgroundColor: colors ?? CasinoBlue,
         backgroundColor: (context: ScriptableContext<'line'>) => {
           const ctx = context.chart.ctx
           const gradient = ctx.createLinearGradient(10, 10, 10, 500)

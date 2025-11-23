@@ -35,7 +35,15 @@ const EconWidget = ({ itemId, symbol, width, height, size }: { itemId: number; s
               </Box>
             </Box>
           )}
-          <EconChart data={data} symbol={symbol} width={width} days={90} reverseColor={shouldReverseColor} showDateSummary={false} />
+          <EconChart
+            data={data}
+            symbol={symbol}
+            width={width}
+            days={90}
+            reverseColor={shouldReverseColor}
+            showDateSummary={false}
+            isExtraSmall={size === 'sm'}
+          />
         </Box>
       )}
     </Box>
@@ -43,7 +51,7 @@ const EconWidget = ({ itemId, symbol, width, height, size }: { itemId: number; s
 }
 
 export function reverseColor(itemId: number) {
-  const positiveIsGood = [7, 11, 14, 15, 17, 41]
+  const positiveIsGood = [7, 11, 14, 15, 17, 34, 41]
   const reverseColor = !positiveIsGood.includes(itemId)
   return reverseColor
 }

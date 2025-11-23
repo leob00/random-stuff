@@ -19,6 +19,7 @@ import { shrinkList } from './lineChartOptions'
 import { MovingAvg } from 'lib/backend/api/qln/qlnModels'
 import MovingAvgValues from './movingAvg/MovingAvgValues'
 import { VeryLightBlue } from 'components/themes/mainTheme'
+import ChartJsTimeSeriesLineChart, { TimeSeriesLineChartModel } from './charts/ChartJsTimeSeriesLineChart'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 interface Model {
@@ -46,6 +47,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
     const response = await getMarketChart(symbol, marketCategory, days)
     const history = shrinkList(response.History, 60)
     const map = mapHistory(history, 'Price')
+
     const options = getOptions(map, history, isXSmall, theme.palette.mode)
     options.xaxis = { ...options.xaxis, type: 'datetime', axisTicks: { show: true, borderType: 'none', color: VeryLightBlue } }
     options.xaxis.labels = {

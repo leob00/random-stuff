@@ -2,6 +2,8 @@ import { ChartOptions } from 'chart.js'
 import { LineChart } from './barChartOptions'
 import { DarkBlue, TooltipBkg, VeryLightBlue, VeryLightBlueOpaqueLight, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import { max, min } from 'lodash'
+import numeral from 'numeral'
+import dayjs from 'dayjs'
 
 export const getLineChartOptions = (
   lineChartData: LineChart,
@@ -9,8 +11,11 @@ export const getLineChartOptions = (
   yAxisDecorator = '',
   palette: 'light' | 'dark',
   showXvalues?: boolean,
+  isExtraSmall?: boolean,
 ): ChartOptions<'line'> => {
   return {
+    //aspectRatio: 1,
+    maintainAspectRatio: false,
     responsive: true,
     animation: {
       easing: 'linear',
@@ -66,6 +71,7 @@ export const getLineChartOptions = (
           label: (tooltipItems) => {
             return ` ${[tooltipItems.label]}: ${Number(tooltipItems.formattedValue).toFixed(2)}${yAxisDecorator}`
           },
+
           labelPointStyle: (tooltiipItems) => {
             return {
               pointStyle: 'circle',
@@ -85,23 +91,24 @@ export const getLineChartOptions = (
           color: VeryLightBlueOpaqueLight,
           drawTicks: false,
         },
-        suggestedMax: Math.ceil(max(lineChartData.numbers)!) + 8,
-        suggestedMin: min(lineChartData.numbers)! > 0 ? min(lineChartData.numbers)! - 1 : Math.floor(min(lineChartData.numbers)! - 9),
+        suggestedMax: Math.ceil(max(lineChartData.numbers)!),
+        suggestedMin: min(lineChartData.numbers)! > 0 ? min(lineChartData.numbers)! - 1 : Math.floor(min(lineChartData.numbers)! - 3),
         ticks: {
           align: 'start',
           color: palette === 'light' ? DarkBlue : VeryLightBlue,
           font: {
-            size: 12,
+            size: !isExtraSmall ? 12 : 10,
           },
-          padding: 12,
+          padding: !isExtraSmall ? 12 : 10,
           autoSkip: true,
           callback: function (value) {
-            return `${value}${yAxisDecorator}`
+            return `${numeral(value).format('###,### 0.00')}${yAxisDecorator}`
           },
         },
       },
       x: {
         min: lineChartData.labels[0],
+        max: lineChartData.labels[lineChartData.labels.length - 1],
         display: showXvalues ?? true,
         type: 'category',
         // time: {
@@ -112,14 +119,15 @@ export const getLineChartOptions = (
         // },
         ticks: {
           //source: 'data',
-          padding: 20,
+          maxTicksLimit: 20,
+          padding: 16,
           color: palette === 'light' ? DarkBlue : VeryLightBlue,
 
           font: {
             size: 11,
           },
           callback(tickValue, index, ticks) {
-            if (index % 2 !== 0) {
+            if (showXvalues) {
               return lineChartData.labels[index]
             }
 

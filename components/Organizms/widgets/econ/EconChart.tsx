@@ -1,5 +1,5 @@
 'use client'
-import { Box, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Box, useMediaQuery, useTheme } from '@mui/material'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
@@ -13,6 +13,9 @@ import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import numeral from 'numeral'
 import { getPositiveNegativeColor, getPositiveNegativeColorReverse } from 'components/Organizms/stocks/StockListItem'
 import { VeryLightBlue } from 'components/themes/mainTheme'
+import { getLineChartOptions } from 'components/Atoms/Charts/chartJs/lineChartOptions'
+import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
+import ChartJsTimeSeriesLineChart, { TimeSeriesLineChartModel } from 'components/Organizms/stocks/charts/ChartJsTimeSeriesLineChart'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false, loading: () => <BackdropLoader /> })
 
 const EconChart = ({
@@ -22,7 +25,7 @@ const EconChart = ({
   days,
   height,
   reverseColor,
-  isExtraSmall = true,
+  isExtraSmall = false,
   showDateSummary = true,
 }: {
   symbol: string
@@ -39,7 +42,7 @@ const EconChart = ({
   const isXsmall = isExtraSmall ?? isXSmallDevice
   const xValues = data.Chart?.XValues ?? []
   const yValues = data.Chart?.YValues.map((m) => Number(m)) ?? []
-  const history = mapEconChartToStockHistory(symbol, xValues, yValues)
+  const history = mapEconChartToStockHistory(symbol, xValues, yValues, isExtraSmall)
 
   const x = history.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY'))
   const y = history.map((m) => m.Price)
@@ -67,15 +70,56 @@ const EconChart = ({
     },
   }
 
-  const color = reverseColor ? getPositiveNegativeColorReverse(last.Change, theme.palette.mode) : getPositiveNegativeColor(last.Change, theme.palette.mode)
   const movePercColor = reverseColor ? getPositiveNegativeColorReverse(movePerc, theme.palette.mode) : getPositiveNegativeColor(movePerc, theme.palette.mode)
+
+  const bar: BarChart = {
+    labels: x,
+    numbers: y,
+    colors: [movePercColor],
+  }
+
+  const lineChartOptions = getLineChartOptions({ labels: bar.labels, numbers: bar.numbers }, '', '', theme.palette.mode, !isExtraSmall, isExtraSmall)
+  lineChartOptions.plugins!.tooltip!.callbacks = {
+    ...lineChartOptions.plugins!.tooltip!.callbacks,
+    label: (tooltipItems) => {
+      return ` ${dayjs(tooltipItems.label).format('dddd')}, ${tooltipItems.label}`
+    },
+
+    labelTextColor: (tooltipItem) => {
+      const clr = reverseColor
+        ? getPositiveNegativeColorReverse(history[tooltipItem.dataIndex].Change, theme.palette.mode)
+        : getPositiveNegativeColor(history[tooltipItem.dataIndex].Change, theme.palette.mode)
+      return clr
+    },
+    labelColor: (tooltipItem) => {
+      const clr = reverseColor
+        ? getPositiveNegativeColorReverse(history[tooltipItem.dataIndex].Change, theme.palette.mode)
+        : getPositiveNegativeColor(history[tooltipItem.dataIndex].Change, theme.palette.mode)
+      return {
+        borderColor: clr,
+        backgroundColor: clr,
+      }
+    },
+    afterLabel: (tooltipItems) => {
+      const price = numeral(history[tooltipItems.dataIndex].Price).format('###,###,0.000')
+      const change = numeral(history[tooltipItems.dataIndex].Change).format('###,###,0.000')
+      const changePerc = numeral(history[tooltipItems.dataIndex].ChangePercent).format('###,###,0.000')
+      return ` ${price}   ${change}   ${changePerc}%`
+    },
+  }
+
+  const tsModel: TimeSeriesLineChartModel = {
+    chartData: bar,
+    chartOptions: lineChartOptions,
+    reverseColor: reverseColor,
+  }
+  if (isExtraSmall) {
+    tsModel.height = 280
+  }
 
   return (
     <Box>
       <Box display={'flex'} gap={1} alignItems={'center'} pl={2}>
-        {/* <Typography width={42} textAlign={'right'} variant='body2'>
-          last:{' '}
-        </Typography> */}
         <EconChangeHeader last={last} reverseColor={reverseColor} />
       </Box>
       {showDateSummary && (
@@ -89,9 +133,14 @@ const EconChart = ({
           <ReadOnlyField label='' val={`${numeral(movePerc).format('###,###,0.000')}%`} color={movePercColor} />
         </Box>
       )}
-      <Box pt={2}>
-        <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' width={width} height={height} />
+      <Box>
+        <ChartJsTimeSeriesLineChart data={tsModel} />
       </Box>
+
+      {/* <Box pt={2}>
+        <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' width={width} height={height} />
+      </Box> */}
+
       {showDateSummary && (
         <Box px={2} display={'flex'} justifyContent={'center'}>
           <Box display={'flex'} gap={4}>
@@ -104,7 +153,7 @@ const EconChart = ({
   )
 }
 
-export function mapEconChartToStockHistory(symbol: string, xValues: string[], yValues: number[]) {
+export function mapEconChartToStockHistory(symbol: string, xValues: string[], yValues: number[], isXSmall?: boolean) {
   const history: StockHistoryItem[] = []
   xValues.forEach((x, index) => {
     const change = index === 0 ? 0 : yValues[index] - yValues[index - 1]
@@ -117,7 +166,7 @@ export function mapEconChartToStockHistory(symbol: string, xValues: string[], yV
     }
     history.push(h)
   })
-  const result = shrinkList(history, 60)
+  const result = shrinkList(history, isXSmall ? 8 : 60)
   return result
 }
 

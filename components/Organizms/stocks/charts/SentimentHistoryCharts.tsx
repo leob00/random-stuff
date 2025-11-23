@@ -51,7 +51,7 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
   }, [pagerModel.page])
 
   const theme = useTheme()
-  const { chart } = useMarketColors()
+  const { chart, getPositiveNegativeChartColor } = useMarketColors()
   const colors = model.results.map((m) => {
     return m.TotalUpPercent >= 50 ? chart.positiveColor : chart.negativeColor
   })
@@ -108,6 +108,19 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
       label: (tooltipItems) => {
         return ` ${dayjs(tooltipItems.label).format('dddd')}, ${tooltipItems.label}`
       },
+      labelColor: (tooltipItem) => {
+        let clr = chart.unchangedColor
+        if (model.results[tooltipItem.dataIndex].TotalUpPercent > 50) {
+          clr = chart.positiveColor
+        }
+        if (model.results[tooltipItem.dataIndex].TotalUpPercent < 50) {
+          clr = chart.negativeColor
+        }
+        return {
+          borderColor: clr,
+          backgroundColor: clr,
+        }
+      },
       beforeBody: () => {
         return ''
       },
@@ -125,6 +138,7 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
       },
     },
   }
+
   const minNum = min(bar.numbers)
   const minNumIdx = bar.numbers.findIndex((m) => m === minNum)
   const maxNum = max(bar.numbers)
@@ -175,6 +189,8 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
     }
   }
 
+  const line = { ...bar, colors: [getPositiveNegativeChartColor(bar.numbers[bar.numbers.length - 1] - bar.numbers[0])] }
+
   return (
     <Box>
       <Typography pt={4} textAlign={'center'} variant='h5'>{`Sentiment History`}</Typography>
@@ -186,7 +202,7 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
         handleNextClick={handleNextClick}
       />
       <SimpleBarChart barChart={bar} chartOptions={barchartOptions} height={height} />
-      <SimpleLineChart barChart={bar} chartOptions={lineChartOptions} height={height} />
+      <SimpleLineChart barChart={line} chartOptions={lineChartOptions} height={height} />
     </Box>
   )
 }
