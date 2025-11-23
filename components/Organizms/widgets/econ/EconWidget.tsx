@@ -35,15 +35,7 @@ const EconWidget = ({ itemId, symbol, width, height, size }: { itemId: number; s
               </Box>
             </Box>
           )}
-          <EconChart
-            data={data}
-            symbol={symbol}
-            width={width}
-            days={90}
-            reverseColor={shouldReverseColor}
-            showDateSummary={false}
-            isExtraSmall={size === 'sm'}
-          />
+          <EconChart data={data} symbol={symbol} reverseColor={shouldReverseColor} showDateSummary={false} isExtraSmall={size === 'sm'} />
         </Box>
       )}
     </Box>

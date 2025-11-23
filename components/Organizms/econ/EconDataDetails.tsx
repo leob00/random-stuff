@@ -113,7 +113,7 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
           <Alert severity='error'>{model.error}</Alert>
         </Box>
       )}
-      <EconChart symbol={item.Title} data={model.item} width={dimension.width} height={dimension.height} reverseColor={shouldReverseColor} />
+      <EconChart symbol={item.Title} data={model.item} reverseColor={shouldReverseColor} />
 
       <Box py={2} textAlign={'center'}>
         <Typography variant='caption'>{`data available from ${dayjs(item.FirstObservationDate).format('MM/DD/YYYY')} to ${dayjs(item.LastObservationDate).format('MM/DD/YYYY')} on a ${item.Frequency} basis.`}</Typography>
