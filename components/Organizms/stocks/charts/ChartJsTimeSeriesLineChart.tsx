@@ -19,24 +19,10 @@ import {
 import { Line } from 'react-chartjs-2'
 import annotationPlugin from 'chartjs-plugin-annotation'
 import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm'
-import FadeIn from 'components/Atoms/Animations/FadeIn'
-import SimpleLineChart from 'components/Atoms/Charts/chartJs/SimpleLineChart'
-import {
-  CasinoBlueTransparent,
-  CasinoLimeTransparent,
-  CasinoRedTransparent,
-  CasinoRedTransparentChartLight,
-  DarkModeRed,
-  VeryLightBlueOpaque,
-} from 'components/themes/mainTheme'
-import { shrinkList } from '../lineChartOptions'
+import { CasinoBlueTransparent, VeryLightBlueOpaque } from 'components/themes/mainTheme'
 import { useMarketColors } from 'components/themes/marketColors'
 import { max, mean, min } from 'lodash'
-import dayjs from 'dayjs'
-import numeral from 'numeral'
-import { getPositiveNegativeColor } from '../StockListItem'
-import { calculatePercent } from 'lib/util/numberUtil'
-import { Box, Stack, useTheme } from '@mui/material'
+import { Box, useTheme } from '@mui/material'
 
 ChartJS.register(
   annotationPlugin,

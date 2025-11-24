@@ -6,7 +6,6 @@ import { Box } from '@mui/material'
 import { getLatestQuotes } from 'lib/backend/api/qln/qlnApi'
 import { searchDynamoItemsByCategory } from 'lib/backend/csr/nextApiWrapper'
 import { mutate } from 'swr'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import CommunityStocksRecentLayout from 'components/Organizms/stocks/CommunityStocksRecentLayout'
 import Seo from 'components/Organizms/Seo'
 import TabList from 'components/Atoms/Buttons/TabList'
@@ -18,6 +17,7 @@ import { useState } from 'react'
 import StockSearch from 'components/Atoms/Inputs/StockSearch'
 import FullStockDetail from 'components/Organizms/stocks/FullStockDetail'
 import StockMarketPageContextMenu from 'components/Molecules/Menus/StockMarketPageContextMenu'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'
 const tabs: TabInfo[] = [
@@ -97,7 +97,6 @@ const Page = () => {
 
   return (
     <>
-      {isLoading && <BackdropLoader />}
       <Seo pageTitle={`Stocks`} />
       <ResponsiveContainer>
         <PageHeader text='Stocks'>
@@ -108,6 +107,7 @@ const Page = () => {
             <StockSearch onSymbolSelected={handleSelectQuote} clearOnSelect showAdvSearch />
           </Box>
         )}
+        {isLoading && <ComponentLoader />}
         {selectedStock && <FullStockDetail item={selectedStock} onClose={handleCloseQuoteDialog} />}
         {!selectedStock && <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />}
         {!selectedStock && (

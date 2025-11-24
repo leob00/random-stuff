@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import OtherMarketsPageContextMenu from 'components/Molecules/Menus/OtherMarketsPageContextMenu'
 import Seo from 'components/Organizms/Seo'
@@ -29,7 +29,7 @@ const Page = () => {
         <PageHeader text='Crypto'>
           <OtherMarketsPageContextMenu />
         </PageHeader>
-        {(isLoading || profileLoading) && <BackdropLoader />}
+        {(isLoading || profileLoading) && <ComponentLoader />}
         <Box py={2} display={'flex'} justifyContent={'center'}>
           <AlertWithHeader severity='warning' header='' text='prices are delayed by one day' />
         </Box>

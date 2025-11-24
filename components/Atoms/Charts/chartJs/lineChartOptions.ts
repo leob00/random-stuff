@@ -12,6 +12,7 @@ export const getLineChartOptions = (
   palette: 'light' | 'dark',
   showXvalues?: boolean,
   isExtraSmall?: boolean,
+  isXSmallDevice?: boolean,
 ): ChartOptions<'line'> => {
   return {
     //aspectRatio: 1,
@@ -38,9 +39,9 @@ export const getLineChartOptions = (
           align: 'start',
           color: palette === 'light' ? DarkBlue : VeryLightBlue,
           font: {
-            size: !isExtraSmall ? 11 : 10,
+            size: isExtraSmall || isXSmallDevice ? 10 : 11,
           },
-          padding: !isExtraSmall ? 20 : 8,
+          padding: isExtraSmall || isXSmallDevice ? 8 : 20,
           autoSkip: true,
           callback: function (value) {
             return `${numeral(value).format('###,### 0.00')}${yAxisDecorator}`
@@ -61,9 +62,9 @@ export const getLineChartOptions = (
         // },
         ticks: {
           //source: 'data',
-          align: !isExtraSmall ? 'start' : 'inner',
-          maxTicksLimit: 7,
-          padding: !isExtraSmall ? 20 : 8,
+          align: isExtraSmall || isXSmallDevice ? 'inner' : 'start',
+          maxTicksLimit: isExtraSmall || isXSmallDevice ? 4 : 8,
+          padding: isExtraSmall || isXSmallDevice ? 8 : 20,
           color: palette === 'light' ? DarkBlue : VeryLightBlue,
           //minRotation: isExtraSmall ? 1 : 0,
           font: {
@@ -71,7 +72,7 @@ export const getLineChartOptions = (
           },
           callback(tickValue, index, ticks) {
             if (showXvalues) {
-              if (isExtraSmall) {
+              if (isExtraSmall || isXSmallDevice) {
                 if (index === 0 || index === lineChartData.labels.length - 1) {
                   return lineChartData.labels[index]
                 }

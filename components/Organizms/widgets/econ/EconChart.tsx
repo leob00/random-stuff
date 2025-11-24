@@ -29,7 +29,7 @@ const EconChart = ({
   showDateSummary?: boolean
 }) => {
   const theme = useTheme()
-  const isXSmallDevice = useMediaQuery(theme.breakpoints.down('md'))
+  const isXSmallDevice = useMediaQuery(theme.breakpoints.down('sm'))
   const isXsmall = isExtraSmall ?? isXSmallDevice
   const xValues = data.Chart?.XValues ?? []
   const yValues = data.Chart?.YValues.map((m) => Number(m)) ?? []
@@ -69,7 +69,8 @@ const EconChart = ({
     colors: [movePercColor],
   }
 
-  const lineChartOptions = getLineChartOptions({ labels: x, numbers: y }, '', '', theme.palette.mode, true, isExtraSmall)
+  const lineChartOptions = getLineChartOptions({ labels: x, numbers: y }, '', '', theme.palette.mode, true, isExtraSmall, isXSmallDevice)
+
   lineChartOptions.plugins!.tooltip!.callbacks = {
     ...lineChartOptions.plugins!.tooltip!.callbacks,
     label: (tooltipItems) => {
@@ -104,7 +105,7 @@ const EconChart = ({
     chartOptions: lineChartOptions,
     reverseColor: reverseColor,
   }
-  if (isExtraSmall) {
+  if (isExtraSmall || isXSmallDevice) {
     tsModel.height = 280
   }
 
@@ -131,15 +132,6 @@ const EconChart = ({
       {/* <Box pt={2}>
         <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' width={width} height={height} />
       </Box> */}
-
-      {showDateSummary && (
-        <Box px={2} display={'flex'} justifyContent={'center'}>
-          <Box display={'flex'} gap={4}>
-            <ReadOnlyField label='start date' val={x[0]} />
-            <ReadOnlyField label='end date' val={x[x.length - 1]} />
-          </Box>
-        </Box>
-      )}
     </Box>
   )
 }

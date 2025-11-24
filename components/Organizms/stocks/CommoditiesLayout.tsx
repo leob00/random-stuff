@@ -2,15 +2,10 @@ import { Box } from '@mui/material'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import StockTable from './StockTable'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import { useSwrHelper } from 'hooks/useSwrHelper'
-import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
-import router from 'next/router'
-import ContextMenuMyStocks from 'components/Molecules/Menus/ContextMenuMyStocks'
-import ContextMenuCrypto from 'components/Molecules/Menus/ContextMenuCrypto'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
-import ContextMenuAllStocks from 'components/Molecules/Menus/ContextMenuAllStocks'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const CommoditiesLayout = () => {
   const endPoint = `/Futures`
@@ -27,7 +22,7 @@ const CommoditiesLayout = () => {
     <>
       {!isValidating && (
         <Box py={2}>
-          {isLoading && <BackdropLoader />}
+          {isLoading && <ComponentLoader />}
           {data && (
             <Box pt={2}>
               <ScrollIntoView enabled />
