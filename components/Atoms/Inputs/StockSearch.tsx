@@ -4,11 +4,11 @@ import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import { DropdownItem } from 'lib/models/dropdown'
 import numeral from 'numeral'
 import CenterStack from '../CenterStack'
-import BackdropLoader from '../Loaders/BackdropLoader'
 import StocksAutoComplete from './StocksAutoComplete'
 import { useState } from 'react'
 import { Box } from '@mui/material'
 import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
+import ComponentLoader from '../Loaders/ComponentLoader'
 
 const StockSearch = ({
   onSymbolSelected,
@@ -55,7 +55,6 @@ const StockSearch = ({
   return (
     <Box>
       <CenterStack>
-        {isLoading && <BackdropLoader />}
         <StocksAutoComplete
           placeholder={`search ${searchAheadCount} stocks`}
           onChanged={handleSearched}
@@ -67,6 +66,7 @@ const StockSearch = ({
           freesolo
         />
       </CenterStack>
+      {isLoading && <ComponentLoader />}
       {showAdvSearch && (
         <Box maxWidth={{ xs: '98%', sm: '86%', md: '79%', lg: '75%' }}>
           <Box display={'flex'} justifyContent={'flex-end'}>

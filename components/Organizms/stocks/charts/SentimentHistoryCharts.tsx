@@ -15,6 +15,8 @@ import BackForwardPager from 'components/Molecules/Buttons/BackForwardPager'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import { getLineChartOptions } from 'components/Atoms/Charts/chartJs/lineChartOptions'
+import ChartJsTimeSeriesLineChart, { TimeSeriesLineChartModel } from './ChartJsTimeSeriesLineChart'
+import { getPositiveNegativeColor } from '../StockListItem'
 dayjs.extend(isSameOrBefore)
 
 const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
@@ -98,7 +100,7 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
     },
   }
 
-  const lineChartOptions = getLineChartOptions({ labels: bar.labels, numbers: bar.numbers }, '', '%', theme.palette.mode, true)
+  const lineChartOptions = getLineChartOptions({ labels: bar.labels, numbers: bar.numbers }, '', '%', theme.palette.mode, true, isXSmall)
   lineChartOptions.plugins!.tooltip! = {
     ...lineChartOptions.plugins?.tooltip,
     callbacks: {
@@ -139,42 +141,42 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
     },
   }
 
-  const minNum = min(bar.numbers)
-  const minNumIdx = bar.numbers.findIndex((m) => m === minNum)
-  const maxNum = max(bar.numbers)
-  const maxNumIdx = bar.numbers.findIndex((m) => m === maxNum)
-  const avg = mean(bar.numbers)
+  // const minNum = min(bar.numbers)
+  // const minNumIdx = bar.numbers.findIndex((m) => m === minNum)
+  // const maxNum = max(bar.numbers)
+  // const maxNumIdx = bar.numbers.findIndex((m) => m === maxNum)
+  // const avg = mean(bar.numbers)
 
-  lineChartOptions.plugins!.annotation = {
-    annotations: {
-      line1: {
-        type: 'point',
-        xValue: minNumIdx,
-        yValue: minNum,
-        borderColor: chart.negativeColor,
-        borderWidth: 1,
-        backgroundColor: chart.negativeColor,
-        pointStyle: 'circle',
-      },
-      line2: {
-        type: 'point',
-        xValue: maxNumIdx,
-        yValue: maxNum,
-        borderColor: chart.positiveColor,
-        borderWidth: 1,
-        backgroundColor: chart.positiveColor,
-        pointStyle: 'circle',
-      },
-      line3: {
-        type: 'line',
-        yMin: avg,
-        yMax: avg,
-        borderColor: CasinoBlueTransparent,
-        borderDash: [bar.labels.length / 2],
-        borderWidth: 1,
-      },
-    },
-  }
+  // lineChartOptions.plugins!.annotation = {
+  //   annotations: {
+  //     line1: {
+  //       type: 'point',
+  //       xValue: minNumIdx,
+  //       yValue: minNum,
+  //       borderColor: chart.negativeColor,
+  //       borderWidth: 1,
+  //       backgroundColor: chart.negativeColor,
+  //       pointStyle: 'circle',
+  //     },
+  //     line2: {
+  //       type: 'point',
+  //       xValue: maxNumIdx,
+  //       yValue: maxNum,
+  //       borderColor: chart.positiveColor,
+  //       borderWidth: 1,
+  //       backgroundColor: chart.positiveColor,
+  //       pointStyle: 'circle',
+  //     },
+  //     line3: {
+  //       type: 'line',
+  //       yMin: avg,
+  //       yMax: avg,
+  //       borderColor: CasinoBlueTransparent,
+  //       borderDash: [bar.labels.length / 2],
+  //       borderWidth: 1,
+  //     },
+  //   },
+  // }
 
   const handleBackClick = () => {
     const newPageNum = pagerModel.page - 1
@@ -191,6 +193,11 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
 
   const line = { ...bar, colors: [getPositiveNegativeChartColor(bar.numbers[bar.numbers.length - 1] - bar.numbers[0])] }
 
+  const tsModel: TimeSeriesLineChartModel = {
+    chartData: line,
+    chartOptions: lineChartOptions,
+  }
+
   return (
     <Box>
       <Typography pt={4} textAlign={'center'} variant='h5'>{`Sentiment History`}</Typography>
@@ -202,7 +209,7 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
         handleNextClick={handleNextClick}
       />
       <SimpleBarChart barChart={bar} chartOptions={barchartOptions} height={height} />
-      <SimpleLineChart barChart={line} chartOptions={lineChartOptions} height={height} />
+      <ChartJsTimeSeriesLineChart data={tsModel} />
     </Box>
   )
 }
