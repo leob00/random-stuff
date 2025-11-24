@@ -22,7 +22,7 @@ import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm'
 import { CasinoBlueTransparent, VeryLightBlueOpaque } from 'components/themes/mainTheme'
 import { useMarketColors } from 'components/themes/marketColors'
 import { max, mean, min } from 'lodash'
-import { Box, useTheme } from '@mui/material'
+import { Box } from '@mui/material'
 
 ChartJS.register(
   annotationPlugin,
@@ -43,12 +43,12 @@ export type TimeSeriesLineChartModel = {
   chartData: BarChart
   chartOptions: ChartOptions<'line'>
   reverseColor?: boolean
+  tickColors?: string[]
 }
 
 const ChartJsTimeSeriesLineChart = ({ data }: { data: TimeSeriesLineChartModel }) => {
   const { chart: chartColors, getPositiveNegativeChartColor } = useMarketColors()
   const ds = getLineChartData(data.chartData.labels, data.chartData.numbers, data.chartData.colors)
-  const theme = useTheme()
 
   ds.datasets[0].backgroundColor = (context: ScriptableContext<'line'>) => {
     const ctx = context.chart.ctx
@@ -56,6 +56,9 @@ const ChartJsTimeSeriesLineChart = ({ data }: { data: TimeSeriesLineChartModel }
     gradient.addColorStop(0, data.chartData.colors[0])
     gradient.addColorStop(1, VeryLightBlueOpaque)
     return gradient
+  }
+  if (data.tickColors) {
+    ds.datasets[0].pointBackgroundColor = data.tickColors
   }
   const lineChartOptions = { ...data.chartOptions }
   const minNum = min(data.chartData.numbers)

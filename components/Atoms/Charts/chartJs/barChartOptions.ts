@@ -40,7 +40,7 @@ export const getLineChartData = (labels: string[], numbers: number[], colors: st
     datasets: [
       {
         borderColor: colors ?? CasinoBlue,
-        borderWidth: 1.8,
+        borderWidth: 1,
         data: numbers,
         type: 'line',
         animation: {
@@ -49,7 +49,9 @@ export const getLineChartData = (labels: string[], numbers: number[], colors: st
         tension: 0.6,
         pointStyle: 'circle',
         pointBorderWidth: 0,
+        pointRadius: 3,
         pointBackgroundColor: colors ?? CasinoBlue,
+
         backgroundColor: (context: ScriptableContext<'line'>) => {
           const ctx = context.chart.ctx
           const gradient = ctx.createLinearGradient(10, 10, 10, 500)
@@ -103,6 +105,7 @@ export const getBarChartOptions = (
   palette: 'light' | 'dark',
   isHorizontal?: boolean,
   showXvalues?: boolean,
+  isXSmallDevice?: boolean,
 ): ChartOptions<'bar'> => {
   return {
     responsive: true,
@@ -188,10 +191,10 @@ export const getBarChartOptions = (
         ticks: {
           color: palette === 'light' ? DarkBlue : VeryLightBlue,
           font: {
-            size: 12,
+            size: isXSmallDevice ? 10 : 11,
           },
           autoSkip: true,
-          padding: 8,
+          padding: isXSmallDevice ? 6 : 8,
           callback: function (value) {
             return `${value}${yAxisDecorator}`
           },

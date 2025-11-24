@@ -7,14 +7,14 @@ import { getDynamoItemData } from 'lib/backend/csr/nextApiWrapper'
 import { constructStockAlertsSubPrimaryKey } from 'lib/backend/api/aws/util'
 import { StockAlertSubscription, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 import NotificationsIcon from '@mui/icons-material/Notifications'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import StockSubscriptionForm from './alerts/StockSubscriptionForm'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import { getDefaultSubscription, saveTrigger } from 'lib/ui/alerts/stockAlertHelper'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { useState } from 'react'
 import CheckIcon from '@mui/icons-material/Check'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const StockSubscibeIcon = ({
   userProfile,
@@ -59,7 +59,7 @@ const StockSubscibeIcon = ({
 
   return (
     <Box>
-      {isLoading && <BackdropLoader />}
+      {isLoading && <ComponentLoader />}
       <Box>
         <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
           <Box>

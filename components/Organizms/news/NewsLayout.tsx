@@ -5,16 +5,14 @@ import { NewsItem, NewsTypeIds, newsTypes, serverGetFetch } from 'lib/backend/ap
 import { orderBy } from 'lodash'
 import NewsList from './NewsList'
 import { getUserNoteTitles, putUserProfile } from 'lib/backend/csr/nextApiWrapper'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
-import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import { useState } from 'react'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
-import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const NewsLayout = ({
   userProfile,
@@ -96,8 +94,6 @@ const NewsLayout = ({
     <>
       {allowSelectType && (
         <Box py={2}>
-          {isLoading && !suspendLoader && <>{componentLoader ? <CircleLoader /> : <BackdropLoader />}</>}
-
           <Stack display='flex' flexDirection='row' justifyContent={'center'} px={2}>
             <StaticAutoComplete
               options={newsTypes}
@@ -114,6 +110,7 @@ const NewsLayout = ({
       )}
       <Stack>
         <>
+          {isLoading && !suspendLoader && <>{componentLoader ? <ComponentLoader /> : <ComponentLoader />}</>}
           {error && (
             <>
               {/* <AlertWithHeader severity='error' header={error} text={'We have been made aware of it. Please try again later.'} /> */}

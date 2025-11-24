@@ -4,6 +4,7 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import { DateRangeFilter, StockEarningAggregate, serverGetFetch, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 import dayjs from 'dayjs'
 import AnnualEarningsReport from './AnnualEarningsReport'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const AnnualEarningsReportWrapper = () => {
   const mutateKey = 'annual-earnings'
@@ -20,6 +21,7 @@ const AnnualEarningsReportWrapper = () => {
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   return (
     <>
+      {isLoading && <ComponentLoader />}
       <Box py={2}>
         {!isLoading && data && data.length === 0 && <NoDataFound />}
         {data && data.length > 0 && <AnnualEarningsReport apiData={data} />}

@@ -1,13 +1,11 @@
 import { Box, Stack, Typography } from '@mui/material'
 import {
   CasinoBlackTransparent,
-  CasinoDarkGreenTransparent,
   CasinoDarkRedTransparent,
   CasinoGrayTransparent,
   CasinoGreen,
   CasinoLightGrayTransparent,
   CasinoLimeTransparent,
-  DarkModeBkg,
   RedDarkMode,
   VeryLightBlue,
 } from 'components/themes/mainTheme'
@@ -26,7 +24,6 @@ import StockChange from './StockChange'
 import StockDetailsTab from './StockDetailsTab'
 import { useEffect, useRef, useState } from 'react'
 import StockDividendDetails from './dividends/StockDividendDetails'
-import StockField from './StockField'
 import { MarketCategory } from 'lib/backend/api/qln/chartApi'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import StockFields from './advanced-search/results/StockFields'

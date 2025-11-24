@@ -41,7 +41,7 @@ export const getLineChartOptions = (
           font: {
             size: isExtraSmall || isXSmallDevice ? 10 : 11,
           },
-          padding: isExtraSmall || isXSmallDevice ? 8 : 20,
+          padding: isExtraSmall || isXSmallDevice ? 6 : 8,
           autoSkip: true,
           callback: function (value) {
             return `${numeral(value).format('###,### 0.00')}${yAxisDecorator}`

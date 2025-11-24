@@ -3,7 +3,7 @@ import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import StockMarketPageContextMenu from 'components/Molecules/Menus/StockMarketPageContextMenu'
 import Seo from 'components/Organizms/Seo'
 import EarningsCalendarDisplay from 'components/Organizms/stocks/earnings/EarningsCalendarDisplay'
@@ -21,11 +21,12 @@ const Page = () => {
   return (
     <>
       <Seo pageTitle='Earnings Calendar' />
-      {isLoading && <BackdropLoader />}
+
       <ResponsiveContainer>
         <PageHeader text='Earnings Calendar'>
           <StockMarketPageContextMenu />
         </PageHeader>
+        {isLoading && <ComponentLoader />}
         <ScrollIntoView />
         <Box px={1} display={'flex'} pt={1} justifyContent={'space-between'} alignItems={'center'}>
           <NavigationButton path={'/csr/stocks/earnings-reports'} name={'earnings report'} category='Stock Reports' variant='body2' />

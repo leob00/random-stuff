@@ -3,6 +3,7 @@ import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { StockEarningAggregate, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import QuarterlyEarningsReport from './QuarterlyEarningsReport'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const QuarterlyEarningsReportWrapper = () => {
   const mutateKey = 'quarterly-earnings'
@@ -14,6 +15,7 @@ const QuarterlyEarningsReportWrapper = () => {
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   return (
     <>
+      {isLoading && <ComponentLoader />}
       <Box py={2}>
         {!isLoading && data && data.length === 0 && <NoDataFound />}
         {data && data.length > 0 && <QuarterlyEarningsReport data={data} mutateKey={mutateKey} />}

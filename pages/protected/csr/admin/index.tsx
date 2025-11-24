@@ -16,6 +16,7 @@ import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLo
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { useState } from 'react'
 import AnthropicChatBot from 'components/ai/anthropic/AnthropicChatBot'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const Page = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
@@ -37,8 +38,8 @@ const Page = () => {
       <Seo pageTitle='Admin' />
       <ResponsiveContainer>
         <PageHeader text='Admin' />
+        {isValidatingProfile || (isValidatingAdmin && <ComponentLoader />)}
         <RequireClaim claimType='rs-admin'>
-          {isValidatingProfile || (isValidatingAdmin && <BackdropLoader />)}
           {!isValidatingAdmin && !!adminClaim && (
             <>
               <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />

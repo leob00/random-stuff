@@ -64,7 +64,14 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
     }
   }
 
-  var options = getLineChartOptions({ labels: lineChart.labels, numbers: lineChart.numbers }, `Job performance`, minutesOrSeconds, theme.palette.mode, false)
+  const options = getLineChartOptions(
+    { labels: lineChart.labels, numbers: lineChart.numbers },
+    `Job performance`,
+    minutesOrSeconds,
+    theme.palette.mode,
+    false,
+    isXSmall,
+  )
   options.plugins!.tooltip!.callbacks = {
     ...options.plugins!.tooltip?.callbacks,
 
@@ -88,42 +95,10 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
     reverseColor: true,
   }
 
-  // options.plugins!.annotation = {
-  //   annotations: {
-  //     line1: {
-  //       type: 'point',
-  //       xValue: minNumIdx,
-  //       yValue: minNum,
-  //       borderColor: DarkGreen,
-  //       borderWidth: 3,
-  //       backgroundColor: DarkGreen,
-  //       pointStyle: 'circle',
-  //     },
-  //     line2: {
-  //       type: 'point',
-  //       xValue: maxNumIdx,
-  //       yValue: maxNum,
-  //       borderColor: DarkModeRed,
-  //       borderWidth: 3,
-  //       backgroundColor: DarkModeRed,
-  //       pointStyle: 'circle',
-  //     },
-  //     line3: {
-  //       type: 'line',
-  //       yMin: avg,
-  //       yMax: avg,
-  //       borderColor: VeryLightBlueTransparent,
-  //       borderDash: [lineChart.colors.length - 1 * 22],
-  //       borderWidth: 2,
-  //     },
-  //   },
-  // }
-
   return (
     <Box>
       <Box minHeight={200} px={{ lg: 2 }}>
         <FadeIn>
-          {/* <SimpleLineChart barChart={lineChart} chartOptions={options} height={height} /> */}
           <ChartJsTimeSeriesLineChart data={chartModel} />
         </FadeIn>
       </Box>

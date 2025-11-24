@@ -6,7 +6,6 @@ import { StockQuote } from 'lib/backend/api/models/zModels'
 import StockListItem from './StockListItem'
 import { MarketCategory } from 'lib/backend/api/qln/chartApi'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { useRef } from 'react'
 
 const StockTable = ({
   stockList,

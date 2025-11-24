@@ -2,8 +2,7 @@ import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import CloseIconButton from 'components/Atoms/Buttons/CloseIconButton'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import EconDataDetails from 'components/Organizms/econ/EconDataDetails'
 import Seo from 'components/Organizms/Seo'
 import dayjs from 'dayjs'
@@ -57,7 +56,7 @@ const Page = () => {
     <>
       <Seo pageTitle='Economic Indicators' />
       <ResponsiveContainer>
-        {isLoading && <CircleLoader />}
+        {isLoading && <ComponentLoader />}
         {data && (
           <>
             <PageHeader text={data.Title} backButtonRoute='/csr/economic-indicators' />

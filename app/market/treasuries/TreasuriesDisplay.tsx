@@ -22,7 +22,7 @@ const TreasuriesTable = ({ data }: { data: EconomicDataItem[] }) => {
     }
     setIsLoading(true)
     const endYear = dayjs(item.LastObservationDate!).year()
-    const startYear = dayjs(item.LastObservationDate!).subtract(10, 'years').year()
+    const startYear = dayjs(item.LastObservationDate!).subtract(5, 'years').year()
     const report = await getEconDataReport(item.InternalId, startYear, endYear)
     report.criteria = {
       id: String(report.InternalId),

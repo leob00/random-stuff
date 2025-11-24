@@ -2,8 +2,6 @@ import { Box } from '@mui/material'
 import dayjs from 'dayjs'
 import { Job, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import JobDetail from './users/admin/jobs/JobDetail'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { mutate } from 'swr'
 import JobList from './JobList'
 import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
@@ -12,7 +10,7 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import { usePolling } from 'hooks/usePolling'
 import { useEffect, useState } from 'react'
-import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 dayjs.extend(relativeTime)
 
 const JobsLayout = ({ userClaim }: { userClaim: Claim }) => {
@@ -82,12 +80,7 @@ const JobsLayout = ({ userClaim }: { userClaim: Claim }) => {
           </Box>
         )}
         {error && <QlnUsernameLoginForm onSuccess={handleLogin} />}
-        {isLoadingDetail && <BackdropLoader />}
-        {/* {selectedItem && (
-          <InfoDialog show={true} title={selectedItem.Description} onCancel={handleCloseDetail} fullScreen>
-            <JobDetail item={selectedItem} />
-          </InfoDialog>
-        )} */}
+        {isLoadingDetail && <ComponentLoader />}
         {data && claim && <JobList response={data} onJobSelected={handleItemClicked} selectedItem={selectedItem} setSelectedItem={setSelectedItem} />}
       </>
     </Box>

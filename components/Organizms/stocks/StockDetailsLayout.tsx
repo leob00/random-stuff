@@ -1,9 +1,8 @@
-import React from 'react'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import StockListItem from './StockListItem'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const StockDetailsLayout = ({ symbol, disableCollapse = false }: { symbol: string; disableCollapse?: boolean }) => {
   const mutateKey = `stock-details-${symbol}`
@@ -16,7 +15,7 @@ const StockDetailsLayout = ({ symbol, disableCollapse = false }: { symbol: strin
 
   return (
     <>
-      {isLoading && <BackdropLoader />}
+      {isLoading && <ComponentLoader />}
       {!isValidating && (
         <>
           {data && data.length > 0 && (

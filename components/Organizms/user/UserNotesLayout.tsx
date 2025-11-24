@@ -1,13 +1,13 @@
 import { constructUserNoteTitlesKey } from 'lib/backend/api/aws/util'
 import { getUserNoteTitles } from 'lib/backend/csr/nextApiWrapper'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UserNotesDisplay from './UserNotesDisplay'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { getUtcNow } from 'lib/util/dateUtil'
 import dayjs from 'dayjs'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import { useSwrHelper } from 'hooks/useSwrHelper'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const UserNotesLayout = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
@@ -25,9 +25,8 @@ const UserNotesLayout = () => {
 
   return (
     <>
-      {isLoading && <BackdropLoader />}
       <PageHeader text={'Notes'} />
-
+      {isLoading && <ComponentLoader />}
       {!isValidatingProfile && <UserNotesDisplay username={username} noteTitles={data ?? []} />}
     </>
   )

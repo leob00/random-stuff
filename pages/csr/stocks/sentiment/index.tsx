@@ -3,7 +3,7 @@ import FadeIn from 'components/Atoms/Animations/FadeIn'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import StockMarketPageContextMenu from 'components/Molecules/Menus/StockMarketPageContextMenu'
 import Seo from 'components/Organizms/Seo'
 import SentimentHistoryCharts from 'components/Organizms/stocks/charts/SentimentHistoryCharts'
@@ -36,12 +36,12 @@ const Page = () => {
   return (
     <>
       <Seo pageTitle='Stock Sentiment' />
-      {isLoading && <BackdropLoader />}
+
       <ResponsiveContainer>
         <PageHeader text='Stock Market Sentiment'>
           <StockMarketPageContextMenu />
         </PageHeader>
-
+        {isLoading && <ComponentLoader />}
         {data && data.history && (
           <Box>
             {lastRecord && (

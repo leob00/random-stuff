@@ -72,7 +72,7 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
   if (isLarge) {
     height = 90
   }
-  const barchartOptions = getBarChartOptions('', '%', theme.palette.mode)
+  const barchartOptions = getBarChartOptions('', '%', theme.palette.mode, false, true, isXSmall)
   barchartOptions.plugins!.tooltip! = {
     ...barchartOptions.plugins?.tooltip,
     callbacks: {
@@ -141,43 +141,6 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
     },
   }
 
-  // const minNum = min(bar.numbers)
-  // const minNumIdx = bar.numbers.findIndex((m) => m === minNum)
-  // const maxNum = max(bar.numbers)
-  // const maxNumIdx = bar.numbers.findIndex((m) => m === maxNum)
-  // const avg = mean(bar.numbers)
-
-  // lineChartOptions.plugins!.annotation = {
-  //   annotations: {
-  //     line1: {
-  //       type: 'point',
-  //       xValue: minNumIdx,
-  //       yValue: minNum,
-  //       borderColor: chart.negativeColor,
-  //       borderWidth: 1,
-  //       backgroundColor: chart.negativeColor,
-  //       pointStyle: 'circle',
-  //     },
-  //     line2: {
-  //       type: 'point',
-  //       xValue: maxNumIdx,
-  //       yValue: maxNum,
-  //       borderColor: chart.positiveColor,
-  //       borderWidth: 1,
-  //       backgroundColor: chart.positiveColor,
-  //       pointStyle: 'circle',
-  //     },
-  //     line3: {
-  //       type: 'line',
-  //       yMin: avg,
-  //       yMax: avg,
-  //       borderColor: CasinoBlueTransparent,
-  //       borderDash: [bar.labels.length / 2],
-  //       borderWidth: 1,
-  //     },
-  //   },
-  // }
-
   const handleBackClick = () => {
     const newPageNum = pagerModel.page - 1
     if (newPageNum < pagerModel.totalNumberOfPages) {
@@ -191,11 +154,15 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
     }
   }
 
-  const line = { ...bar, colors: [getPositiveNegativeChartColor(bar.numbers[bar.numbers.length - 1] - bar.numbers[0])] }
-
+  const line = { ...bar, colors: [getPositiveNegativeColor(bar.numbers[bar.numbers.length - 1] - bar.numbers[0])] }
+  const tickColors = bar.numbers.map((m) => {
+    let change = m >= 50 ? 1 : -1
+    return getPositiveNegativeColor(change)
+  })
   const tsModel: TimeSeriesLineChartModel = {
     chartData: line,
     chartOptions: lineChartOptions,
+    tickColors: tickColors,
   }
 
   return (
