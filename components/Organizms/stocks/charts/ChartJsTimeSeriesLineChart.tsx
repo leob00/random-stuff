@@ -44,11 +44,12 @@ export type TimeSeriesLineChartModel = {
   chartOptions: ChartOptions<'line'>
   reverseColor?: boolean
   tickColors?: string[]
+  isXSmallDevice?: boolean
 }
 
 const ChartJsTimeSeriesLineChart = ({ data }: { data: TimeSeriesLineChartModel }) => {
   const { chart: chartColors, getPositiveNegativeChartColor } = useMarketColors()
-  const ds = getLineChartData(data.chartData.labels, data.chartData.numbers, data.chartData.colors)
+  const ds = getLineChartData(data.chartData.labels, data.chartData.numbers, data.chartData.colors, data.isXSmallDevice)
 
   ds.datasets[0].backgroundColor = (context: ScriptableContext<'line'>) => {
     const ctx = context.chart.ctx

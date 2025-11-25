@@ -34,7 +34,7 @@ export const getBarChartData = (labels: string[], numbers: number[], colors: str
     ],
   }
 }
-export const getLineChartData = (labels: string[], numbers: number[], colors: string[]): ChartData<'line', number[], unknown> => {
+export const getLineChartData = (labels: string[], numbers: number[], colors: string[], isXSmallDevice?: boolean): ChartData<'line', number[], unknown> => {
   return {
     labels: labels,
     datasets: [
@@ -46,10 +46,10 @@ export const getLineChartData = (labels: string[], numbers: number[], colors: st
         animation: {
           easing: 'linear',
         },
-        tension: 0.6,
+        tension: 0.4,
         pointStyle: 'circle',
         pointBorderWidth: 0,
-        pointRadius: 3,
+        pointRadius: isXSmallDevice ? 3.4 : 3,
         pointBackgroundColor: colors ?? CasinoBlue,
 
         backgroundColor: (context: ScriptableContext<'line'>) => {

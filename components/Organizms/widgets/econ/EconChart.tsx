@@ -104,6 +104,7 @@ const EconChart = ({
     chartData: lineChart,
     chartOptions: lineChartOptions,
     reverseColor: reverseColor,
+    isXSmallDevice: isXSmallDevice,
     //tickColors: tickColors,
   }
   if (isExtraSmall || isXSmallDevice) {

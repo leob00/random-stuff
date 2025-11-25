@@ -53,7 +53,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
     }
 
     const response = await getMarketChart(symbol, marketCategory, days)
-    const history = shrinkList(response.History, isXSmallDevice ? 15 : 60)
+    const history = shrinkList(response.History, isXSmallDevice ? 12 : 30)
     const map = mapHistory(history, 'Price')
 
     const options = getOptions(map, history, isXSmall, theme.palette.mode)
@@ -123,6 +123,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
       timeSeriesModel: {
         chartData: lineChart,
         chartOptions: lineChartOptions,
+        isXSmallDevice: isXSmallDevice,
       },
     }
 
