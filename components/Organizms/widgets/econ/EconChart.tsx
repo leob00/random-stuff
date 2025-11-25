@@ -99,14 +99,12 @@ const EconChart = ({
       return ` ${price}   ${change}   ${changePerc}%`
     },
   }
-  const tickColors = history.map((m) => {
-    return reverseColor ? getPositiveNegativeColorReverse(m.Change) : getPositiveNegativeColor(m.Change)
-  })
+
   const tsModel: TimeSeriesLineChartModel = {
     chartData: lineChart,
     chartOptions: lineChartOptions,
     reverseColor: reverseColor,
-    tickColors: tickColors,
+    //tickColors: tickColors,
   }
   if (isExtraSmall || isXSmallDevice) {
     tsModel.height = 280

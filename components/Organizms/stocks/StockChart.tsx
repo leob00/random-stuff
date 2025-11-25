@@ -20,6 +20,12 @@ import { MovingAvg } from 'lib/backend/api/qln/qlnModels'
 import MovingAvgValues from './movingAvg/MovingAvgValues'
 import { VeryLightBlue } from 'components/themes/mainTheme'
 import ChartJsTimeSeriesLineChart, { TimeSeriesLineChartModel } from './charts/ChartJsTimeSeriesLineChart'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
+import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
+import { calculateStockMovePercent } from 'lib/util/numberUtil'
+import { getPositiveNegativeColor, getPositiveNegativeColorReverse } from './StockListItem'
+import { getLineChartOptions } from 'components/Atoms/Charts/chartJs/lineChartOptions'
+import numeral from 'numeral'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 interface Model {
@@ -28,12 +34,14 @@ interface Model {
   aggregate: HistoricalAggregate
   availableDates?: DateRange | null
   movingAvg?: MovingAvg[] | null
+  timeSeriesModel: TimeSeriesLineChartModel
 }
 
 const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; companyName?: string; marketCategory: MarketCategory }) => {
   const theme = useTheme()
   const { stocksChart: stockChartSettings, saveStockChart } = useSessionStore()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
+  const isXSmallDevice = useMediaQuery(theme.breakpoints.down('sm'))
   const chartHeight = isXSmall ? 300 : 520
   const mutateKey = `stock-chart-${symbol}`
   const [isWaiting, setIsWaiting] = useState(false)
@@ -45,7 +53,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
     }
 
     const response = await getMarketChart(symbol, marketCategory, days)
-    const history = shrinkList(response.History, 60)
+    const history = shrinkList(response.History, isXSmallDevice ? 15 : 60)
     const map = mapHistory(history, 'Price')
 
     const options = getOptions(map, history, isXSmall, theme.palette.mode)
@@ -65,6 +73,46 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
         fontSize: '10px',
       },
     }
+    const lineColor = getPositiveNegativeColor(history[history.length - 1].Price - history[0].Price, theme.palette.mode)
+    const lineChart: BarChart = {
+      labels: map.x,
+      numbers: map.y,
+      colors: [lineColor],
+    }
+    const reverseColor = false
+    const lineChartOptions = getLineChartOptions(lineChart, '', '', theme.palette.mode, true, false, isXSmallDevice)
+    lineChartOptions.plugins!.tooltip!.callbacks = {
+      ...lineChartOptions.plugins!.tooltip!.callbacks,
+      label: (tooltipItems) => {
+        if (marketCategory === 'crypto') {
+          return ` ${dayjs(tooltipItems.label).format('dddd')}, ${dayjs(tooltipItems.label).format('MM/DD/YYYY')}`
+        } else {
+          return ` ${dayjs(tooltipItems.label).format('dddd')}, ${tooltipItems.label}`
+        }
+      },
+
+      labelTextColor: (tooltipItem) => {
+        const clr = reverseColor
+          ? getPositiveNegativeColorReverse(history[tooltipItem.dataIndex].Change, theme.palette.mode)
+          : getPositiveNegativeColor(history[tooltipItem.dataIndex].Change, theme.palette.mode)
+        return clr
+      },
+      labelColor: (tooltipItem) => {
+        const clr = reverseColor
+          ? getPositiveNegativeColorReverse(history[tooltipItem.dataIndex].Change, theme.palette.mode)
+          : getPositiveNegativeColor(history[tooltipItem.dataIndex].Change, theme.palette.mode)
+        return {
+          borderColor: clr,
+          backgroundColor: clr,
+        }
+      },
+      afterLabel: (tooltipItems) => {
+        const price = numeral(history[tooltipItems.dataIndex].Price).format('###,###,0.000')
+        const change = numeral(history[tooltipItems.dataIndex].Change).format('###,###,0.000')
+        const changePerc = numeral(history[tooltipItems.dataIndex].ChangePercent).format('###,###,0.000')
+        return ` ${price}   ${change}   ${changePerc}%`
+      },
+    }
 
     const result: Model = {
       history: history,
@@ -72,6 +120,10 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
       chartOptions: options,
       availableDates: response.AvailableDates,
       movingAvg: response.MovingAvg,
+      timeSeriesModel: {
+        chartData: lineChart,
+        chartOptions: lineChartOptions,
+      },
     }
 
     return result
@@ -93,7 +145,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
 
   return (
     <Box>
-      {/* {isLoading || (isWaiting && <BackdropLoader />)} */}
+      {isLoading || (isWaiting && <ComponentLoader />)}
       {data && (
         <StockChartDaySelect selectedDays={stockChartSettings.defaultDays} onSelected={handleDaysSelected} availableDates={data.availableDates ?? undefined} />
       )}
@@ -109,7 +161,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
         <Box minHeight={chartHeight + 60}>
           {data && (
             <Box>
-              {data.aggregate && !isLoading && <HistoricalAggregateDisplay aggregate={data.aggregate} />}
+              {data.aggregate && <HistoricalAggregateDisplay aggregate={data.aggregate} />}
 
               {marketCategory === 'stocks' && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading || isWaiting} />}
               {data.movingAvg && data.movingAvg.length > 0 && (
@@ -120,11 +172,12 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
               {marketCategory !== 'stocks' && (
                 <>
                   <Box minHeight={{ xs: 300, sm: chartHeight }} pt={2}>
-                    {!isLoading && !isWaiting && (
+                    {data && (
                       <Box>
-                        <FadeIn>
+                        <ChartJsTimeSeriesLineChart data={data.timeSeriesModel} />
+                        {/* <FadeIn>
                           <ReactApexChart series={data.chartOptions.series} options={data.chartOptions} type='area' height={chartHeight} />
-                        </FadeIn>
+                        </FadeIn> */}
                       </Box>
                     )}
                   </Box>

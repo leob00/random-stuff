@@ -74,10 +74,10 @@ export const getLineChartOptions = (
             if (showXvalues) {
               if (isExtraSmall || isXSmallDevice) {
                 if (index === 0 || index === lineChartData.labels.length - 1) {
-                  return lineChartData.labels[index]
+                  return dayjs(lineChartData.labels[index]).format('MM/DD/YYYY')
                 }
               } else {
-                return lineChartData.labels[index]
+                return dayjs(lineChartData.labels[index]).format('MM/DD/YYYY')
               }
             }
           },

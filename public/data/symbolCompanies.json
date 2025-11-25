@@ -48,18 +48,6 @@
     "Symbol": "AACIW"
   },
   {
-    "Company": "Ares Acquisition Corporation II",
-    "Symbol": "AACT"
-  },
-  {
-    "Company": "Ares Acquisition Corporation II Units, each consisting of one Class A ordinary share and one-half of one redeemable warrant",
-    "Symbol": "AACT.U"
-  },
-  {
-    "Company": "Ares Acquisition Corporation II Redeemable Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50",
-    "Symbol": "AACT.WS"
-  },
-  {
     "Company": "AdvisorShares Dorsey Wright ADR ETF",
     "Symbol": "AADR"
   },
@@ -358,6 +346,10 @@
   {
     "Company": "Accel Entertainment, Inc.",
     "Symbol": "ACEL"
+  },
+  {
+    "Company": "ARS Core Equity Portfolio ETF",
+    "Symbol": "ACEP"
   },
   {
     "Company": "ALPS Clean Energy ETF",
@@ -2204,6 +2196,14 @@
     "Symbol": "APA"
   },
   {
+    "Company": "StoneBridge Acquisition II Corporation Class A Ordinary Shares",
+    "Symbol": "APAC"
+  },
+  {
+    "Company": "StoneBridge Acquisition II Corporation Rights",
+    "Symbol": "APACR"
+  },
+  {
     "Company": "StoneBridge Acquisition II Corporation Units",
     "Symbol": "APACU"
   },
@@ -2568,16 +2568,8 @@
     "Symbol": "ARIS"
   },
   {
-    "Company": "ARK 21Shares Active Bitcoin Futures Strategy ETF",
-    "Symbol": "ARKA"
-  },
-  {
     "Company": "ARK 21Shares Bitcoin ETF",
     "Symbol": "ARKB"
-  },
-  {
-    "Company": "ARK 21Shares Blockchain and Digital Economy Innovation ETF",
-    "Symbol": "ARKD"
   },
   {
     "Company": "ARK Fintech Innovation ETF",
@@ -2618,10 +2610,6 @@
   {
     "Company": "ARK Space Exploration & Innovation ETF",
     "Symbol": "ARKX"
-  },
-  {
-    "Company": "ARK 21Shares Active Ethereum Futures Strategy ETF",
-    "Symbol": "ARKZ"
   },
   {
     "Company": "American Realty Investors, Inc.",
@@ -8144,6 +8132,10 @@
     "Symbol": "CIFRW"
   },
   {
+    "Company": "T-REX 2X Long CIFR Daily Target ETF",
+    "Symbol": "CIFU"
+  },
+  {
     "Company": "Companhia Energetica De Minas Gerais-CEMIG",
     "Symbol": "CIG"
   },
@@ -10288,10 +10280,6 @@
     "Symbol": "DALI"
   },
   {
-    "Company": "DallasNews Corporation Series A Common Stock",
-    "Symbol": "DALN"
-  },
-  {
     "Company": "Defiance Daily Target 2X Short AMD ETF",
     "Symbol": "DAMD"
   },
@@ -11822,10 +11810,6 @@
   {
     "Company": "DT Cloud Star Acquisition Corporation Right",
     "Symbol": "DTSQR"
-  },
-  {
-    "Company": "DT Cloud Star Acquisition Corporation Units",
-    "Symbol": "DTSQU"
   },
   {
     "Company": "Datasea Inc. Common Stock",
@@ -13962,10 +13946,6 @@
   {
     "Company": "Eureka Acquisition Corp Right",
     "Symbol": "EURKR"
-  },
-  {
-    "Company": "Eureka Acquisition Corp Unit",
-    "Symbol": "EURKU"
   },
   {
     "Company": "Direxion Daily FTSE Europe Bull 3x Shares",
@@ -19168,6 +19148,10 @@
     "Symbol": "HCA"
   },
   {
+    "Company": "Hall Chadwick Acquisition Corp. Unit",
+    "Symbol": "HCACU"
+  },
+  {
     "Company": "Huachen AI Parking Management Technology Holding Co., Ltd. Ordinary Shares",
     "Symbol": "HCAI"
   },
@@ -19318,6 +19302,10 @@
   {
     "Company": "iShares Currency Hedged MSCI EAFE ETF",
     "Symbol": "HEFA"
+  },
+  {
+    "Company": "Hedgeye Fourth Turning ETF",
+    "Symbol": "HEFT"
   },
   {
     "Company": "Swan Hedged Equity US Large Cap ETF",
@@ -19710,10 +19698,6 @@
   {
     "Company": "Hanover Bancorp, Inc. Common Stock",
     "Symbol": "HNVR"
-  },
-  {
-    "Company": "Pioneer Diversified High Income Fund, Inc.",
-    "Symbol": "HNW"
   },
   {
     "Company": "Innovator Premium Income 9 Buffer ETF - October",
@@ -24004,10 +23988,6 @@
     "Symbol": "KLC"
   },
   {
-    "Company": "WK Kellogg Co",
-    "Symbol": "KLG"
-  },
-  {
     "Company": "Kulicke & Soffa Industries Inc",
     "Symbol": "KLIC"
   },
@@ -24346,6 +24326,10 @@
   {
     "Company": "Korro Bio, Inc. Common Stock",
     "Symbol": "KRRO"
+  },
+  {
+    "Company": "Rice Acquisition Corporation 3",
+    "Symbol": "KRSP"
   },
   {
     "Company": "Rice Acquisition Corporation 3 Units, each consisting of one Class A ordinary share, and one-sixth of one redeemable warrant",
@@ -24688,7 +24672,7 @@
     "Symbol": "LBAY"
   },
   {
-    "Company": "Li Bang International Corporation Inc. Ordinary Shares",
+    "Company": "Li Bang International Corporation Inc. Class A Ordinary Shares",
     "Symbol": "LBGJ"
   },
   {
@@ -24796,11 +24780,11 @@
     "Symbol": "LCR"
   },
   {
-    "Company": "BlackRock World ex U.S. Carbon Transition Readiness ETF",
+    "Company": "iShares World ex U.S. Carbon Transition Readiness Aware Active ETF",
     "Symbol": "LCTD"
   },
   {
-    "Company": "BlackRock U.S. Carbon Transition Readiness ETF",
+    "Company": "iShares U.S. Carbon Transition Readiness Aware Active ETF",
     "Symbol": "LCTU"
   },
   {
@@ -32600,10 +32584,6 @@
     "Symbol": "PHR"
   },
   {
-    "Company": "Pioneer High Income Fund, Inc.",
-    "Symbol": "PHT"
-  },
-  {
     "Company": "Phunware, Inc. Common Stock",
     "Symbol": "PHUN"
   },
@@ -40364,10 +40344,6 @@
     "Symbol": "SYTA"
   },
   {
-    "Company": "Siyata Mobile, Inc. Warrant",
-    "Symbol": "SYTAW"
-  },
-  {
     "Company": "Sysco Corporation",
     "Symbol": "SYY"
   },
@@ -41260,10 +41236,6 @@
     "Symbol": "THTA"
   },
   {
-    "Company": "Theratechnologies Inc. Common",
-    "Symbol": "THTX"
-  },
-  {
     "Company": "abrdn World Healthcare Fund",
     "Symbol": "THW"
   },
@@ -41294,6 +41266,10 @@
   {
     "Company": "UP Fintech Holding Ltd American Depositary Share representing fifteen Class A Ordinary Shares",
     "Symbol": "TIGR"
+  },
+  {
+    "Company": "Titan Mining Corporation",
+    "Symbol": "TII"
   },
   {
     "Company": "AAM Todd International Intrinsic Value ETF",
@@ -41612,6 +41588,10 @@
     "Symbol": "TMHC"
   },
   {
+    "Company": "T. Rowe Price Short Municipal Income ETF",
+    "Symbol": "TMNS"
+  },
+  {
     "Company": "Thermo Fisher Scientific, Inc.",
     "Symbol": "TMO"
   },
@@ -41670,10 +41650,6 @@
   {
     "Company": "TRINET GROUP, INC.",
     "Symbol": "TNET"
-  },
-  {
-    "Company": "TNF Pharmaceuticals, Inc. Common Stock",
-    "Symbol": "TNFA"
   },
   {
     "Company": "Tango Therapeutics, Inc.",
