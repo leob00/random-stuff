@@ -50,7 +50,7 @@ const EconDataLayout = () => {
 
   const handleItemClicked = async (item: EconomicDataItem) => {
     const endYear = dayjs(item.LastObservationDate!).year()
-    const startYear = dayjs(item.LastObservationDate!).subtract(10, 'years').year()
+    const startYear = dayjs(item.LastObservationDate!).subtract(5, 'years').year()
     router.push(`/csr/economic-indicators/${item.InternalId}?startYear=${startYear}&endYear=${endYear}`)
   }
 

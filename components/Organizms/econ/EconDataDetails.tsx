@@ -11,6 +11,7 @@ import EconChart from '../widgets/econ/EconChart'
 import { WidgetDimensions } from '../widgets/RenderWidget'
 import { reverseColor } from '../widgets/econ/EconWidget'
 import { getEconDataReport } from 'lib/backend/api/qln/qlnApi'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 interface Model {
   startYearOptions: DropdownItem[]
@@ -92,7 +93,7 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
 
   return (
     <Box py={2}>
-      {model.isLoading && <BackdropLoader />}
+      {model.isLoading && <ComponentLoader />}
       <Box display={'flex'} justifyContent={'center'}>
         <Box display={'flex'} gap={1} alignItems={'center'}>
           <Typography>from:</Typography>
