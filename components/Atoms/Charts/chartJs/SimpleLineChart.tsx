@@ -14,10 +14,10 @@ import {
   TimeSeriesScale,
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
-import { BarChart, getLineChartData, LineChart } from './barChartOptions'
+import { BarChart, LineChart } from './barChartOptions'
 import { Box, useMediaQuery, useTheme } from '@mui/material'
 import annotationPlugin from 'chartjs-plugin-annotation'
-import { getLineChartOptions } from './lineChartOptions'
+import { getLineChartData, getLineChartOptions } from './lineChartOptions'
 import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 

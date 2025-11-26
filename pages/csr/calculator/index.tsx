@@ -5,7 +5,6 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import StockCalculator from 'components/Organizms/admin/StockCalculator'
 import TipCalculator from 'components/Organizms/admin/TipCalculator'
 import Seo from 'components/Organizms/Seo'
-import React from 'react'
 
 const Page = () => {
   return (

@@ -1,6 +1,15 @@
-import { ChartOptions } from 'chart.js'
+import { ChartData, ChartOptions, ScriptableContext } from 'chart.js'
 import { LineChart } from './barChartOptions'
-import { DarkBlue, TooltipBkg, VeryLightBlue, VeryLightBlueOpaqueLight, VeryLightBlueTransparent } from 'components/themes/mainTheme'
+import {
+  CasinoBlue,
+  CasinoBlueTransparent,
+  DarkBlue,
+  TooltipBkg,
+  VeryLightBlue,
+  VeryLightBlueOpaque,
+  VeryLightBlueOpaqueLight,
+  VeryLightBlueTransparent,
+} from 'components/themes/mainTheme'
 import { max, min } from 'lodash'
 import numeral from 'numeral'
 import dayjs from 'dayjs'
@@ -149,5 +158,36 @@ export const getLineChartOptions = (
         },
       },
     },
+  }
+}
+
+export const getLineChartData = (labels: string[], numbers: number[], colors: string[], isXSmallDevice?: boolean): ChartData<'line', number[], unknown> => {
+  return {
+    labels: labels,
+    datasets: [
+      {
+        borderColor: colors ?? CasinoBlue,
+        borderWidth: 1,
+        data: numbers,
+        type: 'line',
+        animation: {
+          easing: 'linear',
+        },
+        tension: 0.4,
+        pointStyle: 'circle',
+        pointBorderWidth: 0,
+        pointRadius: isXSmallDevice ? 3.4 : 3,
+        pointBackgroundColor: colors ?? CasinoBlue,
+
+        backgroundColor: (context: ScriptableContext<'line'>) => {
+          const ctx = context.chart.ctx
+          const gradient = ctx.createLinearGradient(10, 10, 10, 500)
+          gradient.addColorStop(0, CasinoBlueTransparent)
+          gradient.addColorStop(1, VeryLightBlueOpaque)
+          return gradient
+        },
+        fill: true,
+      },
+    ],
   }
 }

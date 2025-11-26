@@ -1,3 +1,4 @@
+import { Breakpoint } from '@mui/material'
 import { ApexOptions } from 'apexcharts'
 import { getBaseGrid, getBaseXAxis } from 'components/Atoms/Charts/apex/baseLineChartOptions'
 import { XyValues } from 'components/Atoms/Charts/apex/chartModels'
@@ -107,10 +108,12 @@ export function shrinkList<T>(array: T[], maxItems: number) {
     return [...array]
   }
 
-  const chunkSize = Math.floor(array.length / maxItems)
+  const chunkSize = Math.ceil(array.length / maxItems)
 
   const chunks = getPagedArray(array, chunkSize)
   let result: T[] = []
+  if (chunks.length > maxItems) {
+  }
   if (chunks.length > 1) {
     chunks.forEach((chunk, i) => {
       if (i === 0) {
@@ -126,4 +129,15 @@ export function shrinkList<T>(array: T[], maxItems: number) {
     result = [...array]
   }
   return result
+}
+
+export function shrinkListByViewportSize<T>(array: T[], viewportSize: Breakpoint) {
+  const isXSmallDevice = viewportSize === 'xs'
+  let shrinkSize = isXSmallDevice ? 8 : 30
+  if (viewportSize == 'md') {
+    shrinkSize = 60
+  } else if (viewportSize === 'lg' || viewportSize === 'xl') {
+    shrinkSize = 120
+  }
+  return shrinkList(array, shrinkSize)
 }

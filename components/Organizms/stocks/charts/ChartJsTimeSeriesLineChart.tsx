@@ -1,5 +1,5 @@
 'use client'
-import { BarChart, getLineChartData } from 'components/Atoms/Charts/chartJs/barChartOptions'
+import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import {
   Chart as ChartJS,
   LineController,
@@ -23,6 +23,8 @@ import { CasinoBlueTransparent, VeryLightBlueOpaque } from 'components/themes/ma
 import { useMarketColors } from 'components/themes/marketColors'
 import { max, mean, min } from 'lodash'
 import { Box } from '@mui/material'
+import { getLineChartData } from 'components/Atoms/Charts/chartJs/lineChartOptions'
+import { calculatePercent } from 'lib/util/numberUtil'
 
 ChartJS.register(
   annotationPlugin,
@@ -68,6 +70,10 @@ const ChartJsTimeSeriesLineChart = ({ data }: { data: TimeSeriesLineChartModel }
   const maxNumIdx = data.chartData.numbers.findIndex((m) => m === maxNum)
   const avg = mean(data.chartData.numbers)
 
+  //const dashSize = (Number(formData.percent) * Number(formData.total)) / 100
+  const perc = Math.ceil((2 * data.chartData.labels.length) / 100)
+  const dashSize = Math.ceil(calculatePercent(data.chartData.labels.length, 2))
+
   lineChartOptions.plugins!.annotation = {
     annotations: {
       line1: {
@@ -93,7 +99,7 @@ const ChartJsTimeSeriesLineChart = ({ data }: { data: TimeSeriesLineChartModel }
         yMin: avg,
         yMax: avg,
         borderColor: CasinoBlueTransparent,
-        borderDash: [data.chartData.labels.length / 10],
+        borderDash: [perc * 5],
         borderWidth: 1,
       },
     },

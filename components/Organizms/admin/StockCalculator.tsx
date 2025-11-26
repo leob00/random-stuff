@@ -1,12 +1,12 @@
 import { Alert, Box, Button, Card, CardContent, Stack, Typography } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ControlledFreeTextInput } from 'components/Molecules/Forms/ReactHookForm/ControlledFreeTextInput'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { calculateStockMovePercent } from 'lib/util/numberUtil'
+import { useState } from 'react'
 
 function checkPositiveNumber(val: any) {
   if (isNaN(val)) {
@@ -39,8 +39,8 @@ const StockCalculator = () => {
     resolver: zodResolver(FormSchema),
   })
 
-  const [result, setResult] = React.useState(0)
-  const [formValues, setFormValues] = React.useState<FormInput | null>(null)
+  const [result, setResult] = useState(0)
+  const [formValues, setFormValues] = useState<FormInput | null>(null)
 
   const onSubmit: SubmitHandler<FormInput> = (formData: FormInput) => {
     const calc = calculateStockMovePercent(Number(formData.price), Number(formData.change))

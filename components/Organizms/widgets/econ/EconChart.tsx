@@ -33,7 +33,7 @@ const EconChart = ({
   const isXsmall = isExtraSmall ?? isXSmallDevice
   const xValues = data.Chart?.XValues ?? []
   const yValues = data.Chart?.YValues.map((m) => Number(m)) ?? []
-  const history = mapEconChartToStockHistory(symbol, xValues, yValues, isExtraSmall)
+  const history = mapEconChartToStockHistory(symbol, xValues, yValues, isXsmall)
 
   const x = history.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY'))
   const y = history.map((m) => m.Price)
@@ -138,7 +138,7 @@ const EconChart = ({
   )
 }
 
-export function mapEconChartToStockHistory(symbol: string, xValues: string[], yValues: number[], isXSmall?: boolean) {
+export function mapEconChartToStockHistory(symbol: string, xValues: string[], yValues: number[], isXSmall?: boolean, isXSmallDevice?: boolean) {
   const history: StockHistoryItem[] = []
   xValues.forEach((x, index) => {
     const change = index === 0 ? 0 : yValues[index] - yValues[index - 1]
@@ -151,7 +151,7 @@ export function mapEconChartToStockHistory(symbol: string, xValues: string[], yV
     }
     history.push(h)
   })
-  const result = shrinkList(history, isXSmall ? 8 : 30)
+  const result = shrinkList(history, isXSmall || isXSmallDevice ? 8 : 30)
   return result
 }
 
