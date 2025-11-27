@@ -143,7 +143,9 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
             <Box>
               {data.aggregate && <HistoricalAggregateDisplay aggregate={data.aggregate} />}
 
-              {marketCategory === 'stocks' && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading || isWaiting} />}
+              {marketCategory === 'stocks' && <ChartJsTimeSeriesLineChart data={data.timeSeriesModel} />}
+
+              {/* {marketCategory === 'stocks' && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading || isWaiting} />} */}
               {data.movingAvg && data.movingAvg.length > 0 && (
                 <Box py={2}>
                   <MovingAvgValues values={data.movingAvg} startAt={7} />

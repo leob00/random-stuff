@@ -5,7 +5,7 @@ import TreasuriesPage from './TreasuriesPage'
 import OtherMarketsPageContextMenu from 'components/Molecules/Menus/OtherMarketsPageContextMenu'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
-//export const dynamic = 'force-dynamic' // disable cache
+export const dynamic = 'force-dynamic' // disable cache
 export default async function Page() {
   return (
     <>
