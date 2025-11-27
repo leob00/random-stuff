@@ -82,7 +82,7 @@ export const getLineChartOptions = (
         ticks: {
           //source: 'data',
           align: isExtraSmall || isXSmallDevice ? 'inner' : 'start',
-          maxTicksLimit: isExtraSmall || isXSmallDevice ? 4 : 8,
+          maxTicksLimit: isExtraSmall || isXSmallDevice ? 2 : 8,
           padding: isExtraSmall || isXSmallDevice ? 8 : 20,
           color: palette === 'light' ? DarkBlue : VeryLightBlue,
           //minRotation: isExtraSmall ? 1 : 0,
@@ -91,6 +91,7 @@ export const getLineChartOptions = (
           },
           callback(tickValue, index, ticks) {
             if (showXvalues) {
+              //return dayjs(lineChartData.labels[index]).format('MM/DD/YYYY')
               if (isExtraSmall || isXSmallDevice) {
                 if (index === 0 || index === lineChartData.labels.length - 1) {
                   return dayjs(lineChartData.labels[index]).format('MM/DD/YYYY')

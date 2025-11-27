@@ -49,7 +49,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
     }
 
     const response = await getMarketChart(symbol, marketCategory, days)
-    const history = marketCategory !== 'stocks' ? shrinkListByViewportSize(response.History, viewPortSize) : shrinkList(response.History, 60)
+    const history = shrinkListByViewportSize(response.History, viewPortSize)
     const map = mapHistory(history, 'Price')
 
     const lineColor = getPositiveNegativeColor(history[history.length - 1].Price - history[0].Price, theme.palette.mode)
