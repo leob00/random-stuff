@@ -13,16 +13,27 @@ import {
 import { max, min } from 'lodash'
 import numeral from 'numeral'
 import dayjs from 'dayjs'
+import { calculateTotalByPercent } from 'lib/util/numberUtil'
 
 export const getLineChartOptions = (
   lineChartData: LineChart,
   title: string,
-  yAxisDecorator = '',
+  yAxisSuffix = '',
   palette: 'light' | 'dark',
   showXvalues?: boolean,
   isExtraSmall?: boolean,
   isXSmallDevice?: boolean,
 ): ChartOptions<'line'> => {
+  let yMin = min(lineChartData.numbers) ?? 0
+
+  if (yMin > 0) {
+    yMin = Math.floor(calculateTotalByPercent(yMin, -1))
+  }
+  let yMax = max(lineChartData.numbers) ?? 0
+  if (yMax > 0) {
+    yMax = calculateTotalByPercent(yMax, 1)
+  }
+
   return {
     //aspectRatio: 1,
     maintainAspectRatio: false,
@@ -35,15 +46,14 @@ export const getLineChartOptions = (
       mode: 'nearest',
       intersect: true,
     },
-
     scales: {
       y: {
         grid: {
           color: VeryLightBlueOpaqueLight,
           drawTicks: false,
         },
-        suggestedMax: Math.ceil(max(lineChartData.numbers)!) + 0.1,
-        suggestedMin: min(lineChartData.numbers)! > 0 ? min(lineChartData.numbers)! - 1 : Math.floor(min(lineChartData.numbers)! - 3),
+        suggestedMax: yMax,
+        suggestedMin: yMin, //min(lineChartData.numbers),
         ticks: {
           align: 'start',
           color: palette === 'light' ? DarkBlue : VeryLightBlue,
@@ -53,7 +63,7 @@ export const getLineChartOptions = (
           padding: isExtraSmall || isXSmallDevice ? 6 : 8,
           autoSkip: true,
           callback: function (value) {
-            return `${numeral(value).format('###,### 0.00')}${yAxisDecorator}`
+            return `${numeral(value).format('###,### 0.00')}${yAxisSuffix}`
           },
         },
       },
@@ -142,7 +152,7 @@ export const getLineChartOptions = (
             return ''
           },
           label: (tooltipItems) => {
-            return ` ${[tooltipItems.label]}: ${Number(tooltipItems.formattedValue).toFixed(2)}${yAxisDecorator}`
+            return ` ${[tooltipItems.label]}: ${Number(tooltipItems.formattedValue).toFixed(2)}${yAxisSuffix}`
           },
 
           labelPointStyle: (tooltiipItems) => {
@@ -178,7 +188,7 @@ export const getLineChartData = (labels: string[], numbers: number[], colors: st
         pointBorderWidth: 0,
         pointRadius: isXSmallDevice ? 3.4 : 3,
         pointBackgroundColor: colors ?? CasinoBlue,
-
+        pointHoverRadius: 8,
         backgroundColor: (context: ScriptableContext<'line'>) => {
           const ctx = context.chart.ctx
           const gradient = ctx.createLinearGradient(10, 10, 10, 500)

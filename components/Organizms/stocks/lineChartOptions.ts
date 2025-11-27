@@ -133,9 +133,9 @@ export function shrinkList<T>(array: T[], maxItems: number) {
 
 export function shrinkListByViewportSize<T>(array: T[], viewportSize: Breakpoint) {
   const isXSmallDevice = viewportSize === 'xs'
-  let shrinkSize = isXSmallDevice ? 8 : 30
+  let shrinkSize = isXSmallDevice ? 12 : 36
   if (viewportSize == 'md') {
-    shrinkSize = 60
+    shrinkSize = 72
   } else if (viewportSize === 'lg' || viewportSize === 'xl') {
     shrinkSize = 120
   }

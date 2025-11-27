@@ -1,13 +1,9 @@
-import { Box, Stack, Typography, useTheme } from '@mui/material'
-import StockChange from 'components/Organizms/stocks/StockChange'
-import { getPositiveNegativeColor } from 'components/Organizms/stocks/StockListItem'
+import { Box, Typography, useTheme } from '@mui/material'
 import { getOptions, takeLastDays } from 'components/Organizms/stocks/stockLineChartOptions'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
-import { calculateStockMovePercent } from 'lib/util/numberUtil'
 import dynamic from 'next/dynamic'
-import numeral from 'numeral'
 import EconChangeHeader from './EconChangeHeader'
 import { mapEconChartToStockHistory } from './EconChart'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
@@ -29,7 +25,7 @@ const EconIndexChart = ({
 
   const xValues = data.Chart?.XValues ?? []
   const yValues = data.Chart?.YValues.map((m) => Number(m)) ?? []
-  const history = mapEconChartToStockHistory(symbol, xValues, yValues)
+  const history = mapEconChartToStockHistory(symbol, xValues, yValues, false)
   const resultHistory = days ? takeLastDays(history, days) : history
   const x = resultHistory.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY'))
   const y = resultHistory.map((m) => m.Price)
@@ -39,7 +35,7 @@ const EconIndexChart = ({
   const chartOptions = getOptions({ x: x, y: y }, resultHistory, true, theme.palette.mode, '')
   return (
     <Box>
-      <EconChangeHeader last={last} />
+      <EconChangeHeader last={last} showLabel />
       <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' width={width} />
       {showDateSummary && (
         <>

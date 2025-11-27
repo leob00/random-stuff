@@ -70,9 +70,7 @@ const ChartJsTimeSeriesLineChart = ({ data }: { data: TimeSeriesLineChartModel }
   const maxNumIdx = data.chartData.numbers.findIndex((m) => m === maxNum)
   const avg = mean(data.chartData.numbers)
 
-  //const dashSize = (Number(formData.percent) * Number(formData.total)) / 100
   const perc = Math.ceil((2 * data.chartData.labels.length) / 100)
-  const dashSize = Math.ceil(calculatePercent(data.chartData.labels.length, 2))
 
   lineChartOptions.plugins!.annotation = {
     annotations: {

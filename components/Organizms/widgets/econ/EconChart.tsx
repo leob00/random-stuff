@@ -1,12 +1,12 @@
 'use client'
-import { Box, useMediaQuery, useTheme } from '@mui/material'
+import { Box, Breakpoint, useMediaQuery, useTheme } from '@mui/material'
 import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 import { calculateStockMovePercent } from 'lib/util/numberUtil'
 import EconChangeHeader from './EconChangeHeader'
 import { getOptions } from 'components/Organizms/stocks/stockLineChartOptions'
-import { shrinkList } from 'components/Organizms/stocks/lineChartOptions'
+import { shrinkList, shrinkListByViewportSize } from 'components/Organizms/stocks/lineChartOptions'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import numeral from 'numeral'
 import { getPositiveNegativeColor, getPositiveNegativeColorReverse } from 'components/Organizms/stocks/StockListItem'
@@ -14,6 +14,7 @@ import { VeryLightBlue } from 'components/themes/mainTheme'
 import { getLineChartOptions } from 'components/Atoms/Charts/chartJs/lineChartOptions'
 import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import ChartJsTimeSeriesLineChart, { TimeSeriesLineChartModel } from 'components/Organizms/stocks/charts/ChartJsTimeSeriesLineChart'
+import { useViewPortSize } from 'hooks/ui/useViewportSize'
 
 const EconChart = ({
   symbol,
@@ -33,7 +34,8 @@ const EconChart = ({
   const isXsmall = isExtraSmall ?? isXSmallDevice
   const xValues = data.Chart?.XValues ?? []
   const yValues = data.Chart?.YValues.map((m) => Number(m)) ?? []
-  const history = mapEconChartToStockHistory(symbol, xValues, yValues, isXsmall)
+  const { viewPortSize } = useViewPortSize()
+  const history = mapEconChartToStockHistory(symbol, xValues, yValues, isXsmall ?? false, viewPortSize)
 
   const x = history.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY'))
   const y = history.map((m) => m.Price)
@@ -113,7 +115,7 @@ const EconChart = ({
 
   return (
     <Box>
-      <Box display={'flex'} gap={1} alignItems={'center'} pl={2}>
+      <Box display={'flex'} gap={1} alignItems={'center'} pt={2} justifyContent={'center'}>
         <EconChangeHeader last={last} reverseColor={reverseColor} />
       </Box>
       {showDateSummary && (
@@ -124,21 +126,21 @@ const EconChart = ({
             val={`${change > 0 ? '+' + numeral(change).format('###,###,0.00') : numeral(change).format('###,###,0.00')}`}
             color={movePercColor}
           />
-          <ReadOnlyField label='' val={`${numeral(movePerc).format('###,###,0.000')}%`} color={movePercColor} />
+          <ReadOnlyField
+            label=''
+            val={`${movePerc > 0 ? '+' + numeral(movePerc).format('###,###,0.00') : numeral(movePerc).format('###,###,0.00')}%`}
+            color={movePercColor}
+          />
         </Box>
       )}
       <Box>
         <ChartJsTimeSeriesLineChart data={tsModel} />
       </Box>
-
-      {/* <Box pt={2}>
-        <ReactApexChart series={chartOptions.series} options={chartOptions} type='area' width={width} height={height} />
-      </Box> */}
     </Box>
   )
 }
 
-export function mapEconChartToStockHistory(symbol: string, xValues: string[], yValues: number[], isXSmall?: boolean, isXSmallDevice?: boolean) {
+export function mapEconChartToStockHistory(symbol: string, xValues: string[], yValues: number[], isXSmall?: boolean, viewportSize?: Breakpoint) {
   const history: StockHistoryItem[] = []
   xValues.forEach((x, index) => {
     const change = index === 0 ? 0 : yValues[index] - yValues[index - 1]
@@ -151,7 +153,7 @@ export function mapEconChartToStockHistory(symbol: string, xValues: string[], yV
     }
     history.push(h)
   })
-  const result = shrinkList(history, isXSmall || isXSmallDevice ? 8 : 30)
+  const result = isXSmall ? shrinkList(history, 12) : shrinkListByViewportSize(history, viewportSize ?? 'sm')
   return result
 }
 

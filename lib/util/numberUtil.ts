@@ -25,6 +25,25 @@ export function calculatePercent(variable: number, total: number) {
   let result = Number(((variable * 100) / total).toFixed(3))
   return result
 }
+export function calculateTotalByPercent(total: number, percent: number) {
+  if (total === 0) {
+    return 0
+  }
+  if (percent === 0) {
+    return total
+  }
+  if (total < 0 && percent < 0) {
+    return total + ((Math.abs(percent) * Math.abs(total)) / 100) * -1
+  }
+  if (total > 0 && percent < 0) {
+    return total - (Math.abs(percent) * total) / 100
+  }
+  if (total > 0 && percent > 0) {
+    return total + (percent * total) / 100
+  }
+
+  return total
+}
 
 export function calculateStockMovePercent(price: number, change: number) {
   if (price === 0 || change === 0) {

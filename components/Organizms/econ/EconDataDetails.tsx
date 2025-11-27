@@ -115,7 +115,6 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
         </Box>
       )}
       <EconChart symbol={item.Title} data={model.item} reverseColor={shouldReverseColor} />
-
       <Box py={2} textAlign={'center'}>
         <Typography variant='caption'>{`data available from ${dayjs(item.FirstObservationDate).format('MM/DD/YYYY')} to ${dayjs(item.LastObservationDate).format('MM/DD/YYYY')} on a ${item.Frequency} basis.`}</Typography>
       </Box>

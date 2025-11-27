@@ -26,7 +26,9 @@ const EconDataTable = ({ data, handleItemClicked }: { data: EconomicDataItem[]; 
           {displayItems.map((item, i) => (
             <Box key={item.InternalId} py={1}>
               <ListHeader text={item.Title} item={item} onClicked={handleItemClicked} fadeIn={false} />
-              <EconLastPrevChange item={item} />
+              <Box pl={1}>
+                <EconLastPrevChange item={item} />
+              </Box>
               <HorizontalDivider />
             </Box>
           ))}
