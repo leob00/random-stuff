@@ -1,8 +1,6 @@
 import {
   CognitoIdentityProviderClient,
   AdminUpdateUserAttributesCommand,
-  AdminGetUserRequestFilterSensitiveLog,
-  DescribeUserPoolCommand,
   ListUsersCommand,
 } from '@aws-sdk/client-cognito-identity-provider'
 import { awsCreds } from 'app/api/aws/awsHelper'

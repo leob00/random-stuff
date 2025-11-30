@@ -2,6 +2,7 @@ var fs = require('fs')
 var https = require('https')
 var _ = require('lodash')
 var dotenv = require('dotenv')
+var numeral = require('numeral')
 dotenv.config()
 interface SymbolCompany {
   Symbol: string
@@ -26,7 +27,7 @@ const getSymbolCompanies = async () => {
               console.error(err)
             }
           })
-          console.info(`dowloaded ${ordered.length} companies`)
+          console.info(`downloaded ${numeral(ordered.length).format('###,###')} companies`)
         } catch (error: any) {
           console.error(error.message)
         }

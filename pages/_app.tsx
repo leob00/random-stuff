@@ -4,7 +4,7 @@ import type { AppProps } from 'next/app'
 import { ThemeProvider } from '@emotion/react'
 import { CssBaseline } from '@mui/material'
 import Layout from 'components/Layout'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Header from 'components/Header'
 import darkTheme from 'components/themes/darkTheme'
 import theme from 'components/themes/mainTheme'
@@ -14,7 +14,6 @@ import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
-import React from 'react'
 
 const getTheme = (mode: 'light' | 'dark') => {
   return mode === 'dark' ? darkTheme : theme
@@ -22,7 +21,7 @@ const getTheme = (mode: 'light' | 'dark') => {
 function MyApp({ Component, pageProps }: AppProps) {
   const { palette, savePalette } = useSessionSettings()
 
-  const [colorMode, setColorMode] = React.useState<'light' | 'dark'>('dark')
+  const [colorMode, setColorMode] = useState<'light' | 'dark'>('dark')
 
   useEffect(() => {
     if (palette !== colorMode) {

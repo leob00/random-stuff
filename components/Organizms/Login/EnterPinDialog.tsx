@@ -1,7 +1,6 @@
 'use client'
 import Close from '@mui/icons-material/Close'
 import { Box, Dialog, DialogTitle, Stack, Button, DialogContent, DialogContentText, Typography, Alert } from '@mui/material'
-import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 import InternalLink from 'components/Atoms/Buttons/InternalLink'
 import CenterStack from 'components/Atoms/CenterStack'
 import PinInput from 'components/Atoms/Inputs/PinInput'
@@ -10,7 +9,7 @@ import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import { UserPin, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { validateUserPin } from 'lib/backend/csr/nextApiWrapper'
 import { getUtcNow } from 'lib/util/dateUtil'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 const EnterPinDialog = ({

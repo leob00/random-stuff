@@ -1,21 +1,30 @@
 const isTurbopack = process.env.TURBOPACK === '1'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    forceSwcTransforms: !isTurbopack ? true : undefined,
+  // experimental: {
+  //   forceSwcTransforms: !isTurbopack ? true : undefined,
+  // },
+  // forceSwcTransforms: {
+  //   forceSwcTransforms: !isTurbopack ? true : undefined,
+  // },
+  compiler: {
+    removeConsole: {
+      exclude: ['error'],
+    },
   },
+  turbopack: {},
   output: 'standalone',
   //productionBrowserSourceMaps: false,
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.externals = config.externals || []
-      config.module.rules.push({
-        test: /\.(test|spec)\.(ts)x?$/,
-        use: 'ignore-loader',
-      })
-    }
-    return config
-  },
+  // webpack: (config, { isServer }) => {
+  //   if (!isServer) {
+  //     config.externals = config.externals || []
+  //     config.module.rules.push({
+  //       test: /\.(test|spec)\.(ts)x?$/,
+  //       use: 'ignore-loader',
+  //     })
+  //   }
+  //  return config
+  //},
   excludeDefaultMomentLocales: true,
   productionBrowserSourceMaps: false,
   reactStrictMode: true,

@@ -3248,7 +3248,7 @@
     "Symbol": "AURA"
   },
   {
-    "Company": "Prestige Wealth Inc. Class A Ordinary Shares",
+    "Company": "Aurelion Inc. Class A Ordinary Shares",
     "Symbol": "AURE"
   },
   {
@@ -6620,6 +6620,10 @@
     "Symbol": "BWNB"
   },
   {
+    "Company": "Bitwise Dogecoin ETF",
+    "Symbol": "BWOW"
+  },
+  {
     "Company": "Babcock & Wilcox Enterprises, Inc. 8.125% Senior Notes due 2026",
     "Symbol": "BWSN"
   },
@@ -8664,10 +8668,6 @@
     "Symbol": "CNF"
   },
   {
-    "Company": "Conifer Holdings, Inc",
-    "Symbol": "CNFR"
-  },
-  {
     "Company": "CNH INDUSTRIAL N.V.",
     "Symbol": "CNH"
   },
@@ -8950,10 +8950,6 @@
   {
     "Company": "Traeger, Inc.",
     "Symbol": "COOK"
-  },
-  {
-    "Company": "Mr. Cooper Group Inc. Common Stock",
-    "Symbol": "COOP"
   },
   {
     "Company": "Australian Oilseeds Holdings Limited Ordinary Shares",
@@ -11392,14 +11388,6 @@
     "Symbol": "DMXF"
   },
   {
-    "Company": "dMY Squared Technology Group, Inc.",
-    "Symbol": "DMYY"
-  },
-  {
-    "Company": "dMY Squared Technology Group, Inc. Redeemable Warrants, each whole warrant exercisable for one share of Class A common stock at an exercise price of $11.50 per share",
-    "Symbol": "DMYY.WS"
-  },
-  {
     "Company": "Ginkgo Bioworks Holdings, Inc.",
     "Symbol": "DNA"
   },
@@ -11554,10 +11542,6 @@
   {
     "Company": "Daqo New Energy Corp. American Depositary Shares (each representing 5 Ordinary Shares)",
     "Symbol": "DQ"
-  },
-  {
-    "Company": "Roundhill China Dragons ETF",
-    "Symbol": "DRAG"
   },
   {
     "Company": "Draco Evolution AI ETF",
@@ -17288,7 +17272,7 @@
     "Symbol": "GDL"
   },
   {
-    "Company": "GRAYSCALE DIGITAL LG CAP",
+    "Company": "Grayscale CoinDesk Crypto 5 ETF",
     "Symbol": "GDLC"
   },
   {
@@ -17382,10 +17366,6 @@
   {
     "Company": "Great Elm Capital Corp. 5.875% Notes due 2026",
     "Symbol": "GECCO"
-  },
-  {
-    "Company": "Great Elm Capital Corp. 8.75% Notes due 2028",
-    "Symbol": "GECCZ"
   },
   {
     "Company": "Greif, Inc.",
@@ -17904,6 +17884,10 @@
     "Symbol": "GLIBK"
   },
   {
+    "Company": "GCI Liberty, Inc. Series C Purchase Right",
+    "Symbol": "GLIBR"
+  },
+  {
     "Company": "VanEck India Growth Leaders ETF",
     "Symbol": "GLIN"
   },
@@ -18178,10 +18162,6 @@
   {
     "Company": "Gentex Corp",
     "Symbol": "GNTX"
-  },
-  {
-    "Company": "Guaranty Bancshares, Inc.",
-    "Symbol": "GNTY"
   },
   {
     "Company": "Genworth Financial, Inc.",
@@ -20932,6 +20912,10 @@
     "Symbol": "ICOW"
   },
   {
+    "Company": "iShares 0-1 Year TIPS Bond ETF",
+    "Symbol": "ICPI"
+  },
+  {
     "Company": "Tweedy, Browne International Insider + Value ETF",
     "Symbol": "ICPY"
   },
@@ -21672,6 +21656,10 @@
     "Symbol": "INCY"
   },
   {
+    "Company": "Xtrackers Nifty 500 India ETF",
+    "Symbol": "IND"
+  },
+  {
     "Company": "iShares MSCI India ETF",
     "Symbol": "INDA"
   },
@@ -22238,18 +22226,6 @@
   {
     "Company": "Invesco Rochester High Yield Municipal ETF",
     "Symbol": "IROC"
-  },
-  {
-    "Company": "Iron Horse Acquisitions Corp. Common Stock",
-    "Symbol": "IROH"
-  },
-  {
-    "Company": "Iron Horse Acquisitions Corp. Right",
-    "Symbol": "IROHR"
-  },
-  {
-    "Company": "Iron Horse Acquisitions Corp. Warrant",
-    "Symbol": "IROHW"
   },
   {
     "Company": "Disc Medicine, Inc. Common Stock",
@@ -24602,6 +24578,14 @@
   {
     "Company": "SEALSQ Corp Ordinary Shares",
     "Symbol": "LAES"
+  },
+  {
+    "Company": "LaFayette Acquisition Corp. Ordinary Share",
+    "Symbol": "LAFA"
+  },
+  {
+    "Company": "LaFayette Acquisition Corp. Rights",
+    "Symbol": "LAFAR"
   },
   {
     "Company": "LaFayette Acquisition Corp. Unit",
@@ -27166,10 +27150,6 @@
   {
     "Company": "Amplify Alternative Harvest ETF",
     "Symbol": "MJ"
-  },
-  {
-    "Company": "Majestic Ideal Holdings Ltd Ordinary Shares",
-    "Symbol": "MJID"
   },
   {
     "Company": "MUFG Japan Small Cap Active ETF",
@@ -30624,10 +30604,6 @@
     "Symbol": "OCTB"
   },
   {
-    "Company": "Innovator Premium Income 10 Barrier ETF - October",
-    "Symbol": "OCTD"
-  },
-  {
     "Company": "Innovator Premium Income 20 Barrier ETF - October",
     "Symbol": "OCTH"
   },
@@ -30724,10 +30700,6 @@
     "Symbol": "OESX"
   },
   {
-    "Company": "ALPS O'Shares Europe Quality Dividend ETF",
-    "Symbol": "OEUR"
-  },
-  {
     "Company": "OFA Group Ordinary Shares",
     "Symbol": "OFAL"
   },
@@ -30784,6 +30756,10 @@
     "Symbol": "OGS"
   },
   {
+    "Company": "Obra High Grade Structured Products ETF",
+    "Symbol": "OGSP"
+  },
+  {
     "Company": "Omega Healthcare Investors Inc.",
     "Symbol": "OHI"
   },
@@ -30834,6 +30810,10 @@
   {
     "Company": "Oklo Inc.",
     "Symbol": "OKLO"
+  },
+  {
+    "Company": "Defiance Daily Target 2X Short OKLO ETF",
+    "Symbol": "OKLS"
   },
   {
     "Company": "Okta, Inc. Class A Common Stock",
@@ -31433,10 +31413,6 @@
   },
   {
     "Company": "Ouster, Inc. Warrants",
-    "Symbol": "OUSTW"
-  },
-  {
-    "Company": "Ouster, Inc. Warrants",
     "Symbol": "OUSTZ"
   },
   {
@@ -31950,6 +31926,10 @@
   {
     "Company": "Potbelly Corporation Common Stock",
     "Symbol": "PBPB"
+  },
+  {
+    "Company": "Portfolio Building Block World Pharma and Biotech Index ETF",
+    "Symbol": "PBPH"
   },
   {
     "Company": "PGIM Laddered Nasdaq-100 Buffer 12 ETF",
@@ -33010,6 +32990,10 @@
   {
     "Company": "Innovator U.S. Equity Power Buffer ETF - March",
     "Symbol": "PMAR"
+  },
+  {
+    "Company": "PGIM S&P 500 Max Buffer ETF - August",
+    "Symbol": "PMAU"
   },
   {
     "Company": "Powell Max Limited Class A Ordinary Shares",
@@ -35396,10 +35380,6 @@
     "Symbol": "REMX"
   },
   {
-    "Company": "Lunai Bioworks Inc. Common Stock",
-    "Symbol": "RENB"
-  },
-  {
     "Company": "Rent the Runway, Inc. Class A Common Stock",
     "Symbol": "RENT"
   },
@@ -37000,10 +36980,6 @@
     "Symbol": "SCC"
   },
   {
-    "Company": "Sachem Capital Corp. 7.75% Notes due 2025",
-    "Symbol": "SCCC"
-  },
-  {
     "Company": "Sachem Capital Corp. 6.00% Notes due 2026",
     "Symbol": "SCCD"
   },
@@ -37138,6 +37114,10 @@
   {
     "Company": "Service Corporation International",
     "Symbol": "SCI"
+  },
+  {
+    "Company": "SC II Acquisition Corp. Units",
+    "Symbol": "SCIIU"
   },
   {
     "Company": "First Trust Structured Credit Income Opportunities ETF",
@@ -39308,7 +39288,7 @@
     "Symbol": "SPR"
   },
   {
-    "Company": "SPRUCE BIOSCIENCES INC",
+    "Company": "Spruce Biosciences, Inc. Common Stock",
     "Symbol": "SPRB"
   },
   {
@@ -45938,10 +45918,6 @@
   {
     "Company": "Roundhill S&P 500 No Dividend Target ETF",
     "Symbol": "XDIV"
-  },
-  {
-    "Company": "Innovator U.S. Equity Accelerated ETF - October",
-    "Symbol": "XDOC"
   },
   {
     "Company": "Innovator Growth Accelerated ETF - Quarterly",
