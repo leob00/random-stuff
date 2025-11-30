@@ -55,14 +55,16 @@ const Page = () => {
   return (
     <>
       <Seo pageTitle='Economic Indicators' />
+
       <ResponsiveContainer>
+        <PageHeader text={data?.Title ?? ''} />
         {isLoading && <ComponentLoader />}
+        <Box py={2} display={'flex'} justifyContent={'flex-end'}>
+          <CloseIconButton onClicked={handleCoseClick} />
+        </Box>
+
         {data && (
           <>
-            <PageHeader text={data.Title} backButtonRoute='/csr/economic-indicators' />
-            <Box py={2} display={'flex'} justifyContent={'flex-end'}>
-              <CloseIconButton onClicked={handleCoseClick} />
-            </Box>
             <EconDataDetails item={data} onClose={handleCoseClick} />
           </>
         )}

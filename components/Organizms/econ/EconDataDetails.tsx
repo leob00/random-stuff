@@ -4,7 +4,6 @@ import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 import dayjs from 'dayjs'
 import { DropdownItem } from 'lib/models/dropdown'
 import { range } from 'lodash'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import UncontrolledDropdownList from 'components/Atoms/Inputs/UncontrolledDropdownList'
 import { useReducer } from 'react'
 import EconChart from '../widgets/econ/EconChart'
@@ -93,7 +92,6 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
 
   return (
     <Box py={2}>
-      {model.isLoading && <ComponentLoader />}
       <Box display={'flex'} justifyContent={'center'}>
         <Box display={'flex'} gap={1} alignItems={'center'}>
           <Typography>from:</Typography>
@@ -114,6 +112,7 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
           <Alert severity='error'>{model.error}</Alert>
         </Box>
       )}
+      {model.isLoading && <ComponentLoader />}
       <EconChart symbol={item.Title} data={model.item} reverseColor={shouldReverseColor} />
       <Box py={2} textAlign={'center'}>
         <Typography variant='caption'>{`data available from ${dayjs(item.FirstObservationDate).format('MM/DD/YYYY')} to ${dayjs(item.LastObservationDate).format('MM/DD/YYYY')} on a ${item.Frequency} basis.`}</Typography>
