@@ -60,14 +60,19 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
     }
     const reverseColor = false
     const lineChartOptions = getLineChartOptions(lineChart, '', '', theme.palette.mode, true, false, isXSmallDevice)
+    lineChartOptions.plugins!.tooltip! = { ...lineChartOptions.plugins!.tooltip!, bodySpacing: 24, footerMarginTop: 12 }
     lineChartOptions.plugins!.tooltip!.callbacks = {
       ...lineChartOptions.plugins!.tooltip!.callbacks,
       label: (tooltipItems) => {
-        if (marketCategory === 'crypto') {
-          return ` ${dayjs(tooltipItems.label).format('dddd')}, ${dayjs(tooltipItems.label).format('MM/DD/YYYY')}`
-        } else {
-          return ` ${dayjs(tooltipItems.label).format('dddd')}, ${tooltipItems.label}`
-        }
+        // if (marketCategory === 'crypto') {
+        //   return ` ${dayjs(tooltipItems.label).format('dddd')}, ${dayjs(tooltipItems.label).format('MM/DD/YYYY')}`
+        // } else {
+        //   return ` ${dayjs(tooltipItems.label).format('dddd')}, ${tooltipItems.label}`
+        // }
+        const price = numeral(history[tooltipItems.dataIndex].Price).format('###,###,0.000')
+        const change = numeral(history[tooltipItems.dataIndex].Change).format('+###,###,0.000')
+        const changePerc = numeral(history[tooltipItems.dataIndex].ChangePercent).format('+###,###,0.000')
+        return ` ${price}   ${change}   ${changePerc}%`
       },
 
       labelTextColor: (tooltipItem) => {
@@ -76,6 +81,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
           : getPositiveNegativeColor(history[tooltipItem.dataIndex].Change, theme.palette.mode)
         return clr
       },
+
       labelColor: (tooltipItem) => {
         const clr = reverseColor
           ? getPositiveNegativeColorReverse(history[tooltipItem.dataIndex].Change, theme.palette.mode)
@@ -85,12 +91,22 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
           backgroundColor: clr,
         }
       },
-      afterLabel: (tooltipItems) => {
-        const price = numeral(history[tooltipItems.dataIndex].Price).format('###,###,0.000')
-        const change = numeral(history[tooltipItems.dataIndex].Change).format('###,###,0.000')
-        const changePerc = numeral(history[tooltipItems.dataIndex].ChangePercent).format('###,###,0.000')
-        return ` ${price}   ${change}   ${changePerc}%`
+      // afterLabel: (tooltipItems) => {
+      //   const price = numeral(history[tooltipItems.dataIndex].Price).format('###,###,0.000')
+      //   const change = numeral(history[tooltipItems.dataIndex].Change).format('###,###,0.000')
+      //   const changePerc = numeral(history[tooltipItems.dataIndex].ChangePercent).format('###,###,0.000')
+      //   return ` ${price}   ${change}   ${changePerc}%`
+      // },
+      footer: (tooltipItem) => {
+        if (marketCategory === 'stocks') {
+          return `      volume: ${numeral(history[tooltipItem[0].dataIndex].Volume).format('0.00a')}`
+        }
       },
+      // afterBody: (tooltipItems) => {
+      //   if (marketCategory === 'stocks') {
+      //     return `      volume: ${numeral(history[tooltipItems[0].dataIndex].Volume).format('0.00a')}`
+      //   }
+      // },
     }
 
     const result: Model = {

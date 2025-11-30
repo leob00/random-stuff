@@ -135,8 +135,9 @@ export const getLineChartOptions = (
         titleColor: VeryLightBlue,
         footerAlign: 'left',
         footerSpacing: 10,
-        footerMarginTop: 1,
+        footerMarginTop: 10,
         footerFont: {
+          size: 14,
           weight: 200,
         },
         bodyFont: {
@@ -148,13 +149,22 @@ export const getLineChartOptions = (
         usePointStyle: true,
         footerColor: palette === 'light' ? VeryLightBlue : VeryLightBlue,
         bodyColor: palette === 'light' ? VeryLightBlue : VeryLightBlue,
+        titleMarginBottom: 16,
+        titleFont: {
+          size: 15,
+          weight: 800,
+        },
+        // multiKeyBackground: 'lightgray',
         callbacks: {
           title: (tooltipItems) => {
-            return ''
+            return `${[tooltipItems[0].label]}`
           },
           label: (tooltipItems) => {
-            return ` ${[tooltipItems.label]}: ${Number(tooltipItems.formattedValue).toFixed(2)}${yAxisSuffix}`
+            return ` ${numeral(tooltipItems.formattedValue).format('+0.00')}${yAxisSuffix}`
           },
+          // beforeFooter: () => {
+          //   return ' '
+          // },
 
           labelPointStyle: (tooltiipItems) => {
             return {
