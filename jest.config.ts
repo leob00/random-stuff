@@ -7,7 +7,7 @@ const config: Config = {
   coverageDirectory: 'coverage',
   testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.(ts|tsx)$': 'babel-jest',
+    '^.+\\.(ts|tsx)$': ['babel-jest', { configFile: './babelTestConfig.js' }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   moduleNameMapper: {
