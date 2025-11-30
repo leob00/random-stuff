@@ -30,9 +30,11 @@ export async function POST(request: NextRequest) {
       model: string
     }
 
-    const req: RequestBody = { message: r.userMessage.content, model: 'claude-3-5-sonnet-20241022' }
+    const claudeModel = 'claude-sonnet-4-5-20250929'
 
-    const { message, model = 'claude-sonnet-4-20250514' } = req
+    const req: RequestBody = { message: r.userMessage.content, model: claudeModel }
+
+    const { message, model = claudeModel } = req
 
     if (!message) {
       return new Response(JSON.stringify({ error: 'Message is required' }), { status: 400, headers: { 'Content-Type': 'application/json' } })

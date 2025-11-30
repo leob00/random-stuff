@@ -21,7 +21,7 @@
     "docker-build-run": "yarn build-docker && docker run -d --name random-stuff-container -p 3000:3000 random-stuff"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.54.0",
+    "@anthropic-ai/sdk": "^0.71.0",
     "@aws-amplify/adapter-nextjs": "^1.6.11",
     "@aws-amplify/ui-react": "^6.13.1",
     "@aws-sdk/client-cognito-identity-provider": "^3.940.0",
