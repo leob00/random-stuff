@@ -1,9 +1,9 @@
 import { Box, Typography } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { Company, getCompanyProfile, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
+import { Company, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 
 interface Model {
   company: Company | null
@@ -36,7 +36,7 @@ const CompanyProfile = ({ quote }: { quote: StockQuote }) => {
 
   return (
     <Box pb={2} pt={2} minHeight={400}>
-      {isLoading && <BackdropLoader />}
+      {isLoading && <ComponentLoader />}
 
       <Box py={2} display={'flex'} gap={2} flexDirection={'column'}>
         {data?.awsUrl && (

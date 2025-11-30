@@ -9,6 +9,7 @@ import { myStocksMenu } from 'components/Atoms/Menus/ContextMenus'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import StockMarketPageContextMenu from 'components/Molecules/Menus/StockMarketPageContextMenu'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const Page = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
@@ -22,7 +23,7 @@ const Page = () => {
         <PageHeader text='My Stocks'>
           <StockMarketPageContextMenu />
         </PageHeader>
-        {isValidatingProfile ? <BackdropLoader /> : <StocksLayout userProfile={userProfile} localStore={localStore} />}
+        {isValidatingProfile ? <ComponentLoader mt={20} /> : <StocksLayout userProfile={userProfile} localStore={localStore} />}
       </ResponsiveContainer>
     </>
   )

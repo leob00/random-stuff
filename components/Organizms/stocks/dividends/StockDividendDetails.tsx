@@ -1,16 +1,15 @@
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import dayjs from 'dayjs'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import numeral from 'numeral'
-import React from 'react'
 import { QlnApiRequest, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 import { StockDividendItem } from './StockDividendsTable'
 import { useClientPager } from 'hooks/useClientPager'
 import Pager from 'components/Atoms/Pager'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const StockDividendDetails = ({ symbol, showCompanyName = true }: { symbol: string; showCompanyName?: boolean }) => {
   const pageSize = 4
@@ -34,7 +33,7 @@ const StockDividendDetails = ({ symbol, showCompanyName = true }: { symbol: stri
 
   return (
     <Box py={2} minHeight={350}>
-      {isLoading && <BackdropLoader />}
+      {isLoading && <ComponentLoader />}
       {data && (
         <>
           {items.length > 0 && (

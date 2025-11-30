@@ -9,6 +9,7 @@ import { getMapFromArray } from 'lib/util/collectionsNative'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { mutate } from 'swr'
 import { getDynamoItemData } from 'lib/backend/csr/nextApiWrapper'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const StocksLayout = ({ userProfile, localStore }: { userProfile: UserProfile | null; localStore: LocalStore }) => {
   const mutateKey = `user-stock_list[${userProfile?.username ?? 'public'}]`
@@ -43,7 +44,7 @@ const StocksLayout = ({ userProfile, localStore }: { userProfile: UserProfile | 
   }
   return (
     <>
-      {isLoading && <BackdropLoader />}
+      {isLoading && <ComponentLoader />}
       {stocks && <StocksDisplay userProfile={userProfile} result={stocks} onMutated={handleMutated} localStore={localStore} />}
     </>
   )

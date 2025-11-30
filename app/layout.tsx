@@ -22,9 +22,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AppRouterCacheProvider>
           <StyledRoot>{children}</StyledRoot>
         </AppRouterCacheProvider>
-        {/* <Suspense>
-          <ThemeWrapper>{children}</ThemeWrapper>
-        </Suspense> */}
       </body>
     </html>
   )

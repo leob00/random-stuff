@@ -1,10 +1,9 @@
 import { Box } from '@mui/material'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { serverGetFetch, StockEarning } from 'lib/backend/api/qln/qlnApi'
-import React from 'react'
 import StockEarningsDisplay from './StockEarningsDisplay'
 import { useSwrHelper } from 'hooks/useSwrHelper'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const StockEarnings = ({ quote }: { quote: StockQuote }) => {
   const mutateKey = `stock-earnings-${quote.Symbol}`
@@ -19,7 +18,7 @@ const StockEarnings = ({ quote }: { quote: StockQuote }) => {
 
   return (
     <Box pb={2} pt={2} minHeight={400}>
-      {isLoading && <BackdropLoader />}
+      {isLoading && <ComponentLoader />}
       <Box sx={{ py: 2 }}>{data && <StockEarningsDisplay data={data} />}</Box>
     </Box>
   )
