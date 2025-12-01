@@ -1287,13 +1287,6 @@
     "@smithy/types" "^4.9.0"
     tslib "^2.6.2"
 
-"@aws-sdk/shared-ini-file-loader@3.56.0":
-  version "3.56.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/shared-ini-file-loader/-/shared-ini-file-loader-3.56.0.tgz#3c1664048d16166094581581fb821cf2855fbbd8"
-  integrity sha512-dCy3mXqYKK76iep9rn2inFrPOlGURvoO+B0Ygem0jgkDuxIF8t5wa10WHWB2ee8qZRlfwPYtcVdpEm2398St3g==
-  dependencies:
-    tslib "^2.3.1"
-
 "@aws-sdk/signature-v4-multi-region@3.940.0":
   version "3.940.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/signature-v4-multi-region/-/signature-v4-multi-region-3.940.0.tgz#4633dd3db078cce620d36077ce41f7f38b60c6e0"
@@ -1368,14 +1361,6 @@
   integrity sha512-u8H4f2Zsi19DGnwj5FSZzDMhytYF/bCh37vAtBsn3cNDL3YG578X5oc+wSX54pM3tOxS+NY7tvOAo52SW7koUA==
   dependencies:
     tslib "^2.6.2"
-
-"@aws-sdk/util-credentials@^3.56.0":
-  version "3.56.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/util-credentials/-/util-credentials-3.56.0.tgz#b2ea97a5e90a95c91ea05a103417fecb036e2728"
-  integrity sha512-haKqXtEm5dNQx4NBe8mOiBtxTDQkjMfvayECrMbVo6WaFmL13/k+reVkfGM5ux9EXCYeqHCJI244LogUyEaBXA==
-  dependencies:
-    "@aws-sdk/shared-ini-file-loader" "3.56.0"
-    tslib "^2.3.1"
 
 "@aws-sdk/util-endpoints@3.614.0":
   version "3.614.0"
