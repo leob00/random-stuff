@@ -1,5 +1,5 @@
 'use client'
-import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
+import { BarChart, LineChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import {
   Chart as ChartJS,
   LineController,
@@ -19,7 +19,7 @@ import {
 import { Line } from 'react-chartjs-2'
 import annotationPlugin from 'chartjs-plugin-annotation'
 import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm'
-import { CasinoBlueTransparent, VeryLightBlueOpaque } from 'components/themes/mainTheme'
+import { CasinoBlue, CasinoBlueTransparent, VeryLightBlueOpaque } from 'components/themes/mainTheme'
 import { useMarketColors } from 'components/themes/marketColors'
 import { max, mean, min } from 'lodash'
 import { Box } from '@mui/material'
@@ -50,13 +50,14 @@ export type TimeSeriesLineChartModel = {
 }
 
 const ChartJsTimeSeriesLineChart = ({ data }: { data: TimeSeriesLineChartModel }) => {
+  const colors = data.chartData.colors ?? [CasinoBlue]
   const { chart: chartColors, getPositiveNegativeChartColor } = useMarketColors()
-  const ds = getLineChartData(data.chartData.labels, data.chartData.numbers, data.chartData.colors, data.isXSmallDevice)
+  const ds = getLineChartData(data.chartData.labels, data.chartData.numbers, colors, data.isXSmallDevice)
 
   ds.datasets[0].backgroundColor = (context: ScriptableContext<'line'>) => {
     const ctx = context.chart.ctx
     const gradient = ctx.createLinearGradient(10, 10, 10, 500)
-    gradient.addColorStop(0, data.chartData.colors[0])
+    gradient.addColorStop(0, colors[0])
     gradient.addColorStop(1, VeryLightBlueOpaque)
     return gradient
   }

@@ -4,7 +4,6 @@ import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { getMarketChart, MarketCategory } from 'lib/backend/api/qln/chartApi'
 import { useState } from 'react'
-import StockChartWithVolume from './StockChartWithVolume'
 import { mapHistory } from './stockLineChartOptions'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { useSwrHelper } from 'hooks/useSwrHelper'
@@ -12,7 +11,7 @@ import { mutate } from 'swr'
 import StockChartDaySelect, { getYearToDateDays } from './StockChartDaySelect'
 import { DateRange, HistoricalAggregate } from 'lib/backend/api/qln/qlnApi'
 import HistoricalAggregateDisplay from './HistoricalAggregateDisplay'
-import { shrinkList, shrinkListByViewportSize } from './lineChartOptions'
+import { shrinkListByViewportSize } from './lineChartOptions'
 import { MovingAvg } from 'lib/backend/api/qln/qlnModels'
 import MovingAvgValues from './movingAvg/MovingAvgValues'
 import ChartJsTimeSeriesLineChart, { TimeSeriesLineChartModel } from './charts/ChartJsTimeSeriesLineChart'
@@ -22,10 +21,10 @@ import { getPositiveNegativeColor, getPositiveNegativeColorReverse } from './Sto
 import { getLineChartOptions } from 'components/Atoms/Charts/chartJs/lineChartOptions'
 import numeral from 'numeral'
 import { useViewPortSize } from 'hooks/ui/useViewportSize'
+import StockVolumeChart from './charts/StockVolumeChart'
 
 interface Model {
   history: StockHistoryItem[]
-  // chartOptions: ApexOptions
   aggregate: HistoricalAggregate
   availableDates?: DateRange | null
   movingAvg?: MovingAvg[] | null
@@ -64,11 +63,6 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
     lineChartOptions.plugins!.tooltip!.callbacks = {
       ...lineChartOptions.plugins!.tooltip!.callbacks,
       label: (tooltipItems) => {
-        // if (marketCategory === 'crypto') {
-        //   return ` ${dayjs(tooltipItems.label).format('dddd')}, ${dayjs(tooltipItems.label).format('MM/DD/YYYY')}`
-        // } else {
-        //   return ` ${dayjs(tooltipItems.label).format('dddd')}, ${tooltipItems.label}`
-        // }
         const price = numeral(history[tooltipItems.dataIndex].Price).format('###,###,0.000')
         const change = numeral(history[tooltipItems.dataIndex].Change).format('+###,###,0.000')
         const changePerc = numeral(history[tooltipItems.dataIndex].ChangePercent).format('+###,###,0.000')
@@ -159,7 +153,12 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
             <Box>
               {data.aggregate && <HistoricalAggregateDisplay aggregate={data.aggregate} />}
 
-              {marketCategory === 'stocks' && <ChartJsTimeSeriesLineChart data={data.timeSeriesModel} />}
+              {marketCategory === 'stocks' && (
+                <Box>
+                  <ChartJsTimeSeriesLineChart data={data.timeSeriesModel} />
+                  <StockVolumeChart data={data.history} />
+                </Box>
+              )}
 
               {/* {marketCategory === 'stocks' && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading || isWaiting} />} */}
               {data.movingAvg && data.movingAvg.length > 0 && (

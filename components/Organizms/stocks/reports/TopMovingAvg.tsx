@@ -2,7 +2,6 @@ import { serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 import PagedStockTable from '../PagedStockTable'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { useSwrHelper } from 'hooks/useSwrHelper'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { Box, IconButton } from '@mui/material'
 import { useState } from 'react'
 import StockMovingAvgFilterForm from './StockMovingAvgFilterForm'
@@ -10,6 +9,7 @@ import { StockMovingAvgFilter } from './stockMovingAvgFilter'
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import { mutate } from 'swr'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const mutateKey = 'topmvgavg'
 
@@ -88,7 +88,7 @@ const TopMovingAvg = () => {
           <StockMovingAvgFilterForm onSubmitted={handleSubmit} />
         </Box>
       )}
-      {isLoading && <BackdropLoader />}
+      {isLoading && <ComponentLoader />}
       {data && <PagedStockTable data={data} pageSize={10} scrollOnPageChange showMovingAvgOnly />}
     </Box>
   )

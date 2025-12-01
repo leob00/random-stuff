@@ -15,7 +15,7 @@ export interface LineChart {
 }
 
 export interface BarChart extends LineChart {
-  colors: string[]
+  colors?: string[]
   borderColors?: string[]
   rawData?: unknown[]
 }
