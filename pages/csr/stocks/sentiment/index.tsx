@@ -23,10 +23,8 @@ const Page = () => {
     const result: StockStats[] = resp.map((item) => JSON.parse(item.data) as StockStats)
 
     const sorted = sortArray(result, ['MarketDate'], ['desc'])
-    const agg = await getDynamoItemData<StockStats[]>('stocks-monthly-market-sentiment')
     const model = {
       history: sortArray(sorted, ['MarketDate'], ['asc']),
-      aggregates: agg,
     }
     return model
   }
@@ -56,20 +54,20 @@ const Page = () => {
             <HorizontalDivider />
             <Typography pt={4} textAlign={'center'} variant='h5'>{`Aggregates`}</Typography>
             <Box pt={4} display={'flex'} justifyContent={'center'}>
-              <Box display={'flex'} flexDirection={'row'} gap={1} flexWrap={'wrap'} justifyContent={{ xs: 'center' }}>
+              <Box display={'flex'} flexDirection={'row'} gap={{ xs: 4, sm: 1 }} flexWrap={'wrap'} justifyContent={{ xs: 'center' }}>
                 <Box>
                   <FadeIn>
                     <StockMarketStatsChart title={`${data.history.length} Days`} data={getSentiment(data.history, data.history.length)} />
                   </FadeIn>
                 </Box>
                 <Box>
-                  <StockMarketStatsChart title={`${1} Month`} data={getSentiment(data.aggregates, 30)} />
+                  <StockMarketStatsChart title={`${1} Month`} data={getSentiment(data.history, 30)} />
                 </Box>
                 <Box>
                   <StockMarketStatsChart title={`2 Weeks`} data={getSentiment(data.history, 14)} />
                 </Box>
                 <Box>
-                  <StockMarketStatsChart title={`${1} Week`} data={getSentiment(data.aggregates, 7)} />
+                  <StockMarketStatsChart title={`${1} Week`} data={getSentiment(data.history, 7)} />
                 </Box>
               </Box>
             </Box>

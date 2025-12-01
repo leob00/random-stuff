@@ -28,7 +28,9 @@ const SimpleBarChart = ({
   return (
     <Box>
       <FadeIn>
-        <Bar data={data} options={options} height={height} />
+        <Box height={{ xs: 300, sm: 500, md: 550 }} width={'100%'}>
+          <Bar data={data} options={options} />
+        </Box>
       </FadeIn>
     </Box>
   )
