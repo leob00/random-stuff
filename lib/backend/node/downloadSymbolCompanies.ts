@@ -27,7 +27,7 @@ const getSymbolCompanies = async () => {
               console.error(err)
             }
           })
-          console.info(`downloaded ${numeral(ordered.length).format('###,###')} companies`)
+          console.info(`downloaded ${numeral(ordered.length).format('###,###')} symbol quotes`)
         } catch (error: any) {
           console.error(error.message)
         }

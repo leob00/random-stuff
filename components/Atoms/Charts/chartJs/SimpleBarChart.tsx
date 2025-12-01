@@ -3,6 +3,7 @@ import { Bar } from 'react-chartjs-2'
 import { BarChart, getBarChartData, getBarChartOptions } from './barChartOptions'
 import { Box, useTheme } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import { CasinoBlue } from 'components/themes/mainTheme'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -23,7 +24,7 @@ const SimpleBarChart = ({
 }) => {
   const theme = useTheme()
   const options = chartOptions ?? getBarChartOptions(title ?? '', yAxisDecorator, theme.palette.mode, isHorizontal)
-  const data = getBarChartData(barChart.labels, barChart.numbers, barChart.colors)
+  const data = getBarChartData(barChart.labels, barChart.numbers, barChart.colors ?? [CasinoBlue])
 
   return (
     <Box>

@@ -49,7 +49,7 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
         barChart.numbers.push(avgMinutes)
       }
       barChart.labels.push(dayjs(day).format('MM/DD/YYYY'))
-      barChart.colors.push(CasinoBlueTransparent)
+      barChart.colors!.push(CasinoBlueTransparent)
       records.push(sum(d.map((m) => m.RecordsProcessed)))
     }
   })
@@ -58,7 +58,7 @@ const JobPerformanceBarChart = ({ data }: { data: Job }) => {
   if (maxVal) {
     const idx = barChart.numbers.findIndex((m) => m === maxVal)
     if (idx > -1) {
-      barChart.colors[idx] = CasinoOrangeTransparent
+      barChart.colors![idx] = CasinoOrangeTransparent
     }
   }
 

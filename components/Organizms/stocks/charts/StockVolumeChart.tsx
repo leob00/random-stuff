@@ -8,6 +8,7 @@ import { useViewPortSize } from 'hooks/ui/useViewportSize'
 import { useMemo } from 'react'
 import numeral from 'numeral'
 import dayjs from 'dayjs'
+import { CasinoBlue } from 'components/themes/mainTheme'
 
 const StockVolumeChart = ({ data }: { data: StockHistoryItem[] }) => {
   const theme = useTheme()
@@ -30,9 +31,10 @@ const StockVolumeChart = ({ data }: { data: StockHistoryItem[] }) => {
         height = 300
         break
     }
-    const chart: LineChart = {
+    const chart: BarChart = {
       labels: data.map((m) => m.TradeDate),
       numbers: data.map((m) => m.Volume ?? 0),
+      colors: [CasinoBlue],
     }
     const options = getLineChartOptions(chart, 'volume', '', theme.palette.mode, true, false, isXSmallDevice)
     options.scales!.y!.ticks = {

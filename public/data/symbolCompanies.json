@@ -4660,10 +4660,6 @@
     "Symbol": "BGDV"
   },
   {
-    "Company": "Big 5 Sporting Goods Corp",
-    "Symbol": "BGFV"
-  },
-  {
     "Company": "Barings Global Short Duration High Yield Fund",
     "Symbol": "BGH"
   },
@@ -10096,7 +10092,7 @@
     "Symbol": "CWII"
   },
   {
-    "Company": "Cushman & Wakefield plc Ordinary Shares",
+    "Company": "Cushman & Wakefield Ltd.",
     "Symbol": "CWK"
   },
   {
@@ -19700,10 +19696,6 @@
     "Symbol": "HNVR"
   },
   {
-    "Company": "Innovator Premium Income 9 Buffer ETF - October",
-    "Symbol": "HOCT"
-  },
-  {
     "Company": "VanEck Bitcoin ETF",
     "Symbol": "HODL"
   },
@@ -26292,6 +26284,10 @@
     "Symbol": "MB"
   },
   {
+    "Company": "Check-Cap Ltd.",
+    "Symbol": "MBAI"
+  },
+  {
     "Company": "M3-Brigade Acquisition V Corp. Class A Ordinary shares",
     "Symbol": "MBAV"
   },
@@ -28980,10 +28976,6 @@
     "Symbol": "NEU"
   },
   {
-    "Company": "NeueHealth, Inc.",
-    "Symbol": "NEUE"
-  },
-  {
     "Company": "Neuphoria Therapeutics Inc. Common Stock",
     "Symbol": "NEUP"
   },
@@ -30618,10 +30610,6 @@
   {
     "Company": "PGIM S&P 500 Buffer 12 ETF - October",
     "Symbol": "OCTP"
-  },
-  {
-    "Company": "Innovator Premium Income 40 Barrier ETF - October",
-    "Symbol": "OCTQ"
   },
   {
     "Company": "AllianzIM U.S. Large Cap Buffer10 Oct ETF",
@@ -34652,10 +34640,6 @@
     "Symbol": "QSEAR"
   },
   {
-    "Company": "Quartzsea Acquisition Corporation Units",
-    "Symbol": "QSEAU"
-  },
-  {
     "Company": "QuantaSing Group Limited American Depositary Shares",
     "Symbol": "QSG"
   },
@@ -35458,10 +35442,6 @@
   {
     "Company": "RF Acquisition Corp II Right",
     "Symbol": "RFAIR"
-  },
-  {
-    "Company": "RF Acquisition Corp II Unit",
-    "Symbol": "RFAIU"
   },
   {
     "Company": "RiverFront Dynamic Core Income",
@@ -42402,10 +42382,6 @@
   {
     "Company": "TTM Technologies Inc",
     "Symbol": "TTMI"
-  },
-  {
-    "Company": "TITAN PHARMACEUTICAL INC",
-    "Symbol": "TTNP"
   },
   {
     "Company": "21Shares FTSE Crypto 10 Index ETF",

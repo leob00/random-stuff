@@ -7,7 +7,7 @@ export interface BarChart {
   colors: string[]
 }
 
-export const getPieChartData = (labels: string[], numbers: number[], colors: string[], borderColors?: string[]): ChartData<'doughnut', number[], unknown> => {
+export const getPieChartData = (labels: string[], numbers: number[], colors?: string[], borderColors?: string[]): ChartData<'doughnut', number[], unknown> => {
   return {
     labels: labels,
     datasets: [
@@ -15,7 +15,7 @@ export const getPieChartData = (labels: string[], numbers: number[], colors: str
         borderColor: borderColors,
         borderWidth: 0,
         data: numbers,
-        backgroundColor: colors,
+        backgroundColor: colors ?? [CasinoBlue],
         type: 'doughnut',
         indexAxis: 'x',
         animation: {

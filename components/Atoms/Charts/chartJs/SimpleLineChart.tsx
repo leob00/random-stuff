@@ -20,6 +20,7 @@ import annotationPlugin from 'chartjs-plugin-annotation'
 import { getLineChartData, getLineChartOptions } from './lineChartOptions'
 import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import { CasinoBlue } from 'components/themes/mainTheme'
 
 ChartJS.register(
   annotationPlugin,
@@ -66,7 +67,7 @@ const SimpleLineChart = ({
     numbers: barChart.numbers,
   }
   const options = chartOptions ?? getLineChartOptions(lineChart, title ?? '', yAxisDecorator, theme.palette.mode)
-  const data = getLineChartData(barChart.labels, barChart.numbers, barChart.colors)
+  const data = getLineChartData(barChart.labels, barChart.numbers, barChart.colors ?? [CasinoBlue])
 
   return (
     <Box>
