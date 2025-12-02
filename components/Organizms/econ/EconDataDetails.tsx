@@ -6,11 +6,13 @@ import { DropdownItem } from 'lib/models/dropdown'
 import { range } from 'lodash'
 import UncontrolledDropdownList from 'components/Atoms/Inputs/UncontrolledDropdownList'
 import { useReducer } from 'react'
-import EconChart from '../widgets/econ/EconChart'
+import EconChart, { mapEconChartToStockHistory } from '../widgets/econ/EconChart'
 import { WidgetDimensions } from '../widgets/RenderWidget'
 import { reverseColor } from '../widgets/econ/EconWidget'
 import { getEconDataReport } from 'lib/backend/api/qln/qlnApi'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
+import EconChangeHeader from '../widgets/econ/EconChangeHeader'
+import { useViewPortSize } from 'hooks/ui/useViewportSize'
 
 interface Model {
   startYearOptions: DropdownItem[]
@@ -24,6 +26,7 @@ interface Model {
 }
 
 const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: () => void }) => {
+  const { viewPortSize } = useViewPortSize()
   const theme = useTheme()
   const isXSmallDevice = useMediaQuery(theme.breakpoints.down('sm'))
   const isLargeDevice = useMediaQuery(theme.breakpoints.up('md'))
@@ -90,8 +93,15 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
   }
   const shouldReverseColor = reverseColor(item.InternalId)
 
+  const xValues = model.item.Chart?.XValues ?? []
+  const yValues = model.item.Chart?.YValues.map((m) => Number(m)) ?? []
+  const history = mapEconChartToStockHistory(item.Title, xValues, yValues, isXSmallDevice, viewPortSize)
+  const last = history[history.length - 1]
   return (
     <Box py={2}>
+      <Box display={'flex'} pb={4} justifyContent={'center'}>
+        <EconChangeHeader last={last} reverseColor={shouldReverseColor} showLabel />
+      </Box>
       <Box display={'flex'} justifyContent={'center'}>
         <Box display={'flex'} gap={1} alignItems={'center'}>
           <Typography>from:</Typography>

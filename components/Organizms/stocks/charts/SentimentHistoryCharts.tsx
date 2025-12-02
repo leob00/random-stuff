@@ -101,6 +101,12 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
   }
 
   const lineChartOptions = getLineChartOptions({ labels: bar.labels, numbers: bar.numbers }, '', '%', theme.palette.mode, true, isXSmall)
+  lineChartOptions.scales!.y!.ticks! = {
+    ...lineChartOptions.scales!.y!.ticks!,
+    callback: (tickValue) => {
+      return `${tickValue}%`
+    },
+  }
   lineChartOptions.plugins!.tooltip! = {
     ...lineChartOptions.plugins?.tooltip,
     callbacks: {

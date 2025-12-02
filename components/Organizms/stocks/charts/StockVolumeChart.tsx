@@ -48,7 +48,7 @@ const StockVolumeChart = ({ data }: { data: StockHistoryItem[] }) => {
       return ` ${dayjs(tooltipItems[0].label).format('MM/DD/YYYY hh:mm a')}`
     },
     label: (tooltipItem) => {
-      return ` ${numeral(data[tooltipItem.dataIndex].Volume).format('0.00a')}`
+      return ` ${numeral(data[tooltipItem.dataIndex].Volume).format('###,###')}`
     },
   }
 

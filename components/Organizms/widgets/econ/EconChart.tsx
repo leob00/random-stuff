@@ -32,9 +32,10 @@ const EconChart = ({
   const theme = useTheme()
   const isXSmallDevice = useMediaQuery(theme.breakpoints.down('sm'))
   const isXsmall = isExtraSmall ?? isXSmallDevice
+  const { viewPortSize } = useViewPortSize()
+
   const xValues = data.Chart?.XValues ?? []
   const yValues = data.Chart?.YValues.map((m) => Number(m)) ?? []
-  const { viewPortSize } = useViewPortSize()
   const history = mapEconChartToStockHistory(symbol, xValues, yValues, isXsmall ?? false, viewPortSize)
 
   const x = history.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY'))
@@ -115,9 +116,6 @@ const EconChart = ({
 
   return (
     <Box>
-      <Box display={'flex'} gap={1} alignItems={'center'} pt={2} justifyContent={'center'}>
-        <EconChangeHeader last={last} reverseColor={reverseColor} />
-      </Box>
       {showDateSummary && (
         <Box display={'flex'} gap={4} alignItems={'center'} pt={4} justifyContent={'center'}>
           <ReadOnlyField
