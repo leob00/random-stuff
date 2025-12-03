@@ -1,5 +1,4 @@
 import { Box } from '@mui/material'
-import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import { deleteRecord, getSavedStockSearches } from 'lib/backend/csr/nextApiWrapper'
@@ -8,6 +7,7 @@ import SavedSearchTable from './SavedSearchTable'
 import { mutate } from 'swr'
 import { StockSavedSearch } from '../advanced-search/stocksAdvancedSearch'
 import StockTableSkeleton from '../StockTableSkeleton'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const SavedSearchDisplay = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
@@ -32,7 +32,7 @@ const SavedSearchDisplay = () => {
     <Box>
       {isWaiting && (
         <>
-          <CircleLoader />
+          <ComponentLoader />
         </>
       )}
       {userProfile ? (

@@ -17,6 +17,7 @@ import SaveStockSearchForm from '../saved-searches/SaveStockSearchForm'
 import { summarizeFilter } from './stocksAdvancedSearch'
 import AnnualYieldSearch from './sections/AnnualYieldSearch'
 import SymbolSearch from './sections/SymbolSearch'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const AdvancedSearchFilterForm = ({
   onSubmitted,
@@ -88,7 +89,7 @@ const AdvancedSearchFilterForm = ({
             <PeRatioSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
             <AnnualYieldSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
             <SymbolSearch controller={controller} form={control} formValues={formValues} setValue={setValue} errors={errors} />
-            {controller.model.isLoading && <BackdropLoader />}
+            {controller.model.isLoading && <ComponentLoader />}
             {/* {!showSubmitButton && <Typography textAlign={'center'}>{filterSummary.summary}</Typography>} */}
             <Box py={2} display={'flex'} justifyContent={'flex-end'} pr={1} gap={1}>
               {controller.model.allowSave && (

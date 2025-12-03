@@ -58,15 +58,6 @@ const SearchResultsTable = ({
               //scrollOnPageChange
             />
           </Box>
-          {/* <Pager
-            pageCount={pagerModel.totalNumberOfPages}
-            itemCount={items.length}
-            itemsPerPage={pageSize}
-            onPaged={(pageNum: number) => handlePaged(pageNum)}
-            defaultPageIndex={pagerModel.page}
-            totalItemCount={pagerModel.totalNumberOfItems}
-            showHorizontalDivider={false}
-          ></Pager> */}
         </>
       )}
     </>

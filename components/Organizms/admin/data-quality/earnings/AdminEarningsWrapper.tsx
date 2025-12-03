@@ -1,5 +1,4 @@
 import { Box } from '@mui/material'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import StockChange from 'components/Organizms/stocks/StockChange'
@@ -8,6 +7,7 @@ import { StockQuote } from 'lib/backend/api/models/zModels'
 import { StockEarning, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import { useReducer } from 'react'
 import AdminEarningsTable from './AdminEarningsTable'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 export type AdminEarningsModel = {
   isSearchExpanded: boolean
@@ -58,7 +58,7 @@ const AdminEarningsWrapper = () => {
           setModel({ ...model, isSearchExpanded: isExpanded })
         }}
       />
-      {model.isLoading && <BackdropLoader />}
+      {model.isLoading && <ComponentLoader />}
       <Box>
         {model.stockQuote && (
           <Box py={2} display={'flex'} flexDirection={'column'} gap={1}>

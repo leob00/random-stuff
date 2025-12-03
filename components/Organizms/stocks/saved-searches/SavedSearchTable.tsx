@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { StockSavedSearch, StockFilterSummary } from '../advanced-search/stocksAdvancedSearch'
+import { StockSavedSearch, StockFilterSummary, hasSymbolsFilter } from '../advanced-search/stocksAdvancedSearch'
 import { useState } from 'react'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import useAdvancedSearchUi from '../advanced-search/stockAdvancedSearchUi'
@@ -45,12 +45,17 @@ const SavedSearchTable = ({
     setSelectedItem(null)
   }
 
+  const handleSelected = (item: StockSavedSearch) => {
+    setSelectedItem({ filter: item.filter, name: item.name, id: item.id, results: [], editMode: true, confirmDelete: false })
+    controller.setModel({ ...controller.model, expandSymbols: hasSymbolsFilter(item.filter.symbols) })
+  }
+
   return (
     <Box>
       <Box>
         {data.map((item, index) => (
           <Box key={item.id}>
-            <SavedSearchListItem item={item} controller={controller} onDelete={handleDeleteClick} onSaved={handleSaved} />
+            <SavedSearchListItem item={item} controller={controller} onDelete={handleDeleteClick} onSaved={handleSaved} onSelected={handleSelected} />
             <HorizontalDivider />
           </Box>
         ))}
