@@ -39,7 +39,7 @@ const StockVolumeChart = ({ data }: { data: StockHistoryItem[] }) => {
   options.scales!.y!.ticks = {
     ...options.scales!.y!.ticks!,
     callback: (value) => {
-      return `${numeral(value).format('0.00a')}`
+      return `${numeral(value).format('0.0a')}`
     },
   }
   options.plugins!.tooltip!.callbacks = {
@@ -47,8 +47,9 @@ const StockVolumeChart = ({ data }: { data: StockHistoryItem[] }) => {
     title: (tooltipItems) => {
       return ` ${dayjs(tooltipItems[0].label).format('MM/DD/YYYY hh:mm a')}`
     },
+
     label: (tooltipItem) => {
-      return ` ${numeral(data[tooltipItem.dataIndex].Volume).format('###,###')}`
+      return ` ${numeral(data[tooltipItem.dataIndex].Volume).format('0.0a')} (${numeral(data[tooltipItem.dataIndex].Volume).format('###,###')})`
     },
   }
 

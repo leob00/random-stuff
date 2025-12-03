@@ -17,7 +17,7 @@ export function hasMovingAvgFilter(filter?: StockMovingAvgFilter) {
     return false
   }
   const result = !!filter.days
-  return !!result
+  return result
 }
 export function hasNumberRangeFilter(filter?: NumberRangeFilter | null) {
   if (!filter) {
@@ -108,7 +108,17 @@ export type StockFilterSummary = {
   summary: string
 }
 
-export function summarizeFilter(filter: StockAdvancedSearchFilter) {
+export function summarizeFilter(filter?: StockAdvancedSearchFilter): StockFilterSummary {
+  if (!filter) {
+    return {
+      filterCount: 0,
+      hasAnnualYield: false,
+      hasMarketCap: false,
+      hasMovingAverage: false,
+      hasPeRatio: false,
+      summary: '',
+    }
+  }
   const result: StockFilterSummary = {
     hasMarketCap: hasMarketCapFilter(filter.marketCap),
     hasMovingAverage: hasMovingAvgFilter(filter.movingAvg),

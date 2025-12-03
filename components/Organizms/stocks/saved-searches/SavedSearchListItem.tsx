@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import { useState } from 'react'
-import { StockSavedSearch } from '../advanced-search/stocksAdvancedSearch'
+import { StockSavedSearch, summarizeFilter } from '../advanced-search/stocksAdvancedSearch'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import SearchResultsTable from '../advanced-search/results/SearchResultsTable'
 import CloseIconButton from 'components/Atoms/Buttons/CloseIconButton'
@@ -85,6 +85,8 @@ const SavedSearchListItem = ({
     onSaved?.()
   }
 
+  const filterSummary = summarizeFilter(selectedItem?.filter)
+
   return (
     <>
       {isLoading && <ComponentLoader />}
@@ -103,7 +105,7 @@ const SavedSearchListItem = ({
         {selectedItem && !editMode && (
           <Box>
             {selectedItem && results && <ScrollIntoView margin={-24} />}
-            <SearchResultsTable data={results} onPageChanged={handlePageChange} />
+            <SearchResultsTable data={results} onPageChanged={handlePageChange} filterSummary={filterSummary} />
           </Box>
         )}
         {selectedItem && editMode && (

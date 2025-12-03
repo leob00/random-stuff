@@ -10,11 +10,10 @@ const HistoricalAggregateDisplay = ({ aggregate }: { aggregate: HistoricalAggreg
 
   const MovingAvgDisplay = () => {
     return (
-      <Box px={1} py={1}>
-        <Box display={'flex'} gap={2}>
-          <Typography variant='h5' fontWeight={600} color={color}>{`$${numeral(aggregate.Change).format('###,###,0.00')}`}</Typography>
-          <Typography variant='h5' fontWeight={600} color={color}>{``}</Typography>
-          <Typography variant='h5' fontWeight={600} color={color}>{`${numeral(aggregate.Percentage).format('###,###,0.000')}%`}</Typography>
+      <Box px={{ xs: 1, sm: 2, md: 3, lg: 4 }} py={1}>
+        <Box display={'flex'} gap={3}>
+          <Typography variant='h6' fontWeight={600} color={color}>{`${numeral(aggregate.Change).format('+###,###,0.00')}`}</Typography>
+          <Typography variant='h6' fontWeight={600} color={color}>{`${numeral(aggregate.Percentage).format('+###,###,0.000')}%`}</Typography>
         </Box>
       </Box>
     )

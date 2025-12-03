@@ -636,7 +636,7 @@
     "Symbol": "ADIL"
   },
   {
-    "Company": "SmartETFs Asia Pacific Dividend Builder ETF",
+    "Company": "Guinness Atkinson Asia Pacific Dividend Builder ETF",
     "Symbol": "ADIV"
   },
   {
@@ -4860,7 +4860,7 @@
     "Symbol": "BIL"
   },
   {
-    "Company": "Macquarie Global Listed Infrastructure ETF",
+    "Company": "Nomura Global Listed Infrastructure ETF",
     "Symbol": "BILD"
   },
   {
@@ -5006,6 +5006,10 @@
   {
     "Company": "BioVie Inc. Warrant",
     "Symbol": "BIVIW"
+  },
+  {
+    "Company": "Bitcoin Infrastructure Acquisition Corp Ltd. Unit",
+    "Symbol": "BIXIU"
   },
   {
     "Company": "Baiya International Group Inc. Ordinary Shares",
@@ -10504,6 +10508,10 @@
     "Symbol": "DDEC"
   },
   {
+    "Company": "Innovator Equity Dual Directional 15 Buffer ETF - December",
+    "Symbol": "DDFD"
+  },
+  {
     "Company": "Innovator Equity Dual Directional 15 Buffer ETF - July",
     "Symbol": "DDFL"
   },
@@ -10550,6 +10558,10 @@
   {
     "Company": "Dillard's Capital Trust I 7.50% Capital Securities",
     "Symbol": "DDT"
+  },
+  {
+    "Company": "Innovator Equity Dual Directional 10 Buffer ETF - December",
+    "Symbol": "DDTD"
   },
   {
     "Company": "Innovator Equity Dual Directional 10 Buffer ETF - July",
@@ -11164,7 +11176,7 @@
     "Symbol": "DIVP"
   },
   {
-    "Company": "SmartETFs Dividend Builder ETF",
+    "Company": "Guinness Atkinson Dividend Builder ETF",
     "Symbol": "DIVS"
   },
   {
@@ -11572,7 +11584,7 @@
     "Symbol": "DRGN"
   },
   {
-    "Company": "DiamondRock Hospitality Company",
+    "Company": "Diamondrock Hospitality Company Common Stock",
     "Symbol": "DRH"
   },
   {
@@ -11798,6 +11810,10 @@
   {
     "Company": "DT Cloud Star Acquisition Corporation Right",
     "Symbol": "DTSQR"
+  },
+  {
+    "Company": "DT Cloud Star Acquisition Corporation Units",
+    "Symbol": "DTSQU"
   },
   {
     "Company": "Datasea Inc. Common Stock",
@@ -12640,10 +12656,6 @@
     "Symbol": "EFT"
   },
   {
-    "Company": "Etoiles Capital Group Co., Ltd. Class A Ordinary Shares",
-    "Symbol": "EFTY"
-  },
-  {
     "Company": "ProShares Trust UltraShort MSCI EAFE",
     "Symbol": "EFU"
   },
@@ -13036,7 +13048,7 @@
     "Symbol": "EME"
   },
   {
-    "Company": "Macquarie Focused Emerging Markets Equity ETF",
+    "Company": "Nomura ETF Trust Nomura Focused Emerging Markets Equity ETF",
     "Symbol": "EMEQ"
   },
   {
@@ -14336,7 +14348,7 @@
     "Symbol": "EXTR"
   },
   {
-    "Company": "Macquarie Focused International Core ETF",
+    "Company": "Nomura ETF Trust Nomura Focused International Core ETF",
     "Symbol": "EXUS"
   },
   {
@@ -17264,7 +17276,7 @@
     "Symbol": "GDL"
   },
   {
-    "Company": "Grayscale CoinDesk Crypto 5 ETF",
+    "Company": "GRAYSCALE DIGITAL LG CAP",
     "Symbol": "GDLC"
   },
   {
@@ -17900,6 +17912,10 @@
     "Symbol": "GLNG"
   },
   {
+    "Company": "GRAYSCALE CHAINLINK TR",
+    "Symbol": "GLNK"
+  },
+  {
     "Company": "Clough Global Opportunities Fund",
     "Symbol": "GLO"
   },
@@ -18188,6 +18204,10 @@
     "Symbol": "GOGO"
   },
   {
+    "Company": "Gold.com, Inc.",
+    "Symbol": "GOLD"
+  },
+  {
     "Company": "Acushnet Holdings Corp.",
     "Symbol": "GOLF"
   },
@@ -18254,6 +18274,10 @@
   {
     "Company": "Gaotu Techedu Inc. American Depositary Shares, three of which representing two Class A Ordinary Shares",
     "Symbol": "GOTU"
+  },
+  {
+    "Company": "GraniteShares 2x Long GOOGL Daily ETF",
+    "Symbol": "GOU"
   },
   {
     "Company": "Invesco Exchange-Traded Fund Trust II Invesco Equal Weight 0-30 Year Treasury ETF",
@@ -18414,6 +18438,10 @@
   {
     "Company": "Guardian Pharmacy Services, Inc.",
     "Symbol": "GRDN"
+  },
+  {
+    "Company": "GridAI Technologies Corp. Common Stock",
+    "Symbol": "GRDX"
   },
   {
     "Company": "Greenidge Generation Holdings Inc. Class A Common",
@@ -19660,6 +19688,10 @@
     "Symbol": "HMY"
   },
   {
+    "Company": "GraniteShares YieldBoost HIMS ETF",
+    "Symbol": "HMYY"
+  },
+  {
     "Company": "Strategy Shares Nasdaq 7HANDL Index ETF",
     "Symbol": "HNDL"
   },
@@ -20028,7 +20060,7 @@
     "Symbol": "HTAB"
   },
   {
-    "Company": "Macquarie National High-Yield Municipal Bond ETF",
+    "Company": "Nomura National High-Yield Municipal Bond ETF",
     "Symbol": "HTAX"
   },
   {
@@ -20390,10 +20422,6 @@
   {
     "Company": "Hycroft Mining Holding Corporation Class A Common Stock",
     "Symbol": "HYMC"
-  },
-  {
-    "Company": "Hycroft Mining Holding Corporation Warrants",
-    "Symbol": "HYMCL"
   },
   {
     "Company": "Golden Eagle Dynamic Hypergrowth ETF",
@@ -25668,7 +25696,7 @@
     "Symbol": "LRGF"
   },
   {
-    "Company": "Macquarie Focused Large Growth ETF",
+    "Company": "Nomura Focused Large Growth ETF",
     "Symbol": "LRGG"
   },
   {
@@ -27584,7 +27612,7 @@
     "Symbol": "MOTI"
   },
   {
-    "Company": "SmartETFs Smart Transportation & Technology ETF",
+    "Company": "Guinness Atkinson Smart Transportation & Technology ETF",
     "Symbol": "MOTO"
   },
   {
@@ -32908,10 +32936,6 @@
     "Symbol": "PLTR"
   },
   {
-    "Company": "Platinum Analytics Cayman Limited Class A Ordinary Shares",
-    "Symbol": "PLTS"
-  },
-  {
     "Company": "Direxion Daily PLTR Bull 2X Shares",
     "Symbol": "PLTU"
   },
@@ -32990,6 +33014,10 @@
   {
     "Company": "PharmaCyte Biotech, Inc. Common Stock",
     "Symbol": "PMCB"
+  },
+  {
+    "Company": "PGIM S&P 500 Max Buffer ETF - December",
+    "Symbol": "PMDE"
   },
   {
     "Company": "Primech Holdings Ltd. Ordinary Shares",
@@ -33912,10 +33940,6 @@
     "Symbol": "PTN"
   },
   {
-    "Company": "Pitanium Limited Class A Ordinary shares",
-    "Symbol": "PTNM"
-  },
-  {
     "Company": "Pacer Trendpilot 100 ETF",
     "Symbol": "PTNQ"
   },
@@ -34008,7 +34032,7 @@
     "Symbol": "PWB"
   },
   {
-    "Company": "Macquarie Energy Transition ETF",
+    "Company": "Nomura Energy Transition ETF",
     "Symbol": "PWER"
   },
   {
@@ -36338,6 +36362,10 @@
   {
     "Company": "Leverage Shares 2X Long RTX Daily ETF",
     "Symbol": "RTXG"
+  },
+  {
+    "Company": "GraniteShares YieldBoost RIOT ETF",
+    "Symbol": "RTYY"
   },
   {
     "Company": "Rubico Inc. Common Stock",
@@ -38856,7 +38884,7 @@
     "Symbol": "SOLM"
   },
   {
-    "Company": "SmartETFs Sustainable Energy II ETF",
+    "Company": "Guinness Atkinson Sustainable Energy ETF",
     "Symbol": "SOLR"
   },
   {
@@ -39748,7 +39776,7 @@
     "Symbol": "STAK"
   },
   {
-    "Company": "Macquarie Tax-Free USA Short Term ETF",
+    "Company": "Nomura Tax-Free USA Short Term ETF",
     "Symbol": "STAX"
   },
   {
@@ -40960,10 +40988,6 @@
     "Symbol": "TEM"
   },
   {
-    "Company": "JPMorgan Climate Change Solutions ETF",
-    "Symbol": "TEMP"
-  },
-  {
     "Company": "Tradr 2X Long TEM Daily ETF",
     "Symbol": "TEMT"
   },
@@ -41860,10 +41884,6 @@
     "Symbol": "TPHD"
   },
   {
-    "Company": "TIMOTHY PLAN HIGH DIVIDEND STOCK ENHANCED ETF",
-    "Symbol": "TPHE"
-  },
-  {
     "Company": "Timothy Plan International ETF",
     "Symbol": "TPIF"
   },
@@ -41874,10 +41894,6 @@
   {
     "Company": "Timothy Plan US Large/Mid Cap Core ETF",
     "Symbol": "TPLC"
-  },
-  {
-    "Company": "TIMOTHY PLAN US LARGE/MID CAP CORE ENHANCED ETF",
-    "Symbol": "TPLE"
   },
   {
     "Company": "Thornburg Core Plus Bond ETF",
@@ -43622,6 +43638,10 @@
   {
     "Company": "UY Scuti Acquisition Corp. Rights",
     "Symbol": "UYSCR"
+  },
+  {
+    "Company": "UY Scuti Acquisition Corp. Units",
+    "Symbol": "UYSCU"
   },
   {
     "Company": "Array Digital Infrastructure, Inc. 6.250% Senior Notes due 2069",
@@ -46056,35 +46076,35 @@
     "Symbol": "XJUN"
   },
   {
-    "Company": "Materials Select Sector SPDR Fund",
+    "Company": "State Street Materials Select Sector SPDR ETF",
     "Symbol": "XLB"
   },
   {
-    "Company": "The Materials Select Sector SPDR Premium Income Fund",
+    "Company": "State Street Materials Select Sector SPDR Premium Income ETF",
     "Symbol": "XLBI"
   },
   {
-    "Company": "The Communication Services Select Sector SPDR Fund",
+    "Company": "State Street Communication Services Select Sector SPDR ETF",
     "Symbol": "XLC"
   },
   {
-    "Company": "The Communication Services Select Sector SPDR Premium Income Fund",
+    "Company": "State Street Communication Services Select Sector SPDR Premium Income ETF",
     "Symbol": "XLCI"
   },
   {
-    "Company": "Energy Select Sector SPDR Fund",
+    "Company": "State Street Energy Select Sector SPDR ETF",
     "Symbol": "XLE"
   },
   {
-    "Company": "The Energy Select Sector SPDR Premium Income Fund",
+    "Company": "State Street Energy Select Sector SPDR Premium Income ETF",
     "Symbol": "XLEI"
   },
   {
-    "Company": "Financial Select Sector SPDR Fund",
+    "Company": "State Street Financial Select Sector SPDR ETF",
     "Symbol": "XLF"
   },
   {
-    "Company": "The Financial Select Sector SPDR Premium Income Fund",
+    "Company": "State Street Financial Select Sector SPDR Premium Income ETF",
     "Symbol": "XLFI"
   },
   {
@@ -46092,19 +46112,19 @@
     "Symbol": "XLG"
   },
   {
-    "Company": "Industrial Select Sector SPDR Fund",
+    "Company": "State Street Industrial Select Sector SPDR ETF",
     "Symbol": "XLI"
   },
   {
-    "Company": "The Industrial Select Sector SPDR Premium Income Fund",
+    "Company": "State Street Industrial Select Sector SPDR Premium Income ETF",
     "Symbol": "XLII"
   },
   {
-    "Company": "Technology Select Sector SPDR Fund",
+    "Company": "State Street Technology Select Sector SPDR ETF",
     "Symbol": "XLK"
   },
   {
-    "Company": "The Technology Select Sector SPDR Premium Income Fund",
+    "Company": "State Street Technology Select Sector SPDR Premium Income ETF",
     "Symbol": "XLKI"
   },
   {
@@ -46112,19 +46132,19 @@
     "Symbol": "XLO"
   },
   {
-    "Company": "Consumers Staples Select Sector SPDR Fund",
+    "Company": "State Street Consumer Staples Select Sector SPDR ETF",
     "Symbol": "XLP"
   },
   {
-    "Company": "Real Estate Select Sector SPDR Fund",
+    "Company": "State Street Real Estate Select Sector SPDR ETF",
     "Symbol": "XLRE"
   },
   {
-    "Company": "The Real Estate Select Sector SPDR Premium Income Fund",
+    "Company": "State Street Real Estate Select Sector SPDR Premium Income ETF",
     "Symbol": "XLRI"
   },
   {
-    "Company": "The Consumer Staples Select Sector SPDR Premium Income Fund",
+    "Company": "State Street Consumer Staples Select Sector SPDR Premium Income ETF",
     "Symbol": "XLSI"
   },
   {
@@ -46132,27 +46152,27 @@
     "Symbol": "XLSR"
   },
   {
-    "Company": "Utilities Select Sector SPDR Fund",
+    "Company": "State Street Utilities Select Sector SPDR ETF",
     "Symbol": "XLU"
   },
   {
-    "Company": "The Utilities Select Sector SPDR Premium Income Fund",
+    "Company": "State Street Utilities Select Sector SPDR Premium Income ETF",
     "Symbol": "XLUI"
   },
   {
-    "Company": "Health Care Select Sector SPDR Fund",
+    "Company": "State Street Health Care Select Sector SPDR ETF",
     "Symbol": "XLV"
   },
   {
-    "Company": "The Health Care Select Sector SPDR Premium Income Fund",
+    "Company": "State Street Health Care Select Sector SPDR Premium Income ETF",
     "Symbol": "XLVI"
   },
   {
-    "Company": "Consumer Discretionary Select Sector SPDR Fund",
+    "Company": "State Street Consumer Discretionary Select Sector SPDR ETF",
     "Symbol": "XLY"
   },
   {
-    "Company": "The Consumer Discretionary Select Sector SPDR Premium Income Fund",
+    "Company": "State Street Consumer Discretionary Select Sector SPDR Premium Income ETF",
     "Symbol": "XLYI"
   },
   {

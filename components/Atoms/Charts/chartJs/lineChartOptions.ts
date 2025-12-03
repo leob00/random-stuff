@@ -58,7 +58,7 @@ export const getLineChartOptions = (
           align: 'start',
           color: palette === 'light' ? DarkBlue : VeryLightBlue,
           font: {
-            size: isExtraSmall || isXSmallDevice ? 10 : 11,
+            size: !isExtraSmall ? 11 : 12,
           },
           padding: isExtraSmall || isXSmallDevice ? 6 : 8,
           autoSkip: true,
@@ -114,7 +114,7 @@ export const getLineChartOptions = (
         display: true,
         text: title,
         font: {
-          size: 18,
+          size: 16,
           weight: 200,
         },
         color: palette === 'light' ? DarkBlue : VeryLightBlue,
@@ -130,8 +130,9 @@ export const getLineChartOptions = (
         },
       },
       tooltip: {
-        padding: 16,
+        padding: 20,
         backgroundColor: TooltipBkg,
+        titleSpacing: 20,
         titleColor: VeryLightBlue,
         footerAlign: 'left',
         footerSpacing: 10,

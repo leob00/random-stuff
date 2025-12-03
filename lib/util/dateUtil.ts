@@ -72,3 +72,19 @@ export function getUnixExpSecondsFromDate(date: string) {
 export const getDateOnly = (dateString: string) => {
   return dayjs(dateString).startOf('day')
 }
+
+export function convertUtcToUsEasternDateTime(dt: string) {
+  const utcDate = new Date(dayjs(dt).utc(true).format())
+  const easternTime = utcDate.toLocaleString('en-US', {
+    timeZone: 'America/New_York',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true, // For 12-hour format with AM/PM
+  })
+
+  return dayjs(easternTime).format()
+}
