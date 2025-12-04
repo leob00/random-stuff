@@ -43,7 +43,7 @@ const EconWidget = ({ itemId, symbol, width, height, size }: { itemId: number; s
 }
 
 export function reverseColor(itemId: number) {
-  const positiveIsGood = [5, 7, 11, 12, 13, 14, 15, 17, 34, 41]
+  const positiveIsGood = [5, 7, 11, 12, 13, 14, 15, 17, 34, 41, 47, 48]
   const reverseColor = !positiveIsGood.includes(itemId)
   return reverseColor
 }

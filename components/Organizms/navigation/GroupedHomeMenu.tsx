@@ -6,6 +6,7 @@ import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { CasinoBlueTransparent, DarkModeBlueTransparent } from 'components/themes/mainTheme'
 import { Navigation } from '../session/useSessionSettings'
 import { chunk } from 'lodash'
+import SiteMapCategoryDisplay from './SiteMapCategoryDisplay'
 
 const GroupedHomeMenu = ({ all, recentRoutes, isAdmin }: { all: Navigation[]; recentRoutes: Navigation[]; isAdmin?: boolean }) => {
   const reorderedPaths = getOrderedPaths(
@@ -21,47 +22,8 @@ const GroupedHomeMenu = ({ all, recentRoutes, isAdmin }: { all: Navigation[]; re
     <Box>
       <Box display={'flex'} flexDirection={{ xs: 'column', sm: 'row' }} flexWrap={'wrap'} justifyContent={'center'} gap={1}>
         {pathCategories.map((category) => (
-          <Box key={category.category} minWidth={{ xs: 350, sm: 250 }}>
-            <Box
-              sx={{ backgroundColor: DarkModeBlueTransparent }}
-              borderRadius={'6px 6px 0 0'}
-              display={'flex'}
-              justifyContent={'center'}
-              py={1}
-              borderLeft={`solid 1px ${CasinoBlueTransparent}`}
-              borderRight={`solid 1px ${CasinoBlueTransparent}`}
-            >
-              <FadeIn>
-                <Typography variant={'h5'} sx={{ textAlign: 'center' }} fontWeight={500} color={theme.palette.primary.contrastText}>
-                  {category.category}
-                </Typography>
-              </FadeIn>
-            </Box>
-            <Box
-              minHeight={{ sm: 190 }}
-              pb={2}
-              borderLeft={`solid 1px ${CasinoBlueTransparent}`}
-              borderRight={`solid 1px ${CasinoBlueTransparent}`}
-              borderBottom={`solid 1px ${CasinoBlueTransparent}`}
-              borderRadius={'0 0 6px 6px'}
-            >
-              <Box pt={2}>
-                {category.chunkedPaths.map((chunk, i) => (
-                  <Box key={i} display={'flex'} flexDirection={category.paths.length > 1 ? 'row' : 'column'} justifyContent={'space-between'} gap={{ sm: 1 }}>
-                    {chunk.map((path, i) => (
-                      <Box key={path.path}>
-                        <Box display={'flex'} py={{ xs: 0.8 }} px={{ xs: 1, sm: 2 }}>
-                          <FadeIn>
-                            <NavigationButton path={path.path} name={path.name} category={path.category} variant={'h6'} />
-                          </FadeIn>
-                        </Box>
-                        {/* {i < category.paths.length - 1 && <HorizontalDivider />} */}
-                      </Box>
-                    ))}
-                  </Box>
-                ))}
-              </Box>
-            </Box>
+          <Box key={category.category}>
+            <SiteMapCategoryDisplay item={category} />
           </Box>
         ))}
       </Box>

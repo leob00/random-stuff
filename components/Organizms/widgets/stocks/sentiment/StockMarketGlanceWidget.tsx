@@ -43,7 +43,7 @@ const StockMarketGlanceWidget = ({
                   </Alert>
                 </>
               )}
-              <Typography textAlign={'center'} variant='caption'>{`${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} EST`}</Typography>
+              <Typography textAlign={'center'} variant='caption'>{`${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY')}`}</Typography>
             </Box>
 
             <Box mt={-5}>

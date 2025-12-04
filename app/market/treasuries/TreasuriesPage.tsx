@@ -6,6 +6,7 @@ import TreasuriesDisplay from './TreasuriesDisplay'
 import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 
 const ids = [
+  48, // 1Year
   13, // 3 year
   47, // 5 year
   5, // 10 year
@@ -25,10 +26,11 @@ const getData = async () => {
       result.push({ ...item })
     }
   })
-  result[0].Title = '3-year'
-  result[1].Title = '5-year'
-  result[2].Title = '10-year'
-  result[3].Title = '30-year'
+  result[0].Title = '1-year'
+  result[1].Title = '3-year'
+  result[2].Title = '5-year'
+  result[3].Title = '10-year'
+  result[4].Title = '30-year'
 
   //const result = dbResult.Body.Items.filter((m) => ids.includes(m.InternalId))
 
