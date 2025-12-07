@@ -54,7 +54,7 @@
     "dotenv": "^16.3.1",
     "formidable": "^3.5.4",
     "framer-motion": "^12.9.4",
-    "next": "^16.0.6",
+    "next": "16.0.7",
     "numeral": "^2.0.6",
     "react": "^19.2.0",
     "react-apexcharts": "^1.4.1",
