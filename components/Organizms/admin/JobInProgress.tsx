@@ -1,4 +1,5 @@
 import { Box, CircularProgress, LinearProgress, Paper, Typography } from '@mui/material'
+import CircleProgress from 'components/Atoms/Loaders/CircleProgress'
 import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
 import { Job } from 'lib/backend/api/qln/qlnApi'
 import numeral from 'numeral'
@@ -14,23 +15,7 @@ const JobInProgress = ({ item }: { item: Job }) => {
             ) : (
               <LinearProgress variant='determinate' value={item.ProgressPercent} color='info' />
             )} */}
-          <Box sx={{ position: 'relative', display: 'inline-flex' }} py={1} px={1}>
-            <CircularProgress enableTrackSlot variant='determinate' color='primary' value={item.ProgressPercent} />
-            <Box
-              sx={{
-                top: 0,
-                left: 0,
-                bottom: 0,
-                right: 0,
-                position: 'absolute',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Typography variant='caption' fontSize={12} component='div'>{`${Math.round(item.ProgressPercent ?? 0)}%`}</Typography>
-            </Box>
-          </Box>
+          <CircleProgress progress={item.ProgressPercent} />
           {/* </Paper> */}
         </DefaultTooltip>
         <Box display={'flex'} justifyContent={'space-between'} alignItems={'flex-start'}>

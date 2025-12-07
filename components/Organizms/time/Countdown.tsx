@@ -5,6 +5,7 @@ import numeral from 'numeral'
 import duration from 'dayjs/plugin/duration'
 import { getDuration, TimeDuration } from 'lib/util/dateUtil'
 import { calculatePercent } from 'lib/util/numberUtil'
+import CircleProgress from 'components/Atoms/Loaders/CircleProgress'
 dayjs.extend(duration)
 
 const Countdown = ({ title, start, current, end }: { title: string; current: string; start: string; end: string }) => {
@@ -13,7 +14,7 @@ const Countdown = ({ title, start, current, end }: { title: string; current: str
   const secondsFromStartToEnd = spanFromStart.totalSeconds
   const secondsFromCurrentToEnd = span.totalSeconds
   const summary = getDurationText(span)
-  const progress = calculatePercent(secondsFromCurrentToEnd, secondsFromStartToEnd)
+  const progress = 100 - calculatePercent(secondsFromCurrentToEnd, secondsFromStartToEnd)
   return (
     <Box pt={2}>
       <CenterStack>
@@ -24,23 +25,7 @@ const Countdown = ({ title, start, current, end }: { title: string; current: str
           {summary}
         </Typography>
       </Box>
-      <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-        <CircularProgress enableTrackSlot variant='determinate' color='primary' value={progress} />
-        <Box
-          sx={{
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0,
-            position: 'absolute',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Typography variant='caption' fontSize={12} component='div'>{`${Math.round(progress)}%`}</Typography>
-        </Box>
-      </Box>
+      <CircleProgress progress={progress} />
     </Box>
   )
 }
