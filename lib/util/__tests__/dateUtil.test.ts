@@ -45,4 +45,9 @@ describe('dateUtil Tests', () => {
     const result = convertUtcToUsEasternDateTime(dt)
     expect(result).toBe('2025-08-10T09:30:00-04:00')
   })
+  test('convert UTC date to US Eastern time', () => {
+    const dt = dayjs(new Date(2025, 7, 10, 13, 30)).format() //2025-08-10T13:30:00-04:00
+    const result = convertUtcToUsEasternDateTime(dt)
+    expect(result).toBe('2025-08-10T09:30:00-04:00')
+  })
 })

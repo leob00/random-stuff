@@ -1,3 +1,4 @@
+'use client'
 import { Box, Typography } from '@mui/material'
 import { TypographyVariant } from '@mui/material/styles/createTypography'
 import { useViewPortSize } from 'hooks/ui/useViewportSize'
@@ -22,7 +23,7 @@ const ReadOnlyField = ({
       <Box display={'flex'} flexDirection={'row'} gap={1} alignItems={viewPortSize === 'xs' && !!val && val?.toString().length > 20 ? 'flex-start' : 'center'}>
         {label && (
           <Box display={'flex'} textAlign={'right'} minWidth={labelLength ?? undefined}>
-            <Typography variant={variant ?? 'body2'} color={color ?? 'primary'}>{`${label}:`}</Typography>
+            <Typography variant={variant ?? 'body2'}>{`${label}:`}</Typography>
           </Box>
         )}
         {val && (

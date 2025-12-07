@@ -34,6 +34,7 @@ export type PathNames =
   | 'cats'
   | 'image text'
   | 'profile'
+  | 'stock market summary'
   | (string & {})
 
 export type SiteCategories =
@@ -122,6 +123,13 @@ export const flatSiteMap: Navigation[] = [
     path: '/csr/stocks/earnings-reports',
     category: 'Stock Market',
     hideFromHomeMenu: true,
+  },
+  {
+    name: 'summary',
+    path: '/market/stocks/summary',
+    category: 'Stock Market',
+    hideFromHomeMenu: false,
+    breadcrumbName: 'stock market summary',
   },
 
   {

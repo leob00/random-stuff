@@ -1,11 +1,14 @@
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import { DateRangeFilter } from 'lib/backend/api/qln/qlnApi'
+import duration from 'dayjs/plugin/duration'
 dayjs.extend(utc)
-
+import timezone from 'dayjs/plugin/timezone'
+dayjs.extend(timezone)
 export function getUtcNow() {
   return dayjs().utc()
 }
+dayjs.extend(duration)
 
 type Quarter = 1 | 2 | 3 | (number & {})
 
@@ -73,6 +76,11 @@ export const getDateOnly = (dateString: string) => {
   return dayjs(dateString).startOf('day')
 }
 
+export const getCurrentDateTimeUsEastern = () => {
+  const easternTime = dayjs().tz('America/New_York')
+  return easternTime.format()
+}
+
 export function convertUtcToUsEasternDateTime(dt: string) {
   const utcDate = new Date(dayjs(dt).utc(true).format())
   const easternTime = utcDate.toLocaleString('en-US', {
@@ -83,8 +91,34 @@ export function convertUtcToUsEasternDateTime(dt: string) {
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
-    hour12: true, // For 12-hour format with AM/PM
+    //hour12: true, // For 12-hour format with AM/PM
   })
 
+  //const easternTime = dayjs(dt).tz('America/New_York')
+
   return dayjs(easternTime).format()
+}
+
+export type TimeDuration = {
+  hours: number
+  minutes: number
+  seconds: number
+  totalSeconds: number
+}
+
+export function getDuration(startDate: string, endDate: string): TimeDuration {
+  const diff = dayjs(endDate).diff(dayjs(startDate))
+
+  const countdownDuration = dayjs.duration(diff)
+  //const days = Math.floor(countdownDuration.asDays())
+  const hours = countdownDuration.asHours()
+  const minutes = countdownDuration.minutes()
+  const seconds = countdownDuration.seconds()
+  const totalSeconds = countdownDuration.asSeconds()
+  return {
+    hours,
+    minutes,
+    seconds,
+    totalSeconds,
+  }
 }

@@ -14,7 +14,10 @@ export interface MarketHandshake {
   MarketsOpenClosedMessage: string
   Message: string
   HolidayName: string | null
+  CurrentDateTimeEst: string
   StockStats: StockStats
+  NextOpenDateTime: string
+  StockLatestTradeDateTimeEst: string
 }
 
 export type StockReportTypes = 'marketcapleaders' | 'volumeleaders' | 'indicesAndEtfs' | 'topmvgavg'

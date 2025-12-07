@@ -38,6 +38,7 @@ import RedeemIcon from '@mui/icons-material/Redeem'
 import SignalWifiStatusbar4BarIcon from '@mui/icons-material/SignalWifiStatusbar4Bar'
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount'
 import CarpenterIcon from '@mui/icons-material/Carpenter'
+import SummarizeIcon from '@mui/icons-material/Summarize'
 type PagePros = {
   disabled?: boolean
 } & Navigation &
@@ -91,6 +92,8 @@ export const renderIcon = (item: PathNames) => {
       return <OilBarrelIcon />
     case 'treasuries':
       return <RedeemIcon />
+    case 'summary':
+      return <SummarizeIcon />
     case 'calendar':
       return <EventIcon />
     case 'indicators':
