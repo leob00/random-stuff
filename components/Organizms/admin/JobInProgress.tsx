@@ -1,21 +1,37 @@
-import { Box, LinearProgress, Paper, Typography } from '@mui/material'
+import { Box, CircularProgress, LinearProgress, Paper, Typography } from '@mui/material'
 import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
 import { Job } from 'lib/backend/api/qln/qlnApi'
 import numeral from 'numeral'
-import React from 'react'
 
 const JobInProgress = ({ item }: { item: Job }) => {
   return (
     <Box minHeight={50} pt={2} pb={2}>
       <Box pl={2} pr={2}>
         <DefaultTooltip text={`Records: ${numeral(item.RecordsProcessed).format('###,###')}`}>
-          <Paper elevation={4}>
-            {item.Name === 'ProcessYahooEarnings' ? (
+          {/* <Paper elevation={4}> */}
+          {/* {item.Name === 'ProcessYahooEarnings' ? (
               <LinearProgress variant='indeterminate' value={item.ProgressPercent} color='info' />
             ) : (
               <LinearProgress variant='determinate' value={item.ProgressPercent} color='info' />
-            )}
-          </Paper>
+            )} */}
+          <Box sx={{ position: 'relative', display: 'inline-flex' }} py={1} px={1}>
+            <CircularProgress enableTrackSlot variant='determinate' color='primary' value={item.ProgressPercent} />
+            <Box
+              sx={{
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0,
+                position: 'absolute',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Typography variant='caption' fontSize={12} component='div'>{`${Math.round(item.ProgressPercent ?? 0)}%`}</Typography>
+            </Box>
+          </Box>
+          {/* </Paper> */}
         </DefaultTooltip>
         <Box display={'flex'} justifyContent={'space-between'} alignItems={'flex-start'}>
           <Box>
