@@ -24,11 +24,6 @@ const JobInProgress = ({ item }: { item: Job }) => {
               {item.LastMessage}
             </Typography>
           </Box>
-          {item.ProgressPercent !== undefined && item.ProgressPercent !== 0 && (
-            <Box pr={1}>
-              <Typography variant='caption'>{`${Math.ceil(item.ProgressPercent ?? 0)}%`}</Typography>
-            </Box>
-          )}
         </Box>
       </Box>
     </Box>

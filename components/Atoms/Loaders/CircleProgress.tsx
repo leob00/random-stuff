@@ -3,7 +3,12 @@ import { Box, CircularProgress, Typography } from '@mui/material'
 const CircleProgress = ({ progress }: { progress?: number }) => {
   return (
     <Box sx={{ position: 'relative', display: 'inline-flex' }} py={1} px={1}>
-      <CircularProgress enableTrackSlot variant={progress ? `determinate` : `indeterminate`} color='primary' value={progress} />
+      <CircularProgress
+        enableTrackSlot
+        variant={progress ? `determinate` : `indeterminate`}
+        color={progress && progress > 98 ? 'success' : 'info'}
+        value={progress}
+      />
       <Box
         sx={{
           top: 0,
@@ -16,7 +21,7 @@ const CircleProgress = ({ progress }: { progress?: number }) => {
           justifyContent: 'center',
         }}
       >
-        {progress && <Typography variant='caption' fontSize={12} fontWeight={'bold'} component='div'>{`${Math.round(progress)}%`}</Typography>}
+        {progress && <Typography variant='caption' fontSize={11.5} fontWeight={'bold'} component='div'>{`${Math.floor(progress)}%`}</Typography>}
       </Box>
     </Box>
   )
