@@ -3,7 +3,7 @@ import Countdown from 'components/Organizms/time/Countdown'
 import dayjs from 'dayjs'
 import { usePolling } from 'hooks/usePolling'
 import { MarketHandshake } from 'lib/backend/api/qln/qlnModels'
-import { convertUtcToUsEasternDateTime, getCurrentDateTimeUsEastern } from 'lib/util/dateUtil'
+import { getCurrentDateTimeUsEastern } from 'lib/util/dateUtil'
 import { useEffect, useState } from 'react'
 
 const StockMarketCountdown = ({ data }: { data: MarketHandshake }) => {

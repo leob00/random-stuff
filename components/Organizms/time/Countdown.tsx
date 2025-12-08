@@ -32,6 +32,9 @@ const Countdown = ({ title, start, current, end }: { title: string; current: str
 
 function getDurationText(span: TimeDuration) {
   let result = ''
+  if (span.totalSeconds <= 0) {
+    return '00:00'
+  }
 
   if (span.hours > 0) {
     result = `${result}${numeral(span.hours).format('00')}:`

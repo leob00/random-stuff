@@ -1,7 +1,5 @@
 import { Box } from '@mui/material'
-import JsonView from 'components/Atoms/Boxes/JsonView'
 import StockMarketSummaryDisplay from 'components/Organizms/stocks/summary/StockMarketSummaryDisplay'
-import Countdown from 'components/Organizms/time/Countdown'
 import { apiConnection } from 'lib/backend/api/config'
 import { get } from 'lib/backend/api/fetchFunctions'
 import { MarketHandshake } from 'lib/backend/api/qln/qlnModels'

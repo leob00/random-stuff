@@ -34,7 +34,6 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
   const theme = useTheme()
   return (
     <Box>
-      {isLoading && <ComponentLoader />}
       <Box py={2} px={2} sx={{ border: `solid ${CasinoBlueTransparent} 1px` }} borderRadius={2} width={{ xs: '100%', sm: '25%', md: '14%', lg: '14%' }}>
         <Box>
           <ReadOnlyField
