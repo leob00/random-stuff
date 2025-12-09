@@ -4,7 +4,6 @@ import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 import { calculateStockMovePercent } from 'lib/util/numberUtil'
-import EconChangeHeader from './EconChangeHeader'
 import { getOptions } from 'components/Organizms/stocks/stockLineChartOptions'
 import { shrinkList, shrinkListByViewportSize } from 'components/Organizms/stocks/lineChartOptions'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
@@ -151,7 +150,7 @@ export function mapEconChartToStockHistory(symbol: string, xValues: string[], yV
     }
     history.push(h)
   })
-  const result = isXSmall ? shrinkList(history, 12) : shrinkListByViewportSize(history, viewportSize ?? 'sm')
+  const result = isXSmall ? shrinkList(history, 18) : shrinkListByViewportSize(history, viewportSize ?? 'sm')
   return result
 }
 

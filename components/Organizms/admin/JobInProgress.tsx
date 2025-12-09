@@ -7,25 +7,20 @@ import numeral from 'numeral'
 const JobInProgress = ({ item }: { item: Job }) => {
   return (
     <Box minHeight={50} pt={2} pb={2}>
-      <Box pl={2} pr={2}>
-        <DefaultTooltip text={`Records: ${numeral(item.RecordsProcessed).format('###,###')}`}>
-          {/* <Paper elevation={4}> */}
-          {/* {item.Name === 'ProcessYahooEarnings' ? (
-              <LinearProgress variant='indeterminate' value={item.ProgressPercent} color='info' />
-            ) : (
-              <LinearProgress variant='determinate' value={item.ProgressPercent} color='info' />
-            )} */}
-          <CircleProgress progress={item.ProgressPercent} />
-          {/* </Paper> */}
-        </DefaultTooltip>
-        <Box display={'flex'} justifyContent={'space-between'} alignItems={'flex-start'}>
+      <Paper elevation={1}>
+        <Box px={2} py={1} display={'flex'} gap={2} alignItems={'center'}>
+          <Box>
+            <DefaultTooltip text={`Records: ${numeral(item.RecordsProcessed).format('###,###')}`}>
+              <CircleProgress progress={item.ProgressPercent} />
+            </DefaultTooltip>
+          </Box>
           <Box>
             <Typography variant='caption' sx={{ p: 1 }}>
               {item.LastMessage}
             </Typography>
           </Box>
         </Box>
-      </Box>
+      </Paper>
     </Box>
   )
 }

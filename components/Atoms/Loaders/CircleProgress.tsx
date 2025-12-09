@@ -21,7 +21,7 @@ const CircleProgress = ({ progress }: { progress?: number }) => {
           justifyContent: 'center',
         }}
       >
-        {progress && (
+        {progress !== undefined && progress > 0 && (
           <Typography variant='caption' fontSize={11.5} fontWeight={'bold'} component='div'>{`${progress > 0 ? Math.floor(progress) : 0}%`}</Typography>
         )}
       </Box>

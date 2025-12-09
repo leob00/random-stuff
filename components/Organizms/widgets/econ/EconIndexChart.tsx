@@ -1,11 +1,11 @@
 import { Box, Typography, useTheme } from '@mui/material'
 import { getOptions, takeLastDays } from 'components/Organizms/stocks/stockLineChartOptions'
 import dayjs from 'dayjs'
-import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 import dynamic from 'next/dynamic'
 import EconChangeHeader from './EconChangeHeader'
 import { mapEconChartToStockHistory } from './EconChart'
+import { useViewPortSize } from 'hooks/ui/useViewportSize'
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 const EconIndexChart = ({
@@ -22,10 +22,11 @@ const EconIndexChart = ({
   showDateSummary?: boolean
 }) => {
   const theme = useTheme()
+  const { viewPortSize } = useViewPortSize()
 
   const xValues = data.Chart?.XValues ?? []
   const yValues = data.Chart?.YValues.map((m) => Number(m)) ?? []
-  const history = mapEconChartToStockHistory(symbol, xValues, yValues, false)
+  const history = mapEconChartToStockHistory(symbol, xValues, yValues, false, viewPortSize)
   const resultHistory = days ? takeLastDays(history, days) : history
   const x = resultHistory.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY'))
   const y = resultHistory.map((m) => m.Price)
