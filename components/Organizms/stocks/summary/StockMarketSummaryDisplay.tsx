@@ -18,8 +18,8 @@ const getData = async () => {
 const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
   const [handshake, setHandchake] = useState(data)
   const [isLoading, setIsLoading] = useState(false)
-
-  const { pollCounter } = usePolling(1000 * 30)
+  const pollingSeconds = 1000 * 30 // 30 seconds
+  const { pollCounter } = usePolling(pollingSeconds)
 
   useEffect(() => {
     const fn = async () => {
@@ -34,7 +34,7 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
   const theme = useTheme()
   return (
     <Box>
-      <Box py={2} px={2} sx={{ border: `solid ${CasinoBlueTransparent} 1px` }} borderRadius={2} width={{ xs: '100%', sm: '25%', md: '14%', lg: '14%' }}>
+      <Box py={2} px={2} sx={{ border: `solid ${CasinoBlueTransparent} 1px` }} borderRadius={2} width={{ xs: '40%', sm: '30%', md: '20%', lg: '14%' }}>
         <Box>
           <ReadOnlyField
             variant='caption'

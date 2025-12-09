@@ -22,12 +22,12 @@ const ReadOnlyField = ({
     <Box>
       <Box display={'flex'} flexDirection={'row'} gap={1} alignItems={viewPortSize === 'xs' && !!val && val?.toString().length > 20 ? 'flex-start' : 'center'}>
         {label && (
-          <Box display={'flex'} textAlign={'right'} minWidth={labelLength ?? undefined}>
+          <Box display={'flex'} textAlign={'right'} minWidth={labelLength ?? undefined} alignContent={'center'}>
             <Typography variant={variant ?? 'body2'}>{`${label}:`}</Typography>
           </Box>
         )}
         {val && (
-          <Box>
+          <Box display={'flex'} alignItems={'center'}>
             <Typography variant={variant ?? 'body2'} color={color ?? 'primary'} sx={{ fontWeight: 'bold' }}>
               {val}
             </Typography>

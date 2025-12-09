@@ -9,11 +9,17 @@ import { useEffect, useState } from 'react'
 const StockMarketCountdown = ({ data }: { data: MarketHandshake }) => {
   const [current, setCurrent] = useState(getCurrentDateTimeUsEastern())
   let startDt = data.StockLatestTradeDateTimeEst
+  const currentDtNoTime = dayjs(getCurrentDateTimeUsEastern()).format('YYYY-MM-DD')
+  const lastDradeDtNoTime = dayjs(data.StockLatestTradeDateTimeEst).format('YYYY-MM-DD')
   let endDt = data.NextOpenDateTime
   if (data.IsOpen) {
     startDt = dayjs(dayjs(getCurrentDateTimeUsEastern()).format('YYYY-MM-DD')).add(9, 'hours').add(30, 'minutes').format()
-    const dt = dayjs(getCurrentDateTimeUsEastern()).format('YYYY-MM-DD')
-    endDt = dayjs(dt).add(16, 'hours').format()
+    endDt = dayjs(dayjs(getCurrentDateTimeUsEastern()).format('YYYY-MM-DD')).add(16, 'hours').format()
+  } else {
+    const isLastTradingDateToday = lastDradeDtNoTime == currentDtNoTime
+    if (isLastTradingDateToday) {
+      startDt = dayjs(startDt).set('hours', 16).set('minutes', 0).format()
+    }
   }
   const { pollCounter } = usePolling(1000)
   useEffect(() => {

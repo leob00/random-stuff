@@ -1,7 +1,6 @@
-import { Stack, Box, Typography, Alert, IconButton } from '@mui/material'
+import { Stack, Box, Typography, Alert } from '@mui/material'
 import PassiveButton from 'components/Atoms/Buttons/PassiveButton'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import Close from '@mui/icons-material/Close'
 import CenterStack from 'components/Atoms/CenterStack'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import StockListItem from './StockListItem'
@@ -31,7 +30,15 @@ const AddQuote = ({
       <Box display={'flex'} justifyContent={'flex-end'} py={1}>
         <CloseIconButton onClicked={handleCloseAddQuote} />
       </Box>
-      <StockListItem item={quote} expand={true} marketCategory={'stocks'} showGroupName={true} scrollIntoView={scrollIntoView} userProfile={userProfile} />
+      <StockListItem
+        item={quote}
+        expand={true}
+        marketCategory={'stocks'}
+        showGroupName={true}
+        scrollIntoView={scrollIntoView}
+        userProfile={userProfile}
+        disabled
+      />
       {alreadyExists && showAddToListButton && (
         <CenterStack>
           <Alert severity='success'>
