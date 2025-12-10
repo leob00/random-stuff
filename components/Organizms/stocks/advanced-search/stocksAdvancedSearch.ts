@@ -158,12 +158,12 @@ export function summarizeFilter(filter?: StockAdvancedSearchFilter): StockFilter
     result.summary = `${result.summary} and `
   }
   if (result.hasPeRatio) {
-    if (filter.peRatio.from && filter.peRatio.to) {
-      result.summary = `${result.summary} P/E between ${filter.peRatio.from} and ${filter.peRatio.to} `
-    } else if (filter.peRatio.from) {
-      result.summary = `${result.summary} P/E greater than or equal to ${filter.peRatio.from} `
-    } else if (filter.peRatio.to) {
-      result.summary = `${result.summary} P/E less than or equal to ${filter.peRatio.to} `
+    if (filter.peRatio!.from && filter.peRatio!.to) {
+      result.summary = `${result.summary} P/E between ${filter.peRatio!.from} and ${filter.peRatio!.to} `
+    } else if (filter.peRatio!.from) {
+      result.summary = `${result.summary} P/E greater than or equal to ${filter.peRatio!.from} `
+    } else if (filter.peRatio!.to) {
+      result.summary = `${result.summary} P/E less than or equal to ${filter.peRatio!.to} `
     }
   }
 

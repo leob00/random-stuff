@@ -1016,6 +1016,10 @@
     "Symbol": "AGI"
   },
   {
+    "Company": "Abundia Global Impact Group Inc.",
+    "Symbol": "AGIG"
+  },
+  {
     "Company": "Agios Pharmaceuticals, Inc.",
     "Symbol": "AGIO"
   },
@@ -4432,6 +4436,10 @@
     "Symbol": "BEDU"
   },
   {
+    "Company": "BNY Mellon Enhanced Dividend and Income ETF",
+    "Symbol": "BEDY"
+  },
+  {
     "Company": "AdvisorShares Hotel ETF",
     "Symbol": "BEDZ"
   },
@@ -4890,10 +4898,6 @@
   {
     "Company": "iShares Flexible Income Active ETF",
     "Symbol": "BINC"
-  },
-  {
-    "Company": "Bollinger Innovations, Inc. Common Stock",
-    "Symbol": "BINI"
   },
   {
     "Company": "Bluemonte Global Equity ETF",
@@ -5944,7 +5948,7 @@
     "Symbol": "BROS"
   },
   {
-    "Company": "Columbus Circle Capital Corp I Class A Ordinary Shares",
+    "Company": "ProCap Financial, Inc. Common Stock",
     "Symbol": "BRR"
   },
   {
@@ -5956,7 +5960,7 @@
     "Symbol": "BRRWU"
   },
   {
-    "Company": "Columbus Circle Capital Corp I Warrant",
+    "Company": "ProCap Financial, Inc. Warrant",
     "Symbol": "BRRWW"
   },
   {
@@ -6970,10 +6974,6 @@
   {
     "Company": "Carlsmed, Inc. Common Stock",
     "Symbol": "CARL"
-  },
-  {
-    "Company": "Carisma Therapeutics, Inc. Common Stock",
-    "Symbol": "CARM"
   },
   {
     "Company": "Carrier Global Corporation",
@@ -9716,10 +9716,6 @@
     "Symbol": "CSWC"
   },
   {
-    "Company": "Capital Southwest Corporation 7.75% Notes due 2028",
-    "Symbol": "CSWCZ"
-  },
-  {
     "Company": "CSX Corporation",
     "Symbol": "CSX"
   },
@@ -11525,6 +11521,10 @@
   },
   {
     "Company": "BRP Inc. Common Subordinate Voting Shares",
+    "Symbol": "DOO"
+  },
+  {
+    "Company": "BRP Inc. Common Subordinate Voting Shares",
     "Symbol": "DOOO"
   },
   {
@@ -11950,6 +11950,10 @@
   {
     "Company": "Kingsbarn Dividend Opportunity ETF",
     "Symbol": "DVDN"
+  },
+  {
+    "Company": "DAC 3D Dividend Growth ETF",
+    "Symbol": "DVGR"
   },
   {
     "Company": "WEBs ETF Trust WEBs Industrials XLI Defined Volatility ETF",
@@ -13164,10 +13168,6 @@
     "Symbol": "EMPD"
   },
   {
-    "Company": "Empro Group Inc. Ordinary shares",
-    "Symbol": "EMPG"
-  },
-  {
     "Company": "EMQQ The Emerging Markets Internet ETF",
     "Symbol": "EMQQ"
   },
@@ -13398,10 +13398,6 @@
   {
     "Company": "Harbor International Equity ETF",
     "Symbol": "EPIN"
-  },
-  {
-    "Company": "ESSA Pharma Inc. Common Stock",
-    "Symbol": "EPIX"
   },
   {
     "Company": "Evolution Petroleum Corporation",
@@ -15086,6 +15082,10 @@
   {
     "Company": "Fifth Era Acquisition Corp I Rights",
     "Symbol": "FERAR"
+  },
+  {
+    "Company": "Fifth Era Acquisition Corp I Units",
+    "Symbol": "FERAU"
   },
   {
     "Company": "Ferguson Enterprises Inc.",
@@ -17312,7 +17312,7 @@
     "Symbol": "GDL"
   },
   {
-    "Company": "GRAYSCALE COINDESK CRYPTO",
+    "Company": "GRAYSCALE DIGITAL LG CAP",
     "Symbol": "GDLC"
   },
   {
@@ -18736,18 +18736,6 @@
     "Symbol": "GSRFU"
   },
   {
-    "Company": "GSR III Acquisition Corp. Ordinary Shares",
-    "Symbol": "GSRT"
-  },
-  {
-    "Company": "GSR III Acquisition Corp. Right",
-    "Symbol": "GSRTR"
-  },
-  {
-    "Company": "GSR III Acquisition Corp. Unit",
-    "Symbol": "GSRTU"
-  },
-  {
     "Company": "GS ActiveBeta U.S. Small Cap Equity ETF",
     "Symbol": "GSSC"
   },
@@ -18862,6 +18850,10 @@
   {
     "Company": "Invesco Core Fixed Income ETF",
     "Symbol": "GTOC"
+  },
+  {
+    "Company": "Goldman Sachs Technology Opportunities ETF",
+    "Symbol": "GTOP"
   },
   {
     "Company": "Invesco Short Duration Total Return Bond ETF",
@@ -19982,14 +19974,6 @@
   {
     "Company": "Harrow, Inc. Common Stock",
     "Symbol": "HROW"
-  },
-  {
-    "Company": "Harrow, Inc. 8.625% Senior Notes due 2026",
-    "Symbol": "HROWL"
-  },
-  {
-    "Company": "Harrow, Inc. 11.875% Senior Notes due 2027",
-    "Symbol": "HROWM"
   },
   {
     "Company": "HERITAGE INSURANCE HOLDINGS INC",
@@ -23104,10 +23088,6 @@
     "Symbol": "JEPQ"
   },
   {
-    "Company": "abrdn Japan Equity Fund, Inc.",
-    "Symbol": "JEQ"
-  },
-  {
     "Company": "MAX Airlines -3x Inverse Leveraged ETN",
     "Symbol": "JETD"
   },
@@ -23854,6 +23834,10 @@
   {
     "Company": "Kingsbarn Tactical Bond ETF",
     "Symbol": "KDRN"
+  },
+  {
+    "Company": "Keeley Dividend ETF",
+    "Symbol": "KDVD"
   },
   {
     "Company": "Kimball Electronics, Inc.",
@@ -25030,6 +25014,10 @@
   {
     "Company": "Lexaria Bioscience Corp. Warrant",
     "Symbol": "LEXXW"
+  },
+  {
+    "Company": "Leapfrog Acquisition Corporation Units",
+    "Symbol": "LFACU"
   },
   {
     "Company": "LifeX 2050 Longevity Income ETF",
@@ -27108,6 +27096,10 @@
     "Symbol": "MIAX"
   },
   {
+    "Company": "The Magnum Ice Cream Company N.V.",
+    "Symbol": "MICC"
+  },
+  {
     "Company": "American Century Mid Cap Growth Impact ETF",
     "Symbol": "MID"
   },
@@ -27568,7 +27560,7 @@
     "Symbol": "MOAT"
   },
   {
-    "Company": "Mobilicom Limited American Depositary Shares",
+    "Company": "Mobilicom Limited Ordinary Shares",
     "Symbol": "MOB"
   },
   {
@@ -28082,10 +28074,6 @@
   {
     "Company": "Metalla Royalty & Streaming Ltd.",
     "Symbol": "MTA"
-  },
-  {
-    "Company": "MAC Copper Limited",
-    "Symbol": "MTAL"
   },
   {
     "Company": "M&T Bank Corp.",
@@ -30082,10 +30070,6 @@
   {
     "Company": "Nuveen ESG Small-Cap ETF",
     "Symbol": "NUSC"
-  },
-  {
-    "Company": "Nusatrip Incorporated Common Stock",
-    "Symbol": "NUTR"
   },
   {
     "Company": "Nutex Health Inc. Common Stock",
@@ -32164,6 +32148,10 @@
     "Symbol": "PCT"
   },
   {
+    "Company": "PureCycle Technologies, Inc. Unit",
+    "Symbol": "PCTTU"
+  },
+  {
     "Company": "PureCycle Technologies, Inc. Warrant",
     "Symbol": "PCTTW"
   },
@@ -32618,10 +32606,6 @@
   {
     "Company": "Invesco Fundamental High Yield Corporate Bond ETF",
     "Symbol": "PHB"
-  },
-  {
-    "Company": "Pioneer Floating Rate Fund, Inc.",
-    "Symbol": "PHD"
   },
   {
     "Company": "Invesco S&P 500 Downside Hedged ETF",
@@ -34048,10 +34032,6 @@
     "Symbol": "PUSH"
   },
   {
-    "Company": "Cboe Validus S&P 500 Dynamic PutWrite Index ETF",
-    "Symbol": "PUTD"
-  },
-  {
     "Company": "Putnam Focused Large Cap Value ETF",
     "Symbol": "PVAL"
   },
@@ -34090,10 +34070,6 @@
   {
     "Company": "Nomura Energy Transition ETF",
     "Symbol": "PWER"
-  },
-  {
-    "Company": "Prestige Wealth Inc. Class A Ordinary Shares",
-    "Symbol": "PWM"
   },
   {
     "Company": "Perella Weinberg Partners Class A Common Stock",
@@ -34158,10 +34134,6 @@
   {
     "Company": "Pyxis Tankers Inc. Common Stock",
     "Symbol": "PXS"
-  },
-  {
-    "Company": "Pyxis Tankers Inc. Warrant",
-    "Symbol": "PXSAW"
   },
   {
     "Company": "Principal Exchange-Traded Funds Principal Value ETF",
@@ -34710,6 +34682,10 @@
   {
     "Company": "Quartzsea Acquisition Corporation Rights",
     "Symbol": "QSEAR"
+  },
+  {
+    "Company": "Quartzsea Acquisition Corporation Units",
+    "Symbol": "QSEAU"
   },
   {
     "Company": "QuantaSing Group Limited American Depositary Shares",
@@ -35350,6 +35326,10 @@
   {
     "Company": "REE Automotive Ltd. Class A Ordinary Shares",
     "Symbol": "REE"
+  },
+  {
+    "Company": "REEDS INC",
+    "Symbol": "REED"
   },
   {
     "Company": "iShares Global REIT ETF",
@@ -37672,6 +37652,10 @@
     "Symbol": "SFST"
   },
   {
+    "Company": "Horizon International Managed Risk ETF",
+    "Symbol": "SFTX"
+  },
+  {
     "Company": "Horizon Managed Risk ETF",
     "Symbol": "SFTY"
   },
@@ -37886,14 +37870,6 @@
   {
     "Company": "Shopify Inc. Class A subordinate voting shares",
     "Symbol": "SHOP"
-  },
-  {
-    "Company": "Safety Shot, Inc. Common Stock",
-    "Symbol": "SHOT"
-  },
-  {
-    "Company": "Safety Shot, Inc. Warrant",
-    "Symbol": "SHOTW"
   },
   {
     "Company": "Direxion Daily SHOP Bear 1X ETF",
@@ -39368,7 +39344,7 @@
     "Symbol": "SPR"
   },
   {
-    "Company": "Spruce Biosciences, Inc. Common Stock",
+    "Company": "SPRUCE BIOSCIENCES INC",
     "Symbol": "SPRB"
   },
   {
@@ -39794,10 +39770,6 @@
   {
     "Company": "The E.W. Scripps Company",
     "Symbol": "SSP"
-  },
-  {
-    "Company": "Janus Henderson US Sustainable EquityETF",
-    "Symbol": "SSPX"
   },
   {
     "Company": "Stratified LargeCap Index ETF",
@@ -40342,10 +40314,6 @@
   {
     "Company": "Latham Group, Inc. Common Stock",
     "Symbol": "SWIM"
-  },
-  {
-    "Company": "Solowin Holdings Class A Ordinary Share",
-    "Symbol": "SWIN"
   },
   {
     "Company": "Stanley Black & Decker, Inc.",
@@ -40970,6 +40938,10 @@
   {
     "Company": "Tidewater, Inc.",
     "Symbol": "TDW"
+  },
+  {
+    "Company": "Tailwind 2.0 Acquisition Corp. Class A Ordinary Shares",
+    "Symbol": "TDWD"
   },
   {
     "Company": "Tailwind 2.0 Acquisition Corp. Unit",

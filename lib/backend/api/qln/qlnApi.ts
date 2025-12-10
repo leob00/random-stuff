@@ -559,8 +559,8 @@ export async function executeStockAdvancedSearch(filter: StockAdvancedSearchFilt
     }
     if (hasNumberRangeFilter(filter.peRatio)) {
       postBody.PeRatio = {
-        From: filter.peRatio.from ?? null,
-        To: filter.peRatio.to ?? null,
+        From: filter.peRatio!.from ?? null,
+        To: filter.peRatio!.to ?? null,
       }
     }
     if (filter.annualYield) {

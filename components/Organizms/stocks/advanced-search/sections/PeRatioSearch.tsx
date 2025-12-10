@@ -57,7 +57,7 @@ const PeRatioSearch = ({
                   //placeholder='from'
                   label='from'
                   size='small'
-                  value={formValues.peRatio.from}
+                  value={formValues.peRatio?.from}
                   onChanged={(val?: number) => {
                     setFieldValue('from', val)
                   }}
@@ -72,7 +72,7 @@ const PeRatioSearch = ({
               render={({ field: { value, onChange, ...field } }) => (
                 <FormNumericTextField2
                   label='to'
-                  value={formValues.peRatio.to}
+                  value={formValues.peRatio?.to}
                   onChanged={(val?: number) => {
                     setFieldValue('to', val)
                   }}
