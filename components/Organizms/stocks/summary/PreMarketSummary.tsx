@@ -1,14 +1,15 @@
-import { Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
+import CommoditiesLayout from '../CommoditiesLayout'
 
 const PreMarketSummary = () => {
   return (
-    <>
-      <CenterStack sx={{ ml: -2 }}>
-        <Typography variant='h5'>Pre-Market</Typography>
+    <Box width={'100%'}>
+      <CenterStack>
+        <Typography variant='h5'>Commodities</Typography>
       </CenterStack>
-      <Typography>new item</Typography>
-    </>
+      <CommoditiesLayout />
+    </Box>
   )
 }
 

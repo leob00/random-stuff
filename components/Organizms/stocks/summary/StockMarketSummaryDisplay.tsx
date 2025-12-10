@@ -12,6 +12,7 @@ import CenterStack from 'components/Atoms/CenterStack'
 import { getCurrentDateTimeUsEastern } from 'lib/util/dateUtil'
 import dayjs from 'dayjs'
 import PreMarketSummary from './PreMarketSummary'
+import MidMarketSummary from './MidMarketSummary'
 const getData = async () => {
   const resp = await serverGetFetch('/MarketHandshake')
   return resp.Body as MarketHandshake
@@ -31,6 +32,7 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
   const nextOpenDtNoTime = dayjs(nexOpenDt).format('YYYY-MM-DD')
   const isTradingDay = currenDtNoTime === nextOpenDtNoTime
   const showPremarket = isTradingDay && currentDt.hour() >= 6 && currentDt.hour() <= 10
+  const showMidMarket = isTradingDay && currentDt.hour() >= 11 && currentDt.hour() <= 14
 
   useEffect(() => {
     const fn = async () => {
@@ -41,9 +43,9 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
   }, [pollCounter])
 
   return (
-    <Box>
+    <Box minHeight={500}>
       <Box display={'flex'} gap={2} flexWrap={'wrap'}>
-        <BorderedBox width={{ xs: '40%', sm: '30%', md: '20%', lg: '14%' }}>
+        <BorderedBox width={{ xs: '40%', sm: '30%', md: '20%', lg: '14%' }} height={210}>
           <Box>
             <ReadOnlyField
               variant='caption'
@@ -52,12 +54,15 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
               color={`${handshake.IsOpen ? theme.palette.success.main : theme.palette.warning.main}`}
             />
           </Box>
-          <Box>
+          <Box display={'flex'}>
             <StockMarketCountdown data={handshake} />
           </Box>
         </BorderedBox>
-        <BorderedBox flexGrow={1}>
-          <>{showPremarket && <PreMarketSummary />}</>
+        <BorderedBox display={'flex'} flexGrow={1}>
+          {/* <Box sx={{ transform: 'scale(0.7)', transformOrigin: 'top left' }}> */}
+          {showPremarket && <PreMarketSummary />}
+          {showMidMarket && <MidMarketSummary />}
+          {/* </Box> */}
         </BorderedBox>
       </Box>
     </Box>

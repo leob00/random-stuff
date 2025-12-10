@@ -1,9 +1,8 @@
 import { Box, Chip, Typography } from '@mui/material'
-import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 import Clickable from 'components/Atoms/Containers/Clickable'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import StockFields from './advanced-search/results/StockFields'
 
 const StockDetailsTab = ({ quote }: { quote: StockQuote }) => {

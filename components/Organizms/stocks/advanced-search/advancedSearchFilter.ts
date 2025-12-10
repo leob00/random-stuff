@@ -55,7 +55,7 @@ export const StockAdvancedSearchFilterSchema = z.object({
   take: z.number(),
   marketCap: StockMarketCapFilterSchema,
   movingAvg: StockMovingAvgFilterSchema,
-  peRatio: NumberRangeFilterSchema,
+  peRatio: NumberRangeFilterSchema.optional().nullable(),
   annualYield: NumberRangeFilterSchema.optional().nullable(),
   symbols: z.string().array().optional(),
 })

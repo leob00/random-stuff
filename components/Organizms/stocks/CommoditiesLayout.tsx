@@ -24,9 +24,8 @@ const CommoditiesLayout = () => {
         <Box py={2}>
           {isLoading && <ComponentLoader />}
           {data && (
-            <Box pt={2}>
-              <ScrollIntoView enabled />
-
+            <Box pt={2} width={'100%'}>
+              <ScrollIntoView />
               <StockTable stockList={data} marketCategory='commodities' showSummary userProfile={userProfile} />
             </Box>
           )}

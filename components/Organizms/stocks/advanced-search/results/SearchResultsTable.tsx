@@ -10,10 +10,12 @@ const SearchResultsTable = ({
   data,
   onPageChanged,
   filterSummary,
+  disableStockDetailClick,
 }: {
   data: StockQuote[]
   onPageChanged?: (pageNum?: number) => void
   filterSummary?: StockFilterSummary
+  disableStockDetailClick?: boolean
 }) => {
   const { isValidating } = useProfileValidator()
   const scroller = useScrollTop(0)
@@ -49,12 +51,13 @@ const SearchResultsTable = ({
       {!isValidating && (
         <>
           <Box>
-            <ScrollTop scroller={scroller} marginTop={-22} />
+            {/* <ScrollTop scroller={scroller} marginTop={-22} /> */}
             <PagedStockTable
               data={data}
               featuredFields={featuredFields}
               showMovingAvgOnly={showMovingAvgOnly}
               onPageChanged={handlePaged}
+              disableStockDetailClick={disableStockDetailClick}
               //scrollOnPageChange
             />
           </Box>

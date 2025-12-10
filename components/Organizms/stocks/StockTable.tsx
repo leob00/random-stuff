@@ -17,6 +17,7 @@ const StockTable = ({
   showMovingAvgOnly = false,
   userProfile,
   featuredFields,
+  disableStockDetailClick,
 }: {
   stockList: StockQuote[]
   marketCategory: MarketCategory
@@ -27,6 +28,7 @@ const StockTable = ({
   showMovingAvgOnly?: boolean
   userProfile: UserProfile | null
   featuredFields?: Array<keyof StockQuote>
+  disableStockDetailClick?: boolean
 }) => {
   return (
     <Box>
@@ -41,6 +43,7 @@ const StockTable = ({
               userProfile={userProfile}
               featuredFields={featuredFields}
               scrollIntoView
+              disabled={disableStockDetailClick}
             />
           </Box>
         ))}
