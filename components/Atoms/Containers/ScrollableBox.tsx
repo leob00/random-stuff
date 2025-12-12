@@ -27,7 +27,11 @@ const ScrollableBox = ({ children, maxHeight, scroller }: { children: ReactNode 
   }, [scroller?.id])
 
   return (
-    <Box ref={boxRef} sx={{ my: 2, maxHeight: maxHeight ?? { xs: 350, sm: 480, md: 526 }, overflowY: 'auto', msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+    <Box
+      ref={boxRef}
+      width={'100%'}
+      sx={{ my: 2, maxHeight: maxHeight ?? { xs: 350, sm: 480, md: 526 }, overflowY: 'auto', msOverflowStyle: 'none', scrollbarWidth: 'none' }}
+    >
       {children}
     </Box>
   )

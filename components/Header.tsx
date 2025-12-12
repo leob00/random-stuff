@@ -51,7 +51,7 @@ const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; 
       <GradientContainer>
         <DarkMode>
           <Toolbar>
-            <Container sx={{ width: '100%', py: 1 }}>
+            <Container sx={{ py: 1, maxWidth: { xl: 1600, lg: 1400 } }}>
               <Box display={'flex'} justifyContent={'space-between'}>
                 <Box display='flex' gap={{ xs: 1, sm: 2 }} alignItems={'center'}>
                   <NLink href='/' passHref>

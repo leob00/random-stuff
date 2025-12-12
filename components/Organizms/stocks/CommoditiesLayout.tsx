@@ -8,14 +8,16 @@ import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const CommoditiesLayout = () => {
-  const endPoint = `/Futures`
+  const mutateKey = 'commodities'
   const dataFn = async () => {
+    const endPoint = `/Futures`
+
     const resp = await serverGetFetch(endPoint)
     const quotes = resp.Body as StockQuote[]
     return quotes
   }
 
-  const { data, isLoading } = useSwrHelper(endPoint, dataFn, { revalidateOnFocus: false })
+  const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
   const { userProfile, isValidating } = useProfileValidator()
   return (
