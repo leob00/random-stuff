@@ -10,7 +10,7 @@ import PagedStockEarningsSummaryTable from './PagedStockEarningsSummaryTable'
 const EarningsSummary = ({ data, title, isLoading }: { data?: StockEarning[]; title: string; isLoading?: boolean }) => {
   const [selectedItem, setSelectedItem] = useState<StockEarning | null>(null)
   return (
-    <Box>
+    <Box height={503}>
       <SummaryTitle title={title} />
       <Box>
         <Box display={'flex'} gap={2} alignItems={'center'}>

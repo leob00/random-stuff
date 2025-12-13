@@ -14,25 +14,25 @@ import { sortArray } from 'lib/util/collections'
 import SummaryTitle from './SummaryTitle'
 import { usePolling } from 'hooks/usePolling'
 import { mutate } from 'swr'
+import { filterCryptos } from 'components/Organizms/crypto/CryptosDisplay'
 import { getRandomInteger } from 'lib/util/numberUtil'
 
-const CommoditiesSummary = () => {
+const CryptoSummary = () => {
   const theme = useTheme()
   const [selectedItem, setSelectedItem] = useState<StockQuote | null>(null)
   const palette = theme.palette.mode
-  const mutateKey = 'commodities'
+  const mutateKey = 'crypto'
 
-  const endPoint = `/Futures`
+  const endPoint = `/Crypto`
   const dataFn = async () => {
-    await sleep(getRandomInteger(1500, 3000))
+    await sleep(getRandomInteger(2000, 2500))
     const resp = await serverGetFetch(endPoint)
     const quotes = resp.Body as StockQuote[]
     const result = sortArray(quotes, ['ChangePercent'], ['desc'])
-    return result
+    return filterCryptos(result)
   }
 
-  const pollingInterval = 1000 * 360 // 6 minutes
-  const { pollCounter } = usePolling(getRandomInteger(pollingInterval, pollingInterval + 10000))
+  const { pollCounter } = usePolling(1000 * 240) // 4 minutes
 
   useEffect(() => {
     const fn = async () => {
@@ -45,19 +45,21 @@ const CommoditiesSummary = () => {
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   return (
     <Box>
-      <SummaryTitle title={'Commodities'} />
-      <Box display={'flex'} gap={2} alignItems={'center'}>
-        <Box minWidth={120} pl={1}>
-          <Typography variant='caption'></Typography>
-        </Box>
-        <Box minWidth={80} display={'flex'}>
-          <Typography variant='caption'>price</Typography>
-        </Box>
-        <Box minWidth={80} display={'flex'}>
-          <Typography variant='caption'>change</Typography>
-        </Box>
-        <Box minWidth={80} display={'flex'}>
-          <Typography variant='caption'>percent</Typography>
+      <SummaryTitle title={'Crypto'} />
+      <Box>
+        <Box display={'flex'} gap={2} alignItems={'center'}>
+          <Box minWidth={120} pl={1}>
+            <Typography variant='caption'></Typography>
+          </Box>
+          <Box minWidth={80} display={'flex'}>
+            <Typography variant='caption'>price</Typography>
+          </Box>
+          <Box minWidth={80} display={'flex'}>
+            <Typography variant='caption'>change</Typography>
+          </Box>
+          <Box minWidth={80} display={'flex'}>
+            <Typography variant='caption'>percent</Typography>
+          </Box>
         </Box>
       </Box>
       {isLoading && (
@@ -65,14 +67,14 @@ const CommoditiesSummary = () => {
           <ComponentLoader />
         </Box>
       )}
-      <ScrollableBox maxHeight={400}>
+      <ScrollableBox maxHeight={420}>
         {data && (
           <>
             {data.map((item) => (
               <Box key={item.Symbol}>
                 <Box display={'flex'} gap={2} alignItems={'center'}>
                   <Button onClick={() => setSelectedItem(item)} sx={{ width: 120, justifyContent: 'flex-start' }}>
-                    <Typography>{item.Company}</Typography>
+                    <Typography>{item.Company.substring(0, item.Company.indexOf(' - '))}</Typography>
                   </Button>
                   <Box minWidth={80}>
                     <Typography color={getPositiveNegativeColor(item.Change, palette)}>{`${numeral(item.Price).format('###,###,0.00')}`}</Typography>
@@ -92,11 +94,11 @@ const CommoditiesSummary = () => {
       </ScrollableBox>
       {selectedItem && (
         <InfoDialog show={true} title={selectedItem.Company} onCancel={() => setSelectedItem(null)}>
-          <StockListItem item={selectedItem} marketCategory='commodities' userProfile={null} disabled expand />
+          <StockListItem item={selectedItem} marketCategory='crypto' userProfile={null} disabled expand />
         </InfoDialog>
       )}
     </Box>
   )
 }
 
-export default CommoditiesSummary
+export default CryptoSummary

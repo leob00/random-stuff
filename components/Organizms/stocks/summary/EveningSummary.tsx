@@ -44,12 +44,12 @@ const EveningSummary = () => {
 
   return (
     <Box display={'flex'} gap={1} flexWrap={'wrap'}>
-      <BorderedBox display={'flex'} flex={'1 1 auto'}>
+      <BorderedBox display={'flex'} flex={{ xs: '1 1 auto', md: 'unset' }}>
         <ScrollableBoxHorizontal maxWidth={350}>
           <EarningsSummary data={data} title='Reported Earnings' isLoading={isLoading} />
         </ScrollableBoxHorizontal>
       </BorderedBox>
-      <BorderedBox display={'flex'} flex={'1 1 auto'}>
+      <BorderedBox display={'flex'} flex={{ xs: '1 1 auto', md: 'unset' }}>
         <ScrollableBoxHorizontal maxWidth={600}>
           <CommoditiesSummary />
         </ScrollableBoxHorizontal>

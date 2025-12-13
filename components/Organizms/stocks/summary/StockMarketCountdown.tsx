@@ -27,7 +27,7 @@ const StockMarketCountdown = ({ data }: { data: MarketHandshake }) => {
   }, [pollCounter])
 
   return (
-    <Box display={'flex'} justifyContent={'flex-start'}>
+    <Box display={'flex'}>
       <Countdown start={startDt} current={current} end={endDt} title={`${data.IsOpen ? 'countdown to close' : 'countdown to open'}`} />
     </Box>
   )

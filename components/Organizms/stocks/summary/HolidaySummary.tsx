@@ -12,6 +12,8 @@ import { useEffect } from 'react'
 import { mutate } from 'swr'
 import { sortArray } from 'lib/util/collections'
 import { filterResult } from '../earnings/earningsCalendar'
+import CryptoSummary from './CryptoSummary'
+import { getRandomInteger } from 'lib/util/numberUtil'
 
 interface Model {
   reportedEarnings: StockEarning[]
@@ -21,7 +23,7 @@ interface Model {
 const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
   const mutateKey = 'RecentEarnings'
   const dataFn = async () => {
-    await sleep(500)
+    await sleep(getRandomInteger(1000, 2500))
     const resp = await serverGetFetch('/RecentEarnings')
     const earnings = resp.Body as StockEarning[]
     const mapped: StockEarning[] = earnings.map((m) => {
@@ -29,8 +31,8 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
     })
     const recent = sortArray(
       mapped.filter((m) => m.ActualEarnings),
-      ['ReportDate'],
-      ['desc'],
+      ['ReportDate', 'StockQuote.MarketCap'],
+      ['desc', 'desc'],
     )
     const upcoming = filterResult(mapped, dayjs(nextOpenDt).format())
     const result: Model = {
@@ -42,11 +44,12 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
-  const { pollCounter } = usePolling(1000 * 240) // 4 minutes
+  const pollingInterval = 1000 * 360 // 6 minutes
+  const { pollCounter } = usePolling(getRandomInteger(pollingInterval, pollingInterval + 10000))
 
   useEffect(() => {
     const fn = async () => {
-      await sleep(250)
+      await sleep(getRandomInteger(1000, 2500))
       mutate(mutateKey)
     }
     fn()
@@ -54,19 +57,24 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
 
   return (
     <Box display={'flex'} gap={1} flexWrap={'wrap'}>
-      <BorderedBox display={'flex'} flex={'1 1 auto'}>
+      <BorderedBox display={'flex'} flex={{ xs: '1 1 auto', sm: 'unset' }}>
         <ScrollableBoxHorizontal maxWidth={350}>
           <EarningsSummary data={data?.reportedEarnings} title='Reported Earnings' isLoading={isLoading} />
         </ScrollableBoxHorizontal>
       </BorderedBox>
-      <BorderedBox display={'flex'} flex={'1 1 auto'}>
+      <BorderedBox display={'flex'} flex={{ xs: '1 1 auto', sm: 'unset' }}>
         <ScrollableBoxHorizontal maxWidth={350}>
           <EarningsSummary data={data?.upcomingEarnings} title='Upcoming Earnings' isLoading={isLoading} />
         </ScrollableBoxHorizontal>
       </BorderedBox>
-      <BorderedBox display={'flex'} flex={'1 1 auto'}>
+      <BorderedBox display={'flex'} flex={{ xs: '1 1 auto', sm: 'unset' }}>
         <ScrollableBoxHorizontal maxWidth={600}>
           <CommoditiesSummary />
+        </ScrollableBoxHorizontal>
+      </BorderedBox>
+      <BorderedBox display={'flex'} flex={{ xs: '1 1 auto', sm: 'unset' }}>
+        <ScrollableBoxHorizontal maxWidth={700}>
+          <CryptoSummary />
         </ScrollableBoxHorizontal>
       </BorderedBox>
     </Box>

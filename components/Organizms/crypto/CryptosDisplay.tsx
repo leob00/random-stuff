@@ -18,7 +18,7 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
   )
 }
 
-function filterCryptos(data: StockQuote[]) {
+export function filterCryptos(data: StockQuote[]) {
   const displaySymbols = [
     'X:BTCUSD',
     'X:ETHUSD',

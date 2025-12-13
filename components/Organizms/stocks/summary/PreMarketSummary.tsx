@@ -26,13 +26,13 @@ const PreMarketSummary = () => {
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   return (
-    <Box display={'flex'} gap={1}>
-      <BorderedBox display={'flex'} flex={'1 1 auto'}>
+    <Box display={'flex'} gap={1} flexWrap={'wrap'}>
+      <BorderedBox display={'flex'} flex={{ xs: '1 1 auto', md: 'unset' }}>
         <ScrollableBoxHorizontal maxWidth={500}>
           <CommoditiesSummary />
         </ScrollableBoxHorizontal>
       </BorderedBox>
-      <BorderedBox display={'flex'} flex={'1 1 auto'}>
+      <BorderedBox display={'flex'} flex={{ xs: '1 1 auto', md: 'unset' }}>
         <ScrollableBoxHorizontal maxWidth={350}>
           <EarningsSummary data={data} title='Upcoming Earnings' isLoading={isLoading} />
         </ScrollableBoxHorizontal>

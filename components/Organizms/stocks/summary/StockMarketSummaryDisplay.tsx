@@ -1,5 +1,5 @@
 'use client'
-import { Box, useTheme } from '@mui/material'
+import { Box, Typography, useTheme } from '@mui/material'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import { usePolling } from 'hooks/usePolling'
 import { serverGetFetch } from 'lib/backend/api/qln/qlnApi'
@@ -46,8 +46,13 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
 
   return (
     <Box minHeight={500}>
-      <Box display={'flex'} gap={2} flexWrap={'wrap'}>
-        <BorderedBox width={{ xs: 168, sm: 168, md: 164 }} height={210}>
+      {handshake.Message && (
+        <Box display={'flex'} justifyContent={'center'} pb={2}>
+          <Typography variant='h6'>{handshake.Message}</Typography>
+        </Box>
+      )}
+      <Box display={'flex'} gap={2} flexWrap={{ xs: 'wrap', sm: 'unset' }}>
+        <BorderedBox height={208} flex={{ xs: '1 1 auto', sm: 'unset' }}>
           <Box>
             <ReadOnlyField
               variant='caption'
@@ -64,7 +69,11 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
         {showPremarket && <PreMarketSummary />}
         {showMidMarket && <MidMarketSummary />}
         {showMPostMarketDay && <EveningSummary />}
-        {showHoliday && <HolidaySummary nextOpenDt={nextOpenDtNoTime} />}
+        {showHoliday && (
+          <Box>
+            <HolidaySummary nextOpenDt={nextOpenDtNoTime} />
+          </Box>
+        )}
         {/* </Box> */}
       </Box>
     </Box>
