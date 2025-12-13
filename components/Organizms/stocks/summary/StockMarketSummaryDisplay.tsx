@@ -10,6 +10,8 @@ import BorderedBox from 'components/Atoms/Boxes/BorderedBox'
 import dayjs from 'dayjs'
 import PreMarketSummary from './PreMarketSummary'
 import MidMarketSummary from './MidMarketSummary'
+import EveningSummary from './EveningSummary'
+import HolidaySummary from './HolidaySummary'
 const getData = async () => {
   const resp = await serverGetFetch('/MarketHandshake')
   return resp.Body as MarketHandshake
@@ -24,13 +26,15 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
 
   const currentDt = dayjs(handshake.CurrentDateTimeEst)
   const nexOpenDt = dayjs(handshake.NextOpenDateTime)
+  const latestTradingDateNoTime = dayjs(handshake.StockLatestTradeDateTimeEst).format('YYYY-MM-DD')
 
   const currenDtNoTime = dayjs(currentDt).format('YYYY-MM-DD')
   const nextOpenDtNoTime = dayjs(nexOpenDt).format('YYYY-MM-DD')
-  const isTradingDay = currenDtNoTime === nextOpenDtNoTime
+  const isTradingDay = latestTradingDateNoTime === currenDtNoTime
   const showPremarket = isTradingDay && currentDt.hour() >= 6 && currentDt.hour() <= 10
   const showMidMarket = isTradingDay && currentDt.hour() >= 11 && currentDt.hour() <= 16 && currentDt.minute() > -15
-  const showMPostMarketDay = isTradingDay && currentDt.hour() >= 16 && currentDt.minute() > 30
+  const showMPostMarketDay = isTradingDay && currentDt.hour() >= 16 && currentDt.minute() > 30 && currentDt.hour() <= 7
+  const showHoliday = !isTradingDay
 
   useEffect(() => {
     const fn = async () => {
@@ -59,7 +63,8 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
         {/* <Box sx={{ transform: 'scale(0.7)', transformOrigin: 'top left' }}> */}
         {showPremarket && <PreMarketSummary />}
         {showMidMarket && <MidMarketSummary />}
-        {showMPostMarketDay && <MidMarketSummary />}
+        {showMPostMarketDay && <EveningSummary />}
+        {showHoliday && <HolidaySummary nextOpenDt={nextOpenDtNoTime} />}
         {/* </Box> */}
       </Box>
     </Box>

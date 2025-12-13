@@ -14,6 +14,7 @@ import { sortArray } from 'lib/util/collections'
 import SummaryTitle from './SummaryTitle'
 import { usePolling } from 'hooks/usePolling'
 import { mutate } from 'swr'
+import ScrollableBoxHorizontal from 'components/Atoms/Containers/ScrollableBoxHorizontal'
 
 const CommoditiesSummary = () => {
   const theme = useTheme()
@@ -70,7 +71,7 @@ const CommoditiesSummary = () => {
           <ComponentLoader />
         </Box>
       )}
-      <ScrollableBox maxHeight={320}>
+      <ScrollableBox maxHeight={420}>
         {data && (
           <>
             {data.map((item) => (

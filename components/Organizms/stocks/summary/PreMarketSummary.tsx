@@ -8,7 +8,7 @@ import dayjs from 'dayjs'
 import { getCurrentDateTimeUsEastern } from 'lib/util/dateUtil'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import EarningsSummary from './earnings/EarningsSummary'
-import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
+import ScrollableBoxHorizontal from 'components/Atoms/Containers/ScrollableBoxHorizontal'
 
 const PreMarketSummary = () => {
   const mutateKey = 'RecentEarnings'
@@ -27,16 +27,15 @@ const PreMarketSummary = () => {
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   return (
     <Box display={'flex'} gap={1}>
-      <BorderedBox width={480}>
-        <CommoditiesSummary />
+      <BorderedBox display={'flex'} flex={'1 1 auto'}>
+        <ScrollableBoxHorizontal maxWidth={500}>
+          <CommoditiesSummary />
+        </ScrollableBoxHorizontal>
       </BorderedBox>
-      <BorderedBox width={360}>
-        {isLoading && (
-          <Box display={'flex'} justifyContent={'center'}>
-            <ComponentLoader />
-          </Box>
-        )}
-        {data && <EarningsSummary data={data} title='Upcoming Earnings' />}
+      <BorderedBox display={'flex'} flex={'1 1 auto'}>
+        <ScrollableBoxHorizontal maxWidth={350}>
+          <EarningsSummary data={data} title='Upcoming Earnings' isLoading={isLoading} />
+        </ScrollableBoxHorizontal>
       </BorderedBox>
     </Box>
   )

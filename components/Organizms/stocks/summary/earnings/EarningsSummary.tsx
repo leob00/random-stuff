@@ -1,56 +1,44 @@
-import { Box, Button, Typography, useTheme } from '@mui/material'
+import { Box, Typography, useTheme } from '@mui/material'
 import { StockEarning } from 'lib/backend/api/qln/qlnApi'
 import SummaryTitle from '../SummaryTitle'
-import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import { useState } from 'react'
-import numeral from 'numeral'
-import { getPositiveNegativeColor } from '../../StockListItem'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import StockListItem from '../../StockListItem'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
+import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
+import PagedStockEarningsSummaryTable from './PagedStockEarningsSummaryTable'
 
-const EarningsSummary = ({ data, title }: { data: StockEarning[]; title: string }) => {
-  const theme = useTheme()
-  const palette = theme.palette.mode
+const EarningsSummary = ({ data, title, isLoading }: { data?: StockEarning[]; title: string; isLoading?: boolean }) => {
   const [selectedItem, setSelectedItem] = useState<StockEarning | null>(null)
   return (
     <Box>
       <SummaryTitle title={title} />
       <Box>
         <Box display={'flex'} gap={2} alignItems={'center'}>
-          <Box minWidth={70} pl={1}>
+          <Box minWidth={68} pl={0}>
             <Typography variant='caption'></Typography>
           </Box>
-          <Box minWidth={80} display={'flex'}>
+          <Box minWidth={70} display={'flex'}>
             <Typography variant='caption'>actual</Typography>
           </Box>
+          <Box minWidth={84} display={'flex'}>
+            <Typography variant='caption'>estimate</Typography>
+          </Box>
           <Box minWidth={80} display={'flex'}>
-            <Typography variant='caption'>estimated</Typography>
+            <Typography variant='caption'>date</Typography>
           </Box>
         </Box>
       </Box>
-      <ScrollableBox maxHeight={320}>
-        <>
-          {data.map((item) => (
-            <Box key={item.Symbol}>
-              <Box display={'flex'} gap={2} alignItems={'center'}>
-                <Button onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
-                  <Typography>{item.Symbol}</Typography>
-                </Button>
-                <Box minWidth={80}>
-                  <Typography
-                    color={getPositiveNegativeColor(item.ActualEarnings, palette)}
-                  >{`${numeral(item.ActualEarnings).format('###,###,0.00')}`}</Typography>
-                </Box>
-                <Box minWidth={80}>
-                  <Typography
-                    color={getPositiveNegativeColor(item.EstimatedEarnings, palette)}
-                  >{`${numeral(item.EstimatedEarnings).format('###,###,0.00')}`}</Typography>
-                </Box>
-              </Box>
-              <HorizontalDivider />
-            </Box>
-          ))}
-        </>
-      </ScrollableBox>
+      {isLoading && (
+        <Box display={'flex'} justifyContent={'center'}>
+          <ComponentLoader />
+        </Box>
+      )}
+      {data && <PagedStockEarningsSummaryTable data={data} />}
+      {selectedItem && selectedItem.StockQuote && (
+        <InfoDialog show={true} title={selectedItem.Symbol} onCancel={() => setSelectedItem(null)}>
+          <StockListItem item={selectedItem.StockQuote} marketCategory='stocks' userProfile={null} disabled expand />
+        </InfoDialog>
+      )}
     </Box>
   )
 }

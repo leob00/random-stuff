@@ -19,6 +19,7 @@ import ScrollableBoxHorizontal from 'components/Atoms/Containers/ScrollableBoxHo
 import SummaryTitle from './SummaryTitle'
 import { usePolling } from 'hooks/usePolling'
 import { mutate } from 'swr'
+import PagedStockSummaryTable from './PagedStockSummaryTable'
 
 const TopMoversSummary = () => {
   const theme = useTheme()
@@ -29,7 +30,7 @@ const TopMoversSummary = () => {
   //   const items = getPagedItems(data)
   //   const scroller = useScrollTop(0)
   const mutateKey = 'stock-market-summary-top-movers'
-  const { pollCounter } = usePolling(1000 * 30)
+  const { pollCounter } = usePolling(1000 * 120) // 2 minutes
 
   useEffect(() => {
     mutate(mutateKey)
@@ -84,31 +85,7 @@ const TopMoversSummary = () => {
           <ComponentLoader />
         </Box>
       )}
-      <ScrollableBox maxHeight={320}>
-        {data && (
-          <>
-            {data.map((item) => (
-              <Box key={item.Symbol}>
-                <Box display={'flex'} gap={2} alignItems={'center'}>
-                  <Button onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
-                    <Typography>{item.Symbol}</Typography>
-                  </Button>
-                  <Box minWidth={80}>
-                    <Typography color={getPositiveNegativeColor(item.Change, palette)}>{`${numeral(item.Price).format('###,###,0.00')}`}</Typography>
-                  </Box>
-                  <Box minWidth={80}>
-                    <Typography color={getPositiveNegativeColor(item.Change, palette)}>{`${numeral(item.Change).format('###,###,0.00')}`}</Typography>
-                  </Box>
-                  <Box minWidth={80}>
-                    <Typography color={getPositiveNegativeColor(item.Change, palette)}>{`${numeral(item.ChangePercent).format('###,###,0.00')}%`}</Typography>
-                  </Box>
-                </Box>
-                <HorizontalDivider />
-              </Box>
-            ))}
-          </>
-        )}
-      </ScrollableBox>
+      {data && <PagedStockSummaryTable data={data} />}
 
       {selectedItem && (
         <InfoDialog show={true} title={selectedItem.Symbol} onCancel={() => setSelectedItem(null)}>
