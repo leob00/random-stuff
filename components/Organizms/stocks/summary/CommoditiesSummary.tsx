@@ -24,7 +24,7 @@ const CommoditiesSummary = () => {
 
   const endPoint = `/Futures`
   const dataFn = async () => {
-    await sleep(getRandomInteger(1500, 3000))
+    await sleep(getRandomInteger(250, 3000))
     const resp = await serverGetFetch(endPoint)
     const quotes = resp.Body as StockQuote[]
     const result = sortArray(quotes, ['ChangePercent'], ['desc'])

@@ -25,7 +25,7 @@ const CryptoSummary = () => {
 
   const endPoint = `/Crypto`
   const dataFn = async () => {
-    await sleep(getRandomInteger(2000, 2500))
+    await sleep(getRandomInteger(250, 2500))
     const resp = await serverGetFetch(endPoint)
     const quotes = resp.Body as StockQuote[]
     const result = sortArray(quotes, ['ChangePercent'], ['desc'])

@@ -14,6 +14,8 @@ import { sortArray } from 'lib/util/collections'
 import { filterResult } from '../earnings/earningsCalendar'
 import CryptoSummary from './CryptoSummary'
 import { getRandomInteger } from 'lib/util/numberUtil'
+import SummaryTitle from './SummaryTitle'
+import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 
 interface Model {
   reportedEarnings: StockEarning[]
@@ -49,7 +51,7 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
 
   useEffect(() => {
     const fn = async () => {
-      await sleep(getRandomInteger(1000, 2500))
+      await sleep(getRandomInteger(250, 3000))
       mutate(mutateKey)
     }
     fn()
@@ -76,6 +78,18 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
         <ScrollableBoxHorizontal maxWidth={700}>
           <CryptoSummary />
         </ScrollableBoxHorizontal>
+      </BorderedBox>
+      <BorderedBox display={'flex'} flex={'1 1 auto'}>
+        <Box>
+          <ScrollableBoxHorizontal maxWidth={700}>
+            <Box>
+              <SummaryTitle title='News' />
+              <Box py={2} width={'100%'}>
+                <AlertWithHeader severity='info' header='coming soon' text='This feature is currently under development. ' />
+              </Box>
+            </Box>
+          </ScrollableBoxHorizontal>
+        </Box>
       </BorderedBox>
     </Box>
   )
