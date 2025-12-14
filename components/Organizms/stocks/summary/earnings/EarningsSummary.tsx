@@ -10,7 +10,7 @@ import PagedStockEarningsSummaryTable from './PagedStockEarningsSummaryTable'
 const EarningsSummary = ({ data, title, isLoading }: { data?: StockEarning[]; title: string; isLoading?: boolean }) => {
   const [selectedItem, setSelectedItem] = useState<StockEarning | null>(null)
   return (
-    <Box height={503} width={'100%'}>
+    <Box height={503}>
       <SummaryTitle title={title} />
       <Box>
         <Box display={'flex'} gap={1} alignItems={'center'}>
@@ -33,7 +33,7 @@ const EarningsSummary = ({ data, title, isLoading }: { data?: StockEarning[]; ti
           <ComponentLoader />
         </Box>
       )}
-      {data && <PagedStockEarningsSummaryTable data={data} />}
+      <Box>{data && <PagedStockEarningsSummaryTable data={data} />}</Box>
       {selectedItem && selectedItem.StockQuote && (
         <InfoDialog show={true} title={selectedItem.Symbol} onCancel={() => setSelectedItem(null)}>
           <StockListItem item={selectedItem.StockQuote} marketCategory='stocks' userProfile={null} disabled expand />

@@ -16,6 +16,7 @@ import { usePolling } from 'hooks/usePolling'
 import { mutate } from 'swr'
 import { filterCryptos } from 'components/Organizms/crypto/CryptosDisplay'
 import { getRandomInteger } from 'lib/util/numberUtil'
+import ScrollableBoxHorizontal from 'components/Atoms/Containers/ScrollableBoxHorizontal'
 
 const CryptoSummary = () => {
   const theme = useTheme()
@@ -44,61 +45,74 @@ const CryptoSummary = () => {
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   return (
-    <Box>
-      <SummaryTitle title={'Crypto'} />
-      <Box>
-        <Box display={'flex'} gap={1} alignItems={'center'}>
-          <Box minWidth={120} pl={1}>
-            <Typography variant='caption'></Typography>
-          </Box>
-          <Box minWidth={80} display={'flex'}>
-            <Typography variant='caption'>price</Typography>
-          </Box>
-          <Box minWidth={80} display={'flex'}>
-            <Typography variant='caption'>change</Typography>
-          </Box>
-          <Box minWidth={80} display={'flex'}>
-            <Typography variant='caption'>percent</Typography>
+    <Box height={504}>
+      <ScrollableBoxHorizontal>
+        <SummaryTitle title={'Crypto'} />
+        <Box>
+          <Box display={'flex'} gap={1} alignItems={'center'}>
+            <Box minWidth={110} pl={1}>
+              <Typography variant='caption'></Typography>
+            </Box>
+            <Box minWidth={80} display={'flex'}>
+              <Typography variant='caption'>price</Typography>
+            </Box>
+            <Box minWidth={80} display={'flex'}>
+              <Typography variant='caption'>change</Typography>
+            </Box>
+            <Box minWidth={80} display={'flex'}>
+              <Typography variant='caption'>percent</Typography>
+            </Box>
           </Box>
         </Box>
-      </Box>
-      {isLoading && (
-        <Box display={'flex'} justifyContent={'center'}>
-          <ComponentLoader />
-        </Box>
-      )}
-      <ScrollableBox maxHeight={420}>
-        {data && (
-          <>
-            {data.map((item) => (
-              <Box key={item.Symbol}>
-                <Box display={'flex'} gap={1} alignItems={'center'}>
-                  <Box minWidth={120}>
-                    <Button onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
-                      <Typography>{item.Company.substring(0, item.Company.indexOf(' - '))}</Typography>
-                    </Button>
-                  </Box>
-                  <Box minWidth={80}>
-                    <Typography color={getPositiveNegativeColor(item.Change, palette)}>{`${numeral(item.Price).format('###,###,0.00')}`}</Typography>
-                  </Box>
-                  <Box minWidth={80}>
-                    <Typography color={getPositiveNegativeColor(item.Change, palette)}>{`${numeral(item.Change).format('###,###,0.00')}`}</Typography>
-                  </Box>
-                  <Box minWidth={80}>
-                    <Typography color={getPositiveNegativeColor(item.Change, palette)}>{`${numeral(item.ChangePercent).format('###,###,0.00')}%`}</Typography>
-                  </Box>
-                </Box>
-                <HorizontalDivider />
-              </Box>
-            ))}
-          </>
+        {isLoading && (
+          <Box display={'flex'} justifyContent={'center'}>
+            <ComponentLoader />
+          </Box>
         )}
-      </ScrollableBox>
-      {selectedItem && (
-        <InfoDialog show={true} title={selectedItem.Company} onCancel={() => setSelectedItem(null)}>
-          <StockListItem item={selectedItem} marketCategory='crypto' userProfile={null} disabled expand />
-        </InfoDialog>
-      )}
+        <ScrollableBox maxHeight={420}>
+          {data && (
+            <>
+              {data.map((item) => (
+                <Stack key={item.Symbol} width={'100%'}>
+                  <Stack>
+                    <Box display={'flex'} gap={1} alignItems={'center'}>
+                      <Box minWidth={110}>
+                        <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
+                          <Typography variant='body2'>{item.Company.substring(0, item.Company.indexOf(' - '))}</Typography>
+                        </Button>
+                      </Box>
+                      <Box minWidth={80}>
+                        <Typography
+                          variant='body2'
+                          color={getPositiveNegativeColor(item.Change, palette)}
+                        >{`${numeral(item.Price).format('###,###,0.00')}`}</Typography>
+                      </Box>
+                      <Box minWidth={80}>
+                        <Typography
+                          variant='body2'
+                          color={getPositiveNegativeColor(item.Change, palette)}
+                        >{`${numeral(item.Change).format('###,###,0.00')}`}</Typography>
+                      </Box>
+                      <Box minWidth={80}>
+                        <Typography
+                          variant='body2'
+                          color={getPositiveNegativeColor(item.Change, palette)}
+                        >{`${numeral(item.ChangePercent).format('###,###,0.00')}%`}</Typography>
+                      </Box>
+                    </Box>
+                    <HorizontalDivider />
+                  </Stack>
+                </Stack>
+              ))}
+            </>
+          )}
+        </ScrollableBox>
+        {selectedItem && (
+          <InfoDialog show={true} title={selectedItem.Company} onCancel={() => setSelectedItem(null)}>
+            <StockListItem item={selectedItem} marketCategory='crypto' userProfile={null} disabled expand />
+          </InfoDialog>
+        )}
+      </ScrollableBoxHorizontal>
     </Box>
   )
 }

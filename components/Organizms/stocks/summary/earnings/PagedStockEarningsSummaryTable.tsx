@@ -33,21 +33,23 @@ const PagedStockEarningsSummaryTable = ({ data }: { data: StockEarning[] }) => {
           <Box key={item.Symbol}>
             <Box display={'flex'} gap={1} alignItems={'center'}>
               <Box minWidth={68}>
-                <Button onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
-                  <Typography>{item.Symbol}</Typography>
+                <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
+                  <Typography variant='body2'>{item.Symbol}</Typography>
                 </Button>
               </Box>
               <Box minWidth={70}>
                 <Typography
+                  variant={'body2'}
                   color={getPositiveNegativeColor(item.ActualEarnings, palette)}
                 >{`${item.ActualEarnings !== null ? numeral(item.ActualEarnings).format('###,###,0.00') : ''}`}</Typography>
               </Box>
               <Box minWidth={70}>
                 <Typography
                   color={getPositiveNegativeColor(item.EstimatedEarnings, palette)}
+                  variant={'body2'}
                 >{`${item.EstimatedEarnings !== null ? numeral(item.EstimatedEarnings).format('###,###,0.00') : ''}`}</Typography>
               </Box>
-              <Box minWidth={120}>
+              <Box minWidth={80}>
                 <Typography variant='caption'>{`${dayjs(item.ReportDate).format('MM/DD/YYYY')}`}</Typography>
               </Box>
             </Box>

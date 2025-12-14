@@ -61,36 +61,36 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
 
   return (
     <Box display={'flex'}>
-      <Box display={'flex'} gap={{ xs: 1, sm: 2 }} flexDirection={{ xs: 'column', sm: 'row' }} flexWrap={'wrap'}>
-        <Box sx={{ transform: { xs: 'scale(0.82)', sm: 'unset' }, transformOrigin: 'top left' }}>
-          <BorderedBox display={'flex'}>
+      <Box display={'flex'} gap={1} flexWrap={'wrap'}>
+        <Box>
+          <BorderedBox>
             {/* <ScrollableBoxHorizontal maxWidth={200}> */}
             <EarningsSummary data={data?.reportedEarnings} title='Reported Earnings' isLoading={isLoading} />
             {/* </ScrollableBoxHorizontal> */}
           </BorderedBox>
         </Box>
-        <Box sx={{ transform: { xs: 'scale(0.82)', sm: 'unset' }, transformOrigin: 'top left' }}>
-          <BorderedBox display={'flex'}>
+        <Box>
+          <BorderedBox>
             {/* <ScrollableBoxHorizontal maxWidth={700}> */}
             <EarningsSummary data={data?.upcomingEarnings} title='Upcoming Earnings' isLoading={isLoading} />
             {/* </ScrollableBoxHorizontal> */}
           </BorderedBox>
         </Box>
-        <Box sx={{ transform: { xs: 'scale(0.82)', sm: 'unset' }, transformOrigin: 'top left' }}>
-          <BorderedBox display={'flex'} flex={{ xs: '1 1 auto', sm: 'unset' }}>
+        <Box>
+          <BorderedBox>
             {/* <ScrollableBoxHorizontal maxWidth={700}> */}
             <CommoditiesSummary />
             {/* </ScrollableBoxHorizontal> */}
           </BorderedBox>
         </Box>
-        <Box sx={{ transform: { xs: 'scale(0.82)', sm: 'unset' }, transformOrigin: 'top left' }}>
-          <BorderedBox display={'flex'} flex={{ xs: '1 1 auto', sm: 'unset' }}>
+        <Box>
+          <BorderedBox>
             {/* <ScrollableBoxHorizontal maxWidth={700}> */}
             <CryptoSummary />
             {/* </ScrollableBoxHorizontal> */}
           </BorderedBox>
         </Box>
-        <Box sx={{ transform: { xs: 'scale(0.82)', sm: 'unset' }, transformOrigin: 'top left' }}>
+        <Box>
           <BorderedBox display={'flex'} flex={'1 1 auto'}>
             <Box>
               <Box>

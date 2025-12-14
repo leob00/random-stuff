@@ -5,14 +5,14 @@ interface ComponentProps extends BoxProps {
   children: React.ReactNode | JSX.Element[]
 }
 
-const ScrollableBoxHorizontal = ({ children, maxWidth }: { children: ReactNode | ReactElement[]; maxWidth: number }) => {
+const ScrollableBoxHorizontal = ({ children, maxWidth }: { children: ReactNode | ReactElement[]; maxWidth?: number }) => {
   const boxRef = useRef<HTMLDivElement | null>(null)
 
   return (
     <Box
       ref={boxRef}
       //width={'100%'}
-      sx={{ maxWidth: { xs: 334, sm: maxWidth }, overflowX: 'auto', msOverflowStyle: 'none', scrollbarWidth: 'none' }}
+      sx={{ maxWidth: { xs: 334, sm: 400 }, overflowX: 'auto', msOverflowStyle: 'none', scrollbarWidth: 'none' }}
     >
       {children}
     </Box>
