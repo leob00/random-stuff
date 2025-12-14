@@ -46,7 +46,7 @@ const CommoditiesSummary = () => {
   return (
     <Box>
       <SummaryTitle title={'Commodities'} />
-      <Box display={'flex'} gap={2} alignItems={'center'}>
+      <Box display={'flex'} gap={1} alignItems={'center'}>
         <Box minWidth={120} pl={1}>
           <Typography variant='caption'></Typography>
         </Box>
@@ -70,10 +70,12 @@ const CommoditiesSummary = () => {
           <>
             {data.map((item) => (
               <Box key={item.Symbol}>
-                <Box display={'flex'} gap={2} alignItems={'center'}>
-                  <Button onClick={() => setSelectedItem(item)} sx={{ width: 120, justifyContent: 'flex-start' }}>
-                    <Typography>{item.Company}</Typography>
-                  </Button>
+                <Box display={'flex'} gap={1} alignItems={'center'}>
+                  <Box minWidth={120}>
+                    <Button onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
+                      <Typography>{item.Company}</Typography>
+                    </Button>
+                  </Box>
                   <Box minWidth={80}>
                     <Typography color={getPositiveNegativeColor(item.Change, palette)}>{`${numeral(item.Price).format('###,###,0.00')}`}</Typography>
                   </Box>

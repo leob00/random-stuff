@@ -31,16 +31,18 @@ const PagedStockEarningsSummaryTable = ({ data }: { data: StockEarning[] }) => {
       <ScrollableBox maxHeight={320} scroller={scroller}>
         {items.map((item) => (
           <Box key={item.Symbol}>
-            <Box display={'flex'} gap={2} alignItems={'center'}>
-              <Button onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
-                <Typography>{item.Symbol}</Typography>
-              </Button>
-              <Box minWidth={80}>
+            <Box display={'flex'} gap={1} alignItems={'center'}>
+              <Box minWidth={68}>
+                <Button onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
+                  <Typography>{item.Symbol}</Typography>
+                </Button>
+              </Box>
+              <Box minWidth={70}>
                 <Typography
                   color={getPositiveNegativeColor(item.ActualEarnings, palette)}
                 >{`${item.ActualEarnings !== null ? numeral(item.ActualEarnings).format('###,###,0.00') : ''}`}</Typography>
               </Box>
-              <Box minWidth={80}>
+              <Box minWidth={70}>
                 <Typography
                   color={getPositiveNegativeColor(item.EstimatedEarnings, palette)}
                 >{`${item.EstimatedEarnings !== null ? numeral(item.EstimatedEarnings).format('###,###,0.00') : ''}`}</Typography>

@@ -16,6 +16,7 @@ import CryptoSummary from './CryptoSummary'
 import { getRandomInteger } from 'lib/util/numberUtil'
 import SummaryTitle from './SummaryTitle'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
+import { useViewPortSize } from 'hooks/ui/useViewportSize'
 
 interface Model {
   reportedEarnings: StockEarning[]
@@ -24,6 +25,7 @@ interface Model {
 
 const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
   const mutateKey = 'RecentEarnings'
+  const { windowWidth } = useViewPortSize()
   const dataFn = async () => {
     await sleep(getRandomInteger(1000, 2500))
     const resp = await serverGetFetch('/RecentEarnings')
@@ -58,39 +60,49 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
   }, [pollCounter])
 
   return (
-    <Box display={'flex'} gap={1} flexWrap={'wrap'}>
-      <BorderedBox display={'flex'} flex={{ xs: '1 1 auto', sm: 'unset' }}>
-        <ScrollableBoxHorizontal maxWidth={350}>
-          <EarningsSummary data={data?.reportedEarnings} title='Reported Earnings' isLoading={isLoading} />
-        </ScrollableBoxHorizontal>
-      </BorderedBox>
-      <BorderedBox display={'flex'} flex={{ xs: '1 1 auto', sm: 'unset' }}>
-        <ScrollableBoxHorizontal maxWidth={350}>
-          <EarningsSummary data={data?.upcomingEarnings} title='Upcoming Earnings' isLoading={isLoading} />
-        </ScrollableBoxHorizontal>
-      </BorderedBox>
-      <BorderedBox display={'flex'} flex={{ xs: '1 1 auto', sm: 'unset' }}>
-        <ScrollableBoxHorizontal maxWidth={600}>
-          <CommoditiesSummary />
-        </ScrollableBoxHorizontal>
-      </BorderedBox>
-      <BorderedBox display={'flex'} flex={{ xs: '1 1 auto', sm: 'unset' }}>
-        <ScrollableBoxHorizontal maxWidth={700}>
-          <CryptoSummary />
-        </ScrollableBoxHorizontal>
-      </BorderedBox>
-      <BorderedBox display={'flex'} flex={'1 1 auto'}>
-        <Box>
-          <ScrollableBoxHorizontal maxWidth={700}>
+    <Box display={'flex'}>
+      <Box display={'flex'} gap={{ xs: 1, sm: 2 }} flexDirection={{ xs: 'column', sm: 'row' }} flexWrap={'wrap'}>
+        <Box sx={{ transform: { xs: 'scale(0.82)', sm: 'unset' }, transformOrigin: 'top left' }}>
+          <BorderedBox display={'flex'}>
+            {/* <ScrollableBoxHorizontal maxWidth={200}> */}
+            <EarningsSummary data={data?.reportedEarnings} title='Reported Earnings' isLoading={isLoading} />
+            {/* </ScrollableBoxHorizontal> */}
+          </BorderedBox>
+        </Box>
+        <Box sx={{ transform: { xs: 'scale(0.82)', sm: 'unset' }, transformOrigin: 'top left' }}>
+          <BorderedBox display={'flex'}>
+            {/* <ScrollableBoxHorizontal maxWidth={700}> */}
+            <EarningsSummary data={data?.upcomingEarnings} title='Upcoming Earnings' isLoading={isLoading} />
+            {/* </ScrollableBoxHorizontal> */}
+          </BorderedBox>
+        </Box>
+        <Box sx={{ transform: { xs: 'scale(0.82)', sm: 'unset' }, transformOrigin: 'top left' }}>
+          <BorderedBox display={'flex'} flex={{ xs: '1 1 auto', sm: 'unset' }}>
+            {/* <ScrollableBoxHorizontal maxWidth={700}> */}
+            <CommoditiesSummary />
+            {/* </ScrollableBoxHorizontal> */}
+          </BorderedBox>
+        </Box>
+        <Box sx={{ transform: { xs: 'scale(0.82)', sm: 'unset' }, transformOrigin: 'top left' }}>
+          <BorderedBox display={'flex'} flex={{ xs: '1 1 auto', sm: 'unset' }}>
+            {/* <ScrollableBoxHorizontal maxWidth={700}> */}
+            <CryptoSummary />
+            {/* </ScrollableBoxHorizontal> */}
+          </BorderedBox>
+        </Box>
+        <Box sx={{ transform: { xs: 'scale(0.82)', sm: 'unset' }, transformOrigin: 'top left' }}>
+          <BorderedBox display={'flex'} flex={'1 1 auto'}>
             <Box>
-              <SummaryTitle title='News' />
-              <Box py={2} width={'100%'}>
-                <AlertWithHeader severity='info' header='coming soon' text='This feature is currently under development. ' />
+              <Box>
+                <SummaryTitle title='News' />
+                <Box py={2} width={'100%'}>
+                  <AlertWithHeader severity='info' header='coming soon' text='This feature is currently under development. ' />
+                </Box>
               </Box>
             </Box>
-          </ScrollableBoxHorizontal>
+          </BorderedBox>
         </Box>
-      </BorderedBox>
+      </Box>
     </Box>
   )
 }
