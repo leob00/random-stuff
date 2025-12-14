@@ -2580,10 +2580,6 @@
     "Symbol": "ARI"
   },
   {
-    "Company": "Aris Water Solutions, Inc.",
-    "Symbol": "ARIS"
-  },
-  {
     "Company": "ARK 21Shares Bitcoin ETF",
     "Symbol": "ARKB"
   },
@@ -3346,10 +3342,6 @@
   {
     "Company": "Avantis International Small Cap Value ETF",
     "Symbol": "AVDV"
-  },
-  {
-    "Company": "AvidXchange Holdings, Inc. Common Stock",
-    "Symbol": "AVDX"
   },
   {
     "Company": "Avantis Emerging Markets Small Cap Equity ETF",
@@ -5124,10 +5116,6 @@
     "Symbol": "BKHAR"
   },
   {
-    "Company": "Black Hawk Acquisition Corporation Units",
-    "Symbol": "BKHAU"
-  },
-  {
     "Company": "BNY Mellon High Yield ETF",
     "Symbol": "BKHY"
   },
@@ -5322,6 +5310,10 @@
   {
     "Company": "Nicholas Crypto Income ETF",
     "Symbol": "BLOX"
+  },
+  {
+    "Company": "Bluerock Acquisition Corp. Unit",
+    "Symbol": "BLRKU"
   },
   {
     "Company": "BioLineRX Ltd",
@@ -6354,6 +6346,10 @@
   {
     "Company": "Bitwise Trendwise BTC/ETH and Treasuries Rotation Strategy ETF",
     "Symbol": "BTOP"
+  },
+  {
+    "Company": "iShares Total USD Fixed Income Market ETF",
+    "Symbol": "BTOT"
   },
   {
     "Company": "BTQ Technologies Corp. Common Stock",
@@ -8160,6 +8156,10 @@
     "Symbol": "CIF"
   },
   {
+    "Company": "Leverage Shares 2X Long CIFR Daily ETF",
+    "Symbol": "CIFG"
+  },
+  {
     "Company": "Cipher Mining Inc. Common Stock",
     "Symbol": "CIFR"
   },
@@ -9936,10 +9936,6 @@
     "Symbol": "CURI"
   },
   {
-    "Company": "CuriosityStream Inc. Warrant",
-    "Symbol": "CURIW"
-  },
-  {
     "Company": "Currenc Group Inc. Ordinary Shares",
     "Symbol": "CURR"
   },
@@ -10066,10 +10062,6 @@
   {
     "Company": "Calvert Ultra-Short Investment Grade ETF",
     "Symbol": "CVSB"
-  },
-  {
-    "Company": "Calvert US Select Equity ETF",
-    "Symbol": "CVSE"
   },
   {
     "Company": "CPI Aerostructures, Inc.",
@@ -11948,6 +11940,10 @@
     "Symbol": "DUO"
   },
   {
+    "Company": "Leverage Shares 2X Long DUOL Daily ETF",
+    "Symbol": "DUOG"
+  },
+  {
     "Company": "Duolingo, Inc. Class A Common Stock",
     "Symbol": "DUOL"
   },
@@ -13254,10 +13250,6 @@
   {
     "Company": "Alerian Energy Infrastructure ETF",
     "Symbol": "ENFR"
-  },
-  {
-    "Company": "Enlightify Inc.",
-    "Symbol": "ENFY"
   },
   {
     "Company": "enGene Holdings Inc. Common Stock",
@@ -17892,10 +17884,6 @@
     "Symbol": "GLAD"
   },
   {
-    "Company": "Gladstone Capital Corporation 7.75% Notes due 2028",
-    "Symbol": "GLADZ"
-  },
-  {
     "Company": "Global-E Online Ltd. Ordinary Shares",
     "Symbol": "GLBE"
   },
@@ -18490,6 +18478,10 @@
   {
     "Company": "Graf Global Corp. Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50 per share",
     "Symbol": "GRAF.WS"
+  },
+  {
+    "Company": "Leverage Shares 2X Long GRAB Daily ETF",
+    "Symbol": "GRAG"
   },
   {
     "Company": "GRAIL, Inc. Common Stock",
@@ -19418,6 +19410,10 @@
   {
     "Company": "JPMorgan Hedged Equity Laddered Overlay ETF",
     "Symbol": "HELO"
+  },
+  {
+    "Company": "Hedgeye 130/30 Equity ETF",
+    "Symbol": "HELS"
   },
   {
     "Company": "Franklin Genomic Advancements ETF",
@@ -22656,6 +22652,10 @@
     "Symbol": "IVRS"
   },
   {
+    "Company": "Applied Finance IVS International Large ETF",
+    "Symbol": "IVSI"
+  },
+  {
     "Company": "Applied Finance IVS US SMID ETF",
     "Symbol": "IVSS"
   },
@@ -23792,6 +23792,10 @@
     "Symbol": "KBH"
   },
   {
+    "Company": "Karbon Capital Partners Corp. Units",
+    "Symbol": "KBONU"
+  },
+  {
     "Company": "KBR, Inc.",
     "Symbol": "KBR"
   },
@@ -24664,6 +24668,10 @@
     "Symbol": "LAC"
   },
   {
+    "Company": "Leverage Shares 2X Long LAC Daily ETF",
+    "Symbol": "LACG"
+  },
+  {
     "Company": "Lithia Motors, Inc.",
     "Symbol": "LAD"
   },
@@ -25470,6 +25478,10 @@
   {
     "Company": "Defiance Daily Target 2x Long LMND ETF",
     "Symbol": "LMNX"
+  },
+  {
+    "Company": "Lumexa Imaging Holdings, Inc. Common Stock",
+    "Symbol": "LMRI"
   },
   {
     "Company": "Lockheed Martin Corp.",
@@ -30580,6 +30592,14 @@
     "Symbol": "OAIM"
   },
   {
+    "Company": "Oakmark Global Large Cap ETF",
+    "Symbol": "OAKG"
+  },
+  {
+    "Company": "Oakmark International Large Cap ETF",
+    "Symbol": "OAKI"
+  },
+  {
     "Company": "Oakmark U.S. Large Cap ETF",
     "Symbol": "OAKM"
   },
@@ -31194,6 +31214,10 @@
   {
     "Company": "Option Care Health, Inc. Common Stock",
     "Symbol": "OPCH"
+  },
+  {
+    "Company": "Leverage Shares 2X Long OPEN Daily ETF",
+    "Symbol": "OPEG"
   },
   {
     "Company": "Opendoor Technologies Inc Common Stock",
@@ -35484,6 +35508,10 @@
     "Symbol": "REM"
   },
   {
+    "Company": "Columbia Research Enhanced Mid Cap ETF",
+    "Symbol": "REMC"
+  },
+  {
     "Company": "Russell Investments Exchange Traded Funds Russell Investments Emerging Markets Equity ETF",
     "Symbol": "REMG"
   },
@@ -38120,6 +38148,10 @@
     "Symbol": "SION"
   },
   {
+    "Company": "VistaShares Target 15 S&P 100 Distribution ETF",
+    "Symbol": "SIOO"
+  },
+  {
     "Company": "Sirius XM Holdings,  Inc",
     "Symbol": "SIRI"
   },
@@ -40564,6 +40596,10 @@
     "Symbol": "TACK"
   },
   {
+    "Company": "T. Rowe Price Active Core International Equity ETF",
+    "Symbol": "TACN"
+  },
+  {
     "Company": "Berto Acquisition Corp. Ordinary Shares",
     "Symbol": "TACO"
   },
@@ -40578,6 +40614,10 @@
   {
     "Company": "Transact Technologies Inc",
     "Symbol": "TACT"
+  },
+  {
+    "Company": "T. Rowe Price Active Core U.S. Equity ETF",
+    "Symbol": "TACU"
   },
   {
     "Company": "AB Tax-Aware Short Duration Municipal ETF",
@@ -41984,6 +42024,10 @@
     "Symbol": "TOWN"
   },
   {
+    "Company": "21Shares XRP ETF",
+    "Symbol": "TOXR"
+  },
+  {
     "Company": "TOYO Co., Ltd Ordinary Shares",
     "Symbol": "TOYO"
   },
@@ -43330,6 +43374,10 @@
   {
     "Company": "Aptus Large Cap Upside ETF",
     "Symbol": "UPSD"
+  },
+  {
+    "Company": "Leverage Shares 2X Long UPS Daily ETF",
+    "Symbol": "UPSG"
   },
   {
     "Company": "Upstart Holdings, Inc. Common stock",
@@ -45136,7 +45184,7 @@
     "Symbol": "WBIL"
   },
   {
-    "Company": "WBI Power FactorTM High Dividend ETF",
+    "Company": "WBI Power Factor High Dividend ETF",
     "Symbol": "WBIY"
   },
   {
@@ -46932,7 +46980,7 @@
     "Symbol": "YMAR"
   },
   {
-    "Company": "J-Star Holding Co., Ltd. Ordinary Shares",
+    "Company": "J-Star Holding Co., Ltd. Class A Ordinary Shares",
     "Symbol": "YMAT"
   },
   {

@@ -51,7 +51,7 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
           <Typography variant='h6'>{handshake.Message}</Typography>
         </Box>
       )}
-      <Box display={'flex'} gap={2} flexWrap={{ xs: 'wrap', sm: 'unset' }}>
+      <Box display={'flex'} gap={1} flexWrap={{ xs: 'wrap', sm: 'unset' }}>
         <BorderedBox height={208} flex={{ xs: '1 1 auto', sm: 'unset' }}>
           <Box>
             <ReadOnlyField

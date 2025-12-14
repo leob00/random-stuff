@@ -9,11 +9,7 @@ const ScrollableBoxHorizontal = ({ children, maxWidth }: { children: ReactNode |
   const boxRef = useRef<HTMLDivElement | null>(null)
 
   return (
-    <Box
-      ref={boxRef}
-      //width={'100%'}
-      sx={{ maxWidth: { xs: 334, sm: 400 }, overflowX: 'auto', msOverflowStyle: 'none', scrollbarWidth: 'none' }}
-    >
+    <Box ref={boxRef} sx={{ maxWidth: { xs: 330, sm: 400 }, overflowX: 'auto', msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
       {children}
     </Box>
   )

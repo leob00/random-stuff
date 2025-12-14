@@ -45,9 +45,9 @@ const CryptoSummary = () => {
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   return (
-    <Box height={504}>
+    <Box height={650}>
+      <SummaryTitle title={'Crypto'} />
       <ScrollableBoxHorizontal>
-        <SummaryTitle title={'Crypto'} />
         <Box>
           <Box display={'flex'} gap={1} alignItems={'center'}>
             <Box minWidth={110} pl={1}>
@@ -69,44 +69,42 @@ const CryptoSummary = () => {
             <ComponentLoader />
           </Box>
         )}
-        <ScrollableBox maxHeight={420}>
-          {data && (
-            <>
-              {data.map((item) => (
-                <Stack key={item.Symbol} width={'100%'}>
-                  <Stack>
-                    <Box display={'flex'} gap={1} alignItems={'center'}>
-                      <Box minWidth={110}>
-                        <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
-                          <Typography variant='body2'>{item.Company.substring(0, item.Company.indexOf(' - '))}</Typography>
-                        </Button>
-                      </Box>
-                      <Box minWidth={80}>
-                        <Typography
-                          variant='body2'
-                          color={getPositiveNegativeColor(item.Change, palette)}
-                        >{`${numeral(item.Price).format('###,###,0.00')}`}</Typography>
-                      </Box>
-                      <Box minWidth={80}>
-                        <Typography
-                          variant='body2'
-                          color={getPositiveNegativeColor(item.Change, palette)}
-                        >{`${numeral(item.Change).format('###,###,0.00')}`}</Typography>
-                      </Box>
-                      <Box minWidth={80}>
-                        <Typography
-                          variant='body2'
-                          color={getPositiveNegativeColor(item.Change, palette)}
-                        >{`${numeral(item.ChangePercent).format('###,###,0.00')}%`}</Typography>
-                      </Box>
+        {data && (
+          <Box>
+            {data.map((item, index) => (
+              <Stack key={item.Symbol} width={'100%'}>
+                <Stack>
+                  <Box display={'flex'} gap={1} alignItems={'center'}>
+                    <Box minWidth={110}>
+                      <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
+                        <Typography variant='body2'>{item.Company.substring(0, item.Company.indexOf(' - '))}</Typography>
+                      </Button>
                     </Box>
-                    <HorizontalDivider />
-                  </Stack>
+                    <Box minWidth={80}>
+                      <Typography
+                        variant='body2'
+                        color={getPositiveNegativeColor(item.Change, palette)}
+                      >{`${numeral(item.Price).format('###,###,0.00')}`}</Typography>
+                    </Box>
+                    <Box minWidth={80}>
+                      <Typography
+                        variant='body2'
+                        color={getPositiveNegativeColor(item.Change, palette)}
+                      >{`${numeral(item.Change).format('###,###,0.00')}`}</Typography>
+                    </Box>
+                    <Box minWidth={80}>
+                      <Typography
+                        variant='body2'
+                        color={getPositiveNegativeColor(item.Change, palette)}
+                      >{`${numeral(item.ChangePercent).format('###,###,0.00')}%`}</Typography>
+                    </Box>
+                  </Box>
+                  {index < data.length - 1 && <HorizontalDivider />}
                 </Stack>
-              ))}
-            </>
-          )}
-        </ScrollableBox>
+              </Stack>
+            ))}
+          </Box>
+        )}
         {selectedItem && (
           <InfoDialog show={true} title={selectedItem.Company} onCancel={() => setSelectedItem(null)}>
             <StockListItem item={selectedItem} marketCategory='crypto' userProfile={null} disabled expand />

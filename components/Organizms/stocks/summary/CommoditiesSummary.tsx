@@ -45,9 +45,10 @@ const CommoditiesSummary = () => {
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   return (
-    <Box height={504}>
+    <Box height={430}>
+      <SummaryTitle title={'Commodities'} />
+
       <ScrollableBoxHorizontal>
-        <SummaryTitle title={'Commodities'} />
         <Box display={'flex'} gap={1} alignItems={'center'}>
           <Box minWidth={120} pl={1}>
             <Typography variant='caption'></Typography>
@@ -67,42 +68,40 @@ const CommoditiesSummary = () => {
             <ComponentLoader />
           </Box>
         )}
-        <ScrollableBox maxHeight={400}>
-          {data && (
-            <>
-              {data.map((item) => (
-                <Box key={item.Symbol}>
-                  <Box display={'flex'} gap={1} alignItems={'center'}>
-                    <Box minWidth={120}>
-                      <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
-                        <Typography variant='body2'>{item.Company}</Typography>
-                      </Button>
-                    </Box>
-                    <Box minWidth={80}>
-                      <Typography
-                        variant='body2'
-                        color={getPositiveNegativeColor(item.Change, palette)}
-                      >{`${numeral(item.Price).format('###,###,0.00')}`}</Typography>
-                    </Box>
-                    <Box minWidth={80}>
-                      <Typography
-                        variant='body2'
-                        color={getPositiveNegativeColor(item.Change, palette)}
-                      >{`${numeral(item.Change).format('###,###,0.00')}`}</Typography>
-                    </Box>
-                    <Box minWidth={80}>
-                      <Typography
-                        variant='body2'
-                        color={getPositiveNegativeColor(item.Change, palette)}
-                      >{`${numeral(item.ChangePercent).format('###,###,0.00')}%`}</Typography>
-                    </Box>
+        {data && (
+          <Box>
+            {data.map((item, index) => (
+              <Box key={item.Symbol}>
+                <Box display={'flex'} gap={1} alignItems={'center'}>
+                  <Box minWidth={120}>
+                    <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
+                      <Typography variant='body2'>{item.Company}</Typography>
+                    </Button>
                   </Box>
-                  <HorizontalDivider />
+                  <Box minWidth={80}>
+                    <Typography
+                      variant='body2'
+                      color={getPositiveNegativeColor(item.Change, palette)}
+                    >{`${numeral(item.Price).format('###,###,0.00')}`}</Typography>
+                  </Box>
+                  <Box minWidth={80}>
+                    <Typography
+                      variant='body2'
+                      color={getPositiveNegativeColor(item.Change, palette)}
+                    >{`${numeral(item.Change).format('###,###,0.00')}`}</Typography>
+                  </Box>
+                  <Box minWidth={80}>
+                    <Typography
+                      variant='body2'
+                      color={getPositiveNegativeColor(item.Change, palette)}
+                    >{`${numeral(item.ChangePercent).format('###,###,0.00')}%`}</Typography>
+                  </Box>
                 </Box>
-              ))}
-            </>
-          )}
-        </ScrollableBox>
+                {index < data.length - 1 && <HorizontalDivider />}
+              </Box>
+            ))}
+          </Box>
+        )}
         {selectedItem && (
           <InfoDialog show={true} title={selectedItem.Company} onCancel={() => setSelectedItem(null)}>
             <StockListItem item={selectedItem} marketCategory='commodities' userProfile={null} disabled expand />

@@ -6,7 +6,6 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import dayjs from 'dayjs'
 import { sleep } from 'lib/util/timers'
 import EarningsSummary from './earnings/EarningsSummary'
-import ScrollableBoxHorizontal from 'components/Atoms/Containers/ScrollableBoxHorizontal'
 import { usePolling } from 'hooks/usePolling'
 import { useEffect } from 'react'
 import { mutate } from 'swr'
@@ -16,7 +15,6 @@ import CryptoSummary from './CryptoSummary'
 import { getRandomInteger } from 'lib/util/numberUtil'
 import SummaryTitle from './SummaryTitle'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
-import { useViewPortSize } from 'hooks/ui/useViewportSize'
 
 interface Model {
   reportedEarnings: StockEarning[]
@@ -25,7 +23,6 @@ interface Model {
 
 const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
   const mutateKey = 'RecentEarnings'
-  const { windowWidth } = useViewPortSize()
   const dataFn = async () => {
     await sleep(getRandomInteger(1000, 2500))
     const resp = await serverGetFetch('/RecentEarnings')
@@ -41,7 +38,7 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
     const upcoming = filterResult(mapped, dayjs(nextOpenDt).format())
     const result: Model = {
       reportedEarnings: recent,
-      upcomingEarnings: upcoming,
+      upcomingEarnings: sortArray(upcoming, ['StockQuote.MarketCap'], ['desc']),
     }
     return result
   }
@@ -64,30 +61,22 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
       <Box display={'flex'} gap={1} flexWrap={'wrap'}>
         <Box>
           <BorderedBox>
-            {/* <ScrollableBoxHorizontal maxWidth={200}> */}
             <EarningsSummary data={data?.reportedEarnings} title='Reported Earnings' isLoading={isLoading} />
-            {/* </ScrollableBoxHorizontal> */}
           </BorderedBox>
         </Box>
         <Box>
           <BorderedBox>
-            {/* <ScrollableBoxHorizontal maxWidth={700}> */}
             <EarningsSummary data={data?.upcomingEarnings} title='Upcoming Earnings' isLoading={isLoading} />
-            {/* </ScrollableBoxHorizontal> */}
           </BorderedBox>
         </Box>
         <Box>
           <BorderedBox>
-            {/* <ScrollableBoxHorizontal maxWidth={700}> */}
             <CommoditiesSummary />
-            {/* </ScrollableBoxHorizontal> */}
           </BorderedBox>
         </Box>
         <Box>
           <BorderedBox>
-            {/* <ScrollableBoxHorizontal maxWidth={700}> */}
             <CryptoSummary />
-            {/* </ScrollableBoxHorizontal> */}
           </BorderedBox>
         </Box>
         <Box>

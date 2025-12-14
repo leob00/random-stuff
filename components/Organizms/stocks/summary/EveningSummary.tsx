@@ -1,5 +1,4 @@
 import { Box } from '@mui/material'
-import TopMoversSummary from './TopMoversSummary'
 import BorderedBox from 'components/Atoms/Boxes/BorderedBox'
 import CommoditiesSummary from './CommoditiesSummary'
 import { serverGetFetch, StockEarning } from 'lib/backend/api/qln/qlnApi'
@@ -7,7 +6,6 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import dayjs from 'dayjs'
 import { sleep } from 'lib/util/timers'
 import EarningsSummary from './earnings/EarningsSummary'
-import ScrollableBoxHorizontal from 'components/Atoms/Containers/ScrollableBoxHorizontal'
 import { usePolling } from 'hooks/usePolling'
 import { useEffect } from 'react'
 import { mutate } from 'swr'
@@ -44,16 +42,16 @@ const EveningSummary = () => {
 
   return (
     <Box display={'flex'} gap={1} flexWrap={'wrap'}>
-      <BorderedBox display={'flex'} flex={{ xs: '1 1 auto', md: 'unset' }}>
-        <ScrollableBoxHorizontal maxWidth={350}>
+      <Box>
+        <BorderedBox>
           <EarningsSummary data={data} title='Reported Earnings' isLoading={isLoading} />
-        </ScrollableBoxHorizontal>
-      </BorderedBox>
-      <BorderedBox display={'flex'} flex={{ xs: '1 1 auto', md: 'unset' }}>
-        <ScrollableBoxHorizontal maxWidth={600}>
+        </BorderedBox>
+      </Box>
+      <Box>
+        <BorderedBox>
           <CommoditiesSummary />
-        </ScrollableBoxHorizontal>
-      </BorderedBox>
+        </BorderedBox>
+      </Box>
     </Box>
   )
 }
