@@ -52,7 +52,7 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
         </Box>
       )}
       <Box display={'flex'} gap={1} flexWrap={{ xs: 'wrap', sm: 'unset' }}>
-        <BorderedBox height={208} flex={{ xs: '1 1 auto', sm: 'unset' }}>
+        <BorderedBox height={208}>
           <Box>
             <ReadOnlyField
               variant='caption'

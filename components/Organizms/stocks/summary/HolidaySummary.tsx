@@ -15,6 +15,8 @@ import CryptoSummary from './CryptoSummary'
 import { getRandomInteger } from 'lib/util/numberUtil'
 import SummaryTitle from './SummaryTitle'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
+import { useProfileValidator } from 'hooks/auth/useProfileValidator'
+import NewsSummary from './NewsSummary'
 
 interface Model {
   reportedEarnings: StockEarning[]
@@ -23,6 +25,8 @@ interface Model {
 
 const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
   const mutateKey = 'RecentEarnings'
+  const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
+
   const dataFn = async () => {
     await sleep(getRandomInteger(1000, 2500))
     const resp = await serverGetFetch('/RecentEarnings')
@@ -57,16 +61,17 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
   }, [pollCounter])
 
   return (
+    // <Box display={'flex'} sx={{ transform: 'scale(0.98)', transformOrigin: 'top left' }} width={'125%'}>
     <Box display={'flex'}>
       <Box display={'flex'} gap={1} flexWrap={'wrap'}>
         <Box>
           <BorderedBox>
-            <EarningsSummary data={data?.reportedEarnings} title='Reported Earnings' isLoading={isLoading} />
+            <EarningsSummary userProfile={userProfile} data={data?.reportedEarnings} title='Reported Earnings' isLoading={isLoading || isValidatingProfile} />
           </BorderedBox>
         </Box>
         <Box>
           <BorderedBox>
-            <EarningsSummary data={data?.upcomingEarnings} title='Upcoming Earnings' isLoading={isLoading} />
+            <EarningsSummary userProfile={userProfile} data={data?.upcomingEarnings} title='Upcoming Earnings' isLoading={isLoading || isValidatingProfile} />
           </BorderedBox>
         </Box>
         <Box>
@@ -79,16 +84,9 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
             <CryptoSummary />
           </BorderedBox>
         </Box>
-        <Box>
-          <BorderedBox display={'flex'} flex={'1 1 auto'}>
-            <Box>
-              <Box>
-                <SummaryTitle title='News' />
-                <Box py={2} width={'100%'}>
-                  <AlertWithHeader severity='info' header='coming soon' text='This feature is currently under development. ' />
-                </Box>
-              </Box>
-            </Box>
+        <Box maxWidth={{ xs: 348, sm: '98%', md: '94%', lg: '68%' }}>
+          <BorderedBox>
+            <NewsSummary userProfile={userProfile} />
           </BorderedBox>
         </Box>
       </Box>

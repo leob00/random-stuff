@@ -8,9 +8,12 @@ import dayjs from 'dayjs'
 import { getCurrentDateTimeUsEastern } from 'lib/util/dateUtil'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import EarningsSummary from './earnings/EarningsSummary'
-import ScrollableBoxHorizontal from 'components/Atoms/Containers/ScrollableBoxHorizontal'
+import NewsSummary from './NewsSummary'
+import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 
 const PreMarketSummary = () => {
+  const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
+
   const mutateKey = 'RecentEarnings'
   const dataFn = async () => {
     await sleep(500)
@@ -34,7 +37,12 @@ const PreMarketSummary = () => {
       </Box>
       <Box>
         <BorderedBox>
-          <EarningsSummary data={data} title='Upcoming Earnings' isLoading={isLoading} />
+          <EarningsSummary userProfile={userProfile} data={data} title='Upcoming Earnings' isLoading={isLoading || isValidatingProfile} />
+        </BorderedBox>
+      </Box>
+      <Box maxWidth={{ xs: 348, sm: '98%', md: '94%', lg: '68%' }}>
+        <BorderedBox>
+          <NewsSummary userProfile={userProfile} />
         </BorderedBox>
       </Box>
     </Box>

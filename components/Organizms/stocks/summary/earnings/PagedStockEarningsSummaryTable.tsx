@@ -11,8 +11,9 @@ import { useClientPager } from 'hooks/useClientPager'
 import { StockEarning } from 'lib/backend/api/qln/qlnApi'
 import StockListItem, { getPositiveNegativeColor } from '../../StockListItem'
 import dayjs from 'dayjs'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 const pageSize = 10
-const PagedStockEarningsSummaryTable = ({ data }: { data: StockEarning[] }) => {
+const PagedStockEarningsSummaryTable = ({ data, userProfile }: { data: StockEarning[]; userProfile: UserProfile | null }) => {
   const theme = useTheme()
   const palette = theme.palette.mode
 
@@ -69,7 +70,7 @@ const PagedStockEarningsSummaryTable = ({ data }: { data: StockEarning[] }) => {
 
       {selectedItem && selectedItem.StockQuote && (
         <InfoDialog show={true} title={selectedItem.Symbol} onCancel={() => setSelectedItem(null)}>
-          <StockListItem item={selectedItem.StockQuote} marketCategory='stocks' userProfile={null} disabled expand />
+          <StockListItem item={selectedItem.StockQuote} marketCategory='stocks' userProfile={userProfile} disabled expand />
         </InfoDialog>
       )}
     </Box>

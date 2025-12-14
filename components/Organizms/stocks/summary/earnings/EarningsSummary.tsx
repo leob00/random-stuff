@@ -1,14 +1,22 @@
-import { Box, Typography, useTheme } from '@mui/material'
+'use client'
+import { Box, Typography } from '@mui/material'
 import { StockEarning } from 'lib/backend/api/qln/qlnApi'
 import SummaryTitle from '../SummaryTitle'
-import { useState } from 'react'
-import StockListItem from '../../StockListItem'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
-import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import PagedStockEarningsSummaryTable from './PagedStockEarningsSummaryTable'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 
-const EarningsSummary = ({ data, title, isLoading }: { data?: StockEarning[]; title: string; isLoading?: boolean }) => {
-  const [selectedItem, setSelectedItem] = useState<StockEarning | null>(null)
+const EarningsSummary = ({
+  data,
+  title,
+  isLoading,
+  userProfile,
+}: {
+  data?: StockEarning[]
+  title: string
+  isLoading?: boolean
+  userProfile: UserProfile | null
+}) => {
   return (
     <Box height={503}>
       <SummaryTitle title={title} />
@@ -33,12 +41,7 @@ const EarningsSummary = ({ data, title, isLoading }: { data?: StockEarning[]; ti
           <ComponentLoader />
         </Box>
       )}
-      <Box>{data && <PagedStockEarningsSummaryTable data={data} />}</Box>
-      {selectedItem && selectedItem.StockQuote && (
-        <InfoDialog show={true} title={selectedItem.Symbol} onCancel={() => setSelectedItem(null)}>
-          <StockListItem item={selectedItem.StockQuote} marketCategory='stocks' userProfile={null} disabled expand />
-        </InfoDialog>
-      )}
+      <Box>{data && <PagedStockEarningsSummaryTable data={data} userProfile={userProfile} />}</Box>
     </Box>
   )
 }

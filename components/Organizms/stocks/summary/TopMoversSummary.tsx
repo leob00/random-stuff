@@ -20,8 +20,9 @@ import SummaryTitle from './SummaryTitle'
 import { usePolling } from 'hooks/usePolling'
 import { mutate } from 'swr'
 import PagedStockSummaryTable from './PagedStockSummaryTable'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 
-const TopMoversSummary = () => {
+const TopMoversSummary = ({ userProfile }: { userProfile: UserProfile | null }) => {
   const theme = useTheme()
   const palette = theme.palette.mode
 
@@ -85,11 +86,11 @@ const TopMoversSummary = () => {
           <ComponentLoader />
         </Box>
       )}
-      {data && <PagedStockSummaryTable data={data} />}
+      {data && <PagedStockSummaryTable data={data} userProfile={userProfile} />}
 
       {selectedItem && (
         <InfoDialog show={true} title={selectedItem.Symbol} onCancel={() => setSelectedItem(null)}>
-          <StockListItem item={selectedItem} marketCategory='stocks' userProfile={null} disabled expand />
+          <StockListItem item={selectedItem} marketCategory='stocks' userProfile={userProfile} disabled expand />
         </InfoDialog>
       )}
     </Box>

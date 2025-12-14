@@ -10,8 +10,9 @@ import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import Pager from 'components/Atoms/Pager'
 import { useClientPager } from 'hooks/useClientPager'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 const pageSize = 10
-const PagedStockSummaryTable = ({ data }: { data: StockQuote[] }) => {
+const PagedStockSummaryTable = ({ data, userProfile }: { data: StockQuote[]; userProfile: UserProfile | null }) => {
   const theme = useTheme()
   const palette = theme.palette.mode
 
@@ -64,7 +65,7 @@ const PagedStockSummaryTable = ({ data }: { data: StockQuote[] }) => {
 
       {selectedItem && (
         <InfoDialog show={true} title={selectedItem.Symbol} onCancel={() => setSelectedItem(null)}>
-          <StockListItem item={selectedItem} marketCategory='stocks' userProfile={null} disabled expand />
+          <StockListItem item={selectedItem} marketCategory='stocks' userProfile={userProfile} disabled expand />
         </InfoDialog>
       )}
     </Box>

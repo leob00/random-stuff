@@ -12,9 +12,12 @@ import EarningsSummary from './earnings/EarningsSummary'
 import { usePolling } from 'hooks/usePolling'
 import { useEffect } from 'react'
 import { mutate } from 'swr'
+import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 
 const MidMarketSummary = () => {
   const mutateKey = 'stock-reported-earnings-today'
+  const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
+
   const dataFn = async () => {
     await sleep(500)
     const resp = await serverGetFetch('/RecentEarnings')
@@ -45,12 +48,12 @@ const MidMarketSummary = () => {
     <Box display={'flex'} gap={1} flexWrap={'wrap'}>
       <Box>
         <BorderedBox>
-          <TopMoversSummary />
+          <TopMoversSummary userProfile={userProfile} />
         </BorderedBox>
       </Box>
       <Box>
         <BorderedBox>
-          <EarningsSummary data={data} title='Reported Earnings' isLoading={isLoading} />
+          <EarningsSummary userProfile={userProfile} data={data} title='Reported Earnings' isLoading={isLoading || isValidatingProfile} />
         </BorderedBox>
       </Box>
       <Box>

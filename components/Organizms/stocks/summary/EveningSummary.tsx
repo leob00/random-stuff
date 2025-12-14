@@ -10,8 +10,10 @@ import { usePolling } from 'hooks/usePolling'
 import { useEffect } from 'react'
 import { mutate } from 'swr'
 import { sortArray } from 'lib/util/collections'
+import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 
 const EveningSummary = () => {
+  const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
   const mutateKey = 'stock-reported-earnings-all'
   const dataFn = async () => {
     await sleep(500)
@@ -44,7 +46,7 @@ const EveningSummary = () => {
     <Box display={'flex'} gap={1} flexWrap={'wrap'}>
       <Box>
         <BorderedBox>
-          <EarningsSummary data={data} title='Reported Earnings' isLoading={isLoading} />
+          <EarningsSummary userProfile={userProfile} data={data} title='Reported Earnings' isLoading={isLoading || isValidatingProfile} />
         </BorderedBox>
       </Box>
       <Box>
