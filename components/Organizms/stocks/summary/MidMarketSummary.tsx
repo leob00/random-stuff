@@ -13,6 +13,7 @@ import { usePolling } from 'hooks/usePolling'
 import { useEffect } from 'react'
 import { mutate } from 'swr'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
+import NewsSummary from './NewsSummary'
 
 const MidMarketSummary = () => {
   const mutateKey = 'stock-reported-earnings-today'
@@ -22,12 +23,10 @@ const MidMarketSummary = () => {
     await sleep(500)
     const resp = await serverGetFetch('/RecentEarnings')
     const earnings = resp.Body as StockEarning[]
-    const mapped: StockEarning[] = earnings
-      .filter((e) => e.ActualEarnings)
-      .map((m) => {
-        return { ...m, ReportDate: dayjs(m.ReportDate).format() }
-      })
-    const today = dayjs(dayjs(getCurrentDateTimeUsEastern()).format('YYYY-MM-DD')).subtract(1, 'days').format()
+    const mapped: StockEarning[] = earnings.map((m) => {
+      return { ...m, ReportDate: dayjs(m.ReportDate).format() }
+    })
+    const today = dayjs(dayjs(getCurrentDateTimeUsEastern()).format('YYYY-MM-DD')).format()
     const result = filterResult(mapped, today)
     return result
   }
@@ -53,12 +52,17 @@ const MidMarketSummary = () => {
       </Box>
       <Box>
         <BorderedBox>
-          <EarningsSummary userProfile={userProfile} data={data} title='Reported Earnings' isLoading={isLoading || isValidatingProfile} />
+          <EarningsSummary userProfile={userProfile} data={data} title={`Today's Earnings`} isLoading={isLoading || isValidatingProfile} />
         </BorderedBox>
       </Box>
       <Box>
         <BorderedBox>
           <CommoditiesSummary />
+        </BorderedBox>
+      </Box>
+      <Box maxWidth={{ xs: 348, sm: '98%', md: '94%', lg: '68%' }}>
+        <BorderedBox>
+          <NewsSummary userProfile={userProfile} />
         </BorderedBox>
       </Box>
     </Box>

@@ -34,17 +34,28 @@ const PagedStockSummaryTable = ({ data, userProfile }: { data: StockQuote[]; use
             {items.map((item) => (
               <Box key={item.Symbol}>
                 <Box display={'flex'} gap={2} alignItems={'center'}>
-                  <Button onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
-                    <Typography>{item.Symbol}</Typography>
-                  </Button>
-                  <Box minWidth={80}>
-                    <Typography color={getPositiveNegativeColor(item.Change, palette)}>{`${numeral(item.Price).format('###,###,0.00')}`}</Typography>
+                  <Box minWidth={68}>
+                    <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
+                      <Typography variant='body2'>{item.Symbol}</Typography>
+                    </Button>
                   </Box>
                   <Box minWidth={80}>
-                    <Typography color={getPositiveNegativeColor(item.Change, palette)}>{`${numeral(item.Change).format('###,###,0.00')}`}</Typography>
+                    <Typography
+                      variant='body2'
+                      color={getPositiveNegativeColor(item.Change, palette)}
+                    >{`${numeral(item.Price).format('###,###,0.00')}`}</Typography>
                   </Box>
                   <Box minWidth={80}>
-                    <Typography color={getPositiveNegativeColor(item.Change, palette)}>{`${numeral(item.ChangePercent).format('###,###,0.00')}%`}</Typography>
+                    <Typography
+                      variant='body2'
+                      color={getPositiveNegativeColor(item.Change, palette)}
+                    >{`${numeral(item.Change).format('###,###,0.00')}`}</Typography>
+                  </Box>
+                  <Box minWidth={80}>
+                    <Typography
+                      variant='body2'
+                      color={getPositiveNegativeColor(item.Change, palette)}
+                    >{`${numeral(item.ChangePercent).format('###,###,0.00')}%`}</Typography>
                   </Box>
                 </Box>
                 <HorizontalDivider />
