@@ -1,12 +1,12 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import React from 'react'
-import BarChartIcon from '@mui/icons-material/BarChart'
+
+import SummarizeIcon from '@mui/icons-material/Summarize'
 const ContextMenuSummary = ({ text = 'summary' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <BarChartIcon fontSize='small' />
+        <SummarizeIcon fontSize='small' />
       </ListItemIcon>
       <ListItemText primary={text} />
     </>

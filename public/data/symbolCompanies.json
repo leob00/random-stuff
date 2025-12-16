@@ -1092,6 +1092,10 @@
     "Symbol": "AGOX"
   },
   {
+    "Company": "Axe Compute Inc. Common Stock",
+    "Symbol": "AGPU"
+  },
+  {
     "Company": "ProShares Ultra Silver",
     "Symbol": "AGQ"
   },
@@ -2114,10 +2118,6 @@
   {
     "Company": "Agriculture & Natural Solutions Acquisition Corporation Class A Ordinary Shares",
     "Symbol": "ANSC"
-  },
-  {
-    "Company": "Agriculture & Natural Solutions Acquisition Corporation Unit",
-    "Symbol": "ANSCU"
   },
   {
     "Company": "Agriculture & Natural Solutions Acquisition Corporation Warrant",
@@ -15028,6 +15028,10 @@
     "Symbol": "FEDU"
   },
   {
+    "Company": "ENvue Medical, Inc. Common Stock",
+    "Symbol": "FEED"
+  },
+  {
     "Company": "First Eagle Global Equity ETF",
     "Symbol": "FEGE"
   },
@@ -20744,10 +20748,6 @@
     "Symbol": "IBHL"
   },
   {
-    "Company": "iShares iBonds Oct 2025 Term TIPS ETF",
-    "Symbol": "IBIB"
-  },
-  {
     "Company": "iShares iBonds Oct 2026 Term TIPS ETF",
     "Symbol": "IBIC"
   },
@@ -22518,6 +22518,10 @@
   {
     "Company": "Integer Holdings Corporation",
     "Symbol": "ITGR"
+  },
+  {
+    "Company": "ITHAX Acquisition Corp III Units",
+    "Symbol": "ITHAU"
   },
   {
     "Company": "Investors Title Co",
@@ -42724,6 +42728,10 @@
     "Symbol": "TWLO"
   },
   {
+    "Company": "Twelve Seas Investment Company III Units",
+    "Symbol": "TWLVU"
+  },
+  {
     "Company": "ProShares UltraShort Russell2000",
     "Symbol": "TWM"
   },
@@ -45594,6 +45602,10 @@
   {
     "Company": "WealthTrust DBS Long Term Growth ETF",
     "Symbol": "WLTG"
+  },
+  {
+    "Company": "Wealthfront Corporation Common Stock",
+    "Symbol": "WLTH"
   },
   {
     "Company": "John Wiley & Sons, Inc. Class A",

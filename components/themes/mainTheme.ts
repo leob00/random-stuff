@@ -118,7 +118,7 @@ const themeOptions: ThemeOptions = {
           borderStyle: 'solid',
           borderWidth: 1,
           borderColor: CasinoBlueTransparent,
-          backgroundColor: CasinoBlue,
+          backgroundColor: DarkModeBkg,
           fontSize: '0.875rem',
           textAlign: 'center',
           color: VeryLightBlue,

@@ -68,7 +68,7 @@ const StockSearch = ({
       </CenterStack>
       {isLoading && <ComponentLoader />}
       {showAdvSearch && (
-        <Box maxWidth={{ xs: '98%', sm: '86%', md: '79%', lg: '75%' }}>
+        <Box maxWidth={{ xs: '98%', sm: '98%', md: '77%', lg: '69%' }}>
           <Box display={'flex'} justifyContent={'flex-end'}>
             <SiteLink text={'advanced search'} href='/csr/stocks/advanced-search' />
           </Box>

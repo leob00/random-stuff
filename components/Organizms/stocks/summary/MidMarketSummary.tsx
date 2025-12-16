@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import TopMoversSummary from './TopMoversSummary'
+import TopMoversSummary from './stocks/TopMoversSummary'
 import BorderedBox from 'components/Atoms/Boxes/BorderedBox'
 import CommoditiesSummary from './CommoditiesSummary'
 import { serverGetFetch, StockEarning } from 'lib/backend/api/qln/qlnApi'
@@ -14,6 +14,7 @@ import { useEffect } from 'react'
 import { mutate } from 'swr'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import NewsSummary from './NewsSummary'
+import RecentlySearchedStocksSummary from './stocks/RecentlySearchedStocksSummary'
 
 const MidMarketSummary = () => {
   const mutateKey = 'stock-reported-earnings-today'
@@ -52,7 +53,12 @@ const MidMarketSummary = () => {
       </Box>
       <Box>
         <BorderedBox>
-          <EarningsSummary userProfile={userProfile} data={data} title={`Today's Earnings`} isLoading={isLoading || isValidatingProfile} />
+          <RecentlySearchedStocksSummary userProfile={userProfile} />
+        </BorderedBox>
+      </Box>
+      <Box>
+        <BorderedBox>
+          <EarningsSummary userProfile={userProfile} data={data} title={`Scheduled Earnings`} isLoading={isLoading || isValidatingProfile} />
         </BorderedBox>
       </Box>
       <Box>

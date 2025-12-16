@@ -11,6 +11,9 @@ import { useEffect } from 'react'
 import { mutate } from 'swr'
 import { sortArray } from 'lib/util/collections'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
+import RecentlySearchedStocksSummary from './stocks/RecentlySearchedStocksSummary'
+import TopMoversSummary from './stocks/TopMoversSummary'
+import NewsSummary from './NewsSummary'
 
 const EveningSummary = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
@@ -46,12 +49,22 @@ const EveningSummary = () => {
     <Box display={'flex'} gap={1} flexWrap={'wrap'}>
       <Box>
         <BorderedBox>
-          <EarningsSummary userProfile={userProfile} data={data} title='Reported Earnings' isLoading={isLoading || isValidatingProfile} />
+          <TopMoversSummary userProfile={userProfile} />
         </BorderedBox>
       </Box>
       <Box>
         <BorderedBox>
-          <CommoditiesSummary />
+          <RecentlySearchedStocksSummary userProfile={userProfile} />
+        </BorderedBox>
+      </Box>
+      <Box>
+        <BorderedBox>
+          <EarningsSummary userProfile={userProfile} data={data} title='Reported Earnings' isLoading={isLoading || isValidatingProfile} />
+        </BorderedBox>
+      </Box>
+      <Box maxWidth={{ xs: 348, sm: '98%', md: '94%', lg: '68%' }}>
+        <BorderedBox>
+          <NewsSummary userProfile={userProfile} />
         </BorderedBox>
       </Box>
     </Box>

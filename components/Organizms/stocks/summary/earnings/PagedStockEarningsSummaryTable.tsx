@@ -12,6 +12,8 @@ import { StockEarning } from 'lib/backend/api/qln/qlnApi'
 import StockListItem, { getPositiveNegativeColor } from '../../StockListItem'
 import dayjs from 'dayjs'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
+import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
+import StockTooltip from 'components/Atoms/Tooltips/StockTooltip'
 const pageSize = 10
 const PagedStockEarningsSummaryTable = ({ data, userProfile }: { data: StockEarning[]; userProfile: UserProfile | null }) => {
   const theme = useTheme()
@@ -34,9 +36,11 @@ const PagedStockEarningsSummaryTable = ({ data, userProfile }: { data: StockEarn
           <Box key={item.Symbol}>
             <Box display={'flex'} gap={1} alignItems={'center'}>
               <Box minWidth={68}>
-                <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
-                  <Typography variant='body2'>{item.Symbol}</Typography>
-                </Button>
+                <StockTooltip data={item.StockQuote!}>
+                  <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
+                    <Typography variant='body2'>{item.Symbol}</Typography>
+                  </Button>
+                </StockTooltip>
               </Box>
               <Box minWidth={70}>
                 <Typography

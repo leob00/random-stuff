@@ -11,6 +11,8 @@ import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import Pager from 'components/Atoms/Pager'
 import { useClientPager } from 'hooks/useClientPager'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
+import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
+import StockTooltip from 'components/Atoms/Tooltips/StockTooltip'
 const pageSize = 10
 const PagedStockSummaryTable = ({ data, userProfile }: { data: StockQuote[]; userProfile: UserProfile | null }) => {
   const theme = useTheme()
@@ -35,9 +37,11 @@ const PagedStockSummaryTable = ({ data, userProfile }: { data: StockQuote[]; use
               <Box key={item.Symbol}>
                 <Box display={'flex'} gap={2} alignItems={'center'}>
                   <Box minWidth={68}>
-                    <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
-                      <Typography variant='body2'>{item.Symbol}</Typography>
-                    </Button>
+                    <StockTooltip data={item}>
+                      <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
+                        <Typography variant='body2'>{item.Symbol}</Typography>
+                      </Button>
+                    </StockTooltip>
                   </Box>
                   <Box minWidth={80}>
                     <Typography

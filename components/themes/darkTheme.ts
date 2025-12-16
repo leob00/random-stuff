@@ -12,6 +12,7 @@ import {
   typographyOptions,
   ErrorRed,
   CasinoBlack,
+  DarkModeBlue,
 } from './mainTheme'
 
 const darkPalette: PaletteOptions = {
@@ -72,7 +73,7 @@ const darkThemeOptions: ThemeOptions = {
           borderStyle: 'solid',
           borderWidth: 0,
           borderColor: VeryLightBlue,
-          backgroundColor: CasinoBlue,
+          backgroundColor: DarkModeBkg,
           fontSize: '1.0rem',
           textAlign: 'center',
           color: VeryLightBlue,

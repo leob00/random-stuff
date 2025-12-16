@@ -1,6 +1,5 @@
 import { Box, Typography, useTheme } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
-import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { getMarketChart, MarketCategory } from 'lib/backend/api/qln/chartApi'
 import { useState } from 'react'
@@ -152,7 +151,6 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
           {data && (
             <Box>
               {data.aggregate && <HistoricalAggregateDisplay aggregate={data.aggregate} />}
-
               {marketCategory === 'stocks' && (
                 <Box>
                   <ChartJsTimeSeriesLineChart data={data.timeSeriesModel} />

@@ -45,7 +45,7 @@ const StockReportsDropdown = ({ selectedValue }: { selectedValue: string }) => {
       <Box display={'flex'} justifyContent={'center'}>
         <StaticAutoComplete options={stockReportsDropdown} selectedItem={selectedOption} onSelected={handleReportSelected} disableClearable />
       </Box>
-      <Box maxWidth={{ xs: '75%', sm: '67%', md: '79%', lg: '76%' }}>
+      <Box maxWidth={{ xs: '98%', sm: '98%', md: '77%', lg: '69%' }}>
         <Box display={'flex'} justifyContent={'flex-end'}>
           <SiteLink text={'advanced search'} href='/csr/stocks/advanced-search' />
         </Box>

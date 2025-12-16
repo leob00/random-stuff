@@ -8,6 +8,7 @@ import ContextMenuEarnings from './ContextMenuEarnings'
 import ContextMenuReport from './ContextMenuReport'
 import ContextMenuStockSentiment from './ContextMenuStockSentiment'
 import ContextMenuStockAlerts from './ContextMenuStockAlerts'
+import ContextMenuSummary from './ContextMenuSummary'
 
 const StockMarketPageContextMenu = () => {
   const pathName = usePathname()
@@ -34,6 +35,11 @@ const StockMarketPageContextMenu = () => {
         item: <ContextMenuReport text={'reports'} />,
         fn: () => router.push('/ssg/stocks/reports/volume-leaders'),
         route: '/ssg/stocks/reports/volume-leaders',
+      },
+      {
+        item: <ContextMenuSummary />,
+        fn: () => router.push('/market/stocks/summary'),
+        route: '/market/stocks/summary',
       },
       {
         item: <ContextMenuEarnings text={'earnings calendar'} />,

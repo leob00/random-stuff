@@ -26,14 +26,15 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
 
   const currentDt = dayjs(handshake.CurrentDateTimeEst)
   const nexOpenDt = dayjs(handshake.NextOpenDateTime)
-  const latestTradingDateNoTime = dayjs(handshake.StockLatestTradeDateTimeEst).format('YYYY-MM-DD')
+  const latestTradingDate = dayjs(handshake.StockLatestTradeDateTimeEst)
+  const latestTradingDateNoTime = dayjs(latestTradingDate).format('YYYY-MM-DD')
 
   const currenDtNoTime = dayjs(currentDt).format('YYYY-MM-DD')
   const nextOpenDtNoTime = dayjs(nexOpenDt).format('YYYY-MM-DD')
   const isTradingDay = latestTradingDateNoTime === currenDtNoTime
   const showPremarket = isTradingDay && currentDt.hour() >= 6 && currentDt.hour() <= 10
-  const showMidMarket = isTradingDay && currentDt.hour() >= 11 && currentDt.hour() <= 16 && currentDt.minute() > -15
-  const showMPostMarketDay = isTradingDay && currentDt.hour() >= 16 && currentDt.minute() > 30 && currentDt.hour() <= 7
+  const showMidMarket = isTradingDay && currentDt.hour() >= 11 && currentDt.hour() <= 16 && currentDt.minute() > 15
+  const showMPostMarketDay = isTradingDay && !data.IsOpen && currentDt.hour() >= 16 && currentDt.hour() < 24
   const showHoliday = !isTradingDay
 
   useEffect(() => {
