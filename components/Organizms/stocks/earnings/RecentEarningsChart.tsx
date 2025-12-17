@@ -93,9 +93,7 @@ const RecentEarningsChart = ({ reported }: { reported: StockEarning[] }) => {
   return (
     <>
       <Box py={2}>
-        <FadeIn>
-          <BarChartStacked data={chartDataset} options={chartOptions} />
-        </FadeIn>
+        <BarChartStacked data={chartDataset} options={chartOptions} />
       </Box>
       <Box py={2}>
         <CenterStack>

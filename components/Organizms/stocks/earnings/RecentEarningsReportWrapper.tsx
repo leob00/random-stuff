@@ -18,7 +18,7 @@ const RecentEarningsReportWrapper = () => {
       {isLoading && <ComponentLoader />}
       <Box py={2}>
         {!isLoading && data && data.length === 0 && <NoDataFound />}
-        {data && data.length > 0 && <RecentEarningsReport data={data} />}
+        {data && <RecentEarningsReport data={data} />}
       </Box>
     </>
   )

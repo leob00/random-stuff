@@ -24,7 +24,7 @@ const AnnualEarningsReportWrapper = () => {
       {isLoading && <ComponentLoader />}
       <Box py={2}>
         {!isLoading && data && data.length === 0 && <NoDataFound />}
-        {data && data.length > 0 && <AnnualEarningsReport apiData={data} />}
+        {data && <AnnualEarningsReport apiData={data} />}
       </Box>
     </>
   )

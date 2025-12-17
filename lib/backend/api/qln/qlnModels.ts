@@ -18,6 +18,7 @@ export interface MarketHandshake {
   StockStats: StockStats
   NextOpenDateTime: string
   StockLatestTradeDateTimeEst: string
+  IsTradingDay: boolean
 }
 
 export type StockReportTypes = 'marketcapleaders' | 'volumeleaders' | 'indicesAndEtfs' | 'topmvgavg'

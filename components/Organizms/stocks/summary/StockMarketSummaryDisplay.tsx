@@ -31,11 +31,25 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
 
   const currenDtNoTime = dayjs(currentDt).format('YYYY-MM-DD')
   const nextOpenDtNoTime = dayjs(nexOpenDt).format('YYYY-MM-DD')
-  const isTradingDay = latestTradingDateNoTime === currenDtNoTime
+  const isTradingDay = handshake.IsTradingDay
   const showPremarket = isTradingDay && currentDt.hour() >= 6 && currentDt.hour() <= 10
-  const showMidMarket = isTradingDay && currentDt.hour() >= 11 && currentDt.hour() <= 16 && currentDt.minute() > 15
-  const showMPostMarketDay = isTradingDay && !data.IsOpen && currentDt.hour() >= 16 && currentDt.hour() < 24
+  const showMidMarket = !showPremarket && handshake.IsOpen
+  const showMPostMarketDay = isTradingDay && !data.IsOpen && !showMidMarket && !showPremarket
   const showHoliday = !isTradingDay
+  let message = handshake.Message
+  if (!message) {
+    if (handshake.IsOpen) {
+      if (showMidMarket) {
+        message = `Mid-day Summary`
+      } else if (showPremarket) {
+        message = 'Good morning!'
+      }
+    } else {
+      if (showPremarket) {
+        message = 'Good morning!'
+      }
+    }
+  }
 
   useEffect(() => {
     const fn = async () => {
@@ -47,9 +61,9 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
 
   return (
     <Box minHeight={500}>
-      {handshake.Message && (
+      {message && (
         <Box display={'flex'} justifyContent={'center'} pb={2}>
-          <Typography variant='h6'>{handshake.Message}</Typography>
+          <Typography variant='h6'>{message}</Typography>
         </Box>
       )}
       <Box display={'flex'} gap={1} flexWrap={{ xs: 'wrap', sm: 'unset' }}>

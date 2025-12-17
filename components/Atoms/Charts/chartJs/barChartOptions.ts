@@ -200,7 +200,7 @@ export type BarchartSettings = {
 export function getMultiDatasetBarChartOptions(settings: BarchartSettings): ChartOptions<'bar'> {
   const result: ChartOptions<'bar'> = {
     animation: {
-      easing: 'linear',
+      easing: 'easeInElastic',
       duration: 1000,
     },
     scales: {

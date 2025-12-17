@@ -101,9 +101,7 @@ const AnnualEarningsReport = ({ apiData }: { apiData: StockEarningAggregate[] })
   return (
     <>
       <Box py={2}>
-        <FadeIn>
-          <BarChartStacked data={chartDataset} options={chartOptions} />
-        </FadeIn>
+        <BarChartStacked data={chartDataset} options={chartOptions} />
       </Box>
       {startDate && endDate && (
         <Box py={2}>

@@ -17,7 +17,7 @@ import NewsSummary from './NewsSummary'
 import RecentlySearchedStocksSummary from './stocks/RecentlySearchedStocksSummary'
 
 const MidMarketSummary = () => {
-  const mutateKey = 'stock-reported-earnings-today'
+  const mutateKey = 'earnings-mid-market'
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
 
   const dataFn = async () => {

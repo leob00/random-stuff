@@ -1,11 +1,13 @@
-import { Box, ListItem, ListItemText, Tooltip, Typography } from '@mui/material'
+'use client'
+import { Box, ListItem, ListItemText, Tooltip, Typography, useTheme } from '@mui/material'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import numeral from 'numeral'
-import { JSX, ReactElement, ReactNode } from 'react'
+import { ReactElement } from 'react'
 
 const StockTooltip = ({ data, children }: { data: StockQuote; children: ReactElement<unknown, any> }) => {
+  const theme = useTheme()
   const customContent = (
-    <Box>
+    <Box minWidth={250}>
       <Typography variant='h6' textAlign={'left'}>
         {data.Company}
       </Typography>
@@ -19,7 +21,7 @@ const StockTooltip = ({ data, children }: { data: StockQuote; children: ReactEle
     </Box>
   )
   return (
-    <Tooltip title={customContent} placement='top' arrow={false}>
+    <Tooltip title={customContent} placement='top-start' arrow={false}>
       {children}
     </Tooltip>
   )

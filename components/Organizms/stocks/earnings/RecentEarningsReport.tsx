@@ -18,9 +18,7 @@ const RecentEarningsReport = ({ data }: { data: StockEarning[] }) => {
       <RecentEarningsChart reported={reported} />
       <Box py={2} display={'flex'} justifyContent={'center'}>
         <Box>
-          <FadeIn>
-            <PositiveNegativePieChart reported={reported} />
-          </FadeIn>
+          <PositiveNegativePieChart reported={reported} />
         </Box>
       </Box>
     </>

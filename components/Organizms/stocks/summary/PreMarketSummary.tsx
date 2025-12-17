@@ -10,11 +10,16 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import EarningsSummary from './earnings/EarningsSummary'
 import NewsSummary from './NewsSummary'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
+import { usePolling } from 'hooks/usePolling'
+import { useEffect } from 'react'
+import { getRandomInteger } from 'lib/util/numberUtil'
+import { mutate } from 'swr'
+import CryptoSummary from './CryptoSummary'
 
 const PreMarketSummary = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
 
-  const mutateKey = 'RecentEarnings'
+  const mutateKey = 'earnings-pre-market'
   const dataFn = async () => {
     await sleep(500)
     const resp = await serverGetFetch('/RecentEarnings')
@@ -28,13 +33,29 @@ const PreMarketSummary = () => {
   }
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
+
+  const { pollCounter } = usePolling(1000 * getRandomInteger(240, 360)) // 4-6 minutes
+
+  useEffect(() => {
+    const fn = async () => {
+      await sleep(250)
+      mutate(mutateKey)
+    }
+    fn()
+  }, [pollCounter])
   return (
     <Box display={'flex'} gap={1} flexWrap={'wrap'}>
+      <Box>
+        <BorderedBox>
+          <CryptoSummary />
+        </BorderedBox>
+      </Box>
       <Box>
         <BorderedBox>
           <CommoditiesSummary />
         </BorderedBox>
       </Box>
+
       <Box>
         <BorderedBox>
           <EarningsSummary userProfile={userProfile} data={data} title='Upcoming Earnings' isLoading={isLoading || isValidatingProfile} />
