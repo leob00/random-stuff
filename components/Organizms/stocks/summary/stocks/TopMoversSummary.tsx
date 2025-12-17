@@ -22,7 +22,7 @@ const TopMoversSummary = ({ userProfile }: { userProfile: UserProfile | null }) 
   const dataFn = async () => {
     await sleep(getRandomInteger(250, 2500))
     const topMoverFilter: StockAdvancedSearchFilter = {
-      take: 50,
+      take: 100,
       marketCap: {
         includeLargeCap: true,
         includeMegaCap: true,

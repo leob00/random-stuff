@@ -15,7 +15,7 @@ import { sortArray } from 'lib/util/collections'
 
 const RecentlySearchedStocksSummary = ({ userProfile }: { userProfile: UserProfile | null }) => {
   const mutateKey = 'searched-stocks'
-  const { pollCounter } = usePolling(1000 * 56) // 56 seconds
+  const { pollCounter } = usePolling(1000 * getRandomInteger(60, 360)) // 1- 3 minutes
 
   useEffect(() => {
     mutate(mutateKey)

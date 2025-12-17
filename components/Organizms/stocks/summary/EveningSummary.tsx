@@ -14,6 +14,10 @@ import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import RecentlySearchedStocksSummary from './stocks/RecentlySearchedStocksSummary'
 import TopMoversSummary from './stocks/TopMoversSummary'
 import NewsSummary from './NewsSummary'
+import { getCurrentDateTimeUsEastern } from 'lib/util/dateUtil'
+import { filterResult } from '../earnings/earningsCalendar'
+import CryptosDisplay from 'components/Organizms/crypto/CryptosDisplay'
+import CryptoSummary from './CryptoSummary'
 
 const EveningSummary = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
@@ -22,14 +26,11 @@ const EveningSummary = () => {
     await sleep(500)
     const resp = await serverGetFetch('/RecentEarnings')
     const earnings = resp.Body as StockEarning[]
-    const mapped: StockEarning[] = earnings
-      .filter((e) => e.ActualEarnings)
-      .map((m) => {
-        return { ...m, ReportDate: dayjs(m.ReportDate).format('YYYY-MM-DD') }
-      })
-    let result = mapped.filter((e) => e.ActualEarnings)
-    result = sortArray(result, ['ReportDate'], ['desc'])
-    //result = orderBy(result, ['StockQuote.MarketCap'], ['desc'])
+    const mapped: StockEarning[] = earnings.map((m) => {
+      return { ...m, ReportDate: dayjs(m.ReportDate).format() }
+    })
+    const today = dayjs(dayjs(getCurrentDateTimeUsEastern()).format('YYYY-MM-DD')).format()
+    const result = filterResult(mapped, today)
     return result
   }
 
@@ -59,7 +60,17 @@ const EveningSummary = () => {
       </Box>
       <Box>
         <BorderedBox>
-          <EarningsSummary userProfile={userProfile} data={data} title='Reported Earnings' isLoading={isLoading || isValidatingProfile} />
+          <EarningsSummary userProfile={userProfile} data={data} title='Scheduled Earnings' isLoading={isLoading || isValidatingProfile} />
+        </BorderedBox>
+      </Box>
+      <Box>
+        <BorderedBox>
+          <CommoditiesSummary />
+        </BorderedBox>
+      </Box>
+      <Box>
+        <BorderedBox>
+          <CryptoSummary />
         </BorderedBox>
       </Box>
       <Box maxWidth={{ xs: 348, sm: '98%', md: '94%', lg: '68%' }}>

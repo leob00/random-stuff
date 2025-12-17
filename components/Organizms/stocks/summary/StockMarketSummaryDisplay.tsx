@@ -38,7 +38,7 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
   const isTradingDay = handshake.IsTradingDay
   const showPremarket = isTradingDay && currentDt.hour() >= 6 && currentDt.hour() <= 10
   const showMidMarket = !showPremarket && handshake.IsOpen
-  const showMPostMarketDay = isTradingDay && !data.IsOpen && !showMidMarket && !showPremarket
+  const showMPostMarketDay = isTradingDay && !handshake.IsOpen && !showMidMarket && !showPremarket
   const showHoliday = !isTradingDay
   let message = handshake.Message
   if (!message) {
@@ -72,14 +72,14 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
         </Box>
       )}
       {showMPostMarketDay && (
-        <Box display={'flex'} justifyContent={'flex-start'} pb={3} alignItems={'center'} gap={2}>
+        <Box display={'flex'} justifyContent={'center'} pb={3} alignItems={'center'} gap={2}>
           <BedtimeIcon fontSize='large' sx={{ color: CasinoBlueTransparent }} />
-          <Typography>{message}</Typography>
+          <Typography>{`stock exchanges are closeed`}</Typography>
         </Box>
       )}
       <Box display={'flex'} gap={1} flexWrap={{ xs: 'wrap', sm: 'unset' }}>
         <BorderedBox height={260}>
-          <Box display={'flex'} justifyContent={'center'} pb={2}>
+          <Box display={'flex'} justifyContent={'flex-start'} pb={2}>
             {showMidMarket && <SunnyIcon fontSize='small' sx={{ color: GoldColor }} />}
             {showMPostMarketDay && <BedtimeIcon fontSize='small' sx={{ color: CasinoBlueTransparent }} />}
           </Box>
