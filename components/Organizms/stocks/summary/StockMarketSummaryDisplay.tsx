@@ -12,6 +12,10 @@ import PreMarketSummary from './PreMarketSummary'
 import MidMarketSummary from './MidMarketSummary'
 import EveningSummary from './EveningSummary'
 import HolidaySummary from './HolidaySummary'
+import SunnyIcon from '@mui/icons-material/Sunny'
+import BedtimeIcon from '@mui/icons-material/Bedtime'
+import { CasinoBlueTransparent, CasinoOrange, CasinoOrangeTransparent, CasinoYellowTransparent, GoldColor } from 'components/themes/mainTheme'
+
 const getData = async () => {
   const resp = await serverGetFetch('/MarketHandshake')
   return resp.Body as MarketHandshake
@@ -40,7 +44,7 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
   if (!message) {
     if (handshake.IsOpen) {
       if (showMidMarket) {
-        message = `Mid-day Summary`
+        message = ``
       } else if (showPremarket) {
         message = 'Good morning!'
       }
@@ -60,14 +64,25 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
   }, [pollCounter])
 
   return (
-    <Box minHeight={500}>
-      {message && (
-        <Box display={'flex'} justifyContent={'center'} pb={2}>
-          <Typography variant='h6'>{message}</Typography>
+    <Box minHeight={800}>
+      {showMidMarket && (
+        <Box display={'flex'} justifyContent={'center'} pb={4} alignItems={'center'} gap={2}>
+          <SunnyIcon fontSize='large' sx={{ color: GoldColor }} />
+          <Typography color={GoldColor}>stock exchanges are open</Typography>
+        </Box>
+      )}
+      {showMPostMarketDay && (
+        <Box display={'flex'} justifyContent={'flex-start'} pb={3} alignItems={'center'} gap={2}>
+          <BedtimeIcon fontSize='large' sx={{ color: CasinoBlueTransparent }} />
+          <Typography>{message}</Typography>
         </Box>
       )}
       <Box display={'flex'} gap={1} flexWrap={{ xs: 'wrap', sm: 'unset' }}>
-        <BorderedBox height={208}>
+        <BorderedBox height={260}>
+          <Box display={'flex'} justifyContent={'center'} pb={2}>
+            {showMidMarket && <SunnyIcon fontSize='small' sx={{ color: GoldColor }} />}
+            {showMPostMarketDay && <BedtimeIcon fontSize='small' sx={{ color: CasinoBlueTransparent }} />}
+          </Box>
           <Box>
             <ReadOnlyField
               variant='caption'
@@ -76,6 +91,7 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
               color={`${handshake.IsOpen ? theme.palette.success.main : theme.palette.warning.main}`}
             />
           </Box>
+
           <Box display={'flex'}>
             <StockMarketCountdown data={handshake} />
           </Box>

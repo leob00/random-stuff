@@ -15,6 +15,7 @@ import { mutate } from 'swr'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import NewsSummary from './NewsSummary'
 import RecentlySearchedStocksSummary from './stocks/RecentlySearchedStocksSummary'
+import { getRandomInteger } from 'lib/util/numberUtil'
 
 const MidMarketSummary = () => {
   const mutateKey = 'earnings-mid-market'
@@ -34,7 +35,7 @@ const MidMarketSummary = () => {
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
-  const { pollCounter } = usePolling(1000 * 240) // 4 minutes
+  const { pollCounter } = usePolling(1000 * getRandomInteger(240, 360)) // 4 - 6 minutes
 
   useEffect(() => {
     const fn = async () => {
@@ -61,11 +62,11 @@ const MidMarketSummary = () => {
           <EarningsSummary userProfile={userProfile} data={data} title={`Scheduled Earnings`} isLoading={isLoading || isValidatingProfile} />
         </BorderedBox>
       </Box>
-      <Box>
+      {/* <Box>
         <BorderedBox>
           <CommoditiesSummary />
         </BorderedBox>
-      </Box>
+      </Box> */}
       <Box maxWidth={{ xs: 348, sm: '98%', md: '94%', lg: '68%' }}>
         <BorderedBox>
           <NewsSummary userProfile={userProfile} />
