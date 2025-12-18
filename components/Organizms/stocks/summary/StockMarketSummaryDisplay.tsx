@@ -65,6 +65,12 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
 
   return (
     <Box minHeight={800}>
+      {showPremarket && (
+        <Box display={'flex'} justifyContent={'center'} pb={3} alignItems={'center'} gap={2}>
+          <SunnyIcon fontSize='large' sx={{ color: GoldColor }} />
+          <Typography color={GoldColor}>good morning!</Typography>
+        </Box>
+      )}
       {showMidMarket && (
         <Box display={'flex'} justifyContent={'center'} pb={4} alignItems={'center'} gap={2}>
           <SunnyIcon fontSize='large' sx={{ color: GoldColor }} />
