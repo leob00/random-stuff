@@ -10,6 +10,7 @@ import { mutate } from 'swr'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import StockListSummary from './StockListSummary'
 import { getRandomInteger } from 'lib/util/numberUtil'
+import { orderBy } from 'lodash'
 
 const TopMoversSummary = ({ userProfile }: { userProfile: UserProfile | null }) => {
   const mutateKey = 'stock-market-summary-top-movers'
@@ -32,7 +33,8 @@ const TopMoversSummary = ({ userProfile }: { userProfile: UserProfile | null }) 
       },
     }
     const topMoversResp = await executeStockAdvancedSearch(topMoverFilter)
-    const result = topMoversResp.Body as StockQuote[]
+    let result = topMoversResp.Body as StockQuote[]
+    result = orderBy(result, (m) => Math.abs(m.ChangePercent), ['desc'])
     return result
   }
 

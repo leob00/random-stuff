@@ -4,7 +4,8 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const darkColor = theme.palette.mode === 'dark' ? '#90caf9' : DarkBlue
-  const text = html.replaceAll('font color="#6f6f6f"', `font color="${darkColor}"`)
+  let text = html.replaceAll('font color="#6f6f6f"', `font color="${darkColor}"`)
+  text = `<html><p>${text}</p></html>`
 
   const StyledBox = styled(Box)(() => ({
     img: {

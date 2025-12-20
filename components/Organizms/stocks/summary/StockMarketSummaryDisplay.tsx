@@ -1,12 +1,9 @@
 'use client'
 import { Box, Typography, useTheme } from '@mui/material'
-import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import { usePolling } from 'hooks/usePolling'
 import { serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import { MarketHandshake } from 'lib/backend/api/qln/qlnModels'
 import { useEffect, useState } from 'react'
-import StockMarketCountdown from './StockMarketCountdown'
-import BorderedBox from 'components/Atoms/Boxes/BorderedBox'
 import dayjs from 'dayjs'
 import PreMarketSummary from './PreMarketSummary'
 import MidMarketSummary from './MidMarketSummary'
@@ -14,7 +11,8 @@ import EveningSummary from './EveningSummary'
 import HolidaySummary from './HolidaySummary'
 import SunnyIcon from '@mui/icons-material/Sunny'
 import BedtimeIcon from '@mui/icons-material/Bedtime'
-import { CasinoBlueTransparent, CasinoOrange, CasinoOrangeTransparent, CasinoYellowTransparent, GoldColor } from 'components/themes/mainTheme'
+import { CasinoBlueTransparent, GoldColor } from 'components/themes/mainTheme'
+import StockMarketCountdownHorizontal from './StockMarketCountdownHorizontal'
 
 const getData = async () => {
   const resp = await serverGetFetch('/MarketHandshake')
@@ -65,9 +63,9 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
 
   return (
     <Box minHeight={800}>
-      {showPremarket && (
+      {/* {showPremarket && (
         <Box display={'flex'} justifyContent={'center'} pb={3} alignItems={'center'} gap={2}>
-          <SunnyIcon fontSize='large' sx={{ color: GoldColor }} />
+          <WbTwilightIcon fontSize='large' sx={{ color: GoldColor }} />
           <Typography color={GoldColor}>good morning!</Typography>
         </Box>
       )}
@@ -82,26 +80,28 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
           <BedtimeIcon fontSize='large' sx={{ color: CasinoBlueTransparent }} />
           <Typography>{`stock exchanges are closeed`}</Typography>
         </Box>
-      )}
-      <Box display={'flex'} gap={1} flexWrap={{ xs: 'wrap', sm: 'unset' }}>
-        <BorderedBox height={260}>
-          <Box display={'flex'} justifyContent={'flex-start'} pb={2}>
-            {showMidMarket && <SunnyIcon fontSize='small' sx={{ color: GoldColor }} />}
-            {showMPostMarketDay && <BedtimeIcon fontSize='small' sx={{ color: CasinoBlueTransparent }} />}
-          </Box>
-          <Box>
-            <ReadOnlyField
-              variant='caption'
-              label='status'
-              val={`${handshake.IsOpen ? 'OPEN' : 'CLOSED'}`}
-              color={`${handshake.IsOpen ? theme.palette.success.main : theme.palette.warning.main}`}
-            />
-          </Box>
+      )} */}
+      <Box display={'flex'} justifyContent={'center'}>
+        <Box display={'flex'} gap={2} alignItems={'center'}>
+          {handshake.IsOpen && (
+            <Box display={'flex'} gap={1} alignItems={'flex-end'}>
+              <SunnyIcon fontSize='medium' sx={{ color: GoldColor }} />
+              <Typography variant='body2' color={GoldColor}>{`U.S stock exchanges are open`}</Typography>
+            </Box>
+          )}
+          {!handshake.IsOpen && (
+            <Box display={'flex'} gap={1} alignItems={'flex-end'}>
+              <BedtimeIcon fontSize='medium' sx={{ color: CasinoBlueTransparent }} />
+              <Typography variant='body2' color={CasinoBlueTransparent}>{`U.S stock exchanges are closed`}</Typography>
+            </Box>
+          )}
+        </Box>
+      </Box>
+      <Box display={'flex'} justifyContent={'center'} pb={2}>
+        <StockMarketCountdownHorizontal data={handshake} />
+      </Box>
 
-          <Box display={'flex'}>
-            <StockMarketCountdown data={handshake} />
-          </Box>
-        </BorderedBox>
+      <Box display={'flex'} gap={1} flexWrap={{ xs: 'wrap', sm: 'unset' }}>
         {/* <Box sx={{ transform: 'scale(0.7)', transformOrigin: 'top left' }}> */}
         {showPremarket && <PreMarketSummary />}
         {showMidMarket && <MidMarketSummary />}

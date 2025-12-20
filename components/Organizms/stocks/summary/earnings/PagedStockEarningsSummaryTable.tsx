@@ -15,7 +15,7 @@ import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
 import StockTooltip from 'components/Atoms/Tooltips/StockTooltip'
 const pageSize = 10
-const PagedStockEarningsSummaryTable = ({ data, userProfile }: { data: StockEarning[]; userProfile: UserProfile | null }) => {
+const PagedStockEarningsSummaryTable = ({ data, userProfile, singleDate }: { data: StockEarning[]; userProfile: UserProfile | null; singleDate?: boolean }) => {
   const theme = useTheme()
   const palette = theme.palette.mode
 
@@ -54,9 +54,11 @@ const PagedStockEarningsSummaryTable = ({ data, userProfile }: { data: StockEarn
                   variant={'body2'}
                 >{`${item.EstimatedEarnings !== null ? numeral(item.EstimatedEarnings).format('###,###,0.00') : ''}`}</Typography>
               </Box>
-              <Box minWidth={80}>
-                <Typography variant='caption'>{`${dayjs(item.ReportDate).format('MM/DD/YYYY')}`}</Typography>
-              </Box>
+              {!singleDate && (
+                <Box minWidth={80}>
+                  <Typography variant='caption'>{`${dayjs(item.ReportDate).format('MM/DD/YYYY')}`}</Typography>
+                </Box>
+              )}
             </Box>
             <HorizontalDivider />
           </Box>

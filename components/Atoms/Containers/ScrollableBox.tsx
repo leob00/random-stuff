@@ -2,6 +2,8 @@ import { Box } from '@mui/material'
 import { Scroller } from '../Boxes/useScrollTop'
 import { ReactElement, ReactNode, useEffect, useRef } from 'react'
 
+type Props = {}
+
 const ScrollableBox = ({ children, maxHeight, scroller }: { children: ReactNode | ReactElement[]; maxHeight?: number; scroller?: Scroller }) => {
   const boxRef = useRef<HTMLDivElement | null>(null)
 

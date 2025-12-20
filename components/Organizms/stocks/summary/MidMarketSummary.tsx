@@ -16,20 +16,36 @@ import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import NewsSummary from './NewsSummary'
 import RecentlySearchedStocksSummary from './stocks/RecentlySearchedStocksSummary'
 import { getRandomInteger } from 'lib/util/numberUtil'
+import { orderBy } from 'lodash'
+
+type Model = {
+  scheduledEarnings: StockEarning[]
+  upcomingEarnings: StockEarning[]
+}
 
 const MidMarketSummary = () => {
   const mutateKey = 'earnings-mid-market'
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
 
   const dataFn = async () => {
+    const currentDtEst = getCurrentDateTimeUsEastern()
     await sleep(500)
     const resp = await serverGetFetch('/RecentEarnings')
     const earnings = resp.Body as StockEarning[]
     const mapped: StockEarning[] = earnings.map((m) => {
       return { ...m, ReportDate: dayjs(m.ReportDate).format() }
     })
-    const today = dayjs(dayjs(getCurrentDateTimeUsEastern()).format('YYYY-MM-DD')).format()
-    const result = filterResult(mapped, today)
+    const today = dayjs(dayjs(currentDtEst).format('YYYY-MM-DD')).format()
+    const todaysEarnings = filterResult(mapped, today)
+    const upComingEarnings = orderBy(
+      mapped.filter((m) => dayjs(m.ReportDate).isAfter(dayjs(today))),
+      ['ReportDate', 'StockQuote.MarketCap'],
+      ['asc', 'desc'],
+    )
+    const result: Model = {
+      scheduledEarnings: todaysEarnings,
+      upcomingEarnings: upComingEarnings,
+    }
     return result
   }
 
@@ -58,8 +74,19 @@ const MidMarketSummary = () => {
         </BorderedBox>
       </Box>
       <Box>
-        <BorderedBox>
-          <EarningsSummary userProfile={userProfile} data={data} title={`Scheduled Earnings`} isLoading={isLoading || isValidatingProfile} />
+        <BorderedBox width={'100%'}>
+          <EarningsSummary
+            userProfile={userProfile}
+            data={data?.scheduledEarnings}
+            title={`Scheduled Earnings`}
+            isLoading={isLoading || isValidatingProfile}
+            singleDate
+          />
+        </BorderedBox>
+      </Box>
+      <Box>
+        <BorderedBox width={'100%'}>
+          <EarningsSummary userProfile={userProfile} data={data?.upcomingEarnings} title={`Upcoming Earnings`} isLoading={isLoading || isValidatingProfile} />
         </BorderedBox>
       </Box>
       {/* <Box>
