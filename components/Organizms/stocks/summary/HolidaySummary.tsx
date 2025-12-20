@@ -62,7 +62,7 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
 
   return (
     // <Box display={'flex'} sx={{ transform: 'scale(0.98)', transformOrigin: 'top left' }} width={'125%'}>
-    <Box display={'flex'}>
+    <Box>
       <Box display={'flex'} gap={1} flexWrap={'wrap'}>
         <Box>
           <BorderedBox>
@@ -84,8 +84,8 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
             <CryptoSummary />
           </BorderedBox>
         </Box>
-        <Box maxWidth={{ xs: 348, sm: '98%', md: '94%', lg: '68%' }}>
-          <BorderedBox>
+        <Box maxWidth={{ xs: '95%', sm: '98%', md: '94%', lg: '68%' }}>
+          <BorderedBox mt={{ xl: -16 }}>
             <NewsSummary userProfile={userProfile} />
           </BorderedBox>
         </Box>

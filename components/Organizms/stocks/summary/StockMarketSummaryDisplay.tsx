@@ -13,6 +13,7 @@ import SunnyIcon from '@mui/icons-material/Sunny'
 import BedtimeIcon from '@mui/icons-material/Bedtime'
 import { CasinoBlueTransparent, GoldColor } from 'components/themes/mainTheme'
 import StockMarketCountdownHorizontal from './StockMarketCountdownHorizontal'
+import BorderedBox from 'components/Atoms/Boxes/BorderedBox'
 
 const getData = async () => {
   const resp = await serverGetFetch('/MarketHandshake')
@@ -63,54 +64,35 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
 
   return (
     <Box minHeight={800}>
-      {/* {showPremarket && (
-        <Box display={'flex'} justifyContent={'center'} pb={3} alignItems={'center'} gap={2}>
-          <WbTwilightIcon fontSize='large' sx={{ color: GoldColor }} />
-          <Typography color={GoldColor}>good morning!</Typography>
-        </Box>
-      )}
-      {showMidMarket && (
-        <Box display={'flex'} justifyContent={'center'} pb={4} alignItems={'center'} gap={2}>
-          <SunnyIcon fontSize='large' sx={{ color: GoldColor }} />
-          <Typography color={GoldColor}>stock exchanges are open</Typography>
-        </Box>
-      )}
-      {showMPostMarketDay && (
-        <Box display={'flex'} justifyContent={'center'} pb={3} alignItems={'center'} gap={2}>
-          <BedtimeIcon fontSize='large' sx={{ color: CasinoBlueTransparent }} />
-          <Typography>{`stock exchanges are closeed`}</Typography>
-        </Box>
-      )} */}
       <Box display={'flex'} justifyContent={'center'}>
-        <Box display={'flex'} gap={2} alignItems={'center'}>
-          {handshake.IsOpen && (
-            <Box display={'flex'} gap={1} alignItems={'flex-end'}>
-              <SunnyIcon fontSize='medium' sx={{ color: GoldColor }} />
-              <Typography variant='body2' color={GoldColor}>{`U.S stock exchanges are open`}</Typography>
+        <BorderedBox mb={1} mt={-2} width={{ xs: '100%', sm: '80%', lg: '30%' }} justifyContent={'center'}>
+          <Box display={'flex'} justifyContent={'center'}>
+            <Box display={'flex'} gap={2} alignItems={'center'}>
+              {handshake.IsOpen && (
+                <Box display={'flex'} gap={1} alignItems={'flex-end'}>
+                  <SunnyIcon fontSize='medium' sx={{ color: GoldColor }} />
+                  <Typography variant='body2' color={GoldColor}>{`U.S stock exchanges are open`}</Typography>
+                </Box>
+              )}
+              {!handshake.IsOpen && (
+                <Box display={'flex'} gap={1} alignItems={'flex-end'}>
+                  <BedtimeIcon fontSize='medium' sx={{ color: CasinoBlueTransparent }} />
+                  <Typography variant='body2' color={CasinoBlueTransparent}>{`U.S stock exchanges are closed`}</Typography>
+                </Box>
+              )}
             </Box>
-          )}
-          {!handshake.IsOpen && (
-            <Box display={'flex'} gap={1} alignItems={'flex-end'}>
-              <BedtimeIcon fontSize='medium' sx={{ color: CasinoBlueTransparent }} />
-              <Typography variant='body2' color={CasinoBlueTransparent}>{`U.S stock exchanges are closed`}</Typography>
-            </Box>
-          )}
-        </Box>
+          </Box>
+          <Box display={'flex'} justifyContent={'center'}>
+            <StockMarketCountdownHorizontal data={handshake} />
+          </Box>
+        </BorderedBox>
       </Box>
-      <Box display={'flex'} justifyContent={'center'} pb={2}>
-        <StockMarketCountdownHorizontal data={handshake} />
-      </Box>
-
       <Box display={'flex'} gap={1} flexWrap={{ xs: 'wrap', sm: 'unset' }}>
         {/* <Box sx={{ transform: 'scale(0.7)', transformOrigin: 'top left' }}> */}
         {showPremarket && <PreMarketSummary />}
         {showMidMarket && <MidMarketSummary />}
         {showMPostMarketDay && <EveningSummary />}
-        {showHoliday && (
-          <Box>
-            <HolidaySummary nextOpenDt={nextOpenDtNoTime} />
-          </Box>
-        )}
+        {showHoliday && <HolidaySummary nextOpenDt={nextOpenDtNoTime} />}
         {/* </Box> */}
       </Box>
     </Box>
