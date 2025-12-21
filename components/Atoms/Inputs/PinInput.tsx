@@ -120,15 +120,11 @@ const PinInput = ({ setFocus, onConfirmed }: { setFocus?: boolean; onConfirmed: 
               sx={{ width: 35 }}
               required
               type='password'
-              inputProps={{ maxLength: 1, inputMode: 'numeric' }}
+              slotProps={{ input: { inputMode: 'numeric' }, htmlInput: { maxLength: 1, inputMode: 'numeric' } }}
               variant='outlined'
               autoComplete='new-password'
               size='small'
               placeholder={''}
-              InputProps={{
-                //type: 'number',
-                autoComplete: 'new-password',
-              }}
             ></TextField>
           </form>
 

@@ -1,15 +1,5 @@
 import { forwardRef } from 'react'
-import {
-  type FilledInputProps,
-  type InputBaseComponentProps,
-  InputLabelProps,
-  type InputProps,
-  type OutlinedInputProps,
-  type SxProps,
-  TextField,
-  TextFieldProps,
-  useTheme,
-} from '@mui/material'
+import { TextField, TextFieldProps, useTheme } from '@mui/material'
 import { NumericFormat } from 'react-number-format'
 import numeral from 'numeral'
 
@@ -25,19 +15,16 @@ type Props = {
   errorMessage?: string
   placeholder?: string
 }
-
+const CustomTextField = (props: TextFieldProps) => {
+  return <TextField {...props} />
+}
 const FormNumericTextField2 = forwardRef<HTMLInputElement, Props>(function FormNumericTextField(props: Props, ref) {
   const { id, size, fullwidth, onChanged, value, label, errorMessage, placeholder } = props
   const theme = useTheme()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const num = numeral(e.target.value)
-
     onChanged(num.value() ?? undefined)
-  }
-
-  const CustomTextField = (props: TextFieldProps) => {
-    return <TextField {...props} />
   }
 
   return (
@@ -53,14 +40,15 @@ const FormNumericTextField2 = forwardRef<HTMLInputElement, Props>(function FormN
       variant='outlined'
       error={!!errorMessage}
       helperText={errorMessage}
-      fullWidth={fullwidth}
+      //fullWidth={fullwidth}
       placeholder={placeholder}
       label={label}
       color='primary'
       slotProps={{
-        // htmlInput: {
-        //   color: 'primary',
-        // },
+        htmlInput: {
+          color: 'primary',
+          inputMode: 'numeric',
+        },
         input: {
           //color: 'secondary',
           autoComplete: 'off',

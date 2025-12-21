@@ -45,7 +45,8 @@ const TimerForm = ({ onSubmitted }: { onSubmitted: (data: TimerSettingsFilter) =
                 control={control}
                 render={({ field: { value, onChange, ...field } }) => (
                   <FormNumericTextField2
-                    //placeholder='from'
+                    id='hours'
+                    placeholder='hours'
                     label='hours'
                     size='small'
                     value={formValues.hours}
@@ -66,7 +67,8 @@ const TimerForm = ({ onSubmitted }: { onSubmitted: (data: TimerSettingsFilter) =
                 control={control}
                 render={({ field: { value, onChange, ...field } }) => (
                   <FormNumericTextField2
-                    //placeholder='from'
+                    id='minutes'
+                    placeholder='minutes'
                     label='minutes'
                     size='small'
                     value={formValues.minutes}
@@ -87,7 +89,8 @@ const TimerForm = ({ onSubmitted }: { onSubmitted: (data: TimerSettingsFilter) =
                 control={control}
                 render={({ field: { value, onChange, ...field } }) => (
                   <FormNumericTextField2
-                    //placeholder='from'
+                    id='seconds'
+                    placeholder='seconds'
                     label='seconds'
                     size='small'
                     value={formValues.seconds}
