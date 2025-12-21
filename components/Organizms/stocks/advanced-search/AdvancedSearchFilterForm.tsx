@@ -46,9 +46,8 @@ const AdvancedSearchFilterForm = ({
     defaultValues: filter,
   })
 
-  const [showSaveForm, setShowSaveForm] = useState(false)
-
   const formValues = watch()
+  const [showSaveForm, setShowSaveForm] = useState(false)
 
   const takeOptions: DropdownItemNumeric[] = [
     { text: '1', value: 1 },

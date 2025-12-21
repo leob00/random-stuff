@@ -65,17 +65,17 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
   return (
     <Box minHeight={800}>
       <Box display={'flex'} justifyContent={'center'}>
-        <BorderedBox mb={1} mt={-2} width={{ xs: '100%', sm: '80%', lg: '30%' }} justifyContent={'center'}>
+        <BorderedBox mb={2} mt={-2} width={{ xs: '100%', sm: '80%', lg: '30%' }} justifyContent={'center'}>
           <Box display={'flex'} justifyContent={'center'}>
             <Box display={'flex'} gap={2} alignItems={'center'}>
               {handshake.IsOpen && (
-                <Box display={'flex'} gap={1} alignItems={'flex-end'}>
+                <Box display={'flex'} gap={1} alignItems={'center'}>
                   <SunnyIcon fontSize='medium' sx={{ color: GoldColor }} />
                   <Typography variant='body2' color={GoldColor}>{`U.S stock exchanges are open`}</Typography>
                 </Box>
               )}
               {!handshake.IsOpen && (
-                <Box display={'flex'} gap={1} alignItems={'flex-end'}>
+                <Box display={'flex'} gap={1} alignItems={'center'}>
                   <BedtimeIcon fontSize='medium' sx={{ color: CasinoBlueTransparent }} />
                   <Typography variant='body2' color={CasinoBlueTransparent}>{`U.S stock exchanges are closed`}</Typography>
                 </Box>

@@ -42,13 +42,13 @@ const FormNumericTextField2 = forwardRef<HTMLInputElement, Props>(function FormN
 
   return (
     <NumericFormat
-      customInput={TextField}
+      customInput={CustomTextField}
       thousandSeparator
       size={size ?? 'small'}
       id={id}
       data-testid={id}
       value={value}
-      onChange={(e) => handleChange(e)}
+      onChange={handleChange}
       //color='primary'
       variant='outlined'
       error={!!errorMessage}

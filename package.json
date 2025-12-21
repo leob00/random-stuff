@@ -6,7 +6,7 @@
     "dev": "next dev",
     "devt": "next dev --turbopack",
     "debug": "next dev",
-    "build": "npx ts-node lib/backend/node/downloadSymbolCompanies.ts & cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" next build",
+    "build": "ts-node lib/backend/node/downloadSymbolCompanies.ts & cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" next build",
     "start": "next start",
     "lint": "next lint",
     "download": "ts-node lib/backend/node/downloadAnimals.ts | ts-node lib/backend/node/downloadSymbolCompanies.ts",

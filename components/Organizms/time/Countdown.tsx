@@ -13,7 +13,7 @@ const Countdown = ({ title, start, current, end }: { title?: string; current: st
   const span = getDuration(current, end)
   const secondsFromStartToEnd = spanFromStart.totalSeconds
   const secondsFromCurrentToEnd = span.totalSeconds
-  const summary = getDurationText(span)
+  const durationTimeString = getDurationText(span)
   const progress = 100 - calculatePercent(secondsFromCurrentToEnd, secondsFromStartToEnd)
   return (
     <Box pt={2}>
@@ -24,7 +24,7 @@ const Countdown = ({ title, start, current, end }: { title?: string; current: st
       )}
       <Box py={1}>
         <Typography variant='h6' fontWeight={'bold'}>
-          {summary}
+          {durationTimeString}
         </Typography>
       </Box>
       <CircleProgress progress={progress} />

@@ -35,6 +35,7 @@ export type PathNames =
   | 'image text'
   | 'profile'
   | 'stock market summary'
+  | 'timer'
   | (string & {})
 
 export type SiteCategories =
@@ -250,6 +251,11 @@ export const flatSiteMap: Navigation[] = [
   {
     name: 'image text',
     path: '/csr/files/extract-text-from-image',
+    category: 'Utilities',
+  },
+  {
+    name: 'timer',
+    path: '/utilities/timer',
     category: 'Utilities',
   },
   {

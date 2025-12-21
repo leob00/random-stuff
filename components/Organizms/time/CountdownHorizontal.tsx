@@ -7,6 +7,7 @@ import { calculatePercent } from 'lib/util/numberUtil'
 import CircleProgress from 'components/Atoms/Loaders/CircleProgress'
 import duration from 'dayjs/plugin/duration'
 import { getDurationText } from './Countdown'
+import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 dayjs.extend(duration)
 
 const CountdownHorizontal = ({ title, start, current, end }: { title?: string; current: string; start: string; end: string }) => {
@@ -18,9 +19,13 @@ const CountdownHorizontal = ({ title, start, current, end }: { title?: string; c
   const progress = 100 - calculatePercent(secondsFromCurrentToEnd, secondsFromStartToEnd)
   return (
     <Box display={'flex'} gap={1} alignItems={'center'}>
-      {title && <Typography variant='caption'>{title}</Typography>}
-      <Box py={1}>
-        <Typography variant='h6' fontWeight={'bold'}>
+      {title && (
+        <Typography variant='body2' color={CasinoBlueTransparent}>
+          {title}
+        </Typography>
+      )}
+      <Box>
+        <Typography variant='h6' fontWeight={'bold'} color={CasinoBlueTransparent}>
           {summary}
         </Typography>
       </Box>

@@ -39,6 +39,7 @@ import SignalWifiStatusbar4BarIcon from '@mui/icons-material/SignalWifiStatusbar
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount'
 import CarpenterIcon from '@mui/icons-material/Carpenter'
 import SummarizeIcon from '@mui/icons-material/Summarize'
+import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined'
 type PagePros = {
   disabled?: boolean
 } & Navigation &
@@ -134,6 +135,9 @@ export const renderIcon = (item: PathNames) => {
       return <SignalWifiStatusbar4BarIcon />
     case 'sandbox':
       return <CarpenterIcon />
+    case 'timer':
+      return <AccessTimeOutlinedIcon />
+
     default:
       return <></>
   }

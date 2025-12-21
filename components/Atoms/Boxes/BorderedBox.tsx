@@ -8,7 +8,7 @@ interface ComponentProps extends BoxProps {
 
 const BorderedBox = ({ ...props }: ComponentProps) => {
   return (
-    <Box {...props} py={2} px={1} sx={{ border: `solid ${CasinoBlueTransparent} 1px` }} borderRadius={2}>
+    <Box {...props} pt={1} pb={1} px={1} sx={{ border: `solid ${CasinoBlueTransparent} 1px` }} borderRadius={2}>
       {props.children}
     </Box>
   )
