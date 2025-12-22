@@ -60,7 +60,7 @@ const TimerForm = ({ onSubmitted }: { onSubmitted: (data: TimerSettingsFilter) =
               />
             </Box>
           </Box>
-          <Box display={'flex'} justifyContent={'center'}>
+          <Box display={'flex'} justifyContent={'center'} py={1}>
             <Box width={100}>
               <Controller
                 name={'minutes'}
@@ -104,7 +104,7 @@ const TimerForm = ({ onSubmitted }: { onSubmitted: (data: TimerSettingsFilter) =
               />
             </Box>
           </Box>
-          <Box display={'flex'} justifyContent={'center'}>
+          <Box display={'flex'} justifyContent={'center'} pt={1}>
             <Box width={100}>
               <PrimaryButton type='submit' text='start' />
             </Box>

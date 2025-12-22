@@ -27,7 +27,7 @@ type Model = {
 
 const TimerDisplay = () => {
   const utcNow = getUtcNow().format()
-  const [model, setModel] = useState<Model>(getData(utcNow, utcNow, utcNow))
+  const [model, setModel] = useState<Model>({ ...getData(utcNow, utcNow, utcNow), progressPerc: 0 })
   const [formExapnded, setFormExpanded] = useState(true)
 
   const { pollCounter, isStopped, stop, start } = usePolling(1000, 1000, true)
@@ -81,7 +81,7 @@ const TimerDisplay = () => {
         <CircleProgress progress={model.progressPerc} variant='determinate' size='xl' />
       </Box>
       <Box display={'flex'} justifyContent={'center'} py={2}>
-        {model.progressPerc > 0 && model.progressPerc < 99 && <DangerButton text={'stop'} onClicked={handleStop} />}
+        {!isStopped && <DangerButton text={'stop'} onClicked={handleStop} />}
       </Box>
     </Box>
   )

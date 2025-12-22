@@ -1,5 +1,4 @@
 import { Box } from '@mui/material'
-import Countdown from 'components/Organizms/time/Countdown'
 import CountdownHorizontal from 'components/Organizms/time/CountdownHorizontal'
 import dayjs from 'dayjs'
 import { usePolling } from 'hooks/usePolling'

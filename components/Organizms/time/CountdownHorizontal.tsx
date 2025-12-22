@@ -29,9 +29,9 @@ const CountdownHorizontal = ({ title, start, current, end }: { title?: string; c
           {summary}
         </Typography>
       </Box>
-      <Box>
+      {/* <Box>
         <CircleProgress progress={progress} />
-      </Box>
+      </Box> */}
     </Box>
   )
 }

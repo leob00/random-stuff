@@ -36,11 +36,9 @@ const FormNumericTextField2 = forwardRef<HTMLInputElement, Props>(function FormN
       data-testid={id}
       value={value}
       onChange={handleChange}
-      //color='primary'
       variant='outlined'
       error={!!errorMessage}
       helperText={errorMessage}
-      //fullWidth={fullwidth}
       placeholder={placeholder}
       label={label}
       color='primary'
@@ -48,14 +46,9 @@ const FormNumericTextField2 = forwardRef<HTMLInputElement, Props>(function FormN
         htmlInput: {
           color: 'primary',
           inputMode: 'numeric',
-        },
-        input: {
-          //color: 'secondary',
           autoComplete: 'off',
+          autoCorrect: 'off',
         },
-        // inputLabel: {
-        //   color: 'red',
-        // },
       }}
     />
   )
