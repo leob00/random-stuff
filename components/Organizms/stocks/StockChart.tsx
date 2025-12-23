@@ -136,7 +136,11 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
     <Box>
       {isLoading || (isWaiting && <ComponentLoader />)}
       {data && (
-        <StockChartDaySelect selectedDays={stockChartSettings.defaultDays} onSelected={handleDaysSelected} availableDates={data.availableDates ?? undefined} />
+        <StockChartDaySelect
+          selectedDays={stockChartSettings.defaultDays > -1 ? stockChartSettings.defaultDays : 30}
+          onSelected={handleDaysSelected}
+          availableDates={data.availableDates ?? undefined}
+        />
       )}
 
       <>
