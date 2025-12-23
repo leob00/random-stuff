@@ -29,8 +29,9 @@ const CryptoSummary = () => {
     await sleep(getRandomInteger(250, 2500))
     const resp = await serverGetFetch(endPoint)
     const quotes = resp.Body as StockQuote[]
-    const result = sortArray(quotes, ['ChangePercent'], ['desc'])
-    return filterCryptos(result)
+
+    const result = filterCryptos(quotes)
+    return sortArray(result, ['ChangePercent'], ['desc'])
   }
 
   const { pollCounter } = usePolling(1000 * 240) // 4 minutes

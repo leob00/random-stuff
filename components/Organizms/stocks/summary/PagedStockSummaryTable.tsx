@@ -30,44 +30,46 @@ const PagedStockSummaryTable = ({ data, userProfile }: { data: StockQuote[]; use
 
   return (
     <Box>
-      <ScrollableBox maxHeight={320} scroller={scroller}>
-        {items && (
-          <>
-            {items.map((item) => (
-              <Box key={item.Symbol}>
-                <Box display={'flex'} gap={2} alignItems={'center'}>
-                  <Box minWidth={68}>
-                    <StockTooltip data={item}>
-                      <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
-                        <Typography variant='body2'>{item.Symbol}</Typography>
-                      </Button>
-                    </StockTooltip>
+      <Box minHeight={328}>
+        <ScrollableBox maxHeight={320} scroller={scroller}>
+          {items && (
+            <>
+              {items.map((item) => (
+                <Box key={item.Symbol}>
+                  <Box display={'flex'} gap={2} alignItems={'center'}>
+                    <Box minWidth={68}>
+                      <StockTooltip data={item}>
+                        <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
+                          <Typography variant='body2'>{item.Symbol}</Typography>
+                        </Button>
+                      </StockTooltip>
+                    </Box>
+                    <Box minWidth={80}>
+                      <Typography
+                        variant='body2'
+                        color={getPositiveNegativeColor(item.Change, palette)}
+                      >{`${numeral(item.Price).format('###,###,0.00')}`}</Typography>
+                    </Box>
+                    <Box minWidth={80}>
+                      <Typography
+                        variant='body2'
+                        color={getPositiveNegativeColor(item.Change, palette)}
+                      >{`${numeral(item.Change).format('###,###,0.00')}`}</Typography>
+                    </Box>
+                    <Box minWidth={80}>
+                      <Typography
+                        variant='body2'
+                        color={getPositiveNegativeColor(item.Change, palette)}
+                      >{`${numeral(item.ChangePercent).format('###,###,0.00')}%`}</Typography>
+                    </Box>
                   </Box>
-                  <Box minWidth={80}>
-                    <Typography
-                      variant='body2'
-                      color={getPositiveNegativeColor(item.Change, palette)}
-                    >{`${numeral(item.Price).format('###,###,0.00')}`}</Typography>
-                  </Box>
-                  <Box minWidth={80}>
-                    <Typography
-                      variant='body2'
-                      color={getPositiveNegativeColor(item.Change, palette)}
-                    >{`${numeral(item.Change).format('###,###,0.00')}`}</Typography>
-                  </Box>
-                  <Box minWidth={80}>
-                    <Typography
-                      variant='body2'
-                      color={getPositiveNegativeColor(item.Change, palette)}
-                    >{`${numeral(item.ChangePercent).format('###,###,0.00')}%`}</Typography>
-                  </Box>
+                  <HorizontalDivider />
                 </Box>
-                <HorizontalDivider />
-              </Box>
-            ))}
-          </>
-        )}
-      </ScrollableBox>
+              ))}
+            </>
+          )}
+        </ScrollableBox>
+      </Box>
       <Pager
         pageCount={pagerModel.totalNumberOfPages}
         itemCount={items.length}

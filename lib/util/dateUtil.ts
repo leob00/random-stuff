@@ -1,4 +1,4 @@
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import { DateRangeFilter } from 'lib/backend/api/qln/qlnApi'
 import duration from 'dayjs/plugin/duration'
@@ -121,4 +121,8 @@ export function getDuration(startDate: string, endDate: string): TimeDuration {
     seconds,
     totalSeconds,
   }
+}
+
+export function getExpirationSecondsFromDate(date: Dayjs) {
+  return Math.floor(date.valueOf() / 1000)
 }

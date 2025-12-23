@@ -47,15 +47,14 @@ const PreMarketSummary = () => {
     <Box display={'flex'} gap={1} flexWrap={'wrap'}>
       <Box>
         <BorderedBox>
-          <CryptoSummary />
+          <CommoditiesSummary />
         </BorderedBox>
       </Box>
       <Box>
         <BorderedBox>
-          <CommoditiesSummary />
+          <CryptoSummary />
         </BorderedBox>
       </Box>
-
       <Box>
         <BorderedBox>
           <EarningsSummary userProfile={userProfile} data={data} title='Upcoming Earnings' isLoading={isLoading || isValidatingProfile} />

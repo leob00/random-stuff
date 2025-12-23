@@ -1,5 +1,6 @@
 import { Box } from '@mui/material'
 import CountdownHorizontal from 'components/Organizms/time/CountdownHorizontal'
+import { CasinoBlueTransparent, GoldColor } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { usePolling } from 'hooks/usePolling'
 import { MarketHandshake } from 'lib/backend/api/qln/qlnModels'
@@ -28,7 +29,13 @@ const StockMarketCountdownHorizontal = ({ data }: { data: MarketHandshake }) => 
 
   return (
     <Box>
-      <CountdownHorizontal start={startDt} current={current} end={endDt} title={`${data.IsOpen ? 'countdown to close:' : 'countdown to open:'}`} />
+      <CountdownHorizontal
+        start={startDt}
+        current={current}
+        end={endDt}
+        title={`${data.IsOpen ? 'countdown to close:' : 'countdown to open:'}`}
+        summaryColor={data.IsOpen ? GoldColor : CasinoBlueTransparent}
+      />
     </Box>
   )
 }

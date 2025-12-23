@@ -56,6 +56,10 @@
     "Symbol": "AADR"
   },
   {
+    "Company": "Alpha Architect US Equity 2 ETF",
+    "Symbol": "AAEQ"
+  },
+  {
     "Company": "American Airlines Group Inc.",
     "Symbol": "AAL"
   },
@@ -14112,10 +14116,6 @@
     "Symbol": "EVAC.WS"
   },
   {
-    "Company": "Direxion Daily Electric and Autonomous Vehicles Bull 2X Shares",
-    "Symbol": "EVAV"
-  },
-  {
     "Company": "Evaxion A/S American Depositary Share",
     "Symbol": "EVAX"
   },
@@ -16328,10 +16328,6 @@
     "Symbol": "FPAS"
   },
   {
-    "Company": "FlexShopper, Inc. Common Stock",
-    "Symbol": "FPAY"
-  },
-  {
     "Company": "First Trust Preferred Securities and Income ETF",
     "Symbol": "FPE"
   },
@@ -17432,7 +17428,7 @@
     "Symbol": "GDL"
   },
   {
-    "Company": "Grayscale CoinDesk Crypto 5 ETF",
+    "Company": "GRAYSCALE COINDESK CRYPTO",
     "Symbol": "GDLC"
   },
   {
@@ -24896,10 +24892,6 @@
     "Symbol": "LAW"
   },
   {
-    "Company": "Robot Consulting Co., Ltd. ADS",
-    "Symbol": "LAWR"
-  },
-  {
     "Company": "STKd 100% NVDA & 100% AMD ETF",
     "Symbol": "LAYS"
   },
@@ -26288,10 +26280,6 @@
     "Symbol": "MACI"
   },
   {
-    "Company": "Melar Acquisition Corp. I Unit",
-    "Symbol": "MACIU"
-  },
-  {
     "Company": "Melar Acquisition Corp. I Warrant",
     "Symbol": "MACIW"
   },
@@ -26494,10 +26482,6 @@
   {
     "Company": "Maywood Acquisition Corp. Right",
     "Symbol": "MAYAR"
-  },
-  {
-    "Company": "Maywood Acquisition Corp. Unit",
-    "Symbol": "MAYAU"
   },
   {
     "Company": "FT Vest U.S. Equity Max Buffer ETF - May",
@@ -27542,10 +27526,6 @@
   {
     "Company": "VanEck Long Muni ETF",
     "Symbol": "MLN"
-  },
-  {
-    "Company": "MeridianLink, Inc.",
-    "Symbol": "MLNK"
   },
   {
     "Company": "Maui Land & Pineapple Co.",
@@ -30836,6 +30816,10 @@
     "Symbol": "OBT"
   },
   {
+    "Company": "OSPREY BITCOIN TR UBI",
+    "Symbol": "OBTC"
+  },
+  {
     "Company": "Owens Corning",
     "Symbol": "OC"
   },
@@ -32216,10 +32200,6 @@
     "Symbol": "PBP"
   },
   {
-    "Company": "Potbelly Corporation Common Stock",
-    "Symbol": "PBPB"
-  },
-  {
     "Company": "Portfolio Building Block World Pharma and Biotech Index ETF",
     "Symbol": "PBPH"
   },
@@ -32234,6 +32214,10 @@
   {
     "Company": "Petroleo Brasileiro S.A.-Petrobras",
     "Symbol": "PBR.A"
+  },
+  {
+    "Company": "Leverage Shares 2X Long PBR Daily ETF",
+    "Symbol": "PBRG"
   },
   {
     "Company": "PGIM S&P 500 Buffer 20 ETF - September",
@@ -35678,6 +35662,10 @@
   {
     "Company": "Rent the Runway, Inc. Class A Common Stock",
     "Symbol": "RENT"
+  },
+  {
+    "Company": "RenX Enterprises Corp. Common Stock",
+    "Symbol": "RENX"
   },
   {
     "Company": "Replimune Group, Inc.",
@@ -45592,10 +45580,6 @@
     "Symbol": "WFG"
   },
   {
-    "Company": "Direxion Work From Home ETF",
-    "Symbol": "WFH"
-  },
-  {
     "Company": "Weatherford International plc Ordinary Shares",
     "Symbol": "WFRD"
   },
@@ -46648,6 +46632,10 @@
     "Symbol": "XOEF"
   },
   {
+    "Company": "Xtrackers S&P 100 Ex Top 20 ETF",
+    "Symbol": "XOEX"
+  },
+  {
     "Company": "Exxon Mobil Corporation",
     "Symbol": "XOM"
   },
@@ -46954,10 +46942,6 @@
   {
     "Company": "XMAX, Inc. Common Stock",
     "Symbol": "XWIN"
-  },
-  {
-    "Company": "Direxion Daily MSCI Emerging Markets ex China Bull 2X Shares",
-    "Symbol": "XXCH"
   },
   {
     "Company": "Twenty One Capital, Inc.",

@@ -1,5 +1,5 @@
 import { DropdownItem } from 'lib/models/dropdown'
-import { getUtcNow } from 'lib/util/dateUtil'
+import { getExpirationSecondsFromDate, getUtcNow } from 'lib/util/dateUtil'
 import { ApiError } from 'next/dist/server/api-utils'
 import { UserNote, LambdaDynamoRequest, UserProfile, DynamoKeys, CategoryType, S3Object, Bucket, S3Folder } from '../api/aws/models/apiGatewayModels'
 
@@ -35,25 +35,33 @@ export async function putUserNote(item: UserNote, secondaryKey: string, expirati
   await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
 }
 
-export async function putSearchedStock(item: StockQuote) {
+export async function putSearchedStock(item: StockQuote, user: UserProfile | null) {
   const now = getUtcNow()
-  const expireDt = now.add(14, 'day')
-  const expireSeconds = Math.floor(expireDt.valueOf() / 1000)
   const stock = { ...item, groupName: undefined }
-  let req: RandomStuffDynamoItem = {
-    key: `searched-stocks[${stock.Symbol}]`,
-    category: 'searched-stocks',
-    data: stock,
-    expiration: expireSeconds,
-    token: weakEncrypt(`searched-stocks[${stock.Symbol}]`),
-    count: 1,
-    format: 'json',
-    last_modified: getUtcNow().format(),
+  const putBatch: RandomStuffDynamoItem[] = [
+    {
+      key: `searched-stocks[${stock.Symbol}]`,
+      category: 'searched-stocks',
+      data: stock,
+      expiration: getExpirationSecondsFromDate(now.add(14, 'days')),
+      count: 1,
+      format: 'json',
+      last_modified: now.format(),
+    },
+  ]
+  if (user) {
+    putBatch.push({
+      key: `searched-stocks-user[${user.username}][${stock.Symbol}]`,
+      category: `searched-stocks-user[${user.username}]`,
+      data: stock,
+      expiration: getExpirationSecondsFromDate(now.add(30, 'days')),
+      count: 1,
+      format: 'json',
+      last_modified: now.format(),
+    })
   }
-  const putRequest: SignedRequest = {
-    data: encryptBody(req),
-  }
-  await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
+
+  await putRandomStuffBatch(putBatch)
 }
 
 export async function putUserProfile(item: UserProfile) {

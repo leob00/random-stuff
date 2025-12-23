@@ -76,7 +76,7 @@ const StockListItem = ({
     const fn = async () => {
       if (showMore) {
         if (isStock) {
-          putSearchedStock(item)
+          putSearchedStock(item, userProfile)
         }
         if (scrollIntoView) {
           if (scrollTarget.current) {
