@@ -16,7 +16,6 @@ import TopMoversSummary from './stocks/TopMoversSummary'
 import NewsSummary from './NewsSummary'
 import { getCurrentDateTimeUsEastern } from 'lib/util/dateUtil'
 import { filterResult } from '../earnings/earningsCalendar'
-import CryptosDisplay from 'components/Organizms/crypto/CryptosDisplay'
 import CryptoSummary from './CryptoSummary'
 
 const EveningSummary = () => {

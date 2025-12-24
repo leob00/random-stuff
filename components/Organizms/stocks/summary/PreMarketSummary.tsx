@@ -15,21 +15,36 @@ import { useEffect } from 'react'
 import { getRandomInteger } from 'lib/util/numberUtil'
 import { mutate } from 'swr'
 import CryptoSummary from './CryptoSummary'
+import { sortArray } from 'lib/util/collections'
+
+interface Model {
+  upcomingEarnings: StockEarning[]
+  reportedEarnings: StockEarning[]
+}
 
 const PreMarketSummary = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
 
   const mutateKey = 'earnings-pre-market'
   const dataFn = async () => {
-    await sleep(500)
+    await sleep(getRandomInteger(500, 2500))
     const resp = await serverGetFetch('/RecentEarnings')
     const earnings = resp.Body as StockEarning[]
     const mapped: StockEarning[] = earnings.map((m) => {
       return { ...m, ReportDate: dayjs(m.ReportDate).format() }
     })
     const today = dayjs(dayjs(getCurrentDateTimeUsEastern()).format('YYYY-MM-DD')).format()
-    const result = filterResult(mapped, today)
-    return result
+    const todaysEarnings = filterResult(mapped, today)
+    const reportedEarnings = sortArray(
+      earnings.filter((m) => m.ActualEarnings),
+      ['ReportDate', 'StockQuote.MarketCap'],
+      ['desc', 'desc'],
+    )
+    const model: Model = {
+      upcomingEarnings: todaysEarnings,
+      reportedEarnings,
+    }
+    return model
   }
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
@@ -57,7 +72,12 @@ const PreMarketSummary = () => {
       </Box>
       <Box>
         <BorderedBox>
-          <EarningsSummary userProfile={userProfile} data={data} title='Upcoming Earnings' isLoading={isLoading || isValidatingProfile} />
+          <EarningsSummary userProfile={userProfile} data={data?.upcomingEarnings} title='Upcoming Earnings' isLoading={isLoading || isValidatingProfile} />
+        </BorderedBox>
+      </Box>
+      <Box>
+        <BorderedBox>
+          <EarningsSummary userProfile={userProfile} data={data?.reportedEarnings} title='Reported Earnings' isLoading={isLoading || isValidatingProfile} />
         </BorderedBox>
       </Box>
       <Box maxWidth={{ xs: 348, sm: '98%', md: '94%', lg: '68%' }}>

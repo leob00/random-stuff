@@ -4,19 +4,18 @@ import { BarChart, getBarChartOptions } from 'components/Atoms/Charts/chartJs/ba
 import { StockStats } from 'lib/backend/api/qln/qlnModels'
 import dayjs from 'dayjs'
 import SimpleBarChart from 'components/Atoms/Charts/chartJs/SimpleBarChart'
-import SimpleLineChart from 'components/Atoms/Charts/chartJs/SimpleLineChart'
 import numeral from 'numeral'
 import { useMarketColors } from 'components/themes/marketColors'
-import { max, mean, min, take } from 'lodash'
+import { take } from 'lodash'
 import { sortArray } from 'lib/util/collections'
 import { useClientPager } from 'hooks/useClientPager'
 import { useMemo } from 'react'
 import BackForwardPager from 'components/Molecules/Buttons/BackForwardPager'
-import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
-import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import { getLineChartOptions } from 'components/Atoms/Charts/chartJs/lineChartOptions'
 import ChartJsTimeSeriesLineChart, { TimeSeriesLineChartModel } from './ChartJsTimeSeriesLineChart'
 import { getPositiveNegativeColor } from '../StockListItem'
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+
 dayjs.extend(isSameOrBefore)
 
 const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {

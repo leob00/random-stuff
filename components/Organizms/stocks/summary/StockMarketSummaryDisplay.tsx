@@ -14,6 +14,11 @@ import BedtimeIcon from '@mui/icons-material/Bedtime'
 import { CasinoBlueTransparent, GoldColor } from 'components/themes/mainTheme'
 import StockMarketCountdownHorizontal from './StockMarketCountdownHorizontal'
 import BorderedBox from 'components/Atoms/Boxes/BorderedBox'
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
+
+dayjs.extend(isSameOrBefore)
+dayjs.extend(isSameOrAfter)
 
 const getData = async () => {
   const resp = await serverGetFetch('/MarketHandshake')
@@ -29,30 +34,17 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
 
   const currentDt = dayjs(handshake.CurrentDateTimeEst)
   const nexOpenDt = dayjs(handshake.NextOpenDateTime)
-  const latestTradingDate = dayjs(handshake.StockLatestTradeDateTimeEst)
-  const latestTradingDateNoTime = dayjs(latestTradingDate).format('YYYY-MM-DD')
 
-  const currenDtNoTime = dayjs(currentDt).format('YYYY-MM-DD')
   const nextOpenDtNoTime = dayjs(nexOpenDt).format('YYYY-MM-DD')
+  const currentDtNoTime = dayjs(currentDt).format('YYYY-MM-DD')
+  const morningStart = dayjs(currentDtNoTime).add(6, 'hours')
+  const morningEnd = dayjs(currentDtNoTime).add(10, 'hours').add(15, 'minutes')
+
   const isTradingDay = handshake.IsTradingDay
-  const showPremarket = isTradingDay && currentDt.hour() >= 6 && currentDt.hour() <= 10
-  const showMidMarket = !showPremarket && handshake.IsOpen
-  const showMPostMarketDay = isTradingDay && !handshake.IsOpen && !showMidMarket && !showPremarket
+  const showMorning = isTradingDay && currentDt.isSameOrAfter(morningStart) && currentDt.isSameOrBefore(morningEnd)
+  const showMidMarket = !showMorning && handshake.IsOpen
+  const showMPostMarketDay = isTradingDay && !handshake.IsOpen && !showMidMarket && !showMorning
   const showHoliday = !isTradingDay
-  let message = handshake.Message
-  if (!message) {
-    if (handshake.IsOpen) {
-      if (showMidMarket) {
-        message = ``
-      } else if (showPremarket) {
-        message = 'Good morning!'
-      }
-    } else {
-      if (showPremarket) {
-        message = 'Good morning!'
-      }
-    }
-  }
 
   useEffect(() => {
     const fn = async () => {
@@ -77,7 +69,11 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
               {!handshake.IsOpen && (
                 <Box display={'flex'} gap={1} alignItems={'center'}>
                   <BedtimeIcon fontSize='medium' sx={{ color: CasinoBlueTransparent }} />
-                  <Typography variant='body2' color={CasinoBlueTransparent}>{`U.S stock exchanges are closed`}</Typography>
+                  {!showHoliday ? (
+                    <Typography variant='body2' color={CasinoBlueTransparent}>{`U.S stock exchanges are closed`}</Typography>
+                  ) : (
+                    <Typography variant='body2' color={CasinoBlueTransparent}>{`${handshake.Message}`}</Typography>
+                  )}
                 </Box>
               )}
             </Box>
@@ -89,7 +85,7 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
       </Box>
       <Box display={'flex'} gap={1} flexWrap={{ xs: 'wrap', sm: 'unset' }}>
         {/* <Box sx={{ transform: 'scale(0.7)', transformOrigin: 'top left' }}> */}
-        {showPremarket && <PreMarketSummary />}
+        {showMorning && <PreMarketSummary />}
         {showMidMarket && <MidMarketSummary />}
         {showMPostMarketDay && <EveningSummary />}
         {showHoliday && <HolidaySummary nextOpenDt={nextOpenDtNoTime} />}
