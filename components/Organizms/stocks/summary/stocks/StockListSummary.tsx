@@ -1,5 +1,5 @@
 'use client'
-import { Box, Typography } from '@mui/material'
+import { Box, IconButton, Typography } from '@mui/material'
 import SummaryTitle from '../SummaryTitle'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import { StockQuote } from 'lib/backend/api/models/zModels'
@@ -8,6 +8,13 @@ import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import StockListItem from '../../StockListItem'
 import { useState } from 'react'
+import SwapVertRoundedIcon from '@mui/icons-material/SwapVertRounded'
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
+import { SortDirection } from 'lib/backend/api/models/collections'
+import { sortArray } from 'lib/util/collections'
+
+type StockSortDirection = 'default' | SortDirection
 
 const StockListSummary = ({
   userProfile,
@@ -21,6 +28,21 @@ const StockListSummary = ({
   isLoading?: boolean
 }) => {
   const [selectedItem, setSelectedItem] = useState<StockQuote | null>(null)
+  const [sortDirection, setSortDirection] = useState<StockSortDirection>('default')
+
+  const sorted = sortList(data ?? [], sortDirection)
+
+  const handleSortDesc = () => {
+    setSortDirection('desc')
+  }
+
+  const handleSortAsc = () => {
+    setSortDirection('asc')
+  }
+  const handleSortDefault = () => {
+    setSortDirection('default')
+  }
+
   return (
     <Box height={503}>
       <SummaryTitle title={title} />
@@ -35,8 +57,23 @@ const StockListSummary = ({
           <Box minWidth={80} display={'flex'}>
             <Typography variant='caption'>change</Typography>
           </Box>
-          <Box minWidth={80} display={'flex'}>
-            <Typography variant='caption'>percent</Typography>
+          <Box minWidth={80} display={'flex'} alignItems={'center'} gap={1}>
+            <Typography variant='caption'>%</Typography>
+            {sortDirection === 'default' && (
+              <IconButton onClick={handleSortDesc}>
+                <SwapVertRoundedIcon color='primary' sx={{ fontSize: 18 }} />
+              </IconButton>
+            )}
+            {sortDirection === 'desc' && (
+              <IconButton onClick={handleSortAsc}>
+                <ArrowDownwardIcon color='primary' sx={{ fontSize: 18 }} />
+              </IconButton>
+            )}
+            {sortDirection === 'asc' && (
+              <IconButton onClick={handleSortDefault}>
+                <ArrowUpwardIcon color='primary' sx={{ fontSize: 18 }} />
+              </IconButton>
+            )}
           </Box>
         </Box>
       </Box>
@@ -45,7 +82,7 @@ const StockListSummary = ({
           <ComponentLoader />
         </Box>
       )}
-      {data && <PagedStockSummaryTable data={data} userProfile={userProfile} />}
+      {data && <PagedStockSummaryTable data={sorted} userProfile={userProfile} />}
 
       {selectedItem && (
         <InfoDialog show={true} title={selectedItem.Symbol} onCancel={() => setSelectedItem(null)}>
@@ -54,6 +91,13 @@ const StockListSummary = ({
       )}
     </Box>
   )
+}
+
+function sortList(data: StockQuote[], direction: StockSortDirection) {
+  if (direction === 'default') {
+    return data
+  }
+  return sortArray(data, ['ChangePercent'], [direction])
 }
 
 export default StockListSummary

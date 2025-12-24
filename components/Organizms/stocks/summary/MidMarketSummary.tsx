@@ -1,7 +1,6 @@
 import { Box } from '@mui/material'
 import TopMoversSummary from './stocks/TopMoversSummary'
 import BorderedBox from 'components/Atoms/Boxes/BorderedBox'
-import CommoditiesSummary from './CommoditiesSummary'
 import { serverGetFetch, StockEarning } from 'lib/backend/api/qln/qlnApi'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { filterResult } from '../earnings/earningsCalendar'
@@ -80,7 +79,7 @@ const MidMarketSummary = () => {
             data={data?.scheduledEarnings}
             title={`Scheduled Earnings`}
             isLoading={isLoading || isValidatingProfile}
-            singleDate
+            //singleDate
           />
         </BorderedBox>
       </Box>
@@ -89,11 +88,6 @@ const MidMarketSummary = () => {
           <EarningsSummary userProfile={userProfile} data={data?.upcomingEarnings} title={`Upcoming Earnings`} isLoading={isLoading || isValidatingProfile} />
         </BorderedBox>
       </Box>
-      {/* <Box>
-        <BorderedBox>
-          <CommoditiesSummary />
-        </BorderedBox>
-      </Box> */}
       <Box maxWidth={{ xs: 348, sm: '98%', md: '94%', lg: '68%' }}>
         <BorderedBox>
           <NewsSummary userProfile={userProfile} />

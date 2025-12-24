@@ -29,7 +29,7 @@ const CountdownHorizontal = ({
         </Typography>
       )}
       <Box>
-        <Typography variant='h6' fontWeight={'bold'} color={summaryColor}>
+        <Typography variant='h6' fontWeight={'bold'} width={80} color={summaryColor}>
           {summary}
         </Typography>
       </Box>
