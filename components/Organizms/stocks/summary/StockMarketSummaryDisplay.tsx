@@ -72,7 +72,13 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
                   {!showHoliday ? (
                     <Typography variant='body2' color={CasinoBlueTransparent}>{`U.S stock exchanges are closed`}</Typography>
                   ) : (
-                    <Typography variant='body2' color={CasinoBlueTransparent}>{`${handshake.Message}`}</Typography>
+                    <>
+                      {data.HolidayName ? (
+                        <Typography variant='body2' color={CasinoBlueTransparent}>{`U.S markets are closed for ${handshake.HolidayName}`}</Typography>
+                      ) : (
+                        <Typography variant='body2' color={CasinoBlueTransparent}>{`${handshake.MarketsOpenClosedMessage}`}</Typography>
+                      )}
+                    </>
                   )}
                 </Box>
               )}
