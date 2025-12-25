@@ -524,10 +524,6 @@
     "Symbol": "ACTU"
   },
   {
-    "Company": "LeaderShares Activist Leaders ETF",
-    "Symbol": "ACTV"
-  },
-  {
     "Company": "Acme United Corporation",
     "Symbol": "ACU"
   },
@@ -2216,6 +2212,10 @@
     "Symbol": "AOTG"
   },
   {
+    "Company": "AOT Software Platform ETF",
+    "Symbol": "AOTS"
+  },
+  {
     "Company": "American Outdoor Brands, Inc. Common Stock",
     "Symbol": "AOUT"
   },
@@ -2392,11 +2392,11 @@
     "Symbol": "APRP"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer10 Apr ETF",
+    "Company": "AllianzIM U.S. Equity Buffer10 Apr ETF",
     "Symbol": "APRT"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer20 Apr ETF",
+    "Company": "AllianzIM U.S. Equity Buffer20 Apr ETF",
     "Symbol": "APRW"
   },
   {
@@ -3228,7 +3228,7 @@
     "Symbol": "AUGP"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer10 Aug ETF",
+    "Company": "AllianzIM U.S. Equity Buffer10 Aug ETF",
     "Symbol": "AUGT"
   },
   {
@@ -3236,7 +3236,7 @@
     "Symbol": "AUGU"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer20 Aug ETF",
+    "Company": "AllianzIM U.S. Equity Buffer20 Aug ETF",
     "Symbol": "AUGW"
   },
   {
@@ -3942,6 +3942,10 @@
   {
     "Company": "Bayview Acquisition Corp Right",
     "Symbol": "BAYAR"
+  },
+  {
+    "Company": "Bayview Acquisition Corp Unit",
+    "Symbol": "BAYAU"
   },
   {
     "Company": "BlackBerry Limited",
@@ -7436,6 +7440,10 @@
     "Symbol": "CCRN"
   },
   {
+    "Company": "Columbia Corporate Bond ETF",
+    "Symbol": "CCRP"
+  },
+  {
     "Company": "CENTURY COMMUNITIES, INC.",
     "Symbol": "CCS"
   },
@@ -10748,7 +10756,7 @@
     "Symbol": "DECP"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer10 Dec ETF",
+    "Company": "AllianzIM U.S. Equity Buffer10 Dec ETF",
     "Symbol": "DECT"
   },
   {
@@ -10756,7 +10764,7 @@
     "Symbol": "DECU"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer20 Dec ETF",
+    "Company": "AllianzIM U.S. Equity Buffer20 Dec ETF",
     "Symbol": "DECW"
   },
   {
@@ -13428,10 +13436,6 @@
     "Symbol": "ENVX"
   },
   {
-    "Company": "Eaton Vance New York Municipal Bond Fund",
-    "Symbol": "ENX"
-  },
-  {
     "Company": "iShares Trust iShares MSCI New Zealand ETF",
     "Symbol": "ENZL"
   },
@@ -13486,6 +13490,10 @@
   {
     "Company": "Enerpac Tool Group Corp.",
     "Symbol": "EPAC"
+  },
+  {
+    "Company": "Harbor AI Inflection Strategy ETF",
+    "Symbol": "EPAI"
   },
   {
     "Company": "EPAM SYSTEMS, INC.",
@@ -14190,10 +14198,6 @@
   {
     "Company": "Evolv Technologies Holdings, Inc. Warrant",
     "Symbol": "EVLVW"
-  },
-  {
-    "Company": "Eaton Vance California Municipal Bond Fund",
-    "Symbol": "EVM"
   },
   {
     "Company": "Evommune, Inc.",
@@ -15088,7 +15092,7 @@
     "Symbol": "FEBP"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer10 Feb ETF",
+    "Company": "AllianzIM U.S. Equity Buffer10 Feb ETF",
     "Symbol": "FEBT"
   },
   {
@@ -15096,7 +15100,7 @@
     "Symbol": "FEBU"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer20 Feb ETF",
+    "Company": "AllianzIM U.S. Equity Buffer20 Feb ETF",
     "Symbol": "FEBW"
   },
   {
@@ -15558,14 +15562,6 @@
   {
     "Company": "FTAI Infrastructure Inc. Common Stock",
     "Symbol": "FIP"
-  },
-  {
-    "Company": "FIRE Funds Income Target ETF",
-    "Symbol": "FIRI"
-  },
-  {
-    "Company": "FIRE Funds Wealth Builder ETF",
-    "Symbol": "FIRS"
   },
   {
     "Company": "Fidelity National Information Services, Inc.",
@@ -17152,6 +17148,10 @@
     "Symbol": "GAIA"
   },
   {
+    "Company": "Guinness Atkinson International Dividend Builder ETF",
+    "Symbol": "GAID"
+  },
+  {
     "Company": "Gladstone Investment Corporation",
     "Symbol": "GAIN"
   },
@@ -17208,8 +17208,16 @@
     "Symbol": "GAPR"
   },
   {
+    "Company": "Guinness Atkinson Real Assets Income ETF",
+    "Symbol": "GARA"
+  },
+  {
     "Company": "iShares MSCI USA Quality GARP ETF",
     "Symbol": "GARP"
+  },
+  {
+    "Company": "Mango Growth ETF",
+    "Symbol": "GARY"
   },
   {
     "Company": "StealthGas, Inc.",
@@ -17226,6 +17234,10 @@
   {
     "Company": "Galiano Gold Inc.",
     "Symbol": "GAU"
+  },
+  {
+    "Company": "Guinness Atkinson US Dividend Builder ETF",
+    "Symbol": "GAUD"
   },
   {
     "Company": "FT Vest U.S. Equity Moderate Buffer ETF - August",
@@ -17428,7 +17440,7 @@
     "Symbol": "GDL"
   },
   {
-    "Company": "GRAYSCALE COINDESK CRYPTO",
+    "Company": "GRAYSCALE DIGITAL LG CAP",
     "Symbol": "GDLC"
   },
   {
@@ -18566,6 +18578,10 @@
   {
     "Company": "Graf Global Corp.",
     "Symbol": "GRAF"
+  },
+  {
+    "Company": "Graf Global Corp. Units, each consisting of one Class A ordinary share and one-half of one redeemable warrant",
+    "Symbol": "GRAF.U"
   },
   {
     "Company": "Graf Global Corp. Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50 per share",
@@ -20300,6 +20316,10 @@
     "Symbol": "HTRB"
   },
   {
+    "Company": "High Templar Tech Limited",
+    "Symbol": "HTT"
+  },
+  {
     "Company": "Hull Tactical US ETF",
     "Symbol": "HTUS"
   },
@@ -21354,6 +21374,14 @@
   {
     "Company": "VOYA GLOBAL ADVANTAGE AND PREMIUM OPPORTUNITY FUND",
     "Symbol": "IGA"
+  },
+  {
+    "Company": "Invest Green Acquisition Corporation Class A Ordinary Shares",
+    "Symbol": "IGAC"
+  },
+  {
+    "Company": "Invest Green Acquisition Corporation Rights",
+    "Symbol": "IGACR"
   },
   {
     "Company": "Invest Green Acquisition Corporation Units",
@@ -23060,7 +23088,7 @@
     "Symbol": "JANP"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer10 Jan ETF",
+    "Company": "AllianzIM U.S. Equity Buffer10 Jan ETF",
     "Symbol": "JANT"
   },
   {
@@ -23068,7 +23096,7 @@
     "Symbol": "JANU"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer20 Jan ETF",
+    "Company": "AllianzIM U.S. Equity Buffer20 Jan ETF",
     "Symbol": "JANW"
   },
   {
@@ -23736,7 +23764,7 @@
     "Symbol": "JULP"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer10 Jul ETF",
+    "Company": "AllianzIM U.S. Equity Buffer10 Jul ETF",
     "Symbol": "JULT"
   },
   {
@@ -23744,7 +23772,7 @@
     "Symbol": "JULU"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer20 Jul ETF",
+    "Company": "AllianzIM U.S. Equity Buffer20 Jul ETF",
     "Symbol": "JULW"
   },
   {
@@ -23764,11 +23792,11 @@
     "Symbol": "JUNS"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer10 Jun ETF",
+    "Company": "AllianzIM U.S. Equity Buffer10 Jun ETF",
     "Symbol": "JUNT"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer20 Jun ETF",
+    "Company": "AllianzIM U.S. Equity Buffer20 Jun ETF",
     "Symbol": "JUNW"
   },
   {
@@ -26400,7 +26428,7 @@
     "Symbol": "MARPS"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer10 Mar ETF",
+    "Company": "AllianzIM U.S. Equity Buffer10 Mar ETF",
     "Symbol": "MART"
   },
   {
@@ -26408,7 +26436,7 @@
     "Symbol": "MARU"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer20 Mar ETF",
+    "Company": "AllianzIM U.S. Equity Buffer20 Mar ETF",
     "Symbol": "MARW"
   },
   {
@@ -26496,7 +26524,7 @@
     "Symbol": "MAYS"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer10 May ETF",
+    "Company": "AllianzIM U.S. Equity Buffer10 May ETF",
     "Symbol": "MAYT"
   },
   {
@@ -26504,7 +26532,7 @@
     "Symbol": "MAYU"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer20 May ETF",
+    "Company": "AllianzIM U.S. Equity Buffer20 May ETF",
     "Symbol": "MAYW"
   },
   {
@@ -30328,7 +30356,7 @@
     "Symbol": "NVAX"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer10 Nov ETF",
+    "Company": "AllianzIM U.S. Equity Buffer10 Nov ETF",
     "Symbol": "NVBT"
   },
   {
@@ -30336,7 +30364,7 @@
     "Symbol": "NVBU"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer20 Nov ETF",
+    "Company": "AllianzIM U.S. Equity Buffer20 Nov ETF",
     "Symbol": "NVBW"
   },
   {
@@ -30900,7 +30928,7 @@
     "Symbol": "OCTP"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer10 Oct ETF",
+    "Company": "AllianzIM U.S. Equity Buffer10 Oct ETF",
     "Symbol": "OCTT"
   },
   {
@@ -30908,7 +30936,7 @@
     "Symbol": "OCTU"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer20 Oct ETF",
+    "Company": "AllianzIM U.S. Equity Buffer20 Oct ETF",
     "Symbol": "OCTW"
   },
   {
@@ -32928,6 +32956,10 @@
     "Symbol": "PIE"
   },
   {
+    "Company": "Pacer International Export Leaders ETF",
+    "Symbol": "PIEL"
+  },
+  {
     "Company": "Principal International Equity ETF",
     "Symbol": "PIEQ"
   },
@@ -34784,7 +34816,7 @@
     "Symbol": "QQDN"
   },
   {
-    "Company": "First Trust NASDAQ-100 Equal Weighted Index Fund",
+    "Company": "First Trust Nasdaq-100 Select Equal Weight ETF",
     "Symbol": "QQEW"
   },
   {
@@ -34900,7 +34932,7 @@
     "Symbol": "QRVO"
   },
   {
-    "Company": "QuantumScape Corporation",
+    "Company": "QuantumScape Corporation Class A Common Stock",
     "Symbol": "QS"
   },
   {
@@ -36780,6 +36812,10 @@
     "Symbol": "RWAYZ"
   },
   {
+    "Company": "Rayliant Wilshire NxtGen Emerging Markets Equity ETF",
+    "Symbol": "RWEM"
+  },
+  {
     "Company": "Invesco S&P SmallCap 600 Revenue ETF",
     "Symbol": "RWJ"
   },
@@ -36790,6 +36826,10 @@
   {
     "Company": "Invesco S&P 500 Revenue ETF",
     "Symbol": "RWL"
+  },
+  {
+    "Company": "Rayliant Wilshire NxtGen US Large Cap Equity ETF",
+    "Symbol": "RWLC"
   },
   {
     "Company": "ProShares Short Russell2000",
@@ -37476,6 +37516,10 @@
     "Symbol": "SCNI"
   },
   {
+    "Company": "Sterling Capital National Municipal Bond ETF",
+    "Symbol": "SCNM"
+  },
+  {
     "Company": "Scienture Holdings, Inc. Common Stock",
     "Symbol": "SCNX"
   },
@@ -37490,6 +37534,10 @@
   {
     "Company": "Pacer S&P SmallCap 600 Quality FCF Aristocrats ETF",
     "Symbol": "SCOW"
+  },
+  {
+    "Company": "Social Commerce Partners Corporation Unit",
+    "Symbol": "SCPQU"
   },
   {
     "Company": "Steelcase, Inc.",
@@ -37792,7 +37840,7 @@
     "Symbol": "SEPP"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer10 Sep ETF",
+    "Company": "AllianzIM U.S. Equity Buffer10 Sep ETF",
     "Symbol": "SEPT"
   },
   {
@@ -37800,7 +37848,7 @@
     "Symbol": "SEPU"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap Buffer20 Sep ETF",
+    "Company": "AllianzIM U.S. Equity Buffer20 Sep ETF",
     "Symbol": "SEPW"
   },
   {
@@ -38332,11 +38380,11 @@
     "Symbol": "SIXA"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap 6 Month Buffer10 Jun/Dec ETF",
+    "Company": "AllianzIM U.S. Equity 6 Month Buffer10 Jun/Dec ETF",
     "Symbol": "SIXD"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap 6 Month Buffer10 Feb/Aug ETF",
+    "Company": "AllianzIM U.S. Equity 6 Month Buffer10 Feb/Aug ETF",
     "Symbol": "SIXF"
   },
   {
@@ -38348,7 +38396,7 @@
     "Symbol": "SIXH"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap 6 Month Buffer10 Jan/Jul ETF",
+    "Company": "AllianzIM U.S. Equity 6 Month Buffer10 Jan/Jul ETF",
     "Symbol": "SIXJ"
   },
   {
@@ -38356,11 +38404,11 @@
     "Symbol": "SIXL"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap 6 Month Buffer10 Apr/Oct ETF",
+    "Company": "AllianzIM U.S. Equity 6 Month Buffer10 Apr/Oct ETF",
     "Symbol": "SIXO"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap 6 Month Buffer10 Mar/Sep ETF",
+    "Company": "AllianzIM U.S. Equity 6 Month Buffer10 Mar/Sep ETF",
     "Symbol": "SIXP"
   },
   {
@@ -38368,7 +38416,7 @@
     "Symbol": "SIXS"
   },
   {
-    "Company": "AllianzIM U.S. Large Cap 6 Month Buffer10 May/Nov ETF",
+    "Company": "AllianzIM U.S. Equity 6 Month Buffer10 May/Nov ETF",
     "Symbol": "SIXZ"
   },
   {
@@ -39824,10 +39872,6 @@
     "Symbol": "SPYX"
   },
   {
-    "Company": "LeaderShares Equity Skew ETF",
-    "Symbol": "SQEW"
-  },
-  {
     "Company": "Presidio Property Trust, Inc. Class A Common Stock",
     "Symbol": "SQFT"
   },
@@ -40110,6 +40154,10 @@
   {
     "Company": "Performance Trust Short Term Bond ETF",
     "Symbol": "STBF"
+  },
+  {
+    "Company": "Amplify Stablecoin Technology ETF",
+    "Symbol": "STBQ"
   },
   {
     "Company": "Stewart Information Services Corporation",
@@ -40490,6 +40538,10 @@
   {
     "Company": "iShares US Small Cap Value Factor ETF",
     "Symbol": "SVAL"
+  },
+  {
+    "Company": "Silicon Valley Acquisition Corp. Units",
+    "Symbol": "SVAQU"
   },
   {
     "Company": "Service Properties Trust Common Stock",
@@ -41772,6 +41824,10 @@
     "Symbol": "TKNO"
   },
   {
+    "Company": "Amplify Tokenization Technology ETF",
+    "Symbol": "TKNQ"
+  },
+  {
     "Company": "TKO Group Holdings, Inc.",
     "Symbol": "TKO"
   },
@@ -41962,6 +42018,10 @@
   {
     "Company": "Taylor Morrison Home Corporation Common Stock",
     "Symbol": "TMHC"
+  },
+  {
+    "Company": "Tortoise MLP ETF",
+    "Symbol": "TMLP"
   },
   {
     "Company": "T. Rowe Price Long Municipal Income ETF",
@@ -44408,6 +44468,10 @@
     "Symbol": "VGMS"
   },
   {
+    "Company": "Virtus Silvant Growth Opportunities ETF",
+    "Symbol": "VGRO"
+  },
+  {
     "Company": "Vanguard Short-Term Treasury ETF",
     "Symbol": "VGSH"
   },
@@ -46318,6 +46382,10 @@
   {
     "Company": "BondBloxx JP Morgan USD Emerging Markets 1-10 Year Bond ETF",
     "Symbol": "XEMD"
+  },
+  {
+    "Company": "Xtrackers Europe Market Leaders ETF",
+    "Symbol": "XEML"
   },
   {
     "Company": "Xenon Pharmaceuticals Inc",
