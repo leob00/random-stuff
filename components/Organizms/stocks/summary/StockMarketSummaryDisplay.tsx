@@ -63,14 +63,14 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
               {handshake.IsOpen && (
                 <Box display={'flex'} gap={1} alignItems={'center'}>
                   <SunnyIcon fontSize='medium' sx={{ color: GoldColor }} />
-                  <Typography variant='body2' color={GoldColor}>{`U.S stock exchanges are open`}</Typography>
+                  <Typography variant='body2' color={GoldColor}>{`U.S markets are open`}</Typography>
                 </Box>
               )}
               {!handshake.IsOpen && (
                 <Box display={'flex'} gap={1} alignItems={'center'}>
                   <BedtimeIcon fontSize='medium' sx={{ color: CasinoBlueTransparent }} />
                   {!showHoliday ? (
-                    <Typography variant='body2' color={CasinoBlueTransparent}>{`U.S stock exchanges are closed`}</Typography>
+                    <Typography variant='body2' color={CasinoBlueTransparent}>{`U.S markets are closed`}</Typography>
                   ) : (
                     <>
                       {data.HolidayName ? (
