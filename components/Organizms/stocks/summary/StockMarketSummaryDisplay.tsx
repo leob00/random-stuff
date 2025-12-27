@@ -76,7 +76,7 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
                       {data.HolidayName ? (
                         <Typography variant='body2' color={CasinoBlueTransparent}>{`U.S markets are closed for ${handshake.HolidayName}`}</Typography>
                       ) : (
-                        <Typography variant='body2' color={CasinoBlueTransparent}>{`${handshake.MarketsOpenClosedMessage}`}</Typography>
+                        <Typography variant='body2' color={CasinoBlueTransparent}>{`U.S markets are closed`}</Typography>
                       )}
                     </>
                   )}

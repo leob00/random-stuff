@@ -21,6 +21,7 @@ import { getLineChartOptions } from 'components/Atoms/Charts/chartJs/lineChartOp
 import numeral from 'numeral'
 import { useViewPortSize } from 'hooks/ui/useViewportSize'
 import StockVolumeChart from './charts/StockVolumeChart'
+import dayjs from 'dayjs'
 
 interface Model {
   history: StockHistoryItem[]
@@ -61,6 +62,9 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
     lineChartOptions.plugins!.tooltip! = { ...lineChartOptions.plugins!.tooltip!, bodySpacing: 24, footerMarginTop: 12 }
     lineChartOptions.plugins!.tooltip!.callbacks = {
       ...lineChartOptions.plugins!.tooltip!.callbacks,
+      title: (tooltipItems) => {
+        return `${dayjs(tooltipItems[0].label).format('dddd')}, ${dayjs(tooltipItems[0].label).format('MM/DD/YYYY')}`
+      },
       label: (tooltipItems) => {
         const price = numeral(history[tooltipItems.dataIndex].Price).format('###,###,0.000')
         const change = numeral(history[tooltipItems.dataIndex].Change).format('+###,###,0.000')
