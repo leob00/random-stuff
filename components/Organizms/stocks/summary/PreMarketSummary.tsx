@@ -59,7 +59,7 @@ const PreMarketSummary = () => {
     fn()
   }, [pollCounter])
   return (
-    <Box display={'flex'} gap={1} flexWrap={'wrap'}>
+    <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
       <Box>
         <BorderedBox>
           <CommoditiesSummary />

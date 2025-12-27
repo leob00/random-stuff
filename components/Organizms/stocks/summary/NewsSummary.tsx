@@ -37,7 +37,7 @@ const NewsSummary = ({ userProfile }: { userProfile: UserProfile | null }) => {
 
   useEffect(() => {
     const fn = async () => {
-      await sleep(250)
+      await sleep(getRandomInteger(250, 2500))
       mutate(mutateKey)
     }
     fn()
@@ -45,7 +45,7 @@ const NewsSummary = ({ userProfile }: { userProfile: UserProfile | null }) => {
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   return (
-    <Box height={600} minWidth={{ xs: 300, sm: 600, md: 800 }}>
+    <Box height={650} minWidth={{ xs: 300, sm: 600, md: 828 }}>
       <SummaryTitle title='News' />
       <ScrollableBox>
         {isLoading && (

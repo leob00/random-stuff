@@ -89,7 +89,7 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
           </Box>
         </BorderedBox>
       </Box>
-      <Box display={'flex'} gap={1} flexWrap={{ xs: 'wrap', sm: 'unset' }}>
+      <Box display={'flex'} justifyContent={'center'} gap={1} flexWrap={{ xs: 'wrap', sm: 'unset' }}>
         {/* <Box sx={{ transform: 'scale(0.7)', transformOrigin: 'top left' }}> */}
         {showMorning && <PreMarketSummary />}
         {showMidMarket && <MidMarketSummary />}

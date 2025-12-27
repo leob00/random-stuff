@@ -17,6 +17,8 @@ import SummaryTitle from './SummaryTitle'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import NewsSummary from './NewsSummary'
+import { StockQuote } from 'lib/backend/api/models/zModels'
+import RecentlySearchedStocksSummary from './stocks/RecentlySearchedStocksSummary'
 
 interface Model {
   reportedEarnings: StockEarning[]
@@ -63,7 +65,10 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
   return (
     // <Box display={'flex'} sx={{ transform: 'scale(0.98)', transformOrigin: 'top left' }} width={'125%'}>
     <Box>
-      <Box display={'flex'} gap={1} flexWrap={'wrap'}>
+      <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
+        <Box>
+          <BorderedBox>{!isValidatingProfile && <RecentlySearchedStocksSummary userProfile={userProfile} />}</BorderedBox>
+        </Box>
         <Box>
           <BorderedBox>
             <EarningsSummary userProfile={userProfile} data={data?.reportedEarnings} title='Reported Earnings' isLoading={isLoading || isValidatingProfile} />
@@ -74,18 +79,20 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
             <EarningsSummary userProfile={userProfile} data={data?.upcomingEarnings} title='Upcoming Earnings' isLoading={isLoading || isValidatingProfile} />
           </BorderedBox>
         </Box>
+
         <Box>
           <BorderedBox>
             <CommoditiesSummary />
           </BorderedBox>
         </Box>
+
         <Box>
           <BorderedBox>
             <CryptoSummary />
           </BorderedBox>
         </Box>
         <Box maxWidth={{ xs: '95%', sm: '98%', md: '94%', lg: '68%' }}>
-          <BorderedBox mt={{ xl: -16 }}>
+          <BorderedBox>
             <NewsSummary userProfile={userProfile} />
           </BorderedBox>
         </Box>

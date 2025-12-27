@@ -45,7 +45,7 @@ const CommoditiesSummary = () => {
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   return (
-    <Box height={430}>
+    <Box height={503}>
       <SummaryTitle title={'Commodities'} />
 
       <ScrollableBoxHorizontal>

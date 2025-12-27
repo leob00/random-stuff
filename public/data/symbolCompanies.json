@@ -604,10 +604,6 @@
     "Symbol": "ADAMZ"
   },
   {
-    "Company": "Adaptimmune Therapeutics plc American Depositary Shares",
-    "Symbol": "ADAP"
-  },
-  {
     "Company": "Adobe Inc.",
     "Symbol": "ADBE"
   },
@@ -19972,10 +19968,6 @@
     "Symbol": "HOND"
   },
   {
-    "Company": "HCM II Acquisition Corp. Unit",
-    "Symbol": "HONDU"
-  },
-  {
     "Company": "HCM II Acquisition Corp. Warrant",
     "Symbol": "HONDW"
   },
@@ -32884,10 +32876,6 @@
     "Symbol": "PHGE"
   },
   {
-    "Company": "Park Ha Biological Technology Co., Ltd. Ordinary Shares",
-    "Symbol": "PHH"
-  },
-  {
     "Company": "PLDT Inc.",
     "Symbol": "PHI"
   },
@@ -35782,6 +35770,10 @@
   {
     "Company": "RF Acquisition Corp II Right",
     "Symbol": "RFAIR"
+  },
+  {
+    "Company": "RF Acquisition Corp II Unit",
+    "Symbol": "RFAIU"
   },
   {
     "Company": "RiverFront Dynamic Core Income",
@@ -42430,10 +42422,6 @@
   {
     "Company": "Trustmark Corp",
     "Symbol": "TRMK"
-  },
-  {
-    "Company": "Tourmaline Bio, Inc. Common Stock",
-    "Symbol": "TRML"
   },
   {
     "Company": "Trinity Industries, Inc.",

@@ -17,12 +17,13 @@ import NewsSummary from './NewsSummary'
 import { getCurrentDateTimeUsEastern } from 'lib/util/dateUtil'
 import { filterResult } from '../earnings/earningsCalendar'
 import CryptoSummary from './CryptoSummary'
+import { getRandomInteger } from 'lib/util/numberUtil'
 
 const EveningSummary = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
   const mutateKey = 'stock-reported-earnings-all'
   const dataFn = async () => {
-    await sleep(500)
+    await sleep(getRandomInteger(250, 3000))
     const resp = await serverGetFetch('/RecentEarnings')
     const earnings = resp.Body as StockEarning[]
     const mapped: StockEarning[] = earnings.map((m) => {
@@ -46,7 +47,7 @@ const EveningSummary = () => {
   }, [pollCounter])
 
   return (
-    <Box display={'flex'} gap={1} flexWrap={'wrap'}>
+    <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
       <Box>
         <BorderedBox>
           <TopMoversSummary userProfile={userProfile} />
