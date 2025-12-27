@@ -55,7 +55,7 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
   }, [pollCounter])
 
   return (
-    <Box minHeight={800}>
+    <Box minHeight={1000}>
       <Box display={'flex'} justifyContent={'center'}>
         <BorderedBox mb={2} mt={-2} width={{ xs: '100%', sm: '80%', lg: '30%' }} justifyContent={'center'}>
           <Box display={'flex'} justifyContent={'center'}>

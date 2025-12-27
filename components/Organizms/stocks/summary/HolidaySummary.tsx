@@ -13,12 +13,11 @@ import { sortArray } from 'lib/util/collections'
 import { filterResult } from '../earnings/earningsCalendar'
 import CryptoSummary from './CryptoSummary'
 import { getRandomInteger } from 'lib/util/numberUtil'
-import SummaryTitle from './SummaryTitle'
-import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import NewsSummary from './NewsSummary'
-import { StockQuote } from 'lib/backend/api/models/zModels'
 import RecentlySearchedStocksSummary from './stocks/RecentlySearchedStocksSummary'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
+dayjs.extend(isSameOrAfter)
 
 interface Model {
   reportedEarnings: StockEarning[]
@@ -33,18 +32,20 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
     await sleep(getRandomInteger(1000, 2500))
     const resp = await serverGetFetch('/RecentEarnings')
     const earnings = resp.Body as StockEarning[]
-    const mapped: StockEarning[] = earnings.map((m) => {
+    let mapped: StockEarning[] = earnings.map((m) => {
       return { ...m, ReportDate: dayjs(m.ReportDate).format() }
     })
+    mapped = sortArray(mapped, ['ReportDate', 'StockQuote.MarketCap'], ['asc', 'desc'])
+
     const recent = sortArray(
       mapped.filter((m) => m.ActualEarnings),
       ['ReportDate', 'StockQuote.MarketCap'],
       ['desc', 'desc'],
     )
-    const upcoming = filterResult(mapped, dayjs(nextOpenDt).format())
+    const upcoming = mapped.filter((m) => dayjs(m.ReportDate).isSameOrAfter(dayjs(nextOpenDt).format()))
     const result: Model = {
       reportedEarnings: recent,
-      upcomingEarnings: sortArray(upcoming, ['StockQuote.MarketCap'], ['desc']),
+      upcomingEarnings: upcoming,
     }
     return result
   }

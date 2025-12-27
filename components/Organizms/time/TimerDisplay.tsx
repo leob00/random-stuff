@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import CircleProgress from 'components/Atoms/Loaders/CircleProgress'
 import { getDuration, getUtcNow, TimeDuration } from 'lib/util/dateUtil'
 import { useEffect, useState } from 'react'
@@ -10,10 +10,8 @@ import TimerForm, { TimerSettingsFilter } from './TimerForm'
 import dayjs from 'dayjs'
 import { calculatePercent } from 'lib/util/numberUtil'
 import { usePolling } from 'hooks/usePolling'
-import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
-import { progress } from 'framer-motion'
-import numeral from 'numeral'
 import DangerButton from 'components/Atoms/Buttons/DangerButton'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 dayjs.extend(isSameOrAfter)
 
 type Model = {
