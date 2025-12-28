@@ -59,32 +59,36 @@ const PreMarketSummary = () => {
     fn()
   }, [pollCounter])
   return (
-    <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
-      <Box>
-        <BorderedBox>
-          <CommoditiesSummary />
-        </BorderedBox>
-      </Box>
-      <Box>
-        <BorderedBox>
-          <CryptoSummary />
-        </BorderedBox>
-      </Box>
-      <Box>
-        <BorderedBox>
-          <EarningsSummary userProfile={userProfile} data={data?.upcomingEarnings} title='Upcoming Earnings' isLoading={isLoading || isValidatingProfile} />
-        </BorderedBox>
-      </Box>
-      <Box>
-        <BorderedBox>
-          <EarningsSummary userProfile={userProfile} data={data?.reportedEarnings} title='Reported Earnings' isLoading={isLoading || isValidatingProfile} />
-        </BorderedBox>
-      </Box>
-      <Box maxWidth={{ xs: 348, sm: '98%', md: '94%', lg: '68%' }}>
-        <BorderedBox>
-          <NewsSummary userProfile={userProfile} />
-        </BorderedBox>
-      </Box>
+    <Box>
+      {!isValidatingProfile && (
+        <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
+          <Box>
+            <BorderedBox>
+              <CommoditiesSummary />
+            </BorderedBox>
+          </Box>
+          <Box>
+            <BorderedBox>
+              <CryptoSummary />
+            </BorderedBox>
+          </Box>
+          <Box>
+            <BorderedBox>
+              <EarningsSummary userProfile={userProfile} data={data?.upcomingEarnings} title='Upcoming Earnings' isLoading={isLoading || isValidatingProfile} />
+            </BorderedBox>
+          </Box>
+          <Box>
+            <BorderedBox>
+              <EarningsSummary userProfile={userProfile} data={data?.reportedEarnings} title='Reported Earnings' isLoading={isLoading || isValidatingProfile} />
+            </BorderedBox>
+          </Box>
+          <Box maxWidth={{ xs: '100%', sm: '100%', md: '94%', lg: '68%' }}>
+            <BorderedBox>
+              <NewsSummary userProfile={userProfile} />
+            </BorderedBox>
+          </Box>
+        </Box>
+      )}
     </Box>
   )
 }

@@ -66,38 +66,40 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
   return (
     // <Box display={'flex'} sx={{ transform: 'scale(0.98)', transformOrigin: 'top left' }} width={'125%'}>
     <Box>
-      <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
-        <Box>
-          <BorderedBox>{!isValidatingProfile && <RecentlySearchedStocksSummary userProfile={userProfile} />}</BorderedBox>
-        </Box>
-        <Box>
-          <BorderedBox>
-            <EarningsSummary userProfile={userProfile} data={data?.reportedEarnings} title='Reported Earnings' isLoading={isLoading || isValidatingProfile} />
-          </BorderedBox>
-        </Box>
-        <Box>
-          <BorderedBox>
-            <EarningsSummary userProfile={userProfile} data={data?.upcomingEarnings} title='Upcoming Earnings' isLoading={isLoading || isValidatingProfile} />
-          </BorderedBox>
-        </Box>
+      {!isValidatingProfile && (
+        <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
+          <Box>
+            <BorderedBox width={'100%'}>{!isValidatingProfile && <RecentlySearchedStocksSummary userProfile={userProfile} />}</BorderedBox>
+          </Box>
+          <Box>
+            <BorderedBox width={'100%'}>
+              <EarningsSummary userProfile={userProfile} data={data?.reportedEarnings} title='Reported Earnings' isLoading={isLoading || isValidatingProfile} />
+            </BorderedBox>
+          </Box>
+          <Box>
+            <BorderedBox width={'100%'}>
+              <EarningsSummary userProfile={userProfile} data={data?.upcomingEarnings} title='Upcoming Earnings' isLoading={isLoading || isValidatingProfile} />
+            </BorderedBox>
+          </Box>
 
-        <Box>
-          <BorderedBox>
-            <CommoditiesSummary />
-          </BorderedBox>
-        </Box>
+          <Box>
+            <BorderedBox width={'100%'}>
+              <CommoditiesSummary />
+            </BorderedBox>
+          </Box>
 
-        <Box>
-          <BorderedBox>
-            <CryptoSummary />
-          </BorderedBox>
+          <Box>
+            <BorderedBox width={'100%'}>
+              <CryptoSummary />
+            </BorderedBox>
+          </Box>
+          <Box maxWidth={{ xs: '100%', sm: '98%', md: '94%', lg: '69%' }}>
+            <BorderedBox width={'100%'}>
+              <NewsSummary userProfile={userProfile} />
+            </BorderedBox>
+          </Box>
         </Box>
-        <Box maxWidth={{ xs: '95%', sm: '98%', md: '94%', lg: '68%' }}>
-          <BorderedBox>
-            <NewsSummary userProfile={userProfile} />
-          </BorderedBox>
-        </Box>
-      </Box>
+      )}
     </Box>
   )
 }

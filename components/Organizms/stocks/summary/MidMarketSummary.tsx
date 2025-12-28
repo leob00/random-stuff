@@ -61,38 +61,45 @@ const MidMarketSummary = () => {
   }, [pollCounter])
 
   return (
-    <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
-      <Box>
-        <BorderedBox>
-          <TopMoversSummary userProfile={userProfile} />
-        </BorderedBox>
-      </Box>
-      <Box>
-        <BorderedBox>
-          <RecentlySearchedStocksSummary userProfile={userProfile} />
-        </BorderedBox>
-      </Box>
-      <Box>
-        <BorderedBox width={'100%'}>
-          <EarningsSummary
-            userProfile={userProfile}
-            data={data?.scheduledEarnings}
-            title={`Scheduled Earnings`}
-            isLoading={isLoading || isValidatingProfile}
-            //singleDate
-          />
-        </BorderedBox>
-      </Box>
-      <Box>
-        <BorderedBox width={'100%'}>
-          <EarningsSummary userProfile={userProfile} data={data?.upcomingEarnings} title={`Upcoming Earnings`} isLoading={isLoading || isValidatingProfile} />
-        </BorderedBox>
-      </Box>
-      <Box maxWidth={{ xs: 348, sm: '98%', md: '94%', lg: '68%' }}>
-        <BorderedBox>
-          <NewsSummary userProfile={userProfile} />
-        </BorderedBox>
-      </Box>
+    <Box>
+      {!isValidatingProfile && (
+        <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
+          <Box>
+            <BorderedBox>
+              <TopMoversSummary userProfile={userProfile} />
+            </BorderedBox>
+          </Box>
+          <Box>
+            <BorderedBox width={'100%'}>{!isValidatingProfile && <RecentlySearchedStocksSummary userProfile={userProfile} />}</BorderedBox>
+          </Box>
+          <Box>
+            <BorderedBox width={'100%'}>
+              <EarningsSummary
+                userProfile={userProfile}
+                data={data?.scheduledEarnings}
+                title={`Scheduled Earnings`}
+                isLoading={isLoading || isValidatingProfile}
+                //singleDate
+              />
+            </BorderedBox>
+          </Box>
+          <Box>
+            <BorderedBox width={'100%'}>
+              <EarningsSummary
+                userProfile={userProfile}
+                data={data?.upcomingEarnings}
+                title={`Upcoming Earnings`}
+                isLoading={isLoading || isValidatingProfile}
+              />
+            </BorderedBox>
+          </Box>
+          <Box maxWidth={{ xs: 348, sm: '98%', md: '94%', lg: '68%' }}>
+            <BorderedBox width={'100%'}>
+              <NewsSummary userProfile={userProfile} />
+            </BorderedBox>
+          </Box>
+        </Box>
+      )}
     </Box>
   )
 }

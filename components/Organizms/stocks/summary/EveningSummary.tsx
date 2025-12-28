@@ -47,37 +47,41 @@ const EveningSummary = () => {
   }, [pollCounter])
 
   return (
-    <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
-      <Box>
-        <BorderedBox>
-          <TopMoversSummary userProfile={userProfile} />
-        </BorderedBox>
-      </Box>
-      <Box>
-        <BorderedBox>
-          <RecentlySearchedStocksSummary userProfile={userProfile} />
-        </BorderedBox>
-      </Box>
-      <Box>
-        <BorderedBox>
-          <EarningsSummary userProfile={userProfile} data={data} title='Scheduled Earnings' isLoading={isLoading || isValidatingProfile} />
-        </BorderedBox>
-      </Box>
-      <Box>
-        <BorderedBox>
-          <CommoditiesSummary />
-        </BorderedBox>
-      </Box>
-      <Box>
-        <BorderedBox>
-          <CryptoSummary />
-        </BorderedBox>
-      </Box>
-      <Box maxWidth={{ xs: 348, sm: '98%', md: '94%', lg: '68%' }}>
-        <BorderedBox>
-          <NewsSummary userProfile={userProfile} />
-        </BorderedBox>
-      </Box>
+    <Box>
+      {!isValidatingProfile && (
+        <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
+          <Box>
+            <BorderedBox>
+              <TopMoversSummary userProfile={userProfile} />
+            </BorderedBox>
+          </Box>
+          <Box>
+            <BorderedBox>
+              <RecentlySearchedStocksSummary userProfile={userProfile} />
+            </BorderedBox>
+          </Box>
+          <Box>
+            <BorderedBox>
+              <EarningsSummary userProfile={userProfile} data={data} title='Scheduled Earnings' isLoading={isLoading || isValidatingProfile} />
+            </BorderedBox>
+          </Box>
+          <Box>
+            <BorderedBox>
+              <CommoditiesSummary />
+            </BorderedBox>
+          </Box>
+          <Box>
+            <BorderedBox>
+              <CryptoSummary />
+            </BorderedBox>
+          </Box>
+          <Box maxWidth={{ xs: '100%', sm: '98%', md: '94%', lg: '68%' }}>
+            <BorderedBox>
+              <NewsSummary userProfile={userProfile} />
+            </BorderedBox>
+          </Box>
+        </Box>
+      )}
     </Box>
   )
 }
