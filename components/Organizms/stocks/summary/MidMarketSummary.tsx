@@ -57,7 +57,9 @@ const MidMarketSummary = () => {
       await sleep(250)
       mutate(mutateKey)
     }
-    fn()
+    if (pollCounter >= 1) {
+      fn()
+    }
   }, [pollCounter])
 
   return (

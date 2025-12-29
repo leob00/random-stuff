@@ -16,6 +16,7 @@ import { getRandomInteger } from 'lib/util/numberUtil'
 import { mutate } from 'swr'
 import CryptoSummary from './CryptoSummary'
 import { sortArray } from 'lib/util/collections'
+import RecentlySearchedStocksSummary from './stocks/RecentlySearchedStocksSummary'
 
 interface Model {
   upcomingEarnings: StockEarning[]
@@ -56,7 +57,9 @@ const PreMarketSummary = () => {
       await sleep(250)
       mutate(mutateKey)
     }
-    fn()
+    if (pollCounter >= 1) {
+      fn()
+    }
   }, [pollCounter])
   return (
     <Box>
@@ -81,6 +84,9 @@ const PreMarketSummary = () => {
             <BorderedBox>
               <EarningsSummary userProfile={userProfile} data={data?.reportedEarnings} title='Reported Earnings' isLoading={isLoading || isValidatingProfile} />
             </BorderedBox>
+          </Box>
+          <Box>
+            <BorderedBox width={'100%'}>{!isValidatingProfile && <RecentlySearchedStocksSummary userProfile={userProfile} />}</BorderedBox>
           </Box>
           <Box maxWidth={{ xs: '100%', sm: '100%', md: '94%', lg: '68%' }}>
             <BorderedBox>

@@ -60,7 +60,9 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
       await sleep(getRandomInteger(250, 3000))
       mutate(mutateKey)
     }
-    fn()
+    if (pollCounter >= 1) {
+      fn()
+    }
   }, [pollCounter])
 
   return (

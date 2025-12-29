@@ -51,7 +51,9 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
       const result = await getData()
       setHandchake(result)
     }
-    fn()
+    if (pollCounter > 1) {
+      fn()
+    }
   }, [pollCounter])
 
   return (
