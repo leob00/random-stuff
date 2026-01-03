@@ -28,7 +28,7 @@ const EarningsSummary = ({
           {dayjs(data[0].ReportDate).format('MM/DD/YYYY')}
         </Typography>
       )}
-      <Box>
+      <Box minHeight={28} py={1}>
         <Box display={'flex'} gap={1} alignItems={'center'}>
           <Box minWidth={68} pl={0}>
             <Typography variant='caption'></Typography>

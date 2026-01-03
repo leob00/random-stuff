@@ -17,6 +17,7 @@ import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import NewsSummary from './NewsSummary'
 import RecentlySearchedStocksSummary from './stocks/RecentlySearchedStocksSummary'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
+import { getMapFromArray } from 'lib/util/collectionsNative'
 dayjs.extend(isSameOrAfter)
 
 interface Model {
@@ -32,7 +33,9 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
     await sleep(getRandomInteger(1000, 2500))
     const resp = await serverGetFetch('/RecentEarnings')
     const earnings = resp.Body as StockEarning[]
-    let mapped: StockEarning[] = earnings.map((m) => {
+    const map = getMapFromArray(earnings, 'Symbol')
+    const uniqueEarnings = Array.from(map.values())
+    let mapped: StockEarning[] = uniqueEarnings.map((m) => {
       return { ...m, ReportDate: dayjs(m.ReportDate).format() }
     })
     mapped = sortArray(mapped, ['ReportDate', 'StockQuote.MarketCap'], ['asc', 'desc'])

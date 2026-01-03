@@ -15,11 +15,13 @@ const StockSearch = ({
   clearOnSelect = true,
   errorMessage,
   showAdvSearch = false,
+  width,
 }: {
   onSymbolSelected: (quote: StockQuote) => void
   clearOnSelect?: boolean
   errorMessage?: string
   showAdvSearch?: boolean
+  width?: number
 }) => {
   const [results, setResults] = useState<DropdownItem[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -64,6 +66,7 @@ const StockSearch = ({
           clearOnSelect={clearOnSelect}
           errorMessage={errorMessage}
           freesolo
+          width={width}
         />
       </CenterStack>
       {isLoading && <ComponentLoader />}

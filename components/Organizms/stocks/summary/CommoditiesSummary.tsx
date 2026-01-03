@@ -1,5 +1,4 @@
 import { Box, Button, IconButton, Stack, Typography, useTheme } from '@mui/material'
-import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { StockQuote } from 'lib/backend/api/models/zModels'
