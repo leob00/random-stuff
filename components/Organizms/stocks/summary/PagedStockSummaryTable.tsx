@@ -11,9 +11,9 @@ import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import Pager from 'components/Atoms/Pager'
 import { useClientPager } from 'hooks/useClientPager'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
-import DefaultTooltip from 'components/Atoms/Tooltips/DefaultTooltip'
 import StockTooltip from 'components/Atoms/Tooltips/StockTooltip'
 const pageSize = 10
+
 const PagedStockSummaryTable = ({ data, userProfile }: { data: StockQuote[]; userProfile: UserProfile | null }) => {
   const theme = useTheme()
   const palette = theme.palette.mode

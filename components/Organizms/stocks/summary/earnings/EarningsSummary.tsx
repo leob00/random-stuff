@@ -39,11 +39,10 @@ const EarningsSummary = ({
           <Box minWidth={70} display={'flex'}>
             <Typography variant='caption'>estimate</Typography>
           </Box>
-          {!singleDate && (
-            <Box minWidth={70} display={'flex'}>
-              <Typography variant='caption'>date</Typography>
-            </Box>
-          )}
+
+          <Box minWidth={70} display={'flex'}>
+            <Typography variant='caption'>date</Typography>
+          </Box>
         </Box>
       </Box>
       {isLoading && (

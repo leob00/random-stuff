@@ -14,7 +14,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 import { SortDirection } from 'lib/backend/api/models/collections'
 import { sortArray } from 'lib/util/collections'
 
-type StockSortDirection = 'default' | SortDirection
+export type StockSortDirection = 'default' | SortDirection
 
 const StockListSummary = ({
   userProfile,
@@ -29,18 +29,19 @@ const StockListSummary = ({
 }) => {
   const [selectedItem, setSelectedItem] = useState<StockQuote | null>(null)
   const [sortDirection, setSortDirection] = useState<StockSortDirection>('default')
-
   const sorted = sortList(data ?? [], sortDirection)
 
-  const handleSortDesc = () => {
-    setSortDirection('desc')
-  }
+  const handleSortClick = () => {
+    if (sortDirection === 'default') {
+      setSortDirection('desc')
+    }
 
-  const handleSortAsc = () => {
-    setSortDirection('asc')
-  }
-  const handleSortDefault = () => {
-    setSortDirection('default')
+    if (sortDirection === 'desc') {
+      setSortDirection('asc')
+    }
+    if (sortDirection === 'asc') {
+      setSortDirection('default')
+    }
   }
 
   return (
@@ -60,17 +61,17 @@ const StockListSummary = ({
           <Box minWidth={80} display={'flex'} alignItems={'center'} gap={1}>
             <Typography variant='caption'>%</Typography>
             {sortDirection === 'default' && (
-              <IconButton onClick={handleSortDesc}>
+              <IconButton onClick={handleSortClick}>
                 <SwapVertRoundedIcon color='primary' sx={{ fontSize: 18 }} />
               </IconButton>
             )}
             {sortDirection === 'desc' && (
-              <IconButton onClick={handleSortAsc}>
+              <IconButton onClick={handleSortClick}>
                 <ArrowDownwardIcon color='primary' sx={{ fontSize: 18 }} />
               </IconButton>
             )}
             {sortDirection === 'asc' && (
-              <IconButton onClick={handleSortDefault}>
+              <IconButton onClick={handleSortClick}>
                 <ArrowUpwardIcon color='primary' sx={{ fontSize: 18 }} />
               </IconButton>
             )}

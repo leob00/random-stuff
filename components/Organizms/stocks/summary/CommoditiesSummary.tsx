@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography, useTheme } from '@mui/material'
+import { Box, Button, IconButton, Stack, Typography, useTheme } from '@mui/material'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import { useSwrHelper } from 'hooks/useSwrHelper'
@@ -16,24 +16,44 @@ import { usePolling } from 'hooks/usePolling'
 import { mutate } from 'swr'
 import { getRandomInteger } from 'lib/util/numberUtil'
 import ScrollableBoxHorizontal from 'components/Atoms/Containers/ScrollableBoxHorizontal'
+import SwapVertRoundedIcon from '@mui/icons-material/SwapVertRounded'
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
+import { StockSortDirection } from './stocks/StockListSummary'
+import { orderBy } from 'lodash'
 
 const CommoditiesSummary = () => {
   const theme = useTheme()
   const [selectedItem, setSelectedItem] = useState<StockQuote | null>(null)
   const palette = theme.palette.mode
   const mutateKey = 'commodities'
+  const [sortDirection, setSortDirection] = useState<StockSortDirection>('default')
 
-  const endPoint = `/Futures`
   const dataFn = async () => {
     await sleep(getRandomInteger(250, 3000))
-    const resp = await serverGetFetch(endPoint)
+    const resp = await serverGetFetch(`/Futures`)
     const quotes = resp.Body as StockQuote[]
-    const result = sortArray(quotes, ['ChangePercent'], ['desc'])
-    return result
+    const result = orderBy(quotes, (quote) => Math.abs(quote.ChangePercent), ['desc'])
+    return sortList(result, sortDirection)
   }
+  const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
+  const sorted = sortList(data ?? [], sortDirection)
 
   const pollingInterval = 1000 * 360 // 6 minutes
   const { pollCounter } = usePolling(getRandomInteger(pollingInterval, pollingInterval + 10000))
+
+  const handleSortClick = () => {
+    if (sortDirection === 'default') {
+      setSortDirection('desc')
+    }
+
+    if (sortDirection === 'desc') {
+      setSortDirection('asc')
+    }
+    if (sortDirection === 'asc') {
+      setSortDirection('default')
+    }
+  }
 
   useEffect(() => {
     const fn = async () => {
@@ -43,11 +63,9 @@ const CommoditiesSummary = () => {
     fn()
   }, [pollCounter])
 
-  const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   return (
     <Box height={503}>
       <SummaryTitle title={'Commodities'} />
-
       <ScrollableBoxHorizontal>
         <Box display={'flex'} gap={1} alignItems={'center'}>
           <Box minWidth={120} pl={1}>
@@ -59,8 +77,23 @@ const CommoditiesSummary = () => {
           <Box minWidth={80} display={'flex'}>
             <Typography variant='caption'>change</Typography>
           </Box>
-          <Box minWidth={80} display={'flex'}>
-            <Typography variant='caption'>percent</Typography>
+          <Box minWidth={80} display={'flex'} alignItems={'center'} gap={1}>
+            <Typography variant='caption'>%</Typography>
+            {sortDirection === 'default' && (
+              <IconButton onClick={handleSortClick}>
+                <SwapVertRoundedIcon color='primary' sx={{ fontSize: 18 }} />
+              </IconButton>
+            )}
+            {sortDirection === 'desc' && (
+              <IconButton onClick={handleSortClick}>
+                <ArrowDownwardIcon color='primary' sx={{ fontSize: 18 }} />
+              </IconButton>
+            )}
+            {sortDirection === 'asc' && (
+              <IconButton onClick={handleSortClick}>
+                <ArrowUpwardIcon color='primary' sx={{ fontSize: 18 }} />
+              </IconButton>
+            )}
           </Box>
         </Box>
         {isLoading && (
@@ -70,7 +103,7 @@ const CommoditiesSummary = () => {
         )}
         {data && (
           <Box>
-            {data.map((item, index) => (
+            {sorted.map((item, index) => (
               <Box key={item.Symbol}>
                 <Box display={'flex'} gap={1} alignItems={'center'}>
                   <Box minWidth={120}>
@@ -111,5 +144,10 @@ const CommoditiesSummary = () => {
     </Box>
   )
 }
-
+function sortList(data: StockQuote[], direction: StockSortDirection) {
+  if (direction === 'default') {
+    return data
+  }
+  return sortArray(data, ['ChangePercent'], [direction])
+}
 export default CommoditiesSummary
