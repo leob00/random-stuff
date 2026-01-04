@@ -101,7 +101,7 @@ const CommoditiesSummary = () => {
           </Box>
         )}
         {data && (
-          <Box>
+          <Box pt={2}>
             {sorted.map((item, index) => (
               <Box key={item.Symbol}>
                 <Box display={'flex'} gap={1} alignItems={'center'}>

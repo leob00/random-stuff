@@ -46,8 +46,8 @@ const EarningsSummary = ({
           {dayjs(result[0].ReportDate).format('MM/DD/YYYY')}
         </Typography>
       )}
-      <Box py={1}>
-        <Box display={'flex'} gap={1} alignItems={'center'}>
+      <Box>
+        <Box display={'flex'} gap={1} alignItems={'center'} minHeight={44}>
           <Box minWidth={68} pl={0}>
             {(earningsSort.field !== 'Symbol' || earningsSort.direction === 'default') && (
               <IconButton

@@ -64,7 +64,7 @@ const CryptoSummary = () => {
   const sorted = sortList(data ?? [], sortDirection)
 
   return (
-    <Box height={670}>
+    <Box height={690}>
       <SummaryTitle title={'Crypto'} />
       <ScrollableBoxHorizontal>
         <Box>
@@ -104,7 +104,7 @@ const CryptoSummary = () => {
           </Box>
         )}
         {data && (
-          <Box>
+          <Box pt={2}>
             {sorted.map((item, index) => (
               <Stack key={item.Symbol} width={'100%'}>
                 <Stack>

@@ -30,8 +30,8 @@ const PagedStockEarningsSummaryTable = ({ data, userProfile, singleDate }: { dat
 
   return (
     <Box>
-      <Box minHeight={330}>
-        <ScrollableBox maxHeight={308} scroller={scroller}>
+      <Box minHeight={328}>
+        <ScrollableBox maxHeight={320} scroller={scroller}>
           {items.map((item) => (
             <Box key={item.Symbol}>
               <Box display={'flex'} gap={1} alignItems={'center'}>
