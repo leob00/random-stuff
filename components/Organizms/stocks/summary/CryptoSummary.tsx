@@ -64,7 +64,7 @@ const CryptoSummary = () => {
   const sorted = sortList(data ?? [], sortDirection)
 
   return (
-    <Box height={650}>
+    <Box height={670}>
       <SummaryTitle title={'Crypto'} />
       <ScrollableBoxHorizontal>
         <Box>

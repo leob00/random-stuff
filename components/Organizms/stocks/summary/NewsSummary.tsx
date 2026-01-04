@@ -45,7 +45,7 @@ const NewsSummary = ({ userProfile }: { userProfile: UserProfile | null }) => {
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   return (
-    <Box height={650} minWidth={{ xs: 300, sm: 600, md: 828 }}>
+    <Box height={670} minWidth={{ xs: 300, sm: 600, md: 828 }}>
       <SummaryTitle title='News' />
       <ScrollableBox>
         {isLoading && (
