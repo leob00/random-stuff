@@ -63,7 +63,7 @@ const CommoditiesSummary = () => {
   }, [pollCounter])
 
   return (
-    <Box height={503}>
+    <Box height={513}>
       <SummaryTitle title={'Commodities'} />
       <ScrollableBoxHorizontal>
         <Box display={'flex'} gap={1} alignItems={'center'} minHeight={44}>

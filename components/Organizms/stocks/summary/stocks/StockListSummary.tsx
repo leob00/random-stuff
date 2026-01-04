@@ -58,7 +58,7 @@ const StockListSummary = ({
   }
 
   return (
-    <Box height={503}>
+    <Box height={513}>
       <SummaryTitle title={title} />
 
       <Box>

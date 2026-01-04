@@ -39,7 +39,7 @@ const EarningsSummary = ({
   }
 
   return (
-    <Box height={503}>
+    <Box height={513}>
       <SummaryTitle title={title} />
       {singleDate && data && data.length > 0 && (
         <Typography variant='body2' textAlign={'center'} pb={1} mt={-1}>

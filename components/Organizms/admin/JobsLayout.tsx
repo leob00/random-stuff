@@ -19,7 +19,7 @@ const JobsLayout = ({ userClaim }: { userClaim: Claim }) => {
   const [isLoadingDetail, setIsLoadingDetail] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [claim, setClaim] = useState<Claim | undefined>(userClaim)
-  const { start, stop, pollCounter: counter } = usePolling(pollingIterval, 100)
+  const { start, stop, pollCounter } = usePolling(pollingIterval)
 
   const handleLogin = async (result: Claim[]) => {
     setClaim(result.find((m) => m.type === 'qln'))
@@ -58,18 +58,16 @@ const JobsLayout = ({ userClaim }: { userClaim: Claim }) => {
     }
   }
 
-  const handleCloseDetail = () => {
-    setSelectedItem(null)
-    start()
-  }
   useEffect(() => {
     if (!error) {
-      mutate(listMutateKey)
+      if (pollCounter > 0) {
+        mutate(listMutateKey)
+      }
     } else {
       stop()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [counter, error])
+  }, [pollCounter, error])
 
   return (
     <Box>
