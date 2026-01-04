@@ -66,7 +66,7 @@ const CommoditiesSummary = () => {
     <Box height={503}>
       <SummaryTitle title={'Commodities'} />
       <ScrollableBoxHorizontal>
-        <Box display={'flex'} gap={1} alignItems={'center'}>
+        <Box display={'flex'} gap={1} alignItems={'center'} minHeight={44}>
           <Box minWidth={120} pl={1}>
             <Typography variant='caption'></Typography>
           </Box>

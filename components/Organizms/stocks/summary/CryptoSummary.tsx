@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography, useTheme } from '@mui/material'
+import { Box, Button, IconButton, Stack, Typography, useTheme } from '@mui/material'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import { useSwrHelper } from 'hooks/useSwrHelper'
@@ -17,10 +17,15 @@ import { mutate } from 'swr'
 import { filterCryptos } from 'components/Organizms/crypto/CryptosDisplay'
 import { getRandomInteger } from 'lib/util/numberUtil'
 import ScrollableBoxHorizontal from 'components/Atoms/Containers/ScrollableBoxHorizontal'
+import { StockSortDirection } from './stocks/StockListSummary'
+import SwapVertRoundedIcon from '@mui/icons-material/SwapVertRounded'
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 
 const CryptoSummary = () => {
   const theme = useTheme()
   const [selectedItem, setSelectedItem] = useState<StockQuote | null>(null)
+  const [sortDirection, setSortDirection] = useState<StockSortDirection>('default')
   const palette = theme.palette.mode
   const mutateKey = 'crypto'
 
@@ -31,11 +36,22 @@ const CryptoSummary = () => {
     const quotes = resp.Body as StockQuote[]
 
     const result = filterCryptos(quotes)
-    return sortArray(result, ['ChangePercent'], ['desc'])
+    return sortList(result, sortDirection)
   }
 
   const { pollCounter } = usePolling(1000 * 240) // 4 minutes
+  const handleSortClick = () => {
+    if (sortDirection === 'default') {
+      setSortDirection('desc')
+    }
 
+    if (sortDirection === 'desc') {
+      setSortDirection('asc')
+    }
+    if (sortDirection === 'asc') {
+      setSortDirection('default')
+    }
+  }
   useEffect(() => {
     const fn = async () => {
       await sleep(250)
@@ -45,12 +61,14 @@ const CryptoSummary = () => {
   }, [pollCounter])
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
+  const sorted = sortList(data ?? [], sortDirection)
+
   return (
     <Box height={650}>
       <SummaryTitle title={'Crypto'} />
       <ScrollableBoxHorizontal>
         <Box>
-          <Box display={'flex'} gap={1} alignItems={'center'}>
+          <Box display={'flex'} gap={1} alignItems={'center'} minHeight={44}>
             <Box minWidth={110} pl={1}>
               <Typography variant='caption'></Typography>
             </Box>
@@ -60,8 +78,23 @@ const CryptoSummary = () => {
             <Box minWidth={80} display={'flex'}>
               <Typography variant='caption'>change</Typography>
             </Box>
-            <Box minWidth={80} display={'flex'}>
-              <Typography variant='caption'>percent</Typography>
+            <Box minWidth={80} display={'flex'} alignItems={'center'} gap={1}>
+              <Typography variant='caption'>%</Typography>
+              {sortDirection === 'default' && (
+                <IconButton onClick={handleSortClick}>
+                  <SwapVertRoundedIcon color='primary' sx={{ fontSize: 18 }} />
+                </IconButton>
+              )}
+              {sortDirection === 'desc' && (
+                <IconButton onClick={handleSortClick}>
+                  <ArrowDownwardIcon color='primary' sx={{ fontSize: 18 }} />
+                </IconButton>
+              )}
+              {sortDirection === 'asc' && (
+                <IconButton onClick={handleSortClick}>
+                  <ArrowUpwardIcon color='primary' sx={{ fontSize: 18 }} />
+                </IconButton>
+              )}
             </Box>
           </Box>
         </Box>
@@ -72,7 +105,7 @@ const CryptoSummary = () => {
         )}
         {data && (
           <Box>
-            {data.map((item, index) => (
+            {sorted.map((item, index) => (
               <Stack key={item.Symbol} width={'100%'}>
                 <Stack>
                   <Box display={'flex'} gap={1} alignItems={'center'}>
@@ -115,5 +148,10 @@ const CryptoSummary = () => {
     </Box>
   )
 }
-
+function sortList(data: StockQuote[], direction: StockSortDirection) {
+  if (direction === 'default') {
+    return data
+  }
+  return sortArray(data, ['ChangePercent'], [direction])
+}
 export default CryptoSummary

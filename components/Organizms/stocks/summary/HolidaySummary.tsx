@@ -33,9 +33,7 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
     await sleep(getRandomInteger(1000, 2500))
     const resp = await serverGetFetch('/RecentEarnings')
     const earnings = resp.Body as StockEarning[]
-    const map = getMapFromArray(earnings, 'Symbol')
-    const uniqueEarnings = Array.from(map.values())
-    let mapped: StockEarning[] = uniqueEarnings.map((m) => {
+    let mapped: StockEarning[] = earnings.map((m) => {
       return { ...m, ReportDate: dayjs(m.ReportDate).format() }
     })
     mapped = sortArray(mapped, ['ReportDate', 'StockQuote.MarketCap'], ['asc', 'desc'])
