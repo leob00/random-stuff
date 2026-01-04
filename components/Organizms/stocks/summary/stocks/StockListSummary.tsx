@@ -24,11 +24,13 @@ const StockListSummary = ({
   title,
   data,
   isLoading,
+  onRefreshRequest,
 }: {
   userProfile: UserProfile | null
   title: string
   data?: StockQuote[]
   isLoading?: boolean
+  onRefreshRequest?: () => void
 }) => {
   const [selectedItem, setSelectedItem] = useState<StockQuote | null>(null)
   const [sortDirection, setSortDirection] = useState<StockSortDirection>('default')
@@ -59,7 +61,7 @@ const StockListSummary = ({
 
   return (
     <Box height={513}>
-      <SummaryTitle title={title} />
+      <SummaryTitle title={title} onRefresh={onRefreshRequest} />
 
       <Box>
         <Box display={'flex'} gap={2} alignItems={'center'} minHeight={44}>

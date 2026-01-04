@@ -21,6 +21,7 @@ import { StockSortDirection } from './stocks/StockListSummary'
 import SwapVertRoundedIcon from '@mui/icons-material/SwapVertRounded'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
+import StockTooltip from 'components/Atoms/Tooltips/StockTooltip'
 
 const CryptoSummary = () => {
   const theme = useTheme()
@@ -110,9 +111,11 @@ const CryptoSummary = () => {
                 <Stack>
                   <Box display={'flex'} gap={1} alignItems={'center'}>
                     <Box minWidth={110}>
-                      <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
-                        <Typography variant='body2'>{item.Company.substring(0, item.Company.indexOf(' - '))}</Typography>
-                      </Button>
+                      <StockTooltip data={item}>
+                        <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
+                          <Typography variant='body2'>{item.Company.substring(0, item.Company.indexOf(' - '))}</Typography>
+                        </Button>
+                      </StockTooltip>
                     </Box>
                     <Box minWidth={80}>
                       <Typography

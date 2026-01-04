@@ -1,6 +1,7 @@
 'use client'
-import { Box, ListItem, ListItemText, Tooltip, Typography, useTheme } from '@mui/material'
-import { CasinoBlueTransparent, DarkModeBkg, VeryLightBlue } from 'components/themes/mainTheme'
+import { Box, Tooltip, Typography, useTheme } from '@mui/material'
+import { getPositiveNegativeColor } from 'components/Organizms/stocks/StockListItem'
+import { CasinoBlueTransparent, DarkModeBkg } from 'components/themes/mainTheme'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import numeral from 'numeral'
 import { ReactElement } from 'react'
@@ -8,17 +9,33 @@ import { ReactElement } from 'react'
 const StockTooltip = ({ data, children }: { data: StockQuote; children: ReactElement<unknown, any> }) => {
   const theme = useTheme()
   const customContent = (
-    <Box minWidth={250}>
+    <Box minWidth={250} display={'flex'} flexDirection={'column'} gap={1}>
       <Typography variant='h6' textAlign={'left'}>
         {data.Company}
       </Typography>
-      {/* <Typography>This is some detailed information with a list:</Typography> */}
-      <ListItem disablePadding>
-        <ListItemText secondary={<Typography variant='body2'>{`Cap: ${numeral(data.MarketCap).format('0.0a')}`}</Typography>} />
-      </ListItem>
-      <ListItem disablePadding>
-        <ListItemText secondary={<Typography variant='body2'>{`Volume: ${numeral(data.Volume).format('0.0a')}`}</Typography>} />
-      </ListItem>
+
+      <Box display={'flex'} gap={1}>
+        <Typography variant='h6' color={getPositiveNegativeColor(data.Change, theme.palette.mode)}>{`${numeral(data.Price).format('###,0.00')}`}</Typography>
+        <Typography color={getPositiveNegativeColor(data.Change, theme.palette.mode)} variant='h6'>{`${numeral(data.Change).format('###,0.000')}`}</Typography>
+        <Typography
+          color={getPositiveNegativeColor(data.Change, theme.palette.mode)}
+          variant='h6'
+        >{`${numeral(data.ChangePercent).format('###,0.000')}%`}</Typography>
+      </Box>
+      <Box display={'flex'} gap={1}>
+        {data.MarketCap && (
+          <>
+            <Typography variant='caption'>{`cap:`}</Typography>
+            <Typography variant='caption'>{`${numeral(data.MarketCap).format('0.0a')}`}</Typography>
+          </>
+        )}
+        {data.Volume && (
+          <>
+            <Typography variant='caption'>{`volume:`}</Typography>
+            <Typography variant='caption'>{`${numeral(data.Volume).format('0.0a')}`}</Typography>
+          </>
+        )}
+      </Box>
     </Box>
   )
   return (

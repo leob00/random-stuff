@@ -49,7 +49,7 @@ const EarningsSummary = ({
       <Box>
         <Box display={'flex'} gap={1} alignItems={'center'} minHeight={44}>
           <Box minWidth={68} pl={0}>
-            {(earningsSort.field !== 'Symbol' || earningsSort.direction === 'default') && (
+            {((earningsSort.field === 'Symbol' && earningsSort.direction === 'default') || earningsSort.field !== 'Symbol') && (
               <IconButton
                 onClick={() => {
                   handleSortClick({ field: 'Symbol', direction: 'asc' })
@@ -61,7 +61,7 @@ const EarningsSummary = ({
             {earningsSort.field === 'Symbol' && earningsSort.direction === 'desc' && (
               <IconButton
                 onClick={() => {
-                  handleSortClick({ field: 'Symbol', direction: 'asc' })
+                  handleSortClick({ field: 'Symbol', direction: 'default' })
                 }}
               >
                 <ArrowDownwardIcon color='primary' sx={{ fontSize: 18 }} />
@@ -70,7 +70,7 @@ const EarningsSummary = ({
             {earningsSort.field === 'Symbol' && earningsSort.direction === 'asc' && (
               <IconButton
                 onClick={() => {
-                  handleSortClick({ field: 'Symbol', direction: 'default' })
+                  handleSortClick({ field: 'Symbol', direction: 'desc' })
                 }}
               >
                 <ArrowUpwardIcon color='primary' sx={{ fontSize: 18 }} />

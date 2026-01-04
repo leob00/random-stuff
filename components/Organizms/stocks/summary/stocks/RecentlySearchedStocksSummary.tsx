@@ -15,11 +15,15 @@ import { sortArray } from 'lib/util/collections'
 
 const RecentlySearchedStocksSummary = ({ userProfile }: { userProfile: UserProfile | null }) => {
   const mutateKey = !userProfile ? 'searched-stocks' : `searched-stocks-user[${userProfile.username}]`
-  const { pollCounter } = usePolling(1000 * getRandomInteger(60, 360)) // 1- 3 minutes
+  const { pollCounter, stop, start } = usePolling(1000 * getRandomInteger(60, 360)) // 1- 3 minutes
 
   useEffect(() => {
     mutate(mutateKey)
   }, [pollCounter])
+
+  const onRefreshRequest = () => {
+    mutate(mutateKey)
+  }
 
   const dataFn = async () => {
     await sleep(getRandomInteger(250, 2500))
@@ -42,7 +46,15 @@ const RecentlySearchedStocksSummary = ({ userProfile }: { userProfile: UserProfi
   }
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
-  return <StockListSummary userProfile={userProfile} data={data} title={userProfile ? 'Searched by Me' : 'All Recently Searched'} isLoading={isLoading} />
+  return (
+    <StockListSummary
+      userProfile={userProfile}
+      data={data}
+      title={userProfile ? 'Searched by Me' : 'All Recently Searched'}
+      isLoading={isLoading}
+      onRefreshRequest={onRefreshRequest}
+    />
+  )
 }
 
 export default RecentlySearchedStocksSummary

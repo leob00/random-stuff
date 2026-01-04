@@ -20,6 +20,7 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 import { StockSortDirection } from './stocks/StockListSummary'
 import { orderBy } from 'lodash'
+import StockTooltip from 'components/Atoms/Tooltips/StockTooltip'
 
 const CommoditiesSummary = () => {
   const theme = useTheme()
@@ -106,9 +107,11 @@ const CommoditiesSummary = () => {
               <Box key={item.Symbol}>
                 <Box display={'flex'} gap={1} alignItems={'center'}>
                   <Box minWidth={120}>
-                    <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
-                      <Typography variant='body2'>{item.Company}</Typography>
-                    </Button>
+                    <StockTooltip data={item}>
+                      <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
+                        <Typography variant='body2'>{item.Company}</Typography>
+                      </Button>
+                    </StockTooltip>
                   </Box>
                   <Box minWidth={80}>
                     <Typography

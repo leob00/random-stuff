@@ -37,9 +37,12 @@ const TopMoversSummary = ({ userProfile }: { userProfile: UserProfile | null }) 
     result = orderBy(result, (m) => Math.abs(m.ChangePercent), ['desc'])
     return result
   }
+  const onRefreshRequest = () => {
+    mutate(mutateKey)
+  }
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
-  return <StockListSummary userProfile={userProfile} data={data} title='Top Movers' isLoading={isLoading} />
+  return <StockListSummary userProfile={userProfile} data={data} title='Top Movers' isLoading={isLoading} onRefreshRequest={onRefreshRequest} />
 }
 
 export default TopMoversSummary

@@ -18,6 +18,7 @@ import NewsSummary from './NewsSummary'
 import RecentlySearchedStocksSummary from './stocks/RecentlySearchedStocksSummary'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import { getMapFromArray } from 'lib/util/collectionsNative'
+import TopMoversSummary from './stocks/TopMoversSummary'
 dayjs.extend(isSameOrAfter)
 
 interface Model {
@@ -74,6 +75,7 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
           <Box>
             <BorderedBox width={'100%'}>{!isValidatingProfile && <RecentlySearchedStocksSummary userProfile={userProfile} />}</BorderedBox>
           </Box>
+
           <Box>
             <BorderedBox width={'100%'}>
               <EarningsSummary userProfile={userProfile} data={data?.reportedEarnings} title='Reported Earnings' isLoading={isLoading || isValidatingProfile} />
