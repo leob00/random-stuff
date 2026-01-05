@@ -172,15 +172,25 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
                   <MovingAvgValues values={data.movingAvg} startAt={7} />
                 </Box>
               )}
-              {marketCategory !== 'stocks' && (
+
+              {marketCategory === 'crypto' && (
                 <>
                   <Box minHeight={{ xs: 300, sm: chartHeight }} pt={2}>
                     {data && (
                       <Box>
                         <ChartJsTimeSeriesLineChart data={data.timeSeriesModel} />
-                        {/* <FadeIn>
-                          <ReactApexChart series={data.chartOptions.series} options={data.chartOptions} type='area' height={chartHeight} />
-                        </FadeIn> */}
+                        <StockVolumeChart data={data.history} />
+                      </Box>
+                    )}
+                  </Box>
+                </>
+              )}
+              {marketCategory === 'commodities' && (
+                <>
+                  <Box minHeight={{ xs: 300, sm: chartHeight }} pt={2}>
+                    {data && (
+                      <Box>
+                        <ChartJsTimeSeriesLineChart data={data.timeSeriesModel} />
                       </Box>
                     )}
                   </Box>

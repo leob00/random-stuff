@@ -143,7 +143,7 @@ const CryptoSummary = () => {
           </Box>
         )}
         {selectedItem && (
-          <InfoDialog show={true} title={selectedItem.Company} onCancel={() => setSelectedItem(null)}>
+          <InfoDialog show={true} title={''} onCancel={() => setSelectedItem(null)}>
             <StockListItem item={selectedItem} marketCategory='crypto' userProfile={null} disabled expand />
           </InfoDialog>
         )}

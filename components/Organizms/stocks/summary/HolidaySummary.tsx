@@ -71,11 +71,10 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
     // <Box display={'flex'} sx={{ transform: 'scale(0.98)', transformOrigin: 'top left' }} width={'125%'}>
     <Box>
       {!isValidatingProfile && (
-        <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
+        <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={{ xs: 'center', md: 'unset' }}>
           <Box>
             <BorderedBox width={'100%'}>{!isValidatingProfile && <RecentlySearchedStocksSummary userProfile={userProfile} />}</BorderedBox>
           </Box>
-
           <Box>
             <BorderedBox width={'100%'}>
               <EarningsSummary userProfile={userProfile} data={data?.reportedEarnings} title='Reported Earnings' isLoading={isLoading || isValidatingProfile} />
@@ -92,7 +91,6 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
               <CommoditiesSummary />
             </BorderedBox>
           </Box>
-
           <Box>
             <BorderedBox width={'100%'}>
               <CryptoSummary />
@@ -102,6 +100,9 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
             <BorderedBox width={'100%'}>
               <NewsSummary userProfile={userProfile} />
             </BorderedBox>
+          </Box>
+          <Box>
+            <BorderedBox width={'100%'}>{!isValidatingProfile && <TopMoversSummary userProfile={userProfile} />}</BorderedBox>
           </Box>
         </Box>
       )}

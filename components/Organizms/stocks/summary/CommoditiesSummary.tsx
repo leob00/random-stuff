@@ -138,7 +138,7 @@ const CommoditiesSummary = () => {
           </Box>
         )}
         {selectedItem && (
-          <InfoDialog show={true} title={selectedItem.Company} onCancel={() => setSelectedItem(null)}>
+          <InfoDialog show={true} title={''} onCancel={() => setSelectedItem(null)}>
             <StockListItem item={selectedItem} marketCategory='commodities' userProfile={null} disabled expand />
           </InfoDialog>
         )}

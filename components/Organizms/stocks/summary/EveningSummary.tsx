@@ -51,7 +51,7 @@ const EveningSummary = () => {
   return (
     <Box>
       {!isValidatingProfile && (
-        <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={'center'}>
+        <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={{ xs: 'center', md: 'unset' }}>
           <Box>
             <BorderedBox>
               <TopMoversSummary userProfile={userProfile} />
