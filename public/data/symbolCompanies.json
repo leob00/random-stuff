@@ -384,6 +384,10 @@
     "Symbol": "ACGR"
   },
   {
+    "Company": "Accendra Health, Inc.",
+    "Symbol": "ACH"
+  },
+  {
     "Company": "Acadia Healthcare Company, Inc.",
     "Symbol": "ACHC"
   },
@@ -2572,6 +2576,10 @@
     "Symbol": "ARKB"
   },
   {
+    "Company": "ARK DIET Q1 Buffer ETF",
+    "Symbol": "ARKD"
+  },
+  {
     "Company": "ARK Blockchain & Fintech Innovation ETF",
     "Symbol": "ARKF"
   },
@@ -2960,7 +2968,7 @@
     "Symbol": "ASYS"
   },
   {
-    "Company": "Atai Beckley N.V Common Shares",
+    "Company": "AtaiBeckley Inc. Common Stock",
     "Symbol": "ATAI"
   },
   {
@@ -4996,7 +5004,7 @@
     "Symbol": "BITI"
   },
   {
-    "Company": "Tuttle Capital IBIT 0DTE Covered Call ETF",
+    "Company": "Tuttle Capital Bitcoin 0DTE Covered Call ETF",
     "Symbol": "BITK"
   },
   {
@@ -7948,10 +7956,6 @@
     "Symbol": "CHARR"
   },
   {
-    "Company": "Charlton Aria Acquisition Corporation Units",
-    "Symbol": "CHARU"
-  },
-  {
     "Company": "Roundhill Generative AI & Technology ETF",
     "Symbol": "CHAT"
   },
@@ -10592,6 +10596,10 @@
     "Symbol": "DDFD"
   },
   {
+    "Company": "Innovator Equity Dual Directional 15 Buffer ETF - January",
+    "Symbol": "DDFJ"
+  },
+  {
     "Company": "Innovator Equity Dual Directional 15 Buffer ETF - July",
     "Symbol": "DDFL"
   },
@@ -10628,6 +10636,10 @@
     "Symbol": "DDM"
   },
   {
+    "Company": "Innovator Growth-100 Dual Directional 5 Buffer ETF - Quarterly",
+    "Symbol": "DDNQ"
+  },
+  {
     "Company": "Datadog, Inc. Class A Common Stock",
     "Symbol": "DDOG"
   },
@@ -10636,12 +10648,20 @@
     "Symbol": "DDS"
   },
   {
+    "Company": "Innovator Equity Dual Directional 5 Buffer ETF - Quarterly",
+    "Symbol": "DDSQ"
+  },
+  {
     "Company": "Dillard's Capital Trust I 7.50% Capital Securities",
     "Symbol": "DDT"
   },
   {
     "Company": "Innovator Equity Dual Directional 10 Buffer ETF - December",
     "Symbol": "DDTD"
+  },
+  {
+    "Company": "Innovator Equity Dual Directional 10 Buffer ETF - January",
+    "Symbol": "DDTJ"
   },
   {
     "Company": "Innovator Equity Dual Directional 10 Buffer ETF - July",
@@ -11754,10 +11774,6 @@
   {
     "Company": "Daedalus Special Acquisition Corp. Unit",
     "Symbol": "DSACU"
-  },
-  {
-    "Company": "Discipline Fund ETF",
-    "Symbol": "DSCF"
   },
   {
     "Company": "FT Vest U.S. Equity Deep Buffer ETF - September",
@@ -13906,10 +13922,6 @@
   {
     "Company": "ETHZilla Corporation Common Stock",
     "Symbol": "ETHZ"
-  },
-  {
-    "Company": "ETHZilla Corporation Warrant",
-    "Symbol": "ETHZW"
   },
   {
     "Company": "Eaton Vance Risk - Managed Diversified Equity Income Fund",
@@ -17368,7 +17380,7 @@
     "Symbol": "GDL"
   },
   {
-    "Company": "GRAYSCALE DIGITAL LG CAP",
+    "Company": "Grayscale CoinDesk Crypto 5 ETF",
     "Symbol": "GDLC"
   },
   {
@@ -18306,6 +18318,10 @@
   {
     "Company": "Acushnet Holdings Corp.",
     "Symbol": "GOLF"
+  },
+  {
+    "Company": "Gabelli Opportunities in Live and Sports ETF",
+    "Symbol": "GOLS"
   },
   {
     "Company": "Strategy Shares Gold Enhanced Yield ETF",
@@ -19724,7 +19740,7 @@
     "Symbol": "HKND"
   },
   {
-    "Company": "Hong Kong Pharma Digital Technology Holdings Limited Ordinary shares",
+    "Company": "Cellyan Biotechnology Co., Ltd Class A Ordinary Shares",
     "Symbol": "HKPD"
   },
   {
@@ -27908,10 +27924,6 @@
     "Symbol": "MRBK"
   },
   {
-    "Company": "MRC GLOBAL INC.",
-    "Symbol": "MRC"
-  },
-  {
     "Company": "Monroe Capital Corporation",
     "Symbol": "MRCC"
   },
@@ -30936,7 +30948,7 @@
     "Symbol": "OGI"
   },
   {
-    "Company": "ALPS  O'Shares Global Internet Giants ETF",
+    "Company": "ALPS O'Shares Global Internet Giants ETF",
     "Symbol": "OGIG"
   },
   {
@@ -31426,6 +31438,10 @@
   {
     "Company": "Oric Pharmaceuticals, Inc. Common Stock",
     "Symbol": "ORIC"
+  },
+  {
+    "Company": "Orion Digital Corp. Common Shares",
+    "Symbol": "ORIO"
   },
   {
     "Company": "Origin Investment Corp I Ordinary Shares",
@@ -33340,7 +33356,7 @@
     "Symbol": "PNC"
   },
   {
-    "Company": "Pinnacle Financial Partners In",
+    "Company": "Pinnacle Financial Partners, Inc.",
     "Symbol": "PNFP"
   },
   {
@@ -42224,7 +42240,7 @@
     "Symbol": "TPYP"
   },
   {
-    "Company": "Tortoise Essential Energy Fund",
+    "Company": "Tortoise Electrification Infrastructure ETF",
     "Symbol": "TPZ"
   },
   {
@@ -43064,7 +43080,7 @@
     "Symbol": "UBFO"
   },
   {
-    "Company": "Victory Portfolios II VictoryShares Core Plus Intermediate Bond ETF",
+    "Company": "Victory Portfolios II VictoryShares Core Plus Bond ETF",
     "Symbol": "UBND"
   },
   {
@@ -47382,6 +47398,10 @@
   {
     "Company": "Zega Buy & Hedge ETF",
     "Symbol": "ZHDG"
+  },
+  {
+    "Company": "F/m Opportunistic Income ETF",
+    "Symbol": "ZHOG"
   },
   {
     "Company": "The Acquirers Fund",

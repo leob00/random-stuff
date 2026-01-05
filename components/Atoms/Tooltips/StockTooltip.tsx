@@ -14,7 +14,7 @@ const StockTooltip = ({ data, children }: { data: StockQuote; children: ReactEle
         {data.Company}
       </Typography>
 
-      <Box display={'flex'} gap={1}>
+      <Box display={'flex'} gap={2}>
         <Typography variant='h6' color={getPositiveNegativeColor(data.Change, theme.palette.mode)}>{`${numeral(data.Price).format('###,0.00')}`}</Typography>
         <Typography color={getPositiveNegativeColor(data.Change, theme.palette.mode)} variant='h6'>{`${numeral(data.Change).format('###,0.000')}`}</Typography>
         <Typography
