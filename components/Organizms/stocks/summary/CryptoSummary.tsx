@@ -65,47 +65,48 @@ const CryptoSummary = () => {
   const sorted = sortList(data ?? [], sortDirection)
 
   return (
-    <Box height={690}>
+    <Box height={513}>
       <SummaryTitle title={'Crypto'} />
-      <ScrollableBoxHorizontal>
-        <Box>
-          <Box display={'flex'} gap={1} alignItems={'center'} minHeight={44}>
-            <Box minWidth={110} pl={1}>
-              <Typography variant='caption'></Typography>
-            </Box>
-            <Box minWidth={80} display={'flex'}>
-              <Typography variant='caption'>price</Typography>
-            </Box>
-            <Box minWidth={80} display={'flex'}>
-              <Typography variant='caption'>change</Typography>
-            </Box>
-            <Box minWidth={80} display={'flex'} alignItems={'center'} gap={1}>
-              <Typography variant='caption'>%</Typography>
-              {sortDirection === 'default' && (
-                <IconButton onClick={handleSortClick}>
-                  <SwapVertRoundedIcon color='primary' sx={{ fontSize: 18 }} />
-                </IconButton>
-              )}
-              {sortDirection === 'desc' && (
-                <IconButton onClick={handleSortClick}>
-                  <ArrowDownwardIcon color='primary' sx={{ fontSize: 18 }} />
-                </IconButton>
-              )}
-              {sortDirection === 'asc' && (
-                <IconButton onClick={handleSortClick}>
-                  <ArrowUpwardIcon color='primary' sx={{ fontSize: 18 }} />
-                </IconButton>
-              )}
-            </Box>
+      {/* <ScrollableBoxHorizontal> */}
+      <Box>
+        <Box display={'flex'} gap={1} alignItems={'center'} minHeight={44}>
+          <Box minWidth={110} pl={1}>
+            <Typography variant='caption'></Typography>
+          </Box>
+          <Box minWidth={80} display={'flex'}>
+            <Typography variant='caption'>price</Typography>
+          </Box>
+          <Box minWidth={80} display={'flex'}>
+            <Typography variant='caption'>change</Typography>
+          </Box>
+          <Box minWidth={80} display={'flex'} alignItems={'center'} gap={1}>
+            <Typography variant='caption'>%</Typography>
+            {sortDirection === 'default' && (
+              <IconButton onClick={handleSortClick}>
+                <SwapVertRoundedIcon color='primary' sx={{ fontSize: 18 }} />
+              </IconButton>
+            )}
+            {sortDirection === 'desc' && (
+              <IconButton onClick={handleSortClick}>
+                <ArrowDownwardIcon color='primary' sx={{ fontSize: 18 }} />
+              </IconButton>
+            )}
+            {sortDirection === 'asc' && (
+              <IconButton onClick={handleSortClick}>
+                <ArrowUpwardIcon color='primary' sx={{ fontSize: 18 }} />
+              </IconButton>
+            )}
           </Box>
         </Box>
-        {isLoading && (
-          <Box display={'flex'} justifyContent={'center'}>
-            <ComponentLoader />
-          </Box>
-        )}
-        {data && (
-          <Box pt={2}>
+      </Box>
+      {isLoading && (
+        <Box display={'flex'} justifyContent={'center'}>
+          <ComponentLoader />
+        </Box>
+      )}
+      {data && (
+        <Box>
+          <ScrollableBox maxHeight={320}>
             {sorted.map((item, index) => (
               <Stack key={item.Symbol} width={'100%'}>
                 <Stack>
@@ -140,14 +141,15 @@ const CryptoSummary = () => {
                 </Stack>
               </Stack>
             ))}
-          </Box>
-        )}
-        {selectedItem && (
-          <InfoDialog show={true} title={''} onCancel={() => setSelectedItem(null)}>
-            <StockListItem item={selectedItem} marketCategory='crypto' userProfile={null} disabled expand />
-          </InfoDialog>
-        )}
-      </ScrollableBoxHorizontal>
+          </ScrollableBox>
+        </Box>
+      )}
+      {selectedItem && (
+        <InfoDialog show={true} title={''} onCancel={() => setSelectedItem(null)}>
+          <StockListItem item={selectedItem} marketCategory='crypto' userProfile={null} disabled expand />
+        </InfoDialog>
+      )}
+      {/* </ScrollableBoxHorizontal> */}
     </Box>
   )
 }
