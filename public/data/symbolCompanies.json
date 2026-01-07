@@ -1372,7 +1372,7 @@
     "Symbol": "AIZN"
   },
   {
-    "Company": "Innovator Equity Defined Protection ETF - 2 Yr to January 2026",
+    "Company": "Innovator Equity Defined Protection ETF - 2 Yr to January 2028",
     "Symbol": "AJAN"
   },
   {
@@ -2106,6 +2106,10 @@
   {
     "Company": "Agriculture & Natural Solutions Acquisition Corporation Class A Ordinary Shares",
     "Symbol": "ANSC"
+  },
+  {
+    "Company": "Agriculture & Natural Solutions Acquisition Corporation Unit",
+    "Symbol": "ANSCU"
   },
   {
     "Company": "Agriculture & Natural Solutions Acquisition Corporation Warrant",
@@ -4896,6 +4900,10 @@
     "Symbol": "BIIB"
   },
   {
+    "Company": "Black Spade Acquisition III Co Units, each consisting of one Class A ordinary share and one-third of one redeemable warrant",
+    "Symbol": "BIII.U"
+  },
+  {
     "Company": "State Street SPDR Bloomberg 1-3 Month T-Bill ETF",
     "Symbol": "BIL"
   },
@@ -6604,7 +6612,7 @@
     "Symbol": "BVAL"
   },
   {
-    "Company": "BitVentures Limited American Depositary Shares",
+    "Company": "BitVentures Limited Ordinary Shares",
     "Symbol": "BVC"
   },
   {
@@ -6952,7 +6960,7 @@
     "Symbol": "CANE"
   },
   {
-    "Company": "Can-Fite BioPharma Ltd. American Depositary Shares, each representing three hundred (300) Ordinary Shares",
+    "Company": "Can-Fite BioPharma Ltd. American Depositary Shares, each representing two (2) Ordinary Shares",
     "Symbol": "CANF"
   },
   {
@@ -11100,14 +11108,6 @@
     "Symbol": "DH"
   },
   {
-    "Company": "DIH Holdings US, Inc. Class A Common Stock",
-    "Symbol": "DHAI"
-  },
-  {
-    "Company": "DIH Holding US, Inc. Warrants",
-    "Symbol": "DHAIW"
-  },
-  {
     "Company": "Diversified Healthcare Trust Common Shares of Beneficial Interest",
     "Symbol": "DHC"
   },
@@ -12248,10 +12248,6 @@
     "Symbol": "DYCQR"
   },
   {
-    "Company": "DT Cloud Acquisition Corporation Unit",
-    "Symbol": "DYCQU"
-  },
-  {
     "Company": "IDX Dynamic Fixed Income ETF",
     "Symbol": "DYFI"
   },
@@ -12410,14 +12406,6 @@
   {
     "Company": "Ebang International Holdings Inc. Class A Ordinary Shares",
     "Symbol": "EBON"
-  },
-  {
-    "Company": "Centrais Elétricas Brasileiras S.A.- Eletrobrás American Depositary Shares (Each representing one Common Share)",
-    "Symbol": "EBR"
-  },
-  {
-    "Company": "Centrais Elétricas Brasileiras S.A.- Eletrobrás American Depositary Shares (Each representing one Preferred Share)",
-    "Symbol": "EBR.B"
   },
   {
     "Company": "Emergent Biosolutions, Inc.",
@@ -13868,7 +13856,7 @@
     "Symbol": "ETG"
   },
   {
-    "Company": "Grayscale Ethereum Mini Trust ETF",
+    "Company": "Grayscale Ethereum Staking Mini ETF Shares",
     "Symbol": "ETH"
   },
   {
@@ -13880,7 +13868,7 @@
     "Symbol": "ETHD"
   },
   {
-    "Company": "Grayscale Ethereum Trust ETF",
+    "Company": "Grayscale Ethereum Staking ETF Shares",
     "Symbol": "ETHE"
   },
   {
@@ -19474,6 +19462,10 @@
   {
     "Company": "JPMorgan Hedged Equity Laddered Overlay ETF",
     "Symbol": "HELO"
+  },
+  {
+    "Company": "Cybin Inc. Common Stock",
+    "Symbol": "HELP"
   },
   {
     "Company": "Hedgeye 130/30 Equity ETF",
@@ -30340,10 +30332,6 @@
     "Symbol": "NVEC"
   },
   {
-    "Company": "Nova Lifestyle, Inc.",
-    "Symbol": "NVFY"
-  },
-  {
     "Company": "Nuveen AMT-Free Municipal Credit Income Fund",
     "Symbol": "NVG"
   },
@@ -34546,10 +34534,6 @@
   {
     "Company": "Quetta Acquisition Corporation Right",
     "Symbol": "QETAR"
-  },
-  {
-    "Company": "Quetta Acquisition Corporation Unit",
-    "Symbol": "QETAU"
   },
   {
     "Company": "Invesco Galaxy Ethereum ETF",
@@ -41208,10 +41192,6 @@
     "Symbol": "TEAD"
   },
   {
-    "Company": "Tortoise Sustainable and Social Impact Term Fund",
-    "Symbol": "TEAF"
-  },
-  {
     "Company": "Atlassian Corporation Class A Common Stock",
     "Symbol": "TEAM"
   },
@@ -44978,6 +44958,10 @@
   {
     "Company": "VictoryShares US Multi-Factor Minimum Volatility ETF",
     "Symbol": "VSMV"
+  },
+  {
+    "Company": "Versant Media Group, Inc. Class A Common Stock",
+    "Symbol": "VSNT"
   },
   {
     "Company": "Versant Media Group, Inc. Class A Common Stock When-Issued",

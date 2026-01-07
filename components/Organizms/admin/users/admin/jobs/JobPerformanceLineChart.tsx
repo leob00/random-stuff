@@ -36,10 +36,10 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
     numbers: [],
   }
   const records: number[] = []
-  let minutesOrSeconds = ' minutes'
+  let minutesOrSeconds: 'minutes' | 'seconds' = 'minutes'
   const allMinutesAvg = mean(sorted.map((m) => m.TotalMinutes))
   if (allMinutesAvg < 1) {
-    minutesOrSeconds = ' seconds'
+    minutesOrSeconds = 'seconds'
   }
   days.forEach((day) => {
     const d = sorted.filter((m) => dayjs(m.DateCompleted).format('YYYY-MM-DD') === day)
@@ -72,6 +72,16 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
     false,
     isXSmall,
   )
+  options.scales!.y!.ticks!.callback = (value) => {
+    if (minutesOrSeconds === 'seconds') {
+      if (Number(value) > 60) {
+        return `${numeral(Number(value) / 60).format('0.00')} minutes`
+      } else {
+        return `${value} seconds`
+      }
+    }
+    return value
+  }
   options.plugins!.tooltip!.callbacks = {
     ...options.plugins!.tooltip?.callbacks,
 
@@ -79,6 +89,11 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
       return ` ${dayjs(tooltipItems.label).format('dddd, MMMM D, YYYY')}`
     },
     afterLabel: (tooltipItems) => {
+      if (minutesOrSeconds === 'seconds') {
+        if (Number(tooltipItems.formattedValue) > 60) {
+          return `${numeral(Number(tooltipItems.formattedValue) / 60).format('0.00')} minutes`
+        }
+      }
       return ` ${tooltipItems.formattedValue} ${minutesOrSeconds}`
     },
     beforeFooter: (tooltipItems) => {
