@@ -63,10 +63,13 @@ const CryptoSummary = () => {
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   const sorted = sortList(data ?? [], sortDirection)
+  const onRefreshRequest = () => {
+    mutate(mutateKey)
+  }
 
   return (
     <Box height={513}>
-      <SummaryTitle title={'Crypto'} />
+      <SummaryTitle title={'Crypto'} onRefresh={onRefreshRequest} />
       {/* <ScrollableBoxHorizontal> */}
       <Box>
         <Box display={'flex'} gap={1} alignItems={'center'} minHeight={44}>

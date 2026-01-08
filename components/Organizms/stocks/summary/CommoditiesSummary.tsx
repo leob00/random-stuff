@@ -54,6 +54,9 @@ const CommoditiesSummary = () => {
       setSortDirection('default')
     }
   }
+  const onRefreshRequest = () => {
+    mutate(mutateKey)
+  }
 
   useEffect(() => {
     const fn = async () => {
@@ -65,7 +68,7 @@ const CommoditiesSummary = () => {
 
   return (
     <Box height={513}>
-      <SummaryTitle title={'Commodities'} />
+      <SummaryTitle title={'Commodities'} onRefresh={onRefreshRequest} />
       <ScrollableBoxHorizontal>
         <Box display={'flex'} gap={1} alignItems={'center'} minHeight={44}>
           <Box minWidth={120} pl={1}>

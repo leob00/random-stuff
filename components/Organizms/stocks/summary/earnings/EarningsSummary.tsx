@@ -22,13 +22,13 @@ const EarningsSummary = ({
   title,
   isLoading,
   userProfile,
-  singleDate,
+  onRefreshRequest,
 }: {
   data?: StockEarning[]
   title: string
   isLoading?: boolean
   userProfile: UserProfile | null
-  singleDate?: boolean
+  onRefreshRequest?: () => void
 }) => {
   const [earningsSort, setEarningsSort] = useState<EarningsSort>({ field: 'ReportDate', direction: 'default' })
 
@@ -40,12 +40,8 @@ const EarningsSummary = ({
 
   return (
     <Box height={513}>
-      <SummaryTitle title={title} />
-      {singleDate && data && data.length > 0 && (
-        <Typography variant='body2' textAlign={'center'} pb={1} mt={-1}>
-          {dayjs(result[0].ReportDate).format('MM/DD/YYYY')}
-        </Typography>
-      )}
+      <SummaryTitle title={title} onRefresh={onRefreshRequest} />
+
       <Box>
         <Box display={'flex'} gap={1} alignItems={'center'} minHeight={44}>
           <Box minWidth={68} pl={0}>
@@ -120,7 +116,7 @@ const EarningsSummary = ({
           <ComponentLoader />
         </Box>
       )}
-      <Box>{data && <PagedStockEarningsSummaryTable data={result} userProfile={userProfile} singleDate={singleDate} />}</Box>
+      <Box>{data && <PagedStockEarningsSummaryTable data={result} userProfile={userProfile} />}</Box>
     </Box>
   )
 }

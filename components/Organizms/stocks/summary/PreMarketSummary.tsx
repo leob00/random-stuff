@@ -52,6 +52,10 @@ const PreMarketSummary = () => {
 
   const { pollCounter } = usePolling(1000 * getRandomInteger(240, 360)) // 4-6 minutes
 
+  const handleRefresh = () => {
+    mutate(mutateKey)
+  }
+
   useEffect(() => {
     const fn = async () => {
       await sleep(250)
@@ -77,12 +81,24 @@ const PreMarketSummary = () => {
           </Box>
           <Box>
             <BorderedBox>
-              <EarningsSummary userProfile={userProfile} data={data?.upcomingEarnings} title='Upcoming Earnings' isLoading={isLoading || isValidatingProfile} />
+              <EarningsSummary
+                userProfile={userProfile}
+                data={data?.upcomingEarnings}
+                title='Upcoming Earnings'
+                isLoading={isLoading || isValidatingProfile}
+                onRefreshRequest={handleRefresh}
+              />
             </BorderedBox>
           </Box>
           <Box>
             <BorderedBox>
-              <EarningsSummary userProfile={userProfile} data={data?.reportedEarnings} title='Reported Earnings' isLoading={isLoading || isValidatingProfile} />
+              <EarningsSummary
+                userProfile={userProfile}
+                data={data?.reportedEarnings}
+                title='Reported Earnings'
+                isLoading={isLoading || isValidatingProfile}
+                onRefreshRequest={handleRefresh}
+              />
             </BorderedBox>
           </Box>
           <Box>

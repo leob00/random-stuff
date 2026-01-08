@@ -56,7 +56,9 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
 
   const pollingInterval = 1000 * 360 // 6 minutes
   const { pollCounter } = usePolling(getRandomInteger(pollingInterval, pollingInterval + 10000))
-
+  const handleRefresh = () => {
+    mutate(mutateKey)
+  }
   useEffect(() => {
     const fn = async () => {
       await sleep(getRandomInteger(250, 3000))
@@ -77,12 +79,24 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
           </Box>
           <Box>
             <BorderedBox width={'100%'}>
-              <EarningsSummary userProfile={userProfile} data={data?.reportedEarnings} title='Reported Earnings' isLoading={isLoading || isValidatingProfile} />
+              <EarningsSummary
+                userProfile={userProfile}
+                data={data?.reportedEarnings}
+                title='Reported Earnings'
+                isLoading={isLoading || isValidatingProfile}
+                onRefreshRequest={handleRefresh}
+              />
             </BorderedBox>
           </Box>
           <Box>
             <BorderedBox width={'100%'}>
-              <EarningsSummary userProfile={userProfile} data={data?.upcomingEarnings} title='Upcoming Earnings' isLoading={isLoading || isValidatingProfile} />
+              <EarningsSummary
+                userProfile={userProfile}
+                data={data?.upcomingEarnings}
+                title='Upcoming Earnings'
+                isLoading={isLoading || isValidatingProfile}
+                onRefreshRequest={handleRefresh}
+              />
             </BorderedBox>
           </Box>
 

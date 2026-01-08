@@ -38,6 +38,10 @@ const EveningSummary = () => {
 
   const { pollCounter } = usePolling(1000 * 240) // 4 minutes
 
+  const handleRefresh = () => {
+    mutate(mutateKey)
+  }
+
   useEffect(() => {
     const fn = async () => {
       await sleep(250)
@@ -64,7 +68,13 @@ const EveningSummary = () => {
           </Box>
           <Box>
             <BorderedBox>
-              <EarningsSummary userProfile={userProfile} data={data} title='Scheduled Earnings' isLoading={isLoading || isValidatingProfile} />
+              <EarningsSummary
+                userProfile={userProfile}
+                data={data}
+                title='Scheduled Earnings'
+                isLoading={isLoading || isValidatingProfile}
+                onRefreshRequest={handleRefresh}
+              />
             </BorderedBox>
           </Box>
           <Box>

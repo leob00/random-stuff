@@ -46,16 +46,18 @@ const SummaryTitle = ({
             </>
           )}
         </Box>
-        <Box flexGrow={1}>
+        <Box>
           <Typography textAlign={'center'} variant='h6'>
             {title}
           </Typography>
         </Box>
-        {onRefresh && (
-          <Box>
-            <ContextMenu items={menu} />
-          </Box>
-        )}
+        <Box>
+          {onRefresh && (
+            <Box>
+              <ContextMenu items={menu} />
+            </Box>
+          )}
+        </Box>
       </Box>
     </Box>
   )
