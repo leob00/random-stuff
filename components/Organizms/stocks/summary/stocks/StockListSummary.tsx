@@ -12,12 +12,15 @@ import SwapVertRoundedIcon from '@mui/icons-material/SwapVertRounded'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 import { SortDirection } from 'lib/backend/api/models/collections'
-import { sortArray } from 'lib/util/collections'
-import SearchIcon from '@mui/icons-material/Search'
-import SearchOffIcon from '@mui/icons-material/SearchOff'
 import StockSearch from 'components/Atoms/Inputs/StockSearch'
+import { orderBy } from 'lodash'
 
 export type StockSortDirection = 'default' | SortDirection
+
+type StockSort = {
+  field: keyof StockQuote
+  direction: StockSortDirection
+}
 
 const StockListSummary = ({
   userProfile,
@@ -33,21 +36,12 @@ const StockListSummary = ({
   onRefreshRequest?: () => void
 }) => {
   const [selectedItem, setSelectedItem] = useState<StockQuote | null>(null)
-  const [sortDirection, setSortDirection] = useState<StockSortDirection>('default')
-  const sorted = sortList(data ?? [], sortDirection)
+  const [stockSort, setStockSort] = useState<StockSort>({ field: 'ChangePercent', direction: 'default' })
+  const sorted = sortList(data ?? [], stockSort)
   const [showSearch, setShowSearch] = useState(false)
 
-  const handleSortClick = () => {
-    if (sortDirection === 'default') {
-      setSortDirection('desc')
-    }
-
-    if (sortDirection === 'desc') {
-      setSortDirection('asc')
-    }
-    if (sortDirection === 'asc') {
-      setSortDirection('default')
-    }
+  const handleSortClick = (sort: StockSort) => {
+    setStockSort(sort)
   }
 
   const handleQuoteSelected = (quote: StockQuote) => {
@@ -61,21 +55,52 @@ const StockListSummary = ({
 
   return (
     <Box height={513}>
-      <SummaryTitle title={title} onRefresh={onRefreshRequest} />
+      <SummaryTitle
+        title={title}
+        onRefresh={onRefreshRequest}
+        searchSettings={{ allowSearch: true, searchOn: showSearch }}
+        setSearchSettings={(settings) => {
+          setShowSearch(settings.searchOn)
+        }}
+      />
 
       <Box>
         <Box display={'flex'} gap={2} alignItems={'center'} minHeight={44}>
           <Box pl={1} minHeight={40}>
             {!showSearch ? (
-              <Box minWidth={60}>
-                <IconButton size='small' onClick={() => setShowSearch(true)} color='primary'>
-                  <SearchIcon fontSize='small' />
-                </IconButton>
+              <Box>
+                <Box minWidth={60} display={'flex'} justifyContent={'flex-start'}>
+                  {((stockSort.field === 'Symbol' && stockSort.direction === 'default') || stockSort.field !== 'Symbol') && (
+                    <IconButton
+                      onClick={() => {
+                        handleSortClick({ field: 'Symbol', direction: 'asc' })
+                      }}
+                    >
+                      <SwapVertRoundedIcon color='primary' sx={{ fontSize: 18 }} />
+                    </IconButton>
+                  )}
+                  {stockSort.field === 'Symbol' && stockSort.direction === 'desc' && (
+                    <IconButton
+                      onClick={() => {
+                        handleSortClick({ field: 'Symbol', direction: 'default' })
+                      }}
+                    >
+                      <ArrowDownwardIcon color='primary' sx={{ fontSize: 18 }} />
+                    </IconButton>
+                  )}
+                  {stockSort.field === 'Symbol' && stockSort.direction === 'asc' && (
+                    <IconButton
+                      onClick={() => {
+                        handleSortClick({ field: 'Symbol', direction: 'desc' })
+                      }}
+                    >
+                      <ArrowUpwardIcon color='primary' sx={{ fontSize: 18 }} />
+                    </IconButton>
+                  )}
+                </Box>
               </Box>
             ) : (
-              <IconButton size='small' onClick={() => setShowSearch(false)} color='primary'>
-                <SearchOffIcon fontSize='small' />
-              </IconButton>
+              <Box></Box>
             )}
           </Box>
           {!showSearch ? (
@@ -88,18 +113,30 @@ const StockListSummary = ({
               </Box>
               <Box minWidth={80} display={'flex'} alignItems={'center'} gap={1}>
                 <Typography variant='caption'>%</Typography>
-                {sortDirection === 'default' && (
-                  <IconButton onClick={handleSortClick}>
+                {((stockSort.field === 'ChangePercent' && stockSort.direction === 'default') || stockSort.field !== 'ChangePercent') && (
+                  <IconButton
+                    onClick={() => {
+                      handleSortClick({ field: 'ChangePercent', direction: 'asc' })
+                    }}
+                  >
                     <SwapVertRoundedIcon color='primary' sx={{ fontSize: 18 }} />
                   </IconButton>
                 )}
-                {sortDirection === 'desc' && (
-                  <IconButton onClick={handleSortClick}>
+                {stockSort.field === 'ChangePercent' && stockSort.direction === 'desc' && (
+                  <IconButton
+                    onClick={() => {
+                      handleSortClick({ field: 'ChangePercent', direction: 'default' })
+                    }}
+                  >
                     <ArrowDownwardIcon color='primary' sx={{ fontSize: 18 }} />
                   </IconButton>
                 )}
-                {sortDirection === 'asc' && (
-                  <IconButton onClick={handleSortClick}>
+                {stockSort.field === 'ChangePercent' && stockSort.direction === 'asc' && (
+                  <IconButton
+                    onClick={() => {
+                      handleSortClick({ field: 'ChangePercent', direction: 'desc' })
+                    }}
+                  >
                     <ArrowUpwardIcon color='primary' sx={{ fontSize: 18 }} />
                   </IconButton>
                 )}
@@ -131,11 +168,12 @@ const StockListSummary = ({
   )
 }
 
-function sortList(data: StockQuote[], direction: StockSortDirection) {
-  if (direction === 'default') {
+function sortList(data: StockQuote[], sort: StockSort) {
+  if (sort.direction === 'default') {
     return data
+  } else {
+    return orderBy(data, [sort.field], [sort.direction])
   }
-  return sortArray(data, ['ChangePercent'], [direction])
 }
 
 export default StockListSummary
