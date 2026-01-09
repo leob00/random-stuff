@@ -140,12 +140,12 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'commodities',
-    path: '/csr/commodities',
+    path: '/market/commodities',
     category: 'Other Markets',
   },
   {
     name: 'crypto',
-    path: '/csr/crypto',
+    path: '/market/crypto',
     category: 'Other Markets',
   },
   {

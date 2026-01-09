@@ -57,7 +57,7 @@ const ContextMenu = ({ items }: { items: ContextMenuItem[] }) => {
             {items.map((item, i) => (
               <MenuItem
                 sx={{ py: 1 }}
-                divider={true}
+                divider={i < items.length - 1}
                 key={i}
                 onClick={() => {
                   handleCloseMenu()

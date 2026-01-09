@@ -109,7 +109,6 @@ const Page = () => {
                 <StocksLayout userProfile={authProfile} localStore={localStore} />
               </>
             )}
-            {selectedTab === 'Futures' && <CommoditiesLayout />}
             {selectedTab === 'Events' && <EconCalendarLayout />}
             {selectedTab === 'Earnings' && <EarningsCalendarLayout />}
           </>

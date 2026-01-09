@@ -4012,6 +4012,10 @@
     "Symbol": "BBCP"
   },
   {
+    "Company": "Bleichroeder Acquisition Corp. II Units",
+    "Symbol": "BBCQU"
+  },
+  {
     "Company": "Banco Bradesco S.A. American Depositary Shares (Each representing one Preferred Shares)",
     "Symbol": "BBD"
   },
@@ -6470,6 +6474,10 @@
   {
     "Company": "Anheuser-Busch INBEV SA/NV",
     "Symbol": "BUD"
+  },
+  {
+    "Company": "Buda Juice, Inc.",
+    "Symbol": "BUDA"
   },
   {
     "Company": "Innovator Laddered Allocation Buffer ETF",
@@ -10590,6 +10598,10 @@
   {
     "Company": "Dimensional US Core Equity 1 ETF",
     "Symbol": "DCOR"
+  },
+  {
+    "Company": "Decoy Therapeutics Inc. Common Stock",
+    "Symbol": "DCOY"
   },
   {
     "Company": "DoubleLine Commercial Real Estate ETF",
@@ -17392,7 +17404,7 @@
     "Symbol": "GDL"
   },
   {
-    "Company": "Grayscale CoinDesk Crypto 5 ETF",
+    "Company": "GRAYSCALE DIGITAL LG CAP",
     "Symbol": "GDLC"
   },
   {
@@ -24632,6 +24644,10 @@
     "Symbol": "KURE"
   },
   {
+    "Company": "Kustom Entertainment, Inc. Common Stock",
+    "Symbol": "KUST"
+  },
+  {
     "Company": "Keen Vision Acquisition Corporation Ordinary Shares",
     "Symbol": "KVAC"
   },
@@ -24710,6 +24726,10 @@
   {
     "Company": "Kayne Anderson Energy Infrastructure Fund, Inc.",
     "Symbol": "KYN"
+  },
+  {
+    "Company": "Kyntra Bio, Inc. Common Stock",
+    "Symbol": "KYNB"
   },
   {
     "Company": "Kyverna Therapeutics, Inc. Common Stock",
@@ -29334,6 +29354,10 @@
   {
     "Company": "New Gold Inc.",
     "Symbol": "NGD"
+  },
+  {
+    "Company": "NervGen Pharma Corp. Common stock",
+    "Symbol": "NGEN"
   },
   {
     "Company": "National Grid PLC",

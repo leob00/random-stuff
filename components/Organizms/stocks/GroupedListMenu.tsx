@@ -68,11 +68,11 @@ const GroupedListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShow
     },
     {
       item: <ContextMenuCommodities text={'commodities'} />,
-      fn: () => router.push('/csr/commodities'),
+      fn: () => router.push('/market/commodities'),
     },
     {
       item: <ContextMenuCrypto text={'crypto'} />,
-      fn: () => router.push('/csr/crypto'),
+      fn: () => router.push('/market/crypto'),
     },
   ]
 

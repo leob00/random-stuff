@@ -1,4 +1,4 @@
-import { Box, IconButton, Stack, Typography } from '@mui/material'
+import { Box, IconButton, Typography } from '@mui/material'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuRefresh from 'components/Molecules/Menus/ContextMenuRefresh'
 import { SummarySearchSettings } from './summaryModels'

@@ -16,28 +16,18 @@ const OtherMarketsPageContextMenu = () => {
     const result: ContextMenuItem[] = [
       {
         item: <ContextMenuCrypto />,
-        route: '/csr/crypto',
-        fn: () => router.push('/csr/crypto'),
+        route: '/market/crypto',
+        fn: () => router.push('/market/crypto'),
       },
       {
         item: <ContextMenuCommodities />,
-        route: '/csr/commodities',
-        fn: () => router.push('/csr/commodities'),
+        route: '/market/commodities',
+        fn: () => router.push('/market/commodities'),
       },
       {
         item: <ContextMenuTreasuries />,
         route: '/market/treasuries',
         fn: () => router.push('/market/treasuries'),
-      },
-      {
-        item: <ContextMenuAllStocks text={'stocks'} />,
-        route: '/csr/community-stocks',
-        fn: () => router.push('/csr/community-stocks'),
-      },
-      {
-        item: <ContextMenuMyStocks />,
-        route: '/csr/my-stocks',
-        fn: () => router.push('/csr/my-stocks'),
       },
     ]
     return result.filter((m) => m.route !== pathName)
