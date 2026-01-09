@@ -1672,8 +1672,16 @@
     "Symbol": "ALTY"
   },
   {
+    "Company": "Alussa Energy Acquisition Corp. II",
+    "Symbol": "ALUB"
+  },
+  {
     "Company": "Alussa Energy Acquisition Corp. II Units, each consisting of one Class A ordinary share and one-third of one redeemable warrant",
     "Symbol": "ALUB.U"
+  },
+  {
+    "Company": "Alussa Energy Acquisition Corp. II Redeemable Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50 per share",
+    "Symbol": "ALUB.WS"
   },
   {
     "Company": "Allurion Technologies, Inc.",
@@ -2706,6 +2714,10 @@
   {
     "Company": "Array Technologies, Inc. Common Stock",
     "Symbol": "ARRY"
+  },
+  {
+    "Company": "Art Technology Acquisition Corp. Units",
+    "Symbol": "ARTCU"
   },
   {
     "Company": "Artelo Biosciences, Inc. Common Stock",
@@ -5806,6 +5818,14 @@
   {
     "Company": "BP p.l.c.",
     "Symbol": "BP"
+  },
+  {
+    "Company": "Blueport Acquisition Ltd Class A Ordinary Shares",
+    "Symbol": "BPAC"
+  },
+  {
+    "Company": "Blueport Acquisition Ltd Rights",
+    "Symbol": "BPACR"
   },
   {
     "Company": "Blueport Acquisition Ltd Units",
@@ -13102,6 +13122,10 @@
   {
     "Company": "Emera Incorporated",
     "Symbol": "EMA"
+  },
+  {
+    "Company": "Evolution Metals & Technologies Corp. Common Stock",
+    "Symbol": "EMAT"
   },
   {
     "Company": "iShares J.P. Morgan USD Emerging Markets Bond ETF",
@@ -24096,6 +24120,10 @@
     "Symbol": "KIO"
   },
   {
+    "Company": "KraneShares InspereX Nasdaq Dynamic Buffered High Income Index ETF",
+    "Symbol": "KIQQ"
+  },
+  {
     "Company": "Nauticus Robotics, Inc. Common stock",
     "Symbol": "KITT"
   },
@@ -30092,10 +30120,6 @@
     "Symbol": "NTWO"
   },
   {
-    "Company": "Newbury Street II Acquisition Corp Unit",
-    "Symbol": "NTWOU"
-  },
-  {
     "Company": "Newbury Street II Acquisition Corp Warrant",
     "Symbol": "NTWOW"
   },
@@ -33156,6 +33180,10 @@
     "Symbol": "PLTZ"
   },
   {
+    "Company": "Defiance Daily Target 2x Long PL ETF",
+    "Symbol": "PLU"
+  },
+  {
     "Company": "Plug Power Inc.",
     "Symbol": "PLUG"
   },
@@ -35152,6 +35180,10 @@
     "Symbol": "RANGR"
   },
   {
+    "Company": "Range Capital Acquisition Corp. Units",
+    "Symbol": "RANGU"
+  },
+  {
     "Company": "Rani Therapeutics Holdings, Inc. Class A Common Stock",
     "Symbol": "RANI"
   },
@@ -35892,35 +35924,35 @@
     "Symbol": "RILA"
   },
   {
-    "Company": "B. RILEY FINANCIAL, INC.",
+    "Company": "BRC Group Holdings, Inc. Common Stock",
     "Symbol": "RILY"
   },
   {
-    "Company": "B. Riley Financial, Inc. 5.00% Senior Notes due 2026",
+    "Company": "BRC Group Holdings, Inc. 5.00% Senior Notes due 2026",
     "Symbol": "RILYG"
   },
   {
-    "Company": "B. Riley Financial, Inc. 5.50% Senior Notes Due 2026",
+    "Company": "BRC Group Holdings, Inc. 5.50% Senior Notes Due 2026",
     "Symbol": "RILYK"
   },
   {
-    "Company": "B. Riley Financial, Inc. Depositary Shares each representing 1/1000th in a share of 7.375% Series B Cumulative Perpetual Preferred Stock, par value $0.0001",
+    "Company": "BRC Group Holdings, Inc. Depositary Shares each representing 1/1000th in a share of 7.375% Series B Cumulative Perpetual Preferred Stock, par value $0.0001",
     "Symbol": "RILYL"
   },
   {
-    "Company": "B. Riley Financial, Inc. 6.50% Senior Notes Due 2026",
+    "Company": "BRC Group Holdings, Inc. 6.50% Senior Notes Due 2026",
     "Symbol": "RILYN"
   },
   {
-    "Company": "B. Riley Financial, Inc. Depositary Shares, each representing a 1/1000th fractional interest in a share of Series A Cumulative Perpetual Preferred Stock",
+    "Company": "BRC Group Holdings, Inc. Depositary Shares, each representing a 1/1000th fractional interest in a share of Series A Cumulative Perpetual Preferred Stock",
     "Symbol": "RILYP"
   },
   {
-    "Company": "B. Riley Financial, Inc. 6.00% Senior Notes Due 2028",
+    "Company": "BRC Group Holdings, Inc. 6.00% Senior Notes Due 2028",
     "Symbol": "RILYT"
   },
   {
-    "Company": "B. Riley Financial, Inc. 5.25% Senior Notes due 2028",
+    "Company": "BRC Group Holdings, Inc. 5.25% Senior Notes due 2028",
     "Symbol": "RILYZ"
   },
   {
@@ -39236,6 +39268,10 @@
     "Symbol": "SORA"
   },
   {
+    "Company": "Soren Acquisition Corp. Unit",
+    "Symbol": "SORNU"
+  },
+  {
     "Company": "SOS Limited",
     "Symbol": "SOS"
   },
@@ -41084,6 +41120,10 @@
     "Symbol": "TDAQ"
   },
   {
+    "Company": "TDAQ Lift ETF",
+    "Symbol": "TDAX"
+  },
+  {
     "Company": "USA TODAY Co., Inc.",
     "Symbol": "TDAY"
   },
@@ -42642,6 +42682,10 @@
   {
     "Company": "Roundhill Treasury Bond WeeklyPay ETF",
     "Symbol": "TSYW"
+  },
+  {
+    "Company": "TSPY Lift ETF",
+    "Symbol": "TSYX"
   },
   {
     "Company": "GraniteShares YieldBOOST TSLA ETF",
@@ -47306,6 +47350,10 @@
   {
     "Company": "Zebra Technologies Corporation",
     "Symbol": "ZBRA"
+  },
+  {
+    "Company": "Global X Zero Coupon Bond 2033 ETF",
+    "Symbol": "ZCBE"
   },
   {
     "Company": "Zhongchao Inc. Class A Ordinary Shares",

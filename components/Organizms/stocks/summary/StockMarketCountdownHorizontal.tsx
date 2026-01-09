@@ -3,7 +3,7 @@ import CountdownHorizontal from 'components/Organizms/time/CountdownHorizontal'
 import { CasinoBlueTransparent, GoldColor } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { usePolling } from 'hooks/usePolling'
-import { MarketHandshake } from 'lib/backend/api/qln/qlnModels'
+import { MarketHandshake } from 'lib/backend/api/models/zModels'
 import { getCurrentDateTimeUsEastern } from 'lib/util/dateUtil'
 import { useEffect, useState } from 'react'
 

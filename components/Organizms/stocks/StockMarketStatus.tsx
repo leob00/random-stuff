@@ -1,7 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
-import { MarketHandshake } from 'lib/backend/api/qln/qlnModels'
-import React from 'react'
+import { MarketHandshake } from 'lib/backend/api/models/zModels'
 
 const StockMarketStatus = ({ data }: { data: MarketHandshake }) => {
   return (

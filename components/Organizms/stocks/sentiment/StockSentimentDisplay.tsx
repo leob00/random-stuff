@@ -1,9 +1,9 @@
-import { StockStats } from 'lib/backend/api/qln/qlnModels'
 import StockMarketStatsChart from '../charts/StockMarketStatsChart'
 import { mean } from 'lodash'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { Box } from '@mui/material'
+import { StockStats } from 'lib/backend/api/models/zModels'
 
 const StockSentimentDisplay = ({ data }: { data: StockStats[] }) => {
   return (

@@ -2,13 +2,13 @@
 import { Box } from '@mui/material'
 import BasicPieChart from 'components/Atoms/Charts/chartJs/BasicPieChart'
 import { BarChart } from 'components/Atoms/Charts/chartJs/pieChartOptions'
-import { StockStats } from 'lib/backend/api/qln/qlnModels'
 import numeral from 'numeral'
 import CenterStack from 'components/Atoms/CenterStack'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import { useMarketColors } from 'components/themes/marketColors'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
+import { StockStats } from 'lib/backend/api/models/zModels'
 
 const StockMarketStatsChart = ({ data, title }: { data: StockStats; title?: string }) => {
   const { chart } = useMarketColors()

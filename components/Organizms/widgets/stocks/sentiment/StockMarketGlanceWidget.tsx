@@ -3,11 +3,11 @@ import dayjs from 'dayjs'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { apiConnection } from 'lib/backend/api/config'
 import { get } from 'lib/backend/api/fetchFunctions'
-import { MarketHandshake } from 'lib/backend/api/qln/qlnModels'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import StockMarketStatsChart from 'components/Organizms/stocks/charts/StockMarketStatsChart'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
+import { MarketHandshake } from 'lib/backend/api/models/zModels'
 
 const StockMarketGlanceWidget = ({
   showTitle = true,
@@ -43,11 +43,11 @@ const StockMarketGlanceWidget = ({
                   </Alert>
                 </>
               )}
-              <Typography textAlign={'center'} variant='caption'>{`${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY: hh:mm A')} EST`}</Typography>
+              <Typography textAlign={'center'} variant='caption'>{`${dayjs(data.StockStats!.DateModified).format('MM/DD/YYYY: hh:mm A')} EST`}</Typography>
             </Box>
 
             <Box mt={-5}>
-              <StockMarketStatsChart data={data.StockStats} />
+              <StockMarketStatsChart data={data.StockStats!} />
             </Box>
           </FadeIn>
         </Box>

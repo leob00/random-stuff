@@ -3,7 +3,8 @@ import ErrorMessage from 'components/Atoms/Text/ErrorMessage'
 import StockMarketSummaryDisplay from 'components/Organizms/stocks/summary/StockMarketSummaryDisplay'
 import { apiConnection } from 'lib/backend/api/config'
 import { get } from 'lib/backend/api/fetchFunctions'
-import { MarketHandshake } from 'lib/backend/api/qln/qlnModels'
+import { MarketHandshake, MarketHandshakeSchema } from 'lib/backend/api/models/zModels'
+import { ZodError } from 'zod'
 
 const config = apiConnection().qln
 
@@ -18,9 +19,15 @@ const getData = async () => {
   try {
     const apiUrl = `${config.url}/MarketHandshake`
     const resp = await get(apiUrl)
-    result.handshake = resp.Body as MarketHandshake
+    result.handshake = MarketHandshakeSchema.parse(resp.Body)
   } catch (err) {
-    result.error = err
+    if (err instanceof ZodError) {
+      console.error('Validation failed:', err.issues)
+      result.error = err.message
+      // You can access granular error details in error.issues
+    } else {
+      console.error('An unexpected error occurred:', err)
+    }
   }
   return result
 }

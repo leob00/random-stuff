@@ -2,7 +2,7 @@ import { Box } from '@mui/material'
 import Countdown from 'components/Organizms/time/Countdown'
 import dayjs from 'dayjs'
 import { usePolling } from 'hooks/usePolling'
-import { MarketHandshake } from 'lib/backend/api/qln/qlnModels'
+import { MarketHandshake } from 'lib/backend/api/models/zModels'
 import { getCurrentDateTimeUsEastern } from 'lib/util/dateUtil'
 import { useEffect, useState } from 'react'
 

@@ -12,8 +12,8 @@ import { getSentiment } from 'components/Organizms/stocks/sentiment/StockSentime
 import dayjs from 'dayjs'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { CategoryType } from 'lib/backend/api/aws/models/apiGatewayModels'
-import { StockStats } from 'lib/backend/api/qln/qlnModels'
-import { getDynamoItemData, searchDynamoItemsByCategory } from 'lib/backend/csr/nextApiWrapper'
+import { StockStats } from 'lib/backend/api/models/zModels'
+import { searchDynamoItemsByCategory } from 'lib/backend/csr/nextApiWrapper'
 import { sortArray } from 'lib/util/collections'
 
 const Page = () => {

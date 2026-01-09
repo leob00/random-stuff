@@ -2,7 +2,6 @@
 import { Box, Typography, useTheme } from '@mui/material'
 import { usePolling } from 'hooks/usePolling'
 import { serverGetFetch } from 'lib/backend/api/qln/qlnApi'
-import { MarketHandshake } from 'lib/backend/api/qln/qlnModels'
 import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 import PreMarketSummary from './PreMarketSummary'
@@ -16,6 +15,7 @@ import StockMarketCountdownHorizontal from './StockMarketCountdownHorizontal'
 import BorderedBox from 'components/Atoms/Boxes/BorderedBox'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
+import { MarketHandshake } from 'lib/backend/api/models/zModels'
 
 dayjs.extend(isSameOrBefore)
 dayjs.extend(isSameOrAfter)

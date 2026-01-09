@@ -17,7 +17,7 @@ import { orderBy } from 'lodash'
 
 export type StockSortDirection = 'default' | SortDirection
 
-type StockSort = {
+export type StockSort = {
   field: keyof StockQuote
   direction: StockSortDirection
 }

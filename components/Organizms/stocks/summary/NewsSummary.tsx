@@ -47,7 +47,7 @@ const NewsSummary = ({ userProfile }: { userProfile: UserProfile | null }) => {
   return (
     <Box height={690} minWidth={{ xs: 300, sm: 600, md: 828 }}>
       <SummaryTitle title='News' />
-      <ScrollableBox>
+      <ScrollableBox maxHeight={500}>
         {isLoading && (
           <Box display={'flex'} justifyContent={'center'}>
             <ComponentLoader />

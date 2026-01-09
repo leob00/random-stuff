@@ -1,7 +1,6 @@
 'use client'
 import { Box, Typography, useMediaQuery, useTheme } from '@mui/material'
 import { BarChart, getBarChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
-import { StockStats } from 'lib/backend/api/qln/qlnModels'
 import dayjs from 'dayjs'
 import SimpleBarChart from 'components/Atoms/Charts/chartJs/SimpleBarChart'
 import numeral from 'numeral'
@@ -15,6 +14,7 @@ import { getLineChartOptions } from 'components/Atoms/Charts/chartJs/lineChartOp
 import ChartJsTimeSeriesLineChart, { TimeSeriesLineChartModel } from './ChartJsTimeSeriesLineChart'
 import { getPositiveNegativeColor } from '../StockListItem'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+import { StockStats } from 'lib/backend/api/models/zModels'
 
 dayjs.extend(isSameOrBefore)
 

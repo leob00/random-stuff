@@ -4,13 +4,13 @@ import dayjs from 'dayjs'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { apiConnection } from 'lib/backend/api/config'
 import { get } from 'lib/backend/api/fetchFunctions'
-import { MarketHandshake } from 'lib/backend/api/qln/qlnModels'
 import StockMarketStatsChart from './charts/StockMarketStatsChart'
 import StockMarketStatus from './StockMarketStatus'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import CircleLoader from 'components/Atoms/Loaders/CircleLoader'
+import { MarketHandshake } from 'lib/backend/api/models/zModels'
 
 const StockMarketGlance = ({
   showTitle = true,
@@ -42,10 +42,10 @@ const StockMarketGlance = ({
         {data && (
           <Box maxWidth={width}>
             <Box display={'flex'} justifyContent={'center'}>
-              <Typography textAlign={'center'} variant='caption'>{`${dayjs(data.StockStats.DateModified).format('MM/DD/YYYY hh:mm A')} EST`}</Typography>
+              <Typography textAlign={'center'} variant='caption'>{`${dayjs(data.StockStats!.DateModified).format('MM/DD/YYYY hh:mm A')} EST`}</Typography>
             </Box>
             <Box>
-              <StockMarketStatsChart data={data.StockStats} />
+              <StockMarketStatsChart data={data.StockStats!} />
             </Box>
             {showFooter && (
               <>

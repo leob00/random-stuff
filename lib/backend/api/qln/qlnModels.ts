@@ -1,26 +1,3 @@
-export interface StockStats {
-  TotalUp: number
-  TotalDown: number
-  TotalUnchanged: number
-  TotalUpPercent: number
-  TotalDownPercent: number
-  TotalUnchangedPercent: number
-  MarketDate: string
-  DateModified: string
-}
-
-export interface MarketHandshake {
-  IsOpen: boolean
-  MarketsOpenClosedMessage: string
-  Message: string
-  HolidayName: string | null
-  CurrentDateTimeEst: string
-  StockStats: StockStats
-  NextOpenDateTime: string
-  StockLatestTradeDateTimeEst: string
-  IsTradingDay: boolean
-}
-
 export type StockReportTypes = 'marketcapleaders' | 'volumeleaders' | 'indicesAndEtfs' | 'topmvgavg'
 
 export type QlnLineChart = {

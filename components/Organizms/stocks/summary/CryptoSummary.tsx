@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Stack, Typography, useTheme } from '@mui/material'
+import { Box, Button, Stack, Typography, useTheme } from '@mui/material'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import { useSwrHelper } from 'hooks/useSwrHelper'
@@ -10,23 +10,20 @@ import StockListItem, { getPositiveNegativeColor } from '../StockListItem'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import { sleep } from 'lib/util/timers'
-import { sortArray } from 'lib/util/collections'
 import SummaryTitle from './SummaryTitle'
 import { usePolling } from 'hooks/usePolling'
 import { mutate } from 'swr'
 import { filterCryptos } from 'components/Organizms/crypto/CryptosDisplay'
 import { getRandomInteger } from 'lib/util/numberUtil'
-import ScrollableBoxHorizontal from 'components/Atoms/Containers/ScrollableBoxHorizontal'
-import { StockSortDirection } from './stocks/StockListSummary'
-import SwapVertRoundedIcon from '@mui/icons-material/SwapVertRounded'
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
+import { StockSort } from './stocks/StockListSummary'
 import StockTooltip from 'components/Atoms/Tooltips/StockTooltip'
+import OtherMarketsSummaryHeader from './OtherMarketsSummaryHeader'
+import { orderBy } from 'lodash'
 
 const CryptoSummary = () => {
   const theme = useTheme()
   const [selectedItem, setSelectedItem] = useState<StockQuote | null>(null)
-  const [sortDirection, setSortDirection] = useState<StockSortDirection>('default')
+  const [stockSort, setStockSort] = useState<StockSort>({ field: 'ChangePercent', direction: 'default' })
   const palette = theme.palette.mode
   const mutateKey = 'crypto'
 
@@ -37,21 +34,12 @@ const CryptoSummary = () => {
     const quotes = resp.Body as StockQuote[]
 
     const result = filterCryptos(quotes)
-    return sortList(result, sortDirection)
+    return sortList(result, stockSort)
   }
 
   const { pollCounter } = usePolling(1000 * 240) // 4 minutes
-  const handleSortClick = () => {
-    if (sortDirection === 'default') {
-      setSortDirection('desc')
-    }
-
-    if (sortDirection === 'desc') {
-      setSortDirection('asc')
-    }
-    if (sortDirection === 'asc') {
-      setSortDirection('default')
-    }
+  const handleSortClick = (sort: StockSort) => {
+    setStockSort(sort)
   }
   useEffect(() => {
     const fn = async () => {
@@ -62,7 +50,7 @@ const CryptoSummary = () => {
   }, [pollCounter])
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
-  const sorted = sortList(data ?? [], sortDirection)
+  const sorted = sortList(data ?? [], stockSort)
   const onRefreshRequest = () => {
     mutate(mutateKey)
   }
@@ -70,38 +58,7 @@ const CryptoSummary = () => {
   return (
     <Box height={513}>
       <SummaryTitle title={'Crypto'} onRefresh={onRefreshRequest} />
-      {/* <ScrollableBoxHorizontal> */}
-      <Box>
-        <Box display={'flex'} gap={1} alignItems={'center'} minHeight={44}>
-          <Box minWidth={110} pl={1}>
-            <Typography variant='caption'></Typography>
-          </Box>
-          <Box minWidth={80} display={'flex'}>
-            <Typography variant='caption'>price</Typography>
-          </Box>
-          <Box minWidth={80} display={'flex'}>
-            <Typography variant='caption'>change</Typography>
-          </Box>
-          <Box minWidth={80} display={'flex'} alignItems={'center'} gap={1}>
-            <Typography variant='caption'>%</Typography>
-            {sortDirection === 'default' && (
-              <IconButton onClick={handleSortClick}>
-                <SwapVertRoundedIcon color='primary' sx={{ fontSize: 18 }} />
-              </IconButton>
-            )}
-            {sortDirection === 'desc' && (
-              <IconButton onClick={handleSortClick}>
-                <ArrowDownwardIcon color='primary' sx={{ fontSize: 18 }} />
-              </IconButton>
-            )}
-            {sortDirection === 'asc' && (
-              <IconButton onClick={handleSortClick}>
-                <ArrowUpwardIcon color='primary' sx={{ fontSize: 18 }} />
-              </IconButton>
-            )}
-          </Box>
-        </Box>
-      </Box>
+      <OtherMarketsSummaryHeader stockSort={stockSort} handleSortClick={handleSortClick} />
       {isLoading && (
         <Box display={'flex'} justifyContent={'center'}>
           <ComponentLoader />
@@ -156,10 +113,11 @@ const CryptoSummary = () => {
     </Box>
   )
 }
-function sortList(data: StockQuote[], direction: StockSortDirection) {
-  if (direction === 'default') {
+function sortList(data: StockQuote[], sort: StockSort) {
+  if (sort.direction === 'default') {
     return data
+  } else {
+    return orderBy(data, [sort.field], [sort.direction])
   }
-  return sortArray(data, ['ChangePercent'], [direction])
 }
 export default CryptoSummary

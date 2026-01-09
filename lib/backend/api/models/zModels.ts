@@ -102,3 +102,27 @@ export interface StockAlertSubscriptionWithMessage {
   subscriptions: StockAlertSubscription[]
   message?: EmailMessage
 }
+
+export const StockStatsSchema = z.object({
+  TotalUp: z.number(),
+  TotalDown: z.number(),
+  TotalUnchanged: z.number(),
+  TotalUpPercent: z.number(),
+  TotalDownPercent: z.number(),
+  TotalUnchangedPercent: z.number(),
+  MarketDate: z.string(),
+  DateModified: z.string(),
+})
+export type StockStats = z.infer<typeof StockStatsSchema>
+export const MarketHandshakeSchema = z.object({
+  IsOpen: z.boolean(),
+  MarketsOpenClosedMessage: z.string().optional().nullable(),
+  Message: z.string().optional().nullable(),
+  HolidayName: z.string().optional().nullable(),
+  CurrentDateTimeEst: z.string(),
+  StockStats: StockStatsSchema.optional().nullable(),
+  NextOpenDateTime: z.string(),
+  StockLatestTradeDateTimeEst: z.string(),
+  IsTradingDay: z.boolean(),
+})
+export type MarketHandshake = z.infer<typeof MarketHandshakeSchema>
