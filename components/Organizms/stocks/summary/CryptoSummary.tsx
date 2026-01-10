@@ -14,7 +14,7 @@ import SummaryTitle from './SummaryTitle'
 import { usePolling } from 'hooks/usePolling'
 import { mutate } from 'swr'
 import { filterCryptos } from 'components/Organizms/crypto/CryptosDisplay'
-import { getRandomInteger } from 'lib/util/numberUtil'
+import { formatDecimal, getRandomInteger } from 'lib/util/numberUtil'
 import { StockSort } from './stocks/StockListSummary'
 import StockTooltip from 'components/Atoms/Tooltips/StockTooltip'
 import OtherMarketsSummaryHeader from './OtherMarketsSummaryHeader'
@@ -88,13 +88,13 @@ const CryptoSummary = () => {
                       <Typography
                         variant='body2'
                         color={getPositiveNegativeColor(item.Change, palette)}
-                      >{`${numeral(item.Change).format('###,###,0.00')}`}</Typography>
+                      >{`${formatDecimal(item.Change, item.Price <= 1 ? 3 : 2)}`}</Typography>
                     </Box>
                     <Box minWidth={80}>
                       <Typography
                         variant='body2'
                         color={getPositiveNegativeColor(item.Change, palette)}
-                      >{`${numeral(item.ChangePercent).format('###,###,0.00')}%`}</Typography>
+                      >{`${formatDecimal(item.ChangePercent, item.Price <= 1 ? 3 : 2)}%`}</Typography>
                     </Box>
                   </Box>
                   {index < data.length - 1 && <HorizontalDivider />}

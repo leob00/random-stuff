@@ -12,7 +12,7 @@ const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile
 
   return (
     <Box>
-      <ScrollIntoView enabled />
+      <ScrollIntoView />
       <StockTable stockList={result} marketCategory='crypto' showSummary userProfile={userProfile} />
     </Box>
   )

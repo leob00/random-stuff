@@ -77,3 +77,25 @@ export function getImageSize(fileSize: number) {
     return undefined
   }
 }
+
+export function formatDecimal(value: number, decimalPlaces: number = 2) {
+  let changeFormat = '###,###,0.'
+  let zeros = ''
+  Array.from(new Array(decimalPlaces)).forEach((_, index) => {
+    zeros = `${zeros}0`
+  })
+  changeFormat = `${changeFormat}${zeros}`
+  return numeral(value).format(changeFormat)
+}
+export function formatDecimalPriceChange(price: number, value: number) {
+  if (price < 1) {
+    return numeral(value).format('###,###,0.000')
+  }
+  let changeFormat = '###,###,0.00'
+  let result = numeral(value).format(changeFormat)
+  if (result.endsWith('0')) {
+    // drop off last zero
+    result = numeral(value).format('###,###,0.00')
+  }
+  return result
+}

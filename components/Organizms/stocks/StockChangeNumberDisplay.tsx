@@ -1,6 +1,7 @@
 import { Typography, useTheme } from '@mui/material'
 import { getPositiveNegativeColor } from './StockListItem'
 import numeral from 'numeral'
+import { formatDecimal } from 'lib/util/numberUtil'
 
 const StockChangeNumberDisplay = ({
   value,
@@ -24,7 +25,7 @@ const StockChangeNumberDisplay = ({
     })
     changeFormat = `${changeFormat}${zeros}`
   }
-  return <Typography variant='h6' fontWeight={600} color={color}>{`${numeral(value).format(`###,###,${changeFormat}`)}${endSymbol}`}</Typography>
+  return <Typography variant='h6' fontWeight={600} color={color}>{`${formatDecimal(value, Math.abs(value) < 1 ? 3 : 2)}${endSymbol}`}</Typography>
 }
 
 export default StockChangeNumberDisplay

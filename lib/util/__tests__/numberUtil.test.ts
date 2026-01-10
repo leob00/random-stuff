@@ -1,4 +1,15 @@
-import { calculatePercent, calculatePercentInt, calculateStockMovePercent, getFileSizeText, getImageSize, getRandomInteger, isEven, isOdd } from '../numberUtil'
+import {
+  calculatePercent,
+  calculatePercentInt,
+  calculateStockMovePercent,
+  formatDecimal,
+  formatDecimalPriceChange,
+  getFileSizeText,
+  getImageSize,
+  getRandomInteger,
+  isEven,
+  isOdd,
+} from '../numberUtil'
 
 describe('numberUtil Tests', () => {
   test('getRandomInteger', () => {
@@ -49,5 +60,22 @@ describe('numberUtil Tests', () => {
   test('getImageSize - 50001', () => {
     const result = getImageSize(50001)
     expect(result?.width).toBe(350)
+  })
+
+  test('formatDecimal - 2 decimal places', () => {
+    const result = formatDecimal(100.025, 2)
+    expect(result).toBe('100.03')
+  })
+  test('formatDecimal - 3 decimal places', () => {
+    const result = formatDecimal(100.025, 3)
+    expect(result).toBe('100.025')
+  })
+  test('formatDecimalPriceChange - price <= 1 3 decimal places', () => {
+    const result = formatDecimalPriceChange(0.99, -3.021)
+    expect(result).toBe('-3.021')
+  })
+  test('formatDecimalPriceChange - price > 1 2 decimal places', () => {
+    const result = formatDecimalPriceChange(1.99, -3.021)
+    expect(result).toBe('-3.02')
   })
 })

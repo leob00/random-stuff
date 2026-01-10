@@ -160,7 +160,7 @@ const StockListSummary = ({
       {data && <PagedStockSummaryTable data={sorted} userProfile={userProfile} />}
 
       {selectedItem && (
-        <InfoDialog show={true} title={selectedItem.Symbol} onCancel={() => setSelectedItem(null)}>
+        <InfoDialog show={true} title={''} onCancel={() => setSelectedItem(null)}>
           <StockListItem item={selectedItem} marketCategory='stocks' userProfile={userProfile} disabled expand />
         </InfoDialog>
       )}

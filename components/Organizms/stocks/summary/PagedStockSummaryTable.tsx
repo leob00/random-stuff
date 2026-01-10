@@ -12,6 +12,7 @@ import Pager from 'components/Atoms/Pager'
 import { useClientPager } from 'hooks/useClientPager'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import StockTooltip from 'components/Atoms/Tooltips/StockTooltip'
+import { formatDecimal, formatDecimalPriceChange } from 'lib/util/numberUtil'
 const pageSize = 10
 
 const PagedStockSummaryTable = ({ data, userProfile }: { data: StockQuote[]; userProfile: UserProfile | null }) => {
@@ -54,13 +55,13 @@ const PagedStockSummaryTable = ({ data, userProfile }: { data: StockQuote[]; use
                       <Typography
                         variant='body2'
                         color={getPositiveNegativeColor(item.Change, palette)}
-                      >{`${numeral(item.Change).format('###,###,0.00')}`}</Typography>
+                      >{`${formatDecimalPriceChange(item.Price, item.Change)}`}</Typography>
                     </Box>
                     <Box minWidth={80}>
                       <Typography
                         variant='body2'
-                        color={getPositiveNegativeColor(item.Change, palette)}
-                      >{`${numeral(item.ChangePercent).format('###,###,0.00')}%`}</Typography>
+                        color={getPositiveNegativeColor(item.ChangePercent, palette)}
+                      >{`${formatDecimalPriceChange(item.Price, item.ChangePercent)}%`}</Typography>
                     </Box>
                   </Box>
                   <HorizontalDivider />
@@ -81,7 +82,7 @@ const PagedStockSummaryTable = ({ data, userProfile }: { data: StockQuote[]; use
       ></Pager>
 
       {selectedItem && (
-        <InfoDialog show={true} title={selectedItem.Symbol} onCancel={() => setSelectedItem(null)}>
+        <InfoDialog show={true} title={''} onCancel={() => setSelectedItem(null)}>
           <StockListItem item={selectedItem} marketCategory='stocks' userProfile={userProfile} disabled expand />
         </InfoDialog>
       )}

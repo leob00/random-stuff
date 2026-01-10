@@ -10,6 +10,7 @@ import {
   hasMovingAvgFilter,
   hasNumberRangeFilter,
 } from 'components/Organizms/stocks/advanced-search/stocksAdvancedSearch'
+import { ZodError } from 'zod'
 
 const config = apiConnection()
 const qlnApiBaseUrl = config.qln.url
@@ -305,7 +306,12 @@ export async function getStockQuotes(symbols: string[]) {
     const result = quoteArraySchema.parse(resp.Body)
     return result
   } catch (err) {
-    console.error(err)
+    if (err instanceof ZodError) {
+      console.error('Zod error: ', err.message)
+    } else {
+      console.error(err)
+    }
+
     return []
   }
 }
