@@ -1,0 +1,32 @@
+'use client'
+import { usePathname, useRouter } from 'next/navigation'
+import { useMemo } from 'react'
+import ContextMenu, { ContextMenuItem } from './ContextMenu'
+import ContextMenuRequestQuote from './ContextMenuRequestQuote'
+import ContextMenuIndicators from './ContextMenuIndicators'
+
+const EconomyPageContextMenu = () => {
+  const pathName = usePathname()
+  const router = useRouter()
+
+  const menu = useMemo(() => {
+    const result: ContextMenuItem[] = [
+      {
+        item: <ContextMenuRequestQuote />,
+        route: '/csr/economic-calendar',
+        fn: () => router.push('/csr/economic-calendar'),
+      },
+      {
+        item: <ContextMenuIndicators />,
+        route: '/csr/economic-indicators',
+        fn: () => router.push('/csr/economic-indicators'),
+      },
+    ]
+    return result.filter((m) => m.route !== pathName)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathName])
+
+  return <ContextMenu items={menu} />
+}
+
+export default EconomyPageContextMenu

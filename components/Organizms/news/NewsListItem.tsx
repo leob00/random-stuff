@@ -21,12 +21,13 @@ const NewsListItem = ({
   hideSaveButton: boolean
   isSmallDevice: boolean
 }) => {
+  const utcNow = getUtcNow()
   const noteToSave: UserNote = {
     title: item.Headline!,
     body: `<div><div>source: ${item.sourceDescription ?? ''}</div><div style=''><a href='${item.Link}' target='_blank'>view article<a/></div></div>`,
-    dateCreated: getUtcNow().format(),
-    dateModified: getUtcNow().format(),
-    expirationDate: getUtcNow().add(3, 'day').format(),
+    dateCreated: utcNow.format(),
+    dateModified: utcNow.format(),
+    expirationDate: utcNow.add(3, 'day').format(),
   }
 
   return (

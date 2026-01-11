@@ -13,14 +13,12 @@ const PageHeader = ({
   text,
   backButtonRoute,
   forceShowBackButton,
-  generateBackButton = false,
   menu,
   children,
 }: {
   text: string
   backButtonRoute?: string
   forceShowBackButton?: boolean
-  generateBackButton?: boolean
   menu?: ContextMenuItem[]
   children?: ReactNode
 }) => {

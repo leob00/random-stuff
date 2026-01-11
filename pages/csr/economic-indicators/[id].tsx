@@ -3,6 +3,7 @@ import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import CloseIconButton from 'components/Atoms/Buttons/CloseIconButton'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
+import EconomyPageContextMenu from 'components/Molecules/Menus/EconomyPageContextMenu'
 import EconDataDetails from 'components/Organizms/econ/EconDataDetails'
 import Seo from 'components/Organizms/Seo'
 import dayjs from 'dayjs'
@@ -57,7 +58,9 @@ const Page = () => {
       <Seo pageTitle='Economic Indicators' />
 
       <ResponsiveContainer>
-        <PageHeader text={data?.Title ?? ''} />
+        <PageHeader text={data?.Title ?? ''}>
+          <EconomyPageContextMenu />
+        </PageHeader>
         {isLoading && <ComponentLoader />}
         <Box py={2} display={'flex'} justifyContent={'flex-end'}>
           <CloseIconButton onClicked={handleCoseClick} />
