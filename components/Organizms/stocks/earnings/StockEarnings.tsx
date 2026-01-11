@@ -19,7 +19,7 @@ const StockEarnings = ({ quote }: { quote: StockQuote }) => {
   return (
     <Box pb={2} pt={2} minHeight={400}>
       {isLoading && <ComponentLoader />}
-      <Box sx={{ py: 2 }}>{data && <StockEarningsDisplay data={data} />}</Box>
+      <Box sx={{ py: 2 }}>{data && <StockEarningsDisplay symbol={quote.Symbol} data={data} />}</Box>
     </Box>
   )
 }

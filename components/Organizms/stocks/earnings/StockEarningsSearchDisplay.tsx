@@ -77,7 +77,7 @@ const StockEarningsSearchDisplay = () => {
       <Box>
         {searchResults && (
           <Box py={2}>
-            <StockEarningsDisplay data={searchResults} showCompany />
+            <StockEarningsDisplay symbol={searchResults[0].Symbol} data={searchResults} showCompany />
           </Box>
         )}
       </Box>
