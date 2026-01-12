@@ -18,6 +18,8 @@ import StockSearch from 'components/Atoms/Inputs/StockSearch'
 import FullStockDetail from 'components/Organizms/stocks/FullStockDetail'
 import StockMarketPageContextMenu from 'components/Molecules/Menus/StockMarketPageContextMenu'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
+import { useProfileValidator } from 'hooks/auth/useProfileValidator'
+import { getUserCSR } from 'lib/backend/auth/userUtil'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'
 const tabs: TabInfo[] = [
@@ -32,14 +34,14 @@ const tabs: TabInfo[] = [
     title: 'Losers',
   },
 ]
-
+const searchedStocksKey: CategoryType = 'searched-stocks'
 const Page = () => {
   const [selectedTab, setSelectedTab] = useState<Tab>('Recent')
 
-  const searchedStocksKey: CategoryType = 'searched-stocks'
-
   const dataFn = async () => {
-    const searchedStocksResult = await searchDynamoItemsByCategory(searchedStocksKey)
+    const ticket = await getUserCSR()
+    const key = ticket ? `searched-stocks-user[${ticket.email}]` : searchedStocksKey
+    const searchedStocksResult = await searchDynamoItemsByCategory(key)
     const sorted = sortArray(searchedStocksResult, ['last_modified'], ['desc'])
     const result: StockQuote[] = sorted.map((m) => {
       return JSON.parse(m.data)
@@ -56,7 +58,7 @@ const Page = () => {
     })
     return Array.from(stockMap.values())
   }
-  const { data: searchedStocks, isLoading } = useSwrHelper(searchedStocksKey, dataFn, { revalidateOnFocus: true })
+  const { data: searchedStocks, isLoading } = useSwrHelper(searchedStocksKey, dataFn, { revalidateOnFocus: false })
 
   const winners: StockQuote[] = searchedStocks
     ? sortArray(
