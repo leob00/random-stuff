@@ -21,7 +21,7 @@ const StockMarketStatsChart = ({ data, title, isLoading }: { data: StockStats; t
 
   return (
     <Box>
-      {isLoading && <ComponentLoader />}
+      {isLoading && <ComponentLoader pt={3} />}
       <FadeIn>
         <Box>
           {title && <CenteredHeader title={title} variant='h5' />}
