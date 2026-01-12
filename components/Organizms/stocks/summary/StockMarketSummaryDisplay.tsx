@@ -4,7 +4,7 @@ import { usePolling } from 'hooks/usePolling'
 import { serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
-import PreMarketSummary from './PreMarketSummary'
+import MorningSummary from './MorningSummary'
 import MidMarketSummary from './MidMarketSummary'
 import EveningSummary from './EveningSummary'
 import HolidaySummary from './HolidaySummary'
@@ -93,7 +93,7 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
       </Box>
       <Box display={'flex'} justifyContent={'center'} gap={1} flexWrap={{ xs: 'wrap', sm: 'unset' }}>
         {/* <Box sx={{ transform: 'scale(0.7)', transformOrigin: 'top left' }}> */}
-        {showMorning && <PreMarketSummary />}
+        {showMorning && <MorningSummary />}
         {showMidMarket && <MidMarketSummary />}
         {showMPostMarketDay && <EveningSummary />}
         {showHoliday && <HolidaySummary nextOpenDt={nextOpenDtNoTime} />}

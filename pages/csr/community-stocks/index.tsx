@@ -112,15 +112,7 @@ const Page = () => {
         {!selectedStock && <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />}
         {!selectedStock && (
           <>
-            {selectedTab === 'Recent' && (
-              <Box>
-                {searchedStocks && (
-                  <>
-                    <CommunityStocksRecentLayout data={searchedStocks} onRefresh={handleRefreshRecent} />
-                  </>
-                )}
-              </Box>
-            )}
+            {selectedTab === 'Recent' && <Box>{searchedStocks && <CommunityStocksRecentLayout data={searchedStocks} onRefresh={handleRefreshRecent} />}</Box>}
             {selectedTab === 'Winners' && <CommunityStocksWrapper data={winners} onRefresh={handleRefreshRecent} />}
             {selectedTab === 'Losers' && <CommunityStocksWrapper data={losers} onRefresh={handleRefreshRecent} />}
           </>

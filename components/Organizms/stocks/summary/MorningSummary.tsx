@@ -4,7 +4,6 @@ import CommoditiesSummary from './CommoditiesSummary'
 import { sleep } from 'lib/util/timers'
 import { serverGetFetch, StockEarning } from 'lib/backend/api/qln/qlnApi'
 import { filterResult } from '../earnings/earningsCalendar'
-import dayjs from 'dayjs'
 import { getCurrentDateTimeUsEastern } from 'lib/util/dateUtil'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import EarningsSummary from './earnings/EarningsSummary'
@@ -17,13 +16,14 @@ import { mutate } from 'swr'
 import CryptoSummary from './CryptoSummary'
 import { sortArray } from 'lib/util/collections'
 import RecentlySearchedStocksSummary from './stocks/RecentlySearchedStocksSummary'
+import dayjs from 'dayjs'
 
 interface Model {
   upcomingEarnings: StockEarning[]
   reportedEarnings: StockEarning[]
 }
 
-const PreMarketSummary = () => {
+const MorningSummary = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
 
   const mutateKey = 'earnings-pre-market'
@@ -35,7 +35,10 @@ const PreMarketSummary = () => {
       return { ...m, ReportDate: dayjs(m.ReportDate).format() }
     })
     const today = dayjs(dayjs(getCurrentDateTimeUsEastern()).format('YYYY-MM-DD')).format()
-    const todaysEarnings = filterResult(mapped, today)
+    let todaysEarnings = filterResult(mapped, today)
+    if (todaysEarnings.length === 0) {
+      todaysEarnings = filterResult(mapped, dayjs(today).add(1, 'days').format())
+    }
     const reportedEarnings = sortArray(
       earnings.filter((m) => m.ActualEarnings),
       ['ReportDate', 'StockQuote.MarketCap'],
@@ -115,4 +118,4 @@ const PreMarketSummary = () => {
   )
 }
 
-export default PreMarketSummary
+export default MorningSummary
