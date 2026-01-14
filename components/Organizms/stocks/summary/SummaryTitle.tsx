@@ -25,42 +25,36 @@ const SummaryTitle = ({
 
   return (
     <Box pb={2}>
-      <Box display={'flex'} justifyContent={'space-between'}>
-        {searchSettings && searchSettings.allowSearch ? (
-          <Box>
-            {!searchSettings.searchOn && (
-              <Box minWidth={60}>
-                <IconButton size='small' onClick={() => setSearchSettings?.({ ...searchSettings, searchOn: true })} color='primary'>
-                  <SearchIcon fontSize='small' />
-                </IconButton>
-              </Box>
-            )}
-            {searchSettings.searchOn && (
-              <Box minWidth={60}>
-                <IconButton size='small' onClick={() => setSearchSettings?.({ ...searchSettings, searchOn: false })} color='primary'>
-                  <SearchOffIcon fontSize='small' />
-                </IconButton>
-              </Box>
-            )}
-          </Box>
-        ) : (
-          <>
-            <Box></Box>
-            <Box></Box>
-          </>
-        )}
+      <Box display={'flex'} justifyContent={'space-between'} alignContent={'center'}>
+        {!searchSettings && <Box minWidth={50}></Box>}
+
         <Box>
+          {searchSettings && searchSettings.allowSearch && (
+            <Box>
+              {!searchSettings.searchOn && (
+                <Box minWidth={60}>
+                  <IconButton size='small' onClick={() => setSearchSettings?.({ ...searchSettings, searchOn: true })} color='primary'>
+                    <SearchIcon fontSize='small' />
+                  </IconButton>
+                </Box>
+              )}
+              {searchSettings.searchOn && (
+                <Box minWidth={60}>
+                  <IconButton size='small' onClick={() => setSearchSettings?.({ ...searchSettings, searchOn: false })} color='primary'>
+                    <SearchOffIcon fontSize='small' />
+                  </IconButton>
+                </Box>
+              )}
+            </Box>
+          )}
+        </Box>
+        {/* {!searchSettings?.allowSearch && <Box sx={{ border: '1px solid blue' }} flexGrow={1}></Box>} */}
+        <Box flexGrow={1} justifyContent={'center'} alignSelf={'center'}>
           <Typography textAlign={'center'} variant='h6'>
             {title}
           </Typography>
         </Box>
-        <Box>
-          {onRefresh && (
-            <Box>
-              <ContextMenu items={menu} />
-            </Box>
-          )}
-        </Box>
+        <Box>{onRefresh && <ContextMenu items={menu} />}</Box>
       </Box>
     </Box>
   )

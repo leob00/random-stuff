@@ -35,6 +35,10 @@ const NewsSummary = ({ userProfile }: { userProfile: UserProfile | null }) => {
 
   const { pollCounter } = usePolling(1000 * 480) // 8 minutes
 
+  const handleRefresh = async () => {
+    mutate(mutateKey)
+  }
+
   useEffect(() => {
     const fn = async () => {
       await sleep(getRandomInteger(250, 2500))
@@ -46,13 +50,9 @@ const NewsSummary = ({ userProfile }: { userProfile: UserProfile | null }) => {
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
   return (
     <Box height={690} minWidth={{ xs: 300, sm: 600, md: 828 }}>
-      <SummaryTitle title='News' />
+      <SummaryTitle title='News' onRefresh={handleRefresh} />
       <ScrollableBox maxHeight={500}>
-        {isLoading && (
-          <Box display={'flex'} justifyContent={'center'}>
-            <ComponentLoader />
-          </Box>
-        )}
+        {isLoading && <ComponentLoader />}
         {data && <NewsList newsItems={data} userProfile={userProfile} />}
       </ScrollableBox>
     </Box>

@@ -74,7 +74,7 @@ const StockEarningsDisplay = ({ symbol, data, showCompany = false }: { symbol: s
     <>
       <Box pl={1}>
         <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-          <Box>{isAdmin && <SiteLink text='manage' href={`/protected/csr/admin/data-quality/earnings?symbol=${symbol}`} />}</Box>
+          <Box pl={2}>{isAdmin && <SiteLink variant='body2' text='manage' href={`/protected/csr/admin/data-quality/earnings?symbol=${symbol}`} />}</Box>
           <Button onClick={handleToggleChartTableView}>{earningSettings.display === 'chart' ? 'view table' : 'view chart'}</Button>
         </Box>
         {earningSettings.display === 'table' && <StockEarningsTable data={yearsGroup} showCompany={showCompany} />}
