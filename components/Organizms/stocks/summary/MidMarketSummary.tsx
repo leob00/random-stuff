@@ -34,7 +34,7 @@ const MidMarketSummary = () => {
 
   const dataFn = async () => {
     const currentDtEst = getCurrentDateTimeUsEastern()
-    await sleep(500)
+    await sleep(getRandomInteger(250, 600))
     const resp = await serverGetFetch('/RecentEarnings')
     const earnings = resp.Body as StockEarning[]
     const mapped: StockEarning[] = earnings.map((m) => {

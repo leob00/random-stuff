@@ -51,17 +51,15 @@ const AdminEarningsWrapper = () => {
   }
   useEffect(() => {
     const dataFn = async () => {
-      if (!model.stockQuote) {
-        const symbolParam = searchParams?.get('symbol')
-        if (symbolParam) {
-          const symbol = symbolParam as string
-          const quote = await getStockQuote(symbol)
-          if (quote) {
-            const endpoint = `/StockEarnings?symbol=${quote.Symbol}`
-            const resp = await serverGetFetch(endpoint)
-            const searchResults = resp.Body as StockEarning[]
-            setModel({ ...model, stockQuote: quote, isSearchExpanded: false, isLoading: false, searchResults: searchResults })
-          }
+      const symbolParam = searchParams?.get('symbol')
+      if (symbolParam) {
+        const symbol = symbolParam as string
+        const quote = await getStockQuote(symbol)
+        if (quote) {
+          const endpoint = `/StockEarnings?symbol=${quote.Symbol}`
+          const resp = await serverGetFetch(endpoint)
+          const searchResults = resp.Body as StockEarning[]
+          setModel({ ...model, stockQuote: quote, isSearchExpanded: false, isLoading: false, searchResults: searchResults })
         }
       }
     }

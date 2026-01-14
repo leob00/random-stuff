@@ -18,6 +18,7 @@ import { getCurrentDateTimeUsEastern } from 'lib/util/dateUtil'
 import { filterResult } from '../earnings/earningsCalendar'
 import CryptoSummary from './CryptoSummary'
 import { getRandomInteger } from 'lib/util/numberUtil'
+import { orderBy } from 'lodash'
 
 const EveningSummary = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
@@ -30,7 +31,14 @@ const EveningSummary = () => {
       return { ...m, ReportDate: dayjs(m.ReportDate).format() }
     })
     const today = dayjs(dayjs(getCurrentDateTimeUsEastern()).format('YYYY-MM-DD')).format()
-    const result = filterResult(mapped, today)
+    let result = filterResult(mapped, today)
+    if (result.length === 0) {
+      result = orderBy(
+        mapped.filter((m) => dayjs(m.ReportDate).isAfter(dayjs(today))),
+        ['ReportDate', 'StockQuote.MarketCap'],
+        ['asc', 'desc'],
+      )
+    }
     return result
   }
 

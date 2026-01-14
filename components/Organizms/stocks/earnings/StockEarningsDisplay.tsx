@@ -1,3 +1,4 @@
+'use client'
 import dayjs from 'dayjs'
 import { StockEarning, StockEarningAggregate } from 'lib/backend/api/qln/qlnApi'
 import { Box, Button } from '@mui/material'
@@ -10,8 +11,8 @@ import quarterOfYear from 'dayjs/plugin/quarterOfYear'
 import StockEarningsTable from './StockEarningsTable'
 import { useUserController } from 'hooks/userController'
 import { userHasRole } from 'lib/backend/auth/userUtil'
-import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import { useRouter } from 'next/navigation'
+import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 dayjs.extend(quarterOfYear)
 
 export interface StockEarningsGroup {
@@ -69,17 +70,11 @@ const StockEarningsDisplay = ({ symbol, data, showCompany = false }: { symbol: s
     })
   }
 
-  const handleManageClick = () => {
-    if (isAdmin) {
-      router.push(`/protected/csr/admin/data-quality/earnings?symbol=${symbol}`)
-    }
-  }
-
   return (
     <>
       <Box pl={1}>
         <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-          <Box>{isAdmin && <PrimaryButton size='small' text='manage' onClick={handleManageClick} />}</Box>
+          <Box>{isAdmin && <SiteLink text='manage' href={`/protected/csr/admin/data-quality/earnings?symbol=${symbol}`} />}</Box>
           <Button onClick={handleToggleChartTableView}>{earningSettings.display === 'chart' ? 'view table' : 'view chart'}</Button>
         </Box>
         {earningSettings.display === 'table' && <StockEarningsTable data={yearsGroup} showCompany={showCompany} />}
