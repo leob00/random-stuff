@@ -49,7 +49,7 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
         <Box width={dimension.width}>
           <WidgetWrapper item={item}>
             <StockMarketGlanceWidget showTitle={false} revalidateOnFocus={revalidateOnFocus} width={dimension.width} height={dimension.height} />
-            <WidgetFooter detailsUrl='/csr/stocks/sentiment' />
+            <WidgetFooter detailsUrl='/market/stocks/sentiment' />
           </WidgetWrapper>
         </Box>
       )}

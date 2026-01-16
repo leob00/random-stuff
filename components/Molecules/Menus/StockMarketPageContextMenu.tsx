@@ -28,8 +28,8 @@ const StockMarketPageContextMenu = () => {
       },
       {
         item: <ContextMenuStockSentiment text='stock sentiment' />,
-        fn: () => router.push('/csr/stocks/sentiment'),
-        route: '/csr/stocks/sentiment',
+        fn: () => router.push('/market/stocks/sentiment'),
+        route: '/market/stocks/sentiment',
       },
       {
         item: <ContextMenuReport text={'reports'} />,

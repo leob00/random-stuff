@@ -110,7 +110,7 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'sentiment',
-    path: '/csr/stocks/sentiment',
+    path: '/market/stocks/sentiment',
     category: 'Stock Market',
     breadcrumbName: 'stock sentiment',
   },

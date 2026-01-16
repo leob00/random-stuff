@@ -12,6 +12,7 @@ import RecipeTagsList from './RecipeTagsList'
 import CenterStack from 'components/Atoms/CenterStack'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import RecipeImage from './RecipeImage'
+import Clickable from 'components/Atoms/Containers/Clickable'
 
 const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Recipe; autoComplete?: DropdownItem[]; selectedOption?: DropdownItem }) => {
   const baseUrl = '/ssg/recipes/'
@@ -19,6 +20,7 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
   const backUrl = ret ? ret : baseUrl
 
   const tags = article.recipeTagsCollection.items ?? []
+  const handleImageClicked = (item: Recipe) => {}
 
   return (
     <>
@@ -36,7 +38,13 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
       )}
 
       <Box display={'flex'}>
-        <RecipeImage recipe={article} width={220} height={220} />
+        <Clickable
+          onClicked={() => {
+            handleImageClicked(article)
+          }}
+        >
+          <RecipeImage recipe={article} width={220} height={220} />
+        </Clickable>
       </Box>
       <Box py={2}>
         <RecipeTagsList tags={tags} />

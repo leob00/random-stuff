@@ -21,9 +21,12 @@ import { StockStats } from 'lib/backend/api/models/zModels'
 import { sortArray } from 'lib/util/collections'
 import StockMarketStatsChart from '../charts/StockMarketStatsChart'
 import SummaryTitle from './SummaryTitle'
+import CommoditiesSummary from './CommoditiesSummary'
+import CryptoSummary from './CryptoSummary'
 
 type Model = {
-  scheduledEarnings: StockEarning[]
+  todayScheduledEarnings: StockEarning[]
+  reportedEarnings: StockEarning[]
   upcomingEarnings: StockEarning[]
   dailySentiment: StockStats | null
 }
@@ -43,7 +46,7 @@ const MidMarketSummary = () => {
     const today = dayjs(dayjs(currentDtEst).format('YYYY-MM-DD')).format()
     const todaysEarnings = filterResult(mapped, today)
 
-    const upComingEarnings = orderBy(
+    const upcomingEranings = orderBy(
       mapped.filter((m) => dayjs(m.ReportDate).isAfter(dayjs(today))),
       ['ReportDate', 'StockQuote.MarketCap'],
       ['asc', 'desc'],
@@ -53,10 +56,16 @@ const MidMarketSummary = () => {
 
     const sortedSentiments = sortArray(sentimentResults, ['MarketDate'], ['desc'])
     const lastSentiment = sortedSentiments.length > 0 ? sortedSentiments[0] : null
+    const reportedEarnings = sortArray(
+      mapped.filter((m) => m.ActualEarnings && dayjs(m.ReportDate).isBefore(dayjs(today))),
+      ['ReportDate', 'StockQuote.MarketCap'],
+      ['desc', 'desc'],
+    )
     const result: Model = {
-      scheduledEarnings: todaysEarnings,
-      upcomingEarnings: upComingEarnings,
+      todayScheduledEarnings: todaysEarnings,
+      upcomingEarnings: upcomingEranings,
       dailySentiment: lastSentiment,
+      reportedEarnings: reportedEarnings,
     }
     return result
   }
@@ -82,6 +91,17 @@ const MidMarketSummary = () => {
       {!isValidatingProfile && (
         <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={{ xs: 'center', md: 'unset' }}>
           <Box>
+            <BorderedBox width={'100%'} minWidth={300} minHeight={513}>
+              {data && data.dailySentiment && (
+                <Box height={513}>
+                  <SummaryTitle title={`Daily Sentiment`} onRefresh={handleRefresh} />
+                  <Typography variant='body2' textAlign={'center'}>{`${dayjs(data.dailySentiment.MarketDate).format('MM/DD/YYYY')}`}</Typography>
+                  <StockMarketStatsChart data={data.dailySentiment} isLoading={isLoading || isValidatingProfile} />
+                </Box>
+              )}
+            </BorderedBox>
+          </Box>
+          <Box>
             <BorderedBox>
               <TopMoversSummary userProfile={userProfile} />
             </BorderedBox>
@@ -89,12 +109,23 @@ const MidMarketSummary = () => {
           <Box>
             <BorderedBox width={'100%'}>{!isValidatingProfile && <RecentlySearchedStocksSummary userProfile={userProfile} />}</BorderedBox>
           </Box>
-          {data && data.scheduledEarnings && data.scheduledEarnings && data.scheduledEarnings.length > 0 && (
+
+          <Box>
+            <BorderedBox width={'100%'}>
+              <CommoditiesSummary />
+            </BorderedBox>
+          </Box>
+          <Box>
+            <BorderedBox width={'100%'}>
+              <CryptoSummary />
+            </BorderedBox>
+          </Box>
+          {data && data.todayScheduledEarnings && data.todayScheduledEarnings && data.todayScheduledEarnings.length > 0 && (
             <Box>
               <BorderedBox width={'100%'}>
                 <EarningsSummary
                   userProfile={userProfile}
-                  data={data?.scheduledEarnings}
+                  data={data?.todayScheduledEarnings}
                   title={`Today's Earnings`}
                   isLoading={isLoading || isValidatingProfile}
                   onRefreshRequest={handleRefresh}
@@ -102,7 +133,6 @@ const MidMarketSummary = () => {
               </BorderedBox>
             </Box>
           )}
-
           <Box>
             <BorderedBox width={'100%'}>
               <EarningsSummary
@@ -114,17 +144,18 @@ const MidMarketSummary = () => {
               />
             </BorderedBox>
           </Box>
-          {data && data.dailySentiment && (
-            <Box>
-              <BorderedBox width={'100%'}>
-                <Box height={513}>
-                  <SummaryTitle title={`Daily Sentiment`} onRefresh={handleRefresh} />
-                  <Typography variant='body2' textAlign={'center'}>{`${dayjs(data.dailySentiment.MarketDate).format('MM/DD/YYYY')}`}</Typography>
-                  <StockMarketStatsChart data={data.dailySentiment} isLoading={isLoading || isValidatingProfile} />
-                </Box>
-              </BorderedBox>
-            </Box>
-          )}
+          <Box>
+            <BorderedBox width={'100%'}>
+              <EarningsSummary
+                userProfile={userProfile}
+                data={data?.reportedEarnings}
+                title={`Reported Earnings`}
+                isLoading={isLoading || isValidatingProfile}
+                onRefreshRequest={handleRefresh}
+              />
+            </BorderedBox>
+          </Box>
+
           <Box maxWidth={{ xs: 348, sm: '98%', md: '94%', lg: '68%' }}>
             <BorderedBox width={'100%'}>
               <NewsSummary userProfile={userProfile} />

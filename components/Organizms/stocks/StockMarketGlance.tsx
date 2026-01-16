@@ -54,7 +54,7 @@ const StockMarketGlance = ({
                 </Box>
 
                 <CenterStack>
-                  <SiteLink text='sentiment report' href={'/csr/stocks/sentiment'} />
+                  <SiteLink text='sentiment report' href={'/market/stocks/sentiment'} />
                 </CenterStack>
               </>
             )}

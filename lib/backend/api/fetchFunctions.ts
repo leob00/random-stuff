@@ -72,7 +72,7 @@ export async function postBody(url: string, method: 'PATCH' | 'POST' | 'DELETE' 
     })
 
     if (!resp.ok) {
-      console.error(`error in ${method}: status code: `, resp.statusText)
+      console.error(`error in ${url} ${method}: status code: `, resp.statusText)
       return null
     }
 
