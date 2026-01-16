@@ -69,7 +69,7 @@ const FlatListMenu = ({
           <ContextMenuAllStocks />
         </>
       ),
-      fn: () => router.push('/csr/community-stocks'),
+      fn: () => router.push('/market/stocks/quotes'),
     },
     // {
     //   item: (

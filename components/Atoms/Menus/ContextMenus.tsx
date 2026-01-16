@@ -7,7 +7,7 @@ import router from 'next/router'
 export const myStocksMenu: ContextMenuItem[] = [
   {
     item: <ContextMenuAllStocks />,
-    fn: () => router.push('/csr/community-stocks'),
+    fn: () => router.push('/market/stocks/quotes'),
   },
   {
     item: (

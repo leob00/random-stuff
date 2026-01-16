@@ -105,7 +105,7 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'stocks',
-    path: '/csr/community-stocks',
+    path: '/market/stocks/quotes',
     category: 'Stock Market',
   },
   {

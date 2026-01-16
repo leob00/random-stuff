@@ -18,8 +18,8 @@ const StockMarketPageContextMenu = () => {
     const result: ContextMenuItem[] = [
       {
         item: <ContextMenuAllStocks />,
-        fn: () => router.push('/csr/community-stocks'),
-        route: '/csr/community-stocks',
+        fn: () => router.push('/market/stocks/quotes'),
+        route: '/market/stocks/quotes',
       },
       {
         item: <ContextMenuMyStocks />,

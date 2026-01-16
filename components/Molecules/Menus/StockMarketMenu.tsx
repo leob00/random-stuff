@@ -9,11 +9,11 @@ const StockMarketMenu = () => {
   const router = useRouter()
   const menu: ContextMenuItem[] = [
     {
-      fn: () => router.push('/csr/community-stocks'),
+      fn: () => router.push('/market/stocks/quotes'),
       item: <ContextMenuAllStocks />,
     },
     {
-      fn: () => router.push('/csr/community-stocks'),
+      fn: () => router.push('/csr/my-stocks'),
       item: <ContextMenuMyStocks />,
     },
   ]
