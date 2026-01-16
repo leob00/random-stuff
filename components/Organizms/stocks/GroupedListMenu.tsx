@@ -64,7 +64,7 @@ const GroupedListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShow
     },
     {
       item: <ContextMenuEarnings text={'earnings calendar'} />,
-      fn: () => router.push('/csr/stocks/earnings-calendar'),
+      fn: () => router.push('/market/stocks/earnings/calendar'),
     },
     {
       item: <ContextMenuCommodities text={'commodities'} />,

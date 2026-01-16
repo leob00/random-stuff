@@ -75,7 +75,7 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
           <Box>
             <WidgetWrapper item={item}>
               <EarningsCalendarWidget width={dimension.width} height={dimension.height} size={item.size} />
-              <WidgetFooter detailsUrl={'/csr/stocks/earnings-calendar'} />
+              <WidgetFooter detailsUrl={'/market/stocks/earnings/calendar'} />
             </WidgetWrapper>
           </Box>
         )}

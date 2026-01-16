@@ -43,8 +43,8 @@ const StockMarketPageContextMenu = () => {
       },
       {
         item: <ContextMenuEarnings text={'earnings calendar'} />,
-        fn: () => router.push('/csr/stocks/earnings-calendar'),
-        route: '/csr/stocks/earnings-calendar',
+        fn: () => router.push('/market/stocks/earnings/calendar'),
+        route: '/market/stocks/earnings/calendar',
       },
       {
         item: <ContextMenuStockAlerts />,

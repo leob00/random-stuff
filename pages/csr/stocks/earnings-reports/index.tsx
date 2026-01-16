@@ -28,7 +28,7 @@ const Page = () => {
         </Box>
         <Box display={'flex'} justifyContent={'space-between'} pt={2}>
           <Box>
-            <NavigationButton path={'/csr/stocks/earnings-calendar'} name={'earnings calendar'} category='Stock Reports' variant='body2' />
+            <NavigationButton path={'/market/stocks/earnings/calendar'} name={'earnings calendar'} category='Stock Reports' variant='body2' />
           </Box>
           <Box>
             <DropdownList options={reports} selectedOption={selectedReport} onOptionSelected={handleReportSelect} />

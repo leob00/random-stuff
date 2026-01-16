@@ -1,3 +1,4 @@
+'use client'
 import { Box } from '@mui/material'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import DropdownList from 'components/Atoms/Inputs/DropdownList'

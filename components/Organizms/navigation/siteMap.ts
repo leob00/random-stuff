@@ -116,7 +116,7 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'earnings calendar',
-    path: '/csr/stocks/earnings-calendar',
+    path: '/market/stocks/earnings/calendar',
     category: 'Stock Market',
   },
   {
