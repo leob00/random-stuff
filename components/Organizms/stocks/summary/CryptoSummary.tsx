@@ -115,7 +115,8 @@ const CryptoSummary = () => {
 }
 function sortList(data: StockQuote[], sort: StockSort) {
   if (sort.direction === 'default') {
-    return data
+    const res = orderBy(data, (m) => Math.abs(m.ChangePercent), ['desc'])
+    return res
   } else {
     return orderBy(data, [sort.field], [sort.direction])
   }

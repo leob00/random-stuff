@@ -12,6 +12,7 @@ import { type RandomStuffDynamoItem } from 'app/serverActions/aws/dynamo/dynamo'
 import { EmailMessage } from 'app/serverActions/aws/ses/ses'
 import { sortArray } from 'lib/util/collections'
 import { StockSavedSearch } from 'components/Organizms/stocks/advanced-search/stocksAdvancedSearch'
+import dayjs from 'dayjs'
 
 export interface SignedRequest {
   appId?: string
@@ -161,6 +162,11 @@ export async function getUserNoteTitles(username: string) {
 
   try {
     const resp = await getDynamoItemData<UserNote[]>(key)
+    if (resp.length > 0) {
+      const now = getUtcNow()
+      const filtered = resp.filter((m) => !m.expirationDate || dayjs(m.expirationDate).isAfter(now))
+      return filtered
+    }
     return resp ?? []
   } catch (err) {
     console.error(err)
