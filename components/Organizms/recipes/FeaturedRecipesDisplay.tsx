@@ -1,3 +1,4 @@
+'use client'
 import { Box } from '@mui/material'
 import RecipeTeaser from './RecipeTeaser'
 import { Recipe } from 'lib/models/cms/contentful/recipe'

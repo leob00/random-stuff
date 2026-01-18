@@ -1,3 +1,4 @@
+'use client'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import NewsLayout from './NewsLayout'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'

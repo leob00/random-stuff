@@ -20,6 +20,7 @@ import { getUtcNow } from 'lib/util/dateUtil'
 import CenterStack from 'components/Atoms/CenterStack'
 import RecipesSearch from 'components/Organizms/recipes/RecipesSearch'
 import { getDynamoItemData, putRecord } from 'lib/backend/csr/nextApiWrapper'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 dayjs.extend(relativeTime)
 
 const cmsRefreshIntervalSeconds = 21600 // 6 hours
@@ -123,7 +124,7 @@ const CachedRecipes = ({ fallbackData }: { fallbackData: RecipesLayoutModel }) =
 
   return (
     <>
-      {isValidating && <BackdropLoader />}
+      {isValidating && <ComponentLoader />}
       <RecipesLayout featured={data.featured} />
     </>
   )

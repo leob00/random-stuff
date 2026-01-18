@@ -90,7 +90,7 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'news',
-    path: '/csr/news',
+    path: '/general-interest/news',
     category: 'General Interest',
   },
   {

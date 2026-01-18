@@ -1,3 +1,4 @@
+'use client'
 import { Box } from '@mui/material'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import StaticAutoCompleteFreeSolo from 'components/Atoms/Inputs/StaticAutoCompleteFreeSolo'

@@ -1,3 +1,4 @@
+'use client'
 import { Box, Link, Stack, Typography } from '@mui/material'
 import InternalLink from 'components/Atoms/Buttons/InternalLink'
 import CenterStack from 'components/Atoms/CenterStack'

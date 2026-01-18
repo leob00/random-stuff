@@ -3192,10 +3192,6 @@
     "Symbol": "ATTR"
   },
   {
-    "Company": "Altice USA, Inc. Class A Common Stock",
-    "Symbol": "ATUS"
-  },
-  {
     "Company": "Addentax Group Corp. Common Stock",
     "Symbol": "ATXG"
   },
@@ -13516,10 +13512,6 @@
     "Symbol": "EOSE"
   },
   {
-    "Company": "Eos Energy Enterprises, Inc. Warrant",
-    "Symbol": "EOSEW"
-  },
-  {
     "Company": "T-REX 2X Long EOSE Daily Target ETF",
     "Symbol": "EOSU"
   },
@@ -15042,6 +15034,10 @@
   {
     "Company": "Fidelity Electric Vehicles and Future Transportation ETF",
     "Symbol": "FDRV"
+  },
+  {
+    "Company": "Founder-Led 2X Daily ETF",
+    "Symbol": "FDRX"
   },
   {
     "Company": "Factset Research Systems",
@@ -17336,10 +17332,6 @@
     "Symbol": "GCDT"
   },
   {
-    "Company": "Gannett Co., Inc.",
-    "Symbol": "GCI"
-  },
-  {
     "Company": "GCL Global Holdings Ltd Ordinary Shares",
     "Symbol": "GCL"
   },
@@ -17350,10 +17342,6 @@
   {
     "Company": "GCM Grosvenor Inc. Class A Common Stock",
     "Symbol": "GCMG"
-  },
-  {
-    "Company": "GCM Grosvenor Inc. Warrant",
-    "Symbol": "GCMGW"
   },
   {
     "Company": "Genesco Inc.",
@@ -21900,10 +21888,6 @@
     "Symbol": "INEQ"
   },
   {
-    "Company": "Informatica Inc.",
-    "Symbol": "INFA"
-  },
-  {
     "Company": "Horizon Kinetics Inflation Beneficiaries ETF",
     "Symbol": "INFL"
   },
@@ -25002,10 +24986,6 @@
   {
     "Company": "Locafy Limited Warrant",
     "Symbol": "LCFYW"
-  },
-  {
-    "Company": "Sterling Capital Focus Equity ETF",
-    "Symbol": "LCG"
   },
   {
     "Company": "Lucid Group, Inc. Common Stock",
@@ -34496,10 +34476,6 @@
     "Symbol": "QBTS"
   },
   {
-    "Company": "D-Wave Quantum Inc. Warrants, each whole warrant exercisable for 1.4541326 shares of Common Stock at an exercise price of $11.50",
-    "Symbol": "QBTS.WS"
-  },
-  {
     "Company": "Tradr 2X Long QBTS Daily ETF",
     "Symbol": "QBTX"
   },
@@ -34632,12 +34608,20 @@
     "Symbol": "QETH"
   },
   {
+    "Company": "Pacer S&P 500 Quality FCF High Dividend ETF",
+    "Symbol": "QFHD"
+  },
+  {
     "Company": "Qfin Holdings, Inc. American Depositary Shares",
     "Symbol": "QFIN"
   },
   {
     "Company": "Innovator Nasdaq-100 Managed Floor ETF",
     "Symbol": "QFLR"
+  },
+  {
+    "Company": "Pacer S&P 500 Quality FCF R&D Leaders",
+    "Symbol": "QFRD"
   },
   {
     "Company": "QIAGEN N.V.",
@@ -34706,10 +34690,6 @@
   {
     "Company": "Defiance Nasdaq 100 LightningSpread Income ETF",
     "Symbol": "QLDY"
-  },
-  {
-    "Company": "Qualigen Therapeutics, Inc. Common Stock",
-    "Symbol": "QLGN"
   },
   {
     "Company": "iShares Aaa - A Rated Corporate Bond ETF",
@@ -38068,6 +38048,10 @@
     "Symbol": "SGRT"
   },
   {
+    "Company": "Harbor Active Small Cap Growth ETF",
+    "Symbol": "SGRW"
+  },
+  {
     "Company": "Surgery Partners, Inc. Common Stock",
     "Symbol": "SGRY"
   },
@@ -39918,10 +39902,6 @@
   {
     "Company": "1st Source Corp",
     "Symbol": "SRCE"
-  },
-  {
-    "Company": "Surmodics, Inc. Common Stock",
-    "Symbol": "SRDX"
   },
   {
     "Company": "Sempra",
