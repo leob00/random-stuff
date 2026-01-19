@@ -3,10 +3,11 @@ import { Box } from '@mui/material'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import StaticAutoCompleteFreeSolo from 'components/Atoms/Inputs/StaticAutoCompleteFreeSolo'
 import { DropdownItem } from 'lib/models/dropdown'
-import router from 'next/router'
+import { useRouter } from 'next/navigation'
 import numeral from 'numeral'
 
 const RecipesSearch = ({ autoComplete }: { autoComplete: DropdownItem[] }) => {
+  const router = useRouter()
   const handleSelected = (item: DropdownItem) => {
     if (item.value.includes('tag:')) {
       const split = item.value.split(':')

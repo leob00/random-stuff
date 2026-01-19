@@ -7,7 +7,7 @@ import InternalLink from 'components/Atoms/Buttons/InternalLink'
 import { VeryLightBlueTransparent } from 'components/themes/mainTheme'
 
 const RecipeSmallTeaser = ({ id, item, imageWidth = 380, imageHeight = 430 }: { id: string; item: Recipe; imageWidth?: number; imageHeight?: number }) => {
-  const baseUrl = '/ssg/recipes/'
+  const baseUrl = '/general-interest/recipes/'
   const title = item.title.length > 30 ? `${item.title.substring(0, 25)}...` : item.title
   return (
     <Box px={1} pb={1} sx={{ border: `solid 1px ${VeryLightBlueTransparent}`, borderRadius: '8px' }} minHeight={275}>

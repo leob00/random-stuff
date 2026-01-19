@@ -95,7 +95,7 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'recipes',
-    path: '/ssg/recipes',
+    path: '/general-interest/recipes',
     category: 'General Interest',
   },
   {

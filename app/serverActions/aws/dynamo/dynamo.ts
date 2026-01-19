@@ -1,5 +1,6 @@
 import { DynamoDBClient, GetItemCommand, QueryCommand, PutItemCommand, PutItemCommandInput, DeleteItemCommand, DeleteItemInput } from '@aws-sdk/client-dynamodb'
 import { awsCreds } from 'app/api/aws/awsHelper'
+import { DynamoKeys } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 export type RandomStuffDynamoItem = {
   count?: number
@@ -17,7 +18,7 @@ const db = new DynamoDBClient({
   credentials: awsCreds,
 })
 
-export async function getItem(key: string) {
+export async function getItem(key: DynamoKeys) {
   const emptyResult: RandomStuffDynamoItem = {
     key: key,
     data: '',

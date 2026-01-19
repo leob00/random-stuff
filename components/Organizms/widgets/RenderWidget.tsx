@@ -83,7 +83,7 @@ const RenderWidget = ({ item, revalidateOnFocus = false }: { item: DashboardWidg
           <Box>
             <WidgetWrapper item={item}>
               <FeaturedRecipesWidget width={dimension.width} height={dimension.height} size={item.size} />
-              <WidgetFooter detailsUrl={'/ssg/recipes'} />
+              <WidgetFooter detailsUrl={'/general-interest/recipes'} />
             </WidgetWrapper>
           </Box>
         )}

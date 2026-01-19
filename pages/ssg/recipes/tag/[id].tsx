@@ -67,7 +67,7 @@ const Page: NextPage<PageProps> = (pageProps) => {
     <Box py={2}>
       <Seo pageTitle={`Recipe Category: ${pageProps.id}`} />
       <ResponsiveContainer>
-        <PageHeader text={pageProps.tag ? `Recipe Category: ${pageProps.tag.text}` : ''} backButtonRoute='/ssg/recipes' />
+        <PageHeader text={pageProps.tag ? `Recipe Category: ${pageProps.tag.text}` : ''} backButtonRoute='/general-interest/recipes' />
         <Box pt={2}>
           <Box py={2}>
             <CenterStack>

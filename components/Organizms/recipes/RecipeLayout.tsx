@@ -15,7 +15,7 @@ import RecipeImage from './RecipeImage'
 import Clickable from 'components/Atoms/Containers/Clickable'
 
 const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Recipe; autoComplete?: DropdownItem[]; selectedOption?: DropdownItem }) => {
-  const baseUrl = '/ssg/recipes/'
+  const baseUrl = '/general-interest/recipes/'
   const ret = useSearchParams()?.get('ret')
   const backUrl = ret ? ret : baseUrl
 
