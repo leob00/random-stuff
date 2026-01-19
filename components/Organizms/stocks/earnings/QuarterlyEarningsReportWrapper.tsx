@@ -18,7 +18,7 @@ const QuarterlyEarningsReportWrapper = () => {
       {isLoading && <ComponentLoader />}
       <Box py={2}>
         {!isLoading && data && data.length === 0 && <NoDataFound />}
-        {data && <QuarterlyEarningsReport data={data} mutateKey={mutateKey} />}
+        <QuarterlyEarningsReport data={data ?? []} mutateKey={mutateKey} />
       </Box>
     </>
   )

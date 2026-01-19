@@ -201,7 +201,7 @@ export function getMultiDatasetBarChartOptions(settings: BarchartSettings): Char
   const result: ChartOptions<'bar'> = {
     animation: {
       easing: 'linear',
-      duration: 1000,
+      duration: 1500,
     },
     scales: {
       x: {

@@ -3,16 +3,13 @@ import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import StockTable from '../stocks/StockTable'
 import { Box } from '@mui/material'
-import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import { useRouter } from 'next/navigation'
 
 const CryptosDisplay = ({ data, userProfile }: { data: StockQuote[]; userProfile: UserProfile | null }) => {
   const result = filterCryptos(data)
-  const router = useRouter()
 
   return (
     <Box>
-      <ScrollIntoView />
       <StockTable stockList={result} marketCategory='crypto' showSummary userProfile={userProfile} />
     </Box>
   )

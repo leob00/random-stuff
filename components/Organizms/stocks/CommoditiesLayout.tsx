@@ -27,7 +27,6 @@ const CommoditiesLayout = ({ data }: { data: StockQuote[] }) => {
         <Box py={2}>
           {data && (
             <Box pt={2} width={'100%'}>
-              <ScrollIntoView />
               <StockTable stockList={data} marketCategory='commodities' showSummary userProfile={userProfile} />
             </Box>
           )}

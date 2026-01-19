@@ -100,7 +100,7 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'my stocks',
-    path: '/csr/my-stocks',
+    path: '/market/stocks/my',
     category: 'Stock Market',
   },
   {
@@ -121,7 +121,7 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'earnings report',
-    path: '/csr/stocks/earnings-reports',
+    path: '/market/stocks/earnings/calendar/reports',
     category: 'Stock Market',
     hideFromHomeMenu: true,
   },

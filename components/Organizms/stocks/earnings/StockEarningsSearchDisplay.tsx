@@ -53,7 +53,7 @@ const StockEarningsSearchDisplay = () => {
   return (
     <ResponsiveContainer>
       {isLoading && <BackdropLoader />}
-      <PageHeader text='Earnings Search' backButtonRoute='/csr/my-stocks' />
+      <PageHeader text='Earnings Search' backButtonRoute='/market/stocks/my' />
       <Box py={2} flexDirection={'column'} gap={2} display={'flex'}>
         <SearchBySymbolAccordion isExpanded={isBySymbolExpanded} setIsExpanded={setIsBySymbolExpanded} handelSubmit={handleSearchSubmitSearchBySymbol} />
         <>

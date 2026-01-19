@@ -62,7 +62,6 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
     <>
       {isLoading && <BackdropLoader />}
       <Box sx={{ display: !!selectedQuote ? 'none' : 'unset' }}>
-        <ScrollIntoView />
         <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
           <Box width={{ xs: '90%', md: '60%' }}>
             <Box>

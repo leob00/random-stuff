@@ -13,7 +13,7 @@ const StockMarketMenu = () => {
       item: <ContextMenuAllStocks />,
     },
     {
-      fn: () => router.push('/csr/my-stocks'),
+      fn: () => router.push('/market/stocks/my'),
       item: <ContextMenuMyStocks />,
     },
   ]

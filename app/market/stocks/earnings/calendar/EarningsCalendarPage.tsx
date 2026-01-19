@@ -17,7 +17,7 @@ export default async function EarningsCalendarPage() {
   return (
     <>
       <Box px={1} display={'flex'} pt={1} justifyContent={'space-between'} alignItems={'center'}>
-        <NavigationButton path={'/csr/stocks/earnings-reports'} name={'earnings report'} category='Stock Reports' variant='body2' />
+        <NavigationButton path={'/market/stocks/earnings/calendar/reports'} name={'earnings report'} category='Stock Reports' variant='body2' />
       </Box>
       <Box py={2}>{data && data.length > 0 && <EarningsCalendarDisplay data={data} />}</Box>
     </>
