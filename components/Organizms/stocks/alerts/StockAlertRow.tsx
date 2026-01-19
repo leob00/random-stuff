@@ -11,20 +11,20 @@ import { StockAlertSubscription, StockAlertTrigger, StockQuote } from 'lib/backe
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
 import { deleteRecord } from 'lib/backend/csr/nextApiWrapper'
 import { saveTrigger } from 'lib/ui/alerts/stockAlertHelper'
-import React from 'react'
 import { mutate } from 'swr'
 import StockSubscriptionForm from './StockSubscriptionForm'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { useRouter } from 'next/navigation'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
+import { useState } from 'react'
 dayjs.extend(customParseFormat)
 
 const StockAlertRow = ({ sub, username }: { sub: StockAlertSubscription; username: string }) => {
-  const [editSub, setEditSub] = React.useState<StockAlertSubscription | null>(null)
-  const [quote, setQuote] = React.useState<StockQuote | null>(null)
-  const [error, setError] = React.useState<string | null>(null)
-  const [isLoading, setIsLoading] = React.useState(false)
-  const [showConfirmDelete, setShowConfirmDelete] = React.useState(false)
+  const [editSub, setEditSub] = useState<StockAlertSubscription | null>(null)
+  const [quote, setQuote] = useState<StockQuote | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false)
   const router = useRouter()
 
   const handleEdit = async (item: StockAlertSubscription) => {
@@ -101,16 +101,9 @@ const StockAlertRow = ({ sub, username }: { sub: StockAlertSubscription; usernam
               <ListHeader
                 text={`${sub.company} (${sub.symbol})`}
                 onClicked={() => {
-                  router.push(`/csr/stocks/details/${sub.symbol}?returnUrl=/csr/stocks/alerts`)
+                  router.push(`/csr/stocks/details/${sub.symbol}?returnUrl=/market/stocks/alerts`)
                 }}
               />
-              {/* <Clickable
-                onClicked={() => {
-                  router.push(`/csr/stocks/details/${sub.symbol}?returnUrl=/csr/stocks/alerts`)
-                }}
-              >
-                <Typography variant='h5'>{`${sub.company} (${sub.symbol})`}</Typography>
-              </Clickable> */}
             </Box>
             <Box>
               <ContextMenu items={menuItems} />

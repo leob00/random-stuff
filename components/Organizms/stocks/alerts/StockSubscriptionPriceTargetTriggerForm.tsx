@@ -92,7 +92,7 @@ const StockSubscriptionPriceTargetTriggerForm = ({
           <Box py={2} display={'flex'} gap={2}>
             <PrimaryButton text='save' type='submit' size='small' />
             {showManageAlertsButton && (
-              <Button variant='text' onClick={() => router.push('/csr/stocks/alerts')}>
+              <Button variant='text' onClick={() => router.push('/market/stocks/alerts')}>
                 manage all alerts
               </Button>
             )}

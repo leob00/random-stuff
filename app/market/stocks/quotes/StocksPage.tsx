@@ -1,7 +1,5 @@
 import StocksPageLayout from 'components/Organizms/stocks/StocksPageLayout'
 
-const StockPage = () => {
+export default async function StocksPage() {
   return <StocksPageLayout />
 }
-
-export default StockPage

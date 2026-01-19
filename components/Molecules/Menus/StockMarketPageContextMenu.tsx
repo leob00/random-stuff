@@ -48,8 +48,8 @@ const StockMarketPageContextMenu = () => {
       },
       {
         item: <ContextMenuStockAlerts />,
-        fn: () => router.push('/csr/stocks/alerts'),
-        route: '/csr/stocks/alerts',
+        fn: () => router.push('/market/stocks/alerts'),
+        route: '/market/stocks/alerts',
       },
     ]
     return result.filter((m) => m.route !== pathName)

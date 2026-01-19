@@ -7,7 +7,7 @@ import ControlledSwitch from 'components/Molecules/Forms/ReactHookForm/Controlle
 import { StockAlertTrigger, stockAlertTriggerSchema, StockQuote } from 'lib/backend/api/models/zModels'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import NotificationsIcon from '@mui/icons-material/Notifications'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 const StockSubscriptionDailyMovingAverageTriggerForm = ({
@@ -89,7 +89,7 @@ const StockSubscriptionDailyMovingAverageTriggerForm = ({
           <Box py={2} display={'flex'} gap={2}>
             <PrimaryButton text='save' type='submit' size='small' />
             {showManageAlertsButton && (
-              <Button variant='text' onClick={() => router.push('/csr/stocks/alerts')}>
+              <Button variant='text' onClick={() => router.push('/market/stocks/alerts')}>
                 manage all alerts
               </Button>
             )}

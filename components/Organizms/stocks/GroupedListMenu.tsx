@@ -46,14 +46,6 @@ const GroupedListMenu = ({ onEdit, onShowAsGroup }: { onEdit: () => void; onShow
       item: <ContextMenuAllStocks text={'stocks'} />,
       fn: () => router.push('/market/stocks/quotes'),
     },
-    // {
-    //   item: (
-    //     <>
-    //       <ContextMenuAlert text={'manage alerts'} />
-    //     </>
-    //   ),
-    //   fn: () => router.push('/csr/stocks/alerts'),
-    // },
     {
       item: (
         <>

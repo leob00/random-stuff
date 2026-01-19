@@ -15,7 +15,7 @@ export const myStocksMenu: ContextMenuItem[] = [
         <ContextMenuAlert text='manage alerts' />
       </>
     ),
-    fn: () => router.push('/csr/stocks/alerts'),
+    fn: () => router.push('/market/stocks/alerts'),
   },
   {
     item: (

@@ -1,8 +1,6 @@
 import { Box, Table, TableBody, TableContainer } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
-import PageHeader from 'components/Atoms/Containers/PageHeader'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useAlertsController } from 'hooks/stocks/alerts/useAlertsController'
 import { processAlertTriggers } from 'lib/backend/alerts/stockAlertProcessor'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
@@ -25,7 +23,7 @@ import { RandomStuffDynamoItem } from 'app/serverActions/aws/dynamo/dynamo'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import StockSearch from 'components/Atoms/Inputs/StockSearch'
-import StockMarketPageContextMenu from 'components/Molecules/Menus/StockMarketPageContextMenu'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
   const alertsSearchhKey = constructStockAlertsSubSecondaryKey(userProfile.username)
@@ -159,11 +157,8 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
 
   return (
     <Box py={2}>
-      <PageHeader text='Stock Alerts'>
-        <StockMarketPageContextMenu />
-      </PageHeader>
       {quote && editSub && <StockSubscriptionForm show={true} onClose={handleCloseEditForm} onSave={handleSaveTriger} quote={quote} sub={editSub} />}
-      {isLoading && <BackdropLoader />}
+      {isLoading && <ComponentLoader />}
       {data && (
         <>
           <Box py={2} display={'flex'} justifyContent={'space-between'}>
