@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import StyledRoot from 'components/themes/StyledRoot'
+import { ogImagePath } from 'lib/backend/seo/seoSettings'
 
 export const metadata: Metadata = {
   title: 'Random Stuff',
@@ -8,21 +9,22 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: 'https://random-stuff-seven.vercel.app/images/logo-with-text-blue-small-social.png',
-        height: 600,
-        width: 800,
+        url: ogImagePath,
+        //height: 600,
+        // width: 800,
       },
     ],
     description: 'Recipes, news, stocks, and more',
   },
+
   twitter: {
     title: 'Random Stuff',
     description: 'Recipes, news, stocks, and more',
     images: [
       {
-        url: 'https://random-stuff-seven.vercel.app/images/logo-with-text-blue-small-social.png',
-        height: 600,
-        width: 800,
+        url: ogImagePath,
+        //height: 600,
+        // width: 800,
       },
     ],
     card: 'summary_large_image',

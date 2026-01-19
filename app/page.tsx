@@ -5,6 +5,7 @@ import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import Seo from 'components/Organizms/Seo'
 import HomePage from './HomePage'
 import { Metadata } from 'next'
+import { ogImagePath } from 'lib/backend/seo/seoSettings'
 
 //export const dynamic = 'force-dynamic' // disable cache
 
@@ -14,9 +15,9 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: 'https://random-stuff-seven.vercel.app/images/logo-with-text-blue-small-social.png',
-        height: 600,
-        width: 800,
+        url: ogImagePath,
+        //height: 600,
+        // width: 800,
       },
     ],
     description: 'Recipes, news, stocks, and more',
@@ -26,9 +27,9 @@ export const metadata: Metadata = {
     description: 'Recipes, news, stocks, and more',
     images: [
       {
-        url: 'https://random-stuff-seven.vercel.app/images/logo-with-text-blue-small-social.png',
-        height: 600,
-        width: 800,
+        url: ogImagePath,
+        //height: 600,
+        //width: 800,
       },
     ],
     card: 'summary_large_image',
