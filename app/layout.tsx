@@ -6,12 +6,27 @@ export const metadata: Metadata = {
   title: 'Random Stuff',
   description: 'Recipes, news, stocks, and more',
   openGraph: {
-    images: ['https://random-stuff-seven.vercel.app/images/logo-with-text-blue-small-social.png'],
+    images: [
+      {
+        url: 'https://random-stuff-seven.vercel.app/images/logo-with-text-blue-small-social.png',
+        height: 600,
+        width: 800,
+      },
+    ],
+    description: 'Recipes, news, stocks, and more',
   },
   twitter: {
     title: 'Random Stuff',
     description: 'Recipes, news, stocks, and more',
-    images: ['https://random-stuff-seven.vercel.app/images/logo-with-text-blue-small-social.png'],
+    images: [
+      {
+        url: 'https://random-stuff-seven.vercel.app/images/logo-with-text-blue-small-social.png',
+        height: 600,
+        width: 800,
+      },
+    ],
+    card: 'summary_large_image',
+    site: 'https://random-stuff-seven.vercel.app',
   },
 }
 
