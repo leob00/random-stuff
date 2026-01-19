@@ -22,7 +22,7 @@ const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note
     noteTitles = orderBy(noteTitles, ['dateModified'], ['desc'])
     await putUserNoteTitles(username, noteTitles)
     const now = getUtcNow()
-    const expireDt = now.add(3, 'day')
+    const expireDt = now.add(3, 'day').add(1, 'minute')
     const expireSeconds = Math.floor(expireDt.valueOf() / 1000)
     item.expirationDate = expireDt.format()
     await putUserNote(item, constructUserNoteCategoryKey(username), expireSeconds)
