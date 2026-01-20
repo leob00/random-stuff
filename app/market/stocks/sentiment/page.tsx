@@ -6,7 +6,7 @@ import Seo from 'components/Organizms/Seo'
 import StockMarketPageContextMenu from 'components/Molecules/Menus/StockMarketPageContextMenu'
 import StockSentimentPage from './StockSentimentPage'
 
-//export const dynamic = 'force-dynamic' // disable cache
+export const dynamic = 'force-dynamic' // disable cache
 export default async function Page() {
   return (
     <>
