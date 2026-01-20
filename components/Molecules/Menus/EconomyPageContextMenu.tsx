@@ -18,8 +18,8 @@ const EconomyPageContextMenu = () => {
       },
       {
         item: <ContextMenuIndicators />,
-        route: '/csr/economic-indicators',
-        fn: () => router.push('/csr/economic-indicators'),
+        route: '/economy/indicators',
+        fn: () => router.push('/economy/indicators'),
       },
     ]
     return result.filter((m) => m.route !== pathName)

@@ -16,6 +16,8 @@ import StockSearch from 'components/Atoms/Inputs/StockSearch'
 import FullStockDetail from 'components/Organizms/stocks/FullStockDetail'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
+import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
+import { useViewPortSize } from 'hooks/ui/useViewportSize'
 
 type Tab = 'Recent' | 'Winners' | 'Losers'
 const tabs: TabInfo[] = [
@@ -32,6 +34,7 @@ const tabs: TabInfo[] = [
 ]
 const searchedStocksKey: CategoryType = 'searched-stocks'
 const StocksPageLayout = () => {
+  const { viewPortSize } = useViewPortSize()
   const [selectedTab, setSelectedTab] = useState<Tab>('Recent')
 
   const dataFn = async () => {
@@ -105,6 +108,7 @@ const StocksPageLayout = () => {
       {!selectedStock && <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />}
       {!selectedStock && (
         <>
+          <ScrollIntoView enabled={viewPortSize === 'sm'} margin={-13} />
           {selectedTab === 'Recent' && <Box>{searchedStocks && <CommunityStocksRecentLayout data={searchedStocks} onRefresh={handleRefreshRecent} />}</Box>}
           {selectedTab === 'Winners' && <CommunityStocksWrapper data={winners} onRefresh={handleRefreshRecent} />}
           {selectedTab === 'Losers' && <CommunityStocksWrapper data={losers} onRefresh={handleRefreshRecent} />}

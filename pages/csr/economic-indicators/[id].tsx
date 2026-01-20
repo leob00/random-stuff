@@ -5,6 +5,7 @@ import PageHeader from 'components/Atoms/Containers/PageHeader'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import EconomyPageContextMenu from 'components/Molecules/Menus/EconomyPageContextMenu'
 import EconDataDetails from 'components/Organizms/econ/EconDataDetails'
+
 import Seo from 'components/Organizms/Seo'
 import dayjs from 'dayjs'
 import { useSwrHelper } from 'hooks/useSwrHelper'
@@ -49,7 +50,7 @@ const Page = () => {
     if (ret) {
       router.push(ret)
     } else {
-      router.push('/csr/economic-indicators')
+      router.push('/economy/indicators')
     }
   }
 

@@ -2,14 +2,20 @@ import { Box } from '@mui/material'
 import NavigationButton from 'components/Atoms/Buttons/NavigationButton'
 import EarningsCalendarDisplay from 'components/Organizms/stocks/earnings/EarningsCalendarDisplay'
 import { apiConnection } from 'lib/backend/api/config'
-import { get } from 'lib/backend/api/fetchFunctions'
-import { StockEarning } from 'lib/backend/api/qln/qlnApi'
+import { QlnApiResponse, StockEarning } from 'lib/backend/api/qln/qlnApi'
 
 const getData = async () => {
   const config = apiConnection().qln
   const url = `${config.url}/RecentEarnings`
-  const resp = await get(url)
-  return resp.Body as StockEarning[]
+  const resp = await fetch(url, {
+    next: { revalidate: 1800 }, // Revalidate every 30 minutes
+    headers: {
+      'Content-Type': 'application/json',
+      ApiKey: String(config.key),
+    },
+  })
+  const result = (await resp.json()) as QlnApiResponse
+  return result.Body as StockEarning[]
 }
 
 export default async function EarningsCalendarPage() {

@@ -22,6 +22,7 @@ import SnackbarWarning from 'components/Atoms/Dialogs/SnackbarWarning'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockQuoteSort } from 'lib/backend/api/models/collections'
 import StockSearch from 'components/Atoms/Inputs/StockSearch'
+import { useViewPortSize } from 'hooks/ui/useViewportSize'
 
 export const searchWithinResults = (quotes: StockQuote[], text: string) => {
   const result = quotes.filter(
@@ -173,7 +174,6 @@ const StocksDisplay = ({
 
   return (
     <>
-      <ScrollIntoView enabled={true} margin={-13} />
       {model.successMesage && (
         <SnackbarSuccess
           show={!!model.successMesage}

@@ -32,7 +32,6 @@ const TreasuriesTable = ({ data }: { data: EconomicDataItem[] }) => {
     report.Title = item.Title
     setSelectedItem(report)
     setIsLoading(false)
-    //router.push(`/csr/economic-indicators/${item.InternalId}?startYear=${startYear}&endYear=${endYear}&ret=${encodeURIComponent('/market/treasuries')}`)
   }
   return (
     <Box>

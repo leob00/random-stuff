@@ -52,7 +52,7 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
   }, [pagerModel.page])
 
   const theme = useTheme()
-  const { chart, getPositiveNegativeChartColor } = useMarketColors()
+  const { chart } = useMarketColors()
   const colors = model.results.map((m) => {
     return m.TotalUpPercent >= 50 ? chart.positiveColor : chart.negativeColor
   })

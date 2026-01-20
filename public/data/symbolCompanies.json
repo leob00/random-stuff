@@ -6984,6 +6984,10 @@
     "Symbol": "CALX"
   },
   {
+    "Company": "Callaway Golf Company",
+    "Symbol": "CALY"
+  },
+  {
     "Company": "AB California Intermediate Municipal ETF",
     "Symbol": "CAM"
   },
@@ -12320,10 +12324,6 @@
     "Symbol": "DYAI"
   },
   {
-    "Company": "DT Cloud Acquisition Corporation Right",
-    "Symbol": "DYCQR"
-  },
-  {
     "Company": "IDX Dynamic Fixed Income ETF",
     "Symbol": "DYFI"
   },
@@ -15378,6 +15378,10 @@
   {
     "Company": "FGI Industries Ltd. Ordinary Shares",
     "Symbol": "FGI"
+  },
+  {
+    "Company": "FG Imperii Acquisition Corp. Units",
+    "Symbol": "FGIIU"
   },
   {
     "Company": "FGI Industries Ltd. Warrant",
@@ -21216,6 +21220,10 @@
     "Symbol": "IE"
   },
   {
+    "Company": "Infinite Eagle Acquisition Corp. Unit",
+    "Symbol": "IEAGU"
+  },
+  {
     "Company": "iShares U.S. Consumer Focused ETF",
     "Symbol": "IEDI"
   },
@@ -22248,10 +22256,6 @@
     "Symbol": "IPOD"
   },
   {
-    "Company": "Dune Acquisition Corporation II Units",
-    "Symbol": "IPODU"
-  },
-  {
     "Company": "Dune Acquisition Corporation II Warrants",
     "Symbol": "IPODW"
   },
@@ -22614,6 +22618,10 @@
   {
     "Company": "VanEck Intermediate Muni ETF",
     "Symbol": "ITM"
+  },
+  {
+    "Company": "iTonic Holdings Ltd Class A Ordinary Shares",
+    "Symbol": "ITOC"
   },
   {
     "Company": "Tema International Durable Quality ETF",
@@ -23226,6 +23234,10 @@
   {
     "Company": "MAX Airlines 3x Leveraged ETN",
     "Symbol": "JETU"
+  },
+  {
+    "Company": "J and Friends Holdings Limited American Depositary Shares",
+    "Symbol": "JF"
   },
   {
     "Company": "JFB Construction Holdings Class A Common Stock",
@@ -26118,10 +26130,6 @@
   {
     "Company": "Las Vegas Sands Corp.",
     "Symbol": "LVS"
-  },
-  {
-    "Company": "LAVA Therapeutics N.V. Ordinary Shares",
-    "Symbol": "LVTX"
   },
   {
     "Company": "LiveWire Group, Inc.",
@@ -39568,6 +39576,10 @@
     "Symbol": "SPLB"
   },
   {
+    "Company": "PIMCO US Stocks PLUS Active Bond Exchange-Traded Fund",
+    "Symbol": "SPLS"
+  },
+  {
     "Company": "Invesco S&P 500 Low Volatility ETF",
     "Symbol": "SPLV"
   },
@@ -39922,6 +39934,10 @@
   {
     "Company": "Stoneridge, Inc",
     "Symbol": "SRI"
+  },
+  {
+    "Company": "Spire Inc. 6.375% Junior Subordinated Notes due 2086",
+    "Symbol": "SRJN"
   },
   {
     "Company": "Scully Royalty Ltd. Common Shares",

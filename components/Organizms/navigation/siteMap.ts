@@ -199,7 +199,7 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'indicators',
-    path: '/csr/economic-indicators',
+    path: '/economy/indicators',
     category: 'Economy',
     breadcrumbName: 'economic indicators',
   },

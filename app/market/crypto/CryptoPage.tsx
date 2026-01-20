@@ -1,15 +1,21 @@
 import { Box } from '@mui/material'
 import CryptosDisplay from 'components/Organizms/crypto/CryptosDisplay'
-import CommoditiesLayout from 'components/Organizms/stocks/CommoditiesLayout'
 import { apiConnection } from 'lib/backend/api/config'
-import { get } from 'lib/backend/api/fetchFunctions'
 import { StockQuote } from 'lib/backend/api/models/zModels'
+import { QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
 
 const getData = async () => {
   const config = apiConnection().qln
   const url = `${config.url}/Crypto`
-  const resp = await get(url)
-  const quotes = resp.Body as StockQuote[]
+  const resp = await fetch(url, {
+    next: { revalidate: 1800 }, // Revalidate every 30 minutes
+    headers: {
+      'Content-Type': 'application/json',
+      ApiKey: String(config.key),
+    },
+  })
+  const result = (await resp.json()) as QlnApiResponse
+  const quotes = result.Body as StockQuote[]
   return quotes
 }
 
