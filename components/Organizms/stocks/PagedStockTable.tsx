@@ -38,6 +38,7 @@ const PagedStockTable = ({
   const items = getPagedItems(data)
   const scroller = useScrollTop(0)
   const { userProfile, isValidating } = useProfileValidator()
+
   const handlePaged = (pageNum: number) => {
     if (scrollOnPageChange) {
       scroller.scroll()

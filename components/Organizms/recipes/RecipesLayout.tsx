@@ -6,8 +6,8 @@ import FeaturedRecipesDisplay from './FeaturedRecipesDisplay'
 const RecipesLayout = ({ featured }: { featured: Recipe[] }) => {
   return (
     <Box py={2}>
-      <CenterStack sx={{ pt: 2 }}>
-        <Typography variant='h4'>{'Featured Recipes'}</Typography>
+      <CenterStack sx={{ pb: 1 }}>
+        <Typography variant='h4'>{'Featured'}</Typography>
       </CenterStack>
       <FeaturedRecipesDisplay featured={featured} />
     </Box>

@@ -4,9 +4,9 @@ import CenterStack from 'components/Atoms/CenterStack'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import RecipesLayout from 'components/Organizms/recipes/RecipesLayout'
 import RecipesSearch from 'components/Organizms/recipes/RecipesSearch'
-import Seo from 'components/Organizms/Seo'
 import dayjs from 'dayjs'
 import { SiteStats } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { getRecipeTagOptions } from 'lib/backend/api/cms/contenfulApi'
 import { Recipe, RecipeCollection } from 'lib/models/cms/contentful/recipe'
 import { DropdownItem } from 'lib/models/dropdown'
 import { sortArray } from 'lib/util/collections'
@@ -18,7 +18,6 @@ interface RecipesLayoutModel {
   featured: Recipe[]
 }
 const siteStatsKey = 'site-stats'
-const featuredRecipesExpirationMinutes = 360 // 6 hours
 
 export async function getAllRecipes() {
   const resp = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/recipes`, {
@@ -31,15 +30,16 @@ export async function getAllRecipes() {
 
 export default async function RecipesPage() {
   const allItems = await getAllRecipes()
-  let featured = take(shuffle(allItems), 10)
-
   const statsRep = await getItem(siteStatsKey)
   const stats = JSON.parse(statsRep.data) as SiteStats
+  let featured = take(shuffle(allItems), 10)
+
   const now = getUtcNow()
-  const expirationDate = dayjs(stats.recipes.lastRefreshDate)
-  const needsRefresh = expirationDate.isBefore(now)
+  let lastRefreshDate = dayjs(stats.recipes.lastRefreshDate)
+  const needsRefresh = lastRefreshDate.isBefore(now.subtract(30, 'minutes'))
   if (needsRefresh) {
     const newStats = { ...stats, recipes: { lastRefreshDate: now.format(), featured: featured } }
+    console.log(`featured recipes refreshed - date: ${now.format()}`)
 
     await putItem({
       key: siteStatsKey,
@@ -56,18 +56,20 @@ export default async function RecipesPage() {
   let options: DropdownItem[] = allItems.map((item) => {
     return { value: item.sys.id, text: item.title }
   })
-  options = sortArray(options, ['text'], ['asc'])
+  const recipeTagOptions = await getRecipeTagOptions(allItems)
+
+  let newOptions = [...options, ...recipeTagOptions]
+  newOptions = sortArray(newOptions, ['text'], ['asc'])
+  // options = sortArray(options, ['text'], ['asc'])
 
   const model: RecipesLayoutModel = {
     featured: featured,
-    autoComplete: options,
+    autoComplete: newOptions,
   }
 
   return (
     <>
-      <Seo pageTitle='Recipes' />
       <PageHeader text='Recipes' />
-
       <Box>
         <CenterStack sx={{ pt: 2 }}>
           <RecipesSearch autoComplete={model.autoComplete} />

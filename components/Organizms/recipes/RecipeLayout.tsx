@@ -1,5 +1,5 @@
 'use client'
-import { Box, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { DropdownItem } from 'lib/models/dropdown'
@@ -18,26 +18,32 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
       <PageHeader text={article.title} />
 
       {article.summary && (
-        <Box py={2}>
-          <FadeIn>
-            <Typography textAlign={'center'}>{article.summary}</Typography>
-          </FadeIn>
+        <Box pb={4}>
+          <Typography>{article.summary}</Typography>
         </Box>
       )}
 
-      <Box display={'flex'}>
-        <Clickable
-          onClicked={() => {
-            handleImageClicked(article)
-          }}
-        >
-          <RecipeImage recipe={article} width={220} height={220} />
-        </Clickable>
+      <Box>
+        <Box display={'flex'} flexDirection={{ xs: 'column', sm: 'row' }} gap={{ xs: 2, md: 4, lg: 12 }}>
+          <Box width={{ lg: '40%' }}>
+            <Box>
+              <Box display={'flex'}>
+                <Clickable
+                  onClicked={() => {
+                    handleImageClicked(article)
+                  }}
+                >
+                  <RecipeImage recipe={article} width={220} height={220} />
+                </Clickable>
+              </Box>
+            </Box>
+            <Box py={2}>
+              <RecipeTagsList tags={tags} />
+            </Box>
+          </Box>
+          <Box my={-3}>{documentToReactComponents(article.richBody.json)}</Box>
+        </Box>
       </Box>
-      <Box py={2}>
-        <RecipeTagsList tags={tags} />
-      </Box>
-      <Box px={2}>{documentToReactComponents(article.richBody.json)}</Box>
     </>
   )
 }
