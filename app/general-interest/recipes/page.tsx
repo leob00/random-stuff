@@ -5,6 +5,7 @@ import PageHeader from 'components/Atoms/Containers/PageHeader'
 import RecipesLayout from 'components/Organizms/recipes/RecipesLayout'
 import RecipesSearch from 'components/Organizms/recipes/RecipesSearch'
 import Seo from 'components/Organizms/Seo'
+import dayjs from 'dayjs'
 import { SiteStats } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { Recipe, RecipeCollection } from 'lib/models/cms/contentful/recipe'
 import { DropdownItem } from 'lib/models/dropdown'
@@ -35,10 +36,10 @@ export default async function RecipesPage() {
   const statsRep = await getItem(siteStatsKey)
   const stats = JSON.parse(statsRep.data) as SiteStats
   const now = getUtcNow()
-  const expirationDate = now.add(featuredRecipesExpirationMinutes, 'minute')
+  const expirationDate = dayjs(stats.recipes.lastRefreshDate)
   const needsRefresh = expirationDate.isBefore(now)
   if (needsRefresh) {
-    const newStats = { ...stats, lastRefreshDate: now.format(), featured: featured }
+    const newStats = { ...stats, recipes: { lastRefreshDate: now.format(), featured: featured } }
 
     await putItem({
       key: siteStatsKey,
