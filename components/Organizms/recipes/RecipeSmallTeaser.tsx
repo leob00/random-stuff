@@ -14,14 +14,14 @@ const RecipeSmallTeaser = ({ id, item, imageWidth = 380, imageHeight = 430 }: { 
       <Box pt={2}>
         {item.heroImage && (
           <Box display={'flex'}>
-            <Link href={`${baseUrl}${item.sys.id}?ret=/ssg/recipes/tag/${id}`} component={NLink}>
+            <Link href={`${baseUrl}${item.sys.id}?ret=/general-interest/recipeTags/tag/${id}`} component={NLink}>
               <RecipeImage recipe={item} width={imageWidth} height={imageHeight} />
             </Link>
           </Box>
         )}
       </Box>
       <Box display={'flex'} justifyContent={'center'} maxWidth={imageWidth} textAlign={'center'}>
-        <InternalLink text={title} route={`${baseUrl}${item.sys.id}?ret=/ssg/recipes/tag/${id}`} variant='caption' />
+        <InternalLink text={title} route={`${baseUrl}${item.sys.id}?ret=/general-interest/recipeTags/tag/${id}`} variant='caption' />
       </Box>
     </Box>
   )

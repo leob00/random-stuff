@@ -24,7 +24,7 @@ const RecipeTeaser = ({
   imageHeight?: number
   showTitle?: boolean
 }) => {
-  const baseUrl = '/ssg/recipes/'
+  const baseUrl = '/general-interest/recipes/'
 
   return (
     <Box px={1}>

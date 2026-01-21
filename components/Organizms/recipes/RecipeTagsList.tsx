@@ -1,3 +1,4 @@
+'use client'
 import { Box, Chip, Typography } from '@mui/material'
 import Clickable from 'components/Atoms/Containers/Clickable'
 import { RecipeTag } from 'lib/models/cms/contentful/recipe'
@@ -6,7 +7,7 @@ import { useRouter } from 'next/navigation'
 const RecipeTagsList = ({ tags }: { tags: RecipeTag[] }) => {
   const router = useRouter()
   const handleTagClick = (tag: RecipeTag) => {
-    router.push(`/ssg/recipes/tag/${tag.id}`)
+    router.push(`/general-interest/recipeTags/tag/${tag.id}`)
   }
   return (
     <>

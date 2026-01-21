@@ -10,7 +10,8 @@ import { QlnApiResponse, StockEarning } from 'lib/backend/api/qln/qlnApi'
 
 //export const dynamic = 'force-dynamic' // disable cache
 const config = apiConnection().qln
-const getData = async () => {
+
+export default async function Page() {
   const url = `${config.url}/RecentEarnings`
   const resp = await fetch(url, {
     next: { revalidate: 1800 }, // Revalidate every 30 minutes
@@ -20,11 +21,7 @@ const getData = async () => {
     },
   })
   const result = (await resp.json()) as QlnApiResponse
-  return result.Body as StockEarning[]
-}
-
-export default async function Page() {
-  const data = await getData()
+  const data = result.Body as StockEarning[]
   return (
     <>
       <Seo pageTitle='Earnings Calendar' />

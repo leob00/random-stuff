@@ -3,21 +3,42 @@ import { Box } from '@mui/material'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
-import Seo from 'components/Organizms/Seo'
 import OtherMarketsPageContextMenu from 'components/Molecules/Menus/OtherMarketsPageContextMenu'
 import CryptoPage from './CryptoPage'
+import { apiConnection } from 'lib/backend/api/config'
+import { StockQuote } from 'lib/backend/api/models/zModels'
+import { QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
 
 //export const dynamic = 'force-dynamic' // disable cache
+//export const revalidate = 1800 // Revalidate every 30 minutes
+
+async function getData() {
+  const config = apiConnection().qln
+
+  const url = `${config.url}/Crypto`
+  const resp = await fetch(url, {
+    next: { revalidate: 1800 }, // Revalidate every 30 minutes
+    headers: {
+      'Content-Type': 'application/json',
+      ApiKey: String(config.key),
+    },
+  })
+  const result = (await resp.json()) as QlnApiResponse
+  const data = result.Body as StockQuote[]
+  return data
+}
+
 export default async function Page() {
+  const data = await getData()
+
   return (
     <>
-      <Seo pageTitle='Crypto' />
       <PageHeader text='Crypto'>
         <OtherMarketsPageContextMenu />
       </PageHeader>
       <Box>
         <Suspense fallback={<ComponentLoader />}>
-          <CryptoPage />
+          <CryptoPage data={data} />
         </Suspense>
       </Box>
     </>

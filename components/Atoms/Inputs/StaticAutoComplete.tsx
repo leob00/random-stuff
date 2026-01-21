@@ -1,3 +1,4 @@
+'use client'
 import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, TextField } from '@mui/material'
 import { ChangeEvent, useRef } from 'react'
 import { Option } from 'lib/AutoCompleteOptions'

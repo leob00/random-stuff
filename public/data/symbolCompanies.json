@@ -4976,6 +4976,10 @@
     "Symbol": "BIO"
   },
   {
+    "Company": "Bio-Rad Laboratories, Inc. Class B",
+    "Symbol": "BIO.B"
+  },
+  {
     "Company": "BioAge Labs, Inc. Common Stock",
     "Symbol": "BIOA"
   },
@@ -11130,6 +11134,10 @@
   {
     "Company": "VanEck Digital India ETF",
     "Symbol": "DGIN"
+  },
+  {
+    "Company": "FT Vest U.S. Equity Buffer & Digital Return ETF - January",
+    "Symbol": "DGJA"
   },
   {
     "Company": "First Trust RBA Deglobalization ETF",
@@ -22608,6 +22616,10 @@
     "Symbol": "ITGR"
   },
   {
+    "Company": "ITHAX Acquisition Corp III Class A Ordinary Shares",
+    "Symbol": "ITHA"
+  },
+  {
     "Company": "ITHAX Acquisition Corp III Units",
     "Symbol": "ITHAU"
   },
@@ -31220,7 +31232,7 @@
     "Symbol": "ONDL"
   },
   {
-    "Company": "Ondas Holdings Inc. Common Stock",
+    "Company": "Ondas Inc. Common Stock",
     "Symbol": "ONDS"
   },
   {
@@ -31514,6 +31526,10 @@
   {
     "Company": "Orla Mining Ltd.",
     "Symbol": "ORLA"
+  },
+  {
+    "Company": "Leverage Shares 2X Long ORLY Daily ETF",
+    "Symbol": "ORLG"
   },
   {
     "Company": "O'Reilly Automotive, Inc.",
@@ -32406,6 +32422,10 @@
   {
     "Company": "Invesco Actively Managed Exch-Traded Commodity Fd Tr Invesco Optimum Yield Diversified Commodity Strategy No K-1 ETF",
     "Symbol": "PDBC"
+  },
+  {
+    "Company": "Perpetuals.com Ltd American Depositary Shares",
+    "Symbol": "PDC"
   },
   {
     "Company": "Pearl Diver Credit Company Inc.",
@@ -33700,7 +33720,7 @@
     "Symbol": "PRFD"
   },
   {
-    "Company": "PainReform Ltd. Ordinary Shares",
+    "Company": "PRF Technologies Ltd. Ordinary Shares",
     "Symbol": "PRFX"
   },
   {
@@ -37444,6 +37464,14 @@
     "Symbol": "SCI"
   },
   {
+    "Company": "SC II Acquisition Corp. Class A ordinary share",
+    "Symbol": "SCII"
+  },
+  {
+    "Company": "SC II Acquisition Corp. Rights",
+    "Symbol": "SCIIR"
+  },
+  {
     "Company": "SC II Acquisition Corp. Units",
     "Symbol": "SCIIU"
   },
@@ -39270,14 +39298,6 @@
   {
     "Company": "Sonoco Products Company",
     "Symbol": "SON"
-  },
-  {
-    "Company": "Sonder Holdings Inc. Class A Common Stock",
-    "Symbol": "SOND"
-  },
-  {
-    "Company": "Sonder Holdings Inc. Warrants",
-    "Symbol": "SONDW"
   },
   {
     "Company": "Sonim Technologies, Inc. Common Stock",
@@ -44734,10 +44754,6 @@
   {
     "Company": "Viemed Healthcare, Inc. Common Shares",
     "Symbol": "VMD"
-  },
-  {
-    "Company": "Vimeo, Inc. Common Stock",
-    "Symbol": "VMEO"
   },
   {
     "Company": "Valmont Industries, Inc.",

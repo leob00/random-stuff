@@ -11,9 +11,9 @@ const RecipesSearch = ({ autoComplete }: { autoComplete: DropdownItem[] }) => {
   const handleSelected = (item: DropdownItem) => {
     if (item.value.includes('tag:')) {
       const split = item.value.split(':')
-      router.push(`/ssg/recipes/tag/${split[1]}`)
+      router.push(`/general-interest/recipeTags/tag/${split[1]}`)
     } else {
-      router.push(`/ssg/recipes/${item.value}`)
+      router.push(`/general-interest/recipes/${item.value}`)
     }
   }
   return (
