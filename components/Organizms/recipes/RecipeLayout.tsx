@@ -8,6 +8,8 @@ import RecipeTagsList from './RecipeTagsList'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import RecipeImage from './RecipeImage'
 import Clickable from 'components/Atoms/Containers/Clickable'
+import BorderedBox from 'components/Atoms/Boxes/BorderedBox'
+import ScrollableBoxHorizontal from 'components/Atoms/Containers/ScrollableBoxHorizontal'
 
 const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Recipe; autoComplete?: DropdownItem[]; selectedOption?: DropdownItem }) => {
   const tags = article.recipeTagsCollection.items ?? []
@@ -25,22 +27,25 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
 
       <Box>
         <Box display={'flex'} flexDirection={{ xs: 'column', sm: 'row' }} gap={{ xs: 2, md: 4, lg: 12 }}>
-          <Box width={{ lg: '40%' }}>
+          <Box width={{ md: 400 }}>
             <Box>
-              <Box display={'flex'}>
-                <Clickable
-                  onClicked={() => {
-                    handleImageClicked(article)
-                  }}
-                >
-                  <RecipeImage recipe={article} width={220} height={220} />
-                </Clickable>
+              <Box>
+                <Box display={'flex'}>
+                  <Clickable
+                    onClicked={() => {
+                      handleImageClicked(article)
+                    }}
+                  >
+                    <RecipeImage recipe={article} width={220} height={220} />
+                  </Clickable>
+                </Box>
+              </Box>
+              <Box py={2}>
+                <RecipeTagsList tags={tags} />
               </Box>
             </Box>
-            <Box py={2}>
-              <RecipeTagsList tags={tags} />
-            </Box>
           </Box>
+
           <Box my={-3}>{documentToReactComponents(article.richBody.json)}</Box>
         </Box>
       </Box>

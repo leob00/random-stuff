@@ -17428,7 +17428,7 @@
     "Symbol": "GDL"
   },
   {
-    "Company": "GRAYSCALE DIGITAL LG CAP",
+    "Company": "Grayscale CoinDesk Crypto 5 ETF",
     "Symbol": "GDLC"
   },
   {
@@ -19200,6 +19200,10 @@
     "Symbol": "HAIN"
   },
   {
+    "Company": "Amplify HACK Cybersecurity Covered Call ETF",
+    "Symbol": "HAKY"
+  },
+  {
     "Company": "Halliburton Company",
     "Symbol": "HAL"
   },
@@ -19324,7 +19328,7 @@
     "Symbol": "HBTA"
   },
   {
-    "Company": "Fortuna Hedged Bitcoin Fund",
+    "Company": "Fortuna Hedged Bitcoin ETF",
     "Symbol": "HBTC"
   },
   {
@@ -22264,6 +22268,10 @@
     "Symbol": "IPOD"
   },
   {
+    "Company": "Dune Acquisition Corporation II Units",
+    "Symbol": "IPODU"
+  },
+  {
     "Company": "Dune Acquisition Corporation II Warrants",
     "Symbol": "IPODW"
   },
@@ -22452,6 +22460,10 @@
     "Symbol": "ISBA"
   },
   {
+    "Company": "IncomeSTKd 1x Bitcoin & 1x Gold Premium ETF",
+    "Symbol": "ISBG"
+  },
+  {
     "Company": "iShares Morningstar Small-Cap ETF",
     "Symbol": "ISCB"
   },
@@ -22622,6 +22634,10 @@
   {
     "Company": "ITHAX Acquisition Corp III Units",
     "Symbol": "ITHAU"
+  },
+  {
+    "Company": "ITHAX Acquisition Corp III Warrants",
+    "Symbol": "ITHAW"
   },
   {
     "Company": "Investors Title Co",
@@ -23010,6 +23026,10 @@
   {
     "Company": "Jackson Acquisition Company II",
     "Symbol": "JACS"
+  },
+  {
+    "Company": "Jackson Acquisition Company II Units, each consisting of one Class A ordinary share and one right to acquire one-tenth (1/10) of one Class A ordinary share",
+    "Symbol": "JACS.U"
   },
   {
     "Company": "JPMorgan Active Developing Markets Equity ETF",
@@ -25656,6 +25676,10 @@
     "Symbol": "LNN"
   },
   {
+    "Company": "Defiance Daily Target 2X Long NOK ETF",
+    "Symbol": "LNOK"
+  },
+  {
     "Company": "LENSAR, Inc. Common Stock",
     "Symbol": "LNSR"
   },
@@ -26962,6 +26986,10 @@
   {
     "Company": "Matthews Emerging Markets ex China Active ETF",
     "Symbol": "MEMX"
+  },
+  {
+    "Company": "Tuttle Capital Meme Stock Income Blast ETF",
+    "Symbol": "MEMY"
   },
   {
     "Company": "Jyong Biotech Ltd. Ordinary Shares",
@@ -33192,6 +33220,10 @@
     "Symbol": "PLSE"
   },
   {
+    "Company": "Pulsenmore Ltd. Ordinary Shares",
+    "Symbol": "PLSM"
+  },
+  {
     "Company": "Defiance Leveraged Long Income PLTR ETF",
     "Symbol": "PLT"
   },
@@ -37580,6 +37612,10 @@
     "Symbol": "SCZ"
   },
   {
+    "Company": "Santacruz Silver Mining Ltd. Common Shares",
+    "Symbol": "SCZM"
+  },
+  {
     "Company": "SandRidge Energy, Inc.",
     "Symbol": "SD"
   },
@@ -41834,6 +41870,10 @@
   {
     "Company": "Touchstone International Equity ETF",
     "Symbol": "TLCI"
+  },
+  {
+    "Company": "The Laddered T-Bill ETF",
+    "Symbol": "TLDR"
   },
   {
     "Company": "Tandy Leather Factory, Inc. Common Stock",
@@ -46358,6 +46398,10 @@
   {
     "Company": "WisdomTree True Emerging Markets Fund",
     "Symbol": "XC"
+  },
+  {
+    "Company": "X3 Acquisition Corp. Ltd. Unit",
+    "Symbol": "XCBEU"
   },
   {
     "Company": "BondBloxx CCC-Rated USD High Yield Corporate Bond ETF",

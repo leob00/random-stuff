@@ -16,7 +16,7 @@ import { constructUserNoteCategoryKey } from 'lib/backend/api/aws/util'
 import { getDynamoItemData, putUserNote } from 'lib/backend/csr/nextApiWrapper'
 import { getGuid, weakDecrypt, weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { mutate } from 'swr'
 
 const Page = () => {
@@ -24,7 +24,7 @@ const Page = () => {
   const slug = router.query.slug as string | undefined
   const encId = decodeURIComponent(slug ?? '')
   const id = weakDecrypt(encId)
-  const backRoute = `/protected/csr/notes/${encodeURIComponent(weakEncrypt(id))}`
+  const backRoute = `/personal/notes/${encodeURIComponent(weakEncrypt(id))}`
   const [error, setError] = useState<string | null>(null)
   const { userProfile, isValidating } = useProfileValidator()
   const [showConfirmDeleteViewLink, setShowConfirmDeleteViewLink] = useState(false)

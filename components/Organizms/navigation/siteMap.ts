@@ -217,7 +217,7 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'notes',
-    path: '/protected/csr/notes',
+    path: '/personal/notes',
     category: 'Personal',
     isProtected: true,
   },

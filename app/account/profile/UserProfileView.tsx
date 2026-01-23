@@ -19,8 +19,8 @@ async function getData() {
     ticket: user,
     userProfile: null,
   }
-  if (result.ticket) {
-    result.userProfile = await getItemData<UserProfile>(constructUserProfileKey(result.ticket.email))
+  if (user) {
+    result.userProfile = await getItemData<UserProfile>(constructUserProfileKey(user.email))
     if (result.userProfile) {
       const emailVerAttr = await getSesVerificationAttributes(result.userProfile.username)
       let verified = false
@@ -30,7 +30,9 @@ async function getData() {
             verified = true
           }
         }
-      } catch (err) {}
+      } catch (err) {
+        console.error(`error in UserProfileView: `, err)
+      }
       result.userProfile.emailVerified = verified
     }
   }

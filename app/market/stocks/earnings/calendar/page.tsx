@@ -9,12 +9,13 @@ import { apiConnection } from 'lib/backend/api/config'
 import { QlnApiResponse, StockEarning } from 'lib/backend/api/qln/qlnApi'
 
 //export const dynamic = 'force-dynamic' // disable cache
+export const revalidate = 600 // revalidate every 10 minutes
 const config = apiConnection().qln
 
 export default async function Page() {
   const url = `${config.url}/RecentEarnings`
   const resp = await fetch(url, {
-    next: { revalidate: 1800 }, // Revalidate every 30 minutes
+    next: { revalidate: 600 }, // Revalidate every 10 minutes
     headers: {
       'Content-Type': 'application/json',
       ApiKey: String(config.key),

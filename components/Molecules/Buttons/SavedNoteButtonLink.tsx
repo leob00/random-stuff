@@ -14,7 +14,7 @@ const SavedNoteButtonLink = ({ noteRoute }: { noteRoute: string | null }) => {
           if (noteRoute) {
             router.push(noteRoute)
           } else {
-            router.push('/protected/csr/notes')
+            router.push('/personal/notes')
           }
         }}
       >

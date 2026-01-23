@@ -1,3 +1,4 @@
+'use client'
 import { constructUserNoteTitlesKey } from 'lib/backend/api/aws/util'
 import { getUserNoteTitles } from 'lib/backend/csr/nextApiWrapper'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
@@ -25,7 +26,6 @@ const UserNotesLayout = () => {
 
   return (
     <>
-      <PageHeader text={'Notes'} />
       {isLoading && <ComponentLoader />}
       {!isValidatingProfile && <UserNotesDisplay username={username} noteTitles={data ?? []} />}
     </>

@@ -27,7 +27,7 @@ const SaveToNotesButton = ({ username, note, onSaved }: { username: string; note
     item.expirationDate = expireDt.format()
     await putUserNote(item, constructUserNoteCategoryKey(username), expireSeconds)
     setIsSaved(true)
-    setNoteUrl(`/protected/csr/notes/${encodeURIComponent(weakEncrypt(item.id!))}`)
+    setNoteUrl(`/personal/notes/${encodeURIComponent(weakEncrypt(item.id!))}`)
     onSaved?.(item)
   }
 

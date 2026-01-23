@@ -74,16 +74,6 @@ const MorningSummary = () => {
         <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={{ xs: 'center', md: 'unset' }}>
           <Box>
             <BorderedBox>
-              <CommoditiesSummary />
-            </BorderedBox>
-          </Box>
-          <Box>
-            <BorderedBox>
-              <CryptoSummary />
-            </BorderedBox>
-          </Box>
-          <Box>
-            <BorderedBox>
               <EarningsSummary
                 userProfile={userProfile}
                 data={data?.upcomingEarnings}
@@ -104,6 +94,17 @@ const MorningSummary = () => {
               />
             </BorderedBox>
           </Box>
+          <Box>
+            <BorderedBox>
+              <CommoditiesSummary />
+            </BorderedBox>
+          </Box>
+          <Box>
+            <BorderedBox>
+              <CryptoSummary />
+            </BorderedBox>
+          </Box>
+
           <Box>
             <BorderedBox width={'100%'}>{!isValidatingProfile && <RecentlySearchedStocksSummary userProfile={userProfile} />}</BorderedBox>
           </Box>

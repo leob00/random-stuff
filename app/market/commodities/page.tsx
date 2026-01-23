@@ -7,6 +7,7 @@ import CommoditiesPage from './CommoditiesPage'
 import OtherMarketsPageContextMenu from 'components/Molecules/Menus/OtherMarketsPageContextMenu'
 
 //export const dynamic = 'force-dynamic' // disable cache
+export const revalidate = 600 // revalidate every 10 minutes
 export default async function Page() {
   return (
     <>

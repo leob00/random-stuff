@@ -4,6 +4,7 @@ import { apiConnection } from 'lib/backend/api/config'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
 
+export const revalidate = 600 // revalidate every 10 minutes
 const getData = async () => {
   const config = apiConnection().qln
   const url = `${config.url}/Futures`

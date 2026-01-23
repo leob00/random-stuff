@@ -11,13 +11,13 @@ import { QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
 
 //export const dynamic = 'force-dynamic' // disable cache
 //export const revalidate = 1800 // Revalidate every 30 minutes
-
+export const revalidate = 600 // revalidate every 10 minutes
 async function getData() {
   const config = apiConnection().qln
 
   const url = `${config.url}/Crypto`
   const resp = await fetch(url, {
-    next: { revalidate: 1800 }, // Revalidate every 30 minutes
+    next: { revalidate: 600 }, // Revalidate every 10 minutes
     headers: {
       'Content-Type': 'application/json',
       ApiKey: String(config.key),

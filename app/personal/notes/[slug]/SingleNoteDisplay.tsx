@@ -1,22 +1,18 @@
-import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
+'use client'
+
 import PageHeader from 'components/Atoms/Containers/PageHeader'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import RequireUserProfile from 'components/Organizms/user/RequireUserProfile'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import UserNoteDisplay from 'components/Organizms/user/notes/UserNoteDisplay'
+import RequireUserProfile from 'components/Organizms/user/RequireUserProfile'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { UserNote } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { getUserNote } from 'lib/backend/csr/nextApiWrapper'
 import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { getUtcNow } from 'lib/util/dateUtil'
-import { useRouter } from 'next/router'
 
-const Page = () => {
-  const router = useRouter()
-  const encId = decodeURIComponent(router.query.id as string)
-  const isEdit = router.query['edit']
+const SingleNoteDisplay = ({ noteId }: { noteId: string }) => {
+  const encId = decodeURIComponent(noteId)
   const id = weakDecrypt(encId)
-  const backRoute = '/protected/csr/notes'
-
   const dataFn = async () => {
     const note = await getUserNote(id)
     if (note === null) {
@@ -33,16 +29,13 @@ const Page = () => {
     return note
   }
   const { data, isLoading } = useSwrHelper(id, dataFn, { revalidateOnFocus: false })
-
   return (
     <>
-      {isLoading && <BackdropLoader />}
-      <ResponsiveContainer>
-        <PageHeader text={data?.title ?? ''} backButtonRoute={backRoute} forceShowBackButton />
-        <RequireUserProfile>{data && <UserNoteDisplay id={id} data={data} isEdit={!!isEdit} backRoute={backRoute} />}</RequireUserProfile>
-      </ResponsiveContainer>
+      <PageHeader text={data?.title ?? ''} />
+      {isLoading && <ComponentLoader />}
+      <RequireUserProfile>{data && <UserNoteDisplay id={id} data={data} isEdit={false} backRoute={'/personal/notes'} />}</RequireUserProfile>
     </>
   )
 }
 
-export default Page
+export default SingleNoteDisplay

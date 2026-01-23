@@ -11,8 +11,8 @@ const RecipeTagsList = ({ tags }: { tags: RecipeTag[] }) => {
   }
   return (
     <>
-      <Box display={'flex'} gap={2} flexWrap={'wrap'} alignItems={'center'}>
-        {tags.length > 0 && <Typography variant={'body2'} color={'primary'}>{`tags:`}</Typography>}
+      <Box display={'flex'} gap={2} flexDirection={'column'}>
+        {tags.length > 0 && <Typography variant={'body2'} color={'primary'}>{`tags`}</Typography>}
         {tags.map((tag) => (
           <Box key={tag.id}>
             <Clickable
@@ -20,7 +20,7 @@ const RecipeTagsList = ({ tags }: { tags: RecipeTag[] }) => {
                 handleTagClick(tag)
               }}
             >
-              <Chip variant='outlined' label={tag.name.length > 50 ? `${tag.name.substring(0, 35)}...` : tag.name} />
+              <Chip variant='outlined' color='primary' label={tag.name.length > 50 ? `${tag.name.substring(0, 35)}...` : tag.name} />
             </Clickable>
           </Box>
         ))}
