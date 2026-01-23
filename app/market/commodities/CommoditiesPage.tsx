@@ -9,7 +9,6 @@ const getData = async () => {
   const config = apiConnection().qln
   const url = `${config.url}/Futures`
   const resp = await fetch(url, {
-    next: { revalidate: 600 }, // Revalidate every 10 minutes
     headers: {
       'Content-Type': 'application/json',
       ApiKey: String(config.key),

@@ -17,7 +17,6 @@ async function getData() {
 
   const url = `${config.url}/Crypto`
   const resp = await fetch(url, {
-    next: { revalidate: 600 }, // Revalidate every 10 minutes
     headers: {
       'Content-Type': 'application/json',
       ApiKey: String(config.key),

@@ -328,7 +328,7 @@
     "Symbol": "ACB"
   },
   {
-    "Company": "Acco Group Holdings Limited Ordinary Shares",
+    "Company": "Acco Group Holdings Limited Class A Ordinary Shares",
     "Symbol": "ACCL"
   },
   {
@@ -1632,6 +1632,10 @@
     "Symbol": "ALOT"
   },
   {
+    "Company": "Aldabra 4 Liquidity Opportunity Vehicle, Inc. Units",
+    "Symbol": "ALOVU"
+  },
+  {
     "Company": "ALPS Group Inc Ordinary Share",
     "Symbol": "ALPS"
   },
@@ -2318,6 +2322,10 @@
   {
     "Company": "YieldMax AAPL Option Income Strategy ETF",
     "Symbol": "APLY"
+  },
+  {
+    "Company": "Tradr 2X Short APLD Daily ETF",
+    "Symbol": "APLZ"
   },
   {
     "Company": "Aptorum Group Limited Class A Ordinary Shares",
@@ -5204,11 +5212,11 @@
     "Symbol": "BKIE"
   },
   {
-    "Company": "Bakkt Holdings, Inc.",
+    "Company": "Bakkt, Inc.",
     "Symbol": "BKKT"
   },
   {
-    "Company": "Bakkt Holdings, Inc Warrants to purchase Class A Common Stock Each Warrant entitles to purchase 1/25th of a share of Class A common stock at an exercise price of $287.50 for one share of Class A Common Stock",
+    "Company": "Bakkt, Inc. Warrants to purchase Class A Common Stock Each Warrant entitles to purchase 1/25th of a share of Class A common stock at an exercise price of $287.50 for one share of Class A Common Stock",
     "Symbol": "BKKT.WS"
   },
   {
@@ -5892,6 +5900,10 @@
     "Symbol": "BPRN"
   },
   {
+    "Company": "Bitwise Proficio Currency Debasement ETF",
+    "Symbol": "BPRO"
+  },
+  {
     "Company": "Brookfield Property Partners L.P. 6.25% Class A Cumulative Redeemable Preferred Units, Series 1",
     "Symbol": "BPYPM"
   },
@@ -6414,6 +6426,10 @@
   {
     "Company": "Tidal Trust II STKd 100% Bitcoin & 100% Gold ETF",
     "Symbol": "BTGD"
+  },
+  {
+    "Company": "BitGo Holdings, Inc.",
+    "Symbol": "BTGO"
   },
   {
     "Company": "British American Tobacco p.l.c. American Depositary Shares, American Depositary Shares, each representing one Ordinary Share",
@@ -22400,6 +22416,10 @@
     "Symbol": "IREX"
   },
   {
+    "Company": "Tradr 2X Short IREN Daily ETF",
+    "Symbol": "IREZ"
+  },
+  {
     "Company": "Iron Horse Acquisitions II Corp. Units",
     "Symbol": "IRHOU"
   },
@@ -22542,6 +22562,10 @@
   {
     "Company": "Israel Acquisitions Corp Warrant",
     "Symbol": "ISRLW"
+  },
+  {
+    "Company": "IncomeSTKd 1x US Stocks & 1x Bitcoin Premium ETF",
+    "Symbol": "ISSB"
   },
   {
     "Company": "Innovative Solutions & Support",
@@ -28820,7 +28844,7 @@
     "Symbol": "NAK"
   },
   {
-    "Company": "Kindly MD, Inc. Common Stock",
+    "Company": "Nakamoto Inc. Common Stock",
     "Symbol": "NAKA"
   },
   {
@@ -28966,6 +28990,10 @@
   {
     "Company": "Neurocrine Biosciences Inc",
     "Symbol": "NBIX"
+  },
+  {
+    "Company": "Tradr 2X Short NBIS Daily ETF",
+    "Symbol": "NBIZ"
   },
   {
     "Company": "Neuberger Japan Equity ETF",
@@ -31138,6 +31166,10 @@
   {
     "Company": "Olin Corp.",
     "Symbol": "OLN"
+  },
+  {
+    "Company": "Olenox Industries Inc. Common Stock",
+    "Symbol": "OLOX"
   },
   {
     "Company": "One Liberty Properties, Inc.",
@@ -35164,6 +35196,10 @@
     "Symbol": "QWLD"
   },
   {
+    "Company": "Quantify 2X Daily Alt Season Crypto ETF",
+    "Symbol": "QXAS"
+  },
+  {
     "Company": "QXO, Inc.",
     "Symbol": "QXO"
   },
@@ -36138,6 +36174,10 @@
   {
     "Company": "Defiance Daily Target 2x Short RKLB ETF",
     "Symbol": "RKLZ"
+  },
+  {
+    "Company": "Defiance Retail Kings ETF",
+    "Symbol": "RKNG"
   },
   {
     "Company": "Rocket Companies, Inc.",
@@ -41482,6 +41522,10 @@
   {
     "Company": "Direxion Daily Energy Top 5 Bull 2X ETF",
     "Symbol": "TEXU"
+  },
+  {
+    "Company": "Horizon Kinetics Texas ETF",
+    "Symbol": "TEXX"
   },
   {
     "Company": "Truist Financial Corporation",
@@ -47492,7 +47536,7 @@
     "Symbol": "ZD"
   },
   {
-    "Company": "DirectBooking Technology Co., Ltd. Ordinary Shares",
+    "Company": "DirectBooking Technology Co., Ltd. Class A Ordinary Shares",
     "Symbol": "ZDAI"
   },
   {
