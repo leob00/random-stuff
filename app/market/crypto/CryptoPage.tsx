@@ -1,11 +1,11 @@
 import { Box } from '@mui/material'
-import CryptosDisplay from 'components/Organizms/crypto/CryptosDisplay'
-import { StockQuote } from 'lib/backend/api/models/zModels'
 
-export default async function CryptoPage({ data }: { data: StockQuote[] }) {
+import CryptosLayout from './CryptosLayout'
+
+export default async function CryptoPage() {
   return (
     <Box>
-      <Box>{data && <CryptosDisplay data={data} userProfile={null} />}</Box>
+      <CryptosLayout />
     </Box>
   )
 }

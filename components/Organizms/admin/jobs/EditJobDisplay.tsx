@@ -62,9 +62,9 @@ const EditJobDisplay = ({ data, onSave }: { data: Job; onSave: (item: Job) => vo
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Box display={'flex'} alignItems={'center'} flexDirection={'row'} gap={1} py={4} justifyContent={'center'}>
+        <Box display={'flex'} alignItems={'center'} py={4} justifyContent={'center'}>
           <Box display={'flex'} alignItems={'center'} flexDirection={'column'} gap={4}>
-            <Box>
+            <Box width={350}>
               <Controller
                 name={'status'}
                 control={control}
@@ -75,12 +75,13 @@ const EditJobDisplay = ({ data, onSave }: { data: Job; onSave: (item: Job) => vo
                     options={jobStatusoptions}
                     value={formValues.status}
                     onOptionSelected={onChange}
+                    fullWidth
                     {...field}
                   />
                 )}
               ></Controller>
             </Box>
-            <Box>
+            <Box width={350}>
               <Controller
                 name={'nextRunDate'}
                 control={control}

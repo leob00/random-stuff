@@ -1,9 +1,11 @@
+'use client'
 import { Box } from '@mui/material'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import { StockEarning, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import EarningsCalendarDisplay from './earnings/EarningsCalendarDisplay'
 import { useSwrHelper } from 'hooks/useSwrHelper'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const EarningsCalendarLayout = () => {
   const mutateKey = 'RecentEarnings'
@@ -16,7 +18,7 @@ const EarningsCalendarLayout = () => {
 
   return (
     <Box py={2}>
-      {isLoading && <BackdropLoader />}
+      {isLoading && <ComponentLoader pt={8} />}
       {!isLoading && data && data.length === 0 && <NoDataFound />}
       {data && data.length > 0 && <EarningsCalendarDisplay data={data} />}
     </Box>

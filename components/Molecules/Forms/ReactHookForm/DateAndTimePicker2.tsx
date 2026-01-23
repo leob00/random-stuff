@@ -34,7 +34,7 @@ const DateAndTimePicker2 = forwardRef<HTMLInputElement, Props>(function DateAndT
   }
 
   return (
-    <Box display={'flex'} alignItems={'center'} gap={1}>
+    <Box>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DateTimePicker
           label={label}
@@ -54,6 +54,8 @@ const DateAndTimePicker2 = forwardRef<HTMLInputElement, Props>(function DateAndT
               error: !!errorMessage,
               helperText: errorMessage,
               autoCorrect: 'off',
+              fullWidth: true,
+              sx: { width: '100%' }, // Alternative for specific width control
             },
           }}
         />

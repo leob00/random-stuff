@@ -11,25 +11,9 @@ import { QlnApiResponse } from 'lib/backend/api/qln/qlnApi'
 
 //export const dynamic = 'force-dynamic' // disable cache
 //export const revalidate = 1800 // Revalidate every 30 minutes
-export const revalidate = 600 // revalidate every 10 minutes
-async function getData() {
-  const config = apiConnection().qln
-
-  const url = `${config.url}/Crypto`
-  const resp = await fetch(url, {
-    headers: {
-      'Content-Type': 'application/json',
-      ApiKey: String(config.key),
-    },
-  })
-  const result = (await resp.json()) as QlnApiResponse
-  const data = result.Body as StockQuote[]
-  return data
-}
+//export const revalidate = 600 // revalidate every 10 minutes
 
 export default async function Page() {
-  const data = await getData()
-
   return (
     <>
       <PageHeader text='Crypto'>
@@ -37,7 +21,7 @@ export default async function Page() {
       </PageHeader>
       <Box>
         <Suspense fallback={<ComponentLoader />}>
-          <CryptoPage data={data} />
+          <CryptoPage />
         </Suspense>
       </Box>
     </>
