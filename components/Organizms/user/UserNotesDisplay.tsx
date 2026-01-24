@@ -19,7 +19,7 @@ const UserNotesDisplay = ({ noteTitles, username }: { noteTitles: UserNote[]; us
   const [model] = useReducer(notesReducer, defaultModel)
 
   const handleAddNote = async () => {
-    router.push(`/personal/notes/${encodeURIComponent(weakEncrypt(constructUserNotePrimaryKey(username)))}?edit=true`)
+    router.push(`/personal/notes/${encodeURIComponent(weakEncrypt(constructUserNotePrimaryKey(username)))}/edit`)
   }
 
   const handleNoteTitleClick = async (item: UserNote) => {

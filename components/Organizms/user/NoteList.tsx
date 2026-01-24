@@ -1,5 +1,4 @@
 import { Box, Button, Stack, Typography } from '@mui/material'
-import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
@@ -64,39 +63,37 @@ const NoteList = ({ data, onClicked, onAddNote }: { data: UserNote[]; onClicked:
         <Box minHeight={300}>
           {pagedItems.map((item, i) => (
             <Box key={item.id}>
-              <FadeIn>
-                <Box>
-                  <Stack py={1}>
-                    <Button
-                      fullWidth
-                      onClick={() => {
-                        handleNoteTitleClick(item)
-                      }}
-                    >
-                      <Typography py={1} textAlign={'left'} width={'inherit'} variant='h5'>
-                        {item.title}
-                      </Typography>
-                    </Button>
-                    {item.files && item.files.length > 0 && (
-                      <Box display={'flex'} gap={1} alignItems={'center'}>
-                        <Box>
-                          <Typography variant='body2' pt={1} pl={1}>
-                            <AttachFileIcon fontSize='inherit' />
-                          </Typography>
-                        </Box>
-                        <Box>
-                          <Typography variant='caption'>{`files: ${item.files.length}`}</Typography>
-                        </Box>
+              <Box>
+                <Stack py={1}>
+                  <Button
+                    fullWidth
+                    onClick={() => {
+                      handleNoteTitleClick(item)
+                    }}
+                  >
+                    <Typography py={1} textAlign={'left'} width={'inherit'} variant='h5'>
+                      {item.title}
+                    </Typography>
+                  </Button>
+                  {item.files && item.files.length > 0 && (
+                    <Box display={'flex'} gap={1} alignItems={'center'}>
+                      <Box>
+                        <Typography variant='body2' pt={1} pl={1}>
+                          <AttachFileIcon fontSize='inherit' />
+                        </Typography>
                       </Box>
-                    )}
-                  </Stack>
+                      <Box>
+                        <Typography variant='caption'>{`files: ${item.files.length}`}</Typography>
+                      </Box>
+                    </Box>
+                  )}
+                </Stack>
+              </Box>
+              {item.expirationDate && (
+                <Box display={'flex'} justifyContent={'flex-end'} gap={1} alignItems={'center'}>
+                  <RecordExpirationWarning expirationDate={item.expirationDate} />
                 </Box>
-                {item.expirationDate && (
-                  <Box display={'flex'} justifyContent={'flex-end'} gap={1} alignItems={'center'}>
-                    <RecordExpirationWarning expirationDate={item.expirationDate} />
-                  </Box>
-                )}
-              </FadeIn>
+              )}
               {i < pagedItems.length - 1 && <HorizontalDivider />}
             </Box>
           ))}

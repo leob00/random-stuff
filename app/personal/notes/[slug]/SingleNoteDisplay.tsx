@@ -10,7 +10,7 @@ import { getUserNote } from 'lib/backend/csr/nextApiWrapper'
 import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { getUtcNow } from 'lib/util/dateUtil'
 
-const SingleNoteDisplay = ({ noteId }: { noteId: string }) => {
+const SingleNoteDisplay = ({ noteId, edit }: { noteId: string; edit: boolean }) => {
   const encId = decodeURIComponent(noteId)
   const id = weakDecrypt(encId)
   const dataFn = async () => {
@@ -33,7 +33,7 @@ const SingleNoteDisplay = ({ noteId }: { noteId: string }) => {
     <>
       <PageHeader text={data?.title ?? ''} />
       {isLoading && <ComponentLoader />}
-      <RequireUserProfile>{data && <UserNoteDisplay id={id} data={data} isEdit={false} backRoute={'/personal/notes'} />}</RequireUserProfile>
+      <RequireUserProfile>{data && <UserNoteDisplay id={id} data={data} isEdit={edit} backRoute={'/personal/notes'} />}</RequireUserProfile>
     </>
   )
 }
