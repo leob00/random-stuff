@@ -1,11 +1,10 @@
 import { Box } from '@mui/material'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
-import QlnUsernameLoginForm from 'components/Molecules/Forms/Login/QlnUsernameLoginForm'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import dayjs from 'dayjs'
 import { mapRolesToClaims } from 'hooks/auth/authHelper'
 import { useUserController } from 'hooks/userController'
-import { Claim, ClaimType, getUserCSR } from 'lib/backend/auth/userUtil'
+import { Claim, getUserCSR } from 'lib/backend/auth/userUtil'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { ReactNode, useEffect, useState } from 'react'
@@ -96,7 +95,7 @@ const RequireClaim = ({ claimType, children }: { claimType: 'rs' | 'rs-admin'; c
 
   return (
     <>
-      {isValidating && <BackdropLoader />}
+      {isValidating && <ComponentLoader />}
       {!isValidating && <>{validatedClaim ? <>{children}</> : RenderChallenge()}</>}
     </>
   )

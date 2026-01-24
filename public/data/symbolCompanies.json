@@ -3496,6 +3496,10 @@
     "Symbol": "AVRE"
   },
   {
+    "Company": "Avory Foundational ETF",
+    "Symbol": "AVRY"
+  },
+  {
     "Company": "Direxion Daily AVGO Bear 1X Shares",
     "Symbol": "AVS"
   },
@@ -17480,6 +17484,10 @@
     "Symbol": "GDS"
   },
   {
+    "Company": "WisdomTree Efficient TIPS Plus Gold Fund",
+    "Symbol": "GDT"
+  },
+  {
     "Company": "CytoMed Therapeutics Limited Ordinary Shares",
     "Symbol": "GDTC"
   },
@@ -25052,6 +25060,10 @@
     "Symbol": "LCII"
   },
   {
+    "Company": "Tradr 2X Short LCID Daily ETF",
+    "Symbol": "LCIZ"
+  },
+  {
     "Company": "Logan Capital Broad Innovative Growth ETF",
     "Symbol": "LCLG"
   },
@@ -26536,14 +26548,6 @@
     "Symbol": "MAXN"
   },
   {
-    "Company": "Maywood Acquisition Corp. Class A Ordinary Shares",
-    "Symbol": "MAYA"
-  },
-  {
-    "Company": "Maywood Acquisition Corp. Right",
-    "Symbol": "MAYAR"
-  },
-  {
     "Company": "FT Vest U.S. Equity Max Buffer ETF - May",
     "Symbol": "MAYM"
   },
@@ -27026,10 +27030,6 @@
   {
     "Company": "Mercer International Inc",
     "Symbol": "MERC"
-  },
-  {
-    "Company": "Mesa Air Group, Inc. Common Stock",
-    "Symbol": "MESA"
   },
   {
     "Company": "Meshflow Acquisition Corp. Units",
@@ -29278,10 +29278,6 @@
   {
     "Company": "Nabors Energy Transition Corp. II Class A Ordinary Shares",
     "Symbol": "NETD"
-  },
-  {
-    "Company": "Nabors Energy Transition Corp. II Unit",
-    "Symbol": "NETDU"
   },
   {
     "Company": "Nabors Energy Transition Corp. II Warrant",
@@ -33042,10 +33038,6 @@
   {
     "Company": "Invesco India ETF",
     "Symbol": "PIN"
-  },
-  {
-    "Company": "Premier, Inc. Class A",
-    "Symbol": "PINC"
   },
   {
     "Company": "Alpine Income Property Trust, Inc",
@@ -41298,6 +41290,10 @@
   {
     "Company": "Teladoc Health, Inc.",
     "Symbol": "TDOC"
+  },
+  {
+    "Company": "21Shares Dogecoin ETF Common Shares of Beneficial Interest",
+    "Symbol": "TDOG"
   },
   {
     "Company": "Telephone and Data Systems Inc.",

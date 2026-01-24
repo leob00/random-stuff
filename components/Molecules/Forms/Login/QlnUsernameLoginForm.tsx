@@ -6,15 +6,14 @@ import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { Claim, QlnUser } from 'lib/backend/auth/userUtil'
 import dayjs from 'dayjs'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
-import { useRouter } from 'next/router'
 import { useState } from 'react'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
-const QlnUsernameLoginForm = ({ onSuccess }: { onSuccess: (claims: Claim[]) => void }) => {
+const QlnUsernameLoginForm = ({ onSuccess, onClose }: { onSuccess: (claims: Claim[]) => void; onClose?: () => void }) => {
   const [loginError, setLoginError] = useState<string | undefined>(undefined)
   const [showLoginSuccess, setShowLoginSuccess] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const { claims, saveClaims } = useSessionStore()
-  const router = useRouter()
 
   const handleSubmitLogin = async (data: UsernameLogin) => {
     setIsLoading(true)
@@ -48,8 +47,14 @@ const QlnUsernameLoginForm = ({ onSuccess }: { onSuccess: (claims: Claim[]) => v
   }
   return (
     <>
-      {isLoading && <BackdropLoader />}
-      <FormDialog show={!showLoginSuccess} title={'Log in'} onCancel={() => router.push('/protected/csr/dashboard')}>
+      {isLoading && <ComponentLoader />}
+      <FormDialog
+        show={!showLoginSuccess}
+        title={'Log in'}
+        onCancel={() => {
+          onClose?.()
+        }}
+      >
         <LoginUsernameForm onSubmitted={handleSubmitLogin} title={'Admin Login'} error={loginError} isLoading={isLoading} />
       </FormDialog>
       {showLoginSuccess && (

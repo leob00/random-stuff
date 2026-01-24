@@ -270,7 +270,7 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'admin',
-    path: '/protected/csr/admin',
+    path: '/admin',
     category: 'Admin',
     isProtected: true,
   },

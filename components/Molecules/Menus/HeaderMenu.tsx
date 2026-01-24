@@ -72,7 +72,7 @@ const HeaderMenu = ({
       menuItems.push({
         item: <ContextMenuAdmin />,
         fn: () => {
-          router.push('/protected/csr/admin')
+          router.push('/admin')
         },
       })
     }

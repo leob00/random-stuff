@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import { Job } from 'lib/backend/api/qln/qlnApi'
 import numeral from 'numeral'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import CopyableText from 'components/Atoms/Text/CopyableText'
 import JobPerformanceLineChart from './JobPerformanceLineChart'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
@@ -13,7 +13,7 @@ const JobDetails = ({ item }: { item: Job }) => {
   const router = useRouter()
 
   const handleManageClick = () => {
-    router.push(`/protected/csr/admin/job/edit/${item.Name}`)
+    router.push(`/admin/job/edit/${item.Name}`)
   }
 
   const keyValues = new Map<string, string>()

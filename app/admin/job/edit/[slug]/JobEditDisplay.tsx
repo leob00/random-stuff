@@ -1,20 +1,19 @@
+'use client'
 import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import BackButton from 'components/Atoms/Buttons/BackButton'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import ManageJobLayout from 'components/Organizms/admin/jobs/ManageJobLayout'
 import RequireClaim from 'components/Organizms/user/RequireClaim'
 import { usePolling } from 'hooks/usePolling'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { Job, QlnApiRequest, serverGetFetch, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
-import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { mutate } from 'swr'
 
-const Page = () => {
-  const router = useRouter()
-  const id = router.query.slug as string
+const JobEditDisplay = ({ id }: { id: string }) => {
   const { claims } = useSessionStore()
   let claim = claims.find((m) => m.type === 'qln')
   const mutateKey = `/job/edit/${id}`
@@ -44,13 +43,11 @@ const Page = () => {
 
   return (
     <RequireClaim claimType='rs-admin'>
-      <ResponsiveContainer>
-        <BackButton route='/protected/csr/admin' />
-        {isLoading && !data && <BackdropLoader />}
-        <Box minHeight={500}>{data && <ManageJobLayout data={data} onSave={onSave} />}</Box>
-      </ResponsiveContainer>
+      <BackButton route='/admin' />
+      {isLoading && !data && <ComponentLoader />}
+      <Box minHeight={500}>{data && <ManageJobLayout data={data} onSave={onSave} />}</Box>
     </RequireClaim>
   )
 }
 
-export default Page
+export default JobEditDisplay
