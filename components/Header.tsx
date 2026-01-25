@@ -10,6 +10,7 @@ import { useUserController } from 'hooks/userController'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
 import { getTheme } from './themes/StyledRoot'
 import SiteLink from './app/server/Atoms/Links/SiteLink'
+import HideOnScroll from './themes/HideOnScroll'
 
 const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; onSetColorMode: () => void }) => {
   const [elevationEffect, setElevationEffect] = useState(false)
@@ -47,29 +48,33 @@ const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; 
   }, [ticket])
 
   return (
-    <AppBar component='nav' sx={{ zIndex: theme.zIndex.drawer + 1 }} position={'sticky'} elevation={elevationEffect ? 6 : 0}>
-      <GradientContainer>
-        <DarkMode>
-          <Toolbar>
-            <Container sx={{ py: 1, maxWidth: { xl: 1600, lg: 1400 } }}>
-              <Box display={'flex'} justifyContent={'space-between'}>
-                <Box display='flex' gap={{ xs: 1, sm: 2 }} alignItems={'center'}>
-                  <NLink href='/' passHref>
-                    <StaticImage image={'/images/logo-with-text-blue-small.png'} title='random things' width={120} height={60} priority />
-                  </NLink>
-                  <SiteLink href='/' text='home' />
-                </Box>
-                <Box pt={'12px'}>
-                  <Box display={'flex'} justifyContent={'flex-end'} flexDirection={'row-reverse'}>
-                    <UserPanel palette={colorTheme} onChangePalette={handleChangeLightMode} />
+    <>
+      <HideOnScroll>
+        <AppBar component='nav' sx={{ zIndex: theme.zIndex.drawer + 1 }} position={'sticky'} elevation={elevationEffect ? 6 : 0}>
+          <GradientContainer>
+            <DarkMode>
+              <Toolbar>
+                <Container sx={{ py: 1, maxWidth: { xl: 1600, lg: 1400 } }}>
+                  <Box display={'flex'} justifyContent={'space-between'}>
+                    <Box display='flex' gap={{ xs: 1, sm: 2 }} alignItems={'center'}>
+                      <NLink href='/' passHref>
+                        <StaticImage image={'/images/logo-with-text-blue-small.png'} title='random things' width={120} height={60} priority />
+                      </NLink>
+                      <SiteLink href='/' text='home' />
+                    </Box>
+                    <Box pt={'12px'}>
+                      <Box display={'flex'} justifyContent={'flex-end'} flexDirection={'row-reverse'}>
+                        <UserPanel palette={colorTheme} onChangePalette={handleChangeLightMode} />
+                      </Box>
+                    </Box>
                   </Box>
-                </Box>
-              </Box>
-            </Container>
-          </Toolbar>
-        </DarkMode>
-      </GradientContainer>
-    </AppBar>
+                </Container>
+              </Toolbar>
+            </DarkMode>
+          </GradientContainer>
+        </AppBar>
+      </HideOnScroll>
+    </>
   )
 }
 

@@ -12,6 +12,7 @@ import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
+import HideOnScroll from './HideOnScroll'
 
 export const getTheme = (mode: 'light' | 'dark') => {
   return mode === 'dark' ? darkTheme : mainTheme
@@ -42,7 +43,9 @@ const StyledRoot = ({ children }: { children: ReactNode }) => {
       {!isLoading && (
         <ThemeProvider theme={theme}>
           <CssBaseline />
+
           <Header onSetColorMode={handleChangeColorMode} colorTheme={palette} />
+
           <AppRouteTracker>
             <Container sx={{ marginTop: 2, minHeight: 760, paddingBottom: 4, maxWidth: { xl: 1600, lg: 1400 } }}>{children}</Container>
           </AppRouteTracker>

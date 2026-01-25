@@ -12,7 +12,7 @@ import { AuthUser, signOut as amplifySignOut, fetchUserAttributes } from 'aws-am
 import { Hub } from 'aws-amplify/utils'
 import { useRouteTracker } from './Organizms/session/useRouteTracker'
 import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { postBody } from 'lib/backend/api/fetchFunctions'
 
 export type HubPayload = {
@@ -33,6 +33,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
       console.error(err)
     }
   }
+  const pathName = usePathname()
 
   const handleAuthEvent = async (payload: HubPayload) => {
     const newClaims = claims.filter((m) => m.type !== 'rs')
@@ -41,7 +42,7 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
         await setTicket(null)
         await setProfile(null)
         saveClaims([])
-        router.push(`/login?ret=${encodeURIComponent(lastRoute)}`)
+        router.push(`/login`)
         break
       case 'signedIn':
         if (ticket) {

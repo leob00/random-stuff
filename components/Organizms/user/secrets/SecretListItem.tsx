@@ -1,13 +1,12 @@
 import Create from '@mui/icons-material/Create'
 import { Box, IconButton, Typography } from '@mui/material'
-import { myDecrypt } from 'lib/backend/encryption/useEncryptor'
 import { useState } from 'react'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import { UserSecret } from 'lib/backend/api/models/zModels'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { decryptUserSecret } from 'lib/backend/csr/nextApiWrapper'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const SecretListItem = ({ data, onEdit }: { data: UserSecret; onEdit: () => void }) => {
   const [isEncrypted, setIsEncrypted] = useState(true)
@@ -34,7 +33,7 @@ const SecretListItem = ({ data, onEdit }: { data: UserSecret; onEdit: () => void
 
   return (
     <Box>
-      {isLoading && <BackdropLoader />}
+      {isLoading && <ComponentLoader />}
       <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
         <Box>
           <Typography>{data.title}</Typography>

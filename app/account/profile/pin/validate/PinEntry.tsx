@@ -4,6 +4,7 @@ import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import PleaseLogin from 'components/Molecules/PleaseLogin'
 import EnterPinDialog from 'components/Organizms/Login/EnterPinDialog'
 import { CasinoGrayTransparent } from 'components/themes/mainTheme'
@@ -34,7 +35,7 @@ const PinEntry = () => {
 
   return (
     <Box>
-      {isLoading && <BackdropLoader />}
+      {isLoading && <ComponentLoader />}
       {!isValidatingProfile && (
         <>
           {!userProfile && <PleaseLogin />}

@@ -1,5 +1,5 @@
 'use client'
-import { Box, Divider, useTheme } from '@mui/material'
+import { Box, Divider, Typography, useTheme } from '@mui/material'
 import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
 import LinkButton from '../Buttons/LinkButton'
 import { sortArray } from 'lib/util/collections'
@@ -55,7 +55,7 @@ export const BasicBreadcrumbs = () => {
                       handleClick(route)
                     }}
                   >
-                    {route.breadcrumbName ?? route.name}
+                    <Typography>{route.breadcrumbName ?? route.name}</Typography>
                   </LinkButton>
                 ) : (
                   <FadeIn>
@@ -64,7 +64,7 @@ export const BasicBreadcrumbs = () => {
                         handleClick(route)
                       }}
                     >
-                      {route.breadcrumbName ?? route.name}
+                      <Typography>{route.breadcrumbName ?? route.name}</Typography>
                     </LinkButton>
                     {/* <NavigationButton category={route.category} name={route.name} path={route.path} /> */}
                   </FadeIn>

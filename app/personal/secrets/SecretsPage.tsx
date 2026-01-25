@@ -1,7 +1,6 @@
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import { getUserSSRAppRouteApi } from 'app/serverActions/auth/user'
 import { getItemData, searchItems } from 'app/serverActions/aws/dynamo/dynamo'
-import CenterStack from 'components/Atoms/CenterStack'
 import dayjs from 'dayjs'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { constructUserProfileKey, constructUserSecretSecondaryKey } from 'lib/backend/api/aws/util'
