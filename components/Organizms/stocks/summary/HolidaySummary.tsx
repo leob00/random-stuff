@@ -10,14 +10,12 @@ import { usePolling } from 'hooks/usePolling'
 import { useEffect } from 'react'
 import { mutate } from 'swr'
 import { sortArray } from 'lib/util/collections'
-import { filterResult } from '../earnings/earningsCalendar'
 import CryptoSummary from './CryptoSummary'
 import { getRandomInteger } from 'lib/util/numberUtil'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import NewsSummary from './NewsSummary'
 import RecentlySearchedStocksSummary from './stocks/RecentlySearchedStocksSummary'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
-import { getMapFromArray } from 'lib/util/collectionsNative'
 import TopMoversSummary from './stocks/TopMoversSummary'
 dayjs.extend(isSameOrAfter)
 
@@ -110,13 +108,13 @@ const HolidaySummary = ({ nextOpenDt }: { nextOpenDt: string }) => {
               <CryptoSummary />
             </BorderedBox>
           </Box>
-          <Box maxWidth={{ xs: '100%', sm: '98%', md: '94%', lg: '69%' }}>
+          <Box>
+            <BorderedBox width={'100%'}>{!isValidatingProfile && <TopMoversSummary userProfile={userProfile} />}</BorderedBox>
+          </Box>
+          <Box maxWidth={{ xs: '100%', sm: '98%', md: '94%', lg: '80%' }}>
             <BorderedBox width={'100%'}>
               <NewsSummary userProfile={userProfile} />
             </BorderedBox>
-          </Box>
-          <Box>
-            <BorderedBox width={'100%'}>{!isValidatingProfile && <TopMoversSummary userProfile={userProfile} />}</BorderedBox>
           </Box>
         </Box>
       )}

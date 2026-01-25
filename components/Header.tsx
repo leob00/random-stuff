@@ -50,7 +50,7 @@ const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; 
   return (
     <>
       <HideOnScroll>
-        <AppBar component='nav' sx={{ zIndex: theme.zIndex.drawer + 1 }} position={'sticky'} elevation={elevationEffect ? 6 : 0}>
+        <AppBar component='nav' sx={{ zIndex: theme.zIndex.drawer + 1 }} position={'sticky'} elevation={elevationEffect ? 8 : 0}>
           <GradientContainer>
             <DarkMode>
               <Toolbar>

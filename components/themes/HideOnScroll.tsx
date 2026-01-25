@@ -5,7 +5,7 @@ import { JSX, ReactElement, ReactNode } from 'react'
 
 const HideOnScroll = ({ children }: { children: ReactElement<unknown, any> }) => {
   const trigger = useScrollTrigger({
-    threshold: 50, // Optional: pixels before triggering
+    threshold: 75, // Optional: pixels before triggering
   })
   return (
     <Slide appear={false} direction='down' in={!trigger} timeout={600}>
