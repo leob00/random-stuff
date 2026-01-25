@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import React from 'react'
 import { ReactNode } from 'react'
 
 const FadeIn = ({ duration = 0.68, children }: { duration?: number; children: ReactNode | React.JSX.Element[] }) => {

@@ -24,7 +24,7 @@ const OverdueTasks = ({ goalsAndTasks, username }: { goalsAndTasks: UserGoalAndT
   const handleTaskClick = (item: UserTask) => {
     const goalId = encodeURIComponent(weakEncrypt(item.goalId!))
     const token = encodeURIComponent(weakEncrypt(username))
-    router.push(`/protected/csr/goals/details?id=${goalId}&token=${token}`)
+    router.push(`/personal/goals/${goalId}`)
   }
   return (
     <>

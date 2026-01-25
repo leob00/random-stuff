@@ -11,7 +11,6 @@ import { getUtcNow } from 'lib/util/dateUtil'
 import HtmlEditorQuill from '../../Atoms/Inputs/HtmlEditorQuill'
 import { DropdownItem } from 'lib/models/dropdown'
 import { useRef, useState } from 'react'
-import FadeIn from 'components/Atoms/Animations/FadeIn'
 import StopWarningDialog from 'components/Atoms/Dialogs/StopWarningDialog'
 import EditNoteButtons from './notes/EditNoteButtons'
 
@@ -109,73 +108,71 @@ const EditNote = ({ item, onCanceled, onSubmitted }: { item: UserNote; onCancele
     <>
       {item ? (
         <>
-          <FadeIn>
-            <EditNoteButtons isEditingText={isEditingText} handleSave={handleSave} handleCancel={handleCancel} />
+          <EditNoteButtons isEditingText={isEditingText} handleSave={handleSave} handleCancel={handleCancel} />
 
-            <Box sx={{ pt: 2 }} component='form'>
-              <Box display={'flex'} justifyContent={'space-between'} gap={1} alignItems={'center'} py={2}>
-                <Box flexGrow={1}>
-                  <Box display={'flex'} justifyContent={'flex-end'}>
-                    <OnOffSwitch isChecked={!!note.expirationDate && !showFileDeleteWarning} label={'expiration'} onChanged={handleShowExpirationChange} />
-                  </Box>
-                </Box>
-                <Box>
-                  {note.expirationDate && (
-                    <Button onClick={handleEditExp} variant='outlined'>
-                      <RecordExpirationWarning expirationDate={note.expirationDate} />
-                    </Button>
-                  )}
-                </Box>
-              </Box>
-              <Box display={'flex'} flexDirection={'column'} gap={2} minHeight={400}>
-                <CenterStack sx={{ width: { xs: '100%' } }}>
-                  <TextField
-                    slotProps={{ htmlInput: { maxLength: 100 } }}
-                    fullWidth
-                    inputRef={title}
-                    defaultValue={item.title}
-                    size='small'
-                    label={'title'}
-                    placeholder='title'
-                    onChange={handleTitleChange}
-                    required
-                    error={titleError}
-                    sx={{ color: 'secondary' }}
-                  />
-                </CenterStack>
-                <Box sx={{ width: { xs: '100%' } }}>
-                  {!isEditingText ? (
-                    <HtmlEditorQuill value={bodyText} onChanged={handleBodyChange} />
-                  ) : (
-                    <Box>
-                      <TextField
-                        label='notes'
-                        placeholder='notes...'
-                        rows={13}
-                        multiline
-                        sx={{ width: '100%' }}
-                        value={bodyText}
-                        onChange={(event) => {
-                          handleBodyChange(event.target.value)
-                        }}
-                        slotProps={{
-                          input: {
-                            autoCorrect: 'off',
-                          },
-                        }}
-                      />
-                    </Box>
-                  )}
+          <Box sx={{ pt: 2 }} component='form'>
+            <Box display={'flex'} justifyContent={'space-between'} gap={1} alignItems={'center'} py={2}>
+              <Box flexGrow={1}>
+                <Box display={'flex'} justifyContent={'flex-end'}>
+                  <OnOffSwitch isChecked={!!note.expirationDate && !showFileDeleteWarning} label={'expiration'} onChanged={handleShowExpirationChange} />
                 </Box>
               </Box>
               <Box>
-                <Button onClick={() => setIsEditingText(!isEditingText)}>
-                  <Typography variant='body2'>{isEditingText ? 'edit html' : 'edit raw text'}</Typography>
-                </Button>
+                {note.expirationDate && (
+                  <Button onClick={handleEditExp} variant='outlined'>
+                    <RecordExpirationWarning expirationDate={note.expirationDate} />
+                  </Button>
+                )}
               </Box>
-              <EditNoteButtons isEditingText={isEditingText} handleSave={handleSave} handleCancel={handleCancel} />
             </Box>
-          </FadeIn>
+            <Box display={'flex'} flexDirection={'column'} gap={2} minHeight={400}>
+              <CenterStack sx={{ width: { xs: '100%' } }}>
+                <TextField
+                  slotProps={{ htmlInput: { maxLength: 100 } }}
+                  fullWidth
+                  inputRef={title}
+                  defaultValue={item.title}
+                  size='small'
+                  label={'title'}
+                  placeholder='title'
+                  onChange={handleTitleChange}
+                  required
+                  error={titleError}
+                  sx={{ color: 'secondary' }}
+                />
+              </CenterStack>
+              <Box sx={{ width: { xs: '100%' } }}>
+                {!isEditingText ? (
+                  <HtmlEditorQuill value={bodyText} onChanged={handleBodyChange} />
+                ) : (
+                  <Box>
+                    <TextField
+                      label='notes'
+                      placeholder='notes...'
+                      rows={13}
+                      multiline
+                      sx={{ width: '100%' }}
+                      value={bodyText}
+                      onChange={(event) => {
+                        handleBodyChange(event.target.value)
+                      }}
+                      slotProps={{
+                        input: {
+                          autoCorrect: 'off',
+                        },
+                      }}
+                    />
+                  </Box>
+                )}
+              </Box>
+            </Box>
+            <Box>
+              <Button onClick={() => setIsEditingText(!isEditingText)}>
+                <Typography variant='body2'>{isEditingText ? 'edit html' : 'edit raw text'}</Typography>
+              </Button>
+            </Box>
+            <EditNoteButtons isEditingText={isEditingText} handleSave={handleSave} handleCancel={handleCancel} />
+          </Box>
         </>
       ) : (
         <></>

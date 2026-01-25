@@ -1756,10 +1756,6 @@
     "Symbol": "AMBP"
   },
   {
-    "Company": "Ardagh Metal Packaging S.A. Warrants, each exercisable for one Share at an exercise price of $11.50 per share",
-    "Symbol": "AMBP.WS"
-  },
-  {
     "Company": "Ambiq Micro, Inc.",
     "Symbol": "AMBQ"
   },
@@ -17808,10 +17804,6 @@
     "Symbol": "GHM"
   },
   {
-    "Company": "Goose Hollow Multi-Strategy Income ETF",
-    "Symbol": "GHMS"
-  },
-  {
     "Company": "GH Research PLC Ordinary Shares",
     "Symbol": "GHRS"
   },
@@ -29274,14 +29266,6 @@
   {
     "Company": "Cloudflare, Inc. Class A common stock, par value $0.001 per share",
     "Symbol": "NET"
-  },
-  {
-    "Company": "Nabors Energy Transition Corp. II Class A Ordinary Shares",
-    "Symbol": "NETD"
-  },
-  {
-    "Company": "Nabors Energy Transition Corp. II Warrant",
-    "Symbol": "NETDW"
   },
   {
     "Company": "Leverage Shares 2X Long NET Daily ETF",
@@ -45066,10 +45050,6 @@
   {
     "Company": "Varonis Systems, Inc.",
     "Symbol": "VRNS"
-  },
-  {
-    "Company": "Verint Systems Inc",
-    "Symbol": "VRNT"
   },
   {
     "Company": "Invesco Variable Rate Preferred ETF",

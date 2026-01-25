@@ -15,7 +15,6 @@ import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import ContextMenuShare from 'components/Molecules/Menus/ContextMenuShare'
 import { useRouter } from 'next/navigation'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
-import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { useState } from 'react'
 import S3ManageFiles from '../files/S3ManageFiles'
 
@@ -65,37 +64,35 @@ const ViewNote = ({
 
   return (
     <>
-      <FadeIn>
-        <Box sx={{ py: 1 }}>
-          <Box display={'flex'} justifyContent={'flex-end'}>
-            <ContextMenu items={menu} />
-          </Box>
-          <ScrollableBox maxHeight={500}>
-            <HtmlView html={selectedNote.body} textAlign='left' />
-          </ScrollableBox>
-          {selectedNote.expirationDate && (
-            <CenterStack>
-              <Stack sx={{ py: 4 }} display={'flex'} direction={'row'} justifyItems={'center'}>
-                <RecordExpirationWarning expirationDate={selectedNote.expirationDate} />
-              </Stack>
-            </CenterStack>
-          )}
+      <Box sx={{ py: 1 }}>
+        <Box display={'flex'} justifyContent={'flex-end'}>
+          <ContextMenu items={menu} />
         </Box>
-        {!selectedNote.expirationDate && (
-          <S3ManageFiles displayName='note files' folderPath={folderPath} files={selectedNote.files} onFilesMutated={onFilesChanged} />
+        <ScrollableBox maxHeight={500}>
+          <HtmlView html={selectedNote.body} textAlign='left' />
+        </ScrollableBox>
+        {selectedNote.expirationDate && (
+          <CenterStack>
+            <Stack sx={{ py: 4 }} display={'flex'} direction={'row'} justifyItems={'center'}>
+              <RecordExpirationWarning expirationDate={selectedNote.expirationDate} />
+            </Stack>
+          </CenterStack>
         )}
-        <HorizontalDivider />
-        {selectedNote.dateCreated && (
-          <Box>
-            <Typography variant='caption'>{`created: ${dayjs(selectedNote.dateCreated).format('MM/DD/YYYY hh:mm a')}`}</Typography>
-          </Box>
-        )}
-        {selectedNote.dateModified && (
-          <Box>
-            <Typography variant='caption'>{`updated: ${dayjs(selectedNote.dateModified).format('MM/DD/YYYY hh:mm a')}`}</Typography>
-          </Box>
-        )}
-      </FadeIn>
+      </Box>
+      {!selectedNote.expirationDate && (
+        <S3ManageFiles displayName='note files' folderPath={folderPath} files={selectedNote.files} onFilesMutated={onFilesChanged} />
+      )}
+      <HorizontalDivider />
+      {selectedNote.dateCreated && (
+        <Box>
+          <Typography variant='caption'>{`created: ${dayjs(selectedNote.dateCreated).format('MM/DD/YYYY hh:mm a')}`}</Typography>
+        </Box>
+      )}
+      {selectedNote.dateModified && (
+        <Box>
+          <Typography variant='caption'>{`updated: ${dayjs(selectedNote.dateModified).format('MM/DD/YYYY hh:mm a')}`}</Typography>
+        </Box>
+      )}
       <ConfirmDeleteDialog
         show={showConfirmDelete}
         title={'confirm delete'}

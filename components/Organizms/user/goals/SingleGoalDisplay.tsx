@@ -112,7 +112,7 @@ const SingleGoalDisplay = ({
     await putUserGoals(constructUserGoalsKey(username), newGoals)
     await putUserGoalTasks(username, goal.id!, [], getSecondsFromEpoch())
     setSnackbarText(`deleted goal: ${goal.body}`)
-    router.push('/protected/csr/goals')
+    router.push('/personal/goals')
   }
 
   const handleModifyGoal = async (editGoal: UserGoal) => {
@@ -146,7 +146,7 @@ const SingleGoalDisplay = ({
   ]
 
   const handleClose = () => {
-    router.push('/protected/csr/goals')
+    router.push('/personal/goals')
   }
 
   return (

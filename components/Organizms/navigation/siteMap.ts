@@ -211,7 +211,7 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'goals',
-    path: '/protected/csr/goals',
+    path: '/personal/goals',
     category: 'Personal',
     isProtected: true,
   },

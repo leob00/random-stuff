@@ -1,7 +1,7 @@
+'use client'
+
 import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
-import BackButton from 'components/Atoms/Buttons/BackButton'
-import CenterStack from 'components/Atoms/CenterStack'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
 import Seo from 'components/Organizms/Seo'
@@ -11,16 +11,11 @@ import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { constructUserGoalsKey } from 'lib/backend/api/aws/util'
 import { getUserGoals, getUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
-import { weakDecrypt } from 'lib/backend/encryption/useEncryptor'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { mutate } from 'swr'
 
-const Page = () => {
+const SingleGoalLayout = ({ goalId }: { goalId: string }) => {
   const router = useRouter()
-  const id = router.query['id'] as string
-  const token = router.query['token'] as string
-  const goalId = weakDecrypt(decodeURIComponent(id))
-  const username = weakDecrypt(decodeURIComponent(token))
   const tasksMutateKey = `goal-tasks-${goalId}`
   const goalMutateKey = `goal-${goalId}`
 
@@ -31,7 +26,7 @@ const Page = () => {
     return result
   }
   const fetchGoal = async () => {
-    const results = await getUserGoals(constructUserGoalsKey(username))
+    const results = await getUserGoals(constructUserGoalsKey(userProfile!.username))
     const result = results.find((m) => m.id === goalId)
     return result
   }
@@ -51,7 +46,7 @@ const Page = () => {
         {userProfile && (
           <>
             {goal && <PageHeader text={`Goal: ${goal.body}`} />}
-            {goal && tasks && <SingleGoalDisplay username={username} goal={goal} tasks={tasks} onMutated={handleMutated} />}
+            {goal && tasks && <SingleGoalDisplay username={userProfile!.username} goal={goal} tasks={tasks} onMutated={handleMutated} />}
           </>
         )}
         <>
@@ -66,4 +61,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default SingleGoalLayout

@@ -54,7 +54,7 @@ const UserGoalsDisplay = ({ goalsAndTasks, username, onRefresh }: { goalsAndTask
   const handleShowEditGoal = async (item: UserGoal) => {
     const goalId = encodeURIComponent(weakEncrypt(item.id!))
     const token = encodeURIComponent(weakEncrypt(username))
-    router.push(`/protected/csr/goals/details?id=${goalId}&token=${token}`)
+    router.push(`/personal/goals/${goalId}`)
   }
   const handleShowAddGoalForm = () => {
     setShowAddGoalForm(true)
