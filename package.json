@@ -75,7 +75,7 @@
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
     "@babel/preset-typescript": "^7.27.1",
-    "@contentful/rich-text-types": "^15.12.1",
+    "@contentful/rich-text-types": "^17.2.5",
     "@svgr/webpack": "8.1.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",

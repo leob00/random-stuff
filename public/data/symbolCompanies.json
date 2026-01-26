@@ -2520,6 +2520,10 @@
     "Symbol": "ARCC"
   },
   {
+    "Company": "Archimedes Tech SPAC Partners III Co. Units",
+    "Symbol": "ARCIU"
+  },
+  {
     "Company": "Arrow Reserve Capital Management ETF",
     "Symbol": "ARCM"
   },
@@ -13676,6 +13680,10 @@
     "Symbol": "EQNR"
   },
   {
+    "Company": "EquipmentShare.com Inc Common Stock",
+    "Symbol": "EQPT"
+  },
+  {
     "Company": "Equity Residential",
     "Symbol": "EQR"
   },
@@ -17436,7 +17444,7 @@
     "Symbol": "GDL"
   },
   {
-    "Company": "Grayscale CoinDesk Crypto 5 ETF",
+    "Company": "GRAYSCALE DIGITAL LG CAP",
     "Symbol": "GDLC"
   },
   {
@@ -18456,6 +18464,10 @@
     "Symbol": "GP"
   },
   {
+    "Company": "General Purpose Acquisition Corp. Class A Ordinary Shares",
+    "Symbol": "GPAC"
+  },
+  {
     "Company": "General Purpose Acquisition Corp. Units",
     "Symbol": "GPACU"
   },
@@ -18474,6 +18486,10 @@
   {
     "Company": "Structure Therapeutics Inc. American Depositary Shares",
     "Symbol": "GPCR"
+  },
+  {
+    "Company": "GPGI, Inc.",
+    "Symbol": "GPGI"
   },
   {
     "Company": "Group 1 Automotive, Inc.",
@@ -19846,6 +19862,10 @@
   {
     "Company": "Helix Energy Solutions Group, Inc.",
     "Symbol": "HLX"
+  },
+  {
+    "Company": "Helix Acquisition Corp. III Class A Ordinary Shares",
+    "Symbol": "HLXC"
   },
   {
     "Company": "Honda Motor Co., Ltd. American Depositary Share, each representing three (3) shares of Common Stock",
@@ -25158,6 +25178,10 @@
   {
     "Company": "Legend Biotech Corporation American Depositary Shares",
     "Symbol": "LEGN"
+  },
+  {
+    "Company": "Legato Merger Corp. IV Units, each consisting of one ordinary share and one-third of one redeemable warrant",
+    "Symbol": "LEGO.U"
   },
   {
     "Company": "First Trust Indxx Innovative Transaction & Process ETF",
@@ -34260,6 +34284,10 @@
     "Symbol": "PTON"
   },
   {
+    "Company": "Praetorian Acquisition Corp. Units",
+    "Symbol": "PTORU"
+  },
+  {
     "Company": "PGIM Total Return Bond ETF",
     "Symbol": "PTRB"
   },
@@ -37326,6 +37354,10 @@
   {
     "Company": "SilverBox Corp IV Redeemable warrants, each whole warrant exercisable for one Class A Ordinary Share at an exercise price of $11.50",
     "Symbol": "SBXD.WS"
+  },
+  {
+    "Company": "SilverBox Corp V",
+    "Symbol": "SBXE"
   },
   {
     "Company": "SilverBox Corp V. Units, each consisting of one Class A Ordinary Share and one-third of one redeemable warrant",

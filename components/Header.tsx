@@ -52,23 +52,25 @@ const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; 
       <HideOnScroll>
         <AppBar component='nav' sx={{ zIndex: theme.zIndex.drawer + 1 }} position={'sticky'} elevation={elevationEffect ? 8 : 0}>
           <GradientContainer>
-            <Toolbar>
-              <Container sx={{ py: 1, maxWidth: { xl: 1600, lg: 1400 } }}>
-                <Box display={'flex'} justifyContent={'space-between'}>
-                  <Box display='flex' gap={{ xs: 1, sm: 2 }} alignItems={'center'}>
-                    <NLink href='/' passHref>
-                      <StaticImage image={'/images/logo-with-text-blue-small.png'} title='random things' width={120} height={60} priority />
-                    </NLink>
-                    <SiteLink href='/' text='home' />
-                  </Box>
-                  <Box pt={'12px'}>
-                    <Box display={'flex'} justifyContent={'flex-end'} flexDirection={'row-reverse'}>
-                      <UserPanel palette={colorTheme} onChangePalette={handleChangeLightMode} />
+            <DarkMode>
+              <Toolbar>
+                <Container sx={{ py: 1, maxWidth: { xl: 1600, lg: 1400 } }}>
+                  <Box display={'flex'} justifyContent={'space-between'}>
+                    <Box display='flex' gap={{ xs: 1, sm: 2 }} alignItems={'center'}>
+                      <NLink href='/' passHref>
+                        <StaticImage image={'/images/logo-with-text-blue-small.png'} title='random things' width={120} height={60} priority />
+                      </NLink>
+                      <SiteLink href='/' text='home' />
+                    </Box>
+                    <Box pt={'12px'}>
+                      <Box display={'flex'} justifyContent={'flex-end'} flexDirection={'row-reverse'}>
+                        <UserPanel palette={colorTheme} onChangePalette={handleChangeLightMode} />
+                      </Box>
                     </Box>
                   </Box>
-                </Box>
-              </Container>
-            </Toolbar>
+                </Container>
+              </Toolbar>
+            </DarkMode>
           </GradientContainer>
         </AppBar>
       </HideOnScroll>

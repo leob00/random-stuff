@@ -25,12 +25,13 @@ export async function get(url: string, params?: any) {
     })
     if (resp.status !== 200) {
       if (resp.status === 403 || resp.status === 401) {
-        console.error('authentication failed')
+        console.error(`error: GET: ${url} - status code: ${resp.status}`)
         return {
           ResponseCode: 'error',
         }
       }
-      console.error('internal server error')
+
+      console.error(`error: GET: ${url} - status code: ${resp.status}`)
 
       return {
         ResponseCode: 'server error',
