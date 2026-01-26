@@ -7,7 +7,17 @@ import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { DropdownItem } from 'lib/models/dropdown'
 import { useRouter } from 'next/navigation'
 
-const RecipeTagsLayout = ({ tag, allTags, filteredRecipes }: { tag: string; allTags: DropdownItem[]; filteredRecipes: Recipe[] }) => {
+const RecipeTagsLayout = ({
+  tag,
+  allTags,
+  filteredRecipes,
+  allRecipes,
+}: {
+  tag: string
+  allTags: DropdownItem[]
+  filteredRecipes: Recipe[]
+  allRecipes?: DropdownItem[]
+}) => {
   const router = useRouter()
   const handleSelected = (item: DropdownItem) => {
     if (item.value.includes('tag:')) {
@@ -19,8 +29,8 @@ const RecipeTagsLayout = ({ tag, allTags, filteredRecipes }: { tag: string; allT
   }
   return (
     <>
-      <Box pt={2}>
-        <Box py={2}>
+      <Box>
+        <Box pb={4}>
           <CenterStack>
             <StaticAutoComplete onSelected={handleSelected} options={allTags} placeholder={`search by ${allTags.length} categories`} />
           </CenterStack>

@@ -1,5 +1,6 @@
 'use client'
 import { Box, Chip, Typography } from '@mui/material'
+import BorderedBox from 'components/Atoms/Boxes/BorderedBox'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import Clickable from 'components/Atoms/Containers/Clickable'
@@ -14,7 +15,7 @@ const RecipeTagsList = ({ tags }: { tags: RecipeTag[] }) => {
   return (
     <>
       <Box display={'flex'} gap={2} flexDirection={'column'}>
-        {tags.length > 0 && <Typography variant={'body2'} color={'primary'}>{`tags`}</Typography>}
+        {/* {tags.length > 0 && <Typography textAlign={'center'} pt={1} pb={2} variant={'body2'} color={'primary'}>{`categories`}</Typography>} */}
         {tags.map((tag) => (
           <Box key={tag.id}>
             <PrimaryButton

@@ -34,5 +34,5 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   newOptions = sortArray(newOptions, ['text'], ['asc'])
   const selectedOption = options.find((m) => m.value === recipe.sys.id)
 
-  return <RecipeLayout article={recipe} autoComplete={newOptions} selectedOption={selectedOption} />
+  return <RecipeLayout article={recipe} />
 }

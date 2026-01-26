@@ -1,15 +1,14 @@
 'use client'
-import { Box, ListItem, ListItemAvatar, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { documentToReactComponents, Options } from '@contentful/rich-text-react-renderer'
-import { MARKS, BLOCKS, INLINES, Document } from '@contentful/rich-text-types'
-import { DropdownItem } from 'lib/models/dropdown'
+import { MARKS, BLOCKS } from '@contentful/rich-text-types'
 import RecipeTagsList from './RecipeTagsList'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import RecipeImage from './RecipeImage'
 import Clickable from 'components/Atoms/Containers/Clickable'
 
-const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Recipe; autoComplete?: DropdownItem[]; selectedOption?: DropdownItem }) => {
+const RecipeLayout = ({ article }: { article: Recipe }) => {
   const tags = article.recipeTagsCollection.items ?? []
   const handleImageClicked = (item: Recipe) => {}
 
@@ -46,6 +45,10 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
           {children}
         </Typography>
       ),
+      [BLOCKS.HEADING_3]: (node, children) => <Typography variant='h4'>{children}</Typography>,
+      [BLOCKS.HEADING_4]: (node, children) => <Typography variant='h4'>{children}</Typography>,
+      [BLOCKS.HEADING_5]: (node, children) => <Typography variant='h4'>{children}</Typography>,
+      [BLOCKS.HEADING_6]: (node, children) => <Typography variant='h4'>{children}</Typography>,
       [BLOCKS.LIST_ITEM]: (node, children) => (
         <Typography py={1} variant='h2'>
           {children}
@@ -79,13 +82,7 @@ const RecipeLayout = ({ article, autoComplete, selectedOption }: { article: Reci
             <Box>
               <Box>
                 <Box display={'flex'}>
-                  <Clickable
-                    onClicked={() => {
-                      handleImageClicked(article)
-                    }}
-                  >
-                    <RecipeImage recipe={article} width={220} height={220} />
-                  </Clickable>
+                  <RecipeImage recipe={article} width={220} height={220} />
                 </Box>
               </Box>
               <Box py={2}>
