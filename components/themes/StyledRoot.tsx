@@ -43,9 +43,7 @@ const StyledRoot = ({ children }: { children: ReactNode }) => {
       {!isLoading && (
         <ThemeProvider theme={theme}>
           <CssBaseline />
-
           <Header onSetColorMode={handleChangeColorMode} colorTheme={palette} />
-
           <AppRouteTracker>
             <Container sx={{ marginTop: 2, minHeight: 760, paddingBottom: 4, maxWidth: { xl: 1600, lg: 1400 } }}>{children}</Container>
           </AppRouteTracker>
