@@ -93,7 +93,7 @@ const FlatListMenu = ({
           <ContextMenuReport text='reports' />
         </>
       ),
-      fn: () => router.push(`/ssg/stocks/reports/volume-leaders`),
+      fn: () => router.push(`/market/stocks/reports/volume-leaders`),
     },
     {
       item: <ContextMenuEarnings text={'earnings calendar'} />,

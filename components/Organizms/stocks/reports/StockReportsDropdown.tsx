@@ -1,20 +1,9 @@
+'use client'
 import { Box } from '@mui/material'
 import { DropdownItem } from 'lib/models/dropdown'
-import { useRouter } from 'next/router'
-import ContextMenu from 'components/Molecules/Menus/ContextMenu'
+import { useRouter } from 'next/navigation'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
-import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
-
-export const stockReportsDropdown: DropdownItem[] = [
-  { text: 'Volume Leaders', value: 'volume-leaders' },
-  { text: 'Market Cap Leaders', value: 'market-cap-leaders' },
-  { text: 'Top Movers', value: 'topmvgavg' },
-  { text: 'Sectors', value: 'sectors' },
-  { text: 'Industries', value: 'industries' },
-  { text: 'Dividend Payers', value: 'dividend-payers' },
-  { text: 'Stock Tags', value: 'stock-tags' },
-  { text: 'Indices and ETFs', value: 'indicesAndEtfs' },
-]
+import { stockReportsDropdown } from 'app/market/stocks/reports/StockReportsPage'
 
 const StockReportsDropdown = ({ selectedValue }: { selectedValue: string }) => {
   const router = useRouter()
@@ -36,7 +25,7 @@ const StockReportsDropdown = ({ selectedValue }: { selectedValue: string }) => {
         router.push('/csr/stocks/stock-tags')
         break
       default:
-        router.replace(`/ssg/stocks/reports/${value}`, undefined, { scroll: false })
+        router.push(`/market/stocks/reports/${value}`)
         break
     }
   }

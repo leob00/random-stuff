@@ -1,10 +1,10 @@
+'use client'
 import { Box } from '@mui/material'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import { StockReportTypes } from 'lib/backend/api/qln/qlnModels'
 import StockReportDisplay from '../StockReportDisplay'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 interface Model {

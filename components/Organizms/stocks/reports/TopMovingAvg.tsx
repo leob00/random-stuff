@@ -1,3 +1,4 @@
+'use client'
 import { serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 import PagedStockTable from '../PagedStockTable'
 import { StockQuote } from 'lib/backend/api/models/zModels'

@@ -161,19 +161,19 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'volume',
-    path: '/ssg/stocks/reports/volume-leaders',
+    path: '/market/stocks/reports/volume-leaders',
     category: 'Stock Reports',
     breadcrumbName: 'volume leaders',
   },
   {
     name: 'market cap',
-    path: '/ssg/stocks/reports/market-cap-leaders',
+    path: '/market/stocks/reports/market-cap-leaders',
     category: 'Stock Reports',
     breadcrumbName: 'market cap leaders',
   },
   {
     name: 'top movers',
-    path: '/ssg/stocks/reports/topmvgavg',
+    path: '/market/stocks/reports/topmvgavg',
     category: 'Stock Reports',
     breadcrumbName: 'top stock movers',
   },

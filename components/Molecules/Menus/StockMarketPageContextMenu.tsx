@@ -33,8 +33,8 @@ const StockMarketPageContextMenu = () => {
       },
       {
         item: <ContextMenuReport text={'reports'} />,
-        fn: () => router.push('/ssg/stocks/reports/volume-leaders'),
-        route: '/ssg/stocks/reports/volume-leaders',
+        fn: () => router.push('/market/stocks/reports/volume-leaders'),
+        route: '/market/stocks/reports/volume-leaders',
       },
       {
         item: <ContextMenuSummary />,
