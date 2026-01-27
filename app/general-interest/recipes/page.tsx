@@ -71,7 +71,7 @@ export default async function RecipesPage() {
     <>
       <PageHeader text='Recipes' />
       <Box>
-        <CenterStack sx={{ pt: 2 }}>
+        <CenterStack sx={{ pb: 2 }}>
           <RecipesSearch autoComplete={model.autoComplete} />
         </CenterStack>
         <RecipesLayout featured={model.featured} />

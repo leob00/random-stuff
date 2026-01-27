@@ -5,6 +5,14 @@ import PageHeader from 'components/Atoms/Containers/PageHeader'
 import { getAllRecipes } from 'app/general-interest/recipes/page'
 import RecipeTagsLayout from '../RecipeTagsLayout'
 import { uniq } from 'lodash'
+import { DropdownItem } from 'lib/models/dropdown'
+
+export interface RecipeTagPageModel {
+  autoComplete: DropdownItem[]
+  filtered: Recipe[]
+  tag: string
+  allTags: DropdownItem[]
+}
 
 export async function generateStaticParams() {
   const allRecipes = await getAllRecipes()
@@ -37,11 +45,25 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   })
 
   const allTags = sortArray(tags, ['text'], ['asc'])
+  const allItems = await getAllRecipes()
+  let options: DropdownItem[] = allItems.map((item) => {
+    return { value: item.sys.id, text: item.title }
+  })
+  const recipeTagOptions = await getRecipeTagOptions(allItems)
+
+  let newOptions = [...options, ...recipeTagOptions]
+  newOptions = sortArray(newOptions, ['text'], ['asc'])
+  const model: RecipeTagPageModel = {
+    allTags: allTags,
+    autoComplete: newOptions,
+    filtered: result,
+    tag: slug,
+  }
 
   return (
     <>
       <PageHeader text={tag ? `Recipe Category: ${tag.text}` : ''} backButtonRoute='/general-interest/recipes' />
-      <RecipeTagsLayout tag={slug} filteredRecipes={result} allTags={allTags} />
+      <RecipeTagsLayout data={model} />
     </>
   )
 }
