@@ -148,7 +148,7 @@ const StockListItem = ({
                 )}
                 <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
                 <Typography ref={tabScrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>
-                <Box minHeight={500}>
+                <Box minHeight={750}>
                   {selectedTab === 'Details' && <StockDetailsTab quote={item} />}
                   {selectedTab === 'News' && <StockNews quote={item} profile={userProfile} />}
                   {selectedTab === 'Earnings' && <StockEarnings quote={item} />}

@@ -16,10 +16,6 @@ const TopMoversSummary = ({ userProfile }: { userProfile: UserProfile | null }) 
   const mutateKey = 'stock-market-summary-top-movers'
   const { pollCounter } = usePolling(1000 * 360) // 3 minutes
 
-  useEffect(() => {
-    mutate(mutateKey)
-  }, [pollCounter])
-
   const dataFn = async () => {
     await sleep(getRandomInteger(250, 2500))
     const topMoverFilter: StockAdvancedSearchFilter = {
@@ -42,6 +38,13 @@ const TopMoversSummary = ({ userProfile }: { userProfile: UserProfile | null }) 
   }
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
+
+  useEffect(() => {
+    if (pollCounter > 1) {
+      mutate(mutateKey)
+    }
+  }, [pollCounter])
+
   return <StockListSummary userProfile={userProfile} data={data} title='Top Movers' isLoading={isLoading} onRefreshRequest={onRefreshRequest} />
 }
 

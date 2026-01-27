@@ -1,13 +1,12 @@
 'use client'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { useEffect } from 'react'
-import { StockAdvancedSearchFilter } from '../../advanced-search/advancedSearchFilter'
-import { executeStockAdvancedSearch, getLatestQuotes } from 'lib/backend/api/qln/qlnApi'
+import { getLatestQuotes } from 'lib/backend/api/qln/qlnApi'
 import { sleep } from 'lib/util/timers'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { usePolling } from 'hooks/usePolling'
 import { mutate } from 'swr'
-import { CategoryType, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import StockListSummary from './StockListSummary'
 import { getRandomInteger } from 'lib/util/numberUtil'
 import { searchDynamoItemsByCategory } from 'lib/backend/csr/nextApiWrapper'
@@ -15,11 +14,7 @@ import { sortArray } from 'lib/util/collections'
 
 const RecentlySearchedStocksSummary = ({ userProfile }: { userProfile: UserProfile | null }) => {
   const mutateKey = !userProfile ? 'searched-stocks' : `searched-stocks-user[${userProfile.username}]`
-  const { pollCounter, stop, start } = usePolling(1000 * getRandomInteger(60, 360)) // 1- 3 minutes
-
-  useEffect(() => {
-    mutate(mutateKey)
-  }, [pollCounter])
+  const { pollCounter } = usePolling(1000 * getRandomInteger(60, 360)) // 1- 3 minutes
 
   const onRefreshRequest = () => {
     mutate(mutateKey)
@@ -46,6 +41,12 @@ const RecentlySearchedStocksSummary = ({ userProfile }: { userProfile: UserProfi
   }
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
+
+  useEffect(() => {
+    if (pollCounter > 1) {
+      mutate(mutateKey)
+    }
+  }, [pollCounter])
   return (
     <StockListSummary
       userProfile={userProfile}
