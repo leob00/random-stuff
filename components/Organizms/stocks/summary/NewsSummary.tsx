@@ -1,24 +1,15 @@
-import { Box, Button, Stack, Typography, useTheme } from '@mui/material'
+import { Box } from '@mui/material'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import { useSwrHelper } from 'hooks/useSwrHelper'
-import { StockQuote } from 'lib/backend/api/models/zModels'
 import { NewsItem, NewsTypeIds, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
-import numeral from 'numeral'
-import { useEffect, useState } from 'react'
-import StockListItem, { getPositiveNegativeColor } from '../StockListItem'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
+import { useEffect } from 'react'
 import { sleep } from 'lib/util/timers'
-import { sortArray } from 'lib/util/collections'
 import SummaryTitle from './SummaryTitle'
 import { usePolling } from 'hooks/usePolling'
 import { mutate } from 'swr'
-import { filterCryptos } from 'components/Organizms/crypto/CryptosDisplay'
 import { getRandomInteger } from 'lib/util/numberUtil'
-import ScrollableBoxHorizontal from 'components/Atoms/Containers/ScrollableBoxHorizontal'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
-import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import NewsList from 'components/Organizms/news/NewsList'
 
 const NewsSummary = ({ userProfile }: { userProfile: UserProfile | null }) => {
@@ -44,7 +35,9 @@ const NewsSummary = ({ userProfile }: { userProfile: UserProfile | null }) => {
       await sleep(getRandomInteger(250, 2500))
       mutate(mutateKey)
     }
-    fn()
+    if (pollCounter > 1) {
+      fn()
+    }
   }, [pollCounter])
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })

@@ -46,7 +46,9 @@ const CryptoSummary = () => {
       await sleep(250)
       mutate(mutateKey)
     }
-    fn()
+    if (pollCounter > 1) {
+      fn()
+    }
   }, [pollCounter])
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
