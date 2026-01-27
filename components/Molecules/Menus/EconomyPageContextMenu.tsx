@@ -13,8 +13,8 @@ const EconomyPageContextMenu = () => {
     const result: ContextMenuItem[] = [
       {
         item: <ContextMenuRequestQuote />,
-        route: '/csr/economic-calendar',
-        fn: () => router.push('/csr/economic-calendar'),
+        route: '/economy/calendar',
+        fn: () => router.push('/economy/calendar'),
       },
       {
         item: <ContextMenuIndicators />,

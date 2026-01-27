@@ -1,4 +1,4 @@
-import { Box, useTheme } from '@mui/material'
+import { Box, Stack, useTheme } from '@mui/material'
 import { translateDetailValue } from '../stocks/EconCalendarDisplay'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import { EconCalendarItem } from 'lib/backend/api/qln/qlnApi'
@@ -8,11 +8,15 @@ import { BarChart, getBarChartOptions } from 'components/Atoms/Charts/chartJs/ba
 import { CasinoBlue, CasinoOrangeTransparentOpaque, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import numeral from 'numeral'
 import NoDataFound from 'components/Atoms/Text/NoDataFound'
+import JsonView from 'components/Atoms/Boxes/JsonView'
+import EconCalendarDetailHistory from './EconCalendarDetailHistory'
+import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 type Model = EconCalendarItem & {
   changeFromPrevious?: number
 }
-const EconCalendarDetail = ({ selectedItem }: { selectedItem: EconCalendarItem }) => {
+const EconCalendarDetail = ({ selectedItem, history, isLoading }: { selectedItem: EconCalendarItem; history: EconCalendarItem[]; isLoading?: boolean }) => {
   const theme = useTheme()
   let chartColors = [CasinoBlue, VeryLightBlueTransparent]
   let chartLabels = ['actual', 'previous']
@@ -53,7 +57,7 @@ const EconCalendarDetail = ({ selectedItem }: { selectedItem: EconCalendarItem }
   const noData = !selectedItem.Actual && !selectedItem.TypeDescription && !selectedItem.Consensus
 
   return (
-    <>
+    <Stack>
       <Box pl={2} display={'flex'} gap={4} alignItems={'center'}>
         {!!item.Actual && <ReadOnlyField label='actual' val={translateDetailValue(item.Actual, item.ActualUnits)} />}
         {!!item.changeFromPrevious && (
@@ -70,8 +74,14 @@ const EconCalendarDetail = ({ selectedItem }: { selectedItem: EconCalendarItem }
       <Box>
         <HtmlView html={item.TypeDescription.replaceAll('&amp;lt;BR/&amp;gt;&amp;lt;BR/&amp;gt;', ' ')} textAlign='left' />
       </Box>
+
       {noData && <NoDataFound message='no additional information is currently available' />}
-    </>
+      {history && (
+        <Box>
+          <EconCalendarDetailHistory data={history} />
+        </Box>
+      )}
+    </Stack>
   )
 }
 

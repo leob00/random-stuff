@@ -37,7 +37,7 @@ const HomeMenu = () => {
 
   const searchItems: DropdownItem[] = sortArray(
     allRoutes.map((m) => {
-      return { text: m.name, value: m.path }
+      return { text: m.breadcrumbName ? m.breadcrumbName : m.name, value: m.path }
     }),
     ['text'],
     ['asc'],

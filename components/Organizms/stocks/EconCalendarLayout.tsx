@@ -1,5 +1,5 @@
+'use client'
 import { Box } from '@mui/material'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { DateRange, EconCalendarItem, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 import EconCalendarDisplay from './EconCalendarDisplay'
 import { useSwrHelper } from 'hooks/useSwrHelper'
@@ -9,6 +9,7 @@ import { sortArray } from 'lib/util/collections'
 import dayjs from 'dayjs'
 
 import weekday from 'dayjs/plugin/weekday'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 dayjs.extend(weekday)
 
 export interface EconCalendarBody {
@@ -48,7 +49,7 @@ const EconCalendarLayout = () => {
 
   return (
     <Box py={2}>
-      {isLoading && <BackdropLoader />}
+      {isLoading && <ComponentLoader />}
       {availableDates && availableCountries && (
         <EconCalendarDisplay
           apiResult={data}

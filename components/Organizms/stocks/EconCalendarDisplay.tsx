@@ -5,7 +5,7 @@ import dayjs from 'dayjs'
 import { EconCalendarBody } from './EconCalendarLayout'
 import ArrowLeftButton from 'components/Atoms/Buttons/ArrowLeftButton'
 import ArrowRightButton from 'components/Atoms/Buttons/ArrowRightButton'
-import { DateRange, EconCalendarItem } from 'lib/backend/api/qln/qlnApi'
+import { DateRange, EconCalendarItem, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 import FilterListAltIcon from '@mui/icons-material/FilterListAlt'
 import FilterListOffIcon from '@mui/icons-material/FilterListOff'
 import { Fragment, useState } from 'react'
@@ -16,6 +16,7 @@ import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import { sortArray } from 'lib/util/collections'
 import numeral from 'numeral'
 import EconCalendarDetail from '../econCalendar/EconCalendarDetail'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 export type EconCalendarFilter = {
   startDate?: string
@@ -48,19 +49,36 @@ const EconCalendarDisplay = ({
   const countryDropdown = [{ text: 'All', value: 'all' }, ...sortArray(countryOptions, ['text'], ['asc'])]
   const filteredItems = filterItems(apiResult?.Items ?? [], econCalendarSettings?.filter)
   const [selectedItem, setSelectedItem] = useState<EconCalendarItem | null>(null)
+  const [history, setHistory] = useState<EconCalendarItem[]>([])
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleBackClick = () => {
+    setSelectedItem(null)
+    setHistory([])
     onChangeDate(dayjs(selectedDate).subtract(1, 'days').format())
   }
   const handleNextClick = () => {
+    setSelectedItem(null)
+    setHistory([])
     onChangeDate(dayjs(selectedDate).add(1, 'days').format())
   }
-  const handleShowDetails = (item: EconCalendarItem) => {
+  const handleShowDetails = async (item: EconCalendarItem) => {
     if (!!selectedItem && selectedItem.RecordId === item.RecordId) {
       setSelectedItem(null)
+      setHistory([])
       return
     }
+    setIsLoading(true)
+    const endPoint = '/EconCalendarSearch'
+    const filter = {
+      TypeId: item.TypeId,
+    }
+    const resp = await serverPostFetch({ body: filter }, endPoint)
+    const result = resp.Body as EconCalendarBody
+    const history = result.Items
+    setHistory(history)
     setSelectedItem(item)
+    setIsLoading(false)
   }
 
   const handleFilterByCountry = (item: DropdownItem) => {
@@ -134,6 +152,7 @@ const EconCalendarDisplay = ({
       </Box>
 
       <ScrollableBox maxHeight={640}>
+        {isLoading && <ComponentLoader />}
         <Table>
           <TableHead>
             <TableRow>
@@ -154,6 +173,7 @@ const EconCalendarDisplay = ({
                           onClicked={() => {
                             handleShowDetails(item)
                           }}
+                          selected={selectedItem != null && selectedItem.RecordId === item.RecordId}
                         />
                       </Box>
                     </TableCell>
@@ -167,7 +187,7 @@ const EconCalendarDisplay = ({
                   {!!selectedItem && selectedItem.RecordId === item.RecordId && (
                     <TableRow>
                       <TableCell colSpan={10}>
-                        <EconCalendarDetail selectedItem={selectedItem} />
+                        <EconCalendarDetail selectedItem={selectedItem} history={history} isLoading={isLoading} />
                       </TableCell>
                     </TableRow>
                   )}

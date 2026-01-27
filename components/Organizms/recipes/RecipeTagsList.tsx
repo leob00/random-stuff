@@ -19,6 +19,7 @@ const RecipeTagsList = ({ tags }: { tags: RecipeTag[] }) => {
         {tags.map((tag) => (
           <Box key={tag.id}>
             <PrimaryButton
+              fullWidth
               text={tag.name.length > 50 ? `${tag.name.substring(0, 35)}...` : tag.name}
               onClick={() => {
                 handleTagClick(tag)

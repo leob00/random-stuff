@@ -2,7 +2,7 @@
 import { Box, Typography } from '@mui/material'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { documentToReactComponents, Options } from '@contentful/rich-text-react-renderer'
-import { MARKS, BLOCKS } from '@contentful/rich-text-types'
+import { MARKS, BLOCKS, INLINES } from '@contentful/rich-text-types'
 import RecipeTagsList from './RecipeTagsList'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import RecipeImage from './RecipeImage'
@@ -26,7 +26,7 @@ const RecipeLayout = ({ article }: { article: Recipe }) => {
         </Typography>
       ),
       [MARKS.CODE]: (text) => (
-        <Box component='code' sx={{ backgroundColor: '#f4f4f4', padding: '2px 4px', borderRadius: '4px' }}>
+        <Box component='code' sx={{ padding: '2px 4px', borderRadius: '4px' }}>
           {text}
         </Box>
       ),
@@ -49,8 +49,12 @@ const RecipeLayout = ({ article }: { article: Recipe }) => {
       [BLOCKS.HEADING_4]: (node, children) => <Typography variant='h4'>{children}</Typography>,
       [BLOCKS.HEADING_5]: (node, children) => <Typography variant='h4'>{children}</Typography>,
       [BLOCKS.HEADING_6]: (node, children) => <Typography variant='h4'>{children}</Typography>,
+
+      //[BLOCKS.OL_LIST]: (node, children) => <Typography variant='h4'>{children}</Typography>,
+      //[BLOCKS.UL_LIST]: (node, children) => <Typography variant='h4'>{children}</Typography>,
+
       [BLOCKS.LIST_ITEM]: (node, children) => (
-        <Typography py={1} variant='h2'>
+        <Typography py={1} variant='h5' fontWeight={'bold'}>
           {children}
         </Typography>
       ),

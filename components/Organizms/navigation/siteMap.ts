@@ -205,7 +205,7 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'calendar',
-    path: '/csr/economic-calendar',
+    path: '/economy/calendar',
     category: 'Economy',
     breadcrumbName: 'economic calendar',
   },
