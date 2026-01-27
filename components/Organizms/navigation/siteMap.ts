@@ -155,7 +155,7 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'search',
-    path: '/csr/stocks/advanced-search',
+    path: '/market/stocks/advanced-search',
     category: 'Stock Market',
     breadcrumbName: 'stock search',
   },
