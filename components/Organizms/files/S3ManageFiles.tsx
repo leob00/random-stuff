@@ -53,7 +53,7 @@ const S3ManageFiles = ({
       {!!progressText && <ProgressDrawer isOpen={!!progressText} message={progressText} />}
       {!showUpload && files && files.length > 0 && (
         <>
-          <CenteredHeader variant='h4' title='files' />
+          <CenteredHeader variant='h5' title='files' />
           <HorizontalDivider />
           {files.length > 4 && (
             <Box py={2} display={'flex'} justifyContent={'flex-start'}>

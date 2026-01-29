@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { convertUtcToUsEasternDateTime, getDateRangeForQuarter, getExpirationText, getUnixExpSecondsFromDate } from '../dateUtil'
+import { convertUtcToUsEasternDateTime, getDateRangeForQuarter, getExpirationText, getUnixExpSecondsFromDate, getUtcNow } from '../dateUtil'
 
 describe('dateUtil Tests', () => {
   test('getDateRangeForQuarter - Q1', () => {
@@ -30,9 +30,9 @@ describe('dateUtil Tests', () => {
   })
 
   test('getExpirationText', () => {
-    const expDt = dayjs().add(2, 'days').format()
+    const expDt = getUtcNow().add(1, 'days').format()
     const result = getExpirationText(expDt)
-    expect(result).toBe('expires in 1 day')
+    expect(result).toBe('expires in a day')
   })
 
   test('getExpirationText - precise', () => {

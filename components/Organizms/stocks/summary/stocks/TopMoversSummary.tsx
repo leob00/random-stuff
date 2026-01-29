@@ -40,7 +40,7 @@ const TopMoversSummary = ({ userProfile }: { userProfile: UserProfile | null }) 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
   useEffect(() => {
-    if (pollCounter > 1) {
+    if (pollCounter >= 1) {
       mutate(mutateKey)
     }
   }, [pollCounter])

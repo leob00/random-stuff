@@ -1,8 +1,6 @@
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import React from 'react'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import StocksDisplay from './StocksDisplay'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { LocalStore } from 'lib/backend/store/useLocalStore'
 import { getLatestQuotes } from 'lib/backend/api/qln/qlnApi'
 import { getMapFromArray } from 'lib/util/collectionsNative'

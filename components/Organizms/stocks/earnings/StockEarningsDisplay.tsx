@@ -11,7 +11,6 @@ import quarterOfYear from 'dayjs/plugin/quarterOfYear'
 import StockEarningsTable from './StockEarningsTable'
 import { useUserController } from 'hooks/userController'
 import { userHasRole } from 'lib/backend/auth/userUtil'
-import { useRouter } from 'next/navigation'
 import SiteLink from 'components/app/server/Atoms/Links/SiteLink'
 dayjs.extend(quarterOfYear)
 
@@ -21,7 +20,6 @@ export interface StockEarningsGroup {
 }
 
 const StockEarningsDisplay = ({ symbol, data, showCompany = false }: { symbol: string; data: StockEarning[]; showCompany?: boolean }) => {
-  const router = useRouter()
   const { ticket } = useUserController()
 
   const isAdmin = ticket && userHasRole('Admin', ticket.roles)
@@ -74,7 +72,7 @@ const StockEarningsDisplay = ({ symbol, data, showCompany = false }: { symbol: s
     <>
       <Box pl={1}>
         <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-          <Box pl={2}>{isAdmin && <SiteLink variant='body2' text='manage' href={`/protected/csr/admin/data-quality/earnings?symbol=${symbol}`} />}</Box>
+          <Box pl={2}>{isAdmin && <SiteLink variant='body2' text='manage' href={`/admin/data-quality/earnings?symbol=${symbol}`} />}</Box>
           <Button onClick={handleToggleChartTableView}>{earningSettings.display === 'chart' ? 'view table' : 'view chart'}</Button>
         </Box>
         {earningSettings.display === 'table' && <StockEarningsTable data={yearsGroup} showCompany={showCompany} />}

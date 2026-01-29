@@ -38,7 +38,7 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
   const nextOpenDtNoTime = dayjs(nexOpenDt).format('YYYY-MM-DD')
   const currentDtNoTime = dayjs(currentDt).format('YYYY-MM-DD')
   const morningStart = dayjs(currentDtNoTime).add(6, 'hours')
-  const morningEnd = dayjs(currentDtNoTime).add(10, 'hours').add(15, 'minutes')
+  const morningEnd = dayjs(currentDtNoTime).add(10, 'hours')
 
   const isTradingDay = handshake.IsTradingDay
   const showMorning = isTradingDay && currentDt.isSameOrAfter(morningStart) && currentDt.isSameOrBefore(morningEnd)

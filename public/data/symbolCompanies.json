@@ -732,8 +732,16 @@
     "Symbol": "ADXN"
   },
   {
+    "Company": "Activate Energy Acquisition Corp. Class A Ordinary Share",
+    "Symbol": "AEAQ"
+  },
+  {
     "Company": "Activate Energy Acquisition Corp. Unit",
     "Symbol": "AEAQU"
+  },
+  {
+    "Company": "Activate Energy Acquisition Corp. Warrant",
+    "Symbol": "AEAQW"
   },
   {
     "Company": "Aebi Schmidt Holding AG Common Stock",
@@ -1510,10 +1518,6 @@
   {
     "Company": "Centurion Acquisition Corp. Class A Ordinary Shares",
     "Symbol": "ALF"
-  },
-  {
-    "Company": "Centurion Acquisition Corp. Unit",
-    "Symbol": "ALFUU"
   },
   {
     "Company": "Centurion Acquisition Corp. Warrant",
@@ -5548,6 +5552,10 @@
     "Symbol": "BMI"
   },
   {
+    "Company": "Blue Moon Metals Inc. Common Shares",
+    "Symbol": "BMM"
+  },
+  {
     "Company": "BlackRock 2037 Municipal Target Term Trust",
     "Symbol": "BMN"
   },
@@ -8548,10 +8556,6 @@
     "Symbol": "CLS"
   },
   {
-    "Company": "Clearside Biomedical, Inc. Common Stock",
-    "Symbol": "CLSD"
-  },
-  {
     "Company": "Convergence Long/Short Equity ETF",
     "Symbol": "CLSE"
   },
@@ -10856,7 +10860,7 @@
     "Symbol": "DEEP"
   },
   {
-    "Company": "Hashdex Bitcoin ETF",
+    "Company": "Hashdex Commodities Trust",
     "Symbol": "DEFI"
   },
   {
@@ -13464,10 +13468,6 @@
     "Symbol": "ENTG"
   },
   {
-    "Company": "Entero Therapeutics, Inc. Common Stock",
-    "Symbol": "ENTO"
-  },
-  {
     "Company": "Entera Bio Ltd. Ordinary Shares",
     "Symbol": "ENTX"
   },
@@ -13680,7 +13680,7 @@
     "Symbol": "EQNR"
   },
   {
-    "Company": "EquipmentShare.com Inc Common Stock",
+    "Company": "EquipmentShare.com Inc Class A Common Stock",
     "Symbol": "EQPT"
   },
   {
@@ -14578,6 +14578,10 @@
   {
     "Company": "Franklin Crypto Index ETF",
     "Symbol": "EZPZ"
+  },
+  {
+    "Company": "Reliance Global Group, Inc. Common Stock",
+    "Symbol": "EZRA"
   },
   {
     "Company": "AlphaDroid Defensive Sector Rotation ETF",
@@ -18472,6 +18476,10 @@
     "Symbol": "GPACU"
   },
   {
+    "Company": "General Purpose Acquisition Corp. Warrant",
+    "Symbol": "GPACW"
+  },
+  {
     "Company": "GP-Act III Acquisition Corp. Class A Ordinary Share",
     "Symbol": "GPAT"
   },
@@ -19310,10 +19318,6 @@
   {
     "Company": "Hilton BDC Corporate Bond ETF",
     "Symbol": "HBDC"
-  },
-  {
-    "Company": "Hanesbrands, Inc.",
-    "Symbol": "HBI"
   },
   {
     "Company": "Harvard Bioscience Inc",
@@ -21900,7 +21904,7 @@
     "Symbol": "INDS"
   },
   {
-    "Company": "Indivior PLC Ordinary Shares",
+    "Company": "Indivior Pharmaceuticals, Inc. Common Stock",
     "Symbol": "INDV"
   },
   {
@@ -25248,8 +25252,16 @@
     "Symbol": "LEXXW"
   },
   {
+    "Company": "Leapfrog Acquisition Corporation Class A Ordinary Shares",
+    "Symbol": "LFAC"
+  },
+  {
     "Company": "Leapfrog Acquisition Corporation Units",
     "Symbol": "LFACU"
+  },
+  {
+    "Company": "Leapfrog Acquisition Corporation Warrants",
+    "Symbol": "LFACW"
   },
   {
     "Company": "LifeX 2050 Longevity Income ETF",
@@ -26594,6 +26606,10 @@
   {
     "Company": "iShares MBS ETF",
     "Symbol": "MBB"
+  },
+  {
+    "Company": "iShares Mortgage-Backed Securities Active ETF",
+    "Symbol": "MBBA"
   },
   {
     "Company": "VanEck Moody's Analytics BBB Corporate Bond ETF",
@@ -30196,6 +30212,10 @@
     "Symbol": "NTWO"
   },
   {
+    "Company": "Newbury Street II Acquisition Corp Unit",
+    "Symbol": "NTWOU"
+  },
+  {
     "Company": "Newbury Street II Acquisition Corp Warrant",
     "Symbol": "NTWOW"
   },
@@ -30524,8 +30544,16 @@
     "Symbol": "NVYY"
   },
   {
+    "Company": "New America Acquisition I Corp.",
+    "Symbol": "NWAX"
+  },
+  {
     "Company": "New America Acquisition I Corp. Units, each consisting of one share of Class A common stock and one-half of one redeemable warrant",
     "Symbol": "NWAX.U"
+  },
+  {
+    "Company": "New America Acquisition I Corp. Warrants, each whole warrant is exercisable to purchase one share of Class A common stock",
+    "Symbol": "NWAX.WS"
   },
   {
     "Company": "Northwest Bancshares, Inc",
@@ -34644,10 +34672,6 @@
     "Symbol": "QDVO"
   },
   {
-    "Company": "DailyDelta Q100 Downside Option Strategy ETF",
-    "Symbol": "QDWN"
-  },
-  {
     "Company": "SPDR MSCI EAFE StrategicFactors ETF",
     "Symbol": "QEFA"
   },
@@ -35322,10 +35346,6 @@
   {
     "Company": "Erayak Power Solution Group Inc. Class A Ordinary Shares",
     "Symbol": "RAYA"
-  },
-  {
-    "Company": "Rayliant Quantamental China Equity ETF",
-    "Symbol": "RAYC"
   },
   {
     "Company": "Rayliant Quantitative Developed Market Equity ETF",
@@ -37060,8 +37080,16 @@
     "Symbol": "SABSW"
   },
   {
+    "Company": "Safeguard Acquisition Corp.",
+    "Symbol": "SAC"
+  },
+  {
     "Company": "Safeguard Acquisition Corp. Units, each consisting of one Class A ordinary share and one-half of one redeemable warrant",
     "Symbol": "SAC.U"
+  },
+  {
+    "Company": "Safeguard Acquisition Corp. Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50 per share",
+    "Symbol": "SAC.WS"
   },
   {
     "Company": "Sachem Capital Corp. Common Shares",
@@ -37362,6 +37390,10 @@
   {
     "Company": "SilverBox Corp V. Units, each consisting of one Class A Ordinary Share and one-third of one redeemable warrant",
     "Symbol": "SBXE.U"
+  },
+  {
+    "Company": "SilverBox Corp V Redeemable warrants, each whole warrant exercisable for one Class A Ordinary Share at an exercise price of $11.50",
+    "Symbol": "SBXE.WS"
   },
   {
     "Company": "Scage Future American Depositary Shares",
@@ -37782,6 +37814,10 @@
   {
     "Company": "Main Sector Rotation ETF",
     "Symbol": "SECT"
+  },
+  {
+    "Company": "iShares Securitized Income Active ETF",
+    "Symbol": "SECU"
   },
   {
     "Company": "SolarEdge Technologies, Inc.",
@@ -39884,7 +39920,7 @@
     "Symbol": "SPXX"
   },
   {
-    "Company": "SPDR S&P 500 ETF Trust",
+    "Company": "State Street SPDR S&P 500 ETF Trust",
     "Symbol": "SPY"
   },
   {
@@ -41430,6 +41466,10 @@
   {
     "Company": "Tempus AI, Inc. Class A Common Stock",
     "Symbol": "TEM"
+  },
+  {
+    "Company": "Templeton Emerging Markets Debt ETF",
+    "Symbol": "TEMD"
   },
   {
     "Company": "Tradr 2X Long TEM Daily ETF",
@@ -44270,6 +44310,10 @@
   {
     "Company": "INNOVATE Corp.",
     "Symbol": "VATE"
+  },
+  {
+    "Company": "VanEck Avalanche ETF Common Shares of Beneficial Interest",
+    "Symbol": "VAVX"
   },
   {
     "Company": "Vanguard Materials ETF",

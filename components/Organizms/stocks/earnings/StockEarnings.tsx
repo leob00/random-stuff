@@ -17,7 +17,7 @@ const StockEarnings = ({ quote }: { quote: StockQuote }) => {
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
   return (
-    <Box pb={2} pt={2} minHeight={400}>
+    <Box pb={2} pt={2} minHeight={750}>
       {isLoading && <ComponentLoader />}
       <Box sx={{ py: 2 }}>{data && <StockEarningsDisplay symbol={quote.Symbol} data={data} />}</Box>
     </Box>

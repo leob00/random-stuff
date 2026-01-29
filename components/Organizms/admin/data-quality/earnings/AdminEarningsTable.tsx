@@ -9,7 +9,6 @@ import numeral from 'numeral'
 import dayjs from 'dayjs'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { weakEncryptBase64 } from 'lib/backend/encryption/useEncryptor'
-import ConfirmDialog from 'components/Atoms/Dialogs/ConfirmDialog'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 
 type Model = {

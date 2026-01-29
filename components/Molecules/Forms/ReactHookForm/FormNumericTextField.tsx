@@ -16,7 +16,7 @@ type Props = {
   placeholder?: string
 }
 
-const FormNumericTextField = forwardRef<HTMLInputElement, Props>(function FormNumericTextField(props: Props) {
+const FormNumericTextField = forwardRef<HTMLInputElement, Props>(function FormNumericTextField(props: Props, _) {
   const { id, size, sx, fullwidth, onChanged, value, label, errorMessage, placeholder } = props
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

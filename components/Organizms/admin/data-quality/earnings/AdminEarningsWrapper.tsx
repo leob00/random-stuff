@@ -1,3 +1,4 @@
+'use client'
 import { Box } from '@mui/material'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
@@ -67,7 +68,7 @@ const AdminEarningsWrapper = () => {
   }, [])
 
   return (
-    <Box py={2} minHeight={500}>
+    <Box py={2} minHeight={750}>
       <SearchBySymbolAccordion
         handelSubmit={handelSubmit}
         isExpanded={model.isSearchExpanded}
@@ -80,7 +81,13 @@ const AdminEarningsWrapper = () => {
         {model.stockQuote && (
           <Box py={2} display={'flex'} flexDirection={'column'} gap={1}>
             {model.error && <AlertWithHeader severity='error' text={model.error} header='Error' />}
-            <ListHeader item={model.stockQuote} onClicked={() => {}} disabled text={`${model.stockQuote.Company} (${model.stockQuote.Symbol})`} />
+            <ListHeader
+              item={model.stockQuote}
+              onClicked={() => {}}
+              disabled
+              text={`${model.stockQuote.Company} (${model.stockQuote.Symbol})`}
+              fadeIn={false}
+            />
             <StockChange item={model.stockQuote} />
           </Box>
         )}

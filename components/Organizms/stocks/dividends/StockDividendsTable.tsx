@@ -1,6 +1,5 @@
 import { Box } from '@mui/material'
 import { DataGrid, GridCallbackDetails, GridCellParams, GridColDef } from '@mui/x-data-grid'
-import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 import StaticAutoComplete from 'components/Atoms/Inputs/StaticAutoComplete'
 import dayjs from 'dayjs'
@@ -49,7 +48,6 @@ const StockDividendsTable = ({ data }: { data: StockDividendItem[] }) => {
 
   return (
     <>
-      <ScrollIntoView enabled={true} margin={-28} />
       <Box py={1}>
         <StaticAutoComplete options={options} onSelected={handleSearchSelected} placeholder={'search in list'} />
       </Box>

@@ -23,6 +23,7 @@ import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { StockQuoteSort } from 'lib/backend/api/models/collections'
 import StockSearch from 'components/Atoms/Inputs/StockSearch'
 import { useViewPortSize } from 'hooks/ui/useViewportSize'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 export const searchWithinResults = (quotes: StockQuote[], text: string) => {
   const result = quotes.filter(
@@ -200,7 +201,7 @@ const StocksDisplay = ({
       ) : (
         <Box>
           {model.isLoading ? (
-            <BackdropLoader />
+            <ComponentLoader />
           ) : (
             <Box py={2}>
               {model.editList && result.length > 0 ? (

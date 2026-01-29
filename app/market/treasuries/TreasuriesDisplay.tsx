@@ -44,7 +44,6 @@ const TreasuriesTable = ({ data }: { data: EconomicDataItem[] }) => {
           <Box display={'flex'} justifyContent={'flex-end'}>
             <CloseIconButton onClicked={() => setSelectedItem(null)} />
           </Box>
-          <ScrollIntoView margin={-22} />
           <EconDataDetails item={selectedItem} onClose={() => setSelectedItem(null)} />
         </Box>
       )}

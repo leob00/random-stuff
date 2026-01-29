@@ -12,7 +12,7 @@ const DataQualityStart = () => {
             <HorizontalDivider />
             <CardContent>
               <Box>
-                <SiteLink href='/protected/csr/admin/data-quality/earnings' text='manage' />
+                <SiteLink href='/admin/data-quality/earnings' text='manage' />
               </Box>
             </CardContent>
           </Card>

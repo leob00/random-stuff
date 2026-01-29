@@ -35,7 +35,7 @@ const NewsSummary = ({ userProfile }: { userProfile: UserProfile | null }) => {
       await sleep(getRandomInteger(250, 2500))
       mutate(mutateKey)
     }
-    if (pollCounter > 1) {
+    if (pollCounter >= 1) {
       fn()
     }
   }, [pollCounter])

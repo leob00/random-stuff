@@ -1,6 +1,5 @@
 import { Box } from '@mui/material'
 import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
-import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import Seo from 'components/Organizms/Seo'
@@ -10,7 +9,6 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import { apiConnection } from 'lib/backend/api/config'
 import { get } from 'lib/backend/api/fetchFunctions'
 import { SectorIndustry } from 'lib/backend/api/qln/qlnModels'
-import React from 'react'
 
 const Page = () => {
   const apiConn = apiConnection().qln
@@ -26,7 +24,6 @@ const Page = () => {
       {isLoading && <BackdropLoader />}
       <ResponsiveContainer>
         <StockReportsDropdown selectedValue='industries' />
-        <ScrollIntoView enabled={true} margin={-28} />
         <Box pb={8}>{data && <SectorsTable data={data} category='Industry' />}</Box>
       </ResponsiveContainer>
     </>

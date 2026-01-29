@@ -4,7 +4,9 @@ import { DateRangeFilter } from 'lib/backend/api/qln/qlnApi'
 import duration from 'dayjs/plugin/duration'
 dayjs.extend(utc)
 import timezone from 'dayjs/plugin/timezone'
+import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(timezone)
+dayjs.extend(relativeTime)
 export function getUtcNow() {
   return dayjs().utc()
 }
@@ -17,21 +19,32 @@ export function getExpirationText(expirationDate: string, precise: boolean = fal
   let message = `${defaultText} on ${dayjs(expirationDate).format('MM/DD/YYYY hh:mm A')}`
   const now = getUtcNow()
   const expDt = dayjs(expirationDate)
-  if (!precise) {
-    if (expDt.isAfter(now)) {
-      const dayDiff = expDt.diff(now, 'day')
-      const hourDiff = expDt.diff(now, 'hour')
-      const minuteDiff = expDt.diff(now, 'minute')
 
-      if (dayDiff > 0) {
-        message = `${defaultText} in ${dayDiff} ${dayDiff > 1 ? 'days' : 'day'}`
-      } else if (hourDiff > 0) {
-        message = `${defaultText} in ${hourDiff} ${hourDiff > 1 ? 'hours' : 'hour'}`
-      } else if (minuteDiff > 0) {
-        message = `${defaultText} in ${minuteDiff} ${minuteDiff > 1 ? 'minutes' : 'minute'}`
-      }
-    }
+  if (precise) {
+    return message
   }
+
+  if (expDt.isAfter(now)) {
+    return `${defaultText} ${now.to(expDt)}`
+  } else {
+    return `expired ${now.from(expDt)}`
+  }
+
+  // if (!precise) {
+  //   if (expDt.isAfter(now)) {
+  //     const dayDiff = expDt.diff(now, 'day')
+  //     const hourDiff = expDt.diff(now, 'hour')
+  //     const minuteDiff = expDt.diff(now, 'minute')
+
+  //     if (dayDiff > 0) {
+  //       message = `${defaultText} in ${dayDiff} ${dayDiff > 1 ? 'days' : 'day'}`
+  //     } else if (hourDiff > 0) {
+  //       message = `${defaultText} in ${hourDiff} ${hourDiff > 1 ? 'hours' : 'hour'}`
+  //     } else if (minuteDiff > 0) {
+  //       message = `${defaultText} in ${minuteDiff} ${minuteDiff > 1 ? 'minutes' : 'minute'}`
+  //     }
+  //   }
+  // }
   return message
 }
 
