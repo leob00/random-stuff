@@ -7,11 +7,11 @@ const nextConfig = {
   // forceSwcTransforms: {
   //   forceSwcTransforms: !isTurbopack ? true : undefined,
   // },
-  compiler: {
-    removeConsole: {
-      exclude: ['error'],
-    },
-  },
+  // compiler: {
+  //   removeConsole: {
+  //     exclude: ['error'],
+  //   },
+  // },
   turbopack: {},
   output: 'standalone',
   //productionBrowserSourceMaps: false,

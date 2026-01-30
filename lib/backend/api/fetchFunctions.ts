@@ -25,19 +25,19 @@ export async function get(url: string, params?: any) {
     })
     if (resp.status !== 200) {
       if (resp.status === 403 || resp.status === 401) {
-        console.error(`error: GET: ${url} - status code: ${resp.status}`)
+        console.error('\x1b[31m%s\x1b[0m', `error: GET: ${url} - status code: ${resp.status}`)
         return {
           ResponseCode: 'error',
         }
       }
-
-      console.error(`error: GET: ${url} - status code: ${resp.status}`)
+      console.error('\x1b[31m%s\x1b[0m', `error: GET: ${url} - status code: ${resp.status}`)
 
       return {
         ResponseCode: 'server error',
       }
     }
     const data = await resp.json()
+    //console.log('\x1b[32m%s\x1b[0m', `  success: GET: ${url} - status code: ${resp.status}`) // Green text
     return data
   } catch (err) {
     console.error(err)
