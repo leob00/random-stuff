@@ -20,7 +20,7 @@ export async function get(url: string, params?: any) {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        ApiKey: String(config.qln.key),
+        ApiKey: config.qln.key,
       },
     })
     if (resp.status !== 200) {
