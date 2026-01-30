@@ -5,7 +5,7 @@ import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import StockMarketSummaryPage from './StockMarketSummaryPage'
 import StockMarketPageContextMenu from 'components/Molecules/Menus/StockMarketPageContextMenu'
 
-//export const dynamic = 'force-dynamic' // disable cache
+export const dynamic = 'force-dynamic' // disable cache
 export default async function Page() {
   return (
     <>
