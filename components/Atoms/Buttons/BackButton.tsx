@@ -1,10 +1,9 @@
 'use client'
 import { Button } from '@mui/material'
 import { useRouteTracker } from 'components/Organizms/session/useRouteTracker'
-import React from 'react'
 import { useRouter } from 'next/navigation'
 
-const BackButton = ({ route }: { route?: string }) => {
+const BackButton = ({ route, text }: { route?: string; text?: string }) => {
   const router = useRouter()
   const { previousRoute } = useRouteTracker()
 
@@ -21,7 +20,7 @@ const BackButton = ({ route }: { route?: string }) => {
   }
   return (
     <Button variant='text' onClick={handleClick} color='primary'>
-      &#8592; back
+      &#8592; {`${text ?? 'back'}`}
     </Button>
   )
 }

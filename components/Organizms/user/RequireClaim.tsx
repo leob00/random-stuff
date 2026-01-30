@@ -1,3 +1,4 @@
+'use client'
 import { Box } from '@mui/material'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import PleaseLogin from 'components/Molecules/PleaseLogin'

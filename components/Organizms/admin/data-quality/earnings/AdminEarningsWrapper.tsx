@@ -10,6 +10,7 @@ import { useEffect, useReducer } from 'react'
 import AdminEarningsTable from './AdminEarningsTable'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import { useSearchParams } from 'next/navigation'
+import RequireClaim from 'components/Organizms/user/RequireClaim'
 
 export type AdminEarningsModel = {
   isSearchExpanded: boolean
@@ -68,38 +69,42 @@ const AdminEarningsWrapper = () => {
   }, [])
 
   return (
-    <Box py={2} minHeight={750}>
-      <SearchBySymbolAccordion
-        handelSubmit={handelSubmit}
-        isExpanded={model.isSearchExpanded}
-        setIsExpanded={(isExpanded) => {
-          setModel({ ...model, isSearchExpanded: isExpanded })
-        }}
-      />
-      {model.isLoading && <ComponentLoader />}
-      <Box>
-        {model.stockQuote && (
-          <Box py={2} display={'flex'} flexDirection={'column'} gap={1}>
-            {model.error && <AlertWithHeader severity='error' text={model.error} header='Error' />}
-            <ListHeader
-              item={model.stockQuote}
-              onClicked={() => {}}
-              disabled
-              text={`${model.stockQuote.Company} (${model.stockQuote.Symbol})`}
-              fadeIn={false}
-            />
-            <StockChange item={model.stockQuote} />
+    <>
+      <RequireClaim claimType='rs-admin'>
+        <Box py={2} minHeight={750}>
+          <SearchBySymbolAccordion
+            handelSubmit={handelSubmit}
+            isExpanded={model.isSearchExpanded}
+            setIsExpanded={(isExpanded) => {
+              setModel({ ...model, isSearchExpanded: isExpanded })
+            }}
+          />
+          {model.isLoading && <ComponentLoader />}
+          <Box>
+            {model.stockQuote && (
+              <Box py={2} display={'flex'} flexDirection={'column'} gap={1}>
+                {model.error && <AlertWithHeader severity='error' text={model.error} header='Error' />}
+                <ListHeader
+                  item={model.stockQuote}
+                  onClicked={() => {}}
+                  disabled
+                  text={`${model.stockQuote.Company} (${model.stockQuote.Symbol})`}
+                  fadeIn={false}
+                />
+                <StockChange item={model.stockQuote} />
+              </Box>
+            )}
           </Box>
-        )}
-      </Box>
-      <Box>
-        {model.searchResults.length > 0 && (
-          <Box py={2}>
-            <AdminEarningsTable model={model} setModel={setModel} onRefresh={handleRefresh} />
+          <Box>
+            {model.searchResults.length > 0 && (
+              <Box py={2}>
+                <AdminEarningsTable model={model} setModel={setModel} onRefresh={handleRefresh} />
+              </Box>
+            )}
           </Box>
-        )}
-      </Box>
-    </Box>
+        </Box>
+      </RequireClaim>
+    </>
   )
 }
 
