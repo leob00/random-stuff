@@ -1,3 +1,4 @@
+'use client'
 import { Box, Tab, Tabs, useTheme } from '@mui/material'
 import { TabInfo } from './TabButtonList'
 

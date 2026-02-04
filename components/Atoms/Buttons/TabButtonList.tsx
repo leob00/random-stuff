@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import { useState } from 'react'
 import TabButton from './TabButton'
 
 export interface TabInfo {
@@ -7,8 +8,8 @@ export interface TabInfo {
 }
 
 const TabButtonList = ({ tabs, onSelected }: { tabs: TabInfo[]; onSelected: (title: string) => void }) => {
-  const [allTabs, setAllTabs] = React.useState(tabs)
-  const [currentTab, setCurrentTab] = React.useState(tabs.find((o) => o.selected)!.title)
+  const [allTabs, setAllTabs] = useState(tabs)
+  const [currentTab, setCurrentTab] = useState(tabs.find((o) => o.selected)!.title)
 
   const handleClicked = (title: string) => {
     setCurrentTab(allTabs.find((o) => o.title === title)!.title)

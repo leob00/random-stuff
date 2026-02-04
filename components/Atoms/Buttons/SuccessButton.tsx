@@ -1,3 +1,4 @@
+'use client'
 import { Button, ButtonProps } from '@mui/material'
 
 type ButtonAttributes = ButtonProps & {

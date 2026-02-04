@@ -1,3 +1,4 @@
+'use client'
 import { Alert, Box, Typography } from '@mui/material'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import CenterStack from 'components/Atoms/CenterStack'

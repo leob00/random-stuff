@@ -1,3 +1,4 @@
+'use client'
 import { IconButton } from '@mui/material'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 

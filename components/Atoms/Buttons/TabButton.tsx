@@ -1,6 +1,6 @@
+'use client'
 import { Box, Button, ButtonProps } from '@mui/material'
 import { CasinoBlueTransparent, VeryLightBlue } from 'components/themes/mainTheme'
-import React from 'react'
 import { useTheme } from '@mui/material'
 
 interface CustomProps {

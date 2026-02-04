@@ -1,3 +1,4 @@
+'use client'
 import { IconButton } from '@mui/material'
 import LastPageIcon from '@mui/icons-material/LastPage'
 

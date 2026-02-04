@@ -1,3 +1,4 @@
+'use client'
 import { IconButton } from '@mui/material'
 import FirstPageIcon from '@mui/icons-material/FirstPage'
 

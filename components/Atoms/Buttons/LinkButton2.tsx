@@ -1,5 +1,6 @@
+'use client'
 import { Link, Typography } from '@mui/material'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 const LinkButton2 = ({ children, id, onClick }: { children: ReactNode; id?: string; onClick: () => void }) => {
   return (

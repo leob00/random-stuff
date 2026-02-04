@@ -73,14 +73,15 @@ export async function postBody(url: string, method: 'PATCH' | 'POST' | 'DELETE' 
     })
 
     if (!resp.ok) {
-      console.error(`error in ${url} ${method}: status code: `, resp.statusText)
+      //console.error(`error in ${url} ${method}: status code: `, resp.statusText)
+      console.error('\x1b[31m%s\x1b[0m', `error: ${method}: ${url} - status code: ${resp.status}`)
       return null
     }
 
     const data = await resp.json()
     return data
   } catch (err) {
-    console.error(`error in ${method}: `, err)
+    console.error('\x1b[31m%s\x1b[0m', `error: ${method}: ${url} - ${err}`)
     return null
   }
 }

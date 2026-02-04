@@ -13,7 +13,7 @@ const nextConfig = {
   //   },
   // },
   turbopack: {},
-  output: 'standalone',
+  // output: 'standalone',
   //productionBrowserSourceMaps: false,
   // webpack: (config, { isServer }) => {
   //   if (!isServer) {

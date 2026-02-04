@@ -1,3 +1,4 @@
+'use client'
 import { Box, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import { StockEarning, serverDeleteFetch, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
