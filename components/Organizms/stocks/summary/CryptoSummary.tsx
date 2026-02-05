@@ -73,7 +73,7 @@ const CryptoSummary = () => {
               <Stack key={item.Symbol} width={'100%'}>
                 <Stack>
                   <Box display={'flex'} gap={1} alignItems={'center'}>
-                    <Box minWidth={110}>
+                    <Box minWidth={120}>
                       <StockTooltip data={item}>
                         <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
                           <Typography variant='body2'>{item.Company.substring(0, item.Company.indexOf(' - '))}</Typography>

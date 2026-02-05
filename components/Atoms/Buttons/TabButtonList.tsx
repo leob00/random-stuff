@@ -5,6 +5,7 @@ import TabButton from './TabButton'
 export interface TabInfo {
   title: string
   selected?: boolean
+  index?: number
 }
 
 const TabButtonList = ({ tabs, onSelected }: { tabs: TabInfo[]; onSelected: (title: string) => void }) => {

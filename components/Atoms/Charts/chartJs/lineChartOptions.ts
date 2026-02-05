@@ -40,7 +40,7 @@ export const getLineChartOptions = (
     responsive: true,
     animation: {
       easing: 'linear',
-      duration: 1500,
+      duration: 1200,
     },
     hover: {
       mode: 'nearest',

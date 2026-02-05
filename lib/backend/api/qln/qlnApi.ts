@@ -37,6 +37,7 @@ export type NewsTypeIds =
   | 'BbcWorld'
   | 'BbcBusiness'
   | 'BloombergMarkets'
+  | 'CNBC'
   | 'GoogleBusiness'
   | 'GoogleTopStories'
   | 'GoogleTech'

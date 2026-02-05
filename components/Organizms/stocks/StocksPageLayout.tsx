@@ -16,30 +16,42 @@ import StockSearch from 'components/Atoms/Inputs/StockSearch'
 import FullStockDetail from 'components/Organizms/stocks/FullStockDetail'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
-import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
-import { useViewPortSize } from 'hooks/ui/useViewportSize'
+import TopMoversSummary from './summary/stocks/TopMoversSummary'
+import BorderedBox from 'components/Atoms/Boxes/BorderedBox'
+import { useProfileValidator } from 'hooks/auth/useProfileValidator'
+import { sleep } from 'lib/util/timers'
+import { getRandomInteger } from 'lib/util/numberUtil'
 
-type Tab = 'Recent' | 'Winners' | 'Losers'
 const tabs: TabInfo[] = [
   {
+    index: 0,
     selected: true,
     title: 'Recent',
   },
   {
+    index: 1,
     title: 'Winners',
   },
   {
+    index: 2,
     title: 'Losers',
+  },
+  {
+    index: 3,
+    title: 'Top Movers',
   },
 ]
 const searchedStocksKey: CategoryType = 'searched-stocks'
 const StocksPageLayout = () => {
-  const { viewPortSize } = useViewPortSize()
-  const [selectedTab, setSelectedTab] = useState<Tab>('Recent')
+  const [selectedTab, setSelectedTab] = useState<TabInfo>(tabs[0])
+  const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
 
   const dataFn = async () => {
-    const ticket = await getUserCSR()
-    const key = ticket ? `searched-stocks-user[${ticket.email}]` : searchedStocksKey
+    if (isValidatingProfile) {
+      await sleep(getRandomInteger(1000, 1200))
+    }
+
+    const key = userProfile ? `searched-stocks-user[${userProfile.username}]` : searchedStocksKey
     const searchedStocksResult = await searchDynamoItemsByCategory(key)
     const sorted = sortArray(searchedStocksResult, ['last_modified'], ['desc'])
     const result: StockQuote[] = sorted.map((m) => {
@@ -75,43 +87,50 @@ const StocksPageLayout = () => {
     : []
 
   const handleSelectTab = (tab: TabInfo) => {
-    setSelectedTab(tab.title as Tab)
+    setSelectedTab(tab)
   }
-  const [selectedStock, setSelectedStock] = useState<StockQuote | null>(null)
+  const [searchedQuote, setSearchedQuote] = useState<StockQuote | null>(null)
 
   const handleSelectQuote = (quote: StockQuote) => {
-    setSelectedStock(quote)
+    setSearchedQuote(quote)
   }
 
   const handleRefreshRecent = () => {
-    setSelectedStock(null)
+    setSearchedQuote(null)
     mutate(searchedStocksKey)
   }
   const handleCloseQuoteDialog = () => {
-    if (selectedStock) {
-      const newCopy = searchedStocks!.filter((m) => m.Symbol !== selectedStock.Symbol)
-      newCopy.unshift(selectedStock)
+    if (searchedQuote) {
+      const newCopy = searchedStocks!.filter((m) => m.Symbol !== searchedQuote.Symbol)
+      newCopy.unshift(searchedQuote)
       mutate(searchedStocksKey, newCopy, { revalidate: false })
     }
-    setSelectedStock(null)
+    setSearchedQuote(null)
   }
 
   return (
     <>
-      {!selectedStock && (
+      {!searchedQuote && (
         <Box py={2}>
           <StockSearch onSymbolSelected={handleSelectQuote} clearOnSelect showAdvSearch />
         </Box>
       )}
       {isLoading && <ComponentLoader />}
-      {selectedStock && <FullStockDetail item={selectedStock} onClose={handleCloseQuoteDialog} />}
-      {!selectedStock && <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />}
-      {!selectedStock && (
+      {searchedQuote && <FullStockDetail item={searchedQuote} onClose={handleCloseQuoteDialog} />}
+      {!searchedQuote && <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={selectedTab.index ?? 0} />}
+      {!searchedQuote && (
         <>
-          <ScrollIntoView enabled={viewPortSize === 'sm'} margin={-13} />
-          {selectedTab === 'Recent' && <Box>{searchedStocks && <CommunityStocksRecentLayout data={searchedStocks} onRefresh={handleRefreshRecent} />}</Box>}
-          {selectedTab === 'Winners' && <CommunityStocksWrapper data={winners} onRefresh={handleRefreshRecent} />}
-          {selectedTab === 'Losers' && <CommunityStocksWrapper data={losers} onRefresh={handleRefreshRecent} />}
+          {/* <ScrollIntoView enabled={viewPortSize === 'sm'} margin={-13} /> */}
+          {selectedTab.index === 0 && <Box>{searchedStocks && <CommunityStocksRecentLayout data={searchedStocks} onRefresh={handleRefreshRecent} />}</Box>}
+          {selectedTab.index === 1 && <CommunityStocksWrapper data={winners} onRefresh={handleRefreshRecent} />}
+          {selectedTab.index === 2 && <CommunityStocksWrapper data={losers} onRefresh={handleRefreshRecent} />}
+          {selectedTab.index === 3 && (
+            <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={{ xs: 'center', md: 'unset' }}>
+              <Box>
+                <BorderedBox>{!isValidatingProfile && <TopMoversSummary userProfile={userProfile} />}</BorderedBox>
+              </Box>
+            </Box>
+          )}
         </>
       )}
     </>

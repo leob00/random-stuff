@@ -20,6 +20,7 @@ const StockChartDaySelect = ({
       onSelected(arg)
     }
   }
+
   let options: DropdownItemNumeric[] = availableDates
     ? getstockChartDays().filter((m) => m.value <= 0 || m.value <= dayjs(availableDates.EndDate).diff(dayjs(availableDates.StartDate), 'days'))
     : getstockChartDays()
@@ -48,7 +49,7 @@ const StockChartDaySelect = ({
 
   return (
     <Box textAlign={'right'} pr={1} py={1}>
-      {daysToSelect > 0 && <FormDropdownListNumeric options={options} value={daysToSelect} onOptionSelected={handleDaysSelected} minWidth={140} />}
+      {daysToSelect > -2 && <FormDropdownListNumeric options={options} value={daysToSelect} onOptionSelected={handleDaysSelected} minWidth={140} />}
     </Box>
   )
 }

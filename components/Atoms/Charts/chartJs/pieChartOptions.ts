@@ -20,6 +20,7 @@ export const getPieChartData = (labels: string[], numbers: number[], colors?: st
         indexAxis: 'x',
         animation: {
           easing: 'linear',
+          duration: 1200,
         },
       },
     ],

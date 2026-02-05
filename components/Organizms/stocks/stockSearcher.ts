@@ -2,20 +2,32 @@ import { SymbolCompany } from 'lib/backend/api/qln/qlnApi'
 import { getListFromMap } from 'lib/util/collectionsNative'
 import { take } from 'lodash'
 import lookupData from 'public/data/symbolCompanies.json'
+const allLookup = lookupData as SymbolCompany[]
 export function searchAheadStocks(text: string) {
   let searchResults: SymbolCompany[] = []
 
   if (text.length === 0) {
     return searchResults
   }
-  const directHit = lookupData.find((m) => m.Symbol.toLowerCase() === text.toLowerCase())
+
+  const isEtf = text.toLowerCase() === 'etf'
+
+  const directHit = allLookup.find((m) => m.Symbol.toLowerCase() === text.toLowerCase())
   if (directHit) {
     searchResults.push(directHit)
   }
-  let moreResults = take(
-    lookupData.filter((m) => m.Symbol.toLowerCase().startsWith(text.toLowerCase()) || m.Company.toLowerCase().startsWith(text.toLowerCase())),
-    10,
-  )
+  let moreResults: SymbolCompany[] = []
+  if (!isEtf) {
+    moreResults = take(
+      allLookup.filter((m) => m.Symbol.toLowerCase().startsWith(text.toLowerCase()) || m.Company.toLowerCase().startsWith(text.toLowerCase())),
+      10,
+    )
+  } else {
+    moreResults = take(
+      allLookup.filter((m) => m.Company.toLowerCase().includes(`${text.toLowerCase()}`) && m.Company.includes(' ETF')),
+      10,
+    )
+  }
   if (directHit) {
     moreResults = moreResults.filter((m) => m.Symbol !== directHit.Symbol)
   }

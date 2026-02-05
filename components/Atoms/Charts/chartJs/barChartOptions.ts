@@ -81,7 +81,7 @@ export const getBarChartOptions = (
     responsive: true,
     animation: {
       easing: 'linear',
-      duration: 1500,
+      duration: 1200,
     },
     maintainAspectRatio: false,
     indexAxis: isHorizontal ? 'y' : 'x',
