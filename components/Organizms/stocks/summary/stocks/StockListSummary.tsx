@@ -71,7 +71,7 @@ const StockListSummary = ({
           <Box pl={0.5} minHeight={40}>
             {!showSearch ? (
               <Box>
-                <Box minWidth={60}>
+                <Box minWidth={64}>
                   {((stockSort.field === 'Symbol' && stockSort.direction === 'default') || stockSort.field !== 'Symbol') && (
                     <IconButton
                       onClick={() => {

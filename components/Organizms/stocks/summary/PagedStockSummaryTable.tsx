@@ -47,11 +47,11 @@ const PagedStockSummaryTable = ({
                 <Box key={item.Symbol}>
                   <Box display={'flex'} gap={2} alignItems={'center'}>
                     <Box minWidth={68}>
-                      <StockTooltip data={item}>
-                        <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
-                          <Typography variant='body2'>{item.Symbol}</Typography>
-                        </Button>
-                      </StockTooltip>
+                      <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
+                        <Typography variant='body2' fontWeight={'bold'}>
+                          {item.Symbol}
+                        </Typography>
+                      </Button>
                     </Box>
                     <Box minWidth={80}>
                       <Typography
@@ -74,11 +74,11 @@ const PagedStockSummaryTable = ({
                   </Box>
                   {showCompanyName && (
                     <Box maxWidth={350}>
-                      <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
-                        <Typography variant='caption' fontWeight={'bold'} color='primary'>
-                          {`${item.Company.length > 50 ? item.Company.substring(0, 50) + '...' : item.Company}`}
-                        </Typography>
-                      </Button>
+                      <StockTooltip data={item}>
+                        <Button size='small' onClick={() => setSelectedItem(item)}>
+                          <Typography variant='caption'>{`${item.Company.length > 36 ? item.Company.substring(0, 36) + '...' : item.Company}`}</Typography>
+                        </Button>
+                      </StockTooltip>
                     </Box>
                   )}
                   <HorizontalDivider />
