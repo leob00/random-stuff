@@ -14,7 +14,17 @@ import dayjs from 'dayjs'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import StockTooltip from 'components/Atoms/Tooltips/StockTooltip'
 const pageSize = 10
-const PagedStockEarningsSummaryTable = ({ data, userProfile, singleDate }: { data: StockEarning[]; userProfile: UserProfile | null; singleDate?: boolean }) => {
+const PagedStockEarningsSummaryTable = ({
+  data,
+  userProfile,
+  singleDate,
+  showCompanyName = true,
+}: {
+  data: StockEarning[]
+  userProfile: UserProfile | null
+  singleDate?: boolean
+  showCompanyName?: boolean
+}) => {
   const theme = useTheme()
   const palette = theme.palette.mode
 
@@ -31,7 +41,7 @@ const PagedStockEarningsSummaryTable = ({ data, userProfile, singleDate }: { dat
   return (
     <Box>
       <Box minHeight={328}>
-        <ScrollableBox maxHeight={320} scroller={scroller}>
+        <ScrollableBox maxHeight={310} scroller={scroller}>
           {items.map((item) => (
             <Box key={item.Symbol}>
               <Box display={'flex'} gap={1} alignItems={'center'}>
@@ -60,6 +70,15 @@ const PagedStockEarningsSummaryTable = ({ data, userProfile, singleDate }: { dat
                   </Box>
                 )}
               </Box>
+              {showCompanyName && (
+                <Box maxWidth={350}>
+                  <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
+                    <Typography variant='caption' fontWeight={'bold'} color='primary'>
+                      {`${item.StockQuote!.Company.length > 36 ? item.StockQuote!.Company.substring(0, 36) + '...' : item.StockQuote!.Company}`}
+                    </Typography>
+                  </Button>
+                </Box>
+              )}
               <HorizontalDivider />
             </Box>
           ))}

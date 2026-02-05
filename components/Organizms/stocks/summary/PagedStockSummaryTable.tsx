@@ -15,7 +15,15 @@ import StockTooltip from 'components/Atoms/Tooltips/StockTooltip'
 import { formatDecimal, formatDecimalPriceChange } from 'lib/util/numberUtil'
 const pageSize = 10
 
-const PagedStockSummaryTable = ({ data, userProfile }: { data: StockQuote[]; userProfile: UserProfile | null }) => {
+const PagedStockSummaryTable = ({
+  data,
+  userProfile,
+  showCompanyName = false,
+}: {
+  data: StockQuote[]
+  userProfile: UserProfile | null
+  showCompanyName?: boolean
+}) => {
   const theme = useTheme()
   const palette = theme.palette.mode
 
@@ -31,8 +39,8 @@ const PagedStockSummaryTable = ({ data, userProfile }: { data: StockQuote[]; use
 
   return (
     <Box>
-      <Box minHeight={328}>
-        <ScrollableBox maxHeight={320} scroller={scroller}>
+      <Box minHeight={316}>
+        <ScrollableBox maxHeight={310} scroller={scroller}>
           {items && (
             <>
               {items.map((item) => (
@@ -64,6 +72,15 @@ const PagedStockSummaryTable = ({ data, userProfile }: { data: StockQuote[]; use
                       >{`${formatDecimalPriceChange(item.Price, item.ChangePercent)}%`}</Typography>
                     </Box>
                   </Box>
+                  {showCompanyName && (
+                    <Box maxWidth={350}>
+                      <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
+                        <Typography variant='caption' fontWeight={'bold'} color='primary'>
+                          {`${item.Company.length > 50 ? item.Company.substring(0, 50) + '...' : item.Company}`}
+                        </Typography>
+                      </Button>
+                    </Box>
+                  )}
                   <HorizontalDivider />
                 </Box>
               ))}

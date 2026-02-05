@@ -28,12 +28,14 @@ const StockListSummary = ({
   data,
   isLoading,
   onRefreshRequest,
+  showCompanyName = true,
 }: {
   userProfile: UserProfile | null
   title: string
   data?: StockQuote[]
   isLoading?: boolean
   onRefreshRequest?: () => void
+  showCompanyName?: boolean
 }) => {
   const [selectedItem, setSelectedItem] = useState<StockQuote | null>(null)
   const [stockSort, setStockSort] = useState<StockSort>({ field: 'ChangePercent', direction: 'default' })
@@ -66,10 +68,10 @@ const StockListSummary = ({
 
       <Box>
         <Box display={'flex'} gap={2} alignItems={'center'} minHeight={44}>
-          <Box pl={1} minHeight={40}>
+          <Box pl={0.5} minHeight={40}>
             {!showSearch ? (
               <Box>
-                <Box minWidth={60} display={'flex'} justifyContent={'flex-start'}>
+                <Box minWidth={60}>
                   {((stockSort.field === 'Symbol' && stockSort.direction === 'default') || stockSort.field !== 'Symbol') && (
                     <IconButton
                       onClick={() => {
@@ -157,7 +159,7 @@ const StockListSummary = ({
           <ComponentLoader />
         </Box>
       )}
-      {data && <PagedStockSummaryTable data={sorted} userProfile={userProfile} />}
+      {data && <PagedStockSummaryTable data={sorted} userProfile={userProfile} showCompanyName={showCompanyName} />}
 
       {selectedItem && (
         <InfoDialog show={true} title={''} onCancel={() => setSelectedItem(null)}>

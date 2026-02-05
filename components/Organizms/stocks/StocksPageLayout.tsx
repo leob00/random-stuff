@@ -21,6 +21,7 @@ import BorderedBox from 'components/Atoms/Boxes/BorderedBox'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import { sleep } from 'lib/util/timers'
 import { getRandomInteger } from 'lib/util/numberUtil'
+import VolumeLeadersSummary from './summary/stocks/VolumeLeadersSummary'
 
 const tabs: TabInfo[] = [
   {
@@ -125,9 +126,14 @@ const StocksPageLayout = () => {
           {selectedTab.index === 1 && <CommunityStocksWrapper data={winners} onRefresh={handleRefreshRecent} />}
           {selectedTab.index === 2 && <CommunityStocksWrapper data={losers} onRefresh={handleRefreshRecent} />}
           {selectedTab.index === 3 && (
-            <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={{ xs: 'center', md: 'unset' }}>
-              <Box>
-                <BorderedBox>{!isValidatingProfile && <TopMoversSummary userProfile={userProfile} />}</BorderedBox>
+            <Box minHeight={600}>
+              <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={{ xs: 'center', md: 'unset' }} pt={4}>
+                <Box>
+                  <BorderedBox>{!isValidatingProfile && <TopMoversSummary userProfile={userProfile} showCompanyName />}</BorderedBox>
+                </Box>
+                <Box>
+                  <BorderedBox>{!isValidatingProfile && <VolumeLeadersSummary userProfile={userProfile} showCompanyName />}</BorderedBox>
+                </Box>
               </Box>
             </Box>
           )}

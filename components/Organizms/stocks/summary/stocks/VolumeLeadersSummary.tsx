@@ -2,7 +2,7 @@
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { useEffect } from 'react'
 import { StockAdvancedSearchFilter } from '../../advanced-search/advancedSearchFilter'
-import { executeStockAdvancedSearch } from 'lib/backend/api/qln/qlnApi'
+import { executeStockAdvancedSearch, serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import { sleep } from 'lib/util/timers'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { usePolling } from 'hooks/usePolling'
@@ -10,27 +10,16 @@ import { mutate } from 'swr'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import StockListSummary from './StockListSummary'
 import { getRandomInteger } from 'lib/util/numberUtil'
-import { orderBy } from 'lodash'
 
-const TopMoversSummary = ({ userProfile, showCompanyName = true }: { userProfile: UserProfile | null; showCompanyName?: boolean }) => {
-  const mutateKey = 'stock-market-summary-top-movers'
+const VolumeLeadersSummary = ({ userProfile, showCompanyName = false }: { userProfile: UserProfile | null; showCompanyName?: boolean }) => {
+  const mutateKey = 'stock-market-summary-volume-leaders'
   const { pollCounter } = usePolling(1000 * 360) // 3 minutes
 
   const dataFn = async () => {
     await sleep(getRandomInteger(250, 2500))
-    const topMoverFilter: StockAdvancedSearchFilter = {
-      take: 100,
-      marketCap: {
-        includeLargeCap: true,
-        includeMegaCap: true,
-      },
-      movingAvg: {
-        days: 1,
-      },
-    }
-    const topMoversResp = await executeStockAdvancedSearch(topMoverFilter)
-    let result = topMoversResp.Body as StockQuote[]
-    result = orderBy(result, (m) => Math.abs(m.ChangePercent), ['desc'])
+    const report = await serverGetFetch(`/StockReports?id=${'volumeleaders'}&take=${100}&days=${1}`)
+    const result = report.Body as StockQuote[]
+
     return result
   }
   const onRefreshRequest = () => {
@@ -49,7 +38,7 @@ const TopMoversSummary = ({ userProfile, showCompanyName = true }: { userProfile
     <StockListSummary
       userProfile={userProfile}
       data={data}
-      title='Top Movers'
+      title='Volume Leaders'
       isLoading={isLoading}
       onRefreshRequest={onRefreshRequest}
       showCompanyName={showCompanyName}
@@ -57,4 +46,4 @@ const TopMoversSummary = ({ userProfile, showCompanyName = true }: { userProfile
   )
 }
 
-export default TopMoversSummary
+export default VolumeLeadersSummary
