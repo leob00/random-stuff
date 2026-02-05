@@ -8444,6 +8444,10 @@
     "Symbol": "CLBK"
   },
   {
+    "Company": "Colombier Acquisition Corp. III Units, each consisting of one Class A ordinary share and one-eighth of one warrant",
+    "Symbol": "CLBR.U"
+  },
+  {
     "Company": "Cellebrite DI Ltd. Class A Ordinary Shares",
     "Symbol": "CLBT"
   },
@@ -11936,6 +11940,10 @@
     "Symbol": "DSACU"
   },
   {
+    "Company": "Daedalus Special Acquisition Corp. Warrant",
+    "Symbol": "DSACW"
+  },
+  {
     "Company": "DoubleLine Securitized Credit ETF",
     "Symbol": "DSCO"
   },
@@ -12786,6 +12794,10 @@
   {
     "Company": "The European Equity Fund, Inc.",
     "Symbol": "EEA"
+  },
+  {
+    "Company": "CYBER HORNET S&P 500 and Ethereum 75/25 Strategy ETF",
+    "Symbol": "EEE"
   },
   {
     "Company": "Euronet Worldwide Inc",
@@ -15678,6 +15690,10 @@
   {
     "Company": "Fifth Third Bancorp Depositary Shares",
     "Symbol": "FITBI"
+  },
+  {
+    "Company": "Fifth Third Bancorp Depositary Shares Representing a 1/40th Ownership Interest in a Share of 6.875% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series M",
+    "Symbol": "FITBM"
   },
   {
     "Company": "Fifth Third Bancorp Depositary Shares each representing a 1/1000th ownership interest in a share of Non-Cumulative Perpetual Preferred Stock, Series K",
@@ -26518,6 +26534,10 @@
   {
     "Company": "ManpowerGroup",
     "Symbol": "MAN"
+  },
+  {
+    "Company": "Veradermics, Incorporated",
+    "Symbol": "MANE"
   },
   {
     "Company": "Manhattan Associates Inc",

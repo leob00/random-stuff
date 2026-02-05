@@ -58,7 +58,7 @@ const StockSearch = ({
     <Box>
       <CenterStack>
         <StocksAutoComplete
-          placeholder={`search ${searchAheadCount} stocks`}
+          placeholder={`search ${searchAheadCount} quotes`}
           onChanged={handleSearched}
           searchResults={results}
           debounceWaitMilliseconds={500}

@@ -92,13 +92,15 @@ const MidMarketSummary = () => {
         <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={{ xs: 'center', md: 'unset' }}>
           <Box>
             <BorderedBox width={'100%'} minWidth={300} minHeight={513}>
-              {data && data.dailySentiment && (
-                <Box height={513}>
-                  <SummaryTitle title={`Daily Sentiment`} onRefresh={handleRefresh} />
-                  <Typography variant='body2' textAlign={'center'}>{`${dayjs(data.dailySentiment.MarketDate).format('MM/DD/YYYY')}`}</Typography>
-                  <StockMarketStatsChart data={data.dailySentiment} isLoading={isLoading || isValidatingProfile} />
-                </Box>
-              )}
+              <Box minWidth={300} minHeight={513}>
+                {data && data.dailySentiment && (
+                  <Box height={513}>
+                    <SummaryTitle title={`Daily Sentiment`} onRefresh={handleRefresh} />
+                    <Typography variant='body2' textAlign={'center'}>{`${dayjs(data.dailySentiment.MarketDate).format('MM/DD/YYYY')}`}</Typography>
+                    <StockMarketStatsChart data={data.dailySentiment} isLoading={isLoading || isValidatingProfile} />
+                  </Box>
+                )}
+              </Box>
             </BorderedBox>
           </Box>
           <Box>
