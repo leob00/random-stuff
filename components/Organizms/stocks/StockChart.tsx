@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from '@mui/material'
+import { Box, Button, Table, TableBody, TableCell, TableHead, TableRow, Typography, useTheme } from '@mui/material'
 import CenterStack from 'components/Atoms/CenterStack'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import { getMarketChart, MarketCategory } from 'lib/backend/api/qln/chartApi'
@@ -22,6 +22,8 @@ import numeral from 'numeral'
 import { useViewPortSize } from 'hooks/ui/useViewportSize'
 import StockVolumeChart from './charts/StockVolumeChart'
 import dayjs from 'dayjs'
+import JsonView from 'components/Atoms/Boxes/JsonView'
+import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 
 interface Model {
   history: StockHistoryItem[]
@@ -140,7 +142,32 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
     <Box>
       {isLoading || (isWaiting && <ComponentLoader />)}
       {data && (
-        <StockChartDaySelect selectedDays={stockChartSettings.defaultDays} onSelected={handleDaysSelected} availableDates={data.availableDates ?? undefined} />
+        <Box display={'flex'} justifyContent={'flex-end'} gap={2} alignItems={'center'}>
+          {/* {!stockChartSettings.viewAsTable ? (
+            <Button
+              size='small'
+              onClick={() => {
+                saveStockChart({ ...stockChartSettings, viewAsTable: true })
+              }}
+            >
+              <Typography>view table</Typography>
+            </Button>
+          ) : (
+            <Button
+              size='small'
+              onClick={() => {
+                saveStockChart({ ...stockChartSettings, viewAsTable: undefined })
+              }}
+            >
+              <Typography>view chart</Typography>
+            </Button>
+          )} */}
+          <StockChartDaySelect
+            selectedDays={stockChartSettings.defaultDays}
+            onSelected={handleDaysSelected}
+            availableDates={data.availableDates ?? undefined}
+          />
+        </Box>
       )}
 
       <>
@@ -156,13 +183,43 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
             <Box>
               {data.aggregate && <HistoricalAggregateDisplay aggregate={data.aggregate} />}
               {marketCategory === 'stocks' && (
-                <Box>
-                  <ChartJsTimeSeriesLineChart data={data.timeSeriesModel} />
-                  <StockVolumeChart data={data.history} />
-                </Box>
+                <>
+                  {!stockChartSettings.viewAsTable ? (
+                    <>
+                      <Box>
+                        <ChartJsTimeSeriesLineChart data={data.timeSeriesModel} />
+                        <StockVolumeChart data={data.history} />
+                      </Box>
+                    </>
+                  ) : (
+                    <Box minHeight={500}>
+                      <ScrollableBox>
+                        <Table>
+                          <TableHead>
+                            <TableRow>
+                              <TableCell>price</TableCell>
+                              <TableCell>change</TableCell>
+                              <TableCell>%</TableCell>
+                              <TableCell>date</TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            {data.history.map((item) => (
+                              <TableRow key={item.TradeDate}>
+                                <TableCell>{item.Price}</TableCell>
+                                <TableCell>{item.Change}</TableCell>
+                                <TableCell>{item.ChangePercent}</TableCell>
+                                <TableCell>{dayjs(item.TradeDate).format('MM/DD/YYYY hh:mm A')}</TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </ScrollableBox>
+                    </Box>
+                  )}
+                </>
               )}
 
-              {/* {marketCategory === 'stocks' && <StockChartWithVolume data={data.history} symbol={symbol} isLoading={isLoading || isWaiting} />} */}
               {data.movingAvg && data.movingAvg.length > 0 && (
                 <Box py={2}>
                   <MovingAvgValues values={data.movingAvg} startAt={7} />

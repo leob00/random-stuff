@@ -7,7 +7,7 @@ import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import Seo from 'components/Organizms/Seo'
 
 //export const dynamic = 'force-dynamic' // disable cache
-
+export const revalidate = 1800 // Revalidate every 30 minutes
 export default async function Page() {
   return (
     <>

@@ -11,6 +11,7 @@ interface CommunityStocksSettings {
 
 export interface StockChartSettings {
   defaultDays: number
+  viewAsTable?: boolean
 }
 
 interface SessionState {

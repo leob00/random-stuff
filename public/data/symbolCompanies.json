@@ -2148,6 +2148,10 @@
     "Symbol": "ANTX"
   },
   {
+    "Company": "GraniteShares Autocallable NVDA ETF",
+    "Symbol": "ANV"
+  },
+  {
     "Company": "Annovis Bio, Inc.",
     "Symbol": "ANVS"
   },
@@ -5798,6 +5802,10 @@
   {
     "Company": "CORE16 Best of Breed Premier Index ETF",
     "Symbol": "BOBP"
+  },
+  {
+    "Company": "Bobs Discount Furniture, Inc.",
+    "Symbol": "BOBS"
   },
   {
     "Company": "Boston Omaha Corporation",
@@ -16448,6 +16456,10 @@
     "Symbol": "FPRO"
   },
   {
+    "Company": "Forgent Power Solutions, Inc.",
+    "Symbol": "FPS"
+  },
+  {
     "Company": "First Trust EIP Power Solutions ETF",
     "Symbol": "FPWR"
   },
@@ -24728,6 +24740,10 @@
     "Symbol": "KRUS"
   },
   {
+    "Company": "ProShares CoinDesk 20 Crypto ETF",
+    "Symbol": "KRYP"
+  },
+  {
     "Company": "Krystal Biotech, Inc. Common Stock",
     "Symbol": "KRYS"
   },
@@ -28224,6 +28240,10 @@
     "Symbol": "MRNOW"
   },
   {
+    "Company": "Defiance Daily Target 2X Long MRNA ETF",
+    "Symbol": "MRNX"
+  },
+  {
     "Company": "YieldMax MRNA Option Income Strategy ETF",
     "Symbol": "MRNY"
   },
@@ -29466,6 +29486,10 @@
   {
     "Company": "NewtekOne, Inc. 8.00% Fixed Rate Senior Notes due 2028",
     "Symbol": "NEWTI"
+  },
+  {
+    "Company": "NewtekOne, Inc. 8.50% Fixed Rate Senior Notes due 2031",
+    "Symbol": "NEWTO"
   },
   {
     "Company": "NewtekOne, Inc. Depositary Shares, Non-Cumulative Perpetual Preferred Stock, Series B",
@@ -30966,6 +30990,10 @@
   {
     "Company": "Oxley Bridge Acquisition Limited Class A Ordinary Shares",
     "Symbol": "OBA"
+  },
+  {
+    "Company": "TG-17, Inc. Common Stock",
+    "Symbol": "OBAI"
   },
   {
     "Company": "Oxley Bridge Acquisition Limited Unit",
@@ -37456,7 +37484,7 @@
     "Symbol": "SBDS"
   },
   {
-    "Company": "SharpLink Gaming Ltd. Ordinary Shares",
+    "Company": "SharpLink, Inc. Common Stock",
     "Symbol": "SBET"
   },
   {
@@ -39924,7 +39952,7 @@
     "Symbol": "SPPP"
   },
   {
-    "Company": "SPRUCE BIOSCIENCES INC",
+    "Company": "Spruce Biosciences, Inc. Common Stock",
     "Symbol": "SPRB"
   },
   {
@@ -42098,6 +42126,10 @@
   {
     "Company": "The Timken Company",
     "Symbol": "TKR"
+  },
+  {
+    "Company": "GraniteShares Autocallable TSLA ETF",
+    "Symbol": "TLA"
   },
   {
     "Company": "Touchstone International Equity ETF",
@@ -44654,6 +44686,10 @@
   {
     "Company": "Velo3D, Inc. Common stock",
     "Symbol": "VELO"
+  },
+  {
+    "Company": "Virtus Emerging Markets Dividend ETF",
+    "Symbol": "VEM"
   },
   {
     "Company": "Virtus Stone Harbor Emerging Markets High Yield Bond ETF",
@@ -47820,6 +47856,10 @@
     "Symbol": "ZETA"
   },
   {
+    "Company": "Defiance Daily Target 2x Long ZETA ETF",
+    "Symbol": "ZETX"
+  },
+  {
     "Company": "Olympic Steel, Inc.",
     "Symbol": "ZEUS"
   },
@@ -47908,8 +47948,16 @@
     "Symbol": "ZKIN"
   },
   {
+    "Company": "Lafayette Digital Acquisition Corp. I Class A Ordinary Shares",
+    "Symbol": "ZKP"
+  },
+  {
     "Company": "Lafayette Digital Acquisition Corp. I Unit",
     "Symbol": "ZKPU"
+  },
+  {
+    "Company": "Lafayette Digital Acquisition Corp. I Warrant",
+    "Symbol": "ZKPW"
   },
   {
     "Company": "Zai Lab Limited American Depositary Shares",
