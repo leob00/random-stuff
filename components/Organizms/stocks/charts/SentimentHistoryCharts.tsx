@@ -56,10 +56,20 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
   const colors = model.results.map((m) => {
     return m.TotalUpPercent >= 50 ? chart.positiveColor : chart.negativeColor
   })
-  const bar: BarChart = {
+
+  const barChart: BarChart = {
     colors: colors,
     labels: model.results.map((m) => dayjs(m.MarketDate).format('MM/DD/YYYY')),
-    numbers: model.results.map((m) => m.TotalUpPercent),
+    numbers: model.results.map((m) => {
+      return m.TotalUpPercent >= 50 ? m.TotalUpPercent : m.TotalDownPercent
+    }),
+  }
+  const lineChart: BarChart = {
+    colors: colors,
+    labels: model.results.map((m) => dayjs(m.MarketDate).format('MM/DD/YYYY')),
+    numbers: model.results.map((m) => {
+      return m.TotalUpPercent
+    }),
   }
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
   const isLarge = useMediaQuery(theme.breakpoints.up('md'))
@@ -99,7 +109,7 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
     },
   }
 
-  const lineChartOptions = getLineChartOptions({ labels: bar.labels, numbers: bar.numbers }, '', '%', theme.palette.mode, true, isXSmall)
+  const lineChartOptions = getLineChartOptions({ labels: lineChart.labels, numbers: lineChart.numbers }, '', '%', theme.palette.mode, true, isXSmall)
   lineChartOptions.scales!.y!.ticks! = {
     ...lineChartOptions.scales!.y!.ticks!,
     callback: (tickValue) => {
@@ -159,8 +169,8 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
     }
   }
 
-  const line = { ...bar, colors: [getPositiveNegativeColor(bar.numbers[bar.numbers.length - 1] - bar.numbers[0])] }
-  const tickColors = bar.numbers.map((m) => {
+  const line = { ...lineChart, colors: [getPositiveNegativeColor(lineChart.numbers[lineChart.numbers.length - 1] - lineChart.numbers[0])] }
+  const tickColors = lineChart.numbers.map((m) => {
     let change = m >= 50 ? 1 : -1
     return getPositiveNegativeColor(change)
   })
@@ -180,7 +190,7 @@ const SentimentHistoryCharts = ({ data }: { data: StockStats[] }) => {
         handleBackClick={handleBackClick}
         handleNextClick={handleNextClick}
       />
-      <SimpleBarChart barChart={bar} chartOptions={barchartOptions} height={height} />
+      <SimpleBarChart barChart={barChart} chartOptions={barchartOptions} height={height} />
       <ChartJsTimeSeriesLineChart data={tsModel} />
     </Box>
   )
