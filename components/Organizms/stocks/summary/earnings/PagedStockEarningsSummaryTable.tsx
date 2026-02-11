@@ -97,7 +97,7 @@ const PagedStockEarningsSummaryTable = ({
       ></Pager>
 
       {selectedItem && selectedItem.StockQuote && (
-        <InfoDialog show={true} title={selectedItem.Symbol} onCancel={() => setSelectedItem(null)}>
+        <InfoDialog show={true} title={''} onCancel={() => setSelectedItem(null)}>
           <StockListItem item={selectedItem.StockQuote} marketCategory='stocks' userProfile={userProfile} disabled expand />
         </InfoDialog>
       )}

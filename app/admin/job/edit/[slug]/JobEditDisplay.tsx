@@ -1,8 +1,6 @@
 'use client'
 import { Box } from '@mui/material'
-import ResponsiveContainer from 'components/Atoms/Boxes/ResponsiveContainer'
 import BackButton from 'components/Atoms/Buttons/BackButton'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import ManageJobLayout from 'components/Organizms/admin/jobs/ManageJobLayout'
 import RequireClaim from 'components/Organizms/user/RequireClaim'
