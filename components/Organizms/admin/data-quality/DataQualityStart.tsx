@@ -19,11 +19,11 @@ const DataQualityStart = () => {
         </Box>
         <Box sx={{ width: '40%' }}>
           <Card>
-            <CardHeader title={'Dividends'}></CardHeader>
+            <CardHeader title={'Futures'}></CardHeader>
             <HorizontalDivider />
             <CardContent>
               <Box>
-                <SiteLink href='/admin/data-quality/dividends' text='manage' />
+                <SiteLink href='/admin/data-quality/futures' text='manage' />
               </Box>
             </CardContent>
           </Card>

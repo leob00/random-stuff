@@ -585,3 +585,9 @@ export async function executeStockAdvancedSearch(filter: StockAdvancedSearchFilt
   )
   return result
 }
+
+export type TickerType = {
+  Symbol: string
+  Name: string
+  Category: string
+}

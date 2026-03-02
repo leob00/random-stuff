@@ -8,16 +8,19 @@ const HoverEffect = ({ children }: { children: ReactNode | React.JSX.Element[] }
   const StyledBox = styled(Stack)`
     & .MuiStack-root {
       //background-color: transparent;
-      border-radius: 8px;
+      border-radius: 7px;
       padding: 1px;
+      //border: 0px inset ${CasinoBlueTransparent};
     }
 
     &:hover {
-      border-radius: 6px;
-      background-color: ${CasinoBlueTransparent};
+      border-radius: 7px;
+      //color: ${theme.palette.info.main};
+      background-color: transparent;
+      border: 1px outset ${CasinoBlueTransparent};
     }
     &:hover .MuiTypography-root {
-      color: ${theme.palette.info.contrastText};
+      //color: ${theme.palette.info.contrastText};
     }
   `
   const isMobile = isMobileDevice()
