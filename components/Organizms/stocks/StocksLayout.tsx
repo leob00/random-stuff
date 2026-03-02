@@ -1,3 +1,4 @@
+'use client'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import StocksDisplay from './StocksDisplay'
