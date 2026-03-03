@@ -4,7 +4,7 @@ import CopyableText from 'components/Atoms/Text/CopyableText'
 import ReadOnlyField from 'components/Atoms/Text/ReadOnlyField'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
-import { getCacheStats, resetStockCache } from 'lib/backend/api/qln/qlnApi'
+import { serverGetFetch, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 import { Claim } from 'lib/backend/auth/userUtil'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import numeral from 'numeral'
@@ -28,7 +28,8 @@ const CacheSettings = ({ claim }: { claim: Claim }) => {
   const mutateKey = `qln-case-stats`
 
   const fetchData = async () => {
-    const response = await getCacheStats(claim.token ?? '')
+    const response = await serverGetFetch(`/ServerSettings?Token=${claim?.token ?? ''}`)
+    // const response = await getCacheStats(claim.token ?? '')
     return response.Body as CacheStats
   }
   const { data, isLoading } = useSwrHelper(mutateKey, fetchData, { revalidateOnFocus: false })
@@ -38,7 +39,8 @@ const CacheSettings = ({ claim }: { claim: Claim }) => {
   const handleResetCache = async () => {
     setShowRefreshCacheConfirm(false)
     setIswaiting(true)
-    await resetStockCache(claim.token ?? '')
+    await serverPostFetch({}, `/StockCache?Token=${claim?.token ?? ''}`)
+    //await resetStockCache(claim.token ?? '')
     mutate(mutateKey)
     setIswaiting(false)
   }

@@ -57,9 +57,9 @@ const SecretsTable = ({
     <>
       {!editItem && (
         <>
-          <Box py={2}>
+          <Box pb={2}>
             <CenterStack>
-              <SearchWithinList onChanged={handleFilterChanged} defaultValue={filter} />
+              <SearchWithinList onChanged={handleFilterChanged} defaultValue={filter} fullWidth />
             </CenterStack>
           </Box>
           <>

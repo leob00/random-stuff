@@ -1,13 +1,13 @@
 import { UserType } from '@aws-sdk/client-cognito-identity-provider'
 import { Box } from '@mui/material'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
-import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { getUsers } from 'lib/backend/csr/nextApiWrapper'
 import { useState } from 'react'
 import UserAdminDetail from './UserAdminDetail'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const UsersAdmin = ({ userProfile }: { userProfile: UserProfile }) => {
   const key = `user-profile-${userProfile.id}`
@@ -37,7 +37,7 @@ const UsersAdmin = ({ userProfile }: { userProfile: UserProfile }) => {
 
   return (
     <Box py={2}>
-      {isLoading && <BackdropLoader />}
+      {isLoading && <ComponentLoader />}
       {data && (
         <Box>
           {data.map((item) => (
@@ -48,6 +48,7 @@ const UsersAdmin = ({ userProfile }: { userProfile: UserProfile }) => {
                 onClicked={() => {
                   handleLoadUser(item)
                 }}
+                fadeIn={false}
               />
               {selectedItem && selectedItem.username === item.username && <UserAdminDetail userProfile={selectedItem} />}
               <HorizontalDivider />

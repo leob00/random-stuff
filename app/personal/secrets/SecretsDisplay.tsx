@@ -13,6 +13,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { getUserSecrets } from 'lib/backend/csr/nextApiWrapper'
 import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import EditSecret from 'components/Organizms/user/secrets/EditSecret'
+import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
 
 const SecretsDisplay = ({ data }: { data: SecretsUiModel }) => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
@@ -55,7 +56,7 @@ const SecretsDisplay = ({ data }: { data: SecretsUiModel }) => {
           {!showCreateNew && (
             <>
               <Box pb={3}>
-                <PrimaryButton text={'Create...'} size='small' onClick={() => setShowCreateNew(true)} />
+                <SuccessButton text={'Create...'} size='small' onClick={() => setShowCreateNew(true)} />
               </Box>
               <SecretsTable
                 authProfile={userProfile}

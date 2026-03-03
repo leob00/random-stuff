@@ -8,9 +8,9 @@ const TableHeaderWithSearchWithinList = ({ count, handleSearched }: { count: num
   return (
     <TableHead>
       <TableRow>
-        <TableCell colSpan={10}>
+        <TableCell colSpan={10} sx={{ border: 'none' }}>
           <CenterStack>
-            <SearchWithinList onChanged={handleSearched} text={`search in ${numeral(count).format('###,###')} alerts`} />
+            <SearchWithinList onChanged={handleSearched} text={`search in ${numeral(count).format('###,###')} alerts`} fullWidth />
           </CenterStack>
         </TableCell>
       </TableRow>
