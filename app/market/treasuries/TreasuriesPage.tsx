@@ -41,11 +41,9 @@ export default async function TreasuriesView() {
   const data = await getData()
   return (
     <Box>
-      {data && (
-        <Box>
-          <TreasuriesDisplay data={data} />
-        </Box>
-      )}
+      <Box>
+        <TreasuriesDisplay data={data ?? []} />
+      </Box>
     </Box>
   )
 }
