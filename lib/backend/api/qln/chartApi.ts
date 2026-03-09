@@ -39,17 +39,22 @@ export async function getMarketChart(symbol: string, marketCategory: MarketCateg
     case 'crypto':
       resp = await serverPostFetch({ body: { key: symbol, HistoryDays: days ?? 30 } }, '/Crypto')
   }
-  // try {
-  //   const history = quoteHistorySchema.parse(resp.Body.History)
-  // } catch (err) {
-  //   console.error(err)
-  // }
-  const apiResult: StockChartApiResponse = {
-    Aggregate: resp.Body.Aggregate as HistoricalAggregate,
-    History: quoteHistorySchema.parse(resp.Body.History),
-    AvailableDates: resp.Body.AvailableDates ? (resp.Body.AvailableDates as DateRange) : null,
-    MovingAvg: resp.Body.MovingAvg ? (resp.Body.MovingAvg as MovingAvg[]) : null,
-  }
 
-  return apiResult
+  try {
+    const apiResult: StockChartApiResponse = {
+      Aggregate: resp.Body.Aggregate as HistoricalAggregate,
+      History: quoteHistorySchema.parse(resp.Body.History),
+      AvailableDates: resp.Body.AvailableDates ? (resp.Body.AvailableDates as DateRange) : null,
+      MovingAvg: resp.Body.MovingAvg ? (resp.Body.MovingAvg as MovingAvg[]) : null,
+    }
+    return apiResult
+  } catch (err) {
+    console.error(err)
+  }
+  const emptyResult: StockChartApiResponse = {
+    History: [],
+    Aggregate: { AvailableDates: null, Change: 0, Days: 0, Percentage: 0 },
+    AvailableDates: null,
+  }
+  return emptyResult
 }
