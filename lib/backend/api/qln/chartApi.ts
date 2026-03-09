@@ -39,7 +39,11 @@ export async function getMarketChart(symbol: string, marketCategory: MarketCateg
     case 'crypto':
       resp = await serverPostFetch({ body: { key: symbol, HistoryDays: days ?? 30 } }, '/Crypto')
   }
-
+  // try {
+  //   const history = quoteHistorySchema.parse(resp.Body.History)
+  // } catch (err) {
+  //   console.error(err)
+  // }
   const apiResult: StockChartApiResponse = {
     Aggregate: resp.Body.Aggregate as HistoricalAggregate,
     History: quoteHistorySchema.parse(resp.Body.History),

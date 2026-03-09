@@ -62,6 +62,7 @@ const StockListItem = ({
   const scrollTarget = useRef<HTMLSpanElement | null>(null)
   const tabScrollTarget = useRef<HTMLSpanElement | null>(null)
   const isStock = marketCategory === 'stocks'
+
   const handleCompanyClick = async () => {
     if (!disabled) {
       setShowMore(!showMore)

@@ -5,8 +5,8 @@ export const quoteHistorySchema = z
   .object({
     Symbol: z.string(),
     Price: z.number(),
-    Change: z.number().optional(),
-    ChangePercent: z.number().optional(),
+    Change: z.number().nullable(),
+    ChangePercent: z.number().nullable(),
     TradeDate: z.string(),
     Volume: z.number().optional().nullable(),
   })
