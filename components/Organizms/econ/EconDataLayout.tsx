@@ -70,6 +70,7 @@ const EconDataLayout = () => {
 
   return (
     <Box py={2}>
+      {isLoading && <ComponentLoader />}
       {!isLoading && data && data.Body.Items.length === 0 && <NoDataFound />}
       {data && (
         <Box>
@@ -79,7 +80,7 @@ const EconDataLayout = () => {
           <Box display={'flex'} justifyContent={'flex-end'} pt={2}>
             {!editMode ? <LinkButton onClick={() => setEditMode(true)}>edit</LinkButton> : <LinkButton onClick={() => setEditMode(false)}>close</LinkButton>}
           </Box>
-          {isLoading && <ComponentLoader />}
+
           {editMode ? (
             <Box>
               <DragAndDropSort items={sortableItems} onPushChanges={handleReorder} />

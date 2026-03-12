@@ -44,7 +44,7 @@ const Page = () => {
     <>
       <Seo pageTitle={`Stock Details: ${id}`} />
       <ResponsiveContainer>
-        <PageHeader text={`${id}`}>
+        <PageHeader text={``}>
           <StockMarketPageContextMenu />
         </PageHeader>
         {pageState ? (
