@@ -27,8 +27,8 @@ const ListHeaderStack = ({
   const StyledBox = styled(Stack)`
     & .MuiStack-root {
       background-color: ${DarkModeBlueTransparent};
-      border-radius: 8px;
-      padding: 1px;
+      border-radius: 7px;
+      padding: 0px;
     }
     & .MuiTypography-root {
       color: ${theme.palette.info.contrastText};
@@ -37,7 +37,7 @@ const ListHeaderStack = ({
 
   const Header = () => {
     return (
-      <Stack direction={'row'} flexGrow={1} sx={{ border: outlined ? `solid 1px ${DarkModeBlueTransparent}` : 'unset' }}>
+      <Stack direction={'row'} flexGrow={1}>
         <Box
           px={2}
           py={1}
