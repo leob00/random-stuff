@@ -12,7 +12,7 @@ const HoverEffect = ({ children }: { children: ReactNode | React.JSX.Element[] }
     }
 
     &:hover {
-      border-radius: 8px;
+      border-radius: 7.8px;
       background-color: transparent;
       border: 0.02px outset ${CasinoBlueTransparent};
     }
@@ -22,7 +22,11 @@ const HoverEffect = ({ children }: { children: ReactNode | React.JSX.Element[] }
   `
   const isMobile = isMobileDevice()
 
-  return <>{!isMobile ? <StyledBox>{children}</StyledBox> : <>{children}</>}</>
+  return (
+    <>
+      <StyledBox>{children}</StyledBox>
+    </>
+  )
 }
 
 export default HoverEffect
