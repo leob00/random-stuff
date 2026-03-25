@@ -1,6 +1,6 @@
 import { Box, Stack, styled, Typography, useTheme } from '@mui/material'
 import ContextMenu, { ContextMenuItem } from '../Menus/ContextMenu'
-import { DarkModeBlueTransparent } from 'components/themes/mainTheme'
+import { CasinoWhiteTransparent, DarkModeBlueTransparent, White } from 'components/themes/mainTheme'
 
 const ListHeaderStack = ({
   text,
@@ -31,7 +31,7 @@ const ListHeaderStack = ({
       padding: 0px;
     }
     & .MuiTypography-root {
-      color: ${theme.palette.info.contrastText};
+      color: ${theme.palette.mode === 'dark' ? theme.palette.primary.contrastText : White};
     }
   `
 
