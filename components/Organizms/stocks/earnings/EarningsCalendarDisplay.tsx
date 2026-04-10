@@ -12,6 +12,7 @@ import { StockQuote } from 'lib/backend/api/models/zModels'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import FullStockDetail from '../FullStockDetail'
 import { filterResult, getDefaultDateOption } from './earningsCalendar'
+import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 
 const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   const uniqueDates = orderBy(uniq(data.map((m) => m.ReportDate!)))
@@ -59,8 +60,7 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
   }
 
   return (
-    <>
-      {isLoading && <BackdropLoader />}
+    <Box>
       <Box sx={{ display: !!selectedQuote ? 'none' : 'unset' }}>
         <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
           <Box width={{ xs: '90%', md: '60%' }}>
@@ -74,6 +74,7 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
           </Box>
         </Box>
         <Box py={2}>
+          {isLoading && <ComponentLoader />}
           {selectedDate && (
             <Box pt={1}>
               <StockEarningsCalendarDetails
@@ -88,7 +89,7 @@ const EarningsCalendarDisplay = ({ data }: { data: StockEarning[] }) => {
         </Box>
       </Box>
       {selectedQuote && <FullStockDetail item={selectedQuote} onClose={() => setSelectedQuote(null)} />}
-    </>
+    </Box>
   )
 }
 

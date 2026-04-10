@@ -5,7 +5,6 @@ import { sum } from 'lodash'
 import { sortArray } from 'lib/util/collections'
 import { getMultiDatasetBarChartOptions } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import { ChartData } from 'chart.js'
-import FadeIn from 'components/Atoms/Animations/FadeIn'
 import BarChartStacked from 'components/Atoms/Charts/chartJs/BarChartStacked'
 import { CasinoBlueTransparent, CasinoOrangeTransparent } from 'components/themes/mainTheme'
 import numeral from 'numeral'
@@ -85,9 +84,7 @@ const StockEarningsByYearBarChart = ({ data }: { data: StockEarning[] }) => {
   return (
     <Box py={2}>
       <Box>
-        <FadeIn>
-          <BarChartStacked data={chartDataset} options={chartOptions} />
-        </FadeIn>
+        <BarChartStacked data={chartDataset} options={chartOptions} />
       </Box>
     </Box>
   )

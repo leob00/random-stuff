@@ -143,25 +143,6 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
       {isLoading || (isWaiting && <ComponentLoader />)}
       {data && (
         <Box display={'flex'} justifyContent={'flex-end'} gap={2} alignItems={'center'}>
-          {/* {!stockChartSettings.viewAsTable ? (
-            <Button
-              size='small'
-              onClick={() => {
-                saveStockChart({ ...stockChartSettings, viewAsTable: true })
-              }}
-            >
-              <Typography>view table</Typography>
-            </Button>
-          ) : (
-            <Button
-              size='small'
-              onClick={() => {
-                saveStockChart({ ...stockChartSettings, viewAsTable: undefined })
-              }}
-            >
-              <Typography>view chart</Typography>
-            </Button>
-          )} */}
           <StockChartDaySelect
             selectedDays={stockChartSettings.defaultDays}
             onSelected={handleDaysSelected}

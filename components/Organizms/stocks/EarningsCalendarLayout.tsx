@@ -17,7 +17,7 @@ const EarningsCalendarLayout = () => {
 
   return (
     <Box py={2}>
-      {isLoading && <ComponentLoader pt={8} />}
+      {isLoading && <ComponentLoader pt={10} />}
       {!isLoading && data && data.length === 0 && <NoDataFound />}
       {data && data.length > 0 && <EarningsCalendarDisplay data={data} />}
     </Box>
