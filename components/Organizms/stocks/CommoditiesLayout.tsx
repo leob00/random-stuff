@@ -7,6 +7,7 @@ import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
+import { orderBy } from 'lodash'
 
 const CommoditiesLayout = () => {
   const mutateKey = 'commodities'
@@ -15,7 +16,8 @@ const CommoditiesLayout = () => {
 
     const resp = await serverGetFetch(endPoint)
     const quotes = resp.Body as StockQuote[]
-    return quotes
+    const result = orderBy(quotes, (quote) => Math.abs(quote.ChangePercent), ['desc'])
+    return result
   }
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })

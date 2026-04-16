@@ -3,11 +3,11 @@ import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import SnackbarSuccess from 'components/Atoms/Dialogs/SnackbarSuccess'
 import { useAlertsController } from 'hooks/stocks/alerts/useAlertsController'
 import { processAlertTriggers } from 'lib/backend/alerts/stockAlertProcessor'
-import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { DynamoKeys, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { constructStockAlertsSubPrimaryKey, constructStockAlertsSubSecondaryKey } from 'lib/backend/api/aws/util'
 import { StockAlertSubscription, StockAlertSubscriptionWithMessage, StockAlertTrigger, StockQuote } from 'lib/backend/api/models/zModels'
 import { getStockQuotes } from 'lib/backend/api/qln/qlnApi'
-import { getDynamoItemData, putRandomStuffBatch, searchDynamoItemsByCategory, sendEmailFromClient } from 'lib/backend/csr/nextApiWrapper'
+import { getDynamoItem, getDynamoItemData, putRandomStuffBatch, searchDynamoItemsByCategory, sendEmailFromClient } from 'lib/backend/csr/nextApiWrapper'
 import { getDefaultSubscription, sortAlerts } from 'lib/ui/alerts/stockAlertHelper'
 import { formatEmail } from 'lib/ui/mailUtil'
 import { uniq } from 'lodash'
@@ -64,8 +64,10 @@ const StockAlertsLayout = ({ userProfile }: { userProfile: UserProfile }) => {
     setShowAddAlert(false)
     const dataCopy = { ...data! }
     const quotes = await getStockQuotes(uniq(dataCopy.subscriptions.map((m) => m.symbol)))
-
-    const template = await formatEmail('/emailTemplates/stockAlertSubscriptionEmailTemplate.html', new Map<string, string>())
+    const templateKey: DynamoKeys = 'email-template[stock-alert]'
+    const templateResp = await getDynamoItem(templateKey)
+    const template = templateResp?.data as string
+    //const template = await formatEmail('/emailTemplates/stockAlertSubscriptionEmailTemplate.html', new Map<string, string>())
     const quoteMap = getMapFromArray<StockQuote>(quotes, 'Symbol')
     const result = processAlertTriggers(userProfile.username, dataCopy, quoteMap, template)
     result.subscriptions = sortAlerts(result.subscriptions)
