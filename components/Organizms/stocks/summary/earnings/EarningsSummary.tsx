@@ -11,6 +11,7 @@ import SwapVertRoundedIcon from '@mui/icons-material/SwapVertRounded'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 import SearchWithinList from 'components/Atoms/Inputs/SearchWithinList'
+import { useRouter } from 'next/navigation'
 
 type EarningsSort = {
   field: keyof StockEarning
@@ -30,6 +31,7 @@ const EarningsSummary = ({
   userProfile: UserProfile | null
   onRefreshRequest?: () => void
 }) => {
+  const router = useRouter()
   const [earningsSort, setEarningsSort] = useState<EarningsSort>({ field: 'ReportDate', direction: 'default' })
   const [showSearch, setShowSearch] = useState(false)
   const [searchWithinList, setSearchWithinList] = useState('')
@@ -38,6 +40,9 @@ const EarningsSummary = ({
 
   const handleSortClick = (sort: EarningsSort) => {
     setEarningsSort(sort)
+  }
+  const onGoToPage = () => {
+    router.push('/market/stocks/earnings/calendar')
   }
 
   return (
@@ -52,6 +57,7 @@ const EarningsSummary = ({
             setSearchWithinList('')
           }
         }}
+        onGoToPage={onGoToPage}
       />
       <Box>
         <Box display={'flex'} gap={2} alignItems={'center'} minHeight={44}>

@@ -23,6 +23,7 @@ import StockMarketStatsChart from '../charts/StockMarketStatsChart'
 import SummaryTitle from './SummaryTitle'
 import CommoditiesSummary from './CommoditiesSummary'
 import CryptoSummary from './CryptoSummary'
+import { useRouter } from 'next/navigation'
 
 type Model = {
   todayScheduledEarnings: StockEarning[]
@@ -34,7 +35,7 @@ type Model = {
 const MidMarketSummary = () => {
   const mutateKey = 'earnings-mid-market'
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
-
+  const router = useRouter()
   const dataFn = async () => {
     const currentDtEst = getCurrentDateTimeUsEastern()
     await sleep(getRandomInteger(250, 600))
@@ -76,6 +77,9 @@ const MidMarketSummary = () => {
   const handleRefresh = () => {
     mutate(mutateKey)
   }
+  const onGoToPage = () => {
+    router.push('/market/stocks/sentiment')
+  }
   useEffect(() => {
     const fn = async () => {
       await sleep(250)
@@ -95,7 +99,7 @@ const MidMarketSummary = () => {
               <Box minWidth={300} minHeight={513}>
                 {data && data.dailySentiment && (
                   <Box height={513}>
-                    <SummaryTitle title={`Daily Sentiment`} onRefresh={handleRefresh} />
+                    <SummaryTitle title={`Daily Sentiment`} onRefresh={handleRefresh} onGoToPage={onGoToPage} />
                     <Typography variant='body2' textAlign={'center'}>{`${dayjs(data.dailySentiment.MarketDate).format('MM/DD/YYYY')}`}</Typography>
                     <StockMarketStatsChart data={data.dailySentiment} isLoading={isLoading || isValidatingProfile} />
                   </Box>

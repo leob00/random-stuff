@@ -4,17 +4,20 @@ import ContextMenuRefresh from 'components/Molecules/Menus/ContextMenuRefresh'
 import { SummarySearchSettings } from './summaryModels'
 import SearchIcon from '@mui/icons-material/Search'
 import SearchOffIcon from '@mui/icons-material/SearchOff'
+import ContextMenuGoToPage from 'components/Molecules/Menus/ContextMenuGoToPage'
 
 const SummaryTitle = ({
   title,
   onRefresh,
   searchSettings,
   setSearchSettings,
+  onGoToPage,
 }: {
   title: string
   onRefresh?: () => void
   searchSettings?: SummarySearchSettings
   setSearchSettings?: (settings: SummarySearchSettings) => void
+  onGoToPage?: () => void
 }) => {
   const menu: ContextMenuItem[] = [
     {
@@ -22,6 +25,12 @@ const SummaryTitle = ({
       item: <ContextMenuRefresh />,
     },
   ]
+  if (onGoToPage) {
+    menu.push({
+      fn: () => onGoToPage?.(),
+      item: <ContextMenuGoToPage />,
+    })
+  }
 
   return (
     <Box pb={2}>

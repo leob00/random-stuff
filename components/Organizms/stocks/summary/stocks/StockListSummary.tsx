@@ -29,6 +29,7 @@ const StockListSummary = ({
   isLoading,
   onRefreshRequest,
   showCompanyName = true,
+  onGoToPage,
 }: {
   userProfile: UserProfile | null
   title: string
@@ -36,6 +37,7 @@ const StockListSummary = ({
   isLoading?: boolean
   onRefreshRequest?: () => void
   showCompanyName?: boolean
+  onGoToPage?: () => void
 }) => {
   const [selectedItem, setSelectedItem] = useState<StockQuote | null>(null)
   const [stockSort, setStockSort] = useState<StockSort>({ field: 'ChangePercent', direction: 'default' })
@@ -60,6 +62,7 @@ const StockListSummary = ({
       <SummaryTitle
         title={title}
         onRefresh={onRefreshRequest}
+        onGoToPage={onGoToPage}
         searchSettings={{ allowSearch: true, searchOn: showSearch }}
         setSearchSettings={(settings) => {
           setShowSearch(settings.searchOn)

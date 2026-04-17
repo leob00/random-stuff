@@ -19,9 +19,11 @@ import { StockSort } from './stocks/StockListSummary'
 import StockTooltip from 'components/Atoms/Tooltips/StockTooltip'
 import OtherMarketsSummaryHeader from './OtherMarketsSummaryHeader'
 import { orderBy } from 'lodash'
+import { useRouter } from 'next/navigation'
 
 const CryptoSummary = () => {
   const theme = useTheme()
+  const router = useRouter()
   const [selectedItem, setSelectedItem] = useState<StockQuote | null>(null)
   const [stockSort, setStockSort] = useState<StockSort>({ field: 'ChangePercent', direction: 'default' })
   const palette = theme.palette.mode
@@ -57,9 +59,13 @@ const CryptoSummary = () => {
     mutate(mutateKey)
   }
 
+  const onGoToPage = () => {
+    router.push('/market/crypto')
+  }
+
   return (
     <Box height={513}>
-      <SummaryTitle title={'Crypto'} onRefresh={onRefreshRequest} />
+      <SummaryTitle title={'Crypto'} onRefresh={onRefreshRequest} onGoToPage={onGoToPage} />
       <OtherMarketsSummaryHeader stockSort={stockSort} handleSortClick={handleSortClick} />
       {isLoading && (
         <Box display={'flex'} justifyContent={'center'}>

@@ -67,9 +67,7 @@ const Page = () => {
                 </Typography>
               </CenterStack>
             ) : (
-              <>
-                <PleaseLogin />
-              </>
+              <>{!isLoading && <PleaseLogin />}</>
             )}
           </Box>
         )}

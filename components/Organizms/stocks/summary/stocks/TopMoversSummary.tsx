@@ -11,10 +11,12 @@ import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import StockListSummary from './StockListSummary'
 import { getRandomInteger } from 'lib/util/numberUtil'
 import { orderBy } from 'lodash'
+import { useRouter } from 'next/navigation'
 
 const TopMoversSummary = ({ userProfile, showCompanyName = true }: { userProfile: UserProfile | null; showCompanyName?: boolean }) => {
   const mutateKey = 'stock-market-summary-top-movers'
   const { pollCounter } = usePolling(1000 * 360) // 3 minutes
+  const router = useRouter()
 
   const dataFn = async () => {
     await sleep(getRandomInteger(250, 2500))
@@ -38,7 +40,9 @@ const TopMoversSummary = ({ userProfile, showCompanyName = true }: { userProfile
   }
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
-
+  const onGoToPage = () => {
+    router.push('/market/stocks/reports/topmvgavg')
+  }
   useEffect(() => {
     if (pollCounter >= 1) {
       mutate(mutateKey)
@@ -53,6 +57,7 @@ const TopMoversSummary = ({ userProfile, showCompanyName = true }: { userProfile
       isLoading={isLoading}
       onRefreshRequest={onRefreshRequest}
       showCompanyName={showCompanyName}
+      onGoToPage={onGoToPage}
     />
   )
 }

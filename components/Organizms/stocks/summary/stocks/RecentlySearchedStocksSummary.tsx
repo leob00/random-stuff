@@ -11,13 +11,18 @@ import StockListSummary from './StockListSummary'
 import { getRandomInteger } from 'lib/util/numberUtil'
 import { searchDynamoItemsByCategory } from 'lib/backend/csr/nextApiWrapper'
 import { sortArray } from 'lib/util/collections'
+import { useRouter } from 'next/navigation'
 
 const RecentlySearchedStocksSummary = ({ userProfile }: { userProfile: UserProfile | null }) => {
   const mutateKey = !userProfile ? 'searched-stocks' : `searched-stocks-user[${userProfile.username}]`
   const { pollCounter } = usePolling(1000 * getRandomInteger(60, 360)) // 1- 3 minutes
-
+  const router = useRouter()
   const onRefreshRequest = () => {
     mutate(mutateKey)
+  }
+
+  const onGoToPage = () => {
+    router.push('/market/stocks/quotes')
   }
 
   const dataFn = async () => {
@@ -54,6 +59,7 @@ const RecentlySearchedStocksSummary = ({ userProfile }: { userProfile: UserProfi
       title={userProfile ? 'Searched by Me' : 'All Recently Searched'}
       isLoading={isLoading}
       onRefreshRequest={onRefreshRequest}
+      onGoToPage={onGoToPage}
     />
   )
 }

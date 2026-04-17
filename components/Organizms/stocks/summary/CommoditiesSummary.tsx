@@ -1,3 +1,4 @@
+'use client'
 import { Box, Button, Typography, useTheme } from '@mui/material'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import { useSwrHelper } from 'hooks/useSwrHelper'
@@ -17,9 +18,11 @@ import { StockSort } from './stocks/StockListSummary'
 import { orderBy } from 'lodash'
 import StockTooltip from 'components/Atoms/Tooltips/StockTooltip'
 import OtherMarketsSummaryHeader from './OtherMarketsSummaryHeader'
+import { useRouter } from 'next/navigation'
 
 const CommoditiesSummary = () => {
   const theme = useTheme()
+  const router = useRouter()
   const [selectedItem, setSelectedItem] = useState<StockQuote | null>(null)
   const palette = theme.palette.mode
   const mutateKey = 'commodities'
@@ -44,6 +47,9 @@ const CommoditiesSummary = () => {
   const onRefreshRequest = () => {
     mutate(mutateKey)
   }
+  const onGoToPage = () => {
+    router.push('/market/commodities')
+  }
 
   useEffect(() => {
     const fn = async () => {
@@ -57,7 +63,7 @@ const CommoditiesSummary = () => {
 
   return (
     <Box height={513}>
-      <SummaryTitle title={'Commodities'} onRefresh={onRefreshRequest} />
+      <SummaryTitle title={'Commodities'} onRefresh={onRefreshRequest} onGoToPage={onGoToPage} />
       <OtherMarketsSummaryHeader stockSort={stockSort} handleSortClick={handleSortClick} />
       {isLoading && (
         <Box display={'flex'} justifyContent={'center'}>
