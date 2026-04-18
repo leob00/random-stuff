@@ -13,6 +13,7 @@ import {
   ErrorRed,
   CasinoBlack,
   DarkModeBlue,
+  VeryLightBlueTransparent,
 } from './mainTheme'
 
 const darkPalette: PaletteOptions = {
@@ -23,7 +24,7 @@ const darkPalette: PaletteOptions = {
     contrastText: VeryLightBlue,
   },
   secondary: {
-    main: VeryLightBlue,
+    main: VeryLightBlueTransparent,
     contrastText: CasinoBlack,
   },
   error: {

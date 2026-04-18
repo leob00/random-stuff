@@ -1,5 +1,6 @@
+'use client'
 import { Anthropic } from '@anthropic-ai/sdk/client'
-import { Box, TextField, Typography } from '@mui/material'
+import { Box, TextField, Typography, useTheme } from '@mui/material'
 import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import DangerButton from 'components/Atoms/Buttons/DangerButton'
 import SuccessButton from 'components/Atoms/Buttons/SuccessButton'
@@ -18,6 +19,7 @@ const AnthropicChatBot = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [currentResponseText, setCurrentResponseText] = useState('')
   const abortControllerRef = useRef<AbortController | null>(null)
+  const theme = useTheme()
 
   const streamChatResponse = async (message: string) => {
     const userMessage: AnthropicChatbotMessage = { role: 'user', content: message, timestamp: dayjs().format() }
@@ -146,18 +148,18 @@ const AnthropicChatBot = () => {
               {msg.usage && (
                 <Box display={'flex'} flexDirection={'row'} gap={2} alignItems={'center'}>
                   <Box display={'flex'} gap={1} alignItems={'center'}>
-                    <Typography color={CasinoGrayTransparent} variant='caption'>
+                    <Typography color={theme.palette.secondary.main} variant='caption'>
                       input tokens:
                     </Typography>
-                    <Typography color={CasinoGrayTransparent} variant='caption' fontWeight={'bold'}>
+                    <Typography color={theme.palette.secondary.main} variant='caption' fontWeight={'bold'}>
                       {`${numeral(msg.usage.input_tokens).format('###,###')}`}
                     </Typography>
                   </Box>
                   <Box display={'flex'} gap={1} alignItems={'center'}>
-                    <Typography color={CasinoGrayTransparent} variant='caption'>
+                    <Typography color={theme.palette.secondary.main} variant='caption'>
                       output tokens:
                     </Typography>
-                    <Typography color={CasinoGrayTransparent} variant='caption' fontWeight={'bold'}>
+                    <Typography color={theme.palette.secondary.main} variant='caption' fontWeight={'bold'}>
                       {`${numeral(msg.usage.output_tokens).format('###,###')}`}
                     </Typography>
                   </Box>
