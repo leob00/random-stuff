@@ -12,16 +12,8 @@
     "Symbol": "AAA"
   },
   {
-    "Company": "Amplius Aggressive Asset Allocation ETF",
-    "Symbol": "AAAA"
-  },
-  {
     "Company": "Goldman Sachs Physical Gold ETF Shares",
     "Symbol": "AAAU"
-  },
-  {
-    "Company": "Artius II Acquisition Inc. Class A Ordinary Shares",
-    "Symbol": "AACB"
   },
   {
     "Company": "Artius II Acquisition Inc. Rights",
@@ -40,10 +32,6 @@
     "Symbol": "AACI"
   },
   {
-    "Company": "Armada Acquisition Corp. III Units",
-    "Symbol": "AACIU"
-  },
-  {
     "Company": "Armada Acquisition Corp. III Warrant",
     "Symbol": "AACIW"
   },
@@ -52,16 +40,16 @@
     "Symbol": "AACO"
   },
   {
+    "Company": "Abony Acquisition Corp. I Units",
+    "Symbol": "AACOU"
+  },
+  {
+    "Company": "Abony Acquisition Corp. I Warrants",
+    "Symbol": "AACOW"
+  },
+  {
     "Company": "Apogee Acquisition Corp Units",
     "Symbol": "AACPU"
-  },
-  {
-    "Company": "AdvisorShares Dorsey Wright ADR ETF",
-    "Symbol": "AADR"
-  },
-  {
-    "Company": "Alpha Architect US Equity 2 ETF",
-    "Symbol": "AAEQ"
   },
   {
     "Company": "American Airlines Group Inc.",
@@ -140,16 +128,12 @@
     "Symbol": "AAT"
   },
   {
-    "Company": "Alpha Architect US Equity 3 ETF",
-    "Symbol": "AAUA"
-  },
-  {
     "Company": "Allied Gold Corporation",
     "Symbol": "AAUC"
   },
   {
-    "Company": "Tema Alternative Asset Managers ETF",
-    "Symbol": "AAUM"
+    "Company": "Alpha Architect US Equity ETF",
+    "Symbol": "AAUS"
   },
   {
     "Company": "iShares MSCI All Country Asia ex Japan ETF",
@@ -204,16 +188,8 @@
     "Symbol": "ABI"
   },
   {
-    "Company": "Argent Large Cap ETF",
-    "Symbol": "ABIG"
-  },
-  {
-    "Company": "Abacus FCF Real Assets Leaders ETF",
-    "Symbol": "ABLD"
-  },
-  {
-    "Company": "Abacus FCF Small Cap Leaders ETF",
-    "Symbol": "ABLS"
+    "Company": "Able View Global Inc. Class B Ordinary Shares",
+    "Symbol": "ABLV"
   },
   {
     "Company": "Able View Global Inc. Warrant",
@@ -230,6 +206,10 @@
   {
     "Company": "Leverage Shares 2x Long ABNB Daily ETF",
     "Symbol": "ABNG"
+  },
+  {
+    "Company": "YieldMax ABNB Option Income Strategy ETF",
+    "Symbol": "ABNY"
   },
   {
     "Company": "Acumen Pharmaceuticals, Inc. Common Stock",
@@ -304,10 +284,6 @@
     "Symbol": "ACA"
   },
   {
-    "Company": "Averin Capital Acquisition Corp. Class A Ordinary Shares",
-    "Symbol": "ACAA"
-  },
-  {
     "Company": "Averin Capital Acquisition Corp. Units",
     "Symbol": "ACAAU"
   },
@@ -346,6 +322,10 @@
   {
     "Company": "Accel Entertainment, Inc.",
     "Symbol": "ACEL"
+  },
+  {
+    "Company": "ARS Core Equity Portfolio ETF",
+    "Symbol": "ACEP"
   },
   {
     "Company": "ALPS Clean Energy ETF",
@@ -492,8 +472,8 @@
     "Symbol": "ACRV"
   },
   {
-    "Company": "American Century Small Cap Growth Insights ETF",
-    "Symbol": "ACSG"
+    "Company": "American Customer Satisfaction ETF",
+    "Symbol": "ACSI"
   },
   {
     "Company": "American Century Small Cap Value Insights ETF",
@@ -558,10 +538,6 @@
   {
     "Company": "Array Digital Infrastructure, Inc.",
     "Symbol": "AD"
-  },
-  {
-    "Company": "American Drive Acquisition Company Class A Ordinary Shares",
-    "Symbol": "ADAC"
   },
   {
     "Company": "American Drive Acquisition Company Units",
@@ -724,16 +700,8 @@
     "Symbol": "ADVB"
   },
   {
-    "Company": "Matthews Asia Dividend Active ETF",
-    "Symbol": "ADVE"
-  },
-  {
     "Company": "Adams Diversified Equity Fund, Inc",
     "Symbol": "ADX"
-  },
-  {
-    "Company": "Addex Therapeutics Ltd American Depositary Shares",
-    "Symbol": "ADXN"
   },
   {
     "Company": "Activate Energy Acquisition Corp. Class A Ordinary Share",
@@ -742,6 +710,10 @@
   {
     "Company": "Activate Energy Acquisition Corp. Unit",
     "Symbol": "AEAQU"
+  },
+  {
+    "Company": "Activate Energy Acquisition Corp. Warrant",
+    "Symbol": "AEAQW"
   },
   {
     "Company": "Aebi Schmidt Holding AG Common Stock",
@@ -940,6 +912,10 @@
     "Symbol": "AFRI"
   },
   {
+    "Company": "Forafric Global PLC Warrants",
+    "Symbol": "AFRIW"
+  },
+  {
     "Company": "Affirm Holdings, Inc. Class A Common Stock",
     "Symbol": "AFRM"
   },
@@ -1002,6 +978,10 @@
   {
     "Company": "Simplify Aggregate Bond ETF",
     "Symbol": "AGGH"
+  },
+  {
+    "Company": "Harbor Disciplined Bond ETF",
+    "Symbol": "AGGS"
   },
   {
     "Company": "WisdomTree Yield Enhanced U.S. Aggregate Bond Fund",
@@ -1112,10 +1092,6 @@
     "Symbol": "AGRO"
   },
   {
-    "Company": "Allspring LT Large Growth ETF",
-    "Symbol": "AGRW"
-  },
-  {
     "Company": "Agroz Inc. Ordinary Shares",
     "Symbol": "AGRZ"
   },
@@ -1152,10 +1128,6 @@
     "Symbol": "AHL"
   },
   {
-    "Company": "American Beacon AHL Trend ETF",
-    "Symbol": "AHLT"
-  },
-  {
     "Company": "Ambitions Enterprise Management Co. L.L.C Class A Ordinary Shares",
     "Symbol": "AHMA"
   },
@@ -1170,10 +1142,6 @@
   {
     "Company": "Ashford Hospitality Trust, Inc.",
     "Symbol": "AHT"
-  },
-  {
-    "Company": "American Century Select High Yield ETF",
-    "Symbol": "AHYB"
   },
   {
     "Company": "C3.ai, Inc.",
@@ -1228,6 +1196,10 @@
     "Symbol": "AII"
   },
   {
+    "Company": "AI Infrastructure Acquisition Corp.",
+    "Symbol": "AIIA"
+  },
+  {
     "Company": "AI Infrastructure Acquisition Corp. Units, each consisting of one Class A Ordinary Share and one Right",
     "Symbol": "AIIA.U"
   },
@@ -1252,8 +1224,16 @@
     "Symbol": "AIMDW"
   },
   {
+    "Company": "Acuitas Small Cap Active ETF",
+    "Symbol": "AIMS"
+  },
+  {
     "Company": "Albany International Corp Class A",
     "Symbol": "AIN"
+  },
+  {
+    "Company": "Allspring Income Plus ETF",
+    "Symbol": "AINP"
   },
   {
     "Company": "FINQ DOLLAR NEUTRAL U.S. Large Cap AI-Managed Equity ETF",
@@ -1332,6 +1312,10 @@
     "Symbol": "AIRT"
   },
   {
+    "Company": "Air T, Inc. Air T Funding Alpha Income Trust Preferred Securities",
+    "Symbol": "AIRTP"
+  },
+  {
     "Company": "VistaShares Artificial Intelligence Supercycle ETF",
     "Symbol": "AIS"
   },
@@ -1400,6 +1384,10 @@
     "Symbol": "AJUL"
   },
   {
+    "Company": "a.k.a. Brands Holding Corp.",
+    "Symbol": "AKA"
+  },
+  {
     "Company": "The Frontier Economic Fund",
     "Symbol": "AKAF"
   },
@@ -1418,10 +1406,6 @@
   {
     "Company": "Embotelladora Andina S.A. Series A",
     "Symbol": "AKO.A"
-  },
-  {
-    "Company": "Embotelladora Andina S.A. Series B",
-    "Symbol": "AKO.B"
   },
   {
     "Company": "Acadia Realty Trust",
@@ -1474,6 +1458,10 @@
   {
     "Company": "Alico Inc",
     "Symbol": "ALCO"
+  },
+  {
+    "Company": "Alchemy Investments Acquisition Corp 1 Class A Ordinary Shares",
+    "Symbol": "ALCY"
   },
   {
     "Company": "Alchemy Investments Acquisition Corp 1 Warrants",
@@ -1544,8 +1532,8 @@
     "Symbol": "ALHC"
   },
   {
-    "Company": "Argent Focused Small Cap ETF",
-    "Symbol": "ALIL"
+    "Company": "Calisa Acquisition Corp Ordinary shares",
+    "Symbol": "ALIS"
   },
   {
     "Company": "Calisa Acquisition Corp Right",
@@ -1602,6 +1590,10 @@
   {
     "Company": "Almonty Industries Inc. Common Shares",
     "Symbol": "ALM"
+  },
+  {
+    "Company": "Alamar Biosciences, Inc. Common Stock",
+    "Symbol": "ALMR"
   },
   {
     "Company": "Alumis Inc. Common Stock",
@@ -1670,10 +1662,6 @@
   {
     "Company": "AlTi Global, Inc. Class A Common Stock",
     "Symbol": "ALTI"
-  },
-  {
-    "Company": "Pacer Lunt Large Cap Alternator ETF",
-    "Symbol": "ALTL"
   },
   {
     "Company": "Alto Ingredients, Inc. Common Stock",
@@ -1876,14 +1864,6 @@
     "Symbol": "AMPGR"
   },
   {
-    "Company": "Amplitech Group, Inc. Warrants",
-    "Symbol": "AMPGW"
-  },
-  {
-    "Company": "Amplitech Group, Inc. Series B Right",
-    "Symbol": "AMPGZ"
-  },
-  {
     "Company": "Amphastar Pharmaceuticals, Inc.",
     "Symbol": "AMPH"
   },
@@ -1958,6 +1938,10 @@
   {
     "Company": "Aemetis, Inc. (DE) Common Stock",
     "Symbol": "AMTX"
+  },
+  {
+    "Company": "ETRACS Alerian MLP Index ETN Series B due July 18, 2042",
+    "Symbol": "AMUB"
   },
   {
     "Company": "abrdn Ultra Short Municipal Income Active ETF",
@@ -2056,6 +2040,10 @@
     "Symbol": "ANET"
   },
   {
+    "Company": "ProShares MSCI Transformational Changes ETF",
+    "Symbol": "ANEW"
+  },
+  {
     "Company": "Abercrombie & Fitch Co.",
     "Symbol": "ANF"
   },
@@ -2118,6 +2106,10 @@
   {
     "Company": "Alto Neuroscience Inc.",
     "Symbol": "ANRO"
+  },
+  {
+    "Company": "Agriculture & Natural Solutions Acquisition Corporation Class A Ordinary Shares",
+    "Symbol": "ANSC"
   },
   {
     "Company": "Agriculture & Natural Solutions Acquisition Corporation Unit",
@@ -2292,6 +2284,10 @@
     "Symbol": "APLE"
   },
   {
+    "Company": "Apollomics Inc. Class A Ordinary Shares",
+    "Symbol": "APLM"
+  },
+  {
     "Company": "Apollomics Inc. Warrant",
     "Symbol": "APLMW"
   },
@@ -2368,10 +2364,6 @@
     "Symbol": "APRE"
   },
   {
-    "Company": "Innovator Premium Income 20 Barrier ETF - April",
-    "Symbol": "APRH"
-  },
-  {
     "Company": "Innovator Premium Income 30 Barrier ETF - April",
     "Symbol": "APRJ"
   },
@@ -2386,6 +2378,10 @@
   {
     "Company": "AllianzIM U.S. Equity Buffer20 Apr ETF",
     "Symbol": "APRW"
+  },
+  {
+    "Company": "TrueShares Structured Outcome (April) ETF",
+    "Symbol": "APRZ"
   },
   {
     "Company": "Alpha Pro Tech, Ltd.",
@@ -2624,10 +2620,6 @@
     "Symbol": "ARKQ"
   },
   {
-    "Company": "Ark Restaurants Corp",
-    "Symbol": "ARKR"
-  },
-  {
     "Company": "ARK DIET Q4 Buffer ETF",
     "Symbol": "ARKT"
   },
@@ -2676,10 +2668,6 @@
     "Symbol": "ARMK"
   },
   {
-    "Company": "Aris Mining Corporation",
-    "Symbol": "ARMN"
-  },
-  {
     "Company": "Armata Pharmaceuticals, Inc. Common Stock",
     "Symbol": "ARMP"
   },
@@ -2690,10 +2678,6 @@
   {
     "Company": "Roundhill ARM WeeklyPay ETF",
     "Symbol": "ARMW"
-  },
-  {
-    "Company": "Tema ETF Trust Tema International Defense ETF",
-    "Symbol": "ARMY"
   },
   {
     "Company": "Archrock Inc",
@@ -2784,6 +2768,10 @@
     "Symbol": "ARX"
   },
   {
+    "Company": "Arxis, Inc. Class A Common Stock",
+    "Symbol": "ARXS"
+  },
+  {
     "Company": "Amer Sports, Inc.",
     "Symbol": "AS"
   },
@@ -2820,6 +2808,10 @@
     "Symbol": "ASCE"
   },
   {
+    "Company": "abrdn International Small Cap Active ETF",
+    "Symbol": "ASCI"
+  },
+  {
     "Company": "Global X FTSE Southeast Asia ETF",
     "Symbol": "ASEA"
   },
@@ -2850,6 +2842,10 @@
   {
     "Company": "Xtrackers Harvest CSI 500 China A-Shares Small Cap ETF",
     "Symbol": "ASHS"
+  },
+  {
+    "Company": "Matthews Pacific Tiger Active ETF",
+    "Symbol": "ASIA"
   },
   {
     "Company": "Ategrity Specialty Insurance Company Holdings",
@@ -3076,20 +3072,12 @@
     "Symbol": "ATIIU"
   },
   {
-    "Company": "Archimedes Tech SPAC Partners II Co. Warrant",
-    "Symbol": "ATIIW"
-  },
-  {
     "Company": "Atkore Inc.",
     "Symbol": "ATKR"
   },
   {
     "Company": "Atlanticus Holdings Corporation",
     "Symbol": "ATLC"
-  },
-  {
-    "Company": "Atlanticus Holdings Corporation 6.125% Senior Notes due 2026",
-    "Symbol": "ATLCL"
   },
   {
     "Company": "Atlanticus Holdings Corporation 7.625% Series B Cumulative Perpetual Preferred Stock, no par value per share",
@@ -3168,10 +3156,6 @@
     "Symbol": "ATS"
   },
   {
-    "Company": "Arin Tactical Tail Risk ETF",
-    "Symbol": "ATTR"
-  },
-  {
     "Company": "Addentax Group Corp. Common Stock",
     "Symbol": "ATXG"
   },
@@ -3190,10 +3174,6 @@
   {
     "Company": "Atlantic Union Bankshares Corporation",
     "Symbol": "AUB"
-  },
-  {
-    "Company": "Auburn National Bancorporation",
-    "Symbol": "AUBN"
   },
   {
     "Company": "AudioCodes Ltd",
@@ -3284,10 +3264,6 @@
     "Symbol": "AUUD"
   },
   {
-    "Company": "Auddia Inc. Warrants",
-    "Symbol": "AUUDW"
-  },
-  {
     "Company": "Avista Corporation",
     "Symbol": "AVA"
   },
@@ -3348,6 +3324,10 @@
     "Symbol": "AVES"
   },
   {
+    "Company": "AEVEX Corp.",
+    "Symbol": "AVEX"
+  },
+  {
     "Company": "Avantis Credit ETF",
     "Symbol": "AVGB"
   },
@@ -3378,10 +3358,6 @@
   {
     "Company": "Defiance Daily Target 2X Long AVGO ETF",
     "Symbol": "AVGX"
-  },
-  {
-    "Company": "Avantis Inflation Focused Equity ETF",
-    "Symbol": "AVIE"
   },
   {
     "Company": "Avantis Core Fixed Income ETF",
@@ -3500,10 +3476,6 @@
     "Symbol": "AVT"
   },
   {
-    "Company": "Avantis Total Equity Markets ETF",
-    "Symbol": "AVTM"
-  },
-  {
     "Company": "Avantor, Inc.",
     "Symbol": "AVTR"
   },
@@ -3590,10 +3562,6 @@
   {
     "Company": "AXIL Brands, Inc.",
     "Symbol": "AXIL"
-  },
-  {
-    "Company": "Axiom Intelligence Acquisition Corp 1 Class A Ordinary Shares",
-    "Symbol": "AXIN"
   },
   {
     "Company": "Axiom Intelligence Acquisition Corp 1 Right",
@@ -3702,10 +3670,6 @@
   {
     "Company": "Direxion Daily BABA Bull 2X ETF",
     "Symbol": "BABU"
-  },
-  {
-    "Company": "Roundhill BABA WeeklyPay ETF",
-    "Symbol": "BABW"
   },
   {
     "Company": "GraniteShares ETF Trust GraniteShares 2x Long BABA Daily ETF",
@@ -3848,10 +3812,6 @@
     "Symbol": "BANF"
   },
   {
-    "Company": "BancFirst Corporation - BFC Capital Trust II Cumulative Trust Pfd Secs",
-    "Symbol": "BANFP"
-  },
-  {
     "Company": "CBL International Limited Class B Ordinary Shares",
     "Symbol": "BANL"
   },
@@ -3862,10 +3822,6 @@
   {
     "Company": "ArrowMark Financial Corp. Common Stock",
     "Symbol": "BANX"
-  },
-  {
-    "Company": "ArrowMark Financial Corp. Right",
-    "Symbol": "BANXR"
   },
   {
     "Company": "Baosheng Media Group Holdings Limited Ordinary shares",
@@ -3960,6 +3916,10 @@
     "Symbol": "BBAX"
   },
   {
+    "Company": "CYBER HORNET Trust CYBER HORNET S&P 500 and Bitcoin 75/25 Strategy ETF75/25 Strategy ETF",
+    "Symbol": "BBB"
+  },
+  {
     "Company": "BondBloxx BBB Rated 5-10 Year Corporate Bond ETF",
     "Symbol": "BBBI"
   },
@@ -4044,10 +4004,6 @@
     "Symbol": "BBHY"
   },
   {
-    "Company": "JPMorgan BetaBuilders U.S. Treasury Bond 3-10 Year ETF",
-    "Symbol": "BBIB"
-  },
-  {
     "Company": "JPMorgan BetaBuilders International Equity ETF",
     "Symbol": "BBIN"
   },
@@ -4058,10 +4014,6 @@
   {
     "Company": "JPMorgan BetaBuilders Japan ETF",
     "Symbol": "BBJP"
-  },
-  {
-    "Company": "JPMorgan BetaBuilders U.S. Treasury Bond 20+ Year ETF",
-    "Symbol": "BBLB"
   },
   {
     "Company": "Bone Biologics Corp Common Stock",
@@ -4094,6 +4046,10 @@
   {
     "Company": "JPMorgan BetaBuilders MSCI U.S. REIT ETF",
     "Symbol": "BBRE"
+  },
+  {
+    "Company": "JPMorgan BetaBuilders U.S. Small Cap Equity ETF",
+    "Symbol": "BBSC"
   },
   {
     "Company": "Barrett Business Services",
@@ -4196,10 +4152,6 @@
     "Symbol": "BCE"
   },
   {
-    "Company": "Baron Emerging Markets Select ETF",
-    "Symbol": "BCEM"
-  },
-  {
     "Company": "Baron Financials ETF",
     "Symbol": "BCFN"
   },
@@ -4252,6 +4204,10 @@
     "Symbol": "BCKT"
   },
   {
+    "Company": "iShares BBB-B CLO Active ETF",
+    "Symbol": "BCLO"
+  },
+  {
     "Company": "BayCom Corp Common Stock",
     "Symbol": "BCML"
   },
@@ -4286,6 +4242,10 @@
   {
     "Company": "Baron SMID Cap ETF",
     "Symbol": "BCSM"
+  },
+  {
+    "Company": "Bain Capital GSS Investment Corp.",
+    "Symbol": "BCSS"
   },
   {
     "Company": "Bain Capital GSS Investment Corp. Units, each consisting of one Class A Ordinary Share and one-fifth of one redeemable warrant",
@@ -4348,10 +4308,6 @@
     "Symbol": "BDCIU"
   },
   {
-    "Company": "ETRACS Quarterly Pay 1.5x Leveraged MarketVector BDC Liquid Index ETN due June 10, 2050",
-    "Symbol": "BDCX"
-  },
-  {
     "Company": "ETRACS MarketVector Business Development Companies Liquid Index ETN due April 26, 2041",
     "Symbol": "BDCZ"
   },
@@ -4404,10 +4360,6 @@
     "Symbol": "BDTX"
   },
   {
-    "Company": "IMGP Berkshire Dividend Growth ETF",
-    "Symbol": "BDVG"
-  },
-  {
     "Company": "iShares Disciplined Volatility Equity Active ETF",
     "Symbol": "BDVL"
   },
@@ -4430,10 +4382,6 @@
   {
     "Company": "Bold Eagle Acquisition Corp. Right",
     "Symbol": "BEAGR"
-  },
-  {
-    "Company": "Bold Eagle Acquisition Corp. Units",
-    "Symbol": "BEAGU"
   },
   {
     "Company": "Beam Therapeutics Inc. Common Stock",
@@ -4464,6 +4412,10 @@
     "Symbol": "BEDY"
   },
   {
+    "Company": "AdvisorShares Hotel ETF",
+    "Symbol": "BEDZ"
+  },
+  {
     "Company": "Beam Global Common Stock",
     "Symbol": "BEEM"
   },
@@ -4472,20 +4424,12 @@
     "Symbol": "BEEP"
   },
   {
-    "Company": "The Beehive ETF",
-    "Symbol": "BEEX"
-  },
-  {
     "Company": "Honeytree U.S. Equity ETF",
     "Symbol": "BEEZ"
   },
   {
     "Company": "Leverage Shares 2x Long BE Daily ETF",
     "Symbol": "BEG"
-  },
-  {
-    "Company": "Rareview 2x Bull Cryptocurrency & Precious Metals ETF",
-    "Symbol": "BEGS"
   },
   {
     "Company": "KE Holdings Inc. American Depositary Shares (each representing three Class A Ordinary Shares)",
@@ -4500,6 +4444,10 @@
     "Symbol": "BELFB"
   },
   {
+    "Company": "BlackRock ETF Trust iShares U.S. Select Equity Active ETF",
+    "Symbol": "BELT"
+  },
+  {
     "Company": "iShares J.P. Morgan Broad USD Emerging Markets Bond ETF",
     "Symbol": "BEMB"
   },
@@ -4510,6 +4458,10 @@
   {
     "Company": "Beneficient Class A Common Stock",
     "Symbol": "BENF"
+  },
+  {
+    "Company": "Beneficient Warrant",
+    "Symbol": "BENFW"
   },
   {
     "Company": "Horizon Landmark ETF",
@@ -4540,20 +4492,16 @@
     "Symbol": "BERZ"
   },
   {
-    "Company": "Bastion Energy ETF",
-    "Symbol": "BESF"
-  },
-  {
     "Company": "Bimergen Energy Corporation",
     "Symbol": "BESS"
   },
   {
-    "Company": "Bimergen Energy Corporation Warrants, each share exercisable to purchase one share of Common Stock",
-    "Symbol": "BESS.WS"
-  },
-  {
     "Company": "Beta Technologies, Inc.",
     "Symbol": "BETA"
+  },
+  {
+    "Company": "ProShares Bitcoin & Ether Equal Weight ETF",
+    "Symbol": "BETE"
   },
   {
     "Company": "ProShares Bitcoin & Ether Market Cap Weight ETF",
@@ -4704,10 +4652,6 @@
     "Symbol": "BGL"
   },
   {
-    "Company": "BioNexus Gene Lab Corp Common stock",
-    "Symbol": "BGLC"
-  },
-  {
     "Company": "FT Vest Gold Strategy Quarterly Buffer ETF",
     "Symbol": "BGLD"
   },
@@ -4776,6 +4720,14 @@
     "Symbol": "BHAT"
   },
   {
+    "Company": "BHAV Acquisition Corp Class A Ordinary Shares",
+    "Symbol": "BHAV"
+  },
+  {
+    "Company": "BHAV Acquisition Corp Rights",
+    "Symbol": "BHAVR"
+  },
+  {
     "Company": "BHAV Acquisition Corp Units",
     "Symbol": "BHAVU"
   },
@@ -4786,10 +4738,6 @@
   {
     "Company": "Bausch Health Companies Inc",
     "Symbol": "BHC"
-  },
-  {
-    "Company": "Nicholas Bitcoin Tail ETF",
-    "Symbol": "BHDG"
   },
   {
     "Company": "Benchmark Electronics",
@@ -4824,6 +4772,10 @@
     "Symbol": "BHK"
   },
   {
+    "Company": "Bluerock Homes Trust, Inc.",
+    "Symbol": "BHM"
+  },
+  {
     "Company": "BHP Group Limited American Depositary Shares (Each representing two Ordinary Shares)",
     "Symbol": "BHP"
   },
@@ -4840,16 +4792,8 @@
     "Symbol": "BHST"
   },
   {
-    "Company": "BlackRock Virginia Muni Bond Trust",
-    "Symbol": "BHV"
-  },
-  {
     "Company": "Biohaven Ltd.",
     "Symbol": "BHVN"
-  },
-  {
-    "Company": "Xtrackers USD High Yield BB-B ex Financials ETF",
-    "Symbol": "BHYB"
   },
   {
     "Company": "bioAffinity Technologies, Inc. Common Stock",
@@ -5052,10 +4996,6 @@
     "Symbol": "BIVIW"
   },
   {
-    "Company": "Bitcoin Infrastructure Acquisition Corp Ltd. Unit",
-    "Symbol": "BIXIU"
-  },
-  {
     "Company": "Bitcoin Infrastructure Acquisition Corp Ltd. Warrant",
     "Symbol": "BIXIW"
   },
@@ -5126,10 +5066,6 @@
   {
     "Company": "The Buckle, Inc.",
     "Symbol": "BKE"
-  },
-  {
-    "Company": "BNY Mellon Emerging Markets Equity ETF",
-    "Symbol": "BKEM"
   },
   {
     "Company": "iShares MSCI BIC ETF",
@@ -5206,6 +5142,10 @@
   {
     "Company": "Baker Hughes Company",
     "Symbol": "BKR"
+  },
+  {
+    "Company": "BNY Mellon US Small Cap Core Equity ETF",
+    "Symbol": "BKSE"
   },
   {
     "Company": "BlackSky Technology Inc.",
@@ -5308,10 +5248,6 @@
     "Symbol": "BLIN"
   },
   {
-    "Company": "BeLive Holdings Ordinary Share",
-    "Symbol": "BLIV"
-  },
-  {
     "Company": "Blackrock, Inc.",
     "Symbol": "BLK"
   },
@@ -5350,10 +5286,6 @@
   {
     "Company": "Nicholas Crypto Income ETF",
     "Symbol": "BLOX"
-  },
-  {
-    "Company": "Bluerock Acquisition Corp. Class A Ordinary Shares",
-    "Symbol": "BLRK"
   },
   {
     "Company": "Bluerock Acquisition Corp. Unit",
@@ -5400,6 +5332,10 @@
     "Symbol": "BLUI"
   },
   {
+    "Company": "Blue Water Acquisition Corp. III Class A Ordinary Shares",
+    "Symbol": "BLUW"
+  },
+  {
     "Company": "Blue Water Acquisition Corp. III Unit.",
     "Symbol": "BLUWU"
   },
@@ -5428,14 +5364,6 @@
     "Symbol": "BLZE"
   },
   {
-    "Company": "Trailblazer Acquisition Corp. Class A Ordinary Shares",
-    "Symbol": "BLZR"
-  },
-  {
-    "Company": "Trailblazer Acquisition Corp. Unit",
-    "Symbol": "BLZRU"
-  },
-  {
     "Company": "Trailblazer Acquisition Corp. Warrant",
     "Symbol": "BLZRW"
   },
@@ -5446,10 +5374,6 @@
   {
     "Company": "Innovator U.S. Equity Buffer ETF - March",
     "Symbol": "BMAR"
-  },
-  {
-    "Company": "Innovator U.S. Equity Buffer ETF - May",
-    "Symbol": "BMAY"
   },
   {
     "Company": "Bumble Inc. Class A Common Stock",
@@ -5464,16 +5388,16 @@
     "Symbol": "BMEA"
   },
   {
+    "Company": "iShares Health Innovation Active ETF",
+    "Symbol": "BMED"
+  },
+  {
     "Company": "BlackRock Health Sciences Term Trust",
     "Symbol": "BMEZ"
   },
   {
     "Company": "Basel Medical Group Ltd Ordinary Shares",
     "Symbol": "BMGL"
-  },
-  {
-    "Company": "Bluemount Holdings Limited Class B Ordinary Shares",
-    "Symbol": "BMHL"
   },
   {
     "Company": "Badger Meter, Inc.",
@@ -5602,6 +5526,10 @@
   {
     "Company": "Barnes & Noble Education, Inc",
     "Symbol": "BNED"
+  },
+  {
+    "Company": "First Trust S-Network Streaming and Gaming ETF",
+    "Symbol": "BNGE"
   },
   {
     "Company": "Bionano Genomics, Inc. Common Stock",
@@ -5804,20 +5732,12 @@
     "Symbol": "BPACU"
   },
   {
-    "Company": "iShares FinTech Active ETF",
-    "Symbol": "BPAY"
-  },
-  {
-    "Company": "BP p.l.c. ADRhedged",
-    "Symbol": "BPH"
+    "Company": "Grayscale Bitcoin Premium Income ETF",
+    "Symbol": "BPI"
   },
   {
     "Company": "Popular Inc",
     "Symbol": "BPOP"
-  },
-  {
-    "Company": "Popular, Inc. Popular Capital Tr II 6.125%",
-    "Symbol": "BPOPM"
   },
   {
     "Company": "Bluerock Private Real Estate Fund",
@@ -5844,6 +5764,10 @@
     "Symbol": "BPYPO"
   },
   {
+    "Company": "Brookfield Property Partners L.P. 6.50% Class A Cumulative Redeemable Perpetual Preferred Units",
+    "Symbol": "BPYPP"
+  },
+  {
     "Company": "Boqii Holding Limited",
     "Symbol": "BQ"
   },
@@ -5862,10 +5786,6 @@
   {
     "Company": "Global X Brazil Active ETF",
     "Symbol": "BRAZ"
-  },
-  {
-    "Company": "BRBI BR Partners S.A. ADSs",
-    "Symbol": "BRBI"
   },
   {
     "Company": "BellRing Brands, Inc.",
@@ -5890,6 +5810,10 @@
   {
     "Company": "MFS Blended Research Core Equity ETF",
     "Symbol": "BRCE"
+  },
+  {
+    "Company": "MFS Blended Research Emerging Markets Equity ETF",
+    "Symbol": "BREE"
   },
   {
     "Company": "iShares Emerging Markets Bond Active ETF",
@@ -6312,10 +6236,6 @@
     "Symbol": "BTF"
   },
   {
-    "Company": "Defiance Daily Target 2X Long BITF ETF",
-    "Symbol": "BTFL"
-  },
-  {
     "Company": "B2Gold Corp.",
     "Symbol": "BTG"
   },
@@ -6354,6 +6274,10 @@
   {
     "Company": "Bit Origin Limited Class A Ordinary Shares",
     "Symbol": "BTOG"
+  },
+  {
+    "Company": "iShares Total USD Fixed Income Market ETF",
+    "Symbol": "BTOT"
   },
   {
     "Company": "BTQ Technologies Corp. Common Stock",
@@ -6398,10 +6322,6 @@
   {
     "Company": "BlackRock Credit Allocation Income Trust",
     "Symbol": "BTZ"
-  },
-  {
-    "Company": "Defiance Daily Target 2X Long BU ETF",
-    "Symbol": "BU"
   },
   {
     "Company": "Simplify Treasury Option Income ETF",
@@ -6556,10 +6476,6 @@
     "Symbol": "BUXX"
   },
   {
-    "Company": "KraneShares Man Buyout Beta Index ETF",
-    "Symbol": "BUYO"
-  },
-  {
     "Company": "Main BuyWrite ETF",
     "Symbol": "BUYW"
   },
@@ -6574,10 +6490,6 @@
   {
     "Company": "Bluemonte Large Cap Value ETF",
     "Symbol": "BVAL"
-  },
-  {
-    "Company": "BitVentures Limited Ordinary Shares",
-    "Symbol": "BVC"
   },
   {
     "Company": "BV Financial, Inc. Common Stock",
@@ -6654,6 +6566,10 @@
   {
     "Company": "Babcock & Wilcox Enterprises, Inc. 6.50% Senior Notes due 2026",
     "Symbol": "BWNB"
+  },
+  {
+    "Company": "Bitwise Dogecoin ETF",
+    "Symbol": "BWOW"
   },
   {
     "Company": "Brendan Wood TopGun Index ETF",
@@ -6828,16 +6744,16 @@
     "Symbol": "CAF"
   },
   {
-    "Company": "Pacer US Small Cap Cash Cows Growth Leaders ETF",
-    "Symbol": "CAFG"
-  },
-  {
     "Company": "Congress Intermediate Bond ETF",
     "Symbol": "CAFX"
   },
   {
     "Company": "Conagra Brands, Inc.",
     "Symbol": "CAG"
+  },
+  {
+    "Company": "Calamos Autocallable Growth ETF",
+    "Symbol": "CAGE"
   },
   {
     "Company": "Cardinal Health, Inc.",
@@ -7028,10 +6944,6 @@
     "Symbol": "CARZ"
   },
   {
-    "Company": "Simplify China A Shares PLUS Income ETF",
-    "Symbol": "CAS"
-  },
-  {
     "Company": "Pathward Financial, Inc. Common Stock",
     "Symbol": "CASH"
   },
@@ -7116,6 +7028,10 @@
     "Symbol": "CBLL"
   },
   {
+    "Company": "Clough Hedged Equity ETF",
+    "Symbol": "CBLS"
+  },
+  {
     "Company": "Chain Bridge Bancorp, Inc.",
     "Symbol": "CBNA"
   },
@@ -7138,6 +7054,10 @@
   {
     "Company": "VanEck China Bond ETF",
     "Symbol": "CBON"
+  },
+  {
+    "Company": "Calamos Bitcoin Structured Alt Protection ETF - October",
+    "Symbol": "CBOO"
   },
   {
     "Company": "Calamos Bitcoin Structured Alt Protection ETF - July",
@@ -7200,6 +7120,10 @@
     "Symbol": "CBXJ"
   },
   {
+    "Company": "Calamos Laddered Bitcoin 90 Series Structured Alt Protection ETF",
+    "Symbol": "CBXL"
+  },
+  {
     "Company": "Calamos Bitcoin 90 Series Structured Alt Protection ETF - October",
     "Symbol": "CBXO"
   },
@@ -7242,6 +7166,10 @@
   {
     "Company": "Capital Clean Energy Carriers Corp. Common Share",
     "Symbol": "CCEC"
+  },
+  {
+    "Company": "Calamos CEF Income & Arbitrage ETF",
+    "Symbol": "CCEF"
   },
   {
     "Company": "Cryo-Cell International Inc.",
@@ -7332,6 +7260,10 @@
     "Symbol": "CCNE"
   },
   {
+    "Company": "CNB Financial Corporation Depositary Shares, each representing a 1/40th ownership interest in a share of 7.125% Series A Fixed-Rate Non-Cumulative Perpetual Preferred Stock",
+    "Symbol": "CCNEP"
+  },
+  {
     "Company": "Financial Investors Trust ALPS/CoreCommodity Natural Resources ETF",
     "Symbol": "CCNR"
   },
@@ -7396,10 +7328,6 @@
     "Symbol": "CCXIU"
   },
   {
-    "Company": "Churchill Capital Corp XI Warrants",
-    "Symbol": "CCXIW"
-  },
-  {
     "Company": "Comcast Holdings Corp. 2.0% Exchangeable Subordinated Debentures due October 15, 2029 (ZONES)",
     "Symbol": "CCZ"
   },
@@ -7422,6 +7350,10 @@
   {
     "Company": "Cardio Diagnostics Holdings Inc. Common stock",
     "Symbol": "CDIO"
+  },
+  {
+    "Company": "Cardio Diagnostics Holdings Inc. Warrant",
+    "Symbol": "CDIOW"
   },
   {
     "Company": "VictoryShares US Large Cap High Div Volatility Wtd ETF",
@@ -7516,10 +7448,6 @@
     "Symbol": "CEFA"
   },
   {
-    "Company": "ETRACS Monthly Pay 1.5X Leveraged Closed-End Fund Index ETN",
-    "Symbol": "CEFD"
-  },
-  {
     "Company": "Saba Closed-End Funds ETF",
     "Symbol": "CEFS"
   },
@@ -7604,6 +7532,10 @@
     "Symbol": "CEPU"
   },
   {
+    "Company": "Cantor Equity Partners V, Inc. Class A Ordinary Shares",
+    "Symbol": "CEPV"
+  },
+  {
     "Company": "Cerus Corp",
     "Symbol": "CERS"
   },
@@ -7634,6 +7566,10 @@
   {
     "Company": "CEVA Inc.",
     "Symbol": "CEVA"
+  },
+  {
+    "Company": "WisdomTree  Emerging Currency Strategy Fund",
+    "Symbol": "CEW"
   },
   {
     "Company": "CF Industries Holding, Inc.",
@@ -7968,10 +7904,6 @@
     "Symbol": "CHNR"
   },
   {
-    "Company": "2x Chainlink ETF",
-    "Symbol": "CHNU"
-  },
-  {
     "Company": "ChowChow Cloud International Holdings Limited",
     "Symbol": "CHOW"
   },
@@ -8006,6 +7938,10 @@
   {
     "Company": "Chord Energy Corporation Common Stock",
     "Symbol": "CHRD"
+  },
+  {
+    "Company": "Global X S&P 500 Christian Values ETF",
+    "Symbol": "CHRI"
   },
   {
     "Company": "Coherus Oncology, Inc. Common Stock",
@@ -8144,6 +8080,10 @@
     "Symbol": "CIMN"
   },
   {
+    "Company": "Chimera Investment Corporation 9.250% Senior Notes due 2029",
+    "Symbol": "CIMO"
+  },
+  {
     "Company": "Chimera Investment Corporation 8.875% Senior Notes due 2030",
     "Symbol": "CIMP"
   },
@@ -8190,10 +8130,6 @@
   {
     "Company": "Callan JMB Inc. Common Stock",
     "Symbol": "CJMB"
-  },
-  {
-    "Company": "CKX Lands, Inc.",
-    "Symbol": "CKX"
   },
   {
     "Company": "Colgate-Palmolive Company",
@@ -8360,10 +8296,6 @@
     "Symbol": "CLRB"
   },
   {
-    "Company": "ClearOne, Inc. (DE) Common Stock",
-    "Symbol": "CLRO"
-  },
-  {
     "Company": "Celestica, Inc.",
     "Symbol": "CLS"
   },
@@ -8440,10 +8372,6 @@
     "Symbol": "CMC"
   },
   {
-    "Company": "VanEck CMCI Commodity Strategy ETF",
-    "Symbol": "CMCI"
-  },
-  {
     "Company": "Caledonia Mining Corporation Plc",
     "Symbol": "CMCL"
   },
@@ -8498,14 +8426,6 @@
   {
     "Company": "Columbus Circle Capital Corp II Class A Ordinary Shares",
     "Symbol": "CMII"
-  },
-  {
-    "Company": "Columbus Circle Capital Corp II Unit",
-    "Symbol": "CMIIU"
-  },
-  {
-    "Company": "Columbus Circle Capital Corp II Warrant",
-    "Symbol": "CMIIW"
   },
   {
     "Company": "Chemomab Therapeutics Ltd. American Depositary Share",
@@ -8592,10 +8512,6 @@
     "Symbol": "CNC"
   },
   {
-    "Company": "Leverage Shares 2X Long CNC Daily ETF",
-    "Symbol": "CNCG"
-  },
-  {
     "Company": "Coincheck Group N.V. Ordinary Shares",
     "Symbol": "CNCK"
   },
@@ -8618,10 +8534,6 @@
   {
     "Company": "CN Energy Group Inc. Class A Ordinary Shares",
     "Symbol": "CNEY"
-  },
-  {
-    "Company": "CNFinance Holdings Limited American Depositary Shares, each representing two hundred (200) Ordinary Shares",
-    "Symbol": "CNF"
   },
   {
     "Company": "CNH INDUSTRIAL N.V.",
@@ -8836,10 +8748,6 @@
     "Symbol": "COKE"
   },
   {
-    "Company": "Columbus Acquisition Corp Ordinary Shares",
-    "Symbol": "COLA"
-  },
-  {
     "Company": "Columbus Acquisition Corp Rights",
     "Symbol": "COLAR"
   },
@@ -8926,10 +8834,6 @@
   {
     "Company": "ConocoPhillips",
     "Symbol": "COP"
-  },
-  {
-    "Company": "Themes Copper Miners ETF",
-    "Symbol": "COPA"
   },
   {
     "Company": "Sprott Junior Copper Miners ETF",
@@ -9068,10 +8972,6 @@
     "Symbol": "CPAC"
   },
   {
-    "Company": "F/m Compoundr U.S. Aggregate Bond ETF",
-    "Symbol": "CPAG"
-  },
-  {
     "Company": "Counterpoint Quantitative Equity ETF",
     "Symbol": "CPAI"
   },
@@ -9082,10 +8982,6 @@
   {
     "Company": "The Campbell's Company Common Stock",
     "Symbol": "CPB"
-  },
-  {
-    "Company": "Central Plains Bancshares, Inc. Common Stock",
-    "Symbol": "CPBI"
   },
   {
     "Company": "United States Copper Index Fund",
@@ -9132,10 +9028,6 @@
     "Symbol": "CPNJ"
   },
   {
-    "Company": "Calamos Nasdaq-100 Structured Alt Protection ETF - March",
-    "Symbol": "CPNM"
-  },
-  {
     "Company": "Calamos Nasdaq-100 Structured Alt Protection ETF - December",
     "Symbol": "CPNQ"
   },
@@ -9164,16 +9056,12 @@
     "Symbol": "CPRX"
   },
   {
+    "Company": "Calamos Russell 2000 Structured Alt Protection ETF - January",
+    "Symbol": "CPRY"
+  },
+  {
     "Company": "Cooper-Standard Automotive Inc.",
     "Symbol": "CPS"
-  },
-  {
-    "Company": "Calamos S&P 500 Structured Alt Protection ETF - August",
-    "Symbol": "CPSA"
-  },
-  {
-    "Company": "Calamos S&P 500 Structured Alt Protection ETF - December",
-    "Symbol": "CPSD"
   },
   {
     "Company": "Calamos S&P 500 Structured Alt Protection ETF - February",
@@ -9194,6 +9082,10 @@
   {
     "Company": "Calamos S&P 500 Structured Alt Protection ETF - May",
     "Symbol": "CPSM"
+  },
+  {
+    "Company": "Calamos S&P 500 Structured Alt Protection ETF - November",
+    "Symbol": "CPSN"
   },
   {
     "Company": "Calamos S&P 500 Structured Alt Protection ETF - October",
@@ -9508,10 +9400,6 @@
     "Symbol": "CRT"
   },
   {
-    "Company": "Xtrackers US National Critical Technologies ETF",
-    "Symbol": "CRTC"
-  },
-  {
     "Company": "Criteo S.A.",
     "Symbol": "CRTO"
   },
@@ -9586,10 +9474,6 @@
   {
     "Company": "Cisco Systems, Inc. Common Stock (DE)",
     "Symbol": "CSCO"
-  },
-  {
-    "Company": "Direxion Daily CSCO Bear 1X ETF",
-    "Symbol": "CSCS"
   },
   {
     "Company": "Invesco S&P Spin-Off ETF",
@@ -9708,6 +9592,14 @@
     "Symbol": "CTA"
   },
   {
+    "Company": "ClearThink 1 Acquisition Corp. Class A Ordinary Shares",
+    "Symbol": "CTAA"
+  },
+  {
+    "Company": "ClearThink 1 Acquisition Corp. Rights",
+    "Symbol": "CTAAR"
+  },
+  {
     "Company": "ClearThink 1 Acquisition Corp. Units",
     "Symbol": "CTAAU"
   },
@@ -9732,10 +9624,6 @@
     "Symbol": "CTDD"
   },
   {
-    "Company": "Global X Funds Global X ClimateTech ETF",
-    "Symbol": "CTEC"
-  },
-  {
     "Company": "Castellan Targeted Equity ETF",
     "Symbol": "CTEF"
   },
@@ -9750,6 +9638,10 @@
   {
     "Company": "Contango Silver & Gold Inc.",
     "Symbol": "CTGO"
+  },
+  {
+    "Company": "Castellan Targeted Income ETF",
+    "Symbol": "CTIF"
   },
   {
     "Company": "Cytek Biosciences, Inc. Common Stock",
@@ -9904,10 +9796,6 @@
     "Symbol": "CUSD"
   },
   {
-    "Company": "Invesco MSCI Global Timber ETF",
-    "Symbol": "CUT"
-  },
-  {
     "Company": "Cousins Properties Inc.",
     "Symbol": "CUZ"
   },
@@ -9994,6 +9882,10 @@
   {
     "Company": "Madison Covered Call ETF",
     "Symbol": "CVRD"
+  },
+  {
+    "Company": "Calamos Convertible Equity Alternative ETF",
+    "Symbol": "CVRT"
   },
   {
     "Company": "CVRx, Inc. Common Stock",
@@ -10304,6 +10196,10 @@
     "Symbol": "DASX"
   },
   {
+    "Company": "ProShares Big Data Refiners ETF",
+    "Symbol": "DAT"
+  },
+  {
     "Company": "FT Vest U.S. Equity Deep Buffer ETF - August",
     "Symbol": "DAUG"
   },
@@ -10348,10 +10244,6 @@
     "Symbol": "DBC"
   },
   {
-    "Company": "D. Boral Acquisition I Corp. Class A Ordinary Shares",
-    "Symbol": "DBCA"
-  },
-  {
     "Company": "D. Boral Acquisition I Corp. Unit",
     "Symbol": "DBCAU"
   },
@@ -10378,6 +10270,10 @@
   {
     "Company": "Xtrackers MSCI Europe Hedged Equity ETF",
     "Symbol": "DBEU"
+  },
+  {
+    "Company": "Xtrackers MSCI Eurozone Hedged Equity ETF",
+    "Symbol": "DBEZ"
   },
   {
     "Company": "Digital Brands Group, Inc. Common Stock",
@@ -10528,10 +10424,6 @@
     "Symbol": "DDFF"
   },
   {
-    "Company": "Innovator Equity Dual Directional 15 Buffer ETF - January",
-    "Symbol": "DDFJ"
-  },
-  {
     "Company": "Innovator Equity Dual Directional 15 Buffer ETF - July",
     "Symbol": "DDFL"
   },
@@ -10546,6 +10438,10 @@
   {
     "Company": "Innovator Equity Dual Directional 15 Buffer ETF - October",
     "Symbol": "DDFO"
+  },
+  {
+    "Company": "Innovator Equity Dual Directional 15 Buffer ETF - September",
+    "Symbol": "DDFS"
   },
   {
     "Company": "DoubleDown Interactive Co., Ltd. American Depository Shares",
@@ -10566,10 +10462,6 @@
   {
     "Company": "ProShares Ultra Dow30",
     "Symbol": "DDM"
-  },
-  {
-    "Company": "Innovator Growth-100 Dual Directional 5 Buffer ETF - Quarterly",
-    "Symbol": "DDNQ"
   },
   {
     "Company": "Datadog, Inc. Class A Common Stock",
@@ -10632,10 +10524,6 @@
     "Symbol": "DDWM"
   },
   {
-    "Company": "Defined Duration 10 ETF",
-    "Symbol": "DDX"
-  },
-  {
     "Company": "Defined Duration 20 ETF",
     "Symbol": "DDXX"
   },
@@ -10690,10 +10578,6 @@
   {
     "Company": "Acquirers Small and Micro Deep Value ETF",
     "Symbol": "DEEP"
-  },
-  {
-    "Company": "Hashdex Commodities Trust",
-    "Symbol": "DEFI"
   },
   {
     "Company": "Aptus Deferred Income ETF",
@@ -10940,6 +10824,10 @@
     "Symbol": "DFSV"
   },
   {
+    "Company": "DF Tactical 30 ETF",
+    "Symbol": "DFTT"
+  },
+  {
     "Company": "Definium Therapeutics, Inc. Common Shares",
     "Symbol": "DFTX"
   },
@@ -10972,8 +10860,16 @@
     "Symbol": "DGICA"
   },
   {
+    "Company": "Donegal Group Inc",
+    "Symbol": "DGICB"
+  },
+  {
     "Company": "Digi International Inc",
     "Symbol": "DGII"
+  },
+  {
+    "Company": "VanEck Digital India ETF",
+    "Symbol": "DGIN"
   },
   {
     "Company": "FT Vest U.S. Equity Buffer & Digital Return ETF - January",
@@ -11026,6 +10922,10 @@
   {
     "Company": "Digi Power X Inc. Subordinate Voting Shares",
     "Symbol": "DGXX"
+  },
+  {
+    "Company": "DB Gold Short ETN due February 15, 2038",
+    "Symbol": "DGZ"
   },
   {
     "Company": "Definitive Healthcare Corp. Class A Common Stock",
@@ -11116,10 +11016,6 @@
     "Symbol": "DIHP"
   },
   {
-    "Company": "WisdomTree International MidCap Dividend Fund",
-    "Symbol": "DIM"
-  },
-  {
     "Company": "CoinShares Altcoins ETF",
     "Symbol": "DIME"
   },
@@ -11172,6 +11068,10 @@
     "Symbol": "DIVD"
   },
   {
+    "Company": "Dana Concentrated Dividend ETF",
+    "Symbol": "DIVE"
+  },
+  {
     "Company": "Franklin International Core Dividend Tilt Index ETF",
     "Symbol": "DIVI"
   },
@@ -11188,12 +11088,8 @@
     "Symbol": "DIVO"
   },
   {
-    "Company": "Cullen Enhanced Equity Income ETF",
-    "Symbol": "DIVP"
-  },
-  {
-    "Company": "Guinness Atkinson Dividend Builder ETF",
-    "Symbol": "DIVS"
+    "Company": "Sound Equity Dividend Income ETF",
+    "Symbol": "DIVY"
   },
   {
     "Company": "Polen Dividend Income ETF",
@@ -11436,10 +11332,6 @@
     "Symbol": "DNMX"
   },
   {
-    "Company": "Dynamix Corporation III Unit",
-    "Symbol": "DNMXU"
-  },
-  {
     "Company": "Dynamix Corporation III Warrants",
     "Symbol": "DNMXW"
   },
@@ -11600,10 +11492,6 @@
     "Symbol": "DRD"
   },
   {
-    "Company": "Roman DBDR Acquisition Corp. II Ordinary shares",
-    "Symbol": "DRDB"
-  },
-  {
     "Company": "Roman DBDR Acquisition Corp. II Unit",
     "Symbol": "DRDBU"
   },
@@ -11702,6 +11590,10 @@
   {
     "Company": "Daedalus Special Acquisition Corp. Class A Ordinary Shares",
     "Symbol": "DSAC"
+  },
+  {
+    "Company": "Daedalus Special Acquisition Corp. Unit",
+    "Symbol": "DSACU"
   },
   {
     "Company": "Daedalus Special Acquisition Corp. Warrant",
@@ -11856,11 +11748,11 @@
     "Symbol": "DTRE"
   },
   {
-    "Company": "DT Cloud Star Acquisition Corporation Ordinary Shares",
-    "Symbol": "DTSQ"
+    "Company": "DT Cloud Star Acquisition Corporation Right",
+    "Symbol": "DTSQR"
   },
   {
-    "Company": "Datasea Inc. Common Stock",
+    "Company": "Datasea Intelligent Technology Ltd. Class A Ordinary Shares",
     "Symbol": "DTSS"
   },
   {
@@ -11936,10 +11828,6 @@
     "Symbol": "DUOT"
   },
   {
-    "Company": "VanEck Durable High Dividend ETF",
-    "Symbol": "DURA"
-  },
-  {
     "Company": "Davis Select U.S. Equity ETF",
     "Symbol": "DUSA"
   },
@@ -11972,6 +11860,10 @@
     "Symbol": "DVAL"
   },
   {
+    "Company": "Kingsbarn Dividend Opportunity ETF",
+    "Symbol": "DVDN"
+  },
+  {
     "Company": "DAC 3D Dividend Growth ETF",
     "Symbol": "DVGR"
   },
@@ -11994,6 +11886,10 @@
   {
     "Company": "First Trust Dorsey Wright Momentum & Low Volatility ETF",
     "Symbol": "DVOL"
+  },
+  {
+    "Company": "WEBs ETF Trust WEBs QQQ Defined Volatility ETF",
+    "Symbol": "DVQQ"
   },
   {
     "Company": "WEBs ETF Trust WEBs Real Estate XLRE Defined Volatility ETF",
@@ -12022,6 +11918,10 @@
   {
     "Company": "WEBs ETF Trust WEBs Communication Services XLC Defined Volatility ETF",
     "Symbol": "DVXC"
+  },
+  {
+    "Company": "WEBs ETF Trust WEBs Energy XLE Defined Volatility ETF",
+    "Symbol": "DVXE"
   },
   {
     "Company": "WEBs ETF Trust WEBs Financial XLF Defined Volatility ETF",
@@ -12054,10 +11954,6 @@
   {
     "Company": "Invesco Exchange-Traded Fund Trust II Invesco Dorsey Wright SmallCap Momentum ETF",
     "Symbol": "DWAS"
-  },
-  {
-    "Company": "AdvisorShares Dorsey Wright FSM All Cap World ETF",
-    "Symbol": "DWAW"
   },
   {
     "Company": "Davis Select Worldwide ETF",
@@ -12160,6 +12056,10 @@
     "Symbol": "DYLD"
   },
   {
+    "Company": "Global X Dow 30 Covered Call & Growth ETF",
+    "Symbol": "DYLG"
+  },
+  {
     "Company": "Dyne Therapeutics, Inc. Common Stock",
     "Symbol": "DYN"
   },
@@ -12170,6 +12070,10 @@
   {
     "Company": "iShares U.S. Equity Factor Rotation Active ETF",
     "Symbol": "DYNF"
+  },
+  {
+    "Company": "Insight Digital Partners II Class A Ordinary Shares",
+    "Symbol": "DYOR"
   },
   {
     "Company": "Insight Digital Partners II Units",
@@ -12204,10 +12108,6 @@
     "Symbol": "EAF"
   },
   {
-    "Company": "Pacer Developed Markets Cash Cows Growth Leaders ETF",
-    "Symbol": "EAFG"
-  },
-  {
     "Company": "iShares ESG Aware U.S. Aggregate Bond ETF",
     "Symbol": "EAGG"
   },
@@ -12236,10 +12136,6 @@
     "Symbol": "EAOM"
   },
   {
-    "Company": "iShares ESG Aware 60/40 Balanced Allocation ETF",
-    "Symbol": "EAOR"
-  },
-  {
     "Company": "Innovator Emerging Markets Power Buffer ETF - April",
     "Symbol": "EAPR"
   },
@@ -12250,6 +12146,10 @@
   {
     "Company": "Global X Funds Global X Rare Earth & Critical Materials ETF",
     "Symbol": "EART"
+  },
+  {
+    "Company": "Xtrackers MSCI EAFE Selection Equity ETF",
+    "Symbol": "EASG"
   },
   {
     "Company": "Liberty One Defensive Dividend Growth ETF",
@@ -12322,10 +12222,6 @@
   {
     "Company": "EAGLE POINT CREDIT COMPANY INC.",
     "Symbol": "ECC"
-  },
-  {
-    "Company": "Eagle Point Credit Company Inc. 6.50% Series C Term Preferred Stock due 2031",
-    "Symbol": "ECCC"
   },
   {
     "Company": "Eagle Point Credit Company Inc. 7.75% Notes due 2030",
@@ -12636,10 +12532,6 @@
     "Symbol": "EFR"
   },
   {
-    "Company": "iShares Environmental Infrastructure and Industrials ETF",
-    "Symbol": "EFRA"
-  },
-  {
     "Company": "Enterprise Financial Services Corporation",
     "Symbol": "EFSC"
   },
@@ -12704,6 +12596,10 @@
     "Symbol": "EGGY"
   },
   {
+    "Company": "EGH Acquisition Corp. Class A Ordinary Shares",
+    "Symbol": "EGHA"
+  },
+  {
     "Company": "EGH Acquisition Corp. Rights",
     "Symbol": "EGHAR"
   },
@@ -12748,10 +12644,6 @@
     "Symbol": "EHC"
   },
   {
-    "Company": "Global X Ethereum Covered Call ETF",
-    "Symbol": "EHCC"
-  },
-  {
     "Company": "Eshallgo Inc. Class A Ordinary Shares",
     "Symbol": "EHGO"
   },
@@ -12762,10 +12654,6 @@
   {
     "Company": "Euroholdings Ltd. Common Stock",
     "Symbol": "EHLD"
-  },
-  {
-    "Company": "Even Herd Long Short ETF",
-    "Symbol": "EHLS"
   },
   {
     "Company": "eHealth, Inc.",
@@ -12794,6 +12682,10 @@
   {
     "Company": "Employers Holdings, Inc.",
     "Symbol": "EIG"
+  },
+  {
+    "Company": "Eagle Point Institutional Income Fund 8.125% Series A Term Preferred Shares Due 2029",
+    "Symbol": "EIIA"
   },
   {
     "Company": "Eikon Therapeutics, Inc. Common Stock",
@@ -13012,6 +12904,14 @@
     "Symbol": "EMCB"
   },
   {
+    "Company": "Xtrackers Emerging Markets Carbon Reduction and Climate Improvers ETF",
+    "Symbol": "EMCR"
+  },
+  {
+    "Company": "Xtrackers MSCI Emerging Markets Climate Selection ETF",
+    "Symbol": "EMCS"
+  },
+  {
     "Company": "Western Asset Emerging Markets Debt Fund, Inc",
     "Symbol": "EMD"
   },
@@ -13050,10 +12950,6 @@
   {
     "Company": "iShares J.P. Morgan EM High Yield Bond ETF",
     "Symbol": "EMHY"
-  },
-  {
-    "Company": "iShares Emerging Markets Infrastructure ETF",
-    "Symbol": "EMIF"
   },
   {
     "Company": "Emmis Acquisition Corp. Class A Ordinary Shares",
@@ -13110,6 +13006,10 @@
   {
     "Company": "Entergy Mississippi, LLC First Mortgage Bonds, 4.90% Series due October 1, 2066",
     "Symbol": "EMP"
+  },
+  {
+    "Company": "Efficient Market Portfolio Plus ETF",
+    "Symbol": "EMPB"
   },
   {
     "Company": "Empery Digital Inc. Common stock",
@@ -13170,6 +13070,10 @@
   {
     "Company": "iShares Enhanced International Active ETF",
     "Symbol": "ENHI"
+  },
+  {
+    "Company": "iShares Enhanced Large Cap Core Active ETF",
+    "Symbol": "ENHU"
   },
   {
     "Company": "Enel Chile S.A. American Depositary Shares Representing Common Stock (Each representing 50 shares of Common Stock)",
@@ -13304,10 +13208,6 @@
     "Symbol": "EPAC"
   },
   {
-    "Company": "Harbor AI Inflection Strategy ETF",
-    "Symbol": "EPAI"
-  },
-  {
     "Company": "EPAM SYSTEMS, INC.",
     "Symbol": "EPAM"
   },
@@ -13338,6 +13238,10 @@
   {
     "Company": "Harbor Mid Cap Core ETF",
     "Symbol": "EPMB"
+  },
+  {
+    "Company": "Harbor Mid Cap Value ETF",
+    "Symbol": "EPMV"
   },
   {
     "Company": "iShares MSCI Poland ETF",
@@ -13424,10 +13328,6 @@
     "Symbol": "EQL"
   },
   {
-    "Company": "iShares MSCI Emerging Markets Quality Factor ETF",
-    "Symbol": "EQLT"
-  },
-  {
     "Company": "Equinor ASA American Depositary Shares (Each Representing One Ordinary Share, nominal value NOK 2.50 per share)",
     "Symbol": "EQNR"
   },
@@ -13470,6 +13370,10 @@
   {
     "Company": "Allspring Multi-Sector Income Fund",
     "Symbol": "ERC"
+  },
+  {
+    "Company": "iShares Environmentally Aware Real Estate ETF",
+    "Symbol": "ERET"
   },
   {
     "Company": "Allspring Utilities and High Income Fund",
@@ -13584,8 +13488,16 @@
     "Symbol": "ESI"
   },
   {
+    "Company": "Eventide International ETF",
+    "Symbol": "ESIM"
+  },
+  {
     "Company": "State Street SPDR S&P SmallCap 600 ESG ETF",
     "Symbol": "ESIX"
+  },
+  {
+    "Company": "REX-Osprey ETH + Staking ETF",
+    "Symbol": "ESK"
   },
   {
     "Company": "Estrella Immunopharma, Inc. Common Stock",
@@ -13596,12 +13508,12 @@
     "Symbol": "ESLAW"
   },
   {
-    "Company": "Elbit Systems Ltd",
-    "Symbol": "ESLT"
+    "Company": "Eventide Large Cap Growth ETF",
+    "Symbol": "ESLG"
   },
   {
-    "Company": "Eventide Large Cap Value ETF",
-    "Symbol": "ESLV"
+    "Company": "Elbit Systems Ltd",
+    "Symbol": "ESLT"
   },
   {
     "Company": "iShares ESG Aware MSCI USA Small-Cap ETF",
@@ -13832,10 +13744,6 @@
     "Symbol": "EUDG"
   },
   {
-    "Company": "ProShares MSCI Europe Dividend Growers ETF",
-    "Symbol": "EUDV"
-  },
-  {
     "Company": "iShares MSCI Europe Financials ETF",
     "Symbol": "EUFN"
   },
@@ -13936,6 +13844,10 @@
     "Symbol": "EVH"
   },
   {
+    "Company": "Eaton Vance High Yield ETF",
+    "Symbol": "EVHY"
+  },
+  {
     "Company": "EVI Industries, Inc.",
     "Symbol": "EVI"
   },
@@ -13968,6 +13880,10 @@
     "Symbol": "EVMO"
   },
   {
+    "Company": "Invesco Electric Vehicle Metals Commodity Strategy No K-1 ETF",
+    "Symbol": "EVMT"
+  },
+  {
     "Company": "Eaton Vance Municipal Income Trust",
     "Symbol": "EVN"
   },
@@ -13978,6 +13894,10 @@
   {
     "Company": "Evotec SE American Depositary Shares",
     "Symbol": "EVO"
+  },
+  {
+    "Company": "Evolution Global Acquisition Corp Class A Ordinary Shares",
+    "Symbol": "EVOX"
   },
   {
     "Company": "Evolution Global Acquisition Corp Units",
@@ -14042,6 +13962,10 @@
   {
     "Company": "VanEck Environmental Services ETF",
     "Symbol": "EVX"
+  },
+  {
+    "Company": "Eaton Vance High Income Municipal ETF",
+    "Symbol": "EVYM"
   },
   {
     "Company": "Edwards Lifesciences Corp",
@@ -14368,6 +14292,10 @@
     "Symbol": "FARM"
   },
   {
+    "Company": "Frontier Asset Absolute Return ETF",
+    "Symbol": "FARX"
+  },
+  {
     "Company": "Direxion Daily Financial Bull 3x ETF",
     "Symbol": "FAS"
   },
@@ -14394,6 +14322,10 @@
   {
     "Company": "Direxion Daily Financial Bear 3x ETF",
     "Symbol": "FAZ"
+  },
+  {
+    "Company": "ProShares S&P 500 Dynamic Buffer ETF",
+    "Symbol": "FB"
   },
   {
     "Company": "Fidelity Blue Chip Growth ETF",
@@ -14486,10 +14418,6 @@
   {
     "Company": "Falcon's Beyond Global, Inc. Class A Common Stock",
     "Symbol": "FBYD"
-  },
-  {
-    "Company": "Falcon's Beyond Global, Inc. Warrants",
-    "Symbol": "FBYDW"
   },
   {
     "Company": "GraniteShares YieldBOOST META ETF",
@@ -14608,8 +14536,8 @@
     "Symbol": "FCRS.WS"
   },
   {
-    "Company": "Crescent Capital BDC, Inc. 5.00% Notes due 2026",
-    "Symbol": "FCRX"
+    "Company": "Federated Hermes Short Duration Corporate ETF",
+    "Symbol": "FCSH"
   },
   {
     "Company": "First Trust Senior Floating Rate Income Fund II",
@@ -14700,10 +14628,6 @@
     "Symbol": "FDIS"
   },
   {
-    "Company": "MarketDesk Focused U.S. Dividend ETF",
-    "Symbol": "FDIV"
-  },
-  {
     "Company": "First Trust Morningstar Dividend Leaders Index Fund",
     "Symbol": "FDL"
   },
@@ -14756,6 +14680,10 @@
     "Symbol": "FDRV"
   },
   {
+    "Company": "Founder-Led 2X Daily ETF",
+    "Symbol": "FDRX"
+  },
+  {
     "Company": "Factset Research Systems",
     "Symbol": "FDS"
   },
@@ -14766,6 +14694,10 @@
   {
     "Company": "First Trust Developed Markets ex-US AlphaDEX Fund",
     "Symbol": "FDT"
+  },
+  {
+    "Company": "First Trust Developed Markets ex-US Small Cap AlphaDEX Fund",
+    "Symbol": "FDTS"
   },
   {
     "Company": "Fidelity Disruptive Technology ETF",
@@ -14792,6 +14724,10 @@
     "Symbol": "FE"
   },
   {
+    "Company": "Fidelity Enhanced U.S. All-Cap Equity ETF",
+    "Symbol": "FEAC"
+  },
+  {
     "Company": "5E Advanced Materials, Inc. Common Stock",
     "Symbol": "FEAM"
   },
@@ -14802,6 +14738,10 @@
   {
     "Company": "FT Vest U.S. Equity Max Buffer ETF - February",
     "Symbol": "FEBM"
+  },
+  {
+    "Company": "Fenbo Holdings Limited Class A Ordinary Shares",
+    "Symbol": "FEBO"
   },
   {
     "Company": "PGIM S&P 500 Buffer 12 ETF - February",
@@ -14824,20 +14764,12 @@
     "Symbol": "FEBZ"
   },
   {
-    "Company": "FlexShares ESG & Climate Developed Markets ex-US Core Index Fund",
-    "Symbol": "FEDM"
-  },
-  {
     "Company": "ENvue Medical, Inc. Common Stock",
     "Symbol": "FEED"
   },
   {
     "Company": "First Eagle Global Equity ETF",
     "Symbol": "FEGE"
-  },
-  {
-    "Company": "FlexShares ESG & Climate Investment Grade Corporate Core Index Fund",
-    "Symbol": "FEIG"
   },
   {
     "Company": "Frequency Electronics, Inc.",
@@ -14886,10 +14818,6 @@
   {
     "Company": "Fennec Pharmaceuticals Inc. Common Stock",
     "Symbol": "FENC"
-  },
-  {
-    "Company": "Phoenix New Media Limited American Depositary Shares (each representing forty-eight (48) Class A Ordinary Shares)",
-    "Symbol": "FENG"
   },
   {
     "Company": "Fidelity Enhanced International ETF",
@@ -15088,6 +15016,14 @@
     "Symbol": "FGI"
   },
   {
+    "Company": "FG Imperii Acquisition Corp. Class A Ordinary Shares",
+    "Symbol": "FGII"
+  },
+  {
+    "Company": "FG Imperii Acquisition Corp. Units",
+    "Symbol": "FGIIU"
+  },
+  {
     "Company": "FG Imperii Acquisition Corp. Warrants",
     "Symbol": "FGIIW"
   },
@@ -15256,10 +15192,6 @@
     "Symbol": "FINS"
   },
   {
-    "Company": "Frontier Asset Total International Equity ETF",
-    "Symbol": "FINT"
-  },
-  {
     "Company": "FinVolution Group American depositary shares, each representing five Class A ordinary shares",
     "Symbol": "FINV"
   },
@@ -15332,10 +15264,6 @@
     "Symbol": "FIVN"
   },
   {
-    "Company": "YieldMax Dorsey Wright Hybrid 5 Income ETF",
-    "Symbol": "FIVY"
-  },
-  {
     "Company": "First Trust Water ETF",
     "Symbol": "FIW"
   },
@@ -15382,10 +15310,6 @@
   {
     "Company": "Franklin Wireless Corp. Common Stock",
     "Symbol": "FKWL"
-  },
-  {
-    "Company": "AllianzIM U.S. Equity 6 Month Floor5 Apr/Oct ETF",
-    "Symbol": "FLAO"
   },
   {
     "Company": "Franklin FTSE Australia ETF",
@@ -15442,10 +15366,6 @@
   {
     "Company": "Fold Holdings, Inc. Class A Common Stock",
     "Symbol": "FLD"
-  },
-  {
-    "Company": "Fidelity Low Duration Bond ETF",
-    "Symbol": "FLDB"
   },
   {
     "Company": "Fold Holdings, Inc. Warrant",
@@ -15572,10 +15492,6 @@
     "Symbol": "FLOT"
   },
   {
-    "Company": "Global X U.S. Cash Flow Kings 100 ETF",
-    "Symbol": "FLOW"
-  },
-  {
     "Company": "Franklin U.S. Large Cap Multifactor Index ETF",
     "Symbol": "FLQL"
   },
@@ -15672,16 +15588,16 @@
     "Symbol": "FLY"
   },
   {
+    "Company": "MicroSectors Travel -3x Inverse Leveraged ETN",
+    "Symbol": "FLYD"
+  },
+  {
     "Company": "Fly-E Group, Inc. Common Stock",
     "Symbol": "FLYE"
   },
   {
     "Company": "Tradr 2X Long FLY Daily ETF",
     "Symbol": "FLYT"
-  },
-  {
-    "Company": "MicroSectors Travel 3x Leveraged ETN",
-    "Symbol": "FLYU"
   },
   {
     "Company": "Flywire Corporation Voting Common Stock",
@@ -15776,6 +15692,10 @@
     "Symbol": "FMNY"
   },
   {
+    "Company": "FMQQ The Next Frontier Internet ETF",
+    "Symbol": "FMQQ"
+  },
+  {
     "Company": "Fresenius Medical Care AG",
     "Symbol": "FMS"
   },
@@ -15806,6 +15726,10 @@
   {
     "Company": "FOMENTO ECONOMICO MEXICANO, S.A.B. DE C.V.",
     "Symbol": "FMX"
+  },
+  {
+    "Company": "FIRST TRUST MORTGAGE INCOME FUND",
+    "Symbol": "FMY"
   },
   {
     "Company": "Fabrinet",
@@ -15940,10 +15864,6 @@
     "Symbol": "FONR"
   },
   {
-    "Company": "Frontier Asset Opportunistic Credit ETF",
-    "Symbol": "FOPC"
-  },
-  {
     "Company": "Forestar Group Inc.",
     "Symbol": "FOR"
   },
@@ -15964,20 +15884,12 @@
     "Symbol": "FORR"
   },
   {
-    "Company": "Formula Systems 1985 Ltd",
-    "Symbol": "FORTY"
-  },
-  {
     "Company": "Fossil Group, Inc.",
     "Symbol": "FOSL"
   },
   {
     "Company": "Shift4 Payments, Inc.",
     "Symbol": "FOUR"
-  },
-  {
-    "Company": "Pacer Solactive Whitney Future of Warfare ETF",
-    "Symbol": "FOWF"
   },
   {
     "Company": "Fox Corporation Class B Common Stock",
@@ -16040,6 +15952,10 @@
     "Symbol": "FPI"
   },
   {
+    "Company": "Fidelity Real Estate Investment ETF",
+    "Symbol": "FPRO"
+  },
+  {
     "Company": "Forgent Power Solutions, Inc.",
     "Symbol": "FPS"
   },
@@ -16098,6 +16014,10 @@
   {
     "Company": "Forge Global Holdings, Inc.",
     "Symbol": "FRGE"
+  },
+  {
+    "Company": "Horizon International Equity ETF",
+    "Symbol": "FRGN"
   },
   {
     "Company": "Freight Technologies, Inc. Ordinary Shares",
@@ -16204,10 +16124,6 @@
     "Symbol": "FSEP"
   },
   {
-    "Company": "First Trust Exchange-Traded Fund VI First Trust SMID Growth Strength ETF",
-    "Symbol": "FSGS"
-  },
-  {
     "Company": "Flag Ship Acquisition Corp. Ordinary Shares",
     "Symbol": "FSHP"
   },
@@ -16250,6 +16166,10 @@
   {
     "Company": "Fidelity Small-Mid Multifactor ETF",
     "Symbol": "FSMD"
+  },
+  {
+    "Company": "Franklin Small Cap Enhanced ETF",
+    "Symbol": "FSML"
   },
   {
     "Company": "Fidelity Solana Fund",
@@ -16320,10 +16240,6 @@
     "Symbol": "FTBD"
   },
   {
-    "Company": "First Trust Balanced Income ETF",
-    "Symbol": "FTBI"
-  },
-  {
     "Company": "First Trust Large Cap Growth AlphaDEX Fund (based on the Defined Large Cap Growth Index--symbol DEFILGOI)",
     "Symbol": "FTC"
   },
@@ -16350,6 +16266,10 @@
   {
     "Company": "Frontdoor, Inc. Common Stock",
     "Symbol": "FTDR"
+  },
+  {
+    "Company": "First Trust Dividend Strength ETF",
+    "Symbol": "FTDS"
   },
   {
     "Company": "Fidelity MSCI Information Technology Index ETF",
@@ -16880,6 +16800,10 @@
     "Symbol": "GARP"
   },
   {
+    "Company": "Mango Growth ETF",
+    "Symbol": "GARY"
+  },
+  {
     "Company": "StealthGas, Inc.",
     "Symbol": "GASS"
   },
@@ -17060,6 +16984,10 @@
     "Symbol": "GDEVW"
   },
   {
+    "Company": "Golden Heaven Group Holdings Ltd. Class A Ordinary Shares",
+    "Symbol": "GDHG"
+  },
+  {
     "Company": "Harbor Dividend Growth Leaders ETF",
     "Symbol": "GDIV"
   },
@@ -17148,16 +17076,16 @@
     "Symbol": "GECC"
   },
   {
+    "Company": "Great Elm Capital Corp. 7.75% Notes Due 2030",
+    "Symbol": "GECCG"
+  },
+  {
     "Company": "Great Elm Capital Corp. 8.125% Notes Due 2029",
     "Symbol": "GECCH"
   },
   {
     "Company": "Great Elm Capital Corp. 8.50% NOTES DUE 2029",
     "Symbol": "GECCI"
-  },
-  {
-    "Company": "Great Elm Capital Corp. 5.875% Notes due 2026",
-    "Symbol": "GECCO"
   },
   {
     "Company": "Greif, Inc.",
@@ -17190,6 +17118,10 @@
   {
     "Company": "Goldman Sachs ActiveBeta Emerging Markets Equity ETF",
     "Symbol": "GEM"
+  },
+  {
+    "Company": "Goldman Sachs Access Emerging Markets USD Bond ETF",
+    "Symbol": "GEMD"
   },
   {
     "Company": "Pacific North of South EM Equity Active ETF",
@@ -17250,10 +17182,6 @@
   {
     "Company": "The GEO Group, Inc.",
     "Symbol": "GEO"
-  },
-  {
-    "Company": "WisdomTree GeoAlpha Opportunities Fund",
-    "Symbol": "GEOA"
   },
   {
     "Company": "Geospace Technologies Corporation Common Stock",
@@ -17382,10 +17310,6 @@
   {
     "Company": "THE GABELLI MULTIMEDIA TRUST INC.",
     "Symbol": "GGT"
-  },
-  {
-    "Company": "Gabelli Global Technology Leaders ETF",
-    "Symbol": "GGTL"
   },
   {
     "Company": "Goldman Sachs MarketBeta Russell 1000 Growth Equity ETF",
@@ -17560,10 +17484,6 @@
     "Symbol": "GJAN"
   },
   {
-    "Company": "Synthetic Fixed-Income Sec STRATS 2004-06, 6.375% US Cellular Corp.",
-    "Symbol": "GJH"
-  },
-  {
     "Company": "Synthetic Fixed-Income Securities, Inc. 4.65% Floating Rate STRATS Certificates, Series 2005-4",
     "Symbol": "GJO"
   },
@@ -17596,6 +17516,10 @@
     "Symbol": "GK"
   },
   {
+    "Company": "Scharf Global Opportunity ETF",
+    "Symbol": "GKAT"
+  },
+  {
     "Company": "Glaukos Corporation",
     "Symbol": "GKOS"
   },
@@ -17610,10 +17534,6 @@
   {
     "Company": "Global-E Online Ltd. Ordinary Shares",
     "Symbol": "GLBE"
-  },
-  {
-    "Company": "Pacer MSCI World Industry Advantage ETF",
-    "Symbol": "GLBL"
   },
   {
     "Company": "Globus Maritime Limited",
@@ -17722,10 +17642,6 @@
   {
     "Company": "Gloo Holdings, Inc. Class A Common Stock",
     "Symbol": "GLOO"
-  },
-  {
-    "Company": "VictoryShares WestEnd Global Equity ETF",
-    "Symbol": "GLOW"
   },
   {
     "Company": "Global Partners LP",
@@ -17840,6 +17756,10 @@
     "Symbol": "GMGI"
   },
   {
+    "Company": "Gamehaus Holdings Inc. Class A Ordinary Shares",
+    "Symbol": "GMHS"
+  },
+  {
     "Company": "Global Mofy AI Limited Class A Ordinary Shares",
     "Symbol": "GMM"
   },
@@ -17852,12 +17772,12 @@
     "Symbol": "GMMF"
   },
   {
-    "Company": "GMO Ultra-Short Income ETF",
-    "Symbol": "GMOC"
+    "Company": "Goldman Sachs Dynamic New York Municipal Income ETF",
+    "Symbol": "GMNY"
   },
   {
-    "Company": "GMO Dynamic Allocation ETF",
-    "Symbol": "GMOD"
+    "Company": "GMO Ultra-Short Income ETF",
+    "Symbol": "GMOC"
   },
   {
     "Company": "GMO International Value ETF",
@@ -17882,10 +17802,6 @@
   {
     "Company": "Goldman Sachs Municipal Income ETF",
     "Symbol": "GMUB"
-  },
-  {
-    "Company": "Goldman Sachs Access Municipal Bond ETF",
-    "Symbol": "GMUN"
   },
   {
     "Company": "GENIE ENERGY LTD",
@@ -17996,10 +17912,6 @@
     "Symbol": "GOLF"
   },
   {
-    "Company": "Gabelli Opportunities in Live and Sports ETF",
-    "Symbol": "GOLS"
-  },
-  {
     "Company": "Strategy Shares Gold Enhanced Yield ETF",
     "Symbol": "GOLY"
   },
@@ -18096,6 +18008,10 @@
     "Symbol": "GPACW"
   },
   {
+    "Company": "GP-Act III Acquisition Corp. Class A Ordinary Share",
+    "Symbol": "GPAT"
+  },
+  {
     "Company": "GP-Act III Acquisition Corp. Units",
     "Symbol": "GPATU"
   },
@@ -18188,6 +18104,10 @@
     "Symbol": "GQI"
   },
   {
+    "Company": "Astoria US Quality Growth Kings ETF",
+    "Symbol": "GQQQ"
+  },
+  {
     "Company": "FlexShares Global Quality Real Estate Index Fund",
     "Symbol": "GQRE"
   },
@@ -18272,6 +18192,10 @@
     "Symbol": "GRID"
   },
   {
+    "Company": "VictoryShares International Free Cash Flow Growth ETF",
+    "Symbol": "GRIN"
+  },
+  {
     "Company": "Greenland Mines Ltd. Common Stock",
     "Symbol": "GRML"
   },
@@ -18282,10 +18206,6 @@
   {
     "Company": "Garmin Ltd",
     "Symbol": "GRMN"
-  },
-  {
-    "Company": "iPath Series B Carbon Exchange-Traded Notes",
-    "Symbol": "GRN"
   },
   {
     "Company": "VanEck Green Bond ETF",
@@ -18364,6 +18284,10 @@
     "Symbol": "GRVY"
   },
   {
+    "Company": "TCW ETF Trust TCW Durable Growth ETF",
+    "Symbol": "GRW"
+  },
+  {
     "Company": "GROW GENERATION CORP",
     "Symbol": "GRWG"
   },
@@ -18386,10 +18310,6 @@
   {
     "Company": "Goldman Sachs BDC, Inc.",
     "Symbol": "GSBD"
-  },
-  {
-    "Company": "Goldman Sachs MarketBeta Emerging Markets Equity ETF",
-    "Symbol": "GSEE"
   },
   {
     "Company": "FT Vest U.S. Equity Moderate Buffer ETF - September",
@@ -18476,6 +18396,10 @@
     "Symbol": "GSOL"
   },
   {
+    "Company": "Gotham Enhanced 500 ETF",
+    "Symbol": "GSPY"
+  },
+  {
     "Company": "GSR IV Acquisition Corp. Class A ordinary share",
     "Symbol": "GSRF"
   },
@@ -18560,10 +18484,6 @@
     "Symbol": "GTERR"
   },
   {
-    "Company": "Globa Terra Acquisition Corporation Units",
-    "Symbol": "GTERU"
-  },
-  {
     "Company": "Globa Terra Acquisition Corporation Warrants",
     "Symbol": "GTERW"
   },
@@ -18604,6 +18524,10 @@
     "Symbol": "GTO"
   },
   {
+    "Company": "Invesco Short Duration High Yield ETF",
+    "Symbol": "GTOH"
+  },
+  {
     "Company": "Goldman Sachs Technology Opportunities ETF",
     "Symbol": "GTOP"
   },
@@ -18612,12 +18536,8 @@
     "Symbol": "GTOQ"
   },
   {
-    "Company": "Invesco Short Duration Total Return Bond ETF",
-    "Symbol": "GTOS"
-  },
-  {
-    "Company": "Goldman Sachs MSCI World Private Equity Return Tracker ETF",
-    "Symbol": "GTPE"
+    "Company": "WisdomTree Target Range Fund",
+    "Symbol": "GTR"
   },
   {
     "Company": "Garrett Motion Inc. Common Stock",
@@ -18646,10 +18566,6 @@
   {
     "Company": "Global X Guru Index ETF",
     "Symbol": "GURU"
-  },
-  {
-    "Company": "Goldman Sachs MarketBeta U.S. 1000 Equity ETF",
-    "Symbol": "GUSA"
   },
   {
     "Company": "Goldman Sachs Enhanced U.S. Equity ETF",
@@ -18696,10 +18612,6 @@
     "Symbol": "GVLE"
   },
   {
-    "Company": "Gotham 1000 Value ETF",
-    "Symbol": "GVLU"
-  },
-  {
     "Company": "Goldman Sachs MarketBeta Russell 1000 Value Equity ETF",
     "Symbol": "GVUS"
   },
@@ -18710,10 +18622,6 @@
   {
     "Company": "ESS Tech, Inc.",
     "Symbol": "GWH"
-  },
-  {
-    "Company": "ESS Tech, Inc. Warrant exercisable for one-fifteenth of a share of Common Stock at an exercise price of $172.50 per share",
-    "Symbol": "GWH.WS"
   },
   {
     "Company": "GUIDEWIRE SOFTWARE, INC.",
@@ -18738,10 +18646,6 @@
   {
     "Company": "State Street SPDR S&P China ETF",
     "Symbol": "GXC"
-  },
-  {
-    "Company": "Global X Funds Global X Dorsey Wright Thematic ETF",
-    "Symbol": "GXDW"
   },
   {
     "Company": "Global X U.S. 500 ETF",
@@ -18796,10 +18700,6 @@
     "Symbol": "HACK"
   },
   {
-    "Company": "HCM IV Acquisition Corp. Class A Ordinary Share",
-    "Symbol": "HACQ"
-  },
-  {
     "Company": "HCM IV Acquisition Corp. Unit",
     "Symbol": "HACQU"
   },
@@ -18828,10 +18728,6 @@
     "Symbol": "HAIN"
   },
   {
-    "Company": "Amplify HACK Cybersecurity Covered Call ETF",
-    "Symbol": "HAKY"
-  },
-  {
     "Company": "Halliburton Company",
     "Symbol": "HAL"
   },
@@ -18848,6 +18744,10 @@
     "Symbol": "HAP"
   },
   {
+    "Company": "Harbor Human Capital Factor US Large Cap ETF",
+    "Symbol": "HAPI"
+  },
+  {
     "Company": "Simplify Commodities Strategy No K-1 ETF",
     "Symbol": "HARD"
   },
@@ -18860,10 +18760,6 @@
     "Symbol": "HASI"
   },
   {
-    "Company": "Residential REIT ETF",
-    "Symbol": "HAUS"
-  },
-  {
     "Company": "Xtrackers International Real Estate ETF",
     "Symbol": "HAUZ"
   },
@@ -18874,6 +18770,10 @@
   {
     "Company": "Harvard Ave Acquisition Corporation Rights that convert on a 1/10th of 1 basis to Class A ordinary Shares",
     "Symbol": "HAVAR"
+  },
+  {
+    "Company": "Harvard Ave Acquisition Corporation Unit",
+    "Symbol": "HAVAU"
   },
   {
     "Company": "iShares Currency Hedged MSCI ACWI ex U.S. ETF",
@@ -18960,6 +18860,10 @@
     "Symbol": "HCACR"
   },
   {
+    "Company": "Hall Chadwick Acquisition Corp. Unit",
+    "Symbol": "HCACU"
+  },
+  {
     "Company": "Huachen AI Parking Management Technology Holding Co., Ltd. Ordinary Shares",
     "Symbol": "HCAI"
   },
@@ -18998,10 +18902,6 @@
   {
     "Company": "HUTCHMED (China) Limited American Depositary Shares",
     "Symbol": "HCM"
-  },
-  {
-    "Company": "HCM III Acquisition Corp. Class A Ordinary Share",
-    "Symbol": "HCMA"
   },
   {
     "Company": "HCM III Acquisition Corp. Units",
@@ -19070,10 +18970,6 @@
   {
     "Company": "ETRACS Monthly Pay 2xLeveraged US High Dividend Low Volatility ETN Series B due October 21, 2049",
     "Symbol": "HDLB"
-  },
-  {
-    "Company": "First Trust Horizon Managed Volatility Developed International ETF",
-    "Symbol": "HDMV"
   },
   {
     "Company": "Hudson Technologies Inc",
@@ -19200,10 +19096,6 @@
     "Symbol": "HEZU"
   },
   {
-    "Company": "DGA Core Plus Absolute Return ETF",
-    "Symbol": "HF"
-  },
-  {
     "Company": "Home Federal Bancorp, Inc. of Louisiana",
     "Symbol": "HFBL"
   },
@@ -19222,6 +19114,10 @@
   {
     "Company": "Hartford Large Cap Growth ETF",
     "Symbol": "HFGO"
+  },
+  {
+    "Company": "Unlimited HFMF Managed Futures ETF",
+    "Symbol": "HFMF"
   },
   {
     "Company": "Unlimited HFND Multi-Strategy Return Tracker ETF",
@@ -19424,6 +19320,10 @@
     "Symbol": "HLLY"
   },
   {
+    "Company": "Holley Inc. Redeemable Warrants, each whole warrant exercisable for one share of Common Stock at an exercise price of $11.50",
+    "Symbol": "HLLY.WS"
+  },
+  {
     "Company": "Hillman Solutions Corp. Common Stock",
     "Symbol": "HLMN"
   },
@@ -19500,6 +19400,10 @@
     "Symbol": "HNNA"
   },
   {
+    "Company": "Hennessy Advisors, Inc. 4.875% Notes due 2026",
+    "Symbol": "HNNAZ"
+  },
+  {
     "Company": "Hallador Energy Company",
     "Symbol": "HNRG"
   },
@@ -19526,10 +19430,6 @@
   {
     "Company": "Harley-Davidson, Inc.",
     "Symbol": "HOG"
-  },
-  {
-    "Company": "REX HOOD Growth & Income ETF",
-    "Symbol": "HOII"
   },
   {
     "Company": "JPMorgan International Hedged Equity Laddered Overlay ETF",
@@ -19668,10 +19568,6 @@
     "Symbol": "HQ"
   },
   {
-    "Company": "Hartford US Quality Growth ETF",
-    "Symbol": "HQGO"
-  },
-  {
     "Company": "abrdn Healthcare Investors",
     "Symbol": "HQH"
   },
@@ -19740,10 +19636,6 @@
     "Symbol": "HSBC"
   },
   {
-    "Company": "HSBC Holdings plc ADRhedged",
-    "Symbol": "HSBH"
-  },
-  {
     "Company": "HeartSciences Inc. Common Stock",
     "Symbol": "HSCS"
   },
@@ -19772,10 +19664,6 @@
     "Symbol": "HSLV"
   },
   {
-    "Company": "First Trust Horizon Managed Volatility Small/Mid ETF",
-    "Symbol": "HSMV"
-  },
-  {
     "Company": "Horizon Space Acquisition II Corp. Ordinary share",
     "Symbol": "HSPT"
   },
@@ -19798,6 +19686,10 @@
   {
     "Company": "Hartford Schroders Tax-Aware Bond ETF",
     "Symbol": "HTAB"
+  },
+  {
+    "Company": "Nomura National High-Yield Municipal Bond ETF",
+    "Symbol": "HTAX"
   },
   {
     "Company": "HomeTrust Bancshares, Inc.",
@@ -19904,6 +19796,10 @@
     "Symbol": "HUBS"
   },
   {
+    "Company": "Huadi International Group Co., Ltd. Ordinary Shares",
+    "Symbol": "HUDI"
+  },
+  {
     "Company": "HUHUTECH International Group Inc. Ordinary Shares",
     "Symbol": "HUHU"
   },
@@ -19968,8 +19864,16 @@
     "Symbol": "HVII"
   },
   {
+    "Company": "Hennessy Capital Investment Corp. VII Rights",
+    "Symbol": "HVIIR"
+  },
+  {
     "Company": "Hennessy Capital Investment Corp. VII Unit",
     "Symbol": "HVIIU"
+  },
+  {
+    "Company": "Highview Merger Corp. Class A Ordinary Share",
+    "Symbol": "HVMC"
   },
   {
     "Company": "Highview Merger Corp. Units",
@@ -20016,10 +19920,6 @@
     "Symbol": "HWM"
   },
   {
-    "Company": "Hotchkis & Wiley SMID Cap Diversified Value Fund",
-    "Symbol": "HWSM"
-  },
-  {
     "Company": "Haoxin Holdings Limited Class A Ordinary Shares",
     "Symbol": "HXHX"
   },
@@ -20054,6 +19954,10 @@
   {
     "Company": "State Street Blackstone High Income ETF",
     "Symbol": "HYBL"
+  },
+  {
+    "Company": "TCW High Yield Bond ETF",
+    "Symbol": "HYBX"
   },
   {
     "Company": "VanEck High Yield Muni ETF",
@@ -20168,10 +20072,6 @@
     "Symbol": "HYSA"
   },
   {
-    "Company": "Columbia Short Duration High Yield ETF",
-    "Symbol": "HYSD"
-  },
-  {
     "Company": "BLACKROCK CORPORATE HIGH YIELD FUND INC.",
     "Symbol": "HYT"
   },
@@ -20206,10 +20106,6 @@
   {
     "Company": "Idea Acquisition Corp. Class A Ordinary Shares",
     "Symbol": "IACO"
-  },
-  {
-    "Company": "Idea Acquisition Corp. Units",
-    "Symbol": "IACOU"
   },
   {
     "Company": "Idea Acquisition Corp. Warrants",
@@ -20260,10 +20156,6 @@
     "Symbol": "IAU"
   },
   {
-    "Company": "Innovator International Developed Power Buffer ETF - August",
-    "Symbol": "IAUG"
-  },
-  {
     "Company": "NEOS Gold High Income ETF",
     "Symbol": "IAUI"
   },
@@ -20274,10 +20166,6 @@
   {
     "Company": "i-80 Gold Corp.",
     "Symbol": "IAUX"
-  },
-  {
-    "Company": "i-80 Gold Corp. Warrants, each warrant exercisable for one Common Share at an exercise price of $0.70",
-    "Symbol": "IAUX.WS"
   },
   {
     "Company": "IB Acquisition Corp. Common Stock",
@@ -20376,6 +20264,10 @@
     "Symbol": "IBGK"
   },
   {
+    "Company": "iShares iBonds Dec 2055 Term Treasury ETF",
+    "Symbol": "IBGL"
+  },
+  {
     "Company": "iShares iBonds Dec 2056 Term Treasury ETF",
     "Symbol": "IBGM"
   },
@@ -20406,10 +20298,6 @@
   {
     "Company": "iShares iBonds 2032 Term High Yield and Income ETF",
     "Symbol": "IBHL"
-  },
-  {
-    "Company": "iShares iBonds 2033 Term High Yield and Income ETF",
-    "Symbol": "IBHM"
   },
   {
     "Company": "iShares iBonds Oct 2026 Term TIPS ETF",
@@ -20446,10 +20334,6 @@
   {
     "Company": "iShares iBonds Oct 2034 Term TIPS ETF",
     "Symbol": "IBIK"
-  },
-  {
-    "Company": "iShares iBonds Oct 2035 Term TIPS ETF",
-    "Symbol": "IBIL"
   },
   {
     "Company": "iShares iBonds Oct 2036 Term TIPS ETF",
@@ -20530,6 +20414,10 @@
   {
     "Company": "INSTALLED BUILDING PRODUCTS, INC.",
     "Symbol": "IBP"
+  },
+  {
+    "Company": "iShares Neuroscience and Healthcare ETF",
+    "Symbol": "IBRN"
   },
   {
     "Company": "ImmunityBio, Inc. Common Stock",
@@ -20664,10 +20552,6 @@
     "Symbol": "ICOW"
   },
   {
-    "Company": "iShares 0-1 Year TIPS Bond ETF",
-    "Symbol": "ICPI"
-  },
-  {
     "Company": "Tweedy, Browne International Insider + Value ETF",
     "Symbol": "ICPY"
   },
@@ -20682,10 +20566,6 @@
   {
     "Company": "SeaStar Medical Holding Corporation Common Stock",
     "Symbol": "ICU"
-  },
-  {
-    "Company": "SeaStar Medical Holding Corporation Warrant",
-    "Symbol": "ICUCW"
   },
   {
     "Company": "ICU Medical Inc",
@@ -20808,12 +20688,12 @@
     "Symbol": "IE"
   },
   {
-    "Company": "Infinite Eagle Acquisition Corp. Class A Ordinary Shares",
-    "Symbol": "IEAG"
-  },
-  {
     "Company": "Infinite Eagle Acquisition Corp. Rights",
     "Symbol": "IEAGR"
+  },
+  {
+    "Company": "Infinite Eagle Acquisition Corp. Unit",
+    "Symbol": "IEAGU"
   },
   {
     "Company": "iShares U.S. Consumer Focused ETF",
@@ -20850,10 +20730,6 @@
   {
     "Company": "iShares U.S. Tech Independence Focused ETF",
     "Symbol": "IETC"
-  },
-  {
-    "Company": "Bitwise Ethereum Option Income Strategy ETF",
-    "Symbol": "IETH"
   },
   {
     "Company": "iShares Core MSCI Europe ETF",
@@ -21004,10 +20880,6 @@
     "Symbol": "IGM"
   },
   {
-    "Company": "Bitwise GME Option Income Strategy ETF",
-    "Symbol": "IGME"
-  },
-  {
     "Company": "iShares International Treasury Bond ETF",
     "Symbol": "IGOV"
   },
@@ -21026,10 +20898,6 @@
   {
     "Company": "iShares Trust iShares 1-5 Year Investment Grade Corporate Bond ETF",
     "Symbol": "IGSB"
-  },
-  {
-    "Company": "Innovator Gradient Tactical Rotation Strategy ETF",
-    "Symbol": "IGTR"
   },
   {
     "Company": "iShares Expanded Tech-Software Sector ETF",
@@ -21164,6 +21032,10 @@
     "Symbol": "IKT"
   },
   {
+    "Company": "Intelligent Living Application Group Inc. Ordinary Shares",
+    "Symbol": "ILAG"
+  },
+  {
     "Company": "iShares Morningstar U.S. Equity ETF",
     "Symbol": "ILCB"
   },
@@ -21186,6 +21058,14 @@
   {
     "Company": "iShares Lithium Miners and Producers ETF",
     "Symbol": "ILIT"
+  },
+  {
+    "Company": "Triller Group Inc. Common Stock",
+    "Symbol": "ILLR"
+  },
+  {
+    "Company": "Triller Group Inc. Warrant",
+    "Symbol": "ILLRW"
   },
   {
     "Company": "Illumination Acquisition Corp I Units",
@@ -21304,8 +21184,8 @@
     "Symbol": "IMPP"
   },
   {
-    "Company": "Imperial Petroleum Inc. 8.75% Series A Cumulative Redeemable Perpetual Preferred Shares",
-    "Symbol": "IMPPP"
+    "Company": "Bitwise MARA Option Income Strategy ETF",
+    "Symbol": "IMRA"
   },
   {
     "Company": "Immuron Limited American Depositary Shares",
@@ -21384,6 +21264,10 @@
     "Symbol": "INBK"
   },
   {
+    "Company": "First Internet Bancorp 6.0% Fixed-to-Floating Rate Subordinated Notes Due 2029",
+    "Symbol": "INBKZ"
+  },
+  {
     "Company": "Intelligent Bio Solutions Inc. Common Stock",
     "Symbol": "INBS"
   },
@@ -21426,6 +21310,10 @@
   {
     "Company": "Matthews India Active ETF",
     "Symbol": "INDE"
+  },
+  {
+    "Company": "WisdomTree India Hedged Equity Fund",
+    "Symbol": "INDH"
   },
   {
     "Company": "indie Semiconductor, Inc. Class A Common Stock",
@@ -21522,6 +21410,10 @@
   {
     "Company": "INLIF LIMITED Class A Ordinary Shares",
     "Symbol": "INLF"
+  },
+  {
+    "Company": "Intellinetics, Inc.",
+    "Symbol": "INLX"
   },
   {
     "Company": "InMed Pharmaceuticals Inc. Common Shares",
@@ -21656,6 +21548,10 @@
     "Symbol": "INVE"
   },
   {
+    "Company": "GMO Systematic Investment Grade Credit ETF",
+    "Symbol": "INVG"
+  },
+  {
     "Company": "Invitation Homes Inc. Common Stock",
     "Symbol": "INVH"
   },
@@ -21718,6 +21614,10 @@
   {
     "Company": "iShares Global 100 ETF",
     "Symbol": "IOO"
+  },
+  {
+    "Company": "Simplify Tara India Opportunities ETF",
+    "Symbol": "IOPP"
   },
   {
     "Company": "Income Opportunity Realty Investors, Inc.",
@@ -21832,10 +21732,6 @@
     "Symbol": "IPODU"
   },
   {
-    "Company": "Dune Acquisition Corporation II Warrants",
-    "Symbol": "IPODW"
-  },
-  {
     "Company": "Renaissance International IPO ETF",
     "Symbol": "IPOS"
   },
@@ -21876,6 +21772,10 @@
     "Symbol": "IQDY"
   },
   {
+    "Company": "NYLI MacKay High Income ETF",
+    "Symbol": "IQHI"
+  },
+  {
     "Company": "INVESCO QUALITY MUNICIPAL SECURITIES",
     "Symbol": "IQI"
   },
@@ -21898,6 +21798,14 @@
   {
     "Company": "NYLI CBRE Real Assets ETF",
     "Symbol": "IQRA"
+  },
+  {
+    "Company": "NYLI Candriam International Equity ETF",
+    "Symbol": "IQSI"
+  },
+  {
+    "Company": "NYLI Candriam U.S. Mid Cap Equity ETF",
+    "Symbol": "IQSM"
   },
   {
     "Company": "IQSTEL INC. Common Stock",
@@ -21952,10 +21860,6 @@
     "Symbol": "IREN"
   },
   {
-    "Company": "iREIT MarketVector Quality REIT Index ETF",
-    "Symbol": "IRET"
-  },
-  {
     "Company": "Tradr 2X Long IREN Daily ETF",
     "Symbol": "IREX"
   },
@@ -21972,10 +21876,6 @@
     "Symbol": "IRHOR"
   },
   {
-    "Company": "Iron Horse Acquisitions II Corp. Units",
-    "Symbol": "IRHOU"
-  },
-  {
     "Company": "Iridex Corp",
     "Symbol": "IRIX"
   },
@@ -21986,6 +21886,10 @@
   {
     "Company": "iRadimed Corporation",
     "Symbol": "IRMD"
+  },
+  {
+    "Company": "Invesco Rochester High Yield Municipal ETF",
+    "Symbol": "IROC"
   },
   {
     "Company": "Disc Medicine, Inc. Common Stock",
@@ -22580,12 +22484,12 @@
     "Symbol": "JAAA"
   },
   {
-    "Company": "Jack in the Box Inc.",
-    "Symbol": "JACK"
+    "Company": "Janus Henderson Asset-Backed Securities ETF",
+    "Symbol": "JABS"
   },
   {
-    "Company": "Jackson Acquisition Company II",
-    "Symbol": "JACS"
+    "Company": "Jack in the Box Inc.",
+    "Symbol": "JACK"
   },
   {
     "Company": "Jackson Acquisition Company II Units, each consisting of one Class A ordinary share and one right to acquire one-tenth (1/10) of one Class A ordinary share",
@@ -22618,10 +22522,6 @@
   {
     "Company": "Aptus January Buffer ETF",
     "Symbol": "JANB"
-  },
-  {
-    "Company": "Innovator Premium Income 20 Barrier ETF - January",
-    "Symbol": "JANH"
   },
   {
     "Company": "AllianzIM International Equity Buffer15 Uncapped Jan ETF",
@@ -22664,6 +22564,10 @@
     "Symbol": "JAPN"
   },
   {
+    "Company": "JATT II Acquisition Corp Ordinary Shares",
+    "Symbol": "JATT"
+  },
+  {
     "Company": "JPMorgan Active Value ETF",
     "Symbol": "JAVA"
   },
@@ -22694,6 +22598,10 @@
   {
     "Company": "Jade Biosciences, Inc. Common Stock",
     "Symbol": "JBIO"
+  },
+  {
+    "Company": "Lehman ABS Corp 3.50 Adj Corp Backed Tr Cert Goldman Cap I",
+    "Symbol": "JBK"
   },
   {
     "Company": "Jabil Inc.",
@@ -22758,6 +22666,10 @@
   {
     "Company": "JPMorgan Dividend Leaders ETF",
     "Symbol": "JDIV"
+  },
+  {
+    "Company": "JPMorgan Healthcare Leaders ETF",
+    "Symbol": "JDOC"
   },
   {
     "Company": "Direxion Daily Junior Gold Miners Index Bear 2X ETF",
@@ -22864,6 +22776,10 @@
     "Symbol": "JFU"
   },
   {
+    "Company": "Aurora Mobile Limited American Depositary Shares",
+    "Symbol": "JG"
+  },
+  {
     "Company": "NUVEEN GLOBAL HIGH INCOME FUND",
     "Symbol": "JGH"
   },
@@ -22882,10 +22798,6 @@
   {
     "Company": "John Hancock Fundamental All Cap Core ETF",
     "Symbol": "JHAC"
-  },
-  {
-    "Company": "Janus Henderson Global Artificial Intelligence ETF",
-    "Symbol": "JHAI"
   },
   {
     "Company": "John Hancock Corporate Bond ETF",
@@ -22968,10 +22880,6 @@
     "Symbol": "JHX"
   },
   {
-    "Company": "JPMorgan International Dynamic ETF",
-    "Symbol": "JIDE"
-  },
-  {
     "Company": "JPMorgan International Growth ETF",
     "Symbol": "JIG"
   },
@@ -23014,10 +22922,6 @@
   {
     "Company": "Jones Lang LaSalle, Inc.",
     "Symbol": "JLL"
-  },
-  {
-    "Company": "Janus Henderson Corporate Bond ETF",
-    "Symbol": "JLQD"
   },
   {
     "Company": "Nuveen Mortgage and Income Fund",
@@ -23120,10 +23024,6 @@
     "Symbol": "JOF"
   },
   {
-    "Company": "ATAC Credit Rotation ETF",
-    "Symbol": "JOJO"
-  },
-  {
     "Company": "Johnson Outdoors Inc",
     "Symbol": "JOUT"
   },
@@ -23134,6 +23034,10 @@
   {
     "Company": "JOYY Inc. American Depositary Shares",
     "Symbol": "JOYY"
+  },
+  {
+    "Company": "Matthews Japan Active ETF",
+    "Symbol": "JPAN"
   },
   {
     "Company": "Nuveen Preferred & Income Opportunities Fund",
@@ -23288,8 +23192,8 @@
     "Symbol": "JULB"
   },
   {
-    "Company": "Innovator Premium Income 20 Barrier ETF - July",
-    "Symbol": "JULH"
+    "Company": "Innovator Premium Income 30 Barrier ETF - July",
+    "Symbol": "JULJ"
   },
   {
     "Company": "FT Vest U.S. Equity Max Buffer ETF - July",
@@ -23298,10 +23202,6 @@
   {
     "Company": "PGIM S&P 500 Buffer 12 ETF - July",
     "Symbol": "JULP"
-  },
-  {
-    "Company": "AllianzIM U.S. Equity Buffer10 Jul ETF",
-    "Symbol": "JULT"
   },
   {
     "Company": "AllianzIM U.S. Equity Buffer15 Uncapped Jul ETF",
@@ -23348,16 +23248,16 @@
     "Symbol": "JVAL"
   },
   {
-    "Company": "JX Luxventure Limited Common Stock",
-    "Symbol": "JXG"
-  },
-  {
     "Company": "iShares Global Utilities ETF",
     "Symbol": "JXI"
   },
   {
     "Company": "Jackson Financial Inc.",
     "Symbol": "JXN"
+  },
+  {
+    "Company": "Jayud Global Logistics Limited Class A Ordinary Shares",
+    "Symbol": "JYD"
   },
   {
     "Company": "The Joint Corp.",
@@ -23446,10 +23346,6 @@
   {
     "Company": "KB Home",
     "Symbol": "KBH"
-  },
-  {
-    "Company": "Karbon Capital Partners Corp. Units",
-    "Symbol": "KBONU"
   },
   {
     "Company": "Karbon Capital Partners Corp. Warrant",
@@ -23554,10 +23450,6 @@
   {
     "Company": "Kingsbarn Tactical Bond ETF",
     "Symbol": "KDRN"
-  },
-  {
-    "Company": "Keeley Dividend ETF",
-    "Symbol": "KDVD"
   },
   {
     "Company": "Kimball Electronics, Inc.",
@@ -23680,6 +23572,10 @@
     "Symbol": "KHPI"
   },
   {
+    "Company": "KraneShares Asia Pacific High Income USD Bond ETF",
+    "Symbol": "KHYB"
+  },
+  {
     "Company": "OrthoPediatrics Corp. Common Stock",
     "Symbol": "KIDS"
   },
@@ -23776,6 +23672,10 @@
     "Symbol": "KLMT"
   },
   {
+    "Company": "Kailera Therapeutics, Inc. Common Stock",
+    "Symbol": "KLRA"
+  },
+  {
     "Company": "Kalaris Therapeutics, Inc. Common Stock",
     "Symbol": "KLRS"
   },
@@ -23800,6 +23700,10 @@
     "Symbol": "KLXY"
   },
   {
+    "Company": "Innovator U.S. Small Cap Power Buffer ETF - March",
+    "Symbol": "KMAR"
+  },
+  {
     "Company": "Innovator U.S. Small Cap Power Buffer ETF - May",
     "Symbol": "KMAY"
   },
@@ -23814,6 +23718,10 @@
   {
     "Company": "Kinder Morgan, Inc.",
     "Symbol": "KMI"
+  },
+  {
+    "Company": "Virtus KAR Mid-Cap ETF",
+    "Symbol": "KMID"
   },
   {
     "Company": "KraneShares 2x Long MELI Daily ETF",
@@ -23872,12 +23780,16 @@
     "Symbol": "KNGZ"
   },
   {
+    "Company": "AXS Knowledge Leaders ETF",
+    "Symbol": "KNO"
+  },
+  {
     "Company": "KNOT OFFSHORE PARTNERS LP",
     "Symbol": "KNOP"
   },
   {
-    "Company": "Fundamentals First ETF",
-    "Symbol": "KNOW"
+    "Company": "Innovator U.S. Small Cap Power Buffer ETF - November",
+    "Symbol": "KNOV"
   },
   {
     "Company": "Simplify Kayne Anderson Energy and Infrastructure Credit ETF",
@@ -23944,10 +23856,6 @@
     "Symbol": "KONG"
   },
   {
-    "Company": "North Shore Equity Rotation ETF",
-    "Symbol": "KOOL"
-  },
-  {
     "Company": "Koppers Holdings, Inc.",
     "Symbol": "KOP"
   },
@@ -23976,10 +23884,6 @@
     "Symbol": "KOSS"
   },
   {
-    "Company": "CSLM Digital Asset Acquisition Corp III Class A Ordinary Shares",
-    "Symbol": "KOYN"
-  },
-  {
     "Company": "CSLM Digital Asset Acquisition Corp III Units",
     "Symbol": "KOYNU"
   },
@@ -23994,6 +23898,10 @@
   {
     "Company": "KPET Ultra Paceline Corporation Units, each consisting of one Class A Ordinary Share and one-sixth of one Warrant",
     "Symbol": "KPET.U"
+  },
+  {
+    "Company": "KraneShares Dragon Capital Vietnam Growth Index ETF",
+    "Symbol": "KPHO"
   },
   {
     "Company": "Katapult Holdings, Inc. Common Stock",
@@ -24182,6 +24090,10 @@
   {
     "Company": "Structured Products CorTS PECO Energy Cap Trust III, 8% Cert.",
     "Symbol": "KTH"
+  },
+  {
+    "Company": "Structured Products CorTS Aon Capital A, 8.205% Cert.",
+    "Symbol": "KTN"
   },
   {
     "Company": "Kratos Defense & Security Solutions, Inc.",
@@ -24520,6 +24432,14 @@
     "Symbol": "LCDS"
   },
   {
+    "Company": "Touchstone US Large Cap Focused ETF",
+    "Symbol": "LCF"
+  },
+  {
+    "Company": "Locafy Limited Ordinary Share",
+    "Symbol": "LCFY"
+  },
+  {
     "Company": "Locafy Limited Warrant",
     "Symbol": "LCFYW"
   },
@@ -24534,10 +24454,6 @@
   {
     "Company": "Tradr 2X Short LCID Daily ETF",
     "Symbol": "LCIZ"
-  },
-  {
-    "Company": "Logan Capital Broad Innovative Growth ETF",
-    "Symbol": "LCLG"
   },
   {
     "Company": "LCNB Corporation",
@@ -24568,6 +24484,14 @@
     "Symbol": "LCUT"
   },
   {
+    "Company": "LifeX 2035 Income Bucket ETF",
+    "Symbol": "LDDR"
+  },
+  {
+    "Company": "iShares ESG MSCI EM Leaders ETF",
+    "Symbol": "LDEM"
+  },
+  {
     "Company": "loanDepot, Inc.",
     "Symbol": "LDI"
   },
@@ -24582,6 +24506,10 @@
   {
     "Company": "iShares iBonds 1-5 Year Corporate Ladder ETF",
     "Symbol": "LDRC"
+  },
+  {
+    "Company": "iShares iBonds 1-5 Year High Yield and Income Ladder ETF",
+    "Symbol": "LDRH"
   },
   {
     "Company": "iShares iBonds 1-5 Year TIPS Ladder ETF",
@@ -24640,10 +24568,6 @@
     "Symbol": "LEGN"
   },
   {
-    "Company": "Legato Merger Corp. IV",
-    "Symbol": "LEGO"
-  },
-  {
     "Company": "Legato Merger Corp. IV Units, each consisting of one ordinary share and one-third of one redeemable warrant",
     "Symbol": "LEGO.U"
   },
@@ -24662,6 +24586,10 @@
   {
     "Company": "Legato Merger Corp III Units, each consisting of one Ordinary Share and one-half of one warrant",
     "Symbol": "LEGT.U"
+  },
+  {
+    "Company": "Legato Merger Corp. III Redeemable Warrants, each whole warrant exercisable for one ordinary share at an exercise price of $11.50 per share",
+    "Symbol": "LEGT.WS"
   },
   {
     "Company": "iShares J.P. Morgan EM Local Currency Bond ETF",
@@ -24748,10 +24676,6 @@
     "Symbol": "LFDR"
   },
   {
-    "Company": "VanEck Long/Flat Trend ETF",
-    "Symbol": "LFEQ"
-  },
-  {
     "Company": "YieldMax Crypto Industry & Tech Portfolio Option Income ETF",
     "Symbol": "LFGY"
   },
@@ -24800,10 +24724,6 @@
     "Symbol": "LGCF"
   },
   {
-    "Company": "Lucas GC Limited Ordinary Shares",
-    "Symbol": "LGCL"
-  },
-  {
     "Company": "Legacy Education Inc.",
     "Symbol": "LGCY"
   },
@@ -24830,6 +24750,10 @@
   {
     "Company": "LGI Homes, Inc.",
     "Symbol": "LGIH"
+  },
+  {
+    "Company": "The LGL Group, Inc.",
+    "Symbol": "LGL"
   },
   {
     "Company": "State Street SPDR US Large Cap Low Volatility Index ETF",
@@ -24936,6 +24860,10 @@
     "Symbol": "LILAK"
   },
   {
+    "Company": "Themes Lithium & Battery Metal Miners ETF",
+    "Symbol": "LIMI"
+  },
+  {
     "Company": "Liminatus Pharma, Inc. Class A Common Stock",
     "Symbol": "LIMN"
   },
@@ -25024,10 +24952,6 @@
     "Symbol": "LJAN"
   },
   {
-    "Company": "Innovator Premium Income 15 Buffer ETF - July",
-    "Symbol": "LJUL"
-  },
-  {
     "Company": "Lakeland Financial Corp",
     "Symbol": "LKFN"
   },
@@ -25050,6 +24974,10 @@
   {
     "Company": "Lake Superior Acquisition Corp. Units",
     "Symbol": "LKSPU"
+  },
+  {
+    "Company": "Global X Long-Term Treasury Ladder ETF",
+    "Symbol": "LLDR"
   },
   {
     "Company": "REX LLY Growth & Income ETF",
@@ -25256,6 +25184,10 @@
     "Symbol": "LOPE"
   },
   {
+    "Company": "Gabelli Love Our Planet & People ETF",
+    "Symbol": "LOPP"
+  },
+  {
     "Company": "Lotus Technology Inc. American Depositary Shares",
     "Symbol": "LOT"
   },
@@ -25298,6 +25230,10 @@
   {
     "Company": "Launch One Acquisition Corp. Warrant",
     "Symbol": "LPAAW"
+  },
+  {
+    "Company": "Launch Two Acquisition Corp. Class A Ordinary Shares",
+    "Symbol": "LPBB"
   },
   {
     "Company": "Launch Two Acquisition Corp. Unit",
@@ -25354,10 +25290,6 @@
   {
     "Company": "Louisiana-Pacific Corp.",
     "Symbol": "LPX"
-  },
-  {
-    "Company": "LG QRAFT AI-Powered U.S. Large Cap Core ETF",
-    "Symbol": "LQAI"
   },
   {
     "Company": "iShares iBoxx $ Investment Grade Corporate Bond ETF",
@@ -25620,10 +25552,6 @@
     "Symbol": "LVIG"
   },
   {
-    "Company": "State Street SPDR S&P Leveraged Loan ETF",
-    "Symbol": "LVLN"
-  },
-  {
     "Company": "Lulu's Fashion Lounge Holdings, Inc. Common Stock",
     "Symbol": "LVLU"
   },
@@ -25836,6 +25764,10 @@
     "Symbol": "MAIN"
   },
   {
+    "Company": "Madison Air Solutions Corporation",
+    "Symbol": "MAIR"
+  },
+  {
     "Company": "Mako Mining Corp Common Stock",
     "Symbol": "MAKO"
   },
@@ -25868,6 +25800,10 @@
     "Symbol": "MANH"
   },
   {
+    "Company": "Man Active Income ETF",
+    "Symbol": "MANI"
+  },
+  {
     "Company": "MANCHESTER UNITED PLC",
     "Symbol": "MANU"
   },
@@ -25896,10 +25832,6 @@
     "Symbol": "MARB"
   },
   {
-    "Company": "FT Vest U.S. Equity Max Buffer ETF - March",
-    "Symbol": "MARM"
-  },
-  {
     "Company": "YieldMax MARA Option Income Strategy ETF",
     "Symbol": "MARO"
   },
@@ -25922,6 +25854,10 @@
   {
     "Company": "AllianzIM U.S. Equity Buffer20 Mar ETF",
     "Symbol": "MARW"
+  },
+  {
+    "Company": "TrueShares Structured Outcome (March) ETF",
+    "Symbol": "MARZ"
   },
   {
     "Company": "Masco Corporation",
@@ -25990,14 +25926,6 @@
   {
     "Company": "PGIM S&P 500 Buffer 12 ETF - May",
     "Symbol": "MAYP"
-  },
-  {
-    "Company": "Mays (J.W.) Inc",
-    "Symbol": "MAYS"
-  },
-  {
-    "Company": "AllianzIM U.S. Equity Buffer10 May ETF",
-    "Symbol": "MAYT"
   },
   {
     "Company": "AllianzIM U.S. Equity Buffer15 Uncapped May ETF",
@@ -26180,6 +26108,10 @@
     "Symbol": "MCGAW"
   },
   {
+    "Company": "Matthews China Active ETF",
+    "Symbol": "MCH"
+  },
+  {
     "Company": "Mechanics Bancorp Class A Common Stock",
     "Symbol": "MCHB"
   },
@@ -26194,10 +26126,6 @@
   {
     "Company": "Microchip Technology Incorporated Depositary Shares Each Representing a 1/20th Interest in a Share of 7.50% Series A Mandatory Convertible Preferred Stock",
     "Symbol": "MCHPP"
-  },
-  {
-    "Company": "Matthews China Discovery Active ETF",
-    "Symbol": "MCHS"
   },
   {
     "Company": "Marchex, Inc. Class B",
@@ -26218,10 +26146,6 @@
   {
     "Company": "Moody's Corporation",
     "Symbol": "MCO"
-  },
-  {
-    "Company": "Pacer S&P MidCap 400 Quality FCF Aristocrats ETF",
-    "Symbol": "MCOW"
   },
   {
     "Company": "MFS Charter Income Trust Shares of Beneficial Interest",
@@ -26312,16 +26236,16 @@
     "Symbol": "MDLN"
   },
   {
+    "Company": "Morgan Dempsey Large Cap Value ETF",
+    "Symbol": "MDLV"
+  },
+  {
     "Company": "Mondelez International, Inc. Class A",
     "Symbol": "MDLZ"
   },
   {
     "Company": "Monarch Dividend Plus Index ETF",
     "Symbol": "MDPL"
-  },
-  {
-    "Company": "Medalist Diversified, Inc. Common Stock",
-    "Symbol": "MDRR"
   },
   {
     "Company": "Westwood Salient Enhanced Midstream Income ETF",
@@ -26552,10 +26476,6 @@
     "Symbol": "MFIC"
   },
   {
-    "Company": "MidCap Financial Investment Corporation 8.00% Notes due 2028",
-    "Symbol": "MFICL"
-  },
-  {
     "Company": "Motley Fool Innovative Growth ETF",
     "Symbol": "MFIG"
   },
@@ -26630,6 +26550,10 @@
   {
     "Company": "Magic Software Enterprises Ltd",
     "Symbol": "MGIC"
+  },
+  {
+    "Company": "Millennium Group International Holdings Limited Ordinary Shares",
+    "Symbol": "MGIH"
   },
   {
     "Company": "Vanguard Mega Cap Growth ETF",
@@ -26740,10 +26664,6 @@
     "Symbol": "MHK"
   },
   {
-    "Company": "Maiden Holdings, Ltd.",
-    "Symbol": "MHLA"
-  },
-  {
     "Company": "MAIDEN HOLDINGS NORTH AMERICA, LTD",
     "Symbol": "MHNC"
   },
@@ -26776,16 +26696,8 @@
     "Symbol": "MIDD"
   },
   {
-    "Company": "Xtrackers S&P MidCap 400 Scored & Screened ETF",
-    "Symbol": "MIDE"
-  },
-  {
     "Company": "Direxion Daily Mid Cap Bull 3X ETF",
     "Symbol": "MIDU"
-  },
-  {
-    "Company": "VanEck Moody's Analytics IG Corporate Bond ETF",
-    "Symbol": "MIG"
   },
   {
     "Company": "Mawson Infrastructure Group Inc. Common Stock",
@@ -26818,10 +26730,6 @@
   {
     "Company": "Mayfair Gold Corp.",
     "Symbol": "MINE"
-  },
-  {
-    "Company": "Mairs & Power Minnesota Municipal Bond ETF",
-    "Symbol": "MINN"
   },
   {
     "Company": "PIMCO Municipal Income Opportunities Active ETF",
@@ -26892,6 +26800,10 @@
     "Symbol": "MJSC"
   },
   {
+    "Company": "MKAM ETF",
+    "Symbol": "MKAM"
+  },
+  {
     "Company": "McCormick & Company, Incorporated Non-VTG CS",
     "Symbol": "MKC"
   },
@@ -26944,10 +26856,6 @@
     "Symbol": "MKTX"
   },
   {
-    "Company": "MacKenzie Realty Capital, Inc. Common Stock",
-    "Symbol": "MKZR"
-  },
-  {
     "Company": "Mountain Lake Acquisition Corp. II Class A Ordinary Shares",
     "Symbol": "MLAA"
   },
@@ -26986,10 +26894,6 @@
   {
     "Company": "Melco Resorts & Entertainment Limited American Depositary Shares",
     "Symbol": "MLCO"
-  },
-  {
-    "Company": "Global X Intermediate-Term Treasury Ladder ETF",
-    "Symbol": "MLDR"
   },
   {
     "Company": "Moolec Science SA Ordinary Shares",
@@ -27124,10 +27028,6 @@
     "Symbol": "MMSC"
   },
   {
-    "Company": "NYLI MacKay Muni Short Duration ETF",
-    "Symbol": "MMSD"
-  },
-  {
     "Company": "Merit Medical Systems Inc",
     "Symbol": "MMSI"
   },
@@ -27162,10 +27062,6 @@
   {
     "Company": "NYLI Merger Arbitrage ETF",
     "Symbol": "MNA"
-  },
-  {
-    "Company": "ALPS BBH Intermediate Municipal Bond ETF",
-    "Symbol": "MNBD"
   },
   {
     "Company": "Mind CTI Ltd",
@@ -27206,6 +27102,10 @@
   {
     "Company": "MainStreet Bancshares, Inc. Common Stock",
     "Symbol": "MNSB"
+  },
+  {
+    "Company": "MainStreet Bancshares, Inc. Depositary Shares",
+    "Symbol": "MNSBP"
   },
   {
     "Company": "MINISO Group Holding Limited American Depositary Shares, each representing four Ordinary Shares",
@@ -27260,10 +27160,6 @@
     "Symbol": "MOB"
   },
   {
-    "Company": "Mobilicom Limited Warrants",
-    "Symbol": "MOBBW"
-  },
-  {
     "Company": "Mobix Labs, Inc. Class A Common Stock",
     "Symbol": "MOBX"
   },
@@ -27296,6 +27192,10 @@
     "Symbol": "MOH"
   },
   {
+    "Company": "Molecular Partners AG American Depositary Shares",
+    "Symbol": "MOLN"
+  },
+  {
     "Company": "Hello Group Inc. American Depositary Shares",
     "Symbol": "MOMO"
   },
@@ -27322,10 +27222,6 @@
   {
     "Company": "VanEck Morningstar International Moat ETF",
     "Symbol": "MOTI"
-  },
-  {
-    "Company": "Guinness Atkinson Smart Transportation & Technology ETF",
-    "Symbol": "MOTO"
   },
   {
     "Company": "Movado Group, Inc.",
@@ -27406,10 +27302,6 @@
   {
     "Company": "Marqeta, Inc. Class A Common Stock",
     "Symbol": "MQ"
-  },
-  {
-    "Company": "Investment Managers Series Trust II Tradr 2X Long Innovation 100 Monthly ETF",
-    "Symbol": "MQQQ"
   },
   {
     "Company": "Blackrock Muni Yield Quality Fund II, Inc.",
@@ -27660,6 +27552,10 @@
     "Symbol": "MSN"
   },
   {
+    "Company": "Leverage Shares 2x Capped Accelerated MSTR Monthly ETF",
+    "Symbol": "MSOO"
+  },
+  {
     "Company": "AdvisorShares Pure US Cannabis ETF",
     "Symbol": "MSOS"
   },
@@ -27752,6 +27648,10 @@
     "Symbol": "MTAL.U"
   },
   {
+    "Company": "Metals Acquisition Corp. II Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50 per share",
+    "Symbol": "MTAL.WS"
+  },
+  {
     "Company": "M&T Bank Corp.",
     "Symbol": "MTB"
   },
@@ -27814,6 +27714,10 @@
   {
     "Company": "Matinas BioPharma Holdings, Inc.",
     "Symbol": "MTNB"
+  },
+  {
+    "Company": "Mesa Royalty Trust",
+    "Symbol": "MTR"
   },
   {
     "Company": "Invesco International Growth Focus ETF",
@@ -27944,6 +27848,10 @@
     "Symbol": "MUSI"
   },
   {
+    "Company": "MUSQ Global Music Industry Index ETF",
+    "Symbol": "MUSQ"
+  },
+  {
     "Company": "Columbia Multi-Sector Municipal Income ETF",
     "Symbol": "MUST"
   },
@@ -27960,8 +27868,8 @@
     "Symbol": "MUYY"
   },
   {
-    "Company": "Muzero Acquisition Corp Class A Ordinary Shares",
-    "Symbol": "MUZE"
+    "Company": "Muzero Acquisition Corp Unit",
+    "Symbol": "MUZEU"
   },
   {
     "Company": "Muzero Acquisition Corp Warrant",
@@ -28092,8 +28000,20 @@
     "Symbol": "MYCJ"
   },
   {
+    "Company": "SSGA Active Trust State Street My2031 Corporate Bond ETF",
+    "Symbol": "MYCK"
+  },
+  {
+    "Company": "SSGA Active Trust State Street My2032 Corporate Bond ETF",
+    "Symbol": "MYCL"
+  },
+  {
     "Company": "SSGA Active Trust State Street My2033 Corporate Bond ETF",
     "Symbol": "MYCM"
+  },
+  {
+    "Company": "SSGA Active Trust State Street My2034 Corporate Bond ETF",
+    "Symbol": "MYCN"
   },
   {
     "Company": "SSGA Active Trust State Street My2035 Corporate Bond ETF",
@@ -28156,10 +28076,6 @@
     "Symbol": "MYMH"
   },
   {
-    "Company": "SSGA Active Trust State Street My2029 Municipal Bond ETF",
-    "Symbol": "MYMI"
-  },
-  {
     "Company": "SSGA Active Trust State Street My2030 Municipal Bond ETF",
     "Symbol": "MYMJ"
   },
@@ -28196,11 +28112,11 @@
     "Symbol": "MYRG"
   },
   {
-    "Company": "Myseum, Inc. Common Stock",
+    "Company": "Myseum.AI, Inc. Common Stock",
     "Symbol": "MYSE"
   },
   {
-    "Company": "Myseum, Inc. Series A Warrant",
+    "Company": "Myseum.AI, Inc. Series A Warrant",
     "Symbol": "MYSEW"
   },
   {
@@ -28242,6 +28158,10 @@
   {
     "Company": "Nuveen California Quality Municipal Income Fund",
     "Symbol": "NAC"
+  },
+  {
+    "Company": "Impact Shares NAACP Minority Empowerment ETF",
+    "Symbol": "NACP"
   },
   {
     "Company": "Nuveen Quality Municipal Income Fund",
@@ -28360,10 +28280,6 @@
     "Symbol": "NBBK"
   },
   {
-    "Company": "Neuberger China Equity ETF",
-    "Symbol": "NBCE"
-  },
-  {
     "Company": "Neuberger Commodity Strategy ETF",
     "Symbol": "NBCM"
   },
@@ -28372,8 +28288,16 @@
     "Symbol": "NBCR"
   },
   {
+    "Company": "Neuberger Disrupters ETF",
+    "Symbol": "NBDS"
+  },
+  {
     "Company": "Neuberger Energy Transition & Infrastructure ETF",
     "Symbol": "NBET"
+  },
+  {
+    "Company": "Neuberger Flexible Credit Income ETF",
+    "Symbol": "NBFC"
   },
   {
     "Company": "Innovator Nasdaq-100 Managed 10 Buffer ETF",
@@ -28528,10 +28452,6 @@
     "Symbol": "NCNO"
   },
   {
-    "Company": "Nuveen Core Plus Bond ETF",
-    "Symbol": "NCPB"
-  },
-  {
     "Company": "Netcapital Inc. Common Stock",
     "Symbol": "NCPL"
   },
@@ -28576,10 +28496,6 @@
     "Symbol": "NDEC"
   },
   {
-    "Company": "Global X India Active ETF",
-    "Symbol": "NDIA"
-  },
-  {
     "Company": "Amplify Energy & Natural Resources Covered Call ETF",
     "Symbol": "NDIV"
   },
@@ -28590,10 +28506,6 @@
   {
     "Company": "Nuveen Dynamic Municipal Opportunities Fund Common Shares of Beneficial Interest",
     "Symbol": "NDMO"
-  },
-  {
-    "Company": "Anydrus Advantage ETF",
-    "Symbol": "NDOW"
   },
   {
     "Company": "ENDRA Life Sciences Inc. Common Stock",
@@ -28664,6 +28576,10 @@
     "Symbol": "NEMG"
   },
   {
+    "Company": "New England Realty Associates Limited Partnership",
+    "Symbol": "NEN"
+  },
+  {
     "Company": "NeoGenomics, Inc.",
     "Symbol": "NEO"
   },
@@ -28686,10 +28602,6 @@
   {
     "Company": "Nephros Inc.",
     "Symbol": "NEPH"
-  },
-  {
-    "Company": "Roundhill Video Games ETF",
-    "Symbol": "NERD"
   },
   {
     "Company": "Minerva Neurosciences, Inc",
@@ -28738,10 +28650,6 @@
   {
     "Company": "NewtekOne, Inc. 8.625% Fixed Rate Senior Notes due 2029",
     "Symbol": "NEWTH"
-  },
-  {
-    "Company": "NewtekOne, Inc. 8.00% Fixed Rate Senior Notes due 2028",
-    "Symbol": "NEWTI"
   },
   {
     "Company": "NewtekOne, Inc. 8.50% Fixed Rate Senior Notes due 2031",
@@ -28988,10 +28896,6 @@
     "Symbol": "NIQ"
   },
   {
-    "Company": "The Nightview Fund",
-    "Symbol": "NITE"
-  },
-  {
     "Company": "N2OFF, Inc. Common Stock",
     "Symbol": "NITO"
   },
@@ -29008,10 +28912,6 @@
     "Symbol": "NIVFW"
   },
   {
-    "Company": "Research Affiliates Deletions ETF",
-    "Symbol": "NIXT"
-  },
-  {
     "Company": "Nixxy, Inc. Common Stock",
     "Symbol": "NIXX"
   },
@@ -29022,6 +28922,10 @@
   {
     "Company": "Innovator Growth-100 Power Buffer ETF - January",
     "Symbol": "NJAN"
+  },
+  {
+    "Company": "Columbia U.S. High Yield ETF",
+    "Symbol": "NJNK"
   },
   {
     "Company": "New Jersey Resources Corp",
@@ -29086,6 +28990,10 @@
   {
     "Company": "Newsmax, Inc.",
     "Symbol": "NMAX"
+  },
+  {
+    "Company": "Innovator Growth-100 Power Buffer ETF - May",
+    "Symbol": "NMAY"
   },
   {
     "Company": "Simplify National Muni Bond ETF",
@@ -29308,20 +29216,12 @@
     "Symbol": "NOVM"
   },
   {
-    "Company": "PGIM S&P 500 Buffer 12 ETF - November",
-    "Symbol": "NOVP"
-  },
-  {
     "Company": "Novanta Inc. Common Stock",
     "Symbol": "NOVT"
   },
   {
     "Company": "Novanta Inc. Tangible Equity Units",
     "Symbol": "NOVTU"
-  },
-  {
-    "Company": "TrueShares Structured Outcome (November) ETF",
-    "Symbol": "NOVZ"
   },
   {
     "Company": "SERVICENOW, INC.",
@@ -29334,10 +29234,6 @@
   {
     "Company": "Neptune Insurance Holdings Inc.",
     "Symbol": "NP"
-  },
-  {
-    "Company": "New Providence Acquisition Corp. III Class A Ordinary Shares",
-    "Symbol": "NPAC"
   },
   {
     "Company": "New Providence Acquisition Corp. III Units",
@@ -29420,10 +29316,6 @@
     "Symbol": "NREF"
   },
   {
-    "Company": "Xtrackers RREEF Global Natural Resources ETF",
-    "Symbol": "NRES"
-  },
-  {
     "Company": "NRG Energy, Inc.",
     "Symbol": "NRG"
   },
@@ -29484,10 +29376,6 @@
     "Symbol": "NRXP"
   },
   {
-    "Company": "NRX Pharmaceuticals, Inc. Warrant",
-    "Symbol": "NRXPW"
-  },
-  {
     "Company": "Neuraxis, Inc.",
     "Symbol": "NRXS"
   },
@@ -29512,10 +29400,6 @@
     "Symbol": "NSEP"
   },
   {
-    "Company": "National Security Emerging Markets Index ETF",
-    "Symbol": "NSI"
-  },
-  {
     "Company": "Insight Enterprises Inc",
     "Symbol": "NSIT"
   },
@@ -29534,6 +29418,10 @@
   {
     "Company": "Napco Security Technologies, Inc",
     "Symbol": "NSSC"
+  },
+  {
+    "Company": "NSTS Bancorp, Inc. Common Stock",
+    "Symbol": "NSTS"
   },
   {
     "Company": "Nortech Systems Inc",
@@ -29696,6 +29584,10 @@
     "Symbol": "NUG"
   },
   {
+    "Company": "Nuveen Growth Opportunities ETF",
+    "Symbol": "NUGO"
+  },
+  {
     "Company": "Direxion Daily Gold Miners Index Bull 2X ETF",
     "Symbol": "NUGT"
   },
@@ -29706,6 +29598,10 @@
   {
     "Company": "Nuveen ESG High Yield Corporate Bond ETF",
     "Symbol": "NUHY"
+  },
+  {
+    "Company": "Nicholas Nuclear Income ETF",
+    "Symbol": "NUKX"
   },
   {
     "Company": "Range Nuclear Renaissance Index ETF",
@@ -29784,12 +29680,12 @@
     "Symbol": "NVA"
   },
   {
-    "Company": "Nova Minerals Limited Warrant",
-    "Symbol": "NVAWW"
-  },
-  {
     "Company": "Novavax Inc",
     "Symbol": "NVAX"
+  },
+  {
+    "Company": "AllianzIM U.S. Equity Buffer10 Nov ETF",
+    "Symbol": "NVBT"
   },
   {
     "Company": "AllianzIM U.S. Equity Buffer15 Uncapped Nov ETF",
@@ -29830,6 +29726,10 @@
   {
     "Company": "GraniteShares ETF Trust GraniteShares 2x Long NVDA Daily ETF",
     "Symbol": "NVDL"
+  },
+  {
+    "Company": "Leverage Shares 2x Capped Accelerated NVDA Monthly ETF",
+    "Symbol": "NVDO"
   },
   {
     "Company": "T-Rex 2X Inverse NVIDIA Daily Target ETF",
@@ -30088,20 +29988,12 @@
     "Symbol": "NXTG"
   },
   {
-    "Company": "Simplify Next Intangible Core Index ETF",
-    "Symbol": "NXTI"
-  },
-  {
     "Company": "Nexentis Technologies Inc. Common Stock",
     "Symbol": "NXTS"
   },
   {
     "Company": "Next Technology Holding Inc. Ordinary Shares",
     "Symbol": "NXTT"
-  },
-  {
-    "Company": "Nuveen International Aggregate Bond ETF",
-    "Symbol": "NXUS"
   },
   {
     "Company": "NextNRG, Inc. Common Stock",
@@ -30140,6 +30032,10 @@
     "Symbol": "NZF"
   },
   {
+    "Company": "SPDR Series Trust State Street SPDR MSCI USA Climate Paris Aligned ETF",
+    "Symbol": "NZUS"
+  },
+  {
     "Company": "Realty Income Corporation",
     "Symbol": "O"
   },
@@ -30154,10 +30050,6 @@
   {
     "Company": "Oaktree Acquisition Corp. III Life Sciences Class A Ordinary Share",
     "Symbol": "OACC"
-  },
-  {
-    "Company": "Oaktree Acquisition Corp. III Life Sciences Warrant",
-    "Symbol": "OACCW"
   },
   {
     "Company": "OneAscent Core Plus Bond ETF",
@@ -30264,6 +30156,10 @@
     "Symbol": "OCCIM"
   },
   {
+    "Company": "OFS Credit Company, Inc. 6.125% Series C Term Preferred Stock",
+    "Symbol": "OCCIO"
+  },
+  {
     "Company": "OceanFirst Financial Corp",
     "Symbol": "OCFC"
   },
@@ -30276,6 +30172,10 @@
     "Symbol": "OCGN"
   },
   {
+    "Company": "ClearShares OCIO ETF",
+    "Symbol": "OCIO"
+  },
+  {
     "Company": "Oculis Holding AG Ordinary shares",
     "Symbol": "OCS"
   },
@@ -30286,10 +30186,6 @@
   {
     "Company": "Oaktree Specialty Lending Corporation",
     "Symbol": "OCSL"
-  },
-  {
-    "Company": "Aptus October Buffer ETF",
-    "Symbol": "OCTB"
   },
   {
     "Company": "FT Vest U.S. Equity Max Buffer ETF - October",
@@ -30398,10 +30294,6 @@
   {
     "Company": "OFS Capital Corporation",
     "Symbol": "OFS"
-  },
-  {
-    "Company": "OFS Capital Corporation 7.50% Notes due 2028",
-    "Symbol": "OFSSO"
   },
   {
     "Company": "OceanaGold Corporation",
@@ -30624,20 +30516,12 @@
     "Symbol": "ONB"
   },
   {
-    "Company": "Old National Bancorp Depositary Shares, Each Representing a 1/40th Interest in a Share of Series C Preferred Stock",
-    "Symbol": "ONBPO"
-  },
-  {
     "Company": "Old National Bancorp Depositary Shares, Each Representing a 1/40th Interest in a Share of Series A Preferred Stock",
     "Symbol": "ONBPP"
   },
   {
     "Company": "BeOne Medicines Ltd. American Depositary Shares",
     "Symbol": "ONC"
-  },
-  {
-    "Company": "1RT Acquisition Corp. Class A Ordinary Share",
-    "Symbol": "ONCH"
   },
   {
     "Company": "1RT Acquisition Corp. Units",
@@ -30654,6 +30538,10 @@
   {
     "Company": "Oncolytics Biotech, Inc. Common Shares",
     "Symbol": "ONCY"
+  },
+  {
+    "Company": "ProShares On-Demand ETF",
+    "Symbol": "OND"
   },
   {
     "Company": "Leverage Shares 2X Long ONDS Daily ETF",
@@ -30674,6 +30562,10 @@
   {
     "Company": "OneConstruction Group Limited Ordinary Shares",
     "Symbol": "ONEG"
+  },
+  {
+    "Company": "TrueShares Equity Hedge ETF",
+    "Symbol": "ONEH"
   },
   {
     "Company": "Fidelity Nasdaq Composite Index ETF",
@@ -30724,10 +30616,6 @@
     "Symbol": "ONMDW"
   },
   {
-    "Company": "Global X Adaptive U.S. Risk Management ETF",
-    "Symbol": "ONOF"
-  },
-  {
     "Company": "On Holding AG",
     "Symbol": "ONON"
   },
@@ -30750,10 +30638,6 @@
   {
     "Company": "One One S&P 500 and Bitcoin ETF",
     "Symbol": "OOSB"
-  },
-  {
-    "Company": "Obra Opportunistic Structured Products ETF",
-    "Symbol": "OOSP"
   },
   {
     "Company": "Offerpad Solutions Inc.",
@@ -31064,16 +30948,8 @@
     "Symbol": "OTGA"
   },
   {
-    "Company": "OTG Acquisition Corp. I Unit",
-    "Symbol": "OTGAU"
-  },
-  {
     "Company": "OTG Acquisition Corp. I Warrants",
     "Symbol": "OTGAW"
-  },
-  {
-    "Company": "OTG Latin America ETF",
-    "Symbol": "OTGL"
   },
   {
     "Company": "Off The Hook YS Inc.",
@@ -31152,6 +31028,10 @@
     "Symbol": "OVM"
   },
   {
+    "Company": "Overlay Shares Small Cap Equity ETF",
+    "Symbol": "OVS"
+  },
+  {
     "Company": "Overlay Shares Short Term Bond ETF",
     "Symbol": "OVT"
   },
@@ -31200,12 +31080,24 @@
     "Symbol": "OXLCI"
   },
   {
+    "Company": "Oxford Lane Capital Corp. 6.75% Notes due 2031",
+    "Symbol": "OXLCL"
+  },
+  {
     "Company": "Oxford Lane Capital Corp. Preferred Stock Shares, 8.25% Series 2031",
     "Symbol": "OXLCM"
   },
   {
+    "Company": "Oxford Lane Capital Corp. 7.125% Series 2029 Term Preferred Stock",
+    "Symbol": "OXLCN"
+  },
+  {
     "Company": "Oxford Lane Capital Corp. Preferred Stock Shares, 6.00% Series 2029",
     "Symbol": "OXLCO"
+  },
+  {
+    "Company": "Oxford Lane Capital Corp. 6.25% Series 2027 Term Preferred Shares",
+    "Symbol": "OXLCP"
   },
   {
     "Company": "Oxford Lane Capital Corp. 5.00% Notes due 2027",
@@ -31218,6 +31110,10 @@
   {
     "Company": "Oxford Square Capital Corp.",
     "Symbol": "OXSQ"
+  },
+  {
+    "Company": "Oxford Square Capital Corp. 5.50% Notes due 2028",
+    "Symbol": "OXSQG"
   },
   {
     "Company": "Oxford Square Capital Corp. 7.75% Notes due 2030",
@@ -31260,16 +31156,16 @@
     "Symbol": "OZKAP"
   },
   {
+    "Company": "Everpure, Inc.",
+    "Symbol": "P"
+  },
+  {
     "Company": "Plains All American Pipeline, L.P. Common Units representing Limited Partner Interests",
     "Symbol": "PAA"
   },
   {
     "Company": "PGIM AAA CLO ETF",
     "Symbol": "PAAA"
-  },
-  {
-    "Company": "Proem Acquisition Corp I Ordinary Shares",
-    "Symbol": "PAAC"
   },
   {
     "Company": "Proem Acquisition Corp I Units",
@@ -31290,10 +31186,6 @@
   {
     "Company": "PGIM Active Aggregate Bond ETF",
     "Symbol": "PAB"
-  },
-  {
-    "Company": "iShares Trust iShares Paris-Aligned Climate Optimized MSCI World ex USA ETF",
-    "Symbol": "PABD"
   },
   {
     "Company": "iShares Trust iShares Paris-Aligned Climate Optimized MSCI USA ETF",
@@ -31398,6 +31290,10 @@
   {
     "Company": "PAMPA ENERGIA S.A.",
     "Symbol": "PAM"
+  },
+  {
+    "Company": "Pacer Lunt MidCap Multi-Factor Alternator ETF",
+    "Symbol": "PAMC"
   },
   {
     "Company": "PAMT CORP Common Stock",
@@ -31584,6 +31480,10 @@
     "Symbol": "PBH"
   },
   {
+    "Company": "Pathfinder Bancorp Inc",
+    "Symbol": "PBHC"
+  },
+  {
     "Company": "Pitney Bowes Inc.",
     "Symbol": "PBI"
   },
@@ -31602,6 +31502,10 @@
   {
     "Company": "PGIM S&P 500 Buffer 20 ETF - June",
     "Symbol": "PBJN"
+  },
+  {
+    "Company": "PGIM Portfolio Ballast ETF",
+    "Symbol": "PBL"
   },
   {
     "Company": "Psyence Biomedical Ltd. Common Shares",
@@ -31684,8 +31588,12 @@
     "Symbol": "PBYI"
   },
   {
-    "Company": "ProCap Acquisition Corp Warrant",
-    "Symbol": "PCAPW"
+    "Company": "ProCap Acquisition Corp Class A Ordinary Shares",
+    "Symbol": "PCAP"
+  },
+  {
+    "Company": "ProCap Acquisition Corp Unit",
+    "Symbol": "PCAPU"
   },
   {
     "Company": "Paccar Inc",
@@ -31716,8 +31624,8 @@
     "Symbol": "PCG"
   },
   {
-    "Company": "Polen Capital Global Growth ETF",
-    "Symbol": "PCGG"
+    "Company": "Polen High Income ETF",
+    "Symbol": "PCHI"
   },
   {
     "Company": "PGIM Corporate Bond 5-10 Year ETF",
@@ -31744,6 +31652,10 @@
     "Symbol": "PCLN"
   },
   {
+    "Company": "VIRTUS SEIX AAA Private Credit CLO ETF",
+    "Symbol": "PCLO"
+  },
+  {
     "Company": "PCM Fund, Inc.",
     "Symbol": "PCM"
   },
@@ -31760,10 +31672,6 @@
     "Symbol": "PCOR"
   },
   {
-    "Company": "PIMCO Inflation PLUS Active Exchange Traded Fund",
-    "Symbol": "PCPI"
-  },
-  {
     "Company": "Pimco California Municipal Income Fund",
     "Symbol": "PCQ"
   },
@@ -31778,10 +31686,6 @@
   {
     "Company": "Pacira BioSciences, Inc. Common Stock",
     "Symbol": "PCRX"
-  },
-  {
-    "Company": "PGIM Corporate Bond 0-5 Year ETF",
-    "Symbol": "PCS"
   },
   {
     "Company": "Processa Pharmaceuticals, Inc. Common",
@@ -31884,10 +31788,6 @@
     "Symbol": "PDP"
   },
   {
-    "Company": "Pearl Diver Credit Company Inc. 8.00% Series A Preferred Stock Due 2029",
-    "Symbol": "PDPA"
-  },
-  {
     "Company": "Precision Drilling Corporation",
     "Symbol": "PDS"
   },
@@ -31984,6 +31884,10 @@
     "Symbol": "PEPG"
   },
   {
+    "Company": "Parametric Equity Plus ETF",
+    "Symbol": "PEPS"
+  },
+  {
     "Company": "Perfect Corp.",
     "Symbol": "PERF"
   },
@@ -32068,6 +31972,10 @@
     "Symbol": "PFFD"
   },
   {
+    "Company": "ETRACS Monthly Pay 2xLeveraged Preferred Stock ETN",
+    "Symbol": "PFFL"
+  },
+  {
     "Company": "InfraCap REIT Preferred ETF",
     "Symbol": "PFFR"
   },
@@ -32148,24 +32056,16 @@
     "Symbol": "PFSI"
   },
   {
-    "Company": "PhenixFIN Corporation Common Stock",
-    "Symbol": "PFX"
+    "Company": "Putnam Sustainable Future ETF",
+    "Symbol": "PFUT"
   },
   {
     "Company": "VanEck Preferred Securities ex Financials ETF",
     "Symbol": "PFXF"
   },
   {
-    "Company": "PhenixFIN Corporation 5.25% Notes due 2028",
-    "Symbol": "PFXNZ"
-  },
-  {
     "Company": "Procter & Gamble Company",
     "Symbol": "PG"
-  },
-  {
-    "Company": "Pantages Capital Acquisition Corporation Class A Ordinary Shares",
-    "Symbol": "PGAC"
   },
   {
     "Company": "Pantages Capital Acquisition Corporation Right",
@@ -32246,6 +32146,10 @@
   {
     "Company": "Invesco Fundamental High Yield Corporate Bond ETF",
     "Symbol": "PHB"
+  },
+  {
+    "Company": "Invesco S&P 500 Downside Hedged ETF",
+    "Symbol": "PHDG"
   },
   {
     "Company": "Parametric Hedged Equity ETF",
@@ -32384,6 +32288,10 @@
     "Symbol": "PIO"
   },
   {
+    "Company": "Invesco SteelPath MLP & Energy Infrastructure ETF",
+    "Symbol": "PIPE"
+  },
+  {
     "Company": "Piper Sandler Companies",
     "Symbol": "PIPR"
   },
@@ -32414,6 +32322,10 @@
   {
     "Company": "PGIM Jennison Focused Value ETF",
     "Symbol": "PJFV"
+  },
+  {
+    "Company": "PGIM Jennison International Opportunities ETF",
+    "Symbol": "PJIO"
   },
   {
     "Company": "Invesco Pharmaceuticals ETF",
@@ -32516,8 +32428,8 @@
     "Symbol": "PLG"
   },
   {
-    "Company": "PL Growth and Income ETF",
-    "Symbol": "PLGI"
+    "Company": "Plum Acquisition Corp. IV Class A Ordinary Shares",
+    "Symbol": "PLMK"
   },
   {
     "Company": "Plum Acquisition Corp. IV Unit",
@@ -32534,6 +32446,10 @@
   {
     "Company": "Planet Fitness, Inc.",
     "Symbol": "PLNT"
+  },
+  {
+    "Company": "Leverage Shares 2x Capped Accelerated PLTR Monthly ETF",
+    "Symbol": "PLOO"
   },
   {
     "Company": "DOUGLAS DYNAMICS, INC.",
@@ -32624,6 +32540,10 @@
     "Symbol": "PLUS"
   },
   {
+    "Company": "Plutus Financial Group Limited Ordinary Shares",
+    "Symbol": "PLUT"
+  },
+  {
     "Company": "Protalix BioTherapeutics, Inc. Common Stock",
     "Symbol": "PLX"
   },
@@ -32676,16 +32596,16 @@
     "Symbol": "PMDE"
   },
   {
+    "Company": "Primech Holdings Ltd. Ordinary Shares",
+    "Symbol": "PMEC"
+  },
+  {
     "Company": "PGIM S&P 500 Max Buffer ETF - February",
     "Symbol": "PMFB"
   },
   {
     "Company": "Picard Medical, Inc.",
     "Symbol": "PMI"
-  },
-  {
-    "Company": "PGIM Municipal Income Opportunities ETF",
-    "Symbol": "PMIO"
   },
   {
     "Company": "PGIM S&P 500 Max Buffer ETF - January",
@@ -32748,10 +32668,6 @@
     "Symbol": "PMT"
   },
   {
-    "Company": "Perimeter Acquisition Corp. I Class A Ordinary Shares",
-    "Symbol": "PMTR"
-  },
-  {
     "Company": "Perimeter Acquisition Corp. I Unit",
     "Symbol": "PMTRU"
   },
@@ -32762,10 +32678,6 @@
   {
     "Company": "CPI Card Group Inc. Common Stock",
     "Symbol": "PMTS"
-  },
-  {
-    "Company": "PennyMac Mortgage Investment Trust 8.50% Senior Notes due 2028",
-    "Symbol": "PMTU"
   },
   {
     "Company": "PennyMac Mortgage Investment Trust 9.00% Senior Notes due 2030",
@@ -32916,6 +32828,10 @@
     "Symbol": "POWW"
   },
   {
+    "Company": "Outdoor Holding Company 8.75% Series A Cumulative Redeemable Perpetual Preferred Stock",
+    "Symbol": "POWWP"
+  },
+  {
     "Company": "Invesco Aerospace & Defense ETF",
     "Symbol": "PPA"
   },
@@ -32952,16 +32868,16 @@
     "Symbol": "PPI"
   },
   {
+    "Company": "Putnam PanAgora ESG International Equity ETF",
+    "Symbol": "PPIE"
+  },
+  {
     "Company": "Perma-Pipe International Holdings, Inc.",
     "Symbol": "PPIH"
   },
   {
     "Company": "PPL Corporation",
     "Symbol": "PPL"
-  },
-  {
-    "Company": "PPL Corporation Corporate Units",
-    "Symbol": "PPLC"
   },
   {
     "Company": "abrdn Physical Platinum Shares ETF",
@@ -32984,20 +32900,12 @@
     "Symbol": "PQAP"
   },
   {
-    "Company": "Principal Spectrum Preferred and Income ETF",
-    "Symbol": "PQDI"
-  },
-  {
     "Company": "PGIM Nasdaq-100 Buffer 12 ETF - January",
     "Symbol": "PQJA"
   },
   {
     "Company": "PGIM Nasdaq-100 Buffer 12 ETF - July",
     "Symbol": "PQJL"
-  },
-  {
-    "Company": "Pictet AI Enhanced International Equity ETF",
-    "Symbol": "PQNT"
   },
   {
     "Company": "PGIM Nasdaq-100 Buffer 12 ETF - October",
@@ -33022,6 +32930,10 @@
   {
     "Company": "State Street IG Public & Private ABS ETF",
     "Symbol": "PRAB"
+  },
+  {
+    "Company": "PlanRock Alternative Growth ETF",
+    "Symbol": "PRAE"
   },
   {
     "Company": "Praxis Precision Medicines, Inc. Common Stock",
@@ -33236,6 +33148,10 @@
     "Symbol": "PRXG"
   },
   {
+    "Company": "Praxis Impact Large Cap Value ETF",
+    "Symbol": "PRXV"
+  },
+  {
     "Company": "ParaZero Technologies Ltd. Ordinary Shares",
     "Symbol": "PRZO"
   },
@@ -33272,16 +33188,8 @@
     "Symbol": "PSCH"
   },
   {
-    "Company": "Invesco S&P SmallCap Industrials ETF",
-    "Symbol": "PSCI"
-  },
-  {
     "Company": "Pacer Swan SOS Conservative (July) ETF",
     "Symbol": "PSCJ"
-  },
-  {
-    "Company": "Invesco S&P SmallCap Materials ETF",
-    "Symbol": "PSCM"
   },
   {
     "Company": "Pacer Swan SOS Conservative (October) ETF",
@@ -33290,10 +33198,6 @@
   {
     "Company": "Invesco S&P SmallCap Information Technology ETF",
     "Symbol": "PSCT"
-  },
-  {
-    "Company": "Invesco Exchange-Traded Fund Trust II Invesco S&P SmallCap Utilities & Communication Services ETF",
-    "Symbol": "PSCU"
   },
   {
     "Company": "Pacer Swan SOS Conservative (April) ETF",
@@ -33320,6 +33224,10 @@
     "Symbol": "PSF"
   },
   {
+    "Company": "Pacer Swan SOS Flex (January) ETF",
+    "Symbol": "PSFD"
+  },
+  {
     "Company": "Paysafe Limited",
     "Symbol": "PSFE"
   },
@@ -33334,10 +33242,6 @@
   {
     "Company": "Pacer Swan SOS Flex (April) ETF",
     "Symbol": "PSFM"
-  },
-  {
-    "Company": "Pacer Swan SOS Flex (October) ETF",
-    "Symbol": "PSFO"
   },
   {
     "Company": "PGIM Short Duration High Yield ETF",
@@ -33370,10 +33274,6 @@
   {
     "Company": "Paramount Skydance Corporation Class B Common Stock",
     "Symbol": "PSKY"
-  },
-  {
-    "Company": "Invesco Exchange-Traded Fund Trust Invesco Dorsey Wright Consumer Staples Momentum ETF",
-    "Symbol": "PSL"
   },
   {
     "Company": "Sprott Physical Silver Trust",
@@ -33436,6 +33336,10 @@
     "Symbol": "PSQH"
   },
   {
+    "Company": "PSQ Holdings, Inc. Warrants, each exercisable for one share of Class A common stock at an exercise price of $11.50 per share",
+    "Symbol": "PSQH.WS"
+  },
+  {
     "Company": "Palmer Square Credit Opportunities ETF",
     "Symbol": "PSQO"
   },
@@ -33460,16 +33364,8 @@
     "Symbol": "PSTP"
   },
   {
-    "Company": "PeakShares Sector Rotation ETF",
-    "Symbol": "PSTR"
-  },
-  {
     "Company": "PLUS THERAPEUTICS, Inc. Common Stock",
     "Symbol": "PSTV"
-  },
-  {
-    "Company": "Xtrackers Cybersecurity Select Equity ETF",
-    "Symbol": "PSWD"
   },
   {
     "Company": "PHILLIPS 66",
@@ -33530,6 +33426,10 @@
   {
     "Company": "Pacer Trendpilot US Large Cap ETF",
     "Symbol": "PTLC"
+  },
+  {
+    "Company": "PTL LTD Class A Ordinary Shares",
+    "Symbol": "PTLE"
   },
   {
     "Company": "Portillo's Inc. Class A Common Stock",
@@ -33728,16 +33628,20 @@
     "Symbol": "PYPL"
   },
   {
+    "Company": "Direxion Daily PYPL Bull 2X ETF",
+    "Symbol": "PYPU"
+  },
+  {
     "Company": "YieldMax PYPL Option Income Strategy ETF",
     "Symbol": "PYPY"
   },
   {
-    "Company": "Pyxis Oncology, Inc. Common Stock",
-    "Symbol": "PYXS"
+    "Company": "Merrill Lynch Depositor PPLUS  Floating Rate Call TR Cert. Ser GSC-2(Goldman Sachs)",
+    "Symbol": "PYT"
   },
   {
-    "Company": "Invesco Exchange-Traded Fund Trust Invesco Dorsey Wright Basic Materials Momentum ETF",
-    "Symbol": "PYZ"
+    "Company": "Pyxis Oncology, Inc. Common Stock",
+    "Symbol": "PYXS"
   },
   {
     "Company": "Invesco National AMT-Free Municipal Bond ETF",
@@ -33880,16 +33784,16 @@
     "Symbol": "QCLS"
   },
   {
-    "Company": "Direxion Daily QCOM Bear 1X ETF",
-    "Symbol": "QCMD"
-  },
-  {
     "Company": "GraniteShares 2x Long QCOM Daily ETF",
     "Symbol": "QCML"
   },
   {
     "Company": "Direxion Daily QCOM Bull 2X ETF",
     "Symbol": "QCMU"
+  },
+  {
+    "Company": "FT Vest Nasdaq-100 Conservative Buffer ETF - October",
+    "Symbol": "QCOC"
   },
   {
     "Company": "Qualcomm Inc",
@@ -33940,8 +33844,16 @@
     "Symbol": "QEFA"
   },
   {
+    "Company": "State Street SPDR MSCI Emerging Markets StrategicFactors ETF",
+    "Symbol": "QEMM"
+  },
+  {
     "Company": "Quetta Acquisition Corporation Common Stock",
     "Symbol": "QETA"
+  },
+  {
+    "Company": "Quetta Acquisition Corporation Right",
+    "Symbol": "QETAR"
   },
   {
     "Company": "Quetta Acquisition Corporation Unit",
@@ -33996,10 +33908,6 @@
     "Symbol": "QID"
   },
   {
-    "Company": "Indexperts Quality Earnings Focused ETF",
-    "Symbol": "QIDX"
-  },
-  {
     "Company": "WisdomTree U.S. Corporate Bond Fund",
     "Symbol": "QIG"
   },
@@ -34010,10 +33918,6 @@
   {
     "Company": "Quipt Home Medical Corp. Ordinary Shares",
     "Symbol": "QIPT"
-  },
-  {
-    "Company": "Simplify Multi-QIS Alternative ETF",
-    "Symbol": "QIS"
   },
   {
     "Company": "FT Vest Growth-100 Buffer ETF - June",
@@ -34046,10 +33950,6 @@
   {
     "Company": "FlexShares US Quality Low Volatility Index Fund",
     "Symbol": "QLV"
-  },
-  {
-    "Company": "FlexShares Developed Markets ex-US Quality Low Volatility Index Fund",
-    "Symbol": "QLVD"
   },
   {
     "Company": "FlexShares Emerging Markets Quality Low Volatility Index Fund",
@@ -34112,20 +34012,12 @@
     "Symbol": "QNTM"
   },
   {
-    "Company": "iShares Nasdaq-100 ex Top 30 ETF",
-    "Symbol": "QNXT"
-  },
-  {
     "Company": "Invesco Nasdaq Free Cash Flow Achievers ETF",
     "Symbol": "QOWZ"
   },
   {
     "Company": "Defiance 2X Daily Long Pure Quantum ETF",
     "Symbol": "QPUX"
-  },
-  {
-    "Company": "AdvisorShares Q Dynamic Growth ETF",
-    "Symbol": "QPX"
   },
   {
     "Company": "Invesco QQQ Income Advantage ETF",
@@ -34152,6 +34044,10 @@
     "Symbol": "QQJG"
   },
   {
+    "Company": "Invesco QQQ Low Volatility ETF",
+    "Symbol": "QQLV"
+  },
+  {
     "Company": "Invesco ESG NASDAQ 100 ETF",
     "Symbol": "QQMG"
   },
@@ -34172,6 +34068,10 @@
     "Symbol": "QQQE"
   },
   {
+    "Company": "Pacer Nasdaq 100 Top 50 Cash Cows Growth Leaders ETF",
+    "Symbol": "QQQG"
+  },
+  {
     "Company": "NEOS Nasdaq-100 Hedged Equity Income ETF",
     "Symbol": "QQQH"
   },
@@ -34186,10 +34086,6 @@
   {
     "Company": "Invesco NASDAQ 100 ETF",
     "Symbol": "QQQM"
-  },
-  {
-    "Company": "Investment Managers Series Trust II Tradr 2X Long Innovation 100 Quarterly ETF",
-    "Symbol": "QQQP"
   },
   {
     "Company": "Invesco NASDAQ Future Gen 200 ETF",
@@ -34228,10 +34124,6 @@
     "Symbol": "QQXT"
   },
   {
-    "Company": "QuasarEdge Acquisition Corporation Units, each consisting of one Ordinary Share and one right entitling the holder to receive one-fourth (1/4) of one Ordinary Share",
-    "Symbol": "QRED.U"
-  },
-  {
     "Company": "Qraft AI-Enhanced US Large Cap ETF",
     "Symbol": "QRFT"
   },
@@ -34250,10 +34142,6 @@
   {
     "Company": "QuantumScape Corporation Class A Common Stock",
     "Symbol": "QS"
-  },
-  {
-    "Company": "Quartzsea Acquisition Corporation Ordinary Shares",
-    "Symbol": "QSEA"
   },
   {
     "Company": "Quartzsea Acquisition Corporation Rights",
@@ -34300,16 +34188,16 @@
     "Symbol": "QTAC"
   },
   {
+    "Company": "Innovator Growth Accelerated Plus ETF - April",
+    "Symbol": "QTAP"
+  },
+  {
     "Company": "First Trust NASDAQ-100 Technology  Index Fund",
     "Symbol": "QTEC"
   },
   {
     "Company": "QT Imaging Holdings, Inc. Common Stock",
     "Symbol": "QTI"
-  },
-  {
-    "Company": "Innovator Growth Accelerated Plus ETF - January",
-    "Symbol": "QTJA"
   },
   {
     "Company": "Innovator Growth Accelerated Plus ETF - July",
@@ -34326,6 +34214,10 @@
   {
     "Company": "North Square RCIM Tax-Advantaged Preferred and Income Securities ETF",
     "Symbol": "QTPI"
+  },
+  {
+    "Company": "Global X NASDAQ 100 Tail Risk ETF",
+    "Symbol": "QTR"
   },
   {
     "Company": "Quanterix Corporation Common Stock",
@@ -34424,8 +34316,8 @@
     "Symbol": "QVCGP"
   },
   {
-    "Company": "Invesco S&P MidCap 400 QVM Multi-factor ETF",
-    "Symbol": "QVMM"
+    "Company": "Invesco S&P 500 QVM Multi-factor ETF",
+    "Symbol": "QVML"
   },
   {
     "Company": "Invesco S&P SmallCap 600 QVM Multi-factor ETF",
@@ -34438,6 +34330,10 @@
   {
     "Company": "Q3 All-Season Active Rotation ETF",
     "Symbol": "QVOY"
+  },
+  {
+    "Company": "State Street SPDR MSCI World StrategicFactors ETF",
+    "Symbol": "QWLD"
   },
   {
     "Company": "Quantify 2X Daily Alt Season Crypto ETF",
@@ -34472,10 +34368,6 @@
     "Symbol": "RAA"
   },
   {
-    "Company": "Reckoner Yield Enhanced AAA CLO ETF",
-    "Symbol": "RAAA"
-  },
-  {
     "Company": "Real Asset Acquisition Corp. Class A Ordinary Share",
     "Symbol": "RAAQ"
   },
@@ -34486,10 +34378,6 @@
   {
     "Company": "Real Asset Acquisition Corp. Warrants",
     "Symbol": "RAAQW"
-  },
-  {
-    "Company": "Reckoner Yield Enhanced AAA CLO Reinvesting ETF",
-    "Symbol": "RAAR"
   },
   {
     "Company": "VanEck Real Assets ETF",
@@ -34586,10 +34474,6 @@
   {
     "Company": "Erayak Power Solution Group Inc. Class A Ordinary Shares",
     "Symbol": "RAYA"
-  },
-  {
-    "Company": "Rayliant SMDAM Japan Equity ETF",
-    "Symbol": "RAYJ"
   },
   {
     "Company": "ProShares Russell 2000 Dynamic Buffer ETF",
@@ -34704,14 +34588,6 @@
     "Symbol": "RCL"
   },
   {
-    "Company": "Reckoner BBB-B CLO ETF",
-    "Symbol": "RCLO"
-  },
-  {
-    "Company": "Reckoner BBB-B CLO Reinvesting ETF",
-    "Symbol": "RCLR"
-  },
-  {
     "Company": "Reckoner BBB-B CLO Annual ETF",
     "Symbol": "RCLY"
   },
@@ -34732,10 +34608,6 @@
     "Symbol": "RCT"
   },
   {
-    "Company": "First Trust Bloomberg Nuclear Power ETF",
-    "Symbol": "RCTR"
-  },
-  {
     "Company": "Arcus Biosciences, Inc.",
     "Symbol": "RCUS"
   },
@@ -34750,10 +34622,6 @@
   {
     "Company": "Rising Dragon Acquisition Corp. Unit",
     "Symbol": "RDACU"
-  },
-  {
-    "Company": "Republic Digital Acquisition Company Class A Ordinary Shares",
-    "Symbol": "RDAG"
   },
   {
     "Company": "Republic Digital Acquisition Company Unit",
@@ -34772,10 +34640,6 @@
     "Symbol": "RDDT"
   },
   {
-    "Company": "Rareview Dynamic Fixed Income ETF",
-    "Symbol": "RDFI"
-  },
-  {
     "Company": "Ridgetech, Inc. Ordinary Shares",
     "Symbol": "RDGT"
   },
@@ -34786,10 +34650,6 @@
   {
     "Company": "Reading International, Inc Class A Common Stock",
     "Symbol": "RDI"
-  },
-  {
-    "Company": "Reading International, Inc (Class B",
-    "Symbol": "RDIB"
   },
   {
     "Company": "Invesco S&P Ultra Dividend Revenue ETF",
@@ -34918,10 +34778,6 @@
   {
     "Company": "Regency Centers Corporation 5.875% Series B Cumulative Redeemable Preferred Stock",
     "Symbol": "REGCO"
-  },
-  {
-    "Company": "Regency Centers Corporation 6.25% Series A Cumulative Redeemable Preferred Stock",
-    "Symbol": "REGCP"
   },
   {
     "Company": "ProShares S&P MidCap 400 Dividend Aristocrats ETF",
@@ -35088,10 +34944,6 @@
     "Symbol": "RFDI"
   },
   {
-    "Company": "First Trust RiverFront Dynamic Emerging Markets ETF",
-    "Symbol": "RFEM"
-  },
-  {
     "Company": "ALPS Active Equity Opportunity ETF",
     "Symbol": "RFFC"
   },
@@ -35224,8 +35076,8 @@
     "Symbol": "RHP"
   },
   {
-    "Company": "RH Tactical Rotation ETF",
-    "Symbol": "RHRX"
+    "Company": "RH Tactical Outlook ETF",
+    "Symbol": "RHTX"
   },
   {
     "Company": "Ribbon Acquisition Corp Class A Ordinary Shares",
@@ -35242,10 +35094,6 @@
   {
     "Company": "Hoya Capital High Dividend Yield ETF",
     "Symbol": "RIET"
-  },
-  {
-    "Company": "Russell Investments Exchange Traded Funds Russell Investments Global Infrastructure ETF",
-    "Symbol": "RIFR"
   },
   {
     "Company": "Transocean LTD.",
@@ -35298,6 +35146,10 @@
   {
     "Company": "Algorhythm Holdings, Inc. Common Stock",
     "Symbol": "RIME"
+  },
+  {
+    "Company": "ProShares Inflation Expectations ETF",
+    "Symbol": "RINF"
   },
   {
     "Company": "iShares MSCI Global Gold Miners ETF",
@@ -35382,10 +35234,6 @@
   {
     "Company": "Defiance Retail Kings ETF",
     "Symbol": "RKNG"
-  },
-  {
-    "Company": "Ruk Strategic Growth ETF",
-    "Symbol": "RKSG"
   },
   {
     "Company": "Rocket Companies, Inc.",
@@ -35476,10 +35324,6 @@
     "Symbol": "RMI"
   },
   {
-    "Company": "LHA Risk-Managed Income ETF",
-    "Symbol": "RMIF"
-  },
-  {
     "Company": "Suncrete, Inc. Class A Common Stock",
     "Symbol": "RMIX"
   },
@@ -35564,10 +35408,6 @@
     "Symbol": "RNGTW"
   },
   {
-    "Company": "Bushido Capital US SMID Cap Equity ETF",
-    "Symbol": "RNIN"
-  },
-  {
     "Company": "Cohen & Steers REIT and Preferred and Income Fund, Inc.",
     "Symbol": "RNP"
   },
@@ -35594,10 +35434,6 @@
   {
     "Company": "ReNew Energy Global plc Class A Ordinary Shares",
     "Symbol": "RNW"
-  },
-  {
-    "Company": "TrueShares Eagle Global Renewable Energy Income ETF",
-    "Symbol": "RNWZ"
   },
   {
     "Company": "RenovoRx, Inc. Common Stock",
@@ -35944,6 +35780,10 @@
     "Symbol": "RTACU"
   },
   {
+    "Company": "Renatus Tactical Acquisition Corp I Warrant",
+    "Symbol": "RTACW"
+  },
+  {
     "Company": "Rareview Tax Advantaged Income ETF",
     "Symbol": "RTAI"
   },
@@ -36072,16 +35912,12 @@
     "Symbol": "RVYL"
   },
   {
-    "Company": "Rainwater Equity ETF",
-    "Symbol": "RW"
-  },
-  {
     "Company": "Runway Growth Finance Corp. Common Stock",
     "Symbol": "RWAY"
   },
   {
-    "Company": "Runway Growth Finance Corp. 7.25% Notes due 2031",
-    "Symbol": "RWAYI"
+    "Company": "Runway Growth Finance Corp. 7.50% Notes due 2027",
+    "Symbol": "RWAYL"
   },
   {
     "Company": "Runway Growth Finance Corp. 8.00% Notes due 2027",
@@ -36106,10 +35942,6 @@
   {
     "Company": "Invesco S&P 500 Revenue ETF",
     "Symbol": "RWL"
-  },
-  {
-    "Company": "Rayliant Wilshire NxtGen US Large Cap Equity ETF",
-    "Symbol": "RWLC"
   },
   {
     "Company": "ProShares Short Russell2000",
@@ -36208,16 +36040,16 @@
     "Symbol": "RYLD"
   },
   {
+    "Company": "Global X Russell 2000 Covered Call & Growth ETF",
+    "Symbol": "RYLG"
+  },
+  {
     "Company": "RYTHM, Inc. Common Stock",
     "Symbol": "RYM"
   },
   {
     "Company": "Rayonier Inc.",
     "Symbol": "RYN"
-  },
-  {
-    "Company": "rYojbaba Co., Ltd. Common Shares",
-    "Symbol": "RYOJ"
   },
   {
     "Company": "Vest 10 Year Interest Rate Hedge ETF",
@@ -36276,10 +36108,6 @@
     "Symbol": "SAAQ"
   },
   {
-    "Company": "Space Asset Acquisition Corp. Units",
-    "Symbol": "SAAQU"
-  },
-  {
     "Company": "Space Asset Acquisition Corp. Warrants",
     "Symbol": "SAAQW"
   },
@@ -36316,6 +36144,10 @@
     "Symbol": "SACH"
   },
   {
+    "Company": "Schwab Ariel Opportunities ETF",
+    "Symbol": "SAEF"
+  },
+  {
     "Company": "Safehold Inc.",
     "Symbol": "SAFE"
   },
@@ -36348,10 +36180,6 @@
     "Symbol": "SAIC"
   },
   {
-    "Company": "SAIHEAT Limited Class A Ordinary Shares",
-    "Symbol": "SAIH"
-  },
-  {
     "Company": "SAIHEAT Limited Warrant",
     "Symbol": "SAIHW"
   },
@@ -36370,10 +36198,6 @@
   {
     "Company": "Silvercrest Asset Management Group Inc.",
     "Symbol": "SAMG"
-  },
-  {
-    "Company": "Strategas Macro Momentum ETF",
-    "Symbol": "SAMM"
   },
   {
     "Company": "Strategas Macro Thematic Opportunities ETF",
@@ -36466,14 +36290,6 @@
   {
     "Company": "AAM Sawgrass US Small Cap Quality Growth ETF",
     "Symbol": "SAWS"
-  },
-  {
-    "Company": "Saratoga Investment Corp. 8.125% Notes due 2027",
-    "Symbol": "SAY"
-  },
-  {
-    "Company": "Saratoga Investment Corp. 8.50% Notes due 2028",
-    "Symbol": "SAZ"
   },
   {
     "Company": "Safe Bulkers, Inc.",
@@ -36624,12 +36440,24 @@
     "Symbol": "SCAGW"
   },
   {
+    "Company": "Infrastructure Capital Small Cap Income ETF",
+    "Symbol": "SCAP"
+  },
+  {
     "Company": "ProShares UltraShort Consumer Discretionary",
     "Symbol": "SCC"
   },
   {
     "Company": "Sachem Capital Corp. 6.00% Notes due 2026",
     "Symbol": "SCCD"
+  },
+  {
+    "Company": "Sachem Capital Corp. 6.00% Notes due 2027",
+    "Symbol": "SCCE"
+  },
+  {
+    "Company": "Sachem Capital Corp. 7.125% Notes due 2027",
+    "Symbol": "SCCF"
   },
   {
     "Company": "Sachem Capital Corp. 8.00% Notes due 2027",
@@ -36796,10 +36624,6 @@
     "Symbol": "SCLXW"
   },
   {
-    "Company": "Swan Enhanced Dividend Income ETF",
-    "Symbol": "SCLZ"
-  },
-  {
     "Company": "STELLUS CAPITAL INVESTMENT CORPORATION",
     "Symbol": "SCM"
   },
@@ -36836,8 +36660,8 @@
     "Symbol": "SCPQ"
   },
   {
-    "Company": "Social Commerce Partners Corporation Warrant",
-    "Symbol": "SCPQW"
+    "Company": "Social Commerce Partners Corporation Unit",
+    "Symbol": "SCPQU"
   },
   {
     "Company": "Scansource Inc",
@@ -36908,10 +36732,6 @@
     "Symbol": "SDEV"
   },
   {
-    "Company": "AB Short Duration Income ETF",
-    "Symbol": "SDFI"
-  },
-  {
     "Company": "iShares Trust iShares MSCI Global Sustainable Development Goals ETF",
     "Symbol": "SDG"
   },
@@ -36944,10 +36764,6 @@
     "Symbol": "SDIV"
   },
   {
-    "Company": "Simplify DBi CTA Managed Futures Index ETF",
-    "Symbol": "SDMF"
-  },
-  {
     "Company": "ALPS Sector Dividend Dogs ETF",
     "Symbol": "SDOG"
   },
@@ -36978,6 +36794,10 @@
   {
     "Company": "Stardust Power Inc. Common Stock",
     "Symbol": "SDST"
+  },
+  {
+    "Company": "Stardust Power Inc. Warrant",
+    "Symbol": "SDSTW"
   },
   {
     "Company": "YieldMax S&P 500 0DTE Covered Call Strategy ETF",
@@ -37284,12 +37104,12 @@
     "Symbol": "SFYF"
   },
   {
-    "Company": "SoFi Next 500 ETF",
-    "Symbol": "SFYX"
-  },
-  {
     "Company": "Sweetgreen, Inc.",
     "Symbol": "SG"
+  },
+  {
+    "Company": "Saga Communications, Inc. Class A Common Stock (FL)",
+    "Symbol": "SGA"
   },
   {
     "Company": "Superior Group of Companies, Inc. Common Stock",
@@ -37496,14 +37316,6 @@
     "Symbol": "SHPU"
   },
   {
-    "Company": "Gotham Short Strategies ETF",
-    "Symbol": "SHRT"
-  },
-  {
-    "Company": "First Trust Exchange-Traded Fund VI First Trust Bloomberg Shareholder Yield ETF",
-    "Symbol": "SHRY"
-  },
-  {
     "Company": "Stratified LargeCap Hedged ETF",
     "Symbol": "SHUS"
   },
@@ -37696,10 +37508,6 @@
     "Symbol": "SIXO"
   },
   {
-    "Company": "AllianzIM U.S. Equity 6 Month Buffer10 Mar/Sep ETF",
-    "Symbol": "SIXP"
-  },
-  {
     "Company": "ETC 6 Meridian Small Cap Equity ETF",
     "Symbol": "SIXS"
   },
@@ -37808,10 +37616,6 @@
     "Symbol": "SKYT"
   },
   {
-    "Company": "ProShares Ultra Nasdaq Cloud Computing ETF",
-    "Symbol": "SKYU"
-  },
-  {
     "Company": "Skywest Inc",
     "Symbol": "SKYW"
   },
@@ -37850,10 +37654,6 @@
   {
     "Company": "Solid Power, Inc. Warrant",
     "Symbol": "SLDPW"
-  },
-  {
-    "Company": "Global X Short-Term Treasury Ladder ETF",
-    "Symbol": "SLDR"
   },
   {
     "Company": "Super League Enterprise, Inc. Common Stock",
@@ -37920,12 +37720,12 @@
     "Symbol": "SLNH"
   },
   {
-    "Company": "Soleno Therapeutics, Inc. Common Stock",
-    "Symbol": "SLNO"
+    "Company": "Soluna Holdings, Inc 9.0% Series A Cumulative Perpetual Preferred Stock",
+    "Symbol": "SLNHP"
   },
   {
-    "Company": "TCW Senior Loan ETF",
-    "Symbol": "SLNZ"
+    "Company": "Soleno Therapeutics, Inc. Common Stock",
+    "Symbol": "SLNO"
   },
   {
     "Company": "ProShares Ultra Solana ETF",
@@ -38020,10 +37820,6 @@
     "Symbol": "SMAP"
   },
   {
-    "Company": "iShares Large Cap Max Buffer Sep ETF",
-    "Symbol": "SMAX"
-  },
-  {
     "Company": "FT Vest U.S. Small Cap Moderate Buffer ETF - May",
     "Symbol": "SMAY"
   },
@@ -38046,10 +37842,6 @@
   {
     "Company": "Summit Midstream Corporation",
     "Symbol": "SMC"
-  },
-  {
-    "Company": "Themes US Small Cap Cash Flow Champions ETF",
-    "Symbol": "SMCF"
   },
   {
     "Company": "Super Micro Computer, Inc. Common Stock",
@@ -38136,10 +37928,6 @@
     "Symbol": "SMLF"
   },
   {
-    "Company": "Harbor Active Small Cap ETF",
-    "Symbol": "SMLL"
-  },
-  {
     "Company": "State Street SPDR US Small Cap Low Volatility Index ETF",
     "Symbol": "SMLV"
   },
@@ -38154,6 +37942,10 @@
   {
     "Company": "PIMCO Short Term Municipal Bond Active Exchange-Traded Fund",
     "Symbol": "SMMU"
+  },
+  {
+    "Company": "iShares MSCI USA Small-Cap Min Vol Factor ETF",
+    "Symbol": "SMMV"
   },
   {
     "Company": "ProShares UltraShort Materials",
@@ -38190,10 +37982,6 @@
   {
     "Company": "ALPS Nautilus SMR, Nuclear & Technology ETF",
     "Symbol": "SMRF"
-  },
-  {
-    "Company": "Bushido Capital US Equity ETF",
-    "Symbol": "SMRI"
   },
   {
     "Company": "SmartRent, Inc.",
@@ -38484,6 +38272,10 @@
     "Symbol": "SOHOB"
   },
   {
+    "Company": "Sotherly Hotels Inc. 8.25% Series D Cumulative Redeemable Perpetual Preferred Stock",
+    "Symbol": "SOHON"
+  },
+  {
     "Company": "Sotherly Hotels Inc. 7.875 Percent Series C Cumulative Redeemable Perpetual Preferred Stock",
     "Symbol": "SOHOO"
   },
@@ -38576,8 +38368,8 @@
     "Symbol": "SORA"
   },
   {
-    "Company": "Soren Acquisition Corp. Warrant",
-    "Symbol": "SORNW"
+    "Company": "Soren Acquisition Corp. Class A Ordinary Shares",
+    "Symbol": "SORN"
   },
   {
     "Company": "SOS Limited",
@@ -38648,8 +38440,8 @@
     "Symbol": "SPAI"
   },
   {
-    "Company": "Horizon Kinetics SPAC Active ETF",
-    "Symbol": "SPAQ"
+    "Company": "Themes Cybersecurity ETF",
+    "Symbol": "SPAM"
   },
   {
     "Company": "Spectrum Brands Holdings, Inc.",
@@ -38692,6 +38484,10 @@
     "Symbol": "SPCK"
   },
   {
+    "Company": "Defiance Pure Space Daily 2X Strategy ETF",
+    "Symbol": "SPCL"
+  },
+  {
     "Company": "Liberty One Spectrum ETF",
     "Symbol": "SPCT"
   },
@@ -38708,8 +38504,8 @@
     "Symbol": "SPD"
   },
   {
-    "Company": "Defender Risk Adaptive 500 ETF",
-    "Symbol": "SPDF"
+    "Company": "State Street SPDR Portfolio S&P Sector Neutral Dividend ETF",
+    "Symbol": "SPDG"
   },
   {
     "Company": "Direxion Daily S&P 500 Bear 1X ETF",
@@ -38726,10 +38522,6 @@
   {
     "Company": "Special Opportunities Fund, Inc.",
     "Symbol": "SPE"
-  },
-  {
-    "Company": "Silver Pegasus Acquisition Corp Rights",
-    "Symbol": "SPEGR"
   },
   {
     "Company": "Silver Pegasus Acquisition Corp Unit",
@@ -38826,6 +38618,10 @@
   {
     "Company": "State Street SPDR Portfolio Long Term Corporate Bond ETF",
     "Symbol": "SPLB"
+  },
+  {
+    "Company": "PIMCO US Stocks PLUS Active Bond Exchange-Traded Fund",
+    "Symbol": "SPLS"
   },
   {
     "Company": "Invesco S&P 500 Low Volatility ETF",
@@ -38960,6 +38756,10 @@
     "Symbol": "SPTU"
   },
   {
+    "Company": "Simplify US Equity PLUS Upside Convexity ETF",
+    "Symbol": "SPUC"
+  },
+  {
     "Company": "SP Funds S&P 500 Sharia  ETF",
     "Symbol": "SPUS"
   },
@@ -39012,10 +38812,6 @@
     "Symbol": "SPXL"
   },
   {
-    "Company": "ProShares S&P 500 Ex-Financials ETF",
-    "Symbol": "SPXN"
-  },
-  {
     "Company": "Direxion Daily S&P 500 Bear 3x ETF",
     "Symbol": "SPXS"
   },
@@ -39066,10 +38862,6 @@
   {
     "Company": "State Street SPDR Portfolio S&P 500 ETF",
     "Symbol": "SPYM"
-  },
-  {
-    "Company": "Tradr 2X Long SPY Quarterly ETF",
-    "Symbol": "SPYQ"
   },
   {
     "Company": "Defiance S&P 500 Income Target ETF",
@@ -39292,10 +39084,6 @@
     "Symbol": "SSK"
   },
   {
-    "Company": "Strata Skin Sciences, Inc. Common Stock",
-    "Symbol": "SSKN"
-  },
-  {
     "Company": "Sasol Limited",
     "Symbol": "SSL"
   },
@@ -39314,6 +39102,10 @@
   {
     "Company": "The E.W. Scripps Company",
     "Symbol": "SSP"
+  },
+  {
+    "Company": "Stratified LargeCap Index ETF",
+    "Symbol": "SSPY"
   },
   {
     "Company": "SSR Mining Inc.",
@@ -39404,6 +39196,10 @@
     "Symbol": "STEM"
   },
   {
+    "Company": "iShares Large Cap 10% Target Buffer Sep ETF",
+    "Symbol": "STEN"
+  },
+  {
     "Company": "StepStone Group Inc. Class A Common Stock",
     "Symbol": "STEP"
   },
@@ -39426,10 +39222,6 @@
   {
     "Company": "Stagwell Inc. Class A Common Stock",
     "Symbol": "STGW"
-  },
-  {
-    "Company": "STMicroelectronics NV ADRhedged",
-    "Symbol": "STHH"
   },
   {
     "Company": "Star Holdings Shares of Beneficial Interest",
@@ -39476,8 +39268,8 @@
     "Symbol": "STLD"
   },
   {
-    "Company": "2x Stellar ETF",
-    "Symbol": "STLU"
+    "Company": "Stellar ETF",
+    "Symbol": "STLR"
   },
   {
     "Company": "STMicroelectronics N.V.",
@@ -39538,6 +39330,10 @@
   {
     "Company": "Sterling Infrastructure, Inc. Common Stock",
     "Symbol": "STRL"
+  },
+  {
+    "Company": "SMART Trend 25 ETF",
+    "Symbol": "STRN"
   },
   {
     "Company": "Sutro Biopharma, Inc.",
@@ -39666,10 +39462,6 @@
   {
     "Company": "Canary Staked SUIS ETF Shares of Beneficial Interest",
     "Symbol": "SUIS"
-  },
-  {
-    "Company": "SUMA Acquisition Corporation Units",
-    "Symbol": "SUMAU"
   },
   {
     "Company": "SUNOCO L.P.",
@@ -39984,10 +39776,6 @@
     "Symbol": "SZK"
   },
   {
-    "Company": "Pacer CFRA- Stoval Equal Weight Seasonal Rotation ETF",
-    "Symbol": "SZNE"
-  },
-  {
     "Company": "Sizzle Acquisition Corp. II Class A ordinary shares",
     "Symbol": "SZZL"
   },
@@ -40030,10 +39818,6 @@
   {
     "Company": "T. Rowe Price Active Core International Equity ETF",
     "Symbol": "TACN"
-  },
-  {
-    "Company": "Berto Acquisition Corp. Ordinary Shares",
-    "Symbol": "TACO"
   },
   {
     "Company": "Berto Acquisition Corp. Unit",
@@ -40172,10 +39956,6 @@
     "Symbol": "TAXF"
   },
   {
-    "Company": "Northern Trust Intermediate Tax-Exempt Bond ETF",
-    "Symbol": "TAXI"
-  },
-  {
     "Company": "BondBloxx IR+M Tax-Aware ETF for Massachusetts Residents",
     "Symbol": "TAXM"
   },
@@ -40244,6 +40024,10 @@
     "Symbol": "TBIL"
   },
   {
+    "Company": "Innovator 20+ Year Treasury Bond 9 Buffer ETF - July",
+    "Symbol": "TBJL"
+  },
+  {
     "Company": "Taboola.com Ltd. Ordinary Shares",
     "Symbol": "TBLA"
   },
@@ -40300,10 +40084,6 @@
     "Symbol": "TBXU"
   },
   {
-    "Company": "Token Cat Limited American Depositary Shares",
-    "Symbol": "TC"
-  },
-  {
     "Company": "T. Rowe Price Capital Appreciation Equity ETF",
     "Symbol": "TCAF"
   },
@@ -40326,10 +40106,6 @@
   {
     "Company": "Trico Bancshares",
     "Symbol": "TCBK"
-  },
-  {
-    "Company": "Texas Community Bancshares, Inc. Common Stock",
-    "Symbol": "TCBS"
   },
   {
     "Company": "Third Coast Bancshares, Inc. Common Stock",
@@ -40376,20 +40152,12 @@
     "Symbol": "TCRX"
   },
   {
-    "Company": "Towle Value ETF",
-    "Symbol": "TCV"
-  },
-  {
     "Company": "Tucows, Inc",
     "Symbol": "TCX"
   },
   {
     "Company": "Toronto Dominion Bank",
     "Symbol": "TD"
-  },
-  {
-    "Company": "Translational Development Acquisition Corp. Ordinary Shares",
-    "Symbol": "TDAC"
   },
   {
     "Company": "Translational Development Acquisition Corp. Warrants",
@@ -40456,10 +40224,6 @@
     "Symbol": "TDSB"
   },
   {
-    "Company": "Exchange Listed Funds Trust ETC Cabana Target Drawdown 10 ETF",
-    "Symbol": "TDSC"
-  },
-  {
     "Company": "FlexShares iBoxx 5-Year Target Duration TIPS Index Fund",
     "Symbol": "TDTF"
   },
@@ -40524,10 +40288,6 @@
     "Symbol": "TEAM"
   },
   {
-    "Company": "Harbor Transformative Technologies ETF",
-    "Symbol": "TEC"
-  },
-  {
     "Company": "iShares U.S. Tech Breakthrough Multisector ETF",
     "Symbol": "TECB"
   },
@@ -40558,10 +40318,6 @@
   {
     "Company": "iShares Technology Opportunities Active ETF",
     "Symbol": "TEK"
-  },
-  {
-    "Company": "SSGA Active Trust State Street Galaxy Transformative Tech Accelerators ETF",
-    "Symbol": "TEKX"
   },
   {
     "Company": "Lazard Next Gen Technologies ETF",
@@ -40664,8 +40420,16 @@
     "Symbol": "TEX"
   },
   {
+    "Company": "iShares Texas Equity ETF",
+    "Symbol": "TEXN"
+  },
+  {
     "Company": "Direxion Daily Energy Top 5 Bull 2X ETF",
     "Symbol": "TEXU"
+  },
+  {
+    "Company": "Horizon Kinetics Texas ETF",
+    "Symbol": "TEXX"
   },
   {
     "Company": "Truist Financial Corporation",
@@ -40756,10 +40520,6 @@
     "Symbol": "TGL"
   },
   {
-    "Company": "T. Rowe Price Global Equity ETF",
-    "Symbol": "TGLB"
-  },
-  {
     "Company": "Wedbush Laffer Tengler New Era Value ETF",
     "Symbol": "TGLR"
   },
@@ -40796,10 +40556,6 @@
     "Symbol": "TH"
   },
   {
-    "Company": "Tharimmune, Inc. Common Stock",
-    "Symbol": "THAR"
-  },
-  {
     "Company": "Tenet Healthcare Corporation New",
     "Symbol": "THC"
   },
@@ -40832,20 +40588,8 @@
     "Symbol": "THIR"
   },
   {
-    "Company": "THOR Equal Weight Low Volatility ETF",
-    "Symbol": "THLV"
-  },
-  {
     "Company": "International Tower Hill Mines, Ltd.",
     "Symbol": "THM"
-  },
-  {
-    "Company": "THOR AdaptiveRisk Dynamic ETF",
-    "Symbol": "THMR"
-  },
-  {
-    "Company": "Lazard Equity Megatrends ETF",
-    "Symbol": "THMZ"
   },
   {
     "Company": "ROBO Global Artificial Intelligence ETF",
@@ -40940,10 +40684,6 @@
     "Symbol": "TILL"
   },
   {
-    "Company": "FlexShares Morningstar US Market Factors Tilt Index Fund",
-    "Symbol": "TILT"
-  },
-  {
     "Company": "TIM S.A. American Depositary Shares (Each representing 5 Common Shares)",
     "Symbol": "TIMB"
   },
@@ -40958,6 +40698,10 @@
   {
     "Company": "ProShares Smart Materials ETF",
     "Symbol": "TINT"
+  },
+  {
+    "Company": "ProShares Nanotechnology ETF",
+    "Symbol": "TINY"
   },
   {
     "Company": "iShares TIPS Bond ETF",
@@ -41016,6 +40760,10 @@
     "Symbol": "TJGC"
   },
   {
+    "Company": "Innovator Equity Defined Protection ETF - 2 Yr to July 2027",
+    "Symbol": "TJUL"
+  },
+  {
     "Company": "FT Vest Emerging Markets Buffer ETF - June",
     "Symbol": "TJUN"
   },
@@ -41056,6 +40804,10 @@
     "Symbol": "TLA"
   },
   {
+    "Company": "Touchstone International Equity ETF",
+    "Symbol": "TLCI"
+  },
+  {
     "Company": "The Laddered T-Bill ETF",
     "Symbol": "TLDR"
   },
@@ -41082,6 +40834,10 @@
   {
     "Company": "Talen Energy Corporation Common Stock",
     "Symbol": "TLN"
+  },
+  {
+    "Company": "Talon Capital Corp. Class A Ordinary Shares",
+    "Symbol": "TLNC"
   },
   {
     "Company": "Talon Capital Corp. Units",
@@ -41112,20 +40868,12 @@
     "Symbol": "TLSI"
   },
   {
-    "Company": "TriSalus Life Sciences, Inc. Warrant",
-    "Symbol": "TLSIW"
-  },
-  {
     "Company": "iShares 20+ Year Treasury Bond ETF",
     "Symbol": "TLT"
   },
   {
     "Company": "FlexShares Morningstar Developed Markets ex-US Factor Tilt Index Fund",
     "Symbol": "TLTD"
-  },
-  {
-    "Company": "FlexShares Morningstar Emerging Markets Factor Tilt Index Fund",
-    "Symbol": "TLTE"
   },
   {
     "Company": "NEOS Enhanced Income 20+ Year Treasury Bond ETF",
@@ -41186,6 +40934,10 @@
   {
     "Company": "TMD Energy Limited",
     "Symbol": "TMDE"
+  },
+  {
+    "Company": "ProShares Russell US Dividend Growers ETF",
+    "Symbol": "TMDV"
   },
   {
     "Company": "TransMedics Group, Inc. Common Stock",
@@ -41260,10 +41012,6 @@
     "Symbol": "TMQ"
   },
   {
-    "Company": "T. Rowe Price Multi-Sector Income ETF",
-    "Symbol": "TMSF"
-  },
-  {
     "Company": "T. Rowe Price Small-Mid Cap ETF",
     "Symbol": "TMSL"
   },
@@ -41298,6 +41046,10 @@
   {
     "Company": "Direxion Daily 20+ Year Treasury Bear 3X ETF",
     "Symbol": "TMV"
+  },
+  {
+    "Company": "Thrivent Mid Cap Value ETF",
+    "Symbol": "TMVE"
   },
   {
     "Company": "GraniteShares YieldBOOST TSM ETF",
@@ -41356,6 +41108,10 @@
     "Symbol": "TNXP"
   },
   {
+    "Company": "T. Rowe Price Innovation Leaders ETF",
+    "Symbol": "TNXT"
+  },
+  {
     "Company": "Tenaya Therapeutics, Inc. Common Stock",
     "Symbol": "TNYA"
   },
@@ -41364,8 +41120,8 @@
     "Symbol": "TOAK"
   },
   {
-    "Company": "Tremblant Global ETF",
-    "Symbol": "TOGA"
+    "Company": "Innovator Equity Defined Protection ETF - 2 Yr to October 2027",
+    "Symbol": "TOCT"
   },
   {
     "Company": "The Oncology Institute, Inc. Common Stock",
@@ -41436,10 +41192,6 @@
     "Symbol": "TORO"
   },
   {
-    "Company": "Twin Oak Strategic Solutions ETF",
-    "Symbol": "TOS"
-  },
-  {
     "Company": "Toast, Inc.",
     "Symbol": "TOST"
   },
@@ -41482,6 +41234,10 @@
   {
     "Company": "TOYO Co., Ltd Ordinary Shares",
     "Symbol": "TOYO"
+  },
+  {
+    "Company": "Roundhill S&P 500 Target 10 Managed Distribution ETF",
+    "Symbol": "TPAY"
   },
   {
     "Company": "Turning Point Brands, Inc.",
@@ -41546,6 +41302,10 @@
   {
     "Company": "Tempest Therapeutics, Inc. Common Stock",
     "Symbol": "TPST"
+  },
+  {
+    "Company": "Terra Property Trust, Inc. 6.00% Notes due 2026",
+    "Symbol": "TPTA"
   },
   {
     "Company": "TRIPLEPOINT VENTURE GROWTH BDC CORP.",
@@ -41716,10 +41476,6 @@
     "Symbol": "TRST"
   },
   {
-    "Company": "Xtrackers US 0-1 Year Treasury ETF",
-    "Symbol": "TRSY"
-  },
-  {
     "Company": "Trio-Tech International",
     "Symbol": "TRT"
   },
@@ -41792,12 +41548,12 @@
     "Symbol": "TSBK"
   },
   {
-    "Company": "TimesSquare Quality Mid Cap Growth ETF",
-    "Symbol": "TSCM"
-  },
-  {
     "Company": "Tractor Supply Co",
     "Symbol": "TSCO"
+  },
+  {
+    "Company": "Thrivent Small Cap Value ETF",
+    "Symbol": "TSCV"
   },
   {
     "Company": "GraniteShares ETF Trust GraniteShares 2x Short TSLA Daily ETF",
@@ -42064,10 +41820,6 @@
     "Symbol": "TTWO"
   },
   {
-    "Company": "Direxion Daily Technology Top 5 Bear 2X ETF",
-    "Symbol": "TTXD"
-  },
-  {
     "Company": "Direxion Daily Technology Top 5 Bull 2X ETF",
     "Symbol": "TTXU"
   },
@@ -42292,10 +42044,6 @@
     "Symbol": "TXXD"
   },
   {
-    "Company": "BondBloxx IR+M Tax-Aware Intermediate Duration ETF",
-    "Symbol": "TXXI"
-  },
-  {
     "Company": "21Shares 2x Long Sui ETF",
     "Symbol": "TXXS"
   },
@@ -42322,10 +42070,6 @@
   {
     "Company": "Tyler Technologies, Inc.",
     "Symbol": "TYL"
-  },
-  {
-    "Company": "Cambria Tactical Yield ETF",
-    "Symbol": "TYLD"
   },
   {
     "Company": "Global X Information Technology Covered Call & Growth ETF",
@@ -42460,10 +42204,6 @@
     "Symbol": "UCC"
   },
   {
-    "Company": "ETRACS UBS Bloomberg Constant Maturity Commodity Index (CMCI) Total Return ETN Series B due April 5, 2038",
-    "Symbol": "UCIB"
-  },
-  {
     "Company": "uCloudlink Group Inc. American Depositary Shares",
     "Symbol": "UCL"
   },
@@ -42476,6 +42216,10 @@
     "Symbol": "UCON"
   },
   {
+    "Company": "Victory Portfolios II VictoryShares Corporate Bond ETF",
+    "Symbol": "UCRD"
+  },
+  {
     "Company": "Ultra Clean Holdings, Inc.",
     "Symbol": "UCTT"
   },
@@ -42486,6 +42230,10 @@
   {
     "Company": "Innovator U.S. Equity Ultra Buffer ETF - December",
     "Symbol": "UDEC"
+  },
+  {
+    "Company": "USCF Dividend Income Fund",
+    "Symbol": "UDI"
   },
   {
     "Company": "Franklin U.S. Core Dividend Tilt Index ETF",
@@ -42522,10 +42270,6 @@
   {
     "Company": "Universal Electronics Inc",
     "Symbol": "UEIC"
-  },
-  {
-    "Company": "VictoryShares Emerging Markets Value Momentum ETF",
-    "Symbol": "UEVM"
   },
   {
     "Company": "United Fire Group Inc.",
@@ -42628,10 +42372,6 @@
     "Symbol": "UITB"
   },
   {
-    "Company": "VictoryShares International Value Momentum ETF",
-    "Symbol": "UIVM"
-  },
-  {
     "Company": "Innovator U.S. Equity Ultra Buffer ETF - January",
     "Symbol": "UJAN"
   },
@@ -42698,10 +42438,6 @@
   {
     "Company": "Innovator U.S. Equity Ultra Buffer ETF - March",
     "Symbol": "UMAR"
-  },
-  {
-    "Company": "Innovator U.S. Equity Ultra Buffer ETF - May",
-    "Symbol": "UMAY"
   },
   {
     "Company": "UMB Financial Corp",
@@ -42816,6 +42552,10 @@
     "Symbol": "UONE"
   },
   {
+    "Company": "Urban One, Inc. Class D Common Stock",
+    "Symbol": "UONEK"
+  },
+  {
     "Company": "Wheels Up Experience Inc.",
     "Symbol": "UP"
   },
@@ -42868,6 +42608,10 @@
     "Symbol": "UPSX"
   },
   {
+    "Company": "ProShares Ultra FTSE Europe",
+    "Symbol": "UPV"
+  },
+  {
     "Company": "ProShares Ultra Utilities",
     "Symbol": "UPW"
   },
@@ -42894,6 +42638,10 @@
   {
     "Company": "Urban Outfitters Inc",
     "Symbol": "URBN"
+  },
+  {
+    "Company": "ProShares Ultra Real Estate",
+    "Symbol": "URE"
   },
   {
     "Company": "Ur-Energy Inc.",
@@ -42994,6 +42742,10 @@
   {
     "Company": "SGI Enhanced Core ETF",
     "Symbol": "USDX"
+  },
+  {
+    "Company": "USCF Energy Commodity Strategy Absolute Return Fund",
+    "Symbol": "USE"
   },
   {
     "Company": "United Maritime Corporation Common Stock",
@@ -43196,10 +42948,6 @@
     "Symbol": "UTRE"
   },
   {
-    "Company": "UTStarcom Holdings Corp Ordinary Shares (Cayman Islands)",
-    "Symbol": "UTSI"
-  },
-  {
     "Company": "Direxion Daily Utilities Bull 3X ETF",
     "Symbol": "UTSL"
   },
@@ -43256,6 +43004,10 @@
     "Symbol": "UWMC"
   },
   {
+    "Company": "Roundhill Uranium ETF",
+    "Symbol": "UX"
+  },
+  {
     "Company": "FT Vest U.S. Equity Uncapped Accelerator ETF - April",
     "Symbol": "UXAP"
   },
@@ -43266,10 +43018,6 @@
   {
     "Company": "Uxin Limited ADS",
     "Symbol": "UXIN"
-  },
-  {
-    "Company": "FT Vest U.S. Equity Uncapped Accelerator ETF - January",
-    "Symbol": "UXJA"
   },
   {
     "Company": "FT Vest U.S. Equity Uncapped Accelerator ETF - July",
@@ -43308,10 +43056,6 @@
     "Symbol": "UYSCU"
   },
   {
-    "Company": "Array Digital Infrastructure, Inc. 6.250% Senior Notes due 2069",
-    "Symbol": "UZD"
-  },
-  {
     "Company": "Array Digital Infrastructure, Inc. 5.500% Senior Notes due 2070",
     "Symbol": "UZE"
   },
@@ -43328,10 +43072,6 @@
     "Symbol": "VABK"
   },
   {
-    "Company": "Virtus Newfleet ABS/MBS ETF",
-    "Symbol": "VABS"
-  },
-  {
     "Company": "MARRIOTT VACATIONS WORLDWIDE CORPORATION",
     "Symbol": "VAC"
   },
@@ -43342,6 +43082,14 @@
   {
     "Company": "Voyager Acquisition Corp Unit",
     "Symbol": "VACHU"
+  },
+  {
+    "Company": "Voyager Acquisition Corp Warrants",
+    "Symbol": "VACHW"
+  },
+  {
+    "Company": "Viking Acquisition Corp. I",
+    "Symbol": "VACI"
   },
   {
     "Company": "Viking Acquisition Corp. I Units, each consisting of one Class A ordinary share and one-third of one Warrant",
@@ -43362,6 +43110,10 @@
   {
     "Company": "VALE S.A.",
     "Symbol": "VALE"
+  },
+  {
+    "Company": "Leverage Shares 2X Long VALE Daily ETF",
+    "Symbol": "VALG"
   },
   {
     "Company": "Valneva SE American Depositary Shares",
@@ -43416,8 +43168,24 @@
     "Symbol": "VBCD"
   },
   {
+    "Company": "Vanguard Target Maturity 2031 Corporate Bond ETF",
+    "Symbol": "VBCE"
+  },
+  {
     "Company": "Vanguard Target Maturity 2032 Corporate Bond ETF",
     "Symbol": "VBCF"
+  },
+  {
+    "Company": "Vanguard Target Maturity 2033 Corporate Bond ETF",
+    "Symbol": "VBCG"
+  },
+  {
+    "Company": "Vanguard Target Maturity 2034 Corporate Bond ETF",
+    "Symbol": "VBCH"
+  },
+  {
+    "Company": "Vanguard Target Maturity 2035 Corporate Bond ETF",
+    "Symbol": "VBCI"
   },
   {
     "Company": "Vanguard Target Maturity 2036 Corporate Bond ETF",
@@ -43484,6 +43252,10 @@
     "Symbol": "VCIT"
   },
   {
+    "Company": "Virtus Duff & Phelps Clean Energy ETF",
+    "Symbol": "VCLN"
+  },
+  {
     "Company": "Vanguard Long-Term Corporate Bond ETF",
     "Symbol": "VCLT"
   },
@@ -43532,12 +43304,20 @@
     "Symbol": "VDE"
   },
   {
+    "Company": "Vanguard Developed Markets ex-US Growth Index ETF",
+    "Symbol": "VDG"
+  },
+  {
     "Company": "Virtus International Dividend ETF",
     "Symbol": "VDI"
   },
   {
     "Company": "Vanguard Wellington Dividend Growth Active ETF",
     "Symbol": "VDIG"
+  },
+  {
+    "Company": "Vanguard Developed Markets ex-US Value Index ETF",
+    "Symbol": "VDV"
   },
   {
     "Company": "Vanguard FTSE Developed Markets ETF",
@@ -43800,10 +43580,6 @@
     "Symbol": "VIAV"
   },
   {
-    "Company": "AdvisorShares Vice ETF",
-    "Symbol": "VICE"
-  },
-  {
     "Company": "VICI Properties Inc. Common Stock",
     "Symbol": "VICI"
   },
@@ -43916,10 +43692,6 @@
     "Symbol": "VLGEA"
   },
   {
-    "Company": "Harbor AlphaEdge Large Cap Value ETF",
-    "Symbol": "VLLU"
-  },
-  {
     "Company": "Valens Semiconductor Ltd.",
     "Symbol": "VLN"
   },
@@ -43962,10 +43734,6 @@
   {
     "Company": "Valley National Bancorp 5.50% Fixed-to-Floating Rate Non-Cumulative Perpetual Preferred Stock, Series B",
     "Symbol": "VLYPO"
-  },
-  {
-    "Company": "Valley National Bancorp 6.25% Fixed-to-Floating Rate Non-Cumulative Perpetual Preferred Stock, Series A",
-    "Symbol": "VLYPP"
   },
   {
     "Company": "Vision Marine Technologies Inc. Common Shares",
@@ -44186,14 +43954,6 @@
   {
     "Company": "Vera Bradley, Inc.",
     "Symbol": "VRA"
-  },
-  {
-    "Company": "Virtus Real Asset Income ETF",
-    "Symbol": "VRAI"
-  },
-  {
-    "Company": "The Glimpse Group, Inc. Common Stock",
-    "Symbol": "VRAR"
   },
   {
     "Company": "Virax Biolabs Group Limited Ordinary Shares",
@@ -44572,6 +44332,10 @@
     "Symbol": "VYGR"
   },
   {
+    "Company": "Inverse VIX Short-Term Futures ETNs due March 22, 2045",
+    "Symbol": "VYLD"
+  },
+  {
     "Company": "Vanguard High Dividend Yield ETF",
     "Symbol": "VYM"
   },
@@ -44606,6 +44370,10 @@
   {
     "Company": "Westamerica Bancorporation",
     "Symbol": "WABC"
+  },
+  {
+    "Company": "Western Asset Bond ETF",
+    "Symbol": "WABF"
   },
   {
     "Company": "WaFd, Inc. Common Stock",
@@ -44686,6 +44454,10 @@
   {
     "Company": "WBI BullBear Value 3000 ETF",
     "Symbol": "WBIF"
+  },
+  {
+    "Company": "WBI BullBear Quality 3000 ETF",
+    "Symbol": "WBIL"
   },
   {
     "Company": "Webster Financial Corporation Waterbury",
@@ -44948,6 +44720,10 @@
     "Symbol": "WHF"
   },
   {
+    "Company": "WhiteHorse Finance, Inc. 7.875% Notes due 2028",
+    "Symbol": "WHFCL"
+  },
+  {
     "Company": "WESTWOOD HOLDINGS GROUP, INC.",
     "Symbol": "WHG"
   },
@@ -44978,6 +44754,10 @@
   {
     "Company": "Western Asset Inflation-Linked Income Fund",
     "Symbol": "WIA"
+  },
+  {
+    "Company": "G Willi-Food International Ltd",
+    "Symbol": "WILC"
   },
   {
     "Company": "WisdomTree International Adaptive Moving Average Fund",
@@ -45048,10 +44828,6 @@
     "Symbol": "WLAC"
   },
   {
-    "Company": "Willow Lane Acquisition Corp. Unit",
-    "Symbol": "WLACU"
-  },
-  {
     "Company": "Willow Lane Acquisition Corp. Warrants",
     "Symbol": "WLACW"
   },
@@ -45086,10 +44862,6 @@
   {
     "Company": "Willow Lane Acquisition Corp. II Unit",
     "Symbol": "WLIIU"
-  },
-  {
-    "Company": "Willow Lane Acquisition Corp. II Warrants",
-    "Symbol": "WLIIW"
   },
   {
     "Company": "Westlake Corporation",
@@ -45136,10 +44908,6 @@
     "Symbol": "WMS"
   },
   {
-    "Company": "Weitz Multisector Bond ETF",
-    "Symbol": "WMSB"
-  },
-  {
     "Company": "Walmart Inc. Common Stock",
     "Symbol": "WMT"
   },
@@ -45170,10 +44938,6 @@
   {
     "Company": "Wolfspeed, Inc.",
     "Symbol": "WOLF"
-  },
-  {
-    "Company": "Impact Shares Womens Empowerment ETF Trading",
-    "Symbol": "WOMN"
   },
   {
     "Company": "iShares Global Timber & Forestry ETF",
@@ -45284,10 +45048,6 @@
     "Symbol": "WSFS"
   },
   {
-    "Company": "Warren Street Global Equity ETF",
-    "Symbol": "WSGE"
-  },
-  {
     "Company": "WeShop Holdings Limited Class A Ordinary Shares",
     "Symbol": "WSHP"
   },
@@ -45336,10 +45096,6 @@
     "Symbol": "WTBA"
   },
   {
-    "Company": "WisdomTree Bianco Total Return Fund",
-    "Symbol": "WTBN"
-  },
-  {
     "Company": "Waton Financial Limited Ordinary Shares",
     "Symbol": "WTF"
   },
@@ -45376,8 +45132,16 @@
     "Symbol": "WTID"
   },
   {
+    "Company": "WisdomTree Inflation Plus Fund",
+    "Symbol": "WTIP"
+  },
+  {
     "Company": "MicroSectors Energy 3x Leveraged ETNs",
     "Symbol": "WTIU"
+  },
+  {
+    "Company": "WisdomTree Efficient Long/Short U.S. Equity Fund",
+    "Symbol": "WTLS"
   },
   {
     "Company": "White Mountains Insurance Group Ltd.",
@@ -45528,10 +45292,6 @@
     "Symbol": "XAR"
   },
   {
-    "Company": "FT Vest U.S. Equity Enhance & Moderate Buffer ETF - August",
-    "Symbol": "XAUG"
-  },
-  {
     "Company": "BondBloxx B-Rated USD High Yield Corporate Bond ETF",
     "Symbol": "XB"
   },
@@ -45626,10 +45386,6 @@
   {
     "Company": "Global X S&P 500 Collar 95-110 ETF",
     "Symbol": "XCLR"
-  },
-  {
-    "Company": "SPDR Index Shares Fund State Street SPDR S&P Emerging Markets ex-China ETF",
-    "Symbol": "XCNY"
   },
   {
     "Company": "FundX ETF",
@@ -45772,6 +45528,10 @@
     "Symbol": "XHYE"
   },
   {
+    "Company": "BondBloxx USD High Yield Bond Financial & REIT Sector ETF",
+    "Symbol": "XHYF"
+  },
+  {
     "Company": "BondBloxx USD High Yield Bond Telecom, Media & Technology Sector ETF",
     "Symbol": "XHYT"
   },
@@ -45784,12 +45544,8 @@
     "Symbol": "XIFR"
   },
   {
-    "Company": "FT Vest U.S. Equity Buffer & Premium Income ETF - June",
-    "Symbol": "XIJN"
-  },
-  {
-    "Company": "FT Vest U.S. Equity Buffer & Premium Income  ETF - March",
-    "Symbol": "XIMR"
+    "Company": "FT Vest U.S. Equity Buffer & Premium Income ETF - September",
+    "Symbol": "XISE"
   },
   {
     "Company": "State Street SPDR FactSet Innovative Technology ETF",
@@ -45806,10 +45562,6 @@
   {
     "Company": "iShares ESG Select Screened S&P Small-Cap ETF",
     "Symbol": "XJR"
-  },
-  {
-    "Company": "FT Vest U.S. Equity Enhance & Moderate Buffer ETF - July",
-    "Symbol": "XJUL"
   },
   {
     "Company": "FT Vest U.S. Equity Enhance & Moderate Buffer ETF - June",
@@ -45882,10 +45634,6 @@
   {
     "Company": "State Street Real Estate Select Sector SPDR Premium Income ETF",
     "Symbol": "XLRI"
-  },
-  {
-    "Company": "State Street Consumer Staples Select Sector SPDR Premium Income ETF",
-    "Symbol": "XLSI"
   },
   {
     "Company": "State Street US Sector Rotation ETF",
@@ -45970,6 +45718,10 @@
   {
     "Company": "Xunlei Limited",
     "Symbol": "XNET"
+  },
+  {
+    "Company": "FT Vest U.S. Equity Enhance & Moderate Buffer ETF - November",
+    "Symbol": "XNOV"
   },
   {
     "Company": "State Street SPDR NYSE Technology ETF",
@@ -46084,10 +45836,6 @@
     "Symbol": "XPON"
   },
   {
-    "Company": "ProShares Ultra FTSE China 50 of PROSHARES TRUST",
-    "Symbol": "XPP"
-  },
-  {
     "Company": "Expro Group Holdings N.V.",
     "Symbol": "XPRO"
   },
@@ -46106,10 +45854,6 @@
   {
     "Company": "FundX Conservative ETF",
     "Symbol": "XRLX"
-  },
-  {
-    "Company": "Global X S&P 500 Risk Managed Income ETF",
-    "Symbol": "XRMI"
   },
   {
     "Company": "Chiron Real Estate Inc.",
@@ -46236,12 +45980,20 @@
     "Symbol": "XT"
   },
   {
+    "Company": "Innovator U.S. Equity Accelerated Plus ETF - April",
+    "Symbol": "XTAP"
+  },
+  {
     "Company": "BondBloxx Bloomberg Ten Year Target Duration US Treasury ETF",
     "Symbol": "XTEN"
   },
   {
     "Company": "XTI Aerospace, Inc. Common Stock",
     "Symbol": "XTIA"
+  },
+  {
+    "Company": "Innovator U.S. Equity Accelerated Plus ETF - January",
+    "Symbol": "XTJA"
   },
   {
     "Company": "Innovator U.S. Equity Accelerated Plus ETF - July",
@@ -46416,10 +46168,6 @@
     "Symbol": "YCY"
   },
   {
-    "Company": "AA Mission Acquisition Corp. II Units, each consisting of one Class A ordinary share and one-half of one warrant",
-    "Symbol": "YCY.U"
-  },
-  {
     "Company": "AA Mission Acquisition Corp. II Warrants, each whole warrant entitles to purchase one Class A ordinary share at a price of $11.50 per share",
     "Symbol": "YCY.WS"
   },
@@ -46506,10 +46254,6 @@
   {
     "Company": "Principal Active High Yield ETF",
     "Symbol": "YLD"
-  },
-  {
-    "Company": "Legg Mason ETF Investment Trust Franklin ClearBridge Enhanced Income ETF",
-    "Symbol": "YLDE"
   },
   {
     "Company": "YieldMax Magnificent 7 Fund of Option Income ETFs",
@@ -46612,6 +46356,10 @@
     "Symbol": "YUMC"
   },
   {
+    "Company": "ProShares Short FTSE China 50 of PROSHARES TRUST",
+    "Symbol": "YXI"
+  },
+  {
     "Company": "YXT.COM GROUP HOLDING LIMITED American Depository Shares",
     "Symbol": "YXT"
   },
@@ -46626,6 +46374,10 @@
   {
     "Company": "Amplify CEF High Income ETF",
     "Symbol": "YYY"
+  },
+  {
+    "Company": "Amplify Municipal CEF High Income ETF",
+    "Symbol": "YYYM"
   },
   {
     "Company": "Zillow Group, Inc. Class C Capital Stock",
@@ -46772,6 +46524,10 @@
     "Symbol": "ZHOG"
   },
   {
+    "Company": "The Acquirers Fund",
+    "Symbol": "ZIG"
+  },
+  {
     "Company": "ZIM Integrated Shipping Services Ltd.",
     "Symbol": "ZIM"
   },
@@ -46786,10 +46542,6 @@
   {
     "Company": "ZipRecruiter, Inc.",
     "Symbol": "ZIP"
-  },
-  {
-    "Company": "Innovator Equity Defined Protection ETF - 1 Yr January",
-    "Symbol": "ZJAN"
   },
   {
     "Company": "ZJK Industrial Co., Ltd. Class A Ordinary Shares",
@@ -46844,6 +46596,10 @@
     "Symbol": "ZMAY"
   },
   {
+    "Company": "The RBB Fund, Inc. F/m Ultrashort Tax-Free Municipal ETF",
+    "Symbol": "ZMUN"
+  },
+  {
     "Company": "Zeta Network Group Class A Ordinary Shares",
     "Symbol": "ZNB"
   },
@@ -46854,10 +46610,6 @@
   {
     "Company": "Zentalis Pharmaceuticals, Inc. Common Stock",
     "Symbol": "ZNTL"
-  },
-  {
-    "Company": "Innovator Equity Defined Protection ETF - 1 Yr October",
-    "Symbol": "ZOCT"
   },
   {
     "Company": "CleanCore Solutions Inc.",
@@ -46918,10 +46670,6 @@
   {
     "Company": "ZTO Express (Cayman) Inc. American Depositary Shares, each representing one Class A ordinary share",
     "Symbol": "ZTO"
-  },
-  {
-    "Company": "F/m High Yield 100 ETF",
-    "Symbol": "ZTOP"
   },
   {
     "Company": "Virtus Total Return Fund Inc.",

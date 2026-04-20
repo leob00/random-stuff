@@ -188,7 +188,9 @@ const AnthropicChatBot = () => {
             ) : (
               <Box>
                 <ScrollIntoView />
-                <Box minHeight={100}>{currentResponseText && <Typography>{currentResponseText}</Typography>}</Box>
+                <Box minHeight={100}>
+                  {currentResponseText && <Typography sx={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}>{currentResponseText}</Typography>}
+                </Box>
               </Box>
             )}
 
