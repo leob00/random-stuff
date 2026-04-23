@@ -99,3 +99,9 @@ export function formatDecimalPriceChange(price: number, value: number) {
   }
   return result
 }
+
+export function parseToNumberOrNull(value: any): number | null {
+  const parsed = Number(value)
+  // isNaN checks if the conversion resulted in an invalid number
+  return isNaN(parsed) || value === null || value === '' ? null : parsed
+}

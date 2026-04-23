@@ -11,6 +11,7 @@ import dayjs from 'dayjs'
 import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import { weakEncryptBase64 } from 'lib/backend/encryption/useEncryptor'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
+import { parseToNumberOrNull } from 'lib/util/numberUtil'
 
 type Model = {
   year: number
@@ -46,12 +47,12 @@ const AdminEarningsTable = ({ model, setModel, onRefresh }: { model: AdminEarnin
   }
   const handleUpdateActual = (val: string | null) => {
     if (model.selectedItem) {
-      setModel({ ...model, selectedItem: { ...model.selectedItem, ActualEarnings: val ? Number(val) : null } })
+      setModel({ ...model, selectedItem: { ...model.selectedItem, ActualEarnings: parseToNumberOrNull(val) } })
     }
   }
   const handleUpdateEstimated = (val: string | null) => {
     if (model.selectedItem) {
-      setModel({ ...model, selectedItem: { ...model.selectedItem, EstimatedEarnings: val ? Number(val) : null } })
+      setModel({ ...model, selectedItem: { ...model.selectedItem, EstimatedEarnings: parseToNumberOrNull(val) } })
     }
   }
   const handleSaveSelectedItem = async () => {
