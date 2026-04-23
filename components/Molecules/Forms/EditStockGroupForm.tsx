@@ -20,7 +20,7 @@ const EditStockGroupForm = ({ options, defaultValue, onSubmitted }: { options: D
   }
   return (
     <Box>
-      <DynamicForm<FormInput> inputs={formHelper.inputs()} onSubmitted={handleSubmitted} />
+      <DynamicForm inputs={formHelper.inputs()} onSubmitted={handleSubmitted} />
     </Box>
   )
 }

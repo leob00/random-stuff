@@ -106,7 +106,6 @@ export default function DynamicForm<T extends FieldValues>({
           </Box>
         ))}
 
-        <HorizontalDivider />
         <Box display='flex' justifyContent={'flex-end'} pt={2}>
           <PrimaryButton text={'Save'} type='submit'></PrimaryButton>
         </Box>

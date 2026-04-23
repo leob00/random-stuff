@@ -12,6 +12,8 @@ import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import EditableStockListNew from './EditableStockListNew'
 import { getSortablePropsFromArray, SortableItem } from 'components/dnd/dndUtil'
 import DragAndDropSort from 'components/dnd/DragAndDropSort'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
+import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 
 const EditList = ({
   data,
@@ -102,11 +104,13 @@ const EditList = ({
           <Box>
             {!isLoading && (
               <>
-                <Box display={'flex'} justifyContent={'flex-end'} pt={2}>
+                <Box display={'flex'} pt={2}>
                   {!showReorder ? (
-                    <LinkButton onClick={() => setShowReorder(true)}>reorder</LinkButton>
+                    <Box display={'flex'}>
+                      <PrimaryButton size='small' text='reorder' onClicked={() => setShowReorder(true)} />
+                    </Box>
                   ) : (
-                    <LinkButton onClick={() => setShowReorder(false)}>close</LinkButton>
+                    <SecondaryButton size='small' text='cancel' onClicked={() => setShowReorder(false)} />
                   )}
                 </Box>
                 {showReorder ? (
@@ -138,13 +142,13 @@ const EditList = ({
             </DialogTitle>
             <DialogContent>
               <DialogContentText id='alert-dialog-description' sx={{ pt: 3 }}>
-                <Typography>You can assign a new group name or pick from existing ones.</Typography>
+                You can assign a new group name or pick from existing ones.
               </DialogContentText>
               <Box py={4}>
                 <EditStockGroupForm options={groups} onSubmitted={handleSaveGroupName} defaultValue={editItem?.GroupName!} />
               </Box>
+              <HorizontalDivider />
             </DialogContent>
-            <HorizontalDivider />
           </Dialog>
         )}
       </Box>

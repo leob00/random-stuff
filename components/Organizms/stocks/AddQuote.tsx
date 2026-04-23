@@ -27,18 +27,6 @@ const AddQuote = ({
   const alreadyExists = stockListMap.has(quote.Symbol)
   return (
     <>
-      <Box display={'flex'} justifyContent={'flex-end'} py={1}>
-        <CloseIconButton onClicked={handleCloseAddQuote} />
-      </Box>
-      <StockListItem
-        item={quote}
-        expand={true}
-        marketCategory={'stocks'}
-        showGroupName={true}
-        scrollIntoView={scrollIntoView}
-        userProfile={userProfile}
-        disabled
-      />
       {alreadyExists && showAddToListButton && (
         <CenterStack>
           <Alert severity='success'>
@@ -47,7 +35,7 @@ const AddQuote = ({
         </CenterStack>
       )}
       <Stack py={1} direction={'row'} spacing={1} alignItems='center'>
-        <Stack flexGrow={1}>
+        <Stack>
           <Box textAlign={'right'}>
             {!alreadyExists && showAddToListButton && (
               <PrimaryButton
@@ -64,6 +52,18 @@ const AddQuote = ({
           <PassiveButton text={'close'} onClick={handleCloseAddQuote} size='small' />
         </Stack>
       </Stack>
+      <Box display={'flex'} justifyContent={'flex-end'} py={1}>
+        <CloseIconButton onClicked={handleCloseAddQuote} />
+      </Box>
+      <StockListItem
+        item={quote}
+        expand={true}
+        marketCategory={'stocks'}
+        showGroupName={true}
+        scrollIntoView={scrollIntoView}
+        userProfile={userProfile}
+        disabled
+      />
     </>
   )
 }
