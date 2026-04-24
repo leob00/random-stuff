@@ -12,7 +12,7 @@ export default async function Page() {
   return (
     <>
       <PageHeader text='Commodities'>
-        <OtherMarketsPageContextMenu />
+        <OtherMarketsPageContextMenu mutateKey='commodities' />
       </PageHeader>
       <Box>
         <Suspense fallback={<ComponentLoader />}>

@@ -75,6 +75,9 @@ const EconChart = ({
 
   lineChartOptions.plugins!.tooltip!.callbacks = {
     ...lineChartOptions.plugins!.tooltip!.callbacks,
+    title: (tooltipItems) => {
+      return ``
+    },
     label: (tooltipItems) => {
       return ` ${dayjs(tooltipItems.label).format('dddd')}, ${tooltipItems.label}`
     },

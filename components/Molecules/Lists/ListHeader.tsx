@@ -64,7 +64,7 @@ const ListHeader = ({
   const ListHeaderContent = () => {
     return (
       <>
-        {!disabled ? (
+        {!disabled && !selected ? (
           <HoverEffect>
             <ListHeaderStack
               contextMenu={contextMenu}

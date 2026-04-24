@@ -4,11 +4,12 @@ import { Box } from '@mui/material'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import CryptosDisplay from 'components/Organizms/crypto/CryptosDisplay'
 import { useSwrHelper } from 'hooks/useSwrHelper'
+import { MutateKey } from 'lib/backend/api/models/mutateKeys'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 
 const CryptosLayout = () => {
-  const mutateKey = 'crypto'
+  const mutateKey: MutateKey = 'crypto'
   const dataFn = async () => {
     const endPoint = `/Crypto`
 

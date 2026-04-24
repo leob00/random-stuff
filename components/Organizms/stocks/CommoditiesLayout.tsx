@@ -3,14 +3,15 @@ import { Box } from '@mui/material'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import StockTable from './StockTable'
-import ScrollIntoView from 'components/Atoms/Boxes/ScrollIntoView'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import { orderBy } from 'lodash'
+import { MutateKey } from 'lib/backend/api/models/mutateKeys'
 
 const CommoditiesLayout = () => {
-  const mutateKey = 'commodities'
+  const mutateKey: MutateKey = 'commodities'
+
   const dataFn = async () => {
     const endPoint = `/Futures`
 

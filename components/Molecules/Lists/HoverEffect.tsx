@@ -6,11 +6,14 @@ import { ReactNode } from 'react'
 const HoverEffect = ({ children }: { children: ReactNode | React.JSX.Element[] }) => {
   const theme = useTheme()
   const StyledBox = styled(Stack)`
-    // & .MuiStack-root {
-    //   border-radius: 7px;
-    //   padding: 0px;
-    //   //color: ${theme.palette.primary.main};
-    // }
+    & .MuiStack-root {
+      border-radius: 8px;
+      padding: 0px;
+      border: 0.02px outset transparent;
+      padding-top: 2px;
+      padding-bottom: 2px;
+      padding-left: 1px;
+    }
 
     &:hover {
       border-radius: 7.8px;
