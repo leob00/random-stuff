@@ -5,7 +5,6 @@ import { apiConnection } from 'lib/backend/api/config'
 import { get } from 'lib/backend/api/fetchFunctions'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
 import StockMarketStatsChart from 'components/Organizms/stocks/charts/StockMarketStatsChart'
-import FadeIn from 'components/Atoms/Animations/FadeIn'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import { MarketHandshake } from 'lib/backend/api/models/zModels'
 
@@ -34,22 +33,20 @@ const StockMarketGlanceWidget = ({
       {showTitle && <CenteredHeader variant='h4' title={'Stock Market Sentiment'} />}
       {data && (
         <Box>
-          <FadeIn>
-            <Box display={'flex'} justifyContent={'center'} flexDirection={'column'}>
-              {!!data.HolidayName && (
-                <>
-                  <Alert severity='info' sx={{ backgroundColor: 'transparent' }}>
-                    <Typography variant='caption'>{`U.S markets are closed for ${data.HolidayName}`}</Typography>
-                  </Alert>
-                </>
-              )}
-              <Typography textAlign={'center'} variant='caption'>{`${dayjs(data.StockStats!.DateModified).format('MM/DD/YYYY: hh:mm A')} EST`}</Typography>
-            </Box>
+          <Box display={'flex'} justifyContent={'center'} flexDirection={'column'}>
+            {!!data.HolidayName && (
+              <>
+                <Alert severity='info' sx={{ backgroundColor: 'transparent' }}>
+                  <Typography variant='caption'>{`U.S markets are closed for ${data.HolidayName}`}</Typography>
+                </Alert>
+              </>
+            )}
+            <Typography textAlign={'center'} variant='caption'>{`${dayjs(data.StockStats!.DateModified).format('MM/DD/YYYY: hh:mm A')} EST`}</Typography>
+          </Box>
 
-            <Box mt={-5}>
-              <StockMarketStatsChart data={data.StockStats!} />
-            </Box>
-          </FadeIn>
+          <Box mt={-5}>
+            <StockMarketStatsChart data={data.StockStats!} />
+          </Box>
         </Box>
       )}
     </Box>
