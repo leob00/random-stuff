@@ -6,11 +6,9 @@ import { MARKS, BLOCKS, INLINES } from '@contentful/rich-text-types'
 import RecipeTagsList from './RecipeTagsList'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import RecipeImage from './RecipeImage'
-import Clickable from 'components/Atoms/Containers/Clickable'
 
 const RecipeLayout = ({ article }: { article: Recipe }) => {
   const tags = article.recipeTagsCollection.items ?? []
-  const handleImageClicked = (item: Recipe) => {}
 
   const options: Options = {
     renderMark: {
@@ -50,8 +48,8 @@ const RecipeLayout = ({ article }: { article: Recipe }) => {
       [BLOCKS.HEADING_5]: (node, children) => <Typography variant='h4'>{children}</Typography>,
       [BLOCKS.HEADING_6]: (node, children) => <Typography variant='h4'>{children}</Typography>,
 
-      //[BLOCKS.OL_LIST]: (node, children) => <Typography variant='h4'>{children}</Typography>,
-      //[BLOCKS.UL_LIST]: (node, children) => <Typography variant='h4'>{children}</Typography>,
+      // [BLOCKS.OL_LIST]: (node, children) => <Typography variant='h4'>{children}</Typography>,
+      // [BLOCKS.UL_LIST]: (node, children) => <Typography variant='h4'>{children}</Typography>,
 
       [BLOCKS.LIST_ITEM]: (node, children) => (
         <Typography py={1} variant='h5' fontWeight={'bold'}>

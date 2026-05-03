@@ -27,7 +27,7 @@ const RemoteImage = ({
     <>
       <Paper sx={{ position: 'relative', width: width, height: height, borderRadius: '16px' }} elevation={4}>
         <NImage
-          style={style ? style : { borderRadius: '16px', objectFit: 'cover' }}
+          style={style ? style : { borderRadius: '12px', objectFit: 'cover' }}
           src={url}
           alt={title}
           placeholder='blur'

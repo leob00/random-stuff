@@ -32,7 +32,6 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
   let newOptions = [...options, ...recipeTagOptions]
   newOptions = sortArray(newOptions, ['text'], ['asc'])
-  const selectedOption = options.find((m) => m.value === recipe.sys.id)
 
   return <RecipeLayout article={recipe} />
 }

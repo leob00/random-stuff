@@ -88,29 +88,6 @@ export async function getRecipeTagOptions(recipes: Recipe[]) {
   return result
 }
 
-export async function getFeaturedRecipes(existingFeatured: Recipe[]) {
-  const siteStatsKey = 'site-stats'
-  const featuredRecipesExpirationMinutes = 720 // 12 hours
-
-  const statsRep = await getItem(siteStatsKey)
-  const stats = JSON.parse(statsRep.data) as SiteStats
-  const needsRefresh = dayjs(stats.recipes.lastRefreshDate).add(featuredRecipesExpirationMinutes, 'minute').isBefore(dayjs())
-  if (needsRefresh) {
-    stats.recipes.featured = [...existingFeatured]
-    stats.recipes.lastRefreshDate = dayjs().format()
-    await putItem({
-      key: siteStatsKey,
-      category: siteStatsKey,
-      data: stats,
-      count: 1,
-      expiration: 0,
-      last_modified: getUtcNow().format(),
-    })
-  }
-  const featured = needsRefresh ? existingFeatured : stats.recipes.featured
-  return featured
-}
-
 const getRecipes = async (query: string) => {
   let body = { query: query }
   const resp = await post(url, body)

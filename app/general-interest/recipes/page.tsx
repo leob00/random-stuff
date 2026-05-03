@@ -32,7 +32,7 @@ export default async function RecipesPage() {
   const allItems = await getAllRecipes()
   const statsRep = await getItem(siteStatsKey)
   const stats = JSON.parse(statsRep.data) as SiteStats
-  let featured = take(shuffle(allItems), 10)
+  let featured = take(shuffle(allItems), 17)
 
   const now = getUtcNow()
   let lastRefreshDate = dayjs(stats.recipes.lastRefreshDate)
