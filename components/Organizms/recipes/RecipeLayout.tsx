@@ -1,5 +1,5 @@
 'use client'
-import { Box, Typography } from '@mui/material'
+import { Box, Link, Typography } from '@mui/material'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { documentToReactComponents, Options } from '@contentful/rich-text-react-renderer'
 import { MARKS, BLOCKS, INLINES } from '@contentful/rich-text-types'
@@ -57,12 +57,12 @@ const RecipeLayout = ({ article }: { article: Recipe }) => {
         </Typography>
       ),
 
-      // Map Hyperlinks to MUI Link
-      // [INLINES.HYPERLINK]: (node, children) => (
-      //   <Link href={node.data.uri} target='_blank' rel='noopener noreferrer'>
-      //     {children}
-      //   </Link>
-      // ),
+      //Map Hyperlinks to MUI Link
+      [INLINES.HYPERLINK]: (node, children) => (
+        <Link href={node.data.uri} target='_blank' rel='noopener noreferrer'>
+          {children}
+        </Link>
+      ),
       // Example: Embedding an image or entry (optional)
       [BLOCKS.EMBEDDED_ASSET]: (node) => <Box component='img' src={node.data.target.fields.file.url} alt='Contentful Image' />,
     },
