@@ -209,13 +209,7 @@ const TaskList = ({
                 <Box key={item.id}>
                   <Box pb={2}>
                     <Box key={item.id}>
-                      <TaskItem
-                        task={item}
-                        index={i}
-                        taskCount={tasks.length}
-                        handleCompleteTaskClick={handleCompleteTaskClick}
-                        handleTaskClick={handleTaskClick}
-                      />
+                      <TaskItem task={item} handleCompleteTaskClick={handleCompleteTaskClick} handleTaskClick={handleTaskClick} />
                     </Box>
                   </Box>
                 </Box>

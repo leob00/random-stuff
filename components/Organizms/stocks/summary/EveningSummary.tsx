@@ -9,7 +9,6 @@ import EarningsSummary from './earnings/EarningsSummary'
 import { usePolling } from 'hooks/usePolling'
 import { useEffect } from 'react'
 import { mutate } from 'swr'
-import { sortArray } from 'lib/util/collections'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import RecentlySearchedStocksSummary from './stocks/RecentlySearchedStocksSummary'
 import TopMoversSummary from './stocks/TopMoversSummary'
@@ -19,8 +18,19 @@ import { filterResult } from '../earnings/earningsCalendar'
 import CryptoSummary from './CryptoSummary'
 import { getRandomInteger } from 'lib/util/numberUtil'
 import { orderBy } from 'lodash'
+import { StockStats } from 'lib/backend/api/models/zModels'
+import { searchDynamoItemsByCategory } from 'lib/backend/csr/nextApiWrapper'
+import { sortArray } from 'lib/util/collections'
+import SentimentSummary from './stocks/SentimentSummary'
+import { useRouter } from 'next/navigation'
+
+type Model = {
+  allEarnings: StockEarning[]
+  dailySentiment: StockStats | null
+}
 
 const EveningSummary = () => {
+  const router = useRouter()
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
   const mutateKey = 'stock-reported-earnings-all'
   const dataFn = async () => {
@@ -32,6 +42,11 @@ const EveningSummary = () => {
     })
     const today = dayjs(dayjs(getCurrentDateTimeUsEastern()).format('YYYY-MM-DD')).format()
     let result = filterResult(mapped, today)
+    const sentimentResp = await searchDynamoItemsByCategory('stock-reports[daily-sentiment]')
+    const sentimentResults: StockStats[] = sentimentResp.map((item) => JSON.parse(item.data) as StockStats)
+
+    const sortedSentiments = sortArray(sentimentResults, ['MarketDate'], ['desc'])
+    const lastSentiment = sortedSentiments.length > 0 ? sortedSentiments[0] : null
     if (result.length === 0) {
       result = orderBy(
         mapped.filter((m) => dayjs(m.ReportDate).isAfter(dayjs(today))),
@@ -39,7 +54,11 @@ const EveningSummary = () => {
         ['asc', 'desc'],
       )
     }
-    return result
+    const res: Model = {
+      allEarnings: result,
+      dailySentiment: lastSentiment,
+    }
+    return res
   }
 
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
@@ -48,6 +67,9 @@ const EveningSummary = () => {
 
   const handleRefresh = () => {
     mutate(mutateKey)
+  }
+  const onGoToPage = () => {
+    router.push('/market/stocks/sentiment')
   }
 
   useEffect(() => {
@@ -64,6 +86,7 @@ const EveningSummary = () => {
     <Box>
       {!isValidatingProfile && (
         <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={{ xs: 'center', md: 'unset' }}>
+          <SentimentSummary data={data?.dailySentiment} onRefresh={handleRefresh} onGoToPage={onGoToPage} isLoading={isLoading} />
           <Box>
             <BorderedBox>
               <TopMoversSummary userProfile={userProfile} />
@@ -78,7 +101,7 @@ const EveningSummary = () => {
             <BorderedBox>
               <EarningsSummary
                 userProfile={userProfile}
-                data={data}
+                data={data?.allEarnings}
                 title='Scheduled Earnings'
                 isLoading={isLoading || isValidatingProfile}
                 onRefreshRequest={handleRefresh}

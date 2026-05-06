@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import TopMoversSummary from './stocks/TopMoversSummary'
 import BorderedBox from 'components/Atoms/Boxes/BorderedBox'
 import { serverGetFetch, StockEarning } from 'lib/backend/api/qln/qlnApi'
@@ -19,11 +19,10 @@ import { orderBy } from 'lodash'
 import { searchDynamoItemsByCategory } from 'lib/backend/csr/nextApiWrapper'
 import { StockStats } from 'lib/backend/api/models/zModels'
 import { sortArray } from 'lib/util/collections'
-import StockMarketStatsChart from '../charts/StockMarketStatsChart'
-import SummaryTitle from './SummaryTitle'
 import CommoditiesSummary from './CommoditiesSummary'
 import CryptoSummary from './CryptoSummary'
 import { useRouter } from 'next/navigation'
+import SentimentSummary from './stocks/SentimentSummary'
 
 type Model = {
   todayScheduledEarnings: StockEarning[]
@@ -94,19 +93,7 @@ const MidMarketSummary = () => {
     <Box>
       {!isValidatingProfile && (
         <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={{ xs: 'center', md: 'unset' }}>
-          <Box>
-            <BorderedBox width={'100%'} minWidth={300} minHeight={513}>
-              <Box minWidth={300} minHeight={513}>
-                {data && data.dailySentiment && (
-                  <Box height={513}>
-                    <SummaryTitle title={`Daily Sentiment`} onRefresh={handleRefresh} onGoToPage={onGoToPage} />
-                    <Typography variant='body2' textAlign={'center'}>{`${dayjs(data.dailySentiment.MarketDate).format('MM/DD/YYYY')}`}</Typography>
-                    <StockMarketStatsChart data={data.dailySentiment} isLoading={isLoading || isValidatingProfile} />
-                  </Box>
-                )}
-              </Box>
-            </BorderedBox>
-          </Box>
+          <SentimentSummary data={data?.dailySentiment} onRefresh={handleRefresh} onGoToPage={onGoToPage} isLoading={isLoading} />
           <Box>
             <BorderedBox>
               <TopMoversSummary userProfile={userProfile} />

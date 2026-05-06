@@ -14,8 +14,8 @@ const RecipeSmallTeaser = ({ id, item, imageWidth = 380, imageHeight = 430 }: { 
   return (
     <Box minHeight={278}>
       <HoverEffect>
-        <Box px={1} pb={1} sx={{ border: `outset 1px ${theme.palette.info.main}`, borderRadius: '8px' }} minHeight={275}>
-          <Box pt={2}>
+        <Box pt={2} px={1} pb={1} sx={{ border: `outset 1px ${theme.palette.info.main}`, borderRadius: '7.8px' }} minHeight={275}>
+          <Box>
             {item.heroImage && (
               <Box display={'flex'}>
                 <Link href={`${baseUrl}${item.sys.id}?ret=/general-interest/recipeTags/tag/${id}`} component={NLink}>

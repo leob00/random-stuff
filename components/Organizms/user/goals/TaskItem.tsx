@@ -9,14 +9,10 @@ import { useState } from 'react'
 
 const TaskItem = ({
   task,
-  taskCount,
-  index,
   handleTaskClick,
   handleCompleteTaskClick,
 }: {
   task: UserTask
-  taskCount: number
-  index: number
   handleTaskClick: (item: UserTask) => void
   handleCompleteTaskClick: (checked: boolean, item: UserTask) => void
 }) => {
@@ -42,12 +38,12 @@ const TaskItem = ({
                   handleTaskClick(task)
                 }}
               >
-                <Typography textAlign={'left'} variant='subtitle1'>
+                <Typography textAlign={'left'} variant='subtitle1' color={theme.palette.primary.main}>
                   {`${task.body && task.body.length > 0 ? task.body : 'not set'}`}
                 </Typography>
               </LinkButton2>
               <Stack flexDirection='row' flexGrow={1} justifyContent='flex-end' alignContent={'flex-end'} alignItems={'center'}>
-                <Switch color={isCompleted ? 'success' : 'default'} checked={isCompleted} onChange={handleChecked} />
+                <Switch color={isCompleted ? 'success' : 'primary'} checked={isCompleted} onChange={handleChecked} />
               </Stack>
             </Stack>
             {task.dueDate && (
