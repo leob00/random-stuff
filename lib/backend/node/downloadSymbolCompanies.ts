@@ -6,7 +6,8 @@ var numeral = require('numeral')
 dotenv.config()
 interface SymbolCompany {
   Symbol: string
-  Company: string
+  Name: string
+  Class: string
 }
 const getSymbolCompanies = async () => {
   var url = `https://api.quotelookup.net/api/StockSymbols?apiKey=${process.env.NEXT_QLN_API_PUBLIC_KEY}`

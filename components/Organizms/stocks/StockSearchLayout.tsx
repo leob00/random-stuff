@@ -50,7 +50,7 @@ const StockSearchLayout = () => {
     username: ticket?.email,
     isLoading: true,
     autoCompleteResults: [],
-    searchedStocksMap: new Map<string, StockQuote>([]),
+    searchedStocksMap: new Map<string, SymbolCompany>([]),
     stockListMap: new Map<string, StockQuote>([]),
     stockList: [],
     editList: false,
@@ -65,7 +65,7 @@ const StockSearchLayout = () => {
 
     const autoComp: DropdownItem[] = searchResults.map((e) => {
       return {
-        text: `${e.Symbol}: ${e.Company}`,
+        text: `${e.Symbol}: ${e.Name}`,
         value: e.Symbol,
       }
     })

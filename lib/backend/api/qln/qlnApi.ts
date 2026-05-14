@@ -264,7 +264,8 @@ export async function getNewsFeed() {
 }
 export interface SymbolCompany {
   Symbol: string
-  Company: string
+  Name: string
+  Class: string
 }
 
 export async function getNewsBySource(id: NewsTypeIds) {

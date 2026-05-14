@@ -1,11 +1,12 @@
 'use client'
-import { Box, Link, Typography } from '@mui/material'
+import { Box, Link, ListItem, ListItemText, Typography } from '@mui/material'
 import { Recipe } from 'lib/models/cms/contentful/recipe'
 import { documentToReactComponents, Options } from '@contentful/rich-text-react-renderer'
 import { MARKS, BLOCKS, INLINES } from '@contentful/rich-text-types'
 import RecipeTagsList from './RecipeTagsList'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import RecipeImage from './RecipeImage'
+import List from '@mui/material/List'
 
 const RecipeLayout = ({ article }: { article: Recipe }) => {
   const tags = article.recipeTagsCollection.items ?? []
@@ -48,14 +49,18 @@ const RecipeLayout = ({ article }: { article: Recipe }) => {
       [BLOCKS.HEADING_5]: (node, children) => <Typography variant='h4'>{children}</Typography>,
       [BLOCKS.HEADING_6]: (node, children) => <Typography variant='h4'>{children}</Typography>,
 
-      // [BLOCKS.OL_LIST]: (node, children) => <Typography variant='h4'>{children}</Typography>,
-      // [BLOCKS.UL_LIST]: (node, children) => <Typography variant='h4'>{children}</Typography>,
-
-      [BLOCKS.LIST_ITEM]: (node, children) => (
-        <Typography py={1} variant='h5' fontWeight={'bold'}>
-          {children}
-        </Typography>
+      [BLOCKS.OL_LIST]: (node, children) => (
+        <List>
+          <ListItemText>{children}</ListItemText>
+        </List>
       ),
+      [BLOCKS.UL_LIST]: (node, children) => (
+        <List>
+          <ListItemText>{children}</ListItemText>
+        </List>
+      ),
+
+      [BLOCKS.LIST_ITEM]: (node, children) => <ListItem sx={{ display: 'list-item', paddingLeft: 2, marginBottom: 1 }}>{children}</ListItem>,
 
       //Map Hyperlinks to MUI Link
       [INLINES.HYPERLINK]: (node, children) => (

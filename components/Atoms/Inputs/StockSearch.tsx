@@ -48,7 +48,7 @@ const StockSearch = ({
     const searchResults = searchAheadStocks(text)
     const autoComp: DropdownItem[] = searchResults.map((e) => {
       return {
-        text: `${e.Symbol}: ${e.Company}`,
+        text: `${e.Symbol}: ${e.Name}`,
         value: e.Symbol,
       }
     })

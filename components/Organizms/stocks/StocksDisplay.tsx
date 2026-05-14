@@ -24,6 +24,7 @@ import { StockQuoteSort } from 'lib/backend/api/models/collections'
 import StockSearch from 'components/Atoms/Inputs/StockSearch'
 import { useViewPortSize } from 'hooks/ui/useViewportSize'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
+import { SymbolCompany } from 'lib/backend/api/qln/qlnApi'
 
 export const searchWithinResults = (quotes: StockQuote[], text: string) => {
   const result = quotes.filter(
@@ -52,7 +53,7 @@ const StocksDisplay = ({
   const defaultModel: StockLayoutModel = {
     isLoading: false,
     autoCompleteResults: [],
-    searchedStocksMap: new Map<string, StockQuote>([]),
+    searchedStocksMap: new Map<string, SymbolCompany>([]),
     stockListMap: map,
     editList: false,
     successMesage: null,

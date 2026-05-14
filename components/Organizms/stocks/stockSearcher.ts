@@ -19,12 +19,12 @@ export function searchAheadStocks(text: string) {
   let moreResults: SymbolCompany[] = []
   if (!isEtf) {
     moreResults = take(
-      allLookup.filter((m) => m.Symbol.toLowerCase().startsWith(text.toLowerCase()) || m.Company.toLowerCase().startsWith(text.toLowerCase())),
+      allLookup.filter((m) => m.Symbol.toLowerCase().startsWith(text.toLowerCase()) || m.Name.toLowerCase().startsWith(text.toLowerCase())),
       10,
     )
   } else {
     moreResults = take(
-      allLookup.filter((m) => m.Company.toLowerCase().includes(`${text.toLowerCase()}`) && m.Company.includes(' ETF')),
+      allLookup.filter((m) => m.Name.toLowerCase().includes(`${text.toLowerCase()}`) && m.Name.includes(' ETF')),
       10,
     )
   }
@@ -37,7 +37,7 @@ export function searchAheadStocks(text: string) {
     const map = new Map<string, SymbolCompany>()
     words.forEach((word) => {
       const results = take(
-        lookupData.filter((m) => m.Company.toLowerCase().includes(word.toLowerCase())),
+        lookupData.filter((m) => m.Name.toLowerCase().includes(word.toLowerCase())),
         10,
       )
       results.forEach((result) => {
