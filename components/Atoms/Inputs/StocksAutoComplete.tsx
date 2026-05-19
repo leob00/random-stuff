@@ -3,7 +3,7 @@ import { CasinoBlue, CasinoBlueTransparent, VeryLightBlue } from 'components/the
 import { DropdownItem } from 'lib/models/dropdown'
 import { debounce } from 'lodash'
 import { useTheme } from '@mui/material'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const StocksAutoComplete = ({
   onChanged,
@@ -16,6 +16,7 @@ const StocksAutoComplete = ({
   label = '',
   errorMessage,
   freesolo = true,
+  autoFocus,
 }: {
   onChanged?: (text: string) => void
   width?: number
@@ -27,9 +28,8 @@ const StocksAutoComplete = ({
   label?: string
   errorMessage?: string
   freesolo?: boolean
+  autoFocus?: boolean
 }) => {
-  const theme = useTheme()
-  const color = theme.palette.mode === 'dark' ? VeryLightBlue : CasinoBlue
   const textRef = useRef<HTMLInputElement | null>(null)
   const [selectedVal, setSelectedVal] = useState('')
 
@@ -57,6 +57,15 @@ const StocksAutoComplete = ({
     }
   }
   const options = searchResults.map((e) => e.text)
+
+  useEffect(() => {
+    if (!autoFocus) {
+      return
+    }
+    if (textRef.current) {
+      textRef.current.focus()
+    }
+  }, [autoFocus])
 
   return (
     <Autocomplete

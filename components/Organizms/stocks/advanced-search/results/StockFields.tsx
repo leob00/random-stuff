@@ -10,6 +10,7 @@ interface Model {
 }
 
 export function mapStockField(field: keyof StockQuote, quote: StockQuote) {
+  const na = 'n/a'
   const item: Model = {
     label: '',
     val: '',
@@ -22,7 +23,7 @@ export function mapStockField(field: keyof StockQuote, quote: StockQuote) {
       break
     case 'MarketCapShort':
       item.label = 'cap'
-      item.val = quote.MarketCapShort ?? ''
+      item.val = quote.MarketCapShort && quote.MarketCapShort !== '0' ? `${quote.MarketCapShort}` : ''
       break
     case 'MovingAvgDays':
       item.label = 'days'
@@ -30,7 +31,7 @@ export function mapStockField(field: keyof StockQuote, quote: StockQuote) {
       break
     case 'PeRatio':
       item.label = 'p/e'
-      item.val = `${quote.PeRatio ?? 'N/A'}`
+      item.val = `${quote.PeRatio ?? ''}`
       break
     case 'AnnualDividendYield':
       item.label = 'yield'

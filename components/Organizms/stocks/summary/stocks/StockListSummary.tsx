@@ -150,7 +150,7 @@ const StockListSummary = ({
           ) : (
             <>
               <Box display={'flex'}>
-                <StockSearch onSymbolSelected={handleQuoteSelected} width={273} />
+                <StockSearch onSymbolSelected={handleQuoteSelected} width={273} autoFocus />
               </Box>
             </>
           )}
