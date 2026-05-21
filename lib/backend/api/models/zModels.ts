@@ -58,6 +58,7 @@ export const quoteArraySchema = z
     PeRatio: z.number().nullable().optional(),
     Sector: z.string().nullable().optional(),
     Industry: z.string().nullable().optional(),
+    IndustryId: z.string().nullable().optional(),
     SectorId: z.string().nullable().optional(),
     Volume: z.number().nullable().optional(),
     History: quoteHistorySchema.optional(),

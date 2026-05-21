@@ -4,15 +4,15 @@ import PageHeader from 'components/Atoms/Containers/PageHeader'
 import BackdropLoader from 'components/Atoms/Loaders/BackdropLoader'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { apiConnection } from 'lib/backend/api/config'
-import { post } from 'lib/backend/api/fetchFunctions'
+import { post, postBody } from 'lib/backend/api/fetchFunctions'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { SectorIndustry } from 'lib/backend/api/qln/qlnModels'
 import { sortArray } from 'lib/util/collections'
 import { useRouter } from 'next/router'
 import { dedup } from 'lib/util/collectionsNative'
 import { excludeFinancialInstruments } from 'lib/ui/stocks/util'
-import React from 'react'
 import SortableStockContainer from 'components/Organizms/stocks/SortableStockContainer'
+import { QlnApiRequest, QlnApiResponse, serverPostFetch } from 'lib/backend/api/qln/qlnApi'
 interface Model {
   container: SectorIndustry
   quotes: StockQuote[]
@@ -22,8 +22,10 @@ const Page = () => {
   const router = useRouter()
   const apiConn = apiConnection().qln
   const id = router.query.slug as string
+
   const dataFn = async () => {
-    const resp = await post(`${apiConn.url}/Sectors`, { Category: 'Industry', Id: id })
+    const config = apiConnection().qln
+    const resp = await serverPostFetch({ key: id, body: { Category: 'Industry', Id: id } }, '/Sectors')
     //console.log(resp)
     const container = resp.Body.Container as SectorIndustry
     const quotes = resp.Body.Quotes as StockQuote[]
@@ -43,7 +45,7 @@ const Page = () => {
       {isLoading && <BackdropLoader />}
       {data && (
         <Box>
-          <PageHeader text={`${data.container.Name}`} backButtonRoute={'/csr/stocks/industries'} />
+          <PageHeader text={`${data.container.Name}`} backButtonRoute={'/market/stocks/industries'} />
           <Box py={2}>
             <SortableStockContainer data={data.quotes} />
           </Box>

@@ -39,4 +39,5 @@ export interface SectorIndustry {
   Name: string
   Category: string
   MovingAvg: MovingAvg[]
+  StockCount: number | null
 }

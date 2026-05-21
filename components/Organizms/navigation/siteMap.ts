@@ -184,7 +184,7 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'industries',
-    path: '/csr/stocks/industries',
+    path: '/market/stocks/industries',
     category: 'Stock Reports',
   },
   // {

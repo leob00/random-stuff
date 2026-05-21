@@ -3,7 +3,6 @@ import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, 
 import { SectorIndustry } from 'lib/backend/api/qln/qlnModels'
 import { sortArray } from 'lib/util/collections'
 import numeral from 'numeral'
-import React from 'react'
 import { getPositiveNegativeColor } from './StockListItem'
 import SortableHeaderCell from 'components/Atoms/Tables/SortableHeader'
 import Clickable from 'components/Atoms/Containers/Clickable'
@@ -11,6 +10,7 @@ import { useRouter } from 'next/navigation'
 import Pager from 'components/Atoms/Pager'
 import { useClientPager } from 'hooks/useClientPager'
 import { Sort } from 'lib/backend/api/models/collections'
+import { useState } from 'react'
 
 interface MovingAverage {
   Id: string
@@ -22,6 +22,7 @@ interface MovingAverage {
   MovingAvg90: number
   MovingAvg180: number
   MovingAvg365: number
+  StockCount: number | null
 }
 
 const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: string }) => {
@@ -33,9 +34,9 @@ const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: st
     direction: 'desc',
   }
   const model = mapModel(data, defaultSort)
-  const [sort, setSort] = React.useState(defaultSort)
+  const [sort, setSort] = useState(defaultSort)
   const pager = useClientPager(model, pageSize)
-  const [allItems, setAllItems] = React.useState(model)
+  const [allItems, setAllItems] = useState(model)
 
   const handleChangeSort = (newSort: Sort) => {
     setSort(newSort)
@@ -50,7 +51,7 @@ const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: st
       router.push(`/market/stocks/${sec}/${encodeURI(item.Id)}`)
       return
     }
-    router.push(`/csr/stocks/${sec}/${item.Id}`)
+    router.push(`/market/stocks/${sec}/${item.Id}`)
   }
   const handlePaged = (pageNum: number) => {
     pager.setPage(pageNum)
@@ -82,7 +83,11 @@ const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: st
               {pager.getPagedItems(allItems).map((item) => (
                 <TableRow key={item.Name}>
                   <TableCell>
-                    <Clickable onClicked={() => handleItemClick(item)}>{item.Name} </Clickable>
+                    <Box display={'flext'} gap={2} alignItems={'center'}>
+                      <Clickable onClicked={() => handleItemClick(item)}>{`${item.Name}`} </Clickable>
+                      <Typography variant='caption'>{`count: ${item.StockCount}`}</Typography>
+                    </Box>
+                    {/* <Clickable onClicked={() => handleItemClick(item)}>{item.Name} </Clickable> */}
                   </TableCell>
                   <TableCell>
                     <Typography color={getPositiveNegativeColor(item.MovingAvg1, theme.palette.mode)}>{`${numeral(item.MovingAvg1).format(
@@ -148,6 +153,7 @@ function mapModel(results: SectorIndustry[], sort: Sort) {
       MovingAvg90: m.MovingAvg[3].CurrentValue,
       MovingAvg180: m.MovingAvg[4].CurrentValue,
       MovingAvg365: m.MovingAvg[5].CurrentValue,
+      StockCount: m.StockCount,
     }
   })
 

@@ -22,10 +22,6 @@ const Page = () => {
   const router = useRouter()
   const id = router.query.slug as string
   const dataFn = async () => {
-    const req: QlnApiRequest = {
-      key: id,
-      body: { Category: 'Sector', Id: id },
-    }
     const resp = await serverPostFetch({ key: id, body: { Category: 'Sector', Id: id } }, '/Sectors')
     const container = resp.Body.Container as SectorIndustry
     const quotes = resp.Body.Quotes as StockQuote[]

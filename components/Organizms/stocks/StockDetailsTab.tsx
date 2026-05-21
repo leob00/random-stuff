@@ -13,7 +13,7 @@ const StockDetailsTab = ({ quote }: { quote: StockQuote }) => {
   return (
     <Box pb={2} pt={2}>
       <Box>
-        <StockFields fields={['MarketCapShort', 'PeRatio', 'Volume', 'AnnualDividendYield', 'TradeDate', 'Sector']} quote={quote} />
+        <StockFields fields={['MarketCapShort', 'PeRatio', 'Volume', 'AnnualDividendYield', 'TradeDate', 'Sector', 'Industry']} quote={quote} />
       </Box>
 
       {quote.Tags && quote.Tags.length > 0 && (
