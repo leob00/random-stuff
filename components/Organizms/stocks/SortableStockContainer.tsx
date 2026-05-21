@@ -1,3 +1,4 @@
+'use client'
 import { Box } from '@mui/material'
 import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 import { StockQuote } from 'lib/backend/api/models/zModels'

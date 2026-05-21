@@ -1,3 +1,4 @@
+'use client'
 import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useTheme } from '@mui/material'
 import { SectorIndustry } from 'lib/backend/api/qln/qlnModels'
 import { sortArray } from 'lib/util/collections'
@@ -6,7 +7,7 @@ import React from 'react'
 import { getPositiveNegativeColor } from './StockListItem'
 import SortableHeaderCell from 'components/Atoms/Tables/SortableHeader'
 import Clickable from 'components/Atoms/Containers/Clickable'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import Pager from 'components/Atoms/Pager'
 import { useClientPager } from 'hooks/useClientPager'
 import { Sort } from 'lib/backend/api/models/collections'
@@ -45,6 +46,10 @@ const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: st
   }
   const handleItemClick = async (item: MovingAverage) => {
     const sec = category === 'Sector' ? 'sectors' : 'industries'
+    if (sec === 'sectors') {
+      router.push(`/market/stocks/${sec}/${encodeURI(item.Id)}`)
+      return
+    }
     router.push(`/csr/stocks/${sec}/${item.Id}`)
   }
   const handlePaged = (pageNum: number) => {

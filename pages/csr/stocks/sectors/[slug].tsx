@@ -47,7 +47,7 @@ const Page = () => {
         <>
           {data.quotes.length > 0 ? (
             <Box>
-              <PageHeader text={`${data.container.Name}`} backButtonRoute={'/csr/stocks/sectors'} />
+              <PageHeader text={`${data.container.Name}`} backButtonRoute={'/market/stocks/sectors'} />
               <Box py={2}>
                 <MovingAvgValues values={data.container.MovingAvg} />
                 <SortableStockContainer data={data.quotes} />
@@ -55,7 +55,7 @@ const Page = () => {
             </Box>
           ) : (
             <>
-              <PageHeader text={``} backButtonRoute={'/csr/stocks/sectors'} />
+              <PageHeader text={``} backButtonRoute={'/market/stocks/sectors'} />
               <NoDataFound />
             </>
           )}

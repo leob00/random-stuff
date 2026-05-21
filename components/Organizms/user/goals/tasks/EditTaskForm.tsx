@@ -10,8 +10,8 @@ import { useReducer, useState } from 'react'
 import { S3Object } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { useUserController } from 'hooks/userController'
 import { sortArray } from 'lib/util/collections'
-import { DropdownItem } from 'lib/models/dropdown'
 import S3ManageFiles from 'components/Organizms/files/S3ManageFiles'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 
 const EditTaskForm = ({
   task,
@@ -81,15 +81,22 @@ const EditTaskForm = ({
               <FormTextBox width={'100%'} defaultValue={formInput.body ?? ''} placeHolder='task name' onChanged={handleTitleChanged} error={!valid} />
             </Box>
             <Box py={2}>
-              <DateAndTimePicker2 value={formInput.dueDate} onDateSelected={handleDueDateChange} placeHolder={'due date'} clearable />
+              <DateAndTimePicker2 value={formInput.dueDate} onDateSelected={handleDueDateChange} placeHolder={'due date'} label='due date' clearable />
             </Box>
             <Box py={2}>
-              <DateAndTimePicker2 value={formInput.dateCompleted} onDateSelected={handleDateCompletedChange} placeHolder={'completed date'} clearable />
+              <DateAndTimePicker2
+                value={formInput.dateCompleted}
+                onDateSelected={handleDateCompletedChange}
+                placeHolder={'completed date'}
+                label='completed date'
+                clearable
+              />
             </Box>
             <Box py={2}>
               <TextField
                 placeholder='notes...'
                 multiline
+                rows={4}
                 sx={{ width: '100%' }}
                 defaultValue={formInput.notes}
                 onChange={handleNoteChange}
@@ -114,7 +121,7 @@ const EditTaskForm = ({
               <Delete color='error' />
             </Button>
             <PassiveButton text='cancel' size='small' onClick={handleCancelClick} />
-            <SecondaryButton text='save' type='submit' size='small' />
+            <PrimaryButton text='save' type='submit' size='small' />
           </Stack>
         </Box>
       </form>

@@ -179,7 +179,7 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'sectors',
-    path: '/csr/stocks/sectors',
+    path: '/market/stocks/sectors',
     category: 'Stock Reports',
   },
   {

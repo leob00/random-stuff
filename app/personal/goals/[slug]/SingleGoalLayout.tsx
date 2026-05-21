@@ -11,11 +11,9 @@ import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import { useSwrHelper } from 'hooks/useSwrHelper'
 import { constructUserGoalsKey } from 'lib/backend/api/aws/util'
 import { getUserGoals, getUserGoalTasks } from 'lib/backend/csr/nextApiWrapper'
-import { useRouter } from 'next/navigation'
 import { mutate } from 'swr'
 
 const SingleGoalLayout = ({ goalId }: { goalId: string }) => {
-  const router = useRouter()
   const tasksMutateKey = `goal-tasks-${goalId}`
   const goalMutateKey = `goal-${goalId}`
 

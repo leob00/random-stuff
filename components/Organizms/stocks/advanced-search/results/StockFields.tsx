@@ -67,7 +67,9 @@ const StockFields = ({ quote, fields }: { quote: StockQuote; fields: Array<keyof
             <Box key={field.label} flexDirection={'column'} py={0.3}>
               {field.val && (
                 <>
-                  {field.label === 'sector' && <SiteLink variant='body1' href={`/csr/stocks/sectors/${quote.SectorId}`} text={field.val} />}
+                  {field.label === 'sector' && (
+                    <SiteLink variant='body1' href={`/market/stocks/sectors/${encodeURIComponent(quote.SectorId!)}`} text={field.val} />
+                  )}
                   {field.label !== 'sector' && (
                     <Typography variant='body2' textAlign={'left'} fontWeight={'bold'}>
                       {field.val}

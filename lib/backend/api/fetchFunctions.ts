@@ -64,7 +64,7 @@ export async function post(url: string, body: any, contentType: string = 'applic
   }
 }
 
-export async function postBody(url: string, method: 'PATCH' | 'POST' | 'DELETE' | 'PUT', body: any, headers?: HeadersInit) {
+export async function postBody(url: string, method: 'PATCH' | 'POST' | 'DELETE' | 'PUT', body: any, headers?: HeadersInit, isRawBody: boolean = false) {
   try {
     const resp = await fetch(url, {
       method: method,

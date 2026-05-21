@@ -13,7 +13,7 @@ const StockReportsDropdown = ({ selectedValue }: { selectedValue: string }) => {
     const value = item.value
     switch (value) {
       case 'sectors':
-        router.push('/csr/stocks/sectors')
+        router.push('/market/stocks/sectors')
         break
       case 'industries':
         router.push('/csr/stocks/industries')

@@ -62,7 +62,7 @@ const EditGoal = ({
             name={'dueDate'}
             control={control}
             render={({ field: { value, onChange, ...field } }) => (
-              <DateAndTimePicker2 errorMessage={errors.dueDate?.message} value={value} onDateSelected={onChange} {...field} />
+              <DateAndTimePicker2 label='due date' errorMessage={errors.dueDate?.message} value={value} onDateSelected={onChange} {...field} />
             )}
           />
         </Box>

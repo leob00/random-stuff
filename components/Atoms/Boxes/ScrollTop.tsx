@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useRef } from 'react'
 import { Scroller } from './useScrollTop'
 import { Box, Typography } from '@mui/material'

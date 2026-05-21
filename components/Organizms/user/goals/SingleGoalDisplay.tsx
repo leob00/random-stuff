@@ -155,7 +155,8 @@ const SingleGoalDisplay = ({
         <EditGoal goal={goal} onSaveGoal={handleModifyGoal} onShowCompletedTasks={() => {}} onCancelEdit={() => setGoalEditMode(false)} />
       ) : (
         <>
-          <Box display={'flex'} justifyContent={'flex-end'}>
+          <Box py={2} display='flex' justifyContent='space-between' alignItems='center'>
+            <ContextMenu items={contextMenu} />
             <CloseIconButton onClicked={handleClose} />
           </Box>
           <Box py={2} display='flex' justifyContent='space-between'>
@@ -165,9 +166,6 @@ const SingleGoalDisplay = ({
                   <GoalStats goal={goal} completePercent={goal.completePercent ?? 0} />
                 </>
               )}
-            </Box>
-            <Box>
-              <ContextMenu items={contextMenu} />
             </Box>
           </Box>
           <TaskList

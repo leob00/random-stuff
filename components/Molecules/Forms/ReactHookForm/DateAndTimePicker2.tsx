@@ -5,7 +5,8 @@ import dayjs from 'dayjs'
 import { forwardRef } from 'react'
 import CloseIconButton from 'components/Atoms/Buttons/CloseIconButton'
 import { useViewPortSize } from 'hooks/ui/useViewportSize'
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Typography, useTheme } from '@mui/material'
+import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 
 type Props = {
   label?: string
@@ -19,6 +20,7 @@ type Props = {
 }
 
 const DateAndTimePicker2 = forwardRef<HTMLInputElement, Props>(function DateAndTimePicker(props: Props, _ref) {
+  const theme = useTheme()
   const { label, errorMessage, value, minDate, maxDate, placeHolder, onDateSelected, clearable } = props
   const { viewPortSize } = useViewPortSize()
 
@@ -55,7 +57,14 @@ const DateAndTimePicker2 = forwardRef<HTMLInputElement, Props>(function DateAndT
               helperText: errorMessage,
               autoCorrect: 'off',
               fullWidth: true,
-              sx: { width: '100%' }, // Alternative for specific width control
+              sx: {
+                '& .MuiInputLabel-root': {
+                  color: theme.palette.secondary.main, // Normal state
+                },
+                '& .MuiInputLabel-root.Mui-focused': {
+                  color: theme.palette.primary.main, // Focused state
+                },
+              },
             },
           }}
         />
