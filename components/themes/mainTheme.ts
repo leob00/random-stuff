@@ -93,9 +93,9 @@ export const typographyOptions: TypographyVariantsOptions = {
   h1: { fontSize: '3.5rem', fontWeight: 500 }, // hero section title
   h2: { fontSize: '2.6125rem', fontWeight: 500 }, // other section title
   h3: { fontSize: '2.115rem' },
-  h4: { fontSize: '1.8rem' },
-  h5: { fontSize: '1.5rem' },
-  h6: { fontSize: '1.3rem' },
+  h4: { fontSize: '1.72rem' },
+  h5: { fontSize: '1.3rem' },
+  h6: { fontSize: '1.2rem' },
   subtitle1: { fontSize: '1.275rem', fontWeight: 200 },
   subtitle2: { fontSize: '0.975rem', fontWeight: 200 },
   body1: { fontSize: '1.2rem', fontWeight: 400 }, // normal body text

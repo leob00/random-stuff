@@ -35,7 +35,8 @@ const StockDividendsTable = ({ data }: { data: StockDividendItem[] }) => {
   const columns = getColumnDef(isLarge || isXLarge)
   const { userProfile } = useProfileValidator()
   const [selectedItem, setSelectedItem] = useState<SelectedItemModel | null>(null)
-  const options: DropdownItem[] = sortArray(data, ['Symbol'], ['asc']).map((m) => {
+  const filtered = data.filter((m) => m.AnnualYield < 100)
+  const options: DropdownItem[] = sortArray(filtered, ['Symbol'], ['asc']).map((m) => {
     return {
       text: `${m.Symbol}: ${m.CompanyName}`,
       value: m.Symbol,
@@ -51,7 +52,7 @@ const StockDividendsTable = ({ data }: { data: StockDividendItem[] }) => {
     setSelectedItem(model)
   }
   const handleSearchSelected = async (item: DropdownItem) => {
-    const i = data.find((m) => m.Symbol == item.value)
+    const i = filtered.find((m) => m.Symbol == item.value)
     if (i) {
       const model: SelectedItemModel = {
         quote: await getStockQuote(item.value),
@@ -61,7 +62,7 @@ const StockDividendsTable = ({ data }: { data: StockDividendItem[] }) => {
     }
   }
 
-  const rows = data.map((m) => {
+  const rows = filtered.map((m) => {
     return { ...m, id: m.Symbol }
   })
 
