@@ -44,6 +44,11 @@ const StaticAutoComplete = ({
       if (inputRef.current) {
         inputRef.current.blur()
       }
+      if (!disableClearable) {
+        if (inputRef.current) {
+          inputRef.current.value = ''
+        }
+      }
       onSelected(item)
     }
   }

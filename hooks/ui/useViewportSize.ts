@@ -41,5 +41,10 @@ export function useViewPortSize() {
     viewPortSize: size,
     windowWidth,
     windowHeight,
+    isXSmall,
+    isSmall,
+    isMedium,
+    isLarge,
+    isXLarge,
   }
 }

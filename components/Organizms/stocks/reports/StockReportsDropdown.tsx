@@ -19,7 +19,7 @@ const StockReportsDropdown = ({ selectedValue }: { selectedValue: string }) => {
         router.push('/market/stocks/industries')
         break
       case 'dividend-payers':
-        router.push('/csr/stocks/dividend-payers')
+        router.push('/market/stocks/dividend-payers')
         break
       case 'stock-tags':
         router.push('/csr/stocks/stock-tags')

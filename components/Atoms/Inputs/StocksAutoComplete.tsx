@@ -1,8 +1,7 @@
 import { TextField, Autocomplete } from '@mui/material'
-import { CasinoBlue, CasinoBlueTransparent, VeryLightBlue } from 'components/themes/mainTheme'
+import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
 import { debounce } from 'lodash'
-import { useTheme } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 
 const StocksAutoComplete = ({

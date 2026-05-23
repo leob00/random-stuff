@@ -194,7 +194,7 @@ export const flatSiteMap: Navigation[] = [
   // },
   {
     name: 'dividend payers',
-    path: '/csr/stocks/dividend-payers',
+    path: '/market/stocks/dividend-payers',
     category: 'Stock Reports',
   },
   {
