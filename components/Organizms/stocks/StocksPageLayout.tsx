@@ -1,6 +1,6 @@
 'use client'
 import { StockQuote } from 'lib/backend/api/models/zModels'
-import { CategoryType } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { CategoryType, UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import { TabInfo } from 'components/Atoms/Buttons/TabButtonList'
 import { Box } from '@mui/material'
 import { getLatestQuotes } from 'lib/backend/api/qln/qlnApi'
@@ -15,12 +15,9 @@ import { useState } from 'react'
 import StockSearch from 'components/Atoms/Inputs/StockSearch'
 import FullStockDetail from 'components/Organizms/stocks/FullStockDetail'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
-import { getUserCSR } from 'lib/backend/auth/userUtil'
 import TopMoversSummary from './summary/stocks/TopMoversSummary'
 import BorderedBox from 'components/Atoms/Boxes/BorderedBox'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
-import { sleep } from 'lib/util/timers'
-import { getRandomInteger } from 'lib/util/numberUtil'
 import VolumeLeadersSummary from './summary/stocks/VolumeLeadersSummary'
 
 const tabs: TabInfo[] = [
@@ -43,17 +40,12 @@ const tabs: TabInfo[] = [
   },
 ]
 const searchedStocksKey: CategoryType = 'searched-stocks'
-const StocksPageLayout = () => {
+
+const StocksPageLayout = ({ userProfile }: { userProfile: UserProfile | null }) => {
   const [selectedTab, setSelectedTab] = useState<TabInfo>(tabs[0])
-  const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
-
+  const mutakeKey = userProfile ? `searched-stocks-user[${userProfile.username}]` : searchedStocksKey
   const dataFn = async () => {
-    if (isValidatingProfile) {
-      await sleep(getRandomInteger(1000, 1200))
-    }
-
-    const key = userProfile ? `searched-stocks-user[${userProfile.username}]` : searchedStocksKey
-    const searchedStocksResult = await searchDynamoItemsByCategory(key)
+    const searchedStocksResult = await searchDynamoItemsByCategory(mutakeKey)
     const sorted = sortArray(searchedStocksResult, ['last_modified'], ['desc'])
     const result: StockQuote[] = sorted.map((m) => {
       return JSON.parse(m.data)
@@ -70,7 +62,7 @@ const StocksPageLayout = () => {
     })
     return Array.from(stockMap.values())
   }
-  const { data: searchedStocks, isLoading } = useSwrHelper(searchedStocksKey, dataFn, { revalidateOnFocus: false })
+  const { data: searchedStocks, isLoading } = useSwrHelper(mutakeKey, dataFn, { revalidateOnFocus: false })
 
   const winners: StockQuote[] = searchedStocks
     ? sortArray(
@@ -98,13 +90,13 @@ const StocksPageLayout = () => {
 
   const handleRefreshRecent = () => {
     setSearchedQuote(null)
-    mutate(searchedStocksKey)
+    mutate(mutakeKey)
   }
   const handleCloseQuoteDialog = () => {
     if (searchedQuote) {
       const newCopy = searchedStocks!.filter((m) => m.Symbol !== searchedQuote.Symbol)
       newCopy.unshift(searchedQuote)
-      mutate(searchedStocksKey, newCopy, { revalidate: false })
+      mutate(mutakeKey, newCopy, { revalidate: false })
     }
     setSearchedQuote(null)
   }
@@ -129,10 +121,16 @@ const StocksPageLayout = () => {
             <Box minHeight={600}>
               <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={{ xs: 'center', md: 'unset' }} pt={4}>
                 <Box>
-                  <BorderedBox>{!isValidatingProfile && <TopMoversSummary userProfile={userProfile} showCompanyName />}</BorderedBox>
+                  <BorderedBox>
+                    {' '}
+                    <TopMoversSummary userProfile={userProfile} showCompanyName />
+                  </BorderedBox>
                 </Box>
                 <Box>
-                  <BorderedBox>{!isValidatingProfile && <VolumeLeadersSummary userProfile={userProfile} showCompanyName />}</BorderedBox>
+                  <BorderedBox>
+                    {' '}
+                    <VolumeLeadersSummary userProfile={userProfile} showCompanyName />
+                  </BorderedBox>
                 </Box>
               </Box>
             </Box>
