@@ -90,22 +90,11 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
           backgroundColor: clr,
         }
       },
-      // afterLabel: (tooltipItems) => {
-      //   const price = numeral(history[tooltipItems.dataIndex].Price).format('###,###,0.000')
-      //   const change = numeral(history[tooltipItems.dataIndex].Change).format('###,###,0.000')
-      //   const changePerc = numeral(history[tooltipItems.dataIndex].ChangePercent).format('###,###,0.000')
-      //   return ` ${price}   ${change}   ${changePerc}%`
-      // },
       footer: (tooltipItem) => {
         if (marketCategory === 'stocks') {
           return `      volume: ${numeral(history[tooltipItem[0].dataIndex].Volume).format('0.00a')}`
         }
       },
-      // afterBody: (tooltipItems) => {
-      //   if (marketCategory === 'stocks') {
-      //     return `      volume: ${numeral(history[tooltipItems[0].dataIndex].Volume).format('0.00a')}`
-      //   }
-      // },
     }
 
     const result: Model = {

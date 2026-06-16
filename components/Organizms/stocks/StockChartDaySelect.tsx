@@ -31,7 +31,7 @@ const StockChartDaySelect = ({
       options = options.filter((m) => m.value > -1)
     }
     if (options.length === 0) {
-      const daysDiff = dayjs(availableDates.EndDate).diff(dayjs(availableDates.StartDate), 'days')
+      const daysDiff = dayjs(dayjs(availableDates.EndDate).format('YYYY-MM-DD')).diff(dayjs(dayjs(availableDates.StartDate).format('YYYY-MM-DD')), 'days')
       options.push({ text: `${daysDiff} days`, value: daysDiff })
     }
   }
