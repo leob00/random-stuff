@@ -13,7 +13,7 @@ import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 import NewsList from 'components/Organizms/news/NewsList'
 
 const NewsSummary = ({ userProfile }: { userProfile: UserProfile | null }) => {
-  const selectedSource: NewsTypeIds = 'BloombergMarkets'
+  const selectedSource: NewsTypeIds = 'CNBC'
   const mutateKey = `news-${selectedSource}`
 
   const endPoint = `/NewsBySource?type=${selectedSource}`

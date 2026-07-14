@@ -36,7 +36,7 @@ export interface NewsItem {
 export type NewsTypeIds =
   | 'BbcWorld'
   | 'BbcBusiness'
-  | 'BloombergMarkets'
+  // | 'BloombergMarkets'
   | 'CNBC'
   | 'GoogleBusiness'
   | 'GoogleTopStories'
@@ -78,10 +78,10 @@ export const newsTypes: DropdownItem[] = [
     text: 'BBC World',
     value: 'BbcWorld',
   },
-  {
-    text: 'Bloomberg',
-    value: 'BloombergMarkets',
-  },
+  // {
+  //   text: 'Bloomberg',
+  //   value: 'BloombergMarkets',
+  // },
   {
     text: 'CBS World',
     value: 'CBSWorld',
