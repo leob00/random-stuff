@@ -28,8 +28,8 @@ const SingleGoalLayout = ({ goalId }: { goalId: string }) => {
     const result = results.find((m) => m.id === goalId)
     return result
   }
-  const { data: goal, isLoading: loadingGoals } = useSwrHelper(goalMutateKey, fetchGoal, { revalidateOnFocus: false })
-  const { data: tasks, isLoading: loadingTasks } = useSwrHelper(tasksMutateKey, fetchGoalTasks, { revalidateOnFocus: false })
+  const { data: goal, isLoading: loadingGoals } = useSwrHelper(goalMutateKey, fetchGoal, { revalidateOnFocus: true })
+  const { data: tasks, isLoading: loadingTasks } = useSwrHelper(tasksMutateKey, fetchGoalTasks, { revalidateOnFocus: true })
 
   const handleMutated = async (newGoal: UserGoal, newTasks: UserTask[]) => {
     mutate(goalMutateKey, newGoal, { revalidate: false })
