@@ -82,10 +82,10 @@ export const newsTypes: DropdownItem[] = [
   //   text: 'Bloomberg',
   //   value: 'BloombergMarkets',
   // },
-  {
-    text: 'CBS World',
-    value: 'CBSWorld',
-  },
+  // {
+  //   text: 'CBS World',
+  //   value: 'CBSWorld',
+  // },
   {
     text: 'CNBC',
     value: 'CNBC',
