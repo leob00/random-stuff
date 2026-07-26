@@ -93,12 +93,13 @@ const StocksDisplay = ({
       setModel({
         ...model,
         editList: true,
-        showAsGroup: false,
+        showAsGroup: true,
         stockListMap: stockListMap,
         autoCompleteResults: [],
         quoteToAdd: undefined,
         isLoading: false,
         successMesage: `${quote.Company} added!`,
+        selectedQuote: quote,
       })
       onMutated(newList)
     } else {
@@ -123,7 +124,6 @@ const StocksDisplay = ({
       ...model,
       isLoading: false,
       stockListMap: newMap,
-
       successMesage: 'Your list has been updated!',
     })
     onMutated(newList)
@@ -212,6 +212,7 @@ const StocksDisplay = ({
                     onCancelEdit={() => setModel({ ...model, editList: false })}
                     onPushChanges={handleSaveChanges}
                     onReorder={handleReorderList}
+                    selectedItem={model.selectedQuote}
                   />
                 </>
               ) : (
@@ -221,7 +222,7 @@ const StocksDisplay = ({
                       <GroupedStocksLayout
                         userProfile={userProfile}
                         stockList={result}
-                        onEdit={() => setModel({ ...model, editList: true })}
+                        onEdit={() => setModel({ ...model, editList: true, selectedQuote: undefined })}
                         onShowAsGroup={() => handleShowAsGroup(false)}
                       />
                     </Box>

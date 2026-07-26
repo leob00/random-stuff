@@ -8,11 +8,13 @@ import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
 
 const GroupedStockTable = ({ result, userProfile }: { result: StockGroup[]; userProfile: UserProfile | null }) => {
   const pageSize = 10
+
   const pager = useClientPager(result, 10)
   const displayItems = pager.getPagedItems(result)
   const handlePaged = (pageNum: number) => {
     pager.setPage(pageNum)
   }
+
   return (
     <Box minHeight={650}>
       <Box display={'flex'} flexDirection={'column'} gap={1}>

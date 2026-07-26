@@ -11,14 +11,13 @@ export type DraggableListProps = {
   items: StockQuote[]
   onPushChanges: (quotes: StockQuote[]) => void
   onEditSingleItem: (quote: StockQuote) => void
-  isLoading: boolean
 }
 
 export interface SelectableQuote extends StockQuote {
   selected?: boolean
 }
 
-const EditableStockListNew = ({ items, onPushChanges, onEditSingleItem, isLoading }: DraggableListProps) => {
+const EditableStockListNew = ({ items, onPushChanges, onEditSingleItem }: DraggableListProps) => {
   const [deleteItem, setDeleteItem] = React.useState<StockQuote | null>(null)
   const [showConfirmDelete, setShowConfirmDelete] = React.useState(false)
 

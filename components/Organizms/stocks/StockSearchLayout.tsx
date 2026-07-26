@@ -32,6 +32,7 @@ export interface StockLayoutModel {
   successMesage: string | null
   showAsGroup?: boolean
   showCustomSort?: boolean
+  selectedQuote?: StockQuote
 }
 
 export const searchWithinResults = (quotes: StockQuote[], text: string) => {
@@ -134,7 +135,7 @@ const StockSearchLayout = () => {
 
       setModel({
         ...model,
-        editList: false,
+        editList: true,
         showAsGroup: false,
         stockListMap: stockListMap,
         stockList: newList,
@@ -142,6 +143,7 @@ const StockSearchLayout = () => {
         quoteToAdd: undefined,
         isLoading: false,
         successMesage: `${quote.Company} added!`,
+        selectedQuote: quote,
       })
     } else {
       setModel({ ...model, quoteToAdd: undefined, isLoading: false, successMesage: `${quote.Company} is already in your list` })
@@ -149,11 +151,11 @@ const StockSearchLayout = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
   const handleCloseAddQuote = () => {
-    setModel({ ...model, quoteToAdd: undefined, isLoading: false, successMesage: null })
+    setModel({ ...model, quoteToAdd: undefined, isLoading: false, successMesage: null, selectedQuote: undefined, showAsGroup: true })
   }
 
   const handleSaveChanges = async (quotes: StockQuote[]) => {
-    setModel({ ...model, isLoading: true, successMesage: null })
+    setModel({ ...model, isLoading: true, successMesage: null, selectedQuote: undefined, showAsGroup: true })
     const newMap = getMapFromArray(quotes, 'Symbol')
     quotes.forEach((item) => {
       newMap.set(item.Symbol, item)
@@ -168,6 +170,8 @@ const StockSearchLayout = () => {
       stockList: newList,
       stockListMap: newMap,
       successMesage: 'Your list has been updated!',
+      showAsGroup: true,
+      selectedQuote: undefined,
     })
   }
   const handleReorderList = async (quotes: StockQuote[]) => {
@@ -263,6 +267,7 @@ const StockSearchLayout = () => {
                     onCancelEdit={() => setModel({ ...model, editList: false })}
                     onPushChanges={handleSaveChanges}
                     onReorder={handleReorderList}
+                    selectedItem={model.selectedQuote}
                   />
                 </>
               ) : (

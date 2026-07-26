@@ -7,7 +7,7 @@ import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import { getListFromMap, getMapFromArray } from 'lib/util/collectionsNative'
 import { searchWithinResults } from './StockSearchLayout'
 import EditStockGroupForm from 'components/Molecules/Forms/EditStockGroupForm'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import LinkButton from 'components/Atoms/Buttons/LinkButton'
 import EditableStockListNew from './EditableStockListNew'
 import { getSortablePropsFromArray, SortableItem } from 'components/dnd/dndUtil'
@@ -20,17 +20,20 @@ const EditList = ({
   onPushChanges,
   onCancelEdit,
   onReorder,
+  selectedItem,
 }: {
   data: StockQuote[]
   onPushChanges: (quotes: StockQuote[]) => void
   onCancelEdit: () => void
   onReorder: (quotes: StockQuote[]) => void
+  selectedItem?: StockQuote
 }) => {
   const [originalData, setOriginalData] = useState(data)
   const [filtered, setFiltered] = useState(data)
   const [editItem, setEditItem] = useState<StockQuote | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [showReorder, setShowReorder] = useState(false)
+  const sortedItems = getSortablePropsFromArray(data, 'Symbol', 'Company')
 
   const groupSet = new Set(
     data.map((o) => {
@@ -48,9 +51,7 @@ const EditList = ({
   const handleEditSingleItem = (quote: StockQuote) => {
     setEditItem(quote)
   }
-  const handleSearched = (text: string) => {
-    setFiltered(searchWithinResults(originalData, text))
-  }
+
   const handleCloseEditSingleItem = () => {
     setEditItem(null)
   }
@@ -72,18 +73,13 @@ const EditList = ({
       setIsLoading(false)
     }, 500)
   }
-  const handleRemoveItem = (id: string) => {
-    handleCloseEditSingleItem()
-    const newQuotes = [...originalData].filter((i) => i.Symbol !== id)
-    setFiltered(newQuotes)
-    setOriginalData(newQuotes)
-    onPushChanges(newQuotes)
-  }
-  const sortedItems = getSortablePropsFromArray(data, 'Symbol', 'Company')
 
   const handleReorder = (records: SortableItem[]) => {
     onReorder(records.flatMap((m) => m.data) as StockQuote[])
   }
+  useEffect(() => {
+    setEditItem(selectedItem ?? null)
+  }, [])
 
   return (
     <>
@@ -99,7 +95,7 @@ const EditList = ({
           </Box>
         </Box>
         {filtered.length < originalData.length && !isLoading ? (
-          <EditableStockListNew items={data} onPushChanges={onReorder} onEditSingleItem={handleEditSingleItem} isLoading={isLoading} />
+          <EditableStockListNew items={data} onPushChanges={onReorder} onEditSingleItem={handleEditSingleItem} />
         ) : (
           <Box>
             {!isLoading && (
@@ -116,7 +112,7 @@ const EditList = ({
                 {showReorder ? (
                   <DragAndDropSort items={sortedItems} onPushChanges={handleReorder} />
                 ) : (
-                  <EditableStockListNew items={data} onPushChanges={onReorder} onEditSingleItem={handleEditSingleItem} isLoading={isLoading} />
+                  <EditableStockListNew items={data} onPushChanges={onReorder} onEditSingleItem={handleEditSingleItem} />
                 )}
               </>
             )}

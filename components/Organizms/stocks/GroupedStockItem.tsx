@@ -5,9 +5,11 @@ import StockTable from './StockTable'
 import { useState } from 'react'
 import Clickable from 'components/Atoms/Containers/Clickable'
 import { UserProfile } from 'lib/backend/api/aws/models/apiGatewayModels'
+import { sortArray } from 'lib/util/collections'
 
 const GroupedStockItem = ({ stockGroup, userProfile }: { stockGroup: StockGroup; userProfile: UserProfile | null }) => {
   const [expanded, setExpanded] = useState(false)
+  const sortedQuotes = sortArray(stockGroup.quotes, ['ChangePercent'], ['desc'])
 
   const handleExpandCollapse = () => {
     setExpanded(!expanded)
@@ -38,7 +40,7 @@ const GroupedStockItem = ({ stockGroup, userProfile }: { stockGroup: StockGroup;
         <>
           <StockTable
             marketCategory={'stocks'}
-            stockList={stockGroup.quotes}
+            stockList={sortedQuotes}
             showGroupName={false}
             showSummary={false}
             scrollIntoView={expanded}
