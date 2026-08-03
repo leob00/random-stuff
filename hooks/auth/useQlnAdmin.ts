@@ -9,7 +9,7 @@ export default function useQlnAdmin() {
   const { claims, saveClaims } = useSessionStore()
   const [isValidating, setIsValidating] = useState(true)
   const [validatedClaim, setValidatedClaim] = useState<Claim | undefined>(claims.find((m) => m.type === 'qln'))
-  const { ticket, setTicket } = useUserController()
+  const { ticket } = useUserController()
 
   const validateClaim = async (claimType: ClaimType) => {
     let newClaims = [...claims]
