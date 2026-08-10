@@ -70,7 +70,7 @@ const AdminEarningsWrapper = () => {
 
   return (
     <>
-      <RequireClaim claimType='rs-admin'>
+      <RequireClaim claimType='qln'>
         <Box py={2} minHeight={750}>
           <SearchBySymbolAccordion
             handelSubmit={handelSubmit}

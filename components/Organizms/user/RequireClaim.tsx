@@ -20,8 +20,17 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
   const [validatedClaim, setValidatedClaim] = useState(claims.find((m) => m.type === claimType))
 
   const handleLoginQln = (newClaims: Claim[]) => {
+    const qlnClaim = newClaims.find((m) => m.type === 'qln')
+    if (qlnClaim) {
+      appendClaim(qlnClaim)
+      setValidatedClaim(newClaims.find((m) => m.type === claimType))
+    }
+  }
+
+  const appendClaim = (c: Claim) => {
+    const newClaims = claims.filter((m) => m.type !== c.type)
+    newClaims.push(c)
     saveClaims(newClaims)
-    setValidatedClaim(newClaims.find((m) => m.type === claimType))
   }
 
   useEffect(() => {
@@ -61,8 +70,7 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
                 type: 'rs',
                 tokenExpirationSeconds: expirationSeconds,
               }
-              allClaims.push(newClaim)
-              saveClaims(allClaims)
+              appendClaim(newClaim)
               setValidatedClaim(newClaim)
             }
             break
@@ -75,6 +83,9 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
                 type: 'rs-admin',
                 tokenExpirationSeconds: expirationSeconds,
               }
+              if (!isValidatingAdminClaim && adminClaim) {
+                allClaims.push(adminClaim)
+              }
               allClaims.push(newClaim)
               saveClaims(allClaims)
               setValidatedClaim(newClaim)
@@ -82,7 +93,8 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
             break
           }
           case 'qln':
-            if (adminClaim) {
+            if (adminClaim && !isValidatingAdminClaim) {
+              appendClaim(adminClaim)
               setValidatedClaim(adminClaim)
             }
         }
@@ -110,6 +122,8 @@ const RequireClaim = ({ claimType, children }: { claimType: ClaimType; children:
             )}
           </>
         )
+      case 'qln':
+        return <>{!isValidatingAdminClaim && !adminClaim && <QlnUsernameLoginForm onSuccess={handleLoginQln} />}</>
     }
 
     return <></>
