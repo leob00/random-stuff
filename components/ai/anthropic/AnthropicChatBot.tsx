@@ -9,7 +9,6 @@ import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import dayjs from 'dayjs'
 import numeral from 'numeral'
 import { useState, useRef } from 'react'
-import { CasinoGrayTransparent } from 'components/themes/mainTheme'
 import ChatBotMessage from 'components/ai//ChatBotMessage'
 import { AnthropicChatbotMessage } from 'lib/backend/api/models/antropic'
 

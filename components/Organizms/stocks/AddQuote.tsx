@@ -30,7 +30,7 @@ const AddQuote = ({
       {alreadyExists && showAddToListButton && (
         <CenterStack>
           <Alert severity='success'>
-            <Typography pr={2} variant='caption'>{`This stock already exists in your list`}</Typography>
+            <Typography pr={2} variant='caption'>{`This stock already exists in grpup: ${stockListMap.get(quote.Symbol)?.GroupName}`}</Typography>
           </Alert>
         </CenterStack>
       )}
