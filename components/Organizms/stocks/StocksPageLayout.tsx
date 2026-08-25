@@ -19,6 +19,7 @@ import TopMoversSummary from './summary/stocks/TopMoversSummary'
 import BorderedBox from 'components/Atoms/Boxes/BorderedBox'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import VolumeLeadersSummary from './summary/stocks/VolumeLeadersSummary'
+import TopSectorsSummary from './summary/stocks/TopSectorsSummary'
 
 const tabs: TabInfo[] = [
   {
@@ -122,16 +123,19 @@ const StocksPageLayout = ({ userProfile }: { userProfile: UserProfile | null }) 
               <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={{ xs: 'center', md: 'unset' }} pt={4}>
                 <Box>
                   <BorderedBox>
-                    {' '}
                     <TopMoversSummary userProfile={userProfile} showCompanyName />
                   </BorderedBox>
                 </Box>
                 <Box>
                   <BorderedBox>
-                    {' '}
                     <VolumeLeadersSummary userProfile={userProfile} showCompanyName />
                   </BorderedBox>
                 </Box>
+                {/* <Box>
+                  <BorderedBox>
+                    <TopSectorsSummary />
+                  </BorderedBox>
+                </Box> */}
               </Box>
             </Box>
           )}

@@ -78,10 +78,10 @@ export const newsTypes: DropdownItem[] = [
     text: 'BBC World',
     value: 'BbcWorld',
   },
-  // {
-  //   text: 'Bloomberg',
-  //   value: 'BloombergMarkets',
-  // },
+  {
+    text: 'Bloomberg',
+    value: 'BloombergMarkets',
+  },
   // {
   //   text: 'CBS World',
   //   value: 'CBSWorld',
@@ -144,9 +144,13 @@ export const newsTypes: DropdownItem[] = [
   //   value: 'MarketWatchPulse',
   // },
   {
-    text: 'MarketWatch Top Stories',
+    text: 'Marketwatch Top Stories',
     value: 'MarketWatchTopStories',
   },
+  // {
+  //   text: 'Newsmax',
+  //   value: 'Newsmax',
+  // },
   {
     text: 'NPR',
     value: 'NPR',
