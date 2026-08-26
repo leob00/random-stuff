@@ -19,7 +19,7 @@ const ChatBotMessage = ({ msg }: { msg: AnthropicChatbotMessage }) => {
           </pre>
         ) : (
           <Box>
-            <CopyableText label='' value={msg.content} showValue labelColor={getColor(msg.role)} />
+            <CopyableText label='' value={msg.content} showValue labelColor={getColor(msg.role)} isMarkdown />
           </Box>
         )}
       </Box>

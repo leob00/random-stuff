@@ -3,6 +3,7 @@ import { Box, IconButton, Typography, TypographyOwnProps, TypographyPropsVariant
 import SnackbarSuccess from '../Dialogs/SnackbarSuccess'
 import { TypographyVariant } from '@mui/material/styles/createTypography'
 import { useState } from 'react'
+import MarkdownView from './MarkdownView'
 
 const CopyableText = ({
   label,
@@ -10,12 +11,14 @@ const CopyableText = ({
   showValue = false,
   variant = 'body1',
   labelColor,
+  isMarkdown,
 }: {
   label: string
   value: string
   showValue?: boolean
   variant?: TypographyVariant
   labelColor?: TypographyOwnProps['color']
+  isMarkdown?: boolean
 }) => {
   const [showCopyConfirm, setShowCopyConfirm] = useState(false)
   const theme = useTheme()
@@ -35,7 +38,7 @@ const CopyableText = ({
         )}
         {showValue && (
           <Box>
-            <Typography variant={variant} pr={2} color={labelColor ?? textColor}>{`${value}`}</Typography>
+            {isMarkdown ? <MarkdownView text={value} /> : <Typography variant={variant} pr={2} color={labelColor ?? textColor}>{`${value}`}</Typography>}
           </Box>
         )}
         <IconButton size='small' onClick={() => handleCopyItem(value)}>
