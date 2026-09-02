@@ -23,7 +23,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const resp = (await postBody(`${config.url}/Sectors`, 'POST', { Category: 'Industry', Id: id }, { ApiKey: config.key }, true)) as QlnApiResponse
   const container = resp.Body.Container as SectorIndustry
   const quotes = resp.Body.Quotes as StockQuote[]
-  const filteredQuotes = excludeFinancialInstruments(quotes.filter((m) => m.MarketCap).filter((c) => c.Change !== null))
+  const filteredQuotes = quotes.filter((m) => m.MarketCap).filter((c) => c.Change !== null)
 
   const sortedQuotes = dedup(sortArray(filteredQuotes, ['MarketCap'], ['desc']), 'Company')
   const model: SectorDetailsModel = {

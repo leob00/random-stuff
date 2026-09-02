@@ -85,8 +85,8 @@ const lightPalette: PaletteOptions = {
 }
 
 export const typographyOptions: TypographyVariantsOptions = {
-  //fontFamily: ['-apple-system', 'Roboto', 'BlinkMacSystemFont', '"Helvetica Neue"', 'Arial', 'sans-serif', '"Apple Color Emoji"'].join(','),
-  fontFamily: ['-apple-system', 'BlinkMacSystemFont', 'Roboto', 'Tahoma', '"Helvetica Neue"', 'Arial', 'sans-serif', '"Apple Color Emoji"'].join(','),
+  fontFamily: ['-apple-system', 'Roboto', 'Tahoma', 'BlinkMacSystemFont', '"Helvetica Neue"', 'Arial', 'sans-serif', '"Apple Color Emoji"'].join(','),
+  //fontFamily: ['JetBrains Mono', 'Tahoma', '"Helvetica Neue"', 'Arial', 'sans-serif', '"Apple Color Emoji"'].join(','),
   fontSize: 18,
   fontWeightBold: 'bold',
 

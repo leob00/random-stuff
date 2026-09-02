@@ -132,7 +132,7 @@ export const getLineChartOptions = (
       tooltip: {
         padding: 20,
         backgroundColor: TooltipBkg,
-        titleSpacing: 20,
+        titleSpacing: 30,
         titleColor: VeryLightBlue,
         footerAlign: 'left',
         footerSpacing: 10,
@@ -150,10 +150,11 @@ export const getLineChartOptions = (
         usePointStyle: true,
         footerColor: palette === 'light' ? VeryLightBlue : VeryLightBlue,
         bodyColor: palette === 'light' ? VeryLightBlue : VeryLightBlue,
-        titleMarginBottom: 16,
+        titleMarginBottom: 20,
+
         titleFont: {
-          size: 15,
-          weight: 800,
+          size: 18,
+          weight: 600,
         },
         // multiKeyBackground: 'lightgray',
         callbacks: {

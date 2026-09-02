@@ -65,7 +65,10 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
     lineChartOptions.plugins!.tooltip!.callbacks = {
       ...lineChartOptions.plugins!.tooltip!.callbacks,
       title: (tooltipItems) => {
-        return `${dayjs(tooltipItems[0].label).format('dddd')}, ${dayjs(tooltipItems[0].label).format('MM/DD/YYYY')}`
+        if (marketCategory === 'crypto') {
+          return `${dayjs(tooltipItems[0].label).format('dddd')}, ${dayjs(tooltipItems[0].label).format('MM/DD/YYYY')}`
+        }
+        return `${dayjs(tooltipItems[0].label).format('dddd')}, ${dayjs(tooltipItems[0].label).format('MM/DD/YYYY hh:mm A')}`
       },
       label: (tooltipItems) => {
         const price = numeral(history[tooltipItems.dataIndex].Price).format('###,###,0.000')

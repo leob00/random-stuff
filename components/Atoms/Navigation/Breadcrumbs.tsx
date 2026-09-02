@@ -55,7 +55,9 @@ export const BasicBreadcrumbs = () => {
                       handleClick(route)
                     }}
                   >
-                    <Typography>{route.breadcrumbName ?? route.name}</Typography>
+                    <Typography fontStyle={'italic'} fontFamily={'Tahoma'}>
+                      {route.breadcrumbName ?? route.name}
+                    </Typography>
                   </LinkButton>
                 ) : (
                   <FadeIn>

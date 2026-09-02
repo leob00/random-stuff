@@ -40,8 +40,18 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "Ares Acquisition Corporation III",
+    "Symbol": "AAC",
+    "Class": "COMPANY"
+  },
+  {
     "Name": "Ares Acquisition Corporation III Units, each consisting of one Class A ordinary share and one-tenth of one redeemable warrant",
     "Symbol": "AAC.U",
+    "Class": "WARRANT"
+  },
+  {
+    "Name": "Ares Acquisition Corporation III Redeemable warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50",
+    "Symbol": "AAC.WS",
     "Class": "WARRANT"
   },
   {
@@ -253,11 +263,6 @@
     "Name": "Allied Gold Corporation",
     "Symbol": "AAUC",
     "Class": "COMPANY"
-  },
-  {
-    "Name": "Tema Alternative Asset Managers ETF",
-    "Symbol": "AAUM",
-    "Class": "ETF"
   },
   {
     "Name": "Alpha Architect US Equity ETF",
@@ -855,11 +860,6 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "American Drive Acquisition Company Units",
-    "Symbol": "ADACU",
-    "Class": "COMPANY"
-  },
-  {
     "Name": "American Drive Acquisition Company Warrant",
     "Symbol": "ADACW",
     "Class": "WARRANT"
@@ -928,6 +928,11 @@
     "Name": "Leverage Shares 2X Long ADBE Daily ETF",
     "Symbol": "ADBG",
     "Class": "ETF"
+  },
+  {
+    "Name": "Advasa Holdings, Inc. Common Stock",
+    "Symbol": "ADBT",
+    "Class": "COMPANY"
   },
   {
     "Name": "Direxion Daily ADBE Bull 2X ETF",
@@ -1160,13 +1165,28 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "Harbor AlphaEdge Mid Cap Core ETF",
+    "Symbol": "AEMC",
+    "Class": "ETF"
+  },
+  {
     "Name": "AETHLON MEDICAL INC",
     "Symbol": "AEMD",
     "Class": "COMPANY"
   },
   {
+    "Name": "Harbor AlphaEdge Mid Cap Growth ETF",
+    "Symbol": "AEMG",
+    "Class": "ETF"
+  },
+  {
     "Name": "Anfield Enhanced Market ETF",
     "Symbol": "AEMS",
+    "Class": "ETF"
+  },
+  {
+    "Name": "Harbor AlphaEdge Mid Cap Value ETF",
+    "Symbol": "AEMV",
     "Class": "ETF"
   },
   {
@@ -1218,6 +1238,11 @@
     "Name": "AES Corporation",
     "Symbol": "AES",
     "Class": "COMPANY"
+  },
+  {
+    "Name": "Harbor AlphaEdge Small Cap Core ETF",
+    "Symbol": "AESB",
+    "Class": "ETF"
   },
   {
     "Name": "Atlas Energy Solutions Inc.",
@@ -4385,14 +4410,29 @@
     "Class": "NOTE"
   },
   {
-    "Name": "Atlantic International Corp. Common Stock",
-    "Symbol": "ATLN",
-    "Class": "COMPANY"
-  },
-  {
     "Name": "AMES National Corp",
     "Symbol": "ATLO",
     "Class": "COMPANY"
+  },
+  {
+    "Name": "JAB Acquisition Corp I Class A Ordinary Shares",
+    "Symbol": "ATLQ",
+    "Class": "COMPANY"
+  },
+  {
+    "Name": "JAB Acquisition Corp I Rights",
+    "Symbol": "ATLQR",
+    "Class": "COMPANY"
+  },
+  {
+    "Name": "JAB Acquisition Corp I Unit",
+    "Symbol": "ATLQU",
+    "Class": "COMPANY"
+  },
+  {
+    "Name": "JAB Acquisition Corp I Warrants",
+    "Symbol": "ATLQW",
+    "Class": "WARRANT"
   },
   {
     "Name": "Atlas Lithium Corporation Common Stock",
@@ -5785,7 +5825,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "BioAtla, Inc. Common Stock",
+    "Name": "BIOATLA INC",
     "Symbol": "BCAB",
     "Class": "COMPANY"
   },
@@ -7345,11 +7385,6 @@
     "Class": "ETF"
   },
   {
-    "Name": "TopBuild Corp. Common Stock",
-    "Symbol": "BLD",
-    "Class": "COMPANY"
-  },
-  {
     "Name": "Cambria Global Real Estate ETF",
     "Symbol": "BLDG",
     "Class": "ETF"
@@ -8760,6 +8795,11 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "Beacon Tactical Alternatives Risk ETF",
+    "Symbol": "BTA",
+    "Class": "ETF"
+  },
+  {
     "Name": "BioXcel Therapeutics, Inc. Common Stock",
     "Symbol": "BTAI",
     "Class": "COMPANY"
@@ -9672,6 +9712,11 @@
   {
     "Name": "Alpha Architect Tail Risk ETF",
     "Symbol": "CAOS",
+    "Class": "ETF"
+  },
+  {
+    "Name": "Defiance AI Capacitors Leaders ETF",
+    "Symbol": "CAPA",
     "Class": "ETF"
   },
   {
@@ -10615,11 +10660,6 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "Cantor Equity Partners II, Inc. Class A Ordinary Share",
-    "Symbol": "CEPT",
-    "Class": "COMPANY"
-  },
-  {
     "Name": "Central Puerto S.A. American Depositary Shares (each represents ten Common Shares)",
     "Symbol": "CEPU",
     "Class": "COMPANY"
@@ -11275,11 +11315,6 @@
     "Class": "ETF"
   },
   {
-    "Name": "Corgi 3-7 Year Treasury Bond ETF",
-    "Symbol": "CIEI",
-    "Class": "ETF"
-  },
-  {
     "Name": "Ciena Corporation",
     "Symbol": "CIEN",
     "Class": "COMPANY"
@@ -11620,7 +11655,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "NYLI Investment Grade CLO ETF",
+    "Name": "NYLIM Investment Grade CLO ETF",
     "Symbol": "CLOO",
     "Class": "ETF"
   },
@@ -12640,7 +12675,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "NYLI MacKay Core Plus Bond ETF",
+    "Name": "NYLIM MacKay Core Plus Bond ETF",
     "Symbol": "CPLB",
     "Class": "ETF"
   },
@@ -16190,6 +16225,11 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "Leverage Shares 1X Short SPCX Daily ETF",
+    "Symbol": "DSPC",
+    "Class": "ETF"
+  },
+  {
     "Name": "Tema S&P 500 Historical Weight ETF Strategy",
     "Symbol": "DSPY",
     "Class": "COMPANY"
@@ -16770,11 +16810,6 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "Dynamix Corporation Unit",
-    "Symbol": "DYNCU",
-    "Class": "COMPANY"
-  },
-  {
     "Name": "Dynamix Corporation Warrant",
     "Symbol": "DYNCW",
     "Class": "WARRANT"
@@ -16925,7 +16960,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "Harbor AlphaEdge Small Cap Earners ETF",
+    "Name": "Harbor Small Cap Earners ETF",
     "Symbol": "EBIT",
     "Class": "ETF"
   },
@@ -18075,6 +18110,11 @@
     "Class": "ETF"
   },
   {
+    "Name": "Corgi Emerging Markets 2x Daily ETF",
+    "Symbol": "EMXX",
+    "Class": "ETF"
+  },
+  {
     "Name": "Enbridge, Inc",
     "Symbol": "ENB",
     "Class": "COMPANY"
@@ -18357,11 +18397,6 @@
   {
     "Name": "Harbor Mid Cap Core ETF",
     "Symbol": "EPMB",
-    "Class": "ETF"
-  },
-  {
-    "Name": "Harbor Mid Cap Value ETF",
-    "Symbol": "EPMV",
     "Class": "ETF"
   },
   {
@@ -19108,11 +19143,6 @@
     "Name": "EVgo Inc. Class A Common Stock",
     "Symbol": "EVGO",
     "Class": "COMPANY"
-  },
-  {
-    "Name": "EVgo Inc. Warrants",
-    "Symbol": "EVGOW",
-    "Class": "WARRANT"
   },
   {
     "Name": "Evolent Health, Inc Class A Common Stock",
@@ -22185,6 +22215,11 @@
     "Class": "ETF"
   },
   {
+    "Name": "Yorkville America MANGOS Plus Index ETF",
+    "Symbol": "FRUT",
+    "Class": "ETF"
+  },
+  {
     "Name": "Fervo Energy Company Class A common stock",
     "Symbol": "FRVO",
     "Class": "COMPANY"
@@ -24255,11 +24290,6 @@
     "Class": "ETF"
   },
   {
-    "Name": "Defiance Gold Enhanced Options Income ETF",
-    "Symbol": "GLDY",
-    "Class": "ETF"
-  },
-  {
     "Name": "Global Engine Group Holding Limited Class A Ordinary Shares",
     "Symbol": "GLE",
     "Class": "COMPANY"
@@ -25705,11 +25735,6 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "ESS Tech, Inc. Warrant exercisable for one-fifteenth of a share of Common Stock at an exercise price of $172.50 per share",
-    "Symbol": "GWH.WS",
-    "Class": "WARRANT"
-  },
-  {
     "Name": "GUIDEWIRE SOFTWARE, INC.",
     "Symbol": "GWRE",
     "Class": "COMPANY"
@@ -26023,6 +26048,11 @@
     "Name": "Harvard Bioscience Inc",
     "Symbol": "HBIO",
     "Class": "COMPANY"
+  },
+  {
+    "Name": "Hedgeye Hedged Bitcoin ETF",
+    "Symbol": "HBIT",
+    "Class": "ETF"
   },
   {
     "Name": "Hudbay Minerals Inc.",
@@ -26455,7 +26485,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "NYLI FTSE International Equity Currency Neutral ETF",
+    "Name": "NYLIM FTSE International Equity Currency Neutral ETF",
     "Symbol": "HFXI",
     "Class": "ETF"
   },
@@ -26803,11 +26833,6 @@
     "Name": "Hennessy Advisors, Inc.",
     "Symbol": "HNNA",
     "Class": "COMPANY"
-  },
-  {
-    "Name": "Hennessy Advisors, Inc. 4.875% Notes due 2026",
-    "Symbol": "HNNAZ",
-    "Class": "NOTE"
   },
   {
     "Name": "Hallador Energy Company",
@@ -27465,6 +27490,11 @@
     "Class": "NOTE"
   },
   {
+    "Name": "Hotchkis & Wiley Global Value Fund",
+    "Symbol": "HWGV",
+    "Class": "FUND"
+  },
+  {
     "Name": "HWH International Inc. Common Stock",
     "Symbol": "HWH",
     "Class": "COMPANY"
@@ -27493,6 +27523,11 @@
     "Name": "Hotchkis & Wiley SMID Cap Diversified Value Fund",
     "Symbol": "HWSM",
     "Class": "FUND"
+  },
+  {
+    "Name": "Mast HedgeIndex Corporate Arbitrage ETF",
+    "Symbol": "HXA",
+    "Class": "ETF"
   },
   {
     "Name": "Mast HedgeIndex Adaptive Equities ETF",
@@ -28440,7 +28475,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "iShares Defense Industrials Active ETF",
+    "Name": "BlackRock ETF Trust iShares Defense Industrials and Tech Active ETF",
     "Symbol": "IDEF",
     "Class": "ETF"
   },
@@ -29925,6 +29960,11 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "Inflection Point Acquisition Corp. VIII Unit",
+    "Symbol": "IPHXU",
+    "Class": "COMPANY"
+  },
+  {
     "Name": "Intrepid Potash, Inc",
     "Symbol": "IPI",
     "Class": "COMPANY"
@@ -29990,6 +30030,16 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "Inflection Point Acquisition Corp. VII Class A Ordinary Shares",
+    "Symbol": "IPXG",
+    "Class": "COMPANY"
+  },
+  {
+    "Name": "Inflection Point Acquisition Corp. VII Warrant",
+    "Symbol": "IPXGW",
+    "Class": "WARRANT"
+  },
+  {
     "Name": "iQIYI, Inc. American Depositary Shares",
     "Symbol": "IQ",
     "Class": "COMPANY"
@@ -30010,7 +30060,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "NYLI MacKay High Income ETF",
+    "Name": "NYLIM MacKay High Income ETF",
     "Symbol": "IQHI",
     "Class": "ETF"
   },
@@ -30060,12 +30110,12 @@
     "Class": "ETF"
   },
   {
-    "Name": "NYLI Candriam International Equity ETF",
+    "Name": "NYLIM Candriam International Equity ETF",
     "Symbol": "IQSI",
     "Class": "ETF"
   },
   {
-    "Name": "NYLI Candriam U.S. Mid Cap Equity ETF",
+    "Name": "NYLIM Candriam U.S. Mid Cap Equity ETF",
     "Symbol": "IQSM",
     "Class": "ETF"
   },
@@ -30075,7 +30125,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "NYLI Candriam U.S. Large Cap Equity ETF",
+    "Name": "NYLIM Candriam U.S. Large Cap Equity ETF",
     "Symbol": "IQSU",
     "Class": "ETF"
   },
@@ -30695,7 +30745,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "NYLI Winslow Focused Large Cap Growth ETF",
+    "Name": "NYLIM Winslow Focused Large Cap Growth ETF",
     "Symbol": "IWFG",
     "Class": "ETF"
   },
@@ -30710,7 +30760,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "NYLI Winslow Large Cap Growth ETF",
+    "Name": "NYLIM Winslow Large Cap Growth ETF",
     "Symbol": "IWLG",
     "Class": "ETF"
   },
@@ -31400,11 +31450,6 @@
     "Class": "ETF"
   },
   {
-    "Name": "Janus Henderson Group plc Ordinary Shares",
-    "Symbol": "JHG",
-    "Class": "COMPANY"
-  },
-  {
     "Name": "John Hancock High Yield ETF",
     "Symbol": "JHHY",
     "Class": "ETF"
@@ -31918,6 +31963,11 @@
     "Name": "JPMorgan New York Tax Free Bond ETF",
     "Symbol": "JTNY",
     "Class": "ETF"
+  },
+  {
+    "Name": "JATT III Acquisition Corp Ordinary Shares",
+    "Symbol": "JTTT",
+    "Class": "COMPANY"
   },
   {
     "Name": "Aptus Enhanced Yield ETF",
@@ -32980,6 +33030,11 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "Kensington Premium Opportunities ETF",
+    "Symbol": "KPO",
+    "Class": "ETF"
+  },
+  {
     "Name": "KraneShares 100% KWEB Defined Outcome January 2027 ETF",
     "Symbol": "KPRO",
     "Class": "ETF"
@@ -33605,6 +33660,11 @@
     "Class": "ETF"
   },
   {
+    "Name": "GraniteShares Short Term Box ETF",
+    "Symbol": "LBOX",
+    "Class": "ETF"
+  },
+  {
     "Name": "Liberty Broadband Corporation Class A",
     "Symbol": "LBRDA",
     "Class": "COMPANY"
@@ -33685,6 +33745,11 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "Locafy Limited Warrant",
+    "Symbol": "LCFYW",
+    "Class": "WARRANT"
+  },
+  {
     "Name": "Lucid Group, Inc. Common Stock",
     "Symbol": "LCID",
     "Class": "COMPANY"
@@ -33695,7 +33760,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "Logan Capital Broad Innovative Growth ETF",
+    "Name": "Logan Capital Large Cap Growth ETF",
     "Symbol": "LCLG",
     "Class": "ETF"
   },
@@ -34365,11 +34430,6 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "Lixte Biotechnology Holdings, Inc. Common Stock",
-    "Symbol": "LIXT",
-    "Class": "COMPANY"
-  },
-  {
     "Name": "Innovator Premium Income 15 Buffer ETF - January",
     "Symbol": "LJAN",
     "Class": "COMPANY"
@@ -34920,7 +34980,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "New York Life Investments ETF Trust NYLI U.S. Large Cap R&D Leaders ETF",
+    "Name": "New York Life Investments ETF Trust NYLIM U.S. Large Cap R&D Leaders ETF",
     "Symbol": "LRND",
     "Class": "ETF"
   },
@@ -35695,7 +35755,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "Check-Cap Ltd.",
+    "Name": "MBody AI Ltd. Ordinary Share",
     "Symbol": "MBAI",
     "Class": "COMPANY"
   },
@@ -36055,11 +36115,6 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "Pacer Swan SOS Moderate December ETF",
-    "Symbol": "MDCR",
-    "Class": "ETF"
-  },
-  {
     "Name": "Medicus Pharma Ltd. Common Stock",
     "Symbol": "MDCX",
     "Class": "COMPANY"
@@ -36200,7 +36255,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "NYLI CBRE Global Infrastructure Megatrends Term Fund",
+    "Name": "NYLIM CBRE Global Infrastructure Megatrends Term Fund",
     "Symbol": "MEGI",
     "Class": "FUND"
   },
@@ -36407,11 +36462,6 @@
   {
     "Name": "PIMCO RAFI Multi-Factor International Equity ETF",
     "Symbol": "MFDX",
-    "Class": "ETF"
-  },
-  {
-    "Name": "Pacer Swan SOS Moderate (February) ETF",
-    "Symbol": "MFEB",
     "Class": "ETF"
   },
   {
@@ -36767,11 +36817,6 @@
   {
     "Name": "Middleby Corp",
     "Symbol": "MIDD",
-    "Class": "COMPANY"
-  },
-  {
-    "Name": "Middleby Corp. Common Stock Ex-Distribution When Issued",
-    "Symbol": "MIDDV",
     "Class": "COMPANY"
   },
   {
@@ -37135,11 +37180,6 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "Pacer Swan SOS Moderate March ETF",
-    "Symbol": "MMAR",
-    "Class": "ETF"
-  },
-  {
     "Name": "iShares Large Cap Max Buffer Mar ETF",
     "Symbol": "MMAX",
     "Class": "ETF"
@@ -37150,12 +37190,12 @@
     "Class": "ETF"
   },
   {
-    "Name": "NYLI MacKay California Muni Intermediate ETF",
+    "Name": "NYLIM MacKay California Muni Intermediate ETF",
     "Symbol": "MMCA",
     "Class": "ETF"
   },
   {
-    "Name": "NYLI MacKay DefinedTerm Muni Opportunities Fund",
+    "Name": "NYLIM MacKay DefinedTerm Muni Opportunities Fund",
     "Symbol": "MMD",
     "Class": "FUND"
   },
@@ -37175,12 +37215,12 @@
     "Class": "ETF"
   },
   {
-    "Name": "NYLI MacKay Muni Insured ETF",
+    "Name": "NYLIM MacKay Muni Insured ETF",
     "Symbol": "MMIN",
     "Class": "ETF"
   },
   {
-    "Name": "NYLI MacKay Muni Intermediate ETF",
+    "Name": "NYLIM MacKay Muni Intermediate ETF",
     "Symbol": "MMIT",
     "Class": "ETF"
   },
@@ -37205,7 +37245,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "NYLI MacKay Muni Allocation ETF",
+    "Name": "NYLIM MacKay Muni Allocation ETF",
     "Symbol": "MMMA",
     "Class": "ETF"
   },
@@ -37220,7 +37260,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "NYLI MacKay Muni Short Duration ETF",
+    "Name": "NYLIM MacKay Muni Short Duration ETF",
     "Symbol": "MMSD",
     "Class": "ETF"
   },
@@ -37260,7 +37300,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "NYLI Merger Arbitrage ETF",
+    "Name": "NYLIM Merger Arbitrage ETF",
     "Symbol": "MNA",
     "Class": "ETF"
   },
@@ -37283,6 +37323,11 @@
     "Name": "monday.com Ltd. Ordinary Shares",
     "Symbol": "MNDY",
     "Class": "COMPANY"
+  },
+  {
+    "Name": "MicroSectors 3X Long MANGOS ex Private Companies ETNs",
+    "Symbol": "MNGU",
+    "Class": "ETF"
   },
   {
     "Name": "Mannkind Corporation",
@@ -37860,6 +37905,11 @@
     "Class": "FUND"
   },
   {
+    "Name": "Pacer Swan SOS Moderate September ETF",
+    "Symbol": "MSEP",
+    "Class": "ETF"
+  },
+  {
     "Name": "Middlesex Water Co",
     "Symbol": "MSEX",
     "Class": "COMPANY"
@@ -38352,6 +38402,21 @@
   {
     "Name": "Northern Trust 2055 Tax-Exempt Distributing Ladder ETF",
     "Symbol": "MUND",
+    "Class": "ETF"
+  },
+  {
+    "Name": "Northern Trust 2036 Tax-Exempt Distributing Ladder ETF",
+    "Symbol": "MUNF",
+    "Class": "ETF"
+  },
+  {
+    "Name": "Northern Trust 2046 Tax-Exempt Distributing Ladder ETF",
+    "Symbol": "MUNG",
+    "Class": "ETF"
+  },
+  {
+    "Name": "Northern Trust 2056 Tax-Exempt Distributing Ladder ETF",
+    "Symbol": "MUNH",
     "Class": "ETF"
   },
   {
@@ -39800,7 +39865,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "NYLI International Small-Mid Cap Equity ETF",
+    "Name": "NYLIM International Small-Mid Cap Equity ETF",
     "Symbol": "NISM",
     "Class": "ETF"
   },
@@ -39833,11 +39898,6 @@
     "Name": "Nixxy, Inc. Common Stock",
     "Symbol": "NIXX",
     "Class": "COMPANY"
-  },
-  {
-    "Name": "Nixxy, Inc. Warrant",
-    "Symbol": "NIXXW",
-    "Class": "WARRANT"
   },
   {
     "Name": "Innovator Growth-100 Power Buffer ETF - January",
@@ -42255,7 +42315,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "Offerpad Solutions Inc.",
+    "Name": "Offerpad Solutions Inc. Class A Common Stock",
     "Symbol": "OPAD",
     "Class": "COMPANY"
   },
@@ -42470,11 +42530,6 @@
     "Class": "ETF"
   },
   {
-    "Name": "Origin Materials, Inc. Common Stock",
-    "Symbol": "ORGN",
-    "Class": "COMPANY"
-  },
-  {
     "Name": "Organogenesis Holdings Inc. Class A Common Stock",
     "Symbol": "ORGO",
     "Class": "COMPANY"
@@ -42668,6 +42723,11 @@
     "Name": "Starlink AI Acquisition Corporation Units, each consisting of one Ordinary Share, and one Right to receive one-fourth (1/4) of one ordinary share",
     "Symbol": "OTAI.U",
     "Class": "COMPANY"
+  },
+  {
+    "Name": "Optimal Tax Managed Equity ETF",
+    "Symbol": "OTAX",
+    "Class": "ETF"
   },
   {
     "Name": "Open Text Corp",
@@ -42978,6 +43038,11 @@
     "Name": "Proem Acquisition Corp I Warrants",
     "Symbol": "PAACW",
     "Class": "WARRANT"
+  },
+  {
+    "Name": "Paradium.AI, Inc.",
+    "Symbol": "PAAI",
+    "Class": "COMPANY"
   },
   {
     "Name": "Pan American Silver Corp.",
@@ -43707,11 +43772,6 @@
   {
     "Name": "PureCycle Technologies, Inc. Common stock",
     "Symbol": "PCT",
-    "Class": "COMPANY"
-  },
-  {
-    "Name": "PureCycle Technologies, Inc. Unit",
-    "Symbol": "PCTTU",
     "Class": "COMPANY"
   },
   {
@@ -45395,6 +45455,11 @@
     "Class": "ETF"
   },
   {
+    "Name": "Defiance Memory & Photonics ETF",
+    "Symbol": "PRAM",
+    "Class": "ETF"
+  },
+  {
     "Name": "Praxis Precision Medicines, Inc. Common Stock",
     "Symbol": "PRAX",
     "Class": "COMPANY"
@@ -45925,6 +45990,11 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "Tema MLCC & PowerSemi ETF",
+    "Symbol": "PSOX",
+    "Class": "ETF"
+  },
+  {
     "Name": "Invesco Global Listed Private Equity ETF",
     "Symbol": "PSP",
     "Class": "ETF"
@@ -45947,6 +46017,16 @@
   {
     "Name": "PSQ Holdings, Inc. Warrants, Each whole warrant exercisable for 1/15th of a share of Class A common stock at an exercise price of $172.50 per share",
     "Symbol": "PSQH.WS",
+    "Class": "WARRANT"
+  },
+  {
+    "Name": "Pasqal Holding SA Ordinary Share",
+    "Symbol": "PSQL",
+    "Class": "COMPANY"
+  },
+  {
+    "Name": "Pasqal Holding SA Warrant",
+    "Symbol": "PSQLW",
     "Class": "WARRANT"
   },
   {
@@ -46440,7 +46520,7 @@
     "Class": "WARRANT"
   },
   {
-    "Name": "NYLI Hedge Multi-Strategy Tracker ETF",
+    "Name": "NYLIM Hedge Multi-Strategy Tracker ETF",
     "Symbol": "QAI",
     "Class": "ETF"
   },
@@ -46645,7 +46725,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "Roundhill Innovation-100 0DTE Covered Call Strategy ETF",
+    "Name": "Roundhill Nasdaq-100 0DTE Covered Call ETF Strategy ETF",
     "Symbol": "QDTE",
     "Class": "ETF"
   },
@@ -47458,21 +47538,6 @@
     "Name": "Reckoner Yield Enhanced AAA CLO ETF",
     "Symbol": "RAAA",
     "Class": "ETF"
-  },
-  {
-    "Name": "Real Asset Acquisition Corp. Class A Ordinary Share",
-    "Symbol": "RAAQ",
-    "Class": "COMPANY"
-  },
-  {
-    "Name": "Real Asset Acquisition Corp. Unit",
-    "Symbol": "RAAQU",
-    "Class": "COMPANY"
-  },
-  {
-    "Name": "Real Asset Acquisition Corp. Warrants",
-    "Symbol": "RAAQW",
-    "Class": "WARRANT"
   },
   {
     "Name": "Reckoner Yield Enhanced AAA CLO Reinvesting ETF",
@@ -48905,6 +48970,11 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "Rainier Acquisition Corporation Units",
+    "Symbol": "RNAQU",
+    "Class": "COMPANY"
+  },
+  {
     "Name": "TransCode Therapeutics, Inc. Common Stock",
     "Symbol": "RNAZ",
     "Class": "COMPANY"
@@ -50010,6 +50080,11 @@
     "Class": "WARRANT"
   },
   {
+    "Name": "Samos Energy Acquisition Corporation Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50 per share",
+    "Symbol": "SAMO.WS",
+    "Class": "WARRANT"
+  },
+  {
     "Name": "Strategas Macro Thematic Opportunities ETF",
     "Symbol": "SAMT",
     "Class": "ETF"
@@ -50075,11 +50150,6 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "Leverage Shares 2X Long SATS Daily ETF",
-    "Symbol": "SATG",
-    "Class": "ETF"
-  },
-  {
     "Name": "Satellogic Inc. Class A Ordinary Shares",
     "Symbol": "SATL",
     "Class": "COMPANY"
@@ -50113,6 +50183,11 @@
     "Name": "AAM Sawgrass US Small Cap Quality Growth ETF",
     "Symbol": "SAWS",
     "Class": "ETF"
+  },
+  {
+    "Name": "Saratoga Investment Corp. 8.00% Notes due 2031",
+    "Symbol": "SAX",
+    "Class": "NOTE"
   },
   {
     "Name": "Saratoga Investment Corp. 8.125% Notes due 2027",
@@ -50318,6 +50393,11 @@
     "Name": "Infrastructure Capital Small Cap Income ETF",
     "Symbol": "SCAP",
     "Class": "ETF"
+  },
+  {
+    "Name": "Southern Cross Acquisition II Corp. Units",
+    "Symbol": "SCATU",
+    "Class": "COMPANY"
   },
   {
     "Name": "Corgi U.S. Small-Cap 15% Structured Buffer ETF - August Series",
@@ -50870,7 +50950,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "NYLI MacKay Securitized Income ETF",
+    "Name": "NYLIM MacKay Securitized Income ETF",
     "Symbol": "SECR",
     "Class": "ETF"
   },
@@ -50973,11 +51053,6 @@
     "Name": "SEI QiM U.S. Large Cap Low Volatility Active ETF",
     "Symbol": "SELV",
     "Class": "ETF"
-  },
-  {
-    "Name": "SELECT MEDICAL HOLDINGS CORP",
-    "Symbol": "SEM",
-    "Class": "COMPANY"
   },
   {
     "Name": "Suncoast Select Growth ETF",
@@ -51622,11 +51697,6 @@
   {
     "Name": "Global X Silver Miners ETF (NEW)",
     "Symbol": "SIL",
-    "Class": "COMPANY"
-  },
-  {
-    "Name": "Sila Realty Trust, Inc.",
-    "Symbol": "SILA",
     "Class": "COMPANY"
   },
   {
@@ -53185,11 +53255,6 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "RiverNorth Enhanced Pre-Merger SPAC ETF",
-    "Symbol": "SPCZ",
-    "Class": "ETF"
-  },
-  {
     "Name": "Simplify US Equity PLUS Downside Convexity ETF",
     "Symbol": "SPD",
     "Class": "ETF"
@@ -53625,11 +53690,6 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "Twin Oak Endure ETF",
-    "Symbol": "SPYA",
-    "Class": "ETF"
-  },
-  {
     "Name": "Simplify US Equity PLUS Convexity ETF",
     "Symbol": "SPYC",
     "Class": "ETF"
@@ -54005,16 +54065,6 @@
     "Class": "ETF"
   },
   {
-    "Name": "SuRo Capital Corp. Common Stock",
-    "Symbol": "SSSS",
-    "Class": "COMPANY"
-  },
-  {
-    "Name": "SuRo Capital Corp. 6.00% Notes due 2026",
-    "Symbol": "SSSSL",
-    "Class": "NOTE"
-  },
-  {
     "Name": "System1, Inc.",
     "Symbol": "SST",
     "Class": "COMPANY"
@@ -54102,11 +54152,6 @@
   {
     "Name": "STERIS plc",
     "Symbol": "STE",
-    "Class": "COMPANY"
-  },
-  {
-    "Name": "Stellar Bancorp, Inc.",
-    "Symbol": "STEL",
     "Class": "COMPANY"
   },
   {
@@ -54700,7 +54745,7 @@
     "Class": "WARRANT"
   },
   {
-    "Name": "OceanPal Inc. Common Stock",
+    "Name": "SVRN, Inc. Common Stock",
     "Symbol": "SVRN",
     "Class": "COMPANY"
   },
@@ -55010,11 +55055,6 @@
     "Class": "ETF"
   },
   {
-    "Name": "Corgi India 2x Daily ETF",
-    "Symbol": "TAJX",
-    "Class": "ETF"
-  },
-  {
     "Name": "Takeda Pharmaceutical Company Limited American Depositary Shares (each representing 1/2 of a share of Common Stock)",
     "Symbol": "TAK",
     "Class": "COMPANY"
@@ -55213,11 +55253,6 @@
     "Name": "TBG Dividend Focus ETF",
     "Symbol": "TBG",
     "Class": "ETF"
-  },
-  {
-    "Name": "Brag House Holdings, Inc. Common Stock",
-    "Symbol": "TBH",
-    "Class": "COMPANY"
   },
   {
     "Name": "Trueblue, Inc.",
@@ -55490,7 +55525,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "21shares Polkadot ETF Shares of Beneficial Interest",
+    "Name": "21shares Polkadot Staking ETF Shares of Beneficial Interest",
     "Symbol": "TDOT",
     "Class": "COMPANY"
   },
@@ -55770,7 +55805,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "21Shares Ethereum ETF",
+    "Name": "21Shares Ethereum Staking ETF",
     "Symbol": "TETH",
     "Class": "ETF"
   },
@@ -55932,6 +55967,11 @@
   {
     "Name": "T. Rowe Price Growth Stock ETF",
     "Symbol": "TGRW",
+    "Class": "ETF"
+  },
+  {
+    "Name": "China AI Tigers LLM ETF",
+    "Symbol": "TGRZ",
     "Class": "ETF"
   },
   {
@@ -56100,7 +56140,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "21Shares Hyperliquid ETF",
+    "Name": "21shares Hyperliquid Staking ETF",
     "Symbol": "THYP",
     "Class": "ETF"
   },
@@ -56212,6 +56252,11 @@
   {
     "Name": "Northern Trust 2055 Inflation-Linked Distributing Ladder ETF",
     "Symbol": "TIPD",
+    "Class": "ETF"
+  },
+  {
+    "Name": "Northern Trust 2036 Inflation-Linked Distributing Ladder ETF",
+    "Symbol": "TIPF",
     "Class": "ETF"
   },
   {
@@ -57030,11 +57075,6 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "Terra Property Trust, Inc. 6.00% Notes due 2026",
-    "Symbol": "TPTA",
-    "Class": "NOTE"
-  },
-  {
     "Name": "Terra Property Trust, Inc. 7.00% Senior Secured Notes due 2029",
     "Symbol": "TPTS",
     "Class": "NOTE"
@@ -57615,7 +57655,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "21Shares Solana ETF",
+    "Name": "21Shares Solana Staking ETF",
     "Symbol": "TSOL",
     "Class": "ETF"
   },
@@ -57655,7 +57695,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "21shares Sui ETF Common Shares of Beneficial Interest Shares",
+    "Name": "21Shares Sui Staking ETF Common Shares of Beneficial Interest Shares",
     "Symbol": "TSUI",
     "Class": "COMPANY"
   },
@@ -59105,6 +59145,11 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "Corgi U.S. Growth 2x Daily ETF",
+    "Symbol": "USGX",
+    "Class": "ETF"
+  },
+  {
     "Name": "iShares Broad USD High Yield Corporate Bond ETF",
     "Symbol": "USHY",
     "Class": "ETF"
@@ -59350,11 +59395,6 @@
     "Class": "FUND"
   },
   {
-    "Name": "Principal CLO ETF",
-    "Symbol": "UUPP",
-    "Class": "ETF"
-  },
-  {
     "Name": "Universal Safety Products, Inc.",
     "Symbol": "UUU",
     "Class": "COMPANY"
@@ -59533,6 +59573,11 @@
     "Name": "Viking Acquisition Corp. I Warrants to purchase one Class A Ordinary Share",
     "Symbol": "VACI.WS",
     "Class": "WARRANT"
+  },
+  {
+    "Name": "Valor Energy Incorporated Common Stock",
+    "Symbol": "VAI",
+    "Class": "COMPANY"
   },
   {
     "Name": "VegaShares US Equity Autocallable Income ETF",
@@ -60153,11 +60198,6 @@
     "Name": "Leverage Shares 2X Long VIAV Daily ETF",
     "Symbol": "VIAG",
     "Class": "ETF"
-  },
-  {
-    "Name": "Via Renewables, Inc. 8.75% Series A Fixed-to-Floating Rate Cumulative Redeemable Perpetual Preferred Stock",
-    "Symbol": "VIASP",
-    "Class": "COMPANY"
   },
   {
     "Name": "Viavi Solutions Inc. Common Stock",
@@ -62120,7 +62160,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "New York Life Investments ETF Trust NYLI Global Equity R&D Leaders ETF",
+    "Name": "New York Life Investments ETF Trust NYLIM Global Equity R&D Leaders ETF",
     "Symbol": "WRND",
     "Class": "ETF"
   },
@@ -62338,11 +62378,6 @@
     "Name": "WisdomTree High Income Laddered Municipal Fund",
     "Symbol": "WTMY",
     "Class": "FUND"
-  },
-  {
-    "Name": "UTime Limited Class A Ordinary Shares",
-    "Symbol": "WTO",
-    "Class": "COMPANY"
   },
   {
     "Name": "WisdomTree Equity Premium Income Fund",
@@ -62940,6 +62975,16 @@
     "Class": "ETF"
   },
   {
+    "Name": "Exascale Labs Holdings Inc. Class A Common Stock",
+    "Symbol": "XLAB",
+    "Class": "COMPANY"
+  },
+  {
+    "Name": "Exascale Labs Holdings Inc. Warrant",
+    "Symbol": "XLABW",
+    "Class": "WARRANT"
+  },
+  {
     "Name": "State Street Materials Select Sector SPDR ETF",
     "Symbol": "XLB",
     "Class": "ETF"
@@ -63335,7 +63380,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "Expion360 Inc. Common Stock",
+    "Name": "Expion Energy, Inc. Common Stock",
     "Symbol": "XPON",
     "Class": "COMPANY"
   },
@@ -63560,9 +63605,19 @@
     "Class": "ETF"
   },
   {
+    "Name": "Karman Line Acquisition Corp. Class A Ordinary Shares",
+    "Symbol": "XTER",
+    "Class": "COMPANY"
+  },
+  {
     "Name": "Karman Line Acquisition Corp. Units",
     "Symbol": "XTERU",
     "Class": "COMPANY"
+  },
+  {
+    "Name": "Karman Line Acquisition Corp. Warrants",
+    "Symbol": "XTERW",
+    "Class": "WARRANT"
   },
   {
     "Name": "XTI Aerospace, Inc. Common Stock",
@@ -63647,6 +63702,16 @@
   {
     "Name": "FT Vest NVDA & Target Income ETF",
     "Symbol": "XVNV",
+    "Class": "ETF"
+  },
+  {
+    "Name": "FT Vest SPCX & Target Income ETF",
+    "Symbol": "XVSP",
+    "Class": "ETF"
+  },
+  {
+    "Name": "FT Vest TSLA & Target Income ETF",
+    "Symbol": "XVTS",
     "Class": "ETF"
   },
   {

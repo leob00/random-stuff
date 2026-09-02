@@ -3,7 +3,7 @@ import { Box } from '@mui/material'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import Seo from 'components/Organizms/Seo'
-import NewsPage from './ChatPage'
+import ChatPage from './ChatPage'
 
 //export const dynamic = 'force-dynamic' // disable cache
 export default async function Page() {
@@ -14,7 +14,7 @@ export default async function Page() {
 
       <Box>
         <Suspense fallback={<ComponentLoader />}>
-          <NewsPage />
+          <ChatPage />
         </Suspense>
       </Box>
     </>

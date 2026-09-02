@@ -1,6 +1,5 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
-import SimpleLineChart from 'components/Atoms/Charts/chartJs/SimpleLineChart'
 import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import { CasinoBlueTransparent, CasinoOrangeTransparent, DarkGreen, DarkModeRed, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
@@ -8,25 +7,17 @@ import { JoBLog, Job } from 'lib/backend/api/qln/qlnApi'
 import { sortArray } from 'lib/util/collections'
 import { max, mean, orderBy, sum, take } from 'lodash'
 import numeral from 'numeral'
-import { min } from 'lodash'
 import { getLineChartOptions } from 'components/Atoms/Charts/chartJs/lineChartOptions'
 import ChartJsTimeSeriesLineChart, { TimeSeriesLineChartModel } from 'components/Organizms/stocks/charts/ChartJsTimeSeriesLineChart'
+import { useViewPortSize } from 'hooks/ui/useViewportSize'
+import { shrinkListByViewportSize } from 'components/Organizms/stocks/lineChartOptions'
 
 const JobPerformanceLineChart = ({ data }: { data: Job }) => {
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
-  const isLarge = useMediaQuery(theme.breakpoints.up('md'))
   const history = data.Chart?.RawData as JoBLog[]
   const limit = isXSmall ? 14 : 30
-  let height: number | undefined = undefined
-  if (isXSmall) {
-    height = 240
-  }
-  if (isLarge) {
-    height = 100
-  }
   const sorted = sortArray(history, ['DateCompleted'], ['desc'])
-
   let days = take(Array.from(new Set(sorted.map((m) => dayjs(m.DateCompleted).format('YYYY-MM-DD')))), limit)
   days = orderBy(days)
 
@@ -84,23 +75,28 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
   }
   options.plugins!.tooltip!.callbacks = {
     ...options.plugins!.tooltip?.callbacks,
-
+    title: (tooltipItems) => {
+      return '' //`${dayjs(tooltipItems[0].label).format('dddd')}, ${dayjs(tooltipItems[0].label).format('MM/DD/YYYY')}`
+    },
     label: (tooltipItems) => {
       return ` ${dayjs(tooltipItems.label).format('dddd, MMMM D, YYYY')}`
     },
     afterLabel: (tooltipItems) => {
       if (minutesOrSeconds === 'seconds') {
         if (Number(tooltipItems.formattedValue) > 60) {
-          return `${numeral(Number(tooltipItems.formattedValue) / 60).format('0.00')} minutes`
+          return `avg: ${numeral(Number(tooltipItems.formattedValue) / 60).format('0.00')} minutes`
         }
       }
-      return ` ${tooltipItems.formattedValue} ${minutesOrSeconds}`
+      return `avg: ${tooltipItems.formattedValue} ${minutesOrSeconds}`
     },
     beforeFooter: (tooltipItems) => {
       return ` _______________________________`
     },
     footer: (tooltipItems) => {
       return ` records processed: ${numeral(records[tooltipItems[0].dataIndex]).format('###,###')}`
+    },
+    afterFooter: (tooltipItems) => {
+      return `completed: ${dayjs(tooltipItems[0].label).format('MM/DD/YYYY hh:mm A')}`
     },
   }
 
