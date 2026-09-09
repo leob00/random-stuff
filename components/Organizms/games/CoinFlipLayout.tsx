@@ -158,9 +158,9 @@ const CoinFlipLayout = ({ coinflipStats }: { coinflipStats: CoinFlipStats }) => 
     let shuffled = [...allCoins]
     const iterations = getRandomInteger(100, 150)
     for (let i = 0; i <= iterations; i++) {
-      shuffled = shuffle(shuffled)
+      shuffled = shuffle(allCoins)
     }
-    const flipped = shuffled[0]
+    const flipped = shuffled[getRandomInteger(0, 1)]
 
     const dbResult = await getDynamoItemData<CoinFlipStats>('coinflip-community')
 
