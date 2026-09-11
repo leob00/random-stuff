@@ -10,7 +10,7 @@ import numeral from 'numeral'
 import dayjs from 'dayjs'
 import { CasinoBlue } from 'components/themes/mainTheme'
 
-const StockVolumeChart = ({ data }: { data: StockHistoryItem[] }) => {
+const StockVolumeChart = ({ data, showXValues = true }: { data: StockHistoryItem[]; showXValues?: boolean }) => {
   const theme = useTheme()
   const { viewPortSize } = useViewPortSize()
 
@@ -35,7 +35,7 @@ const StockVolumeChart = ({ data }: { data: StockHistoryItem[] }) => {
     numbers: data.map((m) => m.Volume ?? 0),
     colors: [CasinoBlue],
   }
-  const options = getLineChartOptions(chart, 'volume', '', theme.palette.mode, true, false, isXSmallDevice)
+  const options = getLineChartOptions(chart, 'volume', '', theme.palette.mode, showXValues, false, isXSmallDevice)
   options.scales!.y!.ticks = {
     ...options.scales!.y!.ticks!,
     callback: (value) => {
@@ -51,6 +51,18 @@ const StockVolumeChart = ({ data }: { data: StockHistoryItem[] }) => {
     label: (tooltipItem) => {
       return ` ${numeral(data[tooltipItem.dataIndex].Volume).format('0.0a')} (${numeral(data[tooltipItem.dataIndex].Volume).format('###,###')})`
     },
+  }
+  const dateDiff = dayjs(data[data.length - 1].TradeDate).diff(data[0].TradeDate, 'days')
+  if (dateDiff == 0) {
+    options.scales!.x!.ticks!.callback = (tickValue, index, ticks) => {
+      if (isXSmallDevice) {
+        if (index === 0 || index === chart.labels.length - 1) {
+          return dayjs(chart.labels[index]).format('hh:mm A')
+        }
+      } else {
+        return dayjs(chart.labels[index]).format('hh:mm A')
+      }
+    }
   }
 
   const chartModel: TimeSeriesLineChartModel = {

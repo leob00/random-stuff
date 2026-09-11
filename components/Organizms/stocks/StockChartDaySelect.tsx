@@ -9,10 +9,12 @@ const StockChartDaySelect = ({
   selectedDays,
   onSelected,
   availableDates,
+  showIntraday = false,
 }: {
   selectedDays: number
   onSelected: (arg: number) => void
   availableDates?: DateRange
+  showIntraday?: boolean
 }) => {
   let daysToSelect = selectedDays
   const handleDaysSelected = (arg: number | null) => {
@@ -22,8 +24,8 @@ const StockChartDaySelect = ({
   }
 
   let options: DropdownItemNumeric[] = availableDates
-    ? getstockChartDays().filter((m) => m.value <= 0 || m.value <= dayjs(availableDates.EndDate).diff(dayjs(availableDates.StartDate), 'days'))
-    : getstockChartDays()
+    ? getstockChartDays(showIntraday).filter((m) => m.value <= 0 || m.value <= dayjs(availableDates.EndDate).diff(dayjs(availableDates.StartDate), 'days'))
+    : getstockChartDays(showIntraday)
 
   if (availableDates) {
     const startDate = dayjs(availableDates.StartDate)
@@ -54,9 +56,10 @@ const StockChartDaySelect = ({
   )
 }
 
-export function getstockChartDays() {
+export function getstockChartDays(showIntraday: boolean = false) {
   let result: DropdownItemNumeric[] = []
-  const shortTerm: DropdownItemNumeric[] = [
+  let shortTerm: DropdownItemNumeric[] = [
+    { text: '1 day', value: 1 },
     { text: '1 week', value: 7 },
     { text: '1 month', value: 30 },
     { text: '3 months', value: 90 },
@@ -71,6 +74,9 @@ export function getstockChartDays() {
     text: 'YTD',
     value: -1,
   })
+  if (!showIntraday) {
+    shortTerm = shortTerm.filter((m) => m.value !== 1)
+  }
   result = [...shortTerm, ...longTerm]
   return result
 }

@@ -31,7 +31,7 @@ export function getOptions(
   return options
 }
 
-export const mapHistory = (items: StockHistoryItem[], yKey: keyof StockHistoryItem) => {
+export const mapHistory = (items: StockHistoryItem[], yKey: keyof StockHistoryItem, dateDiff: number) => {
   const result: XyValues = {
     x: [],
     y: [],

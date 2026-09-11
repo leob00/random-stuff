@@ -51,7 +51,8 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
 
     const response = await getMarketChart(symbol, marketCategory, days)
     const history = shrinkListByViewportSize(response.History, viewPortSize)
-    const map = mapHistory(history, 'Price')
+    const dateDiff = dayjs(history[history.length - 1].TradeDate).diff(history[0].TradeDate, 'days')
+    const map = mapHistory(history, 'Price', dateDiff)
 
     const lineColor = getPositiveNegativeColor(history[history.length - 1].Price - history[0].Price, theme.palette.mode)
     const lineChart: BarChart = {
@@ -99,6 +100,17 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
         }
       },
     }
+    if (dateDiff == 0) {
+      lineChartOptions.scales!.x!.ticks!.callback = (tickValue, index, ticks) => {
+        if (isXSmallDevice) {
+          if (index === 0 || index === map.x.length - 1) {
+            return dayjs(map.x[index]).format('hh:mm A')
+          }
+        } else {
+          return dayjs(map.x[index]).format('hh:mm A')
+        }
+      }
+    }
 
     const result: Model = {
       history: history,
@@ -139,6 +151,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
             selectedDays={stockChartSettings.defaultDays}
             onSelected={handleDaysSelected}
             availableDates={data.availableDates ?? undefined}
+            showIntraday={marketCategory === 'stocks'}
           />
         </Box>
       )}
