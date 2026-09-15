@@ -41,11 +41,20 @@ const StockChartDaySelect = ({
   if (availableDates) {
     const optionDays = options.map((m) => m.value)
     const maxDays = max(optionDays)!
+
     if (selectedDays > 0 && selectedDays > maxDays) {
-      daysToSelect = options[options.length - 1].value
+      if (showIntraday) {
+        daysToSelect = 90
+        return
+      }
     }
+
     if (!optionDays.includes(selectedDays)) {
-      daysToSelect = options[options.length - 1].value
+      if (!showIntraday) {
+        daysToSelect = 90
+      } else {
+        daysToSelect = options[options.length - 1].value
+      }
     }
   }
 

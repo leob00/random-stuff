@@ -21,7 +21,7 @@ const AlertWithHeader = ({ header, text, severity }: { header?: string; text?: s
     <Alert severity={severity} sx={{ '& .MuiAlert-icon': { color: color }, backgroundColor: 'transparent' }}>
       {header && (
         <AlertTitle color={color}>
-          <Typography variant='h6' mt={-0.5}>
+          <Typography variant='h6' mt={-0.75}>
             {header}
           </Typography>
         </AlertTitle>

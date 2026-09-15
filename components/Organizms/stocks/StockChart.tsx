@@ -22,8 +22,8 @@ import numeral from 'numeral'
 import { useViewPortSize } from 'hooks/ui/useViewportSize'
 import StockVolumeChart from './charts/StockVolumeChart'
 import dayjs from 'dayjs'
-import JsonView from 'components/Atoms/Boxes/JsonView'
 import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
+import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 
 interface Model {
   history: StockHistoryItem[]
@@ -42,11 +42,13 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
   const chartHeight = isXSmallDevice ? 300 : 520
   const mutateKey = `stock-chart-${symbol}`
   const [isWaiting, setIsWaiting] = useState(false)
-
+  let days = stockChartSettings.defaultDays
   const dataFn = async () => {
-    let days = stockChartSettings.defaultDays
     if (days === -1) {
       days = getYearToDateDays()
+    }
+    if (days === 1 && marketCategory !== 'stocks') {
+      days = 90
     }
 
     const response = await getMarketChart(symbol, marketCategory, days)
@@ -172,6 +174,11 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
                 <>
                   {!stockChartSettings.viewAsTable ? (
                     <>
+                      {days == 1 && marketCategory === 'stocks' && (
+                        <Box display={'flex'} justifyContent={'center'}>
+                          <AlertWithHeader severity='info' header={`intra-day: ${dayjs(data.history[0].TradeDate).format('MM/DD/YYYY')}`} />
+                        </Box>
+                      )}
                       <Box>
                         <ChartJsTimeSeriesLineChart data={data.timeSeriesModel} />
                         <StockVolumeChart data={data.history} />
