@@ -1,6 +1,6 @@
 import { useTheme } from '@mui/material'
 import { getPositiveNegativeColor } from 'components/Organizms/stocks/StockListItem'
-import { CasinoDarkGreenTransparent, CasinoGreenTransparent, CasinoGreenTransparentChart, CasinoPinkTransparent, CasinoRedTransparentChart } from './mainTheme'
+import { CasinoGreenTransparentChart, CasinoRedTransparentChart } from './mainTheme'
 
 export const useMarketColors = () => {
   const theme = useTheme()
