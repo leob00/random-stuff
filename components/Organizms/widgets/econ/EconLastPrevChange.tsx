@@ -3,7 +3,8 @@ import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 import { calculateStockMovePercent } from 'lib/util/numberUtil'
 import EconChangeHeader from './EconChangeHeader'
 import { reverseColor } from './EconWidget'
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
+import dayjs from 'dayjs'
 
 const EconLastPrevChange = ({ item }: { item: EconomicDataItem }) => {
   const historyItem: StockHistoryItem = {
@@ -13,7 +14,7 @@ const EconLastPrevChange = ({ item }: { item: EconomicDataItem }) => {
     TradeDate: item.LastObservationDate ?? '',
   }
 
-  historyItem.ChangePercent = calculateStockMovePercent(item.PreviousValue ?? 0, historyItem.Change ?? 0)
+  historyItem.ChangePercent = calculateStockMovePercent(historyItem.Price, historyItem.Change ?? 0)
   const shouldReverseColor = reverseColor(item.InternalId)
   return (
     <Box pl={1}>

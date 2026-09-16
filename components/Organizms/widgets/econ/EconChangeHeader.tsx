@@ -1,5 +1,6 @@
 import { Box, Typography, useTheme } from '@mui/material'
 import { getPositiveNegativeColor, getPositiveNegativeColorReverse } from 'components/Organizms/stocks/StockListItem'
+import dayjs from 'dayjs'
 import { StockHistoryItem } from 'lib/backend/api/models/zModels'
 import numeral from 'numeral'
 
@@ -13,6 +14,9 @@ const EconChangeHeader = ({ last, reverseColor = false, showLabel = false }: { l
         <Typography variant='h6' color={color}>{`${numeral(last.Price).format('###,###,0.00')}`}</Typography>
         <Typography variant='h6' color={color}>{`${numeral(last.Change).format('###,###,0.00')}`}</Typography>
         <Typography variant='h6' color={color}>{`${numeral(last.ChangePercent).format('###,###,0.00')}%`}</Typography>
+      </Box>
+      <Box pt={1}>
+        <Typography variant='caption'>{`${dayjs(last.TradeDate).format('MM/DD/YYYY')}`}</Typography>
       </Box>
     </Box>
   )
