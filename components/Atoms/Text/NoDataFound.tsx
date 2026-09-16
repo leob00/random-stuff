@@ -9,12 +9,12 @@ const NoDataFound = ({
   showDivider?: boolean
 }) => {
   return (
-    <>
+    <Box>
       <Box p={4} textAlign='center'>
         <Typography variant='caption'>{message}</Typography>
       </Box>
       {showDivider && <HorizontalDivider />}
-    </>
+    </Box>
   )
 }
 

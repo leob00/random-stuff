@@ -14,6 +14,11 @@ import {
   CasinoBlack,
   DarkModeBlue,
   VeryLightBlueTransparent,
+  CasinoLimeTransparent,
+  White,
+  CasinoWhiteTransparent,
+  CasinoWhite,
+  CasinoLimeTransparentDarkMode,
 } from './mainTheme'
 
 const darkPalette: PaletteOptions = {
@@ -21,7 +26,7 @@ const darkPalette: PaletteOptions = {
 
   primary: {
     main: '#90caf9',
-    contrastText: VeryLightBlue,
+    contrastText: CasinoWhite,
   },
   secondary: {
     main: VeryLightBlueTransparent,
@@ -32,12 +37,12 @@ const darkPalette: PaletteOptions = {
     contrastText: VeryLightBlue,
   },
   info: {
-    main: CasinoBlueTransparent,
-    contrastText: VeryLightBlue,
+    main: CasinoBlue,
+    contrastText: CasinoWhite,
   },
   success: {
-    main: CasinoGreenTransparent,
-    contrastText: VeryLightBlue,
+    main: CasinoLimeTransparentDarkMode,
+    contrastText: CasinoLimeTransparent,
   },
   warning: {
     main: CasinoOrange,

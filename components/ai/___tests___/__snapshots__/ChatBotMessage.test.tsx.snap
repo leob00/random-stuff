@@ -31,11 +31,7 @@ exports[`AnthropicChatbotMessage component matches the snapshot 1`] = `
           <div
             class="MuiBox-root css-0"
           >
-            <p
-              class="MuiTypography-root MuiTypography-body1 css-13f3v65-MuiTypography-root"
-            >
-              hello, how are you?
-            </p>
+            hello, how are you?
           </div>
           <button
             class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall css-155wbr6-MuiButtonBase-root-MuiIconButton-root"

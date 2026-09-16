@@ -14,6 +14,7 @@ import { useReducer } from 'react'
 import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 import TaskListHeader from './tasks/TaskListHeader'
 import { postBody } from 'lib/backend/api/fetchFunctions'
+import BorderedBox from 'components/Atoms/Boxes/BorderedBox'
 
 export interface TaskModel {
   isLoading: boolean
@@ -191,9 +192,11 @@ const TaskList = ({
           </Box>
 
           {model.taskList.length === 0 && (
-            <Stack direction={'row'} justifyContent={'center'} minHeight={200}>
-              <NoDataFound message={`${selectedGoal.body} tasks: 0`} />
-            </Stack>
+            <Box justifyContent={'center'} minHeight={100}>
+              <BorderedBox width={'100%'} display={'flex'} justifyContent={'center'} pt={2}>
+                <AlertWithHeader severity='success' header={`you don't have any open tasks`} text='' />
+              </BorderedBox>
+            </Box>
           )}
           {model.taskList.length > 0 && (
             <Box minHeight={450}>
@@ -216,7 +219,7 @@ const TaskList = ({
               ))}
             </Box>
           )}
-          {selectedGoal.deleteCompletedTasks && (
+          {selectedGoal.deleteCompletedTasks && model.taskList.length > 0 && (
             <Box pt={8}>
               <Box display={'flex'} alignItems={'center'} gap={1} justifyContent={'center'}>
                 <AlertWithHeader severity='warning' text='completed tasks will be deleted' />
