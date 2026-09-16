@@ -1,6 +1,5 @@
 import { Box, LinearProgress, Typography } from '@mui/material'
 import CenteredHeader from 'components/Atoms/Boxes/CenteredHeader'
-import SecondaryButton from 'components/Atoms/Buttons/SecondaryButton'
 import CenterStack from 'components/Atoms/CenterStack'
 import ImageSpinner from 'components/Atoms/Images/ImageSpinner'
 import { ApexBarChartData } from 'components/Atoms/Charts/apex/chartModels'
@@ -8,7 +7,6 @@ import RouletteBarChart from 'components/Organizms/roulette/RouletteBarChart'
 import {
   CasinoBlackTransparent,
   CasinoBlueTransparent,
-  CasinoDarkGreenTransparent,
   CasinoGreenTransparent,
   CasinoOrangeTransparent,
   CasinoRedTransparent,
@@ -47,14 +45,7 @@ let simulationCounter = 0
 let simulationPlayerResults: RouletteNumber[] = []
 const mapRouletteStatsChart = (red: number, black: number, zero: number, doubleZero: number, odd: number, even: number, total: number) => {
   let communityChart: BarChart = {
-    colors: [
-      CasinoRedTransparent,
-      CasinoBlackTransparent,
-      CasinoOrangeTransparent,
-      CasinoBlueTransparent,
-      CasinoDarkGreenTransparent,
-      CasinoDarkGreenTransparent,
-    ],
+    colors: [CasinoRedTransparent, CasinoBlackTransparent, CasinoOrangeTransparent, CasinoBlueTransparent, CasinoGreenTransparent],
     labels: ['red', 'black', 'odd', 'even', '0', '00'],
     // numbers: [red, black, odd, even, zero, doubleZero, total],
     numbers: [
