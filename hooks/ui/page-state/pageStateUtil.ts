@@ -1,6 +1,6 @@
 import { weakDecrypt, weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 
-export type PageStateSupportedRoute = '/market/stocks/earnings/calendar' | '/csr/stocks/details' | '/protected/csr/dashboard'
+export type PageStateSupportedRoute = '/market/stocks/earnings/calendar' | '/csr/stocks/details' | '/dashboard'
 
 type PageArg = {
   key: string

@@ -1,3 +1,4 @@
+'use client'
 import { Box, Typography } from '@mui/material'
 import ContextMenu, { ContextMenuItem } from 'components/Molecules/Menus/ContextMenu'
 import ContextMenuEdit from 'components/Molecules/Menus/ContextMenuEdit'
@@ -25,7 +26,7 @@ const UserDashboardLayout = () => {
   const { data: visibleWidgets, isLoading } = useSwrHelper(mutatkeKey, dataFn, { revalidateOnFocus: false })
 
   const onEdit = () => {
-    router.push('/protected/csr/dashboard/edit')
+    router.push('/dashboard/edit')
   }
   const onRefresh = () => {
     mutate(mutatkeKey)
@@ -59,7 +60,7 @@ const UserDashboardLayout = () => {
                   <PrimaryButton
                     text='edit widgets'
                     onClick={() => {
-                      router.push('/protected/csr/dashboard/edit')
+                      router.push('/dashboard/edit')
                     }}
                   />
                 </CenterStack>

@@ -18,6 +18,7 @@ import { getSortablePropsFromArray, SortableItem } from 'components/dnd/dndUtil'
 import DragAndDropSort from 'components/dnd/DragAndDropSort'
 import { serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
+import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
 
 export interface EconDataModel {
   Body: {
@@ -80,11 +81,10 @@ const EconDataLayout = () => {
           <Box display={'flex'} justifyContent={'flex-end'} pt={2}>
             {!editMode ? <LinkButton onClick={() => setEditMode(true)}>edit</LinkButton> : <LinkButton onClick={() => setEditMode(false)}>close</LinkButton>}
           </Box>
-
           {editMode ? (
-            <Box>
+            <InfoDialog show={editMode} title='reorder' onCancel={() => setEditMode(false)}>
               <DragAndDropSort items={sortableItems} onPushChanges={handleReorder} />
-            </Box>
+            </InfoDialog>
           ) : (
             <EconDataTable data={economicIndicators} handleItemClicked={handleItemClicked} />
           )}

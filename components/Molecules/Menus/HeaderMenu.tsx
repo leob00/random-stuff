@@ -53,7 +53,7 @@ const HeaderMenu = ({
     {
       item: <ContextMenuDashboard text='dashboard' />,
       fn: () => {
-        router.push('/protected/csr/dashboard')
+        router.push('/dashboard')
       },
     },
     {
@@ -85,7 +85,7 @@ const HeaderMenu = ({
     menuItems.push({
       item: <ContextMenuPortfolio text='dashboard' />,
       fn: () => {
-        router.push('/protected/csr/dashboard')
+        router.push('/dashboard')
       },
     })
     menuItems.push(paletteMenuItem)

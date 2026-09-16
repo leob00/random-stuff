@@ -1,3 +1,4 @@
+'use client'
 import { Box, Button, ListItem, ListItemText, Typography } from '@mui/material'
 import { type DashboardWidget } from './dashboardModel'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'

@@ -223,7 +223,7 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'dashboard',
-    path: '/protected/csr/dashboard',
+    path: '/dashboard',
     category: 'Personal',
     isProtected: true,
   },

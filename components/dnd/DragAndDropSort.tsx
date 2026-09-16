@@ -48,7 +48,9 @@ const DragAndDropSort = ({ items, onPushChanges }: { items: SortableItem[]; onPu
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd} onDragStart={handleDragStart}>
         <SortableContext items={items} strategy={rectSortingStrategy}>
           {items.map((item) => (
-            <DraggableSortItemWrapper key={item.id} item={item} />
+            <Box key={item.id}>
+              <DraggableSortItemWrapper key={item.id} item={item} />
+            </Box>
           ))}
         </SortableContext>
         <DragOverlay adjustScale style={{ transformOrigin: '0 0 ' }}>

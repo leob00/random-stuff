@@ -57,7 +57,7 @@ const StockEarningsCalendarList = ({ data, maxHeight }: { data: StockEarning[]; 
 
   const handleClicked = async (item: string) => {
     const pageState: PageState = {
-      route: '/protected/csr/dashboard',
+      route: '/dashboard',
       args: [
         {
           key: 'dt',
