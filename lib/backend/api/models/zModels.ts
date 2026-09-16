@@ -69,6 +69,7 @@ export const quoteArraySchema = z
     MovingAvg: z.number().nullable().optional(),
     MovingAvgChange: z.number().nullable().optional(),
     MovingAvgDays: z.number().nullable().optional(),
+    Class: z.string().nullable(),
   })
   .array()
 
