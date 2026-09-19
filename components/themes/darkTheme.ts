@@ -42,7 +42,7 @@ const darkPalette: PaletteOptions = {
   },
   success: {
     main: CasinoLimeTransparentDarkMode,
-    contrastText: CasinoLimeTransparent,
+    contrastText: CasinoWhite,
   },
   warning: {
     main: CasinoOrange,

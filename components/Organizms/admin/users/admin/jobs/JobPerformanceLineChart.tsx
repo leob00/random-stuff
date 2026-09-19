@@ -51,7 +51,7 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
   if (maxVal) {
     const idx = lineChart.numbers.findIndex((m) => m === maxVal)
     if (idx > -1) {
-      lineChart.colors![idx] = CasinoOrangeTransparent
+      //lineChart.colors![idx] = CasinoOrangeTransparent
     }
   }
 

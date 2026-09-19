@@ -5,19 +5,40 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
   const isXSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const darkColor = theme.palette.mode === 'dark' ? '#90caf9' : DarkBlue
   let text = html.replaceAll('font color="#6f6f6f"', `font color="${darkColor}"`)
-  text = `<html><p>${text}</p></html>`
+
+  const addTargetToExternalLinks = (htmlStr: string) => {
+    return htmlStr.replace(/<a\s+([^>]*?)href=(["'])(https?:\/\/[^"']+)\2([^>]*)>/gi, (m, pre, q, url, post) => {
+      const attrs = (pre + ' ' + post).trim()
+      if (/\btarget=/.test(attrs)) return m
+      const relAttr = /\brel=/.test(attrs) ? '' : ' rel="noopener noreferrer"'
+      return `<a ${pre}href=${q}${url}${q}${post} target="_blank"${relAttr}>`
+    })
+  }
+
+  text = addTargetToExternalLinks(text)
+  text = `<html><div>${text}</div></html>`
 
   const StyledBox = styled(Box)(() => ({
     img: {
-      width: isXSmall ? 280 : 600,
+      maxWidth: '100%',
+      height: 'auto',
       borderRadius: '16px',
       marginTop: 1,
       margin: 'auto',
     },
-    div: { a: { color: theme.palette.primary.main, target: '_blank', rel: 'noopener noreferrer' } },
+    'figure img': {
+      maxWidth: 320,
+      maxHeight: 220,
+      width: '100%',
+      height: 'auto',
+      borderRadius: '16px',
+      //marginTop: 1,
+      //margin: 'auto',
+    },
+    div: { a: { color: theme.palette.primary.main } },
     //font: color,
     color: theme.palette.primary.main,
-    a: { color: theme.palette.primary.main, target: '_blank', rel: 'noopener noreferrer' },
+    a: { color: theme.palette.primary.main },
     p: { color: theme.palette.primary.main, fontSize: 20 },
   }))
 

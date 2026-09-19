@@ -1,4 +1,4 @@
-import { Box, Card, CardHeader, Link, Typography } from '@mui/material'
+import { Box, Link, Typography } from '@mui/material'
 import { NewsItem } from 'lib/backend/api/qln/qlnApi'
 
 const NewsHeadline = ({ item }: { item: NewsItem }) => {
