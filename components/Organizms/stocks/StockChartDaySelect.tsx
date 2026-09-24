@@ -28,12 +28,13 @@ const StockChartDaySelect = ({
     : getstockChartDays(showIntraday)
 
   if (availableDates) {
+    const daysDiff = dayjs(dayjs(availableDates.EndDate).format('YYYY-MM-DD')).diff(dayjs(dayjs(availableDates.StartDate).format('YYYY-MM-DD')), 'days')
     const startDate = dayjs(availableDates.StartDate)
     if (startDate.isAfter(dayjs(new Date(dayjs().year(), 0, 3)))) {
       options = options.filter((m) => m.value > -1)
     }
+
     if (options.length === 0) {
-      const daysDiff = dayjs(dayjs(availableDates.EndDate).format('YYYY-MM-DD')).diff(dayjs(dayjs(availableDates.StartDate).format('YYYY-MM-DD')), 'days')
       options.push({ text: `${daysDiff} days`, value: daysDiff })
     }
   }
@@ -41,15 +42,18 @@ const StockChartDaySelect = ({
   if (availableDates) {
     const optionDays = options.map((m) => m.value)
     const maxDays = max(optionDays)!
-
+    const daysDiff = dayjs(dayjs(availableDates.EndDate).format('YYYY-MM-DD')).diff(dayjs(dayjs(availableDates.StartDate).format('YYYY-MM-DD')), 'days')
     if (selectedDays > 0 && selectedDays > maxDays) {
       if (showIntraday) {
-        daysToSelect = 90
-        return
+        if (selectedDays > daysDiff) {
+          daysToSelect = options.findLast((m) => m.value <= daysDiff)?.value!
+        } else {
+          daysToSelect = options[options.length - 1].value
+        }
       }
     }
 
-    if (!optionDays.includes(selectedDays)) {
+    if (!optionDays.includes(daysToSelect)) {
       if (!showIntraday) {
         daysToSelect = 90
       } else {
