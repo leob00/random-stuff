@@ -40,7 +40,7 @@ const CompanyProfile = ({ quote }: { quote: StockQuote }) => {
 
       <Box py={2} display={'flex'} gap={2} flexDirection={'column'}>
         {data?.awsUrl && (
-          <Box py={2} sx={{ borderRadius: '8px', backgroundColor: 'whitesmoke' }} width={320} px={2}>
+          <Box py={2} sx={{ borderRadius: '8px' }} width={320} px={2}>
             <img src={`${data.awsUrl}`} alt='company logo' width={275} />
           </Box>
         )}

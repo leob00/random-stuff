@@ -67,22 +67,14 @@ const StockFields = ({ quote, fields }: { quote: StockQuote; fields: Array<keyof
       <Box display={'flex'} gap={1}>
         <Box display={'flex'} flexDirection={'column'} gap={0.65}>
           {nonLinked.map((field) => (
-            <Box key={field.label} flexDirection={'column'}>
-              {field.val && <Typography variant='body2' textAlign={'right'}>{`${field.label}:`}</Typography>}
-            </Box>
+            <Box key={field.label}>{field.val && <Typography variant='body2' textAlign={'right'}>{`${field.label}:`}</Typography>}</Box>
           ))}
         </Box>
         <Box display={'flex'} flexDirection={'column'} gap={0.68}>
           {nonLinked.map((field) => (
-            <Box key={field.label} flexDirection={'column'}>
+            <Box key={field.label}>
               {field.val && (
                 <Box>
-                  {field.label === 'sector' && (
-                    <SiteLink variant='body1' href={`/market/stocks/sectors/${encodeURIComponent(quote.SectorId!)}`} text={field.val} />
-                  )}
-                  {field.label === 'industry' && (
-                    <SiteLink variant='body1' href={`/market/stocks/industries/${encodeURIComponent(quote.IndustryId!)}`} text={field.val} />
-                  )}
                   {field.label !== 'sector' && field.label !== 'industry' && (
                     <Typography variant='body2' textAlign={'left'} fontWeight={'bold'}>
                       {field.val}
@@ -96,7 +88,7 @@ const StockFields = ({ quote, fields }: { quote: StockQuote; fields: Array<keyof
       </Box>
       <Box pt={1}>
         {linked.map((field) => (
-          <Box key={field.label} display={'flex'} gap={1}>
+          <Box key={field.label} display={'flex'} gap={1} alignItems={'center'}>
             {field.val && (
               <>
                 {field.label === 'sector' && (
