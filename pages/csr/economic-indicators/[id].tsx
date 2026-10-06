@@ -24,7 +24,7 @@ const Page = () => {
     ret = decodeURIComponent(ret)
   }
   if (!startYear) {
-    startYear = dayjs().subtract(5, 'year').year().toString()
+    startYear = dayjs().subtract(10, 'year').year().toString()
   }
   if (!endYear) {
     endYear = dayjs().year().toString()

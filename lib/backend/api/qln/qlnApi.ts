@@ -179,10 +179,10 @@ export const newsTypes: DropdownItem[] = [
     text: 'The Guardian',
     value: 'TheGuardian',
   },
-  {
-    text: 'The Hill - Administration',
-    value: 'TheHillAdministration',
-  },
+  // {
+  //   text: 'The Hill - Administration',
+  //   value: 'TheHillAdministration',
+  // },
   {
     text: 'The Hill - All News',
     value: 'TheHillAllNews',
@@ -195,10 +195,10 @@ export const newsTypes: DropdownItem[] = [
     text: 'The Onion',
     value: 'TheOnion',
   },
-  // problem with encoding{
-  //   text: 'UN - Top Stories',
-  //   value: 'UNWorld',
-  // },
+  {
+    text: 'UN - Top Stories',
+    value: 'UNWorld',
+  },
   {
     text: 'Washington Post',
     value: 'WashingtonPost',

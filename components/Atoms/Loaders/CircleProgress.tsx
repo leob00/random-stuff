@@ -10,7 +10,7 @@ const CircleProgress = ({ progress, size = 'xs', variant }: { progress?: number;
       <CircularProgress
         enableTrackSlot
         variant={variant ? variant : progress ? `determinate` : `indeterminate`}
-        color={progress && progress > 98 ? 'success' : 'info'}
+        color={progress && progress > 80 ? 'success' : 'info'}
         value={progress}
         size={displaySize}
       />
