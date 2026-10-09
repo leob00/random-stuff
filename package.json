@@ -9,6 +9,7 @@
     "build": "ts-node lib/backend/node/downloadSymbolCompanies.ts & next build",
     "start": "next start",
     "lint": "next lint",
+    "check-types": "tsc --noEmit",
     "download": "ts-node lib/backend/node/downloadAnimals.ts | ts-node lib/backend/node/downloadSymbolCompanies.ts",
     "downloadandbuild": "npx ts-node --project tsconfig-dev.json lib/backend/node/downloadAnimals.ts | next build",
     "test": "jest",

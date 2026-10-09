@@ -24,9 +24,8 @@ const EconIndexChart = ({
   const theme = useTheme()
   const { viewPortSize } = useViewPortSize()
 
-  const xValues = data.Chart?.XValues ?? []
-  const yValues = data.Chart?.YValues.map((m) => Number(m)) ?? []
-  const history = mapEconChartToStockHistory(symbol, xValues, yValues, false, viewPortSize)
+  const rawData = data.Chart?.RawData ?? []
+  const history = mapEconChartToStockHistory(symbol, rawData, viewPortSize)
   const resultHistory = days ? takeLastDays(history, days) : history
   const x = resultHistory.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY'))
   const y = resultHistory.map((m) => m.Price)

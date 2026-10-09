@@ -16,6 +16,8 @@ const EconWidget = ({ itemId, symbol, width, height, size }: { itemId: number; s
       id: String(data.InternalId),
       endYear: Number(endYear),
       startYear: Number(startYear),
+      startDt: dayjs(new Date(startYear, 0, 1)).format(),
+      endDt: dayjs(new Date(endYear, 11, 31)).format(),
     }
 
     return data

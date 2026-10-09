@@ -130,8 +130,6 @@ const EconDataDetails = ({ item, showLast = true, showYearSelect = true }: { ite
     setModel(defaultModel)
   }
 
-  const hadleFilter = (starDt: string, endDt: string) => {}
-
   const handleSearch = () => {
     loadDetailsByDateRange(item.InternalId, model.selectedStartDate!, model.selectedEndDate!)
   }
@@ -140,7 +138,6 @@ const EconDataDetails = ({ item, showLast = true, showYearSelect = true }: { ite
     if (!startDt) {
       return
     }
-    //loadDetailsByDateRange(item.InternalId, startDt, model.selectedEndDate!)
     setModel({ ...model, selectedStartDate: startDt ?? undefined })
   }
   const handleFilterDateEndChange = (endDt: string | null) => {
@@ -153,9 +150,8 @@ const EconDataDetails = ({ item, showLast = true, showYearSelect = true }: { ite
 
   const shouldReverseColor = reverseColor(item.InternalId)
 
-  const xValues = model.item.Chart?.XValues ?? []
-  const yValues = model.item.Chart?.YValues.map((m) => Number(m)) ?? []
-  const history = mapEconChartToStockHistory(item.Title, xValues, yValues, isXSmallDevice, viewPortSize)
+  const rawData = item.Chart?.RawData ?? []
+  const history = mapEconChartToStockHistory(String(item.InternalId), rawData as EconomicDataItem[], viewPortSize)
   const last = history[history.length - 1]
   return (
     <Box py={2}>
@@ -187,7 +183,7 @@ const EconDataDetails = ({ item, showLast = true, showYearSelect = true }: { ite
         </Box>
       )}
       {model.isLoading && <ComponentLoader />}
-      <Box display={'flex'} gap={2} alignItems={'center'}>
+      <Box display={'flex'} gap={2} alignItems={'center'} flexDirection={{ xs: 'column', sm: 'row' }}>
         {model.selectedStartDate && (
           <FormDatePicker
             onDateSelected={handleFilterDateStartChange}

@@ -490,6 +490,11 @@
     "Class": "ETF"
   },
   {
+    "Name": "Pacer Metaurus High Income Autocallable ETF",
+    "Symbol": "ACBH",
+    "Class": "ETF"
+  },
+  {
     "Name": "Acco Group Holdings Limited Class A Ordinary Shares",
     "Symbol": "ACCL",
     "Class": "COMPANY"
@@ -853,6 +858,11 @@
     "Name": "Acurx Pharmaceuticals, Inc. Common Stock",
     "Symbol": "ACXP",
     "Class": "COMPANY"
+  },
+  {
+    "Name": "FT Vest Laddered Autocallable Buffer & Resilient Income ETF",
+    "Symbol": "ACYB",
+    "Class": "ETF"
   },
   {
     "Name": "FT Vest Laddered Autocallable Barrier & Income ETF",
@@ -3155,7 +3165,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "Innovator Equity Defined Protection ETF - 2 Yr to October 2026",
+    "Name": "Innovator Equity Defined Protection ETF - 2 Yr to October 2028",
     "Symbol": "AOCT",
     "Class": "COMPANY"
   },
@@ -5670,6 +5680,16 @@
     "Class": "ETF"
   },
   {
+    "Name": "Bradbury Capital Inc. Ordinary Shares",
+    "Symbol": "BBCI",
+    "Class": "COMPANY"
+  },
+  {
+    "Name": "Bradbury Capital Inc. Warrants",
+    "Symbol": "BBCIW",
+    "Class": "WARRANT"
+  },
+  {
     "Name": "Concrete Pumping Holdings, Inc. Common Stock",
     "Symbol": "BBCP",
     "Class": "COMPANY"
@@ -7368,11 +7388,6 @@
     "Name": "BlackSky Technology Inc.",
     "Symbol": "BKSY",
     "Class": "COMPANY"
-  },
-  {
-    "Name": "BlackSky Technology Inc. Redeemable Warrants, each whole Warrant exercisable for one-eighth (1/8th) of a share of Class A Common Stock at an exercise price of $92.00 per whole share",
-    "Symbol": "BKSY.WS",
-    "Class": "WARRANT"
   },
   {
     "Name": "BlackRock Income Trust Inc.",
@@ -12910,6 +12925,11 @@
     "Class": "ETF"
   },
   {
+    "Name": "Amplify Top 10 Semiconductors ETF",
+    "Symbol": "CPU",
+    "Class": "ETF"
+  },
+  {
     "Name": "USCF Daily Target 2X Copper Index ETF",
     "Symbol": "CPXR",
     "Class": "ETF"
@@ -13625,7 +13645,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "Qwest Corporation 6.500% Senior Notes due 2051 (denominations of $25)",
+    "Name": "Qwest Corporation 6.500% Senior Notes due 2051",
     "Symbol": "CTGG",
     "Class": "NOTE"
   },
@@ -13635,7 +13655,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "Qwest Corporation 6.750% Senior Notes due 2052 (denominations of $25)",
+    "Name": "Qwest Corporation 6.750% Senior Notes due 2052",
     "Symbol": "CTHH",
     "Class": "NOTE"
   },
@@ -20160,11 +20180,6 @@
     "Class": "ETF"
   },
   {
-    "Name": "First Trust Senior Floating Rate Income Fund II",
-    "Symbol": "FCT",
-    "Class": "FUND"
-  },
-  {
     "Name": "SMI 3Fourteen Full-Cycle Trend ETF",
     "Symbol": "FCTE",
     "Class": "ETF"
@@ -24565,6 +24580,11 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "Simplify Brookwood Global Macro ETF",
+    "Symbol": "GMAC",
+    "Class": "ETF"
+  },
+  {
     "Name": "FT Vest U.S. Equity Moderate Buffer ETF - March",
     "Symbol": "GMAR",
     "Class": "COMPANY"
@@ -26517,6 +26537,11 @@
   {
     "Name": "Hartford Large Cap Growth ETF",
     "Symbol": "HFGO",
+    "Class": "ETF"
+  },
+  {
+    "Name": "Nomura High Yield Total Return ETF",
+    "Symbol": "HFIX",
     "Class": "ETF"
   },
   {
@@ -29185,14 +29210,14 @@
     "Class": "ETF"
   },
   {
-    "Name": "Triller Group Inc. Common Stock",
+    "Name": "TRILLER GROUP INC",
     "Symbol": "ILLR",
     "Class": "COMPANY"
   },
   {
-    "Name": "Triller Group Inc. Warrant",
+    "Name": "TRILLER GROUP INC WTS",
     "Symbol": "ILLRW",
-    "Class": "WARRANT"
+    "Class": "COMPANY"
   },
   {
     "Name": "Illumination Acquisition Corp I Class A Ordinary Shares",
@@ -31818,11 +31843,6 @@
     "Name": "Joby Aviation, Inc.",
     "Symbol": "JOBY",
     "Class": "COMPANY"
-  },
-  {
-    "Name": "Joby Aviation, Inc.  Redeemable Warrants, each whole warrant exercisable for one share of Common Stock at an exercise price of $11.50",
-    "Symbol": "JOBY.WS",
-    "Class": "WARRANT"
   },
   {
     "Name": "St. Joe Company",
@@ -34885,6 +34905,11 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "Launch One Acquisition Corp. Unit",
+    "Symbol": "LPAAU",
+    "Class": "COMPANY"
+  },
+  {
     "Name": "Launch One Acquisition Corp. Warrant",
     "Symbol": "LPAAW",
     "Class": "WARRANT"
@@ -35310,7 +35335,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "Lumen Technologies, Inc.",
+    "Name": "Lumen Technologies, Inc. Common Stock",
     "Symbol": "LUMN",
     "Class": "COMPANY"
   },
@@ -41665,6 +41690,11 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "Oaktree Acquisition Corp. III Life Sciences Unit",
+    "Symbol": "OACCU",
+    "Class": "COMPANY"
+  },
+  {
     "Name": "Oaktree Acquisition Corp. III Life Sciences Warrant",
     "Symbol": "OACCW",
     "Class": "WARRANT"
@@ -41697,6 +41727,11 @@
   {
     "Name": "Oakmark International Large Cap ETF",
     "Symbol": "OAKI",
+    "Class": "ETF"
+  },
+  {
+    "Name": "Oakmark U.S. Concentrated ETF",
+    "Symbol": "OAKL",
     "Class": "ETF"
   },
   {
@@ -43360,6 +43395,11 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "Pyrophyte Acquisition Corp. II Units, each consisting of one Class A ordinary share and one-half of one redeemable warrant",
+    "Symbol": "PAII.U",
+    "Class": "WARRANT"
+  },
+  {
     "Name": "Pyrophyte Acquisition Corp. II Warrants, each whole warrant exercisable for one Class A Ordinary Share at an exercise price of $11.50 per share",
     "Symbol": "PAII.WS",
     "Class": "WARRANT"
@@ -43392,6 +43432,11 @@
   {
     "Name": "Paloma Acquisition Corp I Class A Ordinary Shares",
     "Symbol": "PALO",
+    "Class": "COMPANY"
+  },
+  {
+    "Name": "Paloma Acquisition Corp I Units",
+    "Symbol": "PALOU",
     "Class": "COMPANY"
   },
   {
@@ -43532,6 +43577,11 @@
   {
     "Name": "Patria Investments Limited Class A Common Shares",
     "Symbol": "PAX",
+    "Class": "COMPANY"
+  },
+  {
+    "Name": "Pine Tree Acquisition Corp. Units",
+    "Symbol": "PAXGU",
     "Class": "COMPANY"
   },
   {
@@ -47010,6 +47060,11 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "Quetta Acquisition Corporation Unit",
+    "Symbol": "QETAU",
+    "Class": "COMPANY"
+  },
+  {
     "Name": "Invesco Galaxy Ethereum ETF",
     "Symbol": "QETH",
     "Class": "ETF"
@@ -48890,6 +48945,11 @@
     "Class": "ETF"
   },
   {
+    "Name": "Russell Investments Multisector Bond ETF",
+    "Symbol": "RINK",
+    "Class": "ETF"
+  },
+  {
     "Name": "Russell Investments Exchange Traded Funds Russell Investments International Developed Equity ETF",
     "Symbol": "RINT",
     "Class": "ETF"
@@ -49970,6 +50030,11 @@
     "Class": "NOTE"
   },
   {
+    "Name": "Runway Growth Finance Corp. 7.75% Notes Due 2031",
+    "Symbol": "RWAYM",
+    "Class": "NOTE"
+  },
+  {
     "Name": "Rayliant NxtGen Multifactor Emerging Markets Equity ETF",
     "Symbol": "RWEM",
     "Class": "ETF"
@@ -50670,9 +50735,24 @@
     "Class": "ETF"
   },
   {
+    "Name": "Southern Cross Acquisition II Corp. Ordinary Shares",
+    "Symbol": "SCAT",
+    "Class": "COMPANY"
+  },
+  {
+    "Name": "Southern Cross Acquisition II Corp. Rights",
+    "Symbol": "SCATR",
+    "Class": "COMPANY"
+  },
+  {
     "Name": "Southern Cross Acquisition II Corp. Units",
     "Symbol": "SCATU",
     "Class": "COMPANY"
+  },
+  {
+    "Name": "Southern Cross Acquisition II Corp. Warrants",
+    "Symbol": "SCATW",
+    "Class": "WARRANT"
   },
   {
     "Name": "Corgi U.S. Small-Cap 15% Structured Buffer ETF - August Series",
@@ -52315,6 +52395,11 @@
     "Class": "WARRANT"
   },
   {
+    "Name": "Skydance Corporation",
+    "Symbol": "SKYD",
+    "Class": "COMPANY"
+  },
+  {
     "Name": "Skye Bioscience, Inc. Common Stock",
     "Symbol": "SKYE",
     "Class": "COMPANY"
@@ -52533,6 +52618,11 @@
     "Name": "iShares Silver Trust",
     "Symbol": "SLV",
     "Class": "COMPANY"
+  },
+  {
+    "Name": "NEOS Silver High Income ETF",
+    "Symbol": "SLVI",
+    "Class": "ETF"
   },
   {
     "Name": "Sylvamo Corporation",
@@ -52898,6 +52988,11 @@
     "Name": "Sanara MedTech Inc. Common Stock",
     "Symbol": "SMTI",
     "Class": "COMPANY"
+  },
+  {
+    "Name": "Synera Funds Takumi+ ETF",
+    "Symbol": "SMTJ",
+    "Class": "ETF"
   },
   {
     "Name": "SmartKem, Inc. Common Stock",
@@ -53955,6 +54050,11 @@
     "Class": "ETF"
   },
   {
+    "Name": "Direxion U.S. 500 Plus ETF",
+    "Symbol": "SPXP",
+    "Class": "ETF"
+  },
+  {
     "Name": "Direxion Daily S&P 500 Bear 3x ETF",
     "Symbol": "SPXS",
     "Class": "ETF"
@@ -54228,11 +54328,6 @@
     "Name": "Surrozen, Inc. Common",
     "Symbol": "SRZN",
     "Class": "COMPANY"
-  },
-  {
-    "Name": "Surrozen, Inc. Warrant",
-    "Symbol": "SRZNW",
-    "Class": "WARRANT"
   },
   {
     "Name": "SPACSphere Acquisition Corp. Class A Ordinary Shares",
@@ -54672,11 +54767,6 @@
   {
     "Name": "Star Equity Holdings, Inc. 10% Series A Cumulative Perpetual Preferred Stock",
     "Symbol": "STRRP",
-    "Class": "COMPANY"
-  },
-  {
-    "Name": "STRATUS PPTYS INC",
-    "Symbol": "STRS",
     "Class": "COMPANY"
   },
   {
@@ -55660,7 +55750,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "Texas Capital Bancshares, Inc.",
+    "Name": "Texas Capital Bancshares, Inc. Common Stock, par value $0.01 per share",
     "Symbol": "TCBI",
     "Class": "COMPANY"
   },
@@ -58662,6 +58752,11 @@
   {
     "Name": "Roundhill UBER WeeklyPay ETF",
     "Symbol": "UBEW",
+    "Class": "ETF"
+  },
+  {
+    "Name": "AAM Ubiquitous ETF",
+    "Symbol": "UBIQ",
     "Class": "ETF"
   },
   {
@@ -62490,6 +62585,11 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "SCWorx Corp. Common Stock",
+    "Symbol": "WORX",
+    "Class": "COMPANY"
+  },
+  {
     "Name": "White Pearl Acquisition Corp.",
     "Symbol": "WPAC",
     "Class": "COMPANY"
@@ -62630,6 +62730,11 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "WisdomTree Efficient Long/Short U.S. SmallCap Equity Fund",
+    "Symbol": "WSLS",
+    "Class": "FUND"
+  },
+  {
     "Name": "Williams-Sonoma, Inc.",
     "Symbol": "WSM",
     "Class": "COMPANY"
@@ -62687,6 +62792,11 @@
   {
     "Name": "WisdomTree Artificial Intelligence and Innovation Fund",
     "Symbol": "WTAI",
+    "Class": "FUND"
+  },
+  {
+    "Name": "WisdomTree Global Alpha Fund",
+    "Symbol": "WTAL",
     "Class": "FUND"
   },
   {

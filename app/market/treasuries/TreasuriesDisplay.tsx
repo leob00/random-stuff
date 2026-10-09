@@ -28,6 +28,8 @@ const TreasuriesTable = ({ data }: { data: EconomicDataItem[] }) => {
       id: String(report.InternalId),
       endYear: Number(endYear),
       startYear: Number(startYear),
+      startDt: dayjs().subtract(5, 'years').format(),
+      endDt: dayjs().format(),
     }
     report.Title = item.Title
     setSelectedItem(report)
@@ -44,7 +46,7 @@ const TreasuriesTable = ({ data }: { data: EconomicDataItem[] }) => {
           <Box display={'flex'} justifyContent={'flex-end'}>
             <CloseIconButton onClicked={() => setSelectedItem(null)} />
           </Box>
-          <EconDataDetails item={selectedItem} onClose={() => setSelectedItem(null)} />
+          <EconDataDetails item={selectedItem} />
         </Box>
       )}
     </Box>

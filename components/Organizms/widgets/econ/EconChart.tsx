@@ -33,9 +33,8 @@ const EconChart = ({
   const isXsmall = isExtraSmall ?? isXSmallDevice
   const { viewPortSize } = useViewPortSize()
 
-  const xValues = data.Chart?.XValues ?? []
-  const yValues = data.Chart?.YValues.map((m) => Number(m)) ?? []
-  const history = mapEconChartToStockHistory(symbol, xValues, yValues, isXsmall ?? false, viewPortSize)
+  const rawData = data.Chart?.RawData ?? []
+  const history = mapEconChartToStockHistory(symbol, rawData as EconomicDataItem[], viewPortSize)
 
   const x = history.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY'))
   const y = history.map((m) => m.Price)
@@ -140,20 +139,20 @@ const EconChart = ({
   )
 }
 
-export function mapEconChartToStockHistory(symbol: string, xValues: string[], yValues: number[], isXSmall?: boolean, viewportSize?: Breakpoint) {
+export function mapEconChartToStockHistory(symbol: string, rawData: EconomicDataItem[], viewportSize?: Breakpoint) {
   const history: StockHistoryItem[] = []
-  xValues.forEach((x, index) => {
-    const change = index === 0 ? 0 : yValues[index] - yValues[index - 1]
+  rawData.forEach((item, index) => {
+    const change = index === 0 ? 0 : rawData[index].Value - rawData[index - 1].Value
     const h: StockHistoryItem = {
-      Price: Number(yValues[index]),
+      Price: rawData[index].Value,
       Symbol: symbol,
-      TradeDate: dayjs(x).format('YYYY-MM-DD'),
+      TradeDate: dayjs(item.LastObservationDate).format('YYYY-MM-DD'),
       Change: Number(change),
-      ChangePercent: index === 0 ? 0 : calculateStockMovePercent(yValues[index], change),
+      ChangePercent: index === 0 ? 0 : calculateStockMovePercent(rawData[index].Value, change),
     }
     history.push(h)
   })
-  const result = isXSmall ? shrinkList(history, 18) : shrinkListByViewportSize(history, viewportSize ?? 'sm')
+  const result = shrinkListByViewportSize(history, viewportSize ?? 'sm')
   return result
 }
 
