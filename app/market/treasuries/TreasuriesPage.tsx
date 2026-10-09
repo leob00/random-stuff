@@ -4,14 +4,7 @@ import { apiConnection } from 'lib/backend/api/config'
 import { get } from 'lib/backend/api/fetchFunctions'
 import TreasuriesDisplay from './TreasuriesDisplay'
 import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
-
-const ids = [
-  48, // 1Year
-  13, // 3 year
-  47, // 5 year
-  5, // 10 year
-  12, // 30
-]
+import { ustreasuries } from 'lib/backend/markets/economicIndicators'
 
 const getData = async () => {
   const config = apiConnection().qln
@@ -20,7 +13,7 @@ const getData = async () => {
   const dbResult = resp as EconDataModel
   const econData = dbResult.Body.Items
   const result: EconomicDataItem[] = []
-  ids.forEach((id) => {
+  ustreasuries.forEach((id) => {
     const item = econData.find((m) => m.InternalId === id)
     if (item) {
       result.push({ ...item })

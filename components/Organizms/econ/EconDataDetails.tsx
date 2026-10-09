@@ -177,11 +177,7 @@ const EconDataDetails = ({ item, showLast = true, showYearSelect = true }: { ite
           </Box>
         </Box>
       )}
-      {model.error && (
-        <Box py={2}>
-          <Alert severity='error'>{model.error}</Alert>
-        </Box>
-      )}
+
       {model.isLoading && <ComponentLoader />}
       <Box display={'flex'} gap={2} alignItems={'center'} flexDirection={{ xs: 'column', sm: 'row' }}>
         {model.selectedStartDate && (
@@ -202,6 +198,11 @@ const EconDataDetails = ({ item, showLast = true, showYearSelect = true }: { ite
         )}
         <PrimaryButton text='search' onClicked={handleSearch} />
       </Box>
+      {model.error && (
+        <Box py={2}>
+          <Alert severity='error'>{model.error}</Alert>
+        </Box>
+      )}
 
       <EconChart symbol={item.Title} data={model.item} reverseColor={shouldReverseColor} />
       <Box py={2} textAlign={'center'}>

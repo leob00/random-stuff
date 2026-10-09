@@ -7,6 +7,7 @@ import { getEconDataReport, getEconDataReportByDateRange } from 'lib/backend/api
 import dayjs from 'dayjs'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import EconDataDetails from './EconDataDetails'
+import { ustreasuries } from 'lib/backend/markets/economicIndicators'
 
 const EconListItem = ({ item }: { item: EconomicDataItem }) => {
   const [selectedItem, setSelectedItem] = useState<EconomicDataItem | null>(null)
@@ -21,10 +22,15 @@ const EconListItem = ({ item }: { item: EconomicDataItem }) => {
       setSelectedItem(clickedItem)
       setIsLoading(true)
       const startYear = dayjs().subtract(10, 'years').year()
+
       const lastObsYear = dayjs(clickedItem.LastObservationDate!).year()
       const data = await getEconDataReportByDateRange(clickedItem.InternalId, dayjs().subtract(10, 'years').format(), dayjs().format())
-      const startDt = dayjs(data.Chart!.XValues[0]).format()
-      const endDt = dayjs(data.Chart!.XValues[data.Chart!.XValues.length - 1]).format()
+      const endDt = item.LastObservationDate!
+
+      let startDt = dayjs().subtract(10, 'years').format()
+      if (ustreasuries.includes(item.InternalId)) {
+        startDt = dayjs().subtract(5, 'years').format()
+      }
       data.criteria = {
         id: String(data.InternalId),
         startYear: startYear,
