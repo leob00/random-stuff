@@ -14,6 +14,7 @@ import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import EconChangeHeader from '../widgets/econ/EconChangeHeader'
 import { useViewPortSize } from 'hooks/ui/useViewportSize'
 import FormDatePicker from 'components/Molecules/Forms/ReactHookForm/FormDatePicker'
+import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 
 interface Model {
   startYearOptions: DropdownItem[]
@@ -131,12 +132,23 @@ const EconDataDetails = ({ item, showLast = true, showYearSelect = true }: { ite
 
   const hadleFilter = (starDt: string, endDt: string) => {}
 
-  const handleFilterDateStartChange = (startDt: string) => {
-    loadDetailsByDateRange(item.InternalId, startDt, model.selectedEndDate!)
-    //setModel({ ...model, selectedStartDate: startDt ?? undefined })
+  const handleSearch = () => {
+    loadDetailsByDateRange(item.InternalId, model.selectedStartDate!, model.selectedEndDate!)
   }
-  const handleFilterDateEndChange = (endDt: string) => {
-    loadDetailsByDateRange(item.InternalId, model.selectedEndDate!, endDt)
+
+  const handleFilterDateStartChange = (startDt: string | null) => {
+    if (!startDt) {
+      return
+    }
+    //loadDetailsByDateRange(item.InternalId, startDt, model.selectedEndDate!)
+    setModel({ ...model, selectedStartDate: startDt ?? undefined })
+  }
+  const handleFilterDateEndChange = (endDt: string | null) => {
+    if (!endDt) {
+      return
+    }
+    setModel({ ...model, selectedStartDate: endDt ?? undefined })
+    //loadDetailsByDateRange(item.InternalId, model.selectedEndDate!, endDt)
   }
 
   const shouldReverseColor = reverseColor(item.InternalId)
@@ -192,6 +204,7 @@ const EconDataDetails = ({ item, showLast = true, showYearSelect = true }: { ite
             value={model.selectedEndDate}
           />
         )}
+        <PrimaryButton text='search' onClicked={handleSearch} />
       </Box>
 
       <EconChart symbol={item.Title} data={model.item} reverseColor={shouldReverseColor} />

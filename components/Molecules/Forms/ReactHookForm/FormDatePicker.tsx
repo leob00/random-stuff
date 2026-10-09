@@ -11,7 +11,7 @@ type Props = {
   value?: string | null
   minDate?: string
   maxDate?: string
-  onDateSelected: (arg: string) => void
+  onDateSelected: (arg: string | null) => void
 }
 
 const FormDatePicker = forwardRef<HTMLInputElement, Props>(function FormDatePicker(props: Props, _ref) {
@@ -19,9 +19,11 @@ const FormDatePicker = forwardRef<HTMLInputElement, Props>(function FormDatePick
 
   const handleSelect = (dt: dayjs.Dayjs | null) => {
     if (dt) {
-      onDateSelected(dayjs(dt).format())
+      if (dt.isValid()) {
+        onDateSelected(dayjs(dt).format())
+      }
     } else {
-      //onDateSelected(null)
+      onDateSelected(null)
     }
   }
 
