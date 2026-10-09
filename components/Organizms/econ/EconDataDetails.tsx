@@ -9,23 +9,25 @@ import { useReducer } from 'react'
 import EconChart, { mapEconChartToStockHistory } from '../widgets/econ/EconChart'
 import { WidgetDimensions } from '../widgets/RenderWidget'
 import { reverseColor } from '../widgets/econ/EconWidget'
-import { getEconDataReport } from 'lib/backend/api/qln/qlnApi'
+import { getEconDataReport, getEconDataReportByDateRange } from 'lib/backend/api/qln/qlnApi'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import EconChangeHeader from '../widgets/econ/EconChangeHeader'
 import { useViewPortSize } from 'hooks/ui/useViewportSize'
+import FormDatePicker from 'components/Molecules/Forms/ReactHookForm/FormDatePicker'
 
 interface Model {
   startYearOptions: DropdownItem[]
   endYearOptions: DropdownItem[]
-  // chart: QlnLineChart
   selectedStartYear: number
   selectedEndYear: number
   error: string | null
   isLoading: boolean
   item: EconomicDataItem
+  selectedStartDate?: string | null
+  selectedEndDate?: string | null
 }
 
-const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: () => void }) => {
+const EconDataDetails = ({ item, showLast = true, showYearSelect = true }: { item: EconomicDataItem; showLast?: boolean; showYearSelect?: boolean }) => {
   const { viewPortSize } = useViewPortSize()
   const theme = useTheme()
   const isXSmallDevice = useMediaQuery(theme.breakpoints.down('sm'))
@@ -63,6 +65,8 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
     error: null,
     isLoading: false,
     item: item,
+    selectedStartDate: item.criteria!.startDt,
+    selectedEndDate: item.criteria!.endDt,
   }
   const [model, setModel] = useReducer((state: Model, newState: Model) => ({ ...state, ...newState }), defaultModel)
 
@@ -77,8 +81,41 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
     }
     setModel({ ...model, isLoading: true })
     const resp = await getEconDataReport(id, yearStart, yearEnd)
+    const selectedStartDate = dayjs(resp.Chart!.XValues[0]).format()
+    const selectedEndDate = dayjs(resp.Chart!.XValues[resp.Chart!.XValues.length - 1]).format()
+    setModel({
+      ...model,
+      error: null,
+      item: resp,
+      isLoading: false,
+      selectedStartYear: yearStart,
+      selectedEndYear: yearEnd,
+      selectedStartDate: selectedStartDate,
+      selectedEndDate: selectedEndDate,
+    })
+  }
 
-    setModel({ ...model, error: null, item: resp, isLoading: false, selectedStartYear: yearStart, selectedEndYear: yearEnd })
+  const loadDetailsByDateRange = async (id: number, startDate: string, endDate: string) => {
+    if (dayjs(endDate).isBefore(dayjs(startDate))) {
+      setModel({ ...model, error: 'start year should be before end year' })
+      return
+    }
+    if (Math.abs(dayjs(endDate).year() - dayjs(startDate).year()) > 15) {
+      setModel({ ...model, error: 'range should be between 15 years or less' })
+      return
+    }
+    setModel({ ...model, isLoading: true })
+    const resp = await getEconDataReportByDateRange(id, startDate, endDate)
+    const selectedStartDate = dayjs(resp.Chart!.XValues[0]).format()
+    const selectedEndDate = dayjs(resp.Chart!.XValues[resp.Chart!.XValues.length - 1]).format()
+    setModel({
+      ...model,
+      error: null,
+      item: resp,
+      isLoading: false,
+      selectedStartDate: selectedStartDate,
+      selectedEndDate: selectedEndDate,
+    })
   }
 
   const handleStartYearChange = async (val: string) => {
@@ -91,6 +128,17 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
   const handleReset = () => {
     setModel(defaultModel)
   }
+
+  const hadleFilter = (starDt: string, endDt: string) => {}
+
+  const handleFilterDateStartChange = (startDt: string) => {
+    loadDetailsByDateRange(item.InternalId, startDt, model.selectedEndDate!)
+    //setModel({ ...model, selectedStartDate: startDt ?? undefined })
+  }
+  const handleFilterDateEndChange = (endDt: string) => {
+    loadDetailsByDateRange(item.InternalId, model.selectedEndDate!, endDt)
+  }
+
   const shouldReverseColor = reverseColor(item.InternalId)
 
   const xValues = model.item.Chart?.XValues ?? []
@@ -99,30 +147,53 @@ const EconDataDetails = ({ item, onClose }: { item: EconomicDataItem; onClose: (
   const last = history[history.length - 1]
   return (
     <Box py={2}>
-      <Box display={'flex'} pb={4} justifyContent={'center'}>
-        <EconChangeHeader last={last} reverseColor={shouldReverseColor} showLabel />
-      </Box>
-      <Box display={'flex'} justifyContent={'center'}>
-        <Box display={'flex'} gap={1} alignItems={'center'}>
-          <Typography>from:</Typography>
-          <UncontrolledDropdownList
-            options={model.startYearOptions}
-            selectedOption={String(model.selectedStartYear)}
-            onOptionSelected={handleStartYearChange}
-          />
-          <Typography>to:</Typography>
-          <UncontrolledDropdownList options={model.endYearOptions} selectedOption={String(model.selectedEndYear)} onOptionSelected={handleEndYearChange} />
-          <Button onClick={handleReset} size='small'>
-            <Typography>reset</Typography>
-          </Button>
+      {showLast && (
+        <Box display={'flex'} pb={4} justifyContent={'center'}>
+          <EconChangeHeader last={last} reverseColor={shouldReverseColor} showLabel />
         </Box>
-      </Box>
+      )}
+      {showYearSelect && (
+        <Box display={'flex'} justifyContent={'center'}>
+          <Box display={'flex'} gap={1} alignItems={'center'}>
+            <Typography>from:</Typography>
+            <UncontrolledDropdownList
+              options={model.startYearOptions}
+              selectedOption={String(model.selectedStartYear)}
+              onOptionSelected={handleStartYearChange}
+            />
+            <Typography>to:</Typography>
+            <UncontrolledDropdownList options={model.endYearOptions} selectedOption={String(model.selectedEndYear)} onOptionSelected={handleEndYearChange} />
+            <Button onClick={handleReset} size='small'>
+              <Typography>reset</Typography>
+            </Button>
+          </Box>
+        </Box>
+      )}
       {model.error && (
         <Box py={2}>
           <Alert severity='error'>{model.error}</Alert>
         </Box>
       )}
       {model.isLoading && <ComponentLoader />}
+      <Box display={'flex'} gap={2} alignItems={'center'}>
+        {model.selectedStartDate && (
+          <FormDatePicker
+            onDateSelected={handleFilterDateStartChange}
+            minDate={model.item.FirstObservationDate}
+            value={model.selectedStartDate}
+            maxDate={model.item.LastObservationDate}
+          />
+        )}
+        {model.selectedEndDate && (
+          <FormDatePicker
+            onDateSelected={handleFilterDateEndChange}
+            minDate={model.item.FirstObservationDate}
+            maxDate={model.item.LastObservationDate}
+            value={model.selectedEndDate}
+          />
+        )}
+      </Box>
+
       <EconChart symbol={item.Title} data={model.item} reverseColor={shouldReverseColor} />
       <Box py={2} textAlign={'center'}>
         <Typography variant='caption'>{`data available from ${dayjs(item.FirstObservationDate).format('MM/DD/YYYY')} to ${dayjs(item.LastObservationDate).format('MM/DD/YYYY')} on a ${item.Frequency} basis.`}</Typography>

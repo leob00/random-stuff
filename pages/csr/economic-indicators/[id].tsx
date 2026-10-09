@@ -69,7 +69,7 @@ const Page = () => {
 
         {data && (
           <>
-            <EconDataDetails item={data} onClose={handleCoseClick} />
+            <EconDataDetails item={data} />
           </>
         )}
       </ResponsiveContainer>

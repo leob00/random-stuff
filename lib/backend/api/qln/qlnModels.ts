@@ -26,6 +26,8 @@ export interface EconDataCriteria {
   id: string
   startYear: number
   endYear: number
+  startDt: string
+  endDt: string
 }
 
 export interface MovingAvg {

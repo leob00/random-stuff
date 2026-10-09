@@ -82,10 +82,10 @@ export const newsTypes: DropdownItem[] = [
     text: 'Bloomberg',
     value: 'BloombergMarkets',
   },
-  // {
-  //   text: 'CBS World',
-  //   value: 'CBSWorld',
-  // },
+  {
+    text: 'CBS World',
+    value: 'CBSWorld',
+  },
   {
     text: 'CNBC',
     value: 'CNBC',
@@ -486,6 +486,17 @@ export async function getEconDataReport(id: number, startYear?: number, endYear?
     Id: id,
     StartYear: startYear,
     EndYear: endYear,
+  }
+
+  const resp = await serverPostFetch({ body: req }, '/EconReports')
+  const result = resp.Body.Item as EconomicDataItem
+  return result
+}
+export async function getEconDataReportByDateRange(id: number, startDate: string, endDate: string) {
+  const req = {
+    Id: id,
+    StartDate: startDate,
+    EndDate: endDate,
   }
 
   const resp = await serverPostFetch({ body: req }, '/EconReports')
