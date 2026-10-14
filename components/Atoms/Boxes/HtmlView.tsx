@@ -43,7 +43,7 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
   }))
 
   return (
-    <>
+    <Box>
       {html ? (
         <StyledBox
           display={'flex'}
@@ -56,19 +56,18 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
             padding: 2,
             width: { xs: '100%', md: '98%' },
             display: 'inline-block',
-            // wordWrap: 'break-word',
+            wordWrap: 'break-word',
             //color: color,
             fontWeight: 200,
             //backgroundColor: 'white',
           }}
-          //variant='body1'
           //color='primary'
           dangerouslySetInnerHTML={{ __html: text }}
         ></StyledBox>
       ) : (
         <></>
       )}
-    </>
+    </Box>
   )
 }
 

@@ -14,7 +14,7 @@ const NewsDescription = ({ item }: { item: NewsItem }) => {
   }
   return (
     <>
-      <Box pt={1} width={{ xs: 360, sm: 'unset' }} textAlign={alignLeft ? 'left' : 'center'}>
+      <Box pt={1} width={{ xs: 300, sm: 'unset' }} textAlign={alignLeft ? 'left' : 'center'}>
         <FadeIn>
           <HtmlView html={item.Description ?? ''} textAlign={alignLeft ? 'left' : 'center'} />
         </FadeIn>

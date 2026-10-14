@@ -94,7 +94,7 @@ const NewsLayout = ({
     <>
       {allowSelectType && (
         <Box py={2}>
-          <Stack display='flex' flexDirection='row' justifyContent={'center'} px={2}>
+          <Stack display='flex' flexDirection='row' justifyContent={'center'}>
             <StaticAutoComplete
               options={newsTypes}
               placeholder='select source'
@@ -103,7 +103,6 @@ const NewsLayout = ({
                 handleNewsSourceSelected(item.value)
               }}
               disableClearable
-              fullWidth
             />
           </Stack>
         </Box>
