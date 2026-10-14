@@ -12,17 +12,18 @@ type Props = {
   minDate?: string
   maxDate?: string
   onDateSelected: (arg: string | null) => void
+  allowNull?: boolean
 }
 
 const FormDatePicker = forwardRef<HTMLInputElement, Props>(function FormDatePicker(props: Props, _ref) {
-  const { label, placeholder, errorMessage, value, minDate, maxDate, onDateSelected } = props
+  const { label, placeholder, errorMessage, value, minDate, maxDate, onDateSelected, allowNull = false } = props
 
   const handleSelect = (dt: dayjs.Dayjs | null) => {
     if (dt) {
       if (dt.isValid()) {
         onDateSelected(dayjs(dt).format())
       }
-    } else {
+    } else if (!allowNull) {
       onDateSelected(null)
     }
   }
@@ -36,7 +37,7 @@ const FormDatePicker = forwardRef<HTMLInputElement, Props>(function FormDatePick
         value={value ? dayjs(value) : null}
         onChange={handleSelect}
         slotProps={{
-          field: { clearable: true },
+          field: { clearable: !!allowNull },
           textField: {
             placeholder: placeholder,
             size: 'small',

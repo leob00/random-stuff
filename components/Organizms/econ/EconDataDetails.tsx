@@ -98,7 +98,7 @@ const EconDataDetails = ({ item, showLast = true, showYearSelect = true }: { ite
 
   const loadDetailsByDateRange = async (id: number, startDate: string, endDate: string) => {
     if (dayjs(endDate).isBefore(dayjs(startDate))) {
-      setModel({ ...model, error: 'start year should be before end year' })
+      setModel({ ...model, error: 'start date should be before end year' })
       return
     }
     if (Math.abs(dayjs(endDate).year() - dayjs(startDate).year()) > 15) {
@@ -144,18 +144,18 @@ const EconDataDetails = ({ item, showLast = true, showYearSelect = true }: { ite
     if (!endDt) {
       return
     }
-    setModel({ ...model, selectedStartDate: endDt ?? undefined })
+    setModel({ ...model, selectedEndDate: endDt ?? undefined })
     //loadDetailsByDateRange(item.InternalId, model.selectedEndDate!, endDt)
   }
 
   const shouldReverseColor = reverseColor(item.InternalId)
 
   const rawData = item.Chart?.RawData ?? []
-  const history = mapEconChartToStockHistory(String(item.InternalId), rawData as EconomicDataItem[], viewPortSize)
+  const history = mapEconChartToStockHistory(String(item.InternalId), rawData, viewPortSize)
   const last = history[history.length - 1]
   return (
     <Box py={2}>
-      {showLast && (
+      {showLast && last.Price && (
         <Box display={'flex'} pb={4} justifyContent={'center'}>
           <EconChangeHeader last={last} reverseColor={shouldReverseColor} showLabel />
         </Box>
@@ -186,6 +186,7 @@ const EconDataDetails = ({ item, showLast = true, showYearSelect = true }: { ite
             minDate={model.item.FirstObservationDate}
             value={model.selectedStartDate}
             maxDate={model.item.LastObservationDate}
+            allowNull={false}
           />
         )}
         {model.selectedEndDate && (
@@ -194,6 +195,7 @@ const EconDataDetails = ({ item, showLast = true, showYearSelect = true }: { ite
             minDate={model.item.FirstObservationDate}
             maxDate={model.item.LastObservationDate}
             value={model.selectedEndDate}
+            allowNull={false}
           />
         )}
         <PrimaryButton text='search' onClicked={handleSearch} />

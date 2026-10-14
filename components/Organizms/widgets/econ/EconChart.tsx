@@ -14,6 +14,7 @@ import { getLineChartOptions } from 'components/Atoms/Charts/chartJs/lineChartOp
 import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
 import ChartJsTimeSeriesLineChart, { TimeSeriesLineChartModel } from 'components/Organizms/stocks/charts/ChartJsTimeSeriesLineChart'
 import { useViewPortSize } from 'hooks/ui/useViewportSize'
+import NoDataFound from 'components/Atoms/Text/NoDataFound'
 
 const EconChart = ({
   symbol,
@@ -34,8 +35,15 @@ const EconChart = ({
   const { viewPortSize } = useViewPortSize()
 
   const rawData = data.Chart?.RawData ?? []
-  const history = mapEconChartToStockHistory(symbol, rawData as EconomicDataItem[], viewPortSize)
 
+  const history = mapEconChartToStockHistory(symbol, rawData, viewPortSize)
+  if (history.length == 0) {
+    return (
+      <>
+        <NoDataFound message='unable to find any data that matches the critera.' />
+      </>
+    )
+  }
   const x = history.map((m) => dayjs(m.TradeDate).format('MM/DD/YYYY'))
   const y = history.map((m) => m.Price)
 
