@@ -7,7 +7,7 @@ import { NewsItem } from 'lib/backend/api/qln/qlnApi'
 
 const NewsListItemMobile = ({ item }: { item: NewsItem }) => {
   return (
-    <Box maxWidth={300}>
+    <Box maxWidth={375}>
       <Box display={'flex'} flexDirection={'column'}>
         <Box py={2}>
           <NewsHeadline item={item} />
