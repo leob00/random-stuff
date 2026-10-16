@@ -40,6 +40,7 @@ import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount'
 import CarpenterIcon from '@mui/icons-material/Carpenter'
 import SummarizeIcon from '@mui/icons-material/Summarize'
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined'
+import StackedBarChartIcon from '@mui/icons-material/StackedBarChart'
 type PagePros = {
   disabled?: boolean
 } & Navigation &
@@ -137,6 +138,8 @@ export const renderIcon = (item: PathNames) => {
       return <CarpenterIcon />
     case 'timer':
       return <AccessTimeOutlinedIcon />
+    case 'indices':
+      return <StackedBarChartIcon />
 
     default:
       return <></>

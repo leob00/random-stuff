@@ -20,6 +20,8 @@ import BorderedBox from 'components/Atoms/Boxes/BorderedBox'
 import { useProfileValidator } from 'hooks/auth/useProfileValidator'
 import VolumeLeadersSummary from './summary/stocks/VolumeLeadersSummary'
 import TopSectorsSummary from './summary/stocks/TopSectorsSummary'
+import { getMapFromArray } from 'lib/util/collectionsNative'
+import dayjs from 'dayjs'
 
 const tabs: TabInfo[] = [
   {
@@ -53,12 +55,13 @@ const StocksPageLayout = ({ userProfile }: { userProfile: UserProfile | null }) 
     })
     const stockMap = new Map<string, StockQuote>()
     const latest = await getLatestQuotes(result.map((m) => m.Symbol))
+    const latestStockMap = getMapFromArray(latest, 'Symbol')
     result.forEach((item) => {
-      const found = latest.find((m) => m.Symbol === item.Symbol)
+      const found = latestStockMap.get(item.Symbol)
       if (found) {
-        stockMap.set(item.Symbol, found)
-      } else {
-        stockMap.set(item.Symbol, item)
+        if (dayjs(found.TradeDate).isAfter(dayjs().subtract(10, 'days'))) {
+          stockMap.set(item.Symbol, found)
+        }
       }
     })
     return Array.from(stockMap.values())

@@ -5,6 +5,7 @@ import { getEconDataReport } from 'lib/backend/api/qln/qlnApi'
 import { WidgetSize } from 'components/Organizms/dashboard/dashboardModel'
 import EconChart from './EconChart'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
+import { stockIndices, ustreasuries } from 'lib/backend/markets/economicIndicators'
 
 const EconWidget = ({ itemId, symbol, width, height, size }: { itemId: number; symbol: string; width: number; height: number; size?: WidgetSize }) => {
   const startYear = dayjs().subtract(1, 'year').year()
@@ -45,8 +46,10 @@ const EconWidget = ({ itemId, symbol, width, height, size }: { itemId: number; s
 }
 
 export function reverseColor(itemId: number) {
-  const positiveIsGood = [5, 7, 11, 12, 13, 14, 15, 17, 34, 41, 47, 48]
-  const reverseColor = !positiveIsGood.includes(itemId)
+  // Unemployment, University of Michigan: Consumer Sentiment
+  const positiveBadIndicators = [1, 7, 21, 42]
+
+  const reverseColor = positiveBadIndicators.includes(itemId)
   return reverseColor
 }
 

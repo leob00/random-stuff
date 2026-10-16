@@ -1,13 +1,10 @@
 'use client'
 import { Box } from '@mui/material'
 import { useScrollTop } from 'components/Atoms/Boxes/useScrollTop'
-import ScrollableBox from 'components/Atoms/Containers/ScrollableBox'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import Pager from 'components/Atoms/Pager'
-import ListHeader from 'components/Molecules/Lists/ListHeader'
 import { useClientPager } from 'hooks/useClientPager'
 import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
-import EconLastPrevChange from '../widgets/econ/EconLastPrevChange'
 import EconListItem from './EconListItem'
 
 const EconDataTable = ({ data, handleItemClicked }: { data: EconomicDataItem[]; handleItemClicked: (item: EconomicDataItem) => void }) => {
@@ -20,9 +17,7 @@ const EconDataTable = ({ data, handleItemClicked }: { data: EconomicDataItem[]; 
     scroller.scroll()
     pager.setPage(pageNum)
   }
-  const itemSelected = (item: EconomicDataItem) => {
-    handleItemClicked(item)
-  }
+
   return (
     <>
       <Box>

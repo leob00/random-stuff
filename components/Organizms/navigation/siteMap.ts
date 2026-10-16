@@ -36,6 +36,7 @@ export type PathNames =
   | 'profile'
   | 'stock market summary'
   | 'timer'
+  | 'indices'
   | (string & {})
 
 export type SiteCategories =
@@ -132,11 +133,21 @@ export const flatSiteMap: Navigation[] = [
     hideFromHomeMenu: false,
     breadcrumbName: 'stock market summary',
   },
-
   {
     name: 'stock alerts',
     path: '/market/stocks/alerts',
     category: 'Stock Market',
+  },
+  {
+    name: 'indices',
+    path: '/market/stocks/indices',
+    category: 'Stock Market',
+  },
+  {
+    name: 'search',
+    path: '/market/stocks/advanced-search',
+    category: 'Stock Market',
+    breadcrumbName: 'stock search',
   },
   {
     name: 'commodities',
@@ -153,12 +164,7 @@ export const flatSiteMap: Navigation[] = [
     path: '/market/treasuries',
     category: 'Other Markets',
   },
-  {
-    name: 'search',
-    path: '/market/stocks/advanced-search',
-    category: 'Stock Market',
-    breadcrumbName: 'stock search',
-  },
+
   {
     name: 'volume',
     path: '/market/stocks/reports/volume-leaders',

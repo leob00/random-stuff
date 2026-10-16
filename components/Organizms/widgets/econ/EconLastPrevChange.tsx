@@ -3,8 +3,7 @@ import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 import { calculateStockMovePercent } from 'lib/util/numberUtil'
 import EconChangeHeader from './EconChangeHeader'
 import { reverseColor } from './EconWidget'
-import { Box, Typography } from '@mui/material'
-import dayjs from 'dayjs'
+import { Box } from '@mui/material'
 
 const EconLastPrevChange = ({ item }: { item: EconomicDataItem }) => {
   const historyItem: StockHistoryItem = {
