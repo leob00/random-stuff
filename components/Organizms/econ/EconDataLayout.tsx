@@ -19,6 +19,8 @@ import DragAndDropSort from 'components/dnd/DragAndDropSort'
 import { serverGetFetch } from 'lib/backend/api/qln/qlnApi'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import InfoDialog from 'components/Atoms/Dialogs/InfoDialog'
+import FormDialog from 'components/Atoms/Dialogs/FormDialog'
+import EconListItem from './EconListItem'
 
 export interface EconDataModel {
   Body: {
@@ -29,8 +31,8 @@ export interface EconDataModel {
 
 const EconDataLayout = () => {
   const [editMode, setEditMode] = useState(false)
-  const router = useRouter()
   const mutateListKey = `economic-indicators-list`
+  const [selectedItem, setSelectedItem] = useState<EconomicDataItem | null>(null)
 
   const { economicIndicators, saveEconomicIndicators } = useLocalStore()
 
@@ -50,16 +52,12 @@ const EconDataLayout = () => {
   const { data, isLoading } = useSwrHelper(mutateListKey, dataFn, { revalidateOnFocus: false })
   const itemLookup: DropdownItem[] = data ? mapDropdownItems(data.Body.Items, 'Title', 'InternalId') : []
 
-  const handleItemClicked = async (item: EconomicDataItem) => {
-    const endYear = dayjs(item.LastObservationDate!).year()
-    const startYear = dayjs(item.LastObservationDate!).subtract(10, 'years').year()
-    //router.push(`/csr/economic-indicators/${item.InternalId}?startYear=${startYear}&endYear=${endYear}`)
-  }
-
   const handleLoad = (item: DropdownItem) => {
     const ex = data?.Body.Items.find((m) => m.InternalId === Number(item.value))
     if (ex) {
-      handleItemClicked(ex)
+      setSelectedItem(ex)
+    } else {
+      setSelectedItem(null)
     }
   }
 
@@ -73,7 +71,7 @@ const EconDataLayout = () => {
     <Box py={2}>
       {isLoading && <ComponentLoader />}
       {!isLoading && data && data.Body.Items.length === 0 && <NoDataFound />}
-      {data && (
+      {data && !selectedItem && (
         <Box>
           <CenterStack>
             <StaticAutoComplete options={itemLookup} fullWidth onSelected={handleLoad} placeholder={`search in ${data.Body.Items.length} results`} />
@@ -86,9 +84,14 @@ const EconDataLayout = () => {
               <DragAndDropSort items={sortableItems} onPushChanges={handleReorder} />
             </InfoDialog>
           ) : (
-            <EconDataTable data={economicIndicators} handleItemClicked={handleItemClicked} />
+            <EconDataTable data={economicIndicators} />
           )}
         </Box>
+      )}
+      {selectedItem && (
+        <FormDialog show={!!selectedItem} title='' onCancel={() => setSelectedItem(null)} fullScreen>
+          <EconListItem item={selectedItem} expanded />
+        </FormDialog>
       )}
     </Box>
   )

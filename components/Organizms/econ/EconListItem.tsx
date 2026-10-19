@@ -9,7 +9,7 @@ import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import EconDataDetails from './EconDataDetails'
 import { stockIndices, ustreasuries } from 'lib/backend/markets/economicIndicators'
 
-const EconListItem = ({ item }: { item: EconomicDataItem }) => {
+const EconListItem = ({ item, expanded = false }: { item: EconomicDataItem; expanded?: boolean }) => {
   const [selectedItem, setSelectedItem] = useState<EconomicDataItem | null>(null)
   const [details, setDetails] = useState<EconomicDataItem | null>(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -42,6 +42,16 @@ const EconListItem = ({ item }: { item: EconomicDataItem }) => {
       setDetails(data)
     }
   }
+
+  useEffect(() => {
+    let isCanceled = false
+    if (!expanded || isCanceled) return
+    if (expanded) {
+      handleItemClicked(item)
+    }
+    isCanceled = true
+  }, [expanded])
+
   useEffect(() => {
     const fn = async () => {
       if (selectedItem) {

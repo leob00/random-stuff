@@ -7,7 +7,7 @@ import { useClientPager } from 'hooks/useClientPager'
 import { EconomicDataItem } from 'lib/backend/api/qln/qlnModels'
 import EconListItem from './EconListItem'
 
-const EconDataTable = ({ data, handleItemClicked }: { data: EconomicDataItem[]; handleItemClicked: (item: EconomicDataItem) => void }) => {
+const EconDataTable = ({ data }: { data: EconomicDataItem[] }) => {
   const pageSize = 5
   const pager = useClientPager(data, pageSize)
   const displayItems = pager.getPagedItems(data)

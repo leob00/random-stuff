@@ -46,8 +46,8 @@ const EconWidget = ({ itemId, symbol, width, height, size }: { itemId: number; s
 }
 
 export function reverseColor(itemId: number) {
-  // Unemployment, University of Michigan: Consumer Sentiment
-  const positiveBadIndicators = [1, 7, 21, 42]
+  // Unemployment Rate,  Delinquency Rate on Credit Card Loans, All Commercial Banks, Delinquency Rate on Business Loans, All Commercial Banks
+  const positiveBadIndicators = [1, 21, 42]
 
   const reverseColor = positiveBadIndicators.includes(itemId)
   return reverseColor

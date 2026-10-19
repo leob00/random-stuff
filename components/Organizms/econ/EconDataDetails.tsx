@@ -82,8 +82,9 @@ const EconDataDetails = ({ item, showLast = true, showYearSelect = true }: { ite
     }
     setModel({ ...model, isLoading: true })
     const resp = await getEconDataReport(id, yearStart, yearEnd)
-    const selectedStartDate = dayjs(resp.Chart!.XValues[0]).format()
-    const selectedEndDate = dayjs(resp.Chart!.XValues[resp.Chart!.XValues.length - 1]).format()
+    const rawData = resp.Chart?.RawData ?? []
+    const selectedStartDate = dayjs(rawData[0].ObservationDate).format()
+    const selectedEndDate = dayjs(rawData[rawData.length - 1]).format()
     setModel({
       ...model,
       error: null,
