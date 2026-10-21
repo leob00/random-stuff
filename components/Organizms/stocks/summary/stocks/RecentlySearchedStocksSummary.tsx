@@ -26,7 +26,7 @@ const RecentlySearchedStocksSummary = ({ userProfile }: { userProfile: UserProfi
   }
 
   const dataFn = async () => {
-    await sleep(getRandomInteger(250, 2500))
+    await sleep(getRandomInteger(2000, 3000))
     const searchedStocksResult = await searchDynamoItemsByCategory(mutateKey)
     const sorted = sortArray(searchedStocksResult, ['last_modified'], ['desc'])
     const result: StockQuote[] = sorted.map((m) => {
@@ -48,7 +48,7 @@ const RecentlySearchedStocksSummary = ({ userProfile }: { userProfile: UserProfi
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
   useEffect(() => {
-    if (pollCounter >= 1) {
+    if (pollCounter > 1) {
       mutate(mutateKey)
     }
   }, [pollCounter])

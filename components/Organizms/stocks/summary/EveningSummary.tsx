@@ -23,6 +23,7 @@ import { searchDynamoItemsByCategory } from 'lib/backend/csr/nextApiWrapper'
 import { sortArray } from 'lib/util/collections'
 import SentimentSummary from './stocks/SentimentSummary'
 import { useRouter } from 'next/navigation'
+import VolumeLeadersSummary from './stocks/VolumeLeadersSummary'
 
 type Model = {
   allEarnings: StockEarning[]
@@ -34,7 +35,7 @@ const EveningSummary = () => {
   const { userProfile, isValidating: isValidatingProfile } = useProfileValidator()
   const mutateKey = 'stock-reported-earnings-all'
   const dataFn = async () => {
-    await sleep(getRandomInteger(250, 3000))
+    await sleep(getRandomInteger(100, 200))
     const resp = await serverGetFetch('/RecentEarnings')
     const earnings = resp.Body as StockEarning[]
     const mapped: StockEarning[] = earnings.map((m) => {
@@ -90,6 +91,11 @@ const EveningSummary = () => {
           <Box>
             <BorderedBox>
               <TopMoversSummary userProfile={userProfile} />
+            </BorderedBox>
+          </Box>
+          <Box>
+            <BorderedBox>
+              <VolumeLeadersSummary userProfile={userProfile} showCompanyName />
             </BorderedBox>
           </Box>
           <Box>

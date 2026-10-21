@@ -29,7 +29,7 @@ const CommoditiesSummary = () => {
   const [stockSort, setStockSort] = useState<StockSort>({ field: 'ChangePercent', direction: 'default' })
 
   const dataFn = async () => {
-    await sleep(getRandomInteger(250, 3000))
+    await sleep(getRandomInteger(2000, 3000))
     const resp = await serverGetFetch(`/Futures`)
     const quotes = resp.Body as StockQuote[]
     const result = orderBy(quotes, (quote) => Math.abs(quote.ChangePercent), ['desc'])

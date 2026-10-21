@@ -17,7 +17,7 @@ const VolumeLeadersSummary = ({ userProfile, showCompanyName = false }: { userPr
   const router = useRouter()
 
   const dataFn = async () => {
-    await sleep(getRandomInteger(250, 2500))
+    await sleep(getRandomInteger(1000, 2500))
     const report = await serverGetFetch(`/StockReports?id=${'volumeleaders'}&take=${100}&days=${1}`)
     const result = report.Body as StockQuote[]
 
@@ -33,7 +33,7 @@ const VolumeLeadersSummary = ({ userProfile, showCompanyName = false }: { userPr
   const { data, isLoading } = useSwrHelper(mutateKey, dataFn, { revalidateOnFocus: false })
 
   useEffect(() => {
-    if (pollCounter >= 1) {
+    if (pollCounter > 1) {
       mutate(mutateKey)
     }
   }, [pollCounter])

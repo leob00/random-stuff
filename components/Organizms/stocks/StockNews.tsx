@@ -14,7 +14,12 @@ const StockNews = ({ quote, profile }: { quote: StockQuote; profile: UserProfile
     const endpoint = `/NewsBySymbol?symbol=${quote.Symbol}`
     const resp = await serverGetFetch(endpoint)
     const result = resp.Body as NewsItem[]
-    const sorted = orderBy(result, ['PublishDate'], ['desc', 'desc'])
+    const map = new Map<string, NewsItem>()
+    result.forEach((item) => {
+      map.set(`${item.Headline}{${item.PublishDate}`, item)
+    })
+    const deduped = Array.from(map.values())
+    const sorted = orderBy(deduped, ['PublishDate'], ['desc', 'desc'])
     return sorted
   }
 

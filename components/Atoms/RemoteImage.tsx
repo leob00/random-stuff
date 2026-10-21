@@ -11,7 +11,7 @@ const RemoteImage = ({
   priority,
 }: {
   url: string
-  title: string
+  title?: string
   width?: number
   height?: number
   style?: React.CSSProperties
@@ -29,7 +29,7 @@ const RemoteImage = ({
         <NImage
           style={style ? style : { borderRadius: '12px', objectFit: 'cover' }}
           src={url}
-          alt={title}
+          alt={title ?? 'image'}
           placeholder='blur'
           height={height}
           width={width}

@@ -19,7 +19,7 @@ const TopMoversSummary = ({ userProfile, showCompanyName = true }: { userProfile
   const router = useRouter()
 
   const dataFn = async () => {
-    await sleep(getRandomInteger(250, 2500))
+    await sleep(getRandomInteger(500, 2500))
     const topMoverFilter: StockAdvancedSearchFilter = {
       take: 100,
       marketCap: {
@@ -44,7 +44,7 @@ const TopMoversSummary = ({ userProfile, showCompanyName = true }: { userProfile
     router.push('/market/stocks/reports/topmvgavg')
   }
   useEffect(() => {
-    if (pollCounter >= 1) {
+    if (pollCounter > 1) {
       mutate(mutateKey)
     }
   }, [pollCounter])

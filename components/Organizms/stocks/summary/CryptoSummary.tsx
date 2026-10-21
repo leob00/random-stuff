@@ -31,7 +31,7 @@ const CryptoSummary = () => {
 
   const endPoint = `/Crypto`
   const dataFn = async () => {
-    await sleep(getRandomInteger(250, 2500))
+    await sleep(getRandomInteger(2000, 3000))
     const resp = await serverGetFetch(endPoint)
     const quotes = resp.Body as StockQuote[]
 
