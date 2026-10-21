@@ -4,8 +4,10 @@ import NLink from 'next/link'
 
 const SiteLink = ({ text, href, variant = 'caption' }: { text: string; href: string; variant?: TypographyVariant }) => {
   return (
-    <Link href={href} component={NLink} style={{ fontSize: 'small' }}>
-      <Typography variant={variant ?? 'caption'}>{text}</Typography>
+    <Link href={href} component={NLink} style={{ fontSize: 'small' }} color='info'>
+      <Typography color='info' variant={variant ?? 'caption'}>
+        {text}
+      </Typography>
     </Link>
   )
 }

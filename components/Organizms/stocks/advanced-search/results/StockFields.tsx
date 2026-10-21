@@ -9,6 +9,53 @@ interface Model {
   val: string
 }
 
+const StockFields = ({ quote, fields }: { quote: StockQuote; fields: Array<keyof StockQuote> }) => {
+  const items = fields.map((m) => mapStockField(m, quote)).filter((f) => !!f.label)
+  const nonLinked = items.filter((f) => f.label !== 'sector' && f.label !== 'industry' && !!f.val)
+  const linked = items.filter((f) => f.label === 'sector' || (f.label === 'industry' && !!f.val))
+
+  return (
+    <Box display={'flex'} flexDirection={'column'}>
+      <Box>
+        <Box display={'flex'} flexDirection={'column'} gap={1}>
+          {nonLinked.map((field) => (
+            <Box key={field.label} display={'flex'} gap={1}>
+              <Box minWidth={75}>
+                <Typography color='secondary' variant='body2' textAlign={'right'}>{`${field.label}:`}</Typography>
+              </Box>
+              <Box pr={2}>
+                <Typography color='info' variant='body2' textAlign={'left'} fontWeight={'bold'}>
+                  {field.val}
+                </Typography>
+              </Box>
+            </Box>
+          ))}
+          {linked.map((field) => (
+            <Box key={field.label} display={'flex'} gap={1}>
+              <Box minWidth={75}>
+                <Typography color='secondary' variant='body2' textAlign={'right'}>{`${field.label}:`}</Typography>
+              </Box>
+              <Box pr={2}>
+                <>
+                  {field.label === 'sector' && (
+                    <Box>
+                      <SiteLink variant='body1' href={`/market/stocks/sectors/${encodeURIComponent(quote.SectorId!)}`} text={field.val} />
+                    </Box>
+                  )}
+                  {field.label === 'industry' && (
+                    <Box>
+                      <SiteLink variant='body1' href={`/market/stocks/industries/${encodeURIComponent(quote.IndustryId!)}`} text={field.val} />
+                    </Box>
+                  )}
+                </>
+              </Box>
+            </Box>
+          ))}
+        </Box>
+      </Box>
+    </Box>
+  )
+}
 export function mapStockField(field: keyof StockQuote, quote: StockQuote) {
   const na = 'n/a'
   const item: Model = {
@@ -38,7 +85,7 @@ export function mapStockField(field: keyof StockQuote, quote: StockQuote) {
       item.val = quote.AnnualDividendYield ? `${quote.AnnualDividendYield}%` : ''
       break
     case 'TradeDate':
-      item.label = 'date'
+      item.label = 'as of'
       item.val = dayjs(quote.TradeDate).format('MM/DD/YYYY hh:mm A')
       break
     case 'Sector':
@@ -56,60 +103,4 @@ export function mapStockField(field: keyof StockQuote, quote: StockQuote) {
   }
   return item
 }
-
-const StockFields = ({ quote, fields }: { quote: StockQuote; fields: Array<keyof StockQuote> }) => {
-  const items = fields.map((m) => mapStockField(m, quote)).filter((f) => !!f.label)
-  const nonLinked = items.filter((f) => f.label !== 'sector' && f.label !== 'industry')
-  const linked = items.filter((f) => f.label === 'sector' || f.label === 'industry')
-
-  return (
-    <Box>
-      <Box display={'flex'} gap={1}>
-        <Box display={'flex'} flexDirection={'column'} gap={0.65}>
-          {nonLinked.map((field) => (
-            <Box key={field.label}>{field.val && <Typography variant='body2' textAlign={'right'}>{`${field.label}:`}</Typography>}</Box>
-          ))}
-        </Box>
-        <Box display={'flex'} flexDirection={'column'} gap={0.68}>
-          {nonLinked.map((field) => (
-            <Box key={field.label}>
-              {field.val && (
-                <Box>
-                  {field.label !== 'sector' && field.label !== 'industry' && (
-                    <Typography variant='body2' textAlign={'left'} fontWeight={'bold'}>
-                      {field.val}
-                    </Typography>
-                  )}
-                </Box>
-              )}
-            </Box>
-          ))}
-        </Box>
-      </Box>
-      <Box pt={1}>
-        {linked.map((field) => (
-          <Box key={field.label} display={'flex'} gap={1} alignItems={'center'}>
-            {field.val && (
-              <>
-                {field.label === 'sector' && (
-                  <>
-                    <Typography variant='body2'>{`${field.label}:`}</Typography>
-                    <SiteLink variant='body1' href={`/market/stocks/sectors/${encodeURIComponent(quote.SectorId!)}`} text={field.val} />
-                  </>
-                )}
-                {field.label === 'industry' && (
-                  <>
-                    <Typography variant='body2'>{`${field.label}:`}</Typography>
-                    <SiteLink variant='body1' href={`/market/stocks/industries/${encodeURIComponent(quote.IndustryId!)}`} text={field.val} />
-                  </>
-                )}
-              </>
-            )}
-          </Box>
-        ))}
-      </Box>
-    </Box>
-  )
-}
-
 export default StockFields
