@@ -282,7 +282,7 @@ export const flatSiteMap: Navigation[] = [
   },
   {
     name: 'sandbox',
-    path: '/protected/csr/sandbox',
+    path: '/admin/sandbox',
     category: 'Admin',
     isProtected: true,
   },
