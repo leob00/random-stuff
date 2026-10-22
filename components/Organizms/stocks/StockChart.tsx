@@ -143,10 +143,10 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
     mutate(mutateKey, results)
     setIsWaiting(false)
   }
-
+  const isFetching = isLoading || isWaiting
   return (
     <Box>
-      {isLoading || (isWaiting && <ComponentLoader />)}
+      {isFetching && <ComponentLoader marginTop={10} />}
       {data && (
         <Box display={'flex'} justifyContent={'flex-end'} gap={2} alignItems={'center'}>
           <StockChartDaySelect
@@ -174,7 +174,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
                 <>
                   {!stockChartSettings.viewAsTable ? (
                     <>
-                      {days == 1 && marketCategory === 'stocks' && (
+                      {!isFetching && data.history.length > 0 && days == 1 && marketCategory === 'stocks' && (
                         <Box display={'flex'} justifyContent={'center'}>
                           <AlertWithHeader severity='info' header={`intra-day: ${dayjs(data.history[0].TradeDate).format('MM/DD/YYYY')}`} />
                         </Box>
