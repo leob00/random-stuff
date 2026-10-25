@@ -1,11 +1,11 @@
 'use client'
-import * as React from 'react'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { Box, ListItem, ListItemText, Typography } from '@mui/material'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
 import CenterStack from 'components/Atoms/CenterStack'
 import SingleItemMenu from './SingleItemMenu'
+import { useState } from 'react'
 
 export type DraggableListProps = {
   items: StockQuote[]
@@ -18,8 +18,8 @@ export interface SelectableQuote extends StockQuote {
 }
 
 const EditableStockListNew = ({ items, onPushChanges, onEditSingleItem }: DraggableListProps) => {
-  const [deleteItem, setDeleteItem] = React.useState<StockQuote | null>(null)
-  const [showConfirmDelete, setShowConfirmDelete] = React.useState(false)
+  const [deleteItem, setDeleteItem] = useState<StockQuote | null>(null)
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false)
 
   const handleRemoveQuote = (symbol: string) => {
     const list = items.filter((m) => m.Symbol !== symbol)
@@ -31,13 +31,15 @@ const EditableStockListNew = ({ items, onPushChanges, onEditSingleItem }: Dragga
     setShowConfirmDelete(false)
     handleRemoveQuote(id)
   }
-  const handleShowConfirmDelete = (item: StockQuote) => {
-    setDeleteItem(item)
-    setShowConfirmDelete(true)
-  }
+
   const handleCancelDelete = () => {
     setShowConfirmDelete(false)
     setDeleteItem(null)
+  }
+  const handleMoveToTop = (item: StockQuote) => {
+    const list = [...items].filter((m) => m.Symbol !== item.Symbol)
+    list.unshift(item)
+    onPushChanges(list)
   }
 
   return (
@@ -59,7 +61,14 @@ const EditableStockListNew = ({ items, onPushChanges, onEditSingleItem }: Dragga
                 </ListItem>
               </Box>
               <Box>
-                <SingleItemMenu onEdelete={handleRemoveItem} quote={item} onEdit={onEditSingleItem} />
+                <SingleItemMenu
+                  index={index}
+                  itemCount={items.length}
+                  onEdelete={handleRemoveItem}
+                  quote={item}
+                  onEdit={onEditSingleItem}
+                  onMoveToTop={handleMoveToTop}
+                />
               </Box>
             </Box>
             <HorizontalDivider />

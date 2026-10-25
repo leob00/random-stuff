@@ -13,9 +13,23 @@ import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 const StocksLayout = ({ userProfile, localStore }: { userProfile: UserProfile | null; localStore: LocalStore }) => {
   const mutateKey = `user-stock_list[${userProfile?.username ?? 'public'}]`
 
+  const getUserStockList = async () => {
+    const userQuotes = (await getDynamoItemData<StockQuote[] | null>(mutateKey)) ?? []
+    const downloadedQuotes = await getLatestQuotes(userQuotes.map((m) => m.Symbol))
+    const downloadedMap = getMapFromArray(downloadedQuotes, 'Symbol')
+    const result: StockQuote[] = []
+    userQuotes.forEach((quote) => {
+      if (downloadedMap.has(quote.Symbol)) {
+        result.push({ ...downloadedMap.get(quote.Symbol)!, GroupName: quote.GroupName })
+      }
+    })
+
+    return result
+  }
+
   const fetchData = async () => {
     if (userProfile) {
-      const resp = await getDynamoItemData<StockQuote[] | null>(mutateKey)
+      const resp = await getUserStockList()
       return resp ?? []
     } else {
       let res: StockQuote[] = []

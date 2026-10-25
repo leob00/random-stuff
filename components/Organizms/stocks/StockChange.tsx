@@ -1,4 +1,4 @@
-import { Stack, useTheme } from '@mui/material'
+import { Stack, Typography, useTheme } from '@mui/material'
 import { StockQuote } from 'lib/backend/api/models/zModels'
 import { getPositiveNegativeColor } from './StockListItem'
 import StockChangeNumberDisplay from './StockChangeNumberDisplay'

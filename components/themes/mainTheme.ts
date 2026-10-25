@@ -9,7 +9,7 @@ export const VeryLightBlueTransparent = '#b5d7fc91'
 export const VeryLightBlueOpaque = '#226db90e'
 export const VeryLightBlueOpaqueLight = '#78b4f52f'
 export const VeryLightTransparent = '#d6e7f821'
-export const DarkBlue = '#142d5d'
+export const DarkBlue = '#1243a0'
 export const DarkBlueTransparent = '#0b224ebb'
 export const FadedWhite = 'rgba(255, 255, 255, 0.2)'
 export const LightGrey = '#ecf2f1'
@@ -50,7 +50,7 @@ export const Default = CasinoBlue
 export const CasinoBlack = '#131212fa'
 export const CasinoBlackDarkMode = '#2c2929fa'
 export const White = '#ffffff'
-export const SoftWhite = '#fcfcfcf1'
+export const SoftWhite = '#fcf1f1e0'
 export const ChartBackground = '#c2dffa3d'
 export const OceanBlue = '#295d6f'
 export const OceanBlueTransparent = '#0ba3d631'
@@ -82,6 +82,10 @@ const lightPalette: PaletteOptions = {
   warning: {
     main: CasinoOrange,
     //contrastText: 'yellow',
+  },
+  background: {
+    default: SoftWhite,
+    paper: SoftWhite,
   },
 }
 

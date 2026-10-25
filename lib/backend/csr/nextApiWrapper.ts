@@ -13,6 +13,7 @@ import { EmailMessage } from 'app/serverActions/aws/ses/ses'
 import { sortArray } from 'lib/util/collections'
 import { StockSavedSearch } from 'components/Organizms/stocks/advanced-search/stocksAdvancedSearch'
 import dayjs from 'dayjs'
+import { sleep } from 'lib/util/timers'
 
 export interface SignedRequest {
   appId?: string
@@ -280,6 +281,7 @@ export async function putUserStockList(username: string, data: StockQuote[]) {
   const putRequest: SignedRequest = {
     data: encryptBody(req),
   }
+  await sleep(500)
   await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
 }
 

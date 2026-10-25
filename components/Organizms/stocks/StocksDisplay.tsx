@@ -25,6 +25,7 @@ import StockSearch from 'components/Atoms/Inputs/StockSearch'
 import { useViewPortSize } from 'hooks/ui/useViewportSize'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import { SymbolCompany } from 'lib/backend/api/qln/qlnApi'
+import { sleep } from 'lib/util/timers'
 
 export const searchWithinResults = (quotes: StockQuote[], text: string) => {
   const result = quotes.filter(
@@ -271,6 +272,7 @@ const StocksDisplay = ({
 
 async function persistStocks(userProfile: UserProfile | null, localStore: LocalStore, list: StockQuote[]) {
   if (userProfile) {
+    await sleep(500)
     putUserStockList(userProfile.username, list)
   } else {
     localStore.saveStocks(list)
