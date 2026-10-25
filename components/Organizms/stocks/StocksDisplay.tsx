@@ -135,7 +135,7 @@ const StocksDisplay = ({
       newMap.set(item.Symbol, item)
     })
     const newList = Array.from(newMap.values())
-    persistStocks(userProfile, localStore, newList)
+    //persistStocks(userProfile, localStore, newList)
     setModel({
       ...model,
       isLoading: false,
@@ -174,6 +174,14 @@ const StocksDisplay = ({
       localStore.saveCustomSort(data)
     }
   }
+  const handleCancelEditList = async () => {
+    setModel({ ...model, editList: false })
+    const runningQuotes = Array.from(model.stockListMap.values())
+    //if (JSON.stringify(runningQuotes) !== JSON.stringify(saveList)) {
+    persistStocks(userProfile, localStore, runningQuotes)
+    onMutated(runningQuotes)
+    //}
+  }
 
   return (
     <>
@@ -210,7 +218,7 @@ const StocksDisplay = ({
                 <>
                   <EditList
                     data={Array.from(model.stockListMap.values())}
-                    onCancelEdit={() => setModel({ ...model, editList: false })}
+                    onCancelEdit={handleCancelEditList}
                     onPushChanges={handleSaveChanges}
                     onReorder={handleReorderList}
                     selectedItem={model.selectedQuote}

@@ -9,7 +9,7 @@ import { useState } from 'react'
 
 export type DraggableListProps = {
   items: StockQuote[]
-  onPushChanges: (quotes: StockQuote[]) => void
+  onPushChanges: (quotes: StockQuote[], persistToDb?: boolean) => void
   onEditSingleItem: (quote: StockQuote) => void
 }
 
