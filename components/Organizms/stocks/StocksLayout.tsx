@@ -30,7 +30,7 @@ const StocksLayout = ({ userProfile, localStore }: { userProfile: UserProfile | 
   const fetchData = async () => {
     if (userProfile) {
       const resp = await getUserStockList()
-      return resp ?? []
+      return resp
     } else {
       let res: StockQuote[] = []
       if (localStore.myStocks?.data) {
