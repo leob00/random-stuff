@@ -177,10 +177,8 @@ const StocksDisplay = ({
   const handleCancelEditList = async () => {
     setModel({ ...model, editList: false })
     const runningQuotes = Array.from(model.stockListMap.values())
-    //if (JSON.stringify(runningQuotes) !== JSON.stringify(saveList)) {
     persistStocks(userProfile, localStore, runningQuotes)
     onMutated(runningQuotes)
-    //}
   }
 
   return (

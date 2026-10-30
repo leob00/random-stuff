@@ -8,6 +8,7 @@ import { StockQuoteSort } from '../api/models/collections'
 import { EconCalendarFilter } from 'components/Organizms/stocks/EconCalendarDisplay'
 import { NewsTypeIds } from '../api/qln/qlnApi'
 import { StockMovingAvgFilter } from 'components/Organizms/stocks/reports/stockMovingAvgFilter'
+import { AiChatHistory, ChatBotMessage } from '../ai/models'
 
 export interface StockSettings extends UserStockSettings {
   data: StockQuote[]
@@ -47,6 +48,8 @@ export interface LocalStore {
   setStockMovingAvgFilter: (filter: StockMovingAvgFilter) => void
   //stockTopMovingAvgFilter?: StockMovingAvgFilter
   getStockTopMovingAvgFilter: () => StockMovingAvgFilter
+  aiChatHistory: AiChatHistory
+  addToChatHistory: (item: ChatBotMessage) => void
 }
 
 export const useLocalStore = create(
@@ -77,7 +80,6 @@ export const useLocalStore = create(
           },
         },
       },
-
       saveStockSettings: (stockSettings: UserStockSettings) => set((state) => ({ ...state, stockSettings: stockSettings })),
       saveStocks: (stocks) => {
         const myStocks = get().myStocks
@@ -104,11 +106,27 @@ export const useLocalStore = create(
         return movingAvgFilter
       },
       stockTopMovingAvgFilter: { days: 1, take: 100 },
-
       setStockMovingAvgFilter: (filter: StockMovingAvgFilter) => {
         set((state) => ({ ...state, stockReportSettings: { ...state.stockReportSettings, topMovingAvg: { filter: filter } } }))
       },
+      aiChatHistory: { items: [] },
+      addToChatHistory: (item: ChatBotMessage) => {
+        const history = get().aiChatHistory
+        let newItems = [...history.items]
+        if (item.role === 'user') {
+          const existing = newItems.find((m) => m.content === item.content)
+          if (existing) {
+            newItems = newItems.filter((m) => m.role === 'user' && m.content !== item.content)
+          }
+          newItems.unshift(item)
+        } else if (item.role === 'assistant') {
+          newItems.push(item)
+        }
+
+        set({ aiChatHistory: { items: newItems } })
+      },
     }),
+
     {
       name: 'rs-local-store',
       storage: createJSONStorage(() => localStorage),

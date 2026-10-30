@@ -22,6 +22,7 @@ import VolumeLeadersSummary from './summary/stocks/VolumeLeadersSummary'
 import TopSectorsSummary from './summary/stocks/TopSectorsSummary'
 import { getMapFromArray } from 'lib/util/collectionsNative'
 import dayjs from 'dayjs'
+import FormDialog from 'components/Atoms/Dialogs/FormDialog'
 
 const tabs: TabInfo[] = [
   {
@@ -113,37 +114,35 @@ const StocksPageLayout = ({ userProfile }: { userProfile: UserProfile | null }) 
         </Box>
       )}
       {isLoading && <ComponentLoader />}
-      {searchedQuote && <FullStockDetail item={searchedQuote} onClose={handleCloseQuoteDialog} />}
-      {!searchedQuote && <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={selectedTab.index ?? 0} />}
-      {!searchedQuote && (
-        <>
-          {/* <ScrollIntoView enabled={viewPortSize === 'sm'} margin={-13} /> */}
-          {selectedTab.index === 0 && <Box>{searchedStocks && <CommunityStocksRecentLayout data={searchedStocks} onRefresh={handleRefreshRecent} />}</Box>}
-          {selectedTab.index === 1 && <CommunityStocksWrapper data={winners} onRefresh={handleRefreshRecent} />}
-          {selectedTab.index === 2 && <CommunityStocksWrapper data={losers} onRefresh={handleRefreshRecent} />}
-          {selectedTab.index === 3 && (
-            <Box minHeight={600}>
-              <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={{ xs: 'center', md: 'unset' }} pt={4}>
-                <Box>
-                  <BorderedBox>
-                    <TopMoversSummary userProfile={userProfile} showCompanyName />
-                  </BorderedBox>
-                </Box>
-                <Box>
-                  <BorderedBox>
-                    <VolumeLeadersSummary userProfile={userProfile} showCompanyName />
-                  </BorderedBox>
-                </Box>
-                {/* <Box>
-                  <BorderedBox>
-                    <TopSectorsSummary />
-                  </BorderedBox>
-                </Box> */}
+      {searchedQuote && (
+        <FormDialog title='' show={!!searchedQuote} onCancel={handleCloseQuoteDialog} minContentHeight={1200} fullScreen>
+          <FullStockDetail showCloseButtons={false} item={searchedQuote} onClose={handleCloseQuoteDialog} />
+        </FormDialog>
+      )}
+      <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={selectedTab.index ?? 0} />
+
+      <>
+        {/* <ScrollIntoView enabled={viewPortSize === 'sm'} margin={-13} /> */}
+        {selectedTab.index === 0 && <Box>{searchedStocks && <CommunityStocksRecentLayout data={searchedStocks} onRefresh={handleRefreshRecent} />}</Box>}
+        {selectedTab.index === 1 && <CommunityStocksWrapper data={winners} onRefresh={handleRefreshRecent} />}
+        {selectedTab.index === 2 && <CommunityStocksWrapper data={losers} onRefresh={handleRefreshRecent} />}
+        {selectedTab.index === 3 && (
+          <Box minHeight={600}>
+            <Box display={'flex'} gap={1} flexWrap={'wrap'} justifyContent={{ xs: 'center', md: 'unset' }} pt={4}>
+              <Box>
+                <BorderedBox>
+                  <TopMoversSummary userProfile={userProfile} showCompanyName />
+                </BorderedBox>
+              </Box>
+              <Box>
+                <BorderedBox>
+                  <VolumeLeadersSummary userProfile={userProfile} showCompanyName />
+                </BorderedBox>
               </Box>
             </Box>
-          )}
-        </>
-      )}
+          </Box>
+        )}
+      </>
     </>
   )
 }

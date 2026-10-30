@@ -134,7 +134,6 @@ const StockListItem = ({
             <HorizontalDivider />
           </Box>
         )}
-
         {showMore && (
           <>
             <Box minHeight={{ xs: 300, sm: 600 }}>
@@ -151,10 +150,22 @@ const StockListItem = ({
                 <Typography ref={tabScrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>
                 <Box minHeight={400}>
                   {selectedTab === 'Details' && <StockDetailsTab quote={item} />}
-                  {selectedTab === 'News' && <StockNews quote={item} profile={userProfile} />}
-                  {selectedTab === 'Earnings' && <StockEarnings quote={item} />}
+                  {selectedTab === 'News' && (
+                    <Stack minHeight={750}>
+                      <StockNews quote={item} profile={userProfile} />
+                    </Stack>
+                  )}
+                  {selectedTab === 'Earnings' && (
+                    <Stack minHeight={750}>
+                      <StockEarnings quote={item} />
+                    </Stack>
+                  )}
                   {selectedTab === 'Dividends' && <StockDividendDetails symbol={item.Symbol} showCompanyName={false} />}
-                  {selectedTab === 'Profile' && <CompanyProfile quote={item} />}
+                  {selectedTab === 'Profile' && (
+                    <Stack minHeight={800}>
+                      <CompanyProfile quote={item} />
+                    </Stack>
+                  )}
                 </Box>
               </>
             )}

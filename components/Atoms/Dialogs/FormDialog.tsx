@@ -13,6 +13,7 @@ const FormDialog = ({
   onCancel,
   onSave,
   showActionButtons = true,
+  minContentHeight = 400,
   fullScreen,
 }: {
   children: ReactNode
@@ -21,6 +22,7 @@ const FormDialog = ({
   onCancel?: () => void
   onSave?: () => void
   showActionButtons?: boolean
+  minContentHeight?: number
   fullScreen?: boolean
 }) => {
   const handleClose = () => {
@@ -49,7 +51,7 @@ const FormDialog = ({
       </DialogTitle>
       <DialogContent>
         <DialogContentText id='alert-dialog-description' sx={{ pt: 3 }} color='primary'></DialogContentText>
-        {children}
+        <Stack minHeight={minContentHeight}>{children}</Stack>
       </DialogContent>
       {showActionButtons && (
         <>

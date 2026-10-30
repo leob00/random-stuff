@@ -11,6 +11,9 @@ import numeral from 'numeral'
 import { useState, useRef } from 'react'
 import ChatBotMessage from 'components/ai//ChatBotMessage'
 import { AnthropicChatbotMessage } from 'lib/backend/api/models/antropic'
+import { useLocalStore } from 'lib/backend/store/useLocalStore'
+import { getUtcNow } from 'lib/util/dateUtil'
+import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 
 const AnthropicChatBot = () => {
   const [messages, setMessages] = useState<AnthropicChatbotMessage[]>([])
@@ -19,6 +22,7 @@ const AnthropicChatBot = () => {
   const [currentResponseText, setCurrentResponseText] = useState('')
   const abortControllerRef = useRef<AbortController | null>(null)
   const theme = useTheme()
+  const { addToChatHistory } = useLocalStore()
 
   const streamChatResponse = async (message: string) => {
     const userMessage: AnthropicChatbotMessage = { role: 'user', content: message, timestamp: dayjs().format() }
@@ -84,13 +88,24 @@ const AnthropicChatBot = () => {
                   setCurrentResponseText(accumulatedResponse)
                 } else if (data.done) {
                   // Stream completed - add final message
-                  responseMessages.push({
+                  const finalResponseMessage: AnthropicChatbotMessage = {
                     role: 'assistant',
                     content: accumulatedResponse,
                     timestamp: dayjs().format(),
                     usage: usage,
-                  })
+                  }
+                  responseMessages.push(finalResponseMessage)
+
                   setMessages((prev) => [...prev, ...responseMessages])
+                  const expiration = getUtcNow().add(30, 'days')
+                  const promptHash = weakEncrypt(userMessage.content)
+                  addToChatHistory({ ...userMessage, expirationTimestampUtc: expiration.format(), promptHash: promptHash })
+                  addToChatHistory({
+                    ...finalResponseMessage,
+                    content: accumulatedResponse,
+                    expirationTimestampUtc: expiration.format(),
+                    promptHash: promptHash,
+                  })
                   setIsLoading(false)
                   return
                 } else if (data.error) {
