@@ -51,7 +51,7 @@ const ListHeaderStack = ({
             textAlign={'left'}
             variant='h6'
             fontWeight={'bold'}
-            color='primary'
+            color='info'
             sx={{ textDecoration: `${underline ? 'underline' : 'unset'}` }}
             dangerouslySetInnerHTML={{ __html: text }}
           ></Typography>

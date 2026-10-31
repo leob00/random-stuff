@@ -119,7 +119,7 @@ const StockListItem = ({
           )}
           <Box>
             <StockChange item={item} showMovingAvg={showMovingAvgOnly} changeDecimalPlaces={decimalPlaces} />
-            <Box pl={2} display={'flex'} flexDirection={'column'}>
+            <Box pl={2} display={'flex'} flexDirection={'column'} pt={2}>
               {featuredFields && <StockFields fields={featuredFields} quote={item} />}
             </Box>
           </Box>
