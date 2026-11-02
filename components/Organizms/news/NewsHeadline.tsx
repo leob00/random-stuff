@@ -7,7 +7,7 @@ const NewsHeadline = ({ item }: { item: NewsItem }) => {
       {item.Headline && (
         <Box textAlign={'left'} px={2}>
           <Link href={item.Link} target='_blank' sx={{ textDecoration: 'none' }}>
-            <Typography variant='h4' dangerouslySetInnerHTML={{ __html: `${item.Headline.replace('Pluralistic: ', '')}` }}></Typography>
+            <Typography variant='h4' color='info' dangerouslySetInnerHTML={{ __html: `${item.Headline.replace('Pluralistic: ', '')}` }}></Typography>
           </Link>
         </Box>
       )}

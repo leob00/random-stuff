@@ -1,7 +1,6 @@
 'use client'
 import { Box } from '@mui/material'
 import BackButton from '../Buttons/BackButton'
-import CenterStack from '../CenterStack'
 import HorizontalDivider from '../Dividers/HorizontalDivider'
 import CenteredHeader from '../Boxes/CenteredHeader'
 import BasicBreadcrumbs from '../Navigation/Breadcrumbs'

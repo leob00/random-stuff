@@ -9,6 +9,7 @@ import ContextMenuRefresh from './ContextMenuRefresh'
 import { mutate } from 'swr'
 import { MutateKey } from 'lib/backend/api/models/mutateKeys'
 import ContextMenuAllStocks from './ContextMenuAllStocks'
+import ContextMenuIndices from './ContextMenuIndices'
 
 const OtherMarketsPageContextMenu = ({ mutateKey }: { mutateKey?: MutateKey }) => {
   const pathName = usePathname()
@@ -35,6 +36,11 @@ const OtherMarketsPageContextMenu = ({ mutateKey }: { mutateKey?: MutateKey }) =
         item: <ContextMenuAllStocks />,
         route: '/market/stocks/quotes',
         fn: () => router.push('/market/stocks/quotes'),
+      },
+      {
+        item: <ContextMenuIndices />,
+        route: '/market/stocks/indices',
+        fn: () => router.push('/market/stocks/indices'),
       },
     ]
     if (mutateKey) {

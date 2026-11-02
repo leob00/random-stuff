@@ -1,6 +1,6 @@
 'use client'
 import { Box, Typography, useTheme } from '@mui/material'
-import { Paths, SiteCategories } from './siteMap'
+import { Paths } from './siteMap'
 import { CasinoBlueTransparent, DarkModeBlueTransparent } from 'components/themes/mainTheme'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import NavigationButton from 'components/Atoms/Buttons/NavigationButton'

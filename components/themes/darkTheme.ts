@@ -25,7 +25,7 @@ const darkPalette: PaletteOptions = {
   mode: 'dark',
 
   primary: {
-    main: '#6cafe6ef',
+    main: '#5da2dbe3',
     contrastText: CasinoWhite,
   },
   secondary: {

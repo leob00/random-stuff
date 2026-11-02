@@ -13,7 +13,7 @@ const FormDialog = ({
   onCancel,
   onSave,
   showActionButtons = true,
-  minContentHeight = 400,
+  minContentHeight = 350,
   fullScreen,
 }: {
   children: ReactNode
@@ -37,7 +37,11 @@ const FormDialog = ({
       aria-describedby='alert-dialog-description'
       maxWidth='lg'
       fullScreen={fullScreen}
-      PaperProps={{ elevation: 0 }}
+      slotProps={{
+        paper: {
+          elevation: 0,
+        },
+      }}
     >
       <DialogTitle id='alert-dialog-title' sx={{ backgroundColor: CasinoBlueTransparent, color: 'white' }}>
         <Stack display='flex' direction={'row'} justifyContent={'space-between'} alignItems={'center'}>

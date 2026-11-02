@@ -4,7 +4,7 @@ import { ResponsiveFontSizesOptions } from '@mui/material/styles/responsiveFontS
 export const BlackTransparent: string = '#080808ef'
 export const Blue800: string = '#436ab6'
 export const LightBlue = '#446ab7'
-export const VeryLightBlue = '#b5d7fcdc'
+export const VeryLightBlue = '#aaccf0c2'
 export const VeryLightBlueTransparent = '#b5d7fc91'
 export const VeryLightBlueOpaque = '#226db90e'
 export const VeryLightBlueOpaqueLight = '#78b4f52f'
@@ -19,8 +19,8 @@ export const TransparentGreen = '#0d740dad'
 export const TransparentBlue = '#446ab793'
 export const CasinoGreenTransparent = '#027902bb'
 export const CasinoGreenTransparentChart = '#027902a9'
-export const CasinoLimeTransparent = '#44f70de7'
-export const CasinoLimeTransparentDarkMode = '#30a70cee'
+export const CasinoLimeTransparent = '#43f00e93'
+export const CasinoLimeTransparentDarkMode = '#30a70cd0'
 export const CasinoRedTransparent = '#830707bb'
 export const CasinoRedTransparentChart = '#8a0808a9'
 export const CasinoRedTransparentChartLight = '#831414f8'
@@ -51,11 +51,11 @@ export const Default = CasinoBlue
 export const CasinoBlack = '#131212fa'
 export const CasinoBlackDarkMode = '#2c2929fa'
 export const White = '#ffffff'
-export const SoftWhite = '#fcf1f1e0'
+export const SoftWhite = '#f3efefea'
 export const ChartBackground = '#c2dffa3d'
 export const OceanBlue = '#295d6f'
 export const OceanBlueTransparent = '#0ba3d631'
-export const RedDarkMode = '#f31d1d'
+export const RedDarkMode = '#f31d1db7'
 export const DarkModeBkg = '#010d20fa'
 export const TooltipBkg = '#000713ee'
 export const GoldColor = '#B8860B'
@@ -69,7 +69,7 @@ const lightPalette: PaletteOptions = {
     contrastText: SoftWhite,
   },
   secondary: {
-    main: CasinoBlue,
+    main: CasinoBlueLightMode,
   },
   error: {
     main: CasinoDarkRedTransparent,

@@ -14,7 +14,7 @@ const CenteredHeader = ({
     <Box>
       <CenteredTitle title={title} variant={variant} />
       {description && (
-        <Typography color='primary' variant='body1' sx={{ textAlign: 'center', paddingBottom: 2 }}>
+        <Typography color='info' variant='body1' sx={{ textAlign: 'center', paddingBottom: 2 }}>
           {`${description}`}
         </Typography>
       )}

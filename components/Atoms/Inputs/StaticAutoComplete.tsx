@@ -1,5 +1,5 @@
 'use client'
-import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, TextField } from '@mui/material'
+import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, TextField, useTheme } from '@mui/material'
 import { ChangeEvent, useRef } from 'react'
 import { Option } from 'lib/AutoCompleteOptions'
 import { DropdownItem } from 'lib/models/dropdown'
@@ -24,6 +24,7 @@ const StaticAutoComplete = ({
   onChanged?: (text: string) => void
   errorMessage?: string
 }) => {
+  const theme = useTheme()
   const items: Option[] = options.map((m) => {
     return {
       id: m.value,
@@ -68,7 +69,9 @@ const StaticAutoComplete = ({
         }}
         disablePortal
         options={items}
-        sx={!fullWidth ? { width: { xs: 260, md: 600 } } : {}}
+        sx={{
+          ...(!fullWidth ? { width: { xs: 260, md: 600 } } : {}),
+        }}
         disableClearable={disableClearable}
         isOptionEqualToValue={(opt, compOpt) => opt.id === compOpt.id}
         fullWidth={fullWidth}

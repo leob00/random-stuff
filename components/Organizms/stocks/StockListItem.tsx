@@ -117,7 +117,7 @@ const StockListItem = ({
           ) : (
             <ListHeader text={`${item.Company}`} item={item} onClicked={handleCompanyClick} disabled={disabled} fadeIn={false} selected={showMore} />
           )}
-          <Box>
+          <Box pl={0.5}>
             <StockChange item={item} showMovingAvg={showMovingAvgOnly} changeDecimalPlaces={decimalPlaces} />
             <Box pl={2} display={'flex'} flexDirection={'column'} pt={2}>
               {featuredFields && <StockFields fields={featuredFields} quote={item} />}
@@ -148,7 +148,7 @@ const StockListItem = ({
                 )}
                 <TabList tabs={tabs} onSetTab={handleSelectTab} selectedTab={tabs.findIndex((m) => m.title === selectedTab)} />
                 <Typography ref={tabScrollTarget} sx={{ position: 'absolute', mt: -20 }}></Typography>
-                <Box minHeight={400}>
+                <Box>
                   {selectedTab === 'Details' && <StockDetailsTab quote={item} />}
                   {selectedTab === 'News' && (
                     <Stack minHeight={750}>
