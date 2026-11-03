@@ -1,3 +1,4 @@
+'use client'
 import { Box, useTheme } from '@mui/material'
 import { CasinoBlueTransparent, VeryLightBlueTransparent } from 'components/themes/mainTheme'
 

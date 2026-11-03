@@ -1685,6 +1685,11 @@
     "Class": "ETF"
   },
   {
+    "Name": "FINQ CORE U.S. Large Cap AI-Managed Equity ETF",
+    "Symbol": "AIBE",
+    "Class": "ETF"
+  },
+  {
     "Name": "iShares Future AI Beneficiaries ETF",
     "Symbol": "AIBF",
     "Class": "ETF"
@@ -9475,6 +9480,11 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "Sempreon, Inc. Common Stock",
+    "Symbol": "CASK",
+    "Class": "COMPANY"
+  },
+  {
     "Name": "Cass Information Systems Inc",
     "Symbol": "CASS",
     "Class": "COMPANY"
@@ -10125,7 +10135,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "CECO ENVIRONMENTAL CORP",
+    "Name": "Ceco Environmental Corp",
     "Symbol": "CECO",
     "Class": "COMPANY"
   },
@@ -11650,7 +11660,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "State Street SPDR S&P Kensho Clean Power ETF",
+    "Name": "State Street SPDR S&P Kensho Grid Innovation ETF",
     "Symbol": "CNRG",
     "Class": "ETF"
   },
@@ -13010,9 +13020,9 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "CALAMOS TIMPANI ACTV SMID",
+    "Name": "Calamos Timpani Active SMID Growth ETF",
     "Symbol": "CTAG",
-    "Class": "COMPANY"
+    "Class": "ETF"
   },
   {
     "Name": "Simplify US Equity PLUS Managed Futures Strategy ETF",
@@ -14095,7 +14105,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "DILLARD'S INC A",
+    "Name": "Dillard's, Inc. Class A Common Stock",
     "Symbol": "DDS",
     "Class": "COMPANY"
   },
@@ -14105,7 +14115,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "DILLARDS CAP TR I 7.50PFD",
+    "Name": "Dillard's, Inc. 7.50% Capital Securities",
     "Symbol": "DDT",
     "Class": "COMPANY"
   },
@@ -16730,7 +16740,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "State Street SPDR S&P 500 ESG ETF",
+    "Name": "State Street SPDR S&P 500 Scored and Screened ETF",
     "Symbol": "EFIV",
     "Class": "ETF"
   },
@@ -18120,7 +18130,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "ENERGY TRANSFER LP",
+    "Name": "Energy Transfer LP Common Units",
     "Symbol": "ET",
     "Class": "COMPANY"
   },
@@ -27235,7 +27245,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "INTL BANCSHARES CORP",
+    "Name": "International Bancshares Corp",
     "Symbol": "IBOC",
     "Class": "COMPANY"
   },
@@ -28110,9 +28120,9 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "BROOKMONT CATASTROPHIC BD",
+    "Name": "Brookmont Catastrophic Bond ETF",
     "Symbol": "ILS",
-    "Class": "COMPANY"
+    "Class": "ETF"
   },
   {
     "Name": "iShares Core 10+ Year USD Bond ETFof iShares Trust",
@@ -30015,7 +30025,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "JBDI Holdings Limited Ordinary Shares",
+    "Name": "JBDI Holdings Limited Class A Ordinary Shares",
     "Symbol": "JBDI",
     "Class": "COMPANY"
   },
@@ -37535,6 +37545,11 @@
     "Class": "COMPANY"
   },
   {
+    "Name": "Narragansett Bancorp, Inc. Common Stock",
+    "Symbol": "NARA",
+    "Class": "COMPANY"
+  },
+  {
     "Name": "Tema Space Innovators ETF",
     "Symbol": "NASA",
     "Class": "ETF"
@@ -40020,7 +40035,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "ORIGIN BANCORP INC",
+    "Name": "Origin Bancorp, Inc.",
     "Symbol": "OBK",
     "Class": "COMPANY"
   },
@@ -40425,7 +40440,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "TEXAS CAPITAL TX OIL ETF",
+    "Name": "Texas Capital Texas Oil Index ETF",
     "Symbol": "OILT",
     "Class": "ETF"
   },
@@ -44705,9 +44720,9 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "WESTWOOD SALENT ENHCD PWR",
+    "Name": "Westwood Salient Enhanced Power & Infrastructure ETF",
     "Symbol": "PWRX",
-    "Class": "COMPANY"
+    "Class": "ETF"
   },
   {
     "Name": "TrueShares Eagle Global Next Gen Power Infrastructure ETF",
@@ -51315,7 +51330,7 @@
     "Class": "FUND"
   },
   {
-    "Name": "State Street SPDR Portfolio Aggregate Bond ETF",
+    "Name": "State Street SPDR Portfolio Aggregate Bond Index ETF",
     "Symbol": "SPAB",
     "Class": "ETF"
   },
@@ -51350,7 +51365,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "State Street SPDR Portfolio Corporate Bond ETF",
+    "Name": "State Street SPDR Portfolio Corporate Bond Index ETF",
     "Symbol": "SPBO",
     "Class": "ETF"
   },
@@ -51550,12 +51565,12 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "State Street SPDR Portfolio High Yield Bond ETF",
+    "Name": "State Street SPDR Portfolio High Yield Bond Index ETF",
     "Symbol": "SPHY",
     "Class": "ETF"
   },
   {
-    "Name": "State Street SPDR Portfolio Intermediate Term Corporate Bond ETF",
+    "Name": "State Street SPDR Portfolio Intermediate Term Corporate Bond Index ETF",
     "Symbol": "SPIB",
     "Class": "ETF"
   },
@@ -51565,7 +51580,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "State Street SPDR Portfolio TIPS ETF",
+    "Name": "State Street SPDR Portfolio TIPS Index ETF",
     "Symbol": "SPIP",
     "Class": "ETF"
   },
@@ -51580,7 +51595,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "State Street SPDR Portfolio Long Term Corporate Bond ETF",
+    "Name": "State Street SPDR Portfolio Long Term Corporate Bond Index ETF",
     "Symbol": "SPLB",
     "Class": "ETF"
   },
@@ -51600,7 +51615,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "State Street SPDR Portfolio Mortgage Backed Bond ETF",
+    "Name": "State Street SPDR Portfolio Mortgage Backed Bond Index ETF",
     "Symbol": "SPMB",
     "Class": "ETF"
   },
@@ -51690,7 +51705,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "State Street SPDR Portfolio Short Term Corporate Bond ETF",
+    "Name": "State Street SPDR Portfolio Short Term Corporate Bond Index ETF",
     "Symbol": "SPSB",
     "Class": "ETF"
   },
@@ -51715,7 +51730,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "State Street SPDR Portfolio Treasury ETF",
+    "Name": "State Street SPDR Portfolio Treasury Index ETF",
     "Symbol": "SPTB",
     "Class": "ETF"
   },
@@ -51725,12 +51740,12 @@
     "Class": "ETF"
   },
   {
-    "Name": "State Street SPDR Portfolio Intermediate Term Treasury ETF",
+    "Name": "State Street SPDR Portfolio Intermediate Term Treasury Index ETF",
     "Symbol": "SPTI",
     "Class": "ETF"
   },
   {
-    "Name": "State Street SPDR Portfolio Long Term Treasury ETF",
+    "Name": "State Street SPDR Portfolio Long Term Treasury Index ETF",
     "Symbol": "SPTL",
     "Class": "ETF"
   },
@@ -51740,12 +51755,12 @@
     "Class": "ETF"
   },
   {
-    "Name": "State Street SPDR Portfolio Short Term Treasury ETF",
+    "Name": "State Street SPDR Portfolio Short Term Treasury Index ETF",
     "Symbol": "SPTS",
     "Class": "ETF"
   },
   {
-    "Name": "State Street SPDR Portfolio Ultra Short T-Bill ETF",
+    "Name": "State Street SPDR Portfolio Ultra Short TBill Index ETF",
     "Symbol": "SPTU",
     "Class": "ETF"
   },
@@ -52710,7 +52725,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "SUNOCO LP",
+    "Name": "Sunoco LP Common Units",
     "Symbol": "SUN",
     "Class": "COMPANY"
   },
@@ -52720,7 +52735,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "SUNOCOCORP LLC",
+    "Name": "SunocoCorp LLC Common Units",
     "Symbol": "SUNC",
     "Class": "COMPANY"
   },
@@ -53485,7 +53500,7 @@
     "Class": "ETF"
   },
   {
-    "Name": "TEXAS CAP BANCSHARES INC",
+    "Name": "Texas Capital Bancshares, Inc. Common Stock, par value $0.01 per share",
     "Symbol": "TCBI",
     "Class": "COMPANY"
   },
@@ -56195,7 +56210,7 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "TEXAS CAPITAL EQ INDX ETF",
+    "Name": "Texas Capital Texas Equity Index ETF",
     "Symbol": "TXS",
     "Class": "ETF"
   },
@@ -57070,7 +57085,7 @@
     "Class": "FUND"
   },
   {
-    "Name": "USA COMPRESSION PTNRS LP",
+    "Name": "USA Compression Partners, LP Common Units",
     "Symbol": "USAC",
     "Class": "COMPANY"
   },
@@ -59335,17 +59350,17 @@
     "Class": "ETF"
   },
   {
-    "Name": "WBI BullBear Value 3000 ETF",
+    "Name": "WBI Fundamental Factors Hedged ETF",
     "Symbol": "WBIF",
     "Class": "ETF"
   },
   {
-    "Name": "WBI BullBear Yield 3000 ETF",
+    "Name": "WBI Income Generators Hedged ETF",
     "Symbol": "WBIG",
     "Class": "ETF"
   },
   {
-    "Name": "WBI BullBear Quality 3000 ETF",
+    "Name": "WBI Trend Leaders Hedged ETF",
     "Symbol": "WBIL",
     "Class": "ETF"
   },
@@ -60145,9 +60160,9 @@
     "Class": "COMPANY"
   },
   {
-    "Name": "WISDOMTREE EFF LNG/SHRT",
+    "Name": "WisdomTree Efficient Long/Short U.S. SmallCap Equity Fund",
     "Symbol": "WSLS",
-    "Class": "COMPANY"
+    "Class": "FUND"
   },
   {
     "Name": "Williams-Sonoma, Inc.",
@@ -60205,9 +60220,9 @@
     "Class": "FUND"
   },
   {
-    "Name": "GLOBAL ALPHA FD",
+    "Name": "WisdomTree Global Alpha Fund",
     "Symbol": "WTAL",
-    "Class": "COMPANY"
+    "Class": "FUND"
   },
   {
     "Name": "West Bancorporation",
