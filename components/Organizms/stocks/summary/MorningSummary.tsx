@@ -104,7 +104,6 @@ const MorningSummary = () => {
               <CryptoSummary />
             </BorderedBox>
           </Box>
-
           <Box>
             <BorderedBox width={'100%'}>{!isValidatingProfile && <RecentlySearchedStocksSummary userProfile={userProfile} />}</BorderedBox>
           </Box>

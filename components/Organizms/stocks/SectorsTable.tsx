@@ -84,7 +84,9 @@ const SectorsTable = ({ data, category }: { data: SectorIndustry[]; category: st
                 <TableRow key={item.Name}>
                   <TableCell>
                     <Box display={'flext'} gap={2} alignItems={'center'}>
-                      <Clickable onClicked={() => handleItemClick(item)}>{`${item.Name}`} </Clickable>
+                      <Clickable onClicked={() => handleItemClick(item)}>
+                        <Typography variant='body2' color='info' fontWeight={'bold'}>{`${item.Name}`}</Typography>
+                      </Clickable>
                       <Typography variant='caption'>{`count: ${item.StockCount}`}</Typography>
                     </Box>
                     {/* <Clickable onClicked={() => handleItemClick(item)}>{item.Name} </Clickable> */}

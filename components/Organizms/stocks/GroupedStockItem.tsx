@@ -22,7 +22,7 @@ const GroupedStockItem = ({ stockGroup, userProfile }: { stockGroup: StockGroup;
           <CardContent>
             <Box pt={1} display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
               <Box>
-                <Typography variant='h6' pl={1} color='primary'>
+                <Typography variant='h6' pl={1} color='info'>
                   {`${!stockGroup.groupName || stockGroup.groupName.length === 0 ? 'Unassigned' : stockGroup.groupName}`}
                 </Typography>
               </Box>

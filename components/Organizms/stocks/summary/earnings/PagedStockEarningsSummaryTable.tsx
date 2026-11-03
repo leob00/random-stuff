@@ -48,7 +48,7 @@ const PagedStockEarningsSummaryTable = ({
                 <Box minWidth={68}>
                   <StockTooltip data={item.StockQuote!}>
                     <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
-                      <Typography variant='body2' fontWeight={'bold'}>
+                      <Typography color='info' variant='body2' fontWeight={'bold'}>
                         {item.Symbol}
                       </Typography>
                     </Button>
@@ -75,7 +75,7 @@ const PagedStockEarningsSummaryTable = ({
               {showCompanyName && (
                 <Box maxWidth={350}>
                   <Button size='small' onClick={() => setSelectedItem(item)}>
-                    <Typography variant='caption'>
+                    <Typography variant='caption' color='info'>
                       {`${item.StockQuote!.Company.length > 36 ? item.StockQuote!.Company.substring(0, 36) + '...' : item.StockQuote!.Company}`}
                     </Typography>
                   </Button>

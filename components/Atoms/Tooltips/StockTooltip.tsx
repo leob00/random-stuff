@@ -10,7 +10,7 @@ const StockTooltip = ({ data, children }: { data: StockQuote; children: ReactEle
   const theme = useTheme()
   const customContent = (
     <Box minWidth={250} display={'flex'} flexDirection={'column'} gap={1}>
-      <Typography variant='h6' textAlign={'left'}>
+      <Typography variant='h6' textAlign={'left'} color='info'>
         {data.Company}
       </Typography>
 
@@ -25,14 +25,14 @@ const StockTooltip = ({ data, children }: { data: StockQuote; children: ReactEle
       <Box display={'flex'} gap={1}>
         {data.MarketCap && (
           <>
-            <Typography variant='caption'>{`cap:`}</Typography>
-            <Typography variant='caption'>{`${numeral(data.MarketCap).format('0.0a')}`}</Typography>
+            <Typography color='primary' variant='caption'>{`cap:`}</Typography>
+            <Typography color='primary' variant='caption'>{`${numeral(data.MarketCap).format('0.0a')}`}</Typography>
           </>
         )}
         {data.Volume && (
           <>
-            <Typography variant='caption'>{`volume:`}</Typography>
-            <Typography variant='caption'>{`${numeral(data.Volume).format('0.0a')}`}</Typography>
+            <Typography color='primary' variant='caption'>{`volume:`}</Typography>
+            <Typography color='primary' variant='caption'>{`${numeral(data.Volume).format('0.0a')}`}</Typography>
           </>
         )}
       </Box>

@@ -78,7 +78,7 @@ const CommoditiesSummary = () => {
                 <Box minWidth={120}>
                   <StockTooltip data={item}>
                     <Button size='small' onClick={() => setSelectedItem(item)} sx={{ justifyContent: 'flex-start' }}>
-                      <Typography variant='body2' fontWeight={'bold'}>
+                      <Typography variant='body2' fontWeight={'bold'} color='info'>
                         {item.Company}
                       </Typography>
                     </Button>
