@@ -30,7 +30,7 @@ const darkPalette: PaletteOptions = {
   },
   secondary: {
     main: VeryLightBlueTransparent,
-    contrastText: 'CasinoBlack',
+    contrastText: CasinoBlack,
   },
   error: {
     main: ErrorRed,
