@@ -18,20 +18,20 @@ const TabList = ({ tabs, selectedTab, onSetTab }: { tabs: TabInfo[]; selectedTab
         scrollButtons='auto'
         sx={{
           '& .MuiTabs-indicator': {
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: theme.palette.info.main,
           },
           '& .MuiTab-root': {
             color: theme.palette.secondary.main,
           },
           '& .Mui-selected': {
             // Styles for the selected tab
-            color: theme.palette.primary.main, // Change this to your desired color
+            color: theme.palette.info.main, // Change this to your desired color
             fontWeight: 'bold',
           },
         }}
       >
         {tabs.map((tab, index) => (
-          <Tab label={tab.title} key={index} color='red' />
+          <Tab label={tab.title} key={index} />
         ))}
       </Tabs>
     </Box>

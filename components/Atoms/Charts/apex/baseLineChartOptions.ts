@@ -3,7 +3,9 @@ import {
   CasinoBlackTransparent,
   CasinoBlue,
   CasinoBlueTransparent,
+  CasinoDarkRedTransparent,
   CasinoLimeTransparent,
+  CasinoLimeTransparentDarkMode,
   DarkBlue,
   DarkGreen,
   DarkModeBlue,
@@ -41,10 +43,10 @@ const lineFill: ApexFill = {
 }
 
 export function getPositiveNegativeLineColor(palette: 'light' | 'dark' = 'light', items: number[]) {
-  let lineColor = palette === 'dark' ? CasinoLimeTransparent : DarkGreen
+  let lineColor = palette === 'dark' ? CasinoLimeTransparentDarkMode : DarkGreen
   if (items.length > 0) {
     if (items[0] > items[items.length - 1]) {
-      lineColor = palette === 'dark' ? RedDarkMode : RedDarkMode
+      lineColor = palette === 'dark' ? CasinoDarkRedTransparent : RedDarkMode
     }
   }
   return lineColor

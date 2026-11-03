@@ -13,8 +13,7 @@ export interface Navigation {
 }
 
 export const useSessionSettings = () => {
-  const { palette, savePalette, communityStocks, saveCommunityStocksSort, claims, saveClaims } = useSessionStore((state) => ({
-    palette: state.palette,
+  const { communityStocks, saveCommunityStocksSort, claims, saveClaims } = useSessionStore((state) => ({
     savePalette: state.savePalette,
     communityStocks: state.communityStocks,
     saveCommunityStocksSort: state.saveCommunityStocksSort,
@@ -22,8 +21,6 @@ export const useSessionSettings = () => {
     saveClaims: state.saveClaims,
   }))
   return {
-    palette: palette,
-    savePalette: savePalette,
     communityStocks: communityStocks,
     saveCommunityStocksSort: saveCommunityStocksSort,
     claims: claims,

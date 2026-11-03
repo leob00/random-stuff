@@ -44,37 +44,35 @@ const CompanyProfile = ({ quote }: { quote: StockQuote }) => {
             <img src={`${data.awsUrl}`} alt='company logo' width={275} />
           </Box>
         )}
-        <Box>
-          {data?.company?.Description && (
-            <FadeIn>
-              <Typography>{data?.company?.Description}</Typography>
-            </FadeIn>
-          )}
-          {data?.company?.Sector && (
-            <FadeIn>
-              <Box display={'flex'} gap={2}>
-                <Typography>Sector:</Typography>
-                <Typography>{data.company.Sector}</Typography>
-              </Box>
-            </FadeIn>
-          )}
-          {data?.company?.Industry && (
-            <FadeIn>
-              <Box display={'flex'} gap={2}>
-                <Typography>Industry:</Typography>
-                <Typography>{data.company.Industry}</Typography>
-              </Box>
-            </FadeIn>
-          )}
-          {data?.company?.Ceo && (
-            <FadeIn>
-              <Box display={'flex'} gap={2}>
-                <Typography>CEO:</Typography>
-                <Typography>{data.company.Ceo}</Typography>
-              </Box>
-            </FadeIn>
-          )}
-        </Box>
+        {data?.company?.Description && (
+          <FadeIn>
+            <Typography color='primary'>{data?.company?.Description}</Typography>
+          </FadeIn>
+        )}
+        {data?.company?.Sector && (
+          <FadeIn>
+            <Box display={'flex'} gap={2}>
+              <Typography color='primary'>Sector:</Typography>
+              <Typography color='primary'>{data.company.Sector}</Typography>
+            </Box>
+          </FadeIn>
+        )}
+        {data?.company?.Industry && (
+          <FadeIn>
+            <Box display={'flex'} gap={2}>
+              <Typography color='primary'>Industry:</Typography>
+              <Typography color='primary'>{data.company.Industry}</Typography>
+            </Box>
+          </FadeIn>
+        )}
+        {data?.company?.Ceo && (
+          <FadeIn>
+            <Box display={'flex'} gap={2}>
+              <Typography color='primary'>CEO:</Typography>
+              <Typography color='primary'>{data.company.Ceo}</Typography>
+            </Box>
+          </FadeIn>
+        )}
       </Box>
     </Box>
   )

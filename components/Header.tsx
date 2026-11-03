@@ -8,13 +8,14 @@ import StaticImage from './Atoms/StaticImage'
 import GradientContainer from './Atoms/Boxes/GradientContainer'
 import { useUserController } from 'hooks/userController'
 import { getUserCSR } from 'lib/backend/auth/userUtil'
-import { getTheme } from './themes/StyledRoot'
 import SiteLink from './app/server/Atoms/Links/SiteLink'
 import HideOnScroll from './themes/HideOnScroll'
+import darkTheme from './themes/darkTheme'
+import mainTheme from './themes/mainTheme'
 
 const Header = ({ colorTheme, onSetColorMode }: { colorTheme: 'light' | 'dark'; onSetColorMode: () => void }) => {
   const [elevationEffect, setElevationEffect] = useState(false)
-  const theme = getTheme(colorTheme)
+  const theme = colorTheme === 'dark' ? darkTheme : mainTheme
   const { ticket, setTicket } = useUserController()
 
   const bodyScrolled = useScrollTrigger({

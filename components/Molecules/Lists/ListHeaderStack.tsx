@@ -11,7 +11,6 @@ const ListHeaderStack = ({
   showContextMenu,
   underline,
   selected,
-  outlined,
 }: {
   text: string
   item: any
@@ -21,17 +20,16 @@ const ListHeaderStack = ({
   showContextMenu?: boolean
   underline?: boolean
   selected?: boolean
-  outlined?: boolean
 }) => {
   const theme = useTheme()
   const StyledBox = styled(Stack)`
     & .MuiStack-root {
-      background-color: ${DarkModeBlueTransparent};
+      background-color: ${theme.palette.primary.dark};
       border-radius: 7px;
       padding: 0px;
     }
     & .MuiTypography-root {
-      color: ${theme.palette.mode === 'dark' ? SoftWhite : CasinoWhite};
+      color: ${theme.palette.mode === 'dark' ? CasinoWhite : CasinoWhite};
     }
   `
 

@@ -26,8 +26,11 @@ export type StockReportSettings = {
     filter: StockMovingAvgFilter
   }
 }
+export type PaletteMode = 'light' | 'dark'
 
 export interface LocalStore {
+  paletteMode: PaletteMode
+  savePaletteMode: (mode: PaletteMode) => void
   myStocks: StockSettings
   stockSettings: UserStockSettings
   saveStockSettings: (stockSettings: StockSettings) => void
@@ -55,6 +58,8 @@ export interface LocalStore {
 export const useLocalStore = create(
   persist<LocalStore>(
     (set, get) => ({
+      paletteMode: 'dark',
+      savePaletteMode: (mode: PaletteMode) => set((state) => ({ ...state, paletteMode: mode })),
       myStocks: {
         defaultView: 'flat',
         data: [],

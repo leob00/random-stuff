@@ -75,7 +75,6 @@ const ListHeader = ({
               showContextMenu={showContextMenu}
               underline={underline}
               selected={selected}
-              outlined={outlined}
             />
           </HoverEffect>
         ) : (

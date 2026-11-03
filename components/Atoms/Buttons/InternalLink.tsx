@@ -7,7 +7,7 @@ const InternalLink = ({ route, text, large = false, variant }: { route: string; 
   return (
     <>
       <Link component={NLink} href={route} sx={{ textDecoration: 'none' }} p={1}>
-        <Typography textAlign={'center'} variant={`${variant ? variant : large ? 'h3' : 'h6'}`}>
+        <Typography color='info' fontWeight={'bold'} textAlign={'center'} variant={`${variant ? variant : large ? 'h3' : 'h6'}`}>
           {text}
         </Typography>
       </Link>
