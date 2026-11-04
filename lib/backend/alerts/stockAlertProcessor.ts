@@ -6,8 +6,12 @@ export function processAlertTriggers(
   username: string,
   subscription: StockAlertSubscriptionWithMessage,
   quoteMap: Map<any, StockQuote>,
-  htmlTemplate: string,
+  htmlTemplate: string | undefined,
 ): StockAlertSubscriptionWithMessage {
+  if (typeof htmlTemplate !== 'string') {
+    throw new Error('Stock alert email template is missing')
+  }
+
   const dailyRows: string[] = []
   const sortedSubMap = new Map<string, StockAlertSubscription>()
   const subscriptionsMap = getMapFromArray(subscription.subscriptions, 'symbol')

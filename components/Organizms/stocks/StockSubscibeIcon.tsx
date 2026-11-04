@@ -15,6 +15,7 @@ import { useSwrHelper } from 'hooks/useSwrHelper'
 import { useState } from 'react'
 import CheckIcon from '@mui/icons-material/Check'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
+import InternalLink from 'components/Atoms/Buttons/InternalLink'
 
 const StockSubscibeIcon = ({
   userProfile,
@@ -58,37 +59,36 @@ const StockSubscibeIcon = ({
   }
 
   return (
-    <Box>
+    <Box width={'100%'}>
       {isLoading && <ComponentLoader />}
-      <Box>
-        <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
-          <Box>
-            {!data && (
-              <IconButton size='small' color='info' onClick={handleEditAlerts}>
-                <NotificationAddIcon fontSize={size} />
-              </IconButton>
-            )}
-            {hasActiveTriggers && (
-              <IconButton size='small' color='success' onClick={handleEditAlerts}>
-                <NotificationsIcon fontSize={size} />
-                <CheckIcon fontSize={size} />
-              </IconButton>
-            )}
-            {data && !hasActiveTriggers && (
-              <IconButton size='small' color='success' onClick={handleEditAlerts}>
-                <NotificationsOffIcon fontSize={size} />
-              </IconButton>
-            )}
-          </Box>
-          <Box>
-            <Button onClick={() => router.push('/market/stocks/alerts')}>
-              <Typography variant='body2'>manage alerts</Typography>
-            </Button>
-          </Box>
+      <Box display={'flex'} flexDirection={'row'} alignItems={'center'} justifyContent={'space-between'}>
+        <Box>
+          {!data && (
+            <IconButton size='small' color='info' onClick={handleEditAlerts}>
+              <NotificationAddIcon fontSize={size} />
+            </IconButton>
+          )}
+          {hasActiveTriggers && (
+            <IconButton size='small' color='success' onClick={handleEditAlerts}>
+              <NotificationsIcon fontSize={size} />
+              <CheckIcon fontSize={size} />
+            </IconButton>
+          )}
+          {data && !hasActiveTriggers && (
+            <IconButton size='small' color='success' onClick={handleEditAlerts}>
+              <NotificationsOffIcon fontSize={size} />
+            </IconButton>
+          )}
         </Box>
-        {snackbarMessage && <SnackbarSuccess show={!!snackbarMessage} text={snackbarMessage} duration={1000} onClose={() => setSnackBarMessage(null)} />}
-        <StockSubscriptionForm show={showAlertEdit} sub={selectedSub} quote={quote} onClose={() => setShowAlertEdit(false)} onSave={handleSaveTrigger} />
+        <Box>
+          <InternalLink text='manage alerts' route='/market/stocks/alerts' />
+          {/* <Button onClick={() => router.push('/market/stocks/alerts')}>
+              <Typography variant='body2'>manage alerts</Typography>
+            </Button> */}
+        </Box>
       </Box>
+      {snackbarMessage && <SnackbarSuccess show={!!snackbarMessage} text={snackbarMessage} duration={1000} onClose={() => setSnackBarMessage(null)} />}
+      <StockSubscriptionForm show={showAlertEdit} sub={selectedSub} quote={quote} onClose={() => setShowAlertEdit(false)} onSave={handleSaveTrigger} />
     </Box>
   )
 }

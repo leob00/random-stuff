@@ -1,3 +1,5 @@
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
 import { putItems } from 'app/serverActions/aws/dynamo/dynamoBatch'
 import { UserProfile, DynamoKeys } from '../api/aws/models/apiGatewayModels'
 import { constructStockAlertsSubPrimaryKey, constructStockAlertsSubSecondaryKey } from '../api/aws/util'
@@ -47,7 +49,10 @@ export async function buildStockAlertsForAllUsers(userServer: boolean) {
   const quotes = userServer ? await getStockQuotesServer(Array.from(symbols.values())) : await getStockQuotes(Array.from(symbols.values()))
   const templateKey: DynamoKeys = 'email-template[stock-alert]'
   const templateResp = await getItem(templateKey)
-  const template = templateResp.data as string
+  const template =
+    typeof templateResp?.data === 'string' && templateResp.data.length > 0
+      ? templateResp.data
+      : await readFile(join(process.cwd(), 'public', 'emailTemplates', 'stockAlertSubscriptionEmailTemplate.html'), 'utf8')
 
   const emailMessages: EmailMessage[] = []
 
