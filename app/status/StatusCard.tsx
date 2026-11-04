@@ -3,8 +3,8 @@ import { StatusResponse } from './statusResponse'
 
 const StatusCard = ({ title, data }: { title: string; data: StatusResponse }) => {
   return (
-    <Card sx={{}}>
-      <CardHeader title={<Typography>{title}</Typography>} />
+    <Card sx={{ borderRadius: 4 }}>
+      <CardHeader title={<Typography color='info'>{title}</Typography>} />
       <CardContent>
         <Box display={'flex'} gap={1}>
           {data.success ? (

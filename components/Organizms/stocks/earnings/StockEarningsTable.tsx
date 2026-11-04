@@ -18,9 +18,15 @@ const StockEarningsTable = ({ data, showCompany }: { data: StockEarningsGroup[];
                   <Table>
                     <TableHead>
                       <TableRow>
-                        <TableCell>{item.key}</TableCell>
-                        <TableCell>Actual</TableCell>
-                        <TableCell>Estimate</TableCell>
+                        <TableCell>
+                          <Typography fontWeight={'bold'}>{item.key}</Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography fontWeight={'bold'}>Actual</Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography fontWeight={'bold'}>Estimate</Typography>
+                        </TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -31,7 +37,7 @@ const StockEarningsTable = ({ data, showCompany }: { data: StockEarningsGroup[];
                               {showCompany ? (
                                 <Typography>{`${subItem.StockQuote?.Company} (${subItem.StockQuote?.Symbol})`}</Typography>
                               ) : (
-                                <Typography>{dayjs(subItem.ReportDate).format('MM/DD/YYYY')}</Typography>
+                                <Typography color='primary'>{dayjs(subItem.ReportDate).format('MM/DD/YYYY')}</Typography>
                               )}
                             </FadeIn>
                           </TableCell>
@@ -45,7 +51,7 @@ const StockEarningsTable = ({ data, showCompany }: { data: StockEarningsGroup[];
                           <TableCell>
                             <FadeIn>
                               <Typography color={getPositiveNegativeColor(subItem.EstimatedEarnings, theme.palette.mode)}>
-                                {`${subItem.EstimatedEarnings ? numeral(subItem.EstimatedEarnings).format('0.00') : ''}`}
+                                {`${subItem.EstimatedEarnings !== null ? numeral(subItem.EstimatedEarnings).format('0.00') : ''}`}
                               </Typography>
                             </FadeIn>
                           </TableCell>

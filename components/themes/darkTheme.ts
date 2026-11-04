@@ -66,9 +66,6 @@ const darkThemeOptions: ThemeOptions = {
     MuiContainer: {
       styleOverrides: {
         maxWidthLg: '100%',
-        // root: {
-        //   backgroundColor: DarkModeBlue,
-        // },
       },
     },
     MuiTooltip: {
@@ -91,9 +88,7 @@ const darkThemeOptions: ThemeOptions = {
     },
     MuiPaper: {
       styleOverrides: {
-        root: {
-          //backgroundColor: DarkModeBlue,
-        },
+        root: {},
       },
     },
     MuiListItemIcon: {
@@ -103,16 +98,6 @@ const darkThemeOptions: ThemeOptions = {
         },
       },
     },
-    // MuiTabs: {
-    //   styleOverrides: {
-    //     root: {
-    //       backgroundColor: DarkModeBlue,
-    //     },
-    //     indicator: {
-    //       backgroundColor: VeryLightBlue,
-    //     },
-    //   },
-    // },
   },
 }
 const darkTheme = responsiveFontSizes(createTheme({ ...darkThemeOptions, palette: darkPalette, colorSchemes: { dark: true } }), rfsOptions)

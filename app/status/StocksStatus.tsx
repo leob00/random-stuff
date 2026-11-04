@@ -1,19 +1,16 @@
 import { Box } from '@mui/material'
 import { getStockQuotesServer } from 'lib/backend/api/qln/qlnApi'
-import { sleep } from 'lib/util/timers'
 import { StatusResponse } from './statusResponse'
 import StatusCard from './StatusCard'
+import { sleep } from 'lib/util/timers'
 
-async function getData() {
-  await sleep(2000)
-  const resp = await getStockQuotesServer(['MSFT', 'NVDA'])
-  const result: StatusResponse = {
-    success: resp.length === 2,
-  }
-  return result
-}
 export default async function StocksStatus() {
-  const data = await getData()
+  await sleep(1000)
+  const stocksResponse = await getStockQuotesServer(['MSFT', 'NVDA'])
+  const data: StatusResponse = {
+    success: stocksResponse.length === 2,
+  }
+
   return (
     <Box py={1}>
       <StatusCard title='Stocks' data={data} />

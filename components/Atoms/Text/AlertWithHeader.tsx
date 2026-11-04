@@ -1,12 +1,11 @@
-import { Alert, AlertColor, AlertTitle, Typography, useTheme } from '@mui/material'
+import { Alert, AlertColor, AlertTitle, Typography } from '@mui/material'
 
 const AlertWithHeader = ({ header, text, severity }: { header?: string; text?: string; severity: AlertColor }) => {
-  const theme = useTheme()
-
   return (
     <Alert
       severity={severity}
       sx={{
+        borderRadius: 8,
         backgroundColor: 'transparent',
       }}
     >
@@ -17,7 +16,11 @@ const AlertWithHeader = ({ header, text, severity }: { header?: string; text?: s
           </Typography>
         </AlertTitle>
       )}
-      {text && <Typography variant='body2'>{text}</Typography>}
+      {text && (
+        <Typography variant='body2' sx={{ borderRadius: 4 }}>
+          {text}
+        </Typography>
+      )}
     </Alert>
   )
 }
