@@ -32,14 +32,10 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
       width: '100%',
       height: 'auto',
       borderRadius: '16px',
-      //marginTop: 1,
-      //margin: 'auto',
     },
-    div: { a: { color: theme.palette.primary.main } },
-    //font: color,
-    color: theme.palette.primary.main,
-    a: { color: theme.palette.primary.main },
-    p: { color: theme.palette.primary.main, fontSize: 20 },
+    //div: { a: { color: theme.palette.primary.main } },
+    //color: theme.palette.info.main,
+    a: { color: theme.palette.info.main },
   }))
 
   return (
@@ -52,16 +48,14 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
           justifyItems={textAlign}
           sx={{
             borderRadius: '16px',
-            //border: `solid ${theme.palette.primary.main} 1px`,
             padding: 2,
             width: { xs: '100%', md: '98%' },
             display: 'inline-block',
             wordWrap: 'break-word',
-            //color: color,
-            fontWeight: 200,
+            color: theme.palette.info.main,
+            fontWeight: 400,
             //backgroundColor: 'white',
           }}
-          //color='primary'
           dangerouslySetInnerHTML={{ __html: text }}
         ></StyledBox>
       ) : (
