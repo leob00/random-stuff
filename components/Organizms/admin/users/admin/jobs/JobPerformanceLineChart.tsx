@@ -60,7 +60,7 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
 
   const options = getLineChartOptions(
     { labels: lineChart.labels, numbers: lineChart.numbers },
-    `Job performance`,
+    `Job performance in ${minutesOrSeconds}`,
     minutesOrSeconds,
     theme.palette.mode,
     false,
@@ -106,7 +106,7 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
 
   return (
     <Box>
-      <Box minHeight={200} px={{ lg: 2 }}>
+      <Box minHeight={200} px={{ lg: 2 }} pt={2}>
         <FadeIn>
           <ChartJsTimeSeriesLineChart data={chartModel} />
         </FadeIn>

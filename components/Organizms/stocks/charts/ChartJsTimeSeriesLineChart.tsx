@@ -22,7 +22,7 @@ import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm'
 import { CasinoBlue, CasinoBlueTransparent, VeryLightBlueOpaque } from 'components/themes/mainTheme'
 import { useMarketColors } from 'components/themes/marketColors'
 import { max, mean, min } from 'lodash'
-import { Box } from '@mui/material'
+import { Box, useTheme } from '@mui/material'
 import { getLineChartData } from 'components/Atoms/Charts/chartJs/lineChartOptions'
 import { calculatePercent } from 'lib/util/numberUtil'
 
@@ -50,8 +50,9 @@ export type TimeSeriesLineChartModel = {
 }
 
 const ChartJsTimeSeriesLineChart = ({ data }: { data: TimeSeriesLineChartModel }) => {
+  const theme = useTheme()
   const colors = data.chartData.colors ?? [CasinoBlue]
-  const { chart: chartColors, getPositiveNegativeChartColor } = useMarketColors()
+  const { chart: chartColors } = useMarketColors()
   const ds = getLineChartData(data.chartData.labels, data.chartData.numbers, colors, data.isXSmallDevice)
 
   ds.datasets[0].backgroundColor = (context: ScriptableContext<'line'>) => {
@@ -97,7 +98,7 @@ const ChartJsTimeSeriesLineChart = ({ data }: { data: TimeSeriesLineChartModel }
         type: 'line',
         yMin: avg,
         yMax: avg,
-        borderColor: CasinoBlueTransparent,
+        borderColor: theme.palette.info.main,
         borderDash: [perc * 5],
         borderWidth: 1,
       },

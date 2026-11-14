@@ -18,7 +18,7 @@ const GoalStats = ({ goal, completePercent }: { goal: UserGoal; completePercent?
               </Typography>
             </Box>
             <Box>
-              <Typography variant='body2'>{`${Number(goal.stats.completed) + Number(goal.stats.inProgress)}`}</Typography>
+              <Typography color='info' variant='body2'>{`${Number(goal.stats.completed) + Number(goal.stats.inProgress)}`}</Typography>
             </Box>
             {!goal.deleteCompletedTasks && (
               <Box width={100} justifyContent={'flex-end'}>
@@ -27,7 +27,7 @@ const GoalStats = ({ goal, completePercent }: { goal: UserGoal; completePercent?
                 </Typography>
               </Box>
             )}
-            <Box>{!goal.deleteCompletedTasks && <Typography variant='body2'>{`${goal.stats.completed}`}</Typography>}</Box>
+            <Box>{!goal.deleteCompletedTasks && <Typography color='info' variant='body2'>{`${goal.stats.completed}`}</Typography>}</Box>
           </Box>
           <Box display={'flex'} gap={1}>
             {!goal.deleteCompletedTasks && (
@@ -37,7 +37,7 @@ const GoalStats = ({ goal, completePercent }: { goal: UserGoal; completePercent?
                 </Typography>
               </Box>
             )}
-            <Box>{!goal.deleteCompletedTasks && <Typography variant='body2'>{`${goal.stats.inProgress}`}</Typography>}</Box>
+            <Box>{!goal.deleteCompletedTasks && <Typography color='info' variant='body2'>{`${goal.stats.inProgress}`}</Typography>}</Box>
             {goal.stats.pastDue > 0 && (
               <Box display={'flex'} gap={1}>
                 <Box width={100} justifyContent={'flex-end'}>

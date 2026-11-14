@@ -1,5 +1,5 @@
 import { TextField, Autocomplete } from '@mui/material'
-import { CasinoBlue, VeryLightBlue } from 'components/themes/mainTheme'
+import { CasinoBlue, CasinoBlueTransparent, VeryLightBlue } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
 import { debounce, take } from 'lodash'
 import { useTheme } from '@mui/material'
@@ -82,7 +82,12 @@ const StaticAutoCompleteFreeSolo = ({
         <TextField
           {...params}
           label={label}
-          sx={{ input: { color: color } }}
+          sx={{
+            input: { color: color },
+            fieldset: {
+              borderColor: CasinoBlueTransparent, // Default border color
+            },
+          }}
           inputRef={textRef}
           placeholder={placeholder}
           onChange={handleChange}

@@ -1,4 +1,5 @@
-import { TextField, Autocomplete } from '@mui/material'
+'use client'
+import { TextField, Autocomplete, useTheme } from '@mui/material'
 import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import { DropdownItem } from 'lib/models/dropdown'
 import { debounce } from 'lodash'
@@ -29,6 +30,7 @@ const StocksAutoComplete = ({
   freesolo?: boolean
   autoFocus?: boolean
 }) => {
+  const theme = useTheme()
   const textRef = useRef<HTMLInputElement | null>(null)
   const [selectedVal, setSelectedVal] = useState('')
 
@@ -86,7 +88,7 @@ const StocksAutoComplete = ({
           label={label}
           sx={{
             fieldset: {
-              borderColor: CasinoBlueTransparent, // Default border color
+              borderColor: theme.palette.primary.main,
             },
           }}
           inputRef={textRef}
