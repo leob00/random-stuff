@@ -1,59 +1,62 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material'
 import FadeIn from 'components/Atoms/Animations/FadeIn'
 import { BarChart } from 'components/Atoms/Charts/chartJs/barChartOptions'
-import { CasinoBlueTransparent, CasinoOrangeTransparent, DarkGreen, DarkModeRed, VeryLightBlueTransparent } from 'components/themes/mainTheme'
+import { CasinoBlueTransparent } from 'components/themes/mainTheme'
 import dayjs from 'dayjs'
 import { JoBLog, Job } from 'lib/backend/api/qln/qlnApi'
-import { sortArray } from 'lib/util/collections'
-import { max, mean, orderBy, sum, take } from 'lodash'
 import numeral from 'numeral'
 import { getLineChartOptions } from 'components/Atoms/Charts/chartJs/lineChartOptions'
 import ChartJsTimeSeriesLineChart, { TimeSeriesLineChartModel } from 'components/Organizms/stocks/charts/ChartJsTimeSeriesLineChart'
-import { useViewPortSize } from 'hooks/ui/useViewportSize'
-import { shrinkListByViewportSize } from 'components/Organizms/stocks/lineChartOptions'
 
 const JobPerformanceLineChart = ({ data }: { data: Job }) => {
   const theme = useTheme()
   const isXSmall = useMediaQuery(theme.breakpoints.down('md'))
-  const history = data.Chart?.RawData as JoBLog[]
-  const limit = isXSmall ? 14 : 30
-  const sorted = sortArray(history, ['DateCompleted'], ['desc'])
-  let days = take(Array.from(new Set(sorted.map((m) => dayjs(m.DateCompleted).format('YYYY-MM-DD')))), limit)
-  days = orderBy(days)
+  const history = (data.Chart?.RawData as JoBLog[] | undefined) ?? []
+  if (history.length === 0) {
+    return null
+  }
+
+  const dailyTotals = new Map<string, { totalMinutes: number; recordsProcessed: number; runCount: number; lastCompleted: string }>()
+  let totalMinutes = 0
+
+  history.forEach((log) => {
+    const day = dayjs(log.DateCompleted).format('YYYY-MM-DD')
+    const dailyTotal = dailyTotals.get(day) ?? {
+      totalMinutes: 0,
+      recordsProcessed: 0,
+      runCount: 0,
+      lastCompleted: log.DateCompleted,
+    }
+    dailyTotal.totalMinutes += log.TotalMinutes
+    dailyTotal.recordsProcessed += log.RecordsProcessed
+    dailyTotal.runCount += 1
+    if (dayjs(log.DateCompleted).isAfter(dayjs(dailyTotal.lastCompleted))) {
+      dailyTotal.lastCompleted = log.DateCompleted
+    }
+    dailyTotals.set(day, dailyTotal)
+    totalMinutes += log.TotalMinutes
+  })
+
+  const days = [...dailyTotals.keys()].sort().slice(-30)
+  const dailyStats = days.map((day) => dailyTotals.get(day)!)
 
   const lineChart: BarChart = {
     colors: [],
     labels: [],
     numbers: [],
   }
-  const records: number[] = []
   let minutesOrSeconds: 'minutes' | 'seconds' = 'minutes'
-  const allMinutesAvg = mean(sorted.map((m) => m.TotalMinutes))
+  const allMinutesAvg = history.length > 0 ? totalMinutes / history.length : 0
   if (allMinutesAvg < 1) {
     minutesOrSeconds = 'seconds'
   }
-  days.forEach((day) => {
-    const d = sorted.filter((m) => dayjs(m.DateCompleted).format('YYYY-MM-DD') === day)
-    if (d.length > 0) {
-      const avgMinutes = mean(d.map((m) => m.TotalMinutes))
-      if (allMinutesAvg < 1) {
-        lineChart.numbers.push(avgMinutes * 60)
-      } else {
-        lineChart.numbers.push(avgMinutes)
-      }
-      lineChart.labels.push(dayjs(day).format('MM/DD/YYYY'))
-      lineChart.colors!.push(CasinoBlueTransparent)
-      records.push(sum(d.map((m) => m.RecordsProcessed)))
-    }
+  days.forEach((day, index) => {
+    const dailyTotal = dailyStats[index]
+    const avgMinutes = dailyTotal.totalMinutes / dailyTotal.runCount
+    lineChart.numbers.push(minutesOrSeconds === 'seconds' ? avgMinutes * 60 : avgMinutes)
+    lineChart.labels.push(dayjs(day).format('MM/DD/YYYY'))
+    lineChart.colors!.push(CasinoBlueTransparent)
   })
-
-  const maxVal = max(lineChart.numbers)
-  if (maxVal) {
-    const idx = lineChart.numbers.findIndex((m) => m === maxVal)
-    if (idx > -1) {
-      //lineChart.colors![idx] = CasinoOrangeTransparent
-    }
-  }
 
   const options = getLineChartOptions(
     { labels: lineChart.labels, numbers: lineChart.numbers },
@@ -76,27 +79,22 @@ const JobPerformanceLineChart = ({ data }: { data: Job }) => {
   options.plugins!.tooltip!.callbacks = {
     ...options.plugins!.tooltip?.callbacks,
     title: (tooltipItems) => {
-      return '' //`${dayjs(tooltipItems[0].label).format('dddd')}, ${dayjs(tooltipItems[0].label).format('MM/DD/YYYY')}`
+      return dayjs(days[tooltipItems[0].dataIndex]).format('dddd, MMMM D, YYYY')
     },
     label: (tooltipItems) => {
-      return ` ${dayjs(tooltipItems.label).format('dddd, MMMM D, YYYY')}`
-    },
-    afterLabel: (tooltipItems) => {
-      if (minutesOrSeconds === 'seconds') {
-        if (Number(tooltipItems.formattedValue) > 60) {
-          return `avg: ${numeral(Number(tooltipItems.formattedValue) / 60).format('0.00')} minutes`
-        }
+      const duration = Number(tooltipItems.formattedValue)
+      if (minutesOrSeconds === 'seconds' && duration > 60) {
+        return ` average: ${numeral(duration / 60).format('0.00')} minutes`
       }
-      return `avg: ${tooltipItems.formattedValue} ${minutesOrSeconds}`
-    },
-    beforeFooter: (tooltipItems) => {
-      return ` _______________________________`
+      return ` average: ${numeral(duration).format('0.00')} ${minutesOrSeconds}`
     },
     footer: (tooltipItems) => {
-      return ` records processed: ${numeral(records[tooltipItems[0].dataIndex]).format('###,###')}`
+      const dailyTotal = dailyStats[tooltipItems[0].dataIndex]
+      return ` records processed: ${numeral(dailyTotal.recordsProcessed).format('###,###')} across ${dailyTotal.runCount} runs`
     },
     afterFooter: (tooltipItems) => {
-      return `completed: ${dayjs(tooltipItems[0].label).format('MM/DD/YYYY hh:mm A')}`
+      const dailyTotal = dailyStats[tooltipItems[0].dataIndex]
+      return ` last run: ${dayjs(dailyTotal.lastCompleted).format('MM/DD/YYYY hh:mm A')}`
     },
   }
 

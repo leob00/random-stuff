@@ -51,7 +51,10 @@ const JobDetails = ({ item }: { item: Job }) => {
         )}
         {item.LastMessage && (
           <Stack>
-            <Typography variant='caption'>{`message: ${item.LastMessage}`}</Typography>
+            <Box display={'flex'} gap={1}>
+              <Typography variant='caption' color='secondary'>{`message:`}</Typography>
+              <Typography color='info' variant='caption'>{`${item.LastMessage}`}</Typography>
+            </Box>
           </Stack>
         )}
         <Box py={4}>

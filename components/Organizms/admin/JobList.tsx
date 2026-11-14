@@ -70,7 +70,9 @@ const JobList = ({
       {selectedItem && (
         <>
           <Box display={'flex'} justifyContent={'space-between'} py={2} alignItems={'center'}>
-            <Typography variant='h5'>{selectedItem.Description}</Typography>
+            <Typography color='info' variant='h5'>
+              {selectedItem.Description}
+            </Typography>
             <CloseIconButton onClicked={handleCloseDetails} />
           </Box>
           <JobDetail item={selectedItem} />
@@ -97,18 +99,20 @@ const JobList = ({
                       <Box>
                         {item.EndRunDate && (
                           <Stack px={1}>
-                            <Typography
-                              variant='caption'
-                              color='primary'
-                            >{`last run: ${dayjs(response.ResponseDateEst).to(dayjs(item.EndRunDate))}`}</Typography>
+                            <Box display={'flex'} gap={1}>
+                              <Typography variant='caption' color='secondary'>{`last run:`}</Typography>
+                              <Typography variant='caption' color='info'>
+                                {`${dayjs(response.ResponseDateEst).to(dayjs(item.EndRunDate))}`}
+                              </Typography>
+                            </Box>
                           </Stack>
                         )}
                         {item.NextRunDate && (
                           <Stack px={1}>
-                            <Typography
-                              variant='caption'
-                              color='primary'
-                            >{`next run: ${dayjs(response.ResponseDateEst).to(dayjs(item.NextRunDate))}`}</Typography>
+                            <Box display={'flex'} gap={1}>
+                              <Typography variant='caption' color='secondary'>{`next run:`}</Typography>
+                              <Typography variant='caption' color='info'>{`${dayjs(response.ResponseDateEst).to(dayjs(item.NextRunDate))}`}</Typography>
+                            </Box>
                           </Stack>
                         )}
                       </Box>

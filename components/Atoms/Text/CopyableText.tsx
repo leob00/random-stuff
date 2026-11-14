@@ -22,7 +22,6 @@ const CopyableText = ({
 }) => {
   const [showCopyConfirm, setShowCopyConfirm] = useState(false)
   const theme = useTheme()
-  const textColor = theme.palette.primary.main
   const handleCopyItem = (item: string) => {
     navigator.clipboard.writeText(item)
     setShowCopyConfirm(true)
@@ -33,16 +32,14 @@ const CopyableText = ({
       <Box display={'flex'} alignItems={'flex-start'}>
         {label && (
           <Box>
-            <Typography variant={variant} pr={2} color={labelColor ?? textColor}>{`${label}`}</Typography>
+            <Typography color='secondary' variant={variant} pr={2}>{`${label}`}</Typography>
           </Box>
         )}
         {showValue && (
-          <Box>
-            {isMarkdown ? <MarkdownView text={value} /> : <Typography variant={variant} pr={2} color={labelColor ?? textColor}>{`${value}`}</Typography>}
-          </Box>
+          <Box>{isMarkdown ? <MarkdownView text={value} /> : <Typography variant={variant} pr={2} color={labelColor ?? 'info'}>{`${value}`}</Typography>}</Box>
         )}
-        <IconButton size='small' onClick={() => handleCopyItem(value)}>
-          <ContentCopyIcon fontSize='small' color='primary' />
+        <IconButton color='info' size='small' onClick={() => handleCopyItem(value)}>
+          <ContentCopyIcon fontSize='small' color='info' />
         </IconButton>
       </Box>
       {showCopyConfirm && <SnackbarSuccess show={showCopyConfirm} text={'copied!'} onClose={() => setShowCopyConfirm(false)} />}
