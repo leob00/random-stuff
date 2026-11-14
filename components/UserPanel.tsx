@@ -10,7 +10,6 @@ import { useSessionStore } from 'lib/backend/store/useSessionStore'
 import HeaderMenu from './Molecules/Menus/HeaderMenu'
 import { AuthUser, signOut as amplifySignOut, fetchUserAttributes } from 'aws-amplify/auth'
 import { Hub } from 'aws-amplify/utils'
-import { useRouteTracker } from './Organizms/session/useRouteTracker'
 import { useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import { postBody } from 'lib/backend/api/fetchFunctions'
@@ -24,7 +23,6 @@ export type HubPayload = {
 const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; onChangePalette: () => void }) => {
   const { ticket, setTicket, setProfile } = useUserController()
   const { claims, saveClaims } = useSessionStore()
-  const { lastRoute } = useRouteTracker()
   const router = useRouter()
   const signOut = async () => {
     try {
@@ -33,7 +31,6 @@ const UserPanel = ({ palette, onChangePalette }: { palette: 'light' | 'dark'; on
       console.error(err)
     }
   }
-  const pathName = usePathname()
 
   const handleAuthEvent = async (payload: HubPayload) => {
     const newClaims = claims.filter((m) => m.type !== 'rs')

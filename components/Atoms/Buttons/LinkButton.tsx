@@ -20,7 +20,7 @@ const LinkButton = ({
   }
   return (
     <Button disabled={disabled} {...props} variant='text' onClick={handleClick} sx={{ textDecoration: underline ? 'underline' : 'unset' }}>
-      <>{children}</>
+      <Box>{children}</Box>
     </Button>
   )
 }

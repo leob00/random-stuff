@@ -7,6 +7,8 @@ import RecipeTagsList from './RecipeTagsList'
 import PageHeader from 'components/Atoms/Containers/PageHeader'
 import RecipeImage from './RecipeImage'
 import List from '@mui/material/List'
+import { useViewPortSize } from 'hooks/ui/useViewportSize'
+import { ImageSize } from 'lib/backend/files/fileTypes'
 
 const RecipeLayout = ({ article }: { article: Recipe }) => {
   const tags = article.recipeTagsCollection.items ?? []
@@ -32,7 +34,11 @@ const RecipeLayout = ({ article }: { article: Recipe }) => {
     },
     renderNode: {
       // Map Paragraphs to MUI Typography
-      [BLOCKS.PARAGRAPH]: (node, children) => <Typography variant='body1'>{children}</Typography>,
+      [BLOCKS.PARAGRAPH]: (node, children) => (
+        <Typography color='info' variant='body1'>
+          {children}
+        </Typography>
+      ),
       // Map Headings to MUI Typography
       [BLOCKS.HEADING_1]: (node, children) => (
         <Typography variant='h1' component='h1' gutterBottom>
@@ -51,16 +57,20 @@ const RecipeLayout = ({ article }: { article: Recipe }) => {
 
       [BLOCKS.OL_LIST]: (node, children) => (
         <List>
-          <ListItemText>{children}</ListItemText>
+          <ListItemText color='info'>{children}</ListItemText>
         </List>
       ),
       [BLOCKS.UL_LIST]: (node, children) => (
         <List>
-          <ListItemText>{children}</ListItemText>
+          <ListItemText color='info'>{children}</ListItemText>
         </List>
       ),
 
-      [BLOCKS.LIST_ITEM]: (node, children) => <ListItem sx={{ display: 'list-item', paddingLeft: 2, marginBottom: 1 }}>{children}</ListItem>,
+      [BLOCKS.LIST_ITEM]: (node, children) => (
+        <ListItem color='info' sx={{ display: 'list-item', paddingLeft: 2, marginBottom: 1 }}>
+          {children}
+        </ListItem>
+      ),
 
       //Map Hyperlinks to MUI Link
       [INLINES.HYPERLINK]: (node, children) => (
@@ -72,24 +82,40 @@ const RecipeLayout = ({ article }: { article: Recipe }) => {
       [BLOCKS.EMBEDDED_ASSET]: (node) => <Box component='img' src={node.data.target.fields.file.url} alt='Contentful Image' />,
     },
   }
+  const { viewPortSize } = useViewPortSize()
+  let imageSize: ImageSize = {
+    height: 220,
+    width: 220,
+  }
+  switch (viewPortSize) {
+    case 'lg':
+    case 'xl':
+      imageSize.height = 320
+      imageSize.width = 320
+      break
+    case 'md':
+      imageSize.height = 280
+      imageSize.width = 280
+  }
 
   return (
     <>
       <PageHeader text={article.title} />
-
       {article.summary && (
-        <Box pb={4}>
-          <Typography>{article.summary}</Typography>
+        <Box pb={{ lg: 6 }}>
+          <Typography color='primary' textAlign={'center'} variant='h6'>
+            {article.summary}
+          </Typography>
         </Box>
       )}
 
       <Box>
-        <Box display={'flex'} flexDirection={{ xs: 'column', sm: 'row' }} gap={{ xs: 2, md: 4, lg: 12 }}>
-          <Box width={{ md: 400 }}>
+        <Box display={'flex'} flexDirection={{ xs: 'column', sm: 'row' }} gap={{ xs: 2, md: 3, lg: 6 }}>
+          <Box width={imageSize.width}>
             <Box>
               <Box>
                 <Box display={'flex'}>
-                  <RecipeImage recipe={article} width={220} height={220} />
+                  <RecipeImage recipe={article} width={imageSize.width} height={imageSize.height} />
                 </Box>
               </Box>
               <Box py={2}>
@@ -98,7 +124,7 @@ const RecipeLayout = ({ article }: { article: Recipe }) => {
             </Box>
           </Box>
 
-          <Box my={-3}>{documentToReactComponents(article.richBody.json, options)}</Box>
+          <Box my={-1}>{documentToReactComponents(article.richBody.json, options)}</Box>
         </Box>
       </Box>
     </>

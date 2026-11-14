@@ -50,12 +50,12 @@ const HeaderMenu = ({
     },
   }
   const loggedInMenu: ContextMenuItem[] = [
-    {
-      item: <ContextMenuDashboard text='dashboard' />,
-      fn: () => {
-        router.push('/dashboard')
-      },
-    },
+    // {
+    //   item: <ContextMenuDashboard text='dashboard' />,
+    //   fn: () => {
+    //     router.push('/dashboard')
+    //   },
+    // },
     {
       item: <ContextMenuProfile />,
       fn: () => {
