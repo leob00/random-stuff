@@ -102,8 +102,8 @@ const RecipeLayout = ({ article }: { article: Recipe }) => {
     <>
       <PageHeader text={article.title} />
       {article.summary && (
-        <Box pb={{ lg: 6 }}>
-          <Typography color='primary' textAlign={'center'} variant='h6'>
+        <Box pb={6}>
+          <Typography color='primary' textAlign={{ xs: 'left', sm: 'center' }} variant='h6'>
             {article.summary}
           </Typography>
         </Box>

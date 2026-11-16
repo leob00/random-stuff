@@ -30,12 +30,12 @@ const RemoteImage = ({
           style={style ? style : { borderRadius: '12px', objectFit: 'cover' }}
           src={url}
           alt={title ?? 'image'}
-          placeholder='blur'
+          placeholder='empty'
           height={height}
           width={width}
-          blurDataURL={url}
+          //blurDataURL={url}
           onLoad={handleLoaded}
-          sizes='100vw'
+          //sizes='100vw'
         />
       </Paper>
     </>

@@ -35,9 +35,9 @@ const StockEarningsTable = ({ data, showCompany }: { data: StockEarningsGroup[];
                           <TableCell>
                             <FadeIn>
                               {showCompany ? (
-                                <Typography>{`${subItem.StockQuote?.Company} (${subItem.StockQuote?.Symbol})`}</Typography>
+                                <Typography color='info'>{`${subItem.StockQuote?.Company} (${subItem.StockQuote?.Symbol})`}</Typography>
                               ) : (
-                                <Typography color='primary'>{dayjs(subItem.ReportDate).format('MM/DD/YYYY')}</Typography>
+                                <Typography color='info'>{dayjs(subItem.ReportDate).format('MM/DD/YYYY')}</Typography>
                               )}
                             </FadeIn>
                           </TableCell>

@@ -44,11 +44,14 @@ const StockDividendDetails = ({ symbol, showCompanyName = true }: { symbol: stri
                 </CenterStack>
               )}
               <CenterStack>
-                <Typography variant='h6'>{`Annual yield: ${data[0].AnnualYield}%`}</Typography>
+                <Box display={'flex'} gap={1}>
+                  <Typography variant='h6'>annual yield:</Typography>
+                  <Typography variant='h6' color='info'>{`${data[0].AnnualYield}%`}</Typography>
+                </Box>
               </CenterStack>
             </Box>
           )}
-          <Box pt={2}>
+          <Box py={2}>
             <TableContainer>
               <Table>
                 <TableHead>
@@ -64,22 +67,28 @@ const StockDividendDetails = ({ symbol, showCompanyName = true }: { symbol: stri
                     <TableRow key={`${item.Symbol}${item.PaymentDate}`}>
                       <TableCell>
                         <FadeIn>
-                          <Typography variant={'body2'}>{`$${numeral(item.Amount).format('0.000')}`}</Typography>
+                          <Typography color='info' variant={'body2'}>{`$${numeral(item.Amount).format('0.000')}`}</Typography>
                         </FadeIn>
                       </TableCell>
                       <TableCell>
                         <FadeIn>
-                          <Typography variant={'body2'}>{dayjs(item.PaymentDate).format('MM/DD/YYYY')}</Typography>
+                          <Typography color='info' variant={'body2'}>
+                            {dayjs(item.PaymentDate).format('MM/DD/YYYY')}
+                          </Typography>
                         </FadeIn>
                       </TableCell>
                       <TableCell>
                         <FadeIn>
-                          <Typography variant={'body2'}>{dayjs(item.ExDate).format('MM/DD/YYYY')}</Typography>
+                          <Typography color='info' variant={'body2'}>
+                            {dayjs(item.ExDate).format('MM/DD/YYYY')}
+                          </Typography>
                         </FadeIn>
                       </TableCell>
                       <TableCell>
                         <FadeIn>
-                          <Typography variant={'body2'}>{item.Frequency}</Typography>
+                          <Typography color='info' variant={'body2'}>
+                            {item.Frequency}
+                          </Typography>
                         </FadeIn>
                       </TableCell>
                     </TableRow>
@@ -97,7 +106,6 @@ const StockDividendDetails = ({ symbol, showCompanyName = true }: { symbol: stri
             totalItemCount={pagerModel.totalNumberOfItems}
             showHorizontalDivider={false}
           ></Pager>
-          <HorizontalDivider />
         </>
       )}
     </Box>

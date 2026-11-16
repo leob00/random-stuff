@@ -14,6 +14,7 @@ import { AnthropicChatbotMessage } from 'lib/backend/api/models/antropic'
 import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
+import { useChatbotHistoryController } from '../chatBotHistoryController'
 
 const AnthropicChatBot = () => {
   const [messages, setMessages] = useState<AnthropicChatbotMessage[]>([])
@@ -22,7 +23,7 @@ const AnthropicChatBot = () => {
   const [currentResponseText, setCurrentResponseText] = useState('')
   const abortControllerRef = useRef<AbortController | null>(null)
   const theme = useTheme()
-  const { addToChatHistory } = useLocalStore()
+  const { addToChatHistory } = useChatbotHistoryController()
 
   const streamChatResponse = async (message: string) => {
     const userMessage: AnthropicChatbotMessage = { role: 'user', content: message, timestamp: dayjs().format() }

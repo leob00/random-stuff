@@ -111,12 +111,14 @@ const AdminEarningsTable = ({ model, setModel, onRefresh }: { model: AdminEarnin
           <TableHead>
             <TableRow sx={{ borderBottom: `solid ${CasinoBlueTransparent} 1px` }}>
               <TableCell>
-                <Box pb={2}>
-                  <Typography>Report Date</Typography>
-                </Box>
+                <Typography>Report date</Typography>
               </TableCell>
-              <TableCell>Actual</TableCell>
-              <TableCell>Estimated</TableCell>
+              <TableCell>
+                <Typography>Actual</Typography>
+              </TableCell>
+              <TableCell>
+                <Typography>Estimated</Typography>
+              </TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableHead>
@@ -177,16 +179,18 @@ const AdminEarningsTable = ({ model, setModel, onRefresh }: { model: AdminEarnin
                       <>
                         <TableCell>
                           <Box py={1} pl={1}>
-                            <Typography>{dayjs(item.ReportDate).format('MM/DD/YYYY')}</Typography>
+                            <Typography color='info' variant='body2'>
+                              {dayjs(item.ReportDate).format('MM/DD/YYYY')}
+                            </Typography>
                           </Box>
                         </TableCell>
                         <TableCell>
-                          <Typography>
+                          <Typography color='info' variant='body2'>
                             {item.ActualEarnings !== undefined && item.ActualEarnings !== null ? numeral(item.ActualEarnings).format('0,0.000') : ''}
                           </Typography>
                         </TableCell>
                         <TableCell>
-                          <Typography>
+                          <Typography color='info' variant='body2'>
                             {item.EstimatedEarnings !== undefined && item.EstimatedEarnings !== null ? numeral(item.EstimatedEarnings).format('0,0.000') : ''}
                           </Typography>
                         </TableCell>
