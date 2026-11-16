@@ -54,7 +54,7 @@ const HtmlView = ({ html, textAlign = 'center' }: { html: string; textAlign?: 'l
             wordWrap: 'break-word',
             color: theme.palette.info.main,
             fontWeight: 400,
-            fontSize: 20,
+            fontSize: 22,
             //backgroundColor: 'white',
           }}
           dangerouslySetInnerHTML={{ __html: text }}

@@ -1,14 +1,15 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import RequestQuoteIcon from '@mui/icons-material/RequestQuote'
+import Icon from '@mui/icons-material/RequestQuote'
+import { Typography } from '@mui/material'
 
 const ContextMenuRequestQuote = ({ text = 'calendar' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <RequestQuoteIcon fontSize='small' />
+        <Icon color='info' fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary={text} />
+      <ListItemText color='info' primary={<Typography color='info'>{text}</Typography>} />
     </>
   )
 }

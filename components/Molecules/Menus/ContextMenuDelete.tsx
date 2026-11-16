@@ -1,16 +1,14 @@
-import { ListItemIcon, ListItemText } from '@mui/material'
-import React from 'react'
-import Delete from '@mui/icons-material/Delete'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import { ListItemIcon, ListItemText, Typography } from '@mui/material'
+
+import Icon from '@mui/icons-material/Delete'
 
 const ContextMenuDelete = ({ text = 'remove' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <Delete color='error' fontSize='small' />
+        <Icon color='error' fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary={text} />
-      <HorizontalDivider />
+      <ListItemText color='info' primary={<Typography color='warning'>{text}</Typography>} />
     </>
   )
 }

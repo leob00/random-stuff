@@ -9,6 +9,7 @@ import ContextMenuReport from './ContextMenuReport'
 import ContextMenuStockSentiment from './ContextMenuStockSentiment'
 import ContextMenuStockAlerts from './ContextMenuStockAlerts'
 import ContextMenuSummary from './ContextMenuSummary'
+import ContextMenuIndices from './ContextMenuIndices'
 
 const StockMarketPageContextMenu = () => {
   const pathName = usePathname()
@@ -50,6 +51,11 @@ const StockMarketPageContextMenu = () => {
         item: <ContextMenuStockAlerts />,
         fn: () => router.push('/market/stocks/alerts'),
         route: '/market/stocks/alerts',
+      },
+      {
+        item: <ContextMenuIndices />,
+        fn: () => router.push('/market/stocks/indices'),
+        route: '/market/stocks/indices',
       },
     ]
     return result.filter((m) => m.route !== pathName)

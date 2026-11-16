@@ -1,13 +1,14 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import EditIcon from '@mui/icons-material/Edit'
+import Icon from '@mui/icons-material/Edit'
+import { Typography } from '@mui/material'
 const ContextMenuEdit = ({ text = 'edit' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <EditIcon fontSize='small' />
+        <Icon color='info' fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary={text} />
+      <ListItemText color='info' primary={<Typography color='info'>{text}</Typography>} />
     </>
   )
 }

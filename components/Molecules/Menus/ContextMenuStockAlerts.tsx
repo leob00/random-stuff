@@ -1,13 +1,15 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import NotificationsIcon from '@mui/icons-material/Notifications'
+import Icon from '@mui/icons-material/Notifications'
+import { Typography } from '@mui/material'
+
 const ContextMenuStockAlerts = ({ text = 'stock alerts' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <NotificationsIcon fontSize='small' />
+        <Icon color='info' fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary={text} />
+      <ListItemText color='info' primary={<Typography color='info'>{text}</Typography>} />
     </>
   )
 }

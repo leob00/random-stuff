@@ -1,13 +1,14 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import QueryStatsIcon from '@mui/icons-material/QueryStats'
+import Icon from '@mui/icons-material/QueryStats'
+import { Typography } from '@mui/material'
 const ContextMenuIndicators = ({ text = 'indicators' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <QueryStatsIcon fontSize='small' />
+        <Icon color='info' fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary={text} />
+      <ListItemText color='info' primary={<Typography color='info'>{text}</Typography>} />
     </>
   )
 }

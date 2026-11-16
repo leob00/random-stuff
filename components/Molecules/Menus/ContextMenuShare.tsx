@@ -1,16 +1,13 @@
-import { ListItemIcon, ListItemText } from '@mui/material'
-import React from 'react'
-import ShareIcon from '@mui/icons-material/Share'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import { ListItemIcon, ListItemText, Typography } from '@mui/material'
+import Icon from '@mui/icons-material/Share'
 
 const ContextMenuShare = ({ text = 'share' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <ShareIcon fontSize='small' />
+        <Icon color='info' fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary={text} />
-      <HorizontalDivider />
+      <ListItemText color='info' primary={<Typography color='info'>{text}</Typography>} />
     </>
   )
 }

@@ -1,13 +1,14 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import Icon from '@mui/icons-material/StackedBarChart'
+import { Typography } from '@mui/material'
 const ContextMenuIndices = ({ text = 'indices' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <Icon fontSize='small' />
+        <Icon color='info' fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary={text} />
+      <ListItemText color='info' primary={<Typography color='info'>{text}</Typography>} />
     </>
   )
 }

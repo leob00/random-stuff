@@ -1,15 +1,15 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import React from 'react'
 import StackedLineChartIcon from '@mui/icons-material/StackedLineChart'
+import { Typography } from '@mui/material'
 
 const ContextMenuMyStocks = ({ text = 'my stocks' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <StackedLineChartIcon fontSize='small' />
+        <StackedLineChartIcon color='info' fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary={text} />
+      <ListItemText color='info' primary={<Typography color='info'>{text}</Typography>} />
     </>
   )
 }

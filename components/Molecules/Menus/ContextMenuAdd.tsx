@@ -1,16 +1,13 @@
-import { ListItemIcon, ListItemText } from '@mui/material'
-import React from 'react'
-import Add from '@mui/icons-material/Add'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import { ListItemIcon, ListItemText, Typography } from '@mui/material'
+import Icon from '@mui/icons-material/Add'
 
 const ContextMenuAdd = ({ text = 'add' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <Add fontSize='small' />
+        <Icon color='info' fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary={text} />
-      <HorizontalDivider />
+      <ListItemText color='info' primary={<Typography color='info'>{text}</Typography>} />
     </>
   )
 }

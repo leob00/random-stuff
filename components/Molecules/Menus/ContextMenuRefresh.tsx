@@ -1,12 +1,12 @@
-import { ListItemIcon, ListItemText } from '@mui/material'
-import CachedIcon from '@mui/icons-material/Cached'
+import { ListItemIcon, ListItemText, Typography } from '@mui/material'
+import Icon from '@mui/icons-material/Cached'
 const ContextMenuRefresh = ({ text = 'refresh' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <CachedIcon fontSize='small' />
+        <Icon color='info' fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary={text} />
+      <ListItemText color='info' primary={<Typography color='info'>{text}</Typography>} />
     </>
   )
 }

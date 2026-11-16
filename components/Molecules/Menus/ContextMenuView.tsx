@@ -1,16 +1,13 @@
-import { ListItemIcon, ListItemText } from '@mui/material'
-import React from 'react'
-import ZoomInIcon from '@mui/icons-material/ZoomIn'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import { ListItemIcon, ListItemText, Typography } from '@mui/material'
+import Icon from '@mui/icons-material/ZoomIn'
 
 const ContextMenuView = ({ text = 'view' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <ZoomInIcon fontSize='small' />
+        <Icon color='info' fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary={text} />
-      <HorizontalDivider />
+      <ListItemText color='info' primary={<Typography color='info'>{text}</Typography>} />
     </>
   )
 }

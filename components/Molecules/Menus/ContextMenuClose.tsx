@@ -1,15 +1,13 @@
-import { ListItemIcon, ListItemText } from '@mui/material'
-import Close from '@mui/icons-material/Close'
-import HorizontalDivider from 'components/Atoms/Dividers/HorizontalDivider'
+import { ListItemIcon, ListItemText, Typography } from '@mui/material'
+import Icon from '@mui/icons-material/Close'
 
 const ContextMenuClose = ({ text = 'close' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <Close fontSize='small' />
+        <Icon color='info' fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary={text} />
-      <HorizontalDivider />
+      <ListItemText color='info' primary={<Typography color='info'>{text}</Typography>} />
     </>
   )
 }

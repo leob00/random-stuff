@@ -1,13 +1,14 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied'
+import { Typography } from '@mui/material'
 const ContextMenuStockSentiment = ({ text = 'sentiment' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <SentimentVerySatisfiedIcon fontSize='small' />
+        <SentimentVerySatisfiedIcon color='info' fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary={text} />
+      <ListItemText color='info' primary={<Typography color='info'>{text}</Typography>} />
     </>
   )
 }

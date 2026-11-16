@@ -1,13 +1,14 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import OilBarrelIcon from '@mui/icons-material/OilBarrel'
+import Icon from '@mui/icons-material/OilBarrel'
+import { Typography } from '@mui/material'
 const ContextMenuCommodities = ({ text = 'commodities' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <OilBarrelIcon fontSize='small' />
+        <Icon color='info' fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary={text} />
+      <ListItemText color='info' primary={<Typography color='info'>{text}</Typography>} />
     </>
   )
 }

@@ -1,13 +1,14 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import CurrencyBitcoinIcon from '@mui/icons-material/CurrencyBitcoin'
+import Icon from '@mui/icons-material/CurrencyBitcoin'
+import { Typography } from '@mui/material'
 const ContextMenuCrypto = ({ text = 'crypto' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <CurrencyBitcoinIcon fontSize='small' />
+        <Icon color='info' fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary={text} />
+      <ListItemText color='info' primary={<Typography color='info'>{text}</Typography>} />
     </>
   )
 }

@@ -1,13 +1,14 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import RedeemIcon from '@mui/icons-material/Redeem'
+import Icon from '@mui/icons-material/Redeem'
+import { Typography } from '@mui/material'
 const ContextMenuTreasuries = ({ text = 'treasuries' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <RedeemIcon fontSize='small' />
+        <Icon color='info' fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary={text} />
+      <ListItemText color='info' primary={<Typography color='info'>{text}</Typography>} />
     </>
   )
 }

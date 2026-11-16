@@ -27,9 +27,7 @@ export default async function StockIndicesPage() {
   const data = await getData()
   return (
     <Box>
-      <Box>
-        <StockIndicesDisplay data={data ?? []} />
-      </Box>
+      <StockIndicesDisplay data={data ?? []} />
     </Box>
   )
 }
