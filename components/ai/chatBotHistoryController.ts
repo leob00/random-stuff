@@ -19,7 +19,8 @@ export const useChatbotHistoryController = (onRefresh?: () => void) => {
     return sortArray(items, ['timestamp'], ['desc'])
   }
 
-  const { data, isLoading } = useSwrHelper(mutateKey, externalDataFn, { revalidateOnFocus: false })
+  const historyKey = userProfile?.username ? mutateKey : null
+  const { data, isLoading } = useSwrHelper(historyKey, externalDataFn, { revalidateOnFocus: true })
 
   const getAgentChatResponse = async (id: string) => {
     const utcNow = getUtcNow()
@@ -96,7 +97,7 @@ export const useChatbotHistoryController = (onRefresh?: () => void) => {
   const isProcessing = isValidatingProfile || isLoading
 
   return {
-    userPrompts: data ?? [],
+    userPrompts: data,
     addConverstation,
     getAgentChatResponse,
     saveItem,

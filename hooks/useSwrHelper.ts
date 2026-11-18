@@ -1,6 +1,6 @@
 import useSWR, { mutate, SWRConfiguration } from 'swr'
 export const useSwrHelper = <T>(
-  key: string,
+  key: string | null,
   dataFn: () => Promise<T>,
   //options?: { revalidateOnFocus?: boolean; refreshInterval?: number; revalidateOnMount?: boolean },
   options?: SWRConfiguration<any, any, any>,

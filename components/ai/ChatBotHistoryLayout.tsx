@@ -16,15 +16,19 @@ const ChatBotHistoryLayout = () => {
       <Box py={2}>
         {isProcessing && <ComponentLoader />}
         <Box display={'flex'} flexDirection={'column'} gap={2}>
-          {userPrompts.length > 0 ? (
-            <ChatBotHistoryTable data={userPrompts} onRefresh={onRefresh} />
-          ) : (
-            <>
-              <Box display={'flex'} justifyContent={'center'}>
-                <Typography>chat history is empty...</Typography>
-              </Box>
-            </>
-          )}
+          <>
+            {userPrompts && userPrompts.length > 0 ? (
+              <ChatBotHistoryTable data={userPrompts} onRefresh={onRefresh} />
+            ) : (
+              <>
+                {!isProcessing && (
+                  <Box display={'flex'} justifyContent={'center'}>
+                    <Typography>chat history is empty...</Typography>
+                  </Box>
+                )}
+              </>
+            )}
+          </>
         </Box>
       </Box>
     </Box>
