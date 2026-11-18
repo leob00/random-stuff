@@ -399,13 +399,6 @@ export async function putRecord(id: DynamoKeys, category: string, item: any, for
   await postBody(`/api/aws/dynamo/item`, 'PUT', putRequest)
 }
 
-export async function deleteRecordsBatch(items: string[]) {
-  const putRequest: SignedRequest = {
-    data: weakEncrypt(JSON.stringify(items)),
-  }
-  await post(`/api/deleteRandomStuffBatch`, putRequest)
-}
-
 export async function sendEmailFromClient(item: EmailMessage) {
   await postBody(`/api/aws/ses/sendEmail`, 'POST', item)
 }

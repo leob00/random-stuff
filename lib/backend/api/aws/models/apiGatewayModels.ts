@@ -28,6 +28,7 @@ export type DynamoKeys =
   | 'stocks-daily-market-sentiment'
   | 'stocks-monthly-market-sentiment'
   | 'stock-reports[daily-sentiment]'
+  | 'chatbot-history'
   | (string & {})
 
 export type CategoryType = 'animals' | 'random' | 'userProfile' | 'searched-stocks' | 'user-stock_list' | (string & {})

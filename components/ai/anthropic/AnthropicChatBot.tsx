@@ -15,6 +15,7 @@ import { useLocalStore } from 'lib/backend/store/useLocalStore'
 import { getUtcNow } from 'lib/util/dateUtil'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import { useChatbotHistoryController } from '../chatBotHistoryController'
+import { ChatBotConversation } from 'lib/backend/ai/models'
 
 const AnthropicChatBot = () => {
   const [messages, setMessages] = useState<AnthropicChatbotMessage[]>([])
@@ -23,7 +24,7 @@ const AnthropicChatBot = () => {
   const [currentResponseText, setCurrentResponseText] = useState('')
   const abortControllerRef = useRef<AbortController | null>(null)
   const theme = useTheme()
-  const { addToChatHistory } = useChatbotHistoryController()
+  const { addConverstation } = useChatbotHistoryController()
 
   const streamChatResponse = async (message: string) => {
     const userMessage: AnthropicChatbotMessage = { role: 'user', content: message, timestamp: dayjs().format() }
@@ -98,15 +99,16 @@ const AnthropicChatBot = () => {
                   responseMessages.push(finalResponseMessage)
 
                   setMessages((prev) => [...prev, ...responseMessages])
-                  const expiration = getUtcNow().add(30, 'days')
-                  const promptHash = weakEncrypt(userMessage.content)
-                  addToChatHistory({ ...userMessage, expirationTimestampUtc: expiration.format(), promptHash: promptHash })
-                  addToChatHistory({
-                    ...finalResponseMessage,
-                    content: accumulatedResponse,
-                    expirationTimestampUtc: expiration.format(),
-                    promptHash: promptHash,
-                  })
+                  const expiration = getUtcNow().add(45, 'days')
+                  const conv: ChatBotConversation = {
+                    user: { ...userMessage, expirationTimestampUtc: expiration.format() },
+                    assistant: {
+                      ...finalResponseMessage,
+                      content: accumulatedResponse,
+                      expirationTimestampUtc: expiration.format(),
+                    },
+                  }
+                  addConverstation(conv)
                   setIsLoading(false)
                   return
                 } else if (data.error) {

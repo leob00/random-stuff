@@ -9,6 +9,8 @@ import { EconCalendarFilter } from 'components/Organizms/stocks/EconCalendarDisp
 import { NewsTypeIds } from '../api/qln/qlnApi'
 import { StockMovingAvgFilter } from 'components/Organizms/stocks/reports/stockMovingAvgFilter'
 import { AiChatHistory, ChatBotMessage } from '../ai/models'
+import { getUtcNow } from 'lib/util/dateUtil'
+import dayjs from 'dayjs'
 
 export interface StockSettings extends UserStockSettings {
   data: StockQuote[]
@@ -53,6 +55,8 @@ export interface LocalStore {
   getStockTopMovingAvgFilter: () => StockMovingAvgFilter
   aiChatHistory: AiChatHistory
   addToChatHistory: (item: ChatBotMessage) => void
+  saveChatHistoryItem: (item: ChatBotMessage) => void
+  deleteChatHistoryItem: (item: ChatBotMessage) => void
 }
 
 export const useLocalStore = create(
@@ -116,19 +120,31 @@ export const useLocalStore = create(
       },
       aiChatHistory: { items: [] },
       addToChatHistory: (item: ChatBotMessage) => {
+        const utcNow = getUtcNow()
         const history = get().aiChatHistory
-        let newItems = [...history.items]
+        let newItems = history.items.filter((m) => dayjs(m.expirationTimestampUtc).isAfter(utcNow))
         if (item.role === 'user') {
-          const existing = newItems.find((m) => m.content === item.content)
-          if (existing) {
-            newItems = newItems.filter((m) => m.role === 'user' && m.content !== item.content)
-          }
           newItems.unshift(item)
         } else if (item.role === 'assistant') {
           newItems.push(item)
         }
 
         set({ aiChatHistory: { items: newItems } })
+      },
+      saveChatHistoryItem: (item: ChatBotMessage) => {
+        const utcNow = getUtcNow()
+        const history = get().aiChatHistory.items.filter((m) => dayjs(m.expirationTimestampUtc).isAfter(utcNow))
+        const newItemIndex = history.findIndex((m) => m.role === item.role && m.conversationId === item.conversationId)
+        if (newItemIndex > -1) {
+          history[newItemIndex] = item
+          set({ aiChatHistory: { items: history } })
+        }
+      },
+      deleteChatHistoryItem: (item: ChatBotMessage) => {
+        const utcNow = getUtcNow()
+        const history = get().aiChatHistory.items.filter((m) => dayjs(m.expirationTimestampUtc).isAfter(utcNow))
+        const newHistory = history.filter((m) => m.conversationId !== item.conversationId)
+        set({ aiChatHistory: { items: newHistory } })
       },
     }),
 

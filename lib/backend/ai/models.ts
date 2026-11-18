@@ -5,6 +5,11 @@ export type AiChatHistory = {
 }
 
 export type ChatBotMessage = {
-  promptHash: string
+  conversationId?: string
   expirationTimestampUtc: string
 } & AnthropicChatbotMessage
+
+export type ChatBotConversation = {
+  user: ChatBotMessage
+  assistant: ChatBotMessage
+}
