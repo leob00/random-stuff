@@ -10,6 +10,7 @@ import PrimaryButton from 'components/Atoms/Buttons/PrimaryButton'
 import ConfirmDeleteDialog from 'components/Atoms/Dialogs/ConfirmDeleteDialog'
 import ComponentLoader from 'components/Atoms/Loaders/ComponentLoader'
 import { getDynamoItemData } from 'lib/backend/csr/nextApiWrapper'
+import TokenUsage from './TokenUsage'
 
 const ChatBotListItem = ({ item, onRefresh }: { item: ChatBotMessage; onRefresh?: () => void }) => {
   const { getAgentChatResponse, saveItem, deleteItem, isProcessing } = useChatbotHistoryController(onRefresh)
@@ -71,6 +72,7 @@ const ChatBotListItem = ({ item, onRefresh }: { item: ChatBotMessage; onRefresh?
       {selectedItem && (
         <Box py={2} pl={2}>
           <MarkdownView text={selectedItem.content} />
+          {selectedItem.usage && <TokenUsage usage={selectedItem.usage} />}
         </Box>
       )}
       {editItem && (

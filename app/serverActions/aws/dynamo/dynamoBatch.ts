@@ -50,3 +50,26 @@ export async function putItems(items: RandomStuffDynamoItem[]) {
 
   return 'success'
 }
+
+export async function deleteItems(keys: string[]) {
+  const chunks = chunk(keys, 25)
+  for (const keyChunk of chunks) {
+    const params: BatchWriteItemInput = {
+      RequestItems: {
+        randomStuff: keyChunk.map((key) => ({
+          DeleteRequest: {
+            Key: {
+              key: {
+                S: key,
+              },
+            },
+          },
+        })),
+      },
+    }
+
+    await db.send(new BatchWriteItemCommand(params))
+  }
+
+  return 'success'
+}

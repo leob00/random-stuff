@@ -76,7 +76,21 @@ const StocksAutoComplete = ({
       size='small'
       id='searchAutoComplete'
       freeSolo={freesolo}
-      sx={{ width: width }}
+      sx={{
+        '& .MuiInputBase-root': {
+          color: theme.palette.info.main,
+        },
+        ...{ width: { xs: 260, md: 600 } },
+      }}
+      slotProps={{
+        listbox: {
+          sx: {
+            '& .MuiAutocomplete-option': {
+              color: theme.palette.info.main,
+            },
+          },
+        },
+      }}
       options={options}
       autoHighlight
       onChange={(_, value) => {
@@ -87,7 +101,13 @@ const StocksAutoComplete = ({
           {...params}
           label={label}
           sx={{
+            '& .MuiInputBase-input': {
+              color: theme.palette.info.main,
+            },
             fieldset: {
+              borderColor: CasinoBlueTransparent, // Default border color
+            },
+            '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
               borderColor: theme.palette.primary.main,
             },
           }}

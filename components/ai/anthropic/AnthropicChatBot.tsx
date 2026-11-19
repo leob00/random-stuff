@@ -16,6 +16,7 @@ import { getUtcNow } from 'lib/util/dateUtil'
 import { weakEncrypt } from 'lib/backend/encryption/useEncryptor'
 import { useChatbotHistoryController } from '../chatBotHistoryController'
 import { ChatBotConversation } from 'lib/backend/ai/models'
+import TokenUsage from '../TokenUsage'
 
 const AnthropicChatBot = () => {
   const [messages, setMessages] = useState<AnthropicChatbotMessage[]>([])
@@ -162,26 +163,7 @@ const AnthropicChatBot = () => {
           {messages.map((msg, index) => (
             <Box key={index}>
               {msg.content && <ChatBotMessage msg={msg} />}
-              {msg.usage && (
-                <Box display={'flex'} flexDirection={'row'} gap={2} alignItems={'center'}>
-                  <Box display={'flex'} gap={1} alignItems={'center'}>
-                    <Typography color={theme.palette.secondary.main} variant='caption'>
-                      input tokens:
-                    </Typography>
-                    <Typography color={theme.palette.secondary.main} variant='caption' fontWeight={'bold'}>
-                      {`${numeral(msg.usage.input_tokens).format('###,###')}`}
-                    </Typography>
-                  </Box>
-                  <Box display={'flex'} gap={1} alignItems={'center'}>
-                    <Typography color={theme.palette.secondary.main} variant='caption'>
-                      output tokens:
-                    </Typography>
-                    <Typography color={theme.palette.secondary.main} variant='caption' fontWeight={'bold'}>
-                      {`${numeral(msg.usage.output_tokens).format('###,###')}`}
-                    </Typography>
-                  </Box>
-                </Box>
-              )}
+              {msg.usage && <TokenUsage usage={msg.usage} />}
             </Box>
           ))}
         </Box>

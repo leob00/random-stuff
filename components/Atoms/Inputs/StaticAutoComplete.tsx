@@ -61,7 +61,6 @@ const StaticAutoComplete = ({
   return (
     <>
       <Autocomplete
-        //freeSolo={freeSolo}
         value={selectedOption}
         size='small'
         onChange={(e, opt) => {
@@ -70,7 +69,19 @@ const StaticAutoComplete = ({
         disablePortal
         options={items}
         sx={{
+          '& .MuiInputBase-root': {
+            color: theme.palette.info.main,
+          },
           ...(!fullWidth ? { width: { xs: 260, md: 600 } } : {}),
+        }}
+        slotProps={{
+          listbox: {
+            sx: {
+              '& .MuiAutocomplete-option': {
+                color: theme.palette.info.main,
+              },
+            },
+          },
         }}
         disableClearable={disableClearable}
         isOptionEqualToValue={(opt, compOpt) => opt.id === compOpt.id}
@@ -84,8 +95,14 @@ const StaticAutoComplete = ({
             error={!!errorMessage}
             helperText={errorMessage ?? undefined}
             sx={{
+              '& .MuiInputBase-input': {
+                color: theme.palette.info.main,
+              },
               fieldset: {
                 borderColor: CasinoBlueTransparent, // Default border color
+              },
+              '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                borderColor: theme.palette.primary.main,
               },
             }}
           />

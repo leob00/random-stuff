@@ -1,12 +1,12 @@
-import { ListItemIcon, ListItemText } from '@mui/material'
-import TravelExploreIcon from '@mui/icons-material/TravelExplore'
+import { ListItemIcon, ListItemText, Typography } from '@mui/material'
+import Icon from '@mui/icons-material/TravelExplore'
 const ContextMenuGoToPage = ({ text = 'go to page' }: { text?: string }) => {
   return (
     <>
       <ListItemIcon>
-        <TravelExploreIcon fontSize='small' />
+        <Icon color='info' fontSize='small' />
       </ListItemIcon>
-      <ListItemText primary={text} />
+      <ListItemText color='info' primary={<Typography color='info'>{text}</Typography>} />
     </>
   )
 }
