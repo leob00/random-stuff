@@ -72,7 +72,21 @@ const StaticAutoCompleteFreeSolo = ({
       size='small'
       id='searchAutoComplete'
       freeSolo
-      sx={{ width: { xs: 300, sm: 600 }, input: { color: color } }}
+      sx={{
+        '& .MuiInputBase-root': {
+          color: theme.palette.info.main,
+        },
+        ...{ width: { xs: 260, md: 600 } },
+      }}
+      slotProps={{
+        listbox: {
+          sx: {
+            '& .MuiAutocomplete-option': {
+              color: theme.palette.info.main,
+            },
+          },
+        },
+      }}
       options={options}
       autoHighlight
       onChange={(_, value) => {
@@ -83,9 +97,14 @@ const StaticAutoCompleteFreeSolo = ({
           {...params}
           label={label}
           sx={{
-            input: { color: color },
+            '& .MuiInputBase-input': {
+              color: theme.palette.info.main,
+            },
             fieldset: {
               borderColor: CasinoBlueTransparent, // Default border color
+            },
+            '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+              borderColor: theme.palette.primary.main,
             },
           }}
           inputRef={textRef}
