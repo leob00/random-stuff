@@ -44,16 +44,19 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
   const [isWaiting, setIsWaiting] = useState(false)
   let days = stockChartSettings.defaultDays
   const dataFn = async () => {
+    //-1 : YTD
     if (days === -1) {
       days = getYearToDateDays()
     }
-    if (days === 1 && marketCategory !== 'stocks') {
-      days = 90
-    }
 
-    const response = await getMarketChart(symbol, marketCategory, days)
-    const history = shrinkListByViewportSize(response.History, viewPortSize)
-    const dateDiff = dayjs(history[history.length - 1].TradeDate).diff(history[0].TradeDate, 'days')
+    let response = await getMarketChart(symbol, marketCategory, days)
+    let history = shrinkListByViewportSize(response.History, viewPortSize)
+    let dateDiff = dayjs(history[history.length - 1].TradeDate).diff(history[0].TradeDate, 'days')
+    if (history.length === 1 && dateDiff === 0) {
+      days = 1
+      response = await getMarketChart(symbol, marketCategory, days)
+      history = shrinkListByViewportSize(response.History, viewPortSize)
+    }
     const map = mapHistory(history, 'Price', dateDiff)
 
     const lineColor = getPositiveNegativeColor(history[history.length - 1].Price - history[0].Price, theme.palette.mode)
@@ -134,11 +137,11 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
 
   const handleDaysSelected = async (val: number) => {
     setIsWaiting(true)
-    let days = val
+    let newDays = val
     if (val === -1) {
-      days = getYearToDateDays()
+      newDays = getYearToDateDays()
     }
-    saveStockChart({ ...stockChartSettings, defaultDays: val === -1 ? val : days })
+    saveStockChart({ ...stockChartSettings, defaultDays: val === -1 ? val : newDays })
     const results = await dataFn()
     mutate(mutateKey, results)
     setIsWaiting(false)

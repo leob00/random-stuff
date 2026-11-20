@@ -28,14 +28,16 @@ const StockChartDaySelect = ({
     : getstockChartDays(showIntraday)
 
   if (availableDates) {
-    const daysDiff = dayjs(dayjs(availableDates.EndDate).format('YYYY-MM-DD')).diff(dayjs(dayjs(availableDates.StartDate).format('YYYY-MM-DD')), 'days')
+    let daysDiff = dayjs(dayjs(availableDates.EndDate).format('YYYY-MM-DD')).diff(dayjs(dayjs(availableDates.StartDate).format('YYYY-MM-DD')), 'days')
     const startDate = dayjs(availableDates.StartDate)
     if (startDate.isAfter(dayjs(new Date(dayjs().year(), 0, 3)))) {
       options = options.filter((m) => m.value > -1)
     }
 
     if (options.length === 0) {
-      options.push({ text: `${daysDiff} days`, value: daysDiff })
+      const d = daysDiff > 0 ? daysDiff : 1
+      options.push({ text: `${d} days`, value: daysDiff > 0 ? daysDiff : 1 })
+      daysDiff = 1
     }
   }
 
