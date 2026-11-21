@@ -58,23 +58,25 @@ const StockSearch = ({
   }
   return (
     <Box>
-      <CenterStack>
-        <StocksAutoComplete
-          placeholder={`search ${searchAheadCount} quotes`}
-          onChanged={handleSearched}
-          searchResults={results}
-          debounceWaitMilliseconds={500}
-          onSelected={handleSelectQuote}
-          clearOnSelect={clearOnSelect}
-          errorMessage={errorMessage}
-          freesolo
-          width={width}
-          autoFocus={autoFocus}
-        />
-      </CenterStack>
-      {isLoading && <ComponentLoader />}
+      <Box display={'flex'} flexDirection={'row'} gap={1} justifyContent={'center'}>
+        <Box display={'flex'} justifyContent={'center'}>
+          <StocksAutoComplete
+            placeholder={`search ${searchAheadCount} quotes`}
+            onChanged={handleSearched}
+            searchResults={results}
+            debounceWaitMilliseconds={500}
+            onSelected={handleSelectQuote}
+            clearOnSelect={clearOnSelect}
+            errorMessage={errorMessage}
+            freesolo
+            width={width}
+            autoFocus={autoFocus}
+          />
+        </Box>
+        {isLoading && <ComponentLoader />}
+      </Box>
       {showAdvSearch && (
-        <Box maxWidth={{ xs: '98%', sm: '98%', md: '77%', lg: '69%' }}>
+        <Box maxWidth={{ xs: '86%', sm: '68%', md: '80%', lg: '76%', xl: '69%' }}>
           <Box display={'flex'} justifyContent={'flex-end'}>
             <SiteLink text={'advanced search'} href='/market/stocks/advanced-search' />
           </Box>

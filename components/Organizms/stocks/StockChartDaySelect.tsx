@@ -36,7 +36,8 @@ const StockChartDaySelect = ({
 
     if (options.length === 0) {
       const d = daysDiff > 0 ? daysDiff : 1
-      options.push({ text: `${d} days`, value: daysDiff > 0 ? daysDiff : 1 })
+      const text = daysDiff > 0 ? 'days' : 'day'
+      options.push({ text: `${d} ${text}`, value: daysDiff > 0 ? daysDiff : 1 })
       daysDiff = 1
     }
   }
