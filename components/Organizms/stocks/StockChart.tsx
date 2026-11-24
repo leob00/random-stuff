@@ -38,7 +38,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
   const { viewPortSize } = useViewPortSize()
   const isXSmallDevice = viewPortSize === 'xs'
 
-  const { stocksChart: stockChartSettings, saveStockChart } = useSessionStore()
+  const { stocksChart: stockChartSettings } = useSessionStore()
   const chartHeight = isXSmallDevice ? 300 : 520
   const mutateKey = `stock-chart-${symbol}`
   const [isWaiting, setIsWaiting] = useState(false)
@@ -47,6 +47,10 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
     //-1 : YTD
     if (days === -1) {
       days = getYearToDateDays()
+    } else {
+      if (days > 1 && days < 7) {
+        days = getYearToDateDays()
+      }
     }
 
     let response = await getMarketChart(symbol, marketCategory, days)
@@ -137,11 +141,7 @@ const StockChart = ({ symbol, companyName, marketCategory }: { symbol: string; c
 
   const handleDaysSelected = async (val: number) => {
     setIsWaiting(true)
-    let newDays = val
-    if (val === -1) {
-      newDays = getYearToDateDays()
-    }
-    saveStockChart({ ...stockChartSettings, defaultDays: val === -1 ? val : newDays })
+
     const results = await dataFn()
     mutate(mutateKey, results)
     setIsWaiting(false)
