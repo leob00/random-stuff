@@ -73,7 +73,6 @@ const StockSearch = ({
             autoFocus={autoFocus}
           />
         </Box>
-        {isLoading && <ComponentLoader />}
       </Box>
       {showAdvSearch && (
         <Box maxWidth={{ xs: '86%', sm: '68%', md: '80%', lg: '76%', xl: '69%' }}>
@@ -82,6 +81,7 @@ const StockSearch = ({
           </Box>
         </Box>
       )}
+      {isLoading && <ComponentLoader />}
     </Box>
   )
 }
