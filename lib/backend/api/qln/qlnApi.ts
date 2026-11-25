@@ -207,10 +207,10 @@ export const newsTypes: DropdownItem[] = [
     text: 'Washington Times',
     value: 'WashingtonTimes',
   },
-  {
-    text: 'Yahoo Finance',
-    value: 'YahooFinance',
-  },
+  // {
+  //   text: 'Yahoo Finance',
+  //   value: 'YahooFinance',
+  // },
   {
     text: 'Yahoo World',
     value: 'YahooWorld',
