@@ -16,17 +16,16 @@ import BorderedBox from 'components/Atoms/Boxes/BorderedBox'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import { MarketHandshake } from 'lib/backend/api/models/zModels'
+import AlertWithHeader from 'components/Atoms/Text/AlertWithHeader'
 
 dayjs.extend(isSameOrBefore)
 dayjs.extend(isSameOrAfter)
 
-const getData = async () => {
-  const resp = await serverGetFetch('/MarketHandshake')
-  return resp.Body as MarketHandshake
-}
-
 const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
-  const theme = useTheme()
+  const getData = async () => {
+    const resp = await serverGetFetch('/MarketHandshake')
+    return resp.Body as MarketHandshake
+  }
 
   const [handshake, setHandchake] = useState(data)
   const pollingSeconds = 1000 * 30 // 30 seconds
@@ -45,6 +44,10 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
   const showMidMarket = !showMorning && handshake.IsOpen
   const showMPostMarketDay = isTradingDay && !handshake.IsOpen && !showMidMarket && !showMorning
   const showHoliday = !isTradingDay
+
+  const nextHoliday = handshake.NextHoliday
+  const showTomorrowHolidayMessage =
+    nextHoliday && dayjs(handshake.CurrentDateTimeEst).add(1, 'days').format('YYYY-MM-DD') === dayjs(nextHoliday.HolidayDate).format('YYYY-MM-DD')
 
   useEffect(() => {
     const fn = async () => {
@@ -69,28 +72,42 @@ const StockMarketSummaryDisplay = ({ data }: { data: MarketHandshake }) => {
                 </Box>
               )}
               {!handshake.IsOpen && (
-                <Box display={'flex'} gap={1} alignItems={'center'}>
-                  <BedtimeIcon fontSize='medium' sx={{ color: CasinoBlueTransparent }} />
-                  {!showHoliday ? (
-                    <Typography variant='body2' color={CasinoBlueTransparent}>{`U.S markets are closed`}</Typography>
-                  ) : (
-                    <>
-                      {data.HolidayName ? (
-                        <Typography variant='body2' color={CasinoBlueTransparent}>{`U.S markets are closed for ${handshake.HolidayName}`}</Typography>
-                      ) : (
-                        <Typography variant='body2' color={CasinoBlueTransparent}>{`U.S markets are closed`}</Typography>
-                      )}
-                    </>
-                  )}
-                </Box>
+                <>
+                  <Box display={'flex'} gap={1} alignItems={'center'}>
+                    <BedtimeIcon fontSize='medium' sx={{ color: CasinoBlueTransparent }} />
+                    {!showHoliday ? (
+                      <Typography variant='body2' color={CasinoBlueTransparent}>{`U.S markets are closed`}</Typography>
+                    ) : (
+                      <>
+                        {data.HolidayName ? (
+                          <Typography variant='body2' color={CasinoBlueTransparent}>{`U.S markets are closed for ${handshake.HolidayName}`}</Typography>
+                        ) : (
+                          <Typography variant='body2' color={CasinoBlueTransparent}>{`U.S markets are closed`}</Typography>
+                        )}
+                      </>
+                    )}
+                  </Box>
+                </>
               )}
             </Box>
           </Box>
+
           <Box display={'flex'} justifyContent={'center'}>
             <StockMarketCountdownHorizontal data={handshake} />
           </Box>
         </BorderedBox>
       </Box>
+      {showTomorrowHolidayMessage && nextHoliday && (
+        <Box display={'flex'} justifyContent={'center'} pb={2}>
+          <AlertWithHeader header={`Happy ${nextHoliday.HolidayName} tomorrow!`} severity='success' text='U.S stock markets will be closed' />
+        </Box>
+      )}
+      {handshake.HolidayName && (
+        <Box display={'flex'} justifyContent={'center'} pb={2}>
+          <AlertWithHeader header={`Happy ${handshake.HolidayName}!`} severity='success' text='U.S stock markets are closed' />
+        </Box>
+      )}
+
       <Box display={'flex'} justifyContent={'center'} gap={1} flexWrap={{ xs: 'wrap', sm: 'unset' }}>
         {/* <Box sx={{ transform: 'scale(0.7)', transformOrigin: 'top left' }}> */}
         {showMorning && <MorningSummary />}

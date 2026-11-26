@@ -126,5 +126,11 @@ export const MarketHandshakeSchema = z.object({
   NextOpenDateTime: z.string(),
   StockLatestTradeDateTimeEst: z.string(),
   IsTradingDay: z.boolean(),
+  NextHoliday: z
+    .object({
+      HolidayDate: z.string(),
+      HolidayName: z.string(),
+    })
+    .nullable(),
 })
 export type MarketHandshake = z.infer<typeof MarketHandshakeSchema>
